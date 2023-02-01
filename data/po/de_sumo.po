@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-01 15:37+0100\n"
-"PO-Revision-Date: 2023-01-31 15:03+0000\n"
+"PO-Revision-Date: 2023-02-02 13:19+0000\n"
 "Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -497,6 +497,8 @@ msgid ""
 "The defaults for turnings must be a tuple of at least two numbers divided by "
 "','."
 msgstr ""
+"Die Standardwerte für Drehungen müssen ein Tupel aus mindestens zwei Zahlen "
+"sein, die durch ',' geteilt werden."
 
 #: D:\SUMO/src\jtrrouter\jtrrouter_main.cpp:101
 #: /home/micha/programming/sumo/src/jtrrouter/jtrrouter_main.cpp:101
@@ -513,7 +515,6 @@ msgstr "Eine mikroskopische, multimodale Verkehrssimulation."
 
 #: D:\SUMO/src\libsumo\GUI.cpp:304
 #: /home/micha/programming/sumo/src/libsumo/GUI.cpp:304
-#, fuzzy
 msgid ""
 "Libsumo on Windows does not work with GUI, falling back to plain libsumo."
 msgstr ""
@@ -547,7 +548,6 @@ msgstr ""
 
 #: D:\SUMO/src\libsumo\Helper.cpp:1161
 #: /home/micha/programming/sumo/src/libsumo/Helper.cpp:1161
-#, fuzzy
 msgid ""
 "Turn filter is only feasible for context domain 'vehicle' (current is '%'), "
 "ignoring filter..."
@@ -585,6 +585,8 @@ msgid ""
 "Cannot check for all deadlocks on swapConstraints because the route for "
 "vehicle '%' is not computed yet"
 msgstr ""
+"Es kann nicht nach allen Blockierungen bei swapConstrains gesucht werden, da "
+"die Route für das Fahrzeug '%' noch nicht berechnet wurde"
 
 #: /home/micha/programming/sumo/src/libsumo/Vehicle.cpp:483
 msgid "getNextTLS not yet implemented for meso"
@@ -747,7 +749,6 @@ msgstr "Ungültige Zuweisungsmethode '%'."
 
 #: D:\SUMO/src\marouter\ROMAFrame.cpp:247
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:247
-#, fuzzy
 msgid ""
 "Contraction hierarchies do not work with k shortest path search (please use "
 "a different routing algorithm)!"
@@ -808,12 +809,13 @@ msgstr "Ladevorgang fehlgeschlagen."
 #: /home/micha/programming/sumo/src/microsim/MSVehicleTransfer.cpp:184
 msgid "Vehicle '%' teleports beyond arrival edge '%', time=%."
 msgstr ""
-"Das Fahrzeug '%' teleportiert sich über die Ankunftskante '%' hinaus, Zeit=%"
+"Das Fahrzeug '%' teleportiert sich über die Ankunftskante '%' hinaus, zur "
+"Zeit=%"
 
 #: D:\SUMO/src\mesosim\MELoop.cpp:109
 #: /home/micha/programming/sumo/src/mesosim/MELoop.cpp:109
 msgid "Vehicle '%' ends teleporting on edge '%':%, time=%."
-msgstr "Fahrzeug '%' beendet teleport an der Kante '%':%, Zeit=%."
+msgstr "Fahrzeug '%' beendet teleport an der Kante '%':%, zur Zeit=%."
 
 #: D:\SUMO/src\mesosim\MELoop.cpp:176
 #: /home/micha/programming/sumo/src/mesosim/MELoop.cpp:176
@@ -822,7 +824,7 @@ msgid ""
 "time=%."
 msgstr ""
 "Teleportiertes Fahrzeug '%'; wartet zu lange, von Kante '%':% zu Kante '%':"
-"%, Zeit=%"
+"%, zur Zeit=%"
 
 #: D:\SUMO/src\mesosim\MELoop.cpp:186
 #: /home/micha/programming/sumo/src/mesosim/MELoop.cpp:186
@@ -1078,6 +1080,8 @@ msgid ""
 "option movereminder-output.vehicles requires option movereminder-output to "
 "be set"
 msgstr ""
+"die Option moverminder-output.vehicles erfordert das Option movereminder-"
+"output gesetzt ist"
 
 #: D:\SUMO/src\microsim\MSFrame.cpp:889
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:889
@@ -1085,6 +1089,8 @@ msgid ""
 "The option 'sloppy-insert' is deprecated, because it is now activated by "
 "default, see the new option 'eager-insert'."
 msgstr ""
+"Die Option 'sloppy-insert' ist veraltet, da sie jetzt standardmäßig "
+"aktiviert ist, siehe die neue Option 'eager-insert'."
 
 #: D:\SUMO/src\microsim\MSFrame.cpp:892
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:892
@@ -1178,6 +1184,8 @@ msgid ""
 "Integration method was set to 'ballistic', since a default action step "
 "length was specified."
 msgstr ""
+"Die Integrationsmethode wurde auf 'ballistic' eingestellt, da eine "
+"standardmäßige Schrittlänge angegeben wurde."
 
 #: D:\SUMO/src\microsim\MSInsertionControl.cpp:276
 #: D:\SUMO/src\router\RONet.cpp:450
@@ -1287,13 +1295,12 @@ msgstr "Ungültige collision.action '%'."
 
 #: D:\SUMO/src\microsim\MSLane.cpp:4282
 #: /home/micha/programming/sumo/src/microsim/MSLane.cpp:4282
-#, fuzzy
 msgid ""
 "State was saved with more than % threads. Change the number of threads or do "
 "not load RNG state"
 msgstr ""
-"Der Status wurde in mehr als % Strängen gespeichert. Ändere die Anzahl an "
-"Strängen oder lade nicht den RNG Status"
+"Der Stand wurde in mehr als % Strängen gespeichert. Ändere die Anzahl an "
+"Strängen oder lade nicht den Zufallsgenerator-Stand"
 
 #: D:\SUMO/src\microsim\MSLeaderInfo.h:169
 #: D:\SUMO/src\microsim\MSLeaderInfo.h:229
@@ -1353,7 +1360,7 @@ msgstr "Laden von % fehlgeschlagen."
 #: /home/micha/programming/sumo/src/microsim/MSNet.cpp:1613
 #, c-format
 msgid "Loading state from '%' failed."
-msgstr "Laden vom Status '%' ist fehlgeschlagen."
+msgstr "Laden vom Stand '%' ist fehlgeschlagen."
 
 #: D:\SUMO/src\microsim\MSRouteHandler.cpp:248
 #: /home/micha/programming/sumo/src/microsim/MSRouteHandler.cpp:248
@@ -1406,17 +1413,16 @@ msgstr "Route '%' hat keine Kanten."
 msgid ""
 "Cannot repeat stops with 'until' in route % because no cycleTime is defined."
 msgstr ""
-"Stopps mit 'bis' in der Route % können nicht wiederholt werden, da keine "
-"Durchlaufszeit definiert ist."
+"Halte mit 'until' in der Route % können nicht wiederholt werden, da keine "
+"Umlaufzeit definiert ist."
 
 #: D:\SUMO/src\microsim\MSRouteHandler.cpp:406
 #: /home/micha/programming/sumo/src/microsim/MSRouteHandler.cpp:406
-#, fuzzy
 msgid ""
 "Cannot repeat stops with 'arrival' in route % because no cycleTime is "
 "defined."
 msgstr ""
-"Kann keine Halte mit 'Ankunft' in Route % wiederholen, da keine Umlaufzeit "
+"Kann keine Halte mit 'arrival' in Route % wiederholen, da keine Umlaufzeit "
 "definiert ist."
 
 #: D:\SUMO/src\microsim\MSRouteHandler.cpp:429
@@ -1483,7 +1489,7 @@ msgstr "Ein anderer Fluss mit der ID '%' existiert."
 #: D:\SUMO/src\microsim\MSRouteHandler.cpp:1143
 #: /home/micha/programming/sumo/src/microsim/MSRouteHandler.cpp:1143
 msgid "Invalid stop definition%."
-msgstr "Ungültige Stopinformation%."
+msgstr "Ungültige Halt-Information%."
 
 #: D:\SUMO/src\microsim\MSRouteHandler.cpp:1310
 #: D:\SUMO/src\router\RORouteHandler.cpp:1184
@@ -1536,30 +1542,27 @@ msgstr "Keine positive Gehgeschwindigkeit für '%'."
 #: D:\SUMO/src\microsim\MSRouteHandler.cpp:1477
 #: /home/micha/programming/sumo/src/microsim/MSRouteHandler.cpp:1477
 msgid "No edges to walk for person '%'."
-msgstr "Keine Gehwege für die Person '%'."
+msgstr "Keine Fußwege für die Person '%'."
 
 #: D:\SUMO/src\microsim\MSRouteHandler.cpp:1514
 #: /home/micha/programming/sumo/src/microsim/MSRouteHandler.cpp:1514
-#, fuzzy
 msgid ""
 "Could not find departure lane for walk of person '%' when interpreting "
 "departPosLat"
 msgstr ""
-"Beim interpretieren von \"departPosLat\" konnte die Abfahrtspur für den "
-"Gehweg für die Person '%' nicht gefunden werden."
+"Beim interpretieren von \"departPosLat\" konnte der Abfahrtsfahrstreifen für "
+"den Fußweg für die Person '%' nicht gefunden werden"
 
 #: D:\SUMO/src\microsim\MSRouteHandler.cpp:1586
 #: /home/micha/programming/sumo/src/microsim/MSRouteHandler.cpp:1586
-#, fuzzy
 msgid "Could not read tranship speed for container '%'."
 msgstr ""
 "Umladegeschwindigkeit für den Container '%' konnte nicht gefunden werden."
 
 #: D:\SUMO/src\microsim\MSRouteHandler.cpp:1594
 #: /home/micha/programming/sumo/src/microsim/MSRouteHandler.cpp:1594
-#, fuzzy
 msgid "Non-positive tranship speed for container '%'."
-msgstr "Keine positive Umlade-Geschwindigkeit für Container '%'."
+msgstr "Keine positive Umladegeschwindigkeit für Container '%'."
 
 #: D:\SUMO/src\microsim\MSRouteHandler.cpp:1620
 #: /home/micha/programming/sumo/src/microsim/MSRouteHandler.cpp:1620
@@ -1602,25 +1605,25 @@ msgstr "Zeit aus der Statusdatei '%' konnte nicht analysiert werden"
 #: /home/micha/programming/sumo/src/microsim/MSStateHandler.cpp:229
 #: /home/micha/programming/sumo/src/microsim/MSStateHandler.cpp:285
 #: /home/micha/programming/sumo/src/microsim/traffic_lights/MSRailSignalConstraint.cpp:144
-#, fuzzy, c-format
+#, c-format
 msgid "Unknown lane '%' in loaded state."
-msgstr "Unbekannte Spur '%' in der geladenen Status."
+msgstr "Unbekannter Fahrstreifen '%' in der geladenen Stand."
 
 #: D:\SUMO/src\microsim\MSStateHandler.cpp:424
 #: /home/micha/programming/sumo/src/microsim/MSStateHandler.cpp:424
 msgid "Could not load vehicle control state"
-msgstr "Fahrzeugsteuerungsstatus konnte nicht geladen werden"
+msgstr "Fahrzeugsteuerungsstand konnte nicht geladen werden"
 
 #: D:\SUMO/src\microsim\MSStateHandler.cpp:433
 #: /home/micha/programming/sumo/src/microsim/MSStateHandler.cpp:433
 msgid "Removed % vehicles while loading state."
-msgstr "% Fahrzeuge während des Ladevorganges entfernt."
+msgstr "% Fahrzeuge beim laden des Stands entfernt."
 
 #: D:\SUMO/src\microsim\MSStateHandler.cpp:459
 #: /home/micha/programming/sumo/src/microsim/MSStateHandler.cpp:459
-#, fuzzy, c-format
+#, c-format
 msgid "Could not load vehicle '%' from state"
-msgstr "Fahrzeug '%' in der Nation kann nicht geladen werden"
+msgstr "Fahrzeug '%' vom Stand kann nicht geladen werden"
 
 #: /home/micha/programming/sumo/src/microsim/MSVehicle.cpp:306
 msgid ""
@@ -1631,7 +1634,7 @@ msgstr ""
 #: D:\SUMO/src\microsim\MSVehicle.cpp:319
 #: /home/micha/programming/sumo/src/microsim/MSVehicle.cpp:319
 msgid "No gap control available for meso."
-msgstr "Für Meso ist keine Lückensteuerung verfügbar."
+msgstr "Für die mesoskopische Simulation ist keine Lückensteuerung verfügbar."
 
 #: D:\SUMO/src\microsim\MSVehicle.cpp:755
 #: D:\SUMO/src\utils\common\UtilExceptions.h:171
@@ -1652,16 +1655,15 @@ msgstr ""
 msgid "Vehicle '%' to split from vehicle '%' is not known. time=%."
 msgstr ""
 "Fahrzeug '%' welches von Fahrzeug '%' getrennt werden soll ist nicht "
-"bekannt. Zeit=%."
+"bekannt. Zur Zeit=%."
 
 #: D:\SUMO/src\microsim\MSVehicle.cpp:2691
 #: /home/micha/programming/sumo/src/microsim/MSVehicle.cpp:2691
 msgid "Suspicious right_before_left junction '%'."
-msgstr ""
+msgstr "Verdächtiger rigth_before_left Knotenpunkt '%'."
 
 #: D:\SUMO/src\microsim\MSVehicle.cpp:4245
 #: /home/micha/programming/sumo/src/microsim/MSVehicle.cpp:4245
-#, fuzzy
 msgid " for unknown reasons"
 msgstr " aus unbekannten Gründen"
 
@@ -1671,13 +1673,15 @@ msgid ""
 "Vehicle '%' performs emergency stop at the end of lane '%'% (decel=%, offset="
 "%), time=%."
 msgstr ""
+"Fahrzeug '%' führt einen Nothalt am Ende des Fahrstreifens '%'% durch ("
+"Verzögerung=%, Versatz=%), zur Zeit=%."
 
 #: D:\SUMO/src\microsim\MSVehicle.cpp:4328
 #: /home/micha/programming/sumo/src/microsim/MSVehicle.cpp:4328
 msgid "Unexpected end of opposite lane for vehicle '%' at lane '%', time=%."
 msgstr ""
 "Unerwartetes Ende des Gegenfahrstreifens für Fahrzeug '%' auf Fahrstreifen "
-"'%', Zeit=%."
+"'%', zur Zeit=%."
 
 #: D:\SUMO/src\microsim\MSVehicle.cpp:4446
 #: /home/micha/programming/sumo/src/microsim/MSVehicle.cpp:4446
@@ -1685,6 +1689,8 @@ msgid ""
 "Vehicle '%' performs emergency braking on lane '%' with decel=%, wished=%, "
 "severity=%, time=%."
 msgstr ""
+"Fahrzeug '%' führt eine Notbremsung auf dem Fahrstreifen '%' mit "
+"Verzögerung=%, erwünscht=%, Schweregrad=%, zur Zeit=% durch."
 
 #: D:\SUMO/src\microsim\MSVehicle.cpp:5287
 #: /home/micha/programming/sumo/src/microsim/MSVehicle.cpp:5287
@@ -1770,7 +1776,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice.cpp:161
 #, c-format
 msgid "Device '%' cannot save state"
-msgstr "Die Einrichtung '%' kann den Status nicht speichern"
+msgstr "Die Einrichtung '%' kann den Stand nicht speichern"
 
 #: D:\SUMO/src\microsim\devices\MSDevice_BTreceiver.cpp:299
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_BTreceiver.cpp:299
@@ -1783,7 +1789,6 @@ msgstr ""
 #: D:\SUMO/src\microsim\devices\MSDevice_BTreceiver.cpp:436
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_BTreceiver.cpp:421
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_BTreceiver.cpp:436
-#, fuzzy
 msgid ""
 "btreceiver: Can not update position of vehicle '%' which is not on the road."
 msgstr ""
@@ -1794,7 +1799,6 @@ msgstr ""
 #: D:\SUMO/src\microsim\devices\MSDevice_BTsender.cpp:134
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_BTsender.cpp:120
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_BTsender.cpp:134
-#, fuzzy
 msgid ""
 "btsender: Can not update position of vehicle '%' which is not on the road."
 msgstr ""
@@ -1803,9 +1807,12 @@ msgstr ""
 
 #: D:\SUMO/src\microsim\devices\MSDevice_Bluelight.cpp:68
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Bluelight.cpp:68
+#, fuzzy
 msgid ""
 "bluelight device is not compatible with mesosim (ignored for vehicle '%')"
 msgstr ""
+"Blauchlicht-Einrichtung ist nicht kompatibel mit mesosim (wurde ignoriert "
+"für Fahrzeug '%')"
 
 #: D:\SUMO/src\microsim\devices\MSDevice_ElecHybrid.cpp:317
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ElecHybrid.cpp:317
@@ -1813,10 +1820,12 @@ msgid ""
 "pos_veh_node or neg_veh_node or veh_elem is not NULL (and they should be at "
 "the beginning of adding elecHybrid to the circuit)"
 msgstr ""
+"pos_veh_node oder neg_veh_node oder veh_elem ist nicht NULL (und sie sollten "
+"zu Beginn des Hinzufügens von elecHybrid zur Schaltung stehen)"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ElecHybrid.cpp:354
 msgid "splitting element is not 'pos_tail_XXX'"
-msgstr "geteiltes Element ist nicht 'pos_tail_XXX'"
+msgstr "getrenntes Element ist nicht 'pos_tail_XXX'"
 
 #: D:\SUMO/src\microsim\devices\MSDevice_ElecHybrid.cpp:374
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ElecHybrid.cpp:374
@@ -1825,6 +1834,8 @@ msgid ""
 "The resistivity of overhead wire segment connected to vehicle % is < 0. Set "
 "to 1e-6."
 msgstr ""
+"Die Widerstandsgröße von dem Oberleitungssegment welches mit dem Fahrzeug % "
+"verbunden ist, ist <0. Einstellen auf 1e-6."
 
 #: D:\SUMO/src\microsim\devices\MSDevice_ElecHybrid.cpp:432
 #: D:\SUMO/src\microsim\devices\MSDevice_ElecHybrid.cpp:528
@@ -1834,11 +1845,10 @@ msgstr ""
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ElecHybrid.cpp:528
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ElecHybrid.cpp:711
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ElecHybrid.cpp:848
-#, fuzzy
 msgid ""
 "Overhead wire solver is on, but the Eigen library has not been compiled in!"
 msgstr ""
-"Der Freileitungslöser ist an aber die Eigen-Bibliothek ist nicht kompiliert!"
+"Der Oberleitungslöser ist an aber die Eigen-Bibliothek ist nicht kompiliert!"
 
 #: D:\SUMO/src\microsim\devices\MSDevice_ElecHybrid.cpp:600
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ElecHybrid.cpp:600
@@ -1895,10 +1905,12 @@ msgstr ""
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_FCD.cpp:148
 msgid "Could not load names of edges for filtering fcd-output from '%'."
 msgstr ""
+"Die Namen der Kanten zum filtern der fcd-Ausgabe von '%' konnten nicht "
+"geladen werden."
 
 #: D:\SUMO/src\microsim\devices\MSDevice_FCD.cpp:167
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_FCD.cpp:167
-#, fuzzy, c-format
+#, c-format
 msgid "Unknown attribute '%' to write in fcd output."
 msgstr "Unbekanntes Attribut '%' für die fcd-Ausgabe."
 
@@ -1928,19 +1940,16 @@ msgstr ""
 
 #: D:\SUMO/src\microsim\devices\MSDevice_Routing.cpp:106
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Routing.cpp:106
-#, fuzzy
 msgid "weights.random-factor cannot be less than 1"
 msgstr "weights.random-factor kann nicht kleiner als 1 sein"
 
 #: D:\SUMO/src\microsim\devices\MSDevice_Routing.cpp:110
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Routing.cpp:110
-#, fuzzy
 msgid "Negative value for device.rerouting.adaptation-interval!"
 msgstr "Negativer Wert für device.rerouting.adaptation-interval!"
 
 #: D:\SUMO/src\microsim\devices\MSDevice_Routing.cpp:115
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Routing.cpp:115
-#, fuzzy
 msgid ""
 "The value for device.rerouting.adaptation-weight must be between 0 and 1!"
 msgstr ""
@@ -1964,12 +1973,16 @@ msgstr ""
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_SSM.cpp:247
 msgid "Could not load names of edges for filtering SSM device output from '%'."
 msgstr ""
+"Die Namen der Kanten zur Filterung der SSM-Geräte Ausgabe von '%' konnten "
+"nicht geladen werden."
 
 #: D:\SUMO/src\microsim\devices\MSDevice_SSM.cpp:1057
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_SSM.cpp:1057
 msgid ""
 "SSM device of vehicle '%' detected collision with vehicle '%' at time=%."
 msgstr ""
+"SSM-Gerät vom Fahrzeug %' hat eine Kollision mit dem Fahrzeug '%' zur Zeit=% "
+"festgestellt."
 
 #: D:\SUMO/src\microsim\devices\MSDevice_SSM.cpp:2188
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_SSM.cpp:2188
@@ -1977,6 +1990,8 @@ msgid ""
 "Cannot classify SSM encounter between ego vehicle % and foe vehicle % at "
 "time=%\n"
 msgstr ""
+"SSM-Begegnung zwischen dem Ego-Fahrzeug % und dem Gegenfahrzeug % zur Zeit=% "
+"konnte nicht klassifiziert werden\n"
 
 #: D:\SUMO/src\microsim\devices\MSDevice_SSM.cpp:2366
 #: D:\SUMO/src\microsim\devices\MSDevice_SSM.cpp:2390
@@ -2078,13 +2093,13 @@ msgstr "Ungültiger Wert '%'für Fahrzeugtypparameter 'ssm.trajectories'."
 
 #: D:\SUMO/src\microsim\devices\MSDevice_SSM.cpp:3731
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_SSM.cpp:3731
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid value '%'for vehicle parameter 'ssm.thresholds'."
 msgstr "Ungültiger Wert '%'für Fahrzeugparameter 'ssm.thresholds'."
 
 #: D:\SUMO/src\microsim\devices\MSDevice_SSM.cpp:3737
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_SSM.cpp:3737
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid value '%'for vType parameter 'ssm.thresholds'."
 msgstr "Ungültiger Wert %'für Fahrzeugtypparameter 'ssm.thresholds'."
 
@@ -2159,6 +2174,8 @@ msgid ""
 "If any openGap parameters for the ToC model are specified, then at least one "
 "of toc.ogNewTimeHeadway and toc.ogNewSpaceHeadway must be defined."
 msgstr ""
+"Wenn openGap-Paramteter für das ToC-Model spizifiziert sind, muss mindestens "
+"einer von toc.ogNewTimeHeadway und toc.ogNewSpaceHeadway definiert sein."
 
 #: D:\SUMO/src\microsim\devices\MSDevice_ToC.cpp:933
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ToC.cpp:933
@@ -2173,7 +2190,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ToC.cpp:1000
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ToC.cpp:1021
 msgid "Unknown ToCState '%'"
-msgstr "Unbekannter ToC-Status '%'"
+msgstr "Unbekannter ToC-Stand '%'"
 
 #: D:\SUMO/src\microsim\devices\MSDispatch.cpp:88
 #: /home/micha/programming/sumo/src/microsim/devices/MSDispatch.cpp:88
@@ -2202,7 +2219,7 @@ msgstr ""
 
 #: D:\SUMO/src\microsim\devices\MSIdling.cpp:155
 #: /home/micha/programming/sumo/src/microsim/devices/MSIdling.cpp:155
-#, fuzzy, c-format
+#, c-format
 msgid "Vehicle '%' ends idling in a cul-de-sac"
 msgstr "Fahrzeug '%' endet im Leerlauf in einer Sackgasse"
 
@@ -2214,9 +2231,8 @@ msgstr ""
 
 #: D:\SUMO/src\microsim\devices\MSRoutingEngine.cpp:148
 #: /home/micha/programming/sumo/src/microsim/devices/MSRoutingEngine.cpp:148
-#, fuzzy
 msgid "weights.priority-factor cannot be negative."
-msgstr "weights.priority-factor kann nicht negativ sein"
+msgstr "weights.priority-factor kann nicht negativ sein."
 
 #: D:\SUMO/src\microsim\devices\MSRoutingEngine.cpp:152
 #: /home/micha/programming/sumo/src/microsim/devices/MSRoutingEngine.cpp:152
@@ -2252,7 +2268,7 @@ msgstr "Spurenwechselmodel '%' ist nicht kompatibel mit der Sublane-Simulation"
 #: /home/micha/programming/sumo/src/microsim/lcmodels/MSAbstractLaneChangeModel.cpp:98
 #, c-format
 msgid "Lane change model '%' not implemented"
-msgstr "Spurwechselmodel '%' ist nicht implementiert"
+msgstr "Fahrstreifenwechselmodel '%' ist nicht implementiert"
 
 #: D:\SUMO/src\microsim\output\MSDetectorControl.cpp:180
 #: /home/micha/programming/sumo/src/microsim/output/MSDetectorControl.cpp:180
@@ -2260,6 +2276,8 @@ msgid ""
 "MSDetectorControl::addDetectorAndInterval: detector already in container. "
 "Ignoring."
 msgstr ""
+"MSDetectorControl::addDetectorAndInterval: Detektor ist schon im Container. "
+"Wird ignoriert."
 
 #: D:\SUMO/src\microsim\output\MSE2Collector.cpp:124
 #: /home/micha/programming/sumo/src/microsim/output/MSE2Collector.cpp:124
@@ -2267,8 +2285,8 @@ msgid ""
 "No valid detector length and start position given. Assuming startPos = 0 and "
 "length = end position"
 msgstr ""
-"Keine gültige Detektorlänge und Startposition gegeben. Es wird startPos = 0 "
-"und Länge = Endposition angenommen"
+"Keine gültige Detektorlänge und Startposition gegeben. Nehme startPos = 0 "
+"und length = Endposition an"
 
 #: D:\SUMO/src\microsim\output\MSE2Collector.cpp:128
 #: /home/micha/programming/sumo/src/microsim/output/MSE2Collector.cpp:128
@@ -2276,12 +2294,11 @@ msgid ""
 "No valid detector length and end position given. Assuming endPos = lane "
 "length and length = endPos-startPos"
 msgstr ""
-"Keine gültige Detektorlänge und Endposition gegeben. Es wird endPos = "
-"Spurlänge und Länge = Endposition- Startposition angenommen"
+"Keine gültige Detektorlänge und Endposition gegeben. Nehme endPos = "
+"Fahrstreifenlänge und length = endPos-startPos an"
 
 #: D:\SUMO/src\microsim\output\MSE2Collector.cpp:908
 #: /home/micha/programming/sumo/src/microsim/output/MSE2Collector.cpp:908
-#, fuzzy
 msgid "Multi-lane e2Detector does not support detecting persons yet"
 msgstr ""
 "Mehrspuriger E2-Detektor unterstützt noch nicht das Detektieren von Personen"
@@ -2289,14 +2306,14 @@ msgstr ""
 #: D:\SUMO/src\microsim\output\MSMeanData.cpp:538
 #: /home/micha/programming/sumo/src/microsim/output/MSMeanData.cpp:538
 msgid "aggregated meanData output not yet implemented for trackVehicles"
-msgstr ""
+msgstr "aggregierte meanData-Ausgabe ist nicht implementiert für trackVehicles"
 
 #: D:\SUMO/src\microsim\output\MSStopOut.cpp:69
 #: /home/micha/programming/sumo/src/microsim/output/MSStopOut.cpp:69
 msgid "Vehicle '%' stops on edge '%', time=% without ending the previous stop."
 msgstr ""
-"Fahrzeug '%' hält auf der Kante '%', Zeit=% ohne die vorherige Haltestelle "
-"zu beenden."
+"Fahrzeug '%' hält auf der Kante '%', zur Zeit=% ohne die vorherige "
+"Haltestelle zu beenden."
 
 #: D:\SUMO/src\microsim\output\MSStopOut.cpp:105
 #: /home/micha/programming/sumo/src/microsim/output/MSStopOut.cpp:105
@@ -2321,11 +2338,13 @@ msgstr ""
 #: /home/micha/programming/sumo/src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:443
 msgid "At actuated tlLogic '%', linkIndex % has no controlling detector."
 msgstr ""
+"Bei aktivierter tlLogic '%', linkIndex % hat keinen kontrollierenden "
+"Detektor."
 
 #: D:\SUMO/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:1061
 #: /home/micha/programming/sumo/src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1061
 msgid "Unmatched parentheses in condition %'"
-msgstr ""
+msgstr "Nicht übereinstimmende Klammern in der Bedingung %'"
 
 #: D:\SUMO/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:1076
 #: /home/micha/programming/sumo/src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1076
@@ -2339,7 +2358,6 @@ msgstr "Nicht unterstützter Zustand '%'"
 
 #: D:\SUMO/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:1154
 #: /home/micha/programming/sumo/src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1154
-#, fuzzy
 msgid "Division by 0 in condition '%'"
 msgstr "Division durch 0 in Zustand '%'"
 
@@ -2362,9 +2380,9 @@ msgstr "Bahnsignal am Knotenpunkt '%' kontrolliert keine Verbindungen"
 
 #: D:\SUMO/src\microsim\traffic_lights\MSRailSignalConstraint.cpp:147
 #: /home/micha/programming/sumo/src/microsim/traffic_lights/MSRailSignalConstraint.cpp:147
-#, fuzzy, c-format
+#, c-format
 msgid "Unknown tracker lane '%' in loaded state."
-msgstr "Unbekannte Verfolgungsspur '%' im Zustand geladen."
+msgstr "Unbekannter Verfolgungsfahrstreifen '%' im geladenen Stand."
 
 #: D:\SUMO/src\microsim\traffic_lights\MSSOTLTrafficLightLogic.cpp:169
 #: /home/micha/programming/sumo/src/microsim/traffic_lights/MSSOTLTrafficLightLogic.cpp:169
@@ -2394,7 +2412,7 @@ msgstr ""
 #: D:\SUMO/src\microsim\traffic_lights\MSSwarmTrafficLightLogic.cpp:194
 #: /home/micha/programming/sumo/src/microsim/traffic_lights/MSSwarmTrafficLightLogic.cpp:194
 msgid "*** Intersection % will run using MSSwarmTrafficLightLogic ***"
-msgstr ""
+msgstr "***Kreuzpunkt % wird mit MSSwarmTrafficLightLogic ausgeführt ***"
 
 #: /home/micha/programming/sumo/src/microsim/traffic_lights/MSSwarmTrafficLightLogic.cpp:247
 #: /home/micha/programming/sumo/src/microsim/traffic_lights/MSSwarmTrafficLightLogic.cpp:261
@@ -2413,12 +2431,13 @@ msgstr "Es wurde kein initialisierter Signalplan für die LSA '%' geladen."
 #: D:\SUMO/src\microsim\traffic_lights\MSTLLogicControl.cpp:163
 #: /home/micha/programming/sumo/src/microsim/traffic_lights/MSTLLogicControl.cpp:163
 msgid "Could not build an off-state for tls '%'."
-msgstr "Auszustand für die LSA '%' konnte nicht gebaut werden."
+msgstr "Auszustand für die LSA '%' konnte nicht erstellt werden."
 
 #: D:\SUMO/src\microsim\traffic_lights\MSTrafficLightLogic.cpp:159
 #: /home/micha/programming/sumo/src/microsim/traffic_lights/MSTrafficLightLogic.cpp:159
 msgid "Unused states in tlLogic '%', program '%' in phase % after tl-index %"
 msgstr ""
+"Ungenutzte Stände in tlLogic '%', Programm '%' in Phase % nach tl-index %"
 
 #: D:\SUMO/src\microsim\traffic_lights\MSTrafficLightLogic.cpp:178
 #: /home/micha/programming/sumo/src/microsim/traffic_lights/MSTrafficLightLogic.cpp:178
@@ -2426,11 +2445,13 @@ msgid ""
 "Missing yellow phase in tlLogic '%', program '%' for tl-index % when "
 "switching% to phase %."
 msgstr ""
+"Gelbphase in tlLogic '%' im Programm '%' für tl-index % beim Wechsel von % "
+"zu Phase % fehlt."
 
 #: D:\SUMO/src\microsim\traffic_lights\MSTrafficLightLogic.cpp:200
 #: /home/micha/programming/sumo/src/microsim/traffic_lights/MSTrafficLightLogic.cpp:200
 msgid "Missing green phase in tlLogic '%', program '%' for tl-index %."
-msgstr ""
+msgstr "Grünphase in tlLogic '%' im Programm '%' für tl-index % fehlt."
 
 #: D:\SUMO/src\microsim\traffic_lights\MSTrafficLightLogic.cpp:461
 #: /home/micha/programming/sumo/src/microsim/traffic_lights/MSTrafficLightLogic.cpp:461
@@ -2483,6 +2504,7 @@ msgstr "Kante: % erlaubt keine zu Fuß gehenden."
 #: /home/micha/programming/sumo/src/microsim/transportables/MSPModel_Remote.cpp:299
 msgid "Pedestrian model 'remote' does not support simulation.loadState state\n"
 msgstr ""
+"Fußgänger-Model 'remote' unterstützt nicht den simulation.loadState Stand\n"
 
 #: D:\SUMO/src\microsim\transportables\MSPModel_Striping.cpp:124
 #: D:\SUMO/src\utils\vehicle\SUMOVehicleParserHelper.cpp:871
@@ -2492,18 +2514,20 @@ msgid ""
 "Pedestrian vType '%' width % is larger than pedestrian.striping.stripe-width "
 "and this may cause collisions with vehicles."
 msgstr ""
+"Fußgänger vType '%' mit % ist größer alspedestrian.striping.stripe-width und "
+"dies kann zu Kollisionen mit Fahrzeugen führen."
 
 #: D:\SUMO/src\microsim\transportables\MSPModel_Striping.cpp:179
 #: /home/micha/programming/sumo/src/microsim/transportables/MSPModel_Striping.cpp:179
 msgid "Person '%' could not find sidewalk on edge '%', time=%."
 msgstr ""
-"Person '%' wurde nicht am Seitenweg von der Kante '%' gefunden, Zeit=%."
+"Person '%' wurde nicht am Seitenweg von der Kante '%' gefunden, zur Zeit=%."
 
 #: D:\SUMO/src\microsim\transportables\MSPModel_Striping.cpp:463
 #: /home/micha/programming/sumo/src/microsim/transportables/MSPModel_Striping.cpp:463
 #, c-format
 msgid "Invalid walkingarea '%' does not allow continuation."
-msgstr ""
+msgstr "Ungültige walkingArea '%' erlaubt keine Fortsetzung."
 
 #: D:\SUMO/src\microsim\transportables\MSPModel_Striping.cpp:1905
 #: /home/micha/programming/sumo/src/microsim/transportables/MSPModel_Striping.cpp:1905
@@ -2518,27 +2542,27 @@ msgstr "Person '%' klemmt auf der Kante '%', Zeit=%."
 #: D:\SUMO/src\microsim\transportables\MSPerson.cpp:90
 #: /home/micha/programming/sumo/src/microsim/transportables/MSPerson.cpp:90
 msgid "Adjusting departPos for cloned walk with routeDistribution '%'"
-msgstr ""
+msgstr "departPos für geklonten Fußweg mit routeDistribution '%' angepasst"
 
 #: D:\SUMO/src\microsim\transportables\MSPerson.cpp:94
 #: /home/micha/programming/sumo/src/microsim/transportables/MSPerson.cpp:94
 msgid "Adjusting arrivalPos for cloned walk with routeDistribution '%'"
-msgstr ""
+msgstr "arrivalPos für geklonten Fußweg mit routeDistribution '%' angepasst"
 
 #: D:\SUMO/src\microsim\transportables\MSPerson.cpp:98
 #: /home/micha/programming/sumo/src/microsim/transportables/MSPerson.cpp:98
 msgid "Adjusting departLane for cloned walk with routeDistribution '%'"
-msgstr ""
+msgstr "departLane für geklonten Fußweg mit routeDistribution '%' angepasst"
 
 #: D:\SUMO/src\microsim\transportables\MSTransportable.cpp:134
 #: /home/micha/programming/sumo/src/microsim/transportables/MSTransportable.cpp:134
 msgid "Changing a transportable ID is not permitted"
-msgstr ""
+msgstr "Das Ändern einer transportablen ID ist nicht zulässig"
 
 #: D:\SUMO/src\microsim\transportables\MSTransportable.cpp:256
 #: /home/micha/programming/sumo/src/microsim/transportables/MSTransportable.cpp:256
 msgid "Teleporting % '%'; waited too long, from edge '%', time=%."
-msgstr ""
+msgstr "% teleportiert '%'; hat zu lange gewartet, von Kante '%', zur Zeit=%."
 
 #: /home/micha/programming/sumo/src/microsim/transportables/MSTransportable.cpp:391
 msgid "parkingAreaReroute not support for containers"
@@ -2551,7 +2575,7 @@ msgstr "Unbekanntes Fußgängermodel '%'"
 #: D:\SUMO/src\microsim\trigger\MSCalibrator.cpp:142
 #: /home/micha/programming/sumo/src/microsim/trigger/MSCalibrator.cpp:142
 msgid "No flow intervals in calibrator '%'."
-msgstr ""
+msgstr "Keine Flussintervalle in Kalibrator '%'."
 
 #: D:\SUMO/src\microsim\trigger\MSCalibrator.cpp:161
 #: /home/micha/programming/sumo/src/microsim/trigger/MSCalibrator.cpp:161
@@ -2600,7 +2624,7 @@ msgstr ""
 #: D:\SUMO/src\microsim\trigger\MSLaneSpeedTrigger.cpp:176
 #: /home/micha/programming/sumo/src/microsim/trigger/MSLaneSpeedTrigger.cpp:176
 msgid "Invalid or unsorted time entry in vss '%'."
-msgstr ""
+msgstr "Ungültiger oder unsortierter Zeiteintrag in vss '%'."
 
 #: D:\SUMO/src\microsim\trigger\MSOverheadWire.cpp:354
 #: D:\SUMO/src\microsim\trigger\MSOverheadWire.cpp:409
@@ -2639,17 +2663,17 @@ msgstr ""
 #: D:\SUMO/src\microsim\trigger\MSTriggeredRerouter.cpp:127
 #: /home/micha/programming/sumo/src/microsim/trigger/MSTriggeredRerouter.cpp:127
 msgid "MSTriggeredRerouter %: No destination edge id given."
-msgstr ""
+msgstr "MSTriggeredRerouter %: Keine Zielkanten ID ist gegeben."
 
 #: D:\SUMO/src\microsim\trigger\MSTriggeredRerouter.cpp:192
 #: /home/micha/programming/sumo/src/microsim/trigger/MSTriggeredRerouter.cpp:192
 msgid "MSTriggeredRerouter %: No route id given."
-msgstr ""
+msgstr "MSTriggeredRerouter %: Keine Routen ID ist gegeben."
 
 #: D:\SUMO/src\microsim\trigger\MSTriggeredRerouter.cpp:217
 #: /home/micha/programming/sumo/src/microsim/trigger/MSTriggeredRerouter.cpp:217
 msgid "MSTriggeredRerouter %: No parking area id given."
-msgstr ""
+msgstr "MSTriggeredRerouter %: Keine Parkplatz ID gegeben."
 
 #: D:\SUMO/src\microsim\trigger\MSTriggeredRerouter.cpp:1105
 #: /home/micha/programming/sumo/src/microsim/trigger/MSTriggeredRerouter.cpp:1105
@@ -2682,7 +2706,7 @@ msgstr ""
 #: D:\SUMO/src\netbuild\NBAlgorithms.cpp:273
 #: /home/micha/programming/sumo/src/netbuild/NBAlgorithms.cpp:272
 msgid "Converting invalid rail_crossing to traffic_light at junction '%'."
-msgstr ""
+msgstr "Verarbeite ungültigerail_crossing to traffic_light am Knotenpunkt '%."
 
 #: D:\SUMO/src\netbuild\NBAlgorithms.cpp:282
 #: D:\SUMO/src\netbuild\NBNodeCont.cpp:1739
@@ -2693,7 +2717,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:413
 #: /home/micha/programming/sumo/src/netimport/NIXMLNodesHandler.cpp:355
 msgid "Could not allocate tls '%'."
-msgstr ""
+msgstr "LSA '%' konnte nicht zugeordnet werden."
 
 #: D:\SUMO/src\netbuild\NBAlgorithms_Railway.cpp:173
 #: /home/micha/programming/sumo/src/netbuild/NBAlgorithms_Railway.cpp:173
@@ -2716,17 +2740,17 @@ msgstr ""
 #: D:\SUMO/src\netbuild\NBAlgorithms_Railway.cpp:211
 #: /home/micha/programming/sumo/src/netbuild/NBAlgorithms_Railway.cpp:211
 msgid "Could not add bidi-edge '%'."
-msgstr ""
+msgstr "Zweirichtungs-Kante '%' konnte nicht hinzugefügt werden."
 
 #: D:\SUMO/src\netbuild\NBAlgorithms_Railway.cpp:272
 #: /home/micha/programming/sumo/src/netbuild/NBAlgorithms_Railway.cpp:272
 msgid "Railway nodes by number of incoming,outgoing edges:"
-msgstr ""
+msgstr "Eisenbahnknoten nach Anzahl von incoming,outgoing edges:"
 
 #: D:\SUMO/src\netbuild\NBAlgorithms_Railway.cpp:370
 #: /home/micha/programming/sumo/src/netbuild/NBAlgorithms_Railway.cpp:370
 msgid "Found % railway nodes marked as buffer_stop"
-msgstr ""
+msgstr "% Eisenbahnknoten gefunden, welche als buffer_stop markiert sind"
 
 #: D:\SUMO/src\netbuild\NBAlgorithms_Railway.cpp:380
 #: /home/micha/programming/sumo/src/netbuild/NBAlgorithms_Railway.cpp:380
@@ -2741,7 +2765,7 @@ msgstr ""
 #: D:\SUMO/src\netbuild\NBAlgorithms_Railway.cpp:534
 #: /home/micha/programming/sumo/src/netbuild/NBAlgorithms_Railway.cpp:534
 msgid "Could not find bidi-edge for edge '%'"
-msgstr ""
+msgstr "Es konnte keinen Zweirichtungs-Kante für die Kante '%' gefunden werden"
 
 #: D:\SUMO/src\netbuild\NBAlgorithms_Railway.cpp:639
 #: /home/micha/programming/sumo/src/netbuild/NBAlgorithms_Railway.cpp:639
@@ -5029,7 +5053,7 @@ msgstr "Kante '%' konnte nicht eingefügt werden."
 #: /home/micha/programming/sumo/src/netimport/NIXMLTrafficLightsHandler.cpp:318
 #, c-format
 msgid "Unknown edge '%' given in connection."
-msgstr ""
+msgstr "Unbekannte Kante '%' in der Verbindung gegeben."
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_SUMO.cpp:226
 #: /home/micha/programming/sumo/src/netimport/NIXMLTrafficLightsHandler.cpp:272
@@ -5047,13 +5071,13 @@ msgstr "Die Lichtsignalanlage '%' ist nicht bekannt."
 #: /home/micha/programming/sumo/src/netimport/NIImporter_SUMO.cpp:290
 #, c-format
 msgid "Edge '%' in prohibition was not built."
-msgstr ""
+msgstr "Kante '%' im Verbot wurde nicht erstellt."
 
 #: D:\SUMO/src\netimport\NIImporter_SUMO.cpp:341
 #: /home/micha/programming/sumo/src/netimport/NIImporter_SUMO.cpp:341
 #, c-format
 msgid "Deprecated vehicle class(es) '%' in input network."
-msgstr ""
+msgstr "Veraltete Fahrzeugklasse(en) '%' im Eingabenetz."
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_SUMO.cpp:399
 #: /home/micha/programming/sumo/src/netload/NLHandler.cpp:1642
@@ -5105,20 +5129,21 @@ msgstr ""
 
 #: D:\SUMO/src\netimport\NIImporter_SUMO.cpp:947
 #: /home/micha/programming/sumo/src/netimport/NIImporter_SUMO.cpp:947
+#, fuzzy
 msgid "found phase without tl-logic"
-msgstr ""
+msgstr "Phase ohne tl-Logik gefunden"
 
 #: D:\SUMO/src\netimport\NIImporter_SUMO.cpp:1008
 #: /home/micha/programming/sumo/src/netimport/NIImporter_SUMO.cpp:1008
 msgid "Missing connection divider in prohibition attribute '%'"
-msgstr ""
+msgstr "Fehler Verbindungsteiler im Verbots-Attribut '%'"
 
 #: D:\SUMO/src\netimport\NIImporter_SUMO.cpp:1015
 #: D:\SUMO/src\netimport\NIImporter_SUMO.cpp:1019
 #: /home/micha/programming/sumo/src/netimport/NIImporter_SUMO.cpp:1015
 #: /home/micha/programming/sumo/src/netimport/NIImporter_SUMO.cpp:1019
 msgid "Unknown edge prohibition '%'"
-msgstr ""
+msgstr "Unbekanntes Kantenverbot '%'"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_VISUM.cpp:205
 msgid "Can not open visum-file '%'."
@@ -5147,20 +5172,22 @@ msgstr "Doppelter Bezirk aufgetreten ('%')."
 #: D:\SUMO/src\netimport\NIImporter_VISUM.cpp:368
 #: /home/micha/programming/sumo/src/netimport/NIImporter_VISUM.cpp:368
 msgid "Unable to project coordinates for point %."
-msgstr ""
+msgstr "Koordinaten für den Punkt % können nicht projiziert werden."
 
 #: D:\SUMO/src\netimport\NIImporter_VISUM.cpp:458
 #: D:\SUMO/src\netimport\NIImporter_VISUM.cpp:475
 #: /home/micha/programming/sumo/src/netimport/NIImporter_VISUM.cpp:458
 #: /home/micha/programming/sumo/src/netimport/NIImporter_VISUM.cpp:475
 msgid "Duplicate edge occurred ('%')."
-msgstr ""
+msgstr "Doppelte Kante aufgetreten ('%')."
 
 #: D:\SUMO/src\netimport\NIImporter_VISUM.cpp:580
 #: /home/micha/programming/sumo/src/netimport/NIImporter_VISUM.cpp:580
 msgid ""
 "Incoming connector '%' will not be build - would be not connected to network."
 msgstr ""
+"Eingehender Verbinder '%' wird nicht erstellt - wird nicht mit dem Netz "
+"verbunden."
 
 #: D:\SUMO/src\netimport\NIImporter_VISUM.cpp:584
 #: D:\SUMO/src\netimport\NIImporter_VISUM.cpp:618
@@ -5168,25 +5195,27 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netimport/NIImporter_VISUM.cpp:618
 #, c-format
 msgid "The district '%' could not be built."
-msgstr ""
+msgstr "Der Bezirk '%' kann nicht erstellt werden."
 
 #: D:\SUMO/src\netimport\NIImporter_VISUM.cpp:594
 #: D:\SUMO/src\netimport\NIImporter_VISUM.cpp:629
 #: /home/micha/programming/sumo/src/netimport/NIImporter_VISUM.cpp:594
 #: /home/micha/programming/sumo/src/netimport/NIImporter_VISUM.cpp:629
 msgid "A duplicate edge id occurred (ID='%')."
-msgstr ""
+msgstr "Eine doppelte Kanten-ID ist aufgetreten (ID='%')."
 
 #: D:\SUMO/src\netimport\NIImporter_VISUM.cpp:614
 #: /home/micha/programming/sumo/src/netimport/NIImporter_VISUM.cpp:614
 msgid ""
 "Outgoing connector '%' will not be build - would be not connected to network."
 msgstr ""
+"Ausgehender Verbinder '%' wird nicht erstellt - wird nicht mit dem Netz "
+"verbunden."
 
 #: D:\SUMO/src\netimport\NIImporter_VISUM.cpp:846
 #: /home/micha/programming/sumo/src/netimport/NIImporter_VISUM.cpp:846
 msgid "Could not find split position for edge '%'."
-msgstr ""
+msgstr "Auftrennungsposition für die Kante '%' konnte nicht gefunden werden."
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_VISUM.cpp:856
 msgid "Ups - could not insert node!"
@@ -5197,11 +5226,13 @@ msgstr "Ups - Knoten konnte nicht eingefügt werden!"
 #, c-format
 msgid "Could not find TLS '%' for setting the signal group."
 msgstr ""
+"Lichtsignalanlage '%' zum erstellen der Signalgruppe konnte nicht gefunden "
+"werden."
 
 #: D:\SUMO/src\netimport\NIImporter_VISUM.cpp:930
 #: /home/micha/programming/sumo/src/netimport/NIImporter_VISUM.cpp:930
 msgid "Ignoring SIGNALGRUPPEZUFSABBIEGER because LsaNr is not known"
-msgstr ""
+msgstr "Ignoriere SIGNALGRUPPEZUFSABBIEGER da LsaNr is nicht bekannt ist"
 
 #: D:\SUMO/src\netimport\NIImporter_VISUM.cpp:987
 #: /home/micha/programming/sumo/src/netimport/NIImporter_VISUM.cpp:987
@@ -5260,43 +5291,41 @@ msgstr "Der Knoten '%' ist nicht bekannt."
 
 #: D:\SUMO/src\netimport\NIImporter_VISUM.cpp:1508
 #: /home/micha/programming/sumo/src/netimport/NIImporter_VISUM.cpp:1508
-#, fuzzy
 msgid "Could not build connector node '%'."
-msgstr "Verbindungsknoten '%' konnte nicht gebaut werden."
+msgstr "Verbindungsknoten '%' konnte nicht erstellt werden."
 
 #: D:\SUMO/src\netimport\NIImporter_VISUM.cpp:1518
 #: /home/micha/programming/sumo/src/netimport/NIImporter_VISUM.cpp:1518
-#, fuzzy
 msgid " The from-node was not found within the net"
-msgstr " Der from-Knoten wurde nicht im Netz gefunden"
+msgstr " Der Ausgangknoten wurde nicht im Netz gefunden"
 
 #: D:\SUMO/src\netimport\NIImporter_VISUM.cpp:1521
 #: /home/micha/programming/sumo/src/netimport/NIImporter_VISUM.cpp:1521
 msgid " The to-node was not found within the net"
-msgstr ""
+msgstr " Der Endknoten wurde nicht im Netz gefunden"
 
 #: D:\SUMO/src\netimport\NIImporter_VISUM.cpp:1524
 #: /home/micha/programming/sumo/src/netimport/NIImporter_VISUM.cpp:1524
 msgid " Both nodes are the same"
-msgstr ""
+msgstr " Beide Knoten sind gleich"
 
 #: D:\SUMO/src\netimport\NIImporter_VISUM.cpp:1539
 #: D:\SUMO/src\polyconvert\PCLoaderVisum.cpp:431
 #: /home/micha/programming/sumo/src/netimport/NIImporter_VISUM.cpp:1539
 #: /home/micha/programming/sumo/src/polyconvert/PCLoaderVisum.cpp:431
 msgid "Could not load VISUM language map from '%'."
-msgstr ""
+msgstr "VISUM-Sprachkarte von '%' konnte nicht geladen werden."
 
 #: D:\SUMO/src\netimport\NIImporter_VISUM.cpp:1551
 #: /home/micha/programming/sumo/src/netimport/NIImporter_VISUM.cpp:1551
 #, c-format
 msgid "Unknown entry '%' in VISUM language map"
-msgstr ""
+msgstr "Unbekannter Eintrag '%' in der VISUM Sprachkarte"
 
 #: D:\SUMO/src\netimport\NILoader.cpp:103
 #: /home/micha/programming/sumo/src/netimport/NILoader.cpp:103
 msgid " Removed % traffic lights before loading plain-XML"
-msgstr ""
+msgstr " % Lichtsignalanlagen wurden vor dem Laden der Flächen-XML entfernt"
 
 #: D:\SUMO/src\netimport\NILoader.cpp:112
 #: /home/micha/programming/sumo/src/netimport/NILoader.cpp:112
@@ -5311,27 +5340,27 @@ msgstr "Keine Kanten geladen."
 #: D:\SUMO/src\netimport\NILoader.cpp:126
 #: /home/micha/programming/sumo/src/netimport/NILoader.cpp:126
 msgid " Import done:"
-msgstr ""
+msgstr " Import fertig:"
 
 #: D:\SUMO/src\netimport\NILoader.cpp:128
 #: /home/micha/programming/sumo/src/netimport/NILoader.cpp:128
 #, c-format
 msgid "   % districts loaded."
-msgstr ""
+msgstr "   % Bezirke geladen."
 
 #: /home/micha/programming/sumo/src/netimport/NILoader.cpp:130
 #, c-format
 msgid "   % nodes loaded."
-msgstr "   % Knoten sind geladen."
+msgstr "   % Knoten geladen."
 
 #: /home/micha/programming/sumo/src/netimport/NILoader.cpp:132
 msgid "   % types loaded."
-msgstr "   % Typen sind geladen."
+msgstr "   % Typen  geladen."
 
 #: /home/micha/programming/sumo/src/netimport/NILoader.cpp:134
 #, c-format
 msgid "   % edges loaded."
-msgstr "   % Kanten sind geladen."
+msgstr "   % Kanten  geladen."
 
 #: /home/micha/programming/sumo/src/netimport/NILoader.cpp:136
 #, c-format
@@ -5347,17 +5376,19 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netimport/NILoader.cpp:165
 #, c-format
 msgid "Deprecated vehicle class(es) '%' in input edge files."
-msgstr ""
+msgstr "Veraltete Fahrzeugklasse(en) '%' in der Eingabekanten-Datei."
 
 #: D:\SUMO/src\netimport\NINavTeqHelper.cpp:61
 #: /home/micha/programming/sumo/src/netimport/NINavTeqHelper.cpp:61
 msgid "Invalid speed code (edge '%')."
-msgstr ""
+msgstr "Ungültige Geschwindigkeitsvorschrift (Kante '%')."
 
 #: D:\SUMO/src\netimport\NINavTeqHelper.cpp:64
 #: /home/micha/programming/sumo/src/netimport/NINavTeqHelper.cpp:64
 msgid "Non-numerical value for an edge's speed type occurred (edge '%')."
 msgstr ""
+"Nicht nummerischer Wert für einen Kanten Geschwindigkeitstypen aufgetreten ("
+"Kante '%')."
 
 #: D:\SUMO/src\netimport\NINavTeqHelper.cpp:90
 #: /home/micha/programming/sumo/src/netimport/NINavTeqHelper.cpp:90
@@ -5366,7 +5397,6 @@ msgstr "Ungültige Fahrstreifennummer (Kante '%')."
 
 #: D:\SUMO/src\netimport\NINavTeqHelper.cpp:94
 #: /home/micha/programming/sumo/src/netimport/NINavTeqHelper.cpp:94
-#, fuzzy
 msgid "Non-numerical value for an edge's lane number occurred (edge '%'."
 msgstr ""
 "Nicht nummerischer Wert für eine Kanten-Fahrstreifennummer entdeckt (Kante "
@@ -5374,7 +5404,6 @@ msgstr ""
 
 #: D:\SUMO/src\netimport\NIVisumTL.cpp:76
 #: /home/micha/programming/sumo/src/netimport/NIVisumTL.cpp:76
-#, fuzzy
 msgid "invalid node for traffic light '%'"
 msgstr "ungültiger Knoten für die Lichtsignalanlage '%'"
 
@@ -5383,16 +5412,22 @@ msgstr "ungültiger Knoten für die Lichtsignalanlage '%'"
 msgid ""
 "Target edge '%' is not connected with '%'; the connection cannot be reset."
 msgstr ""
+"Vorgegebene Kante '%' ist nicht mit '%' verbunden; die Verbindung kann nicht "
+"zurückgesetzt werden."
 
 #: D:\SUMO/src\netimport\NIXMLConnectionsHandler.cpp:99
 #: /home/micha/programming/sumo/src/netimport/NIXMLConnectionsHandler.cpp:99
 msgid "Edge '%' has no connection to lane '%'; the connection cannot be reset."
 msgstr ""
+"Kante '%' hat keine Verbindung zum Fahrstreifen '%'; die Verbindung kann "
+"nicht zurückgesetzt werden."
 
 #: D:\SUMO/src\netimport\NIXMLConnectionsHandler.cpp:275
 #: /home/micha/programming/sumo/src/netimport/NIXMLConnectionsHandler.cpp:275
 msgid "Could not set loaded connection from lane '%' to lane '%'."
 msgstr ""
+"Geladene Verbindung vom Fahrstreifen '%' zum Fahrtreifen '%' konnte nicht "
+"angewendet werden."
 
 #: /home/micha/programming/sumo/src/netimport/NIXMLConnectionsHandler.cpp:347
 #, c-format
@@ -5402,13 +5437,13 @@ msgstr "Knoten '%' in der Fußgängerfurt ist nicht bekannt."
 #: D:\SUMO/src\netimport\NIXMLConnectionsHandler.cpp:356
 #: /home/micha/programming/sumo/src/netimport/NIXMLConnectionsHandler.cpp:356
 msgid "No edges specified for crossing at node '%'."
-msgstr ""
+msgstr "Keine Kanten für die Fußgängerfurt am Knoten '%' spezifiziert."
 
 #: D:\SUMO/src\netimport\NIXMLConnectionsHandler.cpp:385
 #: /home/micha/programming/sumo/src/netimport/NIXMLConnectionsHandler.cpp:385
-#, fuzzy, c-format
+#, c-format
 msgid "Crossing at controlled node '%' must be prioritized"
-msgstr "Fußgängerfurt an der kontrollierten Knoten '%' muss priorisiert werden"
+msgstr "Fußgängerfurt am kontrollierten Knoten '%' muss priorisiert werden"
 
 #: /home/micha/programming/sumo/src/netimport/NIXMLConnectionsHandler.cpp:390
 msgid "Unable to project shape for crossing at node '%'."
@@ -5429,47 +5464,53 @@ msgstr "Shape für die walkingArea am Knoten '%' kann nicht projiziert werden."
 #: /home/micha/programming/sumo/src/netimport/NIXMLEdgesHandler.cpp:211
 msgid "Duplicate edge id occurred ('%'); assuming overwriting is wished."
 msgstr ""
+"Doppelte Kanten-ID aufgetreten ('%'); nehme eine gewünschte Überschreibung "
+"an."
 
 #: D:\SUMO/src\netimport\NIXMLEdgesHandler.cpp:216
 #: /home/micha/programming/sumo/src/netimport/NIXMLEdgesHandler.cpp:216
 #, c-format
 msgid "Edge '%' changed it's type; assuming type override is wished."
 msgstr ""
+"Kante '%' hat ihren Typ geändert; nehme eine gewünschte Überschreibung an."
 
 #: D:\SUMO/src\netimport\NIXMLEdgesHandler.cpp:304
 #: /home/micha/programming/sumo/src/netimport/NIXMLEdgesHandler.cpp:304
 msgid "Ignoring self-looped edge '%' at junction '%'"
-msgstr ""
+msgstr "Ignoriere selbst geloopte Kante '%' am Knotenpunkt %'"
 
 #: D:\SUMO/src\netimport\NIXMLEdgesHandler.cpp:392
 #: /home/micha/programming/sumo/src/netimport/NIXMLEdgesHandler.cpp:392
 msgid "Lane index is larger than number of lanes (edge '%')."
 msgstr ""
+"Fahrstreifenindex ist größer als die Anzahl an Fahrstreifen (Kante '%')."
 
 #: D:\SUMO/src\netimport\NIXMLEdgesHandler.cpp:436
 #: /home/micha/programming/sumo/src/netimport/NIXMLEdgesHandler.cpp:436
 msgid "Unable to project coordinates for lane '%'."
-msgstr ""
+msgstr "Koordinaten für den Fahrstreifen '%' können nicht projiziert werden."
 
 #: D:\SUMO/src\netimport\NIXMLEdgesHandler.cpp:461
 #: /home/micha/programming/sumo/src/netimport/NIXMLEdgesHandler.cpp:461
 msgid "Ignoring 'split' because it cannot be assigned to an edge"
-msgstr ""
+msgstr "Ignoriere 'split', da es keiner Kante zugewiesen werden kann"
 
 #: D:\SUMO/src\netimport\NIXMLEdgesHandler.cpp:509
 #: /home/micha/programming/sumo/src/netimport/NIXMLEdgesHandler.cpp:509
 msgid "Invalid split node id for edge '%' (from- and to-node are forbidden)"
 msgstr ""
+"Ungültige Trennungsknoten-ID für die Kante '%' (Ausgangs- und Endknoten sind "
+"verboten)"
 
 #: D:\SUMO/src\netimport\NIXMLEdgesHandler.cpp:547
 #: /home/micha/programming/sumo/src/netimport/NIXMLEdgesHandler.cpp:543
 msgid "The from-node is not given for edge '%'."
-msgstr "Der from-Knoten ist nicht gegeben für Kante '%'."
+msgstr "Der Ausgangsknoten ist nicht gegeben für Kante '%'."
 
 #: D:\SUMO/src\netimport\NIXMLEdgesHandler.cpp:559
 #: /home/micha/programming/sumo/src/netimport/NIXMLEdgesHandler.cpp:555
 msgid "The to-node is not given for edge '%'."
-msgstr "Der to-Knoten ist nicht gegeben für Kante '%'."
+msgstr "Der Endknoten ist nicht gegeben für Kante '%'."
 
 #: D:\SUMO/src\netimport\NIXMLEdgesHandler.cpp:658
 #: /home/micha/programming/sumo/src/netimport/NIXMLEdgesHandler.cpp:654
@@ -5497,20 +5538,22 @@ msgstr "Fehlende Position (am Knoten ID ='%')."
 #: /home/micha/programming/sumo/src/netimport/NIXMLNodesHandler.cpp:181
 msgid "Could not insert node though checked this before (id='%')."
 msgstr ""
+"Knoten konnte nicht eingefügt werden obwohl dieser zuvor überprüft wurde "
+"(ID='%')."
 
 #: D:\SUMO/src\netimport\NIXMLNodesHandler.cpp:210
 #: /home/micha/programming/sumo/src/netimport/NIXMLNodesHandler.cpp:210
 msgid "Unable to project node shape at node '%'."
-msgstr ""
+msgstr "Die Knoten-Shape am Knoten '%' kann nicht projiziert werden."
 
 #: /home/micha/programming/sumo/src/netimport/NIXMLNodesHandler.cpp:338
 msgid "Changing traffic light type '%' to '%' for tl '%'."
-msgstr "Änderung des Ampeltyps '%' in '%' für tl '%'."
+msgstr "Änderung des LSA-Typs '%' in '%' für tl '%'."
 
 #: D:\SUMO/src\netimport\NIXMLPTHandler.cpp:173
 #: /home/micha/programming/sumo/src/netimport/NIXMLPTHandler.cpp:173
 msgid "Could not add public transport stop '%' (already exists)"
-msgstr ""
+msgstr "ÖV-Haltestelle '%' konnte nicht hinzugefügt werden (existiert bereits)"
 
 #: D:\SUMO/src\netimport\NIXMLPTHandler.cpp:253
 #: /home/micha/programming/sumo/src/netimport/NIXMLPTHandler.cpp:253
@@ -5540,7 +5583,7 @@ msgstr "Es wurde versucht den"
 #: D:\SUMO/src\netload\NLBuilder.cpp:99
 #: /home/micha/programming/sumo/src/netload/NLBuilder.cpp:99
 msgid "Trying to set the travel time for the unknown edge '%'."
-msgstr ""
+msgstr "Versuch die Reisezeit für die unbekannte Kante '%' zu setzten."
 
 #: D:\SUMO/src\netload\NLBuilder.cpp:128
 #: /home/micha/programming/sumo/src/netload/NLBuilder.cpp:128
@@ -5610,7 +5653,7 @@ msgstr "myActiveEdge kann nicht nullptr"
 #: D:\SUMO/src\netload\NLEdgeControlBuilder.cpp:198
 #: /home/micha/programming/sumo/src/netload/NLEdgeControlBuilder.cpp:198
 msgid "Asymmetrical neigh lane '%' for lane '%'"
-msgstr ""
+msgstr "Unsymmetrischer Nachbarfahrstreifen '%' für den Fahrstreifen '%'"
 
 #: D:\SUMO/src\netload\NLEdgeControlBuilder.cpp:218
 #: /home/micha/programming/sumo/src/netload/NLEdgeControlBuilder.cpp:218
@@ -5619,6 +5662,8 @@ msgid ""
 "Internal edge '%' is not properly connected (probably a manually modified "
 "net.xml)."
 msgstr ""
+"Interne Kante '%' ist nicht richtig verbunden (wahrscheinlich eine manuell "
+"modifizierte net.xml)."
 
 #: D:\SUMO/src\netload\NLHandler.cpp:532
 #: /home/micha/programming/sumo/src/netload/NLHandler.cpp:532
@@ -5627,6 +5672,8 @@ msgid ""
 "Shape of lane '%' is broken.\n"
 " Can not build according edge."
 msgstr ""
+"Shape des Fahrstreifens '%' ist gebrochen.\n"
+"Entsprechende Kante kann nicht erstellt werden."
 
 #: D:\SUMO/src\netload\NLHandler.cpp:554
 #: /home/micha/programming/sumo/src/netload/NLHandler.cpp:554
@@ -5659,6 +5706,8 @@ msgid ""
 "Trying to specify detector's lane by the given id since the argument 'lane' "
 "is missing."
 msgstr ""
+"Es wird versucht den Fahrstreifen-Detektor anhand der gegeben ID zu "
+"spezifizieren, da das Argument 'lane' fehlt."
 
 #: D:\SUMO/src\netload\NLHandler.cpp:1202
 #: /home/micha/programming/sumo/src/netload/NLHandler.cpp:1202
@@ -5666,76 +5715,84 @@ msgstr ""
 msgid ""
 "Ignoring argument 'period' for E2Detector '%' since argument 'tl' was given."
 msgstr ""
+"Ignoriere Argument 'period' für den E2-Detektor '%', da das Argument 'tl' "
+"angegeben wurde."
 
 #: D:\SUMO/src\netload\NLHandler.cpp:1411
 #: /home/micha/programming/sumo/src/netload/NLHandler.cpp:1411
 #, c-format
 msgid "Unknown from-edge '%' in connection."
-msgstr ""
+msgstr "Unbekannte Abfahrtskante '%' in der Verbindung."
 
 #: D:\SUMO/src\netload\NLHandler.cpp:1417
 #: /home/micha/programming/sumo/src/netload/NLHandler.cpp:1417
 #, c-format
 msgid "Unknown to-edge '%' in connection."
-msgstr ""
+msgstr "Unbekannte Endkante '%' in der Verbindung."
 
 #: D:\SUMO/src\netload\NLHandler.cpp:1527
 #: /home/micha/programming/sumo/src/netload/NLHandler.cpp:1527
 msgid ""
 "no valid geo projection loaded from network. fcd-output.geo will not work"
 msgstr ""
+"Es wurde keine gültige Geoprojektion vom Netz geladen. Fcd-output.geo "
+"arbeitet nicht"
 
 #: D:\SUMO/src\netload\NLHandler.cpp:1555
 #: /home/micha/programming/sumo/src/netload/NLHandler.cpp:1555
 msgid "Replacing junction-taz '%' with loaded TAZ."
 msgstr ""
+"Ersetzte die Knotenpunkt-Verkehrsumlegungszone '%' mit geladener "
+"Verkehrsumlegungszone."
 
 #: D:\SUMO/src\netload\NLHandler.cpp:1598
 #: /home/micha/programming/sumo/src/netload/NLHandler.cpp:1598
 msgid "Skipping visualization of taz '%', polygon already exists."
 msgstr ""
+"Überspringe Visualisierung der Verkehrsumlegungszone '%', Polygon existiert "
+"bereits."
 
 #: D:\SUMO/src\netload\NLJunctionControlBuilder.cpp:116
 #: /home/micha/programming/sumo/src/netload/NLJunctionControlBuilder.cpp:116
 msgid "Information about the number of nodes was missing."
-msgstr ""
+msgstr "Die Information über die Anzahl der Knoten fehlte."
 
 #: D:\SUMO/src\netload\NLJunctionControlBuilder.cpp:126
 #: D:\SUMO/src\netload\NLJunctionControlBuilder.cpp:143
 #: /home/micha/programming/sumo/src/netload/NLJunctionControlBuilder.cpp:126
 #: /home/micha/programming/sumo/src/netload/NLJunctionControlBuilder.cpp:143
 msgid "Ignoring junction logic for junction '%'."
-msgstr ""
+msgstr "Ignoriere Knotenpunkt-Logik für den Knotenpunkt '%'."
 
 #: D:\SUMO/src\netload\NLJunctionControlBuilder.cpp:333
 #: /home/micha/programming/sumo/src/netload/NLJunctionControlBuilder.cpp:333
 msgid "Invalid traffic light type '%'"
-msgstr ""
+msgstr "Ungültiger LSA-Typ '%'"
 
 #: D:\SUMO/src\netload\NLJunctionControlBuilder.cpp:471
 #: /home/micha/programming/sumo/src/netload/NLJunctionControlBuilder.cpp:471
 msgid "Traffic lights could not be built."
-msgstr ""
+msgstr "Lichtsignalanlagen konnten nicht erstellt werden."
 
 #: D:\SUMO/src\netload\NLTriggerBuilder.cpp:75
 #: /home/micha/programming/sumo/src/netload/NLTriggerBuilder.cpp:75
 msgid "Vaporizers are deprecated. Use rerouters instead."
-msgstr ""
+msgstr "Vaporizers sind veraltet. Nutze anstelle Rerouter."
 
 #: D:\SUMO/src\netload\NLTriggerBuilder.cpp:84
 #: /home/micha/programming/sumo/src/netload/NLTriggerBuilder.cpp:84
 msgid "Unknown edge ('%') referenced in a vaporizer."
-msgstr ""
+msgstr "Unbekannte Kante ('%') referenziert in einem Vaporizer."
 
 #: D:\SUMO/src\netload\NLTriggerBuilder.cpp:93
 #: /home/micha/programming/sumo/src/netload/NLTriggerBuilder.cpp:93
 msgid "A vaporization begin time is negative (edge id='%')."
-msgstr ""
+msgstr "Die Startzeit eines Vaporizers ist negativ (Kanten-ID='%')."
 
 #: D:\SUMO/src\netload\NLTriggerBuilder.cpp:97
 #: /home/micha/programming/sumo/src/netload/NLTriggerBuilder.cpp:97
 msgid "A vaporization ends before it starts (edge id='%')."
-msgstr ""
+msgstr "Eine Vaporization endet bevor sie startet (Kanten-ID='%')."
 
 #: D:\SUMO/src\netload\NLTriggerBuilder.cpp:191
 #: /home/micha/programming/sumo/src/netload/NLTriggerBuilder.cpp:191
@@ -5743,6 +5800,8 @@ msgid ""
 "The overheadWireSegment '%' was not created as it is attached to internal "
 "lane. It will be build automatically."
 msgstr ""
+"Der Oberleitungsabschnitt '%' wurde nicht erstellt, da es an einen internen "
+"Fahrstreifen angeschlossen ist. Es wird automatisch erstellt."
 
 #: D:\SUMO/src\netload\NLTriggerBuilder.cpp:196
 #: /home/micha/programming/sumo/src/netload/NLTriggerBuilder.cpp:196
@@ -5751,6 +5810,8 @@ msgid ""
 "The overheadWireSegment '%' not built as it is attached to internal lane. It "
 "will be build automatically."
 msgstr ""
+"Der Oberleitungsabschnitt '%' wurde nicht erstellt, da es an einen internen "
+"Fahrstreifen angeschlossen ist. Es wird automatisch erstellt."
 
 #: D:\SUMO/src\netload\NLTriggerBuilder.cpp:208
 #: /home/micha/programming/sumo/src/netload/NLTriggerBuilder.cpp:208
@@ -5759,6 +5820,8 @@ msgid ""
 "The overheadWireSegment '%' has wrong position. Automatically set from 0 to "
 "the length of the lane."
 msgstr ""
+"Das Oberleitungssegment '%' hat eine falsche Position. Es wird automatisch "
+"von 0 bis zur Länge des Fahrstreifens gesetzt."
 
 #: D:\SUMO/src\netload\NLTriggerBuilder.cpp:216
 #: /home/micha/programming/sumo/src/netload/NLTriggerBuilder.cpp:216
@@ -5790,8 +5853,9 @@ msgstr ""
 
 #: D:\SUMO/src\netwrite\NWFrame.cpp:154
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:154
+#, fuzzy
 msgid "OpenDRIVE export needs internal links computation."
-msgstr ""
+msgstr "OpenDRIVE-Export benötigt eine interne Link-Berechnung."
 
 #: D:\SUMO/src\netwrite\NWFrame.cpp:164
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:164
@@ -5803,7 +5867,7 @@ msgstr ""
 #: D:\SUMO/src\netwrite\NWFrame.cpp:173
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:173
 msgid "public transport lines output requires 'ptstop-output' to be set"
-msgstr ""
+msgstr "Die Ausgabe der ÖV-Linien erfordert, dass 'ptstop-output' gesetzt ist"
 
 #: D:\SUMO/src\netwrite\NWFrame.cpp:177
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:177
@@ -5828,7 +5892,7 @@ msgstr ""
 #: D:\SUMO/src\netwrite\NWWriter_OpenDrive.cpp:307
 #: /home/micha/programming/sumo/src/netwrite/NWWriter_OpenDrive.cpp:307
 msgid "Could not compute smooth shape for edge '%'."
-msgstr ""
+msgstr "Glatte Shape für die Kante '%' konnte nicht berechnet werden."
 
 #: D:\SUMO/src\netwrite\NWWriter_SUMO.cpp:231
 #: /home/micha/programming/sumo/src/netwrite/NWWriter_SUMO.cpp:231
@@ -5836,17 +5900,20 @@ msgid ""
 "Embedding TAZ-data inside the network is deprecated. Use option --taz-output "
 "instead"
 msgstr ""
+"Einbetten von Verkehrsumlegungszonen-daten in das Netz ist veraltet. Nutze "
+"anstelle die Option --taz-output"
 
 #: D:\SUMO/src\netwrite\NWWriter_SUMO.cpp:351
 #: /home/micha/programming/sumo/src/netwrite/NWWriter_SUMO.cpp:351
 msgid "Could not find bidi-connection for edge '%'"
 msgstr ""
+"Es konnte keine Zweirichtungs-Verbindung für die Kante '%' gefunden werden"
 
 #: D:\SUMO/src\netwrite\NWWriter_SUMO.cpp:517
 #: /home/micha/programming/sumo/src/netwrite/NWWriter_SUMO.cpp:517
 #, c-format
 msgid "Lane '%' has a maximum allowed speed of 0."
-msgstr "Fahrspur '%' hat eine Höchstgeschwindigkeit von 0."
+msgstr "Fahrstreifen '%' hat eine Höchstgeschwindigkeit von 0."
 
 #: D:\SUMO/src\netwrite\NWWriter_XML.cpp:88
 #: D:\SUMO/src\polyconvert\PCPolyContainer.cpp:105
@@ -5903,7 +5970,7 @@ msgstr "Keine Fahrzeuge geladen."
 #: D:\SUMO/src\od\ODAmitranHandler.cpp:48
 #: /home/micha/programming/sumo/src/od/ODAmitranHandler.cpp:48
 msgid "Invalid duration for timeSlice starting %."
-msgstr ""
+msgstr "Ungültige Dauer für den Zeitabschnitt ab %."
 
 #: D:\SUMO/src\od\ODDistrictCont.cpp:72
 #: /home/micha/programming/sumo/src/od/ODDistrictCont.cpp:72
@@ -5932,6 +5999,9 @@ msgid ""
 "Flow density of % vehicles per second, cannot be represented with a simple "
 "probability. Falling back to even spacing."
 msgstr ""
+"Flussdichte von % Fahrzeugen pro Sekunde kann nicht als einfache "
+"Wahrscheinlichkeit dargestellt werden. Es wird auf einfache Abstände "
+"zurückgefallen."
 
 #: /home/micha/programming/sumo/src/od/ODMatrix.cpp:434
 msgid "End of file while reading %."
@@ -6366,7 +6436,7 @@ msgstr "Verwerfe Personenfluss '%', da ihr Plan leer ist"
 
 #: D:\SUMO/src\router\RORouteHandler.cpp:629
 #: /home/micha/programming/sumo/src/router/RORouteHandler.cpp:629
-#, fuzzy, c-format
+#, c-format
 msgid "probabilistic personFlow '%' must specify end time"
 msgstr "probalistischer Personenfluss '%' muss eine Endzeit angeben"
 
@@ -6426,8 +6496,11 @@ msgstr ""
 
 #: D:\SUMO/src\tools\emissionsDrivingCycle_main.cpp:62
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:62
+#, fuzzy
 msgid "Computes emissions by driving a time line using SUMO's emission models."
 msgstr ""
+"Berechne Emissionen während einer Zeitachse durch das Nutzen von dem SUMO-"
+"Emissionsmodel"
 
 #: D:\SUMO/src\tools\emissionsDrivingCycle_main.cpp:169
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:169
@@ -6437,7 +6510,7 @@ msgstr ""
 #: D:\SUMO/src\tools\emissionsDrivingCycle_main.cpp:172
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:172
 msgid "The output file must be given."
-msgstr ""
+msgstr "Die Ausgabedatei muss gegeben sein."
 
 #: D:\SUMO/src\tools\emissionsDrivingCycle_main.cpp:185
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:185
@@ -6613,6 +6686,8 @@ msgid ""
 "SVCPermissions must be specified either via 'allow' or 'disallow'. Ignoring "
 "'disallow'"
 msgstr ""
+"SVCPermissions muss entweder mittels 'allow' oder 'disallow' spezifiziert "
+"sein. Ignoriere 'disallow'"
 
 #: D:\SUMO/src\utils\common\UtilExceptions.h:43
 #: /home/micha/programming/sumo/src/utils/common/UtilExceptions.h:43
@@ -6626,15 +6701,15 @@ msgstr "Leere Daten"
 
 #: D:\SUMO/src\utils\common\UtilExceptions.h:99
 msgid "Invalid Number Format %"
-msgstr ""
+msgstr "Ungültiges Nummernformat %"
 
 #: D:\SUMO/src\utils\common\UtilExceptions.h:112
 msgid "Invalid Time Format %"
-msgstr ""
+msgstr "Ungültiges Zeitformat %"
 
 #: D:\SUMO/src\utils\common\UtilExceptions.h:125
 msgid "Invalid Bool Format %"
-msgstr ""
+msgstr "Ungültiges Bool-Format %"
 
 #: D:\SUMO/src\utils\common\UtilExceptions.h:137
 #: /home/micha/programming/sumo/src/utils/common/UtilExceptions.h:137
@@ -6684,13 +6759,15 @@ msgstr "Neuer Gegenstand kann nicht NULL sein"
 
 #: D:\SUMO/src\utils\geom\GeoConvHelper.cpp:86
 #: /home/micha/programming/sumo/src/utils/geom/GeoConvHelper.cpp:86
+#, fuzzy
 msgid "Ignoring geoidgrids and vgridshift in projection"
-msgstr ""
+msgstr "Ignoriere Geoidgitter und"
 
 #: D:\SUMO/src\utils\geom\GeoConvHelper.cpp:231
 #: /home/micha/programming/sumo/src/utils/geom/GeoConvHelper.cpp:231
 msgid "Inverse projection works only with explicit proj parameters."
 msgstr ""
+"Inverse Projektion arbeitet nur mit expliziten Projektierungs-Parametern."
 
 #: D:\SUMO/src\utils\geom\GeoConvHelper.cpp:236
 #: /home/micha/programming/sumo/src/utils/geom/GeoConvHelper.cpp:236
@@ -6743,6 +6820,8 @@ msgstr ""
 #: /home/micha/programming/sumo/src/utils/handlers/AdditionalHandler.cpp:965
 msgid "'lanes' and 'endPos' must be defined together in a lane area detector."
 msgstr ""
+"'lanes' und 'endPos' müssen zusammen definiert sein in einem "
+"Fahrstreifenbereich-Detektor."
 
 #: D:\SUMO/src\utils\handlers\AdditionalHandler.cpp:1242
 #: /home/micha/programming/sumo/src/utils/handlers/AdditionalHandler.cpp:1242
@@ -6755,6 +6834,8 @@ msgid ""
 "CalibratorFlows need either the attribute vehsPerHour or speed or type (or "
 "any combination of these)"
 msgstr ""
+"Kalibrationsfluss braucht entweder das Attribut Fahrzeuge pro Stunde, die "
+"Geschwindigkeit oder den Typ (oder eine Kombination von diesen)"
 
 #: D:\SUMO/src\utils\handlers\AdditionalHandler.cpp:1428
 #: D:\SUMO/src\utils\handlers\AdditionalHandler.cpp:1454
@@ -6819,7 +6900,7 @@ msgstr "Datenelemente können keine Attribute laden wie Parameter"
 #: D:\SUMO/src\utils\handlers\MeanDataHandler.cpp:54
 #: /home/micha/programming/sumo/src/utils/handlers/MeanDataHandler.cpp:54
 msgid "MeanData elements cannot load attributes as params"
-msgstr ""
+msgstr "MeanData-Elemente können keine Attribute als Parameter laden"
 
 #: D:\SUMO/src\utils\handlers\RouteHandler.cpp:420
 #: /home/micha/programming/sumo/src/utils/handlers/RouteHandler.cpp:420
@@ -6839,24 +6920,22 @@ msgstr "Durchlaufzeit von % muss gleich oder größer als 0 sein"
 #: D:\SUMO/src\utils\handlers\RouteHandler.cpp:549
 #: /home/micha/programming/sumo/src/utils/handlers/RouteHandler.cpp:482
 #: /home/micha/programming/sumo/src/utils/handlers/RouteHandler.cpp:549
-#, fuzzy
 msgid "Attributes 'from' and 'fromJunction' cannot be defined together"
 msgstr ""
-"Attribute 'von' und 'vonKnotenpunkt' können nicht zusammen definiert werden"
+"Attribute 'from' und 'fromJunction' können nicht zusammen definiert werden"
 
 #: D:\SUMO/src\utils\handlers\RouteHandler.cpp:484
 #: D:\SUMO/src\utils\handlers\RouteHandler.cpp:551
 #: /home/micha/programming/sumo/src/utils/handlers/RouteHandler.cpp:484
 #: /home/micha/programming/sumo/src/utils/handlers/RouteHandler.cpp:551
 msgid "Attributes 'to' and 'toJunction' cannot be defined together"
-msgstr ""
+msgstr "Attribute 'to' und 'toJunction' können nicht zusammen definiert werden"
 
 #: D:\SUMO/src\utils\handlers\RouteHandler.cpp:515
 #: /home/micha/programming/sumo/src/utils/handlers/RouteHandler.cpp:515
-#, fuzzy
 msgid "trip definition needs either 'from/to' or 'fromJunction/toJunction'"
 msgstr ""
-"Trip-Definition braucht entweder 'from/to' oder 'fromJunction/toJunction'"
+"Fahrt-Definition braucht entweder 'from/to' oder 'fromJunction/toJunction'"
 
 #: D:\SUMO/src\utils\handlers\RouteHandler.cpp:846
 #: /home/micha/programming/sumo/src/utils/handlers/RouteHandler.cpp:846
@@ -6894,12 +6973,14 @@ msgstr ""
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMORouteHandler.cpp:227
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMORouteHandler.cpp:229
 msgid "Invalid parsing embedded VType"
-msgstr ""
+msgstr "Ungültiger eingelesener eingebetteter VType"
 
 #: D:\SUMO/src\utils\handlers\RouteHandler.cpp:970
 #: /home/micha/programming/sumo/src/utils/handlers/RouteHandler.cpp:970
 msgid "A stop must be defined either with an edge or with an lane, not both"
 msgstr ""
+"Ein Halt muss entweder mit einer Kante oder mit einen Fahrstreifen definiert "
+"werden, nicht beides"
 
 #: D:\SUMO/src\utils\handlers\RouteHandler.cpp:984
 #: /home/micha/programming/sumo/src/utils/handlers/RouteHandler.cpp:984
@@ -6932,7 +7013,7 @@ msgstr "Fehler beim Schließen des Ausgabegerätes."
 #: D:\SUMO/src\utils\iodevices\OutputDevice_File.cpp:46
 #: /home/micha/programming/sumo/src/utils/iodevices/OutputDevice_File.cpp:46
 msgid "Could not redirect to NUL device (%)."
-msgstr ""
+msgstr "NUL Einrichtung (%) konnte nicht umgeleitet werden."
 
 #: D:\SUMO/src\utils\options\Option.cpp:237
 #: /home/micha/programming/sumo/src/utils/options/Option.cpp:237
@@ -6963,10 +7044,13 @@ msgstr "'%' ist kein gültiger integer-Vektor."
 
 #: D:\SUMO/src\utils\options\OptionsCont.cpp:66
 #: /home/micha/programming/sumo/src/utils/options/OptionsCont.cpp:66
+#, fuzzy
 msgid ""
 "Copyright (C) 2001-2023 German Aerospace Center (DLR) and others; https://"
 "sumo.dlr.de"
 msgstr ""
+"Copyright (C) 2001-2023 German Aerospace Center (DLR) und Andere; "
+"https://sumo.dlr.de"
 
 #: D:\SUMO/src\utils\options\OptionsCont.cpp:141
 #: /home/micha/programming/sumo/src/utils/options/OptionsCont.cpp:141
@@ -7026,8 +7110,9 @@ msgstr "Vorlage konnte nicht nach '%' gespeichert werden"
 
 #: D:\SUMO/src\utils\options\OptionsCont.cpp:655
 #: /home/micha/programming/sumo/src/utils/options/OptionsCont.cpp:655
+#, fuzzy
 msgid "Written template to '%'"
-msgstr ""
+msgstr "Geschriebene Vorlage zu '%'"
 
 #: D:\SUMO/src\utils\options\OptionsCont.cpp:667
 #: /home/micha/programming/sumo/src/utils/options/OptionsCont.cpp:667
@@ -7036,7 +7121,6 @@ msgstr "Schema konnte nicht in '%' gespeichert werden"
 
 #: D:\SUMO/src\utils\options\OptionsCont.cpp:671
 #: /home/micha/programming/sumo/src/utils/options/OptionsCont.cpp:671
-#, fuzzy
 msgid "Written schema to '%'"
 msgstr "Geschriebenes Schema in '%'"
 
@@ -7045,7 +7129,7 @@ msgstr "Geschriebenes Schema in '%'"
 #: /home/micha/programming/sumo/src/utils/options/OptionsIO.cpp:88
 #: /home/micha/programming/sumo/src/utils/options/OptionsIO.cpp:135
 msgid "Could not parse commandline options."
-msgstr "Kommandozeilen-Optionen konnten nicht analysiert werden."
+msgstr "Kommandozeilen-Optionen konnten nicht eingelesen werden."
 
 #: D:\SUMO/src\utils\options\OptionsIO.cpp:103
 #: /home/micha/programming/sumo/src/utils/options/OptionsIO.cpp:103
@@ -7094,27 +7178,27 @@ msgstr "Gemischte Parametersyntax in '%'."
 #: D:\SUMO/src\utils\router\AStarLookupTable.h:124
 #: /home/micha/programming/sumo/src/utils/router/AStarLookupTable.h:124
 msgid "Could not load landmark-lookup-table from '%'."
-msgstr ""
+msgstr "Landmark-Nachschlagetabelle aus '%' konnte nicht geladen werden."
 
 #: D:\SUMO/src\utils\router\AStarLookupTable.h:138
 #: /home/micha/programming/sumo/src/utils/router/AStarLookupTable.h:138
-#, fuzzy, c-format
+#, c-format
 msgid "Duplicate edge '%' in landmark file."
-msgstr "Doppelte Kante '%' in der Orientierungs-Datei."
+msgstr "Doppelte Kante '%' in der Landmark-Datei."
 
 #: D:\SUMO/src\utils\router\AStarLookupTable.h:143
 #: /home/micha/programming/sumo/src/utils/router/AStarLookupTable.h:143
-#, fuzzy, c-format
+#, c-format
 msgid "Landmark edge '%' does not exist in the network."
-msgstr "Orientierungskante '%' existiert nicht im Netz."
+msgstr "Landmark-Kante '%' existiert nicht im Netz."
 
 #: D:\SUMO/src\utils\router\AStarLookupTable.h:154
 #: D:\SUMO/src\utils\router\AStarLookupTable.h:167
 #: /home/micha/programming/sumo/src/utils/router/AStarLookupTable.h:154
 #: /home/micha/programming/sumo/src/utils/router/AStarLookupTable.h:167
-#, fuzzy, c-format
+#, c-format
 msgid "Unknown or unordered edge '%' in landmark file."
-msgstr "Unbekannte oder untergeordnete Kante '%' in der Orientierungs-Datei."
+msgstr "Unbekannte oder untergeordnete Kante '%' in der Landmark-Datei."
 
 #: /home/micha/programming/sumo/src/utils/router/AStarLookupTable.h:164
 msgid "Broken landmark file, unexpected number of entries (%) for edge '%'."
@@ -7130,7 +7214,7 @@ msgstr "Berechnen einer neuen Nachschlagetabelle."
 #: D:\SUMO/src\utils\router\AStarLookupTable.h:194
 #: /home/micha/programming/sumo/src/utils/router/AStarLookupTable.h:194
 msgid "No lookup table for landmark edge '%', recalculating."
-msgstr ""
+msgstr "Keine Nachschlagetabelle für die Landmark-Kante '%', neu berechnen."
 
 #: D:\SUMO/src\utils\router\AStarLookupTable.h:196
 #: /home/micha/programming/sumo/src/utils/router/AStarLookupTable.h:196
@@ -7138,6 +7222,8 @@ msgid ""
 "Not all network edges were found in the lookup table '%' for landmark edge "
 "'%'."
 msgstr ""
+"Nicht alle Netz-Kanten wurden in der Nachschlagetabelle '%' für die Landmark-"
+"Kante '%' gefunden."
 
 #: D:\SUMO/src\utils\router\AStarLookupTable.h:293
 #: /home/micha/programming/sumo/src/utils/router/AStarLookupTable.h:293
@@ -7207,6 +7293,8 @@ msgstr "Zielkante '%' erlaubt keine zu Fuß Gehenden."
 #: /home/micha/programming/sumo/src/utils/shapes/ShapeHandler.cpp:84
 msgid "Error parsing key from shape generic parameter. Key cannot be empty"
 msgstr ""
+"Fehler beim Einlesen des Schlüssels vom generischen Shape-Parameter. "
+"Schlüssel kann nicht leer sein"
 
 #: D:\SUMO/src\utils\shapes\ShapeHandler.cpp:86
 #: /home/micha/programming/sumo/src/utils/shapes/ShapeHandler.cpp:86
@@ -7214,6 +7302,8 @@ msgid ""
 "Error parsing key from shape generic parameter. Key contains invalid "
 "characters"
 msgstr ""
+"Fehler beim Einlesen des Schlüssels vom generischen Shape-Parameter. "
+"Schlüssel enthält ungültige Zeichen"
 
 #: /home/micha/programming/sumo/src/utils/shapes/ShapeHandler.cpp:139
 msgid "Invalid characters for PoI ID"
@@ -7223,13 +7313,18 @@ msgstr "Ungültige Datentypen für POI ID"
 #: /home/micha/programming/sumo/src/utils/shapes/ShapeHandler.cpp:170
 msgid "Either (x, y), (lon, lat) or (lane, pos) must be specified for PoI '%'."
 msgstr ""
+"Entweder (x, y), (lon, lat) oder (lane, pos) müssen für den Pol '%' "
+"spezifiziert sein."
 
 #: D:\SUMO/src\utils\shapes\ShapeHandler.cpp:173
 #: /home/micha/programming/sumo/src/utils/shapes/ShapeHandler.cpp:173
+#, fuzzy
 msgid ""
 "(lon, lat) is specified for PoI '%' but no geo-conversion is specified for "
 "the network."
 msgstr ""
+"(lon, lat) ist spezifiziert für den Pol '%' aber keine geo-conversion ist "
+"spezifiziert für das Netz."
 
 #: D:\SUMO/src\utils\shapes\ShapeHandler.cpp:185
 #: /home/micha/programming/sumo/src/utils/shapes/ShapeHandler.cpp:185
@@ -7245,7 +7340,7 @@ msgstr "Pol '%' existiert bereits."
 #: D:\SUMO/src\utils\shapes\ShapeHandler.cpp:209
 #: /home/micha/programming/sumo/src/utils/shapes/ShapeHandler.cpp:209
 msgid "Invalid characters for Poly ID"
-msgstr ""
+msgstr "Ungültiges Zeichen für Pol ID"
 
 #: D:\SUMO/src\utils\shapes\ShapeHandler.cpp:252
 #: /home/micha/programming/sumo/src/utils/shapes/ShapeHandler.cpp:252
@@ -7276,11 +7371,15 @@ msgstr "Der Knoten: '%' existiert bereits."
 #: /home/micha/programming/sumo/src/utils/traction_wire/Circuit.cpp:239
 msgid "Index of renumbered node exceeded the reduced number of equations."
 msgstr ""
+"Der Index des neu nummerierten Knoten hat die reduzierte Anzahl von "
+"Gleichungen überschritten."
 
 #: D:\SUMO/src\utils\traction_wire\Circuit.cpp:250
 #: /home/micha/programming/sumo/src/utils/traction_wire/Circuit.cpp:250
 msgid "Index of renumbered element exceeded the reduced number of equations."
 msgstr ""
+"Der Index des neu nummerierten Element hat die reduzierte Anzahl von "
+"Gleichungen überschritten."
 
 #: /home/micha/programming/sumo/src/utils/traction_wire/Circuit.cpp:257
 msgid "Structural error in reduced circuit matrix."
@@ -7290,20 +7389,23 @@ msgstr "Strukturfehler in reduzierter Kreislaufmatrix."
 #: /home/micha/programming/sumo/src/utils/traction_wire/Circuit.cpp:288
 msgid "Initial solution x used during solving DC circuit is out of bounds.\n"
 msgstr ""
+"Die anfängliche Lösung x, die beim Lösen des DC-Kreislaufes verwendet wurde "
+"ist außerhalb der Grenzen.\n"
 
 #: D:\SUMO/src\utils\traction_wire\Circuit.cpp:312
 #: D:\SUMO/src\utils\traction_wire\Circuit.cpp:456
 #: /home/micha/programming/sumo/src/utils/traction_wire/Circuit.cpp:312
 #: /home/micha/programming/sumo/src/utils/traction_wire/Circuit.cpp:456
+#, fuzzy
 msgid "wrongly assigned row of matrix A during solving the circuit"
-msgstr ""
+msgstr "falsch zugeteilte Zeile der Matrix A beim lösen des Kreislaufes"
 
 #: D:\SUMO/src\utils\traction_wire\Circuit.cpp:354
 #: D:\SUMO/src\utils\traction_wire\Circuit.cpp:479
 #: /home/micha/programming/sumo/src/utils/traction_wire/Circuit.cpp:354
 #: /home/micha/programming/sumo/src/utils/traction_wire/Circuit.cpp:479
 msgid "The negative node of current source is not the groud."
-msgstr ""
+msgstr "Der negative Knoten von der Stromquelle ist nicht die Masse."
 
 #: D:\SUMO/src\utils\traction_wire\Circuit.cpp:508
 #: D:\SUMO/src\utils\traction_wire\Circuit.cpp:518
@@ -7313,6 +7415,8 @@ msgstr ""
 #: /home/micha/programming/sumo/src/utils/traction_wire/Circuit.cpp:526
 msgid "Results deployment during circuit evaluation was unsuccessful."
 msgstr ""
+"Die Bereitstellung der Ergebnisse während der Schaltungsevaluierung war "
+"nicht erfolgreich."
 
 #: D:\SUMO/src\utils\traction_wire\Circuit.cpp:576
 #: /home/micha/programming/sumo/src/utils/traction_wire/Circuit.cpp:576
@@ -7334,6 +7438,8 @@ msgid ""
 "Trying to add resistor element into the overhead wire circuit with "
 "resistance < 0. "
 msgstr ""
+"Versuch ein Widerstandselement mit einem Widerstand < 0 in den "
+"Oberleitungsschaltkreis einzufügen. "
 
 #: D:\SUMO/src\utils\traction_wire\Circuit.cpp:942
 #: /home/micha/programming/sumo/src/utils/traction_wire/Circuit.cpp:942
@@ -7358,6 +7464,7 @@ msgstr "Undefinierter Elemententyp für '%'."
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMORouteHandler.cpp:63
 msgid "Route file should be sorted by departure time, ignoring '%'!"
 msgstr ""
+"Die Routendatei sollte nach der Abfahrtszeit sortiert werden, ignoriere '%'!"
 
 #: D:\SUMO/src\utils\vehicle\SUMOVehicleParameter.cpp:701
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParameter.cpp:701
@@ -7365,38 +7472,39 @@ msgid ""
 "Value of stop attribute 'trigger' must be 'person', 'container', 'join' or a "
 "boolean"
 msgstr ""
+"Wert von Halt-Attribut 'trigger muss entweder 'person', 'container', 'join' "
+"oder ein boolean sein"
 
 #: D:\SUMO/src\utils\vehicle\SUMOVehicleParserHelper.cpp:947
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:947
 msgid "Lane change model 'JE2013' is deprecated. Using default model instead."
 msgstr ""
+"Fahrstreifenwechsel-Model 'JE2013' ist veraltet. Nutze statt dessen "
+"Standardmodel."
 
 #: D:\SUMO/src\utils\vehicle\SUMOVehicleParserHelper.cpp:1166
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:1166
 msgid "Unknown car following model when parsing vType '%'"
-msgstr ""
+msgstr "Ungültiges Fahrzeugfolge-Model beim Einlesen von vType '%'"
 
 #: D:\SUMO/src\utils\vehicle\SUMOVehicleParserHelper.cpp:1199
 #: D:\SUMO/src\utils\vehicle\SUMOVehicleParserHelper.cpp:1215
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:1199
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:1215
-#, fuzzy
 msgid "Invalid Car-Following-Model Attribute %. Cannot be parsed to float"
 msgstr ""
-"Ungültiges Fahrzeugfolgemodell Attribut %. Kann nicht analysiert werden nach "
-"float"
+"Ungültiges Fahrzeugfolgemodell Attribut %. Konnte nicht im float eingelesen "
+"werden"
 
 #: D:\SUMO/src\utils\vehicle\SUMOVehicleParserHelper.cpp:1203
 #: D:\SUMO/src\utils\vehicle\SUMOVehicleParserHelper.cpp:1226
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:1203
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:1226
-#, fuzzy
 msgid "Invalid Car-Following-Model Attribute %. Must be greater than 0"
 msgstr "Ungültiges Fahrzeugfolgemodell-Attribut %. Muss größer als 0 sein"
 
 #: D:\SUMO/src\utils\vehicle\SUMOVehicleParserHelper.cpp:1237
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:1237
-#, fuzzy
 msgid ""
 "Invalid Car-Following-Model Attribute %. Only values between [0-1] are "
 "allowed"
@@ -7408,32 +7516,36 @@ msgstr ""
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:1496
 msgid "Invalid Lane-Change-Model Attribute %. Cannot be parsed to float"
 msgstr ""
+"Ungültiger Fahrstreifenwechsel-Model Attribut %. Konnte nicht in float "
+"eingelesen werden"
 
 #: D:\SUMO/src\utils\vehicle\SUMOVehicleParserHelper.cpp:1513
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:1513
 msgid "Invalid Lane-Change-Model Attribute %. Must be equal or greater than 0"
 msgstr ""
+"Ungültiges Fahrstreifenwechsel-Model Attribut %. Muss gleich oder größer 0 "
+"sein"
 
 #: D:\SUMO/src\utils\vehicle\SUMOVehicleParserHelper.cpp:1524
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:1524
 msgid "Invalid Lane-Change-Model Attribute %. Must be greater than 0"
-msgstr ""
+msgstr "Ungültiges Fahrstreifenwechsel-Model Attribut %. Muss größer als 0 sein"
 
 #: D:\SUMO/src\utils\vehicle\SUMOVehicleParserHelper.cpp:1535
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:1535
 msgid "Invalid Lane-Change-Model Attribute %. Must be between -1 and 1"
 msgstr ""
+"Ungültiges Fahrstreifenwechsel-Model Attribut %. Muss zwischen -1 und 1 sein"
 
 #: D:\SUMO/src\utils\vehicle\SUMOVehicleParserHelper.cpp:1581
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:1581
-#, fuzzy
 msgid "Invalid Junction-Model Attribute %. Cannot be parsed to float"
 msgstr ""
-"Ungültiges Knotenpunktmodel-Attribut %. Kann nicht geparst werden zum float"
+"Ungültiges Knotenpunktmodel-Attribut %. Konnte nicht im float eingelesen "
+"werden"
 
 #: D:\SUMO/src\utils\vehicle\SUMOVehicleParserHelper.cpp:1590
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:1590
-#, fuzzy
 msgid ""
 "Invalid Junction-Model Attribute %. Only values between [0-1] are allowed"
 msgstr ""
@@ -7442,7 +7554,6 @@ msgstr ""
 
 #: D:\SUMO/src\utils\vehicle\SUMOVehicleParserHelper.cpp:1596
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:1596
-#, fuzzy
 msgid "Invalid Junction-Model Attribute %. Must be equal or greater than 0"
 msgstr ""
 "Ungültiges Knotenpunkt-Model Attribut %. Es muss gleich oder größer 0 sein"
@@ -7486,9 +7597,8 @@ msgstr "Der XML-Parser war nicht initialisiert."
 
 #: D:\SUMO/src\utils\xml\SUMOSAXReader.cpp:191
 #: /home/micha/programming/sumo/src/utils/xml/SUMOSAXReader.cpp:191
-#, fuzzy
 msgid "The XML-parser could not be build."
-msgstr "Der XML-Parser konnte nicht gebaut werden."
+msgstr "Der XML-Einleser konnte nicht gebaut werden."
 
 #: D:\SUMO/src\utils\xml\XMLSubSys.cpp:91
 #: D:\SUMO/src\utils\xml\XMLSubSys.cpp:96
@@ -7529,7 +7639,7 @@ msgstr ""
 #: D:\SUMO/src\utils\xml\XMLSubSys.cpp:195
 #: /home/micha/programming/sumo/src/utils/xml/XMLSubSys.cpp:195
 msgid "Unspecified error occurred wile parsing '%'"
-msgstr ""
+msgstr "Unbekannter Fehler beim Einlesen von '%' aufgetreten"
 
 #: /home/micha/programming/sumo/src/utils/common/UtilExceptions.h:99
 msgid "Invalid Number Format "
