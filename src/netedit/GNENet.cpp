@@ -1590,7 +1590,7 @@ GNENet::cleanInvalidCrossings(GNEUndoList* undoList) {
         WRITE_DEBUG("Opening FXMessageBox 'clear crossings'");
         // Ask confirmation to user
         const std::string header = TL("Clear crossings");
-        const std::string body = TL("Crossings will be cleared. Continue?.");
+        const std::string body = TL("Crossings will be cleared. Continue?");
         const auto answer = FXMessageBox::question(getApp(), MBOX_YES_NO, header.c_str(), "%s", body.c_str());
         // 1:yes, 2:no, 4:esc
         if (answer != 1) {
