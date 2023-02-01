@@ -249,6 +249,7 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     myMoveMultipleElementValues(this),
     myVehicleOptions(this),
     myVehicleTypeOptions(this),
+    myLanguages(this),
     mySaveElements(this),
     mySelectingArea(this),
     myEditNetworkElementShapes(this),
@@ -895,6 +896,7 @@ GNEViewNet::GNEViewNet() :
     myMoveMultipleElementValues(this),
     myVehicleOptions(this),
     myVehicleTypeOptions(this),
+    myLanguages(this),
     mySaveElements(this),
     mySelectingArea(this),
     myEditNetworkElementShapes(this),
@@ -4393,8 +4395,11 @@ GNEViewNet::onCmdRemoveEdgeSelected(FXObject*, FXSelector, void*) {
 
 void
 GNEViewNet::buildEditModeControls() {
-    // first build supermode buttons
+    // build supermode buttons
     myEditModes.buildSuperModeButtons();
+
+    // build languages
+    myLanguages.buildLanguagesButtons();
 
     // build save buttons
     mySaveElements.buildSaveElementsButtons();

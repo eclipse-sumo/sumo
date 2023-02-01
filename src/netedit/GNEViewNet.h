@@ -643,6 +643,9 @@ private:
     GNEViewNetHelper::VehicleTypeOptions myVehicleTypeOptions;
     // @}
 
+    /// @brief variable used for languages
+    GNEViewNetHelper::Languages myLanguages;
+
     /// @brief variable used to save elements
     GNEViewNetHelper::SaveElements mySaveElements;
 
