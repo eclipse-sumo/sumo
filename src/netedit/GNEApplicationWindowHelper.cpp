@@ -39,19 +39,7 @@
 // ===========================================================================
 
 GNEApplicationWindowHelper::ToolbarsGrip::ToolbarsGrip(GNEApplicationWindow* GNEApp) :
-    menu(nullptr),
-    superModes(nullptr),
-    saveElements(nullptr),
-    navigation(nullptr),
-    modes(nullptr),
-    intervalBar(nullptr),
-    myGNEApp(GNEApp),
-    myToolBarShellMenu(nullptr),
-    myToolBarShellSuperModes(nullptr),
-    myToolBarShellSaveElements(nullptr),
-    myToolBarShellNavigation(nullptr),
-    myToolBarShellModes(nullptr),
-    myToolBarShellIntervalBar(nullptr) {
+    myGNEApp(GNEApp) {
 }
 
 
@@ -72,6 +60,11 @@ GNEApplicationWindowHelper::ToolbarsGrip::buildViewParentToolbarsGrips() {
     superModes = new FXMenuBar(myGNEApp->getTopDock(), myToolBarShellSuperModes, GUIDesignToolBarRaisedSame);
     // declare toolbar grip for menu bar superModes
     new FXToolBarGrip(superModes, superModes, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
+    // build menu bar for languages (next to menu bar)
+    myToolBarShellLanguages = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
+    languages = new FXMenuBar(myGNEApp->getTopDock(), myToolBarShellLanguages, GUIDesignToolBarRaisedSame);
+    // declare toolbar grip for menu bar languages
+    new FXToolBarGrip(languages, languages, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
     // build menu bar for save elements (bot to menu bar)
     myToolBarShellSaveElements = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
     saveElements = new FXMenuBar(myGNEApp->getTopDock(), myToolBarShellSaveElements, GUIDesignToolBarRaisedNext);
@@ -99,12 +92,14 @@ GNEApplicationWindowHelper::ToolbarsGrip::buildViewParentToolbarsGrips() {
     new FXToolBarGrip(intervalBar, intervalBar, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
     // create menu bars
     superModes->create();
+    languages->create();
     saveElements->create();
     navigation->create();
     modes->create();
     intervalBar->create();
     // create toolbar shells
     myToolBarShellSuperModes->create();
+    myToolBarShellLanguages->create();
     myToolBarShellSaveElements->create();
     myToolBarShellNavigation->create();
     myToolBarShellModes->create();
@@ -118,12 +113,14 @@ void
 GNEApplicationWindowHelper::ToolbarsGrip::destroyParentToolbarsGrips() {
     // delete Menu bars
     delete superModes;
+    delete languages;
     delete saveElements;
     delete navigation;
     delete modes;
     delete intervalBar;
     // also delete toolbar shells to avoid floating windows
     delete myToolBarShellSuperModes;
+    delete myToolBarShellLanguages;
     delete myToolBarShellSaveElements;
     delete myToolBarShellNavigation;
     delete myToolBarShellModes;

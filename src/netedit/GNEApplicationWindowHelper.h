@@ -69,44 +69,50 @@ struct GNEApplicationWindowHelper {
         void destroyParentToolbarsGrips();
 
         /// @brief The application menu bar (for file, edit, processing...)
-        FXMenuBar* menu;
+        FXMenuBar* menu = nullptr;
 
-        /// @brief The application menu bar for supermodes (network and demand)
-        FXMenuBar* superModes;
+        /// @brief The application menu bar for supermodes (network, demand and data)
+        FXMenuBar* superModes = nullptr;
 
-        /// @brief The application menu bar for save elements (NetworkElements, additionals and demand elements)
-        FXMenuBar* saveElements;
+        /// @brief The application menu bar for languages
+        FXMenuBar* languages = nullptr;
+
+        /// @brief The application menu bar for save elements
+        FXMenuBar* saveElements = nullptr;
 
         /// @brief The application menu bar for navigation (zoom, coloring...)
-        FXMenuBar* navigation;
+        FXMenuBar* navigation = nullptr;
 
         /// @brief The application menu bar (for select, inspect...)
-        FXMenuBar* modes;
+        FXMenuBar* modes = nullptr;
 
         /// @brief The application menu bar for mode options (show connections, select edges...)
-        FXMenuBar* intervalBar;
+        FXMenuBar* intervalBar = nullptr;
 
     private:
         /// @brief pointer to current GNEApplicationWindow
         GNEApplicationWindow* myGNEApp;
 
         /// @brief menu bar drag (for file, edit, processing...)
-        FXToolBarShell* myToolBarShellMenu;
+        FXToolBarShell* myToolBarShellMenu = nullptr;
 
-        /// @brief menu bar drag for modes (network and demand)
-        FXToolBarShell* myToolBarShellSuperModes;
+        /// @brief menu bar drag for super modes (network, demand and data)
+        FXToolBarShell* myToolBarShellSuperModes = nullptr;
 
-        /// @brief menu bar drag for save elements (NetworkElements, additionals and demand elements)
-        FXToolBarShell* myToolBarShellSaveElements;
+        /// @brief menu bar drag for languages
+        FXToolBarShell* myToolBarShellLanguages = nullptr;
+
+        /// @brief menu bar drag for save elements
+        FXToolBarShell* myToolBarShellSaveElements = nullptr;
 
         /// @brief menu bar drag for navigation (Zoom, coloring...)
-        FXToolBarShell* myToolBarShellNavigation;
+        FXToolBarShell* myToolBarShellNavigation = nullptr;
 
         /// @brief menu bar drag for modes (select, inspect, delete...)
-        FXToolBarShell* myToolBarShellModes;
+        FXToolBarShell* myToolBarShellModes = nullptr;
 
         /// @brief menu bar drag for interval bar
-        FXToolBarShell* myToolBarShellIntervalBar;
+        FXToolBarShell* myToolBarShellIntervalBar = nullptr;
 
         /// @brief Invalidated copy constructor.
         ToolbarsGrip(const ToolbarsGrip&) = delete;
