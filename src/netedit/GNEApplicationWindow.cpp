@@ -1930,7 +1930,11 @@ GNEApplicationWindow::onCmdNewWindow(FXObject*, FXSelector, void*) {
     std::string netedit = "netedit";
     const char* sumoPath = getenv("SUMO_HOME");
     if (sumoPath != nullptr) {
+#ifdef DEBUG
+        std::string newPath = std::string(sumoPath) + "/bin/neteditd";
+#else
         std::string newPath = std::string(sumoPath) + "/bin/netedit";
+#endif
         if (FileHelpers::isReadable(newPath) || FileHelpers::isReadable(newPath + ".exe")) {
             netedit = "\"" + newPath + "\"";
         }
