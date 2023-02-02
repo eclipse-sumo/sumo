@@ -17,9 +17,10 @@
 ///
 // Button similar to FXToggleButton but with the possibility of showing tooltips
 /****************************************************************************/
-#ifndef MFXToggleButtonTooltip_h
-#define MFXToggleButtonTooltip_h
+#pragma once
 #include <config.h>
+
+#include <iostream>
 
 #include "fxheader.h"
 #include "MFXStaticToolTip.h"
@@ -33,7 +34,7 @@ class MFXToggleButtonTooltip : public FXToggleButton {
 
 public:
     /// @brief constructor (Exactly like the FXToggleButton constructor)
-    MFXToggleButtonTooltip(FXComposite* p, MFXStaticToolTip* staticToolTip, const FXString& text1, const FXString& text2,
+    MFXToggleButtonTooltip(FXComposite* p, MFXStaticToolTip* staticToolTip, const std::string& text1, const std::string& text2,
                            FXIcon* ic1, FXIcon* ic2, FXObject* tgt = NULL, FXSelector sel = 0,
                            FXuint opts = BUTTON_NORMAL, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0,
                            FXint pl = DEFAULT_PAD, FXint pr = DEFAULT_PAD, FXint pt = DEFAULT_PAD, FXint pb = DEFAULT_PAD);
@@ -68,6 +69,3 @@ private:
     /// @brief Invalidated assignment operator.
     MFXToggleButtonTooltip& operator=(const MFXToggleButtonTooltip&) = delete;
 };
-
-
-#endif

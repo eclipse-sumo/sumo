@@ -67,7 +67,11 @@ GNEShapeFrame::GEOPOICreator::GEOPOICreator(GNEShapeFrame* polygonFrameParent) :
     // create button for create GEO POIs
     myCreateGEOPOIButton = new FXButton(getCollapsableFrame(), TL("Create GEO POI (clipboard)"), nullptr, this, MID_GNE_CREATE, GUIDesignButton);
     // create information label
-    myLabelCartesianPosition = new FXLabel(getCollapsableFrame(), "Cartesian equivalence:\n- X = give valid longitude\n- Y = give valid latitude", 0, GUIDesignLabelFrameInformation);
+    myLabelCartesianPosition = new FXLabel(getCollapsableFrame(),
+        (TL("Cartesian equivalence:") + std::string("\n") + 
+         TL("- X = give valid longitude") + std::string("\n") + 
+         TL("- Y = give valid latitude")).c_str(), 
+        0, GUIDesignLabelFrameInformation);
 }
 
 
@@ -128,10 +132,14 @@ GNEShapeFrame::GEOPOICreator::onCmdSetCoordinates(FXObject*, FXSelector, void*) 
         GeoConvHelper::getFinal().x2cartesian_const(geoPos);
         // check if GEO Position has to be swapped
         // update myLabelCartesianPosition
-        myLabelCartesianPosition->setText(("Cartesian equivalence:\n- X = " + toString(geoPos.x()) + "\n- Y = " + toString(geoPos.y())).c_str());
+        myLabelCartesianPosition->setText(
+            (TL("Cartesian equivalence:") + std::string("\n- X = ") + toString(geoPos.x()) + std::string("\n- Y = ") + toString(geoPos.y())).c_str());
     } else {
         myCoordinatesTextField->setTextColor(FXRGB(255, 0, 0));
-        myLabelCartesianPosition->setText(TL("Cartesian equivalence:\n- X = give valid longitude\n- Y = give valid latitude"));
+        myLabelCartesianPosition->setText(
+            (TL("Cartesian equivalence:") + std::string("\n") +
+             TL("- X = give valid longitude") + std::string("\n") + 
+             TL("- Y = give valid latitude")).c_str());
     };
     return 1;
 }
@@ -216,7 +224,7 @@ GNEShapeFrame::GEOPOICreator::onCmdCreateGEOPOI(FXObject*, FXSelector, void*) {
 // ---------------------------------------------------------------------------
 
 GNEShapeFrame::GNEShapeFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
-    GNEFrame(viewParent, viewNet, "Shapes"),
+    GNEFrame(viewParent, viewNet, TL("Shapes")),
     myBaseShape(nullptr) {
 
     // create item Selector modul for shapes
@@ -319,7 +327,7 @@ GNEShapeFrame::processClick(const Position& clickedPosition, const GNEViewNetHel
         } else if (myShapeTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() == GNE_TAG_POILANE) {
             // abort if lane is nullptr
             if (objectsUnderCursor.getLaneFront() == nullptr) {
-                WRITE_WARNING(toString(GNE_TAG_POILANE) + " can be only placed over lanes");
+                WRITE_WARNING(TL("POILane can be only placed over lanes"));
                 return false;
             }
             // show warning dialogbox and stop if input parameters are invalid
@@ -363,7 +371,7 @@ GNEShapeFrame::processClick(const Position& clickedPosition, const GNEViewNetHel
             }
         }
     }
-    myViewNet->setStatusBarText("Current selected shape isn't valid.");
+    myViewNet->setStatusBarText(TL("Current selected shape isn't valid."));
     return false;
 }
 

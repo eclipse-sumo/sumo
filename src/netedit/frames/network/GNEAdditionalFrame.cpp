@@ -82,7 +82,7 @@ bool
 GNEAdditionalFrame::addAdditional(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
     // first check that current selected additional is valid
     if (myAdditionalTagSelector->getCurrentTemplateAC() == nullptr) {
-        myViewNet->setStatusBarText("Current selected additional isn't valid.");
+        myViewNet->setStatusBarText(TL("Current selected additional isn't valid."));
         return false;
     }
     // check if add or remove edge
@@ -274,7 +274,8 @@ GNEAdditionalFrame::createBaseAdditionalObject(const GNETagProperties& tagProper
         }
         // stop if currently there isn't a valid selected parent
         if (mySelectorAdditionalParent->getIdSelected().empty()) {
-            myAdditionalAttributes->showWarningMessage("A " + toString(tagProperty.getParentTags().front()) + " must be selected before insertion of " + myAdditionalTagSelector->getCurrentTemplateAC()->getTagProperty().getTagStr() + ".");
+            myAdditionalAttributes->showWarningMessage(toString(tagProperty.getParentTags().front()) + 
+                TL(" must be selected before insertion of ") + myAdditionalTagSelector->getCurrentTemplateAC()->getTagProperty().getTagStr() + ".");
             return false;
         } else {
             // create baseAdditional parent
@@ -304,7 +305,7 @@ GNEAdditionalFrame::buildAdditionalCommonAttributes(const GNETagProperties& tagP
         const double begin = myBaseAdditional->getDoubleAttribute(SUMO_ATTR_STARTTIME);
         const double end = myBaseAdditional->getDoubleAttribute(SUMO_ATTR_END);
         if (begin > end) {
-            myAdditionalAttributes->showWarningMessage("Attribute '" + toString(SUMO_ATTR_STARTTIME) + "' cannot be greater than attribute '" + toString(SUMO_ATTR_END) + "'.");
+            myAdditionalAttributes->showWarningMessage(TL("Attribute '") + toString(SUMO_ATTR_STARTTIME) + TL("' cannot be greater than attribute '") + toString(SUMO_ATTR_END) + "'.");
             return false;
         }
     }
@@ -321,7 +322,7 @@ GNEAdditionalFrame::buildAdditionalCommonAttributes(const GNETagProperties& tagP
         myBaseAdditional->addStringListAttribute(SUMO_ATTR_EDGES, myEdgesSelector->getSelectedIDs());
         // check if attribute has at least one edge
         if (myBaseAdditional->getStringListAttribute(SUMO_ATTR_EDGES).empty()) {
-            myAdditionalAttributes->showWarningMessage("List of " + toString(SUMO_TAG_EDGE) + "s cannot be empty");
+            myAdditionalAttributes->showWarningMessage(TL("List ofe dges cannot be empty"));
             return false;
         }
     }
@@ -331,7 +332,7 @@ GNEAdditionalFrame::buildAdditionalCommonAttributes(const GNETagProperties& tagP
         myBaseAdditional->addStringListAttribute(SUMO_ATTR_LANES, myLanesSelector->getSelectedIDs());
         // check if attribute has at least one lane
         if (myBaseAdditional->getStringListAttribute(SUMO_ATTR_LANES).empty()) {
-            myAdditionalAttributes->showWarningMessage("List of " + toString(SUMO_TAG_LANE) + "s cannot be empty");
+            myAdditionalAttributes->showWarningMessage(TL("List of lanes cannot be empty"));
             return false;
         }
     }

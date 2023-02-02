@@ -314,7 +314,7 @@ GNECreateEdgeFrame::EdgeTypeSelector::onCmdAddEdgeType(FXObject*, FXSelector, vo
     // create new edge type
     GNEEdgeType* edgeType = new GNEEdgeType(myCreateEdgeFrameParent->getViewNet()->getNet());
     // add it using undoList
-    myCreateEdgeFrameParent->getViewNet()->getUndoList()->begin(GUIIcon::EDGE, "create new edge type");
+    myCreateEdgeFrameParent->getViewNet()->getUndoList()->begin(GUIIcon::EDGE, TL("create new edge type"));
     myCreateEdgeFrameParent->getViewNet()->getUndoList()->add(new GNEChange_EdgeType(edgeType, true), true);
     myCreateEdgeFrameParent->getViewNet()->getUndoList()->end();
     // update myEdgeTypeSelected
@@ -336,7 +336,7 @@ GNECreateEdgeFrame::EdgeTypeSelector::onCmdDeleteEdgeType(FXObject*, FXSelector,
     // get edgeType to remove
     GNEEdgeType* edgeType = myCreateEdgeFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveEdgeType(myEdgeTypesComboBox->getText().text());
     // remove it using undoList
-    myCreateEdgeFrameParent->getViewNet()->getUndoList()->begin(GUIIcon::EDGE, "delete edge type");
+    myCreateEdgeFrameParent->getViewNet()->getUndoList()->begin(GUIIcon::EDGE, TL("delete edge type"));
     myCreateEdgeFrameParent->getViewNet()->getUndoList()->add(new GNEChange_EdgeType(edgeType, false), true);
     myCreateEdgeFrameParent->getViewNet()->getUndoList()->end();
     // refresh EdgeTypeSelector
@@ -363,7 +363,7 @@ GNECreateEdgeFrame::EdgeTypeSelector::onCmdCreateFromTemplate(FXObject*, FXSelec
         // copy all template values
         edgeType->copyTemplate(myCreateEdgeFrameParent->getViewNet()->getViewParent()->getInspectorFrame()->getTemplateEditor()->getEdgeTemplate());
         // add it using undoList
-        myCreateEdgeFrameParent->getViewNet()->getUndoList()->begin(GUIIcon::EDGE, "create new edge type");
+        myCreateEdgeFrameParent->getViewNet()->getUndoList()->begin(GUIIcon::EDGE, TL("create new edge type"));
         myCreateEdgeFrameParent->getViewNet()->getUndoList()->add(new GNEChange_EdgeType(edgeType, true), true);
         myCreateEdgeFrameParent->getViewNet()->getUndoList()->end();
         // update myEdgeTypeSelected
@@ -401,7 +401,7 @@ GNECreateEdgeFrame::EdgeTypeSelector::fillComboBox() {
     myEdgeTypesComboBox->setTextColor(FXRGB(0, 0, 0));
     // add template
     if (templateEditor->getEdgeTemplate()) {
-        myEdgeTypesComboBox->appendItem(("template: " + templateEditor->getEdgeTemplate()->getID()).c_str(), nullptr);
+        myEdgeTypesComboBox->appendItem((TL("template: ") + templateEditor->getEdgeTemplate()->getID()).c_str(), nullptr);
     }
     // add edge types
     for (const auto& edgeType : edgeTypes) {
@@ -533,7 +533,7 @@ GNECreateEdgeFrame::LaneTypeSelector::onCmdAddLaneType(FXObject*, FXSelector, vo
             // add new lane
             newEdgeType->addLaneType(new GNELaneType(newEdgeType));
             // remove old edgeTyp und and newEdgeType
-            myCreateEdgeFrameParent->getViewNet()->getUndoList()->begin(GUIIcon::LANE, "add laneType");
+            myCreateEdgeFrameParent->getViewNet()->getUndoList()->begin(GUIIcon::LANE, TL("add laneType"));
             myCreateEdgeFrameParent->getViewNet()->getUndoList()->add(new GNEChange_EdgeType(edgeType, false), true);
             myCreateEdgeFrameParent->getViewNet()->getUndoList()->add(new GNEChange_EdgeType(newEdgeType, true), true);
             myCreateEdgeFrameParent->getViewNet()->getUndoList()->end();
@@ -570,7 +570,7 @@ GNECreateEdgeFrame::LaneTypeSelector::onCmdDeleteLaneType(FXObject*, FXSelector,
                 }
             }
             // remove old edgeTyp und and newEdgeType
-            myCreateEdgeFrameParent->getViewNet()->getUndoList()->begin(GUIIcon::LANE, "remove laneType");
+            myCreateEdgeFrameParent->getViewNet()->getUndoList()->begin(GUIIcon::LANE, TL("remove laneType"));
             myCreateEdgeFrameParent->getViewNet()->getUndoList()->add(new GNEChange_EdgeType(edgeType, false), true);
             myCreateEdgeFrameParent->getViewNet()->getUndoList()->add(new GNEChange_EdgeType(newEdgeType, true), true);
             myCreateEdgeFrameParent->getViewNet()->getUndoList()->end();
@@ -639,7 +639,7 @@ GNECreateEdgeFrame::Legend::~Legend() {}
 // ---------------------------------------------------------------------------
 
 GNECreateEdgeFrame::GNECreateEdgeFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
-    GNEFrame(viewParent, viewNet, "Create Edge"),
+    GNEFrame(viewParent, viewNet, TL("Create Edge")),
     myObjectsUnderSnappedCursor(viewNet),
     myCreateEdgeSource(nullptr) {
     // create custom edge selector
@@ -678,7 +678,7 @@ GNECreateEdgeFrame::processClick(const Position& clickedPosition, const GNEViewN
         }
         // begin undo list
         if (!myViewNet->getUndoList()->hasCommandGroup()) {
-            myViewNet->getUndoList()->begin(GUIIcon::EDGE, "create new " + toString(SUMO_TAG_EDGE));
+            myViewNet->getUndoList()->begin(GUIIcon::EDGE, TL("create new edge"));
         }
         // if we didn't clicked over another junction, then create a new
         if (junction == nullptr) {
@@ -737,21 +737,21 @@ GNECreateEdgeFrame::processClick(const Position& clickedPosition, const GNEViewN
                     if (myViewNet->getUndoList()->hasCommandGroup()) {
                         myViewNet->getUndoList()->end();
                     } else {
-                        std::cout << "edge created without an open CommandGroup )-:\n";
+                        std::cout << TL("edge created without an open CommandGroup") << std::endl;
                     }
                     // if we're creating edges in chain mode, mark junction as junction edge source
                     if (chainEdge) {
                         myCreateEdgeSource = junction;
                         myCreateEdgeSource->markAsCreateEdgeSource();
-                        myViewNet->getUndoList()->begin(GUIIcon::EDGE, "create new " + toString(SUMO_TAG_EDGE));
+                        myViewNet->getUndoList()->begin(GUIIcon::EDGE, TL("create new edge"));
                     } else {
                         myCreateEdgeSource = nullptr;
                     }
                 } else {
-                    myViewNet->setStatusBarText("An " + toString(SUMO_TAG_EDGE) + " with the same geometry already exists!");
+                    myViewNet->setStatusBarText(TL("An edge with the same geometry already exists!"));
                 }
             } else {
-                myViewNet->setStatusBarText("Start- and endpoint for an " + toString(SUMO_TAG_EDGE) + " must be distinct!");
+                myViewNet->setStatusBarText(TL("Start- and endpoint for an edge must be distinct!"));
             }
             update();
         }

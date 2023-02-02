@@ -33,9 +33,9 @@ FXDEFMAP(MFXToggleButtonTooltip) MFXToggleButtonTooltipMap[] = {
 FXIMPLEMENT(MFXToggleButtonTooltip, FXToggleButton, MFXToggleButtonTooltipMap, ARRAYNUMBER(MFXToggleButtonTooltipMap))
 
 MFXToggleButtonTooltip::MFXToggleButtonTooltip(FXComposite* p, MFXStaticToolTip* staticToolTip,
-        const FXString& text1, const FXString& text2, FXIcon* ic1, FXIcon* ic2, FXObject* tgt,
+        const std::string& text1, const std::string& text2, FXIcon* ic1, FXIcon* ic2, FXObject* tgt,
         FXSelector sel, FXuint opts, FXint x, FXint y, FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb) :
-    FXToggleButton(p, text1, text2, ic1, ic2, tgt, sel, opts, x, y, w, h, pl, pr, pt, pb),
+    FXToggleButton(p, text1.c_str(), text2.c_str(), ic1, ic2, tgt, sel, opts, x, y, w, h, pl, pr, pt, pb),
     myStaticToolTip(staticToolTip) {
 }
 
