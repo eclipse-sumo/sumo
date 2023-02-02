@@ -248,17 +248,34 @@ MSPModel_Remote::initialize() {
                assert(!shape.isClockwiseOriented());
             */
             
-            std::vector<double> lanePolygonCoordinates;
+            std::vector<double> lanePolygonCoordinatesFlattened;
 
             if (edge->isWalkingArea()) {
                 if (shape.area() == 0.0) {
                     continue;
                 }
 
-                for (const Position& position : shape) {
-                    lanePolygonCoordinates.push_back(position.x());
-                    lanePolygonCoordinates.push_back(position.y());
+                auto last = shape.isClosed() ? shape.end()-1 : shape.end();
+                for (auto position = shape.begin(); position != last; position++) {
+                    lanePolygonCoordinatesFlattened.push_back(position->x());
+                    lanePolygonCoordinatesFlattened.push_back(position->y());
+                } 
+
+                /*std::vector<std::pair<double, double>> lanePolygonCoordinates;
+                for (const Position& position : shape)
+                    lanePolygonCoordinates.push_back(std::make_pair<double, double>(position.x(), position.y()));
+
+                auto end = lanePolygonCoordinates.end();
+                for (auto it = lanePolygonCoordinates.begin(); it != end; ++it) {
+                    end = std::remove(it + 1, end, *it);
                 }
+
+                lanePolygonCoordinates.erase(end, lanePolygonCoordinates.end());
+
+                for (auto position = lanePolygonCoordinates.begin(); position != lanePolygonCoordinates.end(); position++) {
+                    lanePolygonCoordinatesFlattened.push_back(position->first);
+                    lanePolygonCoordinatesFlattened.push_back(position->second);
+                }*/
             }
             else {
                 double amount = lane->getWidth() / 2.0;
@@ -272,19 +289,19 @@ MSPModel_Remote::initialize() {
 
                 std::vector<Position> lanePolygon{ topFirstCorner, bottomFirstCorner, bottomSecondCorner, topSecondCorner };
                 for (const Position& position : lanePolygon) {
-                    lanePolygonCoordinates.push_back(position.x());
-                    lanePolygonCoordinates.push_back(position.y());
+                    lanePolygonCoordinatesFlattened.push_back(position.x());
+                    lanePolygonCoordinatesFlattened.push_back(position.y());
                 }
             }
             
 #ifdef DEBUG
             geometryDumpFile << "Lane " <<  lane->getID() << std::endl;
-            for (double coordinate: lanePolygonCoordinates) {
+            for (double coordinate: lanePolygonCoordinatesFlattened) {
                 geometryDumpFile << coordinate << std::endl;
             }
 #endif
 
-            JPS_GeometryBuilder_AddAccessibleArea(myGeometryBuilder, lanePolygonCoordinates.data(), lanePolygonCoordinates.size() / 2);
+            JPS_GeometryBuilder_AddAccessibleArea(myGeometryBuilder, lanePolygonCoordinatesFlattened.data(), lanePolygonCoordinatesFlattened.size() / 2);
         }
 	}
 
@@ -307,7 +324,7 @@ MSPModel_Remote::initialize() {
     JPS_VelocityModelBuilder modelBuilder = JPS_VelocityModelBuilder_Create(8.0, 0.1, 5.0, 0.02);
     myParameterProfileId = 1;
     double initial_speed = 1.0; // stage->getMaxSpeed(person);
-    double pedestrian_radius = 1.0;
+    double pedestrian_radius = 0.5; // 1.0 brings bad pedestrian behavior...
     JPS_VelocityModelBuilder_AddParameterProfile(modelBuilder, myParameterProfileId, 1.0, 0.5, initial_speed, pedestrian_radius);
     myModel = JPS_VelocityModelBuilder_Build(modelBuilder, &message);
     if (myModel == nullptr) {
