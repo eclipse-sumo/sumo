@@ -192,7 +192,14 @@ class EdgeDomain(Domain):
         Returns a list of all vehicle ids waiting for insertion on this edge (with depart delay)
         """
         return self._getUniversal(tc.VAR_PENDING_VEHICLES, edgeID)
-
+        
+    def getAngle(self, edgeID, relativePosition):
+            """getAngle(string, double) -> double
+            Returns the angle formed by the x-axis and the line from the specified position to the end of the edge.
+            If the specified position equals -1 then the starting position of the edge is used instead.
+            """
+            return self._getUniversal(tc.VAR_ANGLE, edgeID, relativePosition)
+            
     def adaptTraveltime(self, edgeID, time, begin=None, end=None):
         """adaptTraveltime(string, double, double, double) -> None
 
