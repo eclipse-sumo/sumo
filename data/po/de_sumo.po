@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-01 15:37+0100\n"
-"PO-Revision-Date: 2023-02-02 13:19+0000\n"
-"Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
+"PO-Revision-Date: 2023-02-03 04:42+0000\n"
+"Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
 "Language: de\n"
@@ -2581,23 +2581,27 @@ msgstr "Keine Flussintervalle in Kalibrator '%'."
 #: /home/micha/programming/sumo/src/microsim/trigger/MSCalibrator.cpp:161
 #, c-format
 msgid "Calibrator '%' has no active or upcoming interval"
-msgstr ""
+msgstr "Kalibrator '%' hat kein aktives oder bevorstehendes Intervall"
 
 #: D:\SUMO/src\microsim\trigger\MSCalibrator.cpp:209
 #: /home/micha/programming/sumo/src/microsim/trigger/MSCalibrator.cpp:209
 msgid "Insertion lane may differ from calibrator lane for calibrator '%'."
 msgstr ""
+"Eingefügter Fahrstreifen unterscheidet sich nicht vom Kalibrator-"
+"Fahrstreifen für Kalibrator '%'."
 
 #: D:\SUMO/src\microsim\trigger\MSCalibrator.cpp:216
 #: /home/micha/programming/sumo/src/microsim/trigger/MSCalibrator.cpp:216
 msgid "Mandatory attribute missing in definition of calibrator '%'."
-msgstr ""
+msgstr "Pflichtattribut fehlt in der Definition vom Kalibrator '%'."
 
 #: D:\SUMO/src\microsim\trigger\MSCalibrator.cpp:218
 #: /home/micha/programming/sumo/src/microsim/trigger/MSCalibrator.cpp:218
 msgid ""
 "Non-numeric value for numeric attribute in definition of calibrator '%'."
 msgstr ""
+"Nicht nummerischer Wert für das nummerische Attribut in der Definition vom "
+"Kalibrator '%'."
 
 #: D:\SUMO/src\microsim\trigger\MSCalibrator.cpp:221
 #: /home/micha/programming/sumo/src/microsim/trigger/MSCalibrator.cpp:221
@@ -2610,16 +2614,21 @@ msgstr ""
 #: /home/micha/programming/sumo/src/microsim/trigger/MSCalibrator.cpp:224
 msgid "Type calibration is not supported in meso for calibrator '%'."
 msgstr ""
+"Typkalibration wird nicht unterstützt für die mesoskopische Simulation für "
+"den Kalibrator '%'."
 
 #: D:\SUMO/src\microsim\trigger\MSCalibrator.cpp:692
 #: /home/micha/programming/sumo/src/microsim/trigger/MSCalibrator.cpp:692
 msgid "Cannot set flow for calibrator '%' with overlapping interval."
 msgstr ""
+"Fluss für Kalibrator '%' kann nicht gesetzt werden mit überlappenden "
+"Intervall."
 
 #: D:\SUMO/src\microsim\trigger\MSCalibrator.cpp:694
 #: /home/micha/programming/sumo/src/microsim/trigger/MSCalibrator.cpp:694
 msgid "Cannot set flow for calibrator '%' with negative interval."
 msgstr ""
+"Fluss für Kalibrator '%' kann nicht erstellt werden mit negativen Intervall."
 
 #: D:\SUMO/src\microsim\trigger\MSLaneSpeedTrigger.cpp:176
 #: /home/micha/programming/sumo/src/microsim/trigger/MSLaneSpeedTrigger.cpp:176
@@ -2680,12 +2689,16 @@ msgstr "MSTriggeredRerouter %: Keine Parkplatz ID gegeben."
 msgid ""
 "Invalid distance computation for vehicle '%' to parkingArea '%' at time=%."
 msgstr ""
+"Ungültige Distanz-Berechnung für das Fahrzeug '%' zum Parkbereich '%' zur "
+"Zeit=%."
 
 #: D:\SUMO/src\microsim\trigger\MSTriggeredRerouter.cpp:1160
 #: /home/micha/programming/sumo/src/microsim/trigger/MSTriggeredRerouter.cpp:1160
 msgid ""
 "Invalid distance computation for vehicle '%' from parkingArea '%' at time=%."
 msgstr ""
+"Ungültige Distanz-Berechnung für das Fahrzeug '%' vom Parkbereich '%' zur "
+"Zeit=%."
 
 #: D:\SUMO/src\microsim\trigger\MSTriggeredRerouter.cpp:1236
 #: /home/micha/programming/sumo/src/microsim/trigger/MSTriggeredRerouter.cpp:1236
@@ -2701,12 +2714,12 @@ msgstr ""
 
 #: D:\SUMO/src\netbuild\NBAlgorithms.cpp:269
 msgid "Converting invalid rail_crossing to priority junction '%'."
-msgstr ""
+msgstr "Konvertiere ungültigen Bahnübergang zu vorrangigem Knotenpunkt '%'."
 
 #: D:\SUMO/src\netbuild\NBAlgorithms.cpp:273
 #: /home/micha/programming/sumo/src/netbuild/NBAlgorithms.cpp:272
 msgid "Converting invalid rail_crossing to traffic_light at junction '%'."
-msgstr "Verarbeite ungültigerail_crossing to traffic_light am Knotenpunkt '%."
+msgstr "Konvertiere ungültigen Bahnübergang zur LSA am Knotenpunkt '%."
 
 #: D:\SUMO/src\netbuild\NBAlgorithms.cpp:282
 #: D:\SUMO/src\netbuild\NBNodeCont.cpp:1739
@@ -2729,13 +2742,13 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netbuild/NBAlgorithms_Railway.cpp:175
 #, c-format
 msgid "Ignore % edges because they have the wrong spreadType"
-msgstr ""
+msgstr "Ignoriere % Kanten, da sie den falschen Ausbreitungstyp haben"
 
 #: D:\SUMO/src\netbuild\NBAlgorithms_Railway.cpp:197
 #: /home/micha/programming/sumo/src/netbuild/NBAlgorithms_Railway.cpp:197
 #, c-format
 msgid "Bidi-edge '%' prevented by filtering rules."
-msgstr ""
+msgstr "Zweirichtungs-Kante '%' wurde durch Filterregeln verhindert."
 
 #: D:\SUMO/src\netbuild\NBAlgorithms_Railway.cpp:211
 #: /home/micha/programming/sumo/src/netbuild/NBAlgorithms_Railway.cpp:211
@@ -2755,12 +2768,14 @@ msgstr "% Eisenbahnknoten gefunden, welche als buffer_stop markiert sind"
 #: D:\SUMO/src\netbuild\NBAlgorithms_Railway.cpp:380
 #: /home/micha/programming/sumo/src/netbuild/NBAlgorithms_Railway.cpp:380
 msgid "Found % bidirectional rail edges"
-msgstr ""
+msgstr "% Zweirichtungs-Eisenbahnkanten gefunden"
 
 #: D:\SUMO/src\netbuild\NBAlgorithms_Railway.cpp:523
 #: /home/micha/programming/sumo/src/netbuild/NBAlgorithms_Railway.cpp:523
 msgid "Added % bidi-edges as extension of existing bidi edges."
 msgstr ""
+"% Zweirichtungs-Kanten als Erweiterung bestehender Zweirichtungs-Kanten "
+"wurden hinzugefügt."
 
 #: D:\SUMO/src\netbuild\NBAlgorithms_Railway.cpp:534
 #: /home/micha/programming/sumo/src/netbuild/NBAlgorithms_Railway.cpp:534
@@ -2796,6 +2811,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netbuild/NBAlgorithms_Railway.cpp:1037
 msgid "No connection found between stops on edge '%' and edge '%'."
 msgstr ""
+"Keine Verbindung gefunden zwischen Haltepunkten auf Kante '%' und Kante '%'."
 
 #: D:\SUMO/src\netbuild\NBAlgorithms_Railway.cpp:1147
 #: /home/micha/programming/sumo/src/netbuild/NBAlgorithms_Railway.cpp:1147
@@ -2976,6 +2992,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netbuild/NBEdge.cpp:2943
 msgid "Edge '%' is not connected to outgoing edges at junction '%'."
 msgstr ""
+"Kante '%' ist nicht verbunden mit ausgehenden Kanten am Knotenpunkt '%'."
 
 #: D:\SUMO/src\netbuild\NBEdge.cpp:2957
 #: /home/micha/programming/sumo/src/netbuild/NBEdge.cpp:2957
@@ -3008,23 +3025,26 @@ msgstr ""
 #: D:\SUMO/src\netbuild\NBEdge.cpp:4055
 #: /home/micha/programming/sumo/src/netbuild/NBEdge.cpp:4055
 msgid "Ignoring invalid stopOffset for edge '%' (negative offset)."
-msgstr ""
+msgstr "Ignoriere ungültigen Haltversatz für Kante '%' (negativer Versatz)."
 
 #: D:\SUMO/src\netbuild\NBEdge.cpp:4064
 #: /home/micha/programming/sumo/src/netbuild/NBEdge.cpp:4064
 msgid "Ignoring invalid stopOffset for lane '%' (negative offset)."
 msgstr ""
+"Ignoriere ungültigen Haltversatz für Fahrstreifen '%' (negativer Versatz)."
 
 #: D:\SUMO/src\netbuild\NBEdge.cpp:4070
 #: /home/micha/programming/sumo/src/netbuild/NBEdge.cpp:4070
 msgid "Ignoring invalid stopOffset for lane '%' (invalid lane index)."
 msgstr ""
+"Ignoriere ungültigen Halteversatz für Fahrstreifen '%' (ungültiger "
+"Fahrstreifenindex)."
 
 #: D:\SUMO/src\netbuild\NBEdge.cpp:4333
 #: /home/micha/programming/sumo/src/netbuild/NBEdge.cpp:4333
 #, c-format
 msgid "Edge % allows pedestrians on all lanes"
-msgstr ""
+msgstr "Kante % erlaubt Fußgänger auf allen Fahrstreifen"
 
 #: D:\SUMO/src\netbuild\NBEdge.cpp:4391
 #: /home/micha/programming/sumo/src/netbuild/NBEdge.cpp:4391
@@ -3078,7 +3098,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netimport/NIXMLEdgesHandler.cpp:488
 #: /home/micha/programming/sumo/src/netimport/NIXMLEdgesHandler.cpp:490
 msgid "Error on parsing a split (edge '%')."
-msgstr ""
+msgstr "Fehler beim Einlesen einer Auftrennung (Kante '%')."
 
 #: D:\SUMO/src\netbuild\NBEdgeCont.cpp:875
 #: /home/micha/programming/sumo/src/netbuild/NBEdgeCont.cpp:858
@@ -3118,7 +3138,7 @@ msgstr ""
 #: D:\SUMO/src\netbuild\NBEdgeCont.cpp:1734
 #: /home/micha/programming/sumo/src/netbuild/NBEdgeCont.cpp:1717
 msgid "Edge '%' overlaps with edge '%' by %."
-msgstr ""
+msgstr "Kante '%' überlappt sich mit Kante '%' bei %."
 
 #: D:\SUMO/src\netbuild\NBEdgeCont.cpp:1750
 #: /home/micha/programming/sumo/src/netbuild/NBEdgeCont.cpp:1733
@@ -3130,7 +3150,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netbuild/NBEdgeCont.cpp:1735
 #, c-format
 msgid "Edge '%' has a grade of %%."
-msgstr ""
+msgstr "Kante '%' hat einen Grad von %%."
 
 #: D:\SUMO/src\netbuild\NBEdgeCont.cpp:1762
 #: /home/micha/programming/sumo/src/netbuild/NBEdgeCont.cpp:1745
@@ -3142,23 +3162,23 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netbuild/NBEdgeCont.cpp:1747
 #, c-format
 msgid "Connection '%' has a grade of %%."
-msgstr ""
+msgstr "Verbindung '%' hat einen Grad von %%."
 
 #: D:\SUMO/src\netbuild\NBEdgeCont.cpp:1796
 #: /home/micha/programming/sumo/src/netbuild/NBEdgeCont.cpp:1779
 msgid "Not joining tram edge '%' with % lanes."
-msgstr ""
+msgstr "Nicht vereinigte Straßenbahnkante '%' mit % Fahrstreifen."
 
 #: D:\SUMO/src\netbuild\NBEdgeCont.cpp:1870
 #: /home/micha/programming/sumo/src/netbuild/NBEdgeCont.cpp:1853
 msgid "Ambiguous tram edges '%' and '%' for lane '%'."
-msgstr ""
+msgstr "Mehrdeutige Straßenbahnkanten '%' und '%' für Fahrstreifen '%'."
 
 #: D:\SUMO/src\netbuild\NBFrame.cpp:713
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:713
 #, c-format
 msgid "unsupported value '%' for option '--tls.default-type'"
-msgstr ""
+msgstr "nicht unterstützter Wert '%' für die Option '--tls.default-type'"
 
 #: D:\SUMO/src\netbuild\NBFrame.cpp:717
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:717
@@ -3166,39 +3186,50 @@ msgid ""
 "only one of the options 'keep-edges.in-boundary' or 'keep-edges.in-geo-"
 "boundary' may be given"
 msgstr ""
+"nur eine der Optionen 'keep-edges.in-boundary' oder 'keep-edges.in-geo-"
+"boundary' darf gegeben werden"
 
 #: D:\SUMO/src\netbuild\NBFrame.cpp:721
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:721
 msgid ""
 "only one of the options 'no-internal-links' or 'crossings.guess' may be given"
 msgstr ""
+"Nur eine der Optionen 'no-internal-links' oder 'crossings.guess' darf "
+"gegeben werden"
 
 #: D:\SUMO/src\netbuild\NBFrame.cpp:725
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:725
 msgid "only one of the options 'no-internal-links' or 'walkareas' may be given"
 msgstr ""
+"Nur eine der Optionen 'no-internal-links' oder 'walkareas' darf gegeben "
+"werden"
 
 #: D:\SUMO/src\netbuild\NBFrame.cpp:729
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:729
 msgid ""
 "only one of the options 'tls.green.time' or 'tls.cycle.time' may be given"
 msgstr ""
+"nur einer der Optionen 'tls.green.time' oder 'tls.cycle.time' darf gegeben "
+"werden"
 
 #: D:\SUMO/src\netbuild\NBFrame.cpp:733
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:733
+#, fuzzy
 msgid "default.lanenumber must be at least 1"
-msgstr ""
+msgstr "default.lanenumber muss mindestens 1 sein"
 
 #: D:\SUMO/src\netbuild\NBFrame.cpp:741
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:741
 msgid ""
 "only one of the options 'default.disallow' or 'default.allow' may be given"
 msgstr ""
+"nur eine der Optionen 'default.disallow' oder 'default.allow' darf gegeben "
+"sein"
 
 #: D:\SUMO/src\netbuild\NBFrame.cpp:745
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:745
 msgid "junctions.internal-link-detail must >= 2"
-msgstr ""
+msgstr "unctions.internal-link-detail muss >= 2"
 
 #: D:\SUMO/src\netbuild\NBFrame.cpp:750
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:750
@@ -3218,16 +3249,19 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:765
 msgid "tls.layout must be 'opposites', 'incoming' or 'alternateOneWay'"
 msgstr ""
+"LSA-Layout muss entweder 'opposites', 'incoming' oder 'alternateOneWay' sein"
 
 #: D:\SUMO/src\netbuild\NBFrame.cpp:770
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:770
+#, fuzzy
 msgid "default.right-of-way must be one of '%'"
-msgstr ""
+msgstr "default.right-of-way muss einer von '%' sein"
 
 #: D:\SUMO/src\netbuild\NBFrame.cpp:774
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:774
+#, fuzzy
 msgid "roundabouts.visibility-distance must be positive or -1"
-msgstr ""
+msgstr "roundabouts.visibility-distance  muss positiv oder -1 sein"
 
 #: D:\SUMO/src\netbuild\NBFrame.cpp:790
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:790
@@ -3247,7 +3281,7 @@ msgstr ""
 #: D:\SUMO/src\netbuild\NBHeightMapper.cpp:190
 #: /home/micha/programming/sumo/src/netbuild/NBHeightMapper.cpp:190
 msgid "Could not open shape file '%'."
-msgstr ""
+msgstr "Shape-Datei '%' konnte nicht geöffnet werden."
 
 #: D:\SUMO/src\netbuild\NBHeightMapper.cpp:204
 #: /home/micha/programming/sumo/src/netbuild/NBHeightMapper.cpp:204
@@ -3303,18 +3337,19 @@ msgstr ""
 #: D:\SUMO/src\netbuild\NBHelpers.cpp:123
 #: /home/micha/programming/sumo/src/netbuild/NBHelpers.cpp:123
 msgid "Invalid lane id '%' (missing '_')."
-msgstr ""
+msgstr "Ungültige Fahrstreifen ID '%' ('_' fehlt)."
 
 #: D:\SUMO/src\netbuild\NBLoadedSUMOTLDef.cpp:359
 #: /home/micha/programming/sumo/src/netbuild/NBLoadedSUMOTLDef.cpp:359
 #, c-format
 msgid "Could not patch tlLogic '%' for changed crossings"
 msgstr ""
+"LSA-Logik '%' konnte nicht ausgebessert werden für veränderte Fußgängerfurten"
 
 #: D:\SUMO/src\netbuild\NBLoadedSUMOTLDef.cpp:889
 #: /home/micha/programming/sumo/src/netbuild/NBLoadedSUMOTLDef.cpp:889
 msgid "Unused state in tlLogic '%', program '%' at tl-index %"
-msgstr ""
+msgstr "Ungenutzter Stand in LSA-Logik '%', Programm '%' beim LSA-Index %"
 
 #: D:\SUMO/src\netbuild\NBLoadedTLDef.cpp:300
 #: /home/micha/programming/sumo/src/netbuild/NBLoadedTLDef.cpp:300
@@ -3333,8 +3368,9 @@ msgstr ""
 
 #: D:\SUMO/src\netbuild\NBNetBuilder.cpp:93
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:93
+#, fuzzy
 msgid "Finding isolated roads"
-msgstr ""
+msgstr "Finde isolierte Straßen"
 
 #: D:\SUMO/src\netbuild\NBNetBuilder.cpp:98
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:98
@@ -3407,7 +3443,7 @@ msgstr ""
 #: D:\SUMO/src\netbuild\NBNetBuilder.cpp:240
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:240
 msgid "Joining lanes"
-msgstr ""
+msgstr "Vereinige Fahrstreifen"
 
 #: D:\SUMO/src\netbuild\NBNetBuilder.cpp:243
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:243
@@ -3450,12 +3486,12 @@ msgstr ""
 #: D:\SUMO/src\netbuild\NBNetBuilder.cpp:308
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:308
 msgid "Computing turning directions"
-msgstr ""
+msgstr "Berechne Abbiegerichtungen"
 
 #: D:\SUMO/src\netbuild\NBNetBuilder.cpp:317
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:317
 msgid "Assigning nodes to traffic lights"
-msgstr ""
+msgstr "Zuweisung von Knoten zu LSAs"
 
 #: D:\SUMO/src\netbuild\NBNetBuilder.cpp:340
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:340
@@ -3465,79 +3501,80 @@ msgstr ""
 #: D:\SUMO/src\netbuild\NBNetBuilder.cpp:356
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:356
 msgid "Guessed % bike lanes."
-msgstr ""
+msgstr "% Fahrrad-Fahrstreifen geschätzt."
 
 #: D:\SUMO/src\netbuild\NBNetBuilder.cpp:367
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:367
 #, c-format
 msgid "Guessed % sidewalks."
-msgstr ""
+msgstr "% Seitenwege geschätzt."
 
 #: D:\SUMO/src\netbuild\NBNetBuilder.cpp:392
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:392
 msgid "Sorting nodes' edges"
-msgstr ""
+msgstr "Sortiere Knoten-Kanten"
 
 #: D:\SUMO/src\netbuild\NBNetBuilder.cpp:397
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:397
 msgid "Computing node shapes"
-msgstr ""
+msgstr "Berechne Knoten-Shapes"
 
 #: D:\SUMO/src\netbuild\NBNetBuilder.cpp:405
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:405
 msgid "Computing edge shapes"
-msgstr ""
+msgstr "Berechne Kanten-Shapes"
 
 #: D:\SUMO/src\netbuild\NBNetBuilder.cpp:418
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:418
 msgid "Applying speed modifications"
-msgstr ""
+msgstr "Anwendung von Geschwindigkeitsmodifikationen"
 
 #: D:\SUMO/src\netbuild\NBNetBuilder.cpp:431
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:431
 msgid "Computing node types"
-msgstr ""
+msgstr "Berechne Knotentypen"
 
 #: D:\SUMO/src\netbuild\NBNetBuilder.cpp:442
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:442
 #, c-format
 msgid "Guessed % pedestrian crossings."
-msgstr ""
+msgstr "% Fußgängerfurten geschätzt."
 
 #: D:\SUMO/src\netbuild\NBNetBuilder.cpp:470
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:470
 msgid "Computing priorities"
-msgstr ""
+msgstr "Berechne Vorränge"
 
 #: D:\SUMO/src\netbuild\NBNetBuilder.cpp:474
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:474
 msgid "Computing approached edges"
-msgstr ""
+msgstr "Berechne angefahrene Kanten"
 
 #: D:\SUMO/src\netbuild\NBNetBuilder.cpp:479
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:479
 msgid "Guessing and setting roundabouts"
-msgstr ""
+msgstr "Schätze und setze Kreisverkehre"
 
 #: D:\SUMO/src\netbuild\NBNetBuilder.cpp:482
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:482
 msgid " Guessed % roundabout(s)."
-msgstr ""
+msgstr " % Kreisverkehr(e) geschätzt."
 
 #: D:\SUMO/src\netbuild\NBNetBuilder.cpp:488
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:488
 msgid "Computing approaching lanes"
-msgstr ""
+msgstr "Berechne Annäherungs-Fahrstreifen"
 
 #: D:\SUMO/src\netbuild\NBNetBuilder.cpp:492
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:492
 msgid "Dividing of lanes on approached lanes"
-msgstr ""
+msgstr "Aufteilung der Fahrstreifen auf annähernden Fahrstreifen"
 
 #: D:\SUMO/src\netbuild\NBNetBuilder.cpp:498
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:498
+#, fuzzy
 msgid "Guessing Network fringe"
-msgstr ""
+msgstr "Netzrand erraten"
 
 #: D:\SUMO/src\netbuild\NBNetBuilder.cpp:501
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:501
@@ -3548,57 +3585,58 @@ msgstr ""
 #: D:\SUMO/src\netbuild\NBNetBuilder.cpp:506
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:506
 msgid "Processing turnarounds"
-msgstr ""
+msgstr "Bearbeitung von Kehrtwenden"
 
 #: D:\SUMO/src\netbuild\NBNetBuilder.cpp:524
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:524
 msgid "Rechecking of lane endings"
-msgstr ""
+msgstr "Nachkontrolle der Fahrstreifenenden"
 
 #: D:\SUMO/src\netbuild\NBNetBuilder.cpp:546
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:546
 msgid "Joining traffic light nodes"
-msgstr ""
+msgstr "Vereinige LSA-Knoten"
 
 #: D:\SUMO/src\netbuild\NBNetBuilder.cpp:553
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:553
 msgid "Computing traffic light control information"
-msgstr ""
+msgstr "Berechnung von LSA Kontrollinformation"
 
 #: D:\SUMO/src\netbuild\NBNetBuilder.cpp:560
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:560
 msgid "Computing node logics"
-msgstr ""
+msgstr "Berechne Knotenlogiken"
 
 #: D:\SUMO/src\netbuild\NBNetBuilder.cpp:565
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:565
 msgid "Computing traffic light logics"
-msgstr ""
+msgstr "Berechne LSA-Logiken"
 
 #: D:\SUMO/src\netbuild\NBNetBuilder.cpp:580
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:580
 msgid "Building inner edges"
-msgstr ""
+msgstr "Erstelle interne Kanten"
 
 #: D:\SUMO/src\netbuild\NBNetBuilder.cpp:593
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:593
 msgid "stretching junctions to smooth geometries"
-msgstr ""
+msgstr "Strecken von Knotenpunkten zu glatten Geometrien"
 
 #: D:\SUMO/src\netbuild\NBNetBuilder.cpp:622
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:617
 msgid "Generating street signs"
-msgstr ""
+msgstr "Generiere Straßenzeichen"
 
 #: D:\SUMO/src\netbuild\NBNetBuilder.cpp:633
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:628
+#, fuzzy
 msgid "Checking overlapping edges"
-msgstr ""
+msgstr "Überprüfe überlappende Kanten"
 
 #: D:\SUMO/src\netbuild\NBNetBuilder.cpp:638
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:633
 msgid "Checking edge grade"
-msgstr ""
+msgstr "Prüfe Kantengrad"
 
 #: D:\SUMO/src\netbuild\NBNetBuilder.cpp:653
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:648
@@ -3616,46 +3654,52 @@ msgstr ""
 #: D:\SUMO/src\netbuild\NBNetBuilder.cpp:683
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:678
 msgid "Moving network to origin"
-msgstr ""
+msgstr "Verschiebe Netz zum Ursprung"
 
 #: D:\SUMO/src\netbuild\NBNode.cpp:299 D:\SUMO/src\netbuild\NBNode.cpp:321
 #: /home/micha/programming/sumo/src/netbuild/NBNode.cpp:299
 #: /home/micha/programming/sumo/src/netbuild/NBNode.cpp:321
 msgid "Invalid node id '%'."
-msgstr ""
+msgstr "Ungültige Knoten-ID '%'."
 
 #: D:\SUMO/src\netbuild\NBNode.cpp:465
 #: /home/micha/programming/sumo/src/netbuild/NBNode.cpp:465
+#, fuzzy
 msgid " Removing self-looping edge '%'"
-msgstr ""
+msgstr " Entferne selbstschleifende Kante '%'."
 
 #: D:\SUMO/src\netbuild\NBNode.cpp:744
 #: /home/micha/programming/sumo/src/netbuild/NBNode.cpp:744
 msgid "Could not compute indirect left turn shape at node '%'"
 msgstr ""
+"Shape der indirekten Linkskurve am Knoten '%' konnte nicht berechnet werden"
 
 #: D:\SUMO/src\netbuild\NBNode.cpp:760
 #: /home/micha/programming/sumo/src/netbuild/NBNode.cpp:760
 #, c-format
 msgid "Connection '%' starts at a non-existant lane."
-msgstr ""
+msgstr "Verbindung '%' startet an einen nicht existierenden Fahrstreifen."
 
 #: D:\SUMO/src\netbuild\NBNode.cpp:763
 #: /home/micha/programming/sumo/src/netbuild/NBNode.cpp:763
 #, c-format
 msgid "Connection '%' targets a non-existant lane."
-msgstr ""
+msgstr "Verbindung '%' zielt einen nicht existierenden Fahrstreifen an."
 
 #: D:\SUMO/src\netbuild\NBNode.cpp:777 D:\SUMO/src\netbuild\NBNode.cpp:795
 #: /home/micha/programming/sumo/src/netbuild/NBNode.cpp:777
 #: /home/micha/programming/sumo/src/netbuild/NBNode.cpp:795
 msgid "Could not use custom shape for connection %."
 msgstr ""
+"Benutzerdefinierte Shape konnte nicht für die Verbindung % genutzt werden."
 
 #: D:\SUMO/src\netbuild\NBNode.cpp:786
 #: /home/micha/programming/sumo/src/netbuild/NBNode.cpp:786
+#, fuzzy
 msgid "Custom shape has distance % to incoming lane for connection %."
 msgstr ""
+"Benutzerdefinierte Shape hat eine Distanz % zum ankommenden Fahrstreifen für "
+"die Verbindung %."
 
 #: D:\SUMO/src\netbuild\NBNode.cpp:803
 #: /home/micha/programming/sumo/src/netbuild/NBNode.cpp:803
@@ -3673,11 +3717,12 @@ msgstr ""
 #, c-format
 msgid "Shape for junction '%' has distance % to its given position."
 msgstr ""
+"Shape vom Knotenpunkt '%' hat die Distanz % zu seiner gegebenen Position."
 
 #: D:\SUMO/src\netbuild\NBNode.cpp:1148
 #: /home/micha/programming/sumo/src/netbuild/NBNode.cpp:1148
 msgid "For junction '%': could not compute shape."
-msgstr ""
+msgstr "Für Knotenpunkt '%': Shape konnte nicht berechnet werden."
 
 #: D:\SUMO/src\netbuild\NBNode.cpp:1849
 #: /home/micha/programming/sumo/src/netbuild/NBNode.cpp:1849
@@ -3734,26 +3779,28 @@ msgstr ""
 #: D:\SUMO/src\netbuild\NBNode.cpp:3682
 #: /home/micha/programming/sumo/src/netbuild/NBNode.cpp:3682
 msgid "Request for unknown crossing '%'"
-msgstr ""
+msgstr "Anfrage nach einer unbekannten Fußgängerfurt '%'"
 
 #: D:\SUMO/src\netbuild\NBNode.cpp:3698 D:\SUMO/src\netbuild\NBNode.cpp:3709
 #: /home/micha/programming/sumo/src/netbuild/NBNode.cpp:3698
 #: /home/micha/programming/sumo/src/netbuild/NBNode.cpp:3709
 msgid "Request for unknown crossing for the given Edges"
-msgstr ""
+msgstr "Anfrage nach einer unbekannten Fußgängerfurt für die gegebenen Kanten"
 
 #: D:\SUMO/src\netbuild\NBNodeCont.cpp:319
 #: /home/micha/programming/sumo/src/netbuild/NBNodeCont.cpp:319
 msgid "Removed a road without junctions: %."
-msgstr ""
+msgstr "Straße ohne Knotenpunkte wurde entfernt: %."
 
 #: D:\SUMO/src\netbuild\NBNodeCont.cpp:658
 #: /home/micha/programming/sumo/src/netbuild/NBNodeCont.cpp:658
-#, c-format
+#, c-format, fuzzy
 msgid ""
 "Ignoring join exclusion for junction '%' since it already occurred in a list "
 "of nodes to be joined."
 msgstr ""
+"Ignoriere vereinigungs-Ausschluss für den Knotenpunkt '%', da er bereits in "
+"einer Liste von vereinigten Knoten ist."
 
 #: D:\SUMO/src\netbuild\NBNodeCont.cpp:691
 #: /home/micha/programming/sumo/src/netbuild/NBNodeCont.cpp:691
@@ -3861,7 +3908,7 @@ msgstr ""
 #: D:\SUMO/src\netbuild\NBNodeCont.cpp:2522
 #: /home/micha/programming/sumo/src/netbuild/NBNodeCont.cpp:2522
 msgid " Network boundaries:"
-msgstr ""
+msgstr " Netz-Grenzen:"
 
 #: D:\SUMO/src\netbuild\NBNodeCont.cpp:2555
 #: /home/micha/programming/sumo/src/netbuild/NBNodeCont.cpp:2555
@@ -4174,24 +4221,24 @@ msgstr "Eine mikroskopische, multimodale Verkehrssimulation."
 #: D:\SUMO/src\netgen\netgen_main.cpp:265
 #: /home/micha/programming/sumo/src/netgen/netgen_main.cpp:265
 msgid " Generation done;"
-msgstr ""
+msgstr " Generierung fertig;"
 
 #: D:\SUMO/src\netgen\netgen_main.cpp:266
 #: /home/micha/programming/sumo/src/netgen/netgen_main.cpp:266
 #, c-format
 msgid "   % nodes generated."
-msgstr ""
+msgstr "   % Knoten generiert."
 
 #: D:\SUMO/src\netgen\netgen_main.cpp:267
 #: /home/micha/programming/sumo/src/netgen/netgen_main.cpp:267
 #, c-format
 msgid "   % edges generated."
-msgstr ""
+msgstr "   % Kanten generiert."
 
 #: D:\SUMO/src\netgen\netgen_main.cpp:272
 #: /home/micha/programming/sumo/src/netgen/netgen_main.cpp:272
 msgid " Removed % traffic lights at geometry-like nodes"
-msgstr ""
+msgstr " % LSAs am geometrieähnlichen Knoten entfernt"
 
 #: D:\SUMO/src\netimport\NIFrame.cpp:391
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:391
@@ -4206,44 +4253,48 @@ msgstr ""
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:314
 msgid "Environment variable SUMO_HOME is not set, using built in type maps."
 msgstr ""
+"Umgebungsvariable SUMO_HOME ist nicht gesetzt, nutze eingebaute Typkarten."
 
 #: D:\SUMO/src\netimport\NIFrame.cpp:449
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:449
 msgid "It is recommend to use option osm.crossings with osm.sidewalks"
 msgstr ""
+"Es wird empfohlen die Option osm.crossings mit osm.sidewalks zu verwenden"
 
 #: D:\SUMO/src\netimport\NIImporter_ArcView.cpp:138
 #: D:\SUMO/src\polyconvert\PCLoaderArcView.cpp:139
 #: /home/micha/programming/sumo/src/netimport/NIImporter_ArcView.cpp:138
 #: /home/micha/programming/sumo/src/polyconvert/PCLoaderArcView.cpp:139
 msgid "Could not open shape description '%'."
-msgstr ""
+msgstr "Shape-Beschreibung '%' konnte nicht geöffnet werden."
 
 #: D:\SUMO/src\netimport\NIImporter_ArcView.cpp:187
 #: /home/micha/programming/sumo/src/netimport/NIImporter_ArcView.cpp:187
 msgid "Needed field '%' (street-id) is missing."
-msgstr ""
+msgstr "Benötigtes Feld '%' (Straßen-ID) fehlt."
 
 #: D:\SUMO/src\netimport\NIImporter_ArcView.cpp:198
 #: /home/micha/programming/sumo/src/netimport/NIImporter_ArcView.cpp:198
 msgid "Needed field '%' (from node id) is missing."
-msgstr ""
+msgstr "Benötigtes Feld '%' (Ausgangsknoten ID) fehlt."
 
 #: D:\SUMO/src\netimport\NIImporter_ArcView.cpp:202
 #: /home/micha/programming/sumo/src/netimport/NIImporter_ArcView.cpp:202
 msgid "Needed field '%' (to node id) is missing."
-msgstr ""
+msgstr "Benötigtes Feld '%' (Endkanten ID) fehlt."
 
 #: D:\SUMO/src\netimport\NIImporter_ArcView.cpp:218
 #: /home/micha/programming/sumo/src/netimport/NIImporter_ArcView.cpp:218
 msgid "Unknown type '%' for edge '%'"
-msgstr ""
+msgstr "Unbekannter Typ '%' für Kante '%'"
 
 #: D:\SUMO/src\netimport\NIImporter_ArcView.cpp:248
 #: /home/micha/programming/sumo/src/netimport/NIImporter_ArcView.cpp:248
 msgid ""
 "Road geometry must be of type 'linestring' or 'linestring25D' (found '%')"
 msgstr ""
+"Straßengeometrie muss vom Typ her 'linestring' oder 'linestring25D' sein ("
+"gefunden '%')"
 
 #: D:\SUMO/src\netimport\NIImporter_ArcView.cpp:260
 #: D:\SUMO/src\polyconvert\PCLoaderArcView.cpp:90
@@ -4251,13 +4302,15 @@ msgstr ""
 #: /home/micha/programming/sumo/src/polyconvert/PCLoaderArcView.cpp:90
 msgid "No coordinate system found and coordinates look already projected."
 msgstr ""
+"Kein Koordinatensystem gefunden und die Koordinaten sehen bereits projiziert "
+"aus."
 
 #: D:\SUMO/src\netimport\NIImporter_ArcView.cpp:263
 #: D:\SUMO/src\polyconvert\PCLoaderArcView.cpp:93
 #: /home/micha/programming/sumo/src/netimport/NIImporter_ArcView.cpp:263
 #: /home/micha/programming/sumo/src/polyconvert/PCLoaderArcView.cpp:93
 msgid "Could not find geo coordinate system, assuming WGS84."
-msgstr ""
+msgstr "Kein Geo-Koordinatensystem gefunden, nehme WGS84 an."
 
 #: D:\SUMO/src\netimport\NIImporter_ArcView.cpp:276
 #: D:\SUMO/src\netimport\NIImporter_OpenDrive.cpp:1482
@@ -4268,7 +4321,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netimport/NIXMLEdgesHandler.cpp:585
 #: /home/micha/programming/sumo/src/polyconvert/PCLoaderVisum.cpp:171
 msgid "Unable to project coordinates for edge '%'."
-msgstr ""
+msgstr "Koordinaten für die Kante '%' können nicht projiziert werden."
 
 #: D:\SUMO/src\netimport\NIImporter_ArcView.cpp:289
 #: D:\SUMO/src\netimport\NIImporter_ArcView.cpp:303
@@ -4276,46 +4329,50 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netimport/NIImporter_ArcView.cpp:303
 #, c-format
 msgid "Node '%' could not be added"
-msgstr ""
+msgstr "Knoten '%' konnte nicht hinzugefügt werden"
 
 #: D:\SUMO/src\netimport\NIImporter_ArcView.cpp:311
 #: /home/micha/programming/sumo/src/netimport/NIImporter_ArcView.cpp:311
 #, c-format
 msgid "Edge '%' connects identical nodes, skipping."
-msgstr ""
+msgstr "Kante '%' verbindet identische Knoten, überspringe."
 
 #: D:\SUMO/src\netimport\NIImporter_ArcView.cpp:328
 #: /home/micha/programming/sumo/src/netimport/NIImporter_ArcView.cpp:328
 #, c-format
 msgid "Edge '% is not unique."
-msgstr ""
+msgstr "Kante '%' ist nicht einzigartig."
 
 #: D:\SUMO/src\netimport\NIImporter_ArcView.cpp:337
 #: /home/micha/programming/sumo/src/netimport/NIImporter_ArcView.cpp:337
 msgid "Edge '%' is not unique. Renaming subsequent edge to '%'."
-msgstr ""
+msgstr "Kante '%' ist nicht einzigartig. Umbenennung der Kante zu '%'."
 
 #: D:\SUMO/src\netimport\NIImporter_ArcView.cpp:352
 #: /home/micha/programming/sumo/src/netimport/NIImporter_ArcView.cpp:352
 msgid "Could not create edge '%'. An edge with the same id already exists."
 msgstr ""
+"Kante '%' konnte nicht erstellt werden. Ein Kante mit der gleichen ID "
+"existiert bereits."
 
 #: D:\SUMO/src\netimport\NIImporter_ArcView.cpp:365
 #: /home/micha/programming/sumo/src/netimport/NIImporter_ArcView.cpp:365
 msgid "Could not create edge '-%'. An edge with the same id already exists."
 msgstr ""
+"Kante '-%' konnte nicht erstellt werden. Ein Kante mit der gleichen ID "
+"existiert bereits."
 
 #: D:\SUMO/src\netimport\NIImporter_ArcView.cpp:379
 #: D:\SUMO/src\polyconvert\PCLoaderArcView.cpp:331
 #: /home/micha/programming/sumo/src/netimport/NIImporter_ArcView.cpp:379
 #: /home/micha/programming/sumo/src/polyconvert/PCLoaderArcView.cpp:331
 msgid "SUMO was compiled without GDAL support."
-msgstr ""
+msgstr "SUMO wurde ohne GDAL Unterstützung kompiliert."
 
 #: D:\SUMO/src\netimport\NIImporter_DlrNavteq.cpp:76
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:76
 msgid "Loading nodes"
-msgstr ""
+msgstr "Lade Knoten"
 
 #: D:\SUMO/src\netimport\NIImporter_DlrNavteq.cpp:80
 #: D:\SUMO/src\netimport\NIImporter_DlrNavteq.cpp:105
@@ -4323,69 +4380,70 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:105
 #, c-format
 msgid "The file '%' could not be opened."
-msgstr ""
+msgstr "Die Datei '%' konnte nicht geöffnet werden."
 
 #: D:\SUMO/src\netimport\NIImporter_DlrNavteq.cpp:90
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:90
 msgid "Loading street names"
-msgstr ""
+msgstr "Lade Straßennamen"
 
 #: D:\SUMO/src\netimport\NIImporter_DlrNavteq.cpp:95
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:95
 msgid "Output will not contain street names because the file '%' was not found"
 msgstr ""
+"Die Ausgabe enthält keine Straßennamen, da die Datei '%' nicht gefunden wurde"
 
 #: D:\SUMO/src\netimport\NIImporter_DlrNavteq.cpp:100
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:100
 msgid "Loading edges"
-msgstr ""
+msgstr "Lade Kanten"
 
 #: D:\SUMO/src\netimport\NIImporter_DlrNavteq.cpp:114
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:114
 msgid "Loading traffic lights"
-msgstr ""
+msgstr "Lade LSAs"
 
 #: D:\SUMO/src\netimport\NIImporter_DlrNavteq.cpp:123
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:123
 msgid "Loading prohibited manoeuvres"
-msgstr ""
+msgstr "Lade verbotene Manöver"
 
 #: D:\SUMO/src\netimport\NIImporter_DlrNavteq.cpp:132
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:132
 msgid "Loading connected lanes"
-msgstr ""
+msgstr "Lade Verbindungsfahrstreifen"
 
 #: D:\SUMO/src\netimport\NIImporter_DlrNavteq.cpp:141
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:141
 msgid "Loading time restrictions"
-msgstr ""
+msgstr "Lade Zeitrestriktionen"
 
 #: D:\SUMO/src\netimport\NIImporter_DlrNavteq.cpp:210
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:210
 msgid "Non-numerical value for intermediate status in node %."
-msgstr ""
+msgstr "Nicht nummerischer Wert für den Zwischenstand in Knoten %."
 
 #: D:\SUMO/src\netimport\NIImporter_DlrNavteq.cpp:215
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:215
 msgid "Non-numerical value for number of geometries in node %."
-msgstr ""
+msgstr "Kein nummerischer Wert für die Geometrien in Knoten %."
 
 #: D:\SUMO/src\netimport\NIImporter_DlrNavteq.cpp:222
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:222
 msgid "Non-numerical value for x-position in node %."
-msgstr ""
+msgstr "Kein nummerischer Wert für die x-Position in Knoten %."
 
 #: D:\SUMO/src\netimport\NIImporter_DlrNavteq.cpp:226
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:226
 msgid "Non-numerical value for y-position in node %."
-msgstr ""
+msgstr "Kein nummerischer Wert für die y-Position in Knoten %."
 
 #: D:\SUMO/src\netimport\NIImporter_DlrNavteq.cpp:230
 #: D:\SUMO/src\netimport\NIImporter_VISUM.cpp:321
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:230
 #: /home/micha/programming/sumo/src/netimport/NIImporter_VISUM.cpp:321
 msgid "Unable to project coordinates for node %."
-msgstr ""
+msgstr "Koordinaten für den Knoten % können nicht projiziert werden."
 
 #: D:\SUMO/src\netimport\NIImporter_DlrNavteq.cpp:240
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:240
@@ -4403,37 +4461,37 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenDrive.cpp:468
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenDrive.cpp:1344
 msgid "Could not add node '%'."
-msgstr ""
+msgstr "Knoten '%' konnte nicht hinzugefügt werden."
 
 #: D:\SUMO/src\netimport\NIImporter_DlrNavteq.cpp:299
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:299
 msgid "Missing version string in file '%'."
-msgstr ""
+msgstr "Fehlender Versions-String in der Datei '%'."
 
 #: D:\SUMO/src\netimport\NIImporter_DlrNavteq.cpp:309
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:309
 msgid "Non-numerical value for form_of_way of link '%'."
-msgstr ""
+msgstr "Nicht nummerischer Wert für form_of_way vom Link '%'."
 
 #: D:\SUMO/src\netimport\NIImporter_DlrNavteq.cpp:316
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:316
 msgid "Non-numerical value for brunnel_type of link '%'."
-msgstr ""
+msgstr "Nicht nummerischer Wert für brunnel_type vom Link '%'."
 
 #: D:\SUMO/src\netimport\NIImporter_DlrNavteq.cpp:329
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:329
 msgid "Non-numerical value for street_type of link '%')."
-msgstr ""
+msgstr "Nicht nummerischer Wert für street_type vom Link '%'."
 
 #: D:\SUMO/src\netimport\NIImporter_DlrNavteq.cpp:351
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:351
 msgid "Non-numerical value for the SPEED_RESTRICTION of link '%'."
-msgstr ""
+msgstr "Nicht nummerischer Wert für die SPEED_RESTRICTION vom Link '%'."
 
 #: D:\SUMO/src\netimport\NIImporter_DlrNavteq.cpp:366
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:366
 msgid "Non-numerical value for the number of lanes of link '%'."
-msgstr ""
+msgstr "Nicht nummerischer Wert für die Anzahl von Fahrstreifen vom Link '%'."
 
 #: D:\SUMO/src\netimport\NIImporter_DlrNavteq.cpp:420
 #: D:\SUMO/src\netimport\NIImporter_OpenDrive.cpp:532
@@ -4444,73 +4502,77 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenDrive.cpp:590
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:748
 msgid "Could not add edge '%'."
-msgstr ""
+msgstr "Kante '%' konnte nicht hinzugefügt werden."
 
 #: D:\SUMO/src\netimport\NIImporter_DlrNavteq.cpp:431
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:431
 msgid "Missing column %."
-msgstr ""
+msgstr "Fehlende Spalte %."
 
 #: D:\SUMO/src\netimport\NIImporter_DlrNavteq.cpp:442
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:442
 msgid "Missing optional column % without default value."
-msgstr ""
+msgstr "Fehlende optionale Spalte % ohne Standardwert."
 
 #: D:\SUMO/src\netimport\NIImporter_DlrNavteq.cpp:499
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:499
 #, c-format
 msgid "The traffic light edge '%' could not be found."
-msgstr ""
+msgstr "Die LSA-Kante '%' konnte nicht gefunden werden."
 
 #: D:\SUMO/src\netimport\NIImporter_DlrNavteq.cpp:511
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:511
 msgid "Could not allocate tls for '%'."
-msgstr ""
+msgstr "LSA konnte nicht zu '%' zugewiesen werden."
 
 #: D:\SUMO/src\netimport\NIImporter_DlrNavteq.cpp:702
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:702
 msgid "Could not parse YYYY-MM-DD date '%'"
-msgstr ""
+msgstr "YYYY-MM-DD Datum '%' konnte nicht eingelesen werden"
 
 #: D:\SUMO/src\netimport\NIImporter_DlrNavteq.cpp:747
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:747
 msgid "Ignoring temporary prohibited manoeuvre (%)."
-msgstr ""
+msgstr "Ignoriere zeitliches Verbotsmanöver (%)."
 
 #: D:\SUMO/src\netimport\NIImporter_DlrNavteq.cpp:756
 #: D:\SUMO/src\netimport\NIImporter_DlrNavteq.cpp:801
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:756
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:801
 msgid "Ignoring prohibition from unknown start edge '%'."
-msgstr ""
+msgstr "Ignoriere Verbot von unbekannter Startkante '%'."
 
 #: D:\SUMO/src\netimport\NIImporter_DlrNavteq.cpp:761
 #: D:\SUMO/src\netimport\NIImporter_DlrNavteq.cpp:806
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:761
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:806
 msgid "Ignoring prohibition from unknown end edge '%'."
-msgstr ""
+msgstr "Ignoriere Verbot von unbekannter Endkante '%'."
 
 #: D:\SUMO/src\netimport\NIImporter_DlrNavteq.cpp:811
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:811
 msgid ""
 "Ignoring invalid lane index '%' in connection from edge '%' with % lanes."
 msgstr ""
+"Ignoriere ungültigen Fahrstreifenindex '%' in der Verbindung von Kante '%' "
+"mit % Fahrstreifen."
 
 #: D:\SUMO/src\netimport\NIImporter_DlrNavteq.cpp:816
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:816
 msgid "Ignoring invalid lane index '%' in connection to edge '%' with % lanes"
 msgstr ""
+"Ignoriere ungültigen Fahrstreifenindex '%' in der Verbindung Endkante '%' "
+"mit % Fahrstreifen"
 
 #: D:\SUMO/src\netimport\NIImporter_DlrNavteq.cpp:821
 #: /home/micha/programming/sumo/src/netimport/NIImporter_DlrNavteq.cpp:821
 msgid "Could not set loaded connection from '%' to '%'."
-msgstr ""
+msgstr "Geladene Verbindungen von '%' zu '%' konnten nicht angewendet werden."
 
 #: D:\SUMO/src\netimport\NIImporter_ITSUMO.cpp:117
 #: /home/micha/programming/sumo/src/netimport/NIImporter_ITSUMO.cpp:117
 msgid "Could not open itsumo-file '%'."
-msgstr ""
+msgstr "Itsumo-Datei '%' konnte nicht geöffnet werden."
 
 #: D:\SUMO/src\netimport\NIImporter_ITSUMO.cpp:217
 #: D:\SUMO/src\netimport\NIImporter_MATSim.cpp:180
@@ -4518,6 +4580,8 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netimport/NIImporter_MATSim.cpp:180
 msgid "Could not add edge '%'. Probably declared twice."
 msgstr ""
+"Kante '%' konnte nicht hinzugefügt werden. Wahrscheinlich wurde sie zweimal "
+"deklariert."
 
 #: D:\SUMO/src\netimport\NIImporter_ITSUMO.cpp:232
 #: D:\SUMO/src\netimport\NIImporter_MATSim.cpp:142
@@ -4528,7 +4592,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netimport/NIImporter_VISUM.cpp:703
 #: /home/micha/programming/sumo/src/netimport/NIXMLNodesHandler.cpp:145
 msgid "Unable to project coordinates for node '%'."
-msgstr ""
+msgstr "Koordinaten für den Knoten '%' können nicht projiziert werden."
 
 #: D:\SUMO/src\netimport\NIImporter_ITSUMO.cpp:237
 #: D:\SUMO/src\netimport\NIImporter_MATSim.cpp:147
@@ -4536,122 +4600,127 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netimport/NIImporter_MATSim.cpp:147
 msgid "Could not add node '%'. Probably declared twice."
 msgstr ""
+"Knoten '%' konnte nicht hinzugefügt werden. Wahrscheinlich wurde er zweimal "
+"deklariert."
 
 #: D:\SUMO/src\netimport\NIImporter_ITSUMO.cpp:240
 #: /home/micha/programming/sumo/src/netimport/NIImporter_ITSUMO.cpp:240
 msgid "Not numeric position information for node '%'."
-msgstr ""
+msgstr "Keine nummerische Positionsinformation für Knoten '%'."
 
 #: D:\SUMO/src\netimport\NIImporter_ITSUMO.cpp:242
 #: /home/micha/programming/sumo/src/netimport/NIImporter_ITSUMO.cpp:242
 msgid "Missing data in node '%'."
-msgstr ""
+msgstr "Fehlen Daten im Knoten '%'."
 
 #: D:\SUMO/src\netimport\NIImporter_ITSUMO.cpp:260
 #: /home/micha/programming/sumo/src/netimport/NIImporter_ITSUMO.cpp:260
 msgid "Missing node in laneset '%'."
-msgstr ""
+msgstr "Fehlender Knoten im Fahrstreifensatz '%'."
 
 #: D:\SUMO/src\netimport\NIImporter_ITSUMO.cpp:263
 #: /home/micha/programming/sumo/src/netimport/NIImporter_ITSUMO.cpp:263
 msgid "Fond laneset-id '%' twice."
-msgstr ""
+msgstr "Fahrstreifensatz-ID '%' zweimal gefunden."
 
 #: D:\SUMO/src\netimport\NIImporter_ITSUMO.cpp:277
 #: /home/micha/programming/sumo/src/netimport/NIImporter_ITSUMO.cpp:277
 msgid "Not numeric value in laneset '%'."
-msgstr ""
+msgstr "Kein nummerischer Wert im Fahrstreifensatz '%'."
 
 #: D:\SUMO/src\netimport\NIImporter_ITSUMO.cpp:279
 #: /home/micha/programming/sumo/src/netimport/NIImporter_ITSUMO.cpp:279
 msgid "Missing data in laneset '%'."
-msgstr ""
+msgstr "Fehlende Daten im Fahrstreifensatz '%'."
 
 #: D:\SUMO/src\netimport\NIImporter_ITSUMO.cpp:290
 #: /home/micha/programming/sumo/src/netimport/NIImporter_ITSUMO.cpp:290
 msgid "Not numeric value in lane '%'."
-msgstr ""
+msgstr "Kein nummerischer Wert in Fahrstreifen '%'."
 
 #: D:\SUMO/src\netimport\NIImporter_ITSUMO.cpp:292
 #: /home/micha/programming/sumo/src/netimport/NIImporter_ITSUMO.cpp:292
 msgid "Missing data in lane '%'."
-msgstr ""
+msgstr "Fehlende Daten im Fahrstreifen '%'."
 
 #: D:\SUMO/src\netimport\NIImporter_MATSim.cpp:202
 #: /home/micha/programming/sumo/src/netimport/NIImporter_MATSim.cpp:202
+#, fuzzy
 msgid "Bogus capacity period format; requires 'hh:mm:ss'."
-msgstr ""
+msgstr "Falsches Kapazitätenzeitformat; benötige 'hh:mm:ss'."
 
 #: D:\SUMO/src\netimport\NIImporter_MATSim.cpp:234
 #: /home/micha/programming/sumo/src/netimport/NIImporter_MATSim.cpp:234
 msgid "Could not find from-node for edge '%'."
-msgstr ""
+msgstr "Kein Ausgangsknoten für die Kante '%' gefunden."
 
 #: D:\SUMO/src\netimport\NIImporter_MATSim.cpp:237
 #: /home/micha/programming/sumo/src/netimport/NIImporter_MATSim.cpp:237
 msgid "Could not find to-node for edge '%'."
-msgstr ""
+msgstr "Kein Endknoten für die Kante '%' gefunden."
 
 #: D:\SUMO/src\netimport\NIImporter_MATSim.cpp:253
 #: /home/micha/programming/sumo/src/netimport/NIImporter_MATSim.cpp:253
 msgid "Could not add intermediate node to split loop edge '%'."
 msgstr ""
+"Es konnte kein Zwischenknoten zur geteilten Schleifenkante '%' hinzugefügt "
+"werden."
 
 #: D:\SUMO/src\netimport\NIImporter_OpenDrive.cpp:205
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenDrive.cpp:205
 msgid "Could not find signal reference '%'."
-msgstr ""
+msgstr "Signalreferenz '%' konnte nicht gefunden werden."
 
 #: D:\SUMO/src\netimport\NIImporter_OpenDrive.cpp:268
 #: D:\SUMO/src\netimport\NIImporter_OpenDrive.cpp:306
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenDrive.cpp:268
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenDrive.cpp:306
 msgid "Could not build node '%'."
-msgstr ""
+msgstr "Knoten '%' konnte nicht erstellt werden."
 
 #: D:\SUMO/src\netimport\NIImporter_OpenDrive.cpp:405
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenDrive.cpp:405
 msgid "Ignoring road '%' without geometry."
-msgstr ""
+msgstr "Ignoriere Straße '%' ohne Geometrie."
 
 #: D:\SUMO/src\netimport\NIImporter_OpenDrive.cpp:429
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenDrive.cpp:429
 msgid "Could not apply laneOffsets for edge '%'"
-msgstr ""
+msgstr "Fahrstreifenversatze für die Kante '%' konnten nicht angewendet werden"
 
 #: D:\SUMO/src\netimport\NIImporter_OpenDrive.cpp:662
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenDrive.cpp:662
 #, c-format
 msgid "Edge '%' has no lanes."
-msgstr ""
+msgstr "Kante '%' hat keine Fahrstreifen."
 
 #: D:\SUMO/src\netimport\NIImporter_OpenDrive.cpp:698
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenDrive.cpp:698
 #, c-format
 msgid "While setting connections: from-edge '%' is not known."
-msgstr ""
+msgstr "Beim Setzten von Verbindungen: Ausgangskante '%' ist nicht bekannt."
 
 #: D:\SUMO/src\netimport\NIImporter_OpenDrive.cpp:708
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenDrive.cpp:708
 #, c-format
 msgid "While setting connections: to-edge '%' is not known."
-msgstr ""
+msgstr "Beim Setzten von Verbindungen: Endkante '%' ist nicht bekannt."
 
 #: D:\SUMO/src\netimport\NIImporter_OpenDrive.cpp:786
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenDrive.cpp:786
 #, c-format
 msgid "Edge '%' has signals but no lane sections."
-msgstr ""
+msgstr "Kante '%' hat Signale aber keine Fahrstreifen-Abschnitte."
 
 #: D:\SUMO/src\netimport\NIImporter_OpenDrive.cpp:808
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenDrive.cpp:808
 msgid "Ambiguous start of connection."
-msgstr ""
+msgstr "Mehrdeutiger Verbindungsbeginn."
 
 #: D:\SUMO/src\netimport\NIImporter_OpenDrive.cpp:825
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenDrive.cpp:825
 msgid "Ambiguous end of connection."
-msgstr ""
+msgstr "Mehrdeutiges Verbindungsende."
 
 #: D:\SUMO/src\netimport\NIImporter_OpenDrive.cpp:838
 #: D:\SUMO/src\netimport\NIImporter_OpenDrive.cpp:853
@@ -4660,12 +4729,13 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenDrive.cpp:853
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenDrive.cpp:886
 msgid "Could not find edge '%' for signal '%'."
-msgstr ""
+msgstr "Kante '%' konnte nicht gefunden werden für das Signal '%'."
 
 #: D:\SUMO/src\netimport\NIImporter_OpenDrive.cpp:875
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenDrive.cpp:875
 msgid "Found a traffic light signal on an unknown edge (original edge id='%')."
 msgstr ""
+"LSA-Signal auf einer unbekannten Kante gefunden (Ursprungskanten-ID='%')."
 
 #: D:\SUMO/src\netimport\NIImporter_OpenDrive.cpp:1281
 #: D:\SUMO/src\netimport\NIImporter_OpenDrive.cpp:1313
@@ -4673,12 +4743,12 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenDrive.cpp:1313
 #, c-format
 msgid "While setting connections: incoming road '%' is not known."
-msgstr ""
+msgstr "Beim Setzten von Verbindungen: ankommende Straße '%' ist nicht bekannt."
 
 #: D:\SUMO/src\netimport\NIImporter_OpenDrive.cpp:1356
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenDrive.cpp:1356
 msgid "Could not find node '%'."
-msgstr ""
+msgstr "Knoten '%' konnte nicht gefunden werden."
 
 #: D:\SUMO/src\netimport\NIImporter_OpenDrive.cpp:1449
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenDrive.cpp:1449
@@ -4747,13 +4817,13 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:146
 #: /home/micha/programming/sumo/src/polyconvert/PCLoaderOSM.cpp:104
 msgid "Could not open osm-file '%'."
-msgstr ""
+msgstr "Osm-Datei '%' konnte nicht geöffnet werden."
 
 #: D:\SUMO/src\netimport\NIImporter_OpenStreetMap.cpp:158
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:158
 #, c-format
 msgid "Found and substituted % osm nodes."
-msgstr ""
+msgstr "% osm-Knoten gefunden und ersetzt."
 
 #: D:\SUMO/src\netimport\NIImporter_OpenStreetMap.cpp:182
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:182
@@ -4769,33 +4839,34 @@ msgstr ""
 #: D:\SUMO/src\netimport\NIImporter_OpenStreetMap.cpp:231
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:231
 msgid "Discarding way '%' because it has only % node(s)"
-msgstr ""
+msgstr "Verwerfe Weg '%', da er nur % Kante(n) hat"
 
 #: D:\SUMO/src\netimport\NIImporter_OpenStreetMap.cpp:394
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:394
 msgid "Could not insert junction '%'."
-msgstr ""
+msgstr "Knotenpunkt '%' konnte nicht eingefügt werden."
 
 #: D:\SUMO/src\netimport\NIImporter_OpenStreetMap.cpp:451
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:451
 msgid ""
 "Discarding edge '%' which connects two identical nodes without geometry."
 msgstr ""
+"Verwerfe Kante '%', welche zwei identische Knoten ohne Geometrie verbindet."
 
 #: D:\SUMO/src\netimport\NIImporter_OpenStreetMap.cpp:563
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:563
 msgid "New value for oneway found: %"
-msgstr ""
+msgstr "Neuer Wert für eine einfache Fahrt gefunden: %"
 
 #: D:\SUMO/src\netimport\NIImporter_OpenStreetMap.cpp:595
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:595
 msgid "Skipping edge '%' because it has zero lanes."
-msgstr ""
+msgstr "Überspringe Kante '%', da sie null Fahrstreifen hat."
 
 #: D:\SUMO/src\netimport\NIImporter_OpenStreetMap.cpp:615
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:615
 msgid "Skipping edge '%' because it has speed %."
-msgstr ""
+msgstr "Überspringe Kante '%', da sie eine Geschwindigkeit von % hat."
 
 #: D:\SUMO/src\netimport\NIImporter_OpenStreetMap.cpp:735
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:735
@@ -4803,6 +4874,9 @@ msgid ""
 "Forward lanes count for edge '%' ('%') is not matching the number of lanes "
 "defined in width:lanes:forward key ('%'). Using default width values."
 msgstr ""
+"Die Anzahl der Vorwärts-Fahrstreifen der Kante '%' ('%') stimmt nicht mit "
+"der Anzahl an Fahrstreifen überein, die im width:lanes:forward-Schlüssel "
+"('%') definiert wurden. Nutze Standardbreitenwerte."
 
 #: D:\SUMO/src\netimport\NIImporter_OpenStreetMap.cpp:781
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:781
@@ -4810,11 +4884,14 @@ msgid ""
 "Backward lanes count for edge '%' ('%') is not matching the number of lanes "
 "defined in width:lanes:backward key ('%'). Using default width values."
 msgstr ""
+"Die Anzahl der Rückwärts-Fahrstreifen der Kante '%' ('%') stimmt nicht mit "
+"der Anzahl an Fahrstreifen überein, die im width:lanes:backward-Schlüssel "
+"('%') definiert wurden. Nutze Standardbreitenwerte."
 
 #: D:\SUMO/src\netimport\NIImporter_OpenStreetMap.cpp:794
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:794
 msgid "Could not add edge '-%'."
-msgstr ""
+msgstr "Kante '-%' konnte nicht hinzugefügt werden."
 
 #: D:\SUMO/src\netimport\NIImporter_OpenStreetMap.cpp:882
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:882
@@ -4825,36 +4902,40 @@ msgstr ""
 #: D:\SUMO/src\netimport\NIImporter_OpenStreetMap.cpp:888
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:888
 msgid "Tag element on wrong XML hierarchy level."
-msgstr ""
+msgstr "Tag-Element auf falscher XML-Hierarchystufe."
 
 #: D:\SUMO/src\netimport\NIImporter_OpenStreetMap.cpp:930
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:930
 msgid "Value of key '%' is invalid ('%') in node '%'."
-msgstr ""
+msgstr "Wert von Schlüssel '%' ist ungültig ('%') im Knoten '%'."
 
 #: D:\SUMO/src\netimport\NIImporter_OpenStreetMap.cpp:935
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:935
 msgid "Value of key '%' is not numeric ('%') in node '%'."
-msgstr ""
+msgstr "Wert von Schlüssel '%' ist nicht nummerisch ('%') im Knoten '%'."
 
 #: D:\SUMO/src\netimport\NIImporter_OpenStreetMap.cpp:1083
 #: D:\SUMO/src\polyconvert\PCLoaderOSM.cpp:592
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1083
 #: /home/micha/programming/sumo/src/polyconvert/PCLoaderOSM.cpp:592
 msgid "The referenced geometry information (ref='%') is not known"
-msgstr ""
+msgstr "Die referenzierte Geometrie-Information (ref='%') ist nicht bekannt"
 
 #: D:\SUMO/src\netimport\NIImporter_OpenStreetMap.cpp:1310
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1310
 #, c-format
 msgid "Using default lane width for edge '%' as key '%' could not be parsed."
 msgstr ""
+"Die Verwendung der Standard-Fahrstreifenbreite für Kante '%' als Schlüssel "
+"'%' konnte nicht eigelesen werden."
 
 #: D:\SUMO/src\netimport\NIImporter_OpenStreetMap.cpp:1313
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1313
 #, c-format
 msgid "Using default lane width for edge '%' as value '%' could not be parsed."
 msgstr ""
+"Die Verwendung der Standard-Fahrstreifenbreite für Kante '%' als Wert '%' "
+"konnte nicht eigelesen werden."
 
 #: D:\SUMO/src\netimport\NIImporter_OpenStreetMap.cpp:1351
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1351
@@ -4967,7 +5048,7 @@ msgstr "Ignoriere doppelte PT-Zeile '%'."
 #: D:\SUMO/src\netimport\NIImporter_OpenStreetMap.cpp:1938
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1938
 msgid "Via-node '%' was not instantiated"
-msgstr ""
+msgstr "Zwischenknoten '%' wurde nicht realisiert"
 
 #: D:\SUMO/src\netimport\NIImporter_OpenStreetMap.cpp:1944
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1944
@@ -5037,9 +5118,8 @@ msgstr ""
 
 #: D:\SUMO/src\netimport\NIImporter_SUMO.cpp:118
 #: /home/micha/programming/sumo/src/netimport/NIImporter_SUMO.cpp:118
-#, fuzzy
 msgid "Could not open sumo-net-file '%'."
-msgstr "Sumo-net-file '%' konnte nicht geöffnet werden."
+msgstr "Sumo-Netzdatei '%' konnte nicht geöffnet werden."
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_SUMO.cpp:165
 msgid "Could not insert edge '%'."
@@ -5125,13 +5205,12 @@ msgstr "Knotenpunkt '%' kam mindestens zweimal in der Eingabe vor."
 #: D:\SUMO/src\netimport\NIImporter_SUMO.cpp:921
 #: /home/micha/programming/sumo/src/netimport/NIImporter_SUMO.cpp:921
 msgid "Definition of tl-logic '%' was not finished."
-msgstr ""
+msgstr "Definition der LSA-Logik '%' wurde nicht beendet."
 
 #: D:\SUMO/src\netimport\NIImporter_SUMO.cpp:947
 #: /home/micha/programming/sumo/src/netimport/NIImporter_SUMO.cpp:947
-#, fuzzy
 msgid "found phase without tl-logic"
-msgstr "Phase ohne tl-Logik gefunden"
+msgstr "Phase ohne LSA-Logik gefunden"
 
 #: D:\SUMO/src\netimport\NIImporter_SUMO.cpp:1008
 #: /home/micha/programming/sumo/src/netimport/NIImporter_SUMO.cpp:1008
@@ -7593,12 +7672,12 @@ msgstr "Datei '%' ist ein Verzeichnis!"
 #: /home/micha/programming/sumo/src/utils/xml/SUMOSAXReader.cpp:156
 #: /home/micha/programming/sumo/src/utils/xml/SUMOSAXReader.cpp:165
 msgid "The XML-parser was not initialized."
-msgstr "Der XML-Parser war nicht initialisiert."
+msgstr "Der XML-Einlese war nicht initialisiert."
 
 #: D:\SUMO/src\utils\xml\SUMOSAXReader.cpp:191
 #: /home/micha/programming/sumo/src/utils/xml/SUMOSAXReader.cpp:191
 msgid "The XML-parser could not be build."
-msgstr "Der XML-Einleser konnte nicht gebaut werden."
+msgstr "Der XML-Einlese konnte nicht erstellt werden."
 
 #: D:\SUMO/src\utils\xml\XMLSubSys.cpp:91
 #: D:\SUMO/src\utils\xml\XMLSubSys.cpp:96
@@ -7610,6 +7689,8 @@ msgid ""
 "Environment variable SUMO_HOME is not set, disabling XML validation. Set "
 "'auto' or 'always' for web lookups."
 msgstr ""
+"Umgebungsvariable SUMO_HOME ist nicht gesetzt, deaktiviere XML-Validierung. "
+"Setzte 'auto' oder 'always' für Websuchen."
 
 #: D:\SUMO/src\utils\xml\XMLSubSys.cpp:109
 #: /home/micha/programming/sumo/src/utils/xml/XMLSubSys.cpp:109
@@ -7617,12 +7698,16 @@ msgid ""
 "Environment variable SUMO_HOME is not set, XML validation will fail or use "
 "slow website lookups."
 msgstr ""
+"Umgebungsvariable SUMO_HOME ist nicht gesetzt, XML-Validierung schlägt fehl "
+"oder verwendet langsame Webseitensuchen."
 
 #: D:\SUMO/src\utils\xml\XMLSubSys.cpp:114
 #: /home/micha/programming/sumo/src/utils/xml/XMLSubSys.cpp:114
 msgid ""
 "SUMO_HOME looks like an URL, aborting to avoid inadvertent network access."
 msgstr ""
+"SUMO_HOME sieht wie eine URL aus, die abbricht um einen unbeabsichtigten "
+"Netzangriff zu vermeiden."
 
 #: D:\SUMO/src\utils\xml\XMLSubSys.cpp:121
 #: /home/micha/programming/sumo/src/utils/xml/XMLSubSys.cpp:121
@@ -7635,6 +7720,8 @@ msgid ""
 "Disabling XML validation for external file '%'. Use 'auto' or 'always' to "
 "enable."
 msgstr ""
+"XML-Validierung für externe Datei '%' wird deaktiviert. Verwende zum "
+"Aktivieren 'auto' oder 'always'."
 
 #: D:\SUMO/src\utils\xml\XMLSubSys.cpp:195
 #: /home/micha/programming/sumo/src/utils/xml/XMLSubSys.cpp:195
