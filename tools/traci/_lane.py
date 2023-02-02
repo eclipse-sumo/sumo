@@ -278,21 +278,28 @@ class LaneDomain(Domain):
 
     def getFoes(self, laneID, toLaneID):
         """getFoes(string, string) -> list(string)
-        Returns the ids of incoming lanes that have right of way over the connection from laneID to toLaneID
+        Returns the ids of incoming lanes that have right of way over the connection from laneID to toLaneID.
         """
         return self._getUniversal(tc.VAR_FOES, laneID, "s", toLaneID)
 
     def getInternalFoes(self, laneID):
         """getFoes(string) -> list(string)
-        Returns the ids of internal lanes that are in conflict with the given internal lane id
+        Returns the ids of internal lanes that are in conflict with the given internal lane id.
         """
         return self.getFoes(laneID, "")
 
     def getPendingVehicles(self, laneID):
         """getPendingVehicles(string) -> list(string)
-        Returns a list of all vehicle ids waiting for insertion on this lane (with depart delay)
+        Returns a list of all vehicle ids waiting for insertion on this lane (with depart delay).
         """
         return self._getUniversal(tc.VAR_PENDING_VEHICLES, laneID)
+
+    def getAngle(self, laneID, relativePosition):
+        """getAngle(string, double) -> double
+        Returns the angle formed by the x-axis and the line from the specified position to the end of the lane.
+        If the specified position equals -1 then the starting position of the lane is used instead.
+        """
+        return self._getUniversal(tc.VAR_ANGLE, laneID, relativePosition)
 
     def setAllowed(self, laneID, allowedClasses):
         """setAllowed(string, list) -> None

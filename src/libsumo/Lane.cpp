@@ -332,6 +332,24 @@ Lane::getPendingVehicles(const std::string& laneID) {
 }
 
 
+double 
+Lane::getAngle(const std::string& laneID, double relativePosition) {
+    double angle;
+    MSLane* lane = getLane(laneID);
+    Position end = lane->getShape().back();
+    if (relativePosition == -1) {
+        Position start = lane->getShape().front();
+        angle = start.angleTo2D(end);
+    }
+    else {
+        Position position = lane->getShape().positionAtOffset(relativePosition);
+        angle = position.angleTo2D(end);
+    }
+
+    return angle;
+}
+
+
 void
 Lane::setAllowed(const std::string& laneID, std::string allowedClass) {
     setAllowed(laneID, std::vector<std::string>({allowedClass}));
@@ -493,6 +511,9 @@ Lane::handleVariable(const std::string& objID, const int variable, VariableWrapp
             return wrapper->wrapPositionVector(objID, variable, getShape(objID));
         case VAR_PENDING_VEHICLES:
             return wrapper->wrapStringList(objID, variable, getPendingVehicles(objID));
+        case VAR_ANGLE:
+            paramData->readUnsignedByte();
+            return wrapper->wrapDouble(objID, variable, getAngle(objID, paramData->readDouble()));
         case libsumo::VAR_PARAMETER:
             paramData->readUnsignedByte();
             return wrapper->wrapString(objID, variable, getParameter(objID, paramData->readString()));

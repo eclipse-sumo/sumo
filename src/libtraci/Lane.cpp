@@ -69,6 +69,7 @@ Lane::getMaxSpeed(const std::string& laneID) {
     return Dom::getDouble(libsumo::VAR_MAXSPEED, laneID);
 }
 
+
 double
 Lane::getFriction(const std::string& laneID) {
     return Dom::getDouble(libsumo::VAR_FRICTION, laneID);
@@ -191,6 +192,7 @@ Lane::getNOxEmission(const std::string& laneID) {
     return Dom::getDouble(libsumo::VAR_NOXEMISSION, laneID);
 }
 
+
 double
 Lane::getFuelConsumption(const std::string& laneID) {
     return Dom::getDouble(libsumo::VAR_FUELCONSUMPTION, laneID);
@@ -244,6 +246,7 @@ Lane::getLastStepVehicleNumber(const std::string& laneID) {
     return Dom::getInt(libsumo::LAST_STEP_VEHICLE_NUMBER, laneID);
 }
 
+
 int
 Lane::getLastStepHaltingNumber(const std::string& laneID) {
     return Dom::getInt(libsumo::LAST_STEP_VEHICLE_HALTING_NUMBER, laneID);
@@ -264,6 +267,7 @@ Lane::getFoes(const std::string& laneID, const std::string& toLaneID) {
     return Dom::getStringVector(libsumo::VAR_FOES, laneID, &content);
 }
 
+
 // XXX: there seems to be no "Dom::getFoes"
 std::vector<std::string>
 Lane::getInternalFoes(const std::string& laneID) {
@@ -279,6 +283,15 @@ Lane::getInternalFoes(const std::string& laneID) {
 const std::vector<std::string>
 Lane::getPendingVehicles(const std::string& laneID) {
     return Dom::getStringVector(libsumo::VAR_PENDING_VEHICLES, laneID);
+}
+
+
+double
+Lane::getAngle(const std::string& laneID, double relativePosition) {
+    tcpip::Storage content;
+    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
+    content.writeDouble(relativePosition);
+    return Dom::getDouble(libsumo::VAR_ANGLE, laneID, &content);
 }
 
 
@@ -320,6 +333,7 @@ void
 Lane::setMaxSpeed(const std::string& laneID, double speed) {
     Dom::setDouble(libsumo::VAR_MAXSPEED, laneID, speed);
 }
+
 
 void
 Lane::setFriction(const std::string& laneID, double friction) {
