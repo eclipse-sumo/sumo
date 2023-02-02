@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-01 15:37+0100\n"
-"PO-Revision-Date: 2023-01-26 06:39+0000\n"
-"Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
+"PO-Revision-Date: 2023-02-02 13:19+0000\n"
+"Last-Translator: Pablo Alvarez Lopez <pablo.alvarezlopez@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
 "Language: es\n"
@@ -3516,35 +3516,35 @@ msgstr ""
 
 #: D:\SUMO/src\netedit\GNENet.cpp:737 D:\SUMO/src\netedit\GNEViewNet.cpp:2683
 msgid "duplicate lane"
-msgstr ""
+msgstr "duplicar carril (lane)"
 
 #: D:\SUMO/src\netedit\GNENet.cpp:856
 msgid "split edge"
-msgstr ""
+msgstr "dividir calle (edge)"
 
 #: D:\SUMO/src\netedit\GNENet.cpp:973
 msgid "split edges"
-msgstr ""
+msgstr "dividir calles (edges)"
 
 #: D:\SUMO/src\netedit\GNENet.cpp:995
 msgid "reverse edge"
-msgstr ""
+msgstr "invertir calle (edge)"
 
 #: D:\SUMO/src\netedit\GNENet.cpp:1008
 msgid "add reversed edge"
-msgstr ""
+msgstr "añadir calle (edge) invertida"
 
 #: D:\SUMO/src\netedit\GNENet.cpp:1043
 msgid "merge junctions"
-msgstr ""
+msgstr "unir calles (junctions)"
 
 #: D:\SUMO/src\netedit\GNENet.cpp:1079
 msgid "select roundabout"
-msgstr ""
+msgstr "seleccionar rotonda (roundabout)"
 
 #: D:\SUMO/src\netedit\GNENet.cpp:1095
 msgid "create roundabout"
-msgstr ""
+msgstr "crear rotonda (roundabout)"
 
 #: D:\SUMO/src\netedit\GNENet.cpp:1273
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1273
@@ -3584,7 +3584,7 @@ msgstr "Computación de elementos de demanda finalizada."
 #: D:\SUMO/src\netedit\GNENet.cpp:1373
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1373
 msgid "Computing data elements ..."
-msgstr ""
+msgstr "Computar elementos de datos ..."
 
 #: D:\SUMO/src\netedit\GNENet.cpp:1380
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1380
@@ -3593,134 +3593,139 @@ msgstr "Computación de elementos de datos finalizada."
 
 #: D:\SUMO/src\netedit\GNENet.cpp:1459
 msgid "Position of joined junction"
-msgstr ""
+msgstr "Posición de la unión de cruces"
 
 #: D:\SUMO/src\netedit\GNENet.cpp:1460
 msgid ""
 "There is another unselected junction in the same position of joined junction."
 msgstr ""
+"Hay otro cruce (junction) no seleccionado en la misma posición que la unión "
+"de cruces."
 
 #: D:\SUMO/src\netedit\GNENet.cpp:1461
 msgid "It will be joined with the other selected junctions. Continue?"
-msgstr ""
+msgstr "Se unirá con los otros cruces (junctions) seleccionados. ¿Continuar?"
 
 #: D:\SUMO/src\netedit\GNENet.cpp:1582 D:\SUMO/src\netedit\GNENet.cpp:1592
 msgid "Clear crossings"
-msgstr ""
+msgstr "Limpiar pasos peatonales (crossings)"
 
 #: D:\SUMO/src\netedit\GNENet.cpp:1583
 msgid "There is no invalid crossings to remove."
-msgstr ""
+msgstr "No hay pasos peatonales (crossings) inválidos para eliminar."
 
 #: D:\SUMO/src\netedit\GNENet.cpp:1593
 msgid "Crossings will be cleared. Continue?."
-msgstr ""
+msgstr "Los pasos peatonales (crossings) se eliminarán. ¿Continuar?"
 
 #: D:\SUMO/src\netedit\GNENet.cpp:1604
 msgid "clear crossings"
-msgstr ""
+msgstr "Limpiar pasos peatonales (crossings)"
 
 #: D:\SUMO/src\netedit\GNENet.cpp:1617
 msgid "clear junctions"
-msgstr ""
+msgstr "limpiar cruces (junctions)"
 
 #: D:\SUMO/src\netedit\GNENet.cpp:1646
 msgid "clear unused routes"
-msgstr ""
+msgstr "limpiar rutas no usadas"
 
 #: D:\SUMO/src\netedit\GNENet.cpp:1701
 msgid "merge routes"
-msgstr ""
+msgstr "unir rutas"
 
 #: D:\SUMO/src\netedit\GNENet.cpp:1755
 msgid "adjust person plans"
-msgstr ""
+msgstr "ajustar planes de personas"
 
 #: D:\SUMO/src\netedit\GNENet.cpp:1795
 msgid "remove invalid demand elements"
-msgstr ""
+msgstr "eliminar elementos de demanda inválidos"
 
 #: D:\SUMO/src\netedit\GNENet.cpp:1810
 msgid "replace junction by geometry"
-msgstr ""
+msgstr "reemplazar cruce (junction) por geometría"
 
 #: D:\SUMO/src\netedit\GNENet.cpp:1855
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1855
 msgid "Junction isn't removable"
-msgstr ""
+msgstr "el cruce (junction) no se puede eliminar"
 
 #: D:\SUMO/src\netedit\GNENet.cpp:1867
 msgid "split junction"
-msgstr ""
+msgstr "dividir cruce (junction)"
 
 #: D:\SUMO/src\netedit\GNENet.cpp:1907
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1907
 msgid "Could not rename split node to '%'"
-msgstr ""
+msgstr "No se puede renombrar el cruce (junction) dividido a '%'"
 
 #: D:\SUMO/src\netedit\GNENet.cpp:1946
 msgid "clear junction connections"
-msgstr ""
+msgstr "limpiar conexiones de cruces (junctions)"
 
 #: D:\SUMO/src\netedit\GNENet.cpp:1958
 msgid "reset junction connections"
-msgstr ""
+msgstr "resetear conexiones de cruces (junctions)"
 
 #: D:\SUMO/src\netedit\GNENet.cpp:1969
 msgid "clear additional elements"
-msgstr ""
+msgstr "limpiar elementos adicionales"
 
 #: D:\SUMO/src\netedit\GNENet.cpp:1982
 msgid "clear demand elements"
-msgstr ""
+msgstr "limpiar elementos de demanda"
 
 #: D:\SUMO/src\netedit\GNENet.cpp:1995
 msgid "clear data elements"
-msgstr ""
+msgstr "limpiar elementos de datos"
 
 #: D:\SUMO/src\netedit\GNENet.cpp:2006
 msgid "clear meanData elements"
-msgstr ""
+msgstr "limpiar elementos meanData"
 
 #: D:\SUMO/src\netedit\GNENet.cpp:2326 D:\SUMO/src\netedit\GNENet.cpp:2403
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:2326
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:2403
 msgid "Duplicated ID"
-msgstr ""
+msgstr "ID duplicada"
 
 #: D:\SUMO/src\netedit\GNENet.cpp:2689
 msgid "Network size exceeds 1 Lightyear. Please reconsider your inputs."
 msgstr ""
+"El tamaño de la red excede un año luz. Por favor revisa las entradas de "
+"datos."
 
 #: D:\SUMO/src\netedit\GNENet.cpp:2763
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:2763
 msgid "ViewNet doesn't exist"
-msgstr ""
+msgstr "la vista de la red no existe"
 
 #: D:\SUMO/src\netedit\GNENetHelper.cpp:218
 #: /home/micha/programming/sumo/src/netedit/GNENetHelper.cpp:218
 msgid "GUIGlObject does not match the declared type"
-msgstr ""
+msgstr "GUIGlObject no encaja con el tipo declarado"
 
 #: D:\SUMO/src\netedit\GNENetHelper.cpp:223
 #: /home/micha/programming/sumo/src/netedit/GNENetHelper.cpp:223
 msgid "Attempted to retrieve non-existant GUIGlObject"
-msgstr ""
+msgstr "Intento de obtener un GUIGlObject que no existe"
 
 #: D:\SUMO/src\netedit\GNENetHelper.cpp:1025
 #: /home/micha/programming/sumo/src/netedit/GNENetHelper.cpp:1025
 msgid "Attempted to retrieve non-existant additional (string)"
-msgstr ""
+msgstr "Intento de obtener un elemento adicional que no existe (string)"
 
 #: D:\SUMO/src\netedit\GNENetHelper.cpp:1039
 #: /home/micha/programming/sumo/src/netedit/GNENetHelper.cpp:1039
 msgid "Attempted to retrieve non-existant additional (AttributeCarrier)"
 msgstr ""
+"Intento de obtener un elemento adicional que no existe (AttributeCarrier)"
 
 #: D:\SUMO/src\netedit\GNENetHelper.cpp:1065
 #: /home/micha/programming/sumo/src/netedit/GNENetHelper.cpp:1065
 msgid "Attempted to retrieve non-existant rerouter interval"
-msgstr ""
+msgstr "Intento de obtener un intervalo de rerouter que no existe"
 
 #: D:\SUMO/src\netedit\GNENetHelper.cpp:1320
 #: /home/micha/programming/sumo/src/netedit/GNENetHelper.cpp:1320
@@ -4480,334 +4485,351 @@ msgstr ""
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:2431
 msgid "Automatic select junctions"
-msgstr ""
+msgstr "Seleccionar cruces (junctions) automáticamente"
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:2431
 msgid ""
 "Toggle whether selecting multiple edges should automatically select their "
 "junctions."
 msgstr ""
+"Alternar si seleccionar multiples calles (edges) debe seleccionar o no "
+"también sus cruces (junctions)."
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:2439
 msgid "Apply state to all phases"
-msgstr ""
+msgstr "Aplicar estado a todas las fases"
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:2439
 msgid ""
 "Toggle whether clicking should apply state changes to all phases of the "
 "current TLS plan."
 msgstr ""
+"Alternar si clicar debe aplicar o no los cambios de estado a todas las fases "
+"del plan actual del semáforo (TLS)."
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:2447
 msgid "Automatic merging junction"
-msgstr ""
+msgstr "Unir cruce automáticamente"
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:2447
 msgid "Toggle ask for confirmation before merging junction."
-msgstr ""
+msgstr "Alternar entre preguntar o no antes de unir un cruce (junction)."
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:2454
 msgid "Show bubbles"
-msgstr ""
+msgstr "Mostrar burbujas"
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:2454
 msgid "Toggle show bubbles over junctions shapes."
 msgstr ""
+"Alternar entre mostrar o no burbujas sobre la forma de los cruces "
+"(junctions)."
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:2462
 msgid "Move elevation"
-msgstr ""
+msgstr "Mover elevación"
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:2462
 msgid "Apply mouse movement to elevation instead of x,y position."
 msgstr ""
+"Aplicar movimiento del ratón a la elevación en lugar de la las posiciones x "
+"e y."
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:2470
 msgid "Edge chain mode"
-msgstr ""
+msgstr "Modo cadenas de calles (edges)"
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:2470
 msgid "Create consecutive edges with a single click (hit ESC to cancel chain)."
 msgstr ""
+"Crear calles (edges) consecutivos con un solo clic (Pulsar ESC para cancelar "
+"la cadena)."
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:2478
 msgid "Edge opposite direction"
-msgstr ""
+msgstr "Calle (edge) en dirección contraria"
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:2478
 msgid "Automatically create an edge in the opposite direction."
-msgstr ""
+msgstr "Crear calle (edge) en la dirección opuesta automáticamente."
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:2695
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:2981
 msgid "Toggle show shapes (Polygons and POIs)."
 msgstr ""
+"Alternar entre mostrar o no formas (shapes) (Polígonos y puntos de interés)."
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:2703
 msgid "Toggle show all trips (requires updated demand - F5)."
 msgstr ""
+"Alternar entre mostrar o no todos los viajes (Requiere actualizar demanda - "
+"F5)."
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:2711
 msgid "Toggle show all person plans."
-msgstr ""
+msgstr "Alternar entre mostrar o no todos los planes para personas."
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:2719
 msgid "Toggle lock selected person."
-msgstr ""
+msgstr "Alternar entre bloquear o no a la persona seleccionada."
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:2727
 msgid "Show all containers plans"
-msgstr ""
+msgstr "Mostar todos los planes para contendores"
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:2727
 msgid "Toggle show all container plans."
-msgstr ""
+msgstr "Alterna entre mostrar o no todos los planes para contenedores."
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:2735
 msgid "Toggle lock selected container."
-msgstr ""
+msgstr "Alternar entre bloquear o no el contenedor seleccionado."
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:2743
 msgid "Toggle show non-inspected demand elements."
-msgstr ""
+msgstr "Alternar entre mostrar o no elementos de demanda no inspeccionados."
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:2751
 msgid "Toggle show number of overlapped routes."
-msgstr ""
+msgstr "Alternar mostrar o no el número de rutas superpuestas."
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:2974
 msgid "Toggle show additionals."
-msgstr ""
+msgstr "Alternar entre mostrar o no elementos adicionales."
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:2995
 msgid "Draw TAZREL drawing mode"
-msgstr ""
+msgstr "Modo para dibujar TAZRel"
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:2995
 msgid "Toggle draw TAZREL drawing mode."
-msgstr ""
+msgstr "Alternar el modo para dibujar TAZRels."
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:3002
 msgid "Toggle draw TAZ fill"
-msgstr ""
+msgstr "Alternar entre dibujar o no los TAZ rellenos"
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:3009
 msgid "Toggle draw TAZRel only from"
-msgstr ""
+msgstr "Alternar entre mostrar o no solamente los TAZRel de origen"
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:3016
 msgid "Toggle draw TAZRel only to"
-msgstr ""
+msgstr "Alternar entre mostrar o no solamente los TAZRel de destino"
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:3515
 msgid "Set inspect mode"
-msgstr ""
+msgstr "Ir a modo de inspección"
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:3515
 msgid "Mode for inspect elements and change their attributes. (I)"
-msgstr ""
+msgstr "Modo para inspeccionar elementos y cambiar sus atributos. (I)"
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:3521
 msgid "Set delete mode"
-msgstr ""
+msgstr "Ir a modo de borrado"
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:3521
 msgid "Mode for delete elements. (D)"
-msgstr ""
+msgstr "Modo para borrar elementos. (D)"
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:3590
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:3734
 msgid "Set move mode"
-msgstr ""
+msgstr "Ir a modo de movimiento"
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:3590
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:3734
 msgid "Mode for move elements. (M)"
-msgstr ""
+msgstr "Modo para mover elementos. (M)"
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:3596
 msgid "Set create edge mode"
-msgstr ""
+msgstr "Ir a modo para crear calles (edges)"
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:3596
 msgid "Mode for creating junction and edges. (E)"
-msgstr ""
+msgstr "Modo para crear cruces (junctions) y calles (edges). (E)"
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:3602
 msgid "Set connection mode"
-msgstr ""
+msgstr "Ir a modo de conexiones"
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:3602
 msgid "Mode for edit connections between lanes. (C)"
-msgstr ""
+msgstr "Modo para editar conexiones entre carriles (lanes). (C)"
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:3608
 msgid "Set prohibition mode"
-msgstr ""
+msgstr "Ir a modo de prohibiciones"
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:3608
 msgid "Mode for editing connection prohibitions. (H)"
-msgstr ""
+msgstr "Modo para editar conexiones prohibidas. (H)"
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:3614
 msgid "Set traffic light mode"
-msgstr ""
+msgstr "Ir a modo de semáforos (TLS)"
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:3614
 msgid "Mode for edit traffic lights over junctions. (T)"
-msgstr ""
+msgstr "Modo para editar semáforos (TLS) sobre cruces (junctions). (T)"
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:3620
 msgid "Set additional mode"
-msgstr ""
+msgstr "Ir a modo de elementos adicionales"
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:3620
 msgid "Mode for adding additional elements. (A)"
-msgstr ""
+msgstr "Modo para editar elementos adicionales. (A)"
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:3626
 msgid "Set crossing mode"
-msgstr ""
+msgstr "Ir a modo de cruces peatonales (crossings)"
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:3626
 msgid "Mode for creating crossings between edges. (R)"
-msgstr ""
+msgstr "Modo para crear cruces peatonales (crossings) entre calles (edges). (R)"
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:3632
 msgid "Set TAZ mode"
-msgstr ""
+msgstr "ir al modo para zonas de análisis de tráfico (TAZ)"
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:3632
 msgid "Mode for creating Traffic Assignment Zones. (Z)"
-msgstr ""
+msgstr "Modo para crear zonas de análisis de tráfico (TAZ). (Z)"
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:3638
 msgid "Set polygon mode"
-msgstr ""
+msgstr "Ir al modo para editar polígonos"
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:3638
 msgid "Mode for creating polygons and POIs. (P)"
-msgstr ""
+msgstr "Modo para crear polígonos y puntos de interés (POI). (P)"
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:3644
 msgid "Set wire mode"
-msgstr ""
+msgstr "Ir al modo de cables (wire)"
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:3644
 msgid "Mode for editing wires. (W)"
-msgstr ""
+msgstr "Modo para editar cables. (W)"
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:3740
 msgid "Create route mode"
-msgstr ""
+msgstr "Ir al modo para crear rutas"
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:3740
 msgid "Mode for creating routes. (R)"
-msgstr ""
+msgstr "Modo para crear rutas. (R)"
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:3746
 msgid "Create vehicle mode"
-msgstr ""
+msgstr "Ir al modo para crear vehículos"
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:3746
 msgid "Mode for creating vehicles. (V)"
-msgstr ""
+msgstr "Modo para crear vehículos. (V)"
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:3752
 msgid "Create type mode"
-msgstr ""
+msgstr "Ir al modo para crear tipos de vehículos/personas/contenedores"
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:3752
 msgid "Mode for creating types (vehicles, person and containers). (T)"
-msgstr ""
+msgstr "Modo para crear tipos de vehículos/personas/contendores. (T)"
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:3758
 msgid "Create stop mode"
-msgstr ""
+msgstr "Ir al modo para crear paradas"
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:3758
 msgid "Mode for creating stops. (A)"
-msgstr ""
+msgstr "Modo para crear paradas. (A)"
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:3764
 msgid "Create person mode"
-msgstr ""
+msgstr "Ir al modo para crear personas"
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:3764
 msgid "Mode for creating persons. (P)"
-msgstr ""
+msgstr "Modo para crear personas. (P)"
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:3770
 msgid "Create person plan mode"
-msgstr ""
+msgstr "Ir al modo para crear planes para personas"
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:3770
 msgid "Mode for creating person plans. (C)"
-msgstr ""
+msgstr "Modo para crear planes para personas. (C)"
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:3776
 msgid "Create container mode"
-msgstr ""
+msgstr "Ir al modo para crear contenedores"
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:3776
 msgid "Mode for creating containers. (P)"
-msgstr ""
+msgstr "Modo para crear contenedores (P)"
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:3782
 msgid "Create container plan mode"
-msgstr ""
+msgstr "Ir al modo para crear planes para contenedores"
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:3782
 msgid "Mode for creating container plans. (H)"
-msgstr ""
+msgstr "Modo para crear planes para contenedores. (H)"
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:3859
 msgid "Create edge data mode"
-msgstr ""
+msgstr "Ir al modo para crear datos sobre calles (edgeDatas)"
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:3859
 msgid "Mode for creating edge datas. (E)"
-msgstr ""
+msgstr "Modo para crear datos para calles (edgeDatas). (E)"
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:3865
 msgid "Create edge relation data mode"
-msgstr ""
+msgstr "Ir al modo para crear datos de relación entre calles (edgeRelDatas)"
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:3865
 msgid "Mode for creating edge relation datas. (R)"
-msgstr ""
+msgstr "Modo para crear datos de relación entre calles (edgeRelDatas). (R)"
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:3871
 msgid "Create TAZ relation data mode"
 msgstr ""
+"Ir al modo para crear datos de relación entre zonas de análisis de tráfico "
+"(TAZRelDatas)"
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:3871
 msgid "Mode for creating TAZ relation datas. (Z)"
 msgstr ""
+"Modo para crear datos de relación entre zonas de análisis de tráfico "
+"(TAZRelDatas). (Z)"
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:3877
 msgid "MeanData mode"
-msgstr ""
+msgstr "Ir al modo para crear y editar meanDatas"
 
 #: D:\SUMO/src\netedit\GNEViewNetHelper.cpp:3877
 msgid "Mode for MeanData elements. (M)"
-msgstr ""
+msgstr "Modo para crear y editar meanDatas. (M)"
 
 #: D:\SUMO/src\netedit\GNEViewParent.cpp:102
 msgid "Undo the last change. (Ctrl+Z)"
-msgstr ""
+msgstr "Deshacer el último cambio. (Ctrl+Z)"
 
 #: D:\SUMO/src\netedit\GNEViewParent.cpp:105
 msgid "Redo the last change. (Ctrl+Y)"
-msgstr ""
+msgstr "Rehacer el último cambio. (Ctrl+Y)"
 
 #: D:\SUMO/src\netedit\GNEViewParent.cpp:113
 msgid "Compute path manager"
-msgstr ""
+msgstr "Gestor de computación para caminos"
 
 #: D:\SUMO/src\netedit\GNEViewParent.cpp:113
 msgid "Compute path manager."
-msgstr ""
+msgstr "Gestor de computación para caminos."
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewParent.cpp:383
 msgid "ChooserDialog already deleted"
@@ -4819,31 +4841,31 @@ msgstr "ChooserDialog no registrado"
 
 #: D:\SUMO/src\netedit\GNEViewParent.cpp:505
 msgid "Junction"
-msgstr ""
+msgstr "Cruce (junction)"
 
 #: D:\SUMO/src\netedit\GNEViewParent.cpp:513
 msgid "Edge"
-msgstr ""
+msgstr "Calle (edge)"
 
 #: D:\SUMO/src\netedit\GNEViewParent.cpp:521
 msgid "WalkingArea"
-msgstr ""
+msgstr "Áreas peatonal (WalkingArea)"
 
 #: D:\SUMO/src\netedit\GNEViewParent.cpp:629
 msgid "TLS"
-msgstr ""
+msgstr "Semáforo (TLS)"
 
 #: D:\SUMO/src\netedit\GNEViewParent.cpp:640
 msgid "Additional"
-msgstr ""
+msgstr "Elemento adicional"
 
 #: D:\SUMO/src\netedit\GNEViewParent.cpp:655
 msgid "POI"
-msgstr ""
+msgstr "Punto de interés (POI)"
 
 #: D:\SUMO/src\netedit\GNEViewParent.cpp:669
 msgid "Poly"
-msgstr ""
+msgstr "Polígono"
 
 #: D:\SUMO/src\netedit\changes\GNEChange_Additional.cpp:120
 #: D:\SUMO/src\netedit\changes\GNEChange_Connection.cpp:96
@@ -4853,7 +4875,7 @@ msgstr ""
 #: D:\SUMO/src\netedit\changes\GNEChange_GenericData.cpp:128
 #: D:\SUMO/src\netedit\changes\GNEChange_MeanData.cpp:118
 msgid "Undo create "
-msgstr ""
+msgstr "Deshacer creación de "
 
 #: D:\SUMO/src\netedit\changes\GNEChange_Additional.cpp:122
 #: D:\SUMO/src\netedit\changes\GNEChange_Connection.cpp:99
@@ -4863,7 +4885,7 @@ msgstr ""
 #: D:\SUMO/src\netedit\changes\GNEChange_GenericData.cpp:130
 #: D:\SUMO/src\netedit\changes\GNEChange_MeanData.cpp:120
 msgid "Undo delete "
-msgstr ""
+msgstr "Deshacer eliminación de "
 
 #: D:\SUMO/src\netedit\changes\GNEChange_Additional.cpp:130
 #: D:\SUMO/src\netedit\changes\GNEChange_DataInterval.cpp:118
@@ -4872,7 +4894,7 @@ msgstr ""
 #: D:\SUMO/src\netedit\changes\GNEChange_GenericData.cpp:138
 #: D:\SUMO/src\netedit\changes\GNEChange_MeanData.cpp:128
 msgid "Redo create "
-msgstr ""
+msgstr "Rehacer creación de "
 
 #: D:\SUMO/src\netedit\changes\GNEChange_Additional.cpp:132
 #: D:\SUMO/src\netedit\changes\GNEChange_DataInterval.cpp:120
@@ -4881,46 +4903,46 @@ msgstr ""
 #: D:\SUMO/src\netedit\changes\GNEChange_GenericData.cpp:140
 #: D:\SUMO/src\netedit\changes\GNEChange_MeanData.cpp:130
 msgid "Redo delete "
-msgstr ""
+msgstr "rehacer eliminación de "
 
 #: D:\SUMO/src\netedit\changes\GNEChange_Attribute.cpp:158
 msgid "Undo change "
-msgstr ""
+msgstr "Deshacer cambio de "
 
 #: D:\SUMO/src\netedit\changes\GNEChange_Attribute.cpp:164
 msgid "Redo change "
-msgstr ""
+msgstr "Rehacer cambio de "
 
 #: D:\SUMO/src\netedit\changes\GNEChange_Children.cpp:147
 #: D:\SUMO/src\netedit\changes\GNEChange_Children.cpp:158
 msgid "Undo moving up "
-msgstr ""
+msgstr "Deshacer mover arriba "
 
 #: D:\SUMO/src\netedit\changes\GNEChange_Children.cpp:149
 #: D:\SUMO/src\netedit\changes\GNEChange_Children.cpp:156
 msgid "Undo moving down "
-msgstr ""
+msgstr "Deshacer mover abajo "
 
 #: D:\SUMO/src\netedit\changes\GNEChange_Children.cpp:151
 #: D:\SUMO/src\netedit\changes\GNEChange_Children.cpp:160
 #: D:\SUMO/src\netedit\changes\GNEChange_Children.cpp:175
 #: D:\SUMO/src\netedit\changes\GNEChange_Children.cpp:184
 msgid "Invalid operation"
-msgstr ""
+msgstr "Operación no válida"
 
 #: D:\SUMO/src\netedit\changes\GNEChange_Children.cpp:171
 #: D:\SUMO/src\netedit\changes\GNEChange_Children.cpp:180
 msgid "Redo moving front "
-msgstr ""
+msgstr "Rehacer mover hacia el frente "
 
 #: D:\SUMO/src\netedit\changes\GNEChange_Children.cpp:173
 #: D:\SUMO/src\netedit\changes\GNEChange_Children.cpp:182
 msgid "Redo moving back "
-msgstr ""
+msgstr "Rehacer mover hacia atrás "
 
 #: D:\SUMO/src\netedit\changes\GNEChange_Connection.cpp:108
 msgid "Redo create connection '"
-msgstr ""
+msgstr "Rehacer crear conexión '"
 
 #: D:\SUMO/src\netedit\changes\GNEChange_Connection.cpp:111
 msgid "Redo delete connection '"
