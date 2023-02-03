@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-01 15:37+0100\n"
-"PO-Revision-Date: 2023-02-03 10:10+0000\n"
+"PO-Revision-Date: 2023-02-03 10:26+0000\n"
 "Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -2800,14 +2800,18 @@ msgid ""
 "Edge sequence is not consistent with stop sequence in line '%', not adding "
 "bidi edges."
 msgstr ""
+"Kantensequenz ist nicht mit der Haltsequenz konsistent in Zeile '%', "
+"Zweirichtungs-Kanten werden nicht hinzugefügt."
 
 #: D:\SUMO/src\netbuild\NBAlgorithms_Railway.cpp:1016
 #: /home/micha/programming/sumo/src/netbuild/NBAlgorithms_Railway.cpp:1016
-#, c-format
+#, c-format, fuzzy
 msgid ""
 "Stop on edge '%' can only be reached in reverse but edge has the wrong "
 "spreadType."
 msgstr ""
+"Halt bei der Kante '%' kann nur rückwärts erreicht werden, aber die Kante "
+"hat den falschen Verbreitungstyp."
 
 #: D:\SUMO/src\netbuild\NBAlgorithms_Railway.cpp:1037
 #: /home/micha/programming/sumo/src/netbuild/NBAlgorithms_Railway.cpp:1037
@@ -2821,19 +2825,26 @@ msgid ""
 "Added % bidi-edges to ensure connectivity of straight tracks at geometry-"
 "like nodes."
 msgstr ""
+"% Zweirichtungs-Kanten wurden hinzugefügt, um die Konnektivität gerader "
+"Gleisen an geometrieähnlichen Knoten sicherzustellen."
 
 #: D:\SUMO/src\netbuild\NBAlgorithms_Railway.cpp:1149
 #: /home/micha/programming/sumo/src/netbuild/NBAlgorithms_Railway.cpp:1149
 msgid ""
 "Added % bidi-edges to ensure connectivity of straight tracks at switches."
 msgstr ""
+"% Zweirichtungs-Kanten wurden hinzugefügt, um die Konnektivität gerader "
+"Gleise an Weichen sicherzustellen."
 
 #: D:\SUMO/src\netbuild\NBAlgorithms_Railway.cpp:1209
 #: /home/micha/programming/sumo/src/netbuild/NBAlgorithms_Railway.cpp:1209
+#, fuzzy
 msgid ""
 "Cannot extend track direction priority because there are no track edges with "
 "positive priority"
 msgstr ""
+"Gleisrichtungs-Vorrang kann nicht erweitert werden, da keine Gleiskanten mit "
+"positiven Vorrang vorhanden sind"
 
 #: D:\SUMO/src\netbuild\NBAlgorithms_Railway.cpp:1265
 #: /home/micha/programming/sumo/src/netbuild/NBAlgorithms_Railway.cpp:1265
@@ -2841,34 +2852,41 @@ msgid ""
 "Edge '%' was loaded with undefined priority (%) but has unambiguous main "
 "direction (no bidi edge)"
 msgstr ""
+"Kante '%' wurde mit einem undefinierten Vorrang (%) geladen, hat aber eine "
+"eindeutige Hauptrichtung (keine Zweirichtungs-Kante)"
 
 #: D:\SUMO/src\netbuild\NBAlgorithms_Ramps.cpp:111
 #: /home/micha/programming/sumo/src/netbuild/NBAlgorithms_Ramps.cpp:111
 #, c-format
 msgid "Can not build ramp on edge '%' - the edge is unsuitable."
 msgstr ""
+"Für Kante '%' kann keine Rampe erstellt werden - die Kante ist ungeeignet."
 
 #: D:\SUMO/src\netbuild\NBAlgorithms_Ramps.cpp:115
 #: /home/micha/programming/sumo/src/netbuild/NBAlgorithms_Ramps.cpp:115
 #, c-format
 msgid "Can not build on ramp on edge '%' - the edge is not known."
 msgstr ""
+"Für Kante '%' kann keine Rampe erstellt werden - die Kante ist nicht bekannt."
 
 #: D:\SUMO/src\netbuild\NBAlgorithms_Ramps.cpp:126
 #: /home/micha/programming/sumo/src/netbuild/NBAlgorithms_Ramps.cpp:126
 #, c-format
 msgid "Can not build off ramp on edge '%' - the edge is not known."
 msgstr ""
+"Rampe an Kante '%' kann nicht erstellt werden - die Kante ist nicht bekannt."
 
 #: D:\SUMO/src\netbuild\NBAlgorithms_Ramps.cpp:239
 #: /home/micha/programming/sumo/src/netbuild/NBAlgorithms_Ramps.cpp:239
 msgid "Ups - could not build on-ramp for edge '%' (node could not be build)!"
 msgstr ""
+"Ups - eine Rampe für Kante '%' konnte nicht erstellt werden (Knoten konnte "
+"nicht erstellt werden)!"
 
 #: D:\SUMO/src\netbuild\NBAlgorithms_Ramps.cpp:244
 #: /home/micha/programming/sumo/src/netbuild/NBAlgorithms_Ramps.cpp:244
 msgid "Ups - could not build on-ramp for edge '%'!"
-msgstr ""
+msgstr "Ups - Rampe für Kante '%' konnte nicht erstellt werden!"
 
 #: D:\SUMO/src\netbuild\NBAlgorithms_Ramps.cpp:274
 #: D:\SUMO/src\netbuild\NBAlgorithms_Ramps.cpp:279
@@ -2881,7 +2899,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netbuild/NBAlgorithms_Ramps.cpp:393
 #: /home/micha/programming/sumo/src/netbuild/NBEdgeCont.cpp:690
 msgid "Could not set connection!"
-msgstr ""
+msgstr "Konnte Verbindung nicht anwenden!"
 
 #: D:\SUMO/src\netbuild\NBAlgorithms_Ramps.cpp:346
 #: /home/micha/programming/sumo/src/netbuild/NBAlgorithms_Ramps.cpp:346
@@ -2896,7 +2914,7 @@ msgstr ""
 #: D:\SUMO/src\netbuild\NBAlgorithms_Ramps.cpp:413
 #: /home/micha/programming/sumo/src/netbuild/NBAlgorithms_Ramps.cpp:413
 msgid "For edge '%': could not compute shape."
-msgstr ""
+msgstr "Für Kante '%': Konnte Shape nicht berechnen."
 
 #: D:\SUMO/src\netbuild\NBEdge.cpp:430 D:\SUMO/src\netbuild\NBEdge.cpp:458
 #: /home/micha/programming/sumo/src/netbuild/NBEdge.cpp:430
