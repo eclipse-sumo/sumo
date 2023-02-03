@@ -54,30 +54,8 @@ Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
-Debug: Setting new attribute
-GLDebug: 	Removed object edge:E1 from SUMORTree with boundary -10.00,7.00,95.00,35.00
-GLDebug: 	Inserted edge:E1 into SUMORTree with boundary -10.00,7.00,95.00,35.00
-Debug: Setting new attribute
-GLDebug: 	Removed object edge:E1 from SUMORTree with boundary -10.00,7.00,95.00,35.00
-GLDebug: 	Inserted edge:E1 into SUMORTree with boundary -10.00,7.00,95.00,35.00
-Debug: Setting new attribute
-GLDebug: 	Removed object edge:E1 from SUMORTree with boundary -10.00,7.00,95.00,35.00
-GLDebug: 	Inserted edge:E1 into SUMORTree with boundary -10.00,7.00,95.00,35.00
-Debug: Setting new attribute
-Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Restoring previous attribute
-Debug: Restoring previous attribute
-Debug: Restoring previous attribute
-GLDebug: 	Removed object edge:E1 from SUMORTree with boundary -10.00,7.00,95.00,35.00
-GLDebug: 	Inserted edge:E1 into SUMORTree with boundary -10.00,7.00,95.00,35.00
-Debug: Restoring previous attribute
-GLDebug: 	Removed object edge:E1 from SUMORTree with boundary -10.00,7.00,95.00,35.00
-GLDebug: 	Inserted edge:E1 into SUMORTree with boundary -10.00,7.00,95.00,35.00
-Debug: Restoring previous attribute
-GLDebug: 	Removed object edge:E1 from SUMORTree with boundary -10.00,7.00,95.00,35.00
-GLDebug: 	Inserted edge:E1 into SUMORTree with boundary -10.00,7.00,95.00,35.00
 Debug: Restoring previous attribute
 Debug: Restoring previous attribute
 Debug: Restoring previous attribute
@@ -200,17 +178,6 @@ GLDebug: 	Removed object edge:E1 from SUMORTree with boundary -10.00,7.00,95.00,
 GLDebug: 	Inserted edge:E1 into SUMORTree with boundary -10.00,7.00,95.00,35.00
 Debug: Setting new attribute
 Debug: Setting new attribute
-Debug: Setting new attribute
-Debug: Setting new attribute
-Debug: Setting new attribute
-GLDebug: 	Removed object edge:E1 from SUMORTree with boundary -10.00,7.00,95.00,35.00
-GLDebug: 	Inserted edge:E1 into SUMORTree with boundary -10.00,7.00,95.00,35.00
-Debug: Setting new attribute
-GLDebug: 	Removed object edge:E1 from SUMORTree with boundary -10.00,7.00,95.00,35.00
-GLDebug: 	Inserted edge:E1 into SUMORTree with boundary -10.00,7.00,95.00,35.00
-Debug: Setting new attribute
-GLDebug: 	Removed object edge:E1 from SUMORTree with boundary -10.00,7.00,95.00,35.00
-GLDebug: 	Inserted edge:E1 into SUMORTree with boundary -10.00,7.00,95.00,35.00
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Key F5 (Compute) pressed

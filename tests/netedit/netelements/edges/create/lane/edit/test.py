@@ -31,9 +31,6 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 # Change to create mode
 netedit.createEdgeMode()
 
-# remove lane
-netedit.changeDefaultBoolValue(netedit.attrs.edge.createLane.remove)
-
 # add lane
 netedit.changeDefaultBoolValue(netedit.attrs.edge.createLane.add)
 
