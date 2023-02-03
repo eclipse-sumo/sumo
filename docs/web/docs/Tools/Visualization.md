@@ -744,6 +744,7 @@ respectively.
 | **--size** {{DT_FLOAT}},{{DT_FLOAT}}                                               | Defines the size of figure                                                                                                                                                                                                                                                             |
 | **--no-legend**                                                          | If set, no legend is drawn                                                                                                                                                                                                                                                             |
 | **--legend-position** {{DT_STR}}                                           | Defines the position of the legend; default: matplolib default                                                                                                                                                                                                                         |
+| **--alpha** {{DT_FLOAT}}                                           | Defines the opacity of the plot background in the range 0=fully transparent to 1=opaque; default: 1                                                                                                                                                                                           |
 
 ### Interaction Options
 
