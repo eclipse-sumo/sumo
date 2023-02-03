@@ -22,7 +22,7 @@ Debug: Adding route 'route_3' in GNEChange_DemandElement
 Debug: Adding route 'route_4' in GNEChange_DemandElement
 Debug: Adding route 'route_5' in GNEChange_DemandElement
 Debug: Adding route 'route_6' in GNEChange_DemandElement
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.route.25Jan182728.9850/netedit.daily.demand.route/demandelements/route/load/edges/routes.rou.xml failed.
+Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Feb112528.13688\netedit.gui\demandelements\route\load\edges\routes.rou.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 48.00,-12.00,72.00,12.00
@@ -70,7 +70,6 @@ Debug: Created connection 'fromgneE6_0togneE3_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE6_0togneE3_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
-Debug: Key F5 (Compute) pressed
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -10.00,-13.20,10.00,13.20
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 39.60,-13.20,76.40,17.20
@@ -108,3 +107,50 @@ GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary -10.00,-10.00,70.00,1
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary -10.00,8.40,40.00,30.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary -10.00,10.00,40.00,31.60
 Debug: network elements saved
+Debug: Removing route 'route_3' in GNEChange_DemandElement
+Debug: demand elements saved after dialog
+Debug: Deleting unreferenced route
+Debug: Deleting unreferenced route
+Debug: Deleting unreferenced route
+Debug: Deleting unreferenced route
+Debug: Deleting unreferenced edge 'gneE10' in AttributeCarriers destructor
+Debug: Deleting unreferenced lane 'gneE10_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE10_0togneE8_0' in GNEEdge destructor
+Debug: Deleting unreferenced edge 'gneE11' in AttributeCarriers destructor
+Debug: Deleting unreferenced lane 'gneE11_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE11_0togneE6_0' in GNEEdge destructor
+Debug: Deleting unreferenced edge 'gneE2' in AttributeCarriers destructor
+Debug: Deleting unreferenced lane 'gneE2_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE2_0togneE4_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE2_0togneE4_1' in GNEEdge destructor
+Debug: Deleting unreferenced edge 'gneE3' in AttributeCarriers destructor
+Debug: Deleting unreferenced lane 'gneE3_0' in GNEEdge destructor
+Debug: Deleting unreferenced lane 'gneE3_1' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE3_1togneE7_0' in GNEEdge destructor
+Debug: Deleting unreferenced edge 'gneE4' in AttributeCarriers destructor
+Debug: Deleting unreferenced lane 'gneE4_0' in GNEEdge destructor
+Debug: Deleting unreferenced lane 'gneE4_1' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE4_1togneE5_0' in GNEEdge destructor
+Debug: Deleting unreferenced edge 'gneE5' in AttributeCarriers destructor
+Debug: Deleting unreferenced lane 'gneE5_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE5_0togneE10_0' in GNEEdge destructor
+Debug: Deleting unreferenced edge 'gneE6' in AttributeCarriers destructor
+Debug: Deleting unreferenced lane 'gneE6_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE6_0togneE3_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE6_0togneE3_1' in GNEEdge destructor
+Debug: Deleting unreferenced edge 'gneE7' in AttributeCarriers destructor
+Debug: Deleting unreferenced lane 'gneE7_0' in GNEEdge destructor
+Debug: Deleting unreferenced edge 'gneE8' in AttributeCarriers destructor
+Debug: Deleting unreferenced lane 'gneE8_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE8_0togneE9_0' in GNEEdge destructor
+Debug: Deleting unreferenced edge 'gneE9' in AttributeCarriers destructor
+Debug: Deleting unreferenced lane 'gneE9_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE9_0togneE11_0' in GNEEdge destructor
+Debug: Deleting unreferenced junction 'gneJ4' in AttributeCarriers destructor
+Debug: Deleting unreferenced junction 'gneJ5' in AttributeCarriers destructor
+Debug: Deleting unreferenced junction 'gneJ6' in AttributeCarriers destructor
+Debug: Deleting unreferenced junction 'gneJ7' in AttributeCarriers destructor
+Debug: Deleting unreferenced junction 'gneJ8' in AttributeCarriers destructor
+Debug: Deleting unreferenced junction 'gneJ9' in AttributeCarriers destructor
+Debug: Deleting net builder in GNENet destructor
+GLDebug: Number of objects in SUMORTree during call of the destructor: 16

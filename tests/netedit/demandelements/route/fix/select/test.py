@@ -28,14 +28,14 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
-# show demand elements in network mode
-netedit.changeEditMode(netedit.attrs.modes.network.showDemandElements)
-
-# Go to demand mode
-netedit.supermodeDemand()
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # fix
 netedit.fixDemandElement(netedit.attrs.fix.demandElements.routes.selectInvalidRoutes)
+
+# Go to demand mode
+netedit.supermodeDemand()
 
 # press supr key to remove invalid routes
 netedit.deleteUsingSuprKey()

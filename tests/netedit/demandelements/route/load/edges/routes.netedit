@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-02-03 11:25:53 by Eclipse SUMO netedit Version v1_15_0+2132-4702bd4095a
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- Routes -->
+    <route id="route_4" edges="gneE2 gneE4 gneE5 gneE10 gneE8" color="yellow"/>
+    <route id="route_5" edges="gneE2 gneE4" color="yellow"/>
+    <route id="route_6" edges="gneE2" color="yellow"/>
+</routes>

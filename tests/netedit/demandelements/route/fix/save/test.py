@@ -31,14 +31,11 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 # show demand elements in network mode
 netedit.changeEditMode(netedit.attrs.modes.network.showDemandElements)
 
-# Recompute
-netedit.rebuildNetwork()
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # fix
 netedit.fixDemandElement(netedit.attrs.fix.demandElements.routes.saveInvalidRoutes)
-
-# save Netedit config
-netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)
