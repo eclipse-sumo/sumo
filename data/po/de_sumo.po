@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-01 15:37+0100\n"
 "PO-Revision-Date: 2023-02-03 15:49+0000\n"
-"Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
+"Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
 "Language: de\n"
@@ -4860,7 +4860,8 @@ msgstr ""
 #: D:\SUMO/src\netimport\NIImporter_OpenDrive.cpp:1685
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenDrive.cpp:1685
 msgid "Could not compute spiral geometry for edge '%' (cDot=% length=%)."
-msgstr "Konnte Spiralgeometrie für Kante '%' nicht berechnen (cDot=% length=%)."
+msgstr ""
+"Konnte Spiralgeometrie für Kante '%' nicht berechnen (Kurvigkeit=% Länge=%)."
 
 #: D:\SUMO/src\netimport\NIImporter_OpenDrive.cpp:2327
 #: D:\SUMO/src\netimport\NIImporter_OpenDrive.cpp:2490
