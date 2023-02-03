@@ -7,7 +7,7 @@ Debug: Current Viewport values: 25.00, 0.00, 25.00. Zoom = '296.00'
 Debug: Selected item 'busStop' in GNETagSelector
 Debug: Adding busStop 'bs_0' in GNEChange_Additional
 Debug: Selected item 'access' in GNETagSelector
-Debug: Invalid input parameter of access: A busStop must be selected before insertion of access.
+Debug: Invalid input parameter of access: busStop must be selected before insertion of access.
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing busStop 'bs_0' in GNEChange_Additional
