@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-01 15:37+0100\n"
-"PO-Revision-Date: 2023-02-03 10:26+0000\n"
+"PO-Revision-Date: 2023-02-03 11:49+0000\n"
 "Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -2921,40 +2921,40 @@ msgstr "Für Kante '%': Konnte Shape nicht berechnen."
 #: /home/micha/programming/sumo/src/netbuild/NBEdge.cpp:458
 #, c-format
 msgid "At least one of edge's '%' nodes is not known."
-msgstr ""
+msgstr "Mindestens einer der Knoten von Kante '%' ist nicht bekannt."
 
 #: D:\SUMO/src\netbuild\NBEdge.cpp:455
 #: /home/micha/programming/sumo/src/netbuild/NBEdge.cpp:455
 #, c-format
 msgid "Edge '%' needs at least one lane."
-msgstr ""
+msgstr "Kante '%' benötigt mindestens einen Fahrstreifen."
 
 #: D:\SUMO/src\netbuild\NBEdge.cpp:461
 #: /home/micha/programming/sumo/src/netbuild/NBEdge.cpp:461
 msgid "Invalid edge id '%'."
-msgstr ""
+msgstr "Ungültige Kanten-ID '%'."
 
 #: D:\SUMO/src\netbuild\NBEdge.cpp:491 D:\SUMO/src\netbuild\NBEdge.cpp:625
 #: /home/micha/programming/sumo/src/netbuild/NBEdge.cpp:491
 #: /home/micha/programming/sumo/src/netbuild/NBEdge.cpp:625
 #, c-format
 msgid "Edge's '%' from- and to-node are at the same position."
-msgstr ""
+msgstr "Ausgangs- und Endknoten an der Kante '%' haben die gleiche Position."
 
 #: D:\SUMO/src\netbuild\NBEdge.cpp:993
 #: /home/micha/programming/sumo/src/netbuild/NBEdge.cpp:993
 msgid "Found angle of % degrees at edge '%', segment %."
-msgstr ""
+msgstr "Winkel von % Grad an der Kante '%' gefunden, Abschnitt %."
 
 #: D:\SUMO/src\netbuild\NBEdge.cpp:1148
 #: /home/micha/programming/sumo/src/netbuild/NBEdge.cpp:1148
 msgid "Could not set connection from '%' to '%'."
-msgstr ""
+msgstr "Konnte Verbindung von '%' zu '%' nicht anwenden."
 
 #: D:\SUMO/src\netbuild\NBEdge.cpp:1655
 #: /home/micha/programming/sumo/src/netbuild/NBEdge.cpp:1655
 msgid "Connection '%_%->%_%' is only %m short."
-msgstr ""
+msgstr "Verbindung '%_%->%_%' ist nur %m kurz."
 
 #: D:\SUMO/src\netbuild\NBEdge.cpp:1756
 #: /home/micha/programming/sumo/src/netbuild/NBEdge.cpp:1756
@@ -2974,11 +2974,12 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netbuild/NBEdge.cpp:2196
 msgid "In lane '%': lane shape could not be determined (%)."
 msgstr ""
+"Beim Fahrstreifen '%': Fahrstreifen-Shape konnte nicht bestimmt werden (%)."
 
 #: D:\SUMO/src\netbuild\NBEdge.cpp:2209
 #: /home/micha/programming/sumo/src/netbuild/NBEdge.cpp:2209
 msgid "In lane '%': Could not build shape (%)."
-msgstr ""
+msgstr "Beim Fahrstreifen '%': Konnte Shape nicht erstellen (%)."
 
 #: D:\SUMO/src\netbuild\NBEdge.cpp:2617
 #: /home/micha/programming/sumo/src/netbuild/NBEdge.cpp:2617
@@ -3018,6 +3019,8 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netbuild/NBEdge.cpp:2957
 msgid "Lane '%' is not connected from any incoming edge at junction '%'."
 msgstr ""
+"Fahrstreifen '%' ist mit keiner ankommenden Kante am Knotenpunkt '%' "
+"verbunden."
 
 #: D:\SUMO/src\netbuild\NBEdge.cpp:2974
 #: /home/micha/programming/sumo/src/netbuild/NBEdge.cpp:2974
@@ -3035,12 +3038,12 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netbuild/NBEdge.cpp:3567
 #, c-format
 msgid "The lane '%' on edge '%' already had a traffic light signal."
-msgstr ""
+msgstr "Der Fahrstreifen '%' von Kante '%' hatte bereits ein LSA-Signal."
 
 #: D:\SUMO/src\netbuild\NBEdge.cpp:3573
 #: /home/micha/programming/sumo/src/netbuild/NBEdge.cpp:3573
 msgid "Could not set any signal of the tlLogic '%' (unknown group)."
-msgstr ""
+msgstr "Konnte kein Signal der LSA-Logik '%' anwenden (unbekannte Gruppe)."
 
 #: D:\SUMO/src\netbuild\NBEdge.cpp:4055
 #: /home/micha/programming/sumo/src/netbuild/NBEdge.cpp:4055
@@ -3071,34 +3074,38 @@ msgstr "Kante % erlaubt Fußgänger auf allen Fahrstreifen"
 #, c-format
 msgid "Edge '%' already has a dedicated lane for %s. Not adding another one."
 msgstr ""
+"Kante '%' hat bereits einen zugehörigen Fahrstreifen für %s. Kein weiterer "
+"wird hinzugefügt."
 
 #: D:\SUMO/src\netbuild\NBEdge.cpp:4428
 #: /home/micha/programming/sumo/src/netbuild/NBEdge.cpp:4428
 #, c-format
 msgid "Edge '%' doesn't have a dedicated lane for %s. Cannot be restored."
 msgstr ""
+"Kante '%' hat keinen zugehörigen Fahrstreifen für %s. Kann nicht "
+"wiederhergestellt werden."
 
 #: D:\SUMO/src\netbuild\NBEdge.cpp:4476
 #: /home/micha/programming/sumo/src/netbuild/NBEdge.cpp:4476
 msgid "Could not avoid overlapping shape at node '%' for edge '%'."
-msgstr ""
+msgstr "Konnte überlappende Shape am Knoten '%' für Kante '%' nicht vermeiden."
 
 #: D:\SUMO/src\netbuild\NBEdge.h:322
 #: /home/micha/programming/sumo/src/netbuild/NBEdge.h:321
 msgid "NBEdge::Connection does not implement getNumericalID()"
-msgstr ""
+msgstr "NBEdge:: Verbindnung ist nicht implementiert getNumericalID()"
 
 #: D:\SUMO/src\netbuild\NBEdgeCont.cpp:121
 #: D:\SUMO/src\netbuild\NBEdgeCont.cpp:140
 #: /home/micha/programming/sumo/src/netbuild/NBEdgeCont.cpp:121
 #: /home/micha/programming/sumo/src/netbuild/NBEdgeCont.cpp:140
 msgid "Invalid boundary: need at least 2 coordinates"
-msgstr ""
+msgstr "Ungültige Grenze: benötige mindestens 2 Koordinaten"
 
 #: D:\SUMO/src\netbuild\NBEdgeCont.cpp:142
 #: /home/micha/programming/sumo/src/netbuild/NBEdgeCont.cpp:142
 msgid "Invalid boundary: malformed coordinate"
-msgstr ""
+msgstr "Ungültige Grenze: missgebildete Koordinate"
 
 #: D:\SUMO/src\netbuild\NBEdgeCont.cpp:259
 #: /home/micha/programming/sumo/src/netbuild/NBEdgeCont.cpp:259
@@ -3109,7 +3116,7 @@ msgstr ""
 #: D:\SUMO/src\netbuild\NBEdgeCont.cpp:438
 #: /home/micha/programming/sumo/src/netbuild/NBEdgeCont.cpp:438
 msgid "Attempt to rename edge using existing id '%'"
-msgstr ""
+msgstr "Versuche Kante mit der existierenden ID '%' umzubenennen"
 
 #: D:\SUMO/src\netbuild\NBEdgeCont.cpp:498
 #: D:\SUMO/src\netimport\NIXMLEdgesHandler.cpp:488
@@ -3124,26 +3131,31 @@ msgstr "Fehler beim Einlesen einer Auftrennung (Kante '%')."
 #: /home/micha/programming/sumo/src/netbuild/NBEdgeCont.cpp:858
 msgid "Moving opposite lane '%' from invalid lane '%' to lane index %."
 msgstr ""
+"Verschiebe gegenüberliegenden Fahrstreifen '%' vom ungültigen Fahrstreifen "
+"'%' zum Fahrstreifen-Index %."
 
 #: D:\SUMO/src\netbuild\NBEdgeCont.cpp:877
 #: /home/micha/programming/sumo/src/netbuild/NBEdgeCont.cpp:860
 msgid "Removing opposite lane '%' for invalid lane '%'."
 msgstr ""
+"Entferne gegenüberliegenden Fahrstreifen '%' für den ungültigen Fahrstreifen "
+"'%'."
 
 #: D:\SUMO/src\netbuild\NBEdgeCont.cpp:886
 #: /home/micha/programming/sumo/src/netbuild/NBEdgeCont.cpp:869
 msgid "Removing unknown opposite lane '%' for edge '%'."
-msgstr ""
+msgstr "Entferne unbekannten gegenüberliegenden Fahrstreifen '%' für Kante '%'."
 
 #: D:\SUMO/src\netbuild\NBEdgeCont.cpp:891
 #: /home/micha/programming/sumo/src/netbuild/NBEdgeCont.cpp:874
 msgid "Adapting invalid opposite lane '%' for edge '%' to '%'."
 msgstr ""
+"Passe ungültigen gegenüberliegenden Fahrstreifen '%' für Kante '%' zu '%' an."
 
 #: D:\SUMO/src\netbuild\NBEdgeCont.cpp:897
 #: /home/micha/programming/sumo/src/netbuild/NBEdgeCont.cpp:880
 msgid "Adapting missing opposite lane '%' for edge '%'."
-msgstr ""
+msgstr "Passe fehlenden gegenüberliegenden Fahrstreifen '%' für Kante '%' an."
 
 #: D:\SUMO/src\netbuild\NBEdgeCont.cpp:903
 #: /home/micha/programming/sumo/src/netbuild/NBEdgeCont.cpp:886
@@ -3153,7 +3165,7 @@ msgstr ""
 #: D:\SUMO/src\netbuild\NBEdgeCont.cpp:1416
 #: /home/micha/programming/sumo/src/netbuild/NBEdgeCont.cpp:1399
 msgid "Replacing loaded roundabout '%' with '%'."
-msgstr ""
+msgstr "Ersetzte geladenen Kreisverkehr '%' mit '%'."
 
 #: D:\SUMO/src\netbuild\NBEdgeCont.cpp:1734
 #: /home/micha/programming/sumo/src/netbuild/NBEdgeCont.cpp:1717
@@ -3285,18 +3297,19 @@ msgstr "roundabouts.visibility-distance  muss positiv oder -1 sein"
 
 #: D:\SUMO/src\netbuild\NBFrame.cpp:790
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:790
+#, fuzzy
 msgid "Unknown value for default.spreadtype '%'."
-msgstr ""
+msgstr "Unbekannter Wert für default.spreadtype '%'."
 
 #: D:\SUMO/src\netbuild\NBHeightMapper.cpp:88
 #: /home/micha/programming/sumo/src/netbuild/NBHeightMapper.cpp:88
 msgid "Cannot supply height since no height data was loaded"
-msgstr ""
+msgstr "Höhe kann nicht angegeben werden, da keine Höhendaten geladen wurden"
 
 #: D:\SUMO/src\netbuild\NBHeightMapper.cpp:136
 #: /home/micha/programming/sumo/src/netbuild/NBHeightMapper.cpp:136
 msgid "Could not get height data for coordinate %"
-msgstr ""
+msgstr "Keine Höhendaten für Koordinate % bekommen"
 
 #: D:\SUMO/src\netbuild\NBHeightMapper.cpp:190
 #: /home/micha/programming/sumo/src/netbuild/NBHeightMapper.cpp:190
