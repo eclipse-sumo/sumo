@@ -555,7 +555,11 @@ GNEFrameAttributeModules::AttributesEditorRow::onCmdSetAttribute(FXObject*, FXSe
         }
     } else if (myACParent && myACAttr.isVType() && (myACAttr.getAttr() == SUMO_ATTR_TYPE)) {
         // Get value of ComboBox
-        newVal = myValueChoicesComboBox->getText().text();
+        if (myValueChoicesComboBox->shown()) {
+            newVal = myValueChoicesComboBox->getText().text();
+        } else {
+            newVal = myValueTextField->getText().text();
+        }
     } else {
         // Check if default value of attribute must be set
         if (myValueTextField->getText().empty() && myACAttr.hasDefaultValue()) {
