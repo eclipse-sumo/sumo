@@ -479,6 +479,9 @@ struct GNEViewNetHelper {
         /// @brief build save buttons
         void buildLanguagesButtons();
 
+        /// @brief checkable button for current language
+        MFXMenuButtonTooltip* getChangeLanguageButton();
+
     private:
         /// @brief pointer to net
         GNEViewNet* myViewNet;
@@ -486,7 +489,7 @@ struct GNEViewNetHelper {
         /// @brief The change language popup menu
         FXPopup* myChangeLanguagePopup = nullptr;
 
-        /// @brief checkable button for save individual files
+        /// @brief checkable menu for current language
         MFXMenuButtonTooltip* myChangeLanguage = nullptr;
 
         /// @brief checkable button for english language

@@ -394,6 +394,15 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_F1_TEMPLATE_SET,       GNEApplicationWindow::onCmdSetTemplate),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_F2_TEMPLATE_COPY,      GNEApplicationWindow::onCmdCopyTemplate),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_F3_TEMPLATE_CLEAR,     GNEApplicationWindow::onCmdClearTemplate),
+    // languages
+    FXMAPFUNC(SEL_COMMAND,  MID_LANGUAGE_EN,    GNEApplicationWindow::onCmdChangeLanguage),
+    FXMAPFUNC(SEL_COMMAND,  MID_LANGUAGE_DE,    GNEApplicationWindow::onCmdChangeLanguage),
+    FXMAPFUNC(SEL_COMMAND,  MID_LANGUAGE_ES,    GNEApplicationWindow::onCmdChangeLanguage),
+    FXMAPFUNC(SEL_COMMAND,  MID_LANGUAGE_FR,    GNEApplicationWindow::onCmdChangeLanguage),
+    FXMAPFUNC(SEL_COMMAND,  MID_LANGUAGE_CN,    GNEApplicationWindow::onCmdChangeLanguage),
+    FXMAPFUNC(SEL_COMMAND,  MID_LANGUAGE_TK,    GNEApplicationWindow::onCmdChangeLanguage),
+    FXMAPFUNC(SEL_COMMAND,  MID_LANGUAGE_HU,    GNEApplicationWindow::onCmdChangeLanguage),
+    FXMAPFUNC(SEL_UPDATE,   MID_LANGUAGE_EN,    GNEApplicationWindow::onUpdChangeLanguage),
     // Other
     FXMAPFUNC(SEL_CLIPBOARD_REQUEST,    0,                                                  GNEApplicationWindow::onClipboardRequest),
     FXMAPFUNC(SEL_COMMAND,              MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT,             GNEApplicationWindow::onCmdFocusFrame),
@@ -451,7 +460,9 @@ GNEApplicationWindow::dependentBuild() {
         return;
     }
     myHadDependentBuild = true;
+    // set language
     if (gLanguage == "C") {
+        // due sumo and netedit shares language, load registry from sumo
         FXRegistry reg("SUMO GUI", "sumo-gui");
         reg.read();
         gLanguage = reg.readStringEntry("gui", "language", "C");
@@ -2440,6 +2451,80 @@ GNEApplicationWindow::onCmdClearTemplate(FXObject*, FXSelector, void*) {
     if (myViewNet) {
         // call clear template in inspector frame
         myViewNet->getViewParent()->getInspectorFrame()->getTemplateEditor()->clearTemplate();
+    }
+    return 1;
+}
+
+
+long
+GNEApplicationWindow::onCmdChangeLanguage(FXObject*, FXSelector sel, void*) {
+    // set language
+    std::string lang;
+    // continue depending of called button
+    switch (FXSELID(sel)) {
+        case MID_LANGUAGE_EN:
+            lang = "ES";
+            break;
+        case MID_LANGUAGE_DE:
+            lang = "DE";
+            break;
+        case MID_LANGUAGE_ES:
+            lang = "ES";
+            break;
+        case MID_LANGUAGE_FR:
+            lang = "FR";
+            break;
+        case MID_LANGUAGE_CN:
+            lang = "CN";
+            break;
+        case MID_LANGUAGE_TK:
+            lang = "TK";
+            break;
+        case MID_LANGUAGE_HU:
+            lang = "HU";
+            break;
+        default:
+            lang = "EN";
+            break;
+    }
+
+    // check if change language
+    if (lang != gLanguage) {
+        // due sumo and netedit shares language, load registry from sumo
+        FXRegistry reg("SUMO GUI", "sumo-gui");
+        reg.read();
+        // update language
+        gLanguage = lang;
+        // update language in registry (common for sumo and netedit)
+        reg.writeStringEntry("gui", "language", lang.c_str());
+        reg.write();
+    }
+    return 1;
+}
+
+
+long
+GNEApplicationWindow::onUpdChangeLanguage(FXObject*, FXSelector, void*) {
+    // get language button
+    auto languageButton = myViewNet->getLanguages().getChangeLanguageButton();
+    // check language
+    if (gLanguage == "EN") {
+        languageButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_EN));
+    } else if (gLanguage == "DE") {
+        languageButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_DE));
+    } else if (gLanguage == "ES") {
+        languageButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_ES));
+    } else if (gLanguage == "FR") {
+        languageButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_FR));
+    } else if (gLanguage == "CN") {
+        languageButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_CN));
+    } else if (gLanguage == "TK") {
+        languageButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_TK));
+    } else if (gLanguage == "HU") {
+        languageButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_HU));
+    } else {
+        // english as default
+        languageButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_EN));
     }
     return 1;
 }

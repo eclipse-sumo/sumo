@@ -1987,6 +1987,12 @@ GNEViewNetHelper::Languages::buildLanguagesButtons() {
     myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().languages->show();
 }
 
+
+MFXMenuButtonTooltip*
+GNEViewNetHelper::Languages::getChangeLanguageButton() {
+    return myChangeLanguage;
+}
+
 // ---------------------------------------------------------------------------
 // GNEViewNetHelper::SaveElements - methods
 // ---------------------------------------------------------------------------

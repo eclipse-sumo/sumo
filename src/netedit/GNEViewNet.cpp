@@ -616,6 +616,12 @@ GNEViewNet::saveVisualizationSettings() const {
 }
 
 
+GNEViewNetHelper::Languages&
+GNEViewNet::getLanguages() {
+    return myLanguages;
+}
+
+
 const GNEViewNetHelper::EditModes&
 GNEViewNet::getEditModes() const {
     return myEditModes;

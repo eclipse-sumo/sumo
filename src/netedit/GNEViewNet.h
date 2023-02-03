@@ -124,6 +124,9 @@ public:
     // save visualization settings
     void saveVisualizationSettings() const;
 
+    /// @brief get languages
+    GNEViewNetHelper::Languages& getLanguages();
+
     /// @brief get edit modes
     const GNEViewNetHelper::EditModes& getEditModes() const;
 

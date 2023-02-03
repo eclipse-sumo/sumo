@@ -347,9 +347,7 @@ public:
     /// @brief called when a key is released
     long onKeyRelease(FXObject* o, FXSelector sel, void* data);
 
-    /**@brief Called by FOX if the application shall be closed
-     * @note Called either by FileMenu->Quit, the normal close-menu or SIGINT
-     */
+    /// @brief Called by FOX if the application shall be closed
     long onCmdQuit(FXObject*, FXSelector, void*);
 
     /// @brief called when the command/FXCall edit chosen is executed
@@ -489,6 +487,12 @@ public:
 
     // @brief called when user press Ctrl+F3
     long onCmdClearTemplate(FXObject*, FXSelector, void*);
+
+    // @brief called when changes language
+    long onCmdChangeLanguage(FXObject*, FXSelector, void*);
+
+    // @brief called when language is updated
+    long onUpdChangeLanguage(FXObject*, FXSelector, void*);
 
     /// @}
 
