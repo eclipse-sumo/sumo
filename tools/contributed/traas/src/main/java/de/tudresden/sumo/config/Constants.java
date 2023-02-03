@@ -919,7 +919,7 @@ public class Constants {
     // position (3D) (get: vehicle, poi, set: poi)
     public static final int VAR_POSITION3D = 0x39;
 
-    // angle (get: vehicle, poi, gui; set: poi, gui)
+    // angle (get: vehicle, edge, lane, poi, gui; set: poi, gui)
     public static final int VAR_ANGLE = 0x43;
 
     // length (get: vehicle types, lanes, lane area detector, set: lanes)
