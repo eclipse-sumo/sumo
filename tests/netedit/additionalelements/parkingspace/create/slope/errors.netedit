@@ -19,7 +19,7 @@ GLDebug: 	Removed object parkingSpace:pa_0 from SUMORTree with boundary 5.00,5.0
 GLDebug: 	Inserted parkingSpace:pa_0 into SUMORTree with boundary -5.70,-5.70,35.70,35.70
 GLDebug: 	Removed object parkingSpace:pa_0 from SUMORTree with boundary -5.70,-5.70,35.70,35.70
 GLDebug: 	Inserted parkingSpace:pa_0 into SUMORTree with boundary -5.70,-5.70,35.70,35.70
-Debug: Invalid input parameter of space: A parkingArea must be selected before insertion of space.
+Debug: Invalid input parameter of space: parkingArea must be selected before insertion of space.
 Debug: Adding space 'pa_0' in GNEChange_Additional
 GLDebug: 	Inserted parkingSpace:pa_0 into SUMORTree with boundary 10.00,5.00,30.00,25.00
 GLDebug: 	Removed object parkingSpace:pa_0 from SUMORTree with boundary 10.00,5.00,30.00,25.00
