@@ -117,6 +117,9 @@ public:
     /// @brief get test label
     FXLabel* getTestLabel();
 
+    /// @brief get test frame
+    FXHorizontalFrame* getTestFrame();
+
     /// @brief return whether the gui is in gaming mode
     bool isGaming() const;
 

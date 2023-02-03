@@ -59,6 +59,7 @@
 #include <utils/gui/settings/GUIVisualizationSettings.h>
 #include <foreign/fontstash/fontstash.h>
 #include <utils/gui/cursors/GUICursorSubSys.h>
+#include <utils/options/OptionsCont.h>
 
 #include <unordered_set>
 
@@ -257,9 +258,12 @@ GUISUMOAbstractView::updatePositionInformationLabel() const {
         myApp->getGeoLabel()->setText(("x:" + toString(pos.x()) + ", y:" + toString(pos.y()) + " (No projection defined)").c_str());
     }
     // if enabled, set test position
-    if (myApp->getTestLabel()) {
+    if (OptionsCont::getOptions().getBool("gui-testing")) {
+        myApp->getTestFrame()->show();
         // adjust cursor position (24,25) to show exactly the same position as in function netedit.leftClick(match, X, Y)
         myApp->getTestLabel()->setText(("Test: x:" + toString(getWindowCursorPosition().x() - 24.0) + " y:" + toString(getWindowCursorPosition().y() - 25.0)).c_str());
+    } else {
+        myApp->getTestFrame()->hide();
     }
 }
 

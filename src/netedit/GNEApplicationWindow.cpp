@@ -477,10 +477,9 @@ GNEApplicationWindow::dependentBuild() {
     myCartesianFrame = new FXHorizontalFrame(myStatusbar, GUIDesignHorizontalFrameStatusBar);
     myCartesianCoordinate = new FXLabel(myCartesianFrame, (TL("N/A") + std::string("\t\t") + TL("Network coordinate")).c_str(), nullptr, GUIDesignLabelStatusBar);
     // build test coordinates label (only if gui-testing is enabled)
-    if (OptionsCont::getOptions().getBool("gui-testing")) {
-        myTestFrame = new FXHorizontalFrame(myStatusbar, GUIDesignHorizontalFrameStatusBar);
-        myTestCoordinate = new FXLabel(myTestFrame, (TL("N/A") + std::string("\t\t") + TL("Test coordinate")).c_str(), nullptr, GUIDesignLabelStatusBar);
-    }
+    myTestFrame = new FXHorizontalFrame(myStatusbar, GUIDesignHorizontalFrameStatusBar);
+    myTestCoordinate = new FXLabel(myTestFrame, (TL("N/A") + std::string("\t\t") + TL("Test coordinate")).c_str(), nullptr, GUIDesignLabelStatusBar);
+    myTestFrame->hide();
     // make the window a mdi-window
     myMainSplitter = new FXSplitter(this, GUIDesignSplitter | SPLITTER_VERTICAL | SPLITTER_REVERSED);
     myMDIClient = new FXMDIClient(myMainSplitter, GUIDesignSplitterMDI);
@@ -1536,9 +1535,8 @@ GNEApplicationWindow::closeAllWindows() {
     // remove coordinate information
     myGeoCoordinate->setText(TL("N/A"));
     myCartesianCoordinate->setText(TL("N/A"));
-    if (myTestCoordinate) {
-        myTestCoordinate->setText(TL("N/A"));
-    }
+    myTestCoordinate->setText(TL("N/A"));
+    myTestFrame->hide();
     // check if net can be deleted
     if (myNet != nullptr) {
         delete myNet;

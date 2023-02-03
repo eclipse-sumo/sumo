@@ -233,6 +233,12 @@ GUIMainWindow::getTestLabel() {
 }
 
 
+FXHorizontalFrame*
+GUIMainWindow::getTestFrame() {
+    return myTestFrame;
+}
+
+
 bool
 GUIMainWindow::isGaming() const {
     return myAmGaming;
