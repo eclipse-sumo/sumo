@@ -18,6 +18,7 @@
 # import common functions for netedit tests
 import os
 import sys
+import time
 
 testRoot = os.path.join(os.environ.get('SUMO_HOME', '.'), 'tests')
 neteditTestRoot = os.path.join(
@@ -39,8 +40,18 @@ netedit.leftClick(referencePosition, 536, 240)
 netedit.undo(referencePosition, 1)
 netedit.redo(referencePosition, 1)
 
-# save network
-netedit.saveNetwork(referencePosition)
+# save network using hotkey
+netedit.typeTwoKeys('ctrl', 's')
+
+# jump to filename TextField
+netedit.typeTwoKeys('alt', 'f')
+netedit.pasteIntoTextField(os.environ.get("TEXTTEST_SANDBOX", os.getcwd()))
+netedit.typeEnter()
+netedit.pasteIntoTextField("net")
+netedit.typeEnter()
+
+# wait for loading
+time.sleep(1)
 
 # quit netedit
 netedit.quit(neteditProcess)

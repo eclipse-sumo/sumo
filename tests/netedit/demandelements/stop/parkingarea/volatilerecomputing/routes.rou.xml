@@ -40,16 +40,16 @@
     <vType id="id" vClass="ignoring"/>
     <vehicle id="vehicle_0" type="id" depart="0.00">
         <route edges="gneE2 gneE4" color="yellow"/>
-        <stop parkingArea="parkingAreaH" duration="60.00"/>
-        <stop parkingArea="parkingAreaG" duration="60.00"/>
-        <stop parkingArea="parkingAreaF" duration="60.00"/>
-        <stop parkingArea="parkingAreaE" duration="60.00"/>
-        <stop parkingArea="parkingAreaD" duration="60.00"/>
         <stop parkingArea="parkingAreaC" duration="60.00"/>
+        <stop parkingArea="parkingAreaD" duration="60.00"/>
+        <stop parkingArea="parkingAreaE" duration="60.00"/>
+        <stop parkingArea="parkingAreaF" duration="60.00"/>
+        <stop parkingArea="parkingAreaG" duration="60.00"/>
+        <stop parkingArea="parkingAreaH" duration="60.00"/>
     </vehicle>
     <vehicle id="vehicle_1" type="id" depart="0.00">
         <route edges="gneE0 gneE1" color="yellow"/>
-        <stop parkingArea="parkingAreaB" duration="60.00"/>
         <stop parkingArea="parkingAreaA" duration="60.00"/>
+        <stop parkingArea="parkingAreaB" duration="60.00"/>
     </vehicle>
 </routes>
