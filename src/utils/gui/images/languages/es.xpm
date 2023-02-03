@@ -2,7 +2,7 @@
 static const char *language_es_xpm[] = {
 /* columns rows colors chars-per-pixel */
 "16 16 1 1",
-"U c None",
+"U c cyan",
 /* pixels */
 "UUUUUUUUUUUUUUUU",
 "UUUUUUUUUUUUUUUU",

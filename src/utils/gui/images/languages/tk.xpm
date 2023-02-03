@@ -2,7 +2,7 @@
 static const char *language_tk_xpm[] = {
 /* columns rows colors chars-per-pixel */
 "16 16 1 1",
-"U c None",
+"U c #BFC2BF",
 /* pixels */
 "UUUUUUUUUUUUUUUU",
 "UUUUUUUUUUUUUUUU",

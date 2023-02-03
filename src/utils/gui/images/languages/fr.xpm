@@ -2,7 +2,7 @@
 static const char *language_fr_xpm[] = {
 /* columns rows colors chars-per-pixel */
 "16 16 1 1",
-"U c None",
+"U c #808080",
 /* pixels */
 "UUUUUUUUUUUUUUUU",
 "UUUUUUUUUUUUUUUU",
