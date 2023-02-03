@@ -133,8 +133,10 @@ GUIDialog_AppSettings::onCmdOk(FXObject*, FXSelector, void*) {
     }
     getApp()->reg().writeStringEntry("gui", "onlineMaps", maps.text());
     const std::string lang = myLanguageField->getText().text();
+    // check if change language
     if (lang != gLanguage) {
         gLanguage = lang;
+        // update language in registry (common for sumo and netedit)
         getApp()->reg().writeStringEntry("gui", "language", lang.c_str());
     }
     destroy();

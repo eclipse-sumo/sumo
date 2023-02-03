@@ -239,6 +239,7 @@ GUIApplicationWindow::dependentBuild(const bool isLibsumo) {
         return;
     }
     hadDependentBuild = true;
+    // set language
     if (gLanguage == "C") {
         gLanguage = getApp()->reg().readStringEntry("gui", "language", "C");
         MsgHandler::setupI18n(gLanguage);
