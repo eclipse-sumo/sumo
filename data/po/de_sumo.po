@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-01 15:37+0100\n"
-"PO-Revision-Date: 2023-02-03 04:42+0000\n"
-"Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
+"PO-Revision-Date: 2023-02-03 09:10+0000\n"
+"Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
 "Language: de\n"
@@ -4902,7 +4902,7 @@ msgstr ""
 #: D:\SUMO/src\netimport\NIImporter_OpenStreetMap.cpp:888
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:888
 msgid "Tag element on wrong XML hierarchy level."
-msgstr "Tag-Element auf falscher XML-Hierarchystufe."
+msgstr "Tag-Element auf falscher XML-Hierarchiestufe."
 
 #: D:\SUMO/src\netimport\NIImporter_OpenStreetMap.cpp:930
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:930
@@ -5478,8 +5478,7 @@ msgstr "Ungültige Fahrstreifennummer (Kante '%')."
 #: /home/micha/programming/sumo/src/netimport/NINavTeqHelper.cpp:94
 msgid "Non-numerical value for an edge's lane number occurred (edge '%'."
 msgstr ""
-"Nicht nummerischer Wert für eine Kanten-Fahrstreifennummer entdeckt (Kante "
-"'%')."
+"Nicht numerischer Wert für eine Fahrstreifennummer entdeckt (Kante '%')."
 
 #: D:\SUMO/src\netimport\NIVisumTL.cpp:76
 #: /home/micha/programming/sumo/src/netimport/NIVisumTL.cpp:76
@@ -5627,7 +5626,7 @@ msgstr "Die Knoten-Shape am Knoten '%' kann nicht projiziert werden."
 
 #: /home/micha/programming/sumo/src/netimport/NIXMLNodesHandler.cpp:338
 msgid "Changing traffic light type '%' to '%' for tl '%'."
-msgstr "Änderung des LSA-Typs '%' in '%' für tl '%'."
+msgstr "Änderung des LSA-Typs '%' in '%' an LSA '%'."
 
 #: D:\SUMO/src\netimport\NIXMLPTHandler.cpp:173
 #: /home/micha/programming/sumo/src/netimport/NIXMLPTHandler.cpp:173
@@ -6517,7 +6516,8 @@ msgstr "Verwerfe Personenfluss '%', da ihr Plan leer ist"
 #: /home/micha/programming/sumo/src/router/RORouteHandler.cpp:629
 #, c-format
 msgid "probabilistic personFlow '%' must specify end time"
-msgstr "probalistischer Personenfluss '%' muss eine Endzeit angeben"
+msgstr ""
+"für den probabilistischen Personenfluss '%' muss eine Endzeit angeben werden"
 
 #: D:\SUMO/src\router\RORouteHandler.cpp:702
 #: /home/micha/programming/sumo/src/router/RORouteHandler.cpp:702
@@ -7201,7 +7201,7 @@ msgstr "Schema konnte nicht in '%' gespeichert werden"
 #: D:\SUMO/src\utils\options\OptionsCont.cpp:671
 #: /home/micha/programming/sumo/src/utils/options/OptionsCont.cpp:671
 msgid "Written schema to '%'"
-msgstr "Geschriebenes Schema in '%'"
+msgstr "Schema nach '%' geschrieben"
 
 #: D:\SUMO/src\utils\options\OptionsIO.cpp:88
 #: D:\SUMO/src\utils\options\OptionsIO.cpp:135
