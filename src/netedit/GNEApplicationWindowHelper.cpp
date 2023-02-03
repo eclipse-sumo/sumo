@@ -55,40 +55,33 @@ GNEApplicationWindowHelper::ToolbarsGrip::buildMenuToolbarsGrip() {
 
 void
 GNEApplicationWindowHelper::ToolbarsGrip::buildViewParentToolbarsGrips() {
-    // build menu bar for supermodes (next to menu bar)
+    // build toolbar shells
     myToolBarShellSuperModes = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
-    superModes = new FXMenuBar(myGNEApp->getTopDock(), myToolBarShellSuperModes, GUIDesignToolBarRaisedSame);
-    // declare toolbar grip for menu bar superModes
-    new FXToolBarGrip(superModes, superModes, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
-    // build menu bar for languages (next to menu bar)
     myToolBarShellLanguages = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
-    languages = new FXMenuBar(myGNEApp->getTopDock(), myToolBarShellLanguages, GUIDesignToolBarRaisedSame);
-    // declare toolbar grip for menu bar languages
-    new FXToolBarGrip(languages, languages, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
-    // build menu bar for save elements (bot to menu bar)
     myToolBarShellSaveElements = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
-    saveElements = new FXMenuBar(myGNEApp->getTopDock(), myToolBarShellSaveElements, GUIDesignToolBarRaisedNext);
-    // declare toolbar grip for menu bar saveElements
-    new FXToolBarGrip(saveElements, saveElements, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
-    // build menu bar for navigation
     myToolBarShellNavigation = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
-    navigation = new FXMenuBar(myGNEApp->getTopDock(), myToolBarShellNavigation, GUIDesignToolBarRaisedSame);
-    // declare toolbar grip for menu bar navigation
-    new FXToolBarGrip(navigation, navigation, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
-    // build menu bar for modes
     myToolBarShellModes = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
-    // create modes depending of option "gui-testing" (note: Used for NETEDIT test)
+    myToolBarShellIntervalBar = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
+    // build menu bars
+    superModes = new FXMenuBar(myGNEApp->getTopDock(), myToolBarShellSuperModes, GUIDesignToolBarRaisedSame);
     if (OptionsCont::getOptions().getBool("gui-testing")) {
+        saveElements = new FXMenuBar(myGNEApp->getTopDock(), myToolBarShellSaveElements, GUIDesignToolBarRaisedNext);
+        navigation = new FXMenuBar(myGNEApp->getTopDock(), myToolBarShellNavigation, GUIDesignToolBarRaisedSame);
         modes = new FXMenuBar(myGNEApp->getTopDock(), myToolBarShellModes, GUIDesignToolBarRaisedNext);
+        languages = new FXMenuBar(myGNEApp->getTopDock(), myToolBarShellLanguages, GUIDesignToolBarRaisedSame);
     } else {
+        languages = new FXMenuBar(myGNEApp->getTopDock(), myToolBarShellLanguages, GUIDesignToolBarRaisedSame);
+        saveElements = new FXMenuBar(myGNEApp->getTopDock(), myToolBarShellSaveElements, GUIDesignToolBarRaisedNext);
+        navigation = new FXMenuBar(myGNEApp->getTopDock(), myToolBarShellNavigation, GUIDesignToolBarRaisedSame);
         modes = new FXMenuBar(myGNEApp->getTopDock(), myToolBarShellModes, GUIDesignToolBarRaisedSame);
     }
-    // declare toolbar grip for menu bar modes
-    new FXToolBarGrip(modes, modes, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
-    // build menu bar for interval
-    myToolBarShellIntervalBar = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
     intervalBar = new FXMenuBar(myGNEApp->getTopDock(), myToolBarShellIntervalBar, GUIDesignToolBarRaisedNext);
-    // declare toolbar grip for menu bar modes
+    // build FXToolBarGrip
+    new FXToolBarGrip(superModes, superModes, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
+    new FXToolBarGrip(languages, languages, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
+    new FXToolBarGrip(saveElements, saveElements, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
+    new FXToolBarGrip(navigation, navigation, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
+    new FXToolBarGrip(modes, modes, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
     new FXToolBarGrip(intervalBar, intervalBar, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
     // create menu bars
     superModes->create();
