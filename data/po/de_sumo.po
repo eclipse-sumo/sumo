@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-01 15:37+0100\n"
-"PO-Revision-Date: 2023-02-03 15:22+0000\n"
+"PO-Revision-Date: 2023-02-03 15:49+0000\n"
 "Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -5049,62 +5049,64 @@ msgstr "Verwende minimale Fahrstreifenanzahl aus der Liste (%) für Kante '%'."
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1403
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1413
 msgid "Value of key '%' is not numeric ('%') in edge '%'."
-msgstr ""
+msgstr "Wert vom Schlüssel '%' ist nicht nummerisch ('%') in Kante '%'."
 
 #: D:\SUMO/src\netimport\NIImporter_OpenStreetMap.cpp:1410
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1410
 msgid "Ignoring track count % for edge '%'."
-msgstr ""
+msgstr "Spuranzahl % für Kante '%' wird ignoriert."
 
 #: D:\SUMO/src\netimport\NIImporter_OpenStreetMap.cpp:1555
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1555
 msgid "Unknown lane use specifier '%' treated as 'no' for way '%'"
 msgstr ""
+"Unbekannter Fahrstreifennutzungs-Spezifikation '%' wird als 'nein' für Weg "
+"'%' behandelt"
 
 #: D:\SUMO/src\netimport\NIImporter_OpenStreetMap.cpp:1668
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1668
 msgid "No node found for reference '%' in relation '%'."
-msgstr ""
+msgstr "Kein Knoten für Referenz '%' in Beziehung '%' gefunden."
 
 #: D:\SUMO/src\netimport\NIImporter_OpenStreetMap.cpp:1730
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1730
 msgid "Found unknown restriction type '%' in relation '%'"
-msgstr ""
+msgstr "Unbekannten Beschränkungstyp '%' in Beziehung '%' gefunden"
 
 #: D:\SUMO/src\netimport\NIImporter_OpenStreetMap.cpp:1753
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1753
 msgid "Invalid color value '%' in relation %"
-msgstr ""
+msgstr "Ungültiger Farbenwert '%' in Beziehung %"
 
 #: D:\SUMO/src\netimport\NIImporter_OpenStreetMap.cpp:1771
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1771
 msgid "No way found for reference '%' in relation '%'"
-msgstr ""
+msgstr "Kein Weg gefunden für Referenz '%' in Beziehung '%'"
 
 #: D:\SUMO/src\netimport\NIImporter_OpenStreetMap.cpp:1783
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1783
 msgid "Ignoring restriction relation '%' with unknown type."
-msgstr ""
+msgstr "Ignoriere Restriktions-Beziehung '%' mit unbekanntem Typ."
 
 #: D:\SUMO/src\netimport\NIImporter_OpenStreetMap.cpp:1787
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1787
 msgid "Ignoring restriction relation '%' with unknown from-way."
-msgstr ""
+msgstr "Ignorieren der Restriktions-Beziehung '%' mit unbekanntem Ausgangsweg."
 
 #: D:\SUMO/src\netimport\NIImporter_OpenStreetMap.cpp:1791
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1791
 msgid "Ignoring restriction relation '%' with unknown to-way."
-msgstr ""
+msgstr "Ignorieren der Restriktions-Beziehung '%' mit unbekanntem Endweg."
 
 #: D:\SUMO/src\netimport\NIImporter_OpenStreetMap.cpp:1795
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1795
 msgid "Ignoring restriction relation '%' with unknown via."
-msgstr ""
+msgstr "Ignorieren der Restriktions-Beziehung '%' mit unbekanntem Zwischenweg."
 
 #: D:\SUMO/src\netimport\NIImporter_OpenStreetMap.cpp:1799
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1799
 msgid "Ignoring restriction relation '%'."
-msgstr ""
+msgstr "Ignoriere Restriktions-Beziehung '%'."
 
 #: D:\SUMO/src\netimport\NIImporter_OpenStreetMap.cpp:1824
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1824
@@ -5113,6 +5115,8 @@ msgid ""
 "Platform '%' in relation: '%' is given as polygon, which currently is not "
 "supported."
 msgstr ""
+"Plattform '%' in Beziehung: '%' wird als Polygon angegeben, was derzeit "
+"nicht unterstützt wird."
 
 #: D:\SUMO/src\netimport\NIImporter_OpenStreetMap.cpp:1845
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1845
@@ -5121,23 +5125,29 @@ msgid ""
 "Referenced platform: '%' in relation: '%' is corrupt. Probably OSM file is "
 "incomplete."
 msgstr ""
+"Referenzierte Plattform: '%' in Beziehung: '%' ist beschädigt. "
+"Wahrscheinlich ist die OSM-Datei unvollständig."
 
 #: D:\SUMO/src\netimport\NIImporter_OpenStreetMap.cpp:1884
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1884
 #, c-format
 msgid "PT line '%' in relation % seems to be split, only keeping first part."
 msgstr ""
+"Die ÖV-Linie '%' in Relation auf % scheint geteilt zu sein, wobei nur der "
+"erste Teil beibehalten wird."
 
 #: D:\SUMO/src\netimport\NIImporter_OpenStreetMap.cpp:1917
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1917
 msgid ""
 "PT line in relation % with no stops ignored. Probably OSM file is incomplete."
 msgstr ""
+"ÖV-Linie in Relation auf % ohne Halte ignoriert. Wahrscheinlich ist die OSM-"
+"Datei unvollständig."
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1923
 #: /home/micha/programming/sumo/src/netimport/NIXMLPTHandler.cpp:222
 msgid "Ignoring duplicate PT line '%'."
-msgstr "Ignoriere doppelte PT-Zeile '%'."
+msgstr "Ignoriere doppelte ÖV- Linie '%'."
 
 #: D:\SUMO/src\netimport\NIImporter_OpenStreetMap.cpp:1938
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1938
@@ -5149,53 +5159,55 @@ msgstr "Zwischenknoten '%' wurde nicht realisiert"
 #, c-format
 msgid "from-edge '%' of restriction relation could not be determined"
 msgstr ""
+"Ausgangskante '%' der Beschränkungsbeziehung konnte nicht bestimmt werden"
 
 #: D:\SUMO/src\netimport\NIImporter_OpenStreetMap.cpp:1948
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1948
 #, c-format
 msgid "to-edge '%' of restriction relation could not be determined"
-msgstr ""
+msgstr "Endkante '%' der Beschränkungsbeziehung konnte nicht bestimmt werden"
 
 #: D:\SUMO/src\netimport\NIImporter_OpenStreetMap.cpp:1965
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1965
 msgid "direction of restriction relation could not be determined%"
-msgstr ""
+msgstr "Richtung der Restriktionsbeziehung konnte nicht bestimmt werden%"
 
 #: D:\SUMO/src\netimport\NIImporter_OpenStreetMap.cpp:1986
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1986
 #, c-format
 msgid "Ambiguous way reference '%' in restriction relation"
-msgstr ""
+msgstr "Mehrdeutiger Verweis auf '%' in Restriktions-Beziehung"
 
 #: D:\SUMO/src\netimport\NIImporter_OpenStreetMap.cpp:2237
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:2237
 msgid ""
 "Discarding unknown compound '%' in type '%' (first occurrence for edge '%')."
 msgstr ""
+"Unbekannte Verbindung '%' in Typ '%' wird verworfen (erstes Vorkommen für "
+"Kante '%')."
 
 #: D:\SUMO/src\netimport\NIImporter_OpenStreetMap.cpp:2241
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:2241
 msgid "Discarding unusable type '%' (first occurrence for edge '%')."
-msgstr ""
+msgstr "Verwerfen des unbrauchbaren Typs '%' (erstes Vorkommen für Kante '%')."
 
 #: D:\SUMO/src\netimport\NIImporter_OpenStreetMap.cpp:2290
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:2290
 msgid "Discarding compound type '%' (first occurrence for edge '%')."
-msgstr ""
+msgstr "Verwerfen des berechneten Typs '%' (erstes Vorkommen für Kante '%')."
 
 #: D:\SUMO/src\netimport\NIImporter_OpenStreetMap.cpp:2330
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:2330
 msgid "Ambiguous railway kilometrage direction for way '%' (assuming forward)"
-msgstr ""
+msgstr "Mehrdeutige Bahnkilometerrichtung für Weg '%' (nehme vorwärts an)"
 
 #: D:\SUMO/src\netimport\NIImporter_OpenStreetMap.cpp:2337
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:2337
 msgid "Inconsistent railway kilometrage direction for way '%': % (skipping)"
-msgstr ""
+msgstr "Inkonsistente Bahnkilometerrichtung für Weg '%': % (Überspringen)"
 
 #: D:\SUMO/src\netimport\NIImporter_OpenStreetMap.cpp:2382
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:2382
-#, fuzzy
 msgid "Value of railway:position is not numeric ('%') in node '%'."
 msgstr "Wert der Eisenbahn: Position ist nicht nummerisch ('%') im Knoten '%'."
 
@@ -5203,12 +5215,16 @@ msgstr "Wert der Eisenbahn: Position ist nicht nummerisch ('%') im Knoten '%'."
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:2449
 msgid "Ignoring lane use information for % lanes on edge % with % lanes"
 msgstr ""
+"Fahrstreifennutzungsinformationen für % Fahrstreifen an Kante % mit % "
+"Fahrstreifen werden ignoriert"
 
 #: D:\SUMO/src\netimport\NIImporter_OpenStreetMap.cpp:2468
 #: /home/micha/programming/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:2468
 msgid ""
 "Ignoring turn sign information for % lanes on edge % with % driving lanes"
 msgstr ""
+"Ignorieren von Abbiegeschildinformationen für % Fahrstreifen auf Kante % mit "
+"% Fahrstreifen"
 
 #: D:\SUMO/src\netimport\NIImporter_SUMO.cpp:118
 #: /home/micha/programming/sumo/src/netimport/NIImporter_SUMO.cpp:118
@@ -5267,7 +5283,7 @@ msgstr "Kante '%' kam mindestens zweimal in der Eingabe vor."
 #: D:\SUMO/src\netimport\NIImporter_SUMO.cpp:538
 #: /home/micha/programming/sumo/src/netimport/NIImporter_SUMO.cpp:538
 msgid "Unmatched closing tag for tl-logic."
-msgstr ""
+msgstr "Nicht übereinstimmendes schließendes Tag für LSA-Logik."
 
 #: D:\SUMO/src\netimport\NIImporter_SUMO.cpp:624
 #: /home/micha/programming/sumo/src/netimport/NIImporter_SUMO.cpp:624
@@ -5290,6 +5306,8 @@ msgid ""
 "Duplicate definition of lane's stopOffset on edge %.\n"
 "Ignoring duplicate specifications."
 msgstr ""
+"Doppelte Definition vom Versatz des Fahrstreifens an Kante %.\n"
+"Ignoriere doppelte Spezifikationen."
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_SUMO.cpp:738
 #, c-format
@@ -5415,7 +5433,7 @@ msgstr "Unbekannte Kante im TEILFLAECHENELEMENT"
 #: D:\SUMO/src\netimport\NIImporter_VISUM.cpp:1007
 #: /home/micha/programming/sumo/src/netimport/NIImporter_VISUM.cpp:1007
 msgid "Unknown are for area part '%'."
-msgstr ""
+msgstr "Unbekannt für Bereichspart '%'."
 
 #: D:\SUMO/src\netimport\NIImporter_VISUM.cpp:1069
 #: /home/micha/programming/sumo/src/netimport/NIImporter_VISUM.cpp:1069
@@ -5423,33 +5441,39 @@ msgid ""
 "Ignoring lane-to-lane connection (not yet implemented for this format "
 "version)"
 msgstr ""
+"Ignoriere Fahrstreifen-zu-Fahrstreifen-Verbindung (noch nicht implementiert "
+"für diese Format-Version)"
 
 #: D:\SUMO/src\netimport\NIImporter_VISUM.cpp:1162
 #: /home/micha/programming/sumo/src/netimport/NIImporter_VISUM.cpp:1162
 msgid "Ignoring stopping place '%' without edge id"
-msgstr ""
+msgstr "Ignoriere Haltepunkt '%' ohne Kanten ID"
 
 #: D:\SUMO/src\netimport\NIImporter_VISUM.cpp:1164
 #: /home/micha/programming/sumo/src/netimport/NIImporter_VISUM.cpp:1164
 msgid "Ignoring stopping place '%' without node informatio"
-msgstr ""
+msgstr "Ignoriere Haltepunkt '%' ohne Knoteninformation"
 
 #: D:\SUMO/src\netimport\NIImporter_VISUM.cpp:1171
 #: /home/micha/programming/sumo/src/netimport/NIImporter_VISUM.cpp:1171
 msgid ""
 "Could not find edge with from-node '%' and base id '%' for stopping place '%'"
 msgstr ""
+"Konnte Kante mit Ausgangsknoten '%' und Basis-ID '%' für Halteplatz '%' "
+"nicht finden"
 
 #: D:\SUMO/src\netimport\NIImporter_VISUM.cpp:1176
 #: /home/micha/programming/sumo/src/netimport/NIImporter_VISUM.cpp:1176
 msgid "Unexpected from-node '%' for edge '%' of stopping place '%'"
-msgstr ""
+msgstr "Unerwarteter Ausgangsknoten '%' für Kante '%' des Halteplatzes '%'"
 
 #: D:\SUMO/src\netimport\NIImporter_VISUM.cpp:1182
 #: /home/micha/programming/sumo/src/netimport/NIImporter_VISUM.cpp:1182
 msgid ""
 "Could not find edge with to-node '%' and base id '%' for stopping place '%'"
 msgstr ""
+"Konnte Kante mit dem Zielknoten '%' und der Basis-ID '%' für den Haltepunkt "
+"'%' nicht finden"
 
 #: D:\SUMO/src\netimport\NIImporter_VISUM.cpp:1187
 #: /home/micha/programming/sumo/src/netimport/NIImporter_VISUM.cpp:1187
