@@ -332,6 +332,9 @@ class MFXMenuCheckIcon;
 /// @brief comboBox with thick frame, width 180
 #define GUIDesignComboBoxWidth180           (COMBOBOX_NORMAL | FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 180, GUIDesignHeight, 2, 2, 2, 2
 
+/// @brief comboBox with thick frame, width 100
+#define GUIDesignComboBoxWidth100           (COMBOBOX_NORMAL | FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 100, GUIDesignHeight, 2, 2, 2, 2
+
 /// @brief number of column of every combo box
 #define GUIDesignComboBoxNCol               1
 
