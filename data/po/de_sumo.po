@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-01 15:37+0100\n"
-"PO-Revision-Date: 2023-02-03 14:21+0000\n"
+"PO-Revision-Date: 2023-02-03 14:48+0000\n"
 "Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -3923,11 +3923,13 @@ msgstr ""
 #, c-format
 msgid " The junction '%' to set as not-controlled is not known."
 msgstr ""
+" Der Knotenpunkt '%' der als nicht kontrolliert gesetzt ist, ist nicht "
+"bekannt."
 
 #: D:\SUMO/src\netbuild\NBNodeCont.cpp:2174
 #: /home/micha/programming/sumo/src/netbuild/NBNodeCont.cpp:2174
 msgid "Could not build joined tls '%'."
-msgstr ""
+msgstr "Konnte keine vereinigte LSA '%' erstellen."
 
 #: D:\SUMO/src\netbuild\NBNodeCont.cpp:2219
 #: /home/micha/programming/sumo/src/netbuild/NBNodeCont.cpp:2219
@@ -3937,29 +3939,31 @@ msgstr ""
 #: D:\SUMO/src\netbuild\NBNodeCont.cpp:2335
 #: /home/micha/programming/sumo/src/netbuild/NBNodeCont.cpp:2335
 msgid "Could not build a joined tls."
-msgstr ""
+msgstr "Konnte nicht eine vereinigte LSA erstellen."
 
 #: D:\SUMO/src\netbuild\NBNodeCont.cpp:2352
 #: /home/micha/programming/sumo/src/netbuild/NBNodeCont.cpp:2352
 msgid "Building a tl-logic for junction '%' twice is not possible."
 msgstr ""
+"Das Erstellen einer doppelten LSA-Logik für den Knotenpunkt '%' ist nicht "
+"möglich."
 
 #: D:\SUMO/src\netbuild\NBNodeCont.cpp:2434
 #: D:\SUMO/src\netbuild\NBNodeCont.cpp:2526
 #: /home/micha/programming/sumo/src/netbuild/NBNodeCont.cpp:2434
 #: /home/micha/programming/sumo/src/netbuild/NBNodeCont.cpp:2526
 msgid "-----------------------------------------------------"
-msgstr ""
+msgstr "-----------------------------------------------------"
 
 #: D:\SUMO/src\netbuild\NBNodeCont.cpp:2435
 #: /home/micha/programming/sumo/src/netbuild/NBNodeCont.cpp:2435
 msgid "Summary:"
-msgstr ""
+msgstr "Zusammenfassung:"
 
 #: D:\SUMO/src\netbuild\NBNodeCont.cpp:2493
 #: /home/micha/programming/sumo/src/netbuild/NBNodeCont.cpp:2493
 msgid " Node type statistics:"
-msgstr ""
+msgstr " Knotentyp-Statistiken:"
 
 #: D:\SUMO/src\netbuild\NBNodeCont.cpp:2522
 #: /home/micha/programming/sumo/src/netbuild/NBNodeCont.cpp:2522
@@ -3969,7 +3973,7 @@ msgstr " Netz-Grenzen:"
 #: D:\SUMO/src\netbuild\NBNodeCont.cpp:2555
 #: /home/micha/programming/sumo/src/netbuild/NBNodeCont.cpp:2555
 msgid "Attempt to rename node using existing id '%'"
-msgstr ""
+msgstr "Versuche den Knoten mit einer existierenden ID '%' umzubenennen"
 
 #: D:\SUMO/src\netbuild\NBOwnTLDef.cpp:561
 #: /home/micha/programming/sumo/src/netbuild/NBOwnTLDef.cpp:561
@@ -3978,6 +3982,8 @@ msgid ""
 "Minor green from edge '%' to edge '%' exceeds %m/s. Maybe a left-turn lane "
 "is missing."
 msgstr ""
+"Geringes Grün von Kante '%' zu Kante '%' überschreitet %m/s. Vielleicht "
+"fehlt eine Linksabbiege-Fahrstreifen."
 
 #: D:\SUMO/src\netbuild\NBOwnTLDef.cpp:773
 #: /home/micha/programming/sumo/src/netbuild/NBOwnTLDef.cpp:773
@@ -3985,51 +3991,56 @@ msgid ""
 "Generating NEMA phases is not support for traffic light '%' with % incoming "
 "edges. Using tlType 'actuated' as fallback"
 msgstr ""
+"Das Generieren von NEMA-Phasen wird für die LSA '%' mit % eingehenden Kanten "
+"nicht unterstützt. Verwenden von LSA-Typ 'actuated' als Rückfallebene"
 
 #: D:\SUMO/src\netbuild\NBOwnTLDef.cpp:799
 #: /home/micha/programming/sumo/src/netbuild/NBOwnTLDef.cpp:799
 msgid "The traffic light '%' cannot be adapted to a cycle time of %."
-msgstr ""
+msgstr "Die LSA '%' kann nicht auf eine Umlaufzeit von % angepasst werden."
 
 #: D:\SUMO/src\netbuild\NBOwnTLDef.cpp:818
 #: /home/micha/programming/sumo/src/netbuild/NBOwnTLDef.cpp:818
 msgid "The traffic light '%' has a high cycle time of %."
-msgstr ""
+msgstr "Die LSA '%' hat eine hohe Umlaufzeit von %."
 
 #: D:\SUMO/src\netbuild\NBPTLine.cpp:197
 #: /home/micha/programming/sumo/src/netbuild/NBPTLine.cpp:197
 msgid "Could not retrieve edge '%' for first stop of line '%'."
 msgstr ""
+"Kante '%' für den ersten Halt der Linie '%' konnte nicht abgerufen werden."
 
 #: D:\SUMO/src\netbuild\NBPTLine.cpp:203
 #: /home/micha/programming/sumo/src/netbuild/NBPTLine.cpp:203
 msgid "First stop edge '%' is not part of the route of line '%'."
-msgstr ""
+msgstr "Erste Haltekante '%' ist kein Part der Route von Linie '%'."
 
 #: D:\SUMO/src\netbuild\NBPTLine.cpp:227
 #: /home/micha/programming/sumo/src/netbuild/NBPTLine.cpp:227
 msgid "Could not retrieve edge '%' for last stop of line '%'."
 msgstr ""
+"Die Kante '%' für die letzte Haltestelle der Linie '%' konnte nicht "
+"abgerufen werden."
 
 #: D:\SUMO/src\netbuild\NBPTLine.cpp:233
 #: /home/micha/programming/sumo/src/netbuild/NBPTLine.cpp:233
 msgid "Last stop edge '%' is not part of the route of line '%'."
-msgstr ""
+msgstr "Letzte Haltkante '%' ist kein Part von der Route von Linie '%'."
 
 #: D:\SUMO/src\netbuild\NBPTLine.cpp:294
 #: /home/micha/programming/sumo/src/netbuild/NBPTLine.cpp:294
 msgid "Removed invalid stop '%' from line '%'."
-msgstr ""
+msgstr "Ungültiger Halt '%' von Linie '%' entfernt."
 
 #: D:\SUMO/src\netbuild\NBPTLine.cpp:312
 #: /home/micha/programming/sumo/src/netbuild/NBPTLine.cpp:312
 msgid "Removed duplicate stop '%' at area '%' from line '%'."
-msgstr ""
+msgstr "Doppelter Halt '%' in der Zone '%' von Linie '%' entfernt."
 
 #: D:\SUMO/src\netbuild\NBPTLine.cpp:315
 #: /home/micha/programming/sumo/src/netbuild/NBPTLine.cpp:315
 msgid "Removed duplicate stop '%' named '%' from line '%'."
-msgstr ""
+msgstr "Doppelter Halt '%' mit dem Namen '%' von Linie %' entfernt."
 
 #: D:\SUMO/src\netbuild\NBPTLineCont.cpp:99
 #: /home/micha/programming/sumo/src/netbuild/NBPTLineCont.cpp:99
