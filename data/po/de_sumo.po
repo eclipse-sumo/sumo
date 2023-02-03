@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-01 15:37+0100\n"
-"PO-Revision-Date: 2023-02-03 11:49+0000\n"
+"PO-Revision-Date: 2023-02-03 14:21+0000\n"
 "Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -3246,7 +3246,6 @@ msgstr ""
 
 #: D:\SUMO/src\netbuild\NBFrame.cpp:733
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:733
-#, fuzzy
 msgid "default.lanenumber must be at least 1"
 msgstr "default.lanenumber muss mindestens 1 sein"
 
@@ -3269,6 +3268,8 @@ msgid ""
 "Option 'junctions.scurve-stretch' requires internal lanes to work. Option '--"
 "no-internal-links' will be disabled."
 msgstr ""
+"Die Option 'junctions.scurve-stretch' erfordert, dass interne Fahrstreifen "
+"arbeiten. Option '--no-internal-links' wird deaktiviert."
 
 #: D:\SUMO/src\netbuild\NBFrame.cpp:757
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:757
@@ -3276,6 +3277,8 @@ msgid ""
 "option 'default.junctions.radius' is smaller than option 'junctions.small-"
 "radius'"
 msgstr ""
+"Option 'default.junctions.radius' ist kleiner als Option 'junctions.small-"
+"radius'"
 
 #: D:\SUMO/src\netbuild\NBFrame.cpp:765
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:765
@@ -3285,15 +3288,13 @@ msgstr ""
 
 #: D:\SUMO/src\netbuild\NBFrame.cpp:770
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:770
-#, fuzzy
 msgid "default.right-of-way must be one of '%'"
 msgstr "default.right-of-way muss einer von '%' sein"
 
 #: D:\SUMO/src\netbuild\NBFrame.cpp:774
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:774
-#, fuzzy
 msgid "roundabouts.visibility-distance must be positive or -1"
-msgstr "roundabouts.visibility-distance  muss positiv oder -1 sein"
+msgstr "roundabouts.visibility-distance muss positiv oder -1 sein"
 
 #: D:\SUMO/src\netbuild\NBFrame.cpp:790
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:790
@@ -3331,31 +3332,35 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netbuild/NBHeightMapper.cpp:276
 msgid "Cannot load shape file since SUMO was compiled without GDAL support."
 msgstr ""
+"Shape-Datei konnte nicht geladen werden, da SUMO ohne GDAL Unterstützung "
+"kompiliert wurde."
 
 #: D:\SUMO/src\netbuild\NBHeightMapper.cpp:288
 #: /home/micha/programming/sumo/src/netbuild/NBHeightMapper.cpp:288
 msgid "Cannot load GeoTIFF file."
-msgstr ""
+msgstr "GeoTIFF-Datei kann nicht geladen werden."
 
 #: D:\SUMO/src\netbuild\NBHeightMapper.cpp:303
 #: /home/micha/programming/sumo/src/netbuild/NBHeightMapper.cpp:303
 msgid "Could not parse geo information from %."
-msgstr ""
+msgstr "Geoinformationen von % konnten nicht eingelesen werden."
 
 #: D:\SUMO/src\netbuild\NBHeightMapper.cpp:312
 #: /home/micha/programming/sumo/src/netbuild/NBHeightMapper.cpp:312
 msgid "Unknown color band in %."
-msgstr ""
+msgstr "Unbekannten Farbband in %."
 
 #: D:\SUMO/src\netbuild\NBHeightMapper.cpp:319
 #: /home/micha/programming/sumo/src/netbuild/NBHeightMapper.cpp:319
 msgid "Failure in reading %."
-msgstr ""
+msgstr "Fehler beim Lesen von %."
 
 #: D:\SUMO/src\netbuild\NBHeightMapper.cpp:348
 #: /home/micha/programming/sumo/src/netbuild/NBHeightMapper.cpp:348
 msgid "Cannot load GeoTIFF file since SUMO was compiled without GDAL support."
 msgstr ""
+"GeoTIFF-Datei konnte nicht geladen werden, da SUMO ohne GDAL Unterstützung "
+"kompiliert wurde."
 
 #: D:\SUMO/src\netbuild\NBHelpers.cpp:89
 #: /home/micha/programming/sumo/src/netbuild/NBHelpers.cpp:89
@@ -3365,7 +3370,7 @@ msgstr ""
 #: D:\SUMO/src\netbuild\NBHelpers.cpp:107
 #: /home/micha/programming/sumo/src/netbuild/NBHelpers.cpp:107
 msgid "Could not load IDs from '%'."
-msgstr ""
+msgstr "IDs von '%' konnten nicht geladen werden."
 
 #: D:\SUMO/src\netbuild\NBHelpers.cpp:123
 #: /home/micha/programming/sumo/src/netbuild/NBHelpers.cpp:123
@@ -3387,54 +3392,55 @@ msgstr "Ungenutzter Stand in LSA-Logik '%', Programm '%' beim LSA-Index %"
 #: D:\SUMO/src\netbuild\NBLoadedTLDef.cpp:300
 #: /home/micha/programming/sumo/src/netbuild/NBLoadedTLDef.cpp:300
 msgid "During computation of traffic light '%'."
-msgstr ""
+msgstr "Während der Berechnung von LSA '%'."
 
 #: D:\SUMO/src\netbuild\NBLoadedTLDef.cpp:612
 #: /home/micha/programming/sumo/src/netbuild/NBLoadedTLDef.cpp:612
 msgid "myNeedsContRelation was not propperly initialized\n"
-msgstr ""
+msgstr "myNeedsContRelation wurde nicht richtig initialisiert\n"
 
 #: D:\SUMO/src\netbuild\NBNetBuilder.cpp:89
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:89
+#, fuzzy
 msgid "Removing self-loops"
-msgstr ""
+msgstr "Entferne Selbstschleifen"
 
 #: D:\SUMO/src\netbuild\NBNetBuilder.cpp:93
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:93
-#, fuzzy
 msgid "Finding isolated roads"
 msgstr "Finde isolierte Straßen"
 
 #: D:\SUMO/src\netbuild\NBNetBuilder.cpp:98
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:98
 msgid "Finding largest components"
-msgstr ""
+msgstr "Finde größten Komponenten"
 
 #: D:\SUMO/src\netbuild\NBNetBuilder.cpp:105
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:105
 msgid "Removing unwished edges"
-msgstr ""
+msgstr "Entferne unerwünschte Kanten"
 
 #: D:\SUMO/src\netbuild\NBNetBuilder.cpp:112
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:112
 msgid "Processing public transport stops"
-msgstr ""
+msgstr "Verarbeitung ÖV-Haltestellen"
 
 #: D:\SUMO/src\netbuild\NBNetBuilder.cpp:127
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:127
 msgid "Revising public transport stops based on pt lines"
-msgstr ""
+msgstr "Überarbeitung der ÖV-Haltestellen auf der Grundlage von ÖV-Linien"
 
 #: D:\SUMO/src\netbuild\NBNetBuilder.cpp:133
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:133
 msgid "Cleaning up public transport stops that are not served by any line"
-msgstr ""
+msgstr "Entferne ÖV-Haltestellen die von keiner Linie bedient werden"
 
 #: D:\SUMO/src\netbuild\NBNetBuilder.cpp:139
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:139
 #, c-format
 msgid "Removed % pt stops because they could not be assigned to the network"
 msgstr ""
+"% ÖV-Haltestellen entfernt, da sie dem Netz nicht zugeordnet werden konnten"
 
 #: D:\SUMO/src\netbuild\NBNetBuilder.cpp:144
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:144
@@ -3444,34 +3450,34 @@ msgstr ""
 #: D:\SUMO/src\netbuild\NBNetBuilder.cpp:181
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:181
 msgid "Joining tram edges"
-msgstr ""
+msgstr "Vereinige Straßenbahnkanten"
 
 #: D:\SUMO/src\netbuild\NBNetBuilder.cpp:185
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:185
 msgid " Joined % tram edges into roads."
-msgstr ""
+msgstr " Vereinige % Straßenbahnkanten in Straßen."
 
 #: D:\SUMO/src\netbuild\NBNetBuilder.cpp:223
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:223
 msgid "Joining junction clusters"
-msgstr ""
+msgstr "Vereinige Knotenpunkt-Ansammlung"
 
 #: D:\SUMO/src\netbuild\NBNetBuilder.cpp:228
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:228
 #, c-format
 msgid " Joined % junction cluster(s)."
-msgstr ""
+msgstr " % Knotenpunkt-Ansammlung(en) vereinigt."
 
 #: D:\SUMO/src\netbuild\NBNetBuilder.cpp:231
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:231
 msgid "Joining junctions with identical coordinates"
-msgstr ""
+msgstr "Vereinige Knotenpunkte mit identischen Koordinaten"
 
 #: D:\SUMO/src\netbuild\NBNetBuilder.cpp:235
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:235
 #, c-format
 msgid " Joined % junctions."
-msgstr ""
+msgstr " % Knotenpunkte vereinigt."
 
 #: D:\SUMO/src\netbuild\NBNetBuilder.cpp:240
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:240
@@ -3482,23 +3488,23 @@ msgstr "Vereinige Fahrstreifen"
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:243
 #, c-format
 msgid "   Joined lanes on % edges."
-msgstr ""
+msgstr "   An % Kanten Fahrstreifen vereinigt."
 
 #: D:\SUMO/src\netbuild\NBNetBuilder.cpp:253
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:253
 #, c-format
 msgid "   % nodes removed."
-msgstr ""
+msgstr "   % Knoten entfernt."
 
 #: D:\SUMO/src\netbuild\NBNetBuilder.cpp:273
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:273
 msgid "Reducing geometries"
-msgstr ""
+msgstr "Reduziere Geometrien"
 
 #: D:\SUMO/src\netbuild\NBNetBuilder.cpp:280
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:280
 msgid "Joining similar edges"
-msgstr ""
+msgstr "Vereinige gleiche Kanten"
 
 #: D:\SUMO/src\netbuild\NBNetBuilder.cpp:290
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:290
@@ -3508,13 +3514,13 @@ msgstr ""
 #: D:\SUMO/src\netbuild\NBNetBuilder.cpp:296
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:296
 msgid "Splitting geometry edges"
-msgstr ""
+msgstr "Trenne geometrische Kanten"
 
 #: D:\SUMO/src\netbuild\NBNetBuilder.cpp:303
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:303
 #, c-format
 msgid " Joined % junctions after splitting geometry."
-msgstr ""
+msgstr " % Knotenpunkte nach Trennung der Geometrie vereinigt."
 
 #: D:\SUMO/src\netbuild\NBNetBuilder.cpp:308
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:308
@@ -3662,7 +3668,6 @@ msgstr "Generiere Straßenzeichen"
 
 #: D:\SUMO/src\netbuild\NBNetBuilder.cpp:633
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:628
-#, fuzzy
 msgid "Checking overlapping edges"
 msgstr "Überprüfe überlappende Kanten"
 
@@ -3674,7 +3679,7 @@ msgstr "Prüfe Kantengrad"
 #: D:\SUMO/src\netbuild\NBNetBuilder.cpp:653
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:648
 msgid "Find accesses for pt rail stops"
-msgstr ""
+msgstr "Finde Zugänge zu Bahnhaltestellen"
 
 #: D:\SUMO/src\netbuild\NBNetBuilder.cpp:676
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:671
@@ -3683,6 +3688,9 @@ msgid ""
 "GUI. Check for outlying nodes and make sure the network is shifted to the "
 "coordinate origin"
 msgstr ""
+"Netz enthält sehr große Koordinaten und wird wahrscheinlich in der GUI "
+"flackern. Suche nach Außenknoten und stellen sicher, dass das Netz zum "
+"Koordinatenursprung verschoben ist"
 
 #: D:\SUMO/src\netbuild\NBNetBuilder.cpp:683
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:678
@@ -3744,6 +3752,8 @@ msgstr ""
 msgid ""
 "Junction '%' is too complicated (% connections, max %); will be set to %."
 msgstr ""
+"Knotenpunkt '%' ist zu kompliziert (% Verbindungen, max %); wird auf % "
+"gesetzt."
 
 #: D:\SUMO/src\netbuild\NBNode.cpp:1144
 #: /home/micha/programming/sumo/src/netbuild/NBNode.cpp:1144
@@ -3760,7 +3770,7 @@ msgstr "Für Knotenpunkt '%': Shape konnte nicht berechnet werden."
 #: D:\SUMO/src\netbuild\NBNode.cpp:1849
 #: /home/micha/programming/sumo/src/netbuild/NBNode.cpp:1849
 msgid "Something went wrong during the building of a connection..."
-msgstr ""
+msgstr "Etwas ist schiefgegangen bei der Erstellung einer Verbindung..."
 
 #: D:\SUMO/src\netbuild\NBNode.cpp:2868
 #: /home/micha/programming/sumo/src/netbuild/NBNode.cpp:2868
@@ -3768,6 +3778,8 @@ msgid ""
 "Discarding invalid crossing '%' at junction '%' with edges [%] (no "
 "walkingarea found)."
 msgstr ""
+"Ungültige Fußgängerfurt '%' am Knotenpunkt '%' mit Kanten [%] wird verworfen "
+"(keine walkingArea gefunden)."
 
 #: D:\SUMO/src\netbuild\NBNode.cpp:3044
 #: /home/micha/programming/sumo/src/netbuild/NBNode.cpp:3044
@@ -3775,6 +3787,8 @@ msgid ""
 "Discarding invalid crossing '%' at junction '%' with edges [%] (no vehicle "
 "lanes to cross)."
 msgstr ""
+"Ungültige Fußgängerfurt '%' am Knotenpunkt '%' mit Kanten [%] wird verworfen "
+"(kein Fahrzeug-Fahrstreifen zum überqueren)."
 
 #: D:\SUMO/src\netbuild\NBNode.cpp:3063
 #: /home/micha/programming/sumo/src/netbuild/NBNode.cpp:3063
@@ -3782,6 +3796,8 @@ msgid ""
 "Discarding invalid crossing '%' at junction '%' with edges [%] (invalid "
 "shape)."
 msgstr ""
+"Ungültige Fußgängerfurt '%' am Knotenpunkt '%' mit Kanten [%] wird verworfen "
+"(ungültige Shape)."
 
 #: D:\SUMO/src\netbuild\NBNode.cpp:3214
 #: /home/micha/programming/sumo/src/netbuild/NBNode.cpp:3214
@@ -3789,6 +3805,8 @@ msgid ""
 "Invalid pedestrian topology at junction '%'; crossing '%' targets '%' and "
 "'%'."
 msgstr ""
+"Ungültige Fußgänger-Topologie am Knotenpunkt '%'; Fußgängerfurt '%' zielt "
+"auf '%' und '%'."
 
 #: D:\SUMO/src\netbuild\NBNode.cpp:3237
 #: /home/micha/programming/sumo/src/netbuild/NBNode.cpp:3237
@@ -3796,6 +3814,8 @@ msgid ""
 "Invalid pedestrian topology at junction '%'; crossing '%' is targeted by '%' "
 "and '%'."
 msgstr ""
+"Ungültige Fußgänger-Topologie am Knotenpunkt '%'; Fußgängerfurt '%' zielt "
+"durch '%' und '%'."
 
 #: D:\SUMO/src\netbuild\NBNode.cpp:3242
 #: /home/micha/programming/sumo/src/netbuild/NBNode.cpp:3242
@@ -3803,11 +3823,14 @@ msgid ""
 "Invalid pedestrian topology at junction '%'; crossing '%' starts and ends at "
 "walkingarea '%'."
 msgstr ""
+"Ungültige Fußgänger-Topologie am Knotenpunkt '%'; Fußgängerfurt '%' startet "
+"und endet an der walkingArea '%'."
 
 #: D:\SUMO/src\netbuild\NBNode.cpp:3462
 #: /home/micha/programming/sumo/src/netbuild/NBNode.cpp:3462
 msgid "Invalid pedestrian topology: crossing '%' across [%] has no target."
 msgstr ""
+"Ungültige Fußgänger-Topologie: Fußgängerfurt '%' über [%] hat kein Ziel."
 
 #: D:\SUMO/src\netbuild\NBNode.cpp:3682
 #: /home/micha/programming/sumo/src/netbuild/NBNode.cpp:3682
@@ -3863,7 +3886,7 @@ msgstr ""
 #: D:\SUMO/src\netbuild\NBNodeCont.cpp:722
 #: /home/micha/programming/sumo/src/netbuild/NBNodeCont.cpp:722
 msgid "unknown junction '%' while joining."
-msgstr ""
+msgstr "unbekannter Knotenpunkt '%' beim Vereinigen."
 
 #: D:\SUMO/src\netbuild\NBNodeCont.cpp:780
 #: D:\SUMO/src\netbuild\NBNodeCont.cpp:821
@@ -3876,7 +3899,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netbuild/NBNodeCont.cpp:833
 #: /home/micha/programming/sumo/src/netbuild/NBNodeCont.cpp:840
 msgid "Not joining junctions % (%)."
-msgstr ""
+msgstr "Keine vereinigten Knotenpunkte % (%)."
 
 #: D:\SUMO/src\netbuild\NBNodeCont.cpp:800
 #: D:\SUMO/src\netbuild\NBNodeCont.cpp:814
@@ -3888,7 +3911,7 @@ msgstr ""
 #: D:\SUMO/src\netbuild\NBNodeCont.cpp:1709
 #: /home/micha/programming/sumo/src/netbuild/NBNodeCont.cpp:1709
 msgid "Could not join junctions %."
-msgstr ""
+msgstr "Knotenpunkte % konnten nicht vereinigt werden."
 
 #: D:\SUMO/src\netbuild\NBNodeCont.cpp:1909
 #: /home/micha/programming/sumo/src/netbuild/NBNodeCont.cpp:1909
@@ -7566,6 +7589,8 @@ msgid ""
 "A Circuit Resistor Element connects the ground, please adjust the definition "
 "of the section (with substation '%')."
 msgstr ""
+"Ein Schaltungswiderstand-Element verbindet die Masse, bitte passe die "
+"Definition des Abschnittes an (mit Unterstation '%')."
 
 #: D:\SUMO/src\utils\traction_wire\Element.cpp:53
 #: /home/micha/programming/sumo/src/utils/traction_wire/Element.cpp:53
