@@ -456,6 +456,13 @@
 #include "googlesat.xpm"
 #include "osm.xpm"
 
+#include "languages/cn.xpm"
+#include "languages/de.xpm"
+#include "languages/es.xpm"
+#include "languages/fr.xpm"
+#include "languages/gb.xpm"
+#include "languages/hu.xpm"
+#include "languages/tk.xpm"
 
 // ===========================================================================
 // static member variable definitions
@@ -903,6 +910,14 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::GEOHACK] = new FXXPMIcon(a, geohack_xpm);
     myIcons[GUIIcon::GOOGLESAT] = new FXXPMIcon(a, googlesat_xpm);
     myIcons[GUIIcon::OSM] = new FXXPMIcon(a, osm_xpm);
+
+    myIcons[GUIIcon::LANGUAGE_CN] = new FXXPMIcon(a, language_cn_xpm);
+    myIcons[GUIIcon::LANGUAGE_DE] = new FXXPMIcon(a, language_de_xpm);
+    myIcons[GUIIcon::LANGUAGE_ES] = new FXXPMIcon(a, language_es_xpm);
+    myIcons[GUIIcon::LANGUAGE_FR] = new FXXPMIcon(a, language_fr_xpm);
+    myIcons[GUIIcon::LANGUAGE_GB] = new FXXPMIcon(a, language_gb_xpm);
+    myIcons[GUIIcon::LANGUAGE_HU] = new FXXPMIcon(a, language_hu_xpm);
+    myIcons[GUIIcon::LANGUAGE_TK] = new FXXPMIcon(a, language_tk_xpm);
 
     // ... and create them
     for (const auto& icon : myIcons) {

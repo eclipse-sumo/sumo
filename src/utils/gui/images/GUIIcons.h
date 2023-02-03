@@ -605,7 +605,20 @@ enum class GUIIcon {
     /// @}
 
     /// @brief icons for geo tools
+    /// @{
     GEOHACK,
     GOOGLESAT,
-    OSM
+    OSM,
+    /// @}
+
+    /// @brief icons for languages
+    /// @{
+    LANGUAGE_CN,
+    LANGUAGE_DE,
+    LANGUAGE_ES,
+    LANGUAGE_FR,
+    LANGUAGE_GB,
+    LANGUAGE_HU,
+    LANGUAGE_TK
+    /// @}
 };
