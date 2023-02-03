@@ -38,16 +38,16 @@ netedit.changeElement("parkingArea")
 netedit.changeDefaultValue(netedit.attrs.parkingArea.create.references, "reference center")
 
 # create parkingArea 1 in mode "reference center"
-netedit.leftClick(referencePosition, 250, 170)
+netedit.leftClick(referencePosition, 250, 160)
 
 # create parkingArea 2 in mode "reference center"
-netedit.leftClick(referencePosition, 450, 165)
+netedit.leftClick(referencePosition, 450, 160)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first parkingArea
-netedit.leftClick(referencePosition, 250, 200)
+netedit.leftClick(referencePosition, 250, 190)
 
 # Change parameter id with a non valid value (Duplicated ID)
 netedit.modifyAttribute(netedit.attrs.parkingArea.inspect.id, "pa_1", True)

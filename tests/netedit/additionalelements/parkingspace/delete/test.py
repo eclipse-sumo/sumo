@@ -50,7 +50,7 @@ netedit.leftClick(referencePosition, 250, 150)
 netedit.deleteMode()
 
 # delete created parkingArea
-netedit.leftClick(referencePosition, 150, 180)
+netedit.leftClick(referencePosition, 150, 160)
 
 # delete first loaded parkingArea
 netedit.leftClick(referencePosition, 360, 130)
