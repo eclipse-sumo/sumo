@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-01 15:37+0100\n"
-"PO-Revision-Date: 2023-02-03 09:10+0000\n"
-"Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
+"PO-Revision-Date: 2023-02-03 10:10+0000\n"
+"Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
 "Language: de\n"
@@ -2786,11 +2786,13 @@ msgstr "Es konnte keinen Zweirichtungs-Kante für die Kante '%' gefunden werden"
 #: /home/micha/programming/sumo/src/netbuild/NBAlgorithms_Railway.cpp:639
 msgid "Found % reversible edge sequences between broken rail nodes"
 msgstr ""
+"% umkehrbare Kantensequenzen zwischen gebrochenen Eisenbahnknoten gefunden"
 
 #: D:\SUMO/src\netbuild\NBAlgorithms_Railway.cpp:689
 #: /home/micha/programming/sumo/src/netbuild/NBAlgorithms_Railway.cpp:689
+#, fuzzy
 msgid "Ignoring buffer stop junction '%' with % edges."
-msgstr ""
+msgstr "Ignoriere Reserve-Halt-Knotenpunkt '%' mit % Kanten."
 
 #: D:\SUMO/src\netbuild\NBAlgorithms_Railway.cpp:974
 #: /home/micha/programming/sumo/src/netbuild/NBAlgorithms_Railway.cpp:974
