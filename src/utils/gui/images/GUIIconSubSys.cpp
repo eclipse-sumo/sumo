@@ -462,7 +462,6 @@
 #include "languages/en.xpm"
 #include "languages/hu.xpm"
 #include "languages/tr.xpm"
-#include "languages/zh.xpm"
 
 // ===========================================================================
 // static member variable definitions

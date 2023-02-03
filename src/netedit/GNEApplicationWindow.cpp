@@ -399,7 +399,7 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_LANGUAGE_DE,    GNEApplicationWindow::onCmdChangeLanguage),
     FXMAPFUNC(SEL_COMMAND,  MID_LANGUAGE_ES,    GNEApplicationWindow::onCmdChangeLanguage),
     FXMAPFUNC(SEL_COMMAND,  MID_LANGUAGE_FR,    GNEApplicationWindow::onCmdChangeLanguage),
-    FXMAPFUNC(SEL_COMMAND,  MID_LANGUAGE_ZH,    GNEApplicationWindow::onCmdChangeLanguage),
+    FXMAPFUNC(SEL_COMMAND,  MID_LANGUAGE_CN,    GNEApplicationWindow::onCmdChangeLanguage),
     FXMAPFUNC(SEL_COMMAND,  MID_LANGUAGE_TR,    GNEApplicationWindow::onCmdChangeLanguage),
     FXMAPFUNC(SEL_COMMAND,  MID_LANGUAGE_HU,    GNEApplicationWindow::onCmdChangeLanguage),
     FXMAPFUNC(SEL_UPDATE,   MID_LANGUAGE_EN,    GNEApplicationWindow::onUpdChangeLanguage),
@@ -2474,7 +2474,7 @@ GNEApplicationWindow::onCmdChangeLanguage(FXObject*, FXSelector sel, void*) {
         case MID_LANGUAGE_FR:
             lang = "FR";
             break;
-        case MID_LANGUAGE_ZH:
+        case MID_LANGUAGE_CN:
             lang = "ZH";
             break;
         case MID_LANGUAGE_TR:
@@ -2517,7 +2517,7 @@ GNEApplicationWindow::onUpdChangeLanguage(FXObject*, FXSelector, void*) {
     } else if (gLanguage == "FR") {
         languageButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_FR));
     } else if (gLanguage == "ZH") {
-        languageButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_ZH));
+        languageButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_CN));
     } else if (gLanguage == "TR") {
         languageButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_TR));
     } else if (gLanguage == "HU") {
