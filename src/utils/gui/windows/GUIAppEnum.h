@@ -1451,8 +1451,32 @@ enum {
     /// @}
 
     /// @brief callback for MFXMenuButtonTooltip
+    /// @{
+
     MID_MBTTIP_FOCUS,
     MID_MBTTIP_SELECTED,
+
+    /// @}
+
+    /// @name languages
+    /// @{
+
+    /// @brief change language to english
+    MID_LANGUAGE_EN,
+    /// @brief change language to german
+    MID_LANGUAGE_DE,
+    /// @brief change language to spanish
+    MID_LANGUAGE_ES,
+    /// @brief change language to french
+    MID_LANGUAGE_FR,
+    /// @brief change language to chinese
+    MID_LANGUAGE_CN,
+    /// @brief change language to turkish
+    MID_LANGUAGE_TK,
+    /// @brief change language to hungarian
+    MID_LANGUAGE_HU,
+
+    /// @}
 
     /// @brief last element of enum (not used)
     MID_LAST

@@ -483,32 +483,32 @@ struct GNEViewNetHelper {
         /// @brief pointer to net
         GNEViewNet* myViewNet;
 
-        /// The locator menu
-        FXPopup* mySaveIndividualFilesPopup = nullptr;
+        /// @brief The change language popup menu
+        FXPopup* myChangeLanguagePopup = nullptr;
 
         /// @brief checkable button for save individual files
-        MFXMenuButtonTooltip* mySaveIndividualFiles = nullptr;
+        MFXMenuButtonTooltip* myChangeLanguage = nullptr;
 
-        /// @brief checkable button for save NETEDIT config
-        MFXButtonTooltip* mySaveNETEDITConfig = nullptr;
+        /// @brief checkable button for english language
+        MFXButtonTooltip* myLanguageEN = nullptr;
 
-        /// @brief checkable button for save SUMO config
-        MFXButtonTooltip* mySaveSUMOConfig = nullptr;
+        /// @brief checkable button for german language
+        MFXButtonTooltip* myLanguageDE = nullptr;
 
-        /// @brief checkable button for save network
-        MFXButtonTooltip* mySaveNetwork = nullptr;
+        /// @brief checkable button for spanish language
+        MFXButtonTooltip* myLanguageES = nullptr;
 
-        /// @brief checkable button for save additional elements
-        MFXButtonTooltip* mySaveAdditionalElements = nullptr;
+        /// @brief checkable button for french language
+        MFXButtonTooltip* myLanguageFR = nullptr;
 
-        /// @brief checkable button for save demand elements
-        MFXButtonTooltip* mySaveDemandElements = nullptr;
+        /// @brief checkable button for chinese language
+        MFXButtonTooltip* myLanguageCN = nullptr;
 
-        /// @brief checkable button for save genericdata elements
-        MFXButtonTooltip* mySaveDataElements = nullptr;
+        /// @brief checkable button for turkish language
+        MFXButtonTooltip* myLanguageTK = nullptr;
 
-        /// @brief checkable button for save meanData elements
-        MFXButtonTooltip* mySaveMeanDataElements = nullptr;
+        /// @brief checkable button for hungarian language
+        MFXButtonTooltip* myLanguageHU = nullptr;
 
         /// @brief Invalidated copy constructor.
         Languages(const Languages&) = delete;

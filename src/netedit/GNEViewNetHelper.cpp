@@ -1924,44 +1924,63 @@ GNEViewNetHelper::Languages::Languages(GNEViewNet* viewNet) :
 
 
 GNEViewNetHelper::Languages::~Languages() {
-    delete mySaveIndividualFilesPopup;
+    delete myChangeLanguagePopup;
 }
 
 
 void
 GNEViewNetHelper::Languages::buildLanguagesButtons() {
     // create popup for save individual files
-    mySaveIndividualFilesPopup = new FXPopup(myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().languages, POPUP_VERTICAL);
-    mySaveIndividualFilesPopup->create();
-    // create save individual files button
-    mySaveIndividualFiles = new MFXMenuButtonTooltip(myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().languages,
-        myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(), std::string("\t") + TL("Save individual files") + std::string("\t") + TL("Save individual files."),
-        GUIIconSubSys::getIcon(GUIIcon::SAVE_MULTIPLE), mySaveIndividualFilesPopup, nullptr, GUIDesignButtonToolbarLocator);
-    mySaveIndividualFiles->create();
-    // create save additional elements button
-    mySaveAdditionalElements = new MFXButtonTooltip(mySaveIndividualFilesPopup,
+    myChangeLanguagePopup = new FXPopup(myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().languages, POPUP_VERTICAL);
+    myChangeLanguagePopup->create();
+    // create change language button
+    myChangeLanguage = new MFXMenuButtonTooltip(myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().languages,
+        myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(), 
+        std::string("\t") + TL("Change language") + std::string("\t") + TL("Change current netedit language."), GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_EN), 
+        myChangeLanguagePopup, nullptr, GUIDesignButtonToolbarLocator);
+    myChangeLanguage->create();
+    // create english language button
+    myLanguageEN = new MFXButtonTooltip(myChangeLanguagePopup,
         myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
-        std::string("\t") + TL("Save additional elements") + std::string("\t") + TL("Save additional elements. (Ctrl+Shift+A)"), GUIIconSubSys::getIcon(GUIIcon::SAVE_ADDITIONALELEMENTS),
-        myViewNet->getViewParent()->getGNEAppWindows(), MID_HOTKEY_CTRL_SHIFT_A_SAVEADDITIONALS, GUIDesignButtonPopup);
-    mySaveAdditionalElements->create();
-    // create save demand elements button
-    mySaveDemandElements = new MFXButtonTooltip(mySaveIndividualFilesPopup,
+        std::string("\t") + TL("English") + std::string("\t") + TL("Change language to english."), GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_EN),
+        myViewNet->getViewParent()->getGNEAppWindows(), MID_LANGUAGE_EN, GUIDesignButtonPopup);
+    myLanguageEN->create();
+    // create german language button
+    myLanguageDE = new MFXButtonTooltip(myChangeLanguagePopup,
         myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
-        std::string("\t") + TL("Save demand elements") + std::string("\t") + TL("Save demand elements. (Ctrl+Shift+D)"), GUIIconSubSys::getIcon(GUIIcon::SAVE_DEMANDELEMENTS),
-        myViewNet->getViewParent()->getGNEAppWindows(), MID_HOTKEY_CTRL_SHIFT_D_SAVEDEMANDELEMENTS, GUIDesignButtonPopup);
-    mySaveDemandElements->create();
-    // create save data elements button
-    mySaveDataElements = new MFXButtonTooltip(mySaveIndividualFilesPopup,
+        std::string("\t") + TL("German") + std::string("\t") + TL("Change language to german."), GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_DE),
+        myViewNet->getViewParent()->getGNEAppWindows(), MID_LANGUAGE_DE, GUIDesignButtonPopup);
+    myLanguageDE->create();
+    // create spanish language button
+    myLanguageES = new MFXButtonTooltip(myChangeLanguagePopup,
         myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
-        std::string("\t") + TL("Save data elements") + std::string("\t") + TL("Save data elements. (Ctrl+Shift+B)"), GUIIconSubSys::getIcon(GUIIcon::SAVE_DATAELEMENTS),
-        myViewNet->getViewParent()->getGNEAppWindows(), MID_HOTKEY_CTRL_SHIFT_B_SAVEDATAELEMENTS, GUIDesignButtonPopup);
-    mySaveDataElements->create();
-    // create save mean datas elements button
-    mySaveMeanDataElements = new MFXButtonTooltip(mySaveIndividualFilesPopup,
+        std::string("\t") + TL("Spanish") + std::string("\t") + TL("Change language to spanish."), GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_ES),
+        myViewNet->getViewParent()->getGNEAppWindows(), MID_LANGUAGE_ES, GUIDesignButtonPopup);
+    myLanguageES->create();
+    // create french language button
+    myLanguageFR = new MFXButtonTooltip(myChangeLanguagePopup,
         myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
-        std::string("\t") + TL("Save mean data elements") + std::string("\t") + TL("Save mean data elements. (Ctrl+Shift+M)"), GUIIconSubSys::getIcon(GUIIcon::SAVE_MEANDATAELEMENTS),
-        myViewNet->getViewParent()->getGNEAppWindows(), MID_HOTKEY_CTRL_SHIFT_M_SAVEMEANDATAS, GUIDesignButtonPopup);
-    mySaveMeanDataElements->create();
+        std::string("\t") + TL("French") + std::string("\t") + TL("Change language to french."), GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_FR),
+        myViewNet->getViewParent()->getGNEAppWindows(), MID_LANGUAGE_FR, GUIDesignButtonPopup);
+    myLanguageFR->create();
+    // create chinese language button
+    myLanguageCN = new MFXButtonTooltip(myChangeLanguagePopup,
+        myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
+        std::string("\t") + TL("Chinese") + std::string("\t") + TL("Change language to chinese."), GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_CN),
+        myViewNet->getViewParent()->getGNEAppWindows(), MID_LANGUAGE_CN, GUIDesignButtonPopup);
+    myLanguageCN->create();
+    // create turkish language button
+    myLanguageTK = new MFXButtonTooltip(myChangeLanguagePopup,
+        myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
+        std::string("\t") + TL("Turkish") + std::string("\t") + TL("Change language to turkish."), GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_TK),
+        myViewNet->getViewParent()->getGNEAppWindows(), MID_LANGUAGE_TK, GUIDesignButtonPopup);
+    myLanguageTK->create();
+    // create hungarian language button
+    myLanguageHU = new MFXButtonTooltip(myChangeLanguagePopup,
+        myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
+        std::string("\t") + TL("Hungarian") + std::string("\t") + TL("Change language to hungarian."), GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_HU),
+        myViewNet->getViewParent()->getGNEAppWindows(), MID_LANGUAGE_HU, GUIDesignButtonPopup);
+    myLanguageHU->create();
     // recalc menu bar because there is new elements
     myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().languages->recalc();
     // show menu bar modes
