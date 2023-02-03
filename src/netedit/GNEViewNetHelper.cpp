@@ -1966,14 +1966,14 @@ GNEViewNetHelper::Languages::buildLanguagesButtons() {
     // create chinese language button
     myLanguageCN = new MFXButtonTooltip(myChangeLanguagePopup,
         myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
-        std::string("\t") + TL("Chinese") + std::string("\t") + TL("Change language to chinese."), GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_CN),
-        myViewNet->getViewParent()->getGNEAppWindows(), MID_LANGUAGE_CN, GUIDesignButtonPopup);
+        std::string("\t") + TL("Chinese") + std::string("\t") + TL("Change language to chinese."), GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_ZH),
+        myViewNet->getViewParent()->getGNEAppWindows(), MID_LANGUAGE_ZH, GUIDesignButtonPopup);
     myLanguageCN->create();
     // create turkish language button
     myLanguageTK = new MFXButtonTooltip(myChangeLanguagePopup,
         myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
-        std::string("\t") + TL("Turkish") + std::string("\t") + TL("Change language to turkish."), GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_TK),
-        myViewNet->getViewParent()->getGNEAppWindows(), MID_LANGUAGE_TK, GUIDesignButtonPopup);
+        std::string("\t") + TL("Turkish") + std::string("\t") + TL("Change language to turkish."), GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_TR),
+        myViewNet->getViewParent()->getGNEAppWindows(), MID_LANGUAGE_TR, GUIDesignButtonPopup);
     myLanguageTK->create();
     // create hungarian language button
     myLanguageHU = new MFXButtonTooltip(myChangeLanguagePopup,

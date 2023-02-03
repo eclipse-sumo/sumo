@@ -613,12 +613,12 @@ enum class GUIIcon {
 
     /// @brief icons for languages
     /// @{
-    LANGUAGE_CN,
+    LANGUAGE_ZH,
     LANGUAGE_DE,
     LANGUAGE_ES,
     LANGUAGE_FR,
     LANGUAGE_EN,
     LANGUAGE_HU,
-    LANGUAGE_TK
+    LANGUAGE_TR
     /// @}
 };

@@ -456,13 +456,13 @@
 #include "googlesat.xpm"
 #include "osm.xpm"
 
-#include "languages/cn.xpm"
 #include "languages/de.xpm"
 #include "languages/es.xpm"
 #include "languages/fr.xpm"
 #include "languages/en.xpm"
 #include "languages/hu.xpm"
-#include "languages/tk.xpm"
+#include "languages/tr.xpm"
+#include "languages/zh.xpm"
 
 // ===========================================================================
 // static member variable definitions
@@ -911,13 +911,13 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::GOOGLESAT] = new FXXPMIcon(a, googlesat_xpm);
     myIcons[GUIIcon::OSM] = new FXXPMIcon(a, osm_xpm);
 
-    myIcons[GUIIcon::LANGUAGE_CN] = new FXXPMIcon(a, language_cn_xpm);
+    myIcons[GUIIcon::LANGUAGE_ZH] = new FXXPMIcon(a, language_zh_xpm);
     myIcons[GUIIcon::LANGUAGE_DE] = new FXXPMIcon(a, language_de_xpm);
     myIcons[GUIIcon::LANGUAGE_ES] = new FXXPMIcon(a, language_es_xpm);
     myIcons[GUIIcon::LANGUAGE_FR] = new FXXPMIcon(a, language_fr_xpm);
     myIcons[GUIIcon::LANGUAGE_EN] = new FXXPMIcon(a, language_en_xpm);
     myIcons[GUIIcon::LANGUAGE_HU] = new FXXPMIcon(a, language_hu_xpm);
-    myIcons[GUIIcon::LANGUAGE_TK] = new FXXPMIcon(a, language_tk_xpm);
+    myIcons[GUIIcon::LANGUAGE_TR] = new FXXPMIcon(a, language_tr_xpm);
 
     // ... and create them
     for (const auto& icon : myIcons) {

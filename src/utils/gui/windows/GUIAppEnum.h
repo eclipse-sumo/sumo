@@ -1470,9 +1470,9 @@ enum {
     /// @brief change language to french
     MID_LANGUAGE_FR,
     /// @brief change language to chinese
-    MID_LANGUAGE_CN,
+    MID_LANGUAGE_ZH,
     /// @brief change language to turkish
-    MID_LANGUAGE_TK,
+    MID_LANGUAGE_TR,
     /// @brief change language to hungarian
     MID_LANGUAGE_HU,
 
