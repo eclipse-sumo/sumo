@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-01 15:37+0100\n"
-"PO-Revision-Date: 2023-02-02 13:19+0000\n"
+"PO-Revision-Date: 2023-02-03 15:22+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -3297,7 +3297,7 @@ msgstr "Netzaufbau fehlgeschlagen."
 
 #: D:\SUMO/src\netedit\GNELoadThread.cpp:250
 msgid "Start plain GUI with empty net"
-msgstr ""
+msgstr "Öffne Benutzeroberfläche mit einem leeren Netz"
 
 #: D:\SUMO/src\netedit\GNELoadThread.cpp:251
 msgid "Open a SUMO network"
@@ -3377,35 +3377,35 @@ msgstr "Präfix für Parkplatznamen"
 
 #: D:\SUMO/src\netedit\GNELoadThread.cpp:339
 msgid "Prefix for e1Detector naming"
-msgstr ""
+msgstr "Präfix für e1Detector-Namen"
 
 #: D:\SUMO/src\netedit\GNELoadThread.cpp:342
 msgid "Prefix for e2Detector naming"
-msgstr ""
+msgstr "Präfix für e2Detector-Namen"
 
 #: D:\SUMO/src\netedit\GNELoadThread.cpp:345
 msgid "Prefix for e3Detector naming"
-msgstr ""
+msgstr "Präfix für e3Detector-Namen"
 
 #: D:\SUMO/src\netedit\GNELoadThread.cpp:348
 msgid "Prefix for e1InstantDetector naming"
-msgstr ""
+msgstr "Präfix für e1InstantDetector-Namen"
 
 #: D:\SUMO/src\netedit\GNELoadThread.cpp:351
 msgid "Prefix for rerouter naming"
-msgstr ""
+msgstr "Präfix für Rerouter-Namen"
 
 #: D:\SUMO/src\netedit\GNELoadThread.cpp:354
 msgid "Prefix for calibrator naming"
-msgstr ""
+msgstr "Präfix für Calibrator-Namen"
 
 #: D:\SUMO/src\netedit\GNELoadThread.cpp:357
 msgid "Prefix for routeProbe naming"
-msgstr ""
+msgstr "Präfix für routeProbe-Namen"
 
 #: D:\SUMO/src\netedit\GNELoadThread.cpp:360
 msgid "Prefix for variable speed sign naming"
-msgstr ""
+msgstr "Präfix für Namen der dynamischen Geschwindigkeitsanzeigen"
 
 #: D:\SUMO/src\netedit\GNELoadThread.cpp:363
 msgid "prefix for traction substation naming"
