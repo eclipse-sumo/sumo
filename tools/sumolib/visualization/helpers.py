@@ -14,6 +14,7 @@
 # @author  Daniel Krajzewicz
 # @author  Laura Bieker
 # @author  Michael Behrisch
+# @author  Mirko Barthauer
 # @date    2013-11-11
 
 from __future__ import absolute_import
@@ -117,6 +118,8 @@ def addPlotOptions(optParser):
                          default=None, help="Sets the legend position")
     optParser.add_option("--dpi", dest="dpi", type=float,
                          default=None, help="Define dpi resolution for figures")
+    optParser.add_option("--alpha", type=float,
+                         default=1., help="Define background transparency of the figure in the range 0..1")
 
 
 def addInteractionOptions(optParser):
@@ -217,6 +220,10 @@ def applyPlotOptions(fig, ax, options):
             raise ValueError(
                 "Error: adjust must be given as two floats (<LEFT>,<BOTTOM>) or four floats " +
                 "(<LEFT>,<BOTTOM>,<RIGHT>,<TOP>)")
+    if options.alpha is not None:
+        alpha = max(0., min(1., options.alpha))
+        fig.patch.set_alpha(alpha)
+        ax.patch.set_alpha(alpha)
 
 
 def plotNet(net, colors, widths, options):
