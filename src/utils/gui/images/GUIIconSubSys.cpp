@@ -460,7 +460,7 @@
 #include "languages/de.xpm"
 #include "languages/es.xpm"
 #include "languages/fr.xpm"
-#include "languages/gb.xpm"
+#include "languages/en.xpm"
 #include "languages/hu.xpm"
 #include "languages/tk.xpm"
 
@@ -915,7 +915,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::LANGUAGE_DE] = new FXXPMIcon(a, language_de_xpm);
     myIcons[GUIIcon::LANGUAGE_ES] = new FXXPMIcon(a, language_es_xpm);
     myIcons[GUIIcon::LANGUAGE_FR] = new FXXPMIcon(a, language_fr_xpm);
-    myIcons[GUIIcon::LANGUAGE_GB] = new FXXPMIcon(a, language_gb_xpm);
+    myIcons[GUIIcon::LANGUAGE_EN] = new FXXPMIcon(a, language_en_xpm);
     myIcons[GUIIcon::LANGUAGE_HU] = new FXXPMIcon(a, language_hu_xpm);
     myIcons[GUIIcon::LANGUAGE_TK] = new FXXPMIcon(a, language_tk_xpm);
 
