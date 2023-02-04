@@ -73,7 +73,7 @@ TrajectoriesHandler::myStartElement(int element,
                 const std::string acId = attrs.getString(SUMO_ATTR_ACTORCONFIG);
                 const std::string id = attrs.getString(SUMO_ATTR_ID);
                 if (myEmissionClassByType.count(acId) == 0) {
-                    WRITE_WARNING("Unknown actor configuration '" + acId + "' for vehicle '" + id + "'!");
+                    WRITE_WARNINGF(TL("Unknown actor configuration '%' for vehicle '%'!"), acId, id);
                 } else {
                     myEmissionClassByVehicle[id] = myEmissionClassByType.count(acId) > 0 ? myEmissionClassByType[acId] : myDefaultClass;
                 }

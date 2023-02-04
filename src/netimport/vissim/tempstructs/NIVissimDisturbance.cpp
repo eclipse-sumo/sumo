@@ -140,7 +140,7 @@ NIVissimDisturbance::addToNode(NBNode* node, NBDistrictCont& dc,
         //  split both edges and add the connections
         NIVissimEdge* e1 = NIVissimEdge::dictionary(myEdge.getEdgeID());
         NIVissimEdge* e2 = NIVissimEdge::dictionary(myDisturbance.getEdgeID());
-        WRITE_WARNING("Ugly split to prohibit '" + toString<int>(e1->getID()) + "' by '" + toString<int>(e2->getID()) + "'.");
+        WRITE_WARNINGF(TL("Ugly split to prohibit '%' by '%'."), toString<int>(e1->getID()), toString<int>(e2->getID()));
         Position pos = e1->crossesEdgeAtPoint(e2);
         std::string id1 = toString<int>(e1->getID()) + "x" + toString<int>(e2->getID());
         std::string id2 = toString<int>(e2->getID()) + "x" + toString<int>(e1->getID());
@@ -183,12 +183,12 @@ NIVissimDisturbance::addToNode(NBNode* node, NBDistrictCont& dc,
 
         NBEdge* e = ec.retrievePossiblySplit(toString<int>(myDisturbance.getEdgeID()), myDisturbance.getPosition());
         if (e == nullptr) {
-            WRITE_WARNING("Could not prohibit '" + toString<int>(myEdge.getEdgeID()) + "' by '" + toString<int>(myDisturbance.getEdgeID()) + "'. Have not found disturbance.");
+            WRITE_WARNINGF(TL("Could not prohibit '%' by '%'. Have not found disturbance."), toString<int>(myEdge.getEdgeID()), toString<int>(myDisturbance.getEdgeID()));
             refusedProhibits++;
             return false;
         }
         if (e->getFromNode() == e->getToNode()) {
-            WRITE_WARNING("Could not prohibit '" + toString<int>(myEdge.getEdgeID()) + "' by '" + toString<int>(myDisturbance.getEdgeID()) + "'. Disturbance connects same node.");
+            WRITE_WARNINGF(TL("Could not prohibit '%' by '%'. Disturbance connects same node."), toString<int>(myEdge.getEdgeID()), toString<int>(myDisturbance.getEdgeID()));
             refusedProhibits++;
             // What to do with self-looping edges?
             return false;
@@ -240,7 +240,7 @@ NIVissimDisturbance::addToNode(NBNode* node, NBDistrictCont& dc,
         std::string nid1 = e->getID() + "[0]";
         std::string nid2 = e->getID() + "[1]";
         if (e->getFromNode() == e->getToNode()) {
-            WRITE_WARNING("Could not prohibit '" + toString<int>(myEdge.getEdgeID()) + "' by '" + toString<int>(myDisturbance.getEdgeID()) + "'.");
+            WRITE_WARNINGF(TL("Could not prohibit '%' by '%'."), toString<int>(myEdge.getEdgeID()), toString<int>(myDisturbance.getEdgeID()));
             refusedProhibits++;
             // What to do with self-looping edges?
             return false;
@@ -337,7 +337,7 @@ NIVissimDisturbance::dict_SetDisturbances() {
 void
 NIVissimDisturbance::reportRefused() {
     if (refusedProhibits > 0) {
-        WRITE_WARNING("Could not build " + toString<int>(refusedProhibits) + " of " + toString<int>((int)myDict.size()) + " disturbances.");
+        WRITE_WARNINGF(TL("Could not build % of % disturbances."), toString<int>(refusedProhibits), toString<int>((int)myDict.size()));
     }
 }
 

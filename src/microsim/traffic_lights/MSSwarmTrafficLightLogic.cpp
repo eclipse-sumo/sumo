@@ -157,7 +157,7 @@ void MSSwarmTrafficLightLogic::init(NLDetectorBuilder& nb) {
 #endif
                 } else {
 #ifdef ANALYSIS_DEBUG
-                    WRITE_MESSAGE("MSSwarmTrafficLightLogic::init Intersection " + getID() + " pheromoneInputLanes: lane " + currentLane->getID() + " not allowed");
+                    WRITE_MESSAGEF(TL("MSSwarmTrafficLightLogic::init Intersection % pheromoneInputLanes: lane % not allowed"), getID(), currentLane->getID());
 #endif
                 }
             }
@@ -179,7 +179,7 @@ void MSSwarmTrafficLightLogic::init(NLDetectorBuilder& nb) {
 #endif
                 } else {
 #ifdef ANALYSIS_DEBUG
-                    WRITE_MESSAGE("MSSwarmTrafficLightLogic::init Intersection " + getID() + " pheromoneOutputLanes lane " + currentLane->getID() + " not allowed");
+                    WRITE_MESSAGEF(TL("MSSwarmTrafficLightLogic::init Intersection % pheromoneOutputLanes lane % not allowed"), getID(), currentLane->getID());
 #endif
                 }
             }

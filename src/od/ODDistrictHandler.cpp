@@ -127,7 +127,7 @@ ODDistrictHandler::parseTAZ(const SUMOSAXAttributes& attrs) {
     double weight = attrs.get<double>(SUMO_ATTR_WEIGHT, id.c_str(), ok);
     if (ok) {
         if (weight < 0) {
-            WRITE_ERROR("'probability' must be positive (in definition of " + attrs.getObjectType() + " '" + id + "').");
+            WRITE_ERRORF(TL("'probability' must be positive (in definition of % '%')."), attrs.getObjectType(), id);
         } else {
             return std::pair<std::string, double>(id, weight);
         }

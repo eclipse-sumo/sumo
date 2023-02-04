@@ -246,9 +246,9 @@ NIImporter_VISUM::load() {
                 } catch (OutOfBoundsException&) {
                     WRITE_ERRORF(TL("Too short value line in % occurred."), (*i).name);
                 } catch (NumberFormatException&) {
-                    WRITE_ERROR("A value in " + (*i).name + " should be numeric but is not (id='" + myCurrentID + "').");
+                    WRITE_ERRORF(TL("A value in % should be numeric but is not (id='%')."), (*i).name, myCurrentID);
                 } catch (UnknownElement& e) {
-                    WRITE_ERROR("One of the needed values ('" + std::string(e.what()) + "') is missing in " + (*i).name + ".");
+                    WRITE_ERRORF(TL("One of the needed values ('%') is missing in %."), std::string(e.what()), (*i).name);
                 }
             }
         }
@@ -662,13 +662,13 @@ NIImporter_VISUM::parse_Turns() {
         // check both
         if (src == nullptr) {
             if (OptionsCont::getOptions().getBool("visum.verbose-warnings")) {
-                WRITE_WARNING("There is no edge from node '" + from->getID() + "' to node '" + via->getID() + "'.");
+                WRITE_WARNINGF(TL("There is no edge from node '%' to node '%'."), from->getID(), via->getID());
             }
             return;
         }
         if (dest == nullptr) {
             if (OptionsCont::getOptions().getBool("visum.verbose-warnings")) {
-                WRITE_WARNING("There is no edge from node '" + via->getID() + "' to node '" + to->getID() + "'.");
+                WRITE_WARNINGF(TL("There is no edge from node '%' to node '%'."), via->getID(), to->getID());
             }
             return;
         }
@@ -695,7 +695,7 @@ NIImporter_VISUM::parse_EdgePolys() {
         x = getNamedFloat(KEYS.getString(VISUM_XCOORD));
         y = getNamedFloat(KEYS.getString(VISUM_YCOORD));
     } catch (NumberFormatException&) {
-        WRITE_ERROR("Error in geometry description from node '" + from->getID() + "' to node '" + to->getID() + "'.");
+        WRITE_ERRORF(TL("Error in geometry description from node '%' to node '%'."), from->getID(), to->getID());
         return;
     }
     Position pos(x, y);
@@ -717,7 +717,7 @@ NIImporter_VISUM::parse_EdgePolys() {
     // check whether the operation has failed
     if (failed) {
         if (OptionsCont::getOptions().getBool("visum.verbose-warnings")) {
-            WRITE_WARNING("There is no edge from node '" + from->getID() + "' to node '" + to->getID() + "'.");
+            WRITE_WARNINGF(TL("There is no edge from node '%' to node '%'."), from->getID(), to->getID());
         }
     }
 }
@@ -754,12 +754,12 @@ NIImporter_VISUM::parse_Lanes() {
     try {
         lane = StringUtils::toInt(laneS);
     } catch (NumberFormatException&) {
-        WRITE_ERROR("A lane number for edge '" + edge->getID() + "' is not numeric (" + laneS + ").");
+        WRITE_ERRORF(TL("A lane number for edge '%' is not numeric (%)."), edge->getID(), laneS);
         return;
     }
     lane -= 1;
     if (lane < 0) {
-        WRITE_ERROR("A lane number for edge '" + edge->getID() + "' is not positive (" + laneS + ").");
+        WRITE_ERRORF(TL("A lane number for edge '%' is not positive (%)."), edge->getID(), laneS);
         return;
     }
     // get the direction
@@ -778,11 +778,11 @@ NIImporter_VISUM::parse_Lanes() {
     try {
         length = StringUtils::toDouble(lengthS);
     } catch (NumberFormatException&) {
-        WRITE_ERROR("A lane length for edge '" + edge->getID() + "' is not numeric (" + lengthS + ").");
+        WRITE_ERRORF(TL("A lane length for edge '%' is not numeric (%)."), edge->getID(), lengthS);
         return;
     }
     if (length < 0) {
-        WRITE_ERROR("A lane length for edge '" + edge->getID() + "' is not positive (" + lengthS + ").");
+        WRITE_ERRORF(TL("A lane length for edge '%' is not positive (%)."), edge->getID(), lengthS);
         return;
     }
     //
@@ -1104,12 +1104,12 @@ void NIImporter_VISUM::parse_LanesConnections() {
     try {
         fromLane = StringUtils::toInt(fromLaneS);
     } catch (NumberFormatException&) {
-        WRITE_ERROR("A from-lane number for edge '" + fromEdge->getID() + "' is not numeric (" + fromLaneS + ").");
+        WRITE_ERRORF(TL("A from-lane number for edge '%' is not numeric (%)."), fromEdge->getID(), fromLaneS);
         return;
     }
     fromLane -= 1;
     if (fromLane < 0) {
-        WRITE_ERROR("A from-lane number for edge '" + fromEdge->getID() + "' is not positive (" + fromLaneS + ").");
+        WRITE_ERRORF(TL("A from-lane number for edge '%' is not positive (%)."), fromEdge->getID(), fromLaneS);
         return;
     }
     // get the from-lane
@@ -1118,12 +1118,12 @@ void NIImporter_VISUM::parse_LanesConnections() {
     try {
         toLane = StringUtils::toInt(toLaneS);
     } catch (NumberFormatException&) {
-        WRITE_ERROR("A to-lane number for edge '" + toEdge->getID() + "' is not numeric (" + toLaneS + ").");
+        WRITE_ERRORF(TL("A to-lane number for edge '%' is not numeric (%)."), toEdge->getID(), toLaneS);
         return;
     }
     toLane -= 1;
     if (toLane < 0) {
-        WRITE_ERROR("A to-lane number for edge '" + toEdge->getID() + "' is not positive (" + toLaneS + ").");
+        WRITE_ERRORF(TL("A to-lane number for edge '%' is not positive (%)."), toEdge->getID(), toLaneS);
         return;
     }
     // !!! the next is probably a hack
@@ -1139,11 +1139,11 @@ void NIImporter_VISUM::parse_LanesConnections() {
     }
     //
     if ((int) fromEdge->getNumLanes() <= fromLane) {
-        WRITE_ERROR("A from-lane number for edge '" + fromEdge->getID() + "' is larger than the edge's lane number (" + fromLaneS + ").");
+        WRITE_ERRORF(TL("A from-lane number for edge '%' is larger than the edge's lane number (%)."), fromEdge->getID(), fromLaneS);
         return;
     }
     if ((int) toEdge->getNumLanes() <= toLane) {
-        WRITE_ERROR("A to-lane number for edge '" + toEdge->getID() + "' is larger than the edge's lane number (" + toLaneS + ").");
+        WRITE_ERRORF(TL("A to-lane number for edge '%' is larger than the edge's lane number (%)."), toEdge->getID(), toLaneS);
         return;
     }
     //

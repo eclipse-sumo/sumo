@@ -198,7 +198,7 @@ MSDevice::getFloatParam(const SUMOVehicle& v, const OptionsCont& oc, std::string
     try {
         return StringUtils::toDouble(val);
     } catch (...) {
-        WRITE_ERROR("Invalid float value '" + val + "'for parameter '" + key + "'");
+        WRITE_ERRORF(TL("Invalid float value '%'for parameter '%'"), val, key);
         return deflt;
     }
 }
@@ -211,7 +211,7 @@ MSDevice::getBoolParam(const SUMOVehicle& v, const OptionsCont& oc, std::string 
     try {
         return StringUtils::toBool(val);
     } catch (...) {
-        WRITE_ERROR("Invalid bool value '" + val + "'for parameter '" + key + "'");
+        WRITE_ERRORF(TL("Invalid bool value '%'for parameter '%'"), val, key);
         return deflt;
     }
 }
@@ -224,7 +224,7 @@ MSDevice::getTimeParam(const SUMOVehicle& v, const OptionsCont& oc, std::string 
     try {
         return string2time(val);
     } catch (...) {
-        WRITE_ERROR("Invalid time value '" + val + "'for parameter '" + key + "'");
+        WRITE_ERRORF(TL("Invalid time value '%'for parameter '%'"), val, key);
         return deflt;
     }
 }

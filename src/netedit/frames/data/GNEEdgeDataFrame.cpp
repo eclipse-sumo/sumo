@@ -48,7 +48,7 @@ GNEEdgeDataFrame::addEdgeData(const GNEViewNetHelper::ObjectsUnderCursor& object
         for (const auto& genericData : myIntervalSelector->getDataInterval()->getGenericDataChildren()) {
             if ((genericData->getTagProperty().getTag() == GNE_TAG_EDGEREL_SINGLE) && (genericData->getParentEdges().front() == objectsUnderCursor.getEdgeFront())) {
                 // write warning
-                WRITE_WARNING("There is already a " + genericData->getTagStr() + " in edge '" + objectsUnderCursor.getEdgeFront()->getID() + "'");
+                WRITE_WARNINGF(TL("There is already a % in edge '%'"), genericData->getTagStr(), objectsUnderCursor.getEdgeFront()->getID());
                 // abort edge data creation
                 return false;
             }

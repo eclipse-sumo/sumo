@@ -178,7 +178,7 @@ OptionsCont::getSecure(const std::string& name) const {
                 break;
             }
         }
-        WRITE_WARNING("Please note that '" + name + "' is deprecated.\n Use '" + defaultName + "' instead.");
+        WRITE_WARNINGF(TL("Please note that '%' is deprecated.\n Use '%' instead."), name, defaultName);
         s->second = true;
     }
     return k->second;
@@ -375,7 +375,7 @@ OptionsCont::isUsableFileList(const std::string& name) const {
     for (std::vector<std::string>::const_iterator fileIt = files.begin(); fileIt != files.end(); ++fileIt) {
         if (!FileHelpers::isReadable(*fileIt)) {
             if (*fileIt != "") {
-                WRITE_ERROR("File '" + *fileIt + "' is not accessible (" + std::strerror(errno) + ").");
+                WRITE_ERRORF(TL("File '%' is not accessible (%)."), *fileIt, std::strerror(errno));
                 ok = false;
             } else {
                 WRITE_WARNING(TL("Empty file name given; ignoring."));
@@ -399,7 +399,7 @@ OptionsCont::checkDependingSuboptions(const std::string& name, const std::string
             continue;
         }
         if ((*i).second->isSet() && !(*i).second->isDefault() && (*i).first.find(prefix) == 0) {
-            WRITE_ERROR("Option '" + (*i).first + "' needs option '" + name + "'.");
+            WRITE_ERRORF(TL("Option '%' needs option '%'."), (*i).first, name);
             std::vector<std::string> synonymes = getSynonymes((*i).first);
             std::copy(synonymes.begin(), synonymes.end(), std::back_inserter(seenSynonymes));
             ok = false;

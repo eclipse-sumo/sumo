@@ -229,7 +229,7 @@ NIImporter_ArcView::load() {
             } else {
                 const std::string lanesField = myOptions.isSet("shapefile.laneNumber") ? myOptions.getString("shapefile.laneNumber") : "nolanes";
                 const std::string speedField = myOptions.isSet("shapefile.speed") ? myOptions.getString("shapefile.speed") : "speed";
-                WRITE_ERROR("Required field '" + lanesField + "' or '" + speedField + "' is missing (add fields or set option --shapefile.use-defaults-on-failure).");
+                WRITE_ERRORF(TL("Required field '%' or '%' is missing (add fields or set option --shapefile.use-defaults-on-failure)."), lanesField, speedField);
                 WRITE_ERROR("Available fields: " + toString(getFieldNames(poFeature)));
                 OGRFeature::DestroyFeature(poFeature);
                 return;

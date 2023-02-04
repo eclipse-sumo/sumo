@@ -100,7 +100,7 @@ MSRouteHandler::parseFromViaTo(SumoXMLTag tag, const SUMOSAXAttributes& attrs) {
     myActiveRoute.clear();
     bool useTaz = OptionsCont::getOptions().getBool("with-taz");
     if (useTaz && !myVehicleParameter->wasSet(VEHPARS_FROM_TAZ_SET) && !myVehicleParameter->wasSet(VEHPARS_TO_TAZ_SET)) {
-        WRITE_WARNING("Taz usage was requested but no taz present in " + element + " '" + myVehicleParameter->id + "'!");
+        WRITE_WARNINGF(TL("Taz usage was requested but no taz present in % '%'!"), element, myVehicleParameter->id);
         useTaz = false;
     }
     bool ok = true;
@@ -289,7 +289,7 @@ MSRouteHandler::openRoute(const SUMOSAXAttributes& attrs) {
     }
     myActiveRouteRefID = attrs.getOpt<std::string>(SUMO_ATTR_REFID, myActiveRouteID.c_str(), ok, "");
     if (myActiveRouteRefID != "" && MSRoute::dictionary(myActiveRouteRefID, &myParsingRNG) == nullptr) {
-        WRITE_ERROR("Invalid reference to route '" + myActiveRouteRefID + "' in route " + rid + ".");
+        WRITE_ERRORF(TL("Invalid reference to route '%' in route %."), myActiveRouteRefID, rid);
     }
     myActiveRouteProbability = attrs.getOpt<double>(SUMO_ATTR_PROB, myActiveRouteID.c_str(), ok, DEFAULT_VEH_PROB);
     myActiveRouteColor = attrs.hasAttribute(SUMO_ATTR_COLOR) ? new RGBColor(attrs.get<RGBColor>(SUMO_ATTR_COLOR, myActiveRouteID.c_str(), ok)) : nullptr;
@@ -547,7 +547,7 @@ MSRouteHandler::closeVehicle() {
                 throw ProcessError("The vehicle type '" + myVehicleParameter->vtypeid + "' for vehicle '" + myVehicleParameter->id + "' is not known.");
             }
             if (vtype->getVehicleClass() == SVC_PEDESTRIAN) {
-                WRITE_WARNING("Vehicle type '" + vtype->getID() + "' with vClass=pedestrian should only be used for persons and not for vehicle '" + myVehicleParameter->id + "'.");
+                WRITE_WARNINGF(TL("Vehicle type '%' with vClass=pedestrian should only be used for persons and not for vehicle '%'."), vtype->getID(), myVehicleParameter->id);
             }
         } else {
             // there should be one (at least the default one)
@@ -707,7 +707,7 @@ MSRouteHandler::addVehicleStopsToImplicitRoute(ConstMSRoutePtr route, bool isPer
                 edges.push_back(stopEdge);
             }
         } else {
-            WRITE_WARNING("Could not merge vehicle stops for vehicle '" + myVehicleParameter->id + "' into implicitly defined route '" + route->getID() + "'");
+            WRITE_WARNINGF(TL("Could not merge vehicle stops for vehicle '%' into implicitly defined route '%'"), myVehicleParameter->id, route->getID());
         }
     }
     ConstMSRoutePtr newRoute = std::make_shared<MSRoute>("!" + myVehicleParameter->id, edges,
@@ -1110,33 +1110,33 @@ MSRouteHandler::retrieveStoppingPlace(const SUMOSAXAttributes& attrs, const std:
         toStop = MSNet::getInstance()->getStoppingPlace(stop.busstop, SUMO_TAG_BUS_STOP);
         if (toStop == nullptr) {
             ok = false;
-            WRITE_ERROR("The busStop '" + stop.busstop + "' is not known" + errorSuffix + ".");
+            WRITE_ERRORF(TL("The busStop '%' is not known%."), stop.busstop, errorSuffix);
         }
     } else if (stop.containerstop != "") {
         toStop = MSNet::getInstance()->getStoppingPlace(stop.containerstop, SUMO_TAG_CONTAINER_STOP);
         if (toStop == nullptr) {
             ok = false;
-            WRITE_ERROR("The containerStop '" + stop.containerstop + "' is not known" + errorSuffix + ".");
+            WRITE_ERRORF(TL("The containerStop '%' is not known%."), stop.containerstop, errorSuffix);
         }
     } else if (stop.parkingarea != "") {
         toStop = MSNet::getInstance()->getStoppingPlace(stop.parkingarea, SUMO_TAG_PARKING_AREA);
         if (toStop == nullptr) {
             ok = false;
-            WRITE_ERROR("The parkingArea '" + stop.parkingarea + "' is not known" + errorSuffix + ".");
+            WRITE_ERRORF(TL("The parkingArea '%' is not known%."), stop.parkingarea, errorSuffix);
         }
     } else if (stop.chargingStation != "") {
         // ok, we have a charging station
         toStop = MSNet::getInstance()->getStoppingPlace(stop.chargingStation, SUMO_TAG_CHARGING_STATION);
         if (toStop == nullptr) {
             ok = false;
-            WRITE_ERROR("The chargingStation '" + stop.chargingStation + "' is not known" + errorSuffix + ".");
+            WRITE_ERRORF(TL("The chargingStation '%' is not known%."), stop.chargingStation, errorSuffix);
         }
     } else if (stop.overheadWireSegment != "") {
         // ok, we have an overhead wire segment
         toStop = MSNet::getInstance()->getStoppingPlace(stop.overheadWireSegment, SUMO_TAG_OVERHEAD_WIRE_SEGMENT);
         if (toStop == nullptr) {
             ok = false;
-            WRITE_ERROR("The overhead wire segment '" + stop.overheadWireSegment + "' is not known" + errorSuffix + ".");
+            WRITE_ERRORF(TL("The overhead wire segment '%' is not known%."), stop.overheadWireSegment, errorSuffix);
         }
     }
     if (!ok && MSGlobals::gCheckRoutes) {
@@ -1333,7 +1333,7 @@ MSRouteHandler::parseWalkPositions(const SUMOSAXAttributes& attrs, const std::st
                 if (arrPos >= bs->getBeginLanePosition() && arrPos < bs->getEndLanePosition()) {
                     arrivalPos = arrPos;
                 } else {
-                    WRITE_WARNING("Ignoring arrivalPos for " + description + " because it is outside the given stop '" + toString(SUMO_ATTR_BUS_STOP) + "'.");
+                    WRITE_WARNINGF(TL("Ignoring arrivalPos for % because it is outside the given stop '%'."), description, toString(SUMO_ATTR_BUS_STOP));
                     arrivalPos = bs->getAccessPos(&bs->getLane().getEdge());
                 }
             }

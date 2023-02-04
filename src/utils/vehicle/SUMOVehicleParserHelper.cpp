@@ -265,7 +265,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(SumoXMLTag tag, const SUMOSAXAttrib
                 flowParameter->repetitionEnd = flowParameter->depart;
             }
         } else if ((endDefault == SUMOTime_MAX || endDefault < 0) && (!hasNumber || (!hasProb && !hasPeriod && !hasXPH))) {
-            WRITE_WARNING("Undefined end for " + toString(tag) + " '" + id + "', defaulting to 24hour duration.");
+            WRITE_WARNINGF(TL("Undefined end for % '%', defaulting to 24hour duration."), toString(tag), id);
             flowParameter->repetitionEnd = flowParameter->depart + TIME2STEPS(24 * 3600);
         }
         if (flowParameter->repetitionEnd < flowParameter->depart) {
@@ -399,9 +399,9 @@ SUMOVehicleParserHelper::parseID(const SUMOSAXAttributes& attrs, const SumoXMLTa
             return id;
         } else if (id.empty()) {
             // add extra information for empty IDs
-            WRITE_ERROR("Invalid " + toString(element) + " id '" + id + "'.");
+            WRITE_ERRORF(TL("Invalid % id '%'."), toString(element), id);
         } else {
-            WRITE_ERROR("Invalid " + toString(element) + " id '" + id + "'. Contains invalid characters.");
+            WRITE_ERRORF(TL("Invalid % id '%'. Contains invalid characters."), toString(element), id);
         }
     } else {
         WRITE_ERROR("Attribute '" + toString(SUMO_ATTR_ID) + "' is missing in definition of " + toString(element));
@@ -1126,7 +1126,7 @@ SUMOVehicleParserHelper::parseAngleTimesMap(SUMOVTypeParameter* vtype, const std
     while (st.hasNext()) {
         StringTokenizer pos(st.next());
         if (pos.size() != 3) {
-            WRITE_ERROR("maneuverAngleTimes format for vType '" + vtype->id + "' " + atm + " contains an invalid triplet.");
+            WRITE_ERRORF(TL("maneuverAngleTimes format for vType '%' % contains an invalid triplet."), vtype->id, atm);
             return false;
         } else {
             try {
@@ -1135,7 +1135,7 @@ SUMOVehicleParserHelper::parseAngleTimesMap(SUMOVTypeParameter* vtype, const std
                 const SUMOTime t2 = string2time(pos.next());
                 angleTimesMap[angle] = std::make_pair(t1, t2);
             } catch (...) {
-                WRITE_ERROR("Triplet '" + st.get(tripletCount) + "' for vType '" + vtype->id + "' maneuverAngleTimes cannot be parsed as 'int double double'");
+                WRITE_ERRORF(TL("Triplet '%' for vType '%' maneuverAngleTimes cannot be parsed as 'int double double'"), st.get(tripletCount), vtype->id);
                 return false;
             }
             tripletCount++;
@@ -1161,7 +1161,7 @@ SUMOVehicleParserHelper::parseCFMParams(SUMOVTypeParameter* into, const SumoXMLT
     // check if given CFM is allowed
     if (cf_it == allowedCFM.end()) {
         if (SUMOXMLDefinitions::Tags.has((int)element)) {
-            WRITE_ERROR("Unknown car following model " + toString(element) + " when parsing vType '" + into->id + "'");
+            WRITE_ERRORF(TL("Unknown car following model % when parsing vType '%'"), toString(element), into->id);
         } else {
             WRITE_ERRORF(TL("Unknown car following model when parsing vType '%'"), into->id);
         }

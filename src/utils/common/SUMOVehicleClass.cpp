@@ -408,7 +408,7 @@ parseVehicleClasses(const std::vector<std::string>& allowedS) {
         const SUMOVehicleClass vc = getVehicleClassID(*i);
         const std::string& realName = SumoVehicleClassStrings.getString(vc);
         if (realName != *i) {
-            WRITE_WARNING("The vehicle class '" + (*i) + "' is deprecated, use '" + realName + "' instead.");
+            WRITE_WARNINGF(TL("The vehicle class '%' is deprecated, use '%' instead."), (*i), realName);
         }
         result |= getVehicleClassID(*i);
     }

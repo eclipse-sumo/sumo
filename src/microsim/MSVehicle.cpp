@@ -711,7 +711,7 @@ MSVehicle::Influencer::influenceChangeDecision(const SUMOTime currentTime, const
         } else if ((state & LCA_TRACI) != 0) {
             mode = LC_NEVER;
         } else {
-            WRITE_WARNING("Lane change model did not provide a reason for changing (state=" + toString(state) + ", time=" + time2string(currentTime) + "\n");
+            WRITE_WARNINGF(TL("Lane change model did not provide a reason for changing (state=%, time=%\n"), toString(state), time2string(currentTime));
         }
         if (mode == LC_NEVER) {
             // cancel all lcModel requests
@@ -1318,7 +1318,7 @@ MSVehicle::validatePosition(Position result, double offset) const {
     double lastLength = getPositionOnLane();
     while (result == Position::INVALID) {
         if (furtherIndex >= (int)myFurtherLanes.size()) {
-            //WRITE_WARNING("Could not compute position for vehicle '" + getID() + "', time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
+            //WRITE_WARNINGF(TL("Could not compute position for vehicle '%', time=%."), getID(), time2string(MSNet::getInstance()->getCurrentTimeStep()));
             break;
         }
         //std::cout << SIMTIME << " veh=" << getID() << " lane=" << myLane->getID() << " pos=" << getPositionOnLane() << " posLat=" << getLateralPositionOnLane() << " offset=" << offset << " result=" << result << " i=" << furtherIndex << " further=" << myFurtherLanes.size() << "\n";
@@ -1650,7 +1650,7 @@ MSVehicle::processNextStop(double currentVelocity) {
         } else {
             if (stop.triggered && !myAmRegisteredAsWaiting && stop.duration <= DELTA_T) {
                 if (getVehicleType().getPersonCapacity() == getPersonNumber()) {
-                    WRITE_WARNING("Vehicle '" + getID() + "' ignores triggered stop on lane '" + stop.lane->getID() + "' due to capacity constraints.");
+                    WRITE_WARNINGF(TL("Vehicle '%' ignores triggered stop on lane '%' due to capacity constraints."), getID(), stop.lane->getID());
                     stop.triggered = false;
                 }
                 // we can only register after waiting for one step. otherwise we might falsely signal a deadlock
@@ -1664,7 +1664,7 @@ MSVehicle::processNextStop(double currentVelocity) {
             }
             if (stop.containerTriggered && !myAmRegisteredAsWaiting && stop.duration <= DELTA_T) {
                 if (getVehicleType().getContainerCapacity() == getContainerNumber()) {
-                    WRITE_WARNING("Vehicle '" + getID() + "' ignores container triggered stop on lane '" + stop.lane->getID() + "' due to capacity constraints.");
+                    WRITE_WARNINGF(TL("Vehicle '%' ignores container triggered stop on lane '%' due to capacity constraints."), getID(), stop.lane->getID());
                     stop.containerTriggered = false;
                 }
                 // we can only register after waiting for one step. otherwise we might falsely signal a deadlock

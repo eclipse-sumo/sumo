@@ -438,7 +438,7 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
             offset = MAX2(EXT - advanceStopLine, offset);
         }
         if (offset == -1) {
-            WRITE_WARNING("Fixing offset for edge '" + (*i)->getID() + "' at node '" + myNode.getID() + ".");
+            WRITE_WARNINGF(TL("Fixing offset for edge '%' at node '%."), (*i)->getID(), myNode.getID());
             offset = (double) - .1;
         }
         Position p = ccwBound.positionAtOffset2D(offset);

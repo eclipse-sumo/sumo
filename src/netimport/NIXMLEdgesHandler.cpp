@@ -379,7 +379,7 @@ NIXMLEdgesHandler::addLane(const SUMOSAXAttributes& attrs) {
         lane = attrs.get<int>(SUMO_ATTR_ID, myCurrentID.c_str(), ok);
         if (!myHaveWarnedAboutDeprecatedLaneId) {
             myHaveWarnedAboutDeprecatedLaneId = true;
-            WRITE_WARNING("'" + toString(SUMO_ATTR_ID) + "' is deprecated, please use '" + toString(SUMO_ATTR_INDEX) + "' instead.");
+            WRITE_WARNINGF(TL("'%' is deprecated, please use '%' instead."), toString(SUMO_ATTR_ID), toString(SUMO_ATTR_INDEX));
         }
     } else {
         lane = attrs.get<int>(SUMO_ATTR_INDEX, myCurrentID.c_str(), ok);
@@ -467,12 +467,12 @@ void NIXMLEdgesHandler::addSplit(const SUMOSAXAttributes& attrs) {
     e.pos = attrs.get<double>(SUMO_ATTR_POSITION, nullptr, ok);
     if (ok) {
         if (fabs(e.pos) > myCurrentEdge->getLoadedLength()) {
-            WRITE_ERROR("Edge '" + myCurrentID + "' has a split at invalid position " + toString(e.pos) + ".");
+            WRITE_ERRORF(TL("Edge '%' has a split at invalid position %."), myCurrentID, toString(e.pos));
             return;
         }
         std::vector<NBEdgeCont::Split>::iterator i = find_if(mySplits.begin(), mySplits.end(), split_by_pos_finder(e.pos));
         if (i != mySplits.end()) {
-            WRITE_ERROR("Edge '" + myCurrentID + "' has already a split at position " + toString(e.pos) + ".");
+            WRITE_ERRORF(TL("Edge '%' has already a split at position %."), myCurrentID, toString(e.pos));
             return;
         }
         // XXX rounding to int may duplicate the id of another split
@@ -540,7 +540,7 @@ NIXMLEdgesHandler::setNodes(const SUMOSAXAttributes& attrs) {
         if (begNodeID != "") {
             myFromNode = myNodeCont.retrieve(begNodeID);
             if (myFromNode == nullptr) {
-                WRITE_ERROR("Edge's '" + myCurrentID + "' from-node '" + begNodeID + "' is not known.");
+                WRITE_ERRORF(TL("Edge's '%' from-node '%' is not known."), myCurrentID, begNodeID);
             }
         }
     } else if (!myIsUpdate) {
@@ -552,7 +552,7 @@ NIXMLEdgesHandler::setNodes(const SUMOSAXAttributes& attrs) {
         if (endNodeID != "") {
             myToNode = myNodeCont.retrieve(endNodeID);
             if (myToNode == nullptr) {
-                WRITE_ERROR("Edge's '" + myCurrentID + "' to-node '" + endNodeID + "' is not known.");
+                WRITE_ERRORF(TL("Edge's '%' to-node '%' is not known."), myCurrentID, endNodeID);
             }
         }
     } else if (!myIsUpdate) {
@@ -602,7 +602,7 @@ NIXMLEdgesHandler::tryGetLaneSpread(const SUMOSAXAttributes& attrs) {
     if (SUMOXMLDefinitions::LaneSpreadFunctions.hasString(lsfS)) {
         result = SUMOXMLDefinitions::LaneSpreadFunctions.get(lsfS);
     } else {
-        WRITE_WARNING("Ignoring unknown spreadType '" + lsfS + "' for edge '" + myCurrentID + "'.");
+        WRITE_WARNINGF(TL("Ignoring unknown spreadType '%' for edge '%'."), lsfS, myCurrentID);
     }
     return result;
 }

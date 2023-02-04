@@ -969,7 +969,7 @@ GNELane::isValid(SumoXMLAttr key, const std::string& value) {
                 }
                 NBEdge* edge = myParentEdge->getNBEdge();
                 if (oppEdge->getFromNode() != edge->getToNode() || oppEdge->getToNode() != edge->getFromNode()) {
-                    WRITE_WARNING("Opposite lane '" + value + "' does not connect the same nodes as edge '" + edge->getID() + "'!");
+                    WRITE_WARNINGF(TL("Opposite lane '%' does not connect the same nodes as edge '%'!"), value, edge->getID());
                     return false;
                 }
                 return true;

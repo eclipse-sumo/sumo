@@ -99,7 +99,7 @@ MSIdling_Stop::idle(MSDevice_Taxi* taxi) {
                 WRITE_WARNING(errorOut);
             }
         } else {
-            WRITE_WARNING("Idle taxi '" + taxi->getHolder().getID() + "' could not stop within " + toString(brakeGap) + "m");
+            WRITE_WARNINGF(TL("Idle taxi '%' could not stop within %m"), taxi->getHolder().getID(), toString(brakeGap));
         }
     } else {
         MSStop& stop = taxi->getHolder().getNextStop();

@@ -502,7 +502,7 @@ MSTriggeredRerouter::notifyEnter(SUMOTrafficObject& tObject, MSMoveReminder::Not
                 // if permissions aren't set vehicles will simply drive through
                 // the closing unless terminated. If the permissions are specified, assume that the user wants
                 // vehicles to stand and wait until the closing ends
-                WRITE_WARNING("Cannot keep destination edge '" + lastEdge->getID() + "' for vehicle '" + veh.getID() + "' due to closed edges. Terminating route.");
+                WRITE_WARNINGF(TL("Cannot keep destination edge '%' for vehicle '%' due to closed edges. Terminating route."), lastEdge->getID(), veh.getID());
                 newEdge = veh.getEdge();
             } else {
                 newEdge = lastEdge;
@@ -601,7 +601,7 @@ MSTriggeredRerouter::getWeight(SUMOVehicle& veh, const std::string param, const 
         try {
             return StringUtils::toDouble(veh.getParameter().getParameter(param, "-1"));
         } catch (...) {
-            WRITE_WARNING("Invalid value '" + veh.getParameter().getParameter(param, "-1") + "' for vehicle parameter '" + param + "'");
+            WRITE_WARNINGF(TL("Invalid value '%' for vehicle parameter '%'"), veh.getParameter().getParameter(param, "-1"), param);
         }
     } else {
         // get custom vType parameter
@@ -609,7 +609,7 @@ MSTriggeredRerouter::getWeight(SUMOVehicle& veh, const std::string param, const 
             try {
                 return StringUtils::toDouble(veh.getVehicleType().getParameter().getParameter(param, "-1"));
             } catch (...) {
-                WRITE_WARNING("Invalid value '" + veh.getVehicleType().getParameter().getParameter(param, "-1") + "' for vType parameter '" + param + "'");
+                WRITE_WARNINGF(TL("Invalid value '%' for vType parameter '%'"), veh.getVehicleType().getParameter().getParameter(param, "-1"), param);
             }
         }
     }
@@ -781,7 +781,7 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
             } else {
                 bool valid = addParkValues(veh, brakeGap, newDestination, onTheWay, onTheWay->getLastStepOccupancy(), 1, router, parkAreas, newRoutes, parkApproaches, maxValues);
                 if (!valid) {
-                    WRITE_WARNING("Parkingarea '" + onTheWay->getID() + "' along the way cannot be used by vehicle '" + veh.getID() + "' for unknown reason");
+                    WRITE_WARNINGF(TL("Parkingarea '%' along the way cannot be used by vehicle '%' for unknown reason"), onTheWay->getID(), veh.getID());
                     return nullptr;
                 }
                 newRoute = newRoutes[onTheWay];

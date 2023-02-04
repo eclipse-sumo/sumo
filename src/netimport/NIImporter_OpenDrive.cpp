@@ -731,10 +731,10 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         NBEdge* from = nb.getEdgeCont().retrieve(fromEdge);
         NBEdge* to = nb.getEdgeCont().retrieve(toEdge);
         if (from == nullptr) {
-            WRITE_WARNING("Could not find fromEdge representation of '" + fromEdge + "' in connection '" + (*i).origID + "'.");
+            WRITE_WARNINGF(TL("Could not find fromEdge representation of '%' in connection '%'."), fromEdge, (*i).origID);
         }
         if (to == nullptr) {
-            WRITE_WARNING("Could not find fromEdge representation of '" + toEdge + "' in connection '" + (*i).origID + "'.");
+            WRITE_WARNINGF(TL("Could not find fromEdge representation of '%' in connection '%'."), toEdge, (*i).origID);
         }
         if (from == nullptr || to == nullptr) {
             continue;
@@ -1731,7 +1731,7 @@ NIImporter_OpenDrive::geomFromSpiral(const OpenDriveEdge& e, const OpenDriveGeom
         // shift to geometry start
         ret.add(g.x, g.y, 0);
     } catch (const std::runtime_error& error) {
-        WRITE_WARNING("Could not compute spiral geometry for edge '" + e.id + "' (" + error.what() + ").");
+        WRITE_WARNINGF(TL("Could not compute spiral geometry for edge '%' (%)."), e.id, error.what());
         ret.push_back(Position(g.x, g.y));
     }
     return ret.getSubpart2D(0, g.length);
@@ -2224,7 +2224,7 @@ NIImporter_OpenDrive::myStartElement(int element,
             } else if (pRange == "arcLength") {
                 vals.push_back(-1.0);
             } else {
-                WRITE_WARNING("Ignoring invalid pRange value '" + pRange + "' for road '" + myCurrentEdge.id + "'.");
+                WRITE_WARNINGF(TL("Ignoring invalid pRange value '%' for road '%'."), pRange, myCurrentEdge.id);
                 vals.push_back(1.0);
             }
             addGeometryShape(OPENDRIVE_GT_PARAMPOLY3, vals);

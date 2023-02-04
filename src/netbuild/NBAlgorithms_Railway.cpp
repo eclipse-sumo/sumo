@@ -665,7 +665,7 @@ NBRailwayTopologyAnalyzer::reverseEdges(NBEdgeCont& ec, NBPTStopCont& sc) {
         }
     }
     if (numReversed > 0) {
-        WRITE_MESSAGE("Reversed " + toString(numReversed) + " sequences (count by length: " + joinToString(seqLengths, " ", ":") + ")");
+        WRITE_MESSAGEF(TL("Reversed % sequences (count by length: %)"), toString(numReversed), joinToString(seqLengths, " ", ":"));
         for (auto& item : sc.getStops()) {
             if (reversedIDs.count(item.second->getEdgeId())) {
                 item.second->findLaneAndComputeBusStopExtent(ec);
@@ -743,7 +743,7 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForBufferStops(NBEdgeCont& ec) {
         }
     }
     if (numAddedBidiTotal > 0) {
-        WRITE_MESSAGE("Added " + toString(numAddedBidiTotal) + " edges to connect " + toString(numBufferStops) + " buffer stops in both directions.");
+        WRITE_MESSAGEF(TL("Added % edges to connect % buffer stops in both directions."), toString(numAddedBidiTotal), toString(numBufferStops));
     }
     return numAddedBidiTotal;
 }

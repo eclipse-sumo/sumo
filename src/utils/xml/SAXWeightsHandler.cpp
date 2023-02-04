@@ -142,7 +142,7 @@ SAXWeightsHandler::tryParse(const SUMOSAXAttributes& attrs, bool isEdge) {
                     definition->myNoLanes++;
                     definition->myHadAttribute = true;
                 } catch (EmptyData&) {
-                    WRITE_ERROR("Missing value '" + definition->myAttributeName + "' in edge '" + myCurrentEdgeID + "'.");
+                    WRITE_ERRORF(TL("Missing value '%' in edge '%'."), definition->myAttributeName, myCurrentEdgeID);
                 } catch (NumberFormatException&) {
                     WRITE_ERROR("The value should be numeric, but is not.\n In edge '" + myCurrentEdgeID +
                                 "' at time step " + toString(myCurrentTimeBeg) + ".");

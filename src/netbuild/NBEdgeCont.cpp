@@ -553,7 +553,7 @@ NBEdgeCont::processSplits(NBEdge* e, std::vector<Split> splits,
                 e->setSpeed(-1, exp.speed);
             }
         } else {
-            WRITE_WARNING("Split at '" + toString(exp.pos) + "' lies beyond the edge's length (edge '" + origID + "').");
+            WRITE_WARNINGF(TL("Split at '%' lies beyond the edge's length (edge '%')."), toString(exp.pos), origID);
         }
     }
     // patch lane offsets
@@ -636,11 +636,11 @@ NBEdgeCont::splitAt(NBDistrictCont& dc,
                     const double speed, const double friction,
                     const int changedLeft) {
     if (firstEdgeName != edge->getID() && myEdges.count(firstEdgeName) != 0) {
-        WRITE_ERROR("Could not insert edge '" + firstEdgeName + "' before split of edge '" + edge->getID() + "'.");
+        WRITE_ERRORF(TL("Could not insert edge '%' before split of edge '%'."), firstEdgeName, edge->getID());
         return false;
     }
     if (secondEdgeName == firstEdgeName || (secondEdgeName != edge->getID() && myEdges.count(secondEdgeName) != 0)) {
-        WRITE_ERROR("Could not insert edge '" + secondEdgeName + "' after split of edge '" + edge->getID() + "'.");
+        WRITE_ERRORF(TL("Could not insert edge '%' after split of edge '%'."), secondEdgeName, edge->getID());
         return false;
     }
     // there must be at least some overlap between first and second edge
@@ -913,7 +913,7 @@ NBEdgeCont::recheckLanes() {
                     }
                 }
                 if (oppEdge->getFromNode() != edge->getToNode() || oppEdge->getToNode() != edge->getFromNode()) {
-                    WRITE_ERROR("Opposite lane '" + oppositeID + "' does not connect the same nodes as edge '" + edge->getID() + "'!");
+                    WRITE_ERRORF(TL("Opposite lane '%' does not connect the same nodes as edge '%'!"), oppositeID, edge->getID());
                     edge->getLaneStruct(edge->getNumLanes() - 1).oppositeID = "";
                 }
             }
@@ -2021,11 +2021,11 @@ NBEdgeCont::checkConsistency(const NBNodeCont& nc) {
     for (const auto& item : myEdges) {
         NBEdge* e = item.second;
         if (nc.retrieve(e->getFromNode()->getID()) == nullptr) {
-            WRITE_ERROR("Edge's '" + e->getID() + "' from-node '" + e->getFromNode()->getID() + "' is not known.");
+            WRITE_ERRORF(TL("Edge's '%' from-node '%' is not known."), e->getID(), e->getFromNode()->getID());
             ok = false;
         }
         if (nc.retrieve(e->getToNode()->getID()) == nullptr) {
-            WRITE_ERROR("Edge's '" + e->getID() + "' to-node '" + e->getToNode()->getID() + "' is not known.");
+            WRITE_ERRORF(TL("Edge's '%' to-node '%' is not known."), e->getID(), e->getToNode()->getID());
             ok = false;
         }
 

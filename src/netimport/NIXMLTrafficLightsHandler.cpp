@@ -124,7 +124,7 @@ NIXMLTrafficLightsHandler::initTrafficLightLogic(const SUMOSAXAttributes& attrs,
     if (SUMOXMLDefinitions::TrafficLightTypes.hasString(typeS)) {
         type = SUMOXMLDefinitions::TrafficLightTypes.get(typeS);
     } else {
-        WRITE_ERROR("Unknown traffic light type '" + typeS + "' for tlLogic '" + id + "'.");
+        WRITE_ERRORF(TL("Unknown traffic light type '%' for tlLogic '%'."), typeS, id);
         return nullptr;
     }
     // there are three scenarios to consider
@@ -137,7 +137,7 @@ NIXMLTrafficLightsHandler::initTrafficLightLogic(const SUMOSAXAttributes& attrs,
     const std::map<std::string, NBTrafficLightDefinition*>& programs = myTLLCont.getPrograms(id);
     if (programs.size() == 0) {
         if (!myIgnoreUnknown) {
-            WRITE_ERROR("Cannot load traffic light program for unknown id '" + id + "', programID '" + programID + "'.");
+            WRITE_ERRORF(TL("Cannot load traffic light program for unknown id '%', programID '%'."), id, programID);
         }
         return nullptr;
     }
@@ -155,7 +155,7 @@ NIXMLTrafficLightsHandler::initTrafficLightLogic(const SUMOSAXAttributes& attrs,
                 newDef = dynamic_cast<NBLoadedSUMOTLDef*>(myTLLCont.getDefinition(
                              id, NBTrafficLightDefinition::DefaultProgramID));
                 if (newDef == nullptr) {
-                    WRITE_ERROR("Cannot load traffic light program for unknown id '" + id + "', programID '" + programID + "'.");
+                    WRITE_ERRORF(TL("Cannot load traffic light program for unknown id '%', programID '%'."), id, programID);
                     return nullptr;
                 }
             } else {
@@ -328,7 +328,7 @@ NIXMLTrafficLightsHandler::retrieveLaneIndex(
     int laneIndex = attrs.get<int>(attr, nullptr, ok);
     if (edge->getNumLanes() <= laneIndex) {
         if (!isDelete) {
-            WRITE_ERROR("Invalid lane index '" + toString(laneIndex) + "' for edge '" + edge->getID() + "'.");
+            WRITE_ERRORF(TL("Invalid lane index '%' for edge '%'."), toString(laneIndex), edge->getID());
         }
         ok = false;
     }

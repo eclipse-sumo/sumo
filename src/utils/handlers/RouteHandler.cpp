@@ -367,7 +367,7 @@ RouteHandler::writeError(const std::string& error) {
 
 void
 RouteHandler::writeErrorInvalidID(const SumoXMLTag tag, const std::string& id) {
-    WRITE_ERROR("Could not build " + toString(tag) + " with ID '" + id + "' in netedit; ID contains invalid characters.");
+    WRITE_ERRORF(TL("Could not build % with ID '%' in netedit; ID contains invalid characters."), toString(tag), id);
     myErrorCreatingElement = true;
 }
 

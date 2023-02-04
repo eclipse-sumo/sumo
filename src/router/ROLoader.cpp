@@ -214,7 +214,7 @@ ROLoader::processRoutes(const SUMOTime start, const SUMOTime end, const SUMOTime
         }
     }
     if (myLogSteps) {
-        WRITE_MESSAGE("Routes found between time steps " + time2string(firstStep) + " and " + time2string(lastStep) + ".");
+        WRITE_MESSAGEF(TL("Routes found between time steps % and %."), time2string(firstStep), time2string(lastStep));
     }
 }
 

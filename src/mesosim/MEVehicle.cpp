@@ -367,7 +367,7 @@ MEVehicle::mayProceed() {
         if (stop.triggered) {
             if (getVehicleType().getPersonCapacity() == getPersonNumber()) {
                 // we could not check this on entering the segment because there may be persons who still want to leave
-                WRITE_WARNING("Vehicle '" + getID() + "' ignores triggered stop on lane '" + stop.lane->getID() + "' due to capacity constraints.");
+                WRITE_WARNINGF(TL("Vehicle '%' ignores triggered stop on lane '%' due to capacity constraints."), getID(), stop.lane->getID());
                 stop.triggered = false;
                 if (myAmRegisteredAsWaiting) {
                     net->getVehicleControl().unregisterOneWaiting();
@@ -384,7 +384,7 @@ MEVehicle::mayProceed() {
         if (stop.containerTriggered) {
             if (getVehicleType().getContainerCapacity() == getContainerNumber()) {
                 // we could not check this on entering the segment because there may be containers who still want to leave
-                WRITE_WARNING("Vehicle '" + getID() + "' ignores container triggered stop on lane '" + stop.lane->getID() + "' due to capacity constraints.");
+                WRITE_WARNINGF(TL("Vehicle '%' ignores container triggered stop on lane '%' due to capacity constraints."), getID(), stop.lane->getID());
                 stop.containerTriggered = false;
                 if (myAmRegisteredAsWaiting) {
                     net->getVehicleControl().unregisterOneWaiting();

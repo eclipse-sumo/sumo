@@ -210,7 +210,7 @@ MSCalibrator::myStartElement(int element,
             }
             if (state.vehicleParameter->vtypeid != DEFAULT_VTYPE_ID &&
                     MSNet::getInstance()->getVehicleControl().getVType(state.vehicleParameter->vtypeid) == nullptr) {
-                WRITE_ERROR("Unknown vehicle type '" + state.vehicleParameter->vtypeid + "' in calibrator '" + getID() + "'.");
+                WRITE_ERRORF(TL("Unknown vehicle type '%' in calibrator '%'."), state.vehicleParameter->vtypeid, getID());
             }
         } catch (EmptyData&) {
             WRITE_ERRORF(TL("Mandatory attribute missing in definition of calibrator '%'."), getID());

@@ -99,7 +99,7 @@ MSDevice_ElecHybrid::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDe
             try {
                 maximumBatteryCapacity = StringUtils::toDouble(mbc);
             } catch (...) {
-                WRITE_WARNING("Invalid value '" + mbc + "'for vType parameter '" + attrName + "'");
+                WRITE_WARNINGF(TL("Invalid value '%'for vType parameter '%'"), mbc, attrName);
             }
         } else {
             WRITE_WARNING("Vehicle '" + v.getID() + "' is missing the vType parameter '" + attrName + "'. Using the default of " + std::to_string(maximumBatteryCapacity));
@@ -113,7 +113,7 @@ MSDevice_ElecHybrid::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDe
             try {
                 overheadWireChargingPower = StringUtils::toDouble(ocp);
             } catch (...) {
-                WRITE_WARNING("Invalid value '" + ocp + "'for vType parameter '" + attrName + "'");
+                WRITE_WARNINGF(TL("Invalid value '%'for vType parameter '%'"), ocp, attrName);
             }
         } else {
             WRITE_WARNING("Vehicle '" + v.getID() + "' is missing the vType parameter '" + attrName + "'. Using the default of " + std::to_string(overheadWireChargingPower));
@@ -403,7 +403,7 @@ MSDevice_ElecHybrid::notifyMove(SUMOTrafficObject& tObject, double /* oldPos */,
                 double voltage = myCircuitVoltage;
                 if (voltage < 10.0 || voltage > 1500.0 || ISNAN(voltage)) {
                     // RICE_TODO : It seems to output warning whenever a vehicle is appearing under the overhead wire for the first time?
-                    // WRITE_WARNING("The initial voltage is was " + toString(voltage) + " V, replacing it with substation voltage " + toString(actualSubstation->getSubstationVoltage()) + " V.");
+                    // WRITE_WARNINGF(TL("The initial voltage is was % V, replacing it with substation voltage % V."), toString(voltage), toString(actualSubstation->getSubstationVoltage()));
                     voltage = actualSubstation->getSubstationVoltage();
                 }
                 // Initial value of the electric current flowing into the vehilce that will be used by the solver

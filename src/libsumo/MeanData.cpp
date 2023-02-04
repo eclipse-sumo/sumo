@@ -80,7 +80,7 @@ MeanData::getMeanData(const std::string& id) {
         throw TraCIException("MeanData '" + id + "' is not known");
     }
     if (it->second.size() > 1) {
-        WRITE_WARNING("Found " + toString(it->second.size()) + " meanData definitions with id '" + id + "'.");
+        WRITE_WARNINGF(TL("Found % meanData definitions with id '%'."), toString(it->second.size()), id);
     }
     return it->second.front();
 }

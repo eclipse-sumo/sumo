@@ -238,7 +238,7 @@ NIVissimConnection::buildEdgeConnections(NBEdgeCont& ec) {
     NBEdge *toEdge = ec.retrievePossiblySplit(toString(getToEdgeID()), toString(getFromEdgeID()), false);
     */
     if (fromEdge == nullptr || toEdge == nullptr) {
-        WRITE_WARNING("Could not build connection between '" + toString(getFromEdgeID()) + "' and '" + toString(getToEdgeID()) + "'.");
+        WRITE_WARNINGF(TL("Could not build connection between '%' and '%'."), toString(getFromEdgeID()), toString(getToEdgeID()));
         return 1; // !!! actually not 1
     }
     recheckLanes(fromEdge, toEdge);

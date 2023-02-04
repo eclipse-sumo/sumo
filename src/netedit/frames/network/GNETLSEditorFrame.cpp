@@ -239,7 +239,7 @@ GNETLSEditorFrame::parseTLSPrograms(const std::string& file) {
             tmpTLLCont.insert(duplicate);
             origDefs.insert(duplicate);
         } else {
-            WRITE_WARNING("tlLogic '" + def->getID() + "', program '" + def->getProgramID() + "' could not be built");
+            WRITE_WARNINGF(TL("tlLogic '%', program '%' could not be built"), def->getID(), def->getProgramID());
         }
     }
     //std::cout << " initialized tmpCont with " << origDefs.size() << " defs\n";

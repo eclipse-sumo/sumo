@@ -315,7 +315,7 @@ NIXMLNodesHandler::processTrafficLightDefinitions(const SUMOSAXAttributes& attrs
     if (SUMOXMLDefinitions::TrafficLightTypes.hasString(typeS)) {
         type = SUMOXMLDefinitions::TrafficLightTypes.get(typeS);
     } else {
-        WRITE_ERROR("Unknown traffic light type '" + typeS + "' for node '" + currentNode->getID() + "'.");
+        WRITE_ERRORF(TL("Unknown traffic light type '%' for node '%'."), typeS, currentNode->getID());
         return;
     }
     TrafficLightLayout layout = TrafficLightLayout::DEFAULT;
@@ -324,7 +324,7 @@ NIXMLNodesHandler::processTrafficLightDefinitions(const SUMOSAXAttributes& attrs
         if (SUMOXMLDefinitions::TrafficLightLayouts.hasString(layoutS)) {
             layout = SUMOXMLDefinitions::TrafficLightLayouts.get(layoutS);
         } else {
-            WRITE_ERROR("Unknown traffic light layout '" + typeS + "' for node '" + currentNode->getID() + "'.");
+            WRITE_ERRORF(TL("Unknown traffic light layout '%' for node '%'."), typeS, currentNode->getID());
             return;
         }
     }

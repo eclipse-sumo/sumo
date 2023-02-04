@@ -193,7 +193,7 @@ RONet::addDistrictEdge(const std::string tazID, const std::string edgeID, const 
     }
     ROEdge* edge = getEdge(edgeID);
     if (edge == nullptr) {
-        WRITE_ERROR("The edge '" + edgeID + "' for TAZ '" + tazID + "' is unknown.");
+        WRITE_ERRORF(TL("The edge '%' for TAZ '%' is unknown."), edgeID, tazID);
         return false;
     }
     if (isSource) {
@@ -268,7 +268,7 @@ RONet::addNode(RONode* node) {
 void
 RONet::addStoppingPlace(const std::string& id, const SumoXMLTag category, SUMOVehicleParameter::Stop* stop) {
     if (!myStoppingPlaces[category == SUMO_TAG_TRAIN_STOP ? SUMO_TAG_BUS_STOP : category].add(id, stop)) {
-        WRITE_ERROR("The " + toString(category) + " '" + id + "' occurs at least twice.");
+        WRITE_ERRORF(TL("The % '%' occurs at least twice."), toString(category), id);
         delete stop;
     }
 }
@@ -603,10 +603,10 @@ RONet::createBulkRouteRequests(const RORouterProvider& provider, const SUMOTime 
             bulkVehs[depEdge->getNumericalID()].push_back(routable);
             RORoutable* const first = bulkVehs[depEdge->getNumericalID()].front();
             if (first->getMaxSpeed() != routable->getMaxSpeed()) {
-                WRITE_WARNING("Bulking different maximum speeds ('" + first->getID() + "' and '" + routable->getID() + "') may lead to suboptimal routes.");
+                WRITE_WARNINGF(TL("Bulking different maximum speeds ('%' and '%') may lead to suboptimal routes."), first->getID(), routable->getID());
             }
             if (first->getVClass() != routable->getVClass()) {
-                WRITE_WARNING("Bulking different vehicle classes ('" + first->getID() + "' and '" + routable->getID() + "') may lead to invalid routes.");
+                WRITE_WARNINGF(TL("Bulking different vehicle classes ('%' and '%') may lead to invalid routes."), first->getID(), routable->getID());
             }
         }
     }

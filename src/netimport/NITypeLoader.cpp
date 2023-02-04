@@ -59,7 +59,7 @@ NITypeLoader::load(SUMOSAXHandler& handler, const std::vector<std::string>& file
                 continue;
             }
             if (!FileHelpers::isReadable(fileName)) {
-                WRITE_ERROR("Could not open " + type + "-file '" + fileName + "'.");
+                WRITE_ERRORF(TL("Could not open %-file '%'."), type, fileName);
                 return false;
             }
             PROGRESS_BEGIN_MESSAGE("Parsing " + type + " from '" + fileName + "'");

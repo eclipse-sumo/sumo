@@ -127,7 +127,7 @@ NBHelpers::interpretLaneID(const std::string& lane_id, std::string& edge_id, int
     try {
         index = StringUtils::toInt(index_string);
     } catch (NumberFormatException&) {
-        WRITE_ERROR("Invalid lane index '" + index_string + "' for lane '" + lane_id + "'.");
+        WRITE_ERRORF(TL("Invalid lane index '%' for lane '%'."), index_string, lane_id);
     }
 }
 

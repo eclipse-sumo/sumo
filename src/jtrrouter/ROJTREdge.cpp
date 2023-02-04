@@ -61,7 +61,7 @@ ROJTREdge::addFollowerProbability(ROJTREdge* follower, double begTime,
                                   double endTime, double probability) {
     FollowerUsageCont::iterator i = myFollowingDefs.find(follower);
     if (i == myFollowingDefs.end()) {
-        WRITE_ERROR("The edges '" + getID() + "' and '" + follower->getID() + "' are not connected.");
+        WRITE_ERRORF(TL("The edges '%' and '%' are not connected."), getID(), follower->getID());
         return;
     }
     (*i).second->add(begTime, endTime, probability);

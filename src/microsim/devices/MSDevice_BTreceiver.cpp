@@ -292,7 +292,7 @@ MSDevice_BTreceiver::BTreceiverUpdate::updateVisibility(MSDevice_BTreceiver::Veh
                 leaveRange(receiver, intersectionReceiverData,
                            sender, intersectionSenderData, (intersections.back() - 1.) * TS);
             } else {
-                WRITE_WARNING("The vehicle '" + sender.getID() + "' cannot be in the range of vehicle '" + receiver.getID() + "', leave, and enter it in one step.");
+                WRITE_WARNINGF(TL("The vehicle '%' cannot be in the range of vehicle '%', leave, and enter it in one step."), sender.getID(), receiver.getID());
             }
             break;
         default:

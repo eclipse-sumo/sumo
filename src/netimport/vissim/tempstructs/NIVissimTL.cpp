@@ -380,7 +380,7 @@ NIVissimTL::dict_SetSignals(NBTrafficLightLogicCont& tlc,
         SGroupDictType sgs = NIVissimTLSignalGroup::getGroupsFor(tl->getID());
         for (SGroupDictType::const_iterator j = sgs.begin(); j != sgs.end(); j++) {
             if (!(*j).second->addTo(def)) {
-                WRITE_WARNING("The signal group '" + toString<int>((*j).first) + "' could not be assigned to tl '" + toString<int>(tl->myID) + "'.");
+                WRITE_WARNINGF(TL("The signal group '%' could not be assigned to tl '%'."), toString<int>((*j).first), toString<int>(tl->myID));
                 ref_groups++;
             }
             no_groups++;
@@ -389,20 +389,20 @@ NIVissimTL::dict_SetSignals(NBTrafficLightLogicCont& tlc,
         SSignalDictType signals = NIVissimTLSignal::getSignalsFor(tl->getID());
         for (SSignalDictType::const_iterator k = signals.begin(); k != signals.end(); k++) {
             if (!(*k).second->addTo(ec, def)) {
-                WRITE_WARNING("The signal '" + toString<int>((*k).first) + "' could not be assigned to tl '" + toString<int>(tl->myID) + "'.");
+                WRITE_WARNINGF(TL("The signal '%' could not be assigned to tl '%'."), toString<int>((*k).first), toString<int>(tl->myID));
                 ref_signals++;
             }
             no_signals++;
         }
     }
     if (ref != 0) {
-        WRITE_WARNING("Could not set " + toString<int>(ref) + " of " + toString<int>((int)myDict.size()) + " traffic lights.");
+        WRITE_WARNINGF(TL("Could not set % of % traffic lights."), toString<int>(ref), toString<int>((int)myDict.size()));
     }
     if (ref_groups != 0) {
-        WRITE_WARNING("Could not set " + toString<int>(ref_groups) + " of " + toString<int>(no_groups) + " groups.");
+        WRITE_WARNINGF(TL("Could not set % of % groups."), toString<int>(ref_groups), toString<int>(no_groups));
     }
     if (ref_signals != 0) {
-        WRITE_WARNING("Could not set " + toString<int>(ref_signals) + " of " + toString<int>(no_signals) + " signals.");
+        WRITE_WARNINGF(TL("Could not set % of % signals."), toString<int>(ref_signals), toString<int>(no_signals));
     }
     return true;
 

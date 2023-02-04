@@ -150,7 +150,7 @@ NIXMLPTHandler::addPTStop(const SUMOSAXAttributes& attrs) {
     NBEdge* edge = myEdgeCont.retrieve(edgeID);
     if (edge == nullptr) {
         if (!myEdgeCont.wasIgnored(edgeID)) {
-            WRITE_ERROR("Edge '" + edgeID + "' for stop '" + id + "' not found");
+            WRITE_ERRORF(TL("Edge '%' for stop '%' not found"), edgeID, id);
         } else {
             myCurrentStopWasIgnored = true;
             NBPTStopCont::addIgnored(id);
@@ -158,7 +158,7 @@ NIXMLPTHandler::addPTStop(const SUMOSAXAttributes& attrs) {
         return;
     }
     if (edge->getNumLanes() <= laneIndex) {
-        WRITE_ERROR("Lane '" + laneID + "' for stop '" + id + "' not found");
+        WRITE_ERRORF(TL("Lane '%' for stop '%' not found"), laneID, id);
         return;
     }
     SVCPermissions permissions = edge->getPermissions(laneIndex);
@@ -189,7 +189,7 @@ NIXMLPTHandler::addAccess(const SUMOSAXAttributes& attrs) {
     const std::string edgeID = SUMOXMLDefinitions::getEdgeIDFromLane(laneID);
     if (myEdgeCont.retrieve(edgeID) == nullptr) {
         if (!myEdgeCont.wasIgnored(edgeID)) {
-            WRITE_ERROR("Edge '" + edgeID + "' for access to stop '" + myCurrentStop->getID() + "' not found");
+            WRITE_ERRORF(TL("Edge '%' for access to stop '%' not found"), edgeID, myCurrentStop->getID());
         }
         return;
     }
@@ -260,7 +260,7 @@ NIXMLPTHandler::addPTLineRoute(const SUMOSAXAttributes& attrs) {
         NBEdge* edge = myEdgeCont.retrieve(edgeID);
         if (edge == nullptr) {
             if (!myEdgeCont.wasIgnored(edgeID)) {
-                WRITE_ERROR("Edge '" + edgeID + "' in route of line '" + myCurrentLine->getName() + "' not found");
+                WRITE_ERRORF(TL("Edge '%' in route of line '%' not found"), edgeID, myCurrentLine->getName());
             }
         } else {
             edges.push_back(edge);
@@ -280,7 +280,7 @@ NIXMLPTHandler::addRoute(const SUMOSAXAttributes& attrs) {
         NBEdge* edge = myEdgeCont.retrieve(edgeID);
         if (edge == nullptr) {
             if (!myEdgeCont.wasIgnored(edgeID)) {
-                WRITE_ERROR("Edge '" + edgeID + "' in route of line '" + myCurrentLine->getName() + "' not found");
+                WRITE_ERRORF(TL("Edge '%' in route of line '%' not found"), edgeID, myCurrentLine->getName());
             }
         } else {
             edges.push_back(edge);
@@ -299,7 +299,7 @@ NIXMLPTHandler::addPTLineStop(const SUMOSAXAttributes& attrs) {
     std::shared_ptr<NBPTStop> stop = myStopCont.get(id);
     if (stop == nullptr) {
         if (!NBPTStopCont::wasIgnored(id)) {
-            WRITE_ERROR("Stop '" + id + "' within line '" + toString(myCurrentLine->getLineID()) + "' not found");
+            WRITE_ERRORF(TL("Stop '%' within line '%' not found"), id, toString(myCurrentLine->getLineID()));
         }
         return;
     }
@@ -315,7 +315,7 @@ NIXMLPTHandler::addRouteStop(const SUMOSAXAttributes& attrs) {
                            : attrs.get<std::string>(SUMO_ATTR_BUS_STOP, "ptline", ok);
     std::shared_ptr<NBPTStop> stop = myStopCont.get(id);
     if (stop == nullptr) {
-        WRITE_ERROR("Stop '" + id + "' within route '" + toString(myCurrentRouteID) + "' not found");
+        WRITE_ERRORF(TL("Stop '%' within route '%' not found"), id, toString(myCurrentRouteID));
         return;
     }
     myRouteStops[myCurrentRouteID].push_back(stop);

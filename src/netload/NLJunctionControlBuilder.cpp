@@ -341,7 +341,7 @@ NLJunctionControlBuilder::closeTrafficLightLogic(const std::string& basePath) {
                 myLogics2PostLoadInit.push_back(tlLogic);
             }
         } else {
-            WRITE_ERROR("Another logic with id '" + myActiveKey + "' and programID '" + myActiveProgram + "' exists.");
+            WRITE_ERRORF(TL("Another logic with id '%' and programID '%' exists."), myActiveKey, myActiveProgram);
         }
     }
 }

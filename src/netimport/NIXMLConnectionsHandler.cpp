@@ -264,7 +264,7 @@ NIXMLConnectionsHandler::parseLaneBound(const SUMOSAXAttributes& attrs, NBEdge* 
         }
 
         if (attrs.hasAttribute(SUMO_ATTR_SHAPE) && !NBNetBuilder::transformCoordinates(customShape)) {
-            WRITE_ERROR("Unable to project shape for connection from edge '" + from->getID() + "' to edge '" + to->getID() + "'.");
+            WRITE_ERRORF(TL("Unable to project shape for connection from edge '%' to edge '%'."), from->getID(), to->getID());
         }
         if (!ok) {
             return;
@@ -361,7 +361,7 @@ NIXMLConnectionsHandler::addCrossing(const SUMOSAXAttributes& attrs) {
         NBEdge* edge = myEdgeCont.retrieve(id);
         if (edge == nullptr) {
             if (!(discard && myEdgeCont.wasRemoved(id))) {
-                WRITE_ERROR("Edge '" + id + "' for crossing at node '" + nodeID + "' is not known.");
+                WRITE_ERRORF(TL("Edge '%' for crossing at node '%' is not known."), id, nodeID);
                 return;
             } else {
                 edge = myEdgeCont.retrieve(id, true);
@@ -369,7 +369,7 @@ NIXMLConnectionsHandler::addCrossing(const SUMOSAXAttributes& attrs) {
         } else {
             if (edge->getToNode() != node && edge->getFromNode() != node) {
                 if (!discard) {
-                    WRITE_ERROR("Edge '" + id + "' does not touch node '" + nodeID + "'.");
+                    WRITE_ERRORF(TL("Edge '%' does not touch node '%'."), id, nodeID);
                     return;
                 }
             }
@@ -400,7 +400,7 @@ NIXMLConnectionsHandler::addCrossing(const SUMOSAXAttributes& attrs) {
                         || (attrs.hasAttribute(SUMO_ATTR_TLLINKINDEX) && tlIndex != existing->customTLIndex)
                         || (attrs.hasAttribute(SUMO_ATTR_TLLINKINDEX2) && tlIndex2 != existing->customTLIndex2)
                         || (attrs.hasAttribute(SUMO_ATTR_PRIORITY) && priority != existing->priority))) {
-                WRITE_ERROR("Crossing with edges '" + toString(edges) + "' already exists at node '" + node->getID() + "'.");
+                WRITE_ERRORF(TL("Crossing with edges '%' already exists at node '%'."), toString(edges), node->getID());
                 return;
             } else {
                 // replace existing, keep old attributes
@@ -438,7 +438,7 @@ NIXMLConnectionsHandler::addWalkingArea(const SUMOSAXAttributes& attrs) {
     for (const std::string& id : attrs.get<std::vector<std::string> >(SUMO_ATTR_EDGES, nodeID.c_str(), ok)) {
         NBEdge* edge = myEdgeCont.retrieve(id);
         if (edge == nullptr) {
-            WRITE_ERROR("Edge '" + id + "' for walkingArea at node '" + nodeID + "' is not known.");
+            WRITE_ERRORF(TL("Edge '%' for walkingArea at node '%' is not known."), id, nodeID);
             return;
         }
         if (node == nullptr) {
@@ -447,12 +447,12 @@ NIXMLConnectionsHandler::addWalkingArea(const SUMOSAXAttributes& attrs) {
             } else if (edge->getFromNode()->getID() == nodeID) {
                 node = edge->getFromNode();
             } else {
-                WRITE_ERROR("Edge '" + id + "' does not touch node '" + nodeID + "'.");
+                WRITE_ERRORF(TL("Edge '%' does not touch node '%'."), id, nodeID);
                 return;
             }
         } else {
             if (edge->getToNode() != node && edge->getFromNode() != node) {
-                WRITE_ERROR("Edge '" + id + "' does not touch node '" + nodeID + "'.");
+                WRITE_ERRORF(TL("Edge '%' does not touch node '%'."), id, nodeID);
                 return;
             }
         }

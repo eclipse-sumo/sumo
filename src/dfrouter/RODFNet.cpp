@@ -1007,11 +1007,11 @@ RODFNet::buildEdgeFlowMap(const RODFDetectorFlows& flows,
     // @note: this assumes that the speedFactors are independent of location and time
     if (speedFactorCountPKW > 0) {
         myAvgSpeedFactorPKW = speedFactorSumPKW / speedFactorCountPKW;
-        WRITE_MESSAGE("Average speedFactor for PKW is " + toString(myAvgSpeedFactorPKW) + " maximum speedFactor is " + toString(myMaxSpeedFactorPKW) + ".");
+        WRITE_MESSAGEF(TL("Average speedFactor for PKW is % maximum speedFactor is %."), toString(myAvgSpeedFactorPKW), toString(myMaxSpeedFactorPKW));
     }
     if (speedFactorCountLKW > 0) {
         myAvgSpeedFactorLKW = speedFactorSumLKW / speedFactorCountLKW;
-        WRITE_MESSAGE("Average speedFactor for LKW is " + toString(myAvgSpeedFactorLKW) + " maximum speedFactor is " + toString(myMaxSpeedFactorLKW) + ".");
+        WRITE_MESSAGEF(TL("Average speedFactor for LKW is % maximum speedFactor is %."), toString(myAvgSpeedFactorLKW), toString(myMaxSpeedFactorLKW));
     }
 
 }

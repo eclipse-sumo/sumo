@@ -83,12 +83,12 @@ ODMatrix::add(double vehicleNumber, const std::pair<SUMOTime, SUMOTime>& beginEn
         myMissingDistricts.insert(destination);
         return false;
     } else if (!originIsEdge && myDistricts.get(origin) == 0 && vehicleNumber > 0) {
-        WRITE_ERROR("Missing origin '" + origin + "' (" + toString(vehicleNumber) + " vehicles).");
+        WRITE_ERRORF(TL("Missing origin '%' (% vehicles)."), origin, toString(vehicleNumber));
         myNumDiscarded += vehicleNumber;
         myMissingDistricts.insert(origin);
         return false;
     } else if (!destinationIsEdge && myDistricts.get(destination) == 0 && vehicleNumber > 0) {
-        WRITE_ERROR("Missing destination '" + destination + "' (" + toString(vehicleNumber) + " vehicles).");
+        WRITE_ERRORF(TL("Missing destination '%' (% vehicles)."), destination, toString(vehicleNumber));
         myNumDiscarded += vehicleNumber;
         myMissingDistricts.insert(destination);
         return false;
@@ -190,7 +190,7 @@ ODMatrix::computeDeparts(ODCell* cell,
             veh.to = myDistricts.getRandomSinkFromDistrict(cell->destination);
         } while (canDiffer && differSourceSink && (veh.to == veh.from));
         if (!canDiffer && differSourceSink && (veh.to == veh.from)) {
-            WRITE_WARNING("Cannot find different source and sink edge for origin '" + cell->origin + "' and destination '" + cell->destination + "'.");
+            WRITE_WARNINGF(TL("Cannot find different source and sink edge for origin '%' and destination '%'."), cell->origin, cell->destination);
         }
         veh.cell = cell;
         into.push_back(veh);

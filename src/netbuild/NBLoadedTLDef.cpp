@@ -511,7 +511,7 @@ NBLoadedTLDef::collectLinks() {
                     pos++;
                 }
             } else {
-                WRITE_WARNING("Could not set signal on connection (signal: " + getID() + ", group: " + group->getID() + ")");
+                WRITE_WARNINGF(TL("Could not set signal on connection (signal: %, group: %)"), getID(), group->getID());
             }
         }
     }

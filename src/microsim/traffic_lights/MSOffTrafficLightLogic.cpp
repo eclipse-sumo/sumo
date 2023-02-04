@@ -77,11 +77,11 @@ MSOffTrafficLightLogic::rebuildPhase() {
             } else if (l->getOffState() == LINKSTATE_ALLWAY_STOP) {
                 foundAllwayStop = true;
             } else {
-                WRITE_WARNING("Invalid 'off'-state for link " + toString(l->getIndex()) + " at junction '" + l->getJunction()->getID() + "'");
+                WRITE_WARNINGF(TL("Invalid 'off'-state for link % at junction '%'"), toString(l->getIndex()), l->getJunction()->getID());
             }
         }
         if (foundMajor && foundMinor) {
-            WRITE_WARNING("Inconsistent 'off'-states for linkIndex " + toString(i) + " at tlLogic '" + getID() + "'");
+            WRITE_WARNINGF(TL("Inconsistent 'off'-states for linkIndex % at tlLogic '%'"), toString(i), getID());
         }
         state += toString(foundAllwayStop ? LINKSTATE_ALLWAY_STOP : (foundMinor ? LINKSTATE_TL_OFF_BLINKING : LINKSTATE_TL_OFF_NOSIGNAL));
     }

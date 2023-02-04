@@ -135,15 +135,15 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
         NBNode* from = myNodeCont.retrieve(ed->fromNode);
         NBNode* to = myNodeCont.retrieve(ed->toNode);
         if (from == nullptr) {
-            WRITE_ERROR("Edge's '" + ed->id + "' from-node '" + ed->fromNode + "' is not known.");
+            WRITE_ERRORF(TL("Edge's '%' from-node '%' is not known."), ed->id, ed->fromNode);
             continue;
         }
         if (to == nullptr) {
-            WRITE_ERROR("Edge's '" + ed->id + "' to-node '" + ed->toNode + "' is not known.");
+            WRITE_ERRORF(TL("Edge's '%' to-node '%' is not known."), ed->id, ed->toNode);
             continue;
         }
         if (from == to) {
-            WRITE_ERROR("Edge's '" + ed->id + "' from-node and to-node '" + ed->toNode + "' are identical.");
+            WRITE_ERRORF(TL("Edge's '%' from-node and to-node '%' are identical."), ed->id, ed->toNode);
             continue;
         }
         if (ed->shape.size() == 0 && maxSegmentLength > 0) {
@@ -538,7 +538,7 @@ NIImporter_SUMO::myEndElement(int element) {
                 WRITE_ERROR(TL("Unmatched closing tag for tl-logic."));
             } else {
                 if (!myTLLCont.insert(myCurrentTL)) {
-                    WRITE_WARNING("Could not add program '" + myCurrentTL->getProgramID() + "' for traffic light '" + myCurrentTL->getID() + "'");
+                    WRITE_WARNINGF(TL("Could not add program '%' for traffic light '%'"), myCurrentTL->getProgramID(), myCurrentTL->getID());
                     delete myCurrentTL;
                 }
                 myCurrentTL = nullptr;
@@ -608,7 +608,7 @@ NIImporter_SUMO::addEdge(const SUMOSAXAttributes& attrs) {
     if (SUMOXMLDefinitions::LaneSpreadFunctions.hasString(lsfS)) {
         myCurrentEdge->lsf = SUMOXMLDefinitions::LaneSpreadFunctions.get(lsfS);
     } else {
-        WRITE_ERROR("Unknown spreadType '" + lsfS + "' for edge '" + id + "'.");
+        WRITE_ERRORF(TL("Unknown spreadType '%' for edge '%'."), lsfS, id);
     }
 }
 
@@ -626,7 +626,7 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes& attrs) {
     }
     const std::string expectedID = myCurrentEdge->id + "_" + toString(myCurrentEdge->lanes.size());
     if (id != expectedID) {
-        WRITE_WARNING("Renaming lane '" + id  + "' to '" + expectedID + "'.");
+        WRITE_WARNINGF(TL("Renaming lane '%' to '%'."), id , expectedID);
     }
     myCurrentLane = new LaneAttrs();
     myLastParameterised.push_back(myCurrentLane);
@@ -828,7 +828,7 @@ NIImporter_SUMO::addConnection(const SUMOSAXAttributes& attrs) {
         conn.tlLinkIndex = NBConnection::InvalidTlIndex;
     }
     if ((int)from->lanes.size() <= fromLaneIdx) {
-        WRITE_ERROR("Invalid lane index '" + toString(fromLaneIdx) + "' for connection from '" + fromID + "'.");
+        WRITE_ERRORF(TL("Invalid lane index '%' for connection from '%'."), toString(fromLaneIdx), fromID);
         return;
     }
     from->lanes[fromLaneIdx]->connections.push_back(conn);
@@ -930,7 +930,7 @@ NIImporter_SUMO::initTrafficLightLogic(const SUMOSAXAttributes& attrs, NBLoadedS
     if (SUMOXMLDefinitions::TrafficLightTypes.hasString(typeS)) {
         type = SUMOXMLDefinitions::TrafficLightTypes.get(typeS);
     } else {
-        WRITE_ERROR("Unknown traffic light type '" + typeS + "' for tlLogic '" + id + "'.");
+        WRITE_ERRORF(TL("Unknown traffic light type '%' for tlLogic '%'."), typeS, id);
         return nullptr;
     }
     if (ok) {
@@ -952,7 +952,7 @@ NIImporter_SUMO::addPhase(const SUMOSAXAttributes& attrs, NBLoadedSUMOTLDef* cur
     std::string state = attrs.get<std::string>(SUMO_ATTR_STATE, id.c_str(), ok);
     SUMOTime duration = TIME2STEPS(attrs.get<double>(SUMO_ATTR_DURATION, id.c_str(), ok));
     if (duration < 0) {
-        WRITE_ERROR("Phase duration for tl-logic '" + id + "/" + currentTL->getProgramID() + "' must be positive.");
+        WRITE_ERRORF(TL("Phase duration for tl-logic '%/%' must be positive."), id, currentTL->getProgramID());
         return;
     }
     // if the traffic light is an actuated traffic light, try to get the minimum and maximum durations and ends

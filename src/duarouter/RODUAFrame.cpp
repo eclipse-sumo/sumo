@@ -213,7 +213,7 @@ RODUAFrame::checkOptions() {
     }
 
     if (oc.getString("routing-algorithm") != "dijkstra" && oc.getString("weight-attribute") != "traveltime") {
-        WRITE_ERROR("Routing algorithm '" + oc.getString("routing-algorithm") + "' does not support weight-attribute '" + oc.getString("weight-attribute") + "'.");
+        WRITE_ERRORF(TL("Routing algorithm '%' does not support weight-attribute '%'."), oc.getString("routing-algorithm"), oc.getString("weight-attribute"));
         return false;
     }
     if (oc.getBool("bulk-routing") && (oc.getString("routing-algorithm") == "CH" || oc.getString("routing-algorithm") == "CHWrapper")) {

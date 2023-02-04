@@ -55,7 +55,7 @@ void single(const std::string& of, const std::string& className, SUMOEmissionCla
             double sMin, double sMax, double sStep,
             bool verbose) {
     if (verbose) {
-        WRITE_MESSAGE("Writing map of '" + className + "' into '" + of + "'.");
+        WRITE_MESSAGEF(TL("Writing map of '%' into '%'."), className, of);
     }
     std::ofstream o(of.c_str());
     if (!o.good()) {

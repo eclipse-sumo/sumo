@@ -954,7 +954,7 @@ NWWriter_OpenDrive::checkLaneGeometries(const NBEdge* e) {
         for (int lane = 1; lane < e->getNumLanes(); ++lane) {
             const double dist = stopLine.distance2D(e->getLaneShape(lane)[-1]);
             if (dist > NUMERICAL_EPS) {
-                WRITE_WARNING("Uneven stop line at lane '" + e->getLaneID(lane) + "' (dist=" + toString(dist) + ") cannot be represented in OpenDRIVE.");
+                WRITE_WARNINGF(TL("Uneven stop line at lane '%' (dist=%) cannot be represented in OpenDRIVE."), e->getLaneID(lane), toString(dist));
             }
         }
     }

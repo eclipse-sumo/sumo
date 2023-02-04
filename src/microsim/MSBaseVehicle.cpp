@@ -842,7 +842,7 @@ MSBaseVehicle::calculateArrivalParams(bool onInit) {
             }
         }
         if (myArrivalLane == -1) {
-            WRITE_WARNING("Vehicle '" + getID() + "' has no usable arrivalLane on edge '" + arrivalEdge->getID() + "'.");
+            WRITE_WARNINGF(TL("Vehicle '%' has no usable arrivalLane on edge '%'."), getID(), arrivalEdge->getID());
             myArrivalLane = 0;
         }
     } else if (myParameter->arrivalLaneProcedure == ArrivalLaneDefinition::RANDOM) {
@@ -854,7 +854,7 @@ MSBaseVehicle::calculateArrivalParams(bool onInit) {
             }
         }
         if (usable.empty()) {
-            WRITE_WARNING("Vehicle '" + getID() + "' has no usable arrivalLane on edge '" + arrivalEdge->getID() + "'.");
+            WRITE_WARNINGF(TL("Vehicle '%' has no usable arrivalLane on edge '%'."), getID(), arrivalEdge->getID());
             myArrivalLane = 0;
         } else {
             myArrivalLane = usable[RandHelper::rand(0, (int)usable.size())]->getIndex();

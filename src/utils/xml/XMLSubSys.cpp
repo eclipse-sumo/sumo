@@ -183,10 +183,10 @@ XMLSubSys::runParser(GenericSAXHandler& handler, const std::string& file,
         WRITE_ERROR(std::string(e.what()) != std::string("") ? std::string(e.what()) : std::string("Process Error"));
         return false;
     } catch (const std::runtime_error& re) {
-        WRITE_ERROR("Runtime error: " + std::string(re.what()) + " while parsing '" + file + "'");
+        WRITE_ERRORF(TL("Runtime error: % while parsing '%'"), std::string(re.what()), file);
         return false;
     } catch (const std::exception& ex) {
-        WRITE_ERROR("Error occurred: " + std::string(ex.what()) + " while parsing '" + file + "'");
+        WRITE_ERRORF(TL("Error occurred: % while parsing '%'"), std::string(ex.what()), file);
         return false;
     } catch (const XERCES_CPP_NAMESPACE::SAXException& e) {
         WRITE_ERROR("SAX error occured while parsing '" + file + "':\n " + StringUtils::transcode(e.getMessage()));

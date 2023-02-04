@@ -207,7 +207,7 @@ ROJTRTurnDefLoader::addEdgeRel(const SUMOSAXAttributes& attrs) {
         return;
     }
     if (probability < 0) {
-        WRITE_ERROR("'probability' must be positive (in edgeRelation from '" + fromID + "' to '" + toID + "'.");
+        WRITE_ERRORF(TL("'probability' must be positive (in edgeRelation from '%' to '%'."), fromID, toID);
     } else {
         from->addFollowerProbability(to, myIntervalBegin, myIntervalEnd, probability);
     }

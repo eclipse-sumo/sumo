@@ -181,7 +181,7 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             myTime = string2time(attrs.getString(SUMO_ATTR_TIME));
             const std::string& version = attrs.getString(SUMO_ATTR_VERSION);
             if (version != VERSION_STRING) {
-                WRITE_WARNING("State was written with sumo version " + version + " (present: " + VERSION_STRING + ")!");
+                WRITE_WARNINGF(TL("State was written with sumo version % (present: %)!"), version, VERSION_STRING);
             }
             bool ok;
             if (attrs.getOpt<bool>(SUMO_ATTR_CONSTRAINTS, nullptr, ok, false)) {
@@ -386,7 +386,7 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             MSTrafficLightLogic* tl = tlc.get(tlID, programID);
             if (tl == nullptr) {
                 if (programID == "online") {
-                    WRITE_WARNING("Ignoring program '" + programID + "' for traffic light '" + tlID + "' in loaded state");
+                    WRITE_WARNINGF(TL("Ignoring program '%' for traffic light '%' in loaded state"), programID, tlID);
                     return;
                 } else {
                     throw ProcessError("Unknown program '" + programID + "' for traffic light '" + tlID + "'");

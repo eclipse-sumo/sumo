@@ -194,7 +194,7 @@ GNEStopFrame::addStop(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCu
         if (objectsUnderCursor.getDemandElementFront() &&
                 (objectsUnderCursor.getDemandElementFront()->getTagProperty().isVehicle() || objectsUnderCursor.getDemandElementFront()->getTagProperty().getTag() == SUMO_TAG_ROUTE)) {
             myStopParentSelector->setDemandElement(objectsUnderCursor.getDemandElementFront());
-            WRITE_WARNING("Selected " + objectsUnderCursor.getDemandElementFront()->getTagStr() + " '" + objectsUnderCursor.getDemandElementFront()->getID() + "' as stop parent.");
+            WRITE_WARNINGF(TL("Selected % '%' as stop parent."), objectsUnderCursor.getDemandElementFront()->getTagStr(), objectsUnderCursor.getDemandElementFront()->getID());
             return true;
         } else {
             WRITE_WARNING(TL("Selected Stop parent isn't valid."));

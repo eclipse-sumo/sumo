@@ -2292,7 +2292,7 @@ NIImporter_OpenStreetMap::usableType(const std::string& type, const std::string&
             return "";
         }
 
-        WRITE_MESSAGE("Adding new type '" + type + "' (first occurrence for edge '" + id + "').");
+        WRITE_MESSAGEF(TL("Adding new type '%' (first occurrence for edge '%')."), type, id);
         tc.insertEdgeType(newType, numLanes, maxSpeed, prio, permissions, spreadType, width,
                           defaultIsOneWay, sidewalkWidth, bikelaneWidth, 0, 0, 0);
         for (auto& type3 : types) {

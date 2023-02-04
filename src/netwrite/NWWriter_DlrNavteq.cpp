@@ -152,14 +152,14 @@ NWWriter_DlrNavteq::writeNodesUnsplitted(const OptionsCont& oc, NBNodeCont& nc, 
                 try {
                     geom.move2side(e->getTotalWidth() / 2);
                 } catch (InvalidArgument& exception) {
-                    WRITE_WARNING("Could not reconstruct shape for edge:'" + e->getID() + "' (" + exception.what() + ").");
+                    WRITE_WARNINGF(TL("Could not reconstruct shape for edge:'%' (%)."), e->getID(), exception.what());
                 }
             } else if (e->getLaneSpreadFunction() == LaneSpreadFunction::CENTER && hasOppositeID) {
                 // need to write left-border geometry instead
                 try {
                     geom.move2side(-e->getTotalWidth() / 2);
                 } catch (InvalidArgument& exception) {
-                    WRITE_WARNING("Could not reconstruct shape for edge:'" + e->getID() + "' (" + exception.what() + ").");
+                    WRITE_WARNINGF(TL("Could not reconstruct shape for edge:'%' (%)."), e->getID(), exception.what());
                 }
             }
 

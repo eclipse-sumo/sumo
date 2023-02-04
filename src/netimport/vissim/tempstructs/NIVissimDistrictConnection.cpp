@@ -202,7 +202,7 @@ NIVissimDistrictConnection::dict_BuildDistricts(NBDistrictCont& dc,
                 e = ec.retrievePossiblySplit(toString<int>(c->myEdgeID), c->myPosition);
             }
             if (e == nullptr) {
-                WRITE_WARNING("Could not build district '" + toString<int>((*k).first) + "' - edge '" + toString<int>(c->myEdgeID) + "' is missing.");
+                WRITE_WARNINGF(TL("Could not build district '%' - edge '%' is missing."), toString<int>((*k).first), toString<int>(c->myEdgeID));
                 continue;
             }
             std::string id = "ParkingPlace" + toString<int>(*l);

@@ -900,7 +900,7 @@ MSActuatedTrafficLightLogic::getTarget(int step) {
     while (!myPhases[step]->isGreenPhase()) {
         if (myPhases[step]->nextPhases.size() > 0 && myPhases[step]->nextPhases.front() >= 0) {
             if (myPhases[step]->nextPhases.size() > 1) {
-                WRITE_WARNING("At actuated tlLogic '" + getID() + "', transition phase " + toString(step) + " should not have multiple next phases");
+                WRITE_WARNINGF(TL("At actuated tlLogic '%', transition phase % should not have multiple next phases"), getID(), toString(step));
             }
             step = myPhases[step]->nextPhases.front();
         } else {

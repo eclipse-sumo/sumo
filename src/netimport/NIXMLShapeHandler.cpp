@@ -43,7 +43,7 @@ NIXMLShapeHandler::getLanePos(const std::string& poiID, const std::string& laneI
     NBHelpers::interpretLaneID(laneID, edgeID, laneIndex);
     NBEdge* edge = myEdgeCont.retrieve(edgeID);
     if (edge == 0 || laneIndex < 0 || edge->getNumLanes() <= laneIndex) {
-        WRITE_ERROR("Lane '" + laneID + "' to place poi '" + poiID + "' on is not known.");
+        WRITE_ERRORF(TL("Lane '%' to place poi '%' on is not known."), laneID, poiID);
         return Position::INVALID;
     }
     if (lanePos < 0) {
@@ -56,7 +56,7 @@ NIXMLShapeHandler::getLanePos(const std::string& poiID, const std::string& laneI
         lanePos = edge->getLength();
     }
     if (lanePos < 0 || lanePos > edge->getLength()) {
-        WRITE_WARNING("lane position " + toString(lanePos) + " for poi '" + poiID + "' is not valid.");
+        WRITE_WARNINGF(TL("lane position % for poi '%' is not valid."), toString(lanePos), poiID);
     }
     return edge->getLanes()[laneIndex].shape.positionAtOffset(lanePos, -lanePosLat);
 }
