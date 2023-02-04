@@ -1940,7 +1940,7 @@ GNEApplicationWindow::onCmdNewWindow(FXObject*, FXSelector, void*) {
     const char* sumoPath = getenv("SUMO_HOME");
     if (sumoPath != nullptr) {
 #ifdef DEBUG
-        std::string newPath = std::string(sumoPath) + "/bin/neteditd";
+        std::string newPath = std::string(sumoPath) + "/bin/neteditD";
 #else
         std::string newPath = std::string(sumoPath) + "/bin/netedit";
 #endif
