@@ -9,61 +9,19 @@ Warning: Could not build connection between '84' and '82'.
 Warning: Could not build connection between '83' and '84'.
 Warning: Could not build connection between '84' and '83'.
 Warning: Could not build connection between '84' and '91'.
-Warning: Could not build connection between '84' and '93'.
-Warning: Could not build connection between '85' and '93'.
-Warning: Could not build connection between '93' and '84'.
 Warning: 9 of 136 connections could not be assigned.
 Warning: Ugly split to prohibit '6' by '20000'.
 Warning: Ugly split to prohibit '6' by '10'.
 Warning: Ugly split to prohibit '6' by '11'.
 Warning: Ugly split to prohibit '6' by '10'.
 Warning: Ugly split to prohibit '6' by '11'.
-Warning: Ugly split to prohibit '3' by '10'.
-Warning: Ugly split to prohibit '3' by '11'.
-Warning: Ugly split to prohibit '3' by '10'.
-Warning: Ugly split to prohibit '3' by '11'.
 Warning: Would have to split edge '6[0]' to build a prohibition
 Warning: Would have to split edge '6[0]' to build a prohibition
-Warning: Ugly split to prohibit '1' by '10'.
-Warning: Ugly split to prohibit '1' by '11'.
-Warning: Ugly split to prohibit '1' by '10'.
-Warning: Ugly split to prohibit '1' by '11'.
 Warning: Would have to split edge '6[0]' to build a prohibition
 Warning: Would have to split edge '6[0]' to build a prohibition
 Warning: Would have to split edge '9' to build a prohibition
-Warning: Ugly split to prohibit '11' by '3'.
-Warning: Ugly split to prohibit '11' by '3'.
-Warning: Ugly split to prohibit '11' by '1'.
-Warning: Ugly split to prohibit '11' by '1'.
-Warning: Ugly split to prohibit '10' by '6'.
-Warning: Ugly split to prohibit '10' by '6'.
-Warning: Ugly split to prohibit '10' by '1'.
-Warning: Ugly split to prohibit '10' by '1'.
-Warning: Ugly split to prohibit '10' by '3'.
-Warning: Ugly split to prohibit '10' by '3'.
-Warning: Ugly split to prohibit '11' by '6'.
-Warning: Ugly split to prohibit '11' by '6'.
-Warning: Ugly split to prohibit '65' by '70'.
-Warning: Ugly split to prohibit '65' by '70'.
-Warning: Ugly split to prohibit '73' by '70'.
-Warning: Ugly split to prohibit '73' by '70'.
-Warning: Ugly split to prohibit '3' by '62'.
-Warning: Ugly split to prohibit '3' by '63'.
-Warning: Ugly split to prohibit '3' by '62'.
-Warning: Ugly split to prohibit '3' by '63'.
-Warning: Ugly split to prohibit '3' by '63'.
-Warning: Ugly split to prohibit '20005' by '3'.
-Warning: Ugly split to prohibit '3' by '20005'.
-Warning: Ugly split to prohibit '20000' by '6'.
-Warning: Ugly split to prohibit '6' by '20000'.
-Warning: Ugly split to prohibit '20000' by '6'.
-Warning: Ugly split to prohibit '6' by '20000'.
-Warning: Ugly split to prohibit '20002' by '6'.
-Warning: Ugly split to prohibit '20002' by '6'.
 Warning: Could not prohibit '10015' by '26'. Have not found disturbance.
-Warning: Ugly split to prohibit '20003' by '31'.
 Warning: Could not prohibit '10017' by '31'. Have not found disturbance.
-Warning: Ugly split to prohibit '73' by '70'.
 Warning: Could not build 84 of 103 disturbances.
 Warning: Edge : Lanes were not assigned(!)
 Warning: Edge : Lanes were not assigned(!)
@@ -91,7 +49,9 @@ Warning: Edge : Lanes were not assigned(!)
 Warning: Could not set 4 of 37 signals.
 Warning: Found sharp turn with radius 4.37 at the end of edge '82[0]'.
 Warning: Found sharp turn with radius 6.53 at the start of edge '82[1]'.
+Warning: 8 total messages of type: Could not build connection between '%' and '%'.
 Warning: 107 total messages of type: TL traffic lights are not supported (lsa=%)
+Warning: 44 total messages of type: Ugly split to prohibit '%' by '%'.
 Warning: 38 total messages of type: Would have to split edge '%' to build a prohibition
 Warning: TYellow of signal group '10' was less than the computed one; patched (was:0, is:3.00)
 Warning: TYellow of signal group '12' was less than the computed one; patched (was:0, is:3.00)
