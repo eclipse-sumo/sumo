@@ -694,11 +694,11 @@ intersection." Transportation Research Board 2011 (90th Annual Meeting).
 2011.\] for details.
 
 ### Parameters
-Several optional parameters can be used to control the behavior of delay_baed traffic lights. The examples values in the previous section are the default values for these parameters and their meaning is given below:
+Several optional parameters can be used to control the behavior of delay_based traffic lights. The example values in the previous section are the default values for these parameters and their meaning is given below:
 
 - **detector-range**: the upstream detection range in meters measured from the stop line
 - **minTimeLoss**: the minimum timeLoss of a vehicle (in s) that triggers phase prolongation
-- **extendMaxDur**: whether phases may be prolonged beyond maxDur in the absence of traffic in other arms (this was the default behavior until 1.16.0)
+- **extendMaxDur**: whether phases may be prolonged beyond `maxDur` in the absence of traffic in other arms (this was the default behavior until 1.16.0)
 - **show-detectors** controls whether generated detectors will be visible or hidden in [sumo-gui](../sumo-gui.md). It is also possible to toggle this value from within the GUI by right-clicking on a traffic light.
 - parameters **vTypes**, **file** and **freq** have the same meaning as for [regular
 lane area detectors](Output/Lanearea_Detectors_(E2).md).
