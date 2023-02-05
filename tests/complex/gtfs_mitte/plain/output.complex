@@ -1,5 +1,5 @@
 Success.
-Building scenario in '/home/kobo/.texttest/tmp/complex.perf.python3.19Jan110513.774309/complex.perf.python3/gtfs_mitte/plain/test'.
+Building scenario in '/home/micha/.texttest/tmp/complex.perf.05Feb165809.234434/complex.perf/gtfs_mitte/plain/test'.
 200 OK
 generating trips...
 Skipping line '1231708' because it only drives at night
@@ -19,22 +19,18 @@ Skipping line '2512807' because it only drives at night
 Cannot extend route to fringe for line '2679013' (not enough edges given)
 Cannot extend route to fringe for line '2679014' (not enough edges given)
 Skipping line '28286' because it only drives at night
-Cannot extend route before first stop for line '300432' (stop edge 25946661 not in route)
-Cannot extend route after last stop for line '300432' (stop edge 25946661 not in route)
 Cannot extend route to fringe for line '3019045' (not enough edges given)
 Skipping line '3353027' because it only drives at night
 Skipping line '35040' because it only drives at night
 Skipping line '6187328' because it only drives at night
 Skipping line '6187329' because it only drives at night
-Cannot extend route before first stop for line '6593455' (stop edge 25946661 not in route)
-Cannot extend route after last stop for line '6593455' (stop edge 25946661 not in route)
 Cannot extend route after last stop for line '6622626' (stop edge 755551647 not in route)
 Cannot extend route to fringe for line '7794031' (not enough edges given)
-Imported 107 lines with 309 stops and skipped 16 lines
+Imported 105 lines with 309 stops and skipped 16 lines
    bus: 45
    light_rail: 18
    subway: 8
-   train: 14
+   train: 12
    tram: 22
 done.
 running SUMO to determine actual departure times...
@@ -49,8 +45,8 @@ Success.
 Success.
 Success.
 Written configuration to 'osm.sumocfg'
-function import_gtfs called at Thu, 19 Jan 2023 11:06:10 +0000
-function import_gtfs finished after 26.348545 seconds
+function import_gtfs called at Sun, 05 Feb 2023 16:58:42 +0000
+function import_gtfs finished after 8.293029 seconds
 Success.
 Success.
 Success.
