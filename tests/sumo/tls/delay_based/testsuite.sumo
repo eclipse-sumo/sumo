@@ -18,3 +18,6 @@ custom_detector
 
 # Specifying delay-based program in an additional file
 maxDur
+
+# Specifying delay-based program in an additional file
+maxDur_extend
