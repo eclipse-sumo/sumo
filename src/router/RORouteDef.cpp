@@ -234,7 +234,7 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
             } else {
                 if (initialSize > 2) {
                     // only inform if the input is (probably) not a trip
-                    WRITE_MESSAGE("Edge '" + (*(i - 1))->getID() + "' not connected to edge '" + (*i)->getID() + "' for vehicle '" + veh.getID() + "'.");
+                    WRITE_MESSAGEF(TL("Edge '%' not connected to edge '%' for vehicle '%'."), (*(i - 1))->getID(), (*i)->getID(), veh.getID());
                 }
                 const ROEdge* last = newEdges.back();
                 newEdges.pop_back();

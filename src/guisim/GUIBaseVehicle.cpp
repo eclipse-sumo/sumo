@@ -872,8 +872,8 @@ GUIBaseVehicle::getScaleValue(const GUIVisualizationSettings& s, int activeSchem
                 try {
                     return StringUtils::toBool(val);
                 } catch (BoolFormatException&) {
-                    WRITE_WARNING("Vehicle parameter '" + myVehicle.getParameter().getParameter(s.vehicleScaleParam, "0")
-                                  + "' key '" + s.vehicleScaleParam + "' is not a number for vehicle '" + myVehicle.getID() + "'");
+                    WRITE_WARNINGF(TL("Vehicle parameter '%' key '%' is not a number for vehicle '%'."),
+                                   myVehicle.getParameter().getParameter(s.vehicleScaleParam, "0"), s.vehicleScaleParam, myVehicle.getID());
                     return -1;
                 }
             }

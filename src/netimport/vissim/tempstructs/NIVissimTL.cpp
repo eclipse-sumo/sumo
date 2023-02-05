@@ -135,7 +135,7 @@ NIVissimTL::NIVissimTLSignal::addTo(NBEdgeCont& ec, NBLoadedTLDef* tl) const {
         // What to do if on an edge? -> close all outgoing connections
         NBEdge* edge = ec.retrievePossiblySplit(toString<int>(myEdgeID), myPosition);
         if (edge == nullptr) {
-            WRITE_WARNINGF(TL("Could not set tls signal at edge '%' - the edge was not built."), toString(myEdgeID));
+            WRITE_WARNINGF(TL("Could not set tls signal at edge '%' - the edge was not built."), myEdgeID);
             return false;
         }
         // Check whether it is already known, which edges are approached
@@ -149,7 +149,7 @@ NIVissimTL::NIVissimTLSignal::addTo(NBEdgeCont& ec, NBLoadedTLDef* tl) const {
                 assignedConnections.push_back(NBConnection(edge, myLane - 1, conn.toEdge, conn.toLane));
             }
         } else {
-            WRITE_WARNING(TL("Edge : Lanes were not assigned(!)"));
+            WRITE_WARNINGF(TL("Edge '%': Lanes were not assigned."), myEdgeID);
             for (int j = 0; j < edge->getNumLanes(); j++) {
                 std::vector<NBEdge::Connection> connections = edge->getConnectionsFromLane(j);
                 for (std::vector<NBEdge::Connection>::iterator i = connections.begin(); i != connections.end(); i++) {

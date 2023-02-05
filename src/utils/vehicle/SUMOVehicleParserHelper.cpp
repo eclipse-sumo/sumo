@@ -1623,7 +1623,7 @@ SUMOVehicleParserHelper::parseVehicleClass(const SUMOSAXAttributes& attrs, const
         }
         return result;
     } catch (...) {
-        WRITE_ERROR("The vehicle class '" + vclassS + "' for " + attrs.getObjectType() + " '" + id + "' is not known.");
+        WRITE_ERRORF(TL("The vehicle class '%' for % '%' is not known."), vclassS, attrs.getObjectType(), id);
     }
     return vclass;
 }
@@ -1641,7 +1641,7 @@ SUMOVehicleParserHelper::parseGuiShape(const SUMOSAXAttributes& attrs, const std
         }
         return result;
     } else {
-        WRITE_ERROR("The shape '" + vclassS + "' for " + attrs.getObjectType() + " '" + id + "' is not known.");
+        WRITE_ERRORF(TL("The shape '%' for % '%' is not known."), vclassS, attrs.getObjectType(), id);
         return SUMOVehicleShape::UNKNOWN;
     }
 }

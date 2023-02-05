@@ -58,7 +58,7 @@ MSCFModel_Daniel1::finalizeSpeed(MSVehicle* const veh, double vPos) const {
     const double vMax = MIN3(veh->getLane()->getVehicleMaxSpeed(veh), maxNextSpeed(oldV, veh), vSafe);
 #ifdef _DEBUG
     if (vMin > vMax) {
-        WRITE_WARNING("Maximum speed of vehicle '" + veh->getID() + "' is lower than the minimum speed (min: " + toString(vMin) + ", max: " + toString(vMax) + ").");
+        WRITE_WARNINGF(TL("Maximum speed of vehicle '%' is lower than the minimum speed (min: %, max: %)."), veh->getID(), toString(vMin), toString(vMax));
     }
 #endif
     return veh->getLaneChangeModel().patchSpeed(vMin, MAX2(vMin, dawdle(vMax, veh->getRNG())), vMax, *this);

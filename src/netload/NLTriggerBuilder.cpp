@@ -373,9 +373,9 @@ NLTriggerBuilder::parseAndBuildOverheadWireSection(MSNet& net, const SUMOSAXAttr
                     clamp->usage = true;
                 } else {
                     if (clamp->start->getTractionSubstation() != substation) {
-                        WRITE_WARNING("A connecting overhead wire start segment '" + clamp->start->getID() + "' defined for overhead wire clamp '" + clampID + "' is not assigned to the traction substation '" + substationId + "'.");
+                        WRITE_WARNINGF(TL("A connecting overhead wire start segment '%' defined for overhead wire clamp '%' is not assigned to the traction substation '%'."), clamp->start->getID(), clampID, substationId);
                     } else {
-                        WRITE_WARNING("A connecting overhead wire end segment '" + clamp->end->getID() + "' defined for overhead wire clamp '" + clampID + "' is not assigned to the traction substation '" + substationId + "'.");
+                        WRITE_WARNINGF(TL("A connecting overhead wire end segment '%' defined for overhead wire clamp '%' is not assigned to the traction substation '%'."), clamp->end->getID(), clampID, substationId);
                     }
                 }
             } else {

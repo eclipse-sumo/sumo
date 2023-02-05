@@ -1288,7 +1288,7 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
         } else if (myHaveVia) {
             // vias were loaded, check for consistency
             if (std::find(myActiveRoute.begin(), myActiveRoute.end(), edge) == myActiveRoute.end()) {
-                WRITE_WARNING("Stop edge '" + edge->getID() + "' missing in attribute 'via' for " + myActiveTypeName + " '" + myVehicleParameter->id + "'");
+                WRITE_WARNINGF(TL("Stop edge '%' missing in attribute 'via' for % '%'"), edge->getID(), myActiveTypeName, myVehicleParameter->id);
             }
         }
     } catch (ProcessError&) {

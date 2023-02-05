@@ -224,7 +224,7 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
             } else {
                 loop = dynamic_cast<MSInductLoop*>(MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_INDUCTION_LOOP).get(customID));
                 if (loop == nullptr) {
-                    WRITE_ERROR("Unknown inductionLoop '" + customID + "' given as custom detector for actuated tlLogic '" + getID() + "', program '" + getProgramID() + ".");
+                    WRITE_ERRORF(TL("Unknown inductionLoop '%' given as custom detector for actuated tlLogic '%', program '%."), customID, getID(), getProgramID());
                     continue;
                 }
                 ilpos = loop->getPosition();
@@ -238,7 +238,7 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
 
             if (warn && floor(floor(inductLoopPosition / DEFAULT_LENGTH_WITH_GAP) * myPassingTime) > STEPS2TIME(minDur)) {
                 // warn if the minGap is insufficient to clear vehicles between stop line and detector
-                WRITE_WARNING("At actuated tlLogic '" + getID() + "', minDur " + time2string(minDur) + " is too short for a detector gap of " + toString(inductLoopPosition) + "m.");
+                WRITE_WARNINGF(TL("At actuated tlLogic '%', minDur % is too short for a detector gap of %m."), getID(), time2string(minDur), toString(inductLoopPosition));
                 warn = false;
             }
         }
@@ -449,7 +449,7 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
         if (StringUtils::startsWith(kv.first, "linkMaxDur:")) {
             int link = StringUtils::toInt(kv.first.substr(11));
             if (link < 0 || link >= myNumLinks) {
-                WRITE_ERROR("Invalid link '" + kv.first.substr(11) + "' given as linkMaxDur parameter for actuated tlLogic '" + getID() + "', program '" + getProgramID() + ".");
+                WRITE_ERRORF(TL("Invalid link '%' given as linkMaxDur parameter for actuated tlLogic '%', program '%."), kv.first.substr(11), getID(), getProgramID());
                 continue;
             }
             if (myLinkMaxGreenTimes.empty()) {
@@ -459,7 +459,7 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
         } else if (StringUtils::startsWith(kv.first, "linkMinDur:")) {
             int link = StringUtils::toInt(kv.first.substr(11));
             if (link < 0 || link >= myNumLinks) {
-                WRITE_ERROR("Invalid link '" + kv.first.substr(11) + "' given as linkMinDur parameter for actuated tlLogic '" + getID() + "', program '" + getProgramID() + ".");
+                WRITE_ERRORF(TL("Invalid link '%' given as linkMinDur parameter for actuated tlLogic '%', program '%."), kv.first.substr(11), getID(), getProgramID());
                 continue;
             }
             if (myLinkMinGreenTimes.empty()) {
@@ -1310,7 +1310,7 @@ MSActuatedTrafficLightLogic::getConditions() const {
             try {
                 result[item.first] = evalExpression(item.second);
             } catch (ProcessError& e) {
-                WRITE_ERROR("Error when retrieving conditions '" + item.first + "' for tlLogic '" + getID() + "' (" + e.what() + ")");
+                WRITE_ERRORF(TL("Error when retrieving conditions '%' for tlLogic '%' (%)"), item.first, getID(), e.what());
             }
         }
     }

@@ -80,7 +80,7 @@ GenericHandler::startElement(const XMLCh* const /*uri*/,
                              const XERCES_CPP_NAMESPACE::Attributes& attrs) {
     std::string name = StringUtils::transcode(qname);
     if (!myRootSeen && myExpectedRoot != "" && name != myExpectedRoot) {
-        WRITE_WARNING("Found root element '" + name + "' in file '" + getFileName() + "' (expected '" + myExpectedRoot + "').");
+        WRITE_WARNINGF(TL("Found root element '%' in file '%' (expected '%')."), name, getFileName(), myExpectedRoot);
     }
     myRootSeen = true;
     myCharactersVector.clear();

@@ -2107,7 +2107,7 @@ NIImporter_OpenDrive::myStartElement(int element,
             int minorVersion = attrs.get<int>(OPENDRIVE_ATTR_REVMINOR, nullptr, ok);
             if (majorVersion != 1 || minorVersion != 2) {
                 // TODO: leave note of exceptions
-                WRITE_WARNING("Given openDrive file '" + getFileName() + "' uses version " + toString(majorVersion) + "." + toString(minorVersion) + ";\n Version 1.2 is supported.");
+                WRITE_WARNINGF(TL("Given openDrive file '%' uses version %.%;\n Version 1.2 is supported."), getFileName(), toString(majorVersion), toString(minorVersion));
             }
             */
         }

@@ -206,7 +206,7 @@ MSCFModel::finalizeSpeed(MSVehicle* const veh, double vPos) const {
     // do not exceed max decel even if it is unsafe
 #ifdef _DEBUG
     //if (vMin > vMax) {
-    //    WRITE_WARNING("Maximum speed of vehicle '" + veh->getID() + "' is lower than the minimum speed (min: " + toString(vMin) + ", max: " + toString(vMax) + ").");
+    //    WRITE_WARNINGF(TL("Maximum speed of vehicle '%' is lower than the minimum speed (min: %, max: %)."), veh->getID(), toString(vMin), toString(vMax));
     //}
 #endif
 

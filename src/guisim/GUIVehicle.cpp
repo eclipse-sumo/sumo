@@ -654,7 +654,8 @@ GUIVehicle::getColorValue(const GUIVisualizationSettings& s, int activeScheme) c
                 try {
                     return StringUtils::toBool(val);
                 } catch (BoolFormatException&) {
-                    WRITE_WARNING("Vehicle parameter '" + myParameter->getParameter(s.vehicleParam, "0") + "' key '" + s.vehicleParam + "' is not a number for vehicle '" + getID() + "'");
+                    WRITE_WARNINGF(TL("Vehicle parameter '%' key '%' is not a number for vehicle '%'."),
+                                   myParameter->getParameter(s.vehicleParam, "0"), s.vehicleParam, getID());
                     return GUIVisualizationSettings::MISSING_DATA;
                 }
             }

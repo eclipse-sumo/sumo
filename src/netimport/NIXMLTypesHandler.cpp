@@ -111,7 +111,7 @@ NIXMLTypesHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             const int index = attrs.get<int>(SUMO_ATTR_INDEX, edgeTypeId, ok);
             const std::string defType = myTypeCont.knows(myCurrentTypeID) ? myCurrentTypeID : "";
             if (index >= myTypeCont.getEdgeTypeNumLanes(defType)) {
-                WRITE_ERROR("Invalid lane index " + toString(index) + " for edge type '" + defType + "' with " + toString(myTypeCont.getEdgeTypeNumLanes(defType)) + " lanes");
+                WRITE_ERRORF(TL("Invalid lane index % for edge type '%' with % lanes"), toString(index), defType, toString(myTypeCont.getEdgeTypeNumLanes(defType)));
                 ok = false;
             }
             const double speed = attrs.getOpt<double>(SUMO_ATTR_SPEED, edgeTypeId, ok, myTypeCont.getEdgeTypeSpeed(edgeTypeId));

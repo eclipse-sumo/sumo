@@ -488,7 +488,7 @@ GUIOSGBuilder::buildDecal(const GUISUMOAbstractView::Decal& d, osg::Group& addTo
     osg::ComputeBoundsVisitor bboxCalc;
     base->accept(bboxCalc);
     const osg::BoundingBox& bbox = bboxCalc.getBoundingBox();
-    WRITE_MESSAGE("Loaded decal '" + d.filename + "' with bounding box " + toString(Position(bbox.xMin(), bbox.yMin(), bbox.zMin())) + " " + toString(Position(bbox.xMax(), bbox.yMax(), bbox.zMax())) + ".");
+    WRITE_MESSAGEF(TL("Loaded decal '%' with bounding box % %."), d.filename, toString(Position(bbox.xMin(), bbox.yMin(), bbox.zMin())), toString(Position(bbox.xMax(), bbox.yMax(), bbox.zMax())));
     double xScale = d.width > 0 ? d.width / (bbox.xMax() - bbox.xMin()) : 1.;
     double yScale = d.height > 0 ? d.height / (bbox.yMax() - bbox.yMin()) : 1.;
     const double zScale = d.altitude > 0 ? d.altitude / (bbox.zMax() - bbox.zMin()) : 1.;

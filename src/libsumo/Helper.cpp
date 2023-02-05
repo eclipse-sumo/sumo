@@ -1335,7 +1335,8 @@ Helper::applySubscriptionFilterLateralDistanceSinglePass(const Subscription& s, 
         try {
             laneShape.move2side(-posLat);
         } catch (ProcessError&) {
-            WRITE_WARNING("addSubscriptionFilterLateralDistance could not determine shape of lane '" + lane->getID() + "' with lateral shift of " + toString(posLat));
+            WRITE_WARNINGF(TL("addSubscriptionFilterLateralDistance could not determine shape of lane '%' with a lateral shift of %."),
+                           lane->getID(), toString(posLat));
         }
 #ifdef DEBUG_SURROUNDING
         std::cout << "   posLat=" << posLat << " laneShape=" << laneShape << "\n";

@@ -106,7 +106,7 @@ MSDevice_Battery::MSDevice_Battery(SUMOVehicle& holder, const std::string& id, c
     myVehicleStopped(0) {  // Initially the vehicle is stopped and the corresponding variable is 0
 
     if (maximumBatteryCapacity < 0) {
-        WRITE_WARNING("Battery builder: Vehicle '" + getID() + "' doesn't have a valid value for parameter " + toString(SUMO_ATTR_MAXIMUMBATTERYCAPACITY) + " (" + toString(maximumBatteryCapacity) + ").")
+        WRITE_WARNINGF(TL("Battery builder: Vehicle '%' doesn't have a valid value for parameter % (%)."), getID(), toString(SUMO_ATTR_MAXIMUMBATTERYCAPACITY), toString(maximumBatteryCapacity));
     } else {
         myMaximumBatteryCapacity = maximumBatteryCapacity;
     }
@@ -119,13 +119,13 @@ MSDevice_Battery::MSDevice_Battery(SUMOVehicle& holder, const std::string& id, c
     }
 
     if (powerMax < 0) {
-        WRITE_WARNING("Battery builder: Vehicle '" + getID() + "' doesn't have a valid value for parameter " + toString(SUMO_ATTR_MAXIMUMPOWER) + " (" + toString(powerMax) + ").")
+        WRITE_WARNINGF(TL("Battery builder: Vehicle '%' doesn't have a valid value for parameter % (%)."), getID(), toString(SUMO_ATTR_MAXIMUMPOWER), toString(powerMax));
     } else {
         myPowerMax = powerMax;
     }
 
     if (stoppingThreshold < 0) {
-        WRITE_WARNING("Battery builder: Vehicle '" + getID() + "' doesn't have a valid value for parameter " + toString(SUMO_ATTR_STOPPINGTHRESHOLD) + " (" + toString(stoppingThreshold) + ").")
+        WRITE_WARNINGF(TL("Battery builder: Vehicle '%' doesn't have a valid value for parameter % (%)."), getID(), toString(SUMO_ATTR_STOPPINGTHRESHOLD), toString(stoppingThreshold));
     } else {
         myStoppingThreshold = stoppingThreshold;
     }
@@ -196,7 +196,7 @@ bool MSDevice_Battery::notifyMove(SUMOTrafficObject& tObject, double /* oldPos *
         if (getActualBatteryCapacity() < 0) {
             setActualBatteryCapacity(0);
             if (getMaximumBatteryCapacity() > 0) {
-                WRITE_WARNING("Battery of vehicle '" + veh.getID() + "' is depleted.")
+                WRITE_WARNINGF(TL("Battery of vehicle '%' is depleted."), veh.getID());
             }
         } else if (getActualBatteryCapacity() > getMaximumBatteryCapacity()) {
             setActualBatteryCapacity(getMaximumBatteryCapacity());
@@ -306,7 +306,7 @@ MSDevice_Battery::setActualBatteryCapacity(const double actualBatteryCapacity) {
 void
 MSDevice_Battery::setMaximumBatteryCapacity(const double maximumBatteryCapacity) {
     if (myMaximumBatteryCapacity < 0) {
-        WRITE_WARNING("Trying to set into the battery device of vehicle '" + getID() + "' an invalid " + toString(SUMO_ATTR_MAXIMUMBATTERYCAPACITY) + " (" + toString(maximumBatteryCapacity) + ").")
+        WRITE_WARNINGF(TL("Trying to set into the battery device of vehicle '%' an invalid % (%)."), getID(), toString(SUMO_ATTR_MAXIMUMBATTERYCAPACITY), toString(maximumBatteryCapacity));
     } else {
         myMaximumBatteryCapacity = maximumBatteryCapacity;
     }
@@ -316,7 +316,7 @@ MSDevice_Battery::setMaximumBatteryCapacity(const double maximumBatteryCapacity)
 void
 MSDevice_Battery::setPowerMax(const double powerMax) {
     if (myPowerMax < 0) {
-        WRITE_WARNING("Trying to set into the battery device of vehicle '" + getID() + "' an invalid " + toString(SUMO_ATTR_MAXIMUMPOWER) + " (" + toString(powerMax) + ").")
+        WRITE_WARNINGF(TL("Trying to set into the battery device of vehicle '%' an invalid % (%)."), getID(), toString(SUMO_ATTR_MAXIMUMPOWER), toString(powerMax));
     } else {
         myPowerMax = powerMax;
     }
@@ -326,7 +326,7 @@ MSDevice_Battery::setPowerMax(const double powerMax) {
 void
 MSDevice_Battery::setStoppingThreshold(const double stoppingThreshold) {
     if (stoppingThreshold < 0) {
-        WRITE_WARNING("Trying to set into the battery device of vehicle '" + getID() + "' an invalid " + toString(SUMO_ATTR_STOPPINGTHRESHOLD) + " (" + toString(stoppingThreshold) + ").")
+        WRITE_WARNINGF(TL("Trying to set into the battery device of vehicle '%' an invalid % (%)."), getID(), toString(SUMO_ATTR_STOPPINGTHRESHOLD), toString(stoppingThreshold));
     } else {
         myStoppingThreshold = stoppingThreshold;
     }

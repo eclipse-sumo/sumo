@@ -240,7 +240,7 @@ ROLoader::openTypedRoutes(const std::string& optionName,
                 myLoaders.add(new SUMORouteLoader(handler));
             }
         } catch (ProcessError& e) {
-            WRITE_ERROR("The loader for " + optionName + " from file '" + fileIt + "' could not be initialised (" + e.what() + ").");
+            WRITE_ERRORF(TL("The loader for % from file '%' could not be initialised (%)."), optionName, fileIt, e.what());
             return false;
         }
     }

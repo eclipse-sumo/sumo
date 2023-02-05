@@ -65,8 +65,8 @@ ROJTRTurnDefLoader::myStartElement(int element,
         case SUMO_TAG_FROMEDGE:
             if (!myHaveWarnedAboutDeprecatedFormat) {
                 myHaveWarnedAboutDeprecatedFormat = true;
-                WRITE_WARNING("The turn-file format with elements " + toString(SUMO_TAG_FROMEDGE) + ", " + toString(SUMO_TAG_TOEDGE) + " is deprecated,"
-                              + " please use " + toString(SUMO_TAG_EDGEREL) + " instead.");
+                WRITE_WARNINGF(TL("The turn-file format with elements %, % is deprecated, please use % instead."),
+                               toString(SUMO_TAG_FROMEDGE), toString(SUMO_TAG_TOEDGE), toString(SUMO_TAG_EDGEREL));
             }
             beginFromEdge(attrs);
             break;

@@ -199,7 +199,7 @@ void MSSwarmTrafficLightLogic::init(NLDetectorBuilder& nb) {
     }
 //	Log the initial state
 #ifdef ANALYSIS_DEBUG
-    WRITE_MESSAGE("TL " + getID() + " time 0 Policy: " + myCurrentPolicy->getName() + " (pheroIn= 0 ,pheroOut= 0 ) OldPolicy: " + myCurrentPolicy->getName() + " .");
+    WRITE_MESSAGEF(TL("TL % time 0 Policy: % (pheroIn= 0 ,pheroOut= 0 ) OldPolicy: % ."), getID(), myCurrentPolicy->getName(), myCurrentPolicy->getName());
 //	ostringstream maplog;
 //	for(map<string, vector<int> >::const_iterator mIt = m_laneIndexMap.begin();mIt != m_laneIndexMap.end();++mIt)
 //	{

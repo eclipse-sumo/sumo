@@ -510,7 +510,7 @@ CommonXMLStructure::SumoBaseObject::removeSumoBaseObjectChild(SumoBaseObject* su
 
 void
 CommonXMLStructure::SumoBaseObject::handleAttributeError(const SumoXMLAttr attr, const std::string& type) const {
-    WRITE_ERROR("Trying to get undefined " + type + " attribute '" + toString(attr) + "' in SUMOBaseObject '" + toString(myTag) + "'");
+    WRITE_ERRORF(TL("Trying to get undefined % attribute '%' in SUMOBaseObject '%'"), type, toString(attr), toString(myTag));
 }
 
 // ---------------------------------------------------------------------------

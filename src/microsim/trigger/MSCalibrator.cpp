@@ -315,7 +315,7 @@ MSCalibrator::removePending() {
                 lane->removeVehicle(vehicle, MSMoveReminder::NOTIFICATION_VAPORIZED_CALIBRATOR);
                 vc.scheduleVehicleRemoval(vehicle, true);
             } else {
-                WRITE_WARNING("Calibrator '" + getID() + "' could not remove vehicle '" + *it + "' time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
+                WRITE_WARNINGF(TL("Calibrator '%' could not remove vehicle '%' time=%."), getID(), *it, time2string(MSNet::getInstance()->getCurrentTimeStep()));
             }
         }
         myToRemove.clear();
@@ -415,7 +415,7 @@ MSCalibrator::execute(SUMOTime currentTime) {
                 break;
             }
             if (!route->contains(myEdge)) {
-                WRITE_WARNING("Route '" + route->getID() + "' in calibrator '" + getID() + "' does not contain edge '" + myEdge->getID() + "'.");
+                WRITE_WARNINGF(TL("Route '%' in calibrator '%' does not contain edge '%'."), route->getID(), getID(), myEdge->getID());
                 break;
             }
             const int routeIndex = (int)std::distance(route->begin(),

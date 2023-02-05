@@ -1314,7 +1314,7 @@ Vehicle::changeLaneRelative(const std::string& vehID, int indexOffset, double du
         if (veh->getLaneIndex() == -1) {
             WRITE_WARNINGF(TL("Ignoring changeLaneRelative for vehicle '%' that isn't on the road"), vehID);
         } else {
-            WRITE_WARNING("Ignoring indexOffset " + toString(indexOffset) + " for vehicle '" + vehID + "' on laneIndex " + toString(veh->getLaneIndex()));
+            WRITE_WARNINGF(TL("Ignoring indexOffset % for vehicle '%' on laneIndex %."), indexOffset, vehID, veh->getLaneIndex());
         }
     } else {
         laneTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep(), laneIndex));
@@ -1769,7 +1769,7 @@ Vehicle::setRouteID(const std::string& vehID, const std::string& routeID) {
     }
     std::string msg;
     if (!veh->hasValidRoute(msg, r)) {
-        WRITE_WARNING("Invalid route replacement for vehicle '" + veh->getID() + "'. " + msg);
+        WRITE_WARNINGF(TL("Invalid route replacement for vehicle '%'. %"), veh->getID(), msg);
         if (MSGlobals::gCheckRoutes) {
             throw TraCIException("Route replacement failed for " + veh->getID());
         }
@@ -2438,8 +2438,7 @@ Vehicle::addSubscriptionFilterLCManeuver(int direction, bool noOpposite, double 
         // Using default: both directions
         lanes = std::vector<int>({-1, 0, 1});
     } else if (direction != -1 && direction != 1) {
-        WRITE_WARNING("Ignoring lane change subscription filter with non-neighboring lane offset direction=" +
-                      toString(direction) + ".");
+        WRITE_WARNINGF(TL("Ignoring lane change subscription filter with non-neighboring lane offset direction=%."), direction);
     } else {
         lanes = std::vector<int>({0, direction});
     }

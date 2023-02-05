@@ -1192,7 +1192,7 @@ MSRailSignal::DriveWay::buildRoute(MSLink* origin, double length,
         }
 #endif
         if (visited.count(toLane) != 0) {
-            WRITE_WARNING("Found circular block after railSignal " + getClickableTLLinkID(origin) + " (" + toString(myRoute.size()) + " edges, length " + toString(length) + ")");
+            WRITE_WARNINGF(TL("Found circular block after railSignal % (% edges, length %)"), getClickableTLLinkID(origin), toString(myRoute.size()), toString(length));
             //std::cout << getClickableTLLinkID(origin) << " circularBlock1=" << toString(myRoute) << " visited=" << formatVisitedMap(visited) << "\n";
             return;
         }
@@ -1303,7 +1303,7 @@ MSRailSignal::DriveWay::buildRoute(MSLink* origin, double length,
                 }
                 if (link->getTLLogic() != nullptr) {
                     if (link->getTLLogic() == origin->getTLLogic()) {
-                        WRITE_WARNING("Found circular block at railSignal " + getClickableTLLinkID(origin) + " (" + toString(myRoute.size()) + " edges, length " + toString(length) + ")");
+                        WRITE_WARNINGF(TL("Found circular block at railSignal % (% edges, length %)"), getClickableTLLinkID(origin), toString(myRoute.size()), toString(length));
                         //std::cout << getClickableTLLinkID(origin) << " circularBlock2=" << toString(myRoute) << "\n";
                         return;
                     }

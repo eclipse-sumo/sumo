@@ -403,7 +403,7 @@ NBNodeCont::removeComponents(NBDistrictCont& dc, NBEdgeCont& ec, const int numKe
         }
     }
     if (foundComponents > 1) {
-        WRITE_MESSAGE("Found " + toString(foundComponents) + " components and removed " + toString(numRemoved) + " (" + toString(toRemove.size()) + " edges).");
+        WRITE_MESSAGEF(TL("Found % components and removed % (% edges)."), toString(foundComponents), toString(numRemoved), toString(toRemove.size()));
     }
 }
 

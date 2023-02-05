@@ -403,7 +403,7 @@ NBRailwayTopologyAnalyzer::getRailNodes(NBEdgeCont& ec, bool verbose) {
         }
     }
     if (verbose) {
-        WRITE_MESSAGE("Found " + toString(numRailEdges) + " railway edges and " + toString(railNodes.size()) + " railway nodes (" + toString(numRailSignals) + " signals).");
+        WRITE_MESSAGEF(TL("Found % railway edges and % railway nodes (% signals)."), toString(numRailEdges), toString(railNodes.size()), toString(numRailSignals));
     }
     return railNodes;
 }
@@ -738,7 +738,7 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForBufferStops(NBEdgeCont& ec) {
                 getRailEdges(node, inRail, outRail);
             }
             //if (numAddedBidi > 0) {
-            //    WRITE_MESSAGE(" added " + toString(numAddedBidi) + " edges between buffer stop junction '" + bufferStop->getID() + "' and junction '" + node->getID() + "'");
+            //    WRITE_MESSAGEF(TL(" added % edges between buffer stop junction '%' and junction '%'"), toString(numAddedBidi), bufferStop->getID(), node->getID());
             //}
         }
     }
@@ -824,7 +824,7 @@ NBRailwayTopologyAnalyzer::addBidiEdgesBetweenSwitches(NBEdgeCont& ec) {
         }
     }
     if (seqLengths.size() > 0) {
-        WRITE_MESSAGE("Added " + toString(numAdded) + " bidi-edges between " + toString(numSeqs) + " pairs of railway switches (count by length: " + joinToString(seqLengths, " ", ":") + ")");
+        WRITE_MESSAGEF(TL("Added % bidi-edges between % pairs of railway switches (count by length: %)"), toString(numAdded), toString(numSeqs), joinToString(seqLengths, " ", ":"));
     }
     return numAdded;
 }

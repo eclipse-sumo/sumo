@@ -447,7 +447,7 @@ NWWriter_OpenDrive::writeInternalEdge(OutputDevice& device, OutputDevice& juncti
         length = fallBackShape.length2D();
         // problem with turnarounds is known, method currently returns 'ok' (#2539)
         if (!ok) {
-            WRITE_WARNING("Could not compute smooth shape from lane '" + inEdge->getLaneID(cLeft.fromLane) + "' to lane '" + outEdge->getLaneID(cLeft.toLane) + "'. Use option 'junctions.scurve-stretch' or increase radius of junction '" + inEdge->getToNode()->getID() + "' to fix this.");
+            WRITE_WARNINGF(TL("Could not compute smooth shape from lane '%' to lane '%'. Use option 'junctions.scurve-stretch' or increase radius of junction '%' to fix this."), inEdge->getLaneID(cLeft.fromLane), outEdge->getLaneID(cLeft.toLane), inEdge->getToNode()->getID());
         } else if (length <= NUMERICAL_EPS) {
             // left-curving geometry-like edges must use the right
             // side as reference line and shift

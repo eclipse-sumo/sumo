@@ -656,7 +656,7 @@ NBNodeShapeComputer::joinSameDirectionEdges(const EdgeVector& edges, std::map<NB
         const bool ambiguousGeometry = ((angleDiff > 0 && angleDiffFurther < 0) || (angleDiff < 0 && angleDiffFurther > 0));
         //if (ambiguousGeometry) {
         //    @todo: this warning would be helpful in many cases. However, if angle and angleFurther jump between 179 and -179 it is misleading
-        //    WRITE_WARNING("Ambiguous angles at junction '" + myNode.getID() + "' for edges '" + (*i)->getID() + "' and '" + (*j)->getID() + "'.");
+        //    WRITE_WARNINGF(TL("Ambiguous angles at junction '%' for edges '%' and '%'."), myNode.getID(), (*i)->getID(), (*j)->getID());
         //}
 #ifdef DEBUG_NODE_SHAPE
         if (DEBUGCOND) {

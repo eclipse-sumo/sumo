@@ -92,7 +92,7 @@ MSDelayBasedTrafficLightLogic::init(NLDetectorBuilder& nb) {
                 if (customID != "") {
                     det = dynamic_cast<MSE2Collector*>(MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_LANE_AREA_DETECTOR).get(customID));
                     if (det == nullptr) {
-                        WRITE_ERROR("Unknown laneAreaDetector '" + customID + "' given as custom detector for delay_based tlLogic '" + getID() + "', program '" + getProgramID() + ".");
+                        WRITE_ERRORF(TL("Unknown laneAreaDetector '%' given as custom detector for delay_based tlLogic '%', program '%."), customID, getID(), getProgramID());
                         continue;
                     }
                     det->setVisible(myShowDetectors);

@@ -830,7 +830,7 @@ MSBaseVehicle::calculateArrivalParams(bool onInit) {
     }
     if (myParameter->arrivalLaneProcedure == ArrivalLaneDefinition::GIVEN) {
         if (myParameter->arrivalLane >= (int)lanes.size() || !lanes[myParameter->arrivalLane]->allowsVehicleClass(myType->getVehicleClass())) {
-            WRITE_WARNING("Vehicle '" + getID() + "' will not be able to arrive at the given lane '" + arrivalEdge->getID() + "_" + toString(myParameter->arrivalLane) + "'!");
+            WRITE_WARNINGF(TL("Vehicle '%' will not be able to arrive at the given lane '%_%'!"), getID(), arrivalEdge->getID(), toString(myParameter->arrivalLane));
         }
         myArrivalLane = MIN2(myParameter->arrivalLane, (int)(lanes.size() - 1));
     } else if (myParameter->arrivalLaneProcedure == ArrivalLaneDefinition::FIRST_ALLOWED) {
@@ -882,7 +882,7 @@ MSBaseVehicle::setDepartAndArrivalEdge() {
         }
         assert(pars->departEdge >= 0);
         if (pars->departEdge >= routeEdges) {
-            WRITE_WARNING("Ignoring departEdge " + toString(pars->departEdge) + " for vehicle '" + getID() + " with " + toString(routeEdges) + " route edges");
+            WRITE_WARNINGF(TL("Ignoring departEdge % for vehicle '% with % route edges"), toString(pars->departEdge), getID(), toString(routeEdges));
         } else {
             myCurrEdge += pars->departEdge;
         }

@@ -77,7 +77,7 @@ ODMatrix::add(double vehicleNumber, const std::pair<SUMOTime, SUMOTime>& beginEn
               bool noScaling) {
     myNumLoaded += vehicleNumber;
     if (!originIsEdge && !destinationIsEdge && myDistricts.get(origin) == nullptr && myDistricts.get(destination) == nullptr) {
-        WRITE_WARNING("Missing origin '" + origin + "' and destination '" + destination + "' (" + toString(vehicleNumber) + " vehicles).");
+        WRITE_WARNINGF(TL("Missing origin '%' and destination '%' (% vehicles)."), origin, destination, toString(vehicleNumber));
         myNumDiscarded += vehicleNumber;
         myMissingDistricts.insert(origin);
         myMissingDistricts.insert(destination);
