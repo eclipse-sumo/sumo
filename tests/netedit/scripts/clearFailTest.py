@@ -20,7 +20,7 @@ with open("failTests.txt", "r") as fp:
     lines = fp.readlines()
 
 with open("failTests.txt", "w") as fp:
-# write header
+    # write header
     fp.write("-tp appdata=netedit.gui\n")
 # iterate over lines
     for line in lines:
@@ -30,7 +30,7 @@ with open("failTests.txt", "w") as fp:
                 ("test_default.daily" not in lineStrip) and
                 ("daily." not in lineStrip) and
                 ("0" not in lineStrip)):
-        # clear substrings
+            # clear substrings
             lineStrip = lineStrip.replace("\t", " ")
             lineStrip = lineStrip.replace("(+)", " ")
             lineStrip = lineStrip.replace("ok", "")

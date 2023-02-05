@@ -47,7 +47,7 @@ pyautogui.rightClick(clickedPosition)
 
 # place cursor over first operation
 for _ in range(7):
-# wait before every down
+    # wait before every down
     time.sleep(0.3)
 # type down keys
     pyautogui.hotkey('down')
@@ -60,7 +60,7 @@ netedit.focusOnFrame()
 
 # place cursor over first operation
 for _ in range(3):
-# wait before every down
+    # wait before every down
     time.sleep(0.3)
 # type down keys
     netedit.typeTab()

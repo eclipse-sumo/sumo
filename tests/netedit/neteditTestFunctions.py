@@ -50,7 +50,7 @@ _TEXTTEST_SANDBOX = os.environ.get("TEXTTEST_SANDBOX", os.getcwd())
 _REFERENCE_PNG = os.path.join(os.path.dirname(__file__), "reference.png")
 
 #################################################
-    # interaction functions
+# interaction functions
 #################################################
 
 
@@ -339,19 +339,19 @@ def getReferenceMatch(neProcess, makeScrenshot):
     # make a screenshot
     errorScreenshot = pyautogui.screenshot()
     try:
-    # wait for reference
+        # wait for reference
         time.sleep(DELAY_REFERENCE)
     # capture screen and search reference
         positionOnScreen = pyautogui.locateOnScreen(_REFERENCE_PNG, minSearchTime=3)
     except Exception as e:
-    # we cannot specify the exception here because some versions of pyautogui use one and some don't
+        # we cannot specify the exception here because some versions of pyautogui use one and some don't
         print(e)
         positionOnScreen = None
     # make a screenshot
         errorScreenshot = pyautogui.screenshot()
     # check if pos was found
     if positionOnScreen:
-    # adjust position to center
+        # adjust position to center
         referencePosition = (positionOnScreen[0] + 16, positionOnScreen[1] + 16)
     # break loop
         print("TestFunctions: 'reference.png' found. Position: " +
@@ -385,7 +385,7 @@ def setupAndStart(testRoot, extraParameters=[], makeScrenshot=True):
     @brief setup and start netedit
     """
     if os.name == "posix":
-    # to work around non working gtk clipboard
+        # to work around non working gtk clipboard
         pyperclip.set_clipboard("xclip")
     # Open Netedit
     neteditProcess = Popen(extraParameters)
@@ -544,7 +544,7 @@ def reload(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
     typeTwoKeys('ctrl', 'r')
     # Check if net must be saved
     if openNetNonSavedDialog:
-    # Wait some seconds
+        # Wait some seconds
         time.sleep(DELAY_QUESTION)
         if saveNet:
             waitQuestion('s')
@@ -554,7 +554,7 @@ def reload(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
             waitQuestion('d')
     # Check if additionals must be saved
     if openAdditionalsNonSavedDialog:
-    # Wait some seconds
+        # Wait some seconds
         time.sleep(DELAY_QUESTION)
         if saveAdditionals:
             waitQuestion('s')
@@ -562,7 +562,7 @@ def reload(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
             waitQuestion('d')
     # Check if demand elements must be saved
     if openDemandNonSavedDialog:
-    # Wait some seconds
+        # Wait some seconds
         time.sleep(DELAY_QUESTION)
         if saveDemandElements:
             waitQuestion('s')
@@ -570,7 +570,7 @@ def reload(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
             waitQuestion('d')
     # Check if data elements must be saved
     if openDataNonSavedDialog:
-    # Wait some seconds
+        # Wait some seconds
         time.sleep(DELAY_QUESTION)
         if saveDataElements:
             waitQuestion('s')
@@ -578,7 +578,7 @@ def reload(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
             waitQuestion('d')
     # Check if meanData elements must be saved
     if openMeanDataNonSavedDialog:
-    # Wait some seconds
+        # Wait some seconds
         time.sleep(DELAY_QUESTION)
         if saveMeanDataElements:
             waitQuestion('s')
@@ -601,7 +601,7 @@ def quit(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
     """
     # check if Netedit is already closed
     if NeteditProcess.poll() is not None:
-    # print debug information
+        # print debug information
         print("[log] TestFunctions: Netedit already closed")
     else:
         # first move cursor out of magenta square
@@ -860,6 +860,7 @@ def changeEditMode(key):
 #################################################
     # Configs
 #################################################
+
 
 def saveNeteditConfig(referencePosition, clickOverReference=False):
     """
@@ -1176,7 +1177,7 @@ def crossingInvertEdges(useSelectedEdges=False, thereIsSelectedEdges=False):
     # focus current frame
     focusOnFrame()
     if(useSelectedEdges and thereIsSelectedEdges):
-    # jump to clear button
+        # jump to clear button
         for _ in range(attrs.crossing.clearEdgesSelected):
             typeTab()
     else:
@@ -1365,10 +1366,10 @@ def fixStoppingPlace(solution):
         typeTab()
         typeSpace()
     elif (solution == "activateFriendlyPos"):
-    # default option, then press accept
+        # default option, then press accept
         typeSpace()
     else:
-    # press cancel
+        # press cancel
         typeTab()
         typeSpace()
 
@@ -2685,25 +2686,25 @@ def contextualMenuOperation(referencePosition, positionx, positiony, operation, 
     pyautogui.rightClick(clickedPosition)
     # place cursor over first operation
     for _ in range(operation):
-    # wait before every down
+        # wait before every down
         time.sleep(DELAY_KEY_TAB)
     # type down keys
         pyautogui.hotkey('down')
     if suboperation1 > 0:
-    # type right key for the second menu
+        # type right key for the second menu
         typeSpace()
     # place cursor over second operation
         for _ in range(suboperation1):
-        # wait before every down
+            # wait before every down
             time.sleep(DELAY_KEY_TAB)
         # type down keys
             pyautogui.hotkey('down')
     if suboperation2 > 0:
-    # type right key for the third menu
+        # type right key for the third menu
         typeSpace()
     # place cursor over third operation
         for _ in range(suboperation2):
-        # wait before every down
+            # wait before every down
             time.sleep(DELAY_KEY_TAB)
         # type down keys
             pyautogui.hotkey('down')
