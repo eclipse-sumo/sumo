@@ -44,4 +44,3 @@ Warning: 15 total messages of type: Edge '%': Lanes were not assigned.
 Warning: 107 total messages of type: TL traffic lights are not supported (lsa=%)
 Warning: 44 total messages of type: Ugly split to prohibit '%' by '%'.
 Warning: 38 total messages of type: Would have to split edge '%' to build a prohibition
-Warning: During computation of traffic light '454'.

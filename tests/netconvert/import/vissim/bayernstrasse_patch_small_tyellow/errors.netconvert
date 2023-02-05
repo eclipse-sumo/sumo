@@ -51,4 +51,3 @@ Warning: TYellow of signal group '7' was less than the computed one; patched (wa
 Warning: TYellow of signal group '8' was less than the computed one; patched (was:0, is:3.00)
 Warning: During computation of traffic light '454'.
 Warning: 6 total messages of type: TYellow of signal group '%' was less than the computed one; patched (was:%, is:%)
-Warning: During computation of traffic light '532'.
