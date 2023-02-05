@@ -159,9 +159,6 @@ MsgHandler::endProcessMsg(std::string msg) {
 
 void
 MsgHandler::clear(bool resetInformed) {
-    if (resetInformed) {
-        myWasInformed = false;
-    }
     if (myAggregationThreshold >= 0) {
         for (const auto& i : myAggregationCount) {
             if (i.second > myAggregationThreshold) {
@@ -177,6 +174,9 @@ MsgHandler::clear(bool resetInformed) {
         }
         myInitialMessages.clear();
         myWasInformed = wasInformed;
+    }
+    if (resetInformed) {
+        myWasInformed = false;
     }
 }
 
