@@ -137,4 +137,7 @@ protected:
 
     /// Whether detector output separates by vType
     std::string myVehicleTypes;
+
+    /// Whether phases may be extended beyond maxDur in the absence of traffic
+    bool myExtendMaxDur;
 };

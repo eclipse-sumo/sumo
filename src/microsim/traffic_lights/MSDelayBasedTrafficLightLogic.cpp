@@ -58,6 +58,7 @@ MSDelayBasedTrafficLightLogic::MSDelayBasedTrafficLightLogic(MSTLLogicControl& t
     myFile = FileHelpers::checkForRelativity(getParameter("file", "NUL"), basePath);
     myFreq = TIME2STEPS(StringUtils::toDouble(getParameter("freq", "300")));
     myVehicleTypes = getParameter("vTypes", "");
+    myExtendMaxDur = StringUtils::toBool(getParameter("extendMaxDur", "false"));
 #ifdef DEBUG_TIMELOSS_CONTROL
     std::cout << "show-detectors: " << myShowDetectors
               << " detectorRange: " << myDetectionRange
@@ -220,8 +221,9 @@ MSDelayBasedTrafficLightLogic::trySwitch() {
             // vehicles are present on other approaches -> prolong no further than the max green time
             proposedProlongation = MIN2(proposedProlongation, MAX2(SUMOTime(0), currentPhase.maxDuration - actDuration));
         }
-        // optional
-        //proposedProlongation = MIN2(proposedProlongation, MAX2(SUMOTime(0), currentPhase.maxDuration - actDuration));
+        if (!myExtendMaxDur) {
+            proposedProlongation = MIN2(proposedProlongation, MAX2(SUMOTime(0), currentPhase.maxDuration - actDuration));
+        }
 
 #ifdef DEBUG_TIMELOSS_CONTROL
         std::cout << "Proposed prolongation = " << proposedProlongation << std::endl;
