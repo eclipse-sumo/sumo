@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-05 21:26+0100\n"
 "PO-Revision-Date: 2023-02-06 17:19+0000\n"
-"Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
+"Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
 "Language: de\n"
@@ -3962,7 +3962,7 @@ msgstr "Verkehrsumlegungszonen ein-/ausblenden."
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2456
 msgid "Automatic select junctions"
-msgstr ""
+msgstr "Knotenpunkte automatisch auswählen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2456
 msgid ""
@@ -3972,7 +3972,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2464
 msgid "Apply state to all phases"
-msgstr ""
+msgstr "Stand auf alle Phasen anwenden"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2464
 msgid ""
@@ -3982,7 +3982,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2472
 msgid "Automatic merging junction"
-msgstr ""
+msgstr "Knotenpunkte automatisch zusammenführen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2472
 msgid "Toggle ask for confirmation before merging junction."
@@ -3990,15 +3990,15 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2479
 msgid "Show bubbles"
-msgstr ""
+msgstr "Blasen zeigen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2479
 msgid "Toggle show bubbles over junctions shapes."
-msgstr ""
+msgstr "Blasen über Knotenpunktgeometrien ein-/ ausblenden."
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2487
 msgid "Move elevation"
-msgstr ""
+msgstr "Höhe verschieben"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2487
 msgid "Apply mouse movement to elevation instead of x,y position."
@@ -4006,11 +4006,13 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2495
 msgid "Edge chain mode"
-msgstr ""
+msgstr "Kantenkettenmodus"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2495
 msgid "Create consecutive edges with a single click (hit ESC to cancel chain)."
 msgstr ""
+"Erstellen von aufeinanderfolgenden Kanten mit einem Klick (ESC zum Abbrechen "
+"der Kette drücken)."
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2503
 msgid "Edge opposite direction"
