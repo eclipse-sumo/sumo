@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-05 21:26+0100\n"
-"PO-Revision-Date: 2023-02-06 17:19+0000\n"
+"PO-Revision-Date: 2023-02-06 17:22+0000\n"
 "Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -4016,24 +4016,24 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2503
 msgid "Edge opposite direction"
-msgstr ""
+msgstr "Kantengegenrichtung"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2503
 msgid "Automatically create an edge in the opposite direction."
-msgstr ""
+msgstr "Kante in der entgegengesetzten Richtung automatisch erstellen."
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2720
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3006
 msgid "Toggle show shapes (Polygons and POIs)."
-msgstr ""
+msgstr "Shapes ein-/ ausblenden (Polygone und Pole)."
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2728
 msgid "Toggle show all trips (requires updated demand - F5)."
-msgstr ""
+msgstr "Alle Fahrten ein-/ ausblenden (erfordert aktualisierte Nachfrage - F5)."
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2736
 msgid "Toggle show all person plans."
-msgstr ""
+msgstr "Alle Personenpläne ein-/ ausblenden."
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2744
 msgid "Toggle lock selected person."
