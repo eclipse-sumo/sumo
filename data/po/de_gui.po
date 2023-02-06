@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-05 21:26+0100\n"
-"PO-Revision-Date: 2023-02-06 17:27+0000\n"
+"PO-Revision-Date: 2023-02-06 17:32+0000\n"
 "Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -4089,11 +4089,11 @@ msgstr "Prüfmodus einstellen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3540
 msgid "Mode for inspect elements and change their attributes. (I)"
-msgstr ""
+msgstr "Modus zum prüfen und wechseln ihrer Attribute von Elementen. (I)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3546
 msgid "Set delete mode"
-msgstr ""
+msgstr "Löschmodus einstellen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3546
 msgid "Mode for delete elements. (D)"
