@@ -1033,6 +1033,11 @@ coloring scheme that spans the loaded data range for the selected attribute.
 
 When defining a color scheme, a dedicated color for missing data ('No Data') can always be configured.
 
+## Scaling by Data
+
+To make use of the loaded data for increasing the visual width of the roads, street scaling must be set to **scale width by
+edgeData** in the visualization settings dialog. After the scaling scheme has been selected, an attribute selection element becomes active which lists all the available edgeData attributes and must be used to pick the desired attribute for scaling.
+
 # Usage Examples
 
 ## Visualizing Shapes and Points of Interest
