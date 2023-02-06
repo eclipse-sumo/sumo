@@ -127,7 +127,7 @@ If everything is fine:
 - make new sumo.dlr.de-release
   - copy the folder from S:\Releases to the releases dir `scp -r /media/S/Releases/x.y.z delphi@ts-sim-front-ba.intra.dlr.de:docs/releases`
 - update the eclipse.org/sumo website
-  - modify the version number (Version) [in config.yaml](https://github.com/eclipse/sumo.website/blob/main/config/_default/config.yaml) in the **Default Parameters** section at the beginning
+  - modify the version number (Version) [in config.yaml](https://github.com/eclipse/sumo.website/blob/source/config/_default/config.yaml) in the **Default Parameters** section at the beginning
 - make new sourceforge-release
   - make a new release within the sumo package (named "version x.y.z")
   - add files to the release
