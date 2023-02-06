@@ -70,7 +70,7 @@ title: ChangeLog
   - Fixed invalid conversion between periodic flow rate and poisson flow rate. Issue #12451
   - Calibrator-flow attributes `begin` and `end` are now loaded correctly. Issue #12470
   
-- sumo-gui
+- sumo-gui  
   - Fixed invalid camera position after tracked vehicles exits the simulation. Issue #12137 (regression in 1.13.0)
   - Fixed invalid right-click target when there is a pedestrian crossing on top of a polygon. Issue #12523 (regression in 1.15.0)
   - Pedestrians now follow the exact shape of access lines while in access stage. Issue #12116
@@ -274,6 +274,11 @@ title: ChangeLog
     - Attribute options now permit setting a list of attributes. Issue #12015
     - Can now display times as hours by setting **--xtime0** and **--ytime0** (also applies to other plotting tools). Issue #12011
     - csv-output is now directly usable with gnuplot. Issue #12345
+
+- Other:
+  - Added option **--language** to select language for warnings and messages of all applications. Issue #11237
+  - Added *Language* menu to sumo-gui and netedit to set the interface language persistently. (Can also be set temporarily with **--language**) Issue #12518
+  - You can help to complete and improve the translation at https://hosted.weblate.org/projects/eclipse-sumo/ Issue #11859
 
 ### Miscellaneous
 
