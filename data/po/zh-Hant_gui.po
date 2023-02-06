@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-05 21:26+0100\n"
-"PO-Revision-Date: 2023-01-31 07:38+0000\n"
+"PO-Revision-Date: 2023-02-06 16:12+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
@@ -1763,55 +1763,55 @@ msgstr "&通訊線(Wire)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:612
 msgid "Create wires."
-msgstr ""
+msgstr "建立通訊線。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:669
 #: /home/micha/programming/sumo/src/netedit/GNEViewParent.cpp:590
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2703
 msgid "Route"
-msgstr ""
+msgstr "路徑"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:669
 msgid "Create Routes."
-msgstr ""
+msgstr "建立路徑。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:672
 #: /home/micha/programming/sumo/src/netedit/GNEViewParent.cpp:529
 msgid "Vehicle"
-msgstr ""
+msgstr "車輛"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:672
 msgid "Create vehicles."
-msgstr ""
+msgstr "建立車輛。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:675
 msgid "Type"
-msgstr ""
+msgstr "類型"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:675
 msgid "Create types (vehicles, person an containers)."
-msgstr ""
+msgstr "建立類型（車輛, 人和容器）。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:678
 msgid "Create stops."
-msgstr ""
+msgstr "建立停靠點。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:681
 #: /home/micha/programming/sumo/src/netedit/GNEViewParent.cpp:576
 msgid "Person"
-msgstr ""
+msgstr "人員"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:681
 msgid "Create persons."
-msgstr ""
+msgstr "建立人員。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:684
 msgid "Person plan"
-msgstr ""
+msgstr "人員旅運計畫"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:684
 msgid "Create person plans."
-msgstr ""
+msgstr "建立人員旅運計畫。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:687
 #: /home/micha/programming/sumo/src/netedit/frames/GNETagSelector.cpp:179
