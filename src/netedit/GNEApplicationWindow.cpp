@@ -2492,6 +2492,12 @@ GNEApplicationWindow::onCmdChangeLanguage(FXObject*, FXSelector sel, void*) {
 
     // check if change language
     if (lang != gLanguage) {
+        // show info
+        WRITE_MESSAGE(TL("Language changed to '") + lang + "'");
+        // show dialog
+        const std::string header = TL("Restart needed");
+        const std::string body = TL("Changing display language needs restart to take effect.");
+        const auto answer = FXMessageBox::information(getApp(), MBOX_OK, header.c_str(), "%s", (body).c_str());
         // due sumo and netedit shares language, load registry from sumo
         FXRegistry reg("SUMO GUI", "sumo-gui");
         reg.read();
