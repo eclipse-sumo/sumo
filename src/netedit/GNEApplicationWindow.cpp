@@ -1445,14 +1445,14 @@ GNEApplicationWindow::fillMenuBar() {
     myWindowMenu = new FXMenuPane(this);
     GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, TL("&Window"), nullptr, myWindowMenu);
     myWindowsMenuCommands.buildWindowsMenuCommands(myWindowMenu, myStatusbar, myMessageWindow);
-    // build help menu
-    myHelpMenu = new FXMenuPane(this);
-    GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, TL("&Help"), nullptr, myHelpMenu);
-    myHelpMenuCommands.buildHelpMenuCommands(myHelpMenu);
     // build language menu
     myLanguageMenu = new FXMenuPane(this);
     GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, TL("Lan&guage"), nullptr, myLanguageMenu);
     myLanguageMenuCommands.buildLanguageMenuCommands(myLanguageMenu);
+    // build help menu
+    myHelpMenu = new FXMenuPane(this);
+    GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, TL("&Help"), nullptr, myHelpMenu);
+    myHelpMenuCommands.buildHelpMenuCommands(myHelpMenu);
 }
 
 
@@ -2492,17 +2492,17 @@ GNEApplicationWindow::onCmdChangeLanguage(FXObject*, FXSelector sel, void*) {
 
     // check if change language
     if (lang != gLanguage) {
+        // update language
+        gLanguage = lang;
         // show info
         WRITE_MESSAGE(TL("Language changed to '") + lang + "'");
         // show dialog
         const std::string header = TL("Restart needed");
         const std::string body = TL("Changing display language needs restart to take effect.");
-        const auto answer = FXMessageBox::information(getApp(), MBOX_OK, header.c_str(), "%s", (body).c_str());
+        FXMessageBox::information(getApp(), MBOX_OK, header.c_str(), "%s", (body).c_str());
         // due sumo and netedit shares language, load registry from sumo
         FXRegistry reg("SUMO GUI", "sumo-gui");
         reg.read();
-        // update language
-        gLanguage = lang;
         // update language in registry (common for sumo and netedit)
         reg.writeStringEntry("gui", "language", lang.c_str());
         reg.write();

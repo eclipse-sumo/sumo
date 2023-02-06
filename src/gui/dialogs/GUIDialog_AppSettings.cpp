@@ -183,6 +183,12 @@ GUIDialog_AppSettings::onCmdOk(FXObject*, FXSelector, void*) {
     // check if change language
     if (lang != gLanguage) {
         gLanguage = lang;
+        // show info
+        WRITE_MESSAGE(TL("Language changed to '") + lang + "'");
+        // show dialog
+        const std::string header = TL("Restart needed");
+        const std::string body = TL("Changing display language needs restart to take effect.");
+        FXMessageBox::information(getApp(), MBOX_OK, header.c_str(), "%s", (body).c_str());
         // update language in registry (common for sumo and netedit)
         getApp()->reg().writeStringEntry("gui", "language", lang.c_str());
     }
