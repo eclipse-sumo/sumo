@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-05 21:26+0100\n"
-"PO-Revision-Date: 2023-02-06 17:44+0000\n"
+"PO-Revision-Date: 2023-02-06 17:50+0000\n"
 "Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -4196,23 +4196,24 @@ msgstr "Fahrzeugmodus erstellen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3771
 msgid "Mode for creating vehicles. (V)"
-msgstr ""
+msgstr "Modus zum Erstellen von Fahrzeugen. (V)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3777
 msgid "Create type mode"
-msgstr ""
+msgstr "Typmodus erstellen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3777
 msgid "Mode for creating types (vehicles, person and containers). (T)"
-msgstr ""
+msgstr "Modus zum Erstellen von Typen (Fahrzeuge, Personen und Container). (T)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3783
+#, fuzzy
 msgid "Create stop mode"
-msgstr ""
+msgstr "Haltmodus erstellen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3783
 msgid "Mode for creating stops. (A)"
-msgstr ""
+msgstr "Modus zum Erstellen von Halten. (A)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3789
 msgid "Create person mode"
@@ -4236,7 +4237,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3801
 msgid "Mode for creating containers. (P)"
-msgstr ""
+msgstr "Modus zum Erstellen von Containern. (P)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3807
 msgid "Create container plan mode"
