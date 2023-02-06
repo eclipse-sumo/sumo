@@ -2059,7 +2059,7 @@ GNEApplicationWindowHelper::LanguageMenuCommands::buildLanguageMenuCommands(FXMe
                                            GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_ZH), myGNEApp, MID_LANGUAGE_ZH);
     // create chinese trad language button
     GUIDesigns::buildFXMenuCommandShortcut(languagesMenu, TL("繁體中文"), "", TL("Change language to chinese. (zh-Hant)"),
-                                           GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_ZH), myGNEApp, MID_LANGUAGE_ZHT);
+                                           GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_ZHT), myGNEApp, MID_LANGUAGE_ZHT);
     // create turkish language button
     GUIDesigns::buildFXMenuCommandShortcut(languagesMenu, TL("Turkish"), "", TL("Change language to turkish. (tr)"),
                                            GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_TR), myGNEApp, MID_LANGUAGE_TR);

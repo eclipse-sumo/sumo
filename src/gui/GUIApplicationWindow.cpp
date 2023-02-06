@@ -648,7 +648,7 @@ GUIApplicationWindow::fillMenuBar() {
     GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, TL("简体中文"), "", TL("简体中文 (zh)"),
                                            GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_ZH), this, MID_LANGUAGE_ZH);
     GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, TL("繁體中文"), "", TL("繁體中文 (zh-Hant)"),
-                                           GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_ZH), this, MID_LANGUAGE_ZHT);
+                                           GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_ZHT), this, MID_LANGUAGE_ZHT);
     GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, TL("Turkish"), "", TL("Change language to turkish. (tr)"),
                                            GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_TR), this, MID_LANGUAGE_TR);
     GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, TL("Hungarian"), "", TL("Change language to hungarian. (hu)"),
