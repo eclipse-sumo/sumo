@@ -124,9 +124,6 @@ public:
     // save visualization settings
     void saveVisualizationSettings() const;
 
-    /// @brief get languages
-    GNEViewNetHelper::Languages& getLanguages();
-
     /// @brief get edit modes
     const GNEViewNetHelper::EditModes& getEditModes() const;
 
@@ -645,9 +642,6 @@ private:
     /// @brief variable used to save variables related with vehicle type options
     GNEViewNetHelper::VehicleTypeOptions myVehicleTypeOptions;
     // @}
-
-    /// @brief variable used for languages
-    GNEViewNetHelper::Languages myLanguages;
 
     /// @brief variable used to save elements
     GNEViewNetHelper::SaveElements mySaveElements;

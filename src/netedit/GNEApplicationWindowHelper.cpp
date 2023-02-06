@@ -57,7 +57,6 @@ void
 GNEApplicationWindowHelper::ToolbarsGrip::buildViewParentToolbarsGrips() {
     // build toolbar shells
     myToolBarShellSuperModes = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
-    myToolBarShellLanguages = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
     myToolBarShellSaveElements = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
     myToolBarShellNavigation = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
     myToolBarShellModes = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
@@ -68,9 +67,7 @@ GNEApplicationWindowHelper::ToolbarsGrip::buildViewParentToolbarsGrips() {
         saveElements = new FXMenuBar(myGNEApp->getTopDock(), myToolBarShellSaveElements, GUIDesignToolBarRaisedNext);
         navigation = new FXMenuBar(myGNEApp->getTopDock(), myToolBarShellNavigation, GUIDesignToolBarRaisedSame);
         modes = new FXMenuBar(myGNEApp->getTopDock(), myToolBarShellModes, GUIDesignToolBarRaisedNext);
-        languages = new FXMenuBar(myGNEApp->getTopDock(), myToolBarShellLanguages, GUIDesignToolBarRaisedSame);
     } else {
-        languages = new FXMenuBar(myGNEApp->getTopDock(), myToolBarShellLanguages, GUIDesignToolBarRaisedSame);
         saveElements = new FXMenuBar(myGNEApp->getTopDock(), myToolBarShellSaveElements, GUIDesignToolBarRaisedNext);
         navigation = new FXMenuBar(myGNEApp->getTopDock(), myToolBarShellNavigation, GUIDesignToolBarRaisedSame);
         modes = new FXMenuBar(myGNEApp->getTopDock(), myToolBarShellModes, GUIDesignToolBarRaisedSame);
@@ -78,21 +75,18 @@ GNEApplicationWindowHelper::ToolbarsGrip::buildViewParentToolbarsGrips() {
     intervalBar = new FXMenuBar(myGNEApp->getTopDock(), myToolBarShellIntervalBar, GUIDesignToolBarRaisedNext);
     // build FXToolBarGrip
     new FXToolBarGrip(superModes, superModes, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
-    new FXToolBarGrip(languages, languages, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
     new FXToolBarGrip(saveElements, saveElements, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
     new FXToolBarGrip(navigation, navigation, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
     new FXToolBarGrip(modes, modes, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
     new FXToolBarGrip(intervalBar, intervalBar, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
     // create menu bars
     superModes->create();
-    languages->create();
     saveElements->create();
     navigation->create();
     modes->create();
     intervalBar->create();
     // create toolbar shells
     myToolBarShellSuperModes->create();
-    myToolBarShellLanguages->create();
     myToolBarShellSaveElements->create();
     myToolBarShellNavigation->create();
     myToolBarShellModes->create();
@@ -106,14 +100,12 @@ void
 GNEApplicationWindowHelper::ToolbarsGrip::destroyParentToolbarsGrips() {
     // delete Menu bars
     delete superModes;
-    delete languages;
     delete saveElements;
     delete navigation;
     delete modes;
     delete intervalBar;
     // also delete toolbar shells to avoid floating windows
     delete myToolBarShellSuperModes;
-    delete myToolBarShellLanguages;
     delete myToolBarShellSaveElements;
     delete myToolBarShellNavigation;
     delete myToolBarShellModes;
@@ -2012,6 +2004,68 @@ GNEApplicationWindowHelper::WindowsMenuCommands::buildWindowsMenuCommands(FXMenu
                                            TL("Clear Message Window"), "", TL("Clear the Message Window."),
                                            GUIIconSubSys::getIcon(GUIIcon::CLEARMESSAGEWINDOW), myGNEApp, MID_CLEARMESSAGEWINDOW);
 }
+
+// ---------------------------------------------------------------------------
+// GNEApplicationWindowHelper::WindowsMenuCommands - methods
+// ---------------------------------------------------------------------------
+
+GNEApplicationWindowHelper::HelpMenuCommands::HelpMenuCommands(GNEApplicationWindow* GNEApp) :
+    myGNEApp(GNEApp) {
+}
+
+
+void
+GNEApplicationWindowHelper::HelpMenuCommands::buildHelpMenuCommands(FXMenuPane* helpMenu, FXStatusBar* statusbar, GUIMessageWindow* messageWindow) {
+    // build windows menu commands
+    GUIDesigns::buildFXMenuCommandShortcut(helpMenu, TL("&Online Documentation"), "F1", TL("Open Online documentation."),
+                                           nullptr, myGNEApp, MID_HOTKEY_F1_ONLINEDOCUMENTATION);
+    new FXMenuSeparator(helpMenu);
+    GUIDesigns::buildFXMenuCommandShortcut(helpMenu, TL("&Changelog"), "", TL("Open Changelog."),
+                                           nullptr, myGNEApp, MID_CHANGELOG);
+    GUIDesigns::buildFXMenuCommandShortcut(helpMenu, TL("&Hotkeys"), "", TL("Open Hotkeys."),
+                                           nullptr, myGNEApp, MID_HOTKEYS);
+    GUIDesigns::buildFXMenuCommandShortcut(helpMenu, TL("&Tutorial"), "", TL("Open Tutorial."),
+                                           nullptr, myGNEApp, MID_TUTORIAL);
+    new FXMenuSeparator(helpMenu);
+    GUIDesigns::buildFXMenuCommandShortcut(helpMenu, TL("&About"), "F12", TL("About netedit."),
+                                           GUIIconSubSys::getIcon(GUIIcon::NETEDIT_MINI), myGNEApp, MID_HOTKEY_F12_ABOUT);
+}
+
+// ---------------------------------------------------------------------------
+// GNEApplicationWindowHelper::LanguagesMenuCommands - methods
+// ---------------------------------------------------------------------------
+
+GNEApplicationWindowHelper:: LanguagesMenuCommands::LanguagesMenuCommands(GNEApplicationWindow* GNEApp) :
+    myGNEApp(GNEApp) {
+}
+
+
+void
+GNEApplicationWindowHelper::LanguagesMenuCommands::buildLanguagesMenuCommands(FXMenuPane* languagesMenu, FXStatusBar* statusbar, GUIMessageWindow* messageWindow) {
+    // create english language button
+    GUIDesigns::buildFXMenuCommandShortcut(languagesMenu, TL("English"), "", TL("Change language to english."),
+                                           GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_EN), myGNEApp, MID_LANGUAGE_EN);
+    // create german language button
+    GUIDesigns::buildFXMenuCommandShortcut(languagesMenu, TL("German"), "", TL("Change language to german."),
+                                           GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_DE), myGNEApp, MID_LANGUAGE_DE);
+    // create spanish language button
+    GUIDesigns::buildFXMenuCommandShortcut(languagesMenu, TL("Spanish"), "", TL("Change language to spanish."),
+                                           GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_ES), myGNEApp, MID_LANGUAGE_ES);
+    // create french language button
+    GUIDesigns::buildFXMenuCommandShortcut(languagesMenu, TL("French"), "", TL("Change language to french."),
+                                           GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_FR), myGNEApp, MID_LANGUAGE_FR);
+    // create chinese language button
+    GUIDesigns::buildFXMenuCommandShortcut(languagesMenu, TL("Chinese"), "", TL("Change language to chinese."),
+                                           GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_ZH), myGNEApp, MID_LANGUAGE_ZH);
+    // create turkish language button
+    GUIDesigns::buildFXMenuCommandShortcut(languagesMenu, TL("Turkish"), "", TL("Change language to turkish."),
+                                           GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_TR), myGNEApp, MID_LANGUAGE_TR);
+    // create hungarian language button
+    GUIDesigns::buildFXMenuCommandShortcut(languagesMenu, TL("Hungarian"), "", TL("Change language to hungarian."),
+                                           GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_HU), myGNEApp, MID_LANGUAGE_HU);
+}
+
+
 
 // ---------------------------------------------------------------------------
 // GNEApplicationWindowHelper::NetworkCheckableButtons - methods

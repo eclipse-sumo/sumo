@@ -467,59 +467,6 @@ struct GNEViewNetHelper {
         MouseButtonKeyPressed& operator=(const MouseButtonKeyPressed&) = delete;
     };
 
-    /// @brief struct used to group all variables related with languages
-    struct Languages {
-
-        /// @brief default constructor
-        Languages(GNEViewNet* viewNet);
-
-        /// @brief destructor
-        ~Languages();
-
-        /// @brief build save buttons
-        void buildLanguagesButtons();
-
-        /// @brief checkable button for current language
-        MFXMenuButtonTooltip* getChangeLanguageButton();
-
-    private:
-        /// @brief pointer to net
-        GNEViewNet* myViewNet;
-
-        /// @brief The change language popup menu
-        FXPopup* myChangeLanguagePopup = nullptr;
-
-        /// @brief checkable menu for current language
-        MFXMenuButtonTooltip* myChangeLanguage = nullptr;
-
-        /// @brief checkable button for english language
-        MFXButtonTooltip* myLanguageEN = nullptr;
-
-        /// @brief checkable button for german language
-        MFXButtonTooltip* myLanguageDE = nullptr;
-
-        /// @brief checkable button for spanish language
-        MFXButtonTooltip* myLanguageES = nullptr;
-
-        /// @brief checkable button for french language
-        MFXButtonTooltip* myLanguageFR = nullptr;
-
-        /// @brief checkable button for chinese language
-        MFXButtonTooltip* myLanguageCN = nullptr;
-
-        /// @brief checkable button for turkish language
-        MFXButtonTooltip* myLanguageTK = nullptr;
-
-        /// @brief checkable button for hungarian language
-        MFXButtonTooltip* myLanguageHU = nullptr;
-
-        /// @brief Invalidated copy constructor.
-        Languages(const Languages&) = delete;
-
-        /// @brief Invalidated assignment operator.
-        Languages& operator=(const Languages&) = delete;
-    };
-
     /// @brief struct used to group all variables related with save elements
     struct SaveElements {
 

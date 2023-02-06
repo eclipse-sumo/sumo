@@ -432,6 +432,8 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPa
     myLocateMenuCommands(this),
     myToolsMenuCommands(this),
     myWindowsMenuCommands(this),
+    myHelpMenuCommands(this),
+    myLanguagesMenuCommands(this),
     mySupermodeCommands(this),
     myTitlePrefix("NETEDIT " VERSION_STRING) {
     // init icons
@@ -536,6 +538,7 @@ GNEApplicationWindow::create() {
     myFileMenuMeanDataElements->create();
     myWindowMenu->create();
     myHelpMenu->create();
+    myLanguageMenu->create();
 
     FXint textWidth = getApp()->getNormalFont()->getTextWidth("8", 1) * 22;
     myCartesianFrame->setWidth(textWidth);
@@ -588,6 +591,7 @@ GNEApplicationWindow::~GNEApplicationWindow() {
     delete myToolsMenu;
     delete myWindowMenu;
     delete myHelpMenu;
+    delete myLanguageMenu;
     // Delete load thread
     delete myLoadThread;
     // drop all events
@@ -1438,19 +1442,11 @@ GNEApplicationWindow::fillMenuBar() {
     // build help menu
     myHelpMenu = new FXMenuPane(this);
     GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, TL("&Help"), nullptr, myHelpMenu);
-    // build help menu commands
-    GUIDesigns::buildFXMenuCommandShortcut(myHelpMenu, TL("&Online Documentation"), "F1", TL("Open Online documentation."),
-                                           nullptr, this, MID_HOTKEY_F1_ONLINEDOCUMENTATION);
-    new FXMenuSeparator(myHelpMenu);
-    GUIDesigns::buildFXMenuCommandShortcut(myHelpMenu, TL("&Changelog"), "", TL("Open Changelog."),
-                                           nullptr, this, MID_CHANGELOG);
-    GUIDesigns::buildFXMenuCommandShortcut(myHelpMenu, TL("&Hotkeys"), "", TL("Open Hotkeys."),
-                                           nullptr, this, MID_HOTKEYS);
-    GUIDesigns::buildFXMenuCommandShortcut(myHelpMenu, TL("&Tutorial"), "", TL("Open Tutorial."),
-                                           nullptr, this, MID_TUTORIAL);
-    new FXMenuSeparator(myHelpMenu);
-    GUIDesigns::buildFXMenuCommandShortcut(myHelpMenu, TL("&About"), "F12", TL("About netedit."),
-                                           GUIIconSubSys::getIcon(GUIIcon::NETEDIT_MINI), this, MID_HOTKEY_F12_ABOUT);
+    myHelpMenuCommands.buildHelpMenuCommands(myHelpMenu, myStatusbar, myMessageWindow);
+    // build languages menu
+    myLanguageMenu = new FXMenuPane(this);
+    GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, TL("Lan&guages"), nullptr, myLanguageMenu);
+    myLanguagesMenuCommands.buildLanguagesMenuCommands(myLanguageMenu, myStatusbar, myMessageWindow);
 }
 
 
@@ -2505,6 +2501,7 @@ GNEApplicationWindow::onCmdChangeLanguage(FXObject*, FXSelector sel, void*) {
 
 long
 GNEApplicationWindow::onUpdChangeLanguage(FXObject*, FXSelector, void*) {
+/*
     // get language button
     auto languageButton = myViewNet->getLanguages().getChangeLanguageButton();
     // check language
@@ -2526,6 +2523,7 @@ GNEApplicationWindow::onUpdChangeLanguage(FXObject*, FXSelector, void*) {
         // english as default
         languageButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_EN));
     }
+*/
     return 1;
 }
 
@@ -4719,6 +4717,8 @@ GNEApplicationWindow::GNEApplicationWindow() :
     myLocateMenuCommands(this),
     myToolsMenuCommands(this),
     myWindowsMenuCommands(this),
+    myHelpMenuCommands(this),
+    myLanguagesMenuCommands(this),
     mySupermodeCommands(this) {
 }
 

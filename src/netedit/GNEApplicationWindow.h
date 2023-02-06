@@ -580,24 +580,25 @@ protected:
 
     /// @brief the submenus
     FXMenuPane* myFileMenu = nullptr,
-                *myFileMenuNETEDITConfig = nullptr,
-                 *myFileMenuSUMOConfig = nullptr,
-                  *myFileMenuTLS = nullptr,
-                   *myFileMenuEdgeTypes = nullptr,
-                    *myFileMenuAdditionals = nullptr,
-                     *myFileMenuDemandElements = nullptr,
-                      *myFileMenuDataElements = nullptr,
-                       *myFileMenuMeanDataElements = nullptr,
-                        *myFileMenuRecentNetworks = nullptr,
-                         *myFileMenuRecentConfigs = nullptr,
-                          *myModesMenu = nullptr,
-                           *myEditMenu = nullptr,
-                            *myLockMenu = nullptr,
-                             *myProcessingMenu = nullptr,
-                              *myLocatorMenu = nullptr,
-                               *myToolsMenu = nullptr,
-                                *myWindowMenu = nullptr,
-                                 *myHelpMenu = nullptr;
+        *myFileMenuNETEDITConfig = nullptr,
+        *myFileMenuSUMOConfig = nullptr,
+        *myFileMenuTLS = nullptr,
+        *myFileMenuEdgeTypes = nullptr,
+        *myFileMenuAdditionals = nullptr,
+        *myFileMenuDemandElements = nullptr,
+        *myFileMenuDataElements = nullptr,
+        *myFileMenuMeanDataElements = nullptr,
+        *myFileMenuRecentNetworks = nullptr,
+        *myFileMenuRecentConfigs = nullptr,
+        *myModesMenu = nullptr,
+        *myEditMenu = nullptr,
+        *myLockMenu = nullptr,
+        *myProcessingMenu = nullptr,
+        *myLocatorMenu = nullptr,
+        *myToolsMenu = nullptr,
+        *myWindowMenu = nullptr,
+        *myHelpMenu = nullptr,
+        *myLanguageMenu = nullptr;
 
     /// @brief menu title for modes
     FXMenuTitle* myModesMenuTitle = nullptr;
@@ -674,6 +675,12 @@ private:
 
     /// @brief Windows Menu Commands
     GNEApplicationWindowHelper::WindowsMenuCommands myWindowsMenuCommands;
+
+    /// @brief Help Menu Commands
+    GNEApplicationWindowHelper::HelpMenuCommands myHelpMenuCommands;
+
+    /// @brief Langauges Menu Commands
+    GNEApplicationWindowHelper::LanguagesMenuCommands myLanguagesMenuCommands;
 
     /// @brief Supermode Commands
     GNEApplicationWindowHelper::SupermodeCommands mySupermodeCommands;

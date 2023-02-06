@@ -249,7 +249,6 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     myMoveMultipleElementValues(this),
     myVehicleOptions(this),
     myVehicleTypeOptions(this),
-    myLanguages(this),
     mySaveElements(this),
     mySelectingArea(this),
     myEditNetworkElementShapes(this),
@@ -616,12 +615,6 @@ GNEViewNet::saveVisualizationSettings() const {
 }
 
 
-GNEViewNetHelper::Languages&
-GNEViewNet::getLanguages() {
-    return myLanguages;
-}
-
-
 const GNEViewNetHelper::EditModes&
 GNEViewNet::getEditModes() const {
     return myEditModes;
@@ -902,7 +895,6 @@ GNEViewNet::GNEViewNet() :
     myMoveMultipleElementValues(this),
     myVehicleOptions(this),
     myVehicleTypeOptions(this),
-    myLanguages(this),
     mySaveElements(this),
     mySelectingArea(this),
     myEditNetworkElementShapes(this),
@@ -4403,9 +4395,6 @@ void
 GNEViewNet::buildEditModeControls() {
     // build supermode buttons
     myEditModes.buildSuperModeButtons();
-
-    // build languages
-    myLanguages.buildLanguagesButtons();
 
     // build save buttons
     mySaveElements.buildSaveElementsButtons();
