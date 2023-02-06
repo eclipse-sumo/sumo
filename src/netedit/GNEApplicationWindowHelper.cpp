@@ -2015,7 +2015,7 @@ GNEApplicationWindowHelper::HelpMenuCommands::HelpMenuCommands(GNEApplicationWin
 
 
 void
-GNEApplicationWindowHelper::HelpMenuCommands::buildHelpMenuCommands(FXMenuPane* helpMenu, FXStatusBar* /*statusbar*/, GUIMessageWindow* /*messageWindow*/) {
+GNEApplicationWindowHelper::HelpMenuCommands::buildHelpMenuCommands(FXMenuPane* helpMenu) {
     // build windows menu commands
     GUIDesigns::buildFXMenuCommandShortcut(helpMenu, TL("&Online Documentation"), "F1", TL("Open Online documentation."),
                                            nullptr, myGNEApp, MID_HOTKEY_F1_ONLINEDOCUMENTATION);
@@ -2041,7 +2041,7 @@ GNEApplicationWindowHelper:: LanguageMenuCommands::LanguageMenuCommands(GNEAppli
 
 
 void
-GNEApplicationWindowHelper::LanguagesMenuCommands::buildLanguagesMenuCommands(FXMenuPane* languagesMenu, FXStatusBar* /*statusbar*/, GUIMessageWindow* /*messageWindow*/) {
+GNEApplicationWindowHelper::LanguageMenuCommands::buildLanguageMenuCommands(FXMenuPane* languagesMenu) {
     // create english language button
     GUIDesigns::buildFXMenuCommandShortcut(languagesMenu, TL("English"), "", TL("Change language to english."),
                                            GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_EN), myGNEApp, MID_LANGUAGE_EN);

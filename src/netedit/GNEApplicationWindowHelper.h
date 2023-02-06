@@ -992,7 +992,7 @@ struct GNEApplicationWindowHelper {
         HelpMenuCommands(GNEApplicationWindow* GNEApp);
 
         /// @brief build menu commands
-        void buildHelpMenuCommands(FXMenuPane* helpMenu, FXStatusBar* statusbar, GUIMessageWindow* messageWindow);
+        void buildHelpMenuCommands(FXMenuPane* helpMenu);
 
     private:
         /// @brief pointer to current GNEApplicationWindow
@@ -1012,7 +1012,7 @@ struct GNEApplicationWindowHelper {
         LanguageMenuCommands(GNEApplicationWindow* GNEApp);
 
         /// @brief build menu commands
-        void buildLanguageMenuCommands(FXMenuPane* languagesMenu, FXStatusBar* statusbar, GUIMessageWindow* messageWindow);
+        void buildLanguageMenuCommands(FXMenuPane* languagesMenu);
 
     private:
         /// @brief pointer to current GNEApplicationWindow

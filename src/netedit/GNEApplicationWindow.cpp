@@ -1448,11 +1448,11 @@ GNEApplicationWindow::fillMenuBar() {
     // build help menu
     myHelpMenu = new FXMenuPane(this);
     GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, TL("&Help"), nullptr, myHelpMenu);
-    myHelpMenuCommands.buildHelpMenuCommands(myHelpMenu, myStatusbar, myMessageWindow);
+    myHelpMenuCommands.buildHelpMenuCommands(myHelpMenu);
     // build language menu
     myLanguageMenu = new FXMenuPane(this);
     GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, TL("Lan&guage"), nullptr, myLanguageMenu);
-    myLanguageMenuCommands.buildLanguageMenuCommands(myLanguageMenu, myStatusbar, myMessageWindow);
+    myLanguageMenuCommands.buildLanguageMenuCommands(myLanguageMenu);
 }
 
 
