@@ -2,6 +2,9 @@
 title: Translating
 ---
 
+
+<div class="d-flex justify-content-evenly"><div class="align-self-center"><a class="no-arrow-link" href="https://hosted.weblate.org/engage/eclipse-sumo/"> <img src="https://hosted.weblate.org/widgets/eclipse-sumo/-/287x66-grey.png" alt="Translation status"/> </a></div><div class="align-self-center"> <a class="no-arrow-link" href="https://hosted.weblate.org/engage/eclipse-sumo/"> <img src="https://hosted.weblate.org/widgets/eclipse-sumo/-/multi-auto.svg" alt="Translation status"/> </a></div></div>
+
 # Introduction
 
 SUMO uses the [gettext tooling](https://www.gnu.org/software/gettext/) to maintain
