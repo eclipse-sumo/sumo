@@ -83,9 +83,7 @@ GUIDialog_AppSettings::GUIDialog_AppSettings(GUIMainWindow* parent)
     myComboBoxLanguages->appendItem("Hungarian");
     myComboBoxLanguages->setNumVisible(myComboBoxLanguages->getNumItems());
     // check language
-    if (gLanguage == "EN") {
-        myComboBoxLanguages->setCurrentItem(0);
-    } else if (gLanguage == "DE") {
+    if (gLanguage == "DE") {
         myComboBoxLanguages->setCurrentItem(1);
     } else if (gLanguage == "ES") {
         myComboBoxLanguages->setCurrentItem(2);
@@ -162,9 +160,7 @@ GUIDialog_AppSettings::onCmdOk(FXObject*, FXSelector, void*) {
 
     // check language
     std::string lang;
-    if (myComboBoxLanguages->getText() == "English") {
-        lang = "EN";
-    } else if (myComboBoxLanguages->getText() == "German") {
+    if (myComboBoxLanguages->getText() == "German") {
         lang = "DE";
     } else if (myComboBoxLanguages->getText() == "Spanish") {
         lang = "ES";
@@ -178,7 +174,7 @@ GUIDialog_AppSettings::onCmdOk(FXObject*, FXSelector, void*) {
         lang = "HU";
     } else {
         // english as default
-        lang = "EN";
+        lang = "C";
     }
     // check if change language
     if (lang != gLanguage) {
