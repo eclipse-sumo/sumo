@@ -383,14 +383,15 @@ protected:
     long long  myGuiSettingsFileMTime = -2;
 
     /// @brief the submenus
-    FXMenuPane* myFileMenu = nullptr,
-                *myEditMenu = nullptr,
-                 *mySelectByPermissions = nullptr,
-                  *mySettingsMenu = nullptr,
-                   *myLocatorMenu = nullptr,
-                    *myControlMenu = nullptr,
-                     *myWindowMenu = nullptr,
-                      *myHelpMenu = nullptr;
+    FXMenuPane *myFileMenu = nullptr,
+               *myEditMenu = nullptr,
+               *mySelectByPermissions = nullptr,
+               *mySettingsMenu = nullptr,
+               *myLocatorMenu = nullptr,
+               *myControlMenu = nullptr,
+               *myWindowMenu = nullptr,
+               *myLanguageMenu = nullptr,
+               *myHelpMenu = nullptr;
 
     /// @brief FXMenu pane for recent networks
     FXMenuPane* myFileMenuRecentNetworks = nullptr;

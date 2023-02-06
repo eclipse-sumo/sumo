@@ -329,6 +329,7 @@ GUIApplicationWindow::create() {
     myLocatorMenu->create();
     myControlMenu->create();
     myWindowMenu->create();
+    myLanguageMenu->create();
     myHelpMenu->create();
     FXint textWidth = getApp()->getNormalFont()->getTextWidth("8", 1) * 24;
     myCartesianFrame->setWidth(textWidth);
@@ -381,6 +382,7 @@ GUIApplicationWindow::~GUIApplicationWindow() {
     delete mySettingsMenu;
     delete myLocatorMenu;
     delete myControlMenu;
+    delete myLanguageMenu;
     delete myWindowMenu;
     delete myHelpMenu;
     delete myLoadThread;
@@ -613,6 +615,25 @@ GUIApplicationWindow::fillMenuBar() {
     GUIDesigns::buildFXMenuCommandShortcut(myWindowMenu,
                                            TL("Clear Message Window"), "", TL("Clear the message window."),
                                            GUIIconSubSys::getIcon(GUIIcon::CLEARMESSAGEWINDOW), this, MID_CLEARMESSAGEWINDOW);
+    // build windows menu
+    myLanguageMenu = new FXMenuPane(this);
+    GUIDesigns::buildFXMenuTitle(myMenuBar, TL("Langua&ge"), nullptr, myLanguageMenu);
+    
+    // build languages menu
+    GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, TL("English"), "", TL("Change language to english."),
+                                           GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_EN), myMDIClient, MID_LANGUAGE_EN);
+    GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, TL("German"), "", TL("Change language to german."),
+                                           GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_DE), myMDIClient, MID_LANGUAGE_DE);
+    GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, TL("Spanish"), "", TL("Change language to spanish."),
+                                           GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_ES), myMDIClient, MID_LANGUAGE_ES);
+    GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, TL("French"), "", TL("Change language to french."),
+                                           GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_FR), myMDIClient, MID_LANGUAGE_FR);
+    GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, TL("Chinese"), "", TL("Change language to chinese."),
+                                           GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_ZH), myMDIClient, MID_LANGUAGE_ZH);
+    GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, TL("Turkish"), "", TL("Change language to turkish."),
+                                           GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_TR), myMDIClient, MID_LANGUAGE_TR);
+    GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, TL("Hungarian"), "", TL("Change language to hungarian."),
+                                           GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_HU), myMDIClient, MID_LANGUAGE_HU);
     // build help menu
     myHelpMenu = new FXMenuPane(this);
     GUIDesigns::buildFXMenuTitle(myMenuBar,
