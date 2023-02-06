@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-05 21:26+0100\n"
-"PO-Revision-Date: 2023-02-06 16:12+0000\n"
-"Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
+"PO-Revision-Date: 2023-02-06 16:17+0000\n"
+"Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
 "Language: de\n"
@@ -3397,7 +3397,7 @@ msgstr "In diesem Modus kann nichts gelöscht werden"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:1430
 msgid "delete network inspected elements"
-msgstr "netzgeprüfte Elemente löschen"
+msgstr "Elemente aus Netz löschen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:1438
 msgid "delete network selection"
@@ -3405,7 +3405,7 @@ msgstr "Netzauswahl löschen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:1446
 msgid "delete demand inspected elements"
-msgstr "Nachfragegeprüfte Elemente löschen"
+msgstr "Nachfrageelemente löschen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:1454
 msgid "delete demand selection"
@@ -3413,7 +3413,7 @@ msgstr "Nachfrageauswahl löschen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:1462
 msgid "delete data inspected elements"
-msgstr "datengeprüfte Elemente löschen"
+msgstr "Datenelemente löschen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:1470
 msgid "delete data selection"
@@ -3529,7 +3529,7 @@ msgstr "Endpunkte der ausgewählten Kanten zurücksetzen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2663
 msgid "reset end points of edge '"
-msgstr "Endpunkte von Kante ' lösen"
+msgstr "Endpunkte der folgenden Kante zurücksetzen: '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2682
 msgid "duplicate selected lanes"
@@ -3658,13 +3658,12 @@ msgid "Grid is still active, press ctrl+g to deactivate"
 msgstr "Gitter ist noch aktiviert, drücke ctrl+g zum deaktivieren"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:3282
-#, fuzzy
 msgid "reset custom junction shapes"
-msgstr "Kostüm-Knotenpunktgeometrie zurücksetzten"
+msgstr "Benutzerdefinierte Knotenpunkt-Shapes zurücksetzen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:3289
 msgid "reset custom junction shape"
-msgstr ""
+msgstr "Benutzerdefinierten Knotenpunkt-Shape zurücksetzen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:3400
 msgid "clear connections of selected junctions"
