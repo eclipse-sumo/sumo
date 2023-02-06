@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-05 21:26+0100\n"
-"PO-Revision-Date: 2023-02-04 22:37+0000\n"
+"PO-Revision-Date: 2023-02-06 16:12+0000\n"
 "Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -395,6 +395,8 @@ msgstr "Die Kanten '%' und '%' sind nicht verbunden."
 msgid ""
 "The turn-file format with elements %, % is deprecated, please use % instead."
 msgstr ""
+"Das Wenden-Datei-Format mit den Elementen %, % ist veraltet, bitte wende "
+"stattdessen % an."
 
 #: /home/micha/programming/sumo/src/jtrrouter/ROJTRTurnDefLoader.cpp:87
 #: /home/micha/programming/sumo/src/jtrrouter/jtrrouter_main.cpp:143
@@ -518,6 +520,8 @@ msgid ""
 "addSubscriptionFilterLateralDistance could not determine shape of lane '%' "
 "with a lateral shift of %."
 msgstr ""
+"addSubscriptionFilterLateralDistance konnte die Shape des Fahrstreifens '%' "
+"mit einer seitlichen Verschiebung von % nicht bestimmen."
 
 #: /home/micha/programming/sumo/src/libsumo/Helper.cpp:1396
 msgid "Vehicle '%' was removed though being controlled by TraCI"
@@ -536,6 +540,8 @@ msgstr "MeanData-Definitionen mit ID '%' gefunden."
 msgid ""
 "Departure time=% for person '%' is in the past; using current time=% instead."
 msgstr ""
+"Abfahrtszeit=% für Person '%' liegt in der Vergangenheit; Verwende "
+"stattdessen die aktuelle Zeit=%."
 
 #: /home/micha/programming/sumo/src/libsumo/Person.cpp:929
 msgid "Could not determine position on lane '% at lateral position %."
@@ -628,6 +634,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/libsumo/Vehicle.cpp:1317
 msgid "Ignoring indexOffset % for vehicle '%' on laneIndex %."
 msgstr ""
+"Ignoriere Index-Versatz % für das Fahrzeug '%' auf den Fahrstreifenindex %."
 
 #: /home/micha/programming/sumo/src/libsumo/Vehicle.cpp:1332
 msgid "changeSublane not applicable for meso"
@@ -719,10 +726,13 @@ msgid "setActionStepLength not applicable for meso"
 msgstr "setActionStepLength nicht anwendbar für die mesoskopische Simulation"
 
 #: /home/micha/programming/sumo/src/libsumo/Vehicle.cpp:2441
+#, fuzzy
 msgid ""
 "Ignoring lane change subscription filter with non-neighboring lane offset "
 "direction=%."
 msgstr ""
+"Ignoriere den Fahrstreifen-Wechselabonnementfilter mit nicht benachbarter "
+"Fahrstreifenversatzrichtung = %."
 
 #: /home/micha/programming/sumo/src/libsumo/VehicleType.cpp:289
 #, c-format
@@ -841,7 +851,7 @@ msgstr "Keine gültigen Routen im Kalibrator '%'."
 #: /home/micha/programming/sumo/src/mesosim/METriggeredCalibrator.cpp:181
 #: /home/micha/programming/sumo/src/microsim/trigger/MSCalibrator.cpp:418
 msgid "Route '%' in calibrator '%' does not contain edge '%'."
-msgstr ""
+msgstr "Route '%' in Kalibrator '%' beinhaltet nicht die Kante '%'."
 
 #: /home/micha/programming/sumo/src/mesosim/METriggeredCalibrator.cpp:246
 msgid "DEBUG: Could not clear jam at calibrator '%' at time=%."
@@ -981,6 +991,7 @@ msgstr "Fahrzeug '%' ist nicht in der Lage die gegebene Position zu erreichen!"
 #: /home/micha/programming/sumo/src/microsim/MSBaseVehicle.cpp:833
 msgid "Vehicle '%' will not be able to arrive at the given lane '%_%'!"
 msgstr ""
+"Fahrzeug '%' kann nicht auf den angegebenen Fahrstreifen '%_%' ankommen!"
 
 #: /home/micha/programming/sumo/src/microsim/MSBaseVehicle.cpp:845
 #: /home/micha/programming/sumo/src/microsim/MSBaseVehicle.cpp:857
@@ -993,7 +1004,7 @@ msgstr "Fahrzeug '%' kann nicht die gegebene Geschwindigkeit erreichen!"
 
 #: /home/micha/programming/sumo/src/microsim/MSBaseVehicle.cpp:885
 msgid "Ignoring departEdge % for vehicle '% with % route edges"
-msgstr ""
+msgstr "Ignoriere Abfahrtskante % für das Fahrzeug '%' mit % Routenkanten"
 
 #: /home/micha/programming/sumo/src/microsim/MSBaseVehicle.h:879
 msgid "getLeader not yet implemented for meso"
@@ -1483,7 +1494,7 @@ msgstr "Ungültige Halt-Information%."
 
 #: /home/micha/programming/sumo/src/microsim/MSRouteHandler.cpp:1291
 msgid "Stop edge '%' missing in attribute 'via' for % '%'"
-msgstr ""
+msgstr "Halt-Kante '%' fehlt im Attribut 'via' für % '%'"
 
 #: /home/micha/programming/sumo/src/microsim/MSRouteHandler.cpp:1310
 #: /home/micha/programming/sumo/src/router/RORouteHandler.cpp:1184
@@ -1695,12 +1706,16 @@ msgid ""
 "Value of 'emergencyDecel' (%) should be higher than 'decel' (%) for vType "
 "'%'."
 msgstr ""
+"Der Wert von 'emergencyDecel' (%) sollte höher sein als 'decel' (%) für den "
+"Fahrzeugtyp '%'."
 
 #: /home/micha/programming/sumo/src/microsim/MSVehicleType.cpp:311
 msgid ""
 "Value of 'emergencyDecel' (%) is lower than 'apparentDecel' (%) for vType "
 "'%' may cause collisions."
 msgstr ""
+"Der Wert von 'emergencyDecel' (%) ist niedriger als 'apparentDecel' (%) für "
+"den Fahrzeugtyp '%', was zu Kollisionen führen kann."
 
 #: /home/micha/programming/sumo/src/microsim/MSVehicleType.cpp:433
 #, c-format
@@ -1744,6 +1759,8 @@ msgid ""
 "Maximum speed of vehicle '%' is lower than the minimum speed (min: %, max: "
 "%)."
 msgstr ""
+"Maximalgeschwindigkeit von Fahrzeug '%' ist kleiner als die "
+"Minimalgeschwindigkeit (min: %, max: %)."
 
 #: /home/micha/programming/sumo/src/microsim/cfmodels/MSCFModel_Krauss.cpp:58
 msgid "Rounding 'sigmaStep' to % for vType '%'"
@@ -1818,17 +1835,21 @@ msgstr ""
 msgid ""
 "Battery builder: Vehicle '%' doesn't have a valid value for parameter % (%)."
 msgstr ""
+"Batteriehersteller: Fahrzeug '%' hat keinen gültigen Wert für Parameter % "
+"(%)."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Battery.cpp:199
 #, c-format
 msgid "Battery of vehicle '%' is depleted."
-msgstr ""
+msgstr "Batterie vom Fahrzeug '%' ist leer."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Battery.cpp:309
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Battery.cpp:319
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Battery.cpp:329
 msgid "Trying to set into the battery device of vehicle '%' an invalid % (%)."
 msgstr ""
+"Es wird versucht, in das Batteriegerät von Fahrzeug '%' ein ungültiges % (%) "
+"einzugeben."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Bluelight.cpp:68
 #, fuzzy
@@ -1849,6 +1870,8 @@ msgid ""
 "ElecHybrid builder: Vehicle '%' doesn't have a valid value for parameter % "
 "(%)."
 msgstr ""
+"Elektro-Hybrid-Hersteller: Fahrzeug '%' hat keinen gültigen Wert für "
+"Parameter % (%)."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ElecHybrid.cpp:317
 msgid ""
@@ -2454,11 +2477,15 @@ msgid ""
 "Unknown inductionLoop '%' given as custom detector for actuated tlLogic '%', "
 "program '%."
 msgstr ""
+"Unbekannte Induktionsschleife '%' als benutzerdefinierter Detektor für "
+"aktivierte LSA-Logik '%', Programm '%."
 
 #: /home/micha/programming/sumo/src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:241
 msgid ""
 "At actuated tlLogic '%', minDur % is too short for a detector gap of %m."
 msgstr ""
+"Bei aktivierter LSA-Logik '%', minimale Dauer % ist zu kurz für eine "
+"Detektorlücke von %m."
 
 #: /home/micha/programming/sumo/src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:406
 msgid "At actuated tlLogic '%', actuated phase % has no controlling detector."
@@ -2473,16 +2500,22 @@ msgstr ""
 "Detektor."
 
 #: /home/micha/programming/sumo/src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:452
+#, fuzzy
 msgid ""
 "Invalid link '%' given as linkMaxDur parameter for actuated tlLogic '%', "
 "program '%."
 msgstr ""
+"Ungültiger Link '%' als maximaler Linkdauer-Parameter für die aktivierte LSA-"
+"Logik '%', Programm '%'."
 
 #: /home/micha/programming/sumo/src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:462
+#, fuzzy
 msgid ""
 "Invalid link '%' given as linkMinDur parameter for actuated tlLogic '%', "
 "program '%."
 msgstr ""
+"Ungültiger Link '%' als minimale Linkdauer-Parameter für die aktivierte LSA-"
+"Logik '%', Programm '%'."
 
 #: /home/micha/programming/sumo/src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:903
 msgid ""
@@ -2519,13 +2552,16 @@ msgstr "Ungültiger leerer Ausdruck"
 
 #: /home/micha/programming/sumo/src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1313
 msgid "Error when retrieving conditions '%' for tlLogic '%' (%)"
-msgstr ""
+msgstr "Fehler beim Abrufen der Bedingungen '%' für LSA-Logik '%' (%)"
 
 #: /home/micha/programming/sumo/src/microsim/traffic_lights/MSDelayBasedTrafficLightLogic.cpp:96
 msgid ""
 "Unknown laneAreaDetector '%' given as custom detector for delay_based "
 "tlLogic '%', program '%."
 msgstr ""
+"Unbekannter Fahrstreifen-Bereichsdetektor '%', angegeben als "
+"benutzerdefinierter Detektor für verzögerungsbasierte LSA-Logik '%', "
+"Programm '%."
 
 #: /home/micha/programming/sumo/src/microsim/traffic_lights/MSOffTrafficLightLogic.cpp:80
 msgid "Invalid 'off'-state for link % at junction '%'"
@@ -2542,11 +2578,11 @@ msgstr "Bahnsignal am Knotenpunkt '%' kontrolliert keine Verbindungen"
 
 #: /home/micha/programming/sumo/src/microsim/traffic_lights/MSRailSignal.cpp:1195
 msgid "Found circular block after railSignal % (% edges, length %)"
-msgstr ""
+msgstr "Kreisförmiger Block nach Schienensignal % (% Kanten, Länge %) gefunden"
 
 #: /home/micha/programming/sumo/src/microsim/traffic_lights/MSRailSignal.cpp:1306
 msgid "Found circular block at railSignal % (% edges, length %)"
-msgstr ""
+msgstr "Kreisförmiger Block beim Schienensignal % (% Kanten, Länge %) gefunden"
 
 #: /home/micha/programming/sumo/src/microsim/traffic_lights/MSRailSignalConstraint.cpp:147
 #, c-format
@@ -2808,7 +2844,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/microsim/trigger/MSCalibrator.cpp:318
 msgid "Calibrator '%' could not remove vehicle '%' time=%."
-msgstr ""
+msgstr "Kalibrator '%' konnte Fahrzeug '%' zur Zeit=% nicht entfernen."
 
 #: /home/micha/programming/sumo/src/microsim/trigger/MSCalibrator.cpp:692
 msgid "Cannot set flow for calibrator '%' with overlapping interval."
@@ -2973,7 +3009,7 @@ msgstr "% Zweirichtungs-Eisenbahnkanten gefunden"
 
 #: /home/micha/programming/sumo/src/netbuild/NBAlgorithms_Railway.cpp:406
 msgid "Found % railway edges and % railway nodes (% signals)."
-msgstr ""
+msgstr "% Schienenkanten und % Schienenknoten (% Signale) gefunden."
 
 #: /home/micha/programming/sumo/src/netbuild/NBAlgorithms_Railway.cpp:523
 msgid "Added % bidi-edges as extension of existing bidi edges."
@@ -3008,6 +3044,8 @@ msgstr ""
 msgid ""
 "Added % bidi-edges between % pairs of railway switches (count by length: %)"
 msgstr ""
+"% Zweirichtungs-Kanten zwischen % Weichenpaaren hinzugefügt (Zählung nach "
+"Länge: %)"
 
 #: /home/micha/programming/sumo/src/netbuild/NBAlgorithms_Railway.cpp:974
 msgid ""
@@ -3571,6 +3609,8 @@ msgid ""
 "TYellow of signal group '%' was less than the computed one; patched (was:%, "
 "is:%)"
 msgstr ""
+"Gelb der Signalgruppe '%' war kleiner als die berechnete; eingesetzt (war:%, "
+"ist:%)"
 
 #: /home/micha/programming/sumo/src/netbuild/NBLoadedTLDef.cpp:300
 msgid "During computation of traffic light '%'."
@@ -3970,7 +4010,7 @@ msgstr "Straße ohne Knotenpunkte wurde entfernt: %."
 
 #: /home/micha/programming/sumo/src/netbuild/NBNodeCont.cpp:406
 msgid "Found % components and removed % (% edges)."
-msgstr ""
+msgstr "% Komponenten gefunden und % entfernt (% Kanten)."
 
 #: /home/micha/programming/sumo/src/netbuild/NBNodeCont.cpp:447
 msgid "Removed % railway components (% edges)."
@@ -5803,7 +5843,7 @@ msgstr "Ungültiger Fahrstreifenverteilungstyp '%'. Nutze Standard 'right'"
 
 #: /home/micha/programming/sumo/src/netimport/NIXMLTypesHandler.cpp:114
 msgid "Invalid lane index % for edge type '%' with % lanes"
-msgstr ""
+msgstr "Ungültiger Fahrstreifenindex % für Kantentyp '%' mit % Fahrstreifen"
 
 #: /home/micha/programming/sumo/src/netimport/vissim/NIImporter_Vissim.cpp:887
 msgid "Could not open vissim-file '%'."
@@ -6126,12 +6166,17 @@ msgid ""
 "A connecting overhead wire start segment '%' defined for overhead wire clamp "
 "'%' is not assigned to the traction substation '%'."
 msgstr ""
+"Ein verbindendes Oberleitungs-Startsegment '%', das für die "
+"Oberleitungsklemme '%' definiert ist, ist der Umspannstation '%' nicht "
+"zugewiesen."
 
 #: /home/micha/programming/sumo/src/netload/NLTriggerBuilder.cpp:378
 msgid ""
 "A connecting overhead wire end segment '%' defined for overhead wire clamp "
 "'%' is not assigned to the traction substation '%'."
 msgstr ""
+"Ein verbindendes Oberleitungs-Endsegment '%', das für die Oberleitungsklemme "
+"'%' definiert ist, ist der Umspannstation '%' nicht zugeordnet."
 
 #: /home/micha/programming/sumo/src/netload/NLTriggerBuilder.cpp:382
 msgid ""
@@ -6224,6 +6269,9 @@ msgid ""
 "Could not compute smooth shape from lane '%' to lane '%'. Use option "
 "'junctions.scurve-stretch' or increase radius of junction '%' to fix this."
 msgstr ""
+"Konnte ebene Shape von Fahrstreifen '%' zu Fahrstreifen '%' nicht berechnen. "
+"Nutze Option 'junctions.scurve-stretch' oder vergrößere den Radius des "
+"Knotenpunktes '%', um dies zu beheben."
 
 #: /home/micha/programming/sumo/src/netwrite/NWWriter_OpenDrive.cpp:957
 msgid ""
@@ -6272,7 +6320,7 @@ msgstr "'probability' muss positiv sein (in der Definition von % '%')."
 
 #: /home/micha/programming/sumo/src/od/ODMatrix.cpp:80
 msgid "Missing origin '%' and destination '%' (% vehicles)."
-msgstr ""
+msgstr "Fehlender Start '%' und Ziel '%' (% Fahrzeuge)."
 
 #: /home/micha/programming/sumo/src/od/ODMatrix.cpp:86
 msgid "Missing origin '%' (% vehicles)."
@@ -6423,7 +6471,7 @@ msgstr "'%' konnte nicht geladen werden."
 
 #: /home/micha/programming/sumo/src/osgview/GUIOSGBuilder.cpp:491
 msgid "Loaded decal '%' with bounding box % %."
-msgstr ""
+msgstr "Aufkleber '%' mit Begrenzungsrahmen % % geladen."
 
 #: /home/micha/programming/sumo/src/osgview/GUIOSGBuilder.cpp:597
 msgid "Could not load '%'. The model is replaced by a cone shape."
@@ -6628,7 +6676,7 @@ msgstr "Routen zwischen den Zeitschritten % und % gefunden."
 
 #: /home/micha/programming/sumo/src/router/ROLoader.cpp:243
 msgid "The loader for % from file '%' could not be initialised (%)."
-msgstr ""
+msgstr "Der Lader für % aus Datei '%' konnte nicht initialisiert werden (%)."
 
 #: /home/micha/programming/sumo/src/router/ROLoader.cpp:281
 msgid "failed."
@@ -6743,7 +6791,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/router/RORouteDef.cpp:237
 msgid "Edge '%' not connected to edge '%' for vehicle '%'."
-msgstr ""
+msgstr "Kante '%' wurde nicht mit Kante '%' für das Fahrzeug '%' verbunden."
 
 #: /home/micha/programming/sumo/src/router/RORouteHandler.cpp:200
 msgid "Triggered departure for person '%' requires starting with a ride."
@@ -7740,7 +7788,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParameter.cpp:651
 msgid "Invalid % % given for %. Using edge end instead."
-msgstr ""
+msgstr "Ungültig(es) %% gegeben für %. Nutze statt dessen Kante."
 
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParameter.cpp:701
 msgid ""
@@ -7853,11 +7901,11 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:1626
 msgid "The vehicle class '%' for % '%' is not known."
-msgstr ""
+msgstr "Die Fahrzeugklasse '%' für % '%' ist nicht bekannt."
 
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:1644
 msgid "The shape '%' for % '%' is not known."
-msgstr ""
+msgstr "Die Shape '%' für % '%' ist nicht bekannt."
 
 #: /home/micha/programming/sumo/src/utils/xml/CommonXMLStructure.cpp:271
 msgid "Undefined vehicleType parameter"
@@ -7874,19 +7922,21 @@ msgstr "Undefinierter Haltepunkt-Parameter"
 #: /home/micha/programming/sumo/src/utils/xml/CommonXMLStructure.cpp:513
 msgid "Trying to get undefined % attribute '%' in SUMOBaseObject '%'"
 msgstr ""
+"Es wird versucht, das undefinierte % Attribut '%' in SUMOBaseObject '%' "
+"abzurufen"
 
 #: /home/micha/programming/sumo/src/utils/xml/GenericHandler.cpp:83
 #: /home/micha/programming/sumo/src/utils/xml/GenericSAXHandler.cpp:105
 msgid "Found root element '%' in file '%' (expected '%')."
-msgstr ""
+msgstr "Stammelement '%' in Datei '%' gefunden (erwartet '%')."
 
 #: /home/micha/programming/sumo/src/utils/xml/GenericSAXHandler.cpp:209
 msgid " In file '"
-msgstr ""
+msgstr " In Datei '"
 
 #: /home/micha/programming/sumo/src/utils/xml/GenericSAXHandler.cpp:210
 msgid " At line/column "
-msgstr ""
+msgstr " In Zeile/Spalte "
 
 #: /home/micha/programming/sumo/src/utils/xml/SAXWeightsHandler.cpp:145
 msgid "Missing value '%' in edge '%'."
