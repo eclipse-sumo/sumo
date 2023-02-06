@@ -2360,27 +2360,27 @@ GUIApplicationWindow::onCmdChangeLanguage(FXObject*, FXSelector sel, void*) {
     // continue depending of called button
     switch (FXSELID(sel)) {
         case MID_LANGUAGE_DE:
-            langID = "DE";
+            langID = "de";
             lang = TL("german");
             break;
         case MID_LANGUAGE_ES:
-            langID = "ES";
+            langID = "es";
             lang = TL("spanish");
             break;
         case MID_LANGUAGE_FR:
-            langID = "FR";
+            langID = "fr";
             lang = TL("french");
             break;
         case MID_LANGUAGE_ZH:
-            langID = "ZH";
+            langID = "zh";
             lang = TL("chinese");
             break;
         case MID_LANGUAGE_TR:
-            langID = "TR";
+            langID = "tr";
             lang = TL("turkish");
             break;
         case MID_LANGUAGE_HU:
-            langID = "HU";
+            langID = "hu";
             lang = TL("hungarian");
             break;
         default:
