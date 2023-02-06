@@ -2,7 +2,7 @@
 title: ChangeLog
 ---
 
-## Git Main
+## Version 1.16.0 (07.02.2023)
 
 ### Bugfixes
 
