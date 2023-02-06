@@ -2461,41 +2461,45 @@ GNEApplicationWindow::onCmdClearTemplate(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdChangeLanguage(FXObject*, FXSelector sel, void*) {
     // set language
+    std::string langID;
     std::string lang;
     // continue depending of called button
     switch (FXSELID(sel)) {
-        case MID_LANGUAGE_EN:
-            lang = "EN";
-            break;
         case MID_LANGUAGE_DE:
-            lang = "DE";
+            langID = "DE";
+            lang = TL("german");
             break;
         case MID_LANGUAGE_ES:
-            lang = "ES";
+            langID = "ES";
+            lang = TL("spanish");
             break;
         case MID_LANGUAGE_FR:
-            lang = "FR";
+            langID = "FR";
+            lang = TL("french");
             break;
         case MID_LANGUAGE_ZH:
-            lang = "ZH";
+            langID = "ZH";
+            lang = TL("chinese");
             break;
         case MID_LANGUAGE_TR:
-            lang = "TR";
+            langID = "TR";
+            lang = TL("turkish");
             break;
         case MID_LANGUAGE_HU:
-            lang = "HU";
+            langID = "HU";
+            lang = TL("hungarian");
             break;
         default:
-            lang = "EN";
+            langID = "C";
+            lang = TL("english");
             break;
     }
-
     // check if change language
-    if (lang != gLanguage) {
+    if (langID != gLanguage) {
         // update language
-        gLanguage = lang;
+        gLanguage = langID;
         // show info
-        WRITE_MESSAGE(TL("Language changed to '") + lang + "'");
+        WRITE_MESSAGE(TL("Language changed to ") + lang);
         // show dialog
         const std::string header = TL("Restart needed");
         const std::string body = TL("Changing display language needs restart to take effect.");
@@ -2504,7 +2508,7 @@ GNEApplicationWindow::onCmdChangeLanguage(FXObject*, FXSelector sel, void*) {
         FXRegistry reg("SUMO GUI", "sumo-gui");
         reg.read();
         // update language in registry (common for sumo and netedit)
-        reg.writeStringEntry("gui", "language", lang.c_str());
+        reg.writeStringEntry("gui", "language", langID.c_str());
         reg.write();
     }
     return 1;
@@ -2517,7 +2521,7 @@ GNEApplicationWindow::onUpdChangeLanguage(FXObject* obj, FXSelector, void*) {
     FXMenuCommand* menuCommand = dynamic_cast<FXMenuCommand*>(obj);
     if (menuCommand) {
         // check if change color
-        if ((gLanguage == "EN") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_EN))) {
+        if ((gLanguage == "C") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_EN))) {
             menuCommand->setTextColor(FXRGB(0, 0, 255));
         } else if ((gLanguage == "DE") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_DE))) {
             menuCommand->setTextColor(FXRGB(0, 0, 255));

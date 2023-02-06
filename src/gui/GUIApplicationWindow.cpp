@@ -2388,7 +2388,6 @@ GUIApplicationWindow::onCmdChangeLanguage(FXObject*, FXSelector sel, void*) {
             lang = TL("english");
             break;
     }
-
     // check if change language
     if (langID != gLanguage) {
         // update language
