@@ -670,10 +670,8 @@ GLDebug: 	Inserted edge:E8 into SUMORTree with boundary 10.00,40.00,51.13,81.13
 GLDebug: 	Inserted edge:E9 into SUMORTree with boundary 30.00,40.00,51.60,80.00
 Debug: Created connection 'from-E0_0to-E7_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E0_0to-E8_0' in retrieveGNEConnection()
-Debug: Created connection 'from-E0_0toE0_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E1_0to-E0_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E1_0to-E9_0' in retrieveGNEConnection()
-Debug: Created connection 'from-E1_0toE1_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E10_0toE9_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E10_0toE8_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E10_0toE15_0' in retrieveGNEConnection()
@@ -681,7 +679,6 @@ Debug: Created connection 'from-E10_0toE14_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E10_0toE13_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E10_0toE12_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E10_0toE11_0' in retrieveGNEConnection()
-Debug: Created connection 'from-E10_0toE10_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E11_0toE10_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E11_0toE9_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E11_0toE8_0' in retrieveGNEConnection()
@@ -689,7 +686,6 @@ Debug: Created connection 'from-E11_0toE15_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E11_0toE14_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E11_0toE13_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E11_0toE12_0' in retrieveGNEConnection()
-Debug: Created connection 'from-E11_0toE11_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E12_0toE11_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E12_0toE10_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E12_0toE9_0' in retrieveGNEConnection()
@@ -697,7 +693,6 @@ Debug: Created connection 'from-E12_0toE8_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E12_0toE15_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E12_0toE14_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E12_0toE13_0' in retrieveGNEConnection()
-Debug: Created connection 'from-E12_0toE12_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E13_0toE12_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E13_0toE11_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E13_0toE10_0' in retrieveGNEConnection()
@@ -705,7 +700,6 @@ Debug: Created connection 'from-E13_0toE9_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E13_0toE8_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E13_0toE15_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E13_0toE14_0' in retrieveGNEConnection()
-Debug: Created connection 'from-E13_0toE13_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E14_0toE13_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E14_0toE12_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E14_0toE11_0' in retrieveGNEConnection()
@@ -713,7 +707,6 @@ Debug: Created connection 'from-E14_0toE10_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E14_0toE9_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E14_0toE8_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E14_0toE15_0' in retrieveGNEConnection()
-Debug: Created connection 'from-E14_0toE14_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E15_0toE14_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E15_0toE13_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E15_0toE12_0' in retrieveGNEConnection()
@@ -721,25 +714,18 @@ Debug: Created connection 'from-E15_0toE11_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E15_0toE10_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E15_0toE9_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E15_0toE8_0' in retrieveGNEConnection()
-Debug: Created connection 'from-E15_0toE15_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E2_0to-E1_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E2_0to-E10_0' in retrieveGNEConnection()
-Debug: Created connection 'from-E2_0toE2_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E3_0to-E2_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E3_0to-E11_0' in retrieveGNEConnection()
-Debug: Created connection 'from-E3_0toE3_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E4_0to-E3_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E4_0to-E12_0' in retrieveGNEConnection()
-Debug: Created connection 'from-E4_0toE4_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E5_0to-E4_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E5_0to-E13_0' in retrieveGNEConnection()
-Debug: Created connection 'from-E5_0toE5_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E6_0to-E5_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E6_0to-E14_0' in retrieveGNEConnection()
-Debug: Created connection 'from-E6_0toE6_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E7_0to-E6_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E7_0to-E15_0' in retrieveGNEConnection()
-Debug: Created connection 'from-E7_0toE7_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E8_0toE15_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E8_0toE14_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E8_0toE13_0' in retrieveGNEConnection()
@@ -747,7 +733,6 @@ Debug: Created connection 'from-E8_0toE12_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E8_0toE11_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E8_0toE10_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E8_0toE9_0' in retrieveGNEConnection()
-Debug: Created connection 'from-E8_0toE8_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E9_0toE8_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E9_0toE15_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E9_0toE14_0' in retrieveGNEConnection()
@@ -755,55 +740,38 @@ Debug: Created connection 'from-E9_0toE13_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E9_0toE12_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E9_0toE11_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E9_0toE10_0' in retrieveGNEConnection()
-Debug: Created connection 'from-E9_0toE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE0_0to-E9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE0_0toE1_0' in retrieveGNEConnection()
-Debug: Created connection 'fromE0_0to-E0_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE1_0to-E10_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE1_0toE2_0' in retrieveGNEConnection()
-Debug: Created connection 'fromE1_0to-E1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE10_0toE2_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE10_0to-E1_0' in retrieveGNEConnection()
-Debug: Created connection 'fromE10_0to-E10_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE11_0toE3_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE11_0to-E2_0' in retrieveGNEConnection()
-Debug: Created connection 'fromE11_0to-E11_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE12_0toE4_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE12_0to-E3_0' in retrieveGNEConnection()
-Debug: Created connection 'fromE12_0to-E12_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE13_0toE5_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE13_0to-E4_0' in retrieveGNEConnection()
-Debug: Created connection 'fromE13_0to-E13_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE14_0toE6_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE14_0to-E5_0' in retrieveGNEConnection()
-Debug: Created connection 'fromE14_0to-E14_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE15_0toE7_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE15_0to-E6_0' in retrieveGNEConnection()
-Debug: Created connection 'fromE15_0to-E15_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE2_0to-E11_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE2_0toE3_0' in retrieveGNEConnection()
-Debug: Created connection 'fromE2_0to-E2_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE3_0to-E12_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE3_0toE4_0' in retrieveGNEConnection()
-Debug: Created connection 'fromE3_0to-E3_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE4_0to-E13_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE4_0toE5_0' in retrieveGNEConnection()
-Debug: Created connection 'fromE4_0to-E4_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE5_0to-E14_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE5_0toE6_0' in retrieveGNEConnection()
-Debug: Created connection 'fromE5_0to-E5_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE6_0to-E15_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE6_0toE7_0' in retrieveGNEConnection()
-Debug: Created connection 'fromE6_0to-E6_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE7_0to-E8_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE7_0toE0_0' in retrieveGNEConnection()
-Debug: Created connection 'fromE7_0to-E7_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE8_0toE0_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE8_0to-E7_0' in retrieveGNEConnection()
-Debug: Created connection 'fromE8_0to-E8_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE9_0toE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE9_0to-E0_0' in retrieveGNEConnection()
-Debug: Created connection 'fromE9_0to-E9_0' in retrieveGNEConnection()
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute
@@ -820,7 +788,6 @@ Debug: Deleting unreferenced connection 'from-E15_0toE11_0' in clearGNEConnectio
 Debug: Deleting unreferenced connection 'from-E15_0toE10_0' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'from-E15_0toE9_0' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'from-E15_0toE8_0' in clearGNEConnections()
-Debug: Deleting unreferenced connection 'from-E15_0toE15_0' in clearGNEConnections()
 Debug: Restoring previous attribute
 Debug: invalidating (removing) connections of edge '-E14' due it were guessed
 Debug: Deleting unreferenced connection 'from-E14_0toE13_0' in clearGNEConnections()
@@ -830,7 +797,6 @@ Debug: Deleting unreferenced connection 'from-E14_0toE10_0' in clearGNEConnectio
 Debug: Deleting unreferenced connection 'from-E14_0toE9_0' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'from-E14_0toE8_0' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'from-E14_0toE15_0' in clearGNEConnections()
-Debug: Deleting unreferenced connection 'from-E14_0toE14_0' in clearGNEConnections()
 Debug: Restoring previous attribute
 Debug: invalidating (removing) connections of edge '-E13' due it were guessed
 Debug: Deleting unreferenced connection 'from-E13_0toE12_0' in clearGNEConnections()
@@ -840,7 +806,6 @@ Debug: Deleting unreferenced connection 'from-E13_0toE9_0' in clearGNEConnection
 Debug: Deleting unreferenced connection 'from-E13_0toE8_0' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'from-E13_0toE15_0' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'from-E13_0toE14_0' in clearGNEConnections()
-Debug: Deleting unreferenced connection 'from-E13_0toE13_0' in clearGNEConnections()
 Debug: Restoring previous attribute
 Debug: invalidating (removing) connections of edge '-E12' due it were guessed
 Debug: Deleting unreferenced connection 'from-E12_0toE11_0' in clearGNEConnections()
@@ -850,7 +815,6 @@ Debug: Deleting unreferenced connection 'from-E12_0toE8_0' in clearGNEConnection
 Debug: Deleting unreferenced connection 'from-E12_0toE15_0' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'from-E12_0toE14_0' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'from-E12_0toE13_0' in clearGNEConnections()
-Debug: Deleting unreferenced connection 'from-E12_0toE12_0' in clearGNEConnections()
 Debug: Restoring previous attribute
 Debug: invalidating (removing) connections of edge '-E11' due it were guessed
 Debug: Deleting unreferenced connection 'from-E11_0toE10_0' in clearGNEConnections()
@@ -860,7 +824,6 @@ Debug: Deleting unreferenced connection 'from-E11_0toE15_0' in clearGNEConnectio
 Debug: Deleting unreferenced connection 'from-E11_0toE14_0' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'from-E11_0toE13_0' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'from-E11_0toE12_0' in clearGNEConnections()
-Debug: Deleting unreferenced connection 'from-E11_0toE11_0' in clearGNEConnections()
 Debug: Restoring previous attribute
 Debug: invalidating (removing) connections of edge '-E10' due it were guessed
 Debug: Deleting unreferenced connection 'from-E10_0toE9_0' in clearGNEConnections()
@@ -870,7 +833,6 @@ Debug: Deleting unreferenced connection 'from-E10_0toE14_0' in clearGNEConnectio
 Debug: Deleting unreferenced connection 'from-E10_0toE13_0' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'from-E10_0toE12_0' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'from-E10_0toE11_0' in clearGNEConnections()
-Debug: Deleting unreferenced connection 'from-E10_0toE10_0' in clearGNEConnections()
 Debug: Restoring previous attribute
 Debug: invalidating (removing) connections of edge '-E9' due it were guessed
 Debug: Deleting unreferenced connection 'from-E9_0toE8_0' in clearGNEConnections()
@@ -880,7 +842,6 @@ Debug: Deleting unreferenced connection 'from-E9_0toE13_0' in clearGNEConnection
 Debug: Deleting unreferenced connection 'from-E9_0toE12_0' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'from-E9_0toE11_0' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'from-E9_0toE10_0' in clearGNEConnections()
-Debug: Deleting unreferenced connection 'from-E9_0toE9_0' in clearGNEConnections()
 Debug: Restoring previous attribute
 Debug: invalidating (removing) connections of edge '-E8' due it were guessed
 Debug: Deleting unreferenced connection 'from-E8_0toE15_0' in clearGNEConnections()
@@ -890,23 +851,19 @@ Debug: Deleting unreferenced connection 'from-E8_0toE12_0' in clearGNEConnection
 Debug: Deleting unreferenced connection 'from-E8_0toE11_0' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'from-E8_0toE10_0' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'from-E8_0toE9_0' in clearGNEConnections()
-Debug: Deleting unreferenced connection 'from-E8_0toE8_0' in clearGNEConnections()
 Debug: Restoring previous attribute
 Debug: Restoring previous attribute
 Debug: invalidating (removing) connections of edge 'E15' due it were guessed
 Debug: Deleting unreferenced connection 'fromE15_0toE7_0' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'fromE15_0to-E6_0' in clearGNEConnections()
-Debug: Deleting unreferenced connection 'fromE15_0to-E15_0' in clearGNEConnections()
 Debug: Restoring previous attribute
 Debug: invalidating (removing) connections of edge '-E7' due it were guessed
 Debug: Deleting unreferenced connection 'from-E7_0to-E6_0' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'from-E7_0to-E15_0' in clearGNEConnections()
-Debug: Deleting unreferenced connection 'from-E7_0toE7_0' in clearGNEConnections()
 Debug: Restoring previous attribute
 Debug: invalidating (removing) connections of edge 'E6' due it were guessed
 Debug: Deleting unreferenced connection 'fromE6_0to-E15_0' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'fromE6_0toE7_0' in clearGNEConnections()
-Debug: Deleting unreferenced connection 'fromE6_0to-E6_0' in clearGNEConnections()
 Debug: Removing edge '-E15' from net
 GLDebug: 	Removed object edge:-E15 from SUMORTree with boundary 10.00,38.40,50.00,60.00
 Debug: Restoring previous attribute
@@ -963,17 +920,14 @@ Debug: Restoring previous attribute
 Debug: invalidating (removing) connections of edge 'E14' due it were guessed
 Debug: Deleting unreferenced connection 'fromE14_0toE6_0' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'fromE14_0to-E5_0' in clearGNEConnections()
-Debug: Deleting unreferenced connection 'fromE14_0to-E14_0' in clearGNEConnections()
 Debug: Restoring previous attribute
 Debug: invalidating (removing) connections of edge '-E6' due it were guessed
 Debug: Deleting unreferenced connection 'from-E6_0to-E5_0' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'from-E6_0to-E14_0' in clearGNEConnections()
-Debug: Deleting unreferenced connection 'from-E6_0toE6_0' in clearGNEConnections()
 Debug: Restoring previous attribute
 Debug: invalidating (removing) connections of edge 'E5' due it were guessed
 Debug: Deleting unreferenced connection 'fromE5_0to-E14_0' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'fromE5_0toE6_0' in clearGNEConnections()
-Debug: Deleting unreferenced connection 'fromE5_0to-E5_0' in clearGNEConnections()
 Debug: Removing edge '-E14' from net
 GLDebug: 	Removed object edge:-E14 from SUMORTree with boundary 10.00,20.00,50.00,60.00
 Debug: Restoring previous attribute
@@ -1026,17 +980,14 @@ Debug: Restoring previous attribute
 Debug: invalidating (removing) connections of edge 'E13' due it were guessed
 Debug: Deleting unreferenced connection 'fromE13_0toE5_0' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'fromE13_0to-E4_0' in clearGNEConnections()
-Debug: Deleting unreferenced connection 'fromE13_0to-E13_0' in clearGNEConnections()
 Debug: Restoring previous attribute
 Debug: invalidating (removing) connections of edge '-E5' due it were guessed
 Debug: Deleting unreferenced connection 'from-E5_0to-E4_0' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'from-E5_0to-E13_0' in clearGNEConnections()
-Debug: Deleting unreferenced connection 'from-E5_0toE5_0' in clearGNEConnections()
 Debug: Restoring previous attribute
 Debug: invalidating (removing) connections of edge 'E4' due it were guessed
 Debug: Deleting unreferenced connection 'fromE4_0to-E13_0' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'fromE4_0toE5_0' in clearGNEConnections()
-Debug: Deleting unreferenced connection 'fromE4_0to-E4_0' in clearGNEConnections()
 Debug: Removing edge '-E13' from net
 GLDebug: 	Removed object edge:-E13 from SUMORTree with boundary 30.00,20.00,51.60,60.00
 Debug: Restoring previous attribute
@@ -1085,17 +1036,14 @@ Debug: Restoring previous attribute
 Debug: invalidating (removing) connections of edge 'E12' due it were guessed
 Debug: Deleting unreferenced connection 'fromE12_0toE4_0' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'fromE12_0to-E3_0' in clearGNEConnections()
-Debug: Deleting unreferenced connection 'fromE12_0to-E12_0' in clearGNEConnections()
 Debug: Restoring previous attribute
 Debug: invalidating (removing) connections of edge '-E4' due it were guessed
 Debug: Deleting unreferenced connection 'from-E4_0to-E3_0' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'from-E4_0to-E12_0' in clearGNEConnections()
-Debug: Deleting unreferenced connection 'from-E4_0toE4_0' in clearGNEConnections()
 Debug: Restoring previous attribute
 Debug: invalidating (removing) connections of edge 'E3' due it were guessed
 Debug: Deleting unreferenced connection 'fromE3_0to-E12_0' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'fromE3_0toE4_0' in clearGNEConnections()
-Debug: Deleting unreferenced connection 'fromE3_0to-E3_0' in clearGNEConnections()
 Debug: Removing edge '-E12' from net
 GLDebug: 	Removed object edge:-E12 from SUMORTree with boundary 30.00,20.00,70.00,60.00
 Debug: Restoring previous attribute
@@ -1140,17 +1088,14 @@ Debug: Restoring previous attribute
 Debug: invalidating (removing) connections of edge 'E11' due it were guessed
 Debug: Deleting unreferenced connection 'fromE11_0toE3_0' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'fromE11_0to-E2_0' in clearGNEConnections()
-Debug: Deleting unreferenced connection 'fromE11_0to-E11_0' in clearGNEConnections()
 Debug: Restoring previous attribute
 Debug: invalidating (removing) connections of edge '-E3' due it were guessed
 Debug: Deleting unreferenced connection 'from-E3_0to-E2_0' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'from-E3_0to-E11_0' in clearGNEConnections()
-Debug: Deleting unreferenced connection 'from-E3_0toE3_0' in clearGNEConnections()
 Debug: Restoring previous attribute
 Debug: invalidating (removing) connections of edge 'E2' due it were guessed
 Debug: Deleting unreferenced connection 'fromE2_0to-E11_0' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'fromE2_0toE3_0' in clearGNEConnections()
-Debug: Deleting unreferenced connection 'fromE2_0to-E2_0' in clearGNEConnections()
 Debug: Removing edge '-E11' from net
 GLDebug: 	Removed object edge:-E11 from SUMORTree with boundary 30.00,40.00,70.00,61.60
 Debug: Restoring previous attribute
@@ -1191,17 +1136,14 @@ Debug: Restoring previous attribute
 Debug: invalidating (removing) connections of edge 'E10' due it were guessed
 Debug: Deleting unreferenced connection 'fromE10_0toE2_0' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'fromE10_0to-E1_0' in clearGNEConnections()
-Debug: Deleting unreferenced connection 'fromE10_0to-E10_0' in clearGNEConnections()
 Debug: Restoring previous attribute
 Debug: invalidating (removing) connections of edge '-E2' due it were guessed
 Debug: Deleting unreferenced connection 'from-E2_0to-E1_0' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'from-E2_0to-E10_0' in clearGNEConnections()
-Debug: Deleting unreferenced connection 'from-E2_0toE2_0' in clearGNEConnections()
 Debug: Restoring previous attribute
 Debug: invalidating (removing) connections of edge 'E1' due it were guessed
 Debug: Deleting unreferenced connection 'fromE1_0to-E10_0' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'fromE1_0toE2_0' in clearGNEConnections()
-Debug: Deleting unreferenced connection 'fromE1_0to-E1_0' in clearGNEConnections()
 Debug: Removing edge '-E10' from net
 GLDebug: 	Removed object edge:-E10 from SUMORTree with boundary 30.00,40.00,70.00,80.00
 Debug: Restoring previous attribute
@@ -1238,17 +1180,14 @@ Debug: Restoring previous attribute
 Debug: invalidating (removing) connections of edge 'E9' due it were guessed
 Debug: Deleting unreferenced connection 'fromE9_0toE1_0' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'fromE9_0to-E0_0' in clearGNEConnections()
-Debug: Deleting unreferenced connection 'fromE9_0to-E9_0' in clearGNEConnections()
 Debug: Restoring previous attribute
 Debug: invalidating (removing) connections of edge '-E1' due it were guessed
 Debug: Deleting unreferenced connection 'from-E1_0to-E0_0' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'from-E1_0to-E9_0' in clearGNEConnections()
-Debug: Deleting unreferenced connection 'from-E1_0toE1_0' in clearGNEConnections()
 Debug: Restoring previous attribute
 Debug: invalidating (removing) connections of edge 'E0' due it were guessed
 Debug: Deleting unreferenced connection 'fromE0_0to-E9_0' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'fromE0_0toE1_0' in clearGNEConnections()
-Debug: Deleting unreferenced connection 'fromE0_0to-E0_0' in clearGNEConnections()
 Debug: Removing edge '-E9' from net
 GLDebug: 	Removed object edge:-E9 from SUMORTree with boundary 28.40,40.00,50.00,80.00
 Debug: Restoring previous attribute
@@ -1281,17 +1220,14 @@ Debug: Restoring previous attribute
 Debug: invalidating (removing) connections of edge 'E8' due it were guessed
 Debug: Deleting unreferenced connection 'fromE8_0toE0_0' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'fromE8_0to-E7_0' in clearGNEConnections()
-Debug: Deleting unreferenced connection 'fromE8_0to-E8_0' in clearGNEConnections()
 Debug: Restoring previous attribute
 Debug: invalidating (removing) connections of edge 'E7' due it were guessed
 Debug: Deleting unreferenced connection 'fromE7_0to-E8_0' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'fromE7_0toE0_0' in clearGNEConnections()
-Debug: Deleting unreferenced connection 'fromE7_0to-E7_0' in clearGNEConnections()
 Debug: Restoring previous attribute
 Debug: invalidating (removing) connections of edge '-E0' due it were guessed
 Debug: Deleting unreferenced connection 'from-E0_0to-E7_0' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'from-E0_0to-E8_0' in clearGNEConnections()
-Debug: Deleting unreferenced connection 'from-E0_0toE0_0' in clearGNEConnections()
 Debug: Removing edge '-E8' from net
 GLDebug: 	Removed object edge:-E8 from SUMORTree with boundary 10.00,40.00,50.00,80.00
 Debug: Restoring previous attribute
@@ -2248,10 +2184,8 @@ GLDebug: 	Inserted edge:E8 into SUMORTree with boundary 10.00,40.00,50.00,80.00
 GLDebug: 	Inserted edge:E9 into SUMORTree with boundary 30.00,40.00,51.60,80.00
 Debug: Created connection 'from-E0_0to-E7_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E0_0to-E8_0' in retrieveGNEConnection()
-Debug: Created connection 'from-E0_0toE0_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E1_0to-E0_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E1_0to-E9_0' in retrieveGNEConnection()
-Debug: Created connection 'from-E1_0toE1_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E10_0toE9_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E10_0toE8_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E10_0toE15_0' in retrieveGNEConnection()
@@ -2259,7 +2193,6 @@ Debug: Created connection 'from-E10_0toE14_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E10_0toE13_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E10_0toE12_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E10_0toE11_0' in retrieveGNEConnection()
-Debug: Created connection 'from-E10_0toE10_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E11_0toE10_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E11_0toE9_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E11_0toE8_0' in retrieveGNEConnection()
@@ -2267,7 +2200,6 @@ Debug: Created connection 'from-E11_0toE15_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E11_0toE14_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E11_0toE13_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E11_0toE12_0' in retrieveGNEConnection()
-Debug: Created connection 'from-E11_0toE11_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E12_0toE11_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E12_0toE10_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E12_0toE9_0' in retrieveGNEConnection()
@@ -2275,7 +2207,6 @@ Debug: Created connection 'from-E12_0toE8_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E12_0toE15_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E12_0toE14_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E12_0toE13_0' in retrieveGNEConnection()
-Debug: Created connection 'from-E12_0toE12_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E13_0toE12_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E13_0toE11_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E13_0toE10_0' in retrieveGNEConnection()
@@ -2283,7 +2214,6 @@ Debug: Created connection 'from-E13_0toE9_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E13_0toE8_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E13_0toE15_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E13_0toE14_0' in retrieveGNEConnection()
-Debug: Created connection 'from-E13_0toE13_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E14_0toE13_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E14_0toE12_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E14_0toE11_0' in retrieveGNEConnection()
@@ -2291,7 +2221,6 @@ Debug: Created connection 'from-E14_0toE10_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E14_0toE9_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E14_0toE8_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E14_0toE15_0' in retrieveGNEConnection()
-Debug: Created connection 'from-E14_0toE14_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E15_0toE14_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E15_0toE13_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E15_0toE12_0' in retrieveGNEConnection()
@@ -2299,25 +2228,18 @@ Debug: Created connection 'from-E15_0toE11_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E15_0toE10_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E15_0toE9_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E15_0toE8_0' in retrieveGNEConnection()
-Debug: Created connection 'from-E15_0toE15_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E2_0to-E1_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E2_0to-E10_0' in retrieveGNEConnection()
-Debug: Created connection 'from-E2_0toE2_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E3_0to-E2_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E3_0to-E11_0' in retrieveGNEConnection()
-Debug: Created connection 'from-E3_0toE3_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E4_0to-E3_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E4_0to-E12_0' in retrieveGNEConnection()
-Debug: Created connection 'from-E4_0toE4_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E5_0to-E4_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E5_0to-E13_0' in retrieveGNEConnection()
-Debug: Created connection 'from-E5_0toE5_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E6_0to-E5_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E6_0to-E14_0' in retrieveGNEConnection()
-Debug: Created connection 'from-E6_0toE6_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E7_0to-E6_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E7_0to-E15_0' in retrieveGNEConnection()
-Debug: Created connection 'from-E7_0toE7_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E8_0toE15_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E8_0toE14_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E8_0toE13_0' in retrieveGNEConnection()
@@ -2325,7 +2247,6 @@ Debug: Created connection 'from-E8_0toE12_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E8_0toE11_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E8_0toE10_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E8_0toE9_0' in retrieveGNEConnection()
-Debug: Created connection 'from-E8_0toE8_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E9_0toE8_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E9_0toE15_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E9_0toE14_0' in retrieveGNEConnection()
@@ -2333,66 +2254,47 @@ Debug: Created connection 'from-E9_0toE13_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E9_0toE12_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E9_0toE11_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E9_0toE10_0' in retrieveGNEConnection()
-Debug: Created connection 'from-E9_0toE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE0_0to-E9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE0_0toE1_0' in retrieveGNEConnection()
-Debug: Created connection 'fromE0_0to-E0_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE1_0to-E10_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE1_0toE2_0' in retrieveGNEConnection()
-Debug: Created connection 'fromE1_0to-E1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE10_0toE2_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE10_0to-E1_0' in retrieveGNEConnection()
-Debug: Created connection 'fromE10_0to-E10_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE11_0toE3_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE11_0to-E2_0' in retrieveGNEConnection()
-Debug: Created connection 'fromE11_0to-E11_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE12_0toE4_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE12_0to-E3_0' in retrieveGNEConnection()
-Debug: Created connection 'fromE12_0to-E12_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE13_0toE5_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE13_0to-E4_0' in retrieveGNEConnection()
-Debug: Created connection 'fromE13_0to-E13_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE14_0toE6_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE14_0to-E5_0' in retrieveGNEConnection()
-Debug: Created connection 'fromE14_0to-E14_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE15_0toE7_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE15_0to-E6_0' in retrieveGNEConnection()
-Debug: Created connection 'fromE15_0to-E15_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE2_0to-E11_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE2_0toE3_0' in retrieveGNEConnection()
-Debug: Created connection 'fromE2_0to-E2_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE3_0to-E12_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE3_0toE4_0' in retrieveGNEConnection()
-Debug: Created connection 'fromE3_0to-E3_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE4_0to-E13_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE4_0toE5_0' in retrieveGNEConnection()
-Debug: Created connection 'fromE4_0to-E4_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE5_0to-E14_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE5_0toE6_0' in retrieveGNEConnection()
-Debug: Created connection 'fromE5_0to-E5_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE6_0to-E15_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE6_0toE7_0' in retrieveGNEConnection()
-Debug: Created connection 'fromE6_0to-E6_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE7_0to-E8_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE7_0toE0_0' in retrieveGNEConnection()
-Debug: Created connection 'fromE7_0to-E7_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE8_0toE0_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE8_0to-E7_0' in retrieveGNEConnection()
-Debug: Created connection 'fromE8_0to-E8_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE9_0toE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE9_0to-E0_0' in retrieveGNEConnection()
-Debug: Created connection 'fromE9_0to-E9_0' in retrieveGNEConnection()
 Debug: network elements saved
 Debug: Deleting unreferenced edge '-E0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '-E0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-E0_0to-E7_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-E0_0to-E8_0' in GNEEdge destructor
-Debug: Deleting unreferenced connection 'from-E0_0toE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge '-E1' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '-E1_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-E1_0to-E0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-E1_0to-E9_0' in GNEEdge destructor
-Debug: Deleting unreferenced connection 'from-E1_0toE1_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge '-E10' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '-E10_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-E10_0toE9_0' in GNEEdge destructor
@@ -2402,7 +2304,6 @@ Debug: Deleting unreferenced connection 'from-E10_0toE14_0' in GNEEdge destructo
 Debug: Deleting unreferenced connection 'from-E10_0toE13_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-E10_0toE12_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-E10_0toE11_0' in GNEEdge destructor
-Debug: Deleting unreferenced connection 'from-E10_0toE10_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge '-E11' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '-E11_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-E11_0toE10_0' in GNEEdge destructor
@@ -2412,7 +2313,6 @@ Debug: Deleting unreferenced connection 'from-E11_0toE15_0' in GNEEdge destructo
 Debug: Deleting unreferenced connection 'from-E11_0toE14_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-E11_0toE13_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-E11_0toE12_0' in GNEEdge destructor
-Debug: Deleting unreferenced connection 'from-E11_0toE11_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge '-E12' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '-E12_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-E12_0toE11_0' in GNEEdge destructor
@@ -2422,7 +2322,6 @@ Debug: Deleting unreferenced connection 'from-E12_0toE8_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-E12_0toE15_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-E12_0toE14_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-E12_0toE13_0' in GNEEdge destructor
-Debug: Deleting unreferenced connection 'from-E12_0toE12_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge '-E13' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '-E13_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-E13_0toE12_0' in GNEEdge destructor
@@ -2432,7 +2331,6 @@ Debug: Deleting unreferenced connection 'from-E13_0toE9_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-E13_0toE8_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-E13_0toE15_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-E13_0toE14_0' in GNEEdge destructor
-Debug: Deleting unreferenced connection 'from-E13_0toE13_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge '-E14' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '-E14_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-E14_0toE13_0' in GNEEdge destructor
@@ -2442,7 +2340,6 @@ Debug: Deleting unreferenced connection 'from-E14_0toE10_0' in GNEEdge destructo
 Debug: Deleting unreferenced connection 'from-E14_0toE9_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-E14_0toE8_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-E14_0toE15_0' in GNEEdge destructor
-Debug: Deleting unreferenced connection 'from-E14_0toE14_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge '-E15' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '-E15_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-E15_0toE14_0' in GNEEdge destructor
@@ -2452,37 +2349,30 @@ Debug: Deleting unreferenced connection 'from-E15_0toE11_0' in GNEEdge destructo
 Debug: Deleting unreferenced connection 'from-E15_0toE10_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-E15_0toE9_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-E15_0toE8_0' in GNEEdge destructor
-Debug: Deleting unreferenced connection 'from-E15_0toE15_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge '-E2' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '-E2_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-E2_0to-E1_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-E2_0to-E10_0' in GNEEdge destructor
-Debug: Deleting unreferenced connection 'from-E2_0toE2_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge '-E3' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '-E3_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-E3_0to-E2_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-E3_0to-E11_0' in GNEEdge destructor
-Debug: Deleting unreferenced connection 'from-E3_0toE3_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge '-E4' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '-E4_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-E4_0to-E3_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-E4_0to-E12_0' in GNEEdge destructor
-Debug: Deleting unreferenced connection 'from-E4_0toE4_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge '-E5' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '-E5_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-E5_0to-E4_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-E5_0to-E13_0' in GNEEdge destructor
-Debug: Deleting unreferenced connection 'from-E5_0toE5_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge '-E6' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '-E6_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-E6_0to-E5_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-E6_0to-E14_0' in GNEEdge destructor
-Debug: Deleting unreferenced connection 'from-E6_0toE6_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge '-E7' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '-E7_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-E7_0to-E6_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-E7_0to-E15_0' in GNEEdge destructor
-Debug: Deleting unreferenced connection 'from-E7_0toE7_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge '-E8' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '-E8_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-E8_0toE15_0' in GNEEdge destructor
@@ -2492,7 +2382,6 @@ Debug: Deleting unreferenced connection 'from-E8_0toE12_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-E8_0toE11_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-E8_0toE10_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-E8_0toE9_0' in GNEEdge destructor
-Debug: Deleting unreferenced connection 'from-E8_0toE8_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge '-E9' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '-E9_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-E9_0toE8_0' in GNEEdge destructor
@@ -2502,87 +2391,70 @@ Debug: Deleting unreferenced connection 'from-E9_0toE13_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-E9_0toE12_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-E9_0toE11_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-E9_0toE10_0' in GNEEdge destructor
-Debug: Deleting unreferenced connection 'from-E9_0toE9_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge 'E0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'E0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromE0_0to-E9_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromE0_0toE1_0' in GNEEdge destructor
-Debug: Deleting unreferenced connection 'fromE0_0to-E0_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge 'E1' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'E1_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromE1_0to-E10_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromE1_0toE2_0' in GNEEdge destructor
-Debug: Deleting unreferenced connection 'fromE1_0to-E1_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge 'E10' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'E10_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromE10_0toE2_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromE10_0to-E1_0' in GNEEdge destructor
-Debug: Deleting unreferenced connection 'fromE10_0to-E10_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge 'E11' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'E11_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromE11_0toE3_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromE11_0to-E2_0' in GNEEdge destructor
-Debug: Deleting unreferenced connection 'fromE11_0to-E11_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge 'E12' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'E12_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromE12_0toE4_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromE12_0to-E3_0' in GNEEdge destructor
-Debug: Deleting unreferenced connection 'fromE12_0to-E12_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge 'E13' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'E13_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromE13_0toE5_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromE13_0to-E4_0' in GNEEdge destructor
-Debug: Deleting unreferenced connection 'fromE13_0to-E13_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge 'E14' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'E14_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromE14_0toE6_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromE14_0to-E5_0' in GNEEdge destructor
-Debug: Deleting unreferenced connection 'fromE14_0to-E14_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge 'E15' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'E15_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromE15_0toE7_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromE15_0to-E6_0' in GNEEdge destructor
-Debug: Deleting unreferenced connection 'fromE15_0to-E15_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge 'E2' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'E2_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromE2_0to-E11_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromE2_0toE3_0' in GNEEdge destructor
-Debug: Deleting unreferenced connection 'fromE2_0to-E2_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge 'E3' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'E3_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromE3_0to-E12_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromE3_0toE4_0' in GNEEdge destructor
-Debug: Deleting unreferenced connection 'fromE3_0to-E3_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge 'E4' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'E4_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromE4_0to-E13_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromE4_0toE5_0' in GNEEdge destructor
-Debug: Deleting unreferenced connection 'fromE4_0to-E4_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge 'E5' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'E5_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromE5_0to-E14_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromE5_0toE6_0' in GNEEdge destructor
-Debug: Deleting unreferenced connection 'fromE5_0to-E5_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge 'E6' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'E6_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromE6_0to-E15_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromE6_0toE7_0' in GNEEdge destructor
-Debug: Deleting unreferenced connection 'fromE6_0to-E6_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge 'E7' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'E7_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromE7_0to-E8_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromE7_0toE0_0' in GNEEdge destructor
-Debug: Deleting unreferenced connection 'fromE7_0to-E7_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge 'E8' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'E8_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromE8_0toE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromE8_0to-E7_0' in GNEEdge destructor
-Debug: Deleting unreferenced connection 'fromE8_0to-E8_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge 'E9' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'E9_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromE9_0toE1_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromE9_0to-E0_0' in GNEEdge destructor
-Debug: Deleting unreferenced connection 'fromE9_0to-E9_0' in GNEEdge destructor
 Debug: Deleting unreferenced junction 'J0' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'J1' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'J2' in AttributeCarriers destructor

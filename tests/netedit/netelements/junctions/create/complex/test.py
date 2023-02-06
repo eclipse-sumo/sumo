@@ -38,44 +38,44 @@ netedit.changeEditMode(netedit.attrs.modes.network.twoWayMode)
 netedit.changeEditMode(netedit.attrs.modes.network.chainMode)
 
 # create a circular road
-netedit.leftClick(referencePosition, 167, 135)
-netedit.leftClick(referencePosition, 271, 135)
-netedit.leftClick(referencePosition, 375, 135)
-netedit.leftClick(referencePosition, 375, 241)
-netedit.leftClick(referencePosition, 375, 345)
-netedit.leftClick(referencePosition, 271, 345)
-netedit.leftClick(referencePosition, 167, 345)
-netedit.leftClick(referencePosition, 167, 241)
-netedit.leftClick(referencePosition, 167, 135)
+netedit.leftClick(referencePosition, 157, 125)
+netedit.leftClick(referencePosition, 261, 125)
+netedit.leftClick(referencePosition, 365, 125)
+netedit.leftClick(referencePosition, 365, 231)
+netedit.leftClick(referencePosition, 365, 335)
+netedit.leftClick(referencePosition, 261, 335)
+netedit.leftClick(referencePosition, 157, 335)
+netedit.leftClick(referencePosition, 157, 231)
+netedit.leftClick(referencePosition, 157, 125)
 netedit.cancelEdge()
 
 # disable chain mode
 netedit.changeEditMode(netedit.attrs.modes.network.chainMode)
 
 # create a complex intersection
-netedit.leftClick(referencePosition, 273, 240)
-netedit.leftClick(referencePosition, 167, 135)
+netedit.leftClick(referencePosition, 263, 230)
+netedit.leftClick(referencePosition, 157, 145)
 
-netedit.leftClick(referencePosition, 273, 240)
-netedit.leftClick(referencePosition, 271, 135)
+netedit.leftClick(referencePosition, 263, 220)
+netedit.leftClick(referencePosition, 261, 115)
 
-netedit.leftClick(referencePosition, 273, 240)
-netedit.leftClick(referencePosition, 375, 135)
+netedit.leftClick(referencePosition, 263, 230)
+netedit.leftClick(referencePosition, 365, 125)
 
-netedit.leftClick(referencePosition, 273, 240)
-netedit.leftClick(referencePosition, 375, 241)
+netedit.leftClick(referencePosition, 263, 230)
+netedit.leftClick(referencePosition, 365, 231)
 
-netedit.leftClick(referencePosition, 273, 240)
-netedit.leftClick(referencePosition, 375, 345)
+netedit.leftClick(referencePosition, 263, 230)
+netedit.leftClick(referencePosition, 365, 335)
 
-netedit.leftClick(referencePosition, 273, 240)
-netedit.leftClick(referencePosition, 271, 345)
+netedit.leftClick(referencePosition, 263, 230)
+netedit.leftClick(referencePosition, 261, 335)
 
-netedit.leftClick(referencePosition, 273, 240)
-netedit.leftClick(referencePosition, 167, 345)
+netedit.leftClick(referencePosition, 263, 230)
+netedit.leftClick(referencePosition, 157, 335)
 
-netedit.leftClick(referencePosition, 273, 240)
-netedit.leftClick(referencePosition, 167, 241)
+netedit.leftClick(referencePosition, 263, 230)
+netedit.leftClick(referencePosition, 157, 231)
 
 # rebuild network
 netedit.rebuildNetwork()

@@ -38,11 +38,11 @@ netedit.changeEditMode(netedit.attrs.modes.network.twoWayMode)
 netedit.changeEditMode(netedit.attrs.modes.network.chainMode)
 
 # create square
-netedit.leftClick(referencePosition, 167, 135)
-netedit.leftClick(referencePosition, 375, 135)
-netedit.leftClick(referencePosition, 375, 345)
-netedit.leftClick(referencePosition, 167, 345)
-netedit.leftClick(referencePosition, 167, 135)
+netedit.leftClick(referencePosition, 157, 125)
+netedit.leftClick(referencePosition, 345, 125)
+netedit.leftClick(referencePosition, 345, 335)
+netedit.leftClick(referencePosition, 157, 335)
+netedit.leftClick(referencePosition, 157, 125)
 netedit.cancelEdge()
 
 # rebuild network
