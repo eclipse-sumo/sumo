@@ -231,23 +231,23 @@ GNEEntryExitDetector::drawGL(const GUIVisualizationSettings& s) const {
                 GLHelper::popMatrix();
                 // check if draw E3
                 if (!s.drawForRectangleSelection && !s.drawForPositionSelection) {
-                    // calculate position
-                    const Position pos = myAdditionalGeometry.getShape().front();
-                    // calculate rotation
-                    const double rot = s.getTextAngle(myAdditionalGeometry.getShapeRotations().front() + 90);
                     // Push matrix
                     GLHelper::pushMatrix();
-                    // Traslate to position
-                    //glTranslated(pos.x(), pos.y(), 0.1);
-                    // scale text
+                    // Traslate to center of detector
+                    glTranslated(myAdditionalGeometry.getShape().front().x(), myAdditionalGeometry.getShape().front().y(), getType() + 0.1);
+                    // rotate over lane
+                    GUIGeometry::rotateOverLane(myAdditionalGeometry.getShapeRotations().front());
+                    //move to logo position
+                    glTranslated(1.9, 0, 0);
+                    // scale
                     glScaled(entryExitExaggeration, entryExitExaggeration, 1);
                     // draw depending of color
                     if (drawUsingSelectColor()) {
-                        GLHelper::drawText("E3", pos, .1, 2.8, s.colorSettings.selectedAdditionalColor, rot);
+                        GLHelper::drawText("E3", Position(0, 0), .1, 2.8, s.colorSettings.selectedAdditionalColor);
                     } else if (myTagProperty.getTag() == SUMO_TAG_DET_ENTRY) {
-                        GLHelper::drawText("E3", pos, .1, 2.8, s.detectorSettings.E3EntryColor, rot);
+                        GLHelper::drawText("E3", Position(0, 0), .1, 2.8, s.detectorSettings.E3EntryColor);
                     } else if (myTagProperty.getTag() == SUMO_TAG_DET_EXIT) {
-                        GLHelper::drawText("E3", pos, .1, 2.8, s.detectorSettings.E3ExitColor, rot);
+                        GLHelper::drawText("E3", Position(0, 0), .1, 2.8, s.detectorSettings.E3ExitColor);
                     }
                     // pop matrix
                     GLHelper::popMatrix();
