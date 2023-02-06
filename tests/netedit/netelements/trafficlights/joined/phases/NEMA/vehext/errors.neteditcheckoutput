@@ -1,8 +1,2 @@
-Warning: Cannot build detector of length 20 because no further continuation lane was found for lane '-E4_1'! Truncated detector at length 14.33.
-Warning: Cannot build detector of length 20 because no further continuation lane was found for lane '-E4_2'! Truncated detector at length 14.33.
-Warning: Cannot build detector of length 20 because no further continuation lane was found for lane '-E6_1'! Truncated detector at length 14.33.
-Warning: Cannot build detector of length 20 because no further continuation lane was found for lane '-E6_2'! Truncated detector at length 14.33.
-Warning: Cannot build detector of length 20 because no further continuation lane was found for lane '-E7_1'! Truncated detector at length 14.33.
-Warning: Cannot build detector of length 20 because no further continuation lane was found for lane '-E7_2'! Truncated detector at length 14.33.
-Warning: Cannot build detector of length 20 because no further continuation lane was found for lane 'E9_1'! Truncated detector at length 14.33.
-Warning: Cannot build detector of length 20 because no further continuation lane was found for lane 'E9_2'! Truncated detector at length 14.33.
+Error: At traffic signal 'J0' program '0' no phase named '4' was found
+Quitting (on error).
