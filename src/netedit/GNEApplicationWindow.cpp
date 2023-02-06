@@ -396,13 +396,19 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_F3_TEMPLATE_CLEAR,     GNEApplicationWindow::onCmdClearTemplate),
     // languages
     FXMAPFUNC(SEL_COMMAND,  MID_LANGUAGE_EN,    GNEApplicationWindow::onCmdChangeLanguage),
-    FXMAPFUNC(SEL_COMMAND,  MID_LANGUAGE_DE,    GNEApplicationWindow::onCmdChangeLanguage),
-    FXMAPFUNC(SEL_COMMAND,  MID_LANGUAGE_ES,    GNEApplicationWindow::onCmdChangeLanguage),
-    FXMAPFUNC(SEL_COMMAND,  MID_LANGUAGE_FR,    GNEApplicationWindow::onCmdChangeLanguage),
-    FXMAPFUNC(SEL_COMMAND,  MID_LANGUAGE_ZH,    GNEApplicationWindow::onCmdChangeLanguage),
-    FXMAPFUNC(SEL_COMMAND,  MID_LANGUAGE_TR,    GNEApplicationWindow::onCmdChangeLanguage),
-    FXMAPFUNC(SEL_COMMAND,  MID_LANGUAGE_HU,    GNEApplicationWindow::onCmdChangeLanguage),
     FXMAPFUNC(SEL_UPDATE,   MID_LANGUAGE_EN,    GNEApplicationWindow::onUpdChangeLanguage),
+    FXMAPFUNC(SEL_COMMAND,  MID_LANGUAGE_DE,    GNEApplicationWindow::onCmdChangeLanguage),
+    FXMAPFUNC(SEL_UPDATE,   MID_LANGUAGE_DE,    GNEApplicationWindow::onUpdChangeLanguage),
+    FXMAPFUNC(SEL_COMMAND,  MID_LANGUAGE_ES,    GNEApplicationWindow::onCmdChangeLanguage),
+    FXMAPFUNC(SEL_UPDATE,   MID_LANGUAGE_ES,    GNEApplicationWindow::onUpdChangeLanguage),
+    FXMAPFUNC(SEL_COMMAND,  MID_LANGUAGE_FR,    GNEApplicationWindow::onCmdChangeLanguage),
+    FXMAPFUNC(SEL_UPDATE,   MID_LANGUAGE_FR,    GNEApplicationWindow::onUpdChangeLanguage),
+    FXMAPFUNC(SEL_COMMAND,  MID_LANGUAGE_ZH,    GNEApplicationWindow::onCmdChangeLanguage),
+    FXMAPFUNC(SEL_UPDATE,   MID_LANGUAGE_ZH,    GNEApplicationWindow::onUpdChangeLanguage),
+    FXMAPFUNC(SEL_COMMAND,  MID_LANGUAGE_TR,    GNEApplicationWindow::onCmdChangeLanguage),
+    FXMAPFUNC(SEL_UPDATE,   MID_LANGUAGE_TR,    GNEApplicationWindow::onUpdChangeLanguage),
+    FXMAPFUNC(SEL_COMMAND,  MID_LANGUAGE_HU,    GNEApplicationWindow::onCmdChangeLanguage),
+    FXMAPFUNC(SEL_UPDATE,   MID_LANGUAGE_HU,    GNEApplicationWindow::onUpdChangeLanguage),
     // Other
     FXMAPFUNC(SEL_CLIPBOARD_REQUEST,    0,                                                  GNEApplicationWindow::onClipboardRequest),
     FXMAPFUNC(SEL_COMMAND,              MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT,             GNEApplicationWindow::onCmdFocusFrame),
@@ -2500,30 +2506,29 @@ GNEApplicationWindow::onCmdChangeLanguage(FXObject*, FXSelector sel, void*) {
 
 
 long
-GNEApplicationWindow::onUpdChangeLanguage(FXObject*, FXSelector, void*) {
-/*
-    // get language button
-    auto languageButton = myViewNet->getLanguages().getChangeLanguageButton();
-    // check language
-    if (gLanguage == "EN") {
-        languageButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_EN));
-    } else if (gLanguage == "DE") {
-        languageButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_DE));
-    } else if (gLanguage == "ES") {
-        languageButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_ES));
-    } else if (gLanguage == "FR") {
-        languageButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_FR));
-    } else if (gLanguage == "ZH") {
-        languageButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_ZH));
-    } else if (gLanguage == "TR") {
-        languageButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_TR));
-    } else if (gLanguage == "HU") {
-        languageButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_HU));
-    } else {
-        // english as default
-        languageButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_EN));
+GNEApplicationWindow::onUpdChangeLanguage(FXObject* obj, FXSelector, void*) {
+    // get language menu command
+    FXMenuCommand* menuCommand = dynamic_cast<FXMenuCommand*>(obj);
+    if (menuCommand) {
+        // check if change color
+        if ((gLanguage == "EN") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_EN))) {
+            menuCommand->setTextColor(FXRGB(0, 0, 255));
+        } else if ((gLanguage == "DE") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_DE))) {
+            menuCommand->setTextColor(FXRGB(0, 0, 255));
+        } else if ((gLanguage == "ES") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_ES))) {
+            menuCommand->setTextColor(FXRGB(0, 0, 255));
+        } else if ((gLanguage == "FR") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_FR))) {
+            menuCommand->setTextColor(FXRGB(0, 0, 255));
+        } else if ((gLanguage == "ZH") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_ZH))) {
+            menuCommand->setTextColor(FXRGB(0, 0, 255));
+        } else if ((gLanguage == "TR") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_TR))) {
+            menuCommand->setTextColor(FXRGB(0, 0, 255));
+        } else if ((gLanguage == "HU") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_HU))) {
+            menuCommand->setTextColor(FXRGB(0, 0, 255));
+        } else {
+            menuCommand->setTextColor(FXRGB(0, 0, 0));
+        }
     }
-*/
     return 1;
 }
 
