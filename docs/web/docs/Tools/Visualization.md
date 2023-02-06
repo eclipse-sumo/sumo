@@ -788,6 +788,18 @@ To visualize the flow on an intersection with line widths according to the amoun
 
 <img src="../images/Route2poly_intersectionFlow.png" width="400px"/>
 
+## Visulizing FCD-Data as moving POIs
+
+The tool `fcdReplay.py` can be used to replay an [fcd-output file](../Simulation/Output/FCDOutput.md) in [sumo-gui](../sumo-gui.md).
+
+Example uses:
+
+```
+python  tools/fcdReplay.py -k example.sumocfg -f fcd.xml
+```
+
+To make use of fcd data with lon/lat values (generated with sumo option **--fcd-output.geo**), the option **--geo** must be set.
+
 # Outdated
 
 The tools are meant to be named as following: <API\>__<DESCRIPTION\>.py, where:
