@@ -10,9 +10,9 @@ title: ChangeLog
   - Improved simulation speed in large networks with simulation routing. Issue #12416 (regression in 1.2.0)
   - Fixed invalid blocked state while decelerating and trying to perform lane change. Issue #12108  
   - Fixed invalid braking at internal junction. Issue #12000
-  - Fixed invalid right of way rules when for two conflicting connections with internal junctions. Issue #11988
+  - Fixed invalid right of way rules for two conflicting connections with internal junctions. Issue #11988
   - Fixed incomplete vehroute-output when using option **--vehroute-output.sorted** and some cars or vehicle do not finish their journey. Issue #12049
-  - stop-output contains now always contains the correct 'started' values even if other values were part of the input. Issue #12125
+  - stop-output now always contains the correct 'started' values even if other values were part of the input. Issue #12125
   - Fixed error when trying to use laneChangeModel *DK2008* with continuos lane change model. Issue #12144
   - Fixed invalid lane choice in the presence of lane change restrictions. Issue #12118, #12461
   - Fixed crash in public transport scenario with looped routes. Issue #12150  
@@ -55,7 +55,7 @@ title: ChangeLog
   - Fixed bug where stops on looped routes where saved in an invalid order. Issue #12054 (regression in 1.12.0)
   - Right click on elements above a polygon now acts on the top element again. Issue #12111 (regression in 1.14.1)
   - Fixed invalid position of start and end edge geometry points after merging geometry points in move mode. Issue #12178 (regression in 1.14.1)
-  - Fixed bug where during creation of new edge, sometimes, the candidate "to" junction isn't draw wit magenta dotted contour. Issue #12013 (regression in 1.15.0)  
+  - Fixed bug where during creation of new edge, sometimes, the candidate "to" junction wasn't drawn wit magenta dotted contour. Issue #12013 (regression in 1.15.0)  
   - Fixed crash when using 'convert to roundabout' from the junction context menu. Issue #12355 (regression in 1.15.0)
   - Fixed invalid selection outline. Issue #12033
   - Fixed bug where right-click object-choice-menu lists the same object twice. Issue #12034
@@ -68,7 +68,7 @@ title: ChangeLog
   - Fixed invalid default edge attributes after setting a template. Issue #12392
   - Moving a selected edge with selected junctions now also moves the custom edge end points. Issue #12445
   - Fixed invalid conversion between periodic flow rate and poisson flow rate. Issue #12451
-  - Calibrator-flow attributes begin and end are now loaded correctly. Issue #12470
+  - Calibrator-flow attributes `begin` and `end` are now loaded correctly. Issue #12470
   
 - sumo-gui
   - Fixed invalid camera position after tracked vehicles exits the simulation. Issue #12137 (regression in 1.13.0)
@@ -83,7 +83,7 @@ title: ChangeLog
   - Fixed bad default settings when loading a 2D viewport in OSG view. Issue #12348
   - Fixes 3D view boundary coordinates after rotating the view. Issue #11941
   - Fixed crash on quick-reload reloading. Issue #12367
-  - Fixed crash when using 'select reachability' related to negative edge speeds. Issue #12400, #12403
+  - Fixed crash when using 'select reachability' (related to negative edge speeds). Issue #12400, #12403
   - Reload hotkey no longer takes effect when running with TraCI. Issue #12431
   - Fixed invalid pedestrian position while passing a short walkingarea. Issue #12456
   - Right-click on vehices and person no longer fails on very wide lanes. Issue #12505
@@ -98,8 +98,7 @@ title: ChangeLog
   - Fixed xml-validation error when importing MATSim network. Issue #12509 (regression in 1.15.0)
   - Fixed unnecessary dead-end lanes at large intersections. Issue #2472
   - Fixed invalid OpenDRIVE output when writing traffic signals with signal groups. Issue #11980
-  - Fixed invalid OpenDRIVE output for lefthand networks. Issue #11995, #12038, #12047
-  - No longer adding guessed turn-around connection at *real* intersections by default. Issue #12448
+  - Fixed invalid OpenDRIVE output for lefthand networks. Issue #11995, #12038, #12047  
   - Fixed invalid right of way rules when connections from the same edge merge and both have internal junctions. Issue #11988  
   - Fixed invalid right of way rules causing mutual conflict at multimodal priority-junction. Issue #5609
   - Fixed bug where **--junctions.join** failed in multimodal networks. Issue #6495
@@ -108,7 +107,7 @@ title: ChangeLog
   - Fixed invalid plain xml output (after reading an invalid network). Issue #12086  
   - Fixed invalid guessed connections. Issue #10771, #10978, #2472, #12181, #12327
   - Fixed missing bidi edges in generated network. Issue #12127
-  - OSM import no longer ignores spreadType in typemap. Issue #12141
+  - OSM import no longer ignores `spreadType` in typemap. Issue #12141
   - Fixed invalid bike lane in OSM import. Issue #12216
   - Fixed invalid bidirectional combined foot/bike path in OSM import. Issue #12214
   - Traffic light building on large intersections now adds extra red time after left-turn phases to ensure safety. Issue #10796  
@@ -116,9 +115,9 @@ title: ChangeLog
   - Added missing (guessed) connections when an outgoing edge has additional lanes. Issue #8899
   - Fixed invalid link state at zipper junction. Issue #7676
   - Prohibitions involving edges with underscore in their name are now working. Issue #12419
-  - Turnaround are now correctly added if the inntermost lane prohibits passenger traffic. Issue #12447
-  - OpenDRIVE networks no longer include guessed turn-arounds by default (option **--no-turnarounds false** can be used to replicate the old behavior). Issue #12448
-  - line name from **--ptline-files** is not exported. Issue #12497
+  - Turnaround are now correctly added if the innermost lane prohibits passenger traffic. Issue #12447
+  - OpenDRIVE-imported networks no longer include guessed turn-arounds at real intersection by default (option **--no-turnarounds false** can be used to replicate the old behavior). Issue #12448
+  - Line name from **--ptline-files** is now exported. Issue #12497
   - A `<split>` at pos=0 no longer ignores speed. Issue #12526
   - Distance (kilometrage) is now preserved when adding `<split>` element. Issue #12527
   - Custom edge length is now preserved when adding `<split>` element. Issue #12529
@@ -128,12 +127,12 @@ title: ChangeLog
     
 - duarouter
   - Fixed crash on unknown landmark edge. Issue #12438
-  - Fixed invalid routing result by A* (minor difference caused by internal edge lengths). Issue #12463
+  - Fixed invalid routing result by routing algorithm  A* / "astar" (minor difference caused by internal edge lengths). Issue #12463
     
 - TraCI
   - Fixed moveToXY failure at parallel internal junction. Issue #12065
   - Foe lanes for crossings can now be retrieved. Issue #12059
-  - Connection.close() now closes simulation. Issue #12133
+  - `Connection.close()` now closes simulation. Issue #12133
   - Fixed invalid behavior when mixing stops on normal and internal lanes. Issue #11885
   - Function `traci.edge.setAllowed` is now working. Issue #12305
   - Context subscriptions to the simulation domain now always return all requested objects regardless of range argument. Issue #12306
