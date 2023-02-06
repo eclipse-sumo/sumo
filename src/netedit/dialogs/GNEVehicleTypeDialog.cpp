@@ -1264,7 +1264,7 @@ GNEVehicleTypeDialog::CarFollowingModelParameters::CarFollowingModelParameters(G
     for (const auto& CFModel : CFModels) {
         myComboBoxCarFollowModel->appendIconItem(CFModel.c_str(), nullptr);
     }
-    myComboBoxCarFollowModel->setNumVisible(10);
+    myComboBoxCarFollowModel->setNumVisible(myComboBoxCarFollowModel->getNumItems());
 
     // 01 create FX and Label for Accel
     myAccelRow = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_ACCEL);
