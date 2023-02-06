@@ -25,6 +25,7 @@
 #include <xercesc/util/PlatformUtils.hpp>
 #include <xercesc/sax2/XMLReaderFactory.hpp>
 #include <xercesc/framework/XMLGrammarPoolImpl.hpp>
+#include <utils/common/FileHelpers.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringUtils.h>
 #include "SUMOSAXHandler.h"
@@ -85,33 +86,31 @@ XMLSubSys::setValidation(const std::string& validationScheme, const std::string&
         parser->setFeature(XERCES_CPP_NAMESPACE::XMLUni::fgXercesHandleMultipleImports, true);
 #endif
         const char* sumoPath = std::getenv("SUMO_HOME");
-        if (sumoPath == nullptr) {
+        if (sumoPath == nullptr || !FileHelpers::isReadable(sumoPath + std::string("/data/xsd/net_file.xsd"))) {
             bool needWarning = true;
             if (validationScheme == "local") {
-                WRITE_WARNING(TL("Environment variable SUMO_HOME is not set, disabling XML validation. Set 'auto' or 'always' for web lookups."));
+                WRITE_WARNING(TL("Environment variable SUMO_HOME is not set properly, disabling XML validation. Set 'auto' or 'always' for web lookups."));
+                needWarning = false;
                 myValidationScheme = "never";
             }
             if (netValidationScheme == "local") {
                 if (needWarning) {
-                    WRITE_WARNING(TL("Environment variable SUMO_HOME is not set, disabling XML validation. Set 'auto' or 'always' for web lookups."));
+                    WRITE_WARNING(TL("Environment variable SUMO_HOME is not set properly, disabling XML validation. Set 'auto' or 'always' for web lookups."));
                     needWarning = false;
                 }
                 myNetValidationScheme = "never";
             }
             if (routeValidationScheme == "local") {
                 if (needWarning) {
-                    WRITE_WARNING(TL("Environment variable SUMO_HOME is not set, disabling XML validation. Set 'auto' or 'always' for web lookups."));
+                    WRITE_WARNING(TL("Environment variable SUMO_HOME is not set properly, disabling XML validation. Set 'auto' or 'always' for web lookups."));
                     needWarning = false;
                 }
                 myRouteValidationScheme = "never";
             }
             if (needWarning) {
-                WRITE_WARNING(TL("Environment variable SUMO_HOME is not set, XML validation will fail or use slow website lookups."));
+                WRITE_WARNING(TL("Environment variable SUMO_HOME is not set properly, XML validation will fail or use slow website lookups."));
             }
             return;
-        }
-        if (StringUtils::startsWith(sumoPath, "http:") || StringUtils::startsWith(sumoPath, "https:") || StringUtils::startsWith(sumoPath, "ftp:")) {
-            throw ProcessError(TL("SUMO_HOME looks like an URL, aborting to avoid inadvertent network access."));
         }
         for (const char* const& filetype : {
                     "additional", "routes", "net"
