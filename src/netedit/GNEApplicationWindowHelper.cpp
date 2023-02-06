@@ -2043,25 +2043,25 @@ GNEApplicationWindowHelper:: LanguageMenuCommands::LanguageMenuCommands(GNEAppli
 void
 GNEApplicationWindowHelper::LanguageMenuCommands::buildLanguageMenuCommands(FXMenuPane* languagesMenu) {
     // create english language button
-    GUIDesigns::buildFXMenuCommandShortcut(languagesMenu, TL("English"), "", TL("Change language to english."),
+    GUIDesigns::buildFXMenuCommandShortcut(languagesMenu, TL("English"), "", TL("Change language to english. (EN)"),
                                            GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_EN), myGNEApp, MID_LANGUAGE_EN);
     // create german language button
-    GUIDesigns::buildFXMenuCommandShortcut(languagesMenu, TL("German"), "", TL("Change language to german."),
+    GUIDesigns::buildFXMenuCommandShortcut(languagesMenu, TL("German"), "", TL("Change language to german. (DE)"),
                                            GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_DE), myGNEApp, MID_LANGUAGE_DE);
     // create spanish language button
-    GUIDesigns::buildFXMenuCommandShortcut(languagesMenu, TL("Spanish"), "", TL("Change language to spanish."),
+    GUIDesigns::buildFXMenuCommandShortcut(languagesMenu, TL("Spanish"), "", TL("Change language to spanish. (ES)"),
                                            GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_ES), myGNEApp, MID_LANGUAGE_ES);
     // create french language button
-    GUIDesigns::buildFXMenuCommandShortcut(languagesMenu, TL("French"), "", TL("Change language to french."),
+    GUIDesigns::buildFXMenuCommandShortcut(languagesMenu, TL("French"), "", TL("Change language to french. (FR)"),
                                            GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_FR), myGNEApp, MID_LANGUAGE_FR);
     // create chinese language button
-    GUIDesigns::buildFXMenuCommandShortcut(languagesMenu, TL("Chinese"), "", TL("Change language to chinese."),
+    GUIDesigns::buildFXMenuCommandShortcut(languagesMenu, TL("Chinese"), "", TL("Change language to chinese. (ZH)"),
                                            GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_ZH), myGNEApp, MID_LANGUAGE_ZH);
     // create turkish language button
-    GUIDesigns::buildFXMenuCommandShortcut(languagesMenu, TL("Turkish"), "", TL("Change language to turkish."),
+    GUIDesigns::buildFXMenuCommandShortcut(languagesMenu, TL("Turkish"), "", TL("Change language to turkish. (TR)"),
                                            GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_TR), myGNEApp, MID_LANGUAGE_TR);
     // create hungarian language button
-    GUIDesigns::buildFXMenuCommandShortcut(languagesMenu, TL("Hungarian"), "", TL("Change language to hungarian."),
+    GUIDesigns::buildFXMenuCommandShortcut(languagesMenu, TL("Hungarian"), "", TL("Change language to hungarian. (HU)"),
                                            GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_HU), myGNEApp, MID_LANGUAGE_HU);
 }
 
