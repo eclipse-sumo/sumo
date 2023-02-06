@@ -35,7 +35,8 @@ The following behaviors are activated for surrounding traffic ahead of the devic
 - vehicles on all other lanes move towards the right side (latAlignment="right").
 - vehicles do not perform any lane changes (in particular, they do not move into the rescue lane).
 - after the emergency vehicle has passed, the vehicles resume normal driving (with their previous lateral alignment).
-    
+  
+Vehicles that are forming a rescue lane will have [generic parameter](GenericParameters.md) key `rescueLane` set to a space-separated list of emergency vehicle ids that are influencing them.
   
 Surrounding traffic reacts while within 25m of the device-equipped vehicle. This distance is configurable by:
 
@@ -62,6 +63,18 @@ Surrounding traffic reacts while within 25m of the device-equipped vehicle. This
 
 ```
 
+# Further Parameters
+
+The following [generic parameters](GenericParameters.md) can be used to configure a bluelight device:
+
+- "device.bluelight.reactiondist": overrides option **--device.bluelight.reactionDist**
+
+The following [generic parameters](GenericParameters.md) can be used to configure surrounding traffic w.r.t their reaction to a bluelight device:
+
+- "device.bluelight.reaction-prob-near": probably for a vehicle to react (per second) and start forming a rescue lane while near (default *0.577*)
+- "device.bluelight.reaction-prob-far": probably for a vehicle to react (pers second) and start forming a rescue lane while far away (default *0.189*)
+- "device.bluelight.near-dist": distance threshold to distinguish between near and far (for the above probabilities)
+ 
 # Visualization
 
 The visualization of emergency vehicles is supported in
