@@ -184,6 +184,21 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_SHIFT_A_LOCATEADDITIONAL,    GUIApplicationWindow::onUpdNeedsSimulation),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_SHIFT_O_LOCATEPOI,           GUIApplicationWindow::onUpdNeedsSimulation),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_SHIFT_L_LOCATEPOLY,          GUIApplicationWindow::onUpdNeedsSimulation),
+    // languages
+    FXMAPFUNC(SEL_COMMAND,  MID_LANGUAGE_EN,    GUIApplicationWindow::onCmdChangeLanguage),
+    FXMAPFUNC(SEL_UPDATE,   MID_LANGUAGE_EN,    GUIApplicationWindow::onUpdChangeLanguage),
+    FXMAPFUNC(SEL_COMMAND,  MID_LANGUAGE_DE,    GUIApplicationWindow::onCmdChangeLanguage),
+    FXMAPFUNC(SEL_UPDATE,   MID_LANGUAGE_DE,    GUIApplicationWindow::onUpdChangeLanguage),
+    FXMAPFUNC(SEL_COMMAND,  MID_LANGUAGE_ES,    GUIApplicationWindow::onCmdChangeLanguage),
+    FXMAPFUNC(SEL_UPDATE,   MID_LANGUAGE_ES,    GUIApplicationWindow::onUpdChangeLanguage),
+    FXMAPFUNC(SEL_COMMAND,  MID_LANGUAGE_FR,    GUIApplicationWindow::onCmdChangeLanguage),
+    FXMAPFUNC(SEL_UPDATE,   MID_LANGUAGE_FR,    GUIApplicationWindow::onUpdChangeLanguage),
+    FXMAPFUNC(SEL_COMMAND,  MID_LANGUAGE_ZH,    GUIApplicationWindow::onCmdChangeLanguage),
+    FXMAPFUNC(SEL_UPDATE,   MID_LANGUAGE_ZH,    GUIApplicationWindow::onUpdChangeLanguage),
+    FXMAPFUNC(SEL_COMMAND,  MID_LANGUAGE_TR,    GUIApplicationWindow::onCmdChangeLanguage),
+    FXMAPFUNC(SEL_UPDATE,   MID_LANGUAGE_TR,    GUIApplicationWindow::onUpdChangeLanguage),
+    FXMAPFUNC(SEL_COMMAND,  MID_LANGUAGE_HU,    GUIApplicationWindow::onCmdChangeLanguage),
+    FXMAPFUNC(SEL_UPDATE,   MID_LANGUAGE_HU,    GUIApplicationWindow::onUpdChangeLanguage),
     // keys
     FXMAPFUNC(SEL_KEYPRESS,              0,     GUIApplicationWindow::onKeyPress),
     FXMAPFUNC(SEL_KEYRELEASE,            0,     GUIApplicationWindow::onKeyRelease),
@@ -621,19 +636,19 @@ GUIApplicationWindow::fillMenuBar() {
     
     // build languages menu
     GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, TL("English"), "", TL("Change language to english."),
-                                           GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_EN), myMDIClient, MID_LANGUAGE_EN);
+                                           GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_EN), this, MID_LANGUAGE_EN);
     GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, TL("German"), "", TL("Change language to german."),
-                                           GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_DE), myMDIClient, MID_LANGUAGE_DE);
+                                           GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_DE), this, MID_LANGUAGE_DE);
     GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, TL("Spanish"), "", TL("Change language to spanish."),
-                                           GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_ES), myMDIClient, MID_LANGUAGE_ES);
+                                           GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_ES), this, MID_LANGUAGE_ES);
     GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, TL("French"), "", TL("Change language to french."),
-                                           GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_FR), myMDIClient, MID_LANGUAGE_FR);
+                                           GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_FR), this, MID_LANGUAGE_FR);
     GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, TL("Chinese"), "", TL("Change language to chinese."),
-                                           GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_ZH), myMDIClient, MID_LANGUAGE_ZH);
+                                           GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_ZH), this, MID_LANGUAGE_ZH);
     GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, TL("Turkish"), "", TL("Change language to turkish."),
-                                           GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_TR), myMDIClient, MID_LANGUAGE_TR);
+                                           GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_TR), this, MID_LANGUAGE_TR);
     GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, TL("Hungarian"), "", TL("Change language to hungarian."),
-                                           GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_HU), myMDIClient, MID_LANGUAGE_HU);
+                                           GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_HU), this, MID_LANGUAGE_HU);
     // build help menu
     myHelpMenu = new FXMenuPane(this);
     GUIDesigns::buildFXMenuTitle(myMenuBar,
@@ -2335,6 +2350,89 @@ GUIApplicationWindow::onKeyRelease(FXObject* o, FXSelector sel, void* ptr) {
     }
     return 0;
 }
+
+
+long
+GUIApplicationWindow::onCmdChangeLanguage(FXObject*, FXSelector sel, void*) {
+    // set language
+    std::string langID;
+    std::string lang;
+    // continue depending of called button
+    switch (FXSELID(sel)) {
+        case MID_LANGUAGE_DE:
+            langID = "DE";
+            lang = TL("german");
+            break;
+        case MID_LANGUAGE_ES:
+            langID = "ES";
+            lang = TL("spanish");
+            break;
+        case MID_LANGUAGE_FR:
+            langID = "FR";
+            lang = TL("french");
+            break;
+        case MID_LANGUAGE_ZH:
+            langID = "ZH";
+            lang = TL("chinese");
+            break;
+        case MID_LANGUAGE_TR:
+            langID = "TR";
+            lang = TL("turkish");
+            break;
+        case MID_LANGUAGE_HU:
+            langID = "HU";
+            lang = TL("hungarian");
+            break;
+        default:
+            langID = "C";
+            lang = TL("english");
+            break;
+    }
+
+    // check if change language
+    if (langID != gLanguage) {
+        // update language
+        gLanguage = langID;
+        // show info
+        WRITE_MESSAGE(TL("Language changed to ") + lang);
+        // show dialog
+        const std::string header = TL("Restart needed");
+        const std::string body = TL("Changing display language needs restart to take effect.");
+        FXMessageBox::information(getApp(), MBOX_OK, header.c_str(), "%s", (body).c_str());
+        // update language in registry (common for sumo and netedit)
+        getApp()->reg().writeStringEntry("gui", "language", langID.c_str());
+    }
+    return 1;
+}
+
+
+long
+GUIApplicationWindow::onUpdChangeLanguage(FXObject* obj, FXSelector, void*) {
+    // get language menu command
+    FXMenuCommand* menuCommand = dynamic_cast<FXMenuCommand*>(obj);
+    if (menuCommand) {
+        // check if change color
+        if ((gLanguage == "C") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_EN))) {
+            menuCommand->setTextColor(FXRGB(0, 0, 255));
+        } else if ((gLanguage == "DE") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_DE))) {
+            menuCommand->setTextColor(FXRGB(0, 0, 255));
+        } else if ((gLanguage == "ES") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_ES))) {
+            menuCommand->setTextColor(FXRGB(0, 0, 255));
+        } else if ((gLanguage == "FR") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_FR))) {
+            menuCommand->setTextColor(FXRGB(0, 0, 255));
+        } else if ((gLanguage == "ZH") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_ZH))) {
+            menuCommand->setTextColor(FXRGB(0, 0, 255));
+        } else if ((gLanguage == "TR") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_TR))) {
+            menuCommand->setTextColor(FXRGB(0, 0, 255));
+        } else if ((gLanguage == "HU") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_HU))) {
+            menuCommand->setTextColor(FXRGB(0, 0, 255));
+        } else {
+            menuCommand->setTextColor(FXRGB(0, 0, 0));
+        }
+    }
+    return 1;
+}
+
 
 
 double

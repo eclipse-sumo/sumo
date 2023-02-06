@@ -316,6 +316,12 @@ public:
     /// @brief called when a key is released
     long onKeyRelease(FXObject* o, FXSelector sel, void* data);
 
+    // @brief called when changes language
+    long onCmdChangeLanguage(FXObject*, FXSelector, void*);
+
+    // @brief called when language is updated
+    long onUpdChangeLanguage(FXObject*, FXSelector, void*);
+
     /// @}
 
     /// @brief Returns the simulation delay in miliseconds
