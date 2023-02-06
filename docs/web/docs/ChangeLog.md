@@ -140,7 +140,7 @@ title: ChangeLog
   - Fixed problems when using libsumo with gui. Issue #12285, #12021
   - Fixed crash on rerouting after insertStop/replaceStop. Issue #12387
   - Signal states are now updated immediately after calling `trafficlight.setProgramLogic`. Issue #12414
-  - Cycle type is now updated after call to `traci.trafficlight.setProgramLogic`. Issue #12357
+  - Cycle length is now updated after call to `traci.trafficlight.setProgramLogic`. Issue #12357
 
 - Tools
   - plot_net_dump_file.py: plotting a single measure is working again. Issue #11975 (regression in 1.15.0)
@@ -150,7 +150,7 @@ title: ChangeLog
   - generateRailSignalConstraints.py: Fixed inconsistent bidiPredecessors. Issue #12075
   - generateRailSignalConstraints.py: Added missing insertion constraint after invalidated stop. Issue #12474
   - tracemapper.py: Fixed duplicate consecutive edges in route. Issue #12094
-  - cutRoutes.pyL No longer writes persons without a plan. Issue #12245
+  - cutRoutes.py: No longer writes persons without a plan. Issue #12245
   - routesampler.py: Option **--total-count** is now compatible with **--weighted**. Issue #12284
   - net2geojson.py: Fixed crash when trying to import network without geo projection (now gives an error message instead). Issue #12295
   - gtfs2pt.py: Fixed missing transport modes. Issues #12277
@@ -173,7 +173,7 @@ title: ChangeLog
   - The right-of-way rules to take effect when switching a traffic light off, can now be configured as 'allway_stop'. This is the new default for NEMA-type controllers. Issue #12043
   - Improve traffic light programs in networks with separated bicycle paths. Issue #10039
   - OpenDRIVE outputs now suppots export of loaded POIs and polygons as road objects. Issue #12060
-  - When setting option **--tls.guess** roads without conflict are excluded from the threshold-heuristic. Issue #6513
+  - When setting option **--tls.guess**, roads without conflict are excluded from the threshold-heuristic. Issue #6513
   - Improved heuristic for generating rail connections at sharp angles. Issue #12119
   - Warnings of E3 detectors and from the SSM device can now be aggregated. Issue #12149
   - Individual lane widths are now import from OpenStreetMap. Issue #12162
