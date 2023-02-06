@@ -28,6 +28,9 @@ title: ChangeLog
   - Vehicles no longer become stuck when using a waypoint with parking=true. Issue #12468
   - The simulation now aborts after an unknown stoppingPlace has been loaded for a vehicle. To obtain the old behavior, option **--ignore-route-errors** may be used. Issue #12487
   - Fixed invalid braking on junction. Issue #12511
+  - Bluelight device: probabilistic rescue lane formation no longer depends on step-length. Issue #12516
+  - Fixed invalid schema error when reading vehroute-output with human readable times. Issue #12545
+  - Traffic light type 'delay_based' now adheres to the specified `maxDur` phase length. Previously phases could be prolonged beyond maxLength in the absence of other traffic. The old behavior can be enabled by setting `<param key="extendMaxDur" value="true"/>`. Issue #12553
   - intermodal simulation
     - Fixed crash when defining ride without lines. Issue #12167 (regression in 1.11.0)
     - Fixed invalid walking distance output related to lengths of crossings and walkingArea paths. Issue #11983
@@ -69,6 +72,7 @@ title: ChangeLog
   
 - sumo-gui
   - Fixed invalid camera position after tracked vehicles exits the simulation. Issue #12137 (regression in 1.13.0)
+  - Fixed invalid right-click target when there is a pedestrian crossing on top of a polygon. Issue #12523 (regression in 1.15.0)
   - Pedestrians now follow the exact shape of access lines while in access stage. Issue #12116
   - Aggregated warning summary is now written at simulation end. Issue #12209
   - Fixed invalid objects in right-click disambiguation menu. Issue #12046
@@ -84,6 +88,7 @@ title: ChangeLog
   - Fixed invalid pedestrian position while passing a short walkingarea. Issue #12456
   - Right-click on vehices and person no longer fails on very wide lanes. Issue #12505
   - Fixed fluctating rail width when using edge size-exaggeration at varying zoom levels. Issue #11832
+  
     
 - meso
   - Stopping at pos=0 is now working. Issue #12240
@@ -114,6 +119,9 @@ title: ChangeLog
   - Turnaround are now correctly added if the inntermost lane prohibits passenger traffic. Issue #12447
   - OpenDRIVE networks no longer include guessed turn-arounds by default (option **--no-turnarounds false** can be used to replicate the old behavior). Issue #12448
   - line name from **--ptline-files** is not exported. Issue #12497
+  - A `<split>` at pos=0 no longer ignores speed. Issue #12526
+  - Distance (kilometrage) is now preserved when adding `<split>` element. Issue #12527
+  - Custom edge length is now preserved when adding `<split>` element. Issue #12529
   
 - polyconvert
   - Fixed invalid polygon output for some line based inputs. Issue #12161
@@ -150,7 +158,9 @@ title: ChangeLog
   - gtfs2pt.py: Fixed mapping of bus and tram stops in multimodal networks. Issue #11802, #11849
   - gtfs2pt.py: Output is now usable with duarouter. Issue #12333
 
-- All Applications: Fixed crash if gzipped outputfile cannot be opened. Issue #11954
+- All Applications: 
+  - Fixed XML-validation error when SUMO_HOME is not set. Issue #12138 (regression in 1.15.0)
+  - Fixed crash if gzipped outputfile cannot be opened. Issue #11954
 
 ### Enhancements
 
@@ -158,6 +168,7 @@ title: ChangeLog
   - Elements `<ride>` and `<transport>` can now be defined without attribute `lines` and default to a value of `ANY` (taking any eligible vehicle that stops at the destination). Issue #12167
   - Option **--fcd-output.attributes** now supports the attribute `speedLat` for writing lateral speeds. Issue #12213
   - Stops now support attribute `jump="TIME"` to model explict jumps (teleports) between disconnected locations. Issue #12268
+  - The randomness in rescue lane formation can now be configured with bluelight device [parameters](Simulation/Emergency.md#further_parameters). Issue #12437
 
 - netconvert
   - The right-of-way rules to take effect when switching a traffic light off, can now be configured as 'allway_stop'. This is the new default for NEMA-type controllers. Issue #12043
@@ -202,7 +213,8 @@ title: ChangeLog
   - Vehicle instpect mode now allose selecting vehicle type from a drop-down list. Issue #12379
   - Added edge color legend to person and container mode. Issue #11613
   - Added edge color legend when creating e2 detectors along multiple lanes. Issue #11334
-  - Moving a single selected edge now moves its whole geometry including endpoints. Issue #12442  
+  - Moving a single selected edge now moves its whole geometry including endpoints. Issue #12442
+  - Parameeters for the W99 carFollowModel can now be configured. Issue #12290
 
 - sumo-gui
   - When option **--use-stop-ended** is set, show-route mode now labels the 'ended' time of stops. Issue #11833
@@ -221,6 +233,7 @@ title: ChangeLog
   - Window menu now includes entries for opening a new view. Issue #12417
   - Train insertion that is delayed due to oncoming trains is now indicated in the lane parameter dialog. Issue #12421
   - Added vClass icons in the "Select lanes which allow" and "Select reachable" lists. Issue #12429
+  - Scaling edge width by loaded edge data is now supported. Issue #9216
 
 - TraCI
   - Added functions `vehicle.getDeparture` and `vehicle.getDepartDelay`. Issue #3036
@@ -229,7 +242,7 @@ title: ChangeLog
   - Added functions `vehicle.getLoadedIDList` and `vehicle.getTeleportingIDList` to retrieve the corresponding vehicles (some of which could not be retrieved with getIDList). Issue #2338
   - Simpla: The maximum length of a platoon can now be configured. Issue #11426
   - The JAVA bindings now facilitate casting of subscription results. Issue #8930
-
+  
 - Tools
   - osmWebWizard.py: Add checkboxes to select/deselect groups of elements in the road types tab. Issue #10692
   - runSeeds.py: Now forwarding unknown options to application call. Issue #12312
@@ -248,6 +261,7 @@ title: ChangeLog
   - net2geojson.py: Added option **--boundary** to write polygons instead of center lines. Issue #12296
   - stateReplay.py: Now works on Windows. Issue #12298
   - checkStopOrder.py: now indicating terminal stops and overtaking events in **--stop-table** output. Issue #12471
+  - generateRailSignalConstraints.py: Now handling actual times ahead of schedule. Threshold configurable with new option **--premature-threshold**. Issue #12530
   - Added new tool [filterElements.py](Tools/Xml.md#filterelementspy) to filter elements from an xml file (either all instances or filtered by attribute value). Issue #12304
   - Added new tool [attributeDiff.py](Tools/Output.md#attributediffpy) to compute the numerical difference between two xml files with the same structure. Issue #12318
   - Added new tool [fcdDifff.py](Tools/Output.md#fcddiffpy) to compare two fcd-output files (by vehicle id and time). Issue #12233
