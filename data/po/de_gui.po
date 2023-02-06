@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-05 21:26+0100\n"
 "PO-Revision-Date: 2023-02-06 16:12+0000\n"
-"Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
+"Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
 "Language: de\n"
@@ -3353,35 +3353,35 @@ msgstr "Zur Auswahl hinzufügen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:613
 msgid "GUI-Settings cannot be saved in "
-msgstr ""
+msgstr "GUI-Settings konnten nicht gespeichert werden in "
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:812
 msgid "Confirm Junction Merger"
-msgstr ""
+msgstr "Bestätige die Knotenpunktzusammenlegung"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:813
 msgid "Do you wish to merge junctions '"
-msgstr ""
+msgstr "Sollen Knotenpunkte zusammengelegt werden '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:814
 msgid "' and '"
-msgstr ""
+msgstr "' und '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:815
 msgid "' will be eliminated and its roads added to '"
-msgstr ""
+msgstr "' wird eliminiert und seine Straßen hinzugefügt"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:843
 msgid " requires switch to network mode. Continue?"
-msgstr ""
+msgstr " erfordert den Wechsel in den Netzmodus. Fortfahren?"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:845
 msgid " requires switch to demand mode. Continue?"
-msgstr ""
+msgstr " erfordert den Wechsel in den Nachfragemodus. Fortfahren?"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:847
 msgid " requires switch to data mode. Continue?"
-msgstr ""
+msgstr " erfordert den Wechsel in den Datenmodus. Fortfahren?"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:849
 msgid "invalid expecte supermode"
@@ -3397,27 +3397,27 @@ msgstr "In diesem Modus kann nichts gelöscht werden"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:1430
 msgid "delete network inspected elements"
-msgstr ""
+msgstr "netzgeprüfte Elemente löschen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:1438
 msgid "delete network selection"
-msgstr ""
+msgstr "Netzauswahl löschen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:1446
 msgid "delete demand inspected elements"
-msgstr ""
+msgstr "Nachfragegeprüfte Elemente löschen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:1454
 msgid "delete demand selection"
-msgstr ""
+msgstr "Nachfrageauswahl löschen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:1462
 msgid "delete data inspected elements"
-msgstr ""
+msgstr "datengeprüfte Elemente löschen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:1470
 msgid "delete data selection"
-msgstr ""
+msgstr "Datenauswahl löschen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2105
 msgid "Reverse selected edges"
@@ -3529,7 +3529,7 @@ msgstr "Endpunkte der ausgewählten Kanten zurücksetzen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2663
 msgid "reset end points of edge '"
-msgstr ""
+msgstr "Endpunkte von Kante ' lösen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2682
 msgid "duplicate selected lanes"
@@ -3565,99 +3565,102 @@ msgstr "Es gehören mehrere ausgewählte Fahrstreifen zu der gleichen Kante."
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2847
 msgid "Only one lane per edge will be restricted for "
-msgstr ""
+msgstr "Nur ein Fahrstreifen pro Kante wird gesperrt für "
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2862
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2870
 msgid "Set vclass for "
-msgstr ""
+msgstr "Fahrzeugklasse setzten für "
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2863
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2871
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2944
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2952
 msgid " to selected lanes"
-msgstr ""
+msgstr " zu ausgewählten Fahrstreifen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2864
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2945
 msgid ""
 "All lanes own already another lane in the same edge with a restriction for "
 msgstr ""
+"Alle Fahrstreifen besitzen bereits einen anderen Fahrstreifen in der "
+"gleichen Kante mit einer Einschränkung für "
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2872
 msgid " lanes will be restricted for "
-msgstr ""
+msgstr " Fahrstreifen werden eingeschränkt für "
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2873
 msgid ". Continue?"
-msgstr ""
+msgstr "Fortfahren?"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2900
 msgid "restrict lane to "
-msgstr ""
+msgstr "Fahrstreifen einschränken zu "
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2943
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2951
 msgid "Add vclass for "
-msgstr ""
+msgstr "Fahrzeugklasse hinzufügen für "
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2953
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:3048
 msgid " restrictions for "
-msgstr ""
+msgstr " Einschränkungen für "
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2954
 msgid " will be added. Continue?"
-msgstr ""
+msgstr " wird hinzugefügt werden. Fortfahren?"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2971
 msgid "add restrictions for "
-msgstr ""
+msgstr "Einschränkungen hinzufügen für "
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2981
 msgid "add vclass for "
-msgstr ""
+msgstr "Fahrzeugklasse hinzufügen für "
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:3038
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:3046
 msgid "Remove vclass for "
-msgstr ""
+msgstr "Fahrzeugklasse entfernen für "
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:3039
 msgid " from selected lanes"
-msgstr ""
+msgstr " von ausgewählten Fahrstreifen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:3040
 msgid "Selected lanes and edges haven't a restriction for "
-msgstr ""
+msgstr "Ausgewählte Fahrstreifen und Kanten haben keine Einschränkung für "
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:3047
 msgid " in selected lanes"
-msgstr ""
+msgstr " in ausgewählten Fahrstreifen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:3049
 msgid " will be removed. Continue?"
-msgstr ""
+msgstr " wird entfernt. Fortfahren?"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:3076
 msgid "emove vclass for "
-msgstr ""
+msgstr "Fahrzeugklasse entfernen für "
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:3218
 msgid "reset edge endpoints"
-msgstr ""
+msgstr "Kantenendpositionen zurücksetzen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:3263
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:3530
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:3565
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:3588
 msgid "Grid is still active, press ctrl+g to deactivate"
-msgstr ""
+msgstr "Gitter ist noch aktiviert, drücke ctrl+g zum deaktivieren"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:3282
+#, fuzzy
 msgid "reset custom junction shapes"
-msgstr ""
+msgstr "Kostüm-Knotenpunktgeometrie zurücksetzten"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:3289
 msgid "reset custom junction shape"
@@ -3665,45 +3668,46 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:3400
 msgid "clear connections of selected junctions"
-msgstr ""
+msgstr "Verbindungen von ausgewählten Knotenpunkten entfernen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:3432
 msgid "reset connections of selected junctions"
-msgstr ""
+msgstr "Verbindungen von ausgewählten Knotenpunkten zurücksetzen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:3456
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:3483
 msgid "add TLS in multiple junctions"
-msgstr ""
+msgstr "LSA zu mehreren Knotenpunkten hinzufügen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:5552
 msgid "Shift + click to create two additionals in the same position"
 msgstr ""
+"Shift + click zum erstellen zwei weiterer Daten an der gleichen Position"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:5801
 msgid "Control + click to create two stop in the same position"
-msgstr ""
+msgstr "Control + click zum erstellen von zwei Halten an der gleichen Position"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:1448
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:1469
 msgid "moving selection"
-msgstr ""
+msgstr "Auswahl bewegen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:1649
 msgid "Selection width:"
-msgstr ""
+msgstr "Auswahlbreite:"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:1650
 msgid " height:"
-msgstr ""
+msgstr " Höhe:"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:1651
 msgid " diagonal:"
-msgstr ""
+msgstr " Diagonale:"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:1815
 msgid "selection using rectangle"
-msgstr ""
+msgstr "Auswahl mit Rechteck"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:1852
 #, fuzzy, c-format
@@ -3712,31 +3716,31 @@ msgstr "Ungültige Fenstergrößen-Format: % für die Option 'Fenstergröße'"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:1939
 msgid "Change language"
-msgstr ""
+msgstr "Sprache wechseln"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:1939
 msgid "Change current netedit language."
-msgstr ""
+msgstr "Aktuelle netedit-Sprache wechseln."
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:1945
 msgid "English"
-msgstr ""
+msgstr "Englisch"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:1945
 msgid "Change language to english."
-msgstr ""
+msgstr "Wechsel Sprache zu Englisch."
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:1951
 msgid "German"
-msgstr ""
+msgstr "Deutsch"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:1951
 msgid "Change language to german."
-msgstr ""
+msgstr "Wechsel Sprache zu Deutsch."
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:1957
 msgid "Spanish"
-msgstr ""
+msgstr "Spanisch"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:1957
 msgid "Change language to spanish."
@@ -3744,7 +3748,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:1963
 msgid "French"
-msgstr ""
+msgstr "Französisch"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:1963
 msgid "Change language to french."
@@ -3752,7 +3756,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:1969
 msgid "Chinese"
-msgstr ""
+msgstr "Chinesisch"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:1969
 msgid "Change language to chinese."
@@ -3760,7 +3764,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:1975
 msgid "Turkish"
-msgstr ""
+msgstr "Türkisch"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:1975
 msgid "Change language to turkish."
@@ -3768,7 +3772,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:1981
 msgid "Hungarian"
-msgstr ""
+msgstr "Ungarisch"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:1981
 msgid "Change language to hungarian."
@@ -3776,99 +3780,99 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2015
 msgid "Save NETEDITConfig"
-msgstr ""
+msgstr "NETEDITConfig speichern"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2015
 msgid "Save NETEDITConfig. (Ctrl+Shift+E)"
-msgstr ""
+msgstr "NETEDITConfig speichern. (Ctrl+Shift+E)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2021
 msgid "Save SUMOConfig"
-msgstr ""
+msgstr "SUMOConfig speichern"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2021
 msgid "Save SUMOConfig. (Ctrl+Shift+S)"
-msgstr ""
+msgstr "SUMOConfig speichern. (Ctrl+Shift+S)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2027
 msgid "Save network"
-msgstr ""
+msgstr "Netz speichern"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2027
 msgid "Save network. (Ctrl+S)"
-msgstr ""
+msgstr "Netz speichern. (Ctrl+S)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2035
 msgid "Save individual files"
-msgstr ""
+msgstr "Individuelle Dateien speichern"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2035
 msgid "Save individual files."
-msgstr ""
+msgstr "Individuelle Dateien speichern."
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2041
 msgid "Save additional elements"
-msgstr ""
+msgstr "Weitere Daten-Elemente speichern"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2041
 msgid "Save additional elements. (Ctrl+Shift+A)"
-msgstr ""
+msgstr "Weitere Daten-Elemente speichern. (Ctrl+Shift+A)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2047
 msgid "Save demand elements"
-msgstr ""
+msgstr "Nachfrageelemente speichern"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2047
 msgid "Save demand elements. (Ctrl+Shift+D)"
-msgstr ""
+msgstr "Nachfrageelemente speichern. (Ctrl+Shift+D)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2053
 msgid "Save data elements"
-msgstr ""
+msgstr "Datenelemente speichern"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2053
 msgid "Save data elements. (Ctrl+Shift+B)"
-msgstr ""
+msgstr "Datenelemente speichern. (Ctrl+Shift+B)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2059
 msgid "Save mean data elements"
-msgstr ""
+msgstr "MeanData-Elemente speichern"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2059
 msgid "Save mean data elements. (Ctrl+Shift+M)"
-msgstr ""
+msgstr "MeanData-Elemente speichern. (Ctrl+Shift+M)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2107
 msgid "Network"
-msgstr ""
+msgstr "Netz"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2107
 msgid "Edit network elements"
-msgstr ""
+msgstr "Netzelemente bearbeiten"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2107
 msgid "Set mode for edit network elements. (F2)"
-msgstr ""
+msgstr "Modus zum Bearbeiten von Netzelementen. (F2)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2114
 msgid "Demand"
-msgstr ""
+msgstr "Nachfrage"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2114
 msgid "Edit traffic demand elements"
-msgstr ""
+msgstr "Verkehrsnachfrageelemente bearbeiten"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2114
 msgid "Set mode for edit traffic demand. (F3)"
-msgstr ""
+msgstr "Modus zum Bearbeiten der Verkehrsnachfrage setzten. (F3)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2121
 msgid "Data"
-msgstr ""
+msgstr "Daten"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2121
 msgid "Edit data elements"
-msgstr ""
+msgstr "Datenelemente bearbeiten"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2121
 msgid "Set mode for edit data demand. (F4)"
