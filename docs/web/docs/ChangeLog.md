@@ -282,7 +282,7 @@ title: ChangeLog
 - Updated Windows MSVC runtime libraries and Xerces-C to 3.2.4
 - Improved pydoc for TraCI functions that modify vType attributes. Issue #11943
 - Added all required fmi functions required for FMPy version 0.3.13. Issue #12199
-- Netedit options **--SUMOConfig-output, --additionals-output, --demandelements-output, --dataelements-output**. Instead, the corresponding input file path is used for output. Issue #12388
+- Removed Netedit options **--SUMOConfig-output, --additionals-output, --demandelements-output, --dataelements-output**. Instead, the corresponding input file path is used for output. Issue #12388
 - Some netedit buttons for saving are now grouped in a sub-menu to avoid clutter. Issue #12360
 - Test extraction now works for the San Pablo Dam tutorial. Issue #12466
 - The netdiff tool accessible via the 'Tools' menu has been temporarily disabled due to stability issues. #12435
