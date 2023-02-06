@@ -2032,10 +2032,10 @@ GNEApplicationWindowHelper::HelpMenuCommands::buildHelpMenuCommands(FXMenuPane* 
 }
 
 // ---------------------------------------------------------------------------
-// GNEApplicationWindowHelper::LanguagesMenuCommands - methods
+// GNEApplicationWindowHelper::LanguageMenuCommands - methods
 // ---------------------------------------------------------------------------
 
-GNEApplicationWindowHelper:: LanguagesMenuCommands::LanguagesMenuCommands(GNEApplicationWindow* GNEApp) :
+GNEApplicationWindowHelper:: LanguageMenuCommands::LanguageMenuCommands(GNEApplicationWindow* GNEApp) :
     myGNEApp(GNEApp) {
 }
 

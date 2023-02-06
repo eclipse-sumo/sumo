@@ -680,7 +680,7 @@ private:
     GNEApplicationWindowHelper::HelpMenuCommands myHelpMenuCommands;
 
     /// @brief Langauges Menu Commands
-    GNEApplicationWindowHelper::LanguagesMenuCommands myLanguagesMenuCommands;
+    GNEApplicationWindowHelper::LanguageMenuCommands myLanguageMenuCommands;
 
     /// @brief Supermode Commands
     GNEApplicationWindowHelper::SupermodeCommands mySupermodeCommands;

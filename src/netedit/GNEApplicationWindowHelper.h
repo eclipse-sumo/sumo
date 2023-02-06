@@ -1006,23 +1006,23 @@ struct GNEApplicationWindowHelper {
     };
 
     /// @brief struct for windows menu commands
-    struct LanguagesMenuCommands {
+    struct LanguageMenuCommands {
 
         /// @brief constructor
-        LanguagesMenuCommands(GNEApplicationWindow* GNEApp);
+        LanguageMenuCommands(GNEApplicationWindow* GNEApp);
 
         /// @brief build menu commands
-        void buildLanguagesMenuCommands(FXMenuPane* languagesMenu, FXStatusBar* statusbar, GUIMessageWindow* messageWindow);
+        void buildLanguageMenuCommands(FXMenuPane* languagesMenu, FXStatusBar* statusbar, GUIMessageWindow* messageWindow);
 
     private:
         /// @brief pointer to current GNEApplicationWindow
         GNEApplicationWindow* myGNEApp;
 
         /// @brief Invalidated copy constructor.
-        LanguagesMenuCommands(const LanguagesMenuCommands&) = delete;
+        LanguageMenuCommands(const LanguageMenuCommands&) = delete;
 
         /// @brief Invalidated assignment operator.
-        LanguagesMenuCommands& operator=(const LanguagesMenuCommands&) = delete;
+        LanguageMenuCommands& operator=(const LanguageMenuCommands&) = delete;
     };
 
     /// @brief struct for supermode commands
