@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-05 21:26+0100\n"
-"PO-Revision-Date: 2023-02-06 17:39+0000\n"
+"PO-Revision-Date: 2023-02-06 17:44+0000\n"
 "Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -4148,51 +4148,51 @@ msgstr "Weitere Daten Modus einstellen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3645
 msgid "Mode for adding additional elements. (A)"
-msgstr ""
+msgstr "Modus fürs hinzufügen weiterer Elemente. (A)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3651
 msgid "Set crossing mode"
-msgstr ""
+msgstr "Fußgängerfurt-Modus einstellen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3651
 msgid "Mode for creating crossings between edges. (R)"
-msgstr ""
+msgstr "Modus zum Erstellen von Fußgängerfurten zwischen Kanten. (R)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3657
 msgid "Set TAZ mode"
-msgstr ""
+msgstr "Verkehrsumlegungszonen-Modus einstellen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3657
 msgid "Mode for creating Traffic Assignment Zones. (Z)"
-msgstr ""
+msgstr "Modus zum Erstellen von Verkehrsumlegungszonen. (Z)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3663
 msgid "Set polygon mode"
-msgstr ""
+msgstr "Polygon-Modus einstellen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3663
 msgid "Mode for creating polygons and POIs. (P)"
-msgstr ""
+msgstr "Modus zum Erstellen von Polygonen und Polen. (P)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3669
 msgid "Set wire mode"
-msgstr ""
+msgstr "Oberleitungsmodus einstellen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3669
 msgid "Mode for editing wires. (W)"
-msgstr ""
+msgstr "Modus zum Bearbeiten von Oberleitungen. (W)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3765
 msgid "Create route mode"
-msgstr ""
+msgstr "Routenmodus erstellen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3765
 msgid "Mode for creating routes. (R)"
-msgstr ""
+msgstr "Modus zum Erstellen von Routen. (R)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3771
 msgid "Create vehicle mode"
-msgstr ""
+msgstr "Fahrzeugmodus erstellen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3771
 msgid "Mode for creating vehicles. (V)"
