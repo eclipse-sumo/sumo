@@ -2485,7 +2485,7 @@ GNEApplicationWindow::onCmdChangeLanguage(FXObject*, FXSelector sel, void*) {
             break;
         case MID_LANGUAGE_ZHT:
             langID = "zh-Hant";
-            lang = TL("chinese");
+            lang = TL("chinese simplified");
             break;
         case MID_LANGUAGE_TR:
             langID = "tr";
@@ -2531,17 +2531,19 @@ GNEApplicationWindow::onUpdChangeLanguage(FXObject* obj, FXSelector, void*) {
         // check if change color
         if ((gLanguage == "C") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_EN))) {
             menuCommand->setTextColor(FXRGB(0, 0, 255));
-        } else if ((gLanguage == "DE") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_DE))) {
+        } else if ((gLanguage == "de") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_DE))) {
             menuCommand->setTextColor(FXRGB(0, 0, 255));
-        } else if ((gLanguage == "ES") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_ES))) {
+        } else if ((gLanguage == "es") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_ES))) {
             menuCommand->setTextColor(FXRGB(0, 0, 255));
-        } else if ((gLanguage == "FR") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_FR))) {
+        } else if ((gLanguage == "fr") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_FR))) {
             menuCommand->setTextColor(FXRGB(0, 0, 255));
-        } else if ((gLanguage == "ZH") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_ZH))) {
+        } else if ((gLanguage == "zh") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_ZH))) {
             menuCommand->setTextColor(FXRGB(0, 0, 255));
-        } else if ((gLanguage == "TR") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_TR))) {
+        } else if ((gLanguage == "zh-Hant") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_ZHT))) {
             menuCommand->setTextColor(FXRGB(0, 0, 255));
-        } else if ((gLanguage == "HU") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_HU))) {
+        } else if ((gLanguage == "tr") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_TR))) {
+            menuCommand->setTextColor(FXRGB(0, 0, 255));
+        } else if ((gLanguage == "hu") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_HU))) {
             menuCommand->setTextColor(FXRGB(0, 0, 255));
         } else {
             menuCommand->setTextColor(FXRGB(0, 0, 0));

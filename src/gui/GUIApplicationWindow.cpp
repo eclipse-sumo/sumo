@@ -637,21 +637,21 @@ GUIApplicationWindow::fillMenuBar() {
     GUIDesigns::buildFXMenuTitle(myMenuBar, TL("Langua&ge"), nullptr, myLanguageMenu);
     
     // build languages menu
-    GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, TL("English"), "", TL("Change language to english. (en)"),
+    GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, "English", "", TL("Change language to english. (en)"),
                                            GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_EN), this, MID_LANGUAGE_EN);
-    GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, TL("German"), "", TL("Change language to german. (de)"),
+    GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, "Deutsch", "", TL("Change language to german. (de)"),
                                            GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_DE), this, MID_LANGUAGE_DE);
-    GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, TL("Spanish"), "", TL("Change language to spanish. (es)"),
+    GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, "Español", "", TL("Change language to spanish. (es)"),
                                            GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_ES), this, MID_LANGUAGE_ES);
-    GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, TL("French"), "", TL("Change language to french. (fr)"),
+    GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, "Français", "", TL("Change language to french. (fr)"),
                                            GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_FR), this, MID_LANGUAGE_FR);
-    GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, TL("简体中文"), "", TL("简体中文 (zh)"),
+    GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, "简体中文", "", TL("简体中文 (zh)"),
                                            GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_ZH), this, MID_LANGUAGE_ZH);
-    GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, TL("繁體中文"), "", TL("繁體中文 (zh-Hant)"),
+    GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, "繁體中文", "", TL("繁體中文 (zh-Hant)"),
                                            GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_ZHT), this, MID_LANGUAGE_ZHT);
-    GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, TL("Turkish"), "", TL("Change language to turkish. (tr)"),
+    GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, "Türkçe", "", TL("Change language to turkish. (tr)"),
                                            GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_TR), this, MID_LANGUAGE_TR);
-    GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, TL("Hungarian"), "", TL("Change language to hungarian. (hu)"),
+    GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, "Magyar", "", TL("Change language to hungarian. (hu)"),
                                            GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_HU), this, MID_LANGUAGE_HU);
     // build help menu
     myHelpMenu = new FXMenuPane(this);
@@ -2381,7 +2381,7 @@ GUIApplicationWindow::onCmdChangeLanguage(FXObject*, FXSelector sel, void*) {
             break;
         case MID_LANGUAGE_ZHT:
             langID = "zh-Hant";
-            lang = TL("chinese");
+            lang = TL("chinese simplified");
             break;
         case MID_LANGUAGE_TR:
             langID = "tr";
@@ -2423,17 +2423,19 @@ GUIApplicationWindow::onUpdChangeLanguage(FXObject* obj, FXSelector, void*) {
         // check if change color
         if ((gLanguage == "C") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_EN))) {
             menuCommand->setTextColor(FXRGB(0, 0, 255));
-        } else if ((gLanguage == "DE") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_DE))) {
+        } else if ((gLanguage == "de") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_DE))) {
             menuCommand->setTextColor(FXRGB(0, 0, 255));
-        } else if ((gLanguage == "ES") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_ES))) {
+        } else if ((gLanguage == "es") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_ES))) {
             menuCommand->setTextColor(FXRGB(0, 0, 255));
-        } else if ((gLanguage == "FR") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_FR))) {
+        } else if ((gLanguage == "fr") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_FR))) {
             menuCommand->setTextColor(FXRGB(0, 0, 255));
-        } else if ((gLanguage == "ZH") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_ZH))) {
+        } else if ((gLanguage == "zh") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_ZH))) {
             menuCommand->setTextColor(FXRGB(0, 0, 255));
-        } else if ((gLanguage == "TR") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_TR))) {
+        } else if ((gLanguage == "zh-Hant") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_ZHT))) {
             menuCommand->setTextColor(FXRGB(0, 0, 255));
-        } else if ((gLanguage == "HU") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_HU))) {
+        } else if ((gLanguage == "tr") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_TR))) {
+            menuCommand->setTextColor(FXRGB(0, 0, 255));
+        } else if ((gLanguage == "hu") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_HU))) {
             menuCommand->setTextColor(FXRGB(0, 0, 255));
         } else {
             menuCommand->setTextColor(FXRGB(0, 0, 0));
