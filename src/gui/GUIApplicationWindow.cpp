@@ -635,19 +635,19 @@ GUIApplicationWindow::fillMenuBar() {
     GUIDesigns::buildFXMenuTitle(myMenuBar, TL("Langua&ge"), nullptr, myLanguageMenu);
     
     // build languages menu
-    GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, TL("English"), "", TL("Change language to english. (EN)"),
+    GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, TL("English"), "", TL("Change language to english. (en)"),
                                            GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_EN), this, MID_LANGUAGE_EN);
-    GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, TL("German"), "", TL("Change language to german. (DE)"),
+    GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, TL("German"), "", TL("Change language to german. (de)"),
                                            GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_DE), this, MID_LANGUAGE_DE);
-    GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, TL("Spanish"), "", TL("Change language to spanish. (ES)"),
+    GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, TL("Spanish"), "", TL("Change language to spanish. (es)"),
                                            GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_ES), this, MID_LANGUAGE_ES);
-    GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, TL("French"), "", TL("Change language to french. (FR)"),
+    GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, TL("French"), "", TL("Change language to french. (fr)"),
                                            GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_FR), this, MID_LANGUAGE_FR);
-    GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, TL("Chinese"), "", TL("Change language to chinese. (ZN)"),
+    GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, TL("Chinese"), "", TL("Change language to chinese. (zn)"),
                                            GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_ZH), this, MID_LANGUAGE_ZH);
-    GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, TL("Turkish"), "", TL("Change language to turkish. (TR)"),
+    GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, TL("Turkish"), "", TL("Change language to turkish. (tr)"),
                                            GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_TR), this, MID_LANGUAGE_TR);
-    GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, TL("Hungarian"), "", TL("Change language to hungarian. (HU)"),
+    GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, TL("Hungarian"), "", TL("Change language to hungarian. (hu)"),
                                            GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_HU), this, MID_LANGUAGE_HU);
     // build help menu
     myHelpMenu = new FXMenuPane(this);
