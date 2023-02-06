@@ -195,6 +195,8 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_LANGUAGE_FR,    GUIApplicationWindow::onUpdChangeLanguage),
     FXMAPFUNC(SEL_COMMAND,  MID_LANGUAGE_ZH,    GUIApplicationWindow::onCmdChangeLanguage),
     FXMAPFUNC(SEL_UPDATE,   MID_LANGUAGE_ZH,    GUIApplicationWindow::onUpdChangeLanguage),
+    FXMAPFUNC(SEL_COMMAND,  MID_LANGUAGE_ZHT,   GUIApplicationWindow::onCmdChangeLanguage),
+    FXMAPFUNC(SEL_UPDATE,   MID_LANGUAGE_ZHT,   GUIApplicationWindow::onUpdChangeLanguage),
     FXMAPFUNC(SEL_COMMAND,  MID_LANGUAGE_TR,    GUIApplicationWindow::onCmdChangeLanguage),
     FXMAPFUNC(SEL_UPDATE,   MID_LANGUAGE_TR,    GUIApplicationWindow::onUpdChangeLanguage),
     FXMAPFUNC(SEL_COMMAND,  MID_LANGUAGE_HU,    GUIApplicationWindow::onCmdChangeLanguage),
@@ -643,8 +645,10 @@ GUIApplicationWindow::fillMenuBar() {
                                            GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_ES), this, MID_LANGUAGE_ES);
     GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, TL("French"), "", TL("Change language to french. (fr)"),
                                            GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_FR), this, MID_LANGUAGE_FR);
-    GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, TL("Chinese"), "", TL("Change language to chinese. (zn)"),
+    GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, TL("简体中文"), "", TL("简体中文 (zh)"),
                                            GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_ZH), this, MID_LANGUAGE_ZH);
+    GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, TL("繁體中文"), "", TL("繁體中文 (zh-Hant)"),
+                                           GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_ZH), this, MID_LANGUAGE_ZHT);
     GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, TL("Turkish"), "", TL("Change language to turkish. (tr)"),
                                            GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_TR), this, MID_LANGUAGE_TR);
     GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, TL("Hungarian"), "", TL("Change language to hungarian. (hu)"),
@@ -2373,6 +2377,10 @@ GUIApplicationWindow::onCmdChangeLanguage(FXObject*, FXSelector sel, void*) {
             break;
         case MID_LANGUAGE_ZH:
             langID = "zh";
+            lang = TL("chinese");
+            break;
+        case MID_LANGUAGE_ZHT:
+            langID = "zh-Hant";
             lang = TL("chinese");
             break;
         case MID_LANGUAGE_TR:
