@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-05 21:26+0100\n"
 "PO-Revision-Date: 2023-02-06 16:12+0000\n"
-"Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
+"Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
 "Language: de\n"
@@ -1628,7 +1628,7 @@ msgstr "Für die mesoskopische Simulation ist keine Lückensteuerung verfügbar.
 msgid ""
 "Lane change model did not provide a reason for changing (state=%, time=%\n"
 msgstr ""
-"Fahrstreifenwechsel-Modell hat keinen Grund für einen Wechsel angegeben "
+"FahrstreifenwechselModell hat keinen Grund für einen Wechsel angegeben "
 "(Stand=%; zur Zeit=%\n"
 
 #: /home/micha/programming/sumo/src/microsim/MSVehicle.cpp:755
