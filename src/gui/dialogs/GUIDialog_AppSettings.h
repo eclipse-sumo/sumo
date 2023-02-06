@@ -45,8 +45,6 @@ public:
     /// @brief Destructor
     ~GUIDialog_AppSettings();
 
-
-
     /// @name FOX-callbacks
     /// @{
 
@@ -61,6 +59,9 @@ public:
 
     /// @}
 
+protected:
+    /// @brief FOX needs this
+    FOX_CONSTRUCTOR(GUIDialog_AppSettings)
 
 private:
     /// @brief The main GUI window
@@ -84,13 +85,12 @@ private:
     /// @brief Offset when adding breakpoints
     FXRealSpinner* myBreakPointOffset;
 
-    /// @brief The language combo box
-    FXComboBox* myComboBoxLanguages;
-
     /// @brief The list that holds the URLs
     FXTable* myTable;
 
-protected:
-    FOX_CONSTRUCTOR(GUIDialog_AppSettings)
+    /// @brief Invalidated copy constructor.
+    GUIDialog_AppSettings(const GUIDialog_AppSettings&) = delete;
 
+    /// @brief Invalidated assignment operator.
+    GUIDialog_AppSettings& operator=(const GUIDialog_AppSettings&) = delete;
 };

@@ -72,35 +72,6 @@ GUIDialog_AppSettings::GUIDialog_AppSettings(GUIMainWindow* parent)
     myBreakPointOffset = new FXRealSpinner(m1, 5, this, MID_TIMELINK_BREAKPOINT, GUIDesignViewSettingsSpinDial2 | SPIN_NOMIN);
     myBreakPointOffset->setValue(STEPS2TIME(GUIMessageWindow::getBreakPointOffset()));
     new FXLabel(m1, TL("Breakpoint offset when clicking on time message"), nullptr, GUIDesignViewSettingsLabel1);
-    myComboBoxLanguages = new FXComboBox(m1, 5, this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxWidth100);
-    // fill languages
-    myComboBoxLanguages->appendItem("English");
-    myComboBoxLanguages->appendItem("German");
-    myComboBoxLanguages->appendItem("Spanish");
-    myComboBoxLanguages->appendItem("French");
-    myComboBoxLanguages->appendItem("Chinese");
-    myComboBoxLanguages->appendItem("Turkish");
-    myComboBoxLanguages->appendItem("Hungarian");
-    myComboBoxLanguages->setNumVisible(myComboBoxLanguages->getNumItems());
-    // check language
-    if (gLanguage == "DE") {
-        myComboBoxLanguages->setCurrentItem(1);
-    } else if (gLanguage == "ES") {
-        myComboBoxLanguages->setCurrentItem(2);
-    } else if (gLanguage == "FR") {
-        myComboBoxLanguages->setCurrentItem(3);
-    } else if (gLanguage == "ZU") {
-        myComboBoxLanguages->setCurrentItem(4);
-    } else if (gLanguage == "TR") {
-        myComboBoxLanguages->setCurrentItem(5);
-    } else if (gLanguage == "HU") {
-        myComboBoxLanguages->setCurrentItem(6);
-    } else {
-        // english as default
-        myComboBoxLanguages->setCurrentItem(0);
-    }
-    new FXLabel(m1, TL("Language (needs restart)"), nullptr, GUIDesignViewSettingsLabel1);
-
     myTable = new FXTable(f1, this, MID_TABLE, GUIDesignBreakpointTable);
     const auto& onlineMaps = parent->getOnlineMaps();
     const int numRows = (int)onlineMaps.size() + 1;
@@ -157,37 +128,6 @@ GUIDialog_AppSettings::onCmdOk(FXObject*, FXSelector, void*) {
         }
     }
     getApp()->reg().writeStringEntry("gui", "onlineMaps", maps.text());
-
-    // check language
-    std::string lang;
-    if (myComboBoxLanguages->getText() == "German") {
-        lang = "DE";
-    } else if (myComboBoxLanguages->getText() == "Spanish") {
-        lang = "ES";
-    } else if (myComboBoxLanguages->getText() == "French") {
-        lang = "FR";
-    } else if (myComboBoxLanguages->getText() == "Chinese") {
-        lang = "ZU";
-    } else if (myComboBoxLanguages->getText() == "Turkish") {
-        lang = "TR";
-    } else if (myComboBoxLanguages->getText() == "Hungarian") {
-        lang = "HU";
-    } else {
-        // english as default
-        lang = "C";
-    }
-    // check if change language
-    if (lang != gLanguage) {
-        gLanguage = lang;
-        // show info
-        WRITE_MESSAGE(TL("Language changed to '") + lang + "'");
-        // show dialog
-        const std::string header = TL("Restart needed");
-        const std::string body = TL("Changing display language needs restart to take effect.");
-        FXMessageBox::information(getApp(), MBOX_OK, header.c_str(), "%s", (body).c_str());
-        // update language in registry (common for sumo and netedit)
-        getApp()->reg().writeStringEntry("gui", "language", lang.c_str());
-    }
     destroy();
     return 1;
 }
