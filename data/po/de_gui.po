@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-05 21:26+0100\n"
-"PO-Revision-Date: 2023-02-06 17:32+0000\n"
+"PO-Revision-Date: 2023-02-06 17:39+0000\n"
 "Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -4097,33 +4097,33 @@ msgstr "Löschmodus einstellen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3546
 msgid "Mode for delete elements. (D)"
-msgstr ""
+msgstr "Modus zum löschen von Elementen. (D)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3615
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3759
 msgid "Set move mode"
-msgstr ""
+msgstr "Bewegungsmodus einstellen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3615
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3759
 msgid "Mode for move elements. (M)"
-msgstr ""
+msgstr "Modus zum Verschieben von Elementen. (M)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3621
 msgid "Set create edge mode"
-msgstr ""
+msgstr "Kantenerstellungs-Modus einstellen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3621
 msgid "Mode for creating junction and edges. (E)"
-msgstr ""
+msgstr "Modus zum Erstellen von Knotenpunkten und Kanten. (E)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3627
 msgid "Set connection mode"
-msgstr ""
+msgstr "Verbindungsmodus einstellen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3627
 msgid "Mode for edit connections between lanes. (C)"
-msgstr ""
+msgstr "Modus fürs hinzufügen von Verbindungen zwischen Fahrstreifen. (C)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3633
 msgid "Set prohibition mode"
@@ -4135,15 +4135,16 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3639
 msgid "Set traffic light mode"
-msgstr ""
+msgstr "LSA-Modus einstellen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3639
 msgid "Mode for edit traffic lights over junctions. (T)"
-msgstr ""
+msgstr "Modus fürs hinzufügen von LSAs über Knotenpunkte. (T)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3645
+#, fuzzy
 msgid "Set additional mode"
-msgstr ""
+msgstr "Weitere Daten Modus einstellen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3645
 msgid "Mode for adding additional elements. (A)"
