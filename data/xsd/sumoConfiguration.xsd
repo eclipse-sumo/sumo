@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-11-07 16:56:46 by Eclipse SUMO sumo Version v1_14_1+2254-abbc76d4ea0
+<!-- generated on 2023-02-06 12:10:37 by Eclipse SUMO sumo Version v1_15_0+2198-1709483215c
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -209,6 +209,7 @@
             <xsd:element name="pedestrian.striping.jamtime.narrow" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.striping.reserve-oncoming" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.striping.reserve-oncoming.junctions" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="pedestrian.striping.reserve-oncoming.max" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.striping.legacy-departposlat" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.striping.walkingarea-detail" type="intOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.remote.address" type="strOptionType" minOccurs="0"/>
@@ -271,6 +272,7 @@
             <xsd:element name="log" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="message-log" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="error-log" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="language" type="strOptionType" minOccurs="0"/>
             <xsd:element name="duration-log.disable" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="duration-log.statistics" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="no-step-log" type="boolOptionType" minOccurs="0"/>

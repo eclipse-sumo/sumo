@@ -191,6 +191,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **-H** {{DT_BOOL}}<br> **--human-readable-time** {{DT_BOOL}} | Write time values as hour:minute:second or day:hour:minute:second rather than seconds; *default:* **false** |
 | **-o** {{DT_FILE}}<br> **--output-file** {{DT_FILE}} | The generated net will be written to FILE |
 | **-p** {{DT_FILE}}<br> **--plain-output-prefix** {{DT_FILE}} | Prefix of files to write plain xml nodes, edges and connections to |
+| **--plain-output.lanes** {{DT_BOOL}} | Write all lanes and their attributes even when they are not customized; *default:* **false** |
 | **--junctions.join-output** {{DT_FILE}} | Writes information about joined junctions to FILE (can be loaded as additional node-file to reproduce joins |
 | **--prefix** {{DT_STR}} | Defines a prefix for edge and junction names |
 | **--amitran-output** {{DT_FILE}} | The generated net will be written to FILE using Amitran format |
@@ -292,6 +293,8 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--default.sidewalk-width** {{DT_FLOAT}} | The default width of added sidewalks; *default:* **2** |
 | **--default.bikelane-width** {{DT_FLOAT}} | The default width of added bike lanes; *default:* **1** |
 | **--default.crossing-width** {{DT_FLOAT}} | The default width of a pedestrian crossing; *default:* **4** |
+| **--default.crossing-speed** {{DT_FLOAT}} | The default speed 'limit' on a pedestrian crossing (in m/s); *default:* **2.78** |
+| **--default.walkingarea-speed** {{DT_FLOAT}} | The default speed 'limit' on a pedestrian walkingarea (in m/s); *default:* **2.78** |
 | **--default.allow** {{DT_STR}} | The default for allowed vehicle classes |
 | **--default.disallow** {{DT_STR}} | The default for disallowed vehicle classes |
 | **--default.junctions.keep-clear** {{DT_BOOL}} | Whether junctions should be kept clear by default; *default:* **true** |

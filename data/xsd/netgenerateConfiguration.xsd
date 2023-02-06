@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-11-07 16:56:46 by Eclipse SUMO netgenerate Version v1_14_1+2254-abbc76d4ea0
+<!-- generated on 2023-02-06 12:10:37 by Eclipse SUMO netgenerate Version v1_15_0+2198-1709483215c
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -92,6 +92,7 @@
             <xsd:element name="alphanumerical-ids" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="output-file" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="plain-output-prefix" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="plain-output.lanes" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="junctions.join-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="prefix" type="strOptionType" minOccurs="0"/>
             <xsd:element name="amitran-output" type="fileOptionType" minOccurs="0"/>
@@ -154,6 +155,8 @@
             <xsd:element name="default.sidewalk-width" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="default.bikelane-width" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="default.crossing-width" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="default.crossing-speed" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="default.walkingarea-speed" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="default.allow" type="strOptionType" minOccurs="0"/>
             <xsd:element name="default.disallow" type="strOptionType" minOccurs="0"/>
             <xsd:element name="default.junctions.keep-clear" type="boolOptionType" minOccurs="0"/>
@@ -199,6 +202,7 @@
             <xsd:element name="tls.max-dur" type="intOptionType" minOccurs="0"/>
             <xsd:element name="tls.group-signals" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="tls.ungroup-signals" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="tls.rebuild" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="tls.discard-simple" type="boolOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
@@ -293,6 +297,7 @@
             <xsd:element name="log" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="message-log" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="error-log" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="language" type="strOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
