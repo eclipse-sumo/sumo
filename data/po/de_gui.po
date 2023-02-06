@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-05 21:26+0100\n"
-"PO-Revision-Date: 2023-02-06 17:22+0000\n"
+"PO-Revision-Date: 2023-02-06 17:27+0000\n"
 "Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -4025,15 +4025,15 @@ msgstr "Kante in der entgegengesetzten Richtung automatisch erstellen."
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2720
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3006
 msgid "Toggle show shapes (Polygons and POIs)."
-msgstr "Shapes ein-/ ausblenden (Polygone und Pole)."
+msgstr "Shapes ein-/ausblenden (Polygone und Pole)."
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2728
 msgid "Toggle show all trips (requires updated demand - F5)."
-msgstr "Alle Fahrten ein-/ ausblenden (erfordert aktualisierte Nachfrage - F5)."
+msgstr "Alle Fahrten ein-/ausblenden (erfordert aktualisierte Nachfrage - F5)."
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2736
 msgid "Toggle show all person plans."
-msgstr "Alle Personenpläne ein-/ ausblenden."
+msgstr "Alle Personenpläne ein-/ausblenden."
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2744
 msgid "Toggle lock selected person."
@@ -4041,11 +4041,11 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2752
 msgid "Show all containers plans"
-msgstr ""
+msgstr "Alle Containerpläne anzeigen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2752
 msgid "Toggle show all container plans."
-msgstr ""
+msgstr "Alle Containerpläne ein-/ausblenden."
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2760
 msgid "Toggle lock selected container."
@@ -4053,15 +4053,15 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2768
 msgid "Toggle show non-inspected demand elements."
-msgstr ""
+msgstr "Nicht inspizierte Nachfrageelemente ein-/ausblenden."
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2776
 msgid "Toggle show number of overlapped routes."
-msgstr ""
+msgstr "Nummer von überlappenden Routen ein-/ausblenden."
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2999
 msgid "Toggle show additionals."
-msgstr ""
+msgstr "Weitere Daten ein-/ausblenden."
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3020
 msgid "Draw TAZREL drawing mode"
@@ -4085,7 +4085,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3540
 msgid "Set inspect mode"
-msgstr ""
+msgstr "Prüfmodus einstellen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3540
 msgid "Mode for inspect elements and change their attributes. (I)"
