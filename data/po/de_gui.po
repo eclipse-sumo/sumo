@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-05 21:26+0100\n"
 "PO-Revision-Date: 2023-02-07 15:03+0000\n"
-"Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
+"Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
 "Language: de\n"
@@ -5449,6 +5449,8 @@ msgstr ""
 msgid ""
 "The begin position on the lane (the lower position on the lane) in meters"
 msgstr ""
+"Die Anfangsposition des Fahrstreifens (die untere Position auf dem "
+"Fahrstreifen) in Metern"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1548
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1612
@@ -5462,10 +5464,13 @@ msgid ""
 "The end position on the lane (the higher position on the lane) in meters, "
 "must be larger than startPos by more than 0.1m"
 msgstr ""
+"Die Endposition auf dem Fahrstreifen (die höhere Position auf dem "
+"Fahrstreifen) in Metern muss um mehr als 0,1 m größer sein als die "
+"Startposition"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1553
 msgid "Name of busStop"
-msgstr ""
+msgstr "Name der Bushaltestelle"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1558
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1622
