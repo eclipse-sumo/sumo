@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-05 21:26+0100\n"
-"PO-Revision-Date: 2023-02-07 15:54+0000\n"
+"PO-Revision-Date: 2023-02-07 21:48+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
@@ -31,7 +31,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1548
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1549
 msgid "N/A"
-msgstr ""
+msgstr "不適用"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:271
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:486
@@ -154,7 +154,7 @@ msgstr "開啟用於編輯所選項目表的對話框。"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:471
 msgid "Select lanes which allow..."
-msgstr ""
+msgstr "選擇允許...的車道"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:471
 #, fuzzy
@@ -314,7 +314,7 @@ msgstr "開啟對話窗以進行多邊形物件定位。"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:534
 msgid "Show Internal Structures"
-msgstr ""
+msgstr "顯示內部結構"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:534
 #, fuzzy
@@ -323,7 +323,7 @@ msgstr "顯示內部結構\t\t在定位對話窗中顯示內部路口和道路�
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:537
 msgid "Show Parking Vehicles"
-msgstr ""
+msgstr "顯示停車車輛"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:537
 #, fuzzy
@@ -332,7 +332,7 @@ msgstr "顯示停車車輛\t\t在定位對話窗中顯示停車車輛。"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:541
 msgid "Show vehicles outside the road network"
-msgstr ""
+msgstr "顯示路網外的車輛"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:541
 #, fuzzy
@@ -844,7 +844,7 @@ msgstr "透過圖像使用介面(GUI) 觸發的停止指令尚未完成於meso�
 #: /home/micha/programming/sumo/src/guisim/GUIBaseVehicle.cpp:875
 #: /home/micha/programming/sumo/src/guisim/GUIVehicle.cpp:657
 msgid "Vehicle parameter '%' key '%' is not a number for vehicle '%'."
-msgstr ""
+msgstr "車輛參數 '% '鍵 '% '不是車輛 '% '的數字。"
 
 #: /home/micha/programming/sumo/src/guisim/GUINet.cpp:326
 msgid "Network size exceeds 1 Lightyear. Please reconsider your inputs.\n"
@@ -895,7 +895,7 @@ msgstr "測試坐標"
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:801
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:824
 msgid "loading TLS Programs from '"
-msgstr ""
+msgstr "從...載入交通號誌計畫"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:866
 msgid "Loaded edge types from '"
@@ -904,7 +904,7 @@ msgstr "載入的路段類型從 '"
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:868
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:901
 msgid "load edgeTypes"
-msgstr ""
+msgstr "載入edgeTypes"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:899
 msgid "Reloaded edge types from '"
@@ -912,15 +912,15 @@ msgstr "重新載入的路段類型從 '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:956
 msgid "Reloading netedit config file '"
-msgstr ""
+msgstr "重新載入netedit 的設定檔案"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:960
 msgid "Reloading sumo config file '"
-msgstr ""
+msgstr "重新載入sumo的設定檔案"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:964
 msgid "Reloading network file '"
-msgstr ""
+msgstr "重新載入路網檔案"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:980
 msgid "&Reload Netedit config"
@@ -936,7 +936,7 @@ msgstr "&重新載入路網"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1291
 msgid "' loaded."
-msgstr ""
+msgstr "已載入。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1380
 msgid "&Modes"
@@ -960,7 +960,7 @@ msgstr "關於netedit。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1508
 msgid "Network computed"
-msgstr ""
+msgstr "路網已計算完成"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1512
 msgid "Press F5"
@@ -7907,7 +7907,7 @@ msgstr "  滑鼠。這個選項可以修改檢視的要素。"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:238
 msgid "- Center view: if is enabled, view will be center over created element."
-msgstr ""
+msgstr "- 中心視圖：如果啟用，建立的要素將展示於中間位置。"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNENetworkSelector.cpp:49
 msgid "NetworkElements"
@@ -7928,11 +7928,11 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/frames/GNENetworkSelector.cpp:74
 #: /home/micha/programming/sumo/src/netedit/frames/GNENetworkSelector.cpp:183
 msgid "Invalid NetworkElementType"
-msgstr ""
+msgstr "無效的NetworkElementType"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEOverlappedInspection.cpp:52
 msgid "Overlapped elements"
-msgstr ""
+msgstr "重疊要素"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEOverlappedInspection.cpp:62
 msgid "Overlapped "
@@ -7948,7 +7948,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEOverlappedInspection.cpp:279
 msgid "   for inspect next element"
-msgstr ""
+msgstr "   用於檢視下一個要素"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEOverlappedInspection.cpp:280
 msgid " - Shift + Click in the same"
@@ -7960,7 +7960,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEOverlappedInspection.cpp:282
 msgid "   previous element"
-msgstr ""
+msgstr "   前一個要素"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEPathCreator.cpp:145
 msgid "Route creator"
@@ -8045,7 +8045,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNESelectorParent.cpp:39
 msgid "No element selected"
-msgstr ""
+msgstr "沒有被選定的要素"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNESelectorParent.cpp:82
 msgid "Parent type: "
@@ -8167,27 +8167,27 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETagSelector.cpp:89
 msgid "Element"
-msgstr ""
+msgstr "要素"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETagSelector.cpp:152
 msgid "network elements"
-msgstr ""
+msgstr "路網要素"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETagSelector.cpp:155
 msgid "Additional elements"
-msgstr ""
+msgstr "附加的要素"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETagSelector.cpp:158
 msgid "Shape elements"
-msgstr ""
+msgstr "圖形物件要素"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETagSelector.cpp:161
 msgid "TAZ elements"
-msgstr ""
+msgstr "分區要素"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETagSelector.cpp:164
 msgid "Wire elements"
-msgstr ""
+msgstr "通訊線要素"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETagSelector.cpp:167
 msgid "Vehicles"
