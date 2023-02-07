@@ -20,7 +20,7 @@ title: ChangeLog
   - Fixed collision on bidi edge. Issue #12393    
   - Fixed invalid switching in branching 'actuated' traffic light programs. Issue #12265
   - Fixed invalid bike lane detector placement for 'actuated' traffic lights. Issue #12266
-  - Fixed vehicle angles when using 'lcSigma' with the continous lane change mode. Issue #12201
+  - Fixed vehicle angles when using 'lcSigma' with the continuos lane change mode. Issue #12201
   - Fixed inconsistency in waitingTime definition between tripinfo-output and accumulated waitingTime. Issue #12287
   - Fixed invalid lot assignment for onRoad parkingArea. Issue #12330
   - Fixed invalid change to lane with stopped leader. Issue #12113    
@@ -87,8 +87,8 @@ title: ChangeLog
   - Fixed crash when using 'select reachability' (related to negative edge speeds). Issue #12400, #12403
   - Reload hotkey no longer takes effect when running with TraCI. Issue #12431
   - Fixed invalid pedestrian position while passing a short walkingarea. Issue #12456
-  - Right-click on vehices and person no longer fails on very wide lanes. Issue #12505
-  - Fixed fluctating rail width when using edge size-exaggeration at varying zoom levels. Issue #11832
+  - Right-click on vehicles and person no longer fails on very wide lanes. Issue #12505
+  - Fixed fluctuating rail width when using edge size-exaggeration at varying zoom levels. Issue #11832
   
     
 - meso
@@ -167,7 +167,7 @@ title: ChangeLog
 - Simulation
   - Elements `<ride>` and `<transport>` can now be defined without attribute `lines` and default to a value of `ANY` (taking any eligible vehicle that stops at the destination). Issue #12167
   - Option **--fcd-output.attributes** now supports the attribute `speedLat` for writing lateral speeds. Issue #12213
-  - Stops now support attribute `jump="TIME"` to model explict jumps (teleports) between disconnected locations. Issue #12268
+  - Stops now support attribute `jump="TIME"` to model explicit jumps (teleports) between disconnected locations. Issue #12268
   - The randomness in rescue lane formation can now be configured with bluelight device [parameters](Simulation/Emergency.md#further_parameters). Issue #12437
   - Added option **--pedestrian.striping.reserve-oncoming.max** (default 1.28) to configure an upper limit on stripes to reserve for oncoming pedestrians. Issue #12506
 
@@ -184,10 +184,10 @@ title: ChangeLog
   - Pedestrian crossings are now exported to OpenDRIVE. Issue #12229
   - Added option **--osm.crossings** to import pedestrian crossings from OSM. Issue #12238
   - Now separating lanes for bikes and pedestrians according to OSM declarations. Issue #12215
-  - Option **--osm.bike-access** now serves to add any addtional bike lanes declared in OSM without the need to load another typemap (The typemap may still be used to customize bike lane withs for different categories of lanes). Issue #12228
+  - Option **--osm.bike-access** now serves to add any additional bike lanes declared in OSM without the need to load another typemap (The typemap may still be used to customize bike lane widths for different categories of lanes). Issue #12228
   - Added option **--tls.rebuild** to rebuild all loaded traffic light plans. Issue #12250
   - Added option **--tls.guess-signals.slack** to identify more controlled intersections by guessing from surrounding *simple* tls nodes. Issue #12249
-  - Option **--tls.guess-signals** no longer requires signals on non-passeger edges to interpret an intersection as controlled. Issue #12260
+  - Option **--tls.guess-signals** no longer requires signals on non-passenger edges to interpret an intersection as controlled. Issue #12260
   - Option **--junctions.join** can now join intersections with more than 4 incoming edges. Issue #12261
   - Walkingarea shapes for pure pedestrian intersections now match the junction shape. Issue #12377
   - Added option **--plain-output.lanes** to include all lane attributes in plain-xml output. Issue #12443
@@ -210,7 +210,7 @@ title: ChangeLog
   - Move mode can now toggle whether closely spaced geometry points shall be automatically removed. Issue #12244
   - Stops now support attribute 'jump'. Issue #12269
   - Crossing mode now ensures that only sensible crossings can be defined. Issue #12366
-  - Vehicle instpect mode now allows selecting vehicle type from a drop-down list. Issue #12379
+  - Vehicle inspect mode now allows selecting vehicle type from a drop-down list. Issue #12379
   - Added edge color legend to person and container mode. Issue #11613
   - Added edge color legend when creating e2 detectors along multiple lanes. Issue #11334
   - Moving a single selected edge now moves its whole geometry including endpoints. Issue #12442
