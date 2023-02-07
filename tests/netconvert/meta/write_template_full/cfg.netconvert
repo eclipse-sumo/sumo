@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-01-25 08:44:30 by Eclipse SUMO netconvert Version v1_15_0+1914-84100d0141c
+<!-- generated on 2023-02-07 13:23:48 by Eclipse SUMO netconvert Version v1_16_0+0027-a0cc867
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -325,6 +325,8 @@
         <shapefile.type-id value="" synonymes="arcview.type-id" type="STR" help="Read type ids from column STR"/>
         <shapefile.laneNumber value="" type="STR" help="Read lane number from column STR"/>
         <shapefile.speed value="" type="STR" help="Read speed from column STR"/>
+        <shapefile.length value="" type="STR" help="Read custom edge length from column STR"/>
+        <shapefile.width value="" type="STR" help="Read total edge width from column STR"/>
         <shapefile.name value="" type="STR" help="Read (non-unique) name from column STR"/>
         <shapefile.node-join-dist value="0" type="FLOAT" help="Distance threshold for determining whether distinct shapes are connected (used when from-id and to-id are not available)"/>
         <shapefile.add-params value="" type="STR[]" help="Add the list of field names as edge params"/>

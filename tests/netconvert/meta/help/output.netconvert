@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version v1_15_0+1914-84100d0141c
+Eclipse SUMO netconvert Version v1_16_0+0027-a0cc867
  Copyright (C) 2001-2023 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -586,6 +586,8 @@ Formats Options:
   --shapefile.type-id STR              Read type ids from column STR
   --shapefile.laneNumber STR           Read lane number from column STR
   --shapefile.speed STR                Read speed from column STR
+  --shapefile.length STR               Read custom edge length from column STR
+  --shapefile.width STR                Read total edge width from column STR
   --shapefile.name STR                 Read (non-unique) name from column STR
   --shapefile.node-join-dist FLOAT     Distance threshold for determining
                                         whether distinct shapes are connected
