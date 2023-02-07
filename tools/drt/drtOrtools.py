@@ -48,11 +48,11 @@ class CostType(Enum):
     TIME = 2
 
 
-def dispatch(reservations, fleet, time_limit, cost_type, drf, verbose):
+def dispatch(reservations, fleet, time_limit, cost_type, drf, end, verbose):
     """Dispatch using ortools."""
     if verbose:
         print('Start creating the model.')
-    data = create_data_model(reservations, fleet, cost_type, drf, verbose)
+    data = create_data_model(reservations, fleet, cost_type, drf, end, verbose)
     if verbose:
         print('Start solving the problem.')
     solution_ortools = ortools_pdp.main(data, time_limit, verbose)
@@ -62,7 +62,7 @@ def dispatch(reservations, fleet, time_limit, cost_type, drf, verbose):
     return solution_requests
 
 
-def create_data_model(reservations, fleet, cost_type, drf, verbose):
+def create_data_model(reservations, fleet, cost_type, drf, end, verbose):
     """Creates the data for the problem."""
     n_vehicles = len(fleet)
     # use only reservations that haven't been picked up yet; reservation.state!=8 (not picked up)
@@ -168,7 +168,7 @@ def create_data_model(reservations, fleet, cost_type, drf, verbose):
                 setattr(reservation, 'vehicle_index', v_i)  # index of assigned vehicle [0, ..., n_v -1]
 
     # get time windows
-    time_windows = get_time_windows(reservations, fleet)
+    time_windows = get_time_windows(reservations, fleet, end)
 
     data = {}
     data['cost_matrix'] = cost_matrix
@@ -185,14 +185,14 @@ def create_data_model(reservations, fleet, cost_type, drf, verbose):
     return data
 
 
-def get_time_windows(reservations, fleet):
+def get_time_windows(reservations, fleet, end):
     """returns a list of pairs with earliest and latest time"""
     # order must be the same as for the cost_matrix and demands
     # edges: [depot_id, res_from_id, ..., res_to_id, ..., res_dropoff_id, ..., veh_start_id, ...]
     time_windows = []
     # start at depot should be the current simulation time:
     current_time = round(traci.simulation.getTime())
-    max_time = get_max_time()
+    max_time = round(end)
     time_windows.append((current_time, max_time))
     # use reservations that haven't been picked up yet; reservation.state!=8 (not picked up)
     dp_reservations = [res for res in reservations if res.state != 8]
@@ -318,7 +318,7 @@ def solution_by_requests(solution_ortools, reservations, data, verbose=False):
     return solution_requests
 
 
-def run(end=90000, interval=30, time_limit=10, cost_type='distance', drf=1.5, verbose=False):
+def run(end=None, interval=30, time_limit=10, cost_type='distance', drf=1.5, verbose=False):
     """
     Execute the TraCI control loop and run the scenario.
 
@@ -338,6 +338,8 @@ def run(end=90000, interval=30, time_limit=10, cost_type='distance', drf=1.5, ve
     """
     running = True
     timestep = traci.simulation.getTime()
+    if not end:
+        end = get_max_time()
     while running:
 
         traci.simulationStep(timestep)
@@ -383,7 +385,7 @@ def run(end=90000, interval=30, time_limit=10, cost_type='distance', drf=1.5, ve
         if reservations_new:
             if verbose:
                 print("Solve CPDP")
-            solution_requests = dispatch(reservations_all, fleet, time_limit, cost_type, drf, verbose)
+            solution_requests = dispatch(reservations_all, fleet, time_limit, cost_type, drf, end, verbose)
             if solution_requests is not None:
                 for index_vehicle in solution_requests:  # for each vehicle
                     id_vehicle = fleet[index_vehicle]
@@ -410,7 +412,7 @@ def get_arguments():
     """Get command line arguments."""
     argument_parser = sumolib.options.ArgumentParser()
     argument_parser.add_argument("-s", "--sumo-config", required=True, help="sumo config file to run")
-    argument_parser.add_argument("-e", "--end", type=float, default=90000,
+    argument_parser.add_argument("-e", "--end", type=float,
                                  help="time step to end simulation at")
     argument_parser.add_argument("-i", "--interval", type=float, default=30,
                                  help="dispatching interval in s")
