@@ -1143,6 +1143,16 @@ class VehicleDomain(VTypeDomain):
             edgeList = [edgeList]
         self._setCmd(tc.VAR_ROUTE, vehID, "l", edgeList)
 
+    def setLateralLanePosition(self, vehID, posLat):
+        """setSpeed(string, double) -> None
+
+        Sets the lateral vehicle position relative to the center line of the
+        lane in m (negative values are to the right in right-hand networks).
+        The vehicle may adapt this position in the same step unless this is
+        disabled via setLaneChangeMode.
+        """
+        self._setCmd(tc.VAR_LANEPOSITION_LAT, vehID, "d", posLat)
+
     def updateBestLanes(self, vehID):
         """ updateBestLanes(string) -> None
         Triggers an update of the vehicle's bestLanes (structure determining the lane preferences used by LC models)

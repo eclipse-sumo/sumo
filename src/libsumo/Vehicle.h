@@ -195,6 +195,7 @@ public:
     static void setRouteID(const std::string& vehID, const std::string& routeID);
     static void setRoute(const std::string& vehID, const std::string& edgeID);
     static void setRoute(const std::string& vehID, const std::vector<std::string>& edgeIDs);
+    static void setLateralLanePosition(const std::string& vehID, double posLat);
     static void updateBestLanes(const std::string& vehID);
     static void setAdaptedTraveltime(const std::string& vehID, const std::string& edgeID,
                                      double time = libsumo::INVALID_DOUBLE_VALUE, double begSeconds = 0, double endSeconds = std::numeric_limits<double>::max());

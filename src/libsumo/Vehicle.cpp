@@ -1786,6 +1786,7 @@ Vehicle::setRoute(const std::string& vehID, const std::string& edgeID) {
     setRoute(vehID, std::vector<std::string>({edgeID}));
 }
 
+
 void
 Vehicle::setRoute(const std::string& vehID, const std::vector<std::string>& edgeIDs) {
     MSBaseVehicle* veh = Helper::getVehicle(vehID);
@@ -1812,6 +1813,19 @@ Vehicle::setRoute(const std::string& vehID, const std::vector<std::string>& edge
         throw TraCIException("Route replacement failed for vehicle '" + veh->getID() + "' (" + errorMsg + ").");
     }
 }
+
+
+void
+Vehicle::setLateralLanePosition(const std::string& vehID, double posLat) {
+    MSBaseVehicle* vehicle = Helper::getVehicle(vehID);
+    MSVehicle* veh = dynamic_cast<MSVehicle*>(vehicle);
+    if (veh != nullptr) {
+        veh->setLateralPositionOnLane(posLat);
+    } else {
+        WRITE_ERROR(TL("updateBestLanes not applicable for meso"));
+    }
+}
+
 
 void
 Vehicle::updateBestLanes(const std::string& vehID) {

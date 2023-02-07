@@ -985,6 +985,11 @@ Vehicle::setRoute(const std::string& vehID, const std::vector<std::string>& edge
 }
 
 void
+Vehicle::setLateralLanePosition(const std::string& vehID, double posLat) {
+    Dom::setDouble(libsumo::VAR_LANEPOSITION_LAT, vehID, posLat);
+}
+
+void
 Vehicle::updateBestLanes(const std::string& vehID) {
     tcpip::Storage content;
     Dom::set(libsumo::VAR_UPDATE_BESTLANES, vehID, &content);
