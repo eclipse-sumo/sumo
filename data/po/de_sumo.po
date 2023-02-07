@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-05 21:26+0100\n"
-"PO-Revision-Date: 2023-02-07 11:23+0000\n"
+"PO-Revision-Date: 2023-02-07 11:58+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -3052,13 +3052,13 @@ msgstr ""
 "Zweirichtungs-Kanten werden nicht hinzugefügt."
 
 #: /home/micha/programming/sumo/src/netbuild/NBAlgorithms_Railway.cpp:1016
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Stop on edge '%' can only be reached in reverse but edge has the wrong "
 "spreadType."
 msgstr ""
-"Halt bei der Kante '%' kann nur rückwärts erreicht werden, aber die Kante "
-"hat den falschen Verbreitungstyp."
+"Halt auf der Kante '%' kann nur in Gegenrichtung erreicht werden, aber die "
+"Kante hat den falschen spreadType."
 
 #: /home/micha/programming/sumo/src/netbuild/NBAlgorithms_Railway.cpp:1037
 msgid "No connection found between stops on edge '%' and edge '%'."
@@ -3081,13 +3081,12 @@ msgstr ""
 "Gleise an Weichen sicherzustellen."
 
 #: /home/micha/programming/sumo/src/netbuild/NBAlgorithms_Railway.cpp:1209
-#, fuzzy
 msgid ""
 "Cannot extend track direction priority because there are no track edges with "
 "positive priority"
 msgstr ""
-"Gleisrichtungs-Vorrang kann nicht erweitert werden, da keine Gleiskanten mit "
-"positiven Vorrang vorhanden sind"
+"Gleisrichtungsvorrang kann nicht fortgeschrieben werden, da keine "
+"Gleiskanten mit positiven Vorrang vorhanden sind"
 
 #: /home/micha/programming/sumo/src/netbuild/NBAlgorithms_Railway.cpp:1265
 msgid ""
@@ -3518,7 +3517,6 @@ msgid "roundabouts.visibility-distance must be positive or -1"
 msgstr "roundabouts.visibility-distance muss positiv oder -1 sein"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:790
-#, fuzzy
 msgid "Unknown value for default.spreadtype '%'."
 msgstr "Unbekannter Wert für default.spreadtype '%'."
 
@@ -3621,9 +3619,8 @@ msgid "myNeedsContRelation was not propperly initialized\n"
 msgstr "myNeedsContRelation wurde nicht richtig initialisiert\n"
 
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:89
-#, fuzzy
 msgid "Removing self-loops"
-msgstr "Entferne Selbstschleifen"
+msgstr "Entferne Kanten mit identischem Anfangs- und Endknotenpunkt"
 
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:93
 msgid "Finding isolated roads"
@@ -3798,7 +3795,6 @@ msgid "Dividing of lanes on approached lanes"
 msgstr "Aufteilung der Fahrstreifen auf annähernden Fahrstreifen"
 
 #: /home/micha/programming/sumo/src/netbuild/NBNetBuilder.cpp:498
-#, fuzzy
 msgid "Guessing Network fringe"
 msgstr "Netzrand erraten"
 
@@ -3879,9 +3875,8 @@ msgid "Invalid node id '%'."
 msgstr "Ungültige Knoten-ID '%'."
 
 #: /home/micha/programming/sumo/src/netbuild/NBNode.cpp:465
-#, fuzzy
 msgid " Removing self-looping edge '%'"
-msgstr " Entferne selbstschleifende Kante '%'."
+msgstr " Entferne Kante '%' wegen identischem Anfangs- und Endknotenpunkt"
 
 #: /home/micha/programming/sumo/src/netbuild/NBNode.cpp:744
 msgid "Could not compute indirect left turn shape at node '%'"
@@ -3905,11 +3900,10 @@ msgstr ""
 "Benutzerdefinierte Shape konnte nicht für die Verbindung % genutzt werden."
 
 #: /home/micha/programming/sumo/src/netbuild/NBNode.cpp:786
-#, fuzzy
 msgid "Custom shape has distance % to incoming lane for connection %."
 msgstr ""
-"Benutzerdefinierte Shape hat eine Distanz % zum ankommenden Fahrstreifen für "
-"die Verbindung %."
+"Benutzerdefinierter Shape liegt % entfernt vom Eingangsfahrstreifen der "
+"Verbindung %."
 
 #: /home/micha/programming/sumo/src/netbuild/NBNode.cpp:803
 msgid "Custom shape has distance % to outgoing lane for connection %."
@@ -4013,13 +4007,13 @@ msgid "Removed % railway components (% edges)."
 msgstr "% Bahnkomponenten entfernt (% Kanten)."
 
 #: /home/micha/programming/sumo/src/netbuild/NBNodeCont.cpp:658
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Ignoring join exclusion for junction '%' since it already occurred in a list "
 "of nodes to be joined."
 msgstr ""
-"Ignoriere vereinigungs-Ausschluss für den Knotenpunkt '%', da er bereits in "
-"einer Liste von vereinigten Knoten ist."
+"Ignoriere Vereinigungsausschluss für den Knotenpunkt '%', da er bereits in "
+"einer Liste von zu vereinigenden Knoten enthalten ist."
 
 #: /home/micha/programming/sumo/src/netbuild/NBNodeCont.cpp:691
 msgid ""
@@ -4334,11 +4328,12 @@ msgid "Guessing signalID for link index % at traffic light '%'."
 msgstr "Errate Signal-ID für den Linkindex % an der LSA '%'."
 
 #: /home/micha/programming/sumo/src/netconvert_main.cpp:97
-#, fuzzy
 msgid ""
 "Network importer / builder for the microscopic, multi-modal traffic "
 "simulation SUMO."
-msgstr "Eine mikroskopische, multimodale Verkehrssimulation."
+msgstr ""
+"Netzimport / Netzaufbau für die mikroskopische, multimodale "
+"Verkehrssimulation sumo."
 
 #: /home/micha/programming/sumo/src/netconvert_main.cpp:120
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:273
@@ -4408,11 +4403,12 @@ msgstr ""
 "Fahrstreifennummer, Fahrstreifenbreite und den Knotenpunktradius betragen"
 
 #: /home/micha/programming/sumo/src/netgen/netgen_main.cpp:229
-#, fuzzy
 msgid ""
 "Synthetic network generator for the microscopic, multi-modal traffic "
 "simulation SUMO."
-msgstr "Eine mikroskopische, multimodale Verkehrssimulation."
+msgstr ""
+"Generator synthetischer Netze für die mikroskopische, multimodale "
+"Verkehrssimulation sumo."
 
 #: /home/micha/programming/sumo/src/netgen/netgen_main.cpp:265
 msgid " Generation done;"
@@ -5846,9 +5842,8 @@ msgid "Could not open vissim-file '%'."
 msgstr "Vissim-Datei '%' konnte nicht geöffnet werden."
 
 #: /home/micha/programming/sumo/src/netload/NLBuilder.cpp:84
-#, fuzzy
 msgid "Trying to set the effort for the unknown edge '%'."
-msgstr "Es wurde versucht den"
+msgstr "Versuche an der unbekannten Kante '%' den Aufwand zu setzen."
 
 #: /home/micha/programming/sumo/src/netload/NLBuilder.cpp:99
 msgid "Trying to set the travel time for the unknown edge '%'."
@@ -5867,10 +5862,8 @@ msgstr ""
 "über Knotenpunkte und unterschätzen somit Streckenlängen und Fahrzeiten."
 
 #: /home/micha/programming/sumo/src/netload/NLBuilder.cpp:150
-#, fuzzy
 msgid "State was written at a different time=% than the begin time %!"
-msgstr ""
-"Stand wurde zur einer anderen Zeit=% geschrieben als die Anfangszeit %!"
+msgstr "Stand wurde zur einer anderen Zeit=% geschrieben als die Anfangszeit %!"
 
 #: /home/micha/programming/sumo/src/netload/NLBuilder.cpp:184
 #: /home/micha/programming/sumo/src/router/RONet.cpp:215
