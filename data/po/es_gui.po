@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-05 21:26+0100\n"
-"PO-Revision-Date: 2023-02-07 09:32+0000\n"
+"PO-Revision-Date: 2023-02-07 09:34+0000\n"
 "Last-Translator: Pablo Alvarez Lopez <pablo.alvarezlopez@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -2797,11 +2797,11 @@ msgstr "Prefijo para el nombre de los meanDatas sobre carriles (lanes)"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:418
 msgid "Disable icons of special lanes"
-msgstr ""
+msgstr "Desactivar iconos sobre carriles (lanes)"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:421
 msgid "Disable textures"
-msgstr ""
+msgstr "Desactivar texturas"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:424
 msgid "Load visualisation settings from FILE"
@@ -2875,19 +2875,19 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:370
 msgid "delete junction"
-msgstr ""
+msgstr "eliminar cruce (junction)"
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:412
 msgid "delete edge"
-msgstr ""
+msgstr "Eliminar calle (edge)"
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:491
 msgid "replace edge"
-msgstr ""
+msgstr "Reemplazar calle (edge)"
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:553
 msgid "delete lane"
-msgstr ""
+msgstr "Eliminar carril (lane)"
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:588
 msgid "delete connection"
