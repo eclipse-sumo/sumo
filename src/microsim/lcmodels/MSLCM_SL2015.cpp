@@ -2070,17 +2070,6 @@ MSLCM_SL2015::slowDownForBlocked(MSVehicle** blocked, int state) {
 }
 
 
-void MSLCM_SL2015::addLCSpeedAdvice(const double vSafe) {
-    const double accel = SPEED2ACCEL(vSafe - myVehicle.getSpeed());
-    myLCAccelerationAdvices.push_back(accel);
-#ifdef DEBUG_INFORM
-    if (DEBUG_COND) {
-        std::cout << SIMTIME << " veh=" << myVehicle.getID() << " accepted LC speed advice "
-                  << "vSafe=" << vSafe << " -> accel=" << accel <<  "\n";
-    }
-#endif
-}
-
 bool
 MSLCM_SL2015::isBidi(const MSLane* lane) const {
     if (lane == myVehicle.getLane()->getBidiLane()) {

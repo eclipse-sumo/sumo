@@ -1995,12 +1995,6 @@ MSLCM_LC2013::adaptSpeedToPedestrians(const MSLane* lane, double& v) {
 }
 
 
-void MSLCM_LC2013::addLCSpeedAdvice(const double vSafe) {
-    const double accel = SPEED2ACCEL(vSafe - myVehicle.getSpeed());
-    myLCAccelerationAdvices.push_back(accel);
-}
-
-
 double
 MSLCM_LC2013::computeSpeedLat(double latDist, double& maneuverDist, bool urgent) const {
     double result = MSAbstractLaneChangeModel::computeSpeedLat(latDist, maneuverDist, urgent);
