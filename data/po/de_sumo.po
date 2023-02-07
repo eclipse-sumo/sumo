@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-05 21:26+0100\n"
-"PO-Revision-Date: 2023-02-07 11:58+0000\n"
+"PO-Revision-Date: 2023-02-07 12:24+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -5867,10 +5867,11 @@ msgstr "Stand wurde zur einer anderen Zeit=% geschrieben als die Anfangszeit %!"
 
 #: /home/micha/programming/sumo/src/netload/NLBuilder.cpp:184
 #: /home/micha/programming/sumo/src/router/RONet.cpp:215
-#, fuzzy, c-format
+#, c-format
 msgid "A TAZ with id '%' already exists. Not building junction TAZ."
 msgstr ""
-"Eine Verkehrsumlegungszone mit der ID '%' existiert bereits. Kein Knotenpunkt"
+"Eine Verkehrsumlegungszone mit der ID '%' existiert bereits. Es wird keine "
+"Verkehrsumlegungszone für den Knotenpunkt erstellt."
 
 #: /home/micha/programming/sumo/src/netload/NLBuilder.cpp:215
 msgid ""
@@ -5982,16 +5983,16 @@ msgid "Invalid person mode '%' in E1 detector definition '%'"
 msgstr "Ungültiger Personenmodus '%' in E1-Detektor-Definition '%'"
 
 #: /home/micha/programming/sumo/src/netload/NLHandler.cpp:998
-#, fuzzy
 msgid ""
 "VTypeProbes are deprecated. Use fcd-output devices (assigned to the vType) "
 "instead."
-msgstr "VTypeProbes sind verworfen. Nutze fcd-output"
+msgstr ""
+"VTypeProbes sind veraltet. Nutze stattdessen dem vtype zugewiesene fcd-"
+"output-Einrichtungen."
 
 #: /home/micha/programming/sumo/src/netload/NLHandler.cpp:1058
-#, fuzzy
 msgid "Ignoring deprecated argument 'cont' for E2 detector '%'"
-msgstr "Ignoriere veraltetes Argument 'cont' für E2 Detektor '%'."
+msgstr "Ignoriere veraltetes Argument 'cont' des E2-Detektor '%'."
 
 #: /home/micha/programming/sumo/src/netload/NLHandler.cpp:1074
 msgid "Invalid person mode '%' in E2 detector definition '%'"
@@ -6209,7 +6210,6 @@ msgstr ""
 "Fahrstreifen '%' in der Bushaltestelle '%'."
 
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:154
-#, fuzzy
 msgid "OpenDRIVE export needs internal links computation."
 msgstr "OpenDRIVE-Export benötigt eine interne Link-Berechnung."
 
@@ -6433,11 +6433,12 @@ msgstr ""
 "Nur eine der Optionen 'pedestrians' und 'persontrips' darf angewendet werden."
 
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:248
-#, fuzzy
 msgid ""
 "Importer of O/D-matrices for the microscopic, multi-modal traffic simulation "
 "SUMO."
-msgstr "Eine mikroskopische, multimodale Verkehrssimulation."
+msgstr ""
+"Import von Quelle-Ziel-Matrizen für die mikroskopische, multimodale "
+"Verkehrssimulation sumo."
 
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:270
 msgid "You must supply a TAZ, network or districts file ('-n')."
@@ -6599,11 +6600,12 @@ msgstr ""
 "ID bereits verwendet)."
 
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:232
-#, fuzzy
 msgid ""
 "Importer of polygons and POIs for the microscopic, multi-modal traffic "
 "simulation SUMO."
-msgstr "Eine mikroskopische, multimodale Verkehrssimulation."
+msgstr ""
+"Import von Polygonen und PoI für die mikroskopische, multimodale "
+"Verkehrssimulation sumo."
 
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:285
 msgid "In order to prune the input on the net, you have to supply a network."
@@ -6876,11 +6878,8 @@ msgstr ""
 "Beschleunigungsinformation fehlt; versuche die Ausführung mit --compute-a."
 
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:62
-#, fuzzy
 msgid "Computes emissions by driving a time line using SUMO's emission models."
-msgstr ""
-"Berechne Emissionen während einer Zeitachse durch das Nutzen von dem SUMO-"
-"Emissionsmodel"
+msgstr "Berechnet Emissionen aus Fahrzyklen mithilfe der sumo-Emissionsmodelle."
 
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:169
 msgid "Either a timeline or a netstate / amitran file must be given."
@@ -7337,7 +7336,6 @@ msgid "No port number given."
 msgstr "Keine Anschlussnummer (Port-Nummer) ist gegeben."
 
 #: /home/micha/programming/sumo/src/utils/iodevices/OutputDevice.cpp:161
-#, fuzzy
 msgid "Error on closing output devices."
 msgstr "Fehler beim Schließen des Ausgabegerätes."
 
@@ -7369,13 +7367,12 @@ msgid "'%' is not a valid integer vector."
 msgstr "'%' ist kein gültiger integer-Vektor."
 
 #: /home/micha/programming/sumo/src/utils/options/OptionsCont.cpp:66
-#, fuzzy
 msgid ""
 "Copyright (C) 2001-2023 German Aerospace Center (DLR) and others; https://"
 "sumo.dlr.de"
 msgstr ""
-"Copyright (C) 2001-2023 German Aerospace Center (DLR) und Andere; https://"
-"sumo.dlr.de"
+"Copyright (C) 2001-2023 Deutsches Zentrum für Luft- und Raumfahrt (DLR) und "
+"Andere; https://sumo.dlr.de"
 
 #: /home/micha/programming/sumo/src/utils/options/OptionsCont.cpp:141
 msgid "Internal request for unknown option '%'!"
@@ -7442,9 +7439,8 @@ msgid "Could not save template to '%'"
 msgstr "Vorlage konnte nicht nach '%' gespeichert werden"
 
 #: /home/micha/programming/sumo/src/utils/options/OptionsCont.cpp:655
-#, fuzzy
 msgid "Written template to '%'"
-msgstr "Geschriebene Vorlage zu '%'"
+msgstr "Vorlage nach '%' geschrieben"
 
 #: /home/micha/programming/sumo/src/utils/options/OptionsCont.cpp:667
 msgid "Could not save schema to '%'"
@@ -7483,13 +7479,13 @@ msgid "Missing value for parameter '%'."
 msgstr "Fehlender Wert für den Parameter '%'."
 
 #: /home/micha/programming/sumo/src/utils/options/OptionsParser.cpp:146
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The parameter '%' is not allowed in this context.\n"
 " Switch or parameter name expected."
 msgstr ""
-"Der Parameter '%' ist nicht erlaubt in diesem Kontext.\n"
-"Schalter oder Parametername werden erwartet."
+"Der Parameter '%' ist in diesem Kontext nicht erlaubt.\n"
+"Es wird ein Schalter oder Parametername erwartet."
 
 #: /home/micha/programming/sumo/src/utils/options/OptionsParser.cpp:150
 msgid "Mixed parameter syntax in '%'."
@@ -7614,13 +7610,12 @@ msgstr ""
 "spezifiziert sein."
 
 #: /home/micha/programming/sumo/src/utils/shapes/ShapeHandler.cpp:173
-#, fuzzy
 msgid ""
 "(lon, lat) is specified for PoI '%' but no geo-conversion is specified for "
 "the network."
 msgstr ""
-"(lon, lat) ist spezifiziert für den Pol '%' aber keine geo-conversion ist "
-"spezifiziert für das Netz."
+"Für PoI '%' liegen (Länge, Breite) vor, aber es wurde im Nez kein "
+"geografisches Konvertierungsverfahren angegeben."
 
 #: /home/micha/programming/sumo/src/utils/shapes/ShapeHandler.cpp:185
 msgid "Unable to project coordinates for PoI '%'."
@@ -7682,9 +7677,8 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/utils/traction_wire/Circuit.cpp:312
 #: /home/micha/programming/sumo/src/utils/traction_wire/Circuit.cpp:456
-#, fuzzy
 msgid "wrongly assigned row of matrix A during solving the circuit"
-msgstr "falsch zugeteilte Zeile der Matrix A beim lösen des Kreislaufes"
+msgstr "falsch zugeordnete Zeile der Matrix A beim Lösen der Schaltung"
 
 #: /home/micha/programming/sumo/src/utils/traction_wire/Circuit.cpp:354
 #: /home/micha/programming/sumo/src/utils/traction_wire/Circuit.cpp:479
