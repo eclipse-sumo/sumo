@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-05 21:26+0100\n"
-"PO-Revision-Date: 2023-02-07 14:57+0000\n"
+"PO-Revision-Date: 2023-02-07 15:54+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
@@ -7158,11 +7158,11 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5574
 msgid "List of elements that must board the vehicle before it may continue"
-msgstr ""
+msgstr "在車輛繼續之前，必須登上車輛的要素清單"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5579
 msgid "List of elements that can board the vehicle before it may continue"
-msgstr ""
+msgstr "在車輛繼續之前，可以登上車輛的要素清單"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5584
 msgid "Whether the vehicle stops on the road or beside"
@@ -7331,16 +7331,18 @@ msgid ""
 "element must be at least networkElement, additional, TAZ, demandElement, "
 "dataElement or meanData"
 msgstr ""
+"要素必須至少是 networkElement、additional、TAZ、demandElement、dataElement "
+"或 meanData"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNETagProperties.cpp:100
 msgid ""
 "element can be only a networkElement, additional, demandElement, dataElement "
 "or meanData at the same time"
-msgstr ""
+msgstr "要素只能同時是networkElement、附加要素、demandElement、dataElement 或meanData"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNETagProperties.cpp:104
 msgid "element can be only a shape, TAZ or wire element at the same time"
-msgstr ""
+msgstr "要素只能同時是圖形物件、分區或是通訊線"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNETagProperties.cpp:108
 msgid ""
@@ -7482,7 +7484,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDemandSelector.cpp:65
 msgid "Parent element"
-msgstr ""
+msgstr "母元素"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDemandSelector.cpp:108
 msgid "select item..."
@@ -7494,7 +7496,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDemandSelector.cpp:110
 msgid "click over an element in view"
-msgstr ""
+msgstr "點擊視圖中的要素"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDemandSelector.cpp:133
 msgid "select sub-item..."
@@ -7506,7 +7508,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDemandSelector.cpp:137
 msgid "elements"
-msgstr ""
+msgstr "要素"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDemandSelector.cpp:138
 msgid " - Select an item in the"
@@ -7518,7 +7520,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDemandSelector.cpp:140
 msgid " element in view"
-msgstr ""
+msgstr " 視圖中的要素"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDemandSelector.cpp:332
 msgid "Selected item '"
@@ -7530,7 +7532,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDemandSelector.cpp:345
 msgid "Selected invalid item in DemandElementSelector"
-msgstr ""
+msgstr "在DemandElementSelector內選定的無效項目"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDrawingShape.cpp:48
 msgid "Drawing"
@@ -7653,7 +7655,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:646
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:720
 msgid " demand elements..."
-msgstr ""
+msgstr " 需求要素..."
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:534
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:597
@@ -7676,7 +7678,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:815
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:911
 msgid "Data elements"
-msgstr ""
+msgstr "資料要素"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:841
 msgid "Incomings"
@@ -7871,7 +7873,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:231
 msgid "- Reference point: Mark the initial position of the additional element."
-msgstr ""
+msgstr "- 參考點：標記附加要素的初始位置。"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:232
 msgid ""
@@ -7897,11 +7899,11 @@ msgstr ""
 msgid ""
 "- Block movement: if is enabled, the created additional element will be "
 "blocked. i.e. cannot be moved with"
-msgstr ""
+msgstr "- 阻止移動：如果啟用，建立的附加要素將被阻止，即不能移動"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:237
 msgid "  the mouse. This option can be modified inspecting element."
-msgstr ""
+msgstr "  滑鼠。這個選項可以修改檢視的要素。"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:238
 msgid "- Center view: if is enabled, view will be center over created element."
