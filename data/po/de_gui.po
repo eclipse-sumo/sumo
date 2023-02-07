@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-05 21:26+0100\n"
 "PO-Revision-Date: 2023-02-07 15:01+0000\n"
-"Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
+"Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
 "Language: de\n"
@@ -5303,7 +5303,7 @@ msgstr "Fußgängerfurt ID"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1311
 msgid "The (road) edges which are crossed"
-msgstr "Die (Straßen-)Kanten welche gekreuzt sind"
+msgstr "Die (Straßen-)Kanten welche gekreuzt werden"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1316
 msgid ""
@@ -5357,13 +5357,11 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1392
 msgid "the lane index of the incoming lane (numbers starting with 0)"
-msgstr ""
-"der Fahrstreifenindex des ankommenden Fahrstreifens (Nummern starten mit 0)"
+msgstr "der Fahrstreifenindex des Eingangsfahrstreifens (Nummern starten mit 0)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1397
 msgid "the lane index of the outgoing lane (numbers starting with 0)"
-msgstr ""
-"der Fahrstreifenindex des abgehenden Fahrstreifens (Nummern starten mit 0)"
+msgstr "der Fahrstreifenindex des Ausgangsfahrstreifens (Nummern starten mit 0)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1402
 msgid ""
@@ -5377,9 +5375,8 @@ msgid ""
 "if set to false, vehicles which pass this (lane-2-lane) connection) will not "
 "worry about blocking the intersection"
 msgstr ""
-"wenn auf 'false' gesetzt, sorgen sich Fahrzeuge, die diese "
-"(Fahrstreifen-2-Fahrstreifen)-Verbindung passieren, nicht darum, die "
-"Kreuzung zu blockieren"
+"wenn auf 'false' gesetzt, sorgen sich Fahrzeuge, die diese Verbindung "
+"passieren, nicht darum, die Kreuzung zu blockieren"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1414
 msgid ""
