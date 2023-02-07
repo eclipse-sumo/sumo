@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-05 21:26+0100\n"
-"PO-Revision-Date: 2023-02-07 15:01+0000\n"
+"PO-Revision-Date: 2023-02-07 15:03+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -5366,9 +5366,7 @@ msgstr "der Fahrstreifenindex des Ausgangsfahrstreifens (Nummern starten mit 0)"
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1402
 msgid ""
 "if set, vehicles which pass this (lane-2-lane) connection) will not wait"
-msgstr ""
-"wenn gesetzt, warten Fahrzeuge, die diese (Fahrstreifen-2-Fahrstreifen)-"
-"Verbindung passieren) nicht"
+msgstr "wenn gesetzt, warten Fahrzeuge, die diese Verbindung passieren, nicht"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1408
 msgid ""
@@ -5435,7 +5433,7 @@ msgstr "Linkstand für diese Verbindung (berechnet)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1533
 msgid "The id of bus stop"
-msgstr "Die ID von der Bushaltestelle"
+msgstr "Die ID der Bushaltestelle"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1538
 msgid "The name of the lane the bus stop shall be located at"
