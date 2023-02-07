@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-05 21:26+0100\n"
-"PO-Revision-Date: 2023-02-07 07:39+0000\n"
+"PO-Revision-Date: 2023-02-07 07:56+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -3655,7 +3655,7 @@ msgstr "Kantenendpositionen zurücksetzen"
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:3565
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:3588
 msgid "Grid is still active, press ctrl+g to deactivate"
-msgstr "Raster ist noch aktiviert, drücke ctrl+g zum deaktivieren"
+msgstr "Raster ist noch aktiviert, drücke ctrl+g zum Deaktivieren"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:3282
 msgid "reset custom junction shapes"
@@ -3690,7 +3690,7 @@ msgstr "Control + click zum erstellen von zwei Halten an der gleichen Position"
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:1448
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:1469
 msgid "moving selection"
-msgstr "Auswahl bewegen"
+msgstr "Auswahl verschieben"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:1649
 msgid "Selection width:"
@@ -4566,7 +4566,7 @@ msgstr "Akzeptieren"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEAdditionalDialog.cpp:62
 msgid "Close accepting changes"
-msgstr "Akzeptierte Änderungen schließen"
+msgstr "Schließen und Änderungen akzeptieren"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEAdditionalDialog.cpp:63
 msgid "Cancel"
@@ -4590,7 +4590,7 @@ msgstr "Auf vorherige Werte zurücksetzen"
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:690
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:494
 msgid "accept"
-msgstr "akzeptiert"
+msgstr "akzeptieren"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEAllowVClassesDialog.cpp:276
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEAllowVClassesDialog.cpp:277
@@ -4624,7 +4624,7 @@ msgstr "abbrechen"
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:651
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:692
 msgid "reset"
-msgstr "Zurücksetzung"
+msgstr "zurücksetzen"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNECalibratorDialog.cpp:237
 msgid "routes cannot be empty"
@@ -4667,12 +4667,12 @@ msgstr "&Akzeptieren"
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEDemandElementDialog.cpp:63
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEGeometryPointDialog.cpp:75
 msgid "close accepting changes"
-msgstr "schließe akzeptierte Änderungen"
+msgstr "schließen und Änderungen akzeptieren"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEDemandElementDialog.cpp:64
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEGeometryPointDialog.cpp:76
 msgid "close discarding changes"
-msgstr "schließe verworfenen Änderungen"
+msgstr "schließen und Änderungen verwerfen"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEDemandElementDialog.cpp:65
 msgid "&Reset"
@@ -5161,6 +5161,8 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1043
 msgid "The width of the bike lane that should be added as an additional lane"
 msgstr ""
+"Die Breite des Radwegs/Radstreifens, der/die als zusätzlicher Fahrstreifen "
+"hinzugefügt werden soll"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1056
 msgid "The maximum speed allowed on the lane in m/s"
