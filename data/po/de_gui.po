@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-05 21:26+0100\n"
-"PO-Revision-Date: 2023-02-07 15:03+0000\n"
+"PO-Revision-Date: 2023-02-07 15:17+0000\n"
 "Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -5497,6 +5497,8 @@ msgstr ""
 msgid ""
 "Instead, it will be placed 0.1 meters from the lanes end or at position 0.1"
 msgstr ""
+"Stattdessen wird es 0,1 Meter vom Fahrstreifenende entfernt oder an Position "
+"0,1 platziert"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1560
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1624
@@ -5520,12 +5522,16 @@ msgid ""
 "if the position was negative and larger than the lanes length after "
 "multiplication with - 1"
 msgstr ""
+"wenn die Position negativ und größer als die Fahrstreifenlänge nach "
+"Multiplikation mit -1 war"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1566
 msgid ""
 "Meant to be the names of the bus lines that stop at this bus stop. This is "
 "only used for visualization purposes"
 msgstr ""
+"Sollen die Namen der Buslinien sein, die an dieser Bushaltestelle halten. "
+"Dies dient nur der Visualisierung"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1571
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1635
@@ -5538,7 +5544,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1641
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1739
 msgid "Optional space definition for vehicles that park at this stop"
-msgstr ""
+msgstr "Optionale Platzdefinition für Fahrzeuge die an diesen Halt parken"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1583
 msgid "The RGBA color with which the busStop shall be displayed"
@@ -5546,15 +5552,16 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1597
 msgid "The id of train stop"
-msgstr ""
+msgstr "Die ID der Bahnhaltestelle"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1602
 msgid "The name of the lane the train stop shall be located at"
 msgstr ""
+"Der Name des Fahrstreifens, auf dem sich die Bahnhaltestelle befinden soll"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1617
 msgid "Name of trainStop"
-msgstr ""
+msgstr "Name von der Bahnhaltestelle"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1623
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1679
@@ -5576,6 +5583,8 @@ msgstr ""
 msgid ""
 "Instead, it will be placed 0.1 meters from the lanes end or at position 0.1,"
 msgstr ""
+"Stattdessen wird es 0,1 Meter vom Fahrstreifenende entfernt oder an Position "
+"0,1 platziert"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1630
 msgid ""
@@ -5590,30 +5599,35 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1661
 msgid "The name of the lane the stop access shall be located at"
 msgstr ""
+"Der Name des Fahrstreifens, an dem sich die Haltestellenzufahrt befinden soll"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1666
 msgid "The position on the lane (the lower position on the lane) in meters"
 msgstr ""
+"Die Position auf dem Fahrstreifen (die untere Position auf dem Fahrstreifen) "
+"in Metern"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1672
 msgid "The walking length of the access in meters"
-msgstr ""
+msgstr "Die Gehlänge des Zugangs in Metern"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1673
 msgid "-1.00"
-msgstr ""
+msgstr "-1.00"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1695
 msgid "The id of container stop"
-msgstr ""
+msgstr "Die vom Containerhalt"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1700
 msgid "The name of the lane the container stop shall be located at"
 msgstr ""
+"Der Name des Fahrstreifens, an dem sich die Containerhaltestelle befinden "
+"soll"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1715
 msgid "Name of containerStop"
-msgstr ""
+msgstr "Name vom Containerhalt"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1728
 msgid ""
@@ -5629,7 +5643,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1734
 msgid "6"
-msgstr ""
+msgstr "6"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1745
 msgid "The RGBA color with which the containerStop shall be displayed"
@@ -5637,47 +5651,51 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1758
 msgid "The id of charging station"
-msgstr ""
+msgstr "Die ID der Ladestation"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1763
 msgid "Lane of the charging station location"
-msgstr ""
+msgstr "Fahrstreifen der Ladestation-Projektion"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1768
 msgid "Begin position in the specified lane"
-msgstr ""
+msgstr "Startposition im angegebenen Fahrstreifen"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1773
 msgid "End position in the specified lane"
-msgstr ""
+msgstr "Endposition im angegebenen Fahrstreifen"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1778
 msgid "Name of chargingStation"
-msgstr ""
+msgstr "Name der Ladestation"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1791
 msgid "Charging power in W"
-msgstr ""
+msgstr "Ladepower in W"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1797
 msgid "Charging efficiency [0,1]"
-msgstr ""
+msgstr "Ladeeffizienz [0,1]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1804
 msgid ""
 "Enable or disable charge in transit, i.e. vehicle must or must not to stop "
 "for charging"
 msgstr ""
+"Laden während der Fahrt aktivieren oder deaktivieren, d. h. das Fahrzeug "
+"muss zum Laden anhalten oder darf nicht"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1810
 msgid ""
 "Time delay after the vehicles has reached / stopped on the charging station, "
 "before the energy transfer (charging) begins"
 msgstr ""
+"Zeitverzögerung, nachdem das Fahrzeug die Ladestation erreicht / angehalten "
+"hat, bevor die Energieübertragung (Laden) beginnt"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1824
 msgid "The id of ParkingArea"
-msgstr ""
+msgstr "Die ID vom Parkplatz"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1829
 msgid "The name of the lane the Parking Area shall be located at"
