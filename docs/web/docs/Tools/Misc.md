@@ -156,6 +156,14 @@ python tools/generateStationEdges.py rail.net.xml stops.xml
  netconvert -s rail.net.xml -e stops.access.edg.xml -n stops.access.nod.xml --ptstop-files stops.xml -o railForPersons.net.xml --ptstop-output stopsWithAccess.xml
 ```
 
+# generateRerouters.py
+
+This script generates rerouter for closing a given list of roads. It will automatically identify where to place the notification signs to facilitate rerouting.
+
+```
+python tools/generateRerouters.py -n <net-file> -o <output-file> -x CLOSED_EDGE1,CLOSED_EDGE2
+```
+
 # generateContinuousRerouters.py
 
 This script generates rerouter definitions for a continuously running simulation. Rerouters are placed ahead of each intersection with routes leading up to the next intersection and configurable turning ratios. Vehicles that enter the simulation will circulate continuously (unless hitting a dead-end). Example:
