@@ -245,9 +245,11 @@ check("2")
 print("nextTLS", traci.vehicle.getNextTLS("2"))
 traci.vehicle.setSpeedMode(vehID, 0)  # disable all checks
 traci.vehicle.setSpeed(vehID, 20)
+traci.vehicle.setLateralLanePosition(vehID, 0.5)
 print("speedmode", traci.vehicle.getSpeedMode(vehID))
 print("lanechangemode", traci.vehicle.getLaneChangeMode(vehID))
 print("slope", traci.vehicle.getSlope(vehID))
+print("lanePosLat (modified)", traci.vehicle.getLateralLanePosition(vehID))
 print("leader", traci.vehicle.getLeader("2"))
 
 if not useMeso:

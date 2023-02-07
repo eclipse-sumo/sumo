@@ -374,6 +374,7 @@ nextTLS (('0', 5, 487.98165543857033, 'r'), ('0', 12, 1487.9816554385702, 'r'), 
 speedmode 0
 lanechangemode 1621
 slope 0.0
+lanePosLat (modified) 0.5
 leader ('1', 14.167919406457806)
 followSpeed 6.95607628725
 secureGap 19.1160691014
