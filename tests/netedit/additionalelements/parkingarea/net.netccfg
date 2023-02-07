@@ -15,5 +15,9 @@
     <output>
         <output-file value="net.net.xml"/>
     </output>
+	
+	<processing>
+        <offset.disable-normalization value="true"/>
+    </processing>
 
 </configuration>
