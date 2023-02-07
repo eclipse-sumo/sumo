@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-05 21:26+0100\n"
 "PO-Revision-Date: 2023-02-07 15:28+0000\n"
-"Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
+"Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
 "Language: de\n"
@@ -5699,23 +5699,25 @@ msgstr "Die ID des Parkplatzes"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1829
 msgid "The name of the lane the Parking Area shall be located at"
-msgstr ""
+msgstr "Der Name des Fahrstreifens, auf der sich der Parkplatz befinden soll"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1844
 msgid "Lane position in that vehicle must depart when leaves parkingArea"
 msgstr ""
+"Die Fahrstreifenposition des Fahrzeuges muss beim Verlassen des Parkbereichs "
+"verlassen werden"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1849
 msgid "Name of parkingArea"
-msgstr ""
+msgstr "Name des Parkplatz"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1854
 msgid " The number of parking spaces for road-side parking"
-msgstr ""
+msgstr " Die Anzahl der Parkplätze für das Parken am Straßenrand"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1855
 msgid "0"
-msgstr ""
+msgstr "0"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1860
 msgid ""
@@ -5724,8 +5726,9 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1874
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1911
+#, fuzzy
 msgid "The width of the road-side parking spaces"
-msgstr ""
+msgstr "Die Breite der Seitenrand Parkplätze"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1880
 msgid ""
@@ -5742,11 +5745,12 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1906
 msgid "Name of parking space"
-msgstr ""
+msgstr "Name des Parkplatz"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1916
+#, fuzzy
 msgid "The length of the road-side parking spaces"
-msgstr ""
+msgstr "Die Länge der Seitenrand Parkplätze"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1926
 msgid "The slope of the road-side parking spaces"
