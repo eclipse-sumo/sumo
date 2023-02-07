@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-02-07 13:24:24 by Eclipse SUMO netedit Version v1_16_0+0024-1134bf4b789
+<!-- generated on 2023-02-07 14:08:13 by Eclipse SUMO netedit Version v1_16_0+0024-1134bf4b789
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Feb131851.7984\netedit.gui\additionalelements\parkingarea\inspect\id\additionals.add.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Feb131851.7984\netedit.gui\additionalelements\parkingarea\inspect\id\routes.rou.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Feb131851.7984\netedit.gui\additionalelements\parkingarea\inspect\id\datas.dat.xml"/>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Feb131851.7984\netedit.gui\additionalelements\parkingarea\inspect\id\net.net.xml"/>
+        <sumo-net-file value="D:\SUMO\tests\netedit\additionalelements\parkingarea\net.net.xml"/>
     </input>
 
     <processing>
@@ -28,30 +25,16 @@
         <walkingareas value="0"/>
     </pedestrian>
 
-    <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Feb131851.7984\netedit.gui\additionalelements\parkingarea\inspect\id\gui-settings.xml"/>
-        <window-size value="936, 697"/>
-        <window-pos value="50,50"/>
-        <gui-testing value="true"/>
-        <gui-testing-debug value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Feb131851.7984\netedit.gui\additionalelements\parkingarea\inspect\id\guisettingsoutput.xml"/>
-    </visualisation>
-
-    <report>
-        <no-warnings value="true"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Feb131851.7984\netedit.gui\additionalelements\parkingarea\inspect\id\log.txt"/>
-    </report>
-
 </configuration>
 -->
 
 <nodes version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
     <location netOffset="25.00,0.00" convBoundary="-25.00,-15.00,25.00,15.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
-    <node id="J0" x="-25.00" y="15.00" type="dead_end"/>
-    <node id="J1" x="25.00" y="15.00" type="dead_end"/>
-    <node id="J2" x="-25.00" y="-15.00" type="dead_end"/>
-    <node id="J3" x="25.00" y="-15.00" type="dead_end"/>
-    <node id="gneJ0" x="-25.00" y="0.00" type="traffic_light" tl="gneJ0"/>
-    <node id="gneJ1" x="25.00" y="0.00" type="traffic_light" tl="gneJ1"/>
+    <node id="JB0" x="-25.00" y="-15.00" type="priority"/>
+    <node id="JB1" x="25.00" y="-15.00" type="priority"/>
+    <node id="JC0" x="-25.00" y="0.00" type="traffic_light" tl="gneJ0"/>
+    <node id="JC1" x="25.00" y="0.00" type="traffic_light" tl="gneJ1"/>
+    <node id="JT0" x="-25.00" y="15.00" type="priority"/>
+    <node id="JT1" x="25.00" y="15.00" type="priority"/>
 </nodes>

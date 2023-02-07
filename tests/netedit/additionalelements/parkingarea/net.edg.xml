@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-02-07 13:24:24 by Eclipse SUMO netedit Version v1_16_0+0024-1134bf4b789
+<!-- generated on 2023-02-07 14:08:13 by Eclipse SUMO netedit Version v1_16_0+0024-1134bf4b789
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Feb131851.7984\netedit.gui\additionalelements\parkingarea\inspect\id\additionals.add.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Feb131851.7984\netedit.gui\additionalelements\parkingarea\inspect\id\routes.rou.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Feb131851.7984\netedit.gui\additionalelements\parkingarea\inspect\id\datas.dat.xml"/>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Feb131851.7984\netedit.gui\additionalelements\parkingarea\inspect\id\net.net.xml"/>
+        <sumo-net-file value="D:\SUMO\tests\netedit\additionalelements\parkingarea\net.net.xml"/>
     </input>
 
     <processing>
@@ -28,28 +25,28 @@
         <walkingareas value="0"/>
     </pedestrian>
 
-    <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Feb131851.7984\netedit.gui\additionalelements\parkingarea\inspect\id\gui-settings.xml"/>
-        <window-size value="936, 697"/>
-        <window-pos value="50,50"/>
-        <gui-testing value="true"/>
-        <gui-testing-debug value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Feb131851.7984\netedit.gui\additionalelements\parkingarea\inspect\id\guisettingsoutput.xml"/>
-    </visualisation>
-
-    <report>
-        <no-warnings value="true"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Feb131851.7984\netedit.gui\additionalelements\parkingarea\inspect\id\log.txt"/>
-    </report>
-
 </configuration>
 -->
 
 <edges version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
-    <edge id="bot0" from="J3" to="J2" priority="-1" numLanes="1" speed="13.89"/>
-    <edge id="bot1" from="J2" to="J3" priority="-1" numLanes="1" speed="13.89"/>
-    <edge id="center0" from="gneJ1" to="gneJ0" priority="1" numLanes="2" speed="13.89"/>
-    <edge id="center1" from="gneJ0" to="gneJ1" priority="1" numLanes="2" speed="13.89"/>
-    <edge id="top0" from="J1" to="J0" priority="-1" numLanes="1" speed="13.89"/>
-    <edge id="top1" from="J0" to="J1" priority="-1" numLanes="1" speed="13.89"/>
+    <edge id="E0" from="JT0" to="JC0" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" allow="pedestrian" width="2.00"/>
+        <lane index="1" disallow="pedestrian"/>
+    </edge>
+    <edge id="E1" from="JC0" to="JB0" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" allow="pedestrian" width="2.00"/>
+        <lane index="1" disallow="pedestrian"/>
+    </edge>
+    <edge id="E4" from="JB1" to="JC1" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" allow="pedestrian" width="2.00"/>
+        <lane index="1" disallow="pedestrian"/>
+    </edge>
+    <edge id="E5" from="JC1" to="JT1" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" allow="pedestrian" width="2.00"/>
+        <lane index="1" disallow="pedestrian"/>
+    </edge>
+    <edge id="E6" from="JT1" to="JT0" priority="-1" numLanes="1" speed="13.89"/>
+    <edge id="E7" from="JB0" to="JB1" priority="-1" numLanes="1" speed="13.89"/>
+    <edge id="center0" from="JC1" to="JC0" priority="1" numLanes="2" speed="13.89" disallow="pedestrian"/>
+    <edge id="center1" from="JC0" to="JC1" priority="1" numLanes="2" speed="13.89" disallow="pedestrian"/>
 </edges>
