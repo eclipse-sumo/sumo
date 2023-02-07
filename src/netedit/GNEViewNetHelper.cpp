@@ -1832,17 +1832,14 @@ GNEViewNetHelper::SelectingArea::processBoundarySelection(const Boundary& bounda
 // ---------------------------------------------------------------------------
 
 GNEViewNetHelper::TestingMode::TestingMode(GNEViewNet* viewNet) :
-    myViewNet(viewNet),
-    myTestingEnabled(OptionsCont::getOptions().getBool("gui-testing")),
-    myTestingWidth(0),
-    myTestingHeight(0) {
+    myViewNet(viewNet) {
 }
 
 
 void
 GNEViewNetHelper::TestingMode::initTestingMode() {
     // first check if testing mode is enabled and window size is correct
-    if (myTestingEnabled && OptionsCont::getOptions().isSet("window-size")) {
+    if (OptionsCont::getOptions().getBool("gui-testing") && OptionsCont::getOptions().isSet("window-size")) {
         std::vector<std::string> windowSize = OptionsCont::getOptions().getStringVector("window-size");
         // make sure that given windows size has exactly two valid int values
         if ((windowSize.size() == 2) && GNEAttributeCarrier::canParse<int>(windowSize[0]) && GNEAttributeCarrier::canParse<int>(windowSize[1])) {
@@ -1858,7 +1855,7 @@ GNEViewNetHelper::TestingMode::initTestingMode() {
 void
 GNEViewNetHelper::TestingMode::drawTestingElements(GUIMainWindow* mainWindow) {
     // first check if testing mode is enabled
-    if (myTestingEnabled) {
+    if (OptionsCont::getOptions().getBool("gui-testing")) {
         // check if main windows has to be resized
         if (myTestingWidth > 0) {
             mainWindow->resize(myTestingWidth, myTestingHeight);
@@ -1906,12 +1903,6 @@ GNEViewNetHelper::TestingMode::drawTestingElements(GUIMainWindow* mainWindow) {
         glEnd();
         GLHelper::popMatrix();
     }
-}
-
-
-bool
-GNEViewNetHelper::TestingMode::isTestingEnabled() const {
-    return myTestingEnabled;
 }
 
 // ---------------------------------------------------------------------------

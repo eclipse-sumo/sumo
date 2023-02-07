@@ -781,6 +781,9 @@ private:
     /// @brief draw select dotted contours
     void drawSelectDottedContour();
 
+    /// @brief draw circle in testing mode (neede for grid)
+    void drawTestsCircle() const;
+
     /// @}
 
     /// @brief mouse process functions

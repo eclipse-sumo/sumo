@@ -1147,21 +1147,15 @@ struct GNEViewNetHelper {
         /// @brief draw testing element
         void drawTestingElements(GUIMainWindow* mainWindow);
 
-        /// @brief check if testing mode is enabled
-        bool isTestingEnabled() const;
-
     private:
         /// @brief pointer to net
         GNEViewNet* myViewNet;
 
-        /// @brief flag to enable or disable testing mode
-        bool myTestingEnabled;
-
         /// @brief Width of net in testing mode
-        int myTestingWidth;
+        int myTestingWidth = 0;
 
         /// @brief Height of net in testing mode
-        int myTestingHeight;
+        int myTestingHeight = 0;
     };
 
     /// @brief struct used to group all variables related with common checkable Buttons

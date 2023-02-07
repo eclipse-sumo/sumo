@@ -1104,6 +1104,8 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
     drawDeleteDottedContour();
     // draw select dotted contour
     drawSelectDottedContour();
+    // draw test circle
+    drawTestsCircle();
     // pop draw matrix
     GLHelper::popMatrix();
     // update interval bar
@@ -5351,6 +5353,25 @@ GNEViewNet::drawSelectDottedContour() {
                 }
             }
         }
+    }
+}
+
+
+void
+GNEViewNet::drawTestsCircle() const {
+    if (myVisualizationSettings->showGrid && OptionsCont::getOptions().getBool("gui-testing")) {
+        // get mouse position
+        const Position mousePosition = snapToActiveGrid(getPositionInformation());
+        // push layer matrix
+        GLHelper::pushMatrix();
+        // translate to test layer, but under magenta square
+        glTranslated(mousePosition.x(), mousePosition.y(), GLO_TESTELEMENT - 1);
+        // set color
+        GLHelper::setColor(RGBColor::ORANGE);
+        // draw circle
+        GLHelper::drawFilledCircle(1, 8);
+        // pop layer matrix
+        GLHelper::popMatrix();
     }
 }
 

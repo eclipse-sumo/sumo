@@ -34,6 +34,7 @@
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/globjects/GUIPointOfInterest.h>
 #include <utils/gui/div/GUIGlobalPostDrawing.h>
+#include <utils/options/OptionsCont.h>
 
 #include "GNEPOI.h"
 
@@ -290,7 +291,7 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
                                                  myShapeWidth.length2D(), myShapeHeight.length2D());
             }
             // draw an orange square mode if there is an image(see #4036)
-            if (!getShapeImgFile().empty() && myNet->getViewNet()->getTestingMode().isTestingEnabled()) {
+            if (!getShapeImgFile().empty() && OptionsCont::getOptions().getBool("gui-testing")) {
                 // Add a draw matrix for drawing logo
                 GLHelper::pushMatrix();
                 glTranslated(x(), y(), getType() + 0.01);
