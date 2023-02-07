@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-05 21:26+0100\n"
-"PO-Revision-Date: 2023-02-02 13:19+0000\n"
+"PO-Revision-Date: 2023-02-07 09:32+0000\n"
 "Last-Translator: Pablo Alvarez Lopez <pablo.alvarezlopez@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -2019,7 +2019,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1158
 msgid "Draw TAZ fill"
-msgstr ""
+msgstr "Dibujar zona de análisis de tráfico (TAZ) rellena"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1163
 msgid "Only draw TAZRel from"
@@ -2099,11 +2099,11 @@ msgstr "&Elementos adicionales"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1345
 msgid "&TAZs"
-msgstr ""
+msgstr "&Zonas de análisis de tráfico (TAZs)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1350
 msgid "&Wires"
-msgstr ""
+msgstr "&Cables (Wires)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1355
 msgid "&Polygons"
@@ -2119,11 +2119,11 @@ msgstr "&Rutas"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1380
 msgid "Person&Trips"
-msgstr ""
+msgstr "Viajes de personas (Person Trips)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1385
 msgid "&Walks"
-msgstr ""
+msgstr "&Caminatas (Walks)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1390
 msgid "Ri&des"
@@ -2139,7 +2139,7 @@ msgstr "Tra&nsportes"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1405
 msgid "Trans&hips"
-msgstr ""
+msgstr "Transbordos (Tranships)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1410
 msgid "Stop&s"
@@ -2212,75 +2212,79 @@ msgstr "Unir cruces (junctions) seleccionados en un solo cruce (junction)."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1792
 msgid "Clean invalid crossings"
-msgstr ""
+msgstr "Limpiar pasos peatonales (crossings) inválidos"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1792
 msgid "Clear invalid crossings."
-msgstr ""
+msgstr "Eliminar pasos peatonales (crossings) inválidos."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1798
 msgid "Recompute Network in Data Mode"
-msgstr ""
+msgstr "Recalcular red en modo de datos"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1801
 msgid "RecomputeData"
-msgstr ""
+msgstr "Recalcular datos"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1804
 msgid "Compute demand"
-msgstr ""
+msgstr "Calcular demanda"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1804
 msgid "Computes demand elements."
-msgstr ""
+msgstr "Calcular elementos de demanda."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1807
 msgid "Clean routes"
-msgstr ""
+msgstr "Limpiar rutas"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1807
 msgid "Removes routes without vehicles."
-msgstr ""
+msgstr "Eliminar rutas sin vehículos."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1810
 msgid "Join routes"
-msgstr ""
+msgstr "Unir rutas"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1810
 msgid "Joins routes with the same edges."
-msgstr ""
+msgstr "Unir rutas con las mismas calles (edges)."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1813
 msgid "Adjust person plans"
-msgstr ""
+msgstr "Ajustar planes de personas"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1813
 msgid "Adjust person plans (start/end positions, arrival positions, etc.)"
 msgstr ""
+"Ajustar planes de personas (posiciones de inicio/fin, lugares de llegada, "
+"etc.)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1816
 msgid "Clean invalid route elements"
-msgstr ""
+msgstr "Limpiar elementos de ruta inválidos"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1816
 msgid "Clear elements with an invalid path (routes, Trips, Flows...)."
 msgstr ""
+"Eliminar elementos de demanda con un camino inválido (rutas, viajes, flujos, "
+"etc.)."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1822
 msgid "SUMO options"
-msgstr ""
+msgstr "Opciones de sumo"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1822
 msgid "Configure SUMO Options."
-msgstr ""
+msgstr "Configurar opciones de sumo."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1828
 msgid "Options"
-msgstr ""
+msgstr "Opciones"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1828
 msgid "Configure NETEDIT Options."
-msgstr ""
+msgstr "Configurar opciones de netedit."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1941
 msgid "Open a dialog for locating a Junction."
@@ -2288,7 +2292,7 @@ msgstr "Abrir ventana para localizar cruces (junctions)."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1944
 msgid "Open a dialog for locating an Edge."
-msgstr ""
+msgstr "Abrir una ventana para localizar una calle (edge)."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1947
 msgid "&WalkingAreas"
@@ -2332,15 +2336,15 @@ msgstr "Abrir una ventana para localizar elementos adicionales."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1968
 msgid "Open a dialog for locating a Point of Interest."
-msgstr ""
+msgstr "Abrir una ventana para localizar un punto de interés (POI)."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1971
 msgid "Open a dialog for locating a Polygon."
-msgstr ""
+msgstr "Abrir una ventana para localizar un polígono."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1988
 msgid "&NetDiff"
-msgstr ""
+msgstr "&NetDiff"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2005
 msgid "Toggle this Status Bar on/off."
@@ -2348,27 +2352,27 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2012
 msgid "Clear the Message Window."
-msgstr ""
+msgstr "Limpiar la ventana de mensajes."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2048
 msgid "&Network"
-msgstr ""
+msgstr "&Red"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2048
 msgid "Select network mode."
-msgstr ""
+msgstr "Seleccionar modo de red."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2051
 msgid "&Demand"
-msgstr ""
+msgstr "&Demanda"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2051
 msgid "Select demand mode."
-msgstr ""
+msgstr "Seleccionar modo de demanda."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2054
 msgid "&Data"
-msgstr ""
+msgstr "&Datos"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2054
 msgid "Select data mode."
@@ -2426,7 +2430,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2741
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2746
 msgid "XML files (*.xml)"
-msgstr ""
+msgstr "Archivos XML (*.xml)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2592
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2602
@@ -2448,7 +2452,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2742
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2747
 msgid "All files (*)"
-msgstr ""
+msgstr "Todos los archivos (*)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2599
 msgid "Open NetConvert file"
@@ -2460,7 +2464,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2608
 msgid "Save plain XML as"
-msgstr ""
+msgstr "Salvar XML plano como"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2614
 msgid "Save joined Junctions as"
@@ -2502,7 +2506,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2649
 msgid "Open SUMO Config file"
-msgstr ""
+msgstr "Abrir archivo de configuración de sumo"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2659
 msgid "Save TLS file as"
@@ -2557,7 +2561,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2712
 msgid "Open Route file"
-msgstr ""
+msgstr "Abrir archivo de rutas"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2723
 msgid "Save Data file as"
@@ -2570,20 +2574,20 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2728
 msgid "Open Data file"
-msgstr ""
+msgstr "Abrir archivo de datos"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2739
 msgid "Save MeanData file as"
-msgstr ""
+msgstr "Guardar archivo de meanDatas como"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2740
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2745
 msgid "Meandata files (*.add.xml)"
-msgstr ""
+msgstr "Archivos meanData (*.add.xml)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2744
 msgid "Open MeanData file"
-msgstr ""
+msgstr "Abrir archivo de meanDatas"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:94
 #, c-format
@@ -2600,18 +2604,20 @@ msgid ""
 "Invalid input network option. Load with either sumo/netedit/netconvert "
 "config or with -new option"
 msgstr ""
+"Opción de inicio para la red inválida. Abrir con configuración de sumo/"
+"netedit/netconvert o con la opción -new"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:129
 msgid "Invalid Options. Nothing loaded"
-msgstr ""
+msgstr "Opciones inválidas. Nada que cargar"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:143
 msgid "Could not build projection!"
-msgstr ""
+msgstr "No se puede crear la proyección!"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:171
 msgid "Performing initial computation ..."
-msgstr ""
+msgstr "Llevando a cabo el cálculo inicial ..."
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:205
 msgid "Failed to build network."
@@ -2635,23 +2641,23 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:278
 msgid "Load sumo config"
-msgstr ""
+msgstr "Cargar configuración de sumo"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:282
 msgid "Load additional and shapes descriptions from FILE(s)"
-msgstr ""
+msgstr "Abrir elementos adicionales y formas desde archivo(s)"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:286
 msgid "Load demand elements descriptions from FILE(s)"
-msgstr ""
+msgstr "Abrir elementos de demanda desde archivo(s)"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:290
 msgid "Load data elements descriptions from FILE(s)"
-msgstr ""
+msgstr "Abrir elementos de datos desde archivo(s)"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:294
 msgid "Load meanData descriptions from FILE(s)"
-msgstr ""
+msgstr "Abrir meanDatas desde archivos (s)"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:299
 msgid "File in which TLS Programs must be saved"
@@ -2663,15 +2669,15 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:308
 msgid "Start netedit with a new network"
-msgstr ""
+msgstr "Iniciar netedit con una nueva red"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:313
 msgid "Prefix for node naming"
-msgstr ""
+msgstr "Prefijo para el nombre de los cruces (junctions)"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:316
 msgid "Prefix for edge naming"
-msgstr ""
+msgstr "Prefijo para el nombre de las calles (edges)"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:319
 msgid "Enable edge-infix (<fromNodeID><infix><toNodeID>)"
@@ -2679,19 +2685,19 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:324
 msgid "Prefix for busStop naming"
-msgstr ""
+msgstr "Prefijo para el nombre de las paradas de bus"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:327
 msgid "Prefix for trainStop naming"
-msgstr ""
+msgstr "Prefijo para el nombre de las paradas de tren"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:330
 msgid "Prefix for containerStop naming"
-msgstr ""
+msgstr "Prefijo para el nombre de las paradas para contenedores"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:333
 msgid "Prefix for chargingStation naming"
-msgstr ""
+msgstr "Prefijo para el nombre de las estaciones de carga"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:336
 msgid "Prefix for parkingArea naming"
@@ -2743,51 +2749,51 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:372
 msgid "Prefix for poi naming"
-msgstr ""
+msgstr "Prefijo para el nombre de los puntos de interés (POI)"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:377
 msgid "Prefix for route naming"
-msgstr ""
+msgstr "Prefijo para el nombre de las rutas"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:380
 msgid "Prefix for vType naming"
-msgstr ""
+msgstr "Prefijo para el nombre de los tipos de vehículos"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:383
 msgid "Prefix for vehicle naming"
-msgstr ""
+msgstr "Prefijo para el nombre de los vehículos"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:386
 msgid "Prefix for trip naming"
-msgstr ""
+msgstr "Prefijo para el nombre de los viajes"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:389
 msgid "Prefix for flow naming"
-msgstr ""
+msgstr "Prefijo para el nombre de los flujos"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:392
 msgid "Prefix for person naming"
-msgstr ""
+msgstr "Prefijo para el nombre de las personas"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:395
 msgid "Prefix for personFlow naming"
-msgstr ""
+msgstr "Prefijo para el nombre de los flujos de personas"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:398
 msgid "Prefix for container naming"
-msgstr ""
+msgstr "Prefijo para el nombre de los contenedores"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:401
 msgid "Prefix for containerFlow naming"
-msgstr ""
+msgstr "Prefijo para el nombre de los flujos de contenedores"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:408
 msgid "Prefix for meanDataEdge naming"
-msgstr ""
+msgstr "Prefijo para el nombre de los meanDatas sobre calles (edges)"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:411
 msgid "Prefix for meanDataLane naming"
-msgstr ""
+msgstr "Prefijo para el nombre de los meanDatas sobre carriles (lanes)"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:418
 msgid "Disable icons of special lanes"
