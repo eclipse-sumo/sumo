@@ -418,7 +418,6 @@ GUIMainWindow::onCmdChangeLanguage(FXObject*, FXSelector sel, void*) {
         } else {
             FXRegistry reg("SUMO GUI", "sumo-gui");
             reg.read();
-            // update language in registry (common for sumo and netedit)
             reg.writeStringEntry("gui", "language", langID.c_str());
             reg.write();
         }
