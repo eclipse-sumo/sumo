@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-05 21:26+0100\n"
-"PO-Revision-Date: 2023-02-06 16:12+0000\n"
+"PO-Revision-Date: 2023-02-07 14:57+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
@@ -773,7 +773,7 @@ msgstr "結束後重新載入模擬（展示模式）"
 
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_AppSettings.cpp:68
 msgid "Locate elements when clicking on messages"
-msgstr "點擊訊息時進行元素（element）定位"
+msgstr "點擊訊息時進行要素（element）定位"
 
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_AppSettings.cpp:74
 msgid "Breakpoint offset when clicking on time message"
@@ -1132,7 +1132,7 @@ msgstr "附加檔案儲存於"
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4615
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4618
 msgid "loading demand elements from '"
-msgstr "從 ' 載入交通需求"
+msgstr "從 ' 載入交通需求要素"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3715
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1315
@@ -1150,12 +1150,12 @@ msgstr "重新載入路徑檔案失敗： "
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3792
 msgid "Demand elements saved in '"
-msgstr "交通需求儲存於 '"
+msgstr "交通需求要素儲存於 '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3864
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4684
 msgid "loading data elements from '"
-msgstr "從 '載入資料"
+msgstr "從 '載入資料要素"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3868
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1326
@@ -1169,7 +1169,7 @@ msgstr "成功載入資料檔案： "
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3904
 msgid "reloading data elements from '"
-msgstr "從 ' 重新載入資料"
+msgstr "從 ' 重新載入資料要素"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3909
 msgid "Reloading of data file failed: "
@@ -1177,7 +1177,7 @@ msgstr "載入資料檔案失敗： "
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3950
 msgid "Data elements saved in '"
-msgstr "資料儲存於 '"
+msgstr "資料要素儲存於 '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4019
 msgid "load meanDatas from '"
@@ -1220,39 +1220,39 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4210
 msgid "Save additional elements before close"
-msgstr ""
+msgstr "關閉前儲存附加要素"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4211
 msgid "You have unsaved additional elements."
-msgstr ""
+msgstr "您有尚未儲存的附加要素。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4254
 msgid "Save demand elements before close"
-msgstr ""
+msgstr "關閉前儲存需求要素"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4255
 msgid "You have unsaved demand elements."
-msgstr ""
+msgstr "您有尚未儲存的需要要素。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4298
 msgid "Save data elements before close"
-msgstr ""
+msgstr "關閉前儲存資料要素"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4299
 msgid "You have unsaved data elements."
-msgstr ""
+msgstr "您有尚未儲存的資料要素。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4342
 msgid "Save meanData elements before close"
-msgstr ""
+msgstr "關閉前儲存meanData要素"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4343
 msgid "You have unsaved meanData elements."
-msgstr ""
+msgstr "您有尚未儲存的meanData要素。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4580
 msgid "loading additional elements from '"
-msgstr ""
+msgstr "從 ' 載入附加要素"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4583
 msgid "loading additionals from '"
@@ -1268,7 +1268,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4687
 msgid "Loading data elements from '"
-msgstr "從 '載入資料"
+msgstr "從 '載入資料要素"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:130
 msgid "nets"
@@ -1565,7 +1565,7 @@ msgstr "將附加檔案另存為..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:424
 msgid "Save additional elements to another file."
-msgstr "將附加元素(element))另存新檔。"
+msgstr "將附加要素(element)另存新檔。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:430
 msgid "Reload Additionals"
@@ -1577,67 +1577,67 @@ msgstr "重新載入附加檔案。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:438
 msgid "Load Demand Elements..."
-msgstr "載入需求元素..."
+msgstr "載入需求要素..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:438
 msgid "Load demand elements."
-msgstr "載入需求元件。"
+msgstr "載入需求要素。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:444
 msgid "Save Demand Elements"
-msgstr "儲存需求元件"
+msgstr "儲存需求要素"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:444
 msgid "Save demand elements."
-msgstr "儲存需求元件 。"
+msgstr "儲存需求要素 。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:448
 msgid "Save Demand Elements As..."
-msgstr "將需求元件另存為…"
+msgstr "將需求要素另存為…"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:448
 msgid "Save demand elements to another file."
-msgstr "將需求元件另存新檔。"
+msgstr "將需求要素另存新檔。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:454
 msgid "Reload Demand Elements"
-msgstr "重新載入需求元件"
+msgstr "重新載入需求要素"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:454
 msgid "Reload demand elements."
-msgstr "重新載入需求元件。"
+msgstr "重新載入需求要素。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:462
 msgid "Load Data Elements..."
-msgstr "載入資料元件..."
+msgstr "載入資料要素..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:462
 msgid "Load data elements."
-msgstr "載入資料元件。"
+msgstr "載入資料要素。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:468
 msgid "Save Data Elements"
-msgstr "儲存資料元件"
+msgstr "儲存資料要素"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:468
 msgid "Save data elements."
-msgstr "儲存資料元件。"
+msgstr "儲存資料要素。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:472
 msgid "Save Data Elements As..."
-msgstr "將資料元件另存為…"
+msgstr "將資料要素另存為…"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:472
 msgid "Save data elements to another file."
-msgstr "將資料元件另存新檔。"
+msgstr "將資料要素另存新檔。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:478
 msgid "Reload Data Elements"
-msgstr "重新載入資料元件"
+msgstr "重新載入資料要素"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:478
 msgid "Reload data elements."
-msgstr "重新載入資料元件。"
+msgstr "重新載入資料要素。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:486
 msgid "Load MeanDatas..."
@@ -1661,7 +1661,7 @@ msgstr "將MeanDatas另存為…"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:496
 msgid "Save meanData elements to another file."
-msgstr "將MeanDatas另存新檔。"
+msgstr "將meanDatas要素另存新檔。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:502
 msgid "Reload MeanDatas"
@@ -1677,7 +1677,7 @@ msgstr "&檢查"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:522
 msgid "Inspect elements and change their attributes."
-msgstr "檢查元素並更改其屬性。"
+msgstr "檢查要素並更改其屬性。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:525
 msgid "&Delete"
@@ -1685,7 +1685,7 @@ msgstr "&刪除"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:525
 msgid "Delete elements."
-msgstr "刪除元件。"
+msgstr "刪除要素。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:528
 msgid "&Select"
@@ -1693,7 +1693,7 @@ msgstr "&選擇"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:528
 msgid "Select elements."
-msgstr "選擇元件。"
+msgstr "選擇要素。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:585
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:666
@@ -1703,7 +1703,7 @@ msgstr "＆移動"
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:585
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:666
 msgid "Move elements."
-msgstr "移動元件。"
+msgstr "移動要素。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:588
 msgid "&Edge"
@@ -1735,7 +1735,7 @@ msgstr "模式 交通號誌位於路口。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:600
 msgid "Create additional elements."
-msgstr "建立附加元素。"
+msgstr "建立附加要素。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:603
 msgid "C&rossing"
@@ -1816,27 +1816,27 @@ msgstr "建立人員旅運計畫。"
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:687
 #: /home/micha/programming/sumo/src/netedit/frames/GNETagSelector.cpp:179
 msgid "Container"
-msgstr ""
+msgstr "集裝箱"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:687
 msgid "Create containers."
-msgstr ""
+msgstr "建立集裝箱。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:690
 msgid "Container plan"
-msgstr ""
+msgstr "集裝箱計劃"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:690
 msgid "Create container plans."
-msgstr ""
+msgstr "建立集裝箱計畫。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:725
 msgid "&EdgeData"
-msgstr ""
+msgstr "&EdgeData"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:725
 msgid "Create edgeData elements."
-msgstr ""
+msgstr "建立edgeData 要素。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:728
 msgid "Edge&Relation"
@@ -1844,7 +1844,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:728
 msgid "Create edgeRelation elements."
-msgstr ""
+msgstr "建立edgeRelation要素。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:731
 msgid "TA&ZRelation"
@@ -1852,7 +1852,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:731
 msgid "Create TAZRelation elements."
-msgstr ""
+msgstr "建立TAZRelation 要素。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:734
 msgid "&MeanData"
@@ -1887,7 +1887,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2409
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3013
 msgid "Show demand elements"
-msgstr ""
+msgstr "顯示需求要素"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:816
 msgid "Clicking should target lanes"
@@ -1905,12 +1905,12 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:831
 msgid "Show sub-additional elements"
-msgstr ""
+msgstr "顯示次要附加要素"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:836
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2448
 msgid "Show TAZ elements"
-msgstr ""
+msgstr "顯示TAZ要素"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:841
 msgid "Selecting multiple edges automatically select their junctions"
@@ -1979,7 +1979,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1038
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2768
 msgid "Show non-inspected demand elements"
-msgstr ""
+msgstr "顯示非檢查的需求要素"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1043
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2776
@@ -2025,11 +2025,11 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1276
 msgid "Clear front element"
-msgstr ""
+msgstr "清除前面的要素"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1276
 msgid "Clear current front element"
-msgstr ""
+msgstr "清除目前前面的要素"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1285
 msgid "Load additionals in sumo-gui"
@@ -2137,23 +2137,23 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1433
 msgid "Lock selected elements"
-msgstr ""
+msgstr "鎖住選定的要件"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1433
 msgid "selected elements"
-msgstr ""
+msgstr "選定的要素"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1440
 msgid "Lock all elements"
-msgstr ""
+msgstr "鎖住所有要素"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1440
 msgid "all elements"
-msgstr ""
+msgstr "所有要素"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1444
 msgid "Unlock all elements"
-msgstr ""
+msgstr "解除鎖定所有的要素"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1780
 msgid "Compute Junctions"
@@ -2209,7 +2209,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1804
 msgid "Computes demand elements."
-msgstr ""
+msgstr "計算需求要素。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1807
 msgid "Clean routes"
@@ -2237,11 +2237,11 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1816
 msgid "Clean invalid route elements"
-msgstr ""
+msgstr "清除無效的路徑要素"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1816
 msgid "Clear elements with an invalid path (routes, Trips, Flows...)."
-msgstr ""
+msgstr "清除與無效路線相關的要素(路徑、旅程、流量...)。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1822
 msgid "SUMO options"
@@ -2620,11 +2620,11 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:286
 msgid "Load demand elements descriptions from FILE(s)"
-msgstr ""
+msgstr "由檔案載入需求要素的描述"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:290
 msgid "Load data elements descriptions from FILE(s)"
-msgstr ""
+msgstr "由檔案載入資料要素的描述"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:294
 msgid "Load meanData descriptions from FILE(s)"
@@ -2936,19 +2936,19 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1353
 msgid "Computing demand elements ..."
-msgstr ""
+msgstr "計算需求要素..."
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1367
 msgid "Finished computing demand elements."
-msgstr ""
+msgstr "完成計算需求要素。"
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1373
 msgid "Computing data elements ..."
-msgstr ""
+msgstr "計算資料要素..."
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1380
 msgid "Finished computing data elements."
-msgstr ""
+msgstr "完成計算資料要素。"
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1459
 msgid "Position of joined junction"
@@ -2998,7 +2998,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1795
 msgid "remove invalid demand elements"
-msgstr ""
+msgstr "移除無效的需求要素"
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1810
 msgid "replace junction by geometry"
@@ -3026,19 +3026,19 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1969
 msgid "clear additional elements"
-msgstr ""
+msgstr "清除附加要素"
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1982
 msgid "clear demand elements"
-msgstr ""
+msgstr "清除需求要素"
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1995
 msgid "clear data elements"
-msgstr ""
+msgstr "清除資料要素"
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:2006
 msgid "clear meanData elements"
-msgstr ""
+msgstr "清除meanData要素"
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:2326
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:2403
@@ -3075,11 +3075,11 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNENetHelper.cpp:1320
 msgid "Attempted to retrieve non-existant demand element (string)"
-msgstr ""
+msgstr "嘗試擷取不存在的需求要素(字串)"
 
 #: /home/micha/programming/sumo/src/netedit/GNENetHelper.cpp:1334
 msgid "Attempted to retrieve non-existant demand element (AttributeCarrier)"
-msgstr ""
+msgstr "嘗試擷取不存在的需求要素(屬性載體)"
 
 #: /home/micha/programming/sumo/src/netedit/GNENetHelper.cpp:1461
 msgid "Default vType doesn't exist"
@@ -3109,7 +3109,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNENetHelper.cpp:2367
 msgid "Invalid demandElement pointer"
-msgstr ""
+msgstr "無效的需求要素指標"
 
 #: /home/micha/programming/sumo/src/netedit/GNENetHelper.cpp:2426
 msgid "Invalid dataSet pointer"
@@ -3315,7 +3315,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:1430
 msgid "delete network inspected elements"
-msgstr ""
+msgstr "刪除檢視的路網要素"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:1438
 msgid "delete network selection"
@@ -3323,7 +3323,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:1446
 msgid "delete demand inspected elements"
-msgstr ""
+msgstr "刪除檢視的需求要素"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:1454
 msgid "delete demand selection"
@@ -3331,7 +3331,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:1462
 msgid "delete data inspected elements"
-msgstr ""
+msgstr "刪除檢視的資料要素"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:1470
 msgid "delete data selection"
@@ -3725,35 +3725,35 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2041
 msgid "Save additional elements"
-msgstr ""
+msgstr "儲存附加的要素"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2041
 msgid "Save additional elements. (Ctrl+Shift+A)"
-msgstr ""
+msgstr "儲存附加的要素。(Ctrl+Shift+A)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2047
 msgid "Save demand elements"
-msgstr ""
+msgstr "儲存需求要素"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2047
 msgid "Save demand elements. (Ctrl+Shift+D)"
-msgstr ""
+msgstr "儲存需求要素。(Ctrl+Shift+D)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2053
 msgid "Save data elements"
-msgstr ""
+msgstr "儲存資料要素"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2053
 msgid "Save data elements. (Ctrl+Shift+B)"
-msgstr ""
+msgstr "儲存資料要素。(Ctrl+Shift+D)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2059
 msgid "Save mean data elements"
-msgstr ""
+msgstr "儲存meanData要素"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2059
 msgid "Save mean data elements. (Ctrl+Shift+M)"
-msgstr ""
+msgstr "儲存meanData要素。(Ctrl+Shift+M)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2107
 msgid "Network"
@@ -3761,11 +3761,11 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2107
 msgid "Edit network elements"
-msgstr ""
+msgstr "編輯路網要素"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2107
 msgid "Set mode for edit network elements. (F2)"
-msgstr ""
+msgstr "設定編輯路網要素的模式。(F2)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2114
 msgid "Demand"
@@ -3773,7 +3773,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2114
 msgid "Edit traffic demand elements"
-msgstr ""
+msgstr "編輯交通需求要素"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2114
 msgid "Set mode for edit traffic demand. (F3)"
@@ -3785,7 +3785,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2121
 msgid "Edit data elements"
-msgstr ""
+msgstr "編輯資料要素"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2121
 msgid "Set mode for edit data demand. (F4)"
@@ -3836,7 +3836,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2409
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3013
 msgid "Toggle show demand elements."
-msgstr ""
+msgstr "切換顯示需求要素。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2417
 msgid "Clicks target lanes"
@@ -3857,15 +3857,15 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2440
 msgid "Show additional sub-elements"
-msgstr ""
+msgstr "顯示附加子要素"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2440
 msgid "Toggle show additional sub-elements."
-msgstr ""
+msgstr "切換顯示附加子要素。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2448
 msgid "Toggle show TAZ elements."
-msgstr ""
+msgstr "切換顯示分區(TAZ)要素。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2456
 msgid "Automatic select junctions"
@@ -3958,7 +3958,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2768
 msgid "Toggle show non-inspected demand elements."
-msgstr ""
+msgstr "切換顯示非檢視的需求要素。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2776
 msgid "Toggle show number of overlapped routes."
@@ -3994,7 +3994,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3540
 msgid "Mode for inspect elements and change their attributes. (I)"
-msgstr ""
+msgstr "檢視要素及更改其屬性的模式。(I)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3546
 msgid "Set delete mode"
@@ -4002,7 +4002,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3546
 msgid "Mode for delete elements. (D)"
-msgstr ""
+msgstr "刪除要素的模式。(D)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3615
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3759
@@ -4012,7 +4012,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3615
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3759
 msgid "Mode for move elements. (M)"
-msgstr ""
+msgstr "移動要素的模式。(M)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3621
 msgid "Set create edge mode"
@@ -4052,7 +4052,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3645
 msgid "Mode for adding additional elements. (A)"
-msgstr ""
+msgstr "新增附加要素的模式。(A)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3651
 msgid "Set crossing mode"
@@ -4180,7 +4180,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3902
 msgid "Mode for MeanData elements. (M)"
-msgstr ""
+msgstr "MeanData 要素的模式。(M)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewParent.cpp:102
 msgid "Undo the last change. (Ctrl+Z)"
@@ -4702,7 +4702,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixNetworkElements.cpp:52
 msgid "Fix network elements problems"
-msgstr ""
+msgstr "修正路網要素問題"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixNetworkElements.cpp:206
 msgid "Saving successfully"
@@ -4850,11 +4850,11 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEOverwriteElementsDialog.cpp:59
 msgid "load elements"
-msgstr ""
+msgstr "載入要素"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEOverwriteElementsDialog.cpp:60
 msgid "cancel loading of elements"
-msgstr ""
+msgstr "取消載入要素"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEOverwriteElementsDialog.cpp:61
 msgid "overwrite"
@@ -4862,7 +4862,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEOverwriteElementsDialog.cpp:61
 msgid "overwrite elements"
-msgstr ""
+msgstr "覆蓋要素"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNERerouterIntervalDialog.cpp:182
 msgid "Rerouter has more than one edge"
@@ -5334,7 +5334,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4436
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4806
 msgid "If set, no error will be reported if element is placed behind the lane."
-msgstr ""
+msgstr "如果設定，若元素放置在車道後面，不會報告任何錯誤。"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1559
 msgid ""
@@ -5775,7 +5775,7 @@ msgstr ""
 msgid ""
 "The id of the routeProbe element from which to determine the route "
 "distribution for generated vehicles"
-msgstr ""
+msgstr "決定所產生車輛的路徑分布的routeProbe要素的識別名稱(ID)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2401
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2457
