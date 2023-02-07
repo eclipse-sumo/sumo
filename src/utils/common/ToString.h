@@ -225,6 +225,7 @@ inline std::string toString(const std::vector<V*>& v, std::streamsize accuracy =
     return toString<V>(v.begin(), v.end(), accuracy);
 }
 
+
 template <typename V>
 inline std::string toString(const typename std::vector<V*>::const_iterator& b, const typename std::vector<V*>::const_iterator& e, std::streamsize accuracy = gPrecision) {
     UNUSED_PARAMETER(accuracy);
@@ -364,6 +365,23 @@ inline std::string toString(const std::vector<long long int>& v, std::streamsize
 template <>
 inline std::string toString(const std::vector<double>& v, std::streamsize accuracy) {
     return joinToString(v, " ", accuracy);
+}
+
+
+template <typename V, typename W>
+inline std::string toString(const std::vector<std::pair<V, W> >& v, std::streamsize accuracy = gPrecision, const std::string& between = ";", const std::string& between2 = ",") {
+    std::ostringstream oss;
+    oss << std::setprecision(accuracy);
+    bool connect = false;
+    for (auto it : v) {
+        if (connect) {
+            oss << toString(between, accuracy);
+        } else {
+            connect = true;
+        }
+        oss << toString(it.first) << between2 << toString(it.second);
+    }
+    return oss.str();
 }
 
 
