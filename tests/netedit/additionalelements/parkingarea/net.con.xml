@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-02-07 12:04:12 by Eclipse SUMO netedit Version 1.16.0
+<!-- generated on 2023-02-07 13:24:24 by Eclipse SUMO netedit Version v1_16_0+0024-1134bf4b789
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="D:\SUMO\tests\netedit\additionalelements\parkingarea\net.net.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Feb131851.7984\netedit.gui\additionalelements\parkingarea\inspect\id\additionals.add.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Feb131851.7984\netedit.gui\additionalelements\parkingarea\inspect\id\routes.rou.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Feb131851.7984\netedit.gui\additionalelements\parkingarea\inspect\id\datas.dat.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Feb131851.7984\netedit.gui\additionalelements\parkingarea\inspect\id\net.net.xml"/>
     </input>
 
     <processing>
@@ -25,20 +28,34 @@
         <walkingareas value="0"/>
     </pedestrian>
 
+    <visualisation>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Feb131851.7984\netedit.gui\additionalelements\parkingarea\inspect\id\gui-settings.xml"/>
+        <window-size value="936, 697"/>
+        <window-pos value="50,50"/>
+        <gui-testing value="true"/>
+        <gui-testing-debug value="true"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Feb131851.7984\netedit.gui\additionalelements\parkingarea\inspect\id\guisettingsoutput.xml"/>
+    </visualisation>
+
+    <report>
+        <no-warnings value="true"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Feb131851.7984\netedit.gui\additionalelements\parkingarea\inspect\id\log.txt"/>
+    </report>
+
 </configuration>
 -->
 
 <connections version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
-    <connection from="-E0"/>
+    <connection from="bot0"/>
 
-    <connection from="-E1"/>
+    <connection from="bot1"/>
 
-    <connection from="E0"/>
+    <connection from="center0" to="center1" fromLane="1" toLane="1"/>
 
-    <connection from="E1"/>
+    <connection from="center1" to="center0" fromLane="1" toLane="1"/>
 
-    <connection from="gneE0" to="gneE1" fromLane="1" toLane="1"/>
+    <connection from="top0"/>
 
-    <connection from="gneE1" to="gneE0" fromLane="1" toLane="1"/>
+    <connection from="top1"/>
 
 </connections>
