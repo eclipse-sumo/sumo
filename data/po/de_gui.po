@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-05 21:26+0100\n"
-"PO-Revision-Date: 2023-02-07 15:17+0000\n"
+"PO-Revision-Date: 2023-02-07 15:28+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -5655,7 +5655,7 @@ msgstr "Die ID der Ladestation"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1763
 msgid "Lane of the charging station location"
-msgstr "Fahrstreifen der Ladestation-Projektion"
+msgstr "Fahrstreifen der Ladestation"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1768
 msgid "Begin position in the specified lane"
@@ -5683,7 +5683,7 @@ msgid ""
 "for charging"
 msgstr ""
 "Laden während der Fahrt aktivieren oder deaktivieren, d. h. das Fahrzeug "
-"muss zum Laden anhalten oder darf nicht"
+"muss zum Laden anhalten oder nicht"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1810
 msgid ""
@@ -5695,7 +5695,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1824
 msgid "The id of ParkingArea"
-msgstr "Die ID vom Parkplatz"
+msgstr "Die ID des Parkplatzes"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1829
 msgid "The name of the lane the Parking Area shall be located at"
