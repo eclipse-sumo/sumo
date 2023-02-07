@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-05 21:26+0100\n"
-"PO-Revision-Date: 2023-02-07 14:57+0000\n"
+"PO-Revision-Date: 2023-02-07 15:01+0000\n"
 "Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -5421,7 +5421,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1486
 msgid "if set to true, vehicles will make a turn in 2 steps"
-msgstr ""
+msgstr "wenn auf wahr gesetzt, Fahrzeuge machen eine Wende in 2 Schritten"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1492
 msgid ""
@@ -5430,19 +5430,20 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1498
 msgid "turning direction for this connection (computed)"
-msgstr ""
+msgstr "Wenderichtung für diese Verbindung (berechnet)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1503
 msgid "link state for this connection (computed)"
-msgstr ""
+msgstr "Linkstand für diese Verbindung (berechnet)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1533
 msgid "The id of bus stop"
-msgstr ""
+msgstr "Die ID von der Bushaltestelle"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1538
 msgid "The name of the lane the bus stop shall be located at"
 msgstr ""
+"Der Name des Fahrstreifens, an der sich die Bushaltestelle befinden soll"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1543
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1607
