@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-05 21:26+0100\n"
-"PO-Revision-Date: 2023-02-07 07:39+0000\n"
+"PO-Revision-Date: 2023-02-07 11:23+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -374,11 +374,12 @@ msgid "No weight data was loaded for attribute '%'."
 msgstr "Es wurden keine Gewichtsdaten für das Attribut '%' geladen."
 
 #: /home/micha/programming/sumo/src/duarouter/duarouter_main.cpp:238
-#, fuzzy
 msgid ""
 "Shortest path router and DUE computer for the microscopic, multi-modal "
 "traffic simulation SUMO."
-msgstr "Eine mikroskopische, multimodale Verkehrssimulation."
+msgstr ""
+"Router (kürzester Weg) und Berechnung des dynamischen Nutzergleichgewichts "
+"für die mikroskopische, multimodale Verkehrssimulation sumo."
 
 #: /home/micha/programming/sumo/src/foreign/rtree/SUMORTree.h:140
 #: /home/micha/programming/sumo/src/foreign/rtree/SUMORTree.h:176
@@ -460,11 +461,12 @@ msgid "A turn default is not numeric."
 msgstr "Eine Abbiegevorgabe ist nicht numerisch."
 
 #: /home/micha/programming/sumo/src/jtrrouter/jtrrouter_main.cpp:182
-#, fuzzy
 msgid ""
 "Router for the microscopic, multi-modal traffic simulation SUMO based on "
 "junction turning ratios."
-msgstr "Eine mikroskopische, multimodale Verkehrssimulation."
+msgstr ""
+"Router für die mikroskopische, multimodale Verkehrssimulation sumo auf Basis "
+"von Abbiegeraten."
 
 #: /home/micha/programming/sumo/src/libsumo/GUI.cpp:304
 msgid ""
@@ -726,13 +728,12 @@ msgid "setActionStepLength not applicable for meso"
 msgstr "setActionStepLength nicht anwendbar für die mesoskopische Simulation"
 
 #: /home/micha/programming/sumo/src/libsumo/Vehicle.cpp:2441
-#, fuzzy
 msgid ""
 "Ignoring lane change subscription filter with non-neighboring lane offset "
 "direction=%."
 msgstr ""
-"Ignoriere den Fahrstreifen-Wechselabonnementfilter mit nicht benachbarter "
-"Fahrstreifenversatzrichtung = %."
+"Ignoriere den Fahrstreifenwechsel-Abonnementfilter für den nicht "
+"benachbarten Fahrstreifen mit dem Versatz = %."
 
 #: /home/micha/programming/sumo/src/libsumo/VehicleType.cpp:289
 #, c-format
@@ -1448,11 +1449,10 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/microsim/MSRouteHandler.cpp:741
 #: /home/micha/programming/sumo/src/microsim/transportables/MSTransportable.cpp:327
-#, fuzzy
 msgid ""
 "Person '%' receives type '%' which implicitly uses unsuitable vClass '%'."
 msgstr ""
-"Person '%' erhält Typ '%', welcher impliziert die ungeeignete Fahrzeugklasse "
+"Person '%' erhält Typ '%', welcher indirekt die ungeeignete Fahrzeugklasse "
 "'%' verwendet."
 
 #: /home/micha/programming/sumo/src/microsim/MSRouteHandler.cpp:877
@@ -1637,14 +1637,13 @@ msgid "should not happen"
 msgstr "sollte nicht passieren"
 
 #: /home/micha/programming/sumo/src/microsim/MSVehicle.cpp:944
-#, fuzzy
 msgid ""
 "Vehicle '%' moved by TraCI from % to % (dist %) with implied speed of % "
 "(exceeding maximum speed %). time=%."
 msgstr ""
-"Fahrzeug '%' wurde von TraCI von % auf % (dist %) mit impliziter "
-"Geschwindigkeit von % (Überschreitung der Höchstgeschwindigkeit %) bewegt. "
-"Zur Zeit =%."
+"Fahrzeug '%' wurde von TraCI von % nach % (Entfernung %) mit einer "
+"abgeleiteten Geschwindigkeit von % bewegt (Überschreitung der "
+"Höchstgeschwindigkeit %). Zeit =%."
 
 #: /home/micha/programming/sumo/src/microsim/MSVehicle.cpp:1816
 msgid "Vehicle '%' to split from vehicle '%' is not known. time=%."
@@ -1852,12 +1851,11 @@ msgstr ""
 "einzugeben."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Bluelight.cpp:68
-#, fuzzy
 msgid ""
 "bluelight device is not compatible with mesosim (ignored for vehicle '%')"
 msgstr ""
-"Blauchlicht-Einrichtung ist nicht kompatibel mit mesosim (wurde ignoriert "
-"für Fahrzeug '%')"
+"Blaulicht-Einrichtung ist nicht kompatibel mit der mesoskopischen Simulation "
+"(wurde für Fahrzeug '%' ignoriert)"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ElecHybrid.cpp:102
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ElecHybrid.cpp:116
@@ -2441,7 +2439,8 @@ msgstr ""
 #: /home/micha/programming/sumo/src/microsim/output/MSE2Collector.cpp:908
 msgid "Multi-lane e2Detector does not support detecting persons yet"
 msgstr ""
-"Mehrspuriger E2-Detektor unterstützt noch nicht das Detektieren von Personen"
+"Mehrstreifiger E2-Detektor unterstützt noch nicht das Detektieren von "
+"Personen"
 
 #: /home/micha/programming/sumo/src/microsim/output/MSMeanData.cpp:160
 msgid "Negative vehicle step fraction for '%' on lane '%'."
@@ -2500,22 +2499,20 @@ msgstr ""
 "Detektor."
 
 #: /home/micha/programming/sumo/src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:452
-#, fuzzy
 msgid ""
 "Invalid link '%' given as linkMaxDur parameter for actuated tlLogic '%', "
 "program '%."
 msgstr ""
-"Ungültiger Link '%' als maximaler Linkdauer-Parameter für die aktivierte LSA-"
-"Logik '%', Programm '%'."
+"Ungültiger Link '%' als linkMaxDur-Parameter für die verkehrsabhängige LSA-"
+"Logik '%' (Programm '%')."
 
 #: /home/micha/programming/sumo/src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:462
-#, fuzzy
 msgid ""
 "Invalid link '%' given as linkMinDur parameter for actuated tlLogic '%', "
 "program '%."
 msgstr ""
-"Ungültiger Link '%' als minimale Linkdauer-Parameter für die aktivierte LSA-"
-"Logik '%', Programm '%'."
+"Ungültiger Link '%' als linkMinDur-Parameter für die verkehrsabhängige LSA-"
+"Logik '%' (Programm '%')."
 
 #: /home/micha/programming/sumo/src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:903
 msgid ""
@@ -3031,9 +3028,8 @@ msgid "Reversed % sequences (count by length: %)"
 msgstr "Kehre % Sequenzen um (Zählung nach Länge: %)"
 
 #: /home/micha/programming/sumo/src/netbuild/NBAlgorithms_Railway.cpp:689
-#, fuzzy
 msgid "Ignoring buffer stop junction '%' with % edges."
-msgstr "Ignoriere Reserve-Halt-Knotenpunkt '%' mit % Kanten."
+msgstr "Ignoriere Prellbockknotenpunkt '%' mit % Kanten."
 
 #: /home/micha/programming/sumo/src/netbuild/NBAlgorithms_Railway.cpp:746
 msgid "Added % edges to connect % buffer stops in both directions."
