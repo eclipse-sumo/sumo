@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-05 21:26+0100\n"
-"PO-Revision-Date: 2023-02-06 19:58+0000\n"
-"Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
+"PO-Revision-Date: 2023-02-07 07:39+0000\n"
+"Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
 "Language: de\n"
@@ -4089,7 +4089,7 @@ msgstr "Prüfmodus einstellen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3540
 msgid "Mode for inspect elements and change their attributes. (I)"
-msgstr "Modus zum prüfen und wechseln ihrer Attribute von Elementen. (I)"
+msgstr "Modus zum Prüfen und Bearbeiten von Elementen und deren Attributen. (I)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3546
 msgid "Set delete mode"
@@ -4097,12 +4097,12 @@ msgstr "Löschmodus einstellen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3546
 msgid "Mode for delete elements. (D)"
-msgstr "Modus zum löschen von Elementen. (D)"
+msgstr "Modus zum Löschen von Elementen. (D)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3615
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3759
 msgid "Set move mode"
-msgstr "Bewegungsmodus einstellen"
+msgstr "Verschiebemodus einstellen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3615
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3759
@@ -4123,7 +4123,7 @@ msgstr "Verbindungsmodus einstellen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3627
 msgid "Mode for edit connections between lanes. (C)"
-msgstr "Modus fürs hinzufügen von Verbindungen zwischen Fahrstreifen. (C)"
+msgstr "Modus zum Hinzufügen von Verbindungen zwischen Fahrstreifen. (C)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3633
 msgid "Set prohibition mode"
@@ -4139,7 +4139,7 @@ msgstr "LSA-Modus einstellen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3639
 msgid "Mode for edit traffic lights over junctions. (T)"
-msgstr "Modus fürs hinzufügen von LSAs über Knotenpunkte. (T)"
+msgstr "Modus zum Hinzufügen von LSA an Knotenpunkten. (T)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3645
 #, fuzzy
@@ -4148,7 +4148,7 @@ msgstr "Weitere Daten Modus einstellen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3645
 msgid "Mode for adding additional elements. (A)"
-msgstr "Modus fürs hinzufügen weiterer Elemente. (A)"
+msgstr "Modus zum Hinzufügen weiterer Elemente. (A)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3651
 msgid "Set crossing mode"
@@ -4172,7 +4172,7 @@ msgstr "Polygon-Modus einstellen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3663
 msgid "Mode for creating polygons and POIs. (P)"
-msgstr "Modus zum Erstellen von Polygonen und Polen. (P)"
+msgstr "Modus zum Erstellen von Polygonen und Pol. (P)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3669
 msgid "Set wire mode"
@@ -4562,7 +4562,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEAdditionalDialog.cpp:62
 msgid "Accept"
-msgstr "Akzeptiert"
+msgstr "Akzeptieren"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEAdditionalDialog.cpp:62
 msgid "Close accepting changes"
@@ -4574,7 +4574,7 @@ msgstr "Abbrechen"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEAdditionalDialog.cpp:63
 msgid "Close discarding changes"
-msgstr "Verworfene Änderungen schließen"
+msgstr "Schließen und Änderungen verwerfen"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEAdditionalDialog.cpp:64
 msgid "Reset"
@@ -4582,7 +4582,7 @@ msgstr "Zurücksetzen"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEAdditionalDialog.cpp:64
 msgid "Reset to previous values"
-msgstr "Vorherige Werte zurücksetzen"
+msgstr "Auf vorherige Werte zurücksetzen"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEAllowVClassesDialog.cpp:276
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:649
@@ -5098,7 +5098,7 @@ msgstr "Eine optionale ID für das LSA-Programm"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:991
 msgid "The id of the edge"
-msgstr "Die ID von der Kante"
+msgstr "Die ID der Kante"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:996
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1114
@@ -5118,8 +5118,8 @@ msgstr "Die maximal erlaube Geschwindigkeit auf der Kante in m/s"
 msgid ""
 "Explicitly allows the given vehicle classes (not given will be not allowed)"
 msgstr ""
-"Erlaubt ausdrücklich die angegebenen Fahrzeugklassen (nichts angegeben wird "
-"nicht zugelassen)"
+"Erlaubt ausdrücklich die angegebenen Fahrzeugklassen (alle nicht angegebenen "
+"sind nicht zugelassen)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1014
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1068
@@ -5129,8 +5129,8 @@ msgstr ""
 msgid ""
 "Explicitly disallows the given vehicle classes (not given will be allowed)"
 msgstr ""
-"Verbietet explizit die angegebenen Fahrzeugklassen (nichts angegeben wird "
-"erlaubt)"
+"Verbietet explizit die angegebenen Fahrzeugklassen (nicht angegebene sind "
+"zugelassen)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1019
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1146
@@ -5155,8 +5155,8 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1038
 msgid "The width of the sidewalk that should be added as an additional lane"
 msgstr ""
-"Die Breite des Bürgersteigs, der als zusätzlicher Fahrstreifen hinzugefügt "
-"werden soll"
+"Die Breite des Gehwegs, der als zusätzlicher Fahrstreifen hinzugefügt werden "
+"soll"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1043
 msgid "The width of the bike lane that should be added as an additional lane"
@@ -5197,7 +5197,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1141
 msgid "The length of the edge in meter"
-msgstr "Die Länge der Kante in Meter"
+msgstr "Die Länge der Kante in Metern"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1153
 msgid "street name (need not be unique, used for visualization)"
