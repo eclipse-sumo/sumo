@@ -180,6 +180,12 @@ public:
         return std::vector<SUMOTime>();
     }
 
+    // @brief called when changes language
+    long onCmdChangeLanguage(FXObject*, FXSelector, void*);
+
+    // @brief called when language is updated
+    long onUpdChangeLanguage(FXObject*, FXSelector, void*);
+
 protected:
     /// @brief FOX need this
     FOX_CONSTRUCTOR(GUIMainWindow)
@@ -262,4 +268,5 @@ protected:
     void storeWindowSizeAndPos();
 
     void buildLanguageMenu(FXMenuBar* menuBar);
+
 };
