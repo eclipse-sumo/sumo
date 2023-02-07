@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-02-07 15:55:27 by Eclipse SUMO netedit Version v1_16_0+0024-1134bf4b789
+<!-- generated on 2023-02-07 16:15:28 by Eclipse SUMO netedit Version v1_16_0+0024-1134bf4b789
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Feb155444.18004\netedit.gui\additionalelements\parkingspace\load\no_parent\additionals.add.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Feb155444.18004\netedit.gui\additionalelements\parkingspace\load\no_parent\routes.rou.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Feb155444.18004\netedit.gui\additionalelements\parkingspace\load\no_parent\datas.dat.xml"/>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Feb155444.18004\netedit.gui\additionalelements\parkingspace\load\no_parent\net.net.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Feb161413.19740\netedit.gui\additionalelements\parkingspace\move\additionals.add.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Feb161413.19740\netedit.gui\additionalelements\parkingspace\move\routes.rou.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Feb161413.19740\netedit.gui\additionalelements\parkingspace\move\datas.dat.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Feb161413.19740\netedit.gui\additionalelements\parkingspace\move\net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Feb155444.18004\netedit.gui\additionalelements\parkingspace\load\no_parent\net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Feb161413.19740\netedit.gui\additionalelements\parkingspace\move\net.net.xml"/>
     </output>
 
     <processing>
@@ -33,17 +33,17 @@
     </pedestrian>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Feb155444.18004\netedit.gui\additionalelements\parkingspace\load\no_parent\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Feb161413.19740\netedit.gui\additionalelements\parkingspace\move\gui-settings.xml"/>
         <window-size value="1280, 720"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Feb155444.18004\netedit.gui\additionalelements\parkingspace\load\no_parent\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Feb161413.19740\netedit.gui\additionalelements\parkingspace\move\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Feb155444.18004\netedit.gui\additionalelements\parkingspace\load\no_parent\log.txt"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Feb161413.19740\netedit.gui\additionalelements\parkingspace\move\log.txt"/>
     </report>
 
 </configuration>

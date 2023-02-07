@@ -35,7 +35,7 @@ netedit.additionalMode()
 netedit.changeElement("parkingArea")
 
 # create parkingArea in mode "reference left"
-netedit.leftClick(referencePosition, 250, 250)
+netedit.leftClick(referencePosition, 475, 256)
 
 # select space
 netedit.changeElement("space")
@@ -45,32 +45,31 @@ netedit.selectAdditionalChild(netedit.attrs.parkingSpace.create.parent, 0)
 netedit.changeDefaultValue(netedit.attrs.parkingSpace.create.angle, "dummyAngle")
 
 # try to create area
-netedit.leftClick(referencePosition, 231, 83)
+netedit.leftClick(referencePosition, 292, 371)
 
 # set invalid angle (empty)
 netedit.changeDefaultValue(netedit.attrs.parkingSpace.create.angle, "")
 
 # try to create area
-netedit.leftClick(referencePosition, 241, 83)
+netedit.leftClick(referencePosition, 336, 371)
 
 # set valid angle (negative)
 netedit.changeDefaultValue(netedit.attrs.parkingSpace.create.angle, "-4")
 
 # create area
-netedit.leftClick(referencePosition, 251, 83)
+netedit.leftClick(referencePosition, 383, 371)
 
 # set valid angle (>360)
 netedit.changeDefaultValue(netedit.attrs.parkingSpace.create.angle, "500")
 
 # create area
-netedit.leftClick(referencePosition, 261, 83)
+netedit.leftClick(referencePosition, 429, 371)
 
 # set valid angle
 netedit.changeDefaultValue(netedit.attrs.parkingSpace.create.angle, "120")
 
 # create area
-netedit.leftClick(referencePosition, 271, 83)
-
+netedit.leftClick(referencePosition, 472, 371)
 # Check undo redo
 netedit.undo(referencePosition, 4)
 netedit.redo(referencePosition, 4)

@@ -35,7 +35,7 @@ netedit.additionalMode()
 netedit.changeElement("parkingArea")
 
 # create parkingArea in mode "reference left"
-netedit.leftClick(referencePosition, 250, 250)
+netedit.leftClick(referencePosition, 475, 256)
 
 # select space
 netedit.changeElement("space")
@@ -44,7 +44,7 @@ netedit.changeElement("space")
 netedit.selectAdditionalChild(netedit.attrs.parkingSpace.create.parent, 0)
 
 # create space
-netedit.leftClick(referencePosition, 231, 83)
+netedit.leftClick(referencePosition, 292, 371)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)
