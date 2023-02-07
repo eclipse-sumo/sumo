@@ -31,6 +31,7 @@ title: ChangeLog
   - Bluelight device: probabilistic rescue lane formation no longer depends on step-length. Issue #12516
   - Fixed invalid schema error when reading vehroute-output with human readable times. Issue #12545
   - Traffic light type 'delay_based' now adheres to the specified `maxDur` phase length. Previously phases could be prolonged beyond maxLength in the absence of other traffic. The old behavior can be enabled by setting `<param key="extendMaxDur" value="true"/>`. Issue #12553
+  - Routing algorithm CH now uses updated travel times from routing device. Issue #9803
   - intermodal simulation
     - Fixed crash when defining ride without lines. Issue #12167 (regression in 1.11.0)
     - Fixed invalid walking distance output related to lengths of crossings and walkingArea paths. Issue #11983
@@ -115,7 +116,7 @@ title: ChangeLog
   - Added missing (guessed) connections when an outgoing edge has additional lanes. Issue #8899
   - Fixed invalid link state at zipper junction. Issue #7676
   - Prohibitions involving edges with underscore in their name are now working. Issue #12419
-  - Turnaround are now correctly added if the innermost lane prohibits passenger traffic. Issue #12447
+  - Turnarounds are now correctly added if the innermost lane prohibits passenger traffic. Issue #12447
   - OpenDRIVE-imported networks no longer include guessed turn-arounds at real intersection by default (option **--no-turnarounds false** can be used to replicate the old behavior). Issue #12448
   - Line name from **--ptline-files** is now exported. Issue #12497
   - A `<split>` at pos=0 no longer ignores speed. Issue #12526
@@ -168,11 +169,12 @@ title: ChangeLog
   - Option **--fcd-output.attributes** now supports the attribute `speedLat` for writing lateral speeds. Issue #12213
   - Stops now support attribute `jump="TIME"` to model explict jumps (teleports) between disconnected locations. Issue #12268
   - The randomness in rescue lane formation can now be configured with bluelight device [parameters](Simulation/Emergency.md#further_parameters). Issue #12437
+  - Added option **--pedestrian.striping.reserve-oncoming.max** (default 1.28) to configure an upper limit on stripes to reserve for oncoming pedestrians. Issue #12506
 
 - netconvert
   - The right-of-way rules to take effect when switching a traffic light off, can now be configured as 'allway_stop'. This is the new default for NEMA-type controllers. Issue #12043
   - Improve traffic light programs in networks with separated bicycle paths. Issue #10039
-  - OpenDRIVE outputs now suppots export of loaded POIs and polygons as road objects. Issue #12060
+  - OpenDRIVE outputs now supports export of loaded POIs and polygons as road objects. Issue #12060
   - When setting option **--tls.guess**, roads without conflict are excluded from the threshold-heuristic. Issue #6513
   - Improved heuristic for generating rail connections at sharp angles. Issue #12119
   - Warnings of E3 detectors and from the SSM device can now be aggregated. Issue #12149
@@ -181,7 +183,7 @@ title: ChangeLog
   - Traffic signs from OSM can now be exported to OpenDRIVE. Issue #12231
   - Pedestrian crossings are now exported to OpenDRIVE. Issue #12229
   - Added option **--osm.crossings** to import pedestrian crossings from OSM. Issue #12238
-  - Now separating lanes for bikes and pedestrians according to OSM declerations. Issue #12215
+  - Now separating lanes for bikes and pedestrians according to OSM declarations. Issue #12215
   - Option **--osm.bike-access** now serves to add any addtional bike lanes declared in OSM without the need to load another typemap (The typemap may still be used to customize bike lane withs for different categories of lanes). Issue #12228
   - Added option **--tls.rebuild** to rebuild all loaded traffic light plans. Issue #12250
   - Added option **--tls.guess-signals.slack** to identify more controlled intersections by guessing from surrounding *simple* tls nodes. Issue #12249
@@ -189,7 +191,6 @@ title: ChangeLog
   - Option **--junctions.join** can now join intersections with more than 4 incoming edges. Issue #12261
   - Walkingarea shapes for pure pedestrian intersections now match the junction shape. Issue #12377
   - Added option **--plain-output.lanes** to include all lane attributes in plain-xml output. Issue #12443
-  - Added option **--pedestrian.striping.reserve-oncoming.max** (default 1.28) to configure an upper limit on stripes to reserve for oncoming pedestrians. Issue #12506
 
 - netedit
   - It is now possible to load and save a *.sumocfg* file and also to edit all sumo options (SHIFT-F10). Issue #11896
@@ -205,15 +206,15 @@ title: ChangeLog
   - Added MeanData mode to create and modify `<edgeData>` and `<laneData>` definitions. Issue #11897
   - Recently used files are now in a sub-menu. Issue #12025
   - Geometry points are now drawn above everything else in move mode. Issue #11725
-  - Geometry points now change color in move mode to indicate whether a click would create or merge points. Isse #12177
+  - Geometry points now change color in move mode to indicate whether a click would create or merge points. Issue #12177
   - Move mode can now toggle whether closely spaced geometry points shall be automatically removed. Issue #12244
   - Stops now support attribute 'jump'. Issue #12269
   - Crossing mode now ensures that only sensible crossings can be defined. Issue #12366
-  - Vehicle instpect mode now allose selecting vehicle type from a drop-down list. Issue #12379
+  - Vehicle instpect mode now allows selecting vehicle type from a drop-down list. Issue #12379
   - Added edge color legend to person and container mode. Issue #11613
   - Added edge color legend when creating e2 detectors along multiple lanes. Issue #11334
   - Moving a single selected edge now moves its whole geometry including endpoints. Issue #12442
-  - Parameeters for the W99 carFollowModel can now be configured. Issue #12290
+  - Parameters for the W99 carFollowModel can now be configured. Issue #12290
 
 - sumo-gui
   - When option **--use-stop-ended** is set, show-route mode now labels the 'ended' time of stops. Issue #11833
@@ -263,7 +264,8 @@ title: ChangeLog
   - generateRailSignalConstraints.py: Now handling actual times ahead of schedule. Threshold configurable with new option **--premature-threshold**. Issue #12530
   - Added new tool [filterElements.py](Tools/Xml.md#filterelementspy) to filter elements from an xml file (either all instances or filtered by attribute value). Issue #12304
   - Added new tool [attributeDiff.py](Tools/Output.md#attributediffpy) to compute the numerical difference between two xml files with the same structure. Issue #12318
-  - Added new tool [fcdDifff.py](Tools/Output.md#fcddiffpy) to compare two fcd-output files (by vehicle id and time). Issue #12233
+  - Added new tool [fcdDiff.py](Tools/Output.md#fcddiffpy) to compare two fcd-output files (by vehicle id and time). Issue #12233
+  - Added new tool [fcdReplay.py](Tools/Visualization.md#visulizing_fcd-data_as_moving_pois) to review a fcd recording as moving POIs (optionally alongside a running simulation. Issue #12433
   - plotXMLAttributes.py
     - can now plot data without assigning ids to the data points. Issue #11969
     - can now plot categorical (non-numerical) data and also a mix of data types. Issue #11970, #11976
