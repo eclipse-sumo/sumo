@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-05 21:26+0100\n"
-"PO-Revision-Date: 2023-02-07 09:34+0000\n"
+"PO-Revision-Date: 2023-02-07 11:23+0000\n"
 "Last-Translator: Pablo Alvarez Lopez <pablo.alvarezlopez@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -2879,23 +2879,23 @@ msgstr "eliminar cruce (junction)"
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:412
 msgid "delete edge"
-msgstr "Eliminar calle (edge)"
+msgstr "eliminar calle (edge)"
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:491
 msgid "replace edge"
-msgstr "Reemplazar calle (edge)"
+msgstr "reemplazar calle (edge)"
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:553
 msgid "delete lane"
-msgstr "Eliminar carril (lane)"
+msgstr "eliminar carril (lane)"
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:588
 msgid "delete connection"
-msgstr ""
+msgstr "eliminar conexión"
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:603
 msgid "delete crossing"
-msgstr ""
+msgstr "eliminar paso peatonal (crossing)"
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:621
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:650
@@ -2904,7 +2904,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:698
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:728
 msgid "delete "
-msgstr ""
+msgstr "eliminar "
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:644
 msgid "Trying to delete a default Vehicle Type"
