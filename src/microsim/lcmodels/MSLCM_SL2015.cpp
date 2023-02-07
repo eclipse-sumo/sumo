@@ -371,10 +371,15 @@ MSLCM_SL2015::_patchSpeed(double min, const double wanted, double max, const MSC
         }
     }
     const double coopWeight = MAX2(0.0, MIN2(1.0, myCooperativeSpeed));
-    for (std::vector<double>::const_iterator i = myLCAccelerationAdvices.begin(); i != myLCAccelerationAdvices.end(); ++i) {
-        double v = myVehicle.getSpeed() + ACCEL2SPEED(*i);
+    for (auto i : myLCAccelerationAdvices) {
+        double v = myVehicle.getSpeed() + ACCEL2SPEED(i.first);
         if (v >= min && v <= max) {
-            nVSafe = MIN2(v * coopWeight + (1 - coopWeight) * wanted, nVSafe);
+            if (i.second) {
+                // own advice, no scaling needed
+                nVSafe = MIN2(v, nVSafe);
+            } else {
+                nVSafe = MIN2(v * coopWeight + (1 - coopWeight) * wanted, nVSafe);
+            }
             gotOne = true;
 #ifdef DEBUG_PATCHSPEED
             if (gDebugFlag2) {
@@ -503,7 +508,7 @@ void*
 MSLCM_SL2015::inform(void* info, MSVehicle* sender) {
     Info* pinfo = (Info*) info;
     if (pinfo->first >= 0) {
-        addLCSpeedAdvice(pinfo->first);
+        addLCSpeedAdvice(pinfo->first, false);
     }
     //myOwnState &= 0xffffffff; // reset all bits of MyLCAEnum but only those
     myOwnState |= pinfo->second;
@@ -538,8 +543,8 @@ MSLCM_SL2015::informLeader(int blocked,
                            double remainingSeconds) {
     double plannedSpeed = MIN2(myVehicle.getSpeed(),
                                myVehicle.getCarFollowModel().stopSpeed(&myVehicle, myVehicle.getSpeed(), myLeftSpace - myLeadingBlockerLength));
-    for (std::vector<double>::const_iterator i = myLCAccelerationAdvices.begin(); i != myLCAccelerationAdvices.end(); ++i) {
-        double v = myVehicle.getSpeed() + ACCEL2SPEED(*i);
+    for (auto i : myLCAccelerationAdvices) {
+        double v = myVehicle.getSpeed() + ACCEL2SPEED(i.first);
         if (v >= myVehicle.getSpeed() - ACCEL2SPEED(myVehicle.getCarFollowModel().getMaxDecel())) {
             plannedSpeed = MIN2(plannedSpeed, v);
         }
@@ -2061,7 +2066,7 @@ MSLCM_SL2015::slowDownForBlocked(MSVehicle** blocked, int state) {
                 addLCSpeedAdvice(getCarFollowModel().followSpeed(
                                      &myVehicle, myVehicle.getSpeed(),
                                      (gap - POSITION_EPS), (*blocked)->getSpeed(),
-                                     (*blocked)->getCarFollowModel().getMaxDecel()));
+                                     (*blocked)->getCarFollowModel().getMaxDecel()), false);
                 //(*blocked) = 0; // VARIANT_14 (furtherBlock)
             }
         }
