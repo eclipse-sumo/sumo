@@ -619,6 +619,32 @@ class Net:
         return self.getOptimalPath(fromEdge, toEdge, True, maxCost, vClass, reversalPenalty,
                                    includeFromToCost, withInternal, ignoreDirection, fromPos, toPos)
 
+    def getReachable(self, source, vclass=None, useIncoming=False):
+        if vclass is not None and not source.allows(vclass):
+            raise RuntimeError("'{}' does not allow {}".format(source.getID(), vclass))
+        fringe = [source]
+        found = set()
+        found.add(source)
+        while len(fringe) > 0:
+            new_fringe = []
+            for edge in fringe:
+                if vclass == "pedestrian":
+                    cands = chain(chain(*edge.getIncoming().values()), chain(*edge.getOutgoing().values()))
+                else:
+                    cands = chain(*(edge.getIncoming().values() if useIncoming else edge.getOutgoing().values()))
+                # print("\n".join(map(str, list(cands))))
+                for conn in cands:
+                    if vclass is None or (
+                            conn.getFromLane().allows(vclass)
+                            and conn.getToLane().allows(vclass)):
+                        for reachable in [conn.getTo(), conn.getFrom()]:
+                            if reachable not in found:
+                                # print("added %s via %s" % (reachable, conn))
+                                found.add(reachable)
+                                new_fringe.append(reachable)
+            fringe = new_fringe
+        return found
+
 
 class NetReader(handler.ContentHandler):
 
