@@ -248,6 +248,10 @@ class Lane:
         """return the allowed vehicle classes"""
         return self._allowed
 
+    def setPermissions(self, allowed):
+        """set the allowed vehicle classes"""
+        self._allowed = allowed
+
     def allows(self, vClass):
         """true if this lane allows the given vehicle class"""
         return vClass in self._allowed
