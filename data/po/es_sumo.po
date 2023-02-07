@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-05 21:26+0100\n"
-"PO-Revision-Date: 2023-01-26 06:39+0000\n"
-"Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
+"PO-Revision-Date: 2023-02-07 09:32+0000\n"
+"Last-Translator: Pablo Alvarez Lopez <pablo.alvarezlopez@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
 "Language: es\n"
@@ -3796,7 +3796,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:273
 #: /home/micha/programming/sumo/src/utils/geom/GeoConvHelper.cpp:92
 msgid "Could not build projection!"
-msgstr ""
+msgstr "No se puede crear la proyección!"
 
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:233
 msgid "You have to specify the type of network to generate."
