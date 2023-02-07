@@ -1,4 +1,3 @@
- Retrying in 1 seconds
 timestep:  0.0
 Reservations waiting: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 Taxis empty: ('v0', 'v1')
@@ -37,160 +36,176 @@ Start solving the problem.
 ## Done
  Set solution heuristic...
 Start solving the problem.
-Objective:  668545
+Objective:  643224
 Route for vehicle 0:
-     21 (L: 0, C: 0, T: (1,42265))
- ->  9 (L: 1, C: 387, T: (33,42297))
- ->  19 (L: 0, C: 663, T: (55,42319))
- ->  4 (L: 1, C: 1043, T: (83,42347))
- ->  5 (L: 2, C: 1430, T: (113,42377))
- ->  14 (L: 1, C: 2106, T: (169,42433))
- ->  3 (L: 2, C: 2671, T: (217,42481))
- ->  13 (L: 1, C: 3456, T: (341,42605))
- ->  15 (L: 0, C: 3632, T: (416,42680))
- ->  10 (L: 1, C: 4612, T: (490,42754))
- ->  20 (L: 0, C: 6187, T: (672,42936))
- ->  0 (L: 0, C: 6187, T: (672,42936))
-Costs of the route: 6187
+     21 (L: 0, C: 0, T: (1,185))
+ ->  5 (L: 1, C: 766, T: (65,249))
+ ->  7 (L: 2, C: 2247, T: (178,362))
+ ->  15 (L: 1, C: 2627, T: (266,450))
+ ->  17 (L: 0, C: 3696, T: (410,594))
+ ->  3 (L: 1, C: 4372, T: (466,650))
+ ->  6 (L: 2, C: 4957, T: (514,698))
+ ->  13 (L: 1, C: 5437, T: (612,796))
+ ->  16 (L: 0, C: 6015, T: (716,900))
+ ->  0 (L: 0, C: 6015, T: (716,42936))
+Costs of the route: 6015
 
 Route for vehicle 1:
-     22 (L: 0, C: 0, T: (1,42124))
- ->  2 (L: 1, C: 382, T: (29,42152))
- ->  12 (L: 0, C: 1153, T: (151,42274))
- ->  7 (L: 1, C: 1739, T: (193,42316))
- ->  17 (L: 0, C: 2905, T: (345,42468))
- ->  8 (L: 1, C: 3475, T: (389,42512))
- ->  18 (L: 0, C: 4040, T: (497,42620))
- ->  1 (L: 1, C: 4226, T: (510,42633))
- ->  11 (L: 0, C: 5096, T: (640,42763))
- ->  6 (L: 1, C: 5781, T: (693,42816))
- ->  16 (L: 0, C: 6558, T: (813,42936))
- ->  0 (L: 0, C: 6558, T: (813,42936))
-Costs of the route: 6558
+     22 (L: 0, C: 0, T: (1,47))
+ ->  4 (L: 1, C: 677, T: (51,97))
+ ->  9 (L: 2, C: 1438, T: (113,159))
+ ->  14 (L: 1, C: 1714, T: (135,181))
+ ->  19 (L: 0, C: 1800, T: (201,247))
+ ->  2 (L: 1, C: 1886, T: (267,313))
+ ->  12 (L: 0, C: 2657, T: (389,435))
+ ->  8 (L: 1, C: 3227, T: (433,479))
+ ->  18 (L: 0, C: 3792, T: (541,587))
+ ->  1 (L: 1, C: 3978, T: (554,600))
+ ->  10 (L: 2, C: 4448, T: (591,637))
+ ->  11 (L: 1, C: 5133, T: (705,751))
+ ->  20 (L: 0, C: 6309, T: (854,900))
+ ->  0 (L: 0, C: 6309, T: (854,42936))
+Costs of the route: 6309
 
-Total cost of the routes: 12745
+Total cost of the routes: 12324
 Start interpreting the solution for SUMO.
-Dispatching v0 with ['8', '8', '3', '4', '3', '2', '2', '4', '9', '9']
-Costs for v0: 6187
-Dispatching v1 with ['1', '1', '6', '6', '7', '7', '0', '0', '5', '5']
-Costs for v1: 12745
+Dispatching v0 with ['4', '6', '4', '6', '2', '5', '2', '5']
+Costs for v0: 6015
+Dispatching v1 with ['3', '8', '3', '8', '1', '1', '7', '7', '0', '9', '0', '9']
+Costs for v1: 12324
 timestep:  30.0
-Reservations being picked up: ['0', '1', '2', '3', '4', '5', '6', '7', '9']
-Reservations en route: ['8']
+Reservations being picked up: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 Taxis picking up: ('v0', 'v1')
-Taxis occupied: ('v0',)
-Taxis occupied and picking up: ('v0',)
 timestep:  60.0
-Reservations being picked up: ['0', '2', '3', '4', '5', '6', '7', '9']
-Reservations en route: ['1', '8']
+Reservations being picked up: ['0', '1', '2', '4', '5', '6', '7', '8', '9']
+Reservations en route: ['3']
 Taxis picking up: ('v0', 'v1')
-Taxis occupied: ('v0', 'v1')
-Taxis occupied and picking up: ('v0', 'v1')
+Taxis occupied: ('v1',)
+Taxis occupied and picking up: ('v1',)
 timestep:  90.0
-Reservations being picked up: ['0', '2', '3', '4', '5', '6', '7', '9']
-Reservations en route: ['1', '8']
+Reservations being picked up: ['0', '1', '2', '5', '6', '7', '8', '9']
+Reservations en route: ['3', '4']
 Taxis picking up: ('v0', 'v1')
 Taxis occupied: ('v0', 'v1')
 Taxis occupied and picking up: ('v0', 'v1')
 timestep:  120.0
-Reservations being picked up: ['0', '2', '3', '4', '5', '6', '7', '9']
-Reservations en route: ['1', '8']
+Reservations being picked up: ['0', '1', '2', '5', '6', '7', '9']
+Reservations en route: ['3', '4', '8']
 Taxis picking up: ('v0', 'v1')
 Taxis occupied: ('v0', 'v1')
 Taxis occupied and picking up: ('v0', 'v1')
 timestep:  150.0
-Reservations being picked up: ['0', '2', '4', '5', '6', '7', '9']
-Reservations en route: ['1', '3']
+Reservations being picked up: ['0', '1', '2', '5', '6', '7', '9']
+Reservations en route: ['3', '4', '8']
 Taxis picking up: ('v0', 'v1')
 Taxis occupied: ('v0', 'v1')
 Taxis occupied and picking up: ('v0', 'v1')
 timestep:  180.0
-Reservations being picked up: ['0', '2', '5', '7', '9']
-Reservations en route: ['3', '4', '6']
+Reservations being picked up: ['0', '1', '2', '5', '7', '9']
+Reservations en route: ['3', '4', '6', '8']
 Taxis picking up: ('v0', 'v1')
 Taxis occupied: ('v0', 'v1')
 Taxis occupied and picking up: ('v0', 'v1')
 timestep:  210.0
-Reservations being picked up: ['0', '2', '5', '7', '9']
-Reservations en route: ['3', '4', '6']
+Reservations being picked up: ['0', '1', '2', '5', '7', '9']
+Reservations en route: ['4', '6']
 Taxis picking up: ('v0', 'v1')
-Taxis occupied: ('v0', 'v1')
-Taxis occupied and picking up: ('v0', 'v1')
+Taxis occupied: ('v0',)
+Taxis occupied and picking up: ('v0',)
 timestep:  240.0
 Reservations being picked up: ['0', '2', '5', '7', '9']
-Reservations en route: ['3', '4', '6']
+Reservations en route: ['1', '4', '6']
 Taxis picking up: ('v0', 'v1')
 Taxis occupied: ('v0', 'v1')
 Taxis occupied and picking up: ('v0', 'v1')
 timestep:  270.0
 Reservations being picked up: ['0', '2', '5', '7', '9']
-Reservations en route: ['3', '4', '6']
+Reservations en route: ['1', '6']
 Taxis picking up: ('v0', 'v1')
 Taxis occupied: ('v0', 'v1')
 Taxis occupied and picking up: ('v0', 'v1')
 timestep:  300.0
 Reservations being picked up: ['0', '2', '5', '7', '9']
-Reservations en route: ['4', '6']
+Reservations en route: ['1', '6']
 Taxis picking up: ('v0', 'v1')
 Taxis occupied: ('v0', 'v1')
 Taxis occupied and picking up: ('v0', 'v1')
 timestep:  330.0
 Reservations being picked up: ['0', '2', '5', '7', '9']
-Reservations en route: ['4', '6']
+Reservations en route: ['1', '6']
 Taxis picking up: ('v0', 'v1')
 Taxis occupied: ('v0', 'v1')
 Taxis occupied and picking up: ('v0', 'v1')
 timestep:  360.0
-Reservations being picked up: ['0', '5', '7', '9']
-Reservations en route: ['2', '4']
+Reservations being picked up: ['0', '2', '5', '7', '9']
+Reservations en route: ['6']
 Taxis picking up: ('v0', 'v1')
 Taxis occupied: ('v0',)
 Taxis occupied and picking up: ('v0',)
 timestep:  390.0
-Reservations being picked up: ['0', '5', '9']
-Reservations en route: ['2', '4', '7']
+Reservations being picked up: ['0', '2', '5', '9']
+Reservations en route: ['6', '7']
 Taxis picking up: ('v0', 'v1')
 Taxis occupied: ('v0', 'v1')
 Taxis occupied and picking up: ('v0', 'v1')
 timestep:  420.0
-Reservations being picked up: ['0', '5', '9']
-Reservations en route: ['2', '4', '7']
+Reservations being picked up: ['0', '2', '5', '9']
+Reservations en route: ['7']
 Taxis picking up: ('v0', 'v1')
-Taxis occupied: ('v0', 'v1')
-Taxis occupied and picking up: ('v0', 'v1')
+Taxis occupied: ('v1',)
+Taxis occupied and picking up: ('v1',)
 timestep:  450.0
 Reservations being picked up: ['0', '5', '9']
-Reservations en route: ['2', '4', '7']
+Reservations en route: ['2', '7']
 Taxis picking up: ('v0', 'v1')
 Taxis occupied: ('v0', 'v1')
 Taxis occupied and picking up: ('v0', 'v1')
 timestep:  480.0
 Reservations being picked up: ['0', '5', '9']
-Reservations en route: ['4', '7']
+Reservations en route: ['2', '7']
 Taxis picking up: ('v0', 'v1')
 Taxis occupied: ('v0', 'v1')
 Taxis occupied and picking up: ('v0', 'v1')
 timestep:  510.0
-Reservations being picked up: ['5', '9']
-Reservations en route: ['0', '4']
-Taxis picking up: ('v0', 'v1')
-Taxis occupied: ('v0', 'v1')
-Taxis occupied and picking up: ('v0', 'v1')
+Reservations being picked up: ['0', '9']
+Reservations en route: ['2', '5']
+Taxis picking up: ('v1',)
+Taxis occupied: ('v0',)
 timestep:  540.0
-Reservations being picked up: ['5', '9']
-Reservations en route: ['0', '4']
-Taxis picking up: ('v0', 'v1')
+Reservations en route: ['0', '2', '5', '9']
 Taxis occupied: ('v0', 'v1')
-Taxis occupied and picking up: ('v0', 'v1')
 timestep:  570.0
-Reservations being picked up: ['5', '9']
-Reservations en route: ['0']
-Taxis picking up: ('v0', 'v1')
-Taxis occupied: ('v1',)
-Taxis occupied and picking up: ('v1',)
+Reservations en route: ['0', '2', '5', '9']
+Taxis occupied: ('v0', 'v1')
 timestep:  600.0
-Reservations being picked up: ['5', '9']
-Reservations en route: ['0']
-Taxis picking up: ('v0', 'v1')
+Reservations en route: ['0', '2', '5', '9']
+Taxis occupied: ('v0', 'v1')
+timestep:  630.0
+Reservations en route: ['0', '5', '9']
+Taxis occupied: ('v0', 'v1')
+timestep:  660.0
+Reservations en route: ['0', '5', '9']
+Taxis occupied: ('v0', 'v1')
+timestep:  690.0
+Reservations en route: ['5', '9']
+Taxis occupied: ('v0', 'v1')
+timestep:  720.0
+Reservations en route: ['9']
+Taxis empty: ('v0',)
 Taxis occupied: ('v1',)
-Taxis occupied and picking up: ('v1',)
+timestep:  750.0
+Reservations en route: ['9']
+Taxis empty: ('v0',)
+Taxis occupied: ('v1',)
+timestep:  780.0
+Reservations en route: ['9']
+Taxis empty: ('v0',)
+Taxis occupied: ('v1',)
+timestep:  810.0
+Taxis empty: ('v0', 'v1')
+timestep:  840.0
+Taxis empty: ('v0', 'v1')
+timestep:  870.0
+Taxis empty: ('v0', 'v1')
+timestep:  900.0
+Taxis empty: ('v0', 'v1')
