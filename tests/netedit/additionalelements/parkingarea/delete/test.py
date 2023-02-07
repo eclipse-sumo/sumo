@@ -47,10 +47,10 @@ netedit.changeProtectAdditionalElements(referencePosition)
 netedit.leftClick(referencePosition, 521, 280)
 
 # delete first loaded parkingArea
-netedit.leftClick(referencePosition, 633, 119)
+netedit.leftClick(referencePosition, 360, 8)
 
 # delete lane with the second loaded parkingArea
-netedit.leftClick(referencePosition, 362, 394)
+netedit.leftClick(referencePosition, 520, 415)
 
 # Check undo
 netedit.undo(referencePosition, 3)
@@ -62,7 +62,7 @@ netedit.deleteMode()
 netedit.changeProtectAdditionalElements(referencePosition)
 
 # try to delete lane with the second loaded parkingArea (doesn't allowed)
-netedit.leftClick(referencePosition, 362, 394)
+netedit.leftClick(referencePosition, 520, 415)
 
 # wait warning
 netedit.waitDeleteWarning()

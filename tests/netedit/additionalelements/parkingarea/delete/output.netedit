@@ -4,9 +4,9 @@ TestFunctions: 'reference.png' found. Position: 304 - 168
 parkingArea
 TestFunctions: Clicked over position 779 - 424
 TestFunctions: Clicked over position 825 - 448
-TestFunctions: Clicked over position 937 - 287
-TestFunctions: Clicked over position 666 - 562
+TestFunctions: Clicked over position 664 - 176
+TestFunctions: Clicked over position 824 - 583
 TestFunctions: Clicked over position 304 - 168
-TestFunctions: Clicked over position 666 - 562
+TestFunctions: Clicked over position 824 - 583
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Netedit closed successfully

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-02-07 14:08:13 by Eclipse SUMO netedit Version v1_16_0+0024-1134bf4b789
+<!-- generated on 2023-02-07 14:13:33 by Eclipse SUMO netedit Version v1_16_0+0024-1134bf4b789
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -45,8 +45,8 @@
         <lane index="0" allow="pedestrian" width="2.00"/>
         <lane index="1" disallow="pedestrian"/>
     </edge>
-    <edge id="E6" from="JT1" to="JT0" priority="-1" numLanes="1" speed="13.89"/>
-    <edge id="E7" from="JB0" to="JB1" priority="-1" numLanes="1" speed="13.89"/>
+    <edge id="bot" from="JB0" to="JB1" priority="-1" numLanes="1" speed="13.89"/>
     <edge id="center0" from="JC1" to="JC0" priority="1" numLanes="2" speed="13.89" disallow="pedestrian"/>
     <edge id="center1" from="JC0" to="JC1" priority="1" numLanes="2" speed="13.89" disallow="pedestrian"/>
+    <edge id="top" from="JT1" to="JT0" priority="-1" numLanes="1" speed="13.89"/>
 </edges>

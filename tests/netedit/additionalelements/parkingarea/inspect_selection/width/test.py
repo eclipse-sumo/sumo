@@ -38,7 +38,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect parking areas
-netedit.leftClick(referencePosition, 182, 295)
+netedit.leftClick(referencePosition, 314 ,348)
 # Change parameter Width with a non valid value (dummy)
 netedit.modifyAttribute(netedit.attrs.parkingArea.inspectSelection.width, "dummyWidth", False)
 
