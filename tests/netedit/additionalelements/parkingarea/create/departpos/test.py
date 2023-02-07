@@ -38,31 +38,31 @@ netedit.changeElement("parkingArea")
 netedit.changeDefaultValue(netedit.attrs.parkingArea.create.departPos, "dummyDepartPos")
 
 # create parkingArea in mode "reference left"
-netedit.leftClick(referencePosition, 220, 250)
+netedit.leftClick(referencePosition, 475, 256)
 
 # set invalid angle (empty)
 netedit.changeDefaultValue(netedit.attrs.parkingArea.create.departPos, "")
 
 # create parkingArea in mode "reference left"
-netedit.leftClick(referencePosition, 220, 250)
+netedit.leftClick(referencePosition, 475, 256)
 
 # set valid angle (negative)
 netedit.changeDefaultValue(netedit.attrs.parkingArea.create.departPos, "-4")
 
 # create parkingArea in mode "reference left"
-netedit.leftClick(referencePosition, 230, 250)
+netedit.leftClick(referencePosition, 475, 256)
 
 # set valid angle (>360)
 netedit.changeDefaultValue(netedit.attrs.parkingArea.create.departPos, "500")
 
 # create parkingArea in mode "reference left"
-netedit.leftClick(referencePosition, 240, 250)
+netedit.leftClick(referencePosition, 475, 256)
 
 # set valid angle
 netedit.changeDefaultValue(netedit.attrs.parkingArea.create.departPos, "12")
 
 # create parkingArea in mode "reference left"
-netedit.leftClick(referencePosition, 250, 250)
+netedit.leftClick(referencePosition, 475, 256)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

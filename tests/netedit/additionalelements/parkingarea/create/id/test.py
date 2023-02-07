@@ -41,25 +41,25 @@ netedit.leftClick(referencePosition, 220, 245)
 netedit.changeDefaultValue(netedit.attrs.parkingArea.create.id, "pa_0")
 
 # create parkingArea in mode "reference left"
-netedit.leftClick(referencePosition, 223, 245)
+netedit.leftClick(referencePosition, 284, 245)
 
 # set invalid ID
 netedit.changeDefaultValue(netedit.attrs.parkingArea.create.id, "")
 
 # create parkingArea in mode "reference left"
-netedit.leftClick(referencePosition, 226, 245)
+netedit.leftClick(referencePosition, 305, 245)
 
 # set invalid ID
 netedit.changeDefaultValue(netedit.attrs.parkingArea.create.id, ";;;;")
 
 # create parkingArea in mode "reference left"
-netedit.leftClick(referencePosition, 229, 245)
+netedit.leftClick(referencePosition, 324, 245)
 
 # set valid id
 netedit.changeDefaultValue(netedit.attrs.parkingArea.create.id, "custom_id")
 
 # create parkingArea in mode "reference left"
-netedit.leftClick(referencePosition, 232, 245)
+netedit.leftClick(referencePosition, 345, 245)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

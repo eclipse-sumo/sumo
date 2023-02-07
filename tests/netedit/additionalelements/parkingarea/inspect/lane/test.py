@@ -38,25 +38,25 @@ netedit.changeElement("parkingArea")
 netedit.changeDefaultValue(netedit.attrs.parkingArea.create.references, "reference center")
 
 # create parkingArea in mode "reference center"
-netedit.leftClick(referencePosition, 250, 160)
+netedit.leftClick(referencePosition, 475, 256)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first parkingArea
-netedit.leftClick(referencePosition, 250, 190)
+netedit.leftClick(referencePosition, 475, 280)
 
 # Change parameter lane with a non valid value (dummy lane)
 netedit.modifyAttribute(netedit.attrs.parkingArea.inspect.lane, "dummy lane", True)
 
 # Change parameter lane with a valid value (different edge)
-netedit.modifyAttribute(netedit.attrs.parkingArea.inspect.lane, "gneE0_0", True)
+netedit.modifyAttribute(netedit.attrs.parkingArea.inspect.lane, "center0_1", True)
 
 # Change parameter lane with a valid value (original edge, same lane)
-netedit.modifyAttribute(netedit.attrs.parkingArea.inspect.lane, "gneE2_1", True)
+netedit.modifyAttribute(netedit.attrs.parkingArea.inspect.lane, "center1_0", True)
 
 # Change parameter lane with a valid value (original edge, different lane)
-netedit.modifyAttribute(netedit.attrs.parkingArea.inspect.lane, "gneE2_0", True)
+netedit.modifyAttribute(netedit.attrs.parkingArea.inspect.lane, "center1_1", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 3)
