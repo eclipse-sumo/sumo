@@ -441,7 +441,6 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPa
     myToolsMenuCommands(this),
     myWindowsMenuCommands(this),
     myHelpMenuCommands(this),
-    myLanguageMenuCommands(this),
     mySupermodeCommands(this),
     myTitlePrefix("NETEDIT " VERSION_STRING) {
     // init icons
@@ -1447,10 +1446,7 @@ GNEApplicationWindow::fillMenuBar() {
     myWindowMenu = new FXMenuPane(this);
     GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, TL("&Window"), nullptr, myWindowMenu);
     myWindowsMenuCommands.buildWindowsMenuCommands(myWindowMenu, myStatusbar, myMessageWindow);
-    // build language menu
-    myLanguageMenu = new FXMenuPane(this);
-    GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, TL("Lan&guage"), nullptr, myLanguageMenu);
-    myLanguageMenuCommands.buildLanguageMenuCommands(myLanguageMenu);
+    buildLanguageMenu(myToolbarsGrip.menu);
     // build help menu
     myHelpMenu = new FXMenuPane(this);
     GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, TL("&Help"), nullptr, myHelpMenu);
@@ -4743,7 +4739,6 @@ GNEApplicationWindow::GNEApplicationWindow() :
     myToolsMenuCommands(this),
     myWindowsMenuCommands(this),
     myHelpMenuCommands(this),
-    myLanguageMenuCommands(this),
     mySupermodeCommands(this) {
 }
 

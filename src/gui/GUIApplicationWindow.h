@@ -396,7 +396,6 @@ protected:
                *myLocatorMenu = nullptr,
                *myControlMenu = nullptr,
                *myWindowMenu = nullptr,
-               *myLanguageMenu = nullptr,
                *myHelpMenu = nullptr;
 
     /// @brief FXMenu pane for recent networks

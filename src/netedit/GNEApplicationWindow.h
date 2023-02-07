@@ -597,8 +597,7 @@ protected:
         *myLocatorMenu = nullptr,
         *myToolsMenu = nullptr,
         *myWindowMenu = nullptr,
-        *myHelpMenu = nullptr,
-        *myLanguageMenu = nullptr;
+        *myHelpMenu = nullptr;
 
     /// @brief menu title for modes
     FXMenuTitle* myModesMenuTitle = nullptr;
@@ -678,9 +677,6 @@ private:
 
     /// @brief Help Menu Commands
     GNEApplicationWindowHelper::HelpMenuCommands myHelpMenuCommands;
-
-    /// @brief Langauges Menu Commands
-    GNEApplicationWindowHelper::LanguageMenuCommands myLanguageMenuCommands;
 
     /// @brief Supermode Commands
     GNEApplicationWindowHelper::SupermodeCommands mySupermodeCommands;

@@ -228,6 +228,9 @@ protected:
     FXDockSite* myLeftDock = nullptr;
     FXDockSite* myRightDock = nullptr;
 
+    /// @brief Language menu common to all applications
+    FXMenuPane* myLanguageMenu = nullptr;
+
     /// @brief static toolTip used in menus
     MFXStaticToolTip* myStaticTooltipMenu = nullptr;
 
@@ -257,4 +260,6 @@ protected:
 
     /// @brief record window position and size in registry
     void storeWindowSizeAndPos();
+
+    void buildLanguageMenu(FXMenuBar* menuBar);
 };
