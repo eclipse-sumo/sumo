@@ -92,6 +92,17 @@ private:
      */
     double getSpeed(OGRFeature& f, const std::string& edgeid);
 
+    /** @brief Parses the width off the edge currently processed
+     * @param[in] f The entry to read the swidth from
+     * @param[in] edgeid The id of the edge for error output
+     */
+    double getLaneWidth(OGRFeature& f, const std::string& edgeid, int laneNumber);
+
+    /** @brief Parses a custom length for the edge currently processed
+     * @param[in] f The entry to read the length from
+     * @param[in] edgeid The id of the edge for error output
+     */
+    double getLength(OGRFeature& f, const std::string& edgeid);
 
     /** @brief Parses the number of lanes of the edge currently processed
      * @param[in] f The entry to read the lane number from

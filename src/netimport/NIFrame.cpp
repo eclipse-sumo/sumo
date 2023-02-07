@@ -254,6 +254,12 @@ NIFrame::fillOptions(bool forNetedit) {
     oc.doRegister("shapefile.speed", new Option_String());
     oc.addDescription("shapefile.speed", "Formats", "Read speed from column STR");
 
+    oc.doRegister("shapefile.length", new Option_String());
+    oc.addDescription("shapefile.length", "Formats", "Read custom edge length from column STR");
+
+    oc.doRegister("shapefile.width", new Option_String());
+    oc.addDescription("shapefile.width", "Formats", "Read total edge width from column STR");
+
     oc.doRegister("shapefile.name", new Option_String());
     oc.addDescription("shapefile.name", "Formats", "Read (non-unique) name from column STR");
 

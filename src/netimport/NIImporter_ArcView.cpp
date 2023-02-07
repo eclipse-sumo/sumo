@@ -217,11 +217,12 @@ NIImporter_ArcView::load() {
         if ((type != "" || myOptions.isSet("shapefile.type-id")) && !myTypeCont.knows(type)) {
             WRITE_WARNINGF(TL("Unknown type '%' for edge '%'"), type, id);
         }
-        double width = myTypeCont.getEdgeTypeWidth(type);
         bool oneway = myTypeCont.knows(type) ? myTypeCont.getEdgeTypeIsOneWay(type) : false;
         double speed = getSpeed(*poFeature, id);
         int nolanes = getLaneNo(*poFeature, id, speed);
         int priority = getPriority(*poFeature, id);
+        double width = getLaneWidth(*poFeature, id, nolanes);
+        double length = getLength(*poFeature, id);
         if (nolanes <= 0 || speed <= 0) {
             if (myOptions.getBool("shapefile.use-defaults-on-failure")) {
                 nolanes = nolanes <= 0 ? myTypeCont.getEdgeTypeNumLanes(type) : nolanes;
@@ -345,6 +346,7 @@ NIImporter_ArcView::load() {
                 LaneSpreadFunction spread = dir == "B" || dir == "FALSE" ? LaneSpreadFunction::RIGHT : LaneSpreadFunction::CENTER;
                 NBEdge* edge = new NBEdge(id, from, to, type, speed, NBEdge::UNSPECIFIED_FRICTION, nolanes, priority, width, NBEdge::UNSPECIFIED_OFFSET, shape, spread, name, origID);
                 edge->setPermissions(myTypeCont.getEdgeTypePermissions(type));
+                edge->setLoadedLength(length);
                 myEdgeCont.insert(edge);
                 checkSpread(edge);
                 addParams(edge, poFeature, params);
@@ -358,6 +360,7 @@ NIImporter_ArcView::load() {
                 LaneSpreadFunction spread = dir == "B" || dir == "FALSE" ? LaneSpreadFunction::RIGHT : LaneSpreadFunction::CENTER;
                 NBEdge* edge = new NBEdge("-" + id, to, from, type, speed, NBEdge::UNSPECIFIED_FRICTION, nolanes, priority, width, NBEdge::UNSPECIFIED_OFFSET, shape.reverse(), spread, name, origID);
                 edge->setPermissions(myTypeCont.getEdgeTypePermissions(type));
+                edge->setLoadedLength(length);
                 myEdgeCont.insert(edge);
                 checkSpread(edge);
                 addParams(edge, poFeature, params);
@@ -389,7 +392,7 @@ NIImporter_ArcView::getSpeed(OGRFeature& poFeature, const std::string& edgeid) {
             const double speed = poFeature.GetFieldAsDouble(index);
             if (speed <= 0) {
                 WRITE_WARNING("invalid value for field: '"
-                              + myOptions.getString("shapefile.laneNumber")
+                              + myOptions.getString("shapefile.speed")
                               + "': '" + std::string(poFeature.GetFieldAsString(index)) + "'");
             } else {
                 return speed;
@@ -416,6 +419,50 @@ NIImporter_ArcView::getSpeed(OGRFeature& poFeature, const std::string& edgeid) {
         return NINavTeqHelper::getSpeed(edgeid, def);
     }
     return -1;
+}
+
+
+double
+NIImporter_ArcView::getLaneWidth(OGRFeature& poFeature, const std::string& edgeid, int laneNumber) {
+    if (myOptions.isSet("shapefile.width")) {
+        int index = poFeature.GetDefnRef()->GetFieldIndex(myOptions.getString("shapefile.width").c_str());
+        if (index >= 0 && poFeature.IsFieldSet(index)) {
+            const double width = poFeature.GetFieldAsDouble(index);
+            if (width <= 0) {
+                WRITE_WARNING("invalid value for field: '"
+                              + myOptions.getString("shapefile.width")
+                              + "' of edge '" + edgeid
+                              + "': '" + std::string(poFeature.GetFieldAsString(index)) + "'");
+            } else {
+                return width / laneNumber;
+            }
+        }
+    }
+    if (myOptions.isSet("shapefile.type-id")) {
+        return myTypeCont.getEdgeTypeWidth(poFeature.GetFieldAsString((char*)(myOptions.getString("shapefile.type-id").c_str())));
+    }
+    return NBEdge::UNSPECIFIED_WIDTH;
+}
+
+
+
+double
+NIImporter_ArcView::getLength(OGRFeature& poFeature, const std::string& edgeid) {
+    if (myOptions.isSet("shapefile.length")) {
+        int index = poFeature.GetDefnRef()->GetFieldIndex(myOptions.getString("shapefile.length").c_str());
+        if (index >= 0 && poFeature.IsFieldSet(index)) {
+            const double length = poFeature.GetFieldAsDouble(index);
+            if (length <= 0) {
+                WRITE_WARNING("invalid value for field: '"
+                              + myOptions.getString("shapefile.length")
+                              + "' of edge '" + edgeid
+                              + "': '" + std::string(poFeature.GetFieldAsString(index)) + "'");
+            } else {
+                return length;
+            }
+        }
+    }
+    return NBEdge::UNSPECIFIED_LOADED_LENGTH;
 }
 
 
