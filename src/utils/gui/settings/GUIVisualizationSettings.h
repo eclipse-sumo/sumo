@@ -719,7 +719,7 @@ public:
     bool showRails;
 
     // Setting bundles for optional drawing names with size and color
-    GUIVisualizationTextSettings edgeName, internalEdgeName, cwaEdgeName, streetName, edgeValue;
+    GUIVisualizationTextSettings edgeName, internalEdgeName, cwaEdgeName, streetName, edgeValue, edgeScaleValue;
 
     /// @brief flag to show or hide connectors
     bool hideConnectors;

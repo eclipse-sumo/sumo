@@ -267,6 +267,9 @@ public:
     /// @brief return color value based on cached settings
     double getColorValueForTracker() const;
 
+    /// @brief gets the scaling value according to the current scheme index
+    double getScaleValue(const GUIVisualizationSettings& s, int activeScheme) const;
+
     /// @brief whether this lane is selected in the GUI
     bool isSelected() const override;
 
@@ -316,9 +319,6 @@ private:
     double getPendingEmits() const;
 
 private:
-
-    /// @brief gets the scaling value according to the current scheme index
-    double getScaleValue(const GUIVisualizationSettings& s, int activeScheme) const;
 
     /// @brief sets multiple colors according to the current scheme index and some lane function
     bool setMultiColor(const GUIVisualizationSettings& s, const GUIColorer& c, RGBColor& col) const;

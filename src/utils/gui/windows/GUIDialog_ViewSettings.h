@@ -448,6 +448,7 @@ protected:
     NamePanel* myCwaEdgeNamePanel = nullptr;
     NamePanel* myStreetNamePanel = nullptr;
     NamePanel* myEdgeValuePanel = nullptr;
+    NamePanel* myEdgeScaleValuePanel = nullptr;
     NamePanel* myJunctionIndexPanel = nullptr;
     NamePanel* myTLIndexPanel = nullptr;
     NamePanel* myJunctionIDPanel = nullptr;

@@ -155,6 +155,7 @@ GUIDialog_ViewSettings::~GUIDialog_ViewSettings() {
     delete myCwaEdgeNamePanel;
     delete myStreetNamePanel;
     delete myEdgeValuePanel;
+    delete myEdgeScaleValuePanel;
     delete myJunctionIndexPanel;
     delete myTLIndexPanel;
     delete myJunctionIDPanel;
@@ -299,6 +300,7 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* ptr) {
     myCwaEdgeNamePanel->update(mySettings->cwaEdgeName);
     myStreetNamePanel->update(mySettings->streetName);
     myEdgeValuePanel->update(mySettings->edgeValue);
+    myEdgeScaleValuePanel->update(mySettings->edgeScaleValue);
     myHideMacroConnectors->setCheck(mySettings->hideConnectors);
     myShowLaneDirection->setCheck(mySettings->showLaneDirection);
     myShowSublanes->setCheck(mySettings->showSublanes);
@@ -563,6 +565,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     tmpSettings.cwaEdgeName = myCwaEdgeNamePanel->getSettings();
     tmpSettings.streetName = myStreetNamePanel->getSettings();
     tmpSettings.edgeValue = myEdgeValuePanel->getSettings();
+    tmpSettings.edgeScaleValue = myEdgeScaleValuePanel->getSettings();
     tmpSettings.hideConnectors = (myHideMacroConnectors->getCheck() != FALSE);
     tmpSettings.showLaneDirection = (myShowLaneDirection->getCheck() != FALSE);
     tmpSettings.showSublanes = (myShowSublanes->getCheck() != FALSE);
@@ -1951,6 +1954,7 @@ GUIDialog_ViewSettings::buildStreetsFrame(FXTabBook* tabbook) {
     myEdgeNamePanel = new NamePanel(matrixLanes, this, "Show edge id", mySettings->edgeName);
     myStreetNamePanel = new NamePanel(matrixLanes, this, "Show street name", mySettings->streetName);
     myEdgeValuePanel = new NamePanel(matrixLanes, this, "Show edge color value", mySettings->edgeValue);
+    myEdgeScaleValuePanel = new NamePanel(matrixLanes, this, "Show edge scale value", mySettings->edgeScaleValue);
 }
 
 

@@ -283,7 +283,10 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
     const bool drawEdgeValue = s.edgeValue.show(selCheck) && (myFunction == SumoXMLEdgeFunc::NORMAL
                                || (myFunction == SumoXMLEdgeFunc::INTERNAL && !s.drawJunctionShape)
                                || ((myFunction == SumoXMLEdgeFunc::CROSSING || myFunction == SumoXMLEdgeFunc::WALKINGAREA) && s.drawCrossingsAndWalkingareas));
-    if (drawEdgeName || drawInternalEdgeName || drawCwaEdgeName || drawStreetName || drawEdgeValue) {
+    const bool drawEdgeScaleValue = s.edgeScaleValue.show(selCheck) && (myFunction == SumoXMLEdgeFunc::NORMAL
+                               || (myFunction == SumoXMLEdgeFunc::INTERNAL && !s.drawJunctionShape)
+                               || ((myFunction == SumoXMLEdgeFunc::CROSSING || myFunction == SumoXMLEdgeFunc::WALKINGAREA) && s.drawCrossingsAndWalkingareas));
+    if (drawEdgeName || drawInternalEdgeName || drawCwaEdgeName || drawStreetName || drawEdgeValue || drawEdgeScaleValue) {
         GUILane* lane1 = dynamic_cast<GUILane*>((*myLanes)[0]);
         if (lane1 != nullptr && lane2 != nullptr) {
             const bool spreadSuperposed = s.spreadSuperposed && getBidiEdge() != nullptr;
@@ -339,6 +342,26 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
                         p.add(shift);
                     }
                     GLHelper::drawTextSettings(s.edgeValue, value, p, s.scale, angle);
+                }
+            }
+            if (drawEdgeScaleValue) {
+                const int activeScheme = s.getLaneEdgeScaleMode();
+                std::string value = "";
+                // use numerical value value of leftmost lane to hopefully avoid sidewalks, bikelanes etc
+                const double doubleValue = (MSGlobals::gUseMesoSim
+                                            ? getScaleValue(s, activeScheme)
+                                            : lane2->getScaleValue(s, activeScheme));
+                if (doubleValue != s.MISSING_DATA) {
+                    value = toString(doubleValue);
+                }
+                if (value != "") {
+                    if (drawEdgeName || drawInternalEdgeName || drawCwaEdgeName || drawEdgeValue) {
+                        const double dist = 0.4 * (s.edgeName.scaledSize(s.scale) + s.edgeScaleValue.scaledSize(s.scale));
+                        const double shiftA = lane1->getShape().rotationAtOffset(lane1->getShape().length() / (double) 2.) - DEG2RAD(90);
+                        Position shift(dist * cos(shiftA), dist * sin(shiftA));
+                        p.add(shift);
+                    }
+                    GLHelper::drawTextSettings(s.edgeScaleValue, value, p, s.scale, angle);
                 }
             }
         }

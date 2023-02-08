@@ -523,11 +523,12 @@ GUIVisualizationSettings::GUIVisualizationSettings(const std::string& _name, boo
     laneShowBorders(false), showBikeMarkings(true), showLinkDecals(true),
     realisticLinkRules(false),
     showLinkRules(true), showRails(true),
-    edgeName(false, 60, RGBColor(255, 128, 0, 255)),
+    edgeName(false, 60, RGBColor::ORANGE),
     internalEdgeName(false, 45, RGBColor(128, 64, 0, 255)),
     cwaEdgeName(false, 60, RGBColor::MAGENTA),
     streetName(false, 60, RGBColor::YELLOW),
     edgeValue(false, 100, RGBColor::CYAN),
+    edgeScaleValue(false, 100, RGBColor::BLUE),
     hideConnectors(false),
     laneWidthExaggeration(1),
     laneMinSize(0),
@@ -1767,6 +1768,7 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.lf();
     dev << "               ";
     edgeValue.print(dev, "edgeValue");
+    edgeScaleValue.print(dev, "edgeScaleValue");
     laneColorer.save(dev);
     laneScaler.save(dev);
     edgeColorer.save(dev, "meso:");
@@ -2045,6 +2047,9 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
         return false;
     }
     if (edgeValue != v2.edgeValue) {
+        return false;
+    }
+    if (edgeScaleValue != v2.edgeScaleValue) {
         return false;
     }
     if (hideConnectors != v2.hideConnectors) {

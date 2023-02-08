@@ -150,6 +150,7 @@ GUISettingsHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) 
             mySettings.cwaEdgeName = parseTextSettings("cwaEdgeName", attrs, mySettings.cwaEdgeName);
             mySettings.streetName = parseTextSettings("streetName", attrs, mySettings.streetName);
             mySettings.edgeValue = parseTextSettings("edgeValue", attrs, mySettings.edgeValue);
+            mySettings.edgeScaleValue = parseTextSettings("edgeScaleValue", attrs, mySettings.edgeScaleValue);
             mySettings.hideConnectors = StringUtils::toBool(attrs.getStringSecure("hideConnectors", toString(mySettings.hideConnectors)));
             mySettings.laneWidthExaggeration = StringUtils::toDouble(attrs.getStringSecure("widthExaggeration", toString(mySettings.laneWidthExaggeration)));
             mySettings.laneMinSize = StringUtils::toDouble(attrs.getStringSecure("minSize", toString(mySettings.laneWidthExaggeration)));
