@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-05 21:26+0100\n"
-"PO-Revision-Date: 2023-02-08 11:31+0000\n"
-"Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
+"PO-Revision-Date: 2023-02-08 13:07+0000\n"
+"Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
 "Language: de\n"
@@ -6560,7 +6560,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3564
 msgid "3D model file for this class"
-msgstr "3D-Model-Datei für diese Klasse"
+msgstr "3D-Modelldatei für diese Klasse"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3569
 msgid "Carriage lengths"
@@ -6568,22 +6568,20 @@ msgstr "Wagenlängen"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3574
 msgid "Locomotive lengths"
-msgstr "Eisenbahnlängen"
+msgstr "Triebfahrzeuglängen"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3579
-#, fuzzy
 msgid "GAP between carriages"
 msgstr "Lücke zwischen Waggons"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3612
 msgid "The ID of trip"
-msgstr "Die ID von der Fahrt"
+msgstr "Die ID der Fahrt"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3617
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3662
-#, fuzzy
 msgid "The id of the vehicle type to use for this trip"
-msgstr "Die ID vom Fahrzeugtyp zur Verwendung dieser Fahrt"
+msgstr "Die ID des für diese Fahrt zu verwendenden Fahrzeugtyps"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3623
 msgid "The name of the edge the trip starts at"
@@ -6612,21 +6610,20 @@ msgstr "Die ID der Fahrt"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3668
 msgid "The name of the junction the trip starts at"
-msgstr "Der Name vom Knotenpunkt wo die Fahrt startet"
+msgstr "Der Name des Knotenpunkts an dem die Fahrt startet"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3673
 msgid "The name of the junction the trip ends at"
-msgstr "Der Name vom Knotenpunkt wo die Fahrt endet"
+msgstr "Der Name des Knotenpunkts an dem die Fahrt endet"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3697
 msgid "The id of vehicle"
-msgstr "Die ID vom Fahrzeug"
+msgstr "Die ID des Fahrzeugs"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3702
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3747
-#, fuzzy
 msgid "The id of the vehicle type to use for this vehicle"
-msgstr "Die ID vom Fahrzeugtyp welcher für dieses Fahrzeug verwendet wird"
+msgstr "Die ID des Fahrzeugtyps, welcher für dieses Fahrzeug verwendet wird"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3713
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3753
@@ -6645,11 +6642,11 @@ msgstr "Der Zeitschritt, zu dem das Fahrzeug in das Netz eintreten soll"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3742
 msgid "The ID of the vehicle"
-msgstr "Die ID vom Fahrzeug"
+msgstr "Die ID des Fahrzeugs"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3782
 msgid "The ID of the flow"
-msgstr "Die ID vom Fluss"
+msgstr "Die ID des Flusses"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3787
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3829
@@ -6700,7 +6697,7 @@ msgstr "Der Index der Kante innerhalb der Route, an der der Fluss endet"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3903
 msgid "The name of the flow"
-msgstr "Der Name vom Fluss"
+msgstr "Der Name des Flusses"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3956
 msgid "The name of the lane the stop shall be located at"
