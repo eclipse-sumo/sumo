@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-05 21:26+0100\n"
-"PO-Revision-Date: 2023-02-08 11:44+0000\n"
+"PO-Revision-Date: 2023-02-08 13:07+0000\n"
 "Last-Translator: Pablo Alvarez Lopez <pablo.alvarezlopez@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -2131,7 +2131,7 @@ msgstr "&Caminatas (Walks)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1390
 msgid "Ri&des"
-msgstr ""
+msgstr "&Trayectos"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1395
 msgid "&Containers"
@@ -2151,15 +2151,15 @@ msgstr "&Paradas (stops)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1415
 msgid "&EdgeDatas"
-msgstr ""
+msgstr "&Datos sobre calles (edgeDatas)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1420
 msgid "E&dgeRelDatas"
-msgstr ""
+msgstr "&Datos de relaciones de edges"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1425
 msgid "Edge&TAZRel"
-msgstr ""
+msgstr "&Relación TAZ"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1433
 msgid "Lock selected elements"
