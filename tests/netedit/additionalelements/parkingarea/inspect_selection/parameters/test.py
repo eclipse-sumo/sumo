@@ -38,7 +38,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect parking areas
-netedit.leftClick(referencePosition, 314 ,348)
+netedit.leftClick(referencePosition, 314, 348)
 
 # check parameters
 netedit.checkParameters(referencePosition, netedit.attrs.parkingArea.inspectSelection.parameters, False)

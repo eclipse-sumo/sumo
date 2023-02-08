@@ -38,7 +38,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect parking areas
-netedit.leftClick(referencePosition, 314 ,348)
+netedit.leftClick(referencePosition, 314, 348)
 
 # Change parameter friendlyPos with a different value
 netedit.modifyAttribute(netedit.attrs.parkingArea.inspectSelection.friendlyPos, "true", False)

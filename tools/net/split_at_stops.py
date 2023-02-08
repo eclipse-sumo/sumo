@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-
-# Copyright (C) 2014-2023 German Aerospace Center (DLR) and others.
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Copyright (C) 2011-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -26,9 +26,8 @@ import os
 import sys
 import collections
 import subprocess
-
 sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
-import sumolib
+import sumolib  # noqa
 
 
 def get_args(args=None):
@@ -61,7 +60,7 @@ def main(options):
             if len(sl) > 1:
                 print('    <edge id="%s">' % e, file=out)
                 prev_end = .1
-                for s in sorted(sl, key=lambda x:float(x.endPos)):
+                for s in sorted(sl, key=lambda x: float(x.endPos)):
                     start = float(s.startPos)
                     if prev_end > .1 and start < prev_end:
                         print("Skipping overlapping stop %s." % s.id)
@@ -82,7 +81,8 @@ def main(options):
                 print('    </edge>', file=out)
         print('    </edges>', file=out)
     if net:
-        subprocess.call([sumolib.checkBinary("netconvert"), "-s", options.network, "-e", out.name, "-o", options.output])
+        subprocess.call([sumolib.checkBinary("netconvert"), "-s", options.network,
+                         "-e", out.name, "-o", options.output])
     with open(options.stop_output, "w") as stop_out:
         sumolib.xml.writeHeader(stop_out, root="additional")
         for s in stops.values():
