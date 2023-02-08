@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-05 21:26+0100\n"
-"PO-Revision-Date: 2023-02-07 21:48+0000\n"
-"Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
+"PO-Revision-Date: 2023-02-08 08:12+0000\n"
+"Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
 "Language: de\n"
@@ -6238,7 +6238,7 @@ msgstr "Ein Typenname für den Pol"
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3061
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3145
 msgid "Name of POI"
-msgstr "Name vom Pol"
+msgstr "Name des Pol"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2899
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2989
@@ -6250,7 +6250,7 @@ msgstr "Die Ebene vom Pol zum Zeichnen und Auswählen"
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2995
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3072
 msgid "Width of rendered image in meters"
-msgstr "Breite vom gerendertem Bild in Metern"
+msgstr "Breite des gerendertem Bild in Metern"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2911
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3001
@@ -6262,7 +6262,7 @@ msgstr "Höhe vom gerendertem Bild in Metern"
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3007
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3084
 msgid "A bitmap to use for rendering this POI"
-msgstr "Eine Bitkarte zum Rendern diesen Pols"
+msgstr "Ein Bitmap zum Rendern diesen Pols"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2948
 msgid "The name of the lane at which the POI is located at"
@@ -6344,7 +6344,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3248
 msgid "List of consecutive lanes of the circuit"
-msgstr "Liste der aufeinanderfolgenden Fahrstreifen des Kreislaufs"
+msgstr "Liste der aufeinanderfolgenden Fahrstreifen des Stromkreises"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3253
 msgid "Starting position in the specified lane"
@@ -6356,7 +6356,7 @@ msgstr "0.0"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3259
 msgid "Ending position in the specified lane"
-msgstr "Endposition in des angebenden Fahrstreifen"
+msgstr "Endposition auf dem angegebenen Fahrstreifen"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3273
 msgid "Inner lanes, where placing of overhead wire is restricted"
@@ -7180,7 +7180,7 @@ msgid ""
 "The accumulated waiting time after which a vehicle will drive onto an "
 "intersection even though this might cause jamming."
 msgstr ""
-"Die kumulierte Wartezeit, nach der ein Fahrzeug auf eine Kreuzung auffährt, "
+"Die kumulierte Wartezeit, nach der ein Fahrzeug in eine Kreuzung einfährt, "
 "obwohl dies zu einem Stau führen könnte."
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5300
@@ -7210,8 +7210,8 @@ msgid ""
 "This value causes vehicles to ignore foe vehicles that have right-of-way "
 "with the given probability."
 msgstr ""
-"Dieser Wert bewirkt, dass Fahrzeuge gegnerische Fahrzeuge ignorieren, die "
-"mit der gegebenen Wahrscheinlichkeit Vorfahrt haben."
+"Dieser Wert bewirkt, dass Fahrzeuge mit der gegebenen Wahrscheinlichkeit "
+"vorrangige gegnerische Fahrzeuge ignorieren."
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5324
 msgid "This value is used in conjunction with jmIgnoreFoeProb."
@@ -7227,16 +7227,16 @@ msgid ""
 "This value configures driving imperfection (dawdling) while passing a minor "
 "link."
 msgstr ""
-"Dieser Wert konfiguriert Fahrfehler (Trödeln) beim Passieren einer "
-"Nebenverbindung."
+"Dieser Wert konfiguriert Fahrfehler (Trödeln) auf einer nachrangigen "
+"Verbindung."
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5337
 msgid ""
 "This value defines the minimum time gap when passing ahead of a prioritized "
 "vehicle. "
 msgstr ""
-"Dieser Wert definiert den minimalen zeitlichen Abstand beim Vorbeifahren "
-"eines priorisierten Fahrzeugs. "
+"Dieser Wert definiert den minimalen zeitlichen Abstand beim Vorbeifahren an "
+"einem priorisierten Fahrzeug. "
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5343
 msgid "Willingess of drivers to impede vehicles with higher priority"
@@ -7247,8 +7247,8 @@ msgid ""
 "The eagerness for performing strategic lane changing. Higher values result "
 "in earlier lane-changing."
 msgstr ""
-"Der Eifer, einen strategischen Fahrstreifenwechsel durchzuführen. Höhere "
-"Werte führen zu einem früheren Fahrstreifenwechsel."
+"Die Bereitschaft, einen strategischen Fahrstreifenwechsel durchzuführen. "
+"Höhere Werte führen zu einem früheren Fahrstreifenwechsel."
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5362
 msgid ""
@@ -7263,7 +7263,7 @@ msgid ""
 "The eagerness for performing lane changing to gain speed. Higher values "
 "result in more lane-changing."
 msgstr ""
-"Der Eifer, einen Fahrstreifenwechsel durchzuführen, um schneller zu werden. "
+"Die Bereitschaft zum Fahrstreifenwechsel, um schneller fahren zu können. "
 "Höhere Werte führen zu mehr Fahrstreifenwechseln."
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5374
@@ -7271,15 +7271,15 @@ msgid ""
 "The eagerness for following the obligation to keep right. Higher values "
 "result in earlier lane-changing."
 msgstr ""
-"Der Eifer, der Verpflichtung nachzukommen, rechts zu bleiben. Höhere Werte "
-"führen zu einem früheren Fahrstreifenwechsel."
+"Die Bereitschaft, dem Rechtsfahrgebot nachzukommen. Höhere Werte führen zu "
+"einem früheren Fahrstreifenwechsel."
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5380
 msgid ""
 "The eagerness for using the configured lateral alignment within the lane."
 msgstr ""
-"Der Eifer, die konfigurierte Querausrichtung innerhalb des Fahrstreifen zu "
-"verwenden."
+"Die Bereitschaft, die konfigurierte Querausrichtung innerhalb des "
+"Fahrstreifen zu verwenden."
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5381
 msgid ""
@@ -7294,12 +7294,12 @@ msgid ""
 "The eagerness for overtaking through the opposite-direction lane. Higher "
 "values result in more lane-changing."
 msgstr ""
-"Überhollust auf dem Gegenfahrstreifen. Höhere Werte führen zu mehr "
-"Fahrstreifenwechseln."
+"Bereitschaft zum Überholen auf dem Gegenfahrstreifen. Höhere Werte führen zu "
+"mehr Fahrstreifenwechseln."
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5393
 msgid "Willingness to encroach laterally on other drivers."
-msgstr ""
+msgstr "Bereitschaft, andere Fahrer seitlich zu behindern."
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5399
 msgid ""
@@ -7354,16 +7354,16 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5454
 msgid "should be dynamically adapted to match the turn direction."
-msgstr "dynamisch an die Abbiegerichtung angepasst werden."
+msgstr "sollte dynamisch an die Abbiegerichtung angepasst werden."
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5460
 msgid "The probability for violating rules gainst overtaking on the right."
 msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5466
-#, fuzzy
 msgid "Time threshold for the willingness to change right."
-msgstr "Zeitschwelle für die Bereitschaft zur Rechtsänderung."
+msgstr ""
+"Zeitschwelle für die Bereitschaft zum Wechsel auf den rechten Fahrstreifen."
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5472
 msgid ""
@@ -7377,7 +7377,7 @@ msgstr "Der Name der Person"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5499
 msgid "The id of the person type to use for this person"
-msgstr "Die ID des Personentypens zur Anwendung für diese Person"
+msgstr "Die ID des für diese Person zu verwendenden Personentyps"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5505
 msgid "This person's color"
@@ -7389,7 +7389,7 @@ msgstr "Die Position, an der die Person ins Netz gehen soll"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5524
 msgid "The name of the container"
-msgstr "Der Name vom Container"
+msgstr "Der Name des Container"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5529
 msgid "The id of the container type to use for this container"
