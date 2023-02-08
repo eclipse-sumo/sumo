@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-05 21:26+0100\n"
-"PO-Revision-Date: 2023-02-08 13:07+0000\n"
+"PO-Revision-Date: 2023-02-08 13:15+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -2302,9 +2302,8 @@ msgid "&WalkingAreas"
 msgstr "&Gehwege"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1947
-#, fuzzy
 msgid "Open a dialog for locating a Walking Area."
-msgstr "Öffnet einen Dialog zur Lokalisation von Fußgängerzonen."
+msgstr "Öffnet einen Dialog, um WalkingArea-Elemente zu finden."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1950
 msgid "Open a dialog for locating a Vehicle."
@@ -2343,9 +2342,8 @@ msgid "Open a dialog for locating a Point of Interest."
 msgstr "Öffnet einen Dialog zur Lokalisation interessanten Punktes."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1971
-#, fuzzy
 msgid "Open a dialog for locating a Polygon."
-msgstr "Öffne einen Dialog zur Lokalisation eines Polygons."
+msgstr "Öffne einen Dialog, um ein Polygon zu finden."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1988
 msgid "&NetDiff"
@@ -2885,9 +2883,8 @@ msgid "trying to move an invalid position"
 msgstr "versuch eine ungültige Position zu verschieben"
 
 #: /home/micha/programming/sumo/src/netedit/GNEMoveElement.cpp:582
-#, fuzzy
 msgid "Invalid move operationType"
-msgstr "Ungültiger Bewegungs Operationstyp"
+msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:370
 msgid "delete junction"
@@ -2923,9 +2920,8 @@ msgid "delete "
 msgstr "löschen "
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:644
-#, fuzzy
 msgid "Trying to delete a default Vehicle Type"
-msgstr "Versuch einen Standardfahrzeugtypen zu löschen"
+msgstr "Versuche einen Standardfahrzeugtypen zu löschen"
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:737
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2689
@@ -2965,9 +2961,8 @@ msgid "Forced computing junctions with volatile options ..."
 msgstr "Berechnung der Knotenpunkte mit volatilen Optionen erzwingen..."
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1275
-#, fuzzy
 msgid "Forced computing junctions ..."
-msgstr "Zwinge Berechnung von Knotenpunkten..."
+msgstr "Erzwinge Berechnung von Knotenpunkten..."
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1282
 msgid "Computing junctions with volatile options ..."
@@ -3100,30 +3095,24 @@ msgid "Network size exceeds 1 Lightyear. Please reconsider your inputs."
 msgstr "Netz größer als ein Lichtjahr - bitte Eingabedaten überdenken."
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:2763
-#, fuzzy
 msgid "ViewNet doesn't exist"
-msgstr "Ansichts-Netz existiert nicht"
+msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNENetHelper.cpp:218
-#, fuzzy
 msgid "GUIGlObject does not match the declared type"
-msgstr "GUIGI-Objekt stimmt nicht mit dem deklarierten Typ überein"
+msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNENetHelper.cpp:223
 msgid "Attempted to retrieve non-existant GUIGlObject"
 msgstr "Es wurde versucht ein nicht existierendes GUIGI-Objekt abzurufen"
 
 #: /home/micha/programming/sumo/src/netedit/GNENetHelper.cpp:1025
-#, fuzzy
 msgid "Attempted to retrieve non-existant additional (string)"
-msgstr "Es wurde versucht nicht existierende weitere Daten abzurufen (String)"
+msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNENetHelper.cpp:1039
-#, fuzzy
 msgid "Attempted to retrieve non-existant additional (AttributeCarrier)"
 msgstr ""
-"Es wurde versucht nicht existierende weitere Daten abzurufen "
-"(AttributeCarrier)"
 
 #: /home/micha/programming/sumo/src/netedit/GNENetHelper.cpp:1065
 msgid "Attempted to retrieve non-existant rerouter interval"
@@ -3136,11 +3125,8 @@ msgstr ""
 "Es wurde versucht ein nicht existierendes Nachfrageelement (String) abzurufen"
 
 #: /home/micha/programming/sumo/src/netedit/GNENetHelper.cpp:1334
-#, fuzzy
 msgid "Attempted to retrieve non-existant demand element (AttributeCarrier)"
 msgstr ""
-"Es wurde versucht ein nicht existierendes Nachfrageelement "
-"(AttributeCarrier) abzurufen"
 
 #: /home/micha/programming/sumo/src/netedit/GNENetHelper.cpp:1461
 msgid "Default vType doesn't exist"
@@ -3158,35 +3144,28 @@ msgstr ""
 "Es wurde versucht ein nicht existierendes Datensatz-Intervall abzurufen"
 
 #: /home/micha/programming/sumo/src/netedit/GNENetHelper.cpp:2130
-#, fuzzy
 msgid "Attempted to retrieve non-existant meanData (string)"
-msgstr "Es wurde versucht nicht existierende Mean-Daten (String) abzurufen"
+msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNENetHelper.cpp:2144
-#, fuzzy
 msgid "Attempted to retrieve non-existant meanData (AttributeCarrier)"
 msgstr ""
-"Es wurde versucht nicht existierende Mean-Daten (AttributeCarrier) abzurufen"
 
 #: /home/micha/programming/sumo/src/netedit/GNENetHelper.cpp:2310
-#, fuzzy
 msgid "Invalid additional pointer"
-msgstr "Ungültiger zusätzlicher Zeiger"
+msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNENetHelper.cpp:2367
-#, fuzzy
 msgid "Invalid demandElement pointer"
-msgstr "Ungültiger Nachfrageelement Zeiger"
+msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNENetHelper.cpp:2426
-#, fuzzy
 msgid "Invalid dataSet pointer"
-msgstr "Ungültiger Datensatz Zeiger"
+msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNENetHelper.cpp:2473
-#, fuzzy
 msgid "Invalid meanData pointer"
-msgstr "Ungültiger Mean-Daten Verweis"
+msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNENetHelper.cpp:2734
 msgid "Redo replace in TLS"
@@ -4129,9 +4108,8 @@ msgid "Mode for edit traffic lights over junctions. (T)"
 msgstr "Modus zum Hinzufügen von LSA an Knotenpunkten. (T)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3645
-#, fuzzy
 msgid "Set additional mode"
-msgstr "Weitere Daten Modus einstellen"
+msgstr "Modus für weitere Daten einstellen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3645
 msgid "Mode for adding additional elements. (A)"
