@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-05 21:26+0100\n"
-"PO-Revision-Date: 2023-02-07 21:48+0000\n"
+"PO-Revision-Date: 2023-02-08 08:12+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
@@ -968,15 +968,15 @@ msgstr "按F5按鍵"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1513
 msgid "Network requires recomputing"
-msgstr ""
+msgstr "路網需要重新計算"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1580
 msgid "Loading console arguments"
-msgstr ""
+msgstr "載入控制引數"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1608
 msgid "Creating new network."
-msgstr ""
+msgstr "建立新路網。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1619
 msgid "Trying to load an empty network"
@@ -984,7 +984,7 @@ msgstr "嘗試載入一個空白路網"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1635
 msgid "Loading network file '"
-msgstr ""
+msgstr "載入路網檔案"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1647
 msgid "Trying to load an empty configuration"
@@ -992,7 +992,7 @@ msgstr "嘗試載入一個空白設定檔"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1663
 msgid "Loading configuration file '"
-msgstr ""
+msgstr "載入設定檔案"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1694
 msgid "Select Import Options"
