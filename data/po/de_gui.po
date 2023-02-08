@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-05 21:26+0100\n"
-"PO-Revision-Date: 2023-02-08 08:12+0000\n"
-"Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
+"PO-Revision-Date: 2023-02-08 10:48+0000\n"
+"Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
 "Language: de\n"
@@ -890,7 +890,6 @@ msgid "This system has no OpenGL support. Exiting."
 msgstr "Dieses System unterstützt OpenGL nicht. Abbruch."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:448
-#, fuzzy
 msgid "A microscopic, multi-modal traffic simulation."
 msgstr ""
 "Grafische Version der mikroskopischen, multimodalen Verkehrssimulation SUMO."
@@ -1745,7 +1744,6 @@ msgid "Modes connections between lanes."
 msgstr "Modus zur Verbindung von Fahrstreifen verschiedener Kanten."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:594
-#, fuzzy
 msgid "Pro&hibition"
 msgstr "Ver&bot"
 
@@ -1817,7 +1815,6 @@ msgid "Create types (vehicles, person an containers)."
 msgstr "Erstelle Typen (Fahrzeuge, Personen und Container)."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:678
-#, fuzzy
 msgid "Create stops."
 msgstr "Erstelle Haltepunkte."
 
@@ -1930,15 +1927,13 @@ msgid "Hide connections"
 msgstr "Verbindungen ausblenden"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:831
-#, fuzzy
 msgid "Show sub-additional elements"
-msgstr "Zeigt einspringende Zusatzelemente"
+msgstr "Zeige Kindelemente der weiteren Elemente"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:836
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2448
-#, fuzzy
 msgid "Show TAZ elements"
-msgstr "Zeige TAZ Elemente"
+msgstr "Zeige Verkehrsumlegungszonen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:841
 msgid "Selecting multiple edges automatically select their junctions"
@@ -2029,19 +2024,16 @@ msgid "Draw TAZRel from center"
 msgstr "Zeichne TAZRel vom Zentrum"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1158
-#, fuzzy
 msgid "Draw TAZ fill"
-msgstr "Zeichne TAZ-Füllung"
+msgstr "Zeichne Verkehrsumlegungszonen mit Füllung"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1163
-#, fuzzy
 msgid "Only draw TAZRel from"
-msgstr "Zeichne nur TAZRel von"
+msgstr "Zeichne nur Quelle-Ziel-Beziehungen aus..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1168
-#, fuzzy
 msgid "Only draw TAZRel to"
-msgstr "Zeichne nur TAZRel zu"
+msgstr "Zeichne nur Quelle-Ziel-Beziehungen nach..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1249
 msgid "Undo the last change."
@@ -2148,17 +2140,14 @@ msgid "&Containers"
 msgstr "&Container"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1400
-#, fuzzy
 msgid "Tra&nsports"
 msgstr "Tra&nsporte"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1405
-#, fuzzy
 msgid "Trans&hips"
 msgstr "Umla&den"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1410
-#, fuzzy
 msgid "Stop&s"
 msgstr "Halt&e"
 
@@ -2235,9 +2224,8 @@ msgid "Clear invalid crossings."
 msgstr "Entferne ungültige Fußgängerfurten."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1798
-#, fuzzy
 msgid "Recompute Network in Data Mode"
-msgstr "Berechne Netz in Datenmodus neu"
+msgstr "Berechne Netz im Datenmodus neu"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1801
 msgid "RecomputeData"
@@ -8282,10 +8270,12 @@ msgstr "Nur zwei Kanten sind erlaubt"
 #: /home/micha/programming/sumo/src/netedit/frames/GNEPathCreator.cpp:449
 msgid "Invalid edge (SHIFT + click to add an invalid vClass edge)"
 msgstr ""
+"Ungültige Kante (wähle Kante mit unpassender Fahrzeugklasse über Shift + "
+"Klick)"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEPathCreator.cpp:456
 msgid "Invalid edge (CONTROL + click to add a disconnected edge)"
-msgstr ""
+msgstr "Ungültige Kante (wähle unverbundene Kante über Ctrl + Klick)"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEPathCreator.cpp:531
 msgid "first select an edge"
@@ -8313,11 +8303,11 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNESelectorParent.cpp:39
 msgid "No element selected"
-msgstr ""
+msgstr "Kein Element ausgewählt"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNESelectorParent.cpp:82
 msgid "Parent type: "
-msgstr ""
+msgstr "Elterntyp: "
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:219
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:230
@@ -8335,63 +8325,63 @@ msgstr "Ungültige Spalte"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:609
 msgid "Accumulated: "
-msgstr ""
+msgstr "Kumuliert: "
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:679
 msgid "Add phase"
-msgstr ""
+msgstr "Phase hinzufügen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:679
 msgid "Add new phase."
-msgstr ""
+msgstr "Füge Phase hinzu."
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:684
 msgid "Default phase"
-msgstr ""
+msgstr "Standardphase"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:684
 msgid "Add default phase."
-msgstr ""
+msgstr "Füge Standardphase hinzu."
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:689
 msgid "Duplicate phase"
-msgstr ""
+msgstr "Phase duplizieren"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:689
 msgid "Duplicate this phase."
-msgstr ""
+msgstr "Dupliziere diese Phase."
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:694
 msgid "Red phase"
-msgstr ""
+msgstr "Rot-Phase"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:694
 msgid "Add red phase."
-msgstr ""
+msgstr "Füge Rot-Phase hinzu."
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:699
 msgid "Yellow phase"
-msgstr ""
+msgstr "Gelb-Phase"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:699
 msgid "Add yellow phase."
-msgstr ""
+msgstr "Füge Gelb-Phase hinzu."
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:704
 msgid "Green phase"
-msgstr ""
+msgstr "Grün-Phase"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:704
 msgid "Add green phase."
-msgstr ""
+msgstr "Füge Grün-Phase hinzu."
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:709
 msgid "Green priority phase"
-msgstr ""
+msgstr "Grün-Phase mit Vorrang"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:709
 msgid "Add green priority phase."
-msgstr ""
+msgstr "Füge eine Grün-Phase mit Vorrang hinzu."
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:910
 msgid "Cannot be parsed to double"
@@ -8403,27 +8393,27 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:1252
 msgid "Delete phase"
-msgstr ""
+msgstr "Phase löschen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:1252
 msgid "Delete this phase."
-msgstr ""
+msgstr "Lösche diese Phase."
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:1261
 msgid "Move phase up"
-msgstr ""
+msgstr "Phase nach oben schieben"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:1261
 msgid "Move this phase up."
-msgstr ""
+msgstr "Schiebe diese Phase nach oben."
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:1270
 msgid "Move phase down"
-msgstr ""
+msgstr "Phase nach unten schieben"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:1270
 msgid "Move this phase down."
-msgstr ""
+msgstr "Schiebe diese Phase nach unten."
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:1276
 msgid "Invalid Cell type"
