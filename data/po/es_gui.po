@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-05 21:26+0100\n"
-"PO-Revision-Date: 2023-02-08 11:32+0000\n"
+"PO-Revision-Date: 2023-02-08 11:44+0000\n"
 "Last-Translator: Pablo Alvarez Lopez <pablo.alvarezlopez@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -1853,7 +1853,7 @@ msgstr "Crear planes de contenedores."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:725
 msgid "&EdgeData"
-msgstr "&EdgeData"
+msgstr "&Dato de calle (edge)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:725
 msgid "Create edgeData elements."
@@ -1861,7 +1861,7 @@ msgstr "Crear elementos edgeData."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:728
 msgid "Edge&Relation"
-msgstr "Edge&Relation"
+msgstr "Relación entre calles (edges)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:728
 msgid "Create edgeRelation elements."
@@ -1869,11 +1869,11 @@ msgstr "Crear elementos edgeRelation."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:731
 msgid "TA&ZRelation"
-msgstr ""
+msgstr "Relación entre TA&Zs"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:731
 msgid "Create TAZRelation elements."
-msgstr ""
+msgstr "Crear relación entre zona de análisis de tráfico (TAZ)."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:734
 msgid "&MeanData"
@@ -1943,6 +1943,8 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:846
 msgid "Clicking should apply state changes to all phases of TLS plan"
 msgstr ""
+"Clickar debe aplicar el cambio de estado a todas las fases del plán del "
+"semáforo (TLS)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:851
 msgid "Ask for confirmation before merging junction"
@@ -1984,7 +1986,7 @@ msgstr "Mostrar todos los viajes (trips)"
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1018
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2736
 msgid "Show all person plans"
-msgstr ""
+msgstr "Mostrar todos los planes de personas"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1023
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2744
@@ -2017,7 +2019,7 @@ msgstr "Mostrar elementos adicionales"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1153
 msgid "Draw TAZRel from center"
-msgstr ""
+msgstr "Dibujar relación TAZ desde el centro"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1158
 msgid "Draw TAZ fill"
@@ -2025,11 +2027,11 @@ msgstr "Dibujar zona de análisis de tráfico (TAZ) rellena"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1163
 msgid "Only draw TAZRel from"
-msgstr ""
+msgstr "Dibujar solo relación TAZ origen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1168
 msgid "Only draw TAZRel to"
-msgstr ""
+msgstr "Dibujar solo relación TAZ destino"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1249
 msgid "Undo the last change."
