@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-05 21:26+0100\n"
 "PO-Revision-Date: 2023-02-08 14:26+0000\n"
-"Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
+"Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
 "Language: de\n"
@@ -4156,7 +4156,7 @@ msgstr "Modus zum Bearbeiten von Oberleitungen. (W)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3765
 msgid "Create route mode"
-msgstr "Routenmodus erstellen"
+msgstr "Routenmodus einstellen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3765
 msgid "Mode for creating routes. (R)"
@@ -4164,7 +4164,7 @@ msgstr "Modus zum Erstellen von Routen. (R)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3771
 msgid "Create vehicle mode"
-msgstr "Fahrzeugmodus erstellen"
+msgstr "Fahrzeugmodus einstellen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3771
 msgid "Mode for creating vehicles. (V)"
@@ -4172,16 +4172,15 @@ msgstr "Modus zum Erstellen von Fahrzeugen. (V)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3777
 msgid "Create type mode"
-msgstr "Typmodus erstellen"
+msgstr "Typmodus einstellen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3777
 msgid "Mode for creating types (vehicles, person and containers). (T)"
 msgstr "Modus zum Erstellen von Typen (Fahrzeuge, Personen und Container). (T)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3783
-#, fuzzy
 msgid "Create stop mode"
-msgstr "Haltmodus erstellen"
+msgstr "Haltmodus einstellen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3783
 msgid "Mode for creating stops. (A)"
@@ -4189,23 +4188,23 @@ msgstr "Modus zum Erstellen von Halten. (A)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3789
 msgid "Create person mode"
-msgstr ""
+msgstr "Personenmodus einstellen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3789
 msgid "Mode for creating persons. (P)"
-msgstr ""
+msgstr "Modus zum Erstellen von Personen. (P)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3795
 msgid "Create person plan mode"
-msgstr ""
+msgstr "Personenplanmodus einstellen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3795
 msgid "Mode for creating person plans. (C)"
-msgstr ""
+msgstr "Modus zum Erstellen von Personenplänen. (C)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3801
 msgid "Create container mode"
-msgstr ""
+msgstr "Containermodus einstellen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3801
 msgid "Mode for creating containers. (P)"
@@ -4213,7 +4212,7 @@ msgstr "Modus zum Erstellen von Containern. (P)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3807
 msgid "Create container plan mode"
-msgstr ""
+msgstr "Containerplanmodus einstellen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3807
 msgid "Mode for creating container plans. (H)"
@@ -4221,7 +4220,7 @@ msgstr "Modus zum Erstellen von Containerplänen. (H)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3884
 msgid "Create edge data mode"
-msgstr ""
+msgstr "Kantendatenmodus einstellen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3884
 msgid "Mode for creating edge datas. (E)"
@@ -4229,7 +4228,7 @@ msgstr "Modus zum Erstellen von Kantendaten. (E)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3890
 msgid "Create edge relation data mode"
-msgstr ""
+msgstr "Kantenbeziehungsdatenmodus einstellen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3890
 msgid "Mode for creating edge relation datas. (R)"
@@ -4237,12 +4236,11 @@ msgstr "Modus zum Erstellen von Kantenbeziehungsdaten. (R)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3896
 msgid "Create TAZ relation data mode"
-msgstr ""
+msgstr "Modus für Verkehrsumlegungszonenbeziehungsdaten einstellen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3896
-#, fuzzy
 msgid "Mode for creating TAZ relation datas. (Z)"
-msgstr "Modus zum Erstellen von Verkehrsumlegungszonen-Beziehungsdaten. (Z)"
+msgstr "Modus zum Erstellen von Verkehrsumlegungszonenbeziehungsdaten. (Z)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3902
 msgid "MeanData mode"
@@ -4254,11 +4252,11 @@ msgstr "Modus für meanData-Elemente. (M)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewParent.cpp:102
 msgid "Undo the last change. (Ctrl+Z)"
-msgstr ""
+msgstr "Mache die letzte Änderung rückgängig. (Ctrl+Z)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewParent.cpp:105
 msgid "Redo the last change. (Ctrl+Y)"
-msgstr ""
+msgstr "Wiederhole die letzte Änderung. (Ctrl+Y)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewParent.cpp:113
 msgid "Compute path manager"
@@ -4293,7 +4291,6 @@ msgid "TLS"
 msgstr "LSA"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewParent.cpp:640
-#, fuzzy
 msgid "Additional"
 msgstr "Weitere"
 
