@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-05 21:26+0100\n"
-"PO-Revision-Date: 2023-02-07 11:23+0000\n"
+"PO-Revision-Date: 2023-02-08 10:48+0000\n"
 "Last-Translator: Pablo Alvarez Lopez <pablo.alvarezlopez@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -7119,137 +7119,166 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5411
 msgid "Dynamic factor for modifying lcAssertive and lcPushy."
-msgstr ""
+msgstr "Factor dinámico para modificar los atributos lcAssertive y lcPushy."
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5417
 msgid ""
 "Time to reach maximum impatience (of 1). Impatience grows whenever a lane-"
 "change manoeuvre is blocked."
 msgstr ""
+"Tiempo para alcanzar la impaciencia máxima (de 1). La impaciencia crece cada "
+"vez que se bloquea una maniobra de cambio de carril (lane-change)."
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5423
 msgid "Maximum lateral acceleration per second."
-msgstr ""
+msgstr "Aceleración lateral máxima por segundo."
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5429
 msgid ""
 "Factor for configuring the strategic lookahead distance when a change to the "
 "left is necessary (relative to right lookahead)."
 msgstr ""
+"Factor para configurar la distancia de anticipación estratégica cuando es "
+"necesario un cambio a la izquierda (en relación con la anticipación a la "
+"derecha)."
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5435
 msgid ""
 "Factor for configuring the threshold asymmetry when changing to the left or "
 "to the right for speed gain."
 msgstr ""
+"Factor para configurar la el umbral de asimetría al cambiar a la izquierda o "
+"a la derecha para ganar velocidad."
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5441
 msgid "Upper bound on lateral speed when standing."
-msgstr ""
+msgstr "Límite superior de la velocidad lateral al pararse."
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5447
 msgid ""
 "Upper bound on lateral speed while moving computed as lcMaxSpeedLatStanding "
 "+ lcMaxSpeedLatFactor * getSpeed()"
 msgstr ""
+"Límite superior para la velocidad lateral mientras se mueve calculado como "
+"lcMaxSpeedLatStanding + lcMaxSpeedLatFactor * getSpeed()"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5453
 msgid ""
 "Distance to an upcoming turn on the vehicles route, below which the alignment"
 msgstr ""
+"Distancia al próximo giro en la ruta del vehículo, por debajo de la linea en "
+"la cual"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5454
 msgid "should be dynamically adapted to match the turn direction."
 msgstr ""
+"debe adaptarse dinámicamente para que coincida con la dirección de giro."
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5460
 msgid "The probability for violating rules gainst overtaking on the right."
-msgstr ""
+msgstr "La probabilidad de violar las reglas al adelantar por la derecha."
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5466
 msgid "Time threshold for the willingness to change right."
-msgstr ""
+msgstr "Umbral de tiempo para la intención de cambiar a la derecha."
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5472
 msgid ""
 "Speed difference factor for the eagerness of overtaking a neighbor vehicle "
 "before changing lanes (threshold = factor*speedlimit)."
 msgstr ""
+"Factor de diferencia de velocidad para la intención de adelantar a un "
+"vehículo vecino antes de cambiar de carril (umbral = factor * speedlimit)."
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5494
 msgid "The name of the person"
-msgstr ""
+msgstr "El nombre de la persona"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5499
 msgid "The id of the person type to use for this person"
-msgstr ""
+msgstr "la ID del tipo de persona (type) que se usará para esta persona"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5505
 msgid "This person's color"
-msgstr ""
+msgstr "El color de la persona"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5511
 msgid "The position at which the person shall enter the net"
-msgstr ""
+msgstr "La posición en la que la persona debe entrar en la red"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5524
 msgid "The name of the container"
-msgstr ""
+msgstr "El nombre del contenedor"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5529
 msgid "The id of the container type to use for this container"
-msgstr ""
+msgstr "La ID del tipo de contenedor (type) que se usará en este contenedor"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5535
 msgid "This container's color"
-msgstr ""
+msgstr "El color del contenedor"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5561
 msgid ""
 "If set to a non-negative time value, then the stop duration can be extended "
 "at most by the extension value in seconds"
 msgstr ""
+"Si se establece en un valor de tiempo no negativo, la duración de la parada "
+"se puede extender como máximo el valor de extensión en segundos"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5567
 msgid "Whether a person or container or bth may end the stop"
-msgstr ""
+msgstr "Si una persona, contenedor o similar debe finalizar la parada"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5574
 msgid "List of elements that must board the vehicle before it may continue"
 msgstr ""
+"Lista de elementos (personas o contenedores) que deben abordar el vehículo "
+"antes de continuar"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5579
 msgid "List of elements that can board the vehicle before it may continue"
 msgstr ""
+"Lista de elementos (personas o contenedores) que pueden abordar el vehículo "
+"antes de continuar"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5584
 msgid "Whether the vehicle stops on the road or beside"
-msgstr ""
+msgstr "Si el vehículo para en la carretera o en los laterales"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5591
 msgid "Activity displayed for stopped person in GUI and output files"
 msgstr ""
+"Actividad mostrada para la persona detenida (en la visualización) y para los "
+"archivos de salida"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5596
 msgid ""
 "Parameter to be applied to the vehicle to track the trip id within a "
 "cyclical public transport route"
 msgstr ""
+"Parámetro que se aplicará al vehículo para rastrear la identificación del "
+"viaje dentro de una ruta de transporte público cíclica"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5601
 msgid ""
 "New line attribute to be set on the vehicle when reaching this stop (for "
 "cyclical public transport route)"
 msgstr ""
+"Nuevo atributo linea (line) que se establecerá en el vehículo al llegar a "
+"esta parada (Usado para rutas de transporte público cíclicas)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5607
 msgid "Speed to be kept while driving between startPos and endPos"
 msgstr ""
+"Velocidad a mantener durante la conducción entre posiciónes de inicio "
+"(startPos) y final (endPos)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5613
 msgid ""
 "Whether the stop may be skipped if no passengers wants to embark or disembark"
 msgstr ""
+"Si se puede omitir la parada si ningún pasajero desea embarcar o desembarcar"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5620
 msgid ""
@@ -7919,49 +7948,60 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:65
 msgid "Close shape"
-msgstr ""
+msgstr "Cerrar forma"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:69
 msgid "Center view"
-msgstr ""
+msgstr "Centrar vista"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:137
 msgid "Current selected reference point isn't valid"
-msgstr ""
+msgstr "El punto de referencia actual seleccionado no es válido"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:231
 msgid "- Reference point: Mark the initial position of the additional element."
 msgstr ""
+"- Punto de referencia: Marca la posición inicial del elemento adicional."
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:232
 msgid ""
 "  Example: If you want to create a busStop with a length of 30 in the point "
 "100 of the lane:"
 msgstr ""
+"  Ejemplo: Si quiere crear una parada de autobus con un largo de 30 metros "
+"en el punto 100 del carril (lane):"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:233
 msgid "  - Reference Left will create it with startPos = 70 and endPos = 100."
 msgstr ""
+"  - Referencia izquierda la creará con una posición de inicio (startPos) de "
+"70, y una posción de fin (endPos) de 100."
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:234
 msgid ""
 "  - Reference Right will create it with startPos = 100 and endPos = 130."
 msgstr ""
+"  - Referencia derecha la creará con una posición de inicio (startPos ) de "
+"100 y una posición final (endPos) de 130."
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:235
 msgid ""
 "  - Reference Center will create it with startPos = 85 and endPos = 115."
 msgstr ""
+"  - Referencia central la creará con una posición de inicio (startPos) de 85 "
+"y una posición final (endPos) de 115."
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:236
 msgid ""
 "- Block movement: if is enabled, the created additional element will be "
 "blocked. i.e. cannot be moved with"
 msgstr ""
+"- Bloquear movimiento: Si está activa, el elemento adicional se creará "
+"bloqueado. Es decir, que no se podrá mover con"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:237
 msgid "  the mouse. This option can be modified inspecting element."
-msgstr ""
+msgstr "  el ratón. Esta opción se puede modificar inspeccionando el elemento."
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:238
 msgid "- Center view: if is enabled, view will be center over created element."
@@ -7979,11 +8019,11 @@ msgstr "Usar el seleccionado"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNENetworkSelector.cpp:63
 msgid "-Click over an edge to select"
-msgstr ""
+msgstr "-Click sobre una calle (edge) para seleccionarla"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNENetworkSelector.cpp:69
 msgid "-Click over an lane to select"
-msgstr ""
+msgstr "-Click sobre un carril (lane) para seleccionarla"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNENetworkSelector.cpp:74
 #: /home/micha/programming/sumo/src/netedit/frames/GNENetworkSelector.cpp:183
@@ -7996,27 +8036,27 @@ msgstr "Elementos superpuestos"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEOverlappedInspection.cpp:62
 msgid "Overlapped "
-msgstr ""
+msgstr "Superpuesto "
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEOverlappedInspection.cpp:275
 msgid "GEO attributes Help"
-msgstr ""
+msgstr "Ayuda para GEO Attributes"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEOverlappedInspection.cpp:278
 msgid " - Click in the same position"
-msgstr ""
+msgstr " - Click en la misma posición"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEOverlappedInspection.cpp:279
 msgid "   for inspect next element"
-msgstr ""
+msgstr "   para inspeccionar el siguiente elemento"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEOverlappedInspection.cpp:280
 msgid " - Shift + Click in the same"
-msgstr ""
+msgstr " - Shift + click en la misma"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEOverlappedInspection.cpp:281
 msgid "   position for inspect"
-msgstr ""
+msgstr "   posición para inspeccionar"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEOverlappedInspection.cpp:282
 msgid "   previous element"
@@ -8074,10 +8114,14 @@ msgstr "Sólo dos calles (edges) están permitidas"
 #: /home/micha/programming/sumo/src/netedit/frames/GNEPathCreator.cpp:449
 msgid "Invalid edge (SHIFT + click to add an invalid vClass edge)"
 msgstr ""
+"Calle (edge) inválida (Shift + click para añadir una calle (edge) no "
+"compatible con el vClass seleccionado)"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEPathCreator.cpp:456
 msgid "Invalid edge (CONTROL + click to add a disconnected edge)"
 msgstr ""
+"Calle (edge) inválida (Control + click para añadir una calle (edge) "
+"desconectada del resto)"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEPathCreator.cpp:531
 msgid "first select an edge"
@@ -8097,7 +8141,7 @@ msgstr "- Velocidad media: "
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEPathLegendModule.cpp:48
 msgid " edge conflict (vClass)"
-msgstr ""
+msgstr " calle (edge) conflictiva (vClass)"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNESelectorParent.cpp:36
 msgid "Parent selector"
@@ -8105,11 +8149,11 @@ msgstr "Seleccionar padre"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNESelectorParent.cpp:39
 msgid "No element selected"
-msgstr ""
+msgstr "No se ha seleccionado ningún elemento"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNESelectorParent.cpp:82
 msgid "Parent type: "
-msgstr ""
+msgstr "Tipo de padre: "
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:219
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:230
@@ -8127,63 +8171,63 @@ msgstr "Columna inválida"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:609
 msgid "Accumulated: "
-msgstr ""
+msgstr "Acumulado: "
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:679
 msgid "Add phase"
-msgstr ""
+msgstr "Añadir fase"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:679
 msgid "Add new phase."
-msgstr ""
+msgstr "Añadir nueva fase."
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:684
 msgid "Default phase"
-msgstr ""
+msgstr "Fase por defecto"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:684
 msgid "Add default phase."
-msgstr ""
+msgstr "Añadir fase por defecto."
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:689
 msgid "Duplicate phase"
-msgstr ""
+msgstr "Duplicar fase"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:689
 msgid "Duplicate this phase."
-msgstr ""
+msgstr "Duplicar esta fase."
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:694
 msgid "Red phase"
-msgstr ""
+msgstr "Fase roja"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:694
 msgid "Add red phase."
-msgstr ""
+msgstr "Añadir una fase roja."
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:699
 msgid "Yellow phase"
-msgstr ""
+msgstr "Añadir fase amarilla"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:699
 msgid "Add yellow phase."
-msgstr ""
+msgstr "Añadir una fase amarilla."
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:704
 msgid "Green phase"
-msgstr ""
+msgstr "Fase verde"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:704
 msgid "Add green phase."
-msgstr ""
+msgstr "Añadir una fase verde."
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:709
 msgid "Green priority phase"
-msgstr ""
+msgstr "Fase verde con prioridad"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:709
 msgid "Add green priority phase."
-msgstr ""
+msgstr "Añadir una fase verde con prioridad."
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:910
 msgid "Cannot be parsed to double"
@@ -8191,31 +8235,31 @@ msgstr "No puede ser convertido a decimal"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:922
 msgid "Tooltips only for TextFields"
-msgstr ""
+msgstr "Tooltip solo para TextFields"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:1252
 msgid "Delete phase"
-msgstr ""
+msgstr "Eliminar fase"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:1252
 msgid "Delete this phase."
-msgstr ""
+msgstr "Eliminar esta fase."
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:1261
 msgid "Move phase up"
-msgstr ""
+msgstr "Mover fase hacia arriba"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:1261
 msgid "Move this phase up."
-msgstr ""
+msgstr "Mover esta fase hacia arriba."
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:1270
 msgid "Move phase down"
-msgstr ""
+msgstr "Mover fase hacia abajo"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:1270
 msgid "Move this phase down."
-msgstr ""
+msgstr "Mover esta fase hacia abajo."
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:1276
 msgid "Invalid Cell type"
