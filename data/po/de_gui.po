@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-05 21:26+0100\n"
 "PO-Revision-Date: 2023-02-08 10:48+0000\n"
-"Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
+"Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
 "Language: de\n"
@@ -6349,16 +6349,21 @@ msgstr "Endposition auf dem angegebenen Fahrstreifen"
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3273
 msgid "Inner lanes, where placing of overhead wire is restricted"
 msgstr ""
+"Innere Fahrstreifen, auf denen die Verlegung von Oberleitungen eingeschränkt "
+"ist"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3286
+#, fuzzy
 msgid "Overhead wire clamp ID"
-msgstr ""
+msgstr "Oberleitungsklemmen ID"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3291
 msgid ""
 "ID of the overhead wire segment, to the start of which the overhead wire "
 "clamp is connected"
 msgstr ""
+"ID des Oberleitungsabschnitts, an dessen Anfang die Oberleitungsklemme "
+"angeschlossen ist"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3296
 msgid "ID of the overhead wire segment lane of overheadWireIDStartClamp"
@@ -6369,6 +6374,8 @@ msgid ""
 "ID of the overhead wire segment, to the end of which the overhead wire clamp "
 "is connected"
 msgstr ""
+"ID des Oberleitungssegments, an dessen Ende die Oberleitungsklemme "
+"angeschlossen ist"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3306
 msgid "ID of the overhead wire segment lane of overheadWireIDEndClamp"
@@ -6376,7 +6383,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3329
 msgid "The id of Route"
-msgstr ""
+msgstr "Die ID der Route"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3334
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3366
@@ -6384,52 +6391,59 @@ msgid ""
 "The edges the vehicle shall drive along, given as their ids, separated using "
 "spaces"
 msgstr ""
+"Die Kanten, die das Fahrzeug entlangfahren soll, werden als IDs angegeben "
+"und durch Leerzeichen getrennt"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3339
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3371
 msgid "This route's color"
-msgstr ""
+msgstr "Die Farbe dieser Route"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3344
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3376
 msgid "The number of times that the edges of this route shall be repeated"
-msgstr ""
+msgstr "Die Anzahl der Wiederholungen der Kanten dieser Route"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3350
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3382
+#, fuzzy
 msgid ""
 "When defining a repeating route with stops and those stops use the until "
 "attribute,"
 msgstr ""
+"Wenn eine sich wiederholende Route mit Haltestellen definiert wird und diese "
+"Haltestellen das until-Attribut verwenden,"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3351
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3383
 msgid "the times will be shifted forward by 'cycleTime' on each repeat"
 msgstr ""
+"die Zeiten werden bei jeder Wiederholung um 'cycleTime' nach vorne verschoben"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3398
 msgid "The id of VehicleType distribution"
-msgstr ""
+msgstr "Die ID der Fahrzeugtyp-Verteilung"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3420
 msgid "The id of VehicleType"
-msgstr ""
+msgstr "Die ID des Fahrzeugtyp"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3425
 msgid "Vehicle Type Distribution"
-msgstr ""
+msgstr "Fahrzeugtyp-Verteilung"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3430
 msgid "An abstract vehicle class"
-msgstr ""
+msgstr "Eine abstrakte Fahrzeugklasse"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3437
 msgid "This vehicle type's color"
-msgstr ""
+msgstr "Die Farbe dieses Fahrzeugtyps"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3442
+#, fuzzy
 msgid "The vehicle's netto-length (length) [m]"
-msgstr ""
+msgstr "Die Fahrzeug Nettolänge (Länge) [m]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3447
 msgid "Empty space after leader [m]"
@@ -6437,13 +6451,15 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3452
 msgid "The vehicle's maximum velocity [m/s]"
-msgstr ""
+msgstr "Höchstgeschwindigkeit des Fahrzeugs [m/s]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3457
 msgid ""
 "The vehicles expected multiplicator for lane speed limits (or a distribution "
 "specifier)"
 msgstr ""
+"Der von den Fahrzeugen erwartete Multiplikator für "
+"Fahrstreifengeschwindigkeitsbegrenzungen (oder ein Verteilungsspezifizierer)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3462
 msgid "The vehicles desired maximum velocity (interacts with speedFactor)."
@@ -6452,18 +6468,21 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3463
 msgid "Applicable when no speed Limit applies (bicycles, some motorways) [m/s]"
 msgstr ""
+"Anwendbar, wenn keine Geschwindigkeitsbegrenzung gilt (Fahrräder, einige "
+"Autobahnen) [m/s]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3468
+#, fuzzy
 msgid "An abstract emission class"
-msgstr ""
+msgstr "Eine abstrakte Emissionsklasse"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3474
 msgid "How this vehicle is rendered"
-msgstr ""
+msgstr "Wie dieses Fahrzeug gerendert wird"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3480
 msgid "The vehicle's width [m] (only used for drawing)"
-msgstr ""
+msgstr "Die Fahrzeugbreite [m] (wird nur zum Zeichnen verwendet)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3486
 msgid "The vehicle's height [m] (only used for drawing)"
