@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-05 21:26+0100\n"
-"PO-Revision-Date: 2023-02-08 10:48+0000\n"
+"PO-Revision-Date: 2023-02-08 11:32+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
@@ -2646,11 +2646,11 @@ msgstr "使用新路網開啟netedit"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:313
 msgid "Prefix for node naming"
-msgstr "命名節點的前綴"
+msgstr "節點的命名前綴"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:316
 msgid "Prefix for edge naming"
-msgstr "命名路段的前綴"
+msgstr "路段的命名前綴"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:319
 msgid "Enable edge-infix (<fromNodeID><infix><toNodeID>)"
@@ -2658,47 +2658,47 @@ msgstr "使用路段中綴(<fromNodeID><infix><toNodeID>)"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:324
 msgid "Prefix for busStop naming"
-msgstr "命名公車站的前綴"
+msgstr "公車站的命名前綴"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:327
 msgid "Prefix for trainStop naming"
-msgstr "命名火車站的前綴"
+msgstr "火車站的命名前綴"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:330
 msgid "Prefix for containerStop naming"
-msgstr "命名容器停靠站(containerStop)的前綴"
+msgstr "容器停靠站(containerStop)的命名前綴"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:333
 msgid "Prefix for chargingStation naming"
-msgstr "命名充電站的前綴"
+msgstr "充電站的命名前綴"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:336
 msgid "Prefix for parkingArea naming"
-msgstr "命名停車區域的前綴"
+msgstr "停車區域的命名前綴"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:339
 msgid "Prefix for e1Detector naming"
-msgstr ""
+msgstr "e1偵測器的命名前綴"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:342
 msgid "Prefix for e2Detector naming"
-msgstr ""
+msgstr "e2偵測器的命名前綴"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:345
 msgid "Prefix for e3Detector naming"
-msgstr ""
+msgstr "e3偵測器的命名前綴"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:348
 msgid "Prefix for e1InstantDetector naming"
-msgstr ""
+msgstr "e1InstantDetector的命名前綴"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:351
 msgid "Prefix for rerouter naming"
-msgstr ""
+msgstr "改道裝置(rerouter)的命名前綴"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:354
 msgid "Prefix for calibrator naming"
-msgstr ""
+msgstr "校估裝置(calibrator)的命名前綴"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:357
 msgid "Prefix for routeProbe naming"
