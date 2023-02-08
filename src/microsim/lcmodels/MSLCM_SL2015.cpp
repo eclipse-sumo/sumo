@@ -2055,6 +2055,9 @@ MSLCM_SL2015::slowDownForBlocked(MSVehicle** blocked, int state) {
 
 bool
 MSLCM_SL2015::isBidi(const MSLane* lane) const {
+    if (!MSNet::getInstance()->hasBidiEdges()) {
+        return false;
+    }
     if (lane == myVehicle.getLane()->getBidiLane()) {
         return true;
     }
