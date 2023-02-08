@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-05 21:26+0100\n"
 "PO-Revision-Date: 2023-02-08 08:12+0000\n"
-"Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
+"Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
 "Language: de\n"
@@ -7215,12 +7215,14 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5324
 msgid "This value is used in conjunction with jmIgnoreFoeProb."
-msgstr ""
+msgstr "Dieser Wert wird in Verbindung mit jmIgnoreFoeProb verwendet."
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5325
 msgid ""
 "Only vehicles with a speed below or equal to the given value may be ignored."
 msgstr ""
+"Nur Fahrzeuge mit einer Geschwindigkeit kleiner oder gleich dem angegebenen "
+"Wert dürfen ignoriert werden."
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5331
 msgid ""
