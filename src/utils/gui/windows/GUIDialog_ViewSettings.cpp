@@ -1909,40 +1909,41 @@ GUIDialog_ViewSettings::buildStreetsFrame(FXTabBook* tabbook) {
     new FXHorizontalSeparator(verticalFrame, GUIDesignHorizontalSeparator);
     FXMatrix* matrixLanes = new FXMatrix(verticalFrame, 2, GUIDesignViewSettingsMatrix1);
 
-    myShowLaneBorders = new FXCheckButton(matrixLanes, TL("Show lane borders"), this, MID_SIMPLE_VIEW_COLORCHANGE);
-    myShowLaneBorders->setCheck(mySettings->laneShowBorders);
     myShowBikeMarkings = new FXCheckButton(matrixLanes, TL("Show bike markings"), this, MID_SIMPLE_VIEW_COLORCHANGE);
     myShowBikeMarkings->setCheck(mySettings->showBikeMarkings);
-
     myShowLaneDecals = new FXCheckButton(matrixLanes, TL("Show turning arrows"), this, MID_SIMPLE_VIEW_COLORCHANGE);
     myShowLaneDecals->setCheck(mySettings->showLinkDecals);
-    new FXLabel(matrixLanes, " ", nullptr, GUIDesignViewSettingsLabel1);
 
     myShowLinkRules = new FXCheckButton(matrixLanes, TL("Show right-of-way rules"), this, MID_SIMPLE_VIEW_COLORCHANGE);
     myShowLinkRules->setCheck(mySettings->showLinkRules);
     myRealisticLinkRules = new FXCheckButton(matrixLanes, TL("Realistic stop line colors"), this, MID_SIMPLE_VIEW_COLORCHANGE);
     myRealisticLinkRules->setCheck(mySettings->realisticLinkRules);
 
-    myShowRails = new FXCheckButton(matrixLanes, TL("Show rails"), this, MID_SIMPLE_VIEW_COLORCHANGE);
-    myShowRails->setCheck(mySettings->showRails);
-    new FXLabel(matrixLanes, " ", nullptr, GUIDesignViewSettingsLabel1);
-    myHideMacroConnectors = new FXCheckButton(matrixLanes, TL("Hide macro connectors"), this, MID_SIMPLE_VIEW_COLORCHANGE);
-    myHideMacroConnectors->setCheck(mySettings->hideConnectors);
-    new FXLabel(matrixLanes, " ", nullptr, GUIDesignViewSettingsLabel1);
+    myShowLaneBorders = new FXCheckButton(matrixLanes, TL("Show lane borders"), this, MID_SIMPLE_VIEW_COLORCHANGE);
+    myShowLaneBorders->setCheck(mySettings->laneShowBorders);
     myShowLaneDirection = new FXCheckButton(matrixLanes, TL("Show lane direction"), this, MID_SIMPLE_VIEW_COLORCHANGE);
     myShowLaneDirection->setCheck(mySettings->showLaneDirection);
-    new FXLabel(matrixLanes, " ", nullptr, GUIDesignViewSettingsLabel1);
+
+    myHideMacroConnectors = new FXCheckButton(matrixLanes, TL("Hide macro connectors"), this, MID_SIMPLE_VIEW_COLORCHANGE);
+    myHideMacroConnectors->setCheck(mySettings->hideConnectors);
     myShowSublanes = new FXCheckButton(matrixLanes, TL("Show sublanes"), this, MID_SIMPLE_VIEW_COLORCHANGE);
     myShowSublanes->setCheck(mySettings->showSublanes);
+
+    myShowRails = new FXCheckButton(matrixLanes, TL("Show rails"), this, MID_SIMPLE_VIEW_COLORCHANGE);
+    myShowRails->setCheck(mySettings->showRails);
     mySpreadSuperposed = new FXCheckButton(matrixLanes, (TL("Spread bidirectional railways/roads") + std::string("\t\t") + TL("Make both directional edges for a bidirectional railways or roads visible")).c_str(), this, MID_SIMPLE_VIEW_COLORCHANGE);
     mySpreadSuperposed->setCheck(mySettings->spreadSuperposed);
-    new FXLabel(matrixLanes, "Exaggerate width by", nullptr, GUIDesignViewSettingsLabel1);
-    myLaneWidthUpscaleDialer = new FXRealSpinner(matrixLanes, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial2);
+    //new FXLabel(matrixLanes, " ", nullptr, GUIDesignViewSettingsLabel1);
+
+    FXMatrix* tmp0 = new FXMatrix(matrixLanes, 2, GUIDesignViewSettingsMatrix5);
+    new FXLabel(tmp0, "Exaggerate width by", nullptr, GUIDesignViewSettingsLabel1);
+    myLaneWidthUpscaleDialer = new FXRealSpinner(tmp0, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial2);
     myLaneWidthUpscaleDialer->setRange(0, 1000000);
     myLaneWidthUpscaleDialer->setValue(mySettings->laneWidthExaggeration);
 
-    new FXLabel(matrixLanes, "Minimum size", nullptr, GUIDesignViewSettingsLabel1);
-    myLaneMinWidthDialer = new FXRealSpinner(matrixLanes, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial2);
+    FXMatrix* tmp1 = new FXMatrix(matrixLanes, 2, GUIDesignViewSettingsMatrix5);
+    new FXLabel(tmp1, "Minimum size", nullptr, GUIDesignViewSettingsLabel1);
+    myLaneMinWidthDialer = new FXRealSpinner(tmp1, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial2);
     myLaneMinWidthDialer->setRange(0, 1000000);
     myLaneMinWidthDialer->setValue(mySettings->laneMinSize);
 
