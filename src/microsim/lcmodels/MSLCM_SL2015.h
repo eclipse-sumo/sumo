@@ -134,6 +134,8 @@ public:
     ///        and updates maneuverDist according to lateral safety constraints.
     double computeSpeedLat(double latDist, double& maneuverDist, bool urgent) const override;
 
+    LatAlignmentDefinition getDesiredAlignment() const override;
+
 protected:
     /** helper function which contains the actual logic */
     double _patchSpeed(double min, const double wanted, double max,

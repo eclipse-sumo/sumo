@@ -622,6 +622,10 @@ public:
         return myHaveBlueLight;
     }
 
+    virtual LatAlignmentDefinition getDesiredAlignment() const {
+        return myVehicle.getVehicleType().getPreferredLateralAlignment();
+    }
+
     static const double NO_NEIGHBOR;
 
 protected:

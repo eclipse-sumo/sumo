@@ -1873,30 +1873,7 @@ MSLCM_SL2015::_wantsChangeSublane(
 
     } else {
 
-        LatAlignmentDefinition align = myVehicle.getVehicleType().getPreferredLateralAlignment();
-        // Check whether the vehicle should adapt its alignment to an upcoming turn
-        if (myTurnAlignmentDist > 0) {
-            const std::pair<double, LinkDirection>& turnInfo = myVehicle.getNextTurn();
-            if (turnInfo.first < myTurnAlignmentDist) {
-                // Vehicle is close enough to the link to change its default alignment
-                switch (turnInfo.second) {
-                    case LinkDirection::TURN:
-                    case LinkDirection::LEFT:
-                    case LinkDirection::PARTLEFT:
-                        align = MSGlobals::gLefthand ? LatAlignmentDefinition::RIGHT : LatAlignmentDefinition::LEFT;
-                        break;
-                    case LinkDirection::TURN_LEFTHAND:
-                    case LinkDirection::RIGHT:
-                    case LinkDirection::PARTRIGHT:
-                        align = MSGlobals::gLefthand ? LatAlignmentDefinition::LEFT : LatAlignmentDefinition::RIGHT;
-                        break;
-                    case LinkDirection::STRAIGHT:
-                    case LinkDirection::NODIR:
-                    default:
-                        break;
-                }
-            }
-        }
+        LatAlignmentDefinition align = getDesiredAlignment();
         switch (align) {
             case LatAlignmentDefinition::RIGHT:
                 latDistSublane = -halfLaneWidth + halfVehWidth - getPosLat();
@@ -3489,6 +3466,36 @@ MSLCM_SL2015::computeSpeedLat(double latDist, double& maneuverDist, bool urgent)
     }
 #endif
     return speedDecel;
+}
+
+
+LatAlignmentDefinition
+MSLCM_SL2015::getDesiredAlignment() const {
+    LatAlignmentDefinition align = MSAbstractLaneChangeModel::getDesiredAlignment();
+    // Check whether the vehicle should adapt its alignment to an upcoming turn
+    if (myTurnAlignmentDist > 0) {
+        const std::pair<double, LinkDirection>& turnInfo = myVehicle.getNextTurn();
+        if (turnInfo.first < myTurnAlignmentDist) {
+            // Vehicle is close enough to the link to change its default alignment
+            switch (turnInfo.second) {
+                case LinkDirection::TURN:
+                case LinkDirection::LEFT:
+                case LinkDirection::PARTLEFT:
+                    align = MSGlobals::gLefthand ? LatAlignmentDefinition::RIGHT : LatAlignmentDefinition::LEFT;
+                    break;
+                case LinkDirection::TURN_LEFTHAND:
+                case LinkDirection::RIGHT:
+                case LinkDirection::PARTRIGHT:
+                    align = MSGlobals::gLefthand ? LatAlignmentDefinition::LEFT : LatAlignmentDefinition::RIGHT;
+                    break;
+                case LinkDirection::STRAIGHT:
+                case LinkDirection::NODIR:
+                default:
+                    break;
+            }
+        }
+    }
+    return align;
 }
 
 
