@@ -1,0 +1,32 @@
+Warning: Vehicle 'f_0.84' performs emergency braking on lane ':J1_0_2' with decel=9.00, wished=4.50, severity=1.00, time=158.00.
+Warning: Vehicle 'f_0.137' performs emergency braking on lane ':J1_0_0' with decel=9.00, wished=4.50, severity=1.00, time=234.00.
+Warning: Vehicle 'f_0.221' performs emergency braking on lane ':J1_0_0' with decel=9.00, wished=4.50, severity=1.00, time=367.00.
+Warning: Vehicle 'f_0.267' performs emergency braking on lane ':J1_0_0' with decel=9.00, wished=4.50, severity=1.00, time=441.00.
+Warning: Vehicle 'f_0.297' performs emergency braking on lane ':J1_0_0' with decel=9.00, wished=4.50, severity=1.00, time=485.00.
+Warning: Vehicle 'f_0.308' performs emergency braking on lane ':J1_0_0' with decel=9.00, wished=4.50, severity=1.00, time=496.00.
+Warning: Vehicle 'f_0.315' performs emergency braking on lane ':J1_0_0' with decel=9.00, wished=4.50, severity=1.00, time=506.00.
+Warning: Vehicle 'f_0.396' performs emergency braking on lane ':J1_0_0' with decel=9.00, wished=4.50, severity=1.00, time=646.00.
+Warning: Vehicle 'f_0.659' performs emergency braking on lane ':J1_0_1' with decel=9.00, wished=4.50, severity=1.00, time=1027.00.
+Warning: Teleporting vehicle 'f_0.665'; collision with vehicle 'f_0.662', lane='E0_1', gap=-0.50', latGap=-0.06, time=1029.00 stage=move.
+Warning: Vehicle 'f_0.665' ends teleporting on edge 'E1', time=1029.00.
+Warning: Vehicle 'f_0.787' performs emergency braking on lane ':J1_0_1' with decel=9.00, wished=4.50, severity=1.00, time=1230.00.
+Warning: Vehicle 'f_0.932' performs emergency braking on lane ':J1_0_2' with decel=9.00, wished=4.50, severity=1.00, time=1433.00.
+Warning: Vehicle 'f_0.1047' performs emergency braking on lane ':J1_0_0' with decel=9.00, wished=4.50, severity=1.00, time=1595.00.
+Warning: Vehicle 'f_0.1174' performs emergency braking on lane ':J1_0_2' with decel=9.00, wished=4.50, severity=1.00, time=1784.00.
+Warning: Vehicle 'f_0.1217' performs emergency braking on lane ':J1_0_2' with decel=9.00, wished=4.50, severity=1.00, time=1849.00.
+Warning: Vehicle 'f_0.1225' performs emergency braking on lane ':J1_0_0' with decel=9.00, wished=4.50, severity=1.00, time=1850.00.
+Warning: Vehicle 'f_0.1356' performs emergency braking on lane ':J1_0_0' with decel=9.00, wished=4.50, severity=1.00, time=2048.00.
+Warning: Vehicle 'f_0.1470' performs emergency braking on lane ':J1_0_0' with decel=9.00, wished=4.50, severity=1.00, time=2216.00.
+Warning: Vehicle 'f_0.1477' performs emergency braking on lane ':J1_0_2' with decel=9.00, wished=4.50, severity=1.00, time=2237.00.
+Warning: Vehicle 'f_0.1673' performs emergency braking on lane ':J1_0_2' with decel=9.00, wished=4.50, severity=1.00, time=2537.00.
+Warning: Vehicle 'f_0.1771' performs emergency braking on lane ':J1_0_0' with decel=9.00, wished=4.50, severity=1.00, time=2667.00.
+Warning: Vehicle 'f_0.1776' performs emergency braking on lane ':J1_0_0' with decel=9.00, wished=4.50, severity=1.00, time=2679.00.
+Warning: Vehicle 'f_0.1972' performs emergency braking on lane ':J1_0_0' with decel=9.00, wished=4.50, severity=1.00, time=2977.00.
+Warning: Teleporting vehicle 'f_0.1984'; junction collision with vehicle 'f_0.1980', lane=':J1_0_1', gap=-0.05', latGap=-0.30, time=2992.00 stage=move.
+Warning: Vehicle 'f_0.1984' ends teleporting on edge 'E1', time=2992.00.
+Warning: Vehicle 'f_0.2069' performs emergency braking on lane ':J1_0_1' with decel=9.00, wished=4.50, severity=1.00, time=3133.00.
+Warning: Vehicle 'f_0.2115' performs emergency braking on lane ':J1_0_0' with decel=9.00, wished=4.50, severity=1.00, time=3182.00.
+Warning: Vehicle 'f_0.2171' performs emergency braking on lane ':J1_0_0' with decel=9.00, wished=4.50, severity=1.00, time=3264.00.
+Warning: Vehicle 'f_0.2174' performs emergency braking on lane ':J1_0_0' with decel=9.00, wished=4.50, severity=1.00, time=3270.00.
+Warning: Vehicle 'f_0.2350' performs emergency braking on lane ':J1_0_2' with decel=9.00, wished=4.50, severity=1.00, time=3556.00.
+Warning: Vehicle 'f_0.2374' performs emergency braking on lane ':J1_0_0' with decel=9.00, wished=4.50, severity=1.00, time=3588.00.

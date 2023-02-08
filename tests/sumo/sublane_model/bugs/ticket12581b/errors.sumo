@@ -1,0 +1,19 @@
+Warning: Vehicle 'f_0.140' performs emergency braking on lane ':J1_0_0' with decel=9.00, wished=4.50, severity=1.00, time=229.00.
+Warning: Vehicle 'f_0.425' performs emergency braking on lane ':J1_0_1' with decel=9.00, wished=4.50, severity=1.00, time=660.00.
+Warning: Vehicle 'f_0.687' performs emergency braking on lane 'E0_0' with decel=9.00, wished=4.50, severity=1.00, time=1026.00.
+Warning: Vehicle 'f_0.870' performs emergency braking on lane ':J1_0_0' with decel=9.00, wished=4.50, severity=1.00, time=1288.00.
+Warning: Vehicle 'f_0.952' performs emergency braking on lane ':J1_0_1' with decel=9.00, wished=4.50, severity=1.00, time=1398.00.
+Warning: Vehicle 'f_0.984' performs emergency braking on lane ':J1_0_0' with decel=9.00, wished=4.50, severity=1.00, time=1446.00.
+Warning: Vehicle 'f_0.1047' performs emergency braking on lane ':J1_0_1' with decel=9.00, wished=4.50, severity=1.00, time=1535.00.
+Warning: Vehicle 'f_0.1167' performs emergency braking on lane ':J1_0_1' with decel=9.00, wished=4.50, severity=1.00, time=1714.00.
+Warning: Teleporting vehicle 'f_0.1186'; junction collision with vehicle 'f_0.1196', lane=':J1_0_1', gap=-1.16', latGap=-0.60, time=1745.00 stage=move.
+Warning: Vehicle 'f_0.1186' ends teleporting on edge 'E1', time=1745.00.
+Warning: Vehicle 'f_0.1574' performs emergency braking on lane 'E0_0' with decel=9.00, wished=4.50, severity=1.00, time=2309.00.
+Warning: Vehicle 'f_0.1575' performs emergency braking on lane ':J1_0_1' with decel=9.00, wished=4.50, severity=1.00, time=2312.00.
+Warning: Vehicle 'f_0.1576' performs emergency braking on lane ':J1_0_0' with decel=9.00, wished=4.50, severity=1.00, time=2314.00.
+Warning: Teleporting vehicle 'f_0.1721'; junction collision with vehicle 'f_0.1725', lane=':J1_0_1', gap=-0.27', latGap=-0.28, time=2541.00 stage=move.
+Warning: Vehicle 'f_0.1721' ends teleporting on edge 'E1', time=2541.00.
+Warning: Vehicle 'f_0.1858' performs emergency braking on lane ':J1_0_0' with decel=9.00, wished=4.50, severity=1.00, time=2753.00.
+Warning: Vehicle 'f_0.2059' performs emergency braking on lane ':J1_0_0' with decel=9.00, wished=4.50, severity=1.00, time=3040.00.
+Warning: Vehicle 'f_0.2322' performs emergency braking on lane 'E0_0' with decel=9.00, wished=4.50, severity=1.00, time=3426.00.
+Warning: Vehicle 'f_0.2321' performs emergency braking on lane ':J1_0_2' with decel=9.00, wished=4.50, severity=1.00, time=3429.00.

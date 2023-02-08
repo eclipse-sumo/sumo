@@ -88,3 +88,9 @@ ticket12108
 
 # cyclic speed adapatation prevents lane changing
 ticket12283
+
+# unsafe changing on junction
+ticket12581
+
+# unsafe changing on junction (different connection layout)
+ticket12581b
