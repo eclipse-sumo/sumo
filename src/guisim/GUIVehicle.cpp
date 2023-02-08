@@ -238,9 +238,7 @@ GUIVehicle::getTypeParameterWindow(GUIMainWindow& app,
     if (MSGlobals::gLateralResolution > 0) {
         ret->mkItem("minGapLat", false, myType->getMinGapLat());
         ret->mkItem("maxSpeedLat", false, myType->getMaxSpeedLat());
-        ret->mkItem("latAlignment", false, myType->getPreferredLateralAlignment() == LatAlignmentDefinition::GIVEN
-                    ? toString(myType->getPreferredLateralAlignmentOffset())
-                    : toString(myType->getPreferredLateralAlignment()));
+        ret->mkItem("latAlignment", true, new FunctionBindingString<GUIVehicle>(this, &GUIVehicle::getDynamicAlignment));
     } else if (MSGlobals::gLaneChangeDuration > 0) {
         ret->mkItem("maxSpeedLat", false, myType->getMaxSpeedLat());
     }
@@ -260,6 +258,17 @@ GUIVehicle::getTypeParameterWindow(GUIMainWindow& app,
 }
 
 
+std::string
+GUIVehicle::getDynamicAlignment() const {
+    std::string align = myType->getPreferredLateralAlignment() == LatAlignmentDefinition::GIVEN
+        ? toString(myType->getPreferredLateralAlignmentOffset())
+        : toString(myType->getPreferredLateralAlignment());
+    std::string align2 = toString(getLaneChangeModel().getDesiredAlignment());
+    if (align2 != align) {
+        align = align2 + " (default: " + align + ")";
+    }
+    return align;
+}
 
 void
 GUIVehicle::drawAction_drawLinkItems(const GUIVisualizationSettings& s) const {

@@ -159,6 +159,9 @@ public:
     /// @brief return the lane change mode as bit string
     std::string getLaneChangeMode() const;
 
+    /// @brief return the current lateral alignment as string
+    std::string getDynamicAlignment() const;
+
     /// @brief handle route to accomodate to given stop
     void rerouteDRTStop(MSStoppingPlace* busStop);
 
