@@ -177,6 +177,17 @@ def add_dropoff_constraint(data, routing, manager, verbose):
         routing.SetAllowedVehiclesForIndex([res.vehicle_index], index)
 
 
+def add_allocation_constraint(data, routing, manager, verbose):
+    if verbose:
+        print(' Add "no re-allocation" constraints...')
+    for res in data['pickups_deliveries']:
+        if hasattr(res, 'vehicle_index'):
+            if verbose:
+                print('reservation %s in veh id=%s' % (res.id, res.vehicle_index))
+            index = manager.NodeToIndex(res.to_node)
+            routing.SetAllowedVehiclesForIndex([res.vehicle_index], index)
+
+
 def add_capacity_constraint(data, routing, manager, verbose):
     if verbose:
         print(' Add capacity constraints...')
@@ -274,6 +285,10 @@ def main(data, time_limit_seconds=10, verbose=False):
 
     # Force the vehicle to drop-off the reservations it already picked up
     add_dropoff_constraint(data, routing, manager, verbose)
+
+    # If no reallocation is desired
+    if data['fix_allocation'] == True:
+        add_allocation_constraint(data, routing, manager, verbose)
 
     # Add Capacity constraint.
     add_capacity_constraint(data, routing, manager, verbose)

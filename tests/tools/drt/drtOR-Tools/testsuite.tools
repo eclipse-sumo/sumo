@@ -7,6 +7,9 @@ direct_route_factor_3
 # Add new request while taxi is already occupied and recalculate dispatch.
 oneTaxi_addNewReq
 
+# Add new request while taxis are already occupied and recalculate dispatch. Due to SUMO currently does not allow re-dispatching (ticket #11619) allways use option --fix-allocation to keep the allocations all the time.
+twoTaxis_addNewReq_fixed_allocation
+
 # test ortools
 twoTaxis
 
