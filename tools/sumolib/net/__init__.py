@@ -627,11 +627,11 @@ class Net:
         found.add(source)
         while len(fringe) > 0:
             new_fringe = []
-            for edge in fringe:
+            for e in fringe:
                 if vclass == "pedestrian":
-                    cands = chain(chain(*edge.getIncoming().values()), chain(*edge.getOutgoing().values()))
+                    cands = chain(chain(*e.getIncoming().values()), chain(*e.getOutgoing().values()))
                 else:
-                    cands = chain(*(edge.getIncoming().values() if useIncoming else edge.getOutgoing().values()))
+                    cands = chain(*(e.getIncoming().values() if useIncoming else e.getOutgoing().values()))
                 # print("\n".join(map(str, list(cands))))
                 for conn in cands:
                     if vclass is None or (

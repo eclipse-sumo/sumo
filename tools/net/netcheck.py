@@ -29,7 +29,6 @@ from __future__ import print_function
 import os
 import sys
 from optparse import OptionParser
-from itertools import chain
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import sumolib.net  # noqa
 
@@ -102,7 +101,7 @@ def getReachable(net, source_id, options, useIncoming=False):
         sys.exit("'{}' is not a valid edge id".format(source_id))
     source = net.getEdge(source_id)
     try:
-        found  = net.getReachable(source, options.vclass, useIncoming)
+        found = net.getReachable(source, options.vclass, useIncoming)
         if useIncoming:
             print("{} of {} edges can reach edge '{}':".format(
                 len(found), len(net.getEdges()), source_id))

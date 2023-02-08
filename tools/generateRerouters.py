@@ -23,7 +23,6 @@ from __future__ import print_function
 from __future__ import absolute_import
 import os
 import sys
-from collections import defaultdict
 
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
@@ -44,7 +43,7 @@ def get_options(args=None):
                   help="only consider necessary detours for the given vehicle class (default passenger)")
     op.add_option("--allow", default="authority",
                   help="vClasses that shall be permitted on the closed edge")
-    op.add_option("--disallow", 
+    op.add_option("--disallow",
                   help="vClasses that shall be prohibited on the closed edge")
     op.add_option("-b", "--begin",  default=0,
                   help="begin time for the closing")
@@ -68,7 +67,7 @@ def findNotifcationEdges(options, net, closedEdges):
             p = set(lane.getPermissions())
             p.remove(options.vclass)
             lane.setPermissions(p)
-    
+
     for e in closedEdges:
         reachable = set()
         for succ in e.getOutgoing().keys():
