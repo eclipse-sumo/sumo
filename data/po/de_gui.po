@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-05 21:26+0100\n"
 "PO-Revision-Date: 2023-02-09 07:36+0000\n"
-"Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
+"Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
 "Language: de\n"
@@ -7016,8 +7016,8 @@ msgstr ""
 msgid ""
 "The lateral position on the arrival lane at which the vehicle shall arrive"
 msgstr ""
-"Die seitliche Position auf dem Ankunftsfahrstreifen, an der das Fahrzeug in "
-"das Netz einfahren soll"
+"Die seitliche Position auf dem Ankunftsfahrstreifen, an dem das Fahrzeug das "
+"Netz verlassen soll"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4942
 #, fuzzy
@@ -7030,13 +7030,12 @@ msgstr "Abfahrtszeit des ersten Flusses"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4967
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4988
-#, fuzzy
 msgid "probability for emitting a flow each second"
-msgstr "Wahrscheinlichkeit für das Senden eines Flusses pro Sekunde"
+msgstr "Wahrscheinlichkeit für das Aussenden eines Fahrzeugs pro Sekunde"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4968
 msgid "(not together with vehsPerHour or period)"
-msgstr "(nicht zusammen mit Fahrzeuge pro Stunde oder Period)"
+msgstr "(nicht zusammen mit vehsPerHour oder period)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4974
 msgid "Number of flows per hour, equally spaced"
@@ -7374,8 +7373,8 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5405
 msgid "Willingness to accept lower front and rear gaps on the target lane."
 msgstr ""
-"Bereitschaft, niedrigere vordere und hintere Lücken auf dem Zielfahrstreifen "
-"zu akzeptieren."
+"Bereitschaft, kürzere vordere und hintere Lücken auf dem Zielfahrstreifen zu "
+"akzeptieren."
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5411
 msgid "Dynamic factor for modifying lcAssertive and lcPushy."
@@ -7530,7 +7529,6 @@ msgstr ""
 "aussteigen möchte"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5620
-#, fuzzy
 msgid ""
 "transfer time if there shall be a jump from this stop to the next route edge"
 msgstr ""
@@ -7543,7 +7541,7 @@ msgstr "Datensatz-ID"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5658
 msgid "Interval ID"
-msgstr "Intervall ID"
+msgstr "Intervall-ID"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5664
 msgid "Data interval begin time"
@@ -7555,7 +7553,7 @@ msgstr "Endzeit Datenintervall"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5686
 msgid "edge ID"
-msgstr "Kanten ID"
+msgstr "Kanten-ID"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5700
 msgid "The name of the edge the edgeRel starts at"
