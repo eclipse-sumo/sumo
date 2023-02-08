@@ -6,6 +6,29 @@ title: ChangeLog
 
 ### Bugfixes
 
+- Simulation
+  - Attribute `lcCooperative` no longer impacts speed adjustments that a vehicle needs for it's personal lane change maneuvers. #9473
+  - Fixed invalid interpretation of sublane positioning of junction leaders during lane changing. Issue #12580
+  - Fixed unsuitable lateral alignment on bidi edge when preparing for a turning movement. Issue #11436
+
+### Enhancements
+
+- netconvert
+  - Added options **--shapefile.width** and **--shapefile.length** to allow importing custom widths and lengtsh from [shape files](Networks/Import/ArcView.md). Issue #12575
+
+- sumo-gui
+  - Dynamically modfied values for `latAlignment` (i.e. when preparing to turn) are now listed in the type-parameter dialog. Issue #12579
+  - The attribute value that is used for scaling edge widths can now be drawn as an annotation. Issue #12544
+
+- TraCI
+  - Added function `vehicle.setLateralLanePosition`. Issue #12568
+
+- tools
+  - Visualization tools now support option **--alpha** to set background transparancy. Issue #12556
+  - Added new tool [generateRerouters.py](Tools/Misc.md#generatererouterspy) to generate rerouters for a given set of closed edges including automatic computation of suitable notification edges. Issue #12510
+
+### Miscellaneous
+
 ## Version 1.16.0 (07.02.2023)
 
 ### Bugfixes
