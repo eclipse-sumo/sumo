@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-05 21:26+0100\n"
-"PO-Revision-Date: 2023-02-08 13:15+0000\n"
-"Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
+"PO-Revision-Date: 2023-02-08 14:26+0000\n"
+"Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
 "Language: de\n"
@@ -4002,8 +4002,9 @@ msgid "Toggle show all person plans."
 msgstr "Alle Personenpläne ein-/ausblenden."
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2744
+#, fuzzy
 msgid "Toggle lock selected person."
-msgstr ""
+msgstr "Ausgewählte Person blockieren ein-/ausschalten"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2752
 msgid "Show all containers plans"
@@ -4014,8 +4015,9 @@ msgid "Toggle show all container plans."
 msgstr "Alle Containerpläne ein-/ausblenden."
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2760
+#, fuzzy
 msgid "Toggle lock selected container."
-msgstr ""
+msgstr "Ausgewählten Container blockieren ein-/ausschalten"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2768
 msgid "Toggle show non-inspected demand elements."
@@ -4030,24 +4032,28 @@ msgid "Toggle show additionals."
 msgstr "Weitere Daten ein-/ausblenden."
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3020
+#, fuzzy
 msgid "Draw TAZREL drawing mode"
-msgstr ""
+msgstr "Zeichne Quelle-Ziel-Beziehung Zeichenmodus"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3020
 msgid "Toggle draw TAZREL drawing mode."
 msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3027
+#, fuzzy
 msgid "Toggle draw TAZ fill"
-msgstr ""
+msgstr "Verkehrsumlegungszonenfüllung zeichnen ein-/ausschalten"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3034
+#, fuzzy
 msgid "Toggle draw TAZRel only from"
-msgstr ""
+msgstr "Quelle-Ziel-Beziehung zeichnen ein-/ausschalten nur von"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3041
+#, fuzzy
 msgid "Toggle draw TAZRel only to"
-msgstr ""
+msgstr "Quelle-Ziel-Beziehung zeichnen ein-/ausschalten nur zu"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3540
 msgid "Set inspect mode"
@@ -4092,8 +4098,9 @@ msgid "Mode for edit connections between lanes. (C)"
 msgstr "Modus zum Hinzufügen von Verbindungen zwischen Fahrstreifen. (C)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3633
+#, fuzzy
 msgid "Set prohibition mode"
-msgstr ""
+msgstr "Verbotsmodus setzen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3633
 msgid "Mode for editing connection prohibitions. (H)"
@@ -4306,7 +4313,7 @@ msgstr "Polygon"
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_GenericData.cpp:128
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_MeanData.cpp:118
 msgid "Undo create "
-msgstr ""
+msgstr "Erstellung rückgängig machen "
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_Additional.cpp:122
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_Connection.cpp:99
@@ -4316,7 +4323,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_GenericData.cpp:130
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_MeanData.cpp:120
 msgid "Undo delete "
-msgstr ""
+msgstr "Löschen rückgängig machen "
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_Additional.cpp:130
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_DataInterval.cpp:118
@@ -4325,7 +4332,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_GenericData.cpp:138
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_MeanData.cpp:128
 msgid "Redo create "
-msgstr ""
+msgstr "Erstellung wiederholen "
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_Additional.cpp:132
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_DataInterval.cpp:120
@@ -4334,15 +4341,15 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_GenericData.cpp:140
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_MeanData.cpp:130
 msgid "Redo delete "
-msgstr ""
+msgstr "Löschen wiederholen "
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_Attribute.cpp:158
 msgid "Undo change "
-msgstr ""
+msgstr "Änderung rückgängig machen "
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_Attribute.cpp:164
 msgid "Redo change "
-msgstr ""
+msgstr "Änderung wiederholen "
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_Children.cpp:147
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_Children.cpp:158
@@ -4393,39 +4400,43 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_Crossing.cpp:175
 msgid "Redo delete crossing"
-msgstr ""
+msgstr "Fußgängerfurt löschen wiederholen"
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_Edge.cpp:136
 msgid "Undo create edge '"
-msgstr ""
+msgstr "Kantenerstellung rückgängig machen '"
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_Edge.cpp:138
 msgid "Undo delete edge '"
-msgstr ""
+msgstr "Kante löschen rückgängig machen '"
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_Edge.cpp:146
 msgid "Redo create edge '"
 msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_Edge.cpp:148
+#, fuzzy
 msgid "Redo delete edge '"
-msgstr ""
+msgstr "Kante löschen wiederholen '"
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_EdgeType.cpp:111
 msgid "Undo create edgeType '"
-msgstr ""
+msgstr "Kantentyperstellung rückgängig machen '"
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_EdgeType.cpp:113
+#, fuzzy
 msgid "Undo delete edgeType '"
-msgstr ""
+msgstr "Kantentyp löschen rückgängig machen '"
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_EdgeType.cpp:121
+#, fuzzy
 msgid "Redo create edgeType '"
-msgstr ""
+msgstr "Kantentyperstellung wiederholen"
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_EdgeType.cpp:123
+#, fuzzy
 msgid "Redo delete edgeType '"
-msgstr ""
+msgstr "Kantentyperstellung löschen wiederholen"
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_EnableAttribute.cpp:113
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_EnableAttribute.cpp:115
@@ -4445,8 +4456,9 @@ msgid "Redo enable "
 msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_Junction.cpp:109
+#, fuzzy
 msgid "Undo create junction '"
-msgstr ""
+msgstr "Knotenpunkterstellung rückgängig machen '"
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_Junction.cpp:111
 msgid "Undo delete junction '"
