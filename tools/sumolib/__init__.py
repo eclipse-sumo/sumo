@@ -22,6 +22,7 @@ import os
 import sys
 import subprocess
 import gzip
+import codecs
 import io
 import warnings
 try:
@@ -198,10 +199,14 @@ def openz(fileOrURL, mode="r", **kwargs):
                 return gzip.open(fileOrURL, mode="w")
             return gzip.open(fileOrURL, mode="wt", encoding="utf8")
         if kwargs.get("tryGZip", True) and "r" in mode:
+            with gzip.open(fileOrURL) as fd:
+                fd.read(1)
             if "b" in mode:
                 return gzip.open(fileOrURL)
+            if sys.version_info[0] < 3:
+                return codecs.getreader('utf-8')(gzip.open(fileOrURL))
             return gzip.open(fileOrURL, mode="rt", encoding="utf8")
-    finally:
+    except:
         pass
     if "b" in mode:
         return io.open(fileOrURL, mode=mode)
