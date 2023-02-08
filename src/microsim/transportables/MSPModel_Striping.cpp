@@ -1309,7 +1309,7 @@ MSPModel_Striping::addCrossingVehs(const MSLane* crossing, int stripes, double l
                 double vehYmin;
                 double vehYmax;
                 // relY increases from left to right (the other way around from vehicles)
-                if ((*it).fromLeft) {
+                if ((*it).fromLeft()) {
                     vehYmin = -(*it).vehAndGap.second + lateral_offset; // vehicle back
                     vehYmax = vehYmin + veh->getVehicleType().getLength() + bGap + minGapToVehicle;
                     vehYmin -= minGapToVehicle;
@@ -1342,7 +1342,7 @@ MSPModel_Striping::addCrossingVehs(const MSLane* crossing, int stripes, double l
                               << " dist=" << (*it).distToCrossing
                               << " gap=" << (*it).vehAndGap.second
                               << " brakeGap=" << bGap
-                              << " fromLeft=" << (*it).fromLeft
+                              << " fromLeft=" << (*it).fromLeft()
                               << " distToCrossBefore=" << distToCrossBeforeVeh
                               << " ymin=" << vehYmin
                               << " ymax=" << vehYmax

@@ -67,18 +67,33 @@ class MSTrafficLightLogic;
 class MSLink {
 public:
 
+    /** @enum LinkLeaderFlag
+     * @brief additional information for link leaders
+     */
+    enum LinkLeaderFlag {
+        /// @brief vehicle is in the way
+        LL_IN_THE_WAY = 1 << 0,
+        /// @brief link leader is passing from left to right
+        LL_FROM_LEFT = 1 << 1
+    };
+
     struct LinkLeader {
-        LinkLeader(MSVehicle* _veh, double _gap, double _distToCrossing, bool _fromLeft = true, bool _inTheWay = false) :
+        LinkLeader(MSVehicle* _veh, double _gap, double _distToCrossing, int _llFlags = LL_FROM_LEFT) :
             vehAndGap(std::make_pair(_veh, _gap)),
             distToCrossing(_distToCrossing),
-            fromLeft(_fromLeft),
-            inTheWay(_inTheWay) {
+            llFlags(_llFlags) { }
+
+        inline bool fromLeft() const {
+            return (llFlags & LL_FROM_LEFT) != 0;
+        }
+        inline bool inTheWay() const {
+            return (llFlags & LL_IN_THE_WAY) != 0;
         }
 
         std::pair<MSVehicle*, double> vehAndGap;
         double distToCrossing;
-        bool fromLeft;
-        bool inTheWay;
+        int llFlags;
+
     };
 
     typedef std::vector<LinkLeader> LinkLeaders;
