@@ -198,7 +198,9 @@ def openz(fileOrURL, mode="r", **kwargs):
                 return gzip.open(fileOrURL, mode="w")
             return gzip.open(fileOrURL, mode="wt", encoding="utf8")
         if kwargs.get("tryGZip", True) and "r" in mode:
-            return gzip.open(fileOrURL)
+            if "b" in mode:
+                return gzip.open(fileOrURL)
+            return gzip.open(fileOrURL, mode="rt", encoding="utf8")
     finally:
         pass
     if "b" in mode:
