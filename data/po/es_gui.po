@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-05 21:26+0100\n"
-"PO-Revision-Date: 2023-02-08 10:48+0000\n"
+"PO-Revision-Date: 2023-02-08 11:32+0000\n"
 "Last-Translator: Pablo Alvarez Lopez <pablo.alvarezlopez@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -983,15 +983,15 @@ msgstr "Presiona F5"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1513
 msgid "Network requires recomputing"
-msgstr ""
+msgstr "Se requiere recalcular la red"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1580
 msgid "Loading console arguments"
-msgstr ""
+msgstr "Cargando argumentos de consola"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1608
 msgid "Creating new network."
-msgstr ""
+msgstr "Creando red nueva."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1619
 msgid "Trying to load an empty network"
@@ -999,7 +999,7 @@ msgstr "No hay calles (edges) ni cruces (junctions) en la red"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1635
 msgid "Loading network file '"
-msgstr ""
+msgstr "Abriendo archivo de red '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1647
 msgid "Trying to load an empty configuration"
@@ -1007,7 +1007,7 @@ msgstr "Intentando cargar una configuración vacía"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1663
 msgid "Loading configuration file '"
-msgstr ""
+msgstr "Abriendo archivo de configuración '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1694
 msgid "Select Import Options"
@@ -1022,6 +1022,8 @@ msgid ""
 "Changes produced in the net due a recomputing with volatile options cannot "
 "be undone. Continue?"
 msgstr ""
+"Los cambios producidos en la red durate la recalculación con opciones "
+"volátiles no se pueden deshacer. Continuar?"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1959
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:2019
@@ -1219,11 +1221,11 @@ msgstr "MeanDatas guardados en '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4144
 msgid "Confirm close Network"
-msgstr ""
+msgstr "Confirmar cierre de la red"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4145
 msgid "You have unsaved changes in the network."
-msgstr ""
+msgstr "Tiene cambios sin guardar en la red."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4146
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4212
@@ -1231,55 +1233,55 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4300
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4344
 msgid "Do you wish to close and discard all changes?"
-msgstr ""
+msgstr "¿Quiere cerrar y descartar todos los cambios?"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4210
 msgid "Save additional elements before close"
-msgstr ""
+msgstr "Guardar elementos adicionales antes de cerrar"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4211
 msgid "You have unsaved additional elements."
-msgstr ""
+msgstr "Tiene elementos adicionales sin guardar."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4254
 msgid "Save demand elements before close"
-msgstr ""
+msgstr "Guardar elementos adicionales antes de cerrar"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4255
 msgid "You have unsaved demand elements."
-msgstr ""
+msgstr "Tiene elementos de demanda sin guardar."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4298
 msgid "Save data elements before close"
-msgstr ""
+msgstr "Guardar elementos de datos antes de cerrar"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4299
 msgid "You have unsaved data elements."
-msgstr ""
+msgstr "Tiene elementos de datos sin guardar."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4342
 msgid "Save meanData elements before close"
-msgstr ""
+msgstr "Guardar elementos meanData antes de cerrar"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4343
 msgid "You have unsaved meanData elements."
-msgstr ""
+msgstr "Tiene elementos meanData sin guardar."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4580
 msgid "loading additional elements from '"
-msgstr ""
+msgstr "abriendo elementos adicionales de '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4583
 msgid "loading additionals from '"
-msgstr ""
+msgstr "abriendo elementos adicionales de '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4650
 msgid "loading meanDatas from '"
-msgstr ""
+msgstr "abriendo elementos meanData de '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4653
 msgid "loading meandatas from '"
-msgstr ""
+msgstr "abriendo elementos meanDatas from '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4687
 msgid "Loading data elements from '"
@@ -1652,7 +1654,7 @@ msgstr "Guardar elementos de demanda en otro archivo."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:478
 msgid "Reload Data Elements"
-msgstr ""
+msgstr "Recargar elementos de datos"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:478
 msgid "Reload data elements."
@@ -1726,7 +1728,7 @@ msgstr "Mover elementos."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:588
 msgid "&Edge"
-msgstr ""
+msgstr "&Calle (Edge)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:588
 msgid "Create junction and edges."
@@ -1746,7 +1748,7 @@ msgstr "Pro&hibición"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:594
 msgid "Modes connection prohibitions."
-msgstr ""
+msgstr "Modo para conexiones prohibidas."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:597
 msgid "Modes traffic lights over junctions."
@@ -1766,7 +1768,7 @@ msgstr "Crear cruces entre edges."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:606
 msgid "TA&Z"
-msgstr ""
+msgstr "&Zona de análisis de tráfico (TAZ)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:606
 msgid "Create Traffic Assignment Zones."
@@ -1774,15 +1776,15 @@ msgstr "Crear zona de análisis de tráfico (TAZ)."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:609
 msgid "Create Points-Of-Interest and polygons."
-msgstr ""
+msgstr "Crear puntos de interés (POI) y polígonos."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:612
 msgid "&Wire"
-msgstr ""
+msgstr "&Cable"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:612
 msgid "Create wires."
-msgstr ""
+msgstr "Crear cables."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:669
 #: /home/micha/programming/sumo/src/netedit/GNEViewParent.cpp:590
@@ -1809,7 +1811,7 @@ msgstr "Tipo"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:675
 msgid "Create types (vehicles, person an containers)."
-msgstr ""
+msgstr "Crear tipos de vehículos, personas y contenedores."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:678
 msgid "Create stops."
@@ -1826,11 +1828,11 @@ msgstr "Crear personas."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:684
 msgid "Person plan"
-msgstr ""
+msgstr "Planes de personas"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:684
 msgid "Create person plans."
-msgstr ""
+msgstr "Crear planes de personas."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:687
 #: /home/micha/programming/sumo/src/netedit/frames/GNETagSelector.cpp:179
@@ -1843,15 +1845,15 @@ msgstr "Crear contenedores."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:690
 msgid "Container plan"
-msgstr ""
+msgstr "Planes de contenedores"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:690
 msgid "Create container plans."
-msgstr ""
+msgstr "Crear planes de contenedores."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:725
 msgid "&EdgeData"
-msgstr ""
+msgstr "&EdgeData"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:725
 msgid "Create edgeData elements."
@@ -1859,7 +1861,7 @@ msgstr "Crear elementos edgeData."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:728
 msgid "Edge&Relation"
-msgstr ""
+msgstr "Edge&Relation"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:728
 msgid "Create edgeRelation elements."
@@ -7655,19 +7657,19 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDrawingShape.cpp:62
 msgid "- 'Abort drawing' or ESC to"
-msgstr ""
+msgstr "- 'Detener dibujado' o ESC para"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDrawingShape.cpp:63
 msgid "  abort shape creation."
-msgstr ""
+msgstr "  detener la creación de la forma."
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDrawingShape.cpp:64
 msgid "- 'Shift + Click' to remove"
-msgstr ""
+msgstr "- 'Shift + Click' para eliminar"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDrawingShape.cpp:65
 msgid "  last inserted point."
-msgstr ""
+msgstr "  el último punto creado."
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDrawingShape.cpp:137
 msgid "A new point cannot be added if drawing wasn't started"
@@ -7681,22 +7683,22 @@ msgstr "Información"
 #: /home/micha/programming/sumo/src/netedit/frames/GNEE2DetectorLegendModule.cpp:38
 #: /home/micha/programming/sumo/src/netedit/frames/GNEPathLegendModule.cpp:38
 msgid " edge candidate"
-msgstr ""
+msgstr " Calle candidata"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEE2DetectorLegendModule.cpp:42
 #: /home/micha/programming/sumo/src/netedit/frames/GNEPathLegendModule.cpp:42
 msgid " last edge selected"
-msgstr ""
+msgstr " última calle seleccionada"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEE2DetectorLegendModule.cpp:45
 #: /home/micha/programming/sumo/src/netedit/frames/GNEPathLegendModule.cpp:45
 msgid " edge selected"
-msgstr ""
+msgstr " Calle seleccionada"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEE2DetectorLegendModule.cpp:48
 #: /home/micha/programming/sumo/src/netedit/frames/GNEPathLegendModule.cpp:51
 msgid " edge disconnected"
-msgstr ""
+msgstr " calle desconectada"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:62
 msgid "Hierarchy"
@@ -7709,71 +7711,71 @@ msgstr "El tipo de vehículo por defecto '%' no se puede eliminar"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:316
 msgid "Center"
-msgstr ""
+msgstr "Centrar"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:323
 msgid "Inspect"
-msgstr ""
+msgstr "Inspeccionar"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:324
 msgid "Delete"
-msgstr ""
+msgstr "Eliminar"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:397
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:416
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:477
 msgid " origin"
-msgstr ""
+msgstr " origen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:398
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:417
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:478
 msgid " destiny"
-msgstr ""
+msgstr " destino"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:506
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:632
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:706
 msgid " additionals..."
-msgstr ""
+msgstr " elementos adicionales..."
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:520
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:583
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:646
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:720
 msgid " demand elements..."
-msgstr ""
+msgstr " elementos de demanda..."
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:534
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:597
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:660
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:738
 msgid " edges..."
-msgstr ""
+msgstr " calles (edges)..."
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:548
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:611
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:674
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:756
 msgid " lanes..."
-msgstr ""
+msgstr " carriles (lanes)..."
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:569
 msgid " TAZElements..."
-msgstr ""
+msgstr " Zonas de análisis de tráfico (TAZs)..."
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:815
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:911
 msgid "Data elements"
-msgstr ""
+msgstr "Elemento de datos"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:841
 msgid "Incomings"
-msgstr ""
+msgstr "Entrantes"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:851
 msgid "Outgoing"
-msgstr ""
+msgstr "Salientes"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:890
 #: /home/micha/programming/sumo/src/netedit/frames/GNENetworkSelector.cpp:65
@@ -7797,119 +7799,119 @@ msgstr "índice"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFlowEditor.cpp:343
 msgid "change multiple flow attributes"
-msgstr ""
+msgstr "cambiar multiples atributos de flujos"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFlowEditor.cpp:369
 msgid "enable multiple flow attributes"
-msgstr ""
+msgstr "activar multiples atributos de flujos"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFlowEditor.cpp:385
 msgid "disable multiple flow attributes"
-msgstr ""
+msgstr "desactivar multiples atributos de flujos"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFlowEditor.cpp:540
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFlowEditor.cpp:568
 msgid "different: "
-msgstr ""
+msgstr "diferencia: "
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrame.cpp:185
 msgid "Parameters of "
-msgstr ""
+msgstr "Parámetros de "
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrame.cpp:195
 msgid "Attribute"
-msgstr ""
+msgstr "Atributo"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrame.cpp:196
 msgid "Description"
-msgstr ""
+msgstr "Descripción"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrame.cpp:197
 msgid "Definition"
-msgstr ""
+msgstr "Definición"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrame.cpp:236
 msgid "Opening HelpAttributes dialog for tag '"
-msgstr ""
+msgstr "Abriendo ventana HelpAttributes para tag '"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrame.cpp:236
 msgid "' showing "
-msgstr ""
+msgstr "' mostrando "
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrame.cpp:236
 msgid " attributes"
-msgstr ""
+msgstr " atributos"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrame.cpp:246
 msgid "Closing HelpAttributes dialog for tag '"
-msgstr ""
+msgstr "Cerrando HelpAttributes dialog for tag '"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrame.cpp:318
 msgid "Scale: Min -> Max"
-msgstr ""
+msgstr "Escala: Menor -> Mayor"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:90
 msgid "attributeCheckButton"
-msgstr ""
+msgstr "attributeCheckButton"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:159
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:160
 msgid "Inspect vehicle "
-msgstr ""
+msgstr "Inspeccionar vehículo "
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:171
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:172
 msgid "Open dialog for editing color"
-msgstr ""
+msgstr "Abrir ventana para editar color"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:176
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:177
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:248
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:249
 msgid "Open dialog for editing allowed vClasses"
-msgstr ""
+msgstr "Abrir ventana para editar clases de vehículo (vClass) permitidos"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:472
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:491
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:607
 msgid "change multiple attributes"
-msgstr ""
+msgstr "cambiar múltiples atributos"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:514
 msgid "Invalid call to onCmdOpenAttributeDialog"
-msgstr ""
+msgstr "Llamada inválida a onCmdOpenAttributeDialog"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:610
 msgid "change "
-msgstr ""
+msgstr "cambiar "
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:610
 msgid " attribute"
-msgstr ""
+msgstr " atributo"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:664
 msgid "Value '"
-msgstr ""
+msgstr "Valor '"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:664
 msgid "' for attribute "
-msgstr ""
+msgstr "' para atributo "
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:664
 msgid " of "
-msgstr ""
+msgstr " de "
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:664
 msgid " isn't valid"
-msgstr ""
+msgstr " no es válido"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:681
 msgid "enable attribute '"
-msgstr ""
+msgstr "activar atributo '"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:689
 msgid "disable attribute '"
-msgstr ""
+msgstr "desactivar atributo '"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:963
 msgid "Extended attributes"
@@ -7934,17 +7936,17 @@ msgstr "Atributos de netedit"
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:55
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:195
 msgid "reference left"
-msgstr ""
+msgstr "referencia izquierda"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:56
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:201
 msgid "reference right"
-msgstr ""
+msgstr "referencia derecha"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:57
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:206
 msgid "reference center"
-msgstr ""
+msgstr "referencia central"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:65
 msgid "Close shape"
