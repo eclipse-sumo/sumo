@@ -3747,13 +3747,16 @@ MSLane::getLeadersOnConsecutive(double dist, double seen, double speed, const MS
                                      < veh->getCarFollowModel().brakeGap(veh->getSpeed())))) {
 #ifdef DEBUG_CONTEXT
                     if (DEBUG_COND2(ego)) {
-                        std::cout << "   linkleader=" << veh->getID() << " gap=" << ll.vehAndGap.second << "\n";
+                        std::cout << "   linkleader=" << veh->getID() << " gap=" << ll.vehAndGap.second << " flags=" << ll.llFlags << "\n";
                     }
 #endif
-                    // add link leader to all sublanes and return
-                    for (int i = 0; i < result.numSublanes(); ++i) {
-                        //result.addLeader(veh, ll.vehAndGap.second, 0, i);
+                    if (ll.sameTarget()) {
                         result.addLeader(veh, ll.vehAndGap.second, 0);
+                    } else {
+                        // add link leader to all sublanes and return
+                        for (int i = 0; i < result.numSublanes(); ++i) {
+                            result.addLeader(veh, ll.vehAndGap.second, 0, i);
+                        }
                     }
 #ifdef DEBUG_CONTEXT
                     gDebugFlag1 = false;
