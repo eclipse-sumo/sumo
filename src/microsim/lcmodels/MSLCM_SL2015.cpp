@@ -3485,7 +3485,10 @@ MSLCM_SL2015::getDesiredAlignment() const {
                 case LinkDirection::TURN:
                 case LinkDirection::LEFT:
                 case LinkDirection::PARTLEFT:
-                    align = MSGlobals::gLefthand ? LatAlignmentDefinition::RIGHT : LatAlignmentDefinition::LEFT;
+                    if (myVehicle.getLane()->getBidiLane() == nullptr) {
+                        // no left alignment on bidi lane to avoid blocking oncoming traffic
+                        align = MSGlobals::gLefthand ? LatAlignmentDefinition::RIGHT : LatAlignmentDefinition::LEFT;
+                    }
                     break;
                 case LinkDirection::TURN_LEFTHAND:
                 case LinkDirection::RIGHT:
