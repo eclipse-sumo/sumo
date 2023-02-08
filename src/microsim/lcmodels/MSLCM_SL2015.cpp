@@ -372,7 +372,8 @@ MSLCM_SL2015::_patchSpeed(double min, const double wanted, double max, const MSC
     }
     const double coopWeight = MAX2(0.0, MIN2(1.0, myCooperativeSpeed));
     for (auto i : myLCAccelerationAdvices) {
-        double v = myVehicle.getSpeed() + ACCEL2SPEED(i.first);
+        double accel = i.first;
+        double v = myVehicle.getSpeed() + ACCEL2SPEED(accel);
         if (v >= min && v <= max) {
             if (i.second) {
                 // own advice, no scaling needed
@@ -383,18 +384,18 @@ MSLCM_SL2015::_patchSpeed(double min, const double wanted, double max, const MSC
             gotOne = true;
 #ifdef DEBUG_PATCHSPEED
             if (gDebugFlag2) {
-                std::cout << SIMTIME << " veh=" << myVehicle.getID() << " got accel=" << (*i) << " nVSafe=" << nVSafe << "\n";
+                std::cout << SIMTIME << " veh=" << myVehicle.getID() << " got accel=" << accel << " nVSafe=" << nVSafe << "\n";
             }
 #endif
         } else {
 #ifdef DEBUG_PATCHSPEED
             if (v < min) {
                 if (gDebugFlag2) {
-                    std::cout << SIMTIME << " veh=" << myVehicle.getID() << " ignoring low nVSafe=" << v << " (accel=" << (*i) << ") min=" << min << "\n";
+                    std::cout << SIMTIME << " veh=" << myVehicle.getID() << " ignoring low nVSafe=" << v << " (accel=" << accel << ") min=" << min << "\n";
                 }
             } else {
                 if (gDebugFlag2) {
-                    std::cout << SIMTIME << " veh=" << myVehicle.getID() << " ignoring high nVSafe=" << v << " (accel=" << (*i) << ") max=" << max << "\n";
+                    std::cout << SIMTIME << " veh=" << myVehicle.getID() << " ignoring high nVSafe=" << v << " (accel=" << accel << ") max=" << max << "\n";
                 }
             }
 #endif
@@ -824,7 +825,7 @@ MSLCM_SL2015::informFollower(int blocked,
                           << " vneigh=" << nv->getSpeed()
                           << " vhelp=" << vhelp
                           << " needDV=" << needDV
-                          << " vsafe=" << myVehicle.getSpeed() + ACCEL2SPEED(myLCAccelerationAdvices.back())
+                          << " vsafe=" << myVehicle.getSpeed() + ACCEL2SPEED(myLCAccelerationAdvices.back().first)
                           << "\n";
             }
 #endif
@@ -834,7 +835,7 @@ MSLCM_SL2015::informFollower(int blocked,
         msg(neighFollow, vsafe, dir | LCA_AMBLOCKINGFOLLOWER);
 #ifdef DEBUG_INFORM
         if (gDebugFlag2) {
-            std::cout << " wants to cut in before non-blocking follower nv=" << nv->getID() << "\n";
+            std::cout << " wants to cut in before non-blocking follower nv=" << neighFollow.first->getID() << "\n";
         }
 #endif
     }
@@ -2805,7 +2806,7 @@ MSLCM_SL2015::checkStrategicChange(int ret,
                               << " avoid overtaking on the right nv=" << nv->getID()
                               << " nvSpeed=" << nv->getSpeed()
                               << " mySpeedGainProbabilityR=" << mySpeedGainProbabilityRight
-                              << " plannedSpeed=" << myVehicle.getSpeed() + ACCEL2SPEED(myLCAccelerationAdvices.back())
+                              << " plannedSpeed=" << myVehicle.getSpeed() + ACCEL2SPEED(myLCAccelerationAdvices.back().first)
                               << "\n";
                 }
 #endif
