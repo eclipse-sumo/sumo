@@ -184,6 +184,12 @@ ppStages("findIntermodalRoute (car)", traci.simulation.findIntermodalRoute("o", 
 ppStages("findIntermodalRoute (bike,car,public)",
          traci.simulation.findIntermodalRoute("o", "2o", modes="car bicycle public"))
 
+try:
+    print("findIntermodalRoute", traci.simulation.findIntermodalRoute("o", "2o",
+        departPos=1e5))
+except traci.TraCIException:
+    pass
+
 traci.vehicle.setSpeedMode("emergencyStopper", 0)
 traci.vehicle.setSpeed("emergencyStopper", 100)
 try:
