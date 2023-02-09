@@ -26,7 +26,6 @@ import os
 import sys
 import collections
 import subprocess
-import re
 sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
 
@@ -90,13 +89,14 @@ def main(options):
         for s in stops.values():
             stop_out.write(s.toXML("    "))
         print('    </additional>', file=stop_out)
-    patterns = [(re.compile('(edges="[^ "]*)%s([^ "]*")' % e), r'\g<1>%s\g<2>' % r) for e, r in replace_edges.items()]
     if options.routes:
         with sumolib.openz(options.routes) as route_in, sumolib.openz(options.route_output, "w") as route_out:
             for line in route_in:
                 if "<route" in line:
-                    for p1, p2 in patterns:
-                        line = p1.sub(p2, line)
+                    eb = line.find('edges="') + 7
+                    ee = line.find('"', eb)
+                    l = [replace_edges.get(e, e) for e in line[eb:ee].split()]
+                    line = line[:eb] + " ".join(l) + line[ee:]
                 route_out.write(line)
 
 
