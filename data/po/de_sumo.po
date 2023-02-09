@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-05 21:26+0100\n"
-"PO-Revision-Date: 2023-02-08 10:48+0000\n"
+"PO-Revision-Date: 2023-02-09 15:50+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -5912,9 +5912,8 @@ msgid "myLaneStorage cannot be empty"
 msgstr "myLaneStorage kann nicht leer sein"
 
 #: /home/micha/programming/sumo/src/netload/NLEdgeControlBuilder.cpp:144
-#, fuzzy
 msgid "myActiveEdge cannot be nullptr"
-msgstr "myActiveEdge kann nicht nullptr"
+msgstr ""
 
 #: /home/micha/programming/sumo/src/netload/NLEdgeControlBuilder.cpp:198
 msgid "Asymmetrical neigh lane '%' for lane '%'"
@@ -7099,9 +7098,8 @@ msgid "Error during calculation of position in pattern!"
 msgstr "Fehler bei der Berechnung der Position im Modell!"
 
 #: /home/micha/programming/sumo/src/utils/foxtools/MFXGroupBoxModule.cpp:94
-#, fuzzy
 msgid "This MFXGroupBoxModule doesn't support Extensible flag"
-msgstr "Dieses MFXGroupBoxModule unterstützt keine erweiterbare Flagge"
+msgstr ""
 
 #: /home/micha/programming/sumo/src/utils/foxtools/MFXTreeListDynamic.cpp:147
 #: /home/micha/programming/sumo/src/utils/foxtools/MFXTreeListDynamic.cpp:159
@@ -7109,9 +7107,8 @@ msgid "New item cannot be NULL"
 msgstr "Neuer Gegenstand kann nicht NULL sein"
 
 #: /home/micha/programming/sumo/src/utils/geom/GeoConvHelper.cpp:86
-#, fuzzy
 msgid "Ignoring geoidgrids and vgridshift in projection"
-msgstr "Ignoriere Geoidgitter und"
+msgstr "Ignoriere geoidgrids und vgridshift in der Projektion"
 
 #: /home/micha/programming/sumo/src/utils/geom/GeoConvHelper.cpp:231
 msgid "Inverse projection works only with explicit proj parameters."
