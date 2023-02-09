@@ -30,18 +30,21 @@ from os.path import dirname, join
 from subprocess import check_output
 
 def formatTemplate(templateStr):
-    # remove endlines in Windows und linux
-    templateStr = templateStr.replace("\\r", " ")
-    templateStr = templateStr.replace("\\n", " ")
-    # avoid double spaces
-    templateStr = templateStr.replace("  ", " ")
+    # remove endlines in Windows
+    templateStr = templateStr.replace("\\r", '')
     # replace " with \"
     templateStr = templateStr.replace('"', '\\"')
+    # split lines
+    templateStr = templateStr.replace("\\n", '"\n    "')
+    # avoid unused lines
+    templateStr = templateStr.replace('    ""\n', "")
     # replace first backspace
     templateStr = templateStr.replace("\\b'", '"')
     # remove two last characters
     templateStr = templateStr[:-2]
     templateStr += '";'
+    # update last line
+    templateStr = templateStr.replace('\n    ";', ';')
     return templateStr
 
 
