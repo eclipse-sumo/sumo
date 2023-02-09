@@ -26,6 +26,7 @@ import os
 import sys
 import collections
 import subprocess
+import re
 sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
 
@@ -68,18 +69,19 @@ def main(options):
                     end = float(s.endPos)
                     if start > prev_end and (not net or net.getEdge(e).getLength() > start):
                         print('        <split pos="%s"/>' % s.startPos, file=out)
+                    if not net or net.getEdge(e).getLength() > end + 0.1:
+                        print('        <split pos="%s"/>' % s.endPos, file=out)
                     if start > 0:
                         stops[s.id].lane = e + ".%s%s" % (int(start), s.lane[s.lane.rfind("_"):])
                         stops[s.id].startPos = "0"
                         stops[s.id].endPos = "%s" % (end - start)
-                        if e not in replace_edges:
-                            replace_edges[e] = e
+                        replace_edges.setdefault(e, e)
                         replace_edges[e] += " %s.%s" % (e, int(start))
-                    if not net or net.getEdge(e).getLength() > end + 0.1:
-                        print('        <split pos="%s"/>' % s.endPos, file=out)
+                    replace_edges.setdefault(e, e)
+                    replace_edges[e] += " %s.%s" % (e, int(end))
                     prev_end = end + .1
                 print('    </edge>', file=out)
-        print('    </edges>', file=out)
+        print('</edges>', file=out)
     if net:
         subprocess.call([sumolib.checkBinary("netconvert"), "-s", options.network,
                          "-e", out.name, "-o", options.output])
@@ -88,13 +90,14 @@ def main(options):
         for s in stops.values():
             stop_out.write(s.toXML("    "))
         print('    </additional>', file=stop_out)
+    patterns = [(re.compile('(edges="[^ "]*)%s([^ "]*")' % e), '\\1%s\\2' % r) for e, r in replace_edges.items()]
     if options.routes:
         with sumolib.openz(options.routes) as route_in, sumolib.openz(options.route_output, "w") as route_out:
             for line in route_in:
-                for e, r in replace_edges.items():
-                    line = line.replace(e + ' ', r + ' ')
-                    line = line.replace(e + '"', r + '"')
-            route_out.write(line)
+                if "<route" in line:
+                    for p1, p2 in patterns:
+                        line = p1.sub(p2, line)
+                route_out.write(line)
 
 
 if __name__ == "__main__":
