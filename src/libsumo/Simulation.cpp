@@ -673,7 +673,7 @@ Simulation::findIntermodalRoute(const std::string& from, const std::string& to,
         arrivalPos += toEdge->getLength();
     }
     if (departPos < 0 || departPos >= fromEdge->getLength()) {
-        throw TraCIException("Invalid depart position " + toString(departPos) + " for edge '" + to + "'.");
+        throw TraCIException("Invalid depart position " + toString(departPos) + " for edge '" + from + "'.");
     }
     if (arrivalPos < 0 || arrivalPos >= toEdge->getLength()) {
         throw TraCIException("Invalid arrival position " + toString(arrivalPos) + " for edge '" + to + "'.");
