@@ -2615,6 +2615,8 @@ MSLCM_SL2015::updateCFRelated(const MSLeaderDistanceInfo& vehicles, double foeOf
                 if (gDebugFlag2 && erased > 0) {
                     std::cout << "       restoring cfrelated foe=" << vehDist.first->getID()  << "\n";
                 }
+#else
+                UNUSED_PARAMETER(erased);
 #endif
             }
         }
