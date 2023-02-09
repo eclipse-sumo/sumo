@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-05 21:26+0100\n"
-"PO-Revision-Date: 2023-02-09 12:48+0000\n"
+"PO-Revision-Date: 2023-02-09 14:52+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
@@ -5661,7 +5661,7 @@ msgstr "車道區域偵測器名稱"
 msgid ""
 "The time-based threshold that describes how much time has to pass until a "
 "vehicle is recognized as halting)"
-msgstr ""
+msgstr "時間為基礎的閾值用來定義車輛必須停等多少時間才會被認為是停等"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2046
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2126
@@ -5669,7 +5669,7 @@ msgstr ""
 msgid ""
 "The speed-based threshold that describes how slow a vehicle has to be to be "
 "recognized as halting) in m/s"
-msgstr ""
+msgstr "速度為基礎的閾值用來定義車輛必需行駛多慢才會被認為是停等 (單位為 公尺/秒)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2052
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2132
