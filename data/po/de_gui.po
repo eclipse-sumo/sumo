@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-05 21:26+0100\n"
-"PO-Revision-Date: 2023-02-09 11:20+0000\n"
+"PO-Revision-Date: 2023-02-09 12:00+0000\n"
 "Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -3933,10 +3933,13 @@ msgid "Automatic select junctions"
 msgstr "Knotenpunkte automatisch auswählen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2456
+#, fuzzy
 msgid ""
 "Toggle whether selecting multiple edges should automatically select their "
 "junctions."
 msgstr ""
+"Beim Auswählen mehrerer Kanten automatisch deren Knotenpunkte auswählen ein-/"
+"ausschalten"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2464
 msgid "Apply state to all phases"
@@ -3947,6 +3950,8 @@ msgid ""
 "Toggle whether clicking should apply state changes to all phases of the "
 "current TLS plan."
 msgstr ""
+"Durch Klicken Zustandsänderungen auf alle Phasen des LSA-Planes anwenden "
+"ein-/ausschalten."
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2472
 msgid "Automatic merging junction"
@@ -3955,6 +3960,8 @@ msgstr "Knotenpunkte automatisch zusammenführen"
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2472
 msgid "Toggle ask for confirmation before merging junction."
 msgstr ""
+"Um Bestätigung bitten vor dem Zusammenfügen eines Knotenpunkts ein-/"
+"ausschalten."
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2479
 msgid "Show bubbles"
@@ -3969,8 +3976,9 @@ msgid "Move elevation"
 msgstr "Höhe verschieben"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2487
+#, fuzzy
 msgid "Apply mouse movement to elevation instead of x,y position."
-msgstr ""
+msgstr "Wende die Mausbewegung auf die Höhe statt auf die x-, y-Position an."
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2495
 msgid "Edge chain mode"
@@ -4040,7 +4048,7 @@ msgstr "Zeichne Quelle-Ziel-Beziehung Zeichenmodus"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3020
 msgid "Toggle draw TAZREL drawing mode."
-msgstr ""
+msgstr "Quelle-Ziel-Beziehung Zeichnungsmodus ein-/ausschalten."
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3027
 #, fuzzy
@@ -4369,7 +4377,6 @@ msgstr "Operation ungültig"
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_Children.cpp:171
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_Children.cpp:180
-#, fuzzy
 msgid "Redo moving front "
 msgstr "Vorwärtsgehen wiederholen "
 
@@ -4412,10 +4419,9 @@ msgstr "Kante löschen rückgängig machen '"
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_Edge.cpp:146
 msgid "Redo create edge '"
-msgstr ""
+msgstr "Kantenerstellung wiederholen '"
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_Edge.cpp:148
-#, fuzzy
 msgid "Redo delete edge '"
 msgstr "Kante löschen wiederholen '"
 
@@ -4424,24 +4430,22 @@ msgid "Undo create edgeType '"
 msgstr "Kantentyperstellung rückgängig machen '"
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_EdgeType.cpp:113
-#, fuzzy
 msgid "Undo delete edgeType '"
 msgstr "Kantentyp löschen rückgängig machen '"
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_EdgeType.cpp:121
-#, fuzzy
 msgid "Redo create edgeType '"
 msgstr "Kantentyperstellung wiederholen"
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_EdgeType.cpp:123
-#, fuzzy
 msgid "Redo delete edgeType '"
 msgstr "Kantentyperstellung löschen wiederholen"
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_EnableAttribute.cpp:113
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_EnableAttribute.cpp:115
+#, fuzzy
 msgid "Undo enable "
-msgstr ""
+msgstr "Berechtigen rückgängig machen "
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_EnableAttribute.cpp:113
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_EnableAttribute.cpp:115
@@ -4452,17 +4456,17 @@ msgstr " Attribut in '"
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_EnableAttribute.cpp:123
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_EnableAttribute.cpp:125
+#, fuzzy
 msgid "Redo enable "
-msgstr ""
+msgstr "Berechtigung wiederholen "
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_Junction.cpp:109
-#, fuzzy
 msgid "Undo create junction '"
 msgstr "Knotenpunkterstellung rückgängig machen '"
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_Junction.cpp:111
 msgid "Undo delete junction '"
-msgstr ""
+msgstr "Knotenpunkt löschen rückgängig machen '"
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_Junction.cpp:119
 msgid "Redo create junction '"
@@ -4514,7 +4518,6 @@ msgid "About Eclipse SUMO netedit"
 msgstr "Über Eclipse SUMO Netedit"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEAbout.cpp:53
-#, fuzzy
 msgid "Network editor for Eclipse SUMO, the Simulation of Urban MObility"
 msgstr "Netzeditor für Eclipse SUMO, the Simulation of Urban MObility"
 
@@ -5546,7 +5549,7 @@ msgstr "Optionale Platzdefinition für Fahrzeuge die an diesen Halt parken"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1583
 msgid "The RGBA color with which the busStop shall be displayed"
-msgstr ""
+msgstr "Die RGBA-Farbe, mit der die Bushaltestelle dargestellt werden soll"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1597
 msgid "The id of train stop"
@@ -5594,7 +5597,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1647
 msgid "The RGBA color with which the trainStop shall be displayed"
-msgstr ""
+msgstr "Die RGBA-Farbe, mit der die Bahnhaltestelle dargestellt werden soll"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1661
 msgid "The name of the lane the stop access shall be located at"
@@ -5638,7 +5641,6 @@ msgstr ""
 "halten. Dies dient nur der Visualisierung"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1733
-#, fuzzy
 msgid ""
 "Larger numbers of container trying to enter will create an upstream jam on "
 "the sidewalk"
@@ -5652,7 +5654,7 @@ msgstr "6"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1745
 msgid "The RGBA color with which the containerStop shall be displayed"
-msgstr ""
+msgstr "Die RGBA-Farbe, mit der der Containerhaltepunkt dargestellt werden soll"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1758
 msgid "The id of charging station"
@@ -5848,7 +5850,7 @@ msgstr "Die Länge vom Detektor in Metern"
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2020
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2100
 msgid "The traffic light that triggers aggregation when switching"
-msgstr ""
+msgstr "Die LSA löst beim Schalten die Aggregation aus"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2025
 msgid "Name of lane area detector"
@@ -5914,8 +5916,9 @@ msgid "X-Y position of detector in editor (Only used in NETEDIT)"
 msgstr "X-Y-Position des Detektors im Editor (wird nur in NETEDIT verwendet)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2172
+#, fuzzy
 msgid "Name of Entry Exit detector"
-msgstr ""
+msgstr "Name des auftretenden Ausgangsdetektor"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2187
 msgid ""
@@ -5992,10 +5995,13 @@ msgstr "Name vom Kalibrator"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2396
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2452
+#, fuzzy
 msgid ""
 "The id of the routeProbe element from which to determine the route "
 "distribution for generated vehicles"
 msgstr ""
+"Die ID des Routendetektor-Elements, aus dem die Routenverteilung für "
+"generierte Fahrzeuge ermittelt werden soll"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2401
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2457
@@ -6137,7 +6143,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2723
 msgid "The id of RouteProbe"
-msgstr ""
+msgstr "Die ID vom Routendetektor"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2728
 msgid "The id of an edge in the simulation network"
@@ -6149,7 +6155,7 @@ msgstr "Die Häufigkeit, mit der die Verteilung gemeldet werden soll"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2739
 msgid "Name of route probe"
-msgstr ""
+msgstr "Name vom Routendetektor"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2744
 msgid "The file for generated output"
@@ -6185,7 +6191,7 @@ msgstr "Die Shape vom Polygon"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2811
 msgid "The RGBA color with which the polygon shall be displayed"
-msgstr ""
+msgstr "Die RGBA-Farbe, mit der das Polygon dargestellt werden soll"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2817
 msgid "An information whether the polygon shall be filled"
@@ -6327,6 +6333,7 @@ msgstr "Eine Information, ob die Verkehrsumlegungszone ausgefüllt werden soll"
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3139
 msgid "The RGBA color with which the TAZ shall be displayed"
 msgstr ""
+"Die RGBA-Farbe, mit der die Verkehrsumlegungszone dargestellt werden soll"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3164
 msgid "Depart weight associated to this Edge"
@@ -6354,7 +6361,7 @@ msgstr "Oberleitungsabschnitt ID"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3243
 msgid "Substation to which the circuit is connected"
-msgstr ""
+msgstr "Unterstation, an die der Stromkreis angeschlossen ist"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3248
 msgid "List of consecutive lanes of the circuit"
@@ -6473,8 +6480,9 @@ msgid "The vehicle's netto-length (length) [m]"
 msgstr "Die Fahrzeug Nettolänge (Länge) [m]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3447
+#, fuzzy
 msgid "Empty space after leader [m]"
-msgstr ""
+msgstr "Leerraum nach Anführer [m]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3452
 msgid "The vehicle's maximum velocity [m/s]"
@@ -6491,6 +6499,8 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3462
 msgid "The vehicles desired maximum velocity (interacts with speedFactor)."
 msgstr ""
+"Die gewünschte Höchstgeschwindigkeit des Fahrzeugs (interagiert mit "
+"speedFactor)."
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3463
 msgid "Applicable when no speed Limit applies (bicycles, some motorways) [m/s]"
@@ -6520,6 +6530,8 @@ msgid ""
 "Image file for rendering vehicles of this type (should be grayscale to allow "
 "functional coloring)"
 msgstr ""
+"Bilddatei zum Rendern von Fahrzeugen dieses Typs (sollte in Graustufen sein, "
+"um eine funktionale Farbgebung zu ermöglichen)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3497
 #, fuzzy
@@ -6759,37 +6771,40 @@ msgid "The name of the lane the waypoint shall be located at"
 msgstr "Der Name des Fahrstreifen, auf der sich der Wegpunkt befinden soll"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4090
+#, fuzzy
 msgid "The lateral offset on the named lane at which the vehicle must waypoint"
 msgstr ""
+"Der seitliche Versatz auf dem benannten Fahrstreifen, auf den das Fahrzeug "
+"einen Wegpunkt haben muss"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4106
 msgid "BusWaypoint associated with this waypoint"
-msgstr ""
+msgstr "Buswegpunkt, der diesem Wegpunkt zugeordnet ist"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4122
 msgid "ContainerWaypoint associated with this waypoint"
-msgstr ""
+msgstr "Containerwegpunkt, der diesem Wegpunkt zugeordnet ist"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4138
 msgid "ChargingStation associated with this waypoint"
-msgstr ""
+msgstr "Ladestation wurde diesem Wegpunkt zugeordnet"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4154
 msgid "ParkingArea associated with this waypoint"
-msgstr ""
+msgstr "Parkplatz wurde diesem Wegpunkt zugeordnet"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4182
 msgid "The time step at which the person shall enter the network"
-msgstr ""
+msgstr "Der Zeitschritt, zu dem die Person in das Netz eintreten soll"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4222
 msgid "The time step at which the container shall enter the network"
-msgstr ""
+msgstr "Der Zeitschritt, zu dem der Container in das Netz eintreten soll"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4258
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4288
 msgid "The name of the edge the transport starts at"
-msgstr ""
+msgstr "Der Name der Kante, an der der Transport beginnt"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4263
 msgid "The name of the edge the transport ends at"
@@ -6870,7 +6885,7 @@ msgstr "Der Zeitschritt, bei dem die Route fortgesetzt wird"
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4457
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4489
 msgid "Activity displayed for stopped container in GUI and output files "
-msgstr ""
+msgstr "Aktivität zeigt angehaltene Container in der GUI und Ausgabedateien an "
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4510
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4550
@@ -6962,6 +6977,7 @@ msgstr "Liste der Fahrzeugalternativen für die Fahrt"
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4859
 msgid "Activity displayed for stopped person in GUI and output files "
 msgstr ""
+"Aktivität zeigt die angehaltene Person in der GUI und Ausgabedateien an "
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4871
 msgid "This vehicle's color"
@@ -6996,6 +7012,8 @@ msgid ""
 "A string specifying the id of a public transport line which can be used when "
 "specifying person rides"
 msgstr ""
+"Ein String der die ID einer ÖV-Linie angibt, die bei der Angabe von "
+"Personenfahrten verwendet werden kann"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4918
 msgid "The number of occupied seats when the vehicle is inserted"
@@ -7044,11 +7062,11 @@ msgstr "Anzahl der Flüsse pro Stunde, gleichmäßig verteilt"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4975
 msgid "(not together with period or probability or poisson)"
-msgstr ""
+msgstr "(nicht zusammen mit period, probability oder poisson)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4981
 msgid "Insert equally spaced flows at that period"
-msgstr ""
+msgstr "In diesem Zeitraum gleichmäßig verteilte Flüsse einfügen"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4982
 msgid "(not together with vehsPerHour or probability or poisson)"
