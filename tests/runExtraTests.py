@@ -30,6 +30,7 @@ def run(suffix, args, guiTests=False, chrouter=True):
     env = os.environ
     root = os.path.abspath(os.path.dirname(__file__))
     env["TEXTTEST_HOME"] = root
+    env["LANG"] = "C"
     if "SUMO_HOME" not in env:
         env["SUMO_HOME"] = os.path.join(root, "..")
     for binary in ("activitygen", "emissionsDrivingCycle", "emissionsMap",
