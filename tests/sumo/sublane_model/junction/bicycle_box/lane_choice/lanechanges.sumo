@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-12-04 16:29:39 by Eclipse SUMO sumo Version v1_15_0+0751-db72905
+<!-- generated on 2023-02-09 09:36:02 by Eclipse SUMO sumo Version v1_16_0+0059-f5f3b16
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -66,7 +66,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <change id="ahead.12" type="vehDistCyc" time="92.00" from="gneE4c_0" to="gneE4c_1" dir="1" speed="0.00" pos="4.24" reason="strategic|urgent" leaderGap="1.25" leaderSecureGap="0.00" leaderSpeed="0.00" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="1.24" origLeaderSecureGap="0.00" origLeaderSpeed="0.01" latGap="None"/>
     <change id="ahead.9" type="vehDistCyc" time="95.00" from="gneE4c_0" to="gneE4c_1" dir="1" speed="0.00" pos="10.19" reason="strategic|urgent" leaderGap="3.98" leaderSecureGap="0.00" leaderSpeed="3.30" followerGap="0.65" followerSecureGap="0.00" followerSpeed="0.00" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="None"/>
     <change id="left.7" type="vehDistCyc" time="98.00" from="gneE4c_0" to="gneE4c_1" dir="1" speed="0.00" pos="4.33" reason="strategic|urgent" leaderGap="0.96" leaderSecureGap="0.00" leaderSpeed="1.06" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="None"/>
-    <change id="ahead.13" type="vehDistCyc" time="101.00" from="gneE4c_0" to="gneE4c_1" dir="1" speed="0.00" pos="5.00" reason="strategic|urgent" leaderGap="4.27" leaderSecureGap="0.00" leaderSpeed="1.74" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="1.40"/>
-    <change id="left.7" type="vehDistCyc" time="102.00" from="gneE4c_1" to="gneE4c_2" dir="1" speed="0.65" pos="4.98" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="None"/>
-    <change id="ahead.14" type="vehDistCyc" time="103.00" from="gneE4c_0" to="gneE4c_1" dir="1" speed="0.00" pos="2.73" reason="strategic|urgent" leaderGap="3.75" leaderSecureGap="0.00" leaderSpeed="1.97" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="None"/>
+    <change id="ahead.13" type="vehDistCyc" time="100.00" from="gneE4c_0" to="gneE4c_1" dir="1" speed="1.14" pos="5.00" reason="strategic|urgent" leaderGap="4.64" leaderSecureGap="1.14" leaderSpeed="2.56" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="1.95"/>
+    <change id="left.7" type="vehDistCyc" time="102.00" from="gneE4c_1" to="gneE4c_2" dir="1" speed="1.19" pos="7.02" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="1.50" origLeaderSecureGap="1.12" origLeaderSpeed="3.07" latGap="None"/>
+    <change id="ahead.14" type="vehDistCyc" time="103.00" from="gneE4c_0" to="gneE4c_1" dir="1" speed="1.38" pos="5.05" reason="strategic|urgent" leaderGap="3.83" leaderSecureGap="0.00" leaderSpeed="0.36" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="None"/>
 </lanechanges>
