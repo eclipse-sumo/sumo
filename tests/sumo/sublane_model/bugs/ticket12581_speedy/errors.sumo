@@ -1,6 +1,0 @@
-Warning: Teleporting vehicle 'f_0.628'; junction collision with vehicle 'f_0.634', lane=':J1_0_1', gap=-3.29', latGap=-0.24, time=1011.00 stage=laneChange.
-Warning: Vehicle 'f_0.628' ends teleporting on edge 'E1', time=1011.00.
-Warning: Teleporting vehicle 'f_0.1122'; junction collision with vehicle 'f_0.1135', lane=':J1_0_1', gap=-7.21', latGap=-0.30, time=1780.00 stage=laneChange.
-Warning: Vehicle 'f_0.1122' ends teleporting on edge 'E1', time=1781.00.
-Warning: Teleporting vehicle 'f_0.1325'; junction collision with vehicle 'f_0.1328', lane=':J1_0_1', gap=-5.62', latGap=-0.06, time=2078.00 stage=laneChange.
-Warning: Vehicle 'f_0.1325' ends teleporting on edge 'E1', time=2079.00.

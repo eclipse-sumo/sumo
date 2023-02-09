@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-02-08 11:38:25 by Eclipse SUMO sumo Version v1_16_0+0052-024b8f9
+<!-- generated on 2023-02-09 15:38:03 by Eclipse SUMO sumo Version v1_16_0+0071-802451b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -5908,11 +5908,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </timestep>
     <timestep time="518.90">
         <vehicle id="Easymiles.0" x="1289.73" y="3003.65" angle="181.05" type="AV_Easymile" speed="2.67" pos="2.74" lane="-b_0" slope="0.00"/>
-        <vehicle id="bike9" x="1291.20" y="3006.26" angle="0.83" type="bike_bicycle" speed="0.00" pos="164.47" lane="b_0" slope="0.00"/>
+        <vehicle id="bike9" x="1291.21" y="3006.26" angle="1.19" type="bike_bicycle" speed="0.00" pos="164.47" lane="b_0" slope="0.00"/>
     </timestep>
     <timestep time="519.00">
         <vehicle id="Easymiles.0" x="1289.73" y="3003.38" angle="181.10" type="AV_Easymile" speed="2.71" pos="3.01" lane="-b_0" slope="0.00"/>
-        <vehicle id="bike9" x="1291.20" y="3006.26" angle="0.83" type="bike_bicycle" speed="0.00" pos="164.47" lane="b_0" slope="0.00"/>
+        <vehicle id="bike9" x="1291.21" y="3006.26" angle="1.19" type="bike_bicycle" speed="0.00" pos="164.47" lane="b_0" slope="0.00"/>
     </timestep>
     <timestep time="519.10">
         <vehicle id="Easymiles.0" x="1289.72" y="3003.11" angle="181.16" type="AV_Easymile" speed="2.74" pos="3.29" lane="-b_0" slope="0.00"/>
@@ -5924,11 +5924,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </timestep>
     <timestep time="519.30">
         <vehicle id="Easymiles.0" x="1289.71" y="3002.55" angle="181.28" type="AV_Easymile" speed="2.80" pos="3.85" lane="-b_0" slope="0.00"/>
-        <vehicle id="bike9" x="1291.20" y="3006.26" angle="0.83" type="bike_bicycle" speed="0.00" pos="164.47" lane="b_0" slope="0.00"/>
+        <vehicle id="bike9" x="1291.21" y="3006.26" angle="1.19" type="bike_bicycle" speed="0.00" pos="164.47" lane="b_0" slope="0.00"/>
     </timestep>
     <timestep time="519.40">
         <vehicle id="Easymiles.0" x="1289.71" y="3002.26" angle="181.32" type="AV_Easymile" speed="2.84" pos="4.13" lane="-b_0" slope="0.00"/>
-        <vehicle id="bike9" x="1291.20" y="3006.26" angle="0.83" type="bike_bicycle" speed="0.00" pos="164.47" lane="b_0" slope="0.00"/>
+        <vehicle id="bike9" x="1291.21" y="3006.26" angle="1.19" type="bike_bicycle" speed="0.00" pos="164.47" lane="b_0" slope="0.00"/>
     </timestep>
     <timestep time="519.50">
         <vehicle id="Easymiles.0" x="1289.70" y="3001.98" angle="181.31" type="AV_Easymile" speed="2.87" pos="4.42" lane="-b_0" slope="0.00"/>
@@ -5964,7 +5964,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </timestep>
     <timestep time="520.30">
         <vehicle id="Easymiles.0" x="1289.65" y="2999.59" angle="181.24" type="AV_Easymile" speed="3.08" pos="6.81" lane="-b_0" slope="0.00"/>
-        <vehicle id="bike9" x="1290.93" y="3006.96" angle="351.67" type="bike_bicycle" speed="1.06" pos="0.43" lane=":j2_6_0" slope="0.00"/>
+        <vehicle id="bike9" x="1290.93" y="3006.96" angle="351.66" type="bike_bicycle" speed="1.06" pos="0.43" lane=":j2_6_0" slope="0.00"/>
     </timestep>
     <timestep time="520.40">
         <vehicle id="Easymiles.0" x="1289.65" y="2999.28" angle="181.24" type="AV_Easymile" speed="3.10" pos="7.12" lane="-b_0" slope="0.00"/>
