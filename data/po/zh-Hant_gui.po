@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-05 21:26+0100\n"
-"PO-Revision-Date: 2023-02-09 12:00+0000\n"
+"PO-Revision-Date: 2023-02-09 12:48+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
@@ -3386,120 +3386,120 @@ msgstr "拉直所選定路段的高程"
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2233
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2254
 msgid "straighten edge elevation"
-msgstr ""
+msgstr "拉直路段高程"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2268
 msgid "smooth elevation of selected edges"
-msgstr ""
+msgstr "平滑所選定路段的高程"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2275
 msgid "smooth edge elevation"
-msgstr ""
+msgstr "平滑路段高程"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2289
 msgid "reset edge lengths"
-msgstr ""
+msgstr "重置路段長度"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2318
 msgid "copy edge template"
-msgstr ""
+msgstr "複製路段範本"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2339
 msgid "simplify shapes"
-msgstr ""
+msgstr "簡化形狀"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2381
 msgid "close polygon shapes"
-msgstr ""
+msgstr "關閉多邊形形形狀"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2412
 msgid "open polygon shapes"
-msgstr ""
+msgstr "開啟多邊形形狀"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2461
 msgid "select within polygon boundary"
-msgstr ""
+msgstr "在多邊形邊界內選擇"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2506
 #, c-format
 msgid "No lanes around % to attach it"
-msgstr ""
+msgstr "在 % t的周圍沒有車道附接它"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2529
 msgid "attach POI into lane"
-msgstr ""
+msgstr "將興趣點附接到車道"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2542
 msgid "release POI from lane"
-msgstr ""
+msgstr "從車道上釋放興趣點"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2576
 msgid "change edge Geometry Point position"
-msgstr ""
+msgstr "改變路段幾何點位置"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2608
 msgid "change polygon Geometry Point position"
-msgstr ""
+msgstr "改變多邊形幾何點位置"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2628
 msgid "change TAZ Geometry Point position"
-msgstr ""
+msgstr "改變交通分區幾何點位置"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2652
 msgid "reset end points of selected edges"
-msgstr ""
+msgstr "重設選定路段的終點"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2663
 msgid "reset end points of edge '"
-msgstr ""
+msgstr "重設路段終點"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2682
 msgid "duplicate selected lanes"
-msgstr ""
+msgstr "複製選擇的車道"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2719
 msgid "reset custom lane shapes"
-msgstr ""
+msgstr "重設自訂的車道形狀"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2726
 msgid "reset custom lane shape"
-msgstr ""
+msgstr "重設自訂的車道形狀"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2742
 msgid "reset opposite lanes"
-msgstr ""
+msgstr "重設對向車道"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2749
 msgid "reset opposite lane"
-msgstr ""
+msgstr "重設對向車道"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2803
 msgid "select lane reachability"
-msgstr ""
+msgstr "選擇車道可及性"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2845
 msgid "Multiple lane in the same edge selected"
-msgstr ""
+msgstr "在同一路段上選定多個車道"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2846
 msgid "There are selected lanes that belong to the same edge."
-msgstr ""
+msgstr "有些選定的車道屬於同一個路段。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2847
 msgid "Only one lane per edge will be restricted for "
-msgstr ""
+msgstr "每路段只有一個車道將被限制為 "
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2862
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2870
 msgid "Set vclass for "
-msgstr ""
+msgstr "設定vclass為 "
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2863
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2871
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2944
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2952
 msgid " to selected lanes"
-msgstr ""
+msgstr " 到選定的車道"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2864
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2945
@@ -3509,37 +3509,37 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2872
 msgid " lanes will be restricted for "
-msgstr ""
+msgstr " 車道將被限制為 "
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2873
 msgid ". Continue?"
-msgstr ""
+msgstr ".繼續執行？"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2900
 msgid "restrict lane to "
-msgstr ""
+msgstr "將車道限制為 "
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2943
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2951
 msgid "Add vclass for "
-msgstr ""
+msgstr "新增vclass 為 "
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2953
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:3048
 msgid " restrictions for "
-msgstr ""
+msgstr " 對...進行限制 "
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2954
 msgid " will be added. Continue?"
-msgstr ""
+msgstr " 將新增。繼續執行？"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2971
 msgid "add restrictions for "
-msgstr ""
+msgstr "為...新增限制 "
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2981
 msgid "add vclass for "
-msgstr ""
+msgstr "為...新增vclass "
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:3038
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:3046
@@ -5489,102 +5489,102 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1763
 msgid "Lane of the charging station location"
-msgstr ""
+msgstr "充電站所在車道"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1768
 msgid "Begin position in the specified lane"
-msgstr ""
+msgstr "指定車道的起始位置"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1773
 msgid "End position in the specified lane"
-msgstr ""
+msgstr "指定車道的結束位置"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1778
 msgid "Name of chargingStation"
-msgstr ""
+msgstr "充電站名稱"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1791
 msgid "Charging power in W"
-msgstr ""
+msgstr "充電功率（W）"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1797
 msgid "Charging efficiency [0,1]"
-msgstr ""
+msgstr "充電效率 [0,1]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1804
 msgid ""
 "Enable or disable charge in transit, i.e. vehicle must or must not to stop "
 "for charging"
-msgstr ""
+msgstr "在運輸過程中啟用或禁用充電，即車輛必須或不得停車充電"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1810
 msgid ""
 "Time delay after the vehicles has reached / stopped on the charging station, "
 "before the energy transfer (charging) begins"
-msgstr ""
+msgstr "車輛到達/停在充電站後，能量傳輸（充電）開始之前的時間延遲"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1824
 msgid "The id of ParkingArea"
-msgstr ""
+msgstr "停車場的id"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1829
 msgid "The name of the lane the Parking Area shall be located at"
-msgstr ""
+msgstr "停車場所在的車道名稱"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1844
 msgid "Lane position in that vehicle must depart when leaves parkingArea"
-msgstr ""
+msgstr "離開停車場時，車輛駛離的車道位置"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1849
 msgid "Name of parkingArea"
-msgstr ""
+msgstr "停車場名稱"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1854
 msgid " The number of parking spaces for road-side parking"
-msgstr ""
+msgstr " 路邊停車位數量"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1855
 msgid "0"
-msgstr ""
+msgstr "0"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1860
 msgid ""
 "If set, vehicles will park on the road lane and thereby reducing capacity"
-msgstr ""
+msgstr "如果設定，車輛將停在車道上，從而減少容量"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1874
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1911
 msgid "The width of the road-side parking spaces"
-msgstr ""
+msgstr "路邊停車位的寬度"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1880
 msgid ""
 "The length of the road-side parking spaces. By default (endPos - startPos) / "
 "roadsideCapacity"
-msgstr ""
+msgstr "路邊停車位的長度。預設情況下為（終點位置 - 開始位置）/路邊容量"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1886
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1921
 msgid ""
 "The angle of the road-side parking spaces relative to the lane angle, "
 "positive means clockwise"
-msgstr ""
+msgstr "路邊停車位相對於車道的角度，正值表示順時針方向"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1906
 msgid "Name of parking space"
-msgstr ""
+msgstr "停車位名稱"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1916
 msgid "The length of the road-side parking spaces"
-msgstr ""
+msgstr "路邊停車位的長度"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1926
 msgid "The slope of the road-side parking spaces"
-msgstr ""
+msgstr "路邊停車位的坡度"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1941
 msgid "The id of E1"
-msgstr ""
+msgstr "E1 的id"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1946
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1998
@@ -5594,14 +5594,14 @@ msgstr ""
 msgid ""
 "The id of the lane the detector shall be laid on. The lane must be a part of "
 "the network used"
-msgstr ""
+msgstr "偵測器所在車道的 ID。車道必須位於所用路網內"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1951
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2271
 msgid ""
 "The position on the lane the detector shall be laid on in meters. The "
 "position must be a value between -1*lane's length and the lane's length"
-msgstr ""
+msgstr "偵測器在車道上的位置應以米為單位設置。該位置必須是在正負一個車道長度之間"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1956
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2014
@@ -5610,11 +5610,11 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5769
 msgid ""
 "The aggregation period the values the detector collects shall be summed up"
-msgstr ""
+msgstr "在匯總週期內偵測器採集的值應相加"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1962
 msgid "Name of induction loop"
-msgstr ""
+msgstr "偵測器名稱"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1967
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2030
@@ -5622,7 +5622,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2177
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2281
 msgid "The path to the output file"
-msgstr ""
+msgstr "輸出檔案的路徑"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1972
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2035
@@ -5630,31 +5630,31 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2182
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2286
 msgid "Space separated list of vehicle type ids to consider"
-msgstr ""
+msgstr "要考慮的車輛類型ID的空格分隔清單"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1993
 msgid "The id of E2"
-msgstr ""
+msgstr "E2 的id"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2003
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2084
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2212
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2239
 msgid "The position on the lane the detector shall be laid on in meters"
-msgstr ""
+msgstr "偵測器在車道上的位置應以米為單位"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2008
 msgid "The length of the detector in meters"
-msgstr ""
+msgstr "偵測器的長度（以米為單位）"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2020
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2100
 msgid "The traffic light that triggers aggregation when switching"
-msgstr ""
+msgstr "切換時觸發聚合(aggregation)的紅綠燈"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2025
 msgid "Name of lane area detector"
-msgstr ""
+msgstr "車道區域偵測器名稱"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2040
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2120
