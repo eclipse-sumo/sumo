@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-05 21:26+0100\n"
-"PO-Revision-Date: 2023-02-09 12:00+0000\n"
+"PO-Revision-Date: 2023-02-09 12:48+0000\n"
 "Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -7070,111 +7070,129 @@ msgstr "In diesem Zeitraum gleichmäßig verteilte Flüsse einfügen"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4982
 msgid "(not together with vehsPerHour or probability or poisson)"
-msgstr ""
+msgstr "(nicht zusammen mit vehsPerHours, probabiliy oder poisson)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4989
 msgid "(not together with vehsPerHour or period or poisson)"
-msgstr ""
+msgstr "(nicht zusammen mit vehsPerHours, period oder poisson)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4995
 msgid ""
 "Insert flow expected vehicles per second with poisson distributed insertion "
 "rate"
 msgstr ""
+"Einfügen von erwarteten Fahrzeugen pro Sekunde mit Poisson-verteilter "
+"Einfügungsrate"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4996
 msgid "(not together with period or vehsPerHour or probability)"
-msgstr ""
+msgstr "(nicht zusammen mit period, vehsPerHours oder probability)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5009
 msgid "The acceleration ability of vehicles of this type [m/s^2]"
-msgstr ""
+msgstr "Das Beschleunigungsvermögen von Fahrzeugen dieses Typs [m/s^2]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5015
 msgid "The deceleration ability of vehicles of this type [m/s^2]"
-msgstr ""
+msgstr "Das Verzögerungsvermögen von Fahrzeugen dieses Typs [m/s^2]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5021
 msgid ""
 "The apparent deceleration of the vehicle as used by the standard model [m/"
 "s^2]"
 msgstr ""
+"Die vom Standardmodell verwendete scheinbare Verzögerung des Fahrzeugs [m/"
+"s^2]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5027
 msgid "The maximal physically possible deceleration for the vehicle [m/s^2]"
-msgstr ""
+msgstr "Die maximal physikalisch mögliche Verzögerung für das Fahrzeug [m/s^2]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5033
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5040
 msgid "Car-following model parameter"
-msgstr ""
+msgstr "Fahrzeugfolgemodell-Parameter"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5046
 msgid "SKRAUSSX parameter 1"
-msgstr ""
+msgstr "SKRAUSSX-Parameter 1"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5051
 msgid "SKRAUSSX parameter 2"
-msgstr ""
+msgstr "SKRAUSSX-Parameter 2"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5056
 msgid "SKRAUSSX parameter 3"
-msgstr ""
+msgstr "SKRAUSSX-Parameter 3"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5061
 msgid "SKRAUSSX parameter 4"
-msgstr ""
+msgstr "SKRAUSSX-Parameter 4"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5066
 msgid "SKRAUSSX parameter 5"
-msgstr ""
+msgstr "SKRAUSSX-Parameter 5"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5071
+#, fuzzy
 msgid "EIDM Look ahead / preview parameter [s]"
-msgstr ""
+msgstr "EIDM Vorausschau-/Vorschauparameter [s]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5077
+#, fuzzy
 msgid "EIDM AP Reaction Time parameter [s]"
-msgstr ""
+msgstr "EIDM-AP-Reaktionszeitparameter [s]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5083
+#, fuzzy
 msgid "EIDM Wiener Process parameter for the Driving Error [s]"
-msgstr ""
+msgstr "EIDM-Wiener-Prozessparameter für den Fahrfehler [s]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5089
+#, fuzzy
 msgid "EIDM Wiener Process parameter for the Estimation Error [s]"
-msgstr ""
+msgstr "Parameter des EIDM-Wiener-Prozesses für den Schätzfehler [s]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5095
 msgid "EIDM Coolness parameter of the Enhanced IDM [-]"
 msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5102
+#, fuzzy
 msgid "EIDM leader speed estimation error parameter [-]"
-msgstr ""
+msgstr "EIDM-Führungsgeschwindigkeitsschätzungsfehlerparameter [-]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5108
+#, fuzzy
 msgid "EIDM gap estimation error parameter [-]"
-msgstr ""
+msgstr "EIDM-Lückenschätzungsfehlerparameter [-]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5114
+#, fuzzy
 msgid "EIDM driving error parameter [-]"
-msgstr ""
+msgstr "EIDM-Fahrfehlerparameter [-]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5120
+#, fuzzy
 msgid "EIDM maximal jerk parameter [m/s^3]"
-msgstr ""
+msgstr "Maximaler EIDM-Ruckparameter [m/s^3]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5126
+#, fuzzy
 msgid ""
 "EIDM maximal negative acceleration between two Action Points (threshold) [m/"
 "s^2]"
 msgstr ""
+"EIDM maximale negative Beschleunigung zwischen zwei Aktionspunkten "
+"(Schwellenwert) [m/s^2]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5132
+#, fuzzy
 msgid ""
 "EIDM Time parameter until vehicle reaches amax after startup/driveoff [s]"
 msgstr ""
+"EIDM Zeitparameter bis Fahrzeug Maximalbeschleunigung erreicht hat nach "
+"Anfahren/Abfahren [s]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5138
 msgid "EIDM Flatness parameter of startup/driveoff curve [-]"
@@ -7189,12 +7207,16 @@ msgid ""
 "EIDM parameter if model shall include vehicle dynamics into the acceleration "
 "calculation [0/1]"
 msgstr ""
+"EIDM-Parameter, wenn das Modell die Fahrdynamik in die "
+"Beschleunigungsberechnung einbeziehen soll [0/1]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5156
 msgid ""
 "EIDM parameter how many vehicles are taken into the preview calculation of "
 "the driver (at least always 1!) [-]"
 msgstr ""
+"EIDM-Parameter wie viele Fahrzeuge in die Vorschauberechnung des Fahrers "
+"aufgenommen werden (mindestens immer 1!) [-]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5162
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5168
@@ -7225,7 +7247,7 @@ msgstr "Wiedemann Parameter"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5250
 msgid "MinGap factor parameter"
-msgstr ""
+msgstr "minimaler Lücken-Faktor Parameter"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5255
 msgid "K parameter"
@@ -7241,7 +7263,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5270
 msgid "IDM Stepping parameter"
-msgstr ""
+msgstr "IDM Schrittparameter"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5275
 msgid "Train Types"
@@ -7322,7 +7344,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5343
 msgid "Willingess of drivers to impede vehicles with higher priority"
-msgstr ""
+msgstr "Bereitschaft der Fahrer, Fahrzeuge mit höheren Vorrang zu behindern"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5356
 msgid ""
@@ -7384,10 +7406,13 @@ msgid "Willingness to encroach laterally on other drivers."
 msgstr "Bereitschaft, andere Fahrer seitlich zu behindern."
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5399
+#, fuzzy
 msgid ""
 "Minimum lateral gap when encroaching laterally on other drives (alternative "
 "way to define lcPushy)"
 msgstr ""
+"Minimaler seitlicher Abstand beim seitlichen Eingriff auf andere Fahrer ("
+"alternative Art, lcPushy zu definieren)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5405
 msgid "Willingness to accept lower front and rear gaps on the target lane."
@@ -7396,14 +7421,17 @@ msgstr ""
 "akzeptieren."
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5411
+#, fuzzy
 msgid "Dynamic factor for modifying lcAssertive and lcPushy."
-msgstr ""
+msgstr "Dynamischer Faktor zum Modifizieren von lcAssertive und lcPushy."
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5417
 msgid ""
 "Time to reach maximum impatience (of 1). Impatience grows whenever a lane-"
 "change manoeuvre is blocked."
 msgstr ""
+"Zeit bis zum Erreichen der maximalen Ungeduld (von 1). Die Ungeduld wächst, "
+"wenn ein Fahrstreifenwechselmanöver blockiert wird."
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5423
 msgid "Maximum lateral acceleration per second."
@@ -7420,16 +7448,20 @@ msgid ""
 "Factor for configuring the threshold asymmetry when changing to the left or "
 "to the right for speed gain."
 msgstr ""
+"Faktor zur Konfiguration der Schwellasymmetrie beim Wechsel nach links oder "
+"rechts zur Geschwindigkeitserhöhung."
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5441
 msgid "Upper bound on lateral speed when standing."
-msgstr ""
+msgstr "Obergrenze der Quergeschwindigkeit im Stehen."
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5447
 msgid ""
 "Upper bound on lateral speed while moving computed as lcMaxSpeedLatStanding "
 "+ lcMaxSpeedLatFactor * getSpeed()"
 msgstr ""
+"Obergrenze der Quergeschwindigkeit während der Bewegung, berechnet als "
+"lcMaxSpeedLatStanding + lcMaxSpeedLatFactor * getSpeed()"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5453
 msgid ""
@@ -7442,7 +7474,7 @@ msgstr "sollte dynamisch an die Abbiegerichtung angepasst werden."
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5460
 msgid "The probability for violating rules gainst overtaking on the right."
-msgstr ""
+msgstr "Die Wahrscheinlichkeit für Regelverstöße steigt beim Rechtsüberholen."
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5466
 msgid "Time threshold for the willingness to change right."
@@ -7454,6 +7486,9 @@ msgid ""
 "Speed difference factor for the eagerness of overtaking a neighbor vehicle "
 "before changing lanes (threshold = factor*speedlimit)."
 msgstr ""
+"Geschwindigkeitsdifferenzfaktor für die Überholbereitschaft eines "
+"Nachbarfahrzeugs vor dem Fahrstreifenwechsel (Schwelle = "
+"Faktor*Geschwindigkeitslimit)."
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5494
 msgid "The name of the person"
@@ -7515,8 +7550,9 @@ msgid "Whether the vehicle stops on the road or beside"
 msgstr "Ob das Fahrzeug auf der Straße oder daneben anhält"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5591
+#, fuzzy
 msgid "Activity displayed for stopped person in GUI and output files"
-msgstr ""
+msgstr "Aktivität zeigt für angehaltene Person in der GUI und Ausgabedateien an"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5596
 msgid ""
@@ -7576,11 +7612,11 @@ msgstr "Kanten-ID"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5700
 msgid "The name of the edge the edgeRel starts at"
-msgstr ""
+msgstr "Der Name der Kante an der die Kantenbeziehung startet"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5705
 msgid "The name of the edge the edgeRel ends at"
-msgstr ""
+msgstr "Name der Kante an der die Kantenbeziehung endet"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5719
 msgid "The name of the TAZ the TAZRel starts at"
@@ -7748,7 +7784,7 @@ msgstr "Erlaubnis benötigt ein nicht erlaubtes Attribut in der selben Tag"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNETagProperties.cpp:138
 msgid "disallow need an allow attribute in the same tag"
-msgstr ""
+msgstr "nicht zugelassen benötigt ein zugelassen-Attribut im selben Tag"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNETagProperties.cpp:152
 #, c-format
@@ -7781,8 +7817,9 @@ msgid "Internal attributes"
 msgstr "Interne Attribute"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEAttributesCreator.cpp:88
+#, fuzzy
 msgid "invalid templateAC in showAttributesCreatorModule"
-msgstr ""
+msgstr "ungültiges TemplateAC in showAttributesCreatorModule"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEAttributesCreator.cpp:175
 #: /home/micha/programming/sumo/src/netedit/frames/GNEAttributesCreator.cpp:177
@@ -7805,7 +7842,7 @@ msgstr "Deaktiviert"
 #: /home/micha/programming/sumo/src/netedit/frames/GNEAttributesCreatorRow.cpp:425
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:455
 msgid "Color Dialog"
-msgstr ""
+msgstr "Farbendialog"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEAttributesCreatorRow.cpp:476
 msgid "Unsupported additional ID"
@@ -7856,7 +7893,7 @@ msgstr "Pfad muss aus mindestens zwei Fahrstreifen bestehen"
 #: /home/micha/programming/sumo/src/netedit/frames/GNEPathCreator.cpp:393
 #: /home/micha/programming/sumo/src/netedit/frames/GNEPathCreator.cpp:469
 msgid "route creation"
-msgstr ""
+msgstr "Routenerstellung"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEConsecutiveSelector.cpp:406
 msgid "- Selected lanes: "
@@ -7911,19 +7948,21 @@ msgstr " Liste oder klick auf eine"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDemandSelector.cpp:140
 msgid " element in view"
-msgstr ""
+msgstr " angezeigtes Element"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDemandSelector.cpp:332
 msgid "Selected item '"
 msgstr "Ausgewähltes Objekt '"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDemandSelector.cpp:332
+#, fuzzy
 msgid "' in DemandElementSelector"
-msgstr ""
+msgstr "' im Nachfragelement-Auswähler"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDemandSelector.cpp:345
+#, fuzzy
 msgid "Selected invalid item in DemandElementSelector"
-msgstr ""
+msgstr "Ungültiges Element im Nachfrageelement-Auswähler ausgewählt"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDrawingShape.cpp:48
 msgid "Drawing"
@@ -8185,8 +8224,9 @@ msgid "change multiple attributes"
 msgstr "mehrere Attribute ändern"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:514
+#, fuzzy
 msgid "Invalid call to onCmdOpenAttributeDialog"
-msgstr ""
+msgstr "Ungültiger Aufruf eines onCmdOpenAttributeDialog"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:610
 msgid "change "
@@ -8288,9 +8328,10 @@ msgstr ""
 "100."
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:234
+#, fuzzy
 msgid ""
 "  - Reference Right will create it with startPos = 100 and endPos = 130."
-msgstr ""
+msgstr "  - Rechte Referenz erstellt mit startPos = 100 und endPos = 130."
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:235
 #, fuzzy
@@ -8350,7 +8391,7 @@ msgstr "Überlappend "
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEOverlappedInspection.cpp:275
 msgid "GEO attributes Help"
-msgstr ""
+msgstr "Hilfe zu GEO-Attributen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEOverlappedInspection.cpp:278
 msgid " - Click in the same position"
