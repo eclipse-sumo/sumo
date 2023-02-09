@@ -31,7 +31,7 @@ sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
 
 
-def get_args(args=None):
+def get_options(args=None):
     argParser = sumolib.options.ArgumentParser()
     argParser.add_argument("stopfile", nargs="*", help="stop files to process")
     argParser.add_argument("-n", "--network", help="validate positions against this network")
@@ -101,4 +101,4 @@ def main(options):
 
 
 if __name__ == "__main__":
-    main(get_args())
+    main(get_options())
