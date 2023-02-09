@@ -778,11 +778,11 @@ private:
     OutputDevice* myOutputFile;
 
     /// @brief remember which files were created already (don't duplicate xml root-elements)
-    static std::set<std::string> createdOutputFiles;
+    static std::set<std::string> myCreatedOutputFiles;
 
 
     /// @brief bitset storing info whether warning has already been issued about unset parameter (warn only once!)
-    static int issuedParameterWarnFlags;
+    static int myIssuedParameterWarnFlags;
     enum SSMParameterWarning {
         SSM_WARN_MEASURES = 1,
         SSM_WARN_THRESHOLDS = 1 << 1,
