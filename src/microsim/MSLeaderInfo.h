@@ -169,6 +169,9 @@ public:
         throw ProcessError(TL("Method not supported"));
     }
 
+    /// @brief updatd empty sublanes with vehicles and gaps from other
+    virtual void addLeaders(MSLeaderDistanceInfo& other);
+
     /// @brief discard all information
     virtual void clear();
 

@@ -275,6 +275,19 @@ MSLeaderDistanceInfo::addLeader(const MSVehicle* veh, double gap, double latOffs
 
 
 void
+MSLeaderDistanceInfo::addLeaders(MSLeaderDistanceInfo& other) {
+    const int maxSubLane = MIN2(numSublanes(), other.numSublanes());
+    for (int i = 0; i < maxSubLane; i++) {
+        addLeader(other[i].first, other[i].second, 0, i);
+        //if ((myDistances[i] > 0 && myDistances[i] > other.myDistances[i])
+        //        || (other.myDistances[i] < 0 && myDistances[i] < other.myDistances[i])) {
+        //    addLeader(other[i].first, other[i].second, 0, i);
+        //}
+    }
+}
+
+
+void
 MSLeaderDistanceInfo::clear() {
     MSLeaderInfo::clear();
     myDistances.assign(myVehicles.size(), std::numeric_limits<double>::max());

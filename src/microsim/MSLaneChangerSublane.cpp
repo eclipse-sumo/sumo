@@ -662,6 +662,31 @@ MSLaneChangerSublane::checkChangeSublane(
     MSLeaderDistanceInfo followers = myCandi->lane->getFollowersOnConsecutive(vehicle, vehicle->getBackPositionOnLane(), true);
     MSLeaderDistanceInfo blockers(vehicle->getLane()->getWidth(), vehicle, 0);
 
+    // consider sibling lanes of the origin and target lane
+    for (int offset : myCandi->siblings) {
+        // treat sibling lanes (internal lanes with the same origin lane) as if they have the same geometry
+        ChangerIt ceSib = myCandi + offset;
+        MSLeaderDistanceInfo sibFollowers = ceSib->lane->getFollowersOnConsecutive(vehicle, vehicle->getBackPositionOnLane(), true);
+        if (sibFollowers.hasVehicles()) {
+            followers.addLeaders(sibFollowers);
+        }
+        if (ceSib->aheadNext.hasVehicles()) {
+            leaders.addLeaders(ceSib->aheadNext);
+            //std::cout << SIMTIME << " ego=" << vehicle->getID() << " ahead=" << myCandi->aheadNext.toString() << " sib=" << ceSib->lane->getID() << " sibAhead=" << ceSib->aheadNext.toString() << " leaders=" << leaders.toString() << "\n";
+        }
+    }
+    for (int offset : target->siblings) {
+        // treat sibling lanes (internal lanes with the same origin lane) as if they have the same geometry
+        ChangerIt ceSib = target + offset;
+        MSLeaderDistanceInfo sibFollowers = ceSib->lane->getFollowersOnConsecutive(vehicle, vehicle->getBackPositionOnLane(), true);
+        if (sibFollowers.hasVehicles()) {
+            neighFollowers.addLeaders(sibFollowers);
+        }
+        if (ceSib->aheadNext.hasVehicles()) {
+            neighLeaders.addLeaders(ceSib->aheadNext);
+        }
+    }
+
     // break leader symmetry
     if (laneOffset == -1 && neighLeaders.hasVehicles()) {
         neighLeaders.moveSamePosTo(vehicle, neighFollowers);
