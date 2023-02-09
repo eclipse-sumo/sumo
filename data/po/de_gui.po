@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-05 21:26+0100\n"
-"PO-Revision-Date: 2023-02-09 12:48+0000\n"
-"Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
+"PO-Revision-Date: 2023-02-09 13:39+0000\n"
+"Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
 "Language: de\n"
@@ -7448,8 +7448,8 @@ msgid ""
 "Factor for configuring the threshold asymmetry when changing to the left or "
 "to the right for speed gain."
 msgstr ""
-"Faktor zur Konfiguration der Schwellasymmetrie beim Wechsel nach links oder "
-"rechts zur Geschwindigkeitserhöhung."
+"Faktor zur Konfiguration der Schwellwertasymmetrie beim Wechsel nach links "
+"oder rechts zur Geschwindigkeitserhöhung."
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5441
 msgid "Upper bound on lateral speed when standing."
@@ -7817,9 +7817,8 @@ msgid "Internal attributes"
 msgstr "Interne Attribute"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEAttributesCreator.cpp:88
-#, fuzzy
 msgid "invalid templateAC in showAttributesCreatorModule"
-msgstr "ungültiges TemplateAC in showAttributesCreatorModule"
+msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEAttributesCreator.cpp:175
 #: /home/micha/programming/sumo/src/netedit/frames/GNEAttributesCreator.cpp:177
@@ -7960,9 +7959,8 @@ msgid "' in DemandElementSelector"
 msgstr "' im Nachfragelement-Auswähler"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDemandSelector.cpp:345
-#, fuzzy
 msgid "Selected invalid item in DemandElementSelector"
-msgstr "Ungültiges Element im Nachfrageelement-Auswähler ausgewählt"
+msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDrawingShape.cpp:48
 msgid "Drawing"
@@ -8224,9 +8222,8 @@ msgid "change multiple attributes"
 msgstr "mehrere Attribute ändern"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:514
-#, fuzzy
 msgid "Invalid call to onCmdOpenAttributeDialog"
-msgstr "Ungültiger Aufruf eines onCmdOpenAttributeDialog"
+msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:610
 msgid "change "
@@ -8266,7 +8263,7 @@ msgstr "Erweiterte Attribute"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:966
 msgid "Open attributes editor"
-msgstr "Öffne Attribute-Editor"
+msgstr "Öffne Attributeditor"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:997
 msgid "Attributes"
@@ -8302,7 +8299,7 @@ msgstr "Shape schließen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:69
 msgid "Center view"
-msgstr "Zentrumssicht"
+msgstr "Ansicht zentrieren"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:137
 msgid "Current selected reference point isn't valid"
@@ -8321,25 +8318,22 @@ msgstr ""
 "Fahrstreifens erstellen werden soll:"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:233
-#, fuzzy
 msgid "  - Reference Left will create it with startPos = 70 and endPos = 100."
 msgstr ""
-"  - Linksreferenz erstellt es mit der Startposition = 70 und Endposition = "
-"100."
+"  - Mit Ausrichtung nach links liegt sie bei startPos = 70 und endPos = 100."
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:234
-#, fuzzy
 msgid ""
 "  - Reference Right will create it with startPos = 100 and endPos = 130."
-msgstr "  - Rechte Referenz erstellt mit startPos = 100 und endPos = 130."
+msgstr ""
+"  - Mit Ausrichtung nach rechts liegt sie bei startPos = 100 und endPos = "
+"130."
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:235
-#, fuzzy
 msgid ""
 "  - Reference Center will create it with startPos = 85 and endPos = 115."
 msgstr ""
-"  - Referenz Zentrum erstellt es mit Startposition = 85 und Endposition = "
-"115."
+"  - Mit zentrierter Ausrichtung liegen startPos bei 85 und endPos bei 115."
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:236
 #, fuzzy
