@@ -288,8 +288,15 @@ private:
             return true;
         }
         void requestWarpPointer(float x, float y) {
-            myParent->setCursorPosition(int(x), int(y));
-            getEventQueue()->mouseWarped(x, y);
+            int xRound = std::lround(x);
+            int yRound = std::lround(y);
+            int xPrev, yPrev;
+            unsigned int buttons;
+            myParent->getCursorPosition(xPrev, yPrev, buttons);
+            if (xRound - xPrev != 0 || yRound - yPrev != 0) {
+                myParent->setCursorPosition(xRound, yRound);
+                getEventQueue()->mouseWarped(x, y);
+            }
         }
 
     protected:
