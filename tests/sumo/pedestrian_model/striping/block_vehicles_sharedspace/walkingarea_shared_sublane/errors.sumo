@@ -1,5 +1,6 @@
 Warning: Vehicle 'NS.5' performs emergency braking on lane ':C_1_0' with decel=9.00, wished=4.50, severity=1.00, time=428.00.
-Warning: Vehicle 'NS.6' collision with person 'pWN.24', lane=':C_1_0', time=520.00, stage=laneChange.
-Warning: Teleporting vehicle 'WS.5'; junction collision with vehicle 'WN.7', lane=':C_12_0', gap=-1.00', latGap=0.00, time=573.00 stage=move.
-Warning: Vehicle 'WS.5' ends teleporting on edge 'CS', time=573.00.
-Warning: Vehicle 'WN.7' collision with person 'pNS.22', lane=':C_14_0', time=576.00, stage=move.
+Warning: Person 'pWN.23' is jammed on edge ':C_w0', time=520.00.
+Warning: Vehicle 'NS.6' collision with person 'pWN.24', lane=':C_1_0', time=522.00, stage=laneChange.
+Warning: Person 'pWN.24' is jammed on edge ':C_w0', time=529.00.
+Warning: Teleporting vehicle 'WS.7'; junction collision with vehicle 'WE.3', lane=':C_12_0', gap=-1.00', latGap=0.00, time=654.00 stage=move.
+Warning: Vehicle 'WS.7' ends teleporting on edge 'CS', time=654.00.
