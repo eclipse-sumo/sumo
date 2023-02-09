@@ -1337,7 +1337,7 @@ MSLane::getLastVehicleInformation(const MSVehicle* ego, double latOffset, double
                 std::cout << "      getLastVehicleInformation lane=" << getID() << " minPos=" << minPos << " veh=" << veh->getID() << " pos=" << veh->getPositionOnLane(this)  << "\n";
             }
 #endif
-            if (veh != ego && veh->getPositionOnLane(this) >= minPos) {
+            if (veh != ego && MAX2(0.0, veh->getPositionOnLane(this)) >= minPos) {
                 const double vehLatOffset = veh->getLatOffset(this);
                 freeSublanes = leaderTmp.addLeader(veh, true, vehLatOffset);
 #ifdef DEBUG_PLAN_MOVE
