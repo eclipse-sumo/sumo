@@ -1295,7 +1295,10 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                 }
                 continue;
             }
-            if (!MSGlobals::gComputeLC && sameSource && ego->getLane() == myInternalLaneBefore && leaderBack + leader->getLength() < ego->getPositionOnLane() - ego->getLength()) {
+            if (!MSGlobals::gComputeLC
+                    && sameSource
+                    && &ego->getLane()->getEdge() == &myInternalLaneBefore->getEdge()
+                    && leaderBack + leader->getLength() < ego->getPositionOnLane() - ego->getLength()) {
                 // ego is already on the junction and clearly ahead of foe
                 if (gDebugFlag1) {
                     std::cout << "   ego ahead of same-source foe\n";
