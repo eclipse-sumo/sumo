@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-05 21:26+0100\n"
-"PO-Revision-Date: 2023-02-09 14:05+0000\n"
-"Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
+"PO-Revision-Date: 2023-02-09 15:49+0000\n"
+"Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
 "Language: de\n"
@@ -3096,9 +3096,8 @@ msgid "Network size exceeds 1 Lightyear. Please reconsider your inputs."
 msgstr "Netz größer als ein Lichtjahr - bitte Eingabedaten überdenken."
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:2763
-#, fuzzy
 msgid "ViewNet doesn't exist"
-msgstr "Angezeigtes Netz existiert nicht"
+msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNENetHelper.cpp:218
 msgid "GUIGlObject does not match the declared type"
@@ -3933,13 +3932,12 @@ msgid "Automatic select junctions"
 msgstr "Knotenpunkte automatisch auswählen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2456
-#, fuzzy
 msgid ""
 "Toggle whether selecting multiple edges should automatically select their "
 "junctions."
 msgstr ""
-"Beim Auswählen mehrerer Kanten automatisch deren Knotenpunkte auswählen ein-/"
-"ausschalten"
+"Beim Auswählen mehrerer Kanten automatisch deren Knotenpunkte mit auswählen ("
+"ein-/ausschalten)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2464
 msgid "Apply state to all phases"
@@ -3976,7 +3974,6 @@ msgid "Move elevation"
 msgstr "Höhe verschieben"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2487
-#, fuzzy
 msgid "Apply mouse movement to elevation instead of x,y position."
 msgstr "Wende die Mausbewegung auf die Höhe statt auf die x-, y-Position an."
 
@@ -4012,7 +4009,6 @@ msgid "Toggle show all person plans."
 msgstr "Alle Personenpläne ein-/ausblenden."
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2744
-#, fuzzy
 msgid "Toggle lock selected person."
 msgstr "Ausgewählte Person blockieren ein-/ausschalten"
 
@@ -4025,7 +4021,6 @@ msgid "Toggle show all container plans."
 msgstr "Alle Containerpläne ein-/ausblenden."
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2760
-#, fuzzy
 msgid "Toggle lock selected container."
 msgstr "Ausgewählten Container blockieren ein-/ausschalten"
 
@@ -4042,16 +4037,14 @@ msgid "Toggle show additionals."
 msgstr "Weitere Daten ein-/ausblenden."
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3020
-#, fuzzy
 msgid "Draw TAZREL drawing mode"
-msgstr "Zeichne Quelle-Ziel-Beziehung Zeichenmodus"
+msgstr "Zeichne Quelle-Ziel-Beziehungen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3020
 msgid "Toggle draw TAZREL drawing mode."
 msgstr "Quelle-Ziel-Beziehung Zeichnungsmodus ein-/ausschalten."
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3027
-#, fuzzy
 msgid "Toggle draw TAZ fill"
 msgstr "Verkehrsumlegungszonenfüllung zeichnen ein-/ausschalten"
 
@@ -6282,7 +6275,7 @@ msgstr "Höhe vom gerendertem Bild in Metern"
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3007
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3084
 msgid "A bitmap to use for rendering this POI"
-msgstr "Ein Bitmap zum Rendern diesen Pols"
+msgstr "Ein Bitmap zum Rendern diesen Pol"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2948
 msgid "The name of the lane at which the POI is located at"
@@ -6386,9 +6379,8 @@ msgstr ""
 "ist"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3286
-#, fuzzy
 msgid "Overhead wire clamp ID"
-msgstr "Oberleitungsklemmen ID"
+msgstr "Oberleitungsklemmen-ID"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3291
 msgid ""
