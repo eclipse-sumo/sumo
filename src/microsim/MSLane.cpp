@@ -3750,7 +3750,7 @@ MSLane::getLeadersOnConsecutive(double dist, double seen, double speed, const MS
                         std::cout << "   linkleader=" << veh->getID() << " gap=" << ll.vehAndGap.second << " flags=" << ll.llFlags << "\n";
                     }
 #endif
-                    if (ll.sameTarget()) {
+                    if (ll.sameTarget() || ll.sameSource()) {
                         result.addLeader(veh, ll.vehAndGap.second, 0);
                     } else {
                         // add link leader to all sublanes and return

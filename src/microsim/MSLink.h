@@ -75,8 +75,10 @@ public:
         LL_IN_THE_WAY = 1 << 0,
         /// @brief link leader is passing from left to right
         LL_FROM_LEFT = 1 << 1,
+        /// @brief link leader is coming from the same (normal) lane
+        LL_SAME_SOURCE = 1 << 2,
         /// @brief link leader is targeting the same outgoing lane
-        LL_SAME_TARGET = 1 << 2
+        LL_SAME_TARGET = 1 << 3
     };
 
     struct LinkLeader {
@@ -93,6 +95,9 @@ public:
         }
         inline bool sameTarget() const {
             return (llFlags & LL_SAME_TARGET) != 0;
+        }
+        inline bool sameSource() const {
+            return (llFlags & LL_SAME_SOURCE) != 0;
         }
 
         std::pair<MSVehicle*, double> vehAndGap;
