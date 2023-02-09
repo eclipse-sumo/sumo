@@ -335,7 +335,7 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
                 std::cout << "  sublaneFoeLink (same target): " << it->getViaLaneOrLane()->getID() << "\n";
 #endif
             } else if (myDirection != LinkDirection::STRAIGHT && it->getDirection() == LinkDirection::STRAIGHT) {
-                // potential turn conflicht
+                // potential turn conflict
                 mySublaneFoeLinks2.push_back(it);
 #ifdef MSLink_DEBUG_CROSSING_POINTS
                 std::cout << "  sublaneFoeLink2 (other target: " << it->getViaLaneOrLane()->getID() << "\n";
@@ -1319,9 +1319,10 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
             // check whether foe is blocked and might need to change before leaving the junction
             const bool foeStrategicBlocked = (leader->getLaneChangeModel().isStrategicBlocked() &&
                                               leader->getCarFollowModel().brakeGap(leader->getSpeed()) <= foeLane->getLength() - leaderBack);
+            const bool sameInternalEdge = &myInternalLaneBefore->getEdge() == &foeExitLink->getInternalLaneBefore()->getEdge();
 
             if (MSGlobals::gSublane && ego != nullptr && (sameSource || sameTarget)
-                    && (!foeStrategicBlocked)) {
+                    && (!foeStrategicBlocked || sameInternalEdge)) {
                 if (ego->getLane() == leader->getLane()) {
                     continue;
                 }
@@ -1479,7 +1480,7 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
     }
 
     if (MSGlobals::gLateralResolution > 0 && ego != nullptr && !isShadowLink) {
-        // check for foes on the same lane
+        // check for foes on the same edge
         for (std::vector<MSLane*>::const_iterator it = mySublaneFoeLanes.begin(); it != mySublaneFoeLanes.end(); ++it) {
             const MSLane* foeLane = *it;
             MSLane::AnyVehicleIterator end = foeLane->anyVehiclesEnd();
@@ -1494,7 +1495,6 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                     // ego is ahead of leader
                     continue;
                 }
-
                 const double posLat = ego->getLateralPositionOnLane();
                 const double posLatLeader = leader->getLateralPositionOnLane() + leader->getLatOffset(foeLane);
                 if (gDebugFlag1) {
