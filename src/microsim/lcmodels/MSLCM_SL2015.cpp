@@ -2292,11 +2292,11 @@ MSLCM_SL2015::checkBlocking(const MSLane& neighLane, double& latDist, double man
 
     const double neighRight = getNeighRight(neighLane);
     if (!myCFRelatedReady) {
-        updateCFRelated(leaders, myVehicle.getLane()->getRightSideOnEdge(), true);
         updateCFRelated(followers, myVehicle.getLane()->getRightSideOnEdge(), false);
+        updateCFRelated(leaders, myVehicle.getLane()->getRightSideOnEdge(), true);
         if (laneOffset != 0) {
-            updateCFRelated(neighLeaders, neighRight, true);
             updateCFRelated(neighFollowers, neighRight, false);
+            updateCFRelated(neighLeaders, neighRight, true);
         }
         myCFRelatedReady = true;
     }
@@ -2579,7 +2579,7 @@ MSLCM_SL2015::updateCFRelated(const MSLeaderDistanceInfo& vehicles, double foeOf
 #endif
     for (int i = 0; i < vehicles.numSublanes(); ++i) {
         CLeaderDist vehDist = vehicles[i];
-        if (vehDist.first != 0 && myCFRelated.count(vehDist.first) == 0) {
+        if (vehDist.first != 0 && (myCFRelated.count(vehDist.first) == 0 || vehDist.second < 0)) {
             double foeRight, foeLeft;
             vehicles.getSublaneBorders(i, foeOffset, foeRight, foeLeft);
 #ifdef DEBUG_BLOCKING
@@ -2609,6 +2609,13 @@ MSLCM_SL2015::updateCFRelated(const MSLeaderDistanceInfo& vehicles, double foeOf
                 }
 #endif
                 myCFRelated.insert(vehDist.first);
+            } else {
+                const int erased = myCFRelated.erase(vehDist.first);
+#ifdef DEBUG_BLOCKING
+                if (gDebugFlag2 && erased > 0) {
+                    std::cout << "       restoring cfrelated foe=" << vehDist.first->getID()  << "\n";
+                }
+#endif
             }
         }
     }

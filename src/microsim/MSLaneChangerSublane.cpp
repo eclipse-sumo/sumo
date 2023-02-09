@@ -685,6 +685,7 @@ MSLaneChangerSublane::checkChangeSublane(
         if (ceSib->aheadNext.hasVehicles()) {
             neighLeaders.addLeaders(ceSib->aheadNext);
         }
+        //std::cout << SIMTIME << " ego=" << vehicle->getID() << " neighAhead=" << target->aheadNext.toString() << " sib=" << ceSib->lane->getID() << " sibAhead=" << ceSib->aheadNext.toString() << " neighLeaders=" << neighLeaders.toString() << "\n";
     }
 
     // break leader symmetry
