@@ -31,8 +31,9 @@ from subprocess import check_output, Popen, PIPE
 
 
 def formatBinTemplate(templateStr):
-    print (templateStr)
-
+    """
+    @brief parse binary of a bin template (sumo, neconvert, etc.)
+    """
     # remove endlines in Windows
     templateStr = templateStr.replace("\\r", '')
     # replace " with \"
@@ -50,7 +51,11 @@ def formatBinTemplate(templateStr):
     templateStr = templateStr.replace('\n    ";', ';\n\n')
     return templateStr
 
+
 def formatToolTemplate(templateStr):
+    """
+    @brief format python tool template
+    """
     # remove first backslash
     templateStr = templateStr.replace('\\', '')
     # replace " with \"
@@ -64,7 +69,10 @@ def formatToolTemplate(templateStr):
     return templateStr
 
 
-def generateSUMOTemplate(binDir):
+def generateSumoTemplate(binDir):
+    """
+    @brief generate template para sumo
+    """
     # create a list with all sumo binaries
     for sumoBin in [binDir + "/sumo", binDir + "/sumo.exe", binDir + "/sumoD", binDir + "/sumoD.exe"]:
         if os.path.exists(sumoBin):
@@ -78,11 +86,11 @@ def generateSUMOTemplate(binDir):
 
 
 def generateToolTemplate(srcDir, toolDir, toolName):
+    """
+    @brief generate tool template
+    """
     # get toolPath
     toolPath = toolDir + "/" + toolName + ".py";
-    
-    print (["python", toolPath, "--save-template stdout"])
-    
     # check if exists
     if os.path.exists(toolPath):
         # obtain template saving it toolTemplate.xml
@@ -108,9 +116,10 @@ if __name__ == "__main__":
     sumoTemplate = generateSUMOTemplate(binDir)
     # generate Tool template
     toolTemplate = generateToolTemplate(srcDir, toolDir, "generateRerouters")
+    toolTemplate2 = generateToolTemplate(srcDir, toolDir, "randomTrips")
     # write templates.h
     with open("templates.h", 'w') as templateHeaderFile:
         # Convert all of the items in lst to strings (to avoid quotes)
-        templateMap = map(str, ["#include <string>\n\n", sumoTemplate, toolTemplate])  
+        templateMap = map(str, ["#include <string>\n\n", sumoTemplate, toolTemplate, toolTemplate2])  
         # Join the items together and write to the file
         templateHeaderFile.write("".join(templateMap))
