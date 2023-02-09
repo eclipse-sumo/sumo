@@ -14,8 +14,6 @@
         <window-size value="936, 697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing-debug value="true"/>
-        <gui-testing-debug-gl value="true"/>
         <gui-testing.setting-output value="guisettingsoutput.xml"/>
     </visualisation>
 

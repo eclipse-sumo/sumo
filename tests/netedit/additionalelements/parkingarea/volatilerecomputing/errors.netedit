@@ -13,21 +13,6 @@ GLDebug: 	Inserted edge:bot into SUMORTree with boundary -35.00,-26.60,35.00,-5.
 GLDebug: 	Inserted edge:center0 into SUMORTree with boundary -35.00,-10.00,35.00,14.80
 GLDebug: 	Inserted edge:center1 into SUMORTree with boundary -35.00,-14.80,35.00,10.00
 GLDebug: 	Inserted edge:top into SUMORTree with boundary -35.00,5.00,35.00,26.60
-Debug: Adding parkingArea 'pa_0' in GNEChange_Additional
-Debug: Adding parkingArea 'pa_1' in GNEChange_Additional
-Debug: Adding parkingArea 'pa_10' in GNEChange_Additional
-Debug: Adding parkingArea 'pa_12' in GNEChange_Additional
-Debug: Adding parkingArea 'pa_2' in GNEChange_Additional
-Debug: Adding parkingArea 'pa_3' in GNEChange_Additional
-Debug: Adding parkingArea 'pa_4' in GNEChange_Additional
-Debug: Adding parkingArea 'pa_5' in GNEChange_Additional
-Debug: Adding parkingArea 'pa_6' in GNEChange_Additional
-Debug: Adding parkingArea 'pa_7' in GNEChange_Additional
-Debug: Adding parkingArea 'pa_8' in GNEChange_Additional
-Debug: Adding parkingArea 'pa_9' in GNEChange_Additional
-Debug: Keys Shift + F5 (Compute with volatile options) pressed
-Debug: Opening FXMessageBox 'Volatile Recomputing'
-Debug: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:JB0 from SUMORTree with boundary -37.00,-27.00,-13.00,-3.00
 GLDebug: 	Removed object junction:JB1 from SUMORTree with boundary 13.00,-27.00,37.00,-3.00
@@ -60,21 +45,6 @@ GLDebug: 	Inserted edge:bot into SUMORTree with boundary -36.20,-43.00,36.20,3.4
 GLDebug: 	Inserted edge:center0 into SUMORTree with boundary -36.20,-18.40,36.20,31.20
 GLDebug: 	Inserted edge:center1 into SUMORTree with boundary -36.20,-31.20,36.20,18.40
 GLDebug: 	Inserted edge:top into SUMORTree with boundary -36.20,-3.40,36.20,43.00
-Debug: Created connection 'fromE0_1toE1_1' in retrieveGNEConnection()
-Debug: Created connection 'fromE0_1tocenter1_0' in retrieveGNEConnection()
-Debug: Created connection 'fromE0_1tocenter1_1' in retrieveGNEConnection()
-Debug: Created connection 'fromE1_1tobot_0' in retrieveGNEConnection()
-Debug: Created connection 'fromE4_1toE5_1' in retrieveGNEConnection()
-Debug: Created connection 'fromE4_1tocenter0_0' in retrieveGNEConnection()
-Debug: Created connection 'fromE4_1tocenter0_1' in retrieveGNEConnection()
-Debug: Created connection 'fromE5_1totop_0' in retrieveGNEConnection()
-Debug: Created connection 'frombot_0toE4_1' in retrieveGNEConnection()
-Debug: Created connection 'fromcenter0_0toE1_1' in retrieveGNEConnection()
-Debug: Created connection 'fromcenter0_1tocenter1_1' in retrieveGNEConnection()
-Debug: Created connection 'fromcenter1_0toE5_1' in retrieveGNEConnection()
-Debug: Created connection 'fromcenter1_1tocenter0_1' in retrieveGNEConnection()
-Debug: Created connection 'fromtop_0toE0_1' in retrieveGNEConnection()
-Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:JB0 from SUMORTree with boundary -40.20,-28.20,-11.00,-1.00
 GLDebug: 	Removed object junction:JB1 from SUMORTree with boundary 11.00,-28.20,40.20,-1.00
@@ -91,29 +61,11 @@ GLDebug: 	Removed object edge:bot from SUMORTree with boundary -36.20,-43.00,36.
 GLDebug: 	Removed object edge:center0 from SUMORTree with boundary -36.20,-18.40,36.20,31.20
 GLDebug: 	Removed object edge:center1 from SUMORTree with boundary -36.20,-31.20,36.20,18.40
 GLDebug: 	Removed object edge:top from SUMORTree with boundary -36.20,-3.40,36.20,43.00
-Debug: Deleting unreferenced parkingArea
-Debug: Deleting unreferenced parkingArea
-Debug: Deleting unreferenced parkingArea
-Debug: Deleting unreferenced parkingArea
-Debug: Deleting unreferenced parkingArea
-Debug: Deleting unreferenced parkingArea
-Debug: Deleting unreferenced parkingArea
-Debug: Deleting unreferenced parkingArea
-Debug: Deleting unreferenced parkingArea
-Debug: Deleting unreferenced parkingArea
-Debug: Deleting unreferenced parkingArea
-Debug: Deleting unreferenced parkingArea
 GLDebug: initJunctionsAndEdges function called in computeAndUpdate(...) due recomputing with volatile options
 GLDebug: 	Inserted junction:JB0 into SUMORTree with boundary -40.20,-30.20,-15.00,-5.00
 GLDebug: 	Inserted junction:JB1 into SUMORTree with boundary 15.00,-30.20,40.20,-5.00
 GLDebug: 	Inserted junction:JC0 into SUMORTree with boundary -40.20,-19.90,-13.50,19.90
-Debug: Created crossing ':JC0_c0' in retrieveGNECrossing()
-Debug: Created crossing ':JC0_c1' in retrieveGNECrossing()
-Debug: Created crossing ':JC0_c2' in retrieveGNECrossing()
 GLDebug: 	Inserted junction:JC1 into SUMORTree with boundary 13.50,-19.90,40.20,19.90
-Debug: Created crossing ':JC1_c0' in retrieveGNECrossing()
-Debug: Created crossing ':JC1_c1' in retrieveGNECrossing()
-Debug: Created crossing ':JC1_c2' in retrieveGNECrossing()
 GLDebug: 	Inserted junction:JT0 into SUMORTree with boundary -40.20,5.00,-15.00,30.20
 GLDebug: 	Inserted junction:JT1 into SUMORTree with boundary 15.00,5.00,40.20,30.20
 GLDebug: 	Inserted edge:E0 into SUMORTree with boundary -39.20,-10.00,-15.00,25.00
@@ -156,105 +108,4 @@ GLDebug: 	Inserted edge:bot into SUMORTree with boundary -36.20,-45.60,36.20,0.8
 GLDebug: 	Inserted edge:center0 into SUMORTree with boundary -37.70,-15.20,35.00,33.80
 GLDebug: 	Inserted edge:center1 into SUMORTree with boundary -35.00,-33.80,37.70,15.20
 GLDebug: 	Inserted edge:top into SUMORTree with boundary -36.20,-0.80,36.20,45.60
-Debug: Created connection 'fromE0_1toE1_1' in retrieveGNEConnection()
-Debug: Created connection 'fromE0_1tocenter1_1' in retrieveGNEConnection()
-Debug: Created connection 'fromE0_1tocenter1_2' in retrieveGNEConnection()
-Debug: Created connection 'fromE1_1tobot_1' in retrieveGNEConnection()
-Debug: Created connection 'fromE4_1toE5_1' in retrieveGNEConnection()
-Debug: Created connection 'fromE4_1tocenter0_1' in retrieveGNEConnection()
-Debug: Created connection 'fromE4_1tocenter0_2' in retrieveGNEConnection()
-Debug: Created connection 'fromE5_1totop_1' in retrieveGNEConnection()
-Debug: Created connection 'frombot_1toE4_1' in retrieveGNEConnection()
-Debug: Created connection 'fromcenter0_1toE1_1' in retrieveGNEConnection()
-Debug: Created connection 'fromcenter0_2tocenter1_2' in retrieveGNEConnection()
-Debug: Created connection 'fromcenter1_1toE5_1' in retrieveGNEConnection()
-Debug: Created connection 'fromcenter1_2tocenter0_2' in retrieveGNEConnection()
-Debug: Created connection 'fromtop_1toE0_1' in retrieveGNEConnection()
-Debug: Created walkingArea ':JB0_w0' in retrieveGNEWalkingArea()
-Debug: Created walkingArea ':JB1_w0' in retrieveGNEWalkingArea()
-Debug: Created walkingArea ':JC0_w0' in retrieveGNEWalkingArea()
-Debug: Created walkingArea ':JC0_w1' in retrieveGNEWalkingArea()
-Debug: Created walkingArea ':JC0_w2' in retrieveGNEWalkingArea()
-Debug: Created walkingArea ':JC1_w0' in retrieveGNEWalkingArea()
-Debug: Created walkingArea ':JC1_w1' in retrieveGNEWalkingArea()
-Debug: Created walkingArea ':JC1_w2' in retrieveGNEWalkingArea()
-Debug: Created walkingArea ':JT0_w0' in retrieveGNEWalkingArea()
-Debug: Created walkingArea ':JT1_w0' in retrieveGNEWalkingArea()
-Debug: network elements saved
-Debug: Additionals saved
-Debug: Deleting unreferenced edge 'E0' in AttributeCarriers destructor
-Debug: Deleting unreferenced lane 'E0_0' in GNEEdge destructor
-Debug: Deleting unreferenced lane 'E0_1' in GNEEdge destructor
-Debug: Deleting unreferenced connection 'fromE0_1toE1_1' in GNEEdge destructor
-Debug: Deleting unreferenced connection 'fromE0_1tocenter1_1' in GNEEdge destructor
-Debug: Deleting unreferenced connection 'fromE0_1tocenter1_2' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'E1' in AttributeCarriers destructor
-Debug: Deleting unreferenced lane 'E1_0' in GNEEdge destructor
-Debug: Deleting unreferenced lane 'E1_1' in GNEEdge destructor
-Debug: Deleting unreferenced connection 'fromE1_1tobot_1' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'E4' in AttributeCarriers destructor
-Debug: Deleting unreferenced lane 'E4_0' in GNEEdge destructor
-Debug: Deleting unreferenced lane 'E4_1' in GNEEdge destructor
-Debug: Deleting unreferenced connection 'fromE4_1toE5_1' in GNEEdge destructor
-Debug: Deleting unreferenced connection 'fromE4_1tocenter0_1' in GNEEdge destructor
-Debug: Deleting unreferenced connection 'fromE4_1tocenter0_2' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'E5' in AttributeCarriers destructor
-Debug: Deleting unreferenced lane 'E5_0' in GNEEdge destructor
-Debug: Deleting unreferenced lane 'E5_1' in GNEEdge destructor
-Debug: Deleting unreferenced connection 'fromE5_1totop_1' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'bot' in AttributeCarriers destructor
-Debug: Deleting unreferenced lane 'bot_0' in GNEEdge destructor
-Debug: Deleting unreferenced lane 'bot_1' in GNEEdge destructor
-Debug: Deleting unreferenced connection 'frombot_1toE4_1' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'center0' in AttributeCarriers destructor
-Debug: Deleting unreferenced lane 'center0_0' in GNEEdge destructor
-Debug: Deleting unreferenced lane 'center0_1' in GNEEdge destructor
-Debug: Deleting unreferenced lane 'center0_2' in GNEEdge destructor
-Debug: Deleting unreferenced connection 'fromcenter0_1toE1_1' in GNEEdge destructor
-Debug: Deleting unreferenced connection 'fromcenter0_2tocenter1_2' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'center1' in AttributeCarriers destructor
-Debug: Deleting unreferenced lane 'center1_0' in GNEEdge destructor
-Debug: Deleting unreferenced lane 'center1_1' in GNEEdge destructor
-Debug: Deleting unreferenced lane 'center1_2' in GNEEdge destructor
-Debug: Deleting unreferenced connection 'fromcenter1_1toE5_1' in GNEEdge destructor
-Debug: Deleting unreferenced connection 'fromcenter1_2tocenter0_2' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'top' in AttributeCarriers destructor
-Debug: Deleting unreferenced lane 'top_0' in GNEEdge destructor
-Debug: Deleting unreferenced lane 'top_1' in GNEEdge destructor
-Debug: Deleting unreferenced connection 'fromtop_1toE0_1' in GNEEdge destructor
-Debug: Deleting unreferenced junction 'JB0' in AttributeCarriers destructor
-Debug: Deleting unreferenced walkingArea ':JB0_w0' in GNEJunction destructor
-Debug: Deleting unreferenced junction 'JB1' in AttributeCarriers destructor
-Debug: Deleting unreferenced walkingArea ':JB1_w0' in GNEJunction destructor
-Debug: Deleting unreferenced junction 'JC0' in AttributeCarriers destructor
-Debug: Deleting unreferenced crossing ':JC0_c0' in GNEJunction destructor
-Debug: Deleting unreferenced crossing ':JC0_c1' in GNEJunction destructor
-Debug: Deleting unreferenced crossing ':JC0_c2' in GNEJunction destructor
-Debug: Deleting unreferenced walkingArea ':JC0_w0' in GNEJunction destructor
-Debug: Deleting unreferenced walkingArea ':JC0_w1' in GNEJunction destructor
-Debug: Deleting unreferenced walkingArea ':JC0_w2' in GNEJunction destructor
-Debug: Deleting unreferenced junction 'JC1' in AttributeCarriers destructor
-Debug: Deleting unreferenced crossing ':JC1_c0' in GNEJunction destructor
-Debug: Deleting unreferenced crossing ':JC1_c1' in GNEJunction destructor
-Debug: Deleting unreferenced crossing ':JC1_c2' in GNEJunction destructor
-Debug: Deleting unreferenced walkingArea ':JC1_w0' in GNEJunction destructor
-Debug: Deleting unreferenced walkingArea ':JC1_w1' in GNEJunction destructor
-Debug: Deleting unreferenced walkingArea ':JC1_w2' in GNEJunction destructor
-Debug: Deleting unreferenced junction 'JT0' in AttributeCarriers destructor
-Debug: Deleting unreferenced walkingArea ':JT0_w0' in GNEJunction destructor
-Debug: Deleting unreferenced junction 'JT1' in AttributeCarriers destructor
-Debug: Deleting unreferenced walkingArea ':JT1_w0' in GNEJunction destructor
-Debug: Deleting unreferenced parkingArea in AttributeCarriers destructor
-Debug: Deleting unreferenced parkingArea in AttributeCarriers destructor
-Debug: Deleting unreferenced parkingArea in AttributeCarriers destructor
-Debug: Deleting unreferenced parkingArea in AttributeCarriers destructor
-Debug: Deleting unreferenced parkingArea in AttributeCarriers destructor
-Debug: Deleting unreferenced parkingArea in AttributeCarriers destructor
-Debug: Deleting unreferenced parkingArea in AttributeCarriers destructor
-Debug: Deleting unreferenced parkingArea in AttributeCarriers destructor
-Debug: Deleting unreferenced parkingArea in AttributeCarriers destructor
-Debug: Deleting unreferenced parkingArea in AttributeCarriers destructor
-Debug: Deleting unreferenced parkingArea in AttributeCarriers destructor
-Debug: Deleting unreferenced parkingArea in AttributeCarriers destructor
-Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 14
