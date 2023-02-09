@@ -1489,6 +1489,10 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                 if (leader == ego) {
                     continue;
                 }
+                if (leader->getLane()->isNormal()) {
+                    // leader is past the conflict point
+                    continue;
+                }
                 const double maxLength = MAX2(myInternalLaneBefore->getLength(), foeLane->getLength());
                 const double gap = dist - maxLength - ego->getVehicleType().getMinGap() + leader->getBackPositionOnLane(foeLane);
                 if (gap < -(ego->getVehicleType().getMinGap() + leader->getLength())) {
