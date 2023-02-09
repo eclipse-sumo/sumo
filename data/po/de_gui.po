@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-05 21:26+0100\n"
-"PO-Revision-Date: 2023-02-09 07:36+0000\n"
+"PO-Revision-Date: 2023-02-09 09:08+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -4391,11 +4391,11 @@ msgstr "Erstellte Fußgängerfurt rückgängig machen"
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_Crossing.cpp:165
 msgid "Undo delete crossing"
-msgstr "Gelöschte Fußgängerfurt rückgängig machen"
+msgstr "Fußgängerfurt löschen rückgängig machen"
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_Crossing.cpp:173
 msgid "Redo create crossing"
-msgstr "Erstellte Fußgängerfurt wiederholen"
+msgstr "Fußgängerfurt erstellen wiederholen"
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_Crossing.cpp:175
 msgid "Redo delete crossing"
@@ -4447,7 +4447,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_EnableAttribute.cpp:123
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_EnableAttribute.cpp:125
 msgid " attribute in '"
-msgstr " Attribute in '"
+msgstr " Attribut in '"
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_EnableAttribute.cpp:123
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_EnableAttribute.cpp:125
@@ -4490,7 +4490,7 @@ msgstr "Fahrstreifen löschen wiederholen '"
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_TLS.cpp:50
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_TLS.cpp:73
 msgid "If myTlDef is null, forward cannot be false"
-msgstr "Wenn myTlDef null ist, Vorderer kann nicht falsch sein"
+msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_TLS.cpp:172
 msgid "Undo create TLS '"
@@ -5365,8 +5365,8 @@ msgid ""
 "If set to a more than 0 value, an internal junction will be built at this "
 "position (in m)/n from the start of the internal lane for this connection"
 msgstr ""
-"Bei einem Wert größer 0 wird an dieser Position (in m)/n vom Beginn des "
-"internen Fahrstreifens für diese Verbindung eine interner Knotenpunkt "
+"Bei einem Wert größer 0 wird an dieser Position (in m) vom Beginn des "
+"internen Fahrstreifens aus für diese Verbindung ein interner Knotenpunkt "
 "erstellt"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1420
@@ -5375,7 +5375,7 @@ msgid ""
 "being controlled"
 msgstr ""
 "Bei Festlegung auf 'true' wird diese Verbindung nicht LSA-gesteuert, obwohl "
-"die Verbindung gesteuert wird"
+"der Knotenpunkt als lichtsignalisiert markiert ist"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1426
 msgid "Vision distance between vehicles"
@@ -5407,7 +5407,7 @@ msgstr "Nutzerdefinierter Shape für die Verbindung setzen"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1486
 msgid "if set to true, vehicles will make a turn in 2 steps"
-msgstr "wenn auf wahr gesetzt, Fahrzeuge machen eine Wende in 2 Schritten"
+msgstr "wenn auf wahr gesetzt, wenden Fahrzeuge in 2 Schritten"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1492
 msgid ""
