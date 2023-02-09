@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-05 21:26+0100\n"
-"PO-Revision-Date: 2023-02-09 13:39+0000\n"
-"Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
+"PO-Revision-Date: 2023-02-09 14:05+0000\n"
+"Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
 "Language: de\n"
@@ -4114,7 +4114,7 @@ msgstr "Verbotsmodus setzen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3633
 msgid "Mode for editing connection prohibitions. (H)"
-msgstr ""
+msgstr "Modus zum Bearbeiten von Verbindungs-Verboten. (H)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3639
 msgid "Set traffic light mode"
@@ -6345,15 +6345,15 @@ msgstr "Ankunftsgewicht, das dieser Kante zugeordnet ist"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3207
 msgid "Traction substation ID"
-msgstr ""
+msgstr "Transport-Unterstation ID"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3218
 msgid "Voltage of at connection point for the overhead wire"
-msgstr ""
+msgstr "Spannung von einem Verbindungspunkt für die Oberleitung"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3224
 msgid "Current limit of the feeder line"
-msgstr ""
+msgstr "Strombegrenzung der Zuleitung"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3238
 msgid "Overhead wire segment ID"
@@ -6413,7 +6413,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3306
 msgid "ID of the overhead wire segment lane of overheadWireIDEndClamp"
-msgstr ""
+msgstr "ID der Oberleitungssegmentspur von overheadWireIDEndClamp"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3329
 msgid "The id of Route"
@@ -7196,11 +7196,12 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5138
 msgid "EIDM Flatness parameter of startup/driveoff curve [-]"
-msgstr ""
+msgstr "EIDM-Ebenheitsparameter der Anfahr-/Abfahrkurve [-]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5144
+#, fuzzy
 msgid "EIDM Shift parameter of startup/driveoff curve [-]"
-msgstr ""
+msgstr "EIDM Schaltparameter der Anfahr-/Abfahrkurve [-]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5150
 msgid ""
@@ -7259,7 +7260,7 @@ msgstr "Kerner Phi Parameter"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5265
 msgid "IDM Delta parameter"
-msgstr ""
+msgstr "IDM Delta Parameter"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5270
 msgid "IDM Stepping parameter"
@@ -7306,6 +7307,8 @@ msgid ""
 "This value causes vehicles affected by jmDriveAfterRedTime to slow down when "
 "violating a red light."
 msgstr ""
+"Dieser Wert bewirkt, dass von jmDriveAfterRedTime betroffene Fahrzeuge beim "
+"Überfahren einer roten LSA langsamer werden."
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5318
 msgid ""
@@ -7442,6 +7445,8 @@ msgid ""
 "Factor for configuring the strategic lookahead distance when a change to the "
 "left is necessary (relative to right lookahead)."
 msgstr ""
+"Faktor zur Konfiguration des strategischen Vorgriffs-Abstands, wenn ein "
+"Wechsel nach links erforderlich ist (relativ zum rechten Vorgriff)."
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5435
 msgid ""
@@ -7464,9 +7469,12 @@ msgstr ""
 "lcMaxSpeedLatStanding + lcMaxSpeedLatFactor * getSpeed()"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5453
+#, fuzzy
 msgid ""
 "Distance to an upcoming turn on the vehicles route, below which the alignment"
 msgstr ""
+"Entfernung zu einer bevorstehenden Abzweigung auf der Fahrzeugroute, wo der "
+"Anschluss liegt"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5454
 msgid "should be dynamically adapted to match the turn direction."
