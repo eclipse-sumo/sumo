@@ -29,6 +29,12 @@ import os
 from os.path import dirname, join
 from subprocess import check_output, Popen, PIPE
 
+# list of folders and tools
+tools =[
+    [".", "generateRerouters"],
+    ["route", "addStops2Routes"]
+]
+
 
 def formatBinTemplate(templateStr):
     """
@@ -76,6 +82,8 @@ def generateSumoTemplate(binDir):
     # create a list with all sumo binaries
     for sumoBin in [binDir + "/sumo", binDir + "/sumo.exe", binDir + "/sumoD", binDir + "/sumoD.exe"]:
         if os.path.exists(sumoBin):
+            # show info
+            print ("Obtaining sumo template")
             # obtain template piping stdout using check_output
             template = str(check_output([sumoBin, "--save-template", "stdout"]))
             # join variable and formated template
@@ -85,18 +93,23 @@ def generateSumoTemplate(binDir):
                     "Make sure that sumo or sumoD was generated in bin folder")
 
 
-def generateToolTemplate(srcDir, toolDir, toolName):
+def generateToolTemplate(srcDir, toolDir, subDir, toolName):
     """
     @brief generate tool template
     """
     # get toolPath
-    toolPath = toolDir + "/" + toolName + ".py";
+    toolPath = toolDir + "/" + subDir + "/" +toolName + ".py";
+    # get file for xml template
+    xmlTemplate = srcDir + "/netedit/toolTemplate.xml"
     # check if exists
     if os.path.exists(toolPath):
+        # show info
+        print ("Obtaining '" + toolName + "' tool template")
         # obtain template saving it toolTemplate.xml
-        Popen("python " + toolPath + " --save-template toolTemplate.xml")
+        callToolprocess = Popen("python " + toolPath + " --save-template " + xmlTemplate)
+        callToolprocess.wait()
         # read XML
-        with open(srcDir + "/netedit/toolTemplate.xml", 'r') as f:
+        with open(xmlTemplate, 'r') as f:
             template = f.read()
         # join variable and formated template
         return formatToolTemplate(join("const std::string " + toolName + "Template = ", template))
@@ -112,14 +125,16 @@ if __name__ == "__main__":
     binDir = join(dirname(__file__), '..', '..', 'bin')
     # get tool dir path (SUMO/tools)
     toolDir = join(dirname(__file__), '..')
-    # generate SUMO template
-    sumoTemplate = generateSUMOTemplate(binDir)
+    # list of templates
+    templates = ["#include <string>\n\n"]
+    # append SUMO template
+    templates.append(generateSumoTemplate(binDir))
     # generate Tool template
-    toolTemplate = generateToolTemplate(srcDir, toolDir, "generateRerouters")
-    toolTemplate2 = generateToolTemplate(srcDir, toolDir, "randomTrips")
+    for tool in tools:
+        templates.append(generateToolTemplate(srcDir, toolDir, tool[0], tool[1]))
     # write templates.h
     with open("templates.h", 'w') as templateHeaderFile:
-        # Convert all of the items in lst to strings (to avoid quotes)
-        templateMap = map(str, ["#include <string>\n\n", sumoTemplate, toolTemplate, toolTemplate2])  
+        # Convert templates in a map of strings (to avoid quotes)
+        templateMap = map(str, templates)  
         # Join the items together and write to the file
         templateHeaderFile.write("".join(templateMap))
