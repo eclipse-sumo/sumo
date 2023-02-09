@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-05 21:26+0100\n"
-"PO-Revision-Date: 2023-02-09 11:20+0000\n"
+"PO-Revision-Date: 2023-02-09 12:00+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
@@ -3019,15 +3019,15 @@ msgstr "分割路口"
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1907
 msgid "Could not rename split node to '%'"
-msgstr ""
+msgstr "無法將分割的節點重新命名為 '%'"
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1946
 msgid "clear junction connections"
-msgstr ""
+msgstr "清除路口內的連結線"
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1958
 msgid "reset junction connections"
-msgstr ""
+msgstr "重置路口內連接線"
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1969
 msgid "clear additional elements"
@@ -3048,35 +3048,35 @@ msgstr "清除meanData要素"
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:2326
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:2403
 msgid "Duplicated ID"
-msgstr ""
+msgstr "複製的ID"
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:2689
 msgid "Network size exceeds 1 Lightyear. Please reconsider your inputs."
-msgstr ""
+msgstr "路網規模超過 1 光年。 請重新考慮您的輸入。"
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:2763
 msgid "ViewNet doesn't exist"
-msgstr ""
+msgstr "ViewNet 不存在"
 
 #: /home/micha/programming/sumo/src/netedit/GNENetHelper.cpp:218
 msgid "GUIGlObject does not match the declared type"
-msgstr ""
+msgstr "GUIGlObject 與宣告的型別不符合"
 
 #: /home/micha/programming/sumo/src/netedit/GNENetHelper.cpp:223
 msgid "Attempted to retrieve non-existant GUIGlObject"
-msgstr ""
+msgstr "企圖檢索不存在的GUIGlObject"
 
 #: /home/micha/programming/sumo/src/netedit/GNENetHelper.cpp:1025
 msgid "Attempted to retrieve non-existant additional (string)"
-msgstr ""
+msgstr "試圖檢索不存在的附加項（字串）"
 
 #: /home/micha/programming/sumo/src/netedit/GNENetHelper.cpp:1039
 msgid "Attempted to retrieve non-existant additional (AttributeCarrier)"
-msgstr ""
+msgstr "試圖檢索不存在的附加項（屬性載體）"
 
 #: /home/micha/programming/sumo/src/netedit/GNENetHelper.cpp:1065
 msgid "Attempted to retrieve non-existant rerouter interval"
-msgstr ""
+msgstr "試圖檢索不存在的重新搜尋路徑的間隔"
 
 #: /home/micha/programming/sumo/src/netedit/GNENetHelper.cpp:1320
 msgid "Attempted to retrieve non-existant demand element (string)"
@@ -3088,29 +3088,29 @@ msgstr "嘗試擷取不存在的需求要素(屬性載體)"
 
 #: /home/micha/programming/sumo/src/netedit/GNENetHelper.cpp:1461
 msgid "Default vType doesn't exist"
-msgstr ""
+msgstr "預設的vType 不存在"
 
 #: /home/micha/programming/sumo/src/netedit/GNENetHelper.cpp:1816
 #: /home/micha/programming/sumo/src/netedit/GNENetHelper.cpp:1830
 #: /home/micha/programming/sumo/src/netedit/GNENetHelper.cpp:1904
 msgid "Attempted to retrieve non-existant data set"
-msgstr ""
+msgstr "試圖檢索不存在的資料集"
 
 #: /home/micha/programming/sumo/src/netedit/GNENetHelper.cpp:1861
 msgid "Attempted to retrieve non-existant data interval"
-msgstr ""
+msgstr "試圖檢索不存在的資料區間"
 
 #: /home/micha/programming/sumo/src/netedit/GNENetHelper.cpp:2130
 msgid "Attempted to retrieve non-existant meanData (string)"
-msgstr ""
+msgstr "試圖檢索不存在的meanData（字串）"
 
 #: /home/micha/programming/sumo/src/netedit/GNENetHelper.cpp:2144
 msgid "Attempted to retrieve non-existant meanData (AttributeCarrier)"
-msgstr ""
+msgstr "試圖檢索不存在的meanData（屬性載體）"
 
 #: /home/micha/programming/sumo/src/netedit/GNENetHelper.cpp:2310
 msgid "Invalid additional pointer"
-msgstr ""
+msgstr "無效的附加指標"
 
 #: /home/micha/programming/sumo/src/netedit/GNENetHelper.cpp:2367
 msgid "Invalid demandElement pointer"
@@ -3118,205 +3118,205 @@ msgstr "無效的需求要素指標"
 
 #: /home/micha/programming/sumo/src/netedit/GNENetHelper.cpp:2426
 msgid "Invalid dataSet pointer"
-msgstr ""
+msgstr "無效的數據集指標"
 
 #: /home/micha/programming/sumo/src/netedit/GNENetHelper.cpp:2473
 msgid "Invalid meanData pointer"
-msgstr ""
+msgstr "無效的meanData指標"
 
 #: /home/micha/programming/sumo/src/netedit/GNENetHelper.cpp:2734
 msgid "Redo replace in TLS"
-msgstr ""
+msgstr "重作在TLS內的替換"
 
 #: /home/micha/programming/sumo/src/netedit/GNENetHelper.cpp:2740
 msgid "Undo replace in TLS"
-msgstr ""
+msgstr "取消在TLS內的替換"
 
 #: /home/micha/programming/sumo/src/netedit/GNEPathManager.cpp:85
 #: /home/micha/programming/sumo/src/netedit/GNEPathManager.cpp:95
 msgid "Invalid call: Only allowed in lane segments"
-msgstr ""
+msgstr "無效呼叫：僅允許在車道段中使用"
 
 #: /home/micha/programming/sumo/src/netedit/GNEPathManager.cpp:117
 #: /home/micha/programming/sumo/src/netedit/GNEPathManager.cpp:127
 msgid "Invalid call: Only allowed in junction segments"
-msgstr ""
+msgstr "無效呼叫：僅允許在路口段中使用"
 
 #: /home/micha/programming/sumo/src/netedit/GNEUndoList.cpp:146
 msgid "GNEUndoList::undo() cannot call undo inside begin-end block"
-msgstr ""
+msgstr "GNEUndoList::undo()無法在開始-結束區塊內呼叫取消"
 
 #: /home/micha/programming/sumo/src/netedit/GNEUndoList.cpp:169
 msgid "GNEUndoList::redo() cannot call undo inside begin-end block"
-msgstr ""
+msgstr "GNEUndoList::redo() 無法在開始-結束區塊內呼叫取消"
 
 #: /home/micha/programming/sumo/src/netedit/GNEUndoList.cpp:224
 msgid "GNEChangeGroup::begin: already working on undo or redo"
-msgstr ""
+msgstr "GNEChangeGroup::begin: 已經在執行取消或是重做"
 
 #: /home/micha/programming/sumo/src/netedit/GNEUndoList.cpp:257
 msgid "GNEChangeGroup::end: no matching call to begin"
-msgstr ""
+msgstr "GNEChangeGroup::end:沒有符合的呼叫進行開始"
 
 #: /home/micha/programming/sumo/src/netedit/GNEUndoList.cpp:261
 msgid "GNEChangeGroup::end: already working on undo or redo"
-msgstr ""
+msgstr "GNEChangeGroup::end: 已經在執行取消或是重做"
 
 #: /home/micha/programming/sumo/src/netedit/GNEUndoList.cpp:332
 msgid "GNEChangeGroup::add: nullptr change argument"
-msgstr ""
+msgstr "GNEChangeGroup::add: nullptr 改變引數"
 
 #: /home/micha/programming/sumo/src/netedit/GNEUndoList.cpp:336
 msgid "GNEChangeGroup::add: already working on undo or redo"
-msgstr ""
+msgstr "GNEChangeGroup::add: 已經在執行取消或是重做"
 
 #: /home/micha/programming/sumo/src/netedit/GNEUndoList.cpp:538
 msgid "GNEChangeGroup::abort: no matching call to begin"
-msgstr ""
+msgstr "GNEChangeGroup::abort:有符合的呼叫進行開始"
 
 #: /home/micha/programming/sumo/src/netedit/GNEUndoList.cpp:542
 msgid "GNEChangeGroup::abort: already working on undo or redo"
-msgstr ""
+msgstr "GNEChangeGroup::abort:已經在執行取消或是重做"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:333
 msgid "Locate Junctions"
-msgstr ""
+msgstr "定位路口"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:333
 msgid "Locate a junction within the network. (Shift+J)"
-msgstr ""
+msgstr "在路網內定位一個路口路口。(Shift+J)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:337
 msgid "Locate Edges"
-msgstr ""
+msgstr "定位路段"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:337
 msgid "Locate an edge within the network. (Shift+E)"
-msgstr ""
+msgstr "在路網內定位一個路段。(Shift+E)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:341
 msgid "Locate WalkingAreas"
-msgstr ""
+msgstr "定位步行區域"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:341
 msgid "Locate a walkingArea within the network. (Shift+W)"
-msgstr ""
+msgstr "在路網內定位步行區域。(Shift+W)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:345
 msgid "Locate Vehicles"
-msgstr ""
+msgstr "定位車輛"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:345
 msgid "Locate a vehicle within the network. (Shift+V)"
-msgstr ""
+msgstr "在路網內定位車輛。(Shift+V)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:349
 msgid "Locate Persons"
-msgstr ""
+msgstr "定位人員"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:349
 msgid "Locate a person within the network. (Shift+P)"
-msgstr ""
+msgstr "在路網內定位人員。(Shift+P)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:353
 msgid "Locate Route"
-msgstr ""
+msgstr "定位路徑"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:353
 msgid "Locate a route within the network. (Shift+R)"
-msgstr ""
+msgstr "在路網內定位路徑。(Shift+R)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:357
 msgid "Locate Stops"
-msgstr ""
+msgstr "定位停靠點"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:357
 msgid "Locate a stop within the network. (Shift+S)"
-msgstr ""
+msgstr "在路網內定位停靠點。(Shift+S)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:368
 msgid "Locate TLS"
-msgstr ""
+msgstr "定位交通號誌"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:368
 msgid "Locate a tls within the network. (Shift+T)"
-msgstr ""
+msgstr "在路網內定位交通號誌。(Shift+T)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:372
 msgid "Locate Additional"
-msgstr ""
+msgstr "定位附加物"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:372
 msgid "Locate an additional structure within the network. (Shift+A)"
-msgstr ""
+msgstr "在路網內定位一個附加結構。(Shift+A)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:376
 msgid "Locate PoI"
-msgstr ""
+msgstr "定位興趣點"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:376
 msgid "Locate a PoI within the network. (Shift+O)"
-msgstr ""
+msgstr "在路網內定位興趣點。(Shift+O)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:380
 msgid "Locate Polygon"
-msgstr ""
+msgstr "定位多邊形物件"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:380
 msgid "Locate a Polygon within the network. (Shift+L)"
-msgstr ""
+msgstr "在路網內定位多邊形物件。(Shift+L)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:454
 msgid "Remove from Selected"
-msgstr ""
+msgstr "從選定項中刪除"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:456
 msgid "Add to Selected"
-msgstr ""
+msgstr "新增到選定項內"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:613
 msgid "GUI-Settings cannot be saved in "
-msgstr ""
+msgstr "GUI-設定無法儲存於 "
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:812
 msgid "Confirm Junction Merger"
-msgstr ""
+msgstr "確認路口合併"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:813
 msgid "Do you wish to merge junctions '"
-msgstr ""
+msgstr "您是否希望合併路口"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:814
 msgid "' and '"
-msgstr ""
+msgstr "' 和 '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:815
 msgid "' will be eliminated and its roads added to '"
-msgstr ""
+msgstr "'將被消除，其道路將增加到”"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:843
 msgid " requires switch to network mode. Continue?"
-msgstr ""
+msgstr " 要求切換到路網模式。繼續執行？"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:845
 msgid " requires switch to demand mode. Continue?"
-msgstr ""
+msgstr " 要求切换到需求模式。繼續執行？"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:847
 msgid " requires switch to data mode. Continue?"
-msgstr ""
+msgstr " 要求切换到資料模式。繼續執行？"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:849
 msgid "invalid expecte supermode"
-msgstr ""
+msgstr "無效的預期超模式"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:852
 msgid "Confirm switch mode"
-msgstr ""
+msgstr "確認切換模式"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:1427
 msgid "Cannot delete in this mode"
-msgstr ""
+msgstr "在此模式下無法刪除"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:1430
 msgid "delete network inspected elements"
@@ -3324,7 +3324,7 @@ msgstr "刪除檢視的路網要素"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:1438
 msgid "delete network selection"
-msgstr ""
+msgstr "刪除路網選擇"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:1446
 msgid "delete demand inspected elements"
@@ -3332,7 +3332,7 @@ msgstr "刪除檢視的需求要素"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:1454
 msgid "delete demand selection"
-msgstr ""
+msgstr "刪除需求選擇"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:1462
 msgid "delete data inspected elements"
@@ -3340,48 +3340,48 @@ msgstr "刪除檢視的資料要素"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:1470
 msgid "delete data selection"
-msgstr ""
+msgstr "刪除資料選擇"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2105
 msgid "Reverse selected edges"
-msgstr ""
+msgstr "反轉選定的路段"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2112
 msgid "Reverse edge"
-msgstr ""
+msgstr "反向路段"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2126
 msgid "Add Reverse edge for selected edges"
-msgstr ""
+msgstr "為選定的路段新增反向路段"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2133
 msgid "Add reverse edge"
-msgstr ""
+msgstr "新增反向路段"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2147
 msgid "Add Reverse disconnected edge for selected edges"
-msgstr ""
+msgstr "為選定的路段新增不相互連接的反向路段"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2154
 msgid "Add reverse disconnected edge"
-msgstr ""
+msgstr "新增不相互連接的反向路段"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2183
 msgid "reset geometry points"
-msgstr ""
+msgstr "重置幾何點"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2204
 msgid "straighten selected edges"
-msgstr ""
+msgstr "拉直所選定的路段"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2212
 msgid "straighten edge"
-msgstr ""
+msgstr "拉直路段"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2226
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2247
 msgid "straighten elevation of selected edges"
-msgstr ""
+msgstr "拉直所選定路段的高程"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2233
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2254
