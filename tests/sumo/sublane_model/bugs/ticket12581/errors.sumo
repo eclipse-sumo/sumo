@@ -1,1 +1,2 @@
-Warning: Vehicle 'f_0.1293' performs emergency braking on lane ':J1_0_2' with decel=9.00, wished=4.50, severity=1.00, time=1991.00.
+Warning: Teleporting vehicle 'f_0.1420'; collision with vehicle 'f_0.1428', lane='E0_1', gap=-1.79', latGap=-0.30, time=2163.00 stage=move.
+Warning: Vehicle 'f_0.1420' ends teleporting on edge 'E1', time=2163.00.
