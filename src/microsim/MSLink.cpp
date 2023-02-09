@@ -1334,7 +1334,7 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                                        - 0.5 * (ego->getVehicleType().getWidth() + leader->getVehicleType().getWidth()));
                 const double maneuverDist = leader->getLaneChangeModel().getManeuverDist() * (posLat < posLatLeader ? -1 : 1);
                 if (gDebugFlag1) {
-                    std::cout << " sublaneFoe lane=" << myInternalLaneBefore->getID()
+                    std::cout << " checkIgnore sublaneFoe lane=" << myInternalLaneBefore->getID()
                               << " sameSource=" << sameSource
                               << " sameTarget=" << sameTarget
                               << " foeLane=" << foeLane->getID()
@@ -1507,6 +1507,7 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                               << " leader=" << leader->getID()
                               << " egoLane=" << ego->getLane()->getID()
                               << " leaderLane=" << leader->getLane()->getID()
+                              << " gap=" << gap
                               << " egoLat=" << posLat
                               << " leaderLat=" << posLatLeader
                               << " leaderLatOffset=" << leader->getLatOffset(foeLane)
