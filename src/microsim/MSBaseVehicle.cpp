@@ -96,7 +96,7 @@ MSBaseVehicle::BaseInfluencer::getRouterTT(const int rngIndex, SUMOVehicleClass 
 
 double
 MSBaseVehicle::getPreviousSpeed() const {
-    throw ProcessError(TL("getPreviousSpeed() is not available for non-MSVehicles."));
+    throw ProcessError("getPreviousSpeed() is not available for non-MSVehicles.");
 }
 
 

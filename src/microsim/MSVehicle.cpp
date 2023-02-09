@@ -303,7 +303,7 @@ MSVehicle::Influencer::GapControlState::init() {
         MSNet::VehicleStateListener* vsl = dynamic_cast<MSNet::VehicleStateListener*>(&vehStateListener);
         MSNet::getInstance()->addVehicleStateListener(vsl);
     } else {
-        WRITE_ERROR(TL("MSVehicle::Influencer::GapControlState::init(): No MSNet instance found!"))
+        WRITE_ERROR("MSVehicle::Influencer::GapControlState::init(): No MSNet instance found!")
     }
 }
 

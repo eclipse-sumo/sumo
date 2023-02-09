@@ -112,7 +112,7 @@ main(int argc, char* argv[]) {
         loadNet(*net, builder);
         WRITE_MESSAGEF(TL("Loaded % edges."), toString(net->getEdgeNumber()));
         if (oc.getBool("debug")) {
-            WRITE_MESSAGE(TL("\n\t ---- begin AcitivtyGen ----\n"));
+            WRITE_MESSAGE("\n\t ---- begin ActivityGen ----\n");
         }
 
         std::string statFile = oc.getString("stat-file");
@@ -125,7 +125,7 @@ main(int argc, char* argv[]) {
         actiGen.makeActivityTrips(duration.getDay(), begin.getTime(), end.getTime());
 
         if (oc.getBool("debug")) {
-            WRITE_MESSAGE(TL("\n\t ---- end of ActivityGen ----\n"));
+            WRITE_MESSAGE("\n\t ---- end of ActivityGen ----\n");
         }
         ret = 0;
     } catch (const ProcessError& e) {

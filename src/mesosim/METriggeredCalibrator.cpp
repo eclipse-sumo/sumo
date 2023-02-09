@@ -243,7 +243,7 @@ METriggeredCalibrator::execute(SUMOTime currentTime) {
     }
     //assert(!invalidJam());
     if (invalidJam()) {
-        WRITE_WARNINGF(TL("DEBUG: Could not clear jam at calibrator '%' at time=%."), getID(), time2string(currentTime));
+        WRITE_WARNINGF("DEBUG: Could not clear jam at calibrator '%' at time=%.", getID(), time2string(currentTime));
     }
     return myFrequency;
 }

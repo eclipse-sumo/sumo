@@ -105,7 +105,7 @@ AGAdult::getWorkPosition() const {
     if (work != nullptr) {
         return *work;
     }
-    throw ProcessError(TL("AGAdult::getWorkPosition: Adult is unemployed."));
+    throw ProcessError("AGAdult::getWorkPosition: Adult is unemployed.");
 }
 
 

@@ -76,7 +76,7 @@ MSEventControl::execute(SUMOTime execTime) {
             // with new execution time = execTime + returned offset.
             if (time <= 0) {
                 if (time < 0) {
-                    WRITE_WARNING(TL("Command returned negative repeat number; will be deleted."));
+                    WRITE_WARNING("Command returned negative repeat number; will be deleted.");
                 }
                 delete currEvent.first;
             } else {
