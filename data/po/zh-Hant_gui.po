@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-05 21:26+0100\n"
-"PO-Revision-Date: 2023-02-09 07:36+0000\n"
-"Last-Translator: Yu-Hsuan Liao <EMC521@outlook.com>\n"
+"PO-Revision-Date: 2023-02-09 11:20+0000\n"
+"Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
 "Language: zh-Hant\n"
@@ -2702,119 +2702,119 @@ msgstr "校估裝置(calibrator)的命名前綴"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:357
 msgid "Prefix for routeProbe naming"
-msgstr ""
+msgstr "路徑取樣裝置的命名前綴"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:360
 msgid "Prefix for variable speed sign naming"
-msgstr ""
+msgstr "可變速度標誌的命名前綴"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:363
 msgid "prefix for traction substation naming"
-msgstr ""
+msgstr "牽引變電站的命名前綴"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:366
 msgid "Prefix for overhead wire naming"
-msgstr ""
+msgstr "架空線的命名前綴"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:369
 msgid "Prefix for polygon naming"
-msgstr ""
+msgstr "多邊形物件的命名前綴"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:372
 msgid "Prefix for poi naming"
-msgstr ""
+msgstr "興趣點的命名前綴"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:377
 msgid "Prefix for route naming"
-msgstr ""
+msgstr "路徑的命名前綴"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:380
 msgid "Prefix for vType naming"
-msgstr ""
+msgstr "vType的命名前綴"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:383
 msgid "Prefix for vehicle naming"
-msgstr ""
+msgstr "車輛的命名前綴"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:386
 msgid "Prefix for trip naming"
-msgstr ""
+msgstr "旅次的命名前綴"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:389
 msgid "Prefix for flow naming"
-msgstr ""
+msgstr "流量的命名前綴"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:392
 msgid "Prefix for person naming"
-msgstr ""
+msgstr "人員的命名前綴"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:395
 msgid "Prefix for personFlow naming"
-msgstr ""
+msgstr "personFlow的命名前綴"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:398
 msgid "Prefix for container naming"
-msgstr ""
+msgstr "容器的命名前綴"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:401
 msgid "Prefix for containerFlow naming"
-msgstr ""
+msgstr "containerFlow的命名前綴"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:408
 msgid "Prefix for meanDataEdge naming"
-msgstr ""
+msgstr "meanDataEdge的命名前綴"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:411
 msgid "Prefix for meanDataLane naming"
-msgstr ""
+msgstr "meanDataLane的命名前綴"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:418
 msgid "Disable icons of special lanes"
-msgstr ""
+msgstr "禁用特殊車道的圖示"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:421
 msgid "Disable textures"
-msgstr ""
+msgstr "禁用貼圖(textures)"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:424
 msgid "Load visualisation settings from FILE"
-msgstr ""
+msgstr "從檔案載入視覺化設定"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:429
 msgid "Load current viewport from registry"
-msgstr ""
+msgstr "從註冊表載入目前視埠"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:432
 msgid "Create initial window with the given x,y size"
-msgstr ""
+msgstr "使用給定的x, y尺寸建立初始視窗"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:435
 msgid "Create initial window at the given x,y position"
-msgstr ""
+msgstr "在給定的x, y位置建立初始視窗"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:440
 msgid "Enable overlay for screen recognition"
-msgstr ""
+msgstr "允許銀幕辨識的覆蓋"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:443
 msgid "Enable output messages during GUI-Testing"
-msgstr ""
+msgstr "允許在 GUI 測試期間輸出訊息"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:446
 msgid "Enable output messages during GUI-Testing specific of gl functions"
-msgstr ""
+msgstr "允許在特定於 gl 函數的 GUI 測試期間輸出消息"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:449
 msgid "Save gui settings in the given settings-output file"
-msgstr ""
+msgstr "將gui設定儲存於指定的設定輸出檔案(settings-output)"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:456
 msgid "Defines the begin time in seconds; The simulation starts at this time"
-msgstr ""
+msgstr "定義開始時間（以秒為單位）;模擬於此時間開始"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:459
 msgid "Defines the end time in seconds; The simulation ends at this time"
-msgstr ""
+msgstr "定義結束時間（以秒為單位）;模擬於此時間結束"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:462
 msgid ""
@@ -2824,51 +2824,54 @@ msgid ""
 "settings override the default. Must be a multiple of the simulation step-"
 "length."
 msgstr ""
+"在跟車模式及車道變換模式內行動點(action point)之間的預設間隔長度（以秒為單位"
+"）。如果沒有指定，模擬步長將作為預設值。車輛或是VType的特殊設定值會改寫預設值"
+"。必須是模擬步長的倍數。"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:465
 msgid ""
 "Select default speed deviation. A negative value implies vClass specific "
 "defaults (0.1 for the default passenger class"
-msgstr ""
+msgstr "選擇速度偏差的預設值。負值表示 vClass 特定預設值（ 0.1為小客車等級的預設值"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:504
 msgid "Failed to reset options."
-msgstr ""
+msgstr "無法重置選項。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEMoveElement.cpp:285
 #: /home/micha/programming/sumo/src/netedit/GNEMoveElement.cpp:299
 #: /home/micha/programming/sumo/src/netedit/GNEMoveElement.cpp:408
 #: /home/micha/programming/sumo/src/netedit/GNEMoveElement.cpp:424
 msgid "trying to move an invalid position"
-msgstr ""
+msgstr "嘗試移動無效位置"
 
 #: /home/micha/programming/sumo/src/netedit/GNEMoveElement.cpp:582
 msgid "Invalid move operationType"
-msgstr ""
+msgstr "無效移動operationType"
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:370
 msgid "delete junction"
-msgstr ""
+msgstr "刪除路口"
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:412
 msgid "delete edge"
-msgstr ""
+msgstr "刪除路段"
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:491
 msgid "replace edge"
-msgstr ""
+msgstr "替換路段"
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:553
 msgid "delete lane"
-msgstr ""
+msgstr "刪除車道"
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:588
 msgid "delete connection"
-msgstr ""
+msgstr "刪除連接線"
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:603
 msgid "delete crossing"
-msgstr ""
+msgstr "刪除人行道"
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:621
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:650
@@ -2877,64 +2880,64 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:698
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:728
 msgid "delete "
-msgstr ""
+msgstr "刪除 "
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:644
 msgid "Trying to delete a default Vehicle Type"
-msgstr ""
+msgstr "嘗試刪除預設的車輛類型"
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:737
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2689
 msgid "duplicate lane"
-msgstr ""
+msgstr "複製車道"
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:856
 msgid "split edge"
-msgstr ""
+msgstr "分割路段"
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:973
 msgid "split edges"
-msgstr ""
+msgstr "分割路段"
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:995
 msgid "reverse edge"
-msgstr ""
+msgstr "反向路段"
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1008
 msgid "add reversed edge"
-msgstr ""
+msgstr "新增反向路段"
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1043
 msgid "merge junctions"
-msgstr ""
+msgstr "合併路口"
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1079
 msgid "select roundabout"
-msgstr ""
+msgstr "選擇圓環"
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1095
 msgid "create roundabout"
-msgstr ""
+msgstr "建立圓環"
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1273
 msgid "Forced computing junctions with volatile options ..."
-msgstr ""
+msgstr "根據可變選項強制計算路口..."
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1275
 msgid "Forced computing junctions ..."
-msgstr ""
+msgstr "強制計算路口..."
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1282
 msgid "Computing junctions with volatile options ..."
-msgstr ""
+msgstr "根據可變選項計算路口..."
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1284
 msgid "Computing junctions ..."
-msgstr ""
+msgstr "計算路口..."
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1347
 msgid "Finished computing junctions."
-msgstr ""
+msgstr "完成路口計算。"
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1353
 msgid "Computing demand elements ..."
@@ -2954,49 +2957,49 @@ msgstr "完成計算資料要素。"
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1459
 msgid "Position of joined junction"
-msgstr ""
+msgstr "合併路口的位置"
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1460
 msgid ""
 "There is another unselected junction in the same position of joined junction."
-msgstr ""
+msgstr "在合併路口的相同位置上有另外一個未被選擇的路口。"
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1461
 msgid "It will be joined with the other selected junctions. Continue?"
-msgstr ""
+msgstr "此路口將與其它已選擇的路口一起進行合併。繼續執行？"
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1582
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1592
 msgid "Clear crossings"
-msgstr ""
+msgstr "清除人行道"
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1583
 msgid "There are no invalid crossings to remove."
-msgstr ""
+msgstr "沒有要移除的無效人行道。"
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1593
 msgid "Crossings will be cleared. Continue?"
-msgstr ""
+msgstr "人行道將被清除。繼續執行？"
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1604
 msgid "clear crossings"
-msgstr ""
+msgstr "清除人行道"
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1617
 msgid "clear junctions"
-msgstr ""
+msgstr "清除路口"
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1646
 msgid "clear unused routes"
-msgstr ""
+msgstr "清除未使用的路徑"
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1701
 msgid "merge routes"
-msgstr ""
+msgstr "合併路徑"
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1755
 msgid "adjust person plans"
-msgstr ""
+msgstr "調整個人旅運計劃"
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1795
 msgid "remove invalid demand elements"
@@ -3004,15 +3007,15 @@ msgstr "移除無效的需求要素"
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1810
 msgid "replace junction by geometry"
-msgstr ""
+msgstr "用幾何形狀替換路口"
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1855
 msgid "Junction isn't removable"
-msgstr ""
+msgstr "路口無法被移除"
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1867
 msgid "split junction"
-msgstr ""
+msgstr "分割路口"
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1907
 msgid "Could not rename split node to '%'"
