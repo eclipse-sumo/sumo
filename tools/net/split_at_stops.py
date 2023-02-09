@@ -85,12 +85,12 @@ def main(options):
     if net:
         subprocess.call([sumolib.checkBinary("netconvert"), "-s", options.network,
                          "-e", out.name, "-o", options.output])
-    with open(options.stop_output, "w") as stop_out:
+    with sumolib.openz(options.stop_output, "w") as stop_out:
         sumolib.xml.writeHeader(stop_out, root="additional")
         for s in stops.values():
             stop_out.write(s.toXML("    "))
         print('    </additional>', file=stop_out)
-    patterns = [(re.compile('(edges="[^ "]*)%s([^ "]*")' % e), '\\1%s\\2' % r) for e, r in replace_edges.items()]
+    patterns = [(re.compile('(edges="[^ "]*)%s([^ "]*")' % e), r'\g<1>%s\g<2>' % r) for e, r in replace_edges.items()]
     if options.routes:
         with sumolib.openz(options.routes) as route_in, sumolib.openz(options.route_output, "w") as route_out:
             for line in route_in:
