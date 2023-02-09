@@ -27,7 +27,7 @@ from __future__ import absolute_import
 import sys
 import os
 from os.path import dirname, join
-from subprocess import check_output, Popen, PIPE
+from subprocess import check_output, call
 
 # list of folders and tools
 tools =[
@@ -45,14 +45,12 @@ def formatBinTemplate(templateStr):
     # replace " with \"
     templateStr = templateStr.replace('"', '\\"')
     # split lines
-    templateStr = templateStr.replace("\\n", '"\n    "')
+    templateStr = templateStr.replace("\n", '"\n    "')
     # avoid unused lines
     templateStr = templateStr.replace('    ""\n', "")
     # replace first backspace
     templateStr = templateStr.replace("\\b'", '"')
-    # remove two last characters
-    templateStr = templateStr[:-2]
-    templateStr += '";'
+    templateStr += '";\n'
     # update last line
     templateStr = templateStr.replace('\n    ";', ';\n\n')
     return templateStr
@@ -62,8 +60,6 @@ def formatToolTemplate(templateStr):
     """
     @brief format python tool template
     """
-    # remove first backslash
-    templateStr = templateStr.replace('\\', '')
     # replace " with \"
     templateStr = templateStr.replace('"', '\\"')
     # add quotes and end lines
@@ -85,9 +81,9 @@ def generateSumoTemplate(binDir):
             # show info
             print ("Obtaining sumo template")
             # obtain template piping stdout using check_output
-            template = str(check_output([sumoBin, "--save-template", "stdout"]))
+            template = check_output([sumoBin, "--save-template", "stdout"], universal_newlines=True)
             # join variable and formated template
-            return formatBinTemplate(join("const std::string sumoTemplate = ", template))
+            return 'const std::string sumoTemplate = "' + formatBinTemplate(template)
     # if binary wasn't found, then raise exception
     raise Exception("SUMO Template cannot be generated. SUMO binary not found. "
                     "Make sure that sumo or sumoD was generated in bin folder")
@@ -98,7 +94,7 @@ def generateToolTemplate(srcDir, toolDir, subDir, toolName):
     @brief generate tool template
     """
     # get toolPath
-    toolPath = toolDir + "/" + subDir + "/" +toolName + ".py";
+    toolPath = os.path.join(toolDir, subDir, toolName + ".py")
     # get file for xml template
     xmlTemplate = srcDir + "/netedit/toolTemplate.xml"
     # check if exists
@@ -106,13 +102,12 @@ def generateToolTemplate(srcDir, toolDir, subDir, toolName):
         # show info
         print ("Obtaining '" + toolName + "' tool template")
         # obtain template saving it toolTemplate.xml
-        callToolprocess = Popen("python " + toolPath + " --save-template " + xmlTemplate)
-        callToolprocess.wait()
+        call(["python", toolPath, "--save-template", xmlTemplate])
         # read XML
         with open(xmlTemplate, 'r') as f:
             template = f.read()
         # join variable and formated template
-        return formatToolTemplate(join("const std::string " + toolName + "Template = ", template))
+        return "const std::string " + toolName + 'Template = ' + formatToolTemplate(template)
     # if tool wasn't found, then raise exception
     raise Exception(toolName + "Template cannot be generated. '" + toolPath + "' not found.")
 
