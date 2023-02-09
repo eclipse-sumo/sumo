@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu 16 Apr 2020 09:35:31 AM CEST by Eclipse SUMO netedit Version v1_5_0+1157-b8d6aa306e
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <new value="true"/>
+    </input>
+
+    <output>
+        <output-file value="/home/kobo/dlr/debug/2811/net.net.xml"/>
+    </output>
+
+    <processing>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="1.6" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="-200.00,-25.00,300.00,0.00" origBoundary="10000000000.00,10000000000.00,-10000000000.00,-10000000000.00" projParameter="!"/>
+
+    <edge id="a" from="gneJ0" to="gneJ1" priority="-1">
+        <lane id="a_0" index="0" allow="rail" speed="13.89" length="500.00" shape="-200.00,-1.60 300.00,-1.60"/>
+    </edge>
+    <edge id="b" from="gneJ2" to="gneJ3" priority="-1">
+        <lane id="b_0" index="0" speed="13.89" length="100.00" shape="-200.00,-26.60 -100.00,-26.60"/>
+    </edge>
+    <edge id="c" from="gneJ6" to="gneJ7" priority="-1">
+        <lane id="c_0" index="0" speed="13.89" length="100.00" shape="0.00,-26.60 100.00,-26.60"/>
+    </edge>
+    <edge id="d" from="gneJ4" to="gneJ5" priority="-1">
+        <lane id="d_0" index="0" speed="13.89" length="100.00" shape="200.00,-26.60 300.00,-26.60"/>
+    </edge>
+
+    <junction id="gneJ0" type="dead_end" x="-200.00" y="0.00" incLanes="" intLanes="" shape="-200.00,0.00 -200.00,-3.20"/>
+    <junction id="gneJ1" type="dead_end" x="300.00" y="0.00" incLanes="a_0" intLanes="" shape="300.00,-3.20 300.00,0.00"/>
+    <junction id="gneJ2" type="dead_end" x="-200.00" y="-25.00" incLanes="" intLanes="" shape="-200.00,-25.00 -200.00,-28.20"/>
+    <junction id="gneJ3" type="dead_end" x="-100.00" y="-25.00" incLanes="b_0" intLanes="" shape="-100.00,-28.20 -100.00,-25.00"/>
+    <junction id="gneJ4" type="dead_end" x="200.00" y="-25.00" incLanes="" intLanes="" shape="200.00,-25.00 200.00,-28.20"/>
+    <junction id="gneJ5" type="dead_end" x="300.00" y="-25.00" incLanes="d_0" intLanes="" shape="300.00,-28.20 300.00,-25.00"/>
+    <junction id="gneJ6" type="dead_end" x="0.00" y="-25.00" incLanes="" intLanes="" shape="0.00,-25.00 0.00,-28.20"/>
+    <junction id="gneJ7" type="dead_end" x="100.00" y="-25.00" incLanes="c_0" intLanes="" shape="100.00,-28.20 100.00,-25.00"/>
+
+</net>
