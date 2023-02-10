@@ -7,6 +7,7 @@ attributes
 # generate persons instead of vehicles
 persons
 saveConfig
+saveTemplate
 loadConfig
 simple
 begin_end_human_readable
