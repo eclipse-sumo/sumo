@@ -516,6 +516,7 @@ public:
 
     /// @brief get ToolbarsGrip
     GNEApplicationWindowHelper::ToolbarsGrip& getToolbarsGrip();
+    GNEApplicationWindowHelper::ToolbarsGrip& getToolbarsGrip2();
 
     /// @brief update recomputing label
     void updateRecomputingLabel();
@@ -641,6 +642,7 @@ protected:
 private:
     /// @brief Toolbars Grip
     GNEApplicationWindowHelper::ToolbarsGrip myToolbarsGrip;
+    GNEApplicationWindowHelper::ToolbarsGrip leftToolbarsGrip;
 
     /// @brief MenuBarFile
     GNEApplicationWindowHelper::MenuBarFile myMenuBarFile;

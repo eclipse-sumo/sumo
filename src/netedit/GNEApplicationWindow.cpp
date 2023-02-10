@@ -431,6 +431,7 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPa
     myUndoList(new GNEUndoList(this)),
     myConfigPattern(configPattern),
     myToolbarsGrip(this),
+    leftToolbarsGrip(this),
     myMenuBarFile(this),
     myFileMenuCommands(this),
     myModesMenuCommands(this),
@@ -481,6 +482,7 @@ GNEApplicationWindow::dependentBuild() {
     setSelector(MID_WINDOW);
     // build toolbar menu
     getToolbarsGrip().buildMenuToolbarsGrip();
+    getToolbarsGrip2().buildMenuToolbarsGrip2();
     // build the thread - io
     myLoadThreadEvent.setTarget(this);
     myLoadThreadEvent.setSelector(ID_LOADTHREAD_EVENT);
@@ -501,6 +503,9 @@ GNEApplicationWindow::dependentBuild() {
     myTestCoordinate = new FXLabel(myTestFrame, (TL("N/A") + std::string("\t\t") + TL("Test coordinate")).c_str(), nullptr, GUIDesignLabelStatusBar);
     myTestCoordinate->setTextColor(FXRGB(255, 0, 0));
     myTestFrame->hide();
+
+    getApp()->reg().writeStringEntry("SETTINGS", "basecolor", "white"); // setting base color as white 
+
     // make the window a mdi-window
     myMainSplitter = new FXSplitter(this, GUIDesignSplitter | SPLITTER_VERTICAL | SPLITTER_REVERSED);
     myMDIClient = new FXMDIClient(myMainSplitter, GUIDesignSplitterMDI);
@@ -1304,6 +1309,7 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         setWindowSizeAndPos();
         // build viewparent toolbar grips before creating view parent
         getToolbarsGrip().buildViewParentToolbarsGrips();
+        getToolbarsGrip2().buildViewParentToolbarsGrips2();
         // initialise NETEDIT View
         GNEViewParent* viewParent = new GNEViewParent(myMDIClient, myMDIMenu, "NETEDIT VIEW", this, nullptr, myNet, myUndoList, nullptr, MDI_TRACKING, 10, 10, 300, 200);
         // create it maximized
@@ -1496,6 +1502,12 @@ GNEApplicationWindowHelper::ToolbarsGrip&
 GNEApplicationWindow::getToolbarsGrip() {
     return myToolbarsGrip;
 }
+
+GNEApplicationWindowHelper::ToolbarsGrip&
+GNEApplicationWindow::getToolbarsGrip2() {
+    return leftToolbarsGrip;
+}
+
 
 
 void
@@ -4637,6 +4649,7 @@ GNEApplicationWindow::loadDataElements() {
 
 GNEApplicationWindow::GNEApplicationWindow() :
     myToolbarsGrip(this),
+    leftToolbarsGrip(this),
     myMenuBarFile(this),
     myFileMenuCommands(this),
     myModesMenuCommands(this),
