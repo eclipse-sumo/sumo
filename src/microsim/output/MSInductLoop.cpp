@@ -283,6 +283,9 @@ MSInductLoop::getTimeSinceLastDetection() const {
 
 double
 MSInductLoop::getOccupancyTime() const {
+#ifdef HAVE_FOX
+    ScopedLocker<> lock(myNotificationMutex, myNeedLock);
+#endif
     if (myOverrideTime >= 0) {
         return SIMTIME - myOverrideEntryTime;
     }
