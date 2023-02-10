@@ -3701,7 +3701,7 @@ void
 MSLane::getLeadersOnConsecutive(double dist, double seen, double speed, const MSVehicle* ego,
                                 const std::vector<MSLane*>& bestLaneConts, MSLeaderDistanceInfo& result,
                                 bool oppositeDirection) const {
-    if (seen > dist) {
+    if (seen > dist && !(isInternal() && MSGlobals::gComputeLC)) {
         return;
     }
     // check partial vehicles (they might be on a different route and thus not
@@ -3839,7 +3839,8 @@ MSLane::addLeaders(const MSVehicle* vehicle, double vehPos, MSLeaderDistanceInfo
         if (getBidiLane() != nullptr) {
             dist = MAX2(dist, myMaxSpeed * 20);
         }
-        if (seen > dist) {
+        // check for link leaders when on internal
+        if (seen > dist && !(isInternal() && MSGlobals::gComputeLC)) {
 #ifdef DEBUG_SURROUNDING
             if (DEBUG_COND || DEBUG_COND2(vehicle)) {
                 std::cout << " aborting forward search. dist=" << dist << " seen=" << seen << "\n";
