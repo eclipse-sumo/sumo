@@ -197,7 +197,7 @@ GNEAttributeProperties::getPositionListed() const {
             return (int)(i - myTagPropertyParent->begin());
         }
     }
-    throw ProcessError(TL("Attribute wasn't found in myTagPropertyParent"));
+    throw ProcessError("Attribute wasn't found in myTagPropertyParent");
 }
 
 
@@ -297,7 +297,7 @@ GNEAttributeProperties::getAttrSynonym() const {
     if (hasAttrSynonym()) {
         return myAttrSynonym;
     } else {
-        throw ProcessError(TL("Attr doesn't support synonym"));
+        throw ProcessError("Attr doesn't support synonym");
     }
 }
 
@@ -307,7 +307,7 @@ GNEAttributeProperties::getMinimumRange() const {
     if (hasAttrRange()) {
         return myMinimumRange;
     } else {
-        throw ProcessError(TL("Attr doesn't support range"));
+        throw ProcessError("Attr doesn't support range");
     }
 }
 
@@ -317,7 +317,7 @@ GNEAttributeProperties::getMaximumRange() const {
     if (hasAttrRange()) {
         return myMaximumRange;
     } else {
-        throw ProcessError(TL("Attr doesn't support range"));
+        throw ProcessError("Attr doesn't support range");
     }
 }
 

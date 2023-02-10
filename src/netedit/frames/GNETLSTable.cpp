@@ -1273,7 +1273,7 @@ GNETLSTable::Row::Row(GNETLSTable* table) :
                 break;
             }
             default:
-                throw ProcessError(TL("Invalid Cell type"));
+                throw ProcessError("Invalid Cell type");
         }
     }
 }
@@ -1292,7 +1292,7 @@ GNETLSTable::Row::getText(int index) const {
     if (myCells.at(index)->getTextField()) {
         return myCells.at(index)->getTextField()->getText().text();
     } else {
-        throw ProcessError(TL("Cell doesn't have a textField"));
+        throw ProcessError("Cell doesn't have a textField");
     }
 }
 

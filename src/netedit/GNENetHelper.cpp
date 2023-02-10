@@ -215,12 +215,12 @@ GNENetHelper::AttributeCarriers::retrieveAttributeCarrier(const GUIGlID id, bool
         GNEAttributeCarrier* ac = dynamic_cast<GNEAttributeCarrier*>(object);
         // If was successfully parsed, return it
         if (ac == nullptr) {
-            throw ProcessError(TL("GUIGlObject does not match the declared type"));
+            throw ProcessError("GUIGlObject does not match the declared type");
         } else {
             return ac;
         }
     } else if (hardFail) {
-        throw ProcessError(TL("Attempted to retrieve non-existant GUIGlObject"));
+        throw ProcessError("Attempted to retrieve non-existant GUIGlObject");
     } else {
         return nullptr;
     }
@@ -1022,7 +1022,7 @@ GNENetHelper::AttributeCarriers::retrieveAdditional(SumoXMLTag type, const std::
         }
     }
     if (hardFail) {
-        throw ProcessError(TL("Attempted to retrieve non-existant additional (string)"));
+        throw ProcessError("Attempted to retrieve non-existant additional (string)");
     } else {
         return nullptr;
     }
@@ -1036,7 +1036,7 @@ GNENetHelper::AttributeCarriers::retrieveAdditional(GNEAttributeCarrier* AC, boo
     if (additional && (myAdditionals.at(AC->getTagProperty().getTag()).count(additional) > 0)) {
         return additional;
     } else if (hardFail) {
-        throw ProcessError(TL("Attempted to retrieve non-existant additional (AttributeCarrier)"));
+        throw ProcessError("Attempted to retrieve non-existant additional (AttributeCarrier)");
     } else {
         return nullptr;
     }
@@ -1062,7 +1062,7 @@ GNENetHelper::AttributeCarriers::retrieveRerouterInterval(const std::string& rer
         }
     }
     // throw exception
-    throw ProcessError(TL("Attempted to retrieve non-existant rerouter interval"));
+    throw ProcessError("Attempted to retrieve non-existant rerouter interval");
 }
 
 
@@ -1317,7 +1317,7 @@ GNENetHelper::AttributeCarriers::retrieveDemandElement(SumoXMLTag type, const st
         }
     }
     if (hardFail) {
-        throw ProcessError(TL("Attempted to retrieve non-existant demand element (string)"));
+        throw ProcessError("Attempted to retrieve non-existant demand element (string)");
     } else {
         return nullptr;
     }
@@ -1331,7 +1331,7 @@ GNENetHelper::AttributeCarriers::retrieveDemandElement(GNEAttributeCarrier* AC, 
     if (demandElement && (myDemandElements.at(AC->getTagProperty().getTag()).count(demandElement) > 0)) {
         return demandElement;
     } else if (hardFail) {
-        throw ProcessError(TL("Attempted to retrieve non-existant demand element (AttributeCarrier)"));
+        throw ProcessError("Attempted to retrieve non-existant demand element (AttributeCarrier)");
     } else {
         return nullptr;
     }
@@ -1813,7 +1813,7 @@ GNENetHelper::AttributeCarriers::retrieveDataSet(const std::string& id, bool har
         }
     }
     if (hardFail) {
-        throw ProcessError(TL("Attempted to retrieve non-existant data set"));
+        throw ProcessError("Attempted to retrieve non-existant data set");
     } else {
         return nullptr;
     }
@@ -1827,7 +1827,7 @@ GNENetHelper::AttributeCarriers::retrieveDataSet(GNEAttributeCarrier* AC, bool h
     if (dataSet && (myDataSets.count(dataSet) > 0)) {
         return dataSet;
     } else if (hardFail) {
-        throw ProcessError(TL("Attempted to retrieve non-existant data set"));
+        throw ProcessError("Attempted to retrieve non-existant data set");
     } else {
         return nullptr;
     }
@@ -1858,7 +1858,7 @@ GNENetHelper::AttributeCarriers::retrieveDataInterval(GNEAttributeCarrier* AC, b
     if (dataInterval && (myDataIntervals.count(dataInterval) > 0)) {
         return dataInterval;
     } else if (hardFail) {
-        throw ProcessError(TL("Attempted to retrieve non-existant data interval"));
+        throw ProcessError("Attempted to retrieve non-existant data interval");
     } else {
         return nullptr;
     }
@@ -1901,7 +1901,7 @@ GNENetHelper::AttributeCarriers::retrieveGenericData(GNEAttributeCarrier* AC, bo
     if (genericData && (myGenericDatas.at(AC->getTagProperty().getTag()).count(genericData) > 0)) {
         return genericData;
     } else if (hardFail) {
-        throw ProcessError(TL("Attempted to retrieve non-existant data set"));
+        throw ProcessError("Attempted to retrieve non-existant data set");
     } else {
         return nullptr;
     }
@@ -2127,7 +2127,7 @@ GNENetHelper::AttributeCarriers::retrieveMeanData(SumoXMLTag type, const std::st
         }
     }
     if (hardFail) {
-        throw ProcessError(TL("Attempted to retrieve non-existant meanData (string)"));
+        throw ProcessError("Attempted to retrieve non-existant meanData (string)");
     } else {
         return nullptr;
     }
@@ -2141,7 +2141,7 @@ GNENetHelper::AttributeCarriers::retrieveMeanData(GNEAttributeCarrier* AC, bool 
     if (meanData && (myMeanDatas.at(AC->getTagProperty().getTag()).count(meanData) > 0)) {
         return meanData;
     } else if (hardFail) {
-        throw ProcessError(TL("Attempted to retrieve non-existant meanData (AttributeCarrier)"));
+        throw ProcessError("Attempted to retrieve non-existant meanData (AttributeCarrier)");
     } else {
         return nullptr;
     }
@@ -2307,7 +2307,7 @@ GNENetHelper::AttributeCarriers::additionalExist(const GNEAdditional* additional
         // find demanElement in additionalElementTag
         return std::find(additionalElementTag.begin(), additionalElementTag.end(), additional) != additionalElementTag.end();
     } else {
-        throw ProcessError(TL("Invalid additional pointer"));
+        throw ProcessError("Invalid additional pointer");
     }
 }
 
@@ -2364,7 +2364,7 @@ GNENetHelper::AttributeCarriers::demandElementExist(GNEDemandElement* demandElem
         // find demanElement in demandElementTag
         return std::find(demandElementTag.begin(), demandElementTag.end(), demandElement) != demandElementTag.end();
     } else {
-        throw ProcessError(TL("Invalid demandElement pointer"));
+        throw ProcessError("Invalid demandElement pointer");
     }
 }
 
@@ -2423,7 +2423,7 @@ GNENetHelper::AttributeCarriers::dataSetExist(GNEDataSet* dataSet) const {
             return false;
         }
     } else {
-        throw ProcessError(TL("Invalid dataSet pointer"));
+        throw ProcessError("Invalid dataSet pointer");
     }
 }
 

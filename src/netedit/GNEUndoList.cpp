@@ -143,7 +143,7 @@ GNEUndoList::undo() {
     WRITE_DEBUG("Calling GNEUndoList::undo()");
     GNEChange* change = nullptr;
     if (group) {
-        throw ProcessError(TL("GNEUndoList::undo() cannot call undo inside begin-end block"));
+        throw ProcessError("GNEUndoList::undo() cannot call undo inside begin-end block");
     }
     if (undoList) {
         myWorking = true;
@@ -166,7 +166,7 @@ GNEUndoList::redo() {
     WRITE_DEBUG("Calling GNEUndoList::redo()");
     GNEChange* change = nullptr;
     if (group) {
-        throw ProcessError(TL("GNEUndoList::redo() cannot call undo inside begin-end block"));
+        throw ProcessError("GNEUndoList::redo() cannot call undo inside begin-end block");
     }
     if (redoList) {
         myWorking = true;
@@ -221,7 +221,7 @@ GNEUndoList::begin(Supermode supermode, GUIIcon icon, const std::string& descrip
     GNEChangeGroup* changeGroup = this;
     // Calling begin while in the middle of doing something!
     if (myWorking) {
-        throw ProcessError(TL("GNEChangeGroup::begin: already working on undo or redo"));
+        throw ProcessError("GNEChangeGroup::begin: already working on undo or redo");
     }
     // Cut redo list
     cut();
@@ -254,11 +254,11 @@ GNEUndoList::end() {
     GNEChangeGroup* changeGroup = this;
     // Must have called begin
     if (!changeGroup->group) {
-        throw ProcessError(TL("GNEChangeGroup::end: no matching call to begin"));
+        throw ProcessError("GNEChangeGroup::end: no matching call to begin");
     }
     // Calling end while in the middle of doing something!
     if (myWorking) {
-        throw ProcessError(TL("GNEChangeGroup::end: already working on undo or redo"));
+        throw ProcessError("GNEChangeGroup::end: already working on undo or redo");
     }
     // Hunt for one above end of group chain
     while (changeGroup->group->group) {
@@ -329,11 +329,11 @@ GNEUndoList::add(GNEChange* change, bool doit, bool merge) {
     GNEChangeGroup* changeGroup = this;
     // Must pass a change
     if (!change) {
-        throw ProcessError(TL("GNEChangeGroup::add: nullptr change argument"));
+        throw ProcessError("GNEChangeGroup::add: nullptr change argument");
     }
     // Adding undo while in the middle of doing something!
     if (myWorking) {
-        throw ProcessError(TL("GNEChangeGroup::add: already working on undo or redo"));
+        throw ProcessError("GNEChangeGroup::add: already working on undo or redo");
     }
     myWorking = true;
     // Cut redo list
@@ -535,11 +535,11 @@ GNEUndoList::abortCurrentSubGroup() {
     GNEChangeGroup* changeGroup = this;
     // Must be called after begin
     if (!changeGroup->group) {
-        throw ProcessError(TL("GNEChangeGroup::abort: no matching call to begin"));
+        throw ProcessError("GNEChangeGroup::abort: no matching call to begin");
     }
     // Calling abort while in the middle of doing something!
     if (myWorking) {
-        throw ProcessError(TL("GNEChangeGroup::abort: already working on undo or redo"));
+        throw ProcessError("GNEChangeGroup::abort: already working on undo or redo");
     }
     // Hunt for one above end of group chain
     while (changeGroup->group->group) {

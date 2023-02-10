@@ -282,7 +282,7 @@ GNEMoveElement::moveElement(const GNEViewNet* viewNet, GNEMoveOperation* moveOpe
                 // apply snap to active grid
                 moveResult.shapeToUpdate[geometryPointIndex] = viewNet->snapToActiveGrid(moveResult.shapeToUpdate[geometryPointIndex]);
             } else {
-                throw ProcessError(TL("trying to move an invalid position"));
+                throw ProcessError("trying to move an invalid position");
             }
         }
     } else {
@@ -296,7 +296,7 @@ GNEMoveElement::moveElement(const GNEViewNet* viewNet, GNEMoveOperation* moveOpe
                 // apply snap to active grid
                 geometryPointIndex = viewNet->snapToActiveGrid(geometryPointIndex);
             } else {
-                throw ProcessError(TL("trying to move an invalid position"));
+                throw ProcessError("trying to move an invalid position");
             }
         }
         // check if we're adjusting width or height
@@ -405,7 +405,7 @@ GNEMoveElement::commitMove(const GNEViewNet* viewNet, GNEMoveOperation* moveOper
                     // apply snap to active grid
                     moveResult.shapeToUpdate[geometryPointIndex] = viewNet->snapToActiveGrid(moveResult.shapeToUpdate[geometryPointIndex]);
                 } else {
-                    throw ProcessError(TL("trying to move an invalid position"));
+                    throw ProcessError("trying to move an invalid position");
                 }
             }
             // remove double points if merge points is enabled (only in commitMove)
@@ -421,7 +421,7 @@ GNEMoveElement::commitMove(const GNEViewNet* viewNet, GNEMoveOperation* moveOper
                     // apply snap to active grid
                     geometryPointIndex = viewNet->snapToActiveGrid(geometryPointIndex);
                 } else {
-                    throw ProcessError(TL("trying to move an invalid position"));
+                    throw ProcessError("trying to move an invalid position");
                 }
             }
             // check if we're adjusting width or height
@@ -579,7 +579,7 @@ GNEMoveElement::adjustBothPositions(const GNEViewNet* viewNet, const GNEMoveOper
             moveResult.newFirstPos = firstLaneLength;
         }
     } else {
-        throw ProcessError(TL("Invalid move operationType"));
+        throw ProcessError("Invalid move operationType");
     }
 }
 

@@ -539,7 +539,7 @@ GUINet::getGUIInstance() {
     if (net != nullptr) {
         return net;
     }
-    throw ProcessError(TL("A gui-network was not yet constructed."));
+    throw ProcessError("A gui-network was not yet constructed.");
 }
 
 

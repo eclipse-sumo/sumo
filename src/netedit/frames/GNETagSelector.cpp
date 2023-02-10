@@ -194,7 +194,7 @@ GNETagSelector::setCurrentTagType(GNETagProperties::TagType tagType, const bool 
             setText(TL("Person stops"));
             break;
         default:
-            throw ProcessError(TL("invalid tag property"));
+            throw ProcessError("invalid tag property");
     }
     // clear myACTemplates and myTagsMatchBox
     for (const auto& ACTemplate : myACTemplates) {
@@ -471,7 +471,7 @@ GNETagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagProperties tagPr
             myAC = new GNERide(tagProperty.getTag(), net);
             break;
         default:
-            throw ProcessError(TL("Non-supported tagProperty in ACTemplate"));
+            throw ProcessError("Non-supported tagProperty in ACTemplate");
             break;
     }
 }

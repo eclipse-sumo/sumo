@@ -2760,7 +2760,7 @@ GNENet::computeAndUpdate(OptionsCont& neteditOptions, bool volatileOptions) {
     if (volatileOptions) {
         // check that net exist
         if (myViewNet == nullptr) {
-            throw ProcessError(TL("ViewNet doesn't exist"));
+            throw ProcessError("ViewNet doesn't exist");
         }
         // disable update geometry before clear undo list
         myUpdateGeometryEnabled = false;
