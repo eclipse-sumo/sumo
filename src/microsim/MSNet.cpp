@@ -740,7 +740,6 @@ MSNet::simulationStep() {
 
     if (MSGlobals::gUseMesoSim) {
         MSGlobals::gMesoNet->simulate(myStep);
-        myVehicleControl->removePending();
     } else {
         // assure all lanes with vehicles are 'active'
         myEdges->patchActiveLanes();
@@ -765,6 +764,8 @@ MSNet::simulationStep() {
             myEdges->detectCollisions(myStep, STAGE_LANECHANGE);
         }
     }
+    // flush arrived meso vehicles and micro vehicles that were removed due to collision
+    myVehicleControl->removePending();
     loadRoutes();
 
     // persons

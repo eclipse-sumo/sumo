@@ -237,6 +237,7 @@ MSEdgeControl::executeMovements(SUMOTime t) {
     for (MSLane* lane : wasActive) {
         lane->updateLengthSum();
     }
+    // arrived vehicles should not influence lane changing
     MSNet::getInstance()->getVehicleControl().removePending();
     std::vector<MSLane*>& toIntegrate = myWithVehicles2Integrate.getContainer();
     std::sort(toIntegrate.begin(), toIntegrate.end(), ComparatorIdLess());
