@@ -246,28 +246,28 @@ enum GUIGlObjectType {
     /// @name other
     /// @{
 
-    /// @brief Lock icon (used in NETEDIT)
+    /// @brief Lock icon (used in netedit)
     GLO_LOCKICON = 1000,
 
-    /// @brief text element (used in NETEDIT)
+    /// @brief text element (used in netedit)
     GLO_TEXTNAME = 1010,
 
-    /// @brief geometry point (used in NETEDIT)
+    /// @brief geometry point (used in netedit)
     GLO_GEOMETRYPOINT = 1020,
 
-    /// @brief front element (used in NETEDIT)
+    /// @brief front element (used in netedit)
     GLO_FRONTELEMENT = 1030,
 
-    /// @brief dotted contour inspected element (used in NETEDIT)
+    /// @brief dotted contour inspected element (used in netedit)
     GLO_DOTTEDCONTOUR_INSPECTED = 1040,
 
-    /// @brief temporal shape (used in NETEDIT)
+    /// @brief temporal shape (used in netedit)
     GLO_TEMPORALSHAPE = 1050,
 
-    /// @brief rectangle selection shape (used in NETEDIT)
+    /// @brief rectangle selection shape (used in netedit)
     GLO_RECTANGLESELECTION = 1060,
 
-    /// @brief test element (used in NETEDIT)
+    /// @brief test element (used in netedit)
     GLO_TESTELEMENT = 1070,
 
     /// @}

@@ -251,7 +251,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "cityGates",                      AGEN_TAG_CITYGATES },
     { "entrance",                       AGEN_TAG_ENTRANCE },
     { "parameters",                     AGEN_TAG_PARAM },
-    // NETEDIT
+    // Netedit
     { "edgeRelSingle",                  GNE_TAG_EDGEREL_SINGLE },
     { "internalLane",                   GNE_TAG_INTERNAL_LANE },
     { "poiLane",                        GNE_TAG_POILANE },
@@ -940,7 +940,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "data-files",         SUMO_ATTR_DATAFILES },
     { "meandata-files",     SUMO_ATTR_MEANDATAFILES },
 
-    // NETEDIT Attributes
+    // Netedit attributes
     { "selected",                           GNE_ATTR_SELECTED },
     { "modificationStatusNotForPrinting",   GNE_ATTR_MODIFICATION_STATUS },
     { "shapeStart",                         GNE_ATTR_SHAPE_START },

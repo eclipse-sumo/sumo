@@ -107,11 +107,11 @@ public:
     static void drawMovingHint(const GUIVisualizationSettings& s, const Position& mousePos, const PositionVector& shape,
                                const RGBColor& hintColor, const double radius, const double exaggeration);
 
-    /// @brief draw line between parent and children (used in NETEDIT)
+    /// @brief draw line between parent and children (used in netedit)
     static void drawParentLine(const GUIVisualizationSettings& s, const Position& parent, const Position& child,
                                const RGBColor& color, const bool drawEntire, const double lineWidth);
 
-    /// @brief draw line between child and parent (used in NETEDIT)
+    /// @brief draw line between child and parent (used in netedit)
     static void drawChildLine(const GUIVisualizationSettings& s, const Position& child, const Position& parent,
                               const RGBColor& color, const bool drawEntire, const double lineWidth);
 

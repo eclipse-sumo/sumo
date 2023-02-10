@@ -172,14 +172,14 @@ const RGBColor OSG_color_DIFFUSE(64, 64, 64, 255);
 const RGBColor OSG_color_SKY(51, 51, 102, 255);
 
 // -------------------------------------------------------------------------
-// widths of certain NETEDIT objects
+// widths of certain netedit objects
 // -------------------------------------------------------------------------
 
 const double GUIVisualizationWidthSettings::routeWidth(0.66);
 const double GUIVisualizationWidthSettings::embeddedRouteWidth(0.55);
 
 // -------------------------------------------------------------------------
-// details of certain NETEDIT objects (0 = drawn always)
+// details of certain netedit objects (0 = drawn always)
 // -------------------------------------------------------------------------
 
 const double GUIVisualizationDetailSettings::connectionsDemandMode(5);
@@ -618,7 +618,7 @@ GUIVisualizationSettings::GUIVisualizationSettings(const std::string& _name, boo
     geometryIndices(false, 50, RGBColor(255, 0, 128, 255)),
     lefthand(false),
     disableLaneIcons(false) {
-    // init defaults depending of NETEDIT or SUMO-GUI
+    // init defaults depending of netedit or SUMO-GUI
     if (netedit) {
         initNeteditDefaults();
     } else {

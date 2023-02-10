@@ -55,7 +55,7 @@ class GUIDialog_ChooserAbstract : public FXMainWindow, public GUIPersistentWindo
 public:
     /** @brief Constructor
      * @param[in] windowsParent The calling view
-     * @param[in] viewParent The calling view (NETEDIT)
+     * @param[in] viewParent The calling view (netedit)
      * @param[in] icon The icon to use
      * @param[in] title The title to use
      * @param[in] glStorage The storage to retrieve ids from
@@ -128,16 +128,16 @@ protected:
     /// @brief fox need this
     FOX_CONSTRUCTOR(GUIDialog_ChooserAbstract)
 
-    /// @brief toggle selection (handled differently in NETEDIT)
+    /// @brief toggle selection (handled differently in netedit)
     virtual void toggleSelection(int listIndex);
 
-    /// @brief set selection (handled differently in NETEDIT)
+    /// @brief set selection (handled differently in netedit)
     virtual void select(int listIndex);
 
-    /// @brief unset selection (handled differently in NETEDIT)
+    /// @brief unset selection (handled differently in netedit)
     virtual void deselect(int listIndex);
 
-    /// @brief filter ACs (needed in NETEDIT)
+    /// @brief filter ACs (needed in netedit)
     virtual void filterACs(const std::vector<GUIGlID>& GLIDs);
 
     /// update the list with the given ids

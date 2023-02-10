@@ -349,7 +349,7 @@ public:
         /// @brief write trigger attribute
         std::vector<std::string> getTriggers() const;
 
-        /// @brief The edge to stop at (used only in NETEDIT)
+        /// @brief The edge to stop at (used only in netedit)
         std::string edge;
 
         /// @brief The lane to stop at
@@ -409,10 +409,10 @@ public:
         /// @brief IDs of containers the vehicle has to wait for until departing
         std::set<std::string> awaitedContainers;
 
-        /// @brief enable or disable friendly position (used by NETEDIT)
+        /// @brief enable or disable friendly position (used by netedit)
         bool friendlyPos = false;
 
-        /// @brief act Type (only used by Persons) (used by NETEDIT)
+        /// @brief act Type (only used by Persons) (used by netedit)
         std::string actType;
 
         /// @brief id of the trip within a cyclical public transport route

@@ -39,11 +39,11 @@ enum {
     /// @name hotkeys
     /// @{
 
-    /// @brief hotkey for start simulation in SUMO and set editing mode additionals AND stops in NETEDIT
+    /// @brief hotkey for start simulation in SUMO and set editing mode additionals AND stops in netedit
     MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALSTOP,
     /// @brief hotkey for mode connecting lanes ABD person plan
     MID_HOTKEY_C_MODE_CONNECT_PERSONPLAN,
-    /// @brief hotkey for perform a single simulation step in SUMO and set delete mode in NETEDIT
+    /// @brief hotkey for perform a single simulation step in SUMO and set delete mode in netedit
     MID_HOTKEY_D_MODE_SINGLESIMULATIONSTEP_DELETE,
     /// @brief hotkey for mode adding edges AND edgeDatas
     MID_HOTKEY_E_MODE_EDGE_EDGEDATA,
@@ -57,7 +57,7 @@ enum {
     MID_HOTKEY_M_MODE_MOVE_MEANDATA,
     /// @brief hotkey for mode creating polygons
     MID_HOTKEY_P_MODE_POLYGON_PERSON,
-    /// @brief hotkey for stop simulation in SUMO and set select mode in NETEDIT
+    /// @brief hotkey for stop simulation in SUMO and set select mode in netedit
     MID_HOTKEY_S_MODE_STOPSIMULATION_SELECT,
     /// @brief hotkey for mode editing crossing, routes and edge rel datas
     MID_HOTKEY_R_MODE_CROSSING_ROUTE_EDGERELDATA,
@@ -75,21 +75,21 @@ enum {
     /// @name Ctrl hotkeys
     /// @{
 
-    /// @brief Start the simulation in SUMO and open Additionals Elements in NETEDIT
+    /// @brief Start the simulation in SUMO and open Additionals Elements in netedit
     MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALS,
-    /// @brief Edit simulation breakpoints in SUMO and open Data Elements in NETEDIT
+    /// @brief Edit simulation breakpoints in SUMO and open Data Elements in netedit
     MID_HOTKEY_CTRL_B_EDITBREAKPOINT_OPENDATAELEMENTS,
     /// @brief Copy the current selection / element
     MID_HOTKEY_CTRL_C_COPY,
-    /// @brief Perform a single simulation step in SUMO and open Demand Elements in NETEDIT
+    /// @brief Perform a single simulation step in SUMO and open Demand Elements in netedit
     MID_HOTKEY_CTRL_D_SINGLESIMULATIONSTEP_OPENDEMANDELEMENTS,
-    /// @brief Edit selection in SUMO and load NETEDITConfig in NETEDIT
+    /// @brief Edit selection in SUMO and load neteditConfig in netedit
     MID_HOTKEY_CTRL_E_EDITSELECTION_LOADNETEDITCONFIG,
     /// @brief Fullscreen mode - menu entry
     MID_HOTKEY_CTRL_F_FULSCREENMODE,
-    /// @brief Toggle Gaming mode in SUMO and grid in NETEDIT
+    /// @brief Toggle Gaming mode in SUMO and grid in netedit
     MID_HOTKEY_CTRL_G_GAMINGMODE_TOGGLEGRID,
-    /// @brief open app setting dialog in SUMO and open edge type files in NETEDIT
+    /// @brief open app setting dialog in SUMO and open edge type files in netedit
     MID_HOTKEY_CTRL_H_APPSETTINGS_OPENEDGETYPES,
     /// @brief Open viewport editor
     MID_HOTKEY_CTRL_I_EDITVIEWPORT,
@@ -101,21 +101,21 @@ enum {
     MID_HOTKEY_CTRL_L_SAVEASPLAINXML,
     /// @brief open sumo config
     MID_HOTKEY_CTRL_M_OPENSUMOCONFIG,
-    /// @brief open network in SUMO and create new empty network in NETEDIT
+    /// @brief open network in SUMO and create new empty network in netedit
     MID_HOTKEY_CTRL_N_OPENNETWORK_NEWNETWORK,
-    /// @brief Open simulation in SUMO and open network in NETEDIT
+    /// @brief Open simulation in SUMO and open network in netedit
     MID_HOTKEY_CTRL_O_OPENSIMULATION_OPENNETWORK,
     /// @brief Load additional file with poi and polygons
     MID_HOTKEY_CTRL_P_OPENSHAPES,
     /// @brief Main window closes
     MID_HOTKEY_CTRL_Q_CLOSE,
-    /// @brief Stop the simulation in SUMO and save network in NETEDIT
+    /// @brief Stop the simulation in SUMO and save network in netedit
     MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK,
     /// @brief Reload the previously loaded simulation
     MID_HOTKEY_CTRL_R_RELOAD,
     /// @brief Quick-Reload the previously loaded simulation (keep the net)
     MID_HOTKEY_CTRL_QUICK_RELOAD,
-    /// @brief Open current SUMO simulation/network in NETEDIT, or current NETEDIT simulation/network in SUMO
+    /// @brief Open current SUMO simulation/network in netedit, or current netedit simulation/network in SUMO
     MID_HOTKEY_CTRL_T_OPENNETEDIT_OPENSUMO,
     /// @brief Load edge data for visualization
     MID_HOTKEY_CTRL_U_OPENEDGEDATA,
@@ -197,11 +197,11 @@ enum {
     MID_HOTKEY_CTRL_SHIFT_A_SAVEADDITIONALS,
     /// @brief save Data Elements
     MID_HOTKEY_CTRL_SHIFT_B_SAVEDATAELEMENTS,
-    /// @brief Save NETEDITConfig
+    /// @brief Save neteditConfig
     MID_HOTKEY_CTRL_SHIFT_C_SAVENETEDITCONFIG,
     /// @brief Save Demand Elements
     MID_HOTKEY_CTRL_SHIFT_D_SAVEDEMANDELEMENTS,
-    /// @brief save NETEDIT Config
+    /// @brief save netedit Config
     MID_HOTKEY_CTRL_SHIFT_E_SAVENETEDITCONFIG,
     /// @brief save Edge Types
     MID_HOTKEY_CTRL_SHIFT_H_SAVEEDGETYPES,
@@ -209,11 +209,11 @@ enum {
     MID_HOTKEY_CTRL_SHIFT_K_SAVETLS,
     /// @brief save Mean Datas
     MID_HOTKEY_CTRL_SHIFT_M_SAVEMEANDATAS,
-    /// @brief open a new window (SUMO AND NETEDIT)
+    /// @brief open a new window (SUMO AND netedit)
     MID_HOTKEY_CTRL_SHIFT_N_NEWWINDOW,
     /// @brief open Netconvert file
     MID_HOTKEY_CTRL_SHIFT_O_OPENNETCONVERTFILE,
-    /// @brief save SUMOConfig (SUMO AND NETEDIT)
+    /// @brief save SUMOConfig (SUMO AND netedit)
     MID_HOTKEY_CTRL_SHIFT_S_SAVESUMOCONFIG,
 
     /// @}
@@ -223,11 +223,11 @@ enum {
 
     /// @brief open online documentation
     MID_HOTKEY_F1_ONLINEDOCUMENTATION,
-    /// @brief select network supermode in NETEDIT
+    /// @brief select network supermode in netedit
     MID_HOTKEY_F2_SUPERMODE_NETWORK,
-    /// @brief select demand supermode in NETEDIT
+    /// @brief select demand supermode in netedit
     MID_HOTKEY_F3_SUPERMODE_DEMAND,
-    /// @brief select data supermode in NETEDIT
+    /// @brief select data supermode in netedit
     MID_HOTKEY_F4_SUPERMODE_DATA,
     /// @brief compute Network in network mode and Demand elements in demand mode
     MID_HOTKEY_F5_COMPUTE_NETWORK_DEMAND,
@@ -263,9 +263,9 @@ enum {
     MID_HOTKEY_SHIFT_F5_COMPUTEJUNCTIONS_VOLATILE,
     /// @brief Adjust person plans (start und end positions, arrival positions, etc.)
     MID_HOTKEY_SHIFT_F7_ADJUST_PERSON_PLANS,
-    /// @brief open SUMO options menu (used in NETEDIT)
+    /// @brief open SUMO options menu (used in netedit)
     MID_HOTKEY_SHIFT_F10_SUMOOPTIONSMENU,
-    /// @brief focus upper element of current frame (only used in NETEDIT)
+    /// @brief focus upper element of current frame (only used in netedit)
     MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT,
 
     /// @}
@@ -683,9 +683,9 @@ enum {
     MID_GNE_TOOLBARFILE_OPENFOREIGN,
     /// @brief save joined junctions
     MID_GNE_SAVEJOINEDJUNCTIONS,
-    /// @brief reload NETEDITConfig
+    /// @brief reload neteditConfig
     MID_GNE_TOOLBARFILE_RELOAD_NETEDITCONFIG,
-    /// @brief save NETEDITConfig as
+    /// @brief save neteditConfig as
     MID_GNE_TOOLBARFILE_SAVENETEDITCONFIG_AS,
     /// @brief reload SUMOConfig
     MID_GNE_TOOLBARFILE_RELOAD_SUMOCONFIG,

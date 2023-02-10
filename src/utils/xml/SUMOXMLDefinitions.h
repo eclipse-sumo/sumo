@@ -143,17 +143,17 @@ enum SumoXMLTag {
     SUMO_TAG_ROUTES,
     /// @brief a single trip definition (used by router)
     SUMO_TAG_TRIP,
-    /// @brief a trip between junctions (used in NETEDIT)
+    /// @brief a trip between junctions (used in netedit)
     GNE_TAG_TRIP_JUNCTIONS,
     /// @brief description of a vehicle
     SUMO_TAG_VEHICLE,
-    /// @brief description of a vehicle with an embedded route (used in NETEDIT)
+    /// @brief description of a vehicle with an embedded route (used in netedit)
     GNE_TAG_VEHICLE_WITHROUTE,
     /// @brief description of a vehicle/person/container type
     SUMO_TAG_VTYPE,
     /// @brief begin/end of the description of a route
     SUMO_TAG_ROUTE,
-    /// @brief embedded route (used in NETEDIT)
+    /// @brief embedded route (used in netedit)
     GNE_TAG_ROUTE_EMBEDDED,
     /// @brief description of a logic request within the junction
     SUMO_TAG_REQUEST,
@@ -177,11 +177,11 @@ enum SumoXMLTag {
     SUMO_TAG_ASSIGNMENT,
     /// @brief a sequence of assignments evaluated in the context of passed arguments
     SUMO_TAG_FUNCTION,
-    /// @brief a single trip definition that uses TAZs (used in NETEDIT)
+    /// @brief a single trip definition that uses TAZs (used in netedit)
     SUMO_TAG_TRIP_TAZ,
     /// @brief a flow definitio nusing a from-to edges instead of a route (used by router)
     SUMO_TAG_FLOW,
-    /// @brief a flow between junctions (used in NETEDIT)
+    /// @brief a flow between junctions (used in netedit)
     GNE_TAG_FLOW_JUNCTIONS,
     /// @brief a flow state definition (used when saving and loading simulatino state)
     SUMO_TAG_FLOWSTATE,
@@ -403,7 +403,7 @@ enum SumoXMLTag {
     /// @brief parameters
     AGEN_TAG_PARAM,
 
-    /// @name NETEDIT elements
+    /// @name Netedit elements
     /// @{
     /// @brief edge rel (defined in a single lane)
     GNE_TAG_EDGEREL_SINGLE,
@@ -419,9 +419,9 @@ enum SumoXMLTag {
     GNE_TAG_VSS_SYMBOL,
     /// @brief COF Symbol
     GNE_TAG_COF_SYMBOL,
-    /// @brief a flow definition using a route instead of a from-to edges route (used in NETEDIT)
+    /// @brief a flow definition using a route instead of a from-to edges route (used in netedit)
     GNE_TAG_FLOW_ROUTE,
-    /// @brief description of a vehicle with an embedded route (used in NETEDIT)
+    /// @brief description of a vehicle with an embedded route (used in netedit)
     GNE_TAG_FLOW_WITHROUTE,
     // @brief person trips
     GNE_TAG_PERSONTRIP_EDGE,

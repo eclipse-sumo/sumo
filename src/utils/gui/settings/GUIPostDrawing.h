@@ -51,10 +51,10 @@ public:
     /// @brief get all elements under cursor
     const std::vector<const GUIGlObject*>& getElementUnderCursor() const;
 
-    /// @brief elements marked for drawing remove contour (used in NETEDIT)
+    /// @brief elements marked for drawing remove contour (used in netedit)
     std::vector<const GUIGlObject*> elementsMarkedToRemove;
 
-    /// @brief elements marked for drawing selet contour(used in NETEDIT)
+    /// @brief elements marked for drawing selet contour(used in netedit)
     std::vector<const GUIGlObject*> elementsMarkedToSelect;
 
     /// @brief recompute boundaries

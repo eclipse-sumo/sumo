@@ -580,7 +580,7 @@ struct GUIVisualizationDetailSettings {
     /// @brief details for draw person as person shapes
     static const double personShapes;
 
-    /// @brief Exaggeration for persons (only used in NETEDIT)
+    /// @brief Exaggeration for persons (only used in netedit)
     static const double personExaggeration;
 };
 
@@ -982,7 +982,7 @@ public:
     /// @brief enable or disable draw boundaries
     bool drawBoundaries;
 
-    /// @brief the current selection scaling in NETEDIT (set in SelectorFrame)
+    /// @brief the current selection scaling in netedit (set in SelectorFrame)
     double selectorFrameScale;
 
     /// @brief whether drawing is performed for the purpose of selecting objects with a single click
@@ -997,7 +997,7 @@ public:
     /// @brief flag to force draw for rectangle selection (see drawForRectangleSelection)
     bool forceDrawForRectangleSelection;
 
-    /// @brief flag for disable dotted contours in NETEDIT
+    /// @brief flag for disable dotted contours in netedit
     bool disableDottedContours;
 
     // Setting bundles for optional drawing geometry point indices

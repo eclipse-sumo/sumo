@@ -292,7 +292,7 @@ GUIDialog_ChooserAbstract::onCmdFilterSubstr(FXObject*, FXSelector, void*) {
         }
     }
     refreshList(selectedGlIDs);
-    // filter ACs in NETEDIT
+    // filter ACs in netedit
     filterACs(selectedGlIDs);
     myHaveFilteredSubstring = true;
     onChgText(nullptr, 0, nullptr);

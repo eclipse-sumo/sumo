@@ -259,7 +259,7 @@ public:
     /// @brief get permissions
     SVCPermissions getPermissions() const;
 
-    /// @brief get exceptions (used in NETEDIT)
+    /// @brief get exceptions (used in netedit)
     std::string getExceptions() const;
 
     /// @brief get offset
@@ -268,7 +268,7 @@ public:
     /// @brief update permissions
     void setPermissions(const SVCPermissions permissions);
 
-    /// @brief set exceptions (used in NETEDIT)
+    /// @brief set exceptions (used in netedit)
     void setExceptions(const std::string permissions);
 
     /// @brief set offset

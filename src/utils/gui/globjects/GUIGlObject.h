@@ -146,7 +146,7 @@ public:
     virtual const std::string getOptionalName() const;
 
     /// @brief Changes the microsimID of the object
-    /// @note happens in NETEDIT
+    /// @note happens in netedit
     virtual void setMicrosimID(const std::string& newID);
 
     /// @brief Returns the type of the object as coded in GUIGlObjectType
@@ -183,16 +183,16 @@ public:
     /// @param[in] s The settings for the current view (may influence drawing)
     virtual void drawGL(const GUIVisualizationSettings& s) const = 0;
 
-    /// @brief check if element is locked (Currently used only in NETEDIT)
+    /// @brief check if element is locked (Currently used only in netedit)
     virtual bool isGLObjectLocked();
 
-    /// @brief mark element as front element (Currently used only in NETEDIT)
+    /// @brief mark element as front element (Currently used only in netedit)
     virtual void markAsFrontElement();
 
-    /// @brief delete GLObject (Currently used only in NETEDIT)
+    /// @brief delete GLObject (Currently used only in netedit)
     virtual void deleteGLObject();
 
-    /// @brief select GLObject (Currently used only in NETEDIT)
+    /// @brief select GLObject (Currently used only in netedit)
     virtual void selectGLObject();
 
     /// @brief update GLObject (geometry, ID, etc.) (optional)

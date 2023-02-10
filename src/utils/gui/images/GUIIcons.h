@@ -226,7 +226,7 @@ enum class GUIIcon {
     TRACKER,
     /// @}
 
-    /// @name NETEDIT icons
+    /// @name Netedit icons
     /// @{
     UNDO,
     REDO,
@@ -249,7 +249,7 @@ enum class GUIIcon {
     EXTEND,
     /// @}
 
-    /// @name NETEDIT common mode specific icons
+    /// @name Netedit common mode specific icons
     /// @{
     COMMONMODE_CHECKBOX_TOGGLEGRID,
     COMMONMODE_CHECKBOX_TOGGLEDRAWJUNCTIONSHAPE,
@@ -257,7 +257,7 @@ enum class GUIIcon {
     COMMONMODE_CHECKBOX_SHOWDEMANDELEMENTS,
     /// @}
 
-    /// @name NETEDIT network mode specific icons
+    /// @name Netedit network mode specific icons
     /// @{
     NETWORKMODE_CHECKBOX_SELECTEDGES,
     NETWORKMODE_CHECKBOX_SHOWCONNECTIONS,
@@ -273,7 +273,7 @@ enum class GUIIcon {
     NETWORKMODE_CHECKBOX_APPLYTOALLPHASES,
     /// @}
 
-    /// @name NETEDIT demand mode specific icons
+    /// @name Netedit demand mode specific icons
     /// @{
     DEMANDMODE_CHECKBOX_HIDESHAPES,
     DEMANDMODE_CHECKBOX_SHOWTRIPS,
@@ -285,7 +285,7 @@ enum class GUIIcon {
     DEMANDMODE_CHECKBOX_SHOWOVERLAPPEDROUTES,
     /// @}
 
-    /// @name NETEDIT data mode specific icons
+    /// @name Netedit data mode specific icons
     /// @{
     DATAMODE_CHECKBOX_SHOWADDITIONALS,
     DATAMODE_CHECKBOX_SHOWSHAPES,
@@ -318,7 +318,7 @@ enum class GUIIcon {
     SUPERMODEDATA,
     /// @}
 
-    /// @name NETEDIT Network modes icons
+    /// @name Netedit Network modes icons
     /// @{
     MODEADDITIONAL,
     MODECONNECTION,
@@ -335,7 +335,7 @@ enum class GUIIcon {
     MODEWIRE,
     /// @}
 
-    /// @name NETEDIT Demand modes icons
+    /// @name Netedit Demand modes icons
     /// @{
     MODEROUTE,
     MODEVEHICLE,
@@ -347,7 +347,7 @@ enum class GUIIcon {
     MODECONTAINERPLAN,
     /// @}
 
-    /// @name NETEDIT Edge modes icons
+    /// @name Netedit Edge modes icons
     /// @{
     MODEEDGEDATA,
     MODEEDGERELDATA,
@@ -355,7 +355,7 @@ enum class GUIIcon {
     MODEMEANDATA,
     /// @}
 
-    /// @name NETEDIT processing icons
+    /// @name Netedit processing icons
     /// @{
     COMPUTEJUNCTIONS,
     CLEANJUNCTIONS,
@@ -431,7 +431,7 @@ enum class GUIIcon {
     /// @}
 
 
-    /// @name NETEDIT Demand elements icons
+    /// @name Netedit Demand elements icons
     /// @{
     ROUTE,
     VTYPE,
@@ -465,7 +465,7 @@ enum class GUIIcon {
     TRANSHIP_CONTAINERSTOP,
     /// @}
 
-    /// @name NETEDIT data elements icons
+    /// @name Netedit data elements icons
     /// @{
     DATASET,
     DATAINTERVAL,
@@ -476,7 +476,7 @@ enum class GUIIcon {
     MEANDATALANE,
     /// @}
 
-    /// @name NETEDIT icons used in GNETLSTable
+    /// @name Netedit icons used in GNETLSTable
     /// @{
     TLSPHASEDEFAULT,
     TLSPHASECOPY,

@@ -119,11 +119,11 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
     buildPOIsFrame(tabbook);
     // build polygons frame
     buildPolygonsFrame(tabbook);
-    // build selection frame (only in NETEDIT)
+    // build selection frame (only in netedit)
     if (mySettings->netedit) {
         buildSelectionFrame(tabbook);
     }
-    // build data frame (only in NETEDIT)
+    // build data frame (only in netedit)
     if (mySettings->netedit) {
         buildDataFrame(tabbook);
     }
