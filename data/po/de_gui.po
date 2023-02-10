@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-05 21:26+0100\n"
-"PO-Revision-Date: 2023-02-10 13:45+0000\n"
+"PO-Revision-Date: 2023-02-10 14:33+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -6731,11 +6731,10 @@ msgid "The name of the lane the waypoint shall be located at"
 msgstr "Der Name des Fahrstreifen, auf der sich der Wegpunkt befinden soll"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4090
-#, fuzzy
 msgid "The lateral offset on the named lane at which the vehicle must waypoint"
 msgstr ""
 "Der seitliche Versatz auf dem benannten Fahrstreifen, auf den das Fahrzeug "
-"einen Wegpunkt haben muss"
+"einen Wegpunkt anfährt"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4106
 msgid "BusWaypoint associated with this waypoint"
@@ -6800,7 +6799,6 @@ msgstr "Der Name der Kante, an der die Umladung endet"
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4330
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4366
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4391
-#, fuzzy
 msgid "The position at which the tranship shall enter the net"
 msgstr "Die Position, an der die Umladung im Netz statt finden soll"
 
@@ -6905,7 +6903,6 @@ msgid "Id of the destination bus stop"
 msgstr "ID der Buszielhaltestelle"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4687
-#, fuzzy
 msgid "The id of the route to walk"
 msgstr "Die ID der zu gehenden Route"
 
@@ -6919,12 +6916,10 @@ msgstr "Der Name des Knotenpunkts, an dem der Fußweg endet"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4733
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4763
-#, fuzzy
 msgid "The name of the edge the ride starts at"
 msgstr "Der Name der Kante, an der die Fahrt beginnt"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4738
-#, fuzzy
 msgid "The name of the edge the ride ends at"
 msgstr "Der Name der Kante, an der die Fahrt endet"
 
