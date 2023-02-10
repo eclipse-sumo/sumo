@@ -1354,7 +1354,7 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                               << " egoMaxSpeedLat=" << ego->getVehicleType().getMaxSpeedLat()
                               << "\n";
                 }
-                if (latGap > 0 && (latGap > maneuverDist || !sameTarget)
+                if (latGap > 0 && (latGap > maneuverDist || !sameTarget || !MSGlobals::gComputeLC)
                         // do not perform sublane changes that interfere with the leader vehicle
                         && (!MSGlobals::gComputeLC || latGap > ego->getVehicleType().getMaxSpeedLat())) {
                     const MSLink* foeEntryLink = foeLane->getIncomingLanes().front().viaLink;
