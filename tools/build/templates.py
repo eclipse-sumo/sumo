@@ -102,7 +102,7 @@ def generateToolTemplate(srcDir, toolDir, subDir, toolName):
         # show info
         print("Obtaining '" + toolName + "' tool template")
         # obtain template saving it toolTemplate.xml
-        call(["python", toolPath, "--save-template", xmlTemplate])
+        call([sys.executable, toolPath, "--save-template", xmlTemplate])
         # read XML
         with open(xmlTemplate, 'r') as f:
             template = f.read()
