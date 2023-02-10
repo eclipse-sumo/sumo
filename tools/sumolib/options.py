@@ -29,7 +29,7 @@ import argparse
 import io
 from argparse import RawDescriptionHelpFormatter  # noqa
 from copy import deepcopy
-
+from .miscutils import openz
 
 class ConfigurationReader(handler.ContentHandler):
 
@@ -189,7 +189,7 @@ class ArgumentParser(argparse.ArgumentParser):
             return out.getvalue()
         else:
             return
-        with open(out_file, "w") as out:
+        with openz(out_file, "w") as out:
             self.write_config_to_file(out, namespace, print_template)
         if exit:
             sys.exit()
@@ -241,6 +241,9 @@ class ArgumentParser(argparse.ArgumentParser):
             idx = args.index('-c') + 1
         if '--configuration-file' in args:
             idx = args.index('--configuration-file') + 1
+        if '--save-template' in args:
+            for a in self._actions:
+                a.required = False
         # add each config item to the commandline unless it's there already
         config_args = []
         pos_args = []
