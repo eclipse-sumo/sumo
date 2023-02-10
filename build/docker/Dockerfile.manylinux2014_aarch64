@@ -1,13 +1,18 @@
-# docker build -f Dockerfile.manylinux2014_aarch64 . -t manylinux2014_aarch64
-# docker save -o manylinux2014_aarch64.tar manylinux2014_aarch64
+# Build the docker image locally:       docker build -f Dockerfile.manylinux2014_aarch64 . -t manylinux2014_aarch64
+# Store the docker image in a tar file: docker save -o manylinux2014_aarch64.tar manylinux2014_aarch64
 
 FROM quay.io/pypa/manylinux2014_aarch64 
+LABEL description="Dockerfile for a container to build manylinux python packages for aarch64"
 
+# Where do we mount the source code of sumo?
+ENV SUMO_HOME=/sumo
+RUN mkdir -p -m 0750 "${SUMO_HOME}"
+VOLUME "${SUMO_HOME}"
+
+# Install dependencies
 RUN yum install -y epel-release
 RUN yum-config-manager --add-repo=https://download.opensuse.org/repositories/science:/dlr/CentOS_7/
 RUN yum install -y --nogpgcheck ccache libxerces-c-devel proj-devel fox16-devel bzip2-devel gl2ps-devel swig3
-
 # see https://github.com/pypa/manylinux/issues/1421
 RUN pipx install -f patchelf==0.16.1.0  
-
 RUN /opt/python/cp38-cp38/bin/pip install scikit-build cmake
