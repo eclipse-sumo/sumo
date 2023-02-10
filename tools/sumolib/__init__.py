@@ -175,5 +175,6 @@ def _laneID2edgeID(laneID):
 
 
 def open(fileOrURL, tryGZip=True, mode="rb"):
-    warnings.warn("sumolib.open is deprecated, due to the name clash and strange signature! Use sumolib.miscutils.openz instead.")
+    warnings.warn("sumolib.open is deprecated, due to the name clash and strange signature! "
+                  "Use sumolib.miscutils.openz instead.")
     return openz(fileOrURL, mode, tryGZip=tryGZip)
