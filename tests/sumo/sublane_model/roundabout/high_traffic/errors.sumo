@@ -1,5 +1,0 @@
-Warning: Teleporting vehicle 'ES.13'; junction collision with vehicle 'ES.19', lane=':RN_4_1', gap=-1.75', latGap=-0.20, time=205.00 stage=move.
-Warning: Vehicle 'ES.13' ends teleporting on edge 'RNW', time=206.00.
-Warning: Vehicle 'WN.18' performs emergency braking on lane ':RE_4_1' with decel=9.00, wished=4.50, severity=1.00, time=254.00.
-Warning: Teleporting vehicle 'EW.33'; collision with vehicle 'EW.37', lane='RNW_0', gap=-0.88', latGap=-1.10, time=426.00 stage=move.
-Warning: Vehicle 'EW.33' ends teleporting on edge 'CW', time=426.00.
