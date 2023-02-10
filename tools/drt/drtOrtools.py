@@ -384,12 +384,14 @@ def run(end=None, interval=30, time_limit=10, cost_type='distance', drf=1.5, fix
 
         fleet = traci.vehicle.getTaxiFleet(-1)
         reservations_not_assigned = traci.person.getTaxiReservations(3)
-        # if fix_allocation=True only take new reservations from traci and add to all_reservations to keep the vehicle allocation for the older reservations
+        # if fix_allocation=True only take new reservations from traci 
+        # and add to all_reservations to keep the vehicle allocation for the older reservations
         current_reservations = traci.person.getTaxiReservations(0)
-        if fix_allocation == True:
+        if fix_allocation:
             reservations_all += reservations_new
             current_res_ids = [res.id for res in current_reservations]
-            reservations_all = [res for res in reservations_all if res.id in current_res_ids]  # remove completed reservations
+            # remove completed reservations
+            reservations_all = [res for res in reservations_all if res.id in current_res_ids]
             for res in reservations_all:  # update reservation state
                 if res.id in current_res_ids:
                     res.state = [cur_res for cur_res in current_reservations if cur_res.id == res.id][0].state
@@ -399,7 +401,8 @@ def run(end=None, interval=30, time_limit=10, cost_type='distance', drf=1.5, fix
         if reservations_not_assigned:
             if verbose:
                 print("Solve CPDP")
-            solution_requests = dispatch(reservations_all, fleet, time_limit, cost_type, drf, end, fix_allocation, verbose)
+            solution_requests = dispatch(reservations_all, fleet, time_limit,
+                                         cost_type, drf, end, fix_allocation, verbose)
             if solution_requests is not None:
                 for index_vehicle in solution_requests:  # for each vehicle
                     id_vehicle = fleet[index_vehicle]
@@ -424,26 +427,27 @@ def run(end=None, interval=30, time_limit=10, cost_type='distance', drf=1.5, fix
 
 def get_arguments():
     """Get command line arguments."""
-    argument_parser = sumolib.options.ArgumentParser()
-    argument_parser.add_argument("-s", "--sumo-config", required=True, help="sumo config file to run")
-    argument_parser.add_argument("-e", "--end", type=float,
-                                 help="time step to end simulation at")
-    argument_parser.add_argument("-i", "--interval", type=float, default=30,
-                                 help="dispatching interval in s")
-    argument_parser.add_argument("-n", "--nogui", action="store_true", default=False,
-                                 help="run the commandline version of sumo")
-    argument_parser.add_argument("-v", "--verbose", action="store_true", default=False,
-                                 help="print debug information")
-    argument_parser.add_argument("-t", "--time-limit", type=float, default=10,
-                                 help="time limit for solver in s")
-    argument_parser.add_argument("-d", "--cost-type", default="distance",
-                                 help="type of costs to minimize (distance or time)")
-    argument_parser.add_argument("-f", "--drf", type=float, default=1.5,
-                                 help="direct route factor to calculate maximum cost "
-                                      "for a single dropoff-pickup route (set to -1, if you do not need it)")
-    argument_parser.add_argument("-a", "--fix-allocation", action="store_true", default=False,
-                                 help="if true: after first solution the allocation of reservations to vehicles does not change anymore")
-    arguments = argument_parser.parse_args()
+    ap = sumolib.options.ArgumentParser()
+    ap.add_argument("-s", "--sumo-config", required=True, help="sumo config file to run")
+    ap.add_argument("-e", "--end", type=float,
+                    help="time step to end simulation at")
+    ap.add_argument("-i", "--interval", type=float, default=30,
+                    help="dispatching interval in s")
+    ap.add_argument("-n", "--nogui", action="store_true", default=False,
+                    help="run the commandline version of sumo")
+    ap.add_argument("-v", "--verbose", action="store_true", default=False,
+                    help="print debug information")
+    ap.add_argument("-t", "--time-limit", type=float, default=10,
+                    help="time limit for solver in s")
+    ap.add_argument("-d", "--cost-type", default="distance",
+                    help="type of costs to minimize (distance or time)")
+    ap.add_argument("-f", "--drf", type=float, default=1.5,
+                    help="direct route factor to calculate maximum cost "
+                         "for a single dropoff-pickup route (set to -1, if you do not need it)")
+    ap.add_argument("-a", "--fix-allocation", action="store_true", default=False,
+                    help="if true: after first solution the allocation of reservations to vehicles" +
+                    "does not change anymore")
+    arguments = ap.parse_args()
     return arguments
 
 

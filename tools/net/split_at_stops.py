@@ -95,8 +95,8 @@ def main(options):
                 if "<route" in line:
                     eb = line.find('edges="') + 7
                     ee = line.find('"', eb)
-                    l = [replace_edges.get(e, e) for e in line[eb:ee].split()]
-                    line = line[:eb] + " ".join(l) + line[ee:]
+                    ll = [replace_edges.get(e, e) for e in line[eb:ee].split()]
+                    line = line[:eb] + " ".join(ll) + line[ee:]
                 route_out.write(line)
 
 

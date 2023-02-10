@@ -30,7 +30,7 @@ from os.path import dirname, join
 from subprocess import check_output, call
 
 # list of folders and tools
-tools =[
+tools = [
     [".", "generateRerouters"],
     ["route", "addStops2Routes"]
 ]
@@ -79,7 +79,7 @@ def generateSumoTemplate(binDir):
     for sumoBin in [binDir + "/sumo", binDir + "/sumo.exe", binDir + "/sumoD", binDir + "/sumoD.exe"]:
         if os.path.exists(sumoBin):
             # show info
-            print ("Obtaining sumo template")
+            print("Obtaining sumo template")
             # obtain template piping stdout using check_output
             template = check_output([sumoBin, "--save-template", "stdout"], universal_newlines=True)
             # join variable and formated template
@@ -100,7 +100,7 @@ def generateToolTemplate(srcDir, toolDir, subDir, toolName):
     # check if exists
     if os.path.exists(toolPath):
         # show info
-        print ("Obtaining '" + toolName + "' tool template")
+        print("Obtaining '" + toolName + "' tool template")
         # obtain template saving it toolTemplate.xml
         call(["python", toolPath, "--save-template", xmlTemplate])
         # read XML
@@ -130,6 +130,6 @@ if __name__ == "__main__":
     # write templates.h
     with open("templates.h", 'w') as templateHeaderFile:
         # Convert templates in a map of strings (to avoid quotes)
-        templateMap = map(str, templates)  
+        templateMap = map(str, templates)
         # Join the items together and write to the file
         templateHeaderFile.write("".join(templateMap))
