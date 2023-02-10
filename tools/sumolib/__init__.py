@@ -152,7 +152,7 @@ class TeeFile:
         for fp in self.files:
             fp.write(txt)
 
-    def flush(self):HOME
+    def flush(self):
         """flushes all file contents to disc"""
         for fp in self.files:
             fp.flush()
@@ -170,7 +170,7 @@ def _intTime(tStr):
     return int(float(tStr))
 
 
-def _laneID2edgeID(laneID):HOME
+def _laneID2edgeID(laneID):
     return laneID[:laneID.rfind("_")]
 
 
