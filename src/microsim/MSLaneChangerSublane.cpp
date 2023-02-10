@@ -672,8 +672,12 @@ MSLaneChangerSublane::checkChangeSublane(
         }
         if (ceSib->aheadNext.hasVehicles()) {
             leaders.addLeaders(ceSib->aheadNext);
-            //std::cout << SIMTIME << " ego=" << vehicle->getID() << " ahead=" << myCandi->aheadNext.toString() << " sib=" << ceSib->lane->getID() << " sibAhead=" << ceSib->aheadNext.toString() << " leaders=" << leaders.toString() << "\n";
         }
+#ifdef DEBUG_SURROUNDING
+        if (DEBUG_COND) {
+            std::cout << SIMTIME << " ego=" << vehicle->getID() << " ahead=" << myCandi->aheadNext.toString() << " sib=" << ceSib->lane->getID() << " sibAhead=" << ceSib->aheadNext.toString() << " leaders=" << leaders.toString() << "\n";
+        }
+#endif
     }
     for (int offset : target->siblings) {
         // treat sibling lanes (internal lanes with the same origin lane) as if they have the same geometry
@@ -685,7 +689,11 @@ MSLaneChangerSublane::checkChangeSublane(
         if (ceSib->aheadNext.hasVehicles()) {
             neighLeaders.addLeaders(ceSib->aheadNext);
         }
-        //std::cout << SIMTIME << " ego=" << vehicle->getID() << " neighAhead=" << target->aheadNext.toString() << " sib=" << ceSib->lane->getID() << " sibAhead=" << ceSib->aheadNext.toString() << " neighLeaders=" << neighLeaders.toString() << "\n";
+#ifdef DEBUG_SURROUNDING
+        if (DEBUG_COND) {
+            std::cout << SIMTIME << " ego=" << vehicle->getID() << " neighAhead=" << target->aheadNext.toString() << " sib=" << ceSib->lane->getID() << " sibAhead=" << ceSib->aheadNext.toString() << " neighLeaders=" << neighLeaders.toString() << "\n";
+        }
+#endif
     }
 
     // break leader symmetry
