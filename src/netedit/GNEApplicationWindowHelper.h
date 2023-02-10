@@ -191,7 +191,7 @@ struct GNEApplicationWindowHelper {
         GNEApplicationWindow* myGNEApp = nullptr;
 
         /// @brief FXMenuCascade for neteditConfig
-        FXMenuCascade* myneteditConfigMenuCascade = nullptr;
+        FXMenuCascade* myNeteditConfigMenuCascade = nullptr;
 
         /// @brief FXMenuCascade for SUMOConfig
         FXMenuCascade* mySUMOConfigMenuCascade = nullptr;

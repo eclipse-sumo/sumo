@@ -251,8 +251,8 @@ GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* 
     new FXMenuSeparator(fileMenu);
 
     // create netedit config menu options
-    buildNeteditConfigSection(fileMenuneteditConfig);
-    myNeteditConfigMenuCascade = new FXMenuCascade(fileMenu, TL("Netedit Config"), GUIIconSubSys::getIcon(GUIIcon::netedit_MINI), fileMenuneteditConfig);
+    buildNeteditConfigSection(fileMenuNeteditConfig);
+    myNeteditConfigMenuCascade = new FXMenuCascade(fileMenu, TL("Netedit Config"), GUIIconSubSys::getIcon(GUIIcon::NETEDIT_MINI), fileMenuNeteditConfig);
    
     // create SUMOConfig menu options
     buildSUMOConfigSection(fileMenuSUMOConfig);
@@ -317,7 +317,7 @@ GNEApplicationWindowHelper::FileMenuCommands::disableMenuCascades() {
 
 
 void
-GNEApplicationWindowHelper::FileMenuCommands::buildneteditConfigSection(FXMenuPane* menuPane) {
+GNEApplicationWindowHelper::FileMenuCommands::buildNeteditConfigSection(FXMenuPane* menuPane) {
     GUIDesigns::buildFXMenuCommandShortcut(menuPane,
         TL("Save Netedit Config"), "Ctrl+Shift+E", TL("Save netedit configuration file."),
         GUIIconSubSys::getIcon(GUIIcon::SAVE_NETEDITCONFIG), myGNEApp, MID_HOTKEY_CTRL_SHIFT_E_SAVENETEDITCONFIG);
@@ -2028,7 +2028,7 @@ GNEApplicationWindowHelper::HelpMenuCommands::buildHelpMenuCommands(FXMenuPane* 
                                            nullptr, myGNEApp, MID_TUTORIAL);
     new FXMenuSeparator(helpMenu);
     GUIDesigns::buildFXMenuCommandShortcut(helpMenu, TL("&About"), "F12", TL("About netedit."),
-                                           GUIIconSubSys::getIcon(GUIIcon::netedit_MINI), myGNEApp, MID_HOTKEY_F12_ABOUT);
+                                           GUIIconSubSys::getIcon(GUIIcon::NETEDIT_MINI), myGNEApp, MID_HOTKEY_F12_ABOUT);
 }
 
 // ---------------------------------------------------------------------------
