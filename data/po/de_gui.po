@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-05 21:26+0100\n"
-"PO-Revision-Date: 2023-02-10 15:34+0000\n"
+"PO-Revision-Date: 2023-02-10 22:06+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -154,7 +154,7 @@ msgstr "Öffnet einen Dialog, um die Objektauswahl zu bearbeiten."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:471
 msgid "Select lanes which allow..."
-msgstr "Fahrspuren auswählen welche erlauben..."
+msgstr "Fahrstreifen auswählen welche erlauben..."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:471
 msgid "Opens a menu for selecting a vehicle class by which to selected lanes."
@@ -7602,7 +7602,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5791
 msgid "If set, junction internal edges/lanes will be written as well"
 msgstr ""
-"Wenn gesetzt, werden auch die inneren Kanten/Fahrspuren des Knotenpunkts "
+"Wenn gesetzt, werden auch die inneren Kanten/Fahrstreifen des Knotenpunkts "
 "geschrieben"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5797
@@ -8219,9 +8219,8 @@ msgstr "Referenz rechts"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:57
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:206
-#, fuzzy
 msgid "reference center"
-msgstr "Referenziere Zentrum"
+msgstr "Referenz in der Mitte"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:65
 msgid "Close shape"
@@ -8266,13 +8265,12 @@ msgstr ""
 "  - Mit zentrierter Ausrichtung liegen startPos bei 85 und endPos bei 115."
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:236
-#, fuzzy
 msgid ""
 "- Block movement: if is enabled, the created additional element will be "
 "blocked. i.e. cannot be moved with"
 msgstr ""
-"- Bewegung blockieren: Wenn aktiviert, wird das erstellte zusätzliche "
-"Element blockiert. d.h. nicht mit bewegbar"
+"- Verschieben blockieren: Wenn aktiviert, wird das erstellte weitere Element "
+"blockiert. d.h. es kann nicht mit verschoben werden"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:237
 msgid "  the mouse. This option can be modified inspecting element."
@@ -8417,7 +8415,6 @@ msgid " edge conflict (vClass)"
 msgstr " Kantenkonflikt (Fahrzeugklasse)"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNESelectorParent.cpp:36
-#, fuzzy
 msgid "Parent selector"
 msgstr "Eltern-Auswähler"
 
