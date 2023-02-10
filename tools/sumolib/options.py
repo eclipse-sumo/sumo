@@ -196,7 +196,7 @@ class ArgumentParser(argparse.ArgumentParser):
             sys.exit()
 
     def write_config_to_file(self, out, namespace, print_template):
-        out.write('<configuration>\n')
+        out.write(u'<configuration>\n')
         for k in sorted(vars(namespace).keys()):
             v = vars(namespace)[k]
             if k not in ("save_configuration", "save_template", "configuration_file", "_parser", "_prefixed_options"):
@@ -218,8 +218,8 @@ class ArgumentParser(argparse.ArgumentParser):
                 if print_template or v != a.default:
                     if isinstance(v, list):
                         v = " ".join(map(str, v))
-                    out.write('    <%s value="%s"%s%s/>\n' % (key, xmlescape(v), default, help))
-        out.write('</configuration>\n')
+                    out.write(u'    <%s value="%s"%s%s/>\n' % (key, xmlescape(v), default, help))
+        out.write(u'</configuration>\n')
 
     def parse_args(self, args=None, namespace=None):
         if args is not None:
