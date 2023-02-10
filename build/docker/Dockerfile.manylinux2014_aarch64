@@ -1,5 +1,6 @@
 # Build the docker image locally:       docker build -f Dockerfile.manylinux2014_aarch64 . -t manylinux2014_aarch64
 # Store the docker image in a tar file: docker save -o manylinux2014_aarch64.tar manylinux2014_aarch64
+# Run the docker image:                 docker run -it --rm -v /Users/sumo/git/sumo/:/github/workspace manylinux2014_aarch64 bash
 
 FROM quay.io/pypa/manylinux2014_aarch64 
 LABEL description="Dockerfile for a container to build manylinux python packages for aarch64"
