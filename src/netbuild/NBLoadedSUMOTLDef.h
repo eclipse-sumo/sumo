@@ -50,7 +50,7 @@ public:
      */
     NBLoadedSUMOTLDef(const std::string& id, const std::string& programID, SUMOTime offset, TrafficLightType type);
 
-    /** @brief Constructor that copies from an existing definition and its computed logic (used by NETEDIT)
+    /** @brief Constructor that copies from an existing definition and its computed logic (used by netedit)
      * @param[in] def The definition to copy
      * @param[in] logic The computed logic of the given def
      */
@@ -121,7 +121,7 @@ public:
 
 
     /** @brief removes the given connection from the traffic light
-     * if recontruct=true, reconstructs the logic and informs the edges for immediate use in NETEDIT
+     * if recontruct=true, reconstructs the logic and informs the edges for immediate use in netedit
      * @note: tlIndex is not necessarily unique. we need the whole connection data here
      */
     void removeConnection(const NBConnection& conn, bool reconstruct = true);

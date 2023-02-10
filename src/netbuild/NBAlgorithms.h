@@ -51,7 +51,7 @@ public:
     /** @brief Computes turnaround destinations for all incoming edges of the given nodes (if any)
      * @param[in] node The node for which to compute turnaround destinations
      * @param[in] warn Whether warnings shall be issued
-     * @note: This is needed by NETEDIT
+     * @note: This is needed by netedit
      */
     static void computeTurnDirectionsForNode(NBNode* node, bool warn);
 

@@ -337,7 +337,7 @@ NBTrafficLightLogicCont::setTLControllingInformation(const NBEdgeCont& ec, const
     for (Definitions::iterator it = definitions.begin(); it != definitions.end(); it++) {
         (*it)->setParticipantsInformation();
     }
-    // clear previous information because tlDefs may have been removed in NETEDIT
+    // clear previous information because tlDefs may have been removed in netedit
     ec.clearControllingTLInformation();
     // insert the information about the tl-controlling
     for (Definitions::iterator it = definitions.begin(); it != definitions.end(); it++) {

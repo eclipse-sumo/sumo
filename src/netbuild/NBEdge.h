@@ -92,7 +92,7 @@ public:
 class NBEdge : public Named, public Parameterised, public NBRouterEdge {
     friend class NBEdgeCont;
 
-    /** used for visualization (NETEDIT) */
+    /** used for visualization (netedit) */
     friend class GNELane;
     friend class GNEEdge;
     friend class GNEJunction;
@@ -1406,14 +1406,14 @@ public:
         myIsBidi = isBidi;
     }
 
-    // @brief returns a reference to the internal structure for the convenience of NETEDIT
+    // @brief returns a reference to the internal structure for the convenience of netedit
     Lane& getLaneStruct(int lane) {
         assert(lane >= 0);
         assert(lane < (int)myLanes.size());
         return myLanes[lane];
     }
 
-    // @brief returns a reference to the internal structure for the convenience of NETEDIT
+    // @brief returns a reference to the internal structure for the convenience of netedit
     const Lane& getLaneStruct(int lane) const {
         assert(lane >= 0);
         assert(lane < (int)myLanes.size());

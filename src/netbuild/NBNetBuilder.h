@@ -127,7 +127,7 @@ public:
     /** @brief Performs the network building steps
      *
      * @param[in] oc Container that contains options for building
-     * @param[in] explicitTurnarounds List of edge ids for which turn-arounds should be added (used by NETEDIT)
+     * @param[in] explicitTurnarounds List of edge ids for which turn-arounds should be added (used by netedit)
      * @param[in] mayAddOrRemove whether processing steps which cause nodes and edges to be added or removed shall be triggered (used by netedit)
      * @exception ProcessError (recheck)
      */
@@ -203,7 +203,7 @@ public:
     /// @brief insertion geometry points to ensure maximum segment length between points
     static int addGeometrySegments(PositionVector& from, const PositionVector& cartesian, const double maxLength);
 
-    /// @brief whether netbuilding takes place in the context of NETEDIT
+    /// @brief whether netbuilding takes place in the context of netedit
     static bool runningNetedit();
 
 

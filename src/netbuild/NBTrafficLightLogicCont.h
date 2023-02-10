@@ -104,7 +104,7 @@ public:
     bool removeProgram(const std::string id, const std::string programID, bool del = true);
 
     /** @brief Extracts a traffic light definition from myDefinitions
-     * but keeps it in myExtracted for eventual * deletion (used by NETEDIT)
+     * but keeps it in myExtracted for eventual * deletion (used by netedit)
      */
     void extract(NBTrafficLightDefinition* definition);
 
@@ -131,7 +131,7 @@ public:
      */
     std::pair<int, int> computeLogics(OptionsCont& oc);
 
-    /** @brief Computes a specific traffic light logic (using by NETEDIT)
+    /** @brief Computes a specific traffic light logic (using by netedit)
      *
      * @param[in] oc Options used during the computation
      * @return whether the logic was computed successfully

@@ -189,74 +189,74 @@ public:
                  const std::vector<int>& next = std::vector<int>(),
                  int index = -1);
 
-    /** @brief Modifies the state for an existing phase (used by NETEDIT)
+    /** @brief Modifies the state for an existing phase (used by netedit)
      * @param[in] phaseIndex The index of the phase to modify
      * @param[in] tlIndex The index at which to modify the state
      * @param[in] linkState The new link state for the given index
      */
     void setPhaseState(int phaseIndex, int tlIndex, LinkState linkState);
 
-    /** @brief Modifies the duration for an existing phase (used by NETEDIT)
+    /** @brief Modifies the duration for an existing phase (used by netedit)
      * @param[in] phaseIndex The index of the phase to modify
      * @param[in] duration The new duration for this phase
      */
     void setPhaseDuration(int phaseIndex, SUMOTime duration);
 
-    /** @brief Modifies the min duration for an existing phase (used by NETEDIT)
+    /** @brief Modifies the min duration for an existing phase (used by netedit)
      * @param[in] phaseIndex The index of the phase to modify
      * @param[in] duration The new min duration for this phase
      */
     void setPhaseMinDuration(int phaseIndex, SUMOTime duration);
 
-    /** @brief Modifies the max duration for an existing phase (used by NETEDIT)
+    /** @brief Modifies the max duration for an existing phase (used by netedit)
      * @param[in] phaseIndex The index of the phase to modify
      * @param[in] duration The new max duration for this phase
      */
     void setPhaseMaxDuration(int phaseIndex, SUMOTime duration);
 
-    /** @brief Modifies the min duration for an existing phase (used by NETEDIT)
+    /** @brief Modifies the min duration for an existing phase (used by netedit)
      * @param[in] phaseIndex The index of the phase to modify
      * @param[in] duration The new earliestEnd for this phase
      */
     void setPhaseEarliestEnd(int phaseIndex, SUMOTime duration);
 
-    /** @brief Modifies the max duration for an existing phase (used by NETEDIT)
+    /** @brief Modifies the max duration for an existing phase (used by netedit)
      * @param[in] phaseIndex The index of the phase to modify
      * @param[in] duration The new latestEnd for this phase
      */
     void setPhaseLatestEnd(int phaseIndex, SUMOTime duration);
 
-    /** @brief Modifies the veh ex for an existing phase (used by NETEDIT)
+    /** @brief Modifies the veh ex for an existing phase (used by netedit)
      * @param[in] phaseIndex The index of the phase to modify
      * @param[in] duration The new vehEx for this phase
      */
     void setPhaseVehExt(int phaseIndex, SUMOTime duration);
 
-    /** @brief Modifies the veh ex for an existing phase (used by NETEDIT)
+    /** @brief Modifies the veh ex for an existing phase (used by netedit)
     * @param[in] phaseIndex The index of the phase to modify
     * @param[in] duration The new vehEx for this phase
     */
     void setPhaseYellow(int phaseIndex, SUMOTime duration);
 
-    /** @brief Modifies the veh ex for an existing phase (used by NETEDIT)
+    /** @brief Modifies the veh ex for an existing phase (used by netedit)
     * @param[in] phaseIndex The index of the phase to modify
     * @param[in] duration The new vehEx for this phase
     */
     void setPhaseRed(int phaseIndex, SUMOTime duration);
 
-    /** @brief Modifies the next phase (used by NETEDIT)
+    /** @brief Modifies the next phase (used by netedit)
      * @param[in] phaseIndex The index of the phase to modify
      * @param[in] duration The new duration for this phase
      */
     void setPhaseNext(int phaseIndex, const std::vector<int>& next);
 
-    /** @brief Modifies the phase name (used by NETEDIT)
+    /** @brief Modifies the phase name (used by netedit)
      * @param[in] phaseIndex The index of the phase to modify
      * @param[in] duration The new duration for this phase
      */
     void setPhaseName(int phaseIndex, const std::string& name);
 
-    /** @brief override state with the given character(used by NETEDIT)
+    /** @brief override state with the given character(used by netedit)
      * @param[in] phaseIndex The index of the phase to modify
      * @param[in] c the character to override (r, y, g, G...)
      */

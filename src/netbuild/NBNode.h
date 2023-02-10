@@ -65,7 +65,7 @@ class OutputDevice;
  */
 class NBNode : public Named, public Parameterised {
     friend class NBNodeCont;
-    friend class GNEJunction;            // < used for visualization (NETEDIT)
+    friend class GNEJunction;            // < used for visualization (netedit)
     friend class NBNodesEdgesSorter;     // < sorts the edges
     friend class NBNodeTypeComputer;     // < computes type
     friend class NBEdgePriorityComputer; // < computes priorities of edges per intersection
