@@ -82,10 +82,12 @@ public:
     };
 
     struct LinkLeader {
-        LinkLeader(MSVehicle* _veh, double _gap, double _distToCrossing, int _llFlags = LL_FROM_LEFT) :
+        LinkLeader(MSVehicle* _veh, double _gap, double _distToCrossing, int _llFlags = LL_FROM_LEFT, double _latOffst = 0) :
             vehAndGap(std::make_pair(_veh, _gap)),
             distToCrossing(_distToCrossing),
-            llFlags(_llFlags) { }
+            llFlags(_llFlags),
+            latOffset(_latOffst)
+        { }
 
         inline bool fromLeft() const {
             return (llFlags & LL_FROM_LEFT) != 0;
@@ -103,6 +105,7 @@ public:
         std::pair<MSVehicle*, double> vehAndGap;
         double distToCrossing;
         int llFlags;
+        double latOffset;
 
     };
 

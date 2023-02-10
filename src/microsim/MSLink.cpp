@@ -1451,7 +1451,7 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                         (inTheWay ? LL_IN_THE_WAY : 0) |
                         (sameSource ? LL_SAME_SOURCE : 0) |
                         (sameTarget ? LL_SAME_TARGET : 0));
-                result.emplace_back(leader, gap, stopAsap ? -1 : distToCrossing, llFlags);
+                result.emplace_back(leader, gap, stopAsap ? -1 : distToCrossing, llFlags, leader->getLatOffset(foeLane));
             }
 
         }
