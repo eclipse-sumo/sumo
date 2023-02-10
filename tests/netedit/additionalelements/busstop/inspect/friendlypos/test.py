@@ -38,13 +38,13 @@ netedit.changeElement("busStop")
 netedit.changeDefaultValue(netedit.attrs.busStop.create.references, "reference center")
 
 # create busStop in mode "reference center"
-netedit.leftClick(referencePosition, 250, 170)
+netedit.leftClick(referencePosition, 430, 256)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first busStop
-netedit.leftClick(referencePosition, 250, 190)
+netedit.leftClick(referencePosition, 430, 280)
 
 # Change parameter friendly pos
 netedit.modifyBoolAttribute(netedit.attrs.busStop.inspect.friendlyPos, True)
