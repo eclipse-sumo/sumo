@@ -55,7 +55,7 @@ def main(options):
             stops[stop.id] = stop
     net = sumolib.net.readNet(options.network) if options.network else None
     with open(options.split_output, "w") as out:
-        sumolib.xml.writeHeader(out, root="edges", schemaPath="edgediff_file.xsd")
+        sumolib.xml.writeHeader(out, root="edges", schemaPath="edgediff_file.xsd", options=options)
         for e, sl in locs.items():
             if len(sl) > 1:
                 print('    <edge id="%s">' % e, file=out)
@@ -85,7 +85,7 @@ def main(options):
         subprocess.call([sumolib.checkBinary("netconvert"), "-s", options.network,
                          "-e", out.name, "-o", options.output])
     with sumolib.openz(options.stop_output, "w") as stop_out:
-        sumolib.xml.writeHeader(stop_out, root="additional")
+        sumolib.xml.writeHeader(stop_out, root="additional", options=options)
         for s in stops.values():
             stop_out.write(s.toXML("    "))
         print('    </additional>', file=stop_out)

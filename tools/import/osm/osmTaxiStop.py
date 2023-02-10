@@ -20,7 +20,6 @@ from __future__ import print_function
 
 import os
 import sys
-import io
 import random
 import argparse
 sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
@@ -54,15 +53,15 @@ def main(options):
     else:
         net = sumolib.net.readNet(options.net_file)
     count = 0
-    fleet_out = io.open(options.fleet_file, "w", encoding="UTF8") if options.fleet_file else None
+    fleet_out = sumolib.openz(options.fleet_file, "w") if options.fleet_file else None
     if fleet_out:
         places = []
-        sumolib.xml.writeHeader(fleet_out, root="additional")
+        sumolib.xml.writeHeader(fleet_out, root="additional", options=options)
         print(u"""     <vType id="taxi" vClass="taxi">
         <param key="has.taxi.device" value="true"/>
     </vType>""", file=fleet_out)
-    with io.open(options.output_file, "w", encoding="UTF8") as output:
-        sumolib.xml.writeHeader(output, root="additional")
+    with sumolib.openz(options.output_file, "w") as output:
+        sumolib.xml.writeHeader(output, root="additional", options=options)
         for n in sumolib.xml.parse(options.osm_file, "node"):
             name = None
             bestLane = None

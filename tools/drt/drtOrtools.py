@@ -384,7 +384,7 @@ def run(end=None, interval=30, time_limit=10, cost_type='distance', drf=1.5, fix
 
         fleet = traci.vehicle.getTaxiFleet(-1)
         reservations_not_assigned = traci.person.getTaxiReservations(3)
-        # if fix_allocation=True only take new reservations from traci 
+        # if fix_allocation=True only take new reservations from traci
         # and add to all_reservations to keep the vehicle allocation for the older reservations
         current_reservations = traci.person.getTaxiReservations(0)
         if fix_allocation:

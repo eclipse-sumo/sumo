@@ -287,7 +287,7 @@ def main(data, time_limit_seconds=10, verbose=False):
     add_dropoff_constraint(data, routing, manager, verbose)
 
     # If no reallocation is desired
-    if data['fix_allocation'] == True:
+    if data['fix_allocation']:
         add_allocation_constraint(data, routing, manager, verbose)
 
     # Add Capacity constraint.
