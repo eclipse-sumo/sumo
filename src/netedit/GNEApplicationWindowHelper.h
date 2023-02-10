@@ -15,7 +15,7 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    mar 2020
 ///
-// Functions from main window of NETEDIT
+// Functions from main window of netedit
 /****************************************************************************/
 #pragma once
 #include <config.h>
@@ -163,8 +163,8 @@ struct GNEApplicationWindowHelper {
         void disableMenuCascades();
 
     private:
-        /// @brief build NETEDIT Config section
-        void buildNETEDITConfigSection(FXMenuPane* menuPane);
+        /// @brief build netedit config section
+        void buildNeteditConfigSection(FXMenuPane* menuPane);
 
         /// @brief build SUMO Config section
         void buildSUMOConfigSection(FXMenuPane* menuPane);
@@ -190,8 +190,8 @@ struct GNEApplicationWindowHelper {
         /// @brief pointer to current GNEApplicationWindows
         GNEApplicationWindow* myGNEApp = nullptr;
 
-        /// @brief FXMenuCascade for NETEDITConfig
-        FXMenuCascade* myNETEDITConfigMenuCascade = nullptr;
+        /// @brief FXMenuCascade for neteditConfig
+        FXMenuCascade* myneteditConfigMenuCascade = nullptr;
 
         /// @brief FXMenuCascade for SUMOConfig
         FXMenuCascade* mySUMOConfigMenuCascade = nullptr;
@@ -1058,18 +1058,18 @@ struct GNEApplicationWindowHelper {
         const std::string myFile;
     };
 
-    /// @brief NETEDIT config handler
-    class GNENETEDITConfigHandler {
+    /// @brief netedit config handler
+    class GNENeteditConfigHandler {
 
     public:
         /// @brief Constructor
-        GNENETEDITConfigHandler(const std::string& file);
+        GNENeteditConfigHandler(const std::string& file);
 
-        /// @brief load NETEDIT config
-        bool loadNETEDITConfig();
+        /// @brief load netedit config
+        bool loadNeteditConfig();
 
     private:
-        /// @brief NETEDIT config file
+        /// @brief netedit config file
         const std::string myFile;
     };
 
@@ -1103,8 +1103,8 @@ struct GNEApplicationWindowHelper {
     /// @brief open OSM file dialog
     static std::string openOSMFileDialog(FXWindow* window);
 
-    /// @brief open NETEDIT config file dialog
-    static std::string openNETEDITConfigFileDialog(FXWindow* window, const bool save);
+    /// @brief open netedit config file dialog
+    static std::string openNeteditConfigFileDialog(FXWindow* window, const bool save);
 
     /// @brief open SUMO config file dialog
     static std::string openSUMOConfigFileDialog(FXWindow* window, const bool save);

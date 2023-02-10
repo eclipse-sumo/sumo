@@ -180,7 +180,7 @@ GNEApplicationWindowHelper::FileMenuCommands::FileMenuCommands(GNEApplicationWin
 
 
 void
-GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* fileMenu, FXMenuPane* fileMenuNETEDITConfig,
+GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* fileMenu, FXMenuPane* fileMenuNeteditConfig,
         FXMenuPane* fileMenuSUMOConfig, FXMenuPane* fileMenuTLS, FXMenuPane* fileMenuEdgeTypes, FXMenuPane* fileMenuAdditionals,
         FXMenuPane* fileMenuDemandElements, FXMenuPane* fileMenuDataElements, FXMenuPane* fileMenuMeanDataElements) {
 
@@ -250,9 +250,9 @@ GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* 
 
     new FXMenuSeparator(fileMenu);
 
-    // create NETEDITConfig menu options
-    buildNETEDITConfigSection(fileMenuNETEDITConfig);
-    myNETEDITConfigMenuCascade = new FXMenuCascade(fileMenu, TL("Netedit Config"), GUIIconSubSys::getIcon(GUIIcon::NETEDIT_MINI), fileMenuNETEDITConfig);
+    // create netedit config menu options
+    buildNeteditConfigSection(fileMenuneteditConfig);
+    myNeteditConfigMenuCascade = new FXMenuCascade(fileMenu, TL("Netedit Config"), GUIIconSubSys::getIcon(GUIIcon::netedit_MINI), fileMenuneteditConfig);
    
     // create SUMOConfig menu options
     buildSUMOConfigSection(fileMenuSUMOConfig);
@@ -293,7 +293,7 @@ GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* 
 void
 GNEApplicationWindowHelper::FileMenuCommands::enableMenuCascades() {
     mySUMOConfigMenuCascade->enable();
-    myNETEDITConfigMenuCascade->enable();
+    myNeteditConfigMenuCascade->enable();
     myTLSMenuCascade->enable();
     myEdgeTypesMenuCascade->enable();
     myAdditionalMenuCascade->enable();
@@ -306,7 +306,7 @@ GNEApplicationWindowHelper::FileMenuCommands::enableMenuCascades() {
 void
 GNEApplicationWindowHelper::FileMenuCommands::disableMenuCascades() {
     mySUMOConfigMenuCascade->disable();
-    myNETEDITConfigMenuCascade->disable();
+    myNeteditConfigMenuCascade->disable();
     myTLSMenuCascade->disable();
     myEdgeTypesMenuCascade->disable();
     myAdditionalMenuCascade->disable();
@@ -317,7 +317,7 @@ GNEApplicationWindowHelper::FileMenuCommands::disableMenuCascades() {
 
 
 void
-GNEApplicationWindowHelper::FileMenuCommands::buildNETEDITConfigSection(FXMenuPane* menuPane) {
+GNEApplicationWindowHelper::FileMenuCommands::buildneteditConfigSection(FXMenuPane* menuPane) {
     GUIDesigns::buildFXMenuCommandShortcut(menuPane,
         TL("Save Netedit Config"), "Ctrl+Shift+E", TL("Save netedit configuration file."),
         GUIIconSubSys::getIcon(GUIIcon::SAVE_NETEDITCONFIG), myGNEApp, MID_HOTKEY_CTRL_SHIFT_E_SAVENETEDITCONFIG);
@@ -1790,7 +1790,7 @@ GNEApplicationWindowHelper::ProcessingMenuCommands::buildProcessingMenuCommands(
                                  TL("Recompute Network in Data Mode"), "", "",
                                  GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDATA), myGNEApp, MID_GNE_TOGGLE_COMPUTE_NETWORK_DATA);
     // set default value
-    menuCheckRecomputeDataMode->setCheck(myGNEApp->getApp()->reg().readBoolEntry("NETEDIT", TL("RecomputeData"), true));
+    menuCheckRecomputeDataMode->setCheck(myGNEApp->getApp()->reg().readBoolEntry("netedit", TL("RecomputeData"), true));
     // build demand  processing menu commands
     computeDemand = GUIDesigns::buildFXMenuCommandShortcut(processingMenu,
                     TL("Compute demand"), "F5", TL("Computes demand elements."),
@@ -1817,7 +1817,7 @@ GNEApplicationWindowHelper::ProcessingMenuCommands::buildProcessingMenuCommands(
     myOptionsSeparator = new FXMenuSeparator(processingMenu);
     // create optionmenus
     optionMenus = GUIDesigns::buildFXMenuCommandShortcut(processingMenu,
-                  TL("Options"), "F10", TL("Configure NETEDIT Options."),
+                  TL("Options"), "F10", TL("Configure netedit Options."),
                   GUIIconSubSys::getIcon(GUIIcon::OPTIONS), myGNEApp, MID_HOTKEY_F10_OPTIONSMENU);
 }
 
@@ -2028,7 +2028,7 @@ GNEApplicationWindowHelper::HelpMenuCommands::buildHelpMenuCommands(FXMenuPane* 
                                            nullptr, myGNEApp, MID_TUTORIAL);
     new FXMenuSeparator(helpMenu);
     GUIDesigns::buildFXMenuCommandShortcut(helpMenu, TL("&About"), "F12", TL("About netedit."),
-                                           GUIIconSubSys::getIcon(GUIIcon::NETEDIT_MINI), myGNEApp, MID_HOTKEY_F12_ABOUT);
+                                           GUIIconSubSys::getIcon(GUIIcon::netedit_MINI), myGNEApp, MID_HOTKEY_F12_ABOUT);
 }
 
 // ---------------------------------------------------------------------------
@@ -2125,16 +2125,16 @@ GNEApplicationWindowHelper::GNESUMOConfigHandler::loadSUMOConfig() {
 }
 
 // ---------------------------------------------------------------------------
-// GNENETEDITConfigHandler - methods
+// GNENeteditConfigHandler - methods
 // ---------------------------------------------------------------------------
 
-GNEApplicationWindowHelper::GNENETEDITConfigHandler::GNENETEDITConfigHandler(const std::string& file) :
+GNEApplicationWindowHelper::GNENeteditConfigHandler::GNENeteditConfigHandler(const std::string& file) :
     myFile(file) {
 }
 
 
 bool
-GNEApplicationWindowHelper::GNENETEDITConfigHandler::loadNETEDITConfig() {
+GNEApplicationWindowHelper::GNENeteditConfigHandler::loadNeteditConfig() {
     // get options
     auto& neteditOptions = OptionsCont::getOptions();
     // make all options writables
@@ -2150,11 +2150,11 @@ GNEApplicationWindowHelper::GNENETEDITConfigHandler::loadNETEDITConfig() {
         parser.setErrorHandler(&handler);
         parser.parse(StringUtils::transcodeToLocal(myFile).c_str());
         if (handler.errorOccurred()) {
-            WRITE_ERROR(TL("Could not load NETEDIT configuration '") + myFile + "'.");
+            WRITE_ERROR(TL("Could not load netedit configuration '") + myFile + "'.");
             return false;
         }
     } catch (const XERCES_CPP_NAMESPACE::XMLException& e) {
-        WRITE_ERROR(TL("Could not load NETEDIT configuration '") + myFile + "':\n " + StringUtils::transcode(e.getMessage()));
+        WRITE_ERROR(TL("Could not load netedit configuration '") + myFile + "':\n " + StringUtils::transcode(e.getMessage()));
         return false;
     }
     // relocate files
@@ -2644,14 +2644,14 @@ GNEApplicationWindowHelper::openOSMFileDialog(FXWindow* window) {
 
 
 std::string
-GNEApplicationWindowHelper::openNETEDITConfigFileDialog(FXWindow* window, const bool save) {
+GNEApplicationWindowHelper::openNeteditConfigFileDialog(FXWindow* window, const bool save) {
     if (save) {
-        return openFileDialog(window, TL("Save NETEDIT Config file as"), GUIIcon::SAVE_NETEDITCONFIG,
-            TL("NETEDIT Config files (*.neteditcfg)") + std::string("\n") +
+        return openFileDialog(window, TL("Save netedit Config file as"), GUIIcon::SAVE_NETEDITCONFIG,
+            TL("Netedit Config files (*.neteditcfg)") + std::string("\n") +
             TL("All files (*)"), true);
     } else {
-        return openFileDialog(window, TL("Open NETEDIT Config file"), GUIIcon::OPEN_NETEDITCONFIG,
-            TL("NETEDIT Config files (*.neteditcfg)") + std::string("\n") +
+        return openFileDialog(window, TL("Open netedit Config file"), GUIIcon::OPEN_NETEDITCONFIG,
+            TL("Netedit Config files (*.neteditcfg)") + std::string("\n") +
             TL("All files (*)"), false);
     }
 }

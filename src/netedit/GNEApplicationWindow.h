@@ -110,20 +110,20 @@ public:
     /// @brief called when the command/FXCall open foreign is executed
     long onCmdOpenForeign(FXObject*, FXSelector, void*);
 
-    /// @brief called when the command/FXCall open NETEDITConfig is executed
-    long onCmdOpenNETEDITConfig(FXObject*, FXSelector, void*);
+    /// @brief called when the command/FXCall open netedit config is executed
+    long onCmdOpenNeteditConfig(FXObject*, FXSelector, void*);
 
     /// @brief called when the command/FXCall open SUMOConfig is executed
     long onCmdOpenSUMOConfig(FXObject*, FXSelector, void*);
 
-    /// @brief called when the command/FXCall reload NETEDITConfig is executed
-    long onCmdReloadNETEDITConfig(FXObject*, FXSelector, void*);
+    /// @brief called when the command/FXCall reload netedit config is executed
+    long onCmdReloadNeteditConfig(FXObject*, FXSelector, void*);
 
     /// @brief called when the command/FXCall reload SUMOConfig is executed
     long onCmdReloadSUMOConfig(FXObject*, FXSelector, void*);
 
-    /// @brief called when the command/FXCall reload NETEDITConfig is updated
-    long onUpdReloadNETEDITConfig(FXObject*, FXSelector, void*);
+    /// @brief called when the command/FXCall reload netedit config is updated
+    long onUpdReloadNeteditConfig(FXObject*, FXSelector, void*);
 
     /// @brief called when the command/FXCall reload SUMOConfig is updated
     long onUpdReloadSUMOConfig(FXObject*, FXSelector, void*);
@@ -191,14 +191,14 @@ public:
     /// @brief called when the command/FXCall save joined is executed
     long onCmdSaveJoinedJunctionsAs(FXObject*, FXSelector, void*);
 
-    /// @brief called when the command/FXCall save NETEDITConfig is executed
-    long onCmdSaveNETEDITConfig(FXObject*, FXSelector, void*);
+    /// @brief called when the command/FXCall save netedit config is executed
+    long onCmdSaveNeteditConfig(FXObject*, FXSelector, void*);
 
-    /// @brief called when the command/FXCall save NETEDITConfig as is executed
-    long onCmdSaveNETEDITConfigAs(FXObject*, FXSelector, void*);
+    /// @brief called when the command/FXCall save netedit config as is executed
+    long onCmdSaveNeteditConfigAs(FXObject*, FXSelector, void*);
 
-    /// @brief called when the command/FXCall save NETEDITConfig is updated
-    long onUpdSaveNETEDITConfig(FXObject*, FXSelector, void*);
+    /// @brief called when the command/FXCall save netedit config is updated
+    long onUpdSaveNeteditConfig(FXObject*, FXSelector, void*);
 
     /// @brief called when the command/FXCall save SUMOConfig is executed
     long onCmdSaveSUMOConfig(FXObject*, FXSelector, void*);
@@ -492,7 +492,7 @@ public:
 
     /// @name inherited from GUIMainWindow
     /// @{
-    /// @brief get build OpenGL Canvas (due NETEDIT only uses a single View, it always return nullptr)
+    /// @brief get build OpenGL Canvas (due netedit only uses a single View, it always return nullptr)
     FXGLCanvas* getBuildGLCanvas() const;
 
     /// @brief get current simulation time (pure virtual but we don't need it)
@@ -574,7 +574,7 @@ protected:
 
     /// @brief the submenus
     FXMenuPane* myFileMenu = nullptr,
-        *myFileMenuNETEDITConfig = nullptr,
+        *myFileMenuNeteditConfig = nullptr,
         *myFileMenuSUMOConfig = nullptr,
         *myFileMenuTLS = nullptr,
         *myFileMenuEdgeTypes = nullptr,

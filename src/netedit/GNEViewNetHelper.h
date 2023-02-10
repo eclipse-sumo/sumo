@@ -492,8 +492,8 @@ struct GNEViewNetHelper {
         /// @brief checkable button for save individual files
         MFXMenuButtonTooltip* mySaveIndividualFiles = nullptr;
 
-        /// @brief checkable button for save NETEDIT config
-        MFXButtonTooltip* mySaveNETEDITConfig = nullptr;
+        /// @brief checkable button for save netedit config
+        MFXButtonTooltip* mySaveNeteditConfig = nullptr;
 
         /// @brief checkable button for save SUMO config
         MFXButtonTooltip* mySaveSUMOConfig = nullptr;

@@ -99,9 +99,9 @@ GNELoadThread::run() {
         // set netedit config as loaded file
         loadedFile = neteditOptions.getString("configuration-file");
         // declare parser for netedit config file
-        GNEApplicationWindowHelper::GNENETEDITConfigHandler confighandler(loadedFile);
+        GNEApplicationWindowHelper::GNENeteditConfigHandler confighandler(loadedFile);
         // if there is an error loading sumo config, stop
-        if (confighandler.loadNETEDITConfig()) {
+        if (confighandler.loadNeteditConfig()) {
             validInput = true;
         } else {
             WRITE_ERRORF(TL("Loading of netedit config file '%' failed."), loadedFile);
@@ -249,7 +249,7 @@ GNELoadThread::fillOptions(OptionsCont& neteditOptions) {
     neteditOptions.clear();
     neteditOptions.addCallExample("--new", TL("Start plain GUI with empty net"));
     neteditOptions.addCallExample("-s <SUMO_NET>", TL("Open a SUMO network"));
-    neteditOptions.addCallExample("-c <CONFIGURATION>", TL("Open a configuration file (NETEDIT o NETCONVERT config)"));
+    neteditOptions.addCallExample("-c <CONFIGURATION>", TL("Open a configuration file (netedit o NETCONVERT config)"));
     neteditOptions.addCallExample("-sumocfg-file <CONFIGURATION>", TL("Open a SUMO config file"));
 
     SystemFrame::addConfigurationOptions(neteditOptions); // this subtopic is filled here, too

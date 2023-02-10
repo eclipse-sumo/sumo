@@ -1922,11 +1922,11 @@ GNEViewNetHelper::SaveElements::~SaveElements() {
 void
 GNEViewNetHelper::SaveElements::buildSaveElementsButtons() {
     // create save sumo config button
-    mySaveNETEDITConfig = new MFXButtonTooltip(myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().saveElements,
+    mySaveNeteditConfig = new MFXButtonTooltip(myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().saveElements,
         myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
         std::string("\t") + TL("Save NETEDITConfig") + std::string("\t") + TL("Save NETEDITConfig. (Ctrl+Shift+E)"), GUIIconSubSys::getIcon(GUIIcon::SAVE_NETEDITCONFIG),
         myViewNet->getViewParent()->getGNEAppWindows(), MID_HOTKEY_CTRL_SHIFT_E_SAVENETEDITCONFIG, GUIDesignButtonToolbar);
-    mySaveNETEDITConfig->create();
+    mySaveNeteditConfig->create();
     // create save sumo config button
     mySaveSUMOConfig = new MFXButtonTooltip(myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().saveElements,
         myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),

@@ -60,10 +60,10 @@ protected:
     /// @brief toggle selection
     void toggleSelection(int listIndex) override;
 
-    /// @brief set selection (handled differently in NETEDIT)
+    /// @brief set selection (handled differently in netedit)
     void select(int listIndex) override;
 
-    /// @brief unset selection (handled differently in NETEDIT)
+    /// @brief unset selection (handled differently in netedit)
     void deselect(int listIndex) override;
 
     /// @brief filter ACs

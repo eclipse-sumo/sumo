@@ -778,17 +778,17 @@ struct GNENetHelper {
 
         /// @}
 
-        /// @name NETEDITConfig
+        /// @name NeteditConfig
         /// @{
 
-        /// @brief inform that NETEDITConfig has to be saved
-        void requireSaveNETEDITConfig();
+        /// @brief inform that netedit config has to be saved
+        void requireSaveNeteditConfig();
 
-        /// @brief mark NETEDITConfig as saved
-        void NETEDITConfigSaved();
+        /// @brief mark netedit config as saved
+        void neteditConfigSaved();
 
-        /// @brief check if NETEDITConfig is saved
-        bool isNETEDITConfigSaved() const;
+        /// @brief check if netedit config is saved
+        bool isNeteditConfigSaved() const;
 
         /// @}
 
@@ -894,8 +894,8 @@ struct GNENetHelper {
         /// @brief flag for SUMOConfigSUMOConfig saved
         bool mySUMOConfigSaved = true;
 
-        /// @brief flag for network saved
-        bool myNETEDITConfigSaved = true;
+        /// @brief flag for netedit config saved
+        bool myNeteditConfigSaved = true;
 
         /// @brief flag for network  saved
         bool myNetworkSaved = true;
