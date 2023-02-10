@@ -22,10 +22,6 @@ import os
 import sys
 import subprocess
 import warnings
-try:
-    from urllib.request import urlopen
-except ImportError:
-    from urllib import urlopen
 from optparse import OptionParser
 
 from . import files, net, output, sensors, shapes, statistics, fpdiff  # noqa

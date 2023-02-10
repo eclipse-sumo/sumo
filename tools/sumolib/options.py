@@ -31,6 +31,7 @@ from argparse import RawDescriptionHelpFormatter  # noqa
 from copy import deepcopy
 from .miscutils import openz
 
+
 class ConfigurationReader(handler.ContentHandler):
 
     """Reads a configuration template, storing the options in an OptionParser"""

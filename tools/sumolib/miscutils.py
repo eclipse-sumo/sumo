@@ -28,6 +28,10 @@ import random
 import gzip
 import codecs
 import io
+try:
+    from urllib.request import urlopen
+except ImportError:
+    from urllib import urlopen
 # needed for backward compatibility
 from .statistics import Statistics, geh, uMax, uMin, round  # noqa
 
@@ -299,7 +303,7 @@ def openz(fileOrURL, mode="r", **kwargs):
             if sys.version_info[0] < 3:
                 return codecs.getreader('utf-8')(gzip.open(fileOrURL))
             return gzip.open(fileOrURL, mode="rt", encoding="utf8")
-    except:
+    except OSError:
         pass
     if "b" in mode:
         return io.open(fileOrURL, mode=mode)
