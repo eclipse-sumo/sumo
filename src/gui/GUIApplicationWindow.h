@@ -197,7 +197,7 @@ public:
     /// @brief Called on menu Edit->Netedit (SUMOCfg)
     long onCmdNeteditSUMOConfig(FXObject*, FXSelector, void*);
 
-    /// @brief Enable or disable open SUMOConfig in NETEDIT
+    /// @brief Enable or disable open SUMOConfig in netedit
     long onUpdNeteditSUMOConfig(FXObject*, FXSelector, void*);
 
     /// @brief Opens the application settings menu (Settings->Application Settings...)

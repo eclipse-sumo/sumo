@@ -15,7 +15,7 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    Jan 2018
 ///
-// Definition of Vehicle Types in NETEDIT
+// Definition of Vehicle Types in netedit
 /****************************************************************************/
 #pragma once
 #include <config.h>

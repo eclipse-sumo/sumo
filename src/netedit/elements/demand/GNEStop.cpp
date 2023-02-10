@@ -15,7 +15,7 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    March 2019
 ///
-// Representation of Stops in NETEDIT
+// Representation of Stops in netedit
 /****************************************************************************/
 #include <cmath>
 #include <netedit/GNENet.h>
@@ -923,7 +923,7 @@ GNEStop::isValid(SumoXMLAttr key, const std::string& value) {
         }
         case SUMO_ATTR_PARKING:
             if (value == "opportunistic") {
-                return false; // Currrently deactivated opportunistic in NETEDIT waiting for the implementation in SUMO
+                return false; // Currrently deactivated opportunistic in netedit waiting for the implementation in SUMO
             } else {
                 return canParse<bool>(value);
             }

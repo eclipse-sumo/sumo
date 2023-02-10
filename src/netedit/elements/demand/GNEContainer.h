@@ -15,7 +15,7 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    Jun 2021
 ///
-// Representation of containers in NETEDIT
+// Representation of containers in netedit
 /****************************************************************************/
 #pragma once
 #include <config.h>

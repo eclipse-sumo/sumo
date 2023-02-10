@@ -15,7 +15,7 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    Jan 2022
 ///
-// VehicleType distribution used in NETEDIT
+// VehicleType distribution used in netedit
 /****************************************************************************/
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>

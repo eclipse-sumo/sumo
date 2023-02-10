@@ -15,7 +15,7 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    Jan 2019
 ///
-// Representation of vehicles in NETEDIT
+// Representation of vehicles in netedit
 /****************************************************************************/
 #pragma once
 #include <config.h>

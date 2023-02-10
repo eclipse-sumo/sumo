@@ -79,7 +79,7 @@ private:
      */
     void submitEndAndCleanup(GNENet* net, const std::string& loadedFile, const std::string& guiSettingsFile = "", const bool viewportFromRegistry = false);
 
-    /// @brief NETEDIT application windows
+    /// @brief netedit application windows
     GNEApplicationWindow* myApplicationWindow;
 
     /// @brief @brief The instances of message retriever encapsulations Needed to be deleted from the handler later on

@@ -49,7 +49,7 @@ public:
 
     /// @name build functions
     /// @{
-    /**@brief Builds DataSet (exclusive of NETEDIT)
+    /**@brief Builds DataSet (exclusive of netedit)
      * @param[in] dataSetID new dataSet
      */
     void buildDataSet(const std::string& dataSetID);

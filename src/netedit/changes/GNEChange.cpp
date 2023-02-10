@@ -15,7 +15,7 @@
 /// @author  Jakob Erdmann
 /// @date    Mar 2011
 ///
-// The reification of a NETEDIT editing operation (see command pattern)
+// The reification of a netedit editing operation (see command pattern)
 // inherits from FXCommand and is used to for undo/redo
 /****************************************************************************/
 

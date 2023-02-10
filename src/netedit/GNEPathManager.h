@@ -15,7 +15,7 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    Feb 2011
 ///
-// Manager for paths in NETEDIT (routes, trips, flows...)
+// Manager for paths in netedit (routes, trips, flows...)
 /****************************************************************************/
 #pragma once
 #include <config.h>

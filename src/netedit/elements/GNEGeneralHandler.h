@@ -15,7 +15,7 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    Sep 2021
 ///
-// General element handler for NETEDIT
+// General element handler for netedit
 /****************************************************************************/
 #pragma once
 #include <config.h>

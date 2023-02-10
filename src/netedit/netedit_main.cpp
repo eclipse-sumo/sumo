@@ -15,7 +15,7 @@
 /// @author  Jakob Erdmann
 /// @date    Feb 2011
 ///
-// Main for NETEDIT (adapted from guisim_main)
+// Main for netedit (adapted from guisim_main)
 /****************************************************************************/
 #include <config.h>
 

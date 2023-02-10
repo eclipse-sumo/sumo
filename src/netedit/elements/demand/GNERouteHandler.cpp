@@ -224,7 +224,7 @@ GNERouteHandler::buildEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* su
 void
 GNERouteHandler::buildRouteDistribution(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const std::string& /*id*/) {
     // unsupported
-    writeError(TL("NETEDIT doesn't support route distributions"));
+    writeError(TL("netedit doesn't support route distributions"));
 }
 
 

@@ -15,7 +15,7 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    March 2019
 ///
-// Representation of Stops in NETEDIT
+// Representation of Stops in netedit
 /****************************************************************************/
 #pragma once
 #include <config.h>

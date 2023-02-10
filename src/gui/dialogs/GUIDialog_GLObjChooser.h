@@ -49,7 +49,7 @@ class GUIDialog_GLObjChooser : public GUIDialog_ChooserAbstract {
 public:
     /** @brief Constructor
      * @param[in] SUMOViewParent The calling view (SUMO-GUI)
-     * @param[in] viewParent The calling view (NETEDIT)
+     * @param[in] viewParent The calling view (netedit)
      * @param[in] icon The icon to use
      * @param[in] title The title to use
      * @param[in] glStorage The storage to retrieve ids from

@@ -15,7 +15,7 @@
 /// @author  Jakob Erdmann
 /// @date    Feb 2011
 ///
-// The "About" - dialog for NETEDIT, (adapted from GUIDialog_AboutSUMO)
+// The "About" - dialog for netedit, (adapted from GUIDialog_AboutSUMO)
 /****************************************************************************/
 #pragma once
 #include <config.h>

@@ -1179,7 +1179,7 @@ void
 GNENet::saveNetwork() {
     auto& neteditOptions = OptionsCont::getOptions();
     auto& sumoOptions = myViewNet->getViewParent()->getGNEAppWindows()->getSUMOOptions();
-    // set output file in SUMO and NETEDIT options
+    // set output file in SUMO and netedit options
     neteditOptions.resetWritable();
     neteditOptions.set("output-file", neteditOptions.getString("net-file"));
     sumoOptions.resetWritable();

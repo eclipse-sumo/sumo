@@ -415,12 +415,12 @@ NIImporter_SUMO::myStartElement(int element,
      * 1) those which must be loaded into NBNetBuilder-Containers for processing
      * 2) those which can be ignored because they are recomputed based on group 1
      * 3) those which are of no concern to NBNetBuilder but should be exposed to
-     *      NETEDIT. We will probably have to patch NBNetBuilder to contain them
-     *      and hand them over to NETEDIT
+     *      netedit. We will probably have to patch NBNetBuilder to contain them
+     *      and hand them over to netedit
      *    alternative idea: those shouldn't really be contained within the
-     *    network but rather in separate files. teach NETEDIT how to open those
+     *    network but rather in separate files. teach netedit how to open those
      *    (POI?)
-     * 4) those which are of concern neither to NBNetBuilder nor NETEDIT and
+     * 4) those which are of concern neither to NBNetBuilder nor netedit and
      *    must be copied over - need to patch NBNetBuilder for this.
      *    copy unknown by default
      */

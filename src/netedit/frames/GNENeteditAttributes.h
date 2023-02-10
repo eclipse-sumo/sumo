@@ -15,7 +15,7 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    Mar 2022
 ///
-// Modul for edit NETEDIT attributes
+// Modul for edit netedit attributes
 /****************************************************************************/
 #pragma once
 #include <config.h>

@@ -15,7 +15,7 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    Jan 2019
 ///
-// Definition of Vehicle Types in NETEDIT
+// Definition of Vehicle Types in netedit
 /****************************************************************************/
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>

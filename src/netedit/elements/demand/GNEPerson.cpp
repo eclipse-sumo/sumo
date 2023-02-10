@@ -15,7 +15,7 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    May 2019
 ///
-// Representation of persons in NETEDIT
+// Representation of persons in netedit
 /****************************************************************************/
 #include <cmath>
 #include <microsim/devices/MSDevice_BTreceiver.h>
