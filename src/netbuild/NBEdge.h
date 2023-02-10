@@ -319,7 +319,7 @@ public:
             return shape.length() + viaShape.length();
         }
         int getNumericalID() const {
-            throw ProcessError(TL("NBEdge::Connection does not implement getNumericalID()"));
+            throw ProcessError("NBEdge::Connection does not implement getNumericalID()");
         }
         const Connection* getBidiEdge() const {
             return nullptr;

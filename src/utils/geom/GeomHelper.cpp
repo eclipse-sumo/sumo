@@ -252,10 +252,10 @@ GeomHelper::makeCircle(const double radius, const Position& center, unsigned int
 PositionVector
 GeomHelper::makeRing(const double radius1, const double radius2, const Position& center, unsigned int nPoints) {
     if (nPoints < 3) {
-        WRITE_ERROR(TL("GeomHelper::makeRing() requires nPoints>=3"));
+        WRITE_ERROR("GeomHelper::makeRing() requires nPoints>=3");
     }
     if (radius1 >= radius2) {
-        WRITE_ERROR(TL("GeomHelper::makeRing() requires radius2>radius1"));
+        WRITE_ERROR("GeomHelper::makeRing() requires radius2>radius1");
     }
     PositionVector ring;
     ring.push_back({radius1, 0});

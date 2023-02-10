@@ -440,7 +440,7 @@ MSSOTLTrafficLightLogic::decideNextPhase() {
 SUMOTime
 MSSOTLTrafficLightLogic::trySwitch() {
     if (MSNet::getInstance()->getCurrentTimeStep() % 1000 == 0) {
-        WRITE_MESSAGE(TL("MSSOTLTrafficLightLogic::trySwitch()"))
+        WRITE_MESSAGE("MSSOTLTrafficLightLogic::trySwitch()");
         // To check if decideNextPhase changes the step
         int previousStep = getCurrentPhaseIndex() ;
 #ifdef ANALYSIS_DEBUG

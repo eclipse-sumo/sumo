@@ -390,7 +390,7 @@ void PHEMCEP::FindLowerUpperInPattern(int& lowerIndex, int& upperIndex, const st
     if (pattern[lowerIndex] <= value && value < pattern[upperIndex]) {
         return;
     } else {
-        throw ProcessError(TL("Error during calculation of position in pattern!"));
+        throw ProcessError("Error during calculation of position in pattern!");
     }
 } // end of FindLowerUpperInPattern
 

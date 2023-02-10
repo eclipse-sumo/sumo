@@ -115,7 +115,7 @@ NLEdgeControlBuilder::reportCurrentEdgeOrLane() const {
 void
 NLEdgeControlBuilder::updateCurrentLaneStopOffset(const StopOffset& stopOffset) {
     if (myLaneStorage->size() == 0) {
-        throw ProcessError(TL("myLaneStorage cannot be empty"));
+        throw ProcessError("myLaneStorage cannot be empty");
     }
     if (stopOffset.isDefined()) {
         if (myLaneStorage->back()->getLaneStopOffsets().isDefined()) {
@@ -141,7 +141,7 @@ NLEdgeControlBuilder::setDefaultStopOffset(const StopOffset& stopOffsets) {
 void
 NLEdgeControlBuilder::applyDefaultStopOffsetsToLanes() {
     if (myActiveEdge == nullptr) {
-        throw ProcessError(TL("myActiveEdge cannot be nullptr"));
+        throw ProcessError("myActiveEdge cannot be nullptr");
     }
     if (myCurrentDefaultStopOffset.isDefined()) {
         for (const auto& l : *myLaneStorage) {

@@ -91,7 +91,7 @@ MFXGroupBoxModule::MFXGroupBoxModule(FXVerticalFrame* contentFrame, const std::s
         myCollapseButton = new FXButton(headerFrame, "", GUIIconSubSys::getIcon(GUIIcon::COLLAPSE), this, MID_GROUPBOXMODULE_COLLAPSE, GUIDesignButtonMFXGroupBoxModule);
     }
     if (myOptions & Options::EXTENSIBLE) {
-        throw ProcessError(TL("This MFXGroupBoxModule doesn't support Extensible flag"));
+        throw ProcessError("This MFXGroupBoxModule doesn't support Extensible flag");
     }
     if (myOptions & Options::SAVE) {
         mySaveButton = new FXButton(headerFrame, "", GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_GROUPBOXMODULE_SAVE, GUIDesignButtonMFXGroupBoxModule);

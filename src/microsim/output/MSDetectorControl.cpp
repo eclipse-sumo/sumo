@@ -177,7 +177,7 @@ MSDetectorControl::addDetectorAndInterval(MSDetectorFileOutput* det,
             detAndFileVec.push_back(std::make_pair(det, device));
         } else {
             // detector already in container. Don't add several times
-            WRITE_WARNING(TL("MSDetectorControl::addDetectorAndInterval: detector already in container. Ignoring."));
+            WRITE_WARNING("MSDetectorControl::addDetectorAndInterval: detector already in container. Ignoring.");
             return;
         }
     }

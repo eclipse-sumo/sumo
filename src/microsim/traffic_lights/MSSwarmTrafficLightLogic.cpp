@@ -244,7 +244,7 @@ int MSSwarmTrafficLightLogic::decideNextPhase() {
     if (myCurrentPolicy->getName().compare("Congestion") == 0 && getCurrentPhaseDef().isCommit()) {
         congestion_steps += 1;	//STEPS2TIME(getCurrentPhaseDef().duration);
 #ifdef SWARM_DEBUG
-        WRITE_MESSAGEF(TL("\n% MSSwarmTrafficLightLogic decideNextPhase()"), time2string(MSNet::getInstance()->getCurrentTimeStep()));
+        WRITE_MESSAGEF("\n% MSSwarmTrafficLightLogic decideNextPhase()", time2string(MSNet::getInstance()->getCurrentTimeStep()));
 std:
         ostringstream dnp;
         dnp << (MSNet::getInstance()->getCurrentTimeStep()) << " MSSwarmTrafficLightLogic::decideNextPhase:: " << "tlsid=" << getID() << " congestion_steps=" << congestion_steps;
@@ -258,7 +258,7 @@ std:
                 skipEta = true;
             }
 #ifdef SWARM_DEBUG
-            WRITE_MESSAGEF(TL("\n% MSSwarmTrafficLightLogic decideNextPhase()"), time2string(MSNet::getInstance()->getCurrentTimeStep()));
+            WRITE_MESSAGEF("\n% MSSwarmTrafficLightLogic decideNextPhase()", time2string(MSNet::getInstance()->getCurrentTimeStep()));
             std::ostringstream dnp;
             dnp << (MSNet::getInstance()->getCurrentTimeStep()) << " MSSwarmTrafficLightLogic::decideNextPhase:: " << "tlsid=" << getID() << " max congestion reached, congestion_steps=" << congestion_steps;
             WRITE_MESSAGE(dnp.str());
