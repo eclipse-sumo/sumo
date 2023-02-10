@@ -21,9 +21,6 @@ from __future__ import absolute_import
 import os
 import sys
 import subprocess
-import gzip
-import codecs
-import io
 import warnings
 try:
     from urllib.request import urlopen
@@ -33,9 +30,10 @@ from optparse import OptionParser
 
 from . import files, net, output, sensors, shapes, statistics, fpdiff  # noqa
 from . import color, geomhelper, miscutils, options, route, vehicletype, version  # noqa
+# the visualization submodule is not imported to avoid an explicit matplotlib dependency
+from .miscutils import openz
 from .options import pullOptions
 from .xml import writeHeader as writeXMLHeader  # noqa
-# the visualization submodule is not imported to avoid an explicit matplotlib dependency
 
 
 def saveConfiguration(executable, configoptions, filename):
@@ -158,7 +156,7 @@ class TeeFile:
         for fp in self.files:
             fp.write(txt)
 
-    def flush(self):
+    def flush(self):HOME
         """flushes all file contents to disc"""
         for fp in self.files:
             fp.flush()
@@ -176,38 +174,10 @@ def _intTime(tStr):
     return int(float(tStr))
 
 
-def _laneID2edgeID(laneID):
+def _laneID2edgeID(laneID):HOME
     return laneID[:laneID.rfind("_")]
 
 
 def open(fileOrURL, tryGZip=True, mode="rb"):
-    warnings.warn("sumolib.open is deprecated, due to the name clash and strange signature! Use openz instead.")
+    warnings.warn("sumolib.open is deprecated, due to the name clash and strange signature! Use sumolib.miscutils.openz instead.")
     return openz(fileOrURL, mode, tryGZip=tryGZip)
-
-
-def openz(fileOrURL, mode="r", **kwargs):
-    """
-    Opens transparently files, URLs and gzipped files for reading and writing.
-    Also enforces UTF8 on text output / input.
-    Should be compatible with python 2 and 3.
-    """
-    try:
-        if fileOrURL.startswith("http://") or fileOrURL.startswith("https://"):
-            return io.BytesIO(urlopen(fileOrURL).read())
-        if fileOrURL.endswith(".gz") and "w" in mode:
-            if "b" in mode:
-                return gzip.open(fileOrURL, mode="w")
-            return gzip.open(fileOrURL, mode="wt", encoding="utf8")
-        if kwargs.get("tryGZip", True) and "r" in mode:
-            with gzip.open(fileOrURL) as fd:
-                fd.read(1)
-            if "b" in mode:
-                return gzip.open(fileOrURL)
-            if sys.version_info[0] < 3:
-                return codecs.getreader('utf-8')(gzip.open(fileOrURL))
-            return gzip.open(fileOrURL, mode="rt", encoding="utf8")
-    except OSError:
-        pass
-    if "b" in mode:
-        return io.open(fileOrURL, mode=mode)
-    return io.open(fileOrURL, mode=mode, encoding="utf8")
