@@ -1928,11 +1928,11 @@ GNEViewNetHelper::SaveElements::buildSaveElementsButtons() {
         myViewNet->getViewParent()->getGNEAppWindows(), MID_HOTKEY_CTRL_SHIFT_E_SAVENETEDITCONFIG, GUIDesignButtonToolbar);
     mySaveNeteditConfig->create();
     // create save sumo config button
-    mySaveSUMOConfig = new MFXButtonTooltip(myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().saveElements,
+    mySaveSumoConfig = new MFXButtonTooltip(myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().saveElements,
         myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
-        std::string("\t") + TL("Save SUMOConfig") + std::string("\t") + TL("Save SUMOConfig. (Ctrl+Shift+S)"), GUIIconSubSys::getIcon(GUIIcon::SAVE_SUMOCONFIG),
+        std::string("\t") + TL("Save SumoConfig") + std::string("\t") + TL("Save SumoConfig. (Ctrl+Shift+S)"), GUIIconSubSys::getIcon(GUIIcon::SAVE_SUMOCONFIG),
         myViewNet->getViewParent()->getGNEAppWindows(), MID_HOTKEY_CTRL_SHIFT_S_SAVESUMOCONFIG, GUIDesignButtonToolbar);
-    mySaveSUMOConfig->create();
+    mySaveSumoConfig->create();
     // create save network button
     mySaveNetwork = new MFXButtonTooltip(myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().saveElements,
         myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),

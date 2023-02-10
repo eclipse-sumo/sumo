@@ -113,13 +113,13 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_SHIFT_E_SAVENETEDITCONFIG,          GNEApplicationWindow::onUpdSaveNeteditConfig),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVENETEDITCONFIG_AS,           GNEApplicationWindow::onCmdSaveNeteditConfigAs),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVENETEDITCONFIG_AS,           GNEApplicationWindow::onUpdNeedsNetwork),
-    // SUMOConfig
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_M_OPENSUMOCONFIG,       GNEApplicationWindow::onCmdOpenSUMOConfig),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_RELOAD_SUMOCONFIG,  GNEApplicationWindow::onCmdReloadSUMOConfig),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_RELOAD_SUMOCONFIG,  GNEApplicationWindow::onUpdReloadSUMOConfig),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_SHIFT_S_SAVESUMOCONFIG, GNEApplicationWindow::onCmdSaveSUMOConfig),
-    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_SHIFT_S_SAVESUMOCONFIG, GNEApplicationWindow::onUpdSaveSUMOConfig),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVESUMOCONFIG_AS,  GNEApplicationWindow::onCmdSaveSUMOConfigAs),
+    // SumoConfig
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_M_OPENSUMOCONFIG,       GNEApplicationWindow::onCmdOpenSumoConfig),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_RELOAD_SUMOCONFIG,  GNEApplicationWindow::onCmdReloadSumoConfig),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_RELOAD_SUMOCONFIG,  GNEApplicationWindow::onUpdReloadSumoConfig),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_SHIFT_S_SAVESUMOCONFIG, GNEApplicationWindow::onCmdSaveSumoConfig),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_SHIFT_S_SAVESUMOCONFIG, GNEApplicationWindow::onUpdSaveSumoConfig),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVESUMOCONFIG_AS,  GNEApplicationWindow::onCmdSaveSumoConfigAs),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVESUMOCONFIG_AS,  GNEApplicationWindow::onUpdNeedsNetwork),
     // TLS
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_K_OPENTLSPROGRAMS,      GNEApplicationWindow::onCmdOpenTLSPrograms),
@@ -322,7 +322,7 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F8_CLEANINVALID_CROSSINGS_DEMANDELEMENTS,    GNEApplicationWindow::onCmdProcessButton),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_F8_CLEANINVALID_CROSSINGS_DEMANDELEMENTS,    GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOGGLE_COMPUTE_NETWORK_DATA,                    GNEApplicationWindow::onCmdToggleComputeNetworkData),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_F10_SUMOOPTIONSMENU,                   GNEApplicationWindow::onCmdOpenSUMOOptionsDialog),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_F10_SUMOOPTIONSMENU,                   GNEApplicationWindow::onCmdOpenSumoOptionsDialog),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_SHIFT_F10_SUMOOPTIONSMENU,                   GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F10_OPTIONSMENU,                             GNEApplicationWindow::onCmdOpenOptionsDialog),
     // Toolbar locate
@@ -454,10 +454,10 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPa
     a->setTooltipTime(1000000000);
     a->setTooltipPause(1000000000);
     // set SUMO Options descriptions
-    mySUMOOptions.setApplicationDescription(TL("A microscopic, multi-modal traffic simulation."));
-    mySUMOOptions.setApplicationName("sumo", "Eclipse SUMO sumo Version " VERSION_STRING);
+    mySumoOptions.setApplicationDescription(TL("A microscopic, multi-modal traffic simulation."));
+    mySumoOptions.setApplicationName("sumo", "Eclipse SUMO sumo Version " VERSION_STRING);
     // parse sumo options
-    TemplateHandler::parseTemplate(mySUMOOptions, sumoTemplate);
+    TemplateHandler::parseTemplate(mySumoOptions, sumoTemplate);
 }
 
 void
@@ -537,7 +537,7 @@ GNEApplicationWindow::create() {
     myModesMenu->create();
     myEditMenu->create();
     myFileMenuNeteditConfig->create();
-    myFileMenuSUMOConfig->create();
+    myFileMenuSumoConfig->create();
     myFileMenuTLS->create();
     myFileMenuEdgeTypes->create();
     myFileMenuAdditionals->create();
@@ -581,7 +581,7 @@ GNEApplicationWindow::~GNEApplicationWindow() {
     // must delete menus to avoid segfault on removing accelerators
     // (http://www.fox-toolkit.net/faq#TOC-What-happens-when-the-application-s)
     delete myFileMenuNeteditConfig;
-    delete myFileMenuSUMOConfig;
+    delete myFileMenuSumoConfig;
     delete myFileMenuTLS;
     delete myFileMenuEdgeTypes;
     delete myFileMenuAdditionals;
@@ -713,10 +713,10 @@ GNEApplicationWindow::onCmdOpenNeteditConfig(FXObject*, FXSelector, void*) {
 
 
 long
-GNEApplicationWindow::onCmdOpenSUMOConfig(FXObject*, FXSelector, void*) {
+GNEApplicationWindow::onCmdOpenSumoConfig(FXObject*, FXSelector, void*) {
     auto& neteditOptions = OptionsCont::getOptions();
     // get netconvert filename
-    const auto sumoConfigFile = GNEApplicationWindowHelper::openSUMOConfigFileDialog(this, false);
+    const auto sumoConfigFile = GNEApplicationWindowHelper::openSumoConfigFileDialog(this, false);
     // continue depending of netconvertFile
     if (!sumoConfigFile.empty() && (onCmdClose(0, 0, 0) == 1)) {
         // reset options
@@ -757,7 +757,7 @@ GNEApplicationWindow::onCmdReloadNeteditConfig(FXObject*, FXSelector, void*) {
 
 
 long
-GNEApplicationWindow::onCmdReloadSUMOConfig(FXObject*, FXSelector, void*) {
+GNEApplicationWindow::onCmdReloadSumoConfig(FXObject*, FXSelector, void*) {
     auto& neteditOptions = OptionsCont::getOptions();
     // check if close current simulation
     if (onCmdClose(0, 0, 0) == 1) {
@@ -789,7 +789,7 @@ GNEApplicationWindow::onUpdReloadNeteditConfig(FXObject* sender, FXSelector, voi
 
 
 long
-GNEApplicationWindow::onUpdReloadSUMOConfig(FXObject* sender, FXSelector, void*) {
+GNEApplicationWindow::onUpdReloadSumoConfig(FXObject* sender, FXSelector, void*) {
     // check if file exist
     if (myViewNet && !OptionsCont::getOptions().getString("sumocfg-file").empty()) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
@@ -1366,7 +1366,7 @@ GNEApplicationWindow::fillMenuBar() {
     myFileMenu = new FXMenuPane(this, LAYOUT_FIX_HEIGHT);
     GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, TL("&File"), nullptr, myFileMenu);
     myFileMenuNeteditConfig = new FXMenuPane(this);
-    myFileMenuSUMOConfig = new FXMenuPane(this);
+    myFileMenuSumoConfig = new FXMenuPane(this);
     myFileMenuTLS = new FXMenuPane(this);
     myFileMenuEdgeTypes = new FXMenuPane(this);
     myFileMenuAdditionals = new FXMenuPane(this);
@@ -1375,7 +1375,7 @@ GNEApplicationWindow::fillMenuBar() {
     myFileMenuMeanDataElements = new FXMenuPane(this);
     myFileMenuRecentNetworks = new FXMenuPane(this);
     myFileMenuRecentConfigs = new FXMenuPane(this);
-    myFileMenuCommands.buildFileMenuCommands(myFileMenu, myFileMenuNeteditConfig, myFileMenuSUMOConfig,
+    myFileMenuCommands.buildFileMenuCommands(myFileMenu, myFileMenuNeteditConfig, myFileMenuSumoConfig,
             myFileMenuTLS, myFileMenuEdgeTypes, myFileMenuAdditionals, myFileMenuDemandElements,
             myFileMenuDataElements, myFileMenuMeanDataElements);
     // add separator for recent files
@@ -1970,7 +1970,7 @@ GNEApplicationWindow::onCmdOpenSUMOGUI(FXObject* obj, FXSelector sel, void* ptr)
     auto& neteditOptions = OptionsCont::getOptions();
     // input parameters
     std::string inputParameters;
-    // if we have only a network, then load directly without creating a SUMOConfig
+    // if we have only a network, then load directly without creating a SumoConfig
     if ((myNet->getAttributeCarriers()->getNumberOfAdditionals() == 0 && myNet->getAttributeCarriers()->getNumberOfDemandElements() == 0) ||
         ((myEditMenuCommands.loadAdditionalsInSUMOGUI->getCheck() == FALSE) && (myEditMenuCommands.loadDemandInSUMOGUI->getCheck() == FALSE))) {
         // force save network
@@ -1982,9 +1982,9 @@ GNEApplicationWindow::onCmdOpenSUMOGUI(FXObject* obj, FXSelector sel, void* ptr)
         // write info
         WRITE_MESSAGE(TL("Loading network '") + neteditOptions.getString("net-file") + TL("' in SUMO-GUI"));
     } else {
-        // force save SUMOConfig
-        if (onCmdSaveSUMOConfig(obj, sel, ptr) == 0) {
-            // SUMOConfig wasn't saved, then stop
+        // force save SumoConfig
+        if (onCmdSaveSumoConfig(obj, sel, ptr) == 0) {
+            // SumoConfig wasn't saved, then stop
             return 0;
         }
         inputParameters = " --registry-viewport -c \"" + neteditOptions.getString("sumocfg-file") + "\"";
@@ -2288,8 +2288,8 @@ GNEApplicationWindow::onCmdOpenOptionsDialog(FXObject*, FXSelector, void*) {
 
 
 long
-GNEApplicationWindow::onCmdOpenSUMOOptionsDialog(FXObject*, FXSelector, void*) {
-    GUIDialog_Options* wizard = new GUIDialog_Options(this, mySUMOOptions, TL("SUMO Options"), getWidth(), getHeight());
+GNEApplicationWindow::onCmdOpenSumoOptionsDialog(FXObject*, FXSelector, void*) {
+    GUIDialog_Options* wizard = new GUIDialog_Options(this, mySumoOptions, TL("SUMO Options"), getWidth(), getHeight());
     wizard->execute();
     return 1;
 }
@@ -2965,8 +2965,8 @@ GNEApplicationWindow::onCmdSaveNetwork(FXObject* sender, FXSelector sel, void* p
         // always recompute before saving
         myNet->computeNetwork(this);
         // se net file in SUMO options
-        mySUMOOptions.resetWritable();
-        mySUMOOptions.set("net-file", neteditOptions.getString("net-file"));
+        mySumoOptions.resetWritable();
+        mySumoOptions.set("net-file", neteditOptions.getString("net-file"));
         // begin save network
         getApp()->beginWaitCursor();
         try {
@@ -3210,21 +3210,21 @@ GNEApplicationWindow::onUpdSaveNeteditConfig(FXObject* sender, FXSelector, void*
 
 
 long
-GNEApplicationWindow::onCmdSaveSUMOConfig(FXObject* sender, FXSelector sel, void* ptr) {
+GNEApplicationWindow::onCmdSaveSumoConfig(FXObject* sender, FXSelector sel, void* ptr) {
     // obtain netedit option container
     auto& neteditOptions = OptionsCont::getOptions();
     // reset containers
     neteditOptions.resetWritable();
-    mySUMOOptions.resetWritable();
+    mySumoOptions.resetWritable();
     // Check if configuration file was already set at start of netedit or with a previous save
     if (neteditOptions.getString("sumocfg-file").empty()) {
-        return onCmdSaveSUMOConfigAs(sender, sel, ptr);
+        return onCmdSaveSumoConfigAs(sender, sel, ptr);
     } else {
         // check if ignore additionals and demand elements (only used open SUMO-GUI from netedit)
         const FXSelector openSUMO = FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_T_OPENNETEDIT_OPENSUMO);
         const bool ignoreAdditionals = (sel == openSUMO)? (myEditMenuCommands.loadAdditionalsInSUMOGUI->getCheck() == FALSE) : false;
         const bool ignoreDemandElements = (sel == openSUMO)? (myEditMenuCommands.loadDemandInSUMOGUI->getCheck() == FALSE) : false;
-        // get SUMOConfig file
+        // get SumoConfig file
         const auto sumoConfigFile = neteditOptions.getString("sumocfg-file");
         // get config file without extension
         const auto patterFile = StringUtils::replace(sumoConfigFile, ".sumocfg", "");
@@ -3252,21 +3252,21 @@ GNEApplicationWindow::onCmdSaveSUMOConfig(FXObject* sender, FXSelector sel, void
             onCmdSaveMeanDatas(nullptr, 0, nullptr);
         }
         // set input in sumo options
-        setInputInSUMOOptions(ignoreAdditionals, ignoreDemandElements);
+        setInputInSumoOptions(ignoreAdditionals, ignoreDemandElements);
         // if we have trips or flow over junctions, add option junction-taz
         if ((myNet->getAttributeCarriers()->getDemandElements().at(GNE_TAG_TRIP_JUNCTIONS).size() > 0) ||
                 (myNet->getAttributeCarriers()->getDemandElements().at(GNE_TAG_FLOW_JUNCTIONS).size() > 0)) {
-            mySUMOOptions.set("junction-taz", "true");
+            mySumoOptions.set("junction-taz", "true");
         }
         std::ofstream out(StringUtils::transcodeToLocal(sumoConfigFile));
         if (out.good()) {
             // write SUMO config
-            mySUMOOptions.writeConfiguration(out, true, false, false, sumoConfigFile, true);
+            mySumoOptions.writeConfiguration(out, true, false, false, sumoConfigFile, true);
             // write info
             WRITE_MESSAGE(TL("SUMO configuration saved in '") + sumoConfigFile + "'");
-            // if ignoreAdditionals or ignoreDemandElements is enabled, don't mark SUMOConfig as saved
+            // if ignoreAdditionals or ignoreDemandElements is enabled, don't mark SumoConfig as saved
             if (!ignoreAdditionals && !ignoreDemandElements) {
-                myNet->getSavingStatus()->SUMOConfigSaved();
+                myNet->getSavingStatus()->SumoConfigSaved();
             }
             // After saving a config successfully, add it into recent configs
             myMenuBarFile.myRecentConfigs.appendFile(neteditOptions.getString("sumocfg-file").c_str());
@@ -3280,17 +3280,17 @@ GNEApplicationWindow::onCmdSaveSUMOConfig(FXObject* sender, FXSelector sel, void
 
 
 long
-GNEApplicationWindow::onCmdSaveSUMOConfigAs(FXObject* sender, FXSelector sel, void* ptr) {
+GNEApplicationWindow::onCmdSaveSumoConfigAs(FXObject* sender, FXSelector sel, void* ptr) {
     auto& neteditOptions = OptionsCont::getOptions();
     // get sumoConfig filename
-    const auto sumoConfigFile = GNEApplicationWindowHelper::openSUMOConfigFileDialog(this, true);
+    const auto sumoConfigFile = GNEApplicationWindowHelper::openSumoConfigFileDialog(this, true);
     // continue depending of file
     if (!sumoConfigFile.empty()) {
         // save file in netedit options
         neteditOptions.resetWritable();
         neteditOptions.set("sumocfg-file", sumoConfigFile);
         // continue saving SUMO Config
-        return onCmdSaveSUMOConfig(sender, sel, ptr);
+        return onCmdSaveSumoConfig(sender, sel, ptr);
     } else {
         return 0;
     }
@@ -3298,12 +3298,12 @@ GNEApplicationWindow::onCmdSaveSUMOConfigAs(FXObject* sender, FXSelector sel, vo
 
 
 long
-GNEApplicationWindow::onUpdSaveSUMOConfig(FXObject* sender, FXSelector, void*) {
+GNEApplicationWindow::onUpdSaveSumoConfig(FXObject* sender, FXSelector, void*) {
     if (myNet == nullptr) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else if (OptionsCont::getOptions().getString("sumocfg-file").empty()) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
-    } else if (!myNet->getSavingStatus()->isSUMOConfigSaved()) {
+    } else if (!myNet->getSavingStatus()->isSumoConfigSaved()) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     } else {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
@@ -4305,34 +4305,34 @@ GNEApplicationWindow::continueWithUnsavedMeanDataElementChanges() {
 
 
 void
-GNEApplicationWindow::setInputInSUMOOptions(const bool ignoreAdditionals, const bool ignoreRoutes) {
+GNEApplicationWindow::setInputInSumoOptions(const bool ignoreAdditionals, const bool ignoreRoutes) {
     // obtain netedit option container
     auto& neteditOptions = OptionsCont::getOptions();
-    mySUMOOptions.resetWritable();
+    mySumoOptions.resetWritable();
     // set network
-    mySUMOOptions.set("net-file", neteditOptions.getString("net-file"));
+    mySumoOptions.set("net-file", neteditOptions.getString("net-file"));
     // set routes
     if (ignoreRoutes || neteditOptions.getString("route-files").empty()) {
-        mySUMOOptions.resetDefault("route-files");
+        mySumoOptions.resetDefault("route-files");
     } else {
-        mySUMOOptions.set("route-files", neteditOptions.getString("route-files"));
+        mySumoOptions.set("route-files", neteditOptions.getString("route-files"));
     }
-    // set SUMOOptions depending of additionalFiles and meanData files
+    // set SumoOptions depending of additionalFiles and meanData files
     if (ignoreAdditionals) {
         if (neteditOptions.getString("meandata-files").empty()) {
-            mySUMOOptions.resetDefault("additional-files");
+            mySumoOptions.resetDefault("additional-files");
         } else {
-            mySUMOOptions.set("additional-files", neteditOptions.getString("meandata-files"));
+            mySumoOptions.set("additional-files", neteditOptions.getString("meandata-files"));
         }
     } else {
         if ((neteditOptions.getString("additional-files").size() > 0) && (neteditOptions.getString("meandata-files").size())) {
-            mySUMOOptions.set("additional-files", neteditOptions.getString("additional-files") + "," + neteditOptions.getString("meandata-files"));
+            mySumoOptions.set("additional-files", neteditOptions.getString("additional-files") + "," + neteditOptions.getString("meandata-files"));
         } else if (neteditOptions.getString("additional-files").size() > 0) {
-            mySUMOOptions.set("additional-files", neteditOptions.getString("additional-files"));
+            mySumoOptions.set("additional-files", neteditOptions.getString("additional-files"));
         } else if (neteditOptions.getString("meandata-files").size() > 0) {
-            mySUMOOptions.set("additional-files", neteditOptions.getString("meandata-files"));
+            mySumoOptions.set("additional-files", neteditOptions.getString("meandata-files"));
         } else {
-            mySUMOOptions.resetDefault("additional-files");
+            mySumoOptions.resetDefault("additional-files");
         }
     }
 }
@@ -4487,8 +4487,8 @@ GNEApplicationWindow::getProcessingMenuCommands() const {
 
 
 OptionsCont&
-GNEApplicationWindow::getSUMOOptions() {
-    return mySUMOOptions;
+GNEApplicationWindow::getSumoOptions() {
+    return mySumoOptions;
 }
 
 
@@ -4516,8 +4516,8 @@ GNEApplicationWindow::loadAdditionalElements() {
             if (!handler.parse()) {
                 WRITE_ERRORF(TL("Loading of % failed."), file);
             }
-            // set additionals in SUMOConfig
-            setInputInSUMOOptions(false, false);
+            // set additionals in SumoConfig
+            setInputInSumoOptions(false, false);
             // disable validation for additionals
             XMLSubSys::setValidation("auto", "auto", "auto");
         }
@@ -4551,8 +4551,8 @@ GNEApplicationWindow::loadDemandElements() {
             if (!handler.parse()) {
                 WRITE_ERRORF(TL("Loading of % failed."), file);
             }
-            // set additionals in SUMOConfig
-            setInputInSUMOOptions(false, false);
+            // set additionals in SumoConfig
+            setInputInSumoOptions(false, false);
             // disable validation for additionals
             XMLSubSys::setValidation("auto", "auto", "auto");
         }
@@ -4586,8 +4586,8 @@ GNEApplicationWindow::loadMeanDataElements() {
             if (!handler.parse()) {
                 WRITE_ERRORF(TL("Loading of % failed."), file);
             }
-            // set additionals in SUMOConfig
-            setInputInSUMOOptions(false, false);
+            // set additionals in sumo options
+            setInputInSumoOptions(false, false);
             // disable validation for additionals
             XMLSubSys::setValidation("auto", "auto", "auto");
         }

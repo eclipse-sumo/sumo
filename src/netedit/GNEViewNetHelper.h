@@ -496,7 +496,7 @@ struct GNEViewNetHelper {
         MFXButtonTooltip* mySaveNeteditConfig = nullptr;
 
         /// @brief checkable button for save SUMO config
-        MFXButtonTooltip* mySaveSUMOConfig = nullptr;
+        MFXButtonTooltip* mySaveSumoConfig = nullptr;
 
         /// @brief checkable button for save network
         MFXButtonTooltip* mySaveNetwork = nullptr;

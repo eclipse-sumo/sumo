@@ -764,17 +764,17 @@ struct GNENetHelper {
         /// @brief constructor
         SavingStatus();
 
-        /// @name SUMOConfig
+        /// @name SumoConfig
         /// @{
 
-        /// @brief inform that SUMOConfig has to be saved
-        void requireSaveSUMOConfig();
+        /// @brief inform that SumoConfig has to be saved
+        void requireSaveSumoConfig();
 
-        /// @brief mark SUMOConfig as saved
-        void SUMOConfigSaved();
+        /// @brief mark SumoConfig as saved
+        void SumoConfigSaved();
 
-        /// @brief check if SUMOConfig is saved
-        bool isSUMOConfigSaved() const;
+        /// @brief check if SumoConfig is saved
+        bool isSumoConfigSaved() const;
 
         /// @}
 
@@ -891,8 +891,8 @@ struct GNENetHelper {
         /// @}
 
     private:
-        /// @brief flag for SUMOConfigSUMOConfig saved
-        bool mySUMOConfigSaved = true;
+        /// @brief flag for SumoConfigSumoConfig saved
+        bool mySumoConfigSaved = true;
 
         /// @brief flag for netedit config saved
         bool myNeteditConfigSaved = true;

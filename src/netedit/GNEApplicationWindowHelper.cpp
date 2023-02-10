@@ -181,7 +181,7 @@ GNEApplicationWindowHelper::FileMenuCommands::FileMenuCommands(GNEApplicationWin
 
 void
 GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* fileMenu, FXMenuPane* fileMenuNeteditConfig,
-        FXMenuPane* fileMenuSUMOConfig, FXMenuPane* fileMenuTLS, FXMenuPane* fileMenuEdgeTypes, FXMenuPane* fileMenuAdditionals,
+        FXMenuPane* fileMenuSumoConfig, FXMenuPane* fileMenuTLS, FXMenuPane* fileMenuEdgeTypes, FXMenuPane* fileMenuAdditionals,
         FXMenuPane* fileMenuDemandElements, FXMenuPane* fileMenuDataElements, FXMenuPane* fileMenuMeanDataElements) {
 
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
@@ -254,9 +254,9 @@ GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* 
     buildNeteditConfigSection(fileMenuNeteditConfig);
     myNeteditConfigMenuCascade = new FXMenuCascade(fileMenu, TL("Netedit Config"), GUIIconSubSys::getIcon(GUIIcon::NETEDIT_MINI), fileMenuNeteditConfig);
    
-    // create SUMOConfig menu options
-    buildSUMOConfigSection(fileMenuSUMOConfig);
-    mySUMOConfigMenuCascade = new FXMenuCascade(fileMenu, TL("Sumo Config"), GUIIconSubSys::getIcon(GUIIcon::SUMO_MINI), fileMenuSUMOConfig);
+    // create SumoConfig menu options
+    buildSumoConfigSection(fileMenuSumoConfig);
+    mySumoConfigMenuCascade = new FXMenuCascade(fileMenu, TL("Sumo Config"), GUIIconSubSys::getIcon(GUIIcon::SUMO_MINI), fileMenuSumoConfig);
 
     // create TLS menu options
     buildTrafficLightSection(fileMenuTLS);
@@ -292,7 +292,7 @@ GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* 
 
 void
 GNEApplicationWindowHelper::FileMenuCommands::enableMenuCascades() {
-    mySUMOConfigMenuCascade->enable();
+    mySumoConfigMenuCascade->enable();
     myNeteditConfigMenuCascade->enable();
     myTLSMenuCascade->enable();
     myEdgeTypesMenuCascade->enable();
@@ -305,7 +305,7 @@ GNEApplicationWindowHelper::FileMenuCommands::enableMenuCascades() {
 
 void
 GNEApplicationWindowHelper::FileMenuCommands::disableMenuCascades() {
-    mySUMOConfigMenuCascade->disable();
+    mySumoConfigMenuCascade->disable();
     myNeteditConfigMenuCascade->disable();
     myTLSMenuCascade->disable();
     myEdgeTypesMenuCascade->disable();
@@ -335,7 +335,7 @@ GNEApplicationWindowHelper::FileMenuCommands::buildNeteditConfigSection(FXMenuPa
 
 
 void
-GNEApplicationWindowHelper::FileMenuCommands::buildSUMOConfigSection(FXMenuPane* menuPane) {
+GNEApplicationWindowHelper::FileMenuCommands::buildSumoConfigSection(FXMenuPane* menuPane) {
     GUIDesigns::buildFXMenuCommandShortcut(menuPane,
         TL("Save Sumo Config"), "Ctrl+Shift+S", TL("Save sumo configuration file."),
         GUIIconSubSys::getIcon(GUIIcon::SAVE_SUMOCONFIG), myGNEApp, MID_HOTKEY_CTRL_SHIFT_S_SAVESUMOCONFIG);
@@ -1811,7 +1811,7 @@ GNEApplicationWindowHelper::ProcessingMenuCommands::buildProcessingMenuCommands(
     myOptionsSeparator = new FXMenuSeparator(processingMenu);
     // create optionmenus
     optionMenus = GUIDesigns::buildFXMenuCommandShortcut(processingMenu,
-                  TL("SUMO options"), "Shift+F10", TL("Configure SUMO Options."),
+                  TL("Sumo options"), "Shift+F10", TL("Configure sumo Options."),
                   GUIIconSubSys::getIcon(GUIIcon::SUMO_MINI), myGNEApp, MID_HOTKEY_SHIFT_F10_SUMOOPTIONSMENU);
     // add separator
     myOptionsSeparator = new FXMenuSeparator(processingMenu);
@@ -2074,17 +2074,17 @@ GNEApplicationWindowHelper::SupermodeCommands::buildSupermodeCommands(FXMenuPane
 }
 
 // ---------------------------------------------------------------------------
-// GNESUMOConfigHandler - methods
+// GNESumoConfigHandler - methods
 // ---------------------------------------------------------------------------
 
-GNEApplicationWindowHelper::GNESUMOConfigHandler::GNESUMOConfigHandler(OptionsCont& sumoOptions, const std::string& file) :
+GNEApplicationWindowHelper::GNESumoConfigHandler::GNESumoConfigHandler(OptionsCont& sumoOptions, const std::string& file) :
     mySumoOptions(sumoOptions),
     myFile(file) {
 }
 
 
 bool
-GNEApplicationWindowHelper::GNESUMOConfigHandler::loadSUMOConfig() {
+GNEApplicationWindowHelper::GNESumoConfigHandler::loadSumoConfig() {
     // get options
     auto& neteditOptions = OptionsCont::getOptions();
     // make all options writables
@@ -2658,7 +2658,7 @@ GNEApplicationWindowHelper::openNeteditConfigFileDialog(FXWindow* window, const 
 
 
 std::string
-GNEApplicationWindowHelper::openSUMOConfigFileDialog(FXWindow* window, const bool save) {
+GNEApplicationWindowHelper::openSumoConfigFileDialog(FXWindow* window, const bool save) {
     if (save) {
         return openFileDialog(window, TL("Save SUMO Config file as"), GUIIcon::SAVE_SUMOCONFIG,
             TL("SUMO Config files (*.sumocfg)") + std::string("\n") +

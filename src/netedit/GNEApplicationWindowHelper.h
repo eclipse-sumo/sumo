@@ -151,7 +151,7 @@ struct GNEApplicationWindowHelper {
         FileMenuCommands(GNEApplicationWindow* GNEApp);
 
         /// @brief build menu commands
-        void buildFileMenuCommands(FXMenuPane* fileMenu, FXMenuPane* fileMenuNEEDITConfig, FXMenuPane* fileMenuSUMOConfig,
+        void buildFileMenuCommands(FXMenuPane* fileMenu, FXMenuPane* fileMenuNEEDITConfig, FXMenuPane* fileMenuSumoConfig,
                                    FXMenuPane* fileMenuTLS, FXMenuPane* fileMenuEdgeTypes, FXMenuPane* fileMenuAdditionals,
                                    FXMenuPane* fileMenuDemandElements, FXMenuPane* fileMenuDataElements,
                                    FXMenuPane* fileMenuMeanDataElements);
@@ -167,7 +167,7 @@ struct GNEApplicationWindowHelper {
         void buildNeteditConfigSection(FXMenuPane* menuPane);
 
         /// @brief build SUMO Config section
-        void buildSUMOConfigSection(FXMenuPane* menuPane);
+        void buildSumoConfigSection(FXMenuPane* menuPane);
 
         /// @brief build traffic light section
         void buildTrafficLightSection(FXMenuPane* menuPane);
@@ -193,8 +193,8 @@ struct GNEApplicationWindowHelper {
         /// @brief FXMenuCascade for neteditConfig
         FXMenuCascade* myNeteditConfigMenuCascade = nullptr;
 
-        /// @brief FXMenuCascade for SUMOConfig
-        FXMenuCascade* mySUMOConfigMenuCascade = nullptr;
+        /// @brief FXMenuCascade for SumoConfig
+        FXMenuCascade* mySumoConfigMenuCascade = nullptr;
 
         /// @brief FXMenuCascade for TLS
         FXMenuCascade* myTLSMenuCascade = nullptr;
@@ -1041,14 +1041,14 @@ struct GNEApplicationWindowHelper {
     };
 
     /// @brief SUMO config handler
-    class GNESUMOConfigHandler {
+    class GNESumoConfigHandler {
 
     public:
         /// @brief Constructor
-        GNESUMOConfigHandler(OptionsCont& sumoOptions, const std::string& file);
+        GNESumoConfigHandler(OptionsCont& sumoOptions, const std::string& file);
 
         /// @brief load SUMO config
-        bool loadSUMOConfig();
+        bool loadSumoConfig();
 
     private:
         /// @brief sumo options
@@ -1107,7 +1107,7 @@ struct GNEApplicationWindowHelper {
     static std::string openNeteditConfigFileDialog(FXWindow* window, const bool save);
 
     /// @brief open SUMO config file dialog
-    static std::string openSUMOConfigFileDialog(FXWindow* window, const bool save);
+    static std::string openSumoConfigFileDialog(FXWindow* window, const bool save);
 
     /// @brief open TLS file dialog
     static std::string openTLSFileDialog(FXWindow* window, const bool save);

@@ -2524,20 +2524,20 @@ GNENetHelper::SavingStatus::SavingStatus() {
 
 
 void
-GNENetHelper::SavingStatus::requireSaveSUMOConfig() {
-    mySUMOConfigSaved = false;
+GNENetHelper::SavingStatus::requireSaveSumoConfig() {
+    mySumoConfigSaved = false;
 }
 
 
 void
-GNENetHelper::SavingStatus::SUMOConfigSaved() {
-    mySUMOConfigSaved = true;
+GNENetHelper::SavingStatus::SumoConfigSaved() {
+    mySumoConfigSaved = true;
 }
 
 
 bool
-GNENetHelper::SavingStatus::isSUMOConfigSaved() const {
-    return mySUMOConfigSaved;
+GNENetHelper::SavingStatus::isSumoConfigSaved() const {
+    return mySumoConfigSaved;
 }
 
 
@@ -2565,7 +2565,7 @@ GNENetHelper::SavingStatus::requireSaveNetwork() {
     myNetworkSaved = false;
     // implies requiere save netedit config and sumo config
     myNeteditConfigSaved = false;
-    mySUMOConfigSaved = false;
+    mySumoConfigSaved = false;
 }
 
 
@@ -2622,7 +2622,7 @@ GNENetHelper::SavingStatus::requireSaveAdditionals() {
     myAdditionalSaved = false;
     // implies requiere save netedit config and sumo config
     myNeteditConfigSaved = false;
-    mySUMOConfigSaved = false;
+    mySumoConfigSaved = false;
 }
 
 
@@ -2643,7 +2643,7 @@ GNENetHelper::SavingStatus::requireSaveDemandElements() {
     myDemandElementSaved = false;
     // implies requiere save netedit config and sumo config
     myNeteditConfigSaved = false;
-    mySUMOConfigSaved = false;
+    mySumoConfigSaved = false;
 }
 
 
@@ -2664,7 +2664,7 @@ GNENetHelper::SavingStatus::requireSaveDataElements() {
     myDataElementSaved = false;
     // implies requiere save netedit config and sumo config
     myNeteditConfigSaved = false;
-    mySUMOConfigSaved = false;
+    mySumoConfigSaved = false;
 }
 
 
@@ -2685,7 +2685,7 @@ GNENetHelper::SavingStatus::requireSaveMeanDatas() {
     myMeanDataElementSaved = false;
     // implies requiere save netedit config and sumo config
     myNeteditConfigSaved = false;
-    mySUMOConfigSaved = false;
+    mySumoConfigSaved = false;
 }
 
 

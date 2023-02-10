@@ -1178,7 +1178,7 @@ GNENet::checkJunctionPosition(const Position& pos) {
 void
 GNENet::saveNetwork() {
     auto& neteditOptions = OptionsCont::getOptions();
-    auto& sumoOptions = myViewNet->getViewParent()->getGNEAppWindows()->getSUMOOptions();
+    auto& sumoOptions = myViewNet->getViewParent()->getGNEAppWindows()->getSumoOptions();
     // set output file in SUMO and netedit options
     neteditOptions.resetWritable();
     neteditOptions.set("output-file", neteditOptions.getString("net-file"));

@@ -113,20 +113,20 @@ public:
     /// @brief called when the command/FXCall open netedit config is executed
     long onCmdOpenNeteditConfig(FXObject*, FXSelector, void*);
 
-    /// @brief called when the command/FXCall open SUMOConfig is executed
-    long onCmdOpenSUMOConfig(FXObject*, FXSelector, void*);
+    /// @brief called when the command/FXCall open SumoConfig is executed
+    long onCmdOpenSumoConfig(FXObject*, FXSelector, void*);
 
     /// @brief called when the command/FXCall reload netedit config is executed
     long onCmdReloadNeteditConfig(FXObject*, FXSelector, void*);
 
-    /// @brief called when the command/FXCall reload SUMOConfig is executed
-    long onCmdReloadSUMOConfig(FXObject*, FXSelector, void*);
+    /// @brief called when the command/FXCall reload SumoConfig is executed
+    long onCmdReloadSumoConfig(FXObject*, FXSelector, void*);
 
     /// @brief called when the command/FXCall reload netedit config is updated
     long onUpdReloadNeteditConfig(FXObject*, FXSelector, void*);
 
-    /// @brief called when the command/FXCall reload SUMOConfig is updated
-    long onUpdReloadSUMOConfig(FXObject*, FXSelector, void*);
+    /// @brief called when the command/FXCall reload SumoConfig is updated
+    long onUpdReloadSumoConfig(FXObject*, FXSelector, void*);
 
     /// @brief called when the command/FXCall open TLS programs is executed
     long onCmdOpenTLSPrograms(FXObject*, FXSelector, void*);
@@ -200,14 +200,14 @@ public:
     /// @brief called when the command/FXCall save netedit config is updated
     long onUpdSaveNeteditConfig(FXObject*, FXSelector, void*);
 
-    /// @brief called when the command/FXCall save SUMOConfig is executed
-    long onCmdSaveSUMOConfig(FXObject*, FXSelector, void*);
+    /// @brief called when the command/FXCall save SumoConfig is executed
+    long onCmdSaveSumoConfig(FXObject*, FXSelector, void*);
 
-    /// @brief called when the command/FXCall save SUMOConfig as is executed
-    long onCmdSaveSUMOConfigAs(FXObject*, FXSelector, void*);
+    /// @brief called when the command/FXCall save SumoConfig as is executed
+    long onCmdSaveSumoConfigAs(FXObject*, FXSelector, void*);
 
-    /// @brief called when the command/FXCall save SUMOConfig is updated
-    long onUpdSaveSUMOConfig(FXObject*, FXSelector, void*);
+    /// @brief called when the command/FXCall save SumoConfig is updated
+    long onUpdSaveSumoConfig(FXObject*, FXSelector, void*);
 
     /// @brief called when the command/FXCall save TLSPrograms is executed
     long onCmdSaveTLSPrograms(FXObject*, FXSelector, void*);
@@ -453,7 +453,7 @@ public:
     long onCmdOpenOptionsDialog(FXObject*, FXSelector, void*);
 
     /// @brief called if the user selects Processing->Configure Options
-    long onCmdOpenSUMOOptionsDialog(FXObject*, FXSelector, void*);
+    long onCmdOpenSumoOptionsDialog(FXObject*, FXSelector, void*);
 
     /// @brief called when user press Ctrl+Z
     long onCmdUndo(FXObject*, FXSelector, void*);
@@ -548,7 +548,7 @@ public:
     const GNEApplicationWindowHelper::ProcessingMenuCommands& getProcessingMenuCommands() const;
 
     /// @brief get SUMO options container
-    OptionsCont& getSUMOOptions();
+    OptionsCont& getSumoOptions();
 
     /// @brief load additional elements
     void loadAdditionalElements();
@@ -575,7 +575,7 @@ protected:
     /// @brief the submenus
     FXMenuPane* myFileMenu = nullptr,
         *myFileMenuNeteditConfig = nullptr,
-        *myFileMenuSUMOConfig = nullptr,
+        *myFileMenuSumoConfig = nullptr,
         *myFileMenuTLS = nullptr,
         *myFileMenuEdgeTypes = nullptr,
         *myFileMenuAdditionals = nullptr,
@@ -633,7 +633,7 @@ protected:
     std::string myUndoRedoListEnabled;
 
     /// @brief SUMO options container
-    OptionsCont mySUMOOptions;
+    OptionsCont mySumoOptions;
 
     /// @brief flag for check if console options was already loaded
     bool myConsoleOptionsLoaded = true;
@@ -706,7 +706,7 @@ private:
     bool continueWithUnsavedMeanDataElementChanges();
 
     /// @brief set input files in sumo options
-    void setInputInSUMOOptions(const bool ignoreAdditionals, const bool ignoreRoutes);
+    void setInputInSumoOptions(const bool ignoreAdditionals, const bool ignoreRoutes);
 
     /// @brief extract folder
     FXString getFolder(const std::string& folder) const;

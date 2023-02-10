@@ -86,9 +86,9 @@ GNELoadThread::run() {
         // set sumo config as loaded file
         loadedFile = neteditOptions.getString("sumocfg-file");
         // declare parser for sumo config file
-        GNEApplicationWindowHelper::GNESUMOConfigHandler confighandler(myApplicationWindow->getSUMOOptions(), loadedFile);
+        GNEApplicationWindowHelper::GNESumoConfigHandler confighandler(myApplicationWindow->getSumoOptions(), loadedFile);
         // if there is an error loading sumo config, stop
-        if (confighandler.loadSUMOConfig()) {
+        if (confighandler.loadSumoConfig()) {
             validInput = true;
         } else {
             WRITE_ERRORF(TL("Loading of sumo config file '%' failed."), loadedFile);
