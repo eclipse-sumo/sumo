@@ -8,6 +8,9 @@ attributes
 persons
 saveConfig
 saveTemplate
+
+# saveConfig to stdout
+saveStdout
 loadConfig
 simple
 begin_end_human_readable
