@@ -71,19 +71,17 @@ def formatToolTemplate(templateStr):
     return templateStr
 
 
-def generateSumoTemplate(binDir):
+def generateSumoTemplate(binDir, sumoBin):
     """
     @brief generate template para sumo
     """
-    # create a list with all sumo binaries
-    for sumoBin in [binDir + "/sumo", binDir + "/sumo.exe", binDir + "/sumoD", binDir + "/sumoD.exe"]:
-        if os.path.exists(sumoBin):
-            # show info
-            print("Obtaining sumo template")
-            # obtain template piping stdout using check_output
-            template = check_output([sumoBin, "--save-template", "stdout"], universal_newlines=True)
-            # join variable and formated template
-            return 'const std::string sumoTemplate = "' + formatBinTemplate(template)
+    if os.path.exists(sumoBin):
+        # show info
+        print("Obtaining sumo template")
+        # obtain template piping stdout using check_output
+        template = check_output([sumoBin, "--save-template", "stdout"], universal_newlines=True)
+        # join variable and formated template
+        return 'const std::string sumoTemplate = "' + formatBinTemplate(template)
     # if binary wasn't found, then raise exception
     raise Exception("SUMO Template cannot be generated. SUMO binary not found. "
                     "Make sure that sumo or sumoD was generated in bin folder")
@@ -113,9 +111,11 @@ def generateToolTemplate(srcDir, toolDir, subDir, toolName):
 
 
 if __name__ == "__main__":
-    srcDir = join(dirname(__file__), '..', '..', 'src')
-    if len(sys.argv) > 1:
+    srcDir = ""
+    if len(sys.argv) > 2:
         srcDir = sys.argv[1]
+    else:
+        raise Exception("Arguments: <sourceDir> <pathToSUMO>")
     # get bin dir path (SUMO/bin)
     binDir = join(dirname(__file__), '..', '..', 'bin')
     # get tool dir path (SUMO/tools)
@@ -123,7 +123,7 @@ if __name__ == "__main__":
     # list of templates
     templates = ["#include <string>\n\n"]
     # append SUMO template
-    templates.append(generateSumoTemplate(binDir))
+    templates.append(generateSumoTemplate(binDir, sys.argv[2]))
     # generate Tool template
     for tool in tools:
         templates.append(generateToolTemplate(srcDir, toolDir, tool[0], tool[1]))

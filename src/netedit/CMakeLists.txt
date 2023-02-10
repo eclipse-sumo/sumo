@@ -94,7 +94,7 @@ add_dependencies(generate-templates-h sumo)
 # the python script <SUMO>/tools/build/templates.py (<SUMO/src/netedit>/../../tools/build/templates.py) and the output folder
 # <buildFolder/src/netedit/Release|Debug>../
 add_custom_command(OUTPUT templates.h
-                   COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/../../tools/build/templates.py ${CMAKE_CURRENT_BINARY_DIR}/..
+                   COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/../../tools/build/templates.py ${CMAKE_CURRENT_BINARY_DIR}/.. $<TARGET_FILE:sumo>
                    DEPENDS sumo
                    )
 				   
