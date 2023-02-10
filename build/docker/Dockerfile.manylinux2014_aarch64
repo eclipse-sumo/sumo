@@ -5,9 +5,9 @@ FROM quay.io/pypa/manylinux2014_aarch64
 LABEL description="Dockerfile for a container to build manylinux python packages for aarch64"
 
 # Where do we mount the source code of sumo?
-ENV SUMO_HOME=/sumo
-RUN mkdir -p -m 0750 "${SUMO_HOME}"
-VOLUME "${SUMO_HOME}"
+ENV GITHUB_WORKSPACE=/github/workspace
+RUN mkdir -p -m 0750 "${GITHUB_WORKSPACE}"
+VOLUME "${GITHUB_WORKSPACE}"
 
 # Install dependencies
 RUN yum install -y epel-release
@@ -16,3 +16,6 @@ RUN yum install -y --nogpgcheck ccache libxerces-c-devel proj-devel fox16-devel 
 # see https://github.com/pypa/manylinux/issues/1421
 RUN pipx install -f patchelf==0.16.1.0  
 RUN /opt/python/cp38-cp38/bin/pip install scikit-build cmake
+
+# Change to the folder, where the sumo sources live
+WORKDIR "${GITHUB_WORKSPACE}"
