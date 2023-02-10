@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-05 21:26+0100\n"
-"PO-Revision-Date: 2023-02-09 15:50+0000\n"
+"PO-Revision-Date: 2023-02-10 22:06+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -1195,7 +1195,7 @@ msgstr "Ein anderes Fahrzeug mit der ID '%' existiert bereits."
 #: /home/micha/programming/sumo/src/microsim/MSInternalJunction.cpp:55
 #, c-format
 msgid "Internal junction % has no incoming lanes"
-msgstr "Die interne Kreuzung '%' hat keine ankommenden Fahrspuren"
+msgstr "Die interne Kreuzung '%' hat keine ankommenden Fahrstreifen"
 
 #: /home/micha/programming/sumo/src/microsim/MSLane.cpp:312
 msgid "Unequal lengths of neigh lane '%' and lane '%' (% != %)."
@@ -1230,7 +1230,7 @@ msgid ""
 "'%'."
 msgstr ""
 "Fahrzeug '%' wird zu schnell eingeführt und verletzt die "
-"Geschwindigkeitsbeschränkung der Fahrspur '%'."
+"Geschwindigkeitsbeschränkung der Fahrstreifen '%'."
 
 #: /home/micha/programming/sumo/src/microsim/MSLane.cpp:1029
 msgid ""
@@ -6944,7 +6944,7 @@ msgstr "Die Ausgabedatei (-o) muss gegeben sein."
 
 #: /home/micha/programming/sumo/src/traci-server/TraCIServer.cpp:313
 msgid "Starting TraCI without using internal lanes!"
-msgstr "Starte TraCI ohne Verwendung interne Fahrspuren!"
+msgstr "Starte TraCI ohne Verwendung interne Fahrstreifen!"
 
 #: /home/micha/programming/sumo/src/traci-server/TraCIServer.cpp:319
 msgid "***Starting server on port % ***"
@@ -7170,7 +7170,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/utils/handlers/AdditionalHandler.cpp:1242
 msgid "Calibrators need either an edge or a lane"
-msgstr "Kalibratoren benötigen entweder eine Kante oder Fahrspur"
+msgstr "Kalibratoren benötigen entweder eine Kante oder Fahrstreifen"
 
 #: /home/micha/programming/sumo/src/utils/handlers/AdditionalHandler.cpp:1289
 msgid ""
@@ -7322,7 +7322,7 @@ msgstr "Ein Halt darf nur innerhalb eines Halteplatzes definiert werden"
 #: /home/micha/programming/sumo/src/utils/handlers/RouteHandler.cpp:987
 msgid "A stop must be defined in an edge, a lane, or in a StoppingPlace"
 msgstr ""
-"Ein Halt muss innerhalb einer Kante, Fahrspur oder in einem Halteplatz "
+"Ein Halt muss innerhalb einer Kante, Fahrstreifen oder in einem Halteplatz "
 "definiert werden"
 
 #: /home/micha/programming/sumo/src/utils/handlers/TemplateHandler.cpp:64
