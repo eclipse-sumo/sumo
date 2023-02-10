@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-05 21:26+0100\n"
-"PO-Revision-Date: 2023-02-09 15:49+0000\n"
+"PO-Revision-Date: 2023-02-10 13:28+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -2156,7 +2156,6 @@ msgid "&EdgeDatas"
 msgstr "&Kantendaten"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1420
-#, fuzzy
 msgid "E&dgeRelDatas"
 msgstr "K&antenverbindungsdaten"
 
@@ -4101,7 +4100,6 @@ msgid "Mode for edit connections between lanes. (C)"
 msgstr "Modus zum Hinzufügen von Verbindungen zwischen Fahrstreifen. (C)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3633
-#, fuzzy
 msgid "Set prohibition mode"
 msgstr "Verbotsmodus setzen"
 
@@ -4436,9 +4434,8 @@ msgstr "Kantentyperstellung löschen wiederholen"
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_EnableAttribute.cpp:113
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_EnableAttribute.cpp:115
-#, fuzzy
 msgid "Undo enable "
-msgstr "Berechtigen rückgängig machen "
+msgstr "Aktivieren rückgängig machen "
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_EnableAttribute.cpp:113
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_EnableAttribute.cpp:115
@@ -4449,9 +4446,8 @@ msgstr " Attribut in '"
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_EnableAttribute.cpp:123
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_EnableAttribute.cpp:125
-#, fuzzy
 msgid "Redo enable "
-msgstr "Berechtigung wiederholen "
+msgstr "Aktivieren wiederholen "
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_Junction.cpp:109
 msgid "Undo create junction '"
@@ -4671,12 +4667,11 @@ msgstr "FriendlyPos aktivieren und speichern"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixAdditionalElements.cpp:257
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixAdditionalElements.cpp:333
-#, fuzzy
 msgid ""
 "Friendly pos parameter will be activated in all stopping places and E2 "
 "detectors"
 msgstr ""
-"Friendly-Pos-Parameter wird aktiviert in allen Haltestellen und E2 Detektoren"
+"Parameter friendlyPos wird in allen Haltestellen und E2-Detektoren aktiviert"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixAdditionalElements.cpp:259
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:460
@@ -4695,9 +4690,8 @@ msgstr "Repariere Positionen und speichere"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixAdditionalElements.cpp:263
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixAdditionalElements.cpp:335
-#, fuzzy
 msgid "Position of stopping places and E2 detectors will be fixed"
-msgstr "Position von Haltestellen und E2 Detektoren wird repariert"
+msgstr "Position von Haltestellen und E2-Detektoren wird repariert"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixAdditionalElements.cpp:265
 msgid "Select invalid additionals"
@@ -4720,14 +4714,12 @@ msgid "New connections will be created between non-connected lanes"
 msgstr "Neue Verbindungen werden erstellt zwischen nicht verbunden Spuren"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixAdditionalElements.cpp:327
-#, fuzzy
 msgid "Remove invalid E2 detectors"
-msgstr "Entferne ungültige E2 Detektoren"
+msgstr "Entferne ungültige E2-Detektoren"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixAdditionalElements.cpp:327
-#, fuzzy
 msgid "Remove Multilane E2 Detectors with non-connected lanes"
-msgstr "Entferne mehrspurige E2 Detektoren mit nicht verbundenen Fahrspuren"
+msgstr "Entferne mehrstreifige E2-Detektoren mit nicht verbundenen Fahrstreifen"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:202
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixNetworkElements.cpp:189
@@ -4898,7 +4890,6 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:448
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:447
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:444
-#, fuzzy
 msgid "Key of Parameter not defined"
 msgstr "Parameterschlüssel ist nicht definiert"
 
@@ -4990,24 +4981,21 @@ msgid "Open OSG File"
 msgstr "OSG-Datei öffnen"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:132
-#, fuzzy
 msgid "Nothing to enable, implement in Children"
-msgstr "Nichts zum aktivieren, implementiert in"
+msgstr "Nichts zu aktivieren, implementiert in Kindelementen"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:139
-#, fuzzy
 msgid "Nothing to disable, implement in Children"
-msgstr "Nichts zum ausschalten, implementiert in"
+msgstr "Nichts zu deaktivieren, implementiert in Kindelementen"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:629
-#, fuzzy, c-format
+#, c-format
 msgid "TagProperty for tag '%' not defined"
-msgstr "Kennzeichnungsmerkmal für Kennzeichen '%' ist nicht definiert"
+msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:847
-#, fuzzy
 msgid "Nothing to toggle, implement in Children"
-msgstr "Nichts zum kippen, implementiert in"
+msgstr "Nichts zu wechseln, implementiert in Kindelementen"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:911
 msgid "The id of the node"
@@ -5035,19 +5023,17 @@ msgid "1.5"
 msgstr "1.5"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:938
-#, fuzzy
 msgid ""
 "Whether the junction-blocking-heuristic should be activated at this node"
 msgstr ""
-"Ob die Knotenpunktblockierung-Heuristik an diesem Knoten aktiviert werden "
-"soll"
+"Ob die Heuristik zur Knotenpunktblockierung an diesem Knoten aktiviert "
+"werden soll"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:939
 msgid "1"
 msgstr "1"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:944
-#, fuzzy
 msgid "How to compute right of way rules at this node"
 msgstr "So werden Vorfahrtsregeln an diesem Knoten berechnet"
 
@@ -5253,11 +5239,10 @@ msgstr ""
 "Fahrstreifen als Beschleunigungsfahrstreifen aktivieren oder deaktivieren"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1257
-#, fuzzy
 msgid "If the shape is given it overrides the computation based on edge shape"
 msgstr ""
-"Wenn die Shape gegeben ist, überschreibt sie die Berechnung basierend auf "
-"der Kanten-Shape"
+"Wenn der Shape gegeben ist, überschreibt er den auf Basis der Kante "
+"berechneten"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1262
 msgid "If given, this defines the opposite direction lane"
@@ -5265,9 +5250,8 @@ msgstr "Wenn angegeben, definiert dies den Fahrstreifen in die Gegenrichtung"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1267
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1472
-#, fuzzy
 msgid "Permit changing left only for to the given vehicle classes"
-msgstr "Änderungserlaubnis nur für die angegebenen Fahrzeugklassen"
+msgstr "Fahrstreifenwechsel nach links nur für die angegebenen Fahrzeugklassen"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1274
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1479
@@ -5728,27 +5712,24 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1874
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1911
-#, fuzzy
 msgid "The width of the road-side parking spaces"
-msgstr "Die Breite der Seitenrand Parkplätze"
+msgstr "Die Breite der Parkstände am Straßenrand"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1880
-#, fuzzy
 msgid ""
 "The length of the road-side parking spaces. By default (endPos - startPos) / "
 "roadsideCapacity"
 msgstr ""
-"Die Länge der straßenseitigen Parkplätze. Standardmäßig (endPos - startPos) /"
+"Die Länge der straßenseitigen Parkstände. Standardmäßig (endPos - startPos) /"
 " roadsideCapacity"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1886
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1921
-#, fuzzy
 msgid ""
 "The angle of the road-side parking spaces relative to the lane angle, "
 "positive means clockwise"
 msgstr ""
-"Der Winkel der straßenseitigen Parklücken relativ zum Fahrstreifenwinkel, "
+"Der Winkel der straßenseitigen Parkstände relativ zum Fahrstreifenwinkel, "
 "positiv bedeutet im Uhrzeigersinn"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1906
@@ -5756,14 +5737,12 @@ msgid "Name of parking space"
 msgstr "Name des Parkplatz"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1916
-#, fuzzy
 msgid "The length of the road-side parking spaces"
-msgstr "Die Länge der Seitenrand Parkplätze"
+msgstr "Die Länge der straßenseitigen Parkstände"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1926
-#, fuzzy
 msgid "The slope of the road-side parking spaces"
-msgstr "Die Neigung der straßenseitigen Parkplätze"
+msgstr "Das Gefälle der straßenseitigen Parkstände"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1941
 msgid "The id of E1"
@@ -5870,13 +5849,12 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2052
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2132
-#, fuzzy
 msgid ""
 "The minimum distance to the next standing vehicle in order to make this "
 "vehicle count as a participant to the jam) in m"
 msgstr ""
-"Der Mindestabstand zum nächsten stehenden Fahrzeug, damit dieses Fahrzeug "
-"als Teilnehmer Beim Stau zählt) in m"
+"Der Mindestabstand in Metern zum nächsten stehenden Fahrzeug, damit dieses "
+"Fahrzeug zum Stau dazuzählt"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2074
 msgid "The id of Multilane E2"
@@ -5909,9 +5887,8 @@ msgid "X-Y position of detector in editor (Only used in NETEDIT)"
 msgstr "X-Y-Position des Detektors im Editor (wird nur in NETEDIT verwendet)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2172
-#, fuzzy
 msgid "Name of Entry Exit detector"
-msgstr "Name des auftretenden Ausgangsdetektor"
+msgstr "Name des Ein-/Ausgangsdetektor"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2187
 msgid ""
@@ -7147,7 +7124,7 @@ msgstr "Parameter des EIDM-Wiener-Prozesses für den Schätzfehler [s]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5095
 msgid "EIDM Coolness parameter of the Enhanced IDM [-]"
-msgstr ""
+msgstr "EIDM Gleichgültigkeitsparameter [-]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5102
 #, fuzzy
