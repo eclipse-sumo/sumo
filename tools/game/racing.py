@@ -253,19 +253,18 @@ def main(sumocfg="racing/racing.sumocfg", egoID="ego"):
 parser = argparse.ArgumentParser()
 parser.add_argument('--sumocfg', default="racing/racing.sumocfg", help=".sumocfg file path", required=False)
 parser.add_argument('--ego', default="ego", help="vehicle ego id", required=False)
-parser.add_argument('--mouse', default="no",
-                    help="mouse features' toggle switch - possible choices are yes and no (default).", required=False)
-parser.add_argument('--verbose', default="no", 
-                    help="verbosity toggle switch - possible choices are yes and no (default).", required=False)
+parser.add_argument("-v", "--verbose", action="store_true", default=False,
+                    help="tell me what you are doing")
+parser.add_argument("-m", "--mouse", action="store_true", default=False,
+                    help="use mouse features")
 args = parser.parse_args()
 
 if len(sys.argv) < 5:
     # Verbose mode toggle
-    if args.verbose == 'yes':
-        VERBOSE = True
+    VERBOSE = args.verbose
     # Disabling mouse control unless explicitly mentioned
-    if args.mouse != 'yes':
+    if args.mouse != True:
         autopy = None
     main(args.sumocfg, args.ego)
 else:
-    print("Usage: racing.py [--sumocfg=<sumocfg>] [--ego=<egoID>] [--mouse=<yes/no>] [--verbose=<yes/no>]")
+    print("Usage: racing.py [--sumocfg=<sumocfg>] [--ego=<egoID>] [-m] [-v]")
