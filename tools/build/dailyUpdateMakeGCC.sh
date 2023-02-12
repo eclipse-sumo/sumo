@@ -132,8 +132,8 @@ if test ${FILEPREFIX: -2} == "M1"; then
   python3 tools/build/setup-libtraci.py bdist_wheel
   mv dist/eclipse_sumo-* `echo dist/eclipse_sumo-* | sed 's/cp39-cp39/py2.py3-none/'`
   # the credentials are in ~/.pypirc
-  twine upload -r testpypi dist/*
+  twine upload --skip-existing -r testpypi dist/*
   mv dist dist_native  # just as backup
   docker run --rm -v $PWD:/github/workspace manylinux2014_aarch64 tools/build/build_wheels.sh $HTTPS_PROXY
-  twine upload -r testpypi wheelhouse/*
+  twine upload --skip-existing -r testpypi wheelhouse/*
 fi
