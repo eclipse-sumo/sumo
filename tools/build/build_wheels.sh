@@ -16,22 +16,17 @@
 # @author  Robert Hilbrich
 # @date    2019
 
-# In docker environments the environment is already initialized, so we might want to skip this step
-# Check if the "SKIP_SETUP" argument was supplied
-SKIP_SETUP=false
-for i in "$@" ; do
-    if [[ $i == "SKIP_SETUP" ]] ; then
-        SKIP_SETUP=true
-        break
-    fi
-done
-if [ $SKIP_SETUP = false ]; then
+# If we are behind a firewall we cannot install from the CentOS repos but we can use pip via the proxy
+if test $# -ge 1; then
+  export HTTPS_PROXY=$1
+fi
+if test -z $HTTPS_PROXY; then
     yum install -y epel-release
     yum-config-manager --add-repo=https://download.opensuse.org/repositories/science:/dlr/CentOS_7/
     yum install -y --nogpgcheck ccache libxerces-c-devel proj-devel fox16-devel bzip2-devel gl2ps-devel swig3
     pipx install -f patchelf==0.16.1.0  # see https://github.com/pypa/manylinux/issues/1421
-    /opt/python/cp38-cp38/bin/pip install scikit-build cmake
 fi
+/opt/python/cp38-cp38/bin/pip install scikit-build cmake
 
 mkdir -p $HOME/.ccache
 echo "hash_dir = false" >> $HOME/.ccache/ccache.conf
