@@ -51,6 +51,13 @@ except ImportError:
     sys.stderr.write("autopy not installed. Can only use keyboard control.")
     autopy = None
 
+# Check for playsound import
+try:
+    import playsound # noqa
+except ImportError:
+    sys.stderr.write("playsound not installed. Sounds will not be played on collisions.")
+    playsound = None
+
 
 eventQueue = Queue.Queue()
 TS = 0.05
@@ -202,6 +209,13 @@ class RacingClient:
                     traci.vehicle.setLine(self.egoID, str(speed))
                     x3, y3 = traci.vehicle.getPosition(self.egoID)
                     x, y = x2, y2
+
+                    # Check for collisions involving the ego car
+                    if playsound:
+                        if self.egoID in traci.simulation.getCollidingVehiclesIDList():
+                            playsound.playsound('sounds/car_horn1.wav')
+
+
                     traci.simulationStep()
                     if VERBOSE:
                         print(("old=%.2f,%.2f new=%.2f,%.2f found=%.2f,%.2f speed=%.2f steer=%.2f " +
@@ -239,14 +253,18 @@ def main(sumocfg="racing/racing.sumocfg", egoID="ego"):
 parser = argparse.ArgumentParser()
 parser.add_argument('--sumocfg', default="racing/racing.sumocfg", help=".sumocfg file path", required=False)
 parser.add_argument('--ego', default="ego", help="vehicle ego id", required=False)
-parser.add_argument('--mouse', default="no",
-                    help="mouse features' toggle switch - possible choices are y and n (default).", required=False)
+parser.add_argument("-v", "--verbose", action="store_true", default=False,
+                    help="tell me what you are doing")
+parser.add_argument("-m", "--mouse", action="store_true", default=False,
+                    help="use mouse features")
 args = parser.parse_args()
 
-if len(sys.argv) < 4:
+if len(sys.argv) < 5:
+    # Verbose mode toggle
+    VERBOSE = args.verbose
     # Disabling mouse control unless explicitly mentioned
-    if args.mouse != 'yes':
+    if args.mouse != True:
         autopy = None
     main(args.sumocfg, args.ego)
 else:
-    print("racing.py --sumocfg=<sumocfg> [--ego=<egoID>] [--mouse=<yes/no>]")
+    print("Usage: racing.py [--sumocfg=<sumocfg>] [--ego=<egoID>] [-m] [-v]")
