@@ -113,8 +113,8 @@ It's possible to observe spontaneous breakdown given the sufficient length of ro
 
 Some tests cases can be obtained at
 
-- [krauss_t0.9_s1](https://sumo.dlr.de/extractTest.php?path=sumo/cf_model/fundamental/circle_krauss_d50_t0.8) and [circle_krauss_d30_t1](https://sumo.dlr.de/extractTest.php?path=sumo/cf_model/fundamental/krauss_t0.9_s1)
-- [krauss_t0.9_s0.8](https://sumo.dlr.de/extractTest.php?path=sumo/cf_model/fundamental/circle_krauss_d50_t0.8) and [circle_krauss_d30_t1](https://sumo.dlr.de/extractTest.php?path=sumo/cf_model/fundamental/krauss_t0.9_s0.8)
-- [2lane_krauss_t0.8_s0.5](https://sumo.dlr.de/extractTest.php?path=sumo/cf_model/fundamental/circle_krauss_d50_t0.8) and [circle_krauss_d30_t1](https://sumo.dlr.de/extractTest.php?path=sumo/cf_model/fundamental/2lane_krauss_t0.8_s0.5)
-- [2lane_IDM](https://sumo.dlr.de/extractTest.php?path=sumo/cf_model/fundamental/circle_krauss_d50_t0.8) and [circle_krauss_d30_t1](https://sumo.dlr.de/extractTest.php?path=sumo/cf_model/fundamental/2lane_IDM)
+- [krauss_t0.9_s1](https://sumo.dlr.de/extractTest.php?path=sumo/cf_model/fundamental/krauss_t0.9_s1)
+- [krauss_t0.9_s0.8](https://sumo.dlr.de/extractTest.php?path=sumo/cf_model/fundamental/krauss_t0.9_s0.8)
+- [2lane_krauss_t0.8_s0.5](https://sumo.dlr.de/extractTest.php?path=sumo/cf_model/fundamental/2lane_krauss_t0.8_s0.5)
+- [2lane_IDM](https://sumo.dlr.de/extractTest.php?path=sumo/cf_model/fundamental/2lane_IDM)
 
