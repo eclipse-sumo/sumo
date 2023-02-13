@@ -1,6 +1,8 @@
 set(netedit_dialogs_tools_SRCS
    GNEToolDialog.h
    GNEToolDialog.cpp
+   GNEToolHandler.h
+   GNEToolHandler.cpp
    GNEToolDialogElements.h
    GNEToolDialogElements.cpp
    GNEToolNetDiff.h
