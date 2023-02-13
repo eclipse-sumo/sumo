@@ -50,6 +50,7 @@ from sumolib.options import ArgumentParser, RawDescriptionHelpFormatter  # noqa
 import sumolib.visualization.helpers  # noqa
 
 RANK_ATTR = "@RANK"
+INDEX_ATTR = "@INDEX"
 NONE_ATTR = "@NONE"
 NONE_ATTR_DEFAULT = 0
 
@@ -199,7 +200,7 @@ def getDataStream(options):
                 if attr not in attr2elem:
                     lvlElem = [(lv, el) for el, lv in elem2level.items()]
                     minLevelElem = sorted(lvlElem)[-1][1]
-                    if attr == RANK_ATTR:
+                    if attr == RANK_ATTR or attr == INDEX_ATTR:
                         attr2elem[attr] = minLevelElem
                     else:
                         msg = "%s '%s' not found in %s" % (a, attr, options.files[0])
@@ -241,8 +242,10 @@ def getDataStream(options):
                         m = r.search(line)
                         if m:
                             values[a] = m.groups()[0]
-                        elif a == RANK_ATTR:
+                        elif a == INDEX_ATTR:
                             values[a] = index
+                        elif a == RANK_ATTR:
+                            values[a] = 0
                         elif a == NONE_ATTR:
                             values[a] = NONE_ATTR_DEFAULT
                         else:
@@ -269,8 +272,10 @@ def getDataStream(options):
                     skip = False
                     values = {}  # attr -> value
                     for a, r in zip(allAttrs, mAs):
-                        if a == RANK_ATTR:
+                        if a == INDEX_ATTR:
                             values[a] = index
+                        elif a == RANK_ATTR:
+                            values[a] = 0
                         elif a == NONE_ATTR:
                             values[a] = NONE_ATTR_DEFAULT
                         else:
@@ -401,7 +406,7 @@ def main(options):
     xdata = 0
     ydata = 1
 
-    data = defaultdict(lambda: tuple(([] for i in range(2))))
+    data = defaultdict(lambda: list(([] for i in range(2))))
 
     numericXCount = 0
     stringXCount = 0
@@ -462,6 +467,14 @@ def main(options):
             keepNumeric(d, xdata)
         if numericYCount > 0 and stringYCount > 0:
             keepNumeric(d, ydata)
+
+        if options.xattr == RANK_ATTR:
+            d[ydata].sort(reverse=True)
+            d[xdata] = list(range(len(d[xdata])))
+
+        if options.yattr == RANK_ATTR:
+            d[xdata].sort(reverse=True)
+            d[ydata] = list(range(len(d[ydata])))
 
         if options.xticksFile:
             applyTicks(d, xdata, options.xticksFile)
