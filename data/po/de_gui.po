@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-05 21:26+0100\n"
-"PO-Revision-Date: 2023-02-13 12:19+0000\n"
+"PO-Revision-Date: 2023-02-13 12:47+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -229,7 +229,7 @@ msgstr "Schalte Vollbildmodus an/aus."
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:504
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1428
 msgid "&Locate"
-msgstr "&Finden"
+msgstr "F&inden"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:506
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1310
