@@ -38,7 +38,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect chargingStations
-netedit.leftClick(referencePosition, 150, 320)
+netedit.leftClick(referencePosition, 139, 245)
 
 # Set charge in transit
 netedit.modifyAttribute(netedit.attrs.chargingStation.inspectSelection.friendlyPos, "true", True)

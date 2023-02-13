@@ -38,13 +38,13 @@ netedit.changeElement("chargingStation")
 netedit.changeDefaultValue(netedit.attrs.chargingStation.create.references, "reference center")
 
 # create chargingStation in mode "reference center"
-netedit.leftClick(referencePosition, 250, 172)
+netedit.leftClick(referencePosition, 304, 244)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first chargingStation
-netedit.leftClick(referencePosition, 250, 165)
+netedit.leftClick(referencePosition, 350, 244)
 
 # Change parameter chargeDelay with a non valid value
 netedit.modifyAttribute(netedit.attrs.chargingStation.inspect.chargeDelay, "dummyChargeDelay", True)

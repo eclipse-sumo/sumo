@@ -35,7 +35,7 @@ netedit.additionalMode()
 netedit.changeElement("chargingStation")
 
 # create chargingStation in mode "reference left"
-netedit.leftClick(referencePosition, 250, 230)
+netedit.leftClick(referencePosition, 304, 244)
 
 # Change to delete
 netedit.deleteMode()
@@ -44,13 +44,13 @@ netedit.deleteMode()
 netedit.changeProtectAdditionalElements(referencePosition)
 
 # delete created chargingStation
-netedit.leftClick(referencePosition, 270, 235)
+netedit.leftClick(referencePosition, 344, 244)
 
 # delete first loaded chargingStation
-netedit.leftClick(referencePosition, 460, 235)
+netedit.leftClick(referencePosition, 190, 44)
 
 # delete lane with the second loaded chargingStation
-netedit.leftClick(referencePosition, 200, 200)
+netedit.leftClick(referencePosition, 314, 396)
 
 # Check undo
 netedit.undo(referencePosition, 3)
@@ -62,7 +62,7 @@ netedit.deleteMode()
 netedit.changeProtectAdditionalElements(referencePosition)
 
 # try to delete lane with the second loaded charging station (doesn't allowed)
-netedit.leftClick(referencePosition, 200, 200)
+netedit.leftClick(referencePosition, 314, 396)
 
 # wait warning
 netedit.waitDeleteWarning()
