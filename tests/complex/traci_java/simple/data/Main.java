@@ -24,6 +24,10 @@ import org.eclipse.sumo.libtraci.*;
 
 public class Main {
     public static void main(String[] args) {
+        if (System.getProperty("os.name").startsWith("Windows")) {
+            System.loadLibrary("iconv-2");
+            System.loadLibrary("intl-8");
+        }
         System.loadLibrary("libtracijni");
         String sumo_bin = "sumo";
         String config_file = "data/config.sumocfg";

@@ -38,12 +38,8 @@ if 'JAVA_HOME' in os.environ:
 useLibsumo = 'LIBSUMO_AS_TRACI' in os.environ
 prefix = "libsumo" if useLibsumo else "libtraci"
 prefix = os.path.join(os.environ['SUMO_HOME'], "bin", prefix)
-suffix = "SNAPSHOT.jar"
-files = glob.glob("%s-*-%s" % (prefix, suffix))
-# extract version number for sorting
-files = [list(map(float, f[len(prefix) + 1:-(len(suffix) + 1)].split('.'))) + [f] for f in files]
-files.sort()
-traciJar = files[-1][-1]
+files = [f for f in glob.glob(prefix + "-*.jar") if not f.endswith("sources.jar")]
+traciJar = max(files, key=os.path.getmtime)
 # print("traciJar", traciJar)
 
 assert(os.path.exists(traciJar))
