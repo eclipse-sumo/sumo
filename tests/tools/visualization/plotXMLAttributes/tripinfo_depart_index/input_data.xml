@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <personinfo id="ride_not_finished" depart="3.00" type="DEFAULT_PEDTYPE">
+        <stop duration="3.00" arrival="3.00" arrivalPos="3.00" actType="waiting"/>
+        <ride waitingTime="121.00" vehicle="car" depart="124.00" arrival="-1" arrivalPos="400.00" duration="26.00" routeLength="0.00" timeLoss="-1"/>
+    </personinfo>
+    <personinfo id="ride_not_started" depart="5.00" type="DEFAULT_PEDTYPE">
+        <stop duration="3.00" arrival="3.00" arrivalPos="0.00" actType="waiting"/>
+        <ride waitingTime="147.00" vehicle="NULL" depart="-1" arrival="-1" arrivalPos="400.00" duration="-1" routeLength="-1.00" timeLoss="-1"/>
+    </personinfo>
+    <personinfo id="walk_not_finshed" depart="1.00" type="DEFAULT_PEDTYPE">
+        <walk depart="0.00" departPos="0.00" arrival="-1" arrivalPos="200.00" duration="150.00" routeLength="1400.00" timeLoss="0.00" maxSpeed="1.39"/>
+    </personinfo>
+</tripinfos>
