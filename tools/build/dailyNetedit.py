@@ -56,7 +56,7 @@ def runTests(options, env, gitrev, debugSuffix=""):
     today = datetime.date.today()
     tasks = sorted(glob.glob(os.path.join(env["TEXTTEST_HOME"], "netedit", "testsuite.netedit.daily.*")))
     taskID = os.path.basename(tasks[today.toordinal() % len(tasks)])[10:]
-    cmd = [ttBin, "-b", prefix, "-a", taskID, "-name", "%sr%s" % (today.strftime("%d%b%y"), gitrev)]
+    cmd = [ttBin, "-b", prefix, taskID, "-name", "%sr%s" % (today.strftime("%d%b%y"), gitrev)]
     for call in (cmd, [ttBin, "-b", env["FILEPREFIX"], "-coll"]):
         status.log_subprocess(call, env)
     status.killall((debugSuffix,), BINARIES)
