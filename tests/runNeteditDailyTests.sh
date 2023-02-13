@@ -18,6 +18,6 @@ export NETEDIT_BINARY="$SUMO_HOME/bin/netedit"
 
 for f in $TEXTTEST_HOME/netedit/testsuite.netedit.daily.*; do
   base=`basename $f`
-  texttest ${base:10} "$@" &
+  texttest -a ${base:10} "$@" &
 done
 wait
