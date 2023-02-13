@@ -35,6 +35,7 @@
     <random-arrivalpos value="False" help="Randomly choose a position on the ending edge of the trip"/>
     <random-depart value="False" help="Distribute departures randomly between begin and end"/>
     <random-departpos value="False" help="Randomly choose a position on the starting edge of the trip"/>
+    <random-factor value="1.0" help="edge weights are dynamically disturbed by a random factor drawn uniformly from [1,FLOAT]"/>
     <random-routing-factor value="1" help="Edge weights for routing are dynamically disturbed by a random factor drawn uniformly from [1,FLOAT)"/>
     <remove-loops value="False" help="Remove loops at route start and end"/>
     <route-file value="None" help="generates route file with duarouter"/>
