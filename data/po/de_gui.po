@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-05 21:26+0100\n"
-"PO-Revision-Date: 2023-02-13 12:08+0000\n"
+"PO-Revision-Date: 2023-02-13 12:18+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -56,7 +56,7 @@ msgstr "&Datei"
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:423
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:200
 msgid "New Window"
-msgstr "Neues Fenster"
+msgstr "Neues &Fenster"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:423
 msgid "Open a new sumo-gui window."
@@ -80,7 +80,7 @@ msgstr "Öffne ein Netz."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:433
 msgid "Open Shapes "
-msgstr "Lade Shapes. "
+msgstr "Lade Sh&apes "
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:433
 msgid "Load POIs and Polygons for visualization."
@@ -88,7 +88,7 @@ msgstr "Lade POI und Polygone zur Visualisierung."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:436
 msgid "Open EdgeData "
-msgstr "Lade EdgeData. "
+msgstr "Lade &EdgeData "
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:436
 msgid "Load edge related data for visualization."
@@ -114,7 +114,7 @@ msgstr "Lädt die Simulation erneut (aber nicht das Netz)."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:446
 msgid "Save Configuration"
-msgstr "Konfigurationsdatei speichern"
+msgstr "&Konfigurationsdatei speichern"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:446
 msgid "Save current options as a configuration file."
@@ -146,7 +146,7 @@ msgstr "&Bearbeiten"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:468
 msgid "Edit Selected..."
-msgstr "Auswahl bearbeiten..."
+msgstr "&Auswahl bearbeiten..."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:468
 msgid "Opens a dialog for editing the list of selected items."
@@ -154,7 +154,7 @@ msgstr "Öffnet einen Dialog, um die Objektauswahl zu bearbeiten."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:471
 msgid "Select lanes which allow..."
-msgstr "Fahrstreifen auswählen welche erlauben..."
+msgstr "&Fahrstreifen auswählen welche ... erlauben"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:471
 msgid "Opens a menu for selecting a vehicle class by which to selected lanes."
@@ -164,7 +164,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:475
 msgid "Edit Breakpoints"
-msgstr "Haltepunkte bearbeiten"
+msgstr "&Haltepunkte bearbeiten"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:475
 msgid "Opens a dialog for editing breakpoints."
@@ -173,7 +173,7 @@ msgstr "Öffnet einen Dialog, um die Haltepunkte zu bearbeiten."
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:478
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1264
 msgid "Edit Visualisation"
-msgstr "Bearbeite Visualisierung"
+msgstr "&Darstellung bearbeiten"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:478
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1264
@@ -208,7 +208,7 @@ msgstr "&Einstellungen"
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:494
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_AppSettings.cpp:53
 msgid "Application Settings"
-msgstr "Anwendungseinstellungen"
+msgstr "&Anwendungseinstellungen"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:494
 msgid "Open a Dialog for Application Settings editing."
@@ -216,11 +216,11 @@ msgstr "Öffnet einen Dialog, um die Anwendungseinstellungen zu bearbeiten."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:497
 msgid "Gaming Mode\tCtrl+G\tToggle gaming mode on/off."
-msgstr "Spielmodus\t\tCtrl+G\t\tWechsle in den Spielmodus / verlasse diesen."
+msgstr "&Spielmodus\t\tCtrl+G\t\tWechsle in den Spielmodus / verlasse diesen."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:500
 msgid "Full Screen Mode"
-msgstr "Vollbildmodus"
+msgstr "&Vollbildmodus"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:500
 msgid "Toggle full screen mode on/off."
@@ -350,7 +350,7 @@ msgstr "&Simulation"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:549
 msgid "Run"
-msgstr "Ausführen"
+msgstr "&Ausführen"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:549
 msgid "Start/ Resume the simulation."
@@ -360,7 +360,7 @@ msgstr "Simulation beginnen / fortführen."
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:678
 #: /home/micha/programming/sumo/src/netedit/GNEViewParent.cpp:598
 msgid "Stop"
-msgstr "Anhalten"
+msgstr "An&halten"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:552
 msgid "Halt the simulation."
@@ -368,7 +368,7 @@ msgstr "Halte die Simulation an."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:555
 msgid "Step"
-msgstr "Schritt"
+msgstr "&Schritt"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:555
 msgid "Perform one simulation step."
@@ -540,7 +540,7 @@ msgstr "Gehe zu Tutorials."
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:631
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1452
 msgid "&About"
-msgstr "&Über"
+msgstr "Ü&ber"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:631
 msgid "About sumo-gui."
