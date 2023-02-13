@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-05 21:26+0100\n"
-"PO-Revision-Date: 2023-02-13 12:18+0000\n"
+"PO-Revision-Date: 2023-02-13 12:19+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -184,7 +184,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:481
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1267
 msgid "Edit Viewport"
-msgstr "Ansichtsbereich bearbeiten"
+msgstr "An&sichtsbereich bearbeiten"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:481
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1267
@@ -195,7 +195,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:485
 msgid "Open network in netedit"
-msgstr "Öffne das Netz in netedit"
+msgstr "&Netz in netedit öffnen"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:485
 msgid "Opens current network in NETEDIT."
