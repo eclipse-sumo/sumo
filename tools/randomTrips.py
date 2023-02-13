@@ -111,6 +111,8 @@ def get_options(args=None):
                     help="weight edge probability by angle [0-360] relative to the network center")
     op.add_argument("--angle-factor", type=float, dest="angle_weight",
                     default=1.0, help="maximum weight factor for angle")
+    op.add_argument("--random-factor", type=float, dest="randomFactor",
+                    default=1.0, help="edge weights are dynamically disturbed by a random factor drawn uniformly from [1,FLOAT]")
     op.add_argument("--fringe-factor", dest="fringe_factor",
                     default="1.0", help="multiply weight of fringe edges by <FLOAT> (default 1)" +
                     " or set value 'max' to force all traffic to start/end at the fringe.")
@@ -261,6 +263,10 @@ def get_options(args=None):
             print("Error: None of the weight files '%s' exists." % "', '".join(weight_files), file=sys.stderr)
             sys.exit(1)
 
+    if options.randomFactor < 1:
+        print("Error: Option --random-factor requires a value >= 1.")
+        sys.exit(1)
+
     if options.viaEdgeTypes:
         options.viaEdgeTypes = options.viaEdgeTypes.split(',')
     if options.fringe_speed_exponent is None:
@@ -361,6 +367,12 @@ class RandomTripGenerator:
 
 def get_prob_fun(options, fringe_bonus, fringe_forbidden, max_length):
     # fringe_bonus None generates intermediate way points
+    randomProbs = defaultdict(lambda : 1)
+    if options.randomFactor != 1:
+        net = get_network(options)
+        for edge in net.getEdges():
+            randomProbs[edge.getID()] = random.uniform(1, options.randomFactor)
+
     def edge_probability(edge):
         bonus_connections = None if fringe_bonus is None else getattr(edge, fringe_bonus)
         forbidden_connections = None if fringe_forbidden is None else getattr(edge, fringe_forbidden)
@@ -377,7 +389,7 @@ def get_prob_fun(options, fringe_bonus, fringe_forbidden, max_length):
                 not edge.is_fringe(bonus_connections, checkJunctions=options.fringeJunctions) and
                 edge.getType() in options.viaEdgeTypes):
             return 0  # the wrong type of edge (only allows depart and arrival on the fringe)
-        prob = 1
+        prob = randomProbs[edge.getID()]
         if options.length:
             if (options.fringe_factor != 1.0 and fringe_bonus is not None and
                     edge.is_fringe(bonus_connections, checkJunctions=options.fringeJunctions)):
