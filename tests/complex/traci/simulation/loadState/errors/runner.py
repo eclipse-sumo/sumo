@@ -33,7 +33,7 @@ traci.start([sumolib.checkBinary('sumo'), "-n", "input_net2.net.xml",
              "--no-step-log"])
 
 try:
-	traci.simulation.loadState("input_st.xml")
+    traci.simulation.loadState("input_st.xml")
 except traci.TraCIException as e:
     print(e)
 try:

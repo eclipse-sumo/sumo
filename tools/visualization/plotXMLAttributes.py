@@ -395,7 +395,7 @@ def useWildcards(labels):
 
 
 def countPoints(xvalues):
-    counts = defaultdict(lambda : 0)
+    counts = defaultdict(lambda: 0)
     for x in xvalues:
         counts[x] += 1
     xres = sorted(counts.keys())

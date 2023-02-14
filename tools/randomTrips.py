@@ -111,8 +111,8 @@ def get_options(args=None):
                     help="weight edge probability by angle [0-360] relative to the network center")
     op.add_argument("--angle-factor", type=float, dest="angle_weight",
                     default=1.0, help="maximum weight factor for angle")
-    op.add_argument("--random-factor", type=float, dest="randomFactor",
-                    default=1.0, help="edge weights are dynamically disturbed by a random factor drawn uniformly from [1,FLOAT]")
+    op.add_argument("--random-factor", type=float, dest="randomFactor", default=1.0,
+                    help="edge weights are dynamically disturbed by a random factor drawn uniformly from [1,FLOAT]")
     op.add_argument("--fringe-factor", dest="fringe_factor",
                     default="1.0", help="multiply weight of fringe edges by <FLOAT> (default 1)" +
                     " or set value 'max' to force all traffic to start/end at the fringe.")
@@ -367,7 +367,7 @@ class RandomTripGenerator:
 
 def get_prob_fun(options, fringe_bonus, fringe_forbidden, max_length):
     # fringe_bonus None generates intermediate way points
-    randomProbs = defaultdict(lambda : 1)
+    randomProbs = defaultdict(lambda: 1)
     if options.randomFactor != 1:
         net = get_network(options)
         for edge in net.getEdges():
