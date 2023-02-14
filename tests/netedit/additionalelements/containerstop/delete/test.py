@@ -35,7 +35,7 @@ netedit.additionalMode()
 netedit.changeElement("containerStop")
 
 # create containerStop in mode "reference left"
-netedit.leftClick(referencePosition, 250, 240)
+netedit.leftClick(referencePosition, 430, 256)
 
 # Change to delete
 netedit.deleteMode()
@@ -44,13 +44,13 @@ netedit.deleteMode()
 netedit.changeProtectAdditionalElements(referencePosition)
 
 # delete created containerStop
-netedit.leftClick(referencePosition, 260, 250)
+netedit.leftClick(referencePosition, 440, 280)
 
 # delete first loaded containerStop
-netedit.leftClick(referencePosition, 450, 250)
+netedit.leftClick(referencePosition, 360, 26)
 
 # delete lane with the second loaded containerStop
-netedit.leftClick(referencePosition, 200, 200)
+netedit.leftClick(referencePosition, 520, 416)
 
 # Check undo
 netedit.undo(referencePosition, 3)
@@ -62,7 +62,7 @@ netedit.deleteMode()
 netedit.changeProtectAdditionalElements(referencePosition)
 
 # try to delete lane with the second loaded containerStop (doesn't allowed)
-netedit.leftClick(referencePosition, 200, 200)
+netedit.leftClick(referencePosition, 520, 416)
 
 # wait warning
 netedit.waitDeleteWarning()

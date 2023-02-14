@@ -44,7 +44,7 @@ netedit.deleteMode()
 netedit.changeProtectAdditionalElements(referencePosition)
 
 # delete created busStop
-netedit.leftClick(referencePosition, 430, 280)
+netedit.leftClick(referencePosition, 440, 280)
 
 # delete first loaded busStop
 netedit.leftClick(referencePosition, 360, 26)

@@ -38,22 +38,22 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect containerstops
-netedit.leftClick(referencePosition, 160, 270)
+netedit.leftClick(referencePosition, 297, 270)
 
 # change color using dialog
-netedit.modifyColorAttribute(netedit.attrs.containerStop.inspectSelection.colorButton, 5, False)
+netedit.modifyColorAttribute(netedit.attrs.containerStop.inspectSelection.colorButton, 5, True)
 
 # Change parameter 2 with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.containerStop.inspectSelection.color, "dummyColor", False)
+netedit.modifyAttribute(netedit.attrs.containerStop.inspectSelection.color, "dummyColor", True)
 
 # Change parameter 2 with a non valid value (invalid format)
-netedit.modifyAttribute(netedit.attrs.containerStop.inspectSelection.color, "255,255,500", False)
+netedit.modifyAttribute(netedit.attrs.containerStop.inspectSelection.color, "255,255,500", True)
 
 # Change parameter 2 with a valid value (valid format)
-netedit.modifyAttribute(netedit.attrs.containerStop.inspectSelection.color, "blue", False)
+netedit.modifyAttribute(netedit.attrs.containerStop.inspectSelection.color, "blue", True)
 
 # Change parameter 2 with a valid value (valid format)
-netedit.modifyAttribute(netedit.attrs.containerStop.inspectSelection.color, "125,60,200", False)
+netedit.modifyAttribute(netedit.attrs.containerStop.inspectSelection.color, "125,60,200", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 4)

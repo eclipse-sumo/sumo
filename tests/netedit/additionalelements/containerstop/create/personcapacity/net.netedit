@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-02-10 09:45:45 by Eclipse SUMO netedit Version v1_16_0+0110-c1da63f18a0
+<!-- generated on 2023-02-10 09:13:51 by Eclipse SUMO netedit Version v1_16_0+0110-c1da63f18a0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.10Feb094349.3076\netedit.gui\additionalelements\containerstop\load\endpos\additionals.add.xml"/>
-        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.10Feb094349.3076\netedit.gui\additionalelements\containerstop\load\endpos\routes.rou.xml"/>
-        <data-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.10Feb094349.3076\netedit.gui\additionalelements\containerstop\load\endpos\datas.dat.xml"/>
-        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.10Feb094349.3076\netedit.gui\additionalelements\containerstop\load\endpos\net.net.xml"/>
+        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.10Feb090819.5448\netedit.gui\additionalelements\containerstop\create\containercapacity\additionals.add.xml"/>
+        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.10Feb090819.5448\netedit.gui\additionalelements\containerstop\create\containercapacity\routes.rou.xml"/>
+        <data-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.10Feb090819.5448\netedit.gui\additionalelements\containerstop\create\containercapacity\datas.dat.xml"/>
+        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.10Feb090819.5448\netedit.gui\additionalelements\containerstop\create\containercapacity\net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.10Feb094349.3076\netedit.gui\additionalelements\containerstop\load\endpos\net.net.xml"/>
+        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.10Feb090819.5448\netedit.gui\additionalelements\containerstop\create\containercapacity\net.net.xml"/>
     </output>
 
     <processing>
@@ -33,16 +33,16 @@
     </pedestrian>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.10Feb094349.3076\netedit.gui\additionalelements\containerstop\load\endpos\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.10Feb090819.5448\netedit.gui\additionalelements\containerstop\create\containercapacity\gui-settings.xml"/>
         <window-size value="1280, 720"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.10Feb094349.3076\netedit.gui\additionalelements\containerstop\load\endpos\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.10Feb090819.5448\netedit.gui\additionalelements\containerstop\create\containercapacity\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.10Feb094349.3076\netedit.gui\additionalelements\containerstop\load\endpos\log.txt"/>
+        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.10Feb090819.5448\netedit.gui\additionalelements\containerstop\create\containercapacity\log.txt"/>
     </report>
 
 </configuration>
