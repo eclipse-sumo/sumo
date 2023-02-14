@@ -54,9 +54,18 @@ When option **--show** is set, a interactive plot is opened that allows identify
 
 Option **--filter-ids ID1,ID2,...** allows restricting the plot to the given data element ids. You can use a wildcard to filter out ids that follow some pattern; for instance **--filter-ids bus_*** will filter out all ids that begin with the four characters "bus_".
 
-By setting the special attribute key `@RANK` then the index of the elements within the input file is used.
-
 Further examples are shown below. Some of them are generated with the scenario acosta, one of the published sumo scenarios (https://github.com/DLR-TS/sumo-scenarios/tree/main/bologna/acosta).
+
+### Special Attributes
+
+The following attribute values have a special meaning. Instead of using an attribute from the input file they derive a value based on the *other* attribute. (i.e. the special attribute is set for **--axattr** then the *other* value is given by the *--yattr*).
+
+- `@INDEX`: the index of the *other* value within the input file is used.
+- `@RANK`: the index of the *other* value within the sorted (descending) list of values is used
+- `@COUNT`: the number of occurences of the *other* value is used (basically a histogram without any binning)
+- `@BOX`: one or more [box plots](https://en.wikipedia.org/wiki/Box_plot) of the *other* value are drawn. The **--idattr** is used for grouping and there will be one box plot per id
+- `@NONE`: can be used with option **--idattr** to explicitly avoid grouping
+
 
 ### Multi-line plots
 
