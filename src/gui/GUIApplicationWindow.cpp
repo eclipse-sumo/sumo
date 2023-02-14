@@ -316,7 +316,7 @@ GUIApplicationWindow::dependentBuild(const bool isLibsumo) {
     myLoadThread = new GUILoadThread(getApp(), this, myEvents, myLoadThreadEvent, isLibsumo);
     myRunThread = new GUIRunThread(getApp(), this, mySimDelay, myEvents, myRunThreadEvent);
     // set the status bar
-    myStatusbar->getStatusLine()->setText(TL("Ready."));
+    setStatusBarText(TL("Ready."));
     // set the caption
     setTitle(MFXUtils::getTitleText("SUMO " VERSION_STRING));
     // start the simulation-thread (it will loop until the application ends deciding by itself whether to perform a step or not)
@@ -1164,7 +1164,7 @@ GUIApplicationWindow::onCmdReload(FXObject*, FXSelector, void*) {
         myIsReload = true;
         closeAllWindows();
         myLoadThread->start();
-        setStatusBarText("Reloading.");
+        setStatusBarText(TL("Reloading."));
         update();
     }
     return 1;
@@ -1174,7 +1174,7 @@ GUIApplicationWindow::onCmdReload(FXObject*, FXSelector, void*) {
 long
 GUIApplicationWindow::onCmdQuickReload(FXObject*, FXSelector, void*) {
     if (!myAmLoading) {
-        setStatusBarText("Quick-Reloading.");
+        setStatusBarText(TL("Quick-Reloading."));
         MSNet::getInstance()->quickReload();
     }
     return 1;
@@ -1211,9 +1211,9 @@ GUIApplicationWindow::onCmdSaveConfig(FXObject*, FXSelector, void*) {
     std::ofstream out(StringUtils::transcodeToLocal(file));
     if (out.good()) {
         OptionsCont::getOptions().writeConfiguration(out, true, false, false, file, true);
-        setStatusBarText("Configuration saved to " + file);
+        setStatusBarText(TLF("Configuration saved to %.", file));
     } else {
-        setStatusBarText("Could not save configuration to " + file);
+        setStatusBarText(TLF("Could not save configuration to %.", file));
     }
     out.close();
     return 1;
@@ -1325,7 +1325,7 @@ GUIApplicationWindow::onCmdSaveState(FXObject*, FXSelector, void*) {
     const std::string file = MFXUtils::assureExtension(opendialog.getFilename(),
                              opendialog.getPatternText(opendialog.getCurrentPattern()).after('.').before(')')).text();
     MSStateHandler::saveState(file, MSNet::getInstance()->getCurrentTimeStep(), false);
-    setStatusBarText("Simulation saved to " + file);
+    setStatusBarText(TLF("Simulation state saved to '%'.", file));
     return 1;
 }
 
@@ -1345,9 +1345,9 @@ GUIApplicationWindow::onCmdLoadState(FXObject*, FXSelector, void*) {
         const std::string file = opendialog.getFilename().text();
         try {
             MSNet::getInstance()->loadState(file, true);
-            setStatusBarText("Simulation loaded from '" + file + "'");
+            setStatusBarText(TLF("State loaded from '%'.", file));
         } catch (ProcessError& e) {
-            setStatusBarText("Failed to load state from '" + file + "' (" + e.what() + ")");
+            setStatusBarText(TLF("Failed to load state from '%' (%).", file, e.what()));
         }
     }
     return 1;
@@ -1781,7 +1781,7 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
     // check whether the loading was successfull
     if (ec->myNet == nullptr) {
         // report failure
-        setStatusBarText("Loading of '" + ec->myFile + "' failed!");
+        setStatusBarText(TLF("Loading of '%' failed!", ec->myFile));
         if (GUIGlobals::gQuitOnEnd) {
             closeAllWindows();
             getApp()->exit(1);
@@ -1795,7 +1795,7 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
             }
         } else {
             // report success
-            setStatusBarText("'" + ec->myFile + "' loaded.");
+            setStatusBarText(TLF("'%' loaded.", ec->myFile));
             setWindowSizeAndPos();
             myWasStarted = false;
             myHaveNotifiedAboutSimEnd = false;
@@ -2091,7 +2091,7 @@ GUIApplicationWindow::loadConfigOrNet(const std::string& file) {
         closeAllWindows();
         gSchemeStorage.saveViewport(0, 0, -1, 0); // recenter view
         myLoadThread->loadConfigOrNet(file);
-        setStatusBarText("Loading '" + file + "'.");
+        setStatusBarText(TLF("Loading '%'.", file));
         update();
     }
 }

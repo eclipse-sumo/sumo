@@ -137,13 +137,13 @@ GNEPersonPlanFrame::addPersonPlanElement(const GNEViewNetHelper::ObjectsUnderCur
             }
             return true;
         } else {
-            myViewNet->setStatusBarText("Current selected person isn't valid.");
+            myViewNet->setStatusBarText(TL("Current selected person isn't valid."));
             return false;
         }
     }
     // finally check that person plan selected is valid
     if (myPersonPlanTagSelector->getCurrentTemplateAC() == nullptr) {
-        myViewNet->setStatusBarText("Current selected person plan isn't valid.");
+        myViewNet->setStatusBarText(TL("Current selected person plan isn't valid."));
         return false;
     }
     // Obtain current person plan tag (only for improve code legibility)

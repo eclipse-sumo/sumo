@@ -72,7 +72,7 @@ bool
 GNEWireFrame::addWire(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
     // first check that current selected wire is valid
     if (myWireTagSelector->getCurrentTemplateAC() == nullptr) {
-        myViewNet->setStatusBarText("Current selected wire isn't valid.");
+        myViewNet->setStatusBarText(TL("Current selected wire isn't valid."));
         return false;
     }
     // show warning dialogbox and stop check if input parameters are valid

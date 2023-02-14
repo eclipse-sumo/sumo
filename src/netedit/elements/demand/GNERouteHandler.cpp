@@ -1167,7 +1167,7 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent,
             if (fromEdge && toEdge) {
                 buildPersonTrip(personPlanObject, fromEdge->getID(), toEdge->getID(), "", "", "", arrivalPos, types, modes, lines);
             } else {
-                myNet->getViewNet()->setStatusBarText("A person trip from edge to edge needs two edges edge");
+                myNet->getViewNet()->setStatusBarText(TL("A person trip from edge to edge needs two edges edge"));
                 return false;
             }
             break;
@@ -1177,7 +1177,7 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent,
             if (fromEdge && toBusStop) {
                 buildPersonTrip(personPlanObject, fromEdge->getID(), "", "", "", toBusStop->getID(), arrivalPos, types, modes, lines);
             } else {
-                myNet->getViewNet()->setStatusBarText("A person trip from edge to busStop needs one edge and one busStop");
+                myNet->getViewNet()->setStatusBarText(TL("A person trip from edge to busStop needs one edge and one busStop"));
                 return false;
             }
             break;
@@ -1187,7 +1187,7 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent,
             if (fromJunction && toJunction) {
                 buildPersonTrip(personPlanObject, "", "", fromJunction->getID(), toJunction->getID(), "", arrivalPos, types, modes, lines);
             } else {
-                myNet->getViewNet()->setStatusBarText("A person trip from junction to junction needs two junctions junction");
+                myNet->getViewNet()->setStatusBarText(TL("A person trip from junction to junction needs two junctions junction"));
                 return false;
             }
             break;
@@ -1198,7 +1198,7 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent,
             if (fromEdge && toEdge) {
                 buildWalk(personPlanObject, fromEdge->getID(), toEdge->getID(), "", "", "", {}, "", arrivalPos);
             } else {
-                myNet->getViewNet()->setStatusBarText("A ride from busStop to edge needs a busStop and an edge");
+                myNet->getViewNet()->setStatusBarText(TL("A ride from busStop to edge needs a busStop and an edge"));
                 return false;
             }
             break;
@@ -1208,7 +1208,7 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent,
             if (fromEdge && toBusStop) {
                 buildWalk(personPlanObject, fromEdge->getID(), "", "", "", toBusStop->getID(), {}, "", arrivalPos);
             } else {
-                myNet->getViewNet()->setStatusBarText("A transport from busStop to busStop needs two busStops");
+                myNet->getViewNet()->setStatusBarText(TL("A transport from busStop to busStop needs two busStops"));
                 return false;
             }
             break;
@@ -1218,7 +1218,7 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent,
             if (edges.size() > 0) {
                 buildWalk(personPlanObject, "", "", "", "", "", edges, "", arrivalPos);
             } else {
-                myNet->getViewNet()->setStatusBarText("A transport with edges attribute needs a list of edges");
+                myNet->getViewNet()->setStatusBarText(TL("A transport with edges attribute needs a list of edges"));
                 return false;
             }
             break;
@@ -1228,7 +1228,7 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent,
             if (route) {
                 buildWalk(personPlanObject, "", "", "", "", "", {}, route->getID(), arrivalPos);
             } else {
-                myNet->getViewNet()->setStatusBarText("A route transport needs a route");
+                myNet->getViewNet()->setStatusBarText(TL("A route transport needs a route"));
                 return false;
             }
             break;
@@ -1238,7 +1238,7 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent,
             if (fromJunction && toJunction) {
                 buildWalk(personPlanObject, "", "", fromJunction->getID(), toJunction->getID(), "", {}, "", arrivalPos);
             } else {
-                myNet->getViewNet()->setStatusBarText("A ride from busStop to junction needs a busStop and an junction");
+                myNet->getViewNet()->setStatusBarText(TL("A ride from busStop to junction needs a busStop and an junction"));
                 return false;
             }
             break;
@@ -1249,7 +1249,7 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent,
             if (fromEdge && toEdge) {
                 buildRide(personPlanObject, fromEdge->getID(), toEdge->getID(), "", arrivalPos, lines);
             } else {
-                myNet->getViewNet()->setStatusBarText("A ride from edge to edge needs two edges edge");
+                myNet->getViewNet()->setStatusBarText(TL("A ride from edge to edge needs two edges edge"));
                 return false;
             }
             break;
@@ -1259,7 +1259,7 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent,
             if (fromEdge && toBusStop) {
                 buildRide(personPlanObject, fromEdge->getID(), "", toBusStop->getID(), arrivalPos, lines);
             } else {
-                myNet->getViewNet()->setStatusBarText("A ride from edge to busStop needs one edge and one busStop");
+                myNet->getViewNet()->setStatusBarText(TL("A ride from edge to busStop needs one edge and one busStop"));
                 return false;
             }
             break;
@@ -1273,7 +1273,7 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent,
                 stopParameters.parametersSet |= STOP_END_SET;
                 buildStop(personPlanObject, stopParameters);
             } else {
-                myNet->getViewNet()->setStatusBarText("A stop has to be placed over an edge");
+                myNet->getViewNet()->setStatusBarText(TL("A stop has to be placed over an edge"));
                 return false;
             }
             break;
@@ -1284,7 +1284,7 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent,
                 stopParameters.busstop = toBusStop->getID();
                 buildStop(personPlanObject, stopParameters);
             } else {
-                myNet->getViewNet()->setStatusBarText("A stop has to be placed over a busStop");
+                myNet->getViewNet()->setStatusBarText(TL("A stop has to be placed over a busStop"));
                 return false;
             }
             break;
@@ -1357,7 +1357,7 @@ GNERouteHandler::buildContainerPlan(SumoXMLTag tag, GNEDemandElement* containerP
             if (fromEdge && toEdge) {
                 buildTransport(containerPlanObject, fromEdge->getID(), toEdge->getID(), "", lines, arrivalPos);
             } else {
-                myNet->getViewNet()->setStatusBarText("A ride from busStop to edge needs a busStop and an edge");
+                myNet->getViewNet()->setStatusBarText(TL("A ride from busStop to edge needs a busStop and an edge"));
                 return false;
             }
             break;
@@ -1367,7 +1367,7 @@ GNERouteHandler::buildContainerPlan(SumoXMLTag tag, GNEDemandElement* containerP
             if (fromEdge && toContainerStop) {
                 buildTransport(containerPlanObject, fromEdge->getID(), "", toContainerStop->getID(), lines, arrivalPos);
             } else {
-                myNet->getViewNet()->setStatusBarText("A transport from busStop to busStop needs two busStops");
+                myNet->getViewNet()->setStatusBarText(TL("A transport from busStop to busStop needs two busStops"));
                 return false;
             }
             break;
@@ -1378,7 +1378,7 @@ GNERouteHandler::buildContainerPlan(SumoXMLTag tag, GNEDemandElement* containerP
             if (fromEdge && toEdge) {
                 buildTranship(containerPlanObject, fromEdge->getID(), toEdge->getID(), "", {}, speed, departPos, arrivalPos);
             } else {
-                myNet->getViewNet()->setStatusBarText("A ride from busStop to edge needs a busStop and an edge");
+                myNet->getViewNet()->setStatusBarText(TL("A ride from busStop to edge needs a busStop and an edge"));
                 return false;
             }
             break;
@@ -1388,7 +1388,7 @@ GNERouteHandler::buildContainerPlan(SumoXMLTag tag, GNEDemandElement* containerP
             if (fromEdge && toContainerStop) {
                 buildTranship(containerPlanObject, fromEdge->getID(), "", toContainerStop->getID(), {}, speed, departPos, arrivalPos);
             } else {
-                myNet->getViewNet()->setStatusBarText("A tranship from busStop to busStop needs two busStops");
+                myNet->getViewNet()->setStatusBarText(TL("A tranship from busStop to busStop needs two busStops"));
                 return false;
             }
             break;
@@ -1398,7 +1398,7 @@ GNERouteHandler::buildContainerPlan(SumoXMLTag tag, GNEDemandElement* containerP
             if (edges.size() > 0) {
                 buildTranship(containerPlanObject, "", "", "", edges, speed, departPos, arrivalPos);
             } else {
-                myNet->getViewNet()->setStatusBarText("A tranship with edges attribute needs a list of edges");
+                myNet->getViewNet()->setStatusBarText(TL("A tranship with edges attribute needs a list of edges"));
                 return false;
             }
             break;
@@ -1412,7 +1412,7 @@ GNERouteHandler::buildContainerPlan(SumoXMLTag tag, GNEDemandElement* containerP
                 stopParameters.parametersSet |= STOP_END_SET;
                 buildStop(containerPlanObject, stopParameters);
             } else {
-                myNet->getViewNet()->setStatusBarText("A stop has to be placed over an edge");
+                myNet->getViewNet()->setStatusBarText(TL("A stop has to be placed over an edge"));
                 return false;
             }
             break;
@@ -1423,7 +1423,7 @@ GNERouteHandler::buildContainerPlan(SumoXMLTag tag, GNEDemandElement* containerP
                 stopParameters.containerstop = toContainerStop->getID();
                 buildStop(containerPlanObject, stopParameters);
             } else {
-                myNet->getViewNet()->setStatusBarText("A stop has to be placed over a busStop");
+                myNet->getViewNet()->setStatusBarText(TL("A stop has to be placed over a busStop"));
                 return false;
             }
             break;

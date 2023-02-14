@@ -114,17 +114,17 @@ GNEContainerFrame::addContainer(const GNEViewNetHelper::ObjectsUnderCursor& obje
     SumoXMLTag clickedACTag = objectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag();
     // first check that current selected container is valid
     if (containerTag == SUMO_TAG_NOTHING) {
-        myViewNet->setStatusBarText("Current selected container isn't valid.");
+        myViewNet->setStatusBarText(TL("Current selected container isn't valid."));
         return false;
     }
     // now check that pType is valid
     if (myTypeSelector->getCurrentDemandElement() == nullptr) {
-        myViewNet->setStatusBarText("Current selected container type isn't valid.");
+        myViewNet->setStatusBarText(TL("Current selected container type isn't valid."));
         return false;
     }
     // finally check that container plan selected is valid
     if (myContainerPlanTagSelector->getCurrentTemplateAC() == nullptr) {
-        myViewNet->setStatusBarText("Current selected container plan isn't valid.");
+        myViewNet->setStatusBarText(TL("Current selected container plan isn't valid."));
         return false;
     }
     // add elements to path creator
@@ -264,7 +264,7 @@ bool
 GNEContainerFrame::createPath(const bool /* useLastRoute */) {
     // first check that all attributes are valid
     if (!myContainerAttributes->areValuesValid()) {
-        myViewNet->setStatusBarText("Invalid container parameters.");
+        myViewNet->setStatusBarText(TL("Invalid container parameters."));
     } else if (!myContainerPlanAttributes->areValuesValid()) {
         myViewNet->setStatusBarText("Invalid " + myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTagStr() + " parameters.");
     } else {

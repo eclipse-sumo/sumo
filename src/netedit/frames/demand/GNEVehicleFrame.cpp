@@ -188,12 +188,12 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
     const bool addJunction = ((vehicleTag == GNE_TAG_TRIP_JUNCTIONS) || (vehicleTag == GNE_TAG_FLOW_JUNCTIONS));
     // first check that current selected vehicle is valid
     if (vehicleTag == SUMO_TAG_NOTHING) {
-        myViewNet->setStatusBarText("Current selected vehicle isn't valid.");
+        myViewNet->setStatusBarText(TL("Current selected vehicle isn't valid."));
         return false;
     }
     // now check if VType is valid
     if (myTypeSelector->getCurrentDemandElement() == nullptr) {
-        myViewNet->setStatusBarText("Current selected vehicle type isn't valid.");
+        myViewNet->setStatusBarText(TL("Current selected vehicle type isn't valid."));
         return false;
     }
     // now check if parameters are valid

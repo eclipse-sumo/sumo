@@ -1957,7 +1957,7 @@ GNEApplicationWindowHelper::LocateMenuCommands::buildLocateMenuCommands(FXMenuPa
                                            TL("&Additional"), "Shift+A", TL("Open a dialog for locating an Additional Structure."),
                                            GUIIconSubSys::getIcon(GUIIcon::LOCATEADD), myGNEApp, MID_HOTKEY_SHIFT_A_LOCATEADDITIONAL);
     GUIDesigns::buildFXMenuCommandShortcut(locateMenu,
-                                           TL("P&oI"), "Shift+O",TL( "Open a dialog for locating a Point of Interest."),
+                                           TL("P&oI"), "Shift+O", TL("Open a dialog for locating a Point of Interest."),
                                            GUIIconSubSys::getIcon(GUIIcon::LOCATEPOI), myGNEApp, MID_HOTKEY_SHIFT_O_LOCATEPOI);
     GUIDesigns::buildFXMenuCommandShortcut(locateMenu,
                                            TL("Po&lygon"), "Shift+L", TL("Open a dialog for locating a Polygon."),

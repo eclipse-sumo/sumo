@@ -513,7 +513,7 @@ GNEApplicationWindow::dependentBuild() {
     // build additional threads
     myLoadThread = new GNELoadThread(this, myEvents, myLoadThreadEvent);
     // set the status bar
-    myStatusbar->getStatusLine()->setText(TL("Ready."));
+    setStatusBarText(TL("Ready."));
     // set the caption
     setTitle(myTitlePrefix);
     // set Netedit ICON
@@ -1034,7 +1034,7 @@ GNEApplicationWindow::onCmdReloadNetwork(FXObject*, FXSelector, void*) {
         neteditOptions.resetWritable();
         neteditOptions.set("net-file", networkFile);
         // set status bar
-        setStatusBarText("Reloading network file '" + networkFile + "'");
+        setStatusBarText(TL("Reloading network file '") + networkFile + "'");
         // loaad network
         myLoadThread->loadNetworkOrConfig();
     }
@@ -1295,12 +1295,12 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
     // check whether the loading was successfull
     if (ec->net == nullptr) {
         // report failure
-        setStatusBarText("Loading of '" + ec->file + "' failed!");
+        setStatusBarText(TL("Loading of '") + ec->file + "' failed!");
     } else {
         // set new Net
         myNet = ec->net;
         // report success
-        setStatusBarText("'" + ec->file + TL("' loaded."));
+        setStatusBarText(TL("'") + ec->file + TL("' loaded."));
         setWindowSizeAndPos();
         // build viewparent toolbar grips before creating view parent
         getToolbarsGrip().buildViewParentToolbarsGrips();
@@ -1699,7 +1699,7 @@ GNEApplicationWindow::loadOSM(const std::string &OSMFile) {
         neteditOptions.resetWritable();
         neteditOptions.set("configuration-file", OSMFile);
         // set status bar
-        setStatusBarText("Loading OSM file '" + OSMFile + "'");
+        setStatusBarText(TL("Loading OSM file '") + OSMFile + "'");
         // load config
         myLoadThread->loadNetworkOrConfig();
     }

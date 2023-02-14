@@ -114,17 +114,17 @@ GNEPersonFrame::addPerson(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnd
     SumoXMLTag clickedACTag = objectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag();
     // first check that current selected person is valid
     if (personTag == SUMO_TAG_NOTHING) {
-        myViewNet->setStatusBarText("Current selected person isn't valid.");
+        myViewNet->setStatusBarText(TL("Current selected person isn't valid."));
         return false;
     }
     // now check that pType is valid
     if (myTypeSelector->getCurrentDemandElement() == nullptr) {
-        myViewNet->setStatusBarText("Current selected person type isn't valid.");
+        myViewNet->setStatusBarText(TL("Current selected person type isn't valid."));
         return false;
     }
     // finally check that person plan selected is valid
     if (myPersonPlanTagSelector->getCurrentTemplateAC() == nullptr) {
-        myViewNet->setStatusBarText("Current selected person plan isn't valid.");
+        myViewNet->setStatusBarText(TL("Current selected person plan isn't valid."));
         return false;
     }
     // add elements to path creator
@@ -272,7 +272,7 @@ bool
 GNEPersonFrame::createPath(const bool /*useLastRoute*/) {
     // first check that all attributes are valid
     if (!myPersonAttributes->areValuesValid()) {
-        myViewNet->setStatusBarText("Invalid person parameters.");
+        myViewNet->setStatusBarText(TL("Invalid person parameters."));
     } else if (!myPersonPlanAttributes->areValuesValid()) {
         myViewNet->setStatusBarText("Invalid " + myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTagStr() + " parameters.");
     } else {

@@ -111,12 +111,12 @@ bool
 GNEContainerPlanFrame::addContainerPlanElement(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::MouseButtonKeyPressed& mouseButtonKeyPressed) {
     // first check if container selected is valid
     if (myContainerSelector->getCurrentDemandElement() == nullptr) {
-        myViewNet->setStatusBarText("Current selected container isn't valid.");
+        myViewNet->setStatusBarText(TL("Current selected container isn't valid."));
         return false;
     }
     // finally check that container plan selected is valid
     if (myContainerPlanTagSelector->getCurrentTemplateAC() == nullptr) {
-        myViewNet->setStatusBarText("Current selected container plan isn't valid.");
+        myViewNet->setStatusBarText(TL("Current selected container plan isn't valid."));
         return false;
     }
     // Obtain current container plan tag (only for improve code legibility)
