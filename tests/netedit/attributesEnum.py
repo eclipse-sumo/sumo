@@ -1777,7 +1777,7 @@ class vehicleEmbedded:
         arrivalPosLat = 19
         insertionChecks = 20
         depart = 21
-        parameters = 22
+        parameters = 24
 
     class inspectSelection:
         type = 1
@@ -1858,7 +1858,7 @@ class flow:
         arrivalPosLat = 20
         insertionChecks = 21
         begin = 22
-        terminate = 23
+        terminate = 25
         spacing = 27
         end = 28
         terminateOption = 29

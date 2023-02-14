@@ -58,7 +58,7 @@ netedit.leftClick(referencePosition, 250, 120)
 netedit.changeDefaultBoolValue(netedit.attrs.edge.template.create)
 
 # inspect other edge
-netedit.leftClick(referencePosition, 250, 360)
+netedit.leftClick(referencePosition, 250, 354)
 
 # copy template template
 netedit.changeDefaultBoolValue(netedit.attrs.edge.template.copy)
