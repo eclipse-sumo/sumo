@@ -1,0 +1,6 @@
+
+[Reported by Windows at 15Aug15:59:31]
+search_string:File 'net.netedit' is not accessible
+search_file:errors
+full_description:#3045
+brief_description:Test needed #3045
