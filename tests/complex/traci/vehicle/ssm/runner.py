@@ -27,7 +27,6 @@ import sys
 if "SUMO_HOME" in os.environ:
     sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
 import traci  # noqa
-import traci.constants as tc  # noqa
 import sumolib  # noqa
 
 traci.setLegacyGetLeader(False)
@@ -47,15 +46,16 @@ def checkSSM(vehID):
         traci.vehicle.getParameter(vehID, "device.ssm.minPET"),
         curTTC))
 
-
-traci.start([
-    sumolib.checkBinary('sumo'),
-    "-c", "sumo.sumocfg",
-    '--device.ssm.probability', '1',
-])
-for i in range(15):
-    traci.simulationStep()
-    print("step %s" % i)
-    checkSSM("ego")
-    checkSSM("leader")
-traci.close()
+repeat = 2 if len(sys.argv) > 1 else 1
+for _ in range(repeat):
+    traci.start([
+        sumolib.checkBinary('sumo'),
+        "-c", "sumo.sumocfg",
+        '--device.ssm.probability', '1',
+    ])
+    for i in range(15):
+        traci.simulationStep()
+        print("step %s" % i)
+        checkSSM("ego")
+        checkSSM("leader")
+    traci.close()
