@@ -1601,8 +1601,9 @@ MSNet::quickReload() {
     updateGUI();
 }
 
+
 SUMOTime
-MSNet::loadState(const std::string& fileName) {
+MSNet::loadState(const std::string& fileName, const bool catchExceptions) {
     // load time only
     const SUMOTime newTime = MSStateHandler::MSStateTimeHandler::getTime(fileName);
     // clean up state
@@ -1622,5 +1623,6 @@ MSNet::loadState(const std::string& fileName) {
     updateGUI();
     return newTime;
 }
+
 
 /****************************************************************************/

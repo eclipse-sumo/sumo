@@ -107,10 +107,10 @@ SUMOSAXReader::setValidation(std::string validationScheme) {
 void
 SUMOSAXReader::parse(std::string systemID) {
     if (!FileHelpers::isReadable(systemID)) {
-        throw ProcessError(TLF("Cannot read file '%'!", systemID));
+        throw IOError(TLF("Cannot read file '%'!", systemID));
     }
     if (FileHelpers::isDirectory(systemID)) {
-        throw ProcessError(TLF("File '%' is a directory!", systemID));
+        throw IOError(TLF("File '%' is a directory!", systemID));
     }
     ensureSAXReader();
 #ifdef HAVE_ZLIB
@@ -133,10 +133,10 @@ SUMOSAXReader::parseString(std::string content) {
 bool
 SUMOSAXReader::parseFirst(std::string systemID) {
     if (!FileHelpers::isReadable(systemID)) {
-        throw ProcessError(TLF("Cannot read file '%'!", systemID));
+        throw IOError(TLF("Cannot read file '%'!", systemID));
     }
     if (FileHelpers::isDirectory(systemID)) {
-        throw ProcessError(TLF("File '%' is a directory!", systemID));
+        throw IOError(TLF("File '%' is a directory!", systemID));
     }
     ensureSAXReader();
     myToken = XERCES_CPP_NAMESPACE::XMLPScanToken();

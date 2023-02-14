@@ -156,7 +156,7 @@ public:
 };
 
 /**
- * UnknownElement
+ * IOError
  */
 class IOError : public ProcessError {
 public:

@@ -1344,7 +1344,7 @@ GUIApplicationWindow::onCmdLoadState(FXObject*, FXSelector, void*) {
         gCurrentFolder = opendialog.getDirectory();
         const std::string file = opendialog.getFilename().text();
         try {
-            MSNet::getInstance()->loadState(file);
+            MSNet::getInstance()->loadState(file, true);
             setStatusBarText("Simulation loaded from '" + file + "'");
         } catch (ProcessError& e) {
             setStatusBarText("Failed to load state from '" + file + "' (" + e.what() + ")");

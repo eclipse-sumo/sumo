@@ -155,8 +155,9 @@ XMLSubSys::setHandler(GenericSAXHandler& handler) {
 
 bool
 XMLSubSys::runParser(GenericSAXHandler& handler, const std::string& file,
-                     const bool isNet, const bool isRoute, const bool isExternal) {
+                     const bool isNet, const bool isRoute, const bool isExternal, const bool catchExceptions) {
     MsgHandler::getErrorInstance()->clear();
+    std::string errorMsg = "";
     try {
         std::string validationScheme = isNet ? myNetValidationScheme : myValidationScheme;
         if (isRoute) {
@@ -178,21 +179,27 @@ XMLSubSys::runParser(GenericSAXHandler& handler, const std::string& file,
         myReaders[myNextFreeReader - 1]->parse(file);
         handler.setFileName(prevFile);
         myNextFreeReader--;
-    } catch (ProcessError& e) {
-        WRITE_ERROR(std::string(e.what()) != std::string("") ? std::string(e.what()) : std::string("Process Error"));
-        return false;
+    } catch (const ProcessError& e) {
+        if (catchExceptions) {
+            errorMsg = std::string(e.what()) != std::string("") ? e.what() : TL("Process Error");
+        } else {
+            throw;
+        }
     } catch (const std::runtime_error& re) {
-        WRITE_ERRORF(TL("Runtime error: % while parsing '%'"), std::string(re.what()), file);
-        return false;
+        errorMsg = TLF("Runtime error: % while parsing '%'", re.what(), file);
     } catch (const std::exception& ex) {
-        WRITE_ERRORF(TL("Error occurred: % while parsing '%'"), std::string(ex.what()), file);
-        return false;
+        errorMsg = TLF("Error occurred: % while parsing '%'", ex.what(), file);
     } catch (const XERCES_CPP_NAMESPACE::SAXException& e) {
-        WRITE_ERROR("SAX error occured while parsing '" + file + "':\n " + StringUtils::transcode(e.getMessage()));
-        return false;
+        errorMsg = TLF("SAX error occured while parsing '%':\n %", file, StringUtils::transcode(e.getMessage()));
     } catch (...) {
-        WRITE_ERRORF(TL("Unspecified error occurred wile parsing '%'"), file);
-        return false;
+        errorMsg = TLF("Unspecified error occurred wile parsing '%'", file);
+    }
+    if (errorMsg != "") {
+        if (catchExceptions) {
+            WRITE_ERROR(errorMsg);
+        } else {
+            throw ProcessError(errorMsg);
+        }
     }
     return !MsgHandler::getErrorInstance()->wasInformed();
 }

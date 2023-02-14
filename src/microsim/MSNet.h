@@ -591,7 +591,7 @@ public:
     virtual void updateGUI() const { }
 
     /// @brief load state from file and return new time
-    SUMOTime loadState(const std::string& fileName);
+    SUMOTime loadState(const std::string& fileName, const bool catchExceptions);
 
     /// @brief reset state to the beginning without reloading the network
     void quickReload();

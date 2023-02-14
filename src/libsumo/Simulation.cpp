@@ -843,13 +843,15 @@ double
 Simulation::loadState(const std::string& fileName) {
     long before = PROGRESS_BEGIN_TIME_MESSAGE("Loading state from '" + fileName + "'");
     try {
-        const SUMOTime newTime = MSNet::getInstance()->loadState(fileName);
+        const SUMOTime newTime = MSNet::getInstance()->loadState(fileName, false);
         Helper::clearStateChanges();
         Helper::clearSubscriptions();
         PROGRESS_TIME_MESSAGE(before);
         return STEPS2TIME(newTime);
-    } catch (ProcessError&) {
-        throw TraCIException("Loading state from '" + fileName + "' failed.");
+    } catch (const IOError& e) {
+        throw TraCIException("Loading state from '" + fileName + "' failed. " + e.what());
+    } catch (const ProcessError& e) {
+        throw TraCIException("Loading state from '" + fileName + "' failed, check whether SUMO versions match. " + e.what());
     }
 }
 
