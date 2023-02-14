@@ -544,6 +544,11 @@ public:
     /// @brief set the junction shape
     void setCustomShape(const PositionVector& shape);
 
+    /// @brief reset node shape
+    void resetShape() {
+        myPoly.clear();
+    }
+
     /// @brief set the turning radius
     void setRadius(double radius) {
         myRadius = radius;

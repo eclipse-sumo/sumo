@@ -598,6 +598,9 @@ public:
     /// @brief adapt custom lengths of split edges to account for intersection size
     void fixSplitCustomLength();
 
+    /// @brief compute all edge angles
+    void computeAngles();
+
 private:
     /// @brief compute the form factor for a loop of edges
     static double formFactor(const EdgeVector& loopEdges);

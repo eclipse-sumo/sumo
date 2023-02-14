@@ -77,6 +77,11 @@ NBNetBuilder::applyOptions(OptionsCont& oc) {
 
 void
 NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurnarounds, bool mayAddOrRemove) {
+    // reset shapes and angles for stable netedit computation
+    if (myNodeCont.resetNodeShapes()) {
+        myEdgeCont.computeAngles();
+    }
+
     GeoConvHelper& geoConvHelper = GeoConvHelper::getProcessing();
 
     const bool lefthand = oc.getBool("lefthand");

@@ -2758,4 +2758,16 @@ NBNodeCont::applyConditionalDefaults() {
     }
 }
 
+
+bool
+NBNodeCont::resetNodeShapes() {
+    bool hadShapes = false;
+    for (const auto& item : myNodes) {
+        if (item.second->getShape().size() > 0 && !item.second->hasCustomShape()) {
+            hadShapes = true;
+            item.second->resetShape();
+        }
+    }
+    return hadShapes;
+}
 /****************************************************************************/

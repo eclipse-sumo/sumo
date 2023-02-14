@@ -369,6 +369,9 @@ public:
     /// @brief apply default values after loading
     void applyConditionalDefaults();
 
+    /// @brief reset all node shapes
+    bool resetNodeShapes();
+
 private:
 
     /// @name Helper methods for for joining nodes

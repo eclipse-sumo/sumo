@@ -2055,4 +2055,11 @@ NBEdgeCont::fixSplitCustomLength() {
     }
 }
 
+void
+NBEdgeCont::computeAngles() {
+    for (auto item : myEdges) {
+        item.second->computeAngle();
+    }
+}
+
 /****************************************************************************/
