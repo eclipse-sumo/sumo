@@ -1,8 +1,8 @@
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
 
-    <instantInductionLoop id="E1_01" lane="gneE0_0" pos="3" file="fileA.txt" vTypes="type1 type2 type3" friendlyPos="0">
+    <instantInductionLoop id="E1_01" lane="center0_1" pos="3" file="fileA.txt" vTypes="bus taxi private" friendlyPos="0">
 
-       <!-- valid generic parameter (valid) -->
+    <!-- valid generic parameter (valid) -->
     <param key="key1" value="value1"/>
 
     <!-- empty generic parameter (invalid -->

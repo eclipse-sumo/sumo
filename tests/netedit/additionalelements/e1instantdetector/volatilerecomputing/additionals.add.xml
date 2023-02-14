@@ -1,10 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-02-14 13:59:13 by Eclipse SUMO netedit Version v1_16_0+0177-c72433bc6bd
+-->
+
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <instantInductionLoop id="instantInductionLoop_gneE0_0_7" lane="gneE0_0" pos="14.77" file="instantInductionLoop_gneE0_0_7.txt" friendlyPos="0"/>
-    <instantInductionLoop id="instantInductionLoop_gneE1_0_6" lane="gneE1_0" pos="41.50" file="instantInductionLoop_gneE1_0_6.txt" friendlyPos="0"/>
-    <instantInductionLoop id="instantInductionLoop_gneE2_0_0" lane="gneE2_0" pos="19.94" file="instantInductionLoop_gneE2_0_0.txt" friendlyPos="0"/>
-    <instantInductionLoop id="instantInductionLoop_gneE2_1_1" lane="gneE2_1" pos="25.78" file="instantInductionLoop_gneE2_1_1.txt" friendlyPos="0"/>
-    <instantInductionLoop id="instantInductionLoop_gneE2_2_2" lane="gneE2_2" pos="29.90" file="instantInductionLoop_gneE2_2_2.txt" friendlyPos="0"/>
-    <instantInductionLoop id="instantInductionLoop_gneE2_3_3" lane="gneE2_3" pos="34.11" file="instantInductionLoop_gneE2_3_3.txt" friendlyPos="0"/>
-    <instantInductionLoop id="instantInductionLoop_gneE2_4_4" lane="gneE2_4" pos="36.17" file="instantInductionLoop_gneE2_4_4.txt" friendlyPos="0"/>
-    <instantInductionLoop id="instantInductionLoop_gneE4_0_5" lane="gneE4_0" pos="10.31" file="instantInductionLoop_gneE4_0_5.txt" friendlyPos="0"/>
+    <!-- Detectors -->
+    <instantInductionLoop id="e1i_0" lane="center0_0" pos="29.00" file="e1i_0.xml"/>
+    <instantInductionLoop id="e1i_1" lane="center0_0" pos="21.00" file="e1i_1.xml"/>
+    <instantInductionLoop id="e1i_10" lane="top_0" pos="29.00" file="e1i_10.xml"/>
+    <instantInductionLoop id="e1i_11" lane="top_0" pos="21.00" file="e1i_11.xml"/>
+    <instantInductionLoop id="e1i_2" lane="center0_1" pos="31.00" file="e1i_2.xml"/>
+    <instantInductionLoop id="e1i_3" lane="center0_1" pos="19.00" file="e1i_3.xml"/>
+    <instantInductionLoop id="e1i_4" lane="center1_1" pos="15.00" file="e1i_4.xml"/>
+    <instantInductionLoop id="e1i_5" lane="center1_1" pos="33.00" file="e1i_5.xml"/>
+    <instantInductionLoop id="e1i_6" lane="center1_0" pos="13.00" file="e1i_6.xml"/>
+    <instantInductionLoop id="e1i_7" lane="center1_0" pos="35.00" file="e1i_7.xml"/>
+    <instantInductionLoop id="e1i_8" lane="bot_0" pos="13.00" file="e1i_8.xml"/>
+    <instantInductionLoop id="e1i_9" lane="bot_0" pos="35.00" file="e1i_9.xml"/>
 </additional>
