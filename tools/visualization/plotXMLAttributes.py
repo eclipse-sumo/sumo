@@ -49,11 +49,15 @@ from sumolib.miscutils import uMin, uMax, parseTime  # noqa
 from sumolib.options import ArgumentParser, RawDescriptionHelpFormatter  # noqa
 import sumolib.visualization.helpers  # noqa
 
-RANK_ATTR = "@RANK"
 INDEX_ATTR = "@INDEX"
+RANK_ATTR = "@RANK"
 COUNT_ATTR = "@COUNT"
+BOX_ATTR = "@BOX"
 NONE_ATTR = "@NONE"
 NONE_ATTR_DEFAULT = 0
+
+POST_PROCESSING_ATTRS = [RANK_ATTR, COUNT_ATTR, BOX_ATTR]
+SYMBOLIC_ATTRS = POST_PROCESSING_ATTRS + [INDEX_ATTR]
 
 
 def getOptions(args=None):
@@ -108,15 +112,32 @@ def getOptions(args=None):
             sys.exit("mandatory argument --%s is missing" % a)
 
     if options.xlabel is None:
-        options.xlabel = options.xattr
+        if options.xattr == BOX_ATTR:
+            if options.idattr:
+                options.xlabel = options.idattr
+            else:
+                options.xlabel = "file"
+        else:
+            options.xlabel = options.xattr
+
     if options.ylabel is None:
-        options.ylabel = options.yattr
+        if options.yattr == BOX_ATTR:
+            if options.idattr:
+                options.ylabel = options.idattr
+            else:
+                options.ylabel = "file"
+        else:
+            options.ylabel = options.yattr
 
     # keep old presets from before integration of common options
     options.nolegend = not options.legend
     options.blind = not options.show
     if options.output is None:
         options.output = "plot.png"
+
+    if options.xattr == BOX_ATTR and options.yattr == BOX_ATTR:
+        sys.exit("Boxplot can only be specified for one dimension")
+    options.boxplot = options.xattr == BOX_ATTR or options.yattr == BOX_ATTR
 
     return options
 
@@ -201,7 +222,7 @@ def getDataStream(options):
                 if attr not in attr2elem:
                     lvlElem = [(lv, el) for el, lv in elem2level.items()]
                     minLevelElem = sorted(lvlElem)[-1][1]
-                    if attr == RANK_ATTR or attr == INDEX_ATTR or attr == COUNT_ATTR:
+                    if attr in SYMBOLIC_ATTRS:
                         attr2elem[attr] = minLevelElem
                     else:
                         msg = "%s '%s' not found in %s" % (a, attr, options.files[0])
@@ -245,7 +266,7 @@ def getDataStream(options):
                             values[a] = m.groups()[0]
                         elif a == INDEX_ATTR:
                             values[a] = index
-                        elif a == RANK_ATTR or a == COUNT_ATTR:
+                        elif a in POST_PROCESSING_ATTRS:
                             # set in post-processing
                             values[a] = 0
                         elif a == NONE_ATTR:
@@ -276,7 +297,7 @@ def getDataStream(options):
                     for a, r in zip(allAttrs, mAs):
                         if a == INDEX_ATTR:
                             values[a] = index
-                        elif a == RANK_ATTR or a == COUNT_ATTR:
+                        elif a in POST_PROCESSING_ATTRS:
                             # set in post-processing
                             values[a] = 0
                         elif a == NONE_ATTR:
@@ -365,6 +386,7 @@ def useWildcards(labels):
             return True
     return False
 
+
 def countPoints(xvalues):
     counts = defaultdict(lambda : 0)
     for x in xvalues:
@@ -372,6 +394,19 @@ def countPoints(xvalues):
     xres = sorted(counts.keys())
     yres = [counts[x] for x in xres]
     return xres, yres
+
+
+def makeNumeric(val):
+    if isnumeric(val):
+        return val
+    try:
+        return int(val)
+    except ValueError:
+        try:
+            return float(val)
+        except ValueError:
+            return val
+
 
 def applyTicks(d, xyIndex, ticksFile):
     offsets, labels = sumolib.visualization.helpers.parseTicks(ticksFile)
@@ -443,7 +478,7 @@ def main(options):
             if len(options.files) > 1:
                 suffix = shortFileNames[fileIndex]
                 if len(suffix) > 0:
-                    dataID += "#" + suffix
+                    dataID = str(dataID) + "#" + suffix
             x = interpretValue(x)
             y = interpretValue(y)
             if isnumeric(x):
@@ -515,7 +550,20 @@ def main(options):
             linestyle = ''
             if marker is None:
                 marker = 'o'
-        plt.plot(xvalues, yvalues, linestyle=linestyle, marker=marker, picker=True, label=dataID)
+
+        if not options.boxplot:
+            plt.plot(xvalues, yvalues, linestyle=linestyle, marker=marker, picker=True, label=dataID)
+
+    if options.boxplot:
+        labels = sorted(data.keys(), key=makeNumeric)
+        vertical = options.xattr == BOX_ATTR
+        xyIndex = ydata if vertical else xdata
+        boxdata = [data[dataID][xyIndex] for dataID in labels]
+        if vertical:
+            plt.xticks(range(len(labels)), labels)
+        else:
+            plt.yticks(range(len(labels)), labels)
+        plt.boxplot(boxdata, vert=options.xattr == BOX_ATTR)
 
     if options.invertYAxis:
         plt.axis([minX, maxX, maxY, minY])
