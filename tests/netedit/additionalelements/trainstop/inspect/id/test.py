@@ -38,19 +38,19 @@ netedit.changeElement("trainStop")
 netedit.changeDefaultValue(netedit.attrs.trainStop.create.references, "reference center")
 
 # create trainStop 1 in mode "reference center"
-netedit.leftClick(referencePosition, 250, 170)
+netedit.leftClick(referencePosition, 430, 256)
 
 # create trainStop 2 in mode "reference center"
-netedit.leftClick(referencePosition, 450, 170)
+netedit.leftClick(referencePosition, 497, 257)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first trainStop
-netedit.leftClick(referencePosition, 250, 190)
+netedit.leftClick(referencePosition, 427, 275)
 
 # Change parameter id with a non valid value (Duplicated ID)
-netedit.modifyAttribute(netedit.attrs.trainStop.inspect.id, "ts_1", True)
+netedit.modifyAttribute(netedit.attrs.trainStop.inspect.id, "bs_1", True)
 
 # Change parameter id with a non valid value (Invalid ID)
 netedit.modifyAttribute(netedit.attrs.trainStop.inspect.id, "Id with spaces", True)

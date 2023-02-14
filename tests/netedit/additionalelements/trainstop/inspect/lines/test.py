@@ -38,13 +38,13 @@ netedit.changeElement("trainStop")
 netedit.changeDefaultValue(netedit.attrs.trainStop.create.references, "reference center")
 
 # create trainStop in mode "reference center"
-netedit.leftClick(referencePosition, 250, 170)
+netedit.leftClick(referencePosition, 430, 256)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first trainStop
-netedit.leftClick(referencePosition, 250, 190)
+netedit.leftClick(referencePosition, 427, 275)
 
 # Change parameter 5 with a non valid value (throw warning)
 netedit.modifyAttribute(netedit.attrs.trainStop.inspect.lines, "line1, line2", True)

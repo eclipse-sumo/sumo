@@ -38,10 +38,10 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect trainstops
-netedit.leftClick(referencePosition, 160, 270)
+netedit.leftClick(referencePosition, 297, 270)
 
 # Set friendlyPos
-netedit.modifyAttribute(netedit.attrs.trainStop.inspectSelection.friendlyPos, "true", False)
+netedit.modifyAttribute(netedit.attrs.trainStop.inspectSelection.friendlyPos, "true", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)
