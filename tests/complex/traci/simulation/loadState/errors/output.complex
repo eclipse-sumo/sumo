@@ -1,0 +1,5 @@
+Loading state from 'input_st.xml' failed. Cannot read file 'input_st.xml'!
+Loading state from 'input_state.xml' failed, check whether SUMO versions match. attribute 'blub' is not declared for element 'route'
+ In file 'input_state.xml'
+ At line/column 25/49.
+
