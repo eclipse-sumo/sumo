@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-05 21:26+0100\n"
-"PO-Revision-Date: 2023-02-09 14:52+0000\n"
+"PO-Revision-Date: 2023-02-14 09:36+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
@@ -157,9 +157,8 @@ msgid "Select lanes which allow..."
 msgstr "選擇允許...的車道"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:471
-#, fuzzy
 msgid "Opens a menu for selecting a vehicle class by which to selected lanes."
-msgstr "選擇允許...的車道 \t\t開啟選單選擇所選車道的車種類別。"
+msgstr "開啟選單選擇所選車道上允許的車種類別。"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:475
 msgid "Edit Breakpoints"
@@ -306,7 +305,7 @@ msgstr "開啟對話窗以進行興趣點定位。"
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:530
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1971
 msgid "Po&lygon"
-msgstr ""
+msgstr "多邊形"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:530
 msgid "Open a Dialog for Locating a Polygon."
@@ -317,9 +316,8 @@ msgid "Show Internal Structures"
 msgstr "顯示內部結構"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:534
-#, fuzzy
 msgid "Show internal junctions and streets in locator dialog."
-msgstr "顯示內部結構\t\t在定位對話窗中顯示內部路口和道路。"
+msgstr "在定位對話窗中顯示內部路口和道路。"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:537
 msgid "Show Parking Vehicles"
