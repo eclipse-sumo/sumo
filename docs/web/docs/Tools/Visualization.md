@@ -56,6 +56,15 @@ Option **--filter-ids ID1,ID2,...** allows restricting the plot to the given dat
 
 Further examples are shown below. Some of them are generated with the scenario acosta, one of the published sumo scenarios (https://github.com/DLR-TS/sumo-scenarios/tree/main/bologna/acosta).
 
+### Plot Styles
+
+The script supports the following distinct styles of plots:
+
+- **lineplot**: default
+- **scatterplot:** with option **--scatterplot**
+- **box plot:** by setting one of **--xattr @BOX** or **--yattr @BOX**
+- **bar plot:** by setting either **--barplot** or **--hbarplot**
+
 ### Special Attributes
 
 The following attribute values have a special meaning. Instead of using an attribute from the input file they derive a value based on the *other* attribute. (i.e. the special attribute is set for **--xattr** then the *other* value is given by the **--yattr**).
@@ -65,7 +74,6 @@ The following attribute values have a special meaning. Instead of using an attri
 - `@COUNT`: the number of occurences of the *other* value is used (basically a histogram without any binning)
 - `@BOX`: one or more [box plots](https://en.wikipedia.org/wiki/Box_plot) of the *other* value are drawn. The **--idattr** is used for grouping and there will be one box plot per id
 - `@NONE`: can be used with option **--idattr** to explicitly avoid grouping
-
 
 ### Multi-line plots
 
@@ -273,6 +281,17 @@ python tools/visualization/plotXMLAttributes.py tripinfos.xml tripinfos2.xml  -x
 
 !!! note
     By swapping x-attribute and y-attribute the orientation of the boxplot can be changed from horizontal to vertical
+
+### Histogram of timeLoss
+
+This plot demonstrates the use of **--barplot** binning and `@COUNT` to create a histogram of timeLoss values from two simulation runs.
+It also shows how to clamp data to the upper range of 300.
+
+Call to generate the plot:
+```
+plotXMLAttributes.py tripinfos.xml tripinfos2.xml -x timeLoss -y @COUNT -i @NONE -s --legend  --barplot --xbin 20 --xclamp :300
+```
+<img src="../images/hist_timeLoss_clamped.png" width="500px"/>
 
 ## plot_trajectories.py
 
