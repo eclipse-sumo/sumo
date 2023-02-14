@@ -35,7 +35,7 @@ echo "base_dir = /github/workspace/_skbuild/linux-x86_64-3.8" >> $HOME/.ccache/c
 mv dist/eclipse_sumo-* `echo dist/eclipse_sumo-* | sed 's/cp38-cp38/py2.py3-none/'`
 auditwheel repair dist/eclipse_sumo*.whl
 cp -a data tools/libsumo
-for py in /opt/python/*; do
+for py in /opt/python/cp3[1789]*; do
     rm dist/*.whl
     $py/bin/pip install scikit-build
     pminor=`echo $py | sed 's,/opt/python/cp3,,;s/-.*//'`
