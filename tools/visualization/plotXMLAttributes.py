@@ -97,6 +97,10 @@ def getOptions(args=None):
                          default=False, help="Invert the Y-Axis")
     optParser.add_option("--scatterplot", action="store_true",
                          default=False, help="Draw a scatterplot instead of lines")
+    optParser.add_option("--barplot", action="store_true",
+                         default=False, help="Draw a bar plot parallel to the y-axis")
+    optParser.add_option("--hbarplot", action="store_true",
+                         default=False, help="Draw a bar plot parallel to the x-axis")
     optParser.add_option("--legend", action="store_true", default=False, help="Add legend")
     optParser.add_option("-v", "--verbose", action="store_true", default=False, help="tell me what you are doing")
     optParser.add_argument("files", nargs='+', help="List of XML files to plot")
@@ -140,6 +144,24 @@ def getOptions(args=None):
     if options.xattr == BOX_ATTR and options.yattr == BOX_ATTR:
         sys.exit("Boxplot can only be specified for one dimension")
     options.boxplot = options.xattr == BOX_ATTR or options.yattr == BOX_ATTR
+
+    if options.barplot and options.hbarplot:
+        sys.exit("Barplot can only be specified for one axis")
+
+    options.barbin = 0
+    if options.barplot:
+        if options.xbin is None:
+            options.xbin = 1.0
+            if options.verbose:
+                print("Binning set to %s for barplot. Use option --xbin to set a custom value." % options.xbin)
+        options.barbin = options.xbin
+
+    if options.hbarplot:
+        if options.ybin is None:
+            options.ybin = 1.0
+            if options.verbose:
+                print("Binning set to %s for horizontal barplot. Use option --ybin to set a custom value." % options.xbin)
+        options.barbin = options.ybin
 
     return options
 
@@ -525,6 +547,9 @@ def main(options):
     minX = uMax
     maxX = uMin
 
+    barOffset = 0
+    barWidth = options.barbin / (len(data.items()) + 1)
+
     for dataID, d in data.items():
 
         if numericXCount > 0 and stringXCount > 0:
@@ -563,15 +588,26 @@ def main(options):
         minX = min(minX, min(xvalues))
         maxX = max(maxX, max(xvalues))
 
-        linestyle = options.linestyle
-        marker = options.marker
-        if options.scatterplot or (min(yvalues) == max(yvalues) and min(xvalues) == max(xvalues)):
-            linestyle = ''
-            if marker is None:
-                marker = 'o'
-
         if not options.boxplot:
-            plt.plot(xvalues, yvalues, linestyle=linestyle, marker=marker, picker=True, label=dataID)
+
+            if options.barplot or options.hbarplot:
+                if options.barplot:
+                    center = [x + barOffset * barWidth for x in xvalues]
+                    plt.bar(center, yvalues, width=barWidth, label=dataID)
+                else:
+                    center = [y + barOffset * barWidth for y in yvalues]
+                    plt.barh(center, xvalues, height=barWidth, label=dataID)
+                barOffset += 1
+
+            else:
+                linestyle = options.linestyle
+                marker = options.marker
+                if options.scatterplot or (min(yvalues) == max(yvalues) and min(xvalues) == max(xvalues)):
+                    linestyle = ''
+                    if marker is None:
+                        marker = 'o'
+                plt.plot(xvalues, yvalues, linestyle=linestyle, marker=marker, picker=True, label=dataID)
+
 
     if options.boxplot:
         labels = sorted(data.keys(), key=makeNumeric)
