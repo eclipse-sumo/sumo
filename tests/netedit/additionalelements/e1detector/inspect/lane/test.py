@@ -35,13 +35,13 @@ netedit.additionalMode()
 netedit.changeElement("inductionLoop")
 
 # create E1
-netedit.leftClick(referencePosition, 250, 210)
+netedit.leftClick(referencePosition, 405, 257)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first E1
-netedit.leftClick(referencePosition, 250, 210)
+netedit.leftClick(referencePosition, 405, 257)
 
 # Change parameter lane with a non valid value (dummy lane)
 netedit.modifyAttribute(netedit.attrs.E1.inspect.lane, "dummy lane", True)

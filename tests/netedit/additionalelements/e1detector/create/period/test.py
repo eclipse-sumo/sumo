@@ -38,19 +38,19 @@ netedit.changeElement("inductionLoop")
 netedit.changeDefaultValue(netedit.attrs.E1.create.period, "dummyFrequency")
 
 # try to create E1 with invalid frequency
-netedit.leftClick(referencePosition, 250, 245)
+netedit.leftClick(referencePosition, 405, 257)
 
 # set a invalid  frequency
 netedit.changeDefaultValue(netedit.attrs.E1.create.period, "-30")
 
 # try to create E1 with invalid frequency
-netedit.leftClick(referencePosition, 260, 245)
+netedit.leftClick(referencePosition, 475, 257)
 
 # set a valid frequency
 netedit.changeDefaultValue(netedit.attrs.E1.create.period, "150")
 
 # create E1 with valid frequency
-netedit.leftClick(referencePosition, 270, 245)
+netedit.leftClick(referencePosition, 405, 257)
 
 # Check undo redo
 netedit.undo(referencePosition, 1)

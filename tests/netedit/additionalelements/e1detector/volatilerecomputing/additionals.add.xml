@@ -1,10 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-02-14 13:59:13 by Eclipse SUMO netedit Version v1_16_0+0177-c72433bc6bd
+-->
+
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <inductionLoop id="e1_7" lane="gneE0_0" pos="14.77" period="100.00" file="e1_7.txt" friendlyPos="0"/>
-    <inductionLoop id="inductionLoop_gneE1_0_6" lane="gneE1_0" pos="41.50" period="100.00" file="inductionLoop_gneE1_0_6.txt" friendlyPos="0"/>
-    <inductionLoop id="inductionLoop_gneE2_0_0" lane="gneE2_0" pos="19.94" period="100.00" file="inductionLoop_gneE2_0_0.txt" friendlyPos="0"/>
-    <inductionLoop id="inductionLoop_gneE2_1_1" lane="gneE2_1" pos="25.78" period="100.00" file="inductionLoop_gneE2_1_1.txt" friendlyPos="0"/>
-    <inductionLoop id="inductionLoop_gneE2_2_2" lane="gneE2_2" pos="29.90" period="100.00" file="inductionLoop_gneE2_2_2.txt" friendlyPos="0"/>
-    <inductionLoop id="inductionLoop_gneE2_3_3" lane="gneE2_3" pos="34.11" period="100.00" file="inductionLoop_gneE2_3_3.txt" friendlyPos="0"/>
-    <inductionLoop id="inductionLoop_gneE2_4_4" lane="gneE2_4" pos="36.17" period="100.00" file="inductionLoop_gneE2_4_4.txt" friendlyPos="0"/>
-    <inductionLoop id="inductionLoop_gneE4_0_5" lane="gneE4_0" pos="10.31" period="100.00" file="inductionLoop_gneE4_0_5.txt" friendlyPos="0"/>
+    <!-- Detectors -->
+    <inductionLoop id="e1_0" lane="center0_0" pos="29.00" period="300.00" file="e1_0.xml"/>
+    <inductionLoop id="e1_1" lane="center0_0" pos="21.00" period="300.00" file="e1_1.xml"/>
+    <inductionLoop id="e1_10" lane="top_0" pos="29.00" period="300.00" file="e1_10.xml"/>
+    <inductionLoop id="e1_11" lane="top_0" pos="21.00" period="300.00" file="e1_11.xml"/>
+    <inductionLoop id="e1_2" lane="center0_1" pos="31.00" period="300.00" file="e1_2.xml"/>
+    <inductionLoop id="e1_3" lane="center0_1" pos="19.00" period="300.00" file="e1_3.xml"/>
+    <inductionLoop id="e1_4" lane="center1_1" pos="15.00" period="300.00" file="e1_4.xml"/>
+    <inductionLoop id="e1_5" lane="center1_1" pos="33.00" period="300.00" file="e1_5.xml"/>
+    <inductionLoop id="e1_6" lane="center1_0" pos="13.00" period="300.00" file="e1_6.xml"/>
+    <inductionLoop id="e1_7" lane="center1_0" pos="35.00" period="300.00" file="e1_7.xml"/>
+    <inductionLoop id="e1_8" lane="bot_0" pos="13.00" period="300.00" file="e1_8.xml"/>
+    <inductionLoop id="e1_9" lane="bot_0" pos="35.00" period="300.00" file="e1_9.xml"/>
 </additional>
