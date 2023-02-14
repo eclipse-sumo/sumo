@@ -93,6 +93,10 @@ def getOptions(args=None):
     optParser.add_option("--yfactor", help="multiplier for y-data", type=float, default=1)
     optParser.add_option("--xbin", help="binning size for x-data", type=float)
     optParser.add_option("--ybin", help="binning size for y-data", type=float)
+    optParser.add_option("--xclamp", default=None,
+                         help="clamp x values to range A:B or half-range A: / :B")
+    optParser.add_option("--yclamp", default=None,
+                         help="clamp y values to range A:B or half-range A: / :B")
     optParser.add_option("--invert-yaxis", dest="invertYAxis", action="store_true",
                          default=False, help="Invert the Y-Axis")
     optParser.add_option("--scatterplot", action="store_true",
@@ -125,6 +129,8 @@ def getOptions(args=None):
                 options.xlabel = "file"
         else:
             options.xlabel = options.xattr
+        if options.xclamp is not None:
+            options.xlabel += " clamp(%s)" % options.xclamp
 
     if options.ylabel is None:
         if options.yattr == BOX_ATTR:
@@ -134,6 +140,8 @@ def getOptions(args=None):
                 options.ylabel = "file"
         else:
             options.ylabel = options.yattr
+        if options.yclamp is not None:
+            options.ylabel += " clamp(%s)" % options.yclamp
 
     # keep old presets from before integration of common options
     options.nolegend = not options.legend
@@ -163,7 +171,21 @@ def getOptions(args=None):
                 print("Binning set to %s for horizontal barplot. Use option --ybin to set a custom value." % options.xbin)
         options.barbin = options.ybin
 
+    options.xclampRange = interpretClamp(options.xclamp)
+    options.yclampRange = interpretClamp(options.yclamp)
+
     return options
+
+
+def interpretClamp(clamp):
+    if clamp is None:
+        return None
+    clamp = clamp.split(":")
+    if len(clamp) != 2:
+        sys.exit("Clamp option requires a single ':' value")
+    cmin = float(clamp[0]) if clamp[0] else uMin
+    cmax = float(clamp[1]) if clamp[1] else uMax
+    return cmin, cmax
 
 
 def write_csv(data, fname):
@@ -424,6 +446,12 @@ def binned(value, binsize):
     else:
         return value
 
+def clamped(value, clamp):
+    if clamp is not None:
+        return max(clamp[0], min(clamp[1], value))
+    else:
+        return value
+
 
 def countPoints(xvalues):
     counts = defaultdict(lambda: 0)
@@ -523,12 +551,14 @@ def main(options):
             if isnumeric(x):
                 numericXCount += 1
                 x *= options.xfactor
+                x = clamped(x, options.xclampRange)
                 x = binned(x, options.xbin)
             else:
                 stringXCount += 1
             if isnumeric(y):
                 numericYCount += 1
                 y *= options.yfactor
+                y = clamped(y, options.yclampRange)
                 y = binned(y, options.ybin)
             else:
                 stringYCount += 1
