@@ -51,6 +51,7 @@ import sumolib.visualization.helpers  # noqa
 
 RANK_ATTR = "@RANK"
 INDEX_ATTR = "@INDEX"
+COUNT_ATTR = "@COUNT"
 NONE_ATTR = "@NONE"
 NONE_ATTR_DEFAULT = 0
 
@@ -200,7 +201,7 @@ def getDataStream(options):
                 if attr not in attr2elem:
                     lvlElem = [(lv, el) for el, lv in elem2level.items()]
                     minLevelElem = sorted(lvlElem)[-1][1]
-                    if attr == RANK_ATTR or attr == INDEX_ATTR:
+                    if attr == RANK_ATTR or attr == INDEX_ATTR or attr == COUNT_ATTR:
                         attr2elem[attr] = minLevelElem
                     else:
                         msg = "%s '%s' not found in %s" % (a, attr, options.files[0])
@@ -244,7 +245,8 @@ def getDataStream(options):
                             values[a] = m.groups()[0]
                         elif a == INDEX_ATTR:
                             values[a] = index
-                        elif a == RANK_ATTR:
+                        elif a == RANK_ATTR or a == COUNT_ATTR:
+                            # set in post-processing
                             values[a] = 0
                         elif a == NONE_ATTR:
                             values[a] = NONE_ATTR_DEFAULT
@@ -274,7 +276,8 @@ def getDataStream(options):
                     for a, r in zip(allAttrs, mAs):
                         if a == INDEX_ATTR:
                             values[a] = index
-                        elif a == RANK_ATTR:
+                        elif a == RANK_ATTR or a == COUNT_ATTR:
+                            # set in post-processing
                             values[a] = 0
                         elif a == NONE_ATTR:
                             values[a] = NONE_ATTR_DEFAULT
@@ -362,6 +365,13 @@ def useWildcards(labels):
             return True
     return False
 
+def countPoints(xvalues):
+    counts = defaultdict(lambda : 0)
+    for x in xvalues:
+        counts[x] += 1
+    xres = sorted(counts.keys())
+    yres = [counts[x] for x in xres]
+    return xres, yres
 
 def applyTicks(d, xyIndex, ticksFile):
     offsets, labels = sumolib.visualization.helpers.parseTicks(ticksFile)
@@ -475,6 +485,12 @@ def main(options):
         if options.yattr == RANK_ATTR:
             d[xdata].sort(reverse=True)
             d[ydata] = list(range(len(d[ydata])))
+
+        if options.xattr == COUNT_ATTR:
+            d[ydata], d[xdata] = countPoints(d[ydata])
+
+        if options.yattr == COUNT_ATTR:
+            d[xdata], d[ydata] = countPoints(d[xdata])
 
         if options.xticksFile:
             applyTicks(d, xdata, options.xticksFile)
