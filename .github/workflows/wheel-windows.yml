@@ -4,6 +4,9 @@ on:
   push:            # run on push events
     paths-ignore:  # but ignore everything in the docs subfolder 
       - 'docs/**'
+      - 'src/gui*/**'
+      - 'src/netedit/**'
+      - 'tests/netedit/**'
     branches:
       - '**'
     tags:
