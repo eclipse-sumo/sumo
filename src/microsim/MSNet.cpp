@@ -1610,7 +1610,7 @@ MSNet::loadState(const std::string& fileName, const bool catchExceptions) {
     clearState(newTime);
     // load state
     MSStateHandler h(fileName, 0);
-    XMLSubSys::runParser(h, fileName);
+    XMLSubSys::runParser(h, fileName, false, false, false, catchExceptions);
     if (MsgHandler::getErrorInstance()->wasInformed()) {
         throw ProcessError(TLF("Loading state from '%' failed.", fileName));
     }
