@@ -152,13 +152,20 @@ def write_csv(data, fname):
             f.write('\n\n')
 
 
-def short_names(filenames):
+def short_names(filenames, noEmpty):
     if len(filenames) == 1:
         return filenames
     reversedNames = [''.join(reversed(f)) for f in filenames]
-    prefixLen = len(os.path.commonprefix(filenames))
-    suffixLen = len(os.path.commonprefix(reversedNames))
-    return [f[prefixLen:-suffixLen] for f in filenames]
+    prefix = os.path.commonprefix(filenames)
+    suffix = os.path.commonprefix(reversedNames)
+    prefixLen = len(prefix)
+    suffixLen = len(suffix)
+    shortened = [f[prefixLen:-suffixLen] for f in filenames]
+    if noEmpty and any([not f for f in shortened]):
+        # make longer to avoid empty file names
+        base = os.path.basename(prefix)
+        shortened = [base + f for f in shortened]
+    return shortened
 
 
 def onpick(event):
@@ -444,10 +451,11 @@ def main(options):
     fig = plt.figure(figsize=(14, 9), dpi=100)
     fig.canvas.mpl_connect('pick_event', onpick)
 
-    shortFileNames = short_names(options.files)
+    shortFileNames = short_names(options.files, False)
+    titleFileNames = short_names(options.files, True)
     plt.xlabel(options.xlabel)
     plt.ylabel(options.ylabel)
-    plt.title(','.join(shortFileNames) if options.label is None else options.label)
+    plt.title(','.join(titleFileNames) if options.label is None else options.label)
     xdata = 0
     ydata = 1
 
