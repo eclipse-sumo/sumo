@@ -4,6 +4,9 @@ edgeData_fundamental
 filtered-ids_wildcards
 edgeData_speeds
 
+# histogram of depatures
+edgeData_departed_count
+
 # tripinfos contain vehicle trips and person rides
 tripinfo_mixed_depart_routeLength
 tripinfo_depart_index
