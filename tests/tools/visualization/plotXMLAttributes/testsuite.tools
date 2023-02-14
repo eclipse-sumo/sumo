@@ -4,8 +4,11 @@ edgeData_fundamental
 filtered-ids_wildcards
 edgeData_speeds
 
-# histogram of depatures
+# histogram of departures
 edgeData_departed_count
+
+# boxplot of flow over time
+edgeData_entered_time_box
 
 # tripinfos contain vehicle trips and person rides
 tripinfo_mixed_depart_routeLength
