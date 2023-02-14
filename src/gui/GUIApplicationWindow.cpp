@@ -809,12 +809,12 @@ GUIApplicationWindow::buildRecentNetworks(FXMenuPane* fileMenu, FXMenuPane* file
     GUIDesigns::buildFXMenuCommandRecentFile(fileMenuRecentNetworks, "", &myRecentNetworks, FXRecentFiles::ID_FILE_9);
     GUIDesigns::buildFXMenuCommandRecentFile(fileMenuRecentNetworks, "", &myRecentNetworks, FXRecentFiles::ID_FILE_10);
     new FXMenuSeparator(fileMenuRecentNetworks);  // NOSONAR, Fox does the cleanup
-    GUIDesigns::buildFXMenuCommand(fileMenuRecentNetworks, "Cl&ear Recent Networks", nullptr, &myRecentNetworks, FXRecentFiles::ID_CLEAR);
-    GUIDesigns::buildFXMenuCommand(fileMenuRecentNetworks, "No Recent Networks", nullptr, &myRecentNetworks, MFXRecentNetworks::ID_NOFILES);
+    GUIDesigns::buildFXMenuCommand(fileMenuRecentNetworks, TL("Cl&ear Recent Networks"), nullptr, &myRecentNetworks, FXRecentFiles::ID_CLEAR);
+    GUIDesigns::buildFXMenuCommand(fileMenuRecentNetworks, TL("No Recent Networks"), nullptr, &myRecentNetworks, MFXRecentNetworks::ID_NOFILES);
     // set target
     myRecentNetworks.setTarget(this);
     myRecentNetworks.setSelector(MID_RECENTFILE);
-    new FXMenuCascade(fileMenu, "Recent Networks", nullptr, fileMenuRecentNetworks);
+    new FXMenuCascade(fileMenu, TL("Recent Networks"), nullptr, fileMenuRecentNetworks);
 }
 
 
@@ -832,12 +832,12 @@ GUIApplicationWindow::buildRecentConfigs(FXMenuPane* fileMenu, FXMenuPane* fileM
     GUIDesigns::buildFXMenuCommandRecentFile(fileMenuRecentConfigs, "", &myRecentConfigs, FXRecentFiles::ID_FILE_9);
     GUIDesigns::buildFXMenuCommandRecentFile(fileMenuRecentConfigs, "", &myRecentConfigs, FXRecentFiles::ID_FILE_10);
     new FXMenuSeparator(fileMenuRecentConfigs);  // NOSONAR, Fox does the cleanup
-    GUIDesigns::buildFXMenuCommand(fileMenuRecentConfigs, "Cl&ear Recent Configs", nullptr, &myRecentConfigs, FXRecentFiles::ID_CLEAR);
-    GUIDesigns::buildFXMenuCommand(fileMenuRecentConfigs, "No Recent Configs", nullptr, &myRecentConfigs, MFXRecentNetworks::ID_NOFILES);
+    GUIDesigns::buildFXMenuCommand(fileMenuRecentConfigs, TL("Cl&ear Recent Configs"), nullptr, &myRecentConfigs, FXRecentFiles::ID_CLEAR);
+    GUIDesigns::buildFXMenuCommand(fileMenuRecentConfigs, TL("No Recent Configs"), nullptr, &myRecentConfigs, MFXRecentNetworks::ID_NOFILES);
     // set target
     myRecentConfigs.setTarget(this);
     myRecentConfigs.setSelector(MID_RECENTFILE);
-    new FXMenuCascade(fileMenu, "Recent Configs", nullptr, fileMenuRecentConfigs);
+    new FXMenuCascade(fileMenu, TL("Recent Configs"), nullptr, fileMenuRecentConfigs);
 }
 
 
