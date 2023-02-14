@@ -58,7 +58,7 @@ Further examples are shown below. Some of them are generated with the scenario a
 
 ### Special Attributes
 
-The following attribute values have a special meaning. Instead of using an attribute from the input file they derive a value based on the *other* attribute. (i.e. the special attribute is set for **--axattr** then the *other* value is given by the *--yattr*).
+The following attribute values have a special meaning. Instead of using an attribute from the input file they derive a value based on the *other* attribute. (i.e. the special attribute is set for **--xattr** then the *other* value is given by the **--yattr**).
 
 - `@INDEX`: the index of the *other* value within the input file is used.
 - `@RANK`: the index of the *other* value within the sorted (descending) list of values is used
