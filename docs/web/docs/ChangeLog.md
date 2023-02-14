@@ -10,6 +10,22 @@ title: ChangeLog
   - Attribute `lcCooperative` no longer impacts speed adjustments that a vehicle needs for it's personal lane change maneuvers. #9473
   - Fixed invalid interpretation of sublane positioning of junction leaders during lane changing. Issue #12580
   - Fixed unsuitable lateral alignment on bidi edge when preparing for a turning movement. Issue #11436
+  - Fixed collision at parallel lanes with different lengths. Issue #12590
+  - Fixed crash when using option **--collision.action remove** and vehicles crash after lane changing. Issue #12583
+
+- sumo-gui
+  - Fixed random (rare) crash when having an open detector attribute window. Issue #12595 (regression in 1.16.0)
+  - Flight mode navigation in 3D view is now working on Linux. Issue #12503
+
+- TraCI
+  - Fixed wrong edgeId in error message of `simulation.findIntermodalRoute`. Issue #12591
+  - Error when loading a state file now indicates possible version problem. Issue #12593
+  - Fixed problem when loading JAVA bindings for libsumo/libtraci via JNI. Caution: Windows users must update their code to load dependent libraries explicitly due to JAVA issues that cannot be fixed on the SUMO side. Issue #12605
+
+- tools
+  - Fixed invalid error when calling option **--save-template**. Issue #12589
+  - Selected python tools now handle 'stdout' and 'stderr' as magic file names (i.e. *gtfs2pt.py* with more tools to follow). Issue #12588
+  - Fixed broken routes for public transport from GTFS caused by invalid permissions. Issue #12276
 
 ### Enhancements
 
@@ -19,6 +35,7 @@ title: ChangeLog
 - sumo-gui
   - Dynamically modfied values for `latAlignment` (i.e. when preparing to turn) are now listed in the type-parameter dialog. Issue #12579
   - The attribute value that is used for scaling edge widths can now be drawn as an annotation. Issue #12544
+  - Statistic output now includes person teleport count. Issue #12271
 
 - TraCI
   - Added function `vehicle.setLateralLanePosition`. Issue #12568
@@ -26,8 +43,21 @@ title: ChangeLog
 - tools
   - Visualization tools now support option **--alpha** to set background transparancy. Issue #12556
   - Added new tool [generateRerouters.py](Tools/Misc.md#generatererouterspy) to generate rerouters for a given set of closed edges including automatic computation of suitable notification edges. Issue #12510
+  - racing.py: now supports collision sound. Issue #12540
+  - randomTrips.py: Added option **--random-factor** to apply random disturbances to edge probabilities (i.e. to break up symmetry in small networks). Issue #12603
+  - plotXMLAttributes.py:
+    - can plot by sorting rank with attribute value `@RANK`. Issue #12607
+    - can plot by input order with attribute value `@INDEX` (note that this was the behavior of @RANK in 1.16.0). Issue #12607
+    - can plot number of occurences (histogram) with attribute value `@COUNT`. Issue #11971
+    - supports binning of data via options **--xbin** and **--ybin** (i.e. for making histograms)
+    - supports bar plots via option **--barplot** and **--hbarplot**. Issue #12612
+    - supports box plots via option **-x @BOX** or **-y @BOX**. Issue #11994
+    - supports clamping of data range via option **--xclamp A:B** and **--yclamp C:D**
 
 ### Miscellaneous
+
+- tools
+  - Removed tool `plotXMLAttr.py` since it's functionality is covered by `plotXMLAttributes.py` (tool moved to 'purgatory' folder). Issue #11994.
 
 ## Version 1.16.0 (07.02.2023)
 
