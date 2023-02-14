@@ -91,6 +91,8 @@ def getOptions(args=None):
                          help="if --yattr is a list concatenate the values")
     optParser.add_option("--xfactor", help="multiplier for x-data", type=float, default=1)
     optParser.add_option("--yfactor", help="multiplier for y-data", type=float, default=1)
+    optParser.add_option("--xbin", help="binning size for x-data", type=float)
+    optParser.add_option("--ybin", help="binning size for y-data", type=float)
     optParser.add_option("--invert-yaxis", dest="invertYAxis", action="store_true",
                          default=False, help="Invert the Y-Axis")
     optParser.add_option("--scatterplot", action="store_true",
@@ -394,6 +396,13 @@ def useWildcards(labels):
     return False
 
 
+def binned(value, binsize):
+    if binsize is not None:
+        return int(value / binsize) * binsize
+    else:
+        return value
+
+
 def countPoints(xvalues):
     counts = defaultdict(lambda: 0)
     for x in xvalues:
@@ -492,11 +501,13 @@ def main(options):
             if isnumeric(x):
                 numericXCount += 1
                 x *= options.xfactor
+                x = binned(x, options.xbin)
             else:
                 stringXCount += 1
             if isnumeric(y):
                 numericYCount += 1
                 y *= options.yfactor
+                y = binned(y, options.ybin)
             else:
                 stringYCount += 1
 
