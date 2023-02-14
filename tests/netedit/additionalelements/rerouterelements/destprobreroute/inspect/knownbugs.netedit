@@ -1,0 +1,6 @@
+
+[Reported by Windows at 15Aug15:57:09]
+search_string:python: can't open file
+search_file:errors
+full_description:#3045
+brief_description:Test needed #3045

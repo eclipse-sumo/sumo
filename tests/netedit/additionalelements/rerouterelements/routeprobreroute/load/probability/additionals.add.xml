@@ -1,0 +1,20 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+
+    <route edges="center0 center1" color="yellow" id="route_0"/>
+
+    <rerouter id="rerouter_0" edges="center0 center1" pos="0.00,10.00">
+        <interval begin="0.00" end="3600.00">
+
+            <routeProbReroute id="route_0" />
+
+            <routeProbReroute id="route_0" probability="dummyProbability"/>
+
+            <routeProbReroute id="route_0" probability="-50"/>
+
+            <routeProbReroute id="route_0" probability="60"/>
+
+            <routeProbReroute id="route_0" probability="0.7"/>
+
+        </interval>
+    </rerouter>
+</additional>
