@@ -3870,7 +3870,7 @@ NBNode::sortEdges(bool useNodeShape) {
     }
 #ifdef DEBUG_EDGE_SORTING
     if (DEBUGCOND) {
-        std::cout << "sortedEdges:\n";
+        std::cout << "sortedEdges (useNodeShape=" << useNodeShape << "):\n";
         for (NBEdge* e : allEdges) {
             std::cout << "  " << e->getID()
                       << " angleToCenter=" << e->getAngleAtNodeToCenter(this)

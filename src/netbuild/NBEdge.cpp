@@ -2256,7 +2256,7 @@ NBEdge::computeAngle() {
 #ifdef DEBUG_ANGLES
     if (DEBUGCOND) {
         if (suspiciousFromShape) {
-            std::cout << "  len=" << shape.length() << " startA=" << myStartAngle << " startA2=" << myStartAngle2 << " startA3=" << myStartAngle3
+            std::cout << "suspiciousFromShape len=" << shape.length() << " startA=" << myStartAngle << " startA2=" << myStartAngle2 << " startA3=" << myStartAngle3
                       << " rel=" << NBHelpers::normRelAngle(myStartAngle, myStartAngle2)
                       << " fromCenter=" << fromCenter
                       << " fromPos=" << myFrom->getPosition()
@@ -2264,7 +2264,7 @@ NBEdge::computeAngle() {
                       << "\n";
         }
         if (suspiciousToShape) {
-            std::cout << " len=" << shape.length() << "  endA=" << myEndAngle << " endA2=" << myEndAngle2 << " endA3=" << myEndAngle3
+            std::cout << "suspiciousToShape len=" << shape.length() << "  endA=" << myEndAngle << " endA2=" << myEndAngle2 << " endA3=" << myEndAngle3
                       << " rel=" << NBHelpers::normRelAngle(myEndAngle, myEndAngle2)
                       << " toCenter=" << toCenter
                       << " toPos=" << myTo->getPosition()
