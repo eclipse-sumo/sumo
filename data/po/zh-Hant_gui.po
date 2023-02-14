@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-05 21:26+0100\n"
-"PO-Revision-Date: 2023-02-14 09:38+0000\n"
+"PO-Revision-Date: 2023-02-14 09:44+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
@@ -332,13 +332,10 @@ msgid "Show vehicles outside the road network"
 msgstr "顯示路網外的車輛"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:541
-#, fuzzy
 msgid ""
 "Show vehicles that are teleporting or driving remote-controlled outside the "
 "road network in locator dialog."
-msgstr ""
-"顯示路網外的車輛\t\t在定位對話窗中顯示在路網外被傳送(teleporting)或被遠程控制"
-"的車輛。"
+msgstr "在定位對話窗中顯示在路網外被遣送(teleporting)或被遠程控制的車輛。"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:547
 msgid "Simulation"
@@ -1720,7 +1717,7 @@ msgstr "車道之間的運具連接。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:594
 msgid "Pro&hibition"
-msgstr ""
+msgstr "禁止"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:594
 msgid "Modes connection prohibitions."
@@ -1845,7 +1842,7 @@ msgstr "建立edgeRelation要素。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:731
 msgid "TA&ZRelation"
-msgstr ""
+msgstr "交通分區關係線"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:731
 msgid "Create TAZRelation elements."
@@ -1853,7 +1850,7 @@ msgstr "建立TAZRelation 要素。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:734
 msgid "&MeanData"
-msgstr ""
+msgstr "&平均值資料"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:734
 msgid "Create MeanData edge/lanes."
@@ -2122,7 +2119,7 @@ msgstr "停靠點&"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1415
 msgid "&EdgeDatas"
-msgstr ""
+msgstr "&路段資料"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1420
 msgid "E&dgeRelDatas"
@@ -2198,7 +2195,7 @@ msgstr "在資料模式下重新計算路網"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1801
 msgid "RecomputeData"
-msgstr ""
+msgstr "重新計算資料"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1804
 msgid "Compute demand"
