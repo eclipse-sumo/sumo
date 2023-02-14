@@ -69,7 +69,7 @@ public:
 
     static GUIOSGView::OSGMovable buildMovable(const MSVehicleType& type);
 
-    static osg::Node* buildPlane(double length = 1000.);
+    static osg::Node* buildPlane(const float length = 1000.f); // OSG needs float coordinates here
 
 private:
     static osg::PositionAttitudeTransform* createTrafficLightState(const GUISUMOAbstractView::Decal& d, osg::Node* tl, const double withPole, const double size, osg::Vec4d color);

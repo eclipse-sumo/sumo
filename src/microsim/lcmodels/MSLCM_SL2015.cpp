@@ -2610,7 +2610,7 @@ MSLCM_SL2015::updateCFRelated(const MSLeaderDistanceInfo& vehicles, double foeOf
 #endif
                 myCFRelated.insert(vehDist.first);
             } else {
-                const int erased = myCFRelated.erase(vehDist.first);
+                const int erased = (int)myCFRelated.erase(vehDist.first);
 #ifdef DEBUG_BLOCKING
                 if (gDebugFlag2 && erased > 0) {
                     std::cout << "       restoring cfrelated foe=" << vehDist.first->getID()  << "\n";
