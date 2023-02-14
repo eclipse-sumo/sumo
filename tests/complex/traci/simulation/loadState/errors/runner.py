@@ -29,13 +29,15 @@ if "SUMO_HOME" in os.environ:
 import traci  # noqa
 import sumolib  # noqa
 
-traci.start([sumolib.checkBinary('sumo'), "-n", "input_net2.net.xml",
-             "--no-step-log"])
+traci.start([sumolib.checkBinary('sumo'), "-n", "input_net2.net.xml", "--no-step-log"])
 
+# missing file
 try:
     traci.simulation.loadState("input_st.xml")
 except traci.TraCIException as e:
     print(e)
+
+# broken file
 try:
     traci.simulation.loadState("input_state.xml")
 except traci.TraCIException as e:
