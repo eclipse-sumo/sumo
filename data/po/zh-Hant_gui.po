@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-05 21:26+0100\n"
-"PO-Revision-Date: 2023-02-14 09:36+0000\n"
+"PO-Revision-Date: 2023-02-14 09:38+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
@@ -324,9 +324,8 @@ msgid "Show Parking Vehicles"
 msgstr "顯示停車車輛"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:537
-#, fuzzy
 msgid "Show parking vehicles in locator dialog."
-msgstr "顯示停車車輛\t\t在定位對話窗中顯示停車車輛。"
+msgstr "在定位對話窗中顯示停車車輛。"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:541
 msgid "Show vehicles outside the road network"
