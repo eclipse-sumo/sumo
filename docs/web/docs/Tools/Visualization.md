@@ -250,6 +250,21 @@ python tools/visualization/plotXMLAttributes.py turnCounts.xml -i from,to -x beg
 
 <img src="../images/turn-counts.png" width="500px"/>
 
+
+### Boxplot: waiting time by departLane
+
+This plot demonstrates box-plotting for a single attribute (waitingTime). Optionally split by category (departLane). The call uses [tripinfo-output](Simulation/Output/TripInfo.md) from two different simulation runs as it's input.
+
+Call to generate the plot:
+```
+python tools/visualization/plotXMLAttributes.py tripinfos.xml tripinfos2.xml  -x waitingTime -y @BOX -i departLane --show
+```
+
+<img src="../images/boxplot_departLane_waitingTime_horiz.png" width="500px"/>
+
+!!! note
+    By swapping x-attribute and y-attribute the orientation of the boxplot can be changed from horizontal to vertical
+
 ## plot_trajectories.py
 
 Create plot of all trajectories in a given **--fcd-output** file. This tool in particular is located in {{SUMO}}/tools.
