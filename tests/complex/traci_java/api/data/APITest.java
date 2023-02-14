@@ -25,10 +25,10 @@ import org.eclipse.sumo.libtraci.*;
 public class APITest {
 
     public static void main(String[] args) {
-
-        if (System.getProperty("os.name").startsWith("Windows")) {
+        if (System.getProperty("os.name").startsWith("Windows") && Simulation.class.toString().contains("libsumo")) {
             System.loadLibrary("iconv-2");
             System.loadLibrary("intl-8");
+            System.loadLibrary("proj_9_0");
         }
         System.loadLibrary("libtracijni");
         String sumo_bin = "sumo";
