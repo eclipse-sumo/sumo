@@ -446,6 +446,9 @@ public:
     /// @brief called if the user selects help->Tutorial
     long onCmdTutorial(FXObject* sender, FXSelector sel, void* ptr);
 
+    /// @brief called if the user selects help->feedback
+    long onCmdFeedback(FXObject* sender, FXSelector sel, void* ptr);
+
     /// @brief called when toggle checkbox compute network when switching between supermodes
     long onCmdToggleComputeNetworkData(FXObject*, FXSelector, void*);
 

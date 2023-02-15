@@ -17,6 +17,8 @@
 ///
 // Functions from main window of netedit
 /****************************************************************************/
+
+#include <gui/dialogs/GUIDialog_Feedback.h>
 #include <netbuild/NBFrame.h>
 #include <netedit/dialogs/GNEAbout.h>
 #include <netedit/dialogs/GNEUndoListDialog.h>
@@ -358,6 +360,7 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_CHANGELOG,                      GNEApplicationWindow::onCmdChangelog),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEYS,                        GNEApplicationWindow::onCmdHotkeys),
     FXMAPFUNC(SEL_COMMAND,  MID_TUTORIAL,                       GNEApplicationWindow::onCmdTutorial),
+    FXMAPFUNC(SEL_COMMAND,  MID_FEEDBACK,                       GNEApplicationWindow::onCmdFeedback),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F12_ABOUT,               GNEApplicationWindow::onCmdAbout),
     // alt + <number>
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_ALT_0_TOGGLEEDITOPTION,  GNEApplicationWindow::onCmdToggleEditOptions),
@@ -2270,6 +2273,20 @@ GNEApplicationWindow::onCmdToggleComputeNetworkData(FXObject*, FXSelector, void*
 long
 GNEApplicationWindow::onCmdTutorial(FXObject*, FXSelector, void*) {
     MFXLinkLabel::fxexecute("https://sumo.dlr.de/docs/Tutorials/index.html");
+    return 1;
+}
+
+
+long
+GNEApplicationWindow::onCmdFeedback(FXObject*, FXSelector, void*) {
+    // write warning if netedit is running in testing mode
+    WRITE_DEBUG("Opening feedback dialog");
+    // create and open feedback dialog
+    GUIDialog_Feedback* feedback = new GUIDialog_Feedback(this);
+    feedback->create();
+    feedback->show(PLACEMENT_OWNER);
+    // write warning if netedit is running in testing mode
+    WRITE_DEBUG("Closed feedback dialog");
     return 1;
 }
 

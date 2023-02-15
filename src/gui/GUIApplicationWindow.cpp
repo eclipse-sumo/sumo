@@ -66,6 +66,7 @@
 #include "GUILoadThread.h"
 #include "GUIRunThread.h"
 #include "dialogs/GUIDialog_AboutSUMO.h"
+#include "dialogs/GUIDialog_Feedback.h"
 #include "dialogs/GUIDialog_AppSettings.h"
 #include "dialogs/GUIDialog_Breakpoints.h"
 #include "dialogs/GUIDialog_HallOfFame.h"
@@ -164,6 +165,7 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEYS,                                                GUIApplicationWindow::onCmdHotkeys),
     FXMAPFUNC(SEL_COMMAND,  MID_TUTORIAL,                                               GUIApplicationWindow::onCmdTutorial),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_F11_HALLOFFAME,                            GUIApplicationWindow::onCmdHallOfFame),
+    FXMAPFUNC(SEL_COMMAND,  MID_FEEDBACK,                                               GUIApplicationWindow::onCmdFeedback),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F12_ABOUT,                                       GUIApplicationWindow::onCmdAbout),
     // forward requests to the active view
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_J_LOCATEJUNCTION,      GUIApplicationWindow::onCmdLocate),
@@ -648,6 +650,8 @@ GUIApplicationWindow::fillMenuBar() {
                                            nullptr, this, MID_HOTKEYS);
     GUIDesigns::buildFXMenuCommandShortcut(myHelpMenu, TL("&Tutorial"), "", TL("Open Tutorial."),
                                            nullptr, this, MID_TUTORIAL);
+    GUIDesigns::buildFXMenuCommandShortcut(myHelpMenu, TL("&Feedback"), "", TL("Open feedback dialog."),
+                                           nullptr, this, MID_FEEDBACK);
     new FXMenuSeparator(myHelpMenu);
     GUIDesigns::buildFXMenuCommandShortcut(myHelpMenu, TL("&About"), "F12", TL("About sumo-gui."),
                                            GUIIconSubSys::getIcon(GUIIcon::SUMO_MINI), this, MID_HOTKEY_F12_ABOUT);
@@ -1680,12 +1684,23 @@ GUIApplicationWindow::onCmdNewOSG(FXObject*, FXSelector, void*) {
 
 
 long
+GUIApplicationWindow::onCmdFeedback(FXObject*, FXSelector, void*) {
+    // create and open feedback dialog
+    GUIDialog_Feedback* feedback = new GUIDialog_Feedback(this);
+    feedback->create();
+    feedback->show(PLACEMENT_OWNER);
+    return 1;
+}
+
+
+long
 GUIApplicationWindow::onCmdAbout(FXObject*, FXSelector, void*) {
     GUIDialog_AboutSUMO* about = new GUIDialog_AboutSUMO(this);
     about->create();
     about->show(PLACEMENT_OWNER);
     return 1;
 }
+
 
 long
 GUIApplicationWindow::onCmdHallOfFame(FXObject*, FXSelector, void*) {

@@ -2026,6 +2026,8 @@ GNEApplicationWindowHelper::HelpMenuCommands::buildHelpMenuCommands(FXMenuPane* 
                                            nullptr, myGNEApp, MID_HOTKEYS);
     GUIDesigns::buildFXMenuCommandShortcut(helpMenu, TL("&Tutorial"), "", TL("Open Tutorial."),
                                            nullptr, myGNEApp, MID_TUTORIAL);
+    GUIDesigns::buildFXMenuCommandShortcut(helpMenu, TL("&Feedback"), "", TL("Open feedback channels."),
+                                           nullptr, myGNEApp, MID_FEEDBACK);
     new FXMenuSeparator(helpMenu);
     GUIDesigns::buildFXMenuCommandShortcut(helpMenu, TL("&About"), "F12", TL("About netedit."),
                                            GUIIconSubSys::getIcon(GUIIcon::NETEDIT_MINI), myGNEApp, MID_HOTKEY_F12_ABOUT);

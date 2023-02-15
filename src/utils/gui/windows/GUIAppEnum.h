@@ -645,6 +645,8 @@ enum {
     MID_HOTKEYS,
     ///@brief tutorial button
     MID_TUTORIAL,
+    ///@brief feedback button
+    MID_FEEDBACK,
 
     /// @name dynamic interaction with the simulation via SUMO-GUI
     /// @{

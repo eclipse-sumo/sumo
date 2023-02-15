@@ -221,6 +221,9 @@ public:
     /// @brief Toggle listing of teleporting vehicles
     long onCmdListTeleporting(FXObject*, FXSelector, void*);
 
+    /// @brief Shows the feedback dialog
+    long onCmdFeedback(FXObject*, FXSelector, void*);
+
     /// @brief Shows the about dialog
     long onCmdAbout(FXObject*, FXSelector, void*);
 
