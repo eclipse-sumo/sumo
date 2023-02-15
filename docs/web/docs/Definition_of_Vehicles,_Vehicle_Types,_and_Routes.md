@@ -399,7 +399,7 @@ Determines the edge along the vehicles route where the vehicle leaves the networ
 
 ### arrivalPosLat
 
-The lateral position on the departure lane at which the vehicle tries to finish its route
+The lateral position on the arrival lane at which the vehicle tries to finish its route
 
 - FLOAT: the offset from the center of the line, a positive value indicates an offset to the right (in right-hand networks).
 - `"default"`: the vehicle may arrive at an arbitrary offset
