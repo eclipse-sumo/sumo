@@ -5080,16 +5080,21 @@ MSVehicle::enterLaneAtLaneChange(MSLane* enteredLane) {
     MSLane* lane = myLane;
     double leftLength = getVehicleType().getLength() - myState.myPos;
     int deleteFurther = 0;
+#ifdef DEBUG_SETFURTHER
+    if (DEBUG_COND) {
+        std::cout << SIMTIME << " enterLaneAtLaneChange entered=" << Named::getIDSecure(enteredLane) << " oldFurther=" << toString(myFurtherLanes) << "\n";
+    }
+#endif
     for (int i = 0; i < (int)myFurtherLanes.size(); i++) {
         if (lane != nullptr) {
             lane = lane->getLogicalPredecessorLane(myFurtherLanes[i]->getEdge());
         }
-        if (lane != nullptr) {
 #ifdef DEBUG_SETFURTHER
-            if (DEBUG_COND) {
-                std::cout << SIMTIME << " enterLaneAtLaneChange \n";
-            }
+        if (DEBUG_COND) {
+            std::cout << "  enterLaneAtLaneChange i=" << i << " lane=" << lane->getID() << " leftLength=" << leftLength << "\n";
+        }
 #endif
+        if (lane != nullptr) {
             myFurtherLanes[i]->resetPartialOccupation(this);
             // lane changing onto longer lanes may reduce the number of
             // remaining further lanes
