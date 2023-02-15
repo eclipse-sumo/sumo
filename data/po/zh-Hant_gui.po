@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-15 15:23+0000\n"
+"PO-Revision-Date: 2023-02-16 07:27+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
@@ -3431,7 +3431,7 @@ msgstr " 到選定的車道"
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2939
 msgid ""
 "All lanes own already another lane in the same edge with a restriction for "
-msgstr ""
+msgstr "在有受一個限制的同一路段上的所有車道已經有另一條車道 "
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2866
 msgid " lanes will be restricted for "
@@ -3470,125 +3470,125 @@ msgstr "為...新增vclass "
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:3032
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:3040
 msgid "Remove vclass for "
-msgstr ""
+msgstr "為...刪除車輛類別(vclass) "
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:3033
 msgid " from selected lanes"
-msgstr ""
+msgstr " 從選定的車道"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:3034
 msgid "Selected lanes and edges haven't a restriction for "
-msgstr ""
+msgstr "選定的車道和路段對於....沒有限制 "
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:3041
 msgid " in selected lanes"
-msgstr ""
+msgstr " 在選定的車道們內"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:3043
 msgid " will be removed. Continue?"
-msgstr ""
+msgstr " 將被刪除。繼續執行？"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:3070
 msgid "emove vclass for "
-msgstr ""
+msgstr "為...刪除車輛類別(vclass) "
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:3212
 msgid "reset edge endpoints"
-msgstr ""
+msgstr "重新設定路段端點"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:3257
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:3524
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:3559
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:3582
 msgid "Grid is still active, press ctrl+g to deactivate"
-msgstr ""
+msgstr "網格仍處於使用中狀態，按 ctrl+g 停用"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:3276
 msgid "reset custom junction shapes"
-msgstr ""
+msgstr "重置自定的路口形狀"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:3283
 msgid "reset custom junction shape"
-msgstr ""
+msgstr "重置自定的路口形狀"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:3394
 msgid "clear connections of selected junctions"
-msgstr ""
+msgstr "清除所選路口的連接線(connections)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:3426
 msgid "reset connections of selected junctions"
-msgstr ""
+msgstr "重置所選路口的連接線(connections)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:3450
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:3477
 msgid "add TLS in multiple junctions"
-msgstr ""
+msgstr "於多個路口上新增交通號誌(TLS)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:5562
 msgid "Shift + click to create two additionals in the same position"
-msgstr ""
+msgstr "移位鍵(shift) + 點選(click) 將在同一個位置上新稱兩個附加項(additionals)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:5811
 msgid "Control + click to create two stop in the same position"
-msgstr ""
+msgstr "控制鍵 (Control)+ 點選(click)將在同一位置上新增兩個停靠站"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:1448
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:1469
 msgid "moving selection"
-msgstr ""
+msgstr "移動選擇"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:1649
 msgid "Selection width:"
-msgstr ""
+msgstr "選擇寬度："
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:1650
 msgid " height:"
-msgstr ""
+msgstr " 高度："
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:1651
 msgid " diagonal:"
-msgstr ""
+msgstr " 對角線："
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:1815
 msgid "selection using rectangle"
-msgstr ""
+msgstr "使用矩形進行選擇"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:1849
 #, c-format
 msgid "Invalid windows size-format: %for option 'window-size'"
-msgstr ""
+msgstr "無效的視窗尺寸格式：% 選項'視窗尺寸'"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:1927
 msgid "Save NETEDITConfig"
-msgstr ""
+msgstr "儲存netedit的設定檔案"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:1927
 msgid "Save NETEDITConfig. (Ctrl+Shift+E)"
-msgstr ""
+msgstr "儲存neteidt設定檔案。 (Ctrl+Shift+E)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:1933
 msgid "Save SumoConfig"
-msgstr ""
+msgstr "儲存sumo設定檔案"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:1933
 msgid "Save SumoConfig. (Ctrl+Shift+S)"
-msgstr ""
+msgstr "儲存sumo設定檔案。 (Ctrl+Shift+S)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:1939
 msgid "Save network"
-msgstr ""
+msgstr "儲存路網"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:1939
 msgid "Save network. (Ctrl+S)"
-msgstr ""
+msgstr "儲存路網。(Ctrl+S)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:1947
 msgid "Save individual files"
-msgstr ""
+msgstr "儲存個別檔案"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:1947
 msgid "Save individual files."
-msgstr ""
+msgstr "儲存個別檔案。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:1953
 msgid "Save additional elements"
@@ -3624,7 +3624,7 @@ msgstr "儲存meanData要素。(Ctrl+Shift+M)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2019
 msgid "Network"
-msgstr ""
+msgstr "路網"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2019
 msgid "Edit network elements"
@@ -3636,7 +3636,7 @@ msgstr "設定編輯路網要素的模式。(F2)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2026
 msgid "Demand"
-msgstr ""
+msgstr "需求"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2026
 msgid "Edit traffic demand elements"
@@ -3644,11 +3644,11 @@ msgstr "編輯交通需求要素"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2026
 msgid "Set mode for edit traffic demand. (F3)"
-msgstr ""
+msgstr "設定編輯交通需求的模式。（F3）"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2033
 msgid "Data"
-msgstr ""
+msgstr "資料"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2033
 msgid "Edit data elements"
@@ -3656,49 +3656,49 @@ msgstr "編輯資料要素"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2033
 msgid "Set mode for edit data demand. (F4)"
-msgstr ""
+msgstr "設定編輯資料需求的模式。(F4)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2046
 msgid "Mode already selected"
-msgstr ""
+msgstr "已經選定模式"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2131
 msgid "Network mode already selected"
-msgstr ""
+msgstr "已選擇路網模式"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2136
 msgid "Save modifications in TLS before change mode"
-msgstr ""
+msgstr "在改變模式前將修改的交通號誌(TLS)進行儲存"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2181
 msgid "Demand mode already selected"
-msgstr ""
+msgstr "已選擇需求模式"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2216
 msgid "Data mode already selected"
-msgstr ""
+msgstr "已選擇資料模式"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2297
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2608
 msgid ""
 "Show grid and restrict movement to the grid - define grid size in "
 "visualization options. (Ctrl+G)"
-msgstr ""
+msgstr "顯示網格及限制到網格的移動 - 在視覺化選項中定義網格尺寸。（按 Ctrl+G）"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2305
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2616
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2903
 msgid "Toggle hiding junction shape. (Ctrl+J)"
-msgstr ""
+msgstr "切換隱藏路口形狀。（按 Ctrl+J）"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2313
 msgid "Draw vehicles spread in lane or depart position"
-msgstr ""
+msgstr "繪製在車道上或是在出發位置上的車輛"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2313
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2624
 msgid "Draw vehicles spread in lane or in depart position."
-msgstr ""
+msgstr "繪製在車道上或是在出發位置上的車輛。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2321
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2925
@@ -3707,16 +3707,16 @@ msgstr "切換顯示需求要素。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2329
 msgid "Clicks target lanes"
-msgstr ""
+msgstr "點擊目標車道"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2329
 msgid ""
 "Toggle whether clicking should inspect/select/delete lanes instead of edges."
-msgstr ""
+msgstr "切換是否應檢查/選擇/刪除車道, 而不是路段。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2336
 msgid "Toggle show connections over junctions."
-msgstr ""
+msgstr "切換顯示路口內的連接線(connection)。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2344
 msgid "Toggle hide connections."
