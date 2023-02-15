@@ -74,22 +74,26 @@ MFXListItem::MFXListItem(const FXString& text, FXIcon* ic, FXColor backGroundCol
 
 void
 MFXListItem::draw(const FXList* myList, FXDC& dc, FXint xx, FXint yy, FXint ww, FXint hh) {
-    // almost the same code as FXListItem::draw except for using custom background color
-    FXFont* font = myList->getFont();
+    register FXFont *font = myList->getFont();
+    register FXint ih = 0, th = 0;
+    ih = ICON_SIZE;
+    if (!label.empty()) {
+        th = font->getFontHeight();
+    }
     if (isSelected()) {
         dc.setForeground(myList->getSelBackColor());
     } else {
-        dc.setForeground(myBackGroundColor);
+        dc.setForeground(myBackGroundColor);     // FIXME maybe paint background in onPaint?
     }
     dc.fillRectangle(xx, yy, ww, hh);
     if (hasFocus()) {
         dc.drawFocusRectangle(xx + 1, yy + 1, ww - 2, hh - 2);
     }
-    xx += SIDE_SPACING / 2;
+    xx += SIDE_SPACING/2;
     if (icon) {
-        dc.drawIcon(icon, xx, yy + (hh - 16) / 2);
-        xx += ICON_SPACING + icon->getWidth();
+        dc.drawIcon(icon, xx, yy + (hh - ih) / 2);
     }
+    xx += ICON_SPACING + ICON_SIZE;
     if (!label.empty()) {
         dc.setFont(font);
         if (!isEnabled()) {
@@ -99,19 +103,13 @@ MFXListItem::draw(const FXList* myList, FXDC& dc, FXint xx, FXint yy, FXint ww, 
         } else {
             dc.setForeground(myList->getTextColor());
         }
-        dc.drawText(xx, yy + (hh - 16) / 2 + font->getFontAscent(), label);
+        dc.drawText(xx, yy + (hh - th) / 2 + font->getFontAscent(), label);
     }
 }
 
 const FXColor&
 MFXListItem::getBackGroundColor() const {
     return myBackGroundColor;
-}
-
-
-FXint
-MFXListItem::getHeight(const FXList* /*list*/) const {
-    return (ICON_SIZE + ICON_SPACING);
 }
 
 

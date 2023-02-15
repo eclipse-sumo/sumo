@@ -39,9 +39,6 @@ public:
 
     /// @brief get background color
     const FXColor& getBackGroundColor() const;
-    
-    /// @brief Return height of item as drawn in list
-    FXint getHeight(const FXList* list) const;
 
 protected:
     /// @brief fox need this
