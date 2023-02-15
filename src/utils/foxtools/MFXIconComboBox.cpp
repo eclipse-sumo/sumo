@@ -34,10 +34,10 @@
 
 
 #define SIDE_SPACING        6   // Left or right spacing between items
-#define ICON_SPACING        4   // Spacing between icon and label
+#define ICON_SPACING        4   // Spacing between icon and label (2 + 2)
+#define ICON_SIZE           16
 #define COMBOBOX_INS_MASK   (COMBOBOX_REPLACE | COMBOBOX_INSERT_BEFORE | COMBOBOX_INSERT_AFTER | COMBOBOX_INSERT_FIRST | COMBOBOX_INSERT_LAST)
 #define COMBOBOX_MASK       (COMBOBOX_STATIC | COMBOBOX_INS_MASK)
-#define ICON_HEIGHT         20
 
 // Map
 FXDEFMAP(MFXIconComboBox) MFXIconComboBoxMap[] = {
@@ -106,6 +106,12 @@ MFXListItem::draw(const FXList* myList, FXDC& dc, FXint xx, FXint yy, FXint ww, 
 const FXColor&
 MFXListItem::getBackGroundColor() const {
     return myBackGroundColor;
+}
+
+
+FXint
+MFXListItem::getHeight(const FXList* /*list*/) const {
+    return (ICON_SIZE + ICON_SPACING);
 }
 
 
@@ -288,8 +294,7 @@ MFXIconComboBox::setText(FXString text) {
 void
 MFXIconComboBox::setNumVisible(FXint nvis) {
     myList->setNumVisible(nvis);
-    // set height manually (margin top + ICON_HEIGHT + margin bot)
-    myList->setHeight(nvis * (16 + 4));
+    myList->setHeight(nvis * (ICON_SIZE + ICON_SPACING));
 }
 
 
