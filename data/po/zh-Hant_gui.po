@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-15 14:00+0000\n"
+"PO-Revision-Date: 2023-02-15 14:38+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
@@ -735,21 +735,21 @@ msgstr "載入模擬狀態"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1348
 msgid "State loaded from '%'."
-msgstr ""
+msgstr "從 '%'載入模擬狀態(state)。"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1350
 msgid "Failed to load state from '%' (%)."
-msgstr ""
+msgstr "無法從 '%' (%)載入模擬狀態(state) 。"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1784
 #, c-format
 msgid "Loading of '%' failed!"
-msgstr ""
+msgstr "載入 '%'失敗！"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1798
 #, c-format
 msgid "'%' loaded."
-msgstr ""
+msgstr "已載入。"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1996
 msgid "Simulation ended"
@@ -757,7 +757,7 @@ msgstr "模擬結束"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:2094
 msgid "Loading '%'."
-msgstr ""
+msgstr "'%'載入中。"
 
 #: /home/micha/programming/sumo/src/gui/GUILoadThread.cpp:206
 msgid "Could not load edgedata-files '%'"
@@ -995,11 +995,11 @@ msgstr "&重新載入路網"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1298
 msgid "Loading of '"
-msgstr ""
+msgstr "...載入中"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1303
 msgid "'"
-msgstr ""
+msgstr "'"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1303
 msgid "' loaded."
@@ -1011,7 +1011,7 @@ msgstr "&運具"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1429
 msgid "L&ock"
-msgstr ""
+msgstr "鎖定"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1436
 msgid "&Processing"
