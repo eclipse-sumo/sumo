@@ -2110,6 +2110,9 @@ protected:
     /// @brief whether the give lane is reverse direction of the current route or not
     bool isOppositeLane(const MSLane* lane) const;
 
+    /// @brief remove vehicle from further lanes (on leaving the network)
+    void cleanupFurtherLanes();
+
 private:
     /// @brief The per vehicle variables of the car following model
     MSCFModel::VehicleVariables* myCFVariables;

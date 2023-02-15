@@ -989,6 +989,18 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars, ConstMSRoutePtr route,
 
 
 MSVehicle::~MSVehicle() {
+    cleanupFurtherLanes();
+    delete myLaneChangeModel;
+    if (myType->isVehicleSpecific()) {
+        MSNet::getInstance()->getVehicleControl().removeVType(myType);
+    }
+    delete myInfluencer;
+    delete myCFVariables;
+}
+
+
+void
+MSVehicle::cleanupFurtherLanes() {
     for (std::vector<MSLane*>::iterator i = myFurtherLanes.begin(); i != myFurtherLanes.end(); ++i) {
         (*i)->resetPartialOccupation(this);
     }
@@ -998,16 +1010,9 @@ MSVehicle::~MSVehicle() {
         myLaneChangeModel->cleanupTargetLane();
         // still needed when calling resetPartialOccupation (getShadowLane) and when removing
         // approach information from parallel links
-        delete myLaneChangeModel;
     }
     myFurtherLanes.clear();
     myFurtherLanesPosLat.clear();
-    //
-    if (myType->isVehicleSpecific()) {
-        MSNet::getInstance()->getVehicleControl().removeVType(myType);
-    }
-    delete myInfluencer;
-    delete myCFVariables;
 }
 
 
@@ -1021,6 +1026,9 @@ MSVehicle::onRemovalFromNet(const MSMoveReminder::Notification reason) {
     MSVehicleTransfer::getInstance()->remove(this);
     removeApproachingInformation(myLFLinkLanes);
     leaveLane(reason);
+    if (reason == MSMoveReminder::NOTIFICATION_VAPORIZED_COLLISION) {
+        cleanupFurtherLanes();
+    }
 }
 
 
