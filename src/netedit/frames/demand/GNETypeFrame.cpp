@@ -122,11 +122,15 @@ GNETypeFrame::TypeSelector::refreshTypeSelector() {
             myTypeComboBox->appendIconItem(vType->getID().c_str(), vType->getACIcon(), FXRGB(255, 255, 200));
         }
     }
-    // fill myTypeMatchBox with list of VTypes IDs
+    // fill myTypeMatchBox with list of VTypes IDs sorted by ID
+    std::map<std::string, GNEDemandElement*> types;
     for (const auto& vType : myTypeFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
         if (DEFAULT_VTYPES.count(vType->getID()) == 0) {
-            myTypeComboBox->appendIconItem(vType->getID().c_str(), vType->getACIcon());
+            types[vType->getID()] = vType;
         }
+    }
+    for (const auto& vType : types) {
+        myTypeComboBox->appendIconItem(vType.first.c_str(), vType.second->getACIcon());
     }
     // Set visible items
     if (myTypeComboBox->getNumItems() <= 20) {
