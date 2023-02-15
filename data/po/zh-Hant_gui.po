@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-14 09:44+0000\n"
+"PO-Revision-Date: 2023-02-15 14:00+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
@@ -692,11 +692,11 @@ msgstr "開啟EdgeData"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1167
 msgid "Reloading."
-msgstr ""
+msgstr "重新輸入."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1177
 msgid "Quick-Reloading."
-msgstr ""
+msgstr "快速重新載入。"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1187
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1067
@@ -709,11 +709,11 @@ msgstr "儲存SUMO設定檔"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1214
 msgid "Configuration saved to %."
-msgstr ""
+msgstr "設定檔案儲存於%。"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1216
 msgid "Could not save configuration to %."
-msgstr ""
+msgstr "無法將設定檔案儲存於%。"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1272
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1298
@@ -727,7 +727,7 @@ msgstr "儲存模擬狀態"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1328
 msgid "Simulation state saved to '%'."
-msgstr ""
+msgstr "模擬狀態保存到 '%'。"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1336
 msgid "Load Simulation State"
