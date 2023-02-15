@@ -270,7 +270,7 @@ python tools/visualization/plotXMLAttributes.py turnCounts.xml -i from,to -x beg
 
 ### Boxplot: waiting time by departLane
 
-This plot demonstrates box-plotting for a single attribute (waitingTime). Optionally split by category (departLane). The call uses [tripinfo-output](Simulation/Output/TripInfo.md) from two different simulation runs as it's input.
+This plot demonstrates box-plotting for a single attribute (waitingTime). Optionally split by category (departLane). The call uses [tripinfo-output](../Simulation/Output/TripInfo.md) from two different simulation runs as it's input.
 
 Call to generate the plot:
 ```
