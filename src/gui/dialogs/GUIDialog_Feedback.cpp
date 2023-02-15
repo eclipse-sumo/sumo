@@ -33,32 +33,25 @@
 // ===========================================================================
 
 GUIDialog_Feedback::GUIDialog_Feedback(FXWindow* parent) :
-    FXDialogBox(parent, "About Eclipse SUMO sumo-gui", GUIDesignDialogBox) {
+    FXDialogBox(parent, "Feedback", GUIDesignDialogBox) {
     // set dialog icon
     setIcon(GUIIconSubSys::getIcon(GUIIcon::SUMO_MINI));
-
     // create frame for main info
     FXHorizontalFrame* mainInfoFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-
     // SUMO Icon
     new FXLabel(mainInfoFrame, "", GUIIconSubSys::getIcon(GUIIcon::SUMO_LOGO), GUIDesignLabelIcon);
-
-    // "SUMO <VERSION>"
-    FXVerticalFrame* descriptionFrame = new FXVerticalFrame(mainInfoFrame, GUIDesignLabelAboutInfo);
-    myHeadlineFont = new FXFont(getApp(), "Arial", 18, FXFont::Bold);
-    new FXLabel(descriptionFrame, "Eclipse SUMO - Simulation of Urban MObility", nullptr, GUIDesignLabelAboutInfo);
-    new FXLabel(descriptionFrame, "Graphical user interface for the microscopic, multi-modal traffic simulation SUMO.", nullptr, GUIDesignLabelAboutInfo);
-    new FXLabel(descriptionFrame, HAVE_ENABLED, nullptr, GUIDesignLabelAboutInfo);
-
-    // copyright notice
-    new FXLabel(this, "Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.", nullptr, GUIDesignLabelAboutInfo);
-    new FXLabel(this, "This application is based on code provided by the Eclipse SUMO project.", nullptr, GUIDesignLabelAboutInfo);
-    new FXLabel(this, "These core components are available under the conditions of the Eclipse Public License v2.", nullptr, GUIDesignLabelAboutInfo);
-    (new MFXLinkLabel(this, "SPDX-License-Identifier: EPL-2.0", nullptr, GUIDesignLabelAboutInfo))->setTipText("https://www.eclipse.org/legal/epl-v20.html");
-
-    // link to homepage
-    (new MFXLinkLabel(this, "https://www.eclipse.org/sumo", nullptr, GUIDesignLabelCenter))->setTipText("https://www.eclipse.org/sumo");
-
+    // create frame for links
+    FXVerticalFrame* linksFrame = new FXVerticalFrame(mainInfoFrame, GUIDesignLabelAboutInfo);
+    // general problem solving
+    (new MFXLinkLabel(linksFrame, TL("- General problem solving"), nullptr, GUIDesignLabelLeft))->setTipText("https://sumo.dlr.de/docs/FAQ.html#general_problem_solving");
+    // empty label
+    new FXLabel(linksFrame, " ", nullptr, GUIDesignLabelAboutInfo);
+    // mailing list
+    (new MFXLinkLabel(linksFrame, TL("- Sumo-user mailing list"), nullptr, GUIDesignLabelLeft))->setTipText("https://accounts.eclipse.org/mailing-list/sumo-user");
+    // empty label
+    new FXLabel(linksFrame, " ", nullptr, GUIDesignLabelAboutInfo);
+    // link to Email page
+    (new MFXLinkLabel(linksFrame, TL("- Send us an Email"), nullptr, GUIDesignLabelLeft))->setTipText("https://www.dlr.de/ts/en/desktopdefault.aspx/tabid-1231/mailcontact-30303/");
     // centered ok-button
     FXHorizontalFrame* buttonFrame = new FXHorizontalFrame(this, GUIDesignHorizontalFrame);
     new FXHorizontalFrame(buttonFrame, GUIDesignAuxiliarHorizontalFrame);
@@ -71,11 +64,5 @@ void
 GUIDialog_Feedback::create() {
     FXDialogBox::create();
 }
-
-
-GUIDialog_Feedback::~GUIDialog_Feedback() {
-    delete myHeadlineFont;
-}
-
 
 /****************************************************************************/

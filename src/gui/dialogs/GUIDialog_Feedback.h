@@ -27,7 +27,7 @@
 // ===========================================================================
 /**
  * @class GUIDialog_Feedback
- * @brief The application's "About" - dialog
+ * @brief The application's "Feedback" dialog
  */
 class GUIDialog_Feedback : public FXDialogBox {
 
@@ -37,13 +37,6 @@ public:
      */
     GUIDialog_Feedback(FXWindow* parent);
 
-    /// @brief Destructor
-    ~GUIDialog_Feedback();
-
     /// @brief Creates the widget
     void create();
-
-private:
-    /// @brief Font for the widget
-    FXFont* myHeadlineFont;
 };
