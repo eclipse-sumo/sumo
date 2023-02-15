@@ -24,3 +24,6 @@ ticket12455
 
 # emergency braking on junction due to invalid junction leader
 ticket12511
+
+# crash when lane changing while turning
+ticket12618
