@@ -1,5 +1,6 @@
 <configuration>
     <additional-files value="None" help="define additional files to be loaded by the router"/>
+    <allow-roundabouts value="False" help="Permit trips that start or end inside a roundabout"/>
     <allow-fringe value="False" help="Allow departing on edges that leave the network and arriving on edges that enter the network (via turnarounds or as 1-edge trips"/>
     <allow-fringe.min-length value="None" help="Allow departing on edges that leave the network and arriving on edges that enter the network, if they have at least the given length"/>
     <angle value="90.0" help="weight edge probability by angle [0-360] relative to the network center"/>
