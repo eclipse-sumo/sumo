@@ -2255,7 +2255,7 @@ GNEApplicationWindow::onCmdChangelog(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdHotkeys(FXObject*, FXSelector, void*) {
-    MFXLinkLabel::fxexecute("https://sumo.dlr.de/docs/sumo-gui.html#keyboard_shortcuts");
+    MFXLinkLabel::fxexecute("https://sumo.dlr.de/docs/Netedit/shortcuts.html");
     return 1;
 }
 
