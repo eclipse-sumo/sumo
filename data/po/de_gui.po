@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
 "PO-Revision-Date: 2023-02-15 14:00+0000\n"
-"Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
+"Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
 "Language: de\n"
@@ -7834,7 +7834,7 @@ msgstr "Standardfahrzeugtyp '%' kann nicht entfernt werden"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:316
 msgid "Center"
-msgstr "Zentrum"
+msgstr "Zentrieren"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:323
 msgid "Inspect"
