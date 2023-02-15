@@ -590,7 +590,7 @@ TRACI_CONST int STOP_PARKING_AREA = 0x40;
 TRACI_CONST int STOP_OVERHEAD_WIRE = 0x80;
 
 // ****************************************
-// Departure Flags
+// Departure Flags (corresponding value from DepartDefinition, DepartLaneDefinition with a minus)
 // ****************************************
 TRACI_CONST int DEPARTFLAG_TRIGGERED = -0x01;
 TRACI_CONST int DEPARTFLAG_CONTAINER_TRIGGERED = -0x02;
