@@ -129,8 +129,8 @@ are listed below:
 - Ctrl-LeftClick: toggle selection status of object under cursor
 - Arrow Keys: move the view
 - Ctrl + Arrow keys: move the view less
-- PageUp / PageDow: move the view up/down (a lot)
-- Shift + PageUp / PageDow: move the view left/right (a lot)
+- Alt + Arrow keys: move the view a lot
+- PageUp / PageDow: change simulation delay
 - \+/-, Keypad +/-: zoom in/out
 - Home/Keypad Home: recenter view
 - F9: open view settings dialog
