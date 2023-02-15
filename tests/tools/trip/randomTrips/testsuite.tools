@@ -77,6 +77,12 @@ additional_and_vClass
 # only permit fringe origins/destinations
 fringe_factor_max
 
+# do not start/end trips on roundabout
+roundabout
+
+# explicitly permit trips that start/end trips on roundabout
+roundabout_allow
+
 # This test suite checks that argument forwarding to duarouter works correctly.
 duarouter_options
 
