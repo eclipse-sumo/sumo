@@ -21,6 +21,7 @@ Prepare gettext pot and po files for all languages.
 from __future__ import absolute_import
 from __future__ import print_function
 import os
+import io
 import subprocess
 import difflib
 from glob import glob
@@ -64,7 +65,7 @@ def generate_po(sumo_home, path, languages, pot_file, gui_pot_file, fuzzy):
         os.remove(sources.name)
         has_diff = True
         if os.path.exists(pot):
-            with open(pot, encoding="utf-8") as old, open(pot + ".new", encoding="utf-8") as new:
+            with io.open(pot, encoding="utf-8") as old, io.open(pot + ".new", encoding="utf-8") as new:
                 a = [s for s in old.readlines() if not s.startswith(("#", '"POT-Creation-Date:'))]
                 b = [s for s in new.readlines() if not s.startswith(("#", '"POT-Creation-Date:'))]
                 has_diff = list(difflib.unified_diff(a, b))
