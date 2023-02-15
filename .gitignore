@@ -17,12 +17,7 @@
 /clang*
 /cmake-build*
 /cmake_build*
-/build/cmake-build*
-/build/cmake_build*
-/build/cmake-codeblocks*
-/build/cmake-clang*
-/build/cmake-mingw*
-/build/vscode*
+/build/*
 /out
 # bin dir
 /bin/TraCITestClient*
