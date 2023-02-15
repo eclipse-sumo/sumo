@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-15 14:52+0000\n"
+"PO-Revision-Date: 2023-02-15 15:23+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
@@ -2515,7 +2515,7 @@ msgstr "netedit的設定檔案 (*.neteditcfg)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2653
 msgid "Open netedit Config file"
-msgstr ""
+msgstr "開啟netedit的設定檔案"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2663
 msgid "Save SUMO Config file as"
@@ -2654,7 +2654,7 @@ msgstr "開啟SUMO路網"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:252
 msgid "Open a configuration file (netedit o NETCONVERT config)"
-msgstr ""
+msgstr "開啟設定檔案(netedit 或是 NETCONVERT 的設定檔)"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:253
 msgid "Open a SUMO config file"
