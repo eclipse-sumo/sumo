@@ -8,10 +8,10 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-13 12:47+0000\n"
-"Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
-"gui-netedit/de/>\n"
+"PO-Revision-Date: 2023-02-15 14:00+0000\n"
+"Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
+"sumo-gui-netedit/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -706,11 +706,11 @@ msgstr "Lade EdgeData"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1167
 msgid "Reloading."
-msgstr ""
+msgstr "Nachladung."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1177
 msgid "Quick-Reloading."
-msgstr ""
+msgstr "Schnelles Nachladen."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1187
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1067
@@ -723,11 +723,11 @@ msgstr "Speichere Simulationskonfiguration"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1214
 msgid "Configuration saved to %."
-msgstr ""
+msgstr "Konfiguration wurde in % gespeichert."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1216
 msgid "Could not save configuration to %."
-msgstr ""
+msgstr "Konnte die Konfiguration nicht in % speichern."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1272
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1298
@@ -741,7 +741,7 @@ msgstr "Speichere Simulationsstand"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1328
 msgid "Simulation state saved to '%'."
-msgstr ""
+msgstr "Simulationsstand in '%' gespeichert."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1336
 msgid "Load Simulation State"
@@ -749,21 +749,22 @@ msgstr "Lade Simulationsstand"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1348
 msgid "State loaded from '%'."
-msgstr ""
+msgstr "Stand von '%' geladen."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1350
+#, fuzzy
 msgid "Failed to load state from '%' (%)."
-msgstr ""
+msgstr "Laden vom Stand von '%' fehlgeschlagen (%)."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1784
 #, c-format
 msgid "Loading of '%' failed!"
-msgstr ""
+msgstr "Laden von '%' fehlgeschlagen!"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1798
 #, c-format
 msgid "'%' loaded."
-msgstr ""
+msgstr "'%' geladen."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1996
 msgid "Simulation ended"
@@ -771,7 +772,7 @@ msgstr "Simulation beendet"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:2094
 msgid "Loading '%'."
-msgstr ""
+msgstr "Lade '%'."
 
 #: /home/micha/programming/sumo/src/gui/GUILoadThread.cpp:206
 msgid "Could not load edgedata-files '%'"
@@ -1015,11 +1016,11 @@ msgstr "Lade Netz erneut"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1298
 msgid "Loading of '"
-msgstr ""
+msgstr "Laden von '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1303
 msgid "'"
-msgstr ""
+msgstr "'"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1303
 msgid "' loaded."
@@ -1083,7 +1084,7 @@ msgstr "Importoptionen auswählen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1702
 msgid "Loading OSM file '"
-msgstr ""
+msgstr "Lade OSM-Datei '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1724
 msgid "Recompute with volatile options"
@@ -1160,12 +1161,13 @@ msgid "Joined junctions saved to '"
 msgstr "Vereinigte Knoten gespeichert in '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3156
+#, fuzzy
 msgid "Netedit configuration saved in '"
-msgstr ""
+msgstr "Netedit-Konfiguration wurde in ' gespeichert"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3162
 msgid "Could not save netedit configuration in '"
-msgstr ""
+msgstr "Konnte die Netedit-Konfiguration nicht in ' speichern"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3266
 msgid "SUMO configuration saved in '"
@@ -2324,11 +2326,11 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1814
 msgid "Sumo options"
-msgstr ""
+msgstr "Sumo-Optionen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1814
 msgid "Configure sumo Options."
-msgstr ""
+msgstr "Konfiguriere Sumo-Optionen."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1820
 msgid "Options"
@@ -2336,7 +2338,7 @@ msgstr "Optionen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1820
 msgid "Configure netedit Options."
-msgstr ""
+msgstr "Konfiguriere Netedit-Optionen."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1933
 msgid "Open a dialog for locating a Junction."
@@ -2442,7 +2444,7 @@ msgstr "SUMO-Konfiguration konnte nicht geladen werden '"
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2153
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2157
 msgid "Could not load netedit configuration '"
-msgstr ""
+msgstr "Konnte Netedit-Konfiguration nicht laden '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2602
 msgid "Save Network file as"
@@ -2541,17 +2543,18 @@ msgid "OSM net (*.osm.xml,*.osm)"
 msgstr "OSM-Netz (*.osm.xml,*.osm)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2649
+#, fuzzy
 msgid "Save netedit Config file as"
-msgstr ""
+msgstr "Speicher Netedit-Konfigurations-Datei als"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2650
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2654
 msgid "Netedit Config files (*.neteditcfg)"
-msgstr ""
+msgstr "Nededit-Konfigurationsdateien (*.neteditcfg)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2653
 msgid "Open netedit Config file"
-msgstr ""
+msgstr "Öffne Netedit-Konfigurationsdatei"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2663
 msgid "Save SUMO Config file as"
@@ -2691,7 +2694,7 @@ msgstr "Sumo-Netz öffnen"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:252
 msgid "Open a configuration file (netedit o NETCONVERT config)"
-msgstr ""
+msgstr "Öffne eine Konfigurationsdatei (netedit oder NETCONVERT config)"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:253
 msgid "Open a SUMO config file"
@@ -3616,11 +3619,11 @@ msgstr "Netedit-Konfiguration speichern. (Ctrl+Shift+E)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:1933
 msgid "Save SumoConfig"
-msgstr ""
+msgstr "Speichere Sumo-Konfiguration"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:1933
 msgid "Save SumoConfig. (Ctrl+Shift+S)"
-msgstr ""
+msgstr "Speichere Sumo-Konfiguration. (Ctrl+Shift+S)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:1939
 msgid "Save network"
