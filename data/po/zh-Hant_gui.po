@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-15 14:38+0000\n"
+"PO-Revision-Date: 2023-02-15 14:52+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
@@ -1063,7 +1063,7 @@ msgstr "選擇匯入選項"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1702
 msgid "Loading OSM file '"
-msgstr ""
+msgstr "載入開放街圖(OSM)檔案"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1724
 msgid "Recompute with volatile options"
@@ -1139,11 +1139,11 @@ msgstr "整合路口儲存於"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3156
 msgid "Netedit configuration saved in '"
-msgstr ""
+msgstr "netedit的設定檔案儲存於"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3162
 msgid "Could not save netedit configuration in '"
-msgstr ""
+msgstr "無法將netedit的設定檔案儲存於"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3266
 msgid "SUMO configuration saved in '"
@@ -2156,7 +2156,7 @@ msgstr "&容器"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1392
 msgid "Tra&nsports"
-msgstr ""
+msgstr "運輸"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1397
 msgid "Trans&hips"
@@ -2172,7 +2172,7 @@ msgstr "&路段資料"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1412
 msgid "E&dgeRelDatas"
-msgstr ""
+msgstr "路段關係資料(EdgeRelDatas)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1417
 msgid "Edge&TAZRel"
@@ -2288,11 +2288,11 @@ msgstr "清除與無效路線相關的要素(路徑、旅程、流量...)。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1814
 msgid "Sumo options"
-msgstr ""
+msgstr "sumo選項"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1814
 msgid "Configure sumo Options."
-msgstr ""
+msgstr "設定sumo的選項。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1820
 msgid "Options"
@@ -2300,7 +2300,7 @@ msgstr "選項"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1820
 msgid "Configure netedit Options."
-msgstr ""
+msgstr "設定netedit 的選項。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1933
 msgid "Open a dialog for locating a Junction."
@@ -2406,7 +2406,7 @@ msgstr "無法載入SUMO 設定檔案"
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2153
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2157
 msgid "Could not load netedit configuration '"
-msgstr ""
+msgstr "無法載入netedit的設定檔案"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2602
 msgid "Save Network file as"
@@ -2506,12 +2506,12 @@ msgstr "OSM路網 (*.osm.xml,*.osm)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2649
 msgid "Save netedit Config file as"
-msgstr ""
+msgstr "將netedit的設定檔案儲存為"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2650
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2654
 msgid "Netedit Config files (*.neteditcfg)"
-msgstr ""
+msgstr "netedit的設定檔案 (*.neteditcfg)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2653
 msgid "Open netedit Config file"
