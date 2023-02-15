@@ -5132,8 +5132,8 @@ MSVehicle::enterLaneAtLaneChange(MSLane* enteredLane) {
             std::cout << SIMTIME << " veh=" << getID() << " shortening myFurtherLanes by " << deleteFurther << "\n";
         }
 #endif
-        myFurtherLanes.erase(myFurtherLanes.end() - 1);
-        myFurtherLanesPosLat.erase(myFurtherLanesPosLat.end() - 1);
+        myFurtherLanes.erase(myFurtherLanes.end() - deleteFurther, myFurtherLanes.end());
+        myFurtherLanesPosLat.erase(myFurtherLanesPosLat.end() - deleteFurther, myFurtherLanesPosLat.end());
     }
 #ifdef DEBUG_SETFURTHER
     if (DEBUG_COND) {
