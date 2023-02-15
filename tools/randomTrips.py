@@ -159,6 +159,8 @@ def get_options(args=None):
     op.add_argument("--via-edge-types", dest="viaEdgeTypes",
                     help="Set list of edge types that cannot be used for departure or arrival " +
                     "(unless being on the fringe)")
+    op.add_argument("--allow-roundabouts", dest="allowRoundabouts", action="store_true",
+                    default=False, help="Permit trips that start or end inside a roundabout")
     op.add_argument("--validate", default=False, action="store_true",
                     help="Whether to produce trip output that is already checked for connectivity")
     op.add_argument("-v", "--verbose", action="store_true",
@@ -367,11 +369,16 @@ class RandomTripGenerator:
 
 def get_prob_fun(options, fringe_bonus, fringe_forbidden, max_length):
     # fringe_bonus None generates intermediate way points
+    net = get_network(options)
     randomProbs = defaultdict(lambda: 1)
     if options.randomFactor != 1:
-        net = get_network(options)
         for edge in net.getEdges():
             randomProbs[edge.getID()] = random.uniform(1, options.randomFactor)
+
+    roundabouts = set()
+    if not options.allowRoundabouts:
+        for roundabout in net.getRoundabouts():
+            roundabouts.update(roundabout.getEdges())
 
     def edge_probability(edge):
         bonus_connections = None if fringe_bonus is None else getattr(edge, fringe_bonus)
@@ -389,6 +396,8 @@ def get_prob_fun(options, fringe_bonus, fringe_forbidden, max_length):
                 not edge.is_fringe(bonus_connections, checkJunctions=options.fringeJunctions) and
                 edge.getType() in options.viaEdgeTypes):
             return 0  # the wrong type of edge (only allows depart and arrival on the fringe)
+        if fringe_bonus is not None and edge.getID() in roundabouts:
+            return 0  # traffic typically does not start/end inside a roundabout
         prob = randomProbs[edge.getID()]
         if options.length:
             if (options.fringe_factor != 1.0 and fringe_bonus is not None and
