@@ -47,9 +47,11 @@ def generate_po(sumo_home, path, languages, pot_file, gui_pot_file, fuzzy):
     for f in sorted(glob(sumo_home + "/src/*.cpp") +
                     glob(sumo_home + "/src/*/*.cpp") +
                     glob(sumo_home + "/src/*/*/*.cpp") +
+                    glob(sumo_home + "/src/*/*/*/*.cpp") +
                     glob(sumo_home + "/src/*.h") +
                     glob(sumo_home + "/src/*/*.h") +
-                    glob(sumo_home + "/src/*/*/*.h")):
+                    glob(sumo_home + "/src/*/*/*.h") +
+                    glob(sumo_home + "/src/*/*/*/*.h")):
         if "gui" in f[len(sumo_home):] or "netedit" in f[len(sumo_home):]:
             print(f, file=pots[gui_pot_file])
         else:
@@ -62,7 +64,7 @@ def generate_po(sumo_home, path, languages, pot_file, gui_pot_file, fuzzy):
         os.remove(sources.name)
         has_diff = True
         if os.path.exists(pot):
-            with open(pot) as old, open(pot + ".new") as new:
+            with open(pot, encoding="utf-8") as old, open(pot + ".new", encoding="utf-8") as new:
                 a = [s for s in old.readlines() if not s.startswith(("#", '"POT-Creation-Date:'))]
                 b = [s for s in new.readlines() if not s.startswith(("#", '"POT-Creation-Date:'))]
                 has_diff = list(difflib.unified_diff(a, b))

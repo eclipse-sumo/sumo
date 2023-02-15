@@ -91,7 +91,7 @@ GUIDialog_ChooserAbstract::GUIDialog_ChooserAbstract(GUIGlChildWindow* windowsPa
     new FXButton(layoutRight, (TL("&Hide Unselected") + std::string("\t\t")).c_str(), GUIIconSubSys::getIcon(GUIIcon::FLAG), this, MID_CHOOSER_FILTER, GUIDesignChooserButtons);
     new FXButton(layoutRight, (TL("By &Name") + std::string("\t") + TL("Locate item by name") + "\t").c_str(), nullptr, this, MID_CHOOSEN_NAME, GUIDesignChooserButtons);
     new FXButton(layoutRight, (TL("&Select/deselect") + std::string("\t\t") + TL("Select/deselect current object")).c_str(), GUIIconSubSys::getIcon(GUIIcon::FLAG), this, MID_CHOOSEN_INVERT, GUIDesignChooserButtons);
-    new FXButton(layoutRight, (TL("&Filter substring") + std::string("\t\t") + TL("")).c_str(), nullptr, this, MID_CHOOSER_FILTER_SUBSTR, GUIDesignChooserButtons);
+    new FXButton(layoutRight, (TL("&Filter substring") + std::string("\t\t")).c_str(), nullptr, this, MID_CHOOSER_FILTER_SUBSTR, GUIDesignChooserButtons);
     new FXButton(layoutRight, (TL("Select &all") + std::string("\t\t") + TL("Select all items in list")).c_str(), GUIIconSubSys::getIcon(GUIIcon::FLAG), this, MID_CHOOSEN_SELECT, GUIDesignChooserButtons);
     new FXButton(layoutRight, (TL("&Deselect all") + std::string("\t\t") + TL("Deselect all items in list")).c_str(), GUIIconSubSys::getIcon(GUIIcon::FLAG), this, MID_CHOOSEN_CLEAR, GUIDesignChooserButtons);
     new FXButton(layoutRight, (TL("&Update") + std::string("\t\t") + TL("Reload all ids")).c_str(), GUIIconSubSys::getIcon(GUIIcon::RELOAD), this, MID_UPDATE, GUIDesignChooserButtons);
