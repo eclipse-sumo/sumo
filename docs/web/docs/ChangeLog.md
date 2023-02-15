@@ -7,11 +7,17 @@ title: ChangeLog
 ### Bugfixes
 
 - Simulation
+  - Fixed crash related to lane-changin in tight corners. Issue #12618 (regression in 1.13.0)
   - Attribute `lcCooperative` no longer impacts speed adjustments that a vehicle needs for it's personal lane change maneuvers. #9473
   - Fixed invalid interpretation of sublane positioning of junction leaders during lane changing. Issue #12580
   - Fixed unsuitable lateral alignment on bidi edge when preparing for a turning movement. Issue #11436
   - Fixed collision at parallel lanes with different lengths. Issue #12590
-  - Fixed crash when using option **--collision.action remove** and vehicles crash after lane changing. Issue #12583
+  - Fixed crash when using option **--collision.action remove** and vehicles collide after lane changing. Issue #12583
+  - Traffic light type `delay_based` no longer generates overlapping detectors (which could cause invalid switching decisions). Issue #12615
+
+- netedit
+  - Fixed bug that prevent creation of crossing at priority junctions with speed above 50k/mh. Issue #12609 (regression in 1.16.0)
+  - Fixed bug that caused junction shape to change on repeated computations. Issue #12584
 
 - sumo-gui
   - Fixed random (rare) crash when having an open detector attribute window. Issue #12595 (regression in 1.16.0)
@@ -21,6 +27,7 @@ title: ChangeLog
   - Fixed wrong edgeId in error message of `simulation.findIntermodalRoute`. Issue #12591
   - Error when loading a state file now indicates possible version problem. Issue #12593
   - Fixed problem when loading JAVA bindings for libsumo/libtraci via JNI. Caution: Windows users must update their code to load dependent libraries explicitly due to JAVA issues that cannot be fixed on the SUMO side. Issue #12605
+  - Fixed incomplete cleanup of SSM output with repeated libsumo runs. Issue #12587
 
 - tools
   - Fixed invalid error when calling option **--save-template**. Issue #12589
@@ -33,7 +40,7 @@ title: ChangeLog
   - Added options **--shapefile.width** and **--shapefile.length** to allow importing custom widths and lengtsh from [shape files](Networks/Import/ArcView.md). Issue #12575
 
 - sumo-gui
-  - Dynamically modfied values for `latAlignment` (i.e. when preparing to turn) are now listed in the type-parameter dialog. Issue #12579
+  - Dynamically modified values for `latAlignment` (i.e. when preparing to turn) are now listed in the type-parameter dialog. Issue #12579
   - The attribute value that is used for scaling edge widths can now be drawn as an annotation. Issue #12544
   - Statistic output now includes person teleport count. Issue #12271
 
@@ -45,6 +52,7 @@ title: ChangeLog
   - Added new tool [generateRerouters.py](Tools/Misc.md#generatererouterspy) to generate rerouters for a given set of closed edges including automatic computation of suitable notification edges. Issue #12510
   - racing.py: now supports collision sound. Issue #12540
   - randomTrips.py: Added option **--random-factor** to apply random disturbances to edge probabilities (i.e. to break up symmetry in small networks). Issue #12603
+  - randomTrips.py: Trips no longer start or end inside a roundabout. To restore the old behavior, option **--allow-roundabouts** can be set. Issue #12619
   - plotXMLAttributes.py:
     - can plot by sorting rank with attribute value `@RANK`. Issue #12607
     - can plot by input order with attribute value `@INDEX` (note that this was the behavior of @RANK in 1.16.0). Issue #12607
@@ -54,8 +62,13 @@ title: ChangeLog
     - supports box plots via option **-x @BOX** or **-y @BOX**. Issue #11994
     - supports clamping of data range via option **--xclamp A:B** and **--yclamp C:D**
 
+- Other
+  - Further work on translation. Issue #12611
+  - Added "Feedback" dialog in Help menu of netedit and sumo-gui. Issue #12550
+
 ### Miscellaneous
 
+- Netedit help menu now links to to netedit shortcuts. Issue #12626
 - tools
   - Removed tool `plotXMLAttr.py` since it's functionality is covered by `plotXMLAttributes.py` (tool moved to 'purgatory' folder). Issue #11994.
 
