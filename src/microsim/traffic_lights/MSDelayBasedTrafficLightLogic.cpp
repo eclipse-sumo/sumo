@@ -98,8 +98,21 @@ MSDelayBasedTrafficLightLogic::init(NLDetectorBuilder& nb) {
                     }
                     det->setVisible(myShowDetectors);
                 } else {
+                    // check whether the lane (or unamibiguous lane sequence) is long enough and avoid overlapping detectors
+                    double length = lane->getLength();
+                    MSLane* firstLane = lane;
+                    while (length < myDetectionRange && firstLane->getIncomingLanes().size() == 1
+                            && firstLane->getIncomingLanes().front().viaLink->getCorrespondingEntryLink()->getTLLogic() == nullptr) {
+                        firstLane = firstLane->getLogicalPredecessorLane();
+                        if (firstLane->getLinkCont().size() > 1) {
+                            break;
+                        }
+                        length += firstLane->getLength();
+                    }
+                    length = MIN2(length, myDetectionRange);
+
                     std::string id = "TLS" + myID + "_" + myProgramID + "_E2CollectorOn_" + lane->getID();
-                    det = nb.createE2Detector(id, DU_TL_CONTROL, lane, INVALID_POSITION, lane->getLength(), myDetectionRange, 0, 0, 0, myVehicleTypes, "", "", (int)PersonMode::NONE, myShowDetectors);
+                    det = nb.createE2Detector(id, DU_TL_CONTROL, lane, INVALID_POSITION, lane->getLength(), length, 0, 0, 0, myVehicleTypes, "", "", (int)PersonMode::NONE, myShowDetectors);
                     MSNet::getInstance()->getDetectorControl().add(SUMO_TAG_LANE_AREA_DETECTOR, det, myFile, myFreq);
                 }
                 myLaneDetectors[lane] = det;
