@@ -2970,7 +2970,7 @@ GNEAttributeCarrier::fillShapeElements() {
         attrProperty = GNEAttributeProperties(SUMO_ATTR_COLOR,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::COLOR | GNEAttributeProperties::DEFAULTVALUE,
                                               TL("The color with which the POI shall be displayed"),
-                                              TL("red"));
+                                              "red");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_TYPE,
