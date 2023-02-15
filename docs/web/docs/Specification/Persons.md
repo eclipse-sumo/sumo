@@ -29,7 +29,7 @@ below. Each person must have at least one stage in its plan.
 | Attribute           | Type      | Range              | Default         | Remark      |
 |---------------------|-----------|--------------------|-----------------|---------------------------|
 | id                  | string    | valid XML ids      | -               |                          |
-| depart              | float (s) or [human-readable-time](../Other/Glossary.md#t) or *triggered* | ≥0 or 'triggered'  | -               | See [ride](#rides) for an explanation of 'triggered'|
+| depart              | float (s) or [human-readable-time](../Other/Glossary.md#t) or *triggered* | ≥0 or 'triggered'  | -               | See [below](#starting_the_simulation_in_a_vehicle) for an explanation of 'triggered'|
 | departPos           | float(s)  | ≥0                 | -               | the distance along the departure edge where the person is created      |
 | type                | string    | any declared vType | DEFAULT_PEDTYPE | the type should have vClass pedestrian              |
 | speedFactor         | float     | > 0                | 1.0 | Sets custom speedFactor (factor on desiredMaxSpeed of vType) and overrides the speedFactor distribution of the vType |
@@ -72,7 +72,7 @@ known:
 
 | Attribute Name  | Value Type     | Description                                                                                          |
 | --------------- | -------------- | ---------------------------------------------------------------------------------------------------- |
-| begin           | float (s) or [human-readable-time](../Other/Glossary.md#t) or *triggered*  | first person departure time   |
+| begin           | float (s) or [human-readable-time](../Other/Glossary.md#t) or *triggered*  | first person departure time. See [below](#starting_the_simulation_in_a_vehicle) for an explanation of 'triggered'   |
 | end             | float(s)       | end of departure interval (if undefined, defaults to 24 hours)                                       |
 | personsPerHour* _or_ perHour\* | float(\#/h) | number of persons per hour, equally spaced                                                |
 | period*         | float(s)       | insert equally spaced persons at that period                                                         |
