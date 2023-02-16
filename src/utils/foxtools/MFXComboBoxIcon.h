@@ -23,6 +23,7 @@
 #include <config.h>
 
 #include "MFXTextFieldIcon.h"
+#include "MFXListIcon.h"
 
 
 /// @brief ComboBox with icon
@@ -258,7 +259,7 @@ protected:
     FXMenuButton* myButton = nullptr;
 
     /// @brief list
-    FXList* myList = nullptr;
+    MFXListIcon* myList = nullptr;
 
     /// @brief popup
     FXPopup* myPane = nullptr;

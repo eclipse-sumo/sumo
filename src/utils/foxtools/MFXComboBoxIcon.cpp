@@ -84,7 +84,7 @@ MFXComboBoxIcon::MFXComboBoxIcon(FXComposite* p, FXint cols, const bool haveIcon
         myTextFieldIcon->setEditable(FALSE);
     }
     myPane = new FXPopup(this, FRAME_LINE);
-    myList = new FXList(myPane, this, MFXComboBoxIcon::ID_LIST, LIST_BROWSESELECT | LIST_AUTOSELECT | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT | SCROLLERS_TRACK | HSCROLLER_NEVER);
+    myList = new MFXListIcon(myPane, this, MFXComboBoxIcon::ID_LIST, LIST_BROWSESELECT | LIST_AUTOSELECT | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT | SCROLLERS_TRACK | HSCROLLER_NEVER);
     if (options & COMBOBOX_STATIC) {
         myList->setScrollStyle(SCROLLERS_TRACK | HSCROLLING_OFF);
     }
@@ -101,7 +101,7 @@ MFXComboBoxIcon::~MFXComboBoxIcon() {
     myIconLabel = (FXLabel*) - 1L;
     myTextFieldIcon = (MFXTextFieldIcon*) - 1L;
     myButton = (FXMenuButton*) - 1L;
-    myList = (FXList*) - 1L;
+    myList = (MFXListIcon*) - 1L;
 }
 
 
@@ -242,7 +242,6 @@ MFXComboBoxIcon::setText(FXString text) {
 void
 MFXComboBoxIcon::setNumVisible(FXint nvis) {
     myList->setNumVisible(nvis);
-    myList->setHeight(nvis * (ICON_SIZE + ICON_SPACING));
 }
 
 
