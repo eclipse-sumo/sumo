@@ -46,13 +46,16 @@ def formatBinTemplate(templateStr):
     templateStr = templateStr.replace('"', '\\"')
     # split lines
     templateStr = templateStr.replace("\n", '"\n    "')
-    # avoid unused lines
-    templateStr = templateStr.replace('    ""\n', "")
+    # remove empty lines
+    templateStr = templateStr.replace('    ""\n', '')
     # replace first backspace
     templateStr = templateStr.replace("\\b'", '"')
-    templateStr += '";\n'
-    # update last line
-    templateStr = templateStr.replace('\n    ";', ';\n\n')
+    # add last "
+    templateStr += '"'
+    # remove last line
+    templateStr = templateStr.replace('\n    ""', '')
+    # add ending
+    templateStr += ';\n\n'
     return templateStr
 
 
@@ -99,11 +102,8 @@ def generateToolTemplate(srcDir, toolDir, subDir, toolName):
     if os.path.exists(toolPath):
         # show info
         print("Obtaining '" + toolName + "' tool template")
-        # obtain template saving it toolTemplate.xml
-        call([sys.executable, toolPath, "--save-template", xmlTemplate])
-        # read XML
-        with open(xmlTemplate, 'r') as f:
-            template = f.read()
+        # obtain template piping stdout using check_output
+        template = check_output(["python", toolPath, "--save-template", "stdout"], universal_newlines=True)
         # join variable and formated template
         return "const std::string " + toolName + 'Template = ' + formatToolTemplate(template)
     # if tool wasn't found, then raise exception
