@@ -31,7 +31,7 @@ sumoBinary = sumolib.checkBinary('sumo')
 traci.start([sumoBinary,
              "-n", "input_net4.net.xml",
              "-r", "input_routes.rou.xml",
-             "-t",
+             "--device.tripinfo.probability", "1",
              "--no-step-log",
              ] + sys.argv[1:])
 
@@ -43,12 +43,76 @@ def printStats(t):
         print(" veh=%s" % ego)
         for key in ['waitingTime', 'waitingCount', 'stopTime']:
             print("    ", key, traci.vehicle.getParameter(ego, "device.tripinfo." + key))
+    globalKeys = [
+            "count",
+            "routeLength",
+            "speed",
+            "duration",
+            "waitingTime",
+            "timeLoss",
+            "departDelay",
+            "departDelayWaiting",
+            "totalTravelTime",
+            "totalDepartDelay",
+            "vehicleTripStatistics.count",
+            "vehicleTripStatistics.routeLength",
+            "vehicleTripStatistics.speed",
+            "vehicleTripStatistics.duration",
+            "vehicleTripStatistics.waitingTime",
+            "vehicleTripStatistics.timeLoss",
+            "vehicleTripStatistics.departDelay",
+            "vehicleTripStatistics.departDelayWaiting",
+            "vehicleTripStatistics.totalTravelTime",
+            "vehicleTripStatistics.totalDepartDelay",
+
+            "bikeTripStatistics.count",
+            "bikeTripStatistics.routeLength",
+            "bikeTripStatistics.speed",
+            "bikeTripStatistics.duration",
+            "bikeTripStatistics.waitingTime",
+            "bikeTripStatistics.timeLoss",
+            "bikeTripStatistics.totalTravelTime",
+
+            "pedestrianStatistics.count",
+            "pedestrianStatistics.number",
+            "pedestrianStatistics.routeLength",
+            "pedestrianStatistics.duration",
+            "pedestrianStatistics.timeLoss",
+
+            "rideStatistics.count",
+            "rideStatistics.number",
+            "rideStatistics.waitingTime",
+            "rideStatistics.routeLength",
+            "rideStatistics.duration",
+            "rideStatistics.bus",
+            "rideStatistics.train",
+            "rideStatistics.taxi",
+            "rideStatistics.bike",
+            "rideStatistics.aborted",
+
+            "transportStatistics.count",
+            "transportStatistics.number",
+            "transportStatistics.waitingTime",
+            "transportStatistics.routeLength",
+            "transportStatistics.duration",
+            "transportStatistics.bus",
+            "transportStatistics.train",
+            "transportStatistics.taxi",
+            "transportStatistics.bike",
+            "transportStatistics.aborted",
+            ]
+
+    for key in globalKeys: 
+        print(" ", key, traci.simulation.getParameter("", "device.tripinfo." + key))
+
 
 while traci.simulation.getMinExpectedNumber() > 0:
     t = traci.simulation.getTime()
     if t % 10 == 0:
         printStats(t)
     traci.simulationStep()
+
+printStats("final")
 
 
 traci.close()
