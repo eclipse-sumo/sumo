@@ -349,6 +349,9 @@ When calling `traci.start([<commands>], traceFile=<LOG_FILE_PATH>)` all traci co
 This allows re-running the scenario without the original runner script.
 When option `traceGetters=False` is set, only functions that change the simulation state are included in the log file. Functions that retrieve simulation data are technically not needed to reproduce a scenario but it may be useful to include them if the data retrieval functions are themselves the cause of a bug.
 
+!!! caution
+    Avoid running the simulation with option **--random** since this will most likely prevent your traceFile from being repeated
+
 ### Determine why the TraCI client cannot connect
 
 Possibly, the arguments given to `traci.start` generated an error when launching SUMO. This will manifest as
