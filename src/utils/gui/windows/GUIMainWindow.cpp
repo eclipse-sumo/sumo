@@ -406,10 +406,13 @@ GUIMainWindow::onCmdChangeLanguage(FXObject*, FXSelector sel, void*) {
         WRITE_MESSAGE(TL("Language changed to ") + lang);
         // show dialog
         const std::string header = TL("Restart needed");
-        const std::string bodyA = TL("Changing display language needs restart to take effect.") + std::string("\n");
-        const std::string bodyB = TL("Under development. You can help to improve the translation at:") + std::string("\n");
-        const std::string bodyC = TL("https://hosted.weblate.org/projects/eclipse-sumo/");
-        FXMessageBox::information(getApp(), MBOX_OK, header.c_str(), "%s", (bodyA + bodyB + bodyC).c_str());
+        const std::string body = TL("Changing display language needs restart to take effect.") + std::string("\n") +
+#ifdef DEBUG
+                                 TL("For the Debug build you might also need to set the LANG environment variable.") + std::string("\n") +
+#endif
+                                 TL("Under development. You can help to improve the translation at:") + std::string("\n") +
+                                 "https://hosted.weblate.org/projects/eclipse-sumo/";
+        FXMessageBox::information(getApp(), MBOX_OK, header.c_str(), "%s", body.c_str());
         // update language in registry (common for sumo and netedit)
         std::string appKey = getApp()->reg().getAppKey().text();
         if (appKey == "SUMO GUI") {
