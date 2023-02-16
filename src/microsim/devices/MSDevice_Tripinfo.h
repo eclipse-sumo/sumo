@@ -84,6 +84,8 @@ public:
     static double getAvgWaitingTime();
     static double getAvgTimeLoss();
     static double getAvgDepartDelay();
+    static double getAvgDepartDelayWaiting();
+    static double getTotalDepartDelay();
 
     static double getAvgBikeRouteLength();
     static double getAvgBikeTripSpeed();
@@ -185,7 +187,10 @@ public:
 
 
     /// @brief try to retrieve the given parameter from this device. Throw exception for unsupported key
-    std::string getParameter(const std::string& key) const; 
+    std::string getParameter(const std::string& key) const;
+
+    /// @brief try to retrieve the given parameter from the global statistics. Throw exception for unsupported key
+    static std::string getGlobalParameter(const std::string& prefixedKey);
 
 private:
     /** @brief Constructor

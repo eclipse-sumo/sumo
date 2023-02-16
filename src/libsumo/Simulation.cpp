@@ -49,6 +49,7 @@
 #include <microsim/devices/MSRoutingEngine.h>
 #include <microsim/trigger/MSChargingStation.h>
 #include <microsim/trigger/MSOverheadWire.h>
+#include <microsim/devices/MSDevice_Tripinfo.h>
 #include <mesosim/MELoop.h>
 #include <mesosim/MESegment.h>
 #include <netload/NLBuilder.h>
@@ -805,6 +806,13 @@ Simulation::getParameter(const std::string& objectID, const std::string& key) {
         } else {
             throw TraCIException("Invalid busStop parameter '" + attrName + "'");
         }
+    } else if (StringUtils::startsWith(key, "device.tripinfo.")) {
+        if (objectID != "") {
+            throw TraCIException("Simulation parameter '" + key + "' is not supported for object id '" + objectID
+                    + "'. Use empty id for global device parameers or vehicle domain for vehicle specific parameters");
+        }
+        const std::string attrName = key.substr(16);
+        return MSDevice_Tripinfo::getGlobalParameter(attrName);
     } else if (objectID == "") {
         return MSNet::getInstance()->getParameter(key, "");
     } else {
