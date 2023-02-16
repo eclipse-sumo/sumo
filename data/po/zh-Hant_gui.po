@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-16 13:06+0000\n"
+"PO-Revision-Date: 2023-02-16 13:19+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
@@ -3736,31 +3736,32 @@ msgstr "切換顯示分區(TAZ)要素。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2368
 msgid "Automatic select junctions"
-msgstr ""
+msgstr "自動選擇路口"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2368
 msgid ""
 "Toggle whether selecting multiple edges should automatically select their "
 "junctions."
-msgstr ""
+msgstr "切換選擇多條路段時, 是否應自動選擇它們的交匯路口。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2376
 msgid "Apply state to all phases"
-msgstr ""
+msgstr "將狀態應用於所有相位(phases)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2376
 msgid ""
 "Toggle whether clicking should apply state changes to all phases of the "
 "current TLS plan."
-msgstr ""
+msgstr "切換是否點擊時應將更改的狀態(state)應用於現有交通號誌(TLS) "
+"計劃的所有相位(phase)。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2384
 msgid "Automatic merging junction"
-msgstr ""
+msgstr "自動合併路口"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2384
 msgid "Toggle ask for confirmation before merging junction."
-msgstr ""
+msgstr "切換合併路口前要求確認。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2391
 msgid "Show bubbles"
