@@ -22,14 +22,21 @@
  * included modules
  * ======================================================================= */
 
+#include <utils/common/UtilExceptions.h>
+
 #include "MFXListIcon.h"
+#include "MFXListItemIcon.h"
 
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
 
+FXDEFMAP(FXList) MFXListIconMap[]={
+    FXMAPFUNC(SEL_PAINT, 0, FXList::onPaint),
+};
+
 // Object implementation
-FXIMPLEMENT(MFXListIcon, FXList, nullptr, 0)
+FXIMPLEMENT(MFXListIcon, FXList, MFXListIconMap, ARRAYNUMBER(MFXListIconMap))
 
 // ===========================================================================
 // member method definitions
@@ -40,5 +47,33 @@ MFXListIcon::MFXListIcon(FXComposite *p, FXObject* tgt, FXSelector sel, FXuint o
 }
 
 
+long
+MFXListIcon::onPaint(FXObject*, FXSelector, void* ptr) {
+    FXEvent* event = (FXEvent*)ptr;
+    FXDCWindow dc(this, event);
+    FXint i, y, h;
+    // Paint items
+    y = pos_y;
+    for(i = 0; i < items.no(); i++) {
+        auto listIcon = dynamic_cast<MFXListItemIcon*>(items[i]);
+        if (listIcon) {
+            h = listIcon->getHeight(this);
+            if (event->rect.y <= (y + h) && y < (event->rect.y + event->rect.h)) {
+                listIcon->draw(this, dc, pos_x, y, FXMAX(listWidth, viewport_w), h);
+            }
+            y += h;
+        } else {
+            throw ProcessError("LisItemIcon cannot be NULL");
+        }
+    }
+    // Paint blank area below items
+    if (y < (event->rect.y + event->rect.h)) {
+        dc.setForeground(backColor);
+        dc.fillRectangle(event->rect.x, y, event->rect.w, event->rect.y + event->rect.h - y);
+    }
+    return 1;
+}
+
 MFXListIcon::MFXListIcon() :
-    FXList() {}
+    FXList() {
+}

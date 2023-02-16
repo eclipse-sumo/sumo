@@ -33,6 +33,9 @@ public:
     /// @brief Construct new item with given text, icon, and user-data
     MFXListIcon(FXComposite *p, FXObject* tgt = NULL, FXSelector sel = 0, FXuint opts = LIST_NORMAL, FXint x = 0, FXint y = 0, FXint w = 0,FXint h = 0);
 
+    // Draw item list
+    long onPaint(FXObject*, FXSelector, void*);
+
 protected:
     /// @brief fox need this
     MFXListIcon();
