@@ -210,15 +210,28 @@ class ArgumentParser(argparse.ArgumentParser):
                                 key = s[2:]
                                 break
                         if print_template:
+                            # default
                             if a.default is not None:
                                 v = a.default
+                            # help
                             if a.help is not None:
                                 help = ' help="%s"' % a.help
+                            # type (don't use directly a.type, because it writes <class ....>
+                            typeStr = ''
+                            if (a.type == bool):
+                                typeStr = ' type="%s"' % "bool"
+                            elif (a.type == float):
+                                typeStr = ' type="%s"' % "float"
+                            elif (a.type == int):
+                                typeStr = ' type="%s"' % "int"
+                            else:
+                                typeStr = ' type="%s"' % "string"
+                            # note: missing TIME and FILENAME
                         break
                 if print_template or v != a.default:
                     if isinstance(v, list):
                         v = " ".join(map(str, v))
-                    out.write(u'    <%s value="%s"%s%s/>\n' % (key, xmlescape(v), default, help))
+                    out.write(u'    <%s value="%s"%s%s%s/>\n' % (key, xmlescape(v), default, typeStr, help))
         out.write(u'</configuration>\n')
 
     def parse_args(self, args=None, namespace=None):
