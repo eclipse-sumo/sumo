@@ -17,8 +17,8 @@ set(utils_foxtools_STAT_SRCS
    MFXEditableTable.h
    MFXGroupBoxModule.cpp
    MFXGroupBoxModule.h
-   MFXIconComboBox.cpp
-   MFXIconComboBox.h
+   MFXComboBoxIcon.cpp
+   MFXComboBoxIcon.h
    MFXImageHelper.cpp
    MFXImageHelper.h
    MFXInterThreadEventClient.h
