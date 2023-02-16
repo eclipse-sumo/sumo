@@ -132,6 +132,9 @@ Helper::subscribe(const int commandId, const std::string& id, const std::vector<
     const SUMOTime begin = beginTime == INVALID_DOUBLE_VALUE ? 0 : TIME2STEPS(beginTime);
     const SUMOTime end = endTime == INVALID_DOUBLE_VALUE || endTime > STEPS2TIME(SUMOTime_MAX) ? SUMOTime_MAX : TIME2STEPS(endTime);
     libsumo::Subscription s(commandId, id, variables, parameters, begin, end, contextDomain, range);
+    if (commandId == libsumo::CMD_SUBSCRIBE_SIM_CONTEXT) {
+        s.range = std::numeric_limits<double>::max();
+    }
     if (s.variables.size() == 1 && s.variables.front() == -1) {
         s.variables.clear();
     }
