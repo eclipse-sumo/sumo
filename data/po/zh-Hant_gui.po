@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-16 13:19+0000\n"
+"PO-Revision-Date: 2023-02-16 13:49+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
@@ -3765,11 +3765,11 @@ msgstr "切換合併路口前要求確認。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2391
 msgid "Show bubbles"
-msgstr ""
+msgstr "顯示氣泡(bubbles)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2391
 msgid "Toggle show bubbles over junctions shapes."
-msgstr ""
+msgstr "切換在路口形狀上顯示氣泡(bubble)。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2399
 msgid "Move elevation"
