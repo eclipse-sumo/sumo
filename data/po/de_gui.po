@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-15 14:00+0000\n"
+"PO-Revision-Date: 2023-02-16 08:42+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -1167,7 +1167,7 @@ msgstr "Netedit-Konfiguration wurde in ' gespeichert"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3162
 msgid "Could not save netedit configuration in '"
-msgstr "Konnte die Netedit-Konfiguration nicht in ' speichern"
+msgstr "Konnte die netedit-Konfiguration nicht in '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3266
 msgid "SUMO configuration saved in '"
@@ -2330,7 +2330,7 @@ msgstr "Sumo-Optionen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1814
 msgid "Configure sumo Options."
-msgstr "Konfiguriere Sumo-Optionen."
+msgstr "Konfiguriere sumo-Optionen."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1820
 msgid "Options"
@@ -2338,15 +2338,15 @@ msgstr "Optionen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1820
 msgid "Configure netedit Options."
-msgstr "Konfiguriere Netedit-Optionen."
+msgstr "Konfiguriere netedit-Optionen."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1933
 msgid "Open a dialog for locating a Junction."
-msgstr "Öffnet einen Dialog zur Lokalisation von Knotenpunkten."
+msgstr "Öffnet einen Dialog zum Auffinden von Knotenpunkten."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1936
 msgid "Open a dialog for locating an Edge."
-msgstr "Öffnet einen Dialog zur Lokalisation einer Kante."
+msgstr "Öffnet einen Dialog zum Auffinden einer Kante."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1939
 msgid "&WalkingAreas"
@@ -2358,11 +2358,11 @@ msgstr "Öffnet einen Dialog, um WalkingArea-Elemente zu finden."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1942
 msgid "Open a dialog for locating a Vehicle."
-msgstr "Öffnet einen Dialog zur Lokalisation von Fahrzeugen."
+msgstr "Öffnet einen Dialog zum Auffinden von Fahrzeugen."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1945
 msgid "Open a dialog for locating a Person."
-msgstr "Öffnet einen Dialog zur Lokalisation von Personen."
+msgstr "Öffnet einen Dialog zum Auffinden von Personen."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1948
 msgid "&Route"
@@ -2370,7 +2370,7 @@ msgstr "&Route"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1948
 msgid "Open a dialog for locating a Route."
-msgstr "Öffnet einen Dialog zur Lokalisation von Routen."
+msgstr "Öffnet einen Dialog zum Auffinden von Routen."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1951
 msgid "&Stops"
@@ -2378,19 +2378,19 @@ msgstr "&Haltepunkte"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1951
 msgid "Open a dialog for locating a Stop."
-msgstr "Öffnet einen Dialog zur Lokalisation von Haltepunkten."
+msgstr "Öffnet einen Dialog zum Auffinden von Haltepunkten."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1954
 msgid "Open a dialog for locating a Traffic Light."
-msgstr "Öffnet einen Dialog zur Lokalisation einer Lichtsignalanlage."
+msgstr "Öffnet einen Dialog zum Auffinden einer Lichtsignalanlage."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1957
 msgid "Open a dialog for locating an Additional Structure."
-msgstr "Öffnet einen Dialog zur Lokalisation einer weiteren Struktur."
+msgstr "Öffnet einen Dialog zum Auffinden einer weiteren Struktur."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1960
 msgid "Open a dialog for locating a Point of Interest."
-msgstr "Öffnet einen Dialog zur Lokalisation interessanten Punktes."
+msgstr "Öffnet einen Dialog zum Auffinden eines PoI."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1963
 msgid "Open a dialog for locating a Polygon."
@@ -2406,7 +2406,7 @@ msgstr "Schalte die Statusleiste an/aus."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2004
 msgid "Clear the Message Window."
-msgstr "Reinige das Meldungsfenster."
+msgstr "Leere das Meldungsfenster."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2030
 msgid "About netedit."
@@ -2444,7 +2444,7 @@ msgstr "SUMO-Konfiguration konnte nicht geladen werden '"
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2153
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2157
 msgid "Could not load netedit configuration '"
-msgstr "Konnte Netedit-Konfiguration nicht laden '"
+msgstr "Konnte netedit-Konfiguration nicht laden '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2602
 msgid "Save Network file as"
@@ -2554,7 +2554,7 @@ msgstr "Nededit-Konfigurationsdateien (*.neteditcfg)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2653
 msgid "Open netedit Config file"
-msgstr "Öffne Netedit-Konfigurationsdatei"
+msgstr "Öffne netedit-Konfigurationsdatei"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2663
 msgid "Save SUMO Config file as"
@@ -3619,11 +3619,11 @@ msgstr "Netedit-Konfiguration speichern. (Ctrl+Shift+E)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:1933
 msgid "Save SumoConfig"
-msgstr "Speichere Sumo-Konfiguration"
+msgstr "Speichere sumo-Konfiguration"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:1933
 msgid "Save SumoConfig. (Ctrl+Shift+S)"
-msgstr "Speichere Sumo-Konfiguration. (Ctrl+Shift+S)"
+msgstr "Speichere sumo-Konfiguration. (Ctrl+Shift+S)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:1939
 msgid "Save network"
