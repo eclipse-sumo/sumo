@@ -66,7 +66,14 @@ typemaps = {
 # common parameters
 CP = ["--trip-attributes", 'departLane="best"',
       "--fringe-start-attributes", 'departSpeed="max"',
-      "--validate", "--remove-loops"]
+      "--validate", "--remove-loops",
+      "--via-edge-types", ','.join(["highway.motorway",
+                                    "highway.motorway_link",
+                                    "highway.trunk_link",
+                                    "highway.primary_link",
+                                    "highway.secondary_link",
+                                    "highway.tertiary_link"])
+      ]
 
 # pedestrian parameters
 PP = ["--vehicle-class", "pedestrian", "--prefix", "ped", ]
