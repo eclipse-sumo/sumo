@@ -620,6 +620,11 @@ enum class GUIIcon {
     LANGUAGE_HU,
     LANGUAGE_TR,
     LANGUAGE_ZH,
-    LANGUAGE_ZHT
+    LANGUAGE_ZHT,
+    /// @}
+    
+    /// @brief icons for 3d
+    /// @{
+    APP3D
     /// @}
 };

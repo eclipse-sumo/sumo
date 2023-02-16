@@ -116,6 +116,7 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
 
 #endif
     // Time
+    FXMAPFUNC(SEL_COMMAND,  MID_APP3D,                                                   GUIApplicationWindow::onCmdOpen3d),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALSTOP,           GUIApplicationWindow::onCmdStart),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALS,          GUIApplicationWindow::onCmdStart),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_S_MODE_STOPSIMULATION_SELECT,                    GUIApplicationWindow::onCmdStop),
@@ -147,6 +148,7 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALS,          GUIApplicationWindow::onUpdStart),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK,               GUIApplicationWindow::onUpdStop),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_D_SINGLESIMULATIONSTEP_OPENDEMANDELEMENTS,  GUIApplicationWindow::onUpdStep),
+    FXMAPFUNC(SEL_UPDATE,   MID_APP3D,                                                  GUIApplicationWindow::onUpd3D),
     FXMAPFUNC(SEL_UPDATE,   MID_SIMSAVE,                                                GUIApplicationWindow::onUpdNeedsSimulation),
     FXMAPFUNC(SEL_UPDATE,   MID_SIMLOAD,                                                GUIApplicationWindow::onUpdNeedsSimulation),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_E_EDITSELECTION_LOADNETEDITCONFIG,          GUIApplicationWindow::onUpdNeedsSimulation),
@@ -683,6 +685,9 @@ GUIApplicationWindow::buildToolBars() {
                              GUIIconSubSys::getIcon(GUIIcon::STOP), this, MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK, GUIDesignButtonToolbar);
         new MFXButtonTooltip(myToolBar2, myStaticTooltipMenu, TL("\tStep\tPerform a single simulation step."),
                              GUIIconSubSys::getIcon(GUIIcon::STEP), this, MID_HOTKEY_CTRL_D_SINGLESIMULATIONSTEP_OPENDEMANDELEMENTS, GUIDesignButtonToolbar);
+
+        new MFXButtonTooltip(myToolBar2, myStaticTooltipMenu, TL("\t3B simulasyon\t 3B simulasyon uygulamasini acar."),
+                             GUIIconSubSys::getIcon(GUIIcon::APP3D), this, MID_APP3D, GUIDesignButtonToolbar);
     }
     // Simulation Step Display
     {
@@ -1126,6 +1131,32 @@ GUIApplicationWindow::onCmdOpenShapes(FXObject*, FXSelector, void*) {
     return 1;
 }
 
+long
+GUIApplicationWindow::onCmdOpen3d(FXObject* d, FXSelector, void*) {
+    FXRegistry reg("SUMO GUI", "sumo-gui");
+    reg.read();
+    std::string currentConfig =  myRecentConfigs.getFile(1).text(); //reg.readStringEntry("configs", "FILE1");
+    std::string sumoUnity = "Sumo-UnityPython.exe";
+    const char* sumoPath = getenv("SUMO_HOME");
+    
+    if (sumoPath != nullptr) {
+
+        std::string newPath = std::string(sumoPath) + "\\bin\\Sumo-UnityPython";
+
+        if (FileHelpers::isReadable(newPath) || FileHelpers::isReadable(newPath + ".exe")) {
+            sumoUnity = newPath + ".exe";
+        }
+    }
+    std::string cmd = sumoUnity;
+    // start in background
+
+    cmd = cmd + " -n \"" + currentConfig + "\"";
+
+    WRITE_MESSAGE(TL("Running ") + cmd);
+    // yay! fun with dangerous commands... Never use this over the internet
+    SysUtils::runHiddenCommand(cmd);
+    return 0;
+}
 
 long
 GUIApplicationWindow::onCmdOpenEdgeData(FXObject*, FXSelector, void*) {
@@ -1353,7 +1384,6 @@ GUIApplicationWindow::onCmdLoadState(FXObject*, FXSelector, void*) {
     return 1;
 }
 
-
 long
 GUIApplicationWindow::onCmdTimeToggle(FXObject*, FXSelector, void*) {
     // toogle show time as HMS
@@ -1428,6 +1458,15 @@ GUIApplicationWindow::onCmdClearMsgWindow(FXObject*, FXSelector, void*) {
     return 1;
 }
 
+long
+GUIApplicationWindow::onUpd3D(FXObject* sender, FXSelector, void* ptr) {
+    sender->handle(this,
+        !myRunThread->simulationIsStartable() || myAmLoading
+        ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE),
+        ptr);
+    
+    return 1;
+}
 
 long
 GUIApplicationWindow::onUpdStart(FXObject* sender, FXSelector, void* ptr) {

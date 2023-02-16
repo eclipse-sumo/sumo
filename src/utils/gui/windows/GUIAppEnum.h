@@ -1480,6 +1480,8 @@ enum {
 
     /// @}
 
+    MID_APP3D,
+
     /// @brief last element of enum (not used)
     MID_LAST
 };
