@@ -131,13 +131,13 @@ GUIOSGPerspectiveChanger::centerTo(const Position& pos, double radius, bool /* a
     myCameraManipulator->getInverseMatrix().getLookAt(lookFrom, lookAt, up);
     dir = lookAt - lookFrom;
     // create helper vectors // check if parallel to z
-    if (dir * osg::Z_AXIS != 0) {
-        orthoDir = -osg::X_AXIS;
-        up = osg::Y_AXIS;
-    } else {
+    if ((dir ^ osg::Z_AXIS).length() > 0) {
         orthoDir[0] = -dir[1];
         orthoDir[1] = dir[0];
         up = osg::Z_AXIS;
+    } else {
+        orthoDir = -osg::X_AXIS;
+        up = osg::Y_AXIS;
     }
     orthoDir.normalize();
     osg::Vec3d center(pos.x(), pos.y(), pos.z());
