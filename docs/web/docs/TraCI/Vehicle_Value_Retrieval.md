@@ -740,6 +740,9 @@ call](../TraCI/GenericParameters.md#get_parameter).
 - device.taxi.occupiedTime
 - device.taxi.occupiedDistance
 - device.taxi.currentCustomers
+- device.tripinfo.waitingTime (total waiting time)
+- device.tripinfo.waitingCount 
+- device.tripinfo.stopTime (total stopping time)
 - device.example.customValue1 (return the value of option **--device.example.parameter**)
 - device.example.customValue2 (return the value of vehicle parameter
   *example*)
