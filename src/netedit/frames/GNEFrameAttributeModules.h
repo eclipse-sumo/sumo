@@ -125,7 +125,7 @@ public:
         MFXTextFieldTooltip* myValueTextField = nullptr;
 
         /// @brief pointer to combo box choices
-        MFXIconComboBox* myValueChoicesComboBox = nullptr;
+        MFXComboBoxIcon* myValueChoicesComboBox = nullptr;
 
         /// @brief pointer to menu check
         FXCheckButton* myValueCheckButton = nullptr;

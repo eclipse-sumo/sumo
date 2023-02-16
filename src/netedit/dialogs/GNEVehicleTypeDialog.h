@@ -21,7 +21,7 @@
 #include <config.h>
 
 #include <utils/common/SUMOVehicleClass.h>
-#include <utils/foxtools/MFXIconComboBox.h>
+#include <utils/foxtools/MFXComboBoxIcon.h>
 
 #include "GNEDemandElementDialog.h"
 
@@ -70,7 +70,7 @@ public:
             VTypeAttributes* myVTypeAttributesParent;
 
             /// @brief FXComboBox for VClass
-            MFXIconComboBox* myComboBoxVClass;
+            MFXComboBoxIcon* myComboBoxVClass;
 
             /// @brief label with image of VClass
             FXLabel* myComboBoxVClassLabelImage;
@@ -100,7 +100,7 @@ public:
             VTypeAttributes* myVTypeAttributesParent;
 
             /// @brief FXComboBox for Shape
-            MFXIconComboBox* myComboBoxShape;
+            MFXComboBoxIcon* myComboBoxShape;
 
             /// @brief label with image of Shape
             FXLabel* myComboBoxShapeLabelImage;
@@ -176,7 +176,7 @@ public:
             FXTextField* myTextField;
 
             /// @brief ComboBox for attributes with limited values
-            MFXIconComboBox* myComboBox;
+            MFXComboBoxIcon* myComboBox;
 
             /// @brief pointer to current parameter map
             Parameterised::Map myParameters;
@@ -476,7 +476,7 @@ public:
         std::vector<CarFollowingModelRow*> myRows;
 
         /// @brief Row for CarFollowModel
-        MFXIconComboBox* myComboBoxCarFollowModel;
+        MFXComboBoxIcon* myComboBoxCarFollowModel;
 
         /// @brief Vertical Frame for CarFollowingModelRow
         FXVerticalFrame* myVerticalFrameRows;

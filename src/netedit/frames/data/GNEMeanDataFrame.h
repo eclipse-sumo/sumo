@@ -78,7 +78,7 @@ public:
         GNETagProperties myCurrentMeanData;
 
         /// @brief comboBox with the list of vTypes
-        MFXIconComboBox* myTypeComboBox;
+        MFXComboBoxIcon* myTypeComboBox;
 
         /// @brief invalidMeanData
         GNETagProperties myInvalidMeanData;
@@ -188,7 +188,7 @@ public:
         GNEMeanData* myCurrentMeanData;
 
         /// @brief comboBox with the list of meanDatas
-        MFXIconComboBox* myMeanDataComboBox;
+        MFXComboBoxIcon* myMeanDataComboBox;
     };
 
     /**@brief Constructor (protected due GNEMeanDataFrame is abtract)

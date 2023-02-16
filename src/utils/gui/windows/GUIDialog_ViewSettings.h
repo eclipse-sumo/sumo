@@ -31,7 +31,7 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class MFXIconComboBox;
+class MFXComboBoxIcon;
 
 
 // ===========================================================================
@@ -292,7 +292,7 @@ protected:
     FXRealSpinner* myTranshipWidth = nullptr;
 
     /// @brief ... lane colorer
-    MFXIconComboBox* myLaneEdgeColorMode = nullptr;
+    MFXComboBoxIcon* myLaneEdgeColorMode = nullptr;
     FXVerticalFrame* myLaneColorSettingFrame = nullptr;
     std::vector<FXColorWell*> myLaneColors;
     std::vector<FXRealSpinner*> myLaneThresholds;
@@ -309,7 +309,7 @@ protected:
     FXComboBox* myMeanDataID = nullptr;
 
     /// @brief ... lane scaler
-    MFXIconComboBox* myLaneEdgeScaleMode = nullptr;
+    MFXComboBoxIcon* myLaneEdgeScaleMode = nullptr;
     FXVerticalFrame* myLaneScaleSettingFrame = nullptr;
     std::vector<FXRealSpinner*> myLaneScales;
     std::vector<FXRealSpinner*> myLaneScaleThresholds;
@@ -330,7 +330,7 @@ protected:
     FXRealSpinner* myLaneMinWidthDialer = nullptr;
 
     /// @brief Vehicles
-    MFXIconComboBox* myVehicleColorMode, *myVehicleShapeDetail = nullptr;
+    MFXComboBoxIcon* myVehicleColorMode, *myVehicleShapeDetail = nullptr;
     FXVerticalFrame* myVehicleColorSettingFrame = nullptr;
     std::vector<FXColorWell*> myVehicleColors;
     std::vector<FXRealSpinner*> myVehicleThresholds;
@@ -338,7 +338,7 @@ protected:
     FXCheckButton* myVehicleColorInterpolation = nullptr;
 
     /// @brief vehicle scaler
-    MFXIconComboBox* myVehicleScaleMode = nullptr;
+    MFXComboBoxIcon* myVehicleScaleMode = nullptr;
     FXVerticalFrame* myVehicleScaleSettingFrame = nullptr;
     std::vector<FXRealSpinner*> myVehicleScales;
     std::vector<FXRealSpinner*> myVehicleScaleThresholds;
@@ -359,7 +359,7 @@ protected:
     FXComboBox* myVehicleTextParamKey = nullptr;
 
     /// @brief Persons
-    MFXIconComboBox* myPersonColorMode, *myPersonShapeDetail = nullptr;
+    MFXComboBoxIcon* myPersonColorMode, *myPersonShapeDetail = nullptr;
     FXVerticalFrame* myPersonColorSettingFrame = nullptr;
     std::vector<FXColorWell*> myPersonColors;
     std::vector<FXRealSpinner*> myPersonThresholds;
@@ -367,7 +367,7 @@ protected:
     FXCheckButton* myPersonColorInterpolation = nullptr;
 
     /// @brief Containers
-    MFXIconComboBox* myContainerColorMode, *myContainerShapeDetail = nullptr;
+    MFXComboBoxIcon* myContainerColorMode, *myContainerShapeDetail = nullptr;
     FXVerticalFrame* myContainerColorSettingFrame = nullptr;
     std::vector<FXColorWell*> myContainerColors;
     std::vector<FXRealSpinner*> myContainerThresholds;
@@ -376,7 +376,7 @@ protected:
     FXRealSpinner* myContainerMinSizeDialer, *myContainerUpscaleDialer = nullptr;
 
     /// @brief junctions
-    MFXIconComboBox* myJunctionColorMode = nullptr;
+    MFXComboBoxIcon* myJunctionColorMode = nullptr;
     FXVerticalFrame* myJunctionColorSettingFrame = nullptr;
     std::vector<FXColorWell*> myJunctionColors;
     std::vector<FXRealSpinner*> myJunctionThresholds;
@@ -384,7 +384,7 @@ protected:
     FXCheckButton* myJunctionColorInterpolation = nullptr;
 
     /// @brief POIs
-    MFXIconComboBox* myPOIColorMode, *myPOIShapeDetail = nullptr;
+    MFXComboBoxIcon* myPOIColorMode, *myPOIShapeDetail = nullptr;
     FXVerticalFrame* myPOIColorSettingFrame = nullptr;
     std::vector<FXColorWell*> myPOIColors;
     std::vector<FXRealSpinner*> myPOIThresholds;
@@ -394,7 +394,7 @@ protected:
     FXSpinner* myPoiDetail = nullptr;
 
     /// @brief Polygons
-    MFXIconComboBox* myPolyColorMode, *myPolyShapeDetail = nullptr;
+    MFXComboBoxIcon* myPolyColorMode, *myPolyShapeDetail = nullptr;
     FXVerticalFrame* myPolyColorSettingFrame = nullptr;
     std::vector<FXColorWell*> myPolyColors;
     std::vector<FXRealSpinner*> myPolyThresholds;
@@ -402,7 +402,7 @@ protected:
     FXCheckButton* myPolyColorInterpolation = nullptr;
 
     /// @brief Data
-    MFXIconComboBox* myDataColorMode = nullptr;
+    MFXComboBoxIcon* myDataColorMode = nullptr;
     FXVerticalFrame* myDataColorSettingFrame = nullptr;
     std::vector<FXColorWell*> myDataColors;
     std::vector<FXRealSpinner*> myDataThresholds;

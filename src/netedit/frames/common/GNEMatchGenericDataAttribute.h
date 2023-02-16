@@ -94,7 +94,7 @@ private:
     GNEElementSet* myElementSet;
 
     /// @brief tag of the match box
-    MFXIconComboBox* myIntervalSelector;
+    MFXComboBoxIcon* myIntervalSelector;
 
     /// @brief TextField for begin
     FXTextField* myBegin;
@@ -103,7 +103,7 @@ private:
     FXTextField* myEnd;
 
     /// @brief tag of the match box
-    MFXIconComboBox* myMatchGenericDataTagComboBox;
+    MFXComboBoxIcon* myMatchGenericDataTagComboBox;
 
     /// @brief horizontal frame for TAZs,
     FXHorizontalFrame* myTAZHorizontalFrame;

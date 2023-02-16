@@ -92,7 +92,7 @@ private:
     GNEMatchGenericDataAttribute* myMatchGenericDataAttribute;
 
     /// @brief Combo Box with the element sets
-    MFXIconComboBox* mySetComboBox;
+    MFXComboBoxIcon* mySetComboBox;
 
     /// @brief current element set selected
     Type myCurrentSet;

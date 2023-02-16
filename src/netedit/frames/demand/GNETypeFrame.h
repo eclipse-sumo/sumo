@@ -82,7 +82,7 @@ public:
         GNEDemandElement* myCurrentType;
 
         /// @brief comboBox with the list of vTypes
-        MFXIconComboBox* myTypeComboBox;
+        MFXComboBoxIcon* myTypeComboBox;
     };
 
     // ===========================================================================

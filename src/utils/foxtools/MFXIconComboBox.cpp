@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    MFXIconComboBox.cpp
+/// @file    MFXComboBoxIcon.cpp
 /// @author  Jakob Erdmann
 /// @author  Pablo Alvarez Lopez
 /// @date    2018-12-19
@@ -30,7 +30,7 @@
 #undef NOMINMAX
 #endif
 
-#include "MFXIconComboBox.h"
+#include "MFXComboBoxIcon.h"
 
 
 #define SIDE_SPACING        6   // Left or right spacing between items
@@ -40,29 +40,29 @@
 #define COMBOBOX_MASK       (COMBOBOX_STATIC | COMBOBOX_INS_MASK)
 
 // Map
-FXDEFMAP(MFXIconComboBox) MFXIconComboBoxMap[] = {
-    FXMAPFUNC(SEL_FOCUS_UP,         0,                              MFXIconComboBox::onFocusUp),
-    FXMAPFUNC(SEL_FOCUS_DOWN,       0,                              MFXIconComboBox::onFocusDown),
-    FXMAPFUNC(SEL_FOCUS_SELF,       0,                              MFXIconComboBox::onFocusSelf),
-    FXMAPFUNC(SEL_UPDATE,           MFXIconComboBox::ID_TEXT,       MFXIconComboBox::onUpdFmText),
-    FXMAPFUNC(SEL_CLICKED,          MFXIconComboBox::ID_LIST,       MFXIconComboBox::onListClicked),
-    FXMAPFUNC(SEL_COMMAND,          MFXIconComboBox::ID_LIST,       MFXIconComboBox::onListClicked),
-    FXMAPFUNC(SEL_LEFTBUTTONPRESS,  MFXIconComboBox::ID_TEXT,       MFXIconComboBox::onTextButton),
-    FXMAPFUNC(SEL_MOUSEWHEEL,       MFXIconComboBox::ID_TEXT,       MFXIconComboBox::onMouseWheel),
-    FXMAPFUNC(SEL_CHANGED,          MFXIconComboBox::ID_TEXT,       MFXIconComboBox::onTextChanged),
-    FXMAPFUNC(SEL_COMMAND,          MFXIconComboBox::ID_TEXT,       MFXIconComboBox::onTextCommand),
-    FXMAPFUNC(SEL_COMMAND,          FXWindow::ID_SETVALUE,          MFXIconComboBox::onFwdToText),
-    FXMAPFUNC(SEL_COMMAND,          FXWindow::ID_SETINTVALUE,       MFXIconComboBox::onFwdToText),
-    FXMAPFUNC(SEL_COMMAND,          FXWindow::ID_SETREALVALUE,      MFXIconComboBox::onFwdToText),
-    FXMAPFUNC(SEL_COMMAND,          FXWindow::ID_SETSTRINGVALUE,    MFXIconComboBox::onFwdToText),
-    FXMAPFUNC(SEL_COMMAND,          FXWindow::ID_GETINTVALUE,       MFXIconComboBox::onFwdToText),
-    FXMAPFUNC(SEL_COMMAND,          FXWindow::ID_GETREALVALUE,      MFXIconComboBox::onFwdToText),
-    FXMAPFUNC(SEL_COMMAND,          FXWindow::ID_GETSTRINGVALUE,    MFXIconComboBox::onFwdToText),
+FXDEFMAP(MFXComboBoxIcon) MFXComboBoxIconMap[] = {
+    FXMAPFUNC(SEL_FOCUS_UP,         0,                              MFXComboBoxIcon::onFocusUp),
+    FXMAPFUNC(SEL_FOCUS_DOWN,       0,                              MFXComboBoxIcon::onFocusDown),
+    FXMAPFUNC(SEL_FOCUS_SELF,       0,                              MFXComboBoxIcon::onFocusSelf),
+    FXMAPFUNC(SEL_UPDATE,           MFXComboBoxIcon::ID_TEXT,       MFXComboBoxIcon::onUpdFmText),
+    FXMAPFUNC(SEL_CLICKED,          MFXComboBoxIcon::ID_LIST,       MFXComboBoxIcon::onListClicked),
+    FXMAPFUNC(SEL_COMMAND,          MFXComboBoxIcon::ID_LIST,       MFXComboBoxIcon::onListClicked),
+    FXMAPFUNC(SEL_LEFTBUTTONPRESS,  MFXComboBoxIcon::ID_TEXT,       MFXComboBoxIcon::onTextButton),
+    FXMAPFUNC(SEL_MOUSEWHEEL,       MFXComboBoxIcon::ID_TEXT,       MFXComboBoxIcon::onMouseWheel),
+    FXMAPFUNC(SEL_CHANGED,          MFXComboBoxIcon::ID_TEXT,       MFXComboBoxIcon::onTextChanged),
+    FXMAPFUNC(SEL_COMMAND,          MFXComboBoxIcon::ID_TEXT,       MFXComboBoxIcon::onTextCommand),
+    FXMAPFUNC(SEL_COMMAND,          FXWindow::ID_SETVALUE,          MFXComboBoxIcon::onFwdToText),
+    FXMAPFUNC(SEL_COMMAND,          FXWindow::ID_SETINTVALUE,       MFXComboBoxIcon::onFwdToText),
+    FXMAPFUNC(SEL_COMMAND,          FXWindow::ID_SETREALVALUE,      MFXComboBoxIcon::onFwdToText),
+    FXMAPFUNC(SEL_COMMAND,          FXWindow::ID_SETSTRINGVALUE,    MFXComboBoxIcon::onFwdToText),
+    FXMAPFUNC(SEL_COMMAND,          FXWindow::ID_GETINTVALUE,       MFXComboBoxIcon::onFwdToText),
+    FXMAPFUNC(SEL_COMMAND,          FXWindow::ID_GETREALVALUE,      MFXComboBoxIcon::onFwdToText),
+    FXMAPFUNC(SEL_COMMAND,          FXWindow::ID_GETSTRINGVALUE,    MFXComboBoxIcon::onFwdToText),
 };
 
 
 // Object implementation
-FXIMPLEMENT(MFXIconComboBox,    FXPacker,   MFXIconComboBoxMap, ARRAYNUMBER(MFXIconComboBoxMap))
+FXIMPLEMENT(MFXComboBoxIcon,    FXPacker,   MFXComboBoxIconMap, ARRAYNUMBER(MFXComboBoxIconMap))
 FXIMPLEMENT(MFXListItem,        FXListItem, nullptr,            0)
 
 
@@ -119,7 +119,7 @@ MFXListItem::MFXListItem() :
 }
 
 
-MFXIconComboBox::MFXIconComboBox(FXComposite* p, FXint cols, const bool haveIcons, FXObject* tgt, FXSelector sel, FXuint opts, FXint x, FXint y, FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb):
+MFXComboBoxIcon::MFXComboBoxIcon(FXComposite* p, FXint cols, const bool haveIcons, FXObject* tgt, FXSelector sel, FXuint opts, FXint x, FXint y, FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb):
     FXPacker(p, opts, x, y, w, h, 0, 0, 0, 0, 0, 0),
     myHaveIcons(haveIcons) {
     flags |= FLAG_ENABLED;
@@ -129,12 +129,12 @@ MFXIconComboBox::MFXIconComboBox(FXComposite* p, FXint cols, const bool haveIcon
     if (!myHaveIcons) {
         myIconLabel->hide();
     }
-    myTextFieldIcon = new MFXTextFieldIcon(this, cols, this, MFXIconComboBox::ID_TEXT, 0, 0, 0, 0, 0, pl, pr, pt, pb);
+    myTextFieldIcon = new MFXTextFieldIcon(this, cols, this, MFXComboBoxIcon::ID_TEXT, 0, 0, 0, 0, 0, pl, pr, pt, pb);
     if (options & COMBOBOX_STATIC) {
         myTextFieldIcon->setEditable(FALSE);
     }
     myPane = new FXPopup(this, FRAME_LINE);
-    myList = new FXList(myPane, this, MFXIconComboBox::ID_LIST, LIST_BROWSESELECT | LIST_AUTOSELECT | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT | SCROLLERS_TRACK | HSCROLLER_NEVER);
+    myList = new FXList(myPane, this, MFXComboBoxIcon::ID_LIST, LIST_BROWSESELECT | LIST_AUTOSELECT | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT | SCROLLERS_TRACK | HSCROLLER_NEVER);
     if (options & COMBOBOX_STATIC) {
         myList->setScrollStyle(SCROLLERS_TRACK | HSCROLLING_OFF);
     }
@@ -145,7 +145,7 @@ MFXIconComboBox::MFXIconComboBox(FXComposite* p, FXint cols, const bool haveIcon
 }
 
 
-MFXIconComboBox::~MFXIconComboBox() {
+MFXComboBoxIcon::~MFXComboBoxIcon() {
     delete myPane;
     myPane = (FXPopup*) - 1L;
     myIconLabel = (FXLabel*) - 1L;
@@ -156,28 +156,28 @@ MFXIconComboBox::~MFXIconComboBox() {
 
 
 void
-MFXIconComboBox::create() {
+MFXComboBoxIcon::create() {
     FXPacker::create();
     myPane->create();
 }
 
 
 void
-MFXIconComboBox::detach() {
+MFXComboBoxIcon::detach() {
     FXPacker::detach();
     myPane->detach();
 }
 
 
 void
-MFXIconComboBox::destroy() {
+MFXComboBoxIcon::destroy() {
     myPane->destroy();
     FXPacker::destroy();
 }
 
 
 void
-MFXIconComboBox::enable() {
+MFXComboBoxIcon::enable() {
     if (!isEnabled()) {
         FXPacker::enable();
         myIconLabel->enable();
@@ -188,7 +188,7 @@ MFXIconComboBox::enable() {
 
 
 void
-MFXIconComboBox::disable() {
+MFXComboBoxIcon::disable() {
     if (isEnabled()) {
         FXPacker::disable();
         myIconLabel->disable();
@@ -199,7 +199,7 @@ MFXIconComboBox::disable() {
 
 
 FXint
-MFXIconComboBox::getDefaultWidth() {
+MFXComboBoxIcon::getDefaultWidth() {
     FXint ww, pw;
     if (myIconLabel->shown()) {
         ww = myIconLabel->getDefaultWidth() + myTextFieldIcon->getDefaultWidth() + myButton->getDefaultWidth() + (border << 1);
@@ -212,7 +212,7 @@ MFXIconComboBox::getDefaultWidth() {
 
 
 FXint
-MFXIconComboBox::getDefaultHeight() {
+MFXComboBoxIcon::getDefaultHeight() {
     FXint th, bh;
     th = myTextFieldIcon->getDefaultHeight();
     bh = myButton->getDefaultHeight();
@@ -221,7 +221,7 @@ MFXIconComboBox::getDefaultHeight() {
 
 
 void
-MFXIconComboBox::layout() {
+MFXComboBoxIcon::layout() {
     const FXint itemHeight = height - (border << 1);
     const FXint iconSize = myHaveIcons ? itemHeight : 0;
     const FXint buttonWidth = myButton->getDefaultWidth();
@@ -242,68 +242,68 @@ MFXIconComboBox::layout() {
 
 
 FXbool
-MFXIconComboBox::isEditable() const {
+MFXComboBoxIcon::isEditable() const {
     return myTextFieldIcon->isEditable();
 }
 
 
 void
-MFXIconComboBox::setEditable(FXbool edit) {
+MFXComboBoxIcon::setEditable(FXbool edit) {
     myTextFieldIcon->setEditable(edit);
 }
 
 
 FXString
-MFXIconComboBox::getText() const {
+MFXComboBoxIcon::getText() const {
     return myTextFieldIcon->getText();
 }
 
 
 void
-MFXIconComboBox::setNumColumns(FXint cols) {
+MFXComboBoxIcon::setNumColumns(FXint cols) {
     myTextFieldIcon->setNumColumns(cols);
 }
 
 
 FXint
-MFXIconComboBox::getNumColumns() const {
+MFXComboBoxIcon::getNumColumns() const {
     return myTextFieldIcon->getNumColumns();
 }
 
 
 FXint
-MFXIconComboBox::getNumItems() const {
+MFXComboBoxIcon::getNumItems() const {
     return myList->getNumItems();
 }
 
 
 FXint
-MFXIconComboBox::getNumVisible() const {
+MFXComboBoxIcon::getNumVisible() const {
     return myList->getNumVisible();
 }
 
 
 void
-MFXIconComboBox::setText(FXString text) {
+MFXComboBoxIcon::setText(FXString text) {
     myTextFieldIcon->setText(text);
 }
 
 
 void
-MFXIconComboBox::setNumVisible(FXint nvis) {
+MFXComboBoxIcon::setNumVisible(FXint nvis) {
     myList->setNumVisible(nvis);
     myList->setHeight(nvis * (ICON_SIZE + ICON_SPACING));
 }
 
 
 FXbool
-MFXIconComboBox::isItemCurrent(FXint index) const {
+MFXComboBoxIcon::isItemCurrent(FXint index) const {
     return myList->isItemCurrent(index);
 }
 
 
 void
-MFXIconComboBox::setCurrentItem(FXint index, FXbool notify) {
+MFXComboBoxIcon::setCurrentItem(FXint index, FXbool notify) {
     FXint current = myList->getCurrentItem();
     if (current != index) {
         myList->setCurrentItem(index);
@@ -334,19 +334,19 @@ MFXIconComboBox::setCurrentItem(FXint index, FXbool notify) {
 
 
 FXint
-MFXIconComboBox::getCurrentItem() const {
+MFXComboBoxIcon::getCurrentItem() const {
     return myList->getCurrentItem();
 }
 
 
 FXString
-MFXIconComboBox::getItem(FXint index) const {
+MFXComboBoxIcon::getItem(FXint index) const {
     return myList->getItem(index)->getText();
 }
 
 
 FXint
-MFXIconComboBox::setIconItem(FXint index, const FXString& text, FXIcon* icon, FXColor bgColor, void* ptr) {
+MFXComboBoxIcon::setIconItem(FXint index, const FXString& text, FXIcon* icon, FXColor bgColor, void* ptr) {
     if (index < 0 || myList->getNumItems() <= index) {
         fxerror("%s::setItem: index out of range.\n", getClassName());
     }
@@ -363,7 +363,7 @@ MFXIconComboBox::setIconItem(FXint index, const FXString& text, FXIcon* icon, FX
 
 
 FXint
-MFXIconComboBox::insertIconItem(FXint index, const FXString& text, FXIcon* icon, FXColor bgColor, void* ptr) {
+MFXComboBoxIcon::insertIconItem(FXint index, const FXString& text, FXIcon* icon, FXColor bgColor, void* ptr) {
     if (index < 0 || myList->getNumItems() < index) {
         fxerror("%s::insertItem: index out of range.\n", getClassName());
     }
@@ -380,7 +380,7 @@ MFXIconComboBox::insertIconItem(FXint index, const FXString& text, FXIcon* icon,
 
 
 FXint
-MFXIconComboBox::appendIconItem(const FXString& text, FXIcon* icon, FXColor bgColor, void* ptr) {
+MFXComboBoxIcon::appendIconItem(const FXString& text, FXIcon* icon, FXColor bgColor, void* ptr) {
     FXint index = myList->appendItem(new MFXListItem(text, icon, bgColor, ptr));
     if (isItemCurrent(getNumItems() - 1)) {
         myTextFieldIcon->setText(text);
@@ -394,7 +394,7 @@ MFXIconComboBox::appendIconItem(const FXString& text, FXIcon* icon, FXColor bgCo
 
 
 bool
-MFXIconComboBox::setItem(const FXString& text, FXIcon* icon) {
+MFXComboBoxIcon::setItem(const FXString& text, FXIcon* icon) {
     for (int i = 0; i < myList->getNumItems(); i++) {
         // cast MFXListItem
         const MFXListItem* item = dynamic_cast<MFXListItem*>(myList->getItem(i));
@@ -413,14 +413,14 @@ MFXIconComboBox::setItem(const FXString& text, FXIcon* icon) {
 
 
 void
-MFXIconComboBox::setCustomText(const FXString text) {
+MFXComboBoxIcon::setCustomText(const FXString text) {
     myTextFieldIcon->setText(text);
     myTextFieldIcon->setTextColor(FXRGB(128, 128, 128));
 }
 
 
 FXint
-MFXIconComboBox::prependItem(const FXString& text, void* ptr) {
+MFXComboBoxIcon::prependItem(const FXString& text, void* ptr) {
     FXint index = myList->prependItem(text, NULL, ptr);
     if (isItemCurrent(0)) {
         myTextFieldIcon->setText(text);
@@ -434,7 +434,7 @@ MFXIconComboBox::prependItem(const FXString& text, void* ptr) {
 
 
 FXint
-MFXIconComboBox::moveItem(FXint newindex, FXint oldindex) {
+MFXComboBoxIcon::moveItem(FXint newindex, FXint oldindex) {
     if (newindex < 0 || myList->getNumItems() <= newindex || oldindex < 0 || myList->getNumItems() <= oldindex) {
         fxerror("%s::moveItem: index out of range.\n", getClassName());
     }
@@ -456,7 +456,7 @@ MFXIconComboBox::moveItem(FXint newindex, FXint oldindex) {
 
 
 void
-MFXIconComboBox::removeItem(FXint index) {
+MFXComboBoxIcon::removeItem(FXint index) {
     FXint current = myList->getCurrentItem();
     myList->removeItem(index);
     if (index == current) {
@@ -474,7 +474,7 @@ MFXIconComboBox::removeItem(FXint index) {
 
 
 void
-MFXIconComboBox::clearItems() {
+MFXComboBoxIcon::clearItems() {
     myTextFieldIcon->resetTextField();
     myList->clearItems();
     recalc();
@@ -482,43 +482,43 @@ MFXIconComboBox::clearItems() {
 
 
 FXint
-MFXIconComboBox::findItem(const FXString& text, FXint start, FXuint flgs) const {
+MFXComboBoxIcon::findItem(const FXString& text, FXint start, FXuint flgs) const {
     return myList->findItem(text, start, flgs);
 }
 
 
 FXint
-MFXIconComboBox::findItemByData(const void* ptr, FXint start, FXuint flgs) const {
+MFXComboBoxIcon::findItemByData(const void* ptr, FXint start, FXuint flgs) const {
     return myList->findItemByData(ptr, start, flgs);
 }
 
 
 FXString
-MFXIconComboBox::getItemText(FXint index) const {
+MFXComboBoxIcon::getItemText(FXint index) const {
     return myList->getItemText(index);
 }
 
 
 void
-MFXIconComboBox::setItemData(FXint index, void* ptr) const {
+MFXComboBoxIcon::setItemData(FXint index, void* ptr) const {
     myList->setItemData(index, ptr);
 }
 
 
 void*
-MFXIconComboBox::getItemData(FXint index) const {
+MFXComboBoxIcon::getItemData(FXint index) const {
     return myList->getItemData(index);
 }
 
 
 FXbool
-MFXIconComboBox::isPaneShown() const {
+MFXComboBoxIcon::isPaneShown() const {
     return myPane->shown();
 }
 
 
 void
-MFXIconComboBox::setFont(FXFont* fnt) {
+MFXComboBoxIcon::setFont(FXFont* fnt) {
     if (!fnt) {
         fxerror("%s::setFont: NULL font specified.\n", getClassName());
     }
@@ -529,13 +529,13 @@ MFXIconComboBox::setFont(FXFont* fnt) {
 
 
 FXFont*
-MFXIconComboBox::getFont() const {
+MFXComboBoxIcon::getFont() const {
     return myTextFieldIcon->getFont();
 }
 
 
 void
-MFXIconComboBox::setComboStyle(FXuint mode) {
+MFXComboBoxIcon::setComboStyle(FXuint mode) {
     FXuint opts = (options & ~COMBOBOX_MASK) | (mode & COMBOBOX_MASK);
     if (opts != options) {
         options = opts;
@@ -552,25 +552,25 @@ MFXIconComboBox::setComboStyle(FXuint mode) {
 
 
 FXuint
-MFXIconComboBox::getComboStyle() const {
+MFXComboBoxIcon::getComboStyle() const {
     return (options & COMBOBOX_MASK);
 }
 
 
 void
-MFXIconComboBox::setJustify(FXuint style) {
+MFXComboBoxIcon::setJustify(FXuint style) {
     myTextFieldIcon->setJustify(style);
 }
 
 
 FXuint
-MFXIconComboBox::getJustify() const {
+MFXComboBoxIcon::getJustify() const {
     return myTextFieldIcon->getJustify();
 }
 
 
 void
-MFXIconComboBox::setBackColor(FXColor clr) {
+MFXComboBoxIcon::setBackColor(FXColor clr) {
     myTextFieldIcon->setBackColor(clr);
     myIconLabel->setBackColor(clr);
     myList->setBackColor(clr);
@@ -578,106 +578,106 @@ MFXIconComboBox::setBackColor(FXColor clr) {
 
 
 FXColor
-MFXIconComboBox::getBackColor() const {
+MFXComboBoxIcon::getBackColor() const {
     return myTextFieldIcon->getBackColor();
 }
 
 
 void
-MFXIconComboBox::setTextColor(FXColor clr) {
+MFXComboBoxIcon::setTextColor(FXColor clr) {
     myTextFieldIcon->setTextColor(clr);
     myList->setTextColor(clr);
 }
 
 
 FXColor
-MFXIconComboBox::getTextColor() const {
+MFXComboBoxIcon::getTextColor() const {
     return myTextFieldIcon->getTextColor();
 }
 
 
 void
-MFXIconComboBox::setSelBackColor(FXColor clr) {
+MFXComboBoxIcon::setSelBackColor(FXColor clr) {
     myTextFieldIcon->setSelBackColor(clr);
     myList->setSelBackColor(clr);
 }
 
 
 FXColor
-MFXIconComboBox::getSelBackColor() const {
+MFXComboBoxIcon::getSelBackColor() const {
     return myTextFieldIcon->getSelBackColor();
 }
 
 
 void
-MFXIconComboBox::setSelTextColor(FXColor clr) {
+MFXComboBoxIcon::setSelTextColor(FXColor clr) {
     myTextFieldIcon->setSelTextColor(clr);
     myList->setSelTextColor(clr);
 }
 
 
 FXColor
-MFXIconComboBox::getSelTextColor() const {
+MFXComboBoxIcon::getSelTextColor() const {
     return myTextFieldIcon->getSelTextColor();
 }
 
 
 void
-MFXIconComboBox::sortItems() {
+MFXComboBoxIcon::sortItems() {
     myList->sortItems();
 }
 
 
 FXListSortFunc
-MFXIconComboBox::getSortFunc() const {
+MFXComboBoxIcon::getSortFunc() const {
     return myList->getSortFunc();
 }
 
 
 void
-MFXIconComboBox::setSortFunc(FXListSortFunc func) {
+MFXComboBoxIcon::setSortFunc(FXListSortFunc func) {
     myList->setSortFunc(func);
 }
 
 
 void
-MFXIconComboBox::setHelpText(const FXString& txt) {
+MFXComboBoxIcon::setHelpText(const FXString& txt) {
     myTextFieldIcon->setHelpText(txt);
 }
 
 
 const FXString&
-MFXIconComboBox::getHelpText() const {
+MFXComboBoxIcon::getHelpText() const {
     return myTextFieldIcon->getHelpText();
 }
 
 
 void
-MFXIconComboBox::setTipText(const FXString& txt) {
+MFXComboBoxIcon::setTipText(const FXString& txt) {
     myTextFieldIcon->setTipText(txt);
 }
 
 
 const FXString&
-MFXIconComboBox::getTipText() const {
+MFXComboBoxIcon::getTipText() const {
     return myTextFieldIcon->getTipText();
 }
 
 
 long
-MFXIconComboBox::onUpdFmText(FXObject*, FXSelector, void*) {
+MFXComboBoxIcon::onUpdFmText(FXObject*, FXSelector, void*) {
     return target && !isPaneShown() && target->tryHandle(this, FXSEL(SEL_UPDATE, message), NULL);
 }
 
 
 long
-MFXIconComboBox::onFwdToText(FXObject* sender, FXSelector sel, void* ptr) {
+MFXComboBoxIcon::onFwdToText(FXObject* sender, FXSelector sel, void* ptr) {
     return myTextFieldIcon->handle(sender, sel, ptr);
 }
 
 
 long
-MFXIconComboBox::onListClicked(FXObject*, FXSelector sel, void* ptr) {
+MFXComboBoxIcon::onListClicked(FXObject*, FXSelector sel, void* ptr) {
     myButton->handle(this, FXSEL(SEL_COMMAND, ID_UNPOST), NULL);
     if (FXSELTYPE(sel) == SEL_COMMAND) {
         // cast MFXListItem
@@ -702,7 +702,7 @@ MFXIconComboBox::onListClicked(FXObject*, FXSelector sel, void* ptr) {
 
 
 long
-MFXIconComboBox::onTextButton(FXObject*, FXSelector, void*) {
+MFXComboBoxIcon::onTextButton(FXObject*, FXSelector, void*) {
     if (options & COMBOBOX_STATIC) {
         // Post the myList
         myButton->handle(this, FXSEL(SEL_COMMAND, ID_POST), NULL);
@@ -713,13 +713,13 @@ MFXIconComboBox::onTextButton(FXObject*, FXSelector, void*) {
 
 
 long
-MFXIconComboBox::onTextChanged(FXObject*, FXSelector, void* ptr) {
+MFXComboBoxIcon::onTextChanged(FXObject*, FXSelector, void* ptr) {
     return target && target->tryHandle(this, FXSEL(SEL_CHANGED, message), ptr);
 }
 
 
 long
-MFXIconComboBox::onTextCommand(FXObject*, FXSelector, void* ptr) {
+MFXComboBoxIcon::onTextCommand(FXObject*, FXSelector, void* ptr) {
     FXint index = myList->getCurrentItem();
     if (!(options & COMBOBOX_STATIC)) {
         switch (options & COMBOBOX_INS_MASK) {
@@ -755,13 +755,13 @@ MFXIconComboBox::onTextCommand(FXObject*, FXSelector, void* ptr) {
 
 
 long
-MFXIconComboBox::onFocusSelf(FXObject* sender, FXSelector, void* ptr) {
+MFXComboBoxIcon::onFocusSelf(FXObject* sender, FXSelector, void* ptr) {
     return myTextFieldIcon->handle(sender, FXSEL(SEL_FOCUS_SELF, 0), ptr);
 }
 
 
 long
-MFXIconComboBox::onFocusUp(FXObject*, FXSelector, void*) {
+MFXComboBoxIcon::onFocusUp(FXObject*, FXSelector, void*) {
     if (isEnabled()) {
         FXint index = getCurrentItem();
         if (index < 0) {
@@ -779,7 +779,7 @@ MFXIconComboBox::onFocusUp(FXObject*, FXSelector, void*) {
 
 
 long
-MFXIconComboBox::onFocusDown(FXObject*, FXSelector, void*) {
+MFXComboBoxIcon::onFocusDown(FXObject*, FXSelector, void*) {
     if (isEnabled()) {
         FXint index = getCurrentItem();
         if (index < 0) {
@@ -796,7 +796,7 @@ MFXIconComboBox::onFocusDown(FXObject*, FXSelector, void*) {
 }
 
 
-long MFXIconComboBox::onMouseWheel(FXObject*, FXSelector, void* ptr) {
+long MFXComboBoxIcon::onMouseWheel(FXObject*, FXSelector, void* ptr) {
     FXEvent* event = (FXEvent*)ptr;
     if (isEnabled()) {
         FXint index = getCurrentItem();
@@ -822,5 +822,5 @@ long MFXIconComboBox::onMouseWheel(FXObject*, FXSelector, void* ptr) {
 }
 
 
-MFXIconComboBox::MFXIconComboBox() :
+MFXComboBoxIcon::MFXComboBoxIcon() :
     myHaveIcons(false) {}

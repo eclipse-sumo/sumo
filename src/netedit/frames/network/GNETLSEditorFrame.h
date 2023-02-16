@@ -129,7 +129,7 @@ public:
         MFXTextFieldTooltip* myTLSIDTextField = nullptr;
 
         /// @brief ComboBox for TLS Types
-        MFXIconComboBox* myTLSTypeComboBox = nullptr;
+        MFXComboBoxIcon* myTLSTypeComboBox = nullptr;
 
         /// @brief Toggle button for join TLS
         MFXToggleButtonTooltip* myJoinTLSToggleButton = nullptr;

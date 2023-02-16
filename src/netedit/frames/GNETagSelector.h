@@ -105,7 +105,7 @@ private:
     GNETagProperties::TagType myTagType;
 
     /// @brief comboBox with the tags
-    MFXIconComboBox* myTagsMatchBox;
+    MFXComboBoxIcon* myTagsMatchBox;
 
     /// @brief current templateAC;
     GNEAttributeCarrier* myCurrentTemplateAC;
