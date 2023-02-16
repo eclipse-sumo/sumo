@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-16 14:38+0000\n"
+"PO-Revision-Date: 2023-02-16 14:49+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
@@ -3980,27 +3980,27 @@ msgstr "建立類型模式(車輛, 人員(person)及容器(containers))。(T)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3695
 msgid "Create stop mode"
-msgstr ""
+msgstr "建立停靠點模式"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3695
 msgid "Mode for creating stops. (A)"
-msgstr ""
+msgstr "建立停靠點模式。(A)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3701
 msgid "Create person mode"
-msgstr ""
+msgstr "建立人員(person)模式"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3701
 msgid "Mode for creating persons. (P)"
-msgstr ""
+msgstr "建立人員(person)模式。(P)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3707
 msgid "Create person plan mode"
-msgstr ""
+msgstr "建立人員旅運計畫的模式"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3707
 msgid "Mode for creating person plans. (C)"
-msgstr ""
+msgstr "建立人員旅運計畫的模式。(C)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3713
 msgid "Create container mode"
