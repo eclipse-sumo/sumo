@@ -22,7 +22,6 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
-#include <config.h>
 
 #ifdef WIN32
 #define NOMINMAX
@@ -31,15 +30,18 @@
 #endif
 
 #include "MFXComboBoxIcon.h"
+#include "MFXListItemIcon.h"
 
 
-#define SIDE_SPACING        6   // Left or right spacing between items
 #define ICON_SPACING        4   // Spacing between icon and label (2 + 2)
 #define ICON_SIZE           16
 #define COMBOBOX_INS_MASK   (COMBOBOX_REPLACE | COMBOBOX_INSERT_BEFORE | COMBOBOX_INSERT_AFTER | COMBOBOX_INSERT_FIRST | COMBOBOX_INSERT_LAST)
 #define COMBOBOX_MASK       (COMBOBOX_STATIC | COMBOBOX_INS_MASK)
 
-// Map
+// ===========================================================================
+// FOX callback mapping
+// ===========================================================================
+
 FXDEFMAP(MFXComboBoxIcon) MFXComboBoxIconMap[] = {
     FXMAPFUNC(SEL_FOCUS_UP,         0,                              MFXComboBoxIcon::onFocusUp),
     FXMAPFUNC(SEL_FOCUS_DOWN,       0,                              MFXComboBoxIcon::onFocusDown),
@@ -60,64 +62,12 @@ FXDEFMAP(MFXComboBoxIcon) MFXComboBoxIconMap[] = {
     FXMAPFUNC(SEL_COMMAND,          FXWindow::ID_GETSTRINGVALUE,    MFXComboBoxIcon::onFwdToText),
 };
 
-
 // Object implementation
 FXIMPLEMENT(MFXComboBoxIcon,    FXPacker,   MFXComboBoxIconMap, ARRAYNUMBER(MFXComboBoxIconMap))
-FXIMPLEMENT(MFXListItem,        FXListItem, nullptr,            0)
 
-
-MFXListItem::MFXListItem(const FXString& text, FXIcon* ic, FXColor backGroundColor, void* ptr):
-    FXListItem(text, ic, ptr),
-    myBackGroundColor(backGroundColor) {
-}
-
-
-void
-MFXListItem::draw(const FXList* myList, FXDC& dc, FXint xx, FXint yy, FXint ww, FXint hh) {
-    register FXFont *font = myList->getFont();
-    register FXint ih = 0, th = 0;
-    ih = ICON_SIZE;
-    if (!label.empty()) {
-        th = font->getFontHeight();
-    }
-    if (isSelected()) {
-        dc.setForeground(myList->getSelBackColor());
-    } else {
-        dc.setForeground(myBackGroundColor);     // FIXME maybe paint background in onPaint?
-    }
-    dc.fillRectangle(xx, yy, ww, hh);
-    if (hasFocus()) {
-        dc.drawFocusRectangle(xx + 1, yy + 1, ww - 2, hh - 2);
-    }
-    xx += SIDE_SPACING/2;
-    if (icon) {
-        dc.drawIcon(icon, xx, yy + (hh - ih) / 2);
-    }
-    xx += ICON_SPACING + ICON_SIZE;
-    if (!label.empty()) {
-        dc.setFont(font);
-        if (!isEnabled()) {
-            dc.setForeground(makeShadowColor(myList->getBackColor()));
-        } else if (isSelected()) {
-            dc.setForeground(myList->getSelTextColor());
-        } else {
-            dc.setForeground(myList->getTextColor());
-        }
-        dc.drawText(xx, yy + (hh - th) / 2 + font->getFontAscent(), label);
-    }
-}
-
-const FXColor&
-MFXListItem::getBackGroundColor() const {
-    return myBackGroundColor;
-}
-
-
-MFXListItem::MFXListItem() :
-    FXListItem("", nullptr),
-    myBackGroundColor(FXRGB(0, 0, 0)) {
-}
-
+// ===========================================================================
+// member method definitions
+// ===========================================================================
 
 MFXComboBoxIcon::MFXComboBoxIcon(FXComposite* p, FXint cols, const bool haveIcons, FXObject* tgt, FXSelector sel, FXuint opts, FXint x, FXint y, FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb):
     FXPacker(p, opts, x, y, w, h, 0, 0, 0, 0, 0, 0),
@@ -309,8 +259,8 @@ MFXComboBoxIcon::setCurrentItem(FXint index, FXbool notify) {
         myList->setCurrentItem(index);
         myList->makeItemVisible(index);
         if (0 <= index) {
-            // cast MFXListItem
-            const MFXListItem* item = dynamic_cast<MFXListItem*>(myList->getItem(index));
+            // cast MFXListItemIcon
+            const MFXListItemIcon* item = dynamic_cast<MFXListItemIcon*>(myList->getItem(index));
             // set icon and background color
             if (item) {
                 myTextFieldIcon->setText(item->getText());
@@ -381,7 +331,7 @@ MFXComboBoxIcon::insertIconItem(FXint index, const FXString& text, FXIcon* icon,
 
 FXint
 MFXComboBoxIcon::appendIconItem(const FXString& text, FXIcon* icon, FXColor bgColor, void* ptr) {
-    FXint index = myList->appendItem(new MFXListItem(text, icon, bgColor, ptr));
+    FXint index = myList->appendItem(new MFXListItemIcon(text, icon, bgColor, ptr));
     if (isItemCurrent(getNumItems() - 1)) {
         myTextFieldIcon->setText(text);
         myTextFieldIcon->setBackColor(bgColor);
@@ -396,8 +346,8 @@ MFXComboBoxIcon::appendIconItem(const FXString& text, FXIcon* icon, FXColor bgCo
 bool
 MFXComboBoxIcon::setItem(const FXString& text, FXIcon* icon) {
     for (int i = 0; i < myList->getNumItems(); i++) {
-        // cast MFXListItem
-        const MFXListItem* item = dynamic_cast<MFXListItem*>(myList->getItem(i));
+        // cast MFXListItemIcon
+        const MFXListItemIcon* item = dynamic_cast<MFXListItemIcon*>(myList->getItem(i));
         // set icon and background color
         if (item && (item->getText() == text) && (item->getIcon() == icon)) {
             myTextFieldIcon->setText(item->getText());
@@ -680,8 +630,8 @@ long
 MFXComboBoxIcon::onListClicked(FXObject*, FXSelector sel, void* ptr) {
     myButton->handle(this, FXSEL(SEL_COMMAND, ID_UNPOST), NULL);
     if (FXSELTYPE(sel) == SEL_COMMAND) {
-        // cast MFXListItem
-        const MFXListItem* item = dynamic_cast<MFXListItem*>(myList->getItem((FXint)(FXival)ptr));
+        // cast MFXListItemIcon
+        const MFXListItemIcon* item = dynamic_cast<MFXListItemIcon*>(myList->getItem((FXint)(FXival)ptr));
         // set icon and background color
         if (item) {
             myTextFieldIcon->setText(item->getText());

@@ -25,30 +25,6 @@
 #include "MFXTextFieldIcon.h"
 
 
-/// @brief A list item which allows for custom coloring
-class MFXListItem : public FXListItem {
-    /// @brief FOX declaration
-    FXDECLARE(MFXListItem)
-
-public:
-    /// @brief Construct new item with given text, icon, and user-data
-    MFXListItem(const FXString& text, FXIcon* ic, FXColor backGroundColor, void* ptr = NULL);
-
-    /// @brief draw MFXListItem
-    void draw(const FXList* list, FXDC& dc, FXint x, FXint y, FXint w, FXint h);
-
-    /// @brief get background color
-    const FXColor& getBackGroundColor() const;
-
-protected:
-    /// @brief fox need this
-    MFXListItem();
-
-    /// @brief backGround color
-    FXColor myBackGroundColor;
-};
-
-
 /// @brief ComboBox with icon
 class MFXComboBoxIcon : public FXPacker {
     /// @brief FOX declaration
