@@ -1162,6 +1162,8 @@ Vehicle::setStopParameter(const std::string& vehID, int nextStopIndex,
         } else if (param == toString(SUMO_ATTR_DURATION)) {
             pars.duration = string2time(value);
             pars.parametersSet |= STOP_DURATION_SET;
+            // also update dynamic value
+            stop.duration = pars.duration;
         } else if (param == toString(SUMO_ATTR_UNTIL)) {
             pars.until = string2time(value);
             pars.parametersSet |= STOP_UNTIL_SET;
