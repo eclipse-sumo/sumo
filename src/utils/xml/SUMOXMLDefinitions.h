@@ -723,6 +723,12 @@ enum SumoXMLAttr {
     /// @brief Stopping threshold
     SUMO_ATTR_STOPPINGTHRESHOLD,
     /// @}
+    
+    /// @name tripinfo output attributes
+    /// @{
+    SUMO_ATTR_WAITINGCOUNT,
+    SUMO_ATTR_STOPTIME,
+    /// @}
 
     /// @name elecHybrid device export parameters
     /// @{

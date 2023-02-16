@@ -487,6 +487,10 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "recuperationEfficiency",         SUMO_ATTR_RECUPERATIONEFFICIENCY },
     { "recuperationEfficiencyByDecel",  SUMO_ATTR_RECUPERATIONEFFICIENCY_BY_DECELERATION },
     { "stoppingTreshold",               SUMO_ATTR_STOPPINGTHRESHOLD },
+    // MSDevice_Tripinfo
+    { "waitingCount",                   SUMO_ATTR_WAITINGCOUNT },
+    { "stopTime",                       SUMO_ATTR_STOPTIME },
+
     // MSElecHybridExport
     { "overheadWireId",         SUMO_ATTR_OVERHEADWIREID },
     { "tractionSubstationId",   SUMO_ATTR_TRACTIONSUBSTATIONID },

@@ -342,10 +342,10 @@ MSDevice_Tripinfo::generateOutput(OutputDevice* tripinfoOut) const {
     os.writeAttr("arrivalSpeed", myArrivalSpeed);
     os.writeAttr("duration", time2string(duration));
     os.writeAttr("routeLength", routeLength);
-    os.writeAttr("waitingTime", time2string(myWaitingTime));
-    os.writeAttr("waitingCount", myWaitingCount);
-    os.writeAttr("stopTime", time2string(myStoppingTime));
-    os.writeAttr("timeLoss", time2string(timeLoss));
+    os.writeAttr(SUMO_ATTR_WAITINGTIME, time2string(myWaitingTime));
+    os.writeAttr(SUMO_ATTR_WAITINGCOUNT, myWaitingCount);
+    os.writeAttr(SUMO_ATTR_STOPTIME, time2string(myStoppingTime));
+    os.writeAttr(SUMO_ATTR_TIMELOSS, time2string(timeLoss));
     os.writeAttr("rerouteNo", myHolder.getNumberReroutes());
     os.writeAttr("devices", toString(myHolder.getDevices()));
     os.writeAttr("vType", myHolder.getVehicleType().getID());
@@ -744,6 +744,19 @@ MSDevice_Tripinfo::getAvgRideRouteLength() {
     } else {
         return 0;
     }
+}
+
+
+std::string
+MSDevice_Tripinfo::getParameter(const std::string& key) const {
+    if (key == toString(SUMO_ATTR_WAITINGTIME)) {
+        return toString(STEPS2TIME(myWaitingTime));
+    } else if (key == toString(SUMO_ATTR_WAITINGCOUNT)) {
+        return toString(myWaitingCount);
+    } else if (key == toString(SUMO_ATTR_STOPTIME)) {
+        return toString(STEPS2TIME(myStoppingTime));
+    }
+    throw InvalidArgument("Parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
 }
 
 
