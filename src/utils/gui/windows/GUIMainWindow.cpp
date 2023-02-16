@@ -408,7 +408,9 @@ GUIMainWindow::onCmdChangeLanguage(FXObject*, FXSelector sel, void*) {
         const std::string header = TL("Restart needed");
         const std::string body = TL("Changing display language needs restart to take effect.") + std::string("\n") +
 #ifdef DEBUG
+#ifdef WIN32
                                  TL("For the Debug build you might also need to set the LANG environment variable.") + std::string("\n") +
+#endif
 #endif
                                  TL("Under development. You can help to improve the translation at:") + std::string("\n") +
                                  "https://hosted.weblate.org/projects/eclipse-sumo/";
