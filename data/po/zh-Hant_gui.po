@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-16 13:49+0000\n"
+"PO-Revision-Date: 2023-02-16 14:09+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
@@ -3777,15 +3777,15 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2399
 msgid "Apply mouse movement to elevation instead of x,y position."
-msgstr ""
+msgstr "將滑鼠移動功能用於高程而不是 x，y 位置。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2407
 msgid "Edge chain mode"
-msgstr ""
+msgstr "路段鏈(chain)模式"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2407
 msgid "Create consecutive edges with a single click (hit ESC to cancel chain)."
-msgstr ""
+msgstr "單擊一下即可建立連續的路段（按 ESC 取消鏈(chain))。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2415
 msgid "Edge opposite direction"
