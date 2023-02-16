@@ -96,6 +96,7 @@ while traci.simulation.getMinExpectedNumber() > 0:
         traci.vehicle.setStopParameter(vehID, 0, "speed", "3")
         traci.vehicle.setStopParameter(vehID, 0, "started", "0:1:23")
         traci.vehicle.setStopParameter(vehID, 0, "ended", "0:1:42")
+        traci.vehicle.setStopParameter(vehID, 2, "onDemand", "true")
     if traci.simulation.getTime() == 6:
         getParams(vehID, 0)
     if traci.simulation.getTime() == 200:
