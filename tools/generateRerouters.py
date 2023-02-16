@@ -45,9 +45,9 @@ def get_options(args=None):
                   help="vClasses that shall be permitted on the closed edge")
     op.add_option("--disallow",
                   help="vClasses that shall be prohibited on the closed edge")
-    op.add_option("-b", "--begin",  default=0,
+    op.add_option("-b", "--begin",  default=0, type=float,
                   help="begin time for the closing")
-    op.add_option("-e", "--end",  default=86400,
+    op.add_option("-e", "--end",  default=86400, type=float,
                   help="end time for the closing (default 86400)")
     options = op.parse_args(args=args)
     if not options.netfile or not options.closedEdges:
