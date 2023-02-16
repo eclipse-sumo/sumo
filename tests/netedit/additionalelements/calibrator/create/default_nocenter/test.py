@@ -34,11 +34,11 @@ netedit.additionalMode()
 # select calibrator
 netedit.changeElement("calibrator")
 
-# change center veiw
+# change center view
 netedit.changeDefaultBoolValue(netedit.attrs.calibrator.create.center)
 
 # create calibrator
-netedit.leftClick(referencePosition, 240, 250)
+netedit.leftClick(referencePosition, 312, 250)
 
 # Check undo redo
 netedit.undo(referencePosition, 1)

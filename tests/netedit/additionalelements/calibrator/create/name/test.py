@@ -34,17 +34,20 @@ netedit.additionalMode()
 # select calibrator
 netedit.changeElement("calibrator")
 
+# change center view
+netedit.changeDefaultBoolValue(netedit.attrs.calibrator.create.center)
+
 # set invalid name
 netedit.changeDefaultValue(netedit.attrs.calibrator.create.name, ";;\"\"\"")
 
 # try to create calibrator with invalid name
-netedit.leftClick(referencePosition, 240, 250)
+netedit.leftClick(referencePosition, 312, 250)
 
 # set valid name
 netedit.changeDefaultValue(netedit.attrs.calibrator.create.name, "customName")
 
 # create calibrator with valid name
-netedit.leftClick(referencePosition, 240, 250)
+netedit.leftClick(referencePosition, 322, 250)
 
 # Check undo redo
 netedit.undo(referencePosition, 1)

@@ -34,17 +34,20 @@ netedit.additionalMode()
 # select calibrator
 netedit.changeElement("calibrator")
 
+# change center view
+netedit.changeDefaultBoolValue(netedit.attrs.calibrator.create.center)
+
 # change output with an invalid value
 netedit.changeDefaultValue(netedit.attrs.calibrator.create.output, "%%%%##;;#!!!")
 
 # create calibrator with a valid parameter in other lane
-netedit.leftClick(referencePosition, 240, 250)
+netedit.leftClick(referencePosition, 312, 250)
 
 # change output with an valid value
 netedit.changeDefaultValue(netedit.attrs.calibrator.create.output, "myOwnOutput")
 
 # create calibrator with a valid parameter in other lane
-netedit.leftClick(referencePosition, 250, 250)
+netedit.leftClick(referencePosition, 322, 250)
 
 # Check undo redo
 netedit.undo(referencePosition, 1)

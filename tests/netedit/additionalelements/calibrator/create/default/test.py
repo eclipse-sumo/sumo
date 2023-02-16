@@ -35,7 +35,7 @@ netedit.additionalMode()
 netedit.changeElement("calibrator")
 
 # create calibrator
-netedit.leftClick(referencePosition, 240, 250)
+netedit.leftClick(referencePosition, 312, 250)
 
 # Check undo redo
 netedit.undo(referencePosition, 1)

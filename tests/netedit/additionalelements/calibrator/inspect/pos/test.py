@@ -35,25 +35,25 @@ netedit.additionalMode()
 netedit.changeElement("calibrator")
 
 # create calibrator
-netedit.leftClick(referencePosition, 245, 180)
+netedit.leftClick(referencePosition, 312, 250)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect calibrator
-netedit.leftClick(referencePosition, 300, 230)
+netedit.leftClick(referencePosition, 474, 194)
 
 # Change parameter id with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.calibrator.inspect.pos, "dummyPos", False)
+netedit.modifyAttribute(netedit.attrs.calibrator.inspect.pos, "dummyPos", True)
 
 # Change parameter id with a valid value
-netedit.modifyAttribute(netedit.attrs.calibrator.inspect.pos, "-12", False)
+netedit.modifyAttribute(netedit.attrs.calibrator.inspect.pos, "-12", True)
 
 # Change parameter id with a valid value
-netedit.modifyAttribute(netedit.attrs.calibrator.inspect.pos, "5000", False)
+netedit.modifyAttribute(netedit.attrs.calibrator.inspect.pos, "5000", True)
 
 # Change parameter id with a valid value
-netedit.modifyAttribute(netedit.attrs.calibrator.inspect.pos, "10", False)
+netedit.modifyAttribute(netedit.attrs.calibrator.inspect.pos, "10", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 3)

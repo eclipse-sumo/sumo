@@ -2,11 +2,8 @@
 # create additional
 create
 
-# create additional with values added using additional dialog
-#create_values
-
 # delete additional
-#delete
+delete
 
 # inspect additional
 inspect

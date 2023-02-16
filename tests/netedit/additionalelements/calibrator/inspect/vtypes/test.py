@@ -35,22 +35,22 @@ netedit.additionalMode()
 netedit.changeElement("calibrator")
 
 # create calibrator
-netedit.leftClick(referencePosition, 245, 180)
+netedit.leftClick(referencePosition, 312, 250)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect calibrator
-netedit.leftClick(referencePosition, 300, 230)
+netedit.leftClick(referencePosition, 474, 194)
 
 # Change parameter id with a non valid value (invalid characters)
-netedit.modifyAttribute(netedit.attrs.calibrator.inspect.jamTreshold, "dummyJam", False)
+netedit.modifyAttribute(netedit.attrs.calibrator.inspect.jamTreshold, "dummyJam", True)
 
 # Change parameter id with valid value
-netedit.modifyAttribute(netedit.attrs.calibrator.inspect.jamTreshold, "-5", False)
+netedit.modifyAttribute(netedit.attrs.calibrator.inspect.jamTreshold, "-5", True)
 
 # Change parameter id with valid value
-netedit.modifyAttribute(netedit.attrs.calibrator.inspect.jamTreshold, "7.7", False)
+netedit.modifyAttribute(netedit.attrs.calibrator.inspect.jamTreshold, "7.7", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 3)
