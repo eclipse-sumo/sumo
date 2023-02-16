@@ -1,0 +1,85 @@
+***Starting server on port 57895 ***
+Loading net-file from 'input_net4.net.xml' ... done (22ms).
+Loading done.
+Simulation version v1_16_0+0341-3346046 started with time: 0.00.
+Simulation ended at time: 123.00
+Reason: TraCI requested termination.
+Performance: 
+ Duration: 0.05s
+ TraCI-Duration: 0.04s
+ Real time factor: 2617.02
+ UPS: 14425.531915
+Vehicles: 
+ Inserted: 10
+ Running: 0
+ Waiting: 0
+Statistics (avg of 10):
+ RouteLength: 285.50
+ Speed: 4.87
+ Duration: 67.80
+ WaitingTime: 24.70
+ TimeLoss: 40.69
+ DepartDelay: 1.75
+
+ Retrying in 1 seconds
+0.0
+10.0
+ veh=v.0
+     waitingTime 0.00
+     waitingCount 0
+     stopTime 0.00
+20.0
+ veh=v.0
+     waitingTime 0.00
+     waitingCount 0
+     stopTime 4.00
+30.0
+ veh=v.0
+     waitingTime 1.00
+     waitingCount 1
+     stopTime 5.00
+40.0
+ veh=v.1
+     waitingTime 5.00
+     waitingCount 2
+     stopTime 5.00
+50.0
+ veh=v.2
+     waitingTime 11.00
+     waitingCount 3
+     stopTime 5.00
+60.0
+ veh=v.3
+     waitingTime 16.00
+     waitingCount 4
+     stopTime 5.00
+70.0
+ veh=v.4
+     waitingTime 22.00
+     waitingCount 5
+     stopTime 5.00
+80.0
+ veh=v.5
+     waitingTime 27.00
+     waitingCount 6
+     stopTime 5.00
+90.0
+ veh=v.6
+     waitingTime 33.00
+     waitingCount 7
+     stopTime 5.00
+100.0
+ veh=v.7
+     waitingTime 38.00
+     waitingCount 8
+     stopTime 5.00
+110.0
+ veh=v.8
+     waitingTime 44.00
+     waitingCount 9
+     stopTime 5.00
+120.0
+ veh=v.9
+     waitingTime 50.00
+     waitingCount 10
+     stopTime 5.00
