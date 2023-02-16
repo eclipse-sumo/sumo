@@ -159,6 +159,7 @@ title: Projects
 - [SAGA](https://github.com/lcodeca/SUMOActivityGen) - An Activity-based Multi-modal Mobility Scenario Generator for SUMO.
 - [RLLIB+SUMO Utils](https://github.com/lcodeca/rllibsumoutils) is a connector between the RLLIB library and SUMO that uses TraCI. It can be tested using [RLLIB+SUMO Docker](https://github.com/lcodeca/rllibsumodocker) based on a GPU-enabled official TensorFlow image.
 - [DCARP-SUMO-Simulation](https://github.com/HawkTom/DCARP-SUMO-Simulation) Benchmarking Dynamic Capacitated Arc Routing Algorithms Using Real-World Traffic Simulation. There is also a [related paper](https://ieeexplore.ieee.org/abstract/document/9870399)
+- [RandomActivityGen]https://github.com/d610f20/random-activitygen-py/  generating a population [statistics file](../Demand/Activity-based_Demand_Generation.md#the_statistics_file) for [ACTIVITYGEN](../activitygen.md).
 
 ### Visualization related
 
