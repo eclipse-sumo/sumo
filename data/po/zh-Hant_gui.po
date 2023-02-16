@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-16 14:09+0000\n"
+"PO-Revision-Date: 2023-02-16 14:37+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
@@ -3789,40 +3789,40 @@ msgstr "單擊一下即可建立連續的路段（按 ESC 取消鏈(chain))。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2415
 msgid "Edge opposite direction"
-msgstr ""
+msgstr "路段相反方向"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2415
 msgid "Automatically create an edge in the opposite direction."
-msgstr ""
+msgstr "自動建立相反方向的路段。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2632
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2918
 msgid "Toggle show shapes (Polygons and POIs)."
-msgstr ""
+msgstr "切換顯示形狀（多邊形和興趣點）。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2640
 msgid "Toggle show all trips (requires updated demand - F5)."
-msgstr ""
+msgstr "切換顯示所有旅次(trips)（需要更新需求 - F5）。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2648
 msgid "Toggle show all person plans."
-msgstr ""
+msgstr "切換顯示所有人員旅運計劃。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2656
 msgid "Toggle lock selected person."
-msgstr ""
+msgstr "切換鎖定選擇的人員(person)。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2664
 msgid "Show all containers plans"
-msgstr ""
+msgstr "顯示所有容器(container)運送計劃"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2664
 msgid "Toggle show all container plans."
-msgstr ""
+msgstr "切換顯示所有容器(container)運送計劃。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2672
 msgid "Toggle lock selected container."
-msgstr ""
+msgstr "切換鎖定選擇的容器(container)。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2680
 msgid "Toggle show non-inspected demand elements."
@@ -3830,35 +3830,35 @@ msgstr "切換顯示非檢視的需求要素。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2688
 msgid "Toggle show number of overlapped routes."
-msgstr ""
+msgstr "切換顯示重疊路線的數量。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2911
 msgid "Toggle show additionals."
-msgstr ""
+msgstr "切換顯示附加項(additionals)。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2932
 msgid "Draw TAZREL drawing mode"
-msgstr ""
+msgstr "繪製交通分區關係線(TAZREL)繪圖模式"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2932
 msgid "Toggle draw TAZREL drawing mode."
-msgstr ""
+msgstr "切換繪製交通分區關係線(TAZREL)繪圖模式。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2939
 msgid "Toggle draw TAZ fill"
-msgstr ""
+msgstr "切換繪製交通分區(TAZ)填滿"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2946
 msgid "Toggle draw TAZRel only from"
-msgstr ""
+msgstr "切換繪製僅來自...分區的交通分區關係線(TAZRel)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2953
 msgid "Toggle draw TAZRel only to"
-msgstr ""
+msgstr "切換繪製僅到達...分區的交通分區關係線(TAZRel)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3452
 msgid "Set inspect mode"
-msgstr ""
+msgstr "設定檢查模式"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3452
 msgid "Mode for inspect elements and change their attributes. (I)"
@@ -3866,7 +3866,7 @@ msgstr "檢視要素及更改其屬性的模式。(I)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3458
 msgid "Set delete mode"
-msgstr ""
+msgstr "設定刪除模式"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3458
 msgid "Mode for delete elements. (D)"
@@ -3875,7 +3875,7 @@ msgstr "刪除要素的模式。(D)"
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3527
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3671
 msgid "Set move mode"
-msgstr ""
+msgstr "設定移動模式"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3527
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3671
@@ -3884,39 +3884,39 @@ msgstr "移動要素的模式。(M)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3533
 msgid "Set create edge mode"
-msgstr ""
+msgstr "設定建立路段模式"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3533
 msgid "Mode for creating junction and edges. (E)"
-msgstr ""
+msgstr "建立路口及路段的模式。(E)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3539
 msgid "Set connection mode"
-msgstr ""
+msgstr "設定連接線(connection)模式"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3539
 msgid "Mode for edit connections between lanes. (C)"
-msgstr ""
+msgstr "編輯車道間連接線(connections)的模式。(C)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3545
 msgid "Set prohibition mode"
-msgstr ""
+msgstr "設定禁止模式"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3545
 msgid "Mode for editing connection prohibitions. (H)"
-msgstr ""
+msgstr "編輯禁止的連接線(connection)的模式。(H)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3551
 msgid "Set traffic light mode"
-msgstr ""
+msgstr "設定交通號誌的模式"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3551
 msgid "Mode for edit traffic lights over junctions. (T)"
-msgstr ""
+msgstr "編輯路口號誌的模式。(T)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3557
 msgid "Set additional mode"
-msgstr ""
+msgstr "設定附加(additional)的模式"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3557
 msgid "Mode for adding additional elements. (A)"
@@ -3924,55 +3924,55 @@ msgstr "新增附加要素的模式。(A)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3563
 msgid "Set crossing mode"
-msgstr ""
+msgstr "設定人行道的模式"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3563
 msgid "Mode for creating crossings between edges. (R)"
-msgstr ""
+msgstr "建立路段間人行道的模式。(R)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3569
 msgid "Set TAZ mode"
-msgstr ""
+msgstr "設定交通分區(TAZ)的模式"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3569
 msgid "Mode for creating Traffic Assignment Zones. (Z)"
-msgstr ""
+msgstr "建立交通指派分區的模式。(Z)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3575
 msgid "Set polygon mode"
-msgstr ""
+msgstr "設定多邊形物件的模式"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3575
 msgid "Mode for creating polygons and POIs. (P)"
-msgstr ""
+msgstr "建立多邊形物件及興趣點的模式。(P)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3581
 msgid "Set wire mode"
-msgstr ""
+msgstr "設定通訊線(wires)的模式"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3581
 msgid "Mode for editing wires. (W)"
-msgstr ""
+msgstr "編輯通訊線(wires)的模式。(W)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3677
 msgid "Create route mode"
-msgstr ""
+msgstr "建立路徑的模式"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3677
 msgid "Mode for creating routes. (R)"
-msgstr ""
+msgstr "建立路徑的模式。 (R)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3683
 msgid "Create vehicle mode"
-msgstr ""
+msgstr "建立車輛模式"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3683
 msgid "Mode for creating vehicles. (V)"
-msgstr ""
+msgstr "建立車輛模式。(V)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3689
 msgid "Create type mode"
-msgstr ""
+msgstr "建立類型模式"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3689
 msgid "Mode for creating types (vehicles, person and containers). (T)"
