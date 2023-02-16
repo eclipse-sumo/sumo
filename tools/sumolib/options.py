@@ -203,6 +203,7 @@ class ArgumentParser(argparse.ArgumentParser):
                 key = k
                 default = ''
                 help = ''
+                typeStr = ''
                 for a in self._actions:
                     if a.dest == k:
                         for s in a.option_strings:
@@ -217,7 +218,6 @@ class ArgumentParser(argparse.ArgumentParser):
                             if a.help is not None:
                                 help = ' help="%s"' % a.help
                             # type (don't use directly a.type, because it writes <class ....>
-                            typeStr = ''    
                             if (a.type == bool):
                                 typeStr = ' type="%s"' % "bool"
                             elif (a.type == float):
