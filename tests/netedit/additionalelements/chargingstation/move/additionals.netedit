@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-02-14 12:06:22 by Eclipse SUMO netedit Version v1_16_0+0176-3b3c6cd1f11
+<!-- generated on 2023-02-16 13:06:59 by Eclipse SUMO netedit Version v1_16_0+0351-01a2b25865f
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- StoppingPlaces -->
-    <chargingStation id="cs_0" lane="center1_1" startPos="28.00" endPos="38.00"/>
+    <chargingStation id="cs_0" lane="center1_1" startPos="30.00" endPos="40.00"/>
 </additional>
