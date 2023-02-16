@@ -10,9 +10,10 @@
 
 FROM ubuntu:jammy
 
-ENV SUMO_HOME=/opt/sumo
-ENV PATH=/opt/sumo/bin:$PATH
-ENV LD_LIBRARY_PATH=/opt/sumo/bin
+#ENV SUMO_HOME=/opt/sumo
+ENV SUMO_HOME=/usr/share/sumo
+#ENV PATH=/opt/sumo/bin:$PATH
+#ENV LD_LIBRARY_PATH=/opt/sumo/bin
 
 RUN apt-get -y update
 # basic build dependencies
@@ -26,13 +27,15 @@ RUN apt-get -y install libopenscenegraph-dev libavformat-dev libswscale-dev
 RUN apt-get -y install libgtest-dev scrot python3-pyperclip xvfb flake8 python3-autopep8 astyle
 # python packages needed for the tools (also listed in tools/requirements.txt but we prefer the ubuntu packages)
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install python3-ezdxf python3-pandas python3-psutil python3-pulp \
- python3-pyproj python3-rtree
+ python3-pyproj python3-rtree python-is-python3
 # packages needed for the docs (some are also listed in docs/web/requirements.txt but we prefer the ubuntu packages)
-RUN apt-get -y install mkdocs hugo
+RUN apt-get -y install mkdocs hugo doxygen plantuml graphviz
 
 RUN cd /opt; git clone --recursive https://github.com/eclipse/sumo
 # python packages needed for the tools (the ones where we do not have ubuntu packages)
 RUN pip3 install -r /opt/sumo/tools/requirements.txt
 # python packages needed for the docs (the ones where we do not have ubuntu packages)
 RUN pip3 install -r /opt/sumo/docs/web/requirements.txt
-RUN cd /opt/sumo; mkdir build/cmake-build; cd build/cmake-build; cmake ../.. -DSUMO_UTILS=TRUE; make -j8 all examples
+RUN cd /opt/sumo; mkdir build/cmake-build; cd build/cmake-build; \
+ cmake ../.. -DCMAKE_INSTALL_PREFIX=/usr -DSUMO_UTILS=TRUE; \
+ make -j8 all examples doc install; cd /opt/sumo; rm -rf build/cmake-build
