@@ -217,7 +217,7 @@ class ArgumentParser(argparse.ArgumentParser):
                             if a.help is not None:
                                 help = ' help="%s"' % a.help
                             # type (don't use directly a.type, because it writes <class ....>
-                            typeStr = ''
+                            typeStr = ''    
                             if (a.type == bool):
                                 typeStr = ' type="%s"' % "bool"
                             elif (a.type == float):
@@ -226,7 +226,7 @@ class ArgumentParser(argparse.ArgumentParser):
                                 typeStr = ' type="%s"' % "int"
                             else:
                                 typeStr = ' type="%s"' % "string"
-                            # note: missing TIME and FILENAME
+                            # note: missing time, filename, list of vehicles, edges and lanes
                         break
                 if print_template or v != a.default:
                     if isinstance(v, list):
