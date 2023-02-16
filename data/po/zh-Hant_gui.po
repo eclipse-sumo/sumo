@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-16 07:27+0000\n"
+"PO-Revision-Date: 2023-02-16 13:06+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
@@ -3720,7 +3720,7 @@ msgstr "切換顯示路口內的連接線(connection)。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2344
 msgid "Toggle hide connections."
-msgstr ""
+msgstr "切換隱藏連接線(connections)。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2352
 msgid "Show additional sub-elements"
