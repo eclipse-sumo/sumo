@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-17 12:25+0000\n"
+"PO-Revision-Date: 2023-02-17 13:16+0000\n"
 "Last-Translator: kyasin <yasingoka@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/tr/>\n"
@@ -636,51 +636,44 @@ msgid "Emergency Vehicle waiting time:"
 msgstr "Acil Durum Aracı bekleme süresi:"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:787
-#, fuzzy
 msgid "Time spent waiting accumulated for emergency vehicles"
-msgstr "Bekleme Süresi:\t\tTüm Araçlar İçin Birikmiş Bekleme Süresi"
+msgstr "Acil durum araçları için birikmiş bekleme süresi"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:812
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:142
-#, fuzzy
 msgid "Cl&ear Recent Networks"
-msgstr "Yeni Dosyaları Temizle"
+msgstr "Son Ağları Temizle"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:813
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:143
-#, fuzzy
 msgid "No Recent Networks"
-msgstr "Yeni Dosya Yok"
+msgstr "Son Ağ Yok"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:817
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:147
-#, fuzzy
 msgid "Recent Networks"
-msgstr "Ağ Yükle"
+msgstr "Son Ağlar"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:835
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:165
-#, fuzzy
 msgid "Cl&ear Recent Configs"
-msgstr "Yeni Dosyaları Temizle"
+msgstr "Son Yapılandırmaları Temizle"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:836
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:166
-#, fuzzy
 msgid "No Recent Configs"
-msgstr "Yeni Dosya Yok"
+msgstr "Son Yapılandırma Yok"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:840
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:170
-#, fuzzy
 msgid "Recent Configs"
-msgstr "Yeni Dosya Yok"
+msgstr "Son Yapılandırmalar"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:980
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1015
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1052
 msgid "Running %."
-msgstr ""
+msgstr "Çalışıyor %."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1062
 msgid "Open Simulation Configuration"
@@ -700,9 +693,9 @@ msgstr "Şekilleri Aç"
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4552
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4587
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4619
-#, fuzzy, c-format
+#, c-format
 msgid "Loading of % failed."
-msgstr "Veri Elemanları Kaydı Başarısız!"
+msgstr "% Yüklemesi Başarısız."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1133
 msgid "Open EdgeData"
@@ -710,11 +703,11 @@ msgstr "Kesim Verilerini Aç"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1167
 msgid "Reloading."
-msgstr ""
+msgstr "Tekrar Yükleniyor."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1177
 msgid "Quick-Reloading."
-msgstr ""
+msgstr "Hızlı Yeniden Yükleme."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1187
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1067
@@ -727,11 +720,11 @@ msgstr "SUMO Yapılandırmasını Kaydet"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1214
 msgid "Configuration saved to %."
-msgstr ""
+msgstr "Yapılandırma konuma % kaydedildi."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1216
 msgid "Could not save configuration to %."
-msgstr ""
+msgstr "Yapılandırma konuma % kaydedilemedi."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1272
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1298
@@ -745,7 +738,7 @@ msgstr "Simülasyon Durumu Kaydet"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1328
 msgid "Simulation state saved to '%'."
-msgstr ""
+msgstr "Simülasyon durumu '%' konumuna kaydedildi."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1336
 msgid "Load Simulation State"
@@ -753,21 +746,21 @@ msgstr "Simülasyon Durumu Yükle"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1348
 msgid "State loaded from '%'."
-msgstr ""
+msgstr "Durum '%' konumundan yüklendi."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1350
 msgid "Failed to load state from '%' (%)."
-msgstr ""
+msgstr "Durum '%' (%) konumundan yüklenemedi."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1784
 #, c-format
 msgid "Loading of '%' failed!"
-msgstr ""
+msgstr "'%' Yüklemesi Başarısız!"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1798
 #, c-format
 msgid "'%' loaded."
-msgstr ""
+msgstr "'%' yüklendi."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1996
 msgid "Simulation ended"
@@ -775,12 +768,11 @@ msgstr "Simülasyon Bitti"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:2094
 msgid "Loading '%'."
-msgstr ""
+msgstr "'%' Yükleniyor."
 
 #: /home/micha/programming/sumo/src/gui/GUILoadThread.cpp:206
-#, fuzzy
 msgid "Could not load edgedata-files '%'"
-msgstr "SUMO Yapılandırmasını Farklı Kaydet"
+msgstr "edgedata dosyaları '%' yüklenemedi"
 
 #: /home/micha/programming/sumo/src/gui/GUIRunThread.cpp:100
 #: /home/micha/programming/sumo/src/gui/GUIRunThread.cpp:106
@@ -815,7 +807,7 @@ msgstr "Anlık Görüntü Kaydı Başarılı!"
 #: /home/micha/programming/sumo/src/gui/GUISUMOViewParent.cpp:267
 #: /home/micha/programming/sumo/src/netedit/GNEViewParent.cpp:679
 msgid "Unknown Message ID in onCmdLocate"
-msgstr ""
+msgstr "onCmdLocate içinde Bilinmeyen Mesaj Kimliği"
 
 #: /home/micha/programming/sumo/src/gui/GUITLLogicPhasesTrackerWindow.cpp:269
 msgid "phase names"
@@ -841,7 +833,6 @@ msgstr "Zaman Hesaplamasında Aşırı Yüklenme Oluştu."
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrame.cpp:233
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:247
 #: /home/micha/programming/sumo/src/netedit/frames/GNEOverlappedInspection.cpp:285
-#, fuzzy
 msgid "OK"
 msgstr "Tamam"
 
@@ -883,17 +874,14 @@ msgid "&Cancel"
 msgstr "İptal Et"
 
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:89
-#, fuzzy
 msgid "&Load"
 msgstr "Yükle"
 
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:91
-#, fuzzy
 msgid "&Save"
 msgstr "Kaydet"
 
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:94
-#, fuzzy
 msgid "Clea&r"
 msgstr "Temizle"
 
@@ -920,7 +908,7 @@ msgstr "Zaman Formatı Hatası"
 #: /home/micha/programming/sumo/src/guisim/Command_Hotkey_TrafficLight.cpp:60
 #, c-format
 msgid "Hotkey '%' is not supported"
-msgstr ""
+msgstr "'%' Kısayol tuşu desteklenmiyor"
 
 #: /home/micha/programming/sumo/src/guisim/GUIBaseVehicle.cpp:300
 msgid "GUI-triggered stop not implemented for meso"
@@ -929,11 +917,12 @@ msgstr "GKA-Tetikli Durak Mezo Ölçek İçin Gerçeklenmemiş"
 #: /home/micha/programming/sumo/src/guisim/GUIBaseVehicle.cpp:875
 #: /home/micha/programming/sumo/src/guisim/GUIVehicle.cpp:666
 msgid "Vehicle parameter '%' key '%' is not a number for vehicle '%'."
-msgstr ""
+msgstr "Araç parametresi '%' anahtar '%', '%' aracı için bir sayı değildir."
 
 #: /home/micha/programming/sumo/src/guisim/GUINet.cpp:326
 msgid "Network size exceeds 1 Lightyear. Please reconsider your inputs.\n"
 msgstr ""
+"Ağ boyutu 1 Işıkyılı'nı aşıyor. Lütfen girdilerinizi tekrar gözden geçirin.\n"
 
 #: /home/micha/programming/sumo/src/guisim/GUINet.cpp:632
 msgid "Trying to set data value for the unknown edge '%'."
@@ -965,27 +954,24 @@ msgstr "Mikro Ölçekli, Çok Modlu Trafik Simülasyonu."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:492
 msgid "Recomputing"
-msgstr ""
+msgstr "Yeniden Hesaplanıyor"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:492
-#, fuzzy
 msgid "Recomputing is needed"
-msgstr "Yeniden Hesaplama\t\tYeniden Hesaplama Gerekiyor"
+msgstr "Yeniden hesaplama gerekli"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:501
-#, fuzzy
 msgid "Test coordinate"
-msgstr "Yok\t\tTest Koordinatı"
+msgstr "Test koordinatı"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:813
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:836
 msgid "loading TLS Programs from '"
-msgstr ""
+msgstr "'den TIS Programlarını Yükleme"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:878
-#, fuzzy
 msgid "Loaded edge types from '"
-msgstr "Kesim Tipi Dosyası Yükle"
+msgstr "'den yüklenen kesim türleri"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:880
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:913
