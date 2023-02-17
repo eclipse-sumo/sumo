@@ -106,8 +106,12 @@ MSRailCrossing::adaptLinkInformationFrom(const MSTrafficLightLogic& logic) {
 // ------------ Switching and setting current rows
 SUMOTime
 MSRailCrossing::trySwitch() {
+    const int oldStep = myStep;
     SUMOTime nextTry = updateCurrentPhase();
     //if (getID() == "cluster_1088529493_1260626727") std::cout << " myStep=" << myStep << " nextTry=" << nextTry << "\n";
+    if (myStep != oldStep) {
+        myPhases[myStep]->myLastSwitch = MSNet::getInstance()->getCurrentTimeStep();
+    }
     return nextTry;
 }
 
