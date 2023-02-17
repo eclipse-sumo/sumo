@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-16 14:49+0000\n"
+"PO-Revision-Date: 2023-02-17 12:25+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
@@ -4636,19 +4636,19 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:313
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:310
 msgid "Loaded % Parameters."
-msgstr ""
+msgstr "已載入的變數。"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:327
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:323
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:320
 msgid "Save Parameter Template file"
-msgstr ""
+msgstr "儲存變數範本(template)檔案"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:403
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:399
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:396
 msgid "- Parameters are defined by a Key and a Value.\n"
-msgstr ""
+msgstr "變數是由一個密鑰(key)及值(value)定義的。\n"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:404
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:400
@@ -4656,13 +4656,13 @@ msgstr ""
 msgid ""
 "- In Netedit can be defined using format key1=parameter1|"
 "key2=parameter2|...\n"
-msgstr ""
+msgstr "- 在netedit 內可以用格式密鑰 1=變數1|密鑰 2=變數2|...定義\n"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:405
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:401
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:398
 msgid " - Duplicated and empty Keys aren't valid.\n"
-msgstr ""
+msgstr " - 重複的和空的密鑰是無效的。\n"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:406
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:402
