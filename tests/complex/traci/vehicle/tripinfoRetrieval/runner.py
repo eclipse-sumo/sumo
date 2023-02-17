@@ -35,6 +35,7 @@ traci.start([sumoBinary,
              "--no-step-log",
              ] + sys.argv[1:])
 
+
 def printStats(t):
     print(t)
     vehs = traci.vehicle.getIDList()
@@ -102,7 +103,7 @@ def printStats(t):
             "transportStatistics.aborted",
             ]
 
-    for key in globalKeys: 
+    for key in globalKeys:
         print(" ", key, traci.simulation.getParameter("", "device.tripinfo." + key))
 
 

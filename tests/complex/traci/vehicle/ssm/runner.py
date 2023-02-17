@@ -46,6 +46,7 @@ def checkSSM(vehID):
         traci.vehicle.getParameter(vehID, "device.ssm.minPET"),
         curTTC))
 
+
 repeat = 2 if len(sys.argv) > 1 else 1
 for _ in range(repeat):
     traci.start([
