@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-01-26 06:39+0000\n"
-"Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
+"PO-Revision-Date: 2023-02-17 12:25+0000\n"
+"Last-Translator: kyasin <yasingoka@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/tr/>\n"
 "Language: tr\n"
@@ -35,15 +35,13 @@ msgstr "Yok"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:288
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:495
-#, fuzzy
 msgid "Original coordinate (before coordinate transformation in netconvert)"
-msgstr "Yok\t\tOrijinal Koordinat (Netconvert Koordinat Dönüşümünden Önce)"
+msgstr "Original coordinate (before coordinate transformation in netconvert)"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:291
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:498
-#, fuzzy
 msgid "Network coordinate"
-msgstr "Yok\t\tAğ Koordinatı"
+msgstr "Ağ Koordinatı"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:319
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:516
@@ -156,14 +154,11 @@ msgstr "Seçilen Öğelerin Listesini Düzenlemek İçin Bir İletişim Kutusu A
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:490
 msgid "Select lanes which allow..."
-msgstr ""
+msgstr "... İzin Veren Şeritleri Seç"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:490
-#, fuzzy
 msgid "Opens a menu for selecting a vehicle class by which to selected lanes."
-msgstr ""
-"İzin Veren Şeritleri Seç...\t\tŞeritlerin Belirleneceği Bir Araç Sınıfı "
-"Seçmek İçin Menü Açar."
+msgstr "Seçilen şeritlere göre bir araç sınıfı seçmek için bir menü açar."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:494
 msgid "Edit Breakpoints"
@@ -319,39 +314,33 @@ msgid "Open a Dialog for Locating a Polygon."
 msgstr "Bir Çokgen Belirlemek İçin İletişim Penceresi Aç."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:553
-#, fuzzy
 msgid "Show Internal Structures"
-msgstr "Dahili Öznitelikler"
+msgstr "İç Yapıları Göster"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:553
-#, fuzzy
 msgid "Show internal junctions and streets in locator dialog."
 msgstr ""
-"Dahili Yapıları Göster\t\tDahili Kavşak ve Sokakları Belirleyici Pencerede "
-"Göster."
+"Konum belirleyici iletişim kutusunda dahili kavşakları ve caddeleri gösterin."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:556
 msgid "Show Parking Vehicles"
-msgstr ""
+msgstr "Park Eden Araçları Göster"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:556
-#, fuzzy
 msgid "Show parking vehicles in locator dialog."
-msgstr ""
-"Park Eden Araçları Göster\t\tPark Eden Araçları Belirleyici Pencerede Göster."
+msgstr "Konumlandırıcı Penceresinde Park Eden Araçları Göster."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:560
 msgid "Show vehicles outside the road network"
-msgstr ""
+msgstr "Yol ağı dışındaki araçları göster"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:560
-#, fuzzy
 msgid ""
 "Show vehicles that are teleporting or driving remote-controlled outside the "
 "road network in locator dialog."
 msgstr ""
-"Yol Ağının Dışında Kalan Araçları Göster\t\tIşınlanan veya Yol Ağının "
-"Dışında Uzaktan Kontrollü Sürüş Yapan Araçları Belirleyici Pencerede Göster."
+"Konumlandırıcı penceresinde yol ağı dışında ışınlanan veya uzak bağlantılı "
+"sürüş yapan araçları göster."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:566
 msgid "Simulation"
@@ -430,13 +419,12 @@ msgstr "Pencere"
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:741
 #, fuzzy
 msgid "Open new view"
-msgstr "OSG Dosyası Aç"
+msgstr "Yeni görünüm aç"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:591
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:744
-#, fuzzy
 msgid "Open new 3D view"
-msgstr "\tYeni Bir 3B Görünüm Aç\tYeni Bir 3B Görünüm Aç."
+msgstr "Yeni 3B görünümü aç"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:594
 msgid "Tile &Horizontally"
@@ -462,44 +450,37 @@ msgstr "Diğer..."
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:618
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1997
 msgid "Show Status Line"
-msgstr ""
+msgstr "Durum Satırını Göster"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:618
-#, fuzzy
 msgid "Toggle the Status Bar on/off."
-msgstr "Durum Çubuğunu Göster\t\tDurum Çubuğunu Aç/Kapa."
+msgstr "Durum Çubuğunu aç/kapa."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:621
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2000
-#, fuzzy
 msgid "Show Message Window"
-msgstr "Mesaj Penceresi Temizle"
+msgstr "Mesaj Penceresini Göster"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:621
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2000
-#, fuzzy
 msgid "Toggle the Message Window on/off."
-msgstr "Mesaj Penceresini Göster\t\tMesaj Penceresini Aç/Kapa."
+msgstr "Mesaj Penceresini aç/kapat."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:624
-#, fuzzy
 msgid "Show Simulation Time"
-msgstr "Simülasyon Durumu Kaydet"
+msgstr "Simülasyon Zamanını Göster"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:624
-#, fuzzy
 msgid "Toggle the Simulation Time on/off."
-msgstr "Simülasyon Zamanını Göster\t\tSimülasyon Zamanını Aç/Kapa."
+msgstr "Simülasyon Zamanını aç/kapat."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:627
-#, fuzzy
 msgid "Show Simulation Delay"
-msgstr "Simülasyon Durumu Kaydet"
+msgstr "Simülasyon Gecikmesini Göster"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:627
-#, fuzzy
 msgid "Toggle the Simulation Delay Entry on/off."
-msgstr "Simülasyon Gecikmesini Göster\t\tSimülasyon Gecikme Girişini Aç/Kapa."
+msgstr "Simülasyon Gecikme Girişini aç/kapat."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:633
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2004
@@ -617,14 +598,12 @@ msgstr ""
 "Ölçeklendir."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:741
-#, fuzzy
 msgid "Open a new microscopic view."
-msgstr "\tYeni Bir Görünüm Aç\tYeni Bir Mikroskopik Görünüm Aç."
+msgstr "Yeni bir mikroskobik görünüm aç."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:744
-#, fuzzy
 msgid "Open a new 3D view."
-msgstr "\tYeni Bir 3B Görünüm Aç\tYeni Bir 3B Görünüm Aç."
+msgstr "Yeni bir 3B görünüm aç."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:754
 msgid "Waiting Time:"
@@ -654,7 +633,7 @@ msgstr "Talep Uyarmalı Ulaştırma Araçlarının Aldığı Toplam Mesafe"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:787
 msgid "Emergency Vehicle waiting time:"
-msgstr ""
+msgstr "Acil Durum Aracı bekleme süresi:"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:787
 #, fuzzy
