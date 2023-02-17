@@ -204,6 +204,10 @@ GUIOSGView::GUIOSGView(
 
     myTextNode = new osg::Geode();
     myText = new osgText::Text;
+    osgText::Font* font = osgText::readFontFile("arial.ttf");
+    if (font != nullptr) {
+        myText->setFont(font);
+    }
     myText->setCharacterSize(16.f);
     myTextNode->addDrawable(myText);
     myText->setAlignment(osgText::TextBase::AlignmentType::LEFT_TOP);
@@ -380,7 +384,7 @@ GUIOSGView::updateHUDPosition(int w, int h) {
 
 void
 GUIOSGView::updateHUDText(const std::string text) {
-    myText->setText(text);
+    myText->setText(text, osgText::String::ENCODING_UTF8);
 }
 
 
