@@ -36,6 +36,8 @@ set(libtracistatic_STAT_SRCS
     VehicleType.cpp
 )
 
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/bin)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR}/bin)
 add_library(libtracistatic STATIC ${libtracistatic_STAT_SRCS})
 add_dependencies(libtracistatic generate-version-h install_dll)
 set_property(TARGET libtracistatic PROPERTY FOLDER "libtraci")
@@ -46,8 +48,6 @@ else()
     set(libtcpip foreign_tcpip)
 endif()
 
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/bin)
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR}/bin)
 add_library(libtracicpp SHARED ${libtracistatic_STAT_SRCS})
 set_property(TARGET libtracicpp PROPERTY FOLDER "libtraci")
 set_target_properties(libtracicpp PROPERTIES PREFIX "")
