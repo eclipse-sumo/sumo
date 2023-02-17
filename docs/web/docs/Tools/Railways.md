@@ -15,7 +15,7 @@ Example:
 
 Different types of constraints are generated in different cases:
 
-### <predecessor>
+### 1. predecessor
 When two vehicles stop subsequently at the same busStop (trainStop) and they reach that stop
 via different routes, the switch where both routes merge is identified and a
 constraint is created for the rail signals that guard this merging switch:
@@ -37,7 +37,7 @@ both trains even though their routes are the same. In this case the ordering of
 the trains must be deduced from their next common stop and the algorithm adds
 a "virtual" intermediateStop directly after the switch to "normalize" the input.
 
-### <insertionPredecessor>
+### 2. insertionPredecessor
 Whenever a vehicle B departs at a stop (assumed to coincide with the "until"
 attribute of it's first stop), the prior train A that leaves this stop is
 identified (also based on "until"). Then a constraint is created that prevents
@@ -58,21 +58,21 @@ In the case where an intermediateStop (see above) is also a parking stop, an
 insertionPredecessor constraint is added if the parking vehicle is scheduled to
 go second.
 
-### <foeInsertion>
+### 3. foeInsertion
 Whenever a vehicle A departs at a stop (assumed to coincide with the "until"
 attribute of it's first stop), the latter train B that enters this stop is
 identified (also based on "until"). Then a constraint is created that prevents
 B from entering the section with the stop until A has passed the next signal that lies beyond the
 stop.
 
-### <insertionOrder>
+### 4. insertionOrder
 Whenever two vehicles depart at the same stop and their until/ended times at that stop
 are in a different order from their departure times, an insertionOrder constraint
 is added the delays insertion to achieve the desired order.
 This may happen if departure times reflect the schedule
 but until/ended times reflect post-facto timing (see below)
 
-### <bidiPredecessor>
+### 5. bidiPredecessor
 Whenever two trains approach the same track section from different directions, a bidiPredecessor
 constraint may optionally be generated to enforce the order of entering that section based on the
 stop arrival times that follow the section on the respective side.
