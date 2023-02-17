@@ -166,7 +166,7 @@ Time values are in seconds.
 When setting parameters, 'id' indicates the id of the rail-crossing junction and programID is always '0'.
 
 ```
-additional_file.xsd">
+<additional>
     <tlLogic id="C" programID="0">
         <param key="time-gap" value="15.0"
         <param key="space-gap" value="-1.0"
