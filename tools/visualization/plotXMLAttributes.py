@@ -168,7 +168,8 @@ def getOptions(args=None):
         if options.ybin is None:
             options.ybin = 1.0
             if options.verbose:
-                print("Binning set to %s for horizontal barplot. Use option --ybin to set a custom value." % options.xbin)
+                print(("Binning set to %s for horizontal barplot." +
+                       " Use option --ybin to set a custom value.") % options.xbin)
         options.barbin = options.ybin
 
     options.xclampRange = interpretClamp(options.xclamp)
@@ -446,6 +447,7 @@ def binned(value, binsize):
     else:
         return value
 
+
 def clamped(value, clamp):
     if clamp is not None:
         return max(clamp[0], min(clamp[1], value))
@@ -637,7 +639,6 @@ def main(options):
                     if marker is None:
                         marker = 'o'
                 plt.plot(xvalues, yvalues, linestyle=linestyle, marker=marker, picker=True, label=dataID)
-
 
     if options.boxplot:
         labels = sorted(data.keys(), key=makeNumeric)

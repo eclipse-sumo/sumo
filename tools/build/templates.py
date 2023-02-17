@@ -27,7 +27,7 @@ from __future__ import absolute_import
 import sys
 import os
 from os.path import dirname, join
-from subprocess import check_output, call
+from subprocess import check_output
 
 # list of folders and tools
 tools = [
@@ -96,8 +96,6 @@ def generateToolTemplate(srcDir, toolDir, subDir, toolName):
     """
     # get toolPath
     toolPath = os.path.join(toolDir, subDir, toolName + ".py")
-    # get file for xml template
-    xmlTemplate = srcDir + "/netedit/toolTemplate.xml"
     # check if exists
     if os.path.exists(toolPath):
         # show info
