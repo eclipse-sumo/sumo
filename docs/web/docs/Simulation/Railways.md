@@ -168,12 +168,12 @@ When setting parameters, 'id' indicates the id of the rail-crossing junction and
 ```
 <additional>
     <tlLogic id="C" programID="0">
-        <param key="time-gap" value="15.0"
-        <param key="space-gap" value="-1.0"
-        <param key="min-green-time" value="5.0"
+        <param key="time-gap" value="15.0"/>
+        <param key="space-gap" value="-1.0"/>
+        <param key="min-green-time" value="5.0"/>
         <param key="opening-delay" value="3.0"/>
         <param key="opening-time" value="3.0"/>
-        <param key="yellow-time" value="3.0"/>
+        <param key="yellow-time" value="5.0"/>
     </tlLogic>
 </additional>
 ```
