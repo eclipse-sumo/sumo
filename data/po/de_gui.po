@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-17 07:12+0000\n"
+"PO-Revision-Date: 2023-02-17 07:46+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -752,9 +752,8 @@ msgid "State loaded from '%'."
 msgstr "Stand von '%' geladen."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1350
-#, fuzzy
 msgid "Failed to load state from '%' (%)."
-msgstr "Laden vom Stand von '%' fehlgeschlagen (%)."
+msgstr "Laden des Stands aus '%' fehlgeschlagen (%)."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1784
 #, c-format
