@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-17 07:46+0000\n"
+"PO-Revision-Date: 2023-02-17 08:48+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -7775,11 +7775,11 @@ msgstr "Datei '%' ist ein Verzeichnis!"
 #: /home/micha/programming/sumo/src/utils/xml/SUMOSAXReader.cpp:156
 #: /home/micha/programming/sumo/src/utils/xml/SUMOSAXReader.cpp:165
 msgid "The XML-parser was not initialized."
-msgstr "Der XML-Einlese war nicht initialisiert."
+msgstr "Der XML-Einleseprozess wurde nicht initialisiert."
 
 #: /home/micha/programming/sumo/src/utils/xml/SUMOSAXReader.cpp:191
 msgid "The XML-parser could not be build."
-msgstr "Der XML-Einlese konnte nicht erstellt werden."
+msgstr "Der XML-Einleseprozess konnte nicht erstellt werden."
 
 #: /home/micha/programming/sumo/src/utils/xml/XMLSubSys.cpp:92
 #: /home/micha/programming/sumo/src/utils/xml/XMLSubSys.cpp:98
