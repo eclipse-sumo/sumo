@@ -44,7 +44,7 @@ except ImportError as e:
     import xml.etree.ElementTree as ET
 
 sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..'))
-from sumolib.xml import _open  # noqa
+from sumolib import openz  # noqa
 from sumolib.miscutils import uMin, uMax, parseTime  # noqa
 from sumolib.options import ArgumentParser, RawDescriptionHelpFormatter  # noqa
 import sumolib.visualization.helpers  # noqa
@@ -241,33 +241,34 @@ def getDataStream(options):
     splitY = len(attr2parts[options.yattr]) > 1 and not options.joiny
 
     level = 0
-    for event, elem in ET.iterparse(_open(options.files[0]), ("start", "end")):
-        if event == "start":
-            level += 1
-            for a, e in zip(attrOptions, options.attrElems):
-                attrOrig = getattr(options, a)
-                for attr in attr2parts[attrOrig]:
-                    if attr in elem.keys():
-                        if e is not None and e != elem.tag:
-                            # print("skipping attribute '%s' in element '%s' (required elem '%s'" % (attr, elem.tag, e))
-                            continue
-                        elem2level[elem.tag] = level
-                        if attr in attr2elem:
-                            oldTag = attr2elem[attr]
-                            if oldTag != elem.tag:
-                                if elem2level[oldTag] < level:
-                                    attr2elem[attr] = elem.tag
-                                print("Warning: found %s '%s' in element '%s' (level %s) and element '%s' (level %s)."
-                                      " Using '%s'." % (
-                                          a, attr, oldTag, elem2level[oldTag],
-                                          elem.tag, level, attr2elem[attr]))
-                        else:
-                            attr2elem[attr] = elem.tag
-            if len(attr2elem) == len(allAttrs):
-                # all attributes have been seen
-                break
-        elif event == "end":
-            level -= 1
+    with openz(options.files[0]) as xmlf:
+        for event, elem in ET.iterparse(xmlf, ("start", "end")):
+            if event == "start":
+                level += 1
+                for a, e in zip(attrOptions, options.attrElems):
+                    attrOrig = getattr(options, a)
+                    for attr in attr2parts[attrOrig]:
+                        if attr in elem.keys():
+                            if e is not None and e != elem.tag:
+                                # print("skipping attribute '%s' in element '%s' (required elem '%s'" %
+                                #       (attr, elem.tag, e))
+                                continue
+                            elem2level[elem.tag] = level
+                            if attr in attr2elem:
+                                oldTag = attr2elem[attr]
+                                if oldTag != elem.tag:
+                                    if elem2level[oldTag] < level:
+                                        attr2elem[attr] = elem.tag
+                                    print("Warning: found %s '%s' in element '%s' (level %s) and "
+                                          "element '%s' (level %s). Using '%s'." %
+                                          (a, attr, oldTag, elem2level[oldTag], elem.tag, level, attr2elem[attr]))
+                            else:
+                                attr2elem[attr] = elem.tag
+                if len(attr2elem) == len(allAttrs):
+                    # all attributes have been seen
+                    break
+            elif event == "end":
+                level -= 1
 
     if len(attr2elem) != len(allAttrs):
         for a in attrOptions:
@@ -308,30 +309,31 @@ def getDataStream(options):
 
             values = {}  # attr -> value
             index = 0
-            for line in _open(xmlfile):
-                if mE0 in line:
-                    for a, r in mAs0:
-                        values[a] = r.search(line).groups()[0]
-                if mE1 in line:
-                    skip = False
-                    for a, r in mAs1:
-                        m = r.search(line)
-                        if m:
-                            values[a] = m.groups()[0]
-                        elif a == INDEX_ATTR:
-                            values[a] = index
-                        elif a in POST_PROCESSING_ATTRS:
-                            # set in post-processing
-                            values[a] = 0
-                        elif a == NONE_ATTR:
-                            values[a] = NONE_ATTR_DEFAULT
-                        else:
-                            skip = True
-                            skippedLines[a] += 1
-                    if not skip:
-                        for toYield in combineValues(attrs, attr2parts, values, splitX, splitY):
-                            yield toYield
-                            index += 1
+            with openz(xmlfile) as xmlf:
+                for line in xmlf:
+                    if mE0 in line:
+                        for a, r in mAs0:
+                            values[a] = r.search(line).groups()[0]
+                    if mE1 in line:
+                        skip = False
+                        for a, r in mAs1:
+                            m = r.search(line)
+                            if m:
+                                values[a] = m.groups()[0]
+                            elif a == INDEX_ATTR:
+                                values[a] = index
+                            elif a in POST_PROCESSING_ATTRS:
+                                # set in post-processing
+                                values[a] = 0
+                            elif a == NONE_ATTR:
+                                values[a] = NONE_ATTR_DEFAULT
+                            else:
+                                skip = True
+                                skippedLines[a] += 1
+                        if not skip:
+                            for toYield in combineValues(attrs, attr2parts, values, splitX, splitY):
+                                yield toYield
+                                index += 1
 
             for attr, count in skippedLines.items():
                 print("Warning: Skipped %s lines because of missing attributes '%s'." % (
@@ -344,28 +346,29 @@ def getDataStream(options):
             mE = "<%s " % allElems[0]
             mAs = [re.compile('%s="([^"]*)"' % a) for a in allAttrs]
             index = 0
-            for line in _open(xmlfile):
-                if mE in line:
-                    skip = False
-                    values = {}  # attr -> value
-                    for a, r in zip(allAttrs, mAs):
-                        if a == INDEX_ATTR:
-                            values[a] = index
-                        elif a in POST_PROCESSING_ATTRS:
-                            # set in post-processing
-                            values[a] = 0
-                        elif a == NONE_ATTR:
-                            values[a] = NONE_ATTR_DEFAULT
-                        else:
-                            m = r.search(line)
-                            if m:
-                                values[a] = m.groups()[0]
+            with openz(xmlfile) as xmlf:
+                for line in xmlf:
+                    if mE in line:
+                        skip = False
+                        values = {}  # attr -> value
+                        for a, r in zip(allAttrs, mAs):
+                            if a == INDEX_ATTR:
+                                values[a] = index
+                            elif a in POST_PROCESSING_ATTRS:
+                                # set in post-processing
+                                values[a] = 0
+                            elif a == NONE_ATTR:
+                                values[a] = NONE_ATTR_DEFAULT
                             else:
-                                skip = True
-                    if not skip:
-                        for toYield in combineValues(attrs, attr2parts, values, splitX, splitY):
-                            yield toYield
-                            index += 1
+                                m = r.search(line)
+                                if m:
+                                    values[a] = m.groups()[0]
+                                else:
+                                    skip = True
+                        if not skip:
+                            for toYield in combineValues(attrs, attr2parts, values, splitX, splitY):
+                                yield toYield
+                                index += 1
         return datastream
 
     else:

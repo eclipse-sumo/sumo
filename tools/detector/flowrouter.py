@@ -168,12 +168,13 @@ class Net:
         self._routeRestriction = {}
         if options.restrictionfile:
             for f in options.restrictionfile.split(","):
-                for line in open(f):
-                    ls = line.split()
-                    if len(ls) == 2:
-                        self._edgeRestriction[ls[1]] = int(ls[0])
-                    else:
-                        self._routeRestriction[tuple(ls[1:])] = int(ls[0])
+                with open(f) as fp:
+                    for line in fp:
+                        ls = line.split()
+                        if len(ls) == 2:
+                            self._edgeRestriction[ls[1]] = int(ls[0])
+                        else:
+                            self._routeRestriction[tuple(ls[1:])] = int(ls[0])
             if options.verbose:
                 print("Loaded %s edge restrictions and %s route restrictions" %
                       (len(self._edgeRestriction), len(self._routeRestriction)))

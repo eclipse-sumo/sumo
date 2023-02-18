@@ -586,6 +586,8 @@ def main(args=None):
     print("dua-iterate ended (duration: %s)" % (datetime.now() - starttime))
 
     log.close()
+    sys.stdout.close()
+    sys.stdout = sys.__stdout__
 
 
 if __name__ == "__main__":

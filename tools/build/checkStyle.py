@@ -133,7 +133,8 @@ class PropertyReader(xml.sax.handler.ContentHandler):
         return idx
 
     def checkFileHeader(self, ext):
-        lines = open(self._file).readlines()
+        with open(self._file) as f:
+            lines = f.readlines()
         if len(lines) == 0:
             print(self._file, "is empty")
             return
@@ -294,9 +295,10 @@ class PropertyReader(xml.sax.handler.ContentHandler):
             self._file = fileName
         ext = os.path.splitext(self._file)[1]
         try:
-            codecs.open(self._file, 'r', 'utf8').read()
-        except UnicodeDecodeError as e:
-            print(self._file, e)
+            with codecs.open(self._file, 'r', 'utf8') as f:
+                f.read()
+        except UnicodeDecodeError as err:
+            print(self._file, err)
         self.checkFileHeader(ext)
         if exclude:
             for x in exclude:

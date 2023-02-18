@@ -31,7 +31,6 @@ import sys
 import csv
 
 sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
-import sumolib  # noqa
 from sumolib.visualization import helpers  # noqa
 import matplotlib.pyplot as plt  # noqa
 

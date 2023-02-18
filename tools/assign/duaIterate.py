@@ -195,7 +195,7 @@ def call(command, log):
     if retCode != 0:
         print(("Execution of %s failed. Look into %s for details.") %
               (command, log.name), file=sys.stderr)
-        sys.exit(retCode)
+    return retCode
 
 
 def writeRouteConf(duarouterBinary, step, options, dua_args, file,
@@ -365,32 +365,29 @@ def filterTripinfo(step, attrs):
         attrs = ["id"] + attrs
     inFile = "%03i%stripinfo_%03i.xml" % (step, os.sep, step)
     if os.path.exists(inFile):
-        out = open(inFile + ".filtered", 'w')
-        print("<tripinfos>", file=out)
-        hadOutput = False
-        for line in open(inFile):
-            if "<tripinfo " in line:
-                if hadOutput:
-                    print("/>", file=out)
-                print("    <tripinfo", end=' ', file=out)
-                for a in attrs:
-                    pos = line.find(a)
-                    if pos >= 0:
-                        pos += len(a) + 2
-                        print(
-                            '%s="%s"' % (a, line[pos:line.find('"', pos)]), end=' ', file=out)
-                hadOutput = True
-            if "<emission" in line:
-                for a in attrs:
-                    pos = line.find(a)
-                    if pos >= 0:
-                        pos += len(a) + 2
-                        print(
-                            '%s="%s"' % (a, line[pos:line.find('"', pos)]), end=' ', file=out)
-        if hadOutput:
-            print("/>", file=out)
-        print("</tripinfos>", file=out)
-        out.close()
+        with open(inFile) as inf, open(inFile + ".filtered", 'w') as out:
+            print("<tripinfos>", file=out)
+            hadOutput = False
+            for line in inf:
+                if "<tripinfo " in line:
+                    if hadOutput:
+                        print("/>", file=out)
+                    print("    <tripinfo", end=' ', file=out)
+                    for a in attrs:
+                        pos = line.find(a)
+                        if pos >= 0:
+                            pos += len(a) + 2
+                            print('%s="%s"' % (a, line[pos:line.find('"', pos)]), end=' ', file=out)
+                    hadOutput = True
+                if "<emission" in line:
+                    for a in attrs:
+                        pos = line.find(a)
+                        if pos >= 0:
+                            pos += len(a) + 2
+                            print('%s="%s"' % (a, line[pos:line.find('"', pos)]), end=' ', file=out)
+            if hadOutput:
+                print("/>", file=out)
+            print("</tripinfos>", file=out)
         os.remove(inFile)
         os.rename(out.name, inFile)
 
@@ -589,6 +586,7 @@ def main(args=None):
     generateEdgedataAddFile(EDGEDATA_ADD, options)
 
     avgTT = sumolib.miscutils.Statistics()
+    ret = 0
     for step in range(options.firstStep, options.lastStep):
         current_directory = os.getcwd()
         final_directory = os.path.join(current_directory, "%03i" % step)
@@ -620,13 +618,17 @@ def main(args=None):
                 if options.marginal_cost:
                     calcMarginalCost(step, options)
 
-                call([duaBinary, "-c", cfgname], log)
+                ret = call([duaBinary, "-c", cfgname], log)
+                if ret != 0:
+                    break
                 if options.clean_alt and router_input not in input_demands:
                     os.remove(router_input)
                 etime = datetime.now()
                 print(">>> End time: %s" % etime)
                 print(">>> Duration: %s" % (etime - btime))
                 print("<<")
+            if ret != 0:
+                break
 
         # simulation
         print(">> Running simulation")
@@ -636,7 +638,9 @@ def main(args=None):
                                 ",".join(simulation_demands))  # todo: change 'grou.xml'
         log.flush()
         sys.stdout.flush()
-        call([sumoBinary, "-c", sumocfg], log)
+        ret = call([sumoBinary, "-c", sumocfg], log)
+        if ret != 0:
+            break
         if options.tripinfoFilter:
             filterTripinfo(step, options.tripinfoFilter.split(","))
         etime = datetime.now()
@@ -706,7 +710,10 @@ def main(args=None):
     print("dua-iterate ended (duration: %s)" % (datetime.now() - starttime))
 
     log.close()
+    sys.stdout.close()
+    sys.stdout = sys.__stdout__
+    return ret
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

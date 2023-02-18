@@ -162,6 +162,12 @@ class TeeFile:
                 except OSError:
                     pass
 
+    def close(self):
+        """closes all closable outputs"""
+        for fp in self.files:
+            if hasattr(fp, "close"):
+                fp.close()
+
 
 def _intTime(tStr):
     """

@@ -173,11 +173,10 @@ class ReroutersGeneration(object):
             if 'startPos' not in child.attrib:
                 child.attrib['startPos'] = 0
 
-            self._parking_areas[child.attrib['id']]['edge'] = lane.getEdge().getID()
-            self._parking_areas[child.attrib['id']]['pos'] = sumolib.geomhelper.positionAtShapeOffset(lane.getShape(), endPos)  # noqa
-            self._parking_areas[child.attrib['id']]['capacity'] = (
-                int(child.get('roadsideCapacity', 0))
-                + len(child.findall('space')))
+            pa = self._parking_areas[child.attrib['id']]
+            pa['edge'] = lane.getEdge().getID()
+            pa['pos'] = sumolib.geomhelper.positionAtShapeOffset(lane.getShape(), endPos)
+            pa['capacity'] = (int(child.get('roadsideCapacity', 0)) + len(child.findall('space')))
 
     # ---------------------------------------------------------------------------------------- #
     #                                 Rerouter Generation                                      #
@@ -186,29 +185,29 @@ class ReroutersGeneration(object):
     def _generate_rerouters(self):
         """ Compute the rerouters for each parking lot for SUMO. """
         print('Computing distances and sorting parking alternatives.')
-        pool = multiprocessing.Pool(processes=self._opt.processes)
-        list_parameters = list()
-        splits = numpy.array_split(list(self._parking_areas.keys()), self._opt.processes)
-        for parkings in splits:
-            parameters = {
-                'selection': parkings,
-                'all_parking_areas': self._parking_areas,
-                'net_file': self._opt.sumo_net_definition,
-                'with_tqdm': self._opt.with_tqdm,
-                'num_alternatives': self._opt.num_alternatives,
-                'dist_alternatives': self._opt.dist_alternatives,
-                'dist_threshold': self._opt.dist_threshold,
-                'capacity_threshold': self._opt.capacity_threshold,
-                'min_capacity': self._opt.min_capacity,
-                'opposite_visible': self._opt.opposite_visible,
-                'prefer_visible': self._opt.prefer_visible,
-                'distribute': self._opt.distribute,
-                'visible_ids': self._opt.visible_ids,
-            }
-            list_parameters.append(parameters)
-        for res in pool.imap_unordered(generate_rerouters_process, list_parameters):
-            for key, value in res.items():
-                self._sumo_rerouters[key] = value
+        with multiprocessing.Pool(processes=self._opt.processes) as pool:
+            list_parameters = list()
+            splits = numpy.array_split(list(self._parking_areas.keys()), self._opt.processes)
+            for parkings in splits:
+                parameters = {
+                    'selection': parkings,
+                    'all_parking_areas': self._parking_areas,
+                    'net_file': self._opt.sumo_net_definition,
+                    'with_tqdm': self._opt.with_tqdm,
+                    'num_alternatives': self._opt.num_alternatives,
+                    'dist_alternatives': self._opt.dist_alternatives,
+                    'dist_threshold': self._opt.dist_threshold,
+                    'capacity_threshold': self._opt.capacity_threshold,
+                    'min_capacity': self._opt.min_capacity,
+                    'opposite_visible': self._opt.opposite_visible,
+                    'prefer_visible': self._opt.prefer_visible,
+                    'distribute': self._opt.distribute,
+                    'visible_ids': self._opt.visible_ids,
+                }
+                list_parameters.append(parameters)
+            for res in pool.imap_unordered(generate_rerouters_process, list_parameters):
+                for key, value in res.items():
+                    self._sumo_rerouters[key] = value
         print('Computed {} rerouters.'.format(len(self._sumo_rerouters.keys())))
 
     # ---------------------------------------------------------------------------------------- #

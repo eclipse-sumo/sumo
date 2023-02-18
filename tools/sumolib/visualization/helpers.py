@@ -393,22 +393,23 @@ def parseTicks(tickfile):
     haveOffsets = True
     offsets = []
     labels = []
-    for line in open(tickfile):
-        line = line.strip()
-        if not line:
-            continue
-        of_label = line.split(':')
-        try:
-            of = float(of_label[0])
-            offsets.append(of)
-            if len(of_label) > 1:
-                labels.append(' '.join(of_label[1:]))
-            else:
-                # also accept <FLOAT> format
-                labels.append(str(of))
-        except ValueError:
-            haveOffsets = False
-            labels.append(line)
+    with open(tickfile) as tf:
+        for line in tf:
+            line = line.strip()
+            if not line:
+                continue
+            of_label = line.split(':')
+            try:
+                of = float(of_label[0])
+                offsets.append(of)
+                if len(of_label) > 1:
+                    labels.append(' '.join(of_label[1:]))
+                else:
+                    # also accept <FLOAT> format
+                    labels.append(str(of))
+            except ValueError:
+                haveOffsets = False
+                labels.append(line)
 
     if not haveOffsets:
         offsets = range(len(labels))

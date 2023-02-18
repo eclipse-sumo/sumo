@@ -352,6 +352,7 @@ def main(options):
         # Import PT from GTFS and OSM routes
         gtfsZip = zipfile.ZipFile(sumolib.openz(options.gtfs, mode="rb", tryGZip=False))
         routes, trips_on_day, shapes, stops, stop_times = gtfs2osm.import_gtfs(options, gtfsZip)
+        gtfsZip.fp.close()
 
         if routes.empty or trips_on_day.empty:
             return

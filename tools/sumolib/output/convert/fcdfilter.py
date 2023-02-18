@@ -69,8 +69,9 @@ class Filter:
 
 def fcdfilter(inpFCD, outSTRM, further):
     filters = []
-    for line in open(further["filter"]):
-        filters.append(Filter(further, *line.strip().split(";")))
+    with open(further["filter"]) as ff:
+        for line in ff:
+            filters.append(Filter(further, *line.strip().split(";")))
     for timestep in inpFCD:
         t = float(timestep.time)
         filters = [f for f in filters if not f.done(t)]

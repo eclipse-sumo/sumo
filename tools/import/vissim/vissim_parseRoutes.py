@@ -175,6 +175,7 @@ for line in fd:
         haveInFlow = False
     if haveInFlow:
         currentInFlow = currentInFlow + line
+fd.close()
 
 # process inflows
 print("Writing flows...")

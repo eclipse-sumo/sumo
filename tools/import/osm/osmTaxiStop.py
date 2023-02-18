@@ -105,6 +105,7 @@ def main(options):
             print(u'    <trip id="taxi_%s_%s" type="taxi" depart="0.00">' % (stopID, idx), end=u'', file=fleet_out)
             print(u'<stop busStop="%s" triggered="person"/></trip>' % stopID, file=fleet_out)
         print(u"</additional>", file=fleet_out)
+        fleet_out.close()
 
 
 if __name__ == "__main__":

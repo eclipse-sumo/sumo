@@ -29,7 +29,6 @@ import os
 import sys
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
-import sumolib  # noqa
 from sumolib.visualization import helpers  # noqa
 import matplotlib.pyplot as plt  # noqa
 
@@ -68,7 +67,6 @@ def main(args=None):
     if options.input is None:
         raise ValueError("Error: at least one csv file must be given")
 
-    fd = open(options.input)
     labels = []
     vlabels = []
     vals = []
@@ -78,19 +76,20 @@ def main(args=None):
     s = options.width + options.space
     t = options.width / 2. + options.space / 2.
     x = options.space / 2.
-    for line in fd:
-        v = line.strip().split(";")
-        if len(v) < 2:
-            continue
-        labels.append(v[0].replace("\\n", "\n"))
-        value = float(v[options.column]) / options.norm
-        vals.append(value)
-        vlabels.append(str(value) + "%")
-        total += value
-        xs.append(x)
-        ts.append(t)
-        x = x + s
-        t = t + s
+    with open(options.input) as fd:
+        for line in fd:
+            v = line.strip().split(";")
+            if len(v) < 2:
+                continue
+            labels.append(v[0].replace("\\n", "\n"))
+            value = float(v[options.column]) / options.norm
+            vals.append(value)
+            vlabels.append(str(value) + "%")
+            total += value
+            xs.append(x)
+            ts.append(t)
+            x = x + s
+            t = t + s
 
     if options.revert:
         labels.reverse()
