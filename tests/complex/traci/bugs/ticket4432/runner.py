@@ -37,7 +37,8 @@ def countWrittenTrips(fname):
 
 
 def lastLine(fname):
-    lines = open(fname).readlines()
+    with open(fname) as f:
+        lines = f.readlines()
     return None if len(lines) == 0 else lines[-1]
 
 
