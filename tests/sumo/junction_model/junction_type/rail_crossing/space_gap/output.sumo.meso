@@ -6,10 +6,10 @@ Simulation ended at time: 941.00
 Reason: All vehicles have left the simulation.
 Statistics (avg of 432):
  RouteLength: 303.00
- Speed: 14.41
- Duration: 17.50
- WaitingTime: 0.35
- TimeLoss: 0.60
+ Speed: 14.59
+ Duration: 17.21
+ WaitingTime: 0.18
+ TimeLoss: 0.31
  DepartDelay: 0.00
 
 DijkstraRouter answered 432 queries and explored 2.00 edges on average.
