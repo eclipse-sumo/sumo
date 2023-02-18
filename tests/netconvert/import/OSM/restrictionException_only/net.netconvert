@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-02-18 13:12:17 by Eclipse SUMO netconvert Version v1_16_0+0386-cff817e
+<!-- generated on 2023-02-18 13:13:44 by Eclipse SUMO netconvert Version v1_16_0+0387-4e766ce
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -393,13 +393,15 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <junction id="207127194" type="dead_end" x="238.08" y="598.88" incLanes="19831209_0 599784511#1_0" intLanes="" shape="240.63,599.41 240.25,597.45 239.39,597.44 239.04,597.30 238.75,597.05 238.52,596.72 238.35,596.29 236.43,596.86 236.77,598.10 236.82,598.56 236.76,599.01 236.58,599.53 236.27,600.17 238.05,601.10 238.64,600.32 239.04,600.01 239.50,599.76 240.03,599.56"/>
     <junction id="2281936084" type="dead_end" x="52.47" y="0.17" incLanes="218986599#3_0" intLanes="" shape="50.87,0.07 54.06,0.28"/>
     <junction id="2281952941" type="priority" x="220.62" y="596.57" incLanes="-4852528#0_0 190760565#3_0 190760565#3_1 576411466_0 576411466_1" intLanes="" shape="220.86,604.95 226.70,602.34 226.18,600.11 226.39,599.21 226.89,598.45 227.71,597.84 228.83,597.37 226.93,591.26 219.51,586.16 213.66,588.75 210.62,595.45 215.88,603.49 217.92,602.68 218.80,602.76 219.58,603.17 220.26,603.90">
-        <request index="0" response="0000000" foes="0110000"/>
-        <request index="1" response="0000000" foes="0110000"/>
-        <request index="2" response="1001000" foes="1001000"/>
-        <request index="3" response="1000000" foes="1000100"/>
-        <request index="4" response="1000011" foes="1000011"/>
-        <request index="5" response="1000011" foes="1000011"/>
-        <request index="6" response="0000000" foes="0111100"/>
+        <request index="0" response="000000000" foes="000110000"/>
+        <request index="1" response="000000000" foes="110110000"/>
+        <request index="2" response="001001000" foes="001001000"/>
+        <request index="3" response="001000000" foes="001000100"/>
+        <request index="4" response="011000011" foes="011000011"/>
+        <request index="5" response="011000011" foes="011000011"/>
+        <request index="6" response="000000000" foes="000111100"/>
+        <request index="7" response="000000010" foes="000110010"/>
+        <request index="8" response="000000010" foes="000000010"/>
     </junction>
     <junction id="2281952944" type="rail_crossing" x="234.02" y="607.17" incLanes="218986599#0_0 31573145#1_0" intLanes="" shape="234.96,610.77 237.41,608.71 236.38,604.29 234.55,603.48 232.87,603.80 230.63,606.09 231.56,610.16 233.37,610.99">
         <request index="0" response="0" foes="0"/>
@@ -533,6 +535,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from="4852528#1" to="4852528#2" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="4852528#2" to="-4852528#2" fromLane="0" toLane="0" dir="t" state="M"/>
     <connection from="576411466" to="4852528#0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="576411466" to="38101627" fromLane="1" toLane="1" allow="bus" dir="l" state="m"/>
+    <connection from="576411466" to="-576411466" fromLane="1" toLane="0" allow="bus" dir="t" state="m"/>
     <connection from="91644291#0" to="91644291#1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="91644291#0" to="-91644291#0" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="91644291#1" to="-91644291#1" fromLane="0" toLane="0" dir="t" state="M"/>
