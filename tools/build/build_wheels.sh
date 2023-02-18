@@ -38,15 +38,15 @@ mv dist/eclipse_sumo-* `echo dist/eclipse_sumo-* | sed 's/cp38-cp38/py2.py3-none
 auditwheel repair dist/eclipse_sumo*.whl
 cp -a data tools/libsumo
 for py in /opt/python/cp3[1789]*; do
-    rm tools/dist/*.whl
+    rm dist/*.whl
     pminor=`echo $py | sed 's,/opt/python/cp3,,;s/-.*//'`
     echo "base_dir = /github/workspace/_skbuild/linux-x86_64-3.${pminor}" >> $HOME/.ccache/ccache.conf
     $py/bin/python tools/build/version.py tools/build/setup-sumo.py ./setup.py
     $py/bin/python -m build --wheel
     $py/bin/python tools/build/version.py tools/build/setup-libsumo.py tools/setup.py
-    $py/bin/python -m build --wheel tools
+    $py/bin/python -m build --wheel tools -o dist
     $py/bin/python tools/build/version.py tools/build/setup-libtraci.py tools/setup.py
-    $py/bin/python -m build --wheel tools
-    auditwheel repair tools/dist/libsumo*.whl
-    auditwheel repair tools/dist/libtraci*.whl
+    $py/bin/python -m build --wheel tools -o dist
+    auditwheel repair dist/libsumo*.whl
+    auditwheel repair dist/libtraci*.whl
 done
