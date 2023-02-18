@@ -37,9 +37,9 @@ jobs:
         cd tools
         python -m pip install build
         python build/version.py build/setup-sumolib.py ./setup.py
-        python -m build --sdist --wheel
+        python -m build --wheel
         python build/version.py build/setup-traci.py ./setup.py
-        python -m build --sdist --wheel
+        python -m build --wheel
 
     - name: Uploading artifacts (Helper wheels)
       uses: actions/upload-artifact@v3
