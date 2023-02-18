@@ -35,6 +35,7 @@ jobs:
     - name: Building helper wheels for later tests
       run: |
         cd tools
+        python -m pip install build
         python build/version.py build/setup-sumolib.py ./setup.py
         python -m build --sdist --wheel
         python build/version.py build/setup-traci.py ./setup.py
