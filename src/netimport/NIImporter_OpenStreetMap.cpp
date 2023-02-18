@@ -1618,6 +1618,7 @@ void
 NIImporter_OpenStreetMap::RelationHandler::resetValues() {
     myCurrentRelation = INVALID_ID;
     myIsRestriction = false;
+    myRestrictionException = SVC_IGNORING;
     myFromWay = INVALID_ID;
     myToWay = INVALID_ID;
     myViaNode = INVALID_ID;
@@ -1730,6 +1731,21 @@ NIImporter_OpenStreetMap::RelationHandler::myStartElement(int element, const SUM
                     WRITE_WARNINGF(TL("Found unknown restriction type '%' in relation '%'"), value, toString(myCurrentRelation));
                 }
                 return;
+            }
+        } else if (key == "except") {
+            std::string value = attrs.get<std::string>(SUMO_ATTR_V, toString(myCurrentRelation).c_str(), ok, false);
+            for (const std::string v : StringTokenizer(value, ";").getVector()) {
+                if (v == "psv") {
+                    myRestrictionException |= SVC_BUS;
+                } else if (v == "bicycle") {
+                    myRestrictionException |= SVC_BICYCLE;
+                } else if (v == "hgv") {
+                    myRestrictionException |= SVC_TRUCK | SVC_TRAILER;
+                } else if (v == "motorcar") {
+                    myRestrictionException |= SVC_PASSENGER | SVC_TAXI;
+                } else if (v == "emergency") {
+                    myRestrictionException |= SVC_EMERGENCY;
+                }
             }
         } else if (key == "public_transport") {
             std::string value = attrs.get<std::string>(SUMO_ATTR_V, toString(myCurrentRelation).c_str(), ok, false);
@@ -1954,11 +1970,19 @@ NIImporter_OpenStreetMap::RelationHandler::applyRestriction() const {
             // modifications (ramps.guess) reset existing connections
             for (NBEdge* cand : from->getToNode()->getOutgoingEdges()) {
                 if (!from->isConnectedTo(cand)) {
-                    from->removeFromConnections(cand, -1, -1, true);
+                    if (myRestrictionException == SVC_IGNORING) {
+                        from->removeFromConnections(cand, -1, -1, true);
+                    } else {
+                        from->addEdge2EdgeConnection(cand, true, myRestrictionException);
+                    }
                 }
             }
         } else {
-            from->removeFromConnections(to, -1, -1, true);
+            if (myRestrictionException == SVC_IGNORING) {
+                from->removeFromConnections(to, -1, -1, true);
+            } else {
+                from->addEdge2EdgeConnection(to, true, myRestrictionException);
+            }
         }
     } else {
         // XXX interpreting via-ways or via-node lists not yet implemented

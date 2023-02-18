@@ -594,6 +594,9 @@ protected:
         /// @brief whether the currently parsed relation is a restriction
         bool myIsRestriction;
 
+        /// @brief exceptions to the restriction currenlty being parsed
+        SVCPermissions myRestrictionException;
+
         /// @brief the origination way for the current restriction
         long long int myFromWay;
 

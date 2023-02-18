@@ -93,7 +93,8 @@ NBEdge::Connection::getInternalLaneID() const {
 
 std::string
 NBEdge::Connection::getDescription(const NBEdge* parent) const {
-    return Named::getIDSecure(parent) + "_" + toString(fromLane) + "->" + Named::getIDSecure(toEdge) + "_" + toString(toLane);
+    return (Named::getIDSecure(parent) + "_" + toString(fromLane) + "->" + Named::getIDSecure(toEdge) + "_" + toString(toLane)
+            + (permissions == SVC_UNSPECIFIED ? "" : " (" + getVehicleClassNames(permissions) + ")"));
 }
 
 
@@ -1020,7 +1021,7 @@ NBEdge::checkGeometry(const double maxAngle, const double minRadius, bool fix, b
 
 // ----------- Setting and getting connections
 bool
-NBEdge::addEdge2EdgeConnection(NBEdge* dest, bool overrideRemoval) {
+NBEdge::addEdge2EdgeConnection(NBEdge* dest, bool overrideRemoval, SVCPermissions permissions) {
     if (myStep == EdgeBuildingStep::INIT_REJECT_CONNECTIONS) {
         return true;
     }
@@ -1035,6 +1036,7 @@ NBEdge::addEdge2EdgeConnection(NBEdge* dest, bool overrideRemoval) {
         myConnections.push_back(Connection(-1, dest, -1));
     } else if (find_if(myConnections.begin(), myConnections.end(), connections_toedge_finder(dest)) == myConnections.end()) {
         myConnections.push_back(Connection(-1, dest, -1));
+        myConnections.back().permissions = permissions;
     }
     if (overrideRemoval) {
         // override earlier delete decision
@@ -1150,6 +1152,11 @@ NBEdge::setConnection(int lane, NBEdge* destEdge,
     }
     for (std::vector<Connection>::iterator i = myConnections.begin(); i != myConnections.end();) {
         if ((*i).toEdge == destEdge && ((*i).fromLane == -1 || (*i).toLane == -1)) {
+            if (permissions == SVC_UNSPECIFIED) {
+                // @note: in case we were to add multiple connections from the
+                // same lane the second one wouldn't get the special permissions!
+                permissions = (*i).permissions;
+            }
             i = myConnections.erase(i);
         } else {
             ++i;
@@ -3074,10 +3081,20 @@ NBEdge::divideOnEdges(const EdgeVector* outgoing) {
     }
     // clean up unassigned fromLanes
     bool explicitTurnaround = false;
+    SVCPermissions turnaroundPermissions = SVC_UNSPECIFIED;
     for (std::vector<Connection>::iterator i = myConnections.begin(); i != myConnections.end();) {
         if ((*i).fromLane == -1) {
             if ((*i).toEdge == myTurnDestination && myTurnDestination != nullptr) {
                 explicitTurnaround = true;
+                turnaroundPermissions = (*i).permissions;
+            }
+            if ((*i).permissions != SVC_UNSPECIFIED) {
+                for (Connection& c : myConnections) {
+                    if (c.toLane == -1 && c.toEdge == (*i).toEdge) {
+                        // carry over loaded edge2edge permissions
+                        c.permissions = (*i).permissions;
+                    }
+                }
             }
             i = myConnections.erase(i);
         } else {
@@ -3086,6 +3103,7 @@ NBEdge::divideOnEdges(const EdgeVector* outgoing) {
     }
     if (explicitTurnaround) {
         myConnections.push_back(Connection((int)myLanes.size() - 1, myTurnDestination, myTurnDestination->getNumLanes() - 1));
+        myConnections.back().permissions = turnaroundPermissions;
     }
     sortOutgoingConnectionsByIndex();
 }

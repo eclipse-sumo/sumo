@@ -886,7 +886,7 @@ public:
      * @param[in] dest The connection's destination edge
      * @return Whether the connection was valid
      */
-    bool addEdge2EdgeConnection(NBEdge* dest, bool overrideRemoval = false);
+    bool addEdge2EdgeConnection(NBEdge* dest, bool overrideRemoval = false, SVCPermissions permission = SVC_UNSPECIFIED);
 
     /** @brief Adds a connection between the specified this edge's lane and an approached one
      *
