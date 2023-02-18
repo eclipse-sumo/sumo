@@ -66,11 +66,8 @@ public class Subscription {
             TreeMap<String, TraCIResults> vsRes = sortedMap(Vehicle.getAllSubscriptionResults());
             for (Map.Entry<String, TraCIResults> vehEntry : vsRes.entrySet()) {
                 System.out.println("Vehicle Subscription: id=" + vehEntry.getKey());
-                TreeMap<Integer, TraCIResult> vehResults = sortedMap(vehEntry.getValue());
-                for (Map.Entry<Integer, TraCIResult> entry : vehResults.entrySet()) {
-                    TraCIResult sR = entry.getValue();
-                    System.out.println("   variable id: " + entry.getKey() + "  value: " + sR.getString());
-                }
+                vehEntry.getValue().entrySet().stream().sorted(Map.Entry.comparingByKey())
+                    .forEach(entry -> System.out.println("   variable id: " + entry.getKey() + "  value: " + entry.getValue().getString()));
             }
         }
 
