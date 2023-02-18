@@ -20,7 +20,9 @@ from skbuild import setup
 import version
 
 SUMO_VERSION = version.get_pep440_version()
-package_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+sumo_dir = os.path.abspath(os.path.dirname(__file__))
+while not os.path.exists(os.path.join(sumo_dir, 'README.md')) and sumo_dir != os.path.dirname(sumo_dir):
+    sumo_dir = os.path.dirname(sumo_dir)
 
 setup(
     name='eclipse-sumo',
@@ -31,7 +33,7 @@ setup(
     author_email='sumo@dlr.de',
     license='EPL-2.0',
     description=("A microscopic, multi-modal traffic simulation package"),
-    long_description=open(os.path.join(os.path.dirname(package_dir), 'README.md')).read(),
+    long_description=open(os.path.join(sumo_dir, 'README.md')).read(),
     long_description_content_type='text/markdown',
 
     classifiers=[

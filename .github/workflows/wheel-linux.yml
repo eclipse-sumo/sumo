@@ -35,8 +35,10 @@ jobs:
     - name: Building helper wheels for later tests
       run: |
         cd tools
-        python build/setup-sumolib.py bdist_wheel
-        python build/setup-traci.py bdist_wheel
+        python build/version.py build/setup-sumolib.py ./setup.py
+        python -m build --sdist --wheel
+        python build/version.py build/setup-traci.py ./setup.py
+        python -m build --sdist --wheel
 
     - name: Uploading artifacts (Helper wheels)
       uses: actions/upload-artifact@v3

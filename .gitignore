@@ -7,6 +7,7 @@
 /mirror
 /share
 /dist
+/setup.py
 # IDE project files
 /.settings
 /.cproject
@@ -115,6 +116,7 @@
 /tools/libsumo/libsumo.py
 /tools/libtraci/_libtraci.*
 /tools/libtraci/libtraci.py
+/tools/setup.py
 # extracted tests
 /tests/_*
 # netedit test
