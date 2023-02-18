@@ -1982,6 +1982,11 @@ NIImporter_OpenStreetMap::RelationHandler::applyRestriction() const {
                 from->removeFromConnections(to, -1, -1, true);
             } else {
                 from->addEdge2EdgeConnection(to, true, myRestrictionException);
+                for (NBEdge* cand : from->getToNode()->getOutgoingEdges()) {
+                    if (!from->isConnectedTo(cand)) {
+                        from->addEdge2EdgeConnection(cand, true);
+                    }
+                }
             }
         }
     } else {
