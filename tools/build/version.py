@@ -56,7 +56,21 @@ def create_version_file(versionFile, revision):
         print('#define VERSION_STRING "%s"' % revision, file=f)
 
 
+def filter_setup_py(in_file, out_file):
+    with open(in_file) as inf, open(out_file, "w") as outf:
+        for line in inf:
+            if line.startswith("package_dir = "):
+                print('package_dir = os.path.dirname(os.path.abspath(__file__))', file=outf)
+            elif line.startswith("SUMO_VERSION = "):
+                print('SUMO_VERSION = "%s"' % get_pep440_version(), file=outf)
+            elif not line.startswith("import version"):
+                outf.write(line)
+
+
 def main():
+    if len(sys.argv) > 2:
+        filter_setup_py(sys.argv[1], sys.argv[2])
+        return
     # determine output file
     if len(sys.argv) > 1:
         versionDir = sys.argv[1]
