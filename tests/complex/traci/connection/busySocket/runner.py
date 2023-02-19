@@ -52,3 +52,4 @@ if os.path.exists("lastrun.stderr"):
     f = open("lastrun.stderr")
     shutil.copyfileobj(f, sys.stderr)
     f.close()
+s.close()

@@ -54,9 +54,10 @@ subprocess.call(args_sumo)
 
 # vehicles should have completed their trips
 complete = False
-for line in open(trips_output):
-    if 'veh0' in line:
-        complete = True
+with open(trips_output) as to:
+    for line in to:
+        if 'veh0' in line:
+            complete = True
 
 if complete:
     print('test passed. no blocking occured')

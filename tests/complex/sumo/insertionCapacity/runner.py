@@ -47,8 +47,8 @@ for stepLength in [1, 0.1]:
         for sigma, speedDev in [(0.5, 0.1), (0, 0)]:
             for departSpeed in ['0', 'max', 'desired', 'avg']:
                 routes = ROUTE_TEMPLATE % (sigma, speedDev, departSpeed)
-
-                open('input_routes.rou.xml', 'w').write(routes)
+                with open('input_routes.rou.xml', 'w') as rf:
+                    rf.write(routes)
                 subprocess.call([sumoBinary,
                                  '-n', 'input_net.net.xml',
                                  '-r', 'input_routes.rou.xml',

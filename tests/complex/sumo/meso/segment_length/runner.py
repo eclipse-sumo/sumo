@@ -35,9 +35,11 @@ def call(cmd):
     #    print(cmd)
     #    sys.stdout.flush()
     #    subprocess.call(cmd)#, stdout=open(os.devnull, "w"))
-    subprocess.call(cmd, stdout=open(os.devnull, "w"))
-    for s in sumolib.xml.parse("stats.xml", "vehicleTripStatistics"):
-        return float(s.duration)
+    with open(os.devnull, "w") as out:
+        subprocess.call(cmd, stdout=out)
+    with open("stats.xml") as stats:
+        for s in sumolib.xml.parse(stats, "vehicleTripStatistics"):
+            return float(s.duration)
 
 
 subprocess.call([sumolib.checkBinary("netgenerate"), "--grid", "--grid.length", "500", "-o", "int.net.xml"])
