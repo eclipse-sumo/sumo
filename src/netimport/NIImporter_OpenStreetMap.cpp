@@ -1734,7 +1734,7 @@ NIImporter_OpenStreetMap::RelationHandler::myStartElement(int element, const SUM
             }
         } else if (key == "except") {
             std::string value = attrs.get<std::string>(SUMO_ATTR_V, toString(myCurrentRelation).c_str(), ok, false);
-            for (const std::string v : StringTokenizer(value, ";").getVector()) {
+            for (const std::string& v : StringTokenizer(value, ";").getVector()) {
                 if (v == "psv") {
                     myRestrictionException |= SVC_BUS;
                 } else if (v == "bicycle") {
