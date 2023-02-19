@@ -365,7 +365,6 @@ Connection::readVariables(tcpip::Storage& inMsg, const std::string& objectID, in
                     auto p = std::make_shared<libsumo::TraCIPosition>();
                     p->x = inMsg.readDouble();
                     p->y = inMsg.readDouble();
-                    p->z = 0.;
                     into[objectID][variableID] = p;
                     break;
                 }
