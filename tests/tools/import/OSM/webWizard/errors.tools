@@ -152,6 +152,14 @@ Warning: Teleporting vehicle 'pt_tram_M2:0.1'; collision with vehicle 'pt_tram_M
 Warning: Vehicle 'pt_tram_M2:0.1' ends teleporting on edge '148458500#1', time=480.00.
 Warning: Person 'ped28' aborted waiting for M1:3 at busStop '1668685086'.
 Warning: Person 'ped94' aborted waiting for M5:3 at busStop '30731508'.
+Warning: Person 'ped83' aborted waiting for M4:3 at busStop '30731497'.
+Warning: Person 'ped67' aborted waiting for M4:3 at busStop '30731508'.
+Warning: Person 'ped120' aborted waiting for N2:0 at busStop '272408975'.
+Warning: Person 'ped97' aborted waiting for S25:1 at busStop '1769645503'.
 Warning: Person 'ped125' aborted waiting for S26:0 at busStop '1769645503'.
 Warning: Person 'ped175' aborted waiting for N42:1 at busStop '270727260'.
+Warning: Person 'ped182' aborted waiting for N42:1 at busStop '270727260'.
+Warning: Person 'ped149' aborted waiting for N42:1 at busStop '270727260'.
+Warning: Person 'ped65' aborted waiting for M5:1 at busStop '30731481'.
 Warning: Person 'ped142' aborted waiting for U6:0 at busStop '3043709616'.
+Warning: Person 'ped75' aborted waiting for S7:0 at busStop '2603331695'.
