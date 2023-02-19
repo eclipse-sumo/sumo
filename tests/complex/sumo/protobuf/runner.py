@@ -37,6 +37,7 @@ def connect(inPort, outPort, numTries=10):
             i.connect(("localhost", inPort))
             break
         except socket.error:
+            i.close()
             if wait == numTries:
                 raise
             time.sleep(wait)
@@ -46,6 +47,7 @@ def connect(inPort, outPort, numTries=10):
             o.connect(("localhost", outPort))
             break
         except socket.error:
+            o.close()
             if wait == numTries:
                 raise
             time.sleep(wait)
@@ -85,5 +87,6 @@ except Exception:
     xPro.kill()
     raise
 
-for line in difflib.unified_diff(open('direct.xml').readlines(), open('%s.xml' % OUT_PORT).readlines(), n=0):
-    sys.stdout.write(line)
+with open('direct.xml') as direct, open('%s.xml' % OUT_PORT) as out:
+    for line in difflib.unified_diff(direct.readlines(), out.readlines(), n=0):
+        sys.stdout.write(line)

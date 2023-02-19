@@ -45,9 +45,13 @@ def main(bailOut=False):
         while len(msg) < 100:
             chunk = clientsocket.recv(100 - len(msg))
             if bailOut:
+                clientsocket.close()
+                serversocket.close()
                 return
             if chunk == b'':
                 sys.stdout.write(msg.decode("UTF8"))
+                clientsocket.close()
+                serversocket.close()
                 return
             msg += chunk
         sys.stdout.write(msg.decode("UTF8"))

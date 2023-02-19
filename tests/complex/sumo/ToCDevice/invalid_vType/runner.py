@@ -41,14 +41,15 @@ if __name__ == "__main__":
     else:
         sumoBinary = checkBinary('sumo-gui')
 
-    # this is the normal way of using traci. sumo is started as a
-    # subprocess and then the python script connects and runs
-    traci.start([sumoBinary, "-n", "input_net.net.xml", "-r", "input_routes.rou.xml", "--no-step-log", "true"])
+    try:
+        # this is the normal way of using traci. sumo is started as a
+        # subprocess and then the python script connects and runs
+        traci.start([sumoBinary, "-n", "input_net.net.xml", "-r", "input_routes.rou.xml", "--no-step-log", "true"])
 
-    # Wait until the vehicle enters
-    while ToC_vehicle not in traci.vehicle.getIDList():
-        traci.simulationStep()
+        # Wait until the vehicle enters
+        while ToC_vehicle not in traci.vehicle.getIDList():
+            traci.simulationStep()
 
-    printToCParams(ToC_vehicle)
-
-    traci.close()
+        printToCParams(ToC_vehicle)
+    finally:
+        traci.close()
