@@ -1,21 +1,21 @@
-Loading net-file from 'net.net.xml' ... done (3ms).
+Loading net-file from 'net.net.xml' ... done (2ms).
 Loading done.
-Simulation version v1_15_0+0751-db72905 started with time: 0.00.
-Simulation ended at time: 2000.00
+Simulation version v1_16_0+0409-014d06a started with time: 0.00.
+Simulation ended at time: 600.00
 Reason: The final simulation step has been reached.
 Performance: 
- Duration: 4.18s
- Real time factor: 478.469
- UPS: 162030.382775
+ Duration: 0.86s
+ Real time factor: 696.056
+ UPS: 226417.633411
 Vehicles: 
- Inserted: 2107 (Loaded: 2779)
- Running: 69
- Waiting: 672
-Statistics (avg of 2038):
- RouteLength: 452.72
- Speed: 9.99
- Duration: 61.12
- WaitingTime: 9.53
- TimeLoss: 28.15
- DepartDelay: 88.13
+ Inserted: 656 (Loaded: 834)
+ Running: 70
+ Waiting: 178
+Statistics (avg of 586):
+ RouteLength: 452.74
+ Speed: 10.21
+ Duration: 50.29
+ WaitingTime: 4.74
+ TimeLoss: 17.55
+ DepartDelay: 18.58
 
