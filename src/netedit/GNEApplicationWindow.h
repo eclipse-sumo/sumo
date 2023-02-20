@@ -176,8 +176,14 @@ public:
     /// @brief called when the command/FXCall run NetDiff is executed
     long onCmdToolNetDiff(FXObject*, FXSelector, void*);
 
-    /// @brief called when the command/FXCall run NetDiff is updated
-    long onUpdToolNetDiff(FXObject*, FXSelector, void*);
+    /// @brief called when the command/FXCall run generate rerouters is executed
+    long onCmdToolGenerateRerouters(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall run add stop to routes is executed
+    long onCmdToolAddStop2Routes(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall python tool is updated
+    long onUpdPythonTool(FXObject*, FXSelector, void*);
 
     /// @brief called when the command/FXCall save network is executed
     long onCmdSaveNetwork(FXObject*, FXSelector, void*);

@@ -726,11 +726,17 @@ enum {
 
     /// @}
 
-    /// @name Toolbar file messages
+    /// @name Toolbar tools messages
     /// @{
 
     /// @brief call tool netdiff
     MID_GNE_TOOLBARTOOLS_NETDIFF,
+
+    /// @brief call tool generate rerouters
+    MID_GNE_TOOLBARTOOLS_GENERATEREROUTERS,
+
+    /// @brief call tool add stop to routes
+    MID_GNE_TOOLBARTOOLS_ADDSTOP2ROUTES,
 
     /// @}
 

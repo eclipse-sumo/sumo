@@ -351,8 +351,12 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_L_LOCATEPOLY,          GNEApplicationWindow::onCmdLocate),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_SHIFT_L_LOCATEPOLY,          GNEApplicationWindow::onUpdNeedsNetwork),
     // toolbar tools
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARTOOLS_NETDIFF,   GNEApplicationWindow::onCmdToolNetDiff),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARTOOLS_NETDIFF,   GNEApplicationWindow::onUpdToolNetDiff),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARTOOLS_NETDIFF,           GNEApplicationWindow::onCmdToolNetDiff),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARTOOLS_NETDIFF,           GNEApplicationWindow::onUpdPythonTool),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARTOOLS_GENERATEREROUTERS, GNEApplicationWindow::onCmdToolGenerateRerouters),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARTOOLS_GENERATEREROUTERS, GNEApplicationWindow::onUpdPythonTool),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARTOOLS_ADDSTOP2ROUTES,    GNEApplicationWindow::onCmdToolAddStop2Routes),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARTOOLS_ADDSTOP2ROUTES,    GNEApplicationWindow::onUpdPythonTool),
     // toolbar windows
     FXMAPFUNC(SEL_COMMAND,  MID_CLEARMESSAGEWINDOW,     GNEApplicationWindow::onCmdClearMsgWindow),
     // toolbar help
@@ -1124,84 +1128,28 @@ GNEApplicationWindow::onCmdLocate(FXObject*, FXSelector sel, void*) {
 
 long
 GNEApplicationWindow::onCmdToolNetDiff(FXObject*, FXSelector, void*) {
-/*
-    // open a modal NetDiff tool dialog
-    GNEToolNetDiff(this);  // NOSONAR
-        const auto &neteditOptions = OptionsCont::getOptions();
-        // check that currently there is a View
-        if (myViewNet == nullptr) {
-            return 0;
-        }
-    #ifdef WIN32
-        // check that python folder is defined in PATH
-        const char* path = getenv("PATH");
-        if ((strstr(path, "Python") == nullptr) && (strstr(path, "python") == nullptr)) {
-            WRITE_ERROR(TL("Python folder must be defined in PATH"));
-            return 0;
-        }
-    #endif
-        // check that SUMO_HOME is defined
-        const char* sumoPath = getenv("SUMO_HOME");
-        if (sumoPath == nullptr) {
-            WRITE_ERROR(TL("Enviroment variable SUMO_HOME must be defined"));
-            return 0;
-        }
-        // get netdiff path
-        const std::string netDiff = std::string(sumoPath) + "/tools/net/netdiff.py";
-        if (!FileHelpers::isReadable(netDiff)) {
-            WRITE_ERRORF(TL("netdiff.py cannot be found in path '%'"), netDiff);
-            return 0;
-        }
-        // check if network is saved
-        if (!myViewNet->getNet()->isNetSaved()) {
-            // save network
-            onCmdSaveNetwork(nullptr, 0, nullptr);
-            if (!myViewNet->getNet()->isNetSaved()) {
-                return 0;
-            }
-        }
-        // get the second network to ddiff
-        opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN_NET));
-        opendialog.setSelectMode(SELECTFILE_EXISTING);
-        opendialog.setPatternList("SUMO nets (*.net.xml,*.net.xml.gz)\nAll files (*)");
-        if (gCurrentFolder.length() != 0) {
-            opendialog.setDirectory(gCurrentFolder);
-        }
-        if (opendialog.execute()) {
-            // get file
-            const std::string secondNet = opendialog.getFilename().text();
-            // check if secondNet isn't empty
-            if (secondNet.empty()) {
-                return 0;
-            }
-            // extract folder
-            const std::string secondNetFolder = getFolder(secondNet).text();
-            // declare python command
-            std::string cmd = "cd " + secondNetFolder + TL("&") +  // folder to save diff files (the same of second net)
-                              "python " + netDiff +                           // netdiff.py
-                              " " + neteditOptions.getString("net-file") +             // netA (current)
-                              " " + secondNet +                               // net B
-                              " diff";                                        // netdiff options
-            // start in background
-    #ifndef WIN32
-            cmd = cmd + " &";
-    #else
-            // see "help start" for the parameters
-            cmd = "start /B \"\" " + cmd;
-    #endif
-            WRITE_MESSAGE(TL("Running " + cmd + ".");
-            // yay! fun with dangerous commands... Never use this over the internet
-            SysUtils::runHiddenCommand(cmd);
-        }
-        */
+    //
     return 1;
 }
 
 
 long
-GNEApplicationWindow::onUpdToolNetDiff(FXObject* sender, FXSelector, void*) {
-    // currently disabled
-    sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+GNEApplicationWindow::onCmdToolGenerateRerouters(FXObject*, FXSelector, void*) {
+    //
+    return 1;
+}
+
+
+long
+GNEApplicationWindow::onCmdToolAddStop2Routes(FXObject*, FXSelector, void*) {
+    //
+    return 1;
+}
+
+
+long 
+GNEApplicationWindow::onUpdPythonTool(FXObject*, FXSelector, void*) {
+    // currently always enabled
     return 1;
 }
 
