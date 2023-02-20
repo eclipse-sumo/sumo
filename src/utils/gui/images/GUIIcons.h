@@ -129,9 +129,11 @@ enum class GUIIcon {
     LOCATEPOLY,
     /// @}
 
-    /// @name locate objects icons
+    /// @name tools
     /// @{
     TOOL_NETDIFF,
+    TOOL_GENERATEREROUTERS,
+    TOOL_ADDSTOP2ROUTES,
     /// @}
 
     /// @name green and yellow objects icons

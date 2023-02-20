@@ -81,6 +81,8 @@
 #include "locate_poly.xpm"
 
 #include "tool_netdiff.xpm"
+#include "tool_generatererouters.xpm"
+#include "tool_addstop2routes.xpm"
 
 #include "green_container.xpm"
 #include "yellow_container.xpm"
@@ -551,6 +553,8 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::LOCATEPOLY] = new FXXPMIcon(a, locate_poly_xpm);
 
     myIcons[GUIIcon::TOOL_NETDIFF] = new FXXPMIcon(a, tool_netdiff_xpm);
+    myIcons[GUIIcon::TOOL_GENERATEREROUTERS] = new FXXPMIcon(a, tool_generatererouters_xpm);
+    myIcons[GUIIcon::TOOL_ADDSTOP2ROUTES] = new FXXPMIcon(a, tool_addstop2routes_xpm);
 
     myIcons[GUIIcon::GREENCONTAINER] = new FXXPMIcon(a, green_container_xpm);
     myIcons[GUIIcon::GREENEDGE] = new FXXPMIcon(a, green_edge_xpm);
