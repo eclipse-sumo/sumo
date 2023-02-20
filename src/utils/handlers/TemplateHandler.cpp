@@ -41,6 +41,9 @@
 #include "TemplateHandler.h"
 
 
+const std::string TemplateHandler::INVALID_INT_STR = toString(INVALID_INT);
+const std::string TemplateHandler::INVALID_DOUBLE_STR = toString(INVALID_DOUBLE);
+
 // ===========================================================================
 // method definitions
 // ===========================================================================
@@ -112,7 +115,7 @@ TemplateHandler::startElement(const XMLCh* const name, XERCES_CPP_NAMESPACE::Att
 
 
 bool
-TemplateHandler::addOption(const std::string& value, const std::string& synonymes,
+TemplateHandler::addOption(const std::string value, const std::string& synonymes,
                            const std::string& type, const std::string& help) const {
     if (myOptions.exists(myTopic)) {
         WRITE_WARNING(myTopic + " already exists");
@@ -121,14 +124,23 @@ TemplateHandler::addOption(const std::string& value, const std::string& synonyme
         // declare option
         Option* option = nullptr;
         // create register depending of type
-        if (type == "STR") {
+        if ((type == "STR") || (type == "string")) {
             option = new Option_String(value);
-        } else if (type == "INT") {
+        } else if ((type == "INT") || (type == "int")) {
             option = new Option_Integer(0);
-        } else if ((type == "FLOAT") || (type == "TIME")) {
+            if (value.empty() || (value == "None")) {
+                option->set(INVALID_INT_STR, "", true);
+            }
+        } else if ((type == "FLOAT") || (type == "float") || (type == "TIME")) {
             option = new Option_Float(0);
-        } else if (type == "BOOL") {
+            if (value.empty() || (value == "None")) {
+                option->set(INVALID_DOUBLE_STR, "", true);
+            }
+        } else if ((type == "BOOL") || (type == "bool")) {
             option = new Option_Bool(false);
+            if (value.empty() || (value == "None")) {
+                option->set("false", "", true);
+            }
         } else if (type == "INT[]") {
             option = new Option_IntVector();
         } else if (type == "STR[]") {
@@ -141,7 +153,9 @@ TemplateHandler::addOption(const std::string& value, const std::string& synonyme
         // check if option was created
         if (option) {
             // set value
-            option->set(value, "", true);
+            if (!option->isSet()) {
+                option->set(value, "", true);
+            }
             myOptions.doRegister(myTopic, option);
             // check if add synonyme
             if (synonymes.size() > 0) {
