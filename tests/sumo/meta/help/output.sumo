@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_15_0+1763-04f0927
+Eclipse SUMO sumo Version v1_16_0+0438-8d3de4a
  Copyright (C) 2001-2023 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -836,6 +836,8 @@ GUI Only Options:
                                         should halt
   --edgedata-files FILE                Load edge/lane weights for visualization
                                         from FILE
+  -N, --alternative-net-file FILE      Load a secondary road network for
+                                        abstract visualization from FILE
   -D, --demo                           Restart the simulation after ending
                                         (demo mode)
   -T, --disable-textures               Do not load background pictures

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-01-20 11:43:52 by Eclipse SUMO sumo Version v1_15_0+1763-04f0927
+<!-- generated on 2023-02-20 14:01:59 by Eclipse SUMO sumo Version v1_16_0+0438-8d3de4a
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -450,6 +450,7 @@
         <delay value="0" synonymes="d" type="FLOAT" help="Use FLOAT in ms as delay between simulation steps"/>
         <breakpoints value="" synonymes="B" type="STR[]" help="Use TIME[] as times when the simulation should halt"/>
         <edgedata-files value="" synonymes="data-files" type="FILE" help="Load edge/lane weights for visualization from FILE"/>
+        <alternative-net-file value="" synonymes="N" type="FILE" help="Load a secondary road network for abstract visualization from FILE"/>
         <demo value="false" synonymes="D" type="BOOL" help="Restart the simulation after ending (demo mode)"/>
         <disable-textures value="false" synonymes="T" type="BOOL" help="Do not load background pictures"/>
         <registry-viewport value="false" type="BOOL" help="Load current viewport from registry"/>
