@@ -350,6 +350,14 @@ GUINet::initGUIStructures() {
             const float cmax[2] = { (float)b.xmax(), (float)b.ymax() };
             myGrid2.Insert(cmin, cmax, edge);
         }
+        for (std::vector<GUIJunctionWrapper*>::iterator i = myJunctionWrapper.begin(); i != myJunctionWrapper.end(); ++i) {
+            GUIJunctionWrapper* junction = *i;
+            Position pos = junction->getJunction().getPosition(true);
+            Boundary b = Boundary(pos.x() - 3., pos.y() - 3., pos.x() + 3., pos.y() + 3.);
+            const float cmin[2] = { (float)b.xmin(), (float)b.ymin() };
+            const float cmax[2] = { (float)b.xmax(), (float)b.ymax() };
+            myGrid2.Insert(cmin, cmax, junction);
+        }
     }
 }
 

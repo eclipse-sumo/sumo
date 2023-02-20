@@ -65,8 +65,8 @@ MSJunction::~MSJunction() {}
 
 
 const Position&
-MSJunction::getPosition() const {
-    return myPosition;
+MSJunction::getPosition(bool secondaryShape) const {
+    return secondaryShape ? myPosition2 : myPosition;
 }
 
 

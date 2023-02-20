@@ -139,6 +139,7 @@ GUIJunctionWrapper::getOptionalName() const {
 
 void
 GUIJunctionWrapper::drawGL(const GUIVisualizationSettings& s) const {
+    const bool s2 = s.secondaryShape;
     if (!myIsInternal && s.drawJunctionShape) {
         // check whether it is not too small
         const double exaggeration = getExaggeration(s);
@@ -166,7 +167,7 @@ GUIJunctionWrapper::drawGL(const GUIVisualizationSettings& s) const {
                 }
                 // make small junctions more visible when coloring by type
                 if (myJunction.getType() == SumoXMLNodeType::RAIL_SIGNAL && s.junctionColorer.getActive() == 2) {
-                    glTranslated(myJunction.getPosition().x(), myJunction.getPosition().y(), getType() + 0.05);
+                    glTranslated(myJunction.getPosition(s2).x(), myJunction.getPosition(s2).y(), getType() + 0.05);
                     GLHelper::drawFilledCircle(2 * exaggeration, 12);
                 }
             }
@@ -178,17 +179,17 @@ GUIJunctionWrapper::drawGL(const GUIVisualizationSettings& s) const {
         }
     }
     if (myIsInternal) {
-        drawName(myJunction.getPosition(), s.scale, s.internalJunctionName, s.angle);
+        drawName(myJunction.getPosition(s2), s.scale, s.internalJunctionName, s.angle);
     } else {
-        drawName(myJunction.getPosition(), s.scale, s.junctionID, s.angle);
+        drawName(myJunction.getPosition(s2), s.scale, s.junctionID, s.angle);
         if (s.junctionName.show(this) && myJunction.getName() != "") {
-            GLHelper::drawTextSettings(s.junctionName, myJunction.getName(), myJunction.getPosition(), s.scale, s.angle);
+            GLHelper::drawTextSettings(s.junctionName, myJunction.getName(), myJunction.getPosition(s2), s.scale, s.angle);
         }
         if ((s.tlsPhaseIndex.show(this) || s.tlsPhaseName.show(this)) && myTLLID != "") {
             const MSTrafficLightLogic* active = MSNet::getInstance()->getTLSControl().getActive(myTLLID);
             if (s.tlsPhaseIndex.show(this)) {
                 const int index = active->getCurrentPhaseIndex();
-                GLHelper::drawTextSettings(s.tlsPhaseIndex, toString(index), myJunction.getPosition(), s.scale, s.angle);
+                GLHelper::drawTextSettings(s.tlsPhaseIndex, toString(index), myJunction.getPosition(s2), s.scale, s.angle);
             }
             if (s.tlsPhaseName.show(this)) {
                 const std::string& name = active->getCurrentPhaseDef().getName();
@@ -196,7 +197,7 @@ GUIJunctionWrapper::drawGL(const GUIVisualizationSettings& s) const {
                     const Position offset = (s.tlsPhaseIndex.show(this) ?
                                              Position(0, 0.8 * s.tlsPhaseIndex.scaledSize(s.scale)).rotateAround2D(DEG2RAD(-s.angle), Position(0, 0))
                                              : Position(0, 0));
-                    GLHelper::drawTextSettings(s.tlsPhaseName, name, myJunction.getPosition() - offset, s.scale, s.angle);
+                    GLHelper::drawTextSettings(s.tlsPhaseName, name, myJunction.getPosition(s2) - offset, s.scale, s.angle);
                 }
             }
         }

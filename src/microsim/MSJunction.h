@@ -83,7 +83,8 @@ public:
     }
 
     /** returns the junction's position */
-    const Position& getPosition() const;
+    const Position& getPosition(bool secondaryShape = false) const;
+
 
 
     /** @brief Returns this junction's shape
