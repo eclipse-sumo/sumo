@@ -60,9 +60,9 @@ GUIBusStop::GUIBusStop(const std::string& id, SumoXMLTag element, const std::vec
     GUIGlObject_AbstractAdd(GLO_BUS_STOP, id, GUIIconSubSys::getIcon(GUIIcon::BUSSTOP)) {
     // see MSVehicleControl defContainerType
     myWidth = MAX2(1.0, ceil((double)personCapacity / getTransportablesAbreast()) * myTransportableDepth);
-    initShape(lane.getShape(), myFGShape, myFGShapeRotations, myFGShapeLengths, myFGSignPos, myFGSignRot);
+    initShape(myFGShape, myFGShapeRotations, myFGShapeLengths, myFGSignPos, myFGSignRot);
     if (lane.getShape(true).size() > 0) {
-        initShape(lane.getShape(true), myFGShape2, myFGShapeRotations2, myFGShapeLengths2, myFGSignPos2, myFGSignRot2);
+        initShape(myFGShape2, myFGShapeRotations2, myFGShapeLengths2, myFGSignPos2, myFGSignRot2, true);
     }
 }
 
@@ -71,15 +71,15 @@ GUIBusStop::~GUIBusStop() {}
 
 
 void 
-GUIBusStop::initShape(const PositionVector& shape, PositionVector& fgShape,
+GUIBusStop::initShape(PositionVector& fgShape,
         std::vector<double>& fgShapeRotations, std::vector<double>& fgShapeLengths,
-        Position& fgSignPos, double& fgSignRot)
+        Position& fgSignPos, double& fgSignRot,
+        bool secondaryShape)
 {
     const double offsetSign = MSGlobals::gLefthand ? -1 : 1;
-    fgShape = shape;
-    fgShape = fgShape.getSubpart(
-                    myLane.interpolateLanePosToGeometryPos(myBegPos),
-                    myLane.interpolateLanePosToGeometryPos(myEndPos));
+    const double lgf = myLane.getLengthGeometryFactor(secondaryShape);
+    fgShape = myLane.getShape(secondaryShape);
+    fgShape = fgShape.getSubpart(lgf * myBegPos, lgf * myEndPos);
     fgShape.move2side((myLane.getWidth() + myWidth) * 0.45 * offsetSign);
     fgShapeRotations.reserve(fgShape.size() - 1);
     fgShapeLengths.reserve(fgShape.size() - 1);

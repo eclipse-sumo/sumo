@@ -133,9 +133,9 @@ private:
 
 
     /// @brief init constants for faster rendering
-    void initShape(const PositionVector& shape, PositionVector& fgShape,
+    void initShape(PositionVector& fgShape,
                    std::vector<double>& fgShapeRotations, std::vector<double>& fgShapeLengths,
-                   Position& fgSignPos, double& fgSignRot);
+                   Position& fgSignPos, double& fgSignRot, bool secondaryShape = false);
 
 private:
     /// @brief The rotations of the shape parts
