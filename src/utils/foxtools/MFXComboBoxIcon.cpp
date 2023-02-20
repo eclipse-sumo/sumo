@@ -22,13 +22,6 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
-
-#ifdef WIN32
-#define NOMINMAX
-#include <windows.h>
-#undef NOMINMAX
-#endif
-
 #include "MFXComboBoxIcon.h"
 #include "MFXListItemIcon.h"
 

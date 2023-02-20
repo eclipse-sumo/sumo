@@ -48,8 +48,8 @@ MFXListItemIcon::MFXListItemIcon(const FXString& text, FXIcon* ic, FXColor backG
 
 void
 MFXListItemIcon::draw(const FXList* myList, FXDC& dc, FXint xx, FXint yy, FXint ww, FXint hh) {
-    register FXFont *font = myList->getFont();
-    register FXint ih = 0, th = 0;
+    FXFont *font = myList->getFont();
+    FXint ih = 0, th = 0;
     ih = ICON_SIZE;
     if (!label.empty()) {
         th = font->getFontHeight();
