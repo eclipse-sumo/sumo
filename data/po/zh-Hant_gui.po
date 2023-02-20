@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-19 20:13+0000\n"
+"PO-Revision-Date: 2023-02-20 08:46+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
@@ -5635,11 +5635,11 @@ msgstr "在指定車道上的校估器(calibrator)的位置"
 msgid ""
 "The aggregation interval in which to calibrate the flows. Default is step-"
 "length"
-msgstr ""
+msgstr "用於校估流量時的聚合時間間隔(aggregation interval)。預設值為步長"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2391
 msgid "Name of Calibrator"
-msgstr ""
+msgstr "校估器名稱"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2396
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2452
@@ -5651,57 +5651,57 @@ msgstr "決定所產生車輛的路徑分布的routeProbe要素的識別名稱(I
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2401
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2457
 msgid "The output file for writing calibrator information or NULL"
-msgstr ""
+msgstr "用於寫入校估資訊或是無效資訊(NULL)的輸出檔案"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2406
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2462
 msgid "A threshold value to detect and clear unexpected jamming"
-msgstr ""
+msgstr "用於偵測及清除無預期阻塞的閾值"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2412
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2468
 msgid ""
 "space separated list of vehicle type ids to consider (empty to affect all "
 "types)"
-msgstr ""
+msgstr "考慮的車輛類型 ID , 並以空格分隔的清單（空的(empty)表示影響所有類型）"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2430
 msgid "The id of lane in the simulation network"
-msgstr ""
+msgstr "模擬路網內的路段的識別名(id)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2447
 msgid "Name of calibrator lane"
-msgstr ""
+msgstr "校估器所在車道的名稱"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2481
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3708
 msgid "The id of the route the vehicle shall drive along"
-msgstr ""
+msgstr "車輛行駛路徑的識別名(id)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2486
 msgid "First calibrator flow departure time"
-msgstr ""
+msgstr "第一個校估器流量離開時間"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2492
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4961
 msgid "End of departure interval"
-msgstr ""
+msgstr "出發間隔結束"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2502
 msgid "The id of the vehicle type to use for this calibrator flow"
-msgstr ""
+msgstr "用於此校估器流量的車輛類型的識別名(ID)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2508
 msgid "Number of vehicless per hour, equally spaced"
-msgstr ""
+msgstr "每小時車輛數，等距"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2514
 msgid "Vehicle's speed"
-msgstr ""
+msgstr "車速"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2529
 msgid "The id of Rerouter"
-msgstr ""
+msgstr "改道裝置的識別名(id)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2534
 msgid "An edge id or a list of edge ids where vehicles shall be rerouted"
