@@ -453,7 +453,14 @@ MSCalibrator::execute(SUMOTime currentTime) {
             }
 #endif
             vehicle->resetRoutePosition(routeIndex, pars->departLaneProcedure);
-            if (myEdge->insertVehicle(*vehicle, currentTime)) {
+            bool success = false;
+            try {
+                success = myEdge->insertVehicle(*vehicle, currentTime);
+            } catch (const ProcessError& e) {
+                MSNet::getInstance()->getVehicleControl().deleteVehicle(vehicle, true);
+                throw e;
+            }
+            if (success) {
                 if (!MSNet::getInstance()->getVehicleControl().addVehicle(vehicle->getID(), vehicle)) {
                     throw ProcessError("Emission of vehicle '" + vehicle->getID() + "' in calibrator '" + getID() + "'failed!");
                 }
