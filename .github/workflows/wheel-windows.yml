@@ -98,7 +98,7 @@ jobs:
         copy build\pyproject.toml .
         python tools\build\version.py tools\build\setup-sumo.py .\setup.py
         python -m build --config-setting=--plat-name=win_amd64 --config-setting=-G=Ninja
-        python -c "import glob, os; f = glob.glob(\"dist/eclipse_sumo-*\")[0]; os.rename(f, f.replace(\"cp38-cp38\", \"py2.py3-none\"))"
+        python -c "import glob, os; f = glob.glob(\`"dist/eclipse_sumo-*\`")[0]; os.rename(f, f.replace(\`"cp38-cp38\`", \`"py2.py3-none\`"))"
 
     - name: Uploading artifacts
       uses: actions/upload-artifact@v3
