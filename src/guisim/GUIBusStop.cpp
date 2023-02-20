@@ -58,35 +58,44 @@ GUIBusStop::GUIBusStop(const std::string& id, SumoXMLTag element, const std::vec
                        double parkingLength, const RGBColor& color) :
     MSStoppingPlace(id, element, lines, lane, frompos, topos, name, personCapacity, parkingLength, color),
     GUIGlObject_AbstractAdd(GLO_BUS_STOP, id, GUIIconSubSys::getIcon(GUIIcon::BUSSTOP)) {
-    const double offsetSign = MSGlobals::gLefthand ? -1 : 1;
     // see MSVehicleControl defContainerType
     myWidth = MAX2(1.0, ceil((double)personCapacity / getTransportablesAbreast()) * myTransportableDepth);
-    myFGShape = lane.getShape();
-    myFGShape = myFGShape.getSubpart(
-                    lane.interpolateLanePosToGeometryPos(frompos),
-                    lane.interpolateLanePosToGeometryPos(topos));
-    myFGShape.move2side((lane.getWidth() + myWidth) * 0.45 * offsetSign);
-    myFGShapeRotations.reserve(myFGShape.size() - 1);
-    myFGShapeLengths.reserve(myFGShape.size() - 1);
-    int e = (int) myFGShape.size() - 1;
-    for (int i = 0; i < e; ++i) {
-        const Position& f = myFGShape[i];
-        const Position& s = myFGShape[i + 1];
-        myFGShapeLengths.push_back(f.distanceTo(s));
-        myFGShapeRotations.push_back((double) atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double) M_PI);
-    }
-    PositionVector tmp = myFGShape;
-    tmp.move2side(myWidth / 2 * offsetSign);
-    myFGSignPos = tmp.getLineCenter();
-    myFGSignRot = 0;
-    if (tmp.length() != 0) {
-        myFGSignRot = myFGShape.rotationDegreeAtOffset(double((myFGShape.length() / 2.)));
-        myFGSignRot -= 90;
-    }
+    initShape(lane.getShape(), myFGShape, myFGShapeRotations, myFGShapeLengths, myFGSignPos, myFGSignRot);
 }
 
 
 GUIBusStop::~GUIBusStop() {}
+
+
+void 
+GUIBusStop::initShape(const PositionVector& shape, PositionVector& fgShape,
+        std::vector<double>& fgShapeRotations, std::vector<double>& fgShapeLengths,
+        Position& fgSignPos, double& fgSignRot)
+{
+    const double offsetSign = MSGlobals::gLefthand ? -1 : 1;
+    fgShape = shape;
+    fgShape = fgShape.getSubpart(
+                    myLane.interpolateLanePosToGeometryPos(myBegPos),
+                    myLane.interpolateLanePosToGeometryPos(myEndPos));
+    fgShape.move2side((myLane.getWidth() + myWidth) * 0.45 * offsetSign);
+    fgShapeRotations.reserve(fgShape.size() - 1);
+    fgShapeLengths.reserve(fgShape.size() - 1);
+    int e = (int) fgShape.size() - 1;
+    for (int i = 0; i < e; ++i) {
+        const Position& f = fgShape[i];
+        const Position& s = fgShape[i + 1];
+        fgShapeLengths.push_back(f.distanceTo(s));
+        fgShapeRotations.push_back((double) atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double) M_PI);
+    }
+    PositionVector tmp = fgShape;
+    tmp.move2side(myWidth / 2 * offsetSign);
+    fgSignPos = tmp.getLineCenter();
+    fgSignRot = 0;
+    if (tmp.length() != 0) {
+        fgSignRot = fgShape.rotationDegreeAtOffset(double((fgShape.length() / 2.)));
+        fgSignRot -= 90;
+    }
+}
 
 
 bool
