@@ -140,7 +140,7 @@ GUIJunctionWrapper::getOptionalName() const {
 void
 GUIJunctionWrapper::drawGL(const GUIVisualizationSettings& s) const {
     const bool s2 = s.secondaryShape;
-    if (!myIsInternal && s.drawJunctionShape) {
+    if (!myIsInternal && s.drawJunctionShape && !s2) {
         // check whether it is not too small
         const double exaggeration = getExaggeration(s);
         if (s.scale * exaggeration >= s.junctionSize.minSize) {
