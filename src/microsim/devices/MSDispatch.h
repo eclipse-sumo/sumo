@@ -118,7 +118,7 @@ public:
     MSDispatch(const Parameterised::Map& params);
 
     /// @brief Destructor
-    virtual ~MSDispatch() { }
+    virtual ~MSDispatch();
 
     /// @brief add a new reservation
     virtual Reservation* addReservation(MSTransportable* person,

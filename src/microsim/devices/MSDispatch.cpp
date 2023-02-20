@@ -56,6 +56,15 @@ MSDispatch::MSDispatch(const Parameterised::Map& params) :
     }
 }
 
+MSDispatch::~MSDispatch() {
+    for (auto item : myGroupReservations) {
+        for (Reservation* res : item.second) {
+            delete res;
+        }
+    }
+    myGroupReservations.clear();
+}
+
 
 Reservation*
 MSDispatch::addReservation(MSTransportable* person,
