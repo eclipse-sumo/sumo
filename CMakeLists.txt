@@ -15,6 +15,7 @@ set(BINARY_SUFFIX "" CACHE STRING "Append the suffix to every generated binary")
 set(COMPILE_DEFINITIONS "" CACHE STRING "Macros or defines to add when compiling")
 set(CCACHE_SUPPORT ON CACHE BOOL "Enable ccache support if installed")
 set(TCMALLOC ON CACHE BOOL "Use tcmalloc if installed")
+set(PROJECT_NAME "SUMO" CACHE STRING "Project/Solution name")
 
 # disable warnings
 option(DISABLEWARNING_C5264 "'const' variable is not used" true)
@@ -36,7 +37,8 @@ if (NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
   set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Debug" "Release" "RelWithDebInfo")
 endif ()
 
-project(SUMO CXX C)
+# set project name
+project("${PROJECT_NAME}" CXX C)
 set(PACKAGE_VERSION "git")
 cmake_minimum_required(VERSION 3.4)
 
