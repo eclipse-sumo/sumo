@@ -17,17 +17,21 @@ title: ChangeLog
 
 - netedit
   - Fixed bug that prevent creation of crossing at priority junctions with speed above 50k/mh. Issue #12609 (regression in 1.16.0)
+  - Fixed bug when showing list of newly created vehicle types in type mode. Issue #12625 (regression in 1.15.0)
   - Fixed bug that caused junction shape to change on repeated computations. Issue #12584
+  - Fixed running phase duration for rail crossing in parameter window. Issue #12642
 
 - sumo-gui
   - Fixed random (rare) crash when having an open detector attribute window. Issue #12595 (regression in 1.16.0)
   - Flight mode navigation in 3D view is now working on Linux. Issue #12503
+  - Fixed loading of 2D viewports into 3D scene. Issue #12638
 
 - TraCI
   - Fixed wrong edgeId in error message of `simulation.findIntermodalRoute`. Issue #12591
   - Error when loading a state file now indicates possible version problem. Issue #12593
   - Fixed problem when loading JAVA bindings for libsumo/libtraci via JNI. Caution: Windows users must update their code to load dependent libraries explicitly due to JAVA issues that cannot be fixed on the SUMO side. Issue #12605
   - Fixed incomplete cleanup of SSM output with repeated libsumo runs. Issue #12587
+  - Function `vehicle.setStopParameter` now takes effect when setting "duration". Issue #12630
 
 - tools
   - Fixed invalid error when calling option **--save-template**. Issue #12589
@@ -38,14 +42,18 @@ title: ChangeLog
 
 - netconvert
   - Added options **--shapefile.width** and **--shapefile.length** to allow importing custom widths and lengtsh from [shape files](Networks/Import/ArcView.md). Issue #12575
+  - Exceptions for turning restrictions are now imported from OSM. Issue #12645
 
 - sumo-gui
   - Dynamically modified values for `latAlignment` (i.e. when preparing to turn) are now listed in the type-parameter dialog. Issue #12579
   - The attribute value that is used for scaling edge widths can now be drawn as an annotation. Issue #12544
   - Statistic output now includes person teleport count. Issue #12271
+  - Option **--alternative-net-file** can now be used to load secondary network shapes. Hotkey CTRL+K can be used to switch between primary and secondary shapes. This is intended to support rail simulations where geographical and abstract shapes are available. Issue #11551
 
 - TraCI
   - Added function `vehicle.setLateralLanePosition`. Issue #12568
+  - Function `vehicle.setStopParameter` now supports "onDemand". Issue #12632
+  - Functions [vehicle.getParameter](TraCI/Vehicle_Value_Retrieval.md#supported_device_parameters) and [simulation.getParameter](TraCI/Simulation_Value_Retrieval.md#device_parameter_retrieval) can now retrieve various aggregated trip statistics. Issue #12631
 
 - tools
   - Visualization tools now support option **--alpha** to set background transparancy. Issue #12556
@@ -53,6 +61,7 @@ title: ChangeLog
   - racing.py: now supports collision sound. Issue #12540
   - randomTrips.py: Added option **--random-factor** to apply random disturbances to edge probabilities (i.e. to break up symmetry in small networks). Issue #12603
   - randomTrips.py: Trips no longer start or end inside a roundabout. To restore the old behavior, option **--allow-roundabouts** can be set. Issue #12619
+  - osmWebWizard.py: No longer starts/ends trips on motorways or slip roads (except at the fringe). Issue #12620
   - plotXMLAttributes.py:
     - can plot by sorting rank with attribute value `@RANK`. Issue #12607
     - can plot by input order with attribute value `@INDEX` (note that this was the behavior of @RANK in 1.16.0). Issue #12607
@@ -69,6 +78,7 @@ title: ChangeLog
 ### Miscellaneous
 
 - Netedit help menu now links to to netedit shortcuts. Issue #12626
+- Removed libsumo / libtraci from the binary windows release to avoid version mismatch. Instead the user must install the bindings for their installed python version via `pip`. Issue #11992
 - tools
   - Removed tool `plotXMLAttr.py` since it's functionality is covered by `plotXMLAttributes.py` (tool moved to 'purgatory' folder). Issue #11994.
 
