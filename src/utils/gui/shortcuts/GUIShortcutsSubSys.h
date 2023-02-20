@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -21,24 +21,21 @@
 #include <config.h>
 
 #include <utils/foxtools/fxheader.h>
-#include "GUIShortcuts.h"
 
-// ===========================================================================
-// class declaration
-// ==========================================================================
-class GNEApplicationWindow;
-class GUIApplicationWindow;
+#include "GUIShortcuts.h"
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
+
 class GUIShortcutsSubSys {
+
 public:
-    /// @brief build SUMO Accelerators
-    static void buildSUMOAccelerators(GUIApplicationWindow* GUIApp);
-    static void alterSUMOAccelerator(GUIApplicationWindow* GUIApp, GUIShortcut keysym, long);
-    /// @brief build NETEDIT Accelerators
-    static void buildNETEDITAccelerators(GNEApplicationWindow* GNEApp);
+    /// @brief build accelerators
+    static void buildAccelerators(FXAccelTable* accelTable, FXObject* target, const bool sumogui);
+
+    /// @brief change acelerator (used for toogle dynamically binding space key with start/end simulation)
+    static void changeAccelerator(FXAccelTable* accelTable, FXObject* target, GUIShortcut keysym, long msg);
 
 private:
     // @brief parse GUIShortcut to int

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -62,15 +62,15 @@ GNEMatchGenericDataAttribute::GNEMatchGenericDataAttribute(GNEElementSet* elemen
     myCurrentTag(defaultTag),
     myCurrentAttribute(toString(defaultAttr)),
     myMatchGenericDataString(nullptr) {
-    // Create MFXIconComboBox for interval
+    // Create MFXComboBoxIcon for interval
     new FXLabel(getCollapsableFrame(), "Interval [begin, end]", nullptr, GUIDesignLabelThick);
-    myIntervalSelector = new MFXIconComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, true, this, MID_GNE_SELECTORFRAME_SETINTERVAL, GUIDesignComboBoxStaticExtended);
+    myIntervalSelector = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, this, MID_GNE_SELECTORFRAME_SETINTERVAL, GUIDesignComboBoxStaticExtended);
     // Create textfield for begin and end
     FXHorizontalFrame* horizontalFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     myBegin = new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_SELECTORFRAME_SETBEGIN, GUIDesignTextField);
     myEnd = new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_SELECTORFRAME_SETEND, GUIDesignTextField);
-    // Create MFXIconComboBox for generic datas
-    myMatchGenericDataTagComboBox = new MFXIconComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, true, this, MID_GNE_SELECTORFRAME_SELECTTAG, GUIDesignComboBox);
+    // Create MFXComboBoxIcon for generic datas
+    myMatchGenericDataTagComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, this, MID_GNE_SELECTORFRAME_SELECTTAG, GUIDesignComboBox);
     // Create textfield for begin and end
     myTAZHorizontalFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     myFromTAZComboBox = new FXComboBox(myTAZHorizontalFrame, GUIDesignComboBoxNCol, this, MID_GNE_SELECTORFRAME_FROMTAZ, GUIDesignComboBox);
@@ -80,11 +80,11 @@ GNEMatchGenericDataAttribute::GNEMatchGenericDataAttribute(GNEElementSet* elemen
     // Create TextField for MatchGenericData string
     myMatchGenericDataString = new FXTextField(getCollapsableFrame(), GUIDesignTextFieldNCol, this, MID_GNE_SELECTORFRAME_PROCESSSTRING, GUIDesignTextField);
     // Create help button
-    new FXButton(getCollapsableFrame(), "Help", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
+    new FXButton(getCollapsableFrame(), TL("Help"), nullptr, this, MID_HELP, GUIDesignButtonRectangular);
     // Fill list of sub-items (first element will be "edge")
     enableMatchGenericDataAttribute();
     // Set speed of edge as default attribute
-    myMatchGenericDataAttrComboBox->setText("speed");
+    myMatchGenericDataAttrComboBox->setText(TL("speed"));
     myCurrentAttribute = SUMO_ATTR_SPEED;
     // Set default value for MatchGenericData string
     myMatchGenericDataString->setText(defaultValue.c_str());
@@ -256,13 +256,13 @@ GNEMatchGenericDataAttribute::onCmdSetEnd(FXObject*, FXSelector, void*) {
 }
 
 
-long 
+long
 GNEMatchGenericDataAttribute::onCmdSetFromTAZ(FXObject*, FXSelector, void*) {
     if (myFromTAZComboBox->getText() == "<from TAZ>") {
         myFromTAZComboBox->setTextColor(FXRGB(128, 128, 128));
         return 1;
     } else {
-        for (const auto &TAZ : myElementSet->getSelectorFrameParent()->getViewNet()->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_TAZ)) {
+        for (const auto& TAZ : myElementSet->getSelectorFrameParent()->getViewNet()->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_TAZ)) {
             if (TAZ->getID().c_str() == myFromTAZComboBox->getText()) {
                 myFromTAZComboBox->setTextColor(FXRGB(0, 0, 0));
                 return 1;
@@ -280,7 +280,7 @@ GNEMatchGenericDataAttribute::onCmdSetToTAZ(FXObject*, FXSelector, void*) {
         myFromTAZComboBox->setTextColor(FXRGB(128, 128, 128));
         return 1;
     } else {
-        for (const auto &TAZ : myElementSet->getSelectorFrameParent()->getViewNet()->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_TAZ)) {
+        for (const auto& TAZ : myElementSet->getSelectorFrameParent()->getViewNet()->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_TAZ)) {
             if (TAZ->getID().c_str() == myToTAZComboBox->getText()) {
                 myToTAZComboBox->setTextColor(FXRGB(0, 0, 0));
                 return 1;
@@ -377,13 +377,13 @@ GNEMatchGenericDataAttribute::onCmdProcessString(FXObject*, FXSelector, void*) {
     bool valid = true;
     // get all Generic datas
     auto genericDatas = myElementSet->getSelectorFrameParent()->getViewNet()->getNet()->getAttributeCarriers()->retrieveGenericDatas(myCurrentTag,
-                              GNEAttributeCarrier::parse<double>(myBegin->getText().text()),
-                              GNEAttributeCarrier::parse<double>(myEnd->getText().text()));
+                        GNEAttributeCarrier::parse<double>(myBegin->getText().text()),
+                        GNEAttributeCarrier::parse<double>(myEnd->getText().text()));
     // extra filter for TAZ rel datas
     if (myCurrentTag == SUMO_TAG_TAZREL) {
         std::vector<GNEGenericData*> TAZReldatasFrom, TAZReldatasTo;
         // filter from TAZs
-        for (const auto &TAZRelData : genericDatas) {
+        for (const auto& TAZRelData : genericDatas) {
             if (myFromTAZComboBox->getTextColor() == FXRGB(128, 128, 128)) {
                 TAZReldatasFrom.push_back(TAZRelData);
             } else if ((myFromTAZComboBox->getTextColor() == FXRGB(0, 0, 0)) && (TAZRelData->getAttribute(SUMO_ATTR_FROM) == myFromTAZComboBox->getText().text())) {
@@ -391,7 +391,7 @@ GNEMatchGenericDataAttribute::onCmdProcessString(FXObject*, FXSelector, void*) {
             }
         }
         // filter to TAZs
-        for (const auto &TAZRelData : TAZReldatasFrom) {
+        for (const auto& TAZRelData : TAZReldatasFrom) {
             if (myToTAZComboBox->getTextColor() == FXRGB(128, 128, 128)) {
                 TAZReldatasTo.push_back(TAZRelData);
             } else if ((myToTAZComboBox->getTextColor() == FXRGB(0, 0, 0)) && (TAZRelData->getAttribute(SUMO_ATTR_TO) == myToTAZComboBox->getText().text())) {
@@ -456,26 +456,26 @@ GNEMatchGenericDataAttribute::onCmdHelp(FXObject*, FXSelector, void*) {
     // set help text
     std::ostringstream help;
     help
-            << "- The 'MatchGenericData Attribute' controls allow to specify a set of objects which are then applied to the current selection\n"
-            << "  according to the current 'Modification Mode'.\n"
-            << "     1. Select an object type from the first input box\n"
-            << "     2. Select an attribute from the second input box\n"
-            << "     3. Enter a 'match expression' in the third input box and press <return>\n"
+            << TL("- The 'MatchGenericData Attribute' controls allow to specify a set of objects which are then applied to the current selection\n")
+            << TL("  according to the current 'Modification Mode'.\n")
+            << TL("     1. Select an object type from the first input box\n")
+            << TL("     2. Select an attribute from the second input box\n")
+            << TL("     3. Enter a 'match expression' in the third input box and press <return>\n")
             << "\n"
-            << "- The empty expression matches all objects\n"
-            << "- For numerical attributes the match expression must consist of a comparison operator ('<', '>', '=') and a number.\n"
-            << "- An object matches if the comparison between its attribute and the given number by the given operator evaluates to 'true'\n"
+            << TL("- The empty expression matches all objects\n")
+            << TL("- For numerical attributes the match expression must consist of a comparison operator ('<', '>', '=') and a number.\n")
+            << TL("- An object matches if the comparison between its attribute and the given number by the given operator evaluates to 'true'\n")
             << "\n"
-            << "- For string attributes the match expression must consist of a comparison operator ('', '=', '!', '^') and a string.\n"
-            << "     '' (no operator) matches if string is a substring of that object'ts attribute.\n"
-            << "     '=' matches if string is an exact match.\n"
-            << "     '!' matches if string is not a substring.\n"
-            << "     '^' matches if string is not an exact match.\n"
+            << TL("- For string attributes the match expression must consist of a comparison operator ('', '=', '!', '^') and a string.\n")
+            << TL("     '' (no operator) matches if string is a substring of that object'ts attribute.\n")
+            << TL("     '=' matches if string is an exact match.\n")
+            << TL("     '!' matches if string is not a substring.\n")
+            << TL("     '^' matches if string is not an exact match.\n")
             << "\n"
-            << "- Examples:\n"
-            << "     junction; id; 'foo' -> match all junctions that have 'foo' in their id\n"
-            << "     junction; type; '=priority' -> match all junctions of type 'priority', but not of type 'priority_stop'\n"
-            << "     edge; speed; '>10' -> match all edges with a speed above 10\n";
+            << TL("- Examples:\n")
+            << TL("     junction; id; 'foo' -> match all junctions that have 'foo' in their id\n")
+            << TL("     junction; type; '=priority' -> match all junctions of type 'priority', but not of type 'priority_stop'\n")
+            << TL("     edge; speed; '>10' -> match all edges with a speed above 10\n");
     // Create label with the help text
     new FXLabel(additionalNeteditAttributesHelpDialog, help.str().c_str(), nullptr, GUIDesignLabelFrameInformation);
     // Create horizontal separator
@@ -484,7 +484,7 @@ GNEMatchGenericDataAttribute::onCmdHelp(FXObject*, FXSelector, void*) {
     FXHorizontalFrame* myHorizontalFrameOKButton = new FXHorizontalFrame(additionalNeteditAttributesHelpDialog, GUIDesignAuxiliarHorizontalFrame);
     // Create Button Close (And two more horizontal frames to center it)
     new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
-    new FXButton(myHorizontalFrameOKButton, "OK\t\tclose", GUIIconSubSys::getIcon(GUIIcon::ACCEPT), additionalNeteditAttributesHelpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
+    new FXButton(myHorizontalFrameOKButton, (TL("OK") + std::string("\t\t") + TL("close")).c_str(), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), additionalNeteditAttributesHelpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
     new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
     // Write Warning in console if we're in testing mode
     WRITE_DEBUG("Opening help dialog of selector frame");
@@ -502,7 +502,7 @@ GNEMatchGenericDataAttribute::onCmdHelp(FXObject*, FXSelector, void*) {
 }
 
 
-void 
+void
 GNEMatchGenericDataAttribute::updateTAZComboBox() {
     // clear fromTAZComboBox
     myFromTAZComboBox->clearItems();
@@ -511,7 +511,7 @@ GNEMatchGenericDataAttribute::updateTAZComboBox() {
     myFromTAZComboBox->appendItem("<from TAZ>");
     myToTAZComboBox->appendItem("<to TAZ>");
     // add all TAZs
-    for (const auto &TAZ : myElementSet->getSelectorFrameParent()->getViewNet()->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_TAZ)) {
+    for (const auto& TAZ : myElementSet->getSelectorFrameParent()->getViewNet()->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_TAZ)) {
         myFromTAZComboBox->appendItem(TAZ->getID().c_str());
         myToTAZComboBox->appendItem(TAZ->getID().c_str());
     }

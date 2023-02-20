@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2006-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2006-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -35,23 +35,33 @@ public:
     /// @brief destructor
     ~MFXStaticToolTip();
 
+    /// @brief enable/disable static tooltip
+    void enableStaticToolTip(const bool value);
+
+    /// @brief check staticToolTip is enabled
+    bool isStaticToolTipEnabled() const;
+
     /// @brief show static toolTip
-    void showStaticToolTip(void* ptr);
+    void showStaticToolTip(const FXString& toolTipText);
 
     /// @brief hide static toolTip
     void hideStaticToolTip();
 
-    /// @brief update text
-    void setText(const FXString &text);
-
+    /// @name FOX callbacks
+    /// @{
     /// @brief draw MFXStaticToolTip
     long onPaint(FXObject* obj, FXSelector sel, void* ptr);
+
+    /// @brief called when tooltip is updated
+    long onUpdate(FXObject* sender, FXSelector sel, void* ptr);
+
+    /// @}
 
 protected:
     /// @brief FOX need this
     MFXStaticToolTip();
 
 private:
-    /// @brief object called in show()
-    FXEvent* myToolTippedObject = nullptr;
+    /// @brief flag for enable/disable static tooltip
+    bool myEnableStaticTooltip = true;
 };

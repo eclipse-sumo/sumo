@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2013-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2013-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -25,8 +25,8 @@
 #include <utils/common/RandHelper.h>
 #include <utils/common/StringUtils.h>
 #include <utils/common/SUMOTime.h>
+#include "MSSimpleTrafficLightLogic.h"
 #include "MSSOTLDefinitions.h"
-#include "MSPhasedTrafficLightLogic.h"
 #include "MSSOTLE2Sensors.h"
 
 
@@ -52,7 +52,7 @@ class MSPushButton;
  * Basically a SOTL logic overrides the natural flow of steps in order and length
  * according to sensors on input (and output) lanes
  */
-class MSSOTLTrafficLightLogic: public MSPhasedTrafficLightLogic {
+class MSSOTLTrafficLightLogic: public MSSimpleTrafficLightLogic {
 public:
     // typedef int CTS;
 
@@ -191,6 +191,8 @@ protected:
 
     }
 
+    /// @brief Forces a specific step
+    void setStep(int step);
 
 private:
     /*

@@ -134,6 +134,7 @@
                     <xsd:enumeration value="rail_crossing"/>
                     <xsd:enumeration value="priority"/>
                     <xsd:enumeration value="priority_stop"/>
+                    <xsd:enumeration value="left_before_right"/>
                     <xsd:enumeration value="right_before_left"/>
                     <xsd:enumeration value="allway_stop"/>
                     <xsd:enumeration value="zipper"/>
@@ -154,6 +155,8 @@
             <xsd:simpleType>
                 <xsd:restriction base="xsd:string">
                     <xsd:enumeration value="default"/>
+                    <xsd:enumeration value="mixedPriority"/>
+                    <xsd:enumeration value="allwayStop"/>
                     <xsd:enumeration value="edgePriority"/>
                 </xsd:restriction>
             </xsd:simpleType>

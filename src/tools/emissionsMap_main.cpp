@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2013-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2013-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -55,11 +55,11 @@ void single(const std::string& of, const std::string& className, SUMOEmissionCla
             double sMin, double sMax, double sStep,
             bool verbose) {
     if (verbose) {
-        WRITE_MESSAGE("Writing map of '" + className + "' into '" + of + "'.");
+        WRITE_MESSAGEF(TL("Writing map of '%' into '%'."), className, of);
     }
     std::ofstream o(of.c_str());
     if (!o.good()) {
-        throw ProcessError("Could not open file '" + of + "' for writing.");
+        throw ProcessError(TLF("Could not open file '%' for writing.", of));
     }
     for (double v = vMin; v <= vMax; v += vStep) {
         for (double a = aMin; a <= aMax; a += aStep) {
@@ -82,12 +82,10 @@ void single(const std::string& of, const std::string& className, SUMOEmissionCla
 
 int
 main(int argc, char** argv) {
-    // build options
     OptionsCont& oc = OptionsCont::getOptions();
-    //  give some application descriptions
-    oc.setApplicationDescription("Builds and writes an emissions map for SUMO's emission models.");
+    oc.setApplicationDescription(TL("Builds and writes an emissions map for SUMO's emission models."));
     oc.setApplicationName("emissionsMap", "Eclipse SUMO emissionsMap Version " VERSION_STRING);
-    //  add options
+    // add options
     SystemFrame::addConfigurationOptions(oc);
     oc.addOptionSubTopic("Processing");
     oc.doRegister("iterate", 'i', new Option_Bool(false));
@@ -158,10 +156,10 @@ main(int argc, char** argv) {
         double sStep = oc.getFloat("s-step");
         if (!oc.getBool("iterate")) {
             if (!oc.isSet("emission-class")) {
-                throw ProcessError("The emission class (-e) must be given.");
+                throw ProcessError(TL("The emission class (-e) must be given."));
             }
             if (!oc.isSet("output-file")) {
-                throw ProcessError("The output file (-o) must be given.");
+                throw ProcessError(TL("The output file (-o) must be given."));
             }
             const SUMOEmissionClass c = PollutantsInterface::getClassByName(oc.getString("emission-class"));
             single(oc.getString("output-file"), oc.getString("emission-class"),

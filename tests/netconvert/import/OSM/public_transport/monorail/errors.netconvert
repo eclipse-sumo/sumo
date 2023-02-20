@@ -1,0 +1,4 @@
+Warning: Ignoring track count 2 for edge '326203720'.
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.primary' (first occurrence for edge '5980164').
+Warning: Discarding unusable type 'waterway.river' (first occurrence for edge '156569494').
+Warning: PT stop '698362008' has been moved to edge '-307459757#1'.

@@ -31,3 +31,12 @@ begin_end
 
 # restrict included data by departure time
 period
+
+# Tests for <SUMO_DIST>/tools/countEdgeUsage.py
+named_routes
+
+# Tests for <SUMO_DIST>/tools/countEdgeUsage.py
+named_routes_elements
+
+# Tests for <SUMO_DIST>/tools/countEdgeUsage.py
+named_routes_period

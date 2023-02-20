@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -253,11 +253,10 @@ GNEHierarchicalContainer::addChildElement(const GNEHierarchicalElement* hierarch
 
 template <> void
 GNEHierarchicalContainer::addChildElement(const GNEHierarchicalElement* /*hierarchicalElement*/, GNEDemandElement* demandElement) {
-    // disabled due VIA Attributes
     /*
     // check demand element
     if (checkContainer && (std::find(myChildDemandElements.begin(), myChildDemandElements.end(), demandElement) != myChildDemandElements.end())) {
-        throw ProcessError(demandElement->getTagStr() + " with ID='" + demandElement->getID() + "' was already inserted in " + hierarchicalElement->getTagStr() + " with ID='" + hierarchicalElement->getID() + "'");
+        throw ProcessError(demandElement->getTagStr() + " with ID='" + demandElement->getID() + "' was already inserted in " + demandElement->getTagStr() + " with ID='" + demandElement->getID() + "'");
     } else {
         myChildDemandElements.push_back(demandElement);
     }

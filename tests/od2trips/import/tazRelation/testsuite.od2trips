@@ -6,3 +6,6 @@
 
 # overide vType
 10vehs_type
+
+# Spreads half of 100 vehicles over a day
+100vehs_day_scale

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -64,7 +64,7 @@ GUIEdge::GUIEdge(const std::string& id, int numericalID,
                  const std::string& streetName, const std::string& edgeType, int priority,
                  double distance) :
     MSEdge(id, numericalID, function, streetName, edgeType, priority, distance),
-    GUIGlObject(GLO_EDGE, id),
+    GUIGlObject(GLO_EDGE, id, GUIIconSubSys::getIcon(GUIIcon::EDGE)),
     myLock(true)
 {}
 
@@ -240,12 +240,6 @@ GUIEdge::getTypeParameterWindow(GUIMainWindow& app,
 }
 
 
-double
-GUIEdge::getExaggeration(const GUIVisualizationSettings& /*s*/) const {
-    return 1;
-}
-
-
 Boundary
 GUIEdge::getCenteringBoundary() const {
     Boundary b = getBoundary();
@@ -289,7 +283,10 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
     const bool drawEdgeValue = s.edgeValue.show(selCheck) && (myFunction == SumoXMLEdgeFunc::NORMAL
                                || (myFunction == SumoXMLEdgeFunc::INTERNAL && !s.drawJunctionShape)
                                || ((myFunction == SumoXMLEdgeFunc::CROSSING || myFunction == SumoXMLEdgeFunc::WALKINGAREA) && s.drawCrossingsAndWalkingareas));
-    if (drawEdgeName || drawInternalEdgeName || drawCwaEdgeName || drawStreetName || drawEdgeValue) {
+    const bool drawEdgeScaleValue = s.edgeScaleValue.show(selCheck) && (myFunction == SumoXMLEdgeFunc::NORMAL
+                               || (myFunction == SumoXMLEdgeFunc::INTERNAL && !s.drawJunctionShape)
+                               || ((myFunction == SumoXMLEdgeFunc::CROSSING || myFunction == SumoXMLEdgeFunc::WALKINGAREA) && s.drawCrossingsAndWalkingareas));
+    if (drawEdgeName || drawInternalEdgeName || drawCwaEdgeName || drawStreetName || drawEdgeValue || drawEdgeScaleValue) {
         GUILane* lane1 = dynamic_cast<GUILane*>((*myLanes)[0]);
         if (lane1 != nullptr && lane2 != nullptr) {
             const bool s2 = s.secondaryShape;
@@ -332,7 +329,9 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
                     const RGBColor color = (MSGlobals::gUseMesoSim ? s.edgeColorer : s.laneColorer).getScheme().getColor(doubleValue);
                     if (doubleValue != s.MISSING_DATA
                             && color.alpha() != 0
-                            && (!s.edgeValueHideCheck || doubleValue > s.edgeValueHideThreshold)) {
+                            && (!s.edgeValueHideCheck || doubleValue > s.edgeValueHideThreshold)
+                            && (!s.edgeValueHideCheck2 || doubleValue < s.edgeValueHideThreshold2)
+                       ) {
                         value = toString(doubleValue);
                     }
                 }
@@ -344,6 +343,26 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
                         p.add(shift);
                     }
                     GLHelper::drawTextSettings(s.edgeValue, value, p, s.scale, angle);
+                }
+            }
+            if (drawEdgeScaleValue) {
+                const int activeScheme = s.getLaneEdgeScaleMode();
+                std::string value = "";
+                // use numerical value value of leftmost lane to hopefully avoid sidewalks, bikelanes etc
+                const double doubleValue = (MSGlobals::gUseMesoSim
+                                            ? getScaleValue(s, activeScheme)
+                                            : lane2->getScaleValue(s, activeScheme, s2));
+                if (doubleValue != s.MISSING_DATA) {
+                    value = toString(doubleValue);
+                }
+                if (value != "") {
+                    if (drawEdgeName || drawInternalEdgeName || drawCwaEdgeName || drawEdgeValue) {
+                        const double dist = 0.4 * (s.edgeName.scaledSize(s.scale) + s.edgeScaleValue.scaledSize(s.scale));
+                        const double shiftA = lane1->getShape(s2).rotationAtOffset(lane1->getShape(s2).length() / (double) 2.) - DEG2RAD(90);
+                        Position shift(dist * cos(shiftA), dist * sin(shiftA));
+                        p.add(shift);
+                    }
+                    GLHelper::drawTextSettings(s.edgeScaleValue, value, p, s.scale, angle);
                 }
             }
         }
@@ -557,7 +576,7 @@ GUIEdge::getColorValue(const GUIVisualizationSettings& s, int activeScheme) cons
 
 
 double
-GUIEdge::getScaleValue(int activeScheme) const {
+GUIEdge::getScaleValue(const GUIVisualizationSettings& s, int activeScheme) const {
     switch (activeScheme) {
         case 1:
             return gSelected.isSelected(getType(), getGlID());
@@ -573,6 +592,9 @@ GUIEdge::getScaleValue(int activeScheme) const {
             return getRelativeSpeed();
         case 7:
             return getPendingEmits();
+        case 8:
+            // by edge data value
+            return GUINet::getGUIInstance()->getEdgeData(this, s.edgeDataScaling);
     }
     return 0;
 }

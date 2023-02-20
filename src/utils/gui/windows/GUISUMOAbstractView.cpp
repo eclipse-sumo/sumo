@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -42,6 +42,7 @@
 #include <utils/common/SysUtils.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
+#include <utils/gui/globjects/GUICursorDialog.h>
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GLHelper.h>
@@ -57,6 +58,10 @@
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/settings/GUIVisualizationSettings.h>
 #include <foreign/fontstash/fontstash.h>
+#include <utils/gui/cursors/GUICursorSubSys.h>
+#include <utils/options/OptionsCont.h>
+
+#include <unordered_set>
 
 #include "GUISUMOAbstractView.h"
 #include "GUIMainWindow.h"
@@ -102,24 +107,26 @@ const double GUISUMOAbstractView::SENSITIVITY = 0.1; // meters
  * GUISUMOAbstractView - FOX callback mapping
  * ----------------------------------------------------------------------- */
 FXDEFMAP(GUISUMOAbstractView) GUISUMOAbstractViewMap[] = {
-    FXMAPFUNC(SEL_CONFIGURE,            0,      GUISUMOAbstractView::onConfigure),
-    FXMAPFUNC(SEL_PAINT,                0,      GUISUMOAbstractView::onPaint),
-    FXMAPFUNC(SEL_LEFTBUTTONPRESS,      0,      GUISUMOAbstractView::onLeftBtnPress),
-    FXMAPFUNC(SEL_LEFTBUTTONRELEASE,    0,      GUISUMOAbstractView::onLeftBtnRelease),
-    FXMAPFUNC(SEL_MIDDLEBUTTONPRESS,    0,      GUISUMOAbstractView::onMiddleBtnPress),
-    FXMAPFUNC(SEL_MIDDLEBUTTONRELEASE,  0,      GUISUMOAbstractView::onMiddleBtnRelease),
-    FXMAPFUNC(SEL_RIGHTBUTTONPRESS,     0,      GUISUMOAbstractView::onRightBtnPress),
-    FXMAPFUNC(SEL_RIGHTBUTTONRELEASE,   0,      GUISUMOAbstractView::onRightBtnRelease),
-    FXMAPFUNC(SEL_DOUBLECLICKED,        0,      GUISUMOAbstractView::onDoubleClicked),
-    FXMAPFUNC(SEL_MOUSEWHEEL,           0,      GUISUMOAbstractView::onMouseWheel),
-    FXMAPFUNC(SEL_MOTION,               0,      GUISUMOAbstractView::onMouseMove),
-    FXMAPFUNC(SEL_LEAVE,                0,      GUISUMOAbstractView::onMouseLeft),
-    FXMAPFUNC(SEL_KEYPRESS,             0,      GUISUMOAbstractView::onKeyPress),
-    FXMAPFUNC(SEL_KEYRELEASE,           0,      GUISUMOAbstractView::onKeyRelease),
-    FXMAPFUNC(SEL_COMMAND, MID_CLOSE_LANE,      GUISUMOAbstractView::onCmdCloseLane),
-    FXMAPFUNC(SEL_COMMAND, MID_CLOSE_EDGE,      GUISUMOAbstractView::onCmdCloseEdge),
-    FXMAPFUNC(SEL_COMMAND, MID_ADD_REROUTER,    GUISUMOAbstractView::onCmdAddRerouter),
-    FXMAPFUNC(SEL_COMMAND, MID_REACHABILITY,    GUISUMOAbstractView::onCmdShowReachability),
+    FXMAPFUNC(SEL_CONFIGURE,            0,               GUISUMOAbstractView::onConfigure),
+    FXMAPFUNC(SEL_PAINT,                0,               GUISUMOAbstractView::onPaint),
+    FXMAPFUNC(SEL_LEFTBUTTONPRESS,      0,               GUISUMOAbstractView::onLeftBtnPress),
+    FXMAPFUNC(SEL_LEFTBUTTONRELEASE,    0,               GUISUMOAbstractView::onLeftBtnRelease),
+    FXMAPFUNC(SEL_MIDDLEBUTTONPRESS,    0,               GUISUMOAbstractView::onMiddleBtnPress),
+    FXMAPFUNC(SEL_MIDDLEBUTTONRELEASE,  0,               GUISUMOAbstractView::onMiddleBtnRelease),
+    FXMAPFUNC(SEL_RIGHTBUTTONPRESS,     0,               GUISUMOAbstractView::onRightBtnPress),
+    FXMAPFUNC(SEL_RIGHTBUTTONRELEASE,   0,               GUISUMOAbstractView::onRightBtnRelease),
+    FXMAPFUNC(SEL_DOUBLECLICKED,        0,               GUISUMOAbstractView::onDoubleClicked),
+    FXMAPFUNC(SEL_MOUSEWHEEL,           0,               GUISUMOAbstractView::onMouseWheel),
+    FXMAPFUNC(SEL_MOTION,               0,               GUISUMOAbstractView::onMouseMove),
+    FXMAPFUNC(SEL_LEAVE,                0,               GUISUMOAbstractView::onMouseLeft),
+    FXMAPFUNC(SEL_KEYPRESS,             0,               GUISUMOAbstractView::onKeyPress),
+    FXMAPFUNC(SEL_KEYRELEASE,           0,               GUISUMOAbstractView::onKeyRelease),
+    FXMAPFUNC(SEL_COMMAND, MID_CLOSE_LANE,               GUISUMOAbstractView::onCmdCloseLane),
+    FXMAPFUNC(SEL_COMMAND, MID_CLOSE_EDGE,               GUISUMOAbstractView::onCmdCloseEdge),
+    FXMAPFUNC(SEL_COMMAND, MID_ADD_REROUTER,             GUISUMOAbstractView::onCmdAddRerouter),
+    FXMAPFUNC(SEL_COMMAND, MID_REACHABILITY,             GUISUMOAbstractView::onCmdShowReachability),
+    FXMAPFUNC(SEL_COMMAND, MID_REACHABILITY,             GUISUMOAbstractView::onCmdShowReachability),
+    FXMAPFUNC(SEL_CHANGED,  MID_SIMPLE_VIEW_COLORCHANGE, GUISUMOAbstractView::onVisualizationChange),
 };
 
 
@@ -137,9 +144,6 @@ GUISUMOAbstractView::GUISUMOAbstractView(FXComposite* p, GUIMainWindow& app, GUI
     myChanger(nullptr),
     myMouseHotspotX(app.getDefaultCursor()->getHotX()),
     myMouseHotspotY(app.getDefaultCursor()->getHotY()),
-    myPopup(nullptr),
-    myPopupPosition(Position(0, 0)),
-    myUseToolTips(false),
     myAmInitialised(false),
     myViewportChooser(nullptr),
     myWindowCursorPositionX(getWidth() / 2),
@@ -149,7 +153,6 @@ GUISUMOAbstractView::GUISUMOAbstractView(FXComposite* p, GUIMainWindow& app, GUI
     setTarget(this);
     enable();
     flags |= FLAG_ENABLED;
-    myInEditMode = false;
     myChanger = new GUIDanielPerspectiveChanger(*this, *myGrid);
     myVisualizationSettings = &gSchemeStorage.getDefault();
     myVisualizationSettings->gaming = myApp->isGaming();
@@ -190,10 +193,9 @@ GUISUMOAbstractView::getChanger() const {
 
 void
 GUISUMOAbstractView::updateToolTip() {
-    if (!myUseToolTips) {
-        return;
+    if (myParent->getParent()->getStaticTooltipView()->isStaticToolTipEnabled()) {
+        update();
     }
-    update();
 }
 
 
@@ -244,7 +246,7 @@ GUISUMOAbstractView::addDecals(const std::vector<Decal>& decals) {
 
 
 void
-GUISUMOAbstractView::updatePositionInformation() const {
+GUISUMOAbstractView::updatePositionInformationLabel() const {
     Position pos = getPositionInformation();
     // set cartesian position
     myApp->getCartesianLabel()->setText(("x:" + toString(pos.x()) + ", y:" + toString(pos.y())).c_str());
@@ -253,12 +255,17 @@ GUISUMOAbstractView::updatePositionInformation() const {
     if (GeoConvHelper::getFinal().usingGeoProjection()) {
         myApp->getGeoLabel()->setText(("lat:" + toString(pos.y(), gPrecisionGeo) + ", lon:" + toString(pos.x(), gPrecisionGeo)).c_str());
     } else {
-        myApp->getGeoLabel()->setText(("x:" + toString(pos.x()) + ", y:" + toString(pos.y()) + " (No projection defined)").c_str());
+        myApp->getGeoLabel()->setText(("x:" + toString(pos.x()) + ", y:" + toString(pos.y()) + TL(" (No projection defined)")).c_str());
     }
     // if enabled, set test position
-    if (myApp->getTestLabel()) {
-        // adjust cursor position (24,25) to show exactly the same position as in function netedit.leftClick(match, X, Y)
-        myApp->getTestLabel()->setText(("Test: x:" + toString(getWindowCursorPosition().x() - 24.0) + " y:" + toString(getWindowCursorPosition().y() - 25.0)).c_str());
+    if (myApp->getTestFrame()) {
+        if (OptionsCont::getOptions().getBool("gui-testing")) {
+            myApp->getTestFrame()->show();
+            // adjust cursor position (24,25) to show exactly the same position as in function netedit.leftClick(match, X, Y)
+            myApp->getTestLabel()->setText(("Test: x:" + toString(getWindowCursorPosition().x() - 24.0) + " y:" + toString(getWindowCursorPosition().y() - 25.0)).c_str());
+        } else {
+            myApp->getTestFrame()->hide();
+        }
     }
 }
 
@@ -303,12 +310,8 @@ GUISUMOAbstractView::paintGL() {
     if (getTrackedID() != GUIGlObject::INVALID_ID) {
         centerTo(getTrackedID(), false);
     }
-
-    GUIGlID id = GUIGlObject::INVALID_ID;
-    if (myUseToolTips) {
-        id = getObjectUnderCursor();
-    }
-
+    // get id tooltip
+    const GUIGlID idToolTip = getObjectUnderCursor();
     // draw
     glClearColor(
         myVisualizationSettings->backgroundColor.red() / 255.f,
@@ -336,10 +339,11 @@ GUISUMOAbstractView::paintGL() {
     if (myVisualizationSettings->fps) {
         drawFPS();
     }
-    // check whether the select mode /tooltips)
-    //  shall be computed, too
-    if (myUseToolTips && id != GUIGlObject::INVALID_ID) {
-        showToolTipFor(id);
+    // check if show tooltip
+    if (myParent->getParent()->getStaticTooltipView()->isStaticToolTipEnabled()) {
+        showToolTipFor(idToolTip);
+    } else {
+        myParent->getParent()->getStaticTooltipView()->hideStaticToolTip();
     }
     swapBuffers();
 }
@@ -365,6 +369,12 @@ GUISUMOAbstractView::onCmdAddRerouter(FXObject*, FXSelector, void*) {
 
 long
 GUISUMOAbstractView::onCmdShowReachability(FXObject*, FXSelector, void*) {
+    return 1;
+}
+
+
+long
+GUISUMOAbstractView::onVisualizationChange(FXObject*, FXSelector, void*) {
     return 1;
 }
 
@@ -545,23 +555,43 @@ GUISUMOAbstractView::getObjectsInBoundary(Boundary bound, bool singlePosition) {
 }
 
 
-void
-GUISUMOAbstractView::showToolTipFor(const GUIGlID id) {
-    if (id != 0) {
-        GUIGlObject* object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
-        if (object != nullptr) {
-            Position pos = getPositionInformation();
-            pos.add(0, p2m(15));
-            std::string label = object->getFullName();
-            if (myVisualizationSettings->edgeValue.show(object) &&
-                    (object->getType() == GLO_EDGE || object->getType() == GLO_LANE)) {
-                const int activeScheme = myVisualizationSettings->getLaneEdgeMode();
-                label += " (" + toString(object->getColorValue(*myVisualizationSettings, activeScheme)) + ")";
-            }
-            GLHelper::drawTextBox(label, pos, GLO_MAX - 1, p2m(20), RGBColor::BLACK, RGBColor(255, 179, 0, 255));
-            GUIGlObjectStorage::gIDStorage.unblockObject(id);
+std::vector<GUIGlObject*>
+GUISUMOAbstractView::filterInernalLanes(const std::vector<GUIGlObject*>& objects) const {
+    // count number of internal lanes
+    size_t internalLanes = 0;
+    for (const auto& object : objects) {
+        if ((object->getType() == GLO_LANE) && (object->getMicrosimID().find(':') != std::string::npos)) {
+            internalLanes++;
         }
     }
+    // if all objects are internal lanes, return it all
+    if (objects.size() == internalLanes || !myVisualizationSettings->drawJunctionShape) {
+        return objects;
+    }
+    // in other case filter internal lanes
+    std::vector<GUIGlObject*> filteredObjects;
+    for (const auto& object : objects) {
+        if ((object->getType() == GLO_LANE) && (object->getMicrosimID().find(':') != std::string::npos)) {
+            continue;
+        }
+        filteredObjects.push_back(object);
+    }
+    return filteredObjects;
+}
+
+
+bool
+GUISUMOAbstractView::showToolTipFor(const GUIGlID idToolTip) {
+    if (idToolTip != GUIGlObject::INVALID_ID) {
+        const GUIGlObject* object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(idToolTip);
+        if (object != nullptr) {
+            myParent->getParent()->getStaticTooltipView()->showStaticToolTip(object->getFullName().c_str());
+            return true;
+        }
+    }
+    // nothing to show
+    myParent->getParent()->getStaticTooltipView()->hideStaticToolTip();
+    return false;
 }
 
 
@@ -712,8 +742,8 @@ GUISUMOAbstractView::displayColorLegend(const GUIColorScheme& scheme, bool leftS
     double textX = left - 0.01;
     double textDir = 1;
     FONSalign textAlign = FONS_ALIGN_RIGHT;
-    const double top = -0.8;
-    const double bot = 0.8;
+    const double top = -0.7;
+    const double bot = 0.9;
     const double dy = (top - bot) / numColors;
     const double bot2 = fixed ? bot : bot + dy / 2;
     // legend placement
@@ -811,6 +841,13 @@ GUISUMOAbstractView::displayColorLegend(const GUIColorScheme& scheme, bool leftS
         glTranslated(0, 0, -0.1);
         GLHelper::drawText(text, Position(textX + textDir * textXShift, topi + textShift), 0, fontHeight, RGBColor::BLACK, 0, textAlign, fontWidth);
     }
+    // draw scheme name
+    std::string name = scheme.getName();
+    if (StringUtils::startsWith(name, "by ")) {
+        name = name.substr(3);
+    }
+    GLHelper::drawText(name, Position(textX + textDir * 0.04, -0.8), 0, fontHeight, RGBColor::BLACK, 0, textAlign, fontWidth);
+
     GLHelper::popMatrix();
     // restore matrices
     glMatrixMode(GL_PROJECTION);
@@ -876,7 +913,7 @@ GUISUMOAbstractView::centerTo(GUIGlID id, bool applyZoom, double zoomDist) {
         } else {
             // called during tracking. update is triggered somewhere else
             myChanger->centerTo(o->getCenteringBoundary().getCenter(), zoomDist, applyZoom);
-            updatePositionInformation();
+            updatePositionInformationLabel();
         }
     }
     GUIGlObjectStorage::gIDStorage.unblockObject(id);
@@ -887,7 +924,7 @@ void
 GUISUMOAbstractView::centerTo(const Position& pos, bool applyZoom, double zoomDist) {
     // called during tracking. update is triggered somewhere else
     myChanger->centerTo(pos, zoomDist, applyZoom);
-    updatePositionInformation();
+    updatePositionInformationLabel();
 }
 
 
@@ -897,13 +934,12 @@ GUISUMOAbstractView::centerTo(const Boundary& bound) {
     update();
 }
 
-/*
-bool
-GUISUMOAbstractView::allowRotation() const
-{
-    return myParent->allowRotation();
+
+GUIMainWindow*
+GUISUMOAbstractView::getMainWindow() const {
+    return myApp;
 }
-*/
+
 
 Position
 GUISUMOAbstractView::getWindowCursorPosition() const {
@@ -965,11 +1001,28 @@ GUISUMOAbstractView::getPopupPosition() const {
 void
 GUISUMOAbstractView::destroyPopup() {
     if (myPopup != nullptr) {
+        myPopup->removePopupFromObject();
         delete myPopup;
         myPopupPosition.set(0, 0);
         myPopup = nullptr;
-        myCurrentObjectDialog = nullptr;
+        myCurrentObjectsDialog.clear();
     }
+}
+
+
+void
+GUISUMOAbstractView::replacePopup(GUIGLObjectPopupMenu* popUp) {
+    // use the same position of old popUp
+    popUp->move(myPopup->getX(), myPopup->getY());
+    // delete and replace popup
+    myPopup->removePopupFromObject();
+    delete myPopup;
+    myPopup = popUp;
+    // create and show popUp
+    myPopup->create();
+    myPopup->show();
+    myChanger->onRightBtnRelease(nullptr);
+    setFocus();
 }
 
 
@@ -1035,13 +1088,30 @@ GUISUMOAbstractView::onLeftBtnRelease(FXObject*, FXSelector, void* ptr) {
 
 
 long
-GUISUMOAbstractView::onMiddleBtnPress(FXObject*, FXSelector, void*) {
+GUISUMOAbstractView::onMiddleBtnPress(FXObject*, FXSelector, void* ptr) {
+    destroyPopup();
+    setFocus();
+    myChanger->onMiddleBtnPress(ptr);
+    grab();
+    // enable panning
+    myPanning = true;
+    // set cursors
+    setDefaultCursor(GUICursorSubSys::getCursor(GUICursor::MOVEVIEW));
+    setDragCursor(GUICursorSubSys::getCursor(GUICursor::MOVEVIEW));
     return 1;
 }
 
 
 long
-GUISUMOAbstractView::onMiddleBtnRelease(FXObject*, FXSelector, void*) {
+GUISUMOAbstractView::onMiddleBtnRelease(FXObject*, FXSelector, void* ptr) {
+    destroyPopup();
+    myChanger->onMiddleBtnRelease(ptr);
+    ungrab();
+    // disable panning
+    myPanning = false;
+    // restore cursors
+    setDefaultCursor(GUICursorSubSys::getCursor(GUICursor::DEFAULT));
+    setDragCursor(GUICursorSubSys::getCursor(GUICursor::DEFAULT));
     return 1;
 }
 
@@ -1060,7 +1130,7 @@ GUISUMOAbstractView::onRightBtnRelease(FXObject* o, FXSelector sel, void* ptr) {
     destroyPopup();
     onMouseMove(o, sel, ptr);
     if (!myChanger->onRightBtnRelease(ptr) && !myApp->isGaming()) {
-        openObjectDialogAtCursor();
+        openObjectDialogAtCursor((FXEvent*)ptr);
     }
     if (myApp->isGaming()) {
         onGamingRightClick(getPositionInformation());
@@ -1086,7 +1156,7 @@ GUISUMOAbstractView::onMouseWheel(FXObject*, FXSelector, void* ptr) {
                                          myChanger->getXPos(), myChanger->getYPos(),
                                          myChanger->getRotation());
         }
-        updatePositionInformation();
+        updatePositionInformationLabel();
     }
     return 1;
 }
@@ -1094,9 +1164,16 @@ GUISUMOAbstractView::onMouseWheel(FXObject*, FXSelector, void* ptr) {
 
 long
 GUISUMOAbstractView::onMouseMove(FXObject*, FXSelector, void* ptr) {
-    // if popup exist but isn't shown, destroy it first
-    if (myPopup && (myPopup->shown() == false)) {
-        destroyPopup();
+    // check if popup exist
+    if (myPopup) {
+        // check if handle front element
+        if (myPopupPosition == getPositionInformation()) {
+            myPopupPosition = Position::INVALID;
+            myPopup->handle(this, FXSEL(SEL_COMMAND, MID_CURSORDIALOG_FRONT), nullptr);
+            destroyPopup();
+        } else if (myPopup->shown() == false) {
+            destroyPopup();
+        }
     }
     if (myPopup == nullptr) {
         if (myViewportChooser == nullptr || !myViewportChooser->haveGrabbed()) {
@@ -1107,7 +1184,7 @@ GUISUMOAbstractView::onMouseMove(FXObject*, FXSelector, void* ptr) {
                                          myChanger->getXPos(), myChanger->getYPos(),
                                          myChanger->getRotation());
         }
-        updatePositionInformation();
+        updatePositionInformationLabel();
     }
     return 1;
 }
@@ -1120,33 +1197,104 @@ GUISUMOAbstractView::onMouseLeft(FXObject*, FXSelector, void* /*data*/) {
 
 
 void
-GUISUMOAbstractView::openObjectDialogAtCursor() {
+GUISUMOAbstractView::openObjectDialogAtCursor(const FXEvent* ev) {
+    // release the mouse grab
     ungrab();
-    if (!isEnabled() || !myAmInitialised) {
-        return;
-    }
-    if (makeCurrent()) {
-        // initialise the select mode
-        int id = getObjectUnderCursor();
-        GUIGlObject* o = nullptr;
-        if (id != 0) {
-            o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
-        } else {
-            o = GUIGlObjectStorage::gIDStorage.getNetObject();
+    // check if alt key is pressed
+    const bool altKeyPressed = ((ev->state & ALTMASK) != 0);
+    // check if SUMO is enabled, initialised and Make OpenGL context current
+    if (isEnabled() && myAmInitialised && makeCurrent()) {
+        // get all objects under cusor
+        auto objectsUnderCursor = getGUIGlObjectsUnderCursor();
+        // filter elements by layer
+        objectsUnderCursor = filterGUIGLObjectsByLayer(objectsUnderCursor);
+        // filter elements
+        std::vector<GUIGlObject*> filteredObjectsUnderCursor;
+        std::vector<GUIGlObject*> filteredVehiclesUnderCursor;
+        std::vector<GUIGlObject*> filteredTLSUnderCursor;
+        for (const auto& GLObject : objectsUnderCursor) {
+            if (GLObject->getType() == GLO_EDGE) {
+                // avoid edges
+                continue;
+            }
+            if (std::find(filteredObjectsUnderCursor.begin(), filteredObjectsUnderCursor.end(), GLObject) != filteredObjectsUnderCursor.end()) {
+                // avoid duplicated lanes
+                continue;
+            }
+            if ((GLObject->getType() == GLO_VEHICLE) || (GLObject->getType() == GLO_TRIP) ||
+                    (GLObject->getType() == GLO_FLOW) || (GLObject->getType() == GLO_ROUTEFLOW) ||
+                    (GLObject->getType() == GLO_CONTAINER) || (GLObject->getType() == GLO_CONTAINERFLOW) ||
+                    (GLObject->getType() == GLO_PERSON) || (GLObject->getType() == GLO_PERSONFLOW)) {
+                // filter vehicles, person and containers
+                filteredVehiclesUnderCursor.push_back(GLObject);
+            }
+            if (GLObject->getType() == GLO_TLLOGIC) {
+                // filter TLSs
+                filteredTLSUnderCursor.push_back(GLObject);
+            }
+            filteredObjectsUnderCursor.push_back(GLObject);
         }
-        openObjectDialog(o);
+        // filter internal lanes
+        filteredObjectsUnderCursor = filterInernalLanes(filteredObjectsUnderCursor);
+        // remove duplicated elements using an unordered set
+        auto itDuplicated = filteredObjectsUnderCursor.begin();
+        std::unordered_set<GUIGlObject*> unorderedSet;
+        for (auto itElement = filteredObjectsUnderCursor.begin(); itElement != filteredObjectsUnderCursor.end(); itElement++) {
+            if (unorderedSet.insert(*itElement).second) {
+                *itDuplicated++ = *itElement;
+            }
+        }
+        filteredObjectsUnderCursor.erase(itDuplicated, filteredObjectsUnderCursor.end());
+        // continue depending of number of objects
+        if (filteredObjectsUnderCursor.empty()) {
+            // if filteredObjectsUnderCursor, inspect net
+            openObjectDialog({GUIGlObjectStorage::gIDStorage.getNetObject()}, true);
+        } else if (altKeyPressed) {
+            // inspect all objects under cusror
+            openObjectDialog(filteredObjectsUnderCursor, false);
+        } else if (filteredVehiclesUnderCursor.size() > 0) {
+            // inspect only vehicles
+            openObjectDialog(filteredVehiclesUnderCursor, true);
+        } else if (filteredTLSUnderCursor.size() > 0) {
+            // inspect only TLSs
+            openObjectDialog(filteredTLSUnderCursor, true);
+        } else {
+            // inspect objects under cursor
+            openObjectDialog(filteredObjectsUnderCursor, true);
+        }
+        // Make OpenGL context non current
         makeNonCurrent();
     }
 }
 
+
 void
-GUISUMOAbstractView::openObjectDialog(GUIGlObject* o) {
-    if (o != nullptr) {
-        myPopup = o->getPopUpMenu(*myApp, *this);
-        myCurrentObjectDialog = o;
+GUISUMOAbstractView::openObjectDialog(const std::vector<GUIGlObject*>& objects, const bool filter) {
+    if (objects.size() > 0) {
+        // create cursor popup dialog
+        if (objects.size() == 1) {
+            myCurrentObjectsDialog = objects;
+        } else if (filter) {
+            // declare filtered objects
+            std::vector<GUIGlObject*> filteredGLObjects;
+            // fill filtered objects
+            for (const auto& glObject : objects) {
+                // compare type with first eleement type
+                if (glObject->getType() == objects.front()->getType()) {
+                    filteredGLObjects.push_back(glObject);
+                }
+            }
+            myCurrentObjectsDialog = filteredGLObjects;
+        } else {
+            myCurrentObjectsDialog = objects;
+        }
+        if (myCurrentObjectsDialog.size() > 1) {
+            myPopup = new GUICursorDialog(GUIGLObjectPopupMenu::PopupType::PROPERTIES, this, myCurrentObjectsDialog);
+        } else {
+            myPopup = myCurrentObjectsDialog.front()->getPopUpMenu(*myApp, *this);
+        }
         // open popup dialog
         openPopupDialog();
-        GUIGlObjectStorage::gIDStorage.unblockObject(o->getGlID());
     }
 }
 
@@ -1413,6 +1561,7 @@ GUISUMOAbstractView::showViewschemeEditor() {
     } else {
         myVisualizationChanger->setCurrent(myVisualizationSettings);
     }
+    setFocus();
     myVisualizationChanger->show();
 }
 
@@ -1420,15 +1569,7 @@ GUISUMOAbstractView::showViewschemeEditor() {
 GUIDialog_EditViewport*
 GUISUMOAbstractView::getViewportEditor() {
     if (myViewportChooser == nullptr) {
-        const FXint minSize = 100;
-        const FXint minTitlebarHeight = 20;
-        int x = MAX2(0, MIN2(getApp()->reg().readIntEntry(
-                                 "VIEWPORT_DIALOG_SETTINGS", "x", 150),
-                             getApp()->getRootWindow()->getWidth() - minSize));
-        int y = MAX2(minTitlebarHeight, MIN2(getApp()->reg().readIntEntry(
-                "VIEWPORT_DIALOG_SETTINGS", "y", 150),
-                                             getApp()->getRootWindow()->getHeight() - minSize));
-        myViewportChooser = new GUIDialog_EditViewport(this, "Edit Viewport", x, y);
+        myViewportChooser = new GUIDialog_EditViewport(this, "Edit Viewport");
         myViewportChooser->create();
     }
     updateViewportValues();
@@ -1466,12 +1607,6 @@ GUISUMOAbstractView::copyViewportTo(GUISUMOAbstractView* view) {
     view->setViewportFromToRot(Position(myChanger->getXPos(), myChanger->getYPos(), myChanger->getZPos()),
                                Position(myChanger->getXPos(), myChanger->getYPos(), 0),
                                myChanger->getRotation());
-}
-
-
-void
-GUISUMOAbstractView::showToolTips(bool val) {
-    myUseToolTips = val;
 }
 
 
@@ -1573,7 +1708,7 @@ GUISUMOAbstractView::checkGDALImage(Decal& d) {
                 d.centerY = (topLeft.y() + bottomRight.y()) / 2;
                 //WRITE_MESSAGE("proj: " + toString(poDataset->GetProjectionRef()) + " dim: " + toString(d.width) + "," + toString(d.height) + " center: " + toString(d.centerX) + "," + toString(d.centerY));
             } else {
-                WRITE_WARNING("Could not convert coordinates in " + d.filename + ".");
+                WRITE_WARNINGF(TL("Could not convert coordinates in %."), d.filename);
             }
         }
     }
@@ -1588,7 +1723,7 @@ GUISUMOAbstractView::checkGDALImage(Decal& d) {
     const int picSize = xSize * ySize;
     FXColor* result;
     if (!FXMALLOC(&result, FXColor, picSize)) {
-        WRITE_WARNING("Could not allocate memory for " + d.filename + ".");
+        WRITE_WARNINGF(TL("Could not allocate memory for %."), d.filename);
         return 0;
     }
     for (int j = 0; j < picSize; j++) {
@@ -1672,7 +1807,7 @@ GUISUMOAbstractView::drawDecals() {
 }
 
 
-void 
+void
 GUISUMOAbstractView::openPopupDialog() {
     int x, y;
     FXuint b;
@@ -1787,6 +1922,49 @@ GUISUMOAbstractView::setDelay(double delay) {
 void
 GUISUMOAbstractView::setBreakpoints(const std::vector<SUMOTime>& breakpoints) {
     myApp->setBreakpoints(breakpoints);
+}
+
+
+GUISUMOAbstractView::LayerObject::LayerObject(double layer, GUIGlObject* object) :
+    myGLObject(object) {
+    first = layer;
+    second.first = object->getType();
+    second.second = object->getMicrosimID();
+}
+
+
+GUISUMOAbstractView::LayerObject::LayerObject(GUIGlObject* object) :
+    myGLObject(object) {
+    first = object->getType();
+    second.first = object->getType();
+    second.second = object->getMicrosimID();
+}
+
+
+GUIGlObject*
+GUISUMOAbstractView::LayerObject::getGLObject() const {
+    return myGLObject;
+}
+
+
+std::vector<GUIGlObject*>
+GUISUMOAbstractView::filterGUIGLObjectsByLayer(const std::vector<GUIGlObject*>& objects) const {
+    // declare map for saving shapes sorted by layer and ID
+    std::set<LayerObject> layerObjects;
+    for (const auto& object : objects) {
+        if ((object->getType() == GLO_POLYGON) || (object->getType() == GLO_POI)) {
+            layerObjects.insert(LayerObject(dynamic_cast<Shape*>(object)->getShapeLayer(), object));
+        } else {
+            layerObjects.insert(LayerObject(object));
+        }
+    }
+    // declare vector for saving object filtered by layer
+    std::vector<GUIGlObject*> objectsFiltered;
+    // insert in objects filtered
+    for (auto it = layerObjects.rbegin(); it != layerObjects.rend(); it++) {
+        objectsFiltered.push_back(it->getGLObject());
+    }
+    return objectsFiltered;
 }
 
 

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -72,7 +72,7 @@ NIImporter_SUMO::NIImporter_SUMO(NBNetBuilder& nb)
       myCurrentLane(nullptr),
       myCurrentTL(nullptr),
       myLocation(nullptr),
-      myNetworkVersion(0),
+      myNetworkVersion(0, 0),
       myHaveSeenInternalEdge(false),
       myAmLefthand(false),
       myChangeLefthand(false),
@@ -115,13 +115,13 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
     const std::vector<std::string> files = oc.getStringVector("sumo-net-file");
     for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
         if (!FileHelpers::isReadable(*file)) {
-            WRITE_ERROR("Could not open sumo-net-file '" + *file + "'.");
+            WRITE_ERRORF(TL("Could not open sumo-net-file '%'."), *file);
             return;
         }
         setFileName(*file);
-        PROGRESS_BEGIN_MESSAGE("Parsing sumo-net from '" + *file + "'");
+        const long before = PROGRESS_BEGIN_TIME_MESSAGE("Parsing sumo-net from '" + *file + "'");
         XMLSubSys::runParser(*this, *file, true);
-        PROGRESS_DONE_MESSAGE();
+        PROGRESS_TIME_MESSAGE(before);
     }
     // build edges
     const double maxSegmentLength = oc.getFloat("geometry.max-segment-length");
@@ -135,15 +135,15 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
         NBNode* from = myNodeCont.retrieve(ed->fromNode);
         NBNode* to = myNodeCont.retrieve(ed->toNode);
         if (from == nullptr) {
-            WRITE_ERROR("Edge's '" + ed->id + "' from-node '" + ed->fromNode + "' is not known.");
+            WRITE_ERRORF(TL("Edge's '%' from-node '%' is not known."), ed->id, ed->fromNode);
             continue;
         }
         if (to == nullptr) {
-            WRITE_ERROR("Edge's '" + ed->id + "' to-node '" + ed->toNode + "' is not known.");
+            WRITE_ERRORF(TL("Edge's '%' to-node '%' is not known."), ed->id, ed->toNode);
             continue;
         }
         if (from == to) {
-            WRITE_ERROR("Edge's '" + ed->id + "' from-node and to-node '" + ed->toNode + "' are identical.");
+            WRITE_ERRORF(TL("Edge's '%' from-node and to-node '%' are identical."), ed->id, ed->toNode);
             continue;
         }
         if (ed->shape.size() == 0 && maxSegmentLength > 0) {
@@ -162,7 +162,7 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
         e->updateParameters(ed->getParametersMap());
         e->setDistance(ed->distance);
         if (!myNetBuilder.getEdgeCont().insert(e)) {
-            WRITE_ERROR("Could not insert edge '" + ed->id + "'.");
+            WRITE_ERRORF(TL("Could not insert edge '%'."), ed->id);
             delete e;
             continue;
         }
@@ -188,7 +188,7 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
             const std::vector<Connection>& connections = lane->connections;
             for (const Connection& c : connections) {
                 if (myEdges.count(c.toEdgeID) == 0) {
-                    WRITE_ERROR("Unknown edge '" + c.toEdgeID + "' given in connection.");
+                    WRITE_ERRORF(TL("Unknown edge '%' given in connection."), c.toEdgeID);
                     continue;
                 }
                 NBEdge* toEdge = myEdges[c.toEdgeID]->builtEdge;
@@ -223,7 +223,7 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
                             }
                         }
                     } else {
-                        WRITE_ERROR("The traffic light '" + c.tlID + "' is not known.");
+                        WRITE_ERRORF(TL("The traffic light '%' is not known."), c.tlID);
                     }
                 }
             }
@@ -281,13 +281,13 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
         NBEdge* prohibitorFrom = myEdges[it->prohibitorFrom]->builtEdge;
         NBEdge* prohibitorTo = myEdges[it->prohibitorTo]->builtEdge;
         if (prohibitedFrom == nullptr) {
-            WRITE_WARNINGF("Edge '%' in prohibition was not built.", it->prohibitedFrom);
+            WRITE_WARNINGF(TL("Edge '%' in prohibition was not built."), it->prohibitedFrom);
         } else if (prohibitedTo == nullptr) {
-            WRITE_WARNINGF("Edge '%' in prohibition was not built.", it->prohibitedTo);
+            WRITE_WARNINGF(TL("Edge '%' in prohibition was not built."), it->prohibitedTo);
         } else if (prohibitorFrom == nullptr) {
-            WRITE_WARNINGF("Edge '%' in prohibition was not built.", it->prohibitorFrom);
+            WRITE_WARNINGF(TL("Edge '%' in prohibition was not built."), it->prohibitorFrom);
         } else if (prohibitorTo == nullptr) {
-            WRITE_WARNINGF("Edge '%' in prohibition was not built.", it->prohibitorTo);
+            WRITE_WARNINGF(TL("Edge '%' in prohibition was not built."), it->prohibitorTo);
         } else {
             NBNode* n = prohibitedFrom->getToNode();
             n->addSortedLinkFoes(
@@ -338,30 +338,30 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
         oc.set("internal-junctions.vehicle-width", toString(myInternalJunctionsVehicleWidth));
     }
     if (!deprecatedVehicleClassesSeen.empty()) {
-        WRITE_WARNING("Deprecated vehicle class(es) '" + toString(deprecatedVehicleClassesSeen) + "' in input network.");
+        WRITE_WARNINGF(TL("Deprecated vehicle class(es) '%' in input network."), toString(deprecatedVehicleClassesSeen));
         deprecatedVehicleClassesSeen.clear();
     }
     if (!oc.getBool("no-internal-links")) {
         // add loaded crossings
-        for (std::map<std::string, std::vector<Crossing> >::const_iterator it = myPedestrianCrossings.begin(); it != myPedestrianCrossings.end(); ++it) {
-            NBNode* node = myNodeCont.retrieve((*it).first);
-            for (std::vector<Crossing>::const_iterator it_c = (*it).second.begin(); it_c != (*it).second.end(); ++it_c) {
-                const Crossing& crossing = (*it_c);
+        for (const auto& crossIt : myPedestrianCrossings) {
+            NBNode* const node = myNodeCont.retrieve(crossIt.first);
+            for (const Crossing& crossing : crossIt.second) {
                 EdgeVector edges;
-                for (std::vector<std::string>::const_iterator it_e = crossing.crossingEdges.begin(); it_e != crossing.crossingEdges.end(); ++it_e) {
-                    NBEdge* edge = myNetBuilder.getEdgeCont().retrieve(*it_e);
+                for (const std::string& edgeID : crossing.crossingEdges) {
+                    NBEdge* edge = myNetBuilder.getEdgeCont().retrieve(edgeID);
                     // edge might have been removed due to options
                     if (edge != nullptr) {
                         edges.push_back(edge);
                     }
                 }
-                if (edges.size() > 0) {
-                    node->addCrossing(edges, crossing.width, crossing.priority, crossing.customTLIndex, crossing.customTLIndex2, crossing.customShape, true);
+                if (!edges.empty()) {
+                    node->addCrossing(edges, crossing.width, crossing.priority,
+                                      crossing.customTLIndex, crossing.customTLIndex2, crossing.customShape, true);
                 }
             }
         }
         // add walking area custom shapes
-        for (auto item : myWACustomShapes) {
+        for (const auto& item : myWACustomShapes) {
             std::string nodeID = SUMOXMLDefinitions::getJunctionIDFromInternalEdge(item.first);
             NBNode* node = myNodeCont.retrieve(nodeID);
             std::vector<std::string> edgeIDs;
@@ -377,7 +377,7 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
                 edgeIDs = item.second.toEdges;
             }
             EdgeVector edges;
-            for (std::string edgeID : edgeIDs) {
+            for (const std::string& edgeID : edgeIDs) {
                 NBEdge* edge = myNetBuilder.getEdgeCont().retrieve(edgeID);
                 // edge might have been removed due to options
                 if (edge != nullptr) {
@@ -390,13 +390,13 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
         }
     }
     // add roundabouts
-    for (std::vector<std::vector<std::string> >::const_iterator it = myRoundabouts.begin(); it != myRoundabouts.end(); ++it) {
+    for (const std::vector<std::string>& ra : myRoundabouts) {
         EdgeSet roundabout;
-        for (std::vector<std::string>::const_iterator it_r = it->begin(); it_r != it->end(); ++it_r) {
-            NBEdge* edge = myNetBuilder.getEdgeCont().retrieve(*it_r);
+        for (const std::string& edgeID : ra) {
+            NBEdge* edge = myNetBuilder.getEdgeCont().retrieve(edgeID);
             if (edge == nullptr) {
-                if (!myNetBuilder.getEdgeCont().wasIgnored(*it_r)) {
-                    WRITE_ERROR("Unknown edge '" + (*it_r) + "' in roundabout");
+                if (!myNetBuilder.getEdgeCont().wasIgnored(edgeID)) {
+                    WRITE_ERRORF(TL("Unknown edge '%' in roundabout"), (edgeID));
                 }
             } else {
                 roundabout.insert(edge);
@@ -407,7 +407,6 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
 }
 
 
-
 void
 NIImporter_SUMO::myStartElement(int element,
                                 const SUMOSAXAttributes& attrs) {
@@ -416,19 +415,19 @@ NIImporter_SUMO::myStartElement(int element,
      * 1) those which must be loaded into NBNetBuilder-Containers for processing
      * 2) those which can be ignored because they are recomputed based on group 1
      * 3) those which are of no concern to NBNetBuilder but should be exposed to
-     *      NETEDIT. We will probably have to patch NBNetBuilder to contain them
-     *      and hand them over to NETEDIT
+     *      netedit. We will probably have to patch NBNetBuilder to contain them
+     *      and hand them over to netedit
      *    alternative idea: those shouldn't really be contained within the
-     *    network but rather in separate files. teach NETEDIT how to open those
+     *    network but rather in separate files. teach netedit how to open those
      *    (POI?)
-     * 4) those which are of concern neither to NBNetBuilder nor NETEDIT and
+     * 4) those which are of concern neither to NBNetBuilder nor netedit and
      *    must be copied over - need to patch NBNetBuilder for this.
      *    copy unknown by default
      */
     switch (element) {
         case SUMO_TAG_NET: {
             bool ok;
-            myNetworkVersion = attrs.getOpt<double>(SUMO_ATTR_VERSION, nullptr, ok, 0);
+            myNetworkVersion = StringUtils::toVersion(attrs.get<std::string>(SUMO_ATTR_VERSION, nullptr, ok, false));
             myAmLefthand = attrs.getOpt<bool>(SUMO_ATTR_LEFTHAND, nullptr, ok, false);
             myCornerDetail = attrs.getOpt<int>(SUMO_ATTR_CORNERDETAIL, nullptr, ok, 0);
             myLinkDetail = attrs.getOpt<int>(SUMO_ATTR_LINKDETAIL, nullptr, ok, -1);
@@ -514,7 +513,11 @@ NIImporter_SUMO::myEndElement(int element) {
         case SUMO_TAG_EDGE:
             if (myCurrentEdge != nullptr) {
                 if (myEdges.find(myCurrentEdge->id) != myEdges.end()) {
-                    WRITE_WARNINGF("Edge '%' occurred at least twice in the input.", myCurrentEdge->id);
+                    WRITE_WARNINGF(TL("Edge '%' occurred at least twice in the input."), myCurrentEdge->id);
+                    for (LaneAttrs* const lane : myCurrentEdge->lanes) {
+                        delete lane;
+                    }
+                    delete myCurrentEdge;
                 } else {
                     myEdges[myCurrentEdge->id] = myCurrentEdge;
                 }
@@ -531,11 +534,11 @@ NIImporter_SUMO::myEndElement(int element) {
             myCurrentLane = nullptr;
             break;
         case SUMO_TAG_TLLOGIC:
-            if (!myCurrentTL) {
-                WRITE_ERROR("Unmatched closing tag for tl-logic.");
+            if (myCurrentTL == nullptr) {
+                WRITE_ERROR(TL("Unmatched closing tag for tl-logic."));
             } else {
                 if (!myTLLCont.insert(myCurrentTL)) {
-                    WRITE_WARNING("Could not add program '" + myCurrentTL->getProgramID() + "' for traffic light '" + myCurrentTL->getID() + "'");
+                    WRITE_WARNINGF(TL("Could not add program '%' for traffic light '%'"), myCurrentTL->getProgramID(), myCurrentTL->getID());
                     delete myCurrentTL;
                 }
                 myCurrentTL = nullptr;
@@ -563,7 +566,7 @@ void
 NIImporter_SUMO::addEdge(const SUMOSAXAttributes& attrs) {
     // get the id, report an error if not given or empty...
     bool ok = true;
-    std::string id = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
+    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
     if (!ok) {
         return;
     }
@@ -605,7 +608,7 @@ NIImporter_SUMO::addEdge(const SUMOSAXAttributes& attrs) {
     if (SUMOXMLDefinitions::LaneSpreadFunctions.hasString(lsfS)) {
         myCurrentEdge->lsf = SUMOXMLDefinitions::LaneSpreadFunctions.get(lsfS);
     } else {
-        WRITE_ERROR("Unknown spreadType '" + lsfS + "' for edge '" + id + "'.");
+        WRITE_ERRORF(TL("Unknown spreadType '%' for edge '%'."), lsfS, id);
     }
 }
 
@@ -617,13 +620,13 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes& attrs) {
     if (!ok) {
         return;
     }
-    if (!myCurrentEdge) {
-        WRITE_ERROR("Found lane '" + id  + "' not within edge element.");
+    if (myCurrentEdge == nullptr) {
+        WRITE_ERRORF(TL("Found lane '%' not within edge element."), id );
         return;
     }
     const std::string expectedID = myCurrentEdge->id + "_" + toString(myCurrentEdge->lanes.size());
     if (id != expectedID) {
-        WRITE_WARNING("Renaming lane '" + id  + "' to '" + expectedID + "'.");
+        WRITE_WARNINGF(TL("Renaming lane '%' to '%'."), id , expectedID);
     }
     myCurrentLane = new LaneAttrs();
     myLastParameterised.push_back(myCurrentLane);
@@ -689,13 +692,13 @@ NIImporter_SUMO::addStopOffsets(const SUMOSAXAttributes& attrs, bool& ok) {
     // Admissibility of value will be checked in _loadNetwork(), when lengths are known
     if (myCurrentLane == nullptr) {
         if (myCurrentEdge->edgeStopOffset.isDefined()) {
-            WRITE_WARNING("Duplicate definition of stopOffset for edge " + myCurrentEdge->id + ".\nIgnoring duplicate specification.");
+            WRITE_WARNINGF(TL("Duplicate definition of stopOffset for edge %.\nIgnoring duplicate specification."), myCurrentEdge->id);
         } else {
             myCurrentEdge->edgeStopOffset = offset;
         }
     } else {
         if (myCurrentLane->laneStopOffset.isDefined()) {
-            WRITE_WARNING("Duplicate definition of lane's stopOffset on edge " + myCurrentEdge->id + ".\nIgnoring duplicate specifications.");
+            WRITE_WARNINGF(TL("Duplicate definition of lane's stopOffset on edge %.\nIgnoring duplicate specifications."), myCurrentEdge->id);
         } else {
             myCurrentLane->laneStopOffset = offset;
         }
@@ -723,13 +726,16 @@ NIImporter_SUMO::addJunction(const SUMOSAXAttributes& attrs) {
             // dead end is a computed status. Reset this to unknown so it will
             // be corrected if additional connections are loaded
             type = SumoXMLNodeType::UNKNOWN;
+        } else if (type == SumoXMLNodeType::INTERNAL) {
+            WRITE_WARNINGF("Invalid node type '%' for junction '%' in input network", toString(SumoXMLNodeType::INTERNAL), id);
+            type = SumoXMLNodeType::UNKNOWN;
         }
     }
     Position pos = readPosition(attrs, id, ok);
     NBNetBuilder::transformCoordinate(pos, true, myLocation);
     NBNode* node = new NBNode(id, pos, type);
     if (!myNodeCont.insert(node)) {
-        WRITE_WARNINGF("Junction '%' occurred at least twice in the input.", id);
+        WRITE_WARNINGF(TL("Junction '%' occurred at least twice in the input."), id);
         delete node;
         myLastParameterised.push_back(myNodeCont.retrieve(id));
         return;
@@ -774,7 +780,7 @@ NIImporter_SUMO::addConnection(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     std::string fromID = attrs.get<std::string>(SUMO_ATTR_FROM, nullptr, ok);
     if (myEdges.count(fromID) == 0) {
-        WRITE_ERROR("Unknown edge '" + fromID + "' given in connection.");
+        WRITE_ERRORF(TL("Unknown edge '%' given in connection."), fromID);
         return;
     }
     EdgeAttrs* from = myEdges[fromID];
@@ -822,7 +828,7 @@ NIImporter_SUMO::addConnection(const SUMOSAXAttributes& attrs) {
         conn.tlLinkIndex = NBConnection::InvalidTlIndex;
     }
     if ((int)from->lanes.size() <= fromLaneIdx) {
-        WRITE_ERROR("Invalid lane index '" + toString(fromLaneIdx) + "' for connection from '" + fromID + "'.");
+        WRITE_ERRORF(TL("Invalid lane index '%' for connection from '%'."), toString(fromLaneIdx), fromID);
         return;
     }
     from->lanes[fromLaneIdx]->connections.push_back(conn);
@@ -912,7 +918,7 @@ NIImporter_SUMO::addProhibition(const SUMOSAXAttributes& attrs) {
 NBLoadedSUMOTLDef*
 NIImporter_SUMO::initTrafficLightLogic(const SUMOSAXAttributes& attrs, NBLoadedSUMOTLDef* currentTL) {
     if (currentTL) {
-        WRITE_ERROR("Definition of tl-logic '" + currentTL->getID() + "' was not finished.");
+        WRITE_ERRORF(TL("Definition of tl-logic '%' was not finished."), currentTL->getID());
         return nullptr;
     }
     bool ok = true;
@@ -924,7 +930,7 @@ NIImporter_SUMO::initTrafficLightLogic(const SUMOSAXAttributes& attrs, NBLoadedS
     if (SUMOXMLDefinitions::TrafficLightTypes.hasString(typeS)) {
         type = SUMOXMLDefinitions::TrafficLightTypes.get(typeS);
     } else {
-        WRITE_ERROR("Unknown traffic light type '" + typeS + "' for tlLogic '" + id + "'.");
+        WRITE_ERRORF(TL("Unknown traffic light type '%' for tlLogic '%'."), typeS, id);
         return nullptr;
     }
     if (ok) {
@@ -938,7 +944,7 @@ NIImporter_SUMO::initTrafficLightLogic(const SUMOSAXAttributes& attrs, NBLoadedS
 void
 NIImporter_SUMO::addPhase(const SUMOSAXAttributes& attrs, NBLoadedSUMOTLDef* currentTL) {
     if (!currentTL) {
-        WRITE_ERROR("found phase without tl-logic");
+        WRITE_ERROR(TL("found phase without tl-logic"));
         return;
     }
     const std::string& id = currentTL->getID();
@@ -946,7 +952,7 @@ NIImporter_SUMO::addPhase(const SUMOSAXAttributes& attrs, NBLoadedSUMOTLDef* cur
     std::string state = attrs.get<std::string>(SUMO_ATTR_STATE, id.c_str(), ok);
     SUMOTime duration = TIME2STEPS(attrs.get<double>(SUMO_ATTR_DURATION, id.c_str(), ok));
     if (duration < 0) {
-        WRITE_ERROR("Phase duration for tl-logic '" + id + "/" + currentTL->getProgramID() + "' must be positive.");
+        WRITE_ERRORF(TL("Phase duration for tl-logic '%/%' must be positive."), id, currentTL->getProgramID());
         return;
     }
     // if the traffic light is an actuated traffic light, try to get the minimum and maximum durations and ends
@@ -999,25 +1005,18 @@ NIImporter_SUMO::parseProhibitionConnection(const std::string& attr, std::string
     // split from/to
     const std::string::size_type div = attr.find("->");
     if (div == std::string::npos) {
-        WRITE_ERROR("Missing connection divider in prohibition attribute '" + attr + "'");
+        WRITE_ERRORF(TL("Missing connection divider in prohibition attribute '%'"), attr);
         ok = false;
     }
     from = attr.substr(0, div);
     to = attr.substr(div + 2);
-    // check whether the definition includes a lane information and discard it
-    if (from.find('_') != std::string::npos) {
-        from = from.substr(0, from.find('_'));
-    }
-    if (to.find('_') != std::string::npos) {
-        to = to.substr(0, to.find('_'));
-    }
     // check whether the edges are known
     if (myEdges.count(from) == 0) {
-        WRITE_ERROR("Unknown edge prohibition '" + from + "'");
+        WRITE_ERRORF(TL("Unknown edge prohibition '%'"), from);
         ok = false;
     }
     if (myEdges.count(to) == 0) {
-        WRITE_ERROR("Unknown edge prohibition '" + to + "'");
+        WRITE_ERRORF(TL("Unknown edge prohibition '%'"), to);
         ok = false;
     }
 }

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -190,7 +190,7 @@ public:
     const std::string& getTagStr() const;
 
     /// @brief get FXIcon associated to this AC
-    FXIcon* getIcon() const;
+    FXIcon* getACIcon() const;
 
     /// @brief check if this AC is template
     bool isTemplate() const;
@@ -212,17 +212,8 @@ public:
         } catch (EmptyData&) {
             // general
             return false;
-        } catch (NumberFormatException&) {
-            // numbers
-            return false;
-        } catch (TimeFormatException&) {
-            // time
-            return false;
-        } catch (BoolFormatException&) {
-            // booleans
-            return false;
-        } catch (InvalidArgument&) {
-            // colors
+        } catch (FormatException&) {
+            // numbers, time, boolean, colors
             return false;
         }
         return true;
@@ -256,9 +247,6 @@ public:
 
     /// @brief check if lanes are consecutives
     static bool lanesConsecutives(const std::vector<GNELane*>& lanes);
-
-    /// @brief returns icon associated to the given vClass
-    static FXIcon* getVClassIcon(const SUMOVehicleClass vc);
 
     /// @name Certain attributes and ACs (for example, connections) can be either loaded or guessed. The following static variables are used to remark it.
     /// @{
@@ -393,6 +381,9 @@ private:
 
     /// @brief fill Data elements
     static void fillDataElements();
+
+    /// @brief fill stop person attributes
+    static void fillCommonMeanDataAttributes(SumoXMLTag currentTag);
 
     /// @brief map with the tags properties
     static std::map<SumoXMLTag, GNETagProperties> myTagProperties;

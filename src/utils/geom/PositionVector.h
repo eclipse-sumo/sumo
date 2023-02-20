@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -98,6 +98,7 @@ public:
 
     /// @brief clear all elements of position vector
     using vp::clear;
+
     /// @brief returns size of position vector
     using vp::size;
 
@@ -149,11 +150,12 @@ public:
     /// @brief ensures that the last position equals the first
     void closePolygon();
 
-    /// @brief returns the constat position at the given index
-    /// @ToDo !!! exceptions?
+    /// @brief returns the constant position at the given index, negative indices are interpreted python style
+    /// @throws OutOfBoundsException if index >= size or index < -size
     const Position& operator[](int index) const;
 
-    /// @brief returns the position at the given index
+    /// @brief returns the position at the given index, negative indices are interpreted python style
+    /// @throws OutOfBoundsException if index >= size or index < -size
     Position& operator[](int index);
 
     /// @brief Returns the position at the given length
@@ -161,6 +163,10 @@ public:
 
     /// @brief Returns the position at the given length
     Position positionAtOffset2D(double pos, double lateralOffset = 0) const;
+
+    /* @brief Returns position similar to positionAtOffset but instead of applying the
+     * lateral offset orthogonal to the shape, apply it orthogonal to the given angle */
+    Position sidePositionAtAngle(double pos, double lateralOffset, double angle) const;
 
     /// @brief Returns the rotation at the given length
     double rotationAtOffset(double pos) const;
@@ -176,6 +182,10 @@ public:
 
     /// Returns the position between the two given point at the specified position
     static Position positionAtOffset2D(const Position& p1, const Position& p2, double pos, double lateralOffset = 0.);
+
+    /* @brief Returns position similar to positionAtOffset but instead of applying the
+     * lateral offset orthogonal to the shape, apply it orthogonal to the given angle */
+    static Position sidePositionAtAngle(const Position& p1, const Position& p2, double pos, double lateralOffset, double angle);
 
     /// @brief Returns a boundary enclosing this list of lines
     Boundary getBoxBoundary() const;
@@ -293,7 +303,7 @@ public:
     /// @brief comparing operation
     bool operator!=(const PositionVector& v2) const;
 
-    /// @brief substracts two vectors (requires vectors of the same length)
+    /// @brief subtracts two vectors (requires vectors of the same length)
     PositionVector operator-(const PositionVector& v2) const;
 
     /// @brief adds two vectors (requires vectors of the same length)

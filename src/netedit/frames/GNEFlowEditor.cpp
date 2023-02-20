@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -21,6 +21,8 @@
 
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/dialogs/GNESingleParametersDialog.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -45,23 +47,27 @@ FXIMPLEMENT(GNEFlowEditor,                   MFXGroupBoxModule,       FlowEditor
 // ===========================================================================
 
 GNEFlowEditor::GNEFlowEditor(GNEViewNet* viewNet, GNEFrame* frameParent) :
-    MFXGroupBoxModule(frameParent, "Flow attributes"),
+    MFXGroupBoxModule(frameParent, TL("Flow attributes")),
     myViewNet(viewNet) {
     // create comboBox for option A
     FXHorizontalFrame* auxiliarHorizontalFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(auxiliarHorizontalFrame, "terminate", nullptr, GUIDesignLabelAttribute);
+    auto terminatelabel = new FXLabel(auxiliarHorizontalFrame, "terminate", nullptr, GUIDesignLabelAttribute);
+    terminatelabel->setTipText("Terminate attribute");
     myTerminateComboBox = new FXComboBox(auxiliarHorizontalFrame, GUIDesignComboBoxNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxAttribute);
     // create comboBox for spacing
     mySpacingFrameComboBox = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(mySpacingFrameComboBox, "spacing", nullptr, GUIDesignLabelAttribute);
+    auto spacingAttribute = new FXLabel(mySpacingFrameComboBox, "spacing", nullptr, GUIDesignLabelAttribute);
+    spacingAttribute->setTipText("Terminate attribute");
     mySpacingComboBox = new FXComboBox(mySpacingFrameComboBox, GUIDesignComboBoxNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxAttribute);
     // create textField for option A
     myTerminateFrameTextField = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    myTerminateLabel = new FXLabel(myTerminateFrameTextField, "A", nullptr, GUIDesignLabelAttribute);
+    myTerminateLabel = new MFXLabelTooltip(myTerminateFrameTextField,
+                                           frameParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(), "A", nullptr, GUIDesignLabelAttribute);
     myTerminateTextField = new FXTextField(myTerminateFrameTextField, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     // create textField for spacing
     mySpacingFrameTextField = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    mySpacingLabel = new FXLabel(mySpacingFrameTextField, "B", nullptr, GUIDesignLabelAttribute);
+    mySpacingLabel = new MFXLabelTooltip(mySpacingFrameTextField, frameParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
+                                         "B", nullptr, GUIDesignLabelAttribute);
     mySpacingTextField = new FXTextField(mySpacingFrameTextField, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     // fill terminate
     myTerminateComboBox->appendItem(toString(SUMO_ATTR_END).c_str());
@@ -161,7 +167,7 @@ GNEFlowEditor::getFlowAttributes(CommonXMLStructure::SumoBaseObject* baseObject)
     if (mySpacingLabel->getText().text() == toString(SUMO_ATTR_PERIOD)) {
         baseObject->addDoubleAttribute(SUMO_ATTR_PERIOD, GNEAttributeCarrier::parse<double>(mySpacingTextField->getText().text()));
     }
-    if (mySpacingLabel->getText() == "rate") {
+    if (mySpacingLabel->getText() == TL("rate")) {
         baseObject->addDoubleAttribute(GNE_ATTR_POISSON, GNEAttributeCarrier::parse<double>(mySpacingTextField->getText().text()));
     }
     if (mySpacingLabel->getText().text() == toString(SUMO_ATTR_PROB)) {
@@ -334,7 +340,7 @@ GNEFlowEditor::onCmdSetFlowAttribute(FXObject* obj, FXSelector, void*) {
                     myEditedFlows.front()->setAttribute(spacingAttribute, mySpacingTextField->getText().text(), myViewNet->getUndoList());
                 } else {
                     // change all flows using undoList
-                    myViewNet->getUndoList()->begin(myEditedFlows.front()->getTagProperty().getGUIIcon(), "change multiple flow attributes");
+                    myViewNet->getUndoList()->begin(myEditedFlows.front()->getTagProperty().getGUIIcon(), TL("change multiple flow attributes"));
                     for (const auto& flow : myEditedFlows) {
                         flow->setAttribute(spacingAttribute, mySpacingTextField->getText().text(), myViewNet->getUndoList());
                     }
@@ -360,7 +366,7 @@ GNEFlowEditor::onCmdSetFlowAttribute(FXObject* obj, FXSelector, void*) {
                 myEditedFlows.front()->enableAttribute(attr, myViewNet->getUndoList());
             } else {
                 // enable in all flow using undoList
-                myViewNet->getUndoList()->begin(myEditedFlows.front()->getTagProperty().getGUIIcon(), "enable multiple flow attributes");
+                myViewNet->getUndoList()->begin(myEditedFlows.front()->getTagProperty().getGUIIcon(), TL("enable multiple flow attributes"));
                 for (const auto& flow : myEditedFlows) {
                     flow->enableAttribute(attr, myViewNet->getUndoList());
                 }
@@ -376,7 +382,7 @@ GNEFlowEditor::onCmdSetFlowAttribute(FXObject* obj, FXSelector, void*) {
                 myEditedFlows.front()->disableAttribute(attr, myViewNet->getUndoList());
             } else {
                 // disable in all flow using undoList
-                myViewNet->getUndoList()->begin(myEditedFlows.front()->getTagProperty().getGUIIcon(), "disable multiple flow attributes");
+                myViewNet->getUndoList()->begin(myEditedFlows.front()->getTagProperty().getGUIIcon(), TL("disable multiple flow attributes"));
                 for (const auto& flow : myEditedFlows) {
                     flow->disableAttribute(attr, myViewNet->getUndoList());
                 }
@@ -402,7 +408,9 @@ GNEFlowEditor::refreshSingleFlow() {
                             mySpacingFrameComboBox->hide();
         // set label
         myTerminateLabel->setText(toString(SUMO_ATTR_END).c_str());
+        myTerminateLabel->setTipText(flow->getTagProperty().getAttributeProperties(SUMO_ATTR_END).getDefinition().c_str());
         mySpacingLabel->setText(toString(SUMO_ATTR_NUMBER).c_str());
+        mySpacingLabel->setTipText(flow->getTagProperty().getAttributeProperties(SUMO_ATTR_NUMBER).getDefinition().c_str());
         // set text fields
         myTerminateTextField->setText(getFlowAttribute(SUMO_ATTR_END).c_str());
         mySpacingTextField->setText(getFlowAttribute(SUMO_ATTR_NUMBER).c_str());
@@ -415,16 +423,20 @@ GNEFlowEditor::refreshSingleFlow() {
             myTerminateFrameTextField->hide();
         } else if (flow->isAttributeEnabled(SUMO_ATTR_END)) {
             // set first comboBox
-            myTerminateComboBox->setCurrentItem(0),
-                                // set label
-                                myTerminateLabel->setText(toString(SUMO_ATTR_END).c_str());
+            myTerminateComboBox->setCurrentItem(0);
+            // set label
+            myTerminateLabel->setText(toString(SUMO_ATTR_END).c_str());
+            // set definition
+            myTerminateLabel->setTipText(flow->getTagProperty().getAttributeProperties(SUMO_ATTR_END).getDefinition().c_str());
             // set text fields
             myTerminateTextField->setText(getFlowAttribute(SUMO_ATTR_END).c_str());
         } else if (flow->isAttributeEnabled(SUMO_ATTR_NUMBER)) {
             // set first comboBox
-            myTerminateComboBox->setCurrentItem(1),
-                                // set label
-                                myTerminateLabel->setText(toString(SUMO_ATTR_NUMBER).c_str());
+            myTerminateComboBox->setCurrentItem(1);
+            // set label
+            myTerminateLabel->setText(toString(SUMO_ATTR_NUMBER).c_str());
+            // set definition
+            myTerminateLabel->setTipText(flow->getTagProperty().getAttributeProperties(SUMO_ATTR_NUMBER).getDefinition().c_str());
             // set text fields
             myTerminateTextField->setText(getFlowAttribute(SUMO_ATTR_NUMBER).c_str());
         }
@@ -437,27 +449,35 @@ GNEFlowEditor::refreshSingleFlow() {
             mySpacingComboBox->setCurrentItem(0),
                               // set label
                               mySpacingLabel->setText(toString(myPerHourAttr).c_str());
+            // set tip text
+            mySpacingLabel->setTipText(flow->getTagProperty().getAttributeProperties(myPerHourAttr).getDefinition().c_str());
             // set text fields
             mySpacingTextField->setText(getFlowAttribute(myPerHourAttr).c_str());
         } else if (flow->isAttributeEnabled(SUMO_ATTR_PERIOD)) {
             // set first comboBox
-            mySpacingComboBox->setCurrentItem(1),
-                              // set label
-                              mySpacingLabel->setText(toString(SUMO_ATTR_PERIOD).c_str());
+            mySpacingComboBox->setCurrentItem(1);
+            // set label
+            mySpacingLabel->setText(toString(SUMO_ATTR_PERIOD).c_str());
+            // set tip text
+            mySpacingLabel->setTipText(flow->getTagProperty().getAttributeProperties(SUMO_ATTR_PERIOD).getDefinition().c_str());
             // set text fields
             mySpacingTextField->setText(getFlowAttribute(SUMO_ATTR_PERIOD).c_str());
         } else if (flow->isAttributeEnabled(GNE_ATTR_POISSON)) {
             // set first comboBox
-            mySpacingComboBox->setCurrentItem(2),
-                              // set label
-                              mySpacingLabel->setText("rate");
+            mySpacingComboBox->setCurrentItem(2);
+            // set label
+            mySpacingLabel->setText(TL("rate"));
+            // set definition
+            mySpacingLabel->setTipText(flow->getTagProperty().getAttributeProperties(GNE_ATTR_POISSON).getDefinition().c_str());
             // set text fields
             mySpacingTextField->setText(getFlowAttribute(GNE_ATTR_POISSON).c_str());
         } else if (flow->isAttributeEnabled(SUMO_ATTR_PROB)) {
             // set first comboBox
-            mySpacingComboBox->setCurrentItem(3),
-                              // set label
-                              mySpacingLabel->setText(toString(SUMO_ATTR_PROB).c_str());
+            mySpacingComboBox->setCurrentItem(3);
+            // set label
+            mySpacingLabel->setText(toString(SUMO_ATTR_PROB).c_str());
+            // set tip text
+            mySpacingLabel->setTipText(flow->getTagProperty().getAttributeProperties(SUMO_ATTR_PROB).getDefinition().c_str());
             // set text fields
             mySpacingTextField->setText(getFlowAttribute(SUMO_ATTR_PROB).c_str());
         }
@@ -517,7 +537,7 @@ GNEFlowEditor::refreshMultipleFlows() {
         mySpacingFrameComboBox->show();
         // check terminateDifferent
         if (terminateDifferent.size() > 0) {
-            myTerminateComboBox->setText(("different: " + terminateDifferent.front() + " " + terminateDifferent.back()).c_str());
+            myTerminateComboBox->setText((TL("different: ") + terminateDifferent.front() + " " + terminateDifferent.back()).c_str());
             // hide textField
             myTerminateFrameTextField->hide();
         } else {
@@ -545,7 +565,7 @@ GNEFlowEditor::refreshMultipleFlows() {
         }
         // check terminateDifferent
         if (spacingDifferent.size() > 0) {
-            mySpacingComboBox->setText(("different: " + spacingDifferent.front() + " " + spacingDifferent.back()).c_str());
+            mySpacingComboBox->setText((TL("different: ") + spacingDifferent.front() + " " + spacingDifferent.back()).c_str());
             // hide textField
             mySpacingFrameTextField->hide();
         } else {
@@ -573,7 +593,7 @@ GNEFlowEditor::refreshMultipleFlows() {
                 // set first comboBox
                 mySpacingComboBox->setCurrentItem(2),
                                   // set label
-                                  mySpacingLabel->setText("rate");
+                                  mySpacingLabel->setText(TL("rate"));
                 // set text fields
                 mySpacingTextField->setText(getFlowAttribute(GNE_ATTR_POISSON).c_str());
             } else if (probability) {

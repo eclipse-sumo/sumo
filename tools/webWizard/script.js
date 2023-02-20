@@ -73,9 +73,11 @@ on("ready", function(){
 
             var node = elem("<div>", {className: "container"});
             var header = elem("<h4>", {textContent: category});
+            var checkbox = elem("<input>",{type: "checkbox", checked:true, className: "checkAll", id: category.toLowerCase()});
             node.append(header);
+            node.append(checkbox);
 
-            var types = elem("<div>", {className: "roadTypes"});
+            var types = elem("<div>", {className: "roadTypes " + category.toLowerCase()});
             var label = elem("<label>");
 
             for (var i = 0; i < typeList.length; i++) {
@@ -111,9 +113,10 @@ on("ready", function(){
         "living_street", "unsurfaced", "service", "raceway", "bus_guideway"];
     categories["Pedestrians"] = ["track", "footway", "pedestrian", "path", "bridleway", "cycleway", "step", "steps",
         "stairs"];              //"Pedestrians" has also the "highway" key in OSM, this will be transformed in startBuild()
-    categories["Railway"] = ["preserved", "tram", "subway", "light_rail", "rail", "highspeed"];
+    categories["Railway"] = ["preserved", "tram", "subway", "light_rail", "rail", "highspeed", "monorail"];
     categories["Aeroway"] = ["stopway", "parking_position", "taxiway", "taxilane", "runway", "highway_strip"]
     categories["Waterway"] = ["river", "canal"];
+    categories["Aerialway"] = ["cable_car", "gondola"];
     categories["Route"] = ["ferry"];
 
     var roadClasses = [];
@@ -317,6 +320,18 @@ on("ready", function(){
 
     canvasToggle.on("click", toggleCanvas);
     toggleCanvas();
+
+    // function to check or uncheck all checkboxes for a certain roadType
+    var checkOrUncheckAll = function() {
+        Array.from(document.querySelectorAll(".roadTypes." + this.getAttribute("id") + " input[type=checkbox]")).forEach(el => el.checked = this.checked);
+    };
+
+    // listen if a roadType checkbox is selected/unselected
+    var roadTypeCheckboxes = document.getElementsByClassName("checkAll"); 
+
+    Array.from(roadTypeCheckboxes).forEach(function(element) {
+        element.addEventListener("click", checkOrUncheckAll);
+    });
 
     // OSM map
     // avoid cross domain resource sharing issues (#3991)

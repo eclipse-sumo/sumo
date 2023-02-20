@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -44,17 +44,17 @@ public:
     static void drawPoly(const double* poses, const double offset);
 
     /// @brief draw vehicle as a Box
-    static void drawAction_drawVehicleAsBoxPlus(const double width, const double length);
+    static void drawAction_drawVehicleAsBoxPlus(const double width, const double length, bool amReversed = false);
 
     /// @brief draw vehicle as a triangle
-    static void drawAction_drawVehicleAsTrianglePlus(const double width, const double length);
+    static void drawAction_drawVehicleAsTrianglePlus(const double width, const double length, bool amReversed = false);
 
     /// @brief draw vehicle as a circle
     static void drawAction_drawVehicleAsCircle(const double width, double detail);
 
     /// @brief draw vehicle as a polygon
     static void drawAction_drawVehicleAsPoly(const GUIVisualizationSettings& s, const SUMOVehicleShape shape, const double width, const double length,
-            int carriageIndex = -1, bool isStopped = false);
+            int carriageIndex = -1, bool isStopped = false, bool amReversed = false);
 
     /**@brief try to draw vehicle as raster image and return true if successful
      * @param[in] length The custom length of the vehicle

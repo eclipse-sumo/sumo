@@ -108,6 +108,7 @@ static const char * sumo_icon16_xpm[] = {
 ";.	c #F7FAF7",
 ">.	c #FCFFFC",
 ",.	c #FBFEFC",
+/* pixels */
 ". . . . . . . . . . . . . . . . ",
 ". + @ @ @ @ @ @ @ @ @ @ @ @ + . ",
 ". @ @ @ @ @ @ @ @ @ @ @ @ @ @ . ",

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -45,14 +45,13 @@ const double GNEStoppingPlace::myCircleInText = 1.6;
 // member method definitions
 // ===========================================================================
 
-GNEStoppingPlace::GNEStoppingPlace(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag,
-                                   GNELane* lane, const double startPos, const double endPos, const std::string& name,
-                                   bool friendlyPosition, const Parameterised::Map& parameters) :
-    GNEAdditional(id, net, type, tag, name,
-{}, {}, {lane}, {}, {}, {}),
-Parameterised(parameters),
-myStartPosition(startPos),
-myEndPosition(endPos),
+GNEStoppingPlace::GNEStoppingPlace(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon,
+                                   GNELane* lane, const double startPos, const double endPos, const std::string& name, bool friendlyPosition,
+                                   const Parameterised::Map& parameters) :
+    GNEAdditional(id, net, type, tag, icon, name, {}, {}, {lane}, {}, {}, {}),
+              Parameterised(parameters),
+              myStartPosition(startPos),
+              myEndPosition(endPos),
 myFriendlyPosition(friendlyPosition) {
 }
 
@@ -130,16 +129,16 @@ GNEStoppingPlace::getAdditionalProblem() const {
     if (startPos < 0) {
         errorStart = (toString(SUMO_ATTR_STARTPOS) + " < 0");
     } else if (startPos > getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength()) {
-        errorStart = (toString(SUMO_ATTR_STARTPOS) + " > lanes's length");
+        errorStart = (toString(SUMO_ATTR_STARTPOS) + TL(" > lanes's length"));
     }
     if (endPos < 0) {
         errorEnd = (toString(SUMO_ATTR_ENDPOS) + " < 0");
     } else if (endPos > getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength()) {
-        errorEnd = (toString(SUMO_ATTR_ENDPOS) + " > lanes's length");
+        errorEnd = (toString(SUMO_ATTR_ENDPOS) + TL(" > lanes's length"));
     }
     // check separator
     if ((errorStart.size() > 0) && (errorEnd.size() > 0)) {
-        separator = " and ";
+        separator = TL(" and ");
     }
     return errorStart + separator + errorEnd;
 }

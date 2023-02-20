@@ -1,0 +1,21 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+
+    <!-- missing start position -->
+    <trainStop id="trainStop_01" lane="center1_1" endPos="30" lines="line1 line2" name="trainStop" friendlyPos="false"/>
+
+    <!-- non valid start position (dummy) -->
+    <trainStop id="trainStop_02" lane="center1_1" startPos="dummyStartPosition" endPos="25" lines="line1 line2" name="trainStop" friendlyPos="false"/>
+
+    <!-- non valid start position (negative) -->
+    <trainStop id="trainStop_03" lane="center1_1" startPos="-25" endPos="25" lines="line1 line2" name="trainStop" friendlyPos="false"/>
+
+    <!-- non valid start position (overpassing endPos) -->
+    <trainStop id="trainStop_04" lane="center1_1" startPos="45" endPos="25" lines="line1 line2" name="trainStop" friendlyPos="false"/>
+
+    <!-- valid start position -->
+    <trainStop id="trainStop_05" lane="center1_1" startPos="10" endPos="25" lines="line1 line2" name="trainStop" friendlyPos="false"/>
+
+    <!-- valid start position (Negative) -->
+    <trainStop id="trainStop_06" lane="center1_1" startPos="-40" endPos="25" lines="line1 line2" name="trainStop" friendlyPos="false"/>
+
+</additional>

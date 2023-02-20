@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2003-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2003-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -41,9 +41,9 @@
  * ----------------------------------------------------------------------- */
 GUIInstantInductLoop::GUIInstantInductLoop(const std::string& id, OutputDevice& od,
         MSLane* const lane, double positionInMeters,
-        const std::string& vTypes,
+        const std::string name, const std::string& vTypes,
         const std::string& nextEdges) :
-    MSInstantInductLoop(id, od, lane, positionInMeters, vTypes, nextEdges) {}
+    MSInstantInductLoop(id, od, lane, positionInMeters, name, vTypes, nextEdges) {}
 
 
 GUIInstantInductLoop::~GUIInstantInductLoop() {}
@@ -59,7 +59,7 @@ GUIInstantInductLoop::buildDetectorGUIRepresentation() {
 // -------------------------------------------------------------------------
 
 GUIInstantInductLoop::MyWrapper::MyWrapper(GUIInstantInductLoop& detector, double pos) :
-    GUIDetectorWrapper(GLO_E1DETECTOR_INSTANT, detector.getID()),
+    GUIDetectorWrapper(GLO_E1DETECTOR_INSTANT, detector.getID(), GUIIconSubSys::getIcon(GUIIcon::E1INSTANT)),
     myDetector(detector), myPosition(pos) {
     myFGPosition = detector.getLane()->geometryPositionAtOffset(pos);
     myBoundary.add(myFGPosition.x() + (double) 5.5, myFGPosition.y() + (double) 5.5);
@@ -92,6 +92,7 @@ GUIInstantInductLoop::MyWrapper::getParameterWindow(GUIMainWindow& app,
     GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
     // add items
     // parameter
+    ret->mkItem("name", false, myDetector.myName);
     ret->mkItem("position [m]", false, myPosition);
     ret->mkItem("lane", false, myDetector.getLane()->getID());
     // values

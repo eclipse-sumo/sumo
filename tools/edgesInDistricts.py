@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2007-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2007-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -87,8 +87,8 @@ class DistrictEdgeComputer:
         return result
 
     def writeResults(self, options):
-        fd = open(options.output, "w")
-        sumolib.xml.writeHeader(fd, "$Id$", "tazs", "taz_file.xsd")  # noqa
+        fd = sumolib.openz(options.output, mode="w")
+        sumolib.xml.writeHeader(fd, "$Id$", "tazs", "taz_file.xsd")
         lastId = None
         lastEdges = set()
         key = (lambda i: i[0].attributes[options.merge_param]) if options.merge_param else None
@@ -111,7 +111,7 @@ class DistrictEdgeComputer:
                             '        <tazSource id="%s" weight="%.2f"/>\n' % (edge.getID(), weight))
                         fd.write(
                             '        <tazSink id="%s" weight="%.2f"/>\n' % (edge.getID(), weight))
-                    fd.write("    </taz>\n")
+                    fd.write(u"    </taz>\n")
                 else:
                     if options.shapeinfo:
                         fd.write('    <taz id="%s" shape="%s"%s edges="%s"/>\n' %
@@ -137,7 +137,7 @@ class DistrictEdgeComputer:
                 sys.stdout.write("%s/%s\r" % (idx, len(self._districtEdges)))
         if lastId is not None:
             fd.write('    <taz id="%s" edges="%s"/>\n' % (lastId, " ".join(sorted([e.getID() for e in lastEdges]))))
-        fd.write("</tazs>\n")
+        fd.write(u"</tazs>\n")
         fd.close()
 
     def getTotalLength(self, edgeID):

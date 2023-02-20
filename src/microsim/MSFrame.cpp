@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2002-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -199,6 +199,9 @@ MSFrame::fillOptions() {
     oc.addSynonyme("summary-output", "summary");
     oc.addDescription("summary-output", "Output", "Save aggregated vehicle departure info into FILE");
 
+    oc.doRegister("summary-output.period", new Option_String("-1", "TIME"));
+    oc.addDescription("summary-output.period", "Output", "Save summary-output with the given period");
+
     oc.doRegister("person-summary-output", new Option_FileName());
     oc.addDescription("person-summary-output", "Output", "Save aggregated person counts into FILE");
 
@@ -258,6 +261,9 @@ MSFrame::fillOptions() {
     oc.doRegister("vehroute-output.speedfactor", new Option_Bool(false));
     oc.addDescription("vehroute-output.speedfactor", "Output", "Write the vehicle speedFactor (defaults to 'true' if departSpeed is written)");
 
+    oc.doRegister("vehroute-output.internal", new Option_Bool(false));
+    oc.addDescription("vehroute-output.internal", "Output", "Include internal edges in the output");
+
     oc.doRegister("personroute-output", new Option_FileName());
     oc.addSynonyme("personroute-output", "personroutes");
     oc.addDescription("personroute-output", "Output", "Save person and container routes to separate FILE");
@@ -290,6 +296,11 @@ MSFrame::fillOptions() {
 
     oc.doRegister("collision-output", new Option_FileName());
     oc.addDescription("collision-output", "Output", "Write collision information into FILE");
+
+    oc.doRegister("edgedata-output", new Option_FileName());
+    oc.addDescription("edgedata-output", "Output", "Write aggregated traffic statistics for all edges into FILE");
+    oc.doRegister("lanedata-output", new Option_FileName());
+    oc.addDescription("lanedata-output", "Output", "Write aggregated traffic statistics for all lanes into FILE");
 
     oc.doRegister("statistic-output", new Option_FileName());
     oc.addSynonyme("statistic-output", "statistics-output");
@@ -443,7 +454,7 @@ MSFrame::fillOptions() {
     oc.addDescription("tls.actuated.show-detectors", "Processing", "Sets default visibility for actuation detectors");
 
     oc.doRegister("tls.actuated.jam-threshold", new Option_Float(-1));
-    oc.addDescription("tls.actuated.jam-threshold", "Processing", "Sets default jam-treshold parameter for all actuation detectors");
+    oc.addDescription("tls.actuated.jam-threshold", "Processing", "Sets default jam-threshold parameter for all actuation detectors");
 
     oc.doRegister("tls.actuated.detector-length", new Option_Float(0));
     oc.addDescription("tls.actuated.detector-length", "Processing", "Sets default detector length parameter for all actuation detectors");
@@ -486,7 +497,7 @@ MSFrame::fillOptions() {
     oc.addDescription("emergencydecel.warning-threshold", "Processing", "Sets the fraction of emergency decel capability that must be used to trigger a warning.");
 
     oc.doRegister("parking.maneuver", new Option_Bool(false));
-    oc.addDescription("parking.maneuver", "Processing", "Whether parking simulation includes manoeuvering time and associated lane blocking");
+    oc.addDescription("parking.maneuver", "Processing", "Whether parking simulation includes maneuvering time and associated lane blocking");
 
     oc.doRegister("use-stop-ended", new Option_Bool(false));
     oc.addDescription("use-stop-ended", "Processing", "Override stop until times with stop ended times when given");
@@ -516,6 +527,15 @@ MSFrame::fillOptions() {
 
     oc.doRegister("pedestrian.striping.reserve-oncoming.junctions", new Option_Float(0.34));
     oc.addDescription("pedestrian.striping.reserve-oncoming.junctions", "Processing", "Fraction of stripes to reserve for oncoming pedestrians on crossings and walkingareas");
+
+    oc.doRegister("pedestrian.striping.reserve-oncoming.max", new Option_Float(1.28));
+    oc.addDescription("pedestrian.striping.reserve-oncoming.max", "Processing", "Maximum width in m to reserve for oncoming pedestrians");
+
+    oc.doRegister("pedestrian.striping.legacy-departposlat", new Option_Bool(false));
+    oc.addDescription("pedestrian.striping.legacy-departposlat", "Processing", "Interpret departPosLat for walks in legacy style");
+
+    oc.doRegister("pedestrian.striping.walkingarea-detail", new Option_Integer(4));
+    oc.addDescription("pedestrian.striping.walkingarea-detail", "Processing", "Generate INT intermediate points to smooth out lanes within the walkingarea");
 
     oc.doRegister("pedestrian.remote.address", new Option_String("localhost:9000"));
     oc.addDescription("pedestrian.remote.address", "Processing", "The address (host:port) of the external simulation");
@@ -779,15 +799,15 @@ MSFrame::checkOptions() {
     OptionsCont& oc = OptionsCont::getOptions();
     bool ok = true;
     if (!oc.isSet("net-file") && oc.isDefault("remote-port")) {
-        WRITE_ERROR("No network file (-n) specified.");
+        WRITE_ERROR(TL("No network file (-n) specified."));
         ok = false;
     }
     if (oc.getFloat("scale") < 0.) {
-        WRITE_ERROR("Invalid scaling factor.");
+        WRITE_ERROR(TL("Invalid scaling factor."));
         ok = false;
     }
     if (oc.getBool("vehroute-output.exit-times") && !oc.isSet("vehroute-output")) {
-        WRITE_ERROR("A vehroute-output file is needed for exit times.");
+        WRITE_ERROR(TL("A vehroute-output file is needed for exit times."));
         ok = false;
     }
     if (oc.isSet("gui-settings-file") &&
@@ -799,12 +819,12 @@ MSFrame::checkOptions() {
         oc.setDefault("start", "true");
     }
     if (oc.getBool("demo") && oc.getBool("quit-on-end")) {
-        WRITE_ERROR("You can either restart or quit on end.");
+        WRITE_ERROR(TL("You can either restart or quit on end."));
         ok = false;
     }
     if (oc.getBool("meso-junction-control.limited") && !oc.getBool("meso-junction-control")) {
         if (!oc.isDefault("meso-junction-control")) {
-            WRITE_WARNING("The option 'meso-junction-control.limited' implies 'meso-junction-control'.")
+            WRITE_WARNING(TL("The option 'meso-junction-control.limited' implies 'meso-junction-control'."))
         }
         oc.setDefault("meso-junction-control", "true");
     }
@@ -822,7 +842,7 @@ MSFrame::checkOptions() {
     const SUMOTime begin = string2time(oc.getString("begin"));
     const SUMOTime end = string2time(oc.getString("end"));
     if (begin < 0) {
-        WRITE_ERROR("The begin time should not be negative.");
+        WRITE_ERROR(TL("The begin time should not be negative."));
         ok = false;
     }
     // DELTA_T not yet initialized
@@ -832,12 +852,12 @@ MSFrame::checkOptions() {
     }
     if (end != string2time("-1")) {
         if (end < begin) {
-            WRITE_ERROR("The end time should be after the begin time.");
+            WRITE_ERROR(TL("The end time should be after the begin time."));
             ok = false;
         }
     }
     if (string2time(oc.getString("step-length")) <= 0) {
-        WRITE_ERROR("the minimum step-length is 0.001");
+        WRITE_ERROR(TL("the minimum step-length is 0.001"));
         ok = false;
     }
     const SUMOTime period = string2time(oc.getString("device.fcd.period"));
@@ -852,7 +872,7 @@ MSFrame::checkOptions() {
         try {
             const SUMOTime saveT = string2time(timeStr);
             if (end > 0 && saveT >= end) {
-                WRITE_WARNING("The save-state time=" + timeStr + " will not be used before simulation end at " + time2string(end) + ".");
+                WRITE_WARNINGF(TL("The save-state time=% will not be used before simulation end at %."), timeStr, time2string(end));
             } else {
                 checkStepLengthMultiple(saveT, " for save-state.times", deltaT);
             }
@@ -864,23 +884,23 @@ MSFrame::checkOptions() {
 
 #ifdef _DEBUG
     if (oc.isSet("movereminder-output.vehicles") && !oc.isSet("movereminder-output")) {
-        WRITE_ERROR("option movereminder-output.vehicles requires option movereminder-output to be set");
+        WRITE_ERROR(TL("option movereminder-output.vehicles requires option movereminder-output to be set"));
         ok = false;
     }
 #endif
     if (oc.getBool("sloppy-insert")) {
-        WRITE_WARNING("The option 'sloppy-insert' is deprecated, because it is now activated by default, see the new option 'eager-insert'.");
+        WRITE_WARNING(TL("The option 'sloppy-insert' is deprecated, because it is now activated by default, see the new option 'eager-insert'."));
     }
     if (string2time(oc.getString("lanechange.duration")) > 0 && oc.getFloat("lateral-resolution") > 0) {
-        WRITE_ERROR("Only one of the options 'lanechange.duration' or 'lateral-resolution' may be given.");
+        WRITE_ERROR(TL("Only one of the options 'lanechange.duration' or 'lateral-resolution' may be given."));
         ok = false;
     }
     if (oc.getBool("mesosim") && (oc.getFloat("lateral-resolution") > 0 || string2time(oc.getString("lanechange.duration")) > 0)) {
-        WRITE_ERROR("Sublane dynamics are not supported by mesoscopic simulation");
+        WRITE_ERROR(TL("Sublane dynamics are not supported by mesoscopic simulation"));
         ok = false;
     }
     if (oc.getBool("ignore-accidents")) {
-        WRITE_WARNING("The option 'ignore-accidents' is deprecated. Use 'collision.action none' instead.");
+        WRITE_WARNING(TL("The option 'ignore-accidents' is deprecated. Use 'collision.action none' instead."));
     }
     if (oc.getBool("duration-log.statistics") && oc.isDefault("verbose")) {
         oc.setDefault("verbose", "true");
@@ -893,7 +913,7 @@ MSFrame::checkOptions() {
     }
     if (oc.getBool("tripinfo-output.write-undeparted")) {
         if (!oc.isDefault("tripinfo-output.write-unfinished") && !oc.getBool("tripinfo-output.write-unfinished")) {
-            WRITE_WARNING("The option tripinfo-output.write-undeparted implies tripinfo-output.write-unfinished.");
+            WRITE_WARNING(TL("The option tripinfo-output.write-undeparted implies tripinfo-output.write-unfinished."));
         }
         oc.setDefault("tripinfo-output.write-unfinished", "true");
     }
@@ -915,7 +935,7 @@ MSFrame::checkOptions() {
         }
     }
     if (!SUMOXMLDefinitions::CarFollowModels.hasString(oc.getString("carfollow.model"))) {
-        WRITE_ERROR("Unknown model '" + oc.getString("carfollow.model")  + "' for option 'carfollow.model'.");
+        WRITE_ERRORF(TL("Unknown model '%' for option 'carfollow.model'."), oc.getString("carfollow.model") );
         ok = false;
     }
     if (oc.isSet("default.emergencydecel")) {
@@ -924,13 +944,13 @@ MSFrame::checkOptions() {
             try {
                 StringUtils::toDouble(val);
             } catch (NumberFormatException&) {
-                WRITE_ERROR("Invalid value '" + val + "' for option 'default.emergencydecel'. Must be a FLOAT or 'default' or 'decel'");
+                WRITE_ERRORF(TL("Invalid value '%' for option 'default.emergencydecel'. Must be a FLOAT or 'default' or 'decel'"), val);
                 ok = false;
             }
         }
     }
     if (oc.getFloat("delay") < 0.0) {
-        WRITE_ERROR("You need a non-negative delay.");
+        WRITE_ERROR(TL("You need a non-negative delay."));
         ok = false;
     }
     for (const std::string& val : oc.getStringVector("breakpoints")) {
@@ -943,26 +963,26 @@ MSFrame::checkOptions() {
     }
 #ifndef HAVE_FOX
     if (oc.getInt("threads") > 1) {
-        WRITE_ERROR("Parallel simulation is only possible when compiled with Fox.");
+        WRITE_ERROR(TL("Parallel simulation is only possible when compiled with Fox."));
         ok = false;
     }
 #endif
     if (oc.getInt("threads") < 1) {
-        WRITE_ERROR("You need at least one thread.");
+        WRITE_ERROR(TL("You need at least one thread."));
         ok = false;
     }
     if (oc.getInt("threads") > oc.getInt("thread-rngs")) {
-        WRITE_WARNING("Number of threads exceeds number of thread-rngs. Simulation runs with the same seed may produce different results");
+        WRITE_WARNING(TL("Number of threads exceeds number of thread-rngs. Simulation runs with the same seed may produce different results"));
     }
     if (oc.getString("game.mode") != "tls" && oc.getString("game.mode") != "drt") {
-        WRITE_ERROR("game.mode must be one of ['tls', 'drt']");
+        WRITE_ERROR(TL("game.mode must be one of ['tls', 'drt']"));
         ok = false;
     }
 
     if (oc.isSet("persontrip.transfer.car-walk")) {
         for (const std::string& opt : OptionsCont::getOptions().getStringVector("persontrip.transfer.car-walk")) {
             if (opt != "parkingAreas" && opt != "ptStops" && opt != "allJunctions") {
-                WRITE_ERROR("Invalid transfer option '" + opt + "'. Must be one of 'parkingAreas', 'ptStops' and 'allJunctions'");
+                WRITE_ERRORF(TL("Invalid transfer option '%'. Must be one of 'parkingAreas', 'ptStops' and 'allJunctions'"), opt);
                 ok = false;
             }
         }
@@ -1021,7 +1041,7 @@ MSFrame::setMSGlobals(OptionsCont& oc) {
     MSGlobals::gSemiImplicitEulerUpdate = !oc.getBool("step-method.ballistic");
     // Init default value for gActionStepLength
     if (MSGlobals::gSemiImplicitEulerUpdate && actionStepLengthSet && !integrationMethodSet) {
-        WRITE_MESSAGE("Integration method was set to 'ballistic', since a default action step length was specified.");
+        WRITE_MESSAGE(TL("Integration method was set to 'ballistic', since a default action step length was specified."));
         MSGlobals::gSemiImplicitEulerUpdate = false;
     }
     double givenDefaultActionStepLength = oc.getFloat("default.action-step-length");

@@ -1,0 +1,8 @@
+Warning: Vehicle 'routeFlow_1.0' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=-8.32, offset=5.25), time=14.00.
+Warning: Vehicle 'routeFlow_1.1' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=-7.13, offset=8.58), time=217.00.
+Warning: Vehicle 'routeFlow_1.2' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=-8.29, offset=6.62), time=415.00.
+Warning: Vehicle 'routeFlow_1.3' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=-8.66, offset=6.49), time=614.00.
+Warning: Vehicle 'routeFlow_1.4' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=-8.66, offset=7.73), time=816.00.
+Warning: Vehicle 'routeFlow_1.5' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=-7.71, offset=6.16), time=1015.00.
+Warning: Vehicle 'routeFlow_1.6' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=-6.18, offset=5.29), time=1218.00.
+Warning: Vehicle 'routeFlow_1.7' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=-8.87, offset=8.92), time=1415.00.

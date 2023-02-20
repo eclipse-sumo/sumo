@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -57,7 +57,7 @@ public:
      * @param[in] speedFactor The factor for driven lane's speed limits
      * @exception ProcessError If a value is wrong
      */
-    GUIVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
+    GUIVehicle(SUMOVehicleParameter* pars, ConstMSRoutePtr route,
                MSVehicleType* type, const double speedFactor);
 
 
@@ -91,7 +91,7 @@ public:
     /** @brief Draws the route
      * @param[in] r The route to draw
      */
-    void drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r, bool future, bool noLoop, const RGBColor& col) const;
+    void drawRouteHelper(const GUIVisualizationSettings& s, ConstMSRoutePtr r, bool future, bool noLoop, const RGBColor& col) const;
 
     void drawAction_drawVehicleBlinker(double length) const;
     void drawAction_drawVehicleBrakeLight(double length, bool onlyOne = false) const;
@@ -166,6 +166,9 @@ public:
     std::string getSpeedMode() const;
     /// @brief return the lane change mode as bit string
     std::string getLaneChangeMode() const;
+
+    /// @brief return the current lateral alignment as string
+    std::string getDynamicAlignment() const;
 
     /// @brief handle route to accomodate to given stop
     void rerouteDRTStop(MSStoppingPlace* busStop);

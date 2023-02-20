@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -393,6 +393,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             && variable != libsumo::VAR_STOP_PARAMETER
             && variable != libsumo::CMD_SLOWDOWN && variable != libsumo::CMD_CHANGETARGET && variable != libsumo::CMD_RESUME
             && variable != libsumo::VAR_TYPE && variable != libsumo::VAR_ROUTE_ID && variable != libsumo::VAR_ROUTE
+            && variable != libsumo::VAR_LANEPOSITION_LAT
             && variable != libsumo::VAR_UPDATE_BESTLANES
             && variable != libsumo::VAR_EDGE_TRAVELTIME && variable != libsumo::VAR_EDGE_EFFORT
             && variable != libsumo::CMD_REROUTE_TRAVELTIME && variable != libsumo::CMD_REROUTE_EFFORT
@@ -1267,6 +1268,14 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 }
                 bool resetActionOffset = value >= 0.0;
                 libsumo::Vehicle::setActionStepLength(id, fabs(value), resetActionOffset);
+            }
+            break;
+            case libsumo::VAR_LANEPOSITION_LAT: {
+                double value = 0;
+                if (!server.readTypeCheckingDouble(inputStorage, value)) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Setting lateral lane position requires a double.", outputStorage);
+                }
+                libsumo::Vehicle::setLateralLanePosition(id, value);
             }
             break;
             case libsumo::VAR_UPDATE_BESTLANES: {

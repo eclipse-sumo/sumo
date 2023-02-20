@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -17,9 +17,10 @@
 ///
 // Class used for move shape elements
 /****************************************************************************/
-#include <netedit/elements/network/GNEEdge.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/frames/common/GNEMoveFrame.h>
 
 #include "GNEMoveElement.h"
 
@@ -407,8 +408,8 @@ GNEMoveElement::commitMove(const GNEViewNet* viewNet, GNEMoveOperation* moveOper
                     throw ProcessError("trying to move an invalid position");
                 }
             }
-            // remove double points (only in commitMove)
-            if (moveResult.shapeToUpdate.size() > 2) {
+            // remove double points if merge points is enabled (only in commitMove)
+            if (viewNet->getViewParent()->getMoveFrame()->getCommonModeOptions()->getMergeGeometryPoints() && (moveResult.shapeToUpdate.size() > 2)) {
                 moveResult.shapeToUpdate.removeDoublePoints(2);
             }
         } else {

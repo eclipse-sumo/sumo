@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -26,7 +26,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to select mode
 netedit.selectMode()
@@ -38,7 +38,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect parking spaces
-netedit.leftClick(referencePosition, 230, 260)
+netedit.leftClick(referencePosition, 679, 141)
 
 # Change parameter angle with a non valid value (dummy)
 netedit.modifyAttribute(netedit.attrs.parkingSpace.inspectSelection.angle, "dummyAngle", False)
@@ -56,11 +56,8 @@ netedit.modifyAttribute(netedit.attrs.parkingSpace.inspectSelection.angle, "32.5
 netedit.undo(referencePosition, 5)
 netedit.redo(referencePosition, 5)
 
-# save additionals
-netedit.saveAdditionals(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

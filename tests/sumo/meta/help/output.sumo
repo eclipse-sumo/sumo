@@ -1,5 +1,5 @@
-Eclipse SUMO sumo Version v1_14_1+0745-c651c77
- Copyright (C) 2001-2022 German Aerospace Center (DLR) and others; https://sumo.dlr.de
+Eclipse SUMO sumo Version v1_15_0+1763-04f0927
+ Copyright (C) 2001-2023 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
 Usage: sumo [OPTION]*
@@ -105,6 +105,8 @@ Output Options:
                                         Amitran format
   --summary-output FILE                Save aggregated vehicle departure info
                                         into FILE
+  --summary-output.period TIME         Save summary-output with the given
+                                        period
   --person-summary-output FILE         Save aggregated person counts into FILE
   --tripinfo-output FILE               Save single vehicle trip info into FILE
   --tripinfo-output.write-unfinished   Write tripinfo output for vehicles which
@@ -132,6 +134,7 @@ Output Options:
                                         stops
   --vehroute-output.speedfactor        Write the vehicle speedFactor (defaults
                                         to 'true' if departSpeed is written)
+  --vehroute-output.internal           Include internal edges in the output
   --personroute-output FILE            Save person and container routes to
                                         separate FILE
   --link-output FILE                   Save links states into FILE
@@ -151,6 +154,10 @@ Output Options:
   --stop-output.write-unfinished       Write stop output for stops which have
                                         not ended at simulation end
   --collision-output FILE              Write collision information into FILE
+  --edgedata-output FILE               Write aggregated traffic statistics for
+                                        all edges into FILE
+  --lanedata-output FILE               Write aggregated traffic statistics for
+                                        all lanes into FILE
   --statistic-output FILE              Write overall statistics into FILE
   --save-state.times STR[]             Use TIME[] as times at which a network
                                         state written
@@ -265,7 +272,7 @@ Processing Options:
   --tls.all-off                        Switches off all traffic lights.
   --tls.actuated.show-detectors        Sets default visibility for actuation
                                         detectors
-  --tls.actuated.jam-threshold FLOAT   Sets default jam-treshold parameter for
+  --tls.actuated.jam-threshold FLOAT   Sets default jam-threshold parameter for
                                         all actuation detectors
   --tls.actuated.detector-length FLOAT  Sets default detector length parameter
                                         for all actuation detectors
@@ -311,7 +318,7 @@ Processing Options:
                                         decel capability that must be used to
                                         trigger a warning.
   --parking.maneuver                   Whether parking simulation includes
-                                        manoeuvering time and associated lane
+                                        maneuvering time and associated lane
                                         blocking
   --use-stop-ended                     Override stop until times with stop
                                         ended times when given
@@ -343,6 +350,13 @@ Processing Options:
   --pedestrian.striping.reserve-oncoming.junctions FLOAT  Fraction of stripes
                                         to reserve for oncoming pedestrians on
                                         crossings and walkingareas
+  --pedestrian.striping.reserve-oncoming.max FLOAT  Maximum width in m to
+                                        reserve for oncoming pedestrians
+  --pedestrian.striping.legacy-departposlat  Interpret departPosLat for walks
+                                        in legacy style
+  --pedestrian.striping.walkingarea-detail INT  Generate INT intermediate
+                                        points to smooth out lanes within the
+                                        walkingarea
   --pedestrian.remote.address STR      The address (host:port) of the external
                                         simulation
   --ride.stop-tolerance FLOAT          Tolerance to apply when matching
@@ -437,13 +451,14 @@ Report Options:
   -?, --help                           Prints this screen or selected topics
   -V, --version                        Prints the current version
   -X, --xml-validation STR             Set schema validation scheme of XML
-                                        inputs ("never", "auto" or "always")
+                                        inputs ("never", "local", "auto" or
+                                        "always")
   --xml-validation.net STR             Set schema validation scheme of SUMO
-                                        network inputs ("never", "auto" or
-                                        "always")
+                                        network inputs ("never", "local", "auto"
+                                        or "always")
   --xml-validation.routes STR          Set schema validation scheme of SUMO
-                                        route inputs ("never", "auto" or
-                                        "always")
+                                        route inputs ("never", "local", "auto"
+                                        or "always")
   -W, --no-warnings                    Disables output of warnings
   --aggregate-warnings INT             Aggregate warnings of the same type
                                         whenever more than INT occur
@@ -452,6 +467,7 @@ Report Options:
   --message-log FILE                   Writes all non-error messages to FILE
                                         (implies verbose)
   --error-log FILE                     Writes all warnings and errors to FILE
+  --language STR                       Language to use in messages
   --duration-log.disable               Disable performance reports for
                                         individual simulation steps
   -t, --duration-log.statistics        Enable statistics on vehicle trips
@@ -496,6 +512,18 @@ Communication Options:
                                         vehicles
   --device.btsender.deterministic      The 'btsender' devices are set
                                         deterministic using a fraction of 1000
+  --person-device.btsender.probability FLOAT  The probability for a person to
+                                        have a 'btsender' device
+  --person-device.btsender.explicit STR[]  Assign a 'btsender' device to named
+                                        persons
+  --person-device.btsender.deterministic  The 'btsender' devices are set
+                                        deterministic using a fraction of 1000
+  --person-device.btreceiver.probability FLOAT  The probability for a person to
+                                        have a 'btreceiver' device
+  --person-device.btreceiver.explicit STR[]  Assign a 'btreceiver' device to
+                                        named persons
+  --person-device.btreceiver.deterministic  The 'btreceiver' devices are set
+                                        deterministic using a fraction of 1000
 
 Battery Options:
   --device.battery.probability FLOAT   The probability for a vehicle to have a
@@ -524,13 +552,13 @@ SSM Device Options:
   --device.ssm.deterministic           The 'ssm' devices are set deterministic
                                         using a fraction of 1000
   --device.ssm.measures STR            Specifies which measures will be logged
-                                        (as a space separated sequence of IDs in
-                                        ('TTC', 'DRAC', 'PET'))
-  --device.ssm.thresholds STR          Specifies thresholds corresponding to
-                                        the specified measures (see
-                                        documentation and watch the order!).
-                                        Only events exceeding the thresholds
-                                        will be logged.
+                                        (as a space or comma-separated sequence
+                                        of IDs in ('TTC', 'DRAC', 'PET'))
+  --device.ssm.thresholds STR          Specifies space or comma-separated
+                                        thresholds corresponding to the
+                                        specified measures (see documentation
+                                        and watch the order!). Only events
+                                        exceeding the thresholds will be logged.
   --device.ssm.trajectories            Specifies whether trajectories will be
                                         logged (if false, only the extremal
                                         values and times are reported).

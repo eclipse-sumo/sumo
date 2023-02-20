@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -20,13 +20,14 @@
 #pragma once
 #include <config.h>
 
-#include <netedit/frames/GNEFrame.h>
 #include <netedit/frames/GNEAttributesCreator.h>
-#include <netedit/frames/GNENetworkSelector.h>
 #include <netedit/frames/GNEConsecutiveSelector.h>
-#include <netedit/frames/GNETagSelector.h>
-#include <netedit/frames/GNESelectorParent.h>
+#include <netedit/frames/GNEE2DetectorLegendModule.h>
+#include <netedit/frames/GNEFrame.h>
 #include <netedit/frames/GNENeteditAttributes.h>
+#include <netedit/frames/GNENetworkSelector.h>
+#include <netedit/frames/GNESelectorParent.h>
+#include <netedit/frames/GNETagSelector.h>
 
 
 // ===========================================================================
@@ -43,7 +44,7 @@ public:
      * @brief viewParent GNEViewParent in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
      */
-    GNEAdditionalFrame(GNEViewParent *viewParent, GNEViewNet* viewNet);
+    GNEAdditionalFrame(GNEViewParent* viewParent, GNEViewNet* viewNet);
 
     /// @brief Destructor
     ~GNEAdditionalFrame();
@@ -67,11 +68,11 @@ public:
     GNEConsecutiveSelector* getConsecutiveLaneSelector() const;
 
     /// @brief create path
-    void createPath(const bool useLastRoute);
+    bool createPath(const bool useLastRoute);
 
 protected:
     /// @brief SumoBaseObject used for create additional
-    CommonXMLStructure::SumoBaseObject* myBaseAdditional;
+    CommonXMLStructure::SumoBaseObject* myBaseAdditional = nullptr;
 
     /// @brief Tag selected in GNETagSelector
     void tagSelected();
@@ -93,23 +94,26 @@ private:
     bool buildAdditionalOverView(const GNETagProperties& tagValues);
 
     /// @brief item selector
-    GNETagSelector* myAdditionalTagSelector;
+    GNETagSelector* myAdditionalTagSelector = nullptr;
 
     /// @brief internal additional attributes
-    GNEAttributesCreator* myAdditionalAttributes;
+    GNEAttributesCreator* myAdditionalAttributes = nullptr;
 
     /// @brief Netedit parameter
-    GNENeteditAttributes* myNeteditAttributes;
+    GNENeteditAttributes* myNeteditAttributes = nullptr;
 
     /// @brief Module for select a single parent additional
-    GNESelectorParent* mySelectorAdditionalParent;
+    GNESelectorParent* mySelectorAdditionalParent = nullptr;
 
     /// @brief Module for select edges
-    GNENetworkSelector* myEdgesSelector;
+    GNENetworkSelector* myEdgesSelector = nullptr;
 
     /// @brief Module for select lanes
-    GNENetworkSelector* myLanesSelector;
+    GNENetworkSelector* myLanesSelector = nullptr;
 
     /// @brief Module for select consecutive lanes
-    GNEConsecutiveSelector* myConsecutiveLaneSelector;
+    GNEConsecutiveSelector* myConsecutiveLaneSelector = nullptr;
+
+    /// @brief Module for show E2 Detector legend
+    GNEE2DetectorLegendModule* myE2DetectorLegendModule = nullptr;
 };

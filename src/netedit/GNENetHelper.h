@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -53,6 +53,7 @@ class GNECrossing;
 class GNEJunction;
 class GNEEdgeType;
 class GNELaneType;
+class GNEMeanData;
 class GNEEdge;
 class GNELane;
 class GNENetworkElement;
@@ -84,6 +85,7 @@ struct GNENetHelper {
         friend class GNEChange_DataSet;
         friend class GNEChange_DataInterval;
         friend class GNEChange_GenericData;
+        friend class GNEChange_MeanData;
 
     public:
         /// @brief constructor
@@ -102,7 +104,7 @@ struct GNENetHelper {
         /// @{
 
         /**@brief get a single attribute carrier based on a GLID
-         * @param[in] ids the GL IDs for which to retrive the AC
+         * @param[in] ids the GL IDs for which to retrieve the AC
          * @param[in] hardFail Whether attempts to retrieve a nonexisting AttributeCarrier should result in an exception
          * @throws InvalidArgument if GL ID doesn't have a associated Attribute Carrier
          */
@@ -141,6 +143,9 @@ struct GNENetHelper {
 
         /// @brief clear junctions
         void clearJunctions();
+
+        /// @brief add prefix to all junctions
+        void addPrefixToJunctions(const std::string& prefix);
 
         /// @brief update junction ID in container
         void updateJunctionID(GNEJunction* junction, const std::string& newID);
@@ -237,12 +242,12 @@ struct GNENetHelper {
          */
         GNEEdge* retrieveEdge(const std::string& id, bool hardFail = true) const;
 
-        /**@brief get edge by from and to GNEJunction
+        /**@brief get all edges by from and to GNEJunction
          * @param[in] id The id of the desired edge
          * @param[in] hardFail Whether attempts to retrieve a nonexisting edge should result in an exception
          * @throws UnknownElement
          */
-        GNEEdge* retrieveEdge(GNEJunction* from, GNEJunction* to, bool hardFail = true) const;
+        std::vector<GNEEdge*> retrieveEdges(GNEJunction* from, GNEJunction* to) const;
 
         /// @brief map with the ID and pointer to edges of net
         const std::map<std::string, GNEEdge*>& getEdges() const;
@@ -258,11 +263,16 @@ struct GNENetHelper {
         /// @brief clear edges
         void clearEdges();
 
+        /// @brief add prefix to all edges
+        void addPrefixToEdges(const std::string& prefix);
+
         /// @brief update edge ID in container
         void updateEdgeID(GNEEdge* edge, const std::string& newID);
 
         /// @brief get number of selected edges
         int getNumberOfSelectedEdges() const;
+
+        /// @}
 
         /// @name function for lanes
         /// @{
@@ -531,6 +541,9 @@ struct GNENetHelper {
         /// @brief retrieve generic datas within the given interval
         std::vector<GNEGenericData*> retrieveGenericDatas(const SumoXMLTag genericDataTag, const double begin, const double end);
 
+        /// @brief Return the number of generic datas
+        int getNumberOfGenericDatas() const;
+
         /// @brief get number of selected edge datas
         int getNumberOfSelectedEdgeDatas() const;
 
@@ -552,6 +565,36 @@ struct GNENetHelper {
         /// @brief return a set of parameters for the given dataSet, generic data Type, begin and end
         std::set<std::string> retrieveGenericDataParameters(const std::string& dataSetID, const std::string& genericDataTag,
                 const std::string& beginStr, const std::string& endStr) const;
+
+        /// @}
+
+        /// @name function for meanDatas
+        /// @{
+        /**@brief Returns the named meanData
+         * @param[in] id The attribute carrier related with the meanData element
+         * @param[in] type tag with the type of meanData
+         * @param[in] id The id of the meanData to return.
+         * @param[in] hardFail Whether attempts to retrieve a nonexisting meanData should result in an exception
+         */
+        GNEMeanData* retrieveMeanData(SumoXMLTag type, const std::string& id, bool hardFail = true) const;
+
+        /**@brief Returns the named meanData
+         * @param[in] id The attribute carrier related with the meanData element
+         * @param[in] hardFail Whether attempts to retrieve a nonexisting meanData should result in an exception
+         */
+        GNEMeanData* retrieveMeanData(GNEAttributeCarrier* AC, bool hardFail = true) const;
+
+        /// @brief get meanDatas
+        const std::map<SumoXMLTag, std::set<GNEMeanData*> >& getMeanDatas() const;
+
+        /// @brief get number of meanDatas
+        int getNumberOfMeanDatas() const;
+
+        /// @brief clear meanDatas
+        void clearMeanDatas();
+
+        /// @brief generate meanData id
+        std::string generateMeanDataID(SumoXMLTag type) const;
 
         /// @}
 
@@ -643,6 +686,24 @@ struct GNENetHelper {
 
         /// @}
 
+        /// @name Insertion and erasing of GNEMeanDatas items
+        /// @{
+
+        /// @brief return true if given meanData exist
+        bool meanDataExist(const GNEMeanData* meanData) const;
+
+        /**@brief Insert a meanData element int GNENet container.
+         * @throw processError if route was already inserted
+         */
+        void insertMeanData(GNEMeanData* meanData);
+
+        /**@brief delete meanData element of GNENet container
+         * @throw processError if meanData wasn't previously inserted
+         */
+        void deleteMeanData(GNEMeanData* meanData);
+
+        /// @}
+
     private:
         /// @brief pointer to net
         GNENet* myNet;
@@ -686,11 +747,182 @@ struct GNENetHelper {
         /// @brief map with the tag and pointer to all generic datas
         std::map<SumoXMLTag, std::set<GNEGenericData*> > myGenericDatas;
 
+        /// @brief map with the tag and pointer to meanData elements of net
+        std::map<SumoXMLTag, std::set<GNEMeanData*> > myMeanDatas;
+
         /// @brief Invalidated copy constructor.
         AttributeCarriers(const AttributeCarriers&) = delete;
 
         /// @brief Invalidated assignment operator.
         AttributeCarriers& operator=(const AttributeCarriers&) = delete;
+    };
+
+    /// @brief modul for Saving status
+    class SavingStatus {
+
+    public:
+        /// @brief constructor
+        SavingStatus();
+
+        /// @name SumoConfig
+        /// @{
+
+        /// @brief inform that SumoConfig has to be saved
+        void requireSaveSumoConfig();
+
+        /// @brief mark SumoConfig as saved
+        void SumoConfigSaved();
+
+        /// @brief check if SumoConfig is saved
+        bool isSumoConfigSaved() const;
+
+        /// @}
+
+        /// @name NeteditConfig
+        /// @{
+
+        /// @brief inform that netedit config has to be saved
+        void requireSaveNeteditConfig();
+
+        /// @brief mark netedit config as saved
+        void neteditConfigSaved();
+
+        /// @brief check if netedit config is saved
+        bool isNeteditConfigSaved() const;
+
+        /// @}
+
+        /// @name network
+        /// @{
+
+        /// @brief inform that network has to be saved
+        void requireSaveNetwork();
+
+        /// @brief mark network as saved
+        void networkSaved();
+
+        /// @brief check if network is saved
+        bool isNetworkSaved() const;
+
+        /// @}
+
+        /// @name TLS
+        /// @{
+
+        /// @brief inform that TLS has to be saved
+        void requireSaveTLS();
+
+        /// @brief mark TLS as saved
+        void TLSSaved();
+
+        /// @brief check if TLS are saved
+        bool isTLSSaved() const;
+
+        /// @}
+
+        /// @name edge types
+        /// @{
+
+        /// @brief inform that edgeType has to be saved
+        void requireSaveEdgeType();
+
+        /// @brief mark edgeType as saved
+        void edgeTypeSaved();
+
+        /// @brief check if edgeType are saved
+        bool isEdgeTypeSaved() const;
+
+        /// @}
+
+        /// @name additionals
+        /// @{
+
+        /// @brief inform that additionals has to be saved
+        void requireSaveAdditionals();
+
+        /// @brief mark additionals as saved
+        void additionalsSaved();
+
+        /// @brief check if additionals are saved
+        bool isAdditionalsSaved() const;
+
+        /// @}
+
+        /// @name demand elements
+        /// @{
+
+        /// @brief inform that demand elements has to be saved
+        void requireSaveDemandElements();
+
+        /// @brief mark demand elements as saved
+        void demandElementsSaved();
+
+        /// @brief check if demand elements are saved
+        bool isDemandElementsSaved() const;
+
+        /// @}
+
+        /// @name data elements
+        /// @{
+
+        /// @brief inform that data elements has to be saved
+        void requireSaveDataElements();
+
+        /// @brief mark demand elements as saved
+        void dataElementsSaved();
+
+        /// @brief check if data elements are saved
+        bool isDataElementsSaved() const;
+
+        /// @}
+
+        /// @name mean datas
+        /// @{
+
+        /// @brief inform that mean data elements has to be saved
+        void requireSaveMeanDatas();
+
+        /// @brief mark mean data elements as saved
+        void meanDatasSaved();
+
+        /// @brief check if mean data elements are saved
+        bool isMeanDatasSaved() const;
+
+        /// @}
+
+    private:
+        /// @brief flag for SumoConfigSumoConfig saved
+        bool mySumoConfigSaved = true;
+
+        /// @brief flag for netedit config saved
+        bool myNeteditConfigSaved = true;
+
+        /// @brief flag for network  saved
+        bool myNetworkSaved = true;
+
+        /// @brief flag for TLS saved
+        bool myTLSSaved = true;
+
+        /// @brief flag for edgeType saved
+        bool myEdgeTypeSaved = true;
+
+        /// @brief flag for additional elements saved
+        bool myAdditionalSaved = true;
+
+        /// @brief flag for demand elements saved
+        bool myDemandElementSaved = true;
+
+        /// @brief flag for data elements saved
+        bool myDataElementSaved = true;
+
+        /// @brief flag for meanData elements saved
+        bool myMeanDataElementSaved = true;
+
+        /// @brief Invalidated copy constructor.
+        SavingStatus(const SavingStatus&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        SavingStatus& operator=(const SavingStatus&) = delete;
     };
 
     /// @brief class for GNEChange_ReplaceEdgeInTLS
@@ -701,7 +933,7 @@ struct GNENetHelper {
         /// @brief constructor
         GNEChange_ReplaceEdgeInTLS(NBTrafficLightLogicCont& tllcont, NBEdge* replaced, NBEdge* by);
 
-        /// @bief destructor
+        /// @brief destructor
         ~GNEChange_ReplaceEdgeInTLS();
 
         /// @brief undo action

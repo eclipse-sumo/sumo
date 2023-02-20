@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -161,7 +161,7 @@ NEMALogic::constructTimingAndPhaseDefs(std::string& barriers, std::string& coord
                 if (myPhaseStrLen < 0) {
                     myPhaseStrLen = (int)state.size();
                 } else if (myPhaseStrLen != (int)state.size()) {
-                    throw ProcessError("At NEMA tlLogic '" + getID() + "', different sizes of NEMA phase states. Please check the NEMA XML");
+                    throw ProcessError(TLF("At NEMA tlLogic '%', different sizes of NEMA phase states. Please check the NEMA XML", getID()));
                 }
 
                 // get the lane-based info
@@ -431,6 +431,7 @@ NEMALogic::init(NLDetectorBuilder& nb) {
                                        0, // time-based threshold that decribes how much time has to pass until a vehicle is considerred as halting
                                        0, // speed threshold as halting
                                        0, // minimum dist to the next standing vehicle to make this vehicle count as a participant to the jam
+                                       "",
                                        myVehicleTypes, //vehicle types to consider, if it is empty, meaning consider all types of vehicles
                                        "", // nextEdges (no filtering by vehicle route)
                                        (int)PersonMode::NONE, // detector vehicles, not persons
@@ -562,7 +563,7 @@ NEMALogic::init(NLDetectorBuilder& nb) {
                 }
             }
             if (detectors.size() == 0) {
-                WRITE_WARNINGF("At NEMA tlLogic '%', actuated phase % has no controlling detector", getID(), toString(phaseIndex));
+                WRITE_WARNINGF(TL("At NEMA tlLogic '%', actuated phase % has no controlling detector"), getID(), toString(phaseIndex));
             }
         }
         std::vector<DetectorInfo*> detectorInfos;
@@ -580,7 +581,7 @@ NEMALogic::init(NLDetectorBuilder& nb) {
     for (int i : actuatedLinks) {
         if (linkToDetectors[i].size() == 0 && myLinks[i].size() > 0
                 && (myLinks[i].front()->getLaneBefore()->getPermissions() & motorized) != 0) {
-            WRITE_WARNINGF("At NEMA tlLogic '%, linkIndex % has no controlling detector", getID(), toString(i));
+            WRITE_WARNINGF(TL("At NEMA tlLogic '%, linkIndex % has no controlling detector"), getID(), toString(i));
         }
     }
 }
@@ -626,7 +627,7 @@ NEMALogic::validate_timing() {
 
     // no offset for non coordinated
     if (!coordinateMode && offset != 0) {
-        WRITE_WARNINGF("NEMA tlLogic '%' is not coordinated but an offset was set.", getID());
+        WRITE_WARNINGF(TL("NEMA tlLogic '%' is not coordinated but an offset was set."), getID());
     }
 }
 
@@ -955,7 +956,7 @@ NEMALogic::calculateInitialPhases170() {
 #ifdef DEBUG_NEMA
             const std::string error = "I can't find the correct phase for NEMA tlLogic '" + getID() + "' Ring " + toString(i) + " to start in.";
             WRITE_WARNING(error);
-            WRITE_WARNING("I am starting in the coordinated phases");
+            WRITE_WARNING(TL("I am starting in the coordinated phases"));
 #endif
             activePhases[0] = defaultBarrierPhases[0][0];
             activePhases[1] = defaultBarrierPhases[1][0];

@@ -46,3 +46,16 @@ The following output attributes are generated:
 | containerStop      | id (optional) | The id of the containerStop if this stop took place at a named `<containerStop/>` |
 | parkingArea        | id (optional) | The id of the parkingArea if this stop took place at a named  `<parkingArea/>`    |
 | chargingStation    | id (optional) | The id of the chargingStation if this stop took place at a named `<chargingStation/>`  |
+
+
+## Visualization Examples
+
+### boarding passengers vs delay for each station
+
+<img src="../../images/plotAttrs_boardingDelay.png" width="500px"/>
+Generated with [plotXMLAttributes.py](../../Tools/Visualization.md#boarding_passengers_vs_delay_for_each_station)
+
+### Public transport schedule
+
+<img src="../../images/schedule_until.png" width="500px"/>
+Generated with [plotXMLAttributes.py](../../Tools/Visualization.md#public_transport_schedule)

@@ -112,6 +112,10 @@ connected driving in Hamburg.
 
 - [TAVF-Hamburg Scenario on GitHub](https://github.com/DLR-TS/sumo-scenarios/tree/main/TAVF-Hamburg)
 
+# Boston, Lisbon, Los Angeles, Rio de Janeiro, San Francisco
+
+[SUMO simulation files for running 24h of car traffic in five large-scale cities](https://www.research-collection.ethz.ch/handle/20.500.11850/584669)
+
 # Further real-world scenarios
 
 - [Bologna Ringway](http://academic.lucabedogni.it/the-bologna-ringway-dataset/).

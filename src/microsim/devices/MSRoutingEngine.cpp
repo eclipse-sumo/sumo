@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2007-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2007-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -61,7 +61,7 @@ SUMOTime MSRoutingEngine::myLastAdaptation = -1;
 bool MSRoutingEngine::myWithTaz;
 bool MSRoutingEngine::myBikeSpeeds;
 MSRoutingEngine::MSRouterProvider* MSRoutingEngine::myRouterProvider = nullptr;
-std::map<std::pair<const MSEdge*, const MSEdge*>, const MSRoute*> MSRoutingEngine::myCachedRoutes;
+std::map<std::pair<const MSEdge*, const MSEdge*>, ConstMSRoutePtr> MSRoutingEngine::myCachedRoutes;
 double MSRoutingEngine::myPriorityFactor(0);
 double MSRoutingEngine::myMinEdgePriority(std::numeric_limits<double>::max());
 double MSRoutingEngine::myEdgePriorityRange(0);
@@ -93,7 +93,7 @@ MSRoutingEngine::initWeightUpdate() {
             myEdgeWeightSettingCommand = new StaticCommand<MSRoutingEngine>(&MSRoutingEngine::adaptEdgeEfforts);
             MSNet::getInstance()->getEndOfTimestepEvents()->addEvent(myEdgeWeightSettingCommand);
         } else if (period > 0) {
-            WRITE_WARNING("Rerouting is useless if the edge weights do not get updated!");
+            WRITE_WARNING(TL("Rerouting is useless if the edge weights do not get updated!"));
         }
         OutputDevice::createDeviceByOption("device.rerouting.output", "weights", "meandata_file.xsd");
     }
@@ -145,11 +145,11 @@ MSRoutingEngine::_initEdgeWeights(std::vector<double>& edgeSpeeds, std::vector<s
         myLastAdaptation = MSNet::getInstance()->getCurrentTimeStep();
         myPriorityFactor = oc.getFloat("weights.priority-factor");
         if (myPriorityFactor < 0) {
-            throw ProcessError("weights.priority-factor cannot be negative.");
+            throw ProcessError(TL("weights.priority-factor cannot be negative."));
         }
         if (myPriorityFactor > 0) {
             if (myEdgePriorityRange == 0) {
-                WRITE_WARNING("Option weights.priority-factor does not take effect because all edges have the same priority");
+                WRITE_WARNING(TL("Option weights.priority-factor does not take effect because all edges have the same priority"));
                 myPriorityFactor = 0;
             }
         }
@@ -221,10 +221,6 @@ MSRoutingEngine::adaptEdgeEfforts(SUMOTime currentTime) {
     }
     if (MSNet::getInstance()->getVehicleControl().getDepartedVehicleNo() == 0) {
         return myAdaptationInterval;
-    }
-    std::map<std::pair<const MSEdge*, const MSEdge*>, const MSRoute*>::iterator it = myCachedRoutes.begin();
-    for (; it != myCachedRoutes.end(); ++it) {
-        it->second->release();
     }
     myCachedRoutes.clear();
     const MSEdgeVector& edges = MSNet::getInstance()->getEdgeControl().getEdges();
@@ -363,7 +359,7 @@ MSRoutingEngine::patchSpeedForTurns(const MSEdge* edge, double currSpeed) {
 }
 
 
-const MSRoute*
+ConstMSRoutePtr
 MSRoutingEngine::getCachedRoute(const std::pair<const MSEdge*, const MSEdge*>& key) {
     auto routeIt = myCachedRoutes.find(key);
     if (routeIt != myCachedRoutes.end()) {
@@ -412,7 +408,7 @@ MSRoutingEngine::initRouter(SUMOVehicle* vehicle) {
             MSEdge::getAllEdges(), true, myEffortFunc,
             string2time(oc.getString("begin")), string2time(oc.getString("end")), weightPeriod, hasPermissions, oc.getInt("device.rerouting.threads"));
     } else {
-        throw ProcessError("Unknown routing algorithm '" + routingAlgorithm + "'!");
+        throw ProcessError(TLF("Unknown routing algorithm '%'!", routingAlgorithm));
     }
 
     RailwayRouter<MSEdge, SUMOVehicle>* railRouter = nullptr;
@@ -582,8 +578,7 @@ MSRoutingEngine::RoutingTask::run(MFXWorkerThread* context) {
         const std::pair<const MSEdge*, const MSEdge*> key = std::make_pair(source, dest);
         FXMutexLock lock(myRouteCacheMutex);
         if (MSRoutingEngine::myCachedRoutes.find(key) == MSRoutingEngine::myCachedRoutes.end()) {
-            MSRoutingEngine::myCachedRoutes[key] = &myVehicle.getRoute();
-            myVehicle.getRoute().addReference();
+            MSRoutingEngine::myCachedRoutes[key] = myVehicle.getRoutePtr();
         }
     }
 }

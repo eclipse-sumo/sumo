@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -15,6 +15,7 @@
 # @author  Daniel Krajzewicz
 # @author  Jakob Erdmann
 # @author  Michael Behrisch
+# @author  Mirko Barthauer
 # @date    2009-07-08
 
 """
@@ -280,6 +281,10 @@ for d, p in [
             oldWorkDir = os.getcwd()
             os.chdir(testPath)
             haveConfig = False
+            # look for python executable
+            pythonPath = os.environ["PYTHON"] if "PYTHON" in os.environ else os.environ.get("PYTHON_HOME", "python")
+            if os.path.isdir(pythonPath):
+                pythonPath = os.path.join(pythonPath, "python")
             if app in ["dfrouter", "duarouter", "jtrrouter", "marouter", "netconvert",
                        "netgen", "netgenerate", "od2trips", "polyconvert", "sumo", "activitygen"]:
                 if app == "netgen":
@@ -300,7 +305,7 @@ for d, p in [
                 for i, a in enumerate(appOptions):
                     if a.endswith(".py"):
                         del appOptions[i:i+1]
-                        appOptions[0:0] = [os.environ.get("PYTHON", "python"), '"$SUMO_HOME/%s"' % a]
+                        appOptions[0:0] = [pythonPath, '"$SUMO_HOME/%s"' % a]
                         break
                     if a.endswith(".jar"):
                         del appOptions[i:i+1]
@@ -314,13 +319,13 @@ for d, p in [
                         else:
                             a = '"$SUMO_HOME/%s"' % a
                         del appOptions[i:i+1]
-                        appOptions[0:0] = [os.environ.get("PYTHON", "python"), a]
+                        appOptions[0:0] = [pythonPath, a]
                         break
             if not haveConfig:
                 if options.verbose:
                     print("generating shell scripts for testPath '%s' with call '%s'" %
                           (testPath, " ".join(appOptions)))
-                cmd = [o if " " not in o else "'%s'" % o for o in appOptions]
+                cmd = [ao if " " not in ao else "'%s'" % ao for ao in appOptions]
                 with open(nameBase + ".sh", "w") as sh:
                     sh.write(" ".join(cmd))
                 os.chmod(nameBase + ".sh", os.stat(nameBase + ".sh").st_mode | stat.S_IXUSR)

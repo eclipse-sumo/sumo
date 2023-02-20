@@ -1,0 +1,21 @@
+Loaded 49 routes (49 distinct)
+Using total count of 49 in proportion to input vehicle counts: 12,11,12,12,2
+Ignored 37 routes which do not pass any counting location
+0: Wrote 12 routes (8 distinct) achieving total count 21 (91.30%) at 4 locations. GEH<5 for 50.00%
+Warning: underflow locations: count 2, min 1.00 (('-31.80.00', '-23')), max 1.00 (('-31.80.00', '-23')), mean 1.00, Q1 1.00, median 1.00, Q3 1.00 (total 2)
+Ignored 37 routes which do not pass any counting location
+12: Wrote 11 routes (9 distinct) achieving total count 15 (93.75%) at 4 locations. GEH<5 for 75.00%
+Warning: underflow locations: count 1, min 1.00 (('-23.80.00', '-11')), max 1.00 (('-23.80.00', '-11')), mean 1.00, Q1 1.00, median 1.00, Q3 1.00 (total 1)
+Ignored 37 routes which do not pass any counting location
+24: Wrote 12 routes (8 distinct) achieving total count 15 (100.00%) at 4 locations. GEH<5 for 100.00%
+Ignored 37 routes which do not pass any counting location
+36: Wrote 12 routes (8 distinct) achieving total count 21 (77.78%) at 4 locations. GEH<5 for 25.00%
+Warning: underflow locations: count 3, min 1.00 (('-31.80.00', '-23')), max 3.00 (('-131', '-131.180.00')), mean 2.00, Q1 1.00, median 2.00, Q3 3.00 (total 6)
+Ignored 37 routes which do not pass any counting location
+48: Wrote 2 routes (2 distinct) achieving total count 3 (60.00%) at 4 locations. GEH<5 for 50.00%
+Warning: underflow locations: count 2, min 1.00 (('-31.80.00', '-23')), max 1.00 (('-31.80.00', '-23')), mean 1.00, Q1 1.00, median 1.00, Q3 1.00 (total 2)
+avg interval input count: count 5, min 5.00 (48.0), max 27.00 (36.0), mean 17.20, Q1 15.00, median 16.00, Q3 23.00
+avg interval written vehs: count 5, min 2.00 (48.0), max 12.00 (0.0), mean 9.80, Q1 11.00, median 12.00, Q3 12.00
+avg interval underflow: count 5, min 0.00 (24.0), max 6.00 (36.0), mean 2.20, Q1 1.00, median 2.00, Q3 2.00
+avg interval overflow: count 5, min 0.00 (0.0), max 0.00 (0.0), mean 0.00, Q1 0.00, median 0.00, Q3 0.00
+avg interval GEH%: count 5, min 25.00 (36.0), max 100.00 (24.0), mean 60.00, Q1 50.00, median 50.00, Q3 75.00

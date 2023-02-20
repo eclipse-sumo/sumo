@@ -67,3 +67,6 @@ extend-priority_bidi
 
 # road connections should not be affect by railway repair
 road_connections
+
+# tests for extending existing bidi-edges with explicit filter
+extendBidi_filter

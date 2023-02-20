@@ -129,8 +129,8 @@ are listed below:
 - Ctrl-LeftClick: toggle selection status of object under cursor
 - Arrow Keys: move the view
 - Ctrl + Arrow keys: move the view less
-- PageUp / PageDow: move the view up/down (a lot)
-- Shift + PageUp / PageDow: move the view left/right (a lot)
+- Alt + Arrow keys: move the view a lot
+- PageUp / PageDow: change simulation delay
 - \+/-, Keypad +/-: zoom in/out
 - Home/Keypad Home: recenter view
 - F9: open view settings dialog
@@ -509,7 +509,7 @@ value/range
 
 ## Vehicle Visualisation Settings
 
-### Vehicle shape shemes
+### Vehicle shape schemes
 
 | Name          | Description                                                                                                                      |
 | ------------- | -------------------------------------------------------------------------------------------------------------------------------- |
@@ -625,7 +625,20 @@ Each text can be configured with regard to it's size color and background color.
 | by inclination                           | %       | By the average change in height between start and end of the lane per m                                                                                                |
 | by segment inclination                   | %       | By the average change in height between start and end of each geometry segment                                                                                         |
 | by average speed                         | m/s     | By the average speed of vehicles on the lane                                                                                                                           |
-| by average relative speed                | %       | By the average speed of vehicles on the lane as percentage of the allowed speed                                                                                        |
+| by average relative speed                | %       | By the average speed of vehicles on the lane as percentage of the allowed speed      |
+| by routing device assumed speed          | m/s   | The averaged speed [computed by the rerouting device](Demand/Automatic_Routing.md#edge_weights) |
+| by insertion backlog                     |       | The number of cars currently delayed for insertion on the lane     |
+| by TAZ                                   |       | By the color of the TAZ to whish this edge belongs (if [TAZs](Demand/Importing_O/D_Matrices.md#describing_the_taz) with colors are loaded) |
+| by param (numerical, streetwise)         |       | By the edge parameter configured in the drop-down list of all known edge parameters.  |
+| by param (numerical, lanewise)           |       | By the lane parameter configured in the drop-down list of all known lane parameters.  |
+| by edgeData (numerical, streetwise)      |       | By the edgeData attribute configured in the drop-down list of all loaded edgeData attributes.  |
+| by edgeData (numerical, streetwise)      |       | By the edgeData attribute configured in the drop-down list of all loaded edgeData attributes.  |
+| by distance (kilometrage)                | m     | By the kilometrage value at start of the edge (negative values indicate falling kilometrage)   |
+| by abs distance (kilometrage)            | m     | By the kilometrage value at start of the edge  |
+| by reachability (traveltime)             | s     | Traveltime for reaching this edge from the most recently used 'selected reachability' location |
+| by thread index                          |       | Index of the thread that is computing this lane (when running with option **--threads** |
+| free parking spaces                      |       | Total number of free parkingArea spaces on that edge |
+| by live edgeData                         |       | By the selected attribute value of the selected meanData id being recorded in the current simulation (configuration via two drop-down lists) |
 
 **Table 2.2 Lane scaling schemes**
 
@@ -750,6 +763,13 @@ the color via [TraCI](TraCI.md) and setting the alpha-channel.
 All objects that have their color set (via input files or visualisation
 settings) support (Red,Green,Blue,Alpha) color values.
 
+## 3D-specific Settings
+The scene is illuminated by a directional light source ("the sun"). The light color originates from the grayscale range can be varied through the 3D-specific Visualization Settings. The **sun brightness** value ranges from 0 (=black) to 255 (=white) and represents the grayscale diffuse light. The ambient light value is half of the diffuse light.
+
+The 3D scene background color can be set to any RGB color. The OSG standard background color is _(51,51,102)_.
+
+Additionally, the visibility of traffic light related items can be set (see [automatically generated 3D environment](#automatically_generated_3d_environment)).
+
 # Configuration Files
 
 **sumo-gui** uses the same configuration files as
@@ -785,7 +805,7 @@ configuration:
 
 # GUI-settings Files
 
-All the settings configured in the *View Settings* dialog can be saved to a file and re-used for a new simulation. We refer to such files as gui-settings files. Such a file can also include information about breapoints, screenshots, simulation delay and background images.
+All the settings configured in the *View Settings* dialog can be saved to a file and re-used for a new simulation. We refer to such files as gui-settings files. Such a file can also include information about breakpoints, screenshots, simulation delay and background images.
 The easiest way to obtain a gui-settings file is via the *View Settings*-Dialog
 ![Open_viewsettings_editor.gif](images/Open_viewsettings_editor.gif
 "Open viewsettings editor"). Simply modify the settings and
@@ -823,7 +843,7 @@ It possible to reference a predefined scheme by it's name alone:
 </viewsettings>
 ```
 
-The name may either be one of the "native" schemes ("standard", "real world", ...) or any schema [stored in the registry](#changing_the_appearancevisualisation_of_the_simulation) by the user.
+The name may either be one of the "native" schemas ("standard", "real world", ...) or any schema [stored in the registry](#changing_the_appearancevisualisation_of_the_simulation) by the user.
 
 ## Breakpoints
 
@@ -876,18 +896,87 @@ the *Windows* menu in the main menu bar.
 When passing multiple files to the [sumo](sumo.md)-option **--gui-settings-file**, one
 viewing window is opened for each file at the start of the simulation.
 
-## 3D Visualization
+# 3D Visualization
 
-When sumo-gui was compiled with [OSG
-(OpenSceneGraph)](http://www.openscenegraph.org/) support an additional
+When sumo-gui was compiled with [OpenSceneGraph 
+(OSG)](http://www.openscenegraph.org/) support an additional
 (![NewView3D.gif](images/NewView3D.gif "New 3D view"))-button is
-present which can be used to open a 3D-View.
+present to open a new 3D view. A pre-compiled Windows version for testing is available
+[here](https://sumo.dlr.de/daily/sumo-win64extra-git.zip). Optionally sumo-gui will open a 3D view already from the start by 
+supplying the command line option **--osg-view true**.
+
+## 3D Viewport
+The view of the 3D scene can be changed using two methods: The camera can be moved by mouse and keyboard or the view can be defined in the 
+viewport dialog. The following table summarizes which mouse actions and keys can be used to control the view.
+
+| Name          | Description                                                                                                                      |
+| ------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `F`           | Switch between `terrain` and `ego` camera manipulator modes (default: `terrain`)                                                 |
+| `Up` arrow    | Move in view direction                                                                                                           |
+| `Down` arrow  | Move away from view direction                                                                                                    |
+| `Left` arrow  | Move sidewards to the left                                                                                                       |
+| `Right` arrow | Move sidewards to the right                                                                                                      |
+| LMB drag      | Move position in `terrain` mode                                                                                                  |
+| MMB drag      | Rotate view in `terrain` mode (with view target as pivot point)                                                                  |
+| RMB drag      | Zoom view in `terrain` mode                                                                                                      |
+| Mouse movement| Rotate view in `ego` mode (with eye position as pivot point)                                                                     |
+
+Open the viewport editor using the ![Open_viewport_editor.gif](images/Open_viewport_editor.gif
+"Open viewport editor") button. The camera position itself is listed in the left column wheras right "LookAt" coordinates define the 
+target to look at. "LookAt" coordinates are normalized to length 1 by OSG automatically.
+
+Interacting with network elements and vehicles works like in the 2D view: Context-dependent options are available by RMB click on the object 
+to inspect.
+
+## Rendering statistics
+OSG draws some rendering statistics (e.g. frames per seconds) on top of the 3D view by pressing the `I` key. Pressing the key multiple times will unveal different statistics and finally hide them again.
+
+## Automatically generated 3D environment
+Only some of the regular network components have been ported to the 3D view (yet). Currently the following are displayed:
+
+- edges (with sidewalks curbs)
+- junctions
+ - pedestrian crossings
+- traffic lights
+
+Automatically generated traffic lights come in different variants and can be shown/hidden independently of each other 
+through the 3D part of the [GUI settings](#changing_the_appearancevisualisation_of_the_simulation):
+
+- bubbles above the stop line which change their color according to the connection they belong to
+- detailed model with pole(s) and signals (either a cantilever beam or a signal bridge for large roads; single pedestrian signals are placed across the street)
+
+![OSGTrafficLights.png](images/OSGTrafficLights.png)
+
+### Semi-automatic 3D traffic light
+Alternatively to automatically generated traffic lights, there is the option to place a single traffic light on a pole 
+at a custom position and orientation in the network. The [decals table](#showing_background_images) interprets the following 
+*magic* entry in the file column to a single traffic light: `tl:<TL_ID>:<TLLINKINDEX>`. The current signal state is updated 
+accordingly to the *tlLinkIndex* `<TLLINKINDEX>` of the traffic light `<TL_ID>`.
+
+## Adding 3D objects
+### Static models
+Loading individual 3D objects can be done through the [decals table](#showing_background_images) of the GUI settings.
+3D object files in file formats supported by OSG (e.g. obj, 3ds) are loaded in the scene and positioned with the 
+offset values from the decals table. For large scenes, it may be advantageous to build a single 3D object which 
+contains all elements (e.g. buildings) used in sumo-gui.
+
+Additionally, the same background images as in the 2D view can be loaded.
+
+### Vehicle models
+Some basic vehicle models are shipped with SUMO in the `data/3D` directory. Custom vehicle models can be specified 
+in the `osgFile` attribute of the respective vehicle type (see [vehicle types](Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#available_vtype_attributes)). If the custom model 
+cannot be used, it is replaced by a cone shape pointing to the direction of travel.
+
+
+## Limitations
 
 !!! caution
-    The 3D-Visualization is highly experimental
+    The 3D-Visualization is still experimental
+    
+- no pedestrian and cyclist models
+- performance problems when simulating several vehicles
+- reload leaves previous 3D scene in place
 
-An pre-compiled windows version for testing is available
-[here](https://sumo.dlr.de/daily/sumo-win64extra-git.zip).
 
 # Visualizing edge-related data
 
@@ -923,6 +1012,13 @@ the menu using *File-\>Open EdgeData*.
 All attributes will be loaded and can be selected in the street visualization
 settings
 
+## Using Live Data
+
+Instead of loading data from a file you can visualize the aggregated data that is currently being collected by the simulation.
+For this you need to color 'by live edgeData' and select the id of the configure `edgeData` (or `laneData`) element.
+This will always show the current aggregation interval (so the collected data is reset to 0 at the start of a new interval).
+By using the option **--edgedata-output FILE** or **--lanedata-output FILE** you can quickly configure a data colletion that aggregates over the whole simulation.
+
 ## Coloring by Data
 
 To make use of the loaded data, street coloring must be set to **color by
@@ -936,6 +1032,11 @@ coloring scheme that spans the loaded data range for the selected attribute.
     edgeData is time based so it will only be shown when the simulation time has advance to the begin time of the respective data interval. Make sure to advance the simulation to time 0 (step once) or to whatever begin time was used for edgeData generation before using *Recalibrate Rainbow*. To see further data frames, advance the simulation by using delay or breakpoints.
 
 When defining a color scheme, a dedicated color for missing data ('No Data') can always be configured.
+
+## Scaling by Data
+
+To make use of the loaded data for increasing the visual width of the roads, street scaling must be set to **scale width by
+edgeData** in the visualization settings dialog. After the scaling scheme has been selected, an attribute selection element becomes active which lists all the available edgeData attributes and must be used to pick the desired attribute for scaling.
 
 # Usage Examples
 
@@ -1000,7 +1101,7 @@ output or in error messages. The following visualization settings are
 helpful:
 
 - Junction settings:
-  - disable *draw junction shape*
+  - disable *draw junction shape* (toggle with hotkey CTRL+J)
   - *show internal edge name*
   - *show internal junction name*
   - *show link junction index* (to see the correspondence between IDs and link indices)

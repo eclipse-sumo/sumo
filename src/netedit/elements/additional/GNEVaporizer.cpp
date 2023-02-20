@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -23,6 +23,7 @@
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
+#include <utils/gui/div/GUIGlobalPostDrawing.h>
 
 #include "GNEVaporizer.h"
 
@@ -32,7 +33,7 @@
 // ===========================================================================
 
 GNEVaporizer::GNEVaporizer(GNENet* net) :
-    GNEAdditional("", net, GLO_VAPORIZER, SUMO_TAG_VAPORIZER, "",
+    GNEAdditional("", net, GLO_VAPORIZER, SUMO_TAG_VAPORIZER, GUIIconSubSys::getIcon(GUIIcon::VAPORIZER), "",
 {}, {}, {}, {}, {}, {}),
 myBegin(0),
 myEnd(0) {
@@ -43,7 +44,7 @@ myEnd(0) {
 
 GNEVaporizer::GNEVaporizer(GNENet* net, GNEEdge* edge, SUMOTime from, SUMOTime end, const std::string& name,
                            const Parameterised::Map& parameters) :
-    GNEAdditional(edge->getID(), net, GLO_VAPORIZER, SUMO_TAG_VAPORIZER, name,
+    GNEAdditional(edge->getID(), net, GLO_VAPORIZER, SUMO_TAG_VAPORIZER,  GUIIconSubSys::getIcon(GUIIcon::VAPORIZER), name,
 {}, {edge}, {}, {}, {}, {}),
 Parameterised(parameters),
 myBegin(from),
@@ -130,60 +131,76 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
             vaporizerColor = s.additionalSettings.vaporizerColor;
             centralLineColor = RGBColor::WHITE;
         }
-        // draw parent and child lines
-        drawParentChildLines(s, s.additionalSettings.connectionColor);
-        // Start drawing adding an gl identificator
-        GLHelper::pushName(getGlID());
-        // Add layer matrix matrix
-        GLHelper::pushMatrix();
-        // translate to front
-        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_VAPORIZER);
-        // set base color
-        GLHelper::setColor(vaporizerColor);
-        // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-        GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry, 0.3 * vaporizerExaggeration);
-        // move to front
-        glTranslated(0, 0, .1);
-        // set central color
-        GLHelper::setColor(centralLineColor);
-        // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-        GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry, 0.05 * vaporizerExaggeration);
-        // move to icon position and front
-        glTranslated(myAdditionalGeometry.getShape().front().x(), myAdditionalGeometry.getShape().front().y(), .1);
-        // rotate over lane
-        GUIGeometry::rotateOverLane(myAdditionalGeometry.getShapeRotations().front() * -1);
-        // Draw icon depending of Route Probe is selected and if isn't being drawn for selecting
-        if (!s.drawForRectangleSelection && s.drawDetail(s.detailSettings.laneTextures, vaporizerExaggeration)) {
-            // set color
-            glColor3d(1, 1, 1);
-            // rotate texture
-            glRotated(90, 0, 0, 1);
-            // draw texture
-            if (drawUsingSelectColor()) {
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::VAPORIZER_SELECTED), s.additionalSettings.vaporizerSize * vaporizerExaggeration);
-            } else {
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::VAPORIZER), s.additionalSettings.vaporizerSize * vaporizerExaggeration);
-            }
-        } else {
-            // set route probe color
+        // avoid draw invisible elements
+        if (vaporizerColor.alpha() != 0) {
+            // draw parent and child lines
+            drawParentChildLines(s, s.additionalSettings.connectionColor);
+            // Start drawing adding an gl identificator
+            GLHelper::pushName(getGlID());
+            // Add layer matrix matrix
+            GLHelper::pushMatrix();
+            // translate to front
+            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_VAPORIZER);
+            // set base color
             GLHelper::setColor(vaporizerColor);
-            // just drawn a box
-            GLHelper::drawBoxLine(Position(0, 0), 0, 2 * s.additionalSettings.vaporizerSize, s.additionalSettings.vaporizerSize * vaporizerExaggeration);
+            // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
+            GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry, 0.3 * vaporizerExaggeration);
+            // move to front
+            glTranslated(0, 0, .1);
+            // set central color
+            GLHelper::setColor(centralLineColor);
+            // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
+            GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry, 0.05 * vaporizerExaggeration);
+            // move to icon position and front
+            glTranslated(myAdditionalGeometry.getShape().front().x(), myAdditionalGeometry.getShape().front().y(), .1);
+            // rotate over lane
+            GUIGeometry::rotateOverLane(myAdditionalGeometry.getShapeRotations().front() * -1);
+            // Draw icon depending of Route Probe is selected and if isn't being drawn for selecting
+            if (!s.drawForRectangleSelection && s.drawDetail(s.detailSettings.laneTextures, vaporizerExaggeration)) {
+                // set color
+                glColor3d(1, 1, 1);
+                // rotate texture
+                glRotated(90, 0, 0, 1);
+                // draw texture
+                if (drawUsingSelectColor()) {
+                    GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::VAPORIZER_SELECTED), s.additionalSettings.vaporizerSize * vaporizerExaggeration);
+                } else {
+                    GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::VAPORIZER), s.additionalSettings.vaporizerSize * vaporizerExaggeration);
+                }
+            } else {
+                // set route probe color
+                GLHelper::setColor(vaporizerColor);
+                // just drawn a box
+                GLHelper::drawBoxLine(Position(0, 0), 0, 2 * s.additionalSettings.vaporizerSize, s.additionalSettings.vaporizerSize * vaporizerExaggeration);
+            }
+            // pop layer matrix
+            GLHelper::popMatrix();
+            // Pop name
+            GLHelper::popName();
         }
-        // pop layer matrix
-        GLHelper::popMatrix();
-        // Pop name
-        GLHelper::popName();
         // draw additional name
         drawAdditionalName(s);
-        // check if dotted contours has to be drawn
+        // check if mouse is over element
+        mouseWithinGeometry(myAdditionalGeometry.getShape(), 0.5);
+        // inspect contour
         if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape(), 0.5,
-                    vaporizerExaggeration, 1, 1);
+            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::INSPECT, myAdditionalGeometry.getShape(), 0.5,
+                    vaporizerExaggeration, true, true);
         }
+        // front element contour
         if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-            GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape(), 0.5,
-                    vaporizerExaggeration, 1, 1);
+            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT, myAdditionalGeometry.getShape(), 0.5,
+                    vaporizerExaggeration, true, true);
+        }
+        // delete contour
+        if (myNet->getViewNet()->drawDeleteContour(this, this)) {
+            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, myAdditionalGeometry.getShape(), 0.5,
+                    vaporizerExaggeration, true, true);
+        }
+        // select contour
+        if (myNet->getViewNet()->drawSelectContour(this, this)) {
+            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::SELECT, myAdditionalGeometry.getShape(), 0.5,
+                    vaporizerExaggeration, true, true);
         }
     }
 }

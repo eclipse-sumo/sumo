@@ -100,14 +100,14 @@ certain meaning and value range:
 | **x**           | float                                                                                                                                                                                                                     | The x-position of the node on the plane in meters                                                                                                  |
 | **y**           | float                                                                                                                                                                                                                     | The y-position of the node on the plane in meters                                                                                                  |
 | z               | float                                                                                                                                                                                                                     | The z-position of the node on the plane in meters                                                                                                  |
-| type            | enum ( "priority", "traffic_light", "right_before_left", "unregulated", "priority_stop", "traffic_light_unregulated", "allway_stop", "rail_signal", "zipper", "traffic_light_right_on_red", "rail_crossing") | An optional type for the node                                                                                                                      |
+| type            | enum ( "priority", "traffic_light", "right_before_left", "left_before_right", "unregulated", "priority_stop", "traffic_light_unregulated", "allway_stop", "rail_signal", "zipper", "traffic_light_right_on_red", "rail_crossing") | An optional type for the node                                                                                                                      |
 | tlType          | enum ( **"static"**, "actuated", "delay_based")                                                                                                                                                                                              | An optional type for the [traffic light algorithm](../Simulation/Traffic_Lights.md#actuated_traffic_lights)
 | tlLayout        | enum (  **"opposites"**, "incoming", "alternateOneWay")                                                                                                                                                                                              | An optional layout for the traffic light plan (see below)
 | tl              | id (string)                                                                                                                                                                                                               | An optional id for the traffic light program. Nodes with the same tl-value will be joined into a single program                                    |
 | radius          | positive float;                                                                                                                                                                                                           | optional turning radius (for all corners) for that node in meters *(default 1.5)*                                                                  |
 | shape           | List of positions; each position is encoded in x,y or x,y,z in meters (do not separate the numbers with a space\!).                                                                                                       | A custom shape for that node. If less than two positions are given, netconvert will reset that node to use a computed shape.                       |
 | keepClear       | bool                                                                                                                                                                                                                      | Whether the [junction-blocking-heuristic](../Simulation/Intersections.md#junction_blocking) should be activated at this node *(default true)* |
-| rightOfWay      | string                                                                                                                                                                                                                    | Set algorithm for computing [\#Right-of-way](#right-of-way). Allowed values are *default* and *edgePriority*                            |
+| rightOfWay      | string                                                                                                                                                                                                                    | Set algorithm for computing [\#Right-of-way](#right-of-way). Allowed values are *default*, *edgePriority*, *mixedPriority*, and *allwayStop*   |
 | fringe      | string                                                                                                                                                                                                                    | Clarify whether this junction is on the [network fringe](#fringe). Allowed values are *default*, *outer* and *inner*      |
 | controlledInner | list of edge ids                                                                                                                                                                                                          | Edges which shall be controlled by a joined TLS despite being incoming as well as outgoing to the jointly controlled nodes                         |
 
@@ -184,8 +184,8 @@ error and will yield in a program stop:
 - `traffic_light`: The junction is
   controlled by a traffic light (priority rules are used to avoid
   collisions if conflicting links have green light at the same time).
-- `right_before_left`: Vehicles will let
-  vehicles coming from their right side pass.
+- `right_before_left`: Vehicles yield to traffic coming from the right.
+- `left_before_right`: Vehicles yield to traffic coming from the left.
 - `unregulated`: The junction is completely
   unregulated - all vehicles may pass without braking; Collision
   detection on the intersection is disabled but collisions beyond the
@@ -214,6 +214,7 @@ error and will yield in a program stop:
   any phase whenever it is safe to do so (after stopping once). This
   behavior is known as
   [right-turn-on-red](https://en.wikipedia.org/wiki/Right_turn_on_red).
+- `dead_end`: There are no connections at this node. This type is assigned automatically. Using this as input will trigger guessing the type.
 
 ## Right-of-way
 
@@ -234,12 +235,23 @@ by itself. It sorts edges according to attributes *priority*, *speed* and
 determined and will receive right-of-way. All other edges will be
 classified as minor.
 
+### rightOfWay="mixedPriority"
+This behaves like "default".
+Setting this value is only useful when configuring the switched-off behavior of
+intersections controlled by traffic lights of type [NEMA](../Simulation/NEMA.md).
+In this case it corresponds to main roads having priority (yellow blinking) and side roads having to stop (red blinking).
+
 ### rightOfWay="edgePriority"
 This mode is useful for customizing
 right-of-way by tuning edge *priority* attributes. The relationship
 between streams of different incoming-edge priority will be solely
 determined by edge priority. For equal-priority values, turning
 directions are also evaluated.
+
+### rightOfWay="allwayStop"
+This mode is only used for configuring the behavior of traffic light junctions when switching the [traffic light off](../Simulation/Traffic_Lights.md#switching_tls_off).
+When this mode is used, the junction will behave like [type](#node_types) `allway_stop` in the 'off' state.
+This is used as the default for nodes controlled by traffic lights of type [NEMA](../Simulation/NEMA.md).
 
 ### Special Cases
 
@@ -297,7 +309,10 @@ The 'fringe' attribute is used by [randomTrips.py](../Tools/Trip.md#randomtripsp
 Sometimes your network may contain nodes which are very close together
 forming a big cluster. This happens frequently when [Importing Networks from OpenStreetMap](../Networks/Import/OpenStreetMap.md).
 [netconvert](../netconvert.md) supports the option **--junctions.join** to find such
-clusters and join them into a big and well shaped junction. Junctions can also be joined manually with [netedit](../Netedit/index.md#processing_menu_options). It is even possible to [undo joins](../Netedit/index.md#junction) that were computed automatically.
+clusters and join them into a big and well shaped junction. Junctions can also be joined manually with [netedit](../Netedit/index.md#processing_menu_options).
+It is even possible to [undo joins](../Netedit/index.md#junction) that were computed automatically.
+The new junction will get the id *cluster_id0_id1*. If there are more nodes in the cluster than given by **--max-join-ids** (default 4)
+the id will be abbreviated to something like *cluster_id0_id1_id2_id3_#5more* (for a 9 node cluster).
 
 ### Reasons for joining node clusters
 Within an intersection, special rules of traffic do apply. When modelling an intersection by a cluster of nodes, the edges within the cluster are regular roads where these rules cannot be applied. 

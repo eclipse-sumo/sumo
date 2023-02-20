@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -17,7 +17,6 @@
 ///
 // Dialog for edit parameters
 /****************************************************************************/
-#include <config.h>
 
 #include <netbuild/NBLoadedSUMOTLDef.h>
 #include <netedit/GNENet.h>
@@ -279,11 +278,11 @@ GNESingleParametersDialog::ParametersOperations::ParametersOperations(FXHorizont
     FXGroupBox(frame, "Operations", GUIDesignGroupBoxFrame100),
     myParameterDialogParent(ParameterDialogParent) {
     // create buttons
-    mySortButton =  new FXButton(this, "Sort",  GUIIconSubSys::getIcon(GUIIcon::RELOAD), this, MID_GNE_BUTTON_SORT, GUIDesignButtonRectangular100);
-    myClearButton = new FXButton(this, "Clear", GUIIconSubSys::getIcon(GUIIcon::CLEANJUNCTIONS), this, MID_GNE_BUTTON_CLEAR, GUIDesignButtonRectangular100);
-    myLoadButton =  new FXButton(this, "Load",  GUIIconSubSys::getIcon(GUIIcon::OPEN_CONFIG), this, MID_GNE_BUTTON_LOAD, GUIDesignButtonRectangular100);
-    mySaveButton =  new FXButton(this, "Save",  GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_GNE_BUTTON_SAVE, GUIDesignButtonRectangular100);
-    myHelpButton =  new FXButton(this, "Help",  GUIIconSubSys::getIcon(GUIIcon::HELP), this, MID_HELP, GUIDesignButtonRectangular100);
+    mySortButton =  new FXButton(this, TL("Sort"),  GUIIconSubSys::getIcon(GUIIcon::RELOAD), this, MID_GNE_BUTTON_SORT, GUIDesignButtonRectangular100);
+    myClearButton = new FXButton(this, TL("Clear"), GUIIconSubSys::getIcon(GUIIcon::CLEANJUNCTIONS), this, MID_GNE_BUTTON_CLEAR, GUIDesignButtonRectangular100);
+    myLoadButton =  new FXButton(this, TL("Load"),  GUIIconSubSys::getIcon(GUIIcon::OPEN), this, MID_GNE_BUTTON_LOAD, GUIDesignButtonRectangular100);
+    mySaveButton =  new FXButton(this, TL("Save"),  GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_GNE_BUTTON_SAVE, GUIDesignButtonRectangular100);
+    myHelpButton =  new FXButton(this, TL("Help"),  GUIIconSubSys::getIcon(GUIIcon::HELP), this, MID_HELP, GUIDesignButtonRectangular100);
 }
 
 
@@ -293,7 +292,7 @@ GNESingleParametersDialog::ParametersOperations::~ParametersOperations() {}
 long
 GNESingleParametersDialog::ParametersOperations::onCmdLoadParameters(FXObject*, FXSelector, void*) {
     // get the Additional file name
-    FXFileDialog opendialog(this, "Open Parameter Template");
+    FXFileDialog opendialog(this, TL("Open Parameter Template"));
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::GREENVEHICLE));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
     opendialog.setPatternList(" Parameter Template files (*.xml,*.xml.gz)\nAll files (*)");
@@ -308,10 +307,10 @@ GNESingleParametersDialog::ParametersOperations::onCmdLoadParameters(FXObject*, 
         // Create additional handler and run parser
         GNEParameterHandler handler(this, file);
         if (!XMLSubSys::runParser(handler, file, false)) {
-            WRITE_MESSAGE("Loading of Parameters From " + file + " failed.");
+            WRITE_MESSAGEF(TL("Loading of Parameters From % failed."), file);
         }
         // show loaded attributes
-        WRITE_MESSAGE("Loaded " + toString((int)myParameterDialogParent->myParametersValues->getParameterRows().size() - numberOfParametersbeforeLoad) + " Parameters.");
+        WRITE_MESSAGEF(TL("Loaded % Parameters."), toString((int)myParameterDialogParent->myParametersValues->getParameterRows().size() - numberOfParametersbeforeLoad));
     }
     return 1;
 }
@@ -321,7 +320,7 @@ long
 GNESingleParametersDialog::ParametersOperations::onCmdSaveParameters(FXObject*, FXSelector, void*) {
     // obtain file to save parameters
     FXString file = MFXUtils::getFilename2Write(this,
-                    "Save Parameter Template file", ".xml",
+                    TL("Save Parameter Template file"), ".xml",
                     GUIIconSubSys::getIcon(GUIIcon::GREENVEHICLE),
                     gCurrentFolder);
     if (file == "") {
@@ -397,10 +396,10 @@ GNESingleParametersDialog::ParametersOperations::onCmdHelpParameter(FXObject*, F
     // set help text
     std::ostringstream help;
     help
-            << "- Parameters are defined by a Key and a Value.\n"
-            << "- In Netedit can be defined using format key1=parameter1|key2=parameter2|...\n"
-            << " - Duplicated and empty Keys aren't valid.\n"
-            << " - Certain characters aren't allowed (\t\n\r@$%^&/|\\....)\n";
+            << TL("- Parameters are defined by a Key and a Value.\n")
+            << TL("- In Netedit can be defined using format key1=parameter1|key2=parameter2|...\n")
+            << TL(" - Duplicated and empty Keys aren't valid.\n")
+            << TL(" - Whitespace and certain characters aren't allowed (@$%^&/|\\....)\n");
     // Create label with the help text
     new FXLabel(ParameterHelpDialog, help.str().c_str(), nullptr, GUIDesignLabelFrameInformation);
     // Create horizontal separator
@@ -409,7 +408,7 @@ GNESingleParametersDialog::ParametersOperations::onCmdHelpParameter(FXObject*, F
     FXHorizontalFrame* myHorizontalFrameOKButton = new FXHorizontalFrame(ParameterHelpDialog, GUIDesignAuxiliarHorizontalFrame);
     // Create Button Close (And two more horizontal frames to center it)
     new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
-    new FXButton(myHorizontalFrameOKButton, "OK\t\tclose", GUIIconSubSys::getIcon(GUIIcon::ACCEPT), ParameterHelpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
+    new FXButton(myHorizontalFrameOKButton, (TL("OK") + std::string("\t\t") + TL("close")).c_str(), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), ParameterHelpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
     new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
     // Write Warning in console if we're in testing mode
     WRITE_DEBUG("Opening Parameter help dialog");
@@ -445,9 +444,9 @@ GNESingleParametersDialog::ParametersOperations::GNEParameterHandler::myStartEle
             case SUMO_TAG_PARAM:
                 // Check that format of Parameter is correct
                 if (!attrs.hasAttribute(SUMO_ATTR_KEY)) {
-                    WRITE_WARNING("Key of Parameter not defined");
+                    WRITE_WARNING(TL("Key of Parameter not defined"));
                 } else if (!attrs.hasAttribute(SUMO_ATTR_VALUE)) {
-                    WRITE_WARNING("Value of Parameter not defined");
+                    WRITE_WARNING(TL("Value of Parameter not defined"));
                 } else {
                     // obtain Key and value
                     std::string key = attrs.getString(SUMO_ATTR_KEY);
@@ -455,12 +454,12 @@ GNESingleParametersDialog::ParametersOperations::GNEParameterHandler::myStartEle
                     // check that parsed values are correct
                     if (!SUMOXMLDefinitions::isValidParameterKey(key)) {
                         if (key.size() == 0) {
-                            WRITE_WARNING("Key of Parameter cannot be empty");
+                            WRITE_WARNING(TL("Key of Parameter cannot be empty"));
                         } else {
-                            WRITE_WARNING("Key '" + key + "' of Parameter contains invalid characters");
+                            WRITE_WARNINGF(TL("Key '%' of Parameter contains invalid characters"), key);
                         }
                     } else if (myParametersOperationsParent->myParameterDialogParent->myParametersValues->keyExist(key)) {
-                        WRITE_WARNING("Key '" + key + "' already exist");
+                        WRITE_WARNINGF(TL("Key '%' already exist"), key);
                     } else {
                         // add parameter to vector of myParameterDialogParent
                         myParametersOperationsParent->myParameterDialogParent->myParametersValues->addParameter(std::make_pair(key, value));
@@ -508,7 +507,7 @@ GNESingleParametersDialog::GNESingleParametersDialog(GNEInspectorFrame::Paramete
 
 
 
-GNESingleParametersDialog::GNESingleParametersDialog(GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow* VTypeAttributeRow, GNEViewNet* viewNet) :
+GNESingleParametersDialog::GNESingleParametersDialog(GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow* VTypeAttributeRow, GNEViewNet* viewNet) :
     FXDialogBox(viewNet->getApp(), "Edit parameters", GUIDesignDialogBoxExplicitStretchable(400, 300)),
     myGenericDataAttributes(nullptr),
     myParametersEditor(nullptr),
@@ -688,9 +687,9 @@ GNESingleParametersDialog::constructor(const std::string& name) {
     // create dialog buttons bot centered
     FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(mainFrame, GUIDesignHorizontalFrame);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
-    myAcceptButton = new FXButton(buttonsFrame, "accept\t\tclose", GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonAccept);
-    myCancelButton = new FXButton(buttonsFrame, "cancel\t\tclose", GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCancel);
-    myResetButton = new FXButton(buttonsFrame,  "reset\t\tclose",  GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GNE_BUTTON_RESET,  GUIDesignButtonReset);
+    myAcceptButton = new FXButton(buttonsFrame, (TL("accept") + std::string("\t\t") + TL("close")).c_str(), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonAccept);
+    myCancelButton = new FXButton(buttonsFrame, (TL("cancel") + std::string("\t\t") + TL("close")).c_str(), GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCancel);
+    myResetButton = new FXButton(buttonsFrame,  (TL("reset") + std::string("\t\t") + TL("close")).c_str(),  GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GNE_BUTTON_RESET,  GUIDesignButtonReset);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
 }
 

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -74,10 +74,10 @@ public:
      */
     virtual MSDetectorFileOutput* createInductLoop(const std::string& id,
             MSLane* lane, double pos, double length,
-            const std::string& vTypes,
+            const std::string name, const std::string& vTypes,
             const std::string& nextEdges,
             int detectPersons,
-            bool show = true) override;
+            bool show) override;
 
 
     /** @brief Creates an instance of an e1 detector using the given values
@@ -90,7 +90,8 @@ public:
      * @param[in] od The output device the loop shall use
      */
     virtual MSDetectorFileOutput* createInstantInductLoop(const std::string& id,
-            MSLane* lane, double pos, const std::string& od, const std::string& vTypes, const std::string& nextEdges) override;
+            MSLane* lane, double pos, const std::string& od, const std::string name,
+            const std::string& vTypes, const std::string& nextEdges) override;
 
     /** @brief Creates a GUIE2Collector instance, overrides MSE2Collector::createE2Detector()
      *
@@ -101,14 +102,14 @@ public:
     virtual MSE2Collector* createE2Detector(const std::string& id,
                                             DetectorUsage usage, MSLane* lane, double pos, double endPos, double length,
                                             SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
-                                            const std::string& vTypes,
+                                            const std::string name, const std::string& vTypes,
                                             const std::string& nextEdges,
                                             int detectPersons, bool showDetector) override;
 
     virtual MSE2Collector* createE2Detector(const std::string& id,
                                             DetectorUsage usage, std::vector<MSLane*> lanes, double pos, double endPos,
                                             SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
-                                            const std::string& vTypes,
+                                            const std::string name, const std::string& vTypes,
                                             const std::string& nextEdges,
                                             int detectPersons, bool showDetector) override;
 
@@ -128,7 +129,7 @@ public:
             const CrossSectionVector& exits,
             double haltingSpeedThreshold,
             SUMOTime haltingTimeThreshold,
-            const std::string& vTypes,
+            const std::string name, const std::string& vTypes,
             const std::string& nextEdges,
             int detectPersons, bool openEntry) override;
     /// @}

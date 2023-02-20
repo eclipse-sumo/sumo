@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-10-27 23:17:05.915393 by routeSampler.py v1_14_1+2042-5443142
+<configuration>
+    <route-files value="input_routes.rou.xml"/>
+    <total-count value="100"/>
+    <turn-files value="input_turns.xml"/>
+    <verbose value="True"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+<!-- begin="0.0" end="99.0" -->
+    <vehicle id="0" depart="0.00">
+        <route edges="-60 -60.80.00 -31 -31.80.00 -23 -23.80.00 -11 -11.80.00 3 3.180.00 -3 -3.180.00"/>
+    </vehicle>
+    <vehicle id="1" depart="5.50">
+        <route edges="-152.80.00 -131 -131.180.00 -120 -120.180.00 -75 -75.121.42 79"/>
+    </vehicle>
+    <vehicle id="2" depart="11.00">
+        <route edges="-60 -60.80.00 -31 -31.80.00 -23 -23.80.00 -11 -11.80.00 3 3.180.00 -3 -3.180.00"/>
+    </vehicle>
+    <vehicle id="3" depart="16.50">
+        <route edges="75.121.42 -64 -64.80.00 -31 -31.80.00 -23 -23.80.00 -11"/>
+    </vehicle>
+    <vehicle id="4" depart="22.00">
+        <route edges="-60 -60.80.00 -31 -31.80.00 -23 -23.80.00 -11 -11.80.00 3 3.180.00 -3 -3.180.00"/>
+    </vehicle>
+    <vehicle id="5" depart="27.50">
+        <route edges="-152.80.00 -131 -131.180.00 -120 -120.180.00 -75 -75.121.42 79"/>
+    </vehicle>
+    <vehicle id="6" depart="33.00">
+        <route edges="-152.80.00 -131 -131.180.00 -120 -120.180.00 -75 -75.121.42 79"/>
+    </vehicle>
+    <vehicle id="7" depart="38.50">
+        <route edges="-60 -60.80.00 -31 -31.80.00 -23 -23.80.00 -11 -11.80.00 3 3.180.00 -3 -3.180.00"/>
+    </vehicle>
+    <vehicle id="8" depart="44.00">
+        <route edges="-152.80.00 -131 -131.180.00 -120 -120.180.00 -75 -75.121.42 79"/>
+    </vehicle>
+    <vehicle id="9" depart="49.50">
+        <route edges="-92.180.00 -60 -60.80.00 -31 -31.80.00 -23 -23.80.00 -11 -11.80.00 3 3.180.00 -3 -3.180.00"/>
+    </vehicle>
+    <vehicle id="10" depart="55.00">
+        <route edges="-152.80.00 -131 -131.180.00 -120 -120.180.00 -75 -75.121.42 79"/>
+    </vehicle>
+    <vehicle id="11" depart="60.50">
+        <route edges="-152.80.00 -131 -131.180.00 -120 -120.180.00 -75 -75.121.42 79"/>
+    </vehicle>
+    <vehicle id="12" depart="66.00">
+        <route edges="75.121.42 -64 -64.80.00 -31 -31.80.00 -23 -23.80.00 -11"/>
+    </vehicle>
+    <vehicle id="13" depart="71.50">
+        <route edges="75.121.42 -64 -64.80.00 -31 -31.80.00 -23 -23.80.00 -11"/>
+    </vehicle>
+    <vehicle id="14" depart="77.00">
+        <route edges="75.121.42 -64 -64.80.00 -31 -31.80.00 -23 -23.80.00 -11"/>
+    </vehicle>
+    <vehicle id="15" depart="82.50">
+        <route edges="75.121.42 -64 -64.80.00 -31 -31.80.00 -23 -23.80.00 -11"/>
+    </vehicle>
+    <vehicle id="16" depart="88.00">
+        <route edges="-60 -60.80.00 -31 -31.80.00 -23 -23.80.00 -11 -11.80.00 3 3.180.00 -3 -3.180.00"/>
+    </vehicle>
+    <vehicle id="17" depart="93.50">
+        <route edges="75.121.42 -64 -64.80.00 -31 -31.80.00 -23 -23.80.00 -11"/>
+    </vehicle>
+</routes>

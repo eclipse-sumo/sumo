@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2014-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2014-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -84,7 +84,7 @@ MSPModel_Remote::add(MSTransportable* person, MSStageMoving* stage, SUMOTime now
                        || edge->getFromJunction() == prv->getFromJunction()) ? FORWARD : BACKWARD;
             }
             if (edgesTransitionsMapping.find(edge) == edgesTransitionsMapping.end()) {
-                throw ProcessError("Cannot map edge : " + edge->getID() + " to remote simulation");
+                throw ProcessError(TLF("Cannot map edge : % to remote simulation", edge->getID()));
             };
             std::tuple<int, int> transitions = edgesTransitionsMapping[edge];
 
@@ -101,11 +101,11 @@ MSPModel_Remote::add(MSTransportable* person, MSStageMoving* stage, SUMOTime now
         ClientContext context;
         Status st = myHybridsimStub->transferAgent(&context, req, &rpl);
         if (!st.ok()) {
-            throw ProcessError("Person: " + person->getID() + " could not be transferred to remote simulation");
+            throw ProcessError(TLF("Person: % could not be transferred to remote simulation", person->getID()));
         }
         if (!rpl.val()) {
             //TODO not yet implemented
-            throw ProcessError("Remote simulation declined to accept person: " + person->getID() + ".");
+            throw ProcessError(TLF("Remote simulation declined to accept person: %.", person->getID()));
         }
     */
     return state;
@@ -118,7 +118,7 @@ MSPModel_Remote::~MSPModel_Remote() {
         ClientContext context1;
         Status st = myHybridsimStub->shutdown(&context1, req, &rpl);
         if (!st.ok()) {
-            throw ProcessError("Could not shutdown remote server");
+            throw ProcessError(TL("Could not shutdown remote server"));
         }
 
     */
@@ -147,7 +147,7 @@ MSPModel_Remote::execute(SUMOTime time) {
         ClientContext context2;
         Status st2 = myHybridsimStub->receiveTrajectories(&context2, req2, &trajectories);
         if (!st2.ok()) {
-            throw ProcessError("Could not receive trajectories from remote simulation");
+            throw ProcessError(TL("Could not receive trajectories from remote simulation"));
         }
         for (hybridsim::Trajectory trajectory : trajectories.trajectories()) {
             if (remoteIdPStateMapping.find(trajectory.id()) != remoteIdPStateMapping.end()) {
@@ -165,7 +165,7 @@ MSPModel_Remote::execute(SUMOTime time) {
                 }
     //            pState.
             } else {
-                throw ProcessError("Pedestrian with id: " + toString(trajectory.id()) + " is not known.");
+                throw ProcessError(TLF("Pedestrian with id: % is not known.", toString(trajectory.id())));
             }
         }
 
@@ -175,7 +175,7 @@ MSPModel_Remote::execute(SUMOTime time) {
         ClientContext context3;
         Status st3 = myHybridsimStub->queryRetrievableAgents(&context3, req3, &agents);
         if (!st3.ok()) {
-            throw ProcessError("Could not query retrievable agents");
+            throw ProcessError(TL("Could not query retrievable agents"));
         }
         //TODO check whether agents can be retrieved
         for (hybridsim::Agent agent : agents.agents()) {
@@ -192,7 +192,7 @@ MSPModel_Remote::execute(SUMOTime time) {
         ClientContext context4;
         Status st4 = myHybridsimStub->confirmRetrievedAgents(&context4, agents, &rpl2);
         if (!st4.ok()) {
-            throw ProcessError("Could not confirm retrieved agents");
+            throw ProcessError(TL("Could not confirm retrieved agents"));
         }
     */
     return DELTA_T;
@@ -206,7 +206,7 @@ MSPModel_Remote::getFirstPedestrianLane(const MSEdge* const& edge) {
             return lane;
         }
     }
-    throw ProcessError("Edge: " + edge->getID() + " does not allow pedestrians.");
+    throw ProcessError(TLF("Edge: % does not allow pedestrians.", edge->getID()));
 }
 
 
@@ -296,5 +296,5 @@ MSPModel_Remote::usingInternalLanes() {
 
 void
 MSPModel_Remote::clearState() {
-    throw ProcessError("Pedestrian model 'remote' does not support simulation.loadState state\n");
+    throw ProcessError(TL("Pedestrian model 'remote' does not support simulation.loadState state\n"));
 }

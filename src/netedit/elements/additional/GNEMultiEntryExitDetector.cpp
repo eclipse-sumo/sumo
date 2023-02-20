@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -33,22 +33,20 @@
 // ===========================================================================
 
 GNEMultiEntryExitDetector::GNEMultiEntryExitDetector(GNENet* net) :
-    GNEAdditional("", net, GLO_E3DETECTOR, SUMO_TAG_ENTRY_EXIT_DETECTOR, "",
-        {}, {}, {}, {}, {}, {}),
-    myPeriod(0),
-    myFilename(""),
-    myTimeThreshold(0),
-    mySpeedThreshold(0) {
+    GNEAdditional("", net, GLO_E3DETECTOR, SUMO_TAG_ENTRY_EXIT_DETECTOR, GUIIconSubSys::getIcon(GUIIcon::E3ENTRY), "", {}, {}, {}, {}, {}, {}),
+              myPeriod(0),
+              myFilename(""),
+              myTimeThreshold(0),
+mySpeedThreshold(0) {
     // reset default values
     resetDefaultValues();
 }
 
 
 GNEMultiEntryExitDetector::GNEMultiEntryExitDetector(const std::string& id, GNENet* net, const Position pos, const SUMOTime freq, const std::string& filename,
-                             const std::vector<std::string>& vehicleTypes, const std::string& name, SUMOTime timeThreshold, double speedThreshold,
-                             const Parameterised::Map& parameters) :
-    GNEAdditional(id, net, GLO_E3DETECTOR, SUMO_TAG_ENTRY_EXIT_DETECTOR, name,
-{}, {}, {}, {}, {}, {}),
+        const std::vector<std::string>& vehicleTypes, const std::string& name, SUMOTime timeThreshold, double speedThreshold,
+        const Parameterised::Map& parameters) :
+    GNEAdditional(id, net, GLO_E3DETECTOR, SUMO_TAG_ENTRY_EXIT_DETECTOR, GUIIconSubSys::getIcon(GUIIcon::E3EXIT), name, {}, {}, {}, {}, {}, {}),
 Parameterised(parameters),
 myPosition(pos),
 myPeriod(freq),
@@ -114,7 +112,7 @@ GNEMultiEntryExitDetector::writeAdditional(OutputDevice& device) const {
         writeParams(device);
         device.closeTag();
     } else {
-        WRITE_WARNING(myTagProperty.getTagStr() + " '" + getID() + "' needs at least one entry and one exit");
+        WRITE_WARNING("E3 '" + getID() + TL("' needs at least one entry and one exit"));
     }
 }
 
@@ -272,7 +270,6 @@ GNEMultiEntryExitDetector::isValid(SumoXMLAttr key, const std::string& value) {
                 return SUMOXMLDefinitions::isValidListOfTypeID(value);
             }
         case SUMO_ATTR_HALTING_TIME_THRESHOLD:
-            return canParse<SUMOTime>(value);
         case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
             return canParse<double>(value) && (parse<double>(value) >= 0);
         case GNE_ATTR_SELECTED:
@@ -299,10 +296,10 @@ GNEMultiEntryExitDetector::checkChildAdditionalRestriction() const {
     }
     // write warnings
     if (numEntrys == 0) {
-        WRITE_WARNING("An " + toString(SUMO_TAG_ENTRY_EXIT_DETECTOR) + " need at least one " + toString(SUMO_TAG_DET_ENTRY) + " detector");
+        WRITE_WARNING(TL("An entry-exit detector needs at least one entry detector"));
     }
     if (numExits == 0) {
-        WRITE_WARNING("An " + toString(SUMO_TAG_ENTRY_EXIT_DETECTOR) + " need at least one " + toString(SUMO_TAG_DET_EXIT) + " detector");
+        WRITE_WARNING(TL("An entry-exit detector needs at least one exit detector"));
     }
     // return false depending of number of Entrys and Exits
     return ((numEntrys != 0) && (numExits != 0));

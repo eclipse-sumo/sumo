@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2002-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -61,7 +61,8 @@ std::vector<GUIParameterTableWindow*> GUIParameterTableWindow::myContainer;
 // method definitions
 // ===========================================================================
 GUIParameterTableWindow::GUIParameterTableWindow(GUIMainWindow& app, GUIGlObject& o) :
-    FXMainWindow(app.getApp(), (o.getFullName() + " Parameter").c_str(), nullptr, nullptr, DECOR_ALL, 20, 20, 200, 500),
+    FXMainWindow(app.getApp(), (o.getFullName() + " Parameter").c_str(), nullptr, nullptr, DECOR_ALL, 20, 40, 200, 500),
+    GUIPersistentWindowPos(this, "DIALOG_PARAMETERS", false, 20, 40),
     myObject(&o),
     myApplication(&app),
     myTrackerY(50),
@@ -89,6 +90,7 @@ GUIParameterTableWindow::GUIParameterTableWindow(GUIMainWindow& app, GUIGlObject
     myContainer.push_back(this);
     // Table cannot be editable
     myTable->setEditable(FALSE);
+    loadWindowPos();
 }
 
 GUIParameterTableWindow::~GUIParameterTableWindow() {
@@ -257,7 +259,12 @@ GUIParameterTableWindow::closeBuilding(const Parameterised* p) {
         }
     }
     const int rows = (int)myItems.size() + 1;
-    setHeight(rows * 20 + 40);
+    int h = rows * 20 + 40;
+    // adjust size in case there are higher (multi-line) rows
+    for (int i = 0; i < (int)myItems.size(); i++) {
+        h += MAX2(0, myTable->getRowHeight(i) - 20);
+    }
+    setHeight(h);
     myTable->fitColumnsToContents(1);
     setWidth(myTable->getContentWidth() + 40);
     myTable->setVisibleRows(rows);
@@ -265,6 +272,7 @@ GUIParameterTableWindow::closeBuilding(const Parameterised* p) {
     create();
     show();
 }
+
 
 void
 GUIParameterTableWindow::checkFont(const std::string& text) {

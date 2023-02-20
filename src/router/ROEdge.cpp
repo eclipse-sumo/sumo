@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2002-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -84,9 +84,11 @@ ROEdge::ROEdge(const std::string& id, RONode* from, RONode* to, int index, const
 
 
 ROEdge::~ROEdge() {
-    for (std::vector<ROLane*>::iterator i = myLanes.begin(); i != myLanes.end(); ++i) {
-        delete (*i);
+    for (ROLane* const lane : myLanes) {
+        delete lane;
     }
+    delete myReversedRoutingEdge;
+    delete myRailwayRoutingEdge;
 }
 
 
@@ -199,7 +201,7 @@ ROEdge::getTravelTime(const ROVehicle* const veh, double time) const {
             return MAX2(getMinimumTravelTime(veh), lineTT);
         } else {
             if (!myHaveTTWarned) {
-                WRITE_WARNINGF("No interval matches passed time=% in edge '%'.\n Using edge's length / max speed.", time, myID);
+                WRITE_WARNINGF(TL("No interval matches passed time=% in edge '%'.\n Using edge's length / max speed."), time, myID);
                 myHaveTTWarned = true;
             }
         }
@@ -225,7 +227,7 @@ ROEdge::getStoredEffort(double time, double& ret) const {
     if (myUsingETimeLine) {
         if (!myEfforts.describesTime(time)) {
             if (!myHaveEWarned) {
-                WRITE_WARNINGF("No interval matches passed time=% in edge '%'.\n Using edge's length / edge's speed.", time, myID);
+                WRITE_WARNINGF(TL("No interval matches passed time=% in edge '%'.\n Using edge's length / edge's speed."), time, myID);
                 myHaveEWarned = true;
             }
             return false;
@@ -448,7 +450,7 @@ ROEdge::initPriorityFactor(double priorityFactor) {
     }
     myEdgePriorityRange = maxEdgePriority - myMinEdgePriority;
     if (myEdgePriorityRange == 0) {
-        WRITE_WARNING("Option weights.priority-factor does not take effect because all edges have the same priority.");
+        WRITE_WARNING(TL("Option weights.priority-factor does not take effect because all edges have the same priority."));
         myPriorityFactor = 0;
         return false;
     }

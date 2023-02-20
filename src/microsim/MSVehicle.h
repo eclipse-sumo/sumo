@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -209,7 +209,7 @@ public:
      * @param[in] speedFactor The factor for driven lane's speed limits
      * @exception ProcessError If a value is wrong
      */
-    MSVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
+    MSVehicle(SUMOVehicleParameter* pars, ConstMSRoutePtr route,
               MSVehicleType* type, const double speedFactor);
 
     /// @brief Destructor.
@@ -253,7 +253,7 @@ public:
      * @param[in] removeStops Whether stops should be removed if they do not fit onto the new route
      * @return Whether the new route was accepted
      */
-    bool replaceRoute(const MSRoute* route, const std::string& info, bool onInit = false, int offset = 0, bool addStops = true, bool removeStops = true, std::string* msgReturn = nullptr);
+    bool replaceRoute(ConstMSRoutePtr route, const std::string& info, bool onInit = false, int offset = 0, bool addStops = true, bool removeStops = true, std::string* msgReturn = nullptr);
 
     //@}
 
@@ -1013,12 +1013,6 @@ public:
     /// @brief Returns the remaining stop duration for a stopped vehicle or 0
     SUMOTime remainingStopDuration() const;
 
-    /** @brief Returns whether the vehicle stops at the given stopping place */
-    bool stopsAt(MSStoppingPlace* stop) const;
-
-    /** @brief Returns whether the vehicle stops at the given edge */
-    bool stopsAtEdge(const MSEdge* edge) const;
-
     /** @brief Returns whether the vehicle will stop on the current edge
      */
     bool willStop() const;
@@ -1065,7 +1059,7 @@ public:
 
 
     /** @brief Processes stops, returns the velocity needed to reach the stop
-     * @return The velocity in dependance to the next/current stop
+     * @return The velocity in dependence to the next/current stop
      * @todo Describe more detailed
      * @see Stop
      * @see MSStoppingPlace
@@ -2043,6 +2037,12 @@ public:
     /// @brief decide whether a red (or yellow light) may be ignore
     bool ignoreRed(const MSLink* link, bool canBrake) const;
 
+    /// @brief maximum acceleration to consider a vehicle as 'waiting' at low speed
+    inline double accelThresholdForWaiting() const {
+        return 0.5 * getCarFollowModel().getMaxAccel();
+    }
+
+
 protected:
 
     /* @brief adapt safe velocity in accordance to multiple vehicles ahead:
@@ -2110,10 +2110,8 @@ protected:
     /// @brief whether the give lane is reverse direction of the current route or not
     bool isOppositeLane(const MSLane* lane) const;
 
-    /// @brief maximum acceleration to consider a vehicle as 'waiting' at low speed
-    inline double accelThresholdForWaiting() const {
-        return 0.5 * getCarFollowModel().getMaxAccel();
-    }
+    /// @brief remove vehicle from further lanes (on leaving the network)
+    void cleanupFurtherLanes();
 
 private:
     /// @brief The per vehicle variables of the car following model

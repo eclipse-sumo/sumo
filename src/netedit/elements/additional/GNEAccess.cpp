@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -27,6 +27,7 @@
 #include <netedit/frames/common/GNEMoveFrame.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
+#include <utils/gui/div/GUIGlobalPostDrawing.h>
 
 #include "GNEAccess.h"
 #include "GNEAdditionalHandler.h"
@@ -36,10 +37,9 @@
 // ===========================================================================
 
 GNEAccess::GNEAccess(GNENet* net) :
-    GNEAdditional("", net, GLO_ACCESS, SUMO_TAG_ACCESS, "",
-{}, {}, {}, {}, {}, {}),
-myPositionOverLane(0),
-myLength(0),
+    GNEAdditional("", net, GLO_ACCESS, SUMO_TAG_ACCESS, GUIIconSubSys::getIcon(GUIIcon::ACCESS), "", {}, {}, {}, {}, {}, {}),
+              myPositionOverLane(0),
+              myLength(0),
 myFriendlyPosition(false) {
     // reset default values
     resetDefaultValues();
@@ -48,8 +48,7 @@ myFriendlyPosition(false) {
 
 GNEAccess::GNEAccess(GNEAdditional* busStop, GNELane* lane, GNENet* net, double pos, const double length, bool friendlyPos,
                      const Parameterised::Map& parameters) :
-    GNEAdditional(net, GLO_ACCESS, SUMO_TAG_ACCESS, "",
-{}, {}, {lane}, {busStop}, {}, {}),
+    GNEAdditional(net, GLO_ACCESS, SUMO_TAG_ACCESS, GUIIconSubSys::getIcon(GUIIcon::ACCESS), "", {}, {}, {lane}, {busStop}, {}, {}),
 Parameterised(parameters),
 myPositionOverLane(pos),
 myLength(length),
@@ -167,44 +166,58 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
     // first check if additional has to be drawn
     if (s.drawAdditionals(accessExaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // get color
-        RGBColor color;
+        RGBColor accessColor;
         if (drawUsingSelectColor()) {
-            color = s.colorSettings.selectedAdditionalColor;
+            accessColor = s.colorSettings.selectedAdditionalColor;
         } else if (!getParentAdditionals().front()->getAttribute(SUMO_ATTR_COLOR).empty()) {
-            color = parse<RGBColor>(getParentAdditionals().front()->getAttribute(SUMO_ATTR_COLOR));
+            accessColor = parse<RGBColor>(getParentAdditionals().front()->getAttribute(SUMO_ATTR_COLOR));
         } else {
-            color = s.colorSettings.busStopColor;
+            accessColor = s.colorSettings.busStopColor;
         }
-        // draw parent and child lines
-        drawParentChildLines(s, color);
-        // Start drawing adding an gl identificator
-        GLHelper::pushName(getGlID());
-        // push layer matrix
-        GLHelper::pushMatrix();
-        // translate to front
-        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_ACCESS);
-        // set color
-        GLHelper::setColor(color);
-        // translate to geometry position
-        glTranslated(myAdditionalGeometry.getShape().front().x(), myAdditionalGeometry.getShape().front().y(), 0);
-        // draw circle
-        if (s.drawForRectangleSelection) {
-            GLHelper::drawFilledCircle(radius * accessExaggeration, 8);
-        } else {
-            GLHelper::drawFilledCircle(radius * accessExaggeration, 16);
+        // avoid draw invisible elements
+        if (accessColor.alpha() != 0) {
+            // draw parent and child lines
+            drawParentChildLines(s, accessColor);
+            // Start drawing adding an gl identificator
+            GLHelper::pushName(getGlID());
+            // push layer matrix
+            GLHelper::pushMatrix();
+            // translate to front
+            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_ACCESS);
+            // set color
+            GLHelper::setColor(accessColor);
+            // translate to geometry position
+            glTranslated(myAdditionalGeometry.getShape().front().x(), myAdditionalGeometry.getShape().front().y(), 0);
+            // draw circle
+            if (s.drawForRectangleSelection) {
+                GLHelper::drawFilledCircle(radius * accessExaggeration, 8);
+            } else {
+                GLHelper::drawFilledCircle(radius * accessExaggeration, 16);
+            }
+            // pop layer matrix
+            GLHelper::popMatrix();
+            // pop gl identificator
+            GLHelper::popName();
+            // check if mouse is over access
+            mouseWithinGeometry(myAdditionalGeometry.getShape().front(), (radius * accessExaggeration));
+            // draw lock icon
+            GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myAdditionalGeometry.getShape().front(), accessExaggeration, 0.3);
         }
-        // pop layer matrix
-        GLHelper::popMatrix();
-        // pop gl identificator
-        GLHelper::popName();
-        // draw lock icon
-        GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myAdditionalGeometry.getShape().front(), accessExaggeration, 0.3);
-        // check if dotted contours has to be drawn
+        // inspect contour
         if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            GUIDottedGeometry::drawDottedContourCircle(GUIDottedGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape().front(), 0.5, accessExaggeration);
+            GUIDottedGeometry::drawDottedContourCircle(s, GUIDottedGeometry::DottedContourType::INSPECT, myAdditionalGeometry.getShape().front(), 0.5, accessExaggeration);
         }
+        // front element contour
         if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-            GUIDottedGeometry::drawDottedContourCircle(GUIDottedGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape().front(), 0.5, accessExaggeration);
+            GUIDottedGeometry::drawDottedContourCircle(s, GUIDottedGeometry::DottedContourType::FRONT, myAdditionalGeometry.getShape().front(), 0.5, accessExaggeration);
+        }
+        // delete contour
+        if (myNet->getViewNet()->drawDeleteContour(this, this)) {
+            GUIDottedGeometry::drawDottedContourCircle(s, GUIDottedGeometry::DottedContourType::REMOVE, myAdditionalGeometry.getShape().front(), 0.5, accessExaggeration);
+        }
+        // select contour
+        if (myNet->getViewNet()->drawSelectContour(this, this)) {
+            GUIDottedGeometry::drawDottedContourCircle(s, GUIDottedGeometry::DottedContourType::SELECT, myAdditionalGeometry.getShape().front(), 0.5, accessExaggeration);
         }
     }
 }

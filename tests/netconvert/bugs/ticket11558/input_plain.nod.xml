@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-09-08 14:36:53 by Eclipse SUMO netedit Version v1_14_1+0906-476f99a
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="abstract.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="abstract.net.xml"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="false"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="true"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<nodes version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="-389562.46,-5817979.56" convBoundary="1895.23,2401.49,2031.06,2503.22" origBoundary="13.372213,52.501727,13.527402,52.569285" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <node id="1661927181" x="2009.12" y="2501.44" type="priority"/>
+    <node id="2550263264" x="1953.81" y="2503.22" type="dead_end"/>
+    <node id="4673135615" x="1905.64" y="2432.74" type="dead_end"/>
+    <node id="4673135620" x="2009.67" y="2501.41" type="priority"/>
+    <node id="588181300" x="2031.06" y="2500.12" type="dead_end"/>
+    <node id="cluster_30731510_588181257_588181258_588181259" x="1895.23" y="2401.49" type="dead_end"/>
+    <node id="cluster_4673135617_4673135618_4673135619_588181295" x="2008.77" y="2501.48" type="priority"/>
+</nodes>

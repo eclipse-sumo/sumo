@@ -8,6 +8,7 @@ speedGain
 
 # test cooperative changing
 cooperative
+strategic
 
 # tests for overtaking and merging at ramps
 motorway

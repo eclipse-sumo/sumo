@@ -75,3 +75,18 @@ ticket9062
 
 # faulty permissions leading to a faulty network (triggered by ptlines)
 ticket9701
+
+# crash when (always) processing pt stuff 
+ticket11803
+
+# crash when (always) processing pt stuff 
+ticket11839
+
+# interpretation of empty osm.turn-lanes value
+ticket12042
+
+# spreadType in typemap
+ticket12141
+
+# crash in cleanup after joining tram
+ticket12223

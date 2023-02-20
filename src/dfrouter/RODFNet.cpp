@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -110,7 +110,7 @@ RODFNet::buildDetectorEdgeDependencies(RODFDetectorCon& detcont) const {
 void
 RODFNet::computeTypes(RODFDetectorCon& detcont,
                       bool sourcesStrict) const {
-    PROGRESS_BEGIN_MESSAGE("Computing detector types");
+    PROGRESS_BEGIN_MESSAGE(TL("Computing detector types"));
     const std::vector< RODFDetector*>& dets = detcont.getDetectors();
     // build needed information. first
     buildDetectorEdgeDependencies(detcont);
@@ -139,11 +139,11 @@ RODFNet::computeTypes(RODFDetectorCon& detcont,
     }
     // print results
     PROGRESS_DONE_MESSAGE();
-    WRITE_MESSAGE("Computed detector types:");
-    WRITE_MESSAGE(" " + toString(mySourceNumber) + " source detectors");
-    WRITE_MESSAGE(" " + toString(mySinkNumber) + " sink detectors");
-    WRITE_MESSAGE(" " + toString(myInBetweenNumber) + " in-between detectors");
-    WRITE_MESSAGE(" " + toString(myInvalidNumber) + " invalid detectors");
+    WRITE_MESSAGE(TL("Computed detector types:"));
+    WRITE_MESSAGEF(TL(" % source detectors"), toString(mySourceNumber));
+    WRITE_MESSAGEF(TL(" % sink detectors"), toString(mySinkNumber));
+    WRITE_MESSAGEF(TL(" % in-between detectors"), toString(myInBetweenNumber));
+    WRITE_MESSAGEF(TL(" % invalid detectors"), toString(myInvalidNumber));
 }
 
 
@@ -278,7 +278,7 @@ RODFNet::computeRoutesFor(ROEdge* edge, RODFRouteDesc& base, int /*no*/,
             //  without a detector occurred
             if (current.passedNo > maxFollowingLength) {
                 // mark not to process any further
-                WRITE_WARNING("Could not close route for '" + det.getID() + "'");
+                WRITE_WARNINGF(TL("Could not close route for '%'"), det.getID());
                 unfoundEnds.push_back(current);
                 current.factor = 1.;
                 double cdist = current.edges2Pass[0]->getFromJunction()->getPosition().distanceTo(current.edges2Pass.back()->getToJunction()->getPosition());
@@ -436,7 +436,7 @@ RODFNet::revalidateFlows(const RODFDetector* detector,
     }
     // ok, there is no information for the whole time;
     //  lets find preceding detectors and rebuild the flows if possible
-    WRITE_WARNING("Detector '" + detector->getID() + "' has no flows.\n Trying to rebuild.");
+    WRITE_WARNINGF(TL("Detector '%' has no flows.\n Trying to rebuild."), detector->getID());
     // go back and collect flows
     ROEdgeVector previous;
     {
@@ -464,7 +464,7 @@ RODFNet::revalidateFlows(const RODFDetector* detector,
             }
         }
         if (maxDepthReached) {
-            WRITE_WARNING(" Could not build list of previous flows.");
+            WRITE_WARNING(TL(" Could not build list of previous flows."));
         }
     }
     // Edges with previous detectors are now in "previous";
@@ -501,7 +501,7 @@ RODFNet::revalidateFlows(const RODFDetector* detector,
             }
         }
         if (maxDepthReached) {
-            WRITE_WARNING(" Could not build list of latter flows.");
+            WRITE_WARNING(TL(" Could not build list of latter flows."));
             return;
         }
     }
@@ -588,7 +588,7 @@ RODFNet::removeEmptyDetectors(RODFDetectorCon& detectors,
             remove = false;
         }
         if (remove) {
-            WRITE_MESSAGE("Removed detector '" + (*i)->getID() + "' because no flows for him exist.");
+            WRITE_MESSAGEF(TL("Removed detector '%' because no flows for him exist."), (*i)->getID());
             flows.removeFlow((*i)->getID());
             detectors.removeDetector((*i)->getID());
             i = dets.begin();
@@ -611,7 +611,7 @@ RODFNet::reportEmptyDetectors(RODFDetectorCon& detectors,
             remove = false;
         }
         if (remove) {
-            WRITE_MESSAGE("Detector '" + (*i)->getID() + "' has no flow.");
+            WRITE_MESSAGEF(TL("Detector '%' has no flow."), (*i)->getID());
         }
     }
 }
@@ -698,7 +698,7 @@ RODFNet::isSource(const RODFDetector& det, ROEdge* edge,
                   const RODFDetectorCon& detectors,
                   bool strict) const {
     if (seen.size() == 1000) { // !!!
-        WRITE_WARNING("Quitting checking for being a source for detector '" + det.getID() + "' due to seen edge limit.");
+        WRITE_WARNINGF(TL("Quitting checking for being a source for detector '%' due to seen edge limit."), det.getID());
         return false;
     }
     if (edge == getDetectorEdge(det)) {
@@ -798,7 +798,7 @@ bool
 RODFNet::isDestination(const RODFDetector& det, ROEdge* edge, ROEdgeVector& seen,
                        const RODFDetectorCon& detectors) const {
     if (seen.size() == 1000) { // !!!
-        WRITE_WARNING("Quitting checking for being a destination for detector '" + det.getID() + "' due to seen edge limit.");
+        WRITE_WARNINGF(TL("Quitting checking for being a destination for detector '%' due to seen edge limit."), det.getID());
         return false;
     }
     if (edge == getDetectorEdge(det)) {
@@ -874,7 +874,7 @@ bool
 RODFNet::isFalseSource(const RODFDetector& det, ROEdge* edge, ROEdgeVector& seen,
                        const RODFDetectorCon& detectors) const {
     if (seen.size() == 1000) { // !!!
-        WRITE_WARNING("Quitting checking for being a false source for detector '" + det.getID() + "' due to seen edge limit.");
+        WRITE_WARNINGF(TL("Quitting checking for being a false source for detector '%' due to seen edge limit."), det.getID());
         return false;
     }
     seen.push_back(edge);
@@ -1007,11 +1007,11 @@ RODFNet::buildEdgeFlowMap(const RODFDetectorFlows& flows,
     // @note: this assumes that the speedFactors are independent of location and time
     if (speedFactorCountPKW > 0) {
         myAvgSpeedFactorPKW = speedFactorSumPKW / speedFactorCountPKW;
-        WRITE_MESSAGE("Average speedFactor for PKW is " + toString(myAvgSpeedFactorPKW) + " maximum speedFactor is " + toString(myMaxSpeedFactorPKW) + ".");
+        WRITE_MESSAGEF(TL("Average speedFactor for PKW is % maximum speedFactor is %."), toString(myAvgSpeedFactorPKW), toString(myMaxSpeedFactorPKW));
     }
     if (speedFactorCountLKW > 0) {
         myAvgSpeedFactorLKW = speedFactorSumLKW / speedFactorCountLKW;
-        WRITE_MESSAGE("Average speedFactor for LKW is " + toString(myAvgSpeedFactorLKW) + " maximum speedFactor is " + toString(myMaxSpeedFactorLKW) + ".");
+        WRITE_MESSAGEF(TL("Average speedFactor for LKW is % maximum speedFactor is %."), toString(myAvgSpeedFactorLKW), toString(myMaxSpeedFactorLKW));
     }
 
 }

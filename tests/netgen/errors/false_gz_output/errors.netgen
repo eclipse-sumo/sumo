@@ -1,0 +1,2 @@
+Error: Could not build output file 'out/net.net.xml.gz' (strict_fstream: open('out/net.net.xml.gz',out|binary): open failed: No such file or directory).
+Quitting (on error).

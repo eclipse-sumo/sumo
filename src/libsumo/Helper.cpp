@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2017-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2017-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -132,6 +132,9 @@ Helper::subscribe(const int commandId, const std::string& id, const std::vector<
     const SUMOTime begin = beginTime == INVALID_DOUBLE_VALUE ? 0 : TIME2STEPS(beginTime);
     const SUMOTime end = endTime == INVALID_DOUBLE_VALUE || endTime > STEPS2TIME(SUMOTime_MAX) ? SUMOTime_MAX : TIME2STEPS(endTime);
     libsumo::Subscription s(commandId, id, variables, parameters, begin, end, contextDomain, range);
+    if (commandId == libsumo::CMD_SUBSCRIBE_SIM_CONTEXT) {
+        s.range = std::numeric_limits<double>::max();
+    }
     if (s.variables.size() == 1 && s.variables.front() == -1) {
         s.variables.clear();
     }
@@ -544,7 +547,7 @@ Helper::buildStopParameters(const std::string& edgeOrStoppingPlaceID,
         newStop.parametersSet |= STOP_UNTIL_SET;
     }
     if ((flags & 1) != 0) {
-        newStop.parking = true;
+        newStop.parking = ParkingType::OFFROAD;
         newStop.parametersSet |= STOP_PARKING_SET;
     }
     if ((flags & 2) != 0) {
@@ -603,7 +606,7 @@ Helper::buildStopParameters(const std::string& edgeOrStoppingPlaceID,
         }
     } else {
         if (startPos == INVALID_DOUBLE_VALUE) {
-            startPos = pos - POSITION_EPS;
+            startPos = MAX2(0.0, pos - POSITION_EPS);
         }
         if (startPos < 0.) {
             throw TraCIException("Position on lane must not be negative.");
@@ -814,21 +817,21 @@ Helper::collectObjectsInRange(int domain, const PositionVector& shape, double ra
     const float cmax[2] = {(float) b.xmax(), (float) b.ymax()};
     switch (domain) {
         case libsumo::CMD_GET_BUSSTOP_VARIABLE:
-            for (const auto& stop: MSNet::getInstance()->getStoppingPlaces(SUMO_TAG_BUS_STOP)) {
+            for (const auto& stop : MSNet::getInstance()->getStoppingPlaces(SUMO_TAG_BUS_STOP)) {
                 if (shape.distance2D(stop.second->getCenterPos()) <= range) {
                     into.insert(stop.second);
                 }
             }
             break;
         case libsumo::CMD_GET_CHARGINGSTATION_VARIABLE:
-            for (const auto& stop: MSNet::getInstance()->getStoppingPlaces(SUMO_TAG_CHARGING_STATION)) {
+            for (const auto& stop : MSNet::getInstance()->getStoppingPlaces(SUMO_TAG_CHARGING_STATION)) {
                 if (shape.distance2D(stop.second->getCenterPos()) <= range) {
                     into.insert(stop.second);
                 }
             }
             break;
         case libsumo::CMD_GET_CALIBRATOR_VARIABLE:
-            for (const auto& calib: MSCalibrator::getInstances()) {
+            for (const auto& calib : MSCalibrator::getInstances()) {
                 if (shape.distance2D(calib.second->getLane()->getShape()[0]) <= range) {
                     into.insert(calib.second);
                 }
@@ -844,7 +847,7 @@ Helper::collectObjectsInRange(int domain, const PositionVector& shape, double ra
             LaneArea::getTree()->Search(cmin, cmax, Named::StoringVisitor(into));
             break;
         case libsumo::CMD_GET_PARKINGAREA_VARIABLE: {
-            for (const auto& stop: MSNet::getInstance()->getStoppingPlaces(SUMO_TAG_PARKING_AREA)) {
+            for (const auto& stop : MSNet::getInstance()->getStoppingPlaces(SUMO_TAG_PARKING_AREA)) {
                 if (shape.distance2D(stop.second->getCenterPos()) <= range) {
                     into.insert(stop.second);
                 }
@@ -898,12 +901,8 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
 
     // Check filter specification consistency
     if (disregardOppositeDirection && (s.activeFilters & SUBS_FILTER_NO_RTREE) == 0) {
-        WRITE_WARNINGF("Ignoring veh '%' no-opposite subscription filter for geographic range object collection. Consider using the 'lanes' filter.", v->getID())
+        WRITE_WARNINGF(TL("Ignoring veh '%' no-opposite subscription filter for geographic range object collection. Consider using the 'lanes' filter."), v->getID())
     }
-    if ((s.activeFilters & SUBS_FILTER_FIELD_OF_VISION) != 0 && (s.activeFilters & SUBS_FILTER_NO_RTREE) != 0) {
-        WRITE_WARNINGF("Ignoring veh '%' field of vision subscription filter due to incompatibility with other filter(s).", v->getID())
-    }
-
     // TODO: Treat case, where ego vehicle is currently on opposite lane
 
     std::set<const SUMOTrafficObject*> vehs;
@@ -1022,30 +1021,6 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
         } else {
             // No maneuver or lateral distance filters requested, but only lanes filter (directly, or indirectly by specifying downstream or upstream distance)
             applySubscriptionFilterLanes(s, vehs, filterLanes, downstreamDist, upstreamDist, disregardOppositeDirection);
-
-            // filter vehicles in vehs by class and/or type if requested
-            if (s.activeFilters & SUBS_FILTER_VCLASS) {
-                // Only return vehicles of the given vClass in context subscription result
-                auto i = vehs.begin();
-                while (i != vehs.end()) {
-                    if (((*i)->getVehicleType().getVehicleClass() & s.filterVClasses) == 0) {
-                        i = vehs.erase(i);
-                    } else {
-                        ++i;
-                    }
-                }
-            }
-            if (s.activeFilters & SUBS_FILTER_VTYPE) {
-                // Only return vehicles of the given vType in context subscription result
-                auto i = vehs.begin();
-                while (i != vehs.end()) {
-                    if (s.filterVTypes.find((*i)->getVehicleType().getID()) == s.filterVTypes.end()) {
-                        i = vehs.erase(i);
-                    } else {
-                        ++i;
-                    }
-                }
-            }
         }
         // Write vehs IDs in objIDs
         for (const SUMOTrafficObject* veh : vehs) {
@@ -1053,35 +1028,35 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
                 objIDs.insert(objIDs.end(), veh->getID());
             }
         }
-    } else { // apply rTree-based filters
-        if (s.activeFilters & SUBS_FILTER_VCLASS) {
-            // Only return vehicles of the given vClass in context subscription result
-            auto i = objIDs.begin();
-            while (i != objIDs.end()) {
-                MSBaseVehicle* veh = getVehicle(*i);
-                if ((veh->getVehicleType().getVehicleClass() & s.filterVClasses) == 0) {
-                    i = objIDs.erase(i);
-                } else {
-                    ++i;
-                }
+    }
+
+    if (s.activeFilters & SUBS_FILTER_VCLASS) {
+        // Only return vehicles of the given vClass in context subscription result
+        auto i = objIDs.begin();
+        while (i != objIDs.end()) {
+            MSBaseVehicle* veh = getVehicle(*i);
+            if ((veh->getVehicleType().getVehicleClass() & s.filterVClasses) == 0) {
+                i = objIDs.erase(i);
+            } else {
+                ++i;
             }
         }
-        if (s.activeFilters & SUBS_FILTER_VTYPE) {
-            // Only return vehicles of the given vType in context subscription result
-            auto i = objIDs.begin();
-            while (i != objIDs.end()) {
-                MSBaseVehicle* veh = getVehicle(*i);
-                if (s.filterVTypes.find(veh->getVehicleType().getID()) == s.filterVTypes.end()) {
-                    i = objIDs.erase(i);
-                } else {
-                    ++i;
-                }
+    }
+    if (s.activeFilters & SUBS_FILTER_VTYPE) {
+        // Only return vehicles of the given vType in context subscription result
+        auto i = objIDs.begin();
+        while (i != objIDs.end()) {
+            MSBaseVehicle* veh = getVehicle(*i);
+            if (s.filterVTypes.find(veh->getVehicleType().getID()) == s.filterVTypes.end()) {
+                i = objIDs.erase(i);
+            } else {
+                ++i;
             }
         }
-        if (s.activeFilters & SUBS_FILTER_FIELD_OF_VISION) {
-            // Only return vehicles within field of vision in context subscription result
-            applySubscriptionFilterFieldOfVision(s, objIDs);
-        }
+    }
+    if (s.activeFilters & SUBS_FILTER_FIELD_OF_VISION) {
+        // Only return vehicles within field of vision in context subscription result
+        applySubscriptionFilterFieldOfVision(s, objIDs);
     }
 }
 
@@ -1089,7 +1064,7 @@ void
 Helper::applySubscriptionFilterLanes(const Subscription& s, std::set<const SUMOTrafficObject*>& vehs, std::vector<int>& filterLanes, double downstreamDist,
                                      double upstreamDist, bool disregardOppositeDirection) {
     if (!s.isVehicleToVehicleContextSubscription()) {
-        WRITE_WARNINGF("Lanes filter is only feasible for context domain 'vehicle' (current is '%'), ignoring filter...", toHex(s.contextDomain, 2));
+        WRITE_WARNINGF(TL("Lanes filter is only feasible for context domain 'vehicle' (current is '%'), ignoring filter..."), toHex(s.contextDomain, 2));
         return;
     }
     assert(filterLanes.size() > 0);
@@ -1186,7 +1161,7 @@ Helper::applySubscriptionFilterLanes(const Subscription& s, std::set<const SUMOT
 void
 Helper::applySubscriptionFilterTurn(const Subscription& s, std::set<const SUMOTrafficObject*>& vehs) {
     if (!s.isVehicleToVehicleContextSubscription()) {
-        WRITE_WARNINGF("Turn filter is only feasible for context domain 'vehicle' (current is '%'), ignoring filter...", toHex(s.contextDomain, 2));
+        WRITE_WARNINGF(TL("Turn filter is only feasible for context domain 'vehicle' (current is '%'), ignoring filter..."), toHex(s.contextDomain, 2));
         return;
     }
     // Get upcoming junctions and vialanes within downstream distance, where foe links exist or at least the link direction is not straight
@@ -1251,7 +1226,7 @@ Helper::applySubscriptionFilterTurn(const Subscription& s, std::set<const SUMOTr
 void
 Helper::applySubscriptionFilterFieldOfVision(const Subscription& s, std::set<std::string>& objIDs) {
     if (s.filterFieldOfVisionOpeningAngle <= 0. || s.filterFieldOfVisionOpeningAngle >= 360.) {
-        WRITE_WARNINGF("Field of vision opening angle ('%') should be within interval (0, 360), ignoring filter...", s.filterFieldOfVisionOpeningAngle);
+        WRITE_WARNINGF(TL("Field of vision opening angle ('%') should be within interval (0, 360), ignoring filter..."), s.filterFieldOfVisionOpeningAngle);
         return;
     }
 
@@ -1363,7 +1338,8 @@ Helper::applySubscriptionFilterLateralDistanceSinglePass(const Subscription& s, 
         try {
             laneShape.move2side(-posLat);
         } catch (ProcessError&) {
-            WRITE_WARNING("addSubscriptionFilterLateralDistance could not determine shape of lane '" + lane->getID() + "' with lateral shift of " + toString(posLat));
+            WRITE_WARNINGF(TL("addSubscriptionFilterLateralDistance could not determine shape of lane '%' with a lateral shift of %."),
+                           lane->getID(), toString(posLat));
         }
 #ifdef DEBUG_SURROUNDING
         std::cout << "   posLat=" << posLat << " laneShape=" << laneShape << "\n";
@@ -1420,7 +1396,7 @@ Helper::postProcessRemoteControl() {
             controlled.second->getInfluencer().postProcessRemoteControl(controlled.second);
             numControlled++;
         } else {
-            WRITE_WARNING("Vehicle '" + controlled.first + "' was removed though being controlled by TraCI");
+            WRITE_WARNINGF(TL("Vehicle '%' was removed though being controlled by TraCI"), controlled.first);
         }
     }
     myRemoteControlledVehicles.clear();
@@ -1429,7 +1405,7 @@ Helper::postProcessRemoteControl() {
             controlled.second->getInfluencer().postProcessRemoteControl(controlled.second);
             numControlled++;
         } else {
-            WRITE_WARNING("Person '" + controlled.first + "' was removed though being controlled by TraCI");
+            WRITE_WARNINGF(TL("Person '%' was removed though being controlled by TraCI"), controlled.first);
         }
     }
     myRemoteControlledPersons.clear();
@@ -1724,6 +1700,19 @@ Helper::findCloserLane(const MSEdge* edge, const Position& pos, SUMOVehicleClass
             bestDistance = dist;
             *lane = candidateLane;
             newBest = true;
+        }
+    }
+    if (edge->isInternal() && edge->getNumLanes() > 1) {
+        // there is a parallel internal edge that isn't returned by getInternalFollowingEdge but is also usable for the same route
+        for (const MSLane* const l : edge->getLanes()) {
+            if (l->getIndex() == 0) {
+                continue;
+            }
+            for (const MSLink* const link : l->getLinkCont()) {
+                if (link->isInternalJunctionLink()) {
+                    findCloserLane(&link->getViaLane()->getEdge(), pos, vClass, bestDistance, lane);
+                }
+            }
         }
     }
     return newBest;

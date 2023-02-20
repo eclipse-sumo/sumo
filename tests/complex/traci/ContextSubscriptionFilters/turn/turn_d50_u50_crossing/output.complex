@@ -84,6 +84,10 @@ v5
 v9
 Step 20:
 Context results for veh 'ego':
+v10
+v4
+v5
+v9
 Step 21:
 Context results for veh 'ego':
 Step 22:
@@ -98,4 +102,6 @@ Step 26:
 Context results for veh 'ego':
 Step 27:
 Context results for veh 'ego':
-Print ended at step 28.0
+Step 28:
+Context results for veh 'ego':
+Print ended at step 29.0

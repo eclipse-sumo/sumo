@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -142,14 +142,7 @@ TraCIServerAPI_TrafficLight::processGet(TraCIServer& server, tcpip::Storage& inp
                     server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_INTEGER);
                     server.getWrapperStorage().writeInt((int)constraints.size());
                     for (const auto& c : constraints) {
-                        StoHelp::writeTypedString(server.getWrapperStorage(), c.signalId);
-                        StoHelp::writeTypedString(server.getWrapperStorage(), c.tripId);
-                        StoHelp::writeTypedString(server.getWrapperStorage(), c.foeId);
-                        StoHelp::writeTypedString(server.getWrapperStorage(), c.foeSignal);
-                        StoHelp::writeTypedInt(server.getWrapperStorage(), c.limit);
-                        StoHelp::writeTypedInt(server.getWrapperStorage(), c.type);
-                        StoHelp::writeTypedByte(server.getWrapperStorage(), c.mustWait);
-                        StoHelp::writeTypedByte(server.getWrapperStorage(), c.active);
+                        writeConstraint(server, c);
                     }
                     break;
                 }
@@ -165,14 +158,7 @@ TraCIServerAPI_TrafficLight::processGet(TraCIServer& server, tcpip::Storage& inp
                     server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_INTEGER);
                     server.getWrapperStorage().writeInt((int)constraints.size());
                     for (const auto& c : constraints) {
-                        StoHelp::writeTypedString(server.getWrapperStorage(), c.signalId);
-                        StoHelp::writeTypedString(server.getWrapperStorage(), c.tripId);
-                        StoHelp::writeTypedString(server.getWrapperStorage(), c.foeId);
-                        StoHelp::writeTypedString(server.getWrapperStorage(), c.foeSignal);
-                        StoHelp::writeTypedInt(server.getWrapperStorage(), c.limit);
-                        StoHelp::writeTypedInt(server.getWrapperStorage(), c.type);
-                        StoHelp::writeTypedByte(server.getWrapperStorage(), c.mustWait);
-                        StoHelp::writeTypedByte(server.getWrapperStorage(), c.active);
+                        writeConstraint(server, c);
                     }
                     break;
                 }
@@ -201,14 +187,7 @@ TraCIServerAPI_TrafficLight::processGet(TraCIServer& server, tcpip::Storage& inp
                     server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_INTEGER);
                     server.getWrapperStorage().writeInt((int)constraints.size());
                     for (const auto& c : constraints) {
-                        StoHelp::writeTypedString(server.getWrapperStorage(), c.signalId);
-                        StoHelp::writeTypedString(server.getWrapperStorage(), c.tripId);
-                        StoHelp::writeTypedString(server.getWrapperStorage(), c.foeId);
-                        StoHelp::writeTypedString(server.getWrapperStorage(), c.foeSignal);
-                        StoHelp::writeTypedInt(server.getWrapperStorage(), c.limit);
-                        StoHelp::writeTypedInt(server.getWrapperStorage(), c.type);
-                        StoHelp::writeTypedByte(server.getWrapperStorage(), c.mustWait);
-                        StoHelp::writeTypedByte(server.getWrapperStorage(), c.active);
+                        writeConstraint(server, c);
                     }
                     break;
                 }
@@ -295,6 +274,7 @@ TraCIServerAPI_TrafficLight::processSet(TraCIServer& server, tcpip::Storage& inp
             && variable != libsumo::TL_RED_YELLOW_GREEN_STATE && variable != libsumo::TL_COMPLETE_PROGRAM_RYG
             && variable != libsumo::VAR_NAME
             && variable != libsumo::TL_CONSTRAINT_REMOVE
+            && variable != libsumo::TL_CONSTRAINT_UPDATE
             && variable != libsumo::VAR_PARAMETER) {
         return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "Change TLS State: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
     }
@@ -436,6 +416,14 @@ TraCIServerAPI_TrafficLight::processSet(TraCIServer& server, tcpip::Storage& inp
                 libsumo::TrafficLight::removeConstraints(id, tripId, foeSignal, foeId);
             }
             break;
+            case libsumo::TL_CONSTRAINT_UPDATE: {
+                std::string tripId;
+                if (!server.readTypeCheckingString(inputStorage, tripId)) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "The tripId index must be given as a string.", outputStorage);
+                }
+                libsumo::TrafficLight::updateConstraints(id, tripId);
+            }
+            break;
             case libsumo::VAR_PARAMETER: {
                 if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "A compound object is needed for setting a parameter.", outputStorage);
@@ -461,6 +449,25 @@ TraCIServerAPI_TrafficLight::processSet(TraCIServer& server, tcpip::Storage& inp
     }
     server.writeStatusCmd(libsumo::CMD_SET_TL_VARIABLE, libsumo::RTYPE_OK, warning, outputStorage);
     return true;
+}
+
+
+void
+TraCIServerAPI_TrafficLight::writeConstraint(TraCIServer& server, const libsumo::TraCISignalConstraint& c) {
+    StoHelp::writeTypedString(server.getWrapperStorage(), c.signalId);
+    StoHelp::writeTypedString(server.getWrapperStorage(), c.tripId);
+    StoHelp::writeTypedString(server.getWrapperStorage(), c.foeId);
+    StoHelp::writeTypedString(server.getWrapperStorage(), c.foeSignal);
+    StoHelp::writeTypedInt(server.getWrapperStorage(), c.limit);
+    StoHelp::writeTypedInt(server.getWrapperStorage(), c.type);
+    StoHelp::writeTypedByte(server.getWrapperStorage(), c.mustWait);
+    StoHelp::writeTypedByte(server.getWrapperStorage(), c.active);
+    std::vector<std::string> paramItems;
+    for (auto item : c.param) {
+        paramItems.push_back(item.first);
+        paramItems.push_back(item.second);
+    }
+    StoHelp::writeTypedStringList(server.getWrapperStorage(), paramItems);
 }
 
 

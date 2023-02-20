@@ -2,4 +2,5 @@
 -a input_additional.add.xml
 --tripinfo-output tripinfos.xml
 --vehroute-output vehroutes.xml
+--vehroute-output.write-unfinished
 --no-step-log

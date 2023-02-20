@@ -7,6 +7,10 @@ attributes
 # generate persons instead of vehicles
 persons
 saveConfig
+saveTemplate
+
+# saveConfig to stdout
+saveStdout
 loadConfig
 simple
 begin_end_human_readable
@@ -23,6 +27,9 @@ fractional
 # make sure that source and sink are a minimum distance appart
 minimum_distance
 minimum_distance_exceeded
+
+# make sure that source and sink are a minimum distance appart but this does not apply to fringe edges
+minimum_distance_fringe
 
 # disturb fastest-path-search
 random-routing-factor
@@ -66,6 +73,15 @@ viaEdgeType
 
 # Test for having the options "additional-files" and "vtype-output" and vClass
 additional_and_vClass
+
+# only permit fringe origins/destinations
+fringe_factor_max
+
+# do not start/end trips on roundabout
+roundabout
+
+# explicitly permit trips that start/end trips on roundabout
+roundabout_allow
 
 # This test suite checks that argument forwarding to duarouter works correctly.
 duarouter_options

@@ -1,7 +1,7 @@
 /* XPM */
 static const char *vshape_scooter_xpm[] = {
 /* columns rows colors chars-per-pixel */
-"64 32 43 1 ",
+"64 32 43 1",
 "  c #78782C",
 ". c #7E7E2C",
 "X c #4C4C4C",

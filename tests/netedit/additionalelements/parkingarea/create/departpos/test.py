@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -38,41 +38,38 @@ netedit.changeElement("parkingArea")
 netedit.changeDefaultValue(netedit.attrs.parkingArea.create.departPos, "dummyDepartPos")
 
 # create parkingArea in mode "reference left"
-netedit.leftClick(referencePosition, 220, 250)
+netedit.leftClick(referencePosition, 475, 256)
 
 # set invalid angle (empty)
 netedit.changeDefaultValue(netedit.attrs.parkingArea.create.departPos, "")
 
 # create parkingArea in mode "reference left"
-netedit.leftClick(referencePosition, 220, 250)
+netedit.leftClick(referencePosition, 475, 256)
 
 # set valid angle (negative)
 netedit.changeDefaultValue(netedit.attrs.parkingArea.create.departPos, "-4")
 
 # create parkingArea in mode "reference left"
-netedit.leftClick(referencePosition, 220, 250)
+netedit.leftClick(referencePosition, 475, 256)
 
 # set valid angle (>360)
 netedit.changeDefaultValue(netedit.attrs.parkingArea.create.departPos, "500")
 
 # create parkingArea in mode "reference left"
-netedit.leftClick(referencePosition, 220, 250)
+netedit.leftClick(referencePosition, 475, 256)
 
 # set valid angle
 netedit.changeDefaultValue(netedit.attrs.parkingArea.create.departPos, "12")
 
 # create parkingArea in mode "reference left"
-netedit.leftClick(referencePosition, 220, 250)
+netedit.leftClick(referencePosition, 475, 256)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)
 netedit.redo(referencePosition, 3)
 
-# save additionals
-netedit.saveAdditionals(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

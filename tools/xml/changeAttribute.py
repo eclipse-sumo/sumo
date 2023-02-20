@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2010-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2010-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -24,11 +24,7 @@ from __future__ import absolute_import
 import os
 import sys
 import optparse
-try:
-    import xml.etree.cElementTree as ET
-except ImportError as e:
-    print("recovering from ImportError '%s'" % e)
-    import xml.etree.ElementTree as ET
+from lxml import etree as ET
 
 
 if 'SUMO_HOME' in os.environ:
@@ -65,7 +61,7 @@ def main(options):
             if options.value is not None:
                 # set new attribute (or modify existent)
                 node.set(options.attribute, options.value)
-            else:
+            elif options.attribute in node.attrib:
                 # delete attribute
                 del node.attrib[options.attribute]
     # write modified tree

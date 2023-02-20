@@ -31,8 +31,8 @@ the router using an XML-file. The syntax of a single trip definition is:
 | from           | edge id                                                 | The name of the edge the route starts at; the edge must be a part of the used network. Optional, if one of the via-attributes is used or if the trip includes stops.  |
 | to             | edge id                                                 | The name of the edge the route ends at; the edge must be a part of the used network. Optional, if one of the via-attributes is used or if the trip includes stops.                   |
 | via            | edge ids                                                | List of intermediate edge ids which shall be part of the route; the edges must be a part of the used network       |
-| fromTaz        | district id                                             | The name of the [district](../Demand/Importing_O/D_Matrices.md#describing_the_taz) the route starts at. [TAZ edges are selected so that travel time is minimized.](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#traffic_assignement_zones_taz)    |
-| toTaz          | district id                                             | The name of the [district](../Demand/Importing_O/D_Matrices.md#describing_the_taz) the route ends at. [TAZ edges are selected so that travel time is minimized.](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#traffic_assignement_zones_taz)       |
+| fromTaz        | district id                                             | The name of the [district](../Demand/Importing_O/D_Matrices.md#describing_the_taz) the route starts at. [TAZ edges are selected so that travel time is minimized.](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#traffic_assignment_zones_taz)    |
+| toTaz          | district id                                             | The name of the [district](../Demand/Importing_O/D_Matrices.md#describing_the_taz) the route ends at. [TAZ edges are selected so that travel time is minimized.](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#traffic_assignment_zones_taz)       |
 | type           | type id                                                 | The type id of the vehicle to generate            |
 | color          | color                                                   | This generated vehicle's color              |
 | departLane     | int/string (≥0,"random","free","departlane")            | The lane on which the vehicle shall be inserted         |
@@ -177,7 +177,7 @@ to fix an invalid starting or ending edge using the first or last usable edge
 of the route.
 
 # Converting Input Styles
-SUMO supports various styles of traffic demand defintions (vehicles, trips, flows) and [duarouter](../duarouter.md) can be used to convert between them.
+SUMO supports various styles of traffic demand definitions (vehicles, trips, flows) and [duarouter](../duarouter.md) can be used to convert between them.
 
 - By default, duarouter will convert all inputs to vehicles with embedded routes (route as child element of the vehicle).
 - With option **--write-trips** all input will be converted to trips

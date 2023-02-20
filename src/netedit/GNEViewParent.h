@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -66,6 +66,7 @@ class GNEGenericDataFrame;
 class GNEEdgeDataFrame;
 class GNEEdgeRelDataFrame;
 class GNETAZRelDataFrame;
+class GNEMeanDataFrame;
 
 
 // ===========================================================================
@@ -101,10 +102,9 @@ public:
      * @param[in] h Initial height
      * @param[in] share A canvas tor get the shared context from
      * @param[in] net The network to show
-     * @param[in] newNet check if we're creating a new net or using an existent
      */
     GNEViewParent(FXMDIClient* p, FXMDIMenu* mdimenu, const FXString& name, GNEApplicationWindow* parentWindow,
-                  FXGLCanvas* share, GNENet* net, const bool newNet, GNEUndoList* undoList, FXIcon* ic = nullptr,
+                  FXGLCanvas* share, GNENet* net, GNEUndoList* undoList, FXIcon* ic = nullptr,
                   FXuint opts = 0, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0);
 
     /// @brief Destructor
@@ -187,6 +187,9 @@ public:
 
     /// @brief get frame for DATA_TAZRELDATA
     GNETAZRelDataFrame* getTAZRelDataFrame() const;
+
+    /// @brief get frame for DATA_TAZRELDATA
+    GNEMeanDataFrame* getMeanDataFrame() const;
 
     /// @brief show frames area if at least a GNEFrame is showed
     /// @note this function is called in GNEFrame::Show();
@@ -396,13 +399,16 @@ protected:
         GNEFrame* getCurrentShownFrame() const;
 
         /// @brief frame for DATA_EDGEDATA
-        GNEEdgeDataFrame* edgeDataFrame;
+        GNEEdgeDataFrame* edgeDataFrame = nullptr;
 
         /// @brief frame for DATA_EDGERELDATA
-        GNEEdgeRelDataFrame* edgeRelDataFrame;
+        GNEEdgeRelDataFrame* edgeRelDataFrame = nullptr;
 
         /// @brief frame for DATA_TAZRELDATA
-        GNETAZRelDataFrame* TAZRelDataFrame;
+        GNETAZRelDataFrame* TAZRelDataFrame = nullptr;
+
+        /// @brief frame for DATA_MEANDATA
+        GNEMeanDataFrame* meanDataFrame = nullptr;
     };
 
     /// @brief struct for ACChoosers dialog

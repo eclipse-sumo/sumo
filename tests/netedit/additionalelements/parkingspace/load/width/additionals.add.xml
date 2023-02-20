@@ -1,0 +1,20 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <parkingArea id="parkingArea_0" lane="center1_1" startPos="20.00" endPos="30.00">
+
+        <!-- valid width (missing) -->
+        <space x="20.00" y="15.00" z="1" width="3.30" length="6.00" angle="45.00"/>
+
+        <!-- non valid width (dummy) -->
+        <space x="25.00" y="15.00" z="1" width="dummyWidth" length="6.00" angle="45.00"/>
+
+        <!-- non valid width (empty) -->
+        <space x="25.00" y="15.00" z="1" width="" length="6.00" angle="45.00"/>
+
+        <!-- non valid width (negative) -->
+        <space x="25.00" y="15.00" z="1" width="-2" length="6.00" angle="45.00"/>
+
+        <!-- valid width -->
+        <space x="25.00" y="15.00" z="1" width="4.1" length="6.00" angle="45.00"/>
+
+    </parkingArea>
+</additional>

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -48,7 +48,7 @@ public:
      * @param[in] speedFactor The factor for driven lane's speed limits
      * @exception ProcessError If a value is wrong
      */
-    MEVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
+    MEVehicle(SUMOVehicleParameter* pars, ConstMSRoutePtr route,
               MSVehicleType* type, const double speedFactor);
 
 
@@ -164,15 +164,6 @@ public:
     ///@brief ends the current stop and performs loading/unloading
     void processStop();
 
-    /** @brief Returns whether the vehicle stops at the given stopping place */
-    bool stopsAt(MSStoppingPlace* /*stop*/) const {
-        return false;
-    }
-
-    bool stopsAtEdge(const MSEdge* /*edge*/) const {
-        return false;
-    }
-
     /** @brief Returns until when to stop at the current segment and sets the information that the stop has been reached
      * @param[in] time the current time
      * @return stop time for the segment
@@ -194,29 +185,29 @@ public:
     /** @brief replace the current parking area stop with a new stop with merge duration
      */
     bool replaceParkingArea(MSParkingArea* /* parkingArea = 0 */, std::string& /*errorMsg*/) {
-        throw ProcessError("parkingZoneReroute not implemented for meso");
+        throw ProcessError(TL("parkingZoneReroute not implemented for meso"));
     }
 
     /** @brief get the current parking area stop
      */
     MSParkingArea* getNextParkingArea() {
-        throw ProcessError("parkingZoneReroute not implemented for meso");
+        throw ProcessError(TL("parkingZoneReroute not implemented for meso"));
     }
 
-    /** @brief Sets the (planned) time at which the vehicle leaves his current cell
+    /** @brief Sets the (planned) time at which the vehicle leaves its current segment
      * @param[in] t The leaving time
      */
     inline void setEventTime(SUMOTime t, bool hasDelay = true) {
         assert(t > myLastEntryTime);
-        if (hasDelay && mySegment != 0) {
+        if (hasDelay && mySegment != nullptr) {
             mySegment->getEdge().markDelayed();
         }
         myEventTime = t;
     }
 
 
-    /** @brief Returns the (planned) time at which the vehicle leaves his current cell
-     * @return The time the vehicle thinks he leaves his cell at
+    /** @brief Returns the (planned) time at which the vehicle leaves its current segment
+     * @return The time the vehicle thinks it leaves its segment at
      */
     inline SUMOTime getEventTime() const {
         return myEventTime;
@@ -326,7 +317,7 @@ public:
     double getCurrentStoppingTimeSeconds() const;
 
     /// Replaces the current route by the given one
-    bool replaceRoute(const MSRoute* route,  const std::string& info, bool onInit = false, int offset = 0, bool addRouteStops = true, bool removeStops = true, std::string* msgReturn = nullptr);
+    bool replaceRoute(ConstMSRoutePtr route,  const std::string& info, bool onInit = false, int offset = 0, bool addRouteStops = true, bool removeStops = true, std::string* msgReturn = nullptr);
 
     /** @brief Returns whether the vehicle is allowed to pass the next junction, checks also for triggered stops
      * @return true iff the vehicle may drive over the next junction

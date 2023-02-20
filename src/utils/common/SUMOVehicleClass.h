@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -107,7 +107,9 @@ enum class SUMOVehicleShape {
     /// @brief render as a rickshaw
     RICKSHAW,
     /// @brief render as a scooter
-    SCOOTER
+    SCOOTER,
+    /// @brief render as aircraft
+    AIRCRAFT
 };
 
 
@@ -257,7 +259,7 @@ public:
     /// @brief get permissions
     SVCPermissions getPermissions() const;
 
-    /// @brief get exceptions (used in NETEDIT)
+    /// @brief get exceptions (used in netedit)
     std::string getExceptions() const;
 
     /// @brief get offset
@@ -266,7 +268,7 @@ public:
     /// @brief update permissions
     void setPermissions(const SVCPermissions permissions);
 
-    /// @brief set exceptions (used in NETEDIT)
+    /// @brief set exceptions (used in netedit)
     void setExceptions(const std::string permissions);
 
     /// @brief set offset
@@ -336,7 +338,7 @@ extern bool canParseVehicleClasses(const std::string& classes);
  * @param[in] allowedS Definition which classes are allowed
  * @param[in] disallowedS Definition which classes are not allowed
  */
-extern SVCPermissions parseVehicleClasses(const std::string& allowedS, const std::string& disallowedS, double networkVersion = NETWORK_VERSION);
+extern SVCPermissions parseVehicleClasses(const std::string& allowedS, const std::string& disallowedS, const MMVersion& networkVersion = NETWORK_VERSION);
 
 /** @brief Encodes the given vector of allowed class into a bitset
  * Unlike the methods which parse a string it gives immediately a warning output on deprecated vehicle classes.
@@ -434,5 +436,6 @@ extern const std::set<std::string> DEFAULT_VTYPES;
 extern const double DEFAULT_VEH_PROB; // !!! does this belong here?
 
 extern const double DEFAULT_PEDESTRIAN_SPEED;
+extern const double DEFAULT_BICYCLE_SPEED;
 
 extern const double DEFAULT_CONTAINER_TRANSHIP_SPEED;

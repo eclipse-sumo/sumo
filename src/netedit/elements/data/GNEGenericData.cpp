@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -23,6 +23,7 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/elements/data/GNEGenericData.h>
+#include <netedit/frames/common/GNESelectorFrame.h>
 #include <netedit/frames/data/GNEEdgeDataFrame.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
@@ -42,7 +43,7 @@
 // GNEGenericData - methods
 // ---------------------------------------------------------------------------
 
-GNEGenericData::GNEGenericData(const SumoXMLTag tag, const GUIGlObjectType type, GNEDataInterval* dataIntervalParent,
+GNEGenericData::GNEGenericData(const SumoXMLTag tag, FXIcon* icon, const GUIGlObjectType type, GNEDataInterval* dataIntervalParent,
                                const Parameterised::Map& parameters,
                                const std::vector<GNEJunction*>& junctionParents,
                                const std::vector<GNEEdge*>& edgeParents,
@@ -50,10 +51,9 @@ GNEGenericData::GNEGenericData(const SumoXMLTag tag, const GUIGlObjectType type,
                                const std::vector<GNEAdditional*>& additionalParents,
                                const std::vector<GNEDemandElement*>& demandElementParents,
                                const std::vector<GNEGenericData*>& genericDataParents) :
-    GUIGlObject(type, dataIntervalParent->getID()),
+    GNEPathManager::PathElement(type, dataIntervalParent->getID(), icon, GNEPathManager::PathElement::Options::DATA_ELEMENT),
     Parameterised(parameters),
     GNEHierarchicalElement(dataIntervalParent->getNet(), tag, junctionParents, edgeParents, laneParents, additionalParents, demandElementParents, genericDataParents),
-    GNEPathManager::PathElement(GNEPathManager::PathElement::Options::DATA_ELEMENT),
     myDataIntervalParent(dataIntervalParent) {
 }
 
@@ -75,7 +75,7 @@ GNEGenericData::getDataIntervalParent() const {
 
 void
 GNEGenericData::drawAttribute(const PositionVector& shape) const {
-    if ((myTagProperty.getTag() == SUMO_TAG_MEANDATA_EDGE) && (shape.length() > 0)) {
+    if ((myTagProperty.getTag() == GNE_TAG_EDGEREL_SINGLE) && (shape.length() > 0)) {
         // obtain pointer to edge data frame (only for code legibly)
         const GNEEdgeDataFrame* edgeDataFrame = myDataIntervalParent->getNet()->getViewNet()->getViewParent()->getEdgeDataFrame();
         // check if we have to filter generic data
@@ -125,18 +125,18 @@ GNEGenericData::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     buildCenterPopupEntry(ret);
     buildPositionCopyEntry(ret, app);
     // buld menu commands for names
-    GUIDesigns::buildFXMenuCommand(ret, "Copy " + getTagStr() + " name to clipboard", nullptr, ret, MID_COPY_NAME);
-    GUIDesigns::buildFXMenuCommand(ret, "Copy " + getTagStr() + " typed name to clipboard", nullptr, ret, MID_COPY_TYPED_NAME);
+    GUIDesigns::buildFXMenuCommand(ret, TL("Copy ") + getTagStr() + TL(" name to clipboard"), nullptr, ret, MID_COPY_NAME);
+    GUIDesigns::buildFXMenuCommand(ret, TL("Copy ") + getTagStr() + TL(" typed name to clipboard"), nullptr, ret, MID_COPY_TYPED_NAME);
     new FXMenuSeparator(ret);
     // build selection and show parameters menu
     myDataIntervalParent->getNet()->getViewNet()->buildSelectionACPopupEntry(ret, this);
     buildShowParamsPopupEntry(ret);
     // show option to open additional dialog
     if (myTagProperty.hasDialog()) {
-        GUIDesigns::buildFXMenuCommand(ret, ("Open " + getTagStr() + " Dialog").c_str(), getIcon(), &parent, MID_OPEN_ADDITIONAL_DIALOG);
+        GUIDesigns::buildFXMenuCommand(ret, (TL("Open ") + getTagStr() + TL(" Dialog")).c_str(), getACIcon(), &parent, MID_OPEN_ADDITIONAL_DIALOG);
         new FXMenuSeparator(ret);
     } else {
-        GUIDesigns::buildFXMenuCommand(ret, ("Cursor position in view: " + toString(getPositionInView().x()) + "," + toString(getPositionInView().y())).c_str(), nullptr, nullptr, 0);
+        GUIDesigns::buildFXMenuCommand(ret, (TL("Cursor position in view: ") + toString(getPositionInView().x()) + "," + toString(getPositionInView().y())).c_str(), nullptr, nullptr, 0);
     }
     return ret;
 }
@@ -158,6 +158,24 @@ GNEGenericData::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& /* p
     // close building
     ret->closeBuilding();
     return ret;
+}
+
+
+void
+GNEGenericData::deleteGLObject() {
+    myNet->deleteGenericData(this, myNet->getViewNet()->getUndoList());
+}
+
+
+void
+GNEGenericData::selectGLObject() {
+    if (isAttributeCarrierSelected()) {
+        unselectAttributeCarrier();
+    } else {
+        selectAttributeCarrier();
+    }
+    // update information label
+    myNet->getViewNet()->getViewParent()->getSelectorFrame()->getSelectionInformation()->updateInformationLabel();
 }
 
 
@@ -289,7 +307,7 @@ GNEGenericData::replaceParentTAZElement(const int index, const std::string& valu
             parentTAZElements = {parentTAZElements.at(0), TAZ};
         }
     } else {
-        throw ProcessError("Invalid index");
+        throw ProcessError(TL("Invalid index"));
     }
     // replace parent TAZElements
     replaceParentElements(this, parentTAZElements);

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2012-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -73,6 +73,7 @@ public:
 
     static std::vector<libsumo::TraCISignalConstraint> swapConstraints(const std::string& tlsID, const std::string& tripId, const std::string& foeSignal, const std::string& foeId);
     static void removeConstraints(const std::string& tlsID, const std::string& tripId, const std::string& foeSignal, const std::string& foeId);
+    static void updateConstraints(const std::string& vehID, std::string tripId = "");
 
     // aliases for backward compatibility
     inline static std::vector<libsumo::TraCILogic> getCompleteRedYellowGreenDefinition(const std::string& tlsID) {
@@ -99,6 +100,8 @@ private:
     static std::vector<libsumo::TraCISignalConstraint> findConstraintsDeadLocks(const std::string& foeId, const std::string& tripId, const std::string& foeSignal, const std::string& tlsID);
     static SUMOVehicle* getVehicleByTripId(const std::string tripOrVehID);
     static std::vector<std::string> getFutureTripIds(const std::string vehID);
+    static void swapParameters(MSRailSignalConstraint* c);
+    static void swapParameters(MSRailSignalConstraint* c, const std::string& key1, const std::string& key2);
 
 private:
     static SubscriptionResults mySubscriptionResults;

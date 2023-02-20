@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -26,13 +26,10 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to demand mode
 netedit.supermodeDemand()
-
-# force save additionals
-netedit.forceSaveAdditionals()
 
 # go to waypoint mode
 netedit.stopMode()
@@ -41,53 +38,47 @@ netedit.stopMode()
 netedit.changeStopType("waypointBusStop")
 
 # disable duration
-netedit.changeDefaultBoolValue(netedit.attrs.waypoint.create.durationEnable)
+netedit.changeDefaultBoolValue(netedit.attrs.waypointBusStop.create.durationEnable)
 
 # create waypoint
 netedit.leftClick(referencePosition, 290, 175)
 
 # enable duration
-netedit.changeDefaultBoolValue(netedit.attrs.waypoint.create.durationEnable)
+netedit.changeDefaultBoolValue(netedit.attrs.waypointBusStop.create.durationEnable)
 
 # create waypoint
-netedit.leftClick(referencePosition, 290, 175)
+netedit.leftClick(referencePosition, 291, 175)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.waypoint.create.duration, "dummyValue")
+netedit.changeDefaultValue(netedit.attrs.waypointBusStop.create.duration, "dummyValue")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, 290, 175)
+netedit.leftClick(referencePosition, 292, 175)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.waypoint.create.duration, "-20")
+netedit.changeDefaultValue(netedit.attrs.waypointBusStop.create.duration, "-20")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, 290, 175)
+netedit.leftClick(referencePosition, 293, 175)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.waypoint.create.duration, "0")
+netedit.changeDefaultValue(netedit.attrs.waypointBusStop.create.duration, "0")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, 290, 175)
+netedit.leftClick(referencePosition, 294, 175)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.waypoint.create.duration, "22.33")
+netedit.changeDefaultValue(netedit.attrs.waypointBusStop.create.duration, "22.33")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, 290, 175)
+netedit.leftClick(referencePosition, 295, 175)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)
 netedit.redo(referencePosition, 2)
 
-# save additionals
-netedit.saveAdditionals(referencePosition)
-
-# save routes
-netedit.saveRoutes(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

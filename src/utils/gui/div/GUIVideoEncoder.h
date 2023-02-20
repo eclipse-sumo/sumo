@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -32,7 +32,7 @@
 
 #ifdef _MSC_VER
 #pragma warning(push)
-#pragma warning(disable: 4244) // do not warn about integer conversions
+#pragma warning(disable: 4242 4244) // do not warn about integer conversions
 #endif
 #if __GNUC__ > 3
 #pragma GCC diagnostic push
@@ -71,7 +71,7 @@ public:
         //av_register_all();
         avformat_alloc_output_context2(&myFormatContext, NULL, NULL, out_file);
         if (myFormatContext == nullptr) {
-            throw ProcessError("Unknown format!");
+            throw ProcessError(TL("Unknown format!"));
         }
 
         // @todo maybe warn about default and invalid framerates
@@ -88,16 +88,16 @@ public:
 
         const AVCodec* codec = avcodec_find_encoder(myFormatContext->oformat->video_codec);
         if (codec == nullptr) {
-            WRITE_WARNING("Unknown codec, falling back to HEVC!");
+            WRITE_WARNING(TL("Unknown codec, falling back to HEVC!"));
             codec = avcodec_find_encoder_by_name("libx265");
         }
         if (codec == nullptr) {
-            throw ProcessError("Unknown codec!");
+            throw ProcessError(TL("Unknown codec!"));
         }
         //Param that must set
         myCodecCtx = avcodec_alloc_context3(codec);
         if (myCodecCtx == nullptr) {
-            throw ProcessError("Could not allocate video codec context!");
+            throw ProcessError(TL("Could not allocate video codec context!"));
         }
         //pmyCodecCtx->codec_id =AV_CODEC_ID_HEVC;
         //pmyCodecCtx->codec_id = pFormatCtx->oformat->video_codec;
@@ -133,36 +133,36 @@ public:
             av_opt_set(myCodecCtx->priv_data, "tune", "zero-latency", 0);
         }
         if (avcodec_open2(myCodecCtx, codec, nullptr) < 0) {
-            throw ProcessError("Could not open codec!");
+            throw ProcessError(TL("Could not open codec!"));
         }
         avcodec_parameters_from_context(video_st->codecpar, myCodecCtx);
 
         myFrame = av_frame_alloc();
         if (myFrame == nullptr) {
-            throw ProcessError("Could not allocate video frame!");
+            throw ProcessError(TL("Could not allocate video frame!"));
         }
         myFrame->format = myCodecCtx->pix_fmt;
         myFrame->width  = myCodecCtx->width;
         myFrame->height = myCodecCtx->height;
         if (av_frame_get_buffer(myFrame, 32) < 0) {
-            throw ProcessError("Could not allocate the video frame data!");
+            throw ProcessError(TL("Could not allocate the video frame data!"));
         }
         mySwsContext = sws_getContext(myCodecCtx->width, myCodecCtx->height, AV_PIX_FMT_RGBA,
                                       myCodecCtx->width, myCodecCtx->height, AV_PIX_FMT_YUV420P,
                                       0, 0, 0, 0);
         //Open output URL
         if (avio_open(&myFormatContext->pb, out_file, AVIO_FLAG_WRITE) < 0) {
-            throw ProcessError("Failed to open output file!");
+            throw ProcessError(TL("Failed to open output file!"));
         }
 
         //Write File Header
         if (avformat_write_header(myFormatContext, nullptr) < 0) {
-            throw ProcessError("Failed to write file header!");
+            throw ProcessError(TL("Failed to write file header!"));
         }
         myFrameIndex = 0;
         myPkt = av_packet_alloc();
         if (myPkt == nullptr) {
-            throw ProcessError("Could not allocate video packet!");
+            throw ProcessError(TL("Could not allocate video packet!"));
         }
     }
 
@@ -172,7 +172,7 @@ public:
             ret = 0;
         }
         if (avcodec_send_frame(myCodecCtx, nullptr) < 0) {
-            WRITE_WARNING("Error sending final frame!");
+            WRITE_WARNING(TL("Error sending final frame!"));
             ret = -1;
         }
         while (ret >= 0) {
@@ -180,7 +180,7 @@ public:
             if (ret == AVERROR(EAGAIN) || ret == AVERROR_EOF) {
                 break;
             } else if (ret < 0) {
-                WRITE_WARNING("Error during final encoding step!");
+                WRITE_WARNING(TL("Error during final encoding step!"));
                 break;
             }
             ret = av_write_frame(myFormatContext, myPkt);
@@ -211,7 +211,7 @@ public:
         if (r < 0) {
             char errbuf[64];
             av_strerror(r, errbuf, 64);
-            throw ProcessError("Error sending frame for encoding!");
+            throw ProcessError(TL("Error sending frame for encoding!"));
         }
         int ret = 0;
         while (ret >= 0) {
@@ -219,7 +219,7 @@ public:
             if (ret == AVERROR(EAGAIN) || ret == AVERROR_EOF) {
                 break;
             } else if (ret < 0) {
-                throw ProcessError("Error during encoding!");
+                throw ProcessError(TL("Error during encoding!"));
             }
             /* rescale output packet timestamp values from codec to stream timebase */
             av_packet_rescale_ts(myPkt, myCodecCtx->time_base, myFormatContext->streams[0]->time_base);

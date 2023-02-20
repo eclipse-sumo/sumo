@@ -1,0 +1,17 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- Without errors -->
+    <instantInductionLoop id="E1_01" lane="center0_1" pos="3" file="fileA.txt" vTypes="bus taxi private" friendlyPos="0"/>
+
+    <!-- non valid ID (missing) -->
+    <instantInductionLoop lane="center0_1" pos="6" file="fileA.txt" vTypes="bus taxi private" friendlyPos="0"/>
+
+    <!-- non valid ID (spaces) -->
+    <instantInductionLoop id="ID with spaces" lane="center0_1" pos="6" file="fileA.txt" vTypes="bus taxi private" friendlyPos="0"/>
+
+    <!-- non valid ID (duplicated) -->
+    <instantInductionLoop id="E1_01" lane="center0_1" pos="6" file="fileA.txt" vTypes="bus taxi private" friendlyPos="0"/>
+
+    <!-- Valid ID -->
+    <instantInductionLoop id="validID" lane="center0_1" pos="6" file="fileA.txt" vTypes="bus taxi private" friendlyPos="0"/>
+
+</additional>

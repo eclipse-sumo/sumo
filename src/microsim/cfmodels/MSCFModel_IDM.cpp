@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -75,7 +75,7 @@ MSCFModel_IDM::finalizeSpeed(MSVehicle* const veh, double vPos) const {
 
 
 double
-MSCFModel_IDM::freeSpeed(const MSVehicle* const veh, double speed, double seen, double maxSpeed, const bool /*onInsertion*/) const {
+MSCFModel_IDM::freeSpeed(const MSVehicle* const veh, double speed, double seen, double maxSpeed, const bool /*onInsertion*/, const CalcReason /*usage*/) const {
     if (maxSpeed < 0.) {
         // can occur for ballistic update (in context of driving at red light)
         return maxSpeed;
@@ -101,7 +101,7 @@ MSCFModel_IDM::freeSpeed(const MSVehicle* const veh, double speed, double seen, 
 
 
 double
-MSCFModel_IDM::followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const pred) const {
+MSCFModel_IDM::followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const pred, const CalcReason /*usage*/) const {
     applyHeadwayAndSpeedDifferencePerceptionErrors(veh, speed, gap2pred, predSpeed, predMaxDecel, pred);
     return _v(veh, gap2pred, speed, predSpeed, veh->getLane()->getVehicleMaxSpeed(veh));
 }
@@ -121,9 +121,9 @@ MSCFModel_IDM::insertionFollowSpeed(const MSVehicle* const v, double speed, doub
         // followSpeed function would still return a new speed that involves
         // reasonable braking rather than the actual safe speed (and cause
         // emergency braking in a subsequent step)
-        const double speed2 = followSpeed(v, speed, gap2pred, predSpeed, predMaxDecel);
-        const double speed3 = followSpeed(v, speed2, gap2pred, predSpeed, predMaxDecel);
-        if (speed2 - speed3 < 1) {
+        const double speed2 = followSpeed(v, speed, gap2pred, predSpeed, predMaxDecel, pred, CalcReason::FUTURE);
+        const double speed3 = followSpeed(v, speed2, gap2pred, predSpeed, predMaxDecel, pred, CalcReason::FUTURE);
+        if (speed2 - speed3 < ACCEL2SPEED(1)) {
             return speed2;
         } else {
 #ifdef DEBUG_INSERTION_SPEED
@@ -136,7 +136,7 @@ MSCFModel_IDM::insertionFollowSpeed(const MSVehicle* const v, double speed, doub
 
 
 double
-MSCFModel_IDM::stopSpeed(const MSVehicle* const veh, const double speed, double gap, double decel) const {
+MSCFModel_IDM::stopSpeed(const MSVehicle* const veh, const double speed, double gap, double decel, const CalcReason /*usage*/) const {
     applyHeadwayPerceptionError(veh, speed, gap);
     if (gap < 0.01) {
         return 0;

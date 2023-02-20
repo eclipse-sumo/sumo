@@ -1,0 +1,3 @@
+Error: Attribute 'until' in definition of a stop is not a valid time value.
+Error: Invalid duration or end time is given for a stop at 'gneE5'
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.20Oct114903.1360\netedit.gui\demandelements\containerplan\stops\stop_edge\load\until\routes.rou.xml failed.

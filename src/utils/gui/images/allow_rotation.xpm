@@ -132,6 +132,7 @@ static const char * allow_rotation_xpm[] = {
 "u.	c #464646",
 "i.	c Gray18",
 "p.	c #323232",
+/* pixels */
 "                                        ",
 "                      . X               ",
 "              o O + @ # $               ",

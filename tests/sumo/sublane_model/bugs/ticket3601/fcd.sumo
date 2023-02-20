@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Mar 11 22:23:52 2020 by Eclipse SUMO Version v1_5_0+0662-a598ecae47
+<!-- generated on 2022-12-11 20:57:34 by Eclipse SUMO sumo Version v1_15_0+0944-c751163
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -44,28 +49,28 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="v0" x="46.95" y="-5.30" angle="90.00" type="bus" speed="0.00" pos="46.95" lane="in_0" slope="0.00"/>
     </timestep>
     <timestep time="3.00">
-        <vehicle id="v0" x="48.00" y="-4.30" angle="85.95" type="bus" speed="2.11" pos="48.00" lane="in_0" slope="0.00"/>
+        <vehicle id="v0" x="48.00" y="-4.30" angle="85.22" type="bus" speed="2.11" pos="48.00" lane="in_0" slope="0.00"/>
     </timestep>
     <timestep time="4.00">
-        <vehicle id="v0" x="48.50" y="-3.20" angle="85.24" type="bus" speed="0.00" pos="48.50" lane="in_1" slope="0.00"/>
+        <vehicle id="v0" x="48.50" y="-3.20" angle="80.46" type="bus" speed="0.00" pos="48.50" lane="in_1" slope="0.00"/>
     </timestep>
     <timestep time="5.00">
-        <vehicle id="v0" x="49.80" y="-2.20" angle="86.08" type="bus" speed="2.60" pos="1.30" lane=":n1_0_0" slope="0.00"/>
+        <vehicle id="v0" x="49.80" y="-2.20" angle="77.81" type="bus" speed="2.60" pos="1.30" lane=":n1_0_0" slope="0.00"/>
     </timestep>
     <timestep time="6.00">
-        <vehicle id="v0" x="51.45" y="-2.00" angle="89.10" type="bus" speed="0.69" pos="2.95" lane=":n1_0_0" slope="0.00"/>
+        <vehicle id="v0" x="51.45" y="-2.00" angle="77.57" type="bus" speed="0.69" pos="2.95" lane=":n1_0_0" slope="0.00"/>
     </timestep>
     <timestep time="7.00">
-        <vehicle id="v0" x="53.44" y="-2.00" angle="90.00" type="bus" speed="3.29" pos="1.94" lane="out_0" slope="0.00"/>
+        <vehicle id="v0" x="53.44" y="-2.00" angle="80.96" type="bus" speed="3.29" pos="1.94" lane="out_0" slope="0.00"/>
     </timestep>
     <timestep time="8.00">
-        <vehicle id="v0" x="58.03" y="-2.00" angle="90.00" type="bus" speed="5.89" pos="6.53" lane="out_0" slope="0.00"/>
+        <vehicle id="v0" x="58.03" y="-2.00" angle="85.38" type="bus" speed="5.89" pos="6.53" lane="out_0" slope="0.00"/>
     </timestep>
     <timestep time="9.00">
-        <vehicle id="v0" x="65.23" y="-2.00" angle="90.00" type="bus" speed="8.49" pos="13.73" lane="out_0" slope="0.00"/>
+        <vehicle id="v0" x="65.23" y="-2.00" angle="88.65" type="bus" speed="8.49" pos="13.73" lane="out_0" slope="0.00"/>
     </timestep>
     <timestep time="10.00">
-        <vehicle id="v0" x="75.02" y="-2.00" angle="90.00" type="bus" speed="11.09" pos="23.52" lane="out_0" slope="0.00"/>
+        <vehicle id="v0" x="75.02" y="-2.00" angle="89.90" type="bus" speed="11.09" pos="23.52" lane="out_0" slope="0.00"/>
     </timestep>
     <timestep time="11.00">
         <vehicle id="v0" x="87.41" y="-2.00" angle="90.00" type="bus" speed="13.69" pos="35.91" lane="out_0" slope="0.00"/>

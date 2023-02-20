@@ -1,6 +1,11 @@
 Warning: Ambiguous railway kilometrage direction for way '22955562' (assuming forward)
-Warning: Discarding unusable type 'waterway.canal' (first occurence for edge '24336499').
-Warning: Discarding unusable type 'waterway.riverbank' (first occurence for edge '26818912').
+Warning: Discarding unusable type 'waterway.canal' (first occurrence for edge '24336499').
+Warning: Discarding unusable type 'waterway.riverbank' (first occurrence for edge '26818912').
 Warning: Ambiguous railway kilometrage direction for way '26927036' (assuming forward)
-Warning: Discarding unusable type 'railway.disused' (first occurence for edge '441828377').
+Warning: Discarding unusable type 'railway.disused' (first occurrence for edge '441828377').
+Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '264011787' (Schloß). Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '302966348' (Schloß). Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '4372106137' (Am Nottefließ). Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '4372106138' (Am Nottefließ). Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '4372106154' (Schloß). Thus, it will be removed!
 Warning: Connection '294730182_0->154203996_0' is only 0.00m short.

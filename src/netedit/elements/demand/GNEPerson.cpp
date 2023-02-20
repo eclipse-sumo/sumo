@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -15,7 +15,7 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    May 2019
 ///
-// Representation of persons in NETEDIT
+// Representation of persons in netedit
 /****************************************************************************/
 #include <cmath>
 #include <microsim/devices/MSDevice_BTreceiver.h>
@@ -29,6 +29,7 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/div/GUIBasePersonHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/div/GUIGlobalPostDrawing.h>
 
 #include "GNEPerson.h"
 #include "GNERouteHandler.h"
@@ -161,8 +162,8 @@ GNEPerson::GNESelectedPersonsPopupMenu::onCmdTransform(FXObject* obj, FXSelector
 // ===========================================================================
 
 GNEPerson::GNEPerson(SumoXMLTag tag, GNENet* net) :
-    GNEDemandElement("", net, GLO_PERSON, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-{}, {}, {}, {}, {}, {}) {
+    GNEDemandElement("", net, GLO_PERSON, tag, GUIIconSubSys::getIcon(GUIIcon::PERSON),
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}) {
     // reset default values
     resetDefaultValues();
     // set end and vehPerHours
@@ -172,8 +173,9 @@ GNEPerson::GNEPerson(SumoXMLTag tag, GNENet* net) :
 
 
 GNEPerson::GNEPerson(SumoXMLTag tag, GNENet* net, GNEDemandElement* pType, const SUMOVehicleParameter& personparameters) :
-    GNEDemandElement(personparameters.id, net, (tag == SUMO_TAG_PERSONFLOW) ? GLO_PERSONFLOW : GLO_PERSON, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-{}, {}, {}, {}, {pType}, {}),
+    GNEDemandElement(personparameters.id, net, (tag == SUMO_TAG_PERSONFLOW) ? GLO_PERSONFLOW : GLO_PERSON, tag,
+                     (tag == SUMO_TAG_PERSONFLOW) ? GUIIconSubSys::getIcon(GUIIcon::PERSONFLOW) : GUIIconSubSys::getIcon(GUIIcon::PERSON),
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {pType}, {}),
 SUMOVehicleParameter(personparameters) {
     // set manually vtypeID (needed for saving)
     vtypeid = pType->getID();
@@ -364,8 +366,11 @@ GNEPerson::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkEle
 void
 GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
     bool drawPerson = true;
+    const auto personColor = setColor(s);
     // check if person can be drawn
-    if (!myNet->getViewNet()->getNetworkViewOptions().showDemandElements()) {
+    if (personColor.alpha() == 0) {
+        drawPerson = false;
+    } else if (!myNet->getViewNet()->getNetworkViewOptions().showDemandElements()) {
         drawPerson = false;
     } else if (!myNet->getViewNet()->getDataViewOptions().showDemandElements()) {
         drawPerson = false;
@@ -399,7 +404,7 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
             glTranslated(personPosition.x(), personPosition.y(), 0);
             glRotated(90, 0, 0, 1);
             // set person color
-            setColor(s);
+            GLHelper::setColor(personColor);
             // set scale
             glScaled(exaggeration, exaggeration, 1);
             // draw person depending of detail level
@@ -412,6 +417,20 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
             }
             // pop matrix
             GLHelper::popMatrix();
+            // draw stack label
+            if (myStackedLabelNumber > 0) {
+                drawStackLabel("person", Position(personPosition.x() - 2.5, personPosition.y()), -90, 1.3, 5, getExaggeration(s));
+            }
+            // draw flow label
+            if (myTagProperty.isFlow()) {
+                drawFlowLabel(Position(personPosition.x() - 1, personPosition.y() - 0.25), -90, 1.8, 2, getExaggeration(s));
+            }
+            // draw line between junctions if person plan isn't valid
+            for (const auto& personPlan : getChildDemandElements()) {
+                if (personPlan->getTagProperty().isPersonPlan() && (personPlan->getParentJunctions().size() > 0) && !myNet->getPathManager()->isPathValid(personPlan)) {
+                    drawJunctionLine(personPlan);
+                }
+            }
             // pop name
             GLHelper::popName();
             // draw name
@@ -423,14 +442,27 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
             }
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), personPosition, exaggeration);
-            // check if dotted contours has to be drawn
+            // check if mouse is over element
+            mouseWithinGeometry(personPosition, 0.5, 0.5, 0, 0, 0);
+            // inspect contour
             if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                 // draw using drawDottedSquaredShape
-                GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::INSPECT, s, personPosition, 0.5, 0.5, 0, 0, 0, exaggeration);
+                GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::INSPECT, personPosition, 0.5, 0.5, 0, 0, 0, exaggeration);
             }
+            // front element contour
             if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
                 // draw using drawDottedSquaredShape
-                GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::FRONT, s, personPosition, 0.5, 0.5, 0, 0, 0, exaggeration);
+                GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::FRONT, personPosition, 0.5, 0.5, 0, 0, 0, exaggeration);
+            }
+            // delete contour
+            if (myNet->getViewNet()->drawDeleteContour(this, this)) {
+                // draw using drawDottedSquaredShape
+                GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::REMOVE, personPosition, 0.5, 0.5, 0, 0, 0, exaggeration);
+            }
+            // select contour
+            if (myNet->getViewNet()->drawSelectContour(this, this)) {
+                // draw using drawDottedSquaredShape
+                GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::SELECT, personPosition, 0.5, 0.5, 0, 0, 0, exaggeration);
             }
         }
     }
@@ -766,12 +798,15 @@ GNEPerson::getACParametersMap() const {
 // protected
 // ===========================================================================
 
-void
+RGBColor
 GNEPerson::setColor(const GUIVisualizationSettings& s) const {
     const GUIColorer& c = s.personColorer;
-    if (!setFunctionalColor(c.getActive())) {
-        GLHelper::setColor(c.getScheme().getColor(getColorValue(s, c.getActive())));
-    }
+    /*
+        if (!setFunctionalColor(c.getActive())) {
+            return c.getScheme().getColor(getColorValue(s, c.getActive()));
+        }
+    */
+    return c.getScheme().getColor(getColorValue(s, c.getActive()));
 }
 
 

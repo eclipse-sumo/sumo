@@ -1,7 +1,7 @@
 /* XPM */
 static const char *vclass_passenger_xpm[] = {
 /* columns rows colors chars-per-pixel */
-"52 20 256 2 ",
+"52 20 256 2",
 "   c #3D657D",
 ".  c #504B5A",
 "X  c #514C5B",

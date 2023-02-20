@@ -15,3 +15,6 @@ parse_structured
 
 # parsing route XML with different child elements
 parse_structured_routes
+
+# parsing optional attributes
+parse_fast_optional

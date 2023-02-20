@@ -1,0 +1,724 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-10-02 14:41:39 by Eclipse SUMO sumo Version v1_14_1+1395-77a6b2a
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <fcd-output value="fcd.xml"/>
+        <fcd-output.attributes value="acceleration"/>
+    </output>
+
+    <time>
+        <step-length value="0.5"/>
+    </time>
+
+    <processing>
+        <default.carfollowmodel value="CACC"/>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <fcd_device>
+        <device.fcd.explicit value="flow.9"/>
+    </fcd_device>
+
+</configuration>
+-->
+
+<fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
+    <timestep time="0.00"/>
+    <timestep time="0.50"/>
+    <timestep time="1.00"/>
+    <timestep time="1.50"/>
+    <timestep time="2.00"/>
+    <timestep time="2.50"/>
+    <timestep time="3.00"/>
+    <timestep time="3.50"/>
+    <timestep time="4.00"/>
+    <timestep time="4.50"/>
+    <timestep time="5.00"/>
+    <timestep time="5.50"/>
+    <timestep time="6.00"/>
+    <timestep time="6.50"/>
+    <timestep time="7.00"/>
+    <timestep time="7.50"/>
+    <timestep time="8.00"/>
+    <timestep time="8.50"/>
+    <timestep time="9.00"/>
+    <timestep time="9.50"/>
+    <timestep time="10.00"/>
+    <timestep time="10.50"/>
+    <timestep time="11.00"/>
+    <timestep time="11.50"/>
+    <timestep time="12.00"/>
+    <timestep time="12.50"/>
+    <timestep time="13.00"/>
+    <timestep time="13.50"/>
+    <timestep time="14.00"/>
+    <timestep time="14.50"/>
+    <timestep time="15.00"/>
+    <timestep time="15.50"/>
+    <timestep time="16.00"/>
+    <timestep time="16.50"/>
+    <timestep time="17.00"/>
+    <timestep time="17.50"/>
+    <timestep time="18.00"/>
+    <timestep time="18.50"/>
+    <timestep time="19.00"/>
+    <timestep time="19.50"/>
+    <timestep time="20.00"/>
+    <timestep time="20.50">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="21.00">
+        <vehicle id="flow.9" acceleration="-0.17"/>
+    </timestep>
+    <timestep time="21.50">
+        <vehicle id="flow.9" acceleration="0.45"/>
+    </timestep>
+    <timestep time="22.00">
+        <vehicle id="flow.9" acceleration="2.60"/>
+    </timestep>
+    <timestep time="22.50">
+        <vehicle id="flow.9" acceleration="2.60"/>
+    </timestep>
+    <timestep time="23.00">
+        <vehicle id="flow.9" acceleration="2.27"/>
+    </timestep>
+    <timestep time="23.50">
+        <vehicle id="flow.9" acceleration="1.81"/>
+    </timestep>
+    <timestep time="24.00">
+        <vehicle id="flow.9" acceleration="1.45"/>
+    </timestep>
+    <timestep time="24.50">
+        <vehicle id="flow.9" acceleration="1.16"/>
+    </timestep>
+    <timestep time="25.00">
+        <vehicle id="flow.9" acceleration="0.93"/>
+    </timestep>
+    <timestep time="25.50">
+        <vehicle id="flow.9" acceleration="0.74"/>
+    </timestep>
+    <timestep time="26.00">
+        <vehicle id="flow.9" acceleration="0.59"/>
+    </timestep>
+    <timestep time="26.50">
+        <vehicle id="flow.9" acceleration="0.48"/>
+    </timestep>
+    <timestep time="27.00">
+        <vehicle id="flow.9" acceleration="0.38"/>
+    </timestep>
+    <timestep time="27.50">
+        <vehicle id="flow.9" acceleration="0.30"/>
+    </timestep>
+    <timestep time="28.00">
+        <vehicle id="flow.9" acceleration="0.24"/>
+    </timestep>
+    <timestep time="28.50">
+        <vehicle id="flow.9" acceleration="0.19"/>
+    </timestep>
+    <timestep time="29.00">
+        <vehicle id="flow.9" acceleration="0.16"/>
+    </timestep>
+    <timestep time="29.50">
+        <vehicle id="flow.9" acceleration="0.12"/>
+    </timestep>
+    <timestep time="30.00">
+        <vehicle id="flow.9" acceleration="0.10"/>
+    </timestep>
+    <timestep time="30.50">
+        <vehicle id="flow.9" acceleration="0.08"/>
+    </timestep>
+    <timestep time="31.00">
+        <vehicle id="flow.9" acceleration="0.06"/>
+    </timestep>
+    <timestep time="31.50">
+        <vehicle id="flow.9" acceleration="0.05"/>
+    </timestep>
+    <timestep time="32.00">
+        <vehicle id="flow.9" acceleration="0.04"/>
+    </timestep>
+    <timestep time="32.50">
+        <vehicle id="flow.9" acceleration="0.03"/>
+    </timestep>
+    <timestep time="33.00">
+        <vehicle id="flow.9" acceleration="0.03"/>
+    </timestep>
+    <timestep time="33.50">
+        <vehicle id="flow.9" acceleration="0.02"/>
+    </timestep>
+    <timestep time="34.00">
+        <vehicle id="flow.9" acceleration="0.02"/>
+    </timestep>
+    <timestep time="34.50">
+        <vehicle id="flow.9" acceleration="0.01"/>
+    </timestep>
+    <timestep time="35.00">
+        <vehicle id="flow.9" acceleration="0.01"/>
+    </timestep>
+    <timestep time="35.50">
+        <vehicle id="flow.9" acceleration="0.01"/>
+    </timestep>
+    <timestep time="36.00">
+        <vehicle id="flow.9" acceleration="0.01"/>
+    </timestep>
+    <timestep time="36.50">
+        <vehicle id="flow.9" acceleration="0.01"/>
+    </timestep>
+    <timestep time="37.00">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="37.50">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="38.00">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="38.50">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="39.00">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="39.50">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="40.00">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="40.50">
+        <vehicle id="flow.9" acceleration="-2.85"/>
+    </timestep>
+    <timestep time="41.00">
+        <vehicle id="flow.9" acceleration="-5.00"/>
+    </timestep>
+    <timestep time="41.50">
+        <vehicle id="flow.9" acceleration="-4.35"/>
+    </timestep>
+    <timestep time="42.00">
+        <vehicle id="flow.9" acceleration="-4.86"/>
+    </timestep>
+    <timestep time="42.50">
+        <vehicle id="flow.9" acceleration="-6.74"/>
+    </timestep>
+    <timestep time="43.00">
+        <vehicle id="flow.9" acceleration="-0.00"/>
+    </timestep>
+    <timestep time="43.50">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="44.00">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="44.50">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="45.00">
+        <vehicle id="flow.9" acceleration="-0.00"/>
+    </timestep>
+    <timestep time="45.50">
+        <vehicle id="flow.9" acceleration="-0.00"/>
+    </timestep>
+    <timestep time="46.00">
+        <vehicle id="flow.9" acceleration="-0.00"/>
+    </timestep>
+    <timestep time="46.50">
+        <vehicle id="flow.9" acceleration="-0.00"/>
+    </timestep>
+    <timestep time="47.00">
+        <vehicle id="flow.9" acceleration="-0.00"/>
+    </timestep>
+    <timestep time="47.50">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="48.00">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="48.50">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="49.00">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="49.50">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="50.00">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="50.50">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="51.00">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="51.50">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="52.00">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="52.50">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="53.00">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="53.50">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="54.00">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="54.50">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="55.00">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="55.50">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="56.00">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="56.50">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="57.00">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="57.50">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="58.00">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="58.50">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="59.00">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="59.50">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="60.00">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="60.50">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="61.00">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="61.50">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="62.00">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="62.50">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="63.00">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="63.50">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="64.00">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="64.50">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="65.00">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="65.50">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="66.00">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="66.50">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="67.00">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="67.50">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="68.00">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="68.50">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="69.00">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="69.50">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="70.00">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="70.50">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="71.00">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="71.50">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="72.00">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="72.50">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="73.00">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="73.50">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="74.00">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="74.50">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="75.00">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="75.50">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="76.00">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="76.50">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="77.00">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="77.50">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="78.00">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="78.50">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="79.00">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="79.50">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="80.00">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="80.50">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="81.00">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="81.50">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="82.00">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="82.50">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="83.00">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="83.50">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="84.00">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="84.50">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="85.00">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="85.50">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="86.00">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="86.50">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="87.00">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="87.50">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="88.00">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="88.50">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="89.00">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="89.50">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="90.00">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="90.50">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="91.00">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="91.50">
+        <vehicle id="flow.9" acceleration="0.01"/>
+    </timestep>
+    <timestep time="92.00">
+        <vehicle id="flow.9" acceleration="0.02"/>
+    </timestep>
+    <timestep time="92.50">
+        <vehicle id="flow.9" acceleration="0.06"/>
+    </timestep>
+    <timestep time="93.00">
+        <vehicle id="flow.9" acceleration="0.15"/>
+    </timestep>
+    <timestep time="93.50">
+        <vehicle id="flow.9" acceleration="2.60"/>
+    </timestep>
+    <timestep time="94.00">
+        <vehicle id="flow.9" acceleration="2.60"/>
+    </timestep>
+    <timestep time="94.50">
+        <vehicle id="flow.9" acceleration="0.13"/>
+    </timestep>
+    <timestep time="95.00">
+        <vehicle id="flow.9" acceleration="0.03"/>
+    </timestep>
+    <timestep time="95.50">
+        <vehicle id="flow.9" acceleration="0.06"/>
+    </timestep>
+    <timestep time="96.00">
+        <vehicle id="flow.9" acceleration="0.09"/>
+    </timestep>
+    <timestep time="96.50">
+        <vehicle id="flow.9" acceleration="0.11"/>
+    </timestep>
+    <timestep time="97.00">
+        <vehicle id="flow.9" acceleration="0.13"/>
+    </timestep>
+    <timestep time="97.50">
+        <vehicle id="flow.9" acceleration="0.15"/>
+    </timestep>
+    <timestep time="98.00">
+        <vehicle id="flow.9" acceleration="0.17"/>
+    </timestep>
+    <timestep time="98.50">
+        <vehicle id="flow.9" acceleration="0.04"/>
+    </timestep>
+    <timestep time="99.00">
+        <vehicle id="flow.9" acceleration="0.17"/>
+    </timestep>
+    <timestep time="99.50">
+        <vehicle id="flow.9" acceleration="0.31"/>
+    </timestep>
+    <timestep time="100.00">
+        <vehicle id="flow.9" acceleration="2.60"/>
+    </timestep>
+    <timestep time="100.50">
+        <vehicle id="flow.9" acceleration="2.60"/>
+    </timestep>
+    <timestep time="101.00">
+        <vehicle id="flow.9" acceleration="2.35"/>
+    </timestep>
+    <timestep time="101.50">
+        <vehicle id="flow.9" acceleration="0.29"/>
+    </timestep>
+    <timestep time="102.00">
+        <vehicle id="flow.9" acceleration="0.07"/>
+    </timestep>
+    <timestep time="102.50">
+        <vehicle id="flow.9" acceleration="0.05"/>
+    </timestep>
+    <timestep time="103.00">
+        <vehicle id="flow.9" acceleration="0.04"/>
+    </timestep>
+    <timestep time="103.50">
+        <vehicle id="flow.9" acceleration="0.04"/>
+    </timestep>
+    <timestep time="104.00">
+        <vehicle id="flow.9" acceleration="0.04"/>
+    </timestep>
+    <timestep time="104.50">
+        <vehicle id="flow.9" acceleration="0.04"/>
+    </timestep>
+    <timestep time="105.00">
+        <vehicle id="flow.9" acceleration="0.05"/>
+    </timestep>
+    <timestep time="105.50">
+        <vehicle id="flow.9" acceleration="0.05"/>
+    </timestep>
+    <timestep time="106.00">
+        <vehicle id="flow.9" acceleration="0.06"/>
+    </timestep>
+    <timestep time="106.50">
+        <vehicle id="flow.9" acceleration="0.07"/>
+    </timestep>
+    <timestep time="107.00">
+        <vehicle id="flow.9" acceleration="0.08"/>
+    </timestep>
+    <timestep time="107.50">
+        <vehicle id="flow.9" acceleration="0.10"/>
+    </timestep>
+    <timestep time="108.00">
+        <vehicle id="flow.9" acceleration="0.12"/>
+    </timestep>
+    <timestep time="108.50">
+        <vehicle id="flow.9" acceleration="0.22"/>
+    </timestep>
+    <timestep time="109.00">
+        <vehicle id="flow.9" acceleration="0.30"/>
+    </timestep>
+    <timestep time="109.50">
+        <vehicle id="flow.9" acceleration="0.36"/>
+    </timestep>
+    <timestep time="110.00">
+        <vehicle id="flow.9" acceleration="0.41"/>
+    </timestep>
+    <timestep time="110.50">
+        <vehicle id="flow.9" acceleration="1.40"/>
+    </timestep>
+    <timestep time="111.00">
+        <vehicle id="flow.9" acceleration="1.12"/>
+    </timestep>
+    <timestep time="111.50">
+        <vehicle id="flow.9" acceleration="0.90"/>
+    </timestep>
+    <timestep time="112.00">
+        <vehicle id="flow.9" acceleration="0.72"/>
+    </timestep>
+    <timestep time="112.50">
+        <vehicle id="flow.9" acceleration="0.57"/>
+    </timestep>
+    <timestep time="113.00">
+        <vehicle id="flow.9" acceleration="0.46"/>
+    </timestep>
+    <timestep time="113.50">
+        <vehicle id="flow.9" acceleration="0.37"/>
+    </timestep>
+    <timestep time="114.00">
+        <vehicle id="flow.9" acceleration="0.29"/>
+    </timestep>
+    <timestep time="114.50">
+        <vehicle id="flow.9" acceleration="0.24"/>
+    </timestep>
+    <timestep time="115.00">
+        <vehicle id="flow.9" acceleration="0.19"/>
+    </timestep>
+    <timestep time="115.50">
+        <vehicle id="flow.9" acceleration="0.15"/>
+    </timestep>
+    <timestep time="116.00">
+        <vehicle id="flow.9" acceleration="0.12"/>
+    </timestep>
+    <timestep time="116.50">
+        <vehicle id="flow.9" acceleration="0.10"/>
+    </timestep>
+    <timestep time="117.00">
+        <vehicle id="flow.9" acceleration="0.08"/>
+    </timestep>
+    <timestep time="117.50">
+        <vehicle id="flow.9" acceleration="0.06"/>
+    </timestep>
+    <timestep time="118.00">
+        <vehicle id="flow.9" acceleration="0.05"/>
+    </timestep>
+    <timestep time="118.50">
+        <vehicle id="flow.9" acceleration="0.04"/>
+    </timestep>
+    <timestep time="119.00">
+        <vehicle id="flow.9" acceleration="0.03"/>
+    </timestep>
+    <timestep time="119.50">
+        <vehicle id="flow.9" acceleration="0.03"/>
+    </timestep>
+    <timestep time="120.00">
+        <vehicle id="flow.9" acceleration="0.02"/>
+    </timestep>
+    <timestep time="120.50">
+        <vehicle id="flow.9" acceleration="0.02"/>
+    </timestep>
+    <timestep time="121.00">
+        <vehicle id="flow.9" acceleration="0.01"/>
+    </timestep>
+    <timestep time="121.50">
+        <vehicle id="flow.9" acceleration="0.01"/>
+    </timestep>
+    <timestep time="122.00">
+        <vehicle id="flow.9" acceleration="0.01"/>
+    </timestep>
+    <timestep time="122.50">
+        <vehicle id="flow.9" acceleration="0.01"/>
+    </timestep>
+    <timestep time="123.00">
+        <vehicle id="flow.9" acceleration="0.03"/>
+    </timestep>
+    <timestep time="123.50">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="124.00">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="124.50">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="125.00">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="125.50">
+        <vehicle id="flow.9" acceleration="0.00"/>
+    </timestep>
+    <timestep time="126.00"/>
+</fcd-export>

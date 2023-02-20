@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-10-28 15:35:16 by Eclipse SUMO netconvert Version v1_14_1+2076-67fbe0b3845
+-->
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_net_loadedmanually.nod.xml"/>
+        <edge-files value="input_net_loadedmanually.edg.xml"/>
+        <connection-files value="input_net_loadedmanually.con.xml"/>
+    </input>
+
+    <output>
+        <output-file value="input_net_loadedmanually.net.xml"/>
+    </output>
+
+</configuration>

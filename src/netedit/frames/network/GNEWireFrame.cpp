@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2021-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2021-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -31,10 +31,10 @@
 // ===========================================================================
 
 
-GNEWireFrame::GNEWireFrame(GNEViewParent *viewParent, GNEViewNet* viewNet) :
+GNEWireFrame::GNEWireFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     GNEFrame(viewParent, viewNet, "Wires") {
 
-    // create item Selector modul for wires
+    // create item Selector module for wires
     myWireTagSelector = new GNETagSelector(this, GNETagProperties::TagType::WIRE, SUMO_TAG_TRACTION_SUBSTATION);
 
     // Create wire parameters
@@ -72,7 +72,7 @@ bool
 GNEWireFrame::addWire(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
     // first check that current selected wire is valid
     if (myWireTagSelector->getCurrentTemplateAC() == nullptr) {
-        myViewNet->setStatusBarText("Current selected wire isn't valid.");
+        myViewNet->setStatusBarText(TL("Current selected wire isn't valid."));
         return false;
     }
     // show warning dialogbox and stop check if input parameters are valid
@@ -107,14 +107,14 @@ GNEWireFrame::getConsecutiveLaneSelector() const {
 }
 
 
-void
+bool
 GNEWireFrame::createPath(const bool /* useLastRoute */) {
     // obtain tagproperty (only for improve code legibility)
     const auto& tagProperty = myWireTagSelector->getCurrentTemplateAC()->getTagProperty();
     // first check that current tag is valid (currently only for overhead wires)
     if (tagProperty.getTag() == SUMO_TAG_OVERHEAD_WIRE_SECTION) {
         if (myConsecutiveLaneSelector->getLanePath().size() == 1) {
-            WRITE_WARNING("A " + toString(SUMO_TAG_OVERHEAD_WIRE_SECTION) + " needs at least two lane positions");
+            WRITE_WARNINGF(TL("A % needs at least two lane positions"), toString(SUMO_TAG_OVERHEAD_WIRE_SECTION));
         } else if (createBaseWireObject(tagProperty)) {
             // get attributes and values
             myWireAttributes->getAttributesAndValues(myBaseWire, true);
@@ -143,10 +143,12 @@ GNEWireFrame::createPath(const bool /* useLastRoute */) {
                     myConsecutiveLaneSelector->abortPathCreation();
                     // refresh additional attributes
                     myWireAttributes->refreshAttributesCreator();
+                    return true;
                 }
             }
         }
     }
+    return false;
 }
 
 
@@ -156,7 +158,7 @@ GNEWireFrame::tagSelected() {
     const auto templateAC = myWireTagSelector->getCurrentTemplateAC();
     // check if templateAC Exist
     if (templateAC) {
-        // show wire attributes modul
+        // show wire attributes module
         myWireAttributes->showAttributesCreatorModule(templateAC, {});
         // show netedit attributes
         myNeteditAttributes->showNeteditAttributesModule(templateAC);
@@ -169,7 +171,7 @@ GNEWireFrame::tagSelected() {
             mySelectorWireParent->hideSelectorParentModule();
         }
     } else {
-        // hide all moduls if wire isn't valid
+        // hide all modules if wire isn't valid
         myWireAttributes->hideAttributesCreatorModule();
         myNeteditAttributes->hideNeteditAttributesModule();
         myConsecutiveLaneSelector->hideConsecutiveLaneSelectorModule();
@@ -227,12 +229,12 @@ GNEWireFrame::buildWireOverView(const GNETagProperties& tagProperties) {
             (tagProperties.getTag() == SUMO_TAG_CLOSING_LANE_REROUTE) ||
             (tagProperties.getTag() == SUMO_TAG_ROUTE_PROB_REROUTE) ||
             (tagProperties.getTag() == SUMO_TAG_PARKING_AREA_REROUTE)) {
-        WRITE_WARNING("Currently unsuported. Create rerouter elements using rerouter dialog");
+        WRITE_WARNING(TL("Currently unsupported. Create rerouter elements using rerouter dialog"));
         return false;
     }
     // disable intervals (temporal)
     if (tagProperties.getTag() == SUMO_TAG_STEP) {
-        WRITE_WARNING("Currently unsuported. Create VSS steps elements using VSS dialog");
+        WRITE_WARNING(TL("Currently unsupported. Create VSS steps elements using VSS dialog"));
         return false;
     }
     // Check if ID has to be generated

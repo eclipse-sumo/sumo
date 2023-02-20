@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -37,6 +37,7 @@
 #include <utils/foxtools/MFXImageHelper.h>
 #include <utils/foxtools/MFXStaticToolTip.h>
 #include <utils/gui/images/GUITexturesHelper.h>
+#include <utils/gui/div/GUIDesigns.h>
 #include <utils/options/OptionsCont.h>
 #include "GUIMainWindow.h"
 #include "GUIGlChildWindow.h"
@@ -59,8 +60,9 @@ GUIMainWindow::GUIMainWindow(FXApp* app) :
     myListInternal(false),
     myListParking(true),
     myListTeleporting(false) {
-    // build tooltip
-    myStaticTooltip = new MFXStaticToolTip(app);
+    // build static tooltips
+    myStaticTooltipMenu = new MFXStaticToolTip(app);
+    myStaticTooltipView = new MFXStaticToolTip(app);
     // build bold font
     FXFontDesc fdesc;
     app->getNormalFont()->getFontDesc(fdesc);
@@ -75,7 +77,7 @@ GUIMainWindow::GUIMainWindow(FXApp* app) :
     myRightDock = new FXDockSite(this, LAYOUT_SIDE_RIGHT | LAYOUT_FILL_Y);
     // avoid instance Windows twice
     if (myInstance != nullptr) {
-        throw ProcessError("MainWindow initialized twice");
+        throw ProcessError(TL("MainWindow initialized twice"));
     }
     myInstance = this;
     //myGLVisual->setStencilSize(8); // enable stencil buffer
@@ -83,14 +85,15 @@ GUIMainWindow::GUIMainWindow(FXApp* app) :
 
 
 GUIMainWindow::~GUIMainWindow() {
-    delete myStaticTooltip;
+    delete myStaticTooltipMenu;
+    delete myStaticTooltipView;
     delete myBoldFont;
     delete myFallbackFont;
     delete myTopDock;
     delete myBottomDock;
     delete myLeftDock;
     delete myRightDock;
-    //myInstance = nullptr;
+    myInstance = nullptr;
 }
 
 
@@ -154,6 +157,18 @@ GUIMainWindow::getViewByID(const std::string& id) const {
 }
 
 
+void
+GUIMainWindow::removeViewByID(const std::string& id) {
+    for (GUIGlChildWindow* const window : myGLWindows) {
+        if (std::string(window->getTitle().text()) == id) {
+            window->close();
+            removeGLChild(window);
+            return;
+        }
+    }
+}
+
+
 FXFont*
 GUIMainWindow::getBoldFont() {
     return myBoldFont;
@@ -190,8 +205,14 @@ GUIMainWindow::getGLVisual() const {
 
 
 MFXStaticToolTip*
-GUIMainWindow::getStaticTooltip() const {
-    return myStaticTooltip;
+GUIMainWindow::getStaticTooltipMenu() const {
+    return myStaticTooltipMenu;
+}
+
+
+MFXStaticToolTip*
+GUIMainWindow::getStaticTooltipView() const {
+    return myStaticTooltipView;
 }
 
 
@@ -210,6 +231,12 @@ GUIMainWindow::getGeoLabel() {
 FXLabel*
 GUIMainWindow::getTestLabel() {
     return myTestCoordinate;
+}
+
+
+FXHorizontalFrame*
+GUIMainWindow::getTestFrame() {
+    return myTestFrame;
 }
 
 
@@ -242,7 +269,7 @@ GUIMainWindow::getInstance() {
     if (myInstance != nullptr) {
         return myInstance;
     }
-    throw ProcessError("A GUIMainWindow instance was not yet constructed.");
+    throw ProcessError(TL("A GUIMainWindow instance was not yet constructed."));
 }
 
 
@@ -264,7 +291,7 @@ GUIMainWindow::setWindowSizeAndPos() {
     if (oc.isSet("window-size")) {
         std::vector<std::string> windowSize = oc.getStringVector("window-size");
         if (windowSize.size() != 2) {
-            WRITE_ERROR("option window-size requires INT,INT");
+            WRITE_ERROR(TL("option window-size requires INT,INT"));
         } else {
             try {
                 windowWidth = StringUtils::toInt(windowSize[0]);
@@ -281,7 +308,7 @@ GUIMainWindow::setWindowSizeAndPos() {
         if (oc.isSet("window-pos")) {
             std::vector<std::string> windowPos = oc.getStringVector("window-pos");
             if (windowPos.size() != 2) {
-                WRITE_ERROR("option window-pos requires INT,INT");
+                WRITE_ERROR(TL("option window-pos requires INT,INT"));
             } else {
                 try {
                     x = StringUtils::toInt(windowPos[0]);
@@ -304,6 +331,133 @@ GUIMainWindow::storeWindowSizeAndPos() {
         getApp()->reg().writeIntEntry("SETTINGS", "width", getWidth());
         getApp()->reg().writeIntEntry("SETTINGS", "height", getHeight());
     }
+}
+
+
+void
+GUIMainWindow::buildLanguageMenu(FXMenuBar* menuBar) {
+    myLanguageMenu = new FXMenuPane(this);
+    GUIDesigns::buildFXMenuTitle(menuBar, TL("Langua&ge"), nullptr, myLanguageMenu);
+
+    GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, "English", "", TL("Change language to english. (en)"),
+                                           GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_EN), this, MID_LANGUAGE_EN);
+    GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, "Deutsch", "", TL("Change language to german. (de)"),
+                                           GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_DE), this, MID_LANGUAGE_DE);
+    GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, "Español", "", TL("Change language to spanish. (es)"),
+                                           GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_ES), this, MID_LANGUAGE_ES);
+    GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, "Français", "", TL("Change language to french. (fr)"),
+                                           GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_FR), this, MID_LANGUAGE_FR);
+    GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, "简体中文", "", TL("简体中文 (zh)"),
+                                           GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_ZH), this, MID_LANGUAGE_ZH);
+    GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, "繁體中文", "", TL("繁體中文 (zh-Hant)"),
+                                           GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_ZHT), this, MID_LANGUAGE_ZHT);
+    GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, "Türkçe", "", TL("Change language to turkish. (tr)"),
+                                           GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_TR), this, MID_LANGUAGE_TR);
+    GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, "Magyar", "", TL("Change language to hungarian. (hu)"),
+                                           GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_HU), this, MID_LANGUAGE_HU);
+}
+
+
+long
+GUIMainWindow::onCmdChangeLanguage(FXObject*, FXSelector sel, void*) {
+    // set language
+    std::string langID;
+    std::string lang;
+    // continue depending of called button
+    switch (FXSELID(sel)) {
+        case MID_LANGUAGE_DE:
+            langID = "de";
+            lang = TL("german");
+            break;
+        case MID_LANGUAGE_ES:
+            langID = "es";
+            lang = TL("spanish");
+            break;
+        case MID_LANGUAGE_FR:
+            langID = "fr";
+            lang = TL("french");
+            break;
+        case MID_LANGUAGE_ZH:
+            langID = "zh";
+            lang = TL("chinese");
+            break;
+        case MID_LANGUAGE_ZHT:
+            langID = "zh-Hant";
+            lang = TL("chinese simplified");
+            break;
+        case MID_LANGUAGE_TR:
+            langID = "tr";
+            lang = TL("turkish");
+            break;
+        case MID_LANGUAGE_HU:
+            langID = "hu";
+            lang = TL("hungarian");
+            break;
+        default:
+            langID = "C";
+            lang = TL("english");
+            break;
+    }
+    // check if change language
+    if (langID != gLanguage) {
+        // update language
+        gLanguage = langID;
+        // show info
+        WRITE_MESSAGE(TL("Language changed to ") + lang);
+        // show dialog
+        const std::string header = TL("Restart needed");
+        const std::string body = TL("Changing display language needs restart to take effect.") + std::string("\n") +
+#ifdef DEBUG
+#ifdef WIN32
+                                 TL("For the Debug build you might also need to set the LANG environment variable.") + std::string("\n") +
+#endif
+#endif
+                                 TL("Under development. You can help to improve the translation at:") + std::string("\n") +
+                                 "https://hosted.weblate.org/projects/eclipse-sumo/";
+        FXMessageBox::information(getApp(), MBOX_OK, header.c_str(), "%s", body.c_str());
+        // update language in registry (common for sumo and netedit)
+        std::string appKey = getApp()->reg().getAppKey().text();
+        if (appKey == "SUMO GUI") {
+            // registry is written again later so we have to modify the "life" version
+            getApp()->reg().writeStringEntry("gui", "language", langID.c_str());
+        } else {
+            FXRegistry reg("SUMO GUI", "sumo-gui");
+            reg.read();
+            reg.writeStringEntry("gui", "language", langID.c_str());
+            reg.write();
+        }
+    }
+    return 1;
+}
+
+
+long
+GUIMainWindow::onUpdChangeLanguage(FXObject* obj, FXSelector, void*) {
+    // get language menu command
+    FXMenuCommand* menuCommand = dynamic_cast<FXMenuCommand*>(obj);
+    if (menuCommand) {
+        // check if change color
+        if ((gLanguage == "C") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_EN))) {
+            menuCommand->setTextColor(FXRGB(0, 0, 255));
+        } else if ((gLanguage == "de") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_DE))) {
+            menuCommand->setTextColor(FXRGB(0, 0, 255));
+        } else if ((gLanguage == "es") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_ES))) {
+            menuCommand->setTextColor(FXRGB(0, 0, 255));
+        } else if ((gLanguage == "fr") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_FR))) {
+            menuCommand->setTextColor(FXRGB(0, 0, 255));
+        } else if ((gLanguage == "zh") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_ZH))) {
+            menuCommand->setTextColor(FXRGB(0, 0, 255));
+        } else if ((gLanguage == "zh-Hant") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_ZHT))) {
+            menuCommand->setTextColor(FXRGB(0, 0, 255));
+        } else if ((gLanguage == "tr") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_TR))) {
+            menuCommand->setTextColor(FXRGB(0, 0, 255));
+        } else if ((gLanguage == "hu") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_HU))) {
+            menuCommand->setTextColor(FXRGB(0, 0, 255));
+        } else {
+            menuCommand->setTextColor(FXRGB(0, 0, 0));
+        }
+    }
+    return 1;
 }
 
 

@@ -4,6 +4,8 @@ route
 
 type
 
+typebutton
+
 type_bike
 
 color
@@ -33,6 +35,8 @@ containernumber
 departposlat
 
 arrivalposlat
+
+insertionchecks
 
 depart
 

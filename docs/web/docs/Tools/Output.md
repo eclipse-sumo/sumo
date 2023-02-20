@@ -4,6 +4,42 @@ title: Output
 
 All of the tools described below exist in *tools/output* directory.
 
+## attributeStats.py
+
+Computes statistics on arbitrary numerical attributes in an xml
+document. (eg. attribute *timeLoss* for element *tripinfo* in
+[tripinfo-output](../Simulation/Output/TripInfo.md)) and writes the
+results to standard output. When the attribute contains time data in HH:MM:SS format, the values will automatically be converted to seconds.
+
+```
+python tools/output/attributeStats --element tripinfo --attribute timeLoss input.xml
+```
+
+- If option **--element** (**-e**) is set to a comma-separated list of elements, only these elements will be read. Otherwise all elements will be parsed
+- If option **--attribute** (**-a**) is set to a comma-separated list of attributes, only these attributes will be read. Otherwise all attributes will be parsed
+- It is also possible to give multiple files as input as a space separated list or via shell expenasion (i.e. `*.input.xml`)
+- If option **--id-attribute** (**-i**) is set, the minimum and maximum values of each attribute will be annotated with the corresponding id value
+- With option **--hist-output** {{DT_FILE}}, a histogram data file (e.g. for plotting with gnuplot) is generated.
+  - option **--binwidth INT** (**-b**) defines the binning width for the histogram
+- With option **--xml-output** {{DT_FILE}}, A file with statistical measures for all processed attributes is written
+- With option **--full-output** {{DT_FILE}}, A collected attribute values are recorded with their corresponnding ids
+- Output precision can be set with option **--precision** (**-p**)
+
+## attributeDiff.py
+
+Computes difference between numerical attributes in two xml files with the same structure (eg. attribute *timeLoss* for element *vehicleTripStatistics* in [statistic-output](../Simulation/Output/StatisticOutput.md)) and writes the
+results to standard output. When the attribute contains time data in HH:MM:SS format, the values will automatically be converted to seconds.
+
+```
+python tools/output/attributeDiff file1.xml file2.xml --xml-output differences.xml
+```
+
+- If option **--element** (**-e**) is set to a comma-separated list of elements, only these elements will be read. Otherwise all elements will be parsed
+- If option **--attribute** (**-a**) is set to a comma-separated list of attributes, only these attributes will be read. Otherwise all attributes will be parsed
+- If option **--id-attribute** (**-i**) is set, the minimum and maximum values of each attribute will be annotated with the corresponding id value
+- With option **--xml-output** {{DT_FILE}}, A file with statistical measures for all processed attributes is written
+
+
 ## generateITetrisIntersectionMetrics.py
 
 Tool used for generating the intersection metrics, including (but not
@@ -154,6 +190,18 @@ usage:
 python vehrouteDiff.py routes1.rou.xml routes2.rou.xml result.xml
 ```
 
+## vehrouteCountValidation.py
+
+Computes the mismatch between counting datay (in the same format as used by [routeSampler.py](Turns.md#routesamplerpy))
+and **--vehroute-output** files. If the vehroute-output was generated with option **--vehroute-output.exit-times**, then time of passing the respective edges is used for the validation of counting data time lines (counting data with multiple time intervals).
+Since typically, the total count of vehicles provided in the simulation **--route-files** passes the desired edges, the main value of this tools lies in evaluating the impact of delays (or delayed insertion) on replicating time-dependent counting data.
+
+usage (with turn counts):
+
+```
+python vehrouteCountValidation.py -r routes.rou.xml -t input_turns.xml
+```
+
 ## tripinfoDiff.py
 
 Computes the difference in travel times, route length, time loss,
@@ -195,22 +243,6 @@ python tripinfoByType.py -t tripinfos.xml -a timeLoss
 ```
 
 Output is given as plain text on the command line or in xml format if option **--output** is set.
-
-## attributeStats.py
-
-Computes statistics on an arbitrary numerical attribute in a flat xml
-document. (eg. attribute *timeLoss* for element *tripinfo* in
-[tripinfo-output](../Simulation/Output/TripInfo.md)) and writes the
-results to standard output. When the attribute contains time data in HH:MM:SS format, the values will automatically be converted to seconds.
-
-```
-python tools/output/attributeStats --element tripinfo --attribute timeLoss input.xml
-```
-
-With option **--hist-output** {{DT_FILE}} a histogram data file (e.g. for plotting with gnuplot) is
-generated.
-
-It is also possible to give multiple files as input as a space separated list or via shell expenasion (i.e. `*.input.xml`)
 
 ## computeCoordination.py
 
@@ -301,3 +333,18 @@ Example usage:
 ```
 python tools\output\aggregateBatteryOutput.py -i battery.xml -o batteryAggregatedx.xml -t 60 -v veh0')
 ```
+
+## fcdDiff.py
+
+Computes difference between two [fcd-output files](../Simulation/Output/FCDOutput.md) with regard to their distance in space.
+Data points in the files are matched by time and by id (no time shifting is done).
+
+Statistical outputs are printed on the console. It is also possible to write all error values to an xml file.
+
+```
+python tools/output/fcdDiff fcd.xml fcd2.xml 
+```
+
+- If option **--grouped** is set, separate statistics for each vehicle will be printed
+- If option **--tripId** is set, vehicles will be matched by attribute `tripId` instead of `id` (requires **--fcd-output.params tripId** to be when generating the fcd-output)
+- With option **--xml-output** {{DT_FILE}}, An annotated fcd file with error values is written

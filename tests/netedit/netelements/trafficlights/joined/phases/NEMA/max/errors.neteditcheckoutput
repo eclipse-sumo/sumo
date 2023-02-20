@@ -1,0 +1,3 @@
+Warning: maxDur 13150 should not be smaller than minDir 90000 in phase of tlLogic J0
+Error: At traffic signal 'J0' program '0' no phase named '4' was found
+Quitting (on error).

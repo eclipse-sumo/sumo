@@ -1,2 +1,2 @@
 Error: Could not build interval with begin '0' and '3600000' in 'rerouter_0' due overlapping.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\additionalelements\rerouterelements\interval\load\duplicated\input_additionals.add.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\additionalelements\rerouterelements\interval\load\duplicated\additionals.add.xml failed.

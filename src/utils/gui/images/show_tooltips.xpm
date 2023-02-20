@@ -5,6 +5,7 @@ static const char * show_tooltips_xpm[] = {
 " 	c None",
 ".	c Black",
 "X	c #ffc90e",
+/* pixels */
 "                ",
 "   ..........   ",
 "  .XXXXXXXXXX.  ",

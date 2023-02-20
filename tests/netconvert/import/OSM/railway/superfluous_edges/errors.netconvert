@@ -1,18 +1,16 @@
 Warning: Ignoring track count 2 for edge '25290481'.
 Warning: Ignoring track count 2 for edge '310143560'.
-Warning: Discarding unusable type 'highway.bus_stop' (first occurence for edge '61793937').
-Warning: Discarding unusable type 'railway.platform' (first occurence for edge '61793940').
-Warning: Done reading first coherent chunk of pt stops. Further stops in relation 31366 are ignored
-Warning: Done reading first coherent chunk of pt stops. Further stops in relation 31478 are ignored
-Warning: Done reading first coherent chunk of pt stops. Further stops in relation 102308 are ignored
-Warning: Done reading first coherent chunk of pt stops. Further stops in relation 2752852 are ignored
-Warning: Done reading first coherent chunk of pt stops. Further stops in relation 2770412 are ignored
+Warning: Discarding unusable type 'highway.bus_stop' (first occurrence for edge '61793937').
+Warning: Discarding unusable type 'railway.platform' (first occurrence for edge '61793940').
 Warning: PT line in relation 10693304 with no stops ignored. Probably OSM file is incomplete.
 Warning: PT line in relation 10693305 with no stops ignored. Probably OSM file is incomplete.
 Warning: PT line in relation 11722150 with no stops ignored. Probably OSM file is incomplete.
 Warning: PT line in relation 11722151 with no stops ignored. Probably OSM file is incomplete.
-Warning: Incomplete route for pt line '2770412' (Tram 2: Heidberg => Leisewitzstraße => Siegfriedviertel).
 Warning: Found sharp turn with radius 4.15 at the end of edge '316779264#4'.
+Warning: Converting invalid rail_crossing to priority junction '2166437481'.
+Warning: Converting invalid rail_crossing to priority junction '3155104124'.
+Warning: Converting invalid rail_crossing to priority junction '3155104138'.
+Warning: Converting invalid rail_crossing to priority junction '3155104145'.
+Warning: Converting invalid rail_crossing to priority junction '51519988'.
 Warning: Lane '310143561#0_0' is not connected from any incoming edge at junction '1582162279'.
 Warning: Speed of straight connection '315207578_0->23198871_0' reduced by 6.65 due to turning radius of 9.51 (length=2.87, angle=33.86).
-Warning: 18 total messages of type: Done reading first coherent chunk of pt stops. Further stops in relation % are ignored

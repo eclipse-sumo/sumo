@@ -4,14 +4,13 @@ TestFunctions: 'reference.png' found. Position: 304 - 168
 waypointChargingStation
 TestFunctions: Clicked over position 594 - 363
 dummyValue
-TestFunctions: Clicked over position 594 - 363
+TestFunctions: Clicked over position 595 - 363
 -20
-TestFunctions: Clicked over position 594 - 363
+TestFunctions: Clicked over position 596 - 363
 0
-TestFunctions: Clicked over position 594 - 363
+TestFunctions: Clicked over position 597 - 363
 22.33
-TestFunctions: Clicked over position 594 - 363
-TestFunctions: Clicked over position 304 - 168
+TestFunctions: Clicked over position 598 - 363
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Netedit closed successfully

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-11-23 23:04:32 by Eclipse SUMO netconvert Version v1_15_0+0554-e415494
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <type-files value="input_types.typ.xml"/>
+        <osm-files value="osm.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="-465486.97,-5247130.07" convBoundary="0.00,0.00,38.55,14.20" origBoundary="8.542809,47.376720,8.543321,47.376845" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <type id="highway.tertiary" priority="10" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric rail_fast ship" spreadType="roadCenter" oneway="0"/>
+
+    <edge id=":674098902_0" function="internal">
+        <lane id=":674098902_0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="9.91" shape="28.27,6.70 30.82,5.66 32.12,4.13 33.28,2.26 35.41,0.23"/>
+    </edge>
+
+    <edge id="53275982" from="674098902" to="300901455" priority="10" type="highway.tertiary" spreadType="roadCenter">
+        <lane id="53275982_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="2.71" shape="35.41,0.23 37.63,-1.32"/>
+    </edge>
+    <edge id="8143580" from="300900428" to="674098902" priority="10" type="highway.tertiary" spreadType="roadCenter">
+        <lane id="8143580_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="29.20" shape="-0.97,9.50 27.62,3.57"/>
+        <lane id="8143580_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="29.20" shape="-0.32,12.63 28.27,6.70"/>
+    </edge>
+
+    <junction id="300900428" type="dead_end" x="0.00" y="14.20" incLanes="" intLanes="" shape="0.00,14.20 -1.30,7.93"/>
+    <junction id="300901455" type="dead_end" x="38.55" y="0.00" incLanes="53275982_0" intLanes="" shape="36.72,-2.63 38.55,0.00"/>
+    <junction id="674098902" type="priority" x="25.76" y="8.85" incLanes="8143580_0 8143580_1" intLanes=":674098902_0_0" shape="36.32,1.54 34.50,-1.09 32.05,0.53 31.13,1.00 30.15,1.34 28.93,1.65 27.29,2.00 28.59,8.27 30.61,7.61 31.89,6.71 32.76,5.61 33.56,4.35 34.63,2.98">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+
+    <connection from="8143580" to="53275982" fromLane="1" toLane="0" via=":674098902_0_0" dir="s" state="M"/>
+
+    <connection from=":674098902_0" to="53275982" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>

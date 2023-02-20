@@ -1,0 +1,3 @@
+Error: The busStop 'dummy' is not known in vehicle '0'..
+Error: Invalid stop definition in vehicle '0'..
+Quitting (on error).

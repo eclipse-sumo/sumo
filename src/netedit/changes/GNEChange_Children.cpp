@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -101,7 +101,7 @@ GNEChange_Children::undo() {
         }
     }
     // require always save children
-    myParentDemandElement->getNet()->requireSaveDemandElements(true);
+    myParentDemandElement->getNet()->getSavingStatus()->requireSaveDemandElements();
 }
 
 
@@ -135,7 +135,7 @@ GNEChange_Children::redo() {
         }
     }
     // require always save children
-    myParentDemandElement->getNet()->requireSaveDemandElements(true);
+    myParentDemandElement->getNet()->getSavingStatus()->requireSaveDemandElements();
 }
 
 
@@ -144,20 +144,20 @@ GNEChange_Children::undoName() const {
     if (myForward) {
         // check myOperation
         if (myOperation == GNEChange_Children::Operation::MOVE_FRONT) {
-            return ("Undo moving up " + myChildDemandElement->getTagStr());
+            return (TL("Undo moving up ") + myChildDemandElement->getTagStr());
         } else if (myOperation == GNEChange_Children::Operation::MOVE_BACK) {
-            return ("Undo moving down " + myChildDemandElement->getTagStr());
+            return (TL("Undo moving down ") + myChildDemandElement->getTagStr());
         } else {
-            return ("Invalid operation");
+            return (TL("Invalid operation"));
         }
     } else {
         // check myOperation
         if (myOperation == GNEChange_Children::Operation::MOVE_FRONT) {
-            return ("Undo moving down " + myChildDemandElement->getTagStr());
+            return (TL("Undo moving down ") + myChildDemandElement->getTagStr());
         } else if (myOperation == GNEChange_Children::Operation::MOVE_BACK) {
-            return ("Undo moving up " + myChildDemandElement->getTagStr());
+            return (TL("Undo moving up ") + myChildDemandElement->getTagStr());
         } else {
-            return ("Invalid operation");
+            return (TL("Invalid operation"));
         }
     }
 }
@@ -168,20 +168,20 @@ GNEChange_Children::redoName() const {
     if (myForward) {
         // check myOperation
         if (myOperation == GNEChange_Children::Operation::MOVE_FRONT) {
-            return ("Redo moving front " + myParentDemandElement->getTagStr());
+            return (TL("Redo moving front ") + myParentDemandElement->getTagStr());
         } else if (myOperation == GNEChange_Children::Operation::MOVE_BACK) {
-            return ("Redo moving back " + myParentDemandElement->getTagStr());
+            return (TL("Redo moving back ") + myParentDemandElement->getTagStr());
         } else {
-            return ("Invalid operation");
+            return (TL("Invalid operation"));
         }
     } else {
         // check myOperation
         if (myOperation == GNEChange_Children::Operation::MOVE_FRONT) {
-            return ("Redo moving front " + myParentDemandElement->getTagStr());
+            return (TL("Redo moving front ") + myParentDemandElement->getTagStr());
         } else if (myOperation == GNEChange_Children::Operation::MOVE_BACK) {
-            return ("Redo moving back " + myParentDemandElement->getTagStr());
+            return (TL("Redo moving back ") + myParentDemandElement->getTagStr());
         } else {
-            return ("Invalid operation");
+            return (TL("Invalid operation"));
         }
     }
 }

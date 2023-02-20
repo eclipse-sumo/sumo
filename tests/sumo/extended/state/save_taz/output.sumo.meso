@@ -1,7 +1,7 @@
 Loading net-file from 'net.net.xml' ... done (3ms).
 Loading additional-files from 'input_districts.taz.xml' ... done (0ms).
 Loading done.
-Simulation version v1_7_0+0591-54c0d1ca00 started with time: 0.00
+Simulation version v1_7_0+0591-54c0d1ca00 started with time: 0.00.
 Simulation ended at time: 280.00
 Reason: All vehicles have left the simulation.
 DijkstraRouter answered 2 queries and explored 4.00 edges on average.

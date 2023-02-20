@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -23,6 +23,11 @@
 //    Microscopic Simulation of Adaptive and Cooperative Adaptive Cruise
 //     Control Vehicles. Transportation Research Record: Journal of the
 //     Transportation Research Board, No. 2623, 2017. (DOI: 10.3141/2623-01).
+//[3]  Xiao, L., Wang, M., Schakel, W., & van Arem, B. (2018). Unravelling
+//    effects of cooperative adaptive cruise control deactivation on
+//    traffic flow characteristics at merging bottlenecks. Transportation
+//    Research Part C: Emerging Technologies, 96, 380–397.
+//    <https://doi.org/10.1016/j.trc.2018.10.008>
 /****************************************************************************/
 #include <config.h>
 
@@ -79,8 +84,7 @@ MSCFModel_ACC::MSCFModel_ACC(const MSVehicleType* vtype) :
     myGapControlGainSpace(vtype->getParameter().getCFParam(SUMO_ATTR_GC_GAIN_SPACE, DEFAULT_GC_GAIN_SPACE)),
     myCollisionAvoidanceGainSpeed(vtype->getParameter().getCFParam(SUMO_ATTR_CA_GAIN_SPEED, DEFAULT_CA_GAIN_SPEED)),
     myCollisionAvoidanceGainSpace(vtype->getParameter().getCFParam(SUMO_ATTR_CA_GAIN_SPACE, DEFAULT_CA_GAIN_SPACE)),
-    myEmergencyThreshold(vtype->getParameter().getCFParam(SUMO_ATTR_CA_OVERRIDE, DEFAULT_EMERGENCY_OVERRIDE_THRESHOLD))
-{
+    myEmergencyThreshold(vtype->getParameter().getCFParam(SUMO_ATTR_CA_OVERRIDE, DEFAULT_EMERGENCY_OVERRIDE_THRESHOLD)) {
     // ACC does not drive very precise and often violates minGap
     myCollisionMinGapFactor = vtype->getParameter().getCFParam(SUMO_ATTR_COLLISION_MINGAP_FACTOR, 0.1);
 }
@@ -89,7 +93,7 @@ MSCFModel_ACC::~MSCFModel_ACC() {}
 
 
 double
-MSCFModel_ACC::followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const /*pred*/) const {
+MSCFModel_ACC::followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const /*pred*/, const CalcReason /*usage*/) const {
     const double desSpeed = MIN2(veh->getLane()->getSpeedLimit(), veh->getMaxSpeed());
     const double vACC = _v(veh, gap2pred, speed, predSpeed, desSpeed, true);
     const double vSafe = maximumSafeFollowSpeed(gap2pred, speed, predSpeed, predMaxDecel);
@@ -103,7 +107,7 @@ MSCFModel_ACC::followSpeed(const MSVehicle* const veh, double speed, double gap2
 
 
 double
-MSCFModel_ACC::stopSpeed(const MSVehicle* const veh, const double speed, double gap, double decel) const {
+MSCFModel_ACC::stopSpeed(const MSVehicle* const veh, const double speed, double gap, double decel, const CalcReason /*usage*/) const {
     // NOTE: This allows return of smaller values than minNextSpeed().
     // Only relevant for the ballistic update: We give the argument headway=TS, to assure that
     // the stopping position is approached with a uniform deceleration also for tau!=TS.
@@ -127,7 +131,7 @@ MSCFModel_ACC::insertionFollowSpeed(const MSVehicle* const v, double speed, doub
 //        std::cout << "MSCFModel_ACC::insertionFollowSpeed(), speed="<<speed<< std::endl;
 //#endif
     // iterate to find a stationary value for
-    //    speed = followSpeed(v, speed, gap2pred, predSpeed, predMaxDecel, nullptr)
+    //    speed = followSpeed(v, speed, gap2pred, predSpeed, predMaxDecel, nullptr, CalcReason::FUTURE)
     const int max_iter = 50;
     int n_iter = 0;
     const double tol = 0.1;
@@ -136,7 +140,7 @@ MSCFModel_ACC::insertionFollowSpeed(const MSVehicle* const v, double speed, doub
     double res = speed;
     while (n_iter < max_iter) {
         // proposed acceleration
-        const double a = SPEED2ACCEL(followSpeed(v, res, gap2pred, predSpeed, predMaxDecel, nullptr) - res);
+        const double a = SPEED2ACCEL(followSpeed(v, res, gap2pred, predSpeed, predMaxDecel, nullptr, CalcReason::FUTURE) - res);
         res = res + damping * a;
 //#ifdef DEBUG_ACC
 //        std::cout << "   n_iter=" << n_iter << ", a=" << a << ", res=" << res << std::endl;
@@ -153,7 +157,7 @@ MSCFModel_ACC::insertionFollowSpeed(const MSVehicle* const v, double speed, doub
 
 /// @todo update interactionGap logic
 double
-MSCFModel_ACC::interactionGap(const MSVehicle* const /* veh */, double /* vL */) const {
+MSCFModel_ACC::interactionGap(const MSVehicle* const /*veh */, double /* vL */) const {
     /*maximum radar range is ACC is enabled*/
     return 250;
 }
@@ -163,32 +167,50 @@ double MSCFModel_ACC::accelSpeedControl(double vErr) const {
     return mySpeedControlGain * vErr;
 }
 
-double MSCFModel_ACC::accelGapControl(const MSVehicle* const /* veh */, const double gap2pred, const double speed, const double predSpeed, double vErr) const {
-
-#ifdef DEBUG_ACC
-    if (DEBUG_COND) {
-        std::cout << "        applying gapControl" << std::endl;
-    }
-#endif
+double MSCFModel_ACC::accelGapControl(const MSVehicle* const veh, const double gap2pred, const double speed, const double predSpeed, double vErr) const {
 
 // Gap control law
     double gclAccel = 0.0;
     double desSpacing = myHeadwayTime * speed;
     double spacingErr = gap2pred - desSpacing;
     double deltaVel = predSpeed - speed;
+    double L = veh->getLength();
+
+// see dynamic gap margin definition from (Xiao et. al, 2018)[3]
+    if (speed < 10.8) {
+        spacingErr = spacingErr - L - 2;
+    } else if (speed <= 15.0 && speed >= 10.8) {
+        spacingErr = spacingErr - L - (75 / speed - 5);
+    } else {
+        spacingErr = spacingErr - L;
+    }
 
 
     if (fabs(spacingErr) < 0.2 && fabs(vErr) < 0.1) {
         // gap mode
         gclAccel = myGapControlGainSpeed * deltaVel + myGapControlGainSpace * spacingErr;
+#ifdef DEBUG_ACC
+        if (DEBUG_COND) {
+            std::cout << "        applying gap control:  spacingErr=" << spacingErr << " speedErr=" << vErr << std::endl;
+        }
+#endif
     } else if (spacingErr < 0)  {
         // collision avoidance mode
         gclAccel = myCollisionAvoidanceGainSpeed * deltaVel + myCollisionAvoidanceGainSpace * spacingErr;
+#ifdef DEBUG_ACC
+        if (DEBUG_COND) {
+            std::cout << "        applying collision avoidance:  spacingErr=" << spacingErr << " speedErr=" << vErr << std::endl;
+        }
+#endif
     } else {
         // gap closing mode
         gclAccel = myGapClosingControlGainSpeed * deltaVel + myGapClosingControlGainSpace * spacingErr;
+#ifdef DEBUG_ACC
+        if (DEBUG_COND) {
+            std::cout << "        applying gap closing:  spacingErr=" << spacingErr << " speedErr=" << vErr << std::endl;
+        }
+#endif
     }
-
     return gclAccel;
 }
 

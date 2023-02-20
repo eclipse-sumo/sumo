@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -24,13 +24,14 @@
 
 #include <utils/foxtools/fxheader.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
+#include <utils/gui/div/GUIPersistentWindowPos.h>
 #include <utils/foxtools/MFXAddEditTypedTable.h>
 
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class MFXIconComboBox;
+class MFXComboBoxIcon;
 
 
 // ===========================================================================
@@ -42,7 +43,7 @@ class MFXIconComboBox;
  *
  * @todo Check whether saving/loading settings should be done via XML
  */
-class GUIDialog_ViewSettings : public FXDialogBox {
+class GUIDialog_ViewSettings : public FXDialogBox, public GUIPersistentWindowPos {
     /// @brief FOX Declaration
     FXDECLARE(GUIDialog_ViewSettings)
 
@@ -291,7 +292,7 @@ protected:
     FXRealSpinner* myTranshipWidth = nullptr;
 
     /// @brief ... lane colorer
-    MFXIconComboBox* myLaneEdgeColorMode = nullptr;
+    MFXComboBoxIcon* myLaneEdgeColorMode = nullptr;
     FXVerticalFrame* myLaneColorSettingFrame = nullptr;
     std::vector<FXColorWell*> myLaneColors;
     std::vector<FXRealSpinner*> myLaneThresholds;
@@ -300,11 +301,15 @@ protected:
     FXButton* myLaneColorRainbow = nullptr;
     FXCheckButton* myLaneColorRainbowCheck = nullptr;
     FXRealSpinner* myLaneColorRainbowThreshold = nullptr;
+    FXCheckButton* myLaneColorRainbowCheck2 = nullptr;
+    FXRealSpinner* myLaneColorRainbowThreshold2 = nullptr;
     FXButton* myJunctionColorRainbow = nullptr;
     FXComboBox* myParamKey = nullptr;
+    FXComboBox* myScalingParamKey = nullptr;
+    FXComboBox* myMeanDataID = nullptr;
 
     /// @brief ... lane scaler
-    MFXIconComboBox* myLaneEdgeScaleMode = nullptr;
+    MFXComboBoxIcon* myLaneEdgeScaleMode = nullptr;
     FXVerticalFrame* myLaneScaleSettingFrame = nullptr;
     std::vector<FXRealSpinner*> myLaneScales;
     std::vector<FXRealSpinner*> myLaneScaleThresholds;
@@ -326,7 +331,7 @@ protected:
     FXRealSpinner* myLaneMinWidthDialer = nullptr;
 
     /// @brief Vehicles
-    MFXIconComboBox* myVehicleColorMode, *myVehicleShapeDetail = nullptr;
+    MFXComboBoxIcon* myVehicleColorMode, *myVehicleShapeDetail = nullptr;
     FXVerticalFrame* myVehicleColorSettingFrame = nullptr;
     std::vector<FXColorWell*> myVehicleColors;
     std::vector<FXRealSpinner*> myVehicleThresholds;
@@ -334,7 +339,7 @@ protected:
     FXCheckButton* myVehicleColorInterpolation = nullptr;
 
     /// @brief vehicle scaler
-    MFXIconComboBox* myVehicleScaleMode = nullptr;
+    MFXComboBoxIcon* myVehicleScaleMode = nullptr;
     FXVerticalFrame* myVehicleScaleSettingFrame = nullptr;
     std::vector<FXRealSpinner*> myVehicleScales;
     std::vector<FXRealSpinner*> myVehicleScaleThresholds;
@@ -347,6 +352,7 @@ protected:
     FXCheckButton* myShowBTRange = nullptr;
     FXCheckButton* myShowRouteIndex = nullptr;
     FXCheckButton* myScaleLength = nullptr;
+    FXCheckButton* myDrawReversed = nullptr;
     FXCheckButton* myShowParkingInfo = nullptr;
     /*FXCheckButton* myShowLaneChangePreference = nullptr;*/
 
@@ -354,7 +360,7 @@ protected:
     FXComboBox* myVehicleTextParamKey = nullptr;
 
     /// @brief Persons
-    MFXIconComboBox* myPersonColorMode, *myPersonShapeDetail = nullptr;
+    MFXComboBoxIcon* myPersonColorMode, *myPersonShapeDetail = nullptr;
     FXVerticalFrame* myPersonColorSettingFrame = nullptr;
     std::vector<FXColorWell*> myPersonColors;
     std::vector<FXRealSpinner*> myPersonThresholds;
@@ -362,7 +368,7 @@ protected:
     FXCheckButton* myPersonColorInterpolation = nullptr;
 
     /// @brief Containers
-    MFXIconComboBox* myContainerColorMode, *myContainerShapeDetail = nullptr;
+    MFXComboBoxIcon* myContainerColorMode, *myContainerShapeDetail = nullptr;
     FXVerticalFrame* myContainerColorSettingFrame = nullptr;
     std::vector<FXColorWell*> myContainerColors;
     std::vector<FXRealSpinner*> myContainerThresholds;
@@ -371,7 +377,7 @@ protected:
     FXRealSpinner* myContainerMinSizeDialer, *myContainerUpscaleDialer = nullptr;
 
     /// @brief junctions
-    MFXIconComboBox* myJunctionColorMode = nullptr;
+    MFXComboBoxIcon* myJunctionColorMode = nullptr;
     FXVerticalFrame* myJunctionColorSettingFrame = nullptr;
     std::vector<FXColorWell*> myJunctionColors;
     std::vector<FXRealSpinner*> myJunctionThresholds;
@@ -379,7 +385,7 @@ protected:
     FXCheckButton* myJunctionColorInterpolation = nullptr;
 
     /// @brief POIs
-    MFXIconComboBox* myPOIColorMode, *myPOIShapeDetail = nullptr;
+    MFXComboBoxIcon* myPOIColorMode, *myPOIShapeDetail = nullptr;
     FXVerticalFrame* myPOIColorSettingFrame = nullptr;
     std::vector<FXColorWell*> myPOIColors;
     std::vector<FXRealSpinner*> myPOIThresholds;
@@ -389,7 +395,7 @@ protected:
     FXSpinner* myPoiDetail = nullptr;
 
     /// @brief Polygons
-    MFXIconComboBox* myPolyColorMode, *myPolyShapeDetail = nullptr;
+    MFXComboBoxIcon* myPolyColorMode, *myPolyShapeDetail = nullptr;
     FXVerticalFrame* myPolyColorSettingFrame = nullptr;
     std::vector<FXColorWell*> myPolyColors;
     std::vector<FXRealSpinner*> myPolyThresholds;
@@ -397,7 +403,7 @@ protected:
     FXCheckButton* myPolyColorInterpolation = nullptr;
 
     /// @brief Data
-    MFXIconComboBox* myDataColorMode = nullptr;
+    MFXComboBoxIcon* myDataColorMode = nullptr;
     FXVerticalFrame* myDataColorSettingFrame = nullptr;
     std::vector<FXColorWell*> myDataColors;
     std::vector<FXRealSpinner*> myDataThresholds;
@@ -421,7 +427,12 @@ protected:
     /// @brief 3D
     FXCheckButton* myShow3DTLSLinkMarkers = nullptr;
     FXCheckButton* myShow3DTLSDomes = nullptr;
+    FXCheckButton* myShow3DHeadUpDisplay = nullptr;
     FXCheckButton* myGenerate3DTLSModels = nullptr;
+    FXSpinner* myLight3DFactor = nullptr;
+    //FXColorWell* myAmbient3DLight = nullptr;
+    //FXColorWell* myDiffuse3DLight = nullptr;
+    FXColorWell* mySkyColor = nullptr;
 
     /// @brief openGL
     FXCheckButton* myDither = nullptr;
@@ -429,6 +440,7 @@ protected:
     FXCheckButton* myDrawBoundaries = nullptr;
     FXCheckButton* myForceDrawForPositionSelection = nullptr;
     FXCheckButton* myForceDrawForRectangleSelection = nullptr;
+    FXCheckButton* myDisableDottedContours = nullptr;
     FXButton* myRecalculateBoundaries = nullptr;
 
     /// @brief name panels
@@ -437,6 +449,7 @@ protected:
     NamePanel* myCwaEdgeNamePanel = nullptr;
     NamePanel* myStreetNamePanel = nullptr;
     NamePanel* myEdgeValuePanel = nullptr;
+    NamePanel* myEdgeScaleValuePanel = nullptr;
     NamePanel* myJunctionIndexPanel = nullptr;
     NamePanel* myTLIndexPanel = nullptr;
     NamePanel* myJunctionIDPanel = nullptr;
@@ -477,6 +490,9 @@ protected:
     FXCheckButton* mySaveBreakpoints = nullptr;
 
     /// @}
+
+    /// @brief Frame3D
+    FXTabItem* myFrame3D = nullptr;
 
     /// @brief update color ranges
     bool updateColorRanges(FXObject* sender, std::vector<FXColorWell*>::const_iterator colIt,
@@ -532,12 +548,6 @@ protected:
      * @param[in] file The name of the file to read the decals from
      */
     void loadDecals(const std::string& file);
-
-    /// @brief save window position and size to the registry
-    void saveWindowSize();
-
-    /// @brief load window position and size from the registry
-    void loadWindowSize();
 
     /// @brief reload known vehicle parameters
     void updateVehicleParams();

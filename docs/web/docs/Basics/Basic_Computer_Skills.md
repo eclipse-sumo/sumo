@@ -37,7 +37,7 @@ productivity by switching to an editor with more features. Consider
 
 To work with the various files needed by SUMO you must be able to find
 them on your file system. For starters learn about using Windows
-Explorer [here](https://www.teacherclick.com/winxp/t_4_1.htm) or
+Explorer [here](https://edu.gcfglobal.org/en/windowsbasics/working-with-files/1/) or
 [here](https://www.google.com/#q=windows+explorer+tutorial).
 
 # Running Programs from the Command Line

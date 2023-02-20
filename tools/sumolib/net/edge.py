@@ -1,5 +1,5 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2011-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2011-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -192,19 +192,18 @@ class Edge:
         else:
             self._shape3D = []
             minLen = -1
-            for l in self._lanes:
-                if minLen == -1 or minLen > len(l.getShape()):
-                    minLen = len(l._shape)
+            for _lane in self._lanes:
+                if minLen == -1 or minLen > len(_lane.getShape()):
+                    minLen = len(_lane.getShape())
             for i in range(minLen):
                 x = 0.
                 y = 0.
                 z = 0.
-                for l in self._lanes:
-                    x += l.getShape3D()[i][0]
-                    y += l.getShape3D()[i][1]
-                    z += l.getShape3D()[i][2]
-                self._shape3D.append(
-                    (x / float(numLanes), y / float(numLanes), z / float(numLanes)))
+                for _lane in self._lanes:
+                    x += _lane.getShape3D()[i][0]
+                    y += _lane.getShape3D()[i][1]
+                    z += _lane.getShape3D()[i][2]
+                self._shape3D.append((x / float(numLanes), y / float(numLanes), z / float(numLanes)))
 
         if self._function in ["crossing", "walkingarea"]:
             self._shapeWithJunctions3D = self._shape3D
@@ -216,10 +215,9 @@ class Edge:
                 self._rawShape3D = [self._from.getCoord3D(), self._to.getCoord3D()]
 
         # 2d - versions
-        self._shape = [(x, y) for x, y, z in self._shape3D]
-        self._shapeWithJunctions = [(x, y)
-                                    for x, y, z in self._shapeWithJunctions3D]
-        self._rawShape = [(x, y) for x, y, z in self._rawShape3D]
+        self._shape = [(x, y) for x, y, z in self._shape3D]  # noqa
+        self._shapeWithJunctions = [(x, y) for x, y, z in self._shapeWithJunctions3D]  # noqa
+        self._rawShape = [(x, y) for x, y, z in self._rawShape3D]  # noqa
 
     def getLength(self):
         return self._lanes[0].getLength()

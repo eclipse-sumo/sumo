@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2002-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -106,6 +106,12 @@ template <>
 inline std::string toString<LaneSpreadFunction>(const LaneSpreadFunction& lsf, std::streamsize accuracy) {
     UNUSED_PARAMETER(accuracy);
     return SUMOXMLDefinitions::LaneSpreadFunctions.getString(lsf);
+}
+
+template <>
+inline std::string toString<ParkingType>(const ParkingType& pt, std::streamsize accuracy) {
+    UNUSED_PARAMETER(accuracy);
+    return SUMOXMLDefinitions::ParkingTypes.getString(pt);
 }
 
 template <>
@@ -219,6 +225,7 @@ inline std::string toString(const std::vector<V*>& v, std::streamsize accuracy =
     return toString<V>(v.begin(), v.end(), accuracy);
 }
 
+
 template <typename V>
 inline std::string toString(const typename std::vector<V*>::const_iterator& b, const typename std::vector<V*>::const_iterator& e, std::streamsize accuracy = gPrecision) {
     UNUSED_PARAMETER(accuracy);
@@ -316,6 +323,22 @@ inline std::string joinNamedToString(const std::set<T*, C>& ns, const T_BETWEEN&
 }
 
 
+template <typename KEY, typename VAL, typename T_BETWEEN, typename T_BETWEEN_KEYVAL>
+inline std::string joinNamedToString(const std::map<KEY, VAL, ComparatorIdLess>& s, const T_BETWEEN& between, const T_BETWEEN_KEYVAL& between_keyval, std::streamsize accuracy = gPrecision) {
+    std::ostringstream oss;
+    bool connect = false;
+    for (typename std::map<KEY, VAL>::const_iterator it = s.begin(); it != s.end(); ++it) {
+        if (connect) {
+            oss << toString(between, accuracy);
+        } else {
+            connect = true;
+        }
+        oss << Named::getIDSecure(it->first) << between_keyval << toString(it->second, accuracy);
+    }
+    return oss.str();
+}
+
+
 template <typename V>
 inline std::string toString(const std::set<V*>& v, std::streamsize accuracy = gPrecision) {
     UNUSED_PARAMETER(accuracy);
@@ -342,6 +365,23 @@ inline std::string toString(const std::vector<long long int>& v, std::streamsize
 template <>
 inline std::string toString(const std::vector<double>& v, std::streamsize accuracy) {
     return joinToString(v, " ", accuracy);
+}
+
+
+template <typename V, typename W>
+inline std::string toString(const std::vector<std::pair<V, W> >& v, std::streamsize accuracy = gPrecision, const std::string& between = ";", const std::string& between2 = ",") {
+    std::ostringstream oss;
+    oss << std::setprecision(accuracy);
+    bool connect = false;
+    for (auto it : v) {
+        if (connect) {
+            oss << toString(between, accuracy);
+        } else {
+            connect = true;
+        }
+        oss << toString(it.first) << between2 << toString(it.second);
+    }
+    return oss.str();
 }
 
 
@@ -392,4 +432,10 @@ inline std::string joinToString(const std::map<KEY, VAL>& s, const T_BETWEEN& be
 template <>
 inline std::string toString(const Parameterised::Map& v, std::streamsize) {
     return joinToString(v, ", ", ":");
+}
+
+template <>
+inline std::string toString(const MMVersion& v, std::streamsize) {
+    // we only need higher accuracy on the minor version for hotfix releases
+    return toString(v.first) + "." + toString(v.second, 0);
 }

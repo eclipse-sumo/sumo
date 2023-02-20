@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -51,18 +51,10 @@
 #include <utils/xml/XMLSubSys.h>
 #include <utils/iodevices/OutputDevice.h>
 
-// ===========================================================================
-// method declaration
-// ===========================================================================
-
-void fillOptions();
-bool checkOptions();
-NGNet* buildNetwork(NBNetBuilder& nb);
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
-
 void
 fillOptions() {
     OptionsCont& oc = OptionsCont::getOptions();
@@ -71,7 +63,7 @@ fillOptions() {
     oc.addCallExample("--spider [spider-network options] -o <OUTPUTFILE>", "create spider net");
     oc.addCallExample("--rand [random-network options] -o <OUTPUTFILE>", "create random net");
 
-    oc.setAdditionalHelpMessage(" Either \"--grid\", \"--spider\" or \"--rand\" must be supplied.\n  In dependance to these switches other options are used.");
+    oc.setAdditionalHelpMessage(" Either \"--grid\", \"--spider\" or \"--rand\" must be supplied.\n  In dependence to these switches other options are used.");
 
     // insert options sub-topics
     SystemFrame::addConfigurationOptions(oc); // this subtopic is filled here, too
@@ -95,7 +87,7 @@ fillOptions() {
     NWFrame::fillOptions(true);
     oc.doRegister("default-junction-type", 'j', new Option_String());
     oc.addSynonyme("default-junction-type", "junctions");
-    oc.addDescription("default-junction-type", "Building Defaults", "[traffic_light|priority|right_before_left|traffic_light_right_on_red|priority_stop|allway_stop|...] Determines junction type (see wiki/Networks/PlainXML#Node_types)");
+    oc.addDescription("default-junction-type", "Building Defaults", "[traffic_light|priority|right_before_left|left_before_right|traffic_light_right_on_red|priority_stop|allway_stop|...] Determines junction type (see wiki/Networks/PlainXML#Node_types)");
     RandHelper::insertRandOptions();
 
     oc.doRegister("tls.discard-simple", new Option_Bool(false));
@@ -124,14 +116,14 @@ buildNetwork(NBNetBuilder& nb) {
         // check values
         bool hadError = false;
         if (oc.getInt("spider.arm-number") < 3) {
-            WRITE_ERROR("Spider networks need at least 3 arms.");
+            WRITE_ERROR(TL("Spider networks need at least 3 arms."));
             hadError = true;
         }
         if (oc.getInt("spider.arm-number") > 4 && oc.isDefault("spider.omit-center")) {
-            WRITE_WARNING("Spider networks with many arms should use option ommit-center");
+            WRITE_WARNING(TL("Spider networks with many arms should use option ommit-center"));
         }
         if (oc.getInt("spider.circle-number") < 1) {
-            WRITE_ERROR("Spider networks need at least one circle.");
+            WRITE_ERROR(TL("Spider networks need at least one circle."));
             hadError = true;
         }
         minLength = MAX2(minLength, laneWidth * 2 * MAX2(oc.getInt("spider.arm-number"), 3) / (2 * M_PI));
@@ -139,7 +131,7 @@ buildNetwork(NBNetBuilder& nb) {
             WRITE_ERROR("The radius of spider networks must be at least "  + toString(POSITION_EPS));
             hadError = true;
         } else if (oc.getFloat("spider.space-radius") < minLength) {
-            WRITE_WARNING("The radius of spider networks should be at least " + toString(minLength) + " for the given lanenumber, lanewidth and junction radius");
+            WRITE_WARNINGF(TL("The radius of spider networks should be at least % for the given lanenumber, lanewidth and junction radius"), toString(minLength));
         }
         if (hadError) {
             throw ProcessError();
@@ -180,7 +172,7 @@ buildNetwork(NBNetBuilder& nb) {
         // check values
         bool hadError = false;
         if (xNo < 1 || yNo < 1 || (xAttachLength == 0 && yAttachLength == 0 && (xNo < 2 && yNo < 2))) {
-            WRITE_ERROR("The number of nodes must be positive and at least 2 in one direction if there are no attachments.");
+            WRITE_ERROR(TL("The number of nodes must be positive and at least 2 in one direction if there are no attachments."));
             hadError = true;
         }
         const double minAttachLength = minLength / 2 + POSITION_EPS / 2;
@@ -188,18 +180,18 @@ buildNetwork(NBNetBuilder& nb) {
             WRITE_ERROR("The distance between nodes must be at least " + toString(POSITION_EPS));
             hadError = true;
         } else if (xLength < minLength || yLength < minLength) {
-            WRITE_WARNING("The distance between nodes should be at least " + toString(minLength) + " for the given lanenumber, lanewidth and junction radius");
+            WRITE_WARNINGF(TL("The distance between nodes should be at least % for the given lanenumber, lanewidth and junction radius"), toString(minLength));
         }
         if (xAttachLength != 0.0 && xAttachLength < POSITION_EPS) {
             WRITE_ERROR("The length of attached streets must be at least " + toString(POSITION_EPS));
             hadError = true;
         } else if (xAttachLength != 0.0 && xAttachLength < minAttachLength) {
-            WRITE_WARNING("The length of attached streets should be at least " + toString(minAttachLength) + " for the given lanenumber, lanewidth and junction radius");
+            WRITE_WARNINGF(TL("The length of attached streets should be at least % for the given lanenumber, lanewidth and junction radius"), toString(minAttachLength));
         } else if (yAttachLength != 0.0 && yAttachLength < POSITION_EPS) {
             WRITE_ERROR("The length of attached streets must be at least " + toString(POSITION_EPS));
             hadError = true;
         } else if (yAttachLength != 0.0 && yAttachLength < minAttachLength) {
-            WRITE_WARNING("The length of attached streets should be at least " + toString(minAttachLength) + " for the given lanenumber, lanewidth and junction radius");
+            WRITE_WARNINGF(TL("The length of attached streets should be at least % for the given lanenumber, lanewidth and junction radius"), toString(minAttachLength));
         }
         if (hadError) {
             throw ProcessError();
@@ -234,8 +226,7 @@ buildNetwork(NBNetBuilder& nb) {
 int
 main(int argc, char** argv) {
     OptionsCont& oc = OptionsCont::getOptions();
-    // give some application descriptions
-    oc.setApplicationDescription("Synthetic network generator for the microscopic, multi-modal traffic simulation SUMO.");
+    oc.setApplicationDescription(TL("Synthetic network generator for the microscopic, multi-modal traffic simulation SUMO."));
     oc.setApplicationName("netgenerate", "Eclipse SUMO netgenerate Version " VERSION_STRING);
     int ret = 0;
     try {
@@ -260,7 +251,7 @@ main(int argc, char** argv) {
         NBNetBuilder nb;
         nb.applyOptions(oc);
         if (oc.isSet("type-files")) {
-            NIXMLTypesHandler* handler = new NIXMLTypesHandler(nb.getTypeCont());
+            NIXMLTypesHandler handler(nb.getTypeCont());
             NITypeLoader::load(handler, oc.getStringVector("type-files"), "types");
         }
         // build the netgen-network description
@@ -271,14 +262,14 @@ main(int argc, char** argv) {
         net->toNB();
         delete net;
         // report generated structures
-        WRITE_MESSAGE(" Generation done;");
-        WRITE_MESSAGE("   " + toString<int>(nb.getNodeCont().size()) + " nodes generated.");
-        WRITE_MESSAGE("   " + toString<int>(nb.getEdgeCont().size()) + " edges generated.");
+        WRITE_MESSAGE(TL(" Generation done;"));
+        WRITE_MESSAGEF(TL("   % nodes generated."), toString<int>(nb.getNodeCont().size()));
+        WRITE_MESSAGEF(TL("   % edges generated."), toString<int>(nb.getEdgeCont().size()));
         if (oc.getBool("tls.discard-simple")) {
             nb.getNodeCont().discardTrafficLights(nb.getTLLogicCont(), true, false);
             int removed = nb.getTLLogicCont().getNumExtracted();
             if (removed > 0) {
-                WRITE_MESSAGE(" Removed " + toString(removed) + " traffic lights at geometry-like nodes");
+                WRITE_MESSAGEF(TL(" Removed % traffic lights at geometry-like nodes"), toString(removed));
             }
         }
         nb.compute(oc);

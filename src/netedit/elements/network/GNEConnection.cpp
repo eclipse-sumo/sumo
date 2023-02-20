@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -31,6 +31,7 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/div/GUIGlobalPostDrawing.h>
 
 #include "GNEConnection.h"
 #include "GNEInternalLane.h"
@@ -47,12 +48,11 @@ static const int NUM_POINTS = 5;
 
 GNEConnection::GNEConnection(GNELane* from, GNELane* to) :
     GNENetworkElement(from->getNet(), "from" + from->getID() + "to" + to->getID(),
-                      GLO_CONNECTION, SUMO_TAG_CONNECTION,
-{}, {}, {}, {}, {}, {}),
-myFromLane(from),
-myToLane(to),
-myLinkState(LINKSTATE_TL_OFF_NOSIGNAL),
-mySpecialColor(nullptr),
+                      GLO_CONNECTION, SUMO_TAG_CONNECTION, GUIIconSubSys::getIcon(GUIIcon::CONNECTION), {}, {}, {}, {}, {}, {}),
+                                  myFromLane(from),
+                                  myToLane(to),
+                                  myLinkState(LINKSTATE_TL_OFF_NOSIGNAL),
+                                  mySpecialColor(nullptr),
 myShapeDeprecated(true) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
@@ -346,9 +346,12 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
             myNet->getViewNet()->getNetworkViewOptions().showConnections() &&
             s.drawDetail(s.detailSettings.connectionsDemandMode, getExaggeration(s))) {
         drawConnection = !myShapeDeprecated;
-    } else if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
-               myNet->getViewNet()->getNetworkViewOptions().showConnections()) {
-        drawConnection = !myShapeDeprecated;
+    } else if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
+        if (myNet->getViewNet()->getNetworkViewOptions().showConnections() || isAttributeCarrierSelected()) {
+            drawConnection = !myShapeDeprecated;
+        } else {
+            drawConnection = false;
+        }
     } else {
         drawConnection = false;
     }
@@ -379,83 +382,106 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
             // Set color depending of the link state
             connectionColor = GNEInternalLane::colorForLinksState(getLinkState());
         }
-        // check if boundary has to be drawn
-        if (s.drawBoundaries) {
-            GLHelper::drawBoundary(getCenteringBoundary());
-        }
-        // Push name
-        if (pushGLID) {
-            GLHelper::pushName(getGlID());
-        }
-        // Push layer matrix
-        GLHelper::pushMatrix();
-        // translate to front
-        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_CONNECTION, (editedNetworkElement == this) ? 1 : 0);
-        // Set color
-        GLHelper::setColor(connectionColor);
-        if ((s.scale * selectionScale < 5.) && !s.drawForRectangleSelection) {
-            // If it's small, draw a simple line
-            GLHelper::drawLine(myConnectionGeometry.getShape());
-        } else {
-            // draw a list of lines
-            const bool spreadSuperposed = s.scale >= 1 && s.spreadSuperposed && myFromLane->drawAsRailway(s) && getEdgeFrom()->getNBEdge()->isBidiRail();
-            PositionVector shapeSuperposed = myConnectionGeometry.getShape();
-            if (spreadSuperposed) {
-                shapeSuperposed.move2side(0.5);
+        // avoid draw invisible elements
+        if (connectionColor.alpha() != 0) {
+            // check if boundary has to be drawn
+            if (s.drawBoundaries) {
+                GLHelper::drawBoundary(getCenteringBoundary());
             }
-            GLHelper::drawBoxLines(shapeSuperposed, myConnectionGeometry.getShapeRotations(), myConnectionGeometry.getShapeLengths(), s.connectionSettings.connectionWidth * selectionScale);
-            glTranslated(0, 0, 0.1);
-            GLHelper::setColor(GLHelper::getColor().changedBrightness(51));
-            // check if internal junction marker has to be drawn
-            if (myInternalJunctionMarker.size() > 0) {
-                GLHelper::drawLine(myInternalJunctionMarker);
-            }
-            // draw shape points only in Network supemode
-            if (myShapeEdited && s.drawMovingGeometryPoint(1, s.neteditSizeSettings.connectionGeometryPointRadius) && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
-                // color
-                const RGBColor darkerColor = connectionColor.changedBrightness(-32);
-                // draw geometry points
-                GUIGeometry::drawGeometryPoints(s, myNet->getViewNet()->getPositionInformation(), myConnectionGeometry.getShape(), darkerColor, RGBColor::BLACK,
-                                                s.neteditSizeSettings.connectionGeometryPointRadius, 1,
-                                                myNet->getViewNet()->getNetworkViewOptions().editingElevation(), drawExtremeSymbols);
-                // draw moving hint
-                if (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) {
-                    GUIGeometry::drawMovingHint(s, myNet->getViewNet()->getPositionInformation(), myConnectionGeometry.getShape(), darkerColor,
-                                                s.neteditSizeSettings.connectionGeometryPointRadius, 1);
-                }
-            }
-            // Pop layer matrix
-            GLHelper::popMatrix();
-            // check if edge value has to be shown
-            if (s.edgeValue.show(this)) {
-                const NBEdge::Connection& nbCon = getNBEdgeConnection();
-                std::string value = nbCon.getParameter(s.edgeParam, "");
-                if (value != "") {
-                    int shapeIndex = (int)myConnectionGeometry.getShape().size() / 2;
-                    Position p = (myConnectionGeometry.getShape().size() == 2
-                                  ? (myConnectionGeometry.getShape().front() * 0.67 + myConnectionGeometry.getShape().back() * 0.33)
-                                  : myConnectionGeometry.getShape()[shapeIndex]);
-                    GLHelper::drawTextSettings(s.edgeValue, value, p, s.scale, 0);
-                }
-            }
-            // Pop name
+            // Push name
             if (pushGLID) {
-                GLHelper::popName();
+                GLHelper::pushName(getGlID());
             }
-            // draw lock icon
-            GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), 0.1);
-            // check if dotted contour has to be drawn (not useful at high zoom)
-            if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-                // use drawDottedContourGeometry to draw it
-                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, shapeSuperposed, s.connectionSettings.connectionWidth, selectionScale, true, true, 0.1);
-            }
-            // check if front contour has to be drawn (not useful at high zoom)
-            if ((myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
-                // use drawDottedContourGeometry to draw it
-                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, shapeSuperposed, s.connectionSettings.connectionWidth, selectionScale, true, true, 0.1);
+            // Push layer matrix
+            GLHelper::pushMatrix();
+            // translate to front
+            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_CONNECTION, (editedNetworkElement == this) ? 1 : 0);
+            // Set color
+            GLHelper::setColor(connectionColor);
+            if ((s.scale * selectionScale < 5.) && !s.drawForRectangleSelection) {
+                // If it's small, draw a simple line
+                GLHelper::drawLine(myConnectionGeometry.getShape());
+            } else {
+                // draw connections geometry
+                const bool spreadSuperposed = s.scale >= 1 && s.spreadSuperposed && myFromLane->drawAsRailway(s) && getEdgeFrom()->getNBEdge()->isBidiRail();
+                PositionVector shapeSuperposed = myConnectionGeometry.getShape();
+                if (spreadSuperposed) {
+                    shapeSuperposed.move2side(0.5);
+                }
+                GLHelper::drawBoxLines(shapeSuperposed, myConnectionGeometry.getShapeRotations(), myConnectionGeometry.getShapeLengths(), s.connectionSettings.connectionWidth * selectionScale);
+                glTranslated(0, 0, 0.1);
+                GLHelper::setColor(GLHelper::getColor().changedBrightness(51));
+                // draw arrows over connection
+                drawConnectionArrows(s);
+                // check if internal junction marker has to be drawn
+                if (myInternalJunctionMarker.size() > 0) {
+                    GLHelper::drawLine(myInternalJunctionMarker);
+                }
+                // draw shape points only in Network supemode
+                if (myShapeEdited && s.drawMovingGeometryPoint(1, s.neteditSizeSettings.connectionGeometryPointRadius) && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
+                    // color
+                    const RGBColor darkerColor = connectionColor.changedBrightness(-32);
+                    // draw geometry points
+                    GUIGeometry::drawGeometryPoints(s, myNet->getViewNet()->getPositionInformation(), myConnectionGeometry.getShape(), darkerColor, RGBColor::BLACK,
+                                                    s.neteditSizeSettings.connectionGeometryPointRadius, 1,
+                                                    myNet->getViewNet()->getNetworkViewOptions().editingElevation(), drawExtremeSymbols);
+                    // draw moving hint
+                    if (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) {
+                        GUIGeometry::drawMovingHint(s, myNet->getViewNet()->getPositionInformation(), myConnectionGeometry.getShape(), darkerColor,
+                                                    s.neteditSizeSettings.connectionGeometryPointRadius, 1);
+                    }
+                }
+                // Pop layer matrix
+                GLHelper::popMatrix();
+                // check if edge value has to be shown
+                if (s.edgeValue.show(this)) {
+                    const NBEdge::Connection& nbCon = getNBEdgeConnection();
+                    std::string value = nbCon.getParameter(s.edgeParam, "");
+                    if (value != "") {
+                        int shapeIndex = (int)myConnectionGeometry.getShape().size() / 2;
+                        Position p = (myConnectionGeometry.getShape().size() == 2
+                                      ? (myConnectionGeometry.getShape().front() * 0.67 + myConnectionGeometry.getShape().back() * 0.33)
+                                      : myConnectionGeometry.getShape()[shapeIndex]);
+                        GLHelper::drawTextSettings(s.edgeValue, value, p, s.scale, 0);
+                    }
+                }
+                // Pop name
+                if (pushGLID) {
+                    GLHelper::popName();
+                }
+                // draw lock icon
+                GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), 0.1);
+                // check if mouse is over element
+                mouseWithinGeometry(shapeSuperposed, s.connectionSettings.connectionWidth);
+                // inspect contour
+                if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
+                    // use drawDottedContourGeometry to draw it
+                    GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::INSPECT_SMALL, shapeSuperposed, s.connectionSettings.connectionWidth, selectionScale, true, true);
+                }
+                // front contour
+                if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
+                    // use drawDottedContourGeometry to draw it
+                    GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT_SMALL, shapeSuperposed, s.connectionSettings.connectionWidth, selectionScale, true, true);
+                }
+                // delete contour
+                if (myNet->getViewNet()->drawDeleteContour(this, this)) {
+                    // use drawDottedContourGeometry to draw it
+                    GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, shapeSuperposed, s.connectionSettings.connectionWidth, selectionScale, true, true);
+                }
+                // select contour
+                if (myNet->getViewNet()->drawSelectContour(this, this)) {
+                    // use drawDottedContourGeometry to draw it
+                    GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::SELECT, shapeSuperposed, s.connectionSettings.connectionWidth, selectionScale, true, true);
+                }
             }
         }
     }
+}
+
+
+void
+GNEConnection::deleteGLObject() {
+    myNet->deleteNetworkElement(this, myNet->getViewNet()->getUndoList());
 }
 
 
@@ -635,7 +661,7 @@ GNEConnection::changeTLIndex(SumoXMLAttr key, int tlIndex, int tlIndex2, GNEUndo
     undoList->begin(GUIIcon::CONNECTION, "change tls linkIndex for connection");
     // make a copy
     std::set<NBTrafficLightDefinition*> defs = getEdgeFrom()->getNBEdge()->getToNode()->getControllingTLS();
-    for (NBTrafficLightDefinition* tlDef : defs) {
+    for (const auto& tlDef : defs) {
         NBLoadedSUMOTLDef* sumoDef = dynamic_cast<NBLoadedSUMOTLDef*>(tlDef);
         NBTrafficLightLogic* tllogic = sumoDef ? sumoDef->getLogic() : tlDef->compute(OptionsCont::getOptions());
         if (tllogic != nullptr) {
@@ -644,17 +670,30 @@ GNEConnection::changeTLIndex(SumoXMLAttr key, int tlIndex, int tlIndex2, GNEUndo
                                   getLaneFrom()->getIndex(), getLaneTo()->getIndex(), tlIndex, tlIndex2, false);
             // make a copy
             std::vector<NBNode*> nodes = tlDef->getNodes();
-            for (NBNode* node : nodes) {
+            for (const auto& node : nodes) {
                 GNEJunction* junction = getNet()->getAttributeCarriers()->retrieveJunction(node->getID());
                 undoList->add(new GNEChange_TLS(junction, tlDef, false), true);
                 undoList->add(new GNEChange_TLS(junction, newDef, true), true);
             }
         } else {
-            WRITE_ERROR("Could not set attribute '" + toString(key) + "' (tls is broken)");
+            WRITE_ERRORF(TL("Could not set attribute '%' (tls is broken)"), toString(key));
         }
     }
     undoList->end();
 }
+
+
+void
+GNEConnection::drawConnectionArrows(const GUIVisualizationSettings& s) const {
+    if (s.showLaneDirection) {
+        for (int i = 1; i < (int)myConnectionGeometry.getShape().size(); i++) {
+            const auto posA = myConnectionGeometry.getShape()[i - 1];
+            const auto posB = myConnectionGeometry.getShape()[i];
+            GLHelper::drawTriangleAtEnd(posA, posB, (double) 1, (double) .2);
+        }
+    }
+}
+
 
 bool
 GNEConnection::isValid(SumoXMLAttr key, const std::string& value) {

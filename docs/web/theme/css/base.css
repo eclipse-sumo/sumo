@@ -753,3 +753,28 @@ cursor:pointer;
 background-color:#bcbabb;
 }
 /* ---- */
+
+.tutorial-video {
+width: 560px;
+/* height: 315px; */
+}
+
+.video-container {
+position: relative;
+text-decoration: none;
+display: inline-block;
+text-align: center;
+}
+
+.centered {
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+}
+
+.video-text {
+background-color:rgba(0, 0, 0, 0.5);
+color: #fff;
+padding: 3px;
+}

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -46,7 +46,7 @@
 // ---------------------------------------------------------------------------
 
 GNEEdgeData::GNEEdgeData(GNEDataInterval* dataIntervalParent, GNEEdge* edgeParent, const Parameterised::Map& parameters) :
-    GNEGenericData(SUMO_TAG_MEANDATA_EDGE, GLO_EDGEDATA, dataIntervalParent, parameters,
+    GNEGenericData(GNE_TAG_EDGEREL_SINGLE, GUIIconSubSys::getIcon(GUIIcon::EDGEDATA), GLO_EDGEDATA, dataIntervalParent, parameters,
 {}, {edgeParent}, {}, {}, {}, {}) {
 }
 
@@ -54,7 +54,7 @@ GNEEdgeData::GNEEdgeData(GNEDataInterval* dataIntervalParent, GNEEdge* edgeParen
 GNEEdgeData::~GNEEdgeData() {}
 
 
-void
+RGBColor
 GNEEdgeData::setColor(const GUIVisualizationSettings& s) const {
     // set default color
     RGBColor col = RGBColor::RED;
@@ -81,7 +81,7 @@ GNEEdgeData::setColor(const GUIVisualizationSettings& s) const {
             }
         }
     }
-    GLHelper::setColor(col);
+    return col;
 }
 
 
@@ -193,12 +193,6 @@ GNEEdgeData::drawGL(const GUIVisualizationSettings& /*s*/) const {
 }
 
 
-double
-GNEEdgeData::getExaggeration(const GUIVisualizationSettings& /*s*/) const {
-    return 1;
-}
-
-
 void
 GNEEdgeData::computePathElement() {
     // nothing to compute
@@ -207,7 +201,9 @@ GNEEdgeData::computePathElement() {
 
 void
 GNEEdgeData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* /*segment*/, const double offsetFront) const {
-    if (myNet->getViewNet()->getEditModes().isCurrentSupermodeData()) {
+    // get color
+    const auto color = setColor(s);
+    if ((color.alpha() != 0) && myNet->getViewNet()->getEditModes().isCurrentSupermodeData()) {
         // get flag for only draw contour
         const bool onlyDrawContour = !isGenericDataVisible();
         // Start drawing adding an gl identificator
@@ -217,7 +213,8 @@ GNEEdgeData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lan
         // draw over all edge's lanes
         for (const auto& laneEdge : lane->getParentEdge()->getLanes()) {
             // get lane width
-            const double laneWidth = s.addSize.getExaggeration(s, laneEdge) * (laneEdge->getParentEdge()->getNBEdge()->getLaneWidth(laneEdge->getIndex()) * 0.5);
+            const double laneWidth = s.addSize.getExaggeration(s, laneEdge) * s.edgeRelWidthExaggeration *
+                                     (laneEdge->getParentEdge()->getNBEdge()->getLaneWidth(laneEdge->getIndex()) * 0.5);
             // Add a draw matrix
             GLHelper::pushMatrix();
             // Start with the drawing of the area translating matrix to origin
@@ -229,24 +226,46 @@ GNEEdgeData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lan
                                           laneEdge->getShapeLengths(), {}, laneWidth, onlyDrawContour);
             // translate to top
             glTranslated(0, 0, 0.01);
-            setColor(s);
+            GLHelper::setColor(color);
             // draw interne box lines
             GUIGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(),
                                           laneEdge->getLaneShape(), laneEdge->getShapeRotations(),
-                                          laneEdge->getShapeLengths(), {}, laneWidth - 0.1, onlyDrawContour);
+                                          laneEdge->getShapeLengths(), {}, (laneWidth - 0.1), onlyDrawContour);
             // Pop last matrix
             GLHelper::popMatrix();
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), 1);
+            // check if mouse is over element
+            for (const auto& laneEdgeParent : laneEdge->getParentEdge()->getLanes()) {
+                // get lane drawing constants
+                GNELane::LaneDrawingConstants laneDrawingConstants(s, laneEdgeParent);
+                mouseWithinGeometry(laneEdgeParent->getLaneShape(), laneDrawingConstants.halfWidth * s.edgeRelWidthExaggeration);
+            }
             // draw filtered attribute
             if (getParentEdges().front()->getLanes().front() == laneEdge) {
                 drawFilteredAttribute(s, laneEdge->getLaneShape(),
                                       myNet->getViewNet()->getViewParent()->getEdgeDataFrame()->getAttributeSelector()->getFilteredAttribute(),
                                       myNet->getViewNet()->getViewParent()->getEdgeDataFrame()->getIntervalSelector()->getDataInterval());
             }
-            // check if shape dotted contour has to be drawn
+            // inspect contour
             if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-                GNEEdge::drawDottedContourEdge(GUIDottedGeometry::DottedContourType::INSPECT, s, laneEdge->getParentEdge(), true, true);
+                GNEEdge::drawDottedContourEdge(s, GUIDottedGeometry::DottedContourType::INSPECT,
+                                               laneEdge->getParentEdge(), true, true, s.edgeRelWidthExaggeration);
+            }
+            // front contour
+            if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
+                GNEEdge::drawDottedContourEdge(s, GUIDottedGeometry::DottedContourType::FRONT,
+                                               laneEdge->getParentEdge(), true, true, s.edgeRelWidthExaggeration);
+            }
+            // delete contour
+            if (myNet->getViewNet()->drawDeleteContour(this, this)) {
+                GNEEdge::drawDottedContourEdge(s, GUIDottedGeometry::DottedContourType::REMOVE,
+                                               laneEdge->getParentEdge(), true, true, s.edgeRelWidthExaggeration);
+            }
+            // select contour
+            if (myNet->getViewNet()->drawSelectContour(this, this)) {
+                GNEEdge::drawDottedContourEdge(s, GUIDottedGeometry::DottedContourType::SELECT,
+                                               laneEdge->getParentEdge(), true, true, s.edgeRelWidthExaggeration);
             }
         }
         // Pop name

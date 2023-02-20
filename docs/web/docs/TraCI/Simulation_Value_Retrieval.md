@@ -373,10 +373,12 @@ The response is a list of Collision objects:
 ## Generic Parameter Retrieval 0x7e
 
 The simulation supports retrieval of additional object parameters using
-the [generic parameter retrieval
-call](../TraCI/GenericParameters.md#get_parameter). The *object id*
-refers to the object (i.e. chargingStation) id. The following parameters
-are supported:
+the [generic parameter retrieval call](../TraCI/GenericParameters.md#get_parameter).
+
+### Stoppping Place Information
+
+The *object id* of `getParameter` refers to the object (i.e. chargingStation) id. The following parameters
+are supported: 
 
 - chargingStation.totalEnergyCharged
 - chargingStation.name
@@ -387,3 +389,64 @@ are supported:
 - parkingArea.lane
 - busStop.name
 - busStop.lane
+
+!!! note
+    Since version 1.7.0 these and other values can be retrieved via new domains (i.e. `traci.busstop`)
+    
+    
+### Device Parameter Retrieval
+
+The following parameters can be retrieved. They are not for a specific device holder but are instead global measures. The *object id* must be the empty string "".
+
+- device.tripinfo.count
+- device.tripinfo.routeLength
+- device.tripinfo.speed
+- device.tripinfo.duration
+- device.tripinfo.waitingTime
+- device.tripinfo.timeLoss
+- device.tripinfo.departDelay
+- device.tripinfo.departDelayWaiting
+- device.tripinfo.totalTravelTime
+- device.tripinfo.totalDepartDelay
+- device.tripinfo.vehicleTripStatistics.count
+- device.tripinfo.vehicleTripStatistics.routeLength
+- device.tripinfo.vehicleTripStatistics.speed
+- device.tripinfo.vehicleTripStatistics.duration
+- device.tripinfo.vehicleTripStatistics.waitingTime
+- device.tripinfo.vehicleTripStatistics.timeLoss
+- device.tripinfo.vehicleTripStatistics.departDelay
+- device.tripinfo.vehicleTripStatistics.departDelayWaiting
+- device.tripinfo.vehicleTripStatistics.totalTravelTime
+- device.tripinfo.vehicleTripStatistics.totalDepartDelay
+- device.tripinfo.bikeTripStatistics.count
+- device.tripinfo.bikeTripStatistics.routeLength
+- device.tripinfo.bikeTripStatistics.speed
+- device.tripinfo.bikeTripStatistics.duration
+- device.tripinfo.bikeTripStatistics.waitingTime
+- device.tripinfo.bikeTripStatistics.timeLoss
+- device.tripinfo.bikeTripStatistics.totalTravelTime
+- device.tripinfo.pedestrianStatistics.count
+- device.tripinfo.pedestrianStatistics.number
+- device.tripinfo.pedestrianStatistics.routeLength
+- device.tripinfo.pedestrianStatistics.duration
+- device.tripinfo.pedestrianStatistics.timeLoss
+- device.tripinfo.rideStatistics.count
+- device.tripinfo.rideStatistics.number
+- device.tripinfo.rideStatistics.waitingTime
+- device.tripinfo.rideStatistics.routeLength
+- device.tripinfo.rideStatistics.duration
+- device.tripinfo.rideStatistics.bus
+- device.tripinfo.rideStatistics.train
+- device.tripinfo.rideStatistics.taxi
+- device.tripinfo.rideStatistics.bike
+- device.tripinfo.rideStatistics.aborted
+- device.tripinfo.transportStatistics.count
+- device.tripinfo.transportStatistics.number
+- device.tripinfo.transportStatistics.waitingTime
+- device.tripinfo.transportStatistics.routeLength
+- device.tripinfo.transportStatistics.duration
+- device.tripinfo.transportStatistics.bus
+- device.tripinfo.transportStatistics.train
+- device.tripinfo.transportStatistics.taxi
+- device.tripinfo.transportStatistics.bike
+- device.tripinfo.transportStatistics.aborted

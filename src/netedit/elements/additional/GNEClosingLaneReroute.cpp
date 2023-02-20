@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -31,9 +31,9 @@
 // ===========================================================================
 
 GNEClosingLaneReroute::GNEClosingLaneReroute(GNENet* net) :
-    GNEAdditional("", net, GLO_REROUTER_CLOSINGLANEREROUTE, SUMO_TAG_CLOSING_LANE_REROUTE, "",
-{}, {}, {}, {}, {}, {}),
-myClosedLane(nullptr),
+    GNEAdditional("", net, GLO_REROUTER_CLOSINGLANEREROUTE, SUMO_TAG_CLOSING_LANE_REROUTE,
+                  GUIIconSubSys::getIcon(GUIIcon::CLOSINGLANEREROUTE), "", {}, {}, {}, {}, {}, {}),
+                            myClosedLane(nullptr),
 myPermissions(0) {
     // reset default values
     resetDefaultValues();
@@ -41,8 +41,8 @@ myPermissions(0) {
 
 
 GNEClosingLaneReroute::GNEClosingLaneReroute(GNEAdditional* rerouterIntervalParent, GNELane* closedLane, SVCPermissions permissions) :
-    GNEAdditional(rerouterIntervalParent->getNet(), GLO_REROUTER_CLOSINGLANEREROUTE, SUMO_TAG_CLOSING_LANE_REROUTE, "",
-{}, {}, {}, {rerouterIntervalParent}, {}, {}),
+    GNEAdditional(rerouterIntervalParent->getNet(), GLO_REROUTER_CLOSINGLANEREROUTE, SUMO_TAG_CLOSING_LANE_REROUTE,
+                  GUIIconSubSys::getIcon(GUIIcon::CLOSINGLANEREROUTE), "", {}, {}, {}, {rerouterIntervalParent}, {}, {}),
 myClosedLane(closedLane),
 myPermissions(permissions) {
     // update boundary of rerouter parent

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -30,9 +30,9 @@
 // ===========================================================================
 
 GNEParkingAreaReroute::GNEParkingAreaReroute(GNENet* net):
-    GNEAdditional("", net, GLO_REROUTER, SUMO_TAG_PARKING_AREA_REROUTE, "",
-{}, {}, {}, {}, {}, {}),
-myProbability(0),
+    GNEAdditional("", net, GLO_REROUTER, SUMO_TAG_PARKING_AREA_REROUTE,
+                  GUIIconSubSys::getIcon(GUIIcon::PARKINGZONEREROUTE), "", {}, {}, {}, {}, {}, {}),
+                            myProbability(0),
 myVisible(0) {
     // reset default values
     resetDefaultValues();
@@ -40,8 +40,8 @@ myVisible(0) {
 
 
 GNEParkingAreaReroute::GNEParkingAreaReroute(GNEAdditional* rerouterIntervalParent, GNEAdditional* newParkingArea, double probability, bool visible):
-    GNEAdditional(rerouterIntervalParent->getNet(), GLO_REROUTER, SUMO_TAG_PARKING_AREA_REROUTE, "",
-{}, {}, {}, {rerouterIntervalParent, newParkingArea}, {}, {}),
+    GNEAdditional(rerouterIntervalParent->getNet(), GLO_REROUTER, SUMO_TAG_PARKING_AREA_REROUTE,
+                  GUIIconSubSys::getIcon(GUIIcon::PARKINGZONEREROUTE), "", {}, {}, {}, {rerouterIntervalParent, newParkingArea}, {}, {}),
 myProbability(probability),
 myVisible(visible) {
     // update boundary of rerouter parent

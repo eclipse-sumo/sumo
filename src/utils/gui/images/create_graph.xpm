@@ -6,6 +6,7 @@ static const char * create_graph_xpm[] = {
 "!	c black",
 "#	c #BA0000",
 "$	c #F00000",
+/* pixels */
 "!             #! ",
 " !#          #$# ",
 " #$#          #  ",

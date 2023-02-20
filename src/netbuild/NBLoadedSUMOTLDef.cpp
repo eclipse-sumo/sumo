@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2011-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2011-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -130,14 +130,15 @@ NBLoadedSUMOTLDef::setProgramID(const std::string& programID) {
     myTLLogic->setProgramID(programID);
 }
 
+
 void
 NBLoadedSUMOTLDef::setTLControllingInformation() const {
     if (myReconstructAddedConnections) {
         NBOwnTLDef dummy(DummyID, myControlledNodes, 0, getType());
         dummy.setParticipantsInformation();
         dummy.setTLControllingInformation();
-        for (std::vector<NBNode*>::const_iterator i = myControlledNodes.begin(); i != myControlledNodes.end(); i++) {
-            (*i)->removeTrafficLight(&dummy);
+        for (NBNode* const n : myControlledNodes) {
+            n->removeTrafficLight(&dummy);
         }
     }
     if (myReconstructRemovedConnections) {
@@ -150,8 +151,7 @@ NBLoadedSUMOTLDef::setTLControllingInformation() const {
     }
     // set the information about the link's positions within the tl into the
     //  edges the links are starting at, respectively
-    for (NBConnectionVector::const_iterator it = myControlledLinks.begin(); it != myControlledLinks.end(); it++) {
-        const NBConnection& c = *it;
+    for (const NBConnection& c : myControlledLinks) {
         if (c.getTLIndex() >= myTLLogic->getNumLinks()) {
             throw ProcessError("Invalid linkIndex " + toString(c.getTLIndex()) + " for traffic light '" + getID() +
                                "' with " + toString(myTLLogic->getNumLinks()) + " links.");
@@ -356,7 +356,7 @@ NBLoadedSUMOTLDef::patchIfCrossingsAdded() {
             delete myTLLogic;
             myTLLogic = newLogic;
         } else if (phases.size() == 0) {
-            WRITE_WARNING("Could not patch tlLogic '" + getID() + "' for changed crossings");
+            WRITE_WARNINGF(TL("Could not patch tlLogic '%' for changed crossings"), getID());
         }
     }
 }
@@ -616,7 +616,7 @@ NBLoadedSUMOTLDef::getStates(int index) {
 }
 
 bool
-NBLoadedSUMOTLDef::isUsed(int index) {
+NBLoadedSUMOTLDef::isUsed(int index) const {
     for (const NBConnection& c : myControlledLinks) {
         if (c.getTLIndex() == index || c.getTLIndex2() == index) {
             return true;
@@ -877,6 +877,17 @@ NBLoadedSUMOTLDef::guessMinMaxDuration() {
                 myTLLogic->setPhaseMinDuration(ip, minDur);
                 myTLLogic->setPhaseMaxDuration(ip, maxDur);
             }
+        }
+    }
+}
+
+
+void
+NBLoadedSUMOTLDef::finalChecks() const {
+    for (int i = 0; i < myTLLogic->getNumLinks(); i++) {
+        if (!isUsed(i)) {
+            WRITE_WARNINGF(TL("Unused state in tlLogic '%', program '%' at tl-index %"), getID(), getProgramID(), i);
+            break;
         }
     }
 }

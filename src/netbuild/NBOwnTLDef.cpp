@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -45,8 +45,8 @@
 //#define DEBUG_PHASES
 //#define DEBUGCOND (getID() == "cluster_251050941_280598736_280598739_28902891_3142549227_3142550438")
 //#define DEBUGEDGE(edge) (edge->getID() == "23209153#1" || edge->getID() == "319583927#0")
-//#define DEBUGCOND (true)
-//#define DEBUGEDGE(edge) (true)
+#define DEBUGCOND (true)
+#define DEBUGEDGE(edge) (true)
 
 // ===========================================================================
 // static members
@@ -126,11 +126,13 @@ NBOwnTLDef::computeUnblockedWeightedStreamNumber(const NBEdge* const e1, const N
                                          || forbids(e2, (*e2c).toEdge, e1, (*e1c).toEdge, true)) ? -1 : 1;
                     double w1;
                     double w2;
-                    if (e1->getJunctionPriority(e1->getToNode()) == e2->getJunctionPriority(e2->getToNode())) {
+                    const int prio1 = e1->getJunctionPriority(e1->getToNode());
+                    const int prio2 = e2->getJunctionPriority(e2->getToNode());
+                    if (prio1 == prio2) {
                         w1 = getDirectionalWeight(e1->getToNode()->getDirection(e1, (*e1c).toEdge));
                         w2 = getDirectionalWeight(e2->getToNode()->getDirection(e2, (*e2c).toEdge));
                     } else {
-                        if (e1->getJunctionPriority(e1->getToNode()) > e2->getJunctionPriority(e2->getToNode())) {
+                        if (prio1 > prio2) {
                             w1 = HEIGH_WEIGHT;
                             w2 = LOW_WEIGHT;
                         } else {
@@ -142,6 +144,16 @@ NBOwnTLDef::computeUnblockedWeightedStreamNumber(const NBEdge* const e1, const N
                             w1 *= 2;
                             w2 *= 2;
                         }
+                    }
+                    if (isRailway(e1->getPermissions()) != isRailway(e2->getPermissions())) {
+                        w1 *= 0.1;
+                        w2 *= 0.1;
+                    }
+                    if ((e1->getPermissions() & SVC_PASSENGER) == 0) {
+                        w1 *= 0.1;
+                    }
+                    if ((e2->getPermissions() & SVC_PASSENGER) == 0) {
+                        w2 *= 0.1;
                     }
                     val += sign * w1;
                     val += sign * w2;
@@ -191,8 +203,10 @@ NBOwnTLDef::getBestCombination(const EdgeVector& edges) {
     }
     if (bestValue <= 0) {
         // do not group edges
+        if (bestPair.first->getPriority() < bestPair.second->getPriority()) {
+            std::swap(bestPair.first, bestPair.second);
+        }
         bestPair.second = nullptr;
-
     }
 #ifdef DEBUG_STREAM_ORDERING
     if (DEBUGCOND) {
@@ -370,6 +384,7 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
         bool groupTram = false;
         bool groupOther = false;
         std::pair<NBEdge*, NBEdge*> chosen;
+        std::set<const NBEdge*> chosenSet;
         if (groupOpposites) {
             if (incoming.size() == 2) {
                 // if there are only 2 incoming edges we need to decide whether they are a crossing or a "continuation"
@@ -424,11 +439,39 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
         }
 #endif
         chosenList.push_back(chosen);
+        chosenSet.insert(chosen.first);
+        if (chosen.second != nullptr) {
+            chosenSet.insert(chosen.second);
+        }
+        // find parallel bike edge for the chosen (passenger) edges
+        for (const NBEdge* e : chosenSet) {
+            if ((e->getPermissions() & SVC_PASSENGER) != 0) {
+                std::vector<NBEdge*> parallelBikeEdges;
+                for (NBEdge* cand : toProc) {
+                    if ((cand->getPermissions() & ~SVC_PEDESTRIAN) == SVC_BICYCLE) {
+                        double angle = fabs(NBHelpers::relAngle(e->getAngleAtNode(e->getToNode()), cand->getAngleAtNode(cand->getToNode())));
+                        if (angle < 30) {
+                            // roughly parallel
+                            parallelBikeEdges.push_back(cand);
+                        }
+                    }
+                }
+                for (NBEdge* be : parallelBikeEdges) {
+#ifdef DEBUG_PHASES
+                    if (DEBUGCOND) {
+                        std::cout << " chosen=" << e->getID() << " be=" << be->getID() << "\n";
+                    }
+#endif
+                    chosenSet.insert(be);
+                    toProc.erase(std::find(toProc.begin(), toProc.end(), be));
+                }
+            }
+        }
         // plain straight movers
         double maxSpeed = 0;
         bool haveGreen = false;
         for (const NBEdge* const fromEdge : incoming) {
-            const bool inChosen = fromEdge == chosen.first || fromEdge == chosen.second; //chosen.find(fromEdge)!=chosen.end();
+            const bool inChosen = chosenSet.count(fromEdge) != 0;
             const int numLanes = fromEdge->getNumLanes();
             for (int i2 = 0; i2 < numLanes; i2++) {
                 for (const NBEdge::Connection& approached : fromEdge->getConnectionsFromLane(i2)) {
@@ -515,7 +558,7 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
                         state[i1] = 'r';
                         //std::cout << " disabling minorLeft " << i1 << " (speed=" << fromEdges[i1]->getSpeed() << " thresh=" << minorLeftSpeedThreshold << ")\n";
                     } else if (!isTurnaround[i1]) {
-                        WRITE_WARNINGF("Minor green from edge '%' to edge '%' exceeds %m/s. Maybe a left-turn lane is missing.",
+                        WRITE_WARNINGF(TL("Minor green from edge '%' to edge '%' exceeds %m/s. Maybe a left-turn lane is missing."),
                                        fromEdges[i1]->getID(), toEdges[i1]->getID(), minorLeftSpeedThreshold);
                     }
                 }
@@ -727,7 +770,7 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
     if (isNEMA) {
         NBTrafficLightLogic* nemaLogic = buildNemaPhases(fromEdges, chosenList, straightStates, leftStates);
         if (nemaLogic == nullptr) {
-            WRITE_WARNINGF("Generating NEMA phases is not support for traffic light '%' with % incoming edges. Using tlType 'actuated' as fallback", getID(), incoming.size());
+            WRITE_WARNINGF(TL("Generating NEMA phases is not support for traffic light '%' with % incoming edges. Using tlType 'actuated' as fallback"), getID(), incoming.size());
             logic->setType(TrafficLightType::ACTUATED);
             setType(TrafficLightType::ACTUATED);
         } else {
@@ -753,7 +796,7 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
                 || STEPS2TIME(minGreenDuration) + patchSeconds + patchSecondsRest < MIN_GREEN_TIME
                 || greenPhases.size() == 0) {
             if (getID() != DummyID) {
-                WRITE_WARNINGF("The traffic light '%' cannot be adapted to a cycle time of %.", getID(), time2string(cycleTime));
+                WRITE_WARNINGF(TL("The traffic light '%' cannot be adapted to a cycle time of %."), getID(), time2string(cycleTime));
             }
             // @todo use a multiple of cycleTime ?
         } else {
@@ -772,7 +815,7 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
     myNeedsContRelationReady = (myControlledNodes.size() == 1);
     if (totalDuration > 0) {
         if (totalDuration > 3 * (greenTime + 2 * brakingTime + leftTurnTime) && !isNEMA) {
-            WRITE_WARNINGF("The traffic light '%' has a high cycle time of %.", getID(), time2string(totalDuration));
+            WRITE_WARNINGF(TL("The traffic light '%' has a high cycle time of %."), getID(), time2string(totalDuration));
         }
         logic->closeBuilding();
         return logic;

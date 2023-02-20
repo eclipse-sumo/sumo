@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -15,7 +15,7 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    March 2019
 ///
-// Representation of Stops in NETEDIT
+// Representation of Stops in netedit
 /****************************************************************************/
 #include <cmath>
 #include <netedit/GNENet.h>
@@ -30,6 +30,7 @@
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/vehicle/SUMORouteHandler.h>
+#include <utils/gui/div/GUIGlobalPostDrawing.h>
 
 #include "GNEStop.h"
 
@@ -39,8 +40,8 @@
 // ===========================================================================
 
 GNEStop::GNEStop(SumoXMLTag tag, GNENet* net) :
-    GNEDemandElement("", net, GLO_STOP, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-{}, {}, {}, {}, {}, {}),
+    GNEDemandElement("", net, GLO_STOP, tag, GUIIconSubSys::getIcon(GUIIcon::STOP),
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
 myCreationIndex(myNet->getAttributeCarriers()->getStopIndex()) {
     // reset default values
     resetDefaultValues();
@@ -48,52 +49,64 @@ myCreationIndex(myNet->getAttributeCarriers()->getStopIndex()) {
     if ((tag == SUMO_TAG_STOP_PARKINGAREA) || (tag == GNE_TAG_WAYPOINT_PARKINGAREA)) {
         parametersSet |= STOP_PARKING_SET;
     }
-    // set flags
-    parking = (parametersSet & STOP_PARKING_SET);
+    // set parking
+    if (parametersSet & STOP_PARKING_SET) {
+        parking = ParkingType::OFFROAD;
+    }
     // set waypoint speed
     myTagProperty.isWaypoint() ? parametersSet |= STOP_SPEED_SET : parametersSet &= ~STOP_SPEED_SET;
+    // set jump
+    (jump != -1) ? parametersSet |= STOP_JUMP_SET : parametersSet &= ~STOP_JUMP_SET;
 }
 
 
 GNEStop::GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNEAdditional* stoppingPlace, const SUMOVehicleParameter::Stop& stopParameter) :
-    GNEDemandElement(stopParent, net, GLO_STOP, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-{}, {}, {}, {stoppingPlace}, {stopParent}, {}),
+    GNEDemandElement(stopParent, net, GLO_STOP, tag, GUIIconSubSys::getIcon(GUIIcon::STOP),
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {stoppingPlace}, {stopParent}, {}),
 SUMOVehicleParameter::Stop(stopParameter),
 myCreationIndex(myNet->getAttributeCarriers()->getStopIndex()) {
     // enable parking for stops in parkingAreas
     if ((tag == SUMO_TAG_STOP_PARKINGAREA) || (tag == GNE_TAG_WAYPOINT_PARKINGAREA)) {
         parametersSet |= STOP_PARKING_SET;
     }
-    // set flags
-    parking = (parametersSet & STOP_PARKING_SET);
+    // set parking
+    if (parametersSet & STOP_PARKING_SET) {
+        parking = ParkingType::OFFROAD;
+    }
     // set tripID and line
     (stopParameter.tripId.size() > 0) ? parametersSet |= STOP_TRIP_ID_SET : parametersSet &= ~STOP_TRIP_ID_SET;
     (stopParameter.line.size() > 0) ? parametersSet |= STOP_LINE_SET : parametersSet &= ~STOP_LINE_SET;
     stopParameter.onDemand ? parametersSet |= STOP_ONDEMAND_SET : parametersSet &= ~STOP_ONDEMAND_SET;
     // set waypoint speed
     myTagProperty.isWaypoint() ? parametersSet |= STOP_SPEED_SET : parametersSet &= ~STOP_SPEED_SET;
+    // set jump
+    (jump != -1) ? parametersSet |= STOP_JUMP_SET : parametersSet &= ~STOP_JUMP_SET;
 }
 
 
 GNEStop::GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNELane* lane, const SUMOVehicleParameter::Stop& stopParameter) :
-    GNEDemandElement(stopParent, net, GLO_STOP, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-{}, {}, {lane}, {}, {stopParent}, {}),
+    GNEDemandElement(stopParent, net, GLO_STOP, tag, GUIIconSubSys::getIcon(GUIIcon::STOP),
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {lane}, {}, {stopParent}, {}),
 SUMOVehicleParameter::Stop(stopParameter),
 myCreationIndex(myNet->getAttributeCarriers()->getStopIndex()) {
-    // set flags
-    parking = (parametersSet & STOP_PARKING_SET);
+    // set parking
+    if (parametersSet & STOP_PARKING_SET) {
+        parking = ParkingType::OFFROAD;
+    }
     // set tripID and line
     (stopParameter.tripId.size() > 0) ? parametersSet |= STOP_TRIP_ID_SET : parametersSet &= ~STOP_TRIP_ID_SET;
     (stopParameter.line.size() > 0) ? parametersSet |= STOP_LINE_SET : parametersSet &= ~STOP_LINE_SET;
     stopParameter.onDemand ? parametersSet |= STOP_ONDEMAND_SET : parametersSet &= ~STOP_ONDEMAND_SET;
     // set waypoint speed
     myTagProperty.isWaypoint() ? parametersSet |= STOP_SPEED_SET : parametersSet &= ~STOP_SPEED_SET;
+    // set jump
+    (jump != -1) ? parametersSet |= STOP_JUMP_SET : parametersSet &= ~STOP_JUMP_SET;
 }
 
 
 GNEStop::GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNEEdge* edge, const SUMOVehicleParameter::Stop& stopParameter) :
-    GNEDemandElement(stopParent, net, GLO_STOP, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-{}, {edge}, {}, {}, {stopParent}, {}),
+    GNEDemandElement(stopParent, net, GLO_STOP, tag, GUIIconSubSys::getIcon(GUIIcon::STOP),
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {edge}, {}, {}, {stopParent}, {}),
 SUMOVehicleParameter::Stop(stopParameter),
 myCreationIndex(myNet->getAttributeCarriers()->getStopIndex()) {
     // enable parking for stops in parkingAreas
@@ -101,7 +114,9 @@ myCreationIndex(myNet->getAttributeCarriers()->getStopIndex()) {
         parametersSet |= STOP_PARKING_SET;
     }
     // set flags
-    parking = (parametersSet & STOP_PARKING_SET);
+    if (parametersSet & STOP_PARKING_SET) {
+        parking = ParkingType::OFFROAD;
+    }
     triggered = (parametersSet & STOP_TRIGGER_SET);
     containerTriggered = (parametersSet & STOP_CONTAINER_TRIGGER_SET);
     joinTriggered = (parametersSet & STOP_JOIN_SET);
@@ -111,6 +126,8 @@ myCreationIndex(myNet->getAttributeCarriers()->getStopIndex()) {
     stopParameter.onDemand ? parametersSet |= STOP_ONDEMAND_SET : parametersSet &= ~STOP_ONDEMAND_SET;
     // set waypoint speed
     myTagProperty.isWaypoint() ? parametersSet |= STOP_SPEED_SET : parametersSet &= ~STOP_SPEED_SET;
+    // set jump
+    (jump != -1) ? parametersSet |= STOP_JUMP_SET : parametersSet &= ~STOP_JUMP_SET;
 }
 
 
@@ -232,6 +249,8 @@ GNEStop::isDemandElementValid() const {
         } else {
             return Problem::INVALID_ELEMENT;
         }
+    } else if (getPathStopIndex() == -1) {
+        return Problem::STOP_DOWNSTREAM;
     } else {
         // only Stops placed over lanes can be invalid
         if (myTagProperty.getTag() != SUMO_TAG_STOP_LANE) {
@@ -282,6 +301,8 @@ GNEStop::getDemandElementProblem() const {
                 return getPersonPlanProblem();
             }
         }
+    } else if (getPathStopIndex() == -1) {
+        return ("Downstream stop");
     } else {
         // declare a copy of start and end positions
         double startPosCopy = startPos;
@@ -419,7 +440,7 @@ GNEStop::getPositionInView() const {
         } else if (getParentAdditionals().size() > 0) {
             return getParentAdditionals().front()->getPositionInView();
         } else {
-            throw ProcessError("Invalid Stop parent");
+            throw ProcessError(TL("Invalid Stop parent"));
         }
     }
 }
@@ -434,7 +455,7 @@ GNEStop::getParentName() const {
     } else if (getParentLanes().size() > 0) {
         return getParentLanes().front()->getID();
     } else {
-        throw ProcessError("Invalid parent");
+        throw ProcessError(TL("Invalid parent"));
     }
 }
 
@@ -471,9 +492,16 @@ GNEStop::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkEleme
 
 void
 GNEStop::drawGL(const GUIVisualizationSettings& s) const {
-    const bool draw = (getTagProperty().isStopPerson() || getTagProperty().isStopContainer()) ? drawPersonPlan() : canDrawVehicleStop();
+    bool drawStop = false;
+    if (getTagProperty().isStopPerson()) {
+        drawStop = drawPersonPlan();
+    } else if (getTagProperty().isStopContainer()) {
+        drawStop = drawContainerPlan();
+    } else {
+        drawStop = canDrawVehicleStop();
+    }
     // check if stop can be drawn
-    if (draw) {
+    if (drawStop) {
         // Obtain exaggeration of the draw
         const double exaggeration = getExaggeration(s);
         // check if draw an stop for person/containers or for vehicles/routes
@@ -596,6 +624,12 @@ GNEStop::getAttribute(SumoXMLAttr key) const {
             return line;
         case SUMO_ATTR_ONDEMAND:
             return toString(onDemand);
+        case SUMO_ATTR_JUMP:
+            if (parametersSet & STOP_JUMP_SET) {
+                return time2string(jump);
+            } else {
+                return "";
+            }
         // only for waypoints
         case SUMO_ATTR_SPEED:
             return toString(speed);
@@ -628,7 +662,7 @@ GNEStop::getAttribute(SumoXMLAttr key) const {
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARENT:
             return getParentDemandElements().front()->getID();
-        case SUMO_ATTR_INDEX: {
+        case GNE_ATTR_STOPINDEX: {
             // extract all stops of demandElement parent
             std::vector<GNEDemandElement*> stops;
             for (const auto& parent : getParentDemandElements().front()->getChildDemandElements()) {
@@ -644,6 +678,8 @@ GNEStop::getAttribute(SumoXMLAttr key) const {
             }
             return "invalid index";
         }
+        case GNE_ATTR_PATHSTOPINDEX:
+            return toString(getPathStopIndex());
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -668,6 +704,30 @@ GNEStop::getAttributeDouble(SumoXMLAttr key) const {
             }
         case SUMO_ATTR_INDEX: // for writting sorted
             return (double)myCreationIndex;
+        case GNE_ATTR_STOPINDEX: {
+            // extract all stops of demandElement parent
+            std::vector<GNEDemandElement*> stops, filteredStops;
+            for (const auto& parent : getParentDemandElements().front()->getChildDemandElements()) {
+                if (parent->getTagProperty().isStop()) {
+                    stops.push_back(parent);
+                }
+            }
+            // now filter stops with the same startPos
+            for (const auto& stop : stops) {
+                if (stop->getAttributeDouble(SUMO_ATTR_STARTPOS) == getAttributeDouble(SUMO_ATTR_STARTPOS)) {
+                    filteredStops.push_back(stop);
+                }
+            }
+            // get index
+            for (int i = 0; i < (int)filteredStops.size(); i++) {
+                if (filteredStops.at(i) == this) {
+                    return i;
+                }
+            }
+            return 0;
+        }
+        case GNE_ATTR_PATHSTOPINDEX:
+            return (double)getPathStopIndex();
         default:
             throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
     }
@@ -718,6 +778,7 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_TRIP_ID:
         case SUMO_ATTR_LINE:
         case SUMO_ATTR_ONDEMAND:
+        case SUMO_ATTR_JUMP:
         // only for waypoints
         case SUMO_ATTR_SPEED:
         // specific of Stops over stoppingPlaces
@@ -861,7 +922,11 @@ GNEStop::isValid(SumoXMLAttr key, const std::string& value) {
             return true;
         }
         case SUMO_ATTR_PARKING:
-            return canParse<bool>(value);
+            if (value == "opportunistic") {
+                return false; // Currrently deactivated opportunistic in netedit waiting for the implementation in SUMO
+            } else {
+                return canParse<bool>(value);
+            }
         case SUMO_ATTR_ACTTYPE:
             return true;
         case SUMO_ATTR_TRIP_ID:
@@ -870,6 +935,14 @@ GNEStop::isValid(SumoXMLAttr key, const std::string& value) {
             return true;
         case SUMO_ATTR_ONDEMAND:
             return canParse<bool>(value);
+        case SUMO_ATTR_JUMP:
+            if ((value == "-1") || (value.empty())) {
+                return true;
+            } else if (canParse<double>(value)) {
+                return parse<double>(value) >= 0;
+            } else {
+                return false;
+            }
         // only for waypoints
         case SUMO_ATTR_SPEED:
             if (canParse<double>(value)) {
@@ -1099,7 +1172,6 @@ GNEStop::canDrawVehicleStop() const {
 
 void
 GNEStop::drawVehicleStop(const GUIVisualizationSettings& s, const double exaggeration) const {
-    ;
     // declare value to save stop color
     const RGBColor stopColor = drawUsingSelectColor() ? s.colorSettings.selectedRouteColor : getColor();
     // get lane
@@ -1156,7 +1228,7 @@ GNEStop::drawVehicleStop(const GUIVisualizationSettings& s, const double exagger
                 glTranslated(-2.1, -2.4, 0);
                 glRotated(-90, 0, 0, 1);
                 // draw index
-                GLHelper::drawText(getAttribute(SUMO_ATTR_INDEX), Position(), .1, 1, stopColor, 180);
+                GLHelper::drawText(getAttribute(GNE_ATTR_STOPINDEX), Position(0, getAttributeDouble(GNE_ATTR_STOPINDEX) * -1, 0), .1, 1, stopColor, 180);
             }
         }
         // pop detail matrix
@@ -1180,7 +1252,7 @@ GNEStop::drawVehicleStop(const GUIVisualizationSettings& s, const double exagger
             glTranslated(-1.4, exaggeration * 0.5, 0.1);
             glRotated(-90, 0, 0, 1);
             // draw index
-            GLHelper::drawText(getAttribute(SUMO_ATTR_INDEX), Position(), .1, 1, stopColor, 180);
+            GLHelper::drawText(getAttribute(GNE_ATTR_STOPINDEX), Position(0, getAttributeDouble(GNE_ATTR_STOPINDEX) * -1, 0), .1, 1, stopColor, 180);
         }
         // pop detail matrix
         GLHelper::popMatrix();
@@ -1191,13 +1263,26 @@ GNEStop::drawVehicleStop(const GUIVisualizationSettings& s, const double exagger
     GLHelper::popName();
     // draw lock icon
     GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), exaggeration);
-    // check if dotted contour has to be drawn
+    // check if mouse is over element
+    mouseWithinGeometry(myDemandElementGeometry.getShape(), width);
+    // inspect contour
     if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-        GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myDemandElementGeometry.getShape(),
+        GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::INSPECT, myDemandElementGeometry.getShape(),
                 width, exaggeration, true, true);
     }
+    // front element contour
     if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-        GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, myDemandElementGeometry.getShape(),
+        GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT, myDemandElementGeometry.getShape(),
+                width, exaggeration, true, true);
+    }
+    // delete contour
+    if (myNet->getViewNet()->drawDeleteContour(this, this)) {
+        GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, myDemandElementGeometry.getShape(),
+                width, exaggeration, true, true);
+    }
+    // select contour
+    if (myNet->getViewNet()->drawSelectContour(this, this)) {
+        GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::SELECT, myDemandElementGeometry.getShape(),
                 width, exaggeration, true, true);
     }
 }
@@ -1205,128 +1290,159 @@ GNEStop::drawVehicleStop(const GUIVisualizationSettings& s, const double exagger
 
 void
 GNEStop::drawStopPersonOverEdge(const GUIVisualizationSettings& s, const double exaggeration) const {
-    // Start drawing adding an gl identificator
-    GLHelper::pushName(getGlID());
-    // Add layer matrix matrix
-    GLHelper::pushMatrix();
-    // translate to front
-    myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType());
     // declare stop color
     const RGBColor stopColor = drawUsingSelectColor() ? s.colorSettings.selectedPersonPlanColor : s.colorSettings.stopColor;
-    // declare central line color
-    const RGBColor centralLineColor = drawUsingSelectColor() ? stopColor.changedBrightness(-32) : RGBColor::WHITE;
-    // set base color
-    GLHelper::setColor(stopColor);
-    // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-    GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myDemandElementGeometry, 0.3 * exaggeration);
-    // move to front
-    glTranslated(0, 0, .1);
-    // set central color
-    GLHelper::setColor(centralLineColor);
-    // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-    GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myDemandElementGeometry, 0.05 * exaggeration);
-    // move to icon position and front
-    glTranslated(myDemandElementGeometry.getShape().front().x(), myDemandElementGeometry.getShape().front().y(), .1);
-    // rotate over lane
-    GUIGeometry::rotateOverLane((myDemandElementGeometry.getShapeRotations().front() * -1) + 90);
-    // move again
-    glTranslated(0, s.additionalSettings.vaporizerSize * exaggeration, 0);
-    // Draw icon depending of Route Probe is selected and if isn't being drawn for selecting
-    if (!s.drawForRectangleSelection && s.drawDetail(s.detailSettings.laneTextures, exaggeration)) {
-        // set color
-        glColor3d(1, 1, 1);
-        // rotate texture
-        glRotated(180, 0, 0, 1);
-        // draw texture
-        if (drawUsingSelectColor()) {
-            GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::STOPPERSON_SELECTED), s.additionalSettings.vaporizerSize * exaggeration);
-        } else {
-            GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::STOPPERSON), s.additionalSettings.vaporizerSize * exaggeration);
-        }
-    } else {
-        // rotate
-        glRotated(22.5, 0, 0, 1);
-        // set stop color
+    // avoid draw invisible elements
+    if (stopColor.alpha() != 0) {
+        // Start drawing adding an gl identificator
+        GLHelper::pushName(getGlID());
+        // Add layer matrix matrix
+        GLHelper::pushMatrix();
+        // translate to front
+        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType());
+        // declare stop color
+        // declare central line color
+        const RGBColor centralLineColor = drawUsingSelectColor() ? stopColor.changedBrightness(-32) : RGBColor::WHITE;
+        // set base color
         GLHelper::setColor(stopColor);
-        // move matrix
-        glTranslated(0, 0, 0);
-        // draw filled circle
-        GLHelper::drawFilledCircle(0.1 + s.additionalSettings.vaporizerSize, 8);
+        // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
+        GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myDemandElementGeometry, 0.3 * exaggeration);
+        // move to front
+        glTranslated(0, 0, .1);
+        // set central color
+        GLHelper::setColor(centralLineColor);
+        // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
+        GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myDemandElementGeometry, 0.05 * exaggeration);
+        // move to icon position and front
+        glTranslated(myDemandElementGeometry.getShape().front().x(), myDemandElementGeometry.getShape().front().y(), .1);
+        // rotate over lane
+        GUIGeometry::rotateOverLane((myDemandElementGeometry.getShapeRotations().front() * -1) + 90);
+        // move again
+        glTranslated(0, s.additionalSettings.vaporizerSize * exaggeration, 0);
+        // Draw icon depending of Route Probe is selected and if isn't being drawn for selecting
+        if (!s.drawForRectangleSelection && s.drawDetail(s.detailSettings.laneTextures, exaggeration)) {
+            // set color
+            glColor3d(1, 1, 1);
+            // rotate texture
+            glRotated(180, 0, 0, 1);
+            // draw texture
+            if (drawUsingSelectColor()) {
+                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::STOPPERSON_SELECTED), s.additionalSettings.vaporizerSize * exaggeration);
+            } else {
+                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::STOPPERSON), s.additionalSettings.vaporizerSize * exaggeration);
+            }
+        } else {
+            // rotate
+            glRotated(22.5, 0, 0, 1);
+            // set stop color
+            GLHelper::setColor(stopColor);
+            // move matrix
+            glTranslated(0, 0, 0);
+            // draw filled circle
+            GLHelper::drawFilledCircle(0.1 + s.additionalSettings.vaporizerSize, 8);
+        }
+        // pop layer matrix
+        GLHelper::popMatrix();
+        // Pop name
+        GLHelper::popName();
+        // draw lock icon
+        GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), exaggeration);
     }
-    // pop layer matrix
-    GLHelper::popMatrix();
-    // Pop name
-    GLHelper::popName();
-    // draw lock icon
-    GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), exaggeration);
-    // check if dotted contours has to be drawn
+    // check if mouse is over element
+    mouseWithinGeometry(myDemandElementGeometry.getShape(), 0.3);
+    // inspect contour
     if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-        GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myDemandElementGeometry.getShape(), 0.3,
-                exaggeration, 1, 1);
+        GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::INSPECT,
+                myDemandElementGeometry.getShape(), 0.3,  exaggeration, true, true);
     }
+    // front contour
     if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-        GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, myDemandElementGeometry.getShape(), 0.3,
-                exaggeration, 1, 1);
+        GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT,
+                myDemandElementGeometry.getShape(), 0.3, exaggeration, true, true);
+    }
+    // delete contour
+    if (myNet->getViewNet()->drawDeleteContour(this, this)) {
+        GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE,
+                myDemandElementGeometry.getShape(), 0.3, exaggeration, true, true);
+    }
+    // select contour
+    if (myNet->getViewNet()->drawSelectContour(this, this)) {
+        GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::SELECT,
+                myDemandElementGeometry.getShape(), 0.3, exaggeration, true, true);
     }
 }
 
 
 void
 GNEStop::drawStopPersonOverBusStop(const GUIVisualizationSettings& s, const double exaggeration) const {
-    // Start drawing adding an gl identificator
-    GLHelper::pushName(getGlID());
-    // Add layer matrix matrix
-    GLHelper::pushMatrix();
-    // translate to front
-    myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType());
     // declare stop color
     const RGBColor stopColor = drawUsingSelectColor() ? s.colorSettings.selectedPersonPlanColor : s.colorSettings.stopColor;
-    // set base color
-    GLHelper::setColor(stopColor);
-    // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-    GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myDemandElementGeometry, s.stoppingPlaceSettings.busStopWidth * exaggeration);
-    // move to icon position and front
-    glTranslated(myDemandElementGeometry.getShape().getLineCenter().x(), myDemandElementGeometry.getShape().getLineCenter().y(), .1);
-    // rotate over lane
-    GUIGeometry::rotateOverLane((myDemandElementGeometry.getShapeRotations().front() * -1) + 90);
-    // move again
-    glTranslated(s.stoppingPlaceSettings.busStopWidth * exaggeration * -2, 0, 0);
-    // Draw icon depending of Route Probe is selected and if isn't being drawn for selecting
-    if (!s.drawForRectangleSelection && s.drawDetail(s.detailSettings.laneTextures, exaggeration)) {
-        // set color
-        glColor3d(1, 1, 1);
-        // rotate texture
-        glRotated(-90, 0, 0, 1);
-        // draw texture
-        if (drawUsingSelectColor()) {
-            GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::STOPPERSON_SELECTED), s.additionalSettings.vaporizerSize * exaggeration);
-        } else {
-            GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::STOPPERSON), s.additionalSettings.vaporizerSize * exaggeration);
-        }
-    } else {
-        // rotate
-        glRotated(22.5, 0, 0, 1);
-        // set stop color
+    // avoid draw invisible elements
+    if (stopColor.alpha() != 0) {
+        // Start drawing adding an gl identificator
+        GLHelper::pushName(getGlID());
+        // Add layer matrix matrix
+        GLHelper::pushMatrix();
+        // translate to front
+        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType());
+        // set base color
         GLHelper::setColor(stopColor);
-        // move matrix
-        glTranslated(0, 0, 0);
-        // draw filled circle
-        GLHelper::drawFilledCircle(0.1 + s.additionalSettings.vaporizerSize, 8);
+        // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
+        GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myDemandElementGeometry, s.stoppingPlaceSettings.busStopWidth * exaggeration);
+        // move to icon position and front
+        glTranslated(myDemandElementGeometry.getShape().getLineCenter().x(), myDemandElementGeometry.getShape().getLineCenter().y(), .1);
+        // rotate over lane
+        GUIGeometry::rotateOverLane((myDemandElementGeometry.getShapeRotations().front() * -1) + 90);
+        // move again
+        glTranslated(s.stoppingPlaceSettings.busStopWidth * exaggeration * -2, 0, 0);
+        // Draw icon depending of Route Probe is selected and if isn't being drawn for selecting
+        if (!s.drawForRectangleSelection && s.drawDetail(s.detailSettings.laneTextures, exaggeration)) {
+            // set color
+            glColor3d(1, 1, 1);
+            // rotate texture
+            glRotated(-90, 0, 0, 1);
+            // draw texture
+            if (drawUsingSelectColor()) {
+                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::STOPPERSON_SELECTED), s.additionalSettings.vaporizerSize * exaggeration);
+            } else {
+                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::STOPPERSON), s.additionalSettings.vaporizerSize * exaggeration);
+            }
+        } else {
+            // rotate
+            glRotated(22.5, 0, 0, 1);
+            // set stop color
+            GLHelper::setColor(stopColor);
+            // move matrix
+            glTranslated(0, 0, 0);
+            // draw filled circle
+            GLHelper::drawFilledCircle(0.1 + s.additionalSettings.vaporizerSize, 8);
+        }
+        // pop layer matrix
+        GLHelper::popMatrix();
+        // Pop name
+        GLHelper::popName();
+        // draw lock icon
+        GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), exaggeration);
     }
-    // pop layer matrix
-    GLHelper::popMatrix();
-    // Pop name
-    GLHelper::popName();
-    // draw lock icon
-    GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), exaggeration);
-    // check if dotted contours has to be drawn
+    // inspect contour
     if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-        GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myDemandElementGeometry.getShape(), 0.3,
-                exaggeration, 1, 1);
+        GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::INSPECT, myDemandElementGeometry.getShape(), 0.3,
+                exaggeration, true, true);
     }
+    // front contour
     if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-        GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, myDemandElementGeometry.getShape(), 0.3,
-                exaggeration, 1, 1);
+        GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT, myDemandElementGeometry.getShape(), 0.3,
+                exaggeration, true, true);
+    }
+    // delete contour
+    if (myNet->getViewNet()->drawDeleteContour(this, this)) {
+        GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, myDemandElementGeometry.getShape(), 0.3,
+                exaggeration, true, true);
+    }
+    // select contour
+    if (myNet->getViewNet()->drawSelectContour(this, this)) {
+        GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::SELECT, myDemandElementGeometry.getShape(), 0.3,
+                exaggeration, true, true);
     }
 }
 
@@ -1432,13 +1548,12 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         case SUMO_ATTR_PARKING:
-            if (parse<bool>(value)) {
-                parametersSet |= STOP_PARKING_SET;
-            } else {
+            parking = SUMOVehicleParameter::parseParkingType(value);
+            if (parking == ParkingType::ONROAD) {
                 parametersSet &= ~STOP_PARKING_SET;
+            } else {
+                parametersSet |= STOP_PARKING_SET;
             }
-            // set flag
-            parking = ((parametersSet & STOP_PARKING_SET) != 0);
             break;
         case SUMO_ATTR_ACTTYPE:
             actType = value;
@@ -1459,6 +1574,15 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             // set flag
             onDemand = ((parametersSet & STOP_ONDEMAND_SET) != 0);
+            break;
+        case SUMO_ATTR_JUMP:
+            if ((value == "-1") || value.empty()) {
+                parametersSet &= ~STOP_JUMP_SET;
+                jump = -1;
+            } else {
+                parametersSet |= STOP_JUMP_SET;
+                jump = string2time(value);
+            }
             break;
         // only for waypoints
         case SUMO_ATTR_SPEED:
@@ -1685,6 +1809,23 @@ GNEStop::drawGeometryPoints(const GUIVisualizationSettings& s, const RGBColor& b
         // pop draw matrix
         GLHelper::popMatrix();
     }
+}
+
+
+int
+GNEStop::getPathStopIndex() const {
+    // get edge stop indexes
+    const auto edgeStopIndex = getEdgeStopIndex();
+    // finally find stopIndex in edgeStopIndexes
+    for (const auto& edgeStop : edgeStopIndex) {
+        for (const auto& stop : edgeStop.stops) {
+            if (stop == this) {
+                return edgeStop.stopIndex;
+            }
+        }
+    }
+    // not found, then return -1
+    return -1;
 }
 
 /****************************************************************************/

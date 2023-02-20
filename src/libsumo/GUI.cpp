@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2017-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2017-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -28,6 +28,8 @@
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
 #include <utils/gui/windows/GUIPerspectiveChanger.h>
+#include <utils/gui/events/GUIEvent_AddView.h>
+#include <utils/gui/events/GUIEvent_CloseView.h>
 #include <utils/xml/XMLSubSys.h>
 #include <gui/GUIApplicationWindow.h>
 #include <gui/GUIRunThread.h>
@@ -154,6 +156,30 @@ GUI::setSchema(const std::string& viewID, const std::string& schemeName) {
 
 
 void
+GUI::addView(const std::string& viewID, const std::string& schemeName, bool in3D) {
+    GUIMainWindow* const mw = GUIMainWindow::getInstance();
+    if (mw == nullptr) {
+        throw TraCIException("GUI is not running, command not implemented in command line sumo");
+    }
+    // calling openNewView directly doesn't work from the traci/simulation thread
+    mw->sendBlockingEvent(new GUIEvent_AddView(viewID, schemeName, in3D));
+    // sonar thinks here is a memory leak but the GUIApplicationWindow does the clean up
+}  // NOSONAR
+
+
+void
+GUI::removeView(const std::string& viewID) {
+    GUIMainWindow* const mw = GUIMainWindow::getInstance();
+    if (mw == nullptr) {
+        throw TraCIException("GUI is not running, command not implemented in command line sumo");
+    }
+    // calling removeViewByID directly doesn't work from the traci/simulation thread
+    mw->sendBlockingEvent(new GUIEvent_CloseView(viewID));
+    // sonar thinks here is a memory leak but the GUIApplicationWindow does the clean up
+}  // NOSONAR
+
+
+void
 GUI::setBoundary(const std::string& viewID, double xmin, double ymin, double xmax, double ymax) {
     getView(viewID)->centerTo(Boundary(xmin, ymin, xmax, ymax));
 }
@@ -275,42 +301,25 @@ GUI::start(const std::vector<std::string>& cmd) {
         return false;
     }
 #ifdef WIN32
-    WRITE_WARNING("Libsumo on Windows does not work with GUI, falling back to plain libsumo.");
+    WRITE_WARNING(TL("Libsumo on Windows does not work with GUI, falling back to plain libsumo."));
     return false;
 #else
     try {
         if (!GUI::close("Libsumo started new instance.")) {
 //            SystemFrame::close();
         }
-        bool needStart = false;
-        if (std::getenv("LIBSUMO_GUI") != nullptr) {
-            needStart = true;
-            for (const std::string& a : cmd) {
-                if (a == "-S" || a == "--start") {
-                    needStart = false;
-                }
-            }
-        }
-        int origArgc = (int)cmd.size();
-        int argc = origArgc;
-        if (needStart) {
-            argc++;
-        }
-        char** argv = new char* [argc];
-        int i;
-        for (i = 0; i < origArgc; i++) {
-            argv[i] = new char[cmd[i].size() + 1];
-            std::strcpy(argv[i], cmd[i].c_str());
-        }
-        if (needStart) {
-            argv[i++] = (char*)"-S";
-        }
+        int argc = 1;
+        char array[1][10] = {{0}};
+        strcpy(array[0], "dummy");
+        char* argv[1];
+        argv[0] = array[0];
         // make the output aware of threading
         MsgHandler::setFactory(&MsgHandlerSynchronized::create);
         gSimulation = true;
         XMLSubSys::init();
         MSFrame::fillOptions();
-        OptionsIO::setArgs(argc, argv);
+        std::vector<std::string> args(cmd.begin() + 1, cmd.end());
+        OptionsIO::setArgs(args);
         OptionsIO::getOptions(true);
         OptionsCont::getOptions().processMetaOptions(false);
         // Open display
@@ -318,7 +327,7 @@ GUI::start(const std::vector<std::string>& cmd) {
         myApp->init(argc, argv);
         int minor, major;
         if (!FXGLVisual::supported(myApp, major, minor)) {
-            throw ProcessError("This system has no OpenGL support. Exiting.");
+            throw ProcessError(TL("This system has no OpenGL support. Exiting."));
         }
 
         // build the main window
@@ -328,9 +337,7 @@ GUI::start(const std::vector<std::string>& cmd) {
         myApp->create();
         myWindow->getRunner()->enableLibsumo();
         // Load configuration given on command line
-        if (argc > 1) {
-            myWindow->loadOnStartup(true);
-        }
+        myWindow->loadOnStartup(true);
     } catch (ProcessError& e) {
         throw TraCIException(e.what());
     }
@@ -342,7 +349,7 @@ GUI::start(const std::vector<std::string>& cmd) {
 bool
 GUI::load(const std::vector<std::string>& /* cmd */) {
     if (myWindow != nullptr) {
-        WRITE_ERROR("libsumo.load is not implemented for the GUI.");
+        WRITE_ERROR(TL("libsumo.load is not implemented for the GUI."));
         return true;
     }
     return false;

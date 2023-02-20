@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -49,9 +49,15 @@ public:
         /// @brief allow change lane
         bool getAllowChangeLane() const;
 
+        /// @brief check if merge geometry points
+        bool getMergeGeometryPoints() const;
+
     private:
         /// @brief checkbox for enable/disable change lanes
         FXCheckButton* myAllowChangeLanes;
+
+        /// @brief checkbox for enable/disable merge geometry points
+        FXCheckButton* myMergeGeometryPoints;
     };
 
     // ===========================================================================
@@ -267,11 +273,25 @@ public:
         FXTextField* myShiftValueYTextField = nullptr;
     };
 
+    // ===========================================================================
+    // class Information
+    // ===========================================================================
+
+    class Information : public MFXGroupBoxModule {
+
+    public:
+        /// @brief constructor
+        Information(GNEMoveFrame* moveFrameParent);
+
+        /// @brief destructor
+        ~Information();
+    };
+
     /**@brief Constructor
      * @brief viewParent GNEViewParent in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
      */
-    GNEMoveFrame(GNEViewParent *viewParent, GNEViewNet* viewNet);
+    GNEMoveFrame(GNEViewParent* viewParent, GNEViewNet* viewNet);
 
     /// @brief Destructor
     ~GNEMoveFrame();
@@ -315,6 +335,9 @@ private:
 
     /// @brief modul for change Z in selection
     ChangeZInSelection* myChangeZInSelection = nullptr;
+
+    /// @brief modul for show information
+    Information* myInformation = nullptr;
 
     /// @brief modul for shift shape geometry
     ShiftShapeGeometry* myShiftShapeGeometry = nullptr;

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2012-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -45,32 +45,32 @@ namespace LIBSUMO_NAMESPACE {
 class Lane {
 public:
     // Getter
-    static int getLinkNumber(std::string laneID);
-    static std::string getEdgeID(std::string laneID);
-    static double getLength(std::string laneID);
-    static double getMaxSpeed(std::string laneID);
-    static double getFriction(std::string laneID);
-    static std::vector<std::string> getAllowed(std::string laneID);
-    static std::vector<std::string> getDisallowed(std::string laneID);
-    static std::vector<libsumo::TraCIConnection> getLinks(std::string laneID);
-    static libsumo::TraCIPositionVector getShape(std::string laneID);
-    static double getWidth(std::string laneID);
-    static double getCO2Emission(std::string laneID);
-    static double getCOEmission(std::string laneID);
-    static double getHCEmission(std::string laneID);
-    static double getPMxEmission(std::string laneID);
-    static double getNOxEmission(std::string laneID);
-    static double getFuelConsumption(std::string laneID);
-    static double getNoiseEmission(std::string laneID);
-    static double getElectricityConsumption(std::string laneID);
-    static double getLastStepMeanSpeed(std::string laneID);
-    static double getLastStepOccupancy(std::string laneID);
-    static double getLastStepLength(std::string laneID);
-    static double getWaitingTime(std::string laneID);
-    static double getTraveltime(std::string laneID);
-    static int getLastStepVehicleNumber(std::string laneID);
-    static int getLastStepHaltingNumber(std::string laneID);
-    static std::vector<std::string> getLastStepVehicleIDs(std::string laneID);
+    static int getLinkNumber(const std::string& laneID);
+    static std::string getEdgeID(const std::string& laneID);
+    static double getLength(const std::string& laneID);
+    static double getMaxSpeed(const std::string& laneID);
+    static double getFriction(const std::string& laneID);
+    static std::vector<std::string> getAllowed(const std::string& laneID);
+    static std::vector<std::string> getDisallowed(const std::string& laneID);
+    static std::vector<libsumo::TraCIConnection> getLinks(const std::string& laneID);
+    static libsumo::TraCIPositionVector getShape(const std::string& laneID);
+    static double getWidth(const std::string& laneID);
+    static double getCO2Emission(const std::string& laneID);
+    static double getCOEmission(const std::string& laneID);
+    static double getHCEmission(const std::string& laneID);
+    static double getPMxEmission(const std::string& laneID);
+    static double getNOxEmission(const std::string& laneID);
+    static double getFuelConsumption(const std::string& laneID);
+    static double getNoiseEmission(const std::string& laneID);
+    static double getElectricityConsumption(const std::string& laneID);
+    static double getLastStepMeanSpeed(const std::string& laneID);
+    static double getLastStepOccupancy(const std::string& laneID);
+    static double getLastStepLength(const std::string& laneID);
+    static double getWaitingTime(const std::string& laneID);
+    static double getTraveltime(const std::string& laneID);
+    static int getLastStepVehicleNumber(const std::string& laneID);
+    static int getLastStepHaltingNumber(const std::string& laneID);
+    static std::vector<std::string> getLastStepVehicleIDs(const std::string& laneID);
     static std::vector<std::string> getFoes(const std::string& laneID, const std::string& toLaneID);
     static std::vector<std::string> getInternalFoes(const std::string& laneID);
     static const std::vector<std::string> getPendingVehicles(const std::string& laneID);
@@ -79,12 +79,13 @@ public:
     LIBSUMO_SUBSCRIPTION_API
 
     // Setter
-    static void setAllowed(std::string laneID, std::string allowedClass);
-    static void setAllowed(std::string laneID, std::vector<std::string> allowedClasses);
-    static void setDisallowed(std::string laneID, std::vector<std::string> disallowedClasses);
-    static void setMaxSpeed(std::string laneID, double speed);
-    static void setLength(std::string laneID, double length);
-    static void setFriction(std::string laneID, double friction);
+    static void setAllowed(const std::string& laneID, std::string allowedClasses);
+    static void setAllowed(const std::string& laneID, std::vector<std::string> allowedClasses);
+    static void setDisallowed(const std::string& laneID, std::string disallowedClasses);
+    static void setDisallowed(const std::string& laneID, std::vector<std::string> disallowedClasses);
+    static void setMaxSpeed(const std::string& laneID, double speed);
+    static void setLength(const std::string& laneID, double length);
+    static void setFriction(const std::string& laneID, double friction);
 
     // Generic parameter get/set
     //static std::string getParameter(const std::string& laneID, const std::string& param);

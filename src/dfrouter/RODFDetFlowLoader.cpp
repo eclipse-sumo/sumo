@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -73,7 +73,7 @@ RODFDetFlowLoader::read(const std::string& file) {
             if (time < myStartTime || time >= myEndTime) {
                 if (!myHaveWarnedAboutOverridingBoundaries) {
                     myHaveWarnedAboutOverridingBoundaries = true;
-                    WRITE_WARNING("At least one value lies beyond given time boundaries.");
+                    WRITE_WARNING(TL("At least one value lies beyond given time boundaries."));
                 }
                 continue;
             }
@@ -101,7 +101,7 @@ RODFDetFlowLoader::read(const std::string& file) {
             myStorage.addFlow(detName, time, fd);
             if (!myHaveWarnedAboutPartialDefs && !myLineHandler.hasFullDefinition()) {
                 myHaveWarnedAboutPartialDefs = true;
-                WRITE_WARNING("At least one line does not contain the correct number of columns.");
+                WRITE_WARNING(TL("At least one line does not contain the correct number of columns."));
             }
             continue;
         } catch (ProcessError& e) {

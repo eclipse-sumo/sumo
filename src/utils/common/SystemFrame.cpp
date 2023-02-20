@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -21,7 +21,6 @@
 /****************************************************************************/
 #include <config.h>
 
-#include "SystemFrame.h"
 #include <string>
 #include <utils/xml/XMLSubSys.h>
 #include <utils/common/StdDefs.h>
@@ -29,6 +28,7 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
 #include "RandHelper.h"
+#include "SystemFrame.h"
 
 
 // ===========================================================================
@@ -79,17 +79,17 @@ SystemFrame::addReportOptions(OptionsCont& oc) {
     oc.doRegister("version", 'V', new Option_Bool(false));
     oc.addDescription("version", "Report", "Prints the current version");
 
-    oc.doRegister("xml-validation", 'X', new Option_String("auto"));
-    oc.addDescription("xml-validation", "Report", "Set schema validation scheme of XML inputs (\"never\", \"auto\" or \"always\")");
+    oc.doRegister("xml-validation", 'X', new Option_String("local"));
+    oc.addDescription("xml-validation", "Report", "Set schema validation scheme of XML inputs (\"never\", \"local\", \"auto\" or \"always\")");
 
     if (oc.exists("net-file")) {
         oc.doRegister("xml-validation.net", new Option_String("never"));
-        oc.addDescription("xml-validation.net", "Report", "Set schema validation scheme of SUMO network inputs (\"never\", \"auto\" or \"always\")");
+        oc.addDescription("xml-validation.net", "Report", "Set schema validation scheme of SUMO network inputs (\"never\", \"local\", \"auto\" or \"always\")");
     }
 
     if (oc.exists("route-files")) {
-        oc.doRegister("xml-validation.routes", new Option_String("auto"));
-        oc.addDescription("xml-validation.routes", "Report", "Set schema validation scheme of SUMO route inputs (\"never\", \"auto\" or \"always\")");
+        oc.doRegister("xml-validation.routes", new Option_String("local"));
+        oc.addDescription("xml-validation.routes", "Report", "Set schema validation scheme of SUMO route inputs (\"never\", \"local\", \"auto\" or \"always\")");
     }
 
     oc.doRegister("no-warnings", 'W', new Option_Bool(false));
@@ -108,6 +108,9 @@ SystemFrame::addReportOptions(OptionsCont& oc) {
 
     oc.doRegister("error-log", new Option_FileName());
     oc.addDescription("error-log", "Report", "Writes all warnings and errors to FILE");
+
+    oc.doRegister("language", new Option_String("C"));
+    oc.addDescription("language", "Report", "Language to use in messages");
 
     oc.doRegister("write-license", new Option_Bool(false));
     oc.addDescription("write-license", "Output", "Include license info into every output file");

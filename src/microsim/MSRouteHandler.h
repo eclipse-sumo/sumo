@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -218,7 +218,7 @@ protected:
     std::string myCurrentVTypeDistributionID;
 
     /// @brief The currently parsed distribution of routes (probability->route)
-    RandomDistributor<const MSRoute*>* myCurrentRouteDistribution;
+    RandomDistributor<ConstMSRoutePtr>* myCurrentRouteDistribution;
 
     /// @brief The id of the currently parsed route distribution
     std::string myCurrentRouteDistributionID;
@@ -249,10 +249,12 @@ private:
     void closeTransportable();
 
     /// @brief delete already created MSTransportablePlans if error occurs before handing over responsibility to a MSTransportable.
-    void addFlowTransportable(SUMOTime depart, MSVehicleType* type, const std::string& baseID, int i);
+    int addFlowTransportable(SUMOTime depart, MSVehicleType* type, const std::string& baseID, int i);
+
+    double interpretDepartPosLat(const std::string& value, int departLane, const std::string& element);
 
     /// @brief adapt implicit route (edges derived from stops) to additional vehicle-stops
-    MSRoute* addVehicleStopsToImplicitRoute(const MSRoute* route, bool isPermanent);
+    ConstMSRoutePtr addVehicleStopsToImplicitRoute(ConstMSRoutePtr route, bool isPermanent);
 
     /// @brief Invalidated copy constructor
     MSRouteHandler(const MSRouteHandler& s) = delete;

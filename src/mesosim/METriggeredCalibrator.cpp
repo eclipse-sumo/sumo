@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -134,7 +134,7 @@ METriggeredCalibrator::execute(SUMOTime currentTime) {
     while ((calibrateFlow || calibrateSpeed) && invalidJam()) {
         hadInvalidJam = true;
         if (!myHaveWarnedAboutClearingJam) {
-            WRITE_WARNINGF("Clearing jam at calibrator '%' at time=%.", getID(), time2string(currentTime));
+            WRITE_WARNINGF(TL("Clearing jam at calibrator '%' at time=%."), getID(), time2string(currentTime));
         }
         // remove one vehicle currently on the segment
         if (mySegment->vaporizeAnyCar(currentTime, this)) {
@@ -142,7 +142,7 @@ METriggeredCalibrator::execute(SUMOTime currentTime) {
         } else {
             if (!myHaveWarnedAboutClearingJam) {
                 // this frequenly happens for very short edges
-                WRITE_WARNINGF("Could not clear jam at calibrator '%' at time=%.", getID(), time2string(currentTime));
+                WRITE_WARNINGF(TL("Could not clear jam at calibrator '%' at time=%."), getID(), time2string(currentTime));
             }
             break;
         }
@@ -169,16 +169,16 @@ METriggeredCalibrator::execute(SUMOTime currentTime) {
             MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
             while (wishedNum > adaptedNum + insertionSlack && remainingVehicleCapacity() > maximumInflow()) {
                 SUMOVehicleParameter* pars = myCurrentStateInterval->vehicleParameter;
-                const MSRoute* route = myProbe != nullptr ? myProbe->sampleRoute() : nullptr;
+                ConstMSRoutePtr route = myProbe != nullptr ? myProbe->sampleRoute() : nullptr;
                 if (route == nullptr) {
                     route = MSRoute::dictionary(pars->routeid);
                 }
                 if (route == nullptr) {
-                    WRITE_WARNING("No valid routes in calibrator '" + getID() + "'.");
+                    WRITE_WARNINGF(TL("No valid routes in calibrator '%'."), getID());
                     break;
                 }
                 if (!route->contains(myEdge)) {
-                    WRITE_WARNING("Route '" + route->getID() + "' in calibrator '" + getID() + "' does not contain edge '" + myEdge->getID() + "'.");
+                    WRITE_WARNINGF(TL("Route '%' in calibrator '%' does not contain edge '%'."), route->getID(), getID(), myEdge->getID());
                     break;
                 }
                 MSVehicleType* vtype = vc.getVType(pars->vtypeid);

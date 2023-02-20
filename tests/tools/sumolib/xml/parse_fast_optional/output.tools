@@ -1,0 +1,11 @@
+edge(id='4/1to3/1', sampledSeconds='0.00', traveltime=None, overlapTraveltime=None, density=None, laneDensity=None, occupancy=None, waitingTime=None, timeLoss=None, speed=None, speedRelative=None, departed='1')
+edge(id='4/1to3/1', sampledSeconds='1.00', traveltime='40.00', overlapTraveltime='40.30', density='2.50', laneDensity='2.50', occupancy='0.75', waitingTime='0.00', timeLoss='0.00', speed='10.00', speedRelative='1.00', departed='0')
+edge(id='4/1to3/1', sampledSeconds='1.00', traveltime='40.00', overlapTraveltime='40.30', density='2.50', laneDensity='2.50', occupancy='0.75', waitingTime='0.00', timeLoss='0.00', speed='10.00', speedRelative='1.00', departed='0')
+edge(id='4/1to3/1', sampledSeconds='1.00', traveltime='40.00', overlapTraveltime='40.30', density='2.50', laneDensity='2.50', occupancy='0.75', waitingTime='0.00', timeLoss='0.00', speed='10.00', speedRelative='1.00', departed='0')
+edge(id='4/1to3/1', sampledSeconds='0.00', traveltime=None, overlapTraveltime=None, density=None, laneDensity=None, occupancy=None, waitingTime=None, timeLoss=None, speed=None, speedRelative=None, departed='1')
+this does not extract all, because intermediate attributes are missing
+edge(id='4/1to3/1', sampledSeconds='0.00', density=None, departed='1')
+edge(id='4/1to3/1', sampledSeconds='1.00', density=None, departed=None)
+edge(id='4/1to3/1', sampledSeconds='1.00', density=None, departed=None)
+edge(id='4/1to3/1', sampledSeconds='1.00', density=None, departed=None)
+edge(id='4/1to3/1', sampledSeconds='0.00', density=None, departed='1')

@@ -14,9 +14,9 @@ lanesOppositeAll
 # No vehicles should be returned
 lanesOutOfBounds
 
-#########################
+# ########################
 # Up-stream distance = 0
-#########################
+# ########################
 # Test whether up-/down-stream vehicles on right lane are filtered correctly
 # Only vehicles on the right lane down-stream up to the given distance should be returned
 lanesRightUpDistZero
@@ -33,9 +33,9 @@ lanesOppositeAllUpDistZero
 # No vehicles should be returned
 lanesOutOfBoundsUpDistZero
 
-###########################
+# ##########################
 # Down-stream distance = 0
-###########################
+# ##########################
 # Test whether up-/down-stream vehicles on right lane are filtered correctly
 # Only vehicles on the right lane up-stream up to the given distance should be returned
 lanesRightDownDistZero
@@ -51,3 +51,11 @@ lanesOppositeAllDownDistZero
 # Test lanes filter with up-/down-stream distance filter in case of lane indexes pointing to lanes out of bounds
 # No vehicles should be returned
 lanesOutOfBoundsDownDistZero
+
+# Test whether up-/down-stream vehicles on right lane are filtered correctly
+# Only vehicles on the right lane up- and down-stream up to the given distance should be returned
+lanesRight_vType
+
+# Test whether up-/down-stream vehicles on right lane are filtered correctly
+# Only vehicles on the right lane up- and down-stream up to the given distance should be returned
+lanesRight_vClass

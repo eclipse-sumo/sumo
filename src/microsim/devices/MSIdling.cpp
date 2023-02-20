@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2007-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2007-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -25,6 +25,7 @@
 #include <microsim/MSLane.h>
 #include <microsim/MSStop.h>
 #include <microsim/transportables/MSTransportable.h>
+#include <mesosim/MELoop.h>
 #include "MSRoutingEngine.h"
 #include "MSIdling.h"
 
@@ -43,14 +44,35 @@ MSIdling_Stop::idle(MSDevice_Taxi* taxi) {
     if (!taxi->getHolder().hasStops()) {
 #ifdef DEBUG_IDLING
         if (DEBUG_COND(taxi)) {
-            std::cout << SIMTIME << " MSIdling_Stop add stop\n";
+            std::cout << SIMTIME << " taxi=" << taxi->getHolder().getID() << " MSIdling_Stop add stop\n";
         }
 #endif
         std::string errorOut;
         double brakeGap = 0;
         std::pair<const MSLane*, double> stopPos;
         if (MSGlobals::gUseMesoSim) {
-            stopPos = std::make_pair((*taxi->getHolder().getCurrentRouteEdge())->getLanes()[0], taxi->getHolder().getPositionOnLane());
+            // stops are only checked in MESegment::receive so we need to put this onto the next segment
+            MSBaseVehicle& veh = dynamic_cast<MSBaseVehicle&>(taxi->getHolder());
+            MSRouteIterator ri = veh.getCurrentRouteEdge();
+            MESegment* curSeg = MSGlobals::gMesoNet->getSegmentForEdge(**ri, veh.getPositionOnLane());
+            MESegment* stopSeg = curSeg->getNextSegment();
+            if (stopSeg == nullptr) {
+                if ((ri + 1) != veh.getRoute().end()) {
+                    stopSeg = MSGlobals::gMesoNet->getSegmentForEdge(**(ri + 1), 0);
+                } else {
+                    WRITE_WARNINGF(TL("Idle taxi '%' has no next segment to stop. time=%."), taxi->getHolder().getID(), time2string(SIMSTEP));
+                    return;
+                }
+            }
+            // determine offset of stopSeg
+            double stopOffset = 0;
+            const MSEdge& stopEdge = stopSeg->getEdge();
+            MESegment* seg = MSGlobals::gMesoNet->getSegmentForEdge(stopEdge);
+            while (seg != stopSeg) {
+                stopOffset += seg->getLength();
+                seg = seg->getNextSegment();
+            }
+            stopPos = std::make_pair(stopEdge.getLanes()[0], stopOffset);
         } else {
             MSVehicle& veh = dynamic_cast<MSVehicle&>(taxi->getHolder());
             brakeGap = veh.getCarFollowModel().brakeGap(veh.getSpeed());
@@ -71,19 +93,19 @@ MSIdling_Stop::idle(MSDevice_Taxi* taxi) {
                 stop.triggered = true;
             }
             stop.actType = "idling";
-            stop.parking = true;
+            stop.parking = ParkingType::OFFROAD;
             taxi->getHolder().addTraciStop(stop, errorOut);
             if (errorOut != "") {
                 WRITE_WARNING(errorOut);
             }
         } else {
-            WRITE_WARNING("Idle taxi '" + taxi->getHolder().getID() + "' could not stop within " + toString(brakeGap) + "m");
+            WRITE_WARNINGF(TL("Idle taxi '%' could not stop within %m"), taxi->getHolder().getID(), toString(brakeGap));
         }
     } else {
         MSStop& stop = taxi->getHolder().getNextStop();
 #ifdef DEBUG_IDLING
         if (DEBUG_COND(taxi)) {
-            std::cout << SIMTIME << " MSIdling_Stop reusing stop with duration " << time2string(stop.duration) << "\n";
+            std::cout << SIMTIME << " taxi=" << taxi->getHolder().getID() << " MSIdling_Stop reusing stop with duration " << time2string(stop.duration) << "\n";
         }
 #endif
         if (taxi->getHolder().getVehicleType().getContainerCapacity() > 0) {
@@ -130,7 +152,7 @@ MSIdling_RandomCircling::idle(MSDevice_Taxi* taxi) {
             }
         }
         if (successors.size() == 0) {
-            WRITE_WARNING("Vehicle '" + veh.getID() + "' ends idling in a cul-de-sac");
+            WRITE_WARNINGF(TL("Vehicle '%' ends idling in a cul-de-sac"), veh.getID());
             break;
         } else {
             int nextIndex = RandHelper::rand((int)successors.size(), veh.getRNG());

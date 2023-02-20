@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -71,9 +71,10 @@ const long long int VTYPEPARS_CARRIAGE_GAP_SET = 1 << 27;
 const long long int VTYPEPARS_MANEUVER_ANGLE_TIMES_SET = 1 << 28;
 const long long int VTYPEPARS_FRONT_SEAT_POS_SET = 1 << 29;
 const long long int VTYPEPARS_SCALE_SET = 1 << 30;
-const long long int VTYPEPARS_MASS_SET = 1 << 31;
+const long long int VTYPEPARS_MASS_SET = (long long int)1 << 31;
 const long long int VTYPEPARS_TTT_SET = (long long int)1 << 32;
 const long long int VTYPEPARS_TTT_BIDI_SET = (long long int)1 << 33;
+const long long int VTYPEPARS_SEATING_WIDTH_SET = (long long int)1 << 34;
 
 
 const int VTYPEPARS_DEFAULT_EMERGENCYDECEL_DEFAULT = -1;
@@ -367,6 +368,9 @@ public:
 
     /// @brief the offset of the first person seat from the front of the vehicle
     double frontSeatPos;
+
+    /// @brief width to be used when comping seats
+    double seatingWidth;
 
     /// @brief Information for the router which parameter were set
     long long int parametersSet;

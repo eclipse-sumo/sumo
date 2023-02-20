@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -35,6 +35,32 @@ from .step import StepManager
 _DEBUG = False
 _RESULTS = {0x00: "OK", 0x01: "Not implemented", 0xFF: "Error"}
 
+_connections = {}
+_connectHook = None
+
+
+def check():
+    if "" not in _connections:
+        raise FatalTraCIError("Not connected.")
+    return _connections[""]
+
+
+def has(label):
+    return label in _connections
+
+
+def get(label="default"):
+    if label not in _connections:
+        raise TraCIException("Connection '%s' is not known." % label)
+    return _connections[label]
+
+
+def switch(label):
+    con = get(label)
+    _connections[""] = con
+    for domain in DOMAINS:
+        domain._setConnection(con)
+
 
 class Connection(StepManager):
 
@@ -42,8 +68,10 @@ class Connection(StepManager):
     together with a list of TraCI commands which are inside.
     """
 
-    def __init__(self, host, port, process, traceFile, traceGetters):
+    def __init__(self, host, port, process, traceFile, traceGetters, label=None):
         StepManager.__init__(self)
+        if label in _connections:
+            raise TraCIException("Connection '%s' is already active." % label)
         if sys.platform.startswith('java'):
             # working around jython 2.7.0 bug #2273
             self._socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM, socket.IPPROTO_TCP)
@@ -63,6 +91,14 @@ class Connection(StepManager):
             self.startTracing(traceFile, traceGetters, DOMAINS)
         for domain in DOMAINS:
             domain._register(self, self._subscriptionMapping)
+        self._label = label
+        if _connectHook is not None:
+            _connectHook(self)
+        if label is not None:
+            _connections[label] = self
+
+    def getLabel(self):
+        return self._label
 
     def _recvExact(self):
         try:
@@ -357,3 +393,8 @@ class Connection(StepManager):
             self._socket = None
         if wait and self._process is not None:
             self._process.wait()
+        self.simulation._setConnection(None)
+        if self._label is not None:
+            if _connections[""] == self:
+                del _connections[""]
+            del _connections[self._label]

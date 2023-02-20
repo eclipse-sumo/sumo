@@ -1,0 +1,6 @@
+Error: Lanes 'gneE2_0' and 'gneE14_0' are not consecutive in definition of e2Detector 'multiLaneAreaDetector_0'
+Error: Lanes 'gneE2_4' and 'gneE4_0' are not consecutive in definition of e2Detector 'multiLaneAreaDetector_1'
+Error: Lanes 'gneE13_0' and 'gneE4_0' are not consecutive in definition of e2Detector 'multiLaneAreaDetector_2'
+Error: Lanes 'gneE5_0' and 'gneE6_0' are not consecutive in definition of e2Detector 'multiLaneAreaDetector_3'
+Error: Lanes 'gneE1_0' and 'gneE5_0' are not consecutive in definition of e2Detector 'multiLaneAreaDetector_4'
+Quitting (on error).

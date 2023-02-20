@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2013-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2013-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -34,7 +34,7 @@ import sumolib  # noqa
 
 def get_options(args=None):
     optParser = sumolib.options.ArgumentParser(
-            description="Map detector locations to a network and write inductionLoop-defintions")  # noqa
+            description="Map detector locations to a network and write inductionLoop-definitions")  # noqa
     optParser.add_argument("-n", "--net-file", dest="netfile",
                            help="define the net file (mandatory)")
     optParser.add_argument("-d", "--detector-file", dest="detfile",
@@ -47,7 +47,7 @@ def get_options(args=None):
                            help="Read detector ids from the given column")
     optParser.add_argument("-x", "--longitude-column", default="lon", dest="lon",
                            help="Read detector x-coordinate (lon) from the given column")
-    optParser.add_argument("-y", "--lattitude-column", default="lat", dest="lat",
+    optParser.add_argument("-y", "--latitude-column", default="lat", dest="lat",
                            help="Read detector y-coordinate (lat) from the given column")
     optParser.add_argument("--vclass", default="passenger",
                            help="only consider edges that permit the given vClass")
@@ -90,7 +90,7 @@ def main():
             radius = 0.1
             while not lanes and radius <= 1000:
                 lanes = net.getNeighboringLanes(x, y, radius, True)
-                lanes = [(d, l) for l, d in lanes if l.allows(options.vclass)]
+                lanes = [(d, lane) for lane, d in lanes if lane.allows(options.vclass)]
                 radius *= 10
             if not lanes:
                 sys.stderr.write("Could not find road for detector %s within %sm radius" % (detID, radius))

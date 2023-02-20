@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -105,51 +105,7 @@ public:
             WRITE_WARNINGF("Vehicle '%' with length % exceeds configured value of --railway.max-train-length %",
                            vehicle->getID(), toString(vehicle->getLength()), toString(myMaxTrainLength));
         }
-        // make sure that the vehicle can turn-around when starting on a short edge (the virtual turn-around for this lies backwards along the route / track)
-        std::vector<double> backLengths;
-        double backDist = vehicle->getLength() - from->getLength();
-        const E* start = from;
-        while (backDist > 0) {
-            const E* prev = getStraightPredecessor(start);
-            if (prev == nullptr) {
-                //WRITE_WARNING("Could not determine back edge for vehicle '" + vehicle->getID() + "' when routing from edge '" + from->getID() + "' at time=" + time2string(msTime));
-                break;
-            }
-            backDist -= prev->getLength();
-            backLengths.push_back(prev->getLength() + (backLengths.empty() ? from->getLength() : backLengths.back()));
-            start = prev;
-        }
-
-        std::vector<const _RailEdge*> intoTmp;
-        bool success = myInternalRouter->compute(start->getRailwayRoutingEdge(), to->getRailwayRoutingEdge(), vehicle, msTime, intoTmp, silent);
-#ifdef RailwayRouter_DEBUG_ROUTES
-        std::cout << "RailRouter veh=" << vehicle->getID() << " from=" << from->getID() << " to=" << to->getID() << " t=" << time2string(msTime) << " success=" << success << "\n";
-#endif
-        if (success) {
-            const size_t intoSize = into.size();
-            const int backIndex = (int)backLengths.size() - 1;
-            for (const _RailEdge* railEdge : intoTmp) {
-                // prevent premature reversal on back edge (extend train length)
-                const double length = backIndex >= 0 ? backLengths[backIndex] : vehicle->getLength();
-                railEdge->insertOriginalEdges(length, into);
-            }
-#ifdef RailwayRouter_DEBUG_ROUTES
-            std::cout << "RailRouter: internal result=" << toString(intoTmp) << "\n";
-            std::cout << "RailRouter: expanded result=" << toString(into) << "\n";
-#endif
-            if (backLengths.size() > 0) {
-                // skip the virtual back-edges
-                into.erase(into.begin() + intoSize, into.begin() + intoSize + backLengths.size());
-#ifdef RailwayRouter_DEBUG_ROUTES
-                std::cout << "RailRouter: backLengths=" << toString(backLengths) << " final result=" << toString(into) << "\n";
-#endif
-                if (*(into.begin() + intoSize) != from) {
-                    WRITE_WARNING("Railway routing failure due to turn-around on short edge '" + from->getID()
-                                  + "' for vehicle '" + vehicle->getID() + "' time=" + time2string(msTime) + ".");
-                }
-            }
-        }
-        return success;
+        return _compute(from, to, vehicle, msTime, into, silent, false);
     }
 
     void prohibit(const std::vector<E*>& toProhibit) {
@@ -176,6 +132,75 @@ private:
             myInternalRouter = new _InternalDijkstra(getRailEdges(), this->myErrorMsgHandler == MsgHandler::getWarningInstance(), &getTravelTimeStatic,
                     nullptr, mySilent, nullptr, this->myHavePermissions, this->myHaveRestrictions);
         }
+    }
+
+    bool _compute(const E* from, const E* to, const V* const vehicle, SUMOTime msTime, std::vector<const E*>& into, bool silent, bool avoidUnsafeBackTracking) {
+        // make sure that the vehicle can turn-around when starting on a short edge (the virtual turn-around for this lies backwards along the route / track)
+        std::vector<double> backLengths;
+        double backDist = vehicle->getLength() - from->getLength();
+        const E* start = from;
+        while (backDist > 0) {
+            const E* prev = getStraightPredecessor(start);
+            if (prev == nullptr) {
+                //WRITE_WARNING("Could not determine back edge for vehicle '" + vehicle->getID() + "' when routing from edge '" + from->getID() + "' at time=" + time2string(msTime));
+                break;
+            }
+            backDist -= prev->getLength();
+            if (avoidUnsafeBackTracking && prev->getSuccessors().size() > 1) {
+                bool foundSwitch = false;
+                for (const E* succ : prev->getSuccessors()) {
+                    if (succ != start && succ != prev->getBidiEdge()) {
+                        foundSwitch = true;
+                        break;
+                    }
+                }
+                if (foundSwitch) {
+                    break;
+                }
+            }
+            backLengths.push_back(prev->getLength() + (backLengths.empty() ? from->getLength() : backLengths.back()));
+            start = prev;
+        }
+
+        std::vector<const _RailEdge*> intoTmp;
+        bool success = myInternalRouter->compute(start->getRailwayRoutingEdge(), to->getRailwayRoutingEdge(), vehicle, msTime, intoTmp, silent);
+#ifdef RailwayRouter_DEBUG_ROUTES
+        std::cout << "RailRouter veh=" << vehicle->getID() << " from=" << from->getID() << " to=" << to->getID() << " t=" << time2string(msTime)
+                  << " safe=" << avoidUnsafeBackTracking << " success=" << success << " into=" << toString(into) << "\n";
+#endif
+        if (success) {
+            const size_t intoSize = into.size();
+            const int backIndex = (int)backLengths.size() - 1;
+            for (const _RailEdge* railEdge : intoTmp) {
+                // prevent premature reversal on back edge (extend train length)
+                const double length = backIndex >= 0 ? backLengths[backIndex] : vehicle->getLength();
+                railEdge->insertOriginalEdges(length, into);
+            }
+#ifdef RailwayRouter_DEBUG_ROUTES
+            std::cout << "RailRouter: internal result=" << toString(intoTmp) << "\n";
+            std::cout << "RailRouter: expanded result=" << toString(into) << "\n";
+#endif
+            if (backLengths.size() > 0) {
+                // skip the virtual back-edges
+                into.erase(into.begin() + intoSize, into.begin() + intoSize + backLengths.size());
+#ifdef RailwayRouter_DEBUG_ROUTES
+                std::cout << "RailRouter: backLengths=" << toString(backLengths) << " intoSize=" << intoSize << " final result=" << toString(into) << "\n";
+#endif
+                if (*(into.begin() + intoSize) != from) {
+                    if (!avoidUnsafeBackTracking) {
+                        // try again, this time with more safety (but unable to
+                        // make use of turn-arounds on short edge)
+                        into.erase(into.begin() + intoSize, into.end());
+                        return _compute(from, to, vehicle, msTime, into, silent, true);
+                    } else {
+                        WRITE_WARNING("Railway routing failure due to turn-around on short edge '" + from->getID()
+                                      + "' for vehicle '" + vehicle->getID() + "' time=" + time2string(msTime) + ".");
+                    }
+                }
+            }
+        }
+        return success;
+
     }
 
     const std::vector<_RailEdge*>& getRailEdges() {

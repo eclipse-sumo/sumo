@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -17,7 +17,6 @@
 ///
 // Class for the window that allows to choose a street, junction or vehicle
 /****************************************************************************/
-#include <config.h>
 
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <netedit/GNENet.h>
@@ -109,13 +108,13 @@ GNEDialogACChooser::getObjectName(GUIGlObject* o) const {
         GNEJunction* junction = dynamic_cast<GNEJunction*>(o);
         // check that junction exist
         if (junction == nullptr) {
-            throw ProcessError("Invalid Junction");
+            throw ProcessError(TL("Invalid Junction"));
         }
         // get definitions
         const std::set<NBTrafficLightDefinition*>& defs = junction->getNBNode()->getControllingTLS();
         // check that traffic light exists
         if (defs.empty()) {
-            throw ProcessError("Invalid number of TLSs");
+            throw ProcessError(TL("Invalid number of TLSs"));
         }
         // get TLDefinition
         const std::string& tlDefID = (*defs.begin())->getID();

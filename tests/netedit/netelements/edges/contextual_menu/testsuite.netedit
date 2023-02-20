@@ -17,3 +17,7 @@ smooth_edge
 straighten_elevation_edge
 
 smooth_elevation_edge
+
+reset_lenght
+
+reverse_direction_disconnected

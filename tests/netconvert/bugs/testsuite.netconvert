@@ -72,6 +72,9 @@ ticket1586b
 # all lanes allow pedestrians only
 ticket1586c
 
+# no unregulated nodes
+ticket1586d
+
 # computing node shape with corner detail failed
 ticket1674
 ticket1678
@@ -151,3 +154,30 @@ ticket10978
 
 # right of way rules at side road with custom internal junction
 ticket11146
+
+# invalid rail internal junction
+ticket11558
+
+# glitched walkingarea shape
+ticket11590
+
+# crash during roundabout processing
+ticket11779
+
+# missing foes at internal junction
+ticket11988
+
+# missing foes at internal junction
+ticket11988b
+
+# invalid node shape (for uncommen edge shapes)
+ticket11996
+
+# invalid plain output
+ticket12086
+
+# prohibitions fail for edge id with '_' 
+ticket12419
+
+# prohibitions fail for edge id with '_' 
+ticket12419b

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2020-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2020-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -31,6 +31,7 @@
 #include <utils/common/StopWatch.h>
 #include <utils/threadpool/WorkStealingThreadPool.h>
 
+
 inline void LoadCPUForRandomTime() {
     // Sleeping the thread isn't good as it doesn't tie up the
     // CPU resource in the same way as actual work on a thread would do,
@@ -38,12 +39,12 @@ inline void LoadCPUForRandomTime() {
     // sleeping. Hence we do some busy work. Note that volatile keyword
     // is necessary to prevent compiler from removing the below code.
 
-    srand(0); // random sequences should be indentical
+    srand(0); // random sequences should be identical
 
     volatile auto delay = rand() % static_cast<int>(1e5);
     while (delay != 0) {
         delay--;
-    };
+    }
 }
 
 template<typename DurationT>

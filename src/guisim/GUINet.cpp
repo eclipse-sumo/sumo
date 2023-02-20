@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -30,12 +30,14 @@
 #include <utils/gui/globjects/GUIPolygon.h>
 #include <utils/gui/globjects/GUIPointOfInterest.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
+#include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/globjects/GUIShapeContainer.h>
 #include <utils/xml/XMLSubSys.h>
 #include <utils/common/StringUtils.h>
 #include <utils/common/RGBColor.h>
+#include <utils/iodevices/OutputDevice.h>
 #include <utils/gui/div/GLObjectValuePassConnector.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSEdgeWeightsStorage.h>
@@ -81,7 +83,7 @@ GUINet::GUINet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
                MSEventControl* endOfTimestepEvents,
                MSEventControl* insertionEvents) :
     MSNet(vc, beginOfTimestepEvents, endOfTimestepEvents, insertionEvents, new GUIShapeContainer(myGrid)),
-    GUIGlObject(GLO_NETWORK, ""),
+    GUIGlObject(GLO_NETWORK, "", nullptr),
     myLastSimDuration(0), /*myLastVisDuration(0),*/ myLastIdleDuration(0),
     myLastVehicleMovementCount(0), myOverallVehicleCount(0), myOverallSimDuration(0) {
     GUIGlObjectStorage::gIDStorage.setNetObject(this);
@@ -315,13 +317,13 @@ GUINet::initGUIStructures() {
             b.add((*j)->getShape().getBoxBoundary());
         }
         // make sure persons are always drawn and selectable since they depend on their edge being drawn
-        b.grow(MSPModel::SIDEWALK_OFFSET + 1);
+        b.grow(MSPModel::SIDEWALK_OFFSET + 1 + lanes.front()->getWidth() / 2);
         const float cmin[2] = { (float)b.xmin(), (float)b.ymin() };
         const float cmax[2] = { (float)b.xmax(), (float)b.ymax() };
         myGrid.Insert(cmin, cmax, edge);
         myBoundary.add(b);
         if (myBoundary.getWidth() > 10e16 || myBoundary.getHeight() > 10e16) {
-            throw ProcessError("Network size exceeds 1 Lightyear. Please reconsider your inputs.\n");
+            throw ProcessError(TL("Network size exceeds 1 Lightyear. Please reconsider your inputs.\n"));
         }
     }
     for (std::vector<GUIJunctionWrapper*>::iterator i = myJunctionWrapper.begin(); i != myJunctionWrapper.end(); ++i) {
@@ -444,6 +446,9 @@ GUINet::getPopUpMenu(GUIMainWindow& app,
     buildCenterPopupEntry(ret);
     buildShowParamsPopupEntry(ret);
     buildPositionCopyEntry(ret, app);
+    if (GeoConvHelper::getFinal().usingGeoProjection()) {
+        GUIDesigns::buildFXMenuCommand(ret, "Copy view geo-boundary to clipboard", nullptr, ret, MID_COPY_VIEW_GEOBOUNDARY);
+    }
     return ret;
 }
 
@@ -506,18 +511,18 @@ GUINet::getParameterWindow(GUIMainWindow& app,
                 */
         ret->mkItem("updates per second", true, new FunctionBinding<GUINet, double>(this, &GUINet::getUPS));
         ret->mkItem("avg. updates per second", true, new FunctionBinding<GUINet, double>(this, &GUINet::getMeanUPS));
-        if (OptionsCont::getOptions().getBool("duration-log.statistics")) {
-            ret->mkItem("avg. trip length [m]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgRouteLength));
-            ret->mkItem("avg. trip duration [s]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgDuration));
-            ret->mkItem("avg. trip waiting time [s]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgWaitingTime));
-            ret->mkItem("avg. trip time loss [s]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgTimeLoss));
-            ret->mkItem("avg. trip depart delay [s]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgDepartDelay));
-            ret->mkItem("avg. trip speed [m/s]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgTripSpeed));
-            if (myPersonControl != nullptr) {
-                ret->mkItem("avg. walk length [m]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgWalkRouteLength));
-                ret->mkItem("avg. walk duration [s]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgWalkDuration));
-                ret->mkItem("avg. walk time loss [s]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgWalkTimeLoss));
-            }
+    }
+    if (OptionsCont::getOptions().isSet("tripinfo-output") || OptionsCont::getOptions().getBool("duration-log.statistics")) {
+        ret->mkItem("avg. trip length [m]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgRouteLength));
+        ret->mkItem("avg. trip duration [s]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgDuration));
+        ret->mkItem("avg. trip waiting time [s]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgWaitingTime));
+        ret->mkItem("avg. trip time loss [s]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgTimeLoss));
+        ret->mkItem("avg. trip depart delay [s]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgDepartDelay));
+        ret->mkItem("avg. trip speed [m/s]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgTripSpeed));
+        if (myPersonControl != nullptr) {
+            ret->mkItem("avg. walk length [m]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgWalkRouteLength));
+            ret->mkItem("avg. walk duration [s]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgWalkDuration));
+            ret->mkItem("avg. walk time loss [s]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgWalkTimeLoss));
         }
     }
     ret->mkItem("nodes [#]", false, (int)getJunctionIDs(false).size());
@@ -540,12 +545,6 @@ GUINet::drawGL(const GUIVisualizationSettings& /*s*/) const {
 Boundary
 GUINet::getCenteringBoundary() const {
     return getBoundary();
-}
-
-
-double
-GUINet::getExaggeration(const GUIVisualizationSettings& /*s*/) const {
-    return 1;
 }
 
 
@@ -599,6 +598,18 @@ GUINet::getEdgeData(const MSEdge* edge, const std::string& attr) {
 }
 
 
+double
+GUINet::getMeanData(const MSLane* lane, const std::string& id, const std::string& attr) {
+    auto item = myDetectorControl->getMeanData().find(id);
+    if (item != myDetectorControl->getMeanData().end() && !item->second.empty()) {
+        SumoXMLAttr a = (SumoXMLAttr)SUMOXMLDefinitions::Attrs.get(attr);
+        return item->second.front()->getAttributeValue(lane, a, GUIVisualizationSettings::MISSING_DATA);
+    } else {
+        return GUIVisualizationSettings::MISSING_DATA;
+    }
+}
+
+
 void
 GUINet::DiscoverAttributes::myStartElement(int element, const SUMOSAXAttributes& attrs) {
     if (element == SUMO_TAG_EDGE || element == SUMO_TAG_LANE) {
@@ -633,7 +644,7 @@ GUINet::EdgeFloatTimeLineRetriever_GUI::addEdgeWeight(const std::string& id,
     if (edge != nullptr) {
         myWeightStorage->addEffort(edge, begTime, endTime, value);
     } else {
-        WRITE_WARNINGF("Trying to set data value for the unknown edge '%'.", id);
+        WRITE_WARNINGF(TL("Trying to set data value for the unknown edge '%'."), id);
     }
 }
 
@@ -657,7 +668,7 @@ GUINet::EdgeFloatTimeLineRetriever_GUI::addEdgeRelWeight(const std::string& from
         }
     }
     if (!haveRel) {
-        WRITE_WARNINGF("Trying to set data value for the unknown relation from edge '%' to edge '%'.", from, to);
+        WRITE_WARNINGF(TL("Trying to set data value for the unknown relation from edge '%' to edge '%'."), from, to);
     }
 }
 
@@ -675,7 +686,7 @@ GUINet::loadEdgeData(const std::string& file) {
                   + ".\n    Found " + toString(attrs.size())
                   + " attributes: " + toString(attrs));
     if (discoveryHandler.lastIntervalEnd < string2time(OptionsCont::getOptions().getString("begin"))) {
-        WRITE_WARNING("No data defined after simulation begin time.");
+        WRITE_WARNING(TL("No data defined after simulation begin time."));
     }
     myEdgeDataEndTime = MAX2(myEdgeDataEndTime, discoveryHandler.lastIntervalEnd);
     // create a retriever for each attribute
@@ -701,6 +712,29 @@ GUINet::getEdgeDataAttrs() const {
     }
     return result;
 }
+
+
+std::vector<std::string>
+GUINet::getMeanDataIDs() const {
+    std::vector<std::string> result;
+
+    for (auto item : myDetectorControl->getMeanData()) {
+        result.push_back(item.first);
+    }
+    std::sort(result.begin(), result.end());
+    return result;
+}
+
+std::vector<std::string>
+GUINet::getMeanDataAttrs(const std::string& meanDataID) const {
+    auto item = myDetectorControl->getMeanData().find(meanDataID);
+    if (item != myDetectorControl->getMeanData().end() && !item->second.empty()) {
+        return item->second.front()->getAttributeNames();
+    } else {
+        return std::vector<std::string>();
+    }
+}
+
 
 bool
 GUINet::isSelected(const MSTrafficLightLogic* tll) const {
@@ -728,6 +762,13 @@ GUINet::addHotkey(int key, Command* press, Command* release) {
     } catch (ProcessError&) { }
 }
 
+void
+GUINet::flushOutputsAtEnd() {
+    myDetectorControl->close(SIMSTEP);
+    OutputDevice::flushAll();
+    // update tracker windows
+    guiSimulationStep();
+}
 
 #ifdef HAVE_OSG
 void

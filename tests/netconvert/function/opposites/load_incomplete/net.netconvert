@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-09-29 09:02:25 by Eclipse SUMO netconvert Version v1_14_1+1333-dc21bea
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="input_net.net.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output-file value="net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="0"/>
+        <junctions.limit-turn-speed value="-1.00"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="0.00,0.00,2000.00,0.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <edge id="EW" from="E" to="W" priority="1">
+        <lane id="EW_0" index="0" speed="13.89" length="2000.00" shape="2000.00,4.80 0.00,4.80"/>
+        <lane id="EW_1" index="1" speed="13.89" length="2000.00" shape="2000.00,1.60 0.00,1.60">
+            <neigh lane="WE_1"/>
+        </lane>
+    </edge>
+    <edge id="WE" from="W" to="E" priority="1">
+        <lane id="WE_0" index="0" speed="13.89" length="2000.00" shape="0.00,-4.80 2000.00,-4.80"/>
+        <lane id="WE_1" index="1" speed="13.89" length="2000.00" shape="0.00,-1.60 2000.00,-1.60">
+            <neigh lane="EW_1"/>
+        </lane>
+    </edge>
+
+    <junction id="E" type="dead_end" x="2000.00" y="0.00" incLanes="WE_0 WE_1" intLanes="" shape="2000.00,0.00 2000.00,-6.40 2000.00,0.00"/>
+    <junction id="W" type="dead_end" x="0.00" y="0.00" incLanes="EW_0 EW_1" intLanes="" shape="0.00,0.00 0.00,6.40 0.00,0.00"/>
+
+</net>

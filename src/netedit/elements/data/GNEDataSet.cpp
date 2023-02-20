@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -211,7 +211,7 @@ GNEDataSet::addDataIntervalChild(GNEDataInterval* dataInterval) {
         // add reference in attributeCarriers
         myNet->getAttributeCarriers()->insertDataInterval(dataInterval);
     } else {
-        throw ProcessError("DataInterval was already inserted");
+        throw ProcessError(TL("DataInterval was already inserted"));
     }
 }
 
@@ -228,7 +228,7 @@ GNEDataSet::removeDataIntervalChild(GNEDataInterval* dataInterval) {
         // remove reference from attributeCarriers
         myNet->getAttributeCarriers()->deleteDataInterval(dataInterval);
     } else {
-        throw ProcessError("DataInterval wasn't previously inserted");
+        throw ProcessError(TL("DataInterval wasn't previously inserted"));
     }
 }
 
@@ -252,7 +252,7 @@ GNEDataSet::updateDataIntervalBegin(const double oldBegin) {
         // insert again using new begin
         myDataIntervalChildren[dataInterval->getAttributeDouble(SUMO_ATTR_BEGIN)] = dataInterval;
     } else {
-        throw ProcessError("DataInterval wasn't previously inserted");
+        throw ProcessError(TL("DataInterval wasn't previously inserted"));
     }
 }
 

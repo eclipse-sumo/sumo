@@ -1,0 +1,4 @@
+Error: Invalid vehicle type 'dummy_Type' used in flow 'flow_1'.
+Error: Attribute 'type' in definition of flow 'flow_2' is empty.
+Error: Invalid vehicle type 'id with invalid characters' used in flow 'flow_3'.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.routeflow.25Jan182728.9856/netedit.daily.demand.routeflow/demandelements/routeflow/load/type/routes.rou.xml failed.

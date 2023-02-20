@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -222,14 +222,14 @@ MSInsertionControl::determineCandidates(SUMOTime time) {
         double scale = vehControl.getScale() * typeScale;
         bool tryEmitByProb = pars->repetitionProbability > 0;
         while (scale > 0 && ((pars->repetitionProbability < 0
-                && pars->repetitionsDone < pars->repetitionNumber * scale
-                && pars->depart + pars->repetitionTotalOffset <= time)
-                || (tryEmitByProb
-                    && pars->depart <= time
-                    && pars->repetitionEnd > time
-                    // only call rand if all other conditions are met
-                    && RandHelper::rand(&myFlowRNG) < (pars->repetitionProbability * TS))
-              )) {
+                              && pars->repetitionsDone < pars->repetitionNumber * scale
+                              && pars->depart + pars->repetitionTotalOffset <= time)
+                             || (tryEmitByProb
+                                 && pars->depart <= time
+                                 && pars->repetitionEnd > time
+                                 // only call rand if all other conditions are met
+                                 && RandHelper::rand(&myFlowRNG) < (pars->repetitionProbability * TS))
+                            )) {
             tryEmitByProb = false; // only emit one per step
             SUMOVehicleParameter* newPars = new SUMOVehicleParameter(*pars);
             newPars->id = pars->id + "." + toString(i->index);
@@ -238,7 +238,7 @@ MSInsertionControl::determineCandidates(SUMOTime time) {
             //std::cout << SIMTIME << " flow=" << pars->id << " done=" << pars->repetitionsDone << " totalOffset=" << STEPS2TIME(pars->repetitionTotalOffset) << "\n";
             // try to build the vehicle
             if (vehControl.getVehicle(newPars->id) == nullptr) {
-                const MSRoute* const route = MSRoute::dictionary(pars->routeid);
+                ConstMSRoutePtr const route = MSRoute::dictionary(pars->routeid);
                 if (vtype == nullptr) {
                     vtype = vehControl.getVType(pars->vtypeid, MSRouteHandler::getParsingRNG());
                 }
@@ -273,11 +273,13 @@ MSInsertionControl::determineCandidates(SUMOTime time) {
                     /// @note probably obsolete since flows save their state
                     break;
                 }
-                throw ProcessError("Another vehicle with the id '" + newPars->id + "' exists.");
+                throw ProcessError(TLF("Another vehicle with the id '%' exists.", newPars->id));
             }
             vtype = nullptr;
         }
-        if (pars->repetitionsDone == (int)(pars->repetitionNumber * scale + 0.5) || pars->repetitionEnd <= time) {
+        if (time >= pars->repetitionEnd ||
+                (pars->repetitionNumber != std::numeric_limits<int>::max()
+                 && pars->repetitionsDone >= (int)(pars->repetitionNumber * scale + 0.5))) {
             i = myFlows.erase(i);
             MSRoute::checkDist(pars->routeid);
             delete pars;
@@ -362,7 +364,7 @@ MSInsertionControl::adaptIntermodalRouter(MSNet::MSIntermodalRouter& router) con
     // fill the public transport router with pre-parsed public transport lines
     for (const Flow& f : myFlows) {
         if (f.pars->line != "") {
-            const MSRoute* const route = MSRoute::dictionary(f.pars->routeid);
+            ConstMSRoutePtr const route = MSRoute::dictionary(f.pars->routeid);
             router.getNetwork()->addSchedule(*f.pars, route == nullptr ? nullptr : &route->getStops());
         }
     }

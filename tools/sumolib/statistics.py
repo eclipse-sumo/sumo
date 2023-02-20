@@ -1,5 +1,5 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2012-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2012-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -230,7 +230,7 @@ class Statistics:
                 result += setPrecision(', mean_abs %.2f, median_abs %.2f', precision, self.isArray) % (
                     self.avg_abs(), self.median_abs())
             if self.printDev:
-                result += (setPrecision(',  stdDev  %.2f', precision, self.isArray) % (self.meanAndStdDev()[1]))
+                result += (setPrecision(', stdDev %.2f', precision, self.isArray) % (self.meanAndStdDev()[1]))
             if self.counts is not None:
                 if histStyle == 1:
                     result += '\n histogram: %s' % self.histogram()
@@ -244,9 +244,14 @@ class Statistics:
         else:
             return '%s: no values' % self.label
 
-    def toXML(self, precision=2):
-        result = '    <statistic description="%s"' % self.label
-        if len(self.values) > 0:
+    def toXML(self, precision=2, tag="statistic", indent=4, label=None):
+        if label is None:
+            label = self.label
+        description = ' description="%s"' % label if label != '' else ''
+
+        result = ' ' * indent + '<%s%s' % (tag, description)
+        if self.count() > 0:
+            result += ' count="%i"' % self.count()
             result += (setPrecision(' min="%.2f" minLabel="%s" max="%.2f" maxLabel="%s" mean="%.2f"',
                                     precision, self.isArray) %
                        (self.min, self.min_label, self.max, self.max_label, self.avg()))
@@ -260,7 +265,7 @@ class Statistics:
             result += '>\n'
             for kv in self.histogram():
                 result += setPrecision(8 * ' ' + '<hist key="%.2f" value="%i"/>\n', precision, self.isArray) % kv
-            result += '    </statistic>\n'
+            result += ' ' * indent + '</%s>\n' % tag
         else:
             result += '/>\n'
         return result

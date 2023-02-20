@@ -1,7 +1,7 @@
 /* XPM */
 static const char *vshape_bus_xpm[] = {
 /* columns rows colors chars-per-pixel */
-"64 32 14 1 ",
+"64 32 14 1",
 "  c #131300",
 ". c #5B5B00",
 "X c #939300",

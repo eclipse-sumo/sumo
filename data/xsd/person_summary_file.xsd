@@ -12,17 +12,18 @@
     </xsd:element>
     <xsd:element name="step">
         <xsd:complexType>
-            <xsd:attribute name="time" use="required" type="nonNegativeFloat"/>
+            <xsd:attribute name="time" type="nonNegativeFloat" use="required"/>
             <xsd:attribute name="loaded" type="xsd:nonNegativeInteger" use="required"/>
             <xsd:attribute name="inserted" type="xsd:nonNegativeInteger" use="required"/>
             <xsd:attribute name="walking" type="xsd:nonNegativeInteger" use="required"/>
             <xsd:attribute name="waitingForRide" type="xsd:nonNegativeInteger" use="required"/>
             <xsd:attribute name="riding" type="xsd:nonNegativeInteger" use="required"/>
             <xsd:attribute name="stopping" type="xsd:nonNegativeInteger" use="required"/>
-            <xsd:attribute name="jammed" use="required" type="xsd:nonNegativeInteger"/>
+            <xsd:attribute name="jammed" type="xsd:nonNegativeInteger" use="required"/>
             <xsd:attribute name="ended" type="xsd:nonNegativeInteger" use="required"/>
             <xsd:attribute name="arrived" type="xsd:nonNegativeInteger" use="required"/>
-            <xsd:attribute name="duration" use="optional" type="xsd:float"/>
+            <xsd:attribute name="teleports" type="xsd:nonNegativeInteger" use="required"/>
+            <xsd:attribute name="duration" type="xsd:float" use="optional"/>
         </xsd:complexType>
     </xsd:element>
 </xsd:schema>

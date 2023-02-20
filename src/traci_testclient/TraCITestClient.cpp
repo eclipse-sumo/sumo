@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2008-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2008-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -931,7 +931,7 @@ TraCITestClient::testAPI() {
     vehicle.addSubscriptionFilterLeadFollow(std::vector<int>({0, 1, 2}));
     vehicle.addSubscriptionFilterTurn();
     vehicle.addSubscriptionFilterVClass(std::vector<std::string>({"passenger"}));
-    vehicle.addSubscriptionFilterVType(std::vector<std::string>({"passenger"}));
+    vehicle.addSubscriptionFilterVType(std::vector<std::string>({"DEFAULT_VEHTYPE"}));
     vehicle.addSubscriptionFilterLCManeuver(1);
 
     vehicle.subscribeContext("3", libsumo::CMD_GET_VEHICLE_VARIABLE, 200, vars3, 0, 100);

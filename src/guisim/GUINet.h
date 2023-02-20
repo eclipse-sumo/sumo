@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -135,9 +135,6 @@ public:
      * @see GUIGlObject::getCenteringBoundary
      */
     Boundary getCenteringBoundary() const override;
-
-    /// @brief return exaggeration associated with this GLObject
-    double getExaggeration(const GUIVisualizationSettings& s) const override;
 
     /** @brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)
@@ -314,12 +311,20 @@ public:
     /// @brief retrieve loaded edged weight for the given attribute and the current simulation time
     double getEdgeData(const MSEdge* edge, const std::string& attr);
 
+    /// @brief retrieve live lane/edge weight for the given meanData id and attribute
+    double getMeanData(const MSLane* lane, const std::string& id, const std::string& attr);
+
     /// @brief load edgeData from file
     bool loadEdgeData(const std::string& file);
 
-
     /// @brief return list of loaded edgeData attributes
     std::vector<std::string> getEdgeDataAttrs() const;
+
+    /// @brief return list of loaded edgeData ids (being computed in the current simulation)
+    std::vector<std::string> getMeanDataIDs() const;
+
+    /// @brief return list of available attributes for the given meanData id
+    std::vector<std::string> getMeanDataAttrs(const std::string& meanDataID) const;
 
 #ifdef HAVE_OSG
     void updateColor(const GUIVisualizationSettings& s);
@@ -348,6 +353,9 @@ public:
 
     /// @brief register custom hotkey action
     void addHotkey(int key, Command* press, Command* release = nullptr);
+
+    /// @brief flush outputs once the simulation has reached its end
+    void flushOutputsAtEnd();
 
 private:
     /// @brief Initialises the tl-logic map and wrappers

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -83,13 +83,13 @@ GeoConvHelper::GeoConvHelper(const std::string& proj, const Position& offset,
             myProjString = std::regex_replace(proj, std::regex("\\+geoidgrids[^ ]*"), std::string(""));
             myProjString = std::regex_replace(myProjString, std::regex("\\+step \\+proj=vgridshift \\+grids[^ ]*"), std::string(""));
             if (myProjString != proj) {
-                WRITE_WARNING("Ignoring geoidgrids and vgridshift in projection");
+                WRITE_WARNING(TL("Ignoring geoidgrids and vgridshift in projection"));
                 initProj(myProjString);
             }
         }
         if (myProjection == nullptr) {
             // !!! check pj_errno
-            throw ProcessError("Could not build projection!");
+            throw ProcessError(TL("Could not build projection!"));
         }
 #endif
     }
@@ -228,12 +228,12 @@ GeoConvHelper::init(OptionsCont& oc) {
 
 #ifdef PROJ_API_FILE
     if (oc.getBool("proj.inverse") && oc.getString("proj") == "!") {
-        WRITE_ERROR("Inverse projection works only with explicit proj parameters.");
+        WRITE_ERROR(TL("Inverse projection works only with explicit proj parameters."));
         return false;
     }
     unsigned numProjections = oc.getBool("simple-projection") + oc.getBool("proj.utm") + oc.getBool("proj.dhdn") + oc.getBool("proj.dhdnutm") + (oc.getString("proj").length() > 1);
     if (numProjections > 1) {
-        WRITE_ERROR("The projection method needs to be uniquely defined.");
+        WRITE_ERROR(TL("The projection method needs to be uniquely defined."));
         return false;
     }
 
@@ -413,7 +413,7 @@ GeoConvHelper::x2cartesian(Position& from, bool includeInBoundary) {
         double x = from.x();
         double y = from.y();
         if (pj_transform(myInverseProjection, myGeoProjection, 1, 1, &x, &y, nullptr)) {
-            WRITE_WARNING("Could not transform (" + toString(x) + "," + toString(y) + ")");
+            WRITE_WARNINGF(TL("Could not transform (%,%)"), toString(x), toString(y));
         }
         from.set(double(x * RAD_TO_DEG), double(y * RAD_TO_DEG));
 #endif
@@ -557,7 +557,7 @@ void
 GeoConvHelper::setLoaded(const GeoConvHelper& loaded) {
     myNumLoaded++;
     if (myNumLoaded > 1) {
-        WRITE_WARNING("Ignoring loaded location attribute nr. " + toString(myNumLoaded) + " for tracking of original location");
+        WRITE_WARNINGF(TL("Ignoring loaded location attribute nr. % for tracking of original location"), toString(myNumLoaded));
     } else {
         myLoaded = loaded;
     }

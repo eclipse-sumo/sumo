@@ -26,14 +26,15 @@ jobs:
 
     steps:
     - name: Cloning SUMO
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         path: sumo
         fetch-depth: 0
  
-    - uses: actions/setup-java@v1
+    - uses: actions/setup-java@v3
       with:
-        java-version: 1.8
+        distribution: 'temurin'
+        java-version: 11
 
     - name: Fetching SUMO tags
       run: |
@@ -43,20 +44,21 @@ jobs:
     - name: Preparing Build System
       run: |
         sudo apt-get update
+        sudo apt-get install libunwind-dev  # to work around https://bugs.launchpad.net/ubuntu/+source/google-glog/+bug/1991919
         sudo apt-get install cmake libeigen3-dev libxerces-c-dev libfox-1.6-dev libgdal-dev libproj-dev
         sudo apt-get install libgtest-dev libgoogle-perftools-dev libgl2ps-dev python3-dev python3-setuptools swig
-        sudo apt-get install openjdk-8-jdk maven ccache libv8-dev
+        sudo apt-get install maven ccache libv8-dev gettext
         sudo pip3 install texttest
 
     - name: Validate CITATION.cff
       if: matrix.build_type == 'full' && github.repository == 'DLR-TS/sumo'
-      uses: dieghernan/cff-validator@main
+      uses: dieghernan/cff-validator@v2.3
       with:
         citation-path: sumo/CITATION.cff
 
     - name: ccache
       if: github.event_name != 'schedule'
-      uses: hendrikmuhs/ccache-action@v1.2.2
+      uses: hendrikmuhs/ccache-action@v1.2
 
     - name: Preparing Gtest
       run: |
@@ -84,11 +86,11 @@ jobs:
 
     - name: Setting up SonarQube
       if: matrix.build_type == 'full' && github.repository == 'eclipse/sumo' && github.event_name == 'schedule' && matrix.compiler == 'gcc'
-      uses: warchant/setup-sonar-scanner@v3
+      uses: warchant/setup-sonar-scanner@v4
 
     - name: Setting up SonarQube cache
       if: matrix.build_type == 'full' && github.repository == 'eclipse/sumo' && github.event_name == 'schedule' && matrix.compiler == 'gcc'
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         path: sumo/sonar-cache
         key: ${{ github.head_ref }}-${{ github.run_number }}
@@ -128,7 +130,7 @@ jobs:
         sumo/tests/runTests.sh -b ci -a tools.python2.ci
 
     - name: Uploading artifacts (SUMO binaries)
-      uses: actions/upload-artifact@v1
+      uses: actions/upload-artifact@v3
       with:
         name: Linux-${{ matrix.compiler }}-${{ matrix.build_type }}
         path: sumo/bin

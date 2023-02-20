@@ -12,3 +12,6 @@ deleteIncomingLane
 
 # delete an outgoing lane
 deleteOutgoingLane
+
+# replace custom tls with default one
+rebuild

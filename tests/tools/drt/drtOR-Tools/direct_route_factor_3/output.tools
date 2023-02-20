@@ -1,0 +1,85 @@
+timestep:  0.0
+Reservations waiting: ['0', '1']
+Taxis empty: ('v0',)
+Solve CPDP
+Start creating the model.
+dp reservations: ['0', '1']
+do reservations: []
+Reservation 0 starts at edge B0C0
+Reservation 1 starts at edge C0D0
+Reservation 0 ends at edge C1D1
+Reservation 1 ends at edge D0D1
+Start solving the problem.
+ Register distance callback.
+ Add distance constraints...
+ Add pickup and delivery constraints...
+ Add direct route factor constraints...
+ Add dropoff constraints...
+ Add capacity constraints...
+ Add time windows constraints...
+## Done
+ Set solution heuristic...
+Start solving the problem.
+Objective:  225735
+Route for vehicle 0:
+     5 (L: 0, C: 0, T: (1,310))
+ ->  1 (L: 1, C: 588, T: (43,352))
+ ->  2 (L: 2, C: 1174, T: (85,394))
+ ->  4 (L: 1, C: 1559, T: (176,485))
+ ->  3 (L: 0, C: 2235, T: (291,600))
+ ->  0 (L: 0, C: 2235, T: (291,1972))
+Costs of the route: 2235
+
+Total cost of the routes: 2235
+Start interpreting the solution for SUMO.
+Dispatching v0 with ['0', '1', '1', '0']
+Costs for v0: 2235
+timestep:  30.0
+Reservations being picked up: ['0', '1']
+Taxis picking up: ('v0',)
+timestep:  60.0
+Reservations en route: ['0', '1']
+Taxis occupied: ('v0',)
+timestep:  90.0
+Reservations en route: ['0', '1']
+Taxis occupied: ('v0',)
+timestep:  120.0
+Reservations en route: ['0', '1']
+Taxis occupied: ('v0',)
+timestep:  150.0
+Reservations en route: ['0', '1']
+Taxis occupied: ('v0',)
+timestep:  180.0
+Reservations en route: ['0']
+Taxis occupied: ('v0',)
+timestep:  210.0
+Reservations en route: ['0']
+Taxis occupied: ('v0',)
+timestep:  240.0
+Reservations en route: ['0']
+Taxis occupied: ('v0',)
+timestep:  270.0
+Reservations en route: ['0']
+Taxis occupied: ('v0',)
+timestep:  300.0
+Taxis empty: ('v0',)
+timestep:  330.0
+Taxis empty: ('v0',)
+timestep:  360.0
+Taxis empty: ('v0',)
+timestep:  390.0
+Taxis empty: ('v0',)
+timestep:  420.0
+Taxis empty: ('v0',)
+timestep:  450.0
+Taxis empty: ('v0',)
+timestep:  480.0
+Taxis empty: ('v0',)
+timestep:  510.0
+Taxis empty: ('v0',)
+timestep:  540.0
+Taxis empty: ('v0',)
+timestep:  570.0
+Taxis empty: ('v0',)
+timestep:  600.0
+Taxis empty: ('v0',)

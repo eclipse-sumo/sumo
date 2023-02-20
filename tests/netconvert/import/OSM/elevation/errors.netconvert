@@ -1,10 +1,10 @@
 Warning: Value of key 'ele' is not numeric ('extected_wrong_value') in node '27541970'.
-Warning: Discarding unusable type 'waterway.riverbank' (first occurence for edge '4616435').
-Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.secondary' (first occurence for edge '24214694').
-Warning: Discarding unusable type 'waterway.canal' (first occurence for edge '31233332').
-Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.tertiary' (first occurence for edge '46039050').
-Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.secondary' (first occurence for edge '143308535').
-Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.primary' (first occurence for edge '190083608').
+Warning: Discarding unusable type 'waterway.riverbank' (first occurrence for edge '4616435').
+Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.secondary' (first occurrence for edge '24214694').
+Warning: Discarding unusable type 'waterway.canal' (first occurrence for edge '31233332').
+Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.tertiary' (first occurrence for edge '46039050').
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.secondary' (first occurrence for edge '143308535').
+Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.primary' (first occurrence for edge '190083608').
 Warning: No way found for reference '81096600' in relation '1216677'
 Warning: Ignoring restriction relation '1216677' with unknown from-way.
 Warning: No way found for reference '143308555' in relation '1727169'
@@ -13,9 +13,19 @@ Warning: Ignoring restriction relation '1727169' with unknown from-way.
 Warning: Ignoring restriction relation '1727169' with unknown to-way.
 Warning: No way found for reference '48858193' in relation '2439689'
 Warning: Ignoring restriction relation '2439689' with unknown from-way.
+Warning: PT line 'Buslinie 160: Hasselwerderstraße => Siriusstraße' in relation 1119047 seems to be split, only keeping first part.
+Warning: PT line 'Buslinie N60: Flughafen Schönefeld Terminal => S Adlershof' in relation 35040 seems to be split, only keeping first part.
+Warning: PT line 'Buslinie N60: S Adlershof => Flughafen Schönefeld Terminal' in relation 1231708 seems to be split, only keeping first part.
+Warning: PT line 'Buslinie N60: S Adlershof => Flughafen Schönefeld Terminal' in relation 1231713 seems to be split, only keeping first part.
+Warning: PT line 'Buslinie 164: S Kaulsdorf => S Flughafen Berlin-Schönefeld' in relation 2064835 seems to be split, only keeping first part.
+Warning: PT stop '851572693' has been moved to edge '-46150481#0'.
+Warning: Removing pt stop '735390157' on non existing edge ''.
+Warning: Removing pt stop '852932403' on non existing edge ''.
+Warning: Removed 2 pt stops because they could not be assigned to the network
 Warning: Edge '-142575745' has a grade of 12.35%.
 Warning: Edge '-172014854#1' has a grade of 11.14%.
 Warning: Edge '-172014854#2' has a grade of 10.80%.
 Warning: Edge '-24214694#1' has a grade of 16.46%.
 Warning: Edge '-24214694#4' has a grade of 13.97%.
 Warning: 22 total messages of type: Edge '%' has a grade of %%.
+Warning: 9 total messages of type: PT line '%' in relation % seems to be split, only keeping first part.

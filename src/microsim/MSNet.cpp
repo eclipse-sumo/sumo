@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -184,7 +184,7 @@ MSNet::getInstance(void) {
     if (myInstance != nullptr) {
         return myInstance;
     }
-    throw ProcessError("A network was not yet constructed.");
+    throw ProcessError(TL("A network was not yet constructed."));
 }
 
 void
@@ -218,7 +218,7 @@ MSNet::MSNet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
     myEdgeDataEndTime(-1),
     myDynamicShapeUpdater(nullptr) {
     if (myInstance != nullptr) {
-        throw ProcessError("A network was already constructed.");
+        throw ProcessError(TL("A network was already constructed."));
     }
     OptionsCont& oc = OptionsCont::getOptions();
     myStep = string2time(oc.getString("begin"));
@@ -260,7 +260,7 @@ MSNet::closeBuilding(const OptionsCont& oc, MSEdgeControl* edges, MSJunctionCont
                      std::vector<std::string> stateDumpFiles,
                      bool hasInternalLinks,
                      bool junctionHigherSpeeds,
-                     double version) {
+                     const MMVersion& version) {
     myEdges = edges;
     myJunctions = junctions;
     myRouteLoaders = routeLoaders;
@@ -283,7 +283,7 @@ MSNet::closeBuilding(const OptionsCont& oc, MSEdgeControl* edges, MSJunctionCont
     myVersion = version;
     if ((!MSGlobals::gUsingInternalLanes || !myHasInternalLinks)
             && MSGlobals::gWeightsSeparateTurns > 0) {
-        throw ProcessError("Option weights.separate-turns is only supported when simulating with internal lanes");
+        throw ProcessError(TL("Option weights.separate-turns is only supported when simulating with internal lanes"));
     }
 }
 
@@ -300,9 +300,11 @@ MSNet::~MSNet() {
     delete myRouteLoaders;
     if (myPersonControl != nullptr) {
         delete myPersonControl;
+        myPersonControl = nullptr; // just to have that clear for later cleanups
     }
     if (myContainerControl != nullptr) {
         delete myContainerControl;
+        myContainerControl = nullptr; // just to have that clear for later cleanups
     }
     delete myVehicleControl; // must happen after deleting transportables
     // delete events late so that vehicles can get rid of references first
@@ -383,7 +385,7 @@ MSNet::getMesoType(const std::string& typeID) {
 MSNet::SimulationState
 MSNet::simulate(SUMOTime start, SUMOTime stop) {
     // report the begin when wished
-    WRITE_MESSAGE("Simulation version " + std::string(VERSION_STRING) + " started with time: " + time2string(start));
+    WRITE_MESSAGEF(TL("Simulation version % started with time: %."), VERSION_STRING, time2string(start));
     // the simulation loop
     SimulationState state = SIMSTATE_RUNNING;
     // state loading may have changed the start time so we need to reinit it
@@ -470,10 +472,10 @@ MSNet::generateStatistics(SUMOTime start) {
             if (myVehicleControl->getTeleportsWrongLane() > 0) {
                 reasons.push_back("Wrong Lane: " + toString(myVehicleControl->getTeleportsWrongLane()));
             }
-            msg << "Teleports: " << myVehicleControl->getTeleportCount() << " (" << joinToString(reasons, ", ") << ")\n";
+            msg << " Teleports: " << myVehicleControl->getTeleportCount() << " (" << joinToString(reasons, ", ") << ")\n";
         }
         if (myVehicleControl->getEmergencyStops() > 0) {
-            msg << "Emergency Stops: " << myVehicleControl->getEmergencyStops() << "\n";
+            msg << " Emergency Stops: " << myVehicleControl->getEmergencyStops() << "\n";
         }
         if (myPersonControl != nullptr && myPersonControl->getLoadedNumber() > 0) {
             msg << "Persons: " << "\n"
@@ -482,6 +484,16 @@ MSNet::generateStatistics(SUMOTime start) {
             if (myPersonControl->getJammedNumber() > 0) {
                 msg << " Jammed: " << myPersonControl->getJammedNumber() << "\n";
             }
+            if (myPersonControl->getTeleportCount() > 0) {
+                std::vector<std::string> reasons;
+                if (myPersonControl->getTeleportsAbortWait() > 0) {
+                    reasons.push_back("Abort Wait: " + toString(myPersonControl->getTeleportsAbortWait()));
+                }
+                if (myPersonControl->getTeleportsWrongDest() > 0) {
+                    reasons.push_back("Wrong Dest: " + toString(myPersonControl->getTeleportsWrongDest()));
+                }
+                msg << " Teleports: " << myPersonControl->getTeleportCount() << " (" << joinToString(reasons, ", ") << ")\n";
+            }
         }
         if (myContainerControl != nullptr && myContainerControl->getLoadedNumber() > 0) {
             msg << "Containers: " << "\n"
@@ -489,6 +501,16 @@ MSNet::generateStatistics(SUMOTime start) {
                 << " Running: " << myContainerControl->getRunningNumber() << "\n";
             if (myContainerControl->getJammedNumber() > 0) {
                 msg << " Jammed: " << myContainerControl->getJammedNumber() << "\n";
+            }
+            if (myContainerControl->getTeleportCount() > 0) {
+                std::vector<std::string> reasons;
+                if (myContainerControl->getTeleportsAbortWait() > 0) {
+                    reasons.push_back("Abort Wait: " + toString(myContainerControl->getTeleportsAbortWait()));
+                }
+                if (myContainerControl->getTeleportsWrongDest() > 0) {
+                    reasons.push_back("Wrong Dest: " + toString(myContainerControl->getTeleportsWrongDest()));
+                }
+                msg << " Teleports: " << myContainerControl->getTeleportCount() << " (" << joinToString(reasons, ", ") << ")\n";
             }
         }
     }
@@ -544,11 +566,81 @@ MSNet::writeStatistics() const {
     od.writeAttr("running", myPersonControl != nullptr ? myPersonControl->getRunningNumber() : 0);
     od.writeAttr("jammed", myPersonControl != nullptr ? myPersonControl->getJammedNumber() : 0);
     od.closeTag();
+    od.openTag("personTeleports");
+    od.writeAttr("total", myPersonControl != nullptr ? myPersonControl->getTeleportCount() : 0);
+    od.writeAttr("abortWait", myPersonControl != nullptr ? myPersonControl->getTeleportsAbortWait() : 0);
+    od.writeAttr("wrongDest", myPersonControl != nullptr ? myPersonControl->getTeleportsWrongDest() : 0);
+    od.closeTag();
     if (OptionsCont::getOptions().isSet("tripinfo-output") || OptionsCont::getOptions().getBool("duration-log.statistics")) {
         MSDevice_Tripinfo::writeStatistics(od);
     }
 
 }
+
+
+void
+MSNet::writeSummaryOutput() {
+    // summary output
+    const OptionsCont& oc = OptionsCont::getOptions();
+    const bool hasOutput = oc.isSet("summary-output");
+    const bool hasPersonOutput = oc.isSet("person-summary-output");
+    if (hasOutput || hasPersonOutput) {
+        const SUMOTime period = string2time(oc.getString("summary-output.period"));
+        const SUMOTime begin = string2time(oc.getString("begin"));
+        if (period > 0 && (myStep - begin) % period != 0) {
+            return;
+        }
+    }
+    if (hasOutput) {
+        OutputDevice& od = OutputDevice::getDeviceByOption("summary-output");
+        int departedVehiclesNumber = myVehicleControl->getDepartedVehicleNo();
+        const double meanWaitingTime = departedVehiclesNumber != 0 ? myVehicleControl->getTotalDepartureDelay() / (double) departedVehiclesNumber : -1.;
+        int endedVehicleNumber = myVehicleControl->getEndedVehicleNo();
+        const double meanTravelTime = endedVehicleNumber != 0 ? myVehicleControl->getTotalTravelTime() / (double) endedVehicleNumber : -1.;
+        od.openTag("step");
+        od.writeAttr("time", time2string(myStep));
+        od.writeAttr("loaded", myVehicleControl->getLoadedVehicleNo());
+        od.writeAttr("inserted", myVehicleControl->getDepartedVehicleNo());
+        od.writeAttr("running", myVehicleControl->getRunningVehicleNo());
+        od.writeAttr("waiting", myInserter->getWaitingVehicleNo());
+        od.writeAttr("ended", myVehicleControl->getEndedVehicleNo());
+        od.writeAttr("arrived", myVehicleControl->getArrivedVehicleNo());
+        od.writeAttr("collisions", myVehicleControl->getCollisionCount());
+        od.writeAttr("teleports", myVehicleControl->getTeleportCount());
+        od.writeAttr("halting", myVehicleControl->getHaltingVehicleNo());
+        od.writeAttr("stopped", myVehicleControl->getStoppedVehiclesCount());
+        od.writeAttr("meanWaitingTime", meanWaitingTime);
+        od.writeAttr("meanTravelTime", meanTravelTime);
+        std::pair<double, double> meanSpeed = myVehicleControl->getVehicleMeanSpeeds();
+        od.writeAttr("meanSpeed", meanSpeed.first);
+        od.writeAttr("meanSpeedRelative", meanSpeed.second);
+        if (myLogExecutionTime) {
+            od.writeAttr("duration", mySimStepDuration);
+        }
+        od.closeTag();
+    }
+    if (hasPersonOutput) {
+        OutputDevice& od = OutputDevice::getDeviceByOption("person-summary-output");
+        MSTransportableControl& pc = getPersonControl();
+        od.openTag("step");
+        od.writeAttr("time", time2string(myStep));
+        od.writeAttr("loaded", pc.getLoadedNumber());
+        od.writeAttr("inserted", pc.getDepartedNumber());
+        od.writeAttr("walking", pc.getMovingNumber());
+        od.writeAttr("waitingForRide", pc.getWaitingForVehicleNumber());
+        od.writeAttr("riding", pc.getRidingNumber());
+        od.writeAttr("stopping", pc.getWaitingUntilNumber());
+        od.writeAttr("jammed", pc.getJammedNumber());
+        od.writeAttr("ended", pc.getEndedNumber());
+        od.writeAttr("arrived", pc.getArrivedNumber());
+        od.writeAttr("teleports", pc.getTeleportCount());
+        if (myLogExecutionTime) {
+            od.writeAttr("duration", mySimStepDuration);
+        }
+        od.closeTag();
+    }
+}
+
 
 void
 MSNet::closeSimulation(SUMOTime start, const std::string& reason) {
@@ -561,9 +653,7 @@ MSNet::closeSimulation(SUMOTime start, const std::string& reason) {
     if (MSStopOut::active() && OptionsCont::getOptions().getBool("stop-output.write-unfinished")) {
         MSStopOut::getInstance()->generateOutputForUnfinished();
     }
-    if (OptionsCont::getOptions().getBool("vehroute-output.write-unfinished")) {
-        MSDevice_Vehroutes::generateOutputForUnfinished();
-    }
+    MSDevice_Vehroutes::writePendingOutput(OptionsCont::getOptions().getBool("vehroute-output.write-unfinished"));
     if (OptionsCont::getOptions().getBool("tripinfo-output.write-unfinished")) {
         MSDevice_Tripinfo::generateOutputForUnfinished();
     }
@@ -650,7 +740,6 @@ MSNet::simulationStep() {
 
     if (MSGlobals::gUseMesoSim) {
         MSGlobals::gMesoNet->simulate(myStep);
-        myVehicleControl->removePending();
     } else {
         // assure all lanes with vehicles are 'active'
         myEdges->patchActiveLanes();
@@ -675,6 +764,8 @@ MSNet::simulationStep() {
             myEdges->detectCollisions(myStep, STAGE_LANECHANGE);
         }
     }
+    // flush arrived meso vehicles and micro vehicles that were removed due to collision
+    myVehicleControl->removePending();
     loadRoutes();
 
     // persons
@@ -858,6 +949,11 @@ MSNet::clearState(const SUMOTime step, bool quickReload) {
         }
     }
     myInserter->clearState();
+    // detectors may still reference persons/vehicles
+    myDetectorControl->updateDetectors(myStep);
+    myDetectorControl->writeOutput(myStep, true);
+    myDetectorControl->clearState(step);
+
     if (myPersonControl != nullptr) {
         myPersonControl->clearState();
     }
@@ -868,9 +964,6 @@ MSNet::clearState(const SUMOTime step, bool quickReload) {
     myVehicleControl->clearState(true);
     MSVehicleTransfer::getInstance()->clearState();
     myLogics->clearState(step, quickReload);
-    myDetectorControl->updateDetectors(myStep);
-    myDetectorControl->writeOutput(myStep, true);
-    myDetectorControl->clearState(step);
     // delete all routes after vehicles and detector output is done
     MSRoute::dict_clearState();
     for (auto& item : myStoppingPlaces) {
@@ -984,55 +1077,7 @@ MSNet::writeOutput() {
 
     }
 
-    // summary output
-    if (OptionsCont::getOptions().isSet("summary-output")) {
-        OutputDevice& od = OutputDevice::getDeviceByOption("summary-output");
-        int departedVehiclesNumber = myVehicleControl->getDepartedVehicleNo();
-        const double meanWaitingTime = departedVehiclesNumber != 0 ? myVehicleControl->getTotalDepartureDelay() / (double) departedVehiclesNumber : -1.;
-        int endedVehicleNumber = myVehicleControl->getEndedVehicleNo();
-        const double meanTravelTime = endedVehicleNumber != 0 ? myVehicleControl->getTotalTravelTime() / (double) endedVehicleNumber : -1.;
-        od.openTag("step");
-        od.writeAttr("time", time2string(myStep));
-        od.writeAttr("loaded", myVehicleControl->getLoadedVehicleNo());
-        od.writeAttr("inserted", myVehicleControl->getDepartedVehicleNo());
-        od.writeAttr("running", myVehicleControl->getRunningVehicleNo());
-        od.writeAttr("waiting", myInserter->getWaitingVehicleNo());
-        od.writeAttr("ended", myVehicleControl->getEndedVehicleNo());
-        od.writeAttr("arrived", myVehicleControl->getArrivedVehicleNo());
-        od.writeAttr("collisions", myVehicleControl->getCollisionCount());
-        od.writeAttr("teleports", myVehicleControl->getTeleportCount());
-        od.writeAttr("halting", myVehicleControl->getHaltingVehicleNo());
-        od.writeAttr("stopped", myVehicleControl->getStoppedVehiclesCount());
-        od.writeAttr("meanWaitingTime", meanWaitingTime);
-        od.writeAttr("meanTravelTime", meanTravelTime);
-        std::pair<double, double> meanSpeed = myVehicleControl->getVehicleMeanSpeeds();
-        od.writeAttr("meanSpeed", meanSpeed.first);
-        od.writeAttr("meanSpeedRelative", meanSpeed.second);
-        if (myLogExecutionTime) {
-            od.writeAttr("duration", mySimStepDuration);
-        }
-        od.closeTag();
-    }
-    if (OptionsCont::getOptions().isSet("person-summary-output")) {
-        OutputDevice& od = OutputDevice::getDeviceByOption("person-summary-output");
-        MSTransportableControl& pc = getPersonControl();
-        od.openTag("step");
-        od.writeAttr("time", time2string(myStep));
-        od.writeAttr("loaded", pc.getLoadedNumber());
-        od.writeAttr("inserted", pc.getDepartedNumber());
-        od.writeAttr("walking", pc.getMovingNumber());
-        od.writeAttr("waitingForRide", pc.getWaitingForVehicleNumber());
-        od.writeAttr("riding", pc.getRidingNumber());
-        od.writeAttr("stopping", pc.getWaitingUntilNumber());
-        od.writeAttr("jammed", pc.getJammedNumber());
-        od.writeAttr("ended", pc.getEndedNumber());
-        od.writeAttr("arrived", pc.getArrivedNumber());
-        if (myLogExecutionTime) {
-            od.writeAttr("duration", mySimStepDuration);
-        }
-        od.closeTag();
-
-    }
+    writeSummaryOutput();
 
     // write detector values
     myDetectorControl->writeOutput(myStep + DELTA_T, false);
@@ -1377,7 +1422,7 @@ MSNet::getRouterTT(const int rngIndex, const MSEdgeVector& prohibited) const {
             myRouterTT[rngIndex] = new DijkstraRouter<MSEdge, SUMOVehicle>(MSEdge::getAllEdges(), true, &MSNet::getTravelTime, nullptr, false, nullptr, true);
         } else {
             if (routingAlgorithm != "astar") {
-                WRITE_WARNING("TraCI and Triggers cannot use routing algorithm '" + routingAlgorithm + "'. using 'astar' instead.");
+                WRITE_WARNINGF(TL("TraCI and Triggers cannot use routing algorithm '%'. using 'astar' instead."), routingAlgorithm);
             }
             myRouterTT[rngIndex] = new AStarRouter<MSEdge, SUMOVehicle>(MSEdge::getAllEdges(), true, &MSNet::getTravelTime, nullptr, true);
         }
@@ -1547,7 +1592,7 @@ MSNet::quickReload() {
         MSRouteHandler rh(file, true);
         const long before = PROGRESS_BEGIN_TIME_MESSAGE("Loading traffic from '" + file + "'");
         if (!XMLSubSys::runParser(rh, file, false)) {
-            throw ProcessError("Loading of " + file + " failed.");
+            throw ProcessError(TLF("Loading of % failed.", file));
         }
         PROGRESS_TIME_MESSAGE(before);
     }
@@ -1556,17 +1601,18 @@ MSNet::quickReload() {
     updateGUI();
 }
 
+
 SUMOTime
-MSNet::loadState(const std::string& fileName) {
+MSNet::loadState(const std::string& fileName, const bool catchExceptions) {
     // load time only
     const SUMOTime newTime = MSStateHandler::MSStateTimeHandler::getTime(fileName);
     // clean up state
     clearState(newTime);
     // load state
     MSStateHandler h(fileName, 0);
-    XMLSubSys::runParser(h, fileName);
+    XMLSubSys::runParser(h, fileName, false, false, false, catchExceptions);
     if (MsgHandler::getErrorInstance()->wasInformed()) {
-        throw ProcessError("Loading state from '" + fileName + "' failed.");
+        throw ProcessError(TLF("Loading state from '%' failed.", fileName));
     }
     // reset route loaders
     delete myRouteLoaders;
@@ -1577,5 +1623,6 @@ MSNet::loadState(const std::string& fileName) {
     updateGUI();
     return newTime;
 }
+
 
 /****************************************************************************/

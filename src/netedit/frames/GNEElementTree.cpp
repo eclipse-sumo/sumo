@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -59,7 +59,7 @@ FXIMPLEMENT(GNEElementTree,    MFXGroupBoxModule,     HierarchicalElementTreeMap
 // ===========================================================================
 
 GNEElementTree::GNEElementTree(GNEFrame* frameParent) :
-    MFXGroupBoxModule(frameParent, "Hierarchy"),
+    MFXGroupBoxModule(frameParent, TL("Hierarchy")),
     myFrameParent(frameParent),
     myHE(nullptr),
     myClickedAC(nullptr),
@@ -208,7 +208,7 @@ GNEElementTree::onCmdDeleteItem(FXObject*, FXSelector, void*) {
     } else if (myClickedDemandElement) {
         // check that default VTypes aren't removed
         if ((myClickedDemandElement->getTagProperty().getTag() == SUMO_TAG_VTYPE) && (GNEAttributeCarrier::parse<bool>(myClickedDemandElement->getAttribute(GNE_ATTR_DEFAULT_VTYPE)))) {
-            WRITE_WARNING("Default Vehicle Type '" + myClickedDemandElement->getAttribute(SUMO_ATTR_ID) + "' cannot be removed");
+            WRITE_WARNINGF(TL("Default Vehicle Type '%' cannot be removed"), myClickedDemandElement->getAttribute(SUMO_ATTR_ID));
             return 1;
         } else if (myClickedDemandElement->getTagProperty().isPersonPlan() && (myClickedDemandElement->getParentDemandElements().front()->getChildDemandElements().size() == 1)) {
             // we need to check if we're removing the last person plan of a person.
@@ -309,19 +309,19 @@ GNEElementTree::createPopUpMenu(int X, int Y, GNEAttributeCarrier* clickedAC) {
         // create FXMenuPane
         FXMenuPane* pane = new FXMenuPane(myTreeListDynamic->getFXWindow());
         // set item name and icon
-        new MFXMenuHeader(pane, myFrameParent->getViewNet()->getViewParent()->getGUIMainWindow()->getBoldFont(), myClickedAC->getPopUpID().c_str(), myClickedAC->getIcon());
+        new MFXMenuHeader(pane, myFrameParent->getViewNet()->getViewParent()->getGUIMainWindow()->getBoldFont(), myClickedAC->getPopUpID().c_str(), myClickedAC->getACIcon());
         // insert separator
         new FXMenuSeparator(pane);
         // create center menu command
-        FXMenuCommand* centerMenuCommand = GUIDesigns::buildFXMenuCommand(pane, "Center", GUIIconSubSys::getIcon(GUIIcon::RECENTERVIEW), this, MID_GNE_CENTER);
+        FXMenuCommand* centerMenuCommand = GUIDesigns::buildFXMenuCommand(pane, TL("Center"), GUIIconSubSys::getIcon(GUIIcon::RECENTERVIEW), this, MID_GNE_CENTER);
         // disable Centering for Vehicle Types, data sets and data intervals
         if (myClickedAC->getTagProperty().isVehicleType() || (myClickedAC->getTagProperty().getTag() == SUMO_TAG_DATASET) ||
                 (myClickedAC->getTagProperty().getTag() == SUMO_TAG_DATAINTERVAL)) {
             centerMenuCommand->disable();
         }
         // create inspect and delete menu commands
-        FXMenuCommand* inspectMenuCommand = GUIDesigns::buildFXMenuCommand(pane, "Inspect", GUIIconSubSys::getIcon(GUIIcon::MODEINSPECT), this, MID_GNE_INSPECT);
-        FXMenuCommand* deleteMenuCommand = GUIDesigns::buildFXMenuCommand(pane, "Delete", GUIIconSubSys::getIcon(GUIIcon::MODEDELETE), this, MID_GNE_DELETE);
+        FXMenuCommand* inspectMenuCommand = GUIDesigns::buildFXMenuCommand(pane, TL("Inspect"), GUIIconSubSys::getIcon(GUIIcon::MODEINSPECT), this, MID_GNE_INSPECT);
+        FXMenuCommand* deleteMenuCommand = GUIDesigns::buildFXMenuCommand(pane, TL("Delete"), GUIIconSubSys::getIcon(GUIIcon::MODEDELETE), this, MID_GNE_DELETE);
         // check if inspect and delete menu commands has to be disabled
         if (GNEFrameAttributeModules::isSupermodeValid(myFrameParent->getViewNet(), myClickedAC) == false) {
             inspectMenuCommand->disable();
@@ -336,25 +336,25 @@ GNEElementTree::createPopUpMenu(int X, int Y, GNEAttributeCarrier* clickedAC) {
             FXMenuCommand* moveDownMenuCommand = GUIDesigns::buildFXMenuCommand(pane, "Move down", GUIIconSubSys::getIcon(GUIIcon::ARROW_DOWN), this, MID_GNE_ACHIERARCHY_MOVEDOWN);
             // check if both commands has to be disabled
             if (myClickedDemandElement->getTagProperty().isStopPerson()) {
-                moveUpMenuCommand->setText("Move up (Stops cannot be moved)");
-                moveDownMenuCommand->setText("Move down (Stops cannot be moved)");
+                moveUpMenuCommand->setText(TL("Move up (Stops cannot be moved)"));
+                moveDownMenuCommand->setText(TL("Move down (Stops cannot be moved)"));
                 moveUpMenuCommand->disable();
                 moveDownMenuCommand->disable();
             } else {
                 // check if moveUpMenuCommand has to be disabled
                 if (myClickedDemandElement->getParentDemandElements().front()->getChildDemandElements().front() == myClickedDemandElement) {
-                    moveUpMenuCommand->setText("Move up (It's already the first element)");
+                    moveUpMenuCommand->setText(TL("Move up (It's already the first element)"));
                     moveUpMenuCommand->disable();
                 } else if (myClickedDemandElement->getParentDemandElements().front()->getPreviousChildDemandElement(myClickedDemandElement)->getTagProperty().isStopPerson()) {
-                    moveUpMenuCommand->setText("Move up (Previous element is a Stop)");
+                    moveUpMenuCommand->setText(TL("Move up (Previous element is a Stop)"));
                     moveUpMenuCommand->disable();
                 }
                 // check if moveDownMenuCommand has to be disabled
                 if (myClickedDemandElement->getParentDemandElements().front()->getChildDemandElements().back() == myClickedDemandElement) {
-                    moveDownMenuCommand->setText("Move down (It's already the last element)");
+                    moveDownMenuCommand->setText(TL("Move down (It's already the last element)"));
                     moveDownMenuCommand->disable();
                 } else if (myClickedDemandElement->getParentDemandElements().front()->getNextChildDemandElement(myClickedDemandElement)->getTagProperty().isStopPerson()) {
-                    moveDownMenuCommand->setText("Move down (Next element is a Stop)");
+                    moveDownMenuCommand->setText(TL("Move down (Next element is a Stop)"));
                     moveDownMenuCommand->disable();
                 }
             }
@@ -394,8 +394,8 @@ GNEElementTree::showAttributeCarrierParents() {
                 GNEEdge* edge = attributeCarriers->retrieveEdge(myHE->getID(), false);
                 if (edge) {
                     // insert Junctions of edge in tree (Parallel because an edge has always two Junctions)
-                    FXTreeItem* junctionSourceItem = myTreeListDynamic->appendItem(nullptr, (edge->getFromJunction()->getHierarchyName() + " origin").c_str(), edge->getFromJunction()->getIcon());
-                    FXTreeItem* junctionDestinyItem = myTreeListDynamic->appendItem(nullptr, (edge->getFromJunction()->getHierarchyName() + " destiny").c_str(), edge->getFromJunction()->getIcon());
+                    FXTreeItem* junctionSourceItem = myTreeListDynamic->appendItem(nullptr, (edge->getFromJunction()->getHierarchyName() + TL(" origin")).c_str(), edge->getFromJunction()->getACIcon());
+                    FXTreeItem* junctionDestinyItem = myTreeListDynamic->appendItem(nullptr, (edge->getFromJunction()->getHierarchyName() + TL(TL(" destiny"))).c_str(), edge->getFromJunction()->getACIcon());
                     junctionDestinyItem->setExpanded(true);
                     // Save items in myTreeItemToACMap
                     myTreeItemToACMap[junctionSourceItem] = edge->getFromJunction();
@@ -413,11 +413,11 @@ GNEElementTree::showAttributeCarrierParents() {
                     // obtain parent edge
                     GNEEdge* edge = attributeCarriers->retrieveEdge(lane->getParentEdge()->getID());
                     //insert Junctions of lane of edge in tree (Parallel because an edge has always two Junctions)
-                    FXTreeItem* junctionSourceItem = myTreeListDynamic->appendItem(nullptr, (edge->getFromJunction()->getHierarchyName() + " origin").c_str(), edge->getFromJunction()->getIcon());
-                    FXTreeItem* junctionDestinyItem = myTreeListDynamic->appendItem(nullptr, (edge->getFromJunction()->getHierarchyName() + " destiny").c_str(), edge->getFromJunction()->getIcon());
+                    FXTreeItem* junctionSourceItem = myTreeListDynamic->appendItem(nullptr, (edge->getFromJunction()->getHierarchyName() + TL(" origin")).c_str(), edge->getFromJunction()->getACIcon());
+                    FXTreeItem* junctionDestinyItem = myTreeListDynamic->appendItem(nullptr, (edge->getFromJunction()->getHierarchyName() + TL(TL(" destiny"))).c_str(), edge->getFromJunction()->getACIcon());
                     junctionDestinyItem->setExpanded(true);
                     // Create edge item
-                    FXTreeItem* edgeItem = myTreeListDynamic->appendItem(junctionDestinyItem, edge->getHierarchyName().c_str(), edge->getIcon());
+                    FXTreeItem* edgeItem = myTreeListDynamic->appendItem(junctionDestinyItem, edge->getHierarchyName().c_str(), edge->getACIcon());
                     edgeItem->setExpanded(true);
                     // Save items in myTreeItemToACMap
                     myTreeItemToACMap[junctionSourceItem] = edge->getFromJunction();
@@ -433,7 +433,7 @@ GNEElementTree::showAttributeCarrierParents() {
                 // obtain crossing parent junction
                 GNEJunction* junction = attributeCarriers->retrieveCrossing(myHE)->getParentJunction();
                 // create junction item
-                FXTreeItem* junctionItem = myTreeListDynamic->appendItem(nullptr, junction->getHierarchyName().c_str(), junction->getIcon());
+                FXTreeItem* junctionItem = myTreeListDynamic->appendItem(nullptr, junction->getHierarchyName().c_str(), junction->getACIcon());
                 junctionItem->setExpanded(true);
                 // Save items in myTreeItemToACMap
                 myTreeItemToACMap[junctionItem] = junction;
@@ -445,13 +445,13 @@ GNEElementTree::showAttributeCarrierParents() {
                 GNEConnection* connection = attributeCarriers->retrieveConnection(myHE->getID(), false);
                 if (connection) {
                     // create edge from item
-                    FXTreeItem* edgeFromItem = myTreeListDynamic->appendItem(nullptr, connection->getEdgeFrom()->getHierarchyName().c_str(), connection->getEdgeFrom()->getIcon());
+                    FXTreeItem* edgeFromItem = myTreeListDynamic->appendItem(nullptr, connection->getEdgeFrom()->getHierarchyName().c_str(), connection->getEdgeFrom()->getACIcon());
                     edgeFromItem->setExpanded(true);
                     // create edge to item
-                    FXTreeItem* edgeToItem = myTreeListDynamic->appendItem(nullptr, connection->getEdgeTo()->getHierarchyName().c_str(), connection->getEdgeTo()->getIcon());
+                    FXTreeItem* edgeToItem = myTreeListDynamic->appendItem(nullptr, connection->getEdgeTo()->getHierarchyName().c_str(), connection->getEdgeTo()->getACIcon());
                     edgeToItem->setExpanded(true);
                     // create connection item
-                    FXTreeItem* connectionItem = myTreeListDynamic->appendItem(edgeToItem, connection->getHierarchyName().c_str(), connection->getIcon());
+                    FXTreeItem* connectionItem = myTreeListDynamic->appendItem(edgeToItem, connection->getHierarchyName().c_str(), connection->getACIcon());
                     connectionItem->setExpanded(true);
                     // Save items in myTreeItemToACMap
                     myTreeItemToACMap[edgeFromItem] = connection->getEdgeFrom();
@@ -474,14 +474,14 @@ GNEElementTree::showAttributeCarrierParents() {
         // obtain parent edge
         GNEEdge* edge = attributeCarriers->retrieveEdge(lane->getParentEdge()->getID());
         //insert Junctions of lane of edge in tree (Parallel because an edge has always two Junctions)
-        FXTreeItem* junctionSourceItem = myTreeListDynamic->appendItem(nullptr, (edge->getFromJunction()->getHierarchyName() + " origin").c_str(), edge->getFromJunction()->getIcon());
-        FXTreeItem* junctionDestinyItem = myTreeListDynamic->appendItem(nullptr, (edge->getFromJunction()->getHierarchyName() + " destiny").c_str(), edge->getFromJunction()->getIcon());
+        FXTreeItem* junctionSourceItem = myTreeListDynamic->appendItem(nullptr, (edge->getFromJunction()->getHierarchyName() + TL(" origin")).c_str(), edge->getFromJunction()->getACIcon());
+        FXTreeItem* junctionDestinyItem = myTreeListDynamic->appendItem(nullptr, (edge->getFromJunction()->getHierarchyName() + TL(" destiny")).c_str(), edge->getFromJunction()->getACIcon());
         junctionDestinyItem->setExpanded(true);
         // Create edge item
-        FXTreeItem* edgeItem = myTreeListDynamic->appendItem(junctionDestinyItem, edge->getHierarchyName().c_str(), edge->getIcon());
+        FXTreeItem* edgeItem = myTreeListDynamic->appendItem(junctionDestinyItem, edge->getHierarchyName().c_str(), edge->getACIcon());
         edgeItem->setExpanded(true);
         // Create lane item
-        FXTreeItem* laneItem = myTreeListDynamic->appendItem(edgeItem, lane->getHierarchyName().c_str(), lane->getIcon());
+        FXTreeItem* laneItem = myTreeListDynamic->appendItem(edgeItem, lane->getHierarchyName().c_str(), lane->getACIcon());
         laneItem->setExpanded(true);
         // Save items in myTreeItemToACMap
         myTreeItemToACMap[junctionSourceItem] = edge->getFromJunction();
@@ -503,7 +503,7 @@ GNEElementTree::showAttributeCarrierParents() {
                 addListItem(additional->getParentAdditionals().front());
                 // insert "spacer"
                 if (additional->getParentAdditionals().size() > 2) {
-                    addListItem(nullptr, ("..." + toString((int)additional->getParentAdditionals().size() - 2) + " additionals...").c_str(), 0, false);
+                    addListItem(nullptr, ("..." + toString((int)additional->getParentAdditionals().size() - 2) + TL(" additionals...")).c_str(), 0, false);
                 }
             }
             // return last inserted item
@@ -517,7 +517,7 @@ GNEElementTree::showAttributeCarrierParents() {
                 addListItem(additional->getParentDemandElements().front());
                 // insert "spacer"
                 if (additional->getParentDemandElements().size() > 2) {
-                    addListItem(nullptr, ("..." + toString((int)additional->getParentDemandElements().size() - 2) + " demand elements...").c_str(), 0, false);
+                    addListItem(nullptr, ("..." + toString((int)additional->getParentDemandElements().size() - 2) + TL(" demand elements...")).c_str(), 0, false);
                 }
             }
             // return last inserted item
@@ -531,7 +531,7 @@ GNEElementTree::showAttributeCarrierParents() {
                 addListItem(additional->getParentEdges().front());
                 // insert "spacer"
                 if (additional->getParentEdges().size() > 2) {
-                    addListItem(nullptr, ("..." + toString((int)additional->getParentEdges().size() - 2) + " edges...").c_str(), 0, false);
+                    addListItem(nullptr, ("..." + toString((int)additional->getParentEdges().size() - 2) + TL(" edges...")).c_str(), 0, false);
                 }
             }
             // return last inserted item
@@ -545,7 +545,7 @@ GNEElementTree::showAttributeCarrierParents() {
                 addListItem(additional->getParentLanes().front());
                 // insert "spacer"
                 if (additional->getParentLanes().size() > 2) {
-                    addListItem(nullptr, ("..." + toString((int)additional->getParentLanes().size() - 2) + " lanes...").c_str(), 0, false);
+                    addListItem(nullptr, ("..." + toString((int)additional->getParentLanes().size() - 2) + TL(" lanes...")).c_str(), 0, false);
                 }
             }
             // return last inserted item
@@ -566,7 +566,7 @@ GNEElementTree::showAttributeCarrierParents() {
                 addListItem(TAZElement->getParentAdditionals().front());
                 // insert "spacer"
                 if (TAZElement->getParentAdditionals().size() > 2) {
-                    addListItem(nullptr, ("..." + toString((int)TAZElement->getParentAdditionals().size() - 2) + " TAZElements...").c_str(), 0, false);
+                    addListItem(nullptr, ("..." + toString((int)TAZElement->getParentAdditionals().size() - 2) + TL(" TAZElements...")).c_str(), 0, false);
                 }
             }
             // return last inserted item
@@ -580,7 +580,7 @@ GNEElementTree::showAttributeCarrierParents() {
                 addListItem(TAZElement->getParentDemandElements().front());
                 // insert "spacer"
                 if (TAZElement->getParentDemandElements().size() > 2) {
-                    addListItem(nullptr, ("..." + toString((int)TAZElement->getParentDemandElements().size() - 2) + " demand elements...").c_str(), 0, false);
+                    addListItem(nullptr, ("..." + toString((int)TAZElement->getParentDemandElements().size() - 2) + TL(" demand elements...")).c_str(), 0, false);
                 }
             }
             // return last inserted item
@@ -594,7 +594,7 @@ GNEElementTree::showAttributeCarrierParents() {
                 addListItem(TAZElement->getParentEdges().front());
                 // insert "spacer"
                 if (TAZElement->getParentEdges().size() > 2) {
-                    addListItem(nullptr, ("..." + toString((int)TAZElement->getParentEdges().size() - 2) + " edges...").c_str(), 0, false);
+                    addListItem(nullptr, ("..." + toString((int)TAZElement->getParentEdges().size() - 2) + TL(" edges...")).c_str(), 0, false);
                 }
             }
             // return last inserted item
@@ -608,7 +608,7 @@ GNEElementTree::showAttributeCarrierParents() {
                 addListItem(TAZElement->getParentLanes().front());
                 // insert "spacer"
                 if (TAZElement->getParentLanes().size() > 2) {
-                    addListItem(nullptr, ("..." + toString((int)TAZElement->getParentLanes().size() - 2) + " lanes...").c_str(), 0, false);
+                    addListItem(nullptr, ("..." + toString((int)TAZElement->getParentLanes().size() - 2) + TL(" lanes...")).c_str(), 0, false);
                 }
             }
             // return last inserted item
@@ -629,7 +629,7 @@ GNEElementTree::showAttributeCarrierParents() {
                 addListItem(demandElement->getParentAdditionals().front());
                 // insert "spacer"
                 if (demandElement->getParentAdditionals().size() > 2) {
-                    addListItem(nullptr, ("..." + toString((int)demandElement->getParentAdditionals().size() - 2) + " additionals...").c_str(), 0, false);
+                    addListItem(nullptr, ("..." + toString((int)demandElement->getParentAdditionals().size() - 2) + TL(" additionals...")).c_str(), 0, false);
                 }
             }
             // return last inserted item
@@ -643,7 +643,7 @@ GNEElementTree::showAttributeCarrierParents() {
                 addListItem(demandElement->getParentDemandElements().front());
                 // insert "spacer"
                 if (demandElement->getParentDemandElements().size() > 2) {
-                    addListItem(nullptr, ("..." + toString((int)demandElement->getParentDemandElements().size() - 2) + " demand elements...").c_str(), 0, false);
+                    addListItem(nullptr, ("..." + toString((int)demandElement->getParentDemandElements().size() - 2) + TL(" demand elements...")).c_str(), 0, false);
                 }
             }
             // return last inserted item
@@ -657,7 +657,7 @@ GNEElementTree::showAttributeCarrierParents() {
                 addListItem(demandElement->getParentEdges().front());
                 // insert "spacer"
                 if (demandElement->getParentEdges().size() > 2) {
-                    addListItem(nullptr, ("..." + toString((int)demandElement->getParentEdges().size() - 2) + " edges...").c_str(), 0, false);
+                    addListItem(nullptr, ("..." + toString((int)demandElement->getParentEdges().size() - 2) + TL(" edges...")).c_str(), 0, false);
                 }
             }
             // return last inserted item
@@ -671,7 +671,7 @@ GNEElementTree::showAttributeCarrierParents() {
                 addListItem(demandElement->getParentLanes().front());
                 // insert "spacer"
                 if (demandElement->getParentLanes().size() > 2) {
-                    addListItem(nullptr, ("..." + toString((int)demandElement->getParentLanes().size() - 2) + " lanes...").c_str(), 0, false);
+                    addListItem(nullptr, ("..." + toString((int)demandElement->getParentLanes().size() - 2) + TL(" lanes...")).c_str(), 0, false);
                 }
             }
             // return last inserted item
@@ -703,7 +703,7 @@ GNEElementTree::showAttributeCarrierParents() {
                         addListItem(dataElement->getParentAdditionals().front());
                         // insert "spacer"
                         if (dataElement->getParentAdditionals().size() > 2) {
-                            addListItem(nullptr, ("..." + toString((int)dataElement->getParentAdditionals().size() - 2) + " additionals...").c_str(), 0, false);
+                            addListItem(nullptr, ("..." + toString((int)dataElement->getParentAdditionals().size() - 2) + TL(" additionals...")).c_str(), 0, false);
                         }
                     }
                     // return last inserted item
@@ -717,7 +717,7 @@ GNEElementTree::showAttributeCarrierParents() {
                         addListItem(dataElement->getParentDemandElements().front());
                         // insert "spacer"
                         if (dataElement->getParentDemandElements().size() > 2) {
-                            addListItem(nullptr, ("..." + toString((int)dataElement->getParentDemandElements().size() - 2) + " demand elements...").c_str(), 0, false);
+                            addListItem(nullptr, ("..." + toString((int)dataElement->getParentDemandElements().size() - 2) + TL(" demand elements...")).c_str(), 0, false);
                         }
                     }
                     // return last inserted item
@@ -735,7 +735,7 @@ GNEElementTree::showAttributeCarrierParents() {
                         }
                         // insert "spacer"
                         if (dataElement->getParentEdges().size() > 2) {
-                            addListItem(nullptr, ("..." + toString((int)dataElement->getParentEdges().size() - 2) + " edges...").c_str(), 0, false);
+                            addListItem(nullptr, ("..." + toString((int)dataElement->getParentEdges().size() - 2) + TL(" edges...")).c_str(), 0, false);
                         }
                     }
                     // insert last ege
@@ -753,7 +753,7 @@ GNEElementTree::showAttributeCarrierParents() {
                         addListItem(dataElement->getParentLanes().front());
                         // insert "spacer"
                         if (dataElement->getParentLanes().size() > 2) {
-                            addListItem(nullptr, ("..." + toString((int)dataElement->getParentLanes().size() - 2) + " lanes...").c_str(), 0, false);
+                            addListItem(nullptr, ("..." + toString((int)dataElement->getParentLanes().size() - 2) + TL(" lanes...")).c_str(), 0, false);
                         }
                     }
                     // return last inserted item
@@ -809,23 +809,13 @@ GNEElementTree::showHierarchicalElementChildren(GNEHierarchicalElement* HE, FXTr
                     for (const auto& demandElement : edge->getChildDemandElements()) {
                         showHierarchicalElementChildren(demandElement, edgeItem);
                     }
-                    /*
-                    CHECK THIS
-
-                    // insert demand elements children (note: use getChildDemandElementsSortedByType to avoid duplicated elements)
-                    for (const auto& route : edge->getChildDemandElementsByType(SUMO_TAG_ROUTE)) {
-                        showHierarchicalElementChildren(route, edgeItem);
-                    }
-                    for (const auto& trip : edge->getChildDemandElementsByType(SUMO_TAG_TRIP)) {
-                        showHierarchicalElementChildren(trip, edgeItem);
-                    }
-                    for (const auto& flow : edge->getChildDemandElementsByType(SUMO_TAG_FLOW)) {
-                        showHierarchicalElementChildren(flow, edgeItem);
-                    }
-                    */
-                    // show data elements
-                    for (const auto& genericDatas : edge->getChildGenericDatas()) {
-                        showHierarchicalElementChildren(genericDatas, edgeItem);
+                    // insert child data elements
+                    if (edge->getChildGenericDatas().size() > 0) {
+                        // insert intermediate list item
+                        FXTreeItem* dataElements = addListItem(edgeItem, TL("Data elements"), GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDATA), false);
+                        for (const auto& genericDatas : edge->getChildGenericDatas()) {
+                            showHierarchicalElementChildren(genericDatas, dataElements);
+                        }
                     }
                 }
                 break;
@@ -848,7 +838,7 @@ GNEElementTree::showHierarchicalElementChildren(GNEHierarchicalElement* HE, FXTr
                     if (lane->getGNEIncomingConnections().size() > 0) {
                         std::vector<GNEConnection*> incomingLaneConnections = lane->getGNEIncomingConnections();
                         // insert intermediate list item
-                        FXTreeItem* incomingConnections = addListItem(laneItem, "Incomings", incomingLaneConnections.front()->getIcon(), false);
+                        FXTreeItem* incomingConnections = addListItem(laneItem, TL("Incomings"), incomingLaneConnections.front()->getACIcon(), false);
                         // insert incoming connections
                         for (const auto& connection : incomingLaneConnections) {
                             showHierarchicalElementChildren(connection, incomingConnections);
@@ -858,7 +848,7 @@ GNEElementTree::showHierarchicalElementChildren(GNEHierarchicalElement* HE, FXTr
                     if (lane->getGNEOutcomingConnections().size() > 0) {
                         std::vector<GNEConnection*> outcomingLaneConnections = lane->getGNEOutcomingConnections();
                         // insert intermediate list item
-                        FXTreeItem* outgoingConnections = addListItem(laneItem, "Outgoing", outcomingLaneConnections.front()->getIcon(), false);
+                        FXTreeItem* outgoingConnections = addListItem(laneItem, TL("Outgoing"), outcomingLaneConnections.front()->getACIcon(), false);
                         // insert outcoming connections
                         for (const auto& connection : outcomingLaneConnections) {
                             showHierarchicalElementChildren(connection, outgoingConnections);
@@ -897,7 +887,7 @@ GNEElementTree::showHierarchicalElementChildren(GNEHierarchicalElement* HE, FXTr
         if (symbols.size() > 0) {
             // insert intermediate list item
             const auto additionalParent = symbols.front()->getParentAdditionals().front();
-            const std::string symbolType = additionalParent->getTagProperty().hasAttribute(SUMO_ATTR_EDGES) ? "Edges" : "Lanes";
+            const std::string symbolType = additionalParent->getTagProperty().hasAttribute(SUMO_ATTR_EDGES) ? TL("Edges") : TL("Lanes");
             GUIIcon symbolIcon = additionalParent->getTagProperty().hasAttribute(SUMO_ATTR_EDGES) ? GUIIcon::EDGE : GUIIcon::LANE;
             FXTreeItem* symbolListItem = addListItem(treeItem, symbolType, GUIIconSubSys::getIcon(symbolIcon), false);
             // insert symbols
@@ -914,6 +904,14 @@ GNEElementTree::showHierarchicalElementChildren(GNEHierarchicalElement* HE, FXTr
         // insert child demand elements
         for (const auto& demandElement : HE->getChildDemandElements()) {
             showHierarchicalElementChildren(demandElement, treeItem);
+        }
+        // insert child data elements
+        if (HE->getChildGenericDatas().size() > 0) {
+            // insert intermediate list item
+            FXTreeItem* dataElements = addListItem(treeItem, TL("Data elements"), GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDATA), false);
+            for (const auto& genericDatas : HE->getChildGenericDatas()) {
+                showHierarchicalElementChildren(genericDatas, dataElements);
+            }
         }
     } else if (HE->getTagProperty().isDataElement()) {
         // insert data item
@@ -939,7 +937,7 @@ GNEElementTree::showHierarchicalElementChildren(GNEHierarchicalElement* HE, FXTr
 FXTreeItem*
 GNEElementTree::addListItem(GNEAttributeCarrier* AC, FXTreeItem* itemParent, std::string prefix, std::string sufix) {
     // insert item in Tree list
-    FXTreeItem* item = myTreeListDynamic->appendItem(itemParent, (prefix + AC->getHierarchyName() + sufix).c_str(), AC->getIcon());
+    FXTreeItem* item = myTreeListDynamic->appendItem(itemParent, (prefix + AC->getHierarchyName() + sufix).c_str(), AC->getACIcon());
     // insert item in map
     myTreeItemToACMap[item] = AC;
     // by default item is expanded

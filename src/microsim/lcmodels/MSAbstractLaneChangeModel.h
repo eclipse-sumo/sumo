@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -147,7 +147,7 @@ public:
     /** @brief Save the state of the laneChangeModel
      * @param[in] out The OutputDevice to write the information into
      */
-    virtual void saveState(OutputDevice& out) const; 
+    virtual void saveState(OutputDevice& out) const;
 
     /** @brief Loads the state of the laneChangeModel from the given attributes
      * @param[in] attrs XML attributes describing the current state
@@ -468,7 +468,22 @@ public:
     int getShadowDirection() const;
 
     /// @brief return the angle offset during a continuous change maneuver
-    double getAngleOffset() const;
+    double calcAngleOffset();
+
+    /// @brief return the angle offset resulting from lane change and sigma
+    inline double getAngleOffset() const {
+        return myAngleOffset;
+    }
+
+    /// @brief set the angle offset resulting from lane change and sigma
+    inline void setAngleOffset(const double angleOffset) {
+        myAngleOffset = angleOffset;
+    }
+
+    /// @brief set the angle offset of the previous time step
+    inline void setPreviousAngleOffset(const double angleOffset) {
+        myPreviousAngleOffset = angleOffset;
+    }
 
     /// @brief reset the flag whether a vehicle already moved to false
     inline bool alreadyChanged() const {
@@ -560,6 +575,10 @@ public:
         return mySpeedLat;
     }
 
+    /* @brief reset the angle (in case no lane changing happens in this step
+     * and the maneuver was finished in the previous step) */
+    virtual void resetSpeedLat();
+
     /// @brief return the lateral speed of the current lane change maneuver
     double getAccelerationLat() const {
         return myAccelerationLat;
@@ -603,6 +622,10 @@ public:
         return myHaveBlueLight;
     }
 
+    virtual LatAlignmentDefinition getDesiredAlignment() const {
+        return myVehicle.getVehicleType().getPreferredLateralAlignment();
+    }
+
     static const double NO_NEIGHBOR;
 
 protected:
@@ -617,6 +640,15 @@ protected:
 
     /// @brief return the max of maxSpeedLat and lcMaxSpeedLatStanding
     double getMaxSpeedLat2() const;
+
+    /** @brief Takes a vSafe (speed advice for speed in the next simulation step), converts it into an acceleration
+     *         and stores it into myLCAccelerationAdvices.
+     *  @note  This construction was introduced to deal with action step lengths,
+     *         where operation on the speed in the next sim step had to be replaced by acceleration
+     *         throughout the next action step.
+     */
+    void addLCSpeedAdvice(const double vSafe, bool ownAdvice = true);
+
 
 protected:
     /// @brief The vehicle this lane-changer belongs to
@@ -649,6 +681,12 @@ protected:
 
     /// @brief the current lateral acceleration
     double myAccelerationLat;
+
+    /// @brief the current angle offset resulting from lane change and sigma
+    double myAngleOffset;
+
+    /// @brief the angle offset of the previous time step resulting from lane change and sigma
+    double myPreviousAngleOffset;
 
     /// @brief the speed when committing to a change maneuver
     double myCommittedSpeed;
@@ -741,6 +779,11 @@ protected:
     /* @brief to be called by derived classes in their changed() method.
      * If dir=0 is given, the current value remains unchanged */
     void initLastLaneChangeOffset(int dir);
+
+    /* @brief vector of LC-related acceleration recommendations combined with a
+     * boolean to indicate whether the advice is from ego or someone else.
+     * Filled in wantsChange() and applied in patchSpeed() */
+    std::vector<std::pair<double, bool> > myLCAccelerationAdvices;
 
     /// @brief whether overtaking on the right is permitted
     static bool myAllowOvertakingRight;

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -47,6 +47,8 @@ class MSRoute;
 class MSVehicleType;
 class OutputDevice;
 class MSEdge;
+
+typedef std::shared_ptr<const MSRoute> ConstMSRoutePtr;
 
 
 // ===========================================================================
@@ -95,7 +97,7 @@ public:
      * @param[in] fromRouteFile whether we are just reading the route file or creating via trigger, traci, ...
      * @return The built vehicle (MSVehicle instance)
      */
-    virtual SUMOVehicle* buildVehicle(SUMOVehicleParameter* defs, const MSRoute* route,
+    virtual SUMOVehicle* buildVehicle(SUMOVehicleParameter* defs, ConstMSRoutePtr route,
                                       MSVehicleType* type,
                                       const bool ignoreStopErrors, const bool fromRouteFile = true,
                                       bool addRouteStops = true);

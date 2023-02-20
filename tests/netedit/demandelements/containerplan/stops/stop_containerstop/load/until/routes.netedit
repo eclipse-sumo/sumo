@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-10-21 13:56:30 by Eclipse SUMO netedit Version v1_14_1+1876-eb3cce9c206
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <container id="c_0" depart="0.00">
+        <tranship from="gneE2" to="gneE5"/>
+    </container>
+    <container id="c_1" depart="0.00">
+        <tranship from="gneE2" to="gneE5"/>
+        <stop containerStop="containerStopB" until="50.20"/>
+    </container>
+</routes>

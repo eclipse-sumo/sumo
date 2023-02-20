@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2007-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2007-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -47,31 +47,30 @@ def parse_args():
                            help="Export internal geometries")
     argParser.add_argument("-j", "--junction-coordinates", dest="junctionCoords", action="store_true", default=False,
                            help="Append junction coordinates to edge shapes")
+    argParser.add_argument("-b", "--boundary", dest="boundary", action="store_true", default=False,
+                           help="Export boundary shapes instead of center-lines")
     argParser.add_argument("--edgedata-timeline", action="store_true", default=False, dest="edgedataTimeline",
                            help="exports all time intervals (by default only the first is exported)")
     return argParser.parse_args()
 
 
-def getGeometries(options, net):
-    for edge in net.getEdges():
-        if options.lanes:
-            for lane in edge.getLanes():
-                yield lane.getID(), lane.getShape(), lane.getWidth()
-        else:
-            yield edge.getID(), edge.getShape(options.junctionCoords), sum([l.getWidth() for l in edge.getLanes()])
-
-
-def shape2json(net, geometry):
+def shape2json(net, geometry, isBoundary):
     lonLatGeometry = [net.convertXY2LonLat(x, y) for x, y in geometry]
+    coords = [[round(x, 6), round(y, 6)] for x, y in lonLatGeometry]
+    if isBoundary:
+        coords = [coords]
     return {
-        "type": "LineString",
-        "coordinates": [[round(x, 6), round(y, 6)] for x, y in lonLatGeometry]
+        "type": "Polygon" if isBoundary else "LineString",
+        "coordinates": coords
     }
 
 
 if __name__ == "__main__":
     options = parse_args()
     net = sumolib.net.readNet(options.netFile, withInternal=options.internal)
+    if not net.hasGeoProj():
+        sys.stderr.write("Network does not provide geo projection\n")
+        sys.exit(1)
 
     edgeData = defaultdict(dict)
     if options.edgeData:
@@ -95,7 +94,7 @@ if __name__ == "__main__":
     features = []
 
     geomType = 'lane' if options.lanes else 'edge'
-    for id, geometry, width in getGeometries(options, net):
+    for id, geometry, width in net.getGeometries(options.lanes, options.junctionCoords):
         feature = {"type": "Feature"}
         feature["properties"] = {
             "element": geomType,
@@ -113,7 +112,9 @@ if __name__ == "__main__":
                 feature["properties"][ptType] = " ".join(sorted(lines))
 
         feature["properties"]["name"] = net.getEdge(edgeID).getName()
-        feature["geometry"] = shape2json(net, geometry)
+        if options.boundary:
+            geometry = sumolib.geomhelper.line2boundary(geometry, width)
+        feature["geometry"] = shape2json(net, geometry, options.boundary)
         features.append(feature)
 
     if options.junctions:
@@ -123,7 +124,7 @@ if __name__ == "__main__":
                 "element": 'junction',
                 "id": junction.getID(),
             }
-            feature["geometry"] = shape2json(net, junction.getShape())
+            feature["geometry"] = shape2json(net, junction.getShape(), options.boundary)
             features.append(feature)
 
     geojson = {}

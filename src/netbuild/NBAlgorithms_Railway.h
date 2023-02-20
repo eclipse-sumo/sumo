@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2012-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -21,15 +21,17 @@
 #pragma once
 #include <config.h>
 
+#include <set>
 #include <vector>
-#include "NBEdge.h"
 
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
+class NBEdge;
 class NBEdgeCont;
 class NBPTStopCont;
+class NBPTLine;
 class NBPTLineCont;
 class OptionsCont;
 class NBVehicle;
@@ -109,6 +111,11 @@ private:
     /// @brief filter out rail edges among all edges of a the given node
     static void getRailEdges(const NBNode* node, EdgeVector& inEdges, EdgeVector& outEdges);
 
+    /// @brief filter for rail edges but do not return (legacy) all purpose edges
+    static bool hasRailway(SVCPermissions permissions) {
+        return (permissions & SVC_RAIL_CLASSES) > 0 && permissions != SVCAll;
+    }
+
     static bool isStraight(const NBNode* node, const NBEdge* e1, const NBEdge* e2);
     static bool hasStraightPair(const NBNode* node, const EdgeVector& edges, const EdgeVector& edges2);
     static bool allBroken(const NBNode* node, NBEdge* candOut, const EdgeVector& in, const EdgeVector& out);
@@ -133,12 +140,15 @@ private:
     static int addBidiEdgesBetweenSwitches(NBEdgeCont& ec);
 
     /// @brief add bidi-edges to connect successive public transport stops
-    static int addBidiEdgesForStops(NBEdgeCont& ec, NBPTLineCont& lc);
+    static int addBidiEdgesForStops(NBEdgeCont& ec, NBPTLineCont& lc, NBPTStopCont& sc);
 
     /// @brief add bidi-edges to connect straight tracks
     static int addBidiEdgesForStraightConnectivity(NBEdgeCont& ec, bool geometryLike);
 
-    /// recompute turning directions for both nodes of the given edge
+    /// @brief recompute turning directions for both nodes of the given edge
     static void updateTurns(NBEdge* edge);
+
+    /// @brief identify lines that are likely to require bidirectional tracks
+    static std::set<NBPTLine*> findBidiCandidates(NBPTLineCont& lc);
 
 };

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -53,7 +53,7 @@ public:
 
         /// @brief called when TAZ Relation button is updated
         long onUpdConfirmTAZRelation(FXObject*, FXSelector, void*);
-        
+
         /// @brief called when user press clear TAZ Relation button
         long onCmdClearSelection(FXObject*, FXSelector, void*);
 
@@ -100,7 +100,7 @@ public:
      * @brief viewParent GNEViewParent in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNETAZRelDataFrame
      */
-    GNETAZRelDataFrame(GNEViewParent *viewParent, GNEViewNet* viewNet);
+    GNETAZRelDataFrame(GNEViewParent* viewParent, GNEViewNet* viewNet);
 
     /// @brief Destructor
     ~GNETAZRelDataFrame();

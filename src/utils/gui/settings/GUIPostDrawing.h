@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -39,8 +39,29 @@ public:
     /// @brief mark GLObject to update (usually the geometry)
     void markGLObjectToUpdate(GUIGlObject* GLObject);
 
+    /// @brief add element into list of elements under cursor
+    void addElementUnderCursor(const GUIGlObject* GLObject);
+
+    /// @brief check if element is under cursor
+    bool isElementUnderCursor(const GUIGlObject* GLObject) const;
+
+    /// @brief check if the given element is the top element under cursor
+    bool isTopElementUnderCursor(const GUIGlObject* GLObject) const;
+
+    /// @brief get all elements under cursor
+    const std::vector<const GUIGlObject*>& getElementUnderCursor() const;
+
+    /// @brief elements marked for drawing remove contour (used in netedit)
+    std::vector<const GUIGlObject*> elementsMarkedToRemove;
+
+    /// @brief elements marked for drawing selet contour(used in netedit)
+    std::vector<const GUIGlObject*> elementsMarkedToSelect;
+
     /// @brief recompute boundaries
     GUIGlObjectType recomputeBoundaries = GLO_NETWORK;
+
+    /// @brief mouse position before rendering elements
+    Position mousePos = Position::INVALID;
 
     /// @brief marked Node (used in create edge mode)
     const GUIGlObject* markedNode = nullptr;
@@ -57,9 +78,21 @@ public:
     /// @brief marked Route (used in create vehicle mode)
     const GUIGlObject* markedRoute = nullptr;
 
+    /// @brief marked first geometry point (used for moving/delete geometry points)
+    const GUIGlObject* markedFirstGeometryPoint = nullptr;
+
+    /// @brief marked first geometry point (used for moving/delete geometry points)
+    const GUIGlObject* markedSecondGeometryPoint = nullptr;
+
 protected:
     /// @brief GLObjects to update
     std::vector<GUIGlObject*> myGLObjectsToUpdate;
+
+    /// @brief elements under cursor
+    std::vector<const GUIGlObject*> myElementsUnderCursor;
+
+    /// @brief top element (used during selecting and deleting)
+    const GUIGlObject* myTopElement = nullptr;
 
 private:
     /// @brief set copy constructor private

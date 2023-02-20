@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -51,7 +51,7 @@
 // method definitions
 // ===========================================================================
 GUIJunctionWrapper::GUIJunctionWrapper(MSJunction& junction, const std::string& tllID):
-    GUIGlObject(GLO_JUNCTION, junction.getID()),
+    GUIGlObject(GLO_JUNCTION, junction.getID(), GUIIconSubSys::getIcon(GUIIcon::JUNCTION)),
     myJunction(junction),
     myTesselation(junction.getID(), "", RGBColor::MAGENTA, junction.getShape(), false, true, 0),
     myExaggeration(1),
@@ -250,6 +250,8 @@ GUIJunctionWrapper::getColorValue(const GUIVisualizationSettings& /* s */, int a
                     return 11;
                 case SumoXMLNodeType::RAIL_CROSSING:
                     return 12;
+                case SumoXMLNodeType::LEFT_BEFORE_RIGHT:
+                    return 13;
                 default:
                     assert(false);
                     return 0;

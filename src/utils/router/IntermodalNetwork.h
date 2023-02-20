@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -155,12 +155,16 @@ public:
                 _IntermodalEdge* const otherTazDepart = other != nullptr ? getDepartConnector(other) : tazDepart;
                 _IntermodalEdge* const otherTazArrive = other != nullptr ? getArrivalConnector(other) : tazArrive;
                 for (const E* out : edge->getSuccessors()) {
-                    tazDepart->addSuccessor(getDepartConnector(out));
-                    getArrivalConnector(out)->addSuccessor(otherTazArrive);
+                    if (out->isNormal()) {
+                        tazDepart->addSuccessor(getDepartConnector(out));
+                        getArrivalConnector(out)->addSuccessor(otherTazArrive);
+                    }
                 }
                 for (const E* in : edge->getPredecessors()) {
-                    getArrivalConnector(in)->addSuccessor(tazArrive);
-                    otherTazDepart->addSuccessor(getDepartConnector(in));
+                    if (in->isNormal()) {
+                        getArrivalConnector(in)->addSuccessor(tazArrive);
+                        otherTazDepart->addSuccessor(getDepartConnector(in));
+                    }
                 }
                 continue;
             }
@@ -288,7 +292,7 @@ public:
         typename std::map<const E*, EdgePair>::const_iterator it = myBidiLookup.find(e);
         if (it == myBidiLookup.end()) {
             assert(false);
-            throw ProcessError("Edge '" + e->getID() + "' not found in intermodal network.'");
+            throw ProcessError(TLF("Edge '%' not found in intermodal network.'", e->getID()));
         }
         return (*it).second;
     }
@@ -297,7 +301,7 @@ public:
     const _IntermodalEdge* getDepartEdge(const E* e, const double pos) const {
         typename std::map<const E*, std::vector<_IntermodalEdge*> >::const_iterator it = myDepartLookup.find(e);
         if (it == myDepartLookup.end()) {
-            throw ProcessError("Depart edge '" + e->getID() + "' not found in intermodal network.");
+            throw ProcessError(TLF("Depart edge '%' not found in intermodal network.", e->getID()));
         }
         if ((e->getPermissions() & SVC_PEDESTRIAN) == 0) {
             // use most specific split (best trainStop, quay etc)
@@ -331,7 +335,7 @@ public:
     _IntermodalEdge* getDepartConnector(const E* e, const int splitIndex = 0) const {
         typename std::map<const E*, std::vector<_IntermodalEdge*> >::const_iterator it = myDepartLookup.find(e);
         if (it == myDepartLookup.end()) {
-            throw ProcessError("Depart edge '" + e->getID() + "' not found in intermodal network.");
+            throw ProcessError(TLF("Depart edge '%' not found in intermodal network.", e->getID()));
         }
         if (splitIndex >= (int)it->second.size()) {
             throw ProcessError("Split index " + toString(splitIndex) + " invalid for depart edge '" + e->getID() + "' .");
@@ -343,7 +347,7 @@ public:
     _IntermodalEdge* getArrivalEdge(const E* e, const double pos) const {
         typename std::map<const E*, std::vector<_IntermodalEdge*> >::const_iterator it = myArrivalLookup.find(e);
         if (it == myArrivalLookup.end()) {
-            throw ProcessError("Arrival edge '" + e->getID() + "' not found in intermodal network.");
+            throw ProcessError(TLF("Arrival edge '%' not found in intermodal network.", e->getID()));
         }
         const std::vector<_IntermodalEdge*>& splitList = it->second;
         typename std::vector<_IntermodalEdge*>::const_iterator splitIt = splitList.begin();
@@ -613,7 +617,7 @@ public:
                         validStops.back().until = newUntil;
                         lastUntil = newUntil;
                     } else {
-                        WRITE_WARNING("Ignoring unordered stop at '" + stop.busstop + "' until " + time2string(stop.until) + "  for vehicle '" + pars.id + "'.");
+                        WRITE_WARNINGF(TL("Ignoring unordered stop at '%' until % for vehicle '%'."), stop.busstop, time2string(stop.until), pars.id);
                     }
                 }
             }
@@ -625,12 +629,12 @@ public:
                 lastUntil = stop.until;
             } else {
                 if (stop.busstop != "" && stop.until >= 0) {
-                    WRITE_WARNING("Ignoring stop at '" + stop.busstop + "' until " + time2string(stop.until) + "  for vehicle '" + pars.id + "'.");
+                    WRITE_WARNINGF(TL("Ignoring stop at '%' until % for vehicle '%'."), stop.busstop, time2string(stop.until), pars.id);
                 }
             }
         }
         if (validStops.size() < 2 && pars.line != "taxi") {
-            WRITE_WARNING("Not using public transport line '" + pars.line + "' for routing persons. It has less than two usable stops.");
+            WRITE_WARNINGF(TL("Not using public transport line '%' for routing persons. It has less than two usable stops."), pars.line);
             return;
         }
 

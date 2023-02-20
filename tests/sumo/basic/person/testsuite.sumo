@@ -34,6 +34,12 @@ stop_duration
 # person stops for a given duration
 stop_duration0
 
+# person stops for a given duration
+stop_duration0_twice
+
+# person stops 
+stop_no_duration
+
 # person stops for a given duration, specified via attribute edge
 stop_edge
 
@@ -85,7 +91,7 @@ stop_stoppingPlace
 # 
 # this triggers #11210
 ride_access_redundancy
-errors
 
 # person is inserted to the appointed position of a edge, not next to the edge. 
 person_inserted_departPos
+errors

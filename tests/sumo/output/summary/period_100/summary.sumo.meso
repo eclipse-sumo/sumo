@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-10-29 03:08:00 by Eclipse SUMO sumo Version v1_14_1+2087-e274d38
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="input_routes.rou.xml,input_additional2.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <summary-output value="summary.xml"/>
+        <summary-output.period value="100"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+        <end value="1000"/>
+    </time>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<summary xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/summary_file.xsd">
+    <step time="0.00" loaded="1" inserted="0" running="0" waiting="0" ended="0" arrived="0" collisions="0" teleports="0" halting="0" stopped="0" meanWaitingTime="-1.00" meanTravelTime="-1.00" meanSpeed="-1.00" meanSpeedRelative="-1.00"/>
+    <step time="100.00" loaded="1" inserted="1" running="1" waiting="0" ended="0" arrived="0" collisions="0" teleports="0" halting="0" stopped="0" meanWaitingTime="1.00" meanTravelTime="-1.00" meanSpeed="10.00" meanSpeedRelative="1.00"/>
+    <step time="200.00" loaded="1" inserted="1" running="0" waiting="0" ended="1" arrived="1" collisions="0" teleports="0" halting="0" stopped="0" meanWaitingTime="1.00" meanTravelTime="160.00" meanSpeed="-1.00" meanSpeedRelative="-1.00"/>
+    <step time="300.00" loaded="1" inserted="1" running="0" waiting="0" ended="1" arrived="1" collisions="0" teleports="0" halting="0" stopped="0" meanWaitingTime="1.00" meanTravelTime="160.00" meanSpeed="-1.00" meanSpeedRelative="-1.00"/>
+    <step time="400.00" loaded="1" inserted="1" running="0" waiting="0" ended="1" arrived="1" collisions="0" teleports="0" halting="0" stopped="0" meanWaitingTime="1.00" meanTravelTime="160.00" meanSpeed="-1.00" meanSpeedRelative="-1.00"/>
+    <step time="500.00" loaded="1" inserted="1" running="0" waiting="0" ended="1" arrived="1" collisions="0" teleports="0" halting="0" stopped="0" meanWaitingTime="1.00" meanTravelTime="160.00" meanSpeed="-1.00" meanSpeedRelative="-1.00"/>
+    <step time="600.00" loaded="1" inserted="1" running="0" waiting="0" ended="1" arrived="1" collisions="0" teleports="0" halting="0" stopped="0" meanWaitingTime="1.00" meanTravelTime="160.00" meanSpeed="-1.00" meanSpeedRelative="-1.00"/>
+    <step time="700.00" loaded="1" inserted="1" running="0" waiting="0" ended="1" arrived="1" collisions="0" teleports="0" halting="0" stopped="0" meanWaitingTime="1.00" meanTravelTime="160.00" meanSpeed="-1.00" meanSpeedRelative="-1.00"/>
+    <step time="800.00" loaded="1" inserted="1" running="0" waiting="0" ended="1" arrived="1" collisions="0" teleports="0" halting="0" stopped="0" meanWaitingTime="1.00" meanTravelTime="160.00" meanSpeed="-1.00" meanSpeedRelative="-1.00"/>
+    <step time="900.00" loaded="1" inserted="1" running="0" waiting="0" ended="1" arrived="1" collisions="0" teleports="0" halting="0" stopped="0" meanWaitingTime="1.00" meanTravelTime="160.00" meanSpeed="-1.00" meanSpeedRelative="-1.00"/>
+</summary>

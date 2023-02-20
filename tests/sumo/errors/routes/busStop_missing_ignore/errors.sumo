@@ -1,0 +1,2 @@
+Error: The busStop 'dummy' is not known in vehicle '0'..
+Error: A stop must be placed on a busStop, a chargingStation, an overheadWireSegment, a containerStop, a parkingArea, an edge or a lane in vehicle '0'.

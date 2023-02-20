@@ -1,5 +1,5 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2012-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2012-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -29,6 +29,7 @@ import argparse
 import io
 from argparse import RawDescriptionHelpFormatter  # noqa
 from copy import deepcopy
+from .miscutils import openz
 
 
 class ConfigurationReader(handler.ContentHandler):
@@ -189,19 +190,20 @@ class ArgumentParser(argparse.ArgumentParser):
             return out.getvalue()
         else:
             return
-        with open(out_file, "w") as out:
+        with openz(out_file, "w") as out:
             self.write_config_to_file(out, namespace, print_template)
         if exit:
             sys.exit()
 
     def write_config_to_file(self, out, namespace, print_template):
-        out.write('<configuration>\n')
+        out.write(u'<configuration>\n')
         for k in sorted(vars(namespace).keys()):
             v = vars(namespace)[k]
             if k not in ("save_configuration", "save_template", "configuration_file", "_parser", "_prefixed_options"):
                 key = k
                 default = ''
                 help = ''
+                typeStr = ''
                 for a in self._actions:
                     if a.dest == k:
                         for s in a.option_strings:
@@ -209,16 +211,28 @@ class ArgumentParser(argparse.ArgumentParser):
                                 key = s[2:]
                                 break
                         if print_template:
+                            # default
                             if a.default is not None:
                                 v = a.default
+                            # help
                             if a.help is not None:
                                 help = ' help="%s"' % a.help
+                            # type (don't use directly a.type, because it writes <class ....>
+                            if (a.type == bool):
+                                typeStr = ' type="%s"' % "bool"
+                            elif (a.type == float):
+                                typeStr = ' type="%s"' % "float"
+                            elif (a.type == int):
+                                typeStr = ' type="%s"' % "int"
+                            else:
+                                typeStr = ' type="%s"' % "string"
+                            # note: missing time, filename, list of vehicles, edges and lanes
                         break
                 if print_template or v != a.default:
                     if isinstance(v, list):
                         v = " ".join(map(str, v))
-                    out.write('    <%s value="%s"%s%s/>\n' % (key, xmlescape(v), default, help))
-        out.write('</configuration>\n')
+                    out.write(u'    <%s value="%s"%s%s%s/>\n' % (key, xmlescape(v), default, typeStr, help))
+        out.write(u'</configuration>\n')
 
     def parse_args(self, args=None, namespace=None):
         if args is not None:
@@ -241,6 +255,9 @@ class ArgumentParser(argparse.ArgumentParser):
             idx = args.index('-c') + 1
         if '--configuration-file' in args:
             idx = args.index('--configuration-file') + 1
+        if '--save-template' in args:
+            for a in self._actions:
+                a.required = False
         # add each config item to the commandline unless it's there already
         config_args = []
         pos_args = []

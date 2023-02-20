@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -92,7 +92,7 @@ GNEChange_Edge::undo() {
         addEdgeLanes();
     }
     // enable save networkElements
-    myEdge->getNet()->requireSaveNet(true);
+    myEdge->getNet()->getSavingStatus()->requireSaveNetwork();
 }
 
 
@@ -126,16 +126,16 @@ GNEChange_Edge::redo() {
         myEdge->getNet()->getAttributeCarriers()->deleteSingleEdge(myEdge);
     }
     // enable save networkElements
-    myEdge->getNet()->requireSaveNet(true);
+    myEdge->getNet()->getSavingStatus()->requireSaveNetwork();
 }
 
 
 std::string
 GNEChange_Edge::undoName() const {
     if (myForward) {
-        return ("Undo create " + toString(SUMO_TAG_EDGE));
+        return (TL("Undo create edge '") + myEdge->getID() + "'");
     } else {
-        return ("Undo delete " + toString(SUMO_TAG_EDGE));
+        return (TL("Undo delete edge '") + myEdge->getID() + "'");
     }
 }
 
@@ -143,9 +143,9 @@ GNEChange_Edge::undoName() const {
 std::string
 GNEChange_Edge::redoName() const {
     if (myForward) {
-        return ("Redo create " + toString(SUMO_TAG_EDGE));
+        return (TL("Redo create edge '") + myEdge->getID() + "'");
     } else {
-        return ("Redo delete " + toString(SUMO_TAG_EDGE));
+        return (TL("Redo delete edge '") + myEdge->getID() + "'");
     }
 }
 
@@ -156,24 +156,24 @@ GNEChange_Edge::addEdgeLanes() {
     // iterate over edge lanes
     for (int i = 0; i < (int)myEdge->getLanes().size(); i++) {
         // add lane's edge in parent elements
-        for (const auto& j : myLaneParentAdditionals.at(i)) {
-            j->addChildElement(myEdge->getLanes().at(i));
+        for (const auto& additionalParent : myLaneParentAdditionals.at(i)) {
+            additionalParent->addChildElement(myEdge->getLanes().at(i));
         }
-        for (const auto& j : myLaneParentDemandElements.at(i)) {
-            j->addChildElement(myEdge->getLanes().at(i));
+        for (const auto& demandParent : myLaneParentDemandElements.at(i)) {
+            demandParent->addChildElement(myEdge->getLanes().at(i));
         }
-        for (const auto& j : myLaneParentGenericData.at(i)) {
-            j->addChildElement(myEdge->getLanes().at(i));
+        for (const auto& genericParent : myLaneParentGenericData.at(i)) {
+            genericParent->addChildElement(myEdge->getLanes().at(i));
         }
         // add lane's edge in child elements
-        for (const auto& j : myChildLaneAdditionals.at(i)) {
-            j->addParentElement(myEdge->getLanes().at(i));
+        for (const auto& additionalChild : myChildLaneAdditionals.at(i)) {
+            additionalChild->addParentElement(myEdge->getLanes().at(i));
         }
-        for (const auto& j : myChildLaneDemandElements.at(i)) {
-            j->addParentElement(myEdge->getLanes().at(i));
+        for (const auto& demandChild : myChildLaneDemandElements.at(i)) {
+            demandChild->addParentElement(myEdge->getLanes().at(i));
         }
-        for (const auto& j : myChildLaneGenericData.at(i)) {
-            j->addParentElement(myEdge->getLanes().at(i));
+        for (const auto& genericChild : myChildLaneGenericData.at(i)) {
+            genericChild->addParentElement(myEdge->getLanes().at(i));
         }
     }
 }
@@ -184,24 +184,24 @@ GNEChange_Edge::removeEdgeLanes() {
     // iterate over edge lanes
     for (int i = 0; i < (int)myEdge->getLanes().size(); i++) {
         // Remove every lane's edge from parent elements
-        for (const auto& j : myLaneParentAdditionals.at(i)) {
-            j->removeChildElement(myEdge->getLanes().at(i));
+        for (const auto& additionalParent : myLaneParentAdditionals.at(i)) {
+            additionalParent->removeChildElement(myEdge->getLanes().at(i));
         }
-        for (const auto& j : myLaneParentDemandElements.at(i)) {
-            j->removeChildElement(myEdge->getLanes().at(i));
+        for (const auto& demandParent : myLaneParentDemandElements.at(i)) {
+            demandParent->removeChildElement(myEdge->getLanes().at(i));
         }
-        for (const auto& j : myLaneParentGenericData.at(i)) {
-            j->removeChildElement(myEdge->getLanes().at(i));
+        for (const auto& genericParent : myLaneParentGenericData.at(i)) {
+            genericParent->removeChildElement(myEdge->getLanes().at(i));
         }
         // Remove every lane's edge from child elements
-        for (const auto& j : myChildLaneAdditionals.at(i)) {
-            j->removeParentElement(myEdge->getLanes().at(i));
+        for (const auto& additionalChild : myChildLaneAdditionals.at(i)) {
+            additionalChild->removeParentElement(myEdge->getLanes().at(i));
         }
-        for (const auto& j : myChildLaneDemandElements.at(i)) {
-            j->removeParentElement(myEdge->getLanes().at(i));
+        for (const auto& demandChild : myChildLaneDemandElements.at(i)) {
+            demandChild->removeParentElement(myEdge->getLanes().at(i));
         }
-        for (const auto& j : myChildLaneGenericData.at(i)) {
-            j->removeParentElement(myEdge->getLanes().at(i));
+        for (const auto& genericChild : myChildLaneGenericData.at(i)) {
+            genericChild->removeParentElement(myEdge->getLanes().at(i));
         }
     }
 }

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -288,6 +288,12 @@ SUMOVehicleParameter::Stop::write(OutputDevice& dev, const bool close, const boo
     }
     if ((parametersSet & STOP_ONDEMAND_SET) != 0) {
         dev.writeAttr(SUMO_ATTR_ONDEMAND, onDemand);
+    }
+    if ((parametersSet & STOP_JUMP_SET) != 0 && jump >= 0) {
+        dev.writeAttr(SUMO_ATTR_JUMP, time2string(jump));
+    }
+    if (collision) {
+        dev.writeAttr(SUMO_ATTR_COLLISION, collision);
     }
     // only write friendly position if is true
     if (friendlyPos == true) {
@@ -642,7 +648,7 @@ SUMOVehicleParameter::interpretEdgePos(double pos, double maximumValue, SumoXMLA
     }
     if (pos > maximumValue && pos != std::numeric_limits<double>::infinity()) {
         if (!silent) {
-            WRITE_WARNING("Invalid " + toString(attr) + " " + toString(pos) + " given for " + id + ". Using edge end instead.");
+            WRITE_WARNINGF(TL("Invalid % % given for %. Using edge end instead."), toString(attr), toString(pos), id);
         }
         pos = maximumValue;
     }
@@ -692,9 +698,19 @@ SUMOVehicleParameter::parseStopTriggers(const std::vector<std::string>& triggers
             try {
                 stop.triggered = StringUtils::toBool(val);
             } catch (BoolFormatException&) {
-                WRITE_ERROR("Value of stop attribute 'trigger' must be 'person', 'container', 'join' or a boolean");
+                WRITE_ERROR(TL("Value of stop attribute 'trigger' must be 'person', 'container', 'join' or a boolean"));
             }
         }
+    }
+}
+
+
+ParkingType
+SUMOVehicleParameter::parseParkingType(const std::string& value) {
+    if (value == toString(ParkingType::OPPORTUNISTIC)) {
+        return ParkingType::OPPORTUNISTIC;
+    } else {
+        return StringUtils::toBool(value) ? ParkingType::OFFROAD : ParkingType::ONROAD;
     }
 }
 
@@ -716,7 +732,7 @@ SUMOVehicleParameter::Stop::getTriggers() const {
 
 int
 SUMOVehicleParameter::Stop::getFlags() const {
-    return ((parking ? 1 : 0) +
+    return (((parking == ParkingType::OFFROAD) ? 1 : 0) +
             (triggered ? 2 : 0) +
             (containerTriggered ? 4 : 0) +
             (busstop != "" ? 8 : 0) +
@@ -812,10 +828,10 @@ SUMOVehicleParameter::getDepartPosLat() const {
     std::string val;
     switch (departPosLatProcedure) {
         case DepartPosLatDefinition::GIVEN:
-            val = toString(departPos);
+            val = toString(departPosLat);
             break;
         case DepartPosLatDefinition::GIVEN_VEHROUTE:
-            val = StringUtils::pruneZeros(toString(departPos, MAX2(gPrecisionRandom, gPrecision)), 2);
+            val = StringUtils::pruneZeros(toString(departPosLat, MAX2(gPrecisionRandom, gPrecision)), 2);
             break;
         case DepartPosLatDefinition::RANDOM:
             val = "random";
@@ -969,7 +985,7 @@ SUMOVehicleParameter::getArrivalPosLat() const {
     std::string val;
     switch (arrivalPosLatProcedure) {
         case ArrivalPosLatDefinition::GIVEN:
-            val = toString(arrivalPos);
+            val = toString(arrivalPosLat);
             break;
         case ArrivalPosLatDefinition::RIGHT:
             val = "right";

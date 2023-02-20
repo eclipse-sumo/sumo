@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -123,6 +123,7 @@ static StringBijection<SUMOVehicleShape>::Entry sumoVehicleShapeStringInitialize
     {"police",                SUMOVehicleShape::POLICE},
     {"rickshaw",              SUMOVehicleShape::RICKSHAW },
     {"scooter",               SUMOVehicleShape::SCOOTER},
+    {"aircraft",              SUMOVehicleShape::AIRCRAFT},
     {"",                      SUMOVehicleShape::UNKNOWN}
 };
 
@@ -165,6 +166,8 @@ const double DEFAULT_VEH_PROB(1.);
 
 const double DEFAULT_PEDESTRIAN_SPEED(5. / 3.6);
 
+const double DEFAULT_BICYCLE_SPEED(20. / 3.6);
+
 const double DEFAULT_CONTAINER_TRANSHIP_SPEED(5. / 3.6);
 
 // ===========================================================================
@@ -184,11 +187,11 @@ StopOffset::StopOffset(const SUMOSAXAttributes& attrs, bool& ok) :
     myOffset(0) {
     // first check conditions
     if (attrs.hasAttribute(SUMO_ATTR_VCLASSES) && attrs.hasAttribute(SUMO_ATTR_EXCEPTIONS)) {
-        WRITE_ERROR("Simultaneous specification of vClasses and exceptions is not allowed");
+        WRITE_ERROR(TL("Simultaneous specification of vClasses and exceptions is not allowed"));
         ok = false;
     }
     if (!attrs.hasAttribute(SUMO_ATTR_VALUE)) {
-        WRITE_ERROR("StopOffset requires an offset value");
+        WRITE_ERROR(TL("StopOffset requires an offset value"));
         ok = false;
     }
     // parse elements
@@ -338,7 +341,7 @@ parseVehicleClasses(const std::string& allowedS) {
         while (sta.hasNext()) {
             const std::string s = sta.next();
             if (!SumoVehicleClassStrings.hasString(s)) {
-                WRITE_ERROR("Unknown vehicle class '" + s + "' encountered.");
+                WRITE_ERRORF(TL("Unknown vehicle class '%' encountered."), s);
             } else {
                 const SUMOVehicleClass vc = getVehicleClassID(s);
                 const std::string& realName = SumoVehicleClassStrings.getString(vc);
@@ -375,16 +378,16 @@ canParseVehicleClasses(const std::string& classes) {
 
 
 SVCPermissions
-parseVehicleClasses(const std::string& allowedS, const std::string& disallowedS, double networkVersion) {
+parseVehicleClasses(const std::string& allowedS, const std::string& disallowedS, const MMVersion& networkVersion) {
     if (allowedS.size() == 0 && disallowedS.size() == 0) {
         return SVCAll;
     } else if (allowedS.size() > 0 && disallowedS.size() > 0) {
-        WRITE_WARNING("SVCPermissions must be specified either via 'allow' or 'disallow'. Ignoring 'disallow'");
+        WRITE_WARNING(TL("SVCPermissions must be specified either via 'allow' or 'disallow'. Ignoring 'disallow'"));
         return parseVehicleClasses(allowedS);
     } else if (allowedS.size() > 0) {
         return parseVehicleClasses(allowedS);
     } else {
-        return invertPermissions(parseVehicleClasses(disallowedS) | (networkVersion < 1.3 ? SVC_RAIL_FAST : 0));
+        return invertPermissions(parseVehicleClasses(disallowedS) | (networkVersion < MMVersion(1, 3) ? SVC_RAIL_FAST : 0));
     }
 }
 
@@ -405,7 +408,7 @@ parseVehicleClasses(const std::vector<std::string>& allowedS) {
         const SUMOVehicleClass vc = getVehicleClassID(*i);
         const std::string& realName = SumoVehicleClassStrings.getString(vc);
         if (realName != *i) {
-            WRITE_WARNING("The vehicle class '" + (*i) + "' is deprecated, use '" + realName + "' instead.");
+            WRITE_WARNINGF(TL("The vehicle class '%' is deprecated, use '%' instead."), (*i), realName);
         }
         result |= getVehicleClassID(*i);
     }

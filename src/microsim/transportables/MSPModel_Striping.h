@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2014-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2014-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -88,7 +88,7 @@ public:
     bool usingInternalLanes();
 
     /// @brief returns the next pedestrian beyond minPos that is laterally between minRight and maxLeft or 0
-    PersonDist nextBlocking(const MSLane* lane, double minPos, double minRight, double maxLeft, double stopTime = 0);
+    PersonDist nextBlocking(const MSLane* lane, double minPos, double minRight, double maxLeft, double stopTime = 0, bool bidi = false);
 
     /// @brief model parameters
     ///@{
@@ -102,10 +102,16 @@ public:
     // @brief the safety buffer to vehicles
     static double minGapToVehicle;
 
+    // @brief intermediate points to smooth out lanes within the walkingarea
+    static int myWalkingAreaDetail;
+
     // @brief the time threshold before becoming jammed
     static SUMOTime jamTime;
     static SUMOTime jamTimeCrossing;
     static SUMOTime jamTimeNarrow;
+
+    // @brief use old style departPosLat interpretation
+    static bool myLegacyPosLat;
 
     // @brief the distance (in seconds) to look ahead for changing stripes
     static const double LOOKAHEAD_SAMEDIR;
@@ -135,6 +141,7 @@ public:
     // @brief fraction of the leftmost lanes to reserve for oncoming traffic
     static double RESERVE_FOR_ONCOMING_FACTOR;
     static double RESERVE_FOR_ONCOMING_FACTOR_JUNCTIONS;
+    static double RESERVE_FOR_ONCOMING_MAX;
 
     // @brief the time pedestrians take to reach maximum impatience
     static const double MAX_WAIT_TOLERANCE;
@@ -222,15 +229,18 @@ protected:
         ObstacleType type;
         /// @brief the id / description of the obstacle
         std::string description;
+
+        bool closer(const Obstacle& o, int dir);
     };
 
     struct WalkingAreaPath {
-        WalkingAreaPath(const MSLane* _from, const MSLane* _walkingArea, const MSLane* _to, const PositionVector& _shape, int _dir) :
+        WalkingAreaPath(const MSLane* _from, const MSLane* _walkingArea, const MSLane* _to, const PositionVector& _shape, int _dir, double _angleOverride) :
             from(_from),
             to(_to),
             lane(_walkingArea),
             shape(_shape),
             dir(_dir),
+            angleOverride(_angleOverride),
             length(_shape.length()) {
         }
 
@@ -239,6 +249,7 @@ protected:
         const MSLane* const lane; // the walkingArea;
         const PositionVector shape;
         const int dir; // the direction when entering this path
+        const double angleOverride;
         const double length;
 
     };
@@ -283,6 +294,7 @@ protected:
         /// @brief whether the transportable is jammed
         bool isJammed() const;
         const MSLane* getLane() const;
+        double getPathLength() const;
         /// @}
 
         PState(MSPerson* person, MSStageMoving* stage, const MSLane* lane);
@@ -373,6 +385,10 @@ protected:
         /// @brief return the person width
         virtual double getWidth() const;
 
+        virtual ObstacleType getOType() const {
+            return OBSTACLE_PED;
+        }
+
         /// @brief whether the person is currently being controlled via TraCI
         bool isRemoteControlled() const;
 
@@ -395,6 +411,10 @@ protected:
         double getMinX(const bool includeMinGap = true) const;
         double getMaxX(const bool includeMinGap = true) const;
         double getWidth() const;
+
+        ObstacleType getOType() const {
+            return OBSTACLE_VEHICLE;
+        }
     private:
         const MSVehicle* myVehicle;
         const double myXWidth;
@@ -438,7 +458,7 @@ protected:
     void moveInDirection(SUMOTime currentTime, std::set<MSPerson*>& changedLane, int dir);
 
     /// @brief move pedestrians forward on one lane
-    void moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane* lane, SUMOTime currentTime, std::set<MSPerson*>& changedLane, int dir);
+    void moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane* lane, SUMOTime currentTime, std::set<MSPerson*>& changedLane, int dir, bool debug);
 
     /// @brief handle arrivals and lane advancement
     void arriveAndAdvance(Pedestrians& pedestrians, SUMOTime currentTime, std::set<MSPerson*>& changedLane, int dir);
@@ -512,6 +532,9 @@ private:
 
     static bool addVehicleFoe(const MSVehicle* veh, const MSLane* walkingarea, const Position& relPos, double xWidth, double yWidth, double lateral_offset,
                               double minY, double maxY, Pedestrians& toDelete, Pedestrians& transformedPeds);
+
+    static int getReserved(int stripes, double factor);
+
 
 private:
     /// @brief the total number of active pedestrians

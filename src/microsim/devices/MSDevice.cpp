@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2013-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2013-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -70,8 +70,8 @@ void
 MSDevice::insertOptions(OptionsCont& oc) {
     MSDevice_Routing::insertOptions(oc);
     MSDevice_Emissions::insertOptions(oc);
-    MSDevice_BTreceiver::insertOptions(oc);
-    MSDevice_BTsender::insertOptions(oc);
+    MSVehicleDevice_BTreceiver::insertOptions(oc);
+    MSVehicleDevice_BTsender::insertOptions(oc);
     MSDevice_Example::insertOptions(oc);
     MSDevice_Battery::insertOptions(oc);
     MSDevice_SSM::insertOptions(oc);
@@ -88,6 +88,8 @@ MSDevice::insertOptions(OptionsCont& oc) {
 
     MSTransportableDevice_Routing::insertOptions(oc);
     MSTransportableDevice_FCD::insertOptions(oc);
+    MSTransportableDevice_BTsender::insertOptions(oc);
+    MSTransportableDevice_BTreceiver::insertOptions(oc);
 }
 
 
@@ -105,8 +107,8 @@ MSDevice::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& int
     MSDevice_Tripinfo::buildVehicleDevices(v, into);
     MSDevice_Routing::buildVehicleDevices(v, into);
     MSDevice_Emissions::buildVehicleDevices(v, into);
-    MSDevice_BTreceiver::buildVehicleDevices(v, into);
-    MSDevice_BTsender::buildVehicleDevices(v, into);
+    MSVehicleDevice_BTreceiver::buildVehicleDevices(v, into);
+    MSVehicleDevice_BTsender::buildVehicleDevices(v, into);
     MSDevice_Example::buildVehicleDevices(v, into);
     MSDevice_Battery::buildVehicleDevices(v, into);
     MSDevice_SSM::buildVehicleDevices(v, into);
@@ -125,6 +127,8 @@ void
 MSDevice::buildTransportableDevices(MSTransportable& p, std::vector<MSTransportableDevice*>& into) {
     MSTransportableDevice_Routing::buildDevices(p, into);
     MSTransportableDevice_FCD::buildDevices(p, into);
+    MSTransportableDevice_BTsender::buildDevices(p, into);
+    MSTransportableDevice_BTreceiver::buildDevices(p, into);
 }
 
 
@@ -154,7 +158,7 @@ MSDevice::insertDefaultAssignmentOptions(const std::string& deviceName, const st
 
 void
 MSDevice::saveState(OutputDevice& /* out */) const {
-    WRITE_WARNING("Device '" + getID() + "' cannot save state");
+    WRITE_WARNINGF(TL("Device '%' cannot save state"), getID());
 }
 
 
@@ -194,7 +198,7 @@ MSDevice::getFloatParam(const SUMOVehicle& v, const OptionsCont& oc, std::string
     try {
         return StringUtils::toDouble(val);
     } catch (...) {
-        WRITE_ERROR("Invalid float value '" + val + "'for parameter '" + key + "'");
+        WRITE_ERRORF(TL("Invalid float value '%'for parameter '%'"), val, key);
         return deflt;
     }
 }
@@ -207,7 +211,7 @@ MSDevice::getBoolParam(const SUMOVehicle& v, const OptionsCont& oc, std::string 
     try {
         return StringUtils::toBool(val);
     } catch (...) {
-        WRITE_ERROR("Invalid bool value '" + val + "'for parameter '" + key + "'");
+        WRITE_ERRORF(TL("Invalid bool value '%'for parameter '%'"), val, key);
         return deflt;
     }
 }
@@ -220,7 +224,7 @@ MSDevice::getTimeParam(const SUMOVehicle& v, const OptionsCont& oc, std::string 
     try {
         return string2time(val);
     } catch (...) {
-        WRITE_ERROR("Invalid time value '" + val + "'for parameter '" + key + "'");
+        WRITE_ERRORF(TL("Invalid time value '%'for parameter '%'"), val, key);
         return deflt;
     }
 }

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -39,12 +39,12 @@ enum {
     /// @name hotkeys
     /// @{
 
-    /// @brief hotkey for mode editing additionals AND stops
-    MID_HOTKEY_A_MODE_ADDITIONAL_STOP,
+    /// @brief hotkey for start simulation in SUMO and set editing mode additionals AND stops in netedit
+    MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALSTOP,
     /// @brief hotkey for mode connecting lanes ABD person plan
     MID_HOTKEY_C_MODE_CONNECT_PERSONPLAN,
-    /// @brief hotkey for mode deleting things
-    MID_HOTKEY_D_MODE_DELETE,
+    /// @brief hotkey for perform a single simulation step in SUMO and set delete mode in netedit
+    MID_HOTKEY_D_MODE_SINGLESIMULATIONSTEP_DELETE,
     /// @brief hotkey for mode adding edges AND edgeDatas
     MID_HOTKEY_E_MODE_EDGE_EDGEDATA,
     /// @brief hotkey for mode container
@@ -53,12 +53,12 @@ enum {
     MID_HOTKEY_H_MODE_PROHIBITION_CONTAINERPLAN,
     /// @brief hotkey for mode inspecting object attributes
     MID_HOTKEY_I_MODE_INSPECT,
-    /// @brief hotkey for mode moving element
-    MID_HOTKEY_M_MODE_MOVE,
+    /// @brief hotkey for mode moving element AND mean data
+    MID_HOTKEY_M_MODE_MOVE_MEANDATA,
     /// @brief hotkey for mode creating polygons
     MID_HOTKEY_P_MODE_POLYGON_PERSON,
-    /// @brief hotkey for mode selecting objects
-    MID_HOTKEY_S_MODE_SELECT,
+    /// @brief hotkey for stop simulation in SUMO and set select mode in netedit
+    MID_HOTKEY_S_MODE_STOPSIMULATION_SELECT,
     /// @brief hotkey for mode editing crossing, routes and edge rel datas
     MID_HOTKEY_R_MODE_CROSSING_ROUTE_EDGERELDATA,
     /// @brief hotkey for mode editing TLS AND Vehicle Types
@@ -75,22 +75,24 @@ enum {
     /// @name Ctrl hotkeys
     /// @{
 
-    /// @brief Start the simulation in SUMO and open Additionals Elements in NETEDIT
+    /// @brief Start the simulation in SUMO and open Additionals Elements in netedit
     MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALS,
-    /// @brief Edit simulation breakpoints in SUMO and open Data Elements in NETEDIT
+    /// @brief Edit simulation breakpoints in SUMO and open Data Elements in netedit
     MID_HOTKEY_CTRL_B_EDITBREAKPOINT_OPENDATAELEMENTS,
     /// @brief Copy the current selection / element
     MID_HOTKEY_CTRL_C_COPY,
-    /// @brief Perform a single simulation step in SUMO and open Demand Elements in NETEDIT
+    /// @brief Perform a single simulation step in SUMO and open Demand Elements in netedit
     MID_HOTKEY_CTRL_D_SINGLESIMULATIONSTEP_OPENDEMANDELEMENTS,
-    /// @brief Toggle Gaming mode in SUMO and grid in NETEDIT
-    MID_HOTKEY_CTRL_G_GAMINGMODE_TOGGLEGRID,
-    /// @brief open edge type files
-    MID_HOTKEY_CTRL_H_OPENEDGETYPES,
-    /// @brief Open viewport editor
-    MID_HOTKEY_CTRL_I_EDITVIEWPORT,
+    /// @brief Edit selection in SUMO and load neteditConfig in netedit
+    MID_HOTKEY_CTRL_E_EDITSELECTION_LOADNETEDITCONFIG,
     /// @brief Fullscreen mode - menu entry
     MID_HOTKEY_CTRL_F_FULSCREENMODE,
+    /// @brief Toggle Gaming mode in SUMO and grid in netedit
+    MID_HOTKEY_CTRL_G_GAMINGMODE_TOGGLEGRID,
+    /// @brief open app setting dialog in SUMO and open edge type files in netedit
+    MID_HOTKEY_CTRL_H_APPSETTINGS_OPENEDGETYPES,
+    /// @brief Open viewport editor
+    MID_HOTKEY_CTRL_I_EDITVIEWPORT,
     /// @brief toggle draw junction shape
     MID_HOTKEY_CTRL_J_TOGGLEDRAWJUNCTIONSHAPE,
     /// @brief Load file with TLS Programs
@@ -99,18 +101,24 @@ enum {
     MID_HOTKEY_CTRL_L_SAVEASPLAINXML,
     /// @brief open sumo config
     MID_HOTKEY_CTRL_M_OPENSUMOCONFIG,
-    /// @brief create new empty network
-    MID_HOTKEY_CTRL_N_NEWNETWORK,
+    /// @brief open network in SUMO and create new empty network in netedit
+    MID_HOTKEY_CTRL_N_OPENNETWORK_NEWNETWORK,
+    /// @brief Open simulation in SUMO and open network in netedit
+    MID_HOTKEY_CTRL_O_OPENSIMULATION_OPENNETWORK,
+    /// @brief Load additional file with poi and polygons
+    MID_HOTKEY_CTRL_P_OPENSHAPES,
     /// @brief Main window closes
     MID_HOTKEY_CTRL_Q_CLOSE,
-    /// @brief Stop the simulation in SUMO and save network in NETEDIT
+    /// @brief Stop the simulation in SUMO and save network in netedit
     MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK,
     /// @brief Reload the previously loaded simulation
     MID_HOTKEY_CTRL_R_RELOAD,
     /// @brief Quick-Reload the previously loaded simulation (keep the net)
     MID_HOTKEY_CTRL_QUICK_RELOAD,
-    /// @brief Open current network in SUMO or in NETEDIT
-    MID_HOTKEY_CTRL_T_OPENSUMONETEDIT,
+    /// @brief Open current SUMO simulation/network in netedit, or current netedit simulation/network in SUMO
+    MID_HOTKEY_CTRL_T_OPENNETEDIT_OPENSUMO,
+    /// @brief Load edge data for visualization
+    MID_HOTKEY_CTRL_U_OPENEDGEDATA,
     /// @brief paste the current selection / element
     MID_HOTKEY_CTRL_V_PASTE,
     /// @brief Close simulation - ID
@@ -152,33 +160,61 @@ enum {
 
     /// @}
 
+    /// @name shift + hotkeys
+    /// @{
+
+    /// @brief Locate additional structure - button
+    MID_HOTKEY_SHIFT_A_LOCATEADDITIONAL,
+    /// @brief Locate container - button
+    MID_HOTKEY_SHIFT_C_LOCATECONTAINER,
+    /// @brief Locate edge - button
+    MID_HOTKEY_SHIFT_E_LOCATEEDGE,
+    /// @brief Locate junction - button
+    MID_HOTKEY_SHIFT_J_LOCATEJUNCTION,
+    /// @brief Locate polygons - button
+    MID_HOTKEY_SHIFT_L_LOCATEPOLY,
+    /// @brief Locate poi - button
+    MID_HOTKEY_SHIFT_O_LOCATEPOI,
+    /// @brief Locate person - button
+    MID_HOTKEY_SHIFT_P_LOCATEPERSON,
+    /// @brief Locate route - button
+    MID_HOTKEY_SHIFT_R_LOCATEROUTE,
+    /// @brief Locate stop - button
+    MID_HOTKEY_SHIFT_S_LOCATESTOP,
+    /// @brief Locate TLS - button
+    MID_HOTKEY_SHIFT_T_LOCATETLS,
+    /// @brief Locate vehicle - button
+    MID_HOTKEY_SHIFT_V_LOCATEVEHICLE,
+    /// @brief Locate edge - button
+    MID_HOTKEY_SHIFT_W_LOCATEWALKINGAREA,
+
+    /// @}
+
     /// @name Ctrl + Shift hotkeys
     /// @{
 
     /// @brief Save Additional Elements
     MID_HOTKEY_CTRL_SHIFT_A_SAVEADDITIONALS,
-    /// @brief save Edge Types
-    MID_HOTKEY_CTRL_SHIFT_H_SAVEEDGETYPES,
     /// @brief save Data Elements
     MID_HOTKEY_CTRL_SHIFT_B_SAVEDATAELEMENTS,
+    /// @brief Save neteditConfig
+    MID_HOTKEY_CTRL_SHIFT_C_SAVENETEDITCONFIG,
     /// @brief Save Demand Elements
     MID_HOTKEY_CTRL_SHIFT_D_SAVEDEMANDELEMENTS,
+    /// @brief save netedit Config
+    MID_HOTKEY_CTRL_SHIFT_E_SAVENETEDITCONFIG,
+    /// @brief save Edge Types
+    MID_HOTKEY_CTRL_SHIFT_H_SAVEEDGETYPES,
     /// @brief save TLS Programs
     MID_HOTKEY_CTRL_SHIFT_K_SAVETLS,
-    /// @brief Open a New Window
+    /// @brief save Mean Datas
+    MID_HOTKEY_CTRL_SHIFT_M_SAVEMEANDATAS,
+    /// @brief open a new window (SUMO AND netedit)
     MID_HOTKEY_CTRL_SHIFT_N_NEWWINDOW,
-    /// @brief save SUMOConfig
-    MID_HOTKEY_CTRL_SHIFT_M_SAVESUMOCONFIG,
-    /// @brief save network as
-    MID_HOTKEY_CTRL_SHIFT_S_SAVENETWORK_AS,
-    /// @brief Force save network (flag)
-    MID_HOTKEY_CTRL_SHIFT_T_FORCESAVENETEWORK,
-    /// @brief Force save additionals (flag)
-    MID_HOTKEY_CTRL_SHIFT_U_FORCESAVEADDITIONALS,
-    /// @brief Force save demand elements (flag)
-    MID_HOTKEY_CTRL_SHIFT_V_FORCESAVEDEMANDELEMENTS,
-    /// @brief Force save data elements (flag)
-    MID_HOTKEY_CTRL_SHIFT_W_FORCESAVEDATAELEMENTS,
+    /// @brief open Netconvert file
+    MID_HOTKEY_CTRL_SHIFT_O_OPENNETCONVERTFILE,
+    /// @brief save SUMOConfig (SUMO AND netedit)
+    MID_HOTKEY_CTRL_SHIFT_S_SAVESUMOCONFIG,
 
     /// @}
 
@@ -187,11 +223,11 @@ enum {
 
     /// @brief open online documentation
     MID_HOTKEY_F1_ONLINEDOCUMENTATION,
-    /// @brief select network supermode in NETEDIT
+    /// @brief select network supermode in netedit
     MID_HOTKEY_F2_SUPERMODE_NETWORK,
-    /// @brief select demand supermode in NETEDIT
+    /// @brief select demand supermode in netedit
     MID_HOTKEY_F3_SUPERMODE_DEMAND,
-    /// @brief select data supermode in NETEDIT
+    /// @brief select data supermode in netedit
     MID_HOTKEY_F4_SUPERMODE_DATA,
     /// @brief compute Network in network mode and Demand elements in demand mode
     MID_HOTKEY_F5_COMPUTE_NETWORK_DEMAND,
@@ -211,6 +247,7 @@ enum {
     MID_HOTKEY_SHIFT_F11_HALLOFFAME,
     /// @brief open about dialog
     MID_HOTKEY_F12_ABOUT,
+
     /// @}
 
     /// @name shift + Functional hotkeys
@@ -226,8 +263,11 @@ enum {
     MID_HOTKEY_SHIFT_F5_COMPUTEJUNCTIONS_VOLATILE,
     /// @brief Adjust person plans (start und end positions, arrival positions, etc.)
     MID_HOTKEY_SHIFT_F7_ADJUST_PERSON_PLANS,
-    /// @brief focus upper element of current frame (only used in NETEDIT)
+    /// @brief open SUMO options menu (used in netedit)
+    MID_HOTKEY_SHIFT_F10_SUMOOPTIONSMENU,
+    /// @brief focus upper element of current frame (only used in netedit)
     MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT,
+
     /// @}
 
     /// @name Other hotkeys
@@ -261,19 +301,12 @@ enum {
     MID_CANCEL,
     /// @brief Update-button pressed
     MID_UPDATE,
+
     /// @}
 
     /// @name Main Window File Menu - IDs
     /// @{
 
-    /// @brief Open configuration - ID
-    MID_OPEN_CONFIG,
-    /// @brief Open network - ID
-    MID_OPEN_NETWORK,
-    /// @brief Load additional file with poi and polygons
-    MID_HOTKEY_CTRL_P,
-    /// @brief Load edge data for visualization
-    MID_OPEN_EDGEDATA,
     /// @brief Loads a file previously loaded
     MID_RECENTFILE,
 
@@ -311,21 +344,9 @@ enum {
 
     /// @}
 
-    /// @name Edit Menu Item - IDs
-    /// @{
-
-    /// @brief Open editor for selections
-    MID_EDITCHOSEN,
-    /// @brief Open in netedit
-    MID_NETEDIT,
-
-    /// @}
-
     /// @name Settings Menu Item - IDs
     /// @{
 
-    /// @brief Application settings - menu entry
-    MID_APPSETTINGS,
     /// @brief Locator configuration - menu entry
     MID_LISTINTERNAL,
     MID_LISTPARKING,
@@ -353,32 +374,10 @@ enum {
     MID_RECENTERVIEW,
     /// @brief Allow rotation - button
     MID_ALLOWROTATION,
-    /// @brief Locate junction - button
-    MID_LOCATEJUNCTION,
-    /// @brief Locate edge - button
-    MID_LOCATEEDGE,
-    /// @brief Locate edge - button
-    MID_LOCATEWALKINGAREA,
-    /// @brief Locate vehicle - button
-    MID_LOCATEVEHICLE,
-    /// @brief Locate route - button
-    MID_LOCATEROUTE,
-    /// @brief Locate stop - button
-    MID_LOCATESTOP,
-    /// @brief Locate person - button
-    MID_LOCATEPERSON,
-    /// @brief Locate container - button
-    MID_LOCATECONTAINER,
-    /// @brief Locate TLS - button
-    MID_LOCATETLS,
-    /// @brief Locate additional structure - button
-    MID_LOCATEADD,
-    /// @brief Locate poi - button
-    MID_LOCATEPOI,
-    /// @brief Locate polygons - button
-    MID_LOCATEPOLY,
-    /// @brief Show tool tips - button
-    MID_SHOWTOOLTIPS,
+    /// @brief Show tool tips in view - button
+    MID_SHOWTOOLTIPS_VIEW,
+    /// @brief Show tool tips in menus - button
+    MID_SHOWTOOLTIPS_MENU,
     /// @brief Make snapshot - button
     MID_MAKESNAPSHOT,
     /// @brief toggle zooming style
@@ -395,6 +394,7 @@ enum {
     MID_DEMAND_SCALE,
     /// @brief scale vehicle speed
     MID_SPEEDFACTOR,
+
     /// @}
 
     /// @name Common view IDs
@@ -416,6 +416,27 @@ enum {
 
     /// @}
 
+
+    /// @name GUICursorDialog PopUp Entries - IDs
+    /// @{
+    /// @brief set element as front element
+    MID_CURSORDIALOG_SETFRONTELEMENT,
+    /// @brief delete element
+    MID_CURSORDIALOG_DELETEELEMENT,
+    /// @brief select element
+    MID_CURSORDIALOG_SELECTELEMENT,
+    /// @brief open properties popup
+    MID_CURSORDIALOG_PROPERTIES,
+    /// @brief move list up
+    MID_CURSORDIALOG_MOVEUP,
+    /// @brief move list down
+    MID_CURSORDIALOG_MOVEDOWN,
+    /// @brief remove/select/mark front element
+    MID_CURSORDIALOG_FRONT,
+
+    /// @}
+
+
     /// @name Object PopUp Entries - IDs
     /// @{
 
@@ -431,6 +452,8 @@ enum {
     MID_COPY_CURSOR_POSITION,
     /// @brief Copy cursor geo-coordinate position - popup entry
     MID_COPY_CURSOR_GEOPOSITION,
+    /// @brief Copy view geo-coordinate boundary - popup entry
+    MID_COPY_VIEW_GEOBOUNDARY,
     /// @brief Show the cursor geo-coordinate position online in GeoHack - popup entry
     MID_SHOW_GEOPOSITION_ONLINE,
     /// @brief open additional dialog (used in netedit)
@@ -616,6 +639,14 @@ enum {
 
     ///@brief help button
     MID_HELP,
+    ///@brief changelog button
+    MID_CHANGELOG,
+    ///@brief hotkeys button
+    MID_HOTKEYS,
+    ///@brief tutorial button
+    MID_TUTORIAL,
+    ///@brief feedback button
+    MID_FEEDBACK,
 
     /// @name dynamic interaction with the simulation via SUMO-GUI
     /// @{
@@ -648,28 +679,34 @@ enum {
     /// @name Toolbar file messages
     /// @{
 
+    /// @brief reload only network
+    MID_GNE_TOOLBARFILE_RELOADNETWORK,
     /// @brief open foreign network
     MID_GNE_TOOLBARFILE_OPENFOREIGN,
-    /// @brief save all element
-    MID_GNE_SAVEALLELEMENTS,
     /// @brief save joined junctions
     MID_GNE_SAVEJOINEDJUNCTIONS,
-    /// @brief save additionals as
-    MID_GNE_TOOLBARFILE_SAVEADDITIONALS_AS,
-    /// @brief reload TLS Programs
-    MID_GNE_TOOLBARFILE_RELOAD_TLSPROGRAMS,
+    /// @brief reload neteditConfig
+    MID_GNE_TOOLBARFILE_RELOAD_NETEDITCONFIG,
+    /// @brief save neteditConfig as
+    MID_GNE_TOOLBARFILE_SAVENETEDITCONFIG_AS,
     /// @brief reload SUMOConfig
     MID_GNE_TOOLBARFILE_RELOAD_SUMOCONFIG,
-    /// @brief reload edge types
-    MID_GNE_TOOLBARFILE_RELOAD_EDGETYPES,
+    /// @brief save SUMOConfig as
+    MID_GNE_TOOLBARFILE_SAVESUMOCONFIG_AS,
+    /// @brief save network as
+    MID_GNE_TOOLBARFILE_SAVENETWORK_AS,
+    /// @brief save additionals as
+    MID_GNE_TOOLBARFILE_SAVEADDITIONALS_AS,
     /// @brief reload additionals
     MID_GNE_TOOLBARFILE_RELOAD_ADDITIONALS,
     /// @brief save TLS Programs as
     MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS_AS,
-    /// @brief save SUMOConfig as
-    MID_GNE_TOOLBARFILE_SAVESUMOCONFIG_AS,
+    /// @brief reload TLS Programs
+    MID_GNE_TOOLBARFILE_RELOAD_TLSPROGRAMS,
     /// @brief save edgeTypes as
     MID_GNE_TOOLBARFILE_SAVEEDGETYPES_AS,
+    /// @brief reload edge types
+    MID_GNE_TOOLBARFILE_RELOAD_EDGETYPES,
     /// @brief save demand elements as
     MID_GNE_TOOLBARFILE_SAVEDEMAND_AS,
     /// @brief reload demand elements
@@ -678,6 +715,12 @@ enum {
     MID_GNE_TOOLBARFILE_SAVEDATA_AS,
     /// @brief reload data elements
     MID_GNE_TOOLBARFILE_RELOAD_DATAELEMENTS,
+    /// @brief open meanData file
+    MID_GNE_TOOLBARFILE_OPENMEANDATAS,
+    /// @brief save meanDatas as
+    MID_GNE_TOOLBARFILE_SAVEMEANDATAS_AS,
+    /// @brief reload meanDatas
+    MID_GNE_TOOLBARFILE_RELOAD_MEANDATAS,
 
     /// @}
 
@@ -698,6 +741,8 @@ enum {
     MID_GNE_TOOLBAREDIT_LOADDEMAND,
     /// @brief compute path manager
     MID_GNE_TOOLBAREDIT_COMPUTEPATHMANAGER,
+    /// @brief enable/disable computing after switchin between supermodes
+    MID_GNE_TOGGLE_COMPUTE_NETWORK_DATA,
 
     /// @}
 
@@ -1126,6 +1171,10 @@ enum {
     MID_GNE_EDGE_ADD_REVERSE_DISCONNECTED,
     /// @brief reset custom lengths
     MID_GNE_EDGE_RESET_LENGTH,
+    /// @brief use edge as tempalte
+    MID_GNE_EDGE_USEASTEMPLATE,
+    /// @brief apply template
+    MID_GNE_EDGE_APPLYTEMPLATE,
 
     /// @}
 
@@ -1159,25 +1208,19 @@ enum {
 
     /// @}
 
-    /// @name GNEConnection messages
+    /// @name GNEConnection, GNECrossings and GNEWalkingAreas messages
     /// @{
 
     /// @brief edit connection shape
     MID_GNE_CONNECTION_EDIT_SHAPE,
     /// @ brief smooth connection shape
     MID_GNE_CONNECTION_SMOOTH_SHAPE,
-
-    /// @}
-
-
-    /// @name GNECrossing messages
-    /// @{
-
     /// @brief edit crossing shape
     MID_GNE_CROSSING_EDIT_SHAPE,
+    /// @brief edit crossing shape
+    MID_GNE_WALKINGAREA_EDIT_SHAPE,
 
     /// @}
-
 
     /// @name GNEPoly messages
     /// @{
@@ -1406,14 +1449,38 @@ enum {
     MID_GNE_UNDOLIST_UPDATE,
     /// @brief check if recomputing is needed
     MID_GNE_RECOMPUTINGNEEDED,
-    /// @brief set element as front element
-    MID_GNE_SETFRONTELEMENT,
 
     /// @}
 
     /// @brief callback for MFXMenuButtonTooltip
+    /// @{
+
     MID_MBTTIP_FOCUS,
     MID_MBTTIP_SELECTED,
+
+    /// @}
+
+    /// @name languages
+    /// @{
+
+    /// @brief change language to english
+    MID_LANGUAGE_EN,
+    /// @brief change language to german
+    MID_LANGUAGE_DE,
+    /// @brief change language to spanish
+    MID_LANGUAGE_ES,
+    /// @brief change language to french
+    MID_LANGUAGE_FR,
+    /// @brief change language to chinese (simplified)
+    MID_LANGUAGE_ZH,
+    /// @brief change language to chinese (traditional)
+    MID_LANGUAGE_ZHT,
+    /// @brief change language to turkish
+    MID_LANGUAGE_TR,
+    /// @brief change language to hungarian
+    MID_LANGUAGE_HU,
+
+    /// @}
 
     /// @brief last element of enum (not used)
     MID_LAST

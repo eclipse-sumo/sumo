@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -97,13 +97,13 @@ GUIRunThread::init(GUINet* net, SUMOTime start, SUMOTime end) {
         if (std::string(e2.what()) != std::string("Process Error") && std::string(e2.what()) != std::string("")) {
             WRITE_ERROR(e2.what());
         }
-        MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
+        MsgHandler::getErrorInstance()->inform(TL("Quitting (on error)."), false);
         myHalting = true;
         myOk = false;
         mySimulationInProgress = false;
 #ifndef _DEBUG
     } catch (...) {
-        MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
+        MsgHandler::getErrorInstance()->inform(TL("Quitting (on error)."), false);
         myHalting = true;
         myOk = false;
         mySimulationInProgress = false;
@@ -262,7 +262,7 @@ GUIRunThread::singleStep() {
 void
 GUIRunThread::begin() {
     // report the begin when wished
-    WRITE_MESSAGE("Simulation started with time: " + time2string(mySimStartTime));
+    WRITE_MESSAGEF(TL("Simulation started with time: %."), time2string(mySimStartTime));
     myOk = true;
 }
 
@@ -283,6 +283,8 @@ GUIRunThread::simulationAvailable() const {
 void
 GUIRunThread::deleteSim() {
     myHalting = true;
+    // flush aggregated warnings
+    MsgHandler::getWarningInstance()->clear();
     // remove message callbacks
     MsgHandler::getErrorInstance()->removeRetriever(myErrorRetriever);
     MsgHandler::getWarningInstance()->removeRetriever(myWarningRetriever);

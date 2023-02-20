@@ -1,0 +1,20 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+
+    <!-- default route -->
+    <route id="CRoute" edges="center0 center1"/>
+
+    <!-- Calibrator -->
+    <calibrator id="calibratorFlows" edge="center0" pos="20.00" period="100.00" output="calibratorFlows.txt">
+
+        <!-- non valid (empty) -->
+        <flow route="CRoute" begin="000" end="100" speed="10" vehsPerHour="" id="CFlow01"/>
+
+        <!-- non valid (dummy) -->
+        <flow route="CRoute" begin="100" end="200" speed="10" vehsPerHour="dummy" id="CFlow02" />
+
+        <!-- valid -->
+        <flow route="CRoute" begin="200" end="300" speed="10" vehsPerHour="230.00" id="CFlow03" />
+
+    </calibrator>
+
+</additional>

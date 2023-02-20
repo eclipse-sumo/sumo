@@ -12,7 +12,7 @@ Computing turning directions ... done (0ms).
 Assigning nodes to traffic lights ... done (0ms).
 Sorting nodes' edges ... done (0ms).
 Computing node shapes ... done (0ms).
-Computing edge shapes ... done (0ms).
+Computing edge shapes ... done (1ms).
 Computing node types ... done (0ms).
 Computing priorities ... done (0ms).
 Computing approached edges ... done (0ms).
@@ -37,5 +37,5 @@ Summary:
   Applied offset     : 0.00,0.00
   Converted boundary : 0.00,0.00,50.00,0.00
 -----------------------------------------------------
-Writing network ... done (1ms).
+Writing network ... done (2ms).
 Success.

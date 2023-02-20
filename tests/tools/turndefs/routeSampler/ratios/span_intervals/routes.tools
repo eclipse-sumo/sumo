@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-10-27 20:21:31.782095 by routeSampler.py v1_14_1+2036-c3c3278
+<configuration>
+    <edgedata-attribute value="count"/>
+    <edgedata-files value="input_edgedata.xml"/>
+    <route-files value="input_routes.rou.xml"/>
+    <turn-attribute value="None"/>
+    <turn-files value="input_turns.xml"/>
+    <turn-ratio-attribute value="ratio"/>
+    <write-flows value="number"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+<!-- begin="0.0" end="1800.0" -->
+    <flow id="0_2" begin="0.00" end="1782.00" number="50">
+        <route edges="3 3.180.00 27"/>
+    </flow>
+    <flow id="0_1" begin="18.00" end="1728.00" number="39">
+        <route edges="3 3.180.00 -71"/>
+    </flow>
+    <flow id="0_0" begin="234.00" end="1620.00" number="11">
+        <route edges="3 3.180.00 -3"/>
+    </flow>
+<!-- begin="1800.0" end="3600.0" -->
+    <flow id="1800_2" begin="1800.00" end="3591.00" number="98">
+        <route edges="3 3.180.00 27"/>
+    </flow>
+    <flow id="1800_1" begin="1818.00" end="3582.00" number="81">
+        <route edges="3 3.180.00 -71"/>
+    </flow>
+    <flow id="1800_0" begin="1854.00" end="3555.00" number="21">
+        <route edges="3 3.180.00 -3"/>
+    </flow>
+</routes>

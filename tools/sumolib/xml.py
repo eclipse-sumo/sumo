@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2011-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2011-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -66,6 +66,10 @@ DEFAULT_ATTR_CONVERSIONS = {
     'fromLane': int,
     'toLane': int,
 }
+
+
+def supports_comments():
+    return sys.version_info[0] >= 3 and sys.version_info[1] >= 8
 
 
 def _prefix_keyword(name, warn=False):
@@ -156,14 +160,28 @@ def compound_object(element_name, attrnames, warn=False, sort=True):
                 self._child_dict.setdefault(c.name, []).append(c)
             self._child_list = childs
 
-        def getChildList(self):
-            return self._child_list
+        def getChildList(self, withComments=False):
+            if withComments:
+                return self._child_list
+            else:
+                return [c for c in self._child_list if not c.isComment()]
 
         def getText(self):
             return self._text
 
         def setText(self, text):
             self._text = text
+
+        def isComment(self):
+            return "function Comment" in str(self.name)
+
+        def getComments(self):
+            if not supports_comments:
+                sys.stderr.write("Comment parsing is only supported with version 3.8 or higher by sumolib.xml\n")
+            for name, children in self._child_dict.items():
+                if "function Comment" in str(name):
+                    return [c.getText() for c in children]
+            return []
 
         def __getattr__(self, name):
             if name[:2] != "__":
@@ -199,17 +217,22 @@ def compound_object(element_name, attrnames, warn=False, sort=True):
             nodeText = '' if self._text is None else ",text=%s" % self._text
             return "<%s,child_dict=%s%s>" % (self.getAttributes(), dict(self._child_dict), nodeText)
 
-        def toXML(self, initialIndent="", indent="    "):
+        def toXML(self, initialIndent="", indent="    ", withComments=False):
             fields = ['%s="%s"' % (self._original_fields[i], getattr(self, k))
                       for i, k in enumerate(self._fields) if getattr(self, k) is not None and
                       # see #3454
                       '{' not in self._original_fields[i]]
+            if self.isComment():
+                if withComments:
+                    return initialIndent + "<!-- %s -->\n" % self._text
+                else:
+                    return ""
             if not self._child_dict and self._text is None:
                 return initialIndent + "<%s %s/>\n" % (self.name, " ".join(fields))
             else:
                 s = initialIndent + "<%s %s>\n" % (self.name, " ".join(fields))
                 for c in self._child_list:
-                    s += c.toXML(initialIndent + indent)
+                    s += c.toXML(initialIndent + indent, withComments=withComments)
                 if self._text is not None and self._text.strip():
                     s += self._text.strip(" ")
                 return s + "%s</%s>\n" % (initialIndent, self.name)
@@ -236,8 +259,15 @@ def parselines(xmlline, element_name, element_attrs=None, attr_conversions=None,
             yield x
 
 
+def _handle_namespace(tag, ignoreXmlns):
+    if ignoreXmlns and "}" in tag:
+        # see https://bugs.python.org/issue18304
+        return tag.split("}")[1]
+    return tag
+
+
 def parse(xmlfile, element_names, element_attrs=None, attr_conversions=None,
-          heterogeneous=True, warn=False):
+          heterogeneous=True, warn=False, ignoreXmlns=False):
     """
     Parses the given element_names from xmlfile and yield compound objects for
     their xml subtrees (no extra objects are returned if element_names appear in
@@ -268,11 +298,14 @@ def parse(xmlfile, element_names, element_attrs=None, attr_conversions=None,
     if attr_conversions is None:
         attr_conversions = {}
     element_types = {}
-    for _, parsenode in ET.iterparse(_open(xmlfile, None)):
-        if parsenode.tag in element_names:
+    kwargs = {'parser': ET.XMLParser(target=ET.TreeBuilder(insert_comments=True))} if supports_comments() else {}
+    for _, parsenode in ET.iterparse(_open(xmlfile, None), **kwargs):
+        tag = _handle_namespace(parsenode.tag, ignoreXmlns)
+        if tag in element_names:
             yield _get_compound_object(parsenode, element_types,
-                                       parsenode.tag, element_attrs,
-                                       attr_conversions, heterogeneous, warn)
+                                       tag, element_attrs,
+                                       attr_conversions, heterogeneous, warn,
+                                       ignoreXmlns)
             parsenode.clear()
 
 
@@ -280,7 +313,8 @@ def _IDENTITY(x):
     return x
 
 
-def _get_compound_object(node, element_types, element_name, element_attrs, attr_conversions, heterogeneous, warn):
+def _get_compound_object(node, element_types, element_name, element_attrs, attr_conversions,
+                         heterogeneous, warn, ignoreXmlns):
     if element_name not in element_types or heterogeneous:
         # initialized the compound_object type from the first encountered #
         # element
@@ -295,8 +329,10 @@ def _get_compound_object(node, element_types, element_name, element_attrs, attr_
     child_list = []
     if len(node) > 0:
         for c in node:
-            child = _get_compound_object(c, element_types, c.tag, element_attrs, attr_conversions, heterogeneous, warn)
-            child_dict.setdefault(c.tag, []).append(child)
+            tag = _handle_namespace(c.tag, ignoreXmlns)
+            child = _get_compound_object(c, element_types, tag, element_attrs, attr_conversions,
+                                         heterogeneous, warn, ignoreXmlns)
+            child_dict.setdefault(tag, []).append(child)
             child_list.append(child)
     attrnames = element_types[element_name]._original_fields
     return element_types[element_name](
@@ -378,7 +414,9 @@ def parse_fast(xmlfile, element_name, attrnames, warn=False, optional=False, enc
     """
     Parses the given attrnames from all elements with element_name
     @Note: The element must be on its own line and the attributes must appear in
-    the given order.
+    the given order. If you set "optional", missing attributes will be set to None.
+    Make sure that you list all (potential) attributes (even the ones you are not interested in)
+    in this case. You can only leave out attributes at the end.
     @Example: parse_fast('plain.edg.xml', 'edge', ['id', 'speed'])
     """
     Record, reprog = _createRecordAndPattern(element_name, attrnames, warn, optional)

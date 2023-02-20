@@ -1,11 +1,11 @@
-Eclipse SUMO netgenerate Version v1_14_1+0513-a1c8b69
- Copyright (C) 2001-2022 German Aerospace Center (DLR) and others; https://sumo.dlr.de
+Eclipse SUMO netgenerate Version v1_15_0+1914-84100d0141c
+ Copyright (C) 2001-2023 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Synthetic network generator for the microscopic, multi-modal traffic simulation
  SUMO.
 
 Usage: netgenerate [OPTION]*
  Either "--grid", "--spider" or "--rand" must be supplied.
-  In dependance to these switches other options are used.
+  In dependence to these switches other options are used.
  
 Configuration Options:
   -c, --configuration-file FILE        Loads the named config on startup
@@ -107,6 +107,8 @@ Output Options:
                                         FILE
   -p, --plain-output-prefix FILE       Prefix of files to write plain xml
                                         nodes, edges and connections to
+  --plain-output.lanes                 Write all lanes and their attributes
+                                        even when they are not customized
   --junctions.join-output FILE         Writes information about joined
                                         junctions to FILE (can be loaded as
                                         additional node-file to reproduce joins
@@ -189,6 +191,8 @@ Processing Options:
   --opposites.guess.fix-lengths        Ensure that opposite edges have the same
                                         length
   --fringe.guess                       Enable guessing of network fringe nodes
+  --fringe.guess.speed-threshold FLOAT  Guess disconnected edges above the given
+                                        speed as outer fringe
   --lefthand                           Assumes left-hand traffic on the network
   --edges.join                         Merges edges which connect the same
                                         nodes and are close to each other
@@ -207,6 +211,10 @@ Building Defaults Options:
   --default.bikelane-width FLOAT       The default width of added bike lanes
   --default.crossing-width FLOAT       The default width of a pedestrian
                                         crossing
+  --default.crossing-speed FLOAT       The default speed 'limit' on a
+                                        pedestrian crossing (in m/s)
+  --default.walkingarea-speed FLOAT    The default speed 'limit' on a
+                                        pedestrian walkingarea (in m/s)
   --default.allow STR                  The default for allowed vehicle classes
   --default.disallow STR               The default for disallowed vehicle
                                         classes
@@ -219,7 +227,7 @@ Building Defaults Options:
   --default.right-of-way STR           The default algorithm for computing
                                         right of way rules ('default',
                                         'edgePriority')
-  -j, --default-junction-type STR      [traffic_light|priority|right_before_left|traffic_light_right_on_red|priority_stop|allway_stop|...] Determines junction type (see wiki/Networks/PlainXML#Node_types)
+  -j, --default-junction-type STR      [traffic_light|priority|right_before_left|left_before_right|traffic_light_right_on_red|priority_stop|allway_stop|...] Determines junction type (see wiki/Networks/PlainXML#Node_types)
 
 TLS Building Options:
   --tls.set STR[]                      Interprets STR[] as list of junctions to
@@ -295,6 +303,8 @@ TLS Building Options:
                                         connections that share the same states
   --tls.ungroup-signals                Assign a distinct tls link index to
                                         every connection
+  --tls.rebuild                        rebuild all traffic light plans in the
+                                        network
   --tls.discard-simple                 Does not instatiate traffic lights at
                                         geometry-like nodes
 
@@ -334,6 +344,8 @@ Junctions Options:
                                         right-before-left junctions when the
                                         incoming edge speeds are below FLOAT
                                         (m/s)
+  --junctions.left-before-right        Build left-before-right junctions
+                                        instead of right-before-left junctions
   --no-internal-links                  Omits internal links
   --no-turnarounds                     Disables building turnarounds
   --no-turnarounds.tls                 Disables building turnarounds at
@@ -354,6 +366,8 @@ Junctions Options:
                                         joining junctions (defaults to 10)
   --junctions.join-same                Joins junctions that have the same
                                         coordinates even if not connected
+  --max-join-ids INT                   Abbreviate junction or TLS id if it
+                                        joins more than INT junctions
   --junctions.corner-detail INT        Generate INT intermediate points to
                                         smooth out intersection corners
   --junctions.internal-link-detail INT  Generate INT intermediate points to
@@ -444,7 +458,8 @@ Report Options:
   -?, --help                           Prints this screen or selected topics
   -V, --version                        Prints the current version
   -X, --xml-validation STR             Set schema validation scheme of XML
-                                        inputs ("never", "auto" or "always")
+                                        inputs ("never", "local", "auto" or
+                                        "always")
   -W, --no-warnings                    Disables output of warnings
   --aggregate-warnings INT             Aggregate warnings of the same type
                                         whenever more than INT occur
@@ -453,6 +468,7 @@ Report Options:
   --message-log FILE                   Writes all non-error messages to FILE
                                         (implies verbose)
   --error-log FILE                     Writes all warnings and errors to FILE
+  --language STR                       Language to use in messages
 
 Random Number Options:
   --random                             Initialises the random number generator

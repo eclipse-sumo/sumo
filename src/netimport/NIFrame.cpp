@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -193,10 +193,14 @@ NIFrame::fillOptions(bool forNetedit) {
     oc.addDescription("osm.lane-access", "Formats", "Import lane-specific access restrictions");
 
     oc.doRegister("osm.bike-access", new Option_Bool(false));
-    oc.addDescription("osm.bike-access", "Formats", "Check additional attributes to fix directions and permissions on bike paths");
+    oc.addSynonyme("osm.bike-access", "osm.bike-lanes");
+    oc.addDescription("osm.bike-access", "Formats", "Import bike lanes and fix directions and permissions on bike paths");
 
     oc.doRegister("osm.sidewalks", new Option_Bool(false));
     oc.addDescription("osm.sidewalks", "Formats", "Import sidewalks");
+
+    oc.doRegister("osm.crossings", new Option_Bool(false));
+    oc.addDescription("osm.crossings", "Formats", "Import crossings");
 
     oc.doRegister("osm.turn-lanes", new Option_Bool(false));
     oc.addDescription("osm.turn-lanes", "Formats", "Import turning arrows from OSM to help with connection building");
@@ -216,6 +220,8 @@ NIFrame::fillOptions(bool forNetedit) {
     oc.doRegister("osm.extra-attributes", new Option_StringVector(StringVector({ "bridge", "tunnel", "layer", "postal_code" })));
     oc.addDescription("osm.extra-attributes", "Formats", "List of additional attributes that shall be imported from OSM via osm.all-attributes (set 'all' to import all)");
 
+    oc.doRegister("osm.speedlimit-none", new Option_Float(39.4444));
+    oc.addDescription("osm.speedlimit-none", "Formats", "The speed limit to be set when there is no actual speed limit in reality");
 
     // register matsim options
     oc.doRegister("matsim.keep-length", new Option_Bool(false));
@@ -247,6 +253,12 @@ NIFrame::fillOptions(bool forNetedit) {
 
     oc.doRegister("shapefile.speed", new Option_String());
     oc.addDescription("shapefile.speed", "Formats", "Read speed from column STR");
+
+    oc.doRegister("shapefile.length", new Option_String());
+    oc.addDescription("shapefile.length", "Formats", "Read custom edge length from column STR");
+
+    oc.doRegister("shapefile.width", new Option_String());
+    oc.addDescription("shapefile.width", "Formats", "Read total edge width from column STR");
 
     oc.doRegister("shapefile.name", new Option_String());
     oc.addDescription("shapefile.name", "Formats", "Read (non-unique) name from column STR");
@@ -382,7 +394,7 @@ NIFrame::checkOptions() {
     }
 #else
     if ((oc.isSet("osm-files") || oc.isSet("dlr-navteq-prefix") || oc.isSet("shapefile-prefix")) && !oc.getBool("simple-projection")) {
-        WRITE_ERROR("Cannot import network data without PROJ-Library. Please install packages proj before building sumo");
+        WRITE_ERROR(TL("Cannot import network data without PROJ-Library. Please install package proj before building sumo"));
         ok = false;
     }
 #endif
@@ -407,7 +419,7 @@ NIFrame::checkOptions() {
     if (!oc.isSet("type-files")) {
         const char* sumoPath = std::getenv("SUMO_HOME");
         if (sumoPath == nullptr) {
-            WRITE_WARNING("Environment variable SUMO_HOME is not set, using built in type maps.");
+            WRITE_WARNING(TL("Environment variable SUMO_HOME is not set, using built in type maps."));
         } else {
             const std::string path = sumoPath + std::string("/data/typemap/");
             if (oc.isSet("osm-files")) {
@@ -431,9 +443,16 @@ NIFrame::checkOptions() {
             // a better interpretation of imported geometries
             oc.setDefault("geometry.max-grade.fix", "false");
         }
+        if (oc.isDefault("no-turnarounds") && oc.isDefault("no-turnarounds.except-deadend")) {
+            // changed default since all connections (connecting roads) are loaded from the input.
+            oc.set("no-turnarounds.except-deadend", "true");
+        }
     }
     if (!oc.isDefault("osm.extra-attributes") && oc.isDefault("osm.all-attributes")) {
         oc.setDefault("osm.all-attributes", "true");
+    }
+    if (oc.getBool("osm.crossings") && !oc.getBool("osm.sidewalks")) {
+        WRITE_WARNING(TL("It is recommend to use option osm.crossings with osm.sidewalks"));
     }
     return ok;
 }

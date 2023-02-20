@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -21,6 +21,7 @@
 #include <config.h>
 
 #include <utils/foxtools/MFXButtonTooltip.h>
+#include <utils/foxtools/MFXMenuButtonTooltip.h>
 #include <utils/foxtools/MFXCheckableButton.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/globjects/GUIGlObjectTypes.h>
@@ -117,7 +118,9 @@ enum class DataEditMode {
     /// @brief mode for create edgeRelData elements
     DATA_EDGERELDATA,
     /// @brief mode for create TAZRelData elements
-    DATA_TAZRELDATA
+    DATA_TAZRELDATA,
+    /// @brief mode for create meanData elements
+    DATA_MEANDATA
 };
 
 // ===========================================================================
@@ -220,7 +223,7 @@ struct GNEViewNetHelper {
         void swapLane2Edge();
 
         /// @brief filter locked elements
-        void filterLockedElements(const GNEViewNetHelper::LockManager &lockManager);
+        void filterLockedElements(const GNEViewNetHelper::LockManager& lockManager, std::vector<GUIGlObjectType> forcedIgnoredTiped = {});
 
         /// @brief get front GUI GL ID or a pointer to nullptr
         GUIGlID getGlIDFront() const;
@@ -288,8 +291,14 @@ struct GNEViewNetHelper {
         /// @brief get edge rel data element or a pointer to nullptr
         GNEEdgeRelData* getEdgeRelDataElementFront() const;
 
+        /// @brief get vector with clicked GL objects
+        const std::vector<GUIGlObject*>& getClickedGLObjects() const;
+
         /// @brief get vector with clicked ACs
         const std::vector<GNEAttributeCarrier*>& getClickedAttributeCarriers() const;
+
+        /// @brief get vector with clicked junctions
+        const std::vector<GNEJunction*>& getClickedJunctions() const;
 
         /// @brief get vector with clicked Demand Elements
         const std::vector<GNEDemandElement*>& getClickedDemandElements() const;
@@ -380,6 +389,9 @@ struct GNEViewNetHelper {
         bool mySwapLane2edge;
 
     private:
+        /// @brief filter duplicated objects
+        std::vector<GUIGlObject*> filterDuplicatedObjects(const std::vector<GUIGlObject*>& GUIGlObjects) const;
+
         /// @brief sort by altitude and update GUIGlObjects
         void sortGUIGlObjects(const std::vector<GUIGlObject*>& GUIGlObjects);
 
@@ -461,27 +473,45 @@ struct GNEViewNetHelper {
         /// @brief default constructor
         SaveElements(GNEViewNet* viewNet);
 
+        /// @brief destructor
+        ~SaveElements();
+
         /// @brief build save buttons
         void buildSaveElementsButtons();
 
-        /// @brief checkable button for save all
-        MFXButtonTooltip* saveAll;
-
-        /// @brief checkable button for save network
-        MFXButtonTooltip* saveNetwork;
-
-        /// @brief checkable button for save additional elements
-        MFXButtonTooltip* saveAdditionalElements;
-
-        /// @brief checkable button for save demand elements
-        MFXButtonTooltip* saveDemandElements;
-
-        /// @brief checkable button for save data elements
-        MFXButtonTooltip* saveDataElements;
+        /// @brief enable or disable save individual files
+        void setSaveIndividualFiles(bool value);
 
     private:
         /// @brief pointer to net
         GNEViewNet* myViewNet;
+
+        /// The locator menu
+        FXPopup* mySaveIndividualFilesPopup = nullptr;
+
+        /// @brief checkable button for save individual files
+        MFXMenuButtonTooltip* mySaveIndividualFiles = nullptr;
+
+        /// @brief checkable button for save netedit config
+        MFXButtonTooltip* mySaveNeteditConfig = nullptr;
+
+        /// @brief checkable button for save SUMO config
+        MFXButtonTooltip* mySaveSumoConfig = nullptr;
+
+        /// @brief checkable button for save network
+        MFXButtonTooltip* mySaveNetwork = nullptr;
+
+        /// @brief checkable button for save additional elements
+        MFXButtonTooltip* mySaveAdditionalElements = nullptr;
+
+        /// @brief checkable button for save demand elements
+        MFXButtonTooltip* mySaveDemandElements = nullptr;
+
+        /// @brief checkable button for save genericdata elements
+        MFXButtonTooltip* mySaveDataElements = nullptr;
+
+        /// @brief checkable button for save meanData elements
+        MFXButtonTooltip* mySaveMeanDataElements = nullptr;
 
         /// @brief Invalidated copy constructor.
         SaveElements(const SaveElements&) = delete;
@@ -494,7 +524,7 @@ struct GNEViewNetHelper {
     struct EditModes {
 
         /// @brief default constructor
-        EditModes(GNEViewNet* viewNet, const bool newNet);
+        EditModes(GNEViewNet* viewNet);
 
         /// @brief build checkable buttons
         void buildSuperModeButtons();
@@ -1058,7 +1088,7 @@ struct GNEViewNetHelper {
     };
 
     /// @brief struct used to group all variables related with selecting using a square or polygon
-    /// @note in the future the variables used for selecting throught a polygon will be placed here
+    /// @note in the future the variables used for selecting through a polygon will be placed here
     struct SelectingArea {
 
         /// @brief default constructor
@@ -1117,24 +1147,18 @@ struct GNEViewNetHelper {
         /// @brief draw testing element
         void drawTestingElements(GUIMainWindow* mainWindow);
 
-        /// @brief check if testing mode is enabled
-        bool isTestingEnabled() const;
-
     private:
         /// @brief pointer to net
         GNEViewNet* myViewNet;
 
-        /// @brief flag to enable or disable testing mode
-        bool myTestingEnabled;
-
         /// @brief Width of net in testing mode
-        int myTestingWidth;
+        int myTestingWidth = 0;
 
         /// @brief Height of net in testing mode
-        int myTestingHeight;
+        int myTestingHeight = 0;
     };
 
-    /// @brief struct used to group all variables related with common chekable Buttons
+    /// @brief struct used to group all variables related with common checkable Buttons
     struct CommonCheckableButtons {
 
         /// @brief default constructor
@@ -1155,13 +1179,13 @@ struct GNEViewNetHelper {
         /// @brief update Common checkable buttons
         void updateCommonCheckableButtons();
 
-        /// @brief chekable button for edit mode inspect
+        /// @brief checkable button for edit mode inspect
         MFXCheckableButton* inspectButton;
 
-        /// @brief chekable button for edit mode delete
+        /// @brief checkable button for edit mode delete
         MFXCheckableButton* deleteButton;
 
-        /// @brief chekable button for edit mode select
+        /// @brief checkable button for edit mode select
         MFXCheckableButton* selectButton;
 
     private:
@@ -1169,7 +1193,7 @@ struct GNEViewNetHelper {
         GNEViewNet* myViewNet;
     };
 
-    /// @brief struct used to group all variables related with Network chekable Buttons
+    /// @brief struct used to group all variables related with Network checkable Buttons
     struct NetworkCheckableButtons {
 
         /// @brief default constructor
@@ -1190,28 +1214,28 @@ struct GNEViewNetHelper {
         /// @brief update network checkable buttons
         void updateNetworkCheckableButtons();
 
-        /// @brief chekable button for edit mode "move network elements"
+        /// @brief checkable button for edit mode "move network elements"
         MFXCheckableButton* moveNetworkElementsButton;
 
-        /// @brief chekable button for edit mode create edge
+        /// @brief checkable button for edit mode create edge
         MFXCheckableButton* createEdgeButton;
 
-        /// @brief chekable button for edit mode connection
+        /// @brief checkable button for edit mode connection
         MFXCheckableButton* connectionButton;
 
-        /// @brief chekable button for edit mode traffic light
+        /// @brief checkable button for edit mode traffic light
         MFXCheckableButton* trafficLightButton;
 
-        /// @brief chekable button for edit mode additional
+        /// @brief checkable button for edit mode additional
         MFXCheckableButton* additionalButton;
 
-        /// @brief chekable button for edit mode crossing
+        /// @brief checkable button for edit mode crossing
         MFXCheckableButton* crossingButton;
 
-        /// @brief chekable button for edit mode TAZ
+        /// @brief checkable button for edit mode TAZ
         MFXCheckableButton* TAZButton;
 
-        /// @brief chekable button for edit mode shape
+        /// @brief checkable button for edit mode shape
         MFXCheckableButton* shapeButton;
 
         /// @brief checkable button for edit mode prohibition
@@ -1246,31 +1270,31 @@ struct GNEViewNetHelper {
         /// @brief update Demand checkable buttons
         void updateDemandCheckableButtons();
 
-        /// @brief chekable button for edit mode "move demand elements"
+        /// @brief checkable button for edit mode "move demand elements"
         MFXCheckableButton* moveDemandElementsButton;
 
-        /// @brief chekable button for edit mode create routes
+        /// @brief checkable button for edit mode create routes
         MFXCheckableButton* routeButton;
 
-        /// @brief chekable button for edit mode create vehicles
+        /// @brief checkable button for edit mode create vehicles
         MFXCheckableButton* vehicleButton;
 
-        /// @brief chekable button for edit mode create type
+        /// @brief checkable button for edit mode create type
         MFXCheckableButton* typeButton;
 
-        /// @brief chekable button for edit mode create stops
+        /// @brief checkable button for edit mode create stops
         MFXCheckableButton* stopButton;
 
-        /// @brief chekable button for edit mode create persons
+        /// @brief checkable button for edit mode create persons
         MFXCheckableButton* personButton;
 
-        /// @brief chekable button for edit mode create person plans
+        /// @brief checkable button for edit mode create person plans
         MFXCheckableButton* personPlanButton;
 
-        /// @brief chekable button for edit mode create containers
+        /// @brief checkable button for edit mode create containers
         MFXCheckableButton* containerButton;
 
-        /// @brief chekable button for edit mode create container plans
+        /// @brief checkable button for edit mode create container plans
         MFXCheckableButton* containerPlanButton;
 
     private:
@@ -1299,14 +1323,17 @@ struct GNEViewNetHelper {
         /// @brief update Data checkable buttons
         void updateDataCheckableButtons();
 
-        /// @brief chekable button for edit mode "edgeData"
-        MFXCheckableButton* edgeDataButton;
+        /// @brief checkable button for edit mode "edgeData"
+        MFXCheckableButton* edgeDataButton = nullptr;
 
-        /// @brief chekable button for edit mode "edgeRelData"
-        MFXCheckableButton* edgeRelDataButton;
+        /// @brief checkable button for edit mode "edgeRelData"
+        MFXCheckableButton* edgeRelDataButton = nullptr;
 
-        /// @brief chekable button for edit mode "TAZRelData"
-        MFXCheckableButton* TAZRelDataButton;
+        /// @brief checkable button for edit mode "TAZRelData"
+        MFXCheckableButton* TAZRelDataButton = nullptr;
+
+        /// @brief checkable button for edit mode "meanData"
+        MFXCheckableButton* meanDataButton = nullptr;
 
     private:
         /// @brief pointer to net
@@ -1366,6 +1393,9 @@ struct GNEViewNetHelper {
 
     /// @brief get rainbow scaled color
     static const RGBColor& getRainbowScaledColor(const double min, const double max, const double value);
+
+    /// @brief filter elements based on the layer
+    static std::vector<GUIGlObject*> filterElementsByLayer(const std::vector<GUIGlObject*>& GLObjects);
 
 private:
     /// @brief scale (rainbow) colors

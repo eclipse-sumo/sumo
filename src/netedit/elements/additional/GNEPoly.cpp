@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -31,6 +31,7 @@
 #include <netedit/frames/common/GNEMoveFrame.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/div/GUIGlobalPostDrawing.h>
 
 #include "GNEPoly.h"
 
@@ -41,8 +42,7 @@
 
 GNEPoly::GNEPoly(GNENet* net) :
     TesselatedPolygon("", "", RGBColor::BLACK, {}, false, false, 0, 0, 0, "", false, "", Parameterised::Map()),
-                  GNEAdditional("", net, GLO_POLYGON, SUMO_TAG_POLY, "",
-                                {}, {}, {}, {}, {}, {}),
+                  GNEAdditional("", net, GLO_POLYGON, SUMO_TAG_POLY, GUIIconSubSys::getIcon(GUIIcon::POLY), "", {}, {}, {}, {}, {}, {}),
 mySimplifiedShape(false) {
     // reset default values
     resetDefaultValues();
@@ -53,8 +53,7 @@ GNEPoly::GNEPoly(GNENet* net, const std::string& id, const std::string& type, co
                  const RGBColor& color, double layer, double angle, const std::string& imgFile, bool relativePath, const std::string& name,
                  const Parameterised::Map& parameters) :
     TesselatedPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, relativePath, name, parameters),
-    GNEAdditional(id, net, GLO_POLYGON, SUMO_TAG_POLY, "",
-{}, {}, {}, {}, {}, {}),
+    GNEAdditional(id, net, GLO_POLYGON, SUMO_TAG_POLY, GUIIconSubSys::getIcon(GUIIcon::POLY), "", {}, {}, {}, {}, {}, {}),
 mySimplifiedShape(false) {
     // check if imgFile is valid
     if (!imgFile.empty() && GUITexturesHelper::getTextureID(imgFile) == -1) {
@@ -194,17 +193,17 @@ GNEPoly::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     // build selection and show parameters menu
     myNet->getViewNet()->buildSelectionACPopupEntry(ret, this);
     buildShowParamsPopupEntry(ret);
-    FXMenuCommand* simplifyShape = GUIDesigns::buildFXMenuCommand(ret, "Simplify Shape\t\tReplace current shape with a rectangle", nullptr, &parent, MID_GNE_POLYGON_SIMPLIFY_SHAPE);
+    FXMenuCommand* simplifyShape = GUIDesigns::buildFXMenuCommand(ret, TL("Simplify Shape") + std::string("\t\t") + TL("Replace current shape with a rectangle"), nullptr, &parent, MID_GNE_POLYGON_SIMPLIFY_SHAPE);
     // disable simplify shape if polygon was already simplified
     if (mySimplifiedShape || myShape.size() <= 2) {
         simplifyShape->disable();
     }
     if (myShape.isClosed()) {
-        GUIDesigns::buildFXMenuCommand(ret, "Open shape\t\tOpen polygon's shape", nullptr, &parent, MID_GNE_POLYGON_OPEN);
+        GUIDesigns::buildFXMenuCommand(ret, TL("Open shape") + std::string("\t\t") + TL("Open polygon's shape"), nullptr, &parent, MID_GNE_POLYGON_OPEN);
     } else {
-        GUIDesigns::buildFXMenuCommand(ret, "Close shape\t\tClose polygon's shape", nullptr, &parent, MID_GNE_POLYGON_CLOSE);
+        GUIDesigns::buildFXMenuCommand(ret, TL("Close shape") + std::string("\t\t") + TL("Close polygon's shape"), nullptr, &parent, MID_GNE_POLYGON_CLOSE);
     }
-    GUIDesigns::buildFXMenuCommand(ret, "Select elements within polygon\t\tSelect elements within polygon boundary", nullptr, &parent, MID_GNE_POLYGON_SELECT);
+    GUIDesigns::buildFXMenuCommand(ret, TL("Select elements within polygon") + std::string("\t\t") + TL("Select elements within polygon boundary"), nullptr, &parent, MID_GNE_POLYGON_SELECT);
     // add separator
     new FXMenuSeparator(ret);
     // create a extra FXMenuCommand if mouse is over a vertex
@@ -214,8 +213,8 @@ GNEPoly::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         if (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) {
             GUIDesigns::buildFXMenuCommand(ret, "Set custom Geometry Point", nullptr, &parent, MID_GNE_CUSTOM_GEOMETRYPOINT);
         }
-        FXMenuCommand* removeGeometryPoint = GUIDesigns::buildFXMenuCommand(ret, "Remove geometry point\t\tRemove geometry point under mouse", nullptr, &parent, MID_GNE_POLYGON_DELETE_GEOMETRY_POINT);
-        FXMenuCommand* setFirstPoint = GUIDesigns::buildFXMenuCommand(ret, "Set first geometry point\t\tSet", nullptr, &parent, MID_GNE_POLYGON_SET_FIRST_POINT);
+        FXMenuCommand* removeGeometryPoint = GUIDesigns::buildFXMenuCommand(ret, TL("Remove geometry point") + std::string("\t\t") + TL("Remove geometry point under mouse"), nullptr, &parent, MID_GNE_POLYGON_DELETE_GEOMETRY_POINT);
+        FXMenuCommand* setFirstPoint = GUIDesigns::buildFXMenuCommand(ret, TL("Set first geometry point") + std::string("\t\t") + TL("Set first geometry point"), nullptr, &parent, MID_GNE_POLYGON_SET_FIRST_POINT);
         // disable setFirstPoint if shape only have three points
         if ((myShape.isClosed() && (myShape.size() <= 4)) || (!myShape.isClosed() && (myShape.size() <= 2))) {
             removeGeometryPoint->disable();
@@ -249,41 +248,44 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
         const RGBColor color = isAttributeCarrierSelected() ? s.colorSettings.selectionColor : getShapeColor();
         const RGBColor invertedColor = color.invertedColor();
         const RGBColor darkerColor = color.changedBrightness(-32);
-        // push name (needed for getGUIGlObjectsUnderCursor(...)
-        GLHelper::pushName(getGlID());
-        // push layer matrix
-        GLHelper::pushMatrix();
-        // translate to front
-        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getShapeLayer());
-        // check if we're drawing a polygon or a polyline
-        if (getFill()) {
-            if (s.drawForPositionSelection) {
-                // check if mouse is within geometry
-                if (myPolygonGeometry.getShape().around(mousePosition)) {
-                    // push matrix
-                    GLHelper::pushMatrix();
-                    // move to mouse position
-                    glTranslated(mousePosition.x(), mousePosition.y(), 0);
-                    // set color
-                    GLHelper::setColor(color);
-                    // draw circle
-                    GLHelper::drawFilledCircle(1, s.getCircleResolution());
-                    // pop matrix
-                    GLHelper::popMatrix();
+        // avoid draw invisible elements
+        if (color.alpha() != 0) {
+            // push name (needed for getGUIGlObjectsUnderCursor(...)
+            GLHelper::pushName(getGlID());
+            // push layer matrix
+            GLHelper::pushMatrix();
+            // translate to front
+            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getShapeLayer());
+            // check if we're drawing a polygon or a polyline
+            if (getFill()) {
+                if (s.drawForPositionSelection) {
+                    // check if mouse is within geometry
+                    if (myPolygonGeometry.getShape().around(mousePosition)) {
+                        // push matrix
+                        GLHelper::pushMatrix();
+                        // move to mouse position
+                        glTranslated(mousePosition.x(), mousePosition.y(), 0);
+                        // set color
+                        GLHelper::setColor(color);
+                        // draw circle
+                        GLHelper::drawFilledCircle(1, s.getCircleResolution());
+                        // pop matrix
+                        GLHelper::popMatrix();
+                    }
+                } else {
+                    // draw inner polygon
+                    GUIPolygon::drawInnerPolygon(s, this, this, myPolygonGeometry.getShape(), 0, getFill(), drawUsingSelectColor());
                 }
             } else {
-                // draw inner polygon
-                GUIPolygon::drawInnerPolygon(s, this, this, myPolygonGeometry.getShape(), 0, getFill(), drawUsingSelectColor());
+                // push matrix
+                GLHelper::pushMatrix();
+                // set color
+                GLHelper::setColor(color);
+                // draw geometry (polyline)
+                GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myPolygonGeometry, s.neteditSizeSettings.polylineWidth * polyExaggeration);
+                // pop matrix
+                GLHelper::popMatrix();
             }
-        } else {
-            // push matrix
-            GLHelper::pushMatrix();
-            // set color
-            GLHelper::setColor(color);
-            // draw geometry (polyline)
-            GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myPolygonGeometry, s.neteditSizeSettings.polylineWidth * polyExaggeration);
-            // pop matrix
-            GLHelper::popMatrix();
         }
         // draw contour if shape isn't blocked
         if (!myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkModeOptions()->getMoveWholePolygons()) {
@@ -312,24 +314,50 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
                 }
             }
         }
-        // check if dotted contour has to be drawn
+        // check if mouse is over element
+        if (getFill() || myPolygonGeometry.getShape().isClosed()) {
+            mouseWithinGeometry(myPolygonGeometry.getShape());
+        } else {
+            mouseWithinGeometry(myPolygonGeometry.getShape(), s.neteditSizeSettings.polylineWidth);
+        }
+        // inspect contour
         if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
             // draw depending if is closed
             if (getFill() || myPolygonGeometry.getShape().isClosed()) {
-                GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myPolygonGeometry.getShape(), 1);
+                GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::INSPECT, myPolygonGeometry.getShape(), 1);
             } else {
-                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myPolygonGeometry.getShape(), s.neteditSizeSettings.polylineWidth,
-                        polyExaggeration, 1, 1);
+                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::INSPECT, myPolygonGeometry.getShape(), s.neteditSizeSettings.polylineWidth,
+                        polyExaggeration, true, true);
             }
         }
-        // check if front dotted contour has to be drawn
-        if ((myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
+        // dotted contour
+        if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
             // draw depending if is closed
             if (getFill() || myPolygonGeometry.getShape().isClosed()) {
-                GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::FRONT, s, myPolygonGeometry.getShape(), 1);
+                GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::FRONT, myPolygonGeometry.getShape(), 1);
             } else {
-                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, myPolygonGeometry.getShape(), s.neteditSizeSettings.polylineWidth,
-                        polyExaggeration, 1, 1);
+                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT, myPolygonGeometry.getShape(), s.neteditSizeSettings.polylineWidth,
+                        polyExaggeration, true, true);
+            }
+        }
+        // delete contour
+        if (myNet->getViewNet()->drawDeleteContour(this, this)) {
+            // draw depending if is closed
+            if (getFill() || myPolygonGeometry.getShape().isClosed()) {
+                GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::REMOVE, myPolygonGeometry.getShape(), 1);
+            } else {
+                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, myPolygonGeometry.getShape(), s.neteditSizeSettings.polylineWidth,
+                        polyExaggeration, true, true);
+            }
+        }
+        // select contour
+        if (myNet->getViewNet()->drawSelectContour(this, this)) {
+            // draw depending if is closed
+            if (getFill() || myPolygonGeometry.getShape().isClosed()) {
+                GUIDottedGeometry::drawDottedContourClosedShape(s, GUIDottedGeometry::DottedContourType::SELECT, myPolygonGeometry.getShape(), 1);
+            } else {
+                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::SELECT, myPolygonGeometry.getShape(), s.neteditSizeSettings.polylineWidth,
+                        polyExaggeration, true, true);
             }
         }
         // draw lock icon
@@ -398,7 +426,7 @@ GNEPoly::deleteGeometryPoint(const Position& pos, bool allowUndo) {
         }
         myTesselation.clear();
     } else {
-        WRITE_WARNING("Number of remaining points insufficient")
+        WRITE_WARNING(TL("Number of remaining points insufficient"))
     }
 }
 
@@ -425,7 +453,7 @@ GNEPoly::openPolygon(bool allowUndo) {
             updateGeometry();
         }
     } else {
-        WRITE_WARNING("Polygon already opened")
+        WRITE_WARNING(TL("Polygon already opened"))
     }
 }
 
@@ -446,7 +474,7 @@ GNEPoly::closePolygon(bool allowUndo) {
             updateGeometry();
         }
     } else {
-        WRITE_WARNING("Polygon already closed")
+        WRITE_WARNING(TL("Polygon already closed"))
     }
 }
 
@@ -457,7 +485,7 @@ GNEPoly::changeFirstGeometryPoint(int oldIndex, bool allowUndo) {
     if (oldIndex >= (int)myShape.size()) {
         throw InvalidArgument("Invalid old Index");
     } else if (oldIndex == 0) {
-        WRITE_WARNING("Selected point must be different of the first point")
+        WRITE_WARNING(TL("Selected point must be different of the first point"))
     } else {
         // Configure new shape
         PositionVector newShape;
@@ -522,7 +550,7 @@ GNEPoly::simplifyShape(bool allowUndo) {
         // change flag after setting simplified shape
         mySimplifiedShape = true;
     } else {
-        WRITE_WARNING("Polygon already simplified")
+        WRITE_WARNING(TL("Polygon already simplified"))
     }
 }
 

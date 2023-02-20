@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -101,6 +101,10 @@ MSTransportable::proceed(MSNet* net, SUMOTime time, const bool vehicleArrived) {
     bool accessToStop = false;
     if (prior->getStageType() == MSStageType::WALKING || prior->getStageType() == MSStageType::DRIVING) {
         accessToStop = checkAccess(prior);
+    } else if (prior->getStageType() == MSStageType::WAITING_FOR_DEPART) {
+        for (MSTransportableDevice* const dev : myDevices) {
+            dev->notifyEnter(*this, MSMoveReminder::NOTIFICATION_DEPARTED, nullptr);
+        }
     }
     if (!accessToStop && (myStep == myPlan->end()
                           || ((*myStep)->getStageType() != MSStageType::DRIVING
@@ -127,7 +131,7 @@ MSTransportable::proceed(MSNet* net, SUMOTime time, const bool vehicleArrived) {
 
 void
 MSTransportable::setID(const std::string& /*newID*/) {
-    throw ProcessError("Changing a transportable ID is not permitted");
+    throw ProcessError(TL("Changing a transportable ID is not permitted"));
 }
 
 SUMOTime
@@ -249,11 +253,13 @@ MSTransportable::setAbortWaiting(const SUMOTime timeout) {
 
 SUMOTime
 MSTransportable::abortStage(SUMOTime step) {
-    WRITE_WARNINGF("Teleporting % '%'; waited too long, from edge '%', time=%.",
+    WRITE_WARNINGF(TL("Teleporting % '%'; waited too long, from edge '%', time=%."),
                    isPerson() ? "person" : "container", getID(), (*myStep)->getEdge()->getID(), time2string(step));
+    MSTransportableControl& tc = isPerson() ? MSNet::getInstance()->getPersonControl() : MSNet::getInstance()->getContainerControl();
+    tc.registerTeleportAbortWait();
     (*myStep)->abort(this);
     if (!proceed(MSNet::getInstance(), step)) {
-        MSNet::getInstance()->getPersonControl().erase(this);
+        tc.erase(this);
     }
     return 0;
 }
@@ -310,14 +316,15 @@ MSTransportable::setSpeed(double speed) {
 
 void
 MSTransportable::replaceVehicleType(MSVehicleType* type) {
+    const SUMOVehicleClass oldVClass = myVType->getVehicleClass();
     if (myVType->isVehicleSpecific()) {
         MSNet::getInstance()->getVehicleControl().removeVType(myVType);
     }
     if (isPerson()
-            && type->getVehicleClass() != myVType->getVehicleClass()
+            && type->getVehicleClass() != oldVClass
             && type->getVehicleClass() != SVC_PEDESTRIAN
             && !type->getParameter().wasSet(VTYPEPARS_VEHICLECLASS_SET)) {
-        WRITE_WARNINGF("Person '%' receives type '%' which implicitly uses unsuitable vClass '%'.", getID(), type->getID(), toString(type->getVehicleClass()));
+        WRITE_WARNINGF(TL("Person '%' receives type '%' which implicitly uses unsuitable vClass '%'."), getID(), type->getID(), toString(type->getVehicleClass()));
     }
     myVType = type;
 }
@@ -381,7 +388,7 @@ MSTransportable::rerouteParkingArea(MSStoppingPlace* orig, MSStoppingPlace* repl
 #endif
     assert(getCurrentStageType() == MSStageType::DRIVING);
     if (!myAmPerson) {
-        WRITE_WARNING("parkingAreaReroute not support for containers");
+        WRITE_WARNING(TL("parkingAreaReroute not support for containers"));
         return;
     }
     if (getDestination() == &orig->getLane().getEdge()) {

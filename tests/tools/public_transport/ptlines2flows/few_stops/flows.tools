@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-07-07 11:20:40.496168 by $Id: ptlines2flows.py v1_3_1+0313-ccb31df3eb jakob.erdmann@dlr.de 2019-09-02 13:26:32 +0200 $ v1_13_0+1343-240e5d48340
+<!-- generated on 2022-10-14 08:28:29.257388 by $Id: ptlines2flows.py v1_3_1+0313-ccb31df3eb jakob.erdmann@dlr.de 2019-09-02 13:26:32 +0200 $ v1_14_1+1719-6559bfb
   options: -n net.net.xml -s input_additional.add.xml -l ptlines.xml -o out.flows.xml -p 600 <doubleminus>verbose
 -->
 
@@ -10,11 +10,11 @@
     <vType id="train" vClass="rail"/>
     <vType id="subway" vClass="rail_urban"/>
     <vType id="light_rail" vClass="rail_urban"/>
-    <vType id="monorail" vClass="rail"/>
+    <vType id="monorail" vClass="rail_urban"/>
     <vType id="trolleybus" vClass="bus"/>
     <vType id="minibus" vClass="bus"/>
     <vType id="share_taxi" vClass="taxi"/>
-    <vType id="aerialway" vClass="bus"/>
+    <vType id="aerialway" vClass="rail_urban" length="2.5" width="2" personCapacity="4"/>
     <vType id="ferry" vClass="ship"/>
     <route id="bus_104:0" edges="-391493954#3 -391493954#2 -391493954#1 -391493954#0 -391493952#2 -391493952#1 -391493952#0 -391493950#1 -391493950#0 -391493947 -391493949 -338412122 -110450334#2 -110450334#1" >
         <stop busStop="3959807201" duration="20" until="39.0"/> <!-- Dudenstraße/Katzbachstraße -->

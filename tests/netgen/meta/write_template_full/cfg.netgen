@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-08-25 09:08:49 by Eclipse SUMO netgenerate Version v1_14_1+0513-a1c8b69
+<!-- generated on 2023-01-25 08:44:26 by Eclipse SUMO netgenerate Version v1_15_0+1914-84100d0141c
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -69,6 +69,7 @@
         <alphanumerical-ids value="true" type="BOOL" help="The Ids of generated nodes use an alphanumerical code for easier readability when possible"/>
         <output-file value="" synonymes="o output sumo-output" type="FILE" help="The generated net will be written to FILE"/>
         <plain-output-prefix value="" synonymes="p plain plain-output" type="FILE" help="Prefix of files to write plain xml nodes, edges and connections to"/>
+        <plain-output.lanes value="false" type="BOOL" help="Write all lanes and their attributes even when they are not customized"/>
         <junctions.join-output value="" type="FILE" help="Writes information about joined junctions to FILE (can be loaded as additional node-file to reproduce joins"/>
         <prefix value="" type="STR" help="Defines a prefix for edge and junction names"/>
         <amitran-output value="" type="FILE" help="The generated net will be written to FILE using Amitran format"/>
@@ -111,6 +112,7 @@
         <opposites.guess value="false" type="BOOL" help="Enable guessing of opposite direction lanes usable for overtaking"/>
         <opposites.guess.fix-lengths value="true" type="BOOL" help="Ensure that opposite edges have the same length"/>
         <fringe.guess value="false" type="BOOL" help="Enable guessing of network fringe nodes"/>
+        <fringe.guess.speed-threshold value="13.8889" type="FLOAT" help="Guess disconnected edges above the given speed as outer fringe"/>
         <lefthand value="false" type="BOOL" help="Assumes left-hand traffic on the network"/>
         <edges.join value="false" type="BOOL" help="Merges edges which connect the same nodes and are close to each other (recommended for VISSIM import)"/>
     </processing>
@@ -126,13 +128,15 @@
         <default.sidewalk-width value="2" type="FLOAT" help="The default width of added sidewalks"/>
         <default.bikelane-width value="1" type="FLOAT" help="The default width of added bike lanes"/>
         <default.crossing-width value="4" type="FLOAT" help="The default width of a pedestrian crossing"/>
+        <default.crossing-speed value="2.78" type="FLOAT" help="The default speed &apos;limit&apos; on a pedestrian crossing (in m/s)"/>
+        <default.walkingarea-speed value="2.78" type="FLOAT" help="The default speed &apos;limit&apos; on a pedestrian walkingarea (in m/s)"/>
         <default.allow value="" type="STR" help="The default for allowed vehicle classes"/>
         <default.disallow value="" type="STR" help="The default for disallowed vehicle classes"/>
         <default.junctions.keep-clear value="true" type="BOOL" help="Whether junctions should be kept clear by default"/>
         <default.junctions.radius value="4" type="FLOAT" help="The default turning radius of intersections"/>
         <default.connection-length value="-1" type="FLOAT" help="The default length when overriding connection lengths"/>
         <default.right-of-way value="default" type="STR" help="The default algorithm for computing right of way rules (&apos;default&apos;, &apos;edgePriority&apos;)"/>
-        <default-junction-type value="" synonymes="j junctions" type="STR" help="[traffic_light|priority|right_before_left|traffic_light_right_on_red|priority_stop|allway_stop|...] Determines junction type (see wiki/Networks/PlainXML#Node_types)"/>
+        <default-junction-type value="" synonymes="j junctions" type="STR" help="[traffic_light|priority|right_before_left|left_before_right|traffic_light_right_on_red|priority_stop|allway_stop|...] Determines junction type (see wiki/Networks/PlainXML#Node_types)"/>
     </building_defaults>
 
     <tls_building>
@@ -169,6 +173,7 @@
         <tls.max-dur value="50" type="INT" help="Default maximum phase duration for traffic lights with variable phase length"/>
         <tls.group-signals value="false" type="BOOL" help="Assign the same tls link index to connections that share the same states"/>
         <tls.ungroup-signals value="false" type="BOOL" help="Assign a distinct tls link index to every connection"/>
+        <tls.rebuild value="false" type="BOOL" help="rebuild all traffic light plans in the network"/>
         <tls.discard-simple value="false" type="BOOL" help="Does not instatiate traffic lights at geometry-like nodes"/>
     </tls_building>
 
@@ -190,6 +195,7 @@
 
     <junctions>
         <junctions.right-before-left.speed-threshold value="13.6111" type="FLOAT" help="Allow building right-before-left junctions when the incoming edge speeds are below FLOAT (m/s)"/>
+        <junctions.left-before-right value="false" type="BOOL" help="Build left-before-right junctions instead of right-before-left junctions"/>
         <no-internal-links value="false" type="BOOL" help="Omits internal links"/>
         <no-turnarounds value="false" type="BOOL" help="Disables building turnarounds"/>
         <no-turnarounds.tls value="false" synonymes="no-tls-turnarounds" type="BOOL" help="Disables building turnarounds at tls-controlled junctions"/>
@@ -201,6 +207,7 @@
         <junctions.join value="false" type="BOOL" help="Joins junctions that are close to each other (recommended for OSM import)"/>
         <junctions.join-dist value="10" type="FLOAT" help="Determines the maximal distance for joining junctions (defaults to 10)"/>
         <junctions.join-same value="false" type="BOOL" help="Joins junctions that have the same coordinates even if not connected"/>
+        <max-join-ids value="4" type="INT" help="Abbreviate junction or TLS id if it joins more than INT junctions"/>
         <junctions.corner-detail value="5" type="INT" help="Generate INT intermediate points to smooth out intersection corners"/>
         <junctions.internal-link-detail value="5" type="INT" help="Generate INT intermediate points to smooth out lanes within the intersection"/>
         <junctions.scurve-stretch value="0" type="FLOAT" help="Generate longer intersections to allow for smooth s-curves when the number of lanes changes"/>
@@ -243,12 +250,13 @@
         <print-options value="false" type="BOOL" help="Prints option values before processing"/>
         <help value="false" synonymes="?" type="BOOL" help="Prints this screen or selected topics"/>
         <version value="false" synonymes="V" type="BOOL" help="Prints the current version"/>
-        <xml-validation value="auto" synonymes="X" type="STR" help="Set schema validation scheme of XML inputs (&quot;never&quot;, &quot;auto&quot; or &quot;always&quot;)"/>
+        <xml-validation value="local" synonymes="X" type="STR" help="Set schema validation scheme of XML inputs (&quot;never&quot;, &quot;local&quot;, &quot;auto&quot; or &quot;always&quot;)"/>
         <no-warnings value="false" synonymes="W suppress-warnings" type="BOOL" help="Disables output of warnings"/>
         <aggregate-warnings value="-1" type="INT" help="Aggregate warnings of the same type whenever more than INT occur"/>
         <log value="" synonymes="l log-file" type="FILE" help="Writes all messages to FILE (implies verbose)"/>
         <message-log value="" type="FILE" help="Writes all non-error messages to FILE (implies verbose)"/>
         <error-log value="" type="FILE" help="Writes all warnings and errors to FILE"/>
+        <language value="C" type="STR" help="Language to use in messages"/>
     </report>
 
     <random_number>

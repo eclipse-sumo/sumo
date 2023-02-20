@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2014-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2014-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -31,7 +31,6 @@ import sys
 import csv
 
 sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
-import sumolib  # noqa
 from sumolib.visualization import helpers  # noqa
 import matplotlib.pyplot as plt  # noqa
 
@@ -89,7 +88,10 @@ def main(args=None):
         if options.columns is not None:
             ci = options.columns.index(i)
         c = helpers.getColor(options, ci, len(nums))
-        plt.plot(ts[0:len(v)], v, label=helpers.getLabel(str(i), ci, options), color=c)
+        addArgs = {"linestyle": options.linestyle, "color": c}
+        if options.marker is not None:
+            addArgs["marker"] = options.marker
+        plt.plot(ts[0:len(v)], v, label=helpers.getLabel(str(i), ci, options), **addArgs)
     helpers.closeFigure(fig, ax, options)
 
 

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -35,8 +35,7 @@
 // ===========================================================================
 
 GNETAZSourceSink::GNETAZSourceSink(SumoXMLTag tag, GNENet* net) :
-    GNEAdditional(net, GLO_TAZ, tag, "",
-{}, {}, {}, {}, {}, {}),
+    GNEAdditional(net, GLO_TAZ, tag, GUIIconSubSys::getIcon(GUIIcon::MODETAZ), "", {}, {}, {}, {}, {}, {}),
 myDepartWeight(0) {
     // reset default values
     resetDefaultValues();
@@ -44,8 +43,7 @@ myDepartWeight(0) {
 
 
 GNETAZSourceSink::GNETAZSourceSink(SumoXMLTag sourceSinkTag, GNEAdditional* TAZParent, GNEEdge* edge, double departWeight) :
-    GNEAdditional(TAZParent->getNet(), GLO_TAZ, sourceSinkTag, "",
-{}, {edge}, {}, {TAZParent}, {}, {}),
+    GNEAdditional(TAZParent->getNet(), GLO_TAZ, sourceSinkTag, GUIIconSubSys::getIcon(GUIIcon::MODETAZ), "", {}, {edge}, {}, {TAZParent}, {}, {}),
 myDepartWeight(departWeight) {
     //check that this is a TAZ Source OR a TAZ Sink
     if ((sourceSinkTag != SUMO_TAG_TAZSOURCE) && (sourceSinkTag != SUMO_TAG_TAZSINK)) {
@@ -94,12 +92,6 @@ GNETAZSourceSink::getPositionInView() const {
 }
 
 
-double
-GNETAZSourceSink::getExaggeration(const GUIVisualizationSettings& /*s*/) const {
-    return 1;
-}
-
-
 Boundary
 GNETAZSourceSink::getCenteringBoundary() const {
     return getParentEdges().front()->getCenteringBoundary();
@@ -133,8 +125,8 @@ GNETAZSourceSink::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) 
     buildCenterPopupEntry(ret);
     buildPositionCopyEntry(ret, app);
     // buld menu commands for names
-    GUIDesigns::buildFXMenuCommand(ret, "Copy " + getTagStr() + " name to clipboard", nullptr, ret, MID_COPY_NAME);
-    GUIDesigns::buildFXMenuCommand(ret, "Copy " + getTagStr() + " typed name to clipboard", nullptr, ret, MID_COPY_TYPED_NAME);
+    GUIDesigns::buildFXMenuCommand(ret, TL("Copy ") + getTagStr() + TL(" name to clipboard"), nullptr, ret, MID_COPY_NAME);
+    GUIDesigns::buildFXMenuCommand(ret, TL("Copy ") + getTagStr() + TL(" typed name to clipboard"), nullptr, ret, MID_COPY_TYPED_NAME);
     new FXMenuSeparator(ret);
     // build selection and show parameters menu
     myNet->getViewNet()->buildSelectionACPopupEntry(ret, this);

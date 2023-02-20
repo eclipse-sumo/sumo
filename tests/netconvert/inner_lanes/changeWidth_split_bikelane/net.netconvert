@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-07 16:20:38 by Eclipse SUMO netconvert Version v1_11_0+0928-18c1b433e84
+<!-- generated on 2023-01-25 08:44:35 by Eclipse SUMO netconvert Version v1_15_0+1914-84100d0141c
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -21,13 +26,12 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.9" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="100.00,100.00" convBoundary="0.00,0.00,200.00,200.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -136,52 +140,52 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":C_37_0" index="0" allow="passenger" speed="10.17" length="18.32" shape="91.82,99.11 93.16,99.29 97.85,101.96 100.66,106.42 101.60,112.65"/>
     </edge>
     <edge id=":C_c0" function="crossing" crossingEdges="CN NC">
-        <lane id=":C_c0_0" index="0" allow="pedestrian" speed="1.00" length="14.80" width="4.50" shape="107.40,110.40 92.60,110.40"/>
+        <lane id=":C_c0_0" index="0" allow="pedestrian" speed="2.78" length="14.80" width="4.50" shape="107.40,110.40 92.60,110.40"/>
     </edge>
     <edge id=":C_c1" function="crossing" crossingEdges="CE EC">
-        <lane id=":C_c1_0" index="0" allow="pedestrian" speed="1.00" length="14.80" width="4.50" shape="111.15,92.60 111.15,107.40"/>
+        <lane id=":C_c1_0" index="0" allow="pedestrian" speed="2.78" length="14.80" width="4.50" shape="111.15,92.60 111.15,107.40"/>
     </edge>
     <edge id=":C_c2" function="crossing" crossingEdges="CS SC">
-        <lane id=":C_c2_0" index="0" allow="pedestrian" speed="1.00" length="14.80" width="4.50" shape="92.60,88.10 107.40,88.10"/>
+        <lane id=":C_c2_0" index="0" allow="pedestrian" speed="2.78" length="14.80" width="4.50" shape="92.60,88.10 107.40,88.10"/>
     </edge>
     <edge id=":C_c3" function="crossing" crossingEdges="CW WC">
-        <lane id=":C_c3_0" index="0" allow="pedestrian" speed="1.00" length="14.80" width="4.50" shape="88.85,107.40 88.85,92.60"/>
+        <lane id=":C_c3_0" index="0" allow="pedestrian" speed="2.78" length="14.80" width="4.50" shape="88.85,107.40 88.85,92.60"/>
     </edge>
     <edge id=":C_w0" function="walkingarea">
-        <lane id=":C_w0_0" index="0" allow="pedestrian" speed="1.00" length="4.55" width="4.50" shape="86.60,107.40 86.60,108.90 86.60,111.15 88.10,112.65 91.10,112.65 92.60,112.65 92.43,111.05 91.93,109.73 91.10,108.71 89.93,107.98 88.43,107.55"/>
+        <lane id=":C_w0_0" index="0" allow="pedestrian" speed="2.78" length="4.55" width="4.50" shape="86.60,107.40 86.60,108.90 86.60,111.15 88.10,112.65 91.10,112.65 92.60,112.65 92.43,111.05 91.93,109.73 91.10,108.71 89.93,107.98 88.43,107.55"/>
     </edge>
     <edge id=":C_w1" function="walkingarea">
-        <lane id=":C_w1_0" index="0" allow="pedestrian" speed="1.00" length="4.55" width="4.50" shape="107.40,112.65 108.90,112.65 111.90,112.65 113.40,110.40 113.40,108.90 113.40,107.40 111.57,107.55 110.07,107.98 108.90,108.71 108.07,109.73 107.57,111.05"/>
+        <lane id=":C_w1_0" index="0" allow="pedestrian" speed="2.78" length="4.55" width="4.50" shape="107.40,112.65 108.90,112.65 111.90,112.65 113.40,110.40 113.40,108.90 113.40,107.40 111.57,107.55 110.07,107.98 108.90,108.71 108.07,109.73 107.57,111.05"/>
     </edge>
     <edge id=":C_w2" function="walkingarea">
-        <lane id=":C_w2_0" index="0" allow="pedestrian" speed="1.00" length="5.18" width="4.50" shape="113.40,92.60 113.40,91.10 113.40,87.35 111.90,85.85 108.90,85.85 107.40,85.85 107.57,87.91 108.07,89.60 108.90,90.91 110.07,91.85 111.57,92.41"/>
+        <lane id=":C_w2_0" index="0" allow="pedestrian" speed="2.78" length="5.18" width="4.50" shape="113.40,92.60 113.40,91.10 113.40,87.35 111.90,85.85 108.90,85.85 107.40,85.85 107.57,87.91 108.07,89.60 108.90,90.91 110.07,91.85 111.57,92.41"/>
     </edge>
     <edge id=":C_w3" function="walkingarea">
-        <lane id=":C_w3_0" index="0" allow="pedestrian" speed="1.00" length="5.19" width="4.50" shape="92.60,85.85 91.10,85.85 88.10,85.85 86.60,88.10 86.60,91.10 86.60,92.60 88.43,92.41 89.93,91.85 91.10,90.91 91.93,89.60 92.43,87.91"/>
+        <lane id=":C_w3_0" index="0" allow="pedestrian" speed="2.78" length="5.19" width="4.50" shape="92.60,85.85 91.10,85.85 88.10,85.85 86.60,88.10 86.60,91.10 86.60,92.60 88.43,92.41 89.93,91.85 91.10,90.91 91.93,89.60 92.43,87.91"/>
     </edge>
     <edge id=":E_0" function="internal">
         <lane id=":E_0_0" index="0" allow="passenger" speed="3.65" length="4.67" shape="200.00,98.40 201.20,99.20 201.60,100.00 201.20,100.80 200.00,101.60"/>
     </edge>
     <edge id=":E_w0" function="walkingarea">
-        <lane id=":E_w0_0" index="0" allow="pedestrian" speed="1.00" length="20.43" width="3.75" shape="200.00,108.90 200.00,110.40 200.00,87.35 200.00,91.10"/>
+        <lane id=":E_w0_0" index="0" allow="pedestrian" speed="2.78" length="20.43" width="3.75" shape="200.00,108.90 200.00,110.40 200.00,87.35 200.00,91.10"/>
     </edge>
     <edge id=":N_0" function="internal">
         <lane id=":N_0_0" index="0" allow="passenger" speed="3.65" length="4.67" shape="101.60,200.00 100.80,201.20 100.00,201.60 99.20,201.20 98.40,200.00"/>
     </edge>
     <edge id=":N_w0" function="walkingarea">
-        <lane id=":N_w0_0" index="0" allow="pedestrian" speed="1.00" length="20.80" width="3.00" shape="91.10,200.00 88.10,200.00 111.90,200.00 108.90,200.00"/>
+        <lane id=":N_w0_0" index="0" allow="pedestrian" speed="2.78" length="20.80" width="3.00" shape="91.10,200.00 88.10,200.00 111.90,200.00 108.90,200.00"/>
     </edge>
     <edge id=":S_0" function="internal">
         <lane id=":S_0_0" index="0" allow="passenger" speed="3.65" length="4.67" width="3.20" shape="98.40,0.00 99.20,-1.20 100.00,-1.60 100.80,-1.20 101.60,0.00"/>
     </edge>
     <edge id=":S_w0" function="walkingarea">
-        <lane id=":S_w0_0" index="0" allow="pedestrian" speed="1.00" length="20.80" width="3.00" shape="108.90,0.00 111.90,0.00 88.10,0.00 91.10,0.00"/>
+        <lane id=":S_w0_0" index="0" allow="pedestrian" speed="2.78" length="20.80" width="3.00" shape="108.90,0.00 111.90,0.00 88.10,0.00 91.10,0.00"/>
     </edge>
     <edge id=":W_0" function="internal">
         <lane id=":W_0_0" index="0" allow="passenger" speed="3.65" length="4.67" shape="0.00,101.60 -1.20,100.80 -1.60,100.00 -1.20,99.20 0.00,98.40"/>
     </edge>
     <edge id=":W_w0" function="walkingarea">
-        <lane id=":W_w0_0" index="0" allow="pedestrian" speed="1.00" length="20.43" width="3.00" shape="0.00,91.10 0.00,88.10 0.00,111.15 0.00,108.90"/>
+        <lane id=":W_w0_0" index="0" allow="pedestrian" speed="2.78" length="20.43" width="3.00" shape="0.00,91.10 0.00,88.10 0.00,111.15 0.00,108.90"/>
     </edge>
 
     <edge id="CE" from="C" to="E" priority="3">

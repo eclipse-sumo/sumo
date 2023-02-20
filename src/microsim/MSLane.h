@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -273,8 +273,13 @@ public:
      *
      * @param[in] id The lane's id
      */
-    void addNeigh(const std::string& id);
+    void setOpposite(MSLane* oppositeLane);
 
+    /** @brief Adds the (overlapping) reverse direction lane to this lane
+     *
+     * @param[in] id The lane's id
+     */
+    void setBidiLane(MSLane* bidyLane);
     ///@}
 
     /// @name Used by the GUI for secondary shape visualization
@@ -834,6 +839,9 @@ public:
     /** Returns whether the lane pertains to a normal edge*/
     bool isNormal() const;
 
+    /** Returns whether the lane pertains to a crossing edge*/
+    bool isCrossing() const;
+
     /// @brief returns the last vehicle for which this lane is responsible or 0
     MSVehicle* getLastFullVehicle() const;
 
@@ -1276,7 +1284,7 @@ public:
     bool hasPedestrians() const;
 
     /// This is just a wrapper around MSPModel::nextBlocking. You should always check using hasPedestrians before calling this method.
-    std::pair<const MSPerson*, double> nextBlocking(double minPos, double minRight, double maxLeft, double stopTime = 0) const;
+    std::pair<const MSPerson*, double> nextBlocking(double minPos, double minRight, double maxLeft, double stopTime = 0, bool bidi = false) const;
 
     /// @brief return the empty space up to the last standing vehicle or the empty space on the whole lane if no vehicle is standing
     double getSpaceTillLastStanding(const MSVehicle* ego, bool& foundStopped) const;
@@ -1498,8 +1506,11 @@ protected:
     /// @brief whether a collision check is currently needed
     bool myNeedsCollisionCheck;
 
-    // @brief the ids of neighboring lanes
-    std::vector<std::string> myNeighs;
+    // @brief the neighboring opposite direction or nullptr
+    MSLane* myOpposite;
+
+    // @brief bidi lane or nullptr
+    MSLane* myBidiLane;
 
     // @brief transient changes in permissions
     std::map<long long, SVCPermissions> myPermissionChanges;

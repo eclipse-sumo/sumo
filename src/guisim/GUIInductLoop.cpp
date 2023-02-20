@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -28,6 +28,7 @@
 #include <utils/gui/globjects/GLIncludes.h>
 #include <microsim/logging/FunctionBinding.h>
 #include <microsim/logging/FuncBinding_IntParam.h>
+#include <microsim/logging/CastingFunctionBinding_Param.h>
 #include <microsim/MSLane.h>
 #include <microsim/output/MSInductLoop.h>
 #include "GUIEdge.h"
@@ -43,10 +44,10 @@
  * ----------------------------------------------------------------------- */
 GUIInductLoop::GUIInductLoop(const std::string& id, MSLane* const lane,
                              double position, double length,
-                             const std::string& vTypes,
+                             std::string name, const std::string& vTypes,
                              const std::string& nextEdges,
                              int detectPersons, bool show) :
-    MSInductLoop(id, lane, position, length, vTypes, nextEdges, detectPersons, true),
+    MSInductLoop(id, lane, position, length, name, vTypes, nextEdges, detectPersons, true),
     myWrapper(nullptr),
     myShow(show) {
 }
@@ -79,7 +80,7 @@ GUIInductLoop::setSpecialColor(const RGBColor* color) {
 // -------------------------------------------------------------------------
 
 GUIInductLoop::MyWrapper::MyWrapper(GUIInductLoop& detector, double pos) :
-    GUIDetectorWrapper(GLO_E1DETECTOR, detector.getID()),
+    GUIDetectorWrapper(GLO_E1DETECTOR, detector.getID(), GUIIconSubSys::getIcon(GUIIcon::E1)),
     myDetector(detector), myPosition(pos),
     myHaveLength(myPosition != detector.getEndPosition()),
     mySpecialColor(nullptr) {
@@ -135,6 +136,7 @@ GUIInductLoop::MyWrapper::getParameterWindow(GUIMainWindow& app,
     GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
     // add items
     // parameter
+    ret->mkItem("name", false, myDetector.getName());
     ret->mkItem("position [m]", false, myPosition);
     if (myDetector.getEndPosition() != myPosition) {
         ret->mkItem("end position [m]", false, myDetector.getEndPosition());
@@ -153,6 +155,18 @@ GUIInductLoop::MyWrapper::getParameterWindow(GUIMainWindow& app,
                 new FunctionBinding<GUIInductLoop, double>(&myDetector, &GUIInductLoop::getTimeSinceLastDetection));
     ret->mkItem("occupied time [s]", true,
                 new FunctionBinding<GUIInductLoop, double>(&myDetector, &GUIInductLoop::getOccupancyTime));
+    ret->mkItem("interval entered vehicles [#]", true,
+                new CastingFunctionBinding_Param<GUIInductLoop, double, int, bool>(&myDetector, &GUIInductLoop::getIntervalVehicleNumber, false));
+    ret->mkItem("interval speed [m/s]", true,
+                new CastingFunctionBinding_Param<GUIInductLoop, double, double, bool>(&myDetector, &GUIInductLoop::getIntervalMeanSpeed, false));
+    ret->mkItem("interval occupancy [%]", true,
+                new CastingFunctionBinding_Param<GUIInductLoop, double, double, bool>(&myDetector, &GUIInductLoop::getIntervalOccupancy, false));
+    ret->mkItem("last interval entered vehicles [#]", true,
+                new CastingFunctionBinding_Param<GUIInductLoop, double, int, bool>(&myDetector, &GUIInductLoop::getIntervalVehicleNumber, true));
+    ret->mkItem("last interval speed [m/s]", true,
+                new CastingFunctionBinding_Param<GUIInductLoop, double, double, bool>(&myDetector, &GUIInductLoop::getIntervalMeanSpeed, true));
+    ret->mkItem("last interval occupancy [%]", true,
+                new CastingFunctionBinding_Param<GUIInductLoop, double, double, bool>(&myDetector, &GUIInductLoop::getIntervalOccupancy, true));
     // close building
     ret->closeBuilding(&myDetector);
     return ret;

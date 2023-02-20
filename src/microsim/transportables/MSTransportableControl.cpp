@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -52,6 +52,8 @@ MSTransportableControl::MSTransportableControl(const bool isPerson):
     myWaitingUntilNumber(0),
     myEndedNumber(0),
     myArrivedNumber(0),
+    myTeleportsAbortWait(0),
+    myTeleportsWrongDest(0),
     myHaveNewWaiting(false) {
     const OptionsCont& oc = OptionsCont::getOptions();
     MSNet* const net = MSNet::getInstance();
@@ -63,7 +65,7 @@ MSTransportableControl::MSTransportableControl(const bool isPerson):
         } else if (model == "nonInteracting") {
             myMovementModel = myNonInteractingModel;
         } else {
-            throw ProcessError("Unknown pedestrian model '" + model + "'");
+            throw ProcessError(TLF("Unknown pedestrian model '%'", model));
         }
     } else {
         myMovementModel = myNonInteractingModel = new MSPModel_NonInteracting(oc, net);
@@ -142,14 +144,16 @@ MSTransportableControl::erase(MSTransportable* transportable) {
         transportable->tripInfoOutput(dev);
     }
     if (oc.isSet("vehroute-output") || oc.isSet("personroute-output")) {
-        if (oc.getBool("vehroute-output.sorted")) {
-            const SUMOTime departure = oc.getBool("vehroute-output.intended-depart") ? transportable->getParameter().depart : transportable->getDeparture();
-            OutputDevice_String od(1);
-            transportable->routeOutput(od, oc.getBool("vehroute-output.route-length"));
-            MSDevice_Vehroutes::writeSortedOutput(&myRouteInfos,
-                                                  departure, transportable->getID(), od.getString());
-        } else {
-            transportable->routeOutput(*myRouteInfos.routeOut, oc.getBool("vehroute-output.route-length"));
+        if (transportable->hasArrived() || oc.getBool("vehroute-output.write-unfinished")) {
+            if (oc.getBool("vehroute-output.sorted")) {
+                const SUMOTime departure = oc.getBool("vehroute-output.intended-depart") ? transportable->getParameter().depart : transportable->getDeparture();
+                OutputDevice_String od(1);
+                transportable->routeOutput(od, oc.getBool("vehroute-output.route-length"));
+                MSDevice_Vehroutes::writeSortedOutput(&myRouteInfos,
+                                                      departure, transportable->getID(), od.getString());
+            } else {
+                transportable->routeOutput(*myRouteInfos.routeOut, oc.getBool("vehroute-output.route-length"));
+            }
         }
     }
     const std::map<std::string, MSTransportable*>::iterator i = myTransportables.find(transportable->getID());
@@ -168,7 +172,7 @@ void
 MSTransportableControl::setWaitEnd(const SUMOTime time, MSTransportable* transportable) {
     const SUMOTime step = time % DELTA_T == 0 ? time : (time / DELTA_T + 1) * DELTA_T;
     // avoid double registration
-    const TransportableVector& transportables = myWaiting4Departure[step];
+    const TransportableVector& transportables = myWaitingUntil[step];
     if (std::find(transportables.begin(), transportables.end(), transportable) == transportables.end()) {
         myWaitingUntil[step].push_back(transportable);
         myWaitingUntilNumber++;
@@ -207,15 +211,15 @@ MSTransportableControl::checkWaiting(MSNet* net, const SUMOTime time) {
         myWaiting4Departure.erase(time);
     }
     while (myWaitingUntil.find(time) != myWaitingUntil.end()) {
-        const TransportableVector& transportables = myWaitingUntil[time];
-        // we cannot use an iterator here because there might be additions to the vector while proceeding
-        for (int i = 0; i < (int)transportables.size(); ++i) {
+        // make a copy because 0-duration stops might modify the vector
+        const TransportableVector transportables = myWaitingUntil[time];
+        myWaitingUntil.erase(time);
+        for (MSTransportable* t : transportables) {
             myWaitingUntilNumber--;
-            if (!transportables[i]->proceed(net, time)) {
-                erase(transportables[i]);
+            if (!t->proceed(net, time)) {
+                erase(t);
             }
         }
-        myWaitingUntil.erase(time);
     }
 }
 

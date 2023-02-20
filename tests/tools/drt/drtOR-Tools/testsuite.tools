@@ -1,0 +1,20 @@
+# Test value of '1' for direct route factor.
+direct_route_factor_1
+
+# Set a value of 3 for the direct route factor.
+direct_route_factor_3
+
+# Add new request while taxi is already occupied and recalculate dispatch.
+oneTaxi_addNewReq
+
+# Add new request while taxis are already occupied and recalculate dispatch. Due to SUMO currently does not allow re-dispatching (ticket #11619) allways use option --fix-allocation to keep the allocations all the time.
+twoTaxis_addNewReq_fixed_allocation
+
+# test ortools
+twoTaxis
+
+# Test, whether the pickup_earliest and dropoff_latest are hold influence the result.
+time_window1
+
+# Test, whether the pickup_earliest and dropoff_latest are hold influence the result.
+time_window2

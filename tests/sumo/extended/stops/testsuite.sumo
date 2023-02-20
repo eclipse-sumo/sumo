@@ -11,6 +11,9 @@ parkingArea_onRoad
 # skip stops if possible
 onDemand
 
+# routes and trips with intentional gaps
+jumps
+
 # test invalid stop definitions
 errors
 
@@ -19,6 +22,12 @@ simple_stop
 
 # define stop at start of edge
 close_to_start
+
+# define stop at start of edge
+very_close_to_start_copy
+
+# stop on position 0 of a lane
+at_start
 
 # tests  behavior when duration 0 is set
 duration_0
@@ -49,9 +58,6 @@ second_near_end1
 
 # As second_near_end1, but the last stop is on a lane which can not be used to continue the route
 second_near_end2
-
-# stop on position 0 of a lane
-at_start
 
 # Tests whether stopped vehicles can be overtaken
 overtaking

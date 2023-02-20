@@ -1,0 +1,2 @@
+-n net.net.xml -s 42 --pedestrians -e 100 --min-distance 1
+--fringe-factor 100

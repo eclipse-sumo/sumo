@@ -216,6 +216,7 @@
         <xsd:attribute name="id" type="xsd:string" use="required"/>
         <xsd:attribute name="depart" type="xsd:integer" use="required"/>
         <xsd:attribute name="parking" type="xsd:string" use="optional"/>
+        <xsd:attribute name="jump" type="boolType" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="railSignalConstraintTrackerType">

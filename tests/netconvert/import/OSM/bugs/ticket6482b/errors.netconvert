@@ -1,7 +1,24 @@
-Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.primary' (first occurence for edge '4380937').
-Warning: Discarding unknown compound 'cycleway.opposite' in type 'cycleway.opposite|highway.residential' (first occurence for edge '154755108').
-Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.secondary' (first occurence for edge '167324659').
+Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.primary' (first occurrence for edge '4380937').
+Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.secondary' (first occurrence for edge '167324659').
+Warning: Removing pt stop '2654726947' on non existing edge '260019022'.
+Warning: Removing pt stop '4040475723' on non existing edge '154743408'.
 Warning: No way found for reference '150031205' in relation '1967696'
 Warning: Ignoring restriction relation '1967696' with unknown from-way.
 Warning: No way found for reference '219098055' in relation '2661670'
 Warning: Ignoring restriction relation '2661670' with unknown from-way.
+Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '443844' (Rothgerberbach/Poststraße). Thus, it will be removed!
+Warning: Cannot revise pt stop localization for pt line '6027289', which consist of one way only. Ignoring!
+Warning: Removed invalid stop '4040475723' from line '6027289'.
+Warning: Cannot revise pt stop localization for pt line '6027290', which consist of one way only. Ignoring!
+Warning: Removed invalid stop '2654726947' from line '6027290'.
+Warning: Cannot revise pt stop localization for pt line '6027498', which consist of one way only. Ignoring!
+Warning: Removed invalid stop '4040475723' from line '6027498'.
+Warning: Cannot revise pt stop localization for pt line '6027499', which consist of one way only. Ignoring!
+Warning: Removed invalid stop '2654726947' from line '6027499'.
+Warning: Cannot revise pt stop localization for pt line '6029878', which consist of one way only. Ignoring!
+Warning: Removed invalid stop '4040475723' from line '6029878'.
+Warning: Removing pt stop '2654726947' on non existing edge ''.
+Warning: Removing pt stop '4040475723' on non existing edge ''.
+Warning: Removed 2 pt stops because they could not be assigned to the network
+Warning: 8 total messages of type: Cannot revise pt stop localization for pt line '%', which consist of one way only. Ignoring!
+Warning: 8 total messages of type: Removed invalid stop '%' from line '%'.

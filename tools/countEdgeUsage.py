@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -108,14 +108,20 @@ def hasSubpart(edges, subparts):
     return False
 
 
-def getEdges(elem, taz):
+def getEdges(elem, taz, routeDict):
     edges = []
     src = None
     dst = None
     if elem.edges:
         edges = elem.edges.split()
     if elem.route:
-        edges = elem.route[0].edges.split()
+        if type(elem.route) != list:
+            # named route
+            edges = routeDict.get(elem.route, [])
+            if not edges:
+                print("Unknown route id '%s' for %s '%s'" % (elem.route, elem.name, elem.id))
+        else:
+            edges = elem.route[0].edges.split()
     if edges:
         src = edges[0]
         dst = edges[-1]
@@ -171,6 +177,12 @@ def parseSimple(outf, options):
 
     for element in options.elements:
         for routefile in options.routefiles:
+            if element == 'route':
+                for route in parse_fast(routefile, element, ['id']):
+                    print(("Warning: Cannot handle named routes in file '%s'." +
+                           " Use option --elements vehicle,flows instead") % routefile,
+                          file=sys.stderr)
+                    break
             for route in parse_fast(routefile, element, ['edges']):
                 edges = route.edges.split()
                 if not hasSubpart(edges, options.subparts):
@@ -222,7 +234,16 @@ def parseTimed(outf, options):
     period = options.period if options.period else options.end
     begin = options.begin
     periodEnd = options.period if options.period else options.end
+    routeDict = {}  # routeID -> edges
 
+    # parse named routes
+    for routefile in options.routefiles:
+        for elem in parse(routefile, 'route'):
+            if elem.id:
+                src, dst, edges = getEdges(elem, False, None)
+                routeDict[elem.id] = edges
+
+    # parse the elements
     for routefile in options.routefiles:
         for elem in parse(routefile, options.elements2):
             depart = elem.depart if elem.depart is not None else elem.begin
@@ -244,7 +265,7 @@ def parseTimed(outf, options):
                 if depart >= options.end:
                     break
             number = getFlowNumber(elem) if elem.name == 'flow' else 1
-            src, dst, edges = getEdges(elem, options.taz)
+            src, dst, edges = getEdges(elem, options.taz, routeDict)
             filterBy = [src, dst] if options.taz or not edges else edges
             if not hasSubpart(filterBy, options.subparts):
                 continue

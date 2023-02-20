@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2012-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -195,6 +195,19 @@ Vehicle::getRouteID(const std::string& vehID) {
 }
 
 
+double
+Vehicle::getDeparture(const std::string& vehID) {
+    MSBaseVehicle* veh = Helper::getVehicle(vehID);
+    return veh->hasDeparted() ? STEPS2TIME(veh->getDeparture()) : INVALID_DOUBLE_VALUE;
+}
+
+
+double
+Vehicle::getDepartDelay(const std::string& vehID) {
+    return STEPS2TIME(Helper::getVehicle(vehID)->getDepartDelay());
+}
+
+
 int
 Vehicle::getRouteIndex(const std::string& vehID) {
     MSBaseVehicle* veh = Helper::getVehicle(vehID);
@@ -276,6 +289,13 @@ int
 Vehicle::getPersonCapacity(const std::string& vehID) {
     return Helper::getVehicleType(vehID).getPersonCapacity();
 }
+
+
+double
+Vehicle::getBoardingDuration(const std::string& vehID) {
+    return STEPS2TIME(Helper::getVehicleType(vehID).getLoadingDuration(true));
+}
+
 
 std::vector<std::string>
 Vehicle::getPersonIDList(const std::string& vehID) {
@@ -460,7 +480,7 @@ Vehicle::getNextTLS(const std::string& vehID) {
             }
         }
     } else {
-        WRITE_WARNING("getNextTLS not yet implemented for meso");
+        WRITE_WARNING(TL("getNextTLS not yet implemented for meso"));
     }
     return result;
 }
@@ -483,7 +503,7 @@ Vehicle::getStops(const std::string& vehID, int limit) {
         }
     } else {
         for (const MSStop& stop : vehicle->getStops()) {
-            if (!stop.collision) {
+            if (!stop.pars.collision) {
                 TraCINextStopData nsd = Helper::buildStopData(stop.pars);
                 nsd.duration = STEPS2TIME(stop.duration);
                 result.push_back(nsd);
@@ -502,7 +522,7 @@ Vehicle::getStopState(const std::string& vehID) {
     MSBaseVehicle* vehicle = Helper::getVehicle(vehID);
     MSVehicle* veh = dynamic_cast<MSVehicle*>(vehicle);
     if (veh == nullptr) {
-        WRITE_WARNING("getStopState not yet implemented for meso");
+        WRITE_WARNING(TL("getStopState not yet implemented for meso"));
         return 0;
     }
     int result = 0;
@@ -718,11 +738,11 @@ Vehicle::getFollowSpeed(const std::string& vehID, double speed, double gap, doub
     MSBaseVehicle* vehicle = Helper::getVehicle(vehID);
     MSVehicle* veh = dynamic_cast<MSVehicle*>(vehicle);
     if (veh == nullptr) {
-        WRITE_ERROR("getFollowSpeed not applicable for meso");
+        WRITE_ERROR(TL("getFollowSpeed not applicable for meso"));
         return INVALID_DOUBLE_VALUE;
     }
     MSVehicle* leader = dynamic_cast<MSVehicle*>(MSNet::getInstance()->getVehicleControl().getVehicle(leaderID));
-    return veh->getCarFollowModel().followSpeed(veh, speed, gap, leaderSpeed, leaderMaxDecel, leader);
+    return veh->getCarFollowModel().followSpeed(veh, speed, gap, leaderSpeed, leaderMaxDecel, leader, MSCFModel::CalcReason::FUTURE);
 }
 
 
@@ -731,7 +751,7 @@ Vehicle::getSecureGap(const std::string& vehID, double speed, double leaderSpeed
     MSBaseVehicle* vehicle = Helper::getVehicle(vehID);
     MSVehicle* veh = dynamic_cast<MSVehicle*>(vehicle);
     if (veh == nullptr) {
-        WRITE_ERROR("getSecureGap not applicable for meso");
+        WRITE_ERROR(TL("getSecureGap not applicable for meso"));
         return INVALID_DOUBLE_VALUE;
     }
     MSVehicle* leader = dynamic_cast<MSVehicle*>(MSNet::getInstance()->getVehicleControl().getVehicle(leaderID));
@@ -744,10 +764,10 @@ Vehicle::getStopSpeed(const std::string& vehID, const double speed, double gap) 
     MSBaseVehicle* vehicle = Helper::getVehicle(vehID);
     MSVehicle* veh = dynamic_cast<MSVehicle*>(vehicle);
     if (veh == nullptr) {
-        WRITE_ERROR("getStopSpeed not applicable for meso");
+        WRITE_ERROR(TL("getStopSpeed not applicable for meso"));
         return INVALID_DOUBLE_VALUE;
     }
-    return veh->getCarFollowModel().stopSpeed(veh, speed, gap);
+    return veh->getCarFollowModel().stopSpeed(veh, speed, gap, MSCFModel::CalcReason::FUTURE);
 }
 
 double
@@ -783,6 +803,29 @@ Vehicle::getTaxiFleet(int taxiState) {
         }
     }
     return result;
+}
+
+std::vector<std::string>
+Vehicle::getLoadedIDList() {
+    std::vector<std::string> ids;
+    MSVehicleControl& c = MSNet::getInstance()->getVehicleControl();
+    for (MSVehicleControl::constVehIt i = c.loadedVehBegin(); i != c.loadedVehEnd(); ++i) {
+        ids.push_back(i->first);
+    }
+    return ids;
+}
+
+std::vector<std::string>
+Vehicle::getTeleportingIDList() {
+    std::vector<std::string> ids;
+    MSVehicleControl& c = MSNet::getInstance()->getVehicleControl();
+    for (MSVehicleControl::constVehIt i = c.loadedVehBegin(); i != c.loadedVehEnd(); ++i) {
+        SUMOVehicle* veh = i->second;
+        if (veh->hasDeparted() && !isVisible(veh)) {
+            ids.push_back(veh->getID());
+        }
+    }
+    return ids;
 }
 
 std::string
@@ -952,7 +995,7 @@ Vehicle::replaceStop(const std::string& vehID,
                 throw TraCIException("Stop replacement failed for vehicle '" + vehID + "' (" + error + ").");
             }
         } else if (teleport != 0) {
-            WRITE_WARNING("Stop replacement parameter 'teleport=" + toString(teleport) + "' ignored for vehicle '" + vehID + "' when only removing stop.");
+            WRITE_WARNINGF(TL("Stop replacement parameter 'teleport=%' ignored for vehicle '%' when only removing stop."), toString(teleport), vehID);
         }
         if (!ok) {
             throw TraCIException("Stop replacement failed for vehicle '" + vehID + "' (invalid nextStopIndex).");
@@ -1058,8 +1101,10 @@ Vehicle::getStopParameter(const std::string& vehID, int nextStopIndex, const std
             return pars.started < 0 ? "-1" : time2string(pars.started);
         } else if (param == toString(SUMO_ATTR_ENDED)) {
             return pars.ended < 0 ? "-1" : time2string(pars.ended);
+        } else if (param == toString(SUMO_ATTR_ONDEMAND)) {
+            return toString(pars.onDemand);
         } else {
-            throw ProcessError("Unsupported parameter '" + param + "'");
+            throw ProcessError(TLF("Unsupported parameter '%'", param));
         }
     } catch (ProcessError& e) {
         throw TraCIException("Could not get stop parameter for vehicle '" + vehID + "' (" + e.what() + ")");
@@ -1119,6 +1164,8 @@ Vehicle::setStopParameter(const std::string& vehID, int nextStopIndex,
         } else if (param == toString(SUMO_ATTR_DURATION)) {
             pars.duration = string2time(value);
             pars.parametersSet |= STOP_DURATION_SET;
+            // also update dynamic value
+            stop.duration = pars.duration;
         } else if (param == toString(SUMO_ATTR_UNTIL)) {
             pars.until = string2time(value);
             pars.parametersSet |= STOP_UNTIL_SET;
@@ -1128,7 +1175,7 @@ Vehicle::setStopParameter(const std::string& vehID, int nextStopIndex,
         } else if (param == toString(SUMO_ATTR_INDEX)) {
             throw TraCIException("Changing stop index is not supported");
         } else if (param == toString(SUMO_ATTR_PARKING)) {
-            pars.parking = StringUtils::toBool(value);
+            pars.parking = SUMOVehicleParameter::parseParkingType(value);
             pars.parametersSet |= STOP_PARKING_SET;
         } else if (param == toString(SUMO_ATTR_TRIGGERED)) {
             SUMOVehicleParameter::parseStopTriggers(StringTokenizer(value).getVector(), false, pars);
@@ -1165,8 +1212,11 @@ Vehicle::setStopParameter(const std::string& vehID, int nextStopIndex,
         } else if (param == toString(SUMO_ATTR_ENDED)) {
             pars.ended = string2time(value);
             pars.parametersSet |= STOP_ENDED_SET;
+        } else if (param == toString(SUMO_ATTR_ONDEMAND)) {
+            pars.onDemand = StringUtils::toBool(value);
+            pars.parametersSet |= STOP_ONDEMAND_SET;
         } else {
-            throw ProcessError("Unsupported parameter '" + param + "'");
+            throw ProcessError(TLF("Unsupported parameter '%'", param));
         }
     } catch (ProcessError& e) {
         throw TraCIException("Could not set stop parameter for vehicle '" + vehID + "' (" + e.what() + ")");
@@ -1179,7 +1229,7 @@ Vehicle::rerouteParkingArea(const std::string& vehID, const std::string& parking
     MSBaseVehicle* vehicle = Helper::getVehicle(vehID);
     MSVehicle* veh = dynamic_cast<MSVehicle*>(vehicle);
     if (veh == nullptr) {
-        WRITE_WARNING("rerouteParkingArea not yet implemented for meso");
+        WRITE_WARNING(TL("rerouteParkingArea not yet implemented for meso"));
         return;
     }
     std::string error;
@@ -1194,7 +1244,7 @@ Vehicle::resume(const std::string& vehID) {
     MSBaseVehicle* vehicle = Helper::getVehicle(vehID);
     MSVehicle* veh = dynamic_cast<MSVehicle*>(vehicle);
     if (veh == nullptr) {
-        WRITE_WARNING("resume not yet implemented for meso");
+        WRITE_WARNING(TL("resume not yet implemented for meso"));
         return;
     }
     if (!veh->hasStops()) {
@@ -1246,7 +1296,7 @@ Vehicle::changeLane(const std::string& vehID, int laneIndex, double duration) {
     MSBaseVehicle* vehicle = Helper::getVehicle(vehID);
     MSVehicle* veh = dynamic_cast<MSVehicle*>(vehicle);
     if (veh == nullptr) {
-        WRITE_ERROR("changeLane not applicable for meso");
+        WRITE_ERROR(TL("changeLane not applicable for meso"));
         return;
     }
 
@@ -1261,7 +1311,7 @@ Vehicle::changeLaneRelative(const std::string& vehID, int indexOffset, double du
     MSBaseVehicle* vehicle = Helper::getVehicle(vehID);
     MSVehicle* veh = dynamic_cast<MSVehicle*>(vehicle);
     if (veh == nullptr) {
-        WRITE_ERROR("changeLaneRelative not applicable for meso");
+        WRITE_ERROR(TL("changeLaneRelative not applicable for meso"));
         return;
     }
 
@@ -1269,9 +1319,9 @@ Vehicle::changeLaneRelative(const std::string& vehID, int indexOffset, double du
     int laneIndex = veh->getLaneIndex() + indexOffset;
     if (laneIndex < 0 && !veh->getLaneChangeModel().isOpposite()) {
         if (veh->getLaneIndex() == -1) {
-            WRITE_WARNING("Ignoring changeLaneRelative for vehicle '" + vehID + "' that isn't on the road");
+            WRITE_WARNINGF(TL("Ignoring changeLaneRelative for vehicle '%' that isn't on the road"), vehID);
         } else {
-            WRITE_WARNING("Ignoring indexOffset " + toString(indexOffset) + " for vehicle '" + vehID + "' on laneIndex " + toString(veh->getLaneIndex()));
+            WRITE_WARNINGF(TL("Ignoring indexOffset % for vehicle '%' on laneIndex %."), indexOffset, vehID, veh->getLaneIndex());
         }
     } else {
         laneTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep(), laneIndex));
@@ -1286,7 +1336,7 @@ Vehicle::changeSublane(const std::string& vehID, double latDist) {
     MSBaseVehicle* vehicle = Helper::getVehicle(vehID);
     MSVehicle* veh = dynamic_cast<MSVehicle*>(vehicle);
     if (veh == nullptr) {
-        WRITE_ERROR("changeSublane not applicable for meso");
+        WRITE_ERROR(TL("changeSublane not applicable for meso"));
         return;
     }
 
@@ -1321,7 +1371,7 @@ Vehicle::add(const std::string& vehID,
     if (!vehicleType) {
         throw TraCIException("Invalid type '" + typeID + "' for vehicle '" + vehID + "'.");
     }
-    const MSRoute* route = MSRoute::dictionary(routeID);
+    ConstMSRoutePtr route = MSRoute::dictionary(routeID);
     if (!route) {
         if (routeID == "") {
             // assume, route was intentionally left blank because the caller
@@ -1363,7 +1413,7 @@ Vehicle::add(const std::string& vehID,
     }
     if (vehicleParams.departProcedure == DepartDefinition::GIVEN && vehicleParams.depart < MSNet::getInstance()->getCurrentTimeStep()) {
         vehicleParams.depart = MSNet::getInstance()->getCurrentTimeStep();
-        WRITE_WARNING("Departure time for vehicle '" + vehID + "' is in the past; using current time instead.");
+        WRITE_WARNINGF(TL("Departure time for vehicle '%' is in the past; using current time instead."), vehID);
     } else if (vehicleParams.departProcedure == DepartDefinition::NOW) {
         vehicleParams.depart = MSNet::getInstance()->getCurrentTimeStep();
     }
@@ -1455,7 +1505,7 @@ Vehicle::moveToXY(const std::string& vehID, const std::string& edgeID, const int
     MSBaseVehicle* vehicle = Helper::getVehicle(vehID);
     MSVehicle* veh = dynamic_cast<MSVehicle*>(vehicle);
     if (veh == nullptr) {
-        WRITE_WARNING("moveToXY not yet implemented for meso");
+        WRITE_WARNING(TL("moveToXY not yet implemented for meso"));
         return;
     }
     const bool doKeepRoute = (keepRoute & 1) != 0 && veh->getID() != "VTD_EGO";
@@ -1529,7 +1579,7 @@ Vehicle::moveToXY(const std::string& vehID, const std::string& edgeID, const int
                 try {
                     tmp.move2side(-lanePosLat); // moved to left
                 } catch (ProcessError&) {
-                    WRITE_WARNING("Could not determine position on lane '" + lane->getID() + "' at lateral position " + toString(-lanePosLat) + ".");
+                    WRITE_WARNINGF(TL("Could not determine position on lane '%' at lateral position %."), lane->getID(), toString(-lanePosLat));
                 }
                 //std::cout << " lane=" << lane->getID() << " posLat=" << lanePosLat << " shape=" << lane->getShape() << " tmp=" << tmp << " tmpDist=" << tmp.distance2D(pos) << "\n";
                 if (tmp.distance2D(pos) > perpDist) {
@@ -1574,7 +1624,7 @@ Vehicle::slowDown(const std::string& vehID, double speed, double duration) {
     MSBaseVehicle* vehicle = Helper::getVehicle(vehID);
     MSVehicle* veh = dynamic_cast<MSVehicle*>(vehicle);
     if (veh == nullptr) {
-        WRITE_ERROR("slowDown not applicable for meso");
+        WRITE_ERROR(TL("slowDown not applicable for meso"));
         return;
     }
 
@@ -1589,7 +1639,7 @@ Vehicle::openGap(const std::string& vehID, double newTimeHeadway, double newSpac
     MSBaseVehicle* vehicle = Helper::getVehicle(vehID);
     MSVehicle* veh = dynamic_cast<MSVehicle*>(vehicle);
     if (veh == nullptr) {
-        WRITE_ERROR("openGap not applicable for meso");
+        WRITE_ERROR(TL("openGap not applicable for meso"));
         return;
     }
 
@@ -1602,7 +1652,7 @@ Vehicle::openGap(const std::string& vehID, double newTimeHeadway, double newSpac
         newTimeHeadway = originalTau;
     }
     if (originalTau > newTimeHeadway) {
-        WRITE_WARNING("Ignoring openGap(). New time headway must not be smaller than the original.");
+        WRITE_WARNING(TL("Ignoring openGap(). New time headway must not be smaller than the original."));
         return;
     }
     veh->getInfluencer().activateGapController(originalTau, newTimeHeadway, newSpaceHeadway, duration, changeRate, maxDecel, refVeh);
@@ -1613,7 +1663,7 @@ Vehicle::deactivateGapControl(const std::string& vehID) {
     MSBaseVehicle* vehicle = Helper::getVehicle(vehID);
     MSVehicle* veh = dynamic_cast<MSVehicle*>(vehicle);
     if (veh == nullptr) {
-        WRITE_ERROR("deactivateGapControl not applicable for meso");
+        WRITE_ERROR(TL("deactivateGapControl not applicable for meso"));
         return;
     }
 
@@ -1632,7 +1682,7 @@ Vehicle::setSpeed(const std::string& vehID, double speed) {
     MSBaseVehicle* vehicle = Helper::getVehicle(vehID);
     MSVehicle* veh = dynamic_cast<MSVehicle*>(vehicle);
     if (veh == nullptr) {
-        WRITE_WARNING("setSpeed not yet implemented for meso");
+        WRITE_WARNING(TL("setSpeed not yet implemented for meso"));
         return;
     }
 
@@ -1649,7 +1699,7 @@ Vehicle::setAcceleration(const std::string& vehID, double accel, double duration
     MSBaseVehicle* vehicle = Helper::getVehicle(vehID);
     MSVehicle* veh = dynamic_cast<MSVehicle*>(vehicle);
     if (veh == nullptr) {
-        WRITE_WARNING("setAcceleration not yet implemented for meso");
+        WRITE_WARNING(TL("setAcceleration not yet implemented for meso"));
         return;
     }
 
@@ -1665,7 +1715,7 @@ Vehicle::setPreviousSpeed(const std::string& vehID, double prevSpeed, double pre
     MSBaseVehicle* vehicle = Helper::getVehicle(vehID);
     MSVehicle* veh = dynamic_cast<MSVehicle*>(vehicle);
     if (veh == nullptr) {
-        WRITE_WARNING("setPreviousSpeed not yet implemented for meso");
+        WRITE_WARNING(TL("setPreviousSpeed not yet implemented for meso"));
         return;
     }
     if (prevAcceleration == INVALID_DOUBLE_VALUE) {
@@ -1679,7 +1729,7 @@ Vehicle::setSpeedMode(const std::string& vehID, int speedMode) {
     MSBaseVehicle* vehicle = Helper::getVehicle(vehID);
     MSVehicle* veh = dynamic_cast<MSVehicle*>(vehicle);
     if (veh == nullptr) {
-        WRITE_WARNING("setSpeedMode not yet implemented for meso");
+        WRITE_WARNING(TL("setSpeedMode not yet implemented for meso"));
         return;
     }
 
@@ -1691,7 +1741,7 @@ Vehicle::setLaneChangeMode(const std::string& vehID, int laneChangeMode) {
     MSBaseVehicle* vehicle = Helper::getVehicle(vehID);
     MSVehicle* veh = dynamic_cast<MSVehicle*>(vehicle);
     if (veh == nullptr) {
-        WRITE_ERROR("setLaneChangeMode not applicable for meso");
+        WRITE_ERROR(TL("setLaneChangeMode not applicable for meso"));
         return;
     }
 
@@ -1720,13 +1770,13 @@ Vehicle::setType(const std::string& vehID, const std::string& typeID) {
 void
 Vehicle::setRouteID(const std::string& vehID, const std::string& routeID) {
     MSBaseVehicle* veh = Helper::getVehicle(vehID);
-    const MSRoute* r = MSRoute::dictionary(routeID);
+    ConstMSRoutePtr r = MSRoute::dictionary(routeID);
     if (r == nullptr) {
         throw TraCIException("The route '" + routeID + "' is not known.");
     }
     std::string msg;
     if (!veh->hasValidRoute(msg, r)) {
-        WRITE_WARNING("Invalid route replacement for vehicle '" + veh->getID() + "'. " + msg);
+        WRITE_WARNINGF(TL("Invalid route replacement for vehicle '%'. %"), veh->getID(), msg);
         if (MSGlobals::gCheckRoutes) {
             throw TraCIException("Route replacement failed for " + veh->getID());
         }
@@ -1742,6 +1792,7 @@ void
 Vehicle::setRoute(const std::string& vehID, const std::string& edgeID) {
     setRoute(vehID, std::vector<std::string>({edgeID}));
 }
+
 
 void
 Vehicle::setRoute(const std::string& vehID, const std::vector<std::string>& edgeIDs) {
@@ -1770,12 +1821,25 @@ Vehicle::setRoute(const std::string& vehID, const std::vector<std::string>& edge
     }
 }
 
+
+void
+Vehicle::setLateralLanePosition(const std::string& vehID, double posLat) {
+    MSBaseVehicle* vehicle = Helper::getVehicle(vehID);
+    MSVehicle* veh = dynamic_cast<MSVehicle*>(vehicle);
+    if (veh != nullptr) {
+        veh->setLateralPositionOnLane(posLat);
+    } else {
+        WRITE_ERROR(TL("updateBestLanes not applicable for meso"));
+    }
+}
+
+
 void
 Vehicle::updateBestLanes(const std::string& vehID) {
     MSBaseVehicle* vehicle = Helper::getVehicle(vehID);
     MSVehicle* veh = dynamic_cast<MSVehicle*>(vehicle);
     if (veh == nullptr) {
-        WRITE_ERROR("updateBestLanes not applicable for meso");
+        WRITE_ERROR(TL("updateBestLanes not applicable for meso"));
         return;
     }
     if (veh->isOnRoad()) {
@@ -1864,7 +1928,7 @@ Vehicle::setSignals(const std::string& vehID, int signals) {
     MSBaseVehicle* vehicle = Helper::getVehicle(vehID);
     MSVehicle* veh = dynamic_cast<MSVehicle*>(vehicle);
     if (veh == nullptr) {
-        WRITE_ERROR("setSignals not applicable for meso");
+        WRITE_ERROR(TL("setSignals not applicable for meso"));
         return;
     }
 
@@ -1883,7 +1947,7 @@ Vehicle::moveTo(const std::string& vehID, const std::string& laneID, double posi
     MSBaseVehicle* vehicle = Helper::getVehicle(vehID);
     MSVehicle* veh = dynamic_cast<MSVehicle*>(vehicle);
     if (veh == nullptr) {
-        WRITE_WARNING("moveTo not yet implemented for meso");
+        WRITE_WARNING(TL("moveTo not yet implemented for meso"));
         return;
     }
 
@@ -1961,13 +2025,13 @@ Vehicle::moveTo(const std::string& vehID, const std::string& laneID, double posi
 void
 Vehicle::setActionStepLength(const std::string& vehID, double actionStepLength, bool resetActionOffset) {
     if (actionStepLength < 0.0) {
-        WRITE_ERROR("Invalid action step length (<0). Ignoring command setActionStepLength().");
+        WRITE_ERROR(TL("Invalid action step length (<0). Ignoring command setActionStepLength()."));
         return;
     }
     MSBaseVehicle* vehicle = Helper::getVehicle(vehID);
     MSVehicle* veh = dynamic_cast<MSVehicle*>(vehicle);
     if (veh == nullptr) {
-        WRITE_ERROR("setActionStepLength not applicable for meso");
+        WRITE_ERROR(TL("setActionStepLength not applicable for meso"));
         return;
     }
 
@@ -2395,8 +2459,7 @@ Vehicle::addSubscriptionFilterLCManeuver(int direction, bool noOpposite, double 
         // Using default: both directions
         lanes = std::vector<int>({-1, 0, 1});
     } else if (direction != -1 && direction != 1) {
-        WRITE_WARNING("Ignoring lane change subscription filter with non-neighboring lane offset direction=" +
-                      toString(direction) + ".");
+        WRITE_WARNINGF(TL("Ignoring lane change subscription filter with non-neighboring lane offset direction=%."), direction);
     } else {
         lanes = std::vector<int>({0, direction});
     }
@@ -2517,6 +2580,10 @@ Vehicle::handleVariable(const std::string& objID, const int variable, VariableWr
             return wrapper->wrapString(objID, variable, getTypeID(objID));
         case VAR_ROUTE_ID:
             return wrapper->wrapString(objID, variable, getRouteID(objID));
+        case VAR_DEPARTURE:
+            return wrapper->wrapDouble(objID, variable, getDeparture(objID));
+        case VAR_DEPART_DELAY:
+            return wrapper->wrapDouble(objID, variable, getDepartDelay(objID));
         case VAR_ROUTE_INDEX:
             return wrapper->wrapInt(objID, variable, getRouteIndex(objID));
         case VAR_COLOR:
@@ -2545,6 +2612,8 @@ Vehicle::handleVariable(const std::string& objID, const int variable, VariableWr
             return wrapper->wrapInt(objID, variable, getPersonNumber(objID));
         case VAR_PERSON_CAPACITY:
             return wrapper->wrapInt(objID, variable, getPersonCapacity(objID));
+        case VAR_BOARDING_DURATION:
+            return wrapper->wrapDouble(objID, variable, getBoardingDuration(objID));
         case LAST_STEP_PERSON_ID_LIST:
             return wrapper->wrapStringList(objID, variable, getPersonIDList(objID));
         case VAR_WAITING_TIME:
@@ -2597,6 +2666,10 @@ Vehicle::handleVariable(const std::string& objID, const int variable, VariableWr
             const double dist = paramData->readDouble();
             return wrapper->wrapStringDoublePair(objID, variable, getFollower(objID, dist));
         }
+        case VAR_LOADED_LIST:
+            return wrapper->wrapStringList(objID, variable, getLoadedIDList());
+        case VAR_TELEPORTING_LIST:
+            return wrapper->wrapStringList(objID, variable, getTeleportingIDList());
         case libsumo::VAR_PARAMETER:
             paramData->readUnsignedByte();
             return wrapper->wrapString(objID, variable, getParameter(objID, paramData->readString()));

@@ -1,0 +1,29 @@
+# crash due to invalid bestlanes state
+ticket12150
+
+# crash due to missing lines attribute in ride
+ticket12167
+
+# failure to board
+ticket12168
+
+# parallel unloading of persons and containers
+ticket12385
+
+# departSpeed=avg error
+ticket12398
+
+# departSpeed=last error
+ticket12398b
+
+# departSpeed=avg and different lengths, error 
+ticket12398c
+
+# emergency braking at ped crossing
+ticket12455
+
+# emergency braking on junction due to invalid junction leader
+ticket12511
+
+# crash when lane changing while turning
+ticket12618

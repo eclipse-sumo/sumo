@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -17,9 +17,10 @@
 ///
 // Button similar to FXToggleButton but with the possibility of showing tooltips
 /****************************************************************************/
-#ifndef MFXToggleButtonTooltip_h
-#define MFXToggleButtonTooltip_h
+#pragma once
 #include <config.h>
+
+#include <iostream>
 
 #include "fxheader.h"
 #include "MFXStaticToolTip.h"
@@ -33,8 +34,8 @@ class MFXToggleButtonTooltip : public FXToggleButton {
 
 public:
     /// @brief constructor (Exactly like the FXToggleButton constructor)
-    MFXToggleButtonTooltip(FXComposite* p, MFXStaticToolTip* staticToolTip, const FXString& text1, const FXString& text2, 
-                           FXIcon* ic1, FXIcon* ic2, FXObject* tgt = NULL, FXSelector sel = 0, 
+    MFXToggleButtonTooltip(FXComposite* p, MFXStaticToolTip* staticToolTip, const std::string& text1, const std::string& text2,
+                           FXIcon* ic1, FXIcon* ic2, FXObject* tgt = NULL, FXSelector sel = 0,
                            FXuint opts = BUTTON_NORMAL, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0,
                            FXint pl = DEFAULT_PAD, FXint pr = DEFAULT_PAD, FXint pt = DEFAULT_PAD, FXint pb = DEFAULT_PAD);
 
@@ -48,6 +49,10 @@ public:
 
     /// @brief called when mouse leaves in MFXToggleButtonTooltip
     long onLeave(FXObject*, FXSelector, void*);
+
+    /// @brief called when mouse motion in MFXToggleButtonTooltip
+    long onMotion(FXObject*, FXSelector, void*);
+
     /// @}
 
 protected:
@@ -64,6 +69,3 @@ private:
     /// @brief Invalidated assignment operator.
     MFXToggleButtonTooltip& operator=(const MFXToggleButtonTooltip&) = delete;
 };
-
-
-#endif

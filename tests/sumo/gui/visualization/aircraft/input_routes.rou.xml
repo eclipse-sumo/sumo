@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-12-12 15:26:38 by Eclipse SUMO netedit Version 1.15.0
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- VTypes -->
+    <vType id="vt0" length="18.00" minGap="1.00" vClass="rail" width="3.00" personCapacity="32" containerCapacity="1">
+        <param key="carriageLength" value="5"/>
+        <param key="locomotiveLength" value="2"/>
+		<param key="frontSeatPos" value="2"/>
+        <param key="guiWidth" value="31"/>
+    </vType>
+	    <vType id="vt0s" length="7.00" minGap="1.00" vClass="rail" width="3.00" personCapacity="32" containerCapacity="1">
+        <param key="carriageLength" value="5"/>
+        <param key="locomotiveLength" value="2"/>
+		<param key="frontSeatPos" value="2"/>
+        <param key="guiWidth" value="31"/>
+    </vType>
+    <vType id="vt3" length="24.00" minGap="1.00" vClass="rail" guiShape="aircraft" width="31.00" personCapacity="42" containerCapacity="1">
+        <param key="carriageLength" value="0"/>
+		<param key="frontSeatPos" value="6"/>
+        <param key="seatingWidth" value="3"/>
+    </vType>
+   
+   <vType id="container" length="3" width="2"/>
+
+ <!-- Routes -->
+    <route id="r_0" edges="E1 E2 E3 E4 E5 E6 -E6 -E5 -E4 E11 E12 E13 -E13 -E12 -E11 E7 E8 E9 -E9 -E8 -E7 -E3 -E2 -E1">
+        <stop trainStop="ts_bottom" duration="5"/>
+        <stop trainStop="ts_right" duration="5"/>
+        <stop trainStop="ts_top" duration="5"/>
+	</route>
+	
+	<personFlow id="pf_0" begin="1" end="100" probability="0.2" departPos="1">
+       <walk from="E15" trainStop="ts_bottom" />
+       <ride from="E6" trainStop="ts_right" lines="ANY"/>
+       <walk from="E13" to="E14" arrivalPos="2"/>
+    </personFlow>
+
+	<containerFlow id="cf_0" begin="20" type="container" period="20" number="2" color="blue">
+	   <tranship from="-E15" containerStop="cs_bottom" arrivalPos="20" />
+       <transport  from="E6" containerStop="cs_right" lines="v0 v3"/>
+       <transport  from="E13" containerStop="cs_top" lines="v3 v4"/>
+    </containerFlow>
+    
+    <vehicle id="v0"  type="vt0" depart="20.00" route="r_0"/>
+
+    <personFlow id="pf_3" begin="110" end="402" probability="0.2" departPos="1">
+       <walk from="E14" trainStop="ts_right"/>
+       <ride from="E13" trainStop="ts_top" lines="ANY"/>
+       <walk from="E9" to="E10" arrivalPos="2"/>
+    </personFlow>
+
+    <vehicle id="v3"  type="vt3" depart="450.00" route="r_0"/>
+
+    <vehicle id="v4"  type="vt0s" depart="800.00" route="r_0"/>
+
+</routes>

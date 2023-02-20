@@ -1,0 +1,15 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+
+    <!-- non valid position (missing) -->
+    <calibrator id="calibrator01" edge="center0" period="100.00" output="calibrator01.txt"/>
+
+    <!-- non valid position (dummy) -->
+    <calibrator id="calibrator02" edge="center0" pos="dummyPosition" period="100.00" output="calibrator02.txt"/>
+
+    <!-- non valid position (negative) -->
+    <calibrator id="calibrator03" edge="center0" pos="-5" period="100.00" output="calibrator03.txt"/>
+
+    <!-- valid position -->
+    <calibrator id="calibrator04" edge="center0" pos="18" period="100.00" output="calibrator04.txt"/>
+
+</additional>

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2005-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2005-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -87,7 +87,7 @@ MSStoppingPlace::getEndLanePosition() const {
 Position
 MSStoppingPlace::getCenterPos() const {
     return myLane.getShape().positionAtOffset(myLane.interpolateLanePosToGeometryPos((myBegPos + myEndPos) / 2),
-            myLane.getWidth() / 2);
+            myLane.getWidth() / 2 + 0.5);
 }
 
 
@@ -105,7 +105,7 @@ MSStoppingPlace::getLastFreePos(const SUMOVehicle& forVehicle, double /*brakePos
     if (getStoppedVehicleNumber() > 0) {
         const double vehGap = forVehicle.getVehicleType().getMinGap();
         double pos = myLastFreePos - vehGap;
-        if (myParkingFactor < 1 && myLastParking != nullptr && forVehicle.hasStops() && !forVehicle.getStops().front().pars.parking
+        if (myParkingFactor < 1 && myLastParking != nullptr && forVehicle.hasStops() && (forVehicle.getStops().front().pars.parking == ParkingType::ONROAD)
                 && myLastParking->remainingStopDuration() < forVehicle.getStops().front().getMinDuration(SIMSTEP)) {
             // stop far back enough so that the previous vehicle can leave
             pos = myLastParking->getPositionOnLane() - myLastParking->getLength() - vehGap - NUMERICAL_EPS;

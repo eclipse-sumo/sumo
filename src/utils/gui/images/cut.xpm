@@ -1,7 +1,7 @@
 /* XPM */
 static const char *cut_xpm[] = {
 /* columns rows colors chars-per-pixel */
-"16 16 9 1 ",
+"16 16 9 1",
 "  c #396BBD",
 ". c #7F8C9D",
 "X c #6A92D2",

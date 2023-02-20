@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -34,13 +34,13 @@
 // ===========================================================================
 
 GNELaneType::GNELaneType(GNEEdgeType* edgeTypeParent) :
-    GNENetworkElement(edgeTypeParent->getNet(), "", GLO_LANE, SUMO_TAG_LANETYPE, {}, {}, {}, {}, {}, {}),
+    GNENetworkElement(edgeTypeParent->getNet(), "", GLO_LANETYPE, SUMO_TAG_LANETYPE, GUIIconSubSys::getIcon(GUIIcon::LANETYPE), {}, {}, {}, {}, {}, {}),
 myEdgeTypeParent(edgeTypeParent) {
 }
 
 
 GNELaneType::GNELaneType(GNEEdgeType* edgeTypeParent, const NBTypeCont::LaneTypeDefinition& laneType) :
-    GNENetworkElement(edgeTypeParent->getNet(), "", GLO_LANE, SUMO_TAG_LANETYPE, {}, {}, {}, {}, {}, {}),
+    GNENetworkElement(edgeTypeParent->getNet(), "", GLO_LANETYPE, SUMO_TAG_LANETYPE, GUIIconSubSys::getIcon(GUIIcon::LANETYPE), {}, {}, {}, {}, {}, {}),
 NBTypeCont::LaneTypeDefinition(laneType),
 myEdgeTypeParent(edgeTypeParent) {
 }
@@ -100,12 +100,6 @@ GNELaneType::getPopUpMenu(GUIMainWindow& /*app*/, GUISUMOAbstractView& /*parent*
 }
 
 
-double
-GNELaneType::getExaggeration(const GUIVisualizationSettings& /*s*/) const {
-    return 1;
-}
-
-
 void
 GNELaneType::updateCenteringBoundary(const bool /*updateGrid*/) {
     // nothing to do
@@ -115,6 +109,12 @@ GNELaneType::updateCenteringBoundary(const bool /*updateGrid*/) {
 void
 GNELaneType::drawGL(const GUIVisualizationSettings& /*s*/) const {
     // nothing to draw
+}
+
+
+void
+GNELaneType::deleteGLObject() {
+    myNet->deleteNetworkElement(this, myNet->getViewNet()->getUndoList());
 }
 
 

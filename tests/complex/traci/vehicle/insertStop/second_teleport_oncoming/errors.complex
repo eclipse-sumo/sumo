@@ -1,18 +1,2 @@
-Warning: Found circular block at railSignal junction 'D2', link 1 (8 edges, length 796.40)
-Warning: Found circular block after railSignal junction 'D2', link 4 (7 edges, length 701.40)
-Warning: Found circular block at railSignal junction 'C2', link 1 (8 edges, length 794.00)
-Warning: Found circular block after railSignal junction 'C2', link 4 (7 edges, length 701.40)
-Warning: Found circular block at railSignal junction 'B2', link 1 (8 edges, length 794.00)
-Warning: Found circular block after railSignal junction 'B2', link 4 (7 edges, length 701.40)
-Warning: Found circular block at railSignal junction 'A2', link 1 (8 edges, length 795.20)
-Warning: Found circular block after railSignal junction 'A2', link 4 (7 edges, length 701.40)
-Warning: Found circular block after railSignal junction 'A1', link 2 (7 edges, length 701.40)
-Warning: Found circular block at railSignal junction 'A1', link 5 (8 edges, length 796.40)
-Warning: Found circular block after railSignal junction 'B1', link 0 (7 edges, length 701.40)
-Warning: Found circular block at railSignal junction 'B1', link 3 (8 edges, length 794.00)
-Warning: Found circular block after railSignal junction 'C1', link 0 (7 edges, length 701.40)
-Warning: Found circular block at railSignal junction 'C1', link 3 (8 edges, length 794.00)
-Warning: Found circular block after railSignal junction 'D1', link 0 (7 edges, length 701.40)
-Warning: Found circular block at railSignal junction 'D1', link 3 (8 edges, length 795.20)
 Warning: Teleporting vehicle 'ego'; waited too long (wrong lane, disconnected), lane='A1B1_0', time=118.00.
 Warning: Vehicle 'ego' ends teleporting on edge 'B2C2', time=118.00.

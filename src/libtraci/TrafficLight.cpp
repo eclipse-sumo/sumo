@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2017-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2017-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -203,6 +203,10 @@ TrafficLight::getConstraints(const std::string& tlsID, const std::string& tripId
         c.type = StoHelp::readTypedInt(ret);
         c.mustWait = StoHelp::readTypedByte(ret) != 0;
         c.active = StoHelp::readTypedByte(ret) != 0;
+        const std::vector<std::string> paramItems = StoHelp::readTypedStringList(ret);
+        for (int j = 0; j < (int)paramItems.size(); j += 2) {
+            c.param[paramItems[j]] = paramItems[j + 1];
+        }
         result.push_back(c);
     }
     return result;
@@ -228,6 +232,10 @@ TrafficLight::getConstraintsByFoe(const std::string& foeSignal, const std::strin
         c.type = StoHelp::readTypedInt(ret);
         c.mustWait = StoHelp::readTypedByte(ret) != 0;
         c.active = StoHelp::readTypedByte(ret) != 0;
+        const std::vector<std::string> paramItems = StoHelp::readTypedStringList(ret);
+        for (int j = 0; j < (int)paramItems.size(); j += 2) {
+            c.param[paramItems[j]] = paramItems[j + 1];
+        }
         result.push_back(c);
     }
     return result;
@@ -316,6 +324,11 @@ TrafficLight::swapConstraints(const std::string& tlsID, const std::string& tripI
         c.limit = StoHelp::readTypedInt(ret);
         c.type = StoHelp::readTypedInt(ret);
         c.mustWait = StoHelp::readTypedByte(ret) != 0;
+        c.active = StoHelp::readTypedByte(ret) != 0;
+        const std::vector<std::string> paramItems = StoHelp::readTypedStringList(ret);
+        for (int j = 0; j < (int)paramItems.size(); j += 2) {
+            c.param[paramItems[j]] = paramItems[j + 1];
+        }
         result.push_back(c);
     }
     return result;
@@ -331,6 +344,11 @@ TrafficLight::removeConstraints(const std::string& tlsID, const std::string& tri
     StoHelp::writeTypedString(content, foeSignal);
     StoHelp::writeTypedString(content, foeId);
     Dom::set(libsumo::TL_CONSTRAINT_REMOVE, tlsID, &content);
+}
+
+void
+TrafficLight::updateConstraints(const std::string& vehID, std::string tripId) {
+    Dom::setString(libsumo::TL_CONSTRAINT_UPDATE, vehID, tripId);
 }
 
 std::string

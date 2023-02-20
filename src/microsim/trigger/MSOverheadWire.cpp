@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2002-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -351,7 +351,7 @@ MSTractionSubstation::addOverheadWireSegmentToCircuit(MSOverheadWire* newOverhea
                                 newOverheadWireSegment->getCircuitEndNodePos(),
                                 Element::ElementType::RESISTOR_traction_wire));
 #else
-        WRITE_WARNING("Overhead circuit solver requested, but solver support (Eigen) not compiled in.");
+        WRITE_WARNING(TL("Overhead circuit solver requested, but solver support (Eigen) not compiled in."));
 #endif
     }
 
@@ -406,7 +406,7 @@ MSTractionSubstation::addOverheadWireSegmentToCircuit(MSOverheadWire* newOverhea
                         }
                         newOverheadWireSegment->getCircuit()->replaceAndDeleteNode(unusedNode, ovrhdSegment->getCircuitStartNodePos());
 #else
-                        WRITE_WARNING("Overhead circuit solver requested, but solver support (Eigen) not compiled in.");
+                        WRITE_WARNING(TL("Overhead circuit solver requested, but solver support (Eigen) not compiled in."));
 #endif
                     }
                 }
@@ -451,7 +451,7 @@ MSTractionSubstation::addOverheadWireSegmentToCircuit(MSOverheadWire* newOverhea
                         }
                         newOverheadWireSegment->getCircuit()->replaceAndDeleteNode(unusedNode, ovrhdSegment->getCircuitEndNodePos());
 #else
-                        WRITE_WARNING("Overhead circuit solver requested, but solver support (Eigen) not compiled in.");
+                        WRITE_WARNING(TL("Overhead circuit solver requested, but solver support (Eigen) not compiled in."));
 #endif
                     }
                 }
@@ -468,7 +468,7 @@ MSTractionSubstation::addOverheadWireSegmentToCircuit(MSOverheadWire* newOverhea
             newOverheadWireSegment->getCircuit()->getNode("negNode_ground"),
             Element::ElementType::VOLTAGE_SOURCE_traction_wire);
 #else
-        WRITE_WARNING("Overhead circuit solver requested, but solver support (Eigen) not compiled in.");
+        WRITE_WARNING(TL("Overhead circuit solver requested, but solver support (Eigen) not compiled in."));
 #endif
     }
 }
@@ -489,7 +489,7 @@ MSTractionSubstation::addOverheadWireInnerSegmentToCircuit(MSOverheadWire* incom
             innerSegment->setCircuitEndNodePos(outgoingSegment->getCircuitStartNodePos());
 #else
             UNUSED_PARAMETER(outgoingSegment);
-            WRITE_WARNING("Overhead circuit solver requested, but solver support (Eigen) not compiled in.");
+            WRITE_WARNING(TL("Overhead circuit solver requested, but solver support (Eigen) not compiled in."));
 #endif
         }
     } else if (frontConnection != nullptr && behindConnection == nullptr) {
@@ -515,7 +515,7 @@ MSTractionSubstation::addOverheadWireInnerSegmentToCircuit(MSOverheadWire* incom
             innerSegment2->setCircuitStartNodePos(betweenFrontNode_pos);
             innerSegment2->setCircuitEndNodePos(outgoingSegment->getCircuitStartNodePos());
 #else
-            WRITE_WARNING("Overhead circuit solver requested, but solver support (Eigen) not compiled in.");
+            WRITE_WARNING(TL("Overhead circuit solver requested, but solver support (Eigen) not compiled in."));
 #endif
         }
     } else if (frontConnection == nullptr && behindConnection != nullptr) {
@@ -541,7 +541,7 @@ MSTractionSubstation::addOverheadWireInnerSegmentToCircuit(MSOverheadWire* incom
             innerSegment2->setCircuitStartNodePos(betweenBehindNode_pos);
             innerSegment2->setCircuitEndNodePos(outgoingSegment->getCircuitStartNodePos());
 #else
-            WRITE_WARNING("Overhead circuit solver requested, but solver support (Eigen) not compiled in.");
+            WRITE_WARNING(TL("Overhead circuit solver requested, but solver support (Eigen) not compiled in."));
 #endif
         }
     } else if (frontConnection != nullptr && behindConnection != nullptr) {
@@ -576,7 +576,7 @@ MSTractionSubstation::addOverheadWireInnerSegmentToCircuit(MSOverheadWire* incom
             innerSegment3->setCircuitStartNodePos(betweenBehindNode_pos);
             innerSegment3->setCircuitEndNodePos(outgoingSegment->getCircuitStartNodePos());
 #else
-            WRITE_WARNING("Overhead circuit solver requested, but solver support not compiled in.");
+            WRITE_WARNING(TL("Overhead circuit solver requested, but solver support not compiled in."));
 #endif
         }
     }
@@ -687,7 +687,7 @@ MSTractionSubstation::solveCircuit(SUMOTime /*currentTime*/) {
     myCircuit->solve();
 
     if (myCircuit->getAlphaBest() != 1.0) {
-        WRITE_WARNING("The requested total power could not be delivered by the overhead wire. Only " + toString(myCircuit->getAlphaBest()) + " of originally requested power was provided.");
+        WRITE_WARNINGF(TL("The requested total power could not be delivered by the overhead wire. Only % of originally requested power was provided."), toString(myCircuit->getAlphaBest()));
     }
 #endif
 

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -25,18 +25,19 @@
 FXDEFMAP(MFXButtonTooltip) MFXButtonTooltipMap[] = {
     FXMAPFUNC(SEL_ENTER,    0,  MFXButtonTooltip::onEnter),
     FXMAPFUNC(SEL_LEAVE,    0,  MFXButtonTooltip::onLeave),
+    FXMAPFUNC(SEL_MOTION,   0,  MFXButtonTooltip::onMotion),
 };
 
 
 // Object implementation
 FXIMPLEMENT(MFXButtonTooltip, FXButton, MFXButtonTooltipMap, ARRAYNUMBER(MFXButtonTooltipMap))
 
-MFXButtonTooltip::MFXButtonTooltip(FXComposite* p, MFXStaticToolTip* staticToolTip, 
-                                   const FXString& text, FXIcon* ic,
+MFXButtonTooltip::MFXButtonTooltip(FXComposite* p, MFXStaticToolTip* staticToolTip,
+                                   const std::string& text, FXIcon* ic,
                                    FXObject* tgt, FXSelector sel, FXuint opts,
                                    FXint x, FXint y, FXint w, FXint h,
                                    FXint pl, FXint pr, FXint pt, FXint pb) :
-    FXButton(p, text, ic, tgt, sel, opts, x, y, w, h, pl, pr, pt, pb),
+    FXButton(p, text.c_str(), ic, tgt, sel, opts, x, y, w, h, pl, pr, pt, pb),
     myStaticToolTip(staticToolTip) {
 }
 
@@ -47,7 +48,7 @@ MFXButtonTooltip::~MFXButtonTooltip() {}
 long
 MFXButtonTooltip::onEnter(FXObject* sender, FXSelector sel, void* ptr) {
     // show tip show
-    myStaticToolTip->showStaticToolTip(ptr);
+    myStaticToolTip->showStaticToolTip(getTipText());
     return FXButton::onEnter(sender, sel, ptr);
 }
 
@@ -59,5 +60,12 @@ MFXButtonTooltip::onLeave(FXObject* sender, FXSelector sel, void* ptr) {
     return FXButton::onLeave(sender, sel, ptr);
 }
 
+
+long
+MFXButtonTooltip::onMotion(FXObject* sender, FXSelector sel, void* ptr) {
+    // update static tooltip
+    myStaticToolTip->onUpdate(sender, sel, ptr);
+    return FXButton::onMotion(sender, sel, ptr);
+}
 
 /****************************************************************************/

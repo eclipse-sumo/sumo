@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -99,7 +99,7 @@ public:
         /// The distributions of new destinations to use
         RandomDistributor<MSEdge*> edgeProbs;
         /// The distributions of new routes to use
-        RandomDistributor<const MSRoute*> routeProbs;
+        RandomDistributor<ConstMSRoutePtr> routeProbs;
         /// The permissions to use
         SVCPermissions permissions;
         /// The distributions of new parking areas to use as destinations
@@ -260,7 +260,7 @@ protected:
     /// new destinations with probabilities
     RandomDistributor<MSEdge*> myCurrentEdgeProb;
     /// new routes with probabilities
-    RandomDistributor<const MSRoute*> myCurrentRouteProb;
+    RandomDistributor<ConstMSRoutePtr> myCurrentRouteProb;
     //@}
 
 

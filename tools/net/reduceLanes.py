@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2016-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2016-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -68,11 +68,14 @@ if __name__ == "__main__":
     with open(options.output_file, 'w') as f:
         f.write('<edges>\n')
         totalLength = 0.
+        totalMultiLaneLength = 0.
         totalReduced = 0.
         for edge in net.getEdges():
             edgeID = edge.getID()
             length = min(polyLength(edge.getShape()), edge.getLength())
             totalLength += length
+            if edge.getLaneNumber() > options.min_lane_number:
+                totalMultiLaneLength += length
             if edge.getPriority() <= options.max_priority and edge.getLaneNumber() > options.min_lane_number:
                 if any([lane.getPermissions() in (set(["bus"]), set(["tram"])) for lane in edge.getLanes()]):
                     continue
@@ -94,8 +97,8 @@ if __name__ == "__main__":
         f.write('</edges>\n')
     print("added splits for %s edges (%s were to short to qualify and %s were roundabouts)" %
           (modifiedEdges, len(tooShort), len(roundabouts)))
-    print("total road length: %.2fm, total lane reduced length: %.2fm." %
-          (totalLength, totalReduced))
+    print("total road length: %.2fm, %.2fm total lane reduced length: %.2fm." %
+          (totalLength, totalMultiLaneLength, totalReduced))
 
     if tooShort and options.too_short_output:
         with open(options.too_short_output, 'w') as f:

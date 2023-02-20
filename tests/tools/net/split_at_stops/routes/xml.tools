@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-02-09 10:04:15.774952 by split_at_stops.py v1_16_0+0061-8f77747c08c
+  options: input_additional.add.xml -n input_net.net.xml -r input_routes.rou.xml <doubleminus>stop-output out.xml <doubleminus>route-output out.rou.xml
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <trainStop endPos="40.0" id="B" lane="a.30_0" startPos="0">
+        <access lane="b_0" pos="48.40"/>
+    </trainStop>
+    <trainStop endPos="40.0" id="C" lane="a.230_0" startPos="0">
+        <access lane="c_0" pos="52.96"/>
+    </trainStop>
+    <trainStop endPos="40.0" id="D" lane="a.430_0" startPos="0">
+        <access lane="d_0" pos="44.50"/>
+    </trainStop>
+    </additional>

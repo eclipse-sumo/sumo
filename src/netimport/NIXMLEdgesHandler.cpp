@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -28,10 +28,6 @@
 #include <iostream>
 #include <map>
 #include <cmath>
-#include <xercesc/sax/HandlerBase.hpp>
-#include <xercesc/sax/AttributeList.hpp>
-#include <xercesc/sax/SAXParseException.hpp>
-#include <xercesc/sax/SAXException.hpp>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <netbuild/NBNodeCont.h>
 #include <netbuild/NBTypeCont.h>
@@ -212,12 +208,12 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
     // use values from the edge to overwrite if existing, then
     if (myIsUpdate) {
         if (!myHaveReportedAboutOverwriting) {
-            WRITE_MESSAGE("Duplicate edge id occurred ('" + myCurrentID + "'); assuming overwriting is wished.");
+            WRITE_MESSAGEF(TL("Duplicate edge id occurred ('%'); assuming overwriting is wished."), myCurrentID);
             myHaveReportedAboutOverwriting = true;
         }
         if (attrs.hasAttribute(SUMO_ATTR_TYPE) && myCurrentType != myCurrentEdge->getTypeID()) {
             if (!myHaveReportedAboutTypeOverride) {
-                WRITE_MESSAGE("Edge '" + myCurrentID + "' changed it's type; assuming type override is wished.");
+                WRITE_MESSAGEF(TL("Edge '%' changed it's type; assuming type override is wished."), myCurrentID);
                 myHaveReportedAboutTypeOverride = true;
             }
         }
@@ -305,7 +301,7 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
     if (myFromNode == myToNode) {
         // this might as well be an error. We make this a warning mostly for
         // backward compatibility
-        WRITE_WARNINGF("Ignoring self-looped edge '%' at junction '%'", myCurrentID, myFromNode->getID());
+        WRITE_WARNINGF(TL("Ignoring self-looped edge '%' at junction '%'"), myCurrentID, myFromNode->getID());
         myCurrentEdge = nullptr;
         return;
     }
@@ -383,7 +379,7 @@ NIXMLEdgesHandler::addLane(const SUMOSAXAttributes& attrs) {
         lane = attrs.get<int>(SUMO_ATTR_ID, myCurrentID.c_str(), ok);
         if (!myHaveWarnedAboutDeprecatedLaneId) {
             myHaveWarnedAboutDeprecatedLaneId = true;
-            WRITE_WARNING("'" + toString(SUMO_ATTR_ID) + "' is deprecated, please use '" + toString(SUMO_ATTR_INDEX) + "' instead.");
+            WRITE_WARNINGF(TL("'%' is deprecated, please use '%' instead."), toString(SUMO_ATTR_ID), toString(SUMO_ATTR_INDEX));
         }
     } else {
         lane = attrs.get<int>(SUMO_ATTR_INDEX, myCurrentID.c_str(), ok);
@@ -393,7 +389,7 @@ NIXMLEdgesHandler::addLane(const SUMOSAXAttributes& attrs) {
     }
     // check whether this lane exists
     if (lane >= myCurrentEdge->getNumLanes()) {
-        WRITE_ERROR("Lane index is larger than number of lanes (edge '" + myCurrentID + "').");
+        WRITE_ERRORF(TL("Lane index is larger than number of lanes (edge '%')."), myCurrentID);
         return;
     }
     myCurrentLaneIndex = lane;
@@ -437,7 +433,7 @@ NIXMLEdgesHandler::addLane(const SUMOSAXAttributes& attrs) {
         PositionVector shape = attrs.get<PositionVector>(SUMO_ATTR_SHAPE, myCurrentID.c_str(), ok);
         if (!NBNetBuilder::transformCoordinates(shape)) {
             const std::string laneID = myCurrentID + "_" + toString(lane);
-            WRITE_ERROR("Unable to project coordinates for lane '" + laneID + "'.");
+            WRITE_ERRORF(TL("Unable to project coordinates for lane '%'."), laneID);
         }
         if (shape.size() == 1) {
             // lane shape of length 1 is not permitted
@@ -462,7 +458,7 @@ NIXMLEdgesHandler::addLane(const SUMOSAXAttributes& attrs) {
 void NIXMLEdgesHandler::addSplit(const SUMOSAXAttributes& attrs) {
     if (myCurrentEdge == nullptr) {
         if (!OptionsCont::getOptions().isInStringVector("remove-edges.explicit", myCurrentID)) {
-            WRITE_WARNING("Ignoring 'split' because it cannot be assigned to an edge");
+            WRITE_WARNING(TL("Ignoring 'split' because it cannot be assigned to an edge"));
         }
         return;
     }
@@ -470,13 +466,13 @@ void NIXMLEdgesHandler::addSplit(const SUMOSAXAttributes& attrs) {
     NBEdgeCont::Split e;
     e.pos = attrs.get<double>(SUMO_ATTR_POSITION, nullptr, ok);
     if (ok) {
-        if (fabs(e.pos) > myCurrentEdge->getGeometry().length()) {
-            WRITE_ERROR("Edge '" + myCurrentID + "' has a split at invalid position " + toString(e.pos) + ".");
+        if (fabs(e.pos) > myCurrentEdge->getLoadedLength()) {
+            WRITE_ERRORF(TL("Edge '%' has a split at invalid position %."), myCurrentID, toString(e.pos));
             return;
         }
         std::vector<NBEdgeCont::Split>::iterator i = find_if(mySplits.begin(), mySplits.end(), split_by_pos_finder(e.pos));
         if (i != mySplits.end()) {
-            WRITE_ERROR("Edge '" + myCurrentID + "' has already a split at position " + toString(e.pos) + ".");
+            WRITE_ERRORF(TL("Edge '%' has already a split at position %."), myCurrentID, toString(e.pos));
             return;
         }
         // XXX rounding to int may duplicate the id of another split
@@ -489,9 +485,9 @@ void NIXMLEdgesHandler::addSplit(const SUMOSAXAttributes& attrs) {
                 int lane = StringUtils::toInt(id);
                 e.lanes.push_back(lane);
             } catch (NumberFormatException&) {
-                WRITE_ERROR("Error on parsing a split (edge '" + myCurrentID + "').");
+                WRITE_ERRORF(TL("Error on parsing a split (edge '%')."), myCurrentID);
             } catch (EmptyData&) {
-                WRITE_ERROR("Error on parsing a split (edge '" + myCurrentID + "').");
+                WRITE_ERRORF(TL("Error on parsing a split (edge '%')."), myCurrentID);
             }
         }
         if (e.lanes.empty()) {
@@ -510,13 +506,17 @@ void NIXMLEdgesHandler::addSplit(const SUMOSAXAttributes& attrs) {
         }
         const std::string nodeID = attrs.getOpt(SUMO_ATTR_ID, nullptr, ok, e.nameID);
         if (nodeID == myCurrentEdge->getFromNode()->getID() || nodeID == myCurrentEdge->getToNode()->getID()) {
-            WRITE_ERROR("Invalid split node id for edge '" + myCurrentEdge->getID() + "' (from- and to-node are forbidden)");
+            WRITE_ERRORF(TL("Invalid split node id for edge '%' (from- and to-node are forbidden)"), myCurrentEdge->getID());
             return;
         }
         e.node = myNodeCont.retrieve(nodeID);
         e.offsetFactor = OptionsCont::getOptions().getBool("lefthand") ? -1 : 1;
         if (e.node == nullptr) {
-            e.node = new NBNode(nodeID, myCurrentEdge->getGeometry().positionAtOffset(e.pos));
+            double geomPos = e.pos;
+            if (myCurrentEdge->hasLoadedLength()) {
+                geomPos *= myCurrentEdge->getGeometry().length() / myCurrentEdge->getLoadedLength();
+            }
+            e.node = new NBNode(nodeID, myCurrentEdge->getGeometry().positionAtOffset(geomPos));
             myNodeCont.insert(e.node);
         }
         NIXMLNodesHandler::processNodeType(attrs, e.node, e.node->getID(), e.node->getPosition(), false,
@@ -540,11 +540,11 @@ NIXMLEdgesHandler::setNodes(const SUMOSAXAttributes& attrs) {
         if (begNodeID != "") {
             myFromNode = myNodeCont.retrieve(begNodeID);
             if (myFromNode == nullptr) {
-                WRITE_ERROR("Edge's '" + myCurrentID + "' from-node '" + begNodeID + "' is not known.");
+                WRITE_ERRORF(TL("Edge's '%' from-node '%' is not known."), myCurrentID, begNodeID);
             }
         }
     } else if (!myIsUpdate) {
-        WRITE_ERROR("The from-node is not given for edge '" + myCurrentID + "'.");
+        WRITE_ERRORF(TL("The from-node is not given for edge '%'."), myCurrentID);
         ok = false;
     }
     if (attrs.hasAttribute(SUMO_ATTR_TO)) {
@@ -552,11 +552,11 @@ NIXMLEdgesHandler::setNodes(const SUMOSAXAttributes& attrs) {
         if (endNodeID != "") {
             myToNode = myNodeCont.retrieve(endNodeID);
             if (myToNode == nullptr) {
-                WRITE_ERROR("Edge's '" + myCurrentID + "' to-node '" + endNodeID + "' is not known.");
+                WRITE_ERRORF(TL("Edge's '%' to-node '%' is not known."), myCurrentID, endNodeID);
             }
         }
     } else if (!myIsUpdate) {
-        WRITE_ERROR("The to-node is not given for edge '" + myCurrentID + "'.");
+        WRITE_ERRORF(TL("The to-node is not given for edge '%'."), myCurrentID);
         ok = false;
     }
     return ok && myFromNode != nullptr && myToNode != nullptr;
@@ -586,7 +586,7 @@ NIXMLEdgesHandler::tryGetShape(const SUMOSAXAttributes& attrs) {
     }
     PositionVector shape = attrs.getOpt<PositionVector>(SUMO_ATTR_SHAPE, nullptr, ok, PositionVector());
     if (!NBNetBuilder::transformCoordinates(shape)) {
-        WRITE_ERROR("Unable to project coordinates for edge '" + myCurrentID + "'.");
+        WRITE_ERRORF(TL("Unable to project coordinates for edge '%'."), myCurrentID);
     }
     myReinitKeepEdgeShape = myKeepEdgeShape;
     return shape;
@@ -602,7 +602,7 @@ NIXMLEdgesHandler::tryGetLaneSpread(const SUMOSAXAttributes& attrs) {
     if (SUMOXMLDefinitions::LaneSpreadFunctions.hasString(lsfS)) {
         result = SUMOXMLDefinitions::LaneSpreadFunctions.get(lsfS);
     } else {
-        WRITE_WARNING("Ignoring unknown spreadType '" + lsfS + "' for edge '" + myCurrentID + "'.");
+        WRITE_WARNINGF(TL("Ignoring unknown spreadType '%' for edge '%'."), lsfS, myCurrentID);
     }
     return result;
 }
@@ -655,14 +655,16 @@ NIXMLEdgesHandler::myEndElement(int element) {
         if (!myIsUpdate) {
             try {
                 if (!myEdgeCont.insert(myCurrentEdge)) {
-                    WRITE_ERROR("Duplicate edge occurred. ID='" + myCurrentID + "'");
+                    WRITE_ERRORF(TL("Duplicate edge '%' occurred."), myCurrentID);
                     delete myCurrentEdge;
+                    myCurrentEdge = nullptr;
+                    return;
                 }
             } catch (InvalidArgument& e) {
                 WRITE_ERROR(e.what());
                 throw;
             } catch (...) {
-                WRITE_ERROR("An important information is missing in edge '" + myCurrentID + "'.");
+                WRITE_ERRORF(TL("An important information is missing in edge '%'."), myCurrentID);
             }
         }
         myEdgeCont.processSplits(myCurrentEdge, mySplits, myNodeCont, myDistrictCont, myTLLogicCont);
@@ -684,7 +686,7 @@ NIXMLEdgesHandler::addRoundabout(const SUMOSAXAttributes& attrs) {
             NBEdge* edge = myEdgeCont.retrieve(eID);
             if (edge == nullptr) {
                 if (!myEdgeCont.wasIgnored(eID)) {
-                    WRITE_ERROR("Unknown edge '" + eID + "' in roundabout.");
+                    WRITE_ERRORF(TL("Unknown edge '%' in roundabout."), eID);
                 }
             } else {
                 roundabout.insert(edge);

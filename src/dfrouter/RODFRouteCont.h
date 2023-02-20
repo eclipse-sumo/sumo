@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -45,7 +45,7 @@ class OutputDevice;
  *
  * As sometimes several routes can be used between two edges and have to be
  *  identified, the number of routes connecting them is stored for each
- *  edge pair "myConnectionOccurences" and the route is named using this
+ *  edge pair "myConnectionOccurrences" and the route is named using this
  *  information, @see addRouteDesc.
  *
  * @see RODFRouteDesc
@@ -170,7 +170,7 @@ protected:
     std::vector<RODFRouteDesc> myRoutes;
 
     /// @brief Counts how many routes connecting the key-edges were already stored
-    mutable std::map<std::pair<ROEdge*, ROEdge*>, int> myConnectionOccurences;
+    mutable std::map<std::pair<ROEdge*, ROEdge*>, int> myConnectionOccurrences;
 
 
 };

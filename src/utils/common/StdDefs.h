@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2005-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2005-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -59,8 +59,9 @@ const double SUMO_const_haltingSpeed = (double) 0.1;
 
 const double INVALID_DOUBLE = std::numeric_limits<double>::max();
 
-/// @brief version for written networks and default version for loading
-const double NETWORK_VERSION = 1.9;
+/// @brief (M)ajor/(M)inor version for written networks and default version for loading
+typedef std::pair<int, double> MMVersion;
+const MMVersion NETWORK_VERSION(1, 16);
 
 
 /* -------------------------------------------------------------------------
@@ -124,6 +125,9 @@ extern bool gSimulation; // whether the current application is sumo or sumo-gui 
 extern double gWeightsRandomFactor; // randomization for edge weights
 extern double gWeightsWalkOppositeFactor; // factor for walking against flow of traffic
 
+/// the language for GUI elements and messages
+extern std::string gLanguage;
+
 
 /// @brief global utility flags for debugging
 extern bool gDebugFlag1;
@@ -151,3 +155,4 @@ double roundDecimal(double x, int precision);
  * @return the number of objects to create (something between 0 and ceil(frac))
  */
 int getScalingQuota(double frac, int loaded);
+

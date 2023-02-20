@@ -2,7 +2,9 @@ id
 
 route
 
-vtype
+type
+
+typebutton
 
 color
 
@@ -31,6 +33,8 @@ containernumber
 departposlat
 
 arrivalposlat
+
+insertionchecks
 
 begin
 

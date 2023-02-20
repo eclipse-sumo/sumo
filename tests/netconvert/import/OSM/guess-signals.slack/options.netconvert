@@ -1,0 +1,7 @@
+--osm-files osm.xml
+--junctions.join
+--keep-edges.by-vclass passenger
+--tls.guess-signals
+--tls.guess-signals.slack 1
+--tls.discard-simple
+-R

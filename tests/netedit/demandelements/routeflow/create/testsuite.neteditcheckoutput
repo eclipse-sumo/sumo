@@ -1,6 +1,6 @@
 default
 
-vtype
+type
 
 id
 
@@ -37,6 +37,8 @@ end
 number
 
 vehsperhour
+
+insertionchecks
 
 period
 

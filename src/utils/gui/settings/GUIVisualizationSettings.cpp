@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -75,6 +75,7 @@ const RGBColor GUIVisualizationCandidateColorSettings::source(0, 255, 255, 255);
 const RGBColor GUIVisualizationCandidateColorSettings::target(0, 255, 0, 255);      // Green
 const RGBColor GUIVisualizationCandidateColorSettings::special(255, 0, 255, 255);   // Magenta
 const RGBColor GUIVisualizationCandidateColorSettings::conflict(255, 255, 0, 255);  // Yellow
+const RGBColor GUIVisualizationCandidateColorSettings::invalid(128, 128, 128, 255);  // Yellow
 
 // -------------------------------------------------------------------------
 // Netedit size values
@@ -155,7 +156,8 @@ const double GUIVisualizationStoppingPlaceSettings::chargingStationWidth(1);
 // Dotted contour values
 // -------------------------------------------------------------------------
 
-const double GUIVisualizationDottedContourSettings::segmentWidth(0.2);
+const double GUIVisualizationDottedContourSettings::segmentWidthSmall(0.1);
+const double GUIVisualizationDottedContourSettings::segmentWidthLarge(0.2);
 const double GUIVisualizationDottedContourSettings::segmentLength(2);
 const RGBColor GUIVisualizationDottedContourSettings::firstInspectedColor(235, 235, 235);
 const RGBColor GUIVisualizationDottedContourSettings::secondInspectedColor(20, 20, 20);
@@ -163,14 +165,21 @@ const RGBColor GUIVisualizationDottedContourSettings::firstFrontColor(0, 0, 235)
 const RGBColor GUIVisualizationDottedContourSettings::secondFrontColor(0, 255, 0);
 
 // -------------------------------------------------------------------------
-// widths of certain NETEDIT objects
+// 3D light presets
+// -------------------------------------------------------------------------
+const RGBColor OSG_color_AMBIENT(32, 32, 32, 255);
+const RGBColor OSG_color_DIFFUSE(64, 64, 64, 255);
+const RGBColor OSG_color_SKY(51, 51, 102, 255);
+
+// -------------------------------------------------------------------------
+// widths of certain netedit objects
 // -------------------------------------------------------------------------
 
 const double GUIVisualizationWidthSettings::routeWidth(0.66);
 const double GUIVisualizationWidthSettings::embeddedRouteWidth(0.55);
 
 // -------------------------------------------------------------------------
-// details of certain NETEDIT objects (0 = drawn always)
+// details of certain netedit objects (0 = drawn always)
 // -------------------------------------------------------------------------
 
 const double GUIVisualizationDetailSettings::connectionsDemandMode(5);
@@ -206,8 +215,10 @@ const std::string GUIVisualizationSettings::SCHEME_NAME_DATA_ATTRIBUTE_NUMERICAL
 const std::string GUIVisualizationSettings::SCHEME_NAME_SELECTION("by selection");
 const std::string GUIVisualizationSettings::SCHEME_NAME_TYPE("by type");
 const std::string GUIVisualizationSettings::SCHEME_NAME_PERMISSION_CODE("by permission code");
+const std::string GUIVisualizationSettings::SCHEME_NAME_EDGEDATA_LIVE("by live edgeData");
 
 const double GUIVisualizationSettings::MISSING_DATA(std::numeric_limits<double>::max());
+RGBColor GUIVisualizationSettings::COL_MISSING_DATA(225, 225, 225);
 
 // color constants for scheme background
 #define COL_SCHEME_EMISSION RGBColor(255,255,210)
@@ -513,12 +524,12 @@ GUIVisualizationSettings::GUIVisualizationSettings(const std::string& _name, boo
     realisticLinkRules(false),
     showLinkRules(true),
     showRails(true),
-    secondaryShape(false),
-    edgeName(false, 60, RGBColor(255, 128, 0, 255)),
+    edgeName(false, 60, RGBColor::ORANGE),
     internalEdgeName(false, 45, RGBColor(128, 64, 0, 255)),
     cwaEdgeName(false, 60, RGBColor::MAGENTA),
     streetName(false, 60, RGBColor::YELLOW),
     edgeValue(false, 100, RGBColor::CYAN),
+    edgeScaleValue(false, 100, RGBColor::BLUE),
     hideConnectors(false),
     laneWidthExaggeration(1),
     laneMinSize(0),
@@ -531,8 +542,12 @@ GUIVisualizationSettings::GUIVisualizationSettings(const std::string& _name, boo
     vehicleScaleParam("PARAM_NUMERICAL"),
     vehicleTextParam("PARAM_TEXT"),
     edgeData("speed"),
+    edgeDataID(""),
+    edgeDataScaling(""),
     edgeValueHideCheck(false),
     edgeValueHideThreshold(0),
+    edgeValueHideCheck2(false),
+    edgeValueHideThreshold2(200),
     vehicleQuality(0), showBlinker(true),
     drawLaneChangePreference(false),
     drawMinGap(false),
@@ -540,6 +555,7 @@ GUIVisualizationSettings::GUIVisualizationSettings(const std::string& _name, boo
     showBTRange(false),
     showRouteIndex(false),
     scaleLength(true),
+    drawReversed(false),
     showParkingInfo(false),
     vehicleSize(1),
     vehicleName(false, 60, RGBColor(204, 153, 0, 255)),
@@ -585,6 +601,10 @@ GUIVisualizationSettings::GUIVisualizationSettings(const std::string& _name, boo
     show3DTLSLinkMarkers(true),
     show3DTLSDomes(true),
     generate3DTLSModels(false),
+    show3DHeadUpDisplay(true),
+    ambient3DLight(OSG_color_AMBIENT),
+    diffuse3DLight(OSG_color_DIFFUSE),
+    skyColor(OSG_color_SKY),
     showSizeLegend(true),
     showColorLegend(false),
     showVehicleColorLegend(false),
@@ -595,10 +615,12 @@ GUIVisualizationSettings::GUIVisualizationSettings(const std::string& _name, boo
     drawForRectangleSelection(false),
     forceDrawForPositionSelection(false),
     forceDrawForRectangleSelection(false),
+    disableDottedContours(false),
     geometryIndices(false, 50, RGBColor(255, 0, 128, 255)),
+    secondaryShape(false),
     lefthand(false),
     disableLaneIcons(false) {
-    // init defaults depending of NETEDIT or SUMO-GUI
+    // init defaults depending of netedit or SUMO-GUI
     if (netedit) {
         initNeteditDefaults();
     } else {
@@ -831,7 +853,7 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme = GUIColorScheme(SCHEME_NAME_LANE_PARAM_NUMERICAL, RGBColor(204, 204, 204));
     scheme.setAllowsNegativeValues(true);
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme(SCHEME_NAME_EDGEDATA_NUMERICAL, RGBColor(204, 204, 204), "missing data", false, MISSING_DATA);
+    scheme = GUIColorScheme(SCHEME_NAME_EDGEDATA_NUMERICAL, COL_MISSING_DATA, "missing data", false, MISSING_DATA);
     scheme.setAllowsNegativeValues(true);
     laneColorer.addScheme(scheme);
     scheme = GUIColorScheme("by distance (kilometrage)", RGBColor(204, 204, 204));
@@ -845,8 +867,8 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor::RED, 1.);
     scheme.setAllowsNegativeValues(false);
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme("by reachability (traveltime)", RGBColor(204, 204, 204));
-    scheme.addColor(RGBColor::RED, 1.);
+    scheme = GUIColorScheme("by reachability (traveltime)", RGBColor::RED);
+    scheme.addColor(RGBColor::GREY, INVALID_DOUBLE, "unreachable");
     scheme.setAllowsNegativeValues(true);
     laneColorer.addScheme(scheme);
     scheme = GUIColorScheme("by thread index", RGBColor(204, 204, 204));
@@ -857,6 +879,9 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor::YELLOW, 10.);
     scheme.addColor(RGBColor::GREEN, 100.);
     scheme.addColor(RGBColor::BLUE, 1000.);
+    laneColorer.addScheme(scheme);
+    scheme = GUIColorScheme(SCHEME_NAME_EDGEDATA_LIVE, COL_MISSING_DATA, "missing data", false, MISSING_DATA, COL_SCHEME_DYNAMIC);
+    scheme.setAllowsNegativeValues(true);
     laneColorer.addScheme(scheme);
 
     /// add vehicle coloring schemes
@@ -1134,6 +1159,7 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor(172, 108, 44), 10, "zipper"); // brown, darker than the zipper link rule
     scheme.addColor(RGBColor(192, 255, 192), 11, "traffic_light_right_on_red"); // light green
     scheme.addColor(RGBColor(128, 0, 128), 12, "rail_crossing"); // dark purple
+    scheme.addColor(RGBColor(0, 0, 128), 13, "left_before_right"); // dark blue
     junctionColorer.addScheme(scheme);
     scheme = GUIColorScheme("by height", RGBColor::GREY);
     scheme.addColor(RGBColor::BLUE, -10.);
@@ -1242,6 +1268,13 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
         laneScheme.addColor(10, 10.);
         laneScheme.addColor(50, 100.);
         laneScaler.addScheme(laneScheme);
+        laneScheme = GUIScaleScheme(SCHEME_NAME_EDGEDATA_NUMERICAL, 0.1, "missing data", false, MISSING_DATA);
+        laneScheme.addColor(1, 1.);
+        laneScheme.addColor(2, 10.);
+        laneScheme.addColor(5, 100.);
+        laneScheme.addColor(10, 1000.);
+        laneScheme.setAllowsNegativeValues(true);
+        laneScaler.addScheme(laneScheme);
     }
 
     /// add edge coloring schemes
@@ -1325,7 +1358,7 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme = GUIColorScheme(SCHEME_NAME_EDGE_PARAM_NUMERICAL, RGBColor(204, 204, 204));
     scheme.setAllowsNegativeValues(true);
     edgeColorer.addScheme(scheme);
-    scheme = GUIColorScheme(SCHEME_NAME_EDGEDATA_NUMERICAL, RGBColor(204, 204, 204), "missing data", false, MISSING_DATA);
+    scheme = GUIColorScheme(SCHEME_NAME_EDGEDATA_NUMERICAL, COL_MISSING_DATA, "missing data", false, MISSING_DATA);
     scheme.setAllowsNegativeValues(true);
     edgeColorer.addScheme(scheme);
 
@@ -1354,6 +1387,14 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
         edgeScheme.addColor(1, 1.);
         edgeScheme.addColor(10, 10.);
         edgeScheme.addColor(50, 100.);
+        edgeScaler.addScheme(edgeScheme);
+        edgeScheme = GUIScaleScheme(SCHEME_NAME_EDGEDATA_NUMERICAL, 0.1, "missing data", false, MISSING_DATA);
+        edgeScheme.addColor(1, 1.);
+        edgeScheme.addColor(2, 10.);
+        edgeScheme.addColor(5, 100.);
+        edgeScheme.addColor(10, 1000.);
+        edgeScaler.addScheme(edgeScheme);
+        edgeScheme.setAllowsNegativeValues(true);
         edgeScaler.addScheme(edgeScheme);
     }
 
@@ -1553,7 +1594,7 @@ GUIVisualizationSettings::initNeteditDefaults() {
     scheme.addColor(RGBColor::RED, 1.);
     scheme.setAllowsNegativeValues(false);
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme(SCHEME_NAME_EDGEDATA_NUMERICAL, RGBColor(204, 204, 204), "missing data", false, MISSING_DATA);
+    scheme = GUIColorScheme(SCHEME_NAME_EDGEDATA_NUMERICAL, COL_MISSING_DATA, "missing data", false, MISSING_DATA);
     scheme.setAllowsNegativeValues(true);
     laneColorer.addScheme(scheme);
 
@@ -1580,6 +1621,7 @@ GUIVisualizationSettings::initNeteditDefaults() {
     scheme.addColor(RGBColor(172, 108, 44), 10, "zipper"); // brown, darker than the zipper link rule
     scheme.addColor(RGBColor(192, 255, 192), 11, "traffic_light_right_on_red");
     scheme.addColor(RGBColor(128, 0, 128), 12, "rail_crossing"); // dark purple
+    scheme.addColor(RGBColor(0, 0, 128), 13, "left_before_right"); // dark blue
     junctionColorer.addScheme(scheme);
     scheme = GUIColorScheme("by height", RGBColor::GREY);
     scheme.addColor(RGBColor::BLUE, -10.);
@@ -1618,7 +1660,7 @@ GUIVisualizationSettings::initNeteditDefaults() {
     dataColorer.addScheme(scheme);
     dataColorer.addScheme(GUIColorScheme("by origin taz", RGBColor::ORANGE, "", true));
     dataColorer.addScheme(GUIColorScheme("by destination taz", RGBColor::ORANGE, "", true));
-    scheme = GUIColorScheme(SCHEME_NAME_DATA_ATTRIBUTE_NUMERICAL, RGBColor(204, 204, 204), "missing data", false, MISSING_DATA);
+    scheme = GUIColorScheme(SCHEME_NAME_DATA_ATTRIBUTE_NUMERICAL, COL_MISSING_DATA, "missing data", false, MISSING_DATA);
     scheme.setAllowsNegativeValues(true);
     dataColorer.addScheme(scheme);
 
@@ -1675,6 +1717,7 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.writeAttr("fps", fps);
     dev.writeAttr("drawBoundaries", drawBoundaries);
     dev.writeAttr("forceDrawPositionSelection", forceDrawForPositionSelection);
+    dev.writeAttr("disableDottedContours", disableDottedContours);
     dev.writeAttr("forceDrawRectangleSelection", forceDrawForRectangleSelection);
     geometryIndices.print(dev, "geometryIndices");
     dev.closeTag();
@@ -1707,8 +1750,12 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.writeAttr("vehicleScaleParam", vehicleScaleParam);
     dev.writeAttr("vehicleTextParam", vehicleTextParam);
     dev.writeAttr("edgeData", edgeData);
+    dev.writeAttr("edgeDataID", edgeDataID);
+    dev.writeAttr("edgeDataScaling", edgeDataScaling);
     dev.writeAttr("edgeValueHideCheck", edgeValueHideCheck);
     dev.writeAttr("edgeValueHideThreshold", edgeValueHideThreshold);
+    dev.writeAttr("edgeValueHideCheck2", edgeValueHideCheck2);
+    dev.writeAttr("edgeValueHideThreshold2", edgeValueHideThreshold2);
     dev.lf();
     dev << "               ";
     edgeName.print(dev, "edgeName");
@@ -1724,6 +1771,7 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.lf();
     dev << "               ";
     edgeValue.print(dev, "edgeValue");
+    edgeScaleValue.print(dev, "edgeScaleValue");
     laneColorer.save(dev);
     laneScaler.save(dev);
     edgeColorer.save(dev, "meso:");
@@ -1741,6 +1789,7 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.writeAttr("showBTRange", showBTRange);
     dev.writeAttr("showRouteIndex", showRouteIndex);
     dev.writeAttr("scaleLength", scaleLength);
+    dev.writeAttr("drawReversed", drawReversed);
     dev.writeAttr("showParkingInfo", showParkingInfo);
     dev.lf();
     dev << "                 ";
@@ -1878,10 +1927,14 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     polyType.print(dev, "polyType");
     polyColorer.save(dev);
     dev.closeTag();
+    // 3D
     dev.openTag(SUMO_TAG_VIEWSETTINGS_3D);
     dev.writeAttr("show3DTLSLinkMarkers", show3DTLSLinkMarkers);
     dev.writeAttr("show3DTLSDomes", show3DTLSDomes);
+    dev.writeAttr("show3DHeadUpDisplay", show3DHeadUpDisplay);
     dev.writeAttr("generate3DTLSModels", generate3DTLSModels);
+    dev.writeAttr("ambient3DLight", ambient3DLight);
+    dev.writeAttr("diffuse3DLight", diffuse3DLight);
     dev.closeTag();
     // legend
     dev.openTag(SUMO_TAG_VIEWSETTINGS_LEGEND);
@@ -1902,7 +1955,19 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
     if (show3DTLSLinkMarkers != v2.show3DTLSLinkMarkers) {
         return false;
     }
+    if (show3DHeadUpDisplay != v2.show3DHeadUpDisplay) {
+        return false;
+    }
     if (generate3DTLSModels != v2.generate3DTLSModels) {
+        return false;
+    }
+    if (ambient3DLight != v2.ambient3DLight) {
+        return false;
+    }
+    if (diffuse3DLight != v2.diffuse3DLight) {
+        return false;
+    }
+    if (skyColor != v2.skyColor) {
         return false;
     }
     if (dither != v2.dither) {
@@ -1915,6 +1980,9 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
         return false;
     }
     if (forceDrawForPositionSelection != v2.forceDrawForPositionSelection) {
+        return false;
+    }
+    if (disableDottedContours != v2.disableDottedContours) {
         return false;
     }
     if (forceDrawForRectangleSelection != v2.forceDrawForRectangleSelection) {
@@ -1987,6 +2055,9 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
     if (edgeValue != v2.edgeValue) {
         return false;
     }
+    if (edgeScaleValue != v2.edgeScaleValue) {
+        return false;
+    }
     if (hideConnectors != v2.hideConnectors) {
         return false;
     }
@@ -2023,10 +2094,22 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
     if (edgeData != v2.edgeData) {
         return false;
     }
+    if (edgeDataID != v2.edgeDataID) {
+        return false;
+    }
+    if (edgeDataScaling != v2.edgeDataScaling) {
+        return false;
+    }
     if (edgeValueHideCheck != v2.edgeValueHideCheck) {
         return false;
     }
     if (edgeValueHideThreshold != v2.edgeValueHideThreshold) {
+        return false;
+    }
+    if (edgeValueHideCheck2 != v2.edgeValueHideCheck2) {
+        return false;
+    }
+    if (edgeValueHideThreshold2 != v2.edgeValueHideThreshold2) {
         return false;
     }
     if (!(vehicleColorer == v2.vehicleColorer)) {
@@ -2060,6 +2143,9 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
         return false;
     }
     if (scaleLength != v2.scaleLength) {
+        return false;
+    }
+    if (drawReversed != v2.drawReversed) {
         return false;
     }
     if (showParkingInfo != v2.showParkingInfo) {
@@ -2259,7 +2345,7 @@ GUIVisualizationSettings::getLinkColor(const LinkState& ls, bool realistic) {
         case LINKSTATE_DEADEND:
             return SUMO_color_DEADEND;
         default:
-            throw ProcessError("No color defined for LinkState '" + std::string(ls, 1) + "'");
+            throw ProcessError(TLF("No color defined for LinkState '%'", std::string(ls, 1)));
     }
 }
 

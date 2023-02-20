@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -22,10 +22,15 @@
 #pragma once
 #include <config.h>
 
-#include <utils/foxtools/MFXMenuButtonTooltip.h>
-
 #include "GUISUMOAbstractView.h"
 
+
+// ===========================================================================
+// class declaration
+// ===========================================================================
+
+class MFXCheckableButton;
+class MFXMenuButtonTooltip;
 
 // ===========================================================================
 // class definitions
@@ -63,7 +68,8 @@ public:
     long onCmdRecenterView(FXObject*, FXSelector, void*);
     long onCmdEditViewport(FXObject*, FXSelector, void*);
     long onCmdEditViewScheme(FXObject*, FXSelector, void*);
-    long onCmdShowToolTips(FXObject* sender, FXSelector, void*);
+    long onCmdShowToolTipsView(FXObject* sender, FXSelector, void*);
+    long onCmdShowToolTipsMenu(FXObject* sender, FXSelector, void*);
     long onCmdZoomStyle(FXObject* sender, FXSelector, void*);
     long onCmdChangeColorScheme(FXObject*, FXSelector sel, void*);
     /// @}
@@ -92,31 +98,41 @@ public:
     virtual bool isSelected(GUIGlObject* o) const;
 
 protected:
+    /// @brief FOX needs this
     FOX_CONSTRUCTOR(GUIGlChildWindow)
 
     /// @brief The parent window
-    GUIMainWindow* myParent;
+    GUIMainWindow* myParent = nullptr;
 
     /// @brief The grip navigation tool bar
-    FXMenuBar* myGripNavigationToolbar;
+    FXMenuBar* myGripNavigationToolbar = nullptr;
 
     /// @brief The static navigation tool bar
-    FXToolBar* myStaticNavigationToolBar;
+    FXToolBar* myStaticNavigationToolBar = nullptr;
 
     /// @brief The view
-    GUISUMOAbstractView* myView;
+    GUISUMOAbstractView* myView = nullptr;
+
+    /// @brief Zoom but
+    MFXCheckableButton* myZoomStyle = nullptr;
 
     /// The locator menu
-    FXPopup* myLocatorPopup;
+    FXPopup* myLocatorPopup = nullptr;
 
     /// @brief The locator button
-    MFXMenuButtonTooltip* myLocatorButton;
+    MFXMenuButtonTooltip* myLocatorButton = nullptr;
+
+    /// @brief menu for tooltips view
+    MFXCheckableButton* myShowToolTipsView = nullptr;
+
+    /// @brief menu for tooltips menu
+    MFXCheckableButton* myShowToolTipsMenu = nullptr;
 
     /// @brief The contents frame
-    FXVerticalFrame* myChildWindowContentFrame;
+    FXVerticalFrame* myChildWindowContentFrame = nullptr;
 
     /// @brief The coloring schemes
-    FXComboBox* myColoringSchemes;
+    FXComboBox* myColoringSchemes = nullptr;
 
     /// @brief build navigation toolbar
     void buildNavigationToolBar();

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -63,7 +63,7 @@ OptionsCont::getOptions() {
 
 OptionsCont::OptionsCont()
     : myAddresses(), myValues(), myDeprecatedSynonymes() {
-    myCopyrightNotices.push_back("Copyright (C) 2001-2022 German Aerospace Center (DLR) and others; https://sumo.dlr.de");
+    myCopyrightNotices.push_back(TL("Copyright (C) 2001-2023 German Aerospace Center (DLR) and others; https://sumo.dlr.de"));
 }
 
 
@@ -138,7 +138,7 @@ OptionsCont::isSet(const std::string& name, bool failOnNonExistant) const {
     KnownContType::const_iterator i = myValues.find(name);
     if (i == myValues.end()) {
         if (failOnNonExistant) {
-            throw ProcessError("Internal request for unknown option '" + name + "'!");
+            throw ProcessError(TLF("Internal request for unknown option '%'!", name));
         } else {
             return false;
         }
@@ -161,7 +161,7 @@ Option*
 OptionsCont::getSecure(const std::string& name) const {
     KnownContType::const_iterator k = myValues.find(name);
     if (k == myValues.end()) {
-        throw ProcessError("No option with the name '" + name + "' exists.");
+        throw ProcessError(TLF("No option with the name '%' exists.", name));
     }
     std::map<std::string, bool>::iterator s = myDeprecatedSynonymes.find(name);
     if (s != myDeprecatedSynonymes.end() && !s->second) {
@@ -178,7 +178,7 @@ OptionsCont::getSecure(const std::string& name) const {
                 break;
             }
         }
-        WRITE_WARNING("Please note that '" + name + "' is deprecated.\n Use '" + defaultName + "' instead.");
+        WRITE_WARNINGF(TL("Please note that '%' is deprecated.\n Use '%' instead."), name, defaultName);
         s->second = true;
     }
     return k->second;
@@ -242,7 +242,7 @@ OptionsCont::set(const std::string& name, const std::string& value, const bool a
     }
     try {
         // Substitute environment variables defined by ${NAME} with their value
-        if (!o->set(StringUtils::substituteEnvironment(value, &OptionsIO::getLoadTime()), append)) {
+        if (!o->set(StringUtils::substituteEnvironment(value, &OptionsIO::getLoadTime()), value, append)) {
             return false;
         }
     } catch (ProcessError& e) {
@@ -342,10 +342,14 @@ OptionsCont::relocateFiles(const std::string& configuration) const {
                     WRITE_WARNING(toString(e.what()) + " when trying to decode filename '" + f + "'.");
                 }
             }
+            StringVector rawList = StringTokenizer(option->getValueString(), ",").getVector();
+            for (std::string& f : rawList) {
+                f = FileHelpers::checkForRelativity(f, configuration);
+            }
             const std::string conv = joinToString(fileList, ',');
             if (conv != joinToString(option->getStringVector(), ',')) {
                 const bool hadDefault = option->isDefault();
-                option->set(conv, false);
+                option->set(conv, joinToString(rawList, ','), false);
                 if (hadDefault) {
                     option->resetDefault();
                 }
@@ -365,16 +369,16 @@ OptionsCont::isUsableFileList(const std::string& name) const {
     bool ok = true;
     std::vector<std::string> files = getStringVector(name);
     if (files.size() == 0) {
-        WRITE_ERROR("The file list for '" + name + "' is empty.");
+        WRITE_ERRORF(TL("The file list for '%' is empty."), name);
         ok = false;
     }
     for (std::vector<std::string>::const_iterator fileIt = files.begin(); fileIt != files.end(); ++fileIt) {
         if (!FileHelpers::isReadable(*fileIt)) {
             if (*fileIt != "") {
-                WRITE_ERROR("File '" + *fileIt + "' is not accessible (" + std::strerror(errno) + ").");
+                WRITE_ERRORF(TL("File '%' is not accessible (%)."), *fileIt, std::strerror(errno));
                 ok = false;
             } else {
-                WRITE_WARNING("Empty file name given; ignoring.");
+                WRITE_WARNING(TL("Empty file name given; ignoring."));
             }
         }
     }
@@ -395,7 +399,7 @@ OptionsCont::checkDependingSuboptions(const std::string& name, const std::string
             continue;
         }
         if ((*i).second->isSet() && !(*i).second->isDefault() && (*i).first.find(prefix) == 0) {
-            WRITE_ERROR("Option '" + (*i).first + "' needs option '" + name + "'.");
+            WRITE_ERRORF(TL("Option '%' needs option '%'."), (*i).first, name);
             std::vector<std::string> synonymes = getSynonymes((*i).first);
             std::copy(synonymes.begin(), synonymes.end(), std::back_inserter(seenSynonymes));
             ok = false;
@@ -440,9 +444,23 @@ OptionsCont::isBool(const std::string& name) const {
 
 void
 OptionsCont::resetWritable() {
-    for (ItemAddressContType::iterator i = myAddresses.begin(); i != myAddresses.end(); i++) {
-        (*i)->resetWritable();
+    for (const auto& addresse : myAddresses) {
+        addresse->resetWritable();
     }
+}
+
+
+void
+OptionsCont::resetDefault() {
+    for (const auto& addresse : myAddresses) {
+        addresse->resetDefault();
+    }
+}
+
+
+void
+OptionsCont::resetDefault(const std::string& name) {
+    getSecure(name)->resetDefault();
 }
 
 
@@ -556,16 +574,16 @@ OptionsCont::splitLines(std::ostream& os, std::string what,
 
 bool
 OptionsCont::processMetaOptions(bool missingOptions) {
+    MsgHandler::setupI18n(getString("language"));
     if (missingOptions) {
         // no options are given
         std::cout << myFullName << std::endl;
-        std::cout << " Build features: " << HAVE_ENABLED << std::endl;
-        for (std::vector<std::string>::const_iterator it =
-                    myCopyrightNotices.begin(); it != myCopyrightNotices.end(); ++it) {
-            std::cout << " " << *it << std::endl;
+        std::cout << TL(" Build features: ") << HAVE_ENABLED << std::endl;
+        for (const std::string& c : myCopyrightNotices) {
+            std::cout << " " << TL(c.data()) << std::endl;
         }
-        std::cout << " License EPL-2.0: Eclipse Public License Version 2 <https://eclipse.org/legal/epl-v20.html>\n";
-        std::cout << " Use --help to get the list of options." << std::endl;
+        std::cout << TL(" License EPL-2.0: Eclipse Public License Version 2 <https://eclipse.org/legal/epl-v20.html>") << std::endl;
+        std::cout << TL(" Use --help to get the list of options.") << std::endl;
         return true;
     }
 
@@ -573,9 +591,8 @@ OptionsCont::processMetaOptions(bool missingOptions) {
     // check whether the help shall be printed
     if (getBool("help")) {
         std::cout << myFullName << std::endl;
-        for (std::vector<std::string>::const_iterator it =
-                    myCopyrightNotices.begin(); it != myCopyrightNotices.end(); ++it) {
-            std::cout << " " << *it << std::endl;
+        for (const std::string& c : myCopyrightNotices) {
+            std::cout << " " << TL(c.data()) << std::endl;
         }
         printHelp(std::cout);
         return true;
@@ -583,10 +600,9 @@ OptionsCont::processMetaOptions(bool missingOptions) {
     // check whether the help shall be printed
     if (getBool("version")) {
         std::cout << myFullName << std::endl;
-        std::cout << " Build features: " << HAVE_ENABLED << std::endl;
-        for (std::vector<std::string>::const_iterator it =
-                    myCopyrightNotices.begin(); it != myCopyrightNotices.end(); ++it) {
-            std::cout << " " << *it << std::endl;
+        std::cout << TL(" Build features: ") << HAVE_ENABLED << std::endl;
+        for (const std::string& c : myCopyrightNotices) {
+            std::cout << " " << TL(c.data()) << std::endl;
         }
         std::cout << "\n" << myFullName << " is part of SUMO.\n";
         std::cout << "This program and the accompanying materials\n";
@@ -602,12 +618,12 @@ OptionsCont::processMetaOptions(bool missingOptions) {
         return true;
     }
     // check whether the settings shall be printed
-    if (exists("print-options") && getBool("print-options")) {
+    if (getBool("print-options")) {
         std::cout << (*this);
     }
     // check whether something has to be done with options
     // whether the current options shall be saved
-    if (isSet("save-configuration", false)) { // sumo-gui does not register these
+    if (isSet("save-configuration")) {
         const std::string& configPath = getString("save-configuration");
         if (configPath == "-" || configPath == "stdout") {
             writeConfiguration(std::cout, true, false, getBool("save-commented"));
@@ -615,44 +631,44 @@ OptionsCont::processMetaOptions(bool missingOptions) {
         }
         std::ofstream out(StringUtils::transcodeToLocal(configPath).c_str());
         if (!out.good()) {
-            throw ProcessError("Could not save configuration to '" + configPath + "'");
+            throw ProcessError(TLF("Could not save configuration to '%'", configPath));
         } else {
             writeConfiguration(out, true, false, getBool("save-commented"), configPath);
             if (getBool("verbose")) {
-                WRITE_MESSAGE("Written configuration to '" + configPath + "'");
+                WRITE_MESSAGEF(TL("Written configuration to '%'"), configPath);
             }
             return true;
         }
     }
     // whether the template shall be saved
-    if (isSet("save-template", false)) { // sumo-gui does not register these
+    if (isSet("save-template")) {
         if (getString("save-template") == "-" || getString("save-template") == "stdout") {
             writeConfiguration(std::cout, false, true, getBool("save-commented"));
             return true;
         }
         std::ofstream out(StringUtils::transcodeToLocal(getString("save-template")).c_str());
         if (!out.good()) {
-            throw ProcessError("Could not save template to '" + getString("save-template") + "'");
+            throw ProcessError(TLF("Could not save template to '%'", getString("save-template")));
         } else {
             writeConfiguration(out, false, true, getBool("save-commented"));
             if (getBool("verbose")) {
-                WRITE_MESSAGE("Written template to '" + getString("save-template") + "'");
+                WRITE_MESSAGEF(TL("Written template to '%'"), getString("save-template"));
             }
             return true;
         }
     }
-    if (isSet("save-schema", false)) { // sumo-gui does not register these
+    if (isSet("save-schema")) {
         if (getString("save-schema") == "-" || getString("save-schema") == "stdout") {
             writeSchema(std::cout);
             return true;
         }
         std::ofstream out(StringUtils::transcodeToLocal(getString("save-schema")).c_str());
         if (!out.good()) {
-            throw ProcessError("Could not save schema to '" + getString("save-schema") + "'");
+            throw ProcessError(TLF("Could not save schema to '%'", getString("save-schema")));
         } else {
             writeSchema(out);
             if (getBool("verbose")) {
-                WRITE_MESSAGE("Written schema to '" + getString("save-schema") + "'");
+                WRITE_MESSAGEF(TL("Written schema to '%'"), getString("save-schema"));
             }
             return true;
         }
@@ -660,11 +676,12 @@ OptionsCont::processMetaOptions(bool missingOptions) {
     return false;
 }
 
+
 void
 OptionsCont::printHelp(std::ostream& os) {
     std::vector<std::string>::const_iterator i, j;
     // print application description
-    splitLines(os, myAppDescription, 0, 0);
+    splitLines(os, TL(myAppDescription.c_str()), 0, 0);
     os << std::endl;
 
     // check option sizes first
@@ -739,6 +756,7 @@ OptionsCont::printHelp(std::ostream& os) {
     os << "Get in contact via <sumo@dlr.de>." << std::endl;
 }
 
+
 void
 OptionsCont::printHelpOnTopic(const std::string& topic, int tooLarge, int maxSize, std::ostream& os) {
     os << topic << " Options:" << std::endl;
@@ -777,6 +795,7 @@ OptionsCont::printHelpOnTopic(const std::string& topic, int tooLarge, int maxSiz
     }
     os << std::endl;
 }
+
 
 void
 OptionsCont::writeConfiguration(std::ostream& os, const bool filled,
@@ -822,7 +841,7 @@ OptionsCont::writeConfiguration(std::ostream& os, const bool filled,
             os << "        <" << name << " value=\"";
             if (o->isSet() && (filled || o->isDefault())) {
                 if (o->isFileName() && relativeTo != "") {
-                    StringVector fileList = StringVector(o->getStringVector());
+                    StringVector fileList = StringTokenizer(o->getValueString(), ",").getVector();
                     for (std::string& f : fileList) {
                         f = FileHelpers::fixRelative(StringUtils::urlEncode(f, " ;%"), relativeTo,
                                                      forceRelative || getBool("save-configuration.relative"));

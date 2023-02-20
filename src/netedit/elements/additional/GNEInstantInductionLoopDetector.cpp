@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -25,6 +25,7 @@
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/frames/network/GNETLSEditorFrame.h>
 #include <utils/gui/div/GLHelper.h>
+#include <utils/gui/div/GUIGlobalPostDrawing.h>
 
 #include "GNEInstantInductionLoopDetector.h"
 #include "GNEAdditionalHandler.h"
@@ -35,7 +36,8 @@
 // ===========================================================================
 
 GNEInstantInductionLoopDetector::GNEInstantInductionLoopDetector(GNENet* net) :
-    GNEDetector("", net, GLO_E1DETECTOR_INSTANT, SUMO_TAG_INSTANT_INDUCTION_LOOP, 0, 0, {}, "", {}, "", false, Parameterised::Map()) {
+    GNEDetector("", net, GLO_E1DETECTOR_INSTANT, SUMO_TAG_INSTANT_INDUCTION_LOOP, GUIIconSubSys::getIcon(GUIIcon::E1INSTANT),
+                0, 0, {}, "", {}, "", false, Parameterised::Map()) {
     // reset default values
     resetDefaultValues();
 }
@@ -43,7 +45,8 @@ GNEInstantInductionLoopDetector::GNEInstantInductionLoopDetector(GNENet* net) :
 
 GNEInstantInductionLoopDetector::GNEInstantInductionLoopDetector(const std::string& id, GNELane* lane, GNENet* net, const double pos, const std::string& filename, const std::vector<std::string>& vehicleTypes,
         const std::string& name, const bool friendlyPos, const Parameterised::Map& parameters) :
-    GNEDetector(id, net, GLO_E1DETECTOR_INSTANT, SUMO_TAG_INSTANT_INDUCTION_LOOP, pos, 0, {
+    GNEDetector(id, net, GLO_E1DETECTOR_INSTANT, SUMO_TAG_INSTANT_INDUCTION_LOOP, GUIIconSubSys::getIcon(GUIIcon::E1INSTANT),
+                pos, 0, {
     lane
 }, filename, vehicleTypes, name, friendlyPos, parameters) {
     // update centering boundary without updating grid
@@ -105,7 +108,7 @@ GNEInstantInductionLoopDetector::getAdditionalProblem() const {
             errorPosition = (toString(SUMO_ATTR_POSITION) + " < 0");
         }
         if (myPositionOverLane > len) {
-            errorPosition = (toString(SUMO_ATTR_POSITION) + " > lanes's length");
+            errorPosition = (toString(SUMO_ATTR_POSITION) + TL(" > lanes's length"));
         }
         return errorPosition;
     }
@@ -155,33 +158,52 @@ GNEInstantInductionLoopDetector::drawGL(const GUIVisualizationSettings& s) const
                 secondColor = RGBColor::WHITE;
                 textColor = RGBColor::BLACK;
             }
-            // draw parent and child lines
-            drawParentChildLines(s, s.additionalSettings.connectionColor);
-            // start drawing
-            GLHelper::pushName(getGlID());
-            // push layer matrix
-            GLHelper::pushMatrix();
-            // translate to front
-            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_E1DETECTOR_INSTANT);
-            // draw E1Instant shape
-            drawE1Shape(s, E1InstantExaggeration, scaledWidth, mainColor, secondColor);
-            // Check if the distance is enought to draw details
-            if (s.drawDetail(s.detailSettings.detectorDetails, E1InstantExaggeration)) {
-                // draw E1 Logo
-                drawDetectorLogo(s, E1InstantExaggeration, "E1", textColor);
+            // avoid draw invisible elements
+            if (mainColor.alpha() != 0) {
+                // draw parent and child lines
+                drawParentChildLines(s, s.additionalSettings.connectionColor);
+                // start drawing
+                GLHelper::pushName(getGlID());
+                // push layer matrix
+                GLHelper::pushMatrix();
+                // translate to front
+                myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_E1DETECTOR_INSTANT);
+                // draw E1Instant shape
+                drawE1Shape(s, E1InstantExaggeration, scaledWidth, mainColor, secondColor);
+                // Check if the distance is enought to draw details
+                if (s.drawDetail(s.detailSettings.detectorDetails, E1InstantExaggeration)) {
+                    // draw E1 Logo
+                    drawE1DetectorLogo(s, E1InstantExaggeration, "E1", textColor);
+                }
+                // pop layer matrix
+                GLHelper::popMatrix();
+                // Pop name
+                GLHelper::popName();
+                // draw lock icon
+                GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myAdditionalGeometry.getShape().getCentroid(), E1InstantExaggeration);
             }
-            // pop layer matrix
-            GLHelper::popMatrix();
-            // Pop name
-            GLHelper::popName();
-            // draw lock icon
-            GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myAdditionalGeometry.getShape().getCentroid(), E1InstantExaggeration);
-            // check if dotted contours has to be drawn
+            // check if mouse is over element
+            mouseWithinGeometry(myAdditionalGeometry.getShape().front(), 2, 1, 0, 0,
+                                myAdditionalGeometry.getShapeRotations().front());
+            // inspect contour
             if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-                GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape().front(), 2, 1, 0, 0, myAdditionalGeometry.getShapeRotations().front(), E1InstantExaggeration);
+                GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::INSPECT, myAdditionalGeometry.getShape().front(),
+                        2, 1, 0, 0, myAdditionalGeometry.getShapeRotations().front(), E1InstantExaggeration);
             }
+            // front element contour
             if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-                GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape().front(), 2, 1, 0, 0, myAdditionalGeometry.getShapeRotations().front(), E1InstantExaggeration);
+                GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::FRONT, myAdditionalGeometry.getShape().front(),
+                        2, 1, 0, 0, myAdditionalGeometry.getShapeRotations().front(), E1InstantExaggeration);
+            }
+            // delete contour
+            if (myNet->getViewNet()->drawDeleteContour(this, this)) {
+                GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::REMOVE, myAdditionalGeometry.getShape().front(),
+                        2, 1, 0, 0, myAdditionalGeometry.getShapeRotations().front(), E1InstantExaggeration);
+            }
+            // select contour
+            if (myNet->getViewNet()->drawSelectContour(this, this)) {
+                GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::SELECT, myAdditionalGeometry.getShape().front(),
+                        2, 1, 0, 0, myAdditionalGeometry.getShapeRotations().front(), E1InstantExaggeration);
             }
         }
         // Draw additional ID

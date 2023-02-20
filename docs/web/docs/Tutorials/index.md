@@ -32,13 +32,16 @@ The SUMO User Conference is an anual event organized by the German Aerospace Cen
 
 ## Videos
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/UeaeCdLt_1o" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<a class="no-arrow-link" data-youtube href="https://www.youtube.com/watch?v=UeaeCdLt_1o">Watch the 2019 Tutorial</a>
 <br>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/aiOQbaB-pWo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<a class="no-arrow-link" data-youtube href="https://www.youtube.com/watch?v=aiOQbaB-pWo">Watch the 2020 Tutorial</a>
 <br>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/tlshWdzFWpY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<a class="no-arrow-link" data-youtube href="https://www.youtube.com/watch?v=tlshWdzFWpY">Watch the 2021 Tutorial</a>
 <br>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/urKtJj87X5M" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<a class="no-arrow-link" data-youtube href="https://www.youtube.com/watch?v=urKtJj87X5M">Watch the 2022 Tutorial</a>
 
 # Advanced Tutorials
 * [Hello SUMO](Hello_SUMO.md) - The simplest net and a single car set up "by hand"

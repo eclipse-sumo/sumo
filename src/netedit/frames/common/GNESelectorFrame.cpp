@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -74,7 +74,7 @@ FXIMPLEMENT(GNESelectorFrame::SelectionHierarchy,   MFXGroupBoxModule,   Selecti
 // ---------------------------------------------------------------------------
 
 GNESelectorFrame::SelectionInformation::SelectionInformation(GNESelectorFrame* selectorFrameParent) :
-    MFXGroupBoxModule(selectorFrameParent, "Selection information"),
+    MFXGroupBoxModule(selectorFrameParent, TL("Selection information")),
     mySelectorFrameParent(selectorFrameParent) {
     // information label
     myInformationLabel = new FXLabel(getCollapsableFrame(), "", nullptr, GUIDesignLabelFrameInformation);
@@ -146,16 +146,16 @@ GNESelectorFrame::SelectionInformation::updateInformationLabel(const std::string
 // ---------------------------------------------------------------------------
 
 GNESelectorFrame::ModificationMode::ModificationMode(GNESelectorFrame* selectorFrameParent) :
-    MFXGroupBoxModule(selectorFrameParent, "Modification Mode"),
+    MFXGroupBoxModule(selectorFrameParent, TL("Modification Mode")),
     myModificationModeType(Operation::ADD) {
     // Create all options buttons
-    myAddRadioButton = new FXRadioButton(getCollapsableFrame(), "add\t\tSelected objects are added to the previous selection",
+    myAddRadioButton = new FXRadioButton(getCollapsableFrame(), (TL("add") + std::string("\t\t") + TL("Selected objects are added to the previous selection")).c_str(),
                                          this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
-    myRemoveRadioButton = new FXRadioButton(getCollapsableFrame(), "remove\t\tSelected objects are removed from the previous selection",
+    myRemoveRadioButton = new FXRadioButton(getCollapsableFrame(), (TL("remove") + std::string("\t\t") + TL("Selected objects are removed from the previous selection")).c_str(),
                                             this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
-    myKeepRadioButton = new FXRadioButton(getCollapsableFrame(), "keep\t\tRestrict previous selection by the current selection",
+    myKeepRadioButton = new FXRadioButton(getCollapsableFrame(), (TL("keep") + std::string("\t\t") + TL("Restrict previous selection by the current selection")).c_str(),
                                           this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
-    myReplaceRadioButton = new FXRadioButton(getCollapsableFrame(), "replace\t\tReplace previous selection by the current selection",
+    myReplaceRadioButton = new FXRadioButton(getCollapsableFrame(), (TL("replace") + std::string("\t\t") + TL("Replace previous selection by the current selection")).c_str(),
             this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     myAddRadioButton->setCheck(true);
 }
@@ -210,7 +210,7 @@ GNESelectorFrame::ModificationMode::onCmdSelectModificationMode(FXObject* obj, F
 // ---------------------------------------------------------------------------
 
 GNESelectorFrame::VisualScaling::VisualScaling(GNESelectorFrame* selectorFrameParent) :
-    MFXGroupBoxModule(selectorFrameParent, "Visual Scaling"),
+    MFXGroupBoxModule(selectorFrameParent, TL("Visual Scaling")),
     mySelectorFrameParent(selectorFrameParent) {
     // Create spin button and configure it
     mySelectionScaling = new FXRealSpinner(getCollapsableFrame(), 7, this, MID_GNE_SELECTORFRAME_SELECTSCALE, GUIDesignSpinDial);
@@ -239,7 +239,7 @@ GNESelectorFrame::VisualScaling::onCmdScaleSelection(FXObject*, FXSelector, void
 // ---------------------------------------------------------------------------
 
 GNESelectorFrame::SelectionOperation::SelectionOperation(GNESelectorFrame* selectorFrameParent) :
-    MFXGroupBoxModule(selectorFrameParent, "Selection operations"),
+    MFXGroupBoxModule(selectorFrameParent, TL("Selection operations")),
     mySelectorFrameParent(selectorFrameParent) {
     // tabular buttons, see GNETLSEditorFrame
 
@@ -248,17 +248,17 @@ GNESelectorFrame::SelectionOperation::SelectionOperation(GNESelectorFrame* selec
     FXVerticalFrame* col2 = new FXVerticalFrame(selectionButtons, LAYOUT_FILL_X, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0); // right button column
 
     // Create "Clear List" Button
-    new FXButton(col1, "Clear\t\tDeselect all objects (hotkey: ESC)", nullptr, this, MID_CHOOSEN_CLEAR, GUIDesignButton);
+    new FXButton(col1, (TL("Clear") + std::string("\t\t") + TL("Deselect all objects (hotkey: ESC)")).c_str(), nullptr, this, MID_CHOOSEN_CLEAR, GUIDesignButton);
     // Create "Invert" Button
-    new FXButton(col2, "Invert\t\tInvert selection status of all objects", nullptr, this, MID_CHOOSEN_INVERT, GUIDesignButton);
+    new FXButton(col2, (TL("Invert") + std::string("\t\t") + TL("Invert selection status of all objects")).c_str(), nullptr, this, MID_CHOOSEN_INVERT, GUIDesignButton);
     // Create "Save" Button
-    new FXButton(col1, "Save\t\tSave ids of currently selected objects to a file.", nullptr, this, MID_CHOOSEN_SAVE, GUIDesignButton);
+    new FXButton(col1, (TL("Save") + std::string("\t\t") + TL("Save ids of currently selected objects to a file.")).c_str(), nullptr, this, MID_CHOOSEN_SAVE, GUIDesignButton);
     // Create "Load" Button
-    new FXButton(col2, "Load\t\tLoad ids from a file according to the current modfication mode.", nullptr, this, MID_CHOOSEN_LOAD, GUIDesignButton);
+    new FXButton(col2, (TL("Load") + std::string("\t\t") + TL("Load ids from a file according to the current modification mode.")).c_str(), nullptr, this, MID_CHOOSEN_LOAD, GUIDesignButton);
     // Create "Delete" Button
-    new FXButton(col1, "Delete\t\tDelete all selected objects (hotkey: DEL)", nullptr, this, MID_CHOOSEN_DELETE, GUIDesignButton);
+    new FXButton(col1, (TL("Delete") + std::string("\t\t") + TL("Delete all selected objects (hotkey: DEL)")).c_str(), nullptr, this, MID_CHOOSEN_DELETE, GUIDesignButton);
     // Create "reduce" Button
-    new FXButton(col2, "Reduce\t\tReduce network to current selection.", nullptr, this, MID_CHOOSEN_REDUCE, GUIDesignButton);
+    new FXButton(col2, (TL("Reduce") + std::string("\t\t") + TL("Reduce network to current selection.")).c_str(), nullptr, this, MID_CHOOSEN_REDUCE, GUIDesignButton);
 }
 
 
@@ -269,7 +269,7 @@ long
 GNESelectorFrame::SelectionOperation::onCmdLoad(FXObject*, FXSelector, void*) {
     // get the new file name
     FXFileDialog opendialog(getCollapsableFrame(), "Open List of Selected Items");
-    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN_CONFIG));
+    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
     opendialog.setPatternList("Selection files (*.txt)\nAll files (*)");
     if (gCurrentFolder.length() != 0) {
@@ -283,7 +283,7 @@ GNESelectorFrame::SelectionOperation::onCmdLoad(FXObject*, FXSelector, void*) {
         std::ifstream strm(file.c_str());
         // check if file can be opened
         if (!strm.good()) {
-            WRITE_ERROR("Could not open '" + file + "'.");
+            WRITE_ERRORF(TL("Could not open '%'."), file);
             return 0;
         }
         // convert all glObjects into GNEAttributeCarriers
@@ -331,7 +331,7 @@ GNESelectorFrame::SelectionOperation::onCmdLoad(FXObject*, FXSelector, void*) {
 long
 GNESelectorFrame::SelectionOperation::onCmdSave(FXObject*, FXSelector, void*) {
     FXString file = MFXUtils::getFilename2Write(this,
-                    "Save List of selected Items", ".txt",
+                    TL("Save List of selected Items"), ".txt",
                     GUIIconSubSys::getIcon(GUIIcon::SAVE), gCurrentFolder);
     if (file == "") {
         return 1;
@@ -1058,10 +1058,14 @@ GNESelectorFrame::SelectionOperation::processDemandElementSelection(const bool o
 
 bool
 GNESelectorFrame::SelectionOperation::processDataElementSelection(const bool onlyCount, const bool onlyUnselect, bool& ignoreLocking) {
-    // obtan locks (only for improve code legibly)
+    // get locks (only for improve code legibly)
     const auto& locks = mySelectorFrameParent->getViewNet()->getLockManager();
-    // invert dataSets
-    for (const auto& genericDataTag : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getGenericDatas()) {
+    // get undoRedo (only for improve code legibly)
+    const auto undoList = mySelectorFrameParent->myViewNet->getUndoList();
+    // get ACs (only for improve code legibly)
+    const auto& ACs = mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers();
+    // invert generic datas
+    for (const auto& genericDataTag : ACs->getGenericDatas()) {
         for (const auto& genericData : genericDataTag.second) {
             if (onlyCount && locks.isObjectLocked(genericData->getType(), false)) {
                 ignoreLocking = askContinueIfLock();
@@ -1072,9 +1076,9 @@ GNESelectorFrame::SelectionOperation::processDataElementSelection(const bool onl
                 if (onlyCount) {
                     return true;
                 } else if (onlyUnselect || genericData->isAttributeCarrierSelected()) {
-                    genericData->setAttribute(GNE_ATTR_SELECTED, "false", mySelectorFrameParent->myViewNet->getUndoList());
+                    genericData->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
                 } else {
-                    genericData->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->myViewNet->getUndoList());
+                    genericData->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
                 }
             }
         }
@@ -1109,7 +1113,7 @@ GNESelectorFrame::SelectionOperation::askContinueIfLock() const {
 // ---------------------------------------------------------------------------
 
 GNESelectorFrame::SelectionHierarchy::SelectionHierarchy(GNESelectorFrame* selectorFrameParent) :
-    MFXGroupBoxModule(selectorFrameParent, "Hierarchy operations"),
+    MFXGroupBoxModule(selectorFrameParent, TL("Hierarchy operations")),
     mySelectorFrameParent(selectorFrameParent),
     myCurrentSelectedParent(Selection::ALL),
     myCurrentSelectedChild(Selection::ALL) {
@@ -1120,9 +1124,9 @@ GNESelectorFrame::SelectionHierarchy::SelectionHierarchy(GNESelectorFrame* selec
     // create parent buttons
     FXHorizontalFrame* parentButtons = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     // Create "select" Button
-    mySelectParentsButton = new FXButton(parentButtons, "Select", GUIIconSubSys::getIcon(GUIIcon::SELECT), this, MID_GNE_SELECTORFRAME_PARENTS, GUIDesignButton);
+    mySelectParentsButton = new FXButton(parentButtons, TL("Select"), GUIIconSubSys::getIcon(GUIIcon::SELECT), this, MID_GNE_SELECTORFRAME_PARENTS, GUIDesignButton);
     // Create "unselect" Button
-    myUnselectParentsButton = new FXButton(parentButtons, "Unselect", GUIIconSubSys::getIcon(GUIIcon::UNSELECT), this, MID_GNE_SELECTORFRAME_PARENTS, GUIDesignButton);
+    myUnselectParentsButton = new FXButton(parentButtons, TL("Unselect"), GUIIconSubSys::getIcon(GUIIcon::UNSELECT), this, MID_GNE_SELECTORFRAME_PARENTS, GUIDesignButton);
     // create label for parents
     new FXLabel(getCollapsableFrame(), "Select children", nullptr, GUIDesignLabelThickCenter);
     // Create FXComboBox for parent comboBox
@@ -1130,9 +1134,9 @@ GNESelectorFrame::SelectionHierarchy::SelectionHierarchy(GNESelectorFrame* selec
     // create children buttons
     FXHorizontalFrame* childrenButtons = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     // Create "select" Button
-    mySelectChildrenButton = new FXButton(childrenButtons, "Select", GUIIconSubSys::getIcon(GUIIcon::SELECT), this, MID_GNE_SELECTORFRAME_CHILDREN, GUIDesignButton);
+    mySelectChildrenButton = new FXButton(childrenButtons, TL("Select"), GUIIconSubSys::getIcon(GUIIcon::SELECT), this, MID_GNE_SELECTORFRAME_CHILDREN, GUIDesignButton);
     // Create "unselect" Button
-    myUnselectChildrenButton = new FXButton(childrenButtons, "Unselect", GUIIconSubSys::getIcon(GUIIcon::UNSELECT), this, MID_GNE_SELECTORFRAME_CHILDREN, GUIDesignButton);
+    myUnselectChildrenButton = new FXButton(childrenButtons, TL("Unselect"), GUIIconSubSys::getIcon(GUIIcon::UNSELECT), this, MID_GNE_SELECTORFRAME_CHILDREN, GUIDesignButton);
     // fill comboBoxes
     for (const auto& item : myItems) {
         myParentsComboBox->appendItem(item.second.c_str());
@@ -1240,12 +1244,18 @@ GNESelectorFrame::SelectionHierarchy::onCmdParents(FXObject* obj, FXSelector, vo
         }
         // select HE
         if (HEToSelect.size() > 0) {
+            if (HEToSelect.size() > 1) {
+                mySelectorFrameParent->getViewNet()->getUndoList()->begin(GUIIcon::SELECT, "select parents");
+            }
             for (const auto& HE : HEToSelect) {
                 if (obj == mySelectParentsButton) {
                     HE->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->getViewNet()->getUndoList());
                 } else {
                     HE->setAttribute(GNE_ATTR_SELECTED, "false", mySelectorFrameParent->getViewNet()->getUndoList());
                 }
+            }
+            if (HEToSelect.size() > 1) {
+                mySelectorFrameParent->getViewNet()->getUndoList()->end();
             }
         }
         // update information label
@@ -1291,6 +1301,40 @@ GNESelectorFrame::SelectionHierarchy::onCmdChildren(FXObject* obj, FXSelector, v
                     HEToSelect.insert(HEToSelect.end(), HE->getChildEdges().begin(), HE->getChildEdges().end());
                 }
             }
+            // connections
+            if ((myCurrentSelectedChild == Selection::ALL) || (myCurrentSelectedChild == Selection::CONNECTION)) {
+                if (selectedAC->getTagProperty().getTag() == SUMO_TAG_EDGE) {
+                    // case for edges
+                    const auto edge = dynamic_cast<GNEEdge*>(selectedAC);
+                    // insert connections
+                    HEToSelect.insert(HEToSelect.end(), edge->getGNEConnections().begin(), edge->getGNEConnections().end());
+                } else if (selectedAC->getTagProperty().getTag() == SUMO_TAG_LANE) {
+                    // case for lanes
+                    const auto lane = dynamic_cast<GNELane*>(selectedAC);
+                    // insert connections
+                    for (const auto& connection : lane->getParentEdge()->getGNEConnections()) {
+                        if (connection->getAttribute(SUMO_ATTR_FROM_LANE) == lane->getAttribute(SUMO_ATTR_INDEX)) {
+                            HEToSelect.push_back(connection);
+                        }
+                    }
+                } else if (selectedAC->getTagProperty().getTag() == SUMO_TAG_JUNCTION) {
+                    // case for junction
+                    const auto junction = dynamic_cast<GNEJunction*>(selectedAC);
+                    // get connections
+                    const auto connections = junction->getGNEConnections();
+                    // insert connections
+                    HEToSelect.insert(HEToSelect.end(), connections.begin(), connections.end());
+                }
+            }
+            // crossings
+            if ((myCurrentSelectedChild == Selection::ALL) || (myCurrentSelectedChild == Selection::CROSSING)) {
+                if (selectedAC->getTagProperty().getTag() == SUMO_TAG_JUNCTION) {
+                    // case for junction
+                    const auto junction = dynamic_cast<GNEJunction*>(selectedAC);
+                    // insert crossings
+                    HEToSelect.insert(HEToSelect.end(), junction->getGNECrossings().begin(), junction->getGNECrossings().end());
+                }
+            }
             // lanes
             if ((myCurrentSelectedChild == Selection::ALL) || (myCurrentSelectedChild == Selection::LANE)) {
                 HEToSelect.insert(HEToSelect.end(), HE->getChildLanes().begin(), HE->getChildLanes().end());
@@ -1324,12 +1368,18 @@ GNESelectorFrame::SelectionHierarchy::onCmdChildren(FXObject* obj, FXSelector, v
         }
         // select HE
         if (HEToSelect.size() > 0) {
+            if (HEToSelect.size() > 1) {
+                mySelectorFrameParent->getViewNet()->getUndoList()->begin(GUIIcon::SELECT, "select children");
+            }
             for (const auto& HE : HEToSelect) {
                 if (obj == mySelectChildrenButton) {
                     HE->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->getViewNet()->getUndoList());
                 } else {
                     HE->setAttribute(GNE_ATTR_SELECTED, "false", mySelectorFrameParent->getViewNet()->getUndoList());
                 }
+            }
+            if (HEToSelect.size() > 1) {
+                mySelectorFrameParent->getViewNet()->getUndoList()->end();
             }
         }
         // update information label
@@ -1345,7 +1395,7 @@ GNESelectorFrame::SelectionHierarchy::onCmdChildren(FXObject* obj, FXSelector, v
 // ---------------------------------------------------------------------------
 
 GNESelectorFrame::Information::Information(GNESelectorFrame* selectorFrameParent) :
-    MFXGroupBoxModule(selectorFrameParent, "Information") {
+    MFXGroupBoxModule(selectorFrameParent, TL("Information")) {
     // Create Selection Hint
     new FXLabel(getCollapsableFrame(), " - Hold <SHIFT> for \n   rectangle selection.\n - Press <DEL> to\n   delete selected objects.", nullptr, GUIDesignLabelFrameInformation);
 }
@@ -1357,7 +1407,7 @@ GNESelectorFrame::Information::~Information() {}
 // GNESelectorFrame - methods
 // ---------------------------------------------------------------------------
 
-GNESelectorFrame::GNESelectorFrame(GNEViewParent *viewParent, GNEViewNet* viewNet) :
+GNESelectorFrame::GNESelectorFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     GNEFrame(viewParent, viewNet, "Selection") {
     // create selection information
     mySelectionInformation = new SelectionInformation(this);
@@ -1366,7 +1416,7 @@ GNESelectorFrame::GNESelectorFrame(GNEViewParent *viewParent, GNEViewNet* viewNe
     // create ElementSet modul
     myNetworkElementSet = new GNEElementSet(this, Supermode::NETWORK, SUMO_TAG_EDGE, SUMO_ATTR_SPEED, ">10.0");
     myDemandElementSet = new GNEElementSet(this, Supermode::DEMAND, SUMO_TAG_VEHICLE, SUMO_ATTR_ID, "");
-    myDataElementSet = new GNEElementSet(this, Supermode::DATA, SUMO_TAG_MEANDATA_EDGE, GNE_ATTR_PARAMETERS, "key=value");
+    myDataElementSet = new GNEElementSet(this, Supermode::DATA, GNE_TAG_EDGEREL_SINGLE, GNE_ATTR_PARAMETERS, "key=value");
     // create VisualScaling modul
     myVisualScaling = new VisualScaling(this);
     // create SelectionOperation modul
@@ -1427,6 +1477,48 @@ GNESelectorFrame::clearCurrentSelection() const {
 }
 
 
+bool
+GNESelectorFrame::selectAttributeCarrier(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
+    // get front AC
+    auto AC = objectsUnderCursor.getAttributeCarrierFront();
+    // check AC
+    if (AC == nullptr) {
+        return false;
+    }
+    // check locking
+    if (myViewNet->getLockManager().isObjectLocked(AC->getGUIGlObject()->getType(), AC->isAttributeCarrierSelected())) {
+        return false;
+    }
+    // check modes
+    if ((AC->getTagProperty().isNetworkElement() || AC->getTagProperty().isAdditionalElement()) &&
+            !myViewNet->getEditModes().isCurrentSupermodeNetwork()) {
+        return false;
+    }
+    if (AC->getTagProperty().isDemandElement() && !myViewNet->getEditModes().isCurrentSupermodeDemand()) {
+        return false;
+    }
+    if (AC->getTagProperty().isDataElement() && !myViewNet->getEditModes().isCurrentSupermodeData()) {
+        return false;
+    }
+    // filter GLObjects by layer
+    auto filteredGLObjects = GNEViewNetHelper::filterElementsByLayer(objectsUnderCursor.getClickedGLObjects());
+    // check if we have to open dialog
+    if (filteredGLObjects.size() > 1) {
+        myViewNet->openSelectDialogAtCursor(filteredGLObjects);
+    } else {
+        // toggle selection
+        if (AC->isAttributeCarrierSelected()) {
+            AC->unselectAttributeCarrier();
+        } else {
+            AC->selectAttributeCarrier();
+        }
+        // update information label
+        mySelectionInformation->updateInformationLabel();
+    }
+    return true;
+}
+
+
 void
 GNESelectorFrame::handleIDs(const std::vector<GNEAttributeCarrier*>& ACs, const ModificationMode::Operation setop) {
     // declare set operation
@@ -1444,7 +1536,7 @@ GNESelectorFrame::handleIDs(const std::vector<GNEAttributeCarrier*>& ACs, const 
     }
     // handle ids
     for (const auto& AC : ACs) {
-        // iterate over AtributeCarriers an place it in ACsToSelect or ACsToUnselect
+        // iterate over AttributeCarriers an place it in ACsToSelect or ACsToUnselect
         switch (setOperation) {
             case GNESelectorFrame::ModificationMode::Operation::SUB:
                 ACsToUnselect.insert(std::make_pair(AC->getID(), AC));

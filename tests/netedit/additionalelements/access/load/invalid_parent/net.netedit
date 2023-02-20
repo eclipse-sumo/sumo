@@ -1,63 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 03/12/2020 10:56:10 by Eclipse SUMO netedit Version v1_8_0+0036-3d5ef85437
+<!-- generated on 2023-01-26 10:57:28 by Eclipse SUMO netedit Version v1_15_0+1963-12923ba0e0a
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\palva\.texttest\tmp\netedit.gui.03Dec104214.24840\netedit.gui\additionalElements\access\load\invalid_parent\input_net.net.xml"/>
+        <additional-files value="/home/palcraft/.texttest/tmp/netedit.daily.additional.access.1_from_26Jan095535.114352/netedit.daily.additional.access/additionalelements/access/load/invalid_parent/additionals.add.xml"/>
+        <route-files value="/home/palcraft/.texttest/tmp/netedit.daily.additional.access.1_from_26Jan095535.114352/netedit.daily.additional.access/additionalelements/access/load/invalid_parent/routes.rou.xml"/>
+        <data-files value="/home/palcraft/.texttest/tmp/netedit.daily.additional.access.1_from_26Jan095535.114352/netedit.daily.additional.access/additionalelements/access/load/invalid_parent/datas.dat.xml"/>
+        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.daily.additional.access.1_from_26Jan095535.114352/netedit.daily.additional.access/additionalelements/access/load/invalid_parent/net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\palva\.texttest\tmp\netedit.gui.03Dec104214.24840\netedit.gui\additionalElements\access\load\invalid_parent\net.net.xml"/>
+        <output-file value="/home/palcraft/.texttest/tmp/netedit.daily.additional.access.1_from_26Jan095535.114352/netedit.daily.additional.access/additionalelements/access/load/invalid_parent/net.net.xml"/>
     </output>
 
     <processing>
         <geometry.min-radius.fix.railways value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
-        <lefthand value="false"/>
+        <lefthand value="0"/>
     </processing>
 
     <junctions>
         <no-turnarounds value="true"/>
         <junctions.corner-detail value="5"/>
-        <junctions.limit-turn-speed value="5.5"/>
-        <rectangular-lane-cut value="false"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
     </junctions>
 
     <pedestrian>
-        <walkingareas value="false"/>
+        <walkingareas value="0"/>
     </pedestrian>
 
-    <netedit>
-        <additional-files value="C:\Users\palva\.texttest\tmp\netedit.gui.03Dec104214.24840\netedit.gui\additionalElements\access\load\invalid_parent\additionals.xml"/>
-        <additionals-output value="C:\Users\palva\.texttest\tmp\netedit.gui.03Dec104214.24840\netedit.gui\additionalElements\access\load\invalid_parent\additionals.xml"/>
-        <route-files value="C:\Users\palva\.texttest\tmp\netedit.gui.03Dec104214.24840\netedit.gui\additionalElements\access\load\invalid_parent\routes.xml"/>
-        <demandelements-output value="C:\Users\palva\.texttest\tmp\netedit.gui.03Dec104214.24840\netedit.gui\additionalElements\access\load\invalid_parent\routes.xml"/>
-        <data-files value="C:\Users\palva\.texttest\tmp\netedit.gui.03Dec104214.24840\netedit.gui\additionalElements\access\load\invalid_parent\datas.xml"/>
-        <dataelements-output value="C:\Users\palva\.texttest\tmp\netedit.gui.03Dec104214.24840\netedit.gui\additionalElements\access\load\invalid_parent\datas.xml"/>
-    </netedit>
-
     <visualisation>
-        <gui-settings-file value="C:\Users\palva\.texttest\tmp\netedit.gui.03Dec104214.24840\netedit.gui\additionalElements\access\load\invalid_parent\gui-settings.xml"/>
-        <window-size value="700,500"/>
+        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.daily.additional.access.1_from_26Jan095535.114352/netedit.daily.additional.access/additionalelements/access/load/invalid_parent/gui-settings.xml"/>
+        <window-size value="936, 697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
         <gui-testing-debug-gl value="true"/>
-        <gui-testing.setting-output value="C:\Users\palva\.texttest\tmp\netedit.gui.03Dec104214.24840\netedit.gui\additionalElements\access\load\invalid_parent\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.daily.additional.access.1_from_26Jan095535.114352/netedit.daily.additional.access/additionalelements/access/load/invalid_parent/guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\palva\.texttest\tmp\netedit.gui.03Dec104214.24840\netedit.gui\additionalElements\access\load\invalid_parent\log.txt"/>
+        <error-log value="/home/palcraft/.texttest/tmp/netedit.daily.additional.access.1_from_26Jan095535.114352/netedit.daily.additional.access/additionalelements/access/load/invalid_parent/log.txt"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.9" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="25.00,30.00" convBoundary="0.00,0.00,50.00,60.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 

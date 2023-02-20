@@ -151,3 +151,7 @@ data. The contents of the directory look like this:
 You may now edit those files and re-run the simulation. To learn more
 about the SUMO scenario files, please consult the other
 [Tutorials](index.md) as well.
+
+Please note that depending on your SUMO version some of these files may have an additional *.gz* suffix.
+The SUMO tools (including sumo-gui and netedit) will still be able to process them but to view or modify
+them in a text editor you will need to unzip them (for instance with gunzip or 7z).

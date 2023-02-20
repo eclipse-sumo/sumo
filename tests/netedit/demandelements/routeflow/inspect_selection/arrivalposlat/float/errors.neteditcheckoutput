@@ -15,7 +15,6 @@ Warning: Vehicle 'flowA.7' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowB.7' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.8' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowB.8' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.8' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.9' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.10' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowB.10' will not be able to arrive with the given speed!

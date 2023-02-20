@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -61,7 +61,7 @@ public:
     /** @brief Return the number of command line arguments
      */
     static int getArgC() {
-        return myArgC;
+        return (int)myArgs.size();
     }
 
 
@@ -104,8 +104,7 @@ public:
 
 
 private:
-    static int myArgC;
-    static char** myArgV;
+    static std::vector<std::string> myArgs;
     static std::chrono::time_point<std::chrono::system_clock> myLoadTime;
 
 };

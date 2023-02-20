@@ -1,0 +1,51 @@
+# direction of bus stops imported correctly based on pt lines
+bus_stop_direction_from_pt_lines
+
+# route relations are defined with platforms only
+bus_stops_from_line_platforms
+
+# merge osm files that contain the same ptline information
+duplicate_lines
+
+# mport ptlines and handle network modification options
+ptline_network_modification
+
+# direction of bus stops imported (guessed) correctly
+bus_stop_direction_no_platforms
+
+# direction of bus stops imported (guessed) correctly
+bus_stop_direction_single_stop_pos_two_platforms
+
+# direction of bus stops imported (guessed) correctly
+# 
+bus_stop_direction_single_stop_pos_single_platform
+
+# direction of bus stops imported (guessed) correctly
+bus_stop_direction
+
+# a bus stop in berlin-adlershof (Akeleiweg)
+bus_stop_direction_platform_as_way
+
+# import bus stops
+bus_stop_position
+
+# import bus stops
+bus_stop_position_numerical_ids
+
+# import bus stops that are not part of the round network by matching to the nearest line edge
+bus_stop_match_line
+
+# import bus stops that use a non-redundant mix of stop and platform members in the route relation
+bus_stop_mix_stops_platforms
+
+# import bus stops that use a non-redundant mix of stop and platform members in the route relation
+bus_stop_mix_stops_platforms_lefthand
+
+# wuppertal monorail
+monorail
+
+# wuppertal monorail
+monorail_all
+
+# medellin aerialway
+aerialway

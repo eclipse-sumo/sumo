@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -117,9 +117,8 @@ public:
     /// @brief pixels-to-meters conversion method
     double p2m(double pixel) const;
 
-    /// @brief Returns the information whether rotation is allowed
-    ///@note disabled
-    //bool allowRotation() const;
+    /// @brief get main window
+    GUIMainWindow* getMainWindow() const;
 
     /// @brief return windows cursor position
     Position getWindowCursorPosition() const;
@@ -175,11 +174,14 @@ public:
     /// @brief highlight edges according to reachability
     virtual long onCmdShowReachability(FXObject*, FXSelector, void*);
 
+    /// @brief hook to react on change in visualization settings
+    virtual long  onVisualizationChange(FXObject*, FXSelector, void*);
+
     /// @brief open object dialog at the cursor position
-    virtual void openObjectDialogAtCursor();
+    virtual void openObjectDialogAtCursor(const FXEvent* ev);
 
     /// @brief open object dialog for the given object
-    void openObjectDialog(GUIGlObject* o);
+    void openObjectDialog(const std::vector<GUIGlObject*>& objects, const bool filter = true);
 
     /// @brief A method that updates the tooltip
     void updateToolTip();
@@ -231,9 +233,6 @@ public:
     /// @brief show viewsscheme editor
     void showViewschemeEditor();
 
-    /// @brief show tool tips
-    void showToolTips(bool val);
-
     /// @brief set color scheme
     virtual bool setColorScheme(const std::string&);
 
@@ -245,13 +244,27 @@ public:
 
     /// @brief recalibrate color scheme according to the current value range
     virtual void buildColorRainbow(const GUIVisualizationSettings& /*s*/, GUIColorScheme& /*scheme*/, int /*active*/, GUIGlObjectType /*objectType*/,
-                                   bool hide = false, double hideThreshold = 0) {
+                                   bool hide = false, double hideThreshold = 0,
+                                   bool hide2 = false, double hideThreshold2 = 0) {
         UNUSED_PARAMETER(hide);
         UNUSED_PARAMETER(hideThreshold);
+        UNUSED_PARAMETER(hide2);
+        UNUSED_PARAMETER(hideThreshold2);
     }
 
     /// @brief return list of loaded edgeData attributes
     virtual std::vector<std::string> getEdgeDataAttrs() const {
+        return std::vector<std::string>();
+    }
+
+    /// @brief return list of loaded edgeData ids (being computed in the current simulation)
+    virtual std::vector<std::string> getMeanDataIDs() const {
+        return std::vector<std::string>();
+    }
+
+    /// @brief return list of available attributes for the given meanData id
+    virtual std::vector<std::string> getMeanDataAttrs(const std::string& meanDataID) const {
+        UNUSED_PARAMETER(meanDataID);
         return std::vector<std::string>();
     }
 
@@ -330,6 +343,9 @@ public:
 
     /// @brief destroys the popup
     void destroyPopup();
+
+    /// @brief replace PopUp
+    void replacePopup(GUIGLObjectPopupMenu* popUp);
 
     ///@struct Decal
     /// @brief A decal (an image) that can be shown
@@ -412,8 +428,8 @@ protected:
     /// @brief performs the painting of the simulation
     void paintGL();
 
-    /// @brief update position information
-    virtual void updatePositionInformation() const;
+    /// @brief update position information labels
+    virtual void updatePositionInformationLabel() const;
 
     /// @brief paint GL
     virtual int doPaintGL(int /*mode*/, const Boundary& /*boundary*/);
@@ -463,8 +479,11 @@ protected:
     /// @brief returns the ids of all objects in the given boundary
     std::vector<GUIGlID> getObjectsInBoundary(Boundary bound, bool singlePosition);
 
+    /// @brief filter internal lanes in Objects under cursor
+    std::vector<GUIGlObject*> filterInernalLanes(const std::vector<GUIGlObject*>& objects) const;
+
     /// @brief invokes the tooltip for the given object
-    void showToolTipFor(const GUIGlID id);
+    bool showToolTipFor(const GUIGlID idToolTip);
 
     /// @brief Draws the stored decals
     void drawDecals();
@@ -480,7 +499,6 @@ protected:
     /// @brief check whether we can read image data or position with gdal
     FXImage* checkGDALImage(Decal& d);
 
-protected:
     /// @brief The application
     GUIMainWindow* myApp;
 
@@ -493,26 +511,29 @@ protected:
     /// @brief The perspective changer
     GUIPerspectiveChanger* myChanger;
 
+    /// @brief Panning flag
+    bool myPanning = false;
+
     /// @brief Information whether too-tip informations shall be generated
-    bool myInEditMode;
+    bool myInEditMode = false;
 
     /// @brief Offset to the mouse-hotspot from the mouse position
     int myMouseHotspotX, myMouseHotspotY;
 
     /// @brief The current popup-menu
-    GUIGLObjectPopupMenu* myPopup;
+    GUIGLObjectPopupMenu* myPopup = nullptr;
 
-    /// @brief current object dialog 
-    GUIGlObject* myCurrentObjectDialog = nullptr;
+    /// @brief clicked poup position
+    Position myClickedPopupPosition = Position::INVALID;
 
     /// @brief The current popup-menu position
-    Position myPopupPosition;
+    Position myPopupPosition = Position(0, 0);
+
+    /// @brief vector with current objects dialog
+    std::vector<GUIGlObject*> myCurrentObjectsDialog;
 
     /// @brief visualization settings
     GUIVisualizationSettings* myVisualizationSettings;
-
-    /// @brief use tool tips
-    bool myUseToolTips;
 
     /// @brief Internal information whether doInit() was called
     bool myAmInitialised;
@@ -554,6 +575,27 @@ protected:
     long myFrameDrawTime;
 
 private:
+    /// @brief struct used for sorting objects by layer
+    struct LayerObject : public std::pair<double, std::pair<GUIGlObjectType, std::string> > {
+
+    public:
+        /// @brief constructor for shapes
+        LayerObject(double layer, GUIGlObject* object);
+
+        /// @brief constructor for non-shape elements
+        LayerObject(GUIGlObject* object);
+
+        /// @brief get GLObject
+        GUIGlObject* getGLObject() const;
+
+    private:
+        /// @brief GLObject
+        GUIGlObject* myGLObject;
+    };
+
+    /// @fbrief filter elements by layer
+    std::vector<GUIGlObject*> filterGUIGLObjectsByLayer(const std::vector<GUIGlObject*>& objects) const;
+
     // @brief sensitivity for "<>AtPosition(...) functions
     static const double SENSITIVITY;
 };

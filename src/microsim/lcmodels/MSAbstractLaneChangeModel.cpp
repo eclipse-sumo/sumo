@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -36,6 +36,7 @@
 
 #include <utils/options/OptionsCont.h>
 #include <utils/xml/SUMOSAXAttributes.h>
+#include <utils/geom/GeomHelper.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
@@ -59,6 +60,8 @@ bool MSAbstractLaneChangeModel::myLCEndedOutput(false);
 bool MSAbstractLaneChangeModel::myLCXYOutput(false);
 const double MSAbstractLaneChangeModel::NO_NEIGHBOR(std::numeric_limits<double>::max());
 
+#define LC_ASSUMED_DECEL 1.0 // the minimal constant deceleration assumed to estimate the duration of a continuous lane-change at its initiation.
+
 /* -------------------------------------------------------------------------
  * MSAbstractLaneChangeModel-methods
  * ----------------------------------------------------------------------- */
@@ -76,7 +79,7 @@ MSAbstractLaneChangeModel::initGlobalOptions(const OptionsCont& oc) {
 MSAbstractLaneChangeModel*
 MSAbstractLaneChangeModel::build(LaneChangeModel lcm, MSVehicle& v) {
     if (MSGlobals::gLateralResolution > 0 && lcm != LaneChangeModel::SL2015 && lcm != LaneChangeModel::DEFAULT) {
-        throw ProcessError("Lane change model '" + toString(lcm) + "' is not compatible with sublane simulation");
+        throw ProcessError(TLF("Lane change model '%' is not compatible with sublane simulation", toString(lcm)));
     }
     switch (lcm) {
         case LaneChangeModel::DK2008:
@@ -92,7 +95,7 @@ MSAbstractLaneChangeModel::build(LaneChangeModel lcm, MSVehicle& v) {
                 return new MSLCM_SL2015(v);
             }
         default:
-            throw ProcessError("Lane change model '" + toString(lcm) + "' not implemented");
+            throw ProcessError(TLF("Lane change model '%' not implemented", toString(lcm)));
     }
 }
 
@@ -107,6 +110,8 @@ MSAbstractLaneChangeModel::MSAbstractLaneChangeModel(MSVehicle& v, const LaneCha
     myCanceledStateLeft(LCA_NONE),
     mySpeedLat(0),
     myAccelerationLat(0),
+    myAngleOffset(0),
+    myPreviousAngleOffset(0),
     myCommittedSpeed(0),
     myLaneChangeCompletion(1.0),
     myLaneChangeDirection(0),
@@ -417,7 +422,7 @@ MSAbstractLaneChangeModel::computeSpeedLat(double /*latDist*/, double& maneuverD
 
 double
 MSAbstractLaneChangeModel::getAssumedDecelForLaneChangeDuration() const {
-    throw ProcessError("Method getAssumedDecelForLaneChangeDuration() not implemented by model " + toString(myModel));
+    return MAX2(LC_ASSUMED_DECEL, -myVehicle.getAcceleration());
 }
 
 void
@@ -425,6 +430,15 @@ MSAbstractLaneChangeModel::setSpeedLat(double speedLat) {
     myAccelerationLat = SPEED2ACCEL(speedLat - mySpeedLat);
     mySpeedLat = speedLat;
 }
+
+
+void
+MSAbstractLaneChangeModel::resetSpeedLat() {
+    if (MSGlobals::gLaneChangeDuration > 0 && !isChangingLanes()) {
+        setSpeedLat(0);
+    }
+}
+
 
 bool
 MSAbstractLaneChangeModel::updateCompletion() {
@@ -723,13 +737,18 @@ MSAbstractLaneChangeModel::determineTargetLane(int& targetDir) const {
 
 
 double
-MSAbstractLaneChangeModel::getAngleOffset() const {
-    const double totalDuration = (myVehicle.getVehicleType().wasSet(VTYPEPARS_MAXSPEED_LAT_SET)
-                                  ? SUMO_const_laneWidth / myVehicle.getVehicleType().getMaxSpeedLat()
-                                  : STEPS2TIME(MSGlobals::gLaneChangeDuration));
+MSAbstractLaneChangeModel::calcAngleOffset() {
+    double result = 0.;
+    if (!(fabs(mySpeedLat) < NUMERICAL_EPS && fabs(myPreviousAngleOffset * 180 / M_PI) < NUMERICAL_EPS)) {
+        if (myVehicle.getLength() < sqrt(SPEED2DIST(mySpeedLat) * SPEED2DIST(mySpeedLat) + SPEED2DIST(myVehicle.getSpeed()) * SPEED2DIST(myVehicle.getSpeed()))) {
+            result = atan2(mySpeedLat, myVehicle.getSpeed());
+        } else {
+            result = myPreviousAngleOffset + asin((sin(M_PI / 2 - myPreviousAngleOffset) * (SPEED2DIST(mySpeedLat) - tan(myPreviousAngleOffset) * SPEED2DIST(myVehicle.getSpeed()))) / myVehicle.getLength());
+        }
+    }
 
-    const double angleOffset = 60 / totalDuration * (pastMidpoint() ? 1 - myLaneChangeCompletion : myLaneChangeCompletion);
-    return myLaneChangeDirection * angleOffset;
+    myAngleOffset = result;
+    return result;
 }
 
 
@@ -1071,6 +1090,12 @@ MSAbstractLaneChangeModel::getNormalizedLaneIndex() {
     } else {
         return i;
     }
+}
+
+void
+MSAbstractLaneChangeModel::addLCSpeedAdvice(const double vSafe, bool ownAdvice) {
+    const double accel = SPEED2ACCEL(vSafe - myVehicle.getSpeed());
+    myLCAccelerationAdvices.push_back({accel, ownAdvice});
 }
 
 

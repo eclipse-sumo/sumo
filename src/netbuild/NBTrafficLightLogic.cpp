@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -97,7 +97,7 @@ NBTrafficLightLogic::addStep(const SUMOTime duration, const std::string& state, 
     // check state contents
     const std::string::size_type illegal = state.find_first_not_of(SUMOXMLDefinitions::ALLOWED_TLS_LINKSTATES);
     if (std::string::npos != illegal) {
-        throw ProcessError("When adding phase: illegal character '" + toString(state[illegal]) + "' in state");
+        throw ProcessError(TLF("When adding phase: illegal character '%' in state", toString(state[illegal])));
     }
     // interpret index
     if (index < 0 || index >= (int)myPhases.size()) {
@@ -134,6 +134,21 @@ NBTrafficLightLogic::swapPhase(int indexPhaseA, int indexPhaseB) {
     myPhases.at(indexPhaseB) = auxPhase;
 }
 
+
+void
+NBTrafficLightLogic::swapfirstPhase() {
+    const auto firstPhase = myPhases.front();
+    myPhases.erase(myPhases.begin());
+    myPhases.push_back(firstPhase);
+}
+
+
+void
+NBTrafficLightLogic::swaplastPhase() {
+    const auto lastPhase = myPhases.back();
+    myPhases.pop_back();
+    myPhases.insert(myPhases.begin(), lastPhase);
+}
 
 void
 NBTrafficLightLogic::setStateLength(int numLinks, LinkState fill) {
@@ -215,7 +230,7 @@ NBTrafficLightLogic::closeBuilding(bool checkVarDurations) {
                 }
             }
             if (!found) {
-                WRITE_WARNING("Non-static traffic light '" + getID() + "' does not define variable phase length.");
+                WRITE_WARNINGF(TL("Non-static traffic light '%' does not define variable phase length."), getID());
             }
         }
     }
@@ -301,7 +316,7 @@ NBTrafficLightLogic::setPhaseName(int phaseIndex, const std::string& name) {
 }
 
 
-void 
+void
 NBTrafficLightLogic::overrideState(int phaseIndex, const char c) {
     assert(phaseIndex < (int)myPhases.size());
     for (int i = 0; i < (int)myPhases[phaseIndex].state.size(); i++) {

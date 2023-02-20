@@ -1,0 +1,57 @@
+Warning: The referenced geometry information (ref='252500077') is not known
+Warning: The referenced geometry information (ref='3319201694') is not known
+Warning: The referenced geometry information (ref='5424248175') is not known
+Warning: The referenced geometry information (ref='2830904186') is not known
+Warning: The referenced geometry information (ref='252500102') is not known
+Warning: Discarding unusable type 'railway.platform' (first occurrence for edge '61302695').
+Warning: Discarding way '127867765' because it has only 1 node(s)
+Warning: Discarding way '127867768' because it has only 1 node(s)
+Warning: Discarding way '127867791' because it has only 1 node(s)
+Warning: Discarding way '127867792' because it has only 1 node(s)
+Warning: Discarding way '127867795' because it has only 1 node(s)
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.tertiary' (first occurrence for edge '382039401').
+Warning: PT line 'Tram 4: Radeklint => Helmstedter Str.' in relation 3887930 seems to be split, only keeping first part.
+Warning: PT line in relation 6915027 with no stops ignored. Probably OSM file is incomplete.
+Warning: PT line in relation 6915028 with no stops ignored. Probably OSM file is incomplete.
+Warning: PT line 'Bus 412: Paxmannstraße => Rathaus' in relation 6952992 seems to be split, only keeping first part.
+Warning: PT line in relation 6974265 with no stops ignored. Probably OSM file is incomplete.
+Warning: PT line in relation 7345498 with no stops ignored. Probably OSM file is incomplete.
+Warning: Cannot assign stop 5428806610 on edge '563320574' to pt line '1518915'. Ignoring!
+Warning: Cannot assign stop 5428806609 on edge '563320575' to pt line '6615477'. Ignoring!
+Warning: Cannot assign stop 5428806609 on edge '563320575' to pt line '6789990'. Ignoring!
+Warning: Cannot assign stop 5428806610 on edge '563320574' to pt line '6789991'. Ignoring!
+Warning: Cannot assign stop 5428806610 on edge '563320574' to pt line '6915025'. Ignoring!
+Warning: First stop edge '563320574#0' is not part of the route of line '1518915'.
+Warning: Last stop edge '563320574#0' is not part of the route of line '1518915'.
+Warning: Edge sequence is not consistent with stop sequence in line '31272', not adding bidi edges.
+Warning: First stop edge '563320575#1' is not part of the route of line '6615477'.
+Warning: Last stop edge '563320575#1' is not part of the route of line '6615477'.
+Warning: First stop edge '563320575#1' is not part of the route of line '6789990'.
+Warning: Last stop edge '563320575#1' is not part of the route of line '6789990'.
+Warning: First stop edge '563320574#0' is not part of the route of line '6789991'.
+Warning: Last stop edge '563320574#0' is not part of the route of line '6789991'.
+Warning: First stop edge '563320574#0' is not part of the route of line '6915025'.
+Warning: Last stop edge '563320574#0' is not part of the route of line '6915025'.
+Warning: Edge sequence is not consistent with stop sequence in line '6952993', not adding bidi edges.
+Warning: Found sharp turn with radius 2.20 at the start of edge '33081812#5'.
+Warning: Found sharp turn with radius 6.36 at the start of edge '375217301#2'.
+Warning: Found sharp turn with radius 6.71 at the end of edge '375217308#1'.
+Warning: Converting invalid rail_crossing to priority junction '3360099094'.
+Warning: Converting invalid rail_crossing to priority junction '3362307568'.
+Warning: Converting invalid rail_crossing to priority junction '3412405253'.
+Warning: Converting invalid rail_crossing to priority junction '3412405264'.
+Warning: Converting invalid rail_crossing to priority junction '3414774979'.
+Warning: Converting invalid rail_crossing to traffic_light at junction '3786025578'.
+Warning: Lane '-23319992#2_0' is not connected from any incoming edge at junction '3414814703'.
+Warning: The traffic light '3319201701' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '3319201701'
+Warning: The traffic light '5708137319' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '5708137319'
+Warning: Speed of straight connection '375217308#1_0->375217308#2_0' reduced by 6.07 due to turning radius of 11.13 (length=7.13, angle=54.56).
+Warning: Speed of straight connection '375217301#1_0->375217301#2_0' reduced by 8.14 due to turning radius of 6.02 (length=1.74, angle=34.17).
+Warning: 8 total messages of type: Cannot assign stop % on edge '%' to pt line '%'. Ignoring!
+Warning: 20 total messages of type: Converting invalid rail_crossing to priority junction '%'.
+Warning: 12 total messages of type: Discarding way '%' because it has only % node(s)
+Warning: 8 total messages of type: First stop edge '%' is not part of the route of line '%'.
+Warning: 7 total messages of type: Last stop edge '%' is not part of the route of line '%'.
+Warning: 799 total messages of type: The referenced geometry information (ref='%') is not known

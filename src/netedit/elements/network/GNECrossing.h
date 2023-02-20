@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -22,6 +22,7 @@
 #include "GNENetworkElement.h"
 #include <netbuild/NBNode.h>
 
+
 // ===========================================================================
 // class declarations
 // ===========================================================================
@@ -29,6 +30,7 @@ class GUIGLObjectPopupMenu;
 class PositionVector;
 class GNEJunction;
 class GNEEdge;
+
 
 // ===========================================================================
 // class definitions
@@ -101,9 +103,6 @@ public:
      */
     GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent);
 
-    /// @brief return exaggeration associated with this GLObject
-    double getExaggeration(const GUIVisualizationSettings& s) const;
-
     /// @brief update centering boundary (implies change in RTREE)
     void updateCenteringBoundary(const bool updateGrid);
 
@@ -113,8 +112,12 @@ public:
      */
     void drawGL(const GUIVisualizationSettings& s) const;
 
+    /// @brief delete element
+    void deleteGLObject();
+
     /// @brief update GLObject (geometry, ID, etc.)
     void updateGLObject();
+
     /// @}
 
     /// @name inherited from GNEAttributeCarrier

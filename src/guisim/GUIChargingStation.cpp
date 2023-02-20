@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -55,7 +55,7 @@ GUIChargingStation::GUIChargingStation(const std::string& id, MSLane& lane, doub
                                        const std::string& name,
                                        double chargingPower, double efficiency, bool chargeInTransit, SUMOTime chargeDelay) :
     MSChargingStation(id, lane, frompos, topos, name, chargingPower, efficiency, chargeInTransit, chargeDelay),
-    GUIGlObject_AbstractAdd(GLO_CHARGING_STATION, id) {
+    GUIGlObject_AbstractAdd(GLO_CHARGING_STATION, id, GUIIconSubSys::getIcon(GUIIcon::CHARGINGSTATION)) {
     myFGShape = lane.getShape();
     myFGShape = myFGShape.getSubpart(
                     lane.interpolateLanePosToGeometryPos(frompos),

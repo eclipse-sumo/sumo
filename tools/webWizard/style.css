@@ -208,3 +208,7 @@ input[type=number] {
 #general-options label {
     margin: 5px 0;
 }
+
+.checkAll {
+    margin: 5px;
+}

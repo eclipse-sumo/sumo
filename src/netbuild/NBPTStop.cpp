@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -21,9 +21,10 @@
 
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/common/StringUtils.h>
-#include "NBPTStop.h"
 #include "NBEdge.h"
 #include "NBEdgeCont.h"
+#include "NBPTPlatform.h"
+#include "NBPTStop.h"
 
 
 // ===========================================================================
@@ -42,13 +43,12 @@ NBPTStop::NBPTStop(std::string ptStopId, Position position, std::string edgeId, 
     myPermissions(svcPermissions),
     myStartPos(0),
     myEndPos(0),
-    myBidiStop(nullptr),
+    myBidiStop(std::weak_ptr<NBPTStop>()),
     myIsLoose(origEdgeId == ""),
     myIsPlatform(false),
     myIsMultipleStopPositions(false),
     myAreaID(-1),
-    myGivenStartPos(givenStartPos)
-{
+    myGivenStartPos(givenStartPos) {
 }
 
 
@@ -240,6 +240,7 @@ NBPTStop::clearAccess() {
     myAccesses.clear();
 }
 
+
 void
 NBPTStop::addAccess(std::string laneID, double offset, double length) {
     const std::string newEdgeID = SUMOXMLDefinitions::getEdgeIDFromLane(laneID);
@@ -262,23 +263,25 @@ NBPTStop::replaceEdge(const std::string& edgeID, const EdgeVector& replacement) 
         double bestDist = std::numeric_limits<double>::max();
         NBEdge* bestEdge = nullptr;
         for (NBEdge* cand : replacement) {
-            double dist = cand->getGeometry().distance2D(myPosition);
-            if (dist < bestDist) {
-                bestDist = dist;
-                bestEdge = cand;
+            if (myPermissions == 0 || (cand->getPermissions() & myPermissions) != 0) {
+                const double dist = cand->getGeometry().distance2D(myPosition) + MAX2(0., myPTStopLength - cand->getLoadedLength());
+                if (dist < bestDist) {
+                    bestDist = dist;
+                    bestEdge = cand;
+                }
             }
         }
-        if (bestDist != std::numeric_limits<double>::max()) {
+        if (bestEdge != nullptr) {
             if ((bestEdge->getPermissions() & SVC_PEDESTRIAN) != 0) {
                 // no need for access
                 clearAccess();
             }
             return findLaneAndComputeBusStopExtent(bestEdge);
-        } else {
-            return false;
         }
+        return false;
     }
     return true;
 }
+
 
 /****************************************************************************/

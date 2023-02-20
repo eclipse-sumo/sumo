@@ -1,6 +1,8 @@
 set(gui_dialogs_STAT_SRCS
    GUIDialog_AboutSUMO.cpp
    GUIDialog_AboutSUMO.h
+   GUIDialog_Feedback.cpp
+   GUIDialog_Feedback.h
    GUIDialog_AppSettings.cpp
    GUIDialog_AppSettings.h
    GUIDialog_Breakpoints.cpp

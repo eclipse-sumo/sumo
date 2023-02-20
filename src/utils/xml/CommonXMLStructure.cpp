@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -268,7 +268,7 @@ CommonXMLStructure::SumoBaseObject::getVehicleTypeParameter() const {
     if (myDefinedVehicleTypeParameter) {
         return myVehicleTypeParameter;
     } else {
-        throw ProcessError("Undefined vehicleType parameter");
+        throw ProcessError(TL("Undefined vehicleType parameter"));
     }
 }
 
@@ -278,7 +278,7 @@ CommonXMLStructure::SumoBaseObject::getVehicleParameter() const {
     if (myDefinedVehicleParameter) {
         return myVehicleParameter;
     } else {
-        throw ProcessError("Undefined vehicle parameter");
+        throw ProcessError(TL("Undefined vehicle parameter"));
     }
 }
 
@@ -288,7 +288,7 @@ CommonXMLStructure::SumoBaseObject::getStopParameter() const {
     if (myDefinedStopParameter) {
         return myStopParameter;
     } else {
-        throw ProcessError("Undefined stop parameter");
+        throw ProcessError(TL("Undefined stop parameter"));
     }
 
 }
@@ -510,7 +510,7 @@ CommonXMLStructure::SumoBaseObject::removeSumoBaseObjectChild(SumoBaseObject* su
 
 void
 CommonXMLStructure::SumoBaseObject::handleAttributeError(const SumoXMLAttr attr, const std::string& type) const {
-    WRITE_ERROR("Trying to get undefined " + type + " attribute '" + toString(attr) + "' in SUMOBaseObject '" + toString(myTag) + "'");
+    WRITE_ERRORF(TL("Trying to get undefined % attribute '%' in SUMOBaseObject '%'"), type, toString(attr), toString(myTag));
 }
 
 // ---------------------------------------------------------------------------

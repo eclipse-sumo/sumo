@@ -51,6 +51,7 @@ The probabilities for selecting an edge may also be weighted by
 - edge speed (exponentially, by option **--speed-exponent**)
 - [generic edge parameter](../Simulation/GenericParameters.md) (option **--edge-param**)
 - direction of travel (option **--angle-factor** and **--angle**)
+- randomly (option **--random-factor**)
 
 For additional ways to influence edge probabilities call
 

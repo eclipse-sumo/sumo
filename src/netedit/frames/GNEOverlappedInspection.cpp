@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -49,7 +49,7 @@ FXIMPLEMENT(GNEOverlappedInspection,       MFXGroupBoxModule,     OverlappedInsp
 // ===========================================================================
 
 GNEOverlappedInspection::GNEOverlappedInspection(GNEFrame* frameParent) :
-    MFXGroupBoxModule(frameParent, "Overlapped elements"),
+    MFXGroupBoxModule(frameParent, TL("Overlapped elements")),
     myFrameParent(frameParent),
     myFilteredTag(SUMO_TAG_NOTHING),
     myItemIndex(0) {
@@ -59,7 +59,7 @@ GNEOverlappedInspection::GNEOverlappedInspection(GNEFrame* frameParent) :
 
 
 GNEOverlappedInspection::GNEOverlappedInspection(GNEFrame* frameParent, const SumoXMLTag filteredTag) :
-    MFXGroupBoxModule(frameParent, ("Overlapped " + toString(filteredTag) + "s").c_str()),
+    MFXGroupBoxModule(frameParent, (TL("Overlapped ") + toString(filteredTag) + "s").c_str()),
     myFrameParent(frameParent),
     myFilteredTag(filteredTag),
     myItemIndex(0) {
@@ -108,7 +108,7 @@ GNEOverlappedInspection::showOverlappedInspection(const GNEViewNetHelper::Object
         // clear and fill list again
         myOverlappedElementList->clearItems();
         for (int i = 0; i < (int)myOverlappedACs.size(); i++) {
-            myOverlappedElementList->insertItem(i, myOverlappedACs.at(i)->getID().c_str(), myOverlappedACs.at(i)->getIcon());
+            myOverlappedElementList->insertItem(i, myOverlappedACs.at(i)->getID().c_str(), myOverlappedACs.at(i)->getACIcon());
         }
         // set first element as selected element
         myOverlappedElementList->getItem(0)->setSelected(TRUE);
@@ -272,17 +272,17 @@ GNEOverlappedInspection::onCmdListItemSelected(FXObject*, FXSelector, void*) {
 
 long
 GNEOverlappedInspection::onCmdOverlappingHelp(FXObject*, FXSelector, void*) {
-    FXDialogBox* helpDialog = new FXDialogBox(getCollapsableFrame(), "GEO attributes Help", GUIDesignDialogBox);
+    FXDialogBox* helpDialog = new FXDialogBox(getCollapsableFrame(), TL("GEO attributes Help"), GUIDesignDialogBox);
     std::ostringstream help;
     help
-            << " - Click in the same position\n"
-            << "   for inspect next element\n"
-            << " - Shift + Click in the same\n"
-            << "   position for inspect\n"
-            << "   previous element";
+            << TL(" - Click in the same position") << "\n"
+            << TL("   for inspect next element") << "\n"
+            << TL(" - Shift + Click in the same") << "\n"
+            << TL("   position for inspect") << "\n"
+            << TL("   previous element");
     new FXLabel(helpDialog, help.str().c_str(), nullptr, GUIDesignLabelFrameInformation);
     // "OK"
-    new FXButton(helpDialog, "OK\t\tclose", GUIIconSubSys::getIcon(GUIIcon::ACCEPT), helpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
+    new FXButton(helpDialog, (TL("OK") + std::string("\t\t") + TL("close")).c_str(), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), helpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
     helpDialog->create();
     helpDialog->show();
     return 1;
@@ -315,7 +315,7 @@ GNEOverlappedInspection::buildFXElements() {
     // by default list of overlapped elements is hidden)
     myOverlappedElementList->hide();
     // Create help button
-    myHelpButton = new FXButton(getCollapsableFrame(), "Help", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
+    myHelpButton = new FXButton(getCollapsableFrame(), TL("Help"), nullptr, this, MID_HELP, GUIDesignButtonRectangular);
 }
 
 /****************************************************************************/

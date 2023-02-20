@@ -1,0 +1,193 @@
+timestep:  0.0
+Reservations waiting: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+Taxis empty: ('v0', 'v1')
+Solve CPDP
+Start creating the model.
+dp reservations: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+do reservations: []
+Reservation 0 starts at edge C1C2
+Reservation 1 starts at edge B2B1
+Reservation 2 starts at edge C2C1
+Reservation 3 starts at edge B1A1
+Reservation 4 starts at edge A1A0
+Reservation 5 starts at edge D0D1
+Reservation 6 starts at edge D2E2
+Reservation 7 starts at edge D0D1
+Reservation 8 starts at edge B0B1
+Reservation 9 starts at edge C1B1
+Reservation 0 ends at edge B0C0
+Reservation 1 ends at edge C2D2
+Reservation 2 ends at edge E1E2
+Reservation 3 ends at edge B2B1
+Reservation 4 ends at edge E2E1
+Reservation 5 ends at edge F1F0
+Reservation 6 ends at edge C2D2
+Reservation 7 ends at edge C0C1
+Reservation 8 ends at edge B2B1
+Reservation 9 ends at edge E0D0
+Start solving the problem.
+ Register distance callback.
+ Add distance constraints...
+ Add pickup and delivery constraints...
+ Add dropoff constraints...
+ Add capacity constraints...
+ Add time windows constraints...
+## Done
+ Set solution heuristic...
+Start solving the problem.
+Objective:  534198
+Route for vehicle 0:
+     21 (L: 0, C: 0, T: (1,178))
+ ->  9 (L: 1, C: 387, T: (33,210))
+ ->  4 (L: 2, C: 772, T: (64,241))
+ ->  5 (L: 3, C: 1159, T: (94,271))
+ ->  19 (L: 2, C: 1835, T: (150,327))
+ ->  14 (L: 1, C: 1921, T: (216,393))
+ ->  3 (L: 2, C: 2486, T: (264,441))
+ ->  6 (L: 3, C: 3071, T: (312,489))
+ ->  8 (L: 4, C: 3157, T: (318,495))
+ ->  18 (L: 3, C: 3722, T: (426,603))
+ ->  13 (L: 2, C: 4502, T: (547,724))
+ ->  15 (L: 1, C: 4678, T: (622,799))
+ ->  16 (L: 0, C: 5160, T: (723,900))
+ ->  0 (L: 0, C: 5160, T: (723,42936))
+Costs of the route: 5160
+
+Route for vehicle 1:
+     22 (L: 0, C: 0, T: (1,257))
+ ->  2 (L: 1, C: 382, T: (29,285))
+ ->  1 (L: 2, C: 867, T: (70,326))
+ ->  10 (L: 3, C: 1337, T: (107,363))
+ ->  11 (L: 2, C: 2022, T: (221,477))
+ ->  12 (L: 1, C: 2802, T: (343,599))
+ ->  7 (L: 2, C: 3388, T: (385,641))
+ ->  20 (L: 1, C: 4163, T: (504,760))
+ ->  17 (L: 0, C: 5238, T: (644,900))
+ ->  0 (L: 0, C: 5238, T: (644,42936))
+Costs of the route: 5238
+
+Total cost of the routes: 10398
+Start interpreting the solution for SUMO.
+Dispatching v0 with ['8', '3', '4', '8', '3', '2', '5', '7', '7', '2', '4', '5']
+Costs for v0: 5160
+Dispatching v1 with ['1', '0', '9', '0', '1', '6', '9', '6']
+Costs for v1: 10398
+timestep:  30.0
+Reservations being picked up: ['0', '1', '2', '3', '4', '5', '6', '7', '9']
+Reservations en route: ['8']
+Taxis picking up: ('v0', 'v1')
+Taxis occupied: ('v0',)
+Taxis occupied and picking up: ('v0',)
+timestep:  60.0
+Reservations being picked up: ['0', '2', '4', '5', '6', '7', '9']
+Reservations en route: ['1', '3', '8']
+Taxis picking up: ('v0', 'v1')
+Taxis occupied: ('v0', 'v1')
+Taxis occupied and picking up: ('v0', 'v1')
+timestep:  90.0
+Reservations being picked up: ['2', '5', '6', '7', '9']
+Reservations en route: ['0', '1', '3', '4', '8']
+Taxis picking up: ('v0', 'v1')
+Taxis occupied: ('v0', 'v1')
+Taxis occupied and picking up: ('v0', 'v1')
+timestep:  120.0
+Reservations being picked up: ['2', '5', '6', '7']
+Reservations en route: ['0', '1', '3', '4', '8', '9']
+Taxis picking up: ('v0', 'v1')
+Taxis occupied: ('v0', 'v1')
+Taxis occupied and picking up: ('v0', 'v1')
+timestep:  150.0
+Reservations being picked up: ['2', '5', '6', '7']
+Reservations en route: ['0', '1', '3', '4', '8', '9']
+Taxis picking up: ('v0', 'v1')
+Taxis occupied: ('v0', 'v1')
+Taxis occupied and picking up: ('v0', 'v1')
+timestep:  180.0
+Reservations being picked up: ['2', '5', '6', '7']
+Reservations en route: ['0', '1', '3', '4', '8', '9']
+Taxis picking up: ('v0', 'v1')
+Taxis occupied: ('v0', 'v1')
+Taxis occupied and picking up: ('v0', 'v1')
+timestep:  210.0
+Reservations being picked up: ['2', '5', '6', '7']
+Reservations en route: ['0', '1', '4', '9']
+Taxis picking up: ('v0', 'v1')
+Taxis occupied: ('v0', 'v1')
+Taxis occupied and picking up: ('v0', 'v1')
+timestep:  240.0
+Reservations being picked up: ['2', '5', '6', '7']
+Reservations en route: ['1', '4', '9']
+Taxis picking up: ('v0', 'v1')
+Taxis occupied: ('v0', 'v1')
+Taxis occupied and picking up: ('v0', 'v1')
+timestep:  270.0
+Reservations being picked up: ['5', '6', '7']
+Reservations en route: ['1', '2', '4', '9']
+Taxis picking up: ('v0', 'v1')
+Taxis occupied: ('v0', 'v1')
+Taxis occupied and picking up: ('v0', 'v1')
+timestep:  300.0
+Reservations being picked up: ['6']
+Reservations en route: ['1', '2', '4', '5', '7', '9']
+Taxis picking up: ('v1',)
+Taxis occupied: ('v0', 'v1')
+Taxis occupied and picking up: ('v1',)
+timestep:  330.0
+Reservations being picked up: ['6']
+Reservations en route: ['1', '2', '4', '5', '7', '9']
+Taxis picking up: ('v1',)
+Taxis occupied: ('v0', 'v1')
+Taxis occupied and picking up: ('v1',)
+timestep:  360.0
+Reservations en route: ['2', '4', '5', '6', '7', '9']
+Taxis occupied: ('v0', 'v1')
+timestep:  390.0
+Reservations en route: ['2', '4', '5', '6', '7', '9']
+Taxis occupied: ('v0', 'v1')
+timestep:  420.0
+Reservations en route: ['2', '4', '5', '6', '9']
+Taxis occupied: ('v0', 'v1')
+timestep:  450.0
+Reservations en route: ['2', '4', '5', '6', '9']
+Taxis occupied: ('v0', 'v1')
+timestep:  480.0
+Reservations en route: ['2', '4', '5', '6']
+Taxis occupied: ('v0', 'v1')
+timestep:  510.0
+Reservations en route: ['2', '4', '5', '6']
+Taxis occupied: ('v0', 'v1')
+timestep:  540.0
+Reservations en route: ['4', '5', '6']
+Taxis occupied: ('v0', 'v1')
+timestep:  570.0
+Reservations en route: ['4', '5', '6']
+Taxis occupied: ('v0', 'v1')
+timestep:  600.0
+Reservations en route: ['4', '5', '6']
+Taxis occupied: ('v0', 'v1')
+timestep:  630.0
+Reservations en route: ['5']
+Taxis empty: ('v1',)
+Taxis occupied: ('v0',)
+timestep:  660.0
+Reservations en route: ['5']
+Taxis empty: ('v1',)
+Taxis occupied: ('v0',)
+timestep:  690.0
+Reservations en route: ['5']
+Taxis empty: ('v1',)
+Taxis occupied: ('v0',)
+timestep:  720.0
+Taxis empty: ('v0', 'v1')
+timestep:  750.0
+Taxis empty: ('v0', 'v1')
+timestep:  780.0
+Taxis empty: ('v0', 'v1')
+timestep:  810.0
+Taxis empty: ('v0', 'v1')
+timestep:  840.0
+Taxis empty: ('v0', 'v1')
+timestep:  870.0
+Taxis empty: ('v0', 'v1')
+timestep:  900.0
+Taxis empty: ('v0', 'v1')

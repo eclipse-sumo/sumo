@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -41,35 +41,32 @@ netedit.leftClick(referencePosition, 220, 245)
 netedit.changeDefaultValue(netedit.attrs.parkingArea.create.id, "pa_0")
 
 # create parkingArea in mode "reference left"
-netedit.leftClick(referencePosition, 220, 245)
+netedit.leftClick(referencePosition, 284, 245)
 
 # set invalid ID
 netedit.changeDefaultValue(netedit.attrs.parkingArea.create.id, "")
 
 # create parkingArea in mode "reference left"
-netedit.leftClick(referencePosition, 220, 245)
+netedit.leftClick(referencePosition, 305, 245)
 
 # set invalid ID
 netedit.changeDefaultValue(netedit.attrs.parkingArea.create.id, ";;;;")
 
 # create parkingArea in mode "reference left"
-netedit.leftClick(referencePosition, 220, 245)
+netedit.leftClick(referencePosition, 324, 245)
 
 # set valid id
 netedit.changeDefaultValue(netedit.attrs.parkingArea.create.id, "custom_id")
 
 # create parkingArea in mode "reference left"
-netedit.leftClick(referencePosition, 220, 245)
+netedit.leftClick(referencePosition, 345, 245)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)
 netedit.redo(referencePosition, 2)
 
-# save additionals
-netedit.saveAdditionals(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

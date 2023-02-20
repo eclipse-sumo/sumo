@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -45,9 +45,9 @@ public:
      * @param[in] friendlyPos enable or disable friendly positions
      * @param[in] parameters generic parameters
      */
-    GNEDetector(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, const double pos, const SUMOTime period,
-                const std::vector<GNELane*>& parentLanes, const std::string& filename, const std::vector<std::string>& vehicleTypes,
-                const std::string& name, const bool friendlyPos, const Parameterised::Map& parameters);
+    GNEDetector(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon, const double pos,
+                const SUMOTime period, const std::vector<GNELane*>& parentLanes, const std::string& filename,
+                const std::vector<std::string>& vehicleTypes, const std::string& name, const bool friendlyPos, const Parameterised::Map& parameters);
 
     /**@brief Constructor.
      * @param[in] additionalParent parent additional of this detector (ID will be generated automatically)
@@ -62,9 +62,9 @@ public:
      * @param[in] friendlyPos enable or disable friendly positions
      * @param[in] parameters generic parameters
      */
-    GNEDetector(GNEAdditional* additionalParent, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, const double pos, const SUMOTime period,
-                const std::vector<GNELane*>& parentLanes, const std::string& filename, const std::string& name, const bool friendlyPos,
-                const Parameterised::Map& parameters);
+    GNEDetector(GNEAdditional* additionalParent, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon, const double pos,
+                const SUMOTime period, const std::vector<GNELane*>& parentLanes, const std::string& filename, const std::string& name,
+                const bool friendlyPos, const Parameterised::Map& parameters);
 
     /// @brief Destructor
     ~GNEDetector();
@@ -187,8 +187,11 @@ protected:
     void drawE1Shape(const GUIVisualizationSettings& s, const double exaggeration, const double scaledWidth,
                      const RGBColor& mainColor, const RGBColor& secondColor) const;
 
-    /// @brief draw detector Logo
-    void drawDetectorLogo(const GUIVisualizationSettings& s, const double exaggeration, const std::string& logo, const RGBColor& textColor) const;
+    /// @brief draw E1 detector Logo
+    void drawE1DetectorLogo(const GUIVisualizationSettings& s, const double exaggeration, const std::string& logo, const RGBColor& textColor) const;
+
+    /// @brief draw E2 detector Logo
+    void drawE2DetectorLogo(const GUIVisualizationSettings& s, const double exaggeration, const std::string& logo, const RGBColor& textColor) const;
 
 private:
     /// @brief set attribute after validation

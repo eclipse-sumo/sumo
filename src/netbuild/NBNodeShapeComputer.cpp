@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -221,6 +221,10 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
                               geomsCCW[*i].nearest_offset_to_point2D(p),
                               geomsCW[*i].nearest_offset_to_point2D(p));
             if (dist < 0) {
+                if (isRailway((*i)->getPermissions())) {
+                    // better not mess up bidi geometries
+                    return PositionVector();
+                }
                 // ok, we have the problem that even the extrapolated geometry
                 //  does not reach the point
                 // in this case, the geometry has to be extenden... too bad ...
@@ -434,7 +438,7 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
             offset = MAX2(EXT - advanceStopLine, offset);
         }
         if (offset == -1) {
-            WRITE_WARNING("Fixing offset for edge '" + (*i)->getID() + "' at node '" + myNode.getID() + ".");
+            WRITE_WARNINGF(TL("Fixing offset for edge '%' at node '%."), (*i)->getID(), myNode.getID());
             offset = (double) - .1;
         }
         Position p = ccwBound.positionAtOffset2D(offset);
@@ -652,7 +656,7 @@ NBNodeShapeComputer::joinSameDirectionEdges(const EdgeVector& edges, std::map<NB
         const bool ambiguousGeometry = ((angleDiff > 0 && angleDiffFurther < 0) || (angleDiff < 0 && angleDiffFurther > 0));
         //if (ambiguousGeometry) {
         //    @todo: this warning would be helpful in many cases. However, if angle and angleFurther jump between 179 and -179 it is misleading
-        //    WRITE_WARNING("Ambiguous angles at junction '" + myNode.getID() + "' for edges '" + (*i)->getID() + "' and '" + (*j)->getID() + "'.");
+        //    WRITE_WARNINGF(TL("Ambiguous angles at junction '%' for edges '%' and '%'."), myNode.getID(), (*i)->getID(), (*j)->getID());
         //}
 #ifdef DEBUG_NODE_SHAPE
         if (DEBUGCOND) {

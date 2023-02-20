@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2012-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -60,8 +60,8 @@ public:
 private:
     /// @brief write transportable
     static void writeTransportable(OutputDevice& of, const MSEdge* e, MSTransportable* p, const SUMOVehicle* v,
-            bool filter, bool shapeFilter, bool inRadius,
-            SumoXMLTag tag, bool useGeo, bool elevation, long long int mask);
+                                   bool filter, bool shapeFilter, bool inRadius,
+                                   SumoXMLTag tag, bool useGeo, bool elevation, long long int mask);
 
     static bool isVisible(const SUMOVehicle* veh);
     static bool hasOwnOutput(const SUMOVehicle* veh, bool filter, bool shapeFilter, bool isInRadius = false);

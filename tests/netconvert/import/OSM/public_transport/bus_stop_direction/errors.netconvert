@@ -1,0 +1,8 @@
+Warning: No way found for reference '29267666' in relation '1663189'
+Warning: No way found for reference '158849904' in relation '1663189'
+Warning: Ignoring restriction relation '1663189' with unknown from-way.
+Warning: Ignoring restriction relation '1663189' with unknown to-way.
+Warning: PT stop '4014639411' has been moved to edge '412820207'.
+Warning: Removing pt stop '905659718' on non existing edge ''.
+Warning: Removing pt stop '905659723' on non existing edge ''.
+Warning: Removed 2 pt stops because they could not be assigned to the network

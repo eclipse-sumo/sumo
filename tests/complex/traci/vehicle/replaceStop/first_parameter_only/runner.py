@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -66,6 +66,7 @@ traci.start([sumoBinary,
              "-n", "input_net4.net.xml",
              "-a", "input_additional4.add.xml",
              "-r", "input_routes.rou.xml",
+             "--stop-output", "stopinfos.xml",
              "--no-step-log",
              "--vehroute-output", "vehroutes.xml",
              ] + sys.argv[1:])
@@ -80,6 +81,7 @@ while traci.simulation.getMinExpectedNumber() > 0:
         traci.vehicle.setStopParameter(vehID, 0, "posLat", "-0.5")
         traci.vehicle.setStopParameter(vehID, 0, "arrival", "42")
         traci.vehicle.setStopParameter(vehID, 0, "duration", "30")
+        traci.vehicle.setStopParameter(vehID, 1, "duration", "100")
         traci.vehicle.setStopParameter(vehID, 0, "until", "0:1:40")
         traci.vehicle.setStopParameter(vehID, 0, "extension", "10")
         traci.vehicle.setStopParameter(vehID, 0, "parking", "false")
@@ -94,6 +96,7 @@ while traci.simulation.getMinExpectedNumber() > 0:
         traci.vehicle.setStopParameter(vehID, 0, "speed", "3")
         traci.vehicle.setStopParameter(vehID, 0, "started", "0:1:23")
         traci.vehicle.setStopParameter(vehID, 0, "ended", "0:1:42")
+        traci.vehicle.setStopParameter(vehID, 2, "onDemand", "true")
     if traci.simulation.getTime() == 6:
         getParams(vehID, 0)
     if traci.simulation.getTime() == 200:

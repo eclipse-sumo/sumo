@@ -23,8 +23,6 @@ title: Projects
   intermodal routing engine
 - [HubChain (german)](http://komob.de/projekte/hub-chain/) simulating
   autonomous public transport in rural areas
-- [MENDEL](http://mendel-projekt.de/en/home-2/) modeling electric
-  buses and optimizing charging with respect to grid load
 
 ### Past Projects
 
@@ -54,6 +52,8 @@ title: Projects
   demonstrator is included with SUMO.
 - [DRIVE C2X](https://web.archive.org/web/20170311043037/http://www.drive-c2x.eu/project) Driving implementation
   and evaluation of C2X communication technology
+- [MENDEL](https://www.busundbahn.de/fileadmin/user_upload/Dossiers/Elektrobusse/DNV_2019_12_Naumann_FA_WA.pdf) modeling electric
+  buses and optimizing charging with respect to grid load
 
 ## At other Institutions
 
@@ -158,6 +158,8 @@ title: Projects
 - [PyPML - Python Parking Monitoring Library](https://github.com/lcodeca/PyPML)
 - [SAGA](https://github.com/lcodeca/SUMOActivityGen) - An Activity-based Multi-modal Mobility Scenario Generator for SUMO.
 - [RLLIB+SUMO Utils](https://github.com/lcodeca/rllibsumoutils) is a connector between the RLLIB library and SUMO that uses TraCI. It can be tested using [RLLIB+SUMO Docker](https://github.com/lcodeca/rllibsumodocker) based on a GPU-enabled official TensorFlow image.
+- [DCARP-SUMO-Simulation](https://github.com/HawkTom/DCARP-SUMO-Simulation) Benchmarking Dynamic Capacitated Arc Routing Algorithms Using Real-World Traffic Simulation. There is also a [related paper](https://ieeexplore.ieee.org/abstract/document/9870399)
+- [RandomActivityGen](https://github.com/d610f20/random-activitygen-py/)  generating a population [statistics file](../Demand/Activity-based_Demand_Generation.md#the_statistics_file) for [ACTIVITYGEN](../activitygen.md).
 
 ### Visualization related
 

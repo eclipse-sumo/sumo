@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -26,7 +26,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to additional mode
 netedit.additionalMode()
@@ -34,33 +34,33 @@ netedit.additionalMode()
 # select calibrator
 netedit.changeElement("calibrator")
 
+# change center view
+netedit.changeDefaultBoolValue(netedit.attrs.calibrator.create.center)
+
 # change position with an invalid value (dummy)
 netedit.changeDefaultValue(netedit.attrs.calibrator.create.pos, "dummyValue")
 
 # try to create calibrator with an invalid parameter
-netedit.leftClick(referencePosition, 240, 250)
+netedit.leftClick(referencePosition, 312, 250)
 
 # change position with an invalid value (negative)
 netedit.changeDefaultValue(netedit.attrs.calibrator.create.pos, "-5")
 
 # try to create calibrator with an invalid parameter
-netedit.leftClick(referencePosition, 240, 250)
+netedit.leftClick(referencePosition, 322, 250)
 
 # change position with a valid value
 netedit.changeDefaultValue(netedit.attrs.calibrator.create.pos, "10")
 
 # create calibrator with an invalid parameter
-netedit.leftClick(referencePosition, 240, 250)
+netedit.leftClick(referencePosition, 332, 250)
 
 # Check undo redo
 netedit.undo(referencePosition, 1)
 netedit.redo(referencePosition, 1)
 
-# save additionals
-netedit.saveAdditionals(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

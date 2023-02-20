@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -196,9 +196,6 @@ public:
      */
     GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) override;
 
-    /// @brief return exaggeration associated with this GLObject
-    double getExaggeration(const GUIVisualizationSettings& s) const override;
-
     /** @brief Returns the boundary to which the view shall be centered in order to show the object
      *
      * @return The boundary the object is within
@@ -279,6 +276,9 @@ public:
     /// @brief return color value based on cached settings
     double getColorValueForTracker() const;
 
+    /// @brief gets the scaling value according to the current scheme index
+    double getScaleValue(const GUIVisualizationSettings& s, int activeScheme, bool s2) const;
+
     /// @brief whether this lane is selected in the GUI
     bool isSelected() const override;
 
@@ -333,9 +333,6 @@ private:
             std::vector<double>& lengths,
             std::vector<RGBColor>& colors);
 
-    /// @brief gets the scaling value according to the current scheme index
-    double getScaleValue(int activeScheme, bool s2) const;
-
     /// @brief sets multiple colors according to the current scheme index and some lane function
     bool setMultiColor(const GUIVisualizationSettings& s, const GUIColorer& c, RGBColor& col) const;
 
@@ -374,7 +371,7 @@ private:
     double myQuarterLaneWidth;
 
     /// @brief the time distance from a particular edge
-    double myReachability;
+    double myReachability = INVALID_DOUBLE;
 
     /// @brief list of parkingAreas on this lane
     mutable std::vector<MSParkingArea*>* myParkingAreas;

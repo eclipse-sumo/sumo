@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -15,7 +15,7 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    Jan 2019
 ///
-// Definition of Vehicle Types in NETEDIT
+// Definition of Vehicle Types in netedit
 /****************************************************************************/
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
@@ -33,10 +33,10 @@
 // ===========================================================================
 
 GNEVType::GNEVType(GNENet* net) :
-    GNEDemandElement("", net, GLO_VTYPE, SUMO_TAG_VTYPE, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-{}, {}, {}, {}, {}, {}),
-SUMOVTypeParameter(""),
-myDefaultVehicleType(true),
+    GNEDemandElement("", net, GLO_VTYPE, SUMO_TAG_VTYPE, GUIIconSubSys::getIcon(GUIIcon::VTYPE),
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
+                                SUMOVTypeParameter(""),
+                                myDefaultVehicleType(true),
 myDefaultVehicleTypeModified(false) {
     // reset default values
     resetDefaultValues();
@@ -46,8 +46,8 @@ myDefaultVehicleTypeModified(false) {
 
 
 GNEVType::GNEVType(GNENet* net, const std::string& vTypeID, const SUMOVehicleClass& defaultVClass) :
-    GNEDemandElement(vTypeID, net, GLO_VTYPE, SUMO_TAG_VTYPE, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-{}, {}, {}, {}, {}, {}),
+    GNEDemandElement(vTypeID, net, GLO_VTYPE, SUMO_TAG_VTYPE, GUIIconSubSys::getIcon(GUIIcon::VTYPE),
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
 SUMOVTypeParameter(vTypeID),
 myDefaultVehicleType(true),
 myDefaultVehicleTypeModified(false) {
@@ -59,8 +59,8 @@ myDefaultVehicleTypeModified(false) {
 
 
 GNEVType::GNEVType(GNENet* net, const SUMOVTypeParameter& vTypeParameter) :
-    GNEDemandElement(vTypeParameter.id, net, GLO_VTYPE, SUMO_TAG_VTYPE, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-{}, {}, {}, {}, {}, {}),
+    GNEDemandElement(vTypeParameter.id, net, GLO_VTYPE, SUMO_TAG_VTYPE, GUIIconSubSys::getIcon(GUIIcon::VTYPE),
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
 SUMOVTypeParameter(vTypeParameter),
 myDefaultVehicleType(false),
 myDefaultVehicleTypeModified(false) {
@@ -70,8 +70,8 @@ myDefaultVehicleTypeModified(false) {
 
 
 GNEVType::GNEVType(GNENet* net, const std::string& vTypeID, GNEVType* vTypeOriginal) :
-    GNEDemandElement(vTypeID, net, GLO_VTYPE, vTypeOriginal->getTagProperty().getTag(), GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-{}, {}, {}, {}, {}, {}),
+    GNEDemandElement(vTypeID, net, GLO_VTYPE, vTypeOriginal->getTagProperty().getTag(), GUIIconSubSys::getIcon(GUIIcon::VTYPE),
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
 SUMOVTypeParameter(*vTypeOriginal),
 myDefaultVehicleType(false),
 myDefaultVehicleTypeModified(false) {
@@ -153,12 +153,6 @@ GNEVType::getPositionInView() const {
 std::string
 GNEVType::getParentName() const {
     return myNet->getMicrosimID();
-}
-
-
-double
-GNEVType::getExaggeration(const GUIVisualizationSettings& /*s*/) const {
-    return 1;
 }
 
 
@@ -292,6 +286,15 @@ GNEVType::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_CF_EIDM_T_ACC_MAX:
         case SUMO_ATTR_CF_EIDM_M_FLATNESS:
         case SUMO_ATTR_CF_EIDM_M_BEGIN:
+        case SUMO_ATTR_CF_W99_CC1:
+        case SUMO_ATTR_CF_W99_CC2:
+        case SUMO_ATTR_CF_W99_CC3:
+        case SUMO_ATTR_CF_W99_CC4:
+        case SUMO_ATTR_CF_W99_CC5:
+        case SUMO_ATTR_CF_W99_CC6:
+        case SUMO_ATTR_CF_W99_CC7:
+        case SUMO_ATTR_CF_W99_CC8:
+        case SUMO_ATTR_CF_W99_CC9:
             return getCFParamString(key, myTagProperty.getDefaultValue(key));
         case SUMO_ATTR_COLLISION_MINGAP_FACTOR:
         case SUMO_ATTR_TMP1:
@@ -596,6 +599,15 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* u
         case SUMO_ATTR_CF_KERNER_PHI:
         case SUMO_ATTR_CF_IDM_DELTA:
         case SUMO_ATTR_CF_IDM_STEPPING:
+        case SUMO_ATTR_CF_W99_CC1:
+        case SUMO_ATTR_CF_W99_CC2:
+        case SUMO_ATTR_CF_W99_CC3:
+        case SUMO_ATTR_CF_W99_CC4:
+        case SUMO_ATTR_CF_W99_CC5:
+        case SUMO_ATTR_CF_W99_CC6:
+        case SUMO_ATTR_CF_W99_CC7:
+        case SUMO_ATTR_CF_W99_CC8:
+        case SUMO_ATTR_CF_W99_CC9:
         // JM Attributes
         case SUMO_ATTR_JM_CROSSING_GAP:
         case SUMO_ATTR_JM_IGNORE_KEEPCLEAR_TIME:
@@ -729,6 +741,15 @@ GNEVType::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_CF_KERNER_PHI:
         case SUMO_ATTR_CF_IDM_DELTA:
         case SUMO_ATTR_CF_IDM_STEPPING:
+        case SUMO_ATTR_CF_W99_CC1:
+        case SUMO_ATTR_CF_W99_CC2:
+        case SUMO_ATTR_CF_W99_CC3:
+        case SUMO_ATTR_CF_W99_CC4:
+        case SUMO_ATTR_CF_W99_CC5:
+        case SUMO_ATTR_CF_W99_CC6:
+        case SUMO_ATTR_CF_W99_CC7:
+        case SUMO_ATTR_CF_W99_CC8:
+        case SUMO_ATTR_CF_W99_CC9:
             return canParse<double>(value);
         case SUMO_ATTR_CF_EIDM_USEVEHDYNAMICS:
             return canParse<bool>(value);
@@ -1039,6 +1060,33 @@ GNEVType::overwriteVType(GNEDemandElement* vType, const SUMOVTypeParameter newVT
     if (!newVTypeParameter.getCFParamString(SUMO_ATTR_CF_EIDM_M_BEGIN, "").empty()) {
         vType->setAttribute(SUMO_ATTR_CF_EIDM_M_BEGIN, toString(newVTypeParameter.getCFParam(SUMO_ATTR_CF_EIDM_M_BEGIN, 0)), undoList);
     }
+    if (!newVTypeParameter.getCFParamString(SUMO_ATTR_CF_W99_CC1, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_W99_CC1, toString(newVTypeParameter.getCFParam(SUMO_ATTR_CF_W99_CC1, 0)), undoList);
+    }
+    if (!newVTypeParameter.getCFParamString(SUMO_ATTR_CF_W99_CC2, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_W99_CC2, toString(newVTypeParameter.getCFParam(SUMO_ATTR_CF_W99_CC2, 0)), undoList);
+    }
+    if (!newVTypeParameter.getCFParamString(SUMO_ATTR_CF_W99_CC3, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_W99_CC3, toString(newVTypeParameter.getCFParam(SUMO_ATTR_CF_W99_CC3, 0)), undoList);
+    }
+    if (!newVTypeParameter.getCFParamString(SUMO_ATTR_CF_W99_CC4, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_W99_CC4, toString(newVTypeParameter.getCFParam(SUMO_ATTR_CF_W99_CC4, 0)), undoList);
+    }
+    if (!newVTypeParameter.getCFParamString(SUMO_ATTR_CF_W99_CC5, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_W99_CC5, toString(newVTypeParameter.getCFParam(SUMO_ATTR_CF_W99_CC5, 0)), undoList);
+    }
+    if (!newVTypeParameter.getCFParamString(SUMO_ATTR_CF_W99_CC6, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_W99_CC6, toString(newVTypeParameter.getCFParam(SUMO_ATTR_CF_W99_CC6, 0)), undoList);
+    }
+    if (!newVTypeParameter.getCFParamString(SUMO_ATTR_CF_W99_CC7, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_W99_CC7, toString(newVTypeParameter.getCFParam(SUMO_ATTR_CF_W99_CC7, 0)), undoList);
+    }
+    if (!newVTypeParameter.getCFParamString(SUMO_ATTR_CF_W99_CC8, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_W99_CC8, toString(newVTypeParameter.getCFParam(SUMO_ATTR_CF_W99_CC8, 0)), undoList);
+    }
+    if (!newVTypeParameter.getCFParamString(SUMO_ATTR_CF_W99_CC9, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_W99_CC9, toString(newVTypeParameter.getCFParam(SUMO_ATTR_CF_W99_CC9, 0)), undoList);
+    }
     if (!newVTypeParameter.getCFParamString(SUMO_ATTR_CF_PWAGNER2009_TAULAST, "").empty()) {
         vType->setAttribute(SUMO_ATTR_CF_PWAGNER2009_TAULAST, toString(newVTypeParameter.getCFParam(SUMO_ATTR_CF_PWAGNER2009_TAULAST, 0)), undoList);
     }
@@ -1314,7 +1362,7 @@ GNEVType::editVTypeDistribution(const std::string& vTypeDistributionID, GNEUndoL
                 // remove old vTypeDistribution
                 undoList->add(new GNEChange_DemandElement(vTypeDistributionParent, false), true);
                 // create newTypeDistribution
-                undoList->add(new GNEChange_DemandElement(new GNEVTypeDistribution(myNet, vTypeDistributionID), true), true);
+                undoList->add(new GNEChange_DemandElement(new GNEVTypeDistribution(myNet, vTypeDistributionID, -1), true), true);
                 // set new vTypeDistribution
                 undoList->changeAttribute(new GNEChange_Attribute(this, GNE_ATTR_VTYPE_DISTRIBUTION, vTypeDistributionID));
                 undoList->end();
@@ -1322,7 +1370,7 @@ GNEVType::editVTypeDistribution(const std::string& vTypeDistributionID, GNEUndoL
         } else {
             undoList->begin(GUIIcon::VTYPEDISTRIBUTION, "add " + toString(SUMO_TAG_VTYPE_DISTRIBUTION));
             // create newTypeDistribution
-            undoList->add(new GNEChange_DemandElement(new GNEVTypeDistribution(myNet, vTypeDistributionID), true), true);
+            undoList->add(new GNEChange_DemandElement(new GNEVTypeDistribution(myNet, vTypeDistributionID, -1), true), true);
             // set new vTypeDistribution
             undoList->changeAttribute(new GNEChange_Attribute(this, GNE_ATTR_VTYPE_DISTRIBUTION, vTypeDistributionID));
             undoList->end();
@@ -1445,6 +1493,15 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_CF_EIDM_T_ACC_MAX:
         case SUMO_ATTR_CF_EIDM_M_FLATNESS:
         case SUMO_ATTR_CF_EIDM_M_BEGIN:
+        case SUMO_ATTR_CF_W99_CC1:
+        case SUMO_ATTR_CF_W99_CC2:
+        case SUMO_ATTR_CF_W99_CC3:
+        case SUMO_ATTR_CF_W99_CC4:
+        case SUMO_ATTR_CF_W99_CC5:
+        case SUMO_ATTR_CF_W99_CC6:
+        case SUMO_ATTR_CF_W99_CC7:
+        case SUMO_ATTR_CF_W99_CC8:
+        case SUMO_ATTR_CF_W99_CC9:
             // empty or default values means that value isn't set
             if (value.empty() || (canParse<double>(value) && (parse<double>(value) == parse<double>(myTagProperty.getDefaultValue(key))))) {
                 const auto it = cfParameter.find(key);

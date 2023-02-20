@@ -1,5 +1,5 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2012-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2012-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -25,6 +25,13 @@ import math
 import colorsys
 import socket
 import random
+import gzip
+import codecs
+import io
+try:
+    from urllib.request import urlopen
+except ImportError:
+    from urllib import urlopen
 # needed for backward compatibility
 from .statistics import Statistics, geh, uMax, uMin, round  # noqa
 
@@ -268,3 +275,36 @@ def intIfPossible(val):
         return int(val)
     else:
         return val
+
+
+def openz(fileOrURL, mode="r", **kwargs):
+    """
+    Opens transparently files, URLs and gzipped files for reading and writing.
+    Special file names "stdout" and "stderr" are handled as well.
+    Also enforces UTF8 on text output / input.
+    Should be compatible with python 2 and 3.
+    """
+    try:
+        if fileOrURL.startswith("http://") or fileOrURL.startswith("https://"):
+            return io.BytesIO(urlopen(fileOrURL).read())
+        if fileOrURL == "stdout":
+            return sys.stdout
+        if fileOrURL == "stderr":
+            return sys.stderr
+        if fileOrURL.endswith(".gz") and "w" in mode:
+            if "b" in mode:
+                return gzip.open(fileOrURL, mode="w")
+            return gzip.open(fileOrURL, mode="wt", encoding="utf8")
+        if kwargs.get("tryGZip", True) and "r" in mode:
+            with gzip.open(fileOrURL) as fd:
+                fd.read(1)
+            if "b" in mode:
+                return gzip.open(fileOrURL)
+            if sys.version_info[0] < 3:
+                return codecs.getreader('utf-8')(gzip.open(fileOrURL))
+            return gzip.open(fileOrURL, mode="rt", encoding="utf8")
+    except OSError:
+        pass
+    if "b" in mode:
+        return io.open(fileOrURL, mode=mode)
+    return io.open(fileOrURL, mode=mode, encoding="utf8")

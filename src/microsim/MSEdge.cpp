@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -92,6 +92,8 @@ MSEdge::MSEdge(const std::string& id, int numericalID,
 
 MSEdge::~MSEdge() {
     delete myLaneChanger;
+    delete myReversedRoutingEdge;
+    delete myRailwayRoutingEdge;
 }
 
 
@@ -655,7 +657,7 @@ MSEdge::validateDepartSpeed(SUMOVehicle& v) const {
                         v.setChosenSpeedFactor(type.computeChosenSpeedDeviation(nullptr, pars.departSpeed / getSpeedLimit()));
                         if (v.getChosenSpeedFactor() > speedFactorParams[0] + 2 * speedFactorParams[1]) {
                             // only warn for significant deviation
-                            WRITE_WARNINGF("Choosing new speed factor % for vehicle '%' to match departure speed % (max %).",
+                            WRITE_WARNINGF(TL("Choosing new speed factor % for vehicle '%' to match departure speed % (max %)."),
                                            toString(v.getChosenSpeedFactor()), pars.id, pars.departSpeed, vMax);
                         }
                     } else {
@@ -1071,6 +1073,7 @@ MSEdge::getVehicleMaxSpeed(const SUMOTrafficObject* const veh) const {
 
 void
 MSEdge::setMaxSpeed(double val) const {
+    assert(val >= 0);
     if (myLanes != nullptr) {
         for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
             (*i)->setMaxSpeed(val);
@@ -1258,21 +1261,51 @@ MSEdge::checkAndRegisterBiDirEdge(const std::string& bidiID) {
     if (bidiID != "") {
         myBidiEdge = dictionary(bidiID);
         if (myBidiEdge == nullptr) {
-            WRITE_ERROR("Bidi-edge '" + bidiID + "' does not exist");
+            WRITE_ERRORF(TL("Bidi-edge '%' does not exist"), bidiID);
         }
+        setBidiLanes();
         return;
     }
     if (getFunction() != SumoXMLEdgeFunc::NORMAL) {
         return;
     }
+    // legacy networks (no bidi attribute)
     ConstMSEdgeVector candidates = myToJunction->getOutgoing();
     for (ConstMSEdgeVector::const_iterator it = candidates.begin(); it != candidates.end(); it++) {
         if ((*it)->getToJunction() == myFromJunction) { //reverse edge
             if (myBidiEdge != nullptr && isSuperposable(*it)) {
-                WRITE_WARNING("Ambiguous superposable edges between junction '" + myToJunction->getID() + "' and '" + myFromJunction->getID() + "'.");
+                WRITE_WARNINGF(TL("Ambiguous superposable edges between junction '%' and '%'."), myToJunction->getID(), myFromJunction->getID());
                 break;
             }
-            myBidiEdge = isSuperposable(*it) ? *it : nullptr;
+            if (isSuperposable(*it)) {
+                myBidiEdge = *it;
+                setBidiLanes();
+            }
+        }
+    }
+}
+
+
+void
+MSEdge::setBidiLanes() {
+    assert(myBidiEdge != nullptr);
+    if (getNumLanes() == 1 && myBidiEdge->getNumLanes() == 1) {
+        // the other way round is set when this method runs for the bidiEdge
+        getLanes()[0]->setBidiLane(myBidiEdge->getLanes()[0]);
+    } else {
+        // find lanes with matching reversed shapes
+        int numBidiLanes = 0;
+        for (MSLane* l1 : *myLanes) {
+            for (MSLane* l2 : *myBidiEdge->myLanes) {
+                if (l1->getShape().reverse() == l2->getShape()) {
+                    l1->setBidiLane(l2);
+                    numBidiLanes++;
+                }
+            }
+        }
+        // warn only once for each pair
+        if (numBidiLanes == 0 && getID() < myBidiEdge->getID()) {
+            WRITE_WARNINGF(TL("Edge '%s' and bidi edge '%s' have no matching bidi lanes"), getID(), myBidiEdge->getID());
         }
     }
 }
@@ -1492,6 +1525,12 @@ MSEdge::inferEdgeType() {
     }
 }
 
+
+double
+MSEdge::getDistanceAt(double pos) const {
+    // negative values of myDistances indicate descending kilometrage
+    return fabs(myDistance + pos);
+}
 
 void
 MSEdge::clearState() {

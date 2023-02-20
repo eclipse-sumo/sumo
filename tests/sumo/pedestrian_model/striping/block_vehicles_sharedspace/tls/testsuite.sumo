@@ -1,0 +1,5 @@
+# Pedestrian keeps approaching the bike for reaching the crosswalk although there is no enough space.
+collision_bike_at_TLS
+
+# bikes should be able to pass the pedestrian since they have a separate signal
+crossing_stays_red

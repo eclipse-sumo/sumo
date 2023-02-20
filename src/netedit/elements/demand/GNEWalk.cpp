@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -35,8 +35,8 @@
 // ===========================================================================
 
 GNEWalk::GNEWalk(SumoXMLTag tag, GNENet* net) :
-    GNEDemandElement("", net, GLO_WALK, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-{}, {}, {}, {}, {}, {}),
+    GNEDemandElement("", net, GLO_WALK, tag, GUIIconSubSys::getIcon(GUIIcon::WALK_FROMTO),
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
 myArrivalPosition(0) {
     // reset default values
     resetDefaultValues();
@@ -44,35 +44,36 @@ myArrivalPosition(0) {
 
 
 GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, double arrivalPosition) :
-    GNEDemandElement(personParent, net, GLO_WALK, GNE_TAG_WALK_EDGE, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-{}, {fromEdge, toEdge}, {}, {}, {personParent}, {}),
+    GNEDemandElement(personParent, net, GLO_WALK, GNE_TAG_WALK_EDGE, GUIIconSubSys::getIcon(GUIIcon::WALK_FROMTO),
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {fromEdge, toEdge}, {}, {}, {personParent}, {}),
 myArrivalPosition(arrivalPosition) {
 }
 
 
 GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* toBusStop, double arrivalPosition) :
-    GNEDemandElement(personParent, net, GLO_WALK, GNE_TAG_WALK_BUSSTOP, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-{}, {fromEdge}, {}, {toBusStop}, {personParent}, {}),
+    GNEDemandElement(personParent, net, GLO_WALK, GNE_TAG_WALK_BUSSTOP, GUIIconSubSys::getIcon(GUIIcon::WALK_BUSSTOP),
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {fromEdge}, {}, {toBusStop}, {personParent}, {}),
 myArrivalPosition(arrivalPosition) {
 }
 
 
 GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, std::vector<GNEEdge*> edges, double arrivalPosition) :
-    GNEDemandElement(personParent, net, GLO_WALK, GNE_TAG_WALK_EDGES, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-{}, {edges}, {}, {}, {personParent}, {}),
+    GNEDemandElement(personParent, net, GLO_WALK, GNE_TAG_WALK_EDGES, GUIIconSubSys::getIcon(GUIIcon::WALK_EDGES),
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {edges}, {}, {}, {personParent}, {}),
 myArrivalPosition(arrivalPosition) {
 }
 
 
 GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEDemandElement* route, double arrivalPosition) :
-    GNEDemandElement(personParent, net, GLO_WALK, GNE_TAG_WALK_ROUTE, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-{}, {}, {}, {}, {personParent, route}, {}),
+    GNEDemandElement(personParent, net, GLO_WALK, GNE_TAG_WALK_ROUTE, GUIIconSubSys::getIcon(GUIIcon::WALK_ROUTE),
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {personParent, route}, {}),
 myArrivalPosition(arrivalPosition) {
 }
 
 
 GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEJunction* fromJunction, GNEJunction* toJunction, double arrivalPosition) :
-    GNEDemandElement(personParent, net, GLO_WALK, GNE_TAG_WALK_JUNCTIONS, GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {
+    GNEDemandElement(personParent, net, GLO_WALK, GNE_TAG_WALK_JUNCTIONS, GUIIconSubSys::getIcon(GUIIcon::WALK_JUNCTIONS),
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {
     fromJunction, toJunction
 }, {}, {}, {}, {personParent}, {}),
 myArrivalPosition(arrivalPosition) {
@@ -123,7 +124,7 @@ GNEWalk::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     buildShowParamsPopupEntry(ret);
     // show option to open demand element dialog
     if (myTagProperty.hasDialog()) {
-        GUIDesigns::buildFXMenuCommand(ret, ("Open " + getTagStr() + " Dialog").c_str(), getIcon(), &parent, MID_OPEN_ADDITIONAL_DIALOG);
+        GUIDesigns::buildFXMenuCommand(ret, ("Open " + getTagStr() + " Dialog").c_str(), getACIcon(), &parent, MID_OPEN_ADDITIONAL_DIALOG);
         new FXMenuSeparator(ret);
     }
     GUIDesigns::buildFXMenuCommand(ret, ("Cursor position in view: " + toString(getPositionInView().x()) + "," + toString(getPositionInView().y())).c_str(), nullptr, nullptr, 0);
@@ -160,14 +161,9 @@ GNEWalk::writeDemandElement(OutputDevice& device) const {
         }
     }
     // avoid write arrival positions in walk to busStop
-    if (!((myTagProperty.getTag() == GNE_TAG_WALK_BUSSTOP) && (myArrivalPosition == 0))) {
-        // only write arrivalPos if is different of -1
-        if (myArrivalPosition != -1) {
-            device.writeAttr(SUMO_ATTR_ARRIVALPOS, myArrivalPosition);
-        }
+    if (!(myTagProperty.getTag() == GNE_TAG_WALK_BUSSTOP) && (myArrivalPosition > 0)) {
+        device.writeAttr(SUMO_ATTR_ARRIVALPOS, myArrivalPosition);
     }
-    // write parameters
-    writeParams(device);
     // close tag
     device.closeTag();
 }
@@ -214,7 +210,9 @@ GNEWalk::updateGeometry() {
 
 Position
 GNEWalk::getPositionInView() const {
-    if (getParentEdges().size() > 0) {
+    if (getParentJunctions().size() > 0) {
+        return getParentJunctions().front()->getPositionInView();
+    } else if (getParentEdges().size() > 0) {
         return getParentEdges().front()->getPositionInView();
     } else {
         return getParentDemandElements().at(1)->getPositionInView();
@@ -225,12 +223,6 @@ GNEWalk::getPositionInView() const {
 std::string
 GNEWalk::getParentName() const {
     return getParentDemandElements().front()->getID();
-}
-
-
-double
-GNEWalk::getExaggeration(const GUIVisualizationSettings& /*s*/) const {
-    return 1;
 }
 
 
@@ -282,7 +274,19 @@ GNEWalk::drawGL(const GUIVisualizationSettings& s) const {
 void
 GNEWalk::computePathElement() {
     // avoid calculate for junctions
-    if (getParentJunctions().empty()) {
+    // calculate path depending of parents
+    if (getParentJunctions().size() > 0) {
+        // get previous personTrip
+        const auto previousParent = getParentDemandElements().at(0)->getPreviousChildDemandElement(this);
+        // calculate path
+        if (previousParent == nullptr) {
+            myNet->getPathManager()->calculatePathJunctions(this, getVClass(), getParentJunctions());
+        } else if (previousParent->getParentJunctions().size() > 0) {
+            myNet->getPathManager()->calculatePathJunctions(this, getVClass(), {previousParent->getParentJunctions().front(), getParentJunctions().back()});
+        } else {
+            myNet->getPathManager()->calculatePathJunctions(this, getVClass(), {previousParent->getLastPathLane()->getParentEdge()->getToJunction(), getParentJunctions().back()});
+        }
+    } else {
         // declare lane vector
         std::vector<GNELane*> lanes;
         // update lanes depending of walk tag
@@ -324,7 +328,7 @@ GNEWalk::getFirstPathLane() const {
     if (myTagProperty.getTag() == GNE_TAG_WALK_ROUTE) {
         return getParentDemandElements().at(1)->getParentEdges().front()->getLaneByAllowedVClass(SVC_PEDESTRIAN);
     } else if (getParentJunctions().size() > 0) {
-        throw ProcessError("This walk use junctions");
+        throw ProcessError(TL("This walk use junctions"));
     } else {
         return getParentEdges().front()->getLaneByAllowedVClass(SVC_PEDESTRIAN);
     }
@@ -339,7 +343,7 @@ GNEWalk::getLastPathLane() const {
     } else if (getParentAdditionals().size() > 0) {
         return getParentAdditionals().front()->getParentLanes().front();
     } else if (getParentJunctions().size() > 0) {
-        throw ProcessError("This walk use junctions");
+        throw ProcessError(TL("This walk use junctions"));
     } else {
         return getParentEdges().back()->getLaneByDisallowedVClass(SVC_PEDESTRIAN);
     }
@@ -384,8 +388,6 @@ GNEWalk::getAttribute(SumoXMLAttr key) const {
             }
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
-        case GNE_ATTR_PARAMETERS:
-            return getParametersStr();
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -447,7 +449,6 @@ GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_ARRIVALPOS:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARENT:
-        case GNE_ATTR_PARAMETERS:
             undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             break;
         // special case for "to" attributes
@@ -569,8 +570,6 @@ GNEWalk::isValid(SumoXMLAttr key, const std::string& value) {
             }
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
-        case GNE_ATTR_PARAMETERS:
-            return Parameterised::areParametersValid(value);
         case GNE_ATTR_PARENT:
             if (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_PERSON, value, false) != nullptr) {
                 return true;
@@ -688,9 +687,6 @@ GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value) {
             } else {
                 unselectAttributeCarrier();
             }
-            break;
-        case GNE_ATTR_PARAMETERS:
-            setParametersStr(value);
             break;
         case GNE_ATTR_PARENT:
             if (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_PERSON, value, false) != nullptr) {

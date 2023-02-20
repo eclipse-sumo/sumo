@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -160,6 +160,9 @@ public:
      */
     void drawGL(const GUIVisualizationSettings& s) const;
 
+    /// @brief delete element
+    void deleteGLObject();
+
     /// @brief update GLObject (geometry, ID, etc.)
     void updateGLObject();
     /// @}
@@ -288,6 +291,18 @@ private:
     /// @brief commit move shape
     void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
 
+    /// @brief draw lane arrows
+    void drawLaneArrows(const GUIVisualizationSettings& s, const double exaggeration, const bool spreadSuperposed) const;
+
+    /// @brief draw shape edited
+    void drawShapeEdited(const GUIVisualizationSettings& s) const;
+
+    /// @brief check if mouse is over lane
+    void checkMouseOverLane(const double laneWidth) const;
+
+    /// @brief draw dotted contours
+    void drawDottedContours(const GUIVisualizationSettings& s, const bool drawRailway, const double laneWidth) const;
+
     /// @brief draw children
     void drawChildren(const GUIVisualizationSettings& s) const;
 
@@ -296,12 +311,6 @@ private:
 
     /// @brief draw link Number
     void drawLinkNo(const GUIVisualizationSettings& s) const;
-
-    /// @brief draw TLS Link Number
-    void drawTLSLinkNo(const GUIVisualizationSettings& s) const;
-
-    /// @brief draw link rules
-    void drawLinkRules(const GUIVisualizationSettings& s) const;
 
     /// @brief draw arrows
     void drawArrows(const GUIVisualizationSettings& s, const bool spreadSuperposed) const;
@@ -338,6 +347,9 @@ private:
 
     /// @brief build lane operations contextual menu
     void buildLaneOperations(GUISUMOAbstractView& parent, GUIGLObjectPopupMenu* ret);
+
+    /// @brief build template oerations contextual menu
+    void buildTemplateOperations(GUISUMOAbstractView& parent, GUIGLObjectPopupMenu* ret);
 
     /// @brief build rechable operations contextual menu
     void buildRechableOperations(GUISUMOAbstractView& parent, GUIGLObjectPopupMenu* ret);

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2010-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2010-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -15,14 +15,13 @@
 # @author  Jakob Erdmann
 # @date    2021-05-07
 
+from __future__ import print_function
 import os
 import sys
 
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
-    sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools', 'route'))
 import sumolib  # noqa
-from sort_routes import sort_departs  # noqa
 
 
 def get_options(args=None):

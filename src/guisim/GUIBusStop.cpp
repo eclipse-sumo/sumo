@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -57,7 +57,7 @@ GUIBusStop::GUIBusStop(const std::string& id, SumoXMLTag element, const std::vec
                        double frompos, double topos, const std::string name, int personCapacity,
                        double parkingLength, const RGBColor& color) :
     MSStoppingPlace(id, element, lines, lane, frompos, topos, name, personCapacity, parkingLength, color),
-    GUIGlObject_AbstractAdd(GLO_BUS_STOP, id) {
+    GUIGlObject_AbstractAdd(GLO_BUS_STOP, id, GUIIconSubSys::getIcon(GUIIcon::BUSSTOP)) {
     const double offsetSign = MSGlobals::gLefthand ? -1 : 1;
     // see MSVehicleControl defContainerType
     myWidth = MAX2(1.0, ceil((double)personCapacity / getTransportablesAbreast()) * myTransportableDepth);
@@ -202,8 +202,9 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::popMatrix();
         }
         GLHelper::setColor(color);
+        const Position accessOrigin = getCenterPos();
         for (std::vector<Position>::const_iterator i = myAccessCoords.begin(); i != myAccessCoords.end(); ++i) {
-            GLHelper::drawBoxLine(*i, RAD2DEG(myFGSignPos.angleTo2D(*i)) - 90, myFGSignPos.distanceTo2D(*i), .05);
+            GLHelper::drawBoxLine(*i, RAD2DEG(accessOrigin.angleTo2D(*i)) - 90, accessOrigin.distanceTo2D(*i), .05);
         }
         // draw the sign
         glTranslated(myFGSignPos.x(), myFGSignPos.y(), 0);

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -45,24 +45,24 @@ FXIMPLEMENT(GNEDrawingShape,               MFXGroupBoxModule,     DrawingShapeMa
 // ===========================================================================
 
 GNEDrawingShape::GNEDrawingShape(GNEFrame* frameParent) :
-    MFXGroupBoxModule(frameParent, "Drawing"),
+    MFXGroupBoxModule(frameParent, TL("Drawing")),
     myFrameParent(frameParent),
     myDeleteLastCreatedPoint(false) {
     // create start and stop buttons
-    myStartDrawingButton = new FXButton(getCollapsableFrame(), "Start drawing", 0, this, MID_GNE_STARTDRAWING, GUIDesignButton);
-    myStopDrawingButton = new FXButton(getCollapsableFrame(), "Stop drawing", 0, this, MID_GNE_STOPDRAWING, GUIDesignButton);
-    myAbortDrawingButton = new FXButton(getCollapsableFrame(), "Abort drawing", 0, this, MID_GNE_ABORTDRAWING, GUIDesignButton);
+    myStartDrawingButton = new FXButton(getCollapsableFrame(), TL("Start drawing"), 0, this, MID_GNE_STARTDRAWING, GUIDesignButton);
+    myStopDrawingButton = new FXButton(getCollapsableFrame(), TL("Stop drawing"), 0, this, MID_GNE_STOPDRAWING, GUIDesignButton);
+    myAbortDrawingButton = new FXButton(getCollapsableFrame(), TL("Abort drawing"), 0, this, MID_GNE_ABORTDRAWING, GUIDesignButton);
     // create information label
     std::ostringstream information;
     information
-            << "- 'Start drawing' or ENTER\n"
-            << "  to create shape.\n"
-            << "- 'Stop drawing' or ENTER to\n"
-            << "  finish shape creation.\n"
-            << "- 'Abort drawing' or ESC to\n"
-            << "  abort shape creation.\n"
-            << "- 'Shift + Click' to remove\n"
-            << "  last inserted point.";
+        << TL("- 'Start drawing' or ENTER") << "\n"
+        << TL("  to create shape.") << "\n"
+        << TL("- 'Stop drawing' or ENTER to") << "\n"
+        << TL("  finish shape creation.") << "\n"
+        << TL("- 'Abort drawing' or ESC to") << "\n"
+        << TL("  abort shape creation.") << "\n"
+        << TL("- 'Shift + Click' to remove") << "\n"
+        << TL("  last inserted point.");
     myInformationLabel = new FXLabel(getCollapsableFrame(), information.str().c_str(), 0, GUIDesignLabelFrameInformation);
     // disable stop and abort functions as init
     myStopDrawingButton->disable();
@@ -134,7 +134,7 @@ GNEDrawingShape::addNewPoint(const Position& P) {
     if (myStopDrawingButton->isEnabled()) {
         myTemporalShape.push_back(P);
     } else {
-        throw ProcessError("A new point cannot be added if drawing wasn't started");
+        throw ProcessError(TL("A new point cannot be added if drawing wasn't started"));
     }
 }
 

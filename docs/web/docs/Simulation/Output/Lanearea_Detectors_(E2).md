@@ -71,7 +71,7 @@ The complete list of attributes is:
 | -------------- | ----------------------- | -------------------------------------------------------------- |
 | **id**         | id (string)             | A string holding the id of the detector   |
 | **lane**       | referenced lane id      | The id of the lane the detector shall be laid on. The lane must be a part of the network used. This argument excludes the argument **lanes**.   |
-| **lanes**      | referenced lane id list | A space-seperated list of lane-ids which are to be covered by the detector. All lanes must be a part of the network and form a continuous sequence. This argument excludes the arguments **lane** and **length**. |
+| **lanes**      | referenced lane id list | A space-separated list of lane-ids which are to be covered by the detector. All lanes must be a part of the network and form a continuous sequence. This argument excludes the arguments **lane** and **length**. |
 | **pos**        | float                   | The position on the first lane covered by the detector. See information about the same attribute within the detector loop description for further information. Per default, the start position is placed at the first lane's begin.   |
 | **endPos**     | float                   | The end position on the last lane covered by the detector. Per default the end position is placed at the last lane's end.    |
 | **length**     | float                   | The length of the detector in meters. If the detector reaches over the lane's end, it is extended to preceding / consecutive lanes.   |
@@ -81,7 +81,7 @@ The complete list of attributes is:
 | to             | id                      | The id of an outgoing lane that [triggers aggregation in conjunction with traffic light switching](../../Simulation/Output/Traffic_Lights.md#coupled_areal_detectors). This is only used together with *tl*.   |
 | timeThreshold  | float                   | The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting; *in s, default: 1s*.      |
 | speedThreshold | float                   | The speed-based threshold that describes how slow a vehicle has to be to be recognized as halting; *in m/s, default: 5/3.6m/s*.   |
-| jamThreshold   | float                   | The minimum distance to the next standing vehicle in order to make this vehicle count as a participant to the jam; *in m, default: 10m*.     |
+| jamThreshold   | float                   | The maximum distance to the next standing vehicle in order to make this vehicle count as a participant to the jam; *in m, default: 10m*.     |
 | friendlyPos    | bool                    | If set, no error will be reported if the detector is placed behind the lane. Instead, the detector will be placed 0.1 meters from the lane's end or at position 0.1, if the position was negative and larger than the lane's length after multiplication with -1; *default: false*. |
 | vTypes         | string                  | space separated list of vehicle type ids to consider, "" means all; default "".  |
 | detectPersons   | string            | [detect persons instead of vehicles (pedestrians or passengers)](../Pedestrians.md#detectors_for_pedestrians)       |
@@ -156,6 +156,15 @@ The values are described in the following table.
 | startedHalts                | \#                   | The number of started halts. Please note that during an interval a vehicle may stop halting and enter a new halting state.                                                                                  |
 | meanVehicleNumber           | \#                   | The mean number of vehicles that were on the detector (averaged over the interval duration).                                                                                                                |
 | maxVehicleNumber            | \#                   | The maximum number of vehicles that were on the detector area during the interval.                                                                                                                          |
+
+
+# Visualization
+
+
+<img src="../../images/plot-nVehEntered.png" align="right" width="200px"/>
+Output can be represented using [plotXMLAttributes](../../Tools/Visualization.md#lane_area_detectors_over_nvehentered), see there for details.
+<br /><br /><br /><br />
+
 
 # Further notes
 

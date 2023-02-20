@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -34,7 +34,6 @@
 #pragma clang system_header
 #endif
 #pragma warning(push, 0)
-#pragma warning(disable: 4127) // do not warn about constant conditional expression
 #pragma warning(disable: 4275) // do not warn about the DLL interface for OSG
 #pragma warning(disable: 4005) // do not warn about macro redefinition
 #endif
@@ -47,6 +46,7 @@
 #include <osg/Light>
 #include <osg/LightSource>
 #include <osg/Material>
+#include <osg/MatrixTransform>
 #include <osg/Node>
 #include <osg/PositionAttitudeTransform>
 #include <osg/Sequence>
@@ -58,12 +58,17 @@
 #include <osg/ref_ptr>
 #include <osgDB/ReadFile>
 #include <osgDB/WriteFile>
-#include <osgGA/NodeTrackerManipulator>
+#include <osgGA/FirstPersonManipulator>
+#include <osgGA/KeySwitchMatrixManipulator>
+//#include <osgGA/NodeTrackerManipulator>
+#include <osgGA/StandardManipulator>
 #include <osgGA/TerrainManipulator>
-#include <osgGA/TrackballManipulator>
+//#include <osgGA/TrackballManipulator>
+#include <osgText/FadeText>
 #include <osgUtil/Tessellator>
 #include <osgUtil/SmoothingVisitor>
 #include <osgViewer/Viewer>
+#include <osgViewer/CompositeViewer>
 #include <osgViewer/ViewerEventHandlers>
 
 // pop MSVC warnings

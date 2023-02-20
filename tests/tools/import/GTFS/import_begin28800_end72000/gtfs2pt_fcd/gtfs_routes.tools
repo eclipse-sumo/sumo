@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-07-14 14:13:37.579391 by gtfs2pt.py v1_14_0+0097-18db435eed4
+<!-- generated on 2022-12-20 14:04:07.303226 by gtfs2pt.py v1_15_0+1148-79669e747d4
 <configuration>
     <begin value="28800"/>
     <date value="20201111"/>
@@ -13,6 +13,31 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="413_132189814.0" route="132189814" type="bus" depart="36890" line="413_132189814"/>
-    <vehicle id="413_132190299.0" route="132190299" type="bus" depart="43310" line="413_132190299"/>
+    <route id="132189814" edges="-171756596 -37976103#3 -314841164#1 -37976385#1 -615184925 -198087353#0 -5148300 22978949#0 54684975#0 54684975#11 23386846#0 37983000 28381788 28509534#0 28509534#1 28509707#0 307200571 409312582#1 30425275#0 291686198 210624811#0 210624811#2 210624811#3 210624811#4 409312580 8108069 -376915189 -8107411#2 8618349#0 8618349#3 319389908#0 31016344#0 316781879#0 8618348 316785565 23118706 384876527 384876526 4743778#0 127240643#0 127240643#1 127240643#2">
+        <stop busStop="-171756596:13.00" duration="10" until="0"/>
+        <stop busStop="-5148300:13.00" duration="10" until="120"/>
+        <stop busStop="37983000:41.48" duration="10" until="180"/>
+        <stop busStop="30425275#0:42.12" duration="10" until="240"/>
+        <stop busStop="8108069:13.00" duration="10" until="300"/>
+        <stop busStop="8618349#0:44.99" duration="10" until="420"/>
+        <stop busStop="319389908#0:92.29" duration="10" until="480"/>
+        <stop busStop="127240643#2:13.56" duration="10" until="540"/>
+    </route>
+    <route id="132190299" edges="-198087353#0 -5148300 22978949#0 54684975#0 54684975#11 23386846#0 37983000 28381788 28509534#0 28509534#1 28509707#0 307200571 409312582#1 30425275#0 291686198 210624811#0 210624811#2 210624811#3 210624811#4 409312580 8108069 -376915189 -8107411#2 8618349#0 8618349#3 319389908#0 31016344#0 316781879#0 8618348 316785565 23118706 384876527 384876526 4743778#0 127240643#0 127240643#1 127240643#2">
+        <stop busStop="-5148300:13.00" duration="10" until="0"/>
+        <stop busStop="37983000:41.48" duration="10" until="60"/>
+        <stop busStop="30425275#0:42.12" duration="10" until="120"/>
+        <stop busStop="8108069:13.00" duration="10" until="180"/>
+        <stop busStop="8618349#0:44.99" duration="10" until="300"/>
+        <stop busStop="319389908#0:92.29" duration="10" until="360"/>
+        <stop busStop="127240643#2:13.56" duration="10" until="420"/>
+    </route>
+    <vehicle id="132189814.0" route="132189814" type="bus" depart="36890" line="132189814">
+        <param key="gtfs.route_name" value="413"/>
+        <param key="gtfs.trip_headsign" value="Braunschweig Dieselstraße"/>
+    </vehicle>
+    <vehicle id="132190299.0" route="132190299" type="bus" depart="43310" line="132190299">
+        <param key="gtfs.route_name" value="413"/>
+        <param key="gtfs.trip_headsign" value="Leiferde"/>
+    </vehicle>
 </routes>

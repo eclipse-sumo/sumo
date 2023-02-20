@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2007-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2007-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -48,15 +48,6 @@ def parse_args():
     return options
 
 
-def getGeometries(options, net):
-    for edge in net.getEdges():
-        if options.lanes:
-            for lane in edge.getLanes():
-                yield lane.getID(), lane.getShape(), lane.getWidth()
-        else:
-            yield edge.getID(), edge.getShape(), sum([l.getWidth() for l in edge.getLanes()])
-
-
 if __name__ == "__main__":
     options = parse_args()
     net = sumolib.net.readNet(options.netFile, withInternal=options.internal)
@@ -66,7 +57,7 @@ if __name__ == "__main__":
         outf.write('<?xml version="1.0" encoding="UTF-8"?>\n')
         outf.write('<kml xmlns="http://www.opengis.net/kml/2.2">\n')
         outf.write('<Document>\n')
-        for id, geometry, width in getGeometries(options, net):
+        for id, geometry, width in net.getGeometries(options.lanes):
             color = options.iColor if id[0] == ":" else options.color
             outf.write("\t<name>%s</name>\n" % options.netFile)
             outf.write("\t<open>1</open>\n")

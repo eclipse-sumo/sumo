@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-01-27 14:39:00 by Eclipse SUMO netedit Version v1_15_0+2008-0a0a52181e2
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- VTypes -->
+    <vType id="custom_vType" length="20.00" vClass="ignoring" width="5.00" height="12.00" color="12,13,14"/>
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <containerFlow id="cf_0" type="custom_vType" begin="0.00" end="3600.00" containersPerHour="7200.00">
+        <transport from="gneE2" to="gneE5" lines="ANY"/>
+    </containerFlow>
+</routes>

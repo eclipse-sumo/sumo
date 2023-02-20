@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2011-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2011-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -96,7 +96,7 @@ def _readLogics(result):
 
 
 class Constraint:
-    def __init__(self, signalId, tripId, foeId, foeSignal, limit, type, mustWait, active=True):
+    def __init__(self, signalId, tripId, foeId, foeSignal, limit, type, mustWait, active=True, param={}):
         self.signalId = signalId
         self.tripId = tripId
         self.foeId = foeId
@@ -105,11 +105,22 @@ class Constraint:
         self.type = type
         self.mustWait = mustWait
         self.active = active
+        self.param = param
+
+    def getParameters(self):
+        return self.param
+
+    def getParameter(self, key, default=None):
+        return self.param.get(key, default)
 
     def __repr__(self):
-        return ("Constraint(signalId=%s tripId=%s, foeId=%s, foeSignal=%s, limit=%s, type=%s, mustWait=%s, active=%s)" %
+        param = ""
+        if self.param:
+            kvs = ["%s=%s" % (k, self.param[k]) for k in sorted(self.param.keys())]
+            param = " param=%s" % '|'.join(kvs)
+        return ("Constraint(signalId=%s tripId=%s, foeId=%s, foeSignal=%s, limit=%s, type=%s, mustWait=%s, active=%s%s)" %  # noqa
                 (self.signalId, self.tripId, self.foeId, self.foeSignal,
-                 self.limit, self.type, self.mustWait, self.active))
+                 self.limit, self.type, self.mustWait, self.active, param))
 
 
 def _readLinks(result):
@@ -143,7 +154,11 @@ def _readConstraints(result):
         type = result.readTypedInt()
         mustWait = bool(result.readTypedByte())
         active = bool(result.readTypedByte())
-        constraints.append(Constraint(signalId, tripId, foeId, foeSignal, limit, type, mustWait, active))
+        paramItems = result.readTypedStringList()
+        param = {}
+        for i in range(0, len(paramItems), 2):
+            param[paramItems[i]] = paramItems[i + 1]
+        constraints.append(Constraint(signalId, tripId, foeId, foeSignal, limit, type, mustWait, active, param))
     return constraints
 
 
@@ -433,3 +448,13 @@ class TrafficLightDomain(Domain):
         remove constraints with the given values. Any combination of inputs may
         be set to "" to act as a wildcard filter """
         self._setCmd(tc.TL_CONSTRAINT_REMOVE, tlsID, "tsss", 3, tripId, foeSignal, foeId)
+
+    def updateConstraints(self, vehID, tripId=""):
+        """getConstraints(string, string)
+        Removes all constraints that can no longer be met because the route of
+        vehID does not pass traffic light of the constraint with the given tripId.
+        This includes constraints on tripId as well as constraints where tripId
+        is the foeId.
+        If tripId is "", the current tripId of vehID is used.
+        """
+        self._setCmd(tc.TL_CONSTRAINT_UPDATE, vehID, "s", tripId)

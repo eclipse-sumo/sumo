@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2014-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2014-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -94,13 +94,22 @@ public:
         return false;
     }
 
-    /// @brief returns the next pedestrian beyond minPos that is laterally between minRight and maxLeft or 0
-    virtual PersonDist nextBlocking(const MSLane* lane, double minPos, double minRight, double maxLeft, double stopTime = 0) {
+    /** @brief returns the next pedestrian beyond minPos that is laterally between minRight and maxLeft or 0
+     * @param[in] lane the lane to check
+     * @param[in] minPos The minimum offset along the lane after which to check
+     * @param[in] minRight The rightmost border of the vehicle (0 indicates driving on the right border)
+     * @param[in] maxLeft The leftmost border of the vehicle
+     * @param[in] stopTime The time it would take the vehicle to come to a stop
+     * @param[in] bidi Whether the vehicle is driving against the flow
+     * @return The closest person and the distance to it
+     */
+    virtual PersonDist nextBlocking(const MSLane* lane, double minPos, double minRight, double maxLeft, double stopTime = 0, bool bidi = false) {
         UNUSED_PARAMETER(lane);
         UNUSED_PARAMETER(minPos);
         UNUSED_PARAMETER(minRight);
         UNUSED_PARAMETER(maxLeft);
         UNUSED_PARAMETER(stopTime);
+        UNUSED_PARAMETER(bidi);
         return PersonDist(nullptr, -1);
     }
 
@@ -114,6 +123,12 @@ public:
 
     /// @brief the offset for computing person positions when walking on edges without a sidewalk
     static const double SIDEWALK_OFFSET;
+
+    /// @brief the default lateral offset for persons when starting a walk
+    static const double UNSPECIFIED_POS_LAT;
+
+    /// @brief magic value to encode randomized lateral offset for persons when starting a walk
+    static const double RANDOM_POS_LAT;
 
     /* @brief return the arrival direction if the route may be traversed with the given starting direction.
      * returns UNDEFINED_DIRECTION if the route cannot be traversed
@@ -162,7 +177,7 @@ public:
         UNUSED_PARAMETER(lanePos);
         UNUSED_PARAMETER(lanePosLat);
         UNUSED_PARAMETER(t);
-        WRITE_WARNING("moveTo is ignored by the current movement model");
+        WRITE_WARNING(TL("moveTo is ignored by the current movement model"));
     }
 
     /// @brief try to move transportable to the given position
@@ -178,7 +193,7 @@ public:
         UNUSED_PARAMETER(routeOffset);
         UNUSED_PARAMETER(edges);
         UNUSED_PARAMETER(t);
-        WRITE_WARNING("moveToXY is ignored by the current movement model");
+        WRITE_WARNING(TL("moveToXY is ignored by the current movement model"));
     }
 
     /// @brief whether the transportable is jammed
@@ -189,6 +204,11 @@ public:
     /// @brief whether the transportable is jammed
     virtual const MSLane* getLane() const {
         return nullptr;
+    }
+
+    /// @brief return the total length of the current lane (in particular for on a walkingarea)
+    virtual double getPathLength() const {
+        return 0;
     }
 
     /** @brief Saves the current state into the given stream

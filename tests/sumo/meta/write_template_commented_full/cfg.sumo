@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-09-01 09:33:24 by Eclipse SUMO sumo Version v1_14_1+0745-c651c77
+<!-- generated on 2023-01-20 11:43:52 by Eclipse SUMO sumo Version v1_15_0+1763-04f0927
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -171,6 +171,9 @@
         <!-- Save aggregated vehicle departure info into FILE -->
         <summary-output value="" synonymes="summary" type="FILE"/>
 
+        <!-- Save summary-output with the given period -->
+        <summary-output.period value="-1" type="TIME"/>
+
         <!-- Save aggregated person counts into FILE -->
         <person-summary-output value="" type="FILE"/>
 
@@ -222,6 +225,9 @@
         <!-- Write the vehicle speedFactor (defaults to &apos;true&apos; if departSpeed is written) -->
         <vehroute-output.speedfactor value="false" type="BOOL"/>
 
+        <!-- Include internal edges in the output -->
+        <vehroute-output.internal value="false" type="BOOL"/>
+
         <!-- Save person and container routes to separate FILE -->
         <personroute-output value="" synonymes="personroutes" type="FILE"/>
 
@@ -254,6 +260,12 @@
 
         <!-- Write collision information into FILE -->
         <collision-output value="" type="FILE"/>
+
+        <!-- Write aggregated traffic statistics for all edges into FILE -->
+        <edgedata-output value="" type="FILE"/>
+
+        <!-- Write aggregated traffic statistics for all lanes into FILE -->
+        <lanedata-output value="" type="FILE"/>
 
         <!-- Write overall statistics into FILE -->
         <statistic-output value="" synonymes="statistics-output" type="FILE"/>
@@ -411,7 +423,7 @@
         <!-- Sets default visibility for actuation detectors -->
         <tls.actuated.show-detectors value="false" type="BOOL"/>
 
-        <!-- Sets default jam-treshold parameter for all actuation detectors -->
+        <!-- Sets default jam-threshold parameter for all actuation detectors -->
         <tls.actuated.jam-threshold value="-1" type="FLOAT"/>
 
         <!-- Sets default detector length parameter for all actuation detectors -->
@@ -453,7 +465,7 @@
         <!-- Sets the fraction of emergency decel capability that must be used to trigger a warning. -->
         <emergencydecel.warning-threshold value="1" type="FLOAT"/>
 
-        <!-- Whether parking simulation includes manoeuvering time and associated lane blocking -->
+        <!-- Whether parking simulation includes maneuvering time and associated lane blocking -->
         <parking.maneuver value="false" type="BOOL"/>
 
         <!-- Override stop until times with stop ended times when given -->
@@ -485,6 +497,15 @@
 
         <!-- Fraction of stripes to reserve for oncoming pedestrians on crossings and walkingareas -->
         <pedestrian.striping.reserve-oncoming.junctions value="0.34" type="FLOAT"/>
+
+        <!-- Maximum width in m to reserve for oncoming pedestrians -->
+        <pedestrian.striping.reserve-oncoming.max value="1.28" type="FLOAT"/>
+
+        <!-- Interpret departPosLat for walks in legacy style -->
+        <pedestrian.striping.legacy-departposlat value="false" type="BOOL"/>
+
+        <!-- Generate INT intermediate points to smooth out lanes within the walkingarea -->
+        <pedestrian.striping.walkingarea-detail value="4" type="INT"/>
 
         <!-- The address (host:port) of the external simulation -->
         <pedestrian.remote.address value="localhost:9000" type="STR"/>
@@ -618,14 +639,14 @@
         <!-- Prints the current version -->
         <version value="false" synonymes="V" type="BOOL"/>
 
-        <!-- Set schema validation scheme of XML inputs (&quot;never&quot;, &quot;auto&quot; or &quot;always&quot;) -->
-        <xml-validation value="auto" synonymes="X" type="STR"/>
+        <!-- Set schema validation scheme of XML inputs (&quot;never&quot;, &quot;local&quot;, &quot;auto&quot; or &quot;always&quot;) -->
+        <xml-validation value="local" synonymes="X" type="STR"/>
 
-        <!-- Set schema validation scheme of SUMO network inputs (&quot;never&quot;, &quot;auto&quot; or &quot;always&quot;) -->
+        <!-- Set schema validation scheme of SUMO network inputs (&quot;never&quot;, &quot;local&quot;, &quot;auto&quot; or &quot;always&quot;) -->
         <xml-validation.net value="never" type="STR"/>
 
-        <!-- Set schema validation scheme of SUMO route inputs (&quot;never&quot;, &quot;auto&quot; or &quot;always&quot;) -->
-        <xml-validation.routes value="auto" type="STR"/>
+        <!-- Set schema validation scheme of SUMO route inputs (&quot;never&quot;, &quot;local&quot;, &quot;auto&quot; or &quot;always&quot;) -->
+        <xml-validation.routes value="local" type="STR"/>
 
         <!-- Disables output of warnings -->
         <no-warnings value="false" synonymes="W suppress-warnings" type="BOOL"/>
@@ -641,6 +662,9 @@
 
         <!-- Writes all warnings and errors to FILE -->
         <error-log value="" type="FILE"/>
+
+        <!-- Language to use in messages -->
+        <language value="C" type="STR"/>
 
         <!-- Disable performance reports for individual simulation steps -->
         <duration-log.disable value="false" synonymes="no-duration-log" type="BOOL"/>
@@ -714,6 +738,24 @@
         <!-- The &apos;btsender&apos; devices are set deterministic using a fraction of 1000 -->
         <device.btsender.deterministic value="false" type="BOOL"/>
 
+        <!-- The probability for a person to have a &apos;btsender&apos; device -->
+        <person-device.btsender.probability value="-1" type="FLOAT"/>
+
+        <!-- Assign a &apos;btsender&apos; device to named persons -->
+        <person-device.btsender.explicit value="" synonymes="person-device.btsender.knownveh" type="STR[]"/>
+
+        <!-- The &apos;btsender&apos; devices are set deterministic using a fraction of 1000 -->
+        <person-device.btsender.deterministic value="false" type="BOOL"/>
+
+        <!-- The probability for a person to have a &apos;btreceiver&apos; device -->
+        <person-device.btreceiver.probability value="-1" type="FLOAT"/>
+
+        <!-- Assign a &apos;btreceiver&apos; device to named persons -->
+        <person-device.btreceiver.explicit value="" synonymes="person-device.btreceiver.knownveh" type="STR[]"/>
+
+        <!-- The &apos;btreceiver&apos; devices are set deterministic using a fraction of 1000 -->
+        <person-device.btreceiver.deterministic value="false" type="BOOL"/>
+
     </communication>
 
     <battery>
@@ -756,10 +798,10 @@
         <!-- The &apos;ssm&apos; devices are set deterministic using a fraction of 1000 -->
         <device.ssm.deterministic value="false" type="BOOL"/>
 
-        <!-- Specifies which measures will be logged (as a space separated sequence of IDs in (&apos;TTC&apos;, &apos;DRAC&apos;, &apos;PET&apos;)) -->
+        <!-- Specifies which measures will be logged (as a space or comma-separated sequence of IDs in (&apos;TTC&apos;, &apos;DRAC&apos;, &apos;PET&apos;)) -->
         <device.ssm.measures value="" type="STR"/>
 
-        <!-- Specifies thresholds corresponding to the specified measures (see documentation and watch the order!). Only events exceeding the thresholds will be logged. -->
+        <!-- Specifies space or comma-separated thresholds corresponding to the specified measures (see documentation and watch the order!). Only events exceeding the thresholds will be logged. -->
         <device.ssm.thresholds value="" type="STR"/>
 
         <!-- Specifies whether trajectories will be logged (if false, only the extremal values and times are reported). -->

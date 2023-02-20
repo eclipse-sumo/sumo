@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -23,7 +23,7 @@
 
 #include <netedit/frames/GNEFrame.h>
 #include <netedit/GNEViewNetHelper.h>
-#include <utils/foxtools/MFXIconComboBox.h>
+#include <utils/foxtools/MFXComboBoxIcon.h>
 
 // ===========================================================================
 // class declaration
@@ -303,6 +303,8 @@ public:
             JUNCTION,
             EDGE,
             LANE,
+            CONNECTION,
+            CROSSING,
             ADDITIONAL,
             WIRE,
             SHAPE,
@@ -338,6 +340,8 @@ public:
             std::make_pair(Selection::JUNCTION, "junction"),
             std::make_pair(Selection::EDGE, "edge"),
             std::make_pair(Selection::LANE, "lane"),
+            std::make_pair(Selection::CONNECTION, "connection"),
+            std::make_pair(Selection::CROSSING, "crossing"),
             std::make_pair(Selection::ADDITIONAL, "additionalElements"),
             std::make_pair(Selection::WIRE, "wireElements"),
             std::make_pair(Selection::SHAPE, "shapeElements"),
@@ -376,7 +380,7 @@ public:
      * @brief viewParent GNEViewParent in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
      */
-    GNESelectorFrame(GNEViewParent *viewParent, GNEViewNet* viewNet);
+    GNESelectorFrame(GNEViewParent* viewParent, GNEViewNet* viewNet);
 
     /// @brief Destructor
     ~GNESelectorFrame();
@@ -392,6 +396,11 @@ public:
 
     /// @brief clear current selection with possibility of undo/redo
     void clearCurrentSelection() const;
+
+    /**@brief select attribute carrier (element)
+     * @param objectsUnderCursor objects under cursors
+     */
+    bool selectAttributeCarrier(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
 
     /**@brief apply list of ids to the current selection according to Operation,
      * @note if setop==DEFAULT than the currently set mode (myOperation) is used

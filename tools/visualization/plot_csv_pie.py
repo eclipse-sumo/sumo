@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2014-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2014-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -30,7 +30,6 @@ import os
 import sys
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
-import sumolib  # noqa
 from sumolib.visualization import helpers  # noqa
 import matplotlib.pyplot as plt  # noqa
 
@@ -64,17 +63,17 @@ def main(args=None):
         print("Error: at least one csv file must be given")
         sys.exit(1)
 
-    fd = open(options.input)
     labels = []
     vals = []
     total = 0
-    for line in fd:
-        v = line.strip().split(";")
-        if len(v) < 2:
-            continue
-        labels.append(v[0].replace("\\n", "\n"))
-        vals.append(float(v[1]))
-        total += float(v[1])
+    with open(options.input) as fd:
+        for line in fd:
+            v = line.strip().split(";")
+            if len(v) < 2:
+                continue
+            labels.append(v[0].replace("\\n", "\n"))
+            vals.append(float(v[1]))
+            total += float(v[1])
 
     if options.revert:
         labels.reverse()

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -45,7 +45,7 @@ public:
      * @param[in] tlls The logic to write state of
      * @param[in] od The output device to write the state into
      */
-    Command_RouteReplacement(const std::string& vehID, const MSRoute* route);
+    Command_RouteReplacement(const std::string& vehID, ConstMSRoutePtr route);
 
     /// @brief Destructor
     ~Command_RouteReplacement();
@@ -71,7 +71,7 @@ private:
     std::string myVehID;
 
     /// @brief The replacement route
-    const MSRoute* myRoute;
+    ConstMSRoutePtr myRoute;
 
 
 private:

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2008-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2008-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -101,7 +101,7 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill, PCTypeMap& tm) 
     for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
         // nodes
         if (!FileHelpers::isReadable(*file)) {
-            WRITE_ERROR("Could not open osm-file '" + *file + "'.");
+            WRITE_ERRORF(TL("Could not open osm-file '%'."), *file);
             return;
         }
         const long before = PROGRESS_BEGIN_TIME_MESSAGE("Parsing nodes from osm-file '" + *file + "'");
@@ -154,7 +154,7 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill, PCTypeMap& tm) 
                 }
             }
             if (numNodes == 0) {
-                WRITE_WARNING("Could not import polygon from relation '" + toString(rel->id) + "' (missing ways)");
+                WRITE_WARNINGF(TL("Could not import polygon from relation '%' (missing ways)"), rel->id);
                 continue;
             }
             PCOSMEdge* e = new PCOSMEdge();
@@ -209,10 +209,8 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill, PCTypeMap& tm) 
                         }
                     }
                     if (length > mergeRelationsThreshold) {
-                        WRITE_WARNING("Could not import polygon from relation '" + toString(rel->id) +
-                                      "' (name:" + e->name + " reason: found gap of " + toString(minDist) +
-                                      "m to way '" + toString(minEdge->id) +
-                                      "')\n Total length of remaining ways: " + toString(length) + "m.");
+                        WRITE_WARNINGF(TL("Could not import polygon from relation '%' (name:% reason: found gap of %m to way '%')\n Total length of remaining ways: %m."),
+                                       rel->id, e->name, minDist, minEdge->id, length);
                         ok = false;
                     }
                     break;
@@ -229,7 +227,7 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill, PCTypeMap& tm) 
             }
             if (ok) {
                 edges[e->id] = e;
-                WRITE_MESSAGE("Assembled polygon from relation '" + toString(rel->id) + "' (name:" + e->name + ")");
+                WRITE_MESSAGEF(TL("Assembled polygon from relation '%' (name:%)"), toString(rel->id), e->name);
             } else {
                 delete e;
                 // export ways by themselves
@@ -253,7 +251,7 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill, PCTypeMap& tm) 
             continue;
         }
         if (e->myCurrentNodes.size() == 0) {
-            WRITE_ERROR("Polygon '" + toString(e->id) + "' has no shape.");
+            WRITE_ERRORF(TL("Polygon '%' has no shape."), toString(e->id));
             continue;
         }
         // compute shape
@@ -262,7 +260,7 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill, PCTypeMap& tm) 
             PCOSMNode* n = nodes.find(*j)->second;
             Position pos(n->lon, n->lat);
             if (!GeoConvHelper::getProcessing().x2cartesian(pos)) {
-                WRITE_WARNING("Unable to project coordinates for polygon '" + toString(e->id) + "'.");
+                WRITE_WARNINGF(TL("Unable to project coordinates for polygon '%'."), e->id);
             }
             vec.push_back_noDoublePos(pos);
         }
@@ -298,7 +296,7 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill, PCTypeMap& tm) 
         }
         Position pos(n->lon, n->lat);
         if (!GeoConvHelper::getProcessing().x2cartesian(pos)) {
-            WRITE_WARNING("Unable to project coordinates for POI '" + toString(n->id) + "'.");
+            WRITE_WARNINGF(TL("Unable to project coordinates for POI '%'."), n->id);
         }
         const bool ignorePruning = OptionsCont::getOptions().isInStringVector("prune.keep-list", toString(n->id));
         // add as many POIs as keys match defined types
@@ -591,7 +589,7 @@ PCLoaderOSM::EdgesHandler::myStartElement(int element, const SUMOSAXAttributes& 
         const long long int ref = attrs.get<long long int>(SUMO_ATTR_REF, nullptr, ok);
         if (ok) {
             if (myOSMNodes.find(ref) == myOSMNodes.end()) {
-                WRITE_WARNING("The referenced geometry information (ref='" + toString(ref) + "') is not known");
+                WRITE_WARNINGF(TL("The referenced geometry information (ref='%') is not known"), ref);
                 return;
             }
             myCurrentEdge->myCurrentNodes.push_back(ref);

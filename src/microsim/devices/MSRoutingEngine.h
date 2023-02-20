@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2007-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2007-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -81,7 +81,7 @@ public:
     }
 
     /// @brief return the cached route or nullptr on miss
-    static const MSRoute* getCachedRoute(const std::pair<const MSEdge*, const MSEdge*>& key);
+    static ConstMSRoutePtr getCachedRoute(const std::pair<const MSEdge*, const MSEdge*>& key);
 
     static void initRouter(SUMOVehicle* vehicle = nullptr);
 
@@ -234,7 +234,7 @@ private:
     static std::map<std::thread::id, SumoRNG*> myThreadRNGs;
 
     /// @brief The container of pre-calculated routes
-    static std::map<std::pair<const MSEdge*, const MSEdge*>, const MSRoute*> myCachedRoutes;
+    static std::map<std::pair<const MSEdge*, const MSEdge*>, ConstMSRoutePtr> myCachedRoutes;
 
     /// @brief Coefficient for factoring edge priority into routing weight
     static double myPriorityFactor;

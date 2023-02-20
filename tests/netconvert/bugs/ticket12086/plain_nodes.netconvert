@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-11-18 09:05:44 by Eclipse SUMO netconvert Version v1_15_0+0391-a035927
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="input_net.net.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <plain-output-prefix value="plain"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="0"/>
+        <junctions.limit-turn-speed value="-1.00"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<nodes version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="-610837.31,-5801296.26" convBoundary="265.09,237.46,833.06,517.76" origBoundary="4.625834,52.338776,4.641096,52.361335" projParameter="+proj=utm +zone=31 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <node id="AMJ01" x="342.56" y="364.13" type="unregulated" shape="344.89,360.30 342.41,360.66 342.69,361.80 339.11,364.65 341.57,368.00 345.93,364.83 344.89,360.30"/>
+    <node id="AMJ02" x="376.61" y="342.54" type="unregulated" shape="375.15,340.71 371.52,342.96 374.18,346.59 377.76,344.75 380.72,342.85 379.04,338.66 375.15,340.71"/>
+    <node id="AMJ03" x="390.12" y="366.34" type="unregulated" shape="388.31,364.95 384.64,366.74 385.98,368.92 386.89,370.73 389.26,369.58 388.36,367.68 392.93,365.30 391.99,363.56 388.31,364.95"/>
+    <node id="AMJ04" x="361.97" y="387.08" type="unregulated" shape="359.11,386.49 363.36,390.84 364.93,388.19 366.05,386.73 362.48,383.12 359.11,386.49"/>
+    <node id="CJ01" x="266.68" y="512.05" type="dead_end"/>
+    <node id="CJ02" x="328.93" y="309.85" type="dead_end"/>
+    <node id="CJ04" x="832.75" y="458.56" type="dead_end"/>
+    <node id="CJ05" x="829.64" y="473.71" type="dead_end"/>
+    <node id="CJ06" x="281.58" y="516.72" type="dead_end"/>
+    <node id="Dn01" x="359.23" y="385.50" type="unregulated"/>
+    <node id="Dn02" x="352.68" y="378.55" type="unregulated"/>
+    <node id="Dn03" x="343.21" y="368.14" type="unregulated"/>
+    <node id="Dn04" x="342.81" y="367.68" type="unregulated"/>
+    <node id="Dn05" x="354.81" y="376.69" type="unregulated"/>
+    <node id="Dn06" x="345.96" y="366.33" type="unregulated"/>
+    <node id="Dn07" x="347.97" y="358.93" type="unregulated"/>
+    <node id="Dn08" x="359.02" y="351.90" type="unregulated"/>
+    <node id="Dn09" x="370.05" y="344.80" type="unregulated"/>
+    <node id="Dn10" x="456.46" y="323.26" type="unregulated"/>
+    <node id="Dn11" x="346.54" y="362.58" type="unregulated"/>
+    <node id="Dn12" x="360.20" y="353.94" type="unregulated"/>
+    <node id="Dn13" x="371.63" y="346.51" type="unregulated"/>
+    <node id="Dn15" x="379.99" y="343.69" type="unregulated"/>
+    <node id="Dn16" x="384.87" y="352.71" type="unregulated"/>
+    <node id="Dn17" x="390.71" y="363.61" type="unregulated"/>
+    <node id="Dn18" x="380.08" y="376.11" type="unregulated"/>
+    <node id="Dn19" x="366.50" y="385.26" type="unregulated"/>
+    <node id="Dn20" x="375.84" y="346.03" type="unregulated" shape="375.94,348.08 375.99,348.07 375.94,348.08"/>
+    <node id="Dn21" x="380.89" y="354.88" type="unregulated"/>
+    <node id="Dn22" x="385.51" y="364.53" type="unregulated" shape="386.65,363.36 384.23,364.61 384.79,365.74 386.72,364.83 386.65,363.36"/>
+    <node id="Dn23" x="379.09" y="374.24" type="unregulated"/>
+    <node id="Dn24" x="393.89" y="342.96" type="priority"/>
+    <node id="Dn25" x="398.62" y="352.14" type="unregulated"/>
+    <node id="Dn26" x="458.11" y="338.67" type="unregulated"/>
+    <node id="Dn27" x="294.04" y="473.27" type="unregulated"/>
+    <node id="J01" x="270.05" y="513.53" type="dead_end"/>
+    <node id="J03" x="289.23" y="241.42" type="dead_end"/>
+    <node id="J04" x="292.38" y="237.46" type="dead_end"/>
+    <node id="J05" x="831.30" y="466.39" type="dead_end"/>
+    <node id="J06" x="406.00" y="430.16" type="dead_end"/>
+    <node id="J07" x="401.78" y="432.64" type="dead_end"/>
+    <node id="J08" x="278.20" y="517.17" type="dead_end"/>
+    <node id="K0001" x="368.01" y="364.09" type="traffic_light" tl="K0001" shape="348.60,364.57 347.92,365.94 343.61,370.13 350.03,376.66 353.76,373.63 355.21,373.17 356.71,372.92 358.04,373.24 358.98,374.24 359.33,375.14 358.55,376.41 357.69,377.59 353.63,381.26 356.32,383.68 360.75,379.79 361.93,379.49 363.02,379.41 364.12,379.43 365.18,379.61 366.34,379.93 370.26,385.50 375.63,382.12 374.66,380.62 377.75,378.70 375.57,374.49 376.40,373.15 377.33,371.94 378.14,370.79 379.03,369.65 380.34,369.02 384.69,366.48 383.51,364.24 390.00,360.98 386.16,353.70 380.55,356.75 376.70,358.59 375.41,358.94 374.21,359.23 373.59,358.40 374.82,356.09 378.84,354.05 385.37,350.62 382.23,344.97 379.07,346.92 375.49,348.74 374.37,349.17 373.05,349.23 371.78,349.23 370.42,349.07 369.14,348.70 367.79,348.07 366.61,347.36 365.46,346.59 359.35,350.56 361.74,354.69 360.09,355.53 357.89,351.80 350.49,356.17 351.45,357.78 349.92,358.80 351.27,361.06 350.25,362.14 349.25,363.17 348.60,364.57"/>
+    <node id="PCJ01" x="343.77" y="310.89" type="dead_end"/>
+    <node id="PJ01" x="265.09" y="511.68" type="dead_end"/>
+    <node id="PJ02" x="326.57" y="310.46" type="dead_end"/>
+    <node id="PJ04" x="833.06" y="456.87" type="dead_end"/>
+    <node id="PJ05" x="829.41" y="475.35" type="dead_end"/>
+    <node id="PJ06" x="284.72" y="517.76" type="unregulated"/>
+    <node id="Z01" x="312.18" y="416.78" type="zipper" shape="314.57,418.24 315.80,416.79 314.10,416.07 310.08,413.88 310.05,417.29 312.83,418.88 314.57,418.24"/>
+    <node id="Z02" x="326.54" y="395.08" type="zipper"/>
+    <node id="Z03" x="334.76" y="305.84" type="unregulated"/>
+    <node id="Z04" x="447.40" y="339.24" type="zipper"/>
+    <node id="Z05" x="452.35" y="331.22" type="unregulated" shape="464.73,334.09 465.19,328.30 458.20,327.66 450.88,327.49 451.08,333.80 457.65,333.63 464.73,334.09"/>
+    <node id="Z06" x="529.80" y="357.41" type="unregulated"/>
+</nodes>

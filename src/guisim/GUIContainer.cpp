@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -122,7 +122,7 @@ GUIContainer::GUIContainerPopupMenu::onCmdStopTrack(FXObject*, FXSelector, void*
  * ----------------------------------------------------------------------- */
 GUIContainer::GUIContainer(const SUMOVehicleParameter* pars, MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan) :
     MSTransportable(pars, vtype, plan, false),
-    GUIGlObject(GLO_CONTAINER, pars->id) {
+    GUIGlObject(GLO_CONTAINER, pars->id, GUIIconSubSys::getIcon(GUIIcon::CONTAINER)) {
 }
 
 

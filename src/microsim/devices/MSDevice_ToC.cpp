@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2013-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2013-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -158,7 +158,7 @@ MSDevice_ToC::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>&
     OptionsCont& oc = OptionsCont::getOptions();
     if (equippedByDefaultAssignmentOptions(oc, "toc", v, false)) {
         if (MSGlobals::gUseMesoSim) {
-            WRITE_WARNING("ToC device is not supported by the mesoscopic simulation.");
+            WRITE_WARNING(TL("ToC device is not supported by the mesoscopic simulation."));
             return;
         }
         const std::string manualType = getStringParam(v, oc, "toc.manualType", DEFAULT_MANUAL_TYPE, true);
@@ -197,13 +197,13 @@ MSDevice_ToC::getOutputFilename(const SUMOVehicle& v, const OptionsCont& oc) {
         try {
             file = v.getParameter().getParameter("device.toc.file", file);
         } catch (...) {
-            WRITE_WARNING("Invalid value '" + v.getParameter().getParameter("device.toc.file", file) + "'for vehicle parameter 'ssm.measures'");
+            WRITE_WARNINGF(TL("Invalid value '%'for vehicle parameter 'ssm.measures'"), v.getParameter().getParameter("device.toc.file", file));
         }
     } else if (v.getVehicleType().getParameter().knowsParameter("device.toc.file")) {
         try {
             file = v.getVehicleType().getParameter().getParameter("device.toc.file", file);
         } catch (...) {
-            WRITE_WARNING("Invalid value '" + v.getVehicleType().getParameter().getParameter("device.toc.file", file) + "'for vType parameter 'ssm.measures'");
+            WRITE_WARNINGF(TL("Invalid value '%'for vType parameter 'ssm.measures'"), v.getVehicleType().getParameter().getParameter("device.toc.file", file));
         }
     } else {
         file = oc.getString("device.toc.file") == "" ? file : oc.getString("device.toc.file");
@@ -217,7 +217,7 @@ MSDevice_ToC::getDynamicMRMProbability(const SUMOVehicle& v, const OptionsCont& 
     double pMRM = getFloatParam(v, oc, "toc.dynamicMRMProbability", DEFAULT_MRM_PROBABILITY, false);
     if (pMRM < 0 || pMRM > 0.5) {
         const double pMRMTrunc = MAX2(0.0, MIN2(0.5, pMRM));
-        WRITE_WARNING("Given value for ToC device parameter 'dynamicMRMProbability' (=" + toString(pMRM) + ") is not in the admissible range [0,0.5]. Truncated to " + toString(pMRMTrunc) + ".");
+        WRITE_WARNINGF(TL("Given value for ToC device parameter 'dynamicMRMProbability' (=%) is not in the admissible range [0,0.5]. Truncated to %."), toString(pMRM), toString(pMRMTrunc));
         return pMRMTrunc;
     }
     return pMRM;
@@ -243,7 +243,7 @@ MSDevice_ToC::getOpenGapParams(const SUMOVehicle& v, const OptionsCont& oc) {
         specifiedAny = true;
     }
     if (specifiedAny && timegap == -1 && spacing == -1) {
-        WRITE_ERROR("If any openGap parameters for the ToC model are specified, then at least one of toc.ogNewTimeHeadway and toc.ogNewSpaceHeadway must be defined.")
+        WRITE_ERROR(TL("If any openGap parameters for the ToC model are specified, then at least one of toc.ogNewTimeHeadway and toc.ogNewSpaceHeadway must be defined."))
     }
     if (timegap == -1) {
         timegap = DEFAULT_OPENGAP_TIMEGAP;
@@ -575,10 +575,10 @@ MSDevice_ToC::triggerMRM(SUMOTime /* t */) {
         SUMOVehicleParameter::Stop stop;
         MSStoppingPlace* s = MSNet::getInstance()->getStoppingPlace(myMRMSafeSpot, SUMO_TAG_PARKING_AREA);
         if (s == nullptr) {
-            WRITE_WARNING("Ignoring unknown safe spot '" + myMRMSafeSpot + "' for vehicle '" + myHolder.getID() + "'.");
+            WRITE_WARNINGF(TL("Ignoring unknown safe spot '%' for vehicle '%'."), myMRMSafeSpot, myHolder.getID());
         } else {
             stop.parkingarea = myMRMSafeSpot;
-            stop.parking = true;
+            stop.parking = ParkingType::OFFROAD;
             stop.lane = s->getLane().getID();
             stop.endPos = s->getEndLanePosition();
             stop.startPos = s->getBeginLanePosition();
@@ -728,7 +728,7 @@ MSDevice_ToC::switchHolderType(const std::string& targetTypeID) {
 #endif
     MSVehicleType* targetType = MSNet::getInstance()->getVehicleControl().getVType(targetTypeID);
     if (targetType == nullptr) {
-        WRITE_ERROR("vType '" + targetType->getID() + "' for vehicle '" + myHolder.getID() + "' is not known.");
+        WRITE_ERRORF(TL("vType '%' for vehicle '%' is not known."), targetType->getID(), myHolder.getID());
         return;
     }
     myHolderMS->replaceVehicleType(targetType);
@@ -930,7 +930,7 @@ MSDevice_ToC::setParameter(const std::string& key, const std::string& value) {
         if (isManuallyDriven()) {
             setAwareness(StringUtils::toDouble(value));
         } else {
-            WRITE_WARNING("Setting device.toc.currentAwareness during automated mode has no effect.")
+            WRITE_WARNING(TL("Setting device.toc.currentAwareness during automated mode has no effect."))
         }
     } else if (key == "mrmDecel") {
         myMRMDecel = StringUtils::toDouble(value);
@@ -947,7 +947,7 @@ MSDevice_ToC::setParameter(const std::string& key, const std::string& value) {
     } else if (key == "dynamicToCThreshold") {
         const double newValue = StringUtils::toDouble(value);
         if (newValue < 0) {
-            WRITE_WARNING("Value of dynamicToCThreshold must be non-negative. (Given value " + value + " for vehicle " + myHolderMS->getID() + " is ignored)");
+            WRITE_WARNINGF(TL("Value of dynamicToCThreshold must be non-negative. (Given value % for vehicle % is ignored)"), value, myHolderMS->getID());
         } else if (newValue == 0) {
             myDynamicToCThreshold = newValue;
             myDynamicToCActive = false;
@@ -958,7 +958,7 @@ MSDevice_ToC::setParameter(const std::string& key, const std::string& value) {
     } else if (key == "dynamicMRMProbability") {
         const double newValue = StringUtils::toDouble(value);
         if (newValue < 0) {
-            WRITE_WARNING("Value of dynamicMRMProbability must be non-negative. (Given value " + value + " for vehicle " + myHolderMS->getID() + " is ignored)");
+            WRITE_WARNINGF(TL("Value of dynamicMRMProbability must be non-negative. (Given value % for vehicle % is ignored)"), value, myHolderMS->getID());
         } else {
             myMRMProbability = newValue;
         }
@@ -972,7 +972,7 @@ MSDevice_ToC::setParameter(const std::string& key, const std::string& value) {
     } else if (key == "maxPreparationAccel") {
         const double newValue = StringUtils::toDouble(value);
         if (newValue < 0) {
-            WRITE_WARNING("Value of maxPreparationAccel must be non-negative. (Given value " + value + " for vehicle " + myHolderMS->getID() + " is ignored)");
+            WRITE_WARNINGF(TL("Value of maxPreparationAccel must be non-negative. (Given value % for vehicle % is ignored)"), value, myHolderMS->getID());
         } else {
             myMaxPreparationAccel = newValue;
         }
@@ -997,7 +997,7 @@ MSDevice_ToC::_2ToCState(const std::string& str) {
     } else if (str == "RECOVERING") {
         return RECOVERING;
     } else {
-        WRITE_WARNING("Unknown ToCState '" + str + "'");
+        WRITE_WARNINGF(TL("Unknown ToCState '%'"), str);
         return UNDEFINED;
     }
 }
@@ -1018,7 +1018,7 @@ MSDevice_ToC::_2string(ToCState state) {
     } else if (state == RECOVERING) {
         return "RECOVERING";
     } else {
-        WRITE_WARNING("Unknown ToCState '" + toString(state) + "'");
+        WRITE_WARNINGF(TL("Unknown ToCState '%'"), toString(state));
         return toString(state);
     }
 }

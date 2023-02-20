@@ -30,6 +30,7 @@
                 <Control Id="Folder" Type="PathEdit" X="20" Y="100" Width="320" Height="18" Property="WIXUI_INSTALLDIR" Indirect="yes" />
                 <Control Id="ChangeFolder" Type="PushButton" X="20" Y="120" Width="56" Height="17" Text="!(loc.InstallDirDlgChange)" />
                 <Control Id="ModifyEnvCheckBox" Type="CheckBox" X="20" Y="160" Width="290" Height="17" Property="MODIFYENV" CheckBoxValue="1" Text="Set SUMO_HOME and adapt PATH and PYTHONPATH." />
+                <Control Id="LibsumoRemark" Type="Text" X="20" Y="180" Width="290" Height="30" NoPrefix="yes" Text="If you want to use the libsumo python bindings, please install them separately with pip." />
             </Dialog>
         </UI>
     </Fragment>

@@ -1,0 +1,29 @@
+/* XPM */
+static const char *save_additionalelements_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 7 1",
+"  c #040404",
+". c #757800",
+"X c None",
+"o c #008A1B",
+"O c #00A320",
+"+ c #FFD000",
+"@ c #B6BAB7",
+/* pixels */
+"XXXXXXXXXXXXXXXX",
+"X              X",
+"X . @@@@@@@@ @ X",
+"X . @@oooo@@   X",
+"X . @@o++o@@ . X",
+"X . ooO++Ooo . X",
+"X . OOOOOOOO . X",
+"X . OOOOOOOO . X",
+"X ..        .. X",
+"X ............ X",
+"X ..         . X",
+"X ..      @@ . X",
+"X ..      @@ . X",
+"X ..      @@ . X",
+"XX             X",
+"XXXXXXXXXXXXXXXX"
+};

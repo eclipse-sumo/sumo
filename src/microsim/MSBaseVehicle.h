@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2010-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2010-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -85,7 +85,7 @@ public:
      * @param[in] speedFactor The factor for driven lane's speed limits
      * @exception ProcessError If a value is wrong
      */
-    MSBaseVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
+    MSBaseVehicle(SUMOVehicleParameter* pars, ConstMSRoutePtr route,
                   MSVehicleType* type, const double speedFactor);
 
 
@@ -113,7 +113,7 @@ public:
     /// @brief replace the vehicle parameter (deleting the old one)
     void replaceParameter(const SUMOVehicleParameter* newParameter);
 
-    /// @brief check whether the vehicle is equiped with a device of the given type
+    /// @brief check whether the vehicle is equiped with a device of the given name
     bool hasDevice(const std::string& deviceName) const;
 
     /// @brief create device of the given type
@@ -135,6 +135,12 @@ public:
         return *myRoute;
     }
 
+    /** @brief Returns the current route
+     * @return The route the vehicle uses
+     */
+    inline ConstMSRoutePtr getRoutePtr() const {
+        return myRoute;
+    }
 
     /** @brief Returns the vehicle's type definition
      * @return The vehicle's type definition
@@ -142,7 +148,6 @@ public:
     inline const MSVehicleType& getVehicleType() const  {
         return *myType;
     }
-
 
     /** @brief Returns the vehicle's access class
      * @return The vehicle's access class
@@ -155,7 +160,6 @@ public:
      * @return The vehicle's maximum speed
      */
     double getMaxSpeed() const;
-
 
     /** @brief Returns the nSuccs'th successor of edge the vehicle is currently at
      *
@@ -178,6 +182,12 @@ public:
     virtual const MSEdge* getCurrentEdge() const {
         return getEdge();
     }
+
+    /** @brief Returns whether the vehicle stops at the given stopping place */
+    bool stopsAt(MSStoppingPlace* stop) const;
+
+    /** @brief Returns whether the vehicle stops at the given edge */
+    bool stopsAtEdge(const MSEdge* edge) const;
 
     /// @brief returns the next edge (possibly an internal edge)
     virtual const MSEdge* getNextEdgePtr() const {
@@ -302,7 +312,7 @@ public:
      * @param[in] removeStops Whether stops should be removed if they do not fit onto the new route
      * @return Whether the new route was accepted
      */
-    virtual bool replaceRoute(const MSRoute* route, const std::string& info, bool onInit = false, int offset = 0, bool addStops = true, bool removeStops = true,
+    virtual bool replaceRoute(ConstMSRoutePtr route, const std::string& info, bool onInit = false, int offset = 0, bool addStops = true, bool removeStops = true,
                               std::string* msgReturn = nullptr);
 
     /** @brief Returns the vehicle's acceleration
@@ -327,9 +337,7 @@ public:
     }
 
     /** @brief Returns the depart delay */
-    SUMOTime getDepartDelay() const {
-        return getDeparture() - getParameter().depart;
-    }
+    SUMOTime getDepartDelay() const;
 
     /** @brief Returns the estimated public transport stop (departure) delay in seconds
      */
@@ -381,7 +389,9 @@ public:
 
     /** @brief Returns whether this vehicle has already departed
      */
-    bool hasDeparted() const;
+    inline bool hasDeparted() const {
+        return myDeparture != NOT_YET_DEPARTED;
+    }
 
     /** @brief Returns whether this vehicle has already arived
      * (by default this is true if the vehicle has reached its final edge)
@@ -458,12 +468,15 @@ public:
     /// @brief returns whether the vehicle serves a public transport line that serves the given stop
     bool isLineStop(double position) const;
 
+    /// @brief check wether the vehicle has jump at the given part of it's route
+    bool hasJump(const MSRouteIterator& it) const;
+
     /** @brief Validates the current or given route
      * @param[out] msg Description why the route is not valid (if it is the case)
      * @param[in] route The route to check (or 0 if the current route shall be checked)
      * @return Whether the vehicle's current route is valid
      */
-    bool hasValidRoute(std::string& msg, const MSRoute* route = 0) const;
+    bool hasValidRoute(std::string& msg, ConstMSRoutePtr route = 0) const;
 
     /// @brief checks wether the vehicle can depart on the first edge
     virtual bool hasValidRouteStart(std::string& msg);
@@ -529,7 +542,7 @@ public:
         myChosenSpeedFactor = factor;
     }
 
-    /// @brief Returns a device of the given type if it exists or 0
+    /// @brief Returns a device of the given type if it exists, nullptr otherwise
     MSVehicleDevice* getDevice(const std::type_info& type) const;
 
 
@@ -573,6 +586,18 @@ public:
      */
     bool isParking() const;
 
+    /** @brief Returns whether the vehicle is perform a jump
+     * @return whether the vehicle is starting to jump
+     */
+    bool isJumping() const;
+
+    /** @brief Returns whether the logical state of the vehicle is reversed - for drawing
+    * @return whether the logical state of the vehicle is reversed
+    */
+    inline bool isReversed() const {
+        return myAmReversed;
+    }
+
     /** @brief Returns whether the vehicle is on a triggered stop
      * @return whether the vehicle is on a triggered stop
      */
@@ -603,7 +628,7 @@ public:
      * @param[in] stop The stop to add
      * @return Whether the stop could be added
      */
-    bool addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& errorMsg, SUMOTime untilOffset = 0, bool collision = false,
+    bool addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& errorMsg, SUMOTime untilOffset = 0,
                  MSRouteIterator* searchStart = nullptr);
 
     /** @brief Adds stops to the built vehicle
@@ -616,12 +641,12 @@ public:
     void addStops(const bool ignoreStopErrors, MSRouteIterator* searchStart = nullptr, bool addRouteStops = true);
 
     /// @brief check whether all stop.edge MSRouteIterators are valid and in order
-    bool haveValidStopEdges() const;
+    bool haveValidStopEdges(bool silent = false) const;
 
     /** @brief Returns the list of still pending stop edges
      * also returns the first and last stop position
      */
-    const ConstMSEdgeVector getStopEdges(double& firstPos, double& lastPos) const;
+    const ConstMSEdgeVector getStopEdges(double& firstPos, double& lastPos, std::set<int>& jumps) const;
 
     /// @brief return list of route indices for the remaining stops
     std::vector<std::pair<int, double> > getStopIndices() const;
@@ -851,7 +876,7 @@ public:
      */
     virtual std::pair<const MSVehicle* const, double> getLeader(double dist = 0) const {
         UNUSED_PARAMETER(dist);
-        WRITE_WARNING("getLeader not yet implemented for meso");
+        WRITE_WARNING(TL("getLeader not yet implemented for meso"));
         return std::make_pair(nullptr, -1);
     }
 
@@ -865,7 +890,7 @@ public:
      */
     virtual std::pair<const MSVehicle* const, double> getFollower(double dist = 0) const {
         UNUSED_PARAMETER(dist);
-        WRITE_WARNING("getFollwer not yet implemented for meso");
+        WRITE_WARNING(TL("getFollower not yet implemented for meso"));
         return std::make_pair(nullptr, -1);
     }
 
@@ -915,7 +940,7 @@ protected:
     const SUMOVehicleParameter* myParameter;
 
     /// @brief This vehicle's route.
-    const MSRoute* myRoute;
+    ConstMSRoutePtr myRoute;
 
     /// @brief This vehicle's type.
     MSVehicleType* myType;
@@ -996,6 +1021,11 @@ protected:
     static const SUMOTime NOT_YET_DEPARTED;
 
     static std::vector<MSTransportable*> myEmptyTransportableVector;
+
+    /* @brief The logical 'reversed' state of the vehicle - intended to be used by drawing functions
+     * @note:   only set by vClass rail reversing at the moment
+     */
+    bool myAmReversed = false;
 
 private:
     const NumericalID myNumericalID;

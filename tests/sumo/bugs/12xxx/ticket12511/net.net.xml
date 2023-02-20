@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-01-22 01:05:05 by Eclipse SUMO netedit Version v1_15_0+1776-6c18d02
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <additional-files value=""/>
+        <route-files value=""/>
+        <meandata-files value=""/>
+        <sumo-net-file value="net2.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net2.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="0"/>
+        <junctions.limit-turn-speed value="-1.00"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<net version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="100.00,100.00" convBoundary="0.00,100.00,200.00,100.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <edge id=":C_0" function="internal">
+        <lane id=":C_0_0" index="0" speed="13.89" length="30.04" shape="85.00,98.40 115.00,96.80"/>
+        <lane id=":C_0_1" index="1" speed="13.89" length="30.04" shape="85.00,101.60 115.00,100.00"/>
+        <lane id=":C_0_2" index="2" speed="13.89" length="30.04" shape="85.00,101.60 115.00,103.20"/>
+    </edge>
+
+    <edge id="CE" from="C" to="E" priority="2" spreadType="center">
+        <lane id="CE_0" index="0" speed="13.89" length="85.00" shape="115.00,96.80 200.00,96.80"/>
+        <lane id="CE_1" index="1" speed="13.89" length="85.00" shape="115.00,100.00 200.00,100.00"/>
+        <lane id="CE_2" index="2" speed="13.89" length="85.00" shape="115.00,103.20 200.00,103.20"/>
+    </edge>
+    <edge id="WC" from="W" to="C" priority="2" spreadType="center">
+        <lane id="WC_0" index="0" speed="13.89" length="85.00" shape="0.00,98.40 85.00,98.40" changeLeft="authority"/>
+        <lane id="WC_1" index="1" speed="13.89" length="85.00" shape="0.00,101.60 85.00,101.60" changeRight="authority"/>
+    </edge>
+
+    <tlLogic id="C" type="static" programID="0" offset="0">
+        <phase duration="82" state="GGG"/>
+        <phase duration="3"  state="yyy"/>
+        <phase duration="5"  state="rrr"/>
+    </tlLogic>
+
+    <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="WC_0 WC_1" intLanes=":C_0_0 :C_0_1 :C_0_2" shape="115.00,104.80 115.00,95.20 85.00,96.80 85.00,103.20" radius="15.00">
+        <request index="0" response="000" foes="000" cont="0"/>
+        <request index="1" response="000" foes="000" cont="0"/>
+        <request index="2" response="000" foes="000" cont="0"/>
+    </junction>
+    <junction id="E" type="dead_end" x="200.00" y="100.00" incLanes="CE_0 CE_1 CE_2" intLanes="" shape="200.00,95.20 200.00,104.80"/>
+    <junction id="W" type="dead_end" x="0.00" y="100.00" incLanes="" intLanes="" shape="0.00,103.20 0.00,96.80"/>
+
+    <connection from="WC" to="CE" fromLane="0" toLane="0" via=":C_0_0" tl="C" linkIndex="0" dir="s" state="O"/>
+    <connection from="WC" to="CE" fromLane="1" toLane="1" via=":C_0_1" tl="C" linkIndex="1" dir="s" state="O"/>
+    <connection from="WC" to="CE" fromLane="1" toLane="2" via=":C_0_2" tl="C" linkIndex="2" dir="s" state="O"/>
+
+    <connection from=":C_0" to="CE" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":C_0" to="CE" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from=":C_0" to="CE" fromLane="2" toLane="2" dir="s" state="M"/>
+
+</net>

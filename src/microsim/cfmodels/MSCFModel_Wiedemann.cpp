@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2011-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2011-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -77,13 +77,13 @@ MSCFModel_Wiedemann::finalizeSpeed(MSVehicle* const veh, double vPos) const {
 
 
 double
-MSCFModel_Wiedemann::followSpeed(const MSVehicle* const veh, double /* speed */, double gap2pred, double predSpeed, double /*predMaxDecel*/, const MSVehicle* const pred) const {
+MSCFModel_Wiedemann::followSpeed(const MSVehicle* const veh, double /* speed */, double gap2pred, double predSpeed, double /*predMaxDecel*/, const MSVehicle* const pred, const CalcReason /*usage*/) const {
     return _v(veh, predSpeed, gap2pred, pred != nullptr ? pred->getAcceleration() : 0);
 }
 
 
 double
-MSCFModel_Wiedemann::stopSpeed(const MSVehicle* const veh, const double speed, double gap, double decel) const {
+MSCFModel_Wiedemann::stopSpeed(const MSVehicle* const veh, const double speed, double gap, double decel, const CalcReason /*usage*/) const {
     /* Wiedemann does not handle approaching junctions or stops very well:
      * regime approaching() fails when dv = 0 (i.e. a vehicle inserted with speed 0 does not accelerate to reach a stop)
      * for dv ~ 0 the standard decision tree will switch to following() which

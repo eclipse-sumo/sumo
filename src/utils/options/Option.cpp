@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -81,17 +81,20 @@ Option::getIntVector() const {
     throw InvalidArgument("This is not an int vector-option");
 }
 
+
 const StringVector&
 Option::getStringVector() const {
     throw InvalidArgument("This is not a string vector-option");
 }
 
+
 bool
-Option::markSet() {
+Option::markSet(const std::string& orig) {
     bool ret = myAmWritable;
     myHaveTheDefaultValue = false;
     myAmSet = true;
     myAmWritable = false;
+    myValueString = orig;
     return ret;
 }
 
@@ -150,14 +153,13 @@ Option::getTypeName() const {
 }
 
 
-
-
 /* -------------------------------------------------------------------------
  * Option_Integer - methods
  * ----------------------------------------------------------------------- */
 Option_Integer::Option_Integer(int value)
     : Option(true), myValue(value) {
     myTypeName = "INT";
+    myValueString = toString(value);
 }
 
 
@@ -168,24 +170,15 @@ Option_Integer::getInt() const {
 
 
 bool
-Option_Integer::set(const std::string& v, const bool /* append */) {
+Option_Integer::set(const std::string& v, const std::string& orig, const bool /* append */) {
     try {
         myValue = StringUtils::toInt(v);
-        return markSet();
+        return markSet(orig);
     } catch (...) {
         std::string s = "'" + v + "' is not a valid integer.";
         throw ProcessError(s);
     }
 }
-
-
-std::string
-Option_Integer::getValueString() const {
-    std::ostringstream s;
-    s << myValue;
-    return s.str();
-}
-
 
 
 /* -------------------------------------------------------------------------
@@ -200,6 +193,7 @@ Option_String::Option_String()
 Option_String::Option_String(const std::string& value, std::string typeName)
     : Option(true), myValue(value) {
     myTypeName = typeName;
+    myValueString = value;
 }
 
 
@@ -210,17 +204,10 @@ Option_String::getString() const {
 
 
 bool
-Option_String::set(const std::string& v, const bool /* append */) {
+Option_String::set(const std::string& v, const std::string& orig, const bool /* append */) {
     myValue = v;
-    return markSet();
+    return markSet(orig);
 }
-
-
-std::string
-Option_String::getValueString() const {
-    return myValue;
-}
-
 
 
 /* -------------------------------------------------------------------------
@@ -229,6 +216,9 @@ Option_String::getValueString() const {
 Option_Float::Option_Float(double value)
     : Option(true), myValue(value) {
     myTypeName = "FLOAT";
+    std::ostringstream oss;
+    oss << value;
+    myValueString = oss.str();
 }
 
 
@@ -239,23 +229,14 @@ Option_Float::getFloat() const {
 
 
 bool
-Option_Float::set(const std::string& v, const bool /* append */) {
+Option_Float::set(const std::string& v, const std::string& orig, const bool /* append */) {
     try {
         myValue = StringUtils::toDouble(v);
-        return markSet();
+        return markSet(orig);
     } catch (...) {
-        throw ProcessError("'" + v + "' is not a valid float.");
+        throw ProcessError(TLF("'%' is not a valid float.", v));
     }
 }
-
-
-std::string
-Option_Float::getValueString() const {
-    std::ostringstream s;
-    s << myValue;
-    return s.str();
-}
-
 
 
 /* -------------------------------------------------------------------------
@@ -264,6 +245,7 @@ Option_Float::getValueString() const {
 Option_Bool::Option_Bool(bool value)
     : Option(true), myValue(value) {
     myTypeName = "BOOL";
+    myValueString = value ? "true" : "false";
 }
 
 
@@ -274,22 +256,13 @@ Option_Bool::getBool() const {
 
 
 bool
-Option_Bool::set(const std::string& v, const bool /* append */) {
+Option_Bool::set(const std::string& v, const std::string& orig, const bool /* append */) {
     try {
         myValue = StringUtils::toBool(v);
-        return markSet();
+        return markSet(orig);
     } catch (...) {
-        throw ProcessError("'" + v + "' is not a valid bool.");
+        throw ProcessError(TLF("'%' is not a valid bool.", v));
     }
-}
-
-
-std::string
-Option_Bool::getValueString() const {
-    if (myValue) {
-        return "true";
-    }
-    return "false";
 }
 
 
@@ -299,36 +272,28 @@ Option_Bool::isBool() const {
 }
 
 
-
 /* -------------------------------------------------------------------------
  * Option_BoolExtended - methods
  * ----------------------------------------------------------------------- */
 Option_BoolExtended::Option_BoolExtended(bool value)
-    : Option_Bool(value), myValueString(value ? "true" : "false") {
+    : Option_Bool(value) {
 }
 
 
 bool
-Option_BoolExtended::set(const std::string& v, const bool /* append */) {
+Option_BoolExtended::set(const std::string& v, const std::string& orig, const bool /* append */) {
     try {
         myValue = StringUtils::toBool(v);
-        myValueString = "";
+        return markSet("");
     } catch (...) {
         myValue = true;
-        myValueString = v;
     }
-    return markSet();
-}
-
-
-std::string
-Option_BoolExtended::getValueString() const {
-    return myValueString;
+    return markSet(orig);
 }
 
 
 /* -------------------------------------------------------------------------
- * Option_UIntVector - methods
+ * Option_IntVector - methods
  * ----------------------------------------------------------------------- */
 Option_IntVector::Option_IntVector()
     : Option() {
@@ -339,6 +304,7 @@ Option_IntVector::Option_IntVector()
 Option_IntVector::Option_IntVector(const IntVector& value)
     : Option(true), myValue(value) {
     myTypeName = "INT[]";
+    myValueString = joinToString(value, ",");
 }
 
 
@@ -349,30 +315,24 @@ Option_IntVector::getIntVector() const {
 
 
 bool
-Option_IntVector::set(const std::string& v, const bool append) {
+Option_IntVector::set(const std::string& v, const std::string& orig, const bool append) {
     if (!append) {
         myValue.clear();
     }
     try {
         if (v.find(';') != std::string::npos) {
-            WRITE_WARNING("Please note that using ';' as list separator is deprecated and not accepted anymore.");
+            WRITE_WARNING(TL("Please note that using ';' as list separator is deprecated and not accepted anymore."));
         }
         StringTokenizer st(v, ",", true);
         while (st.hasNext()) {
             myValue.push_back(StringUtils::toInt(st.next()));
         }
-        return markSet();
+        return markSet(orig);
     } catch (EmptyData&) {
         throw ProcessError("Empty element occurred in " + v);
     } catch (...) {
-        throw ProcessError("'" + v + "' is not a valid integer vector.");
+        throw ProcessError(TLF("'%' is not a valid integer vector.", v));
     }
-}
-
-
-std::string
-Option_IntVector::getValueString() const {
-    return joinToString(myValue, ',');
 }
 
 
@@ -387,6 +347,7 @@ Option_StringVector::Option_StringVector() : Option() {
 Option_StringVector::Option_StringVector(const StringVector& value)
     : Option(true), myValue(value) {
     myTypeName = "STR[]";
+    myValueString = joinToString(value, ",");
 }
 
 
@@ -397,30 +358,15 @@ Option_StringVector::getStringVector() const {
 
 
 bool
-Option_StringVector::set(const std::string& v, const bool append) {
+Option_StringVector::set(const std::string& v, const std::string& orig, const bool append) {
     if (!append) {
         myValue.clear();
     }
-    try {
-        if (v.find(';') != std::string::npos) {
-            WRITE_WARNING("Please note that using ';' as list separator is deprecated and not accepted anymore.");
-        }
-        StringTokenizer st(v, ",", true);
-        while (st.hasNext()) {
-            myValue.push_back(StringUtils::prune(st.next()));
-        }
-        return markSet();
-    } catch (EmptyData&) {
-        throw ProcessError("Empty element occurred in " + v);
-    } catch (...) {
-        throw ProcessError("'" + v + "' is not a valid string vector.");
+    StringTokenizer st(v, ",");
+    while (st.hasNext()) {
+        myValue.push_back(StringUtils::prune(st.next()));
     }
-}
-
-
-std::string
-Option_StringVector::getValueString() const {
-    return joinToString(myValue, ',');
+    return markSet(append && getValueString() != "" ? getValueString() + "," + orig : orig);
 }
 
 
@@ -445,12 +391,7 @@ bool Option_FileName::isFileName() const {
 
 std::string
 Option_FileName::getString() const {
-    return Option_StringVector::getValueString();
-}
-
-
-std::string Option_FileName::getValueString() const {
-    return StringUtils::urlEncode(Option_StringVector::getValueString(), " ;%");
+    return joinToString(getStringVector(), ",");
 }
 
 

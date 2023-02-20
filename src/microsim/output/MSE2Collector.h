@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -232,7 +232,7 @@ public:
     MSE2Collector(const std::string& id,
                   DetectorUsage usage, MSLane* lane, double startPos, double endPos, double length,
                   SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
-                  const std::string& vTypes,
+                  const std::string name, const std::string& vTypes,
                   const std::string& nextEdges,
                   int detectPersons);
 
@@ -252,7 +252,7 @@ public:
     MSE2Collector(const std::string& id,
                   DetectorUsage usage, std::vector<MSLane*> lanes, double startPos, double endPos,
                   SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
-                  const std::string& vTypes,
+                  const std::string name, const std::string& vTypes,
                   const std::string& nextEdges,
                   int detectPersons);
 
@@ -363,6 +363,10 @@ public:
 
     /// @}
 
+    /// @brief get name
+    const std::string& getName() {
+        return myName;
+    }
 
     /** @brief Returns the begin position of the detector
      *
@@ -502,7 +506,36 @@ public:
     /// @}
 
 
+    /// @name Methods returning aggregated values
+    /// @{
 
+    double getIntervalOccupancy() const {
+        return myTimeSamples != 0 ? myOccupancySum / (double) myTimeSamples : 0;
+    }
+    double getIntervalMeanSpeed() const {
+        return myVehicleSamples != 0 ? mySpeedSum / myVehicleSamples : -1;
+    }
+    double getIntervalMaxJamLengthInMeters() const {
+        return myMaxJamInMeters;
+    }
+    int getIntervalVehicleNumber() const {
+        return myNumberOfSeenVehicles;
+    }
+
+    double getLastIntervalOccupancy() const {
+        return myPreviousMeanOccupancy;
+    }
+    double getLastIntervalMeanSpeed() const {
+        return myPreviousMeanSpeed;
+    }
+    double getLastIntervalMaxJamLengthInMeters() const {
+        return myPreviousMaxJamLengthInMeters;
+    }
+    int getLastIntervalVehicleNumber() const {
+        return myPreviousNumberOfSeenVehicles;
+    }
+
+    /// @}
 
 
     /// @name Estimation methods
@@ -663,6 +696,8 @@ private:
 
     /// @name Detector parameter
     /// @{
+    /// @brief name
+    const std::string myName;
     /// @brief The detector's lane sequence
     std::vector<std::string> myLanes;
     /// @brief The distances of the lane-beginnings from the detector start-point
@@ -784,6 +819,13 @@ private:
     int myCurrentHaltingsNumber;
     /// @}
 
+    /// @name Values generated describing the previous interval state
+    /// @{
+    double myPreviousMeanOccupancy;
+    double myPreviousMeanSpeed;
+    double myPreviousMaxJamLengthInMeters;
+    int myPreviousNumberOfSeenVehicles;
+    /// @}
 
     /// @brief stores the overriden (via Traci) number of vehicles on detector
     int myOverrideVehNumber;

@@ -176,7 +176,7 @@ of the `destProbReroute`-element. So as soon as a vehicle enters `edge1`
 and vice-versa, when entering `edge2` it will be rerouted towards
 `edge1`, thus following a circular route.
 
-<img src="../images/tutorialCirclesSimulation.PNG" alt="Circular rerouting" width="500">
+<img src="../images/tutorialCirclesSimulation.png" alt="Circular rerouting" width="500">
 
 Circular rerouting
 

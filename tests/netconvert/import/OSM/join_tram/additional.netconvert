@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-09-03 22:29:24 by Eclipse SUMO netconvert Version v1_14_1+0819-bf19e4679c8
+<!-- generated on 2022-09-20 16:21:40 by Eclipse SUMO netconvert Version v1_14_1+1158-b2c06f8f8ab
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -110,7 +110,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </busStop>
     <busStop id="3885075777" name="Möllendorffstraße/Storkower Straße" lane="26139644#1_0" startPos="35.54" endPos="50.54" friendlyPos="true" lines="N50"/>
     <busStop id="3885075778" name="Möllendorffstraße/Storkower Straße" lane="4687133#2_0" startPos="251.63" endPos="266.63" friendlyPos="true" lines="N50"/>
-    <busStop id="3901927131" name="Herzbergstraße/Siegfriedstraße" lane="10864676#3_0" startPos="0.00" endPos="3.42" friendlyPos="true" lines="M8 21"/>
+    <busStop id="3901927131" name="Herzbergstraße/Siegfriedstraße" lane="10864676#2_0" startPos="0.00" endPos="16.79" friendlyPos="true" lines="M8 21"/>
     <busStop id="3901927133" name="Roederplatz" lane="4687135#1_0" startPos="99.17" endPos="114.17" friendlyPos="true" lines="N50"/>
     <busStop id="3901927140" name="Siegfriedstraße/Josef-Orlopp-Straße" lane="-32035133_0" startPos="235.80" endPos="260.80" friendlyPos="true" lines="21 37"/>
     <busStop id="3901927141" name="Siegfriedstraße/Josef-Orlopp-Straße" lane="32035133_0" startPos="83.24" endPos="98.24" friendlyPos="true" lines="256 N56"/>

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2002-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -122,6 +122,16 @@ public:
         return getType()->length;
     }
 
+    inline bool hasJumps() const {
+        return myJumpTime >= 0;
+    }
+
+    inline SUMOTime getJumpTime() const {
+        return myJumpTime;
+    }
+
+    /// @brief collect mandatory-edge iterators that define jumps in the route
+    void collectJumps(const ConstROEdgeVector& mandatory, std::set<ConstROEdgeVector::const_iterator>& jumpStarts) const;
 
     /** @brief Saves the complete vehicle description.
      *
@@ -151,6 +161,9 @@ private:
 
     /// @brief The edges where the vehicle stops
     ConstROEdgeVector myStopEdges;
+
+    /// @brief Whether this vehicle has any jumps defined
+    SUMOTime myJumpTime;
 
     /// @brief map of all routes that were already saved with a name
     static std::map<ConstROEdgeVector, std::string> mySavedRoutes;

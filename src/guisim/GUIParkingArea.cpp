@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -57,7 +57,7 @@ GUIParkingArea::GUIParkingArea(const std::string& id, const std::vector<std::str
                                bool onRoad,
                                const std::string& departPos) :
     MSParkingArea(id, lines, lane, frompos, topos, capacity, width, length, angle, name, onRoad, departPos),
-    GUIGlObject_AbstractAdd(GLO_PARKING_AREA, id) {
+    GUIGlObject_AbstractAdd(GLO_PARKING_AREA, id, GUIIconSubSys::getIcon(GUIIcon::PARKINGAREA)) {
     const double offsetSign = MSGlobals::gLefthand ? -1 : 1;
     myShapeRotations.reserve(myShape.size() - 1);
     myShapeLengths.reserve(myShape.size() - 1);

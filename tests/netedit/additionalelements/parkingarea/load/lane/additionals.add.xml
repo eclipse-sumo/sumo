@@ -1,0 +1,12 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+
+    <!-- missing lane -->
+    <parkingArea id="parkingArea_01" startPos="8" endPos="13" roadsideCapacity="0" width="12.00" length="5.00" angle="0.00" name="parkingArea" friendlyPos="false"/>
+
+    <!-- non valid lane -->
+    <parkingArea id="parkingArea_02" lane="dummyLane" startPos="9" endPos="14" roadsideCapacity="0" width="12.00" length="5.00" angle="0.00" name="parkingArea" friendlyPos="false"/>
+
+    <!-- valid lane -->
+    <parkingArea id="parkingArea_03" lane="center1_0" startPos="9" endPos="14" roadsideCapacity="0" width="12.00" length="5.00" angle="0.00" name="parkingArea" friendlyPos="false"/>
+
+</additional>

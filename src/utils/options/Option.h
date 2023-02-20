@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -63,7 +63,7 @@ typedef std::vector<std::string> StringVector;
  *  construction of derived, value and type holding, classes is allowed.
  *
  *  At the begin (after being constructed) an Option either has a default value or not.
- *   In dependance to this, myHaveTheDefaultValue is set. Also, myAmSet is set to
+ *   In dependence to this, myHaveTheDefaultValue is set. Also, myAmSet is set to
  *   true if a default value was supported. myAmWritable is set to true,
  *   indicating that a new value may be set.
  *
@@ -74,7 +74,6 @@ class Option {
 public:
     /** destructor */
     virtual ~Option();
-
 
     /** @brief returns the information whether this options holds a valid value
      * @return Whether a value has been set
@@ -91,7 +90,6 @@ public:
      */
     virtual double getFloat() const;
 
-
     /** @brief Returns the stored integer value
      *
      * Option_Integer returns the stored integer number in this method's reimplementation.
@@ -101,7 +99,6 @@ public:
      * @exception InvalidArgument If the class is not an instance of Option_Integer
      */
     virtual int getInt() const;
-
 
     /** @brief Returns the stored string value
      *
@@ -114,7 +111,6 @@ public:
      */
     virtual std::string getString() const;
 
-
     /** @brief Returns the stored boolean value
      *
      * Option_Bool returns the stored boolean in this method's reimplementation.
@@ -124,7 +120,6 @@ public:
      * @exception InvalidArgument If the class is not an instance of Option_Bool
      */
     virtual bool getBool() const;
-
 
     /** @brief Returns the stored integer vector
      *
@@ -161,8 +156,7 @@ public:
      * @return Whether the new value could be set
      * @exception InvalidArgument If the value could not be converted
      */
-    virtual bool set(const std::string& v, const bool append) = 0;
-
+    virtual bool set(const std::string& v, const std::string& orig, const bool append) = 0;
 
     /** @brief Returns the string-representation of the value
      *
@@ -170,8 +164,9 @@ public:
      *
      * @return The stored value encoded into a string-
      */
-    virtual std::string getValueString() const = 0;
-
+    const std::string& getValueString() const {
+        return myValueString;
+    }
 
     /** @brief Returns the information whether the option is a bool option
      *
@@ -181,13 +176,11 @@ public:
      */
     virtual bool isBool() const;
 
-
     /** @brief Returns the information whether the option holds the default value
      *
      * @return true if the option was not set from command line / configuration, false otherwise
      */
     virtual bool isDefault() const;
-
 
     /** @brief Returns the information whether this option is a file name
      *
@@ -196,7 +189,6 @@ public:
      * @return true if the Option is an Option_FileName, false otherwise
      */
     virtual bool isFileName() const;
-
 
     /** @brief Returns the information whether the option may be set a further time
      *
@@ -207,7 +199,6 @@ public:
      */
     bool isWriteable() const;
 
-
     /** @brief Resets the option to be writeable
      *
      * An option is writable after initialisation, but as soon as it gets set,
@@ -215,14 +206,12 @@ public:
      */
     void resetWritable();
 
-
     /** @brief Resets the option to be on its default value
      *
      * An option is on its default after initialisation with a value, but as soon as it gets set,
      *  it is no longer. This method resets the default-flag.
      */
     void resetDefault();
-
 
     /** @brief Returns the description of what this option does
      *
@@ -232,7 +221,6 @@ public:
      */
     const std::string& getDescription() const;
 
-
     /** @brief Sets the description of what this option does
      *
      * The description stored in myDescription is returned.
@@ -240,7 +228,6 @@ public:
      * @return The description of this option's purpose
      */
     void setDescription(const std::string& desc);
-
 
     /** @brief Returns the mml-type name of this option
      *
@@ -250,7 +237,6 @@ public:
      */
     virtual const std::string& getTypeName() const;
 
-
 protected:
     /** @brief Marks the information as set
      *
@@ -258,8 +244,7 @@ protected:
      *
      * @return Whether the option was not set before.
      */
-    bool markSet();
-
+    bool markSet(const std::string& orig);
 
 protected:
     /** @brief Constructor
@@ -271,11 +256,12 @@ protected:
      */
     Option(bool set = false);
 
-
 protected:
     /// @brief A type name for this option (has presets, but may be overwritten)
     std::string myTypeName;
 
+    /// @brief The original set string
+    std::string myValueString;
 
 private:
     /** @brief information whether the value is set */
@@ -331,16 +317,7 @@ public:
      * @return Whether the new value could be set
      * @exception InvalidArgument If the value could not be converted into an integer
      */
-    bool set(const std::string& v, const bool append);
-
-    /** @brief Returns the string-representation of the value
-     *
-     * The stored value is encoded into a string and returned.
-     *
-     * @see std::string Option::getValueString()
-     * @return The stored value encoded into a string
-     */
-    std::string getValueString() const;
+    bool set(const std::string& v, const std::string& orig, const bool append);
 
 private:
     /** the value, valid only when the base-classes "myAmSet"-member is true */
@@ -384,16 +361,7 @@ public:
      * @see bool Option::set(std::string v)
      * @return Whether the new value could be set
      */
-    bool set(const std::string& v, const bool append);
-
-    /** @brief Returns the string-representation of the value
-     *
-     * The stored value is encoded into a string and returned.
-     *
-     * @see std::string Option::getValueString()
-     * @return The stored value encoded into a string
-     */
-    std::string getValueString() const;
+    bool set(const std::string& v, const std::string& orig, const bool append);
 
 protected:
     /** the value, valid only when the base-classes "myAmSet"-member is true */
@@ -436,16 +404,7 @@ public:
      * @return Whether the new value could be set
      * @exception InvalidArgument If the value could not be converted into a double
      */
-    bool set(const std::string& v, const bool append);
-
-    /** @brief Returns the string-representation of the value
-     *
-     * The stored value is encoded into a string and returned.
-     *
-     * @see std::string Option::getValueString()
-     * @return The stored value encoded into a string
-     */
-    std::string getValueString() const;
+    bool set(const std::string& v, const std::string& orig, const bool append);
 
 private:
     /** the value, valid only when the base-classes "myAmSet"-member is true */
@@ -473,16 +432,7 @@ public:
     bool getBool() const;
 
     /** sets the given value (converts it to bool) */
-    bool set(const std::string& v, const bool append);
-
-    /** @brief Returns the string-representation of the value
-     *
-     * If myValue is true, "true" is returned, "false" otherwise.
-     *
-     * @see std::string Option::getValueString()
-     * @return The stored value encoded into a string
-     */
-    std::string getValueString() const;
+    bool set(const std::string& v, const std::string& orig, const bool append);
 
     /** @brief Returns true, the information whether the option is a bool option
      *
@@ -515,21 +465,7 @@ public:
     Option_BoolExtended(bool value);
 
     /** sets the given value (converts it to bool) */
-    bool set(const std::string& v, const bool append);
-
-    /** @brief Returns the string-representation of the value
-     *
-     * If myValue is true, "true" is returned, "false" otherwise.
-     *
-     * @see std::string Option::getValueString()
-     * @return The stored value encoded into a string
-     */
-    std::string getValueString() const;
-
-private:
-    /** the value, valid only when the base-classes "myAmSet"-member is true */
-    std::string myValueString;
-
+    bool set(const std::string& v, const std::string& orig, const bool append);
 };
 
 
@@ -569,16 +505,7 @@ public:
      * @return Whether the new value could be set
      * @exception InvalidArgument If the value could not be converted into a vector of integers
      */
-    bool set(const std::string& v, const bool append);
-
-    /** @brief Returns the string-representation of the value
-     *
-     * The stored value is encoded into a string and returned.
-     *
-     * @see std::string Option::getValueString()
-     * @return The stored value encoded into a string
-     */
-    std::string getValueString() const;
+    bool set(const std::string& v, const std::string& orig, const bool append);
 
 private:
     /** the value, valid only when the base-classes "myAmSet"-member is true */
@@ -623,16 +550,7 @@ public:
      * @exception InvalidArgument If the value could not be converted into a
      * vector of strings
      */
-    bool set(const std::string& v, const bool append);
-
-    /** @brief Returns the string-representation of the value
-     *
-     * The stored value is encoded into a string and returned.
-     *
-     * @see std::string Option::getValueString()
-     * @return The stored value encoded into a string
-     */
-    std::string getValueString() const;
+    bool set(const std::string& v, const std::string& orig, const bool append);
 
 private:
     /** the value, valid only when the base-classes "myAmSet"-member is true */
@@ -672,13 +590,4 @@ public:
      * not in line with code style of the Options sub-system.
      */
     std::string getString() const;
-
-    /** @brief Returns the string-representation of the value
-     *
-     * The value is URL-encoded using StringUtils::urlEncode and returned.
-     *
-     * @see std::string Option::getValueString()
-     * @return The stored value encoded into a string
-     */
-    std::string getValueString() const;
 };

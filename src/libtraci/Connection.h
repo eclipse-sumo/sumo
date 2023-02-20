@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2012-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -21,6 +21,7 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
+
 #include <vector>
 #include <map>
 #include <limits>
@@ -28,6 +29,7 @@
 #include <sstream>
 #include <iomanip>
 #include <thread>
+#include <mutex>
 #include <foreign/tcpip/socket.h>
 #include <libsumo/Subscription.h>
 
@@ -169,6 +171,8 @@ private:
     mutable tcpip::Storage myOutput;
     /// @brief The reusable input storage
     mutable tcpip::Storage myInput;
+
+    mutable std::mutex myMutex;
 
     std::map<int, libsumo::SubscriptionResults> mySubscriptionResults;
     std::map<int, libsumo::ContextSubscriptionResults> myContextSubscriptionResults;

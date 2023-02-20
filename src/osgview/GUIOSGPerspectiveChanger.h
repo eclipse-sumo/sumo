@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -41,6 +41,21 @@ public:
 
     /// Destructor
     ~GUIOSGPerspectiveChanger();
+
+    /// @brief mouse functions
+    //@{
+    /// @brief called when user releases left button
+    bool onLeftBtnRelease(void* data);
+
+    /// @brief called when user releases right button
+    bool onRightBtnRelease(void* data);
+
+    /// @brief called when user releases middle button
+    bool onMiddleBtnRelease(void* data);
+
+    /// @brief called when user moves mouse
+    void onMouseMove(void* data);
+    //@}
 
     /// @brief Returns the rotation of the canvas stored in this changer
     double getRotation() const;
@@ -86,6 +101,15 @@ public:
     /// @brief set viewport
     void setViewport(const Boundary& viewPort);
 
+    /// @brief update the min/max coordinates of the view on the ground plane after changing the camera pos / direction
+    void updateViewport();
+
+private:
+    /// @brief update the min/max coordinates of the view on the ground plane after changing the camera pos / direction
+    void updateViewport(osg::Vec3d& lookFrom);
+
+    /// @brief calculate the position on the ground (in world coordinates) given a normalised view coordinate (x,y ~ [-1;1])
+    osg::Vec3d getPositionOnGround(double x, double y);
 private:
     /// the original viewport dimensions in m which serve as the reference point for 100% zoom
     double myOrigWidth, myOrigHeight;

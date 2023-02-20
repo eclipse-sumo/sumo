@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-10-14 08:53:20 by Eclipse SUMO netconvert Version v1_14_1+1724-2e45f2b
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <type-files value="/scr1/sumo/data/typemap/osmNetconvert.typ.xml,/scr1/sumo/data/typemap/osmNetconvertAerialway.typ.xml"/>
+        <osm-files value="osm.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output-file value="net.net.xml"/>
+        <ptstop-output value="additional.xml"/>
+        <ptline-output value="ptlines.xml"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <junctions>
+        <no-internal-links value="true"/>
+    </junctions>
+
+    <railway>
+        <railway.topology.repair value="true"/>
+    </railway>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<ptLines xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/ptlines_file.xsd">
+    <ptLine id="146380" name="Schwebebahn: Vohwinkel =&gt; Oberbarmen" line="60" type="monorail" vClass="rail_urban" color="cyan" completeness="0.95">
+        <route edges="36388592 224023986 326203721 326203720 305115095 305115093 37195413 326352998 666559890"/>
+        <busStop id="454042501" name="Bruch"/>
+        <busStop id="266775534" name="Hammerstein"/>
+        <busStop id="432883106" name="Sonnborner Straße"/>
+        <busStop id="432883109" name="Zoo/Stadion"/>
+        <busStop id="380536713" name="Varresbecker Straße"/>
+        <busStop id="1609100922" name="Westende"/>
+        <busStop id="271135646" name="Pestalozzistraße"/>
+        <busStop id="271135683" name="Robert-Daum-Platz"/>
+        <busStop id="3125935756" name="Ohligsmühle"/>
+        <busStop id="271135716" name="Wuppertal Hauptbahnhof"/>
+        <busStop id="271135733" name="Kluse"/>
+        <busStop id="272692299" name="Landgericht"/>
+        <busStop id="272692551" name="Völklinger Straße"/>
+        <busStop id="271135799" name="Loher Brücke"/>
+        <busStop id="271135812" name="Adlerbrücke"/>
+        <busStop id="272694179" name="Alter Markt"/>
+        <busStop id="271135862" name="Werther Brücke"/>
+        <busStop id="4919325944" name="Wupperfeld"/>
+        <busStop id="3329847056" name="Oberbarmen Bahnhof"/>
+    </ptLine>
+    <ptLine id="2973510" name="Schwebebahn: Oberbarmen =&gt; Vohwinkel" line="60" type="monorail" vClass="rail_urban" color="cyan" completeness="0.95">
+        <route edges="666559889 366271217 -37195413 -305115093 -305115095 -326203720 -326203722 -224023986 -36388592"/>
+        <busStop id="432883073" name="Oberbarmen Bahnhof"/>
+        <busStop id="-271135876" name="Wupperfeld"/>
+        <busStop id="-271135862" name="Werther Brücke"/>
+        <busStop id="-272694179" name="Alter Markt"/>
+        <busStop id="-271135812" name="Adlerbrücke"/>
+        <busStop id="-271135799" name="Loher Brücke"/>
+        <busStop id="-272692551" name="Völklinger Straße"/>
+        <busStop id="-272692299" name="Landgericht"/>
+        <busStop id="-271135733" name="Kluse"/>
+        <busStop id="-271135716" name="Wuppertal Hauptbahnhof"/>
+        <busStop id="-3125935756" name="Ohligsmühle"/>
+        <busStop id="-271135683" name="Robert-Daum-Platz"/>
+        <busStop id="-271135646" name="Pestalozzistraße"/>
+        <busStop id="-1609100922" name="Westende"/>
+        <busStop id="-380536713" name="Varresbecker Straße"/>
+        <busStop id="-3328241005" name="Zoo/Stadion"/>
+        <busStop id="-432883106" name="Sonnborner Straße"/>
+        <busStop id="-266775534" name="Hammerstein"/>
+        <busStop id="-454042501" name="Bruch"/>
+    </ptLine>
+</ptLines>

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -17,7 +17,6 @@
 ///
 // Dialog for edit calibrators
 /****************************************************************************/
-#include <config.h>
 
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/div/GUIDesigns.h>
@@ -147,8 +146,8 @@ GNECalibratorDialog::onCmdReset(FXObject*, FXSelector, void*) {
 
 long
 GNECalibratorDialog::onCmdAddRoute(FXObject*, FXSelector, void*) {
-    // create nes calibrator route and configure it with GNERouteDialog
-    GNERouteDialog(new GNERoute(myEditedAdditional->getNet()), false);
+    // create new calibrator route and configure it with modal GNERouteDialog
+    GNERouteDialog(new GNERoute(myEditedAdditional->getNet()), false);  // NOSONAR, constructor returns after dialog has been closed
     // update routes table
     updateRouteTable();
     return 1;
@@ -208,8 +207,8 @@ GNECalibratorDialog::onCmdClickedRoute(FXObject*, FXSelector, void*) {
                 return 1;
             }
         } else if (myRouteList->getItem(i, 0)->hasFocus() || myRouteList->getItem(i, 1)->hasFocus()) {
-            // modify route of calibrator routes
-            GNERouteDialog(routeToEdit, true);
+            // modify route of calibrator routes with modal dialog
+            GNERouteDialog(routeToEdit, true);  // NOSONAR, constructor returns after dialog has been closed
             // update routes table
             updateRouteTable();
             // update Flows routes also because Route ID could be changed
@@ -229,13 +228,13 @@ GNECalibratorDialog::onCmdAddFlow(FXObject*, FXSelector, void*) {
     GNEDemandElement* defaultVType = myEditedAdditional->getNet()->getViewNet()->getNet()->getAttributeCarriers()->getDefaultType();
     // only add flow if there is at least a GNERoute (There is always a Vehicle Type)
     if (routes.size() > 0) {
-        // create new calibrator and configure it with GNECalibratorFlowDialog
-        GNECalibratorFlowDialog(new GNECalibratorFlow(myEditedAdditional, defaultVType, *routes.begin()), false);
+        // create new calibrator and configure it with modal GNECalibratorFlowDialog
+        GNECalibratorFlowDialog(new GNECalibratorFlow(myEditedAdditional, defaultVType, *routes.begin()), false);  // NOSONAR, constructor returns after dialog has been closed
         // update flows table
         updateFlowTable();
         return 1;
     } else {
-        throw ProcessError("routes cannot be empty");
+        throw ProcessError(TL("routes cannot be empty"));
     }
 }
 
@@ -251,8 +250,8 @@ GNECalibratorDialog::onCmdClickedFlow(FXObject*, FXSelector, void*) {
             updateFlowTable();
             return 1;
         } else if (myFlowList->getItem(i, 0)->hasFocus() || myFlowList->getItem(i, 1)->hasFocus()) {
-            // modify flow of calibrator flows (temporal)
-            GNECalibratorFlowDialog(myEditedAdditional->getChildAdditionals().at(i), true);
+            // modify flow of calibrator flows (temporal) with modal dialog
+            GNECalibratorFlowDialog(myEditedAdditional->getChildAdditionals().at(i), true);  // NOSONAR, constructor returns after dialog has been closed
             // update flows table
             updateFlowTable();
             return 1;
@@ -265,9 +264,9 @@ GNECalibratorDialog::onCmdClickedFlow(FXObject*, FXSelector, void*) {
 
 long
 GNECalibratorDialog::onCmdAddVehicleType(FXObject*, FXSelector, void*) {
-    // create a new Vehicle Type and configure it with GNEVehicleTypeDialog
+    // create a new Vehicle Type and configure it with modal GNEVehicleTypeDialog
     std::string vehicleTypeID = myEditedAdditional->getNet()->getViewNet()->getNet()->getAttributeCarriers()->generateDemandElementID(SUMO_TAG_VTYPE);
-    GNEVehicleTypeDialog(new GNEVType(myEditedAdditional->getNet(), vehicleTypeID, SVC_PASSENGER), false);
+    GNEVehicleTypeDialog(new GNEVType(myEditedAdditional->getNet(), vehicleTypeID, SVC_PASSENGER), false);  // NOSONAR, constructor returns after dialog has been closed
     // update vehicle types table
     updateVehicleTypeTable();
     return 1;
@@ -329,8 +328,8 @@ GNECalibratorDialog::onCmdClickedVehicleType(FXObject*, FXSelector, void*) {
                 return 1;
             }
         } else if (myVehicleTypeList->getItem(i, 0)->hasFocus() || myVehicleTypeList->getItem(i, 1)->hasFocus()) {
-            // modify vehicle type
-            GNEVehicleTypeDialog(vType, true);
+            // modify vehicle type with modal dialog
+            GNEVehicleTypeDialog(vType, true);  // NOSONAR, constructor returns after dialog has been closed
             // update vehicle types table
             updateVehicleTypeTable();
             // update Flows routes also because VType ID could be changed
@@ -470,7 +469,7 @@ GNECalibratorDialog::updateFlowAndLabelButton() {
     if (myEditedAdditional->getNet()->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE).size() == 0) {
         myAddFlow->disable();
         myFlowList->disable();
-        myLabelFlow->setText("No routes defined");
+        myLabelFlow->setText(TL("No routes defined"));
     } else {
         myAddFlow->enable();
         myFlowList->enable();

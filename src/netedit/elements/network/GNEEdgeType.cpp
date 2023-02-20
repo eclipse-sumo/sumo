@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -37,21 +37,24 @@
 // ===========================================================================
 
 GNEEdgeType::GNEEdgeType(GNECreateEdgeFrame* createEdgeFrame) :
-    GNENetworkElement(createEdgeFrame->getViewNet()->getNet(), "", GLO_EDGE, SUMO_TAG_TYPE, {}, {}, {}, {}, {}, {}) {
+    GNENetworkElement(createEdgeFrame->getViewNet()->getNet(), "", GLO_EDGETYPE, SUMO_TAG_TYPE,
+                      GUIIconSubSys::getIcon(GUIIcon::EDGETYPE), {}, {}, {}, {}, {}, {}) {
     // create laneType
     myLaneTypes.push_back(new GNELaneType(this));
 }
 
 
 GNEEdgeType::GNEEdgeType(const GNEEdgeType* edgeType) :
-    GNENetworkElement(edgeType->getNet(), edgeType->getID(), GLO_EDGE, SUMO_TAG_TYPE, {}, {}, {}, {}, {}, {}),
-                  Parameterised(edgeType->getParametersMap()),
+    GNENetworkElement(edgeType->getNet(), edgeType->getID(), GLO_EDGETYPE, SUMO_TAG_TYPE,
+                      GUIIconSubSys::getIcon(GUIIcon::EDGETYPE), {}, {}, {}, {}, {}, {}),
+                                Parameterised(edgeType->getParametersMap()),
 NBTypeCont::EdgeTypeDefinition(edgeType) {
 }
 
 
 GNEEdgeType::GNEEdgeType(GNENet* net) :
-    GNENetworkElement(net, net->getAttributeCarriers()->generateEdgeTypeID(), GLO_EDGE, SUMO_TAG_TYPE, {}, {}, {}, {}, {}, {}) {
+    GNENetworkElement(net, net->getAttributeCarriers()->generateEdgeTypeID(), GLO_EDGE, SUMO_TAG_TYPE,
+                      GUIIconSubSys::getIcon(GUIIcon::EDGETYPE), {}, {}, {}, {}, {}, {}) {
     // create laneType
     GNELaneType* laneType = new GNELaneType(this);
     myLaneTypes.push_back(laneType);
@@ -59,7 +62,7 @@ GNEEdgeType::GNEEdgeType(GNENet* net) :
 
 
 GNEEdgeType::GNEEdgeType(GNENet* net, const std::string& ID, const NBTypeCont::EdgeTypeDefinition* edgeType) :
-    GNENetworkElement(net, ID, GLO_EDGE, SUMO_TAG_TYPE, {}, {}, {}, {}, {}, {}) {
+    GNENetworkElement(net, ID, GLO_EDGE, SUMO_TAG_TYPE, GUIIconSubSys::getIcon(GUIIcon::EDGETYPE), {}, {}, {}, {}, {}, {}) {
     // create  laneTypes
     for (const auto& laneTypeDef : edgeType->laneTypeDefinitions) {
         GNELaneType* laneType = new GNELaneType(this, laneTypeDef);
@@ -149,7 +152,7 @@ GNEEdgeType::removeLaneType(const int index) {
     if (index < (int)myLaneTypes.size()) {
         myLaneTypes.erase(myLaneTypes.begin() + index);
     } else {
-        throw ProcessError("Invalid index");
+        throw ProcessError(TL("Invalid index"));
     }
 }
 
@@ -184,12 +187,6 @@ GNEEdgeType::getPopUpMenu(GUIMainWindow& /*app*/, GUISUMOAbstractView& /*parent*
 }
 
 
-double
-GNEEdgeType::getExaggeration(const GUIVisualizationSettings& /*s*/) const {
-    return 1;
-}
-
-
 void
 GNEEdgeType::updateCenteringBoundary(const bool /*updateGrid*/) {
     // nothing to do
@@ -203,6 +200,12 @@ GNEEdgeType::drawGL(const GUIVisualizationSettings& /*s*/) const {
 
 
 void
+GNEEdgeType::deleteGLObject() {
+    myNet->deleteNetworkElement(this, myNet->getViewNet()->getUndoList());
+}
+
+
+void
 GNEEdgeType::updateGLObject() {
     updateGeometry();
 }
@@ -211,7 +214,7 @@ GNEEdgeType::updateGLObject() {
 std::string
 GNEEdgeType::getAttribute(SumoXMLAttr key) const {
     // get options
-    const OptionsCont& oc = OptionsCont::getOptions();
+    const auto& neteditOptions = OptionsCont::getOptions();
     switch (key) {
         case SUMO_ATTR_ID:
             return getMicrosimID();
@@ -219,13 +222,13 @@ GNEEdgeType::getAttribute(SumoXMLAttr key) const {
             return toString(myLaneTypes.size());
         case SUMO_ATTR_SPEED:
             if (attrs.count(key) == 0) {
-                return toString(oc.getFloat("default.speed"));
+                return toString(neteditOptions.getFloat("default.speed"));
             } else {
                 return toString(speed);
             }
         case SUMO_ATTR_FRICTION:
             if (attrs.count(key) == 0) {
-                return toString(oc.getFloat("default.friction"));
+                return toString(neteditOptions.getFloat("default.friction"));
             } else {
                 return toString(friction);
             }
@@ -312,6 +315,8 @@ GNEEdgeType::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_SPREADTYPE:
             return SUMOXMLDefinitions::LaneSpreadFunctions.hasString(value);
         case SUMO_ATTR_WIDTH:
+        case SUMO_ATTR_SIDEWALKWIDTH:
+        case SUMO_ATTR_BIKELANEWIDTH:
             if (value.empty() || (value == "-1")) {
                 return true;
             } else {
@@ -430,6 +435,22 @@ GNEEdgeType::setAttribute(SumoXMLAttr key, const std::string& value) {
             } else {
                 attrs.insert(key);
                 width = parse<double>(value);
+            }
+            break;
+        case SUMO_ATTR_SIDEWALKWIDTH:
+            if (value.empty()) {
+                attrs.erase(key);
+            } else {
+                attrs.insert(key);
+                sidewalkWidth = parse<double>(value);
+            }
+            break;
+        case SUMO_ATTR_BIKELANEWIDTH:
+            if (value.empty()) {
+                attrs.erase(key);
+            } else {
+                attrs.insert(key);
+                bikeLaneWidth = parse<double>(value);
             }
             break;
         case SUMO_ATTR_PRIORITY:

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -20,11 +20,10 @@
 #pragma once
 #include <config.h>
 
+#include <memory>
 #include <string>
-#include <utils/geom/Position.h>
-#include "utils/common/SUMOVehicleClass.h"
 #include <utils/common/Parameterised.h>
-#include "NBCont.h"
+#include <utils/geom/Position.h>
 #include "NBPTPlatform.h"
 
 
@@ -121,12 +120,12 @@ public:
     /// @brief register line that services this stop (for displaying)
     void addLine(const std::string& line);
 
-    void setBidiStop(NBPTStop* bidiStop) {
+    void setBidiStop(std::shared_ptr<NBPTStop> bidiStop) {
         myBidiStop = bidiStop;
     }
 
-    NBPTStop* getBidiStop() const {
-        return myBidiStop;
+    std::shared_ptr<NBPTStop> getBidiStop() const {
+        return myBidiStop.lock();
     }
 
     bool isLoose() const {
@@ -145,7 +144,7 @@ public:
     void mirrorX();
 
     /// @brief replace the stop edge with the closest edge on the given edge list in all stops
-    bool replaceEdge(const std::string& edgeID, const EdgeVector& replacement);
+    bool replaceEdge(const std::string& edgeID, const std::vector<NBEdge*>& replacement);
 
     const std::map<std::string, std::string>& getAdditionalEdgeCandidates() const {
         return myAdditionalEdgeCandidates;
@@ -179,7 +178,7 @@ private:
     /// @brief list of public transport lines (for displaying)
     std::vector<std::string> myLines;
 
-    NBPTStop* myBidiStop;
+    std::weak_ptr<NBPTStop> myBidiStop;
 
     /// @brief whether the stop was not part of the road network and must be mapped
     bool myIsLoose;

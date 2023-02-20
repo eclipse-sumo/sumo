@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -151,15 +151,19 @@ public:
      */
     void drawGL(const GUIVisualizationSettings& s) const;
 
+    /// @brief delete element
+    void deleteGLObject();
+
     /// @brief update GLObject (geometry, ID, etc.)
     void updateGLObject();
+
     /// @}
 
     /// @brief returns the internal NBEdge
     NBEdge* getNBEdge() const;
 
-    /// @brief get opposite edge
-    GNEEdge* getOppositeEdge() const;
+    /// @brief get opposite edges
+    std::vector<GNEEdge*> getOppositeEdges() const;
 
     /// @brief makes pos the new geometry endpoint at the appropriate end, or remove current existent endpoint
     void editEndpoint(Position pos, GNEUndoList* undoList);
@@ -302,12 +306,15 @@ public:
     // @brief update vehicle geometries
     void updateVehicleStackLabels();
 
-    /// @brief draw edge geometry points (note: This function is called by GNELane::drawGL(...)
-    void drawEdgeGeometryPoints(const GUIVisualizationSettings& s, const GNELane* lane) const;
+    // @brief update person geometries
+    void updatePersonStackLabels();
+
+    // @brief update vehicle geometries
+    void updateContainerStackLabels();
 
     /// @brief draw dotted contour for the given dottedGeometries
-    static void drawDottedContourEdge(const GUIDottedGeometry::DottedContourType type, const GUIVisualizationSettings& s, const GNEEdge* edge,
-                                      const bool drawFrontExtreme, const bool drawBackExtreme);
+    static void drawDottedContourEdge(const GUIVisualizationSettings& s, const GUIDottedGeometry::DottedContourType type, const GNEEdge* edge,
+                                      const bool drawFrontExtreme, const bool drawBackExtreme, const double exaggeration = 1);
 
     /// @brief check if edge makes a convex angle [0 - 180) degrees
     bool isConvexAngle() const;
@@ -319,7 +326,7 @@ public:
     bool hasSuccessors() const;
 
     /// @brief get reverse edge (if exist)
-    GNEEdge *getReverseEdge() const;
+    GNEEdge* getReverseEdge() const;
 
 protected:
     /// @brief the underlying NBEdge
@@ -425,14 +432,41 @@ private:
     /// @brief get vehicles a that start over this edge
     const std::map<const GNELane*, std::vector<GNEDemandElement*> > getVehiclesOverEdgeMap() const;
 
+    /// @brief get persons a that start over this edge
+    const std::map<const GNELane*, std::vector<GNEDemandElement*> > getPersonsOverEdgeMap() const;
+
+    /// @brief get containers a that start over this edge
+    const std::map<const GNELane*, std::vector<GNEDemandElement*> > getContainersOverEdgeMap() const;
+
+    /// @brief draw edge geometry points (note: This function is called by GNELane::drawGL(...)
+    void drawEdgeGeometryPoints(const GUIVisualizationSettings& s) const;
+
+    /// @brief draw start extreme geometry point
+    void drawStartGeometryPoint(const GUIVisualizationSettings& scircleWidth, const double circleWidth, const double exaggeration) const;
+
+    /// @brief draw end extreme geometry point
+    void drawEndGeometryPoint(const GUIVisualizationSettings& s, const double circleWidth, const double exaggeration) const;
+
     /// @brief draw edge name
     void drawEdgeName(const GUIVisualizationSettings& s) const;
 
     /// @brief draw edgeStopOffset
     void drawLaneStopOffset(const GUIVisualizationSettings& s) const;
 
+    /// @brief draw children
+    void drawChildrens(const GUIVisualizationSettings& s) const;
+
     /// @brief draw TAZElements
     void drawTAZElements(const GUIVisualizationSettings& s) const;
+
+    /// @brief draw edge shape (only one line)
+    void drawEdgeShape(const GUIVisualizationSettings& s) const;
+
+    /// @brief set geometry point color
+    void setGeometryPointColor(const Position& geometryPointPos, const double circleWidth, const RGBColor& geometryPointColor) const;
+
+    /// @brief check if draw big geometry points
+    bool drawBigGeometryPoints() const;
 
     /// @brief check if given stacked positions are overlapped
     bool areStackPositionOverlapped(const GNEEdge::StackPosition& vehicleA, const GNEEdge::StackPosition& vehicleB) const;
@@ -448,6 +482,9 @@ private:
 
     /// @brief process moving edge when none junction are selected
     GNEMoveOperation* processNoneJunctionSelected(const double snapRadius);
+
+    /// @brief get snap radius
+    double getSnapRadius(const bool squared) const;
 
     /// @brief invalidated copy constructor
     GNEEdge(const GNEEdge& s) = delete;

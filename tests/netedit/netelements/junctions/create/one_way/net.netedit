@@ -1,49 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-11-09 08:57:13 by Eclipse SUMO netedit Version v1_10_0+2052-a8d9b5e6cb4
+<!-- generated on 2023-02-06 18:23:26 by Eclipse SUMO netedit Version v1_15_0+2224-443240d6576
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <new value="true"/>
+        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.gui.06Feb182245.135531/netedit.gui/netelements/junctions/create/one_way/netedit.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.09Nov085637.19048\netedit.gui\netElements\junctions\create\one_way\net.net.xml"/>
+        <output-file value="/home/palcraft/.texttest/tmp/netedit.gui.06Feb182245.135531/netedit.gui/netelements/junctions/create/one_way/netedit.net.xml"/>
     </output>
 
     <processing>
         <offset.disable-normalization value="true"/>
     </processing>
 
+    <junctions>
+        <no-turnarounds value="true"/>
+    </junctions>
+
     <netedit>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.09Nov085637.19048\netedit.gui\netElements\junctions\create\one_way\additionals.xml"/>
-        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.09Nov085637.19048\netedit.gui\netElements\junctions\create\one_way\additionals.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.09Nov085637.19048\netedit.gui\netElements\junctions\create\one_way\routes.xml"/>
-        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.09Nov085637.19048\netedit.gui\netElements\junctions\create\one_way\routes.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.09Nov085637.19048\netedit.gui\netElements\junctions\create\one_way\datas.xml"/>
-        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.09Nov085637.19048\netedit.gui\netElements\junctions\create\one_way\datas.xml"/>
+        <new-network value="false"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.09Nov085637.19048\netedit.gui\netElements\junctions\create\one_way\gui-settings.xml"/>
-        <window-size value="936,697"/>
+        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.gui.06Feb182245.135531/netedit.gui/netelements/junctions/create/one_way/gui-settings.xml"/>
+        <window-size value="936, 697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
         <gui-testing-debug-gl value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.09Nov085637.19048\netedit.gui\netElements\junctions\create\one_way\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.gui.06Feb182245.135531/netedit.gui/netelements/junctions/create/one_way/guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.09Nov085637.19048\netedit.gui\netElements\junctions\create\one_way\log.txt"/>
+        <error-log value="/home/palcraft/.texttest/tmp/netedit.gui.06Feb182245.135531/netedit.gui/netelements/junctions/create/one_way/log.txt"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.9" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="0.00,0.00" convBoundary="0.00,90.00,20.00,90.00" origBoundary="10000000000.00,10000000000.00,-10000000000.00,-10000000000.00" projParameter="!"/>
 

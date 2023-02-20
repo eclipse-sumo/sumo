@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2002-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -293,7 +293,6 @@ MSLaneChanger::change() {
     if (vehicle->getLaneChangeModel().isChangingLanes() && !vehicle->getLaneChangeModel().alreadyChanged()) {
         return continueChange(vehicle, myCandi);
     }
-    vehicle->getLaneChangeModel().setSpeedLat(0);
     if (!myAllowsChanging || vehicle->getLaneChangeModel().alreadyChanged() || vehicle->isStoppedOnLane()) {
         registerUnchanged(vehicle);
         if (vehicle->isStoppedOnLane()) {
@@ -786,7 +785,7 @@ MSLaneChanger::checkChange(
         //       have desynchronized action steps as the extrapolated speeds can be exceeded in this case
 
         // Expected reaction time (tau) for the follower-vehicle.
-        // (substracted TS since at this point the vehicles' states are already updated)
+        // (subtracted TS since at this point the vehicles' states are already updated)
         const double vNextFollower = neighFollow.first->getSpeed() + MAX2(0., tauRemainder * neighFollow.first->getAcceleration());
         const double vNextLeader = vehicle->getSpeed() + MIN2(0., tauRemainder * vehicle->getAcceleration());
         // !!! eigentlich: vsafe braucht die Max. Geschwindigkeit beider Spuren
@@ -831,7 +830,7 @@ MSLaneChanger::checkChange(
         //       have desynchronized action steps as the extrapolated speeds can be exceeded in this case
 
         // Expected reaction time (tau) for the follower-vehicle.
-        // (substracted TS since at this point the vehicles' states are already updated)
+        // (subtracted TS since at this point the vehicles' states are already updated)
         const double vNextFollower = vehicle->getSpeed() + MAX2(0., tauRemainder * vehicle->getAcceleration());
         const double vNextLeader = neighLead.first->getSpeed() + MIN2(0., tauRemainder * neighLead.first->getAcceleration());
         // !!! eigentlich: vsafe braucht die Max. Geschwindigkeit beider Spuren

@@ -2,7 +2,7 @@ default
 
 id
 
-vtype
+type
 
 color
 
@@ -27,6 +27,8 @@ containernumber
 departposlat
 
 arrivalposlat
+
+insertionchecks
 
 begin
 

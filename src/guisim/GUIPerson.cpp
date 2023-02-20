@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -167,7 +167,7 @@ GUIPerson::GUIPersonPopupMenu::onCmdRemoveObject(FXObject*, FXSelector, void*) {
 
 GUIPerson::GUIPerson(const SUMOVehicleParameter* pars, MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan, const double speedFactor) :
     MSPerson(pars, vtype, plan, speedFactor),
-    GUIGlObject(GLO_PERSON, pars->id),
+    GUIGlObject(GLO_PERSON, pars->id, GUIIconSubSys::getIcon(GUIIcon::PERSON)),
     myLock(true)
 { }
 
@@ -257,6 +257,7 @@ GUIPerson::getTypeParameterWindow(GUIMainWindow& app,
     ret->mkItem("width", false, myVType->getWidth());
     ret->mkItem("height", false, myVType->getHeight());
     ret->mkItem("minGap", false, myVType->getMinGap());
+    ret->mkItem("desired max speed [m/s]", false, myVType->getDesiredMaxSpeed());
     ret->mkItem("maximum speed [m/s]", false, myVType->getMaxSpeed());
     // close building
     ret->closeBuilding(&(myVType->getParameter()));
@@ -339,16 +340,6 @@ GUIPerson::drawAction_drawWalkingareaPath(const GUIVisualizationSettings& s) con
         }
     }
 }
-
-bool
-GUIPerson::isJammed() const {
-    MSPersonStage_Walking* stage = dynamic_cast<MSPersonStage_Walking*>(getCurrentStage());
-    if (stage != nullptr) {
-        return stage->getState()->isJammed();
-    }
-    return false;
-}
-
 
 void
 GUIPerson::drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVisualizationSettings& s) const {

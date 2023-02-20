@@ -17,3 +17,4 @@ net2poly
 
 # reduce number of lanes on multilane roads
 reduceLanes
+split_at_stops

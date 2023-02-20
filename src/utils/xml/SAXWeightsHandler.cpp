@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2007-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2007-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -142,7 +142,7 @@ SAXWeightsHandler::tryParse(const SUMOSAXAttributes& attrs, bool isEdge) {
                     definition->myNoLanes++;
                     definition->myHadAttribute = true;
                 } catch (EmptyData&) {
-                    WRITE_ERROR("Missing value '" + definition->myAttributeName + "' in edge '" + myCurrentEdgeID + "'.");
+                    WRITE_ERRORF(TL("Missing value '%' in edge '%'."), definition->myAttributeName, myCurrentEdgeID);
                 } catch (NumberFormatException&) {
                     WRITE_ERROR("The value should be numeric, but is not.\n In edge '" + myCurrentEdgeID +
                                 "' at time step " + toString(myCurrentTimeBeg) + ".");

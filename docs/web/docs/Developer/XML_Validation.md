@@ -46,7 +46,7 @@ files which are using Python. It seems as two are majorly used:
 further candidates:
 
 - [xmlproc](http://www.garshol.priv.no/download/software/xmlproc/)
-- [minixsv](http://www.familieleuthe.de/MiniXsv.html)
+- [minixsv](https://pypi.org/project/minixsv/)
 
 A short comparison:
 

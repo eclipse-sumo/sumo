@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -56,6 +56,9 @@ class MFXMenuCheckIcon;
 /// @brief text field with thick frame and width 50
 #define GUIDesignTextFielWidth50        (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 50, GUIDesignHeight, 2, 2, 2, 2
 
+/// @brief text field with thick frame and width 70
+#define GUIDesignTextFielWidth70        (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 70, GUIDesignHeight, 2, 2, 2, 2
+
 /// @brief text field with thick frame and width 50 and limited to doubles
 #define GUIDesignTextFielWidth50Real    (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | TEXTFIELD_REAL), 0, 0, 50, GUIDesignHeight, 2, 2, 2, 2
 
@@ -64,9 +67,6 @@ class MFXMenuCheckIcon;
 
 /// @brief text field used in TLSTable
 #define GUIDesignTextFieldTLSTable      (FRAME_THICK | LAYOUT_FILL_X | LAYOUT_MIN_WIDTH | LAYOUT_FIX_HEIGHT | JUSTIFY_CENTER_Y | JUSTIFY_LEFT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
-
-/// @brief text field used in TLSTable limited only with real values
-#define GUIDesignTextFieldTLSTableReal  (FRAME_THICK | LAYOUT_FILL_X | LAYOUT_MIN_WIDTH | LAYOUT_FIX_HEIGHT | JUSTIFY_CENTER_Y | JUSTIFY_LEFT | TEXTFIELD_REAL), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
 
 /// @brief Num of column of text field
 #define GUIDesignTextFieldNCol          1
@@ -100,11 +100,17 @@ class MFXMenuCheckIcon;
 /// @brief button used in GroupBoxModule
 #define GUIDesignButtonMFXGroupBoxModule        (FRAME_LINE | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, GUIDesignHeight - 1, GUIDesignHeight - 1, 2, 2, 2, 2
 
+/// @brief button used in GroupBoxModule for extend
+#define GUIDesignButtonMFXGroupBoxModuleExtend  (FRAME_LINE | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 60, GUIDesignHeight - 1, 2, 2, 2, 2
+
 /// @brief button rectangular with thick and raise frame with a width of 100
 #define GUIDesignButtonStatusBarFixed           (ICON_BEFORE_TEXT | JUSTIFY_CENTER_X | JUSTIFY_CENTER_Y | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 100, GUIDesignHeight, 2, 2, 2, 2
 
 /// @brief checkable button only with icon used in TLSTable
 #define GUIDesignTLSTableCheckableButtonIcon    (MENUBUTTON_RIGHT | FRAME_THICK | FRAME_RAISED | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, GUIDesignHeight, GUIDesignHeight, 0, 0, 0, 0
+
+/// @brief checkable button placed in popup (for example, locate buttons)
+#define GUIDesignButtonPopup                    (ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED)
 
 /// @}
 
@@ -162,6 +168,12 @@ class MFXMenuCheckIcon;
 /// @brief Button with custom width (used in GNEGeometryPointDialog)
 #define GUIDesignButtonCustomWidth(width)   (ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | FRAME_THICK | FRAME_RAISED), 0, 0, width, GUIDesignHeight, 2, 2, 2, 2
 
+///  @brief button for saving elements in GUISaveDialog
+#define GUIDesignSaveDialogButtonInitial    (BUTTON_INITIAL | BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_CENTER_X | LAYOUT_FIX_WIDTH), 0, 0, 150, 0, 15, 15, VERT_PAD, VERT_PAD
+
+///  @brief button for saving elements in GUISaveDialog
+#define GUIDesignSaveDialogButton           (BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_CENTER_X | LAYOUT_FIX_WIDTH), 0, 0, 150, 0, 15, 15, VERT_PAD, VERT_PAD
+
 /// @}
 
 
@@ -204,6 +216,9 @@ class MFXMenuCheckIcon;
 /// @{
 /// @brief design for radio button
 #define GUIDesignRadioButton            (LAYOUT_LEFT | LAYOUT_FILL_X | ICON_BEFORE_TEXT | JUSTIFY_LEFT)
+
+/// @brief design for radio button squared
+#define GUIDesignRadioButtonSquared     (RADIOBUTTON_NORMAL | FRAME_THICK |  LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | JUSTIFY_CENTER_X | JUSTIFY_CENTER_Y), 0, 0, GUIDesignHeight, GUIDesignHeight, 2, 2, 2, 2
 
 /// @brief design for radio button with fixed height (used in fix elements dialogs)
 #define GUIDesignRadioButtonFix         (RADIOBUTTON_NORMAL | JUSTIFY_CENTER_Y |  LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | JUSTIFY_LEFT | ICON_BEFORE_TEXT), 0, 0, 200, GUIDesignHeight - 2, 2, 2, 2, 2
@@ -317,6 +332,9 @@ class MFXMenuCheckIcon;
 /// @brief comboBox with thick frame, width 180
 #define GUIDesignComboBoxWidth180           (COMBOBOX_NORMAL | FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 180, GUIDesignHeight, 2, 2, 2, 2
 
+/// @brief comboBox with thick frame, width 100
+#define GUIDesignComboBoxWidth100           (COMBOBOX_NORMAL | FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 100, GUIDesignHeight, 2, 2, 2, 2
+
 /// @brief number of column of every combo box
 #define GUIDesignComboBoxNCol               1
 
@@ -375,8 +393,11 @@ class MFXMenuCheckIcon;
 /// @brief design for viewn area
 #define GUIDesignViewnArea                      (FRAME_SUNKEN | LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 0, 0, 0, 0
 
-/// @brief design for the content frame of every frame
+/// @brief design for the content scroll of every frame
 #define GUIDesignContentsScrollWindow           (LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y | HSCROLLER_NEVER | VSCROLLER_ALWAYS), 0, 0, 0, 0
+
+/// @brief design for the content scroll of UndoList
+#define GUIDesignContentsScrollUndoList         (LAYOUT_FILL_X | LAYOUT_FILL_Y | HSCROLLER_NEVER), 0, 0, 0, 0
 
 /// @brief design for the main content frame of every frame/dialog
 #define GUIDesignChildWindowContentFrame        (FRAME_SUNKEN | LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y)
@@ -621,7 +642,7 @@ class MFXMenuCheckIcon;
 /// @name design for Chooser (locator) and breakpoint dialogs
 /// @{
 /// @brief design for Chooser dialog specifying size
-#define GUIDesignChooserDialog                  (DECOR_ALL), 20, 20, 300, 350
+#define GUIDesignChooserDialog                  (DECOR_ALL), 20, 40, 300, 350
 
 /// @brief design for Chooser buttons
 #define GUIDesignChooserButtons                 (ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | FRAME_THICK | FRAME_RAISED), 0, 0, 150, GUIDesignHeight, 2, 2, 2, 2
@@ -654,10 +675,6 @@ class MFXMenuCheckIcon;
 /// @{
 /// @brief treeListDinamic used in Inspector frame
 #define GUIDesignTreeListDinamic                (TREELIST_SHOWS_LINES | TREELIST_SHOWS_BOXES | TREELIST_SINGLESELECT | FRAME_SUNKEN | FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT)
-
-/// @brief treeListDinamic used in undoList
-#define GUIDesignTreeListDinamicExpandHeight    (TREELIST_SHOWS_LINES | TREELIST_SHOWS_BOXES | TREELIST_SINGLESELECT | FRAME_SUNKEN | FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FILL_Y)
-
 
 /// @}
 

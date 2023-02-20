@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -238,13 +238,13 @@ GUIOSGBuilder::buildOSGJunctionGeometry(GUIJunctionWrapper& junction,
     geode->setName("junction:" + junction.getMicrosimID());
     addTo.addChild(geode);
     dynamic_cast<GUIGlObject&>(junction).setNode(geode);
-    osg::Vec3Array* osg_coords = new osg::Vec3Array((int)shape.size());
+    osg::Vec3Array* osg_coords = new osg::Vec3Array((int)shape.size()); // OSG needs float coordinates here
     geom->setVertexArray(osg_coords);
     for (int k = 0; k < (int)shape.size(); ++k) {
         (*osg_coords)[k].set((float)shape[k].x(), (float)shape[k].y(), (float)shape[k].z());
     }
     osg::Vec3Array* osg_normals = new osg::Vec3Array(1);
-    (*osg_normals)[0] = osg::Vec3(0, 0, 1);
+    (*osg_normals)[0] = osg::Vec3(0, 0, 1); // OSG needs float coordinates here
     geom->setNormalArray(osg_normals, osg::Array::BIND_PER_PRIMITIVE_SET);
     osg::Vec4ubArray* osg_colors = new osg::Vec4ubArray(1);
     (*osg_colors)[0].set(128, 128, 128, 255);
@@ -302,25 +302,24 @@ GUIOSGBuilder::buildTrafficLightDetails(MSTLLogicControl::TLSLogicVariants& vars
             appBase->addChild(rightPoleBase);
             rightPoleBase->setPosition(osg::Vec3d(pos.x(), pos.y(), pos.z()));
             rightPoleBase->setAttitude(osg::Quat(0., osg::Vec3d(1, 0, 0),
-                0., osg::Vec3d(0, 1, 0),
-                DEG2RAD(angle), osg::Vec3d(0, 0, 1)));
+                                                 0., osg::Vec3d(0, 1, 0),
+                                                 DEG2RAD(angle), osg::Vec3d(0, 0, 1)));
             if (onlyPedCycle) { // pedestrian / cyclist signal only
                 rightPoleScaleNode->setScale(osg::Vec3d(.12 / poleDiameter, .12 / poleDiameter, 2.8));
                 if (approach->isCrossing()) { // center VRU signal pole at crossings
                     // move pole to the other side of the road
                     osg::Vec3d offset(cos(DEG2RAD(angle)), sin(DEG2RAD(angle)), 0.);
-                    appBase->setPosition(appBase->getPosition() + offset*(poleOffset + approach->getLength()));
+                    appBase->setPosition(appBase->getPosition() + offset * (poleOffset + approach->getLength()));
                     appBase->setAttitude(osg::Quat(0., osg::Vec3d(1, 0, 0),
-                        0., osg::Vec3d(0, 1, 0),
-                        DEG2RAD(angle+180), osg::Vec3d(0, 0, 1)));
-                }
-                else if (approach->isWalkingArea()) { // pole for other direction > get position from crossing
+                                                   0., osg::Vec3d(0, 1, 0),
+                                                   DEG2RAD(angle + 180), osg::Vec3d(0, 0, 1)));
+                } else if (approach->isWalkingArea()) { // pole for other direction > get position from crossing
                     pos = tlLink->getLane()->getShape().back();
                     angle = 90. - tlLink->getLane()->getShape().rotationDegreeAtOffset(-1.);
                     rightPoleBase->setPosition(osg::Vec3d(pos.x(), pos.y(), pos.z()) - osg::Vec3d(poleOffset * cos(DEG2RAD(angle)), poleOffset * sin(DEG2RAD(angle)), 0.));
                     rightPoleBase->setAttitude(osg::Quat(0., osg::Vec3d(1, 0, 0),
-                        0., osg::Vec3d(0, 1, 0),
-                        DEG2RAD(angle), osg::Vec3d(0, 0, 1)));
+                                                         0., osg::Vec3d(0, 1, 0),
+                                                         DEG2RAD(angle), osg::Vec3d(0, 0, 1)));
                     if (tlLink->getLane()->getLinkCont()[0]->getTLIndex() < 0) { // check whether the other side is not specified explicitly
                         osg::PositionAttitudeTransform* leftPoleBase = new osg::PositionAttitudeTransform();
                         osg::PositionAttitudeTransform* leftPoleScaleNode = new osg::PositionAttitudeTransform();
@@ -333,26 +332,23 @@ GUIOSGBuilder::buildTrafficLightDetails(MSTLLogicControl::TLSLogicVariants& vars
                         osg::Vec3d leftPolePos(otherPosRel.x(), otherPosRel.y(), otherPosRel.z());
                         leftPoleBase->setPosition(leftPolePos + osg::Vec3d(poleOffset * cos(DEG2RAD(otherAngle)), poleOffset * sin(DEG2RAD(otherAngle)), 0.));
                         leftPoleBase->setAttitude(osg::Quat(0., osg::Vec3d(1., 0., 0.),
-                            0., osg::Vec3d(0., 1., 0.),
-                            DEG2RAD(angle + 180.), osg::Vec3d(0., 0., 1.)));
+                                                            0., osg::Vec3d(0., 1., 0.),
+                                                            DEG2RAD(angle + 180.), osg::Vec3d(0., 0., 1.)));
                         repeaters.push_back({ leftPoleBase, osg::Vec3d(0., 0., leftPoleBase->getPosition().z())});
                     }
-                }
-                else {
+                } else {
                     double laneWidth = appLanes[0]->getWidth();
                     osg::Vec3d offset(-poleOffset * cos(DEG2RAD(angle)) - (.5 * laneWidth - skipWidth + poleOffset) * sin(DEG2RAD(angle)), poleOffset * sin(DEG2RAD(angle)) + (.5 * laneWidth - skipWidth + poleOffset) * cos(DEG2RAD(angle)), 0.);
                     rightPoleBase->setPosition(rightPoleBase->getPosition() + offset);
                 }
-            }
-            else {
+            } else {
                 // skip sidewalk and bike lane if leftmost lane is for cars
                 if (!noVehicles(appLanes.back()->getPermissions())) {
                     for (MSLane* appLane : appLanes) {
                         SVCPermissions permissions = appLane->getPermissions();
                         if (isSidewalk(permissions) || isForbidden(permissions)) {
                             skipWidth += appLane->getWidth();
-                        }
-                        else {
+                        } else {
                             break;
                         }
                         firstSignalLaneIx++;
@@ -373,21 +369,20 @@ GUIOSGBuilder::buildTrafficLightDetails(MSTLLogicControl::TLSLogicVariants& vars
                     osg::PositionAttitudeTransform* cantileverBase = new osg::PositionAttitudeTransform();
                     cantileverBase->setPosition(osg::Vec3d(0., 0., poleMinHeight));
                     cantileverBase->setAttitude(osg::Quat(DEG2RAD(90.), osg::Vec3d(1, 0, 0),
-                        0., osg::Vec3d(0, 1, 0),
-                        0., osg::Vec3d(0, 0, 1)));
+                                                          0., osg::Vec3d(0, 1, 0),
+                                                          0., osg::Vec3d(0, 0, 1)));
                     cantileverBase->setScale(osg::Vec3d(1., 1., cantiWidth));
                     cantileverBase->addChild(poleBase);
                     rightPoleBase->addChild(cantileverBase);
                     osg::PositionAttitudeTransform* cantileverHolderBase = new osg::PositionAttitudeTransform();
                     cantileverHolderBase->setPosition(osg::Vec3d(0., 0., poleMinHeight + extraHeight - .02));
                     cantileverHolderBase->setAttitude(osg::Quat(DEG2RAD(90. + holderAngle), osg::Vec3d(1, 0, 0),
-                        0., osg::Vec3d(0, 1, 0),
-                        0., osg::Vec3d(0, 0, 1)));
+                                                      0., osg::Vec3d(0, 1, 0),
+                                                      0., osg::Vec3d(0, 0, 1)));
                     cantileverHolderBase->setScale(osg::Vec3d(.04 / poleDiameter, .04 / poleDiameter, sqrt(pow(holderWidth, 2.) + pow(extraHeight, 2.))));
                     cantileverHolderBase->addChild(poleBase);
                     rightPoleBase->addChild(cantileverHolderBase);
-                }
-                else { // signal bridge
+                } else { // signal bridge
                     rightPoleScaleNode->setScale(osg::Vec3d(.25 / poleDiameter, .25 / poleDiameter, poleMinHeight));
                     osg::PositionAttitudeTransform* leftPoleBase = new osg::PositionAttitudeTransform();
                     leftPoleBase->addChild(poleBase);
@@ -398,8 +393,8 @@ GUIOSGBuilder::buildTrafficLightDetails(MSTLLogicControl::TLSLogicVariants& vars
                     osg::PositionAttitudeTransform* bridgeBase = new osg::PositionAttitudeTransform();
                     bridgeBase->setPosition(osg::Vec3d(0., 0., poleMinHeight - .125));
                     bridgeBase->setAttitude(osg::Quat(DEG2RAD(90.), osg::Vec3d(1, 0, 0),
-                        0., osg::Vec3d(0, 1, 0),
-                        0., osg::Vec3d(0, 0, 1)));
+                                                      0., osg::Vec3d(0, 1, 0),
+                                                      0., osg::Vec3d(0, 0, 1)));
                     bridgeBase->setScale(osg::Vec3d(.25 / poleDiameter, .25 / poleDiameter, leftPolePos.length()));
                     bridgeBase->addChild(poleBase);
                     rightPoleBase->addChild(bridgeBase);
@@ -422,7 +417,7 @@ GUIOSGBuilder::buildTrafficLightDetails(MSTLLogicControl::TLSLogicVariants& vars
                 std::set<int> seenTlIndices;
                 bool placeRepeaters = true;
                 for (MSLink* link : links) {
-                    std::vector<std::pair<osg::Group*, osg::Vec3d>> signalTransforms = { {rightPoleBase, osg::Vec3d(0.,0.,0.)} };
+                    std::vector<std::pair<osg::Group*, osg::Vec3d>> signalTransforms = { {rightPoleBase, osg::Vec3d(0., 0., 0.)} };
                     if (placeRepeaters) {
                         signalTransforms.insert(signalTransforms.end(), repeaters.begin(), repeaters.end());
                         repeaters.clear();
@@ -442,8 +437,8 @@ GUIOSGBuilder::buildTrafficLightDetails(MSTLLogicControl::TLSLogicVariants& vars
                         d.altitude = (onlyPedCycle) ? 0.6 : -1;
                         osg::PositionAttitudeTransform* tlNode = getTrafficLight(d, vars, links[0], tlg, tly, tlr, tlu, poleBase, false);
                         tlNode->setAttitude(osg::Quat(0., osg::Vec3d(1, 0, 0),
-                            0., osg::Vec3d(0, 1, 0),
-                            DEG2RAD(180.0), osg::Vec3d(0, 0, 1)));
+                                                      0., osg::Vec3d(0, 1, 0),
+                                                      DEG2RAD(180.0), osg::Vec3d(0, 0, 1)));
                         transform.first->addChild(tlNode);
                     }
                     seenTlIndices.insert(tlIndex);
@@ -473,7 +468,7 @@ GUIOSGBuilder::buildDecal(const GUISUMOAbstractView::Decal& d, osg::Group& addTo
         osg::Image* pImage = osgDB::readImageFile(d.filename);
         if (pImage == nullptr) {
             base = nullptr;
-            WRITE_ERROR("Could not load '" + d.filename + "'.");
+            WRITE_ERRORF(TL("Could not load '%'."), d.filename);
             return;
         }
         osg::Texture2D* texture = new osg::Texture2D();
@@ -493,7 +488,7 @@ GUIOSGBuilder::buildDecal(const GUISUMOAbstractView::Decal& d, osg::Group& addTo
     osg::ComputeBoundsVisitor bboxCalc;
     base->accept(bboxCalc);
     const osg::BoundingBox& bbox = bboxCalc.getBoundingBox();
-    WRITE_MESSAGE("Loaded decal '" + d.filename + "' with bounding box " + toString(Position(bbox.xMin(), bbox.yMin(), bbox.zMin())) + " " + toString(Position(bbox.xMax(), bbox.yMax(), bbox.zMax())) + ".");
+    WRITE_MESSAGEF(TL("Loaded decal '%' with bounding box % %."), d.filename, toString(Position(bbox.xMin(), bbox.yMin(), bbox.zMin())), toString(Position(bbox.xMax(), bbox.yMax(), bbox.zMax())));
     double xScale = d.width > 0 ? d.width / (bbox.xMax() - bbox.xMin()) : 1.;
     double yScale = d.height > 0 ? d.height / (bbox.yMax() - bbox.yMin()) : 1.;
     const double zScale = d.altitude > 0 ? d.altitude / (bbox.zMax() - bbox.zMin()) : 1.;
@@ -599,7 +594,7 @@ GUIOSGBuilder::buildMovable(const MSVehicleType& type) {
     if (myCars.find(osgFile) == myCars.end()) {
         myCars[osgFile] = osgDB::readNodeFile(osgFile);
         if (myCars[osgFile] == 0) {
-            WRITE_ERROR("Could not load '" + osgFile + "'. The model is replaced by a cone shape.");
+            WRITE_ERRORF(TL("Could not load '%'. The model is replaced by a cone shape."), osgFile);
             osg::PositionAttitudeTransform* rot = new osg::PositionAttitudeTransform();
             rot->addChild(new osg::ShapeDrawable(new osg::Cone(osg::Vec3d(0, 0, 0), 1.0f, 1.0f)));
             rot->setAttitude(osg::Quat(osg::DegreesToRadians(90.), osg::Vec3(1, 0, 0),
@@ -670,6 +665,34 @@ GUIOSGBuilder::buildMovable(const MSVehicleType& type) {
     m.active = true;
     return m;
 }
+
+
+osg::Node*
+GUIOSGBuilder::buildPlane(const float length) {
+    osg::Geode* geode = new osg::Geode();
+    osg::Geometry* geom = new osg::Geometry;
+    geode->addDrawable(geom);
+    osg::Vec3Array* coords = new osg::Vec3Array(4); // OSG needs float coordinates here
+    geom->setVertexArray(coords);
+    (*coords)[0].set(.5f * length, .5f * length, -0.1f);
+    (*coords)[1].set(.5f * length, -.5f * length, -0.1f);
+    (*coords)[2].set(-.5f * length, -.5f * length, -0.1f);
+    (*coords)[3].set(-.5f * length, .5f * length, -0.1f);
+    osg::Vec3Array* normals = new osg::Vec3Array(1); // OSG needs float coordinates here
+    (*normals)[0].set(0, 0, 1);
+    geom->setNormalArray(normals, osg::Array::BIND_PER_PRIMITIVE_SET);
+    osg::Vec4ubArray* colors = new osg::Vec4ubArray(1);
+    (*colors)[0].set(0, 255, 0, 255);
+    geom->setColorArray(colors, osg::Array::BIND_OVERALL);
+    geom->addPrimitiveSet(new osg::DrawArrays(osg::PrimitiveSet::POLYGON, 0, 4));
+
+    osg::ref_ptr<osg::StateSet> ss = geode->getOrCreateStateSet();
+    ss->setRenderingHint(osg::StateSet::OPAQUE_BIN);
+    ss->setMode(GL_BLEND, osg::StateAttribute::OVERRIDE | osg::StateAttribute::PROTECTED | osg::StateAttribute::ON);
+
+    return geode;
+}
+
 
 #endif
 

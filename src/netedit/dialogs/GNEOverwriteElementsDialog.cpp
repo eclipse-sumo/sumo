@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -17,9 +17,8 @@
 ///
 // Dialog used to ask user if overwrite elements during loading
 /****************************************************************************/
-#include <config.h>
 
-#include <utils/gui/windows/GUIAppEnum.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <netedit/GNEApplicationWindow.h>
 
@@ -57,9 +56,9 @@ GNEOverwriteElementsDialog::GNEOverwriteElementsDialog(GNEApplicationWindow* app
     // create buttons centered
     FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(mainFrame, GUIDesignHorizontalFrame);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
-    myAcceptButton = new FXButton(buttonsFrame, "accept\t\tload elements",  GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_SELECT, GUIDesignButtonAccept);
-    myCancelButton = new FXButton(buttonsFrame, "cancel\t\tcancel loading of elements", GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_SELECT, GUIDesignButtonCancel);
-    myOverwriteButton = new FXButton(buttonsFrame, "overwrite\t\toverwrite elements",  GUIIconSubSys::getIcon(GUIIcon::RESET),  this, MID_GNE_SELECT, GUIDesignButtonOverwrite);
+    myAcceptButton = new FXButton(buttonsFrame, (TL("accept") + std::string("\t\t") + TL("load elements")).c_str(),  GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_SELECT, GUIDesignButtonAccept);
+    myCancelButton = new FXButton(buttonsFrame, (TL("cancel") + std::string("\t\t") + TL("cancel loading of elements")).c_str(), GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_SELECT, GUIDesignButtonCancel);
+    myOverwriteButton = new FXButton(buttonsFrame, (TL("overwrite") + std::string("\t\t") + TL("overwrite elements")).c_str(),  GUIIconSubSys::getIcon(GUIIcon::RESET),  this, MID_GNE_SELECT, GUIDesignButtonOverwrite);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
     // create Dialog
     create();

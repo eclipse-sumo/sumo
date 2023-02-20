@@ -5,12 +5,11 @@ stopContainerStop
 container
 TestFunctions: Clicked over position 594 - 323
 ;;;;;;;;;;
-TestFunctions: Clicked over position 594 - 323
+TestFunctions: Clicked over position 599 - 323
 
-TestFunctions: Clicked over position 594 - 323
+TestFunctions: Clicked over position 604 - 323
 containerID1 containerID2 containerID3
-TestFunctions: Clicked over position 594 - 323
-TestFunctions: Clicked over position 304 - 168
+TestFunctions: Clicked over position 609 - 323
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Netedit closed successfully

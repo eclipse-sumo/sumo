@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2013-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2013-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -52,8 +52,12 @@ public:
      */
     HelpersPHEMlight();
 
+    /** @brief Destructor
+     */
+    virtual ~HelpersPHEMlight();
+
 protected:
-    /** @brief Constructorfor subclasses
+    /** @brief Constructor for subclasses
      * @param[in] name the name of the model (string before the '/' in the emission class attribute)
      */
     HelpersPHEMlight(std::string name, const int baseIndex, const int defaultClass)

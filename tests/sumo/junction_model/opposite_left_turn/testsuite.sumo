@@ -1,2 +1,5 @@
 # junction is too small to allow conflict free left turns
 small_junction
+
+# junction is too small to allow conflict free left turns
+small_junction_multiple_vehs

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -15,7 +15,7 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    Jan 2022
 ///
-// VehicleType distribution used in NETEDIT
+// VehicleType distribution used in netedit
 /****************************************************************************/
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
@@ -29,16 +29,17 @@
 // ===========================================================================
 
 GNEVTypeDistribution::GNEVTypeDistribution(GNENet* net) :
-    GNEDemandElement("", net, GLO_VTYPE, SUMO_TAG_VTYPE_DISTRIBUTION, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-{}, {}, {}, {}, {}, {}) {
+    GNEDemandElement("", net, GLO_VTYPE, SUMO_TAG_VTYPE_DISTRIBUTION, GUIIconSubSys::getIcon(GUIIcon::VTYPEDISTRIBUTION),
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}) {
     // reset default values
     resetDefaultValues();
 }
 
 
-GNEVTypeDistribution::GNEVTypeDistribution(GNENet* net, const std::string& vTypeID) :
-    GNEDemandElement(vTypeID, net, GLO_VTYPE, SUMO_TAG_VTYPE_DISTRIBUTION, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-{}, {}, {}, {}, {}, {}) {
+GNEVTypeDistribution::GNEVTypeDistribution(GNENet* net, const std::string& vTypeID, const int deterministic) :
+    GNEDemandElement(vTypeID, net, GLO_VTYPE, SUMO_TAG_VTYPE_DISTRIBUTION,  GUIIconSubSys::getIcon(GUIIcon::VTYPEDISTRIBUTION),
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
+myDeterministic(deterministic) {
 }
 
 
@@ -112,12 +113,6 @@ GNEVTypeDistribution::getParentName() const {
 }
 
 
-double
-GNEVTypeDistribution::getExaggeration(const GUIVisualizationSettings& /*s*/) const {
-    return 1;
-}
-
-
 Boundary
 GNEVTypeDistribution::getCenteringBoundary() const {
     // VehicleType distribution doesn't have boundaries
@@ -174,6 +169,12 @@ GNEVTypeDistribution::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
             return getMicrosimID();
+        case SUMO_ATTR_DETERMINISTIC:
+            if (myDeterministic == -1) {
+                return "";
+            } else {
+                return toString(myDeterministic);
+            }
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -199,9 +200,9 @@ GNEVTypeDistribution::setAttribute(SumoXMLAttr key, const std::string& value, GN
     }
     switch (key) {
         case SUMO_ATTR_ID:
+        case SUMO_ATTR_DETERMINISTIC:
             undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             break;
-
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -217,6 +218,12 @@ GNEVTypeDistribution::isValid(SumoXMLAttr key, const std::string& value) {
                 return true;
             } else {
                 return false;
+            }
+        case SUMO_ATTR_DETERMINISTIC:
+            if (value == "-1" || value.empty()) {
+                return true;
+            } else {
+                return canParse<int>(value) && (parse<int>(value) >= 0);
             }
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -250,6 +257,13 @@ GNEVTypeDistribution::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             setMicrosimID(value);
+            break;
+        case SUMO_ATTR_DETERMINISTIC:
+            if (value.empty()) {
+                myDeterministic = -1;
+            } else {
+                myDeterministic = parse<int>(value);
+            }
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");

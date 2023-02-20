@@ -1,0 +1,36 @@
+# 2 common bidi edges between stations
+simple
+
+# 2 vehicles with looped routes
+2_looped
+
+# One of the trains has to drive much farther after the conflict section before reaching the next stop.
+# Comparing stop arrival time will not achieve the correct ordering.
+stop_far_beyond_bidi
+
+# 2 common bidi edges between stations
+no_signals
+
+# 2 common bidi edges between stations
+missing_signal
+
+# 2 common bidi edges between stations, extra signals in the bidi section
+intermediate_signals
+
+# 2 common bidi edges between stations, extra stop in between
+intermediate_stops
+
+# track diverges between stops before coming back together giving two distinct bidi sections between the stops.
+intermediate_divergence
+
+# track diverges between stops before coming back together but there are stops at the divergence as well 
+intermediate_divergence_stops
+
+# store comments as params
+comment_params
+
+# three trains and two constraints (to be used as input for #12326)
+3_trains
+
+# 2 common bidi edges between stations
+redundant

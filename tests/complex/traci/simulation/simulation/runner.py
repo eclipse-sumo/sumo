@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -95,10 +95,20 @@ print("convertGeoRoad", traci.simulation.convertRoad(12, 48.1, True))
 print("convertGeoRoadBus", traci.simulation.convertRoad(12, 48.1, True, "bus"))
 traci.lane.setDisallowed("o_0", ["bus"])
 print("convertGeoRoadBusDisallowed", traci.simulation.convertRoad(12, 48.1, True, "bus"))
-print("distance2D", traci.simulation.getDistance2D(
-    488.65, 501.65, 498.65, 501.65))
+
+pos1 = (488.65, 501.65)
+pos2 = (498.65, 501.65)
+print("distance2D", traci.simulation.getDistance2D(pos1[0], pos1[1], pos2[0], pos2[1]))
+pos1geo = traci.simulation.convertGeo(*pos1)
+pos2geo = traci.simulation.convertGeo(*pos2)
+print("distance2Dgeo",
+      traci.simulation.getDistance2D(pos1geo[0], pos1geo[1],
+                                     pos2geo[0], pos2geo[1], isGeo=True))
+
 print("drivingDistance2D", traci.simulation.getDistance2D(
     488.65, 501.65, 498.65, 501.65, isDriving=True))
+
+
 print("distanceRoad", traci.simulation.getDistanceRoad("o", 0., "2o", 0.))
 print("drivingDistanceRoad", traci.simulation.getDistanceRoad(
     "o", 0., "2o", 0., isDriving=True))
@@ -173,6 +183,11 @@ ppStages("findIntermodalRoute (bike)", traci.simulation.findIntermodalRoute("o",
 ppStages("findIntermodalRoute (car)", traci.simulation.findIntermodalRoute("o", "2o", modes="car"))
 ppStages("findIntermodalRoute (bike,car,public)",
          traci.simulation.findIntermodalRoute("o", "2o", modes="car bicycle public"))
+
+try:
+    print("findIntermodalRoute", traci.simulation.findIntermodalRoute("o", "2o", departPos=1e5))
+except traci.TraCIException:
+    pass
 
 traci.vehicle.setSpeedMode("emergencyStopper", 0)
 traci.vehicle.setSpeed("emergencyStopper", 100)

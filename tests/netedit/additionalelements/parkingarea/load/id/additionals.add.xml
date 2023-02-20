@@ -1,0 +1,17 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- Without errors -->
+    <parkingArea id="parkingArea_0" lane="center1_0" startPos="5" endPos="10" roadsideCapacity="0" width="12.00" length="5.00" angle="0.00" friendlyPos="false"/>
+
+    <!-- missing ID -->
+    <parkingArea lane="center1_0" startPos="5" endPos="10" roadsideCapacity="0" width="12.00" length="5.00" angle="0.00" friendlyPos="false"/>
+
+    <!-- invalid ID -->
+    <parkingArea id="ID with spaces" lane="center1_0" startPos="6" endPos="11" roadsideCapacity="0" width="12.00" length="5.00" angle="0.00" friendlyPos="false"/>
+
+    <!-- Duplicated ID -->
+    <parkingArea id="parkingArea_0" lane="center1_0" startPos="7" endPos="12" roadsideCapacity="0" width="12.00" length="5.00" angle="0.00" friendlyPos="false"/>
+
+    <!-- Valid ID -->
+    <parkingArea id="parkingArea_1" lane="center1_0" startPos="7" endPos="12" roadsideCapacity="0" width="12.00" length="5.00" angle="0.00" friendlyPos="false"/>
+
+</additional>

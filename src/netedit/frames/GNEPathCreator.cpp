@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -142,28 +142,28 @@ GNEPathCreator::Path::Path() :
 
 
 GNEPathCreator::GNEPathCreator(GNEFrame* frameParent) :
-    MFXGroupBoxModule(frameParent, "Route creator"),
+    MFXGroupBoxModule(frameParent, TL("Route creator")),
     myFrameParent(frameParent),
     myVClass(SVC_PASSENGER),
     myCreationMode(0),
     myToStoppingPlace(nullptr),
     myRoute(nullptr) {
     // create label for route info
-    myInfoRouteLabel = new FXLabel(getCollapsableFrame(), "No edges selected", 0, GUIDesignLabelFrameThicked);
+    myInfoRouteLabel = new FXLabel(getCollapsableFrame(), TL("No edges selected"), 0, GUIDesignLabelFrameThicked);
     // create button for use last route
-    myUseLastRoute = new FXButton(getCollapsableFrame(), "Use last route", GUIIconSubSys::getIcon(GUIIcon::ROUTE), this, MID_GNE_PATHCREATOR_USELASTROUTE, GUIDesignButton);
+    myUseLastRoute = new FXButton(getCollapsableFrame(), TL("Use last route"), GUIIconSubSys::getIcon(GUIIcon::ROUTE), this, MID_GNE_PATHCREATOR_USELASTROUTE, GUIDesignButton);
     myUseLastRoute->disable();
     // create button for finish route creation
-    myFinishCreationButton = new FXButton(getCollapsableFrame(), "Finish route creation", nullptr, this, MID_GNE_PATHCREATOR_FINISH, GUIDesignButton);
+    myFinishCreationButton = new FXButton(getCollapsableFrame(), TL("Finish route creation"), nullptr, this, MID_GNE_PATHCREATOR_FINISH, GUIDesignButton);
     myFinishCreationButton->disable();
     // create button for abort route creation
-    myAbortCreationButton = new FXButton(getCollapsableFrame(), "Abort route creation", nullptr, this, MID_GNE_PATHCREATOR_ABORT, GUIDesignButton);
+    myAbortCreationButton = new FXButton(getCollapsableFrame(), TL("Abort route creation"), nullptr, this, MID_GNE_PATHCREATOR_ABORT, GUIDesignButton);
     myAbortCreationButton->disable();
     // create button for remove last inserted edge
-    myRemoveLastInsertedElement = new FXButton(getCollapsableFrame(), "Remove last edge", nullptr, this, MID_GNE_PATHCREATOR_REMOVELAST, GUIDesignButton);
+    myRemoveLastInsertedElement = new FXButton(getCollapsableFrame(), TL("Remove last edge"), nullptr, this, MID_GNE_PATHCREATOR_REMOVELAST, GUIDesignButton);
     myRemoveLastInsertedElement->disable();
     // create check button
-    myShowCandidateEdges = new FXCheckButton(getCollapsableFrame(), "Show candidate edges", this, MID_GNE_PATHCREATOR_SHOWCANDIDATES, GUIDesignCheckButton);
+    myShowCandidateEdges = new FXCheckButton(getCollapsableFrame(), TL("Show candidate edges"), this, MID_GNE_PATHCREATOR_SHOWCANDIDATES, GUIDesignCheckButton);
     myShowCandidateEdges->setCheck(TRUE);
     // create shift label
     myShiftLabel = new FXLabel(this,
@@ -226,7 +226,6 @@ GNEPathCreator::showPathCreatorModule(SumoXMLTag element, const bool firstElemen
         case SUMO_TAG_VEHICLE:
         case GNE_TAG_FLOW_ROUTE:
         case GNE_TAG_WALK_ROUTE:
-            myCreationMode |= SINGLE_ELEMENT;
             myCreationMode |= ROUTE;
             // show use last inserted route
             myUseLastRoute->show();
@@ -300,16 +299,16 @@ GNEPathCreator::showPathCreatorModule(SumoXMLTag element, const bool firstElemen
             break;
         // stops (person and containers)
         case GNE_TAG_STOPPERSON_BUSSTOP:
-            myCreationMode |= SINGLE_ELEMENT;
+            myCreationMode |= STOP;
             myCreationMode |= END_BUSSTOP;
             break;
         case GNE_TAG_STOPCONTAINER_CONTAINERSTOP:
-            myCreationMode |= SINGLE_ELEMENT;
+            myCreationMode |= STOP;
             myCreationMode |= END_CONTAINERSTOP;
             break;
         case GNE_TAG_STOPPERSON_EDGE:
         case GNE_TAG_STOPCONTAINER_EDGE:
-            myCreationMode |= SINGLE_ELEMENT;
+            myCreationMode |= STOP;
             myCreationMode |= START_EDGE;
             break;
         // generic datas
@@ -367,16 +366,12 @@ GNEPathCreator::addJunction(GNEJunction* junction, const bool /* shiftKeyPressed
     if (((myCreationMode & START_JUNCTION) == 0) && ((myCreationMode & END_JUNCTION) == 0)) {
         return false;
     }
-    // check if only an junction is allowed
-    if ((myCreationMode & SINGLE_ELEMENT) && (mySelectedJunctions.size() == 1)) {
-        return false;
-    }
     // continue depending of number of selected edge
     if (mySelectedJunctions.size() > 0) {
         // check double junctions
         if (mySelectedJunctions.back() == junction) {
             // Write warning
-            WRITE_WARNING("Double junctions aren't allowed");
+            WRITE_WARNING(TL("Double junctions aren't allowed"));
             // abort add junction
             return false;
         }
@@ -384,7 +379,7 @@ GNEPathCreator::addJunction(GNEJunction* junction, const bool /* shiftKeyPressed
     // check number of junctions
     if (mySelectedJunctions.size() == 2 && (myCreationMode & Mode::ONLY_FROMTO)) {
         // Write warning
-        WRITE_WARNING("Only two junctions are allowed");
+        WRITE_WARNING(TL("Only two junctions are allowed"));
         // abort add junction
         return false;
     }
@@ -395,7 +390,7 @@ GNEPathCreator::addJunction(GNEJunction* junction, const bool /* shiftKeyPressed
     // enable finish button
     myFinishCreationButton->enable();
     // disable undo/redo
-    myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->disableUndoRedo("route creation");
+    myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->disableUndoRedo(TL("route creation"));
     // enable or disable remove last junction button
     if (mySelectedJunctions.size() > 1) {
         myRemoveLastInsertedElement->enable();
@@ -418,16 +413,12 @@ GNEPathCreator::addEdge(GNEEdge* edge, const bool shiftKeyPressed, const bool co
     if (((myCreationMode & START_EDGE) == 0) && ((myCreationMode & END_EDGE) == 0)) {
         return false;
     }
-    // check if only an edge is allowed
-    if ((myCreationMode & SINGLE_ELEMENT) && (mySelectedEdges.size() == 1)) {
-        return false;
-    }
     // continue depending of number of selected eges
     if (mySelectedEdges.size() > 0) {
         // check double edges
         if (mySelectedEdges.back() == edge) {
             // Write warning
-            WRITE_WARNING("Double edges aren't allowed");
+            WRITE_WARNING(TL("Double edges aren't allowed"));
             // abort add edge
             return false;
         }
@@ -437,7 +428,7 @@ GNEPathCreator::addEdge(GNEEdge* edge, const bool shiftKeyPressed, const bool co
             const auto& outgoingEdges = mySelectedEdges.back()->getToJunction()->getGNEOutgoingEdges();
             if (std::find(outgoingEdges.begin(), outgoingEdges.end(), edge) == outgoingEdges.end()) {
                 // Write warning
-                WRITE_WARNING("Only consecutives edges are allowed");
+                WRITE_WARNING(TL("Only consecutives edges are allowed"));
                 // abort add edge
                 return false;
             }
@@ -446,7 +437,7 @@ GNEPathCreator::addEdge(GNEEdge* edge, const bool shiftKeyPressed, const bool co
     // check number of edges
     if (mySelectedEdges.size() == 2 && (myCreationMode & Mode::ONLY_FROMTO)) {
         // Write warning
-        WRITE_WARNING("Only two edges are allowed");
+        WRITE_WARNING(TL("Only two edges are allowed"));
         // abort add edge
         return false;
     }
@@ -455,14 +446,14 @@ GNEPathCreator::addEdge(GNEEdge* edge, const bool shiftKeyPressed, const bool co
         if (edge->isSpecialCandidate()) {
             if (!shiftKeyPressed) {
                 // Write warning
-                WRITE_WARNING("Invalid edge (SHIFT + click to add an invalid vClass edge)");
+                WRITE_WARNING(TL("Invalid edge (SHIFT + click to add an invalid vClass edge)"));
                 // abort add edge
                 return false;
             }
         } else if (edge->isConflictedCandidate()) {
             if (!controlKeyPressed) {
                 // Write warning
-                WRITE_WARNING("Invalid edge (CONTROL + click to add a disconnected edge)");
+                WRITE_WARNING(TL("Invalid edge (CONTROL + click to add a disconnected edge)"));
                 // abort add edge
                 return false;
             }
@@ -475,7 +466,7 @@ GNEPathCreator::addEdge(GNEEdge* edge, const bool shiftKeyPressed, const bool co
     // enable finish button
     myFinishCreationButton->enable();
     // disable undo/redo
-    myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->disableUndoRedo("route creation");
+    myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->disableUndoRedo(TL("route creation"));
     // enable or disable remove last edge button
     if (mySelectedEdges.size() > 1) {
         myRemoveLastInsertedElement->enable();
@@ -488,7 +479,23 @@ GNEPathCreator::addEdge(GNEEdge* edge, const bool shiftKeyPressed, const bool co
     updateInfoRouteLabel();
     // update edge colors
     updateEdgeColors();
-    return true;
+    // if is a stop, create inmediately
+    if (myCreationMode & STOP) {
+        if (createPath(false)) {
+            return true;
+        } else {
+            mySelectedEdges.pop_back();
+            // recalculate path again
+            recalculatePath();
+            // update info route label
+            updateInfoRouteLabel();
+            // update edge colors
+            updateEdgeColors();
+            return false;
+        }
+    } else {
+        return true;
+    }
 }
 
 
@@ -521,7 +528,7 @@ GNEPathCreator::addStoppingPlace(GNEAdditional* stoppingPlace, const bool /*shif
     }
     // avoid select first an stopping place
     if (((myCreationMode & START_EDGE) != 0) && mySelectedEdges.empty()) {
-        WRITE_WARNING("first select an edge");
+        WRITE_WARNING(TL("first select an edge"));
         return false;
     }
     // check if previously stopping place from was set
@@ -548,7 +555,23 @@ GNEPathCreator::addStoppingPlace(GNEAdditional* stoppingPlace, const bool /*shif
     updateInfoRouteLabel();
     // update stoppingPlace colors
     updateEdgeColors();
-    return true;
+    // if is a stop, create inmediately
+    if (myCreationMode & STOP) {
+        if (createPath(false)) {
+            return true;
+        } else {
+            myToStoppingPlace = nullptr;
+            // recalculate path again
+            recalculatePath();
+            // update info route label
+            updateInfoRouteLabel();
+            // update stoppingPlace colors
+            updateEdgeColors();
+            return false;
+        }
+    } else {
+        return true;
+    }
 }
 
 
@@ -572,24 +595,15 @@ GNEPathCreator::addRoute(GNEDemandElement* route, const bool /*shiftKeyPressed*/
     if (myRoute) {
         return false;
     }
-    // set route
+    // set route and create path
     myRoute = route;
-    // recalculate path
-    recalculatePath();
-    updateInfoRouteLabel();
-    updateEdgeColors();
-    return true;
-}
-
-
-void
-GNEPathCreator::removeRoute() {
-    // set route
+    createPath(false);
     myRoute = nullptr;
     // recalculate path
     recalculatePath();
     updateInfoRouteLabel();
     updateEdgeColors();
+    return true;
 }
 
 
@@ -788,10 +802,10 @@ GNEPathCreator::drawTemporalRoute(const GUIVisualizationSettings& s) const {
 }
 
 
-void
+bool
 GNEPathCreator::createPath(const bool useLastRoute) {
     // call create path implemented in frame parent
-    myFrameParent->createPath(useLastRoute);
+    return myFrameParent->createPath(useLastRoute);
 }
 
 
@@ -854,16 +868,14 @@ GNEPathCreator::removeLastElement() {
 long
 GNEPathCreator::onCmdCreatePath(FXObject*, FXSelector, void*) {
     // call create path
-    createPath(false);
-    return 1;
+    return createPath(false);
 }
 
 
 long
 GNEPathCreator::onCmdUseLastRoute(FXObject*, FXSelector, void*) {
     // call create path with useLastRoute = true
-    createPath(true);
-    return 1;
+    return createPath(true);
 }
 
 long
@@ -926,14 +938,14 @@ GNEPathCreator::updateInfoRouteLabel() {
         // declare ostringstream for label and fill it
         std::ostringstream information;
         information
-                << "- Selected edges: " << toString(mySelectedEdges.size()) << "\n"
-                << "- Path edges: " << toString(pathSize) << "\n"
-                << "- Length: " << toString(length) << "\n"
-                << "- Average speed: " << toString(speed / pathSize);
+                << TL("- Selected edges: ") << toString(mySelectedEdges.size()) << "\n"
+                << TL("- Path edges: ") << toString(pathSize) << "\n"
+                << TL("- Length: ") << toString(length) << "\n"
+                << TL("- Average speed: ") << toString(speed / pathSize);
         // set new label
         myInfoRouteLabel->setText(information.str().c_str());
     } else {
-        myInfoRouteLabel->setText("No edges selected");
+        myInfoRouteLabel->setText(TL("No edges selected"));
     }
 }
 

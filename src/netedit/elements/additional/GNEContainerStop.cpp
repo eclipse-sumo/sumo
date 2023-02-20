@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -27,6 +27,7 @@
 #include <utils/gui/div/GLHelper.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/vehicle/SUMORouteHandler.h>
+#include <utils/gui/div/GUIGlobalPostDrawing.h>
 
 #include "GNEContainerStop.h"
 
@@ -35,7 +36,8 @@
 // ===========================================================================
 
 GNEContainerStop::GNEContainerStop(GNENet* net) :
-    GNEStoppingPlace("", net, GLO_CONTAINER_STOP, SUMO_TAG_CONTAINER_STOP, nullptr, 0, 0, "", false, Parameterised::Map()),
+    GNEStoppingPlace("", net, GLO_CONTAINER_STOP, SUMO_TAG_CONTAINER_STOP, GUIIconSubSys::getIcon(GUIIcon::CONTAINERSTOP),
+                     nullptr, 0, 0, "", false, Parameterised::Map()),
     myContainerCapacity(0),
     myParkingLength(0),
     myColor(RGBColor::BLACK) {
@@ -47,7 +49,8 @@ GNEContainerStop::GNEContainerStop(GNENet* net) :
 GNEContainerStop::GNEContainerStop(const std::string& id, GNELane* lane, GNENet* net, const double startPos, const double endPos,
                                    const std::string& name, const std::vector<std::string>& lines, int containerCapacity, double parkingLength, const RGBColor& color,
                                    bool friendlyPosition, const Parameterised::Map& parameters) :
-    GNEStoppingPlace(id, net, GLO_CONTAINER_STOP, SUMO_TAG_CONTAINER_STOP, lane, startPos, endPos, name, friendlyPosition, parameters),
+    GNEStoppingPlace(id, net, GLO_CONTAINER_STOP, SUMO_TAG_CONTAINER_STOP, GUIIconSubSys::getIcon(GUIIcon::CONTAINER),
+                     lane, startPos, endPos, name, friendlyPosition, parameters),
     myLines(lines),
     myContainerCapacity(containerCapacity),
     myParkingLength(parkingLength),
@@ -137,50 +140,68 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
                 baseColor = s.colorSettings.containerStopColor;
                 signColor = s.colorSettings.containerStopColorSign;
             }
-            // draw parent and child lines
-            drawParentChildLines(s, s.additionalSettings.connectionColor);
-            // Start drawing adding an gl identificator
-            GLHelper::pushName(getGlID());
-            // Add a layer matrix
-            GLHelper::pushMatrix();
-            // translate to front
-            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_CONTAINER_STOP);
-            // set base color
-            GLHelper::setColor(baseColor);
-            // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-            GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry, s.stoppingPlaceSettings.containerStopWidth * MIN2(1.0, containerStopExaggeration));
-            // draw detail
-            if (s.drawDetail(s.detailSettings.stoppingPlaceDetails, containerStopExaggeration)) {
-                // draw lines
-                drawLines(s, myLines, baseColor);
-                // draw sign
-                drawSign(s, containerStopExaggeration, baseColor, signColor, "C");
+            // avoid draw invisible elements
+            if (baseColor.alpha() != 0) {
+                // draw parent and child lines
+                drawParentChildLines(s, s.additionalSettings.connectionColor);
+                // Start drawing adding an gl identificator
+                GLHelper::pushName(getGlID());
+                // Add a layer matrix
+                GLHelper::pushMatrix();
+                // translate to front
+                myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_CONTAINER_STOP);
+                // set base color
+                GLHelper::setColor(baseColor);
+                // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
+                GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry, s.stoppingPlaceSettings.containerStopWidth * MIN2(1.0, containerStopExaggeration));
+                // draw detail
+                if (s.drawDetail(s.detailSettings.stoppingPlaceDetails, containerStopExaggeration)) {
+                    // draw lines
+                    drawLines(s, myLines, baseColor);
+                    // draw sign
+                    drawSign(s, containerStopExaggeration, baseColor, signColor, "C");
+                }
+                // draw geometry points
+                if (myStartPosition != INVALID_DOUBLE) {
+                    drawLeftGeometryPoint(myNet->getViewNet(), myAdditionalGeometry.getShape().front(), myAdditionalGeometry.getShapeRotations().front(), baseColor);
+                }
+                if (myEndPosition != INVALID_DOUBLE) {
+                    drawRightGeometryPoint(myNet->getViewNet(), myAdditionalGeometry.getShape().back(), myAdditionalGeometry.getShapeRotations().back(), baseColor);
+                }
+                // pop layer matrix
+                GLHelper::popMatrix();
+                // Pop name
+                GLHelper::popName();
             }
-            // draw geometry points
-            if (myStartPosition != INVALID_DOUBLE) {
-                drawLeftGeometryPoint(myNet->getViewNet(), myAdditionalGeometry.getShape().front(), myAdditionalGeometry.getShapeRotations().front(), baseColor);
-            }
-            if (myEndPosition != INVALID_DOUBLE) {
-                drawRightGeometryPoint(myNet->getViewNet(), myAdditionalGeometry.getShape().back(), myAdditionalGeometry.getShapeRotations().back(), baseColor);
-            }
-            // pop layer matrix
-            GLHelper::popMatrix();
-            // Pop name
-            GLHelper::popName();
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myAdditionalGeometry.getShape().getCentroid(), containerStopExaggeration);
-            // check if dotted contours has to be drawn
+            // check if mouse is over element
+            mouseWithinGeometry(myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.containerStopWidth * MIN2(1.0, containerStopExaggeration));
+            mouseWithinGeometry(mySignPos, myCircleWidth);
+            // Inspect contour
             if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.containerStopWidth,
-                        containerStopExaggeration, 1, 1);
+                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::INSPECT, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.containerStopWidth,
+                        containerStopExaggeration, true, true);
             }
+            // front element contour
             if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.containerStopWidth,
-                        containerStopExaggeration, 1, 1);
+                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.containerStopWidth,
+                        containerStopExaggeration, true, true);
+            }
+            // delete contour
+            if (myNet->getViewNet()->drawDeleteContour(this, this)) {
+                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.containerStopWidth,
+                        containerStopExaggeration, true, true);
+            }
+            // select contour
+            if (myNet->getViewNet()->drawSelectContour(this, this)) {
+                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::SELECT, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.containerStopWidth,
+                        containerStopExaggeration, true, true);
             }
             // draw child demand elements
             for (const auto& demandElement : getChildDemandElements()) {
-                if (!demandElement->getTagProperty().isPlacedInRTree()) {
+                if (!demandElement->getTagProperty().isPlacedInRTree() &&
+                        (!demandElement->getTagProperty().isContainerPlan() || demandElement->getTagProperty().isStopContainer())) {
                     demandElement->drawGL(s);
                 }
             }
@@ -329,7 +350,7 @@ GNEContainerStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             // enable save demand elements if there are stops
             for (const auto& stop : getChildDemandElements()) {
                 if (stop->getTagProperty().isStop() || stop->getTagProperty().isStopPerson()) {
-                    myNet->requireSaveDemandElements(true);
+                    myNet->getSavingStatus()->requireSaveDemandElements();
                 }
             }
             break;

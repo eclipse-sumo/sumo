@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-12-19 15:14:01 by Eclipse SUMO netconvert Version v1_15_0+1125-257caaf
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_plain.nod.xml"/>
+        <edge-files value="input_plain.edg.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output-file value="net.net.xml"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+    </junctions>
+
+    <report>
+        <xml-validation value="never"/>
+        <ignore-errors.edge-type value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="-390623.43,-5819758.47" convBoundary="0.00,0.00,177.78,33.56" origBoundary="13.372213,52.501727,13.445697,52.541230" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <edge id="188386313#1" from="cluster_21487242_2264199819_6583929458_6583929462_#2more" to="2694740947" name="Unter den Linden" priority="12" type="cycleway.lane|highway.primary" spreadType="center" shape="38.99,22.26 17.32,20.50 0.00,19.07">
+        <lane id="188386313#1_0" index="0" allow="pedestrian" speed="13.89" length="45.70" width="3.00" shape="38.69,25.95 17.02,24.19 -0.30,22.76">
+            <param key="origId" value="188386313"/>
+        </lane>
+        <lane id="188386313#1_1" index="1" allow="bicycle" speed="13.89" length="45.70" width="1.00" shape="38.85,23.95 17.18,22.19 -0.14,20.76">
+            <param key="origId" value="188386313"/>
+        </lane>
+        <lane id="188386313#1_2" index="2" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="45.70" shape="39.02,21.86 17.35,20.10 0.03,18.67">
+            <param key="origId" value="188386313"/>
+        </lane>
+        <lane id="188386313#1_3" index="3" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="45.70" shape="39.28,18.67 17.61,16.91 0.30,15.48">
+            <param key="origId" value="188386313"/>
+        </lane>
+        <param key="origFrom" value="6583929458"/>
+        <param key="ref" value="B 2;B 5"/>
+    </edge>
+    <edge id="340498988#0" from="4489287308" to="cluster_21487242_2264199819_6583929458_6583929462_#2more" name="Unter den Linden" priority="12" type="highway.primary" spreadType="center" shape="104.33,27.11 68.86,24.21 60.63,23.54 48.15,22.52">
+        <lane id="340498988#0_0" index="0" allow="pedestrian" speed="13.89" length="61.23" width="3.00" shape="99.91,32.07 68.43,29.49 60.20,28.82 47.72,27.80">
+            <param key="origId" value="340498988"/>
+        </lane>
+        <lane id="340498988#0_1" index="1" allow="bicycle" speed="13.89" length="61.23" width="1.00" shape="100.07,30.07 68.59,27.50 60.36,26.83 47.88,25.81">
+            <param key="origId" value="340498988"/>
+        </lane>
+        <lane id="340498988#0_2" index="2" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="61.23" shape="100.25,27.98 68.76,25.41 60.53,24.74 48.05,23.72">
+            <param key="origId" value="340498988"/>
+        </lane>
+        <lane id="340498988#0_3" index="3" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="61.23" shape="100.51,24.79 69.02,22.22 60.79,21.55 48.31,20.53">
+            <param key="origId" value="340498988"/>
+        </lane>
+        <lane id="340498988#0_4" index="4" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="61.23" shape="100.77,21.60 69.28,19.03 61.05,18.36 48.57,17.34">
+            <param key="origId" value="340498988"/>
+        </lane>
+        <param key="origTo" value="21487242"/>
+        <param key="ref" value="B 2;B 5"/>
+    </edge>
+    <edge id="882389494" from="cluster_25664779_25664841_6583929467_746803372" to="4489287308" name="Unter den Linden" priority="12" type="cycleway.lane|highway.primary" spreadType="center" shape="176.95,33.56 104.29,27.61">
+        <lane id="882389494_0" index="0" allow="pedestrian" speed="13.89" length="72.16" width="3.00" shape="175.44,37.15 107.97,31.62">
+            <param key="origId" value="882389494"/>
+        </lane>
+        <lane id="882389494_1" index="1" allow="bicycle" speed="13.89" length="72.16" width="1.00" shape="175.60,35.16 108.14,29.63">
+            <param key="origId" value="882389494"/>
+        </lane>
+        <lane id="882389494_2" index="2" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="72.16" shape="175.78,33.06 108.31,27.54">
+            <param key="origId" value="882389494"/>
+        </lane>
+        <lane id="882389494_3" index="3" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="72.16" shape="176.04,29.87 108.57,24.35">
+            <param key="origId" value="882389494"/>
+        </lane>
+        <param key="origFrom" value="25664841"/>
+        <param key="ref" value="B 2;B 5"/>
+    </edge>
+
+    <junction id="2694740947" type="dead_end" x="0.17" y="17.08" incLanes="188386313#1_0 188386313#1_1 188386313#1_2 188386313#1_3" intLanes="" shape="-0.42,24.25 0.43,13.89"/>
+    <junction id="4489287308" type="priority" x="104.46" y="25.62" incLanes="882389494_0 882389494_1 882389494_2 882389494_3" intLanes="" shape="107.85,33.12 108.70,22.75 105.76,21.97 103.84,20.79 102.62,20.30 100.90,20.01 99.79,33.56 102.77,33.52 104.87,33.16 106.14,33.06">
+        <request index="0" response="0000" foes="0000"/>
+        <request index="1" response="0000" foes="0000"/>
+        <request index="2" response="0000" foes="0000"/>
+        <request index="3" response="0000" foes="0000"/>
+    </junction>
+    <junction id="cluster_21487242_2264199819_6583929458_6583929462_#2more" type="priority" x="46.59" y="0.00" incLanes="340498988#0_0 340498988#0_1 340498988#0_2 340498988#0_3 340498988#0_4" intLanes="" shape="47.60,29.30 48.70,15.74 45.25,16.00 42.86,16.82 41.40,17.08 39.41,17.08 38.57,27.44 41.93,28.01 44.24,28.73 45.65,29.06">
+        <request index="0" response="000" foes="000"/>
+        <request index="1" response="000" foes="000"/>
+        <request index="2" response="000" foes="000"/>
+        <param key="origEdgeIds" value="-194069450#2 -461526153#0 -461526153#1 188386313#0 194069450#2 342968607#3 461526153#0 461526153#1"/>
+        <param key="origId" value="21487242 2264199819 6583929458 6583929462 6583929463 8507892381"/>
+    </junction>
+    <junction id="cluster_25664779_25664841_6583929467_746803372" type="dead_end" x="177.78" y="8.58" incLanes="" intLanes="" shape="176.17,28.28 175.32,38.64">
+        <param key="origEdgeIds" value="-330840125#0 -330840125#1 -66071373#0 330840125#0 330840125#1 66071373#0"/>
+        <param key="origId" value="25664779 25664841 6583929467 746803372"/>
+    </junction>
+
+    <connection from="340498988#0" to="188386313#1" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="340498988#0" to="188386313#1" fromLane="3" toLane="2" dir="s" state="M"/>
+    <connection from="340498988#0" to="188386313#1" fromLane="4" toLane="3" dir="s" state="M"/>
+    <connection from="882389494" to="340498988#0" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="882389494" to="340498988#0" fromLane="2" toLane="2" dir="s" state="M"/>
+    <connection from="882389494" to="340498988#0" fromLane="2" toLane="3" dir="s" state="M"/>
+    <connection from="882389494" to="340498988#0" fromLane="3" toLane="4" dir="s" state="M"/>
+
+</net>

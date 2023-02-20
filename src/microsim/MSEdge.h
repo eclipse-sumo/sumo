@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -326,10 +326,19 @@ public:
         return myPriority;
     }
 
-    /** @brief Returns the kilometrage/mileage at the start of the edge
-     */
+    /** @brief Returns the kilometrage/mileage encoding at the start of the edge
+     * (negative values encode descending direction)
+    */
     double getDistance() const {
         return myDistance;
+    }
+
+    /** @brief Returns the kilometrage/mileage at the given offset along the edge
+     */
+    double getDistanceAt(double pos) const;
+
+    bool hasDistance() const {
+        return myDistance != 0;
     }
     /// @}
 
@@ -499,7 +508,7 @@ public:
     /** @brief Tries to insert the given vehicle into the network
      *
      * The procedure for choosing the proper lane is determined, first.
-     *  In dependance to this, the proper lane is chosen.
+     *  In dependence to this, the proper lane is chosen.
      *
      * Insertion itself is done by calling the chose lane's "insertVehicle"
      *  method but only if the checkOnly argument is false. The check needs
@@ -694,13 +703,13 @@ public:
         myAmDelayed = true;
     }
 
-    // return whether there have been vehicles on this edge at least once
+    // return whether there have been vehicles on this or the bidi edge (if there is any) at least once
     inline bool isDelayed() const {
-        return myAmDelayed || myBidiEdge == nullptr || myBidiEdge->myAmDelayed;
+        return myAmDelayed || (myBidiEdge != nullptr && myBidiEdge->myAmDelayed);
     }
 
     bool hasLaneChanger() const {
-        return myLaneChanger != 0;
+        return myLaneChanger != nullptr;
     }
 
     /// @brief whether this edge allows changing to the opposite direction edge
@@ -1009,6 +1018,8 @@ private:
 
     /// @brief assignment operator.
     MSEdge& operator=(const MSEdge&) = delete;
+
+    void setBidiLanes();
 
     bool isSuperposable(const MSEdge* other);
 

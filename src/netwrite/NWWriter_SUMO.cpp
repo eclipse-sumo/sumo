@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -59,7 +59,7 @@ NWWriter_SUMO::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     }
     OutputDevice& device = OutputDevice::getDevice(oc.getString("output-file"));
     std::map<SumoXMLAttr, std::string> attrs;
-    attrs[SUMO_ATTR_VERSION] = toString(NETWORK_VERSION, 1);
+    attrs[SUMO_ATTR_VERSION] = toString(NETWORK_VERSION);
     if (oc.getBool("lefthand") != oc.getBool("flip-y-axis")) {
         attrs[SUMO_ATTR_LEFTHAND] = "true";
     } else if (oc.getBool("lefthand")) {
@@ -228,7 +228,7 @@ NWWriter_SUMO::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
 
     // write the districts
     if (dc.size() != 0 && oc.isDefault("taz-output")) {
-        WRITE_WARNING("Embedding TAZ-data inside the network is deprecated. Use option --taz-output instead");
+        WRITE_WARNING(TL("Embedding TAZ-data inside the network is deprecated. Use option --taz-output instead"));
         for (std::map<std::string, NBDistrict*>::const_iterator i = dc.begin(); i != dc.end(); i++) {
             writeDistrict(device, *(*i).second);
         }
@@ -348,7 +348,7 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
                                                              0, e->getTurnDestination(true), 0);
                             into.writeAttr(SUMO_ATTR_BIDI, bidiCon.id);
                         } catch (ProcessError&) {
-                            WRITE_WARNINGF("Could not find bidi-connection for edge '%'", edgeID)
+                            WRITE_WARNINGF(TL("Could not find bidi-connection for edge '%'"), edgeID)
                         }
                     }
                     // open a new edge
@@ -403,25 +403,27 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
         }
     }
     // write pedestrian crossings
+    const double crossingSpeed = OptionsCont::getOptions().getFloat("default.crossing-speed");
     for (auto c : n.getCrossings()) {
         into.openTag(SUMO_TAG_EDGE);
         into.writeAttr(SUMO_ATTR_ID, c->id);
         into.writeAttr(SUMO_ATTR_FUNCTION, SumoXMLEdgeFunc::CROSSING);
         into.writeAttr(SUMO_ATTR_CROSSING_EDGES, c->edges);
-        writeLane(into, c->id + "_0", 1, NBEdge::UNSPECIFIED_FRICTION, SVC_PEDESTRIAN, 0, SVCAll, SVCAll,
+        writeLane(into, c->id + "_0", crossingSpeed, NBEdge::UNSPECIFIED_FRICTION, SVC_PEDESTRIAN, 0, SVCAll, SVCAll,
                   NBEdge::UNSPECIFIED_OFFSET, NBEdge::UNSPECIFIED_OFFSET,
                   StopOffset(), c->width, c->shape, nullptr,
                   MAX2(c->shape.length(), POSITION_EPS), 0, "", "", false, c->customShape.size() != 0);
         into.closeTag();
     }
     // write pedestrian walking areas
+    const double walkingareaSpeed = OptionsCont::getOptions().getFloat("default.walkingarea-speed");
     const std::vector<NBNode::WalkingArea>& WalkingAreas = n.getWalkingAreas();
     for (std::vector<NBNode::WalkingArea>::const_iterator it = WalkingAreas.begin(); it != WalkingAreas.end(); it++) {
         const NBNode::WalkingArea& wa = *it;
         into.openTag(SUMO_TAG_EDGE);
         into.writeAttr(SUMO_ATTR_ID, wa.id);
         into.writeAttr(SUMO_ATTR_FUNCTION, SumoXMLEdgeFunc::WALKINGAREA);
-        writeLane(into, wa.id + "_0", 1, NBEdge::UNSPECIFIED_FRICTION, SVC_PEDESTRIAN, 0, SVCAll, SVCAll,
+        writeLane(into, wa.id + "_0", walkingareaSpeed, NBEdge::UNSPECIFIED_FRICTION, SVC_PEDESTRIAN, 0, SVCAll, SVCAll,
                   NBEdge::UNSPECIFIED_OFFSET, NBEdge::UNSPECIFIED_OFFSET,
                   StopOffset(), wa.width, wa.shape, nullptr, wa.length, 0, "", "", false, wa.hasCustomShape);
         into.closeTag();
@@ -512,7 +514,7 @@ NWWriter_SUMO::writeLane(OutputDevice& into, const std::string& lID,
     writePreferences(into, preferred);
     // some further information
     if (speed == 0) {
-        WRITE_WARNINGF("Lane '%' has a maximum allowed speed of 0.", lID);
+        WRITE_WARNINGF(TL("Lane '%' has a maximum allowed speed of 0."), lID);
     } else if (speed < 0) {
         throw ProcessError("Negative allowed speed (" + toString(speed) + ") on lane '" + lID + "', use --speed.minimum to prevent this.");
     }
@@ -985,6 +987,10 @@ NWWriter_SUMO::writeTrafficLights(OutputDevice& into, const NBTrafficLightLogicC
     std::vector<NBTrafficLightLogic*> logics = tllCont.getComputed();
     for (NBTrafficLightLogic* logic : logics) {
         writeTrafficLight(into, logic);
+        // only raise warnings on write instead of on compute (to avoid cluttering netedit)
+        NBTrafficLightDefinition* def = tllCont.getDefinition(logic->getID(), logic->getProgramID());
+        assert(def != nullptr);
+        def->finalChecks();
     }
     if (logics.size() > 0) {
         into.lf();

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -15,21 +15,33 @@
 /// @author  Gregor Laemmel
 /// @date    Tue, 20 Mar 2017
 ///
-// Container for pt stops during the netbuilding process
+// Container for public transport stops during the net building process
 /****************************************************************************/
-
 #pragma once
 #include <config.h>
 
 #include <string>
 #include <map>
-#include "NBPTStop.h"
 
+
+// ===========================================================================
+// class declarations
+// ===========================================================================
 class NBEdge;
 class NBEdgeCont;
+class NBPTPlatform;
+class NBPTStop;
 
+
+// ===========================================================================
+// class definitions
+// ===========================================================================
+/**
+ * @class NBPTStopCont
+ * @brief Container for public transport stops during the net building process
+ *
+ */
 class NBPTStopCont {
-
 public:
 
     ~NBPTStopCont();
@@ -39,34 +51,17 @@ public:
     * @param[in] floating whether the stop is not referenced by a way or relation
     * @return Whether the pt stop could be added
     */
-    bool insert(NBPTStop* ptStop, bool floating = false);
+    bool insert(std::shared_ptr<NBPTStop> ptStop, bool floating = false);
 
     /// @brief Retrieve a previously inserted pt stop
-    NBPTStop* get(std::string id) const;
+    std::shared_ptr<NBPTStop> get(std::string id) const;
 
-    /// @brief Returns the number of pt stops stored in this container
-    int size() const {
-        return (int) myPTStops.size();
-    }
-
-    /** @brief Returns the pointer to the begin of the stored pt stops
-    * @return The iterator to the beginning of stored pt stops
-    */
-    std::map<std::string, NBPTStop*>::const_iterator begin() const {
-        return myPTStops.begin();
-    }
-
-    /** @brief Returns the pointer to the end of the stored pt stops
-     * @return The iterator to the end of stored pt stops
+    /** @brief Returns an unmodifiable reference to the stored pt stops
+     * @return The stored pt stops
      */
-    std::map<std::string, NBPTStop*>::const_iterator end() const {
-        return myPTStops.end();
-    }
-
-    const std::map<std::string, NBPTStop*>& getStops() const {
+    const std::map<std::string, std::shared_ptr<NBPTStop> >& getStops() const {
         return myPTStops;
     }
-
 
     /** @brief remove stops on non existing (removed) edges
      *
@@ -91,29 +86,29 @@ public:
     void addEdges2Keep(const OptionsCont& oc, std::set<std::string>& into);
 
     /// @brief replace the edge with the closes edge on the given edge list in all stops
-    void replaceEdge(const std::string& edgeID, const EdgeVector& replacement);
+    void replaceEdge(const std::string& edgeID, const std::vector<NBEdge*>& replacement);
 
 
-    NBPTStop* findStop(const std::string& origEdgeID, Position pos, double threshold = 1) const;
+    std::shared_ptr<NBPTStop> findStop(const std::string& origEdgeID, Position pos, double threshold = 1) const;
 
-    NBPTStop* getReverseStop(NBPTStop* pStop, const NBEdgeCont& ec);
+    std::shared_ptr<NBPTStop> getReverseStop(std::shared_ptr<NBPTStop> pStop, const NBEdgeCont& ec);
 
 private:
     /// @brief Definition of the map of names to pt stops
-    typedef std::map<std::string, NBPTStop*> PTStopsCont;
+    typedef std::map<std::string, std::shared_ptr<NBPTStop> > PTStopsCont;
 
     /// @brief The map of names to pt stops
     PTStopsCont myPTStops;
 
     /// @brief The map of edge ids to stops
-    std::map<std::string, std::vector<NBPTStop*> > myPTStopLookup;
+    std::map<std::string, std::vector<std::shared_ptr<NBPTStop> > > myPTStopLookup;
 
-    std::vector<NBPTStop*> myFloatingStops;
+    std::vector<std::shared_ptr<NBPTStop> > myFloatingStops;
 
 
-    void assignPTStopToEdgeOfClosestPlatform(NBPTStop* pStop, NBEdgeCont& cont);
-    const NBPTPlatform* getClosestPlatformToPTStopPosition(NBPTStop* pStop);
-    NBPTStop* assignAndCreatNewPTStopAsNeeded(NBPTStop* pStop, NBEdgeCont& cont);
+    void assignPTStopToEdgeOfClosestPlatform(std::shared_ptr<NBPTStop> pStop, NBEdgeCont& cont);
+    const NBPTPlatform* getClosestPlatformToPTStopPosition(std::shared_ptr<NBPTStop> pStop);
+    std::shared_ptr<NBPTStop> assignAndCreatNewPTStopAsNeeded(std::shared_ptr<NBPTStop> pStop, NBEdgeCont& cont);
     double computeCrossProductEdgePosition(const NBEdge* edge, const Position& closestPlatform) const;
 
     static std::string getReverseID(const std::string& id);

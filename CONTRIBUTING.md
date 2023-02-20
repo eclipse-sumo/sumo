@@ -1,4 +1,4 @@
-# Contributing to Eclipse Sumo
+# Contributing to Eclipse SUMO
 
 Thanks for your interest in this project.
 
@@ -24,6 +24,8 @@ more.
 The project maintains the following source code repositories
 
 * https://github.com/eclipse/sumo
+* https://github.com/eclipse/sumo.website
+* https://github.com/dlr-ts/homebrew-sumo
 
 We are happily reviewing pull requests against the master of this repository.
 For details see below and https://sumo.dlr.de/docs/FAQ.html#how_do_code_contributions_work.
@@ -49,6 +51,15 @@ Contributor Agreement (ECA) on file.
 
 For more information, please see the Eclipse Committer Handbook:
 https://www.eclipse.org/projects/handbook/#resources-commit
+
+## Translating
+
+If you want to help in translating SUMO please open an account at
+[Weblate](https://hosted.weblate.org/projects/eclipse-sumo/) and add your translation there.
+Concerning the license and the contributor agreement the same rules apply as for code
+and documentation (you need to agree to the ECA). If you want to add a new language
+please send a request to sumo-dev (see below) or follow 
+[these steps](https://sumo.dlr.de/docs/Developer/Translating.html#new_language).
 
 ## Contact
 

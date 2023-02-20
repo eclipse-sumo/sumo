@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -141,20 +141,20 @@ public:
         myZ += dz;
     }
 
-    /// @brief Substracts the given position from this one
+    /// @brief Subtracts the given position from this one
     void sub(double dx, double dy) {
         myX -= dx;
         myY -= dy;
     }
 
-    /// @brief Substracts the given position from this one
+    /// @brief Subtracts the given position from this one
     void sub(double dx, double dy, double dz) {
         myX -= dx;
         myY -= dy;
         myZ -= dz;
     }
 
-    /// @brief Substracts the given position from this one
+    /// @brief Subtracts the given position from this one
     void sub(const Position& pos) {
         myX -= pos.myX;
         myY -= pos.myY;
@@ -261,6 +261,11 @@ public:
     /// @brief returns the angle in the plane of the vector pointing from here to the other position
     inline double angleTo2D(const Position& other) const {
         return atan2(other.myY - myY, other.myX - myX);
+    }
+
+    /// @brief returns the slope of the vector pointing from here to the other position
+    inline double slopeTo2D(const Position& other) const {
+        return atan2(other.myZ - myZ, distanceTo2D(other));
     }
 
     /// @brief returns the cross product between this point and the second one

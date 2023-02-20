@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2005-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2005-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -229,7 +229,7 @@ fillOptions() {
 int
 main(int argc, char** argv) {
     OptionsCont& oc = OptionsCont::getOptions();
-    oc.setApplicationDescription("Importer of polygons and POIs for the microscopic, multi-modal traffic simulation SUMO.");
+    oc.setApplicationDescription(TL("Importer of polygons and POIs for the microscopic, multi-modal traffic simulation SUMO."));
     oc.setApplicationName("polyconvert", "Eclipse SUMO polyconvert Version " VERSION_STRING);
     int ret = 0;
     try {
@@ -244,6 +244,9 @@ main(int argc, char** argv) {
         }
         SystemFrame::checkOptions();
         XMLSubSys::setValidation(oc.getString("xml-validation"), oc.getString("xml-validation.net"), "never");
+        if (oc.isDefault("aggregate-warnings")) {
+            oc.setDefault("aggregate-warnings", "5");
+        }
         MsgHandler::initOutputOptions();
         // build the projection
         double scale = 1.0;
@@ -267,7 +270,7 @@ main(int argc, char** argv) {
             }
 #endif
             if (!GeoConvHelper::init(oc)) {
-                throw ProcessError("Could not build projection!");
+                throw ProcessError(TL("Could not build projection!"));
             }
         } else {
             // from the supplied network
@@ -279,17 +282,17 @@ main(int argc, char** argv) {
         bool prune = false;
         if (oc.getBool("prune.in-net")) {
             if (!oc.isSet("net")) {
-                throw ProcessError("In order to prune the input on the net, you have to supply a network.");
+                throw ProcessError(TL("In order to prune the input on the net, you have to supply a network."));
             }
             bool ok = true;
             // !!! no proper error handling
             Boundary offsets = GeomConvHelper::parseBoundaryReporting(
-                    oc.getString("prune.in-net.offsets"), "--prune.on-net.offsets", nullptr, ok, true, true);
+                                   oc.getString("prune.in-net.offsets"), "--prune.on-net.offsets", nullptr, ok, true, true);
             pruningBoundary.setOffsets(
-                                  pruningBoundary.xmin() - offsets.xmin(),
-                                  pruningBoundary.ymin() - offsets.ymin(),
-                                  pruningBoundary.xmax() + offsets.xmax(),
-                                  pruningBoundary.ymax() + offsets.ymax());
+                pruningBoundary.xmin() - offsets.xmin(),
+                pruningBoundary.ymin() - offsets.ymin(),
+                pruningBoundary.xmax() + offsets.xmax(),
+                pruningBoundary.ymax() + offsets.ymax());
             prune = true;
         }
         if (oc.isSet("prune.boundary")) {
@@ -308,7 +311,7 @@ main(int argc, char** argv) {
         if (!oc.isSet("type-file")) {
             const char* sumoPath = std::getenv("SUMO_HOME");
             if (sumoPath == nullptr) {
-                WRITE_WARNING("Environment variable SUMO_HOME is not set, using built in type maps.");
+                WRITE_WARNING(TL("Environment variable SUMO_HOME is not set, using built in type maps."));
             } else {
                 const std::string path = sumoPath + std::string("/data/typemap/");
                 if (oc.isSet("dlr-navteq-poly-files")) {

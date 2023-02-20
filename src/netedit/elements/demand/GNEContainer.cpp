@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -15,7 +15,7 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    May 2019
 ///
-// Representation of containers in NETEDIT
+// Representation of containers in netedit
 /****************************************************************************/
 #include <cmath>
 #include <microsim/devices/MSDevice_BTreceiver.h>
@@ -29,6 +29,7 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/div/GUIBasePersonHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/div/GUIGlobalPostDrawing.h>
 
 #include "GNEContainer.h"
 #include "GNERouteHandler.h"
@@ -161,8 +162,8 @@ GNEContainer::GNESelectedContainersPopupMenu::onCmdTransform(FXObject* obj, FXSe
 // ===========================================================================
 
 GNEContainer::GNEContainer(SumoXMLTag tag, GNENet* net) :
-    GNEDemandElement("", net, GLO_CONTAINER, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-{}, {}, {}, {}, {}, {}) {
+    GNEDemandElement("", net, GLO_CONTAINER, tag, GUIIconSubSys::getIcon(GUIIcon::CONTAINER),
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}) {
     // reset default values
     resetDefaultValues();
     // set end and vehPerHours
@@ -172,8 +173,9 @@ GNEContainer::GNEContainer(SumoXMLTag tag, GNENet* net) :
 
 
 GNEContainer::GNEContainer(SumoXMLTag tag, GNENet* net, GNEDemandElement* pType, const SUMOVehicleParameter& containerparameters) :
-    GNEDemandElement(containerparameters.id, net, (tag == SUMO_TAG_CONTAINERFLOW) ? GLO_CONTAINERFLOW : GLO_CONTAINER, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-{}, {}, {}, {}, {pType}, {}),
+    GNEDemandElement(containerparameters.id, net, (tag == SUMO_TAG_CONTAINERFLOW) ? GLO_CONTAINERFLOW : GLO_CONTAINER, tag,
+                     (tag == SUMO_TAG_CONTAINERFLOW) ? GUIIconSubSys::getIcon(GUIIcon::CONTAINERFLOW) : GUIIconSubSys::getIcon(GUIIcon::CONTAINER),
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {pType}, {}),
 SUMOVehicleParameter(containerparameters) {
     // set manually vtypeID (needed for saving)
     vtypeid = pType->getID();
@@ -365,7 +367,9 @@ void
 GNEContainer::drawGL(const GUIVisualizationSettings& s) const {
     bool drawContainer = true;
     // check if container can be drawn
-    if (!myNet->getViewNet()->getNetworkViewOptions().showDemandElements()) {
+    if (color.alpha() == 0) {
+        drawContainer = false;
+    } else if (!myNet->getViewNet()->getNetworkViewOptions().showDemandElements()) {
         drawContainer = false;
     } else if (!myNet->getViewNet()->getDataViewOptions().showDemandElements()) {
         drawContainer = false;
@@ -416,8 +420,22 @@ GNEContainer::drawGL(const GUIVisualizationSettings& s) const {
             }
             // pop matrix
             GLHelper::popMatrix();
+            // draw line between junctions if container plan isn't valid
+            for (const auto& containerPlan : getChildDemandElements()) {
+                if (containerPlan->getTagProperty().isContainerPlan() && (containerPlan->getParentJunctions().size() > 0) && !myNet->getPathManager()->isPathValid(containerPlan)) {
+                    drawJunctionLine(containerPlan);
+                }
+            }
             // pop name
             GLHelper::popName();
+            // draw stack label
+            if (myStackedLabelNumber > 0) {
+                drawStackLabel("container", Position(containerPosition.x() - 2.5, containerPosition.y() - 0.8), -90, 1.3, 5, getExaggeration(s));
+            }
+            // draw flow label
+            if (myTagProperty.isFlow()) {
+                drawFlowLabel(Position(containerPosition.x() - 1, containerPosition.y() - 4.25), -90, 1.8, 2, getExaggeration(s));
+            }
             // draw name
             drawName(containerPosition, s.scale, s.containerName, s.angle);
             if (s.personValue.show(this)) {
@@ -425,16 +443,29 @@ GNEContainer::drawGL(const GUIVisualizationSettings& s) const {
                 const double value = getColorValue(s, s.containerColorer.getActive());
                 GLHelper::drawTextSettings(s.personValue, toString(value), containerValuePosition, s.scale, s.angle, GLO_MAX - getType());
             }
+            // check if mouse is over element
+            mouseWithinGeometry(containerPosition, 0.5, 0.2, -2.5, 0, 0);
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), exaggeration);
-            // check if dotted contours has to be drawn
+            // inspect contour
             if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                 // draw using drawDottedSquaredShape
-                GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::INSPECT, s, containerPosition, 0.5, 0.2, -2.5, 0, 0, exaggeration);
+                GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::INSPECT, containerPosition, 0.5, 0.2, -2.5, 0, 0, exaggeration);
             }
+            // front element contour
             if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
                 // draw using drawDottedSquaredShape
-                GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::FRONT, s, containerPosition, 0.5, 0.2, -2.5, 0, 0, exaggeration);
+                GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::FRONT, containerPosition, 0.5, 0.2, -2.5, 0, 0, exaggeration);
+            }
+            // delete contour
+            if (myNet->getViewNet()->drawDeleteContour(this, this)) {
+                // draw using drawDottedSquaredShape
+                GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::REMOVE, containerPosition, 0.5, 0.2, -2.5, 0, 0, exaggeration);
+            }
+            // select contour
+            if (myNet->getViewNet()->drawSelectContour(this, this)) {
+                // draw using drawDottedSquaredShape
+                GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::SELECT, containerPosition, 0.5, 0.2, -2.5, 0, 0, exaggeration);
             }
         }
     }
@@ -857,6 +888,8 @@ GNEContainer::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             // update microsimID
             setMicrosimID(value);
+            // update id
+            id = value;
             // Change IDs of all container plans children
             for (const auto& containerPlans : getChildDemandElements()) {
                 containerPlans->setMicrosimID(getID());

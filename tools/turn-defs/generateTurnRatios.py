@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2010-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2010-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -46,7 +46,7 @@ def get_options(args=None):
     optParser.add_option("-o", "--output-file", dest="outfile",
                          default="turnRatios.add.xml", help="define the output filename")
     optParser.add_option("-r", "--route-files", dest="routefiles",
-                         help="define the route file seperated by comma(mandatory)")
+                         help="define the route file separated by comma(mandatory)")
     optParser.add_option("-p", "--probabilities", dest="prob", action="store_true", default=False,
                          help=" calculate the turning probabilities instead of traffic volumes")
     optParser.add_option("--id", default="generated",
@@ -107,7 +107,8 @@ def getFlows(options):
     if options.interval is None:
         yield intervalEdgePairFlowsMap[0], minDepart, maxDepart
     else:
-        for begin, edgePairFlowsMap in intervalEdgePairFlowsMap.items():
+        for begin in sorted(intervalEdgePairFlowsMap.keys()):
+            edgePairFlowsMap = intervalEdgePairFlowsMap[begin]
             yield edgePairFlowsMap, begin, begin + interval
 
 

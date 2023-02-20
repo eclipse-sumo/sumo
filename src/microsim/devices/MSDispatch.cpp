@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2007-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2007-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -56,6 +56,15 @@ MSDispatch::MSDispatch(const Parameterised::Map& params) :
     }
 }
 
+MSDispatch::~MSDispatch() {
+    for (auto item : myGroupReservations) {
+        for (Reservation* res : item.second) {
+            delete res;
+        }
+    }
+    myGroupReservations.clear();
+}
+
 
 Reservation*
 MSDispatch::addReservation(MSTransportable* person,
@@ -85,7 +94,7 @@ MSDispatch::addReservation(MSTransportable* person,
                     && res->fromPos == fromPos
                     && res->toPos == toPos) {
                 if (res->persons.size() > 0 && (*res->persons.begin())->isPerson() != person->isPerson()) {
-                    WRITE_WARNINGF("Mixing reservations of persons and containers with the same group is not supported for % and %",
+                    WRITE_WARNINGF(TL("Mixing reservations of persons and containers with the same group is not supported for % and %"),
                                    (*res->persons.begin())->getID(), person->getID());
                 }
                 if ((person->isPerson() && (int)res->persons.size() >= maxCapacity) ||
@@ -188,11 +197,11 @@ MSDispatch::servedReservation(const Reservation* res) {
     }
     auto it = myGroupReservations.find(res->group);
     if (it == myGroupReservations.end()) {
-        throw ProcessError("Inconsistent group reservations.");
+        throw ProcessError(TL("Inconsistent group reservations."));
     }
     auto it2 = std::find(it->second.begin(), it->second.end(), res);
     if (it2 == it->second.end()) {
-        throw ProcessError("Inconsistent group reservations (2).");
+        throw ProcessError(TL("Inconsistent group reservations (2)."));
     }
     myRunningReservations.insert(*it2);
     const_cast<Reservation*>(*it2)->state = Reservation::ASSIGNED;

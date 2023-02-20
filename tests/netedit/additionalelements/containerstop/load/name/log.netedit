@@ -1,2 +1,2 @@
 Error: Could not build containerStop with ID 'containerStop_00' in netedit; declared twice.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\additionalelements\containerstop\load\name\input_additionals.add.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\additionalelements\containerstop\load\name\additionals.add.xml failed.

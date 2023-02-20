@@ -2,4 +2,4 @@ Error: Attribute 'pos' in definition of a access Invalid Number Format (double) 
 Error: Attribute 'pos' in definition of a access is empty.
 Error: Could not build access with ID 'busStop_0' in netedit; Invalid position over lane.
 Warning: Could not build access in netedit; busStop parent already owns an access in the edge '3'
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\additionalelements\access\load\pos\input_additionals.add.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\additionalelements\access\load\pos\additionals.add.xml failed.

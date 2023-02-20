@@ -1,7 +1,7 @@
 /* XPM */
 static const char *vshape_rickshaw_xpm[] = {
 /* columns rows colors chars-per-pixel */
-"64 32 5 1 ",
+"64 32 5 1",
 "  c #B3B300",
 ". c #B4B400",
 "X c #FCFC00",

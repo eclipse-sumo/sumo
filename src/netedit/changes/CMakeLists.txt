@@ -31,6 +31,8 @@ set(netedit_changes_SRCS
    GNEChange_DataInterval.cpp
    GNEChange_GenericData.h
    GNEChange_GenericData.cpp
+   GNEChange_MeanData.h
+   GNEChange_MeanData.cpp
    GNEChange_Children.h
    GNEChange_Children.cpp
    )

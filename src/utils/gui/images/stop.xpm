@@ -1,5 +1,6 @@
 /* XPM */
 static const char * stop_xpm[] = {
+/* columns rows colors chars-per-pixel */
 "15 16 66 1",
 " 	c Black",
 ".	c #ffbeab",
@@ -67,6 +68,7 @@ static const char * stop_xpm[] = {
 "F	c #a82700",
 "G	c #9c2400",
 "H	c None",
+/* pixels */
 "               ",
 " .XoO+@#$%&*=- ",
 " XoO;@#$%:*>-, ",
@@ -82,4 +84,5 @@ static const char * stop_xpm[] = {
 " NavClibfgnBVZ ",
 " avCAibfSnBDFG ",
 "               ",
-"HHHHHHHHHHHHHHH"};
+"HHHHHHHHHHHHHHH"
+};

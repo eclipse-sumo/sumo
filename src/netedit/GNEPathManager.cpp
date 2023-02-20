@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -15,10 +15,9 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    Feb 2011
 ///
-// Manager for paths in NETEDIT (routes, trips, flows...)
+// Manager for paths in netedit (routes, trips, flows...)
 /****************************************************************************/
 
-#include <netbuild/NBEdgeCont.h>
 #include <netbuild/NBNetBuilder.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
@@ -190,7 +189,8 @@ GNEPathManager::Segment::Segment() :
 // GNEPathManager::PathElement - methods
 // ---------------------------------------------------------------------------
 
-GNEPathManager::PathElement::PathElement(const int options) :
+GNEPathManager::PathElement::PathElement(GUIGlObjectType type, const std::string& microsimID, FXIcon* icon, const int options) :
+    GUIGlObject(type, microsimID, icon),
     myOption(options) {
 }
 
@@ -225,11 +225,6 @@ GNEPathManager::PathElement::isDataElement() const {
 bool
 GNEPathManager::PathElement::isRoute() const {
     return (myOption & PathElement::Options::ROUTE) != 0;
-}
-
-
-GNEPathManager::PathElement::PathElement() :
-    myOption(PathElement::Options::NETWORK_ELEMENT) {
 }
 
 // ---------------------------------------------------------------------------
@@ -373,12 +368,12 @@ GNEPathManager::PathCalculator::calculateReachability(const SUMOVehicleClass vCl
         std::vector<GNEEdge*> sucessors;
         // get sucessor edges
         for (const auto& sucessorEdge : edge->getToJunction()->getGNEOutgoingEdges()) {
-            // check if edge is connected with sucessor edge
+            // check if edge is connected with successor edge
             if (consecutiveEdgesConnected(vClass, edge, sucessorEdge)) {
                 sucessors.push_back(sucessorEdge);
             }
         }
-        // add sucessors to check vector
+        // add successors to check vector
         for (const auto& nextEdge : sucessors) {
             // revisit edge via faster path
             if ((reachableEdges.count(nextEdge) == 0) || (reachableEdges[nextEdge] > traveltime)) {
@@ -599,6 +594,34 @@ GNEPathManager::~GNEPathManager() {
 GNEPathManager::PathCalculator*
 GNEPathManager::getPathCalculator() {
     return myPathCalculator;
+}
+
+
+const GNEPathManager::PathElement*
+GNEPathManager::getPathElement(const GUIGlObject* GLObject) const {
+    // first parse pathElement
+    const auto pathElement = dynamic_cast<const GNEPathManager::PathElement*>(GLObject);
+    if (pathElement == nullptr) {
+        return nullptr;
+    } else {
+        // find it in paths
+        auto it = myPaths.find(pathElement);
+        if (it == myPaths.end()) {
+            return nullptr;
+        } else {
+            return it->first;
+        }
+    }
+}
+
+
+const std::vector<GNEPathManager::Segment*>&
+GNEPathManager::getPathElementSegments(GNEPathManager::PathElement* pathElement) const {
+    if (myPaths.count(pathElement) > 0) {
+        return myPaths.at(pathElement);
+    } else {
+        return myEmptySegments;
+    }
 }
 
 

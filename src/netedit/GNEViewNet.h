@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -38,7 +38,7 @@ class GNEViewParent;
 // ===========================================================================
 /**
  * @class GNEViewNet
- * Microsocopic view at the simulation
+ * Microscopic view at the simulation
  */
 class GNEViewNet : public GUISUMOAbstractView {
     /// @brief FOX-declaration
@@ -54,13 +54,12 @@ public:
      * @param[in] app main windows
      * @param[in] viewParent viewParent of this viewNet
      * @param[in] net traffic net
-     * @param[in] newNet check if we're creating a new net, or loading an existent
      * @param[in] undoList pointer to UndoList module
      * @param[in] glVis a reference to GLVisuals
      * @param[in] share a reference to FXCanvas
      */
     GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMainWindow& app,
-               GNEViewParent* viewParent, GNENet* net, const bool newNet, GNEUndoList* undoList,
+               GNEViewParent* viewParent, GNENet* net, GNEUndoList* undoList,
                FXGLVisual* glVis, FXGLCanvas* share);
 
     /// @brief destructor
@@ -84,6 +83,9 @@ public:
     /// @brief get objects under cursor
     const GNEViewNetHelper::ObjectsUnderCursor& getObjectsUnderCursor() const;
 
+    /// @brief Update objects under cursor in the given position
+    void updateObjectsUnderCursor(const Position& pos);
+
     /// @brief get move multiple element values
     const GNEViewNetHelper::MoveMultipleElementValues& getMoveMultipleElementValues() const;
 
@@ -98,7 +100,8 @@ public:
 
     ///@brief recalibrate color scheme according to the current value range
     void buildColorRainbow(const GUIVisualizationSettings& s, GUIColorScheme& scheme, int active, GUIGlObjectType objectType,
-                           bool hide = false, double hideThreshold = 0.);
+                           bool hide = false, double hideThreshold = 0,
+                           bool hide2 = false, double hideThreshold2 = 0);
 
     /// @brief return list of available edge parameters
     std::vector<std::string> getEdgeLaneParamKeys(bool edgeKeys) const;
@@ -110,7 +113,13 @@ public:
     std::vector<std::string> getRelDataAttrs() const;
 
     /// @brief open object dialog
-    void openObjectDialogAtCursor();
+    void openObjectDialogAtCursor(const FXEvent* ev);
+
+    /// @brief open delete dialog at cursor
+    void openDeleteDialogAtCursor(const std::vector<GUIGlObject*>& GLObjects);
+
+    /// @brief open select dialog at cursor
+    void openSelectDialogAtCursor(const std::vector<GUIGlObject*>& GLObjects);
 
     // save visualization settings
     void saveVisualizationSettings() const;
@@ -143,6 +152,12 @@ public:
 
     /// @brief called when user releases mouse's left button
     long onLeftBtnRelease(FXObject*, FXSelector, void*);
+
+    /// @brief called when user press mouse's left button
+    long onMiddleBtnPress(FXObject*, FXSelector, void*);
+
+    /// @brief called when user releases mouse's left button
+    long onMiddleBtnRelease(FXObject*, FXSelector, void*);
 
     /// @brief called when user press mouse's right button
     long onRightBtnPress(FXObject*, FXSelector, void*);
@@ -206,6 +221,12 @@ public:
     /// @brief reset custom edge lengths
     long onCmdResetLength(FXObject*, FXSelector, void*);
 
+    /// @brief use edge as template
+    long onCmdEdgeUseAsTemplate(FXObject*, FXSelector, void*);
+
+    /// @brief apply template to edge
+    long onCmdEgeApplyTemplate(FXObject*, FXSelector, void*);
+
     /// @brief simply shape of current polygon
     long onCmdSimplifyShape(FXObject*, FXSelector, void*);
 
@@ -224,7 +245,7 @@ public:
     /// @brief set as first geometry point the closes geometry point
     long onCmdSetFirstGeometryPoint(FXObject*, FXSelector, void*);
 
-    /// @brief transform POI to POILane, and viceversa
+    /// @brief transform POI to POILane, and vice versa
     long onCmdTransformPOI(FXObject*, FXSelector, void*);
 
     /// @brief set custom geometry point
@@ -304,6 +325,9 @@ public:
 
     /// @brief edit crossing shape
     long onCmdEditCrossingShape(FXObject*, FXSelector, void*);
+
+    /// @brief edit walkingArea shape
+    long onCmdEditWalkingAreaShape(FXObject*, FXSelector, void*);
 
     /// @name View options network call backs
     /// @{
@@ -424,9 +448,6 @@ public:
     /// @brief change parameter in interval bar
     long onCmdIntervalBarSetParameter(FXObject*, FXSelector, void*);
 
-    /// @brief set front element using dialog
-    long onCmdSetFrontElement(FXObject*, FXSelector, void*);
-
     /// @}
 
     /// @brief select AC under cursor
@@ -492,6 +513,12 @@ public:
     /// @brief draw front attributeCarrier
     void drawTranslateFrontAttributeCarrier(const GNEAttributeCarrier* AC, double typeOrLayer, const double extraOffset = 0);
 
+    /// @brief check if draw delete contour
+    bool drawDeleteContour(const GUIGlObject* GLObject, const GNEAttributeCarrier* AC) const;
+
+    /// @brief check if draw select contour
+    bool drawSelectContour(const GUIGlObject* GLObject, const GNEAttributeCarrier* AC) const;
+
     /// @brief get last created route
     GNEDemandElement* getLastCreatedRoute() const;
 
@@ -500,6 +527,9 @@ public:
 
     /// @brief set statusBar text
     void setStatusBarText(const std::string& text);
+
+    /// @brief reset last clicked position
+    void resetLastClickedPosition();
 
     /// @brief whether to autoselect nodes or to lanes
     bool autoSelectNodes();
@@ -522,11 +552,14 @@ public:
     /// @brief ask about change supermode
     bool aksChangeSupermode(const std::string& operation, Supermode expectedSupermode);
 
-    /// @brief check if we're seleting detectors in TLS mode
+    /// @brief check if we're selecting detectors in TLS mode
     bool selectingDetectorsTLSMode() const;
 
-    /// @brief check if we're seleting juncitons in TLS mode
+    /// @brief check if we're selecting junctions in TLS mode
     bool selectingJunctionsTLSMode() const;
+
+    /// @brief get variable used to save elements
+    GNEViewNetHelper::SaveElements& getSaveElements();
 
 protected:
     /// @brief FOX needs this
@@ -537,9 +570,6 @@ protected:
 
     /// @brief called after some features are already initialized
     void doInit();
-
-    /// @brief open move dialog at cursor
-    void openMoveDialogAtCursor();
 
 private:
     /// @name structs related with modes and testing mode
@@ -649,8 +679,14 @@ private:
     /// @brief draw preview roundabout
     bool myDrawPreviewRoundabout = false;
 
-    /// @brief container used for move dialog
-    std::map<FXObject*, GNEAttributeCarrier*> myMoveDialogElementContainer;
+    /// @brief last clicked position
+    Position myLastClickedPosition = Position::INVALID;
+
+    /// @brief flag for post-drawing (used for dotted contours)
+    bool myPostDrawing = false;
+
+    /// @brief flag for mark if during this frame a popup was created (needed to avoid problems in linux with CursorDialogs)
+    bool myCreatedPopup = false;
 
     /// @brief create edit mode buttons and elements
     void buildEditModeControls();
@@ -688,6 +724,9 @@ private:
     /// @brief try to retrieve a crossing at popup position
     GNECrossing* getCrossingAtPopupPosition();
 
+    /// @brief try to retrieve a walkingArea at popup position
+    GNEWalkingArea* getWalkingAreaAtPopupPosition();
+
     /// @brief try to retrieve a additional at popup position
     GNEAdditional* getAdditionalAtPopupPosition();
 
@@ -709,7 +748,7 @@ private:
     /// @brief remove restricted lane
     bool removeRestrictedLane(SUMOVehicleClass vclass);
 
-    /// @brief Auxiliar function used by onLeftBtnPress(...)
+    /// @brief Auxiliary function used by onLeftBtnPress(...)
     void processClick(void* eventData);
 
     /// @brief update cursor after every click/key press/release
@@ -735,6 +774,15 @@ private:
 
     /// @brief draw temporal Junction TLS Lines
     void drawTemporalJunctionTLSLines() const;
+
+    /// @brief draw delete dotted contours
+    void drawDeleteDottedContour();
+
+    /// @brief draw select dotted contours
+    void drawSelectDottedContour();
+
+    /// @brief draw circle in testing mode (neede for grid)
+    void drawTestsCircle() const;
 
     /// @}
 

@@ -1,5 +1,5 @@
-Eclipse SUMO netconvert Version v1_14_1+0870-d4568def0e1
- Copyright (C) 2001-2022 German Aerospace Center (DLR) and others; https://sumo.dlr.de
+Eclipse SUMO netconvert Version v1_16_0+0027-a0cc867
+ Copyright (C) 2001-2023 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
  SUMO.
 
@@ -58,6 +58,8 @@ Output Options:
                                         FILE
   -p, --plain-output-prefix FILE       Prefix of files to write plain xml
                                         nodes, edges and connections to
+  --plain-output.lanes                 Write all lanes and their attributes
+                                        even when they are not customized
   --junctions.join-output FILE         Writes information about joined
                                         junctions to FILE (can be loaded as
                                         additional node-file to reproduce joins
@@ -90,6 +92,11 @@ Output Options:
   --opendrive-output.straight-threshold FLOAT  Builds parameterized curves
                                         whenever the angular change  between
                                         straight segments exceeds FLOAT degrees
+  --opendrive-output.lefthand-left     Write lanes in lefthand networks on the
+                                        left side (positive indices)
+  --opendrive-output.shape-match-dist FLOAT  Match loaded shapes to the closest
+                                        edge within FLOAT and export as road
+                                        objects
 
 Projection Options:
   --simple-projection                  Uses a simple method for projection
@@ -195,6 +202,8 @@ Processing Options:
   --opposites.guess.fix-lengths        Ensure that opposite edges have the same
                                         length
   --fringe.guess                       Enable guessing of network fringe nodes
+  --fringe.guess.speed-threshold FLOAT  Guess disconnected edges above the given
+                                        speed as outer fringe
   --lefthand                           Assumes left-hand traffic on the network
   --edges.join                         Merges edges which connect the same
                                         nodes and are close to each other
@@ -220,6 +229,10 @@ Building Defaults Options:
   --default.bikelane-width FLOAT       The default width of added bike lanes
   --default.crossing-width FLOAT       The default width of a pedestrian
                                         crossing
+  --default.crossing-speed FLOAT       The default speed 'limit' on a
+                                        pedestrian crossing (in m/s)
+  --default.walkingarea-speed FLOAT    The default speed 'limit' on a
+                                        pedestrian walkingarea (in m/s)
   --default.allow STR                  The default for allowed vehicle classes
   --default.disallow STR               The default for disallowed vehicle
                                         classes
@@ -265,6 +278,9 @@ TLS Building Options:
                                         OSM-derived networks
   --tls.guess-signals.dist FLOAT       Distance for interpreting nodes as
                                         signal locations
+  --tls.guess-signals.slack INT        Number of uncontrolled entry edges to
+                                        accept and still consider the central
+                                        node as a traffic light
   --tls.cycle.time INT                 Use INT as cycle duration
   --tls.green.time INT                 Use INT as green phase duration
   -D, --tls.yellow.min-decel FLOAT     Defines smallest vehicle deceleration
@@ -319,6 +335,8 @@ TLS Building Options:
                                         connections that share the same states
   --tls.ungroup-signals                Assign a distinct tls link index to
                                         every connection
+  --tls.rebuild                        rebuild all traffic light plans in the
+                                        network
 
 Ramp Guessing Options:
   --ramps.guess                        Enable ramp-guessing
@@ -381,6 +399,8 @@ Junctions Options:
                                         right-before-left junctions when the
                                         incoming edge speeds are below FLOAT
                                         (m/s)
+  --junctions.left-before-right        Build left-before-right junctions
+                                        instead of right-before-left junctions
   --no-internal-links                  Omits internal links
   --no-turnarounds                     Disables building turnarounds
   --no-turnarounds.tls                 Disables building turnarounds at
@@ -403,6 +423,8 @@ Junctions Options:
                                         exclude from joining
   --junctions.join-same                Joins junctions that have the same
                                         coordinates even if not connected
+  --max-join-ids INT                   Abbreviate junction or TLS id if it
+                                        joins more than INT junctions
   --junctions.corner-detail INT        Generate INT intermediate points to
                                         smooth out intersection corners
   --junctions.internal-link-detail INT  Generate INT intermediate points to
@@ -532,9 +554,10 @@ Formats Options:
   --osm.oneway-spread-right            Whether one-way roads should be spread
                                         to the side instead of centered
   --osm.lane-access                    Import lane-specific access restrictions
-  --osm.bike-access                    Check additional attributes to fix
-                                        directions and permissions on bike paths
+  --osm.bike-access                    Import bike lanes and fix directions and
+                                        permissions on bike paths
   --osm.sidewalks                      Import sidewalks
+  --osm.crossings                      Import crossings
   --osm.turn-lanes                     Import turning arrows from OSM to help
                                         with connection building
   --osm.stop-output.length FLOAT       The default length of a public transport
@@ -551,6 +574,8 @@ Formats Options:
                                         be imported from OSM via
                                         osm.all-attributes (set 'all' to import
                                         all)
+  --osm.speedlimit-none FLOAT          The speed limit to be set when there is
+                                        no actual speed limit in reality
   --matsim.keep-length                 The edge lengths given in the
                                         MATSIM-file will be kept
   --matsim.lanes-from-capacity         The lane number will be computed from
@@ -561,6 +586,8 @@ Formats Options:
   --shapefile.type-id STR              Read type ids from column STR
   --shapefile.laneNumber STR           Read lane number from column STR
   --shapefile.speed STR                Read speed from column STR
+  --shapefile.length STR               Read custom edge length from column STR
+  --shapefile.width STR                Read total edge width from column STR
   --shapefile.name STR                 Read (non-unique) name from column STR
   --shapefile.node-join-dist FLOAT     Distance threshold for determining
                                         whether distinct shapes are connected
@@ -615,10 +642,11 @@ Report Options:
   -?, --help                           Prints this screen or selected topics
   -V, --version                        Prints the current version
   -X, --xml-validation STR             Set schema validation scheme of XML
-                                        inputs ("never", "auto" or "always")
-  --xml-validation.net STR             Set schema validation scheme of SUMO
-                                        network inputs ("never", "auto" or
+                                        inputs ("never", "local", "auto" or
                                         "always")
+  --xml-validation.net STR             Set schema validation scheme of SUMO
+                                        network inputs ("never", "local", "auto"
+                                        or "always")
   -W, --no-warnings                    Disables output of warnings
   --aggregate-warnings INT             Aggregate warnings of the same type
                                         whenever more than INT occur
@@ -627,6 +655,7 @@ Report Options:
   --message-log FILE                   Writes all non-error messages to FILE
                                         (implies verbose)
   --error-log FILE                     Writes all warnings and errors to FILE
+  --language STR                       Language to use in messages
   --ignore-errors                      Continue on broken input
   --ignore-errors.connections          Continue on invalid connections
   --show-errors.connections-first-try  Show errors in connections at parsing

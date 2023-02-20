@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -35,7 +35,7 @@
 // GNEContainerFrame - methods
 // ---------------------------------------------------------------------------
 
-GNEContainerFrame::GNEContainerFrame(GNEViewParent *viewParent, GNEViewNet* viewNet) :
+GNEContainerFrame::GNEContainerFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     GNEFrame(viewParent, viewNet, "Containers"),
     myRouteHandler("", viewNet->getNet(), true, false),
     myContainerBaseObject(new CommonXMLStructure::SumoBaseObject(nullptr)) {
@@ -60,6 +60,9 @@ GNEContainerFrame::GNEContainerFrame(GNEViewParent *viewParent, GNEViewNet* view
 
     // create GNEPathCreator Module
     myPathCreator = new GNEPathCreator(this);
+
+    // create legend label
+    myPathLegend = new GNEPathLegendModule(this);
 
     // limit path creator to pedestrians
     myPathCreator->setVClass(SVC_PEDESTRIAN);
@@ -111,34 +114,24 @@ GNEContainerFrame::addContainer(const GNEViewNetHelper::ObjectsUnderCursor& obje
     SumoXMLTag clickedACTag = objectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag();
     // first check that current selected container is valid
     if (containerTag == SUMO_TAG_NOTHING) {
-        myViewNet->setStatusBarText("Current selected container isn't valid.");
+        myViewNet->setStatusBarText(TL("Current selected container isn't valid."));
         return false;
     }
     // now check that pType is valid
     if (myTypeSelector->getCurrentDemandElement() == nullptr) {
-        myViewNet->setStatusBarText("Current selected container type isn't valid.");
+        myViewNet->setStatusBarText(TL("Current selected container type isn't valid."));
         return false;
     }
     // finally check that container plan selected is valid
     if (myContainerPlanTagSelector->getCurrentTemplateAC() == nullptr) {
-        myViewNet->setStatusBarText("Current selected container plan isn't valid.");
+        myViewNet->setStatusBarText(TL("Current selected container plan isn't valid."));
         return false;
     }
     // add elements to path creator
     if (clickedACTag == SUMO_TAG_LANE) {
-        const bool result = myPathCreator->addEdge(objectsUnderCursor.getEdgeFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
-        // if we're creating a stop, create it immediately
-        if (result && myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().isStopContainer()) {
-            createPath(false);
-        }
-        return result;
+        return myPathCreator->addEdge(objectsUnderCursor.getEdgeFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
     } else if (clickedACTag == SUMO_TAG_CONTAINER_STOP) {
-        const bool result = myPathCreator->addStoppingPlace(objectsUnderCursor.getAdditionalFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
-        // if we're creating a stop, create it immediately
-        if (result && myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().isStopContainer()) {
-            createPath(false);
-        }
-        return result;
+        return myPathCreator->addStoppingPlace(objectsUnderCursor.getAdditionalFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
     } else if (clickedACTag == SUMO_TAG_JUNCTION) {
         return myPathCreator->addJunction(objectsUnderCursor.getJunctionFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
     } else {
@@ -186,11 +179,14 @@ GNEContainerFrame::tagSelected() {
                 myNeteditAttributes->showNeteditAttributesModule(myContainerPlanTagSelector->getCurrentTemplateAC());
                 // show edge path creator modul
                 myPathCreator->showPathCreatorModule(myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag(), false, false);
+                // show path legend
+                myPathLegend->showPathLegendModule();
             } else {
                 // hide modules
                 myContainerPlanAttributes->hideAttributesCreatorModule();
                 myNeteditAttributes->hideNeteditAttributesModule();
                 myPathCreator->hidePathCreatorModule();
+                myPathLegend->hidePathLegendModule();
             }
         } else {
             // hide modules
@@ -199,6 +195,7 @@ GNEContainerFrame::tagSelected() {
             myContainerPlanAttributes->hideAttributesCreatorModule();
             myNeteditAttributes->hideNeteditAttributesModule();
             myPathCreator->hidePathCreatorModule();
+            myPathLegend->hidePathLegendModule();
         }
     } else {
         // hide all moduls if container isn't valid
@@ -208,6 +205,7 @@ GNEContainerFrame::tagSelected() {
         myContainerPlanAttributes->hideAttributesCreatorModule();
         myNeteditAttributes->hideNeteditAttributesModule();
         myPathCreator->hidePathCreatorModule();
+        myPathLegend->hidePathLegendModule();
     }
 }
 
@@ -237,11 +235,13 @@ GNEContainerFrame::demandElementSelected() {
             myNeteditAttributes->showNeteditAttributesModule(myContainerPlanTagSelector->getCurrentTemplateAC());
             // show edge path creator modul
             myPathCreator->showPathCreatorModule(myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag(), false, false);
+            // show path legend
+            myPathLegend->showPathLegendModule();
             // show warning if we have selected a vType oriented to persons or vehicles
             if (myTypeSelector->getCurrentDemandElement()->getVClass() == SVC_PEDESTRIAN) {
-                WRITE_WARNING("VType with vClass == 'pedestrian' is oriented to pedestrians");
+                WRITE_WARNING(TL("VType with vClass == 'pedestrian' is oriented to pedestrians"));
             } else if (myTypeSelector->getCurrentDemandElement()->getVClass() != SVC_IGNORING) {
-                WRITE_WARNING("VType with vClass != 'ignoring' is not oriented to containers");
+                WRITE_WARNING(TL("VType with vClass != 'ignoring' is not oriented to containers"));
             }
         } else {
             // hide modules
@@ -260,11 +260,11 @@ GNEContainerFrame::demandElementSelected() {
 }
 
 
-void
+bool
 GNEContainerFrame::createPath(const bool /* useLastRoute */) {
     // first check that all attributes are valid
     if (!myContainerAttributes->areValuesValid()) {
-        myViewNet->setStatusBarText("Invalid container parameters.");
+        myViewNet->setStatusBarText(TL("Invalid container parameters."));
     } else if (!myContainerPlanAttributes->areValuesValid()) {
         myViewNet->setStatusBarText("Invalid " + myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTagStr() + " parameters.");
     } else {
@@ -289,11 +289,13 @@ GNEContainerFrame::createPath(const bool /* useLastRoute */) {
             person->computePathElement();
             // enable show all person plans
             myViewNet->getDemandViewOptions().menuCheckShowAllContainerPlans->setChecked(TRUE);
+            return true;
         } else {
             // abort person creation
             myViewNet->getUndoList()->abortAllChangeGroups();
         }
     }
+    return false;
 }
 
 // ---------------------------------------------------------------------------

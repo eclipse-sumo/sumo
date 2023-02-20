@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -57,7 +57,7 @@ public:
      * @return EGO's safe speed for approaching a non-moving obstacle
      * @todo generic Interface, models can call for the values they need
      */
-    double stopSpeed(const MSVehicle* const veh, const double speed, double gap2pred, double decel) const;
+    double stopSpeed(const MSVehicle* const veh, const double speed, double gap2pred, double decel, const CalcReason usage = CalcReason::CURRENT) const;
 
 
     /** @brief Computes the vehicle's safe speed (no dawdling)
@@ -69,7 +69,8 @@ public:
      * @param[in] pred The leading vehicle (LEADER)
      * @return EGO's safe speed
      */
-    double followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const pred = 0) const;
+    double followSpeed(const MSVehicle* const veh, double speed, double gap2pred,
+                       double predSpeed, double predMaxDecel, const MSVehicle* const pred = 0, const CalcReason usage = CalcReason::CURRENT) const;
 
 
     /** @brief Returns the model's name

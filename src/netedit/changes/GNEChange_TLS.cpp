@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -47,7 +47,7 @@ GNEChange_TLS::GNEChange_TLS(GNEJunction* junction, NBTrafficLightDefinition* tl
     if (myTlDef == nullptr) {
         // check forward
         if (!forward) {
-            throw ProcessError("If myTlDef is null, forward cannot be false");
+            throw ProcessError(TL("If myTlDef is null, forward cannot be false"));
         }
         // potential memory leak if this change is never executed
         TrafficLightType type = SUMOXMLDefinitions::TrafficLightTypes.get(OptionsCont::getOptions().getString("tls.default-type"));
@@ -70,7 +70,7 @@ GNEChange_TLS::GNEChange_TLS(GNEJunction* junction, NBTrafficLightDefinition* tl
     if (myTlDef == nullptr) {
         // check forward
         if (!forward) {
-            throw ProcessError("If myTlDef is null, forward cannot be false");
+            throw ProcessError(TL("If myTlDef is null, forward cannot be false"));
         }
         if (myJunction->getNBNode()->isTLControlled()) {
             // copy existing type
@@ -81,7 +81,7 @@ GNEChange_TLS::GNEChange_TLS(GNEJunction* junction, NBTrafficLightDefinition* tl
 }
 
 
-GNEChange_TLS::GNEChange_TLS(GNEJunction* junction, NBTrafficLightDefinition* tlDef, const std::string &newID) :
+GNEChange_TLS::GNEChange_TLS(GNEJunction* junction, NBTrafficLightDefinition* tlDef, const std::string& newID) :
     GNEChange(Supermode::NETWORK, true, false),
     myJunction(junction),
     myTlDef(tlDef),
@@ -130,7 +130,7 @@ GNEChange_TLS::undo() {
         }
     }
     // enable save networkElements
-    myJunction->getNet()->requireSaveNet(true);
+    myJunction->getNet()->getSavingStatus()->requireSaveNetwork();
 }
 
 
@@ -162,16 +162,16 @@ GNEChange_TLS::redo() {
         }
     }
     // enable save networkElements
-    myJunction->getNet()->requireSaveNet(true);
+    myJunction->getNet()->getSavingStatus()->requireSaveNetwork();
 }
 
 
 std::string
 GNEChange_TLS::undoName() const {
     if (myForward) {
-        return ("Undo create " + toString(SUMO_TAG_TRAFFIC_LIGHT));
+        return (TL("Undo create TLS '") + myJunction->getID() + "'");
     } else {
-        return ("Undo delete " + toString(SUMO_TAG_TRAFFIC_LIGHT));
+        return (TL("Undo delete TLS '") + myJunction->getID() + "'");
     }
 }
 
@@ -179,8 +179,8 @@ GNEChange_TLS::undoName() const {
 std::string
 GNEChange_TLS::redoName() const {
     if (myForward) {
-        return ("Redo create " + toString(SUMO_TAG_TRAFFIC_LIGHT));
+        return (TL("Redo create TLS '") + myJunction->getID() + "'");
     } else {
-        return ("Redo delete " + toString(SUMO_TAG_TRAFFIC_LIGHT));
+        return (TL("Redo delete TLS '") + myJunction->getID() + "'");
     }
 }

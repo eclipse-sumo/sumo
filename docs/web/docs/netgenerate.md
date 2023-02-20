@@ -109,6 +109,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--alphanumerical-ids** {{DT_BOOL}} | The Ids of generated nodes use an alphanumerical code for easier readability when possible; *default:* **true** |
 | **-o** {{DT_FILE}}<br> **--output-file** {{DT_FILE}} | The generated net will be written to FILE |
 | **-p** {{DT_FILE}}<br> **--plain-output-prefix** {{DT_FILE}} | Prefix of files to write plain xml nodes, edges and connections to |
+| **--plain-output.lanes** {{DT_BOOL}} | Write all lanes and their attributes even when they are not customized; *default:* **false** |
 | **--junctions.join-output** {{DT_FILE}} | Writes information about joined junctions to FILE (can be loaded as additional node-file to reproduce joins |
 | **--prefix** {{DT_STR}} | Defines a prefix for edge and junction names |
 | **--amitran-output** {{DT_FILE}} | The generated net will be written to FILE using Amitran format |
@@ -144,6 +145,11 @@ the offsets given).
 | **--numerical-ids.edge-start** {{DT_INT}} | Remaps IDs of edges to integers starting at INT; *default:* **2147483647** |
 | **--reserved-ids** {{DT_FILE}} | Ensures that generated ids do not included any of the typed IDs from FILE (sumo-gui selection file format) |
 | **--geometry.split** {{DT_BOOL}} | Splits edges across geometry nodes; *default:* **false** |
+| **-R** {{DT_BOOL}}<br> **--geometry.remove** {{DT_BOOL}} | Replace nodes which only define edge geometry by geometry points (joins edges); *default:* **false** |
+| **--geometry.remove.keep-edges.explicit** {{DT_STR[]}} | Ensure that the given list of edges is not modified |
+| **--geometry.remove.keep-edges.input-file** {{DT_FILE}} | Ensure that the edges in FILE are not modified (Each id on a single line. Selection files from sumo-gui are also supported) |
+| **--geometry.remove.min-length** {{DT_FLOAT}} | Allow merging edges with differing attributes when their length is below min-length; *default:* **0** |
+| **--geometry.remove.width-tolerance** {{DT_FLOAT}} | Allow merging edges with differing lane widths if the difference is below FLOAT; *default:* **0** |
 | **--geometry.max-segment-length** {{DT_FLOAT}} | splits geometry to restrict segment length; *default:* **0** |
 | **--geometry.max-grade** {{DT_FLOAT}} | Warn about edge geometries with a grade in % above FLOAT.; *default:* **10** |
 | **--geometry.max-grade.fix** {{DT_BOOL}} | Smooth edge edge geometries with a grade in above the warning threshold.; *default:* **true** |
@@ -157,10 +163,13 @@ the offsets given).
 | **--opposites.guess** {{DT_BOOL}} | Enable guessing of opposite direction lanes usable for overtaking; *default:* **false** |
 | **--opposites.guess.fix-lengths** {{DT_BOOL}} | Ensure that opposite edges have the same length; *default:* **true** |
 | **--fringe.guess** {{DT_BOOL}} | Enable guessing of network fringe nodes; *default:* **false** |
+| **--fringe.guess.speed-threshold** {{DT_FLOAT}} | Guess disconnected edges above the given speed as outer fringe; *default:* **13.8889** |
 | **--lefthand** {{DT_BOOL}} | Assumes left-hand traffic on the network; *default:* **false** |
 | **--edges.join** {{DT_BOOL}} | Merges edges which connect the same nodes and are close to each other (recommended for VISSIM import); *default:* **false** |
 
 ### Building Defaults
+
+See the [docs](Networks/PlainXML.md) for more info on [junction types](Networks/PlainXML.md#Node_types) and [edge types](Networks/PlainXML.md#type_descriptions).
 
 | Option | Description |
 |--------|-------------|
@@ -174,13 +183,15 @@ the offsets given).
 | **--default.sidewalk-width** {{DT_FLOAT}} | The default width of added sidewalks; *default:* **2** |
 | **--default.bikelane-width** {{DT_FLOAT}} | The default width of added bike lanes; *default:* **1** |
 | **--default.crossing-width** {{DT_FLOAT}} | The default width of a pedestrian crossing; *default:* **4** |
+| **--default.crossing-speed** {{DT_FLOAT}} | The default speed 'limit' on a pedestrian crossing (in m/s); *default:* **2.78** |
+| **--default.walkingarea-speed** {{DT_FLOAT}} | The default speed 'limit' on a pedestrian walkingarea (in m/s); *default:* **2.78** |
 | **--default.allow** {{DT_STR}} | The default for allowed vehicle classes |
 | **--default.disallow** {{DT_STR}} | The default for disallowed vehicle classes |
 | **--default.junctions.keep-clear** {{DT_BOOL}} | Whether junctions should be kept clear by default; *default:* **true** |
 | **--default.junctions.radius** {{DT_FLOAT}} | The default turning radius of intersections; *default:* **4** |
 | **--default.connection-length** {{DT_FLOAT}} | The default length when overriding connection lengths; *default:* **-1** |
 | **--default.right-of-way** {{DT_STR}} | The default algorithm for computing right of way rules ('default', 'edgePriority'); *default:* **default** |
-| **-j** {{DT_STR}}<br> **--default-junction-type** {{DT_STR}} | [traffic_light,priority,right_before_left,traffic_light_right_on_red,priority_stop,allway_stop,...] Determines junction type (see wiki/Networks/PlainXML#Node_types) |
+| **-j** {{DT_STR}}<br> **--default-junction-type** {{DT_STR}} | [traffic_light,priority,right_before_left,left_before_right,traffic_light_right_on_red,priority_stop,allway_stop,...] Determines junction type (see wiki/Networks/PlainXML#Node_types) |
 
 ### Tls Building
 
@@ -219,6 +230,8 @@ the offsets given).
 | **--tls.max-dur** {{DT_INT}} | Default maximum phase duration for traffic lights with variable phase length; *default:* **50** |
 | **--tls.group-signals** {{DT_BOOL}} | Assign the same tls link index to connections that share the same states; *default:* **false** |
 | **--tls.ungroup-signals** {{DT_BOOL}} | Assign a distinct tls link index to every connection; *default:* **false** |
+| **--tls.rebuild** {{DT_BOOL}} | rebuild all traffic light plans in the network; *default:* **false** |
+| **--tls.discard-simple** {{DT_BOOL}} | Does not instatiate traffic lights at geometry-like nodes; *default:* **false** |
 
 ### Edge Removal
 
@@ -245,6 +258,7 @@ the offsets given).
 | Option | Description |
 |--------|-------------|
 | **--junctions.right-before-left.speed-threshold** {{DT_FLOAT}} | Allow building right-before-left junctions when the incoming edge speeds are below FLOAT (m/s); *default:* **13.6111** |
+| **--junctions.left-before-right** {{DT_BOOL}} | Build left-before-right junctions instead of right-before-left junctions; *default:* **false** |
 | **--no-internal-links** {{DT_BOOL}} | Omits internal links; *default:* **false** |
 | **--no-turnarounds** {{DT_BOOL}} | Disables building turnarounds; *default:* **false** |
 | **--no-turnarounds.tls** {{DT_BOOL}} | Disables building turnarounds at tls-controlled junctions; *default:* **false** |
@@ -256,6 +270,7 @@ the offsets given).
 | **--junctions.join** {{DT_BOOL}} | Joins junctions that are close to each other (recommended for OSM import); *default:* **false** |
 | **--junctions.join-dist** {{DT_FLOAT}} | Determines the maximal distance for joining junctions (defaults to 10); *default:* **10** |
 | **--junctions.join-same** {{DT_BOOL}} | Joins junctions that have the same coordinates even if not connected; *default:* **false** |
+| **--max-join-ids** {{DT_INT}} | Abbreviate junction or TLS id if it joins more than INT junctions; *default:* **4** |
 | **--junctions.corner-detail** {{DT_INT}} | Generate INT intermediate points to smooth out intersection corners; *default:* **5** |
 | **--junctions.internal-link-detail** {{DT_INT}} | Generate INT intermediate points to smooth out lanes within the intersection; *default:* **5** |
 | **--junctions.scurve-stretch** {{DT_FLOAT}} | Generate longer intersections to allow for smooth s-curves when the number of lanes changes; *default:* **0** |
@@ -309,12 +324,13 @@ Options](Basics/Using_the_Command_Line_Applications.md#reporting_options).
 | **--print-options** {{DT_BOOL}} | Prints option values before processing; *default:* **false** |
 | **-?** {{DT_BOOL}}<br> **--help** {{DT_BOOL}} | Prints this screen or selected topics; *default:* **false** |
 | **-V** {{DT_BOOL}}<br> **--version** {{DT_BOOL}} | Prints the current version; *default:* **false** |
-| **-X** {{DT_STR}}<br> **--xml-validation** {{DT_STR}} | Set schema validation scheme of XML inputs ("never", "auto" or "always"); *default:* **auto** |
+| **-X** {{DT_STR}}<br> **--xml-validation** {{DT_STR}} | Set schema validation scheme of XML inputs ("never", "local", "auto" or "always"); *default:* **local** |
 | **-W** {{DT_BOOL}}<br> **--no-warnings** {{DT_BOOL}} | Disables output of warnings; *default:* **false** |
 | **--aggregate-warnings** {{DT_INT}} | Aggregate warnings of the same type whenever more than INT occur; *default:* **-1** |
 | **-l** {{DT_FILE}}<br> **--log** {{DT_FILE}} | Writes all messages to FILE (implies verbose) |
 | **--message-log** {{DT_FILE}} | Writes all non-error messages to FILE (implies verbose) |
 | **--error-log** {{DT_FILE}} | Writes all warnings and errors to FILE |
+| **--language** {{DT_STR}} | Language to use in messages; *default:* **C** |
 
 ### Random Number
 

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -236,15 +236,15 @@ bool
 ROMAFrame::checkOptions() {
     OptionsCont& oc = OptionsCont::getOptions();
     if (oc.isSet("assignment-method") && oc.getString("assignment-method") != "incremental" && oc.getString("assignment-method") != "UE" && oc.getString("assignment-method") != "SUE") {
-        WRITE_ERROR("Invalid assignment method '" + oc.getString("assignment-method") + "'.");
+        WRITE_ERRORF(TL("Invalid assignment method '%'."), oc.getString("assignment-method"));
         return false;
     }
     if (oc.getString("route-choice-method") != "gawron" && oc.getString("route-choice-method") != "logit" && oc.getString("route-choice-method") != "lohse") {
-        WRITE_ERROR("Invalid route choice method '" + oc.getString("route-choice-method") + "'.");
+        WRITE_ERRORF(TL("Invalid route choice method '%'."), oc.getString("route-choice-method"));
         return false;
     }
     if (oc.getInt("paths") > 1 && (oc.getString("routing-algorithm") == "CH" || oc.getString("routing-algorithm") == "CHWrapper")) {
-        WRITE_WARNING("Contraction hierarchies do not work with k shortest path search (please use a different routing algorithm)!");
+        WRITE_WARNING(TL("Contraction hierarchies do not work with k shortest path search (please use a different routing algorithm)!"));
     }
     return true;
 }

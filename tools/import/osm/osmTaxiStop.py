@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2020-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2020-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -20,7 +20,6 @@ from __future__ import print_function
 
 import os
 import sys
-import io
 import random
 import argparse
 sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
@@ -54,15 +53,15 @@ def main(options):
     else:
         net = sumolib.net.readNet(options.net_file)
     count = 0
-    fleet_out = io.open(options.fleet_file, "w", encoding="UTF8") if options.fleet_file else None
+    fleet_out = sumolib.openz(options.fleet_file, "w") if options.fleet_file else None
     if fleet_out:
         places = []
-        sumolib.xml.writeHeader(fleet_out, root="additional")
+        sumolib.xml.writeHeader(fleet_out, root="additional", options=options)
         print(u"""     <vType id="taxi" vClass="taxi">
         <param key="has.taxi.device" value="true"/>
     </vType>""", file=fleet_out)
-    with io.open(options.output_file, "w", encoding="UTF8") as output:
-        sumolib.xml.writeHeader(output, root="additional")
+    with sumolib.openz(options.output_file, "w") as output:
+        sumolib.xml.writeHeader(output, root="additional", options=options)
         for n in sumolib.xml.parse(options.osm_file, "node"):
             name = None
             bestLane = None
@@ -86,11 +85,11 @@ def main(options):
                                 break
                 if bestLane:
                     pos = sumolib.geomhelper.polygonOffsetWithMinimumDistanceToPoint(point, bestLane.getShape())
-                    endPos = min(lane.getLength(), max(length, pos + length / 2))
+                    endPos = min(bestLane.getLength(), max(length, pos + length / 2))
                     nameAttr = 'name="%s" ' % name if name else ""
                     stopID = "%s_%s" % (options.type, count)
                     print(u'    <%s id="%s" %slane="%s" startPos="%.2f" endPos="%.2f"/>' %
-                          (options.type, stopID, nameAttr, bestLane.getID(), endPos - length, endPos),
+                          (options.type, stopID, nameAttr, bestLane.getID(), max(0, endPos - length), endPos),
                           file=output)
                     if fleet_out:
                         places += int(length / VEHICLE_LENGTH) * [stopID]
@@ -103,9 +102,10 @@ def main(options):
             random.shuffle(places)
             places = places[:fleet_size]
         for idx, stopID in enumerate(places):
-            print(u'    <trip id="taxi_%s_%s" type="taxi" depart="0.00"><stop busStop="%s" triggered="person"/></trip>' %  # noqa
-                    (stopID, idx, stopID), file=fleet_out)
+            print(u'    <trip id="taxi_%s_%s" type="taxi" depart="0.00">' % (stopID, idx), end=u'', file=fleet_out)
+            print(u'<stop busStop="%s" triggered="person"/></trip>' % stopID, file=fleet_out)
         print(u"</additional>", file=fleet_out)
+        fleet_out.close()
 
 
 if __name__ == "__main__":

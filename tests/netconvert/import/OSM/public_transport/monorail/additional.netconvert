@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-10-13 23:37:00 by Eclipse SUMO netconvert Version v1_14_1+1703-0d7ac1ff3e6
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <osm-files value="osm.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output-file value="net.net.xml"/>
+        <ptstop-output value="additional.xml"/>
+        <ptline-output value="ptlines.xml"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <junctions>
+        <no-internal-links value="true"/>
+    </junctions>
+
+    <railway>
+        <railway.topology.repair value="true"/>
+    </railway>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="-1609100922" name="Westende" lane="-326203720_0" startPos="2323.04" endPos="2523.04" friendlyPos="true">
+        <access lane="252506601_0" pos="6.77" length="12.29" friendlyPos="1"/>
+        <access lane="252506604_0" pos="7.15" length="13.33" friendlyPos="1"/>
+        <access lane="369465575#1_0" pos="3.95" length="14.82" friendlyPos="1"/>
+        <access lane="369465575#2_0" pos="3.98" length="11.62" friendlyPos="1"/>
+        <access lane="369465575#3_0" pos="0.00" length="15.57" friendlyPos="1"/>
+    </busStop>
+    <busStop id="-2511338319" name="Westende" lane="-307459757#1_0" startPos="14.75" endPos="29.75" friendlyPos="true" lines="600 611"/>
+    <busStop id="-271135646" name="Pestalozzistraße" lane="-326203720_0" startPos="1798.58" endPos="1998.58" friendlyPos="true">
+        <access lane="253940345_0" pos="7.68" length="11.81" friendlyPos="1"/>
+        <access lane="253940348_0" pos="8.25" length="12.15" friendlyPos="1"/>
+        <access lane="369463838#1_0" pos="3.98" length="16.59" friendlyPos="1"/>
+        <access lane="369463838#2_0" pos="4.23" length="13.68" friendlyPos="1"/>
+        <access lane="369463838#3_0" pos="0.00" length="15.99" friendlyPos="1"/>
+    </busStop>
+    <busStop id="-271135683" name="Robert-Daum-Platz" lane="-326203720_0" startPos="974.25" endPos="1174.25" friendlyPos="true"/>
+    <busStop id="-3125935756" name="Ohligsmühle" lane="-326203720_0" startPos="300.13" endPos="500.13" friendlyPos="true"/>
+    <busStop id="-380536713" name="Varresbecker Straße" lane="-326203720_0" startPos="3195.53" endPos="3395.53" friendlyPos="true">
+        <access lane="-133902558#1_0" pos="140.95" length="47.00" friendlyPos="1"/>
+        <access lane="133902558#1_0" pos="861.84" length="42.20" friendlyPos="1"/>
+    </busStop>
+    <busStop id="-698362008" name="Löwer" lane="-307459757#1_0" startPos="378.11" endPos="393.11" friendlyPos="true" lines="600 611"/>
+    <busStop id="1609100922" name="Westende" lane="326203720_0" startPos="1455.95" endPos="1655.95" friendlyPos="true" lines="60">
+        <access lane="252506601_0" pos="6.77" length="12.29" friendlyPos="1"/>
+        <access lane="252506604_0" pos="7.15" length="13.33" friendlyPos="1"/>
+        <access lane="369465575#1_0" pos="3.95" length="14.82" friendlyPos="1"/>
+        <access lane="369465575#2_0" pos="3.98" length="11.62" friendlyPos="1"/>
+        <access lane="369465575#3_0" pos="0.00" length="15.57" friendlyPos="1"/>
+    </busStop>
+    <busStop id="2511338319" name="Westende" lane="307459757#1_0" startPos="396.73" endPos="411.73" friendlyPos="true" lines="NE1 600 611"/>
+    <busStop id="271135646" name="Pestalozzistraße" lane="326203720_0" startPos="1980.41" endPos="2180.41" friendlyPos="true" lines="60">
+        <access lane="253940345_0" pos="7.68" length="11.81" friendlyPos="1"/>
+        <access lane="253940348_0" pos="8.25" length="12.15" friendlyPos="1"/>
+        <access lane="369463838#1_0" pos="3.98" length="16.59" friendlyPos="1"/>
+        <access lane="369463838#2_0" pos="4.23" length="13.68" friendlyPos="1"/>
+        <access lane="369463838#3_0" pos="0.00" length="15.99" friendlyPos="1"/>
+    </busStop>
+    <busStop id="271135683" name="Robert-Daum-Platz" lane="326203720_0" startPos="2804.74" endPos="3004.74" friendlyPos="true" lines="60"/>
+    <busStop id="3125935756" name="Ohligsmühle" lane="326203720_0" startPos="3478.85" endPos="3678.85" friendlyPos="true" lines="60"/>
+    <busStop id="380536713" name="Varresbecker Straße" lane="326203720_0" startPos="583.45" endPos="783.45" friendlyPos="true" lines="60">
+        <access lane="-133902558#1_0" pos="140.95" length="47.00" friendlyPos="1"/>
+        <access lane="133902558#1_0" pos="861.84" length="42.20" friendlyPos="1"/>
+    </busStop>
+    <busStop id="704235124" name="Löwer" lane="307459757#0_0" startPos="191.54" endPos="206.54" friendlyPos="true" lines="NE1 600 611"/>
+    <busStop id="704235222" name="Pestalozzistraße" lane="5980164#3_0" startPos="11.98" endPos="26.98" friendlyPos="true" lines="NE1 600 611"/>
+</additional>

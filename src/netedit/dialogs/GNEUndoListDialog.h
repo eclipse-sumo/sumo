@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -20,7 +20,9 @@
 #pragma once
 #include <config.h>
 
-#include <utils/foxtools/MFXTreeListDynamic.h>
+#include <utils/foxtools/MFXTextFieldTooltip.h>
+#include <vector>
+#include <string>
 
 
 // ===========================================================================
@@ -49,13 +51,13 @@ public:
     /// @brief destructor
     ~GNEUndoListDialog();
 
-    /// @brief open window
-    void open();
+    /// @brief show window
+    void show();
 
     /// @brief hide window
     void hide();
 
-    /// @brief shown
+    /// @brief check if dialog is shown
     bool shown() const;
 
     /// @brief Move the focus to this window
@@ -66,26 +68,92 @@ public:
     /// @brief event after press close button
     long onCmdClose(FXObject*, FXSelector, void*);
 
-    /// @brief event after update command
-    long onCmdUpdate(FXObject*, FXSelector, void*);
+    /// @brief event after select row
+    long onCmdSelectRow(FXObject*, FXSelector, void*);
 
     /// @}
-
-    /// @brief update data table
-    void updateList();
 
 protected:
     /// @brief FOX needs this
     FOX_CONSTRUCTOR(GNEUndoListDialog)
 
+    /// @brief update list destroying and creating rows
+    void updateList();
+
+    /// @brief recalc list destroying and creating rows
+    void recalcList();
+
+    /// @struct class for keep every row value
+    struct UndoListRow {
+        /// @brief constructor
+        UndoListRow(const int index_, FXIcon* icon_, const std::string description_, const std::string timestamp_);
+
+        /// @brief index uses for count undo/redos
+        int index = 0;
+
+        /// @brief icon associated with undo/redo operation
+        FXIcon* icon = nullptr;
+
+        /// @brief definition of undo/redo operation
+        std::string description;
+
+        /// @brief timestamp
+        std::string timestamp;
+    };
+
+    /// @brief row used for show GUI row elements
+    class GUIRow {
+
+    public:
+        /// @brief constructor
+        GUIRow(GNEUndoListDialog* undoListDialog, FXVerticalFrame* mainFrame, MFXStaticToolTip* staticToolTip);
+
+        /// @brief destructor
+        ~GUIRow();
+
+        /// @brief update row
+        void update(const UndoListRow& row);
+
+        /// @brief get index
+        int getIndex() const;
+
+        /// @brief get radio button (read only)
+        const FXRadioButton* getRadioButton() const;
+
+        /// @brief set red background
+        void setRedBackground();
+
+        /// @brief set blue blackground
+        void setBlueBackground();
+
+        /// @brief check row and set background green
+        void checkRow();
+
+    private:
+        /// @brief radioButton
+        FXRadioButton* myRadioButton;
+
+        /// @brief index
+        int myIndex = 0;
+
+        /// @brief label with icon
+        FXLabel* myIcon = nullptr;
+
+        /// @brief textField description
+        MFXTextFieldTooltip* myTextFieldDescription = nullptr;
+
+        /// @brief textField timeStamp
+        FXTextField* myTextFieldTimeStamp = nullptr;
+    };
+
     /// @brief pointer to GNEApplicationWindow
     GNEApplicationWindow* myGNEApp;
 
-    /// @brief tree list dynamic to show the elements to erase
-    MFXTreeListDynamic* myTreeListDynamic;
+    /// @brief frame for rows
+    FXVerticalFrame* myRowFrame = nullptr;
 
-    /// @brief index for last undo element
-    int myLastUndoElement = -1;
+    /// @brief vector with rows
+    std::vector<GUIRow*> myGUIRows;
 
 private:
     /// @brief Invalidated copy constructor.

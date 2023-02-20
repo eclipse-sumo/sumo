@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2012-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -108,11 +108,11 @@ NBRampsComputer::computeRamps(NBNetBuilder& nb, OptionsCont& oc, bool mayAddOrRe
         for (const std::string& i : edges) {
             NBEdge* e = ec.retrieve(i);
             if (noramps.count(i) != 0) {
-                WRITE_WARNINGF("Can not build ramp on edge '%' - the edge is unsuitable.", i);
+                WRITE_WARNINGF(TL("Can not build ramp on edge '%' - the edge is unsuitable."), i);
                 continue;
             }
             if (e == nullptr) {
-                WRITE_WARNINGF("Can not build on ramp on edge '%' - the edge is not known.", i);
+                WRITE_WARNINGF(TL("Can not build on ramp on edge '%' - the edge is not known."), i);
                 continue;
             }
             NBNode* from = e->getFromNode();
@@ -123,7 +123,7 @@ NBRampsComputer::computeRamps(NBNetBuilder& nb, OptionsCont& oc, bool mayAddOrRe
             // load edge again to check offramps
             e = ec.retrieve(i);
             if (e == nullptr) {
-                WRITE_WARNINGF("Can not build off ramp on edge '%' - the edge is not known.", i);
+                WRITE_WARNINGF(TL("Can not build off ramp on edge '%' - the edge is not known."), i);
                 continue;
             }
             NBNode* to = e->getToNode();
@@ -236,12 +236,12 @@ NBRampsComputer::buildOnRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDist
             bool wasFirst = first == curr;
             NBNode* rn = new NBNode(curr->getID() + "-AddedOnRampNode", curr->getGeometry().positionAtOffset(rampLength - currLength));
             if (!nc.insert(rn)) {
-                throw ProcessError("Ups - could not build on-ramp for edge '" + curr->getID() + "' (node could not be build)!");
+                throw ProcessError(TLF("Ups - could not build on-ramp for edge '%' (node could not be build)!", curr->getID()));
             }
             std::string name = curr->getID();
             bool ok = ec.splitAt(dc, curr, rn, curr->getID() + ADDED_ON_RAMP_EDGE, curr->getID(), curr->getNumLanes() + toAdd, curr->getNumLanes());
             if (!ok) {
-                WRITE_ERROR("Ups - could not build on-ramp for edge '" + curr->getID() + "'!");
+                WRITE_ERRORF(TL("Ups - could not build on-ramp for edge '%'!"), curr->getID());
                 return;
             }
             //ec.retrieve(name)->invalidateConnections();
@@ -271,12 +271,12 @@ NBRampsComputer::buildOnRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDist
     if (addLanes) {
         if (potHighway->getStep() < NBEdge::EdgeBuildingStep::LANES2LANES_USER) {
             if (!potHighway->addLane2LaneConnections(0, first, potRamp->getNumLanes(), MIN2(first->getNumLanes() - potRamp->getNumLanes(), potHighway->getNumLanes()), NBEdge::Lane2LaneInfoType::VALIDATED, true)) {
-                throw ProcessError("Could not set connection!");
+                throw ProcessError(TL("Could not set connection!"));
             }
         }
         if (potRamp->getStep() < NBEdge::EdgeBuildingStep::LANES2LANES_USER) {
             if (!potRamp->addLane2LaneConnections(0, first, 0, potRamp->getNumLanes(), NBEdge::Lane2LaneInfoType::VALIDATED, true)) {
-                throw ProcessError("Could not set connection!");
+                throw ProcessError(TL("Could not set connection!"));
             }
         }
         patchRampGeometry(potRamp, first, potHighway, false);
@@ -343,12 +343,12 @@ NBRampsComputer::buildOffRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDis
             Position pos = curr->getGeometry().positionAtOffset(curr->getGeometry().length() - (rampLength  - currLength));
             NBNode* rn = new NBNode(curr->getID() + "-AddedOffRampNode", pos);
             if (!nc.insert(rn)) {
-                throw ProcessError("Ups - could not build off-ramp for edge '" + curr->getID() + "' (node could not be build)!");
+                throw ProcessError(TLF("Ups - could not build off-ramp for edge '%' (node could not be build)!", curr->getID()));
             }
             std::string name = curr->getID();
             bool ok = ec.splitAt(dc, curr, rn, curr->getID(), curr->getID() + "-AddedOffRampEdge", curr->getNumLanes(), curr->getNumLanes() + toAdd);
             if (!ok) {
-                WRITE_ERROR("Ups - could not build off-ramp for edge '" + curr->getID() + "'!");
+                WRITE_ERRORF(TL("Ups - could not build off-ramp for edge '%'!"), curr->getID());
                 return;
             }
             curr = ec.retrieve(name + "-AddedOffRampEdge");
@@ -387,10 +387,10 @@ NBRampsComputer::buildOffRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDis
     if (addLanes) {
         if (first->getStep() < NBEdge::EdgeBuildingStep::LANES2LANES_USER) {
             if (!first->addLane2LaneConnections(potRamp->getNumLanes(), potHighway, 0, MIN2(first->getNumLanes() - 1, potHighway->getNumLanes()), NBEdge::Lane2LaneInfoType::VALIDATED, true)) {
-                throw ProcessError("Could not set connection!");
+                throw ProcessError(TL("Could not set connection!"));
             }
             if (!first->addLane2LaneConnections(0, potRamp, 0, potRamp->getNumLanes(), NBEdge::Lane2LaneInfoType::VALIDATED, false)) {
-                throw ProcessError("Could not set connection!");
+                throw ProcessError(TL("Could not set connection!"));
             }
         }
         patchRampGeometry(potRamp, first, potHighway, true);
@@ -410,7 +410,7 @@ NBRampsComputer::moveRampRight(NBEdge* ramp, int addedLanes) {
         g.move2side(offset);
         ramp->setGeometry(g);
     } catch (InvalidArgument&) {
-        WRITE_WARNING("For edge '" + ramp->getID() + "': could not compute shape.");
+        WRITE_WARNINGF(TL("For edge '%': could not compute shape."), ramp->getID());
     }
 }
 

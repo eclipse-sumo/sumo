@@ -80,3 +80,20 @@ The meanings of the written values are given in the following table.
 
 !!! caution
     When running with sub-second resolution, the emissions written during every simulation step are extrapolated to those that would be generated in 1 second. To avoid scaling (and thus simplify aggregation), set option **--emission-output.step-scaled**
+
+## Visualization example
+The user-selected attributes can be plotted with use of [plotXMLAttributes.py](../../Tools/Visualization.md#plotxmlattributespy). The scenario acosta, one of the published sumo scenarios, is used as example (https://github.com/DLR-TS/sumo-scenarios/tree/main/bologna/acosta). 
+
+### Generating the output
+```
+sumo -c run.sumocfg --emission-output emissions.xml
+```
+### Example call for plotting
+```
+python plotXMLAttributes.py -x time -y CO2 -s -o CO2_output.png emissions.xml -i id --filter-ids Audinot_10_89 --legend
+```
+where -x is the attribute for the x axis; -y is the attribute for the y axis; -s is to show the plot; -o is the output file name; -i is the filtered attribute name; --filter-ids are the value(s) of the filtered attribute name; --legend is to show the value(s) of the selected attribute name.
+
+The resultant plot is illustrated below.
+
+<img src="../../images/CO2_output.png" width="500px"/>

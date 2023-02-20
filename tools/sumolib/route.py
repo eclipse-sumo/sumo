@@ -1,5 +1,5 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -12,6 +12,7 @@
 
 # @file    route.py
 # @author  Michael Behrisch
+# @author  Mirko Barthauer
 # @date    2013-10-23
 
 from __future__ import print_function
@@ -90,13 +91,13 @@ def _getMinPath(paths):
 
 
 def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapPenalty=-1,
-             debug=False, direction=False):
+             debug=False, direction=False, vClass=None):
     """
     matching a list of 2D positions to consecutive edges in a network.
     The positions are assumed to be dense (i.e. covering each edge of the route) and in the correct order.
     """
     result = ()
-    paths = {}
+    paths = {}  # maps a path stub to a pair of current cost and the last mapping position on the last edge
     lastPos = None
     if verbose:
         print("mapping trace with %s points" % len(trace))
@@ -110,6 +111,8 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapP
             print("Found no candidate edges for %s,%s" % pos)
 
         for edge, d in candidates:
+            if vClass is not None and not edge.allows(vClass):
+                continue
             base = polygonOffsetWithMinimumDistanceToPoint(pos, edge.getShape())
             if paths:
                 advance = euclidean(lastPos, pos)  # should become a vector
@@ -159,8 +162,13 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapP
             else:
                 newPaths[(edge,)] = (d * d, base)
         if not newPaths:
+            # no mapping for the current pos, the route may be disconnected or the radius is too small
             if paths:
-                result += _getMinPath(paths)
+                minPath = _getMinPath(paths)
+                if len(result) > 0 and minPath[0] in result:
+                    cropIndex = max([i for i in range(len(minPath)) if minPath[i] in result])
+                    minPath = minPath[cropIndex+1:]
+                result += minPath
         paths = newPaths
         lastPos = pos
     if paths:

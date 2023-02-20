@@ -1,0 +1,4 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <instantInductionLoop id="instantInductionLoop_0" lane="top_0" pos="37.40" file="instantInductionLoop_0.txt" vTypes="bus taxi private" friendlyPos="0"/>
+    <instantInductionLoop id="instantInductionLoop_1" lane="bot_0" pos="15" file="instantInductionLoop_1.txt" vTypes="bus taxi private" friendlyPos="0"/>
+</additional>

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2011-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2011-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -21,19 +21,15 @@ from __future__ import absolute_import
 import os
 import sys
 import subprocess
-import gzip
-import io
-try:
-    from urllib.request import urlopen
-except ImportError:
-    from urllib import urlopen
+import warnings
 from optparse import OptionParser
 
 from . import files, net, output, sensors, shapes, statistics, fpdiff  # noqa
 from . import color, geomhelper, miscutils, options, route, vehicletype, version  # noqa
+# the visualization submodule is not imported to avoid an explicit matplotlib dependency
+from .miscutils import openz
 from .options import pullOptions
 from .xml import writeHeader as writeXMLHeader  # noqa
-# the visualization submodule is not imported to avoid an explicit matplotlib dependency
 
 
 def saveConfiguration(executable, configoptions, filename):
@@ -45,7 +41,7 @@ def call(executable, args):
     optParser = OptionParser()
     pullOptions(executable, optParser)
     cmd = [executable]
-    for option, value in args.__dict__.iteritems():
+    for option, value in args.__dict__.items():
         o = "--" + option.replace("_", "-")
         opt = optParser.get_option(o)
         if opt is not None and value is not None and opt.default != value:
@@ -166,6 +162,12 @@ class TeeFile:
                 except OSError:
                     pass
 
+    def close(self):
+        """closes all closable outputs"""
+        for fp in self.files:
+            if hasattr(fp, "close"):
+                fp.close()
+
 
 def _intTime(tStr):
     """
@@ -179,11 +181,6 @@ def _laneID2edgeID(laneID):
 
 
 def open(fileOrURL, tryGZip=True, mode="rb"):
-    try:
-        if fileOrURL.startswith("http"):
-            return io.BytesIO(urlopen(fileOrURL).read())
-        if tryGZip:
-            return gzip.open(fileOrURL)
-    finally:
-        pass
-    return io.open(fileOrURL, mode=mode)
+    warnings.warn("sumolib.open is deprecated, due to the name clash and strange signature! "
+                  "Use sumolib.miscutils.openz instead.")
+    return openz(fileOrURL, mode, tryGZip=tryGZip)

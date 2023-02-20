@@ -6,7 +6,7 @@ Success.
 Loading net-file from '000/../input_net.net.xml' ... done (1ms).
 Loading additional-files from '000/dua_dump_000.add.xml' ... done (0ms).
 Loading done.
-Simulation version v1_12_0+0117-4ae16ac6d24 started with time: 0.00
+Simulation version v1_12_0+0117-4ae16ac6d24 started with time: 0.00.
 Simulation ended at time: 244.00
 Reason: All vehicles have left the simulation.
 Performance: 
@@ -26,7 +26,7 @@ Success.
 Loading net-file from '001/../input_net.net.xml' ... done (1ms).
 Loading additional-files from '001/dua_dump_001.add.xml' ... done (1ms).
 Loading done.
-Simulation version v1_12_0+0117-4ae16ac6d24 started with time: 0.00
+Simulation version v1_12_0+0117-4ae16ac6d24 started with time: 0.00.
 Simulation ended at time: 243.00
 Reason: All vehicles have left the simulation.
 Performance: 
@@ -46,7 +46,7 @@ Success.
 Loading net-file from '002/../input_net.net.xml' ... done (2ms).
 Loading additional-files from '002/dua_dump_002.add.xml' ... done (1ms).
 Loading done.
-Simulation version v1_12_0+0117-4ae16ac6d24 started with time: 0.00
+Simulation version v1_12_0+0117-4ae16ac6d24 started with time: 0.00.
 Simulation ended at time: 243.00
 Reason: All vehicles have left the simulation.
 Performance: 
@@ -66,7 +66,7 @@ Success.
 Loading net-file from '003/../input_net.net.xml' ... done (1ms).
 Loading additional-files from '003/dua_dump_003.add.xml' ... done (1ms).
 Loading done.
-Simulation version v1_12_0+0117-4ae16ac6d24 started with time: 0.00
+Simulation version v1_12_0+0117-4ae16ac6d24 started with time: 0.00.
 Simulation ended at time: 243.00
 Reason: All vehicles have left the simulation.
 Performance: 
@@ -86,7 +86,7 @@ Success.
 Loading net-file from '004/../input_net.net.xml' ... done (1ms).
 Loading additional-files from '004/dua_dump_004.add.xml' ... done (0ms).
 Loading done.
-Simulation version v1_12_0+0117-4ae16ac6d24 started with time: 0.00
+Simulation version v1_12_0+0117-4ae16ac6d24 started with time: 0.00.
 Simulation ended at time: 243.00
 Reason: All vehicles have left the simulation.
 Performance: 
@@ -106,7 +106,7 @@ Success.
 Loading net-file from '005/../input_net.net.xml' ... done (1ms).
 Loading additional-files from '005/dua_dump_005.add.xml' ... done (1ms).
 Loading done.
-Simulation version v1_12_0+0117-4ae16ac6d24 started with time: 0.00
+Simulation version v1_12_0+0117-4ae16ac6d24 started with time: 0.00.
 Simulation ended at time: 243.00
 Reason: All vehicles have left the simulation.
 Performance: 
@@ -126,7 +126,7 @@ Success.
 Loading net-file from '006/../input_net.net.xml' ... done (1ms).
 Loading additional-files from '006/dua_dump_006.add.xml' ... done (1ms).
 Loading done.
-Simulation version v1_12_0+0117-4ae16ac6d24 started with time: 0.00
+Simulation version v1_12_0+0117-4ae16ac6d24 started with time: 0.00.
 Simulation ended at time: 243.00
 Reason: All vehicles have left the simulation.
 Performance: 
@@ -146,7 +146,7 @@ Success.
 Loading net-file from '007/../input_net.net.xml' ... done (1ms).
 Loading additional-files from '007/dua_dump_007.add.xml' ... done (1ms).
 Loading done.
-Simulation version v1_12_0+0117-4ae16ac6d24 started with time: 0.00
+Simulation version v1_12_0+0117-4ae16ac6d24 started with time: 0.00.
 Simulation ended at time: 243.00
 Reason: All vehicles have left the simulation.
 Performance: 
@@ -166,7 +166,7 @@ Success.
 Loading net-file from '008/../input_net.net.xml' ... done (1ms).
 Loading additional-files from '008/dua_dump_008.add.xml' ... done (1ms).
 Loading done.
-Simulation version v1_12_0+0117-4ae16ac6d24 started with time: 0.00
+Simulation version v1_12_0+0117-4ae16ac6d24 started with time: 0.00.
 Simulation ended at time: 243.00
 Reason: All vehicles have left the simulation.
 Performance: 
@@ -186,7 +186,7 @@ Success.
 Loading net-file from '009/../input_net.net.xml' ... done (1ms).
 Loading additional-files from '009/dua_dump_009.add.xml' ... done (0ms).
 Loading done.
-Simulation version v1_12_0+0117-4ae16ac6d24 started with time: 0.00
+Simulation version v1_12_0+0117-4ae16ac6d24 started with time: 0.00.
 Simulation ended at time: 243.00
 Reason: All vehicles have left the simulation.
 Performance: 
@@ -206,7 +206,7 @@ Success.
 Loading net-file from '010/../input_net.net.xml' ... done (1ms).
 Loading additional-files from '010/dua_dump_010.add.xml' ... done (1ms).
 Loading done.
-Simulation version v1_12_0+0117-4ae16ac6d24 started with time: 0.00
+Simulation version v1_12_0+0117-4ae16ac6d24 started with time: 0.00.
 Simulation ended at time: 243.00
 Reason: All vehicles have left the simulation.
 Performance: 

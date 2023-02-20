@@ -7,6 +7,8 @@ set(netedit_frames_data_SRCS
    GNEEdgeRelDataFrame.cpp
    GNETAZRelDataFrame.h
    GNETAZRelDataFrame.cpp
+   GNEMeanDataFrame.h
+   GNEMeanDataFrame.cpp
    )
 
 add_library(netedit_frames_data STATIC ${netedit_frames_data_SRCS})

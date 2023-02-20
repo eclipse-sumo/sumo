@@ -1,0 +1,2 @@
+Warning: constraint for non-parking vehicle 't1' after ended parking vehicle 't0' not implemented yet. Possible deadlock at 'stop_c' 
+Warning: constraint for non-parking vehicle 't2' after ended parking vehicle 't0' not implemented yet. Possible deadlock at 'stop_c' 

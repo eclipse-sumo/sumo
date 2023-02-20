@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -110,8 +110,8 @@ MSDevice_Emissions::generateOutput(OutputDevice* tripinfoOut) const {
     if (tripinfoOut != nullptr) {
         const OptionsCont& oc = OptionsCont::getOptions();
         const int precision = MAX2(
-                oc.isDefault("emission-output.precision") ? 6 : oc.getInt("emission-output.precision"),
-                gPrecision);
+                                  oc.isDefault("emission-output.precision") ? 6 : oc.getInt("emission-output.precision"),
+                                  gPrecision);
         tripinfoOut->openTag("emissions");
         tripinfoOut->writeAttr("CO_abs", OutputDevice::realString(myEmissions.CO, precision));
         tripinfoOut->writeAttr("CO2_abs", OutputDevice::realString(myEmissions.CO2, precision));

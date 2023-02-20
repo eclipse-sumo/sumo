@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2012-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2012-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -93,9 +93,10 @@ def getSpread(lanes):
     for i in range(1, SPREAD_MAX[0] + 2):
         cands += [i, -i]
     for i in cands:
-        if all([i not in SPREAD[l] for l in lanes]):
+        if all([i not in SPREAD[lane] for lane in lanes]):
             SPREAD_MAX[0] = max(SPREAD_MAX[0], i)
-            [SPREAD[l].add(i) for l in lanes]
+            for lane in lanes:
+                SPREAD[lane].add(i)
             return i
         else:
             pass
@@ -103,7 +104,9 @@ def getSpread(lanes):
     assert(False)
 
 
-def generate_poly(options, net, id, color, edges, outf, type="route", lineWidth=None, params={}):
+def generate_poly(options, net, id, color, edges, outf, type="route", lineWidth=None, params=None):
+    if params is None:
+        params = {}
     lanes = []
     spread = 0
     for e in edges:
@@ -144,7 +147,7 @@ def generate_poly(options, net, id, color, edges, outf, type="route", lineWidth=
                     lanes2.append(lane)
         lanes = lanes2
 
-    shape = list(itertools.chain(*list(l.getShape() for l in lanes)))
+    shape = list(itertools.chain(*list(lane.getShape() for lane in lanes)))
     if options.spread:
         spread = getSpread(lanes)
         if spread:

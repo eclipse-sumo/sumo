@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -47,6 +47,16 @@ class GUIGLObjectPopupMenu : public FXMenuPane {
     FXDECLARE(GUIGLObjectPopupMenu)
 
 public:
+
+    /// @name cursor dialog type
+    enum class PopupType {
+        ATTRIBUTES,
+        PROPERTIES,
+        SELECT_ELEMENT,
+        DELETE_ELEMENT,
+        FRONT_ELEMENT
+    };
+
     /** @brief Constructor
      * @param[in] app The main window for instantiation of other windows
      * @param[in] parent The parent view for changing it
@@ -58,7 +68,7 @@ public:
      * @param[in] app The main window for instantiation of other windows
      * @param[in] parent The parent view for changing it
      */
-    GUIGLObjectPopupMenu(GUIMainWindow* app, GUISUMOAbstractView* parent);
+    GUIGLObjectPopupMenu(GUIMainWindow* app, GUISUMOAbstractView* parent, PopupType popupType);
 
     /// @brief Destructor
     virtual ~GUIGLObjectPopupMenu();
@@ -66,10 +76,14 @@ public:
     /// @brief Insert a sub-menu pane in this GUIGLObjectPopupMenu
     void insertMenuPaneChild(FXMenuPane* child);
 
+    // @brief remove popup menu from objects
+    void removePopupFromObject();
+
     /// @brief return the real owner of this popup
-    inline GUISUMOAbstractView* getParentView() {
-        return myParent;
-    }
+    GUISUMOAbstractView* getParentView();
+
+    /// @brief popup type;
+    PopupType getPopupType() const;
 
     /// @name FX Calls
     /// @{
@@ -91,6 +105,9 @@ public:
     /// @brief Called if the cursor geo-position shall be copied to clipboard
     long onCmdCopyCursorGeoPosition(FXObject*, FXSelector, void*);
 
+    /// @brief Called if the current geo-boundary shall be copied to clipboard
+    long onCmdCopyViewGeoBoundary(FXObject*, FXSelector, void*);
+
     /// @brief Called if the cursor geo-position shall be shown online
     long onCmdShowCursorGeoPositionOnline(FXObject*, FXSelector, void*);
 
@@ -110,7 +127,7 @@ public:
 
 protected:
     /// @brief FOX needs this
-    FOX_CONSTRUCTOR(GUIGLObjectPopupMenu)
+    GUIGLObjectPopupMenu();
 
     /// @brief The parent window
     GUISUMOAbstractView* myParent;
@@ -120,6 +137,9 @@ protected:
 
     /// @brief The main application
     GUIMainWindow* myApplication;
+
+    /// @brief popup type;
+    const PopupType myPopupType;
 
     /// @brief The position within the network the cursor was above when instanting the popup
     const Position myNetworkPosition;

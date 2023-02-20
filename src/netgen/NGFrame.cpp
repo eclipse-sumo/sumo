@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2011-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2011-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -230,11 +230,11 @@ NGFrame::checkOptions() {
         no++;
     }
     if (no == 0) {
-        WRITE_ERROR("You have to specify the type of network to generate.");
+        WRITE_ERROR(TL("You have to specify the type of network to generate."));
         ok = false;
     }
     if (no > 1) {
-        WRITE_ERROR("You may specify only one type of network to generate at once.");
+        WRITE_ERROR(TL("You may specify only one type of network to generate at once."));
         ok = false;
     }
     // check whether the junction type to use is properly set
@@ -250,6 +250,7 @@ NGFrame::checkOptions() {
                 type != toString(SumoXMLNodeType::NOJUNCTION) &&
                 type != toString(SumoXMLNodeType::RAIL_SIGNAL) &&
                 type != toString(SumoXMLNodeType::RAIL_CROSSING) &&
+                type != toString(SumoXMLNodeType::LEFT_BEFORE_RIGHT) &&
                 type != toString(SumoXMLNodeType::RIGHT_BEFORE_LEFT)) {
             WRITE_ERROR("Only the following junction types are known: " +
                         toString(SumoXMLNodeType::TRAFFIC_LIGHT) + ", " +
@@ -262,12 +263,13 @@ NGFrame::checkOptions() {
                         toString(SumoXMLNodeType::NOJUNCTION) + ", " +
                         toString(SumoXMLNodeType::RAIL_SIGNAL) + ", " +
                         toString(SumoXMLNodeType::RAIL_CROSSING) + ", " +
+                        toString(SumoXMLNodeType::LEFT_BEFORE_RIGHT) + ", " +
                         toString(SumoXMLNodeType::RIGHT_BEFORE_LEFT));
             ok = false;
         }
     }
     if (oc.getBool("random-type") && !oc.isSet("type-files")) {
-        WRITE_WARNING("Option 'random-type' takes no effect unless 'type-files' are loaded");
+        WRITE_WARNING(TL("Option 'random-type' takes no effect unless 'type-files' are loaded"));
     }
     return ok;
 }

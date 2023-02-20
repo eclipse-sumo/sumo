@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -24,8 +24,6 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#include <config.h>
-
 #include <netedit/elements/GNEHierarchicalElement.h>
 #include <utils/gui/div/GUIGeometry.h>
 #include <netedit/GNEPathManager.h>
@@ -36,23 +34,22 @@
 #include <netbuild/NBVehicle.h>
 #include <netbuild/NBEdge.h>
 
+
 // ===========================================================================
 // class declarations
 // ===========================================================================
-
 class GNEViewNet;
 class GNEDataInterval;
+
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-
 /**
  * @class GNEGenericData
  * @brief An Element which don't belong to GNENet but has influence in the simulation
  */
-class GNEGenericData : public GUIGlObject, public Parameterised, public GNEHierarchicalElement, public GNEPathManager::PathElement {
-
+class GNEGenericData : public GNEPathManager::PathElement, public Parameterised, public GNEHierarchicalElement {
 public:
     /**@brief Constructor
      * @param[in] tag generic data Tag (edgeData, laneData, etc.)
@@ -66,7 +63,7 @@ public:
      * @param[in] demandElementParents vector of demand element parents
      * @param[in] genericDataParents vector of generic data parents
      */
-    GNEGenericData(const SumoXMLTag tag, const GUIGlObjectType type, GNEDataInterval* dataIntervalParent,
+    GNEGenericData(const SumoXMLTag tag, FXIcon* icon, const GUIGlObjectType type, GNEDataInterval* dataIntervalParent,
                    const Parameterised::Map& parameters,
                    const std::vector<GNEJunction*>& junctionParents,
                    const std::vector<GNEEdge*>& edgeParents,
@@ -139,11 +136,14 @@ public:
      */
     virtual void drawGL(const GUIVisualizationSettings& s) const = 0;
 
+    /// @brief delete element
+    void deleteGLObject();
+
+    /// @brief select element
+    void selectGLObject();
+
     /// @brief update GLObject (geometry, ID, etc.)
     void updateGLObject();
-
-    /// @brief return exaggeration associated with this GLObject
-    virtual double getExaggeration(const GUIVisualizationSettings& s) const = 0;
 
     //// @brief Returns the boundary to which the view shall be centered in order to show the object
     virtual Boundary getCenteringBoundary() const = 0;

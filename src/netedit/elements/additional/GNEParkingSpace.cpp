@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -23,6 +23,7 @@
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
+#include <utils/gui/div/GUIGlobalPostDrawing.h>
 
 #include "GNEParkingSpace.h"
 
@@ -32,7 +33,7 @@
 // ===========================================================================
 
 GNEParkingSpace::GNEParkingSpace(GNENet* net) :
-    GNEAdditional("", net, GLO_PARKING_SPACE, SUMO_TAG_PARKING_SPACE, "",
+    GNEAdditional("", net, GLO_PARKING_SPACE, SUMO_TAG_PARKING_SPACE, GUIIconSubSys::getIcon(GUIIcon::PARKINGSPACE), "",
 {}, {}, {}, {}, {}, {}),
 mySlope(0) {
     // reset default values
@@ -43,7 +44,7 @@ mySlope(0) {
 GNEParkingSpace::GNEParkingSpace(GNENet* net, GNEAdditional* parkingAreaParent, const Position& pos,
                                  const std::string& width, const std::string& length, const std::string& angle, double slope,
                                  const std::string& name, const Parameterised::Map& parameters) :
-    GNEAdditional(net, GLO_PARKING_SPACE, SUMO_TAG_PARKING_SPACE, name,
+    GNEAdditional(net, GLO_PARKING_SPACE, SUMO_TAG_PARKING_SPACE, GUIIconSubSys::getIcon(GUIIcon::PARKINGSPACE), name,
 {}, {}, {}, {parkingAreaParent}, {}, {}),
 Parameterised(parameters),
 myPosition(pos),
@@ -197,48 +198,60 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
         // get colors
         const RGBColor baseColor = drawUsingSelectColor() ? s.colorSettings.selectedAdditionalColor : s.colorSettings.parkingSpaceColor;
         const RGBColor contourColor = drawUsingSelectColor() ? s.colorSettings.selectedAdditionalColor : s.colorSettings.parkingSpaceColorContour;
-        // draw parent and child lines
-        drawParentChildLines(s, s.additionalSettings.connectionColor);
-        // push name
-        GLHelper::pushName(getGlID());
-        // push later matrix
-        GLHelper::pushMatrix();
-        // translate to front
-        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_PARKING_SPACE);
-        // set contour color
-        GLHelper::setColor(contourColor);
-        // draw extern
-        GLHelper::drawBoxLines(myShapeLength, width);
-        // make a copy of myShapeLength and scale
-        PositionVector shapeLengthInner = myShapeLength;
-        shapeLengthInner.scaleAbsolute(-0.1);
-        // draw intern
-        if (!s.drawForRectangleSelection) {
-            // Traslate to front
-            glTranslated(0, 0, 0.1);
-            // set base color
-            GLHelper::setColor(baseColor);
-            //draw intern
-            GLHelper::drawBoxLines(shapeLengthInner, width - 0.1);
+        // avoid draw invisible elements
+        if (baseColor.alpha() != 0) {
+            // draw parent and child lines
+            drawParentChildLines(s, s.additionalSettings.connectionColor);
+            // push name
+            GLHelper::pushName(getGlID());
+            // push later matrix
+            GLHelper::pushMatrix();
+            // translate to front
+            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_PARKING_SPACE);
+            // set contour color
+            GLHelper::setColor(contourColor);
+            // draw extern
+            GLHelper::drawBoxLines(myShapeLength, width);
+            // make a copy of myShapeLength and scale
+            PositionVector shapeLengthInner = myShapeLength;
+            shapeLengthInner.scaleAbsolute(-0.1);
+            // draw intern
+            if (!s.drawForRectangleSelection) {
+                // Traslate to front
+                glTranslated(0, 0, 0.1);
+                // set base color
+                GLHelper::setColor(baseColor);
+                //draw intern
+                GLHelper::drawBoxLines(shapeLengthInner, width - 0.1);
+            }
+            // draw geometry points
+            drawUpGeometryPoint(myNet->getViewNet(), myShapeLength.back(), angle, contourColor);
+            drawLeftGeometryPoint(myNet->getViewNet(), myShapeWidth.back(), angle - 90, contourColor);
+            drawRightGeometryPoint(myNet->getViewNet(), myShapeWidth.front(), angle - 90, contourColor);
+            // pop layer matrix
+            GLHelper::popMatrix();
+            // pop name
+            GLHelper::popName();
+            // draw lock icon
+            GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myShapeLength.getPolygonCenter(), parkingAreaExaggeration);
         }
-        // draw geometry points
-        drawUpGeometryPoint(myNet->getViewNet(), myShapeLength.back(), angle, contourColor);
-        drawLeftGeometryPoint(myNet->getViewNet(), myShapeWidth.back(), angle - 90, contourColor);
-        drawRightGeometryPoint(myNet->getViewNet(), myShapeWidth.front(), angle - 90, contourColor);
-        // pop layer matrix
-        GLHelper::popMatrix();
-        // pop name
-        GLHelper::popName();
-        // draw lock icon
-        GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myShapeLength.getPolygonCenter(), parkingAreaExaggeration);
-        // check if dotted contours has to be drawn
+        // check if mouse is over element
+        mouseWithinGeometry(myShapeLength, width);
+        // inspect contour
         if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            // draw using drawDottedContourClosedShape
-            GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myShapeLength, width, parkingAreaExaggeration, true, true);
+            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::INSPECT, myShapeLength, width, parkingAreaExaggeration, true, true);
         }
+        // front contour
         if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-            // draw using drawDottedContourClosedShape
-            GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myShapeLength, width, parkingAreaExaggeration, true, true);
+            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT, myShapeLength, width, parkingAreaExaggeration, true, true);
+        }
+        // delete contour
+        if (myNet->getViewNet()->drawDeleteContour(this, this)) {
+            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, myShapeLength, width, parkingAreaExaggeration, true, true);
+        }
+        // select contour
+        if (myNet->getViewNet()->drawSelectContour(this, this)) {
+            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::SELECT, myShapeLength, width, parkingAreaExaggeration, true, true);
         }
         // Draw additional ID
         drawAdditionalID(s);

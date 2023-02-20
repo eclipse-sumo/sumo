@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -44,23 +44,20 @@ netedit.leftClick(referencePosition, 240, 250)
 netedit.changeDefaultValue(netedit.attrs.calibrator.create.frequency, "-30")
 
 # create calibrator with an invalid parameter (Default value will be used)
-netedit.leftClick(referencePosition, 240, 250)
+netedit.leftClick(referencePosition, 250, 250)
 
 # change frequency with a valid value
 netedit.changeDefaultValue(netedit.attrs.calibrator.create.frequency, "250.5")
 
 # create calibrator with a valid parameter
-netedit.leftClick(referencePosition, 240, 250)
+netedit.leftClick(referencePosition, 255, 250)
 
 # Check undo redo
 netedit.undo(referencePosition, 1)
 netedit.redo(referencePosition, 1)
 
-# save additionals
-netedit.saveAdditionals(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

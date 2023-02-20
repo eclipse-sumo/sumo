@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2011-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2011-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -96,6 +96,19 @@ class GuiDomain(Domain):
         Set the current angle for the given view.
         """
         self._setCmd(tc.VAR_ANGLE, viewID, "d", angle)
+
+    def addView(self, viewID, schemeName="", in3D=False):
+        """addView(string, string, bool) -> None
+        Adds new view and sets it to the given settings scheme (optionally as a 3D view)
+        """
+        self._setCmd(tc.ADD, viewID, "tsi", 2, schemeName, 1 if in3D else 0)
+
+    def removeView(self, viewID):
+        """removeView(string) -> None
+
+        Removes the view with the given id
+        """
+        self._setCmd(tc.REMOVE, viewID)
 
     def setBoundary(self, viewID, xmin, ymin, xmax, ymax):
         """setBoundary(string, double, double, double, double) -> None

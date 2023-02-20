@@ -197,7 +197,7 @@ value is also shown in the table.
 <td><p>fuel consumption<br />
 (id 0x65)</p></td>
 <td><p>double</p></td>
-<td><p>Vehicle's fuel consumption in ml/s during this time step, to get the value for one step multiply with the step length; error value: -2^30</p></td>
+<td><p>Vehicle's fuel consumption in mg/s during this time step, to get the value for one step multiply with the step length; error value: -2^30</p></td>
 <td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getFuelConsumption">getFuelConsumption</a></p></td>
 </tr>
 <tr class="odd">
@@ -457,6 +457,18 @@ value is also shown in the table.
 <td><p>double</p></td>
 <td><p>Returns the accumulated timeLoss of the vehicle in s </p></td>
 <td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getTimeLoss">getTimeLoss</a></p></td>
+</tr>
+<tr class="even">
+<td><p>loaded list (0x24)</p></td>
+<td><p>stringList</p></td>
+<td><p>Returns a list of all loaded vehicle ids that have not yet arrived. This includes vehicles that are meant to depart in the future.</p></td>
+<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getLoadedIDList">getLoadedIDList</a></p></td>
+</tr>
+<tr class="odd">
+<td><p>teleporting list (0x25)</p></td>
+<td><p>stringList</p></td>
+<td><p>Returns a list of all vehicles that are currently [teleporting/jumping](Simulation/Why_Vehicles_are_teleporting.md)</p></td>
+<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getTeleportingIDList">getTeleportingIDList</a></p></td>
 </tr>
 <tr class="even">
 <td></td>
@@ -728,6 +740,9 @@ call](../TraCI/GenericParameters.md#get_parameter).
 - device.taxi.occupiedTime
 - device.taxi.occupiedDistance
 - device.taxi.currentCustomers
+- device.tripinfo.waitingTime (total waiting time)
+- device.tripinfo.waitingCount 
+- device.tripinfo.stopTime (total stopping time)
 - device.example.customValue1 (return the value of option **--device.example.parameter**)
 - device.example.customValue2 (return the value of vehicle parameter
   *example*)

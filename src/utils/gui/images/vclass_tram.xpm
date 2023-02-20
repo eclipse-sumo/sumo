@@ -1,8 +1,7 @@
 /* XPM */
 static const char *vclass_tram_xpm[] = {
-/* width height num_colors chars_per_pixel */
-"    64    32      256            2",
-/* colors */
+/* columns rows colors chars-per-pixel */
+"64 32 256 2",
 "`` c #fefefe",
 "`. c #f5f5f6",
 "`# c #d3d1d5",

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -61,12 +61,12 @@ const StringBijection<FXuint> GNEInternalLane::LinkStateNames(
 GNEInternalLane::GNEInternalLane(GNETLSEditorFrame* editor, const GNEJunction* junctionParent,
                                  const std::string& id, const PositionVector& shape, int tlIndex, LinkState state) :
     GNENetworkElement(junctionParent->getNet(), id, GLO_TLLOGIC, GNE_TAG_INTERNAL_LANE,
-{}, {}, {}, {}, {}, {}),
-myJunctionParent(junctionParent),
-myState(state),
-myStateTarget(myState),
-myEditor(editor),
-myTlIndex(tlIndex),
+                      GUIIconSubSys::getIcon(GUIIcon::LANE), {}, {}, {}, {}, {}, {}),
+                                myJunctionParent(junctionParent),
+                                myState(state),
+                                myStateTarget(myState),
+                                myEditor(editor),
+                                myTlIndex(tlIndex),
 myPopup(nullptr) {
     // calculate internal lane geometry
     myInternalLaneGeometry.updateGeometry(shape);
@@ -77,7 +77,7 @@ myPopup(nullptr) {
 
 GNEInternalLane::GNEInternalLane() :
     GNENetworkElement(nullptr, "dummyInternalLane", GLO_TLLOGIC, GNE_TAG_INTERNAL_LANE,
-{}, {}, {}, {}, {}, {}),
+                      GUIIconSubSys::getIcon(GUIIcon::LANE), {}, {}, {}, {}, {}, {}),
 myJunctionParent(nullptr),
 myState(0),
 myEditor(0),
@@ -138,27 +138,38 @@ void
 GNEInternalLane::drawGL(const GUIVisualizationSettings& s) const {
     // only draw if we're not selecting E1 detectors in TLS Mode
     if (!myNet->getViewNet()->selectingDetectorsTLSMode()) {
-        // push name
-        GLHelper::pushName(getGlID());
-        // push layer matrix
-        GLHelper::pushMatrix();
-        // translate to front
-        myEditor->getViewNet()->drawTranslateFrontAttributeCarrier(myJunctionParent, GLO_TLLOGIC);
-        // move front again
-        glTranslated(0, 0, 0.5);
-        // set color
-        GLHelper::setColor(colorForLinksState(myState));
-        // draw lane checking whether it is not too small
-        if (s.scale < 1.) {
-            GLHelper::drawLine(myInternalLaneGeometry.getShape());
-        } else {
-            GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myInternalLaneGeometry, 0.2);
+        // get link state color
+        const auto linkStateColor = colorForLinksState(myState);
+        // avoid draw invisible elements
+        if (linkStateColor.alpha() != 0) {
+            // push name
+            GLHelper::pushName(getGlID());
+            // push layer matrix
+            GLHelper::pushMatrix();
+            // translate to front
+            myEditor->getViewNet()->drawTranslateFrontAttributeCarrier(myJunctionParent, GLO_TLLOGIC);
+            // move front again
+            glTranslated(0, 0, 0.5);
+            // set color
+            GLHelper::setColor(linkStateColor);
+            // draw lane checking whether it is not too small
+            if (s.scale < 1.) {
+                GLHelper::drawLine(myInternalLaneGeometry.getShape());
+            } else {
+                GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myInternalLaneGeometry, 0.2);
+            }
+            // pop layer matrix
+            GLHelper::popMatrix();
+            // pop name
+            GLHelper::popName();
         }
-        // pop layer matrix
-        GLHelper::popMatrix();
-        // pop name
-        GLHelper::popName();
     }
+}
+
+
+void
+GNEInternalLane::deleteGLObject() {
+    // Internal lanes cannot be removed
 }
 
 
@@ -215,12 +226,6 @@ GNEInternalLane::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
 }
 
 
-double
-GNEInternalLane::getExaggeration(const GUIVisualizationSettings& /*s*/) const {
-    return 1;
-}
-
-
 void
 GNEInternalLane::updateCenteringBoundary(const bool /*updateGrid*/) {
     myBoundary = myInternalLaneGeometry.getShape().getBoxBoundary();
@@ -233,7 +238,7 @@ GNEInternalLane::colorForLinksState(FXuint state) {
     try {
         return GUIVisualizationSettings::getLinkColor((LinkState)state);
     } catch (ProcessError&) {
-        WRITE_WARNING("invalid link state='" + toString(state) + "'");
+        WRITE_WARNINGF(TL("invalid link state='%'"), toString(state));
         return RGBColor::BLACK;
     }
 }

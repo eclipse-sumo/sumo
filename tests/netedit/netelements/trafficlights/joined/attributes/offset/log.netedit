@@ -1,0 +1,8 @@
+Warning: Unreachable edge '-E2' within tlLogic 'J0'
+Warning: Unreachable edge '-E1' within tlLogic 'J0'
+Warning: Unreachable edge '-E3' within tlLogic 'J0'
+Warning: Unreachable edge '-E0' within tlLogic 'J0'
+Warning: Unreachable edge 'E0' within tlLogic 'J0'
+Warning: The traffic light 'J0' cannot be adapted to a cycle time of 90.00.
+Warning: The traffic light 'J0' has a high cycle time of 258.00.
+Warning: 8 total messages of type: Unreachable edge '%' within tlLogic '%'

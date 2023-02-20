@@ -1,0 +1,15 @@
+Warning: Ignoring track count 2 for edge '36388592'.
+Warning: Ignoring track count 2 for edge '37195413'.
+Warning: Ignoring track count 2 for edge '224023986'.
+Warning: Ignoring track count 2 for edge '305115093'.
+Warning: Ignoring track count 2 for edge '305115095'.
+Warning: Could not re-assign PT stop '271135876', probably broken osm file.
+Warning: Could not re-assign PT stop '271135862', probably broken osm file.
+Warning: Could not re-assign PT stop '272694179', probably broken osm file.
+Warning: Could not re-assign PT stop '271135812', probably broken osm file.
+Warning: Could not re-assign PT stop '271135799', probably broken osm file.
+Warning: Last stop edge '36388592' is not part of the route of line '2973510'.
+Warning: Ambiguity in turnarounds computation at junction '271135578'.
+Warning: Ambiguity in turnarounds computation at junction '453246005'.
+Warning: 18 total messages of type: Could not re-assign PT stop '%', probably broken osm file.
+Warning: 6 total messages of type: Ignoring track count % for edge '%'.

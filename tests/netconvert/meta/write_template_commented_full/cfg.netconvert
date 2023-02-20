@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-09-06 15:14:47 by Eclipse SUMO netconvert Version v1_14_1+0870-d4568def0e1
+<!-- generated on 2023-02-07 13:23:48 by Eclipse SUMO netconvert Version v1_16_0+0027-a0cc867
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -111,6 +111,9 @@
         <!-- Prefix of files to write plain xml nodes, edges and connections to -->
         <plain-output-prefix value="" synonymes="p plain plain-output" type="FILE"/>
 
+        <!-- Write all lanes and their attributes even when they are not customized -->
+        <plain-output.lanes value="false" type="BOOL"/>
+
         <!-- Writes information about joined junctions to FILE (can be loaded as additional node-file to reproduce joins -->
         <junctions.join-output value="" type="FILE"/>
 
@@ -161,6 +164,12 @@
 
         <!-- Builds parameterized curves whenever the angular change  between straight segments exceeds FLOAT degrees -->
         <opendrive-output.straight-threshold value="1e-08" type="FLOAT"/>
+
+        <!-- Write lanes in lefthand networks on the left side (positive indices) -->
+        <opendrive-output.lefthand-left value="false" type="BOOL"/>
+
+        <!-- Match loaded shapes to the closest edge within FLOAT and export as road objects -->
+        <opendrive-output.shape-match-dist value="-1" type="FLOAT"/>
 
     </output>
 
@@ -318,6 +327,9 @@
         <!-- Enable guessing of network fringe nodes -->
         <fringe.guess value="false" type="BOOL"/>
 
+        <!-- Guess disconnected edges above the given speed as outer fringe -->
+        <fringe.guess.speed-threshold value="13.8889" type="FLOAT"/>
+
         <!-- Assumes left-hand traffic on the network -->
         <lefthand value="false" type="BOOL"/>
 
@@ -368,6 +380,12 @@
 
         <!-- The default width of a pedestrian crossing -->
         <default.crossing-width value="4" type="FLOAT"/>
+
+        <!-- The default speed &apos;limit&apos; on a pedestrian crossing (in m/s) -->
+        <default.crossing-speed value="2.78" type="FLOAT"/>
+
+        <!-- The default speed &apos;limit&apos; on a pedestrian walkingarea (in m/s) -->
+        <default.walkingarea-speed value="2.78" type="FLOAT"/>
 
         <!-- The default for allowed vehicle classes -->
         <default.allow value="" type="STR"/>
@@ -431,6 +449,9 @@
 
         <!-- Distance for interpreting nodes as signal locations -->
         <tls.guess-signals.dist value="25" type="FLOAT"/>
+
+        <!-- Number of uncontrolled entry edges to accept and still consider the central node as a traffic light -->
+        <tls.guess-signals.slack value="0" type="INT"/>
 
         <!-- Use INT as cycle duration -->
         <tls.cycle.time value="90" type="INT"/>
@@ -503,6 +524,9 @@
 
         <!-- Assign a distinct tls link index to every connection -->
         <tls.ungroup-signals value="false" type="BOOL"/>
+
+        <!-- rebuild all traffic light plans in the network -->
+        <tls.rebuild value="false" type="BOOL"/>
 
     </tls_building>
 
@@ -597,6 +621,9 @@
         <!-- Allow building right-before-left junctions when the incoming edge speeds are below FLOAT (m/s) -->
         <junctions.right-before-left.speed-threshold value="13.6111" type="FLOAT"/>
 
+        <!-- Build left-before-right junctions instead of right-before-left junctions -->
+        <junctions.left-before-right value="false" type="BOOL"/>
+
         <!-- Omits internal links -->
         <no-internal-links value="false" type="BOOL"/>
 
@@ -632,6 +659,9 @@
 
         <!-- Joins junctions that have the same coordinates even if not connected -->
         <junctions.join-same value="false" type="BOOL"/>
+
+        <!-- Abbreviate junction or TLS id if it joins more than INT junctions -->
+        <max-join-ids value="4" type="INT"/>
 
         <!-- Generate INT intermediate points to smooth out intersection corners -->
         <junctions.corner-detail value="5" type="INT"/>
@@ -792,11 +822,14 @@
         <!-- Import lane-specific access restrictions -->
         <osm.lane-access value="false" type="BOOL"/>
 
-        <!-- Check additional attributes to fix directions and permissions on bike paths -->
-        <osm.bike-access value="false" type="BOOL"/>
+        <!-- Import bike lanes and fix directions and permissions on bike paths -->
+        <osm.bike-access value="false" synonymes="osm.bike-lanes" type="BOOL"/>
 
         <!-- Import sidewalks -->
         <osm.sidewalks value="false" type="BOOL"/>
+
+        <!-- Import crossings -->
+        <osm.crossings value="false" type="BOOL"/>
 
         <!-- Import turning arrows from OSM to help with connection building -->
         <osm.turn-lanes value="false" type="BOOL"/>
@@ -818,6 +851,9 @@
 
         <!-- List of additional attributes that shall be imported from OSM via osm.all-attributes (set &apos;all&apos; to import all) -->
         <osm.extra-attributes value="bridge,tunnel,layer,postal_code" type="STR[]"/>
+
+        <!-- The speed limit to be set when there is no actual speed limit in reality -->
+        <osm.speedlimit-none value="39.4444" type="FLOAT"/>
 
         <!-- The edge lengths given in the MATSIM-file will be kept -->
         <matsim.keep-length value="false" type="BOOL"/>
@@ -842,6 +878,12 @@
 
         <!-- Read speed from column STR -->
         <shapefile.speed value="" type="STR"/>
+
+        <!-- Read custom edge length from column STR -->
+        <shapefile.length value="" type="STR"/>
+
+        <!-- Read total edge width from column STR -->
+        <shapefile.width value="" type="STR"/>
 
         <!-- Read (non-unique) name from column STR -->
         <shapefile.name value="" type="STR"/>
@@ -951,10 +993,10 @@
         <!-- Prints the current version -->
         <version value="false" synonymes="V" type="BOOL"/>
 
-        <!-- Set schema validation scheme of XML inputs (&quot;never&quot;, &quot;auto&quot; or &quot;always&quot;) -->
-        <xml-validation value="auto" synonymes="X" type="STR"/>
+        <!-- Set schema validation scheme of XML inputs (&quot;never&quot;, &quot;local&quot;, &quot;auto&quot; or &quot;always&quot;) -->
+        <xml-validation value="local" synonymes="X" type="STR"/>
 
-        <!-- Set schema validation scheme of SUMO network inputs (&quot;never&quot;, &quot;auto&quot; or &quot;always&quot;) -->
+        <!-- Set schema validation scheme of SUMO network inputs (&quot;never&quot;, &quot;local&quot;, &quot;auto&quot; or &quot;always&quot;) -->
         <xml-validation.net value="never" type="STR"/>
 
         <!-- Disables output of warnings -->
@@ -971,6 +1013,9 @@
 
         <!-- Writes all warnings and errors to FILE -->
         <error-log value="" type="FILE"/>
+
+        <!-- Language to use in messages -->
+        <language value="C" type="STR"/>
 
         <!-- Continue on broken input -->
         <ignore-errors value="false" synonymes="dismiss-loading-errors" type="BOOL"/>

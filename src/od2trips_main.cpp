@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2002-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -190,19 +190,19 @@ checkOptions() {
     OptionsCont& oc = OptionsCont::getOptions();
     bool ok = true;
     if (!oc.isSet("taz-files")) {
-        WRITE_ERROR("No TAZ input file (-n) specified.");
+        WRITE_ERROR(TL("No TAZ input file (-n) specified."));
         ok = false;
     }
     if (!oc.isSet("od-matrix-files") && !oc.isSet("od-amitran-files") && !oc.isSet("tazrelation-files")) {
-        WRITE_ERROR("No input specified.");
+        WRITE_ERROR(TL("No input specified."));
         ok = false;
     }
     if (!oc.isSet("output-file") && !oc.isSet("flow-output")) {
-        WRITE_ERROR("No trip table output file (-o) or flow-output is specified.");
+        WRITE_ERROR(TL("No trip table output file (-o) or flow-output is specified."));
         ok = false;
     }
     if (oc.getBool("pedestrians") && oc.getBool("persontrips")) {
-        WRITE_ERROR("Only one of the the options 'pedestrians' and 'persontrips' may be set.");
+        WRITE_ERROR(TL("Only one of the the options 'pedestrians' and 'persontrips' may be set."));
         ok = false;
     }
     //
@@ -245,8 +245,7 @@ checkOptions() {
 int
 main(int argc, char** argv) {
     OptionsCont& oc = OptionsCont::getOptions();
-    // give some application descriptions
-    oc.setApplicationDescription("Importer of O/D-matrices for the microscopic, multi-modal traffic simulation SUMO.");
+    oc.setApplicationDescription(TL("Importer of O/D-matrices for the microscopic, multi-modal traffic simulation SUMO."));
     oc.setApplicationName("od2trips", "Eclipse SUMO od2trips Version " VERSION_STRING);
     int ret = 0;
     try {
@@ -268,22 +267,22 @@ main(int argc, char** argv) {
         // load the districts
         // check whether the user gave a net filename
         if (!oc.isSet("taz-files")) {
-            throw ProcessError("You must supply a TAZ, network or districts file ('-n').");
+            throw ProcessError(TL("You must supply a TAZ, network or districts file ('-n')."));
         }
         // get the file name and set it
         ODDistrictCont districts;
         districts.loadDistricts(oc.getStringVector("taz-files"));
         if (districts.size() == 0) {
-            throw ProcessError("No districts loaded.");
+            throw ProcessError(TL("No districts loaded."));
         }
         // load the matrix
-        ODMatrix matrix(districts);
+        ODMatrix matrix(districts, oc.getFloat("scale"));
         matrix.loadMatrix(oc);
         if (matrix.getNumLoaded() == 0) {
-            throw ProcessError("No vehicles loaded.");
+            throw ProcessError(TL("No vehicles loaded."));
         }
         if (MsgHandler::getErrorInstance()->wasInformed() && !oc.getBool("ignore-errors")) {
-            throw ProcessError("Loading failed.");
+            throw ProcessError(TL("Loading failed."));
         }
         WRITE_MESSAGE(toString(matrix.getNumLoaded()) + " vehicles loaded.");
         // apply a curve if wished
@@ -313,7 +312,7 @@ main(int argc, char** argv) {
             haveOutput = true;
         }
         if (!haveOutput) {
-            throw ProcessError("No output file given.");
+            throw ProcessError(TL("No output file given."));
         }
         WRITE_MESSAGE(toString(matrix.getNumDiscarded()) + " vehicles discarded.");
         WRITE_MESSAGE(toString(matrix.getNumWritten()) + " vehicles written.");

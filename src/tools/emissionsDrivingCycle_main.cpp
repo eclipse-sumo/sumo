@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2013-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2013-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -58,13 +58,11 @@
  * ----------------------------------------------------------------------- */
 int
 main(int argc, char** argv) {
-    // build options
     OptionsCont& oc = OptionsCont::getOptions();
-    //  give some application descriptions
-    oc.setApplicationDescription("Computes emissions by driving a time line using SUMO's emission models.");
+    oc.setApplicationDescription(TL("Computes emissions by driving a time line using SUMO's emission models."));
     oc.setApplicationName("emissionsDrivingCycle", "Eclipse SUMO emissionsDrivingCycle Version " VERSION_STRING);
-    //  add options
 
+    // add options
     SystemFrame::addConfigurationOptions(oc);
     oc.addOptionSubTopic("Input");
     oc.doRegister("timeline-file", 't', new Option_FileName());
@@ -168,10 +166,10 @@ main(int argc, char** argv) {
 
         quiet = oc.getBool("quiet");
         if (!oc.isSet("timeline-file") && !oc.isSet("netstate-file")) {
-            throw ProcessError("Either a timeline or a netstate / amitran file must be given.");
+            throw ProcessError(TL("Either a timeline or a netstate / amitran file must be given."));
         }
         if (!oc.isSet("output-file") && (oc.isSet("timeline-file") || !oc.isSet("emission-output"))) {
-            throw ProcessError("The output file must be given.");
+            throw ProcessError(TL("The output file must be given."));
         }
         std::ostream* out = nullptr;
         if (oc.isSet("output-file")) {
@@ -184,7 +182,7 @@ main(int argc, char** argv) {
                     if (attrName == "all") {
                         attributes = std::numeric_limits<long long int>::max() - 1;
                     } else {
-                        WRITE_ERROR("Unknown attribute '" + attrName + "' to write in output.");
+                        WRITE_ERRORF(TL("Unknown attribute '%' to write in output."), attrName);
                     }
                     continue;
                 }
@@ -212,7 +210,7 @@ main(int argc, char** argv) {
         std::map<std::string, SUMOVTypeParameter*> vTypes;
         if (oc.isSet("vtype")) {
             if (!oc.isSet("additional-files")) {
-                throw ProcessError("Option --vtype requires option --additional-files for loading vehicle types");
+                throw ProcessError(TL("Option --vtype requires option --additional-files for loading vehicle types"));
             }
             if (!oc.isUsableFileList("additional-files")) {
                 throw ProcessError();
@@ -220,11 +218,11 @@ main(int argc, char** argv) {
             for (auto file : oc.getStringVector("additional-files")) {
                 VTypesHandler typesHandler(file, vTypes);
                 if (!XMLSubSys::runParser(typesHandler, file)) {
-                    throw ProcessError("Loading of " + file + " failed.");
+                    throw ProcessError(TLF("Loading of % failed.", file));
                 }
             }
             if (vTypes.count(oc.getString("vtype")) == 0) {
-                throw ProcessError("Vehicle type '" + oc.getString("vtype") + "' is not defined");
+                throw ProcessError(TLF("Vehicle type '%' is not defined", oc.getString("vtype")));
             }
             energyParams = EnergyParams(vTypes[oc.getString("vtype")]);
         }
@@ -244,7 +242,7 @@ main(int argc, char** argv) {
 
             LineReader lr(oc.getString("timeline-file"));
             if (!lr.good()) {
-                throw ProcessError("Unreadable file '" + lr.getFileName() + "'.");
+                throw ProcessError(TLF("Unreadable file '%'.", lr.getFileName()));
             }
             while (lr.hasMore()) {
                 std::string line = lr.readLine();
@@ -275,9 +273,9 @@ main(int argc, char** argv) {
                             time++;
                         }
                     } catch (EmptyData&) {
-                        throw ProcessError("Missing an entry in line '" + line + "'.");
+                        throw ProcessError(TLF("Missing an entry in line '%'.", line));
                     } catch (NumberFormatException&) {
-                        throw ProcessError("Not numeric entry in line '" + line + "'.");
+                        throw ProcessError(TLF("Not numeric entry in line '%'.", line));
                     }
                 }
             }
@@ -298,7 +296,9 @@ main(int argc, char** argv) {
             handler.writeSums(std::cout, "");
         }
         delete sumOut;
-
+        if (out != &std::cout) {
+            delete out;
+        }
     } catch (InvalidArgument& e) {
         MsgHandler::getErrorInstance()->inform(e.what());
         MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);

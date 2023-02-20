@@ -1,0 +1,15 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- Parking Area A -->
+    <parkingArea id="parkingAreaA" lane="center1_0" startPos="5" endPos="15" roadsideCapacity="0" width="5.00" length="7.00" angle="0.00" departPos="7" name="parkingArea1" friendlyPos="true" onRoad="true">
+        <param key="KeyA1" value="valueA1"/>
+        <param key="KeyA2" value="valueA2"/>
+        <param key="KeyA3" value="valueA3"/>
+    </parkingArea>
+
+    <!-- Parking Area B -->
+    <parkingArea id="parkingAreaB" lane="center1_0" startPos="20" endPos="35" roadsideCapacity="10" width="6.00" length="8.00" angle="30.00" departPos="5" name="parkingArea2" friendlyPos="false" onRoad="false">
+        <param key="KeyB1" value="valueB1"/>
+        <param key="KeyB2" value="valueB2"/>
+        <param key="KeyB3" value="valueB3"/>
+    </parkingArea>
+</additional>

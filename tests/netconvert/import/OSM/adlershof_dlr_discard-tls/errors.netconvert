@@ -1,6 +1,9 @@
-Warning: Discarding unusable type 'waterway.riverbank' (first occurence for edge '4616435').
-Warning: Discarding unusable type 'waterway.canal' (first occurence for edge '5363708').
-Warning: Discarding unknown compound 'cycleway.opposite_track' in type 'cycleway.opposite_track|highway.primary' (first occurence for edge '7216737').
-Warning: Discarding unusable type 'railway.construction' (first occurence for edge '11390634').
-Warning: Discarding unusable type 'highway.construction' (first occurence for edge '24154002').
-Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.primary' (first occurence for edge '24214693').
+Warning: Discarding unusable type 'waterway.riverbank' (first occurrence for edge '4616435').
+Warning: Discarding unusable type 'waterway.canal' (first occurrence for edge '5363708').
+Warning: Discarding unknown compound 'cycleway.opposite_track' in type 'cycleway.opposite_track|highway.primary' (first occurrence for edge '7216737').
+Warning: Discarding unusable type 'railway.construction' (first occurrence for edge '11390634').
+Warning: Discarding unusable type 'highway.construction' (first occurrence for edge '24154002').
+Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.primary' (first occurrence for edge '24214693').
+Warning: PT line in relation 35040 with no stops ignored. Probably OSM file is incomplete.
+Warning: PT line in relation 35055 with no stops ignored. Probably OSM file is incomplete.
+Warning: PT line in relation 35032 with no stops ignored. Probably OSM file is incomplete.

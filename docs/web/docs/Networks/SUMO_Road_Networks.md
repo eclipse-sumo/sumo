@@ -248,6 +248,17 @@ The attributes are given in the following table.
 | **id**       | id (string)                            | The id of the internal edge                                        |
 | **function** | "`internal`" | Always "`internal`" for an internal edge |
 
+
+When the network was built with internal edges, each connection will typically correspond to exactly one internal lane.
+If there are multiple connections that have the same pair of `from` and `to` edges, then the internal lanes for these edges will be part of the same internal edge. On connections marked as *straight* (`dir="s"`), lane changing on internal lanes is permitted.
+
+A special case are so called [internal junctions](#internal_junctions). These mark places where vehicles wait within an intersection before passing through foe traffic. The most common occurrence for this are:
+
+- left-turning vehicles that yield to oncoming traffic
+- right-turning vehicles that yield to pedestrian crossings
+
+The connection corresponding to such a movement are split into two internal lanes: one lane before the waiting position and one lane after the waiting position. The lanes after an internal junction always have their own internal edge.
+
 #### Stop Offsets
 
 Each edge or lane may carry a `stopOffset` child element to specify an additional

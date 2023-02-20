@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -40,9 +40,22 @@ traci.start([sumolib.checkBinary("sumo"),
 
 traci.simulationStep()
 
-traci.vehicle.moveToXY(vehID, "", -1, 98.6, 131.5, keepRoute=3)
-traci.simulationStep()
-print("pos=", traci.vehicle.getPosition(vehID))
-print("lane=", traci.vehicle.getLaneID(vehID))
+doMove = True
+moved = False
+t = 0
+
+while traci.simulation.getMinExpectedNumber() > 0 and t < 20:
+    t = traci.simulation.getTime()
+    lane = traci.vehicle.getLaneID(vehID)
+    pos = traci.vehicle.getPosition(vehID)
+    lanePos = traci.vehicle.getLanePosition(vehID)
+    posLat = traci.vehicle.getLateralLanePosition(vehID)
+    if moved:
+        print("%s lane=%s lanePos=%s posLat=%s" % (t, lane, lanePos, posLat))
+    if doMove and lane == ":C_7_0":
+        traci.vehicle.moveToXY(vehID, "", -1, pos[0], pos[1], keepRoute=3)
+        moved = True
+        doMove = False
+    traci.simulationStep()
 
 traci.close()

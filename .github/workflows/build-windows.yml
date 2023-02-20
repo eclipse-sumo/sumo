@@ -27,7 +27,7 @@ jobs:
 
     steps:
     - name: Cloning SUMO
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         path: sumo
         fetch-depth: 0
@@ -38,13 +38,13 @@ jobs:
         git fetch --tags --force
 
     - name: Cloning SUMO Libraries
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         repository: DLR-TS/SUMOLibraries 
         path: sumolibraries
 
     - name: "Set up compiler cache"
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         path: C:\Users\runneradmin\AppData\Local\Mozilla\sccache\cache
         key: ${{ matrix.build_type }}-${{ github.head_ref }}-${{ github.run_number }}
@@ -54,7 +54,8 @@ jobs:
 
     # required for CMake to find Ninja
     - name: "Set up MSVC Developer Command Prompt"
-      uses: seanmiddleditch/gha-setup-vsdevenv@v3
+      # uses: seanmiddleditch/gha-setup-vsdevenv@v4  # disabled until it gets an update for node.js
+      uses: compnerd/gha-setup-vsdevenv@main
 
     - name: Building SUMO plain
       if: matrix.build_type == 'plain'
@@ -81,7 +82,7 @@ jobs:
         cmake --build . --config Release --target traas
 
     - name: Uploading artifacts (SUMO binaries)
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: Windows-${{ matrix.build_type }}
         path: sumo/bin
@@ -118,7 +119,7 @@ jobs:
 
     - name: Uploading test results
       if: always() && github.repository == 'DLR-TS/sumo'
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: texttesttmp-${{ matrix.build_type }}
         path: D:/texttest/tt.zip

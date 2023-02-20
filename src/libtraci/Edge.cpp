@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2017-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2017-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -191,14 +191,26 @@ LIBTRACI_PARAMETER_IMPLEMENTATION(Edge, EDGE)
 
 
 void
-Edge::setAllowedVehicleClasses(const std::string& edgeID, std::vector<std::string> classes) {
-    Dom::setStringVector(libsumo::LANE_ALLOWED, edgeID, classes);
+Edge::setAllowed(const std::string& edgeID, std::string allowedClasses) {
+    setAllowed(edgeID, std::vector<std::string>({allowedClasses}));
 }
 
 
 void
-Edge::setDisallowedVehicleClasses(const std::string& edgeID, std::vector<std::string> classes) {
-    Dom::setStringVector(libsumo::LANE_DISALLOWED, edgeID, classes);
+Edge::setAllowed(const std::string& edgeID, std::vector<std::string> allowedClasses) {
+    Dom::setStringVector(libsumo::LANE_ALLOWED, edgeID, allowedClasses);
+}
+
+
+void
+Edge::setDisallowed(const std::string& edgeID, std::string disallowedClasses) {
+    setDisallowed(edgeID, std::vector<std::string>({disallowedClasses}));
+}
+
+
+void
+Edge::setDisallowed(const std::string& edgeID, std::vector<std::string> disallowedClasses) {
+    Dom::setStringVector(libsumo::LANE_DISALLOWED, edgeID, disallowedClasses);
 }
 
 

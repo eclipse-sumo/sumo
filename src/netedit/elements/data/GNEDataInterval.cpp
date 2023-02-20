@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -58,7 +58,7 @@ GNEDataInterval::updateGenericDataIDs() {
     if (myNet->isUpdateDataEnabled()) {
         // iterate over generic data childrens
         for (const auto& genericData : myGenericDataChildren) {
-            if (genericData->getTagProperty().getTag() == SUMO_TAG_MEANDATA_EDGE) {
+            if (genericData->getTagProperty().getTag() == GNE_TAG_EDGEREL_SINGLE) {
                 // {dataset}[{begin}m{end}]{edge}
                 genericData->setMicrosimID(myDataSetParent->getID() + "[" + toString(myBegin) + "," + toString(myEnd) + "]" +
                                            genericData->getParentEdges().front()->getID());
@@ -170,7 +170,7 @@ GNEDataInterval::addGenericDataChild(GNEGenericData* genericData) {
         // update colors
         genericData->getDataIntervalParent()->getDataSetParent()->updateAttributeColors();
     } else {
-        throw ProcessError("GenericData was already inserted");
+        throw ProcessError(TL("GenericData was already inserted"));
     }
 }
 
@@ -196,7 +196,7 @@ GNEDataInterval::removeGenericDataChild(GNEGenericData* genericData) {
         // remove reference from attributeCarriers
         myNet->getAttributeCarriers()->deleteGenericData(genericData);
     } else {
-        throw ProcessError("GenericData wasn't previously inserted");
+        throw ProcessError(TL("GenericData wasn't previously inserted"));
     }
 }
 

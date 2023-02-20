@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -150,7 +150,7 @@ void
 EnergyParams::checkParam(const SumoXMLAttr paramKey, const std::string& id, const double lower, const double upper) {
     const auto& p = myMap.find(paramKey);
     if (p != myMap.end() && (p->second < lower || p->second > upper)) {
-        WRITE_WARNINGF("Vehicle device '%' doesn't have a valid value for parameter % (%).", id, toString(paramKey), p->second);
+        WRITE_WARNINGF(TL("Vehicle device '%' doesn't have a valid value for parameter % (%)."), id, toString(paramKey), p->second);
         setDouble(paramKey, EnergyParams::getDefault()->getDouble(paramKey));
     }
 }

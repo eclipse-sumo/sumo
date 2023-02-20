@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -65,8 +65,9 @@ FXIMPLEMENT(GUIDialog_Breakpoints, FXMainWindow, GUIDialog_BreakpointsMap, ARRAY
 // method definitions
 // ===========================================================================
 
-GUIDialog_Breakpoints::GUIDialog_Breakpoints(GUIMainWindow* parent, std::vector<SUMOTime>& breakpoints, FXMutex& breakpointLock) :
+GUIDialog_Breakpoints::GUIDialog_Breakpoints(GUIApplicationWindow* parent, std::vector<SUMOTime>& breakpoints, FXMutex& breakpointLock) :
     FXMainWindow(parent->getApp(), "Breakpoints Editor", GUIIconSubSys::getIcon(GUIIcon::APP_BREAKPOINTS), nullptr, GUIDesignChooserDialog),
+    GUIPersistentWindowPos(this, "DIALOG_BREAKPOINTS", true, 20, 40, 300, 350),
     myParent(parent), myBreakpoints(&breakpoints), myBreakpointLock(&breakpointLock) {
     // build main Frame
     FXHorizontalFrame* hbox = new FXHorizontalFrame(this, GUIDesignAuxiliarFrame);
@@ -85,23 +86,27 @@ GUIDialog_Breakpoints::GUIDialog_Breakpoints(GUIMainWindow* parent, std::vector<
     FXVerticalFrame* layoutRight = new FXVerticalFrame(hbox, GUIDesignChooserLayoutRight);
     // create buttons ('&' in the label creates a hot key)
     // "Load"
-    new FXButton(layoutRight, "&Load\t\t", GUIIconSubSys::getIcon(GUIIcon::OPEN_CONFIG), this, MID_CHOOSEN_LOAD, GUIDesignChooserButtons);
+    new FXButton(layoutRight, (TL("&Load") + std::string("\t\t")).c_str(), GUIIconSubSys::getIcon(GUIIcon::OPEN), this, MID_CHOOSEN_LOAD, GUIDesignChooserButtons);
     // "Save"
-    new FXButton(layoutRight, "&Save\t\t", GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_CHOOSEN_SAVE, GUIDesignChooserButtons);
+    new FXButton(layoutRight, (TL("&Save") + std::string("\t\t")).c_str(), GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_CHOOSEN_SAVE, GUIDesignChooserButtons);
     new FXHorizontalSeparator(layoutRight, GUIDesignHorizontalSeparator);
     // "Clear List"
-    new FXButton(layoutRight, "Clea&r\t\t", GUIIconSubSys::getIcon(GUIIcon::CLEANJUNCTIONS), this, MID_CHOOSEN_CLEAR, GUIDesignChooserButtons);
+    new FXButton(layoutRight, (TL("Clea&r") + std::string("\t\t")).c_str(), GUIIconSubSys::getIcon(GUIIcon::CLEANJUNCTIONS), this, MID_CHOOSEN_CLEAR, GUIDesignChooserButtons);
     new FXHorizontalSeparator(layoutRight, GUIDesignHorizontalSeparator);
     // "Close"
-    new FXButton(layoutRight, "&Close\t\t", GUIIconSubSys::getIcon(GUIIcon::NO), this, MID_CANCEL, GUIDesignChooserButtons);
+    new FXButton(layoutRight, (TL("&Close") + std::string("\t\t")).c_str(), GUIIconSubSys::getIcon(GUIIcon::NO), this, MID_CANCEL, GUIDesignChooserButtons);
     // add this dialog as child of GUIMainWindow parent
     myParent->addChild(this);
+    loadWindowPos();
+    create();
+    show();
 }
 
 
 GUIDialog_Breakpoints::~GUIDialog_Breakpoints() {
     // remove this dialog as child of GUIMainWindow parent
     myParent->removeChild(this);
+    myParent->eraseBreakpointDialog();
 }
 
 
@@ -133,7 +138,7 @@ GUIDialog_Breakpoints::rebuildList() {
 
 long
 GUIDialog_Breakpoints::onCmdLoad(FXObject*, FXSelector, void*) {
-    FXFileDialog opendialog(this, "Load Breakpoints");
+    FXFileDialog opendialog(this, TL("Load Breakpoints"));
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::EMPTY));
     opendialog.setSelectMode(SELECTFILE_ANY);
     opendialog.setPatternList("*.txt");
@@ -154,7 +159,7 @@ GUIDialog_Breakpoints::onCmdLoad(FXObject*, FXSelector, void*) {
 
 long
 GUIDialog_Breakpoints::onCmdSave(FXObject*, FXSelector, void*) {
-    FXString file = MFXUtils::getFilename2Write(this, "Save Breakpoints", ".txt", GUIIconSubSys::getIcon(GUIIcon::EMPTY), gCurrentFolder);
+    FXString file = MFXUtils::getFilename2Write(this, TL("Save Breakpoints"), ".txt", GUIIconSubSys::getIcon(GUIIcon::EMPTY), gCurrentFolder);
     if (file == "") {
         return 1;
     }
@@ -164,7 +169,7 @@ GUIDialog_Breakpoints::onCmdSave(FXObject*, FXSelector, void*) {
         dev << content;
         dev.close();
     } catch (IOError& e) {
-        FXMessageBox::error(this, MBOX_OK, "Storing failed!", "%s", e.what());
+        FXMessageBox::error(this, MBOX_OK, TL("Storing failed!"), "%s", e.what());
     }
     return 1;
 }
@@ -233,10 +238,10 @@ GUIDialog_Breakpoints::onCmdEditTable(FXObject*, FXSelector, void* ptr) {
         }
     } catch (NumberFormatException&) {
         std::string msg = "The value must be a number, is:" + value;
-        FXMessageBox::error(this, MBOX_OK, "Time format error", "%s", msg.c_str());
+        FXMessageBox::error(this, MBOX_OK, TL("Time format error"), "%s", msg.c_str());
     } catch (ProcessError&) {
         std::string msg = "The value must be a number or a string of the form hh:mm:ss, is:" + value;
-        FXMessageBox::error(this, MBOX_OK, "Time format error", "%s", msg.c_str());
+        FXMessageBox::error(this, MBOX_OK, TL("Time format error"), "%s", msg.c_str());
     }
     rebuildList();
     return 1;

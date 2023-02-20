@@ -1,0 +1,18 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+
+    <!-- missing start position -->
+    <parkingArea id="parkingArea_0" lane="center1_0" endPos="30" roadsideCapacity="0" width="12.00" length="5.00" angle="0.00" name="parkingArea" friendlyPos="false"/>
+
+    <!-- non valid start position (dummy) -->
+    <parkingArea id="parkingArea_1" lane="center1_0" startPos="dummyStartPosition" endPos="25" roadsideCapacity="0" width="12.00" length="5.00" angle="0.00" name="parkingArea" friendlyPos="false"/>
+
+    <!-- non valid start position (negative) -->
+    <parkingArea id="parkingArea_2" lane="center1_0" startPos="-25" endPos="25" roadsideCapacity="0" width="12.00" length="5.00" angle="0.00" name="parkingArea" friendlyPos="false"/>
+
+    <!-- non valid start position (overpassing endPos) -->
+    <parkingArea id="parkingArea_3" lane="center1_0" startPos="45" endPos="25" roadsideCapacity="0" width="12.00" length="5.00" angle="0.00" name="parkingArea" friendlyPos="false"/>
+
+    <!-- valid start position -->
+    <parkingArea id="parkingArea_4" lane="center1_0" startPos="10" endPos="15" roadsideCapacity="0" width="12.00" length="5.00" angle="0.00" name="parkingArea" friendlyPos="false"/>
+
+</additional>

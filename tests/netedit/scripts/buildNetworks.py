@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -22,12 +22,11 @@ import scandir
 # folder lists
 folderList = []
 
-# get all input_net.net.xml
+# get all net.netccfg
 for paths, dirs, files in scandir.walk('D:/SUMO/tests/netedit'):
     for file in files:
-        if file.endswith("input_net.net.xml"):
+        if file.endswith("net.netccfg"):
             folderList.append(os.path.join(paths))
 
 for folder in folderList:
-    os.system('D:/SUMO/bin/netconvert.exe -s ' + folder +
-              '/input_net.net.xml --plain-output-prefix ' + folder + '/input_net')
+    os.system('D:/SUMO/bin/netconvert.exe -c ' + folder + '/net.netccfg')

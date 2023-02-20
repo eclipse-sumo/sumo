@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2002-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -83,7 +83,12 @@ TraCIServerAPI_Edge::processSet(TraCIServer& server, tcpip::Storage& inputStorag
     std::string warning; // additional description for response
     // variable
     int variable = inputStorage.readUnsignedByte();
-    if (variable != libsumo::VAR_EDGE_TRAVELTIME && variable != libsumo::VAR_EDGE_EFFORT && variable != libsumo::VAR_MAXSPEED
+    if (variable != libsumo::VAR_EDGE_TRAVELTIME
+            && variable != libsumo::VAR_EDGE_EFFORT
+            && variable != libsumo::VAR_MAXSPEED
+            && variable != libsumo::LANE_ALLOWED
+            && variable != libsumo::LANE_DISALLOWED
+            && variable != libsumo::VAR_FRICTION
             && variable != libsumo::VAR_PARAMETER) {
         return server.writeErrorStatusCmd(libsumo::CMD_SET_EDGE_VARIABLE,
                                           "Change Edge State: unsupported variable " + toHex(variable, 2)
@@ -97,13 +102,13 @@ TraCIServerAPI_Edge::processSet(TraCIServer& server, tcpip::Storage& inputStorag
             case libsumo::LANE_ALLOWED: {
                 // read and set allowed vehicle classes
                 const std::vector<std::string> classes = StoHelp::readTypedStringList(inputStorage, "Allowed vehicle classes must be given as a list of strings.");
-                libsumo::Edge::setAllowedVehicleClasses(id, classes);
+                libsumo::Edge::setAllowed(id, classes);
                 break;
             }
             case libsumo::LANE_DISALLOWED: {
                 // read and set disallowed vehicle classes
                 const std::vector<std::string> classes = StoHelp::readTypedStringList(inputStorage, "Not allowed vehicle classes must be given as a list of strings.");
-                libsumo::Edge::setDisallowedVehicleClasses(id, classes);
+                libsumo::Edge::setDisallowed(id, classes);
                 break;
             }
             case libsumo::VAR_EDGE_TRAVELTIME: {

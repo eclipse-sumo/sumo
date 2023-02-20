@@ -1,5 +1,5 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2017-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2017-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -66,7 +66,7 @@ class PVehicle(object):
         '''Constructor(string, float)
 
         Create a PVehicle representing a SUMOVehicle for the PlatoonManager. The controlInterval is only piped through
-        to the singelton platoon created by the vehicle.
+        to the singleton platoon created by the vehicle.
         '''
         # vehicle ID (should be the one used in SUMO)
         self._ID = ID
@@ -100,7 +100,7 @@ class PVehicle(object):
         # activeSpeedFactor = modeSpecificSpeedFactor/(1+impatienceFactor*waitingTime)
         self._switchImpatienceFactor = cfg.SWITCH_IMPATIENCE_FACTOR
         # create a new platoon containing only this vehicle
-        self._platoon = Platoon([self], controlInterval)
+        self._platoon = Platoon([self], controlInterval, cfg.MAX_VEHICLES)
         # the time left until splitting from a platoon if loosing coherence as a follower
         self._timeUntilSplit = cfg.PLATOON_SPLIT_TIME
         # Whether split conditions are fulfilled (i.e. leader in th platoon

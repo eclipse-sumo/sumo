@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -78,6 +78,7 @@ MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(MSTLLogicControl& tlcon
         const AssignmentMap& assignments,
         const FunctionMap& functions) :
     MSSimpleTrafficLightLogic(tlcontrol, id, programID, offset, TrafficLightType::ACTUATED, phases, step, delay, parameter),
+    myHasMultiTarget(false),
     myLastTrySwitchTime(0),
     myConditions(conditions),
     myAssignments(assignments),
@@ -135,7 +136,7 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
     initSwitchingRules();
     if (myLanes.size() == 0) {
         // must be an older network
-        WRITE_WARNING("Traffic light '" + getID() + "' does not control any links");
+        WRITE_WARNINGF(TL("Traffic light '%' does not control any links"), getID());
     }
     bool warn = true; // warn only once
     const int numLinks = (int)myLinks.size();
@@ -166,7 +167,7 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
     int detEdgeIndex = -1;
     int detLaneIndex = 0;
     const double detDefaultLength = StringUtils::toDouble(getParameter("detector-length",
-                OptionsCont::getOptions().getValueString("tls.actuated.detector-length")));
+                                    OptionsCont::getOptions().getValueString("tls.actuated.detector-length")));
     MSEdge* prevDetEdge = nullptr;
     for (LaneVector& lanes : myLanes) {
         for (MSLane* lane : lanes) {
@@ -196,7 +197,8 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
                 detLaneIndex++;
             }
             if (customID == "") {
-                double speed = lane->getSpeedLimit();
+                const bool isBikeLane = (lane->getPermissions() & ~SVC_PEDESTRIAN) == SVC_BICYCLE;
+                double speed = isBikeLane ? DEFAULT_BICYCLE_SPEED : lane->getSpeedLimit();
                 inductLoopPosition = MIN2(
                                          myDetectorGap * speed,
                                          (STEPS2TIME(minDur) / myPassingTime + 0.5) * DEFAULT_LENGTH_WITH_GAP);
@@ -215,14 +217,14 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
                 // Build the induct loop and set it into the container
                 const double detLength = getDouble("detector-length:" + lane->getID(), detDefaultLength);
                 std::string id = myDetectorPrefix + "D" + toString(detEdgeIndex) + "." + toString(detLaneIndex);
-                loop = static_cast<MSInductLoop*>(nb.createInductLoop(id, placementLane, ilpos, detLength, myVehicleTypes, "", (int)PersonMode::NONE, myShowDetectors));
+                loop = static_cast<MSInductLoop*>(nb.createInductLoop(id, placementLane, ilpos, detLength, myVehicleTypes, "", "", (int)PersonMode::NONE, myShowDetectors));
                 MSNet::getInstance()->getDetectorControl().add(SUMO_TAG_INDUCTION_LOOP, loop, myFile, myFreq);
             } else if (customID == NO_DETECTOR) {
                 continue;
             } else {
                 loop = dynamic_cast<MSInductLoop*>(MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_INDUCTION_LOOP).get(customID));
                 if (loop == nullptr) {
-                    WRITE_ERROR("Unknown inductionLoop '" + customID + "' given as custom detector for actuated tlLogic '" + getID() + "', program '" + getProgramID() + ".");
+                    WRITE_ERRORF(TL("Unknown inductionLoop '%' given as custom detector for actuated tlLogic '%', program '%."), customID, getID(), getProgramID());
                     continue;
                 }
                 ilpos = loop->getPosition();
@@ -236,7 +238,7 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
 
             if (warn && floor(floor(inductLoopPosition / DEFAULT_LENGTH_WITH_GAP) * myPassingTime) > STEPS2TIME(minDur)) {
                 // warn if the minGap is insufficient to clear vehicles between stop line and detector
-                WRITE_WARNING("At actuated tlLogic '" + getID() + "', minDur " + time2string(minDur) + " is too short for a detector gap of " + toString(inductLoopPosition) + "m.");
+                WRITE_WARNINGF(TL("At actuated tlLogic '%', minDur % is too short for a detector gap of %m."), getID(), time2string(minDur), toString(inductLoopPosition));
                 warn = false;
             }
         }
@@ -401,7 +403,7 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
                 }
             }
             if (loops.size() == 0) {
-                WRITE_WARNINGF("At actuated tlLogic '%', actuated phase % has no controlling detector.", getID(), toString(phaseIndex));
+                WRITE_WARNINGF(TL("At actuated tlLogic '%', actuated phase % has no controlling detector."), getID(), toString(phaseIndex));
             }
         }
 #ifdef DEBUG_DETECTORS
@@ -438,7 +440,7 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
         if (linkToLoops[i].size() == 0 && myLinks[i].size() > 0
                 && (myLinks[i].front()->getLaneBefore()->getPermissions() & motorized) != 0) {
             if (getParameter(myLinks[i].front()->getLaneBefore()->getID()) != NO_DETECTOR) {
-                WRITE_WARNINGF("At actuated tlLogic '%', linkIndex % has no controlling detector.", getID(), toString(i));
+                WRITE_WARNINGF(TL("At actuated tlLogic '%', linkIndex % has no controlling detector."), getID(), toString(i));
             }
         }
     }
@@ -447,7 +449,7 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
         if (StringUtils::startsWith(kv.first, "linkMaxDur:")) {
             int link = StringUtils::toInt(kv.first.substr(11));
             if (link < 0 || link >= myNumLinks) {
-                WRITE_ERROR("Invalid link '" + kv.first.substr(11) + "' given as linkMaxDur parameter for actuated tlLogic '" + getID() + "', program '" + getProgramID() + ".");
+                WRITE_ERRORF(TL("Invalid link '%' given as linkMaxDur parameter for actuated tlLogic '%', program '%."), kv.first.substr(11), getID(), getProgramID());
                 continue;
             }
             if (myLinkMaxGreenTimes.empty()) {
@@ -457,7 +459,7 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
         } else if (StringUtils::startsWith(kv.first, "linkMinDur:")) {
             int link = StringUtils::toInt(kv.first.substr(11));
             if (link < 0 || link >= myNumLinks) {
-                WRITE_ERROR("Invalid link '" + kv.first.substr(11) + "' given as linkMinDur parameter for actuated tlLogic '" + getID() + "', program '" + getProgramID() + ".");
+                WRITE_ERRORF(TL("Invalid link '%' given as linkMinDur parameter for actuated tlLogic '%', program '%."), kv.first.substr(11), getID(), getProgramID());
                 continue;
             }
             if (myLinkMinGreenTimes.empty()) {
@@ -515,7 +517,7 @@ MSActuatedTrafficLightLogic::initAttributeOverride() {
     const SUMOTime ovrd = MSPhaseDefinition::OVERRIDE_DURATION;
     for (int i = 0; i < (int)myPhases.size(); i++) {
         MSPhaseDefinition* phase = myPhases[i];
-        const std::string errorSuffix = "' for overiding attribute in phase " + toString(i) + " of tlLogic '" + getID() + "' in program '" + getProgramID() + "'.";
+        const std::string errorSuffix = "' for overriding attribute in phase " + toString(i) + " of tlLogic '" + getID() + "' in program '" + getProgramID() + "'.";
         if (phase->minDuration == ovrd) {
             const std::string cond = "minDur:" + toString(i);
             if (myConditions.count(cond) == 0) {
@@ -552,6 +554,8 @@ MSActuatedTrafficLightLogic::initSwitchingRules() {
         std::vector<int> nextPhases = phase->nextPhases;
         if (nextPhases.size() == 0) {
             nextPhases.push_back((i + 1) % (int)myPhases.size());
+        } else if (nextPhases.size() > 1) {
+            myHasMultiTarget = true;
         }
         for (int next : nextPhases) {
             if (next >= 0 && next < (int)myPhases.size()) {
@@ -718,11 +722,13 @@ MSActuatedTrafficLightLogic::trySwitch() {
     }
 
     myTraCISwitch = false;
-    SUMOTime linkMinDur = getLinkMinDuration(getTarget(nextStep));
-    if (linkMinDur > 0) {
-        // for multiTarget, the current phase must be extended but if another
-        // targer is chosen, earlier switching than linkMinDur is possible
-        return multiTarget ? TIME2STEPS(1) : linkMinDur;
+    if (myLinkMinGreenTimes.size() > 0) {
+        SUMOTime linkMinDur = getLinkMinDuration(getTarget(nextStep));
+        if (linkMinDur > 0) {
+            // for multiTarget, the current phase must be extended but if another
+            // targer is chosen, earlier switching than linkMinDur is possible
+            return multiTarget ? TIME2STEPS(1) : linkMinDur;
+        }
     }
     myStep = nextStep;
     assert(myStep <= (int)myPhases.size());
@@ -735,7 +741,7 @@ MSActuatedTrafficLightLogic::trySwitch() {
         actDuration = 0;
     }
     // activate coloring
-    if ((myShowDetectors || multiTarget) && getCurrentPhaseDef().isGreenPhase()) {
+    if ((myShowDetectors || myHasMultiTarget) && getCurrentPhaseDef().isGreenPhase()) {
         for (InductLoopInfo* loopInfo : myInductLoopsForPhase[myStep]) {
             //std::cout << SIMTIME << " p=" << myStep << " loopinfo=" << loopInfo->loop->getID() << " set lastGreen=" << STEPS2TIME(now) << "\n";
             if (loopInfo->isJammed()) {
@@ -833,7 +839,7 @@ int
 MSActuatedTrafficLightLogic::decideNextPhase() {
     const auto& cands = myPhases[myStep]->nextPhases;
     // decide by priority
-    // first target is the default when thre is no traffic
+    // first target is the default when there is no traffic
     // @note: to keep the current phase, even when there is no traffic, it must be added to 'next' explicitly
     int result = cands.front();
     int maxPrio = 0;
@@ -894,7 +900,7 @@ MSActuatedTrafficLightLogic::getTarget(int step) {
     while (!myPhases[step]->isGreenPhase()) {
         if (myPhases[step]->nextPhases.size() > 0 && myPhases[step]->nextPhases.front() >= 0) {
             if (myPhases[step]->nextPhases.size() > 1) {
-                WRITE_WARNING("At actuated tlLogic '" + getID() + "', transition phase " + toString(step) + " should not have multiple next phases");
+                WRITE_WARNINGF(TL("At actuated tlLogic '%', transition phase % should not have multiple next phases"), getID(), toString(step));
             }
             step = myPhases[step]->nextPhases.front();
         } else {
@@ -1052,7 +1058,7 @@ MSActuatedTrafficLightLogic::evalExpression(const std::string& condition) const 
             }
         }
         if (bracketClose == std::string::npos) {
-            throw ProcessError("Unmatched parentheses in condition " + condition + "'");
+            throw ProcessError(TLF("Unmatched parentheses in condition %'", condition));
         }
         std::string cond2 = condition;
         const std::string inBracket = condition.substr(bracketOpen + 1, bracketClose - bracketOpen - 1);
@@ -1067,7 +1073,7 @@ MSActuatedTrafficLightLogic::evalExpression(const std::string& condition) const 
     std::vector<std::string> tokens = StringTokenizer(condition).getVector();
     //std::cout << SIMTIME << " tokens(" << tokens.size() << ")=" << toString(tokens) << "\n";
     if (tokens.size() == 0) {
-        throw ProcessError("Invalid empty condition '" + condition + "'");
+        throw ProcessError(TLF("Invalid empty condition '%'", condition));
     } else if (tokens.size() == 1) {
         try {
             return evalAtomicExpression(tokens[0]);
@@ -1082,7 +1088,7 @@ MSActuatedTrafficLightLogic::evalExpression(const std::string& condition) const 
                 throw ProcessError("Error when evaluating expression '" + condition + "':\n  " + e.what());
             }
         } else {
-            throw ProcessError("Unsupported condition '" + condition + "'");
+            throw ProcessError(TLF("Unsupported condition '%'", condition));
         }
     } else if (tokens.size() == 3) {
         // infix expression
@@ -1145,7 +1151,7 @@ MSActuatedTrafficLightLogic::evalTernaryExpression(double a, const std::string& 
         return a * b;
     } else if (o == "/") {
         if (b == 0) {
-            WRITE_ERROR("Division by 0 in condition '" + condition + "'");
+            WRITE_ERRORF(TL("Division by 0 in condition '%'"), condition);
             return 0;
         }
         return a / b;
@@ -1196,7 +1202,7 @@ MSActuatedTrafficLightLogic::executeAssignments(const AssignmentMap& assignments
             if (it != conditions.end()) {
                 it->second = toString(val);
             } else if (forbidden.find(id) != forbidden.end()) {
-                throw ProcessError("Modifying global condition '" + id + "' is forbidden");
+                throw ProcessError(TLF("Modifying global condition '%' is forbidden", id));
             } else {
                 myStack.back()[id] = val;
             }
@@ -1208,7 +1214,7 @@ MSActuatedTrafficLightLogic::executeAssignments(const AssignmentMap& assignments
 double
 MSActuatedTrafficLightLogic::evalAtomicExpression(const std::string& expr) const {
     if (expr.size() == 0) {
-        throw ProcessError("Invalid empty expression");
+        throw ProcessError(TL("Invalid empty expression"));
     } else if (expr[0] == '!') {
         return evalAtomicExpression(expr.substr(1)) == 0. ? 1. : 0.;
     } else if (expr[0] == '-') {
@@ -1304,7 +1310,7 @@ MSActuatedTrafficLightLogic::getConditions() const {
             try {
                 result[item.first] = evalExpression(item.second);
             } catch (ProcessError& e) {
-                WRITE_ERROR("Error when retrieving conditions '" + item.first + "' for tlLogic '" + getID() + "' (" + e.what() + ")");
+                WRITE_ERRORF(TL("Error when retrieving conditions '%' for tlLogic '%' (%)"), item.first, getID(), e.what());
             }
         }
     }

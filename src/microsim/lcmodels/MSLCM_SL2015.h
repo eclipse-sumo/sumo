@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2013-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2013-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -134,6 +134,8 @@ public:
     ///        and updates maneuverDist according to lateral safety constraints.
     double computeSpeedLat(double latDist, double& maneuverDist, bool urgent) const override;
 
+    LatAlignmentDefinition getDesiredAlignment() const override;
+
 protected:
     /** helper function which contains the actual logic */
     double _patchSpeed(double min, const double wanted, double max,
@@ -214,14 +216,6 @@ protected:
     /// @brief information regarding save velocity (unused) and state flags of the ego vehicle
     typedef std::pair<double, int> Info;
 
-    /** @brief Takes a vSafe (speed advice for speed in the next simulation step), converts it into an acceleration
-     *         and stores it into myLCAccelerationAdvices.
-     *  @note  This construction was introduced to deal with action step lengths,
-     *         where operation on the speed in the next sim step had to be replaced by acceleration
-     *         throughout the next action step.
-     */
-    void addLCSpeedAdvice(const double vSafe);
-
     /// @brief update expected speeds for each sublane of the current edge
     void updateExpectedSublaneSpeeds(const MSLeaderDistanceInfo& ahead, int sublaneOffset, int laneIndex) override;
 
@@ -276,6 +270,7 @@ protected:
     /// @brief compute strategic lane change actions
     /// TODO: Better documentation, refs #2
     int checkStrategicChange(int ret,
+                             const MSLane& neighLane,
                              int laneOffset,
                              const MSLeaderDistanceInfo& leaders,
                              const MSLeaderDistanceInfo& neighLeaders,
@@ -293,6 +288,9 @@ protected:
                              double& latDist
                             );
 
+
+    bool mustOvertakeStopped(const MSLane& neighLane, const MSLeaderDistanceInfo& leaders, const MSLeaderDistanceInfo& neighLead,
+                             double posOnLane, double neighDist, bool right, double latLaneDist, double& currentDist, double& latDist);
 
     /// @brief check whether lateral gap requirements are met override the current maneuver if necessary
     int keepLatGap(int state,
@@ -387,10 +385,6 @@ protected:
     /*@brief the speed to use when computing the look-ahead distance for
      * determining urgency of strategic lane changes */
     double myLookAheadSpeed;
-
-    /// @brief vector of LC-related acceleration recommendations
-    ///        Filled in wantsChange() and applied in patchSpeed()
-    std::vector<double> myLCAccelerationAdvices;
 
     /// @brief expected travel speeds on all sublanes on the current edge(!)
     std::vector<double> myExpectedSublaneSpeeds;

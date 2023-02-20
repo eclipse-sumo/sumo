@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2007-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2007-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -88,6 +88,7 @@ class Vertex:
 # as well as flow and capacity for the flow computation and some parameters
 # read from the net. The members are accessed directly.
 class Edge:
+    lanebased = False
 
     def __init__(self, label, source, target, kind, linkDir=None):
         self.label = label
@@ -167,12 +168,13 @@ class Net:
         self._routeRestriction = {}
         if options.restrictionfile:
             for f in options.restrictionfile.split(","):
-                for line in open(f):
-                    ls = line.split()
-                    if len(ls) == 2:
-                        self._edgeRestriction[ls[1]] = int(ls[0])
-                    else:
-                        self._routeRestriction[tuple(ls[1:])] = int(ls[0])
+                with open(f) as fp:
+                    for line in fp:
+                        ls = line.split()
+                        if len(ls) == 2:
+                            self._edgeRestriction[ls[1]] = int(ls[0])
+                        else:
+                            self._routeRestriction[tuple(ls[1:])] = int(ls[0])
             if options.verbose:
                 print("Loaded %s edge restrictions and %s route restrictions" %
                       (len(self._edgeRestriction), len(self._routeRestriction)))
@@ -493,7 +495,11 @@ class Net:
             edge = currVertex.inPathEdge
             if edge.target == currVertex:
                 if edge.kind == "real":
-                    route.insert(0, edge.label)
+                    if Edge.lanebased:
+                        edgeID = edge.label[:edge.label.rfind("_")]
+                        route.insert(0, edgeID)
+                    else:
+                        route.insert(0, edge.label)
                 routeEdgeObj.insert(0, edge)
                 currVertex = edge.source
             else:
@@ -997,6 +1003,7 @@ DEBUG = options.debug
 parser = make_parser()
 if options.verbose:
     print("Reading net")
+Edge.lanebased = options.lanebased
 net = Net()
 reader = NetDetectorFlowReader(net)
 parser.setContentHandler(reader)

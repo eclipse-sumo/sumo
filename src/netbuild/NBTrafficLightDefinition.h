@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2002-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -154,7 +154,7 @@ public:
     virtual void removeNode(NBNode* node);
 
     /** @brief removes the given connection from the traffic light
-     * if recontruct=true, reconstructs the logic and informs the edges for immediate use in NETEDIT
+     * if recontruct=true, reconstructs the logic and informs the edges for immediate use in netedit
      * @note: tlIndex is not necessarily unique. we need the whole connection data here
      */
     virtual void removeConnection(const NBConnection& conn, bool reconstruct = true) {
@@ -255,7 +255,7 @@ public:
      */
     std::vector<std::string> getControlledInnerEdges() const;
 
-    /** @brief Replaces occurences of the removed edge in incoming/outgoing edges of all definitions
+    /** @brief Replaces occurrences of the removed edge in incoming/outgoing edges of all definitions
      * @param[in] removed The removed edge
      * @param[in] incoming The edges to use instead if an incoming edge was removed
      * @param[in] outgoing The edges to use instead if an outgoing edge was removed
@@ -372,6 +372,8 @@ public:
     /// @brief get ID and programID together (for convenient debugging)
     std::string getDescription() const;
 
+    /// @brief perform optional final checks
+    virtual void finalChecks() const {}
 
 protected:
     /// @brief id for temporary definitions

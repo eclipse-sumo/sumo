@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -73,11 +73,15 @@ GNEChange_EnableAttribute::undo() {
     myAC->toggleAttribute(myKey, myOrigValue);
     // check if networkElements, additional or shapes has to be saved
     if (myAC->getTagProperty().isNetworkElement()) {
-        myAC->getNet()->requireSaveNet(true);
+        myAC->getNet()->getSavingStatus()->requireSaveNetwork();
     } else if (myAC->getTagProperty().isAdditionalElement()) {
-        myAC->getNet()->requireSaveAdditionals(true);
+        myAC->getNet()->getSavingStatus()->requireSaveAdditionals();
     } else if (myAC->getTagProperty().isDemandElement()) {
-        myAC->getNet()->requireSaveDemandElements(true);
+        myAC->getNet()->getSavingStatus()->requireSaveDemandElements();
+    } else if (myAC->getTagProperty().isDataElement()) {
+        myAC->getNet()->getSavingStatus()->requireSaveDataElements();
+    } else if (myAC->getTagProperty().isMeanData()) {
+        myAC->getNet()->getSavingStatus()->requireSaveMeanDatas();
     }
 }
 
@@ -90,11 +94,15 @@ GNEChange_EnableAttribute::redo() {
     myAC->toggleAttribute(myKey, myNewValue);
     // check if networkElements, additional or shapes has to be saved
     if (myAC->getTagProperty().isNetworkElement()) {
-        myAC->getNet()->requireSaveNet(true);
+        myAC->getNet()->getSavingStatus()->requireSaveNetwork();
     } else if (myAC->getTagProperty().isAdditionalElement()) {
-        myAC->getNet()->requireSaveAdditionals(true);
+        myAC->getNet()->getSavingStatus()->requireSaveAdditionals();
     } else if (myAC->getTagProperty().isDemandElement()) {
-        myAC->getNet()->requireSaveDemandElements(true);
+        myAC->getNet()->getSavingStatus()->requireSaveDemandElements();
+    } else if (myAC->getTagProperty().isDataElement()) {
+        myAC->getNet()->getSavingStatus()->requireSaveDataElements();
+    } else if (myAC->getTagProperty().isMeanData()) {
+        myAC->getNet()->getSavingStatus()->requireSaveMeanDatas();
     }
 }
 
@@ -102,9 +110,9 @@ GNEChange_EnableAttribute::redo() {
 std::string
 GNEChange_EnableAttribute::undoName() const {
     if (myNewValue) {
-        return ("Undo enable " + myAC->getTagStr() + " attribute");
+        return (TL("Undo enable ") + myAC->getTagStr() + TL(" attribute in '") + myAC->getID() + "'");
     } else {
-        return ("Undo enable " + myAC->getTagStr() + " attribute");
+        return (TL("Undo enable ") + myAC->getTagStr() + TL(" attribute in '") + myAC->getID() + "'");
     }
 }
 
@@ -112,9 +120,9 @@ GNEChange_EnableAttribute::undoName() const {
 std::string
 GNEChange_EnableAttribute::redoName() const {
     if (myNewValue) {
-        return ("Redo enable " + myAC->getTagStr() + " attribute");
+        return (TL("Redo enable ") + myAC->getTagStr() + TL(" attribute in '") + myAC->getID() + "'");
     } else {
-        return ("Redo enable " + myAC->getTagStr() + " attribute");
+        return (TL("Redo enable ") + myAC->getTagStr() + TL(" attribute in '") + myAC->getID() + "'");
     }
 }
 

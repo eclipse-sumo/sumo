@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -44,7 +44,8 @@ GUIPointOfInterest::GUIPointOfInterest(const std::string& id, const std::string&
                                        double posOverLane, bool friendlyPos, double posLat, double layer, double angle,
                                        const std::string& imgFile, bool relativePath, double width, double height) :
     PointOfInterest(id, type, color, pos, geo, lane, posOverLane, friendlyPos, posLat, layer, angle, imgFile, relativePath, width, height),
-    GUIGlObject_AbstractAdd(GLO_POI, id) {
+    GUIGlObject_AbstractAdd(GLO_POI, id,
+                            (lane.size() > 0) ? GUIIconSubSys::getIcon(GUIIcon::POILANE) : geo ? GUIIconSubSys::getIcon(GUIIcon::POIGEO) : GUIIconSubSys::getIcon(GUIIcon::POI)) {
 }
 
 

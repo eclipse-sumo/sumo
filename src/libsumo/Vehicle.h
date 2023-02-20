@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2012-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -60,6 +60,8 @@ public:
     static int getLaneIndex(const std::string& vehID);
     static std::string getTypeID(const std::string& vehID);
     static std::string getRouteID(const std::string& vehID);
+    static double getDeparture(const std::string& vehID);
+    static double getDepartDelay(const std::string& vehID);
     static int getRouteIndex(const std::string& vehID);
     static double getLanePosition(const std::string& vehID);
     static double getLateralLanePosition(const std::string& vehID);
@@ -108,6 +110,9 @@ public:
     static double getStopArrivalDelay(const std::string& vehID);
     static double getTimeLoss(const std::string& vehID);
     static std::vector<std::string> getTaxiFleet(int taxiState = 0);
+
+    static std::vector<std::string> getLoadedIDList();
+    static std::vector<std::string> getTeleportingIDList();
     /// @}
 
     LIBSUMO_ID_PARAMETER_API
@@ -190,6 +195,7 @@ public:
     static void setRouteID(const std::string& vehID, const std::string& routeID);
     static void setRoute(const std::string& vehID, const std::string& edgeID);
     static void setRoute(const std::string& vehID, const std::vector<std::string>& edgeIDs);
+    static void setLateralLanePosition(const std::string& vehID, double posLat);
     static void updateBestLanes(const std::string& vehID);
     static void setAdaptedTraveltime(const std::string& vehID, const std::string& edgeID,
                                      double time = libsumo::INVALID_DOUBLE_VALUE, double begSeconds = 0, double endSeconds = std::numeric_limits<double>::max());

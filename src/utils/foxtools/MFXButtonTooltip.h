@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -21,6 +21,8 @@
 #define MFXButtonTooltip_h
 #include <config.h>
 
+#include <string>
+
 #include "fxheader.h"
 #include "MFXStaticToolTip.h"
 
@@ -33,7 +35,7 @@ class MFXButtonTooltip : public FXButton {
 
 public:
     /// @brief constructor (Exactly like the FXButton constructor)
-    MFXButtonTooltip(FXComposite* p, MFXStaticToolTip* staticToolTip, const FXString& text, FXIcon* ic = NULL, 
+    MFXButtonTooltip(FXComposite* p, MFXStaticToolTip* staticToolTip, const std::string& text, FXIcon* ic = NULL,
                      FXObject* tgt = NULL, FXSelector sel = 0, FXuint opts = BUTTON_NORMAL,
                      FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0,
                      FXint pl = DEFAULT_PAD, FXint pr = DEFAULT_PAD, FXint pt = DEFAULT_PAD, FXint pb = DEFAULT_PAD);
@@ -48,6 +50,10 @@ public:
 
     /// @brief called when mouse leaves in MFXButtonTooltip
     long onLeave(FXObject*, FXSelector, void*);
+
+    /// @brief called when mouse motion in MFXButtonTooltip
+    long onMotion(FXObject*, FXSelector, void*);
+
     /// @}
 
 protected:

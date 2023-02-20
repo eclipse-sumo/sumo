@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -29,6 +29,7 @@
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/images/VClassIcons.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNEFrameAttributeModules.h"
@@ -81,34 +82,36 @@ GNEFrameAttributeModules::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
     myACAttr(ACAttr),
     myACParent(ACParent) {
     // Create and hide label
-    myAttributeLabel = new FXLabel(this, "attributeLabel", nullptr, GUIDesignLabelAttribute);
+    myAttributeLabel = new MFXLabelTooltip(this,
+                                           attributeEditorParent->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
+                                           "attributeLabel", nullptr, GUIDesignLabelAttribute);
     myAttributeLabel->hide();
     // Create and hide check button
     myAttributeCheckButton = new FXCheckButton(this, "attributeCheckButton", this, MID_GNE_SET_ATTRIBUTE_BOOL, GUIDesignCheckButtonAttribute);
     myAttributeCheckButton->hide();
     // Create and hide ButtonCombinableChoices
-    myAttributeButtonCombinableChoices = new MFXButtonTooltip(this,
-        attributeEditorParent->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltip(),
-        "attributeButtonCombinableChoices", nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
-    myAttributeButtonCombinableChoices->hide();
+    myAttributeAllowButton = new MFXButtonTooltip(this,
+            attributeEditorParent->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
+            "attributeAllowButton", nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
+    myAttributeAllowButton->hide();
     // create and hide color editor
     myAttributeColorButton = new MFXButtonTooltip(this,
-    attributeEditorParent->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltip(),
-        "attributeColorButton", nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
+            attributeEditorParent->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
+            "attributeColorButton", nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
     myAttributeColorButton->hide();
     // create and hide color editor
     myAttributeVTypeButton = new MFXButtonTooltip(this,
-    attributeEditorParent->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltip(),
-        "attributeVTypeButton", myACParent? myACParent->getIcon() : nullptr, this, MID_GNE_SET_ATTRIBUTE_VTYPE, GUIDesignButtonAttribute);
+            attributeEditorParent->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
+            "attributeVTypeButton", myACParent ? myACParent->getACIcon() : nullptr, this, MID_GNE_SET_ATTRIBUTE_VTYPE, GUIDesignButtonAttribute);
     myAttributeVTypeButton->hide();
     // Create and hide MFXTextFieldTooltip for string attributes
     myValueTextField = new MFXTextFieldTooltip(this,
-        attributeEditorParent->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltip(),
-        GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+            attributeEditorParent->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
+            GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myValueTextField->hide();
     // Create and hide ComboBox
-    myValueComboBoxChoices = new MFXIconComboBox(this, GUIDesignComboBoxNCol, (ACAttr.getAttr() == SUMO_ATTR_VCLASS), this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxAttribute);
-    myValueComboBoxChoices->hide();
+    myValueChoicesComboBox = new MFXComboBoxIcon(this, GUIDesignComboBoxNCol, (ACAttr.getAttr() == SUMO_ATTR_VCLASS), this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxAttribute);
+    myValueChoicesComboBox->hide();
     // Create and hide checkButton
     myValueCheckButton = new FXCheckButton(this, "", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myValueCheckButton->hide();
@@ -119,17 +122,17 @@ GNEFrameAttributeModules::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
         // start enabling all elements, depending if attribute is enabled
         if (attributeEnabled == false) {
             myValueTextField->disable();
-            myValueComboBoxChoices->disable();
+            myValueChoicesComboBox->disable();
             myValueCheckButton->disable();
         } else {
             myValueTextField->enable();
-            myValueComboBoxChoices->enable();
+            myValueChoicesComboBox->enable();
             myValueCheckButton->enable();
         }
         // if Tag correspond to an network element but we're in demand mode (or vice versa), disable all elements
         if (myACAttr.getAttr() != SUMO_ATTR_NOTHING) {
             if (isSupermodeValid(myAttributesEditorParent->getFrameParent()->getViewNet(), myACAttr)) {
-                myAttributeButtonCombinableChoices->enable();
+                myAttributeAllowButton->enable();
                 myAttributeColorButton->enable();
                 myAttributeVTypeButton->enable();
                 myAttributeCheckButton->enable();
@@ -138,9 +141,9 @@ GNEFrameAttributeModules::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
                 myAttributeVTypeButton->disable();
                 myAttributeCheckButton->disable();
                 myValueTextField->disable();
-                myValueComboBoxChoices->disable();
+                myValueChoicesComboBox->disable();
                 myValueCheckButton->disable();
-                myAttributeButtonCombinableChoices->disable();
+                myAttributeAllowButton->disable();
             }
         }
         // set left column
@@ -153,8 +156,8 @@ GNEFrameAttributeModules::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
                 myAttributeVTypeButton->killFocus();
             }
             myAttributeVTypeButton->setText(myACAttr.getAttrStr().c_str());
-            myAttributeVTypeButton->setTipText(("Inspect vehicle " + myACAttr.getAttrStr() + " parent").c_str());
-            myAttributeVTypeButton->setHelpText(("Inspect vehicle " + myACAttr.getAttrStr() + " parent").c_str());
+            myAttributeVTypeButton->setTipText((TL("Inspect vehicle ") + myACAttr.getAttrStr() + " parent").c_str());
+            myAttributeVTypeButton->setHelpText((TL("Inspect vehicle ") + myACAttr.getAttrStr() + " parent").c_str());
             myAttributeVTypeButton->show();
         } else if (myACAttr.isColor()) {
             // show color button and set color text depending of computed
@@ -165,14 +168,14 @@ GNEFrameAttributeModules::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
                 myAttributeColorButton->killFocus();
             }
             myAttributeColorButton->setText(myACAttr.getAttrStr().c_str());
-            myAttributeColorButton->setTipText("Open dialog for editing color");
-            myAttributeColorButton->setHelpText("Open dialog for editing color");
+            myAttributeColorButton->setTipText(TL("Open dialog for editing color"));
+            myAttributeColorButton->setHelpText(TL("Open dialog for editing color"));
             myAttributeColorButton->show();
-        } else if ((myACAttr.getAttr() == SUMO_ATTR_ALLOW) || (myACAttr.getAttr() == SUMO_ATTR_DISALLOW)) {
-            myAttributeButtonCombinableChoices->setText(myACAttr.getAttrStr().c_str());
-            myAttributeButtonCombinableChoices->setTipText("Open dialog for editing vClasses");
-            myAttributeButtonCombinableChoices->setHelpText("Open dialog for editing vClasses");
-            myAttributeButtonCombinableChoices->show();
+        } else if (myACAttr.getAttr() == SUMO_ATTR_ALLOW) {
+            myAttributeAllowButton->setText(myACAttr.getAttrStr().c_str());
+            myAttributeAllowButton->setTipText(TL("Open dialog for editing allowed vClasses"));
+            myAttributeAllowButton->setHelpText(TL("Open dialog for editing allowed vClasses"));
+            myAttributeAllowButton->show();
         } else if (myACAttr.isActivatable()) {
             // show checkbox button and set color text depending of computed
             if (computed) {
@@ -192,6 +195,7 @@ GNEFrameAttributeModules::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
         } else {
             // Show attribute Label
             myAttributeLabel->setText(myACAttr.getAttrStr().c_str());
+            myAttributeLabel->setTipText(myACAttr.getDefinition().c_str());
             myAttributeLabel->show();
         }
         // Set field depending of the type of value
@@ -215,10 +219,10 @@ GNEFrameAttributeModules::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
                 // set check button
                 if ((booleanVector.size() > 0) && booleanVector.front()) {
                     myValueCheckButton->setCheck(true);
-                    myValueCheckButton->setText("true");
+                    myValueCheckButton->setText(TL("true"));
                 } else {
                     myValueCheckButton->setCheck(false);
-                    myValueCheckButton->setText("false");
+                    myValueCheckButton->setText(TL("false"));
                 }
                 // show check button
                 myValueCheckButton->show();
@@ -240,10 +244,10 @@ GNEFrameAttributeModules::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
                 // hide label
                 myAttributeLabel->hide();
                 // Show button combinable choices
-                myAttributeButtonCombinableChoices->setText(myACAttr.getAttrStr().c_str());
-                myAttributeButtonCombinableChoices->setTipText("Open dialog for editing vClasses");
-                myAttributeButtonCombinableChoices->setHelpText("Open dialog for editing vClasses");
-                myAttributeButtonCombinableChoices->show();
+                myAttributeAllowButton->setText(myACAttr.getAttrStr().c_str());
+                myAttributeAllowButton->setTipText(TL("Open dialog for editing allowed vClasses"));
+                myAttributeAllowButton->setHelpText(TL("Open dialog for editing allowed vClasses"));
+                myAttributeAllowButton->show();
                 // Show string with the values
                 myValueTextField->setText(value.c_str());
                 // set color depending of computed
@@ -256,35 +260,61 @@ GNEFrameAttributeModules::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
                 myValueTextField->show();
             } else {
                 // fill comboBox
-                myValueComboBoxChoices->clearItems();
+                myValueChoicesComboBox->clearItems();
                 // special case for VClass
                 if (ACAttr.getAttr() == SUMO_ATTR_VCLASS) {
                     // add all vClasses with their icons
                     for (const auto& vClassStr : SumoVehicleClassStrings.getStrings()) {
-                        myValueComboBoxChoices->appendIconItem(vClassStr.c_str(), GNEAttributeCarrier::getVClassIcon(getVehicleClassID(vClassStr)));
+                        myValueChoicesComboBox->appendIconItem(vClassStr.c_str(), VClassIcons::getVClassIcon(getVehicleClassID(vClassStr)));
                     }
                 } else {
                     for (const auto& discreteValue : myACAttr.getDiscreteValues()) {
-                        myValueComboBoxChoices->appendIconItem(discreteValue.c_str());
+                        myValueChoicesComboBox->appendIconItem(discreteValue.c_str());
                     }
                 }
                 // show combo box with values
-                myValueComboBoxChoices->setNumVisible(myValueComboBoxChoices->getNumItems() < 10? myValueComboBoxChoices->getNumItems() : 10);
-                const int itemIndex = myValueComboBoxChoices->findItem(value.c_str());
-                if (itemIndex == -1) {
-                    myValueComboBoxChoices->setText(value.c_str());
+                if (myACAttr.showAllDiscreteValues()) {
+                    myValueChoicesComboBox->setNumVisible(myValueChoicesComboBox->getNumItems());
                 } else {
-                    myValueComboBoxChoices->setCurrentItem(itemIndex);
+                    myValueChoicesComboBox->setNumVisible(myValueChoicesComboBox->getNumItems() < 10 ? myValueChoicesComboBox->getNumItems() : 10);
+                }
+                const int itemIndex = myValueChoicesComboBox->findItem(value.c_str());
+                if (itemIndex == -1) {
+                    myValueChoicesComboBox->setText(value.c_str());
+                } else {
+                    myValueChoicesComboBox->setCurrentItem(itemIndex);
                 }
                 // set color depending of computed
                 if (computed) {
-                    myValueComboBoxChoices->setTextColor(FXRGB(0, 0, 255));
+                    myValueChoicesComboBox->setTextColor(FXRGB(0, 0, 255));
                 } else {
-                    myValueComboBoxChoices->setTextColor(FXRGB(0, 0, 0));
-                    myValueComboBoxChoices->killFocus();
+                    myValueChoicesComboBox->setTextColor(FXRGB(0, 0, 0));
+                    myValueChoicesComboBox->killFocus();
                 }
-                myValueComboBoxChoices->show();
+                myValueChoicesComboBox->show();
             }
+        } else if (ACParent && myACAttr.isVType() && (myACAttr.getAttr() == SUMO_ATTR_TYPE)) {
+            // fill comboBox with vTypes
+            myValueChoicesComboBox->clearItems();
+            for (const auto& vType : ACParent->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
+                myValueChoicesComboBox->appendIconItem(vType->getID().c_str(), vType->getACIcon());
+            }
+            // show only 10 vtypes
+            myValueChoicesComboBox->setNumVisible(myValueChoicesComboBox->getNumItems() < 10 ? myValueChoicesComboBox->getNumItems() : 10);
+            const int itemIndex = myValueChoicesComboBox->findItem(value.c_str());
+            if (itemIndex == -1) {
+                myValueChoicesComboBox->setText(value.c_str());
+            } else {
+                myValueChoicesComboBox->setCurrentItem(itemIndex);
+            }
+            // set color depending of computed
+            if (computed) {
+                myValueChoicesComboBox->setTextColor(FXRGB(0, 0, 255));
+            } else {
+                myValueChoicesComboBox->setTextColor(FXRGB(0, 0, 0));
+                myValueChoicesComboBox->killFocus();
+            }
+            myValueChoicesComboBox->show();
         } else {
             // In any other case (String, list, etc.), show value as String
             myValueTextField->setText(value.c_str());
@@ -314,37 +344,51 @@ GNEFrameAttributeModules::AttributesEditorRow::destroy() {
 
 void
 GNEFrameAttributeModules::AttributesEditorRow::refreshAttributesEditorRow(const std::string& value,
-        const bool forceRefresh, const bool attributeEnabled, const bool computed) {
+        const bool forceRefresh, const bool attributeEnabled, const bool computed, GNEAttributeCarrier* ACParent) {
+    if (ACParent) {
+        myACParent = ACParent;
+    }
     // start enabling all elements, depending if attribute is enabled
     if (attributeEnabled == false) {
         myValueTextField->disable();
-        myValueComboBoxChoices->disable();
+        myValueChoicesComboBox->disable();
         myValueCheckButton->disable();
     } else {
         myValueTextField->enable();
-        myValueComboBoxChoices->enable();
+        myValueChoicesComboBox->enable();
         myValueCheckButton->enable();
     }
     // if Tag correspond to an network element but we're in demand mode (or vice versa), disable all elements
     if (myACAttr.getAttr() != SUMO_ATTR_NOTHING) {
         if (isSupermodeValid(myAttributesEditorParent->getFrameParent()->getViewNet(), myACAttr)) {
-            myAttributeButtonCombinableChoices->enable();
+            myAttributeAllowButton->enable();
             myAttributeColorButton->enable();
             myAttributeCheckButton->enable();
         } else {
             myAttributeColorButton->disable();
             myAttributeCheckButton->disable();
             myValueTextField->disable();
-            myValueComboBoxChoices->disable();
+            myValueChoicesComboBox->disable();
             myValueCheckButton->disable();
-            myAttributeButtonCombinableChoices->disable();
+            myAttributeAllowButton->disable();
         }
     }
     // set check button
     if (myAttributeCheckButton->shown()) {
         myAttributeCheckButton->setCheck(attributeEnabled);
     }
-    if (myValueTextField->shown()) {
+    if ((myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() == 1) && 
+        ACParent && myACAttr.isVType() && (myACAttr.getAttr() == SUMO_ATTR_TYPE)) {
+        // fill comboBox with vTypes
+        myValueChoicesComboBox->clearItems();
+        for (const auto& vType : ACParent->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
+            myValueChoicesComboBox->appendIconItem(vType->getID().c_str(), vType->getACIcon());
+        }
+        // show only 10 vtypes
+        myValueChoicesComboBox->setNumVisible(myValueChoicesComboBox->getNumItems() < 10 ? myValueChoicesComboBox->getNumItems() : 10);
+        myValueChoicesComboBox->setCurrentItem(myValueChoicesComboBox->findItem(value.c_str()));
+        myValueChoicesComboBox->show();
+    } else if (myValueTextField->shown()) {
         // set last valid value and restore color if onlyValid is disabled
         if (myValueTextField->getTextColor() == FXRGB(0, 0, 0) || myValueTextField->getTextColor() == FXRGB(0, 0, 255) || forceRefresh) {
             myValueTextField->setText(value.c_str());
@@ -356,31 +400,35 @@ GNEFrameAttributeModules::AttributesEditorRow::refreshAttributesEditorRow(const 
                 myValueTextField->killFocus();
             }
         }
-    } else if (myValueComboBoxChoices->shown()) {
+    } else if (myValueChoicesComboBox->shown()) {
         // fill comboBox
-        myValueComboBoxChoices->clearItems();
+        myValueChoicesComboBox->clearItems();
         // special case for VClass
         if (myACAttr.getAttr() == SUMO_ATTR_VCLASS) {
             // add all vClasses with their icons
             for (const auto& vClassStr : SumoVehicleClassStrings.getStrings()) {
-                myValueComboBoxChoices->appendIconItem(vClassStr.c_str(), GNEAttributeCarrier::getVClassIcon(getVehicleClassID(vClassStr)));
+                myValueChoicesComboBox->appendIconItem(vClassStr.c_str(), VClassIcons::getVClassIcon(getVehicleClassID(vClassStr)));
             }
         } else {
             for (const auto& discreteValue : myACAttr.getDiscreteValues()) {
-                myValueComboBoxChoices->appendIconItem(discreteValue.c_str());
+                myValueChoicesComboBox->appendIconItem(discreteValue.c_str(), nullptr);
             }
         }
         // show combo box with values
-        myValueComboBoxChoices->setNumVisible(myValueComboBoxChoices->getNumItems() < 10? myValueComboBoxChoices->getNumItems() : 10);
-        myValueComboBoxChoices->setCurrentItem(myValueComboBoxChoices->findItem(value.c_str()));
+        if (myACAttr.showAllDiscreteValues()) {
+            myValueChoicesComboBox->setNumVisible(myValueChoicesComboBox->getNumItems());
+        } else {
+            myValueChoicesComboBox->setNumVisible(myValueChoicesComboBox->getNumItems() < 10 ? myValueChoicesComboBox->getNumItems() : 10);
+        }
+        myValueChoicesComboBox->setCurrentItem(myValueChoicesComboBox->findItem(value.c_str()));
         // set blue color if is an computed value
         if (computed) {
-            myValueComboBoxChoices->setTextColor(FXRGB(0, 0, 255));
+            myValueChoicesComboBox->setTextColor(FXRGB(0, 0, 255));
         } else {
-            myValueComboBoxChoices->setTextColor(FXRGB(0, 0, 0));
-            myValueComboBoxChoices->killFocus();
+            myValueChoicesComboBox->setTextColor(FXRGB(0, 0, 0));
+            myValueChoicesComboBox->killFocus();
         }
-        myValueComboBoxChoices->show();
+        myValueChoicesComboBox->show();
     } else if (myValueCheckButton->shown()) {
         if (GNEAttributeCarrier::canParse<bool>(value)) {
             myValueCheckButton->setCheck(GNEAttributeCarrier::parse<bool>(value));
@@ -394,16 +442,17 @@ GNEFrameAttributeModules::AttributesEditorRow::refreshAttributesEditorRow(const 
 bool
 GNEFrameAttributeModules::AttributesEditorRow::isAttributesEditorRowValid() const {
     return ((myValueTextField->getTextColor() == FXRGB(0, 0, 0)) || (myValueTextField->getTextColor() == FXRGB(0, 0, 255))) &&
-           ((myValueComboBoxChoices->getTextColor() == FXRGB(0, 0, 0)) || (myValueComboBoxChoices->getTextColor() == FXRGB(0, 0, 255)));
+           ((myValueChoicesComboBox->getTextColor() == FXRGB(0, 0, 0)) || (myValueChoicesComboBox->getTextColor() == FXRGB(0, 0, 255)));
 }
 
 
 long
 GNEFrameAttributeModules::AttributesEditorRow::onCmdOpenAttributeDialog(FXObject* obj, FXSelector, void*) {
+    GNEViewNet* viewNet = myAttributesEditorParent->getFrameParent()->getViewNet();
     const auto& ACs = myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers();
     if (obj == myAttributeColorButton) {
         // create FXColorDialog
-        FXColorDialog colordialog(this, tr("Color Dialog"));
+        FXColorDialog colordialog(this, TL("Color Dialog"));
         colordialog.setTarget(this);
         // If previous attribute wasn't correct, set black as default color
         if (GNEAttributeCarrier::canParse<RGBColor>(myValueTextField->getText().text())) {
@@ -417,18 +466,18 @@ GNEFrameAttributeModules::AttributesEditorRow::onCmdOpenAttributeDialog(FXObject
         if (colordialog.execute()) {
             std::string newValue = toString(MFXUtils::getRGBColor(colordialog.getRGBA()));
             myValueTextField->setText(newValue.c_str());
-            if (myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front()->isValid(myACAttr.getAttr(), newValue)) {
+            if (viewNet->getInspectedAttributeCarriers().front()->isValid(myACAttr.getAttr(), newValue)) {
                 // if its valid for the first AC than its valid for all (of the same type)
                 if (ACs.size() > 1) {
-                    myAttributesEditorParent->getFrameParent()->getViewNet()->getUndoList()->begin(ACs.front()->getTagProperty().getGUIIcon(), "Change multiple attributes");
+                    viewNet->getUndoList()->begin(ACs.front()->getTagProperty().getGUIIcon(), TL("change multiple attributes"));
                 }
                 // Set new value of attribute in all selected ACs
-                for (const auto& inspectedAC : myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
-                    inspectedAC->setAttribute(myACAttr.getAttr(), newValue, myAttributesEditorParent->getFrameParent()->getViewNet()->getUndoList());
+                for (const auto& inspectedAC : viewNet->getInspectedAttributeCarriers()) {
+                    inspectedAC->setAttribute(myACAttr.getAttr(), newValue, viewNet->getUndoList());
                 }
                 // finish change multiple attributes
                 if (ACs.size() > 1) {
-                    myAttributesEditorParent->getFrameParent()->getViewNet()->getUndoList()->end();
+                    viewNet->getUndoList()->end();
                 }
                 // If previously value was incorrect, change font color to black
                 myValueTextField->setTextColor(FXRGB(0, 0, 0));
@@ -436,30 +485,29 @@ GNEFrameAttributeModules::AttributesEditorRow::onCmdOpenAttributeDialog(FXObject
             }
         }
         return 0;
-    } else if (obj == myAttributeButtonCombinableChoices) {
+    } else if (obj == myAttributeAllowButton) {
         // if its valid for the first AC than its valid for all (of the same type)
         if (ACs.size() > 1) {
-            myAttributesEditorParent->getFrameParent()->getViewNet()->getUndoList()->begin(ACs.front()->getTagProperty().getGUIIcon(), "Change multiple attributes");
+            viewNet->getUndoList()->begin(ACs.front()->getTagProperty().getGUIIcon(), TL("change multiple attributes"));
         }
-        // get attribute to modify
-        SumoXMLAttr modifiedAttr = (myACAttr.getAttr() == SUMO_ATTR_DISALLOW) ? SUMO_ATTR_ALLOW : myACAttr.getAttr();
         // declare accept changes
         bool acceptChanges = false;
         // open GNEAllowVClassesDialog (also used to modify SUMO_ATTR_CHANGE_LEFT etc
-        GNEAllowVClassesDialog(myAttributesEditorParent->getFrameParent()->getViewNet(), myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front(), modifiedAttr, &acceptChanges).execute();
+        GNEAllowVClassesDialog(viewNet,
+                               viewNet->getInspectedAttributeCarriers().front(),myACAttr.getAttr() , &acceptChanges).execute();
         // continue depending of acceptChanges
         if (acceptChanges) {
-            std::string allowed = myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front()->getAttribute(modifiedAttr);
+            std::string allowed = viewNet->getInspectedAttributeCarriers().front()->getAttribute(myACAttr.getAttr());
             // Set new value of attribute in all selected ACs
-            for (const auto& inspectedAC : myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
-                inspectedAC->setAttribute(modifiedAttr, allowed, myAttributesEditorParent->getFrameParent()->getViewNet()->getUndoList());
+            for (const auto& inspectedAC : viewNet->getInspectedAttributeCarriers()) {
+                inspectedAC->setAttribute(myACAttr.getAttr(), allowed, viewNet->getUndoList());
             }
             // finish change multiple attributes
             if (ACs.size() > 1) {
-                myAttributesEditorParent->getFrameParent()->getViewNet()->getUndoList()->end();
+                viewNet->getUndoList()->end();
             }
             // update frame parent after attribute successfully set
-            myAttributesEditorParent->getFrameParent()->attributeUpdated();
+            myAttributesEditorParent->getFrameParent()->attributeUpdated(myACAttr.getAttr());
         }
         return 1;
     } else {
@@ -468,7 +516,7 @@ GNEFrameAttributeModules::AttributesEditorRow::onCmdOpenAttributeDialog(FXObject
 }
 
 
-long 
+long
 GNEFrameAttributeModules::AttributesEditorRow::onCmdInspectVTypeParent(FXObject*, FXSelector, void*) {
     auto viewnet = myAttributesEditorParent->getFrameParent()->getViewNet();
     viewnet->getViewParent()->getInspectorFrame()->inspectChild(myACParent, viewnet->getInspectedAttributeCarriers().front());
@@ -486,10 +534,10 @@ GNEFrameAttributeModules::AttributesEditorRow::onCmdSetAttribute(FXObject*, FXSe
         if (myValueCheckButton->shown()) {
             // Set true o false depending of the checkBox
             if (myValueCheckButton->getCheck()) {
-                myValueCheckButton->setText("true");
+                myValueCheckButton->setText(TL("true"));
                 newVal = "true";
             } else {
-                myValueCheckButton->setText("false");
+                myValueCheckButton->setText(TL("false"));
                 newVal = "false";
             }
         } else {
@@ -503,7 +551,14 @@ GNEFrameAttributeModules::AttributesEditorRow::onCmdSetAttribute(FXObject*, FXSe
             newVal = myValueTextField->getText().text();
         } else {
             // Get value of ComboBox
-            newVal = myValueComboBoxChoices->getText().text();
+            newVal = myValueChoicesComboBox->getText().text();
+        }
+    } else if (myACParent && myACAttr.isVType() && (myACAttr.getAttr() == SUMO_ATTR_TYPE)) {
+        // Get value of ComboBox
+        if (myValueChoicesComboBox->shown()) {
+            newVal = myValueChoicesComboBox->getText().text();
+        } else {
+            newVal = myValueTextField->getText().text();
         }
     } else {
         // Check if default value of attribute must be set
@@ -549,10 +604,10 @@ GNEFrameAttributeModules::AttributesEditorRow::onCmdSetAttribute(FXObject*, FXSe
         if (!mergeJunction(myACAttr.getAttr(), inspectedACs, newVal)) {
             // if its valid for the first AC than its valid for all (of the same type)
             if (inspectedACs.size() > 1) {
-                myAttributesEditorParent->getFrameParent()->getViewNet()->getUndoList()->begin(inspectedACs.front()->getTagProperty().getGUIIcon(), "Change multiple attributes");
+                myAttributesEditorParent->getFrameParent()->getViewNet()->getUndoList()->begin(inspectedACs.front()->getTagProperty().getGUIIcon(), TL("change multiple attributes"));
             } else if (myACAttr.getAttr() == SUMO_ATTR_ID) {
                 // IDs attribute has to be encapsulated
-                myAttributesEditorParent->getFrameParent()->getViewNet()->getUndoList()->begin(inspectedACs.front()->getTagProperty().getGUIIcon(), "change " + myACAttr.getTagPropertyParent().getTagStr() + " attribute");
+                myAttributesEditorParent->getFrameParent()->getViewNet()->getUndoList()->begin(inspectedACs.front()->getTagProperty().getGUIIcon(), TL("change ") + myACAttr.getTagPropertyParent().getTagStr() + TL(" attribute"));
             }
             // Set new value of attribute in all selected ACs
             for (const auto& inspectedAC : inspectedACs) {
@@ -576,16 +631,16 @@ GNEFrameAttributeModules::AttributesEditorRow::onCmdSetAttribute(FXObject*, FXSe
                 // in this case, we need to refresh the other values (For example, allow/Disallow objects)
                 myAttributesEditorParent->refreshAttributeEditor(false, false);
             } else if (myACAttr.isDiscrete()) {
-                myValueComboBoxChoices->setTextColor(FXRGB(0, 0, 0));
-                myValueComboBoxChoices->setBackColor(FXRGB(255, 255, 255));
-                myValueComboBoxChoices->killFocus();
+                myValueChoicesComboBox->setTextColor(FXRGB(0, 0, 0));
+                myValueChoicesComboBox->setBackColor(FXRGB(255, 255, 255));
+                myValueChoicesComboBox->killFocus();
             } else if (myValueTextField != nullptr) {
                 myValueTextField->setTextColor(FXRGB(0, 0, 0));
                 myValueTextField->setBackColor(FXRGB(255, 255, 255));
                 myValueTextField->killFocus();
             }
             // update frame parent after attribute successfully set
-            myAttributesEditorParent->getFrameParent()->attributeUpdated();
+            myAttributesEditorParent->getFrameParent()->attributeUpdated(myACAttr.getAttr());
         }
     } else {
         // If value of TextField isn't valid, change color to Red depending of type
@@ -595,9 +650,9 @@ GNEFrameAttributeModules::AttributesEditorRow::onCmdSetAttribute(FXObject*, FXSe
                 myValueTextField->setBackColor(FXRGBA(255, 213, 213, 255));
             }
         } else if (myACAttr.isDiscrete()) {
-            myValueComboBoxChoices->setTextColor(FXRGB(255, 0, 0));
+            myValueChoicesComboBox->setTextColor(FXRGB(255, 0, 0));
             if (newVal.empty()) {
-                myValueComboBoxChoices->setBackColor(FXRGBA(255, 213, 213, 255));
+                myValueChoicesComboBox->setBackColor(FXRGBA(255, 213, 213, 255));
             }
         } else if (myValueTextField != nullptr) {
             myValueTextField->setTextColor(FXRGB(255, 0, 0));
@@ -606,7 +661,7 @@ GNEFrameAttributeModules::AttributesEditorRow::onCmdSetAttribute(FXObject*, FXSe
             }
         }
         // Write Warning in console if we're in testing mode
-        WRITE_DEBUG("Value '" + newVal + "' for attribute " + myACAttr.getAttrStr() + " of " + myACAttr.getTagPropertyParent().getTagStr() + " isn't valid");
+        WRITE_DEBUG(TL("Value '") + newVal + TL("' for attribute ") + myACAttr.getAttrStr() + TL(" of ") + myACAttr.getTagPropertyParent().getTagStr() + TL(" isn't valid"));
     }
     return 1;
 }
@@ -623,7 +678,7 @@ GNEFrameAttributeModules::AttributesEditorRow::onCmdSelectCheckButton(FXObject*,
         myValueCheckButton->enable();
         myValueTextField->enable();
         // enable attribute
-        undoList->begin(ACs.front()->getTagProperty().getGUIIcon(), "enable attribute '" + myACAttr.getAttrStr() + "'");
+        undoList->begin(ACs.front()->getTagProperty().getGUIIcon(), TL("enable attribute '") + myACAttr.getAttrStr() + "'");
         ACs.front()->enableAttribute(myACAttr.getAttr(), undoList);
         undoList->end();
     } else {
@@ -631,7 +686,7 @@ GNEFrameAttributeModules::AttributesEditorRow::onCmdSelectCheckButton(FXObject*,
         myValueCheckButton->disable();
         myValueTextField->disable();
         // disable attribute
-        undoList->begin(ACs.front()->getTagProperty().getGUIIcon(), "disable attribute '" + myACAttr.getAttrStr() + "'");
+        undoList->begin(ACs.front()->getTagProperty().getGUIIcon(), TL("disable attribute '") + myACAttr.getAttrStr() + "'");
         ACs.front()->disableAttribute(myACAttr.getAttr(), undoList);
         undoList->end();
     }
@@ -680,7 +735,7 @@ GNEFrameAttributeModules::AttributesEditorRow::mergeJunction(SumoXMLAttr attr, c
 // ---------------------------------------------------------------------------
 
 GNEFrameAttributeModules::AttributesEditor::AttributesEditor(GNEFrame* frameParent) :
-    MFXGroupBoxModule(frameParent, "Internal attributes"),
+    MFXGroupBoxModule(frameParent, TL("Internal attributes")),
     myFrameParent(frameParent),
     myIncludeExtended(true) {
     // resize myAttributesEditorRows
@@ -690,7 +745,7 @@ GNEFrameAttributeModules::AttributesEditor::AttributesEditor(GNEFrame* framePare
     // leave it hidden
     myAttributesEditorFlow->hideFlowEditor();
     // Create help button
-    myHelpButton = new FXButton(getCollapsableFrame(), "Help", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
+    myHelpButton = new FXButton(getCollapsableFrame(), TL("Help"), nullptr, this, MID_HELP, GUIDesignButtonRectangular);
 }
 
 
@@ -862,13 +917,17 @@ GNEFrameAttributeModules::AttributesEditor::refreshAttributeEditor(bool forceRef
                 const bool computed = (ACs.size() > 1) ? false : ACs.front()->isAttributeComputed(attrProperty.getAttr());
                 // Check if Position or Shape refresh has to be forced
                 if ((attrProperty.getAttr() == SUMO_ATTR_SHAPE) && forceRefreshShape) {
-                    myAttributesEditorRows[attrProperty.getPositionListed()]->refreshAttributesEditorRow(value, true, attributeEnabled, computed);
+                    myAttributesEditorRows[attrProperty.getPositionListed()]->refreshAttributesEditorRow(value, true, attributeEnabled, computed, nullptr);
                 } else if ((attrProperty.getAttr()  == SUMO_ATTR_POSITION) && forceRefreshPosition) {
-                    // Refresh attributes maintain invalid values
-                    myAttributesEditorRows[attrProperty.getPositionListed()]->refreshAttributesEditorRow(value, true, attributeEnabled, computed);
+                    myAttributesEditorRows[attrProperty.getPositionListed()]->refreshAttributesEditorRow(value, true, attributeEnabled, computed, nullptr);
+                } else if (attrProperty.getAttr()  == SUMO_ATTR_TYPE && (attrProperty.getTagPropertyParent().isVehicle() || attrProperty.getTagPropertyParent().isPerson() ||
+                           attrProperty.getTagPropertyParent().isContainer())) {
+                    // update vType parent
+                    auto vTypeParent = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, ACs.front()->getAttribute(SUMO_ATTR_TYPE), false);
+                    myAttributesEditorRows[attrProperty.getPositionListed()]->refreshAttributesEditorRow(value, false, attributeEnabled, computed, vTypeParent);
                 } else {
                     // Refresh attributes maintain invalid values
-                    myAttributesEditorRows[attrProperty.getPositionListed()]->refreshAttributesEditorRow(value, false, attributeEnabled, computed);
+                    myAttributesEditorRows[attrProperty.getPositionListed()]->refreshAttributesEditorRow(value, false, attributeEnabled, computed, nullptr);
                 }
             }
         }
@@ -901,10 +960,10 @@ GNEFrameAttributeModules::AttributesEditor::onCmdAttributesEditorHelp(FXObject*,
 // ---------------------------------------------------------------------------
 
 GNEFrameAttributeModules::AttributesEditorExtended::AttributesEditorExtended(GNEFrame* frameParent) :
-    MFXGroupBoxModule(frameParent, "Extended attributes"),
+    MFXGroupBoxModule(frameParent, TL("Extended attributes")),
     myFrameParent(frameParent) {
     // Create open dialog button
-    new FXButton(getCollapsableFrame(), "Open attributes editor", nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButton);
+    new FXButton(getCollapsableFrame(), TL("Open attributes editor"), nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButton);
 }
 
 
@@ -935,11 +994,11 @@ GNEFrameAttributeModules::AttributesEditorExtended::onCmdOpenDialog(FXObject*, F
 // ---------------------------------------------------------------------------
 
 GNEFrameAttributeModules::GenericDataAttributes::GenericDataAttributes(GNEFrame* frameParent) :
-    MFXGroupBoxModule(frameParent, "Attributes"),
+    MFXGroupBoxModule(frameParent, TL("Attributes")),
     myFrameParent(frameParent) {
     // create textfield and buttons
     myTextFieldParameters = new FXTextField(getCollapsableFrame(), GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    myButtonEditParameters = new FXButton(getCollapsableFrame(), "Edit attributes", nullptr, this, MID_GNE_OPEN_PARAMETERS_DIALOG, GUIDesignButton);
+    myButtonEditParameters = new FXButton(getCollapsableFrame(), TL("Edit attributes"), nullptr, this, MID_GNE_OPEN_PARAMETERS_DIALOG, GUIDesignButton);
 }
 
 
@@ -1090,7 +1149,7 @@ GNEFrameAttributeModules::isSupermodeValid(const GNEViewNet* viewNet, const GNEA
                AC->getTagProperty().isDemandElement()) {
         return true;
     } else if (viewNet->getEditModes().isCurrentSupermodeData() &&
-               AC->getTagProperty().isDataElement()) {
+               (AC->getTagProperty().isDataElement() || AC->getTagProperty().isMeanData())) {
         return true;
     } else {
         return false;
@@ -1104,7 +1163,7 @@ GNEFrameAttributeModules::isSupermodeValid(const GNEViewNet* viewNet, const GNEA
         return (viewNet->getEditModes().isCurrentSupermodeNetwork());
     } else if (ACAttr.getTagPropertyParent().isDemandElement()) {
         return (viewNet->getEditModes().isCurrentSupermodeDemand());
-    } else if (ACAttr.getTagPropertyParent().isDataElement()) {
+    } else if (ACAttr.getTagPropertyParent().isDataElement() || ACAttr.getTagPropertyParent().isMeanData()) {
         return (viewNet->getEditModes().isCurrentSupermodeData());
     } else {
         return false;

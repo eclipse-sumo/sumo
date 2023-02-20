@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-08-25 09:08:49 by Eclipse SUMO netgenerate Version v1_14_1+0513-a1c8b69
+<!-- generated on 2023-01-25 08:44:26 by Eclipse SUMO netgenerate Version v1_15_0+1914-84100d0141c
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -165,6 +165,9 @@
         <!-- Prefix of files to write plain xml nodes, edges and connections to -->
         <plain-output-prefix value="" synonymes="p plain plain-output" type="FILE"/>
 
+        <!-- Write all lanes and their attributes even when they are not customized -->
+        <plain-output.lanes value="false" type="BOOL"/>
+
         <!-- Writes information about joined junctions to FILE (can be loaded as additional node-file to reproduce joins -->
         <junctions.join-output value="" type="FILE"/>
 
@@ -285,6 +288,9 @@
         <!-- Enable guessing of network fringe nodes -->
         <fringe.guess value="false" type="BOOL"/>
 
+        <!-- Guess disconnected edges above the given speed as outer fringe -->
+        <fringe.guess.speed-threshold value="13.8889" type="FLOAT"/>
+
         <!-- Assumes left-hand traffic on the network -->
         <lefthand value="false" type="BOOL"/>
 
@@ -324,6 +330,12 @@
         <!-- The default width of a pedestrian crossing -->
         <default.crossing-width value="4" type="FLOAT"/>
 
+        <!-- The default speed &apos;limit&apos; on a pedestrian crossing (in m/s) -->
+        <default.crossing-speed value="2.78" type="FLOAT"/>
+
+        <!-- The default speed &apos;limit&apos; on a pedestrian walkingarea (in m/s) -->
+        <default.walkingarea-speed value="2.78" type="FLOAT"/>
+
         <!-- The default for allowed vehicle classes -->
         <default.allow value="" type="STR"/>
 
@@ -342,7 +354,7 @@
         <!-- The default algorithm for computing right of way rules (&apos;default&apos;, &apos;edgePriority&apos;) -->
         <default.right-of-way value="default" type="STR"/>
 
-        <!-- [traffic_light|priority|right_before_left|traffic_light_right_on_red|priority_stop|allway_stop|...] Determines junction type (see wiki/Networks/PlainXML#Node_types) -->
+        <!-- [traffic_light|priority|right_before_left|left_before_right|traffic_light_right_on_red|priority_stop|allway_stop|...] Determines junction type (see wiki/Networks/PlainXML#Node_types) -->
         <default-junction-type value="" synonymes="j junctions" type="STR"/>
 
     </building_defaults>
@@ -447,6 +459,9 @@
         <!-- Assign a distinct tls link index to every connection -->
         <tls.ungroup-signals value="false" type="BOOL"/>
 
+        <!-- rebuild all traffic light plans in the network -->
+        <tls.rebuild value="false" type="BOOL"/>
+
         <!-- Does not instatiate traffic lights at geometry-like nodes -->
         <tls.discard-simple value="false" type="BOOL"/>
 
@@ -492,6 +507,9 @@
         <!-- Allow building right-before-left junctions when the incoming edge speeds are below FLOAT (m/s) -->
         <junctions.right-before-left.speed-threshold value="13.6111" type="FLOAT"/>
 
+        <!-- Build left-before-right junctions instead of right-before-left junctions -->
+        <junctions.left-before-right value="false" type="BOOL"/>
+
         <!-- Omits internal links -->
         <no-internal-links value="false" type="BOOL"/>
 
@@ -524,6 +542,9 @@
 
         <!-- Joins junctions that have the same coordinates even if not connected -->
         <junctions.join-same value="false" type="BOOL"/>
+
+        <!-- Abbreviate junction or TLS id if it joins more than INT junctions -->
+        <max-join-ids value="4" type="INT"/>
 
         <!-- Generate INT intermediate points to smooth out intersection corners -->
         <junctions.corner-detail value="5" type="INT"/>
@@ -633,8 +654,8 @@
         <!-- Prints the current version -->
         <version value="false" synonymes="V" type="BOOL"/>
 
-        <!-- Set schema validation scheme of XML inputs (&quot;never&quot;, &quot;auto&quot; or &quot;always&quot;) -->
-        <xml-validation value="auto" synonymes="X" type="STR"/>
+        <!-- Set schema validation scheme of XML inputs (&quot;never&quot;, &quot;local&quot;, &quot;auto&quot; or &quot;always&quot;) -->
+        <xml-validation value="local" synonymes="X" type="STR"/>
 
         <!-- Disables output of warnings -->
         <no-warnings value="false" synonymes="W suppress-warnings" type="BOOL"/>
@@ -650,6 +671,9 @@
 
         <!-- Writes all warnings and errors to FILE -->
         <error-log value="" type="FILE"/>
+
+        <!-- Language to use in messages -->
+        <language value="C" type="STR"/>
 
     </report>
 

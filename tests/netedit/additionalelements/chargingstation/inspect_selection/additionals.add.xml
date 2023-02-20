@@ -1,0 +1,15 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- chargingStation A -->
+    <chargingStation id="chargingStationA" lane="center1_1" startPos="5" endPos="10" power="21000.00" efficiency="0.65" chargeInTransit="0" chargeDelay="1.00" name="chargingStationNameA" friendlyPos="false">
+        <param key="KeyA1" value="valueA1"/>
+        <param key="KeyA3" value="valueA2"/>
+        <param key="KeyA2" value="valueA3"/>
+    </chargingStation>
+
+    <!-- chargingStation B -->
+    <chargingStation id="chargingStationB" lane="center1_1" startPos="15" endPos="20" power="13000.00" efficiency="0.85" chargeInTransit="1" chargeDelay="2.00" name="chargingStationNameB" friendlyPos="true">
+        <param key="KeyB1" value="valueB1"/>
+        <param key="KeyB3" value="valueB2"/>
+        <param key="KeyB2" value="valueB3"/>
+    </chargingStation>
+</additional>

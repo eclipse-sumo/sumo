@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -70,7 +70,7 @@ FileHelpers::isDirectory(std::string path) {
     struct stat fileInfo;
     if (stat(StringUtils::transcodeToLocal(path).c_str(), &fileInfo) != 0) {
 #endif
-        throw ProcessError("Cannot get file attributes for file '" + path + "'!");
+        throw ProcessError(TLF("Cannot get file attributes for file '%'!", path));
     }
     return (fileInfo.st_mode & S_IFMT) == S_IFDIR;
 }

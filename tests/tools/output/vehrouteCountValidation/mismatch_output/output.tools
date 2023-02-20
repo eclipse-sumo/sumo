@@ -1,0 +1,2 @@
+Read 85 routes (70 distinct) achieving total count 361 (48.07%) at 138 locations. GEH<5 for 38.41%
+Warning: underflow locations: count 116, min 1.00 (('-58.121.42', '-31')), max 16.00 (('3', '3.180.00')), mean 3.36, Q1 1.00, median 2.00, Q3 4.00 (total 390)

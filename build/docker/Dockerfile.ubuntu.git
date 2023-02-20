@@ -1,20 +1,41 @@
 # to build this image run the following command
 # $ docker build -t sumo - < Dockerfile.ubuntu.git
-# to use it run (GUI applications won't work)
+# to use it run (GUI applications need more work)
 # $ docker run -it sumo bash
 # now you have a bash inside a docker container and can for instance run
 # $ cd /opt/sumo; bin/sumo -c docs/examples/sumo/busses/test.sumocfg
+# This Dockerfile installs everything for a full fledged SUMO with all tools runnable.
+# If you don't need certain features and rather have a smaller container you can comment the unneeded parts below
 
-FROM ubuntu:bionic
 
-ENV SUMO_HOME=/opt/sumo
-ENV PATH=/opt/sumo/bin:$PATH
-ENV LD_LIBRARY_PATH=/opt/sumo/bin
+FROM ubuntu:jammy
+
+#ENV SUMO_HOME=/opt/sumo
+ENV SUMO_HOME=/usr/share/sumo
+#ENV PATH=/opt/sumo/bin:$PATH
+#ENV LD_LIBRARY_PATH=/opt/sumo/bin
 
 RUN apt-get -y update
-RUN apt-get -y install psmisc vim git cmake autoconf automake libtool libxerces-c-dev libfox-1.6-dev libgl1-mesa-dev libglu1-mesa-dev libgdal-dev libproj-dev python-pip libgl2ps-dev swig python3-dev libgtest-dev
-RUN cd /usr/src/gtest; cmake CMakeLists.txt; make; cp *.a /usr/lib
-RUN pip install texttest
+# basic build dependencies
+RUN apt-get -y install git cmake g++ libxerces-c-dev libfox-1.6-dev libgl1-mesa-dev libglu1-mesa-dev \
+ libgdal-dev libproj-dev libgl2ps-dev libeigen3-dev gettext
+# libsumo dependencies
+RUN apt-get -y install swig python3-dev python3-pip python3-setuptools python3-build openjdk-11-jdk maven
+# 3D GUI, video recording
+RUN apt-get -y install libopenscenegraph-dev libavformat-dev libswscale-dev
+# unit testing, GUI testing, code style
+RUN apt-get -y install libgtest-dev scrot python3-pyperclip xvfb flake8 python3-autopep8 astyle
+# python packages needed for the tools (also listed in tools/requirements.txt but we prefer the ubuntu packages)
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y install python3-ezdxf python3-pandas python3-psutil python3-pulp \
+ python3-pyproj python3-rtree python-is-python3
+# packages needed for the docs (some are also listed in docs/web/requirements.txt but we prefer the ubuntu packages)
+RUN apt-get -y install mkdocs hugo doxygen plantuml graphviz
 
 RUN cd /opt; git clone --recursive https://github.com/eclipse/sumo
-RUN cd /opt/sumo; mkdir build/cmake-build; cd build/cmake-build; cmake ../.. -DSUMO_UTILS=TRUE; make -j8 all examples
+# python packages needed for the tools (the ones where we do not have ubuntu packages)
+RUN pip3 install -r /opt/sumo/tools/requirements.txt
+# python packages needed for the docs (the ones where we do not have ubuntu packages)
+RUN pip3 install -r /opt/sumo/docs/web/requirements.txt
+RUN cd /opt/sumo; mkdir build/cmake-build; cd build/cmake-build; \
+ cmake ../.. -DCMAKE_INSTALL_PREFIX=/usr -DSUMO_UTILS=TRUE; \
+ make -j8 all examples doc install; cd /opt/sumo; rm -rf build/cmake-build

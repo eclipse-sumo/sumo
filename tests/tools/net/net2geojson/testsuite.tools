@@ -9,3 +9,9 @@ junctionCoordinates
 
 # write geojson  junction shapes
 junctions
+
+# write geojson edge boundaries
+boundaries
+
+# test importing a network without geo reference
+no_geo

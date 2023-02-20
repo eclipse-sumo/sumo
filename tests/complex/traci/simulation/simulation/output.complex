@@ -1,6 +1,7 @@
 loaded? False
-version at start (20, 'SUMO v1_14_1+0349-ad09e910dd7')
-version (20, 'SUMO v1_14_1+0349-ad09e910dd7')
+ Retrying in 1 seconds
+version at start (20, 'SUMO v1_16_0+0148-8a57f94b9f5')
+version (20, 'SUMO v1_16_0+0148-8a57f94b9f5')
 loaded? True
 endTime 42.0
 net file input_net.net.xml
@@ -57,10 +58,11 @@ convertRoad2D length (667.2699999999995, 3124.688)
 convert2DGeo (12.023018905461857, 48.09105459778215)
 convertGeo2D (-1619.565396778169, -9550.720808432437)
 convert2DRoad ('o', 2906.189220451069, 0)
-convertGeoRoad ('o', 1012.1569043554978, 0)
-convertGeoRoadBus ('o', 1012.1569043554978, 0)
-convertGeoRoadBusDisallowed ('2o', 8027.707315024791, 0)
+convertGeoRoad ('o', 1012.1569043555733, 0)
+convertGeoRoadBus ('o', 1012.1569043555733, 0)
+convertGeoRoadBusDisallowed ('2o', 8027.707315024644, 0)
 distance2D 10.0
+distance2Dgeo 10.0
 drivingDistance2D 6.489345613324986
 distanceRoad 5131.878972316085
 drivingDistanceRoad 5136.55
@@ -120,8 +122,8 @@ time 14.0
 loaded ()
 #departed 0
 departed ()
-#arrived 0
-arrived ()
+#arrived 1
+arrived ('collider',)
 #parkstart 0
 parkstart ()
 #parkend 0
@@ -134,7 +136,7 @@ stopend ()
 colliding ('suddenStop', 'collider')
 #emergencystopping 0
 emergencystopping ()
-min#expected 5
+min#expected 4
 #teleportStart 1
 teleportStart ('collider',)
 #teleportEnd 0

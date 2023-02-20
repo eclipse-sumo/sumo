@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2012-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -88,7 +88,7 @@ NWWriter_DlrNavteq::writeNodesUnsplitted(const OptionsCont& oc, NBNodeCont& nc, 
     const double geoScale = pow(10.0f, haveGeo ? 5 : 2); // see NIImporter_DlrNavteq::GEO_SCALE
     device.setPrecision(oc.getInt("dlr-navteq.precision"));
     if (!haveGeo) {
-        WRITE_WARNING("DlrNavteq node data will be written in (floating point) cartesian coordinates");
+        WRITE_WARNING(TL("DlrNavteq node data will be written in (floating point) cartesian coordinates"));
     }
     // write format specifier
     device << "# NODE_ID\tIS_BETWEEN_NODE\tamount_of_geocoordinates\tx1\ty1\t[x2 y2  ... xn  yn]\n";
@@ -152,14 +152,14 @@ NWWriter_DlrNavteq::writeNodesUnsplitted(const OptionsCont& oc, NBNodeCont& nc, 
                 try {
                     geom.move2side(e->getTotalWidth() / 2);
                 } catch (InvalidArgument& exception) {
-                    WRITE_WARNING("Could not reconstruct shape for edge:'" + e->getID() + "' (" + exception.what() + ").");
+                    WRITE_WARNINGF(TL("Could not reconstruct shape for edge:'%' (%)."), e->getID(), exception.what());
                 }
             } else if (e->getLaneSpreadFunction() == LaneSpreadFunction::CENTER && hasOppositeID) {
                 // need to write left-border geometry instead
                 try {
                     geom.move2side(-e->getTotalWidth() / 2);
                 } catch (InvalidArgument& exception) {
-                    WRITE_WARNING("Could not reconstruct shape for edge:'" + e->getID() + "' (" + exception.what() + ").");
+                    WRITE_WARNINGF(TL("Could not reconstruct shape for edge:'%' (%)."), e->getID(), exception.what());
                 }
             }
 
@@ -436,12 +436,12 @@ std::string
 NWWriter_DlrNavteq::getSinglePostalCode(const std::string& zipCode, const std::string edgeID) {
     // might be multiple codes
     if (zipCode.find_first_of(" ,;") != std::string::npos) {
-        WRITE_WARNING("ambiguous zip code '" + zipCode + "' for edge '" + edgeID + "'. (using first value)");
+        WRITE_WARNINGF("ambiguous zip code '%' for edge '%'. (using first value)", zipCode, edgeID);
         StringTokenizer st(zipCode, " ,;", true);
         std::vector<std::string> ret = st.getVector();
         return ret[0];
     } else if (zipCode.size() > 16) {
-        WRITE_WARNING("long zip code '" + zipCode + "' for edge '" + edgeID + "'");
+        WRITE_WARNINGF("long zip code '%' for edge '%'", zipCode, edgeID);
     }
     return zipCode;
 }

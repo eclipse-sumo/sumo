@@ -7,6 +7,7 @@ static const char *windows_cascade_xpm[] = {
 "o	c #5d60f2",
 "O	c Black",
 "+	c Gray51",
+/* pixels */
 " ........       ",
 " .XoooooO       ",
 " .OOOOOOO       ",
@@ -22,4 +23,5 @@ static const char *windows_cascade_xpm[] = {
 "       .X+X+++O ",
 "       .+X+XXXO ",
 "       .OOOOOOO ",
-"                "};
+"                "
+};

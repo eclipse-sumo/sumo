@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -58,6 +58,7 @@ MSDelayBasedTrafficLightLogic::MSDelayBasedTrafficLightLogic(MSTLLogicControl& t
     myFile = FileHelpers::checkForRelativity(getParameter("file", "NUL"), basePath);
     myFreq = TIME2STEPS(StringUtils::toDouble(getParameter("freq", "300")));
     myVehicleTypes = getParameter("vTypes", "");
+    myExtendMaxDur = StringUtils::toBool(getParameter("extendMaxDur", "false"));
 #ifdef DEBUG_TIMELOSS_CONTROL
     std::cout << "show-detectors: " << myShowDetectors
               << " detectorRange: " << myDetectionRange
@@ -92,13 +93,26 @@ MSDelayBasedTrafficLightLogic::init(NLDetectorBuilder& nb) {
                 if (customID != "") {
                     det = dynamic_cast<MSE2Collector*>(MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_LANE_AREA_DETECTOR).get(customID));
                     if (det == nullptr) {
-                        WRITE_ERROR("Unknown laneAreaDetector '" + customID + "' given as custom detector for delay_based tlLogic '" + getID() + "', program '" + getProgramID() + ".");
+                        WRITE_ERRORF(TL("Unknown laneAreaDetector '%' given as custom detector for delay_based tlLogic '%', program '%."), customID, getID(), getProgramID());
                         continue;
                     }
                     det->setVisible(myShowDetectors);
                 } else {
+                    // check whether the lane (or unamibiguous lane sequence) is long enough and avoid overlapping detectors
+                    double length = lane->getLength();
+                    MSLane* firstLane = lane;
+                    while (length < myDetectionRange && firstLane->getIncomingLanes().size() == 1
+                            && firstLane->getIncomingLanes().front().viaLink->getCorrespondingEntryLink()->getTLLogic() == nullptr) {
+                        firstLane = firstLane->getLogicalPredecessorLane();
+                        if (firstLane->getLinkCont().size() > 1) {
+                            break;
+                        }
+                        length += firstLane->getLength();
+                    }
+                    length = MIN2(length, myDetectionRange);
+
                     std::string id = "TLS" + myID + "_" + myProgramID + "_E2CollectorOn_" + lane->getID();
-                    det = nb.createE2Detector(id, DU_TL_CONTROL, lane, INVALID_POSITION, lane->getLength(), myDetectionRange, 0, 0, 0, myVehicleTypes, "", (int)PersonMode::NONE, myShowDetectors);
+                    det = nb.createE2Detector(id, DU_TL_CONTROL, lane, INVALID_POSITION, lane->getLength(), length, 0, 0, 0, myVehicleTypes, "", "", (int)PersonMode::NONE, myShowDetectors);
                     MSNet::getInstance()->getDetectorControl().add(SUMO_TAG_LANE_AREA_DETECTOR, det, myFile, myFreq);
                 }
                 myLaneDetectors[lane] = det;
@@ -211,8 +225,6 @@ MSDelayBasedTrafficLightLogic::trySwitch() {
                   << std::endl;
 #endif
 
-        // keep this phase a little longer?
-        bool prolong =  othersEmpty || actDuration < currentPhase.maxDuration;
         // assure minimal duration
         proposedProlongation = MAX3(SUMOTime(0), proposedProlongation, currentPhase.minDuration - actDuration);
         if (othersEmpty) {
@@ -222,13 +234,15 @@ MSDelayBasedTrafficLightLogic::trySwitch() {
             // vehicles are present on other approaches -> prolong no further than the max green time
             proposedProlongation = MIN2(proposedProlongation, MAX2(SUMOTime(0), currentPhase.maxDuration - actDuration));
         }
+        if (!myExtendMaxDur) {
+            proposedProlongation = MIN2(proposedProlongation, MAX2(SUMOTime(0), currentPhase.maxDuration - actDuration));
+        }
 
 #ifdef DEBUG_TIMELOSS_CONTROL
         std::cout << "Proposed prolongation = " << proposedProlongation << std::endl;
 #endif
 
-        prolong = proposedProlongation > 0;
-        if (prolong) {
+        if (proposedProlongation > 0) {
             // check again after the prolonged period (must be positive...)
             // XXX: Can it be harmful not to return a duration of integer seconds?
             return proposedProlongation;

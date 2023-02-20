@@ -1,2 +1,2 @@
-Error: Invalid color definition 'dummycolor'
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.shape.poigeo.08Apr202457.3689/netedit.daily.shape.poigeo/shapeelements/poigeo/load/color/input_additionals.add.xml failed.
+Error: Attribute 'color' in definition of poi 'POI_1' Invalid color definition 'dummycolor'.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.shape.poigeo.01Dec143642.87478/netedit.daily.shape.poigeo/shapeelements/poigeo/load/color/additionals.add.xml failed.

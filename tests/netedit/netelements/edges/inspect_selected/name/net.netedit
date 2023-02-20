@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-04-21 13:44:00 by Eclipse SUMO netedit Version v1_12_0+2217-2ed7c9aad7e
+<!-- generated on 2023-01-26 14:43:36 by Eclipse SUMO netedit Version v1_15_0+1986-45defa09f05
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.21Apr123613.3341/netedit.daily.net.edges/netelements/edges/inspect_selected/name/input_net.net.xml"/>
+        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.26Jan143216.88\netedit.gui\netelements\edges\inspect_selected\name\additionals.add.xml"/>
+        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.26Jan143216.88\netedit.gui\netelements\edges\inspect_selected\name\routes.rou.xml"/>
+        <data-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.26Jan143216.88\netedit.gui\netelements\edges\inspect_selected\name\datas.dat.xml"/>
+        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.26Jan143216.88\netedit.gui\netelements\edges\inspect_selected\name\net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.21Apr123613.3341/netedit.daily.net.edges/netelements/edges/inspect_selected/name/net.net.xml"/>
+        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.26Jan143216.88\netedit.gui\netelements\edges\inspect_selected\name\net.net.xml"/>
         <output.street-names value="true"/>
     </output>
 
@@ -16,48 +19,39 @@
         <geometry.min-radius.fix.railways value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
-        <lefthand value="false"/>
+        <lefthand value="0"/>
     </processing>
 
     <junctions>
         <no-turnarounds value="true"/>
         <junctions.corner-detail value="5"/>
-        <junctions.limit-turn-speed value="5.5"/>
-        <rectangular-lane-cut value="false"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
     </junctions>
 
     <pedestrian>
-        <walkingareas value="false"/>
+        <walkingareas value="0"/>
     </pedestrian>
 
-    <netedit>
-        <additional-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.21Apr123613.3341/netedit.daily.net.edges/netelements/edges/inspect_selected/name/additionals.xml"/>
-        <additionals-output value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.21Apr123613.3341/netedit.daily.net.edges/netelements/edges/inspect_selected/name/additionals.xml"/>
-        <route-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.21Apr123613.3341/netedit.daily.net.edges/netelements/edges/inspect_selected/name/routes.xml"/>
-        <demandelements-output value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.21Apr123613.3341/netedit.daily.net.edges/netelements/edges/inspect_selected/name/routes.xml"/>
-        <data-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.21Apr123613.3341/netedit.daily.net.edges/netelements/edges/inspect_selected/name/datas.xml"/>
-        <dataelements-output value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.21Apr123613.3341/netedit.daily.net.edges/netelements/edges/inspect_selected/name/datas.xml"/>
-    </netedit>
-
     <visualisation>
-        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.21Apr123613.3341/netedit.daily.net.edges/netelements/edges/inspect_selected/name/gui-settings.xml"/>
-        <window-size value="936,697"/>
+        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.26Jan143216.88\netedit.gui\netelements\edges\inspect_selected\name\gui-settings.xml"/>
+        <window-size value="936, 697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
-        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.21Apr123613.3341/netedit.daily.net.edges/netelements/edges/inspect_selected/name/guisettingsoutput.xml"/>
+        <gui-testing-debug-gl value="true"/>
+        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.26Jan143216.88\netedit.gui\netelements\edges\inspect_selected\name\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <aggregate-warnings value="5"/>
-        <error-log value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.21Apr123613.3341/netedit.daily.net.edges/netelements/edges/inspect_selected/name/log.txt"/>
+        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.26Jan143216.88\netedit.gui\netelements\edges\inspect_selected\name\log.txt"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.9" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="25.00,0.00" convBoundary="0.00,0.00,50.00,20.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 

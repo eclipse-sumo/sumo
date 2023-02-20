@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -115,19 +115,6 @@ public:
     /// @brief decides the next lateral speed (for continuous lane changing)
     double computeSpeedLat(double latDist, double& maneuverDist, bool urgent) const override;
 
-    /// @brief Returns a deceleration value which is used for the estimation of the duration of a lane change.
-    /// @note  Effective only for continuous lane-changing when using attributes myMaxSpeedLatFactor and myMaxSpeedLatStanding. See #3771
-    double getAssumedDecelForLaneChangeDuration() const override;
-
-    /** @brief Return the state of the laneChangeModel for saving
-     */
-    std::string saveState() const;
-
-    /** @brief Loads the state of the laneChangeModel from the given string
-     * @param[in] state The textual state representation
-     */
-    void loadState(const std::string& state);
-
 protected:
 
     /** helper function which contains the actual logic */
@@ -206,14 +193,6 @@ protected:
         return dist / abs(laneOffset) > lookForwardDist;
     }
 
-    /** @brief Takes a vSafe (speed advice for speed in the next simulation step), converts it into an acceleration
-     *         and stores it into myLCAccelerationAdvices.
-     *  @note  This construction was introduced to deal with action step lengths,
-     *         where operation on the speed in the next sim step had to be replaced by acceleration
-     *         throughout the next action step.
-     */
-    void addLCSpeedAdvice(const double vSafe);
-
 protected:
 
     /// @brief information regarding save velocity (unused) and state flags of the ego vehicle
@@ -232,10 +211,6 @@ protected:
     /*@brief the speed to use when computing the look-ahead distance for
      * determining urgency of strategic lane changes */
     double myLookAheadSpeed;
-
-    /// @brief vector of LC-related acceleration recommendations
-    ///        Filled in wantsChange() and applied in patchSpeed()
-    std::vector<double> myLCAccelerationAdvices;
 
     bool myDontBrake; // XXX: myDontBrake is initialized as false and seems not to be changed anywhere... What's its purpose???
 

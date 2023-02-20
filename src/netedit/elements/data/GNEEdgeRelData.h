@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -24,13 +24,12 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-
 #include "GNEGenericData.h"
+
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-
 /**
  * @class GNEEdgeRelData
  * @brief An Element which don't belong to GNENet but has influence in the simulation
@@ -51,8 +50,7 @@ public:
     ~GNEEdgeRelData();
 
     /// @brief get edge rel data color
-    void setColor(const GUIVisualizationSettings& s) const;
-
+    RGBColor setColor(const GUIVisualizationSettings& s) const;
     double getColorValue(const GUIVisualizationSettings& s, int activeScheme) const;
 
     /// @brief check if current edge rel data is visible
@@ -89,9 +87,6 @@ public:
      * @see GUIGlObject::drawGL
      */
     void drawGL(const GUIVisualizationSettings& s) const;
-
-    /// @brief return exaggeration associated with this GLObject
-    double getExaggeration(const GUIVisualizationSettings& s) const;
 
     //// @brief Returns the boundary to which the view shall be centered in order to show the object
     Boundary getCenteringBoundary() const;

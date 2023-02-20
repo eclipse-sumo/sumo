@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -73,7 +73,7 @@ Supermode
 GNETagProperties::getSupermode() const {
     if (isDemandElement()) {
         return Supermode::DEMAND;
-    } else if (isDataElement()) {
+    } else if (isDataElement() || isMeanData()) {
         return Supermode::DATA;
     } else {
         return Supermode::NETWORK;
@@ -89,21 +89,23 @@ GNETagProperties::getTagStr() const {
 
 void
 GNETagProperties::checkTagIntegrity() const {
+    // check integrity only in debug mode
+#ifdef DEBUG
     // check that element must ist at least networkElement, Additional, or shape
-    if (!isNetworkElement() && !isAdditionalElement() && !isDemandElement() && !isDataElement() && !isInternalLane()) {
-        throw ProcessError("element must be at leas networkElement, additional, TAZ, demandElement or dataElement");
+    if (!isNetworkElement() && !isAdditionalElement() && !isDemandElement() && !isDataElement() && !isMeanData() && !isInternalLane()) {
+        throw ProcessError(TL("element must be at least networkElement, additional, TAZ, demandElement, dataElement or meanData"));
     }
     // check that element only is networkElement, Additional, or shape at the same time
-    if ((isNetworkElement() + isAdditionalElement() + isDemandElement() + isDataElement()) > 1) {
-        throw ProcessError("element can be only a networkElement, additional, demandElement or dataElement at the same time");
+    if ((isNetworkElement() + isAdditionalElement() + isDemandElement() + isDataElement() + isMeanData()) > 1) {
+        throw ProcessError(TL("element can be only a networkElement, additional, demandElement, dataElement or meanData at the same time"));
     }
     // check that element only is shape, TAZ, or wire at the same time
     if ((isShapeElement() + isTAZElement() + isWireElement()) > 1) {
-        throw ProcessError("element can be only a shape, TAZ or wire element at the same time");
+        throw ProcessError(TL("element can be only a shape, TAZ or wire element at the same time"));
     }
     // if element can mask the start and end position, check that bot attributes exist
     if (canMaskStartEndPos() && (!hasAttribute(SUMO_ATTR_STARTPOS) || !hasAttribute(SUMO_ATTR_ENDPOS))) {
-        throw ProcessError("If attribute mask the start and end position, bot attribute has to be defined");
+        throw ProcessError(TL("If attribute mask the start and end position, bot attribute has to be defined"));
     }
     // check that master tag is valid
     if (isChild() && myParentTags.empty()) {
@@ -129,14 +131,15 @@ GNETagProperties::checkTagIntegrity() const {
             if ((attributeProperty.getAttr() != SUMO_ATTR_ALLOW) && (attributeProperty.getAttr() != SUMO_ATTR_DISALLOW) &&
                     (attributeProperty.getAttr() != SUMO_ATTR_CHANGE_LEFT) && (attributeProperty.getAttr() != SUMO_ATTR_CHANGE_RIGHT) &&
                     (attributeProperty.getAttr() != GNE_ATTR_STOPOEXCEPTION)) {
-                throw ProcessError("Attributes aren't combinables");
+                throw ProcessError(TL("Attributes aren't combinables"));
             } else if ((attributeProperty.getAttr() == SUMO_ATTR_ALLOW) && !hasAttribute(SUMO_ATTR_DISALLOW)) {
-                throw ProcessError("allow need a disallow attribute in the same tag");
+                throw ProcessError(TL("allow need a disallow attribute in the same tag"));
             } else if ((attributeProperty.getAttr() == SUMO_ATTR_DISALLOW) && !hasAttribute(SUMO_ATTR_ALLOW)) {
-                throw ProcessError("disallow need an allow attribute in the same tag");
+                throw ProcessError(TL("disallow need an allow attribute in the same tag"));
             }
         }
     }
+#endif // DEBUG
 }
 
 
@@ -146,25 +149,25 @@ GNETagProperties::getDefaultValue(SumoXMLAttr attr) const {
     for (const auto& attributeProperty : myAttributeProperties) {
         if (attributeProperty.getAttr() == attr) {
             if (!attributeProperty.hasDefaultValue()) {
-                throw ProcessError("attribute '" + attributeProperty.getAttrStr() + "' doesn't have a default value");
+                throw ProcessError(TLF("attribute '%' doesn't have a default value", attributeProperty.getAttrStr()));
             } else {
                 return attributeProperty.getDefaultValue();
             }
         }
     }
-    throw ProcessError("Attribute '" + toString(attr) + "' not defined");
+    throw ProcessError(TLF("Attribute '%' not defined", toString(attr)));
 }
 
 
 void
 GNETagProperties::addAttribute(const GNEAttributeProperties& attributeProperty) {
     if ((myAttributeProperties.size() + 1) >= MAXNUMBEROFATTRIBUTES) {
-        throw ProcessError("Maximum number of attributes for tag " + attributeProperty.getAttrStr() + " exceeded");
+        throw ProcessError(TLF("Maximum number of attributes for tag % exceeded", attributeProperty.getAttrStr()));
     } else {
         // Check that attribute wasn't already inserted
         for (const auto& attrProperty : myAttributeProperties) {
             if (attributeProperty.getAttr() == attrProperty.getAttr()) {
-                throw ProcessError("Attribute '" + attributeProperty.getAttrStr() + "' already inserted");
+                throw ProcessError(TLF("Attribute '%' already inserted", attributeProperty.getAttrStr()));
             }
         }
         // insert AttributeProperties in vector
@@ -201,7 +204,7 @@ GNETagProperties::getAttributeProperties(SumoXMLAttr attr) const {
         }
     }
     // throw error if these attribute doesn't exist
-    throw ProcessError("Attribute '" + toString(attr) + "' doesn't exist");
+    throw ProcessError(TLF("Attribute '%' doesn't exist", toString(attr)));
 }
 
 
@@ -430,6 +433,12 @@ GNETagProperties::isStopContainer() const {
 bool
 GNETagProperties::isGenericData() const {
     return (myTagType & GENERICDATA) != 0;
+}
+
+
+bool
+GNETagProperties::isMeanData() const {
+    return (myTagType & MEANDATA) != 0;
 }
 
 

@@ -1,0 +1,11 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+
+    <variableSpeedSign id="variableSpeedSign_0" pos="0.00,10.00"/>
+
+    <variableSpeedSign id="variableSpeedSign_1" lanes="" pos="10.00,10.00"/>
+
+    <variableSpeedSign id="variableSpeedSign_2" lanes="ABC DEF" pos="40.00,-10.00"/>
+
+    <variableSpeedSign id="variableSpeedSign_3" lanes="center0_0 center1_0" pos="50.00,-10.00"/>
+
+</additional>

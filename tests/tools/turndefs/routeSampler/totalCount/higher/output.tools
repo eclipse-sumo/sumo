@@ -1,0 +1,3 @@
+Loaded 98 routes (98 distinct)
+Ignored 72 routes which do not pass any counting location
+Wrote 100 routes (65 distinct) achieving total count 41 (100.00%) at 9 locations. GEH<5 for 100.00%

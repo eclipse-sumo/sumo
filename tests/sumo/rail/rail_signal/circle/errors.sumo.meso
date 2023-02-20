@@ -1,1 +1,1 @@
-Warning: Found circular block after railSignal junction 'A', link 0 (4 edges, length 662.58)
+Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.

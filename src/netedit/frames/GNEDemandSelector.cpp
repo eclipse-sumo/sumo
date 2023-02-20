@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -45,13 +45,13 @@ FXIMPLEMENT(DemandElementSelector,      MFXGroupBoxModule,     DemandElementSele
 // ===========================================================================
 
 DemandElementSelector::DemandElementSelector(GNEFrame* frameParent, SumoXMLTag demandElementTag, GNEDemandElement* defaultElement) :
-    MFXGroupBoxModule(frameParent, ("Parent " + toString(demandElementTag)).c_str()),
+    MFXGroupBoxModule(frameParent, (TL("Parent ") + toString(demandElementTag)).c_str()),
     myFrameParent(frameParent),
     myCurrentDemandElement(defaultElement),
     myDemandElementTags({demandElementTag}),
 mySelectingMultipleElements(false) {
-    // Create MFXIconComboBox
-    myDemandElementsMatchBox = new MFXIconComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, true, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
+    // Create MFXComboBoxIcon
+    myDemandElementsMatchBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
     // create info label
     myInfoLabel = new FXLabel(getCollapsableFrame(), "", nullptr, GUIDesignLabelFrameInformation);
     // refresh demand element MatchBox
@@ -62,7 +62,7 @@ mySelectingMultipleElements(false) {
 
 
 DemandElementSelector::DemandElementSelector(GNEFrame* frameParent, const std::vector<GNETagProperties::TagType>& tagTypes) :
-    MFXGroupBoxModule(frameParent, "Parent element"),
+    MFXGroupBoxModule(frameParent, TL("Parent element")),
     myFrameParent(frameParent),
     myCurrentDemandElement(nullptr),
     mySelectingMultipleElements(false) {
@@ -73,8 +73,8 @@ DemandElementSelector::DemandElementSelector(GNEFrame* frameParent, const std::v
             myDemandElementTags.push_back(tagProperty.getTag());
         }
     }
-    // Create MFXIconComboBox
-    myDemandElementsMatchBox = new MFXIconComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, true, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
+    // Create MFXComboBoxIcon
+    myDemandElementsMatchBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
     // create info label
     myInfoLabel = new FXLabel(getCollapsableFrame(), "", nullptr, GUIDesignLabelFrameInformation);
     // refresh demand element MatchBox
@@ -105,15 +105,15 @@ DemandElementSelector::setDemandElement(GNEDemandElement* demandElement) {
     // Set new current demand element
     myCurrentDemandElement = demandElement;
     if (demandElement == nullptr) {
-        myDemandElementsMatchBox->setCustomText("select item...");
+        myDemandElementsMatchBox->setCustomText(TL("select item..."));
         // set info label
-        myInfoLabel->setText("-Select an item in the list or\n  click over an element in view");
+        myInfoLabel->setText((TL("-Select an item in the list or") + std::string("\n") + TL("click over an element in view")).c_str());
         myInfoLabel->show();
     } else {
         // check that demandElement tag correspond to a tag of myDemandElementTags
         if (std::find(myDemandElementTags.begin(), myDemandElementTags.end(), demandElement->getTagProperty().getTag()) != myDemandElementTags.end()) {
             // update text of myDemandElementsMatchBox
-            myDemandElementsMatchBox->setItem(demandElement->getID().c_str(), demandElement->getIcon());
+            myDemandElementsMatchBox->setItem(demandElement->getID().c_str(), demandElement->getACIcon());
         }
         myInfoLabel->hide();
     }
@@ -128,11 +128,17 @@ DemandElementSelector::setDemandElements(const std::vector<GNEDemandElement*>& d
     myCurrentDemandElement = nullptr;
     myDemandElementsMatchBox->clearItems();
     for (const auto& demandElement : demandElements) {
-        myDemandElementsMatchBox->appendIconItem(demandElement->getID().c_str(), demandElement->getIcon());
+        myDemandElementsMatchBox->appendIconItem(demandElement->getID().c_str(), demandElement->getACIcon());
     }
-    myDemandElementsMatchBox->setCustomText("select sub-item...");
+    myDemandElementsMatchBox->setCustomText(TL("select sub-item..."));
     // set info label
-    myInfoLabel->setText("-Clicked over multiple\n elements\n-Select an item in the\n list or click over an\n element in view");
+    const std::string info =
+        TL("-Clicked over multiple") + std::string("\n") + 
+        TL("elements") + std::string("\n") + 
+        TL(" - Select an item in the") + std::string("\n") + 
+        TL(" list or click over an") + std::string("\n") + 
+        TL(" element in view");
+    myInfoLabel->setText(info.c_str());
     myInfoLabel->show();
 }
 
@@ -143,11 +149,11 @@ DemandElementSelector::showDemandElementSelector() {
     refreshDemandElementSelector();
     // if current selected item isn't valid, set DEFAULT_VTYPE_ID or DEFAULT_PEDTYPE_ID
     if (myCurrentDemandElement) {
-        myDemandElementsMatchBox->setItem(myCurrentDemandElement->getID().c_str(), myCurrentDemandElement->getIcon());
+        myDemandElementsMatchBox->setItem(myCurrentDemandElement->getID().c_str(), myCurrentDemandElement->getACIcon());
     } else if (myDemandElementTags.size() == 1) {
         if (myDemandElementTags.at(0) == SUMO_TAG_VTYPE) {
             const auto defaultVType = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, DEFAULT_VTYPE_ID);
-            myDemandElementsMatchBox->setItem(defaultVType->getID().c_str(), defaultVType->getIcon());
+            myDemandElementsMatchBox->setItem(defaultVType->getID().c_str(), defaultVType->getACIcon());
         }
     }
     onCmdSelectDemandElement(nullptr, 0, nullptr);
@@ -187,13 +193,13 @@ DemandElementSelector::refreshDemandElementSelector() {
             for (const auto& vType : demandElements.at(demandElementTag)) {
                 // avoid insert duplicated default vType
                 if (DEFAULT_VTYPES.count(vType->getID()) == 0) {
-                    myDemandElementsMatchBox->appendIconItem(vType->getID().c_str(), vType->getIcon());
+                    myDemandElementsMatchBox->appendIconItem(vType->getID().c_str(), vType->getACIcon());
                 }
             }
         } else {
             // insert all Ids
             for (const auto& demandElement : demandElements.at(demandElementTag)) {
-                myDemandElementsMatchBox->appendIconItem(demandElement->getID().c_str(), demandElement->getIcon());
+                myDemandElementsMatchBox->appendIconItem(demandElement->getID().c_str(), demandElement->getACIcon());
             }
         }
     }
@@ -323,7 +329,7 @@ DemandElementSelector::onCmdSelectDemandElement(FXObject*, FXSelector, void*) {
                 // call demandElementSelected function
                 myFrameParent->demandElementSelected();
                 // Write Warning in console if we're in testing mode
-                WRITE_DEBUG(("Selected item '" + myDemandElementsMatchBox->getText() + "' in DemandElementSelector").text());
+                WRITE_DEBUG((TL("Selected item '") + myDemandElementsMatchBox->getText() + TL("' in DemandElementSelector")).text());
                 myInfoLabel->hide();
                 return 1;
             }
@@ -336,7 +342,7 @@ DemandElementSelector::onCmdSelectDemandElement(FXObject*, FXSelector, void*) {
     // change color of myDemandElementsMatchBox to red (invalid)
     myDemandElementsMatchBox->setTextColor(FXRGB(255, 0, 0));
     // Write Warning in console if we're in testing mode
-    WRITE_DEBUG("Selected invalid item in DemandElementSelector");
+    WRITE_DEBUG(TL("Selected invalid item in DemandElementSelector"));
     return 1;
 }
 

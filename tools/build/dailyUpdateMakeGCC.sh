@@ -75,15 +75,18 @@ if test -e $SUMO_BINDIR/sumo -a $SUMO_BINDIR/sumo -nt build/$FILEPREFIX/Makefile
     tests/runTests.sh -b $FILEPREFIX -name $TESTLABEL &> $TESTLOG
     if which Xvfb &>/dev/null; then
       tests/runTests.sh -a sumo.gui -b $FILEPREFIX -name $TESTLABEL >> $TESTLOG 2>&1
-      if test "$FILEPREFIX" == "gcc4_64"; then
-        tests/runNeteditDailyTests.sh -b $FILEPREFIX -name $TESTLABEL >> $TESTLOG 2>&1
-      fi
     fi
   fi
   tests/runTests.sh -b $FILEPREFIX -name $TESTLABEL -coll >> $TESTLOG 2>&1
-  echo "batchreport" >> $STATUSLOG
+  if test -e build/$FILEPREFIX/src/CMakeFiles/sumo.dir/sumo_main.cpp.gcda; then
+    echo "lcov/html" >> $STATUSLOG
+    echo "Coverage report" >> $STATUSLOG
+  else
+    echo "batchreport" >> $STATUSLOG
+  fi
 fi
 
+# running extra tests for the coverage report
 if test -e build/$FILEPREFIX/src/CMakeFiles/sumo.dir/sumo_main.cpp.gcda; then
   date >> $TESTLOG
   tests/runExtraTests.py --gui "b $FILEPREFIX" >> $TESTLOG 2>&1
@@ -105,6 +108,7 @@ if make -j32 >> $MAKEALLLOG 2>&1; then
 else
   echo "make with all options failed" | tee -a $STATUSLOG; tail -20 $MAKEALLLOG
 fi
+cd $PREFIX/sumo
 echo `grep -ci 'warn[iu]ng:' $MAKEALLLOG` warnings >> $STATUSLOG
 echo "--" >> $STATUSLOG
 
@@ -112,12 +116,24 @@ basename $TESTLOG >> $STATUSLOG
 date >> $STATUSLOG
 echo "--" >> $STATUSLOG
 
+# netedit tests
+if test -e $SUMO_BINDIR/netedit -a $SUMO_BINDIR/netedit -nt build/$FILEPREFIX/Makefile; then
+  if test "$FILEPREFIX" == "gcc4_64"; then
+    tests/runNeteditDailyTests.sh -b ${FILEPREFIX}netedit -name $TESTLABEL >> $TESTLOG 2>&1
+    tests/runTests.sh -b ${FILEPREFIX} -name $TESTLABEL -coll >> $TESTLOG 2>&1
+  fi
+fi
+
+# macOS M1 wheels
 if test ${FILEPREFIX: -2} == "M1"; then
-  rm -rf dist _skbuild
+  rm -rf dist dist_native _skbuild wheelhouse
   python3 tools/build/setup-sumo.py bdist_wheel
   python3 tools/build/setup-libsumo.py bdist_wheel
   python3 tools/build/setup-libtraci.py bdist_wheel
   mv dist/eclipse_sumo-* `echo dist/eclipse_sumo-* | sed 's/cp39-cp39/py2.py3-none/'`
   # the credentials are in ~/.pypirc
-  twine upload -r testpypi dist/*
+  twine upload --skip-existing -r testpypi dist/*
+  mv dist dist_native  # just as backup
+  docker run --rm -v $PWD:/github/workspace manylinux2014_aarch64 tools/build/build_wheels.sh $HTTPS_PROXY
+  twine upload --skip-existing -r testpypi wheelhouse/*
 fi

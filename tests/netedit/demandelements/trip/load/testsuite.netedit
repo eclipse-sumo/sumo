@@ -4,7 +4,7 @@ no_edges
 
 id
 
-vtype
+type
 
 from
 
@@ -37,5 +37,7 @@ departposlat
 arrivalposlat
 
 depart
+
+insertionchecks
 
 parameters

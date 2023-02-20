@@ -5,9 +5,9 @@ Eclipse SUMO - Simulation of Urban MObility
 [![Windows](https://github.com/eclipse/sumo/actions/workflows/build-windows.yml/badge.svg)](https://github.com/eclipse/sumo/actions/workflows/build-windows.yml)
 [![Linux](https://github.com/eclipse/sumo/actions/workflows/build-linux.yml/badge.svg)](https://github.com/eclipse/sumo/actions/workflows/build-linux.yml)
 [![macOS](https://github.com/eclipse/sumo/actions/workflows/build-macos.yml/badge.svg)](https://github.com/eclipse/sumo/actions/workflows/build-macos.yml)
+[![sonarcloud security](https://sonarcloud.io/api/project_badges/measure?project=org.eclipse.sumo&metric=security_rating)](https://sonarcloud.io/summary/overall?id=org.eclipse.sumo)
+[![Translation status](https://hosted.weblate.org/widgets/eclipse-sumo/-/svg-badge.svg)](https://hosted.weblate.org/engage/eclipse-sumo/)
 ![Repo Size](https://img.shields.io/github/repo-size/eclipse/sumo.svg)
-
-<!-- [![Windows Build status](https://ci.appveyor.com/api/projects/status/github/eclipse/sumo?svg=true)](https://ci.appveyor.com/project/eclipsewebmaster/sumo) -->
 
 What is SUMO
 ------------
@@ -35,12 +35,12 @@ the following command should work:
 Contact
 -------
 
-To stay informed, we have a mailing list for SUMO
+To stay informed, we have a mailing list for SUMO, which 
 [you can subscribe](https://dev.eclipse.org/mailman/listinfo/sumo-user) to.
 Messages to the list can be sent to sumo-user@eclipse.org.
 SUMO announcements will be made through the sumo-announce@eclipse.org list;
-[you can subscribe](https://dev.eclipse.org/mailman/listinfo/sumo-announce) to as well.
-For further contact information have a look at the [this page](https://sumo.dlr.de/docs/Contact.html).
+[you can subscribe](https://dev.eclipse.org/mailman/listinfo/sumo-announce) to it as well.
+For further contact information, have a look at [this page](https://sumo.dlr.de/docs/Contact.html).
 
 
 Build and Installation
@@ -51,10 +51,10 @@ If you want to develop under Windows, please also clone the dependent libraries 
 
         git clone --recursive https://github.com/DLR-TS/SUMOLibraries
 
-Using Linux you should have a look whether your distribution already contains sumo.
+If you're using Linux, you should have a look whether your distribution already contains sumo.
 There is also a [ppa for ubuntu users](https://launchpad.net/~sumo) and an
-[open build service instance](https://build.opensuse.org/project/show/home:behrisch).
-If you want to build yourself, the steps for ubuntu are:
+[open build service instance](https://build.opensuse.org/project/show/science:dlr).
+If you want to build sumo yourself, the steps for ubuntu are:
 
         sudo apt-get install cmake python g++ libxerces-c-dev libfox-1.6-dev libgdal-dev libproj-dev libgl2ps-dev swig
         cd <SUMO_DIR> # please insert the correct directory name here
@@ -63,7 +63,7 @@ If you want to build yourself, the steps for ubuntu are:
         cmake ../..
         make -j$(nproc)
 
-For [detailed build instructions have a look at our Documentation](https://sumo.dlr.de/docs/Developer/Main.html#build_instructions).
+For [detailed build instructions, have a look at our Documentation](https://sumo.dlr.de/docs/Developer/Main.html#build_instructions).
 
 
 Getting started
@@ -75,15 +75,18 @@ There is also user documentation provided in the docs/ directory and on the
 homepage.
 
 
-Bugs
-----
+Improving SUMO
+--------------
 
-Please use for bugs and requests the [GitHub bug tracking tool](https://github.com/eclipse/sumo/issues)
+Please use the [GitHub bug tracking tool](https://github.com/eclipse/sumo/issues) for bugs and requests, 
 or file them to the list sumo-user@eclipse.org. Before
 filing a bug, please consider to check with a current repository checkout
 whether the problem has already been fixed.
 
 We welcome patches, pull requests and other contributions! For details see [our contribution guidelines](CONTRIBUTING.md).
+
+We use [Weblate for translating SUMO](https://hosted.weblate.org/projects/eclipse-sumo/). If you
+want to add translation strings or a language, see [our contribution guidelines](CONTRIBUTING.md#translating).
 
 
 License

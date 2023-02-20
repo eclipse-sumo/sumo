@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -59,16 +59,16 @@ optParser.add_argument("--netfile", help="give the corresponding osm-based net f
                        default="osm.net.xml", metavar="FILE")
 optParser.add_argument("--cost-modifier", action="store_true", default=False,
                        help="change edge weights for priority edges/routes for evacuation")
-optParser.add_argument("--timeline", help="Set the evacuation portions, seperated by comma; " +
+optParser.add_argument("--timeline", help="Set the evacuation portions, separated by comma; " +
                                           "the ratios are decided together with the given duration")
 optParser.add_argument("--begin", type=float, default=0, help="Set simulation/routing begin")
 optParser.add_argument("--duration", type=float, default=2, help="Set evacuation duration in hour")
-optParser.add_argument("--evacuate-areas", help="the names of the evacuated areas, seperated by comma," +
+optParser.add_argument("--evacuate-areas", help="the names of the evacuated areas, separated by comma," +
                                                 "if no area is defined, all areas according to the defined " +
                                                 "admin_level will be evacuated")
 optParser.add_argument("--admin_level", type=float, default=10,
                        help="select the areas according to the defined admin_level")
-optParser.add_argument("--dest-areas", help="the names of the destination areas, seperated by comma," +
+optParser.add_argument("--dest-areas", help="the names of the destination areas, separated by comma," +
                                             "if no area is defined, all demands will be evacuated " +
                                             "to the network borders")
 optParser.add_argument("--simulation", action="store_true", default=False,

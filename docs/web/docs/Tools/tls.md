@@ -250,10 +250,11 @@ net file *net.net.xml* directly into a csv-tls-representation. Example call to c
 into csv-tls-representation(s):
 
 ```
-python tools/tls/tls_csvSignalgroups.py -n net.net.xml -i tls.add.xml -r -n net.net.xml --group
+python tools/tls/tls_csvSignalgroups.py -n net.net.xml -i tls.add.xml -r --group
 ```
-The csv output files (one per found TL logic) are written to the current working directory and named *tlID_programID.csv*. 
-When adding the parameter **--group**, signal groups with identical signal states across all examined TL logics are joined.
+The csv output files (one per found TL logic) are written to the current working directory and named *tlID_programID.csv*. An additional file 
+prefix can be prepended using the **--output** parameter. When adding the parameter **--group**, signal groups with identical signal states across all 
+examined TL logics are joined.
 
 !!! caution
     The conversion from an additional file *tls.add.xml* to csv may be lossy in some cases, as only a limited subset of actuated 

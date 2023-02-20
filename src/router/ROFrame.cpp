@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -230,17 +230,17 @@ bool
 ROFrame::checkOptions(OptionsCont& oc) {
     // check whether the output is valid and can be build
     if (!oc.isSet("output-file")) {
-        WRITE_ERROR("No output specified.");
+        WRITE_ERROR(TL("No output specified."));
         return false;
     }
     //
     if (oc.getInt("max-alternatives") < 1) {
-        WRITE_ERROR("A positive number of alternatives must be enabled.");
+        WRITE_ERROR(TL("A positive number of alternatives must be enabled."));
         return false;
     }
 #ifndef HAVE_FOX
     if (oc.getInt("routing-threads") > 1) {
-        WRITE_ERROR("Parallel routing is only possible when compiled with Fox.");
+        WRITE_ERROR(TL("Parallel routing is only possible when compiled with Fox."));
         return false;
     }
 #endif

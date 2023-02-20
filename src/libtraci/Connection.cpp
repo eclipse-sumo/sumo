@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2012-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -41,10 +41,6 @@ std::map<const std::string, Connection*> Connection::myConnections;
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-#ifdef _MSC_VER
-/* Disable "decorated name length exceeded, name was truncated" warnings for the whole file. */
-#pragma warning(disable: 4503)
-#endif
 Connection::Connection(const std::string& host, int port, int numRetries, const std::string& label, FILE* const pipe) :
     myLabel(label), myProcessPipe(pipe), myProcessReader(nullptr), mySocket(host, port) {
     if (pipe != nullptr) {
@@ -91,6 +87,7 @@ Connection::readOutput() {
 void
 Connection::close() {
     if (mySocket.has_client_connection()) {
+        std::unique_lock<std::mutex> lock{ myMutex };
         tcpip::Storage outMsg;
         // command length
         outMsg.writeUnsignedByte(1 + 1);
@@ -121,6 +118,7 @@ Connection::close() {
 
 void
 Connection::simulationStep(double time) {
+    std::unique_lock<std::mutex> lock{myMutex};
     tcpip::Storage outMsg;
     // command length
     outMsg.writeUnsignedByte(1 + 1 + 8);
@@ -149,6 +147,7 @@ Connection::simulationStep(double time) {
 
 void
 Connection::setOrder(int order) {
+    std::unique_lock<std::mutex> lock{ myMutex };
     tcpip::Storage outMsg;
     // command length
     outMsg.writeUnsignedByte(1 + 1 + 4);
@@ -246,6 +245,7 @@ Connection::subscribe(int domID, const std::string& objID, double beginTime, dou
     complete.writeUnsignedByte(0);
     complete.writeInt(5 + (int)outMsg.size());
     complete.writeStorage(outMsg);
+    std::unique_lock<std::mutex> lock{ myMutex };
     // send message
     mySocket.sendExact(complete);
 
@@ -326,6 +326,7 @@ Connection::check_commandGetResult(tcpip::Storage& inMsg, int command, int expec
 
 tcpip::Storage&
 Connection::doCommand(int command, int var, const std::string& id, tcpip::Storage* add) {
+    std::unique_lock<std::mutex> lock{ myMutex };
     createCommand(command, var, &id, add);
     mySocket.sendExact(myOutput);
     myInput.reset();
@@ -336,6 +337,7 @@ Connection::doCommand(int command, int var, const std::string& id, tcpip::Storag
 
 void
 Connection::addFilter(int var, tcpip::Storage* add) {
+    std::unique_lock<std::mutex> lock{ myMutex };
     createCommand(libsumo::CMD_ADD_SUBSCRIPTION_FILTER, var, nullptr, add);
     mySocket.sendExact(myOutput);
     myInput.reset();
@@ -363,7 +365,6 @@ Connection::readVariables(tcpip::Storage& inMsg, const std::string& objectID, in
                     auto p = std::make_shared<libsumo::TraCIPosition>();
                     p->x = inMsg.readDouble();
                     p->y = inMsg.readDouble();
-                    p->z = 0.;
                     into[objectID][variableID] = p;
                     break;
                 }

@@ -1,3 +1,4 @@
+@echo off
 REM Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 REM Copyright (C) 2008-2022 German Aerospace Center (DLR) and others.
 REM This program and the accompanying materials

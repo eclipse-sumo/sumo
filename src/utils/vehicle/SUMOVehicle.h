@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -24,6 +24,7 @@
 
 #include <vector>
 #include <typeinfo>
+#include <memory>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/Named.h>
 #include <utils/router/SUMOAbstractRouter.h>
@@ -48,6 +49,7 @@ class SUMOSAXAttributes;
 class EnergyParams;
 
 typedef std::vector<const MSEdge*> ConstMSEdgeVector;
+typedef std::shared_ptr<const MSRoute> ConstMSRoutePtr;
 
 
 // ===========================================================================
@@ -80,8 +82,8 @@ public:
     /// Returns the current route
     virtual const MSRoute& getRoute() const = 0;
 
-    /// @brief return index of edge within route
-    virtual int getRoutePosition() const = 0;
+    /// Returns the current route
+    virtual ConstMSRoutePtr getRoutePtr() const = 0;
 
     /** @brief Returns the nSuccs'th successor of edge the vehicle is currently at
      *
@@ -114,7 +116,7 @@ public:
     virtual bool replaceRouteEdges(ConstMSEdgeVector& edges, double cost, double savings, const std::string& info, bool onInit = false, bool check = false, bool removeStops = true, std::string* msgReturn = nullptr) = 0;
 
     /// Replaces the current route by the given one
-    virtual bool replaceRoute(const MSRoute* route, const std::string& info, bool onInit = false, int offset = 0, bool addStops = true, bool removeStops = true, std::string* msgReturn = nullptr) = 0;
+    virtual bool replaceRoute(ConstMSRoutePtr route, const std::string& info, bool onInit = false, int offset = 0, bool addStops = true, bool removeStops = true, std::string* msgReturn = nullptr) = 0;
 
     /** @brief Performs a rerouting using the given router
      *
@@ -132,7 +134,7 @@ public:
      * @param[in] route The route to check (or 0 if the current route shall be checked)
      * @return Whether the vehicle's current route is valid
      */
-    virtual bool hasValidRoute(std::string& msg, const MSRoute* route = 0) const = 0;
+    virtual bool hasValidRoute(std::string& msg, ConstMSRoutePtr route = 0) const = 0;
     /// @brief checks wether the vehicle can depart on the first edge
     virtual bool hasValidRouteStart(std::string& msg) = 0;
 
@@ -266,7 +268,7 @@ public:
      * @param[in] stop The stop to add
      * @return Whether the stop could be added
      */
-    virtual bool addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& errorMsg, SUMOTime untilOffset = 0, bool collision = false,
+    virtual bool addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& errorMsg, SUMOTime untilOffset = 0,
                          ConstMSEdgeVector::const_iterator* searchStart = 0) = 0;
 
     /// @brief return list of route indices and stop positions for the remaining stops

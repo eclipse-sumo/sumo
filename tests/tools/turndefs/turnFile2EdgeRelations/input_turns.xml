@@ -4,6 +4,7 @@
 -->
 <turns xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/turns_file.xsd">
     <interval begin="0.0" end="99.0">
+        <!-- some comment -->
         <fromEdge id="-58.121.42">
             <toEdge id="64" probability="1"/>
             <toEdge id="-31" probability="3"/>
@@ -22,6 +23,7 @@
         <fromEdge id="-131">
             <toEdge id="-131.180.00" probability="6"/>
         </fromEdge>
+        <!-- some other comment -->
         <fromEdge id="-23.80.00">
             <toEdge id="-11" probability="12"/>
             <toEdge id="109" probability="6"/>

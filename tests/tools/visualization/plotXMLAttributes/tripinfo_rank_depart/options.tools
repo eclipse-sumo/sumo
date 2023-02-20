@@ -1,0 +1,4 @@
+input_data.xml -o image.png --csv-output out.csv 
+--xelem personinfo
+-x depart -y @RANK -i @NONE
+tools/visualization/plotXMLAttributes.py

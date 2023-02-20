@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -71,6 +71,21 @@ public:
     virtual ~MSCFModel();
 
 
+    /** @enum CalcReason
+     * @brief What the return value of stop/follow/free-Speed is used for
+     */
+    enum CalcReason {
+        /// @brief the return value is used for calculating the next speed
+        CURRENT,
+        /// @brief the return value is used for calculating future speeds
+        FUTURE,
+        /// @brief the return value is used for calculating junction stop speeds
+        CURRENT_WAIT,
+        /// @brief the return value is used for lane change calculations
+        LANE_CHANGE
+    };
+
+
     /// @name Methods to override by model implementation
     /// @{
 
@@ -104,10 +119,11 @@ public:
      * @param[in] seen The look ahead distance
      * @param[in] maxSpeed The maximum allowed speed
      * @param[in] onInsertion whether speed at insertion is asked for
+     * @param[in] usage What the return value is used for
      * @return EGO's safe speed
      */
     virtual double freeSpeed(const MSVehicle* const veh, double speed, double seen,
-                             double maxSpeed, const bool onInsertion = false) const;
+                             double maxSpeed, const bool onInsertion = false, const CalcReason usage = CalcReason::CURRENT) const;
 
 
     /** @brief Computes the vehicle's follow speed (no dawdling)
@@ -117,9 +133,11 @@ public:
      * @param[in] speed The vehicle's speed
      * @param[in] gap2pred The (netto) distance to the LEADER
      * @param[in] predSpeed The speed of LEADER
+     * @param[in] usage What the return value is used for
      * @return EGO's safe speed
      */
-    virtual double followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const pred = 0) const = 0;
+    virtual double followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed,
+                               double predMaxDecel, const MSVehicle* const pred = 0, const CalcReason usage = CalcReason::CURRENT) const = 0;
 
 
     /** @brief Computes the vehicle's safe speed (no dawdling)
@@ -143,11 +161,12 @@ public:
      * @param[in] veh The vehicle (EGO)
      * @param[in] speed The vehicle's speed
      * @param[in] gap The (netto) distance to the the obstacle
+     * @param[in] usage What the return value is used for
      * @return EGO's safe speed for approaching a non-moving obstacle
      * @todo generic Interface, models can call for the values they need
      */
-    inline double stopSpeed(const MSVehicle* const veh, const double speed, double gap) const {
-        return stopSpeed(veh, speed, gap, myDecel);
+    inline double stopSpeed(const MSVehicle* const veh, const double speed, double gap, const CalcReason usage = CalcReason::CURRENT) const {
+        return stopSpeed(veh, speed, gap, myDecel, usage);
     }
 
     /** @brief Computes the vehicle's safe speed for approaching a non-moving obstacle (no dawdling)
@@ -157,10 +176,11 @@ public:
      * @param[in] speed The vehicle's speed
      * @param[in] gap The (netto) distance to the the obstacle
      * @param[in] decel The desired deceleration rate
+     * @param[in] usage What the return value is used for
      * @return EGO's safe speed for approaching a non-moving obstacle
      * @todo generic Interface, models can call for the values they need
      */
-    virtual double stopSpeed(const MSVehicle* const veh, const double speed, double gap, double decel) const = 0;
+    virtual double stopSpeed(const MSVehicle* const veh, const double speed, double gap, double decel, const CalcReason usage = CalcReason::CURRENT) const = 0;
 
 
     /** @brief Computes the vehicle's safe speed for approaching an obstacle at insertion without constraints
@@ -367,14 +387,7 @@ public:
      * @param[in] leaderSpeed LEADER's speed
      * @param[in] leaderMaxDecel LEADER's max. deceleration rate
      */
-    inline virtual double getSecureGap(const MSVehicle* const /*veh*/, const MSVehicle* const /*pred*/, const double speed, const double leaderSpeed, const double leaderMaxDecel) const {
-        // The solution approach leaderBrakeGap >= followerBrakeGap is not
-        // secure when the follower can brake harder than the leader because the paths may still cross.
-        // As a workaround we use a value of leaderDecel which errs on the side of caution
-        const double maxDecel = MAX2(myDecel, leaderMaxDecel);
-        double secureGap = MAX2((double) 0, brakeGap(speed, myDecel, myHeadwayTime) - brakeGap(leaderSpeed, maxDecel, 0));
-        return secureGap;
-    }
+    virtual double getSecureGap(const MSVehicle* const veh, const MSVehicle* const /*pred*/, const double speed, const double leaderSpeed, const double leaderMaxDecel) const;
 
     virtual /** @brief Returns the velocity after maximum deceleration
      * @param[in] v The velocity

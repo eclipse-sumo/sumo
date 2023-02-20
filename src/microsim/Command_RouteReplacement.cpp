@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -31,10 +31,9 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-Command_RouteReplacement::Command_RouteReplacement(const std::string& vehID, const MSRoute* route) :
+Command_RouteReplacement::Command_RouteReplacement(const std::string& vehID, ConstMSRoutePtr route) :
     myVehID(vehID),
     myRoute(route) {
-    myRoute->addReference();
 }
 
 
@@ -61,8 +60,8 @@ Command_RouteReplacement::execute(SUMOTime /*currentTime*/) {
             throw ProcessError(errorPrefix + " (" + errorMsg + ").");
         }
     }
-    myRoute->release();
     return 0;
 }
+
 
 /****************************************************************************/

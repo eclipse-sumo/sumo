@@ -1,0 +1,3 @@
+0.0-20.0 departEdges: count 1, min 11.00 (a), max 11.00 (a), mean 11.00, Q1 11.00, median 11.00, Q3 11.00
+0.0-20.0 arrivalEdges: count 1, min 11.00 (d), max 11.00 (d), mean 11.00, Q1 11.00, median 11.00, Q3 11.00
+0.0-20.0 intermediateEdges: count 4, min 11.00 (a), max 11.00 (a), mean 11.00, Q1 11.00, median 11.00, Q3 11.00

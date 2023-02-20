@@ -175,6 +175,7 @@ always use the latest version of SUMO.
   may allow us to diagnose the problem at a single glance). When sending screenshots of sumo-gui, please include the whole screen so the application version and simulation time are visible.
 - the complete input files for reproducing the error (i.e. a .sumocfg
   and all files referenced therein) in a zip-archive.
+- if your use case involves [TraCI](TraCI.md), please reduce your script to the bare minimum that is needed to show the problem. Then either include the script itself or [generate a log of all traci commands](TraCI/Interfacing_TraCI_from_Python.md#generating_a_log_of_all_traci_commands) and include this.
 - Please remove
   unnecessary inputs (i.e. only 2 vehicles instead of 2000) and try to
   find the minimum input example which still shows the problem. This includes
@@ -279,7 +280,7 @@ the TraCI script being run. Here are some guidelines for figuring out
 what is happening:
 
 - The SUMO error *connection reset by peer* indicates a problem in the
-script. The python strack trace should point to the problem (in the
+script. The python stack trace should point to the problem (in the
 simplest case, the script ends without calling *traci.close()*)
 - The error **TraCIFatalError** *connection closed by SUMO* indicates
 a problem with SUMO
@@ -290,7 +291,7 @@ of error can be safely handled by the script with *try/except*
 figure out what went wrong in a simulation run or why the simulation
 aborted.
 - If SUMO crashes (just stops instead of quitting with an error
-message) [you can run sumo in a debugger while executing your script](TraCI/Interfacing_TraCI_from_Python.md#debugging_a_traci_session_on_linux) and send the stracktrace to the developers.
+message) [you can run sumo in a debugger while executing your script](TraCI/Interfacing_TraCI_from_Python.md#debugging_a_traci_session_on_linux) and send the stack trace to the developers.
 
 ### Error: tcpip::Storage::readIsSafe: want to read 8 bytes from Storage, but only 4 remaining
 
@@ -392,7 +393,7 @@ and simply type `git pull`.
 
 ### Is there further documentation on Git and Subversion?
 
-  There are the [Git book](https://git-scm.com/book/de/v1) and the
+  There are the [Git book](https://git-scm.com/book/) and the
   [Subversion book](http://svnbook.red-bean.com/) and the [GitHub help](https://help.github.com/) is also worth reading.
 
 ### How to get an older version of SUMO?
@@ -489,8 +490,8 @@ and simply type `git pull`.
   are retrieved from the local sumo installation if [the environment variable **SUMO_HOME** is set](Basics/Basic_Computer_Skills.md#additional_environment_variables).
   Otherwise the files will be retrieved from
   [sumo.dlr.de](https://sumo.dlr.de) which is slower. Validation
-  can be disabled by using the option **--xml-validation never** or by deleting the schema
-  information at the top of the XML input file(s).
+  can be disabled by using the option **--xml-validation never** or by [deleting the schema
+  information](XMLValidation.md#disabling_schema_validation) at the top of the XML input file(s).
 
 ### What causes ''Error: unable to resolve host/address 'sumo.dlr.de' ''?
 
@@ -900,6 +901,13 @@ There are several reasons why a counter-lane-change-deadlock can happen:
   This may be caused by invalid lane-to-lane connections. Check the
   connections in [sumo-gui](sumo-gui.md) by activating
   *Junctions-\>show lane to lane connections* in the [gui settings dialog](sumo-gui.md#changing_the_appearancevisualisation_of_the_simulation).
+
+### Why do the vehicles not use all available lanes?
+
+  The main reason is usually that only the lanes they use allow them to continue their route. You should check the downstream junction
+  whether the connections are correct. If the number of lanes is reduced without further streets being involved
+  (not a proper junction) make sure to use the [zipper type](Networks/PlainXML.md#node_types). If you want to change the way vehicles behave
+  for the whole scenario, lower their [lcStrategic](Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#lane-changing_models) value.
 
 ### How do I get high flows/vehicle densities?
 

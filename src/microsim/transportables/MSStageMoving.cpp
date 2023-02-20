@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -22,6 +22,8 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <utils/options/OptionsCont.h>
+#include <utils/router/IntermodalEdge.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
@@ -111,5 +113,27 @@ MSStageMoving::replaceRoute(MSTransportable* const transportable, const ConstMSE
     myRouteStep = myRoute.begin() + routeOffset;
     getEdge()->addTransportable(transportable);
 }
+
+
+const MSLane*
+MSStageMoving::checkDepartLane(const MSEdge* edge, SUMOVehicleClass svc, int laneIndex, const std::string& id) {
+    const MSLane* lane = getSidewalk<MSEdge, MSLane>(edge, svc);
+    if (laneIndex > 0) {
+        const std::vector<MSLane*>& departLanes = edge->getLanes();
+        if ((int)departLanes.size() <= laneIndex || !departLanes[laneIndex]->allowsVehicleClass(svc)) {
+            std::string error = "Invalid departLane '" + toString(laneIndex) + "' for person '" + id + "'";
+            if (OptionsCont::getOptions().getBool("ignore-route-errors")) {
+                WRITE_WARNING(error);
+                return nullptr;
+            } else {
+                throw ProcessError(error);
+            }
+        } else {
+            lane = departLanes[laneIndex];
+        }
+    }
+    return lane;
+}
+
 
 /****************************************************************************/

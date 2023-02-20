@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2005-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2005-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -501,7 +501,7 @@ MSLCM_DK2008::patchSpeed(const double min, const double wanted, const double max
         double space = myLeftSpace - myLeadingBlockerLength - MAGIC_offset - myVehicle.getVehicleType().getMinGap();
         if (space > 0) {
             // compute speed for decelerating towards a place which allows the blocking leader to merge in in front
-            double safe = cfModel.stopSpeed(&myVehicle, myVehicle.getSpeed(), space);
+            double safe = cfModel.stopSpeed(&myVehicle, myVehicle.getSpeed(), space, MSCFModel::CalcReason::LANE_CHANGE);
             // if we are approaching this place
             if (safe < wanted) {
                 // return this speed as the speed to use
@@ -639,6 +639,7 @@ MSLCM_DK2008::prepareStep() {
     myDontBrake = false;
     // truncate myChangeProbability to work around numerical instability between different builds
     myChangeProbability = ceil(myChangeProbability * 100000.0) * 0.00001;
+    resetSpeedLat();
 }
 
 

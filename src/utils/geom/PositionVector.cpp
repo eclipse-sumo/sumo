@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -212,16 +212,16 @@ PositionVector::operator[](int index) const {
     /* bracket operators works as in Python. Examples:
         - A = {'a', 'b', 'c', 'd'} (size 4)
         - A [2] returns 'c' because 0 < 2 < 4
-        - A [100] thrown an exception because 100 > 4
+        - A [100] throws an exception because 100 > 4
         - A [-1] returns 'd' because 4 - 1 = 3
-        - A [-100] thrown an exception because (4-100) < 0
+        - A [-100] throws an exception because (4-100) < 0
     */
     if (index >= 0 && index < (int)size()) {
         return at(index);
     } else if (index < 0 && -index <= (int)size()) {
         return at((int)size() + index);
     } else {
-        throw ProcessError("Index out of range in bracket operator of PositionVector");
+        throw OutOfBoundsException("Index out of range in bracket operator of PositionVector");
     }
 }
 
@@ -231,16 +231,16 @@ PositionVector::operator[](int index) {
     /* bracket operators works as in Python. Examples:
         - A = {'a', 'b', 'c', 'd'} (size 4)
         - A [2] returns 'c' because 0 < 2 < 4
-        - A [100] thrown an exception because 100 > 4
+        - A [100] throws an exception because 100 > 4
         - A [-1] returns 'd' because 4 - 1 = 3
-        - A [-100] thrown an exception because (4-100) < 0
+        - A [-100] throws an exception because (4-100) < 0
     */
     if (index >= 0 && index < (int)size()) {
         return at(index);
     } else if (index < 0 && -index <= (int)size()) {
         return at((int)size() + index);
     } else {
-        throw ProcessError("Index out of range in bracket operator of PositionVector");
+        throw OutOfBoundsException("Index out of range in bracket operator of PositionVector");
     }
 }
 
@@ -267,6 +267,27 @@ PositionVector::positionAtOffset(double pos, double lateralOffset) const {
     } else {
         return positionAtOffset(*(end() - 2), *(end() - 1), (*(end() - 2)).distanceTo(*(end() - 1)), lateralOffset);
     }
+}
+
+
+Position
+PositionVector::sidePositionAtAngle(double pos, double lateralOffset, double angle) const {
+    if (size() == 0) {
+        return Position::INVALID;
+    }
+    if (size() == 1) {
+        return front();
+    }
+    const_iterator i = begin();
+    double seenLength = 0;
+    do {
+        const double nextLength = (*i).distanceTo(*(i + 1));
+        if (seenLength + nextLength > pos) {
+            return sidePositionAtAngle(*i, *(i + 1), pos - seenLength, lateralOffset, angle);
+        }
+        seenLength += nextLength;
+    } while (++i != end() - 1);
+    return sidePositionAtAngle(*(end() - 2), *(end() - 1), (*(end() - 2)).distanceTo(*(end() - 1)), lateralOffset, angle);
 }
 
 
@@ -334,13 +355,13 @@ PositionVector::slopeDegreeAtOffset(double pos) const {
         const Position& p2 = *(i + 1);
         const double nextLength = p1.distanceTo(p2);
         if (seenLength + nextLength > pos) {
-            return RAD2DEG(atan2(p2.z() - p1.z(), p1.distanceTo2D(p2)));
+            return RAD2DEG(p1.slopeTo2D(p2));
         }
         seenLength += nextLength;
     } while (++i != end() - 1);
     const Position& p1 = (*this)[-2];
     const Position& p2 = back();
-    return RAD2DEG(atan2(p2.z() - p1.z(), p1.distanceTo2D(p2)));
+    return RAD2DEG(p1.slopeTo2D(p2));
 }
 
 
@@ -364,6 +385,18 @@ PositionVector::positionAtOffset(const Position& p1, const Position& p2, double 
         return p1;
     }
     return p1 + (p2 - p1) * (pos / dist);
+}
+
+
+Position
+PositionVector::sidePositionAtAngle(const Position& p1, const Position& p2, double pos, double lateralOffset, double angle) {
+    const double dist = p1.distanceTo(p2);
+    if (pos < 0. || dist < pos || dist == 0) {
+        return Position::INVALID;
+    }
+    angle -= DEG2RAD(90);
+    const Position offset(cos(angle) * lateralOffset, sin(angle) * lateralOffset);
+    return p1 + (p2 - p1) * (pos / dist) + offset;
 }
 
 
@@ -571,7 +604,7 @@ PositionVector::splitAt(double where, bool use2D) const {
         throw InvalidArgument("Invalid split position " + toString(where) + " for vector of length " + toString(len));
     }
     if (where <= POSITION_EPS || where >= len - POSITION_EPS) {
-        WRITE_WARNINGF("Splitting vector close to end (pos: %, length: %)", toString(where), toString(len));
+        WRITE_WARNINGF(TL("Splitting vector close to end (pos: %, length: %)"), toString(where), toString(len));
     }
     PositionVector first, second;
     first.push_back((*this)[0]);
@@ -1467,7 +1500,7 @@ PositionVector::operator!=(const PositionVector& v2) const {
 PositionVector
 PositionVector::operator-(const PositionVector& v2) const {
     if (length() != v2.length()) {
-        WRITE_ERROR("Trying to substract PositionVectors of different lengths.");
+        WRITE_ERROR(TL("Trying to subtract PositionVectors of different lengths."));
     }
     PositionVector pv;
     auto i1 = begin();
@@ -1481,7 +1514,7 @@ PositionVector::operator-(const PositionVector& v2) const {
 PositionVector
 PositionVector::operator+(const PositionVector& v2) const {
     if (length() != v2.length()) {
-        WRITE_ERROR("Trying to substract PositionVectors of different lengths.");
+        WRITE_ERROR(TL("Trying to subtract PositionVectors of different lengths."));
     }
     PositionVector pv;
     auto i1 = begin();

@@ -1,0 +1,13 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+
+    <rerouter id="rerouter_0" edges="center0 center1" pos="0.00,10.00"/>
+
+    <rerouter id="rerouter_1" edges="center0 center1" pos="10.00,10.00" timeThreshold=""/>
+
+    <rerouter id="rerouter_2" edges="center0 center1" pos="40.00,-10.00" timeThreshold="dummyTreshold"/>
+
+    <rerouter id="rerouter_3" edges="center0 center1" pos="50.00,-10.00" timeThreshold="-30"/>
+
+    <rerouter id="rerouter_4" edges="center0 center1" pos="20.00,10.00" timeThreshold="20"/>
+
+</additional>

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -51,11 +51,11 @@ FXIMPLEMENT(GNETAZRelDataFrame::ConfirmTAZRelation, MFXGroupBoxModule, ConfirmTA
 // ---------------------------------------------------------------------------
 
 GNETAZRelDataFrame::ConfirmTAZRelation::ConfirmTAZRelation(GNETAZRelDataFrame* TAZRelDataFrame) :
-    MFXGroupBoxModule(TAZRelDataFrame, "Confirm TAZRelation"),
+    MFXGroupBoxModule(TAZRelDataFrame, TL("Confirm TAZRelation")),
     myTAZRelDataFrame(TAZRelDataFrame) {
-    myConfirmTAZButton = new FXButton(getCollapsableFrame(), "Create TAZRelation\t\tClick fromTaz and toTaz (confirm hotkey <ENTER>)", GUIIconSubSys::getIcon(GUIIcon::TAZRELDATA), this, MID_GNE_CREATE, GUIDesignButton);
+    myConfirmTAZButton = new FXButton(getCollapsableFrame(), (TL("Create TAZRelation") + std::string("\t\t") + TL("Click fromTaz and toTaz (confirm hotkey <ENTER>)")).c_str(), GUIIconSubSys::getIcon(GUIIcon::TAZRELDATA), this, MID_GNE_CREATE, GUIDesignButton);
     myConfirmTAZButton->disable();
-    myClearTAZButton = new FXButton(getCollapsableFrame(), "Clear selection\t\tClear selected TAZs (hotkey <ESC>)", GUIIconSubSys::getIcon(GUIIcon::CLEARMESSAGEWINDOW), this, MID_GNE_ABORT, GUIDesignButton);
+    myClearTAZButton = new FXButton(getCollapsableFrame(), (TL("Clear selection") + std::string("\t\t") + TL("Clear selected TAZs (hotkey <ESC>)")).c_str(), GUIIconSubSys::getIcon(GUIIcon::CLEARMESSAGEWINDOW), this, MID_GNE_ABORT, GUIDesignButton);
     myClearTAZButton->disable();
 }
 
@@ -98,7 +98,7 @@ GNETAZRelDataFrame::ConfirmTAZRelation::onCmdClearSelection(FXObject*, FXSelecto
 // ---------------------------------------------------------------------------
 
 GNETAZRelDataFrame::Legend::Legend(GNETAZRelDataFrame* TAZRelDataFrame) :
-    MFXGroupBoxModule(TAZRelDataFrame, "Information"),
+    MFXGroupBoxModule(TAZRelDataFrame, TL("Information")),
     myFromTAZLabel(nullptr),
     myToTAZLabel(nullptr) {
     // create from TAZ label
@@ -119,13 +119,13 @@ GNETAZRelDataFrame::Legend::setLabels(const GNETAZ* fromTAZ, const GNETAZ* toTAZ
     if (fromTAZ) {
         myFromTAZLabel->setText(("From TAZ: " + fromTAZ->getID()).c_str());
     } else {
-        myFromTAZLabel->setText("From TAZ");
+        myFromTAZLabel->setText(TL("From TAZ"));
     }
     // to TAZ
     if (toTAZ) {
         myToTAZLabel->setText(("To TAZ: " + toTAZ->getID()).c_str());
     } else {
-        myToTAZLabel->setText("To TAZ");
+        myToTAZLabel->setText(TL("To TAZ"));
     }
 }
 
@@ -133,7 +133,7 @@ GNETAZRelDataFrame::Legend::setLabels(const GNETAZ* fromTAZ, const GNETAZ* toTAZ
 // GNETAZRelDataFrame - methods
 // ------------------------------------------------------------------------
 
-GNETAZRelDataFrame::GNETAZRelDataFrame(GNEViewParent *viewParent, GNEViewNet* viewNet) :
+GNETAZRelDataFrame::GNETAZRelDataFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     GNEGenericDataFrame(viewParent, viewNet, SUMO_TAG_TAZREL, false) {
     // create confirm TAZ Relation
     myConfirmTAZRelation = new ConfirmTAZRelation(this);
@@ -174,14 +174,14 @@ GNETAZRelDataFrame::buildTAZRelationData() {
     // check conditions
     if (myFirstTAZ && mySecondTAZ) {
         if (!myIntervalSelector->getDataInterval()) {
-            WRITE_WARNING("A " + toString(SUMO_TAG_TAZREL) + " must be defined within an interval.");
+            WRITE_WARNINGF(TL("A % must be defined within an interval."), toString(SUMO_TAG_TAZREL));
         } else if ((myFirstTAZ == mySecondTAZ) && myIntervalSelector->getDataInterval()->TAZRelExists(myFirstTAZ)) {
-            WRITE_WARNING("There is already a " + toString(SUMO_TAG_TAZREL) + " defined in TAZ'" + myFirstTAZ->getID() + "'.");
+            WRITE_WARNINGF(TL("There is already a % defined in TAZ'%'."), toString(SUMO_TAG_TAZREL), myFirstTAZ->getID());
         } else if ((myFirstTAZ != mySecondTAZ) && myIntervalSelector->getDataInterval()->TAZRelExists(myFirstTAZ, mySecondTAZ)) {
-            WRITE_WARNING("There is already a " + toString(SUMO_TAG_TAZREL) + " defined between TAZ'" + myFirstTAZ->getID() + "' and '" + mySecondTAZ->getID() + "'.");
+            WRITE_WARNINGF(TL("There is already a % defined between TAZ'%' and '%'."), toString(SUMO_TAG_TAZREL), myFirstTAZ->getID(), mySecondTAZ->getID());
         } else if (myGenericDataAttributes->areAttributesValid()) {
             // declare data handler
-            GNEDataHandler dataHandler(myViewNet->getNet(), "", true);
+            GNEDataHandler dataHandler(myViewNet->getNet(), "", true, false);
             // build data interval object and fill it
             CommonXMLStructure::SumoBaseObject* dataIntervalObject = new CommonXMLStructure::SumoBaseObject(nullptr);
             dataIntervalObject->addStringAttribute(SUMO_ATTR_ID, myIntervalSelector->getDataInterval()->getID());

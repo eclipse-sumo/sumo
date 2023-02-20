@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -26,7 +26,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to additional mode
 netedit.additionalMode()
@@ -35,29 +35,26 @@ netedit.additionalMode()
 netedit.changeElement("instantInductionLoop")
 
 # create E1
-netedit.leftClick(referencePosition, 183, 210)
+netedit.leftClick(referencePosition, 405, 257)
 
 # change to move mode
 netedit.moveMode()
 
 # move E1 to right
-netedit.moveElement(referencePosition, 183, 210, 241, 210)
+netedit.moveElement(referencePosition, 405, 257, 596, 257)
 
 # move E1 to left
-netedit.moveElement(referencePosition, 241, 210, 232, 210)
+netedit.moveElement(referencePosition, 596, 257, 333, 257)
 
 # move E1 to right again
-netedit.moveElement(referencePosition, 232, 210, 419, 210)
+netedit.moveElement(referencePosition, 333, 257, 683, 257)
 
 # Check undos and redos
 netedit.undo(referencePosition, 4)
 netedit.redo(referencePosition, 4)
 
-# save additionals
-netedit.saveAdditionals(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

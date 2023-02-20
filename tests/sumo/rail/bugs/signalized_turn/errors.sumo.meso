@@ -1,1 +1,1 @@
-Warning: Found circular block after railSignal junction 'B', link 0 (0 edges, length 0.00)
+Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.

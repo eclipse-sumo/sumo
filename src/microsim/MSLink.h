@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2002-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -17,7 +17,7 @@
 /// @author  Michael Behrisch
 /// @date    Sept 2002
 ///
-// A connnection between lanes
+// A connection between lanes
 /****************************************************************************/
 #pragma once
 #include <config.h>
@@ -46,7 +46,7 @@ class MSTrafficLightLogic;
 // ===========================================================================
 /**
  * @class MSLinks
- * @brief A connnection between lanes
+ * @brief A connection between lanes
  *
  * A link is basically a connection between two lanes, stored within the
  *  originating (the one that is being left) lane and pointing to the
@@ -67,18 +67,46 @@ class MSTrafficLightLogic;
 class MSLink {
 public:
 
+    /** @enum LinkLeaderFlag
+     * @brief additional information for link leaders
+     */
+    enum LinkLeaderFlag {
+        /// @brief vehicle is in the way
+        LL_IN_THE_WAY = 1 << 0,
+        /// @brief link leader is passing from left to right
+        LL_FROM_LEFT = 1 << 1,
+        /// @brief link leader is coming from the same (normal) lane
+        LL_SAME_SOURCE = 1 << 2,
+        /// @brief link leader is targeting the same outgoing lane
+        LL_SAME_TARGET = 1 << 3
+    };
+
     struct LinkLeader {
-        LinkLeader(MSVehicle* _veh, double _gap, double _distToCrossing, bool _fromLeft = true, bool _inTheWay = false) :
+        LinkLeader(MSVehicle* _veh, double _gap, double _distToCrossing, int _llFlags = LL_FROM_LEFT, double _latOffst = 0) :
             vehAndGap(std::make_pair(_veh, _gap)),
             distToCrossing(_distToCrossing),
-            fromLeft(_fromLeft),
-            inTheWay(_inTheWay) {
+            llFlags(_llFlags),
+            latOffset(_latOffst)
+        { }
+
+        inline bool fromLeft() const {
+            return (llFlags & LL_FROM_LEFT) != 0;
+        }
+        inline bool inTheWay() const {
+            return (llFlags & LL_IN_THE_WAY) != 0;
+        }
+        inline bool sameTarget() const {
+            return (llFlags & LL_SAME_TARGET) != 0;
+        }
+        inline bool sameSource() const {
+            return (llFlags & LL_SAME_SOURCE) != 0;
         }
 
         std::pair<MSVehicle*, double> vehAndGap;
         double distToCrossing;
-        bool fromLeft;
-        bool inTheWay;
+        int llFlags;
+        double latOffset;
+
     };
 
     typedef std::vector<LinkLeader> LinkLeaders;
@@ -603,7 +631,13 @@ private:
     void checkWalkingAreaFoe(const MSVehicle* ego, const MSLane* foeLane, std::vector<const MSPerson*>* collectBlockers, LinkLeaders& result) const;
 
     /// @brief whether the given person is in front of the car
-    bool isInFront(const MSVehicle* ego, const PositionVector& egoPath, const MSPerson* p) const;
+    bool isInFront(const MSVehicle* ego, const PositionVector& egoPath, const Position& pPos) const;
+
+    /// @brief whether the given person is walking towards the car
+    bool isOnComingPed(const MSVehicle* ego, const MSPerson* p) const;
+
+    /// @brief return extrapolated position of the given person after the given time
+    Position getFuturePosition(const MSPerson* p, double timeHorizon = 1) const;
 
     bool blockedByFoe(const SUMOVehicle* veh, const ApproachingVehicleInformation& avi,
                       SUMOTime arrivalTime, SUMOTime leaveTime, double arrivalSpeed, double leaveSpeed,
@@ -707,6 +741,11 @@ private:
     // TODO: documentation
     std::vector<MSLink*> myFoeLinks;
     std::vector<const MSLane*> myFoeLanes;
+
+    /* prioritized links when the traffic light is switched off (only needed for RightOfWay::ALLWAYSTOP)
+     * @note stored as a pointer to save space since it won't be used in most cases
+     */
+    std::vector<MSLink*>* myOffFoeLinks;
 
     /// @brief walkingArea that must be checked when entering the intersection
     const MSLane* myWalkingAreaFoe;

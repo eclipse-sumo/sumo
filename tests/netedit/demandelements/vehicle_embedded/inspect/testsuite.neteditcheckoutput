@@ -2,7 +2,13 @@ id
 
 type
 
+typebutton
+
 color
+
+departedge
+
+arrivaledge
 
 departlane
 
@@ -25,6 +31,8 @@ containernumber
 departposlat
 
 arrivalposlat
+
+insertionchecks
 
 depart
 

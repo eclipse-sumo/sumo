@@ -1,0 +1,24 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <parkingArea id="parkingArea_0" lane="center1_1" startPos="20.00" endPos="30.00">
+
+        <!-- valid angle (missing) -->
+        <space x="40.00" y="15.00" z="1" width="3.30" length="6.00"/>
+
+        <!-- non valid Angle (dummy) -->
+        <space x="45.00" y="15.00" z="1" width="3.30" length="6.00" slope="dummyAngle"/>
+
+        <!-- non valid Angle (empty) -->
+        <space x="45.00" y="15.00" z="1" width="3.30" length="6.00" slope=""/>
+
+        <!-- valid Angle (negative) -->
+        <space x="45.00" y="15.00" z="1" width="3.30" length="6.00" slope="-20"/>
+
+        <!-- valid Angle (>360) -->
+        <space x="50.00" y="15.00" z="1" width="3.30" length="6.00" slope="500.00"/>
+
+        <!-- valid Angle -->
+        <space x="0.00" y="-15.00" z="1" width="3.30" length="6.00" slope="60.00"/>
+
+    </parkingArea>
+
+</additional>

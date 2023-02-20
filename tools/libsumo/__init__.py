@@ -1,5 +1,5 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2018-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2018-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -27,7 +27,7 @@ if hasattr(os, "add_dll_directory"):
 
 from traci import connection, constants, exceptions, _vehicle, _person, _trafficlight, _simulation  # noqa
 from traci.step import StepManager, StepListener  # noqa
-from .libsumo import vehicle, simulation, person, trafficlight  # noqa
+from .libsumo import vehicle, simulation, person, trafficlight, edge  # noqa
 from .libsumo import TraCIStage, TraCINextStopData, TraCIReservation, TraCILogic, TraCIPhase, TraCIException  # noqa
 from .libsumo import TraCICollision, TraCISignalConstraint  # noqa
 from .libsumo import *  # noqa
@@ -36,7 +36,7 @@ DOMAINS = [
     busstop,  # noqa
     calibrator,  # noqa
     chargingstation,  # noqa
-    edge,  # noqa
+    edge,
     gui,  # noqa
     inductionloop,  # noqa
     junction,  # noqa

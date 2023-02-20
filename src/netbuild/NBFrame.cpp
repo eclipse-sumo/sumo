@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -82,6 +82,12 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.doRegister("default.crossing-width", new Option_Float((double) 4.0));
     oc.addDescription("default.crossing-width", "Building Defaults", "The default width of a pedestrian crossing");
 
+    oc.doRegister("default.crossing-speed", new Option_Float(2.78));
+    oc.addDescription("default.crossing-speed", "Building Defaults", "The default speed 'limit' on a pedestrian crossing (in m/s)");
+
+    oc.doRegister("default.walkingarea-speed", new Option_Float(2.78));
+    oc.addDescription("default.walkingarea-speed", "Building Defaults", "The default speed 'limit' on a pedestrian walkingarea (in m/s)");
+
     oc.doRegister("default.allow", new Option_String());
     oc.addDescription("default.allow", "Building Defaults", "The default for allowed vehicle classes");
 
@@ -102,6 +108,9 @@ NBFrame::fillOptions(bool forNetgen) {
 
     oc.doRegister("junctions.right-before-left.speed-threshold", new Option_Float(49 / 3.6));
     oc.addDescription("junctions.right-before-left.speed-threshold", "Junctions", "Allow building right-before-left junctions when the incoming edge speeds are below FLOAT (m/s)");
+
+    oc.doRegister("junctions.left-before-right", new Option_Bool(false));
+    oc.addDescription("junctions.left-before-right", "Junctions", "Build left-before-right junctions instead of right-before-left junctions");
 
     // register the data processing options
     oc.doRegister("no-internal-links", new Option_Bool(false)); // !!! not described
@@ -160,7 +169,7 @@ NBFrame::fillOptions(bool forNetgen) {
 
     oc.doRegister("geometry.remove.keep-edges.input-file", new Option_FileName());
     oc.addDescription("geometry.remove.keep-edges.input-file", "Processing",
-            "Ensure that the edges in FILE are not modified (Each id on a single line. Selection files from sumo-gui are also supported)");
+                      "Ensure that the edges in FILE are not modified (Each id on a single line. Selection files from sumo-gui are also supported)");
 
     if (!forNetgen) {
         oc.doRegister("geometry.remove.keep-ptstops", new Option_Bool(false));
@@ -169,11 +178,11 @@ NBFrame::fillOptions(bool forNetgen) {
 
     oc.doRegister("geometry.remove.min-length", new Option_Float(0));
     oc.addDescription("geometry.remove.min-length", "Processing",
-            "Allow merging edges with differing attributes when their length is below min-length");
+                      "Allow merging edges with differing attributes when their length is below min-length");
 
     oc.doRegister("geometry.remove.width-tolerance", new Option_Float(0));
     oc.addDescription("geometry.remove.width-tolerance", "Processing",
-            "Allow merging edges with differing lane widths if the difference is below FLOAT");
+                      "Allow merging edges with differing lane widths if the difference is below FLOAT");
 
     oc.doRegister("geometry.max-segment-length", new Option_Float(0));
     oc.addDescription("geometry.max-segment-length", "Processing", "splits geometry to restrict segment length");
@@ -294,6 +303,9 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.doRegister("fringe.guess", new Option_Bool(false));
     oc.addDescription("fringe.guess", "Processing", "Enable guessing of network fringe nodes");
 
+    oc.doRegister("fringe.guess.speed-threshold", new Option_Float(50 / 3.6));
+    oc.addDescription("fringe.guess.speed-threshold", "Processing", "Guess disconnected edges above the given speed as outer fringe");
+
     oc.doRegister("lefthand", new Option_Bool(false));
     oc.addDescription("lefthand", "Processing", "Assumes left-hand traffic on the network");
 
@@ -317,6 +329,9 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.doRegister("junctions.join-same", new Option_Bool(false));
     oc.addDescription("junctions.join-same", "Junctions",
                       "Joins junctions that have the same coordinates even if not connected");
+
+    oc.doRegister("max-join-ids", new Option_Integer(4));
+    oc.addDescription("max-join-ids", "Junctions", "Abbreviate junction or TLS id if it joins more than INT junctions");
 
     if (!forNetgen) {
         oc.doRegister("speed.offset", new Option_Float(0));
@@ -494,6 +509,9 @@ NBFrame::fillOptions(bool forNetgen) {
 
         oc.doRegister("tls.guess-signals.dist", new Option_Float(25));
         oc.addDescription("tls.guess-signals.dist", "TLS Building", "Distance for interpreting nodes as signal locations");
+
+        oc.doRegister("tls.guess-signals.slack", new Option_Integer(0));
+        oc.addDescription("tls.guess-signals.slack", "TLS Building", "Number of uncontrolled entry edges to accept and still consider the central node as a traffic light");
     }
 
 
@@ -577,6 +595,9 @@ NBFrame::fillOptions(bool forNetgen) {
 
     oc.doRegister("tls.ungroup-signals", new Option_Bool(false));
     oc.addDescription("tls.ungroup-signals", "TLS Building", "Assign a distinct tls link index to every connection");
+
+    oc.doRegister("tls.rebuild", new Option_Bool(false));
+    oc.addDescription("tls.rebuild", "TLS Building", "rebuild all traffic light plans in the network");
 
     // edge pruning
     oc.doRegister("keep-edges.min-speed", new Option_Float(-1));
@@ -689,27 +710,27 @@ NBFrame::checkOptions() {
     bool ok = true;
     //
     if (!SUMOXMLDefinitions::TrafficLightTypes.hasString(oc.getString("tls.default-type"))) {
-        WRITE_ERROR("unsupported value '" + oc.getString("tls.default-type") + "' for option '--tls.default-type'");
+        WRITE_ERRORF(TL("unsupported value '%' for option '--tls.default-type'"), oc.getString("tls.default-type"));
         ok = false;
     }
     if (oc.isSet("keep-edges.in-boundary") && oc.isSet("keep-edges.in-geo-boundary")) {
-        WRITE_ERROR("only one of the options 'keep-edges.in-boundary' or 'keep-edges.in-geo-boundary' may be given");
+        WRITE_ERROR(TL("only one of the options 'keep-edges.in-boundary' or 'keep-edges.in-geo-boundary' may be given"));
         ok = false;
     }
     if (oc.getBool("no-internal-links") && oc.getBool("crossings.guess")) {
-        WRITE_ERROR("only one of the options 'no-internal-links' or 'crossings.guess' may be given");
+        WRITE_ERROR(TL("only one of the options 'no-internal-links' or 'crossings.guess' may be given"));
         ok = false;
     }
     if (oc.getBool("no-internal-links") && oc.getBool("walkingareas")) {
-        WRITE_ERROR("only one of the options 'no-internal-links' or 'walkareas' may be given");
+        WRITE_ERROR(TL("only one of the options 'no-internal-links' or 'walkareas' may be given"));
         ok = false;
     }
     if (!oc.isDefault("tls.green.time") && !oc.isDefault("tls.cycle.time")) {
-        WRITE_ERROR("only one of the options 'tls.green.time' or 'tls.cycle.time' may be given");
+        WRITE_ERROR(TL("only one of the options 'tls.green.time' or 'tls.cycle.time' may be given"));
         ok = false;
     }
     if (oc.getInt("default.lanenumber") < 1) {
-        WRITE_ERROR("default.lanenumber must be at least 1");
+        WRITE_ERROR(TL("default.lanenumber must be at least 1"));
         ok = false;
     }
     if (!oc.isDefault("default.lanewidth") && oc.getFloat("default.lanewidth") < POSITION_EPS) {
@@ -717,23 +738,23 @@ NBFrame::checkOptions() {
         ok = false;
     }
     if (!oc.isDefault("default.disallow") && !oc.isDefault("default.allow")) {
-        WRITE_ERROR("only one of the options 'default.disallow' or 'default.allow' may be given");
+        WRITE_ERROR(TL("only one of the options 'default.disallow' or 'default.allow' may be given"));
         ok = false;
     }
     if (oc.getInt("junctions.internal-link-detail") < 2) {
-        WRITE_ERROR("junctions.internal-link-detail must >= 2");
+        WRITE_ERROR(TL("junctions.internal-link-detail must >= 2"));
         ok = false;
     }
     if (oc.getFloat("junctions.scurve-stretch") > 0) {
         if (oc.getBool("no-internal-links")) {
-            WRITE_WARNING("Option 'junctions.scurve-stretch' requires internal lanes to work. Option '--no-internal-links' will be disabled.");
+            WRITE_WARNING(TL("Option 'junctions.scurve-stretch' requires internal lanes to work. Option '--no-internal-links' will be disabled."));
         }
         // make sure the option is set so heuristics cannot ignore it
         oc.set("no-internal-links", "false");
     }
     if (oc.getFloat("junctions.small-radius") > oc.getFloat("default.junctions.radius") && oc.getFloat("default.junctions.radius") >= 0) {
         if (!oc.isDefault("junctions.small-radius")) {
-            WRITE_WARNING("option 'default.junctions.radius' is smaller than option 'junctions.small-radius'");
+            WRITE_WARNING(TL("option 'default.junctions.radius' is smaller than option 'junctions.small-radius'"));
         } else {
             oc.setDefault("junctions.small-radius", oc.getValueString("default.junctions.radius"));
         }
@@ -741,16 +762,16 @@ NBFrame::checkOptions() {
     if (oc.getString("tls.layout") != "opposites"
             && oc.getString("tls.layout") != "incoming"
             && oc.getString("tls.layout") != "alternateOneWay") {
-        WRITE_ERROR("tls.layout must be 'opposites', 'incoming' or 'alternateOneWay'");
+        WRITE_ERROR(TL("tls.layout must be 'opposites', 'incoming' or 'alternateOneWay'"));
         ok = false;
     }
     if (!oc.isDefault("default.right-of-way") &&
             !SUMOXMLDefinitions::RightOfWayValues.hasString(oc.getString("default.right-of-way"))) {
-        WRITE_ERROR("default.right-of-way must be one of '" + toString(SUMOXMLDefinitions::RightOfWayValues.getStrings()) + "'");
+        WRITE_ERRORF(TL("default.right-of-way must be one of '%'"), toString(SUMOXMLDefinitions::RightOfWayValues.getStrings()));
         ok = false;
     }
     if (oc.getFloat("roundabouts.visibility-distance") < 0 && oc.getFloat("roundabouts.visibility-distance") != NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE) {
-        WRITE_ERROR("roundabouts.visibility-distance must be positive or -1");
+        WRITE_ERROR(TL("roundabouts.visibility-distance must be positive or -1"));
         ok = false;
     }
     if (oc.isDefault("railway.topology.repair") && oc.getBool("railway.topology.repair.connect-straight")) {
@@ -766,7 +787,7 @@ NBFrame::checkOptions() {
         oc.setDefault("railway.topology.repair.stop-turn", "true");
     }
     if (!SUMOXMLDefinitions::LaneSpreadFunctions.hasString(oc.getString("default.spreadtype"))) {
-        WRITE_ERROR("Unknown value for default.spreadtype '" + oc.getString("default.spreadtype") + "'.");
+        WRITE_ERRORF(TL("Unknown value for default.spreadtype '%'."), oc.getString("default.spreadtype"));
         ok = false;
     }
     return ok;

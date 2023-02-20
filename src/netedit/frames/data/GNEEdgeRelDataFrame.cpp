@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -31,7 +31,7 @@
 // method definitions
 // ===========================================================================
 
-GNEEdgeRelDataFrame::GNEEdgeRelDataFrame(GNEViewParent *viewParent, GNEViewNet* viewNet) :
+GNEEdgeRelDataFrame::GNEEdgeRelDataFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     GNEGenericDataFrame(viewParent, viewNet, SUMO_TAG_EDGEREL, true) {
 }
 
@@ -51,11 +51,11 @@ GNEEdgeRelDataFrame::addEdgeRelationData(const GNEViewNetHelper::ObjectsUnderCur
 }
 
 
-void
+bool
 GNEEdgeRelDataFrame::createPath(const bool /*useLastRoute*/) {
     // first check that we have at least two edges and parameters are valid
     if ((myPathCreator->getSelectedEdges().size() > 1) && (myGenericDataAttributes->areAttributesValid())) {
-        GNEDataHandler dataHandler(myViewNet->getNet(), "", true);
+        GNEDataHandler dataHandler(myViewNet->getNet(), "", true, false);
         // create data interval object and fill it
         CommonXMLStructure::SumoBaseObject* dataIntervalObject = new CommonXMLStructure::SumoBaseObject(nullptr);
         dataIntervalObject->addStringAttribute(SUMO_ATTR_ID, myIntervalSelector->getDataInterval()->getID());
@@ -68,6 +68,9 @@ GNEEdgeRelDataFrame::createPath(const bool /*useLastRoute*/) {
         // abort path creation
         myPathCreator->abortPathCreation();
         delete dataIntervalObject;
+        return true;
+    } else {
+        return false;
     }
 }
 

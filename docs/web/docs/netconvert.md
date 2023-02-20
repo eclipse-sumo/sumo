@@ -109,7 +109,7 @@ Using python tools, conversion of .net.xml files into further formats is support
   information or filter stops when reducing the network size.
 - [Public transport
   lines](Tutorials/PT_from_OpenStreetMap.md#initial_network_and_public_transit_information_extraction): Automatically updated when reducing network extent.
-- [Shape definitions](Simulation/Shapes.md) to be embedded in network output that supports this ([OpenDRIVE](Networks/Import/OpenDRIVE.md))
+- [Shape definitions](Simulation/Shapes.md) to be embedded in network output that supports this ([OpenDRIVE](Networks/Further_Outputs.md#embedding_road_objects))
 - [Elevation Data files](Networks/Elevation.md#including_elevation_data_in_a_network)
 
 ## Export
@@ -130,6 +130,8 @@ The following list ouf output is explained in more detail at
   road-side parking can be imported from OSM)
 - Railway topology output: A file for analyzing the topology of
   railway networks in regard to bi-directional track usage
+- [OpenDrive road objects](Networks/Further_Outputs.md#opendrive_road_objects)
+- [VISUM districts](Networks/Further_Outputs.md#visum-districts)
 
 # Options
 
@@ -189,6 +191,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **-H** {{DT_BOOL}}<br> **--human-readable-time** {{DT_BOOL}} | Write time values as hour:minute:second or day:hour:minute:second rather than seconds; *default:* **false** |
 | **-o** {{DT_FILE}}<br> **--output-file** {{DT_FILE}} | The generated net will be written to FILE |
 | **-p** {{DT_FILE}}<br> **--plain-output-prefix** {{DT_FILE}} | Prefix of files to write plain xml nodes, edges and connections to |
+| **--plain-output.lanes** {{DT_BOOL}} | Write all lanes and their attributes even when they are not customized; *default:* **false** |
 | **--junctions.join-output** {{DT_FILE}} | Writes information about joined junctions to FILE (can be loaded as additional node-file to reproduce joins |
 | **--prefix** {{DT_STR}} | Defines a prefix for edge and junction names |
 | **--amitran-output** {{DT_FILE}} | The generated net will be written to FILE using Amitran format |
@@ -206,6 +209,8 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--railway.topology.output** {{DT_FILE}} | Analyze topology of the railway network |
 | **--polygon-output** {{DT_FILE}} | Write shapes that are embedded in the network input and that are not supported by polyconvert (OpenDRIVE) |
 | **--opendrive-output.straight-threshold** {{DT_FLOAT}} | Builds parameterized curves whenever the angular change  between straight segments exceeds FLOAT degrees; *default:* **1e-08** |
+| **--opendrive-output.lefthand-left** {{DT_BOOL}} | Write lanes in lefthand networks on the left side (positive indices); *default:* **false** |
+| **--opendrive-output.shape-match-dist** {{DT_FLOAT}} | Match loaded shapes to the closest edge within FLOAT and export as road objects; *default:* **-1** |
 
 ### Projection
 
@@ -266,6 +271,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--opposites.guess** {{DT_BOOL}} | Enable guessing of opposite direction lanes usable for overtaking; *default:* **false** |
 | **--opposites.guess.fix-lengths** {{DT_BOOL}} | Ensure that opposite edges have the same length; *default:* **true** |
 | **--fringe.guess** {{DT_BOOL}} | Enable guessing of network fringe nodes; *default:* **false** |
+| **--fringe.guess.speed-threshold** {{DT_FLOAT}} | Guess disconnected edges above the given speed as outer fringe; *default:* **13.8889** |
 | **--lefthand** {{DT_BOOL}} | Assumes left-hand traffic on the network; *default:* **false** |
 | **--edges.join** {{DT_BOOL}} | Merges edges which connect the same nodes and are close to each other (recommended for VISSIM import); *default:* **false** |
 | **--speed.offset** {{DT_FLOAT}} | Modifies all edge speeds by adding FLOAT; *default:* **0** |
@@ -287,6 +293,8 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--default.sidewalk-width** {{DT_FLOAT}} | The default width of added sidewalks; *default:* **2** |
 | **--default.bikelane-width** {{DT_FLOAT}} | The default width of added bike lanes; *default:* **1** |
 | **--default.crossing-width** {{DT_FLOAT}} | The default width of a pedestrian crossing; *default:* **4** |
+| **--default.crossing-speed** {{DT_FLOAT}} | The default speed 'limit' on a pedestrian crossing (in m/s); *default:* **2.78** |
+| **--default.walkingarea-speed** {{DT_FLOAT}} | The default speed 'limit' on a pedestrian walkingarea (in m/s); *default:* **2.78** |
 | **--default.allow** {{DT_STR}} | The default for allowed vehicle classes |
 | **--default.disallow** {{DT_STR}} | The default for disallowed vehicle classes |
 | **--default.junctions.keep-clear** {{DT_BOOL}} | Whether junctions should be kept clear by default; *default:* **true** |
@@ -312,6 +320,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--tls.ignore-internal-junction-jam** {{DT_BOOL}} | Do not build mutually conflicting response matrix, potentially ignoring vehicles that are stuck at an internal junction when their phase has ended; *default:* **false** |
 | **--tls.guess-signals** {{DT_BOOL}} | Interprets tls nodes surrounding an intersection as signal positions for a larger TLS. This is typical pattern for OSM-derived networks; *default:* **false** |
 | **--tls.guess-signals.dist** {{DT_FLOAT}} | Distance for interpreting nodes as signal locations; *default:* **25** |
+| **--tls.guess-signals.slack** {{DT_INT}} | Number of uncontrolled entry edges to accept and still consider the central node as a traffic light; *default:* **0** |
 | **--tls.cycle.time** {{DT_INT}} | Use INT as cycle duration; *default:* **90** |
 | **--tls.green.time** {{DT_INT}} | Use INT as green phase duration; *default:* **31** |
 | **-D** {{DT_FLOAT}}<br> **--tls.yellow.min-decel** {{DT_FLOAT}} | Defines smallest vehicle deceleration; *default:* **3** |
@@ -336,6 +345,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--tls.max-dur** {{DT_INT}} | Default maximum phase duration for traffic lights with variable phase length; *default:* **50** |
 | **--tls.group-signals** {{DT_BOOL}} | Assign the same tls link index to connections that share the same states; *default:* **false** |
 | **--tls.ungroup-signals** {{DT_BOOL}} | Assign a distinct tls link index to every connection; *default:* **false** |
+| **--tls.rebuild** {{DT_BOOL}} | rebuild all traffic light plans in the network; *default:* **false** |
 
 ### Ramp Guessing
 
@@ -383,6 +393,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | Option | Description |
 |--------|-------------|
 | **--junctions.right-before-left.speed-threshold** {{DT_FLOAT}} | Allow building right-before-left junctions when the incoming edge speeds are below FLOAT (m/s); *default:* **13.6111** |
+| **--junctions.left-before-right** {{DT_BOOL}} | Build left-before-right junctions instead of right-before-left junctions; *default:* **false** |
 | **--no-internal-links** {{DT_BOOL}} | Omits internal links; *default:* **false** |
 | **--no-turnarounds** {{DT_BOOL}} | Disables building turnarounds; *default:* **false** |
 | **--no-turnarounds.tls** {{DT_BOOL}} | Disables building turnarounds at tls-controlled junctions; *default:* **false** |
@@ -395,6 +406,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--junctions.join-dist** {{DT_FLOAT}} | Determines the maximal distance for joining junctions (defaults to 10); *default:* **10** |
 | **--junctions.join-exclude** {{DT_STR[]}} | Interprets STR[] as list of junctions to exclude from joining |
 | **--junctions.join-same** {{DT_BOOL}} | Joins junctions that have the same coordinates even if not connected; *default:* **false** |
+| **--max-join-ids** {{DT_INT}} | Abbreviate junction or TLS id if it joins more than INT junctions; *default:* **4** |
 | **--junctions.corner-detail** {{DT_INT}} | Generate INT intermediate points to smooth out intersection corners; *default:* **5** |
 | **--junctions.internal-link-detail** {{DT_INT}} | Generate INT intermediate points to smooth out lanes within the intersection; *default:* **5** |
 | **--junctions.scurve-stretch** {{DT_FLOAT}} | Generate longer intersections to allow for smooth s-curves when the number of lanes changes; *default:* **0** |
@@ -449,7 +461,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--railway.topology.direction-priority** {{DT_BOOL}} | Set edge priority values based on estimated main direction; *default:* **false** |
 | **--railway.topology.extend-priority** {{DT_BOOL}} | Extend loaded edge priority values based on estimated main direction; *default:* **false** |
 | **--railway.access-distance** {{DT_FLOAT}} | The search radius for finding suitable road accesses for rail stops; *default:* **150** |
-| **--railway.max-accesses** {{DT_INT}} | The maximum roud accesses registered per rail stops; *default:* **5** |
+| **--railway.max-accesses** {{DT_INT}} | The maximum road accesses registered per rail stops; *default:* **5** |
 | **--railway.access-factor** {{DT_FLOAT}} | The walking length of the access is computed as air-line distance multiplied by FLOAT; *default:* **1.5** |
 
 ### Formats
@@ -461,11 +473,12 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--osm.skip-duplicates-check** {{DT_BOOL}} | Skips the check for duplicate nodes and edges; *default:* **false** |
 | **--osm.elevation** {{DT_BOOL}} | Imports elevation data; *default:* **false** |
 | **--osm.layer-elevation** {{DT_FLOAT}} | Reconstruct (relative) elevation based on layer data. Each layer is raised by FLOAT m; *default:* **0** |
-| **--osm.layer-elevation.max-grade** {{DT_FLOAT}} | Maximum grade threshold in % at 50km/h when reconstructing elevation based on layer data. The value is scaled according to road speed.; *default:* **10** |
+| **--osm.layer-elevation.max-grade** {{DT_FLOAT}} | Maximum grade threshold in % at 50km/h when reconstrucing elevation based on layer data. The value is scaled according to road speed.; *default:* **10** |
 | **--osm.oneway-spread-right** {{DT_BOOL}} | Whether one-way roads should be spread to the side instead of centered; *default:* **false** |
 | **--osm.lane-access** {{DT_BOOL}} | Import lane-specific access restrictions; *default:* **false** |
-| **--osm.bike-access** {{DT_BOOL}} | Check additional attributes to fix directions and permissions on bike paths; *default:* **false** |
+| **--osm.bike-access** {{DT_BOOL}} | Import bike lanes and fix directions and permissions on bike paths; *default:* **false** |
 | **--osm.sidewalks** {{DT_BOOL}} | Import sidewalks; *default:* **false** |
+| **--osm.crossings** {{DT_BOOL}} | Import crossings; *default:* **false** |
 | **--osm.turn-lanes** {{DT_BOOL}} | Import turning arrows from OSM to help with connection building; *default:* **false** |
 | **--osm.stop-output.length** {{DT_FLOAT}} | The default length of a public transport stop in FLOAT m; *default:* **25** |
 | **--osm.stop-output.length.bus** {{DT_FLOAT}} | The default length of a bus stop in FLOAT m; *default:* **15** |
@@ -473,6 +486,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--osm.stop-output.length.train** {{DT_FLOAT}} | The default length of a train stop in FLOAT m; *default:* **200** |
 | **--osm.all-attributes** {{DT_BOOL}} | Whether additional attributes shall be imported; *default:* **false** |
 | **--osm.extra-attributes** {{DT_STR[]}} | List of additional attributes that shall be imported from OSM via osm.all-attributes (set 'all' to import all); *default:* **bridge,tunnel,layer,postal_code** |
+| **--osm.speedlimit-none** {{DT_FLOAT}} | The speed limit to be set when there is no actual speed limit in reality; *default:* **39.4444** |
 | **--matsim.keep-length** {{DT_BOOL}} | The edge lengths given in the MATSIM-file will be kept; *default:* **false** |
 | **--matsim.lanes-from-capacity** {{DT_BOOL}} | The lane number will be computed from the capacity; *default:* **false** |
 | **--shapefile.street-id** {{DT_STR}} | Read edge ids from column STR |
@@ -521,13 +535,14 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--print-options** {{DT_BOOL}} | Prints option values before processing; *default:* **false** |
 | **-?** {{DT_BOOL}}<br> **--help** {{DT_BOOL}} | Prints this screen or selected topics; *default:* **false** |
 | **-V** {{DT_BOOL}}<br> **--version** {{DT_BOOL}} | Prints the current version; *default:* **false** |
-| **-X** {{DT_STR}}<br> **--xml-validation** {{DT_STR}} | Set schema validation scheme of XML inputs ("never", "auto" or "always"); *default:* **auto** |
-| **--xml-validation.net** {{DT_STR}} | Set schema validation scheme of SUMO network inputs ("never", "auto" or "always"); *default:* **never** |
+| **-X** {{DT_STR}}<br> **--xml-validation** {{DT_STR}} | Set schema validation scheme of XML inputs ("never", "local", "auto" or "always"); *default:* **local** |
+| **--xml-validation.net** {{DT_STR}} | Set schema validation scheme of SUMO network inputs ("never", "local", "auto" or "always"); *default:* **never** |
 | **-W** {{DT_BOOL}}<br> **--no-warnings** {{DT_BOOL}} | Disables output of warnings; *default:* **false** |
 | **--aggregate-warnings** {{DT_INT}} | Aggregate warnings of the same type whenever more than INT occur; *default:* **-1** |
 | **-l** {{DT_FILE}}<br> **--log** {{DT_FILE}} | Writes all messages to FILE (implies verbose) |
 | **--message-log** {{DT_FILE}} | Writes all non-error messages to FILE (implies verbose) |
 | **--error-log** {{DT_FILE}} | Writes all warnings and errors to FILE |
+| **--language** {{DT_STR}} | Language to use in messages; *default:* **C** |
 | **--ignore-errors** {{DT_BOOL}} | Continue on broken input; *default:* **false** |
 | **--ignore-errors.connections** {{DT_BOOL}} | Continue on invalid connections; *default:* **false** |
 | **--show-errors.connections-first-try** {{DT_BOOL}} | Show errors in connections at parsing; *default:* **false** |
@@ -577,5 +592,4 @@ may be issued during network building.
 | Warning: For node '...': could not compute shape.                                                         | The shape of the junction area could not be computed                                                                                             | Inspect the mentioned node and maybe [provide a custom node shape](Networks/PlainXML.md#node_descriptions).                                               |
 | Warning: Junction shape for '...' has distance ... to its given position.                                 | The shape and location of the junction area is suspicious.                                                                                       | Inspect the mentioned node and maybe [provide a custom node shape](Networks/PlainXML.md#node_descriptions). Warning may be suppressed by setting option **--geometry.junction-mismatch-threshold**. |
 | Warning: The traffic light '...' does not control any links; it will not be build.                        | The traffic light at the given node sits at a junction without connections or the node was removed altogether.                                   | Inspect the mentioned node if it still exists. Can usually be ignored.                                                                                                                               |
-| Warning: Splitting vector close to end ...                                                                | A geometry computation somewhere deep in the code is suspicious. Often related to computation of internal lanes at intersections with bad shape. | Ignore for lack of sufficient information (or try to narrow down the problem by building smaller sections of the network).                                                                           |
 | Warning: Splitting vector close to end ...                                                                | A geometry computation somewhere deep in the code is suspicious. Often related to computation of internal lanes at intersections with bad shape. | Ignore for lack of sufficient information (or try to narrow down the problem by building smaller sections of the network).                                                                           |

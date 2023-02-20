@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -30,9 +30,9 @@
 // ===========================================================================
 
 GNEDestProbReroute::GNEDestProbReroute(GNENet* net):
-    GNEAdditional("", net, GLO_REROUTER_DESTPROBREROUTE, SUMO_TAG_DEST_PROB_REROUTE, "",
-{}, {}, {}, {}, {}, {}),
-myNewEdgeDestination(nullptr),
+    GNEAdditional("", net, GLO_REROUTER_DESTPROBREROUTE, SUMO_TAG_DEST_PROB_REROUTE,
+                  GUIIconSubSys::getIcon(GUIIcon::DESTPROBREROUTE), "", {}, {}, {}, {}, {}, {}),
+                            myNewEdgeDestination(nullptr),
 myProbability(0) {
     // reset default values
     resetDefaultValues();
@@ -40,8 +40,8 @@ myProbability(0) {
 
 
 GNEDestProbReroute::GNEDestProbReroute(GNEAdditional* rerouterIntervalParent, GNEEdge* newEdgeDestination, double probability):
-    GNEAdditional(rerouterIntervalParent->getNet(), GLO_REROUTER_DESTPROBREROUTE, SUMO_TAG_DEST_PROB_REROUTE, "",
-{}, {}, {}, {rerouterIntervalParent}, {}, {}),
+    GNEAdditional(rerouterIntervalParent->getNet(), GLO_REROUTER_DESTPROBREROUTE, SUMO_TAG_DEST_PROB_REROUTE,
+                  GUIIconSubSys::getIcon(GUIIcon::DESTPROBREROUTE), "", {}, {}, {}, {rerouterIntervalParent}, {}, {}),
 myNewEdgeDestination(newEdgeDestination),
 myProbability(probability) {
     // update boundary of rerouter parent

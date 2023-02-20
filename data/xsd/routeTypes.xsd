@@ -137,6 +137,7 @@
         <xsd:attribute name="security" type="xsd:float"/>
         <xsd:attribute name="estimation" type="xsd:float"/>
         <xsd:attribute name="speedControlGain" type="xsd:float"/>
+        <xsd:attribute name="speedControlMinGap" type="xsd:float"/>
         <xsd:attribute name="gapClosingControlGainSpeed" type="xsd:float"/>
         <xsd:attribute name="gapClosingControlGainSpace" type="xsd:float"/>
         <xsd:attribute name="gapControlGainSpeed" type="xsd:float"/>
@@ -772,7 +773,7 @@
         <xsd:attribute name="reason" type="xsd:string"/>
         <xsd:attribute name="replacedOnEdge" type="xsd:string"/>
         <xsd:attribute name="replacedOnIndex" type="nonNegativeFloatTypeWithErrorValue"/>
-        <xsd:attribute name="replacedAtTime" type="nonNegativeFloatType"/>
+        <xsd:attribute name="replacedAtTime" type="timeType"/>
         <xsd:attribute name="routeLength" type="nonNegativeFloatType" use="optional"/>
     </xsd:complexType>
 
@@ -793,7 +794,17 @@
         <xsd:attribute name="until" type="timeType"/>
         <xsd:attribute name="extension" type="timeType"/>
         <xsd:attribute name="index" type="xsd:string"/>
-        <xsd:attribute name="parking" type="boolType"/>
+        <xsd:attribute name="parking">
+            <xsd:simpleType>
+                <xsd:union memberTypes="boolType">
+                    <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                            <xsd:enumeration value="opportunistic"/>
+                        </xsd:restriction>
+                    </xsd:simpleType> 
+                </xsd:union>
+            </xsd:simpleType>
+        </xsd:attribute>
         <xsd:attribute name="triggered" type="xsd:string"/>
         <xsd:attribute name="containerTriggered" type="boolType"/>
         <xsd:attribute name="expected" type="xsd:string"/>
@@ -810,9 +821,12 @@
         <xsd:attribute name="started" type="timeTypeWithErrorValue"/>
         <xsd:attribute name="ended" type="timeTypeWithErrorValue"/>
         <xsd:attribute name="onDemand" type="boolType"/>
+        <xsd:attribute name="jump" type="timeTypeWithErrorValue"/>
         <!-- save-state backward compatibility -->
         <xsd:attribute name="actualArrival" type="timeType"/>
         <xsd:attribute name="depart" type="timeType"/>
+        <!-- save-state  -->
+        <xsd:attribute name="collision" type="boolType"/>
     </xsd:complexType>
 
     <xsd:complexType name="vTypeDistributionType">
@@ -821,6 +835,7 @@
         </xsd:sequence>
         <xsd:attribute name="id" type="idType" use="required"/>
         <xsd:attribute name="vTypes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="deterministic" type="xsd:int" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="routeDistributionType">
@@ -902,13 +917,14 @@
                     <xsd:attribute name="parkingArea" type="xsd:string"/>
                     <xsd:attribute name="containerStop" type="xsd:string"/>
                     <xsd:attribute name="chargingStation" type="xsd:string"/>
-                    <xsd:attribute name="lines" type="xsd:string" use="required"/>
+                    <xsd:attribute name="lines" type="xsd:string" use="optional"/>
                     <xsd:attribute name="arrivalPos" type="xsd:float"/>
                     <xsd:attribute name="cost" type="xsd:float"/>
                     <xsd:attribute name="intended" type="xsd:string" use="optional"/>
                     <xsd:attribute name="depart" type="timeType" use="optional"/>
                     <xsd:attribute name="routeLength" type="xsd:float"/>
                     <xsd:attribute name="group" type="xsd:string" use="optional"/>
+                    <xsd:attribute name="vehicle" type="xsd:string" use="optional"/>
                     <xsd:attribute name="started" type="timeTypeWithErrorValue"/>
                     <xsd:attribute name="ended" type="timeTypeWithErrorValue"/>
                 </xsd:complexType>
@@ -932,7 +948,7 @@
                     <xsd:attribute name="speed" type="positiveFloatType"/>
                     <xsd:attribute name="duration" type="positiveFloatType"/>
                     <xsd:attribute name="departPos" type="departPosType"/>
-                    <xsd:attribute name="departPosLat" type="xsd:float"/>
+                    <xsd:attribute name="departPosLat" type="departPosLatType"/>
                     <xsd:attribute name="departLane" type="xsd:nonNegativeInteger"/>
                     <xsd:attribute name="arrivalPos" type="arrivalPosType"/>
                     <xsd:attribute name="cost" type="xsd:float"/>
@@ -989,13 +1005,14 @@
                     <xsd:attribute name="parkingArea" type="xsd:string"/>
                     <xsd:attribute name="containerStop" type="xsd:string"/>
                     <xsd:attribute name="chargingStation" type="xsd:string"/>
-                    <xsd:attribute name="lines" type="xsd:string" use="required"/>
+                    <xsd:attribute name="lines" type="xsd:string" use="optional"/>
                     <xsd:attribute name="arrivalPos" type="xsd:float"/>
                     <xsd:attribute name="cost" type="xsd:float"/>
                     <xsd:attribute name="intended" type="xsd:string" use="optional"/>
                     <xsd:attribute name="depart" type="timeType" use="optional"/>
                     <xsd:attribute name="routeLength" type="xsd:float"/>
                     <xsd:attribute name="group" type="xsd:string" use="optional"/>
+                    <xsd:attribute name="vehicle" type="xsd:string" use="optional"/>
                     <xsd:attribute name="started" type="timeTypeWithErrorValue"/>
                     <xsd:attribute name="ended" type="timeTypeWithErrorValue"/>
                 </xsd:complexType>

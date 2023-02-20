@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-10-13 23:30:32 by Eclipse SUMO netconvert Version v1_14_1+1701-9f674f9
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <osm-files value="osm.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output-file value="net.net.xml"/>
+        <ptstop-output value="additional.xml"/>
+        <ptline-output value="ptlines.xml"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <junctions>
+        <no-internal-links value="true"/>
+    </junctions>
+
+    <railway>
+        <railway.topology.repair value="true"/>
+    </railway>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<ptLines xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/ptlines_file.xsd">
+    <ptLine id="146380" name="Schwebebahn: Vohwinkel =&gt; Oberbarmen" line="60" type="monorail" vClass="rail_urban" color="cyan" completeness="0.25">
+        <route edges="326203720"/>
+        <busStop id="380536713" name="Varresbecker Straße"/>
+        <busStop id="1609100922" name="Westende"/>
+        <busStop id="271135646" name="Pestalozzistraße"/>
+        <busStop id="271135683" name="Robert-Daum-Platz"/>
+        <busStop id="3125935756" name="Ohligsmühle"/>
+    </ptLine>
+    <ptLine id="2625869" name="Bus NE1: Engelshöhe =&gt; Hauptbahnhof" line="NE1" type="bus" vClass="bus" nightService="only" completeness="0.14">
+        <route edges="307459757#0 307459757#1 307459757#2 307459757#3 307459757#4 5980164#0 5980164#1 5980164#2 5980164#3 5980164#4"/>
+        <busStop id="704235124" name="Löwer"/>
+        <busStop id="2511338319" name="Westende"/>
+        <busStop id="704235222" name="Pestalozzistraße"/>
+    </ptLine>
+    <ptLine id="2973510" name="Schwebebahn: Oberbarmen =&gt; Vohwinkel" line="60" type="monorail" vClass="rail_urban" color="cyan" completeness="0.25">
+        <route edges="326203720"/>
+        <busStop id="-3125935756" name="Ohligsmühle"/>
+        <busStop id="-271135683" name="Robert-Daum-Platz"/>
+        <busStop id="-271135646" name="Pestalozzistraße"/>
+        <busStop id="-1609100922" name="Westende"/>
+        <busStop id="-380536713" name="Varresbecker Straße"/>
+    </ptLine>
+    <ptLine id="3251211" name="Bus 600: Hauptbahnhof =&gt; Vohwinkel Schwebebahn" line="600" type="bus" vClass="bus" completeness="0.15">
+        <route edges="-5980164#4 -5980164#3 -5980164#2 -5980164#1 -5980164#0 -307459757#4 -307459757#3 -307459757#2 -307459757#1 -307459757#0"/>
+        <busStop id="-2511338319" name="Westende"/>
+        <busStop id="-698362008" name="Löwer"/>
+    </ptLine>
+    <ptLine id="3251212" name="Bus 600: Vohwinkel Schwebebahn =&gt; Hauptbahnhof" line="600" type="bus" vClass="bus" completeness="0.20">
+        <route edges="307459757#0 307459757#1 307459757#2 307459757#3 307459757#4 5980164#0 5980164#1 5980164#2 5980164#3 5980164#4"/>
+        <busStop id="704235124" name="Löwer"/>
+        <busStop id="2511338319" name="Westende"/>
+        <busStop id="704235222" name="Pestalozzistraße"/>
+    </ptLine>
+    <ptLine id="571983" name="Bus 611: Heckinghausen =&gt; Katernberg" line="611" type="bus" vClass="bus" completeness="0.05">
+        <route edges="-5980164#4 -5980164#3 -5980164#2 -5980164#1 -5980164#0 -307459757#4 -307459757#3 -307459757#2 -307459757#1 -307459757#0"/>
+        <busStop id="-2511338319" name="Westende"/>
+        <busStop id="-698362008" name="Löwer"/>
+    </ptLine>
+    <ptLine id="571984" name="Bus 611: Katernberg =&gt; Heckinghausen" line="611" type="bus" vClass="bus" completeness="0.08">
+        <route edges="307459757#0 307459757#1 307459757#2 307459757#3 307459757#4 5980164#0 5980164#1 5980164#2 5980164#3 5980164#4"/>
+        <busStop id="704235124" name="Löwer"/>
+        <busStop id="2511338319" name="Westende"/>
+        <busStop id="704235222" name="Pestalozzistraße"/>
+    </ptLine>
+</ptLines>

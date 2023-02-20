@@ -1,6 +1,4 @@
-function import_gtfs called at Thu, 14 Jul 2022 14:13:35 +0000
-function import_gtfs finished after 0.155694 seconds
+function import_gtfs called at Sun, 11 Dec 2022 21:06:09 +0000
+function import_gtfs finished after 0.140347 seconds
 Success.
 Success.
-Warning! No mapping library found, falling back to tracemapper.
-Warning! Disconnected route '413_132189814', no path found. Keeping longer part.

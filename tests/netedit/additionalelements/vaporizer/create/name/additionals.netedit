@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-03-04 10:15:27 by Eclipse SUMO netedit Version v1_12_0+1137-e9106068858
+<!-- generated on 2022-10-21 14:33:08 by Eclipse SUMO netedit Version v1_14_1+1876-eb3cce9c206
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Other additionals -->
-    <vaporizer id="gneE0" name="customName" begin="0.00" end="3600.00"/>
-    <vaporizer id="gneE1" name="%%$$$" begin="0.00" end="3600.00"/>
+    <vaporizer id="gneE1" name="customName" begin="0.00" end="3600.00"/>
 </additional>

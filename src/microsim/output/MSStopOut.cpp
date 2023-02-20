@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -66,7 +66,7 @@ void
 MSStopOut::stopStarted(const SUMOVehicle* veh, int numPersons, int numContainers, SUMOTime time) {
     assert(veh != nullptr);
     if (myStopped.count(veh) != 0) {
-        WRITE_WARNINGF("Vehicle '%' stops on edge '%', time=% without ending the previous stop.",
+        WRITE_WARNINGF(TL("Vehicle '%' stops on edge '%', time=% without ending the previous stop."),
                        veh->getID(), veh->getEdge()->getID(), time2string(time));
     }
     myStopped.emplace(veh, StopInfo(numPersons, numContainers));
@@ -102,7 +102,7 @@ void
 MSStopOut::stopEnded(const SUMOVehicle* veh, const SUMOVehicleParameter::Stop& stop, const std::string& laneOrEdgeID, bool simEnd) {
     assert(veh != nullptr);
     if (myStopped.count(veh) == 0) {
-        WRITE_WARNINGF("Vehicle '%' ends stop on edge '%', time=% without entering the stop.",
+        WRITE_WARNINGF(TL("Vehicle '%' ends stop on edge '%', time=% without entering the stop."),
                        veh->getID(), veh->getEdge()->getID(), time2string(SIMSTEP));
         return;
     }

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -176,7 +176,7 @@ GUIPolygon::GUIPolygon(const std::string& id, const std::string& type, const RGB
                        double lineWidth, double layer, double angle, const std::string& imgFile,
                        bool relativePath, const std::string& name):
     TesselatedPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, relativePath, name),
-    GUIGlObject_AbstractAdd(GLO_POLYGON, id),
+    GUIGlObject_AbstractAdd(GLO_POLYGON, id, GUIIconSubSys::getIcon(GUIIcon::POLY)),
     myRotatedShape(nullptr) {
     if (angle != 0.) {
         setShape(shape);

@@ -1,0 +1,29 @@
+/* XPM */
+static const char *save_networkelements_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 7 1",
+". c #040404",
+"# c #808304",
+"a c #bfc2bf",
+"b c None",
+"c c red",
+"d c #DE9B98",
+"e c #737573",
+/* pixels */
+"bbbbbbbbbbbbbbbb",
+"b..............b",
+"b.#.aaaaaaaa.a.b",
+"b.#.aadccdaa...b",
+"b.#.eeccccee.#.b",
+"b.#.eeccccee.#.b",
+"b.#.aadccdaa.#.b",
+"b.#.aaaaaaaa.#.b",
+"b.##........##.b",
+"b.############.b",
+"b.##.........#.b",
+"b.##......aa.#.b",
+"b.##......aa.#.b",
+"b.##......aa.#.b",
+"bb.............b",
+"bbbbbbbbbbbbbbbb"
+};

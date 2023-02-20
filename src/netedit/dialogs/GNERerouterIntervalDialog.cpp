@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -17,7 +17,6 @@
 ///
 // Dialog for edit rerouter intervals
 /****************************************************************************/
-#include <config.h>
 
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/div/GUIDesigns.h>
@@ -177,13 +176,15 @@ GNERerouterIntervalDialog::GNERerouterIntervalDialog(GNEAdditional* rerouterInte
     }
 
     // disable add routeProbReroute Button and change label if the rerouter has multiple edges (random routes can only work from one edge)
-    if (rerouterInterval->getParentAdditionals().at(0)->getChildEdges().size() > 1) {
+    // for whatever reason, sonar complains in the next line that parkingAreaRerouteLabel may leak, but fox does the cleanup
+    if (rerouterInterval->getParentAdditionals().at(0)->getChildEdges().size() > 1) {  // NOSONAR
         myAddRouteProbReroute->disable();
-        routeProbRerouteLabel->setText("Rerouter has more than one edge");
+        routeProbRerouteLabel->setText(TL("Rerouter has more than one edge"));
     }
 
     // update tables
-    updateClosingLaneReroutesTable();
+    // for whatever reason, sonar complains in the next line that routeProbRerouteLabel may leak, but fox does the cleanup
+    updateClosingLaneReroutesTable();  // NOSONAR
     updateClosingReroutesTable();
     updateDestProbReroutesTable();
     updateRouteProbReroutesTable();
@@ -317,7 +318,7 @@ GNERerouterIntervalDialog::onCmdAddClosingLaneReroute(FXObject*, FXSelector, voi
         // update closing lane reroutes table
         updateClosingLaneReroutesTable();
     } else {
-        WRITE_WARNING("There is no lanes in the network");
+        WRITE_WARNING(TL("There is no lanes in the network"));
     }
     return 1;
 }
@@ -337,7 +338,7 @@ GNERerouterIntervalDialog::onCmdAddClosingReroute(FXObject*, FXSelector, void*) 
         // update closing reroutes table
         updateClosingReroutesTable();
     } else {
-        WRITE_WARNING("There is no edges in the network");
+        WRITE_WARNING(TL("There is no edges in the network"));
     }
     return 1;
 }
@@ -357,7 +358,7 @@ GNERerouterIntervalDialog::onCmdAddDestProbReroute(FXObject*, FXSelector, void*)
         // update dest Prob reroutes table
         updateDestProbReroutesTable();
     } else {
-        WRITE_WARNING("There is no edges in the network");
+        WRITE_WARNING(TL("There is no edges in the network"));
     }
     return 1;
 }
@@ -394,7 +395,7 @@ GNERerouterIntervalDialog::onCmdAddParkingAreaReroute(FXObject*, FXSelector, voi
         // update dest Prob reroutes table
         updateParkingAreaReroutesTable();
     } else {
-        WRITE_WARNING("There is no parking areas in the network");
+        WRITE_WARNING(TL("There is no parking areas in the network"));
     }
     return 1;
 }

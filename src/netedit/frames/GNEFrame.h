@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -38,7 +38,7 @@ public:
      * @brief viewNet viewNet that uses this GNEFrame
      * @brief frameLabel label of the frame
      */
-    GNEFrame(GNEViewParent *viewParent, GNEViewNet* viewNet, const std::string& frameLabel);
+    GNEFrame(GNEViewParent* viewParent, GNEViewNet* viewNet, const std::string& frameLabel);
 
     /// @brief destructor
     ~GNEFrame();
@@ -96,7 +96,7 @@ public:
     virtual bool shapeDrawed();
 
     /// @brief function called after set a valid attribute in AttributeCreator/AttributeEditor/ParametersEditor/...
-    virtual void attributeUpdated();
+    virtual void attributeUpdated(SumoXMLAttr attribute);
 
     /// @brief open GNEAttributesCreator extended dialog
     virtual void attributesEditorExtendedDialogOpened();
@@ -105,7 +105,7 @@ public:
     virtual void selectedOverlappedElement(GNEAttributeCarrier* AC);
 
     /// @brief create path between two elements
-    virtual void createPath(const bool useLastRoute);
+    virtual bool createPath(const bool useLastRoute);
 
     /// @}
 

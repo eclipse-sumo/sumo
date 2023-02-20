@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -58,10 +58,10 @@ TEST(RGBColor, test_parseColor) {
 
 /* Test the method 'parseColor' with thrown EmptyData Exception*/
 TEST(RGBColor, test_parseColor_with_a_short_string) {
-    ASSERT_THROW(RGBColor::parseColor(""), InvalidArgument) << "Expect an EmptyData exception.";
-    ASSERT_THROW(RGBColor::parseColor("1,2"), InvalidArgument) << "Expect an EmptyData exception.";
-    ASSERT_THROW(RGBColor::parseColor("test"), InvalidArgument) << "Expect an EmptyData exception.";
-    ASSERT_THROW(RGBColor::parseColor("1,2,3,5,432test"), InvalidArgument) << "Expect an EmptyData exception.";
+    ASSERT_THROW(RGBColor::parseColor(""), FormatException) << "Expected a FormatException.";
+    ASSERT_THROW(RGBColor::parseColor("1,2"), FormatException) << "Expected a FormatException.";
+    ASSERT_THROW(RGBColor::parseColor("test"), FormatException) << "Expected a FormatException.";
+    ASSERT_THROW(RGBColor::parseColor("1,2,3,5,432test"), FormatException) << "Expected a FormatException.";
 }
 
 /* Test the method 'interpolate'*/

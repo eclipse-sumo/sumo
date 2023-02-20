@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2012-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -124,6 +124,54 @@ InductionLoop::getVehicleData(const std::string& detID) {
         result.push_back(vd);
     }
     return result;
+}
+
+
+double
+InductionLoop::getIntervalOccupancy(const std::string& detID) {
+    return Dom::getDouble(libsumo::VAR_INTERVAL_OCCUPANCY, detID);
+}
+
+
+double
+InductionLoop::getIntervalMeanSpeed(const std::string& detID) {
+    return Dom::getDouble(libsumo::VAR_INTERVAL_SPEED, detID);
+}
+
+
+int
+InductionLoop::getIntervalVehicleNumber(const std::string& detID) {
+    return Dom::getInt(libsumo::VAR_INTERVAL_NUMBER, detID);
+}
+
+
+std::vector<std::string>
+InductionLoop::getIntervalVehicleIDs(const std::string& detID) {
+    return Dom::getStringVector(libsumo::VAR_INTERVAL_IDS, detID);
+}
+
+
+double
+InductionLoop::getLastIntervalOccupancy(const std::string& detID) {
+    return Dom::getDouble(libsumo::VAR_LAST_INTERVAL_OCCUPANCY, detID);
+}
+
+
+double
+InductionLoop::getLastIntervalMeanSpeed(const std::string& detID) {
+    return Dom::getDouble(libsumo::VAR_LAST_INTERVAL_SPEED, detID);
+}
+
+
+int
+InductionLoop::getLastIntervalVehicleNumber(const std::string& detID) {
+    return Dom::getInt(libsumo::VAR_LAST_INTERVAL_NUMBER, detID);
+}
+
+
+std::vector<std::string>
+InductionLoop::getLastIntervalVehicleIDs(const std::string& detID) {
+    return Dom::getStringVector(libsumo::VAR_LAST_INTERVAL_IDS, detID);
 }
 
 

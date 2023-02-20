@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2002-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -48,8 +48,10 @@ std::map<ConstROEdgeVector, std::string> ROVehicle::mySavedRoutes;
 // ===========================================================================
 ROVehicle::ROVehicle(const SUMOVehicleParameter& pars,
                      RORouteDef* route, const SUMOVTypeParameter* type,
-                     const RONet* net, MsgHandler* errorHandler)
-    : RORoutable(pars, type), myRoute(route) {
+                     const RONet* net, MsgHandler* errorHandler):
+    RORoutable(pars, type),
+    myRoute(route),
+    myJumpTime(-1) {
     getParameter().stops.clear();
     if (route != nullptr && route->getFirstRoute() != nullptr) {
         for (std::vector<SUMOVehicleParameter::Stop>::const_iterator s = route->getFirstRoute()->getStops().begin(); s != route->getFirstRoute()->getStops().end(); ++s) {
@@ -112,6 +114,18 @@ ROVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, const RONet* net, 
     }
     getParameter().stops.insert(iter, stopPar);
     myStopEdges.insert(edgeIter, stopEdge);
+    if (stopPar.jump >= 0) {
+        if (stopEdge->isInternal()) {
+            if (errorHandler != nullptr) {
+                errorHandler->inform("Jumps are not supported from internal stop edge '" + stopEdge->getID() + "'.");
+            }
+        } else {
+            if (myJumpTime < 0) {
+                myJumpTime = 0;
+            }
+            myJumpTime += stopPar.jump;
+        }
+    }
 }
 
 
@@ -193,6 +207,22 @@ ROVehicle::getMandatoryEdges(const ROEdge* requiredStart, const ROEdge* required
         }
     }
     return mandatory;
+}
+
+
+void
+ROVehicle::collectJumps(const ConstROEdgeVector& mandatory, std::set<ConstROEdgeVector::const_iterator>& jumpStarts) const {
+    auto itM = mandatory.begin();
+    auto itS = getParameter().stops.begin();
+    while (itM != mandatory.end() && itS != getParameter().stops.end()) {
+        if ((*itM)->getID() == itS->edge) {
+            if (itS->jump >= 0) {
+                jumpStarts.insert(itM);
+            }
+            itS++;
+        }
+        itM++;
+    }
 }
 
 

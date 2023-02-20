@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -58,6 +58,11 @@ public:
         myViaSuccessors.push_back(std::make_pair(turnEnd->getRailwayRoutingEdge(), nullptr));
     }
 
+    /// @brief Destructor.
+    virtual ~RailEdge() {
+        delete myTurnaround;
+    }
+
     void update(double maxTrainLength, const std::vector<const E*>& replacementEdges) {
         if (maxTrainLength > myMaxLength) {
             myMaxLength = maxTrainLength;
@@ -85,7 +90,7 @@ public:
                 continue;
             }
             const E* bidi = prev->getBidiEdge();
-            if (backward->isConnectedTo(*bidi, SVC_IGNORING)) {
+            if (bidi != nullptr && backward->isConnectedTo(*bidi, SVC_IGNORING)) {
                 _RailEdge* prevRailEdge = prev->getRailwayRoutingEdge();
                 if (prevRailEdge->myTurnaround == nullptr) {
                     prevRailEdge->myTurnaround = new _RailEdge(prev, bidi, numericalID++);

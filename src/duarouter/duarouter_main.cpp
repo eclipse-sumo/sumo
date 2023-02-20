@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -104,7 +104,7 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
 
     if (oc.isSet("restriction-params") &&
             (routingAlgorithm == "CH" || routingAlgorithm == "CHWrapper")) {
-        throw ProcessError("Routing algorithm '" + routingAlgorithm + "' does not support restriction-params");
+        throw ProcessError(TLF("Routing algorithm '%' does not support restriction-params", routingAlgorithm));
     }
 
     if (measure == "traveltime" && priorityFactor == 0) {
@@ -148,7 +148,7 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
                 ROEdge::getAllEdges(), oc.getBool("ignore-errors"), ttFunction,
                 begin, end, weightPeriod, net.hasPermissions(), oc.getInt("routing-threads"));
         } else {
-            throw ProcessError("Unknown routing Algorithm '" + routingAlgorithm + "'!");
+            throw ProcessError(TLF("Unknown routing Algorithm '%'!", routingAlgorithm));
         }
     } else {
         if (measure == "traveltime") {
@@ -175,7 +175,7 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
             op = &ROEdge::getStoredEffort;
         }
         if (measure != "traveltime" && !net.hasLoadedEffort()) {
-            WRITE_WARNING("No weight data was loaded for attribute '" + measure + "'.");
+            WRITE_WARNINGF(TL("No weight data was loaded for attribute '%'."), measure);
         }
         router = new DijkstraRouter<ROEdge, ROVehicle>(
             ROEdge::getAllEdges(), oc.getBool("ignore-errors"), op, ttFunction, false, nullptr, net.hasPermissions(), oc.isSet("restriction-params"));
@@ -235,8 +235,7 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
 int
 main(int argc, char** argv) {
     OptionsCont& oc = OptionsCont::getOptions();
-    // give some application descriptions
-    oc.setApplicationDescription("Shortest path router and DUE computer for the microscopic, multi-modal traffic simulation SUMO.");
+    oc.setApplicationDescription(TL("Shortest path router and DUE computer for the microscopic, multi-modal traffic simulation SUMO."));
     oc.setApplicationName("duarouter", "Eclipse SUMO duarouter Version " VERSION_STRING);
     int ret = 0;
     RONet* net = nullptr;

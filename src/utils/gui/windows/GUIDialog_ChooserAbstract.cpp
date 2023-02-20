@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -67,6 +67,7 @@ FXIMPLEMENT(GUIDialog_ChooserAbstract, FXMainWindow, GUIDialog_ChooserAbstractMa
 GUIDialog_ChooserAbstract::GUIDialog_ChooserAbstract(GUIGlChildWindow* windowsParent, int messageId,
         FXIcon* icon, const FXString& title, const std::vector<GUIGlID>& ids, GUIGlObjectStorage& /*glStorage*/) :
     FXMainWindow(windowsParent->getApp(), title, icon, nullptr, GUIDesignChooserDialog),
+    GUIPersistentWindowPos(this, "LOCATOR", true, 20, 40, 300, 350),
     myWindowsParent(windowsParent),
     myMessageId(messageId),
     myLocateByName(false),
@@ -79,36 +80,35 @@ GUIDialog_ChooserAbstract::GUIDialog_ChooserAbstract(GUIGlChildWindow* windowsPa
     myList = new FXList(layoutList, this, MID_CHOOSER_LIST, GUIDesignChooserListSingle);
     // build the buttons
     FXVerticalFrame* layoutRight = new FXVerticalFrame(hbox, GUIDesignChooserLayoutRight);
-    myCenterButton = new FXButton(layoutRight, "Center\t\t", GUIIconSubSys::getIcon(GUIIcon::RECENTERVIEW), this, MID_CHOOSER_CENTER, GUIDesignChooserButtons);
-    myTrackButton = new FXButton(layoutRight, "Track\t\t", GUIIconSubSys::getIcon(GUIIcon::RECENTERVIEW), this, MID_CHOOSER_TRACK, GUIDesignChooserButtons);
+    myCenterButton = new FXButton(layoutRight, (TL("Center") + std::string("\t\t")).c_str(), GUIIconSubSys::getIcon(GUIIcon::RECENTERVIEW), this, MID_CHOOSER_CENTER, GUIDesignChooserButtons);
+    myTrackButton = new FXButton(layoutRight, (TL("Track") + std::string("\t\t")).c_str(), GUIIconSubSys::getIcon(GUIIcon::RECENTERVIEW), this, MID_CHOOSER_TRACK, GUIDesignChooserButtons);
     // only enable Track Button if we're locating vehicles
     if (title.text() != std::string("Vehicle Chooser")) {
         myTrackButton->disable();
         myTrackButton->hide();
     }
     new FXHorizontalSeparator(layoutRight, GUIDesignHorizontalSeparator);
-    new FXButton(layoutRight, "&Hide Unselected\t\t", GUIIconSubSys::getIcon(GUIIcon::FLAG), this, MID_CHOOSER_FILTER, GUIDesignChooserButtons);
-    new FXButton(layoutRight, "By &Name\tLocate item by name\t", nullptr, this, MID_CHOOSEN_NAME, GUIDesignChooserButtons);
-    new FXButton(layoutRight, "&Select/deselect\t\tSelect/deselect current object", GUIIconSubSys::getIcon(GUIIcon::FLAG), this, MID_CHOOSEN_INVERT, GUIDesignChooserButtons);
-    new FXButton(layoutRight, "&Filter substring\t\t", nullptr, this, MID_CHOOSER_FILTER_SUBSTR, GUIDesignChooserButtons);
-    new FXButton(layoutRight, "Select &all\t\tSelect all items in list", GUIIconSubSys::getIcon(GUIIcon::FLAG), this, MID_CHOOSEN_SELECT, GUIDesignChooserButtons);
-    new FXButton(layoutRight, "&Deselect all\t\tDeselect all items in list", GUIIconSubSys::getIcon(GUIIcon::FLAG), this, MID_CHOOSEN_CLEAR, GUIDesignChooserButtons);
-    new FXButton(layoutRight, "&Update\t\tReload all ids", GUIIconSubSys::getIcon(GUIIcon::RELOAD), this, MID_UPDATE, GUIDesignChooserButtons);
+    new FXButton(layoutRight, (TL("&Hide Unselected") + std::string("\t\t")).c_str(), GUIIconSubSys::getIcon(GUIIcon::FLAG), this, MID_CHOOSER_FILTER, GUIDesignChooserButtons);
+    new FXButton(layoutRight, (TL("By &Name") + std::string("\t") + TL("Locate item by name") + "\t").c_str(), nullptr, this, MID_CHOOSEN_NAME, GUIDesignChooserButtons);
+    new FXButton(layoutRight, (TL("&Select/deselect") + std::string("\t\t") + TL("Select/deselect current object")).c_str(), GUIIconSubSys::getIcon(GUIIcon::FLAG), this, MID_CHOOSEN_INVERT, GUIDesignChooserButtons);
+    new FXButton(layoutRight, (TL("&Filter substring") + std::string("\t\t")).c_str(), nullptr, this, MID_CHOOSER_FILTER_SUBSTR, GUIDesignChooserButtons);
+    new FXButton(layoutRight, (TL("Select &all") + std::string("\t\t") + TL("Select all items in list")).c_str(), GUIIconSubSys::getIcon(GUIIcon::FLAG), this, MID_CHOOSEN_SELECT, GUIDesignChooserButtons);
+    new FXButton(layoutRight, (TL("&Deselect all") + std::string("\t\t") + TL("Deselect all items in list")).c_str(), GUIIconSubSys::getIcon(GUIIcon::FLAG), this, MID_CHOOSEN_CLEAR, GUIDesignChooserButtons);
+    new FXButton(layoutRight, (TL("&Update") + std::string("\t\t") + TL("Reload all ids")).c_str(), GUIIconSubSys::getIcon(GUIIcon::RELOAD), this, MID_UPDATE, GUIDesignChooserButtons);
     new FXHorizontalSeparator(layoutRight, GUIDesignHorizontalSeparator);
-    new FXButton(layoutRight, "&Close\t\t", GUIIconSubSys::getIcon(GUIIcon::NO), this, MID_CANCEL, GUIDesignChooserButtons);
+    new FXButton(layoutRight, (TL("&Close") + std::string("\t\t")).c_str(), GUIIconSubSys::getIcon(GUIIcon::NO), this, MID_CANCEL, GUIDesignChooserButtons);
     myCountLabel = new FXLabel(layoutRight, "placeholder", nullptr, LAYOUT_BOTTOM | LAYOUT_FILL_X | JUSTIFY_LEFT);
-    myCaseSensitive = new FXCheckButton(layoutRight, "case-sensitive search");
+    myCaseSensitive = new FXCheckButton(layoutRight, TL("case-sensitive search"));
     myCaseSensitive->setCheck(getApp()->reg().readIntEntry("LOCATOR", "caseSensitive", 0) == 1);
-    myInstantCenter = new FXCheckButton(layoutRight, "auto-center");
+    myInstantCenter = new FXCheckButton(layoutRight, TL("auto-center"));
     myInstantCenter->setCheck(getApp()->reg().readIntEntry("LOCATOR", "autoCenter", 0) == 1);
     refreshList(ids);
     // add child in windowsParent
     myWindowsParent->getParent()->addChild(this);
+    loadWindowPos();
     // create and show dialog
     create();
     show();
-
-    getApp()->reg().writeIntEntry("TL_TRACKER", "x", getX());
 }
 
 
@@ -292,7 +292,7 @@ GUIDialog_ChooserAbstract::onCmdFilterSubstr(FXObject*, FXSelector, void*) {
         }
     }
     refreshList(selectedGlIDs);
-    // filter ACs in NETEDIT
+    // filter ACs in netedit
     filterACs(selectedGlIDs);
     myHaveFilteredSubstring = true;
     onChgText(nullptr, 0, nullptr);

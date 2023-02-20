@@ -105,6 +105,13 @@ in the following table.
 | meanIntervalDurationWithin        | s                    | The mean duration within the area of those vehicles that have entered, but not yet left the area, collected during the written interval. Averaged over the vehicles.                                                           |
 | meanTimeLossWithin                | s                    | The average time loss collected by vehicles that have entered but not yet left the area during the written interval.                                                                                          |
 
+# Visualization
+
+<img src="../../images/plot_meme_speed.png" align="right" width="200px"/>
+
+Output can be represented using [plotXMLAttributes](../../Tools/Visualization.md#multi-entry-exit_detectors_mean_speed_over_time), see there for details.
+<br /><br /><br /><br />
+
 ## Further Notes
 
 - All measurements concerning durations refer to the end of the

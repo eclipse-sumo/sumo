@@ -1,0 +1,18 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+
+    <!-- non valid jamThreshold -->
+    <calibrator id="calibrator01" edge="center0" pos="0.00" period="100.00" jamThreshold="%%%%,,,$$$$$" output="calibrator01.txt"/>
+
+    <!-- non valid jamThreshold-->
+    <calibrator id="calibrator02" edge="center0" pos="0.00" period="100.00" jamThreshold="" output="calibrator02.txt"/>
+
+    <!-- valid jamThreshold-->
+    <calibrator id="calibrator03" edge="center0" pos="0.00" period="100.00" jamThreshold="-3" output="calibrator03.txt"/>
+
+    <!-- valid jamThreshold-->
+    <calibrator id="calibrator04" edge="center0" pos="0.00" period="100.00" jamThreshold="50" output="calibrator04.txt"/>
+
+    <!-- valid jamThreshold-->
+    <calibrator id="calibrator05" edge="center0" pos="0.00" period="100.00" jamThreshold="0.4" output="calibrator05.txt"/>
+
+</additional>

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2010-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2010-2023 German Aerospace Center (DLR) and others.
 // activitygen module
 // Copyright 2010 TUM (Technische Universitaet Muenchen, http://www.tum.de/)
 // This program and the accompanying materials are made available under the
@@ -418,13 +418,13 @@ AGCity::getStreet(const std::string& edge) {
         ++it;
     }
     std::cout << "===> ERROR: WRONG STREET EDGE (" << edge << ") given and not found in street set." << std::endl;
-    throw (std::runtime_error("Street not found with edge id " + edge));
+    throw ProcessError("Street not found with edge id " + edge);
 }
 
 const AGStreet&
 AGCity::getRandomStreet() {
     if (passengerStreets.empty()) {
-        throw (std::runtime_error("No street that allows passerger vehicles found in this city"));
+        throw ProcessError(TL("No street that allows passenger vehicles found in this city."));
     }
     return *RandHelper::getRandomFrom(passengerStreets);
 }

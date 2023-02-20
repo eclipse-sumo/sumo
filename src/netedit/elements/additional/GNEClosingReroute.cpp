@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -31,9 +31,9 @@
 // ===========================================================================
 
 GNEClosingReroute::GNEClosingReroute(GNENet* net) :
-    GNEAdditional("", net, GLO_REROUTER_CLOSINGREROUTE, SUMO_TAG_CLOSING_REROUTE, "",
-{}, {}, {}, {}, {}, {}),
-myClosedEdge(nullptr),
+    GNEAdditional("", net, GLO_REROUTER_CLOSINGREROUTE, SUMO_TAG_CLOSING_REROUTE,
+                  GUIIconSubSys::getIcon(GUIIcon::CLOSINGREROUTE), "", {}, {}, {}, {}, {}, {}),
+                            myClosedEdge(nullptr),
 myPermissions(0) {
     // reset default values
     resetDefaultValues();
@@ -41,8 +41,8 @@ myPermissions(0) {
 
 
 GNEClosingReroute::GNEClosingReroute(GNEAdditional* rerouterIntervalParent, GNEEdge* closedEdge, SVCPermissions permissions) :
-    GNEAdditional(rerouterIntervalParent->getNet(), GLO_REROUTER_CLOSINGREROUTE, SUMO_TAG_CLOSING_REROUTE, "",
-{}, {}, {}, {rerouterIntervalParent}, {}, {}),
+    GNEAdditional(rerouterIntervalParent->getNet(), GLO_REROUTER_CLOSINGREROUTE, SUMO_TAG_CLOSING_REROUTE,
+                  GUIIconSubSys::getIcon(GUIIcon::CLOSINGREROUTE), "", {}, {}, {}, {rerouterIntervalParent}, {}, {}),
 myClosedEdge(closedEdge),
 myPermissions(permissions) {
     // update boundary of rerouter parent

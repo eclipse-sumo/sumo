@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -34,7 +34,7 @@
 // ---------------------------------------------------------------------------
 
 GNEStopFrame::HelpCreation::HelpCreation(GNEStopFrame* StopFrameParent) :
-    MFXGroupBoxModule(StopFrameParent, "Help"),
+    MFXGroupBoxModule(StopFrameParent, TL("Help")),
     myStopFrameParent(StopFrameParent) {
     myInformationLabel = new FXLabel(getCollapsableFrame(), "", 0, GUIDesignLabelFrameInformation);
 }
@@ -68,42 +68,42 @@ GNEStopFrame::HelpCreation::updateHelpCreation() {
             case SUMO_TAG_STOP_BUSSTOP:
             case GNE_TAG_WAYPOINT_BUSSTOP:
                 information
-                        << "- Shift+Click to select parent\n"
-                        << "- Click over a bus stop to\n"
-                        << "  create a stop.";
+                        << TL("- Shift+Click to select parent\n")
+                        << TL("- Click over a bus stop to\n")
+                        << TL("  create a stop.");
                 break;
             case SUMO_TAG_STOP_CONTAINERSTOP:
             case GNE_TAG_WAYPOINT_CONTAINERSTOP:
                 information
-                        << "- Shift+Click to select parent\n"
-                        << "- Click over a container stop\n"
-                        << "  to create a stop.";
+                        << TL("- Shift+Click to select parent\n")
+                        << TL("- Click over a container stop\n")
+                        << TL("  to create a stop.");
                 break;
             case SUMO_TAG_STOP_CHARGINGSTATION:
             case GNE_TAG_WAYPOINT_CHARGINGSTATION:
                 information
-                        << "- Shift+Click to select parent\n"
-                        << "- Click over a charging station\n"
-                        << "  to create a stop.";
+                        << TL("- Shift+Click to select parent\n")
+                        << TL("- Click over a charging station\n")
+                        << TL("  to create a stop.");
                 break;
             case SUMO_TAG_STOP_PARKINGAREA:
             case GNE_TAG_WAYPOINT_PARKINGAREA:
                 information
-                        << "- Shift+Click to select parent\n"
-                        << "- Click over a parking area\n"
-                        << "  to create a stop.";
+                        << TL("- Shift+Click to select parent\n")
+                        << TL("- Click over a parking area\n")
+                        << TL("  to create a stop.");
                 break;
             case SUMO_TAG_STOP_LANE:
             case GNE_TAG_WAYPOINT_LANE:
                 information
-                        << "- Shift+Click to select parent\n"
-                        << "- Click over a lane to create\n"
-                        << "  a stop.";
+                        << TL("- Shift+Click to select parent\n")
+                        << TL("- Click over a lane to create\n")
+                        << TL("  a stop.");
                 break;
             default:
                 information
-                        << "- No stop parents in current\n"
-                        << "  network.";
+                        << TL("- No stop parents in current\n")
+                        << TL("  network.");
                 break;
         }
     }
@@ -115,7 +115,7 @@ GNEStopFrame::HelpCreation::updateHelpCreation() {
 // GNEStopFrame - methods
 // ---------------------------------------------------------------------------
 
-GNEStopFrame::GNEStopFrame(GNEViewParent *viewParent, GNEViewNet* viewNet) :
+GNEStopFrame::GNEStopFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     GNEFrame(viewParent, viewNet, "Stops"),
     myRouteHandler("", viewNet->getNet(), true, false),
     myStopParentBaseObject(new CommonXMLStructure::SumoBaseObject(nullptr)) {
@@ -175,6 +175,8 @@ GNEStopFrame::show() {
         // show help creation module
         myHelpCreation->showHelpCreation();
     }
+    // reset last position
+    myViewNet->resetLastClickedPosition();
     // show frame
     GNEFrame::show();
 }
@@ -184,7 +186,7 @@ bool
 GNEStopFrame::addStop(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::MouseButtonKeyPressed& mouseButtonKeyPressed) {
     // first check stop type
     if (myStopTagSelector->getCurrentTemplateAC() == nullptr) {
-        WRITE_WARNING("Selected Stop type isn't valid.");
+        WRITE_WARNING(TL("Selected Stop type isn't valid."));
         return false;
     }
     // check if we're selecting a new stop parent
@@ -192,16 +194,16 @@ GNEStopFrame::addStop(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCu
         if (objectsUnderCursor.getDemandElementFront() &&
                 (objectsUnderCursor.getDemandElementFront()->getTagProperty().isVehicle() || objectsUnderCursor.getDemandElementFront()->getTagProperty().getTag() == SUMO_TAG_ROUTE)) {
             myStopParentSelector->setDemandElement(objectsUnderCursor.getDemandElementFront());
-            WRITE_WARNING("Selected " + objectsUnderCursor.getDemandElementFront()->getTagStr() + " '" + objectsUnderCursor.getDemandElementFront()->getID() + "' as stop parent.");
+            WRITE_WARNINGF(TL("Selected % '%' as stop parent."), objectsUnderCursor.getDemandElementFront()->getTagStr(), objectsUnderCursor.getDemandElementFront()->getID());
             return true;
         } else {
-            WRITE_WARNING("Selected Stop parent isn't valid.");
+            WRITE_WARNING(TL("Selected Stop parent isn't valid."));
             return false;
         }
     } else {
         // now check if stop parent selector is valid
         if (myStopParentSelector->getCurrentDemandElement() == nullptr) {
-            WRITE_WARNING("Current selected Stop parent isn't valid.");
+            WRITE_WARNING(TL("Current selected Stop parent isn't valid."));
             return false;
         }
         // create stop base object
@@ -232,7 +234,7 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
     SUMOVehicleParameter::Stop stop;
     // first check that current selected Stop is valid
     if (stopTag == SUMO_TAG_NOTHING) {
-        WRITE_WARNING("Current selected Stop type isn't valid.");
+        WRITE_WARNING(TL("Current selected Stop type isn't valid."));
         return false;
     } else if ((stopTag == SUMO_TAG_STOP_LANE) || (stopTag == GNE_TAG_WAYPOINT_LANE)) {
         if (lane) {
@@ -331,7 +333,7 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
             }
         }
         if (!found) {
-            WRITE_WARNING("Stop must be placed over a route's edge");
+            WRITE_WARNING(TL("Stop must be placed over a route's edge"));
             return false;
         }
     }
@@ -344,7 +346,7 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
             }
         }
         if (!found) {
-            WRITE_WARNING("Stop must be placed over an embeded route's edge");
+            WRITE_WARNING(TL("Stop must be placed over an embedded route's edge"));
             return false;
         }
     }
@@ -366,7 +368,7 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
     // get stop attributes
     myStopAttributes->getAttributesAndValues(stopBaseObject, true);
     // add netedit values
-    if (!stop.lane.empty()) {
+    if (!stop.edge.empty() || !stop.lane.empty()) {
         myNeteditAttributes->getNeteditAttributesAndValues(stopBaseObject, lane);
         // check if start position can be parsed
         if (stopBaseObject->hasDoubleAttribute(SUMO_ATTR_STARTPOS)) {
@@ -456,6 +458,12 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
             stop.parametersSet |= STOP_PARKING_SET;
         }
     }
+    if (stopBaseObject->hasTimeAttribute(SUMO_ATTR_JUMP)) {
+        if (stopBaseObject->getTimeAttribute(SUMO_ATTR_JUMP) >= 0) {
+            stop.parametersSet |= STOP_JUMP_SET;
+            stop.jump = stopBaseObject->getTimeAttribute(SUMO_ATTR_JUMP);
+        }
+    }
     if (stopBaseObject->hasStringAttribute(SUMO_ATTR_TRIP_ID)) {
         stop.tripId = stopBaseObject->getStringAttribute(SUMO_ATTR_TRIP_ID);
         stop.parametersSet |= STOP_TRIP_ID_SET;
@@ -510,6 +518,8 @@ GNEStopFrame::tagSelected() {
         myStopAttributes->showAttributesCreatorModule(myStopTagSelector->getCurrentTemplateAC(), {});
         myNeteditAttributes->showNeteditAttributesModule(myStopTagSelector->getCurrentTemplateAC());
         myHelpCreation->showHelpCreation();
+        // reset last position
+        myViewNet->resetLastClickedPosition();
     } else {
         // hide all modules if stop parent isn't valid
         myStopAttributes->hideAttributesCreatorModule();

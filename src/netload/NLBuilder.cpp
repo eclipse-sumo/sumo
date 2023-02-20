@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -82,7 +82,7 @@ NLBuilder::EdgeFloatTimeLineRetriever_EdgeEffort::addEdgeWeight(const std::strin
     if (edge != nullptr) {
         myNet.getWeightsStorage().addEffort(edge, begTime, endTime, value);
     } else {
-        WRITE_ERROR("Trying to set the effort for the unknown edge '" + id + "'.");
+        WRITE_ERRORF(TL("Trying to set the effort for the unknown edge '%'."), id);
     }
 }
 
@@ -97,7 +97,7 @@ NLBuilder::EdgeFloatTimeLineRetriever_EdgeTravelTime::addEdgeWeight(const std::s
     if (edge != nullptr) {
         myNet.getWeightsStorage().addTravelTime(edge, begTime, endTime, value);
     } else {
-        WRITE_ERROR("Trying to set the travel time for the unknown edge '" + id + "'.");
+        WRITE_ERRORF(TL("Trying to set the travel time for the unknown edge '%'."), id);
     }
 }
 
@@ -125,12 +125,12 @@ NLBuilder::build() {
     if (!load("net-file", true)) {
         return false;
     }
-    if (myXMLHandler.networkVersion() == 0.) {
-        throw ProcessError("Invalid network, no network version declared.");
+    if (myXMLHandler.networkVersion() == MMVersion(0, 0)) {
+        throw ProcessError(TL("Invalid network, no network version declared."));
     }
     // check whether the loaded net agrees with the simulation options
     if ((myOptions.getBool("no-internal-links") || myOptions.getBool("mesosim")) && myXMLHandler.haveSeenInternalEdge() && myXMLHandler.haveSeenDefaultLength()) {
-        WRITE_WARNING("Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.");
+        WRITE_WARNING(TL("Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times."));
     }
     buildNet();
     if (myOptions.isSet("alternative-net-file")) {
@@ -160,7 +160,7 @@ NLBuilder::build() {
             }
         } else {
             if (stateTime != string2time(myOptions.getString("begin"))) {
-                WRITE_WARNING("State was written at a different time=" + time2string(stateTime) + " than the begin time " + myOptions.getString("begin") + "!");
+                WRITE_WARNINGF(TL("State was written at a different time=% than the begin time %!"), time2string(stateTime), myOptions.getString("begin"));
                 stateBeginMismatch = true;
             }
         }
@@ -194,7 +194,7 @@ NLBuilder::build() {
                     }
                 }
             } else {
-                WRITE_WARNINGF("A TAZ with id '%' already exists. Not building junction TAZ.", it->first)
+                WRITE_WARNINGF(TL("A TAZ with id '%' already exists. Not building junction TAZ."), it->first)
             }
         }
     }
@@ -220,8 +220,12 @@ NLBuilder::build() {
         }
         MSTriggeredRerouter::checkParkingRerouteConsistency();
     }
+    // declare meandata set by options
+    buildDefaultMeanData("edgedata-output", "DEFAULT_EDGEDATA", false);
+    buildDefaultMeanData("lanedata-output", "DEFAULT_LANEDATA", true);
+
     if (stateBeginMismatch && myNet.getVehicleControl().getLoadedVehicleNo() > 0) {
-        throw ProcessError("Loading vehicles ahead of a state file is not supported. Correct --begin option or load vehicles with option --route-files");
+        throw ProcessError(TL("Loading vehicles ahead of a state file is not supported. Correct --begin option or load vehicles with option --route-files"));
     }
 
     // load weights if wished
@@ -249,7 +253,7 @@ NLBuilder::build() {
         std::vector<std::string> files = myOptions.getStringVector("weight-files");
         for (std::vector<std::string>::iterator i = files.begin(); i != files.end(); ++i) {
             // report about loading when wished
-            WRITE_MESSAGE("Loading weights from '" + *i + "'...");
+            WRITE_MESSAGEF(TL("Loading weights from '%'..."), *i);
             // parse the file
             if (!XMLSubSys::runParser(handler, *i)) {
                 return false;
@@ -278,7 +282,7 @@ NLBuilder::build() {
     if (myOptions.getBool("tls.all-off")) {
         myNet.getTLSControl().switchOffAll();
     }
-    WRITE_MESSAGE("Loading done.");
+    WRITE_MESSAGE(TL("Loading done."));
     return true;
 }
 
@@ -349,6 +353,7 @@ NLBuilder::init(const bool isLibsumo) {
     throw ProcessError();
 }
 
+
 void
 NLBuilder::initRandomness() {
     RandHelper::initRandGlobal();
@@ -359,6 +364,7 @@ NLBuilder::initRandomness() {
     RandHelper::initRandGlobal(MSDevice_BTreceiver::getRecognitionRNG());
     MSLane::initRNGs(OptionsCont::getOptions());
 }
+
 
 void
 NLBuilder::buildNet() {
@@ -381,7 +387,7 @@ NLBuilder::buildNet() {
         if (myOptions.isSet("save-state.files")) {
             stateDumpFiles = myOptions.getStringVector("save-state.files");
             if (stateDumpFiles.size() != stateDumpTimes.size()) {
-                throw ProcessError("Wrong number of state file names!");
+                throw ProcessError(TL("Wrong number of state file names!"));
             }
         } else {
             const std::string prefix = myOptions.getString("save-state.prefix");
@@ -392,13 +398,9 @@ NLBuilder::buildNet() {
                 stateDumpFiles.push_back(prefix + "_" + timeStamp + suffix);
             }
         }
-    } catch (IOError& e) {
-        delete edges;
-        delete junctions;
-        delete routeLoaders;
-        delete tlc;
-        throw ProcessError(e.what());
     } catch (ProcessError&) {
+        MSEdge::clear();
+        MSLane::clear();
         delete edges;
         delete junctions;
         delete routeLoaders;
@@ -422,7 +424,7 @@ NLBuilder::load(const std::string& mmlWhat, const bool isNet) {
     for (std::vector<std::string>::const_iterator fileIt = files.begin(); fileIt != files.end(); ++fileIt) {
         const long before = PROGRESS_BEGIN_TIME_MESSAGE("Loading " + mmlWhat + " from '" + *fileIt + "'");
         if (!XMLSubSys::runParser(myXMLHandler, *fileIt, isNet)) {
-            WRITE_MESSAGE("Loading of " + mmlWhat + " failed.");
+            WRITE_MESSAGEF(TL("Loading of % failed."), mmlWhat);
             return false;
         }
         PROGRESS_TIME_MESSAGE(before);
@@ -440,7 +442,7 @@ NLBuilder::buildRouteLoaderControl(const OptionsCont& oc) {
         std::vector<std::string> files = oc.getStringVector("route-files");
         for (std::vector<std::string>::const_iterator fileIt = files.begin(); fileIt != files.end(); ++fileIt) {
             if (!FileHelpers::isReadable(*fileIt)) {
-                throw ProcessError("The route file '" + *fileIt + "' is not accessible.");
+                throw ProcessError(TLF("The route file '%' is not accessible.", *fileIt));
             }
         }
         // open files for reading
@@ -451,5 +453,20 @@ NLBuilder::buildRouteLoaderControl(const OptionsCont& oc) {
     return loaders;
 }
 
+
+void
+NLBuilder::buildDefaultMeanData(const std::string& optionName, const std::string& id, bool useLanes) {
+    if (OptionsCont::getOptions().isSet(optionName)) {
+        try {
+            myDetectorBuilder.createEdgeLaneMeanData(id, -1, 0, -1, "traffic", useLanes, false, false,
+                    false, false, false, 100000, 0, SUMO_const_haltingSpeed, "", "", std::vector<MSEdge*>(), false,
+                    OptionsCont::getOptions().getString(optionName));
+        } catch (InvalidArgument& e) {
+            WRITE_ERROR(e.what());
+        } catch (IOError& e) {
+            WRITE_ERROR(e.what());
+        }
+    }
+}
 
 /****************************************************************************/

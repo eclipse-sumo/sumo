@@ -1,0 +1,122 @@
+timestep:  0.0
+Reservations waiting: ['0', '1']
+Taxis empty: ('v0',)
+Solve CPDP
+Start creating the model.
+dp reservations: ['0', '1']
+do reservations: []
+Reservation 0 starts at edge B0C0
+Reservation 1 starts at edge C0D0
+Reservation 0 ends at edge C1D1
+Reservation 1 ends at edge D0D1
+Start solving the problem.
+ Register distance callback.
+ Add distance constraints...
+ Add pickup and delivery constraints...
+ Add dropoff constraints...
+ Add capacity constraints...
+ Add time windows constraints...
+## Done
+ Set solution heuristic...
+Start solving the problem.
+Objective:  225735
+Route for vehicle 0:
+     5 (L: 0, C: 0, T: (1,310))
+ ->  1 (L: 1, C: 588, T: (43,352))
+ ->  2 (L: 2, C: 1174, T: (85,394))
+ ->  4 (L: 1, C: 1559, T: (176,485))
+ ->  3 (L: 0, C: 2235, T: (291,600))
+ ->  0 (L: 0, C: 2235, T: (291,1972))
+Costs of the route: 2235
+
+Total cost of the routes: 2235
+Start interpreting the solution for SUMO.
+Dispatching v0 with ['0', '1', '1', '0']
+Costs for v0: 2235
+timestep:  30.0
+Reservations being picked up: ['1']
+Reservations en route: ['0']
+Taxis picking up: ('v0',)
+Taxis occupied: ('v0',)
+Taxis occupied and picking up: ('v0',)
+timestep:  60.0
+Reservations en route: ['0', '1']
+Taxis occupied: ('v0',)
+timestep:  90.0
+Reservations en route: ['0', '1']
+Taxis occupied: ('v0',)
+timestep:  120.0
+Reservations en route: ['0', '1']
+Taxis occupied: ('v0',)
+timestep:  150.0
+Reservations en route: ['0', '1']
+Taxis occupied: ('v0',)
+timestep:  180.0
+Reservations waiting: ['2']
+Reservations en route: ['0']
+Taxis occupied: ('v0',)
+Solve CPDP
+Start creating the model.
+dp reservations: ['2']
+do reservations: ['0']
+Reservation 2 starts at edge C2C1
+Reservation 2 ends at edge D1D2
+Drop-off of reservation 0 at edge C1D1
+Start solving the problem.
+ Register distance callback.
+ Add distance constraints...
+ Add pickup and delivery constraints...
+ Add dropoff constraints...
+reservation 0 in veh v0 (0)
+ Add capacity constraints...
+ Add time windows constraints...
+## Done
+ Set solution heuristic...
+Start solving the problem.
+Objective:  125240
+Route for vehicle 0:
+     4 (L: 1, C: 0, T: (180,380))
+ ->  1 (L: 2, C: 470, T: (219,419))
+ ->  3 (L: 1, C: 855, T: (310,510))
+ ->  2 (L: 0, C: 1240, T: (400,600))
+ ->  0 (L: 0, C: 1240, T: (400,897))
+Costs of the route: 1240
+
+Total cost of the routes: 1240
+Start interpreting the solution for SUMO.
+Dispatching v0 with ['2', '0', '2']
+Costs for v0: 1240
+timestep:  210.0
+Reservations en route: ['0', '2']
+Taxis occupied: ('v0',)
+timestep:  240.0
+Reservations en route: ['0', '2']
+Taxis occupied: ('v0',)
+timestep:  270.0
+Reservations en route: ['0', '2']
+Taxis occupied: ('v0',)
+timestep:  300.0
+Reservations en route: ['2']
+Taxis occupied: ('v0',)
+timestep:  330.0
+Reservations en route: ['2']
+Taxis occupied: ('v0',)
+timestep:  360.0
+Reservations en route: ['2']
+Taxis occupied: ('v0',)
+timestep:  390.0
+Taxis empty: ('v0',)
+timestep:  420.0
+Taxis empty: ('v0',)
+timestep:  450.0
+Taxis empty: ('v0',)
+timestep:  480.0
+Taxis empty: ('v0',)
+timestep:  510.0
+Taxis empty: ('v0',)
+timestep:  540.0
+Taxis empty: ('v0',)
+timestep:  570.0
+Taxis empty: ('v0',)
+timestep:  600.0
+Taxis empty: ('v0',)

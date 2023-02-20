@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -32,11 +32,12 @@
 #include <utils/common/StdDefs.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/gui/div/GLHelper.h>
-#include <utils/gui/globjects/GLIncludes.h>
-#include <utils/gui/globjects/GUIPolygon.h>
-#include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
+#include <utils/gui/globjects/GLIncludes.h>
+#include <utils/gui/globjects/GUIPolygon.h>
+#include <utils/gui/images/VClassIcons.h>
+#include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/MSLane.h>
@@ -78,7 +79,7 @@ GUILane::GUILane(const std::string& id, double maxSpeed, double friction, double
                  int index, bool isRampAccel,
                  const std::string& type) :
     MSLane(id, maxSpeed, friction, length, edge, numericalID, shape, width, permissions, changeLeft, changeRight, index, isRampAccel, type),
-    GUIGlObject(GLO_LANE, id),
+    GUIGlObject(GLO_LANE, id, GUIIconSubSys::getIcon(GUIIcon::LANE)),
     myParkingAreas(nullptr),
     myTesselation(nullptr),
 #ifdef HAVE_OSG
@@ -319,8 +320,12 @@ GUILane::drawLinkRules(const GUIVisualizationSettings& s, const GUINet& net) con
         return;
     }
     // draw all links
-    const double w = myWidth / (double) noLinks;
-    double x1 = myEdge->getToJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL ? -myWidth * 0.5 : 0;
+    const double isRailSignal = myEdge->getToJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL;
+    double w = myWidth / (double) noLinks;
+    if (isRailSignal && noLinks > 1 && myLinks.back()->isTurnaround() && s.showRails) {
+        w = myWidth / (double) (noLinks - 1);
+    }
+    double x1 = isRailSignal ? -myWidth * 0.5 : 0;
     for (int i = 0; i < noLinks; ++i) {
         double x2 = x1 + w;
         drawLinkRule(s, net, myLinks[MSGlobals::gLefthand ? noLinks - 1 - i : i], shape, x1, x2);
@@ -375,7 +380,15 @@ GUILane::drawLinkRule(const GUIVisualizationSettings& s, const GUINet& net, cons
         glTranslated(end.x(), end.y(), 0);
         glRotated(rot, 0, 0, 1);
         // select glID
+
         switch (link->getState()) {
+            case LINKSTATE_ALLWAY_STOP:
+            case LINKSTATE_STOP: {
+                // might be a traffic light link
+                int tlID = net.getLinkTLID(link);
+                GLHelper::pushName(tlID != 0 ? tlID : getGlID());
+                break;
+            }
             case LINKSTATE_TL_GREEN_MAJOR:
             case LINKSTATE_TL_GREEN_MINOR:
             case LINKSTATE_TL_RED:
@@ -520,9 +533,9 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
     double exaggeration = s.laneWidthExaggeration;
     if (MSGlobals::gUseMesoSim) {
         GUIEdge* myGUIEdge = dynamic_cast<GUIEdge*>(myEdge);
-        exaggeration *= s.edgeScaler.getScheme().getColor(myGUIEdge->getScaleValue(s.edgeScaler.getActive()));
+        exaggeration *= s.edgeScaler.getScheme().getColor(myGUIEdge->getScaleValue(s, s.edgeScaler.getActive()));
     } else {
-        exaggeration *= s.laneScaler.getScheme().getColor(getScaleValue(s.laneScaler.getActive(), s2));
+        exaggeration *= s.laneScaler.getScheme().getColor(getScaleValue(s, s.laneScaler.getActive(), s2));
     }
     const bool hasRailSignal = myEdge->getToJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL;
     const bool detailZoom = s.scale * exaggeration > 5;
@@ -592,7 +605,7 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                     halfGauge *= 0.4;
                 }
                 const double halfInnerFeetWidth = halfGauge - 0.039 * exaggeration;
-                const double halfRailWidth = detailZoom ? (halfInnerFeetWidth + 0.15 * exaggeration) : SUMO_const_halfLaneWidth;
+                const double halfRailWidth = detailZoom ? (halfInnerFeetWidth + 0.15 * exaggeration) : SUMO_const_halfLaneWidth * exaggeration;
                 const double halfCrossTieWidth = halfGauge * 1.81;
                 if (shapeColors.size() > 0) {
                     GLHelper::drawBoxLines(shape, getShapeRotations(s2), getShapeLengths(s2), getShapeColors(s2), halfRailWidth);
@@ -944,6 +957,9 @@ GUILane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     const double pos = interpolateGeometryPosToLanePos(baseShape.nearest_offset_to_point25D(parent.getPositionInformation()));
     const double height = baseShape.positionAtOffset(pos).z();
     GUIDesigns::buildFXMenuCommand(ret, ("pos: " + toString(pos) + " height: " + toString(height)).c_str(), nullptr, nullptr, 0);
+    if (getEdge().hasDistance()) {
+        GUIDesigns::buildFXMenuCommand(ret, ("distance: " + toString(getEdge().getDistanceAt(pos))).c_str(), nullptr, nullptr, 0);
+    }
     new FXMenuSeparator(ret);
     buildPositionCopyEntry(ret, app);
     new FXMenuSeparator(ret);
@@ -966,7 +982,7 @@ GUILane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     ret->insertMenuPaneChild(reachableByClass);
     new FXMenuCascade(ret, "Select reachable", GUIIconSubSys::getIcon(GUIIcon::FLAG), reachableByClass);
     for (auto i : SumoVehicleClassStrings.getStrings()) {
-        GUIDesigns::buildFXMenuCommand(reachableByClass, i.c_str(), nullptr, &parent, MID_REACHABILITY);
+        GUIDesigns::buildFXMenuCommand(reachableByClass, i.c_str(), VClassIcons::getVClassIcon(SumoVehicleClassStrings.get(i)), &parent, MID_REACHABILITY);
     }
     return ret;
 }
@@ -979,11 +995,11 @@ GUILane::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& view) {
     // add items
     ret->mkItem("allowed speed [m/s]", false, getSpeedLimit());
     const std::map<SUMOVehicleClass, double>* restrictions = MSNet::getInstance()->getRestrictions(myEdge->getEdgeType());
-    if (restrictions != nullptr) { 
+    if (restrictions != nullptr) {
         for (const auto& elem : *restrictions) {
             ret->mkItem(("  allowed speed [m/s]: " + toString(elem.first)).c_str(), false, elem.second);
         }
-    } 
+    }
     ret->mkItem("length [m]", false, myLength);
     ret->mkItem("width [m]", false, myWidth);
     ret->mkItem("street name", false, myEdge->getStreetName());
@@ -1003,8 +1019,8 @@ GUILane::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& view) {
     ret->mkItem("disallowed vehicle class", false, getVehicleClassNames(~myPermissions));
     ret->mkItem("permission code", false, myPermissions);
     ret->mkItem("color value", true, new FunctionBinding<GUILane, double>(this, &GUILane::getColorValueForTracker));
-    if (myEdge->getBidiEdge() != nullptr) {
-        ret->mkItem("bidi-edge", false, myEdge->getBidiEdge()->getID());
+    if (myBidiLane != nullptr) {
+        ret->mkItem("bidi-lane", false, myBidiLane->getID());
     }
     for (const auto& kv : myEdge->getParametersMap()) {
         ret->mkItem(("edgeParam:" + kv.first).c_str(), false, kv.second);
@@ -1012,12 +1028,6 @@ GUILane::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& view) {
     ret->checkFont(myEdge->getStreetName());
     ret->closeBuilding();
     return ret;
-}
-
-
-double
-GUILane::getExaggeration(const GUIVisualizationSettings& /*s*/) const {
-    return 1;
 }
 
 
@@ -1390,13 +1400,17 @@ GUILane::getColorValue(const GUIVisualizationSettings& s, int activeScheme) cons
             }
             return capacity;
         }
+        case 39: {
+            // by live edge data value
+            return GUINet::getGUIInstance()->getMeanData(this, s.edgeDataID, s.edgeData);
+        }
     }
     return 0;
 }
 
 
 double
-GUILane::getScaleValue(int activeScheme, bool s2) const {
+GUILane::getScaleValue(const GUIVisualizationSettings& s, int activeScheme, bool s2) const {
     switch (activeScheme) {
         case 0:
             return 0;
@@ -1460,6 +1474,9 @@ GUILane::getScaleValue(int activeScheme, bool s2) const {
             return getEmissions<PollutantsInterface::ELEC>() / myLength;
         case 22:
             return MSNet::getInstance()->getInsertionControl().getPendingEmits(this);
+        case 23:
+            // by edge data value
+            return GUINet::getGUIInstance()->getEdgeData(myEdge, s.edgeDataScaling);
     }
     return 0;
 }

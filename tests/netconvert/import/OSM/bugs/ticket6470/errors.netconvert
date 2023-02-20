@@ -1,6 +1,12 @@
-Warning: Discarding unusable type 'waterway.river' (first occurence for edge '181412435').
-Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.tertiary' (first occurence for edge '332907828').
-Warning: Discarding unknown compound 'railway.crossing' in type 'highway.footway|railway.crossing' (first occurence for edge '601605353').
-Warning: Ignoring join-cluster 'cluster_3151786679_3151786679s' because it has size '1'.
+Warning: Discarding unusable type 'waterway.river' (first occurrence for edge '181412435').
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.tertiary' (first occurrence for edge '332907828').
+Warning: Discarding unknown compound 'railway.crossing' in type 'highway.footway|railway.crossing' (first occurrence for edge '601605353').
+Warning: Ignoring join-cluster 'cluster_3151786679' because it has size '1'.
+Warning: Could not find corresponding edge or compatible lane for pt stop '3151780943' (Am Magnitor). Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for pt stop '34672434' (Am Magnitor). Thus, it will be removed!
+Warning: Converting invalid rail_crossing to priority junction '3151786679'.
+Warning: Converting invalid rail_crossing to priority junction '3151786680'.
+Warning: Converting invalid rail_crossing to priority junction '5653296833'.
+Warning: Converting invalid rail_crossing to priority junction '5789925951'.
 Warning: The traffic light '34672430' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light '34672430'

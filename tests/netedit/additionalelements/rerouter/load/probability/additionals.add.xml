@@ -1,0 +1,15 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+
+    <rerouter id="rerouter_0" edges="center0 center1" pos="0.00,10.00"/>
+
+    <rerouter id="rerouter_1" edges="center0 center1" pos="10.00,10.00" probability=""/>
+
+    <rerouter id="rerouter_2" edges="center0 center1" pos="40.00,-10.00" probability="dummyProbability"/>
+
+    <rerouter id="rerouter_3" edges="center0 center1" pos="50.00,-10.00" probability="-60"/>
+
+    <rerouter id="rerouter_4" edges="center0 center1" pos="20.00,10.00" probability="50"/>
+
+    <rerouter id="rerouter_5" edges="center0 center1" pos="30.00,10.00" probability="0.3"/>
+
+</additional>

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -47,7 +47,6 @@ class NBPTLineCont;
 class NBPTStopCont;
 
 
-
 // ===========================================================================
 // class definitions
 // ===========================================================================
@@ -56,13 +55,14 @@ class NBPTStopCont;
  * @brief Container for nodes during the netbuilding process
  */
 class NBNodeCont {
+
 public:
     /// @brief Definition of a node cluster container
     typedef std::vector<NodeSet> NodeClusters;
     typedef std::pair<NBNode*, double> NodeAndDist;
 
     /// @brief Constructor
-    NBNodeCont();
+    NBNodeCont() {}
 
     /// @brief Destructor
     ~NBNodeCont();
@@ -128,10 +128,30 @@ public:
      */
     void addJoinExclusion(const std::vector<std::string>& ids);
 
+    /** @brief generate id from cluster node ids
+     * @param[in] cluster The cluster ids
+     * @param[in] prefix The cluster prefix
+     * @return the generated id
+     */
+    std::string createClusterId(const NodeSet& cluster, const std::string& prefix = "cluster_") {
+        std::set<std::string> clusterIds;
+        for (NBNode* j : cluster) {
+            clusterIds.insert(j->getID());
+        }
+        return createClusterId(clusterIds, prefix);
+    }
+
+    /** @brief generate id from cluster node ids
+     * @param[in] cluster The cluster ids
+     * @param[in] prefix The cluster prefix
+     * @return the generated id
+     */
+    std::string createClusterId(const std::set<std::string>& cluster, const std::string& prefix = "cluster_");
+
     /** @brief add ids of nodes which shall be joined into a single node
      * @param[in] cluster The cluster to add
      */
-    void addCluster2Join(std::set<std::string> cluster, NBNode* node);
+    void addCluster2Join(const std::set<std::string>& cluster, NBNode* node);
 
     /// @brief Joins loaded junction clusters (see NIXMLNodesHandler)
     int joinLoadedClusters(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc);
@@ -143,7 +163,10 @@ public:
     int joinSameJunctions(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc);
 
     /// @brief return all cluster neighbors for the given node
-    static NodeSet getClusterNeighbors(const NBNode* n, NodeSet& cluster);
+    static NodeSet getClusterNeighbors(const NBNode* n, double longThreshold, NodeSet& cluster);
+
+    /// @brief whether the given node may continue a slip lane
+    static bool isSlipLaneContinuation(const NBNode* cont);
 
     /// @brief check whether the given node maybe the start of a slip lane
     bool maybeSlipLaneStart(const NBNode* n, EdgeVector& outgoing, double& inAngle) const;
@@ -232,6 +255,9 @@ public:
     /// @brief recheck myGuessedTLS after node logics are computed
     void recheckGuessedTLS(NBTrafficLightLogicCont& tlc);
 
+    /// @brief check whether a specific guessed tls should keep its type
+    bool recheckTLSThreshold(NBNode* node);
+
     /// @brief compute keepClear status for all connections
     void computeKeepClear();
 
@@ -252,12 +278,13 @@ public:
     void setAsTLControlled(NBNode* node, NBTrafficLightLogicCont& tlc, TrafficLightType type, std::string id = "");
     /// @}
 
-    /** @brief Returns whether the node with the id was deleted explicitly
-     */
+    /// @brief Returns whether the node with the id was deleted explicitly
     bool wasRemoved(std::string id) const {
         return myExtractedNodes.count(id) != 0;
     }
 
+    /// @brief add prefix to all nodes
+    void addPrefix(const std::string& prefix);
 
     /// @brief Renames the node. Throws exception if newID already exists
     void rename(NBNode* node, const std::string& newID);
@@ -320,8 +347,7 @@ public:
      */
     void discardTrafficLights(NBTrafficLightLogicCont& tlc, bool geometryLike, bool guessSignals);
 
-    /* @brief discards rail signals
-     */
+    /// @brief discards rail signals
     void discardRailSignals();
 
     /// @brief mark a node as being created form a split
@@ -340,6 +366,12 @@ public:
     /// @brief guess and mark fringe nodes
     int guessFringe();
 
+    /// @brief apply default values after loading
+    void applyConditionalDefaults();
+
+    /// @brief reset all node shapes
+    bool resetNodeShapes();
+
 private:
 
     /// @name Helper methods for for joining nodes
@@ -356,14 +388,15 @@ private:
     /// @brief remove geometry-like fringe nodes from cluster
     void pruneClusterFringe(NodeSet& cluster) const;
 
-    /// @brief avoid removal of long edges when joinining junction clusters
-    static void pruneLongEdges(NodeSet& cluster, double maxDist);
+    /// @brief avoid removal of long edges when joining junction clusters
+    static int pruneLongEdges(NodeSet& cluster, double maxDist, const bool dryRun = false);
 
     /// @brief remove nodes that form a slip lane from cluster
     void pruneSlipLaneNodes(NodeSet& cluster) const;
 
     /// @brief determine wether the cluster is not too complex for joining
-    bool feasibleCluster(const NodeSet& cluster, const std::map<const NBNode*, std::vector<NBNode*> >& ptStopEnds, std::string& reason) const;
+    bool feasibleCluster(const NodeSet& cluster, const std::map<const NBNode*, std::vector<NBNode*> >& ptStopEnds,
+                         double maxDist, std::string& reason) const;
 
     /// @brief joins the given node clusters
     void joinNodeClusters(NodeClusters clusters, NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc, bool resetConnections = false);
@@ -379,7 +412,7 @@ private:
      * @param[in] laneSpeedThreshold threshold for determining whether a node or cluster should be tls controlled
      * @return Whether this node cluster shall be controlled by a tls
      */
-    bool shouldBeTLSControlled(const NodeSet& c, double laneSpeedThreshold) const;
+    bool shouldBeTLSControlled(const NodeSet& c, double laneSpeedThreshold, bool recheck = false) const;
 
     /// @brief check wheter the set of nodes only contains pedestrian crossings
     bool onlyCrossings(const NodeSet& c) const;
@@ -390,10 +423,6 @@ private:
 
     /// @brief update pareto frontier with the given node
     void paretoCheck(NBNode* node, NodeSet& frontier, int xSign, int ySign);
-
-private:
-    /// @brief The running internal id
-    int myInternalID;
 
     /// @brief Definition of the map of names to nodes
     typedef std::map<std::string, NBNode*> NodeCont;
@@ -420,7 +449,7 @@ private:
     std::set<const NBNode*> mySplit;
 
     /// @brief nodes that received a traffic light due to guessing (--tls.guess)
-    std::set<NBNode*> myGuessedTLS;
+    std::set<NBNode*, ComparatorIdLess> myGuessedTLS;
 
     /// @brief nodes that are excluded from tls-guessing
     std::set<const NBNode*> myUnsetTLS;
@@ -431,11 +460,9 @@ private:
     /// @brief network components that must be removed if not connected to the road network via stop access
     std::vector<std::vector<std::string> > myRailComponents;
 
-private:
     /// @brief invalidated copy constructor
-    NBNodeCont(const NBNodeCont& s);
+    NBNodeCont(const NBNodeCont& s) = delete;
 
     /// @brief invalidated assignment operator
-    NBNodeCont& operator=(const NBNodeCont& s);
-
+    NBNodeCont& operator=(const NBNodeCont& s) = delete;
 };

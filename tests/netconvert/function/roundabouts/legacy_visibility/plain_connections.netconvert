@@ -36,7 +36,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<connections version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+<connections version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
     <connection from="-5634" to="5634" fromLane="0" toLane="0"/>
 
     <connection from="-9887" to="-9892" fromLane="0" toLane="0"/>

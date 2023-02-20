@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2013-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2013-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -112,14 +112,14 @@ MSDevice_Taxi::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>
             const_cast<SUMOVehicleParameter&>(v.getParameter()).line = TAXI_SERVICE;
         }
         if (v.getVClass() != SVC_TAXI) {
-            WRITE_WARNING("Vehicle '" + v.getID() + "' with device.taxi should have vClass taxi instead of '" + toString(v.getVClass()) + "'.");
+            WRITE_WARNINGF(TL("Vehicle '%' with device.taxi should have vClass taxi instead of '%'."), v.getID(), toString(v.getVClass()));
         }
         const int personCapacity = v.getVehicleType().getPersonCapacity();
         const int containerCapacity = v.getVehicleType().getContainerCapacity();
         myMaxCapacity = MAX2(myMaxCapacity, personCapacity);
         myMaxContainerCapacity = MAX2(myMaxContainerCapacity, containerCapacity);
         if (personCapacity < 1 && containerCapacity < 1) {
-            WRITE_WARNINGF("Vehicle '%' with personCapacity % and containerCapacity % is not usable as taxi.", v.getID(), toString(personCapacity), toString(containerCapacity));
+            WRITE_WARNINGF(TL("Vehicle '%' with personCapacity % and containerCapacity % is not usable as taxi."), v.getID(), toString(personCapacity), toString(containerCapacity));
         }
     }
 }
@@ -144,7 +144,7 @@ MSDevice_Taxi::initDispatch() {
     } else if (algo == "traci") {
         myDispatcher = new MSDispatch_TraCI(params.getParametersMap());
     } else {
-        throw ProcessError("Dispatch algorithm '" + algo + "' is not known");
+        throw ProcessError(TLF("Dispatch algorithm '%' is not known", algo));
     }
     myDispatchCommand = new StaticCommand<MSDevice_Taxi>(&MSDevice_Taxi::triggerDispatch);
     // round to next multiple of myDispatchPeriod
@@ -259,6 +259,7 @@ MSDevice_Taxi::~MSDevice_Taxi() {
         myMaxCapacity = MAX2(myMaxCapacity, taxi->getHolder().getVehicleType().getPersonCapacity());
         myMaxContainerCapacity = MAX2(myMaxContainerCapacity, taxi->getHolder().getVehicleType().getContainerCapacity());
     }
+    delete myIdleAlgorithm;
 }
 
 
@@ -309,7 +310,7 @@ MSDevice_Taxi::dispatchShared(std::vector<const Reservation*> reservations) {
                 if (myCustomers.count(person) != 0) {
                     nOccur[person] += 1;
                     if (myCurrentReservations.count(res) == 0) {
-                        throw ProcessError("Invalid Re-dispatch for existing customer '" + person->getID() + "' with a new reservation");
+                        throw ProcessError(TLF("Invalid Re-dispatch for existing customer '%' with a new reservation", person->getID()));
                     }
                 }
             }
@@ -342,7 +343,7 @@ MSDevice_Taxi::dispatchShared(std::vector<const Reservation*> reservations) {
                 if (item.second == 1) {
                     // customers must already be on board
                     if (onBoard.count(item.first) == 0) {
-                        throw ProcessError("Re-dispatch did not mention pickup for existing customer '" + item.first->getID() + "'");
+                        throw ProcessError(TLF("Re-dispatch did not mention pickup for existing customer '%'", item.first->getID()));
                     }
                 } else if (item.second == 2) {
                     if (onBoard.count(item.first) == 0) {
@@ -449,7 +450,7 @@ MSDevice_Taxi::dispatchShared(std::vector<const Reservation*> reservations) {
         std::string error;
         myHolder.addStop(stop, error);
         if (error != "") {
-            WRITE_WARNINGF("Could not add taxi stop for vehicle '%' to %. time=% error=%.", myHolder.getID(), stop.actType, time2string(t), error)
+            WRITE_WARNINGF(TL("Could not add taxi stop for vehicle '%' to %. time=% error=%."), myHolder.getID(), stop.actType, time2string(t), error)
         }
     }
     SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = MSRoutingEngine::getRouterTT(myHolder.getRNGIndex(), myHolder.getVClass());
@@ -523,7 +524,7 @@ MSDevice_Taxi::prepareStop(ConstMSEdgeVector& edges,
     stop.lane = getStopLane(stopEdge, action)->getID();
     stop.startPos = stopPos;
     stop.endPos = MAX2(stopPos, MIN2(myHolder.getVehicleType().getLength(), stopEdge->getLength()));
-    stop.parking = getBoolParam(myHolder, OptionsCont::getOptions(), "taxi.parking", true, false);
+    stop.parking = SUMOVehicleParameter::parseParkingType(getStringParam(myHolder, OptionsCont::getOptions(), "taxi.parking", "true", false));
     stop.actType = action;
     stop.index = STOP_INDEX_END;
     stops.push_back(stop);
@@ -565,7 +566,7 @@ MSDevice_Taxi::updateMove(const SUMOTime traveltime, const double travelledDist)
                 myRoutingDevice->setActive(false);
             }
         } else if (!myReachedServiceEnd) {
-            WRITE_WARNINGF("Taxi '%' reaches scheduled end of service at time=%.", myHolder.getID(), time2string(SIMSTEP));
+            WRITE_WARNINGF(TL("Taxi '%' reaches scheduled end of service at time=%."), myHolder.getID(), time2string(SIMSTEP));
             myReachedServiceEnd = true;
         }
     } else if (myRoutingDevice != nullptr) {
@@ -641,7 +642,7 @@ MSDevice_Taxi::customerArrived(const MSTransportable* person) {
     if (myHolder.getPersonNumber() == 0 && myHolder.getContainerNumber() == 0) {
         myState &= ~OCCUPIED;
         if (myHolder.getStops().size() > 1 && (myState & PICKUP) == 0) {
-            WRITE_WARNINGF("All customers left vehicle '%' at time=% but there are % remaining stops",
+            WRITE_WARNINGF(TL("All customers left vehicle '%' at time=% but there are % remaining stops"),
                            myHolder.getID(), time2string(SIMSTEP), myHolder.getStops().size() - 1);
             while (myHolder.getStops().size() > 1) {
                 myHolder.abortNextStop(1);

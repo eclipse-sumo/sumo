@@ -81,3 +81,19 @@ ticket10509
 
 # wide vehicle blocked
 ticket10523
+ticket11639
+
+# delayed lane change while decelerating
+ticket12108
+
+# cyclic speed adapatation prevents lane changing
+ticket12283
+
+# unsafe changing on junction
+ticket12581
+
+# unsafe changing on junction
+ticket12581_speedy
+
+# unsafe changing on junction (different connection layout)
+ticket12581b

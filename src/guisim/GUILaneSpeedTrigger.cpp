@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -266,7 +266,7 @@ GUILaneSpeedTrigger::GUILaneSpeedTrigger(
     const std::string& id, const std::vector<MSLane*>& destLanes,
     const std::string& aXMLFilename) :
     MSLaneSpeedTrigger(id, destLanes, aXMLFilename),
-    GUIGlObject_AbstractAdd(GLO_VSS, id),
+    GUIGlObject_AbstractAdd(GLO_VSS, id, GUIIconSubSys::getIcon(GUIIcon::VARIABLESPEEDSIGN)),
     myShowAsKMH(true), myLastValue(-1) {
     myFGPositions.reserve(destLanes.size());
     myFGRotations.reserve(destLanes.size());

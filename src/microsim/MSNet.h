@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -200,7 +200,7 @@ public:
                        std::vector<SUMOTime> stateDumpTimes, std::vector<std::string> stateDumpFiles,
                        bool hasInternalLinks,
                        bool junctionHigherSpeeds,
-                       double version);
+                       const MMVersion& version);
 
 
     /** @brief Returns whether the network has specific vehicle class permissions
@@ -280,6 +280,9 @@ public:
 
     /// @brief write statistic output to (xml) file
     void writeStatistics() const;
+
+    /// @brief write summary-output to (xml) file
+    void writeSummaryOutput();
 
     /** @brief Closes the simulation (all files, connections, etc.)
      *
@@ -588,7 +591,7 @@ public:
     virtual void updateGUI() const { }
 
     /// @brief load state from file and return new time
-    SUMOTime loadState(const std::string& fileName);
+    SUMOTime loadState(const std::string& fileName, const bool catchExceptions);
 
     /// @brief reset state to the beginning without reloading the network
     void quickReload();
@@ -796,7 +799,7 @@ public:
     }
 
     /// @brief return the network version
-    double getNetworkVersion() const {
+    MMVersion getNetworkVersion() const {
         return myVersion;
     }
 
@@ -961,7 +964,7 @@ protected:
     bool myLefthand;
 
     /// @brief the network version
-    double myVersion;
+    MMVersion myVersion;
 
     /// @brief end of loaded edgeData
     SUMOTime myEdgeDataEndTime;

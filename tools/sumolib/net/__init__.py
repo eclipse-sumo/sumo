@@ -1,5 +1,5 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -414,6 +414,14 @@ class Net:
                         self._origIdx[oID].add(the_edge)
         return self._origIdx[origID]
 
+    def getGeometries(self, useLanes, includeJunctions=False):
+        for e in self._edges:
+            if useLanes:
+                for the_lane in e.getLanes():
+                    yield the_lane.getID(), the_lane.getShape(), the_lane.getWidth()
+            else:
+                yield e.getID(), e.getShape(includeJunctions), sum([the_lane.getWidth() for the_lane in e.getLanes()])
+
     def getBBoxXY(self):
         """
         Get the bounding box (bottom left and top right coordinates) for a net;
@@ -430,7 +438,13 @@ class Net:
             (self._ranges[0][0] - self._ranges[0][1]) ** 2 +
             (self._ranges[1][0] - self._ranges[1][1]) ** 2)
 
+    def hasGeoProj(self):
+        projString = self._location["projParameter"]
+        return projString != "!"
+
     def getGeoProj(self):
+        if not self.hasGeoProj():
+            raise RuntimeError("Network does not provide geo-projection")
         if self._proj is None:
             import pyproj
             try:
@@ -469,9 +483,8 @@ class Net:
         for n in self._nodes:
             n._coord = (n._coord[0] + dx, n._coord[1] + dy, n._coord[2] + dz)
         for e in self._edges:
-            for l in e._lanes:
-                l._shape = [(p[0] + dx, p[1] + dy, p[2] + dz)
-                            for p in l.getShape3D()]
+            for _lane in e.getLanes():
+                _lane.setShape([(p[0] + dx, p[1] + dy, p[2] + dz) for p in _lane.getShape3D()])
             e.rebuildShape()
 
     def getInternalPath(self, conn, fastest=False):
@@ -605,6 +618,32 @@ class Net:
 
         return self.getOptimalPath(fromEdge, toEdge, True, maxCost, vClass, reversalPenalty,
                                    includeFromToCost, withInternal, ignoreDirection, fromPos, toPos)
+
+    def getReachable(self, source, vclass=None, useIncoming=False):
+        if vclass is not None and not source.allows(vclass):
+            raise RuntimeError("'{}' does not allow {}".format(source.getID(), vclass))
+        fringe = [source]
+        found = set()
+        found.add(source)
+        while len(fringe) > 0:
+            new_fringe = []
+            for e in fringe:
+                if vclass == "pedestrian":
+                    cands = chain(chain(*e.getIncoming().values()), chain(*e.getOutgoing().values()))
+                else:
+                    cands = chain(*(e.getIncoming().values() if useIncoming else e.getOutgoing().values()))
+                # print("\n".join(map(str, list(cands))))
+                for conn in cands:
+                    if vclass is None or (
+                            conn.getFromLane().allows(vclass)
+                            and conn.getToLane().allows(vclass)):
+                        for reachable in [conn.getTo(), conn.getFrom()]:
+                            if reachable not in found:
+                                # print("added %s via %s" % (reachable, conn))
+                                found.add(reachable)
+                                new_fringe.append(reachable)
+            fringe = new_fringe
+        return found
 
 
 class NetReader(handler.ContentHandler):

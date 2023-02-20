@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -52,7 +52,7 @@ MSInternalJunction::~MSInternalJunction() {}
 void
 MSInternalJunction::postloadInit() {
     if (myIncomingLanes.size() == 0) {
-        throw ProcessError("Internal junction " + getID() + " has no incoming lanes");
+        throw ProcessError(TLF("Internal junction % has no incoming lanes", getID()));
     }
     // the first lane in the list of incoming lanes is special. It defines the
     // link that needs to do all the checking for this internal junction
@@ -92,11 +92,17 @@ MSInternalJunction::postloadInit() {
     }
     for (std::vector<MSLane*>::const_iterator i = myIncomingLanes.begin() + 1; i != myIncomingLanes.end(); ++i) {
         for (MSLink* const link : (*i)->getLinkCont()) {
-            MSLane* via = link->getViaLane();
-            if (std::find(myInternalLanes.begin(), myInternalLanes.end(), via) == myInternalLanes.end()) {
-                continue;
+            // link indices of internal junctions may not be initialized yet
+            int linkIndex = link->getCorrespondingEntryLink()->getIndex();
+            // links that target a shared walkingarea always have index -1
+            if (linkIndex != -1 && response.test(linkIndex)) {
+                myInternalLinkFoes.push_back(link);
+                const MSLane* via = link->getViaLane();
+                if (via != nullptr && via->getLinkCont().front()->getViaLane() != nullptr) {
+                    // we added the entry link, also use the internalJunctionLink that follows
+                    myInternalLinkFoes.push_back(via->getLinkCont().front());
+                }
             }
-            myInternalLinkFoes.push_back(link);
         }
     }
     // thisLinks is itself an exitLink of the preceding internal lane

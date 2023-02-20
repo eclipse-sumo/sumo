@@ -3,8 +3,8 @@ Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 waypointContainerStop
 TestFunctions: Clicked over position 594 - 323
-TestFunctions: Clicked over position 594 - 323
-TestFunctions: Clicked over position 304 - 168
+true
+TestFunctions: Clicked over position 599 - 323
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Netedit closed successfully

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -46,32 +46,32 @@ FXIMPLEMENT(GNENetworkSelector, MFXGroupBoxModule, SelectorParentNetworkElements
 // ---------------------------------------------------------------------------
 
 GNENetworkSelector::GNENetworkSelector(GNEFrame* frameParent, const Type networkElementType) :
-    MFXGroupBoxModule(frameParent, "NetworkElements"),
+    MFXGroupBoxModule(frameParent, TL("NetworkElements")),
     myFrameParent(frameParent),
     myNetworkElementType(networkElementType) {
     // Create horizontal frame
     FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     // Create buttons
-    myClearSelection = new FXButton(buttonsFrame, "Clear", nullptr, this, MID_GNE_CLEARSELECTION, GUIDesignButtonRectangular100);
-    myUseSelected = new FXButton(buttonsFrame, "Use selected", nullptr, this, MID_GNE_USESELECTED, GUIDesignButtonRectangular100);
+    myClearSelection = new FXButton(buttonsFrame, TL("Clear"), nullptr, this, MID_GNE_CLEARSELECTION, GUIDesignButtonRectangular100);
+    myUseSelected = new FXButton(buttonsFrame, TL("Use selected"), nullptr, this, MID_GNE_USESELECTED, GUIDesignButtonRectangular100);
     // Create list
     myList = new FXList(getCollapsableFrame(), this, MID_GNE_SELECT, GUIDesignListFixedHeight, 0, 0, 0, 100);
     // create information label and update modul name
     switch (myNetworkElementType) {
         case Type::EDGE:
             new FXLabel(this,
-                        "-Click over an edge to select\n-ESC to clear selection",
-                        0, GUIDesignLabelFrameInformation);
-            setText("Edges");
+                (TL("-Click over an edge to select") + std::string("\n") + std::string("-ESC to clear selection")).c_str(),
+                0, GUIDesignLabelFrameInformation);
+            setText(TL("Edges"));
             break;
         case Type::LANE:
             new FXLabel(this,
-                        "-Click over a lane to select\n-ESC to clear selection",
-                        0, GUIDesignLabelFrameInformation);
-            setText("Lanes");
+                (TL("-Click over an lane to select") + std::string("\n") + std::string("-ESC to clear selection")).c_str(),
+                0, GUIDesignLabelFrameInformation);
+            setText(TL("Lanes"));
             break;
         default:
-            throw ProcessError("Invalid NetworkElementType");
+            throw ProcessError(TL("Invalid NetworkElementType"));
     }
     // Hide List
     hide();
@@ -143,7 +143,7 @@ GNENetworkSelector::toggleSelectedElement(const GNENetworkElement* networkElemen
         }
     }
     // select element
-    myList->appendItem(networkElement->getID().c_str(), networkElement->getIcon());
+    myList->appendItem(networkElement->getID().c_str(), networkElement->getACIcon());
     // update viewNet
     myFrameParent->getViewNet()->update();
     return true;
@@ -168,19 +168,19 @@ GNENetworkSelector::onCmdUseSelectedElements(FXObject*, FXSelector, void*) {
         case Type::EDGE:
             for (const auto& edge : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
                 if (edge.second->isAttributeCarrierSelected()) {
-                    myList->appendItem(edge.first.c_str(), edge.second->getIcon());
+                    myList->appendItem(edge.first.c_str(), edge.second->getACIcon());
                 }
             }
             break;
         case Type::LANE:
             for (const auto& lane : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getLanes()) {
                 if (lane->isAttributeCarrierSelected()) {
-                    myList->appendItem(lane->getID().c_str(), lane->getIcon());
+                    myList->appendItem(lane->getID().c_str(), lane->getACIcon());
                 }
             }
             break;
         default:
-            throw ProcessError("Invalid NetworkElementType");
+            throw ProcessError(TL("Invalid NetworkElementType"));
     }
     // Update Frame
     update();

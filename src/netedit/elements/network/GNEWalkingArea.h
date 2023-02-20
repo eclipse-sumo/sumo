@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -31,6 +31,7 @@ class PositionVector;
 class GNEJunction;
 class GNEEdge;
 
+
 // ===========================================================================
 // class definitions
 // ===========================================================================
@@ -59,6 +60,7 @@ public:
 
     /// @brief Returns position of hierarchical element in view
     Position getPositionInView() const;
+
     /// @}
 
     /// @name Functions related with move elements
@@ -68,10 +70,14 @@ public:
 
     /// @brief remove geometry point in the clicked position
     void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList);
+
     /// @}
 
     /// @brief get parent Junction
     GNEJunction* getParentJunction() const;
+
+    /// @brief get referente to NBode::WalkingArea
+    NBNode::WalkingArea& getNBWalkingArea() const;
 
     /// @name inherited from GUIGlObject
     /// @{
@@ -84,9 +90,6 @@ public:
      */
     GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent);
 
-    /// @brief return exaggeration associated with this GLObject
-    double getExaggeration(const GUIVisualizationSettings& s) const;
-
     /// @brief update centering boundary (implies change in RTREE)
     void updateCenteringBoundary(const bool updateGrid);
 
@@ -95,6 +98,9 @@ public:
      * @see GUIGlObject::drawGL
      */
     void drawGL(const GUIVisualizationSettings& s) const;
+
+    /// @brief delete element
+    void deleteGLObject();
 
     /// @brief update GLObject (geometry, ID, etc.)
     void updateGLObject();

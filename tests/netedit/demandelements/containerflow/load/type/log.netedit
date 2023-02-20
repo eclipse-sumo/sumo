@@ -1,3 +1,3 @@
 Error: Attribute 'type' in definition of containerFlow 'p_1' is empty.
 Error: Invalid containerFlow type 'dummyType' used in containerFlow 'p_2'.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.22Apr103431.936\netedit.gui\demandelements\containerflow\load\type\input_routes.rou.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.22Apr103431.936\netedit.gui\demandelements\containerflow\load\type\routes.rou.xml failed.

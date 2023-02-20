@@ -1,6 +1,7 @@
-Warning: Discarding unknown compound 'railway.construction' in type 'railway.construction|usage.main' (first occurence for edge '22917273').
-Warning: Discarding unknown compound 'usage.main' in type 'railway.construction|usage.main' (first occurence for edge '22917273').
-Warning: Discarding unusable type 'railway.construction|usage.main' (first occurence for edge '22917273').
-Warning: Discarding unknown compound 'usage.main' in type 'railway.light_rail|usage.main' (first occurence for edge '24165419').
-Warning: Discarding unusable type 'railway.platform' (first occurence for edge '40162650').
-Warning: Discarding unusable type 'railway.abandoned' (first occurence for edge '276204062').
+Warning: Discarding unknown compound 'railway.construction' in type 'railway.construction|usage.main' (first occurrence for edge '22917273').
+Warning: Discarding unknown compound 'usage.main' in type 'railway.construction|usage.main' (first occurrence for edge '22917273').
+Warning: Discarding unusable type 'railway.construction|usage.main' (first occurrence for edge '22917273').
+Warning: Discarding unknown compound 'usage.main' in type 'railway.light_rail|usage.main' (first occurrence for edge '24165419').
+Warning: Discarding unusable type 'railway.platform' (first occurrence for edge '40162650').
+Warning: Discarding unusable type 'railway.abandoned' (first occurrence for edge '276204062').
+Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '3508654673' (Berlin-Schöneweide). Thus, it will be removed!

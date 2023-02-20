@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -32,6 +32,7 @@ import glob
 import argparse
 import xml.etree.ElementTree as ET
 from datetime import datetime
+from collections import defaultdict
 
 from costMemory import CostMemory
 
@@ -90,6 +91,8 @@ def addGenericOptions(argParser):
                            help="Restrict edgeData measurements to the given vehicle types")
     argParser.add_argument("-7", "--zip", action="store_true",
                            default=False, help="zip old iterations using 7zip")
+    argParser.add_argument("-MSA", "--method-of-successive-average", action="store_true", dest="MSA",
+                           default=False, help="apply the method of successive average as the swapping algorithm")
 
 
 def initOptions():
@@ -156,7 +159,8 @@ def initOptions():
     argParser.add_argument("-G", "--logittheta", type=float, help="parameter to adapt the cost unit")
     argParser.add_argument("-J", "--addweights", help="Additional weights for duarouter")
     argParser.add_argument("--convergence-steps", dest="convergenceSteps", type=int,
-                           help="Given x, if x > 0 Reduce probability to change route by 1/x per step. " +
+                           help="Given x, if x > 0 reduce probability to change route by 1/x per step "
+                                "(Probabilistic Swapping (PSwap)). "
                                 "If x < 0 set probability of rerouting to 1/step after step |x|")
     argParser.add_argument("--addweights.once", dest="addweightsOnce", action="store_true",
                            default=False, help="use added weights only on the first iteration")
@@ -191,7 +195,7 @@ def call(command, log):
     if retCode != 0:
         print(("Execution of %s failed. Look into %s for details.") %
               (command, log.name), file=sys.stderr)
-        sys.exit(retCode)
+    return retCode
 
 
 def writeRouteConf(duarouterBinary, step, options, dua_args, file,
@@ -224,6 +228,9 @@ def writeRouteConf(duarouterBinary, step, options, dua_args, file,
         args += ['--additional-files', options.districts]
     if options.logit:
         args += ['--route-choice-method', 'logit']
+        if options.MSA:
+            probKeepRoute = step/(step+1)
+            args += ['--keep-route-probability', str(probKeepRoute)]
         if options.convergenceSteps:
             if options.convergenceSteps > 0:
                 probKeepRoute = max(0, min(step / float(options.convergenceSteps), 1))
@@ -313,7 +320,7 @@ def writeSUMOConf(sumoBinary, step, options, additional_args, route_files):
     if hasattr(options, "noTripinfo") and not options.noTripinfo:
         sumoCmd += ['--tripinfo-output', "tripinfo_%03i.xml" % step]
         if options.eco_measure:
-            sumoCmd += ['--device.hbefa.probability', '1']
+            sumoCmd += ['--device.emissions.probability', '1']
     if hasattr(options, "routefile"):
         if options.routefile == "routesonly":
             sumoCmd += ['--vehroute-output', "vehroute_%03i.xml" % step,
@@ -358,32 +365,29 @@ def filterTripinfo(step, attrs):
         attrs = ["id"] + attrs
     inFile = "%03i%stripinfo_%03i.xml" % (step, os.sep, step)
     if os.path.exists(inFile):
-        out = open(inFile + ".filtered", 'w')
-        print("<tripinfos>", file=out)
-        hadOutput = False
-        for line in open(inFile):
-            if "<tripinfo " in line:
-                if hadOutput:
-                    print("/>", file=out)
-                print("    <tripinfo", end=' ', file=out)
-                for a in attrs:
-                    pos = line.find(a)
-                    if pos >= 0:
-                        pos += len(a) + 2
-                        print(
-                            '%s="%s"' % (a, line[pos:line.find('"', pos)]), end=' ', file=out)
-                hadOutput = True
-            if "<emission" in line:
-                for a in attrs:
-                    pos = line.find(a)
-                    if pos >= 0:
-                        pos += len(a) + 2
-                        print(
-                            '%s="%s"' % (a, line[pos:line.find('"', pos)]), end=' ', file=out)
-        if hadOutput:
-            print("/>", file=out)
-        print("</tripinfos>", file=out)
-        out.close()
+        with open(inFile) as inf, open(inFile + ".filtered", 'w') as out:
+            print("<tripinfos>", file=out)
+            hadOutput = False
+            for line in inf:
+                if "<tripinfo " in line:
+                    if hadOutput:
+                        print("/>", file=out)
+                    print("    <tripinfo", end=' ', file=out)
+                    for a in attrs:
+                        pos = line.find(a)
+                        if pos >= 0:
+                            pos += len(a) + 2
+                            print('%s="%s"' % (a, line[pos:line.find('"', pos)]), end=' ', file=out)
+                    hadOutput = True
+                if "<emission" in line:
+                    for a in attrs:
+                        pos = line.find(a)
+                        if pos >= 0:
+                            pos += len(a) + 2
+                            print('%s="%s"' % (a, line[pos:line.find('"', pos)]), end=' ', file=out)
+            if hadOutput:
+                print("/>", file=out)
+            print("</tripinfos>", file=out)
         os.remove(inFile)
         os.rename(out.name, inFile)
 
@@ -444,40 +448,68 @@ def calcMarginalCost(step, options):
             log = open("marginal_cost2.log", "w" if step == 2 else "a")
         tree_sumo_cur = ET.parse(get_weightfilename(options, step - 1, "dump"))
         tree_sumo_prv = ET.parse(get_weightfilename(options, step - 2, "dump"))
+        oldValues = defaultdict(dict)
+        for interval_prv in tree_sumo_prv.getroot():
+            begin_prv = interval_prv.attrib.get("begin")
+            for edge_prv in interval_prv.iter('edge'):
+                if edge_prv.get("traveltime") is not None:
+                    veh_prv = float(edge_prv.get("left")) + float(edge_prv.get("arrived"))
+                    tt_prv = float(edge_prv.get("overlapTraveltime"))
+                    mc_prv = float(edge_prv.get("traveltime"))
+                    oldValues[begin_prv][edge_prv.get("id")] = (veh_prv, tt_prv, mc_prv)
+
         for interval_cur in tree_sumo_cur.getroot():
             begin_cur = interval_cur.attrib.get("begin")
-            for interval_prv in tree_sumo_prv.getroot():
-                begin_prv = interval_prv.attrib.get("begin")
+            if begin_cur in oldValues:
+                oldIntervalValues = oldValues[begin_cur]
                 for edge_cur in interval_cur.iter('edge'):
-                    for edge_prv in interval_prv.iter('edge'):
-                        if begin_cur == begin_prv and edge_cur.get("id") == edge_prv.get("id"):
-                            if edge_cur.get("traveltime") is not None and edge_prv.get(
-                                    "traveltime") is not None:
-                                veh_cur = float(edge_cur.get("left")) + float(edge_cur.get("arrived"))
-                                veh_prv = float(edge_prv.get("left")) + float(edge_prv.get("arrived"))
-                                tt_cur = float(edge_cur.get("traveltime"))
-                                tt_prv = float(edge_prv.get("overlapTraveltime"))
-                                mc_prv = float(edge_prv.get("traveltime"))
-                                dif_tt = abs(tt_cur - tt_prv)
-                                dif_veh = veh_cur - veh_prv
-                                if dif_veh > 0:
-                                    mc_cur = (dif_tt / dif_veh) * (veh_cur ** options.mcExp) + tt_cur
-                                else:
-                                    # previous marginal cost
-                                    mc_cur = mc_prv
+                    if edge_cur.get("traveltime") is not None:
+                        id_cur = edge_cur.get("id")
+                        if id_cur in oldIntervalValues:
+                            veh_prv, tt_prv, mc_prv = oldIntervalValues[id_cur]
+                            veh_cur = float(edge_cur.get("left")) + float(edge_cur.get("arrived"))
+                            tt_cur = float(edge_cur.get("traveltime"))
+                            dif_tt = abs(tt_cur - tt_prv)
+                            dif_veh = abs(veh_cur - veh_prv)
+                            if dif_veh != 0:
+                                mc_cur = (dif_tt / dif_veh) * (veh_cur ** options.mcExp) + tt_cur
+                            else:
+                                # previous marginal cost
+                                mc_cur = tt_cur
 
-                                edge_cur.set("traveltime", str(mc_cur))
-                                edge_cur.set("overlapTraveltime", str(tt_cur))
-                                edgeID = edge_cur.get("id")
-                                if DEBUGLOG:
-                                    if begin_cur == "1800.00":
-                                        print("step=%s beg=%s e=%s tt=%s ttprev=%s n=%s nPrev=%s mC=%s mCPrev=%s" %
-                                              (step, begin_cur, edgeID, tt_cur, tt_prv, veh_cur, veh_prv,
-                                               mc_cur, mc_prv), file=log)
+                            edge_cur.set("traveltime", str(mc_cur))
+                            edge_cur.set("overlapTraveltime", str(tt_cur))
+                            edgeID = edge_cur.get("id")
+                            if DEBUGLOG:
+                                if begin_cur == "1800.00":
+                                    print("step=%s beg=%s e=%s tt=%s ttprev=%s n=%s nPrev=%s mC=%s mCPrev=%s" %
+                                          (step, begin_cur, edgeID, tt_cur, tt_prv, veh_cur, veh_prv,
+                                           mc_cur, mc_prv), file=log)
         tree_sumo_cur.write(get_weightfilename(options, step - 1, "dump"))
 
         if DEBUGLOG:
             log.close()
+
+
+def generateEdgedataAddFile(EDGEDATA_ADD, options):
+    """write detectorfile"""
+    with open(EDGEDATA_ADD, 'w') as fd:
+        vTypes = ' vTypes="%s"' % ' '.join(options.measureVTypes.split(',')) if options.measureVTypes else ""
+        print("<a>", file=fd)
+        print('    <edgeData id="dump_%s" freq="%s" file="%s" excludeEmpty="true" minSamples="1"%s/>' % (
+            options.aggregation,
+            options.aggregation,
+            get_dumpfilename(options, -1, "dump", False),
+            vTypes), file=fd)
+        if options.eco_measure:
+            print(('    <edgeData id="eco_%s" type="emissions" freq="%s" file="%s" ' +
+                   'excludeEmpty="true" minSamples="1"%s/>') % (
+                       options.aggregation,
+                       options.aggregation,
+                       get_dumpfilename(options, -1, "dump", False),
+                       vTypes), file=fd)
+        print("</a>", file=fd)
+    fd.close()
 
 
 def main(args=None):
@@ -550,25 +582,11 @@ def main(args=None):
             print(">>> Loading %s" % dumpfile)
             costmemory.load_costs(dumpfile, step, get_scale(options, step))
 
-    # write detectorfile
-    with open(EDGEDATA_ADD, 'w') as fd:
-        vTypes = ' vTypes="%s"' % ' '.join(options.measureVTypes.split(',')) if options.measureVTypes else ""
-        print("<a>", file=fd)
-        print('    <edgeData id="dump_%s" freq="%s" file="%s" excludeEmpty="true" minSamples="1"%s/>' % (
-            options.aggregation,
-            options.aggregation,
-            get_dumpfilename(options, -1, "dump", False),
-            vTypes), file=fd)
-        if options.eco_measure:
-            print(('    <edgeData id="eco_%s" type="hbefa" freq="%s" file="%s" ' +
-                   'excludeEmpty="true" minSamples="1"%s/>') % (
-                       options.aggregation,
-                       options.aggregation,
-                       get_dumpfilename(options, step, "dump", False),
-                       vTypes), file=fd)
-        print("</a>", file=fd)
+    # generate edgedata.add.xml
+    generateEdgedataAddFile(EDGEDATA_ADD, options)
 
     avgTT = sumolib.miscutils.Statistics()
+    ret = 0
     for step in range(options.firstStep, options.lastStep):
         current_directory = os.getcwd()
         final_directory = os.path.join(current_directory, "%03i" % step)
@@ -600,13 +618,17 @@ def main(args=None):
                 if options.marginal_cost:
                     calcMarginalCost(step, options)
 
-                call([duaBinary, "-c", cfgname], log)
+                ret = call([duaBinary, "-c", cfgname], log)
+                if ret != 0:
+                    break
                 if options.clean_alt and router_input not in input_demands:
                     os.remove(router_input)
                 etime = datetime.now()
                 print(">>> End time: %s" % etime)
                 print(">>> Duration: %s" % (etime - btime))
                 print("<<")
+            if ret != 0:
+                break
 
         # simulation
         print(">> Running simulation")
@@ -616,7 +638,9 @@ def main(args=None):
                                 ",".join(simulation_demands))  # todo: change 'grou.xml'
         log.flush()
         sys.stdout.flush()
-        call([sumoBinary, "-c", sumocfg], log)
+        ret = call([sumoBinary, "-c", sumocfg], log)
+        if ret != 0:
+            break
         if options.tripinfoFilter:
             filterTripinfo(step, options.tripinfoFilter.split(","))
         etime = datetime.now()
@@ -686,7 +710,10 @@ def main(args=None):
     print("dua-iterate ended (duration: %s)" % (datetime.now() - starttime))
 
     log.close()
+    sys.stdout.close()
+    sys.stdout = sys.__stdout__
+    return ret
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

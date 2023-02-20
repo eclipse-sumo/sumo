@@ -48,13 +48,49 @@ python  tools/visualization/plotXMLAttributes.py -x x -y y -s fcd.xml
 python  tools/visualization/plotXMLAttributes.py -x x -y y -s fcd.xml fcd2.xml
 ```
 
-The above example draws the paths of all vehicles through the network based on fcd-output. (It is a special case that can also be accomplished with  #plot_trajectoriespy)
+The above example draws the paths of all vehicles through the network based on fcd-output. (It is a special case that can also be accomplished with  [plot_trajectoriespy](#plot_trajectoriespy))
 
-When option **-s** is set, a interactive plot is opened that allows identifying data points vehicles by clicking on the plot (dataID is printed on the console)
+When option **--show** is set, a interactive plot is opened that allows identifying data points vehicles by clicking on the plot (dataID is printed on the console).
 
-Option **--filter-ids ID1,ID2,...** allows restricting the plot to the given data element ids
+Option **--filter-ids ID1,ID2,...** allows restricting the plot to the given data element ids. You can use a wildcard to filter out ids that follow some pattern; for instance **--filter-ids bus_*** will filter out all ids that begin with the four characters "bus_".
 
-Further examples are shown below...
+Further examples are shown below. Some of them are generated with the scenario acosta, one of the published sumo scenarios (https://github.com/DLR-TS/sumo-scenarios/tree/main/bologna/acosta).
+
+### Plot Styles
+
+The script supports the following distinct styles of plots:
+
+- **lineplot**: default
+- **scatterplot:** with option **--scatterplot**
+- **box plot:** by setting one of **--xattr @BOX** or **--yattr @BOX**
+- **bar plot:** by setting either **--barplot** or **--hbarplot**
+
+### Special Attributes
+
+The following attribute values have a special meaning. Instead of using an attribute from the input file they derive a value based on the *other* attribute. (i.e. the special attribute is set for **--xattr** then the *other* value is given by the **--yattr**).
+
+- `@INDEX`: the index of the *other* value within the input file is used.
+- `@RANK`: the index of the *other* value within the sorted (descending) list of values is used
+- `@COUNT`: the number of occurences of the *other* value is used (basically a histogram without any binning)
+- `@BOX`: one or more [box plots](https://en.wikipedia.org/wiki/Box_plot) of the *other* value are drawn. The **--idattr** is used for grouping and there will be one box plot per id
+- `@NONE`: can be used with option **--idattr** to explicitly avoid grouping
+
+### Multi-line plots
+
+- By default, every distinct ID (as defined by **--idattr**) will generated a new line for all the data points associated with that ID.
+- If multiple files are given, the abbreviated filename will become part of the data point ID and thereby create distinct lines or scatterpoints for data from each file
+- If a comma-separated list of values is passed to option **--idattr**, then values for each of the attributes will be combined with `|` to form the data point ID
+- If a comma-separated list of values given to **--xattr** or **--yattr** (or both), and the data does not supply an ID (or option **--idattr @NONE** is set) then each combination of individual xattr and yattr will create a new line
+
+If a combined plot is needed that cannot be created with any of the above methods (i.e. because the data comes from different kinds of data files such as summary-output and edgeData) then an alternative is to use option **--csv-output** and plotting the resulting data with another tool (i.e. [gnuplot](https://en.wikipedia.org/wiki/Gnuplot)).
+
+In csv-output each group of data points belonging to the same ID will form it's own block separated by two blank lines from the next block.
+To replicate a plot where each ID/block has its distinct color, the following approach can be used in gnuplot:
+
+```
+stats 'data.csv'
+plot for [idx=0:STATS_blocks] 'data.csv' i idx with lines
+```
 
 ### Inductionloop Speed over Time
 
@@ -62,15 +98,31 @@ Input is [inductionloop-output](../Simulation/Output/Induction_Loops_Detectors_(
 
 Call: `python tools/visualization/plotXMLAttributes.py data.xml -x begin -y speed -s`
 
-![plotAttrs_detector.png](../images/plotAttrs_detector.png "plotAttrs_detector.png")
+<img src="../images/plotAttrs_detector.png" width="500px"/>
+
+### Lane Area Detectors over nVehEntered
+
+Input is [laneareadetectors-output](../Simulation/Output/Lanearea_Detectors_(E2).md) with 30s aggregation from 6 detectors
+
+Call: `python tools/visualization/plotXMLAttributes.py -x begin -y maxOccupancy -o plot-maxOccupancy.png --legend e2_output.xml --filter-ids e2_0,e2_5,e2_10,e2_15,e2_20,e2_25`
+
+<img src="../images/plot-nVehEntered.png" width="500px"/>
+
+### Multi-Entry-Exit Detectors Mean Speed over Time
+
+Input is [multi-entry-exit-detector-output](../Simulation/Output/Multi-Entry-Exit_Detectors_(E3).md) with 30s aggregation and a cutoff at begin and end
+
+Call: `python tools/visualization/plotXMLAttributes.py -x begin -y meanSpeed detector.xml --legend --xlim 100,5000`
+
+<img src="../images/plot_meme_speed.png" width="500px"/>
 
 ### boarding passengers vs delay for each station
 
 Input is [stop-output](../Simulation/Output/StopOutput.md)
 
 Call: `python tools/visualization/plotXMLAttributes.py stopinfos.xml -i busStop -x loadedPersons -y delay -s --scatterplot --legend`
-
-![plotAttrs_boardingDelay.png](../images/plotAttrs_boardingDelay.png "plotAttrs_boardingDelay.png")
+                                                                                                  
+<img src="../images/plotAttrs_boardingDelay.png" width="500px"/>
 
 ### Fundamental Diagram from edgeData
 
@@ -80,9 +132,166 @@ Call: `python tools/visualization/plotXMLAttributes.py data.xml -i id -x density
 
 Each color gives encodes a different edge-id. Option **--factor 60** is used to convert from vehicles per 60s (edgeData-period 60) to vehicles per hour.
 
-![plotAttrs_fundamental.png](../images/plotAttrs_fundamental.png "plotAttrs_fundamental.png")
+<img src="../images/plotAttrs_fundamental.png" width="500px"/>
+
+### Multiple timelines from summary-output
+Input is [summary](../Simulation/Output/Summary.md).
+This plot demonstrates using a list of attributes to generate multiple data points from the same xml input element.
+In the absence of an id-attribute, the respective attribute name is used to "identify" and group the data points.
+
+Call: `python tools/visualization/plotXMLAttributes.py summary.xml -x time -y running,halting -o plot-running.png --legend`
+
+<img src="../images/plot-running.png" width="500px"/>
+
+!!! caution
+    In version 1.15.0 and lower, the id-attribute must be provided so you need
+    to provide a dummy value (i.e. with `-i collisions`) and only a single value is
+    permitted for the x and y attribute.
+
+### Depart delay over time from TripInfo data
+The plot is created out of [TripInfo](../Simulation/Output/TripInfo.md) output data:
+
+Call `python tools/visualization/plotXMLAttributes.py -i id -x depart -y departDelay --scatterplot --xlabel "depart time [s]" --ylabel "depart delay [s]" --ylim 0,40 --xticks 0,1200,200,10 --yticks 0,40,5,10 --xgrid --ygrid --title "depart delay over depart time" --titlesize 16  tripInfo.xml`
+
+<img src="../images/departDelayScatter.png" width="500px"/>
+
+### Time to collision over simulation time
+
+The plot is created from the output file of a SUMO simulation for which a global [SSM device](https://sumo.dlr.de/docs/Simulation/Output/SSM_Device.html) has been added. For this example, starting from the [Bologna "acosta" scenario](https://github.com/DLR-TS/sumo-scenarios/tree/main/bologna/acosta), the SUMO configuration file had been modified in order to compute time to collision:
+```
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+	
+	<device.ssm.deterministic value="true"/>
+	<device.ssm.file value="ssm.xml"/>
+    <device.ssm.measures value="TTC"/>
+
+</configuration>
+```
+After the simulation has finished to run, a XML file `ssm.xml` has been produced. Using this file we can extract and plot the TTC values by using the command line:
+```
+python.exe .\plotXMLAttributes.py ssm.xml -x time --xlabel "Time [s]" -y value --ylabel "TTC [s]" -i ego --filter-ids bus_* --title "time to collision over simulation time" --scatterplot
+```
+
+<img src="../images/plot_ttc.png" title="plot_ttc.png" width=600px/>
+
+### Queuing times over time
+Input is [queue-output](../Simulation/Output/QueueOutput.md).
+
+Call to generate the plot:
+```
+python tools/visualization/plotXMLAttributes.py -x timestep -y queueing_time -s -o queue.png queue.xml -i id --filter-ids 121_0
+```
+where -x is the attribute for the x axis; -y is the attribute for the y axis; -s is to show the plot; -o is the output file name; -i is the filtered attribute name (lane id in this case); --filter-ids are the value(s) of the filtered attribute name (id = 121_0 in this case).
+
+<img src="../images/queue_out.png" width="500px"/>
+
+### Departure times versus arrival times
+Input is [vehroutes-output](../Simulation/Output/VehRoutes.md).
+
+Call to generate the plot:
+```
+python tools/visualization/plotXMLAttributes.py -x depart -y arrival -s -o vehroute.png vehroute.xml --scatterplot
+```
+where -x is the attribute for the x axis; -y is the attribute for the y axis; -s is to show the plot; -o is the output file name; --scatterplot is to make a scatter plot instead of a line plot.
+
+<img src="../images/vehroute_output.png" width="500px"/>
+
+### Leader gaps versus speeds
+Input is [langechange-output](../Simulation/Output/Lanechange.md).
+
+Call to generate the plot:
+```
+python tools/visualization/plotXMLAttributes.py -x speed -y leaderGap -s -o lc.png langchange.xml -i reason --filter-ids speedGain
+```
+where -x is the attribute for the x axis; -y is the attribute for the y axis; -s is to show the plot; -o is the output file name; -i is the filtered attribute name (reason for lane changing in this case); --filter-ids are the values of the filtered attribute name (reason = speedGain in this case).
+
+<img src="../images/lanechange_output.png" width="500px"/>
+
+### All trajectories over time 1
+Input is [fcd_output](../Simulation/Output/FCDOutput.md).
+
+Call to generate the plot:
+```
+python tools/visualization/plotXMLAttributes.py -x x -y y -s -o allXY_output.png fcd.xml --scatterplot
+```
+where -x is the attribute for the x axis; -y is the attribute for the y axis; -s is to show the plot; -o is the output file name; --scatterplot is to make a scatter plot instead of a line plot..
+
+<img src="../images/allXY_output.png" width="500px"/>
+
+### Selected trajectories over time 1
+Input is [fcd_output](../Simulation/Output/FCDOutput.md).
+
+Call to generate the plot:
+```
+python tools/visualization/plotXMLAttributes.py -x x -y y -s -o vehLocations_output.png fcd.xml -i id --filter-ids Audinot_7_0 --scatterplot --legend
+```
+where -x is the attribute for the x axis; -y is the attribute for the y axis; -s is to show the plot; -o is the output file name; -i is the filtered attribute name (vehicle id in this case); --filter-ids are the values of the filtered attribute name (vehicle id = Audinot_7_0 in this case); --scatterplot is to make a scatter plot instead of a line plot; --legend is to show the legend.
+
+<img src="../images/vehLocations_output.png" width="500px"/>
+
+### Public transport schedule
+
+In this type of plot time is on the y-axis running from top to bottom. Input is route file of a [public transport schedule](../Simulation/Public_Transport.md#public_transport_schedules) where each vehicle is modelled individually.
+A similar plot could also be generated from [stop-output](../Simulation/Output/StopOutput.md) by using attribute `started` or `ended` (or `started,ended`) instead of `until`.
 
 
+Call to generate the plot:
+```
+python tools/visualization/plotXMLAttributes.py route.rou.xml -x busStop -y until --ytime1 --legend --xticks-file stoplist.txt --invert-yaxis --marker o
+```
+
+<img src="../images/schedule_until.png" width="500px"/>
+
+The file stoplist.txt is used to define the ordering of the stops (corresponding to their ordering along a transport line) and is shown below.
+In order to group busStops that belong to different tracks of the same train station, they were named with a common suffix in their id and the stoplist.txt file uses wildcards (`*`) to match them.
+
+```
+*WLA
+*KI
+*MM
+*KX
+*LHG
+```
+
+!!! note
+    When plotting stops from a route file that also defines `<vType>` elements, then the option **--idelem** must be used to declare where the id attribute must be loaded from (i.e. **--idelem trip**).
+
+### Turn-counts over time
+
+This plot uses an attribute list for the value id (`-i from,to`) to reflect the fact that a turning relation is uniquely identified by the combination of two attributes. It also demonstrates flexible filtering to show all traffic that passes over edge `-40` or edge `36`.
+
+Call to generate the plot:
+```
+python tools/visualization/plotXMLAttributes.py turnCounts.xml -i from,to -x begin -y count --xtime0 --legend  --filter-ids="-40|*,36|*"
+```
+
+<img src="../images/turn-counts.png" width="500px"/>
+
+
+### Boxplot: waiting time by departLane
+
+This plot demonstrates box-plotting for a single attribute (waitingTime). Optionally split by category (departLane). The call uses [tripinfo-output](../Simulation/Output/TripInfo.md) from two different simulation runs as it's input.
+
+Call to generate the plot:
+```
+python tools/visualization/plotXMLAttributes.py tripinfos.xml tripinfos2.xml  -x waitingTime -y @BOX -i departLane --show
+```
+
+<img src="../images/boxplot_departLane_waitingTime_horiz.png" width="500px"/>
+
+!!! note
+    By swapping x-attribute and y-attribute the orientation of the boxplot can be changed from horizontal to vertical
+
+### Histogram of timeLoss
+
+This plot demonstrates the use of **--barplot** binning and `@COUNT` to create a histogram of timeLoss values from two simulation runs.
+It also shows how to clamp data to the upper range of 300.
+
+Call to generate the plot:
+```
+plotXMLAttributes.py tripinfos.xml tripinfos2.xml -x timeLoss -y @COUNT -i @NONE -s --legend  --barplot --xbin 20 --xclamp :300
+```
+<img src="../images/hist_timeLoss_clamped.png" width="500px"/>
 
 ## plot_trajectories.py
 
@@ -95,6 +304,9 @@ python tools/plot_trajectories.py fcd.xml -t td -o plot.png -s
 ```
 
 The option **-t (--trajectory-type)** supports different attributes that can be plotted against each other. The argument is a two-letter code with each letter encoding an attribute that is derived from the fcd input.
+
+!!! note
+    plot_trajectories.py is similar to [plotXMLAttributes.py](#plotxmlattributespy) but specialized for [fcd-output](../Simulation/Output/FCDOutput.md). It supports derived attributes that are not present in the loaded data (driven distance) and also allows for more filtering (**--filter-route**, **--filter-edges**).
 
 ### Available Attributes
 
@@ -118,7 +330,49 @@ The option **-t (--trajectory-type)** supports different attributes that can be 
 - **xy**: Spatial plot of driving path
 - **kt**: kilometrage vs time (combine with option **--invert-yaxis** to get a classic railway diagram).
 
-![plot_trajectories.png](../images/Plot_trajectories.png "plot_trajectories.png")
+### Accelerations versus distances
+Input is [fcd-output](../Simulation/Output/FCDOutput.md).
+
+Call to generate the plot:
+```
+python tools/plot_trajectories.py -t da -o Plot_trajectories.png fcd.xml
+```
+where -t is the aforementioned trajectory type; -o is the output file name.
+
+<img src="../images/Plot_trajectories.png" width="500px"/>
+
+### All trajectories over time 2
+Input is [fcd-output](../Simulation/Output/FCDOutput.md).
+
+Call to generate the plot:
+```
+python tools/plot_trajectories.py -t xy -o allLocations_output.png fcd.xml
+```
+where -t is the aforementioned trajectory type; -o is the output file name.
+
+<img src="../images/allLocations_output.png" width="500px"/>
+
+### Selected trajectories over time 2
+Input is [fcd-output](../Simulation/Output/FCDOutput.md).
+
+Call to generate the plot:
+```
+python tools/plot_trajectories.py -t xy -o selectXY_output.png fcd.xml --filter-ids Audinot_7_0
+```
+where -t is the aforementioned trajectory type; -o is the output file name;--filter-ids are the value(s) of the filtered attributes (id = Audinot_7_0 in this case).
+
+<img src="../images/selectXY_output.png" width="500px"/>
+
+### FCD based speeds over time
+Input is [fcd-output](../Simulation/Output/FCDOutput.md).
+
+Call to generate the plot:
+```
+python tools/plot_trajectories.py -t ts -o timeSpeed_output.png fcd.xml --filter-ids Audinot_7_0,Costa_12_0,Pepoli_3_0,Silvani_11_0,XXI_APRILE_7_0 --legend
+```
+where -t is the aforementioned trajectory type; -o is the output file name; --filter-ids are the value(s) of the filtered attributes (id in [Audinot_7_0, Costa_12_0, Pepoli_3_0, Silvani_11_0, XXI_APRILE_7_0] in this case); --legend is to show the legend
+
+<img src="../images/timeSpeed_output.png" width="500px"/>
 
 ### Interactive Plot
 
@@ -368,6 +622,17 @@ the measure (vehicles) that fall into a bin.
 <code> -l mon,tue-thu,fri,sat,sun --adjust .14,.1 --xlim 0,3600</code></p>
 <p>The example shows the travel time distribution for the vehicles of different week day classes (Braunschweig scenario). "mo.xml", "dido.xml", "fr.xml", "sa.xml", and "so.xml" are <a href="../Simulation/Output/TripInfo.html" title="wikilink">tripinfo-files</a> resulting from simulations of the weekday-types Monday, Tuesday-Thursday, Friday, Saturday, and Sunday, respectively.</p></td>
 </tr>
+<tr class="even">
+<td><figure>
+<img src="../images/stopCountDist.png" title="stopCountDist.png" width="500" alt="" />
+</figure></td>
+<td><p><code>python plot_tripinfo_distributions.py -i tripinfo.xml -o stopCountDist.png \</code><br/>
+<code> --measure waitingCount --bins 10 --maxV 10 \</code><br/>
+<code> --xlabel "number of stops [-]" --ylabel "count [-]" \</code><br/>
+<code> --title "distribution of number of stops" --colors blue -b --no-legend</code></p>
+<p>The example shows the distribution of stops the vehicles had to make during their trip. Vehicles with more than 9 stops are added to the last bin of the histogram.
+</p></td>
+</tr>
 </tbody>
 </table>
 
@@ -500,6 +765,8 @@ respectively.
 | **--ylim** `<YMIN>`,`<YMAX>`                                                 | Describes the limits of the figure along the y-axis                                                                                                                                                                                                                                    |
 | **--xticks** `<XMIN>`,`<XMAX>`,`<XSTEP>`,`<XSIZE>`<br>**--yticks** `<XSIZE>`           | If only one number is given, it is interpreted as the size of the tick labels on the x-axis; if four numbers are given, they are interpreted as the lowest ticks position, the highest ticks position, the step between ticks, and the tick's size, respectively, all along the x-axis |
 | **--yticks** `<XMIN>`,`<XMAX>`,`<XSTEP>`,`<XSIZE>` <br>**--yticks** `<XSIZE>`           | If only one number is given, it is interpreted as the size of the tick labels on the y-axis; if four numbers are given, they are interpreted as the lowest ticks position, the highest ticks position, the step between ticks, and the tick's size, respectively, all along the y-axis |
+| **--xtime0**                                                             | If set, the tick labels along the x-axis are formatted as time entries (hh)                                                                                                                                                                                                         |
+| **--ytime0**                                                             | If set, the tick labels along the y-axis are formatted as time entries (hh)                                                                                                                                                                                                         |
 | **--xtime1**                                                             | If set, the tick labels along the x-axis are formatted as time entries (hh:mm)                                                                                                                                                                                                         |
 | **--ytime1**                                                             | If set, the tick labels along the y-axis are formatted as time entries (hh:mm)                                                                                                                                                                                                         |
 | **--xtime2**                                                             | If set, the tick labels along the x-axis are formatted as time entries (hh:mm:ss)                                                                                                                                                                                                      |
@@ -512,12 +779,15 @@ respectively.
 | **--ylabel** {{DT_STR}}                                                    | Defines the label to set for the y-axis                                                                                                                                                                                                                                                |
 | **--xlabelsize** {{DT_FLOAT}}                                                 | Defines the size of the label of the x-axis                                                                                                                                                                                                                                            |
 | **--ylabelsize** {{DT_FLOAT}}                                                 | Defines the size of the label of the y-axis                                                                                                                                                                                                                                            |
+| **--marker** {{DT_STR}}                                                  | Matplotlib marker style for drawing points; default: 'o' for dots in scatter plot, otherwise not used                                                                                                                                                                                         |
+| **--linestyle** {{DT_STR}}                                                  | Matplotlib line style for drawing lines; default: '-' for continuous lines                                                                                                                                                                                                              |
 | **--title** {{DT_STR}}                                                     | Defines the title of the figure                                                                                                                                                                                                                                                        |
 | **--titlesize** {{DT_FLOAT}}                                                  | Defines the size of the title                                                                                                                                                                                                                                                          |
 | **--adjust** {{DT_FLOAT}},{{DT_FLOAT}}<br>**--adjust** {{DT_FLOAT}},{{DT_FLOAT}},{{DT_FLOAT}},{{DT_FLOAT}} | Adjust the plot; If two floats are given, they are interpreted as left and bottom values, if four numbers are given, they are interpreted as left, bottom, right, top                                                                                                                  |
 | **--size** {{DT_FLOAT}},{{DT_FLOAT}}                                               | Defines the size of figure                                                                                                                                                                                                                                                             |
 | **--no-legend**                                                          | If set, no legend is drawn                                                                                                                                                                                                                                                             |
 | **--legend-position** {{DT_STR}}                                           | Defines the position of the legend; default: matplolib default                                                                                                                                                                                                                         |
+| **--alpha** {{DT_FLOAT}}                                           | Defines the opacity of the plot background in the range 0=fully transparent to 1=opaque; default: 1                                                                                                                                                                                           |
 
 ### Interaction Options
 
@@ -536,23 +806,16 @@ the figure (once known it is as it should be). In such cases, the option
 
 # Further Visualization Methods
 
-## Coloring edges in [sumo-gui](../sumo-gui.md) according to arbitrary data
+## Coloring and scaling edges in [sumo-gui](../sumo-gui.md) according to arbitrary data
 
-[sumo-gui](../sumo-gui.md) can load weight files and show their
-values when setting edge coloring mode to *by loaded weight*. When
-stepping through the simulation, different time intervals contained in
-the weight file can be shown.
+[sumo-gui](../sumo-gui.md) can load [edgeData files](../sumo-gui.md#visualizing_edge-related_data) and user the contained values of any attribute for coloring edges (roads) as well as for modifying the visual width of the edges. This serves a similar use case as #plot_net_dumppy but allows all dynamic zooming and panning features of of sumo-gui.
+
+When stepping through the simulation, different time intervals contained in
+the weight file can be shown. It can be useful to adapt the simulation step length to the data period for easier stepping:
 
 ```
-sumo-gui -n NET --weight-files FILE --weight-attribute ATTR -e 86400
+sumo-gui -n NET --edgedata-files FILE --step-length 3600 --end 24:0:0
 ```
-
-Suitable weight files are those produced by
-[edgeData-output](../Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md).
-To show the number of departed vehicles for each edge, the option **--weight-attribute departed** would
-be used.
-
-The weight files generated by [randomTrips option **--weights-output-prefix**](../Tools/Trip.md#customized_weights) can also be used (to visualize depart/arrival probabilties). 
 
 ## Intersection Flow Diagram
 
@@ -567,7 +830,19 @@ To visualize the flow on an intersection with line widths according to the amoun
 
         sumo-gui -n NET -a flows.poly.xml
 
-![](../images/Route2poly_intersectionFlow.png)
+<img src="../images/Route2poly_intersectionFlow.png" width="400px"/>
+
+## Visulizing FCD-Data as moving POIs
+
+The tool `fcdReplay.py` can be used to replay an [fcd-output file](../Simulation/Output/FCDOutput.md) in [sumo-gui](../sumo-gui.md).
+
+Example uses:
+
+```
+python  tools/fcdReplay.py -k example.sumocfg -f fcd.xml
+```
+
+To make use of fcd data with lon/lat values (generated with sumo option **--fcd-output.geo**), the option **--geo** must be set.
 
 # Outdated
 

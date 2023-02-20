@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2007-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2007-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -241,7 +241,7 @@ optParser.add_option("-b", "--begin", type="float", default=0, help="begin time 
 optParser.add_option("--end", type="float", default=None, help="end time in minutes")
 optParser.add_option("--geh", action="store_true", dest="geh",
                      default=False, help="compare flows using GEH measure")
-optParser.add_option("--geh-treshold", type="float", default=5, dest="geh_threshold",
+optParser.add_option("--geh-threshold", type="float", default=5, dest="geh_threshold",
                      help="report percentage of detectors below threshold")
 optParser.add_option("--write-time", action="store_true", dest="writetime",
                      default=False, help="write time in output")
