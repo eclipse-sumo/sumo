@@ -713,7 +713,7 @@ MSFrame::fillOptions() {
     oc.addDescription("edgedata-files", "GUI Only", "Load edge/lane weights for visualization from FILE");
 
     oc.doRegister("alternative-net-file", 'N', new Option_FileName());
-    oc.addDescription("alternative-net-file", "GUI only", "Load a secondary road network for abstract visualization from FILE");
+    oc.addDescription("alternative-net-file", "GUI Only", "Load a secondary road network for abstract visualization from FILE");
 
     oc.doRegister("demo", 'D', new Option_Bool(false));
     oc.addDescription("demo", "GUI Only", "Restart the simulation after ending (demo mode)");
