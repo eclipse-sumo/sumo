@@ -32,6 +32,7 @@ jobs:
       CC: cl
       CXX: cl
       SUMO_LIBRARIES: D:\a\sumo\sumo\sumolibraries
+      TMPDIR: ${{ RUNNER_TEMP }}
 
     steps:
     - name: Cloning SUMO
