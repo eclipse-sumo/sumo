@@ -14,6 +14,7 @@
 /// @file    MsgHandler.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
+/// @author  Mirko Barthauer
 /// @date    Tue, 17 Jun 2003
 ///
 // Retrieves messages about the process and gives them further to output
@@ -142,6 +143,20 @@ MsgHandler::beginProcessMsg(std::string msg, bool addType) {
     }
     // set the information that something occurred
     myWasInformed = true;
+}
+
+
+void
+MsgHandler::endProcessMsg(bool success, long duration) {
+    if (success) {
+        if (duration > -1) {
+            endProcessMsg(TLF("done (%ms).", toString(duration)));
+        } else {
+            endProcessMsg(TL("done."));
+        }
+    } else {
+        endProcessMsg(TL("failed."));
+    }
 }
 
 
