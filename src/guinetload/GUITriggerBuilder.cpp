@@ -51,7 +51,7 @@ GUITriggerBuilder::buildLaneSpeedTrigger(MSNet& net,
         const std::string& id, const std::vector<MSLane*>& destLanes,
         const std::string& file) {
     GUILaneSpeedTrigger* lst = new GUILaneSpeedTrigger(id, destLanes, file);
-    static_cast<GUINet&>(net).getVisualisationSpeedUp().addAdditionalGLObject(lst);
+    static_cast<GUINet&>(net).registerRenderedObject(lst);
     return lst;
 }
 
@@ -108,7 +108,7 @@ GUITriggerBuilder::buildChargingStation(MSNet& net, const std::string& id, MSLan
         throw InvalidArgument("Could not build charging station '" + id + "'; probably declared twice.");
     }
     myCurrentStop = chargingStation;
-    static_cast<GUINet&>(net).getVisualisationSpeedUp().addAdditionalGLObject(chargingStation);
+    static_cast<GUINet&>(net).registerRenderedObject(chargingStation);
 }
 
 
@@ -120,20 +120,20 @@ GUITriggerBuilder::buildOverheadWireSegment(MSNet& net, const std::string& id, M
         delete overheadWire;
         throw InvalidArgument("Could not build overheadWireSegment '" + id + "'; probably declared twice.");
     }
-    static_cast<GUINet&>(net).getVisualisationSpeedUp().addAdditionalGLObject(overheadWire);
+    static_cast<GUINet&>(net).registerRenderedObject(overheadWire);
 }
 
 void
 GUITriggerBuilder::buildOverheadWireClamp(MSNet& net, const std::string& id, MSLane* lane_start, MSLane* lane_end) {
     GUIOverheadWireClamp* overheadWireClamp = new GUIOverheadWireClamp(id, *lane_start, *lane_end);
-    static_cast<GUINet&>(net).getVisualisationSpeedUp().addAdditionalGLObject(overheadWireClamp);
+    static_cast<GUINet&>(net).registerRenderedObject(overheadWireClamp);
 }
 
 
 void
 GUITriggerBuilder::endParkingArea() {
     if (myParkingArea != nullptr) {
-        static_cast<GUINet*>(MSNet::getInstance())->getVisualisationSpeedUp().addAdditionalGLObject(static_cast<GUIParkingArea*>(myParkingArea));
+        static_cast<GUINet*>(MSNet::getInstance())->registerRenderedObject(static_cast<GUIParkingArea*>(myParkingArea));
         myParkingArea = nullptr;
     } else {
         throw InvalidArgument("Could not end a parking area that is not opened.");
@@ -144,7 +144,7 @@ GUITriggerBuilder::endParkingArea() {
 void
 GUITriggerBuilder::endStoppingPlace() {
     if (myCurrentStop != nullptr) {
-        static_cast<GUINet*>(MSNet::getInstance())->getVisualisationSpeedUp().addAdditionalGLObject(dynamic_cast<GUIGlObject*>(myCurrentStop));
+        static_cast<GUINet*>(MSNet::getInstance())->registerRenderedObject(dynamic_cast<GUIGlObject*>(myCurrentStop));
         myCurrentStop = nullptr;
     } else {
         throw InvalidArgument("Could not end a stopping place that is not opened.");

@@ -294,6 +294,9 @@ public:
         return secondary ? myGrid2 : myGrid;
     }
 
+    /// @brief add object into rtree
+    void registerRenderedObject(GUIGlObject *o);
+
     /** @brief Returns the vehicle control
      * @return The vehicle control
      * @see MSVehicleControl

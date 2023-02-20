@@ -362,6 +362,12 @@ GUINet::initGUIStructures() {
 }
 
 
+void
+GUINet::registerRenderedObject(GUIGlObject *o) {
+    getVisualisationSpeedUp().addAdditionalGLObject(o);
+}
+
+
 int
 GUINet::getWholeDuration() const {
     return myLastSimDuration +/*myLastVisDuration+*/myLastIdleDuration;
