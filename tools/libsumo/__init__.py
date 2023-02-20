@@ -30,6 +30,7 @@ from traci.step import StepManager, StepListener  # noqa
 from .libsumo import vehicle, simulation, person, trafficlight, edge  # noqa
 from .libsumo import TraCIStage, TraCINextStopData, TraCIReservation, TraCILogic, TraCIPhase, TraCIException  # noqa
 from .libsumo import TraCICollision, TraCISignalConstraint  # noqa
+from ._libsumo import TraCILogic_phases_get, TraCILogic_phases_set  # noqa
 from .libsumo import *  # noqa
 
 DOMAINS = [
@@ -80,6 +81,13 @@ TraCINextStopData.__repr__ = _vehicle.StopData.__repr__
 TraCIReservation.__attr_repr__ = _person.Reservation.__attr_repr__
 TraCIReservation.__repr__ = _person.Reservation.__repr__
 
+
+def set_phases(self, phases):
+    new_phases = [TraCIPhase(p.duration, p.state, p.minDur, p.maxDur, p.next, p.name) for p in phases]
+    TraCILogic_phases_set(self, new_phases)
+
+
+TraCILogic.phases = property(TraCILogic_phases_get, set_phases)
 TraCILogic.getPhases = _trafficlight.Logic.getPhases
 TraCILogic.__repr__ = _trafficlight.Logic.__repr__
 TraCIPhase.__repr__ = _trafficlight.Phase.__repr__

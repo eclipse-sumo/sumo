@@ -16,25 +16,10 @@
 # @date    2011-03-16
 
 from __future__ import absolute_import
+from sumolib.net import Phase
 from .domain import Domain
 from . import constants as tc
 from .exceptions import TraCIException, deprecated
-
-
-class Phase:
-
-    def __init__(self, duration, state, minDur=-1, maxDur=-1, next=tuple(), name=""):
-        self.duration = duration
-        self.state = state
-        self.minDur = minDur  # minimum duration (only for actuated tls)
-        self.maxDur = maxDur  # maximum duration (only for actuated tls)
-        self.next = next
-        self.name = name
-
-    def __repr__(self):
-        name = "" if self.name == "" else ", name='%s'" % self.name
-        return ("Phase(duration=%s, state='%s', minDur=%s, maxDur=%s, next=%s%s)" %
-                (self.duration, self.state, self.minDur, self.maxDur, self.next, name))
 
 
 class Logic:

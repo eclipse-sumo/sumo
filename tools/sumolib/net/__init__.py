@@ -94,18 +94,18 @@ class TLS:
 
 class Phase:
 
-    def __init__(self, duration, state, minDur=-1, maxDur=-1, next=None, name=""):
+    def __init__(self, duration, state, minDur=-1, maxDur=-1, next=tuple(), name=""):
         self.duration = duration
         self.state = state
         self.minDur = minDur  # minimum duration (only for actuated tls)
         self.maxDur = maxDur  # maximum duration (only for actuated tls)
-        self.next = [] if next is None else next
+        self.next = next
         self.name = name
 
     def __repr__(self):
-        name = "" if self.name == "" else ", name='%s'" % self.name
-        next = "" if len(self.next) == 0 else ", next='%s'" % self.next
-        return ("Phase(duration=%s, state='%s', minDur=%s, maxDur=%s%s%s" %
+        name = (", name='%s'" % self.name) if self.name else ""
+        next = (", next='%s'" % str(self.next)) if self.next else ""
+        return ("Phase(duration=%s, state='%s', minDur=%s, maxDur=%s%s%s)" %
                 (self.duration, self.state, self.minDur, self.maxDur, name, next))
 
 
