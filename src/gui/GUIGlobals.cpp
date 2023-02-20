@@ -34,5 +34,6 @@ bool GUIGlobals::gDemoAutoReload = false;
 
 double GUIGlobals::gTrackerInterval = 1.0;
 
+bool GUIGlobals::gSecondaryShape = false;
 
 /****************************************************************************/

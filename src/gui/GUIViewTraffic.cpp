@@ -33,6 +33,7 @@
 #include <limits>
 #include <foreign/rtree/SUMORTree.h>
 #include <gui/GUIApplicationWindow.h>
+#include <gui/GUIGlobals.h>
 #include <guisim/GUIEdge.h>
 #include <guisim/GUILane.h>
 #include <guisim/GUINet.h>
@@ -382,6 +383,7 @@ GUIViewTraffic::doPaintGL(int mode, const Boundary& bound) {
     glEnable(GL_POLYGON_OFFSET_LINE);
     const SUMORTree& grid = GUINet::getGUIInstance()->getVisualisationSpeedUp(myVisualizationSettings->secondaryShape);
     int hits2 = grid.Search(minB, maxB, *myVisualizationSettings);
+    GUIGlobals::gSecondaryShape = myVisualizationSettings->secondaryShape;
     // Draw additional objects
     if (myAdditionallyDrawn.size() > 0) {
         glTranslated(0, 0, -.01);

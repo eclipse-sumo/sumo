@@ -416,7 +416,7 @@ GUIBaseVehicle::getExaggeration(const GUIVisualizationSettings& s) const {
 Boundary
 GUIBaseVehicle::getCenteringBoundary() const {
     Boundary b;
-    b.add(getPosition());
+    b.add(getVisualPosition(GUIGlobals::gSecondaryShape));
     b.grow(myVehicle.getVehicleType().getLength());
     return b;
 }

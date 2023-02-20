@@ -44,4 +44,7 @@ public:
 
     /// the aggregation period for tracker windows in seconds
     static double gTrackerInterval;
+
+    /// whether secondary shapes are currently being drawn
+    static bool gSecondaryShape;
 };
