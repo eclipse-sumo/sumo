@@ -731,11 +731,11 @@ list-style-type: none;
 }
 
 /* COPY CODE BLOCKS - based on https://www.roboleary.net/2022/01/13/copy-code-to-clipboard-blog.html */
-pre[class="codehilite"] {
+.codehilite > pre {
 position:relative;
 }
 
-copyCodeButton {
+.copyCodeButton {
 position:absolute;
 top:5px;
 right:5px;
@@ -748,7 +748,7 @@ border-radius:5px;
 text-shadow:#c4c4c4 0 0 2px;
 }
 
-copyCodeButton:hover {
+.copyCodeButton:hover {
 cursor:pointer;
 background-color:#bcbabb;
 }

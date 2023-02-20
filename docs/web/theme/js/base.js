@@ -223,7 +223,8 @@ let blocks = document.querySelectorAll("pre");
 blocks.forEach((block) => {
   // only add button if browser supports Clipboard API
   if (navigator.clipboard) {
-    let button = document.createElement("copyCodeButton");
+    let button = document.createElement("button");
+    button.classList.add("copyCodeButton");
     button.innerText = copyButtonLabel;
     button.addEventListener("click", copyCode);
     block.appendChild(button);
