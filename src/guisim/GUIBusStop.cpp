@@ -61,6 +61,9 @@ GUIBusStop::GUIBusStop(const std::string& id, SumoXMLTag element, const std::vec
     // see MSVehicleControl defContainerType
     myWidth = MAX2(1.0, ceil((double)personCapacity / getTransportablesAbreast()) * myTransportableDepth);
     initShape(lane.getShape(), myFGShape, myFGShapeRotations, myFGShapeLengths, myFGSignPos, myFGSignRot);
+    if (lane.getShape(true).size() > 0) {
+        initShape(lane.getShape(true), myFGShape2, myFGShapeRotations2, myFGShapeLengths2, myFGSignPos2, myFGSignRot2);
+    }
 }
 
 
@@ -188,22 +191,29 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
     GLHelper::setColor(color);
     const double exaggeration = getExaggeration(s);
     // only shrink the box but never enlarge it (only enlarge the sign)
-    GLHelper::drawBoxLines(myFGShape, myFGShapeRotations, myFGShapeLengths, myWidth * 0.5 * MIN2(1.0, exaggeration), 0, 0);
+    const bool s2 = s.secondaryShape;
+    if (s2) {
+        GLHelper::drawBoxLines(myFGShape2, myFGShapeRotations2, myFGShapeLengths2, myWidth * 0.5 * MIN2(1.0, exaggeration), 0, 0);
+    } else {
+        GLHelper::drawBoxLines(myFGShape, myFGShapeRotations, myFGShapeLengths, myWidth * 0.5 * MIN2(1.0, exaggeration), 0, 0);
+    }
+    const double signRot = s2 ? myFGSignRot2 : myFGSignRot;
+    const Position& signPos = s2 ? myFGSignPos2 : myFGSignPos;
     // draw details unless zoomed out to far
     if (s.drawDetail(s.detailSettings.stoppingPlaceDetails, exaggeration)) {
         GLHelper::pushMatrix();
         // draw the lines
         const double rotSign = MSGlobals::gLefthand ? 1 : -1;
         // Iterate over every line
-        const double lineAngle = s.getTextAngle(rotSign * myFGSignRot);
+        const double lineAngle = s.getTextAngle(rotSign * signRot);
         RGBColor lineColor = color.changedBrightness(-51);
-        const double textOffset = s.flippedTextAngle(rotSign * myFGSignRot) ? -1 : 1;
-        const double textOffset2 = s.flippedTextAngle(rotSign * myFGSignRot) ? -1 : 0.3;
+        const double textOffset = s.flippedTextAngle(rotSign * signRot) ? -1 : 1;
+        const double textOffset2 = s.flippedTextAngle(rotSign * signRot) ? -1 : 0.3;
         for (int i = 0; i < (int)myLines.size(); ++i) {
             // push a new matrix for every line
             GLHelper::pushMatrix();
             // traslate and rotate
-            glTranslated(myFGSignPos.x(), myFGSignPos.y(), 0);
+            glTranslated(signPos.x(), signPos.y(), 0);
             glRotated(lineAngle, 0, 0, 1);
             // draw line
             GLHelper::drawText(myLines[i].c_str(), Position(1.2, i * textOffset + textOffset2), .1, 1.f, lineColor, 0, FONS_ALIGN_LEFT);
@@ -216,7 +226,7 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::drawBoxLine(*i, RAD2DEG(accessOrigin.angleTo2D(*i)) - 90, accessOrigin.distanceTo2D(*i), .05);
         }
         // draw the sign
-        glTranslated(myFGSignPos.x(), myFGSignPos.y(), 0);
+        glTranslated(signPos.x(), signPos.y(), 0);
         int noPoints = 9;
         if (s.scale * exaggeration > 25) {
             noPoints = MIN2((int)(9.0 + (s.scale * exaggeration) / 10.0), 36);
@@ -228,21 +238,21 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::drawFilledCircle((double) 0.9, noPoints);
         if (s.drawDetail(s.detailSettings.stoppingPlaceText, exaggeration)) {
             if (myElement == SUMO_TAG_CONTAINER_STOP) {
-                GLHelper::drawText("C", Position(), .1, 1.6, color, myFGSignRot);
+                GLHelper::drawText("C", Position(), .1, 1.6, color, signRot);
             } else if (myElement == SUMO_TAG_TRAIN_STOP) {
-                GLHelper::drawText("T", Position(), .1, 1.6, color, myFGSignRot);
+                GLHelper::drawText("T", Position(), .1, 1.6, color, signRot);
             } else {
-                GLHelper::drawText("H", Position(), .1, 1.6, color, myFGSignRot);
+                GLHelper::drawText("H", Position(), .1, 1.6, color, signRot);
             }
         }
         GLHelper::popMatrix();
     }
     if (s.addFullName.show(this) && getMyName() != "") {
-        GLHelper::drawTextSettings(s.addFullName, getMyName(), myFGSignPos, s.scale, s.getTextAngle(myFGSignRot), GLO_MAX - getType());
+        GLHelper::drawTextSettings(s.addFullName, getMyName(), signPos, s.scale, s.getTextAngle(signRot), GLO_MAX - getType());
     }
     GLHelper::popMatrix();
     GLHelper::popName();
-    drawName(myFGSignPos, s.scale, s.addName, s.angle);
+    drawName(signPos, s.scale, s.addName, s.angle);
 }
 
 
@@ -254,7 +264,8 @@ GUIBusStop::getExaggeration(const GUIVisualizationSettings& s) const {
 
 Boundary
 GUIBusStop::getCenteringBoundary() const {
-    Boundary b = myFGShape.getBoxBoundary();
+    const PositionVector& shape = GUIGlobals::gSecondaryShape ? myFGShape2 : myFGShape;
+    Boundary b = shape.getBoxBoundary();
     b.grow(myWidth);
     for (const Position& p : myAccessCoords) {
         b.add(p);

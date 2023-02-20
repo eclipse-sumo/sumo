@@ -365,6 +365,11 @@ GUINet::initGUIStructures() {
 void
 GUINet::registerRenderedObject(GUIGlObject *o) {
     getVisualisationSpeedUp().addAdditionalGLObject(o);
+    if (OptionsCont::getOptions().isSet("alternative-net-file")) {
+        GUIGlobals::gSecondaryShape = true;
+        myGrid2.addAdditionalGLObject(o);
+        GUIGlobals::gSecondaryShape = false;
+    }
 }
 
 
