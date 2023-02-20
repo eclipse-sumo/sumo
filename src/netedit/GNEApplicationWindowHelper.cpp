@@ -17,10 +17,13 @@
 ///
 // The main window of Netedit (adapted from GUIApplicationWindow)
 /****************************************************************************/
+
+#include <netedit/templates.h>
 #include <netedit/elements/GNEAttributeCarrier.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/foxtools/MFXMenuCheckIcon.h>
 #include <utils/common/FileHelpers.h>
+#include <utils/handlers/TemplateHandler.h>
 #include <utils/options/OptionsLoader.h>
 #include <xercesc/sax/HandlerBase.hpp>
 #include <xercesc/sax/AttributeList.hpp>
@@ -2124,6 +2127,15 @@ GNEApplicationWindowHelper::GNESumoConfigHandler::loadSumoConfig() {
         neteditOptions.set("configuration-file", newConfiguration);
     }
     return true;
+}
+
+// ---------------------------------------------------------------------------
+// GNETools - methods
+// ---------------------------------------------------------------------------
+
+GNEApplicationWindowHelper::GNETools::GNETools() {
+    TemplateHandler::parseTemplate(myGenerateReroutersOptions, generateReroutersTemplate);
+    TemplateHandler::parseTemplate(myAddStops2RoutesOptions, addStops2RoutesTemplate);
 }
 
 // ---------------------------------------------------------------------------

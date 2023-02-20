@@ -461,8 +461,6 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPa
     mySumoOptions.setApplicationName("sumo", "Eclipse SUMO sumo Version " VERSION_STRING);
     // parse tool options
     TemplateHandler::parseTemplate(mySumoOptions, sumoTemplate);
-    TemplateHandler::parseTemplate(myGenerateReroutersOptions, generateReroutersTemplate);
-    TemplateHandler::parseTemplate(myAddStops2RoutesOptions, addStops2RoutesTemplate);
 }
 
 void

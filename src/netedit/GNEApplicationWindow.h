@@ -638,11 +638,8 @@ protected:
     /// @brief SUMO options container
     OptionsCont mySumoOptions;
 
-    /// @brief generateReroutes options container
-    OptionsCont myGenerateReroutersOptions;
-
-    /// @brief stops2Routes options container
-    OptionsCont myAddStops2RoutesOptions;
+    /// @brief tools
+    GNEApplicationWindowHelper::GNETools myTools;
 
     /// @brief flag for check if console options was already loaded
     bool myConsoleOptionsLoaded = true;
