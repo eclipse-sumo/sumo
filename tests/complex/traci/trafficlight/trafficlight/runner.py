@@ -56,8 +56,9 @@ phases.append(traci.trafficlight.Phase(10, "rrrrGGggrrrrGGgg", 0, 0))
 phases.append(traci.trafficlight.Phase(40, "rrrrGGggrrrrGGgg", 0, 0))
 phases.append(traci.trafficlight.Phase(20, "rrrrGGggrrrrGGgg", 0, 0))
 phases.append(traci.trafficlight.Phase(20, "rrrrGGggrrrrGGgg", 0, 0))
-phases.append(traci.trafficlight.Phase(20, "rrrrGGggrrrrGGgg", 0, 0))
 logic = traci.trafficlight.Logic("custom", 0, 0, phases)
+phases.append(sumolib.net.Phase(20, "rrrrGGggrrrrGGgg", 0, 0))
+logic.phases = phases
 traci.trafficlight.setProgramLogic(tlsID, logic)
 
 traci.trafficlight.setPhase(tlsID, 4)
