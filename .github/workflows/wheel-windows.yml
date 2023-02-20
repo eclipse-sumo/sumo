@@ -31,6 +31,7 @@ jobs:
     env:
       CC: cl
       CXX: cl
+      SUMO_LIBRARIES: D:\a\sumo\sumo\sumolibraries
 
     steps:
     - name: Cloning SUMO
