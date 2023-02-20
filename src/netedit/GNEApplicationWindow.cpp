@@ -459,8 +459,10 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPa
     // set SUMO Options descriptions
     mySumoOptions.setApplicationDescription(TL("A microscopic, multi-modal traffic simulation."));
     mySumoOptions.setApplicationName("sumo", "Eclipse SUMO sumo Version " VERSION_STRING);
-    // parse sumo options
+    // parse tool options
     TemplateHandler::parseTemplate(mySumoOptions, sumoTemplate);
+    TemplateHandler::parseTemplate(myGenerateReroutersOptions, generateReroutersTemplate);
+    TemplateHandler::parseTemplate(myAddStops2RoutesOptions, addStops2RoutesTemplate);
 }
 
 void
