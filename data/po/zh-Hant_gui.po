@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-21 10:33+0000\n"
+"PO-Revision-Date: 2023-02-21 12:19+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
@@ -6023,126 +6023,126 @@ msgstr "與架空電線夾起點連接的架空電線區段的識別名(ID)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3296
 msgid "ID of the overhead wire segment lane of overheadWireIDStartClamp"
-msgstr ""
+msgstr "架空電線開始夾(overheadWireIDStartClamp)的架空電線區段車道的識別名(ID)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3301
 msgid ""
 "ID of the overhead wire segment, to the end of which the overhead wire clamp "
 "is connected"
-msgstr ""
+msgstr "與架空電線夾終點連結的架空電線區段的識別名(ID)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3306
 msgid "ID of the overhead wire segment lane of overheadWireIDEndClamp"
-msgstr ""
+msgstr "架空電線終點夾(overheadWireIDEndClamp)的架空電線區段車道的識別名(ID)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3329
 msgid "The id of Route"
-msgstr ""
+msgstr "路徑識別名(id)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3334
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3366
 msgid ""
 "The edges the vehicle shall drive along, given as their ids, separated using "
 "spaces"
-msgstr ""
+msgstr "車輛行經的路段(使用空格分隔)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3339
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3371
 msgid "This route's color"
-msgstr ""
+msgstr "路徑的顏色"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3344
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3376
 msgid "The number of times that the edges of this route shall be repeated"
-msgstr ""
+msgstr "此路徑上的路段應該重複的次數"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3350
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3382
 msgid ""
 "When defining a repeating route with stops and those stops use the until "
 "attribute,"
-msgstr ""
+msgstr "在定義帶有停靠點的重複路徑時，這些停靠點使用 until 屬性，"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3351
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3383
 msgid "the times will be shifted forward by 'cycleTime' on each repeat"
-msgstr ""
+msgstr "每次重複時, 時間將通過週期時間(cycleTime)向前移動"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3398
 msgid "The id of VehicleType distribution"
-msgstr ""
+msgstr "車輛類型(VehicleType)分布的識別名(id)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3420
 msgid "The id of VehicleType"
-msgstr ""
+msgstr "車輛類型(VehicleType)的識別名(id)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3425
 msgid "Vehicle Type Distribution"
-msgstr ""
+msgstr "車輛類型分布"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3430
 msgid "An abstract vehicle class"
-msgstr ""
+msgstr "抽象的車輛類別"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3437
 msgid "This vehicle type's color"
-msgstr ""
+msgstr "此車輛類型的顏色"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3442
 msgid "The vehicle's netto-length (length) [m]"
-msgstr ""
+msgstr "車輛的淨長度(長度)[公尺]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3447
 msgid "Empty space after leader [m]"
-msgstr ""
+msgstr "領前者(leader)後的空白空間[公尺]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3452
 msgid "The vehicle's maximum velocity [m/s]"
-msgstr ""
+msgstr "車輛的最大速度[公尺/秒]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3457
 msgid ""
 "The vehicles expected multiplicator for lane speed limits (or a distribution "
 "specifier)"
-msgstr ""
+msgstr "車輛預期的車道速限乘數(multiplicator)(或是分配說明符(specifier))"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3462
 msgid "The vehicles desired maximum velocity (interacts with speedFactor)."
-msgstr ""
+msgstr "車輛期望的最大速度(與速度因素(speedFactor)交互作用)。"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3463
 msgid "Applicable when no speed Limit applies (bicycles, some motorways) [m/s]"
-msgstr ""
+msgstr "適用於無速度限制的情況（自行車、某些高速公路）[公尺/秒]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3468
 msgid "An abstract emission class"
-msgstr ""
+msgstr "抽象的排放物類別"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3474
 msgid "How this vehicle is rendered"
-msgstr ""
+msgstr "此車輛如何被呈現"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3480
 msgid "The vehicle's width [m] (only used for drawing)"
-msgstr ""
+msgstr "車輛寬度 [公尺] (只用於繪製)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3486
 msgid "The vehicle's height [m] (only used for drawing)"
-msgstr ""
+msgstr "車輛長度 [公尺] (只用於繪製)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3492
 msgid ""
 "Image file for rendering vehicles of this type (should be grayscale to allow "
 "functional coloring)"
-msgstr ""
+msgstr "用於呈現此類別車輛的圖像檔案(應為灰階標度以允許功能性著色)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3497
 msgid "The model used for changing lanes"
-msgstr ""
+msgstr "用於車道變換的模式"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3504
 msgid "The model used for car following"
-msgstr ""
+msgstr "用於跟車的模式"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3511
 msgid ""
