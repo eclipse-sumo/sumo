@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-21 13:50+0000\n"
+"PO-Revision-Date: 2023-02-21 14:12+0000\n"
 "Last-Translator: Pablo Alvarez Lopez <pablo.alvarezlopez@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -4278,32 +4278,32 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_EdgeType.cpp:113
 msgid "Undo delete edgeType '"
-msgstr ""
+msgstr "Deshacer eliminación de edgeType '"
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_EdgeType.cpp:121
 msgid "Redo create edgeType '"
-msgstr ""
+msgstr "Rehacer creación de edgeType '"
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_EdgeType.cpp:123
 msgid "Redo delete edgeType '"
-msgstr ""
+msgstr "Rehacer eliminación de edgeType '"
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_EnableAttribute.cpp:113
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_EnableAttribute.cpp:115
 msgid "Undo enable "
-msgstr ""
+msgstr "Deshacer activar "
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_EnableAttribute.cpp:113
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_EnableAttribute.cpp:115
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_EnableAttribute.cpp:123
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_EnableAttribute.cpp:125
 msgid " attribute in '"
-msgstr ""
+msgstr " atributo en '"
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_EnableAttribute.cpp:123
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_EnableAttribute.cpp:125
 msgid "Redo enable "
-msgstr ""
+msgstr "Rehacer activar "
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_Junction.cpp:109
 msgid "Undo create junction '"
