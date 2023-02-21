@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-21 14:35+0000\n"
+"PO-Revision-Date: 2023-02-21 14:47+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -5239,7 +5239,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1455
 msgid "sets custom speed limit for the connection"
-msgstr "Nutzerdefiniertes Geschwindigkeitslimit für die Verbindung setzen"
+msgstr "Nutzerdefinierte Geschwindigkeitsbegrenzung für die Verbindung setzen"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1461
 msgid "sets custom length for the connection"
@@ -5251,18 +5251,18 @@ msgstr "Nutzerdefinierter Shape für die Verbindung setzen"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1486
 msgid "if set to true, vehicles will make a turn in 2 steps"
-msgstr "wenn auf wahr gesetzt, wenden Fahrzeuge in 2 Schritten"
+msgstr "wenn auf \"true\" gesetzt, wenden Fahrzeuge in 2 Schritten"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1492
 msgid ""
 "set a custom edge type (for applying vClass-specific speed restrictions)"
 msgstr ""
-"Nutzerdefinierten Kantentyp setzen (zum Anwenden von Fahrzeugklassen "
-"spezifischen Geschwindigkeitsbeschränkungen)"
+"Nutzerdefinierten Kantentyp setzen (zum Anwenden von "
+"Fahrzeugklassenspezifischen Geschwindigkeitsbeschränkungen)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1498
 msgid "turning direction for this connection (computed)"
-msgstr "Wenderichtung für diese Verbindung (berechnet)"
+msgstr "Abbiegerichtung für diese Verbindung (berechnet)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1503
 msgid "link state for this connection (computed)"
@@ -5270,12 +5270,11 @@ msgstr "Linkstand für diese Verbindung (berechnet)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1533
 msgid "The id of bus stop"
-msgstr "Die ID der Bushaltestelle"
+msgstr "Die ID des Bushaltepunkts"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1538
 msgid "The name of the lane the bus stop shall be located at"
-msgstr ""
-"Der Name des Fahrstreifens, an der sich die Bushaltestelle befinden soll"
+msgstr "Der Name des Fahrstreifens, an der sich der Bushaltepunkt befinden soll"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1543
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1607
@@ -5307,7 +5306,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1553
 msgid "Name of busStop"
-msgstr "Name der Bushaltestelle"
+msgstr "Name des Bushaltepunkts (busStop)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1558
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1622
@@ -5329,8 +5328,8 @@ msgstr "Name der Bushaltestelle"
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4806
 msgid "If set, no error will be reported if element is placed behind the lane."
 msgstr ""
-"Wenn gesetzt, wird kein Fehler gemeldet, wenn das Element hinter dem "
-"Fahrstreifen platziert wird."
+"Wenn gesetzt, wird kein Fehler gemeldet, wenn das Element außerhalb der "
+"Fahrstreifengrenzen platziert wird."
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1559
 msgid ""
@@ -5369,8 +5368,8 @@ msgid ""
 "Meant to be the names of the bus lines that stop at this bus stop. This is "
 "only used for visualization purposes"
 msgstr ""
-"Sollen die Namen der Buslinien sein, die an dieser Bushaltestelle halten. "
-"Dies dient nur der Visualisierung"
+"Namen der Buslinien, die an dieser Bushaltestelle halten. Dies dient nur der "
+"Darstellung"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1571
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1635
@@ -5389,7 +5388,7 @@ msgstr "Optionale Platzdefinition für Fahrzeuge die an diesen Halt parken"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1583
 msgid "The RGBA color with which the busStop shall be displayed"
-msgstr "Die RGBA-Farbe, mit der die Bushaltestelle dargestellt werden soll"
+msgstr "Die RGBA-Farbe, mit welcher der Bushaltepunkt dargestellt werden soll"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1597
 msgid "The id of train stop"
@@ -6575,7 +6574,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3995
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4841
 msgid "BusStop associated with this stop"
-msgstr "Bushaltestelle, die diesem Haltepunkt zugeordnet ist"
+msgstr "Mit diesem Haltepunkt verknüpfter Bushaltepunkt (busStop)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4011
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4471
@@ -7465,8 +7464,8 @@ msgid ""
 "If set to true, edges/lanes which were not use by a vehicle during this "
 "period will not be written"
 msgstr ""
-"Wenn auf wahr gesetzt, werden Kanten/Fahrstreifen, die während dieser Zeit "
-"nicht von einem Fahrzeug benutzt wurden, nicht geschrieben"
+"Wenn auf \"true\" gesetzt, werden Kanten/Fahrstreifen, die während dieser "
+"Zeit nicht von einem Fahrzeug benutzt wurden, nicht geschrieben"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5791
 msgid "If set, junction internal edges/lanes will be written as well"
@@ -8088,7 +8087,7 @@ msgid ""
 "  Example: If you want to create a busStop with a length of 30 in the point "
 "100 of the lane:"
 msgstr ""
-"  Beispiel: Wenn eine Bushaltestelle mit einer Länge von 30 im Punkt 100 des "
+"  Beispiel: Wenn ein Bushaltepunkt mit einer Länge von 30 im Punkt 100 des "
 "Fahrstreifens erstellen werden soll:"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:233
