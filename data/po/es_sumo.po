@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-07 09:32+0000\n"
-"Last-Translator: Pablo Alvarez Lopez <pablo.alvarezlopez@dlr.de>\n"
+"PO-Revision-Date: 2023-02-21 13:12+0000\n"
+"Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
 "Language: es\n"
@@ -102,39 +102,42 @@ msgstr "Cargadas % calles (edges)."
 #: /home/micha/programming/sumo/src/activitygen/city/AGCity.cpp:427
 msgid "No street that allows passenger vehicles found in this city."
 msgstr ""
+"No se encuentran calles que permitan el tránsito de vehículos de pasajeros "
+"en esta ciudad."
 
 #: /home/micha/programming/sumo/src/activitygen/city/AGWorkPosition.cpp:126
 msgid "Work position already occupied. Cannot give it to another adult."
-msgstr ""
+msgstr "Puesto de trabajo ya ocupado. No se le puede asignar a otro adulto."
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFDetFlowLoader.cpp:76
 msgid "At least one value lies beyond given time boundaries."
-msgstr ""
+msgstr "Al menos un valor se encuentra más allá de los límites de tiempo dados."
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFDetFlowLoader.cpp:104
 msgid "At least one line does not contain the correct number of columns."
-msgstr ""
+msgstr "Al menos una línea no contiene el número correcto de columnas."
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFDetector.cpp:171
 msgid "Missing routes for detector '%'."
-msgstr ""
+msgstr "Faltan rutas para el detector '%'."
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFDetector.cpp:305
 #, c-format
 msgid "Detector '%' has no routes!?"
-msgstr ""
+msgstr "¿¡El detector '%' no tiene rutas!?"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFDetectorHandler.cpp:86
 msgid "Could not add detector '%' (probably the id is already used)."
 msgstr ""
+"No se pudo agregar el detector '%' (probablemente la id ya esté en uso)."
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFNet.cpp:113
 msgid "Computing detector types"
-msgstr ""
+msgstr "Computando tipos de detector"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFNet.cpp:142
 msgid "Computed detector types:"
-msgstr ""
+msgstr "Tipos de detectores computados:"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFNet.cpp:143
 #, c-format
@@ -158,7 +161,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFNet.cpp:281
 msgid "Could not close route for '%'"
-msgstr ""
+msgstr "No se pudo cerrar la ruta para '%'"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFNet.cpp:439
 #, c-format
@@ -177,12 +180,12 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFNet.cpp:591
 msgid "Removed detector '%' because no flows for him exist."
-msgstr ""
+msgstr "Se eliminó el detector '%' porque no existen flujos para él."
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFNet.cpp:614
 #, c-format
 msgid "Detector '%' has no flow."
-msgstr ""
+msgstr "El detector '%' no tiene flujo."
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFNet.cpp:701
 #, c-format
@@ -215,14 +218,15 @@ msgstr ""
 #: /home/micha/programming/sumo/src/dfrouter/dfrouter_main.cpp:70
 msgid "No detector file given (use --detector-files <FILE>)."
 msgstr ""
+"No se proporcionó ningún archivo detector (use --detector-files <ARCHIVO>)."
 
 #: /home/micha/programming/sumo/src/dfrouter/dfrouter_main.cpp:76
 msgid "Could not open detector file '%'"
-msgstr ""
+msgstr "No se pudo abrir el archivo de detector '%'"
 
 #: /home/micha/programming/sumo/src/dfrouter/dfrouter_main.cpp:88
 msgid "No detectors found."
-msgstr ""
+msgstr "No se encontraron detectores."
 
 #: /home/micha/programming/sumo/src/dfrouter/dfrouter_main.cpp:103
 #, c-format
@@ -231,19 +235,19 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/dfrouter/dfrouter_main.cpp:124
 msgid "Removing empty detectors"
-msgstr ""
+msgstr "Eliminando detectores vacíos"
 
 #: /home/micha/programming/sumo/src/dfrouter/dfrouter_main.cpp:128
 msgid "Scanning for empty detectors"
-msgstr ""
+msgstr "Buscando detectores vacíos"
 
 #: /home/micha/programming/sumo/src/dfrouter/dfrouter_main.cpp:143
 msgid "No source detectors found."
-msgstr ""
+msgstr "No se encontraron detectores fuente."
 
 #: /home/micha/programming/sumo/src/dfrouter/dfrouter_main.cpp:147
 msgid "Computing routes"
-msgstr ""
+msgstr "Computando rutas"
 
 #: /home/micha/programming/sumo/src/dfrouter/dfrouter_main.cpp:158
 msgid "The detector types are not defined; use in combination with a network"
@@ -279,16 +283,16 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/dfrouter/dfrouter_main.cpp:251
 msgid "Builds vehicle routes for SUMO using detector values."
-msgstr ""
+msgstr "Construye rutas de vehículos para SUMO utilizando valores de detector."
 
 #: /home/micha/programming/sumo/src/duarouter/RODUAFrame.cpp:216
 msgid "Routing algorithm '%' does not support weight-attribute '%'."
-msgstr ""
+msgstr "El algoritmo de enrutamiento '%' no admite el atributo de peso '%'."
 
 #: /home/micha/programming/sumo/src/duarouter/RODUAFrame.cpp:220
 #, c-format
 msgid "Routing algorithm '%' does not support bulk routing."
-msgstr ""
+msgstr "El algoritmo de enrutamiento '%' no admite el enrutamiento masivo."
 
 #: /home/micha/programming/sumo/src/duarouter/RODUAFrame.cpp:228
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:243
@@ -318,7 +322,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/duarouter/duarouter_main.cpp:151
 #: /home/micha/programming/sumo/src/marouter/marouter_main.cpp:180
 msgid "Unknown routing Algorithm '%'!"
-msgstr ""
+msgstr "¡Algoritmo de enrutamiento desconocido '%'!"
 
 #: /home/micha/programming/sumo/src/duarouter/duarouter_main.cpp:178
 #: /home/micha/programming/sumo/src/marouter/marouter_main.cpp:210
