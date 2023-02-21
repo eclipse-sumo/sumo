@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-21 14:12+0000\n"
+"PO-Revision-Date: 2023-02-21 14:26+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -4956,8 +4956,8 @@ msgid ""
 "The spreadType defines how to compute the lane geometry from the edge "
 "geometry (used for visualization)"
 msgstr ""
-"Der Ausbreitungstyp definiert, wie die Fahrstreifengeometrie aus der "
-"Kantengeometrie berechnet wird (wird zur Visualisierung verwendet)"
+"Das Attribut spreadType definiert, wie die Fahrstreifengeometrie aus der "
+"Kantengeometrie berechnet wird (wird zur Darstellungverwendet)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1026
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1108
@@ -4970,7 +4970,7 @@ msgid ""
 "Lane width for all lanes of this edge in meters (used for visualization)"
 msgstr ""
 "Fahrstreifenbreite für alle Fahrstreifen dieser Kante in Metern (wird zur "
-"Visualisierung verwendet)"
+"Darstellung verwendet)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1038
 msgid "The width of the sidewalk that should be added as an additional lane"
@@ -4992,14 +4992,14 @@ msgstr "Die maximal erlaubte Geschwindigkeit auf diesen Fahrstreifen in m/s"
 msgid ""
 "Lane width for all lanes of this lane in meters (used for visualization)"
 msgstr ""
-"Fahrstreifenbreite für alle Fahrstreifen dieses Fahrstreifens in Metern "
-"(wird zur Visualisierung verwendet)"
+"Fahrstreifenbreite für alle Fahrstreifen dieses Fahrstreifens in Metern ("
+"wird zur Darstellung verwendet)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1087
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2609
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2657
 msgid "Edge ID"
-msgstr "Kanten ID"
+msgstr "Kanten-ID"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1092
 msgid "The name of a node within the nodes-file the edge shall start at"
@@ -5021,7 +5021,7 @@ msgid ""
 "If the shape is given it should start and end with the positions of the from-"
 "node and to-node"
 msgstr ""
-"Wenn die Shape gegeben ist, sollte es starten und enden mit den Positionen "
+"Wenn der Shape gegeben ist, sollte es starten und enden mit den Positionen "
 "vom Ausgangs- und Endknoten"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1141
@@ -5030,7 +5030,7 @@ msgstr "Die Länge der Kante in Metern"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1153
 msgid "street name (need not be unique, used for visualization)"
-msgstr "Straßenname (sollte einmalig sein, wird zur Visualisierung verwendet)"
+msgstr "Straßenname (sollte einmalig sein, wird zur Darstellung verwendet)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1164
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1245
@@ -5042,14 +5042,14 @@ msgstr ""
 msgid ""
 "Custom position in which shape start (by default position of junction from)"
 msgstr ""
-"Nutzerdefinierte Position in welcher die Shape beginnt (standardmäßig "
+"Nutzerdefinierte Position in welcher der Shape beginnt (standardmäßig "
 "Position des Knotenpunkt von)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1175
 msgid ""
 "Custom position in which shape end (by default position of junction from)"
 msgstr ""
-"Nutzerdefinierte Position in welcher die Shape endet (standardmäßig Position "
+"Nutzerdefinierte Position in welcher der Shape endet (standardmäßig Position "
 "des Knotenpunkt von)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1180
@@ -5088,7 +5088,7 @@ msgstr "Geschwindigkeit in Metern pro Sekunde"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1239
 msgid "Width in meters (used for visualization)"
-msgstr "Breite in Metern (wird zur Visualisierung verwendet)"
+msgstr "Breite in Metern (wird zur Darstellung verwendet)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1251
 msgid "Enable or disable lane as acceleration lane"
