@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
 "PO-Revision-Date: 2023-02-21 15:59+0000\n"
-"Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
+"Last-Translator: Pablo Alvarez Lopez <pablo.alvarezlopez@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
 "Language: es\n"
@@ -2788,7 +2788,7 @@ msgstr "Prefijo para el nombre del calibrator"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:357
 msgid "Prefix for routeProbe naming"
-msgstr ""
+msgstr "Prefijo para el nombre de los routeProbes"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:360
 msgid "Prefix for variable speed sign naming"
