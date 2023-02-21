@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-21 13:16+0000\n"
+"PO-Revision-Date: 2023-02-21 13:27+0000\n"
 "Last-Translator: bcoueraud87 <benjamin.coueraud@dlr.de>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/fr/>\n"
@@ -1874,50 +1874,49 @@ msgid "Create persons."
 msgstr "Créer personnes."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:676
-#, fuzzy
 msgid "Person plan"
-msgstr "&Personnes"
+msgstr "Itinéraire pour personne"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:676
 msgid "Create person plans."
-msgstr ""
+msgstr "Créer itinéraires pour personnes."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:679
 #: /home/micha/programming/sumo/src/netedit/frames/GNETagSelector.cpp:179
 msgid "Container"
-msgstr ""
+msgstr "Conteneur"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:679
 msgid "Create containers."
-msgstr ""
+msgstr "Créer conteneurs."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:682
 msgid "Container plan"
-msgstr ""
+msgstr "Itinéraire pour conteneur"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:682
 msgid "Create container plans."
-msgstr ""
+msgstr "Créer itinéraires pour conteneurs."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:717
 msgid "&EdgeData"
-msgstr ""
+msgstr "&EdgeData"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:717
 msgid "Create edgeData elements."
-msgstr ""
+msgstr "Créer éléments edgeData."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:720
 msgid "Edge&Relation"
-msgstr ""
+msgstr "&Relation entre arêtes"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:720
 msgid "Create edgeRelation elements."
-msgstr ""
+msgstr "Créer des éléments relations entre arêtes."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:723
 msgid "TA&ZRelation"
-msgstr ""
+msgstr "Relation entre TAZ"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:723
 msgid "Create TAZRelation elements."
