@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-21 12:21+0000\n"
+"PO-Revision-Date: 2023-02-21 12:25+0000\n"
 "Last-Translator: bcoueraud87 <benjamin.coueraud@dlr.de>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/fr/>\n"
@@ -1637,51 +1637,51 @@ msgstr "Sauvegarder éléments additionnels dans autre fichier."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:422
 msgid "Reload Additionals"
-msgstr ""
+msgstr "Recharge éléments additionnels"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:422
 msgid "Reload additionals."
-msgstr ""
+msgstr "Recharge éléments additionnels."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:430
 msgid "Load Demand Elements..."
-msgstr ""
+msgstr "Charge éléments de demande..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:430
 msgid "Load demand elements."
-msgstr ""
+msgstr "Charge éléments de demande."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:436
 msgid "Save Demand Elements"
-msgstr ""
+msgstr "Sauvegarde éléments de demande"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:436
 msgid "Save demand elements."
-msgstr ""
+msgstr "Sauvegarde éléments de demande."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:440
 msgid "Save Demand Elements As..."
-msgstr ""
+msgstr "Sauvegarde éléments de demande en tant que..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:440
 msgid "Save demand elements to another file."
-msgstr ""
+msgstr "Sauvegarde éléments de demande vers autre fichier."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:446
 msgid "Reload Demand Elements"
-msgstr ""
+msgstr "Recharge éléments de demande"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:446
 msgid "Reload demand elements."
-msgstr ""
+msgstr "Recharge éléments de demande."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:454
 msgid "Load Data Elements..."
-msgstr ""
+msgstr "Charge éléments de demande..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:454
 msgid "Load data elements."
-msgstr ""
+msgstr "Charge éléments de données."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:460
 msgid "Save Data Elements"
