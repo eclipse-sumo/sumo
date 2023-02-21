@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-21 13:12+0000\n"
+"PO-Revision-Date: 2023-02-21 13:16+0000\n"
 "Last-Translator: bcoueraud87 <benjamin.coueraud@dlr.de>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/fr/>\n"
@@ -1862,17 +1862,16 @@ msgstr "Créer types (véhicules, personnes et conteneurs)."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:670
 msgid "Create stops."
-msgstr ""
+msgstr "Créer arrêts."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:673
 #: /home/micha/programming/sumo/src/netedit/GNEViewParent.cpp:576
-#, fuzzy
 msgid "Person"
-msgstr "&Personnes"
+msgstr "Personne"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:673
 msgid "Create persons."
-msgstr ""
+msgstr "Créer personnes."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:676
 #, fuzzy
