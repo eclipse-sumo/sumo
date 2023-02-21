@@ -571,7 +571,7 @@ GUIApplicationWindow::fillMenuBar() {
                                            TL("Run"), "A,space", TL("Start/ Resume the simulation."),
                                            GUIIconSubSys::getIcon(GUIIcon::START), this, MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALS);
     GUIDesigns::buildFXMenuCommandShortcut(myControlMenu,
-                                           TL("Stop"), "S,space", TL("Halt the simulation."),
+                                           TLC("Simulation", "Stop"), "S,space", TL("Halt the simulation."),
                                            GUIIconSubSys::getIcon(GUIIcon::STOP), this, MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK);
     GUIDesigns::buildFXMenuCommandShortcut(myControlMenu,
                                            TL("Step"), "D", TL("Perform one simulation step."),

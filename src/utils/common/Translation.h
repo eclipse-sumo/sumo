@@ -29,9 +29,28 @@
 // global definitions
 // ===========================================================================
 #ifdef HAVE_INTL
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4505) // Unreferenced local function has been removed
+#endif
+static const char*
+my_pgettext(const char* msg_ctxt_id, const char* msgid) {
+    const char* translation = dcgettext(NULL, msg_ctxt_id, LC_MESSAGES);
+    if (translation == msg_ctxt_id) {
+        return msgid;
+    }
+    return translation;
+}
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
+
+
 #define TL(string) gettext(string)
+#define TLC(context, string) my_pgettext(context "\004" string, string)
 #define TLF(string, ...) StringUtils::format(gettext(string), __VA_ARGS__)
 #else
 #define TL(string) (string)
+#define TLC(context, string) (string)
 #define TLF(string, ...) StringUtils::format(string, __VA_ARGS__)
 #endif
