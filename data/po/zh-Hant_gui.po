@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-21 14:26+0000\n"
+"PO-Revision-Date: 2023-02-21 14:33+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
@@ -6619,31 +6619,31 @@ msgstr "第一個流量的出發時間"
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4967
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4988
 msgid "probability for emitting a flow each second"
-msgstr ""
+msgstr "每秒注入流量的機率"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4968
 msgid "(not together with vehsPerHour or period)"
-msgstr ""
+msgstr "（不與 vehsPerHour 或週期一起使用）"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4974
 msgid "Number of flows per hour, equally spaced"
-msgstr ""
+msgstr "每小時流量的數量,等間隔"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4975
 msgid "(not together with period or probability or poisson)"
-msgstr ""
+msgstr "（不與週期,機率或帕松分布(poisson)一起使用）"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4981
 msgid "Insert equally spaced flows at that period"
-msgstr ""
+msgstr "在該周期內注入等間距的流量"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4982
 msgid "(not together with vehsPerHour or probability or poisson)"
-msgstr ""
+msgstr "（不與 vehsPerHour , 機率或帕松(poisson)分配一起使用）"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4989
 msgid "(not together with vehsPerHour or period or poisson)"
-msgstr ""
+msgstr "（不與 vehsPerHour ,週期或帕松(poisson)分配一起使用）"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4995
 msgid ""
