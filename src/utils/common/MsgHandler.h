@@ -132,7 +132,7 @@ public:
     virtual void beginProcessMsg(std::string msg, bool addType = true);
 
     /// @brief Ends a process information with predefined messages
-    virtual void endProcessMsg(bool success, long duration = -1);
+    virtual void endProcessMsg2(bool success, long duration = -1);
 
     /// @brief Ends a process information
     virtual void endProcessMsg(std::string msg);
@@ -269,10 +269,10 @@ private:
 #define WRITE_MESSAGE(msg) MsgHandler::getMessageInstance()->inform(msg);
 #define WRITE_MESSAGEF(...) MsgHandler::getMessageInstance()->informf(__VA_ARGS__);
 #define PROGRESS_BEGIN_MESSAGE(msg) MsgHandler::getMessageInstance()->beginProcessMsg((msg) + std::string(" ..."));
-#define PROGRESS_DONE_MESSAGE() MsgHandler::getMessageInstance()->endProcessMsg(true);
+#define PROGRESS_DONE_MESSAGE() MsgHandler::getMessageInstance()->endProcessMsg2(true);
 #define PROGRESS_BEGIN_TIME_MESSAGE(msg) SysUtils::getCurrentMillis(); MsgHandler::getMessageInstance()->beginProcessMsg((msg) + std::string(" ..."));
-#define PROGRESS_TIME_MESSAGE(before) MsgHandler::getMessageInstance()->endProcessMsg(true, SysUtils::getCurrentMillis() - before);
-#define PROGRESS_FAILED_MESSAGE() MsgHandler::getMessageInstance()->endProcessMsg(false);
+#define PROGRESS_TIME_MESSAGE(before) MsgHandler::getMessageInstance()->endProcessMsg2(true, SysUtils::getCurrentMillis() - before);
+#define PROGRESS_FAILED_MESSAGE() MsgHandler::getMessageInstance()->endProcessMsg2(false);
 #define WRITE_ERROR(msg) MsgHandler::getErrorInstance()->inform(msg);
 #define WRITE_ERRORF(...) MsgHandler::getErrorInstance()->informf(__VA_ARGS__);
 #define WRITE_DEBUG(msg) if(MsgHandler::writeDebugMessages()){MsgHandler::getDebugInstance()->inform(msg);};

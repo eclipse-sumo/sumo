@@ -147,7 +147,7 @@ MsgHandler::beginProcessMsg(std::string msg, bool addType) {
 
 
 void
-MsgHandler::endProcessMsg(bool success, long duration) {
+MsgHandler::endProcessMsg2(bool success, long duration) {
     if (success) {
         if (duration > -1) {
             endProcessMsg(TLF("done (%ms).", toString(duration)));
