@@ -34,6 +34,9 @@ Please be aware that changing a translatable string in the code (even if you jus
 will invalidate (i.e. remove) all translations. This does not mean you should not do it, you
 should just review the changes to the translation files as well.
 
+The translations should not be applied to debug and developer messages. This includes everything
+in src/foreign, src/libsumo, src/libtraci, src/traci_testclient and unittest.
+
 # Using translations
 
 Until we have a sufficient amount of translated strings the translations are disabled by default.
