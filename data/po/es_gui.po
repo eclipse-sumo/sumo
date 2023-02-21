@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
 "PO-Revision-Date: 2023-02-21 08:51+0000\n"
-"Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
+"Last-Translator: Pablo Alvarez Lopez <pablo.alvarezlopez@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
 "Language: es\n"
@@ -6042,27 +6042,27 @@ msgstr "Limite actual de la línea de alimentación"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3238
 msgid "Overhead wire segment ID"
-msgstr ""
+msgstr "Identificador del segmento de la línea aérea"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3243
 msgid "Substation to which the circuit is connected"
-msgstr ""
+msgstr "Subestación conectada al circuito"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3248
 msgid "List of consecutive lanes of the circuit"
-msgstr ""
+msgstr "Lista de carriles (lanes) consecutivos del circuito"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3253
 msgid "Starting position in the specified lane"
-msgstr ""
+msgstr "Posición de inicio en el carril (lane) especificado"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3254
 msgid "0.0"
-msgstr ""
+msgstr "0.0"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3259
 msgid "Ending position in the specified lane"
-msgstr ""
+msgstr "Posición final en el carril (lane) especificado"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3273
 msgid "Inner lanes, where placing of overhead wire is restricted"
