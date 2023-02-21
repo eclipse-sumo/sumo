@@ -676,7 +676,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 }
                 break;
             default:
-                throw ProcessError(TL("Unknown Message ID in onCmdLocate"));
+                throw ProcessError("Unknown Message ID in onCmdLocate");
         }
         if (*chooserLoc) {
             // restore focus in the existent chooser dialog
