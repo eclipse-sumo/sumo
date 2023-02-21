@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
 "PO-Revision-Date: 2023-02-21 14:47+0000\n"
-"Last-Translator: Pablo Alvarez Lopez <pablo.alvarezlopez@dlr.de>\n"
+"Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
 "Language: es\n"
@@ -5443,7 +5443,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1791
 msgid "Charging power in W"
-msgstr ""
+msgstr "Potencia de carga en W"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1797
 msgid "Charging efficiency [0,1]"
@@ -5454,6 +5454,8 @@ msgid ""
 "Enable or disable charge in transit, i.e. vehicle must or must not to stop "
 "for charging"
 msgstr ""
+"Habilitar o deshabilitar la carga en movimiento, es decir, el vehículo debe "
+"o no detenerse para cargar"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1810
 msgid ""
@@ -6262,11 +6264,11 @@ msgstr "El tiempo requerido por una persona para abordar el vehículo"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3527
 msgid "The time required to load a container onto the vehicle"
-msgstr ""
+msgstr "El tiempo necesario para cargar un contenedor en el vehículo"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3533
 msgid "The preferred lateral alignment when using the sublane-model"
-msgstr ""
+msgstr "La alineación lateral preferida, al usar el modelo de sub-carril"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3540
 msgid ""
@@ -6276,7 +6278,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3546
 msgid "The maximum lateral speed when using the sublane-model"
-msgstr ""
+msgstr "La velocidad lateral máxima cuando se usa el modelo de sub-carril"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3552
 msgid ""
@@ -6336,7 +6338,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3657
 msgid "The id of trip"
-msgstr ""
+msgstr "La id del viaje"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3668
 msgid "The name of the junction the trip starts at"
