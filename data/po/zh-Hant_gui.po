@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-21 13:27+0000\n"
+"PO-Revision-Date: 2023-02-21 13:50+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
@@ -6310,88 +6310,88 @@ msgstr "流量結束的路口的名稱"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3872
 msgid "The id of the route the flow shall drive along"
-msgstr ""
+msgstr "流量應該行經的路徑的識別名(id)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3877
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3914
 msgid "The index of the edge within route the flow starts at"
-msgstr ""
+msgstr "流量在其路徑上開始的路段的指數(index)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3882
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3919
 msgid "The index of the edge within route the flow ends at"
-msgstr ""
+msgstr "流量在其路徑上結束的路段的指數(index)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3903
 msgid "The name of the flow"
-msgstr ""
+msgstr "流量的名稱"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3956
 msgid "The name of the lane the stop shall be located at"
-msgstr ""
+msgstr "停靠站應位於的車道的名稱"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3979
 msgid "The lateral offset on the named lane at which the vehicle must stop"
-msgstr ""
+msgstr "車輛必須停靠於指定車道的側向偏移值"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3995
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4841
 msgid "BusStop associated with this stop"
-msgstr ""
+msgstr "與此停靠點相關的公車站"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4011
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4471
 msgid "ContainerStop associated with this stop"
-msgstr ""
+msgstr "與此停靠點相關的容器停靠點(ContainerStop)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4027
 msgid "ChargingStation associated with this stop"
-msgstr ""
+msgstr "與此停靠點相關的充電站(ChargingStation)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4043
 msgid "ParkingArea associated with this stop"
-msgstr ""
+msgstr "與此停靠點相關的停車區域"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4067
 msgid "The name of the lane the waypoint shall be located at"
-msgstr ""
+msgstr "定位點(waypoint)應位於的車道的名稱"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4090
 msgid "The lateral offset on the named lane at which the vehicle must waypoint"
-msgstr ""
+msgstr "車輛必須在已指定車道上定點的側向偏移值"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4106
 msgid "BusWaypoint associated with this waypoint"
-msgstr ""
+msgstr "與此定位點相關的公車定點(BusWaypoint)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4122
 msgid "ContainerWaypoint associated with this waypoint"
-msgstr ""
+msgstr "與此定位點相關的容器定點(ContainerWaypoint)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4138
 msgid "ChargingStation associated with this waypoint"
-msgstr ""
+msgstr "與此定點相關的充電站"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4154
 msgid "ParkingArea associated with this waypoint"
-msgstr ""
+msgstr "與此定點相關的停車場區域"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4182
 msgid "The time step at which the person shall enter the network"
-msgstr ""
+msgstr "人員應進入路網的時間步長"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4222
 msgid "The time step at which the container shall enter the network"
-msgstr ""
+msgstr "容器(container)應該進入路網的時間步長"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4258
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4288
 msgid "The name of the edge the transport starts at"
-msgstr ""
+msgstr "運送開始的路段的名稱"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4263
 msgid "The name of the edge the transport ends at"
-msgstr ""
+msgstr "運送結束的路段的名稱"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4268
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4336
@@ -6399,12 +6399,12 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4636
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4743
 msgid "arrival position on the destination edge"
-msgstr ""
+msgstr "目標路段上的抵達位置"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4274
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4298
 msgid "list of vehicle alternatives to take for the transport"
-msgstr ""
+msgstr "運送的替代車輛清單"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4293
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4361
