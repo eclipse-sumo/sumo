@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-21 14:33+0000\n"
+"PO-Revision-Date: 2023-02-21 14:35+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -5860,7 +5860,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2733
 msgid "The frequency in which to report the distribution"
-msgstr ""
+msgstr "La frecuencia con la que se debe reportar la distribución"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2739
 msgid "Name of route probe"
@@ -6196,7 +6196,7 @@ msgstr "Espacio libre tras el líder [m]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3452
 msgid "The vehicle's maximum velocity [m/s]"
-msgstr ""
+msgstr "La velocidad máxima del vehículo [m/s]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3457
 msgid ""
@@ -6206,7 +6206,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3462
 msgid "The vehicles desired maximum velocity (interacts with speedFactor)."
-msgstr ""
+msgstr "La velocidad máxima deseada del vehículo (interactúa con speedFactor)."
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3463
 msgid "Applicable when no speed Limit applies (bicycles, some motorways) [m/s]"
@@ -6214,7 +6214,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3468
 msgid "An abstract emission class"
-msgstr ""
+msgstr "Una clase de emisión abstracta"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3474
 msgid "How this vehicle is rendered"
