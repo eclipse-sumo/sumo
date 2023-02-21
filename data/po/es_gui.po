@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
 "PO-Revision-Date: 2023-02-21 14:33+0000\n"
-"Last-Translator: Pablo Alvarez Lopez <pablo.alvarezlopez@dlr.de>\n"
+"Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
 "Language: es\n"
@@ -5765,15 +5765,15 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2508
 msgid "Number of vehicless per hour, equally spaced"
-msgstr ""
+msgstr "Número de vehículos por hora, distribuidos uniformemente"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2514
 msgid "Vehicle's speed"
-msgstr ""
+msgstr "Velocidad del vehículo"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2529
 msgid "The id of Rerouter"
-msgstr ""
+msgstr "La id del rerouter"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2534
 msgid "An edge id or a list of edge ids where vehicles shall be rerouted"
@@ -5781,60 +5781,66 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2539
 msgid "X,Y position in editor (Only used in netedit)"
-msgstr ""
+msgstr "posición X,Y en el editor (únicamente usado en netedit)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2545
 msgid "Name of Rerouter"
-msgstr ""
+msgstr "Nombre del rerouter"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2550
 msgid "The probability for vehicle rerouting (0-1)"
-msgstr ""
+msgstr "La probabilidad de cambio de ruta del vehículo (0-1)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2556
 msgid ""
 "The waiting time threshold (in s) that must be reached to activate rerouting "
 "(default -1 which disables the threshold)"
 msgstr ""
+"El umbral de tiempo de espera (en s) que se debe alcanzar para activar el "
+"cambio de ruta (por defecto es -1, lo que deshabilita el umbral)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2562
 msgid ""
 "The list of vehicle types that shall be affected by this rerouter (empty to "
 "affect all types)"
 msgstr ""
+"La lista de tipos de vehículos que se verán afectados por este desvío (dejar "
+"vacío para afectar a todos los tipos)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2567
 msgid ""
 "Whether the router should be inactive initially (and switched on in the gui)"
 msgstr ""
+"Si el desvío (router) debe estar inactivo inicialmente (y ser encendido en "
+"la gui)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2589
 msgid "Begin"
-msgstr ""
+msgstr "Inicio"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2595
 msgid "End"
-msgstr ""
+msgstr "Fin"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2615
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2639
 msgid "allowed vehicles"
-msgstr ""
+msgstr "vehículos permitidos"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2620
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2644
 msgid "disallowed vehicles"
-msgstr ""
+msgstr "vehículos prohibidos"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2633
 msgid "Lane ID"
-msgstr ""
+msgstr "Id del carril (lane)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2663
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2683
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2709
 msgid "SUMO Probability"
-msgstr ""
+msgstr "Probabilidad SUMO"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2677
 msgid "ParkingArea ID"
