@@ -30,7 +30,7 @@ PC_G_EU4 for the new model), resembling passenger vehicles, Euro Norm
 4, powered by Diesel (PKW_D_EU4) and gasoline (PKW_G_EU4).
 
 !!! caution
-    Only two emission classes are included in the public version. Any further vehicle classes must be licensed from the TU Graz.
+    Only two emission classes are included in the public version. Any further vehicle classes must be [licensed from the TU Graz](https://www.itna.tugraz.at/en/research/areas/em/simulation/phemlight.html).
 
 To use PHEMlight, you can set an additional search path to these input
 files using the configuration option **--phemlight-path** {{DT_FILE}} where {{DT_FILE}} is the path. Alternatively,
