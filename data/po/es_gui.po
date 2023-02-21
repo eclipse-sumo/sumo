@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
 "PO-Revision-Date: 2023-02-21 08:46+0000\n"
-"Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
+"Last-Translator: Pablo Alvarez Lopez <pablo.alvarezlopez@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
 "Language: es\n"
@@ -5909,126 +5909,136 @@ msgstr "Activa o desactiva usar la ruta del archivo de imagen de forma relativa"
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3019
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3096
 msgid "Angle of rendered image in degree"
-msgstr ""
+msgstr "Ángulo de renderizado de la imagen en grados"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2872
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2943
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3033
 msgid "The id of the POI"
-msgstr ""
+msgstr "El identificador del punto de interés (POI)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2877
 msgid "The position in view"
-msgstr ""
+msgstr "La posición en la vista"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2882
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2972
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3049
 msgid "The color with which the POI shall be displayed"
-msgstr ""
+msgstr "El color del punto de interés (POI)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2888
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2978
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3055
 msgid "A typename for the POI"
-msgstr ""
+msgstr "Tipo de punto de interés (POI)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2894
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2984
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3061
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3145
 msgid "Name of POI"
-msgstr ""
+msgstr "Nombre del punto de interés (POI)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2899
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2989
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3066
 msgid "The layer of the POI for drawing and selecting"
-msgstr ""
+msgstr "La capa del punto de interés (POI) para dibujar y seleccionar"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2905
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2995
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3072
 msgid "Width of rendered image in meters"
-msgstr ""
+msgstr "Ancho de renderizado de la imagen en metros"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2911
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3001
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3078
 msgid "Height of rendered image in meters"
-msgstr ""
+msgstr "Alto de renderizado de la imagen en metros"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2917
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3007
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3084
 msgid "A bitmap to use for rendering this POI"
-msgstr ""
+msgstr "Mapa de bits usado para renderizar el punto de interés (POI)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2948
 msgid "The name of the lane at which the POI is located at"
 msgstr ""
+"El nombre del carril (lane) en el que el punto de interés (POI) está "
+"localizado"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2953
 msgid ""
 "The position on the named lane or in the net in meters at which the POI is "
 "located at"
 msgstr ""
+"La posición en el carril (lane) o en la red en metros en la que se encuentra "
+"el punto de interés (POI)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2966
 msgid "The lateral offset on the named lane at which the POI is located at"
 msgstr ""
+"Posición lateral del carril (lane) en la que está situado el punto de "
+"interés (POI)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2973
 msgid "red"
-msgstr ""
+msgstr "rojo"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3039
 msgid "The longitud position of the parking vehicle on the view"
-msgstr ""
+msgstr "La longitud (posición) del vehículo aparcado en la vista"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3044
 msgid "The latitud position of the parking vehicle on the view"
-msgstr ""
+msgstr "La latitud (posición) del vehículo aparcado en la vista"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3118
 msgid "The id of the TAZ"
-msgstr ""
+msgstr "El identificador de la zona de análisis de tráfico (TAZ)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3123
 msgid "The shape of the TAZ"
-msgstr ""
+msgstr "La forma de la zona de análisis de tráfico (TAZ)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3128
 msgid "TAZ center"
-msgstr ""
+msgstr "Centro de la zona de análisis de tráfico (TAZ)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3133
 msgid "An information whether the TAZ shall be filled"
 msgstr ""
+"Activar o desactivar el dibujado de la zona de análisis de tráfico (TAZ) "
+"rellena"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3139
 msgid "The RGBA color with which the TAZ shall be displayed"
 msgstr ""
+"El Color RGBA (Rojo-Verde-Azul-Alfa) con el que se debe mostrar la zona de "
+"análisis de tráfico (TAZ)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3164
 msgid "Depart weight associated to this Edge"
-msgstr ""
+msgstr "Peso de salida asociado con esta calle (edge)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3184
 msgid "Arrival weight associated to this Edget"
-msgstr ""
+msgstr "Peso de llegada asociada con esta calle (edge)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3207
 msgid "Traction substation ID"
-msgstr ""
+msgstr "Identificador de la subestación de carga"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3218
 msgid "Voltage of at connection point for the overhead wire"
-msgstr ""
+msgstr "Voltaje del punto de conexión para los cables aéreos"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3224
 msgid "Current limit of the feeder line"
-msgstr ""
+msgstr "Limite actual de la línea de alimentación"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3238
 msgid "Overhead wire segment ID"
