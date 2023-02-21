@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-21 13:27+0000\n"
+"PO-Revision-Date: 2023-02-21 13:50+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -6271,23 +6271,23 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3564
 msgid "3D model file for this class"
-msgstr ""
+msgstr "archivo de modelo 3D para esta clase"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3569
 msgid "Carriage lengths"
-msgstr ""
+msgstr "Longitudes de vagón"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3574
 msgid "Locomotive lengths"
-msgstr ""
+msgstr "Longitudes de locomotora"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3579
 msgid "GAP between carriages"
-msgstr ""
+msgstr "Espacio entre vagones"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3612
 msgid "The ID of trip"
-msgstr ""
+msgstr "La ID del viaje"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3617
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3662
@@ -6854,12 +6854,12 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5162
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5168
 msgid "Peter Wagner 2009 parameter"
-msgstr ""
+msgstr "parámetro Peter Wagner 2009"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5174
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5180
 msgid "IDMM parameter"
-msgstr ""
+msgstr "parámetro IDMM"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5186
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5192
@@ -6871,12 +6871,12 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5228
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5234
 msgid "W99 parameter"
-msgstr ""
+msgstr "parámetro W99"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5240
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5245
 msgid "Wiedemann parameter"
-msgstr ""
+msgstr "parámetro Wiedemann"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5250
 msgid "MinGap factor parameter"
@@ -6884,11 +6884,11 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5255
 msgid "K parameter"
-msgstr ""
+msgstr "parámetro K"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5260
 msgid "Kerner Phi parameter"
-msgstr ""
+msgstr "parámetro Kerner Phi"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5265
 msgid "IDM Delta parameter"
@@ -6900,7 +6900,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5275
 msgid "Train Types"
-msgstr ""
+msgstr "Tipos de trenes"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5288
 msgid ""
@@ -6913,18 +6913,24 @@ msgid ""
 "The accumulated waiting time after which a vehicle will drive onto an "
 "intersection even though this might cause jamming."
 msgstr ""
+"El tiempo de espera acumulado después del cual un vehículo conducirá a una "
+"intersección incluso aunque esto pueda causar atascos."
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5300
 msgid ""
 "This value causes vehicles to violate a yellow light if the duration of the "
 "yellow phase is lower than the given threshold."
 msgstr ""
+"Este valor hace que los vehículos transgredan una luz amarilla, si la "
+"duración de la fase amarilla es inferior al umbral dado."
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5306
 msgid ""
 "This value causes vehicles to violate a red light if the duration of the red "
 "phase is lower than the given threshold."
 msgstr ""
+"Este valor hace que los vehículos transgredan una luz roja, si la duración "
+"de la fase roja es inferior al umbral dado."
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5312
 msgid ""
@@ -6937,15 +6943,19 @@ msgid ""
 "This value causes vehicles to ignore foe vehicles that have right-of-way "
 "with the given probability."
 msgstr ""
+"Este valor hace que los vehículos ignoren, con la probabilidad dada, a los "
+"vehículos contrarios que tienen derecho de paso."
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5324
 msgid "This value is used in conjunction with jmIgnoreFoeProb."
-msgstr ""
+msgstr "Este valor se usa en conjunto con jmIgnoreFoeProb."
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5325
 msgid ""
 "Only vehicles with a speed below or equal to the given value may be ignored."
 msgstr ""
+"Solo los vehículos con una velocidad inferior o igual al valor dado pueden "
+"ser ignorados."
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5331
 msgid ""
@@ -7459,11 +7469,11 @@ msgstr "Elemento principal"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDemandSelector.cpp:108
 msgid "select item..."
-msgstr ""
+msgstr "seleccionar ítem..."
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDemandSelector.cpp:110
 msgid "-Select an item in the list or"
-msgstr ""
+msgstr "-Seleccionar un ítem en la lista o"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDemandSelector.cpp:110
 msgid "click over an element in view"
@@ -7471,7 +7481,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDemandSelector.cpp:133
 msgid "select sub-item..."
-msgstr ""
+msgstr "seleccionar subelemento..."
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDemandSelector.cpp:136
 msgid "-Clicked over multiple"
@@ -7479,7 +7489,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDemandSelector.cpp:137
 msgid "elements"
-msgstr ""
+msgstr "elementos"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDemandSelector.cpp:138
 msgid " - Select an item in the"
@@ -7495,7 +7505,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDemandSelector.cpp:332
 msgid "Selected item '"
-msgstr ""
+msgstr "Item seleccionado '"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDemandSelector.cpp:332
 msgid "' in DemandElementSelector"
@@ -7531,7 +7541,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDrawingShape.cpp:60
 msgid "- 'Stop drawing' or ENTER to"
-msgstr ""
+msgstr "- 'Dejar de dibujar' o ENTER para"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDrawingShape.cpp:61
 msgid "  finish shape creation."
