@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
 "PO-Revision-Date: 2023-02-21 12:19+0000\n"
-"Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
+"Last-Translator: Pablo Alvarez Lopez <pablo.alvarezlopez@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
 "Language: es\n"
@@ -6313,63 +6313,68 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3673
 msgid "The name of the junction the trip ends at"
-msgstr ""
+msgstr "El nombre del cruce (junction) en el que el viaje (trip) termina"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3697
 msgid "The id of vehicle"
-msgstr ""
+msgstr "La identificación del vehículo"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3702
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3747
 msgid "The id of the vehicle type to use for this vehicle"
-msgstr ""
+msgstr "La identificación del tipo de vehículo a usar para este vehículo"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3713
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3753
 msgid "The index of the edge within route the vehicle starts at"
 msgstr ""
+"El índice de la calle (edge) dentro de la ruta en la que el vehículo debe "
+"empezar"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3718
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3758
 msgid "The index of the edge within route the vehicle ends at"
 msgstr ""
+"El índice de la calle (edge) dentro de la ruta en la que el vehículo debe "
+"terminar"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3726
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3766
 msgid "The time step at which the vehicle shall enter the network"
-msgstr ""
+msgstr "El instante de tiempo en el que el vehículo debe entrar a la red"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3742
 msgid "The ID of the vehicle"
-msgstr ""
+msgstr "La identificación del vehículo"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3782
 msgid "The ID of the flow"
-msgstr ""
+msgstr "La identificación del flujo (flow)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3787
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3829
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3866
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3908
 msgid "The id of the flow type to use for this flow"
-msgstr ""
+msgstr "La identificación del tipo de vehículo a usar para este flujo (flow)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3793
 msgid "The name of the edge the flow starts at"
-msgstr ""
+msgstr "El nombre de la calle (edge) en la que el flujo (flow) debe comenzar"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3798
 msgid "The name of the edge the flow ends at"
-msgstr ""
+msgstr "El nombre de la calle (edge) en la que el flujo (flow) debe terminar"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3803
 msgid "List of intermediate edge ids which shall be part of the flow"
 msgstr ""
+"Lista de calles (edges) intermedios que deben ser parte del flujo (flow)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3824
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3861
 msgid "The id of the flow"
-msgstr ""
+msgstr "La identificación del flujo (flow)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3835
 msgid "The name of the junction the flow starts at"
