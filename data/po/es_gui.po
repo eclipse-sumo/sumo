@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
 "PO-Revision-Date: 2023-02-21 13:50+0000\n"
-"Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
+"Last-Translator: Pablo Alvarez Lopez <pablo.alvarezlopez@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
 "Language: es\n"
@@ -1829,11 +1829,11 @@ msgstr "Crear puntos de interés (POI) y polígonos."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:604
 msgid "&Wire"
-msgstr "&Cable"
+msgstr "&Catenaria (Wire)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:604
 msgid "Create wires."
-msgstr "Crear cables."
+msgstr "Crear catenarias (wires)."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:661
 #: /home/micha/programming/sumo/src/netedit/GNEViewParent.cpp:590
@@ -2156,7 +2156,7 @@ msgstr "&Zonas de análisis de tráfico (TAZs)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1342
 msgid "&Wires"
-msgstr "&Cables (Wires)"
+msgstr "&Catenarias (wires)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1347
 msgid "&Polygons"
@@ -4009,11 +4009,11 @@ msgstr "Modo para crear polígonos y puntos de interés (POI). (P)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3581
 msgid "Set wire mode"
-msgstr "Ir al modo de cables (wire)"
+msgstr "Ir al modo de catenarias (wires)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3581
 msgid "Mode for editing wires. (W)"
-msgstr "Modo para editar cables. (W)"
+msgstr "Modo para editar catenarias (wires). (W)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3677
 msgid "Create route mode"
@@ -5875,7 +5875,7 @@ msgstr "Nombre del vaporizador"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2801
 msgid "The id of the polygon"
-msgstr "Identificador del polígono"
+msgstr "ID del polígono"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2806
 msgid "The shape of the polygon"
@@ -5928,7 +5928,7 @@ msgstr "Ángulo de renderizado de la imagen en grados"
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2943
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3033
 msgid "The id of the POI"
-msgstr "El identificador del punto de interés (POI)"
+msgstr "El ID del punto de interés (POI)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2877
 msgid "The position in view"
@@ -6011,7 +6011,7 @@ msgstr "La latitud (posición) del vehículo aparcado en la vista"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3118
 msgid "The id of the TAZ"
-msgstr "El identificador de la zona de análisis de tráfico (TAZ)"
+msgstr "El ID de la zona de análisis de tráfico (TAZ)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3123
 msgid "The shape of the TAZ"
@@ -6043,11 +6043,11 @@ msgstr "Peso de llegada asociada con esta calle (edge)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3207
 msgid "Traction substation ID"
-msgstr "Identificador de la subestación de carga"
+msgstr "ID de la subestación de carga"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3218
 msgid "Voltage of at connection point for the overhead wire"
-msgstr "Voltaje del punto de conexión para los cables aéreos"
+msgstr "Voltaje del punto de conexión para las catenarias (overhead wires)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3224
 msgid "Current limit of the feeder line"
@@ -6055,7 +6055,7 @@ msgstr "Limite actual de la línea de alimentación"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3238
 msgid "Overhead wire segment ID"
-msgstr "Identificador del segmento de la línea aérea"
+msgstr "ID del segmento de la catenaria (overhead wire)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3243
 msgid "Substation to which the circuit is connected"
@@ -6080,41 +6080,41 @@ msgstr "Posición final en el carril (lane) especificado"
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3273
 msgid "Inner lanes, where placing of overhead wire is restricted"
 msgstr ""
-"Carriles (lanes) internos, en los que situar un cable aéreo está restringido"
+"Carriles (lanes) internos, en los que situar una catenaria (overhead wire) "
+"está restringido"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3286
 msgid "Overhead wire clamp ID"
-msgstr "Identificador de la abrazadera de cables aéreos"
+msgstr "ID de la abrazadera de las catenarias (wires)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3291
 msgid ""
 "ID of the overhead wire segment, to the start of which the overhead wire "
 "clamp is connected"
 msgstr ""
-"Identificador del segmento de la línea aérea que en su comienzo está "
-"conectada la abrazadera de cables aéreos"
+"ID del segmento de la catenaria (overhead wire) que en su comienzo está "
+"conectada la abrazadera de la catenaria (overhead wire clamp)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3296
 msgid "ID of the overhead wire segment lane of overheadWireIDStartClamp"
 msgstr ""
-"Identificador del segmento de carril (lane) de la línea aérea de "
-"overheadWireIDStartClamp"
+"ID del segmento de carril (lane) de la catenaria (overheadWireIDStartClamp)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3301
 msgid ""
 "ID of the overhead wire segment, to the end of which the overhead wire clamp "
 "is connected"
 msgstr ""
-"Identificador del segmento de la línea aérea que en su final está conectada "
-"la abrazadera de cables aéreos"
+"ID del segmento de catenaria (overhead wire) que en su final está conectada "
+"la abrazadera de la catenaria (overhead wire clamp)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3306
 msgid "ID of the overhead wire segment lane of overheadWireIDEndClamp"
-msgstr "Identificador del segmento de la línea aérea de overheadWireIDEndClamp"
+msgstr "ID del segmento de la catenaria (overheadWireIDEndClamp)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3329
 msgid "The id of Route"
-msgstr "El identificador de la ruta"
+msgstr "El ID de la ruta"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3334
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3366
@@ -6122,8 +6122,8 @@ msgid ""
 "The edges the vehicle shall drive along, given as their ids, separated using "
 "spaces"
 msgstr ""
-"La lista de identificadores de calles (edges) por las que el vehículo debe "
-"circular, separadas por espacios"
+"La lista de IDs de calles (edges) por las que el vehículo debe circular, "
+"separadas por espacios"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3339
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3371
@@ -8169,7 +8169,7 @@ msgstr "Elementos de zona de análisis de tráfico (TAZ)"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETagSelector.cpp:164
 msgid "Wire elements"
-msgstr "Elementos de cableado"
+msgstr "Elementos de catenarias"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETagSelector.cpp:167
 msgid "Vehicles"
