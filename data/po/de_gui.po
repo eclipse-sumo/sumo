@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-21 13:12+0000\n"
+"PO-Revision-Date: 2023-02-21 13:16+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -3969,7 +3969,7 @@ msgstr "Vorfahrtsmodus einstellen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3545
 msgid "Mode for editing connection prohibitions. (H)"
-msgstr "Modus zum Bearbeiten von Verbindungs-Verboten. (H)"
+msgstr "Modus zum Ansehen von Vorfahrtregeln. (H)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3551
 msgid "Set traffic light mode"
