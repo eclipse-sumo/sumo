@@ -1179,7 +1179,7 @@ GNEAttributeCarrier::fillNetworkElements() {
 
         attrProperty = GNEAttributeProperties(GNE_ATTR_BIDIR,
                                               GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE, // virtual attribute to check of this edge is part of a bidirectional railway (cannot be edited)
-                                              TL("Show if edge is bidireccional"),
+                                              TL("Show if edge is bidirectional"),
                                               "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
