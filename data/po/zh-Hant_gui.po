@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-21 08:46+0000\n"
+"PO-Revision-Date: 2023-02-21 08:51+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
@@ -5816,19 +5816,19 @@ msgstr "蒸發裝置名稱"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2801
 msgid "The id of the polygon"
-msgstr ""
+msgstr "多邊形物件的識別名(id)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2806
 msgid "The shape of the polygon"
-msgstr ""
+msgstr "多邊形物件的形狀"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2811
 msgid "The RGBA color with which the polygon shall be displayed"
-msgstr ""
+msgstr "應被顯示的多邊形物件的顏色(RGBA)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2817
 msgid "An information whether the polygon shall be filled"
-msgstr ""
+msgstr "多邊形物件是否被填滿的資訊"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2823
 msgid "The default line width for drawing an unfilled polygon"
