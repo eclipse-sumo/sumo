@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-21 08:46+0000\n"
+"PO-Revision-Date: 2023-02-21 08:51+0000\n"
 "Last-Translator: bcoueraud87 <benjamin.coueraud@dlr.de>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/fr/>\n"
@@ -739,7 +739,7 @@ msgstr "Sauvegarder Etat Simulation"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1328
 msgid "Simulation state saved to '%'."
-msgstr ""
+msgstr "Etat simulation sauvegardé à '%'."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1336
 msgid "Load Simulation State"
@@ -747,21 +747,21 @@ msgstr "Charger Etat Simulation"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1348
 msgid "State loaded from '%'."
-msgstr ""
+msgstr "Etat chargé depuis '%'."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1350
 msgid "Failed to load state from '%' (%)."
-msgstr ""
+msgstr "Echec chargement état depuis '%' (%)."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1784
 #, c-format
 msgid "Loading of '%' failed!"
-msgstr ""
+msgstr "Chargement de '%' a échoué !"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1798
 #, c-format
 msgid "'%' loaded."
-msgstr ""
+msgstr "'%' chargé."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1996
 msgid "Simulation ended"
