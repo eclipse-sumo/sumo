@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-21 13:50+0000\n"
+"PO-Revision-Date: 2023-02-21 14:12+0000\n"
 "Last-Translator: bcoueraud87 <benjamin.coueraud@dlr.de>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/fr/>\n"
@@ -1988,6 +1988,8 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:838
 msgid "Clicking should apply state changes to all phases of TLS plan"
 msgstr ""
+"Cliquer devrait appliquer changements d'état à toutes les phases du "
+"programme de Feu de Circulation"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:843
 msgid "Ask for confirmation before merging junction"
