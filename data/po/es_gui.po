@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-21 13:12+0000\n"
+"PO-Revision-Date: 2023-02-21 13:16+0000\n"
 "Last-Translator: Pablo Alvarez Lopez <pablo.alvarezlopez@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -3176,27 +3176,27 @@ msgstr "Localizar una area peatonal (WalkingArea) dentro de la red. (Shift+W)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:344
 msgid "Locate Vehicles"
-msgstr ""
+msgstr "Localizar vehículos"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:344
 msgid "Locate a vehicle within the network. (Shift+V)"
-msgstr ""
+msgstr "Localizar vehículos dentro de la red. (Shift+V)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:348
 msgid "Locate Persons"
-msgstr ""
+msgstr "Localizar personas"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:348
 msgid "Locate a person within the network. (Shift+P)"
-msgstr ""
+msgstr "Localizar personas dentro de la red. (Shift+P)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:352
 msgid "Locate Route"
-msgstr ""
+msgstr "Localizar rutas"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:352
 msgid "Locate a route within the network. (Shift+R)"
-msgstr ""
+msgstr "Localizar rutas dentro de la red. (Shift+R)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:356
 msgid "Locate Stops"
