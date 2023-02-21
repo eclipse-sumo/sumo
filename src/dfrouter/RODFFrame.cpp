@@ -111,10 +111,10 @@ RODFFrame::fillOptions() {
     oc.addDescription("end-reroute-output", TL("Output"), TL("Saves rerouter definitions for sink detectors to FILE"));
 
     oc.doRegister("validation-output", new Option_FileName());
-    oc.addDescription("validation-output", TL("Output"), TL(""));
+    oc.addDescription("validation-output", TL("Output"), TL("Write induction loop definitions for the given detector positions to FILE"));
 
     oc.doRegister("validation-output.add-sources", new Option_Bool(false));
-    oc.addDescription("validation-output.add-sources", TL("Output"), TL(""));
+    oc.addDescription("validation-output.add-sources", TL("Output"), TL("Add source detectors to the validation output"));
 
 
     // register processing options
@@ -180,22 +180,22 @@ RODFFrame::fillOptions() {
     oc.addDescription("time-step", TL("Processing"), TL("Expected distance between two successive data sets"));
 
     // saving further structures
-    oc.doRegister("calibrator-output", new Option_Bool(false)); // !!!undescribed
+    oc.doRegister("calibrator-output", new Option_Bool(false));
     oc.addSynonyme("calibrator-output", "write-calibrators", true);
     oc.addDescription("calibrator-output", TL("Processing"), TL("Write calibrators to FILE"));
 
-    oc.doRegister("include-unused-routes", new Option_Bool(false)); // !!!undescribed
-    oc.addDescription("include-unused-routes", TL("Processing"), TL(""));
+    oc.doRegister("include-unused-routes", new Option_Bool(false));
+    oc.addDescription("include-unused-routes", TL("Processing"), TL("Include routes in the output which have no vehicles"));
 
     //
     oc.doRegister("revalidate-flows", new Option_Bool(false));
-    oc.addDescription("revalidate-flows", TL("Processing"), TL(""));
+    oc.addDescription("revalidate-flows", TL("Processing"), TL("Checks whether detectors with calculated flow 0 can attract additional traffic"));
 
     oc.doRegister("remove-empty-detectors", new Option_Bool(false));
     oc.addDescription("remove-empty-detectors", TL("Processing"), TL("Removes empty detectors from the list"));
 
-    oc.doRegister("strict-sources", new Option_Bool(false)); // !!!undescribed
-    oc.addDescription("strict-sources", TL("Processing"), TL(""));
+    oc.doRegister("strict-sources", new Option_Bool(false));
+    oc.addDescription("strict-sources", TL("Processing"), TL("Whether edges with unknown status can prevent an edge from becoming a source"));
 
     oc.doRegister("respect-concurrent-inflows", new Option_Bool(false));
     oc.addDescription("respect-concurrent-inflows", TL("Processing"), TL("Try to determine further inflows to an inbetween detector when computing split probabilities"));

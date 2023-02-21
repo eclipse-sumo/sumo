@@ -60,7 +60,7 @@ def generate_po(sumo_home, path, languages, pot_file, gui_pot_file, fuzzy):
     for pot, sources in pots.items():
         sources.close()
         subprocess.check_call([path + "xgettext", "--files-from=" + sources.name, "--from-code=UTF-8",
-                              "--keyword=TL", "--keyword=TLC:0c,1", "--keyword=TLF", "--output=" + pot + ".new",
+                              "--keyword=TL", "--keyword=TLC:1c,2", "--keyword=TLF", "--output=" + pot + ".new",
                               "--package-name=sumo", "--msgid-bugs-address=sumo-dev@eclipse.org"])
         os.remove(sources.name)
         has_diff = True
