@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-21 14:26+0000\n"
-"Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
+"PO-Revision-Date: 2023-02-21 14:33+0000\n"
+"Last-Translator: Pablo Alvarez Lopez <pablo.alvarezlopez@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
 "Language: es\n"
@@ -4622,19 +4622,19 @@ msgstr "Seleccionar paradas en conflicto"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:557
 msgid "Delete person plan"
-msgstr ""
+msgstr "Eliminar plan de personas"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:560
 msgid "Save invalid person plans"
-msgstr ""
+msgstr "Guardar planes de persona inválidos"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:563
 msgid "Select conflicted person plans"
-msgstr ""
+msgstr "Seleccionar planes de personas en conflicto"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixNetworkElements.cpp:52
 msgid "Fix network elements problems"
-msgstr ""
+msgstr "Arreglar problemas de elementos de red"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixNetworkElements.cpp:206
 msgid "Saving successfully"
@@ -4642,15 +4642,15 @@ msgstr "Guardado exitoso"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixNetworkElements.cpp:213
 msgid "Saving list of conflicted items failed"
-msgstr ""
+msgstr "El guardado de la lista de elementos en conflicto falló"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixNetworkElements.cpp:227
 msgid "Remove invalid edges"
-msgstr ""
+msgstr "Eliminar calles (edges) inválidos"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixNetworkElements.cpp:230
 msgid "Save invalid edges"
-msgstr ""
+msgstr "Guardar edges inválidos"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixNetworkElements.cpp:233
 msgid "Select conflicted edges"
@@ -4658,15 +4658,15 @@ msgstr "Seleccionar calles (edges) en conflicto"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixNetworkElements.cpp:308
 msgid "Remove invalid crossings"
-msgstr ""
+msgstr "Eliminar pasos peatonales (crossings) inválidos"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixNetworkElements.cpp:311
 msgid "Save invalid crossings"
-msgstr ""
+msgstr "Guardar pasos peatonales (crossings) inválidos"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixNetworkElements.cpp:314
 msgid "Select conflicted crossing"
-msgstr ""
+msgstr "Seleccionar paso peatonal (crossing) en conflicto"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:285
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:281
@@ -4720,7 +4720,7 @@ msgstr "Guardar archivo de plantilla de parámetros"
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:399
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:396
 msgid "- Parameters are defined by a Key and a Value.\n"
-msgstr ""
+msgstr "- Los parámetros se definen con una Clave y un valor.\n"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:404
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:400
@@ -4729,24 +4729,28 @@ msgid ""
 "- In Netedit can be defined using format key1=parameter1|"
 "key2=parameter2|...\n"
 msgstr ""
+"- en netedit se pueden definir usando el formato "
+"key1=parameter1|key2=parameter2|...\n"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:405
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:401
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:398
 msgid " - Duplicated and empty Keys aren't valid.\n"
-msgstr ""
+msgstr " - Las claves duplicadas o vacías no son válidas.\n"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:406
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:402
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:399
 msgid " - Whitespace and certain characters aren't allowed (@$%^&/|\\....)\n"
 msgstr ""
+" - Espacios en blanco y ciertos caracteres no están permitidos (@$%^&/|\\"
+"....)\n"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:448
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:447
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:444
 msgid "Key of Parameter not defined"
-msgstr ""
+msgstr "Clave del parámetro no definida"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:450
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:449
