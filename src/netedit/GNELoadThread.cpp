@@ -249,7 +249,7 @@ GNELoadThread::fillOptions(OptionsCont& neteditOptions) {
     neteditOptions.clear();
     neteditOptions.addCallExample("--new", TL("Start plain GUI with empty net"));
     neteditOptions.addCallExample("-s <SUMO_NET>", TL("Open a SUMO network"));
-    neteditOptions.addCallExample("-c <CONFIGURATION>", TL("Open a configuration file (netedit o NETCONVERT config)"));
+    neteditOptions.addCallExample("-c <CONFIGURATION>", TL("Open a configuration file (netedit or netconvert config)"));
     neteditOptions.addCallExample("-sumocfg-file <CONFIGURATION>", TL("Open a SUMO config file"));
 
     SystemFrame::addConfigurationOptions(neteditOptions); // this subtopic is filled here, too
