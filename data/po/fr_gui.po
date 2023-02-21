@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-21 12:25+0000\n"
+"PO-Revision-Date: 2023-02-21 13:12+0000\n"
 "Last-Translator: bcoueraud87 <benjamin.coueraud@dlr.de>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/fr/>\n"
@@ -1685,59 +1685,59 @@ msgstr "Charge éléments de données."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:460
 msgid "Save Data Elements"
-msgstr ""
+msgstr "Sauvegarde éléments de données"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:460
 msgid "Save data elements."
-msgstr ""
+msgstr "Sauvegarde éléments de données."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:464
 msgid "Save Data Elements As..."
-msgstr ""
+msgstr "Sauvegarde éléments de données en tant que..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:464
 msgid "Save data elements to another file."
-msgstr ""
+msgstr "Sauvegarde éléments de données vers autre fichier."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:470
 msgid "Reload Data Elements"
-msgstr ""
+msgstr "Recharge éléments de données"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:470
 msgid "Reload data elements."
-msgstr ""
+msgstr "Recharge éléments de données."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:478
 msgid "Load MeanDatas..."
-msgstr ""
+msgstr "Charge meanDatas..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:478
 msgid "Load meanDatas and shapes."
-msgstr ""
+msgstr "Charge meanDatas et formes."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:484
 msgid "Save MeanDatas"
-msgstr ""
+msgstr "Sauvegarde meanDatas"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:484
 msgid "Save meanDatas and shapes."
-msgstr ""
+msgstr "Sauvegarde meanDatas et formes."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:488
 msgid "Save MeanDatas As..."
-msgstr ""
+msgstr "Sauvegarde meanDatas en tant que..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:488
 msgid "Save meanData elements to another file."
-msgstr ""
+msgstr "Sauvegarde éléments meanData vers autre fichier."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:494
 msgid "Reload MeanDatas"
-msgstr ""
+msgstr "Recharge meanDatas"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:494
 msgid "Reload meanDatas."
-msgstr ""
+msgstr "Recharge meanDatas."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:514
 msgid "&Inspect"
@@ -1745,7 +1745,7 @@ msgstr "&Inspecter"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:514
 msgid "Inspect elements and change their attributes."
-msgstr ""
+msgstr "Inspecter éléments et changer leurs attributs."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:517
 msgid "&Delete"
@@ -1753,7 +1753,7 @@ msgstr "&Supprimer"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:517
 msgid "Delete elements."
-msgstr ""
+msgstr "Supprimer éléments."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:520
 msgid "&Select"
@@ -1761,7 +1761,7 @@ msgstr "&Sélectionner"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:520
 msgid "Select elements."
-msgstr ""
+msgstr "Sélectionner éléments."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:577
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:658
@@ -1771,96 +1771,94 @@ msgstr "&Déplacer"
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:577
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:658
 msgid "Move elements."
-msgstr ""
+msgstr "Déplacer éléments."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:580
 msgid "&Edge"
-msgstr ""
+msgstr "&Arête"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:580
 msgid "Create junction and edges."
-msgstr ""
+msgstr "Créer junction et arêtes."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:583
 msgid "&Connection"
-msgstr ""
+msgstr "&Connection"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:583
 msgid "Modes connections between lanes."
-msgstr ""
+msgstr "Modes de connection entre voies."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:586
 msgid "Pro&hibition"
-msgstr ""
+msgstr "&Interdiction"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:586
 msgid "Modes connection prohibitions."
-msgstr ""
+msgstr "Modes pour connexions non autorisées."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:589
 msgid "Modes traffic lights over junctions."
-msgstr ""
+msgstr "Modes de création de feux de circulation sur junctions."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:592
 msgid "Create additional elements."
-msgstr ""
+msgstr "Créer éléments additionnels."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:595
 msgid "C&rossing"
-msgstr ""
+msgstr "&Passage piéton"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:595
 msgid "Create crossings between edges."
-msgstr ""
+msgstr "Créer passage piétons entre arêtes."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:598
 msgid "TA&Z"
-msgstr ""
+msgstr "TA&Z"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:598
 msgid "Create Traffic Assignment Zones."
-msgstr ""
+msgstr "Créer des Zones d'Affectation de Traffic (TAZ)."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:601
 msgid "Create Points-Of-Interest and polygons."
-msgstr ""
+msgstr "Créer Points d'Intérêt (POI) et polygones."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:604
 msgid "&Wire"
-msgstr ""
+msgstr "&Caténaires"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:604
 msgid "Create wires."
-msgstr ""
+msgstr "Créer caténaires."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:661
 #: /home/micha/programming/sumo/src/netedit/GNEViewParent.cpp:590
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2703
-#, fuzzy
 msgid "Route"
-msgstr "&Route"
+msgstr "Route"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:661
 msgid "Create Routes."
-msgstr ""
+msgstr "Créer routes."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:664
 #: /home/micha/programming/sumo/src/netedit/GNEViewParent.cpp:529
-#, fuzzy
 msgid "Vehicle"
-msgstr "&Véhicules"
+msgstr "Véhicule"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:664
 msgid "Create vehicles."
-msgstr ""
+msgstr "Créer véhicules."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:667
 msgid "Type"
-msgstr ""
+msgstr "Type"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:667
 msgid "Create types (vehicles, person an containers)."
-msgstr ""
+msgstr "Créer types (véhicules, personnes et conteneurs)."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:670
 msgid "Create stops."
