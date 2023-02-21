@@ -6785,7 +6785,7 @@ msgstr "IDMM變數"
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5228
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5234
 msgid "W99 parameter"
-msgstr ""
+msgstr "W99 變數"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5240
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5245
