@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-21 10:33+0000\n"
+"PO-Revision-Date: 2023-02-21 12:19+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -2281,7 +2281,7 @@ msgstr "Berechne Daten neu"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1796
 msgid "Compute demand"
-msgstr "Berechne Nachfrage"
+msgstr "Nachfrage berechnen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1796
 msgid "Computes demand elements."
@@ -2289,7 +2289,7 @@ msgstr "Berechne Nachfrageelemente."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1799
 msgid "Clean routes"
-msgstr "Reinige Routen"
+msgstr "Bereinige Routen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1799
 msgid "Removes routes without vehicles."
@@ -2305,21 +2305,20 @@ msgstr "Verbinde Routen mit den selben Kanten."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1805
 msgid "Adjust person plans"
-msgstr "Anpassung Personenpläne"
+msgstr "Personenpläne anpassen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1805
 msgid "Adjust person plans (start/end positions, arrival positions, etc.)"
-msgstr ""
-"Verstelle Personenpläne (Start/Endpositionen, Ankunftspositionen, etc.)"
+msgstr "Passe Personenpläne (Start/Endpositionen, Ankunftspositionen, etc.) an"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1808
 msgid "Clean invalid route elements"
-msgstr "Reinige ungültige Routenelemente"
+msgstr "Ungültige Routenelemente entfernen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1808
 msgid "Clear elements with an invalid path (routes, Trips, Flows...)."
 msgstr ""
-"Reinige Elemente mit einem ungültigen Pfad (Routen, Fahrten, Flüsse...)."
+"Entferne Elemente mit einem ungültigen Pfad (Routen, Fahrten, Flüsse...)."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1814
 msgid "Sumo options"
@@ -2347,7 +2346,7 @@ msgstr "Öffnet einen Dialog zum Auffinden einer Kante."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1939
 msgid "&WalkingAreas"
-msgstr "&Gehwege"
+msgstr "&WalkingAreas"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1939
 msgid "Open a dialog for locating a Walking Area."
@@ -2436,16 +2435,16 @@ msgstr "Wähle Datenmodus."
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2104
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2108
 msgid "Could not load SUMO configuration '"
-msgstr "SUMO-Konfiguration konnte nicht geladen werden '"
+msgstr "Die folgende SUMO-Konfiguration konnte nicht geladen werden: '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2153
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2157
 msgid "Could not load netedit configuration '"
-msgstr "Konnte netedit-Konfiguration nicht laden '"
+msgstr "Die folgende netedit-Konfiguration konnte nicht geladen werden: '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2602
 msgid "Save Network file as"
-msgstr "Speicher Netz-Datei unter"
+msgstr "Netzdatei speichern unter"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2603
 msgid "SUMO Network files (*.net.xml)"
@@ -2513,7 +2512,7 @@ msgstr "Alle Dateien (*)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2617
 msgid "Open NetConvert file"
-msgstr "Öffne netconvert-Datei"
+msgstr "Netconvert-Datei öffnen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2618
 msgid "Netconvert files (*.netccfg)"
@@ -2521,11 +2520,11 @@ msgstr "Netconvert-Dateien (*.netccfg)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2626
 msgid "Save plain XML as"
-msgstr "Speichere \"Plain XML\" unter"
+msgstr "Plain XML speichern unter"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2632
 msgid "Save joined Junctions as"
-msgstr "Speichere vereinigte Knotenpunkte unter"
+msgstr "Vereinigte Knotenpunkte speichern unter"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2633
 msgid "Junction files (*.nod.xml)"
@@ -2533,7 +2532,7 @@ msgstr "Knotenpunktdateien (*.nod.xml)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2641
 msgid "Open OSM file"
-msgstr "Öffne OSM-Datei"
+msgstr "OSM-Datei öffnen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2642
 msgid "OSM net (*.osm.xml,*.osm)"
@@ -2541,7 +2540,7 @@ msgstr "OSM-Netz (*.osm.xml,*.osm)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2649
 msgid "Save netedit Config file as"
-msgstr "Speichere netedit-Konfigurationsdatei als"
+msgstr "Netedit-Konfigurationsdatei speichern unter"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2650
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2654
@@ -2550,7 +2549,7 @@ msgstr "netedit-Konfigurationsdateien (*.neteditcfg)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2653
 msgid "Open netedit Config file"
-msgstr "Öffne netedit-Konfigurationsdatei"
+msgstr "Netedit-Konfigurationsdatei öffnen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2663
 msgid "Save SUMO Config file as"
@@ -2563,11 +2562,11 @@ msgstr "sumo-Konfigurationsdateien (*.sumocfg)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2667
 msgid "Open SUMO Config file"
-msgstr "Öffne sumo-Konfigurationsdatei"
+msgstr "Sumo-Konfigurationsdatei öffnen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2677
 msgid "Save TLS file as"
-msgstr "Speichere LSA-Datei unter"
+msgstr "LSA-Datei speichern unter"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2678
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2683
@@ -2576,11 +2575,11 @@ msgstr "LSA-Dateien (*.tll.xml)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2682
 msgid "Open TLS file"
-msgstr "Öffne LSA-Datei"
+msgstr "LSA-Datei öffnen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2693
 msgid "Save EdgeType file as"
-msgstr "Speichere Kantentypendatei unter"
+msgstr "Kantentypendatei speichern unter"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2694
 msgid "EdgeType files (*.tll.xml)"
@@ -2588,7 +2587,7 @@ msgstr "Kantentypendateien (*.tll.xml)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2698
 msgid "Open EdgeType file"
-msgstr "Öffne Kantentypendatei"
+msgstr "Kantentypendatei öffnen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2699
 msgid "EdgeType files (*.typ.xml)"
@@ -2605,11 +2604,11 @@ msgstr "Dateien für weitere Elemente (*.add.xml)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2714
 msgid "Open Additionals file"
-msgstr "Öffne Datei mit weiteren Daten"
+msgstr "Datei mit weiteren Daten öffnen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2725
 msgid "Save Route file as"
-msgstr "Speichere Routendatei unter"
+msgstr "Routendatei speichern unter"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2726
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2731
@@ -2618,11 +2617,11 @@ msgstr "Routendateien (*.rou.xml)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2730
 msgid "Open Route file"
-msgstr "Öffne Routendatei"
+msgstr "Routendatei öffnen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2741
 msgid "Save Data file as"
-msgstr "Speicher Datendatei unter"
+msgstr "Datendatei speichern unter"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2742
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2747
@@ -2631,11 +2630,11 @@ msgstr "Datendateien (*.dat.xml)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2746
 msgid "Open Data file"
-msgstr "Öffne Datendatei"
+msgstr "Datendatei öffnen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2757
 msgid "Save MeanData file as"
-msgstr "Speichere MeanData-Datei unter"
+msgstr "MeanData-Datei speichern unter"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2758
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2763
@@ -2644,7 +2643,7 @@ msgstr "MeanData-Dateien (*.add.xml)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2762
 msgid "Open MeanData file"
-msgstr "Öffne MeanData-Datei"
+msgstr "MeanData-Datei öffnen"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:94
 #, c-format
@@ -2661,7 +2660,7 @@ msgid ""
 "Invalid input network option. Load with either sumo/netedit/netconvert "
 "config or with -new option"
 msgstr ""
-"Ungültige Option für Netz-Eingabedaten . Lade entweder mit sumo/netedit/"
+"Ungültige Option für Netz-Eingabedaten. Lade entweder mit sumo/netedit/"
 "netconvert config oder mit der Option -new"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:129
