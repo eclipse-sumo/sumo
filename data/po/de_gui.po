@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-21 13:50+0000\n"
+"PO-Revision-Date: 2023-02-21 14:12+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -4563,11 +4563,11 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixAdditionalElements.cpp:325
 msgid "Build connections between lanes"
-msgstr "Baue Verbindungen zwischen Spuren"
+msgstr "Baue Verbindungen zwischen Fahrstreifen"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixAdditionalElements.cpp:325
 msgid "New connections will be created between non-connected lanes"
-msgstr "Neue Verbindungen werden erstellt zwischen nicht verbunden Spuren"
+msgstr "Neue Verbindungen zwischen nicht verbunden Fahrstreifen werden erstellt"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixAdditionalElements.cpp:327
 msgid "Remove invalid E2 detectors"
@@ -4581,7 +4581,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:202
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixNetworkElements.cpp:189
 msgid "Save list of conflicted items"
-msgstr "Liste mit Konflikteinträgen speichern"
+msgstr "Liste mit ungültigen Elementen speichern"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:240
 msgid "Remove invalid routes"
@@ -4593,7 +4593,7 @@ msgstr "Ungültige Routen speichern"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:246
 msgid "Select conflicted routes"
-msgstr "Widersprüchliche Routen auswählen"
+msgstr "Ungültige Routen auswählen"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:249
 msgid "Remove stops out of route"
@@ -4609,7 +4609,7 @@ msgstr "Ungültige Fahrzeuge speichern"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:357
 msgid "Select conflicted vehicle"
-msgstr "Widersprüchliches Fahrzeug auswählen"
+msgstr "Ungültiges Fahrzeug auswählen"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:360
 msgid "Remove stops out of vehicle's route"
@@ -4617,7 +4617,7 @@ msgstr "Haltepunkte außerhalb von Fahrzeugrouten entfernen"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:463
 msgid "Select conflicted Stops"
-msgstr "Widersprüchliche Halte auswählen"
+msgstr "Ungültige Halte auswählen"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:557
 msgid "Delete person plan"
@@ -4629,7 +4629,7 @@ msgstr "Ungültige Personenpläne speichern"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:563
 msgid "Select conflicted person plans"
-msgstr "Widersprüchliche Personenpläne auswählen"
+msgstr "Ungültige Personenpläne auswählen"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixNetworkElements.cpp:52
 msgid "Fix network elements problems"
@@ -4653,7 +4653,7 @@ msgstr "Ungültige Kanten speichern"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixNetworkElements.cpp:233
 msgid "Select conflicted edges"
-msgstr "Widersprüchliche Kanten auswählen"
+msgstr "Ungültige Kanten auswählen"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixNetworkElements.cpp:308
 msgid "Remove invalid crossings"
@@ -4665,7 +4665,7 @@ msgstr "Ungültige Fußgängerfurten speichern"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixNetworkElements.cpp:314
 msgid "Select conflicted crossing"
-msgstr "Widersprüchliche Kreuzungen auswählen"
+msgstr "Ungültige Kreuzungen auswählen"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:285
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:281
@@ -4678,7 +4678,7 @@ msgstr "Sortieren"
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:279
 #: /home/micha/programming/sumo/src/netedit/frames/GNENetworkSelector.cpp:55
 msgid "Clear"
-msgstr "Bereinigen"
+msgstr "Leeren"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:289
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:285
@@ -4719,7 +4719,7 @@ msgstr "Speicher Vorlageparameter-Datei"
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:399
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:396
 msgid "- Parameters are defined by a Key and a Value.\n"
-msgstr "- Parameter sind definiert als Schlüssel und als Wert.\n"
+msgstr "- Parameter sind definiert als Paar aus Schlüssel und Wert.\n"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:404
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:400
@@ -4754,7 +4754,7 @@ msgstr "Parameterschlüssel ist nicht definiert"
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:449
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:446
 msgid "Value of Parameter not defined"
-msgstr "Wert vom Parameter ist nicht definiert"
+msgstr "Parameterwert ist nicht definiert"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:458
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:457
@@ -4856,7 +4856,7 @@ msgstr "Nichts zu wechseln, implementiert in Kindelementen"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:911
 msgid "The id of the node"
-msgstr "Die ID vom Knoten"
+msgstr "Die ID des Knotens"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:916
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1901
@@ -4869,7 +4869,7 @@ msgstr "Ein optionaler Typ für den Knoten"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:927
 msgid "A custom shape for that node"
-msgstr "Eine nutzerdefinierte Shape für diesen Knoten"
+msgstr "Ein nutzerdefinierter Shape für diesen Knoten"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:932
 msgid "Optional turning radius (for all corners) for that node in meters"
@@ -4900,7 +4900,7 @@ msgstr "Ob dieser Knotenpunkt am Rand des Netzes liegt"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:958
 msgid "Optional name of junction"
-msgstr "Optionaler Name vom Knotenpunkt"
+msgstr "Optionaler Name des Knotenpunkts"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:963
 msgid "An optional type for the traffic light algorithm"
@@ -4921,7 +4921,7 @@ msgstr "Die ID der Kante"
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:996
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1114
 msgid "The number of lanes of the edge"
-msgstr "Die Anzahl von Fahrstreifen von der Kante"
+msgstr "Die Anzahl von Fahrstreifen der Kante"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1002
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1102
