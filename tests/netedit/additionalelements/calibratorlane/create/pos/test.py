@@ -31,26 +31,29 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 # go to additional mode
 netedit.additionalMode()
 
-# select calibrator
+# select calibratorLane
 netedit.changeElement("calibratorLane")
+
+# change center view
+netedit.changeDefaultBoolValue(netedit.attrs.calibrator.create.center)
 
 # change position with an invalid value (dummy)
 netedit.changeDefaultValue(netedit.attrs.calibrator.create.pos, "dummyValue")
 
-# try to create calibrator with an invalid parameter
-netedit.leftClick(referencePosition, 240, 250)
+# try to create calibratorLane with an invalid parameter
+netedit.leftClick(referencePosition, 312, 250)
 
 # change position with an invalid value (negative)
 netedit.changeDefaultValue(netedit.attrs.calibrator.create.pos, "-5")
 
-# try to create calibrator with an invalid parameter
-netedit.leftClick(referencePosition, 252, 250)
+# try to create calibratorLane with an invalid parameter
+netedit.leftClick(referencePosition, 322, 250)
 
 # change position with a valid value
 netedit.changeDefaultValue(netedit.attrs.calibrator.create.pos, "10")
 
-# create calibrator with an invalid parameter
-netedit.leftClick(referencePosition, 254, 250)
+# create calibratorLane with an invalid parameter
+netedit.leftClick(referencePosition, 332, 250)
 
 # Check undo redo
 netedit.undo(referencePosition, 1)

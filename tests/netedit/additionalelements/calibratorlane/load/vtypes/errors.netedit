@@ -1,2 +1,2 @@
-Error: Attribute 'vTypes' in definition of calibrator 'calibrator02' is empty.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.09Feb092819.15219/netedit.gui/additionalelements/calibratorlane/load/vtypes/additionals.add.xml failed.
+Error: Attribute 'vTypes' in definition of calibratorLane 'calibrator02' is empty.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Feb090618.5036\netedit.gui\additionalelements\calibratorlane\load\vtypes\additionals.add.xml failed.

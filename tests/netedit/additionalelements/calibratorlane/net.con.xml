@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-02-07 14:13:33 by Eclipse SUMO netedit Version v1_16_0+0024-1134bf4b789
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="D:\SUMO\tests\netedit\additionalelements\parkingarea\net.net.xml"/>
+    </input>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<connections version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+    <connection from="E0" to="E1" fromLane="1" toLane="1"/>
+    <connection from="E0" to="center1" fromLane="1" toLane="0"/>
+    <connection from="E0" to="center1" fromLane="1" toLane="1"/>
+
+    <connection from="E1" to="bot" fromLane="1" toLane="0"/>
+
+    <connection from="E4" to="E5" fromLane="1" toLane="1"/>
+    <connection from="E4" to="center0" fromLane="1" toLane="0"/>
+    <connection from="E4" to="center0" fromLane="1" toLane="1"/>
+
+    <connection from="E5" to="top" fromLane="1" toLane="0"/>
+
+    <connection from="bot" to="E4" fromLane="0" toLane="1"/>
+
+    <connection from="center0" to="E1" fromLane="0" toLane="1"/>
+    <connection from="center0" to="center1" fromLane="1" toLane="1"/>
+
+    <connection from="center1" to="E5" fromLane="0" toLane="1"/>
+    <connection from="center1" to="center0" fromLane="1" toLane="1"/>
+
+    <connection from="top" to="E0" fromLane="0" toLane="1"/>
+
+</connections>

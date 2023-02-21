@@ -31,7 +31,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 # go to additional mode
 netedit.additionalMode()
 
-# select calibrator
+# select calibratorLane
 netedit.changeElement("calibratorLane")
 
 # disable center view
@@ -40,14 +40,14 @@ netedit.changeDefaultBoolValue(netedit.attrs.calibrator.create.center)
 # change routeprobe with a invalid routeProbe ID
 netedit.changeDefaultValue(netedit.attrs.calibrator.create.routeProbe, ";;;;;%%;;;;")
 
-# create calibrator with a different routeProbe in other lane
-netedit.leftClick(referencePosition, 240, 250)
+# create calibratorLane with a different routeProbe in other lane
+netedit.leftClick(referencePosition, 312, 250)
 
 # change frequency with a different routeProbe (Valid, empty)
 netedit.changeDefaultValue(netedit.attrs.calibrator.create.routeProbe, "")
 
-# create calibrator with a valid parameter in other lane
-netedit.leftClick(referencePosition, 240, 230)
+# create calibratorLane with a valid parameter in other lane
+netedit.leftClick(referencePosition, 322, 250)
 
 # change routeprobe with a different routeProbe
 netedit.changeDefaultValue(netedit.attrs.calibrator.create.routeProbe, "routeProbe_0")
