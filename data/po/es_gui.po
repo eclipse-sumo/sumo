@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
 "PO-Revision-Date: 2023-02-21 14:12+0000\n"
-"Last-Translator: Pablo Alvarez Lopez <pablo.alvarezlopez@dlr.de>\n"
+"Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
 "Language: es\n"
@@ -5171,7 +5171,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1426
 msgid "Vision distance between vehicles"
-msgstr ""
+msgstr "Distancia de visión entre vehículos"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1432
 msgid "sets index of this connection within the controlling trafficlight"
@@ -5185,19 +5185,19 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1455
 msgid "sets custom speed limit for the connection"
-msgstr ""
+msgstr "establece un límite de velocidad personalizado para la conexión"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1461
 msgid "sets custom length for the connection"
-msgstr ""
+msgstr "establece una longitud personalizada para la conexión"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1467
 msgid "sets custom shape for the connection"
-msgstr ""
+msgstr "establece una forma personalizada para la conexión"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1486
 msgid "if set to true, vehicles will make a turn in 2 steps"
-msgstr ""
+msgstr "si se coloca en verdadero, los vehículos harán un giro en 2 pasos"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1492
 msgid ""
@@ -5214,7 +5214,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1533
 msgid "The id of bus stop"
-msgstr ""
+msgstr "La id de la parada de bus"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1538
 msgid "The name of the lane the bus stop shall be located at"
@@ -5245,7 +5245,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1553
 msgid "Name of busStop"
-msgstr ""
+msgstr "Nombre de la parada de bus"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1558
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1622
@@ -5301,6 +5301,8 @@ msgid ""
 "Meant to be the names of the bus lines that stop at this bus stop. This is "
 "only used for visualization purposes"
 msgstr ""
+"Deben ser los nombres de las líneas de autobús que paran en esta parada de "
+"autobús. Esto solo se usa con fines de visualización"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1571
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1635
@@ -5308,20 +5310,23 @@ msgid ""
 "Larger numbers of persons trying to enter will create an upstream jam on the "
 "sidewalk"
 msgstr ""
+"Un gran número de personas que intentan entrar crearán un atasco en la acera "
+"corriente arriba"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1577
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1641
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1739
 msgid "Optional space definition for vehicles that park at this stop"
 msgstr ""
+"Definición de espacio opcional para vehículos que estacionan en esta parada"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1583
 msgid "The RGBA color with which the busStop shall be displayed"
-msgstr ""
+msgstr "El color RGBA con el que se mostrará la parada de autobús"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1597
 msgid "The id of train stop"
-msgstr ""
+msgstr "El id de la parada de tren"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1602
 msgid "The name of the lane the train stop shall be located at"
@@ -5329,7 +5334,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1617
 msgid "Name of trainStop"
-msgstr ""
+msgstr "Nombre de la parada de tren"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1623
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1679
@@ -6972,6 +6977,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5343
 msgid "Willingess of drivers to impede vehicles with higher priority"
 msgstr ""
+"Voluntad de los conductores de obstaculizar vehículos con mayor prioridad"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5356
 msgid ""
@@ -7007,6 +7013,8 @@ msgid ""
 "Higher values result in increased willingness to sacrifice speed for "
 "alignment."
 msgstr ""
+"Los valores más altos dan como resultado una mayor disposición a sacrificar "
+"velocidad por alineación."
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5387
 msgid ""
@@ -7016,7 +7024,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5393
 msgid "Willingness to encroach laterally on other drivers."
-msgstr ""
+msgstr "Disposición de invadir lateralmente a otros conductores."
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5399
 msgid ""
