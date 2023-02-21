@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-21 12:21+0000\n"
+"PO-Revision-Date: 2023-02-21 12:25+0000\n"
 "Last-Translator: Pablo Alvarez Lopez <pablo.alvarezlopez@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -4740,7 +4740,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:449
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:446
 msgid "Value of Parameter not defined"
-msgstr ""
+msgstr "Valor del parámetro (clave) no definido"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:458
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:457
@@ -6141,11 +6141,11 @@ msgstr "las veces que el 'cycleTime' se moverá hacia delante en cada repetició
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3398
 msgid "The id of VehicleType distribution"
-msgstr "La identificación de la distribución de tipos de vehículos"
+msgstr "La ID de la distribución de tipos de vehículos"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3420
 msgid "The id of VehicleType"
-msgstr "La identificación del tipo de vehículo"
+msgstr "La ID del tipo de vehículo"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3425
 msgid "Vehicle Type Distribution"
@@ -6317,12 +6317,12 @@ msgstr "El nombre del cruce (junction) en el que el viaje (trip) termina"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3697
 msgid "The id of vehicle"
-msgstr "La identificación del vehículo"
+msgstr "La ID del vehículo"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3702
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3747
 msgid "The id of the vehicle type to use for this vehicle"
-msgstr "La identificación del tipo de vehículo a usar para este vehículo"
+msgstr "La ID del tipo de vehículo a usar para este vehículo"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3713
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3753
@@ -6345,18 +6345,18 @@ msgstr "El instante de tiempo en el que el vehículo debe entrar a la red"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3742
 msgid "The ID of the vehicle"
-msgstr "La identificación del vehículo"
+msgstr "La ID del vehículo"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3782
 msgid "The ID of the flow"
-msgstr "La identificación del flujo (flow)"
+msgstr "La ID del flujo (flow)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3787
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3829
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3866
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3908
 msgid "The id of the flow type to use for this flow"
-msgstr "La identificación del tipo de vehículo a usar para este flujo (flow)"
+msgstr "La ID del tipo de vehículo a usar para este flujo (flow)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3793
 msgid "The name of the edge the flow starts at"
@@ -6374,7 +6374,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3824
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3861
 msgid "The id of the flow"
-msgstr "La identificación del flujo (flow)"
+msgstr "La ID del flujo (flow)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3835
 msgid "The name of the junction the flow starts at"
@@ -7148,8 +7148,8 @@ msgid ""
 "Parameter to be applied to the vehicle to track the trip id within a "
 "cyclical public transport route"
 msgstr ""
-"Parámetro que se aplicará al vehículo para rastrear la identificación del "
-"viaje dentro de una ruta de transporte público cíclica"
+"Parámetro que se aplicará al vehículo para rastrear la ID del viaje dentro "
+"de una ruta de transporte público cíclica"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5601
 msgid ""
