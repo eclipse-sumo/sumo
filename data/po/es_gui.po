@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-21 08:15+0000\n"
-"Last-Translator: Pablo Alvarez Lopez <pablo.alvarezlopez@dlr.de>\n"
+"PO-Revision-Date: 2023-02-21 08:46+0000\n"
+"Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
 "Language: es\n"
@@ -704,11 +704,11 @@ msgstr "Abrir datos para calles"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1167
 msgid "Reloading."
-msgstr ""
+msgstr "Recargando."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1177
 msgid "Quick-Reloading."
-msgstr ""
+msgstr "Recarga-rápida."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1187
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1067
@@ -721,11 +721,11 @@ msgstr "Guardar configuración para SUMO"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1214
 msgid "Configuration saved to %."
-msgstr ""
+msgstr "Configuración guardada en %."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1216
 msgid "Could not save configuration to %."
-msgstr ""
+msgstr "No se pudo guardar configuración en %."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1272
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1298
@@ -739,7 +739,7 @@ msgstr "Guardar estado de la simulación"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1328
 msgid "Simulation state saved to '%'."
-msgstr ""
+msgstr "Estado de simulación guardado en '%'."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1336
 msgid "Load Simulation State"
@@ -747,21 +747,21 @@ msgstr "Cargar estado de la simulación"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1348
 msgid "State loaded from '%'."
-msgstr ""
+msgstr "Estado cargado de '%'."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1350
 msgid "Failed to load state from '%' (%)."
-msgstr ""
+msgstr "Fallo al cargar estado desde '%' (%)."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1784
 #, c-format
 msgid "Loading of '%' failed!"
-msgstr ""
+msgstr "¡El cargado de '%' falló!"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1798
 #, c-format
 msgid "'%' loaded."
-msgstr ""
+msgstr "'%' cargado."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1996
 msgid "Simulation ended"
@@ -769,7 +769,7 @@ msgstr "Simulación finalizada"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:2094
 msgid "Loading '%'."
-msgstr ""
+msgstr "Cargando '%'."
 
 #: /home/micha/programming/sumo/src/gui/GUILoadThread.cpp:206
 msgid "Could not load edgedata-files '%'"
@@ -898,7 +898,7 @@ msgstr "Guardar puntos de interrupción (breakpoints)"
 
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:172
 msgid "Storing failed!"
-msgstr "Guardado fallido!"
+msgstr "¡Guardado fallido!"
 
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:241
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:244
