@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-21 14:12+0000\n"
+"PO-Revision-Date: 2023-02-21 14:26+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
@@ -6561,60 +6561,60 @@ msgstr "此車輛的顏色"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4877
 msgid "The lane on which thevehicle shall be inserted"
-msgstr ""
+msgstr "車輛應該被置入的車道"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4883
 msgid "The position at which the vehicle shall enter the net"
-msgstr ""
+msgstr "車輛應進入路網時的所在位置"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4889
 msgid "The speed with which the vehicle shall enter the network"
-msgstr ""
+msgstr "車輛進入路網時的應有速度"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4895
 msgid "The lane at which the vehicle shall leave the network"
-msgstr ""
+msgstr "車輛應離開路網時的所在車道"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4901
 msgid "The position at which the vehicle shall leave the network"
-msgstr ""
+msgstr "車輛離開路網時的應有位置"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4907
 msgid "The speed with which the vehicle shall leave the network"
-msgstr ""
+msgstr "車輛離該路網時的應有速度"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4913
 msgid ""
 "A string specifying the id of a public transport line which can be used when "
 "specifying person rides"
-msgstr ""
+msgstr "當指定人員乘車(ride)時, 一個用於指定公共運輸路線的識別名的字串"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4918
 msgid "The number of occupied seats when the vehicle is inserted"
-msgstr ""
+msgstr "當車輛被置入路網時,已佔用的座位數"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4924
 msgid "The number of occupied container places when the vehicle is inserted"
-msgstr ""
+msgstr "車輛置入時, 已佔用的容器位置數"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4930
 msgid ""
 "The lateral position on the departure lane at which the vehicle shall enter "
 "the net"
-msgstr ""
+msgstr "車輛進入路網時於出發車道的側向位置"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4936
 msgid ""
 "The lateral position on the arrival lane at which the vehicle shall arrive"
-msgstr ""
+msgstr "車輛抵達時於抵達車道的側向位置"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4942
 msgid "Insertion checks"
-msgstr ""
+msgstr "插入檢查"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4955
 msgid "First flow departure time"
-msgstr ""
+msgstr "第一個流量的出發時間"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4967
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4988
