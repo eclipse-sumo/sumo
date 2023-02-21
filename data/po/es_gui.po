@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-21 14:12+0000\n"
-"Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
+"PO-Revision-Date: 2023-02-21 14:26+0000\n"
+"Last-Translator: Pablo Alvarez Lopez <pablo.alvarezlopez@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
 "Language: es\n"
@@ -4307,35 +4307,35 @@ msgstr "Rehacer activar "
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_Junction.cpp:109
 msgid "Undo create junction '"
-msgstr ""
+msgstr "Deshacer creación de cruce (junction) '"
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_Junction.cpp:111
 msgid "Undo delete junction '"
-msgstr ""
+msgstr "Deshacer eliminación de cruce (junction) '"
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_Junction.cpp:119
 msgid "Redo create junction '"
-msgstr ""
+msgstr "Rehacer creación de cruce (junction) '"
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_Junction.cpp:121
 msgid "Redo delete junction '"
-msgstr ""
+msgstr "Rehacer eliminación de cruce (junction) '"
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_Lane.cpp:158
 msgid "Undo create lane '"
-msgstr ""
+msgstr "Deshacer creación de carril (lane) '"
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_Lane.cpp:160
 msgid "Undo delete lane '"
-msgstr ""
+msgstr "Deshacer eliminación de carril (lane) '"
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_Lane.cpp:168
 msgid "Redo create lane '"
-msgstr ""
+msgstr "Rehacer creación de carril (lane) '"
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_Lane.cpp:170
 msgid "Redo delete lane '"
-msgstr ""
+msgstr "Rehacer eliminación de carril (lane) '"
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_TLS.cpp:50
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_TLS.cpp:73
@@ -4380,6 +4380,8 @@ msgid ""
 "These core components are available under the conditions of the Eclipse "
 "Public License v2."
 msgstr ""
+"Estos componentes básicos están disponibles en las condiciones de la Eclipse "
+"Public License v2."
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEAdditionalDialog.cpp:62
 msgid "Accept"
@@ -4612,7 +4614,7 @@ msgstr "Seleccionar vehículo en conflicto"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:360
 msgid "Remove stops out of vehicle's route"
-msgstr ""
+msgstr "Elimina paradas fuera de la ruta del vehículo"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:463
 msgid "Select conflicted Stops"
