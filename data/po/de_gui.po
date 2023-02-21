@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-21 08:51+0000\n"
+"PO-Revision-Date: 2023-02-21 10:33+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -852,11 +852,11 @@ msgstr "Simulation nach dem Ende erneut laden (Demomodus)"
 
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_AppSettings.cpp:68
 msgid "Locate elements when clicking on messages"
-msgstr "Klicke auf die Meldung , um das Element im Netz zu finden"
+msgstr "Klicke auf die Meldung, um das Element im Netz zu finden"
 
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_AppSettings.cpp:74
 msgid "Breakpoint offset when clicking on time message"
-msgstr "Haltepunktversatz bei Klick auf Zeitmeldung"
+msgstr "Unterbrechungspunktversatz bei Klick auf Zeitmeldung"
 
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_AppSettings.cpp:98
 msgid "Allow Textures"
@@ -940,7 +940,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/guisim/GUINet.cpp:674
 msgid "No data defined after simulation begin time."
-msgstr "Keine Daten mit späterem Zeitbezug als dem Simulationsbeginn."
+msgstr "Keine Daten mit Zeitbezug nach dem Simulationsbeginn definiert."
 
 #: /home/micha/programming/sumo/src/guisim_main.cpp:57
 msgid "GUI version of the microscopic, multi-modal traffic simulation SUMO."
@@ -1002,15 +1002,15 @@ msgstr "Lädt Netzdatei erneut aus '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:992
 msgid "&Reload Netedit config"
-msgstr "Lade Netedit-Konfiguration erneut"
+msgstr "Netedit-Konfiguration erneut laden"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:993
 msgid "&Reload Sumo config"
-msgstr "Lade Sumo-Konfiguration erneut"
+msgstr "Sumo-Konfiguration erneut laden"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:994
 msgid "&Reload Network"
-msgstr "Lade Netz erneut"
+msgstr "Netz erneut laden"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1298
 msgid "Loading of '"
@@ -1156,16 +1156,16 @@ msgstr "Speichern der vereinigten Knoten fehlgeschlagen!"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3102
 msgid "Joined junctions saved to '"
-msgstr "Vereinigte Knoten gespeichert in '"
+msgstr "Vereinigte Knoten gespeichert unter '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3156
-#, fuzzy
 msgid "Netedit configuration saved in '"
-msgstr "Netedit-Konfiguration wurde in ' gespeichert"
+msgstr "Netedit-Konfiguration wurde gespeichert unter '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3162
 msgid "Could not save netedit configuration in '"
-msgstr "Konnte die netedit-Konfiguration nicht in '"
+msgstr ""
+"Konnte die netedit-Konfiguration nicht unter folgendem Pfad speichern: '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3266
 msgid "SUMO configuration saved in '"
@@ -1264,7 +1264,7 @@ msgstr "Neu laden von Datenelementen aus"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3836
 msgid "Reloading of data file failed: "
-msgstr "Neu laden von der Datendatei ist fehlgeschlagen: "
+msgstr "Erneutes Laden der Datendatei ist fehlgeschlagen: "
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3877
 msgid "Data elements saved in '"
@@ -1359,7 +1359,7 @@ msgstr "lädt meanData aus '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4614
 msgid "Loading data elements from '"
-msgstr "Laden der Datenelemente von"
+msgstr "Laden der Datenelemente aus '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:122
 msgid "nets"
@@ -1584,7 +1584,7 @@ msgstr "Lade LSA-Programme erneut."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:382
 msgid "Load Edge Types..."
-msgstr "Laden von Kantentypen..."
+msgstr "Kantentypen laden..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:382
 msgid "Load edge types in the current net."
@@ -1616,7 +1616,7 @@ msgstr "Lade Kantentypen erneut."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:406
 msgid "Load Additionals..."
-msgstr "Lade weitere Daten..."
+msgstr "Weitere Daten laden..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:406
 msgid "Load additionals and shapes."
@@ -1632,7 +1632,7 @@ msgstr "Speichere weitere Daten und Shapes."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:416
 msgid "Save Additionals As..."
-msgstr "Speicher weitere Daten unter..."
+msgstr "Weitere Daten speichern unter..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:416
 msgid "Save additional elements to another file."
@@ -1640,7 +1640,7 @@ msgstr "Speichere die weiteren Elemente in einer neuen Datei."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:422
 msgid "Reload Additionals"
-msgstr "Neu laden der weiteren Daten"
+msgstr "Weitere Daten erneut laden"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:422
 msgid "Reload additionals."
@@ -1648,7 +1648,7 @@ msgstr "Neu laden weiterer Daten."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:430
 msgid "Load Demand Elements..."
-msgstr "Lade Nachfrageelemente..."
+msgstr "Nachfrageelemente laden..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:430
 msgid "Load demand elements."
@@ -1919,11 +1919,11 @@ msgstr "Erstelle Kantenbeziehungselemente."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:723
 msgid "TA&ZRelation"
-msgstr "TA&ZBeziehung"
+msgstr "Verkehrsumlegungs&zonenbeziehung"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:723
 msgid "Create TAZRelation elements."
-msgstr "Erstelle TAZ-Beziehungselemente."
+msgstr "Erstelle Quelle-Ziel-Beziehungen."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:726
 msgid "&MeanData"
@@ -1947,7 +1947,7 @@ msgstr "Raster anzeigen"
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2616
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2903
 msgid "Hide junction shape"
-msgstr "Knotenpunktform ausblenden"
+msgstr "Knotenpunktgeometrie ausblenden"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:798
 msgid "Draw vehicles spread in lane or in depart position"
@@ -1963,7 +1963,7 @@ msgstr "Nachfrageelemente anzeigen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:808
 msgid "Clicking should target lanes"
-msgstr "Fahrstreifen per Klick auswählen"
+msgstr "Per Klick Fahrstreifen auswählen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:813
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2336
@@ -1993,8 +1993,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:838
 msgid "Clicking should apply state changes to all phases of TLS plan"
 msgstr ""
-"Durch klicken sollten Statusänderungen auf alle Phasen der Lichtsignalanlage "
-"(TLS) angewendet werden"
+"Per Klick Statusänderungen auf alle Phasen des Lichtsignalprogramms anwenden"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:843
 msgid "Ask for confirmation before merging junction"
@@ -2027,7 +2026,7 @@ msgstr "Zeichne Fahrzeuge an der Abfahrtsposition versetzt"
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2632
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2918
 msgid "Show shapes"
-msgstr "Zeige Formen"
+msgstr "Zeige Shapes"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1005
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2640
@@ -2070,7 +2069,7 @@ msgstr "Zeige weitere Daten"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1145
 msgid "Draw TAZRel from center"
-msgstr "Zeichne TAZRel vom Zentrum"
+msgstr "Zeichne Quelle-Ziel-Beziehung vom Zentrum"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1150
 msgid "Draw TAZ fill"
@@ -2150,7 +2149,7 @@ msgstr "&Walking Areas"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1332
 msgid "&Additionals"
-msgstr "&weitere Daten"
+msgstr "&Weitere Daten"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1337
 msgid "&TAZs"
@@ -2166,7 +2165,7 @@ msgstr "&Polygone"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1352
 msgid "P&OIs"
-msgstr "P&ole"
+msgstr "P&ol"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1357
 msgid "&Routes"
@@ -2174,7 +2173,7 @@ msgstr "&Routen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1372
 msgid "Person&Trips"
-msgstr "Personen&Fahrten"
+msgstr "Personen&fahrten"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1377
 msgid "&Walks"
@@ -2234,7 +2233,7 @@ msgstr "Entsperre alle Elemente"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1772
 msgid "Compute Junctions"
-msgstr "Berechne Knotenpunkte"
+msgstr "Knotenpunkte berechnen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1772
 msgid "Compute junction shape and logic."
@@ -2242,7 +2241,7 @@ msgstr "Berechne Knotenpunktform und Logik."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1775
 msgid "Compute Junctions with volatile options"
-msgstr "Berechne Knotenpunkte mit volatilen Optionen"
+msgstr "Knotenpunkte mit volatilen Optionen berechnen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1775
 msgid "Compute junction shape and logic using volatile junctions."
@@ -2250,7 +2249,7 @@ msgstr "Berechne Knotenpunktgeometrie und Logik aus volatilen Optionen."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1778
 msgid "Clean Junctions"
-msgstr "Bereinige Knotenpunkte"
+msgstr "Knotenpunkte bereinigen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1778
 msgid "Remove solitary junctions."
@@ -2258,7 +2257,7 @@ msgstr "Entferne alleinstehende Knotenpunkte."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1781
 msgid "Join Selected Junctions"
-msgstr "Vereinige ausgewählte Knotenpunkte"
+msgstr "Ausgewählte Knotenpunkte vereinigen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1781
 msgid "Join selected junctions into a single junction."
@@ -2597,7 +2596,7 @@ msgstr "Kantentypendateien (*.typ.xml)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2709
 msgid "Save Additionals file as"
-msgstr "Speicher Datei mit weiteren Daten unter"
+msgstr "Weitere Daten speichern unter"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2710
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2715
