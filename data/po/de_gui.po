@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-21 15:59+0000\n"
-"Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
+"PO-Revision-Date: 2023-02-21 16:29+0000\n"
+"Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
 "Language: de\n"
@@ -5749,8 +5749,9 @@ msgstr "Die ID von E3"
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2160
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2313
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3212
+#, fuzzy
 msgid "X-Y position of detector in editor (Only used in netedit)"
-msgstr ""
+msgstr "X-Y-Position des Detektors im Editor (wird nur in netedit verwendet)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2172
 msgid "Name of Entry Exit detector"
@@ -5903,8 +5904,9 @@ msgstr ""
 "werden sollen"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2539
+#, fuzzy
 msgid "X,Y position in editor (Only used in netedit)"
-msgstr ""
+msgstr "X-Y-Position im Editor (wird nur in netedit verwendet)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2545
 msgid "Name of Rerouter"
@@ -6585,8 +6587,9 @@ msgid "ContainerStop associated with this stop"
 msgstr "Containerhaltepunkt, die diesem Haltepunkt zugeordnet ist"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4027
+#, fuzzy
 msgid "ChargingStation associated with this stop"
-msgstr "Ladestation, die diesem Haltepunkt zugeordnet ist"
+msgstr "Ladestation (chargingStation), die diesem Haltepunkt zugeordnet ist"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4043
 msgid "ParkingArea associated with this stop"
@@ -6611,8 +6614,9 @@ msgid "ContainerWaypoint associated with this waypoint"
 msgstr "Containerwegpunkt, der diesem Wegpunkt zugeordnet ist"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4138
+#, fuzzy
 msgid "ChargingStation associated with this waypoint"
-msgstr "Ladestation wurde diesem Wegpunkt zugeordnet"
+msgstr "Ladestation (chargingStation) wurde diesem Wegpunkt zugeordnet"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4154
 msgid "ParkingArea associated with this waypoint"
