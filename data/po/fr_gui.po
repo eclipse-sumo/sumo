@@ -8,10 +8,10 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-01-31 11:39+0000\n"
+"PO-Revision-Date: 2023-02-21 08:46+0000\n"
 "Last-Translator: bcoueraud87 <benjamin.coueraud@dlr.de>\n"
-"Language-Team: French <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
-"gui-netedit/fr/>\n"
+"Language-Team: French <https://hosted.weblate.org/projects/eclipse-sumo/"
+"sumo-gui-netedit/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -37,6 +37,7 @@ msgstr "N/A"
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:495
 msgid "Original coordinate (before coordinate transformation in netconvert)"
 msgstr ""
+"Coordonnée originale (avant transformation des coordonnés dans netconvert)"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:291
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:498
@@ -89,7 +90,7 @@ msgstr "Charger POIs et Polygones pour visualisation."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:455
 msgid "Open EdgeData "
-msgstr ""
+msgstr "Ouvrir EdgeData "
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:455
 msgid "Load edge related data for visualization."
@@ -155,7 +156,7 @@ msgstr "Ouvre un dialogue pour éditer la liste des items sélectionnés."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:490
 msgid "Select lanes which allow..."
-msgstr ""
+msgstr "Sélectionner voies qui autorisent..."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:490
 #, fuzzy
@@ -213,7 +214,7 @@ msgstr "Ouvrir un dialogue pour éditer Réglages de l'Application."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:516
 msgid "Gaming Mode\tCtrl+G\tToggle gaming mode on/off."
-msgstr ""
+msgstr "Mode Jeu\tCtrl+G\tAllumer/éteindre mode jeu."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:519
 msgid "Full Screen Mode"
@@ -546,38 +547,43 @@ msgstr "A propos de sumo-gui."
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:667
 msgid "\tOpen simulation\tOpen a simulation (Configuration file)."
 msgstr ""
+"\tOuvrir une simulation\tOuvrir une simulation (Fichier de configuration)."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:669
 msgid "\tOpen network\tOpen a network."
-msgstr ""
+msgstr "\tOuvrir réseau\tOuvrir un réseau."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:671
 msgid "\tReload\tReloads the simulation / the network."
-msgstr ""
+msgstr "\tRecharger\tRecharge la simulation / le réseau."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:680
 msgid "\tRun\tStart/Resume the loaded simulation."
-msgstr ""
+msgstr "\tExécuter\tDémarre/continue la simulation chargée."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:682
 msgid "\tStop\tHalt the running simulation."
-msgstr ""
+msgstr "\tArrêter\tArrêter la simulation en cours."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:684
 msgid "\tStep\tPerform a single simulation step."
-msgstr ""
+msgstr "\tAvancer\tEffectuer un seul pas de simulation."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:692
 msgid ""
 "Time:\tToggle between time formats\tToggle between seconds and hour:minute:"
 "seconds display."
 msgstr ""
+"Temps:\tBasculer le format des temps\tBasculer l'affichage entre secondes et "
+"heures:minutes:secondes."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:706
 msgid ""
 "Delay (ms):\tDelay per simulated second\tDelay per simulated second. Click "
 "to toggle between the last two delay values."
 msgstr ""
+"Délai (ms) :\tDélai par seconde simulée\tDélai par seconde simulée. Cliquer "
+"pour basculer entre les deux dernières valeurs du délai."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:729
 msgid "Scale Traffic:"
@@ -698,11 +704,11 @@ msgstr "Ouvrir EdgeData"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1167
 msgid "Reloading."
-msgstr ""
+msgstr "Rechargement."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1177
 msgid "Quick-Reloading."
-msgstr ""
+msgstr "Rechargement rapide."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1187
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1067
@@ -715,11 +721,11 @@ msgstr "Sauvegarder Configuration SUMO"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1214
 msgid "Configuration saved to %."
-msgstr ""
+msgstr "Configuration sauvegardée à %."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1216
 msgid "Could not save configuration to %."
-msgstr ""
+msgstr "Echec sauvegarde configuration à %."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1272
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1298
