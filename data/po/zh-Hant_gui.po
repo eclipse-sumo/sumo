@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-21 14:39+0000\n"
+"PO-Revision-Date: 2023-02-21 14:47+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
@@ -6671,52 +6671,52 @@ msgstr "標準模式使用的車輛視在減速 [公尺/平方秒]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5027
 msgid "The maximal physically possible deceleration for the vehicle [m/s^2]"
-msgstr ""
+msgstr "車輛的最大物理可能減速度 [公尺/平方秒]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5033
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5040
 msgid "Car-following model parameter"
-msgstr ""
+msgstr "跟車模式變數"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5046
 msgid "SKRAUSSX parameter 1"
-msgstr ""
+msgstr "SKRAUSSX變數1"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5051
 msgid "SKRAUSSX parameter 2"
-msgstr ""
+msgstr "SKRAUSSX變數2"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5056
 msgid "SKRAUSSX parameter 3"
-msgstr ""
+msgstr "SKRAUSSX變數3"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5061
 msgid "SKRAUSSX parameter 4"
-msgstr ""
+msgstr "SKRAUSSX變數4"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5066
 msgid "SKRAUSSX parameter 5"
-msgstr ""
+msgstr "SKRAUSSX變數5"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5071
 msgid "EIDM Look ahead / preview parameter [s]"
-msgstr ""
+msgstr "EIDM 前瞻/預覽變數 [秒]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5077
 msgid "EIDM AP Reaction Time parameter [s]"
-msgstr ""
+msgstr "EIDM AP 反應時間變數 [秒]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5083
 msgid "EIDM Wiener Process parameter for the Driving Error [s]"
-msgstr ""
+msgstr "駕駛誤差的EIDM 維納過程(Wiener process)變數 [秒]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5089
 msgid "EIDM Wiener Process parameter for the Estimation Error [s]"
-msgstr ""
+msgstr "預測錯誤的EIDM 維納過程(Wiener process)變數 [秒]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5095
 msgid "EIDM Coolness parameter of the Enhanced IDM [-]"
-msgstr ""
+msgstr "改善的IDM模式的EIDM 冷卻度參數 [-]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5102
 msgid "EIDM leader speed estimation error parameter [-]"
