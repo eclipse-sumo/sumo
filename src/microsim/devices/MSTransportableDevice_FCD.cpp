@@ -46,7 +46,7 @@ MSTransportableDevice_FCD::insertOptions(OptionsCont& oc) {
     insertDefaultAssignmentOptions("fcd", "FCD Device", oc, true);
 
     oc.doRegister("person-device.fcd.period", new Option_String("0"));
-    oc.addDescription("person-device.fcd.period", "FCD Device", "Recording period for FCD-data");
+    oc.addDescription("person-device.fcd.period", TL("FCD Device"), TL("Recording period for FCD-data"));
 }
 
 

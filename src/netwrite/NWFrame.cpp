@@ -51,83 +51,83 @@ NWFrame::fillOptions(bool forNetgen) {
     oc.doRegister("output-file", 'o', new Option_FileName());
     oc.addSynonyme("output-file", "sumo-output");
     oc.addSynonyme("output-file", "output");
-    oc.addDescription("output-file", "Output", "The generated net will be written to FILE");
+    oc.addDescription("output-file", TL("Output"), TL("The generated net will be written to FILE"));
 
     oc.doRegister("plain-output-prefix", 'p', new Option_FileName());
     oc.addSynonyme("plain-output-prefix", "plain-output");
     oc.addSynonyme("plain-output-prefix", "plain");
-    oc.addDescription("plain-output-prefix", "Output", "Prefix of files to write plain xml nodes, edges and connections to");
+    oc.addDescription("plain-output-prefix", TL("Output"), TL("Prefix of files to write plain xml nodes, edges and connections to"));
 
     oc.doRegister("plain-output.lanes", new Option_Bool(false));
-    oc.addDescription("plain-output.lanes", "Output", "Write all lanes and their attributes even when they are not customized");
+    oc.addDescription("plain-output.lanes", TL("Output"), TL("Write all lanes and their attributes even when they are not customized"));
 
     oc.doRegister("junctions.join-output", new Option_FileName());
     oc.addDescription("junctions.join-output", "Output",
                       "Writes information about joined junctions to FILE (can be loaded as additional node-file to reproduce joins");
 
     oc.doRegister("prefix", new Option_String(""));
-    oc.addDescription("prefix", "Output", "Defines a prefix for edge and junction names");
+    oc.addDescription("prefix", TL("Output"), TL("Defines a prefix for edge and junction names"));
 
 #ifdef PROJ_API_FILE
     if (!forNetgen) {
         oc.doRegister("proj.plain-geo", new Option_Bool(false));
-        oc.addDescription("proj.plain-geo", "Projection", "Write geo coordinates in plain-xml");
+        oc.addDescription("proj.plain-geo", TL("Projection"), TL("Write geo coordinates in plain-xml"));
     }
 #endif // PROJ_API_FILE
 
     oc.doRegister("amitran-output", new Option_FileName());
-    oc.addDescription("amitran-output", "Output", "The generated net will be written to FILE using Amitran format");
+    oc.addDescription("amitran-output", TL("Output"), TL("The generated net will be written to FILE using Amitran format"));
 
     oc.doRegister("matsim-output", new Option_FileName());
-    oc.addDescription("matsim-output", "Output", "The generated net will be written to FILE using MATsim format");
+    oc.addDescription("matsim-output", TL("Output"), TL("The generated net will be written to FILE using MATsim format"));
 
     oc.doRegister("opendrive-output", new Option_FileName());
-    oc.addDescription("opendrive-output", "Output", "The generated net will be written to FILE using OpenDRIVE format");
+    oc.addDescription("opendrive-output", TL("Output"), TL("The generated net will be written to FILE using OpenDRIVE format"));
 
     oc.doRegister("dlr-navteq-output", new Option_FileName());
-    oc.addDescription("dlr-navteq-output", "Output", "The generated net will be written to dlr-navteq files with the given PREFIX");
+    oc.addDescription("dlr-navteq-output", TL("Output"), TL("The generated net will be written to dlr-navteq files with the given PREFIX"));
 
     oc.doRegister("dlr-navteq.precision", new Option_Integer(2));
-    oc.addDescription("dlr-navteq.precision", "Output", "The network coordinates are written with the specified level of output precision");
+    oc.addDescription("dlr-navteq.precision", TL("Output"), TL("The network coordinates are written with the specified level of output precision"));
 
     oc.doRegister("output.street-names", new Option_Bool(false));
-    oc.addDescription("output.street-names", "Output", "Street names will be included in the output (if available)");
+    oc.addDescription("output.street-names", TL("Output"), TL("Street names will be included in the output (if available)"));
 
     oc.doRegister("output.original-names", new Option_Bool(false));
-    oc.addDescription("output.original-names", "Output", "Writes original names, if given, as parameter");
+    oc.addDescription("output.original-names", TL("Output"), TL("Writes original names, if given, as parameter"));
 
     oc.doRegister("street-sign-output", new Option_FileName());
-    oc.addDescription("street-sign-output", "Output", "Writes street signs as POIs to FILE");
+    oc.addDescription("street-sign-output", TL("Output"), TL("Writes street signs as POIs to FILE"));
 
     if (!forNetgen) {
         oc.doRegister("ptstop-output", new Option_FileName());
-        oc.addDescription("ptstop-output", "Output", "Writes public transport stops to FILE");
+        oc.addDescription("ptstop-output", TL("Output"), TL("Writes public transport stops to FILE"));
         oc.doRegister("ptline-output", new Option_FileName());
-        oc.addDescription("ptline-output", "Output", "Writes public transport lines to FILE");
+        oc.addDescription("ptline-output", TL("Output"), TL("Writes public transport lines to FILE"));
         oc.doRegister("ptline-clean-up", new Option_Bool(false));
-        oc.addDescription("ptline-clean-up", "Output", "Clean-up pt stops that are not served by any line");
+        oc.addDescription("ptline-clean-up", TL("Output"), TL("Clean-up pt stops that are not served by any line"));
 
         oc.doRegister("parking-output", new Option_FileName());
-        oc.addDescription("parking-output", "Output", "Writes parking areas to FILE");
+        oc.addDescription("parking-output", TL("Output"), TL("Writes parking areas to FILE"));
 
         oc.doRegister("railway.topology.output", new Option_FileName());
-        oc.addDescription("railway.topology.output", "Output", "Analyze topology of the railway network");
+        oc.addDescription("railway.topology.output", TL("Output"), TL("Analyze topology of the railway network"));
 
         oc.doRegister("polygon-output", new Option_FileName());
         oc.addSynonyme("polygon-output", "taz-output");
-        oc.addDescription("polygon-output", "Output", "Write shapes that are embedded in the network input and that are not supported by polyconvert (OpenDRIVE)");
+        oc.addDescription("polygon-output", TL("Output"), TL("Write shapes that are embedded in the network input and that are not supported by polyconvert (OpenDRIVE)"));
     }
 
     // register opendrive options
     oc.doRegister("opendrive-output.straight-threshold", new Option_Float(0.00000001)); // matching the angular output precision in NWWriter_OpenDrive
-    oc.addDescription("opendrive-output.straight-threshold", "Output", "Builds parameterized curves whenever the angular change  between straight segments exceeds FLOAT degrees");
+    oc.addDescription("opendrive-output.straight-threshold", TL("Output"), TL("Builds parameterized curves whenever the angular change  between straight segments exceeds FLOAT degrees"));
 
     if (!forNetgen) {
         oc.doRegister("opendrive-output.lefthand-left", new Option_Bool(false));
-        oc.addDescription("opendrive-output.lefthand-left", "Output", "Write lanes in lefthand networks on the left side (positive indices)");
+        oc.addDescription("opendrive-output.lefthand-left", TL("Output"), TL("Write lanes in lefthand networks on the left side (positive indices)"));
 
         oc.doRegister("opendrive-output.shape-match-dist", new Option_Float(-1));
-        oc.addDescription("opendrive-output.shape-match-dist", "Output", "Match loaded shapes to the closest edge within FLOAT and export as road objects");
+        oc.addDescription("opendrive-output.shape-match-dist", TL("Output"), TL("Match loaded shapes to the closest edge within FLOAT and export as road objects"));
     }
 }
 

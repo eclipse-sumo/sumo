@@ -42,17 +42,17 @@
 // ---------------------------------------------------------------------------
 void
 MSDevice_GLOSA::insertOptions(OptionsCont& oc) {
-    oc.addOptionSubTopic("GLOSA Device");
+    oc.addOptionSubTopic(TL("GLOSA Device"));
     insertDefaultAssignmentOptions("glosa", "GLOSA Device", oc);
 
     oc.doRegister("device.glosa.range", new Option_Float(100.0));
-    oc.addDescription("device.glosa.range", "GLOSA Device", "The communication range to the traffic light");
+    oc.addDescription("device.glosa.range", TL("GLOSA Device"), TL("The communication range to the traffic light"));
 
     oc.doRegister("device.glosa.max-speedfactor", new Option_Float(1.1));
-    oc.addDescription("device.glosa.max-speedfactor", "GLOSA Device", "The maximum speed factor when approaching a green light");
+    oc.addDescription("device.glosa.max-speedfactor", TL("GLOSA Device"), TL("The maximum speed factor when approaching a green light"));
 
     oc.doRegister("device.glosa.min-speed", new Option_Float(5.0));
-    oc.addDescription("device.glosa.min-speed", "GLOSA Device", "Minimum speed when coasting towards a red light");
+    oc.addDescription("device.glosa.min-speed", TL("GLOSA Device"), TL("Minimum speed when coasting towards a red light"));
 }
 
 

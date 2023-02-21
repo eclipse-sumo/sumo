@@ -60,17 +60,17 @@ long long int MSDevice_FCD::myWrittenAttributes(myDefaultMask);
 // ---------------------------------------------------------------------------
 void
 MSDevice_FCD::insertOptions(OptionsCont& oc) {
-    oc.addOptionSubTopic("FCD Device");
+    oc.addOptionSubTopic(TL("FCD Device"));
     insertDefaultAssignmentOptions("fcd", "FCD Device", oc);
 
     oc.doRegister("device.fcd.begin", new Option_String("-1"));
-    oc.addDescription("device.fcd.begin", "FCD Device", "Recording begin time for FCD-data");
+    oc.addDescription("device.fcd.begin", TL("FCD Device"), TL("Recording begin time for FCD-data"));
 
     oc.doRegister("device.fcd.period", new Option_String("0"));
-    oc.addDescription("device.fcd.period", "FCD Device", "Recording period for FCD-data");
+    oc.addDescription("device.fcd.period", TL("FCD Device"), TL("Recording period for FCD-data"));
 
     oc.doRegister("device.fcd.radius", new Option_Float(0));
-    oc.addDescription("device.fcd.radius", "FCD Device", "Record objects in a radius around equipped vehicles");
+    oc.addDescription("device.fcd.radius", TL("FCD Device"), TL("Record objects in a radius around equipped vehicles"));
 }
 
 

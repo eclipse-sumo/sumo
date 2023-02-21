@@ -58,15 +58,15 @@ void
 RandHelper::insertRandOptions() {
     OptionsCont& oc = OptionsCont::getOptions();
     // registers random number options
-    oc.addOptionSubTopic("Random Number");
+    oc.addOptionSubTopic(TL("Random Number"));
 
     oc.doRegister("random", new Option_Bool(false));
     oc.addSynonyme("random", "abs-rand", true);
-    oc.addDescription("random", "Random Number", "Initialises the random number generator with the current system time");
+    oc.addDescription("random", TL("Random Number"), TL("Initialises the random number generator with the current system time"));
 
     oc.doRegister("seed", new Option_Integer(23423));
     oc.addSynonyme("seed", "srand", true);
-    oc.addDescription("seed", "Random Number", "Initialises the random number generator with the given value");
+    oc.addDescription("seed", TL("Random Number"), TL("Initialises the random number generator with the given value"));
 }
 
 

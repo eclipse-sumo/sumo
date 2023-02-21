@@ -44,33 +44,33 @@ ROFrame::fillOptions(OptionsCont& oc, const bool isDUA, const bool isMA) {
     // register I/O options
     oc.doRegister("output-file", 'o', new Option_FileName());
     oc.addSynonyme("output-file", "output");
-    oc.addDescription("output-file", "Output", "Write generated routes to FILE");
+    oc.addDescription("output-file", TL("Output"), TL("Write generated routes to FILE"));
 
     oc.doRegister("vtype-output", new Option_FileName());
     if (!isMA) {
         oc.addSynonyme("vtype-output", "vtype");
     }
-    oc.addDescription("vtype-output", "Output", "Write used vehicle types into separate FILE");
+    oc.addDescription("vtype-output", TL("Output"), TL("Write used vehicle types into separate FILE"));
 
     oc.doRegister("keep-vtype-distributions", new Option_Bool(false));
-    oc.addDescription("keep-vtype-distributions", "Output", "Keep vTypeDistribution ids when writing vehicles and their types");
+    oc.addDescription("keep-vtype-distributions", TL("Output"), TL("Keep vTypeDistribution ids when writing vehicles and their types"));
 
     oc.doRegister("emissions.volumetric-fuel", new Option_Bool(false));
-    oc.addDescription("emissions.volumetric-fuel", "Output", "Return fuel consumption values in (legacy) unit l instead of mg");
+    oc.addDescription("emissions.volumetric-fuel", TL("Output"), TL("Return fuel consumption values in (legacy) unit l instead of mg"));
 
     oc.doRegister("net-file", 'n', new Option_FileName());
     oc.addSynonyme("net-file", "net");
-    oc.addDescription("net-file", "Input", "Use FILE as SUMO-network to route on");
+    oc.addDescription("net-file", TL("Input"), TL("Use FILE as SUMO-network to route on"));
 
     oc.doRegister("named-routes", new Option_Bool(false));
-    oc.addDescription("named-routes", "Output", "Write vehicles that reference routes by their id");
+    oc.addDescription("named-routes", TL("Output"), TL("Write vehicles that reference routes by their id"));
 
     oc.doRegister("additional-files", 'a', new Option_FileName());
     oc.addSynonyme("additional-files", "d", true);
     oc.addSynonyme("additional-files", "additional");
     oc.addSynonyme("additional-files", "taz-files");
     oc.addSynonyme("additional-files", "districts", true);
-    oc.addDescription("additional-files", "Input", "Read additional network data (districts, bus stops) from FILE(s)");
+    oc.addDescription("additional-files", TL("Input"), TL("Read additional network data (districts, bus stops) from FILE(s)"));
 
     oc.doRegister("route-files", 'r', new Option_FileName());
     oc.addSynonyme("route-files", "flow-files", true);
@@ -84,28 +84,28 @@ ROFrame::fillOptions(OptionsCont& oc, const bool isDUA, const bool isMA) {
         // to make the transition from --trip-files easier, but has a conflict with jtrrouter
         oc.addSynonyme("route-files", "t", true);
     }
-    oc.addDescription("route-files", "Input", "Read sumo routes, alternatives, flows, and trips from FILE(s)");
+    oc.addDescription("route-files", TL("Input"), TL("Read sumo routes, alternatives, flows, and trips from FILE(s)"));
 
     oc.doRegister("phemlight-path", new Option_FileName(StringVector({ "./PHEMlight/" })));
-    oc.addDescription("phemlight-path", "Input", "Determines where to load PHEMlight definitions from");
+    oc.addDescription("phemlight-path", TL("Input"), TL("Determines where to load PHEMlight definitions from"));
 
     oc.doRegister("phemlight-year", new Option_Integer(0));
-    oc.addDescription("phemlight-year", "Input", "Enable fleet age modelling with the given reference year in PHEMlight5");
+    oc.addDescription("phemlight-year", TL("Input"), TL("Enable fleet age modelling with the given reference year in PHEMlight5"));
 
     oc.doRegister("phemlight-temperature", new Option_Float(INVALID_DOUBLE));
-    oc.addDescription("phemlight-temperature", "Input", "Set ambient temperature to correct NOx emissions in PHEMlight5");
+    oc.addDescription("phemlight-temperature", TL("Input"), TL("Set ambient temperature to correct NOx emissions in PHEMlight5"));
 
     if (isDUA || isMA) {
         oc.doRegister("weight-files", 'w', new Option_FileName());
         oc.addSynonyme("weight-files", "weights");
-        oc.addDescription("weight-files", "Input", "Read network weights from FILE(s)");
+        oc.addDescription("weight-files", TL("Input"), TL("Read network weights from FILE(s)"));
 
         oc.doRegister("lane-weight-files", new Option_FileName());
-        oc.addDescription("lane-weight-files", "Input", "Read lane-based network weights from FILE(s)");
+        oc.addDescription("lane-weight-files", TL("Input"), TL("Read lane-based network weights from FILE(s)"));
 
         oc.doRegister("weight-attribute", 'x', new Option_String("traveltime"));
         oc.addSynonyme("weight-attribute", "measure", true);
-        oc.addDescription("weight-attribute", "Input", "Name of the xml attribute which gives the edge weight");
+        oc.addDescription("weight-attribute", TL("Input"), TL("Name of the xml attribute which gives the edge weight"));
     }
 
     // need to do this here to be able to check for network and route input options
@@ -113,116 +113,116 @@ ROFrame::fillOptions(OptionsCont& oc, const bool isDUA, const bool isMA) {
 
     // register the time settings
     oc.doRegister("begin", 'b', new Option_String("0", "TIME"));
-    oc.addDescription("begin", "Time", "Defines the begin time; Previous trips will be discarded");
+    oc.addDescription("begin", TL("Time"), TL("Defines the begin time; Previous trips will be discarded"));
 
     oc.doRegister("end", 'e', new Option_String("-1", "TIME"));
-    oc.addDescription("end", "Time", "Defines the end time; Later trips will be discarded; Defaults to the maximum time that SUMO can represent");
+    oc.addDescription("end", TL("Time"), TL("Defines the end time; Later trips will be discarded; Defaults to the maximum time that SUMO can represent"));
 
     // register the processing options
     oc.doRegister("ignore-errors", new Option_Bool(false));
     oc.addSynonyme("ignore-errors", "continue-on-unbuild", true);
     oc.addSynonyme("ignore-errors", "dismiss-loading-errors", true);
-    oc.addDescription("ignore-errors", "Report", "Continue if a route could not be build");
+    oc.addDescription("ignore-errors", TL("Report"), TL("Continue if a route could not be build"));
 
     oc.doRegister("max-alternatives", new Option_Integer(5));
-    oc.addDescription("max-alternatives", "Processing", "Prune the number of alternatives to INT");
+    oc.addDescription("max-alternatives", TL("Processing"), TL("Prune the number of alternatives to INT"));
 
     oc.doRegister("with-taz", new Option_Bool(false));
-    oc.addDescription("with-taz", "Processing", "Use origin and destination zones (districts) for in- and output");
+    oc.addDescription("with-taz", TL("Processing"), TL("Use origin and destination zones (districts) for in- and output"));
 
     oc.doRegister("junction-taz", new Option_Bool(false));
-    oc.addDescription("junction-taz", "Input", "Initialize a TAZ for every junction to use attributes toJunction and fromJunction");
+    oc.addDescription("junction-taz", TL("Input"), TL("Initialize a TAZ for every junction to use attributes toJunction and fromJunction"));
 
     if (!isMA) {
         oc.doRegister("unsorted-input", new Option_Bool(false));
         oc.addSynonyme("unsorted-input", "unsorted");
-        oc.addDescription("unsorted-input", "Processing", "Assume input is unsorted");
+        oc.addDescription("unsorted-input", TL("Processing"), TL("Assume input is unsorted"));
 
         oc.doRegister("route-steps", 's', new Option_String("200", "TIME"));
-        oc.addDescription("route-steps", "Processing", "Load routes for the next number of seconds ahead");
+        oc.addDescription("route-steps", TL("Processing"), TL("Load routes for the next number of seconds ahead"));
 
         oc.doRegister("no-internal-links", new Option_Bool(false));
-        oc.addDescription("no-internal-links", "Processing", "Disable (junction) internal links");
+        oc.addDescription("no-internal-links", TL("Processing"), TL("Disable (junction) internal links"));
 
         oc.doRegister("randomize-flows", new Option_Bool(false));
-        oc.addDescription("randomize-flows", "Processing", "generate random departure times for flow input");
+        oc.addDescription("randomize-flows", TL("Processing"), TL("generate random departure times for flow input"));
 
         oc.doRegister("remove-loops", new Option_Bool(false));
-        oc.addDescription("remove-loops", "Processing", "Remove loops within the route; Remove turnarounds at start and end of the route");
+        oc.addDescription("remove-loops", TL("Processing"), TL("Remove loops within the route; Remove turnarounds at start and end of the route"));
 
         oc.doRegister("repair", new Option_Bool(false));
-        oc.addDescription("repair", "Processing", "Tries to correct a false route");
+        oc.addDescription("repair", TL("Processing"), TL("Tries to correct a false route"));
 
         oc.doRegister("repair.from", new Option_Bool(false));
-        oc.addDescription("repair.from", "Processing", "Tries to correct an invalid starting edge by using the first usable edge instead");
+        oc.addDescription("repair.from", TL("Processing"), TL("Tries to correct an invalid starting edge by using the first usable edge instead"));
 
         oc.doRegister("repair.to", new Option_Bool(false));
-        oc.addDescription("repair.to", "Processing", "Tries to correct an invalid destination edge by using the last usable edge instead");
+        oc.addDescription("repair.to", TL("Processing"), TL("Tries to correct an invalid destination edge by using the last usable edge instead"));
 
         oc.doRegister("mapmatch.distance", new Option_Float(100));
-        oc.addDescription("mapmatch.distance", "Processing", "Maximum distance when mapping input coordinates (fromXY etc.) to the road network");
+        oc.addDescription("mapmatch.distance", TL("Processing"), TL("Maximum distance when mapping input coordinates (fromXY etc.) to the road network"));
 
         oc.doRegister("mapmatch.junctions", new Option_Bool(false));
-        oc.addDescription("mapmatch.junctions", "Processing", "Match positions to junctions instead of edges");
+        oc.addDescription("mapmatch.junctions", TL("Processing"), TL("Match positions to junctions instead of edges"));
 
         oc.doRegister("bulk-routing", new Option_Bool(false));
-        oc.addDescription("bulk-routing", "Processing", "Aggregate routing queries with the same origin");
+        oc.addDescription("bulk-routing", TL("Processing"), TL("Aggregate routing queries with the same origin"));
     }
 
     oc.doRegister("routing-threads", new Option_Integer(0));
-    oc.addDescription("routing-threads", "Processing", "The number of parallel execution threads used for routing");
+    oc.addDescription("routing-threads", TL("Processing"), TL("The number of parallel execution threads used for routing"));
 
     if (isDUA || isMA) {
         oc.doRegister("routing-algorithm", new Option_String("dijkstra"));
-        oc.addDescription("routing-algorithm", "Processing", "Select among routing algorithms ['dijkstra', 'astar', 'CH', 'CHWrapper']");
+        oc.addDescription("routing-algorithm", TL("Processing"), TL("Select among routing algorithms ['dijkstra', 'astar', 'CH', 'CHWrapper']"));
     }
 
     oc.doRegister("restriction-params", new Option_StringVector());
-    oc.addDescription("restriction-params", "Processing", "Comma separated list of param keys to compare for additional restrictions");
+    oc.addDescription("restriction-params", TL("Processing"), TL("Comma separated list of param keys to compare for additional restrictions"));
 
     if (isDUA || isMA) {
         oc.doRegister("weights.interpolate", new Option_Bool(false));
         oc.addSynonyme("weights.interpolate", "interpolate", true);
-        oc.addDescription("weights.interpolate", "Processing", "Interpolate edge weights at interval boundaries");
+        oc.addDescription("weights.interpolate", TL("Processing"), TL("Interpolate edge weights at interval boundaries"));
 
         oc.doRegister("weights.expand", new Option_Bool(false));
         oc.addSynonyme("weights.expand", "expand-weights", true);
-        oc.addDescription("weights.expand", "Processing", "Expand the end of the last loaded weight interval to infinity");
+        oc.addDescription("weights.expand", TL("Processing"), TL("Expand the end of the last loaded weight interval to infinity"));
     }
 
     oc.doRegister("weights.minor-penalty", new Option_Float(1.5));
-    oc.addDescription("weights.minor-penalty", "Processing", "Apply the given time penalty when computing routing costs for minor-link internal lanes");
+    oc.addDescription("weights.minor-penalty", TL("Processing"), TL("Apply the given time penalty when computing routing costs for minor-link internal lanes"));
 
     if (!isMA) {
         // register defaults options
         oc.doRegister("departlane", new Option_String());
-        oc.addDescription("departlane", "Defaults", "Assigns a default depart lane");
+        oc.addDescription("departlane", TL("Defaults"), TL("Assigns a default depart lane"));
 
         oc.doRegister("departpos", new Option_String());
-        oc.addDescription("departpos", "Defaults", "Assigns a default depart position");
+        oc.addDescription("departpos", TL("Defaults"), TL("Assigns a default depart position"));
 
         oc.doRegister("departspeed", new Option_String());
-        oc.addDescription("departspeed", "Defaults", "Assigns a default depart speed");
+        oc.addDescription("departspeed", TL("Defaults"), TL("Assigns a default depart speed"));
 
         oc.doRegister("arrivallane", new Option_String());
-        oc.addDescription("arrivallane", "Defaults", "Assigns a default arrival lane");
+        oc.addDescription("arrivallane", TL("Defaults"), TL("Assigns a default arrival lane"));
 
         oc.doRegister("arrivalpos", new Option_String());
-        oc.addDescription("arrivalpos", "Defaults", "Assigns a default arrival position");
+        oc.addDescription("arrivalpos", TL("Defaults"), TL("Assigns a default arrival position"));
 
         oc.doRegister("arrivalspeed", new Option_String());
-        oc.addDescription("arrivalspeed", "Defaults", "Assigns a default arrival speed");
+        oc.addDescription("arrivalspeed", TL("Defaults"), TL("Assigns a default arrival speed"));
 
         oc.doRegister("defaults-override", new Option_Bool(false));
-        oc.addDescription("defaults-override", "Defaults", "Defaults will override given values");
+        oc.addDescription("defaults-override", TL("Defaults"), TL("Defaults will override given values"));
     }
 
     // register report options
     oc.doRegister("stats-period", new Option_Integer(-1));
-    oc.addDescription("stats-period", "Report", "Defines how often statistics shall be printed");
+    oc.addDescription("stats-period", TL("Report"), TL("Defines how often statistics shall be printed"));
 
     oc.doRegister("no-step-log", new Option_Bool(false));
-    oc.addDescription("no-step-log", "Report", "Disable console output of route parsing step");
+    oc.addDescription("no-step-log", TL("Report"), TL("Disable console output of route parsing step"));
 }
 
 

@@ -212,28 +212,28 @@ MSDevice_SSM::cleanup() {
 
 void
 MSDevice_SSM::insertOptions(OptionsCont& oc) {
-    oc.addOptionSubTopic("SSM Device");
+    oc.addOptionSubTopic(TL("SSM Device"));
     insertDefaultAssignmentOptions("ssm", "SSM Device", oc);
 
     // custom options
     oc.doRegister("device.ssm.measures", new Option_String(""));
-    oc.addDescription("device.ssm.measures", "SSM Device", "Specifies which measures will be logged (as a space or comma-separated sequence of IDs in ('TTC', 'DRAC', 'PET'))");
+    oc.addDescription("device.ssm.measures", TL("SSM Device"), TL("Specifies which measures will be logged (as a space or comma-separated sequence of IDs in ('TTC', 'DRAC', 'PET'))"));
     oc.doRegister("device.ssm.thresholds", new Option_String(""));
-    oc.addDescription("device.ssm.thresholds", "SSM Device", "Specifies space or comma-separated thresholds corresponding to the specified measures (see documentation and watch the order!). Only events exceeding the thresholds will be logged.");
+    oc.addDescription("device.ssm.thresholds", TL("SSM Device"), TL("Specifies space or comma-separated thresholds corresponding to the specified measures (see documentation and watch the order!). Only events exceeding the thresholds will be logged."));
     oc.doRegister("device.ssm.trajectories",  new Option_Bool(false));
-    oc.addDescription("device.ssm.trajectories", "SSM Device", "Specifies whether trajectories will be logged (if false, only the extremal values and times are reported).");
+    oc.addDescription("device.ssm.trajectories", TL("SSM Device"), TL("Specifies whether trajectories will be logged (if false, only the extremal values and times are reported)."));
     oc.doRegister("device.ssm.range", new Option_Float(50.));
-    oc.addDescription("device.ssm.range", "SSM Device", "Specifies the detection range in meters. For vehicles below this distance from the equipped vehicle, SSM values are traced.");
+    oc.addDescription("device.ssm.range", TL("SSM Device"), TL("Specifies the detection range in meters. For vehicles below this distance from the equipped vehicle, SSM values are traced."));
     oc.doRegister("device.ssm.extratime", new Option_Float(DEFAULT_EXTRA_TIME));
-    oc.addDescription("device.ssm.extratime", "SSM Device", "Specifies the time in seconds to be logged after a conflict is over. Required >0 if PET is to be calculated for crossing conflicts.");
+    oc.addDescription("device.ssm.extratime", TL("SSM Device"), TL("Specifies the time in seconds to be logged after a conflict is over. Required >0 if PET is to be calculated for crossing conflicts."));
     oc.doRegister("device.ssm.file", new Option_String(""));
-    oc.addDescription("device.ssm.file", "SSM Device", "Give a global default filename for the SSM output");
+    oc.addDescription("device.ssm.file", TL("SSM Device"), TL("Give a global default filename for the SSM output"));
     oc.doRegister("device.ssm.geo", new Option_Bool(false));
-    oc.addDescription("device.ssm.geo", "SSM Device", "Whether to use coordinates of the original reference system in output");
+    oc.addDescription("device.ssm.geo", TL("SSM Device"), TL("Whether to use coordinates of the original reference system in output"));
     oc.doRegister("device.ssm.write-positions", new Option_Bool(false));
-    oc.addDescription("device.ssm.write-positions", "SSM Device", "Whether to write positions (coordinates) for each timestep");
+    oc.addDescription("device.ssm.write-positions", TL("SSM Device"), TL("Whether to write positions (coordinates) for each timestep"));
     oc.doRegister("device.ssm.write-lane-positions", new Option_Bool(false));
-    oc.addDescription("device.ssm.write-lane-positions", "SSM Device", "Whether to write lanes and their positions for each timestep");
+    oc.addDescription("device.ssm.write-lane-positions", TL("SSM Device"), TL("Whether to write lanes and their positions for each timestep"));
 }
 
 

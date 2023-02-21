@@ -75,26 +75,26 @@ int MSDevice_Taxi::myMaxContainerCapacity(0);
 // ---------------------------------------------------------------------------
 void
 MSDevice_Taxi::insertOptions(OptionsCont& oc) {
-    oc.addOptionSubTopic("Taxi Device");
+    oc.addOptionSubTopic(TL("Taxi Device"));
     insertDefaultAssignmentOptions("taxi", "Taxi Device", oc);
 
     oc.doRegister("device.taxi.dispatch-algorithm", new Option_String("greedy"));
-    oc.addDescription("device.taxi.dispatch-algorithm", "Taxi Device", "The dispatch algorithm [greedy|greedyClosest|greedyShared|routeExtension|traci]");
+    oc.addDescription("device.taxi.dispatch-algorithm", TL("Taxi Device"), TL("The dispatch algorithm [greedy|greedyClosest|greedyShared|routeExtension|traci]"));
 
     oc.doRegister("device.taxi.dispatch-algorithm.output", new Option_FileName());
-    oc.addDescription("device.taxi.dispatch-algorithm.output", "Taxi Device", "Write information from the dispatch algorithm to FILE");
+    oc.addDescription("device.taxi.dispatch-algorithm.output", TL("Taxi Device"), TL("Write information from the dispatch algorithm to FILE"));
 
     oc.doRegister("device.taxi.dispatch-algorithm.params", new Option_String(""));
-    oc.addDescription("device.taxi.dispatch-algorithm.params", "Taxi Device", "Load dispatch algorithm parameters in format KEY1:VALUE1[,KEY2:VALUE]");
+    oc.addDescription("device.taxi.dispatch-algorithm.params", TL("Taxi Device"), TL("Load dispatch algorithm parameters in format KEY1:VALUE1[,KEY2:VALUE]"));
 
     oc.doRegister("device.taxi.dispatch-period", new Option_String("60", "TIME"));
-    oc.addDescription("device.taxi.dispatch-period", "Taxi Device", "The period between successive calls to the dispatcher");
+    oc.addDescription("device.taxi.dispatch-period", TL("Taxi Device"), TL("The period between successive calls to the dispatcher"));
 
     oc.doRegister("device.taxi.idle-algorithm", new Option_String("stop"));
-    oc.addDescription("device.taxi.idle-algorithm", "Taxi Device", "The behavior of idle taxis [stop|randomCircling]");
+    oc.addDescription("device.taxi.idle-algorithm", TL("Taxi Device"), TL("The behavior of idle taxis [stop|randomCircling]"));
 
     oc.doRegister("device.taxi.idle-algorithm.output", new Option_FileName());
-    oc.addDescription("device.taxi.idle-algorithm.output", "Taxi Device", "Write information from the idling algorithm to FILE");
+    oc.addDescription("device.taxi.idle-algorithm.output", TL("Taxi Device"), TL("Write information from the idling algorithm to FILE"));
 }
 
 

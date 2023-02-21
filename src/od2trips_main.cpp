@@ -64,11 +64,11 @@ fillOptions() {
 
     // insert options sub-topics
     SystemFrame::addConfigurationOptions(oc); // fill this subtopic, too
-    oc.addOptionSubTopic("Input");
-    oc.addOptionSubTopic("Output");
-    oc.addOptionSubTopic("Time");
-    oc.addOptionSubTopic("Processing");
-    oc.addOptionSubTopic("Defaults");
+    oc.addOptionSubTopic(TL("Input"));
+    oc.addOptionSubTopic(TL("Output"));
+    oc.addOptionSubTopic(TL("Time"));
+    oc.addOptionSubTopic(TL("Processing"));
+    oc.addOptionSubTopic(TL("Defaults"));
     SystemFrame::addReportOptions(oc); // fill this subtopic, too
 
 
@@ -77,109 +77,109 @@ fillOptions() {
     oc.addSynonyme("taz-files", "taz");
     oc.addSynonyme("taz-files", "net-file");
     oc.addSynonyme("taz-files", "net");
-    oc.addDescription("taz-files", "Input", "Loads TAZ (districts; also from networks) from FILE(s)");
+    oc.addDescription("taz-files", TL("Input"), TL("Loads TAZ (districts; also from networks) from FILE(s)"));
 
     oc.doRegister("od-matrix-files", 'd', new Option_FileName());
     oc.addSynonyme("od-matrix-files", "od-files");
     oc.addSynonyme("od-matrix-files", "od");
-    oc.addDescription("od-matrix-files", "Input", "Loads O/D-files from FILE(s)");
+    oc.addDescription("od-matrix-files", TL("Input"), TL("Loads O/D-files from FILE(s)"));
 
     oc.doRegister("od-amitran-files", new Option_FileName());
     oc.addSynonyme("od-amitran-files", "amitran-files");
     oc.addSynonyme("od-amitran-files", "amitran");
-    oc.addDescription("od-amitran-files", "Input", "Loads O/D-matrix in Amitran format from FILE(s)");
+    oc.addDescription("od-amitran-files", TL("Input"), TL("Loads O/D-matrix in Amitran format from FILE(s)"));
 
     oc.doRegister("tazrelation-files", 'z', new Option_FileName());
-    oc.addDescription("tazrelation-files", "Input", "Loads O/D-matrix in tazRelation format from FILE(s)");
+    oc.addDescription("tazrelation-files", TL("Input"), TL("Loads O/D-matrix in tazRelation format from FILE(s)"));
 
     oc.doRegister("tazrelation-attribute", new Option_String("count"));
     oc.addSynonyme("tazrelation-attribute", "attribute");
-    oc.addDescription("tazrelation-attribute", "Input", "Define data attribute for loading counts (default 'count')");
+    oc.addDescription("tazrelation-attribute", TL("Input"), TL("Define data attribute for loading counts (default 'count')"));
 
     // register the file output options
     oc.doRegister("output-file", 'o', new Option_FileName());
     oc.addSynonyme("output-file", "output", true);
-    oc.addDescription("output-file", "Output", "Writes trip definitions into FILE");
+    oc.addDescription("output-file", TL("Output"), TL("Writes trip definitions into FILE"));
 
     oc.doRegister("flow-output", new Option_FileName());
-    oc.addDescription("flow-output", "Output", "Writes flow definitions into FILE");
+    oc.addDescription("flow-output", TL("Output"), TL("Writes flow definitions into FILE"));
 
     oc.doRegister("flow-output.probability", new Option_Bool(false));
-    oc.addDescription("flow-output.probability", "Output", "Writes probabilistic flow instead of evenly spaced flow");
+    oc.addDescription("flow-output.probability", TL("Output"), TL("Writes probabilistic flow instead of evenly spaced flow"));
 
     oc.doRegister("pedestrians", new Option_Bool(false));
-    oc.addDescription("pedestrians", "Output", "Writes pedestrians instead of vehicles");
+    oc.addDescription("pedestrians", TL("Output"), TL("Writes pedestrians instead of vehicles"));
 
     oc.doRegister("persontrips", new Option_Bool(false));
-    oc.addDescription("persontrips", "Output", "Writes persontrips instead of vehicles");
+    oc.addDescription("persontrips", TL("Output"), TL("Writes persontrips instead of vehicles"));
 
     oc.doRegister("persontrips.modes", new Option_StringVector());
-    oc.addDescription("persontrips.modes", "Output", "Add modes attribute to personTrips");
+    oc.addDescription("persontrips.modes", TL("Output"), TL("Add modes attribute to personTrips"));
 
     oc.doRegister("ignore-vehicle-type", new Option_Bool(false));
     oc.addSynonyme("ignore-vehicle-type", "no-vtype", true);
-    oc.addDescription("ignore-vehicle-type", "Output", "Does not save vtype information");
+    oc.addDescription("ignore-vehicle-type", TL("Output"), TL("Does not save vtype information"));
 
     oc.doRegister("junctions", new Option_Bool(false));
-    oc.addDescription("junctions", "Output", "Writes trips between junctions");
+    oc.addDescription("junctions", TL("Output"), TL("Writes trips between junctions"));
 
 
     // register the time settings
     oc.doRegister("begin", 'b', new Option_String("0", "TIME"));
-    oc.addDescription("begin", "Time", "Defines the begin time; Previous trips will be discarded");
+    oc.addDescription("begin", TL("Time"), TL("Defines the begin time; Previous trips will be discarded"));
 
     oc.doRegister("end", 'e', new Option_String("-1", "TIME"));
-    oc.addDescription("end", "Time", "Defines the end time; Later trips will be discarded; Defaults to the maximum time that SUMO can represent");
+    oc.addDescription("end", TL("Time"), TL("Defines the end time; Later trips will be discarded; Defaults to the maximum time that SUMO can represent"));
 
 
     // register the data processing options
     oc.doRegister("scale", 's', new Option_Float(1));
-    oc.addDescription("scale", "Processing", "Scales the loaded flows by FLOAT");
+    oc.addDescription("scale", TL("Processing"), TL("Scales the loaded flows by FLOAT"));
 
     oc.doRegister("spread.uniform", new Option_Bool(false));
-    oc.addDescription("spread.uniform", "Processing", "Spreads trips uniformly over each time period");
+    oc.addDescription("spread.uniform", TL("Processing"), TL("Spreads trips uniformly over each time period"));
 
     oc.doRegister("different-source-sink", new Option_Bool(false));
-    oc.addDescription("different-source-sink", "Processing", "Always choose source and sink edge which are not identical");
+    oc.addDescription("different-source-sink", TL("Processing"), TL("Always choose source and sink edge which are not identical"));
 
     oc.doRegister("vtype", new Option_String(""));
-    oc.addDescription("vtype", "Processing", "Defines the name of the vehicle type to use");
+    oc.addDescription("vtype", TL("Processing"), TL("Defines the name of the vehicle type to use"));
 
     oc.doRegister("prefix", new Option_String(""));
-    oc.addDescription("prefix", "Processing", "Defines the prefix for vehicle names");
+    oc.addDescription("prefix", TL("Processing"), TL("Defines the prefix for vehicle names"));
 
     oc.doRegister("timeline", new Option_StringVector());
-    oc.addDescription("timeline", "Processing", "Uses STR[] as a timeline definition");
+    oc.addDescription("timeline", TL("Processing"), TL("Uses STR[] as a timeline definition"));
 
     oc.doRegister("timeline.day-in-hours", new Option_Bool(false));
-    oc.addDescription("timeline.day-in-hours", "Processing", "Uses STR as a 24h-timeline definition");
+    oc.addDescription("timeline.day-in-hours", TL("Processing"), TL("Uses STR as a 24h-timeline definition"));
 
     oc.doRegister("ignore-errors", new Option_Bool(false)); // !!! describe, document
     oc.addSynonyme("ignore-errors", "dismiss-loading-errors", true);
-    oc.addDescription("ignore-errors", "Report", "Continue on broken input");
+    oc.addDescription("ignore-errors", TL("Report"), TL("Continue on broken input"));
 
     oc.doRegister("no-step-log", new Option_Bool(false));
-    oc.addDescription("no-step-log", "Processing", "Disable console output of current time step");
+    oc.addDescription("no-step-log", TL("Processing"), TL("Disable console output of current time step"));
 
 
     // register defaults options
     oc.doRegister("departlane", new Option_String("free"));
-    oc.addDescription("departlane", "Defaults", "Assigns a default depart lane");
+    oc.addDescription("departlane", TL("Defaults"), TL("Assigns a default depart lane"));
 
     oc.doRegister("departpos", new Option_String());
-    oc.addDescription("departpos", "Defaults", "Assigns a default depart position");
+    oc.addDescription("departpos", TL("Defaults"), TL("Assigns a default depart position"));
 
     oc.doRegister("departspeed", new Option_String("max"));
-    oc.addDescription("departspeed", "Defaults", "Assigns a default depart speed");
+    oc.addDescription("departspeed", TL("Defaults"), TL("Assigns a default depart speed"));
 
     oc.doRegister("arrivallane", new Option_String());
-    oc.addDescription("arrivallane", "Defaults", "Assigns a default arrival lane");
+    oc.addDescription("arrivallane", TL("Defaults"), TL("Assigns a default arrival lane"));
 
     oc.doRegister("arrivalpos", new Option_String());
-    oc.addDescription("arrivalpos", "Defaults", "Assigns a default arrival position");
+    oc.addDescription("arrivalpos", TL("Defaults"), TL("Assigns a default arrival position"));
 
     oc.doRegister("arrivalspeed", new Option_String());
-    oc.addDescription("arrivalspeed", "Defaults", "Assigns a default arrival speed");
+    oc.addDescription("arrivalspeed", TL("Defaults"), TL("Assigns a default arrival speed"));
 
     // add rand options
     RandHelper::insertRandOptions();

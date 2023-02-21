@@ -86,7 +86,7 @@ MSDevice_Vehroutes::init() {
 
 void
 MSDevice_Vehroutes::insertOptions(OptionsCont& oc) {
-    oc.addOptionSubTopic("Vehroutes Device");
+    oc.addOptionSubTopic(TL("Vehroutes Device"));
     insertDefaultAssignmentOptions("vehroute", "Vehroutes Device", oc);
 }
 

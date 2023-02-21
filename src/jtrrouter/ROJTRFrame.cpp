@@ -46,46 +46,46 @@ ROJTRFrame::fillOptions() {
 
     // insert options sub-topics
     SystemFrame::addConfigurationOptions(oc);
-    oc.addOptionSubTopic("Input");
-    oc.addOptionSubTopic("Output");
-    oc.addOptionSubTopic("Processing");
-    oc.addOptionSubTopic("Defaults");
-    oc.addOptionSubTopic("Time");
+    oc.addOptionSubTopic(TL("Input"));
+    oc.addOptionSubTopic(TL("Output"));
+    oc.addOptionSubTopic(TL("Processing"));
+    oc.addOptionSubTopic(TL("Defaults"));
+    oc.addOptionSubTopic(TL("Time"));
 
     ROFrame::fillOptions(oc);
 
     oc.doRegister("turn-ratio-files", 't', new Option_FileName());
     oc.addSynonyme("turn-ratio-files", "turns");
-    oc.addDescription("turn-ratio-files", "Input", "Read turning ratios from FILE(s)");
+    oc.addDescription("turn-ratio-files", TL("Input"), TL("Read turning ratios from FILE(s)"));
 
     oc.doRegister("exit-times", new Option_Bool(false));
-    oc.addDescription("exit-times", "Output", "Write exit times (weights) for each edge");
+    oc.addDescription("exit-times", TL("Output"), TL("Write exit times (weights) for each edge"));
 
     oc.doRegister("max-edges-factor", new Option_Float(2.0));
     oc.addDescription("max-edges-factor", "Processing",
                       "Routes are cut off when the route edges to net edges ratio is larger than FLOAT");
 
     oc.doRegister("turn-defaults", 'T', new Option_StringVector(StringVector({ "30", "50", "20" })));
-    oc.addDescription("turn-defaults", "Processing", "Use STR[] as default turn definition");
+    oc.addDescription("turn-defaults", TL("Processing"), TL("Use STR[] as default turn definition"));
 
     oc.doRegister("sink-edges", new Option_StringVector());
     oc.addSynonyme("sink-edges", "sinks");
-    oc.addDescription("sink-edges", "Processing", "Use STR[] as list of sink edges");
+    oc.addDescription("sink-edges", TL("Processing"), TL("Use STR[] as list of sink edges"));
 
     oc.doRegister("accept-all-destinations", 'A', new Option_Bool(false));
-    oc.addDescription("accept-all-destinations", "Processing", "Whether all edges are allowed as sink edges");
+    oc.addDescription("accept-all-destinations", TL("Processing"), TL("Whether all edges are allowed as sink edges"));
 
     oc.doRegister("ignore-vclasses", 'i', new Option_Bool(false));
-    oc.addDescription("ignore-vclasses", "Processing", "Ignore road restrictions based on vehicle class");
+    oc.addDescription("ignore-vclasses", TL("Processing"), TL("Ignore road restrictions based on vehicle class"));
 
     oc.doRegister("allow-loops", new Option_Bool(false));
-    oc.addDescription("allow-loops", "Processing", "Allow to re-use a road");
+    oc.addDescription("allow-loops", TL("Processing"), TL("Allow to re-use a road"));
 
     oc.doRegister("sources-are-sinks", 'S', new Option_Bool(false));
-    oc.addDescription("sources-are-sinks", "Processing", "Use all source edges as sink edges.");
+    oc.addDescription("sources-are-sinks", TL("Processing"), TL("Use all source edges as sink edges."));
 
     oc.doRegister("discount-sources", 'D',  new Option_Bool(false));
-    oc.addDescription("discount-sources", "Processing", "Subtract upstream flow when inserting a new flow. When option --sources-are-sinks is set, the upstream flow is limited to the value of the source flow and the remaining part terminates.");
+    oc.addDescription("discount-sources", TL("Processing"), TL("Subtract upstream flow when inserting a new flow. When option --sources-are-sinks is set, the upstream flow is limited to the value of the source flow and the remaining part terminates."));
 
     // add rand options
     RandHelper::insertRandOptions();

@@ -64,92 +64,92 @@ main(int argc, char** argv) {
 
     // add options
     SystemFrame::addConfigurationOptions(oc);
-    oc.addOptionSubTopic("Input");
+    oc.addOptionSubTopic(TL("Input"));
     oc.doRegister("timeline-file", 't', new Option_FileName());
     oc.addSynonyme("timeline", "timeline-file");
-    oc.addDescription("timeline-file", "Input", "Defines the file to read the driving cycle from.");
+    oc.addDescription("timeline-file", TL("Input"), TL("Defines the file to read the driving cycle from."));
 
     oc.doRegister("timeline-file.skip", new Option_Integer(0));
     oc.addSynonyme("timeline.skip", "timeline-file.skip");
-    oc.addDescription("timeline-file.skip", "Input", "Skips the firs NUM lines.");
+    oc.addDescription("timeline-file.skip", TL("Input"), TL("Skips the firs NUM lines."));
 
     oc.doRegister("timeline-file.separator", new Option_String(";"));
     oc.addSynonyme("timeline.separator", "timeline-file.separator");
-    oc.addDescription("timeline-file.separator", "Input", "Defines the entry separator.");
+    oc.addDescription("timeline-file.separator", TL("Input"), TL("Defines the entry separator."));
 
     oc.doRegister("netstate-file", 'n', new Option_FileName());
     oc.addSynonyme("netstate", "netstate-file");
     oc.addSynonyme("amitran", "netstate-file");
-    oc.addDescription("netstate-file", "Input", "Defines the netstate, route and trajectory files to read the driving cycles from.");
+    oc.addDescription("netstate-file", TL("Input"), TL("Defines the netstate, route and trajectory files to read the driving cycles from."));
 
     oc.doRegister("additional-files", new Option_FileName());
-    oc.addDescription("additional-files", "Input", "Load emission parameters (vTypes) from FILE(s)");
+    oc.addDescription("additional-files", TL("Input"), TL("Load emission parameters (vTypes) from FILE(s)"));
 
     oc.doRegister("emission-class", 'e', new Option_String("unknown"));
-    oc.addDescription("emission-class", "Input", "Defines for which emission class the emissions shall be generated. ");
+    oc.addDescription("emission-class", TL("Input"), TL("Defines for which emission class the emissions shall be generated. "));
 
     oc.doRegister("vtype", new Option_String());
-    oc.addDescription("vtype", "Input", "Defines the vehicle type to use for emission parameters.");
+    oc.addDescription("vtype", TL("Input"), TL("Defines the vehicle type to use for emission parameters."));
 
-    oc.addOptionSubTopic("Processing");
+    oc.addOptionSubTopic(TL("Processing"));
     oc.doRegister("compute-a", 'a', new Option_Bool(false));
-    oc.addDescription("compute-a", "Processing", "If set, the acceleration is computed instead of being read from the file. ");
+    oc.addDescription("compute-a", TL("Processing"), TL("If set, the acceleration is computed instead of being read from the file. "));
 
     oc.doRegister("compute-a.forward", new Option_Bool(false));
-    oc.addDescription("compute-a.forward", "Processing", "If set, the acceleration for time t is computed from v(t+1) - v(t) instead of v(t) - v(t-1). ");
+    oc.addDescription("compute-a.forward", TL("Processing"), TL("If set, the acceleration for time t is computed from v(t+1) - v(t) instead of v(t) - v(t-1). "));
 
     oc.doRegister("compute-a.zero-correction", new Option_Bool(false));
-    oc.addDescription("compute-a.zero-correction", "Processing", "If set, the acceleration for time t is set to 0 if the speed is 0. ");
+    oc.addDescription("compute-a.zero-correction", TL("Processing"), TL("If set, the acceleration for time t is set to 0 if the speed is 0. "));
 
     oc.doRegister("skip-first", 's', new Option_Bool(false));
-    oc.addDescription("skip-first", "Processing", "If set, the first line of the read file is skipped.");
+    oc.addDescription("skip-first", TL("Processing"), TL("If set, the first line of the read file is skipped."));
 
     oc.doRegister("kmh", new Option_Bool(false));
-    oc.addDescription("kmh", "Processing", "If set, the given speed is interpreted as being given in km/h.");
+    oc.addDescription("kmh", TL("Processing"), TL("If set, the given speed is interpreted as being given in km/h."));
 
     oc.doRegister("have-slope", new Option_Bool(false));
-    oc.addDescription("have-slope", "Processing", "If set, the fourth column is read and used as slope (in deg).");
+    oc.addDescription("have-slope", TL("Processing"), TL("If set, the fourth column is read and used as slope (in deg)."));
 
     oc.doRegister("slope", new Option_Float(0));
-    oc.addDescription("slope", "Processing", "Sets a global slope (in deg) that is used if the file does not contain slope information.");
+    oc.addDescription("slope", TL("Processing"), TL("Sets a global slope (in deg) that is used if the file does not contain slope information."));
 
-    oc.addOptionSubTopic("Output");
+    oc.addOptionSubTopic(TL("Output"));
     oc.doRegister("output-file", 'o', new Option_String());
     oc.addSynonyme("output", "output-file");
-    oc.addDescription("output", "Output", "Defines the file to write the emission cycle results into.");
+    oc.addDescription("output", TL("Output"), TL("Defines the file to write the emission cycle results into."));
 
     oc.doRegister("output.attributes", new Option_StringVector());
-    oc.addDescription("output.attributes", "Output", "Defines the attributes to write.");
+    oc.addDescription("output.attributes", TL("Output"), TL("Defines the attributes to write."));
 
     oc.doRegister("emission-output", new Option_FileName());
-    oc.addDescription("emission-output", "Output", "Save the emission values of each vehicle in XML");
+    oc.addDescription("emission-output", TL("Output"), TL("Save the emission values of each vehicle in XML"));
 
     oc.doRegister("sum-output", new Option_FileName());
     oc.addSynonyme("sum", "sum-output");
-    oc.addDescription("sum-output", "Output", "Save the aggregated and normed emission values of each vehicle in CSV");
+    oc.addDescription("sum-output", TL("Output"), TL("Save the aggregated and normed emission values of each vehicle in CSV"));
 
-    oc.addOptionSubTopic("Emissions");
+    oc.addOptionSubTopic(TL("Emissions"));
     oc.doRegister("emissions.volumetric-fuel", new Option_Bool(false));
-    oc.addDescription("emissions.volumetric-fuel", "Emissions", "Return fuel consumption values in (legacy) unit l instead of mg");
+    oc.addDescription("emissions.volumetric-fuel", TL("Emissions"), TL("Return fuel consumption values in (legacy) unit l instead of mg"));
 
     oc.doRegister("phemlight-path", new Option_FileName(StringVector({ "./PHEMlight/" })));
-    oc.addDescription("phemlight-path", "Emissions", "Determines where to load PHEMlight definitions from");
+    oc.addDescription("phemlight-path", TL("Emissions"), TL("Determines where to load PHEMlight definitions from"));
 
     oc.doRegister("phemlight-year", new Option_Integer(0));
-    oc.addDescription("phemlight-year", "Emissions", "Enable fleet age modelling with the given reference year in PHEMlight5");
+    oc.addDescription("phemlight-year", TL("Emissions"), TL("Enable fleet age modelling with the given reference year in PHEMlight5"));
 
     oc.doRegister("phemlight-temperature", new Option_Float(INVALID_DOUBLE));
-    oc.addDescription("phemlight-temperature", "Emissions", "Set ambient temperature to correct NOx emissions in PHEMlight5");
+    oc.addDescription("phemlight-temperature", TL("Emissions"), TL("Set ambient temperature to correct NOx emissions in PHEMlight5"));
 
     oc.doRegister("begin", new Option_String("0", "TIME"));
-    oc.addDescription("begin", "Processing", "Defines the begin time in seconds;");
+    oc.addDescription("begin", TL("Processing"), TL("Defines the begin time in seconds;"));
 
     oc.doRegister("end", new Option_String("-1", "TIME"));
-    oc.addDescription("end", "Processing", "Defines the end time in seconds;");
+    oc.addDescription("end", TL("Processing"), TL("Defines the end time in seconds;"));
 
     SystemFrame::addReportOptions(oc);
     oc.doRegister("quiet", 'q', new Option_Bool(false));
-    oc.addDescription("quiet", "Report", "Not writing anything.");
+    oc.addDescription("quiet", TL("Report"), TL("Not writing anything."));
 
     // run
     int ret = 0;

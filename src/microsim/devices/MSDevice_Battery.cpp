@@ -49,7 +49,7 @@ MSDevice_Battery::insertOptions(OptionsCont& oc) {
     insertDefaultAssignmentOptions("battery", "Battery", oc);
     // custom options
     oc.doRegister("device.battery.track-fuel", new Option_Bool(false));
-    oc.addDescription("device.battery.track-fuel", "Battery", "Track fuel consumption for non-electric vehicles");
+    oc.addDescription("device.battery.track-fuel", TL("Battery"), TL("Track fuel consumption for non-electric vehicles"));
 }
 
 

@@ -60,26 +60,26 @@
 // ---------------------------------------------------------------------------
 void
 MSDevice_DriverState::insertOptions(OptionsCont& oc) {
-    oc.addOptionSubTopic("Driver State Device");
+    oc.addOptionSubTopic(TL("Driver State Device"));
     insertDefaultAssignmentOptions("driverstate", "Driver State Device", oc);
     oc.doRegister("device.driverstate.initialAwareness", new Option_Float(DriverStateDefaults::initialAwareness));
-    oc.addDescription("device.driverstate.initialAwareness", "Driver State Device", "Initial value assigned to the driver's awareness.");
+    oc.addDescription("device.driverstate.initialAwareness", TL("Driver State Device"), TL("Initial value assigned to the driver's awareness."));
     oc.doRegister("device.driverstate.errorTimeScaleCoefficient", new Option_Float(DriverStateDefaults::errorTimeScaleCoefficient));
-    oc.addDescription("device.driverstate.errorTimeScaleCoefficient", "Driver State Device", "Time scale for the error process.");
+    oc.addDescription("device.driverstate.errorTimeScaleCoefficient", TL("Driver State Device"), TL("Time scale for the error process."));
     oc.doRegister("device.driverstate.errorNoiseIntensityCoefficient", new Option_Float(DriverStateDefaults::errorNoiseIntensityCoefficient));
-    oc.addDescription("device.driverstate.errorNoiseIntensityCoefficient", "Driver State Device", "Noise intensity driving the error process.");
+    oc.addDescription("device.driverstate.errorNoiseIntensityCoefficient", TL("Driver State Device"), TL("Noise intensity driving the error process."));
     oc.doRegister("device.driverstate.speedDifferenceErrorCoefficient", new Option_Float(DriverStateDefaults::speedDifferenceErrorCoefficient));
-    oc.addDescription("device.driverstate.speedDifferenceErrorCoefficient", "Driver State Device", "General scaling coefficient for applying the error to the perceived speed difference (error also scales with distance).");
+    oc.addDescription("device.driverstate.speedDifferenceErrorCoefficient", TL("Driver State Device"), TL("General scaling coefficient for applying the error to the perceived speed difference (error also scales with distance)."));
     oc.doRegister("device.driverstate.headwayErrorCoefficient", new Option_Float(DriverStateDefaults::headwayErrorCoefficient));
-    oc.addDescription("device.driverstate.headwayErrorCoefficient", "Driver State Device", "General scaling coefficient for applying the error to the perceived distance (error also scales with distance).");
+    oc.addDescription("device.driverstate.headwayErrorCoefficient", TL("Driver State Device"), TL("General scaling coefficient for applying the error to the perceived distance (error also scales with distance)."));
     oc.doRegister("device.driverstate.speedDifferenceChangePerceptionThreshold", new Option_Float(DriverStateDefaults::speedDifferenceChangePerceptionThreshold));
-    oc.addDescription("device.driverstate.speedDifferenceChangePerceptionThreshold", "Driver State Device", "Base threshold for recognizing changes in the speed difference (threshold also scales with distance).");
+    oc.addDescription("device.driverstate.speedDifferenceChangePerceptionThreshold", TL("Driver State Device"), TL("Base threshold for recognizing changes in the speed difference (threshold also scales with distance)."));
     oc.doRegister("device.driverstate.headwayChangePerceptionThreshold", new Option_Float(DriverStateDefaults::headwayChangePerceptionThreshold));
-    oc.addDescription("device.driverstate.headwayChangePerceptionThreshold", "Driver State Device", "Base threshold for recognizing changes in the headway (threshold also scales with distance).");
+    oc.addDescription("device.driverstate.headwayChangePerceptionThreshold", TL("Driver State Device"), TL("Base threshold for recognizing changes in the headway (threshold also scales with distance)."));
     oc.doRegister("device.driverstate.minAwareness", new Option_Float(DriverStateDefaults::minAwareness));
-    oc.addDescription("device.driverstate.minAwareness", "Driver State Device", "Minimal admissible value for the driver's awareness.");
+    oc.addDescription("device.driverstate.minAwareness", TL("Driver State Device"), TL("Minimal admissible value for the driver's awareness."));
     oc.doRegister("device.driverstate.maximalReactionTime", new Option_Float(-1.0));
-    oc.addDescription("device.driverstate.maximalReactionTime", "Driver State Device", "Maximal reaction time (~action step length) induced by decreased awareness level (reached for awareness=minAwareness).");
+    oc.addDescription("device.driverstate.maximalReactionTime", TL("Driver State Device"), TL("Maximal reaction time (~action step length) induced by decreased awareness level (reached for awareness=minAwareness)."));
 }
 
 

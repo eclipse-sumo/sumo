@@ -62,13 +62,13 @@ MSVehicleDevice_BTreceiver::insertOptions(OptionsCont& oc) {
     insertDefaultAssignmentOptions("btreceiver", "Communication", oc);
 
     oc.doRegister("device.btreceiver.range", new Option_Float(300));
-    oc.addDescription("device.btreceiver.range", "Communication", "The range of the bt receiver");
+    oc.addDescription("device.btreceiver.range", TL("Communication"), TL("The range of the bt receiver"));
 
     oc.doRegister("device.btreceiver.all-recognitions", new Option_Bool(false));
-    oc.addDescription("device.btreceiver.all-recognitions", "Communication", "Whether all recognition point shall be written");
+    oc.addDescription("device.btreceiver.all-recognitions", TL("Communication"), TL("Whether all recognition point shall be written"));
 
     oc.doRegister("device.btreceiver.offtime", new Option_Float(0.64));
-    oc.addDescription("device.btreceiver.offtime", "Communication", "The offtime used for calculating detection probability (in seconds)");
+    oc.addDescription("device.btreceiver.offtime", TL("Communication"), TL("The offtime used for calculating detection probability (in seconds)"));
 
     myWasInitialised = false;
     myHasPersons = false;

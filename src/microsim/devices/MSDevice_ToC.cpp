@@ -109,47 +109,47 @@ SumoRNG MSDevice_ToC::myResponseTimeRNG("toc");
 // ---------------------------------------------------------------------------
 void
 MSDevice_ToC::insertOptions(OptionsCont& oc) {
-    oc.addOptionSubTopic("ToC Device");
+    oc.addOptionSubTopic(TL("ToC Device"));
     insertDefaultAssignmentOptions("toc", "ToC Device", oc);
 
     oc.doRegister("device.toc.manualType", new Option_String());
-    oc.addDescription("device.toc.manualType", "ToC Device", "Vehicle type for manual driving regime.");
+    oc.addDescription("device.toc.manualType", TL("ToC Device"), TL("Vehicle type for manual driving regime."));
     oc.doRegister("device.toc.automatedType", new Option_String());
-    oc.addDescription("device.toc.automatedType", "ToC Device", "Vehicle type for automated driving regime.");
+    oc.addDescription("device.toc.automatedType", TL("ToC Device"), TL("Vehicle type for automated driving regime."));
     oc.doRegister("device.toc.responseTime", new Option_Float(DEFAULT_RESPONSE_TIME));
-    oc.addDescription("device.toc.responseTime", "ToC Device", "Average response time needed by a driver to take back control.");
+    oc.addDescription("device.toc.responseTime", TL("ToC Device"), TL("Average response time needed by a driver to take back control."));
     oc.doRegister("device.toc.recoveryRate", new Option_Float(DEFAULT_RECOVERY_RATE));
-    oc.addDescription("device.toc.recoveryRate", "ToC Device", "Recovery rate for the driver's awareness after a ToC.");
+    oc.addDescription("device.toc.recoveryRate", TL("ToC Device"), TL("Recovery rate for the driver's awareness after a ToC."));
     oc.doRegister("device.toc.lcAbstinence", new Option_Float(DEFAULT_LCABSTINENCE));
-    oc.addDescription("device.toc.lcAbstinence", "ToC Device", "Attention level below which a driver restrains from performing lane changes (value in [0,1]).");
+    oc.addDescription("device.toc.lcAbstinence", TL("ToC Device"), TL("Attention level below which a driver restrains from performing lane changes (value in [0,1])."));
     oc.doRegister("device.toc.initialAwareness", new Option_Float(DEFAULT_INITIAL_AWARENESS));
-    oc.addDescription("device.toc.initialAwareness", "ToC Device", "Average awareness a driver has initially after a ToC (value in [0,1]).");
+    oc.addDescription("device.toc.initialAwareness", TL("ToC Device"), TL("Average awareness a driver has initially after a ToC (value in [0,1])."));
     oc.doRegister("device.toc.mrmDecel", new Option_Float(DEFAULT_MRM_DECEL));
-    oc.addDescription("device.toc.mrmDecel", "ToC Device", "Deceleration rate applied during a 'minimum risk maneuver'.");
+    oc.addDescription("device.toc.mrmDecel", TL("ToC Device"), TL("Deceleration rate applied during a 'minimum risk maneuver'."));
     oc.doRegister("device.toc.dynamicToCThreshold", new Option_Float(DEFAULT_DYNAMIC_TOC_THRESHOLD));
-    oc.addDescription("device.toc.dynamicToCThreshold", "ToC Device", "Time, which the vehicle requires to have ahead to continue in automated mode. The default value of 0 indicates no dynamic triggering of ToCs.");
+    oc.addDescription("device.toc.dynamicToCThreshold", TL("ToC Device"), TL("Time, which the vehicle requires to have ahead to continue in automated mode. The default value of 0 indicates no dynamic triggering of ToCs."));
     oc.doRegister("device.toc.dynamicMRMProbability", new Option_Float(DEFAULT_MRM_PROBABILITY));
-    oc.addDescription("device.toc.dynamicMRMProbability", "ToC Device", "Probability that a dynamically triggered TOR is not answered in time.");
+    oc.addDescription("device.toc.dynamicMRMProbability", TL("ToC Device"), TL("Probability that a dynamically triggered TOR is not answered in time."));
     oc.doRegister("device.toc.mrmKeepRight", new Option_Bool(false));
-    oc.addDescription("device.toc.mrmKeepRight", "ToC Device", "If true, the vehicle tries to change to the right during an MRM.");
+    oc.addDescription("device.toc.mrmKeepRight", TL("ToC Device"), TL("If true, the vehicle tries to change to the right during an MRM."));
     oc.doRegister("device.toc.mrmSafeSpot", new Option_String());
-    oc.addDescription("device.toc.mrmSafeSpot", "ToC Device", "If set, the vehicle tries to reach the given named stopping place during an MRM.");
+    oc.addDescription("device.toc.mrmSafeSpot", TL("ToC Device"), TL("If set, the vehicle tries to reach the given named stopping place during an MRM."));
     oc.doRegister("device.toc.mrmSafeSpotDuration", new Option_Float(60.));
-    oc.addDescription("device.toc.mrmSafeSpotDuration", "ToC Device", "Duration the vehicle stays at the safe spot after an MRM.");
+    oc.addDescription("device.toc.mrmSafeSpotDuration", TL("ToC Device"), TL("Duration the vehicle stays at the safe spot after an MRM."));
     oc.doRegister("device.toc.maxPreparationAccel", new Option_Float(0.0));
-    oc.addDescription("device.toc.maxPreparationAccel", "ToC Device", "Maximal acceleration that may be applied during the ToC preparation phase.");
+    oc.addDescription("device.toc.maxPreparationAccel", TL("ToC Device"), TL("Maximal acceleration that may be applied during the ToC preparation phase."));
     oc.doRegister("device.toc.ogNewTimeHeadway", new Option_Float(-1.0));
-    oc.addDescription("device.toc.ogNewTimeHeadway", "ToC Device", "Timegap for ToC preparation phase.");
+    oc.addDescription("device.toc.ogNewTimeHeadway", TL("ToC Device"), TL("Timegap for ToC preparation phase."));
     oc.doRegister("device.toc.ogNewSpaceHeadway", new Option_Float(-1.0));
-    oc.addDescription("device.toc.ogNewSpaceHeadway", "ToC Device", "Additional spacing for ToC preparation phase.");
+    oc.addDescription("device.toc.ogNewSpaceHeadway", TL("ToC Device"), TL("Additional spacing for ToC preparation phase."));
     oc.doRegister("device.toc.ogMaxDecel", new Option_Float(-1.0));
-    oc.addDescription("device.toc.ogMaxDecel", "ToC Device", "Maximal deceleration applied for establishing increased gap in ToC preparation phase.");
+    oc.addDescription("device.toc.ogMaxDecel", TL("ToC Device"), TL("Maximal deceleration applied for establishing increased gap in ToC preparation phase."));
     oc.doRegister("device.toc.ogChangeRate", new Option_Float(-1.0));
-    oc.addDescription("device.toc.ogChangeRate", "ToC Device", "Rate of adaptation towards the increased headway during ToC preparation.");
+    oc.addDescription("device.toc.ogChangeRate", TL("ToC Device"), TL("Rate of adaptation towards the increased headway during ToC preparation."));
     oc.doRegister("device.toc.useColorScheme", new Option_Bool(true));
-    oc.addDescription("device.toc.useColorScheme", "ToC Device", "Whether a coloring scheme shall by applied to indicate the different ToC stages.");
+    oc.addDescription("device.toc.useColorScheme", TL("ToC Device"), TL("Whether a coloring scheme shall by applied to indicate the different ToC stages."));
     oc.doRegister("device.toc.file", new Option_String());
-    oc.addDescription("device.toc.file", "ToC Device", "Switches on output by specifying an output filename.");
+    oc.addDescription("device.toc.file", TL("ToC Device"), TL("Switches on output by specifying an output filename."));
 }
 
 

@@ -67,19 +67,19 @@ fillOptions() {
 
     // insert options sub-topics
     SystemFrame::addConfigurationOptions(oc); // this subtopic is filled here, too
-    oc.addOptionSubTopic("Grid Network");
-    oc.addOptionSubTopic("Spider Network");
-    oc.addOptionSubTopic("Random Network");
-    oc.addOptionSubTopic("Input");
-    oc.addOptionSubTopic("Output");
-    oc.addOptionSubTopic("Processing");
-    oc.addOptionSubTopic("Building Defaults");
+    oc.addOptionSubTopic(TL("Grid Network"));
+    oc.addOptionSubTopic(TL("Spider Network"));
+    oc.addOptionSubTopic(TL("Random Network"));
+    oc.addOptionSubTopic(TL("Input"));
+    oc.addOptionSubTopic(TL("Output"));
+    oc.addOptionSubTopic(TL("Processing"));
+    oc.addOptionSubTopic(TL("Building Defaults"));
     oc.addOptionSubTopic("TLS Building");
-    oc.addOptionSubTopic("Edge Removal");
-    oc.addOptionSubTopic("Unregulated Nodes");
-    oc.addOptionSubTopic("Junctions");
-    oc.addOptionSubTopic("Pedestrian");
-    oc.addOptionSubTopic("Bicycle");
+    oc.addOptionSubTopic(TL("Edge Removal"));
+    oc.addOptionSubTopic(TL("Unregulated Nodes"));
+    oc.addOptionSubTopic(TL("Junctions"));
+    oc.addOptionSubTopic(TL("Pedestrian"));
+    oc.addOptionSubTopic(TL("Bicycle"));
     SystemFrame::addReportOptions(oc); // this subtopic is filled here, too
 
     NGFrame::fillOptions();
@@ -87,7 +87,7 @@ fillOptions() {
     NWFrame::fillOptions(true);
     oc.doRegister("default-junction-type", 'j', new Option_String());
     oc.addSynonyme("default-junction-type", "junctions");
-    oc.addDescription("default-junction-type", "Building Defaults", "[traffic_light|priority|right_before_left|left_before_right|traffic_light_right_on_red|priority_stop|allway_stop|...] Determines junction type (see wiki/Networks/PlainXML#Node_types)");
+    oc.addDescription("default-junction-type", TL("Building Defaults"), TL("[traffic_light|priority|right_before_left|left_before_right|traffic_light_right_on_red|priority_stop|allway_stop|...] Determines junction type (see wiki/Networks/PlainXML#Node_types)"));
     RandHelper::insertRandOptions();
 
     oc.doRegister("tls.discard-simple", new Option_Bool(false));
