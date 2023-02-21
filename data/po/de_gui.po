@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-21 12:19+0000\n"
+"PO-Revision-Date: 2023-02-21 12:21+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -2729,11 +2729,11 @@ msgstr "Starte netedit mit einem neuen Netz"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:313
 msgid "Prefix for node naming"
-msgstr "Präfix für Knotennamen"
+msgstr "Präfix für Knotenbezeichnung"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:316
 msgid "Prefix for edge naming"
-msgstr "Präfix für Kantennamen"
+msgstr "Präfix für Kantenbezeichnung"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:319
 msgid "Enable edge-infix (<fromNodeID><infix><toNodeID>)"
@@ -2741,7 +2741,7 @@ msgstr "Infix für Kantennamen aktivieren (<Anfangsknoten><Infix><Endknoten>)"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:324
 msgid "Prefix for busStop naming"
-msgstr "Präfix für Bushaltepunktnamen"
+msgstr "Präfix für Bushaltepunktbezeichnung"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:327
 msgid "Prefix for trainStop naming"
