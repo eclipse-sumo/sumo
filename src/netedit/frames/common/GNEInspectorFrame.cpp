@@ -157,10 +157,10 @@ GNEInspectorFrame::NeteditAttributesEditor::showNeteditAttributesEditor() {
             // set check box value and update label
             if (value) {
                 myCheckBoxCloseShape->setCheck(true);
-                myCheckBoxCloseShape->setText(TL("true"));
+                myCheckBoxCloseShape->setText("true");
             } else {
                 myCheckBoxCloseShape->setCheck(false);
-                myCheckBoxCloseShape->setText(TL("false"));
+                myCheckBoxCloseShape->setText("false");
             }
         }
         // Check if item has another item as parent and can be reparemt
@@ -232,10 +232,10 @@ GNEInspectorFrame::NeteditAttributesEditor::refreshNeteditAttributesEditor(bool 
             // set check box value and update label
             if (value) {
                 myCheckBoxCloseShape->setCheck(true);
-                myCheckBoxCloseShape->setText(TL("true"));
+                myCheckBoxCloseShape->setText("true");
             } else {
                 myCheckBoxCloseShape->setCheck(false);
-                myCheckBoxCloseShape->setText(TL("false"));
+                myCheckBoxCloseShape->setText("false");
             }
         }
         // Check if item has another item as parent (Currently only for single Additionals)
@@ -318,10 +318,10 @@ GNEInspectorFrame::NeteditAttributesEditor::onCmdSetNeteditAttribute(FXObject* o
             for (const auto& AC : ACs) {
                 if (myCheckBoxCloseShape->getCheck() == 1) {
                     AC->setAttribute(GNE_ATTR_CLOSE_SHAPE, "true", myInspectorFrameParent->myViewNet->getUndoList());
-                    myCheckBoxCloseShape->setText(TL("true"));
+                    myCheckBoxCloseShape->setText("true");
                 } else {
                     AC->setAttribute(GNE_ATTR_CLOSE_SHAPE, "false", myInspectorFrameParent->myViewNet->getUndoList());
-                    myCheckBoxCloseShape->setText(TL("false"));
+                    myCheckBoxCloseShape->setText("false");
                 }
             }
         } else if (obj == myTextFieldParentAdditional) {
@@ -414,7 +414,7 @@ GNEInspectorFrame::GEOAttributesEditor::GEOAttributesEditor(GNEInspectorFrame* i
     // Create Frame for use GEO
     myUseGEOFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     myUseGEOLabel = new FXLabel(myUseGEOFrame, toString(SUMO_ATTR_GEO).c_str(), nullptr, GUIDesignLabelAttribute);
-    myUseGEOCheckButton = new FXCheckButton(myUseGEOFrame, TL("false"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    myUseGEOCheckButton = new FXCheckButton(myUseGEOFrame, "false", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
 
     // Create help button
     myHelpButton = new FXButton(getCollapsableFrame(), TL("Help"), nullptr, this, MID_HELP, GUIDesignButtonRectangular);
@@ -449,10 +449,10 @@ GNEInspectorFrame::GEOAttributesEditor::showGEOAttributesEditor() {
                 myUseGEOCheckButton->enable();
                 if (value) {
                     myUseGEOCheckButton->setCheck(true);
-                    myUseGEOCheckButton->setText(TL("true"));
+                    myUseGEOCheckButton->setText("true");
                 } else {
                     myUseGEOCheckButton->setCheck(false);
-                    myUseGEOCheckButton->setText(TL("false"));
+                    myUseGEOCheckButton->setText("false");
                 }
             } else {
                 myUseGEOCheckButton->disable();
@@ -528,10 +528,10 @@ GNEInspectorFrame::GEOAttributesEditor::onCmdSetGEOAttribute(FXObject* obj, FXSe
             for (const auto& i : myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
                 if (myUseGEOCheckButton->getCheck() == 1) {
                     i->setAttribute(SUMO_ATTR_GEO, "true", myInspectorFrameParent->myViewNet->getUndoList());
-                    myUseGEOCheckButton->setText(TL("true"));
+                    myUseGEOCheckButton->setText("true");
                 } else {
                     i->setAttribute(SUMO_ATTR_GEO, "false", myInspectorFrameParent->myViewNet->getUndoList());
-                    myUseGEOCheckButton->setText(TL("false"));
+                    myUseGEOCheckButton->setText("false");
                 }
             }
         }

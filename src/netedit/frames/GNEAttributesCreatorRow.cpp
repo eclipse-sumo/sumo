@@ -228,10 +228,10 @@ GNEAttributesCreatorRow::refreshRow() {
         if (myAttrProperties.isBool()) {
             if (GNEAttributeCarrier::parse<bool>(myAttributesCreatorParent->getCurrentTemplateAC()->getAttribute(myAttrProperties.getAttr()))) {
                 myValueCheckButton->setCheck(true);
-                myValueCheckButton->setText(TL("true"));
+                myValueCheckButton->setText("true");
             } else {
                 myValueCheckButton->setCheck(false);
-                myValueCheckButton->setText(TL("false"));
+                myValueCheckButton->setText("false");
             }
             myValueCheckButton->show();
             // check if enable or disable
@@ -347,10 +347,10 @@ GNEAttributesCreatorRow::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
         }
     } else if (obj == myValueCheckButton) {
         if (myValueCheckButton->getCheck()) {
-            myValueCheckButton->setText(TL("true"));
+            myValueCheckButton->setText("true");
             myAttributesCreatorParent->getCurrentTemplateAC()->setAttribute(myAttrProperties.getAttr(), "true");
         } else {
-            myValueCheckButton->setText(TL("false"));
+            myValueCheckButton->setText("false");
             myAttributesCreatorParent->getCurrentTemplateAC()->setAttribute(myAttrProperties.getAttr(), "false");
         }
     } else if (obj == myValueComboBox) {

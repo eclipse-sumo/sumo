@@ -1174,7 +1174,7 @@ GNETAZFrame::TAZParameters::TAZParameters(GNETAZFrame* TAZFrameParent) :
     // create Button and string textField for color and set blue as default color
     FXHorizontalFrame* fillParameter = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(fillParameter, toString(SUMO_ATTR_FILL).c_str(), 0, GUIDesignLabelAttribute);
-    myCheckButtonFill = new FXCheckButton(fillParameter, TL("false"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    myCheckButtonFill = new FXCheckButton(fillParameter, "false", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myCheckButtonFill->setCheck(FALSE);
     // create Button and string textField for color and set blue as default color
     FXHorizontalFrame* colorParameter = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
@@ -1302,9 +1302,9 @@ GNETAZFrame::TAZParameters::onCmdSetAttribute(FXObject* obj, FXSelector, void*) 
     } else if (obj == myCheckButtonFill) {
         // change myCheckButtonFill text
         if (myCheckButtonFill->getCheck() == TRUE) {
-            myCheckButtonFill->setText(TL("true"));
+            myCheckButtonFill->setText("true");
         } else {
-            myCheckButtonFill->setText(TL("false"));
+            myCheckButtonFill->setText("false");
         }
     }
     return 0;

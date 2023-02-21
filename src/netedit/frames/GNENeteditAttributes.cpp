@@ -63,11 +63,11 @@ GNENeteditAttributes::GNENeteditAttributes(GNEFrame* frameParent) :
     // Create Frame for block close polygon and checkBox (By default disabled)
     myCloseShapeFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(myCloseShapeFrame, TL("Close shape"), 0, GUIDesignLabelAttribute);
-    myCloseShapeCheckButton = new FXCheckButton(myCloseShapeFrame, TL("false"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    myCloseShapeCheckButton = new FXCheckButton(myCloseShapeFrame, "false", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     // Create Frame for center element after creation (By default enabled)
     myCenterViewAfterCreationFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(myCenterViewAfterCreationFrame, TL("Center view"), 0, GUIDesignLabelAttribute);
-    myCenterViewAfterCreationButton = new FXCheckButton(myCenterViewAfterCreationFrame, TL("false"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    myCenterViewAfterCreationButton = new FXCheckButton(myCenterViewAfterCreationFrame, "false", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myCenterViewAfterCreationButton->setCheck(true);
     // Create help button
     helpReferencePoint = new FXButton(getCollapsableFrame(), TL("Help"), 0, this, MID_HELP, GUIDesignButtonRectangular);
@@ -167,15 +167,15 @@ long
 GNENeteditAttributes::onCmdSetNeteditAttribute(FXObject* obj, FXSelector, void*) {
     if (obj == myCloseShapeCheckButton) {
         if (myCloseShapeCheckButton->getCheck()) {
-            myCloseShapeCheckButton->setText(TL("true"));
+            myCloseShapeCheckButton->setText("true");
         } else {
-            myCloseShapeCheckButton->setText(TL("false"));
+            myCloseShapeCheckButton->setText("false");
         }
     } else if (obj == myCenterViewAfterCreationButton) {
         if (myCenterViewAfterCreationButton->getCheck()) {
-            myCenterViewAfterCreationButton->setText(TL("true"));
+            myCenterViewAfterCreationButton->setText("true");
         } else {
-            myCenterViewAfterCreationButton->setText(TL("false"));
+            myCenterViewAfterCreationButton->setText("false");
         }
     } else if (obj == myLengthTextField) {
         // change color of text field depending of the input length
