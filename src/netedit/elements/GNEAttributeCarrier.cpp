@@ -4117,7 +4117,7 @@ GNEAttributeCarrier::fillWaypointElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::DEMANDELEMENT | GNETagProperties::STOP | GNETagProperties::WAYPOINT,
                                       GNETagProperties::CHILD | GNETagProperties::NOPARAMETERS,
-                                      GUIIcon::WAYPOINT, currentTag, {SUMO_TAG_ROUTE, SUMO_TAG_TRIP, SUMO_TAG_FLOW}, FXRGBA(240, 255, 205, 255));
+                                      GUIIcon::WAYPOINT, SUMO_TAG_STOP, {SUMO_TAG_ROUTE, SUMO_TAG_TRIP, SUMO_TAG_FLOW}, FXRGBA(240, 255, 205, 255));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_CONTAINER_STOP,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
@@ -5680,7 +5680,7 @@ GNEAttributeCarrier::fillDataElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::DATAELEMENT | GNETagProperties::GENERICDATA,
                                       0,
-                                      GUIIcon::EDGEDATA, currentTag);
+                                      GUIIcon::EDGEDATA, SUMO_TAG_EDGE);
 
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
@@ -5878,6 +5878,10 @@ GNEAttributeCarrier::writeAttributeHelp() {
         }
     }
     for (auto item : xmlTagProperties) {
+        if (item.second.begin() == item.second.end()) {
+            // don't write elements without attributes, they are only used for internal purposes
+            continue;
+        }
         dev.openTag(item.first);
         if (item.second.getParentTags().size() > 0) {
             dev.writeAttr("parents", joinToString(item.second.getParentTags(), " "));
