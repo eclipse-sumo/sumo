@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-21 14:33+0000\n"
+"PO-Revision-Date: 2023-02-21 14:35+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -5149,15 +5149,15 @@ msgstr "LSA-Index für die Fußgängerfurt setzen"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1334
 msgid "sets the opposite-direction tls-index for this crossing"
-msgstr "Gegenüberliegenden LSA-Index für die Fußgängerfurt setzen"
+msgstr "LSA-Index für Gegenrichtung der Fußgängerfurt setzen"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1340
 msgid "Overrids default shape of pedestrian crossing"
-msgstr "Standard-Shape von der Fußgängerfurt überschreiben"
+msgstr "Standard-Shape der Fußgängerfurt überschreiben"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1353
 msgid "Walking Area ID"
-msgstr "WalkingArea ID"
+msgstr "WalkingArea-ID"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1358
 msgid "The width of the WalkingArea"
@@ -5169,7 +5169,7 @@ msgstr "Die Länge der WalkingArea in Meter"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1369
 msgid "Overrids default shape of pedestrian sidelwak"
-msgstr "Standard-Shape vom Gehweg überschreiben"
+msgstr "Standard-Shape des Gehwegs überschreiben"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1382
 msgid "The name of the edge the vehicles leave"
