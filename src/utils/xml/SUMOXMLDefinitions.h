@@ -111,7 +111,7 @@ enum SumoXMLTag {
     SUMO_TAG_REROUTER,
     /// @brief an aggreagated-output interval
     SUMO_TAG_INTERVAL,
-    /// @brief probability of destiny of a reroute
+    /// @brief probability of destination of a reroute
     SUMO_TAG_DEST_PROB_REROUTE,
     /// @brief reroute of type closing
     SUMO_TAG_CLOSING_REROUTE,
