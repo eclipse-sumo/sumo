@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-21 14:47+0000\n"
+"PO-Revision-Date: 2023-02-21 15:59+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -5301,7 +5301,7 @@ msgid ""
 "must be larger than startPos by more than 0.1m"
 msgstr ""
 "Die Endposition auf dem Fahrstreifen (die höhere Position auf dem "
-"Fahrstreifen) in Metern; Muss um mehr als 0,1 m größer sein als die "
+"Fahrstreifen) in Metern; Muss um mehr als 0.1 m größer sein als die "
 "Startposition"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1553
@@ -5335,8 +5335,8 @@ msgstr ""
 msgid ""
 "Instead, it will be placed 0.1 meters from the lanes end or at position 0.1"
 msgstr ""
-"Stattdessen wird es 0,1 Meter vom Fahrstreifenende entfernt oder an Position "
-"0,1 platziert"
+"Stattdessen wird es 0.1 Meter vom Fahrstreifenende entfernt oder an Position "
+"0.1 platziert"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1560
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1624
@@ -5392,16 +5392,17 @@ msgstr "Die RGBA-Farbe, mit welcher der Bushaltepunkt dargestellt werden soll"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1597
 msgid "The id of train stop"
-msgstr "Die ID der Bahnhaltestelle"
+msgstr "Die ID der Bahnhaltestelle (trainStop)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1602
 msgid "The name of the lane the train stop shall be located at"
 msgstr ""
-"Der Name des Fahrstreifens, auf dem sich die Bahnhaltestelle befinden soll"
+"Der Name des Fahrstreifens, auf dem sich die Bahnhaltestelle (trainStop) "
+"befinden soll"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1617
 msgid "Name of trainStop"
-msgstr "Name von der Bahnhaltestelle"
+msgstr "Name der Bahnhaltestelle (trainStop)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1623
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1679
@@ -5423,20 +5424,22 @@ msgstr "Name von der Bahnhaltestelle"
 msgid ""
 "Instead, it will be placed 0.1 meters from the lanes end or at position 0.1,"
 msgstr ""
-"Stattdessen wird es 0,1 Meter vom Fahrstreifenende entfernt oder an Position "
-"0,1 platziert"
+"Stattdessen wird es 0.1 Meter vom Fahrstreifenende entfernt oder an Position "
+"0.1 platziert"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1630
 msgid ""
 "Meant to be the names of the train lines that stop at this train stop. This "
 "is only used for visualization purposes"
 msgstr ""
-"Sollen die Namen der Bahnlinien sein, die an dieser Bahnhaltestelle halten. "
-"Dies dient nur der Visualisierung"
+"Namen der Bahnlinien, die an dieser Bahnhaltestelle (trainStop) halten. Dies "
+"dient nur der Darstellung"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1647
 msgid "The RGBA color with which the trainStop shall be displayed"
-msgstr "Die RGBA-Farbe, mit der die Bahnhaltestelle dargestellt werden soll"
+msgstr ""
+"Die RGBA-Farbe, mit der die Bahnhaltestelle (trainStop) dargestellt werden "
+"soll"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1661
 msgid "The name of the lane the stop access shall be located at"
@@ -5498,11 +5501,11 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1758
 msgid "The id of charging station"
-msgstr "Die ID der Ladestation"
+msgstr "Die ID der Ladestation (chargingStation)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1763
 msgid "Lane of the charging station location"
-msgstr "Fahrstreifen der Ladestation"
+msgstr "Fahrstreifen der Ladestation (chargingStation)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1768
 msgid "Begin position in the specified lane"
@@ -5514,7 +5517,7 @@ msgstr "Endposition im angegebenen Fahrstreifen"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1778
 msgid "Name of chargingStation"
-msgstr "Name der Ladestation"
+msgstr "Name der Ladestation (chargingStation)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1791
 msgid "Charging power in W"
