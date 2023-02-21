@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-21 13:12+0000\n"
+"PO-Revision-Date: 2023-02-21 13:27+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
@@ -6293,20 +6293,20 @@ msgstr "流量結束的路段的名稱"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3803
 msgid "List of intermediate edge ids which shall be part of the flow"
-msgstr ""
+msgstr "流量使用的中間路段的識別名(id)清單"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3824
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3861
 msgid "The id of the flow"
-msgstr ""
+msgstr "流量識別名(id)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3835
 msgid "The name of the junction the flow starts at"
-msgstr ""
+msgstr "流量開始的路口的名稱"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3840
 msgid "The name of the junction the flow ends at"
-msgstr ""
+msgstr "流量結束的路口的名稱"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3872
 msgid "The id of the route the flow shall drive along"
