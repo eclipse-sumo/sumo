@@ -55,7 +55,7 @@ def formatBinTemplate(templateStr):
     # remove last line
     templateStr = templateStr.replace('\n    ""', '')
     # add ending
-    templateStr += ';\n\n'
+    templateStr += ';\n'
     return templateStr
 
 
@@ -70,11 +70,11 @@ def formatToolTemplate(templateStr):
     templateStr = templateStr.replace("\n", '"\n')
     templateStr = templateStr[:-1]
     # update last line
-    templateStr += ';\n\n'
+    templateStr += ';\n'
     return templateStr
 
 
-def generateSumoTemplate(binDir, sumoBin):
+def generateSumoTemplate(sumoBin):
     """
     @brief generate template para sumo
     """
@@ -90,7 +90,7 @@ def generateSumoTemplate(binDir, sumoBin):
                     "Make sure that sumo or sumoD was generated in bin folder")
 
 
-def generateToolTemplate(srcDir, toolDir, subDir, toolName):
+def generateToolTemplate(toolDir, subDir, toolName):
     """
     @brief generate tool template
     """
@@ -101,7 +101,7 @@ def generateToolTemplate(srcDir, toolDir, subDir, toolName):
         # show info
         print("Obtaining '" + toolName + "' tool template")
         # obtain template piping stdout using check_output
-        template = check_output(["python", toolPath, "--save-template", "stdout"], universal_newlines=True)
+        template = check_output([sys.executable, toolPath, "--save-template", "stdout"], universal_newlines=True)
         # join variable and formated template
         return "const std::string " + toolName + 'Template = ' + formatToolTemplate(template)
     # if tool wasn't found, then raise exception
@@ -109,25 +109,14 @@ def generateToolTemplate(srcDir, toolDir, subDir, toolName):
 
 
 if __name__ == "__main__":
-    srcDir = ""
-    if len(sys.argv) > 2:
-        srcDir = sys.argv[1]
-    else:
-        raise Exception("Arguments: <sourceDir> <pathToSUMO>")
-    # get bin dir path (SUMO/bin)
-    binDir = join(dirname(__file__), '..', '..', 'bin')
+    if len(sys.argv) == 1:
+        sys.exit("Arguments: <pathToSUMO>")
     # get tool dir path (SUMO/tools)
     toolDir = join(dirname(__file__), '..')
-    # list of templates
-    templates = ["#include <string>\n\n"]
-    # append SUMO template
-    templates.append(generateSumoTemplate(binDir, sys.argv[2]))
-    # generate Tool template
-    for tool in tools:
-        templates.append(generateToolTemplate(srcDir, toolDir, tool[0], tool[1]))
     # write templates.h
     with open("templates.h", 'w') as templateHeaderFile:
-        # Convert templates in a map of strings (to avoid quotes)
-        templateMap = map(str, templates)
-        # Join the items together and write to the file
-        templateHeaderFile.write("".join(templateMap))
+        print("#include <string>\n", file=templateHeaderFile)
+        print(generateSumoTemplate(sys.argv[1]), file=templateHeaderFile)
+        # generate Tool templates
+        for tool in tools:
+            print(generateToolTemplate(toolDir, tool[0], tool[1]), file=templateHeaderFile)
