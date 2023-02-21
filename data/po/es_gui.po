@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-08 13:07+0000\n"
+"PO-Revision-Date: 2023-02-21 08:15+0000\n"
 "Last-Translator: Pablo Alvarez Lopez <pablo.alvarezlopez@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -5838,70 +5838,71 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2744
 msgid "The file for generated output"
-msgstr ""
+msgstr "El archivo para la salida de datos generada"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2749
 msgid "The time at which to start generating output"
-msgstr ""
+msgstr "El instante de tiempo en el que comenzar a generar la salida de datos"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2763
 msgid "Edge in which vaporizer is placed"
-msgstr ""
+msgstr "Calle (Edge) en la que colocar el vaporizador"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2768
 msgid "Start Time"
-msgstr ""
+msgstr "Instante de tiempo de comienzo"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2774
 msgid "End Time"
-msgstr ""
+msgstr "Instante de tiempo de terminación"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2780
 msgid "Name of vaporizer"
-msgstr ""
+msgstr "Nombre del vaporizador"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2801
 msgid "The id of the polygon"
-msgstr ""
+msgstr "Identificador del polígono"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2806
 msgid "The shape of the polygon"
-msgstr ""
+msgstr "Forma del polígono"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2811
 msgid "The RGBA color with which the polygon shall be displayed"
 msgstr ""
+"el color RGBA (Rojo-Verde-Azul-Alfa) con el que el polígono se debe mostrar"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2817
 msgid "An information whether the polygon shall be filled"
-msgstr ""
+msgstr "Habilitar o deshabilitar el llenado del polígono"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2823
 msgid "The default line width for drawing an unfilled polygon"
-msgstr ""
+msgstr "El ancho de línea para el dibujado de los polígonos sin rellenar"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2829
 msgid "The layer in which the polygon lies"
-msgstr ""
+msgstr "La capa de dibujado del polígono"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2835
 msgid "A typename for the polygon"
-msgstr ""
+msgstr "Tipo de polígono"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2841
 msgid "Polygon's name"
-msgstr ""
+msgstr "Nombre del polígono"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2846
 msgid "A bitmap to use for rendering this polygon"
-msgstr ""
+msgstr "Mapa de bit usado para renderizar el polígono"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2852
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2923
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3013
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3090
 msgid "Enable or disable use image file as a relative path"
-msgstr ""
+msgstr "Activa o desactiva usar la ruta del archivo de imagen de forma relativa"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2858
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2929
