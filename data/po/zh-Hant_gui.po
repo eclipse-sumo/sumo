@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-20 17:25+0000\n"
+"PO-Revision-Date: 2023-02-21 08:46+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
@@ -5709,108 +5709,110 @@ msgstr "車輛應改道的路段識別名(id)或是清單"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2539
 msgid "X,Y position in editor (Only used in netedit)"
-msgstr ""
+msgstr "編輯器中的 X,Y 位置（僅用於netedit ）"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2545
 msgid "Name of Rerouter"
-msgstr ""
+msgstr "改道裝置名稱"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2550
 msgid "The probability for vehicle rerouting (0-1)"
-msgstr ""
+msgstr "車輛重新搜尋路徑(rerouting)機率(0-1)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2556
 msgid ""
 "The waiting time threshold (in s) that must be reached to activate rerouting "
 "(default -1 which disables the threshold)"
-msgstr ""
+msgstr "啟動路徑重新搜尋必須達到的等待時間閾值, 以秒為單位(預設值為-1, "
+"表示禁用此閾值)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2562
 msgid ""
 "The list of vehicle types that shall be affected by this rerouter (empty to "
 "affect all types)"
-msgstr ""
+msgstr "受此重新搜尋路徑裝置(rerouter)影響的車輛類型清單(空的表示所有車輛類型將被影響"
+")"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2567
 msgid ""
 "Whether the router should be inactive initially (and switched on in the gui)"
-msgstr ""
+msgstr "路徑重新搜尋裝置(rerouter)是否最初應處於非活動狀態（並在 gui 中開啟）"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2589
 msgid "Begin"
-msgstr ""
+msgstr "開始"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2595
 msgid "End"
-msgstr ""
+msgstr "結束"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2615
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2639
 msgid "allowed vehicles"
-msgstr ""
+msgstr "允許的車輛"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2620
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2644
 msgid "disallowed vehicles"
-msgstr ""
+msgstr "不允許的車輛"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2633
 msgid "Lane ID"
-msgstr ""
+msgstr "車道識別名(ID)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2663
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2683
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2709
 msgid "SUMO Probability"
-msgstr ""
+msgstr "SUMO機率"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2677
 msgid "ParkingArea ID"
-msgstr ""
+msgstr "停車區域識別名(ID)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2689
 msgid "Enable or disable visibility for parking area reroutes"
-msgstr ""
+msgstr "啟用或是禁用於停車區域重新搜尋路徑的可見性( visibility)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2723
 msgid "The id of RouteProbe"
-msgstr ""
+msgstr "路徑取樣(RouteProbe)的識別名(id)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2728
 msgid "The id of an edge in the simulation network"
-msgstr ""
+msgstr "模擬路網內的路段識別名(id)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2733
 msgid "The frequency in which to report the distribution"
-msgstr ""
+msgstr "報告分佈的頻率"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2739
 msgid "Name of route probe"
-msgstr ""
+msgstr "路徑取樣(route probe)的名稱"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2744
 msgid "The file for generated output"
-msgstr ""
+msgstr "用於儲存輸出(output)的檔案"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2749
 msgid "The time at which to start generating output"
-msgstr ""
+msgstr "開始產生輸出的時間"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2763
 msgid "Edge in which vaporizer is placed"
-msgstr ""
+msgstr "設置蒸發裝置(vaporizer)的路段"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2768
 msgid "Start Time"
-msgstr ""
+msgstr "開始時間"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2774
 msgid "End Time"
-msgstr ""
+msgstr "結束時間"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2780
 msgid "Name of vaporizer"
-msgstr ""
+msgstr "蒸發裝置名稱"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2801
 msgid "The id of the polygon"
