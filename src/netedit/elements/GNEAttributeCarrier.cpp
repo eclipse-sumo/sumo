@@ -20,10 +20,12 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <utils/common/StringTokenizer.h>
+#include <utils/common/ToString.h>
 #include <utils/emissions/PollutantsInterface.h>
 #include <utils/geom/GeomConvHelper.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/images/VClassIcons.h>
+#include <utils/iodevices/OutputDevice.h>
 #include <utils/options/OptionsCont.h>
 
 #include "GNEAttributeCarrier.h"
@@ -5847,5 +5849,51 @@ GNEAttributeCarrier::fillCommonMeanDataAttributes(SumoXMLTag currentTag) {
                                           "0");
     myTagProperties[currentTag].addAttribute(attrProperty);
 }
+
+
+void
+GNEAttributeCarrier::writeAttributeHelp() {
+    if (myTagProperties.size() == 0) {
+        fillAttributeCarriers();
+    }
+    const std::string opt = "attribute-help-output";
+    OutputDevice::createDeviceByOption(opt, "attributeHelp");
+    OutputDevice& dev = OutputDevice::getDeviceByOption(opt);
+    // merge "virtual" netedit tags like  '<walk: edge->edge'
+    static std::map<SumoXMLTag, GNETagProperties> xmlTagProperties;
+    for (auto item : myTagProperties) {
+        if (xmlTagProperties.count(item.second.getXMLTag()) == 0) {
+            xmlTagProperties[item.second.getXMLTag()] = item.second;
+        } else {
+            std::set<SumoXMLAttr> attrs;
+            auto& old = xmlTagProperties[item.second.getXMLTag()];
+            for (auto it = old.begin(); it != old.end(); it++) {
+                attrs.insert(it->getAttr());
+            }
+            for (auto it = item.second.begin(); it != item.second.end(); it++) {
+                if (attrs.count(it->getAttr()) == 0) {
+                    old.addAttribute(*it);
+                }
+            }
+        }
+    }
+    for (auto item : xmlTagProperties) {
+        dev.openTag(item.first);
+        if (item.second.getParentTags().size() > 0) {
+            dev.writeAttr("parents", joinToString(item.second.getParentTags(), " "));
+        }
+        for (auto it = item.second.begin(); it != item.second.end(); it++) {
+            auto attr = *it;
+            dev.openTag("attribute");
+            dev.writeAttr("name", attr.getAttr());
+            dev.writeAttr("type", attr.getDescription());
+            dev.writeAttr("default", attr.getDefaultValue());
+            dev.writeAttr("help", attr.getDefinition());
+            dev.closeTag();
+        }
+        dev.closeTag();
+    }
+}
+
 
 /****************************************************************************/

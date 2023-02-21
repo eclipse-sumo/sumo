@@ -248,6 +248,9 @@ public:
     /// @brief check if lanes are consecutives
     static bool lanesConsecutives(const std::vector<GNELane*>& lanes);
 
+    /// @brief write machine readable attribute help to file
+    static void writeAttributeHelp();
+
     /// @name Certain attributes and ACs (for example, connections) can be either loaded or guessed. The following static variables are used to remark it.
     /// @{
     /// @brief feature is still unchanged after being loaded (implies approval)

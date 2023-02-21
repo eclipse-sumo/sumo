@@ -31,6 +31,7 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsIO.h>
 #include <utils/xml/XMLSubSys.h>
+#include <netedit/elements/GNEAttributeCarrier.h>
 
 #include "GNEApplicationWindow.h"
 #include "GNELoadThread.h"
@@ -63,6 +64,11 @@ main(int argc, char** argv) {
         OptionsIO::setArgs(argc, argv);
         OptionsIO::getOptions(true);
         if (neteditOptions.processMetaOptions(false)) {
+            SystemFrame::close();
+            return 0;
+        }
+        if (neteditOptions.isSet("attribute-help-output")) {
+            GNEAttributeCarrier::writeAttributeHelp();
             SystemFrame::close();
             return 0;
         }

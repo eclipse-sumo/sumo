@@ -307,6 +307,9 @@ GNELoadThread::fillOptions(OptionsCont& neteditOptions) {
     neteditOptions.addSynonyme("new-network", "new");
     neteditOptions.addDescription("new-network", "Netedit", TL("Start netedit with a new network"));
 
+    neteditOptions.doRegister("attribute-help-output", new Option_FileName());
+    neteditOptions.addDescription("attribute-help-output", "Netedit", TL("Write attribute help to file"));
+
     // network prefixes
 
     neteditOptions.doRegister("node-prefix", new Option_String("J"));
