@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-17 07:46+0000\n"
+"PO-Revision-Date: 2023-02-21 08:46+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -72,7 +72,7 @@ msgstr "Öffne eine Simulation (Konfigurationsdatei)."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:449
 msgid "Open &Network..."
-msgstr "Öffne &Netz..."
+msgstr "&Netz öffnen..."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:449
 msgid "Open a network."
@@ -80,7 +80,7 @@ msgstr "Öffne ein Netz."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:452
 msgid "Open Shapes "
-msgstr "Lade Sh&apes "
+msgstr "Sh&apes laden "
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:452
 msgid "Load POIs and Polygons for visualization."
@@ -106,7 +106,7 @@ msgstr "Lädt die Simulation / das Netz erneut."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:461
 msgid "Quick-Reload"
-msgstr "Neu laden (Schnellmodus)"
+msgstr "Erneut laden (Schnellmodus)"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:461
 msgid "Reloads the simulation (but not network)."
@@ -164,11 +164,11 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:494
 msgid "Edit Breakpoints"
-msgstr "&Haltepunkte bearbeiten"
+msgstr "&Unterbrechungspunkte bearbeiten"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:494
 msgid "Opens a dialog for editing breakpoints."
-msgstr "Öffnet einen Dialog, um die Haltepunkte zu bearbeiten."
+msgstr "Öffnet einen Dialog, um die Unterbrechungspunkte zu bearbeiten."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:497
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1256
@@ -178,8 +178,7 @@ msgstr "&Darstellung bearbeiten"
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:497
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1256
 msgid "Opens a dialog for editing visualization settings."
-msgstr ""
-"Öffnet einen Dialog, um die Visualisierungseinstellungen zu bearbeiten."
+msgstr "Öffnet einen Dialog, um die Darstellungseinstellungen zu bearbeiten."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:500
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1259
@@ -199,7 +198,7 @@ msgstr "&Netz in netedit öffnen"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:504
 msgid "Opens current network in NETEDIT."
-msgstr "Öffnet das aktuelle Netz in NETEDIT."
+msgstr "Öffnet das aktuelle Netz in netedit."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:511
 msgid "&Settings"
@@ -341,7 +340,7 @@ msgid ""
 "Show vehicles that are teleporting or driving remote-controlled outside the "
 "road network in locator dialog."
 msgstr ""
-"Zeige teleportierte und ferngesteuerte Fahrzeuge , die sich außerhalb des "
+"Zeige teleportierte und ferngesteuerte Fahrzeuge, die sich außerhalb des "
 "Netzes befinden, im Finden-Dialog."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:566
@@ -585,7 +584,7 @@ msgid ""
 msgstr ""
 "Verzögerung (ms):\tVerzögerung pro simulierte Sekunde\tVerzögerung pro "
 "simulierte Sekunde. Wechsle mit Klick zwischen den letzten zwei "
-"Verzögerunswerten vor und zurück."
+"Verzögerungswerten vor und zurück."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:729
 msgid "Scale Traffic:"
@@ -684,11 +683,11 @@ msgstr "Öffne Simulationskonfiguration"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1082
 msgid "Open Network"
-msgstr "Öffne Netz"
+msgstr "Netz öffnen"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1102
 msgid "Open Shapes"
-msgstr "Lade Shapes"
+msgstr "Shapes laden"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1116
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1144
@@ -706,11 +705,11 @@ msgstr "Lade EdgeData"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1167
 msgid "Reloading."
-msgstr "Nachladung."
+msgstr "Lade erneut."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1177
 msgid "Quick-Reloading."
-msgstr "Schnelles Nachladen."
+msgstr "Lade erneut (Schnellmodus)."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1187
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1067
@@ -890,11 +889,11 @@ msgstr "L&eeren"
 
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:141
 msgid "Load Breakpoints"
-msgstr "Lade Haltepunkte"
+msgstr "Lade Unterbrechungspunkte"
 
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:162
 msgid "Save Breakpoints"
-msgstr "Speichere Haltepunkte"
+msgstr "Speichere Unterbrechungspunkte"
 
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:172
 msgid "Storing failed!"
@@ -2467,7 +2466,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2607
 msgid "Open Network file"
-msgstr "Öffne Netz-Datei"
+msgstr "Netzdatei öffnen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2608
 msgid "SUMO Network files (*.net.xml,*.net.xml.gz)"
