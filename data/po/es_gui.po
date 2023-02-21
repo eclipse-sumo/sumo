@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-21 12:19+0000\n"
+"PO-Revision-Date: 2023-02-21 12:21+0000\n"
 "Last-Translator: Pablo Alvarez Lopez <pablo.alvarezlopez@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -6378,11 +6378,11 @@ msgstr "La identificación del flujo (flow)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3835
 msgid "The name of the junction the flow starts at"
-msgstr ""
+msgstr "La ID del cruce (junction) en el que el flujo (flow) debe comenzar"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3840
 msgid "The name of the junction the flow ends at"
-msgstr ""
+msgstr "La ID del cruce (junction) en el que el flujo (flow) debe terminar"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3872
 msgid "The id of the route the flow shall drive along"
