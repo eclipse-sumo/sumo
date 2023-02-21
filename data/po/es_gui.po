@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-21 10:33+0000\n"
-"Last-Translator: Pablo Alvarez Lopez <pablo.alvarezlopez@dlr.de>\n"
+"PO-Revision-Date: 2023-02-21 12:19+0000\n"
+"Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
 "Language: es\n"
@@ -3370,7 +3370,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2333
 msgid "simplify shapes"
-msgstr ""
+msgstr "simplificar formas (shapes)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2375
 msgid "close polygon shapes"
@@ -3391,7 +3391,7 @@ msgstr "No hay carriles (lanes) alrededor de % para adjuntar"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2523
 msgid "attach POI into lane"
-msgstr ""
+msgstr "adjuntar punto de interés (POI) al carril (lane)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2536
 msgid "release POI from lane"
@@ -3419,7 +3419,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2676
 msgid "duplicate selected lanes"
-msgstr ""
+msgstr "duplicar carriles seleccionados"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2713
 msgid "reset custom lane shapes"
@@ -3439,7 +3439,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2797
 msgid "select lane reachability"
-msgstr ""
+msgstr "seleccionar accesibilidad del carril"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2839
 msgid "Multiple lane in the same edge selected"
@@ -3477,7 +3477,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2867
 msgid ". Continue?"
-msgstr ""
+msgstr ". ¿Continuar?"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2894
 msgid "restrict lane to "
@@ -4334,35 +4334,36 @@ msgstr "Si myTlDef es nulo, forward no puede ser false"
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_TLS.cpp:172
 msgid "Undo create TLS '"
-msgstr ""
+msgstr "Deshacer crear TLS '"
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_TLS.cpp:174
 msgid "Undo delete TLS '"
-msgstr ""
+msgstr "Deshacer eliminar TLS '"
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_TLS.cpp:182
 msgid "Redo create TLS '"
-msgstr ""
+msgstr "Rehacer crear TLS '"
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_TLS.cpp:184
 msgid "Redo delete TLS '"
-msgstr ""
+msgstr "Rehacer eliminar TLS '"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEAbout.cpp:38
 msgid "About Eclipse SUMO netedit"
-msgstr ""
+msgstr "Acerca de Eclipse SUMO netedit"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEAbout.cpp:53
 msgid "Network editor for Eclipse SUMO, the Simulation of Urban MObility"
-msgstr ""
+msgstr "Editor de red de Eclipse SUMO (Simulation of Urban MObility)"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEAbout.cpp:54
 msgid "Graphical editor for road networks and infrastructure."
-msgstr ""
+msgstr "Editor gráfico de redes viales e infraestructura."
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEAbout.cpp:66
 msgid "This application is based on code provided by the Eclipse SUMO project."
 msgstr ""
+"Esta aplicación se basa en código proporcionado por el proyecto Eclipse SUMO."
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEAbout.cpp:67
 msgid ""
@@ -4372,27 +4373,27 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEAdditionalDialog.cpp:62
 msgid "Accept"
-msgstr ""
+msgstr "Aceptar"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEAdditionalDialog.cpp:62
 msgid "Close accepting changes"
-msgstr ""
+msgstr "Cerrar, aceptando cambios"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEAdditionalDialog.cpp:63
 msgid "Cancel"
-msgstr ""
+msgstr "Cancelar"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEAdditionalDialog.cpp:63
 msgid "Close discarding changes"
-msgstr ""
+msgstr "Cerrar, descartando cambios"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEAdditionalDialog.cpp:64
 msgid "Reset"
-msgstr ""
+msgstr "Restablecer"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEAdditionalDialog.cpp:64
 msgid "Reset to previous values"
-msgstr ""
+msgstr "Restablecer los valores previos"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEAllowVClassesDialog.cpp:276
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:649
@@ -5207,7 +5208,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1538
 msgid "The name of the lane the bus stop shall be located at"
-msgstr ""
+msgstr "El nombre del carril en donde se ubicará la parada de bus"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1543
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1607
@@ -5365,7 +5366,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1673
 msgid "-1.00"
-msgstr ""
+msgstr "-1.00"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1695
 msgid "The id of container stop"
@@ -5393,7 +5394,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1734
 msgid "6"
-msgstr ""
+msgstr "6"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1745
 msgid "The RGBA color with which the containerStop shall be displayed"
@@ -5425,7 +5426,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1797
 msgid "Charging efficiency [0,1]"
-msgstr ""
+msgstr "Eficiencia de carga [0,1]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1804
 msgid ""
@@ -5461,7 +5462,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1855
 msgid "0"
-msgstr ""
+msgstr "0"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1860
 msgid ""
