@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-21 14:39+0000\n"
-"Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
+"PO-Revision-Date: 2023-02-21 14:47+0000\n"
+"Last-Translator: Pablo Alvarez Lopez <pablo.alvarezlopez@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
 "Language: es\n"
@@ -2740,7 +2740,7 @@ msgstr "Prefijo para el nombre de las calles (edges)"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:319
 msgid "Enable edge-infix (<fromNodeID><infix><toNodeID>)"
-msgstr ""
+msgstr "Activar infijo para calles calle (edge) (<fromNodeID><infix><toNodeID>)"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:324
 msgid "Prefix for busStop naming"
