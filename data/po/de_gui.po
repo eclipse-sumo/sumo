@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-21 08:46+0000\n"
+"PO-Revision-Date: 2023-02-21 08:51+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -825,7 +825,7 @@ msgstr "Bedingungen"
 
 #: /home/micha/programming/sumo/src/gui/GUITLLogicPhasesTrackerWindow.cpp:336
 msgid "Overflow in time computation occurred."
-msgstr "Überschuss bei der Zeitberechnung aufgetreten."
+msgstr "Überlauf bei der Zeitberechnung aufgetreten."
 
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_AboutSUMO.cpp:69
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_HallOfFame.cpp:57
