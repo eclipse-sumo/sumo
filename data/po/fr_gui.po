@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-21 08:51+0000\n"
+"PO-Revision-Date: 2023-02-21 10:33+0000\n"
 "Last-Translator: bcoueraud87 <benjamin.coueraud@dlr.de>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/fr/>\n"
@@ -769,7 +769,7 @@ msgstr "Simulation terminée"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:2094
 msgid "Loading '%'."
-msgstr ""
+msgstr "Chargement '%'."
 
 #: /home/micha/programming/sumo/src/gui/GUILoadThread.cpp:206
 msgid "Could not load edgedata-files '%'"
@@ -920,7 +920,7 @@ msgstr "Arrêt déclenché par interface non implémenté pour meso"
 #: /home/micha/programming/sumo/src/guisim/GUIBaseVehicle.cpp:875
 #: /home/micha/programming/sumo/src/guisim/GUIVehicle.cpp:666
 msgid "Vehicle parameter '%' key '%' is not a number for vehicle '%'."
-msgstr ""
+msgstr "Paramètre véhicule '%' (clé '%') n'est pas un nombre pour véhicule '%'."
 
 #: /home/micha/programming/sumo/src/guisim/GUINet.cpp:326
 msgid "Network size exceeds 1 Lightyear. Please reconsider your inputs.\n"
@@ -972,7 +972,7 @@ msgstr "Coordonnée de test"
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:813
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:836
 msgid "loading TLS Programs from '"
-msgstr ""
+msgstr "chargement Programmes TLS depuis '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:878
 msgid "Loaded edge types from '"
@@ -981,7 +981,7 @@ msgstr "Types d'arêtes chargés depuis '"
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:880
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:913
 msgid "load edgeTypes"
-msgstr ""
+msgstr "charge edgeTypes"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:911
 msgid "Reloaded edge types from '"
@@ -989,16 +989,16 @@ msgstr "Types d'arêtes rechargés depuis '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:968
 msgid "Reloading netedit config file '"
-msgstr ""
+msgstr "Rechargement fichier configuration netedit '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:972
 msgid "Reloading sumo config file '"
-msgstr ""
+msgstr "Rechargement fichier configuration sumo '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:976
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1037
 msgid "Reloading network file '"
-msgstr ""
+msgstr "Rechargement fichier réseau '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:992
 msgid "&Reload Netedit config"
@@ -1014,15 +1014,15 @@ msgstr "&Recharger Réseau"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1298
 msgid "Loading of '"
-msgstr ""
+msgstr "Chargememt de '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1303
 msgid "'"
-msgstr ""
+msgstr "'"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1303
 msgid "' loaded."
-msgstr ""
+msgstr "' chargé."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1392
 msgid "&Modes"
@@ -1042,7 +1042,7 @@ msgstr "&Outils"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1509
 msgid "Network computed"
-msgstr ""
+msgstr "Réseau calculé"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1513
 msgid "Press F5"
@@ -1050,15 +1050,15 @@ msgstr "Appuyer sur F5"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1514
 msgid "Network requires recomputing"
-msgstr ""
+msgstr "Réseau nécessite nouveau calcul"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1581
 msgid "Loading console arguments"
-msgstr ""
+msgstr "Chargement arguments console"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1609
 msgid "Creating new network."
-msgstr ""
+msgstr "Création nouveau réseau."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1620
 msgid "Trying to load an empty network"
@@ -1066,7 +1066,7 @@ msgstr "Essai de chargement d'un réseau vide"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1636
 msgid "Loading network file '"
-msgstr ""
+msgstr "Chargement fichier réseau '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1648
 msgid "Trying to load an empty configuration"
@@ -1074,7 +1074,7 @@ msgstr "Essai de chargement d'une configuration vide"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1664
 msgid "Loading configuration file '"
-msgstr ""
+msgstr "Chargement fichier configuration '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1695
 msgid "Select Import Options"
@@ -1082,7 +1082,7 @@ msgstr "Sélectionner Options d'Import"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1702
 msgid "Loading OSM file '"
-msgstr ""
+msgstr "Chargement fichier OSM '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1724
 msgid "Recompute with volatile options"
@@ -1093,11 +1093,13 @@ msgid ""
 "Changes produced in the net due a recomputing with volatile options cannot "
 "be undone. Continue?"
 msgstr ""
+"Changements introduits dans réseau dus à recalcul avec options volatiles ne "
+"peuvent pas être défaits. Continuer ?"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1960
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:2020
 msgid "Running "
-msgstr ""
+msgstr "En cours d'exécution "
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1983
 msgid "Loading network '"
@@ -1158,11 +1160,11 @@ msgstr "Junctions connectées sauvegardées dans '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3156
 msgid "Netedit configuration saved in '"
-msgstr ""
+msgstr "Configuration netedit sauvegardée à '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3162
 msgid "Could not save netedit configuration in '"
-msgstr ""
+msgstr "Echec sauvegarde configuration netedit dans '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3266
 msgid "SUMO configuration saved in '"
@@ -1195,12 +1197,12 @@ msgstr "chargement données additionnelles depuis '"
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3489
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1304
 msgid "Loading of additional file failed: "
-msgstr ""
+msgstr "Echec chargement fichier additionnel : "
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3495
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1306
 msgid "Loading of additional file sucessfully: "
-msgstr ""
+msgstr "Chargement fichier additionnel réussi : "
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3521
 msgid "reloading additionals from '"
@@ -1208,7 +1210,7 @@ msgstr "rechargement fichiers additionnels depuis '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3526
 msgid "Reloading of additional file failed: "
-msgstr ""
+msgstr "Echec rechargement fichiers additionnels : "
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3568
 msgid "Additionals saved in '"
@@ -1223,16 +1225,16 @@ msgstr "chargement des éléments de demande depuis '"
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3642
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1315
 msgid "Loading of route file failed: "
-msgstr ""
+msgstr "Echec chargement fichier routes : "
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3648
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1317
 msgid "Loading of route file sucessfully: "
-msgstr ""
+msgstr "Chargement fichier routes réussi : "
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3679
 msgid "Reloading of route file failed: "
-msgstr ""
+msgstr "Echec rechargement fichier routes : "
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3719
 msgid "Demand elements saved in '"
@@ -1246,12 +1248,12 @@ msgstr "chargement données liées au réseau depuis '"
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3795
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1326
 msgid "Loading of data file failed: "
-msgstr ""
+msgstr "Echec chargement fichier de données : "
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3801
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1328
 msgid "Loading of data file sucessfully: "
-msgstr ""
+msgstr "Chargement fichier de données réussi : "
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3831
 msgid "reloading data elements from '"
@@ -1259,7 +1261,7 @@ msgstr "rechargement des données liées au réseau depuis '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3836
 msgid "Reloading of data file failed: "
-msgstr ""
+msgstr "Echec rechargement fichier de données : "
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3877
 msgid "Data elements saved in '"
@@ -1272,13 +1274,13 @@ msgstr "chargement des meanDatas depuis '"
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3950
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1337
 msgid "Loading of meandata file failed: "
-msgstr ""
+msgstr "Echec chargement fichier meandata : "
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3956
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3987
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1339
 msgid "Loading of meandata file sucessfully: "
-msgstr ""
+msgstr "Chargement fichier meandata réussi : "
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3982
 msgid "reloading meanDatas from '"
@@ -1290,11 +1292,11 @@ msgstr "MeanDatas sauvegardées dans '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4071
 msgid "Confirm close Network"
-msgstr ""
+msgstr "Confirmer fermeture Réseau"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4072
 msgid "You have unsaved changes in the network."
-msgstr ""
+msgstr "Présence de changements non sauvegardés dans le réseau."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4073
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4139
@@ -1302,35 +1304,35 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4227
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4271
 msgid "Do you wish to close and discard all changes?"
-msgstr ""
+msgstr "Fermer et jeter tous les changements ?"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4137
 msgid "Save additional elements before close"
-msgstr ""
+msgstr "Sauvegarder éléments additionnels avant fermeture"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4138
 msgid "You have unsaved additional elements."
-msgstr ""
+msgstr "Présence d'éléments additionnels non sauvegardés."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4181
 msgid "Save demand elements before close"
-msgstr ""
+msgstr "Sauvegarder éléments de demande avant fermeture"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4182
 msgid "You have unsaved demand elements."
-msgstr ""
+msgstr "Présence d'éléments de demande non sauvegardés."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4225
 msgid "Save data elements before close"
-msgstr ""
+msgstr "Sauvegarder éléments de données avant fermeture"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4226
 msgid "You have unsaved data elements."
-msgstr ""
+msgstr "Présence d'éléments de données non sauvegardés."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4269
 msgid "Save meanData elements before close"
-msgstr ""
+msgstr "Sauvegarder éléments meanData avant fermeture"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4270
 msgid "You have unsaved meanData elements."
