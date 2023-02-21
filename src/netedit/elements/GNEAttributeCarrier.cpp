@@ -1431,13 +1431,13 @@ GNEAttributeCarrier::fillNetworkElements() {
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_TLLINKINDEX,
                                               GNEAttributeProperties::INT | GNEAttributeProperties::DEFAULTVALUE,
-                                              TL("sets index of this connection within the controlling trafficlight"),
+                                              TL("sets index of this connection within the controlling traffic light"),
                                               "-1");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_TLLINKINDEX2,
                                               GNEAttributeProperties::INT | GNEAttributeProperties::DEFAULTVALUE,
-                                              TL("sets index for the internal junction of this connection within the controlling trafficlight"),
+                                              TL("sets index for the internal junction of this connection within the controlling traffic light"),
                                               "-1");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
