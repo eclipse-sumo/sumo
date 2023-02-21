@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-21 13:27+0000\n"
+"PO-Revision-Date: 2023-02-21 13:50+0000\n"
 "Last-Translator: bcoueraud87 <benjamin.coueraud@dlr.de>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/fr/>\n"
@@ -1920,22 +1920,22 @@ msgstr "Relation entre TAZ"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:723
 msgid "Create TAZRelation elements."
-msgstr ""
+msgstr "Créer éléments de relations entre TAZ."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:726
 msgid "&MeanData"
-msgstr ""
+msgstr "&MeanData"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:726
 msgid "Create MeanData edge/lanes."
-msgstr ""
+msgstr "Créer MeanData pour arêtes/voies."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:788
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:985
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2297
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2608
 msgid "Show grid"
-msgstr ""
+msgstr "Voir grille"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:793
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:990
@@ -1944,46 +1944,46 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2616
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2903
 msgid "Hide junction shape"
-msgstr ""
+msgstr "Cacher forme junction"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:798
 msgid "Draw vehicles spread in lane or in depart position"
-msgstr ""
+msgstr "Dessiner répartition véhicules dans la voie ou position de départ"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:803
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1140
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2321
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2925
 msgid "Show demand elements"
-msgstr ""
+msgstr "Visualiser éléments de demande"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:808
 msgid "Clicking should target lanes"
-msgstr ""
+msgstr "Cliquer devrait cibler voies"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:813
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2336
 msgid "Show connections over junctions"
-msgstr ""
+msgstr "Visualiser connections aux junctions"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:818
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2344
-#, fuzzy
 msgid "Hide connections"
-msgstr "&Connexions"
+msgstr "Cacher connexions"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:823
 msgid "Show sub-additional elements"
-msgstr ""
+msgstr "Visualiser éléments sous-additionnels"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:828
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2360
 msgid "Show TAZ elements"
-msgstr ""
+msgstr "Visualiser éléments de TAZ"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:833
 msgid "Selecting multiple edges automatically select their junctions"
 msgstr ""
+"Sélectionner multiples arêtes sélectionne automatiquement leurs junctions"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:838
 msgid "Clicking should apply state changes to all phases of TLS plan"
