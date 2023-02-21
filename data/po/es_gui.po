@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
 "PO-Revision-Date: 2023-02-21 13:12+0000\n"
-"Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
+"Last-Translator: Pablo Alvarez Lopez <pablo.alvarezlopez@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
 "Language: es\n"
@@ -3164,15 +3164,15 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:336
 msgid "Locate an edge within the network. (Shift+E)"
-msgstr ""
+msgstr "Localizar una calle (edge) dentro de la red. (Shift+E)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:340
 msgid "Locate WalkingAreas"
-msgstr ""
+msgstr "Localizar areas peatonales (WalkingAreas)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:340
 msgid "Locate a walkingArea within the network. (Shift+W)"
-msgstr ""
+msgstr "Localizar una area peatonal (WalkingArea) dentro de la red. (Shift+W)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:344
 msgid "Locate Vehicles"
@@ -3585,15 +3585,15 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:1650
 msgid " height:"
-msgstr ""
+msgstr " altura:"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:1651
 msgid " diagonal:"
-msgstr ""
+msgstr " diagonal:"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:1815
 msgid "selection using rectangle"
-msgstr ""
+msgstr "Selección usando un rectángulo"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:1849
 #, c-format
@@ -3602,123 +3602,123 @@ msgstr "Formato de tamaño de ventana inválido: % para opción 'window-size'"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:1927
 msgid "Save NETEDITConfig"
-msgstr ""
+msgstr "Guardar neteditconfig"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:1927
 msgid "Save NETEDITConfig. (Ctrl+Shift+E)"
-msgstr ""
+msgstr "Guardar neteditconfig. (Ctrl+Shift+E)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:1933
 msgid "Save SumoConfig"
-msgstr ""
+msgstr "Guardar sumoconfig"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:1933
 msgid "Save SumoConfig. (Ctrl+Shift+S)"
-msgstr ""
+msgstr "Guardar sumoconfig. (Ctrl+Shift+S)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:1939
 msgid "Save network"
-msgstr ""
+msgstr "Guardar red"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:1939
 msgid "Save network. (Ctrl+S)"
-msgstr ""
+msgstr "Guardar red. (Ctrl+S)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:1947
 msgid "Save individual files"
-msgstr ""
+msgstr "Guardar archivos individuales"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:1947
 msgid "Save individual files."
-msgstr ""
+msgstr "Guardar archivos individuales."
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:1953
 msgid "Save additional elements"
-msgstr ""
+msgstr "Guardar elementos adicionales"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:1953
 msgid "Save additional elements. (Ctrl+Shift+A)"
-msgstr ""
+msgstr "Guardar elementos adicionales. (Ctrl+Shift+A)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:1959
 msgid "Save demand elements"
-msgstr ""
+msgstr "Guardar elementos de demanda"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:1959
 msgid "Save demand elements. (Ctrl+Shift+D)"
-msgstr ""
+msgstr "Guardar elementos de demanda. (Ctrl+Shift+D)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:1965
 msgid "Save data elements"
-msgstr ""
+msgstr "Guardar elementos de datos"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:1965
 msgid "Save data elements. (Ctrl+Shift+B)"
-msgstr ""
+msgstr "Guardar elementos de datos. (Ctrl+Shift+B)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:1971
 msgid "Save mean data elements"
-msgstr ""
+msgstr "Guardar elementos meanData"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:1971
 msgid "Save mean data elements. (Ctrl+Shift+M)"
-msgstr ""
+msgstr "Guardar elementos meanData. (Ctrl+Shift+M)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2019
 msgid "Network"
-msgstr ""
+msgstr "Red"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2019
 msgid "Edit network elements"
-msgstr ""
+msgstr "Editar elementos de red"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2019
 msgid "Set mode for edit network elements. (F2)"
-msgstr ""
+msgstr "Establecer modo para editar elementos de red (F2)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2026
 msgid "Demand"
-msgstr ""
+msgstr "Demanda"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2026
 msgid "Edit traffic demand elements"
-msgstr ""
+msgstr "Editar elementos de demanda de tráfico"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2026
 msgid "Set mode for edit traffic demand. (F3)"
-msgstr ""
+msgstr "Establecer modo para editar demanda de tráfico. (F3)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2033
 msgid "Data"
-msgstr ""
+msgstr "Datos"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2033
 msgid "Edit data elements"
-msgstr ""
+msgstr "Editar elementos de datos"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2033
 msgid "Set mode for edit data demand. (F4)"
-msgstr ""
+msgstr "Establecer modo para editar elementos de datos. (F4)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2046
 msgid "Mode already selected"
-msgstr ""
+msgstr "Modo ya seleccionado"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2131
 msgid "Network mode already selected"
-msgstr ""
+msgstr "Modo de red ya seleccionado"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2136
 msgid "Save modifications in TLS before change mode"
-msgstr ""
+msgstr "Guardar modificaciones en semáforos (TLS) antes de cambiar de modo"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2181
 msgid "Demand mode already selected"
-msgstr ""
+msgstr "Modo de demanda ya seleccionado"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2216
 msgid "Data mode already selected"
-msgstr ""
+msgstr "Modo de datos ya seleccionado"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2297
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2608
@@ -3726,55 +3726,61 @@ msgid ""
 "Show grid and restrict movement to the grid - define grid size in "
 "visualization options. (Ctrl+G)"
 msgstr ""
+"Mostrar cuadrícula y restringir el movimiento a la cuadrícula - El tamaño de "
+"la cuadrícula se puede modificar en las opciones de visualización. (Ctrl + G)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2305
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2616
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2903
 msgid "Toggle hiding junction shape. (Ctrl+J)"
-msgstr ""
+msgstr "Alternar mostrar formas de los cruces (junction). (Ctrl+J)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2313
 msgid "Draw vehicles spread in lane or depart position"
 msgstr ""
+"Dibujar vehículos extendidos en el carril (lane) o en la posición de inicio"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2313
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2624
 msgid "Draw vehicles spread in lane or in depart position."
 msgstr ""
+"Dibujar vehículos extendidos en el carril (lane) o en la posición de inicio."
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2321
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2925
 msgid "Toggle show demand elements."
-msgstr ""
+msgstr "Alternar mostrar elementos de demanda."
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2329
 msgid "Clicks target lanes"
-msgstr ""
+msgstr "Clicks seleccionan carriles (lanes)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2329
 msgid ""
 "Toggle whether clicking should inspect/select/delete lanes instead of edges."
 msgstr ""
+"Alternar si clickar debe inspeccionar/seleccionar/eliminar carriles (lanes) "
+"en lugar de calles (edges)."
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2336
 msgid "Toggle show connections over junctions."
-msgstr ""
+msgstr "Alternar mostrar conexiones sobre cruces (junctions)."
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2344
 msgid "Toggle hide connections."
-msgstr ""
+msgstr "Alternar ocultar conexiones."
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2352
 msgid "Show additional sub-elements"
-msgstr ""
+msgstr "Mostar sub-elementos adicionales"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2352
 msgid "Toggle show additional sub-elements."
-msgstr ""
+msgstr "Alternar mostrar sub-elementos adicionales."
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2360
 msgid "Toggle show TAZ elements."
-msgstr ""
+msgstr "Alternar mostrar elementos de zona de análisis de tráfico (TAZ)."
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2368
 msgid "Automatic select junctions"
@@ -4232,15 +4238,15 @@ msgstr "Rehacer crear conexión '"
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_Connection.cpp:111
 msgid "Redo delete connection '"
-msgstr ""
+msgstr "Deshacer eliminar conexión '"
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_Crossing.cpp:163
 msgid "Undo create crossing"
-msgstr ""
+msgstr "Deshacer creación de paso peatonal (crossing)"
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_Crossing.cpp:165
 msgid "Undo delete crossing"
-msgstr ""
+msgstr "Deshacer eliminación de paso peatonal (crossing)"
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_Crossing.cpp:173
 msgid "Redo create crossing"
@@ -4744,13 +4750,13 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:449
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:446
 msgid "Value of Parameter not defined"
-msgstr "Valor del parámetro (clave) no definido"
+msgstr "Valor del parámetro"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:458
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:457
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:454
 msgid "Key of Parameter cannot be empty"
-msgstr ""
+msgstr "La clave del parámetro no puede estar vacía"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:460
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:459
@@ -4809,7 +4815,7 @@ msgstr "No hay áreas de parqueo en la red"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEUndoListDialog.cpp:58
 msgid "OK\tclose dialog"
-msgstr ""
+msgstr "OK\tCerrar ventana"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEVehicleTypeDialog.cpp:445
 msgid "Edit parameters"
@@ -4846,20 +4852,20 @@ msgstr "Nada que alternar, implementar en descendientes"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:911
 msgid "The id of the node"
-msgstr ""
+msgstr "La ID del cruce (junction)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:916
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1901
 msgid "The x-y-z position of the node on the plane in meters"
-msgstr ""
+msgstr "las posiciones x-y-z del cruce (junction) en el plano, en metros"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:921
 msgid "An optional type for the node"
-msgstr ""
+msgstr "Un tipo opcional para el cruce (junction)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:927
 msgid "A custom shape for that node"
-msgstr ""
+msgstr "Forma personalizada para el cruce (junction)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:932
 msgid "Optional turning radius (for all corners) for that node in meters"
@@ -4867,7 +4873,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:933
 msgid "1.5"
-msgstr ""
+msgstr "1.5"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:938
 msgid ""
