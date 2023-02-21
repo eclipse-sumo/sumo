@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-21 12:19+0000\n"
+"PO-Revision-Date: 2023-02-21 12:21+0000\n"
 "Last-Translator: bcoueraud87 <benjamin.coueraud@dlr.de>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/fr/>\n"
@@ -1629,11 +1629,11 @@ msgstr "Sauvegarde éléments additionnels et formes."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:416
 msgid "Save Additionals As..."
-msgstr ""
+msgstr "Sauvegarder éléments additionnels en tant que..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:416
 msgid "Save additional elements to another file."
-msgstr ""
+msgstr "Sauvegarder éléments additionnels dans autre fichier."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:422
 msgid "Reload Additionals"
