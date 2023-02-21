@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-21 14:35+0000\n"
+"PO-Revision-Date: 2023-02-21 14:39+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -6218,43 +6218,47 @@ msgstr "Una clase de emisión abstracta"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3474
 msgid "How this vehicle is rendered"
-msgstr ""
+msgstr "Cómo se renderiza este vehículo"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3480
 msgid "The vehicle's width [m] (only used for drawing)"
-msgstr ""
+msgstr "El ancho del vehículo [m] (solo se usa al dibujar)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3486
 msgid "The vehicle's height [m] (only used for drawing)"
-msgstr ""
+msgstr "La altura del vehículo [m] (solo se usa al dibujar)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3492
 msgid ""
 "Image file for rendering vehicles of this type (should be grayscale to allow "
 "functional coloring)"
 msgstr ""
+"Archivo de imagen para renderizar vehículos de este tipo (debe estar en "
+"escala de grises para permitir la coloración funcional)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3497
 msgid "The model used for changing lanes"
-msgstr ""
+msgstr "El modelo utilizado para cambio de carril"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3504
 msgid "The model used for car following"
-msgstr ""
+msgstr "El modelo utilizado para seguimiento vehicular"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3511
 msgid ""
 "The number of persons (excluding an autonomous driver) the vehicle can "
 "transport"
 msgstr ""
+"El número de personas (excluyendo a un conductor autónomo) que el vehículo "
+"puede transportar"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3516
 msgid "The number of containers the vehicle can transport"
-msgstr ""
+msgstr "El número de contenedores que el vehículo puede transportar"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3521
 msgid "The time required by a person to board the vehicle"
-msgstr ""
+msgstr "El tiempo requerido por una persona para abordar el vehículo"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3527
 msgid "The time required to load a container onto the vehicle"
