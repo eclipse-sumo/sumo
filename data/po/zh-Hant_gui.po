@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-21 13:50+0000\n"
+"PO-Revision-Date: 2023-02-21 14:12+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
@@ -6409,44 +6409,44 @@ msgstr "運送的替代車輛清單"
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4293
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4361
 msgid "Id of the destination container stop"
-msgstr ""
+msgstr "容器的目的地停靠點的識別名(id)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4320
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4356
 msgid "The name of the edge the tranship starts at"
-msgstr ""
+msgstr "運送開始的路段的名稱"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4325
 msgid "The name of the edge the tranship ends at"
-msgstr ""
+msgstr "運送結束的路段的名稱"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4330
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4366
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4391
 msgid "The position at which the tranship shall enter the net"
-msgstr ""
+msgstr "運送應進入路網時的位置"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4342
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4372
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4403
 msgid "speed of the container for this tranship in m/s"
-msgstr ""
+msgstr "運送容器的速度(公尺/秒)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4386
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4668
 msgid "id of the edges to walk"
-msgstr ""
+msgstr "行走的路段的識別名(id)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4397
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4673
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4692
 msgid "Arrival position on the destination edge"
-msgstr ""
+msgstr "目的地路段上的抵達位置"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4426
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4796
 msgid "The name of the edge the stop shall be located at"
-msgstr ""
+msgstr "停靠點應位於的路段的名稱"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4444
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4476
@@ -6454,7 +6454,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4846
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5548
 msgid "Minimum duration for stopping"
-msgstr ""
+msgstr "最短停靠時間"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4451
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4483
@@ -6462,27 +6462,27 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4853
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5555
 msgid "The time step at which the route continues"
-msgstr ""
+msgstr "路徑繼續時的時間長度"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4457
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4489
 msgid "Activity displayed for stopped container in GUI and output files "
-msgstr ""
+msgstr "在GUI及輸入檔案中顯示停靠的容器(container)的活動 "
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4510
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4550
 msgid "The name of the edge the person trip starts at"
-msgstr ""
+msgstr "人旅次開始的路段的名稱"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4515
 msgid "The name of the edge the person trip ends at"
-msgstr ""
+msgstr "人旅次結束的路段的名稱"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4526
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4560
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4594
 msgid "List of possible vehicle types to take"
-msgstr ""
+msgstr "可供使用的車輛類型的清單"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4531
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4565
@@ -6490,74 +6490,74 @@ msgstr ""
 msgid ""
 "List of possible traffic modes. Walking is always possible regardless of "
 "this value"
-msgstr ""
+msgstr "可能的交通運具清單。無論此值如何，步行始終是可能的"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4536
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4570
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4604
 msgid "list of vehicle alternatives to take for the person trip"
-msgstr ""
+msgstr "人旅次可以使用的替代車輛清單"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4555
 msgid "Id of the destination busStop"
-msgstr ""
+msgstr "公車終點站的識別名(id)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4584
 msgid "The name of the junction the person trip starts at"
-msgstr ""
+msgstr "人旅次開始的路口的名稱"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4589
 msgid "The name of the junction the person trip ends at"
-msgstr ""
+msgstr "人旅次結束的路口的名稱"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4626
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4650
 msgid "The name of the edge the walk starts at"
-msgstr ""
+msgstr "步行開始的路口的名稱"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4631
 msgid "The name of the edge the walk ends at"
-msgstr ""
+msgstr "步行結束的路段的名稱"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4655
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4768
 msgid "Id of the destination bus stop"
-msgstr ""
+msgstr "公車終點站的識別名(id)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4687
 msgid "The id of the route to walk"
-msgstr ""
+msgstr "步行路徑的識別名(id)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4707
 msgid "The name of the junction the walk starts at"
-msgstr ""
+msgstr "步行開始的路口的名稱"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4712
 msgid "The name of the junction the walk ends at"
-msgstr ""
+msgstr "步行結束的路口的名稱"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4733
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4763
 msgid "The name of the edge the ride starts at"
-msgstr ""
+msgstr "乘車(ride)開始的路段的名稱"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4738
 msgid "The name of the edge the ride ends at"
-msgstr ""
+msgstr "乘車(ride)結束的路段的名稱"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4749
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4773
 msgid "list of vehicle alternatives to take for the ride"
-msgstr ""
+msgstr "乘車時可以使用的替代車輛清單"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4827
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4859
 msgid "Activity displayed for stopped person in GUI and output files "
-msgstr ""
+msgstr "在GUI及輸出檔案中為停等人員顯示的活動 "
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4871
 msgid "This vehicle's color"
-msgstr ""
+msgstr "此車輛的顏色"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4877
 msgid "The lane on which thevehicle shall be inserted"
