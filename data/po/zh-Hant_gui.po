@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-21 14:47+0000\n"
+"PO-Revision-Date: 2023-02-21 15:59+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
@@ -6720,60 +6720,60 @@ msgstr "改善的IDM模式的EIDM 冷卻度參數 [-]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5102
 msgid "EIDM leader speed estimation error parameter [-]"
-msgstr ""
+msgstr "EIDM前領車速度的預測錯誤變數[-]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5108
 msgid "EIDM gap estimation error parameter [-]"
-msgstr ""
+msgstr "EIDM 間距預測錯誤變數 [-]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5114
 msgid "EIDM driving error parameter [-]"
-msgstr ""
+msgstr "EIDM 駕駛錯誤變數 [-]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5120
 msgid "EIDM maximal jerk parameter [m/s^3]"
-msgstr ""
+msgstr "EIDM 最大急衝變數 [公尺/立方秒]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5126
 msgid ""
 "EIDM maximal negative acceleration between two Action Points (threshold) [m/"
 "s^2]"
-msgstr ""
+msgstr "在兩個動作點(action points)之間的EIDM 最大負加速度（閾值） [公尺/平方秒]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5132
 msgid ""
 "EIDM Time parameter until vehicle reaches amax after startup/driveoff [s]"
-msgstr ""
+msgstr "在啟動//行駛後車輛達到最大加速度的EIDM時間變數[秒]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5138
 msgid "EIDM Flatness parameter of startup/driveoff curve [-]"
-msgstr ""
+msgstr "EIDM 啟動/起步曲線平坦度變數 [-]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5144
 msgid "EIDM Shift parameter of startup/driveoff curve [-]"
-msgstr ""
+msgstr "EIDM 啟動/起步曲線的偏移變數 [-]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5150
 msgid ""
 "EIDM parameter if model shall include vehicle dynamics into the acceleration "
 "calculation [0/1]"
-msgstr ""
+msgstr "EIDM 變數，如果模式應將車輛動力學納入加速度計算 [0/1]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5156
 msgid ""
 "EIDM parameter how many vehicles are taken into the preview calculation of "
 "the driver (at least always 1!) [-]"
-msgstr ""
+msgstr "EIDM 參數, 有多少車輛被納入驅動程序的預覽計算（至少總是 1！）[-]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5162
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5168
 msgid "Peter Wagner 2009 parameter"
-msgstr ""
+msgstr "彼得·華格納 (Peter Wagner) 2009 變數"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5174
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5180
 msgid "IDMM parameter"
-msgstr ""
+msgstr "IDMM變數"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5186
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5192
