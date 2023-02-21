@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-21 12:21+0000\n"
+"PO-Revision-Date: 2023-02-21 12:25+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
@@ -6148,19 +6148,19 @@ msgstr "用於跟車的模式"
 msgid ""
 "The number of persons (excluding an autonomous driver) the vehicle can "
 "transport"
-msgstr "車輛能載運的人數(不含自動駕駛車的駕駛者)"
+msgstr "車輛能運載的人數(不含自動駕駛車的駕駛者)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3516
 msgid "The number of containers the vehicle can transport"
-msgstr ""
+msgstr "車輛能載運的容器(containers)數量"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3521
 msgid "The time required by a person to board the vehicle"
-msgstr ""
+msgstr "乘客上車需要的時間"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3527
 msgid "The time required to load a container onto the vehicle"
-msgstr ""
+msgstr "將容器(container)裝載到車輛上所需的時間"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3533
 msgid "The preferred lateral alignment when using the sublane-model"
