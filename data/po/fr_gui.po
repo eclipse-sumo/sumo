@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-21 10:33+0000\n"
+"PO-Revision-Date: 2023-02-21 12:19+0000\n"
 "Last-Translator: bcoueraud87 <benjamin.coueraud@dlr.de>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/fr/>\n"
@@ -1336,23 +1336,23 @@ msgstr "Sauvegarder éléments meanData avant fermeture"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4270
 msgid "You have unsaved meanData elements."
-msgstr ""
+msgstr "Présence d'éléments meanData non sauvegardés."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4507
 msgid "loading additional elements from '"
-msgstr ""
+msgstr "chargement d'éléments additionnels depuis '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4510
 msgid "loading additionals from '"
-msgstr ""
+msgstr "chargement d'éléments additionnels depuis '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4577
 msgid "loading meanDatas from '"
-msgstr ""
+msgstr "chargement meanDatas depuis '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4580
 msgid "loading meandatas from '"
-msgstr ""
+msgstr "chargement meanDatas depuis '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4614
 msgid "Loading data elements from '"
@@ -1613,19 +1613,19 @@ msgstr "Recharger type d'arêtes."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:406
 msgid "Load Additionals..."
-msgstr ""
+msgstr "Chargement d'éléments additionnels..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:406
 msgid "Load additionals and shapes."
-msgstr ""
+msgstr "Charge éléments additionnels et formes."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:412
 msgid "Save Additionals"
-msgstr ""
+msgstr "Sauvegarde éléments additionnels"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:412
 msgid "Save additionals and shapes."
-msgstr ""
+msgstr "Sauvegarde éléments additionnels et formes."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:416
 msgid "Save Additionals As..."
