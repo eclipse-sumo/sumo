@@ -1,4 +1,4 @@
-Eclipse SUMO dfrouter Version v1_15_0+1315-6cce7c5914f
+Eclipse SUMO dfrouter Version v1_16_0+0594-4f41766741c
  Copyright (C) 2001-2023 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Builds vehicle routes for SUMO using detector values.
 
@@ -49,8 +49,10 @@ Output Options:
                                         sink detectors to FILE
   --end-reroute-output FILE            Saves rerouter definitions for sink
                                         detectors to FILE
-  --validation-output FILE             
-  --validation-output.add-sources      
+  --validation-output FILE             Write induction loop definitions for the
+                                        given detector positions to FILE
+  --validation-output.add-sources      Add source detectors to the validation
+                                        output
 
 Processing Options:
   --guess-empty-flows                  Derive missing flow values from upstream
@@ -81,10 +83,13 @@ Processing Options:
   --time-step TIME                     Expected distance between two successive
                                         data sets
   --calibrator-output                  Write calibrators to FILE
-  --include-unused-routes              
-  --revalidate-flows                   
+  --include-unused-routes              Include routes in the output which have
+                                        no vehicles
+  --revalidate-flows                   Checks whether detectors with calculated
+                                        flow 0 can attract additional traffic
   --remove-empty-detectors             Removes empty detectors from the list
-  --strict-sources                     
+  --strict-sources                     Whether edges with unknown status can
+                                        prevent an edge from becoming a source
   --respect-concurrent-inflows         Try to determine further inflows to an
                                         inbetween detector when computing split
                                         probabilities

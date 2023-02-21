@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-01-04 11:28:03 by Eclipse SUMO dfrouter Version v1_15_0+1277-3febad6e597
+<!-- generated on 2023-02-21 18:49:14 by Eclipse SUMO dfrouter Version v1_16_0+0594-4f41766741c
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/dfrouterConfiguration.xsd">
@@ -36,8 +36,8 @@
         <emitters-poi-output value="" type="FILE" help="Saves emitter positions as pois to FILE"/>
         <variable-speed-sign-output value="" synonymes="speed-trigger-output" type="FILE" help="Saves variable seed sign definitions for sink detectors to FILE"/>
         <end-reroute-output value="" type="FILE" help="Saves rerouter definitions for sink detectors to FILE"/>
-        <validation-output value="" type="FILE" help=""/>
-        <validation-output.add-sources value="false" type="BOOL" help=""/>
+        <validation-output value="" type="FILE" help="Write induction loop definitions for the given detector positions to FILE"/>
+        <validation-output.add-sources value="false" type="BOOL" help="Add source detectors to the validation output"/>
     </output>
 
     <processing>
@@ -59,10 +59,10 @@
         <time-offset value="0" type="TIME" help="Subtracts TIME seconds from (scaled) flow times"/>
         <time-step value="60" type="TIME" help="Expected distance between two successive data sets"/>
         <calibrator-output value="false" synonymes="write-calibrators" type="BOOL" help="Write calibrators to FILE"/>
-        <include-unused-routes value="false" type="BOOL" help=""/>
-        <revalidate-flows value="false" type="BOOL" help=""/>
+        <include-unused-routes value="false" type="BOOL" help="Include routes in the output which have no vehicles"/>
+        <revalidate-flows value="false" type="BOOL" help="Checks whether detectors with calculated flow 0 can attract additional traffic"/>
         <remove-empty-detectors value="false" type="BOOL" help="Removes empty detectors from the list"/>
-        <strict-sources value="false" type="BOOL" help=""/>
+        <strict-sources value="false" type="BOOL" help="Whether edges with unknown status can prevent an edge from becoming a source"/>
         <respect-concurrent-inflows value="false" type="BOOL" help="Try to determine further inflows to an inbetween detector when computing split probabilities"/>
         <scale value="1" type="FLOAT" help="Scale factor for flows"/>
     </processing>
