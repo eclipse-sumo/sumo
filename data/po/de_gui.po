@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-21 14:26+0000\n"
+"PO-Revision-Date: 2023-02-21 14:33+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -5054,7 +5054,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1180
 msgid "Show if edge is bidireccional"
-msgstr "Zeigen ob die Kante zweidirektional ist"
+msgstr "Zeigen ob es sich um eine Zweirichtungskante handelt"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1186
 msgid "Distance"
@@ -5072,7 +5072,7 @@ msgstr "Gibt an, für welche Fahrzeugklassen der Haltversatz NICHT gilt."
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1212
 msgid "Lane ID (Automatic, non editable)"
-msgstr "Fahrstreifen ID (automatisch, nicht bearbeitbar)"
+msgstr "Fahrstreifen-ID (automatisch, nicht bearbeitbar)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1217
 msgid ""
@@ -5108,12 +5108,16 @@ msgstr "Wenn angegeben, definiert dies den Fahrstreifen in die Gegenrichtung"
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1267
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1472
 msgid "Permit changing left only for to the given vehicle classes"
-msgstr "Fahrstreifenwechsel nach links nur für die angegebenen Fahrzeugklassen"
+msgstr ""
+"Fahrstreifenwechsel nach links nur für die angegebenen Fahrzeugklassen "
+"zulassen"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1274
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1479
 msgid "Permit changing right only for to the given vehicle classes"
-msgstr "Wechselrecht nur für die angegebenen Fahrzeugklassen zulassen"
+msgstr ""
+"Fahrstreifenwechsel nach rechts nur für die angegebenen Fahrzeugklassen "
+"zulassen"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1281
 msgid "Lane type description (optional)"
@@ -5121,11 +5125,11 @@ msgstr "Fahrstreifentyp-Beschreibung (optional)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1306
 msgid "Crossing ID"
-msgstr "Fußgängerfurt ID"
+msgstr "Fußgängerfurt-ID"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1311
 msgid "The (road) edges which are crossed"
-msgstr "Die (Straßen-)Kanten welche gekreuzt werden"
+msgstr "Die (Fahrbahn-)Kanten welche gekreuzt werden"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1316
 msgid ""
@@ -5133,7 +5137,7 @@ msgid ""
 "to true at tls-controlled intersections)"
 msgstr ""
 "Ob die Fußgänger Vorrang vor den Fahrzeugen haben (an LSA-gesteuerten "
-"Kreuzungen automatisch auf wahr gesetzt)"
+"Kreuzungen automatisch auf \"true\" gesetzt)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1322
 msgid "The width of the crossings"
