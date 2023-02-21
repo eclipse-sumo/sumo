@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-21 13:27+0000\n"
+"PO-Revision-Date: 2023-02-21 13:50+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -4225,12 +4225,12 @@ msgstr "Operation ungültig"
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_Children.cpp:171
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_Children.cpp:180
 msgid "Redo moving front "
-msgstr "Vorwärtsgehen wiederholen "
+msgstr "Nach oben schieben wiederholen "
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_Children.cpp:173
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_Children.cpp:182
 msgid "Redo moving back "
-msgstr "Rückwärtsgehen wiederholen "
+msgstr "Nach unten schieben wiederholen "
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_Connection.cpp:108
 msgid "Redo create connection '"
