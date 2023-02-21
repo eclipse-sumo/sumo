@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-21 14:33+0000\n"
+"PO-Revision-Date: 2023-02-21 14:35+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
@@ -6649,19 +6649,19 @@ msgstr "（不與 vehsPerHour ,週期或帕松(poisson)分配一起使用）"
 msgid ""
 "Insert flow expected vehicles per second with poisson distributed insertion "
 "rate"
-msgstr ""
+msgstr "根據帕松(poisson)分配注入率, 每秒注入預期車輛的流量"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4996
 msgid "(not together with period or vehsPerHour or probability)"
-msgstr ""
+msgstr "（不與週期, 每小時車輛數(vehsPerHour)或機率一起使用）"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5009
 msgid "The acceleration ability of vehicles of this type [m/s^2]"
-msgstr ""
+msgstr "此類型車輛的加速能力 [公尺/平方秒]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5015
 msgid "The deceleration ability of vehicles of this type [m/s^2]"
-msgstr ""
+msgstr "此類型車輛的減速能力[公尺/平方秒]"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5021
 msgid ""
