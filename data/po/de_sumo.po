@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-21 18:29+0100\n"
-"PO-Revision-Date: 2023-02-17 08:48+0000\n"
-"Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
+"PO-Revision-Date: 2023-02-22 11:27+0000\n"
+"Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
 "Language: de\n"
@@ -160,7 +160,7 @@ msgstr "Unbekannte Busstation '%'."
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:89
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:92
 msgid "Input"
-msgstr ""
+msgstr "Eingabe"
 
 #: /home/micha/programming/sumo/src/activitygen/AGFrame.cpp:54
 #: /home/micha/programming/sumo/src/activitygen/AGFrame.cpp:72
@@ -327,7 +327,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:125
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:128
 msgid "Output"
-msgstr ""
+msgstr "Ausgabe"
 
 #: /home/micha/programming/sumo/src/activitygen/AGFrame.cpp:55
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:53
@@ -592,7 +592,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/tools/emissionsMap_main.cpp:112
 #: /home/micha/programming/sumo/src/tools/emissionsMap_main.cpp:114
 msgid "Processing"
-msgstr ""
+msgstr "Wird bearbeitet"
 
 #: /home/micha/programming/sumo/src/activitygen/AGFrame.cpp:56
 #: /home/micha/programming/sumo/src/activitygen/AGFrame.cpp:81
@@ -614,34 +614,38 @@ msgstr ""
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:116
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:119
 msgid "Time"
-msgstr ""
+msgstr "Zeit"
 
 #: /home/micha/programming/sumo/src/activitygen/AGFrame.cpp:61
 msgid "Use FILE as SUMO-network to create trips for"
 msgstr ""
 
 #: /home/micha/programming/sumo/src/activitygen/AGFrame.cpp:64
+#, fuzzy
 msgid "Loads the SUMO-statistics FILE"
-msgstr ""
+msgstr "SUMO-Statistikdatei lädt"
 
 #: /home/micha/programming/sumo/src/activitygen/AGFrame.cpp:72
 msgid "Write generated trips to FILE"
-msgstr ""
+msgstr "Generierte Fahrten in Datei schreiben"
 
 #: /home/micha/programming/sumo/src/activitygen/AGFrame.cpp:81
 msgid ""
 "Sets the time of beginning of the simulation during the first day (in "
 "seconds)"
 msgstr ""
+"Legt die Startzeit der Simulation während des ersten Tages fest (in Sekunden)"
 
 #: /home/micha/programming/sumo/src/activitygen/AGFrame.cpp:84
 msgid ""
 "Sets the time of ending of the simulation during the last day (in seconds)"
 msgstr ""
+"Legt die Zeit des Endes der Simulation während des letzten Tages fest (in "
+"Sekunden)"
 
 #: /home/micha/programming/sumo/src/activitygen/AGFrame.cpp:87
 msgid "Sets the duration of the simulation in days"
-msgstr ""
+msgstr "Legt die Dauer der Simulation in Tagen fest"
 
 #: /home/micha/programming/sumo/src/activitygen/activitygen_main.cpp:64
 #: /home/micha/programming/sumo/src/router/ROLoader.cpp:111
@@ -745,23 +749,25 @@ msgstr ""
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:214
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:217
 msgid "Defaults"
-msgstr ""
+msgstr "Standards"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:61
 msgid "Loads the SUMO-network FILE"
-msgstr ""
+msgstr "Lädt die SUMO-Netzdatei"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:70
+#, fuzzy
 msgid "Loads detector descriptions from FILE"
-msgstr ""
+msgstr "Detektorbeschreibung aus der Datei lädt"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:75
 msgid "Loads detector flows from FILE(s)"
 msgstr ""
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:82
+#, fuzzy
 msgid "Saves computed routes to FILE"
-msgstr ""
+msgstr "Berechnete Routen speichern in DATEI"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:85
 msgid "Forces dfrouter to compute routes for in-between detectors"
@@ -815,12 +821,13 @@ msgid "Derive missing flow values from upstream or downstream (not working!)"
 msgstr ""
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:127
+#, fuzzy
 msgid "Switches to highway-mode"
-msgstr ""
+msgstr "In Autobahn-Modus wechseln"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:131
 msgid "Only warn about unparseable detectors"
-msgstr ""
+msgstr "Nur vor nicht einlesbaren Detektoren warnen"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:135
 msgid "Recomputes detector types even if given"
@@ -5875,8 +5882,9 @@ msgstr "Der Endknoten von Kante '%' ist nicht bekannt."
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:215
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:218
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:221
+#, fuzzy
 msgid "Building Defaults"
-msgstr ""
+msgstr "Standards erstellen"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:52
 msgid "The default number of lanes in an edge"
@@ -5970,7 +5978,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netconvert_main.cpp:68
 #: /home/micha/programming/sumo/src/netgen/netgen_main.cpp:80
 msgid "Junctions"
-msgstr ""
+msgstr "Knotenpunkte"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:110
 msgid ""
@@ -6135,7 +6143,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netconvert_main.cpp:71
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:375
 msgid "Railway"
-msgstr ""
+msgstr "Eisenbahn"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:226
 msgid "Repair topology of the railway network"
@@ -6292,7 +6300,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netconvert_main.cpp:69
 #: /home/micha/programming/sumo/src/netgen/netgen_main.cpp:81
 msgid "Pedestrian"
-msgstr ""
+msgstr "Fußgänger"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:457
 msgid "Always build walking areas even if there are no crossings"
@@ -6321,7 +6329,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netconvert_main.cpp:66
 #: /home/micha/programming/sumo/src/netgen/netgen_main.cpp:78
 msgid "Edge Removal"
-msgstr ""
+msgstr "Kante entfernen"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:605
 msgid "Only keep edges with speed in meters/second > FLOAT"
@@ -6398,7 +6406,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netconvert_main.cpp:67
 #: /home/micha/programming/sumo/src/netgen/netgen_main.cpp:79
 msgid "Unregulated Nodes"
-msgstr ""
+msgstr "Unregulierte Knoten"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:657
 msgid "All nodes will be unregulated"
@@ -7354,7 +7362,7 @@ msgstr "Errate Signal-ID für den Linkindex % an der LSA '%'."
 #: /home/micha/programming/sumo/src/netconvert_main.cpp:70
 #: /home/micha/programming/sumo/src/netgen/netgen_main.cpp:82
 msgid "Bicycle"
-msgstr ""
+msgstr "Fahrrad"
 
 #: /home/micha/programming/sumo/src/netconvert_main.cpp:72
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:166
@@ -7418,7 +7426,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:362
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:364
 msgid "Formats"
-msgstr ""
+msgstr "Formate"
 
 #: /home/micha/programming/sumo/src/netconvert_main.cpp:97
 msgid ""
