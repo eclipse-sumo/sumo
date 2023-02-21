@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-21 14:47+0000\n"
+"PO-Revision-Date: 2023-02-21 15:59+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -5491,11 +5491,13 @@ msgstr "0"
 msgid ""
 "If set, vehicles will park on the road lane and thereby reducing capacity"
 msgstr ""
+"Si se establece, los vehículos se estacionarán en el carril de la vía y, por "
+"lo tanto, reducirán la capacidad"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1874
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1911
 msgid "The width of the road-side parking spaces"
-msgstr ""
+msgstr "El ancho de los espacios de parqueo al costado de la vía"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1880
 msgid ""
@@ -6613,11 +6615,11 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4584
 msgid "The name of the junction the person trip starts at"
-msgstr ""
+msgstr "El nombre del cruce en el que comienza el viaje de la persona"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4589
 msgid "The name of the junction the person trip ends at"
-msgstr ""
+msgstr "El nombre del cruce en el que finaliza el viaje de la persona"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4626
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4650
