@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-21 12:25+0000\n"
+"PO-Revision-Date: 2023-02-21 13:12+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -3014,7 +3014,7 @@ msgstr "Berechne Knotenpunkte ..."
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1347
 msgid "Finished computing junctions."
-msgstr "Beende Berechnung von Knotenpunkten."
+msgstr "Berechnung von Knotenpunkten abgeschlossen."
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1353
 msgid "Computing demand elements ..."
@@ -3022,7 +3022,7 @@ msgstr "Berechne Nachfrageelemente..."
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1367
 msgid "Finished computing demand elements."
-msgstr "Beende Berechnung der Nachfragelemente."
+msgstr "Berechnung der Nachfragelemente abgeschlossen."
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1373
 msgid "Computing data elements ..."
@@ -3030,7 +3030,7 @@ msgstr "Berechne Datenelemente ..."
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1380
 msgid "Finished computing data elements."
-msgstr "Beende Berechnung der Datenelemente."
+msgstr "Berechnung der Datenelemente abgeschlossen."
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1459
 msgid "Position of joined junction"
@@ -3091,7 +3091,7 @@ msgstr "Knotenpunkt durch Geometriestützpunkt ersetzen"
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1855
 msgid "Junction isn't removable"
-msgstr "Knotenpunt ist nicht entfernbar"
+msgstr "Knotenpunt kann nicht entfernt werden"
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1867
 msgid "split junction"
@@ -3128,7 +3128,7 @@ msgstr "MeanData-Elemente entfernen"
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:2326
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:2403
 msgid "Duplicated ID"
-msgstr "Doppelte ID"
+msgstr "ID schon vergeben"
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:2689
 msgid "Network size exceeds 1 Lightyear. Please reconsider your inputs."
@@ -3136,7 +3136,7 @@ msgstr "Netz größer als ein Lichtjahr - bitte Eingabedaten überdenken."
 
 #: /home/micha/programming/sumo/src/netedit/GNENetHelper.cpp:1461
 msgid "Default vType doesn't exist"
-msgstr "Vorgegebener Fahrzeugtyp existiert nicht"
+msgstr "Standard-Fahrzeugtyp (vType) existiert nicht"
 
 #: /home/micha/programming/sumo/src/netedit/GNENetHelper.cpp:2473
 msgid "Invalid meanData pointer"
@@ -3248,7 +3248,9 @@ msgstr "Zur Auswahl hinzufügen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:612
 msgid "GUI-Settings cannot be saved in "
-msgstr "GUI-Settings konnten nicht gespeichert werden in "
+msgstr ""
+"Darstellungseinstellungen konnten nicht in folgender Datei gespeichert "
+"werden: "
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:805
 msgid "Confirm Junction Merger"
@@ -3256,7 +3258,7 @@ msgstr "Bestätige die Knotenpunktzusammenlegung"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:806
 msgid "Do you wish to merge junctions '"
-msgstr "Sollen Knotenpunkte zusammengelegt werden '"
+msgstr "Sollen die folgenden Knotenpunkte zusammengelegt werden: '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:807
 msgid "' and '"
@@ -3392,7 +3394,7 @@ msgstr "Innerhalb des Polygonumrisses auswählen"
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2500
 #, c-format
 msgid "No lanes around % to attach it"
-msgstr "Keine Fahrstreifen um % anzubinden"
+msgstr "Keine Fahrstreifen in der Nähe, um % anzubinden"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2523
 msgid "attach POI into lane"
@@ -3456,7 +3458,9 @@ msgstr "Es gehören mehrere ausgewählte Fahrstreifen zu der gleichen Kante."
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2841
 msgid "Only one lane per edge will be restricted for "
-msgstr "Nur ein Fahrstreifen pro Kante wird gesperrt für "
+msgstr ""
+"Nur ein Fahrstreifen pro Kante wird exklusiv der folgenden Fahrzeugklasse "
+"gewidmet: "
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2856
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2864
@@ -3835,11 +3839,11 @@ msgstr "Höhe verschieben"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2399
 msgid "Apply mouse movement to elevation instead of x,y position."
-msgstr "Wende die Mausbewegung auf die Höhe statt auf die x-, y-Position an."
+msgstr "Wende die Mausbewegung auf die Höhe statt auf die x,y-Position an."
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2407
 msgid "Edge chain mode"
-msgstr "Kantenkettenmodus"
+msgstr "Kanten verketten"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2407
 msgid "Create consecutive edges with a single click (hit ESC to cancel chain)."
@@ -3902,11 +3906,11 @@ msgstr "Zeichne Quelle-Ziel-Beziehungen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2932
 msgid "Toggle draw TAZREL drawing mode."
-msgstr "Quelle-Ziel-Beziehung Zeichnungsmodus ein-/ausschalten."
+msgstr "Quelle-Ziel-Beziehung ein-/ausblenden."
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2939
 msgid "Toggle draw TAZ fill"
-msgstr "Verkehrsumlegungszonenfüllung zeichnen ein-/ausschalten"
+msgstr "Verkehrsumlegungszonenfüllung ein-/ausblenden"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2946
 msgid "Toggle draw TAZRel only from"
@@ -3961,7 +3965,7 @@ msgstr "Modus zum Hinzufügen von Verbindungen zwischen Fahrstreifen. (C)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3545
 msgid "Set prohibition mode"
-msgstr "Verbotsmodus setzen"
+msgstr "Vorfahrtsmodus einstellen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:3545
 msgid "Mode for editing connection prohibitions. (H)"
@@ -7843,13 +7847,13 @@ msgstr "Löschen"
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:416
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:477
 msgid " origin"
-msgstr " Ursprung"
+msgstr " Quelle"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:398
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:417
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:478
 msgid " destiny"
-msgstr " Vorsehung"
+msgstr " Ziel"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:506
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:632
