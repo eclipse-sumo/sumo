@@ -3067,7 +3067,7 @@ GNEViewNet::removeRestrictedLane(SUMOVehicleClass vclass) {
             myUndoList->end();
         } else {
             // If only have a single lane, start undo/redo operation
-            myUndoList->begin(GUIIcon::LANE, TL("emove vclass for ") + toString(vclass));
+            myUndoList->begin(GUIIcon::LANE, TL("Remove vclass for ") + toString(vclass));
             // Remove Sidewalk
             myNet->removeRestrictedLane(vclass, laneAtPopupPosition->getParentEdge(), myUndoList);
             // end undo/redo operation
