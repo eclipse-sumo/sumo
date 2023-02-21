@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-21 15:59+0000\n"
+"PO-Revision-Date: 2023-02-21 16:01+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
@@ -6794,11 +6794,11 @@ msgstr "魏德曼(Wiedemann)變數"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5250
 msgid "MinGap factor parameter"
-msgstr ""
+msgstr "最小間距(MinGap)因素變數"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5255
 msgid "K parameter"
-msgstr ""
+msgstr "K 變數"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5260
 msgid "Kerner Phi parameter"
