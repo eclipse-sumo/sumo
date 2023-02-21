@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-21 13:16+0000\n"
-"Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
+"PO-Revision-Date: 2023-02-21 13:27+0000\n"
+"Last-Translator: Pablo Alvarez Lopez <pablo.alvarezlopez@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
 "Language: es\n"
@@ -3200,7 +3200,7 @@ msgstr "Localizar rutas dentro de la red. (Shift+R)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:356
 msgid "Locate Stops"
-msgstr ""
+msgstr "Localizar parada"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:356
 msgid "Locate a stop within the network. (Shift+S)"
