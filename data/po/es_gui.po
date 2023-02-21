@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
 "PO-Revision-Date: 2023-02-21 14:26+0000\n"
-"Last-Translator: Pablo Alvarez Lopez <pablo.alvarezlopez@dlr.de>\n"
+"Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
 "Language: es\n"
@@ -3547,11 +3547,11 @@ msgstr "La cuadrícula aún está activa, presione ctrl+g para desactivarla"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:3276
 msgid "reset custom junction shapes"
-msgstr ""
+msgstr "restablecer formas de cruce (junction) personalizadas"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:3283
 msgid "reset custom junction shape"
-msgstr ""
+msgstr "restablecer forma de cruce (junction) personalizada"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:3394
 msgid "clear connections of selected junctions"
@@ -5666,7 +5666,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2324
 msgid "Name of Variable Speed Signal"
-msgstr ""
+msgstr "Nombre de la señal de velocidad variable"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2329
 msgid ""
@@ -5676,16 +5676,16 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2350
 msgid "Time"
-msgstr ""
+msgstr "Tiempo"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2355
 msgid "Speed"
-msgstr ""
+msgstr "Velocidad"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2369
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2425
 msgid "The id of Calibrator"
-msgstr ""
+msgstr "La id del calibrator"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2374
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3158
@@ -5707,7 +5707,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2391
 msgid "Name of Calibrator"
-msgstr ""
+msgstr "Nombre del calibrator"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2396
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2452
@@ -5724,7 +5724,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2406
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2462
 msgid "A threshold value to detect and clear unexpected jamming"
-msgstr ""
+msgstr "Un valor de umbral para detectar y eliminar atascos inesperados"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2412
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2468
