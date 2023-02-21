@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-21 12:25+0000\n"
+"PO-Revision-Date: 2023-02-21 13:12+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -2780,11 +2780,11 @@ msgstr "Prefijo para el nombre de los detectores e1 instant"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:351
 msgid "Prefix for rerouter naming"
-msgstr ""
+msgstr "Prefijo para el nombre del rerouter"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:354
 msgid "Prefix for calibrator naming"
-msgstr ""
+msgstr "Prefijo para el nombre del calibrator"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:357
 msgid "Prefix for routeProbe naming"
@@ -2864,19 +2864,19 @@ msgstr "Desactivar texturas"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:424
 msgid "Load visualisation settings from FILE"
-msgstr ""
+msgstr "Cargar configuración de visualización desde archivo"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:429
 msgid "Load current viewport from registry"
-msgstr ""
+msgstr "Cargar ventana gráfica actual desde el registro"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:432
 msgid "Create initial window with the given x,y size"
-msgstr ""
+msgstr "Crear ventana inicial con el tamaño x,y dado"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:435
 msgid "Create initial window at the given x,y position"
-msgstr ""
+msgstr "Crear ventana inicial en la posición x,y dada"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:440
 msgid "Enable overlay for screen recognition"
@@ -2884,7 +2884,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:443
 msgid "Enable output messages during GUI-Testing"
-msgstr ""
+msgstr "Habilitar mensajes de salida durante la prueba de GUI"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:446
 msgid "Enable output messages during GUI-Testing specific of gl functions"
@@ -2892,15 +2892,19 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:449
 msgid "Save gui settings in the given settings-output file"
-msgstr ""
+msgstr "Guardar los ajustes de la GUI en este archivo de ajustes"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:456
 msgid "Defines the begin time in seconds; The simulation starts at this time"
 msgstr ""
+"Define el tiempo de inicio en segundos; La simulación comienza en este "
+"momento"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:459
 msgid "Defines the end time in seconds; The simulation ends at this time"
 msgstr ""
+"Define el tiempo de finalización en segundos; La simulación termina en este "
+"momento"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:462
 msgid ""
@@ -6517,12 +6521,12 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4673
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4692
 msgid "Arrival position on the destination edge"
-msgstr ""
+msgstr "Posición de llegada en la calle (edge) destino"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4426
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4796
 msgid "The name of the edge the stop shall be located at"
-msgstr ""
+msgstr "El nombre de la calle (edge) en el que se ubicará la parada"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4444
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4476
