@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
-"PO-Revision-Date: 2023-02-21 12:21+0000\n"
+"PO-Revision-Date: 2023-02-21 12:25+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -2745,111 +2745,111 @@ msgstr "Präfix für Bushaltepunktbezeichnung"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:327
 msgid "Prefix for trainStop naming"
-msgstr "Präfix für Zughaltepunktnamen"
+msgstr "Präfix für Zughaltepunktbezeichnung"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:330
 msgid "Prefix for containerStop naming"
-msgstr "Präfix für Container-Haltepunktnamen"
+msgstr "Präfix für Container-Haltepunktbezeichnung"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:333
 msgid "Prefix for chargingStation naming"
-msgstr "Präfix für Ladepunktnamen"
+msgstr "Präfix für Ladepunktbezeichnung"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:336
 msgid "Prefix for parkingArea naming"
-msgstr "Präfix für Parkplatznamen"
+msgstr "Präfix für Parkplatzbezeichnung"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:339
 msgid "Prefix for e1Detector naming"
-msgstr "Präfix für e1Detector-Namen"
+msgstr "Präfix für e1Detector-Bezeichnung"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:342
 msgid "Prefix for e2Detector naming"
-msgstr "Präfix für e2Detector-Namen"
+msgstr "Präfix für e2Detector-Bezeichnung"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:345
 msgid "Prefix for e3Detector naming"
-msgstr "Präfix für e3Detector-Namen"
+msgstr "Präfix für e3Detector-Bezeichnung"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:348
 msgid "Prefix for e1InstantDetector naming"
-msgstr "Präfix für e1InstantDetector-Namen"
+msgstr "Präfix für e1InstantDetector-Bezeichnung"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:351
 msgid "Prefix for rerouter naming"
-msgstr "Präfix für Rerouter-Namen"
+msgstr "Präfix für Rerouter-Bezeichnung"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:354
 msgid "Prefix for calibrator naming"
-msgstr "Präfix für Calibrator-Namen"
+msgstr "Präfix für Calibrator-Bezeichnung"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:357
 msgid "Prefix for routeProbe naming"
-msgstr "Präfix für routeProbe-Namen"
+msgstr "Präfix für routeProbe-Bezeichnung"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:360
 msgid "Prefix for variable speed sign naming"
-msgstr "Präfix für Namen der dynamischen Geschwindigkeitsanzeigen"
+msgstr "Präfix für Bezeichner der dynamischen Geschwindigkeitsanzeigen"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:363
 msgid "prefix for traction substation naming"
-msgstr "Präfix für Unterwerknamen"
+msgstr "Präfix für Unterwerkbezeichnung"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:366
 msgid "Prefix for overhead wire naming"
-msgstr "Präfix für Oberleitungsnamen"
+msgstr "Präfix für Oberleitungsbezeichnung"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:369
 msgid "Prefix for polygon naming"
-msgstr "Präfix für Polygonnamen"
+msgstr "Präfix für Polygonbezeichnung"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:372
 msgid "Prefix for poi naming"
-msgstr "Präfix für PoI-Namen"
+msgstr "Präfix für PoI-Bezeichnung"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:377
 msgid "Prefix for route naming"
-msgstr "Präfix für Routennamen"
+msgstr "Präfix für Routenbezeichnung"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:380
 msgid "Prefix for vType naming"
-msgstr "Präfix für vType-Namen (Fahrzeugtyp)"
+msgstr "Präfix für vType-Bezeichnung (Fahrzeugtyp)"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:383
 msgid "Prefix for vehicle naming"
-msgstr "Präfix für Fahrzeugnamen"
+msgstr "Präfix für Fahrzeugbezeichnung"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:386
 msgid "Prefix for trip naming"
-msgstr "Präfix für Fahrtennamen"
+msgstr "Präfix für Fahrtenbezeichnung"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:389
 msgid "Prefix for flow naming"
-msgstr "Präfix für Flussnamen"
+msgstr "Präfix für Flussbezeichnung"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:392
 msgid "Prefix for person naming"
-msgstr "Präfix für Personennamen"
+msgstr "Präfix für Personenbezeichnung"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:395
 msgid "Prefix for personFlow naming"
-msgstr "Präfix für personFlow-Namen (Personenfluss)"
+msgstr "Präfix für personFlow-Bezeichnung (Personenfluss)"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:398
 msgid "Prefix for container naming"
-msgstr "Präfix für Containernamen"
+msgstr "Präfix für Containerbezeichnung"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:401
 msgid "Prefix for containerFlow naming"
-msgstr "Präfix für containerFlow-Namen"
+msgstr "Präfix für containerFlow-Bezeichnung"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:408
 msgid "Prefix for meanDataEdge naming"
-msgstr "Präfix für meanData-Namen"
+msgstr "Präfix für meanData-Bezeichnung"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:411
 msgid "Prefix for meanDataLane naming"
-msgstr "Präfix für meanDataLane-Namen"
+msgstr "Präfix für meanDataLane-Bezeichnung"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:418
 msgid "Disable icons of special lanes"
@@ -2889,7 +2889,7 @@ msgstr "Aktiviere Ausgabemeldungen während GUI-Test spezifischer GL-Funktionen"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:449
 msgid "Save gui settings in the given settings-output file"
-msgstr "Speichere Darstellungseinstellungen in dieser Ausgabedatei"
+msgstr "Darstellungseinstellungen in dieser Ausgabedatei speichern"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:456
 msgid "Defines the begin time in seconds; The simulation starts at this time"
