@@ -1210,6 +1210,11 @@ This can happen with an outdated version of python 2.7. Updating to
 Also have a look at the output in the shell window that opens. If it reports missing or outdated 
 SSL certificates try: `pip install certifi`.
 
+### [osmWebWizard.py](Tools/Import/OSM.md#osmWebWizard.py) fails to load the browser page on Linux
+
+This happens when you are using a version of Firefox that was installed from a [snap package](https://en.wikipedia.org/wiki/Snap_(software)) (Which is the default since Ubuntu 22.04).
+As a work-around you can [install a .deb package](https://askubuntu.com/questions/1399383/how-to-install-firefox-as-a-traditional-deb-package-without-snap-in-ubuntu-22).
+
 ## (Communication) Network Simulators
 
 ### How do I use *.tcl* files with NS2?
