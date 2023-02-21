@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-14 23:08+0100\n"
 "PO-Revision-Date: 2023-02-21 13:27+0000\n"
-"Last-Translator: Pablo Alvarez Lopez <pablo.alvarezlopez@dlr.de>\n"
+"Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
 "Language: es\n"
@@ -6568,7 +6568,7 @@ msgstr "El nombre de la calle (edge) en la que finaliza el viaje de la persona"
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4560
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4594
 msgid "List of possible vehicle types to take"
-msgstr ""
+msgstr "Lista de posibles tipos de vehículos para usar"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4531
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4565
