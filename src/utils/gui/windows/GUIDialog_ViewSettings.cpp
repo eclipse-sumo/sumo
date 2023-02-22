@@ -49,6 +49,7 @@
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
+
 FXDEFMAP(GUIDialog_ViewSettings::SizePanel) GUIDialog_SizeMap[] = {
     FXMAPFUNC(SEL_CHANGED,  MID_SIMPLE_VIEW_SIZECHANGE,     GUIDialog_ViewSettings::SizePanel::onCmdSizeChange),
     FXMAPFUNC(SEL_COMMAND,  MID_SIMPLE_VIEW_SIZECHANGE,     GUIDialog_ViewSettings::SizePanel::onCmdSizeChange)
@@ -76,20 +77,22 @@ FXDEFMAP(GUIDialog_ViewSettings) GUIDialog_ViewSettingsMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_SIMPLE_VIEW_CLEAR_DECALS,   GUIDialog_ViewSettings::onCmdClearDecals),
 };
 
-
 FXIMPLEMENT(GUIDialog_ViewSettings,             FXDialogBox,    GUIDialog_ViewSettingsMap,  ARRAYNUMBER(GUIDialog_ViewSettingsMap))
 FXIMPLEMENT(GUIDialog_ViewSettings::SizePanel,  FXObject,       GUIDialog_SizeMap,          ARRAYNUMBER(GUIDialog_SizeMap))
-
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
+
 GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIVisualizationSettings* settings, std::vector<GUISUMOAbstractView::Decal>* decals, FXMutex* decalsLock) :
     FXDialogBox(parent, TL("View Settings"), GUIDesignViewSettingsMainDialog),
     GUIPersistentWindowPos(this, "VIEWSETTINGS", true, 20, 40, 700, 500, 400, 20),
-    myParent(parent), mySettings(settings), myBackup(settings->name, settings->netedit),
-    myDecals(decals), myDecalsLock(decalsLock), myDecalsTable(nullptr),
-    myDataValuePanel(nullptr) {
+    myParent(parent),
+    mySettings(settings),
+    myBackup(settings->name, settings->netedit),
+    myDecals(decals),
+    myDecalsLock(decalsLock) {
+    // make a backup copy
     myBackup.copy(*settings);
     // create content frame
     FXVerticalFrame* contentFrame = new FXVerticalFrame(this, GUIDesignViewSettingsVerticalFrame1);
@@ -1181,6 +1184,21 @@ GUIDialog_ViewSettings::onUpdImportSetting(FXObject* sender, FXSelector, void* p
 
 
 void
+GUIDialog_ViewSettings::buildDecalsTable() {
+    myDecalsTable = new MFXAddEditTypedTable(myDecalsFrame, this, MID_TABLE, GUIDesignViewSettingsMFXTable);
+    myDecalsTable->setVisibleRows(5);
+    myDecalsTable->setVisibleColumns(7);
+    myDecalsTable->setTableSize(5, 7);
+    myDecalsTable->setBackColor(FXRGB(255, 255, 255));
+    myDecalsTable->getRowHeader()->setWidth(0);
+    for (int i = 1; i <= 5; ++i) {
+        myDecalsTable->setCellType(i, CT_REAL);
+        myDecalsTable->setNumberCellParams(i, -10000000, 10000000, 1, 10, 100, "%.2f");
+    }
+}
+
+
+void
 GUIDialog_ViewSettings::rebuildDecalsTable() {
     myDecalsTable->clearItems();
     const int cols = 8;
@@ -1355,16 +1373,7 @@ void
 GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) {
     // decals
     delete myDecalsTable;
-    myDecalsTable = new MFXAddEditTypedTable(myDecalsFrame, this, MID_TABLE, GUIDesignViewSettingsMFXTable);
-    myDecalsTable->setVisibleRows(5);
-    myDecalsTable->setVisibleColumns(7);
-    myDecalsTable->setTableSize(5, 7);
-    myDecalsTable->setBackColor(FXRGB(255, 255, 255));
-    myDecalsTable->getRowHeader()->setWidth(0);
-    for (int i = 1; i <= 5; ++i) {
-        myDecalsTable->setCellType(i, CT_REAL);
-        myDecalsTable->setNumberCellParams(i, -10000000, 10000000, 1, 10, 100, "%.2f");
-    }
+    buildDecalsTable();
     rebuildDecalsTable();
     if (doCreate) {
         myDecalsTable->create();

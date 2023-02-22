@@ -31,8 +31,8 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class MFXComboBoxIcon;
 
+class MFXComboBoxIcon;
 
 // ===========================================================================
 // class definitions
@@ -530,6 +530,9 @@ protected:
      * @param[in] doCreate Whether "create" shall be called (only if built the first time)
      */
     void rebuildColorMatrices(bool doCreate = false);
+
+    /// @brief build the decals table
+    void buildDecalsTable();
 
     /// @brief Rebuilds the decals table
     void rebuildDecalsTable();
