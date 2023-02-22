@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-21 18:29+0100\n"
-"PO-Revision-Date: 2023-02-22 11:27+0000\n"
-"Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
+"PO-Revision-Date: 2023-02-22 11:58+0000\n"
+"Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
 "Language: de\n"
@@ -5882,9 +5882,8 @@ msgstr "Der Endknoten von Kante '%' ist nicht bekannt."
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:215
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:218
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:221
-#, fuzzy
 msgid "Building Defaults"
-msgstr "Standards erstellen"
+msgstr "Netzstandards"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:52
 msgid "The default number of lanes in an edge"
@@ -6431,7 +6430,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:702
 #: /home/micha/programming/sumo/src/netconvert_main.cpp:65
 msgid "Ramp Guessing"
-msgstr ""
+msgstr "Zufahrtsrampenheuristik"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:672
 msgid "Enable ramp-guessing"
