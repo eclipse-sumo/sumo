@@ -1631,6 +1631,10 @@ MSVehicle::processNextStop(double currentVelocity) {
             MSVehicle* joinVeh = dynamic_cast<MSVehicle*>(MSNet::getInstance()->getVehicleControl().getVehicle(stop.pars.join));
             if (joinVeh && (joinVeh->joinTrainPart(this) || joinVeh->joinTrainPartFront(this))) {
                 stop.joinTriggered = false;
+                if (myAmRegisteredAsWaiting) {
+                    MSNet::getInstance()->getVehicleControl().unregisterOneWaiting();
+                    myAmRegisteredAsWaiting = false;
+                }
                 // avoid collision warning before this vehicle is removed (joinVeh was already made longer)
                 myCollisionImmunity = TIME2STEPS(100);
                 // mark this vehicle as arrived
@@ -1683,6 +1687,11 @@ MSVehicle::processNextStop(double currentVelocity) {
                     std::cout << SIMTIME << " vehicle '" << getID() << "' registers as waiting for container." << std::endl;
                 }
 #endif
+            }
+            // joining only takes place after stop duration is over
+            if (stop.joinTriggered && !myAmRegisteredAsWaiting && stop.duration <= 0) {
+                MSNet::getInstance()->getVehicleControl().registerOneWaiting();
+                myAmRegisteredAsWaiting = true;
             }
             if (stop.getSpeed() > 0) {
                 //waypoint mode
@@ -1908,6 +1917,10 @@ MSVehicle::joinTrainPart(MSVehicle* veh) {
         const double newLength = myType->getLength() + veh->getVehicleType().getLength();
         getSingularType().setLength(newLength);
         myStops.begin()->joinTriggered = false;
+        if (myAmRegisteredAsWaiting) {
+            MSNet::getInstance()->getVehicleControl().unregisterOneWaiting();
+            myAmRegisteredAsWaiting = false;
+        }
         return true;
     } else {
         return false;
@@ -1946,6 +1959,10 @@ MSVehicle::joinTrainPartFront(MSVehicle* veh) {
         assert(myLane == veh->getLane());
         myState.myPos = veh->getPositionOnLane();
         myStops.begin()->joinTriggered = false;
+        if (myAmRegisteredAsWaiting) {
+            MSNet::getInstance()->getVehicleControl().unregisterOneWaiting();
+            myAmRegisteredAsWaiting = false;
+        }
         return true;
     } else {
         return false;
