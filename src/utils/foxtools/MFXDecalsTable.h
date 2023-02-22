@@ -11,14 +11,13 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNETLSTable.h
+/// @file    MFXDecalsTable.h
 /// @author  Pablo Alvarez Lopez
-/// @date    2022-07-21
+/// @date    Feb 2023
 ///
-// Table used in GNETLSFrame for editing TLS programs
+// Table used for show and edit decal values
 /****************************************************************************/
-#ifndef GNETLSTable_h
-#define GNETLSTable_h
+#pragma once
 #include <config.h>
 
 #include <vector>
@@ -38,24 +37,18 @@ class MFXMenuButtonTooltip;
 // class definitions
 // ===========================================================================
 /**
- * @class GNETLSTable
+ * @class MFXDecalsTable
  */
-class GNETLSTable : public FXHorizontalFrame {
+class MFXDecalsTable : public FXHorizontalFrame {
     /// @brief fox declaration
-    FXDECLARE(GNETLSTable)
+    FXDECLARE(MFXDecalsTable)
 
 public:
     /// @brief constructor (Exactly like the FXButton constructor)
-    GNETLSTable(GNETLSEditorFrame::TLSPhases* TLSPhasesParent);
+    MFXDecalsTable(GNETLSEditorFrame::TLSPhases* TLSPhasesParent);
 
     /// @brief destructor (Called automatically)
-    ~GNETLSTable();
-
-    /// @brief Enable table
-    void enable();
-
-    /// @brief Disable table
-    void disable();
+    ~MFXDecalsTable();
 
     /// @frame get pointer to TLSEditorFrame phases parent
     GNETLSEditorFrame::TLSPhases* getTLSPhasesParent() const;
@@ -118,51 +111,24 @@ public:
     /// @brief called when an add phase button is pressed
     long onCmdAddPhase(FXObject*, FXSelector, void*);
 
-    /// @brief called when a duplicate phase button is pressed
-    long onCmdDuplicatePhase(FXObject*, FXSelector, void*);
-
-    /// @brief called when an add all green red phase button is pressed
-    long onCmdAddPhaseAllRed(FXObject*, FXSelector, void*);
-
-    /// @brief called when an add all green red phase button is pressed
-    long onCmdAddPhaseAllYellow(FXObject*, FXSelector, void*);
-
-    /// @brief called when an add all green red phase button is pressed
-    long onCmdAddPhaseAllGreen(FXObject*, FXSelector, void*);
-
-    /// @brief called when an add all green red phase button is pressed
-    long onCmdAddPhaseAllGreenPriority(FXObject*, FXSelector, void*);
-
-    /// @brief called when a remove phase button is pressed
-    long onCmdRemovePhase(FXObject*, FXSelector, void*);
-
-    /// @brief called when a move up phase button is pressed
-    long onCmdMoveUpPhase(FXObject*, FXSelector, void*);
-
-    /// @brief called when a move up phase button is pressed
-    long onCmdMoveDownPhase(FXObject*, FXSelector, void*);
-
     /// @}
 
 protected:
     /// @brief FOX needs this
-    FOX_CONSTRUCTOR(GNETLSTable)
+    FOX_CONSTRUCTOR(MFXDecalsTable)
 
     /// @brief table cell
     class Cell {
 
     public:
         /// @brief constructor for textField
-        Cell(GNETLSTable* TLSTable, MFXTextFieldTooltip* textField, int col, int row);
+        Cell(MFXDecalsTable* TLSTable, MFXTextFieldTooltip* textField, int col, int row);
 
         /// @brief constructor for index label
-        Cell(GNETLSTable* TLSTable, FXLabel* indexLabel, FXLabel* indexLabelBold, int col, int row);
+        Cell(MFXDecalsTable* TLSTable, FXLabel* indexLabel, FXLabel* indexLabelBold, int col, int row);
 
         /// @brief constructor for buttons
-        Cell(GNETLSTable* TLSTable, MFXButtonTooltip* button, int col, int row);
-
-        /// @brief constructor for menu buttons
-        Cell(GNETLSTable* TLSTable, int col, int row);
+        Cell(MFXDecalsTable* TLSTable, MFXButtonTooltip* button, int col, int row);
 
         /// @brief destructor
         ~Cell();
@@ -191,29 +157,8 @@ protected:
         /// @brief get index label
         FXLabel* getIndexLabel() const;
 
-        /// @brief get add button
-        MFXMenuButtonTooltip* getAddButton() const;
-
         /// @brief get remove, move up or move down button
         MFXButtonTooltip* getButton();
-
-        /// @brief get add phase button
-        MFXButtonTooltip* getAddPhaseButton();
-
-        /// @brief get duplicate phase button
-        MFXButtonTooltip* getDuplicatePhaseButton();
-
-        /// @brief get add all red phase button
-        MFXButtonTooltip* getAddAllRedPhaseButton();
-
-        /// @brief get add all yellow phase button
-        MFXButtonTooltip* getAddAllYellowPhaseButton();
-
-        /// @brief get add all green phase button
-        MFXButtonTooltip* getAddAllGreenPhaseButton();
-
-        /// @brief get add all green priority phase button
-        MFXButtonTooltip* getAddAllGreenPriorityPhaseButton();
 
         /// @brief show label index normal
         void showIndexLabelNormal();
@@ -230,15 +175,12 @@ protected:
         /// @brief get column type
         char getType() const;
 
-        /// @brief hide menuButton popup
-        void hideMenuButtonPopup();
-
         /// @brief disable button (used for delete, move up and move down)
         void disableButton();
 
     private:
         /// @brief pointer to TLSTable parent
-        GNETLSTable* myTLSTable = nullptr;
+        MFXDecalsTable* myTLSTable = nullptr;
 
         /// @brief MFXTextFieldTooltip
         MFXTextFieldTooltip* myTextField = nullptr;
@@ -252,38 +194,11 @@ protected:
         /// @brief button
         MFXButtonTooltip* myButton = nullptr;
 
-        /// @brief popup for buttons
-        FXPopup* myMenuButtonPopup = nullptr;
-
-        /// @brief menu button tooltip
-        MFXMenuButtonTooltip* myAddButton = nullptr;
-
-        /// @brief add phase button
-        MFXButtonTooltip* myAddPhaseButton = nullptr;
-
-        /// @brief duplicate phase button
-        MFXButtonTooltip* myDuplicatePhaseButton = nullptr;
-
-        /// @brief add all red phase button
-        MFXButtonTooltip* myAddAllRedButton = nullptr;
-
-        /// @brief add all yellow phase button
-        MFXButtonTooltip* myAddAllYellowButton = nullptr;
-
-        /// @brief add all green phase button
-        MFXButtonTooltip* myAddAllGreenButton = nullptr;
-
-        /// @brief add all green priority phase button
-        MFXButtonTooltip* myAddAllGreenPriorityButton = nullptr;
-
         /// @brief column index
         const int myCol;
 
         /// @brief row index
         const int myRow;
-
-        /// @brief disable button
-        bool myDisableButton = false;
 
         /// @brief default constructor
         Cell();
@@ -294,7 +209,7 @@ protected:
 
     public:
         /// @brief constructor
-        Column(GNETLSTable* table, const int index, const char type);
+        Column(MFXDecalsTable* table, const int index, const char type);
 
         /// @brief destructor
         ~Column();
@@ -322,7 +237,7 @@ protected:
 
     private:
         /// @brief pointer to table
-        GNETLSTable* myTable = nullptr;
+        MFXDecalsTable* myTable = nullptr;
 
         /// @brief vertical frame
         FXVerticalFrame* myVerticalFrame = nullptr;
@@ -354,7 +269,7 @@ protected:
 
     public:
         /// @brief constructor
-        Row(GNETLSTable* table);
+        Row(MFXDecalsTable* table);
 
         /// @brief destructor
         ~Row();
@@ -373,7 +288,7 @@ protected:
 
     protected:
         /// @brief poiner to table parent
-        GNETLSTable* myTable = nullptr;
+        MFXDecalsTable* myTable = nullptr;
 
         /// @brief list wtih cells
         std::vector<Cell*> myCells;
@@ -385,9 +300,6 @@ protected:
 
     /// @brief update index labels
     void updateIndexLabel();
-
-    /// @brief update accumulated duration();
-    void updateAccumulatedDuration();
 
     /// @brief move focus to current row
     bool moveFocus();
@@ -415,10 +327,8 @@ protected:
 
 private:
     /// @brief Invalidated duplicate constructor.
-    GNETLSTable(const GNETLSTable&) = delete;
+    MFXDecalsTable(const MFXDecalsTable&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNETLSTable& operator=(const GNETLSTable&) = delete;
+    MFXDecalsTable& operator=(const MFXDecalsTable&) = delete;
 };
-
-#endif
