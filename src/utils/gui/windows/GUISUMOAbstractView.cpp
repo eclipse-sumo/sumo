@@ -1569,7 +1569,7 @@ GUISUMOAbstractView::showViewschemeEditor() {
 GUIDialog_EditViewport*
 GUISUMOAbstractView::getViewportEditor() {
     if (myViewportChooser == nullptr) {
-        myViewportChooser = new GUIDialog_EditViewport(this, "Edit Viewport");
+        myViewportChooser = new GUIDialog_EditViewport(this, TL("Edit Viewport"));
         myViewportChooser->create();
     }
     updateViewportValues();

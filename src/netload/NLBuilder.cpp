@@ -422,7 +422,7 @@ NLBuilder::load(const std::string& mmlWhat, const bool isNet) {
     }
     std::vector<std::string> files = myOptions.getStringVector(mmlWhat);
     for (std::vector<std::string>::const_iterator fileIt = files.begin(); fileIt != files.end(); ++fileIt) {
-        const long before = PROGRESS_BEGIN_TIME_MESSAGE("Loading " + mmlWhat + " from '" + *fileIt + "'");
+        const long before = PROGRESS_BEGIN_TIME_MESSAGE(TLF("Loading % from '%'", mmlWhat, *fileIt));
         if (!XMLSubSys::runParser(myXMLHandler, *fileIt, isNet)) {
             WRITE_MESSAGEF(TL("Loading of % failed."), mmlWhat);
             return false;

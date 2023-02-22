@@ -22,6 +22,7 @@
 // A single child window which contains a view of the simulation area
 /****************************************************************************/
 
+#include <utils/common/MsgHandler.h>
 #include <utils/foxtools/MFXCheckableButton.h>
 #include <utils/foxtools/MFXMenuButtonTooltip.h>
 #include <utils/gui/globjects/GUIShapeContainer.h>
@@ -229,39 +230,39 @@ GUISUMOViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
         switch (messageId) {
             case MID_HOTKEY_SHIFT_J_LOCATEJUNCTION:
                 icon = GUIIconSubSys::getIcon(GUIIcon::LOCATEJUNCTION);
-                titleString = "Junction Chooser";
+                titleString = TL("Junction Chooser");
                 break;
             case MID_HOTKEY_SHIFT_E_LOCATEEDGE:
                 icon = GUIIconSubSys::getIcon(GUIIcon::LOCATEEDGE);
-                titleString = "Edge Chooser";
+                titleString = TL("Edge Chooser");
                 break;
             case MID_HOTKEY_SHIFT_V_LOCATEVEHICLE:
                 icon = GUIIconSubSys::getIcon(GUIIcon::LOCATEVEHICLE);
-                titleString = "Vehicle Chooser";
+                titleString = TL("Vehicle Chooser");
                 break;
             case MID_HOTKEY_SHIFT_P_LOCATEPERSON:
                 icon = GUIIconSubSys::getIcon(GUIIcon::LOCATEPERSON);
-                titleString = "Person Chooser";
+                titleString = TL("Person Chooser");
                 break;
             case MID_HOTKEY_SHIFT_C_LOCATECONTAINER:
                 icon = GUIIconSubSys::getIcon(GUIIcon::LOCATECONTAINER);
-                titleString = "Container Chooser";
+                titleString = TL("Container Chooser");
                 break;
             case MID_HOTKEY_SHIFT_T_LOCATETLS:
                 icon = GUIIconSubSys::getIcon(GUIIcon::LOCATETLS);
-                titleString = "Traffic Lights Chooser";
+                titleString = TL("Traffic Lights Chooser");
                 break;
             case MID_HOTKEY_SHIFT_A_LOCATEADDITIONAL:
                 icon = GUIIconSubSys::getIcon(GUIIcon::LOCATEADD);
-                titleString = "Additional Objects Chooser";
+                titleString = TL("Additional Objects Chooser");
                 break;
             case MID_HOTKEY_SHIFT_O_LOCATEPOI:
                 icon = GUIIconSubSys::getIcon(GUIIcon::LOCATEPOI);
-                titleString = "POI Chooser";
+                titleString = TL("POI Chooser");
                 break;
             case MID_HOTKEY_SHIFT_L_LOCATEPOLY:
                 icon = GUIIconSubSys::getIcon(GUIIcon::LOCATEPOLY);
-                titleString = "Polygon Chooser";
+                titleString = TL("Polygon Chooser");
                 break;
             default:
                 throw ProcessError(TL("Unknown Message ID in onCmdLocate"));

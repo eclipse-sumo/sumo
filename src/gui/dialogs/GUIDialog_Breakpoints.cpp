@@ -66,7 +66,7 @@ FXIMPLEMENT(GUIDialog_Breakpoints, FXMainWindow, GUIDialog_BreakpointsMap, ARRAY
 // ===========================================================================
 
 GUIDialog_Breakpoints::GUIDialog_Breakpoints(GUIApplicationWindow* parent, std::vector<SUMOTime>& breakpoints, FXMutex& breakpointLock) :
-    FXMainWindow(parent->getApp(), "Breakpoints Editor", GUIIconSubSys::getIcon(GUIIcon::APP_BREAKPOINTS), nullptr, GUIDesignChooserDialog),
+    FXMainWindow(parent->getApp(), TL("Breakpoints Editor"), GUIIconSubSys::getIcon(GUIIcon::APP_BREAKPOINTS), nullptr, GUIDesignChooserDialog),
     GUIPersistentWindowPos(this, "DIALOG_BREAKPOINTS", true, 20, 40, 300, 350),
     myParent(parent), myBreakpoints(&breakpoints), myBreakpointLock(&breakpointLock) {
     // build main Frame
@@ -123,7 +123,7 @@ GUIDialog_Breakpoints::rebuildList() {
     sort(myBreakpoints->begin(), myBreakpoints->end());
     // set table attributes
     myTable->setTableSize((FXint)myBreakpoints->size() + 1, 1);
-    myTable->setColumnText(0, "Time");
+    myTable->setColumnText(0, TL("Time"));
     FXHeader* header = myTable->getColumnHeader();
     header->setHeight(GUIDesignHeight);
     header->setItemJustify(0, JUSTIFY_CENTER_X);
