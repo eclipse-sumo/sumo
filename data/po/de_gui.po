@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-21 18:42+0100\n"
-"PO-Revision-Date: 2023-02-22 11:27+0000\n"
+"PO-Revision-Date: 2023-02-22 11:58+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -940,7 +940,6 @@ msgid "Time format error"
 msgstr "Zeitformatfehler"
 
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_Feedback.cpp:46
-#, fuzzy
 msgid "- General problem solving"
 msgstr "- Lösung allgemeiner Probleme"
 
@@ -2455,9 +2454,8 @@ msgid "Clear the Message Window."
 msgstr "Leere das Meldungsfenster."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2029
-#, fuzzy
 msgid "Open feedback channels."
-msgstr "Öffne Rückmeldungskanäle."
+msgstr "Gehe zu Rückmeldemöglichkeiten."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2032
 msgid "About netedit."
@@ -2743,9 +2741,8 @@ msgid "Open a SUMO network"
 msgstr "Sumo-Netz öffnen"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:252
-#, fuzzy
 msgid "Open a configuration file (netedit or netconvert config)"
-msgstr "Öffne eine Konfigurationsdatei (netedit oder netconvert Konfiguration)"
+msgstr "Konfigurationsdatei (für netedit oder netconvert) öffnen"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:253
 msgid "Open a SUMO config file"
@@ -2764,13 +2761,12 @@ msgid "Processing"
 msgstr "Wird bearbeitet"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:260
-#, fuzzy
 msgid "Building Defaults"
-msgstr "Standards erstellen"
+msgstr "Netzstandards"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:262
 msgid "Ramp Guessing"
-msgstr ""
+msgstr "Zufahrtsrampenheuristik"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:263
 msgid "Edge Removal"
@@ -2848,7 +2844,7 @@ msgstr "Starte netedit mit einem neuen Netz"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:311
 msgid "Write attribute help to file"
-msgstr ""
+msgstr "Schreibe Attributhilfetext nach Datei"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:316
 msgid "Prefix for node naming"
