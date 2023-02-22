@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-21 18:29+0100\n"
-"PO-Revision-Date: 2023-02-22 15:25+0000\n"
+"PO-Revision-Date: 2023-02-22 16:34+0000\n"
 "Last-Translator: Rhea-Xiao <xiao.translations@gmail.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -28,12 +28,13 @@ msgid "Consolidating statistics"
 msgstr "正在合并统计"
 
 #: /home/micha/programming/sumo/src/activitygen/AGActivityGen.cpp:58
+#, fuzzy
 msgid "Building street representation"
-msgstr ""
+msgstr "正在搭建街道图像显示"
 
 #: /home/micha/programming/sumo/src/activitygen/AGActivityGen.cpp:62
 msgid "Generating work positions"
-msgstr "正在生成工作地点"
+msgstr "正在生成工作场所"
 
 #: /home/micha/programming/sumo/src/activitygen/AGActivityGen.cpp:66
 msgid "Building bus lines"
@@ -591,7 +592,6 @@ msgstr "输出"
 #: /home/micha/programming/sumo/src/tools/emissionsMap_main.cpp:110
 #: /home/micha/programming/sumo/src/tools/emissionsMap_main.cpp:112
 #: /home/micha/programming/sumo/src/tools/emissionsMap_main.cpp:114
-#, fuzzy
 msgid "Processing"
 msgstr "处理中"
 
@@ -656,7 +656,6 @@ msgstr "无法访问网络文件“%' c”。"
 
 #: /home/micha/programming/sumo/src/activitygen/activitygen_main.cpp:69
 #: /home/micha/programming/sumo/src/router/ROLoader.cpp:116
-#, fuzzy
 msgid "Loading net"
 msgstr "加载网络"
 
@@ -684,11 +683,11 @@ msgstr "在该城市未发现允许客运车辆通行的街道。"
 
 #: /home/micha/programming/sumo/src/activitygen/city/AGWorkPosition.cpp:126
 msgid "Work position already occupied. Cannot give it to another adult."
-msgstr "工作岗位已饱和，无法提供给另一位成年人。"
+msgstr "工作场所已占用，无法提供给另一位成年人。"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFDetFlowLoader.cpp:76
 msgid "At least one value lies beyond given time boundaries."
-msgstr ""
+msgstr "至少有一个值超出了给定的时间界限。"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFDetFlowLoader.cpp:104
 msgid "At least one line does not contain the correct number of columns."
@@ -696,7 +695,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFDetector.cpp:171
 msgid "Missing routes for detector '%'."
-msgstr ""
+msgstr "缺少装有探测器“%”的路线。"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFDetector.cpp:305
 #, c-format
@@ -705,7 +704,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFDetectorHandler.cpp:86
 msgid "Could not add detector '%' (probably the id is already used)."
-msgstr ""
+msgstr "无法添加探测器“%”（可能 id 已被使用）。"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:54
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:209
@@ -739,70 +738,72 @@ msgstr ""
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:214
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:217
 msgid "Defaults"
-msgstr ""
+msgstr "默认值"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:61
 msgid "Loads the SUMO-network FILE"
-msgstr ""
+msgstr "加载 SUMO 网络文件"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:70
 msgid "Loads detector descriptions from FILE"
-msgstr ""
+msgstr "从文件中加载探测器描述"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:75
 msgid "Loads detector flows from FILE(s)"
-msgstr ""
+msgstr "从文件中加载探测器贯流"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:82
 msgid "Saves computed routes to FILE"
-msgstr ""
+msgstr "将计算出的路程保存到 FILE中"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:85
 msgid "Forces dfrouter to compute routes for in-between detectors"
-msgstr ""
+msgstr "强制 dfrouter 计算中间探测器的路程"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:89
 msgid "Saves typed detectors to FILE"
-msgstr ""
+msgstr "将输入的探测器保存到FILE中"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:92
 msgid "Saves detector positions as pois to FILE"
-msgstr ""
+msgstr "将探测器位置保存为pois并添加至FILE"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:95
 msgid "Saves emitter definitions for source detectors to FILE"
-msgstr ""
+msgstr "将源检测器的发射器定义保存到 FILE中"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:98
 msgid "Add vehicle types to the emitters file (PKW, LKW)"
-msgstr ""
+msgstr "将车辆类型添加到发射器文件（PKW、LKW）中"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:101
 msgid ""
 "Write generated vehicle types into separate FILE instead of including them "
 "into the emitters-output"
-msgstr ""
+msgstr "将生成的车辆类型写入单独的 FILE 中，而不是将其添加至发射器输出"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:104
 msgid "Saves emitter positions as pois to FILE"
-msgstr ""
+msgstr "将发射器位置保存为 pois 并添加至FILE"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:108
+#, fuzzy
 msgid "Saves variable seed sign definitions for sink detectors to FILE"
-msgstr ""
+msgstr "将下沉探测器的变量种子符号定义保存至 FILE"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:111
+#, fuzzy
 msgid "Saves rerouter definitions for sink detectors to FILE"
-msgstr ""
+msgstr "将下沉探测器的重发器定义保存到 FILE"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:114
 msgid ""
 "Write induction loop definitions for the given detector positions to FILE"
-msgstr ""
+msgstr "将给定探测器位置的感应线圈定义写进FILE中"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:117
 msgid "Add source detectors to the validation output"
-msgstr ""
+msgstr "将源探测器添加至验证输出"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:123
 msgid "Derive missing flow values from upstream or downstream (not working!)"
