@@ -629,9 +629,11 @@ enum {
     /// @brief For the import-from-file - button
     MID_SIMPLE_VIEW_IMPORT,
     /// @brief For the load-decals - button
-    MID_SIMPLE_VIEW_LOAD_DECALS,
+    MID_SIMPLE_VIEW_LOAD_DECAL,
+    /// @brief For the load-decals - button
+    MID_SIMPLE_VIEW_LOAD_DECALS_XML,
     /// @brief For the save-decals - button
-    MID_SIMPLE_VIEW_SAVE_DECALS,
+    MID_SIMPLE_VIEW_SAVE_DECALS_XML,
     /// @brief For the clear-decals - button
     MID_SIMPLE_VIEW_CLEAR_DECALS,
 

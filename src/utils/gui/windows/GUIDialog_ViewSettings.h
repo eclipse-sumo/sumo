@@ -201,11 +201,14 @@ public:
     /// @brief Called when updating the button that allows to read settings from a file
     long onUpdImportSetting(FXObject*, FXSelector, void* data);
 
+    /// @brief Called if the decal shall be loaded from a file
+    long onCmdLoadDecal(FXObject*, FXSelector, void* data);
+
     /// @brief Called if the decals shall be loaded from a file
-    long onCmdLoadDecals(FXObject*, FXSelector, void* data);
+    long onCmdLoadXMLDecals(FXObject*, FXSelector, void* data);
 
     /// @brief Called if the decals shall be saved to a file
-    long onCmdSaveDecals(FXObject*, FXSelector, void* data);
+    long onCmdSaveXMLDecals(FXObject*, FXSelector, void* data);
 
     /// @brief Called if the decals shall be cleared
     long onCmdClearDecals(FXObject*, FXSelector, void* data);
