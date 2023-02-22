@@ -176,7 +176,7 @@ GUIOSGView::GUIOSGView(
     myPlane->setCullCallback(new ExcludeFromNearFarComputationCallback());
     myPlane->addChild(GUIOSGBuilder::buildPlane((float)(zFar - zNear)));
     myPlane->addUpdateCallback(new PlaneMoverCallback(myViewer->getCamera()));
-    //myRoot->addChild(myPlane);
+    myRoot->addChild(myPlane);
 
     // add the stats handler
     osgViewer::StatsHandler* statsHandler = new osgViewer::StatsHandler();
