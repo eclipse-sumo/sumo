@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-02-22 09:22:51 by Eclipse SUMO sumo Version v1_16_0+0602-6f89b7b
+<!-- generated on 2023-02-22 10:29:20 by Eclipse SUMO sumo Version v1_16_0+0605-7dfef37
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -19,19 +19,11 @@
     </report>
 
     <traci_server>
-        <remote-port value="44066"/>
+        <remote-port value="58981"/>
     </traci_server>
 
 </configuration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="ego" depart="0.00" arrival="257.00">
-        <route edges="A0A1 A1B1 B1C1 C1D1 D1D2 D2D3"/>
-        <stop lane="A1B1_0" startPos="5.00" endPos="50.00" posLat="-0.50" arrival="42.00" duration="30.00" until="100.00" started="13.00" ended="117.00" extension="10.00" triggered="join" parking="0" expected="p0 p1" permitted="p0 p1 p2" tripId="fancyID" line="S42" split="train0" join="train1" speed="3.00" actType="test action"/>
-        <stop busStop="busStop_B1C1" duration="100.00"/>
-        <stop busStop="busStop_C1D1" duration="60.00" onDemand="1"/>
-        <param key="tripId" value="fancyID"/>
-    </vehicle>
-
 </routes>
