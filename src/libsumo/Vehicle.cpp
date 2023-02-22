@@ -1165,7 +1165,7 @@ Vehicle::setStopParameter(const std::string& vehID, int nextStopIndex,
             pars.duration = string2time(value);
             pars.parametersSet |= STOP_DURATION_SET;
             // also update dynamic value
-            stop.duration = pars.duration;
+            stop.initPars(pars);
         } else if (param == toString(SUMO_ATTR_UNTIL)) {
             pars.until = string2time(value);
             pars.parametersSet |= STOP_UNTIL_SET;
@@ -1180,12 +1180,16 @@ Vehicle::setStopParameter(const std::string& vehID, int nextStopIndex,
         } else if (param == toString(SUMO_ATTR_TRIGGERED)) {
             SUMOVehicleParameter::parseStopTriggers(StringTokenizer(value).getVector(), false, pars);
             pars.parametersSet |= STOP_TRIGGER_SET;
+            // also update dynamic value
+            stop.initPars(pars);
         } else if (param == toString(SUMO_ATTR_EXPECTED)) {
             pars.awaitedPersons = StringTokenizer(value).getSet();
             pars.parametersSet |= STOP_EXPECTED_SET;
         } else if (param == toString(SUMO_ATTR_EXPECTED_CONTAINERS)) {
             pars.awaitedContainers = StringTokenizer(value).getSet();
             pars.parametersSet |= STOP_EXPECTED_CONTAINERS_SET;
+            // also update dynamic value
+            stop.initPars(pars);
         } else if (param == toString(SUMO_ATTR_PERMITTED)) {
             pars.permitted = StringTokenizer(value).getSet();
             pars.parametersSet |= STOP_PERMITTED_SET;
