@@ -208,7 +208,7 @@ message(STATUS "")
 find_package(PythonInterp REQUIRED)
 message(STATUS "Found Python: " ${PYTHON_EXECUTABLE})
 execute_process(COMMAND ${PYTHON_EXECUTABLE} -c "import setuptools" RESULT_VARIABLE PYTHON_SETUPTOOLS_MISSING ERROR_QUIET)
-execute_process(COMMAND ${PYTHON_EXECUTABLE} -c "import build; import pip" RESULT_VARIABLE PYTHON_BUILD_MISSING ERROR_QUIET)
+execute_process(COMMAND ${PYTHON_EXECUTABLE} -c "import build; import pip; build.__version__" RESULT_VARIABLE PYTHON_BUILD_MISSING ERROR_QUIET)
 
 if (APPLE)
     # we know that openGL is deprecated for newer MacOS
