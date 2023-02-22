@@ -1,0 +1,16 @@
+<add>
+    <tlLogic id="gneJ21" type="static" programID="manual" offset="0.00">
+	    <!--                              012345678901234567 -->
+        <phase duration="3.00"     state="yyyyyyyrrrrrrrrrrr"/>
+        <phase duration="3.00"     state="rrrrrrrrrrrrrrrrrr"/>
+        <!-- <phase duration="10000.00" state="rrrrrrrgGrrrrrGggg"/> until #12676 is fixed -->
+        <phase duration="10000.00" state="rrrrrrrgGrrrrrGggr"/>
+        <phase duration="3.00"     state="rrrrrrrryyrrrrryyy"/>
+        <phase duration="3.00"     state="rrrrrrrrrrrrrrrrrr"/>
+        <phase duration="10000.00" state="rrrrrrrrrGGgggrrrr"/>
+        <phase duration="3.00"     state="rrrrrrrrryyyyyrrrr"/>
+        <phase duration="3.00"     state="rrrrrrrrrrrrrrrrrr"/>
+        <phase duration="10000.00" state="ggGGgggrrrrrrrrrrr"/>
+        <param key="hotkeyAbort" value="y"/>
+    </tlLogic>
+</add>
