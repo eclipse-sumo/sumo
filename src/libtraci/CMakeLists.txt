@@ -178,7 +178,7 @@ if(SWIG_FOUND)
             if (WIN32)
                 swig_link_libraries(libtraci ${PYTHON_LIBRARIES})
             endif()
-            if (NOT ${SETUPTOOLS_MISSING})
+            if (NOT ${PYTHON_SETUPTOOLS_MISSING})
                 if (${PYTHON_BUILD_MISSING})
                     install(CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} ${TOOLS_DIR}/build/setup-libtraci.py clean --all install --root=\$ENV{DESTDIR}/ --prefix=${CMAKE_INSTALL_PREFIX} --optimize=1)"
                             COMPONENT pylibtraci)
