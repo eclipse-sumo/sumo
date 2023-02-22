@@ -186,6 +186,12 @@ GUIDialog_ViewSettings::~GUIDialog_ViewSettings() {
 }
 
 
+GUISUMOAbstractView*
+GUIDialog_ViewSettings::getSUMOAbstractView() const {
+    return myParent;
+}
+
+
 void
 GUIDialog_ViewSettings::show() {
     // update buttons that can be changed externally

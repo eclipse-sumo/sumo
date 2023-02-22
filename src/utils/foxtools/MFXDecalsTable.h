@@ -72,19 +72,8 @@ public:
     /// @brief Change column bottom text
     void setColumnLabelBot(const int column, const std::string& text);
 
-    /**@brief Set the table size to nr rows and nc columns; all existing items will be removed. Format:
-     * s -> select row (radio button)
-     * u -> duration (float, textField)
-     * f -> float (float, textField)
-     * p -> program (rrGggy..., textField)
-     * m -> name (automatic size, textField)
-     * i -> insert phase (button)
-     * d -> delete phase (button)
-     * t -> move phase up (button)
-     * b -> move phase down (button)
-     * - -> general text (textField)
-     */
-    void setTableSize(const std::string& columnsType, const int numberRow);
+    /// @brief fill table
+    void fillTable();
 
     /// @name FOX callbacks
     /// @{
@@ -113,13 +102,13 @@ protected:
     class Cell {
 
     public:
-        /// @brief constructor for textField
+        /// @brief constructor for textField (t)
         Cell(MFXDecalsTable* decalsTable, FXTextField* textField, int col, int row);
 
-        /// @brief constructor for index label
+        /// @brief constructor for index label (i)
         Cell(MFXDecalsTable* decalsTable, FXLabel* indexLabel, FXLabel* indexLabelBold, int col, int row);
 
-        /// @brief constructor for buttons
+        /// @brief constructor for buttons (b)
         Cell(MFXDecalsTable* decalsTable, FXButton* button, int col, int row);
 
         /// @brief destructor
@@ -289,9 +278,6 @@ protected:
 
     /// @brief move focus to current row
     bool moveFocus();
-
-    /// @brief font for the phase table
-    FXFont* myProgramFont = nullptr;
 
     /// @brief font for index
     FXFont* myIndexFont = nullptr;

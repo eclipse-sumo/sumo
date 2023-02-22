@@ -61,7 +61,6 @@ FXIMPLEMENT(MFXDecalsTable, FXHorizontalFrame, MFXDecalsTableMap, ARRAYNUMBER(MF
 
 MFXDecalsTable::MFXDecalsTable(GUIDialog_ViewSettings* dialogViewSettingsParent, FXComposite *parent) :
     FXHorizontalFrame(parent, GUIDesignAuxiliarTLSTable),
-    myProgramFont(new FXFont(getApp(), "Courier New", 10)),
     myIndexFont(new FXFont(getApp(), "Segoe UI", 9)),
     myIndexSelectedFont(new FXFont(getApp(), "Segoe UI", 9, FXFont::Bold)),
     myDialogViewSettings(dialogViewSettingsParent) {
@@ -70,7 +69,6 @@ MFXDecalsTable::MFXDecalsTable(GUIDialog_ViewSettings* dialogViewSettingsParent,
 
 MFXDecalsTable::~MFXDecalsTable() {
     // delete fonts
-    delete myProgramFont;
     delete myIndexFont;
     delete myIndexSelectedFont;
 }
@@ -93,15 +91,16 @@ MFXDecalsTable::clearTable() {
 
 
 void
-MFXDecalsTable::setTableSize(const std::string& columnsType, const int numberRow) {
+MFXDecalsTable::fillTable() {
     // first clear table
     clearTable();
     // create columns
+    std::string columnsType = "ibffffffff";
     for (int i = 0; i < (FXint)columnsType.size(); i++) {
         myColumns.push_back(new Column(this, i, columnsType.at(i)));
     }
     // create rows
-    for (int i = 0; i < numberRow; i++) {
+    for (int i = 0; i < myDialogViewSettings->getSUMOAbstractView()->getDecals().size(); i++) {
         myRows.push_back(new Row(this));
     }
     // if we have only a row, disable remove and move buttons
@@ -700,15 +699,6 @@ MFXDecalsTable::Row::Row(MFXDecalsTable* table) :
                 // create textField for values
                 auto textField = new FXTextField(table->myColumns.at(columnIndex)->getVerticalCellFrame(),
                         GUIDesignTextFieldNCol, table, MID_GNE_TLSTABLE_TEXTFIELD, GUIDesignTextFieldTLSTable);
-                myCells.push_back(new Cell(table, textField, columnIndex, numCells));
-                break;
-            }
-            case ('p'): {
-                // create text field for program (state)
-                auto textField = new FXTextField(table->myColumns.at(columnIndex)->getVerticalCellFrame(),
-                        GUIDesignTextFieldNCol, table, MID_GNE_TLSTABLE_TEXTFIELD, GUIDesignTextFieldTLSTable);
-                // set special font
-                textField->setFont(myTable->myProgramFont);
                 myCells.push_back(new Cell(table, textField, columnIndex, numCells));
                 break;
             }

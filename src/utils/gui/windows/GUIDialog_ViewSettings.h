@@ -145,6 +145,9 @@ public:
     /// @brief Destructor
     ~GUIDialog_ViewSettings();
 
+    /// @brief get the parent view
+    GUISUMOAbstractView* getSUMOAbstractView() const;
+
     /// @brief show view settings dialog
     void show();
 
@@ -206,6 +209,7 @@ public:
 
     /// @brief Called if the decals shall be cleared
     long onCmdClearDecals(FXObject*, FXSelector, void* data);
+
     /// @}
 
     /** @brief Returns the name of the currently chosen scheme
