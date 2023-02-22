@@ -103,6 +103,7 @@ public:
 
         /// @name FOX-callbacks
         /// @{
+
         /// @brief Called if something (color, width, etc.) has been changed
         long onCmdSizeChange(FXObject* obj, FXSelector sel, void* ptr);
 
@@ -135,15 +136,8 @@ public:
     /** @brief Constructor
      * @param[in] parent The view to report changed settings to
      * @param[in, out] settings The current settings that can be changed
-     * @param[in] laneEdgeModeSource Class storing known lane coloring schemes
-     * @param[in] vehicleModeSource Class storing known vehicle coloring schemes
-     * @param[in] decals Decals used
-     * @param[in] decalsLock A lock to set if the decals are changed
      */
-    GUIDialog_ViewSettings(GUISUMOAbstractView* parent,
-                           GUIVisualizationSettings* settings,
-                           std::vector<GUISUMOAbstractView::Decal>* decals,
-                           FXMutex* decalsLock);
+    GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIVisualizationSettings* settings);
 
     /// @brief FOX need this
     GUIDialog_ViewSettings() : myBackup("DUMMY") {}
@@ -233,12 +227,6 @@ protected:
 
     /// @brief A backup of the settings (used if the "Cancel" button is pressed)
     GUIVisualizationSettings myBackup;
-
-    /// @brief The parent's decals
-    std::vector<GUISUMOAbstractView::Decal>* myDecals = nullptr;
-
-    /// @brief Lock used when changing the decals
-    FXMutex* myDecalsLockMutex = nullptr;
 
     /// @name Dialog elements
     /// @{

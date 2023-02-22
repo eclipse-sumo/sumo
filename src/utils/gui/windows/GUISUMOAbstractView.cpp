@@ -1553,10 +1553,7 @@ GUISUMOAbstractView::getCurrentTimeStep() const {
 void
 GUISUMOAbstractView::showViewschemeEditor() {
     if (myVisualizationChanger == nullptr) {
-        myVisualizationChanger =
-            new GUIDialog_ViewSettings(
-            this, myVisualizationSettings,
-            &myDecals, &myDecalsLockMutex);
+        myVisualizationChanger = new GUIDialog_ViewSettings(this, myVisualizationSettings);
         myVisualizationChanger->create();
     } else {
         myVisualizationChanger->setCurrent(myVisualizationSettings);
@@ -1674,6 +1671,18 @@ GUISUMOAbstractView::onGamingClick(Position /*pos*/) {
 
 void
 GUISUMOAbstractView::onGamingRightClick(Position /*pos*/) {
+}
+
+
+std::vector<GUISUMOAbstractView::Decal>&
+GUISUMOAbstractView::getDecals() {
+    return myDecals;
+}
+
+
+FXMutex&
+GUISUMOAbstractView::getDecalsLockMutex() {
+    return myDecalsLockMutex;
 }
 
 

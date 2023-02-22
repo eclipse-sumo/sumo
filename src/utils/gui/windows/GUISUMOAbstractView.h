@@ -350,42 +350,64 @@ public:
     ///@struct Decal
     /// @brief A decal (an image) that can be shown
     struct Decal {
+
         /// @brief Constructor
         Decal();
 
         /// @brief The path to the file the image is located at
         std::string filename;
+
         /// @brief The center of the image in x-direction (net coordinates, in m)
         double centerX;
+
         /// @brief The center of the image in y-direction (net coordinates, in m)
         double centerY;
+
         /// @brief The center of the image in z-direction (net coordinates, in m)
         double centerZ;
+
         /// @brief The width of the image (net coordinates in x-direction, in m)
         double width;
+
         /// @brief The height of the image (net coordinates in y-direction, in m)
         double height;
+
         /// @brief The altitude of the image (net coordinates in z-direction, in m)
         double altitude;
+
         /// @brief The rotation of the image in the ground plane (in degrees)
         double rot;
+
         /// @brief The tilt of the image to the ground plane (in degrees)
         double tilt;
+
         /// @brief The roll of the image to the ground plane (in degrees)
         double roll;
+
         /// @brief The layer of the image
         double layer;
+
         /// @brief Whether this image was initialised (inserted as a texture)
         bool initialised;
+
         /// @brief Whether this image should be skipped in 2D-views
         bool skip2D;
+
         /// @brief Whether this image should be skipped in 2D-views
         bool screenRelative;
+
         /// @brief whether the decal shall be drawn in screen coordinates, rather than network coordinates
         int glID;
+
         /// @brief The image pointer for later cleanup
         FXImage* image;
     };
+
+    /// @brief The list of decals to show
+    std::vector<Decal> &getDecals();
+
+    /// @brief The mutex to use before accessing the decals list in order to avoid thread conflicts
+    FXMutex &getDecalsLockMutex();
 
     /// @brief get coloring schemes combo
     FXComboBox* getColoringSchemesCombo();
@@ -410,7 +432,7 @@ public:
     /// @brief Sets the delay of the parent application
     void setDelay(double delay);
 
-    /** @brief Sets the breakpoints of the parent application */
+    /// @brief Sets the breakpoints of the parent application
     void setBreakpoints(const std::vector<SUMOTime>& breakpoints);
 
     /// @brief retrieve breakpoints if provided by the application

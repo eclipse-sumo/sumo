@@ -83,14 +83,12 @@ FXIMPLEMENT(GUIDialog_ViewSettings::SizePanel,  FXObject,       GUIDialog_SizeMa
 // method definitions
 // ===========================================================================
 
-GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIVisualizationSettings* settings, std::vector<GUISUMOAbstractView::Decal>* decals, FXMutex* decalsLock) :
+GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIVisualizationSettings* settings) :
     FXDialogBox(parent, TL("View Settings"), GUIDesignViewSettingsMainDialog),
     GUIPersistentWindowPos(this, "VIEWSETTINGS", true, 20, 40, 700, 500, 400, 20),
     myParent(parent),
     mySettings(settings),
-    myBackup(settings->name, settings->netedit),
-    myDecals(decals),
-    myDecalsLockMutex(decalsLock) {
+    myBackup(settings->name, settings->netedit) {
     // make a backup copy
     myBackup.copy(*settings);
     // create content frame
@@ -908,11 +906,11 @@ GUIDialog_ViewSettings::loadSettings(const std::string& file) {
         mySettings = &gSchemeStorage.get(settingsName);
     }
     if (handler.hasDecals()) {
-        myDecalsLockMutex->lock();
-        (*myDecals) = handler.getDecals();
+        myParent->getDecalsLockMutex().lock();
+        myParent->getDecals() = handler.getDecals();
         rebuildDecalsTable();
         myParent->update();
-        myDecalsLockMutex->unlock();
+        myParent->getDecalsLockMutex().unlock();
     }
     if (handler.getDelay() >= 0) {
         myParent->setDelay(handler.getDelay());
@@ -927,28 +925,26 @@ GUIDialog_ViewSettings::loadSettings(const std::string& file) {
 
 void
 GUIDialog_ViewSettings::saveDecals(OutputDevice& dev) const {
-    std::vector<GUISUMOAbstractView::Decal>::iterator j;
-    for (j = myDecals->begin(); j != myDecals->end(); ++j) {
-        GUISUMOAbstractView::Decal& d = *j;
-        bool isLight = d.filename.substr(0, 5) == "light" && d.filename.length() == 6 && isdigit(d.filename[5]);
+    for (const auto &decal : myParent->getDecals()) {
+        bool isLight = decal.filename.substr(0, 5) == "light" && decal.filename.length() == 6 && isdigit(decal.filename[5]);
         if (isLight) {
             dev.openTag(SUMO_TAG_VIEWSETTINGS_LIGHT);
-            dev.writeAttr(SUMO_ATTR_INDEX, d.filename.substr(5, 1));
+            dev.writeAttr(SUMO_ATTR_INDEX, decal.filename.substr(5, 1));
         } else {
             dev.openTag(SUMO_TAG_VIEWSETTINGS_DECAL);
-            dev.writeAttr("file", d.filename);
-            dev.writeAttr("screenRelative", d.screenRelative);
+            dev.writeAttr("file", decal.filename);
+            dev.writeAttr("screenRelative", decal.screenRelative);
         }
-        dev.writeAttr(SUMO_ATTR_CENTER_X, d.centerX);
-        dev.writeAttr(SUMO_ATTR_CENTER_Y, d.centerY);
-        dev.writeAttr(SUMO_ATTR_CENTER_Z, d.centerZ);
-        dev.writeAttr(SUMO_ATTR_WIDTH, d.width);
-        dev.writeAttr(SUMO_ATTR_HEIGHT, d.height);
-        dev.writeAttr("altitude", d.altitude);
-        dev.writeAttr("rotation", d.rot);
-        dev.writeAttr("tilt", d.tilt);
-        dev.writeAttr("roll", d.roll);
-        dev.writeAttr(SUMO_ATTR_LAYER, d.layer);
+        dev.writeAttr(SUMO_ATTR_CENTER_X, decal.centerX);
+        dev.writeAttr(SUMO_ATTR_CENTER_Y, decal.centerY);
+        dev.writeAttr(SUMO_ATTR_CENTER_Z, decal.centerZ);
+        dev.writeAttr(SUMO_ATTR_WIDTH, decal.width);
+        dev.writeAttr(SUMO_ATTR_HEIGHT, decal.height);
+        dev.writeAttr("altitude", decal.altitude);
+        dev.writeAttr("rotation", decal.rot);
+        dev.writeAttr("tilt", decal.tilt);
+        dev.writeAttr("roll", decal.roll);
+        dev.writeAttr(SUMO_ATTR_LAYER, decal.layer);
         dev.closeTag();
     }
 }
@@ -956,14 +952,14 @@ GUIDialog_ViewSettings::saveDecals(OutputDevice& dev) const {
 
 void
 GUIDialog_ViewSettings::loadDecals(const std::string& file) {
-    myDecalsLockMutex->lock();
+    myParent->getDecalsLockMutex().lock();
     GUISettingsHandler handler(file);
     if (handler.hasDecals()) {
-        (*myDecals) = handler.getDecals();
+        myParent->getDecals() = handler.getDecals();
     }
     rebuildDecalsTable();
     myParent->update();
-    myDecalsLockMutex->unlock();
+    myParent->getDecalsLockMutex().unlock();
 }
 
 
@@ -1181,15 +1177,15 @@ GUIDialog_ViewSettings::onCmdSaveXMLDecals(FXObject*, FXSelector, void* /*data*/
 long
 GUIDialog_ViewSettings::onCmdClearDecals(FXObject*, FXSelector, void* /*data*/) {
     // lock decals mutex
-    myDecalsLockMutex->lock();
+    myParent->getDecalsLockMutex().lock();
     // clear decals
-    myDecals->clear();
+    myParent->getDecals().clear();
     // rebuild list
     rebuildDecalsTable();
     // update view
     myParent->update();
     // unlock decals mutex
-    myDecalsLockMutex->unlock();
+    myParent->getDecalsLockMutex().unlock();
     return 1;
 }
 
@@ -1625,9 +1621,9 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*, FXSelector, void* ptr) {
         d.rot = 0;
         d.layer = 0;
         d.screenRelative = false;
-        myDecalsLockMutex->lock();
+        myParent->getDecalsLockMutex().lock();
         myDecals->push_back(d);
-        myDecalsLockMutex->unlock();
+        myParent->getDecalsLockMutex().unlock();
     } else if (row > static_cast<int>(myDecals->size())) {
         // ignore clicks two lines below existing entries
         return 1;
