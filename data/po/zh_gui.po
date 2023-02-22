@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-21 18:42+0100\n"
-"PO-Revision-Date: 2023-02-22 15:25+0000\n"
+"PO-Revision-Date: 2023-02-22 16:34+0000\n"
 "Last-Translator: Rhea-Xiao <xiao.translations@gmail.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
@@ -2717,7 +2717,6 @@ msgid "Output"
 msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:259
-#, fuzzy
 msgid "Processing"
 msgstr "处理中"
 
