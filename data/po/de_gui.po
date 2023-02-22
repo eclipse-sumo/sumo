@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-21 18:42+0100\n"
-"PO-Revision-Date: 2023-02-22 14:31+0000\n"
+"PO-Revision-Date: 2023-02-22 14:41+0000\n"
 "Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -9575,11 +9575,14 @@ msgid ""
 "     3. Enter a 'match expression' in the third input box and press "
 "<return>\n"
 msgstr ""
+"     3. Im dritten Eingabefeld einen 'Match-Ausdruck' eingeben und <Return> "
+"drücken\n"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchAttribute.cpp:276
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchGenericDataAttribute.cpp:465
+#, fuzzy
 msgid "- The empty expression matches all objects\n"
-msgstr ""
+msgstr "- Der leere Ausdruck passt auf alle Objekte\n"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchAttribute.cpp:277
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchGenericDataAttribute.cpp:466
@@ -9587,6 +9590,8 @@ msgid ""
 "- For numerical attributes the match expression must consist of a comparison "
 "operator ('<', '>', '=') and a number.\n"
 msgstr ""
+"- Bei numerischen Attributen muss der Übereinstimmungsausdruck aus einem "
+"Vergleichsoperator ('<', '>', '=') und einer Zahl bestehen.\n"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchAttribute.cpp:278
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchGenericDataAttribute.cpp:467
@@ -9594,40 +9599,51 @@ msgid ""
 "- An object matches if the comparison between its attribute and the given "
 "number by the given operator evaluates to 'true'\n"
 msgstr ""
+"- Ein Objekt stimmt überein, wenn der Vergleich zwischen seinem Attribut und "
+"der angegebenen Zahl durch den angegebenen Operator 'wahr' ergibt\n"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchAttribute.cpp:280
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchGenericDataAttribute.cpp:469
+#, fuzzy
 msgid ""
 "- For string attributes the match expression must consist of a comparison "
 "operator ('', '=', '!', '^') and a string.\n"
 msgstr ""
+"- Bei String-Attributen muss der Match-Ausdruck aus einem Vergleichsoperator "
+"('', '=', '!', '^') und einem String bestehen.\n"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchAttribute.cpp:281
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchGenericDataAttribute.cpp:470
+#, fuzzy
 msgid ""
 "     '' (no operator) matches if string is a substring of that object'ts "
 "attribute.\n"
 msgstr ""
+"     '' (kein Operator) passt, wenn der String eine Teilzeichenfolge des "
+"Attributs dieses Objekts ist.\n"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchAttribute.cpp:282
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchGenericDataAttribute.cpp:471
 msgid "     '=' matches if string is an exact match.\n"
 msgstr ""
+"     '=' stimmt überein, wenn die Zeichenfolge eine genaue Übereinstimmung "
+"ist.\n"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchAttribute.cpp:283
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchGenericDataAttribute.cpp:472
 msgid "     '!' matches if string is not a substring.\n"
-msgstr ""
+msgstr "     '!' stimmt überein, wenn der String keine Teilzeichenfolge ist.\n"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchAttribute.cpp:284
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchGenericDataAttribute.cpp:473
 msgid "     '^' matches if string is not an exact match.\n"
 msgstr ""
+"     '^' passt, wenn die Zeichenfolge keine exakte Übereinstimmung ist.\n"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchAttribute.cpp:286
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchGenericDataAttribute.cpp:475
 msgid "- Examples:\n"
-msgstr ""
+msgstr "- Beispiele:\n"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchAttribute.cpp:287
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchGenericDataAttribute.cpp:476
@@ -9644,59 +9660,72 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchAttribute.cpp:289
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchGenericDataAttribute.cpp:478
+#, fuzzy
 msgid "     edge; speed; '>10' -> match all edges with a speed above 10\n"
 msgstr ""
+"     Kante; Geschwindigkeit; '>10' -> vergleiche alle Kanten mit einer "
+"Geschwindigkeit über 10\n"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchGenericDataAttribute.cpp:87
 msgid "speed"
-msgstr ""
+msgstr "Geschwindigkeit"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchGenericDataAttribute.cpp:459
+#, fuzzy
 msgid ""
 "- The 'MatchGenericData Attribute' controls allow to specify a set of "
 "objects which are then applied to the current selection\n"
 msgstr ""
+"- Die Steuerelemente „MatchGenericData Attribute“ ermöglichen die Angabe "
+"einer Reihe von Objekten, die dann auf die aktuelle Auswahl angewendet "
+"werden\n"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:64
+#, fuzzy
 msgid "Common move options"
-msgstr ""
+msgstr "Gemeinsame Bewegungsoptionen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:66
 msgid "Allow change lanes"
-msgstr ""
+msgstr "Fahrstreifenwechsel erlauben"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:69
 msgid "Merge geometry points"
-msgstr ""
+msgstr "Geometriepunkte zusammenführen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:93
+#, fuzzy
 msgid "Network move options"
-msgstr ""
+msgstr "Netz-Bewegungsoptionen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:96
 msgid "Move whole polygons"
-msgstr ""
+msgstr "Gesamte Polygone verschieben"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:132
+#, fuzzy
 msgid "Demand move options"
-msgstr ""
+msgstr "Nachfrage-Bewegungsoptionen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:135
+#, fuzzy
 msgid "Leave stopPersons connected"
-msgstr ""
+msgstr "Verbundene Haltepersonen lassen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:171
 msgid "Shift selected edges geometry"
-msgstr ""
+msgstr "Ausgewählte Kantengeometrie verschieben"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:180
 msgid "Apply shift value"
-msgstr ""
+msgstr "Verschiebungswert anwenden"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:180
 msgid ""
 "Shift edge geometry orthogonally to driving direction for all selected edges"
 msgstr ""
+"Kantengeometrie für alle ausgewählten Kanten orthogonal zur Fahrtrichtung "
+"verschieben"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:251
 msgid "Change Z in selection"
