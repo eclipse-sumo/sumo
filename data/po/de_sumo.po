@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-21 18:29+0100\n"
-"PO-Revision-Date: 2023-02-22 14:31+0000\n"
+"PO-Revision-Date: 2023-02-22 15:25+0000\n"
 "Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -10363,7 +10363,7 @@ msgstr "Mindestens eine Information in Zeile '%' fehlt."
 #: /home/micha/programming/sumo/src/od/ODMatrix.cpp:647
 #: /home/micha/programming/sumo/src/utils/options/OptionsIO.cpp:154
 msgid "Could not open '%'."
-msgstr "'%' konnte nicht geöffnet werden."
+msgstr "Konnte '%' nicht öffnen."
 
 #: /home/micha/programming/sumo/src/od/ODMatrix.cpp:658
 #: /home/micha/programming/sumo/src/od/ODMatrix.cpp:664
