@@ -390,7 +390,7 @@ GUISettingsHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) 
             d.centerZ = attrs.getOpt<double>(SUMO_ATTR_CENTER_Z, nullptr, ok, d.centerZ);
             d.width = attrs.getOpt<double>(SUMO_ATTR_WIDTH, nullptr, ok, d.width);
             d.height = attrs.getOpt<double>(SUMO_ATTR_HEIGHT, nullptr, ok, d.height);
-            d.altitude = StringUtils::toDouble(attrs.getStringSecure("altitude", toString(d.height)));
+            d.altitude = StringUtils::toDouble(attrs.getStringSecure("altitude", "0"));
             d.rot = StringUtils::toDouble(attrs.getStringSecure("rotation", toString(d.rot)));
             d.tilt = StringUtils::toDouble(attrs.getStringSecure("tilt", toString(d.tilt)));
             d.roll = StringUtils::toDouble(attrs.getStringSecure("roll", toString(d.roll)));
@@ -408,7 +408,7 @@ GUISettingsHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) 
             d.centerZ = attrs.getOpt<double>(SUMO_ATTR_CENTER_Z, nullptr, ok, d.centerZ);
             d.width = attrs.getOpt<double>(SUMO_ATTR_WIDTH, nullptr, ok, d.width);
             d.height = attrs.getOpt<double>(SUMO_ATTR_HEIGHT, nullptr, ok, d.height);
-            d.altitude = StringUtils::toDouble(attrs.getStringSecure("altitude", toString(d.height)));
+            d.altitude = StringUtils::toDouble(attrs.getStringSecure("altitude", "0"));
             d.rot = StringUtils::toDouble(attrs.getStringSecure("rotation", toString(d.rot)));
             d.tilt = StringUtils::toDouble(attrs.getStringSecure("tilt", toString(d.tilt)));
             d.roll = StringUtils::toDouble(attrs.getStringSecure("roll", toString(d.roll)));
