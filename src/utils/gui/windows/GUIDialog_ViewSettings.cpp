@@ -28,7 +28,6 @@
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/foxtools/MFXUtils.h>
 #include <utils/foxtools/MFXComboBoxIcon.h>
-#include <utils/foxtools/MFXAddEditTypedTable.h>
 #include <utils/common/RGBColor.h>
 #include <utils/common/ToString.h>
 #include <utils/common/StringUtils.h>
@@ -56,12 +55,11 @@ FXDEFMAP(GUIDialog_ViewSettings::SizePanel) GUIDialog_SizeMap[] = {
 };
 
 FXDEFMAP(GUIDialog_ViewSettings) GUIDialog_ViewSettingsMap[] = {
-    FXMAPFUNC(SEL_CHANGED,  MID_SIMPLE_VIEW_COLORCHANGE,            GUIDialog_ViewSettings::onCmdColorChange),
-    FXMAPFUNC(SEL_COMMAND,  MID_SIMPLE_VIEW_COLORCHANGE,            GUIDialog_ViewSettings::onCmdColorChange),
-    FXMAPFUNC(SEL_COMMAND,  MID_SIMPLE_VIEW_NAMECHANGE,             GUIDialog_ViewSettings::onCmdNameChange),
-    FXMAPFUNC(SEL_COMMAND,  MID_SETTINGS_OK,                        GUIDialog_ViewSettings::onCmdOk),
-    FXMAPFUNC(SEL_COMMAND,  MID_SETTINGS_CANCEL,                    GUIDialog_ViewSettings::onCmdCancel),
-    FXMAPFUNC(SEL_CHANGED,  MFXAddEditTypedTable::ID_TEXT_CHANGED,  GUIDialog_ViewSettings::onCmdEditTable),
+    FXMAPFUNC(SEL_CHANGED,  MID_SIMPLE_VIEW_COLORCHANGE,    GUIDialog_ViewSettings::onCmdColorChange),
+    FXMAPFUNC(SEL_COMMAND,  MID_SIMPLE_VIEW_COLORCHANGE,    GUIDialog_ViewSettings::onCmdColorChange),
+    FXMAPFUNC(SEL_COMMAND,  MID_SIMPLE_VIEW_NAMECHANGE,     GUIDialog_ViewSettings::onCmdNameChange),
+    FXMAPFUNC(SEL_COMMAND,  MID_SETTINGS_OK,                GUIDialog_ViewSettings::onCmdOk),
+    FXMAPFUNC(SEL_COMMAND,  MID_SETTINGS_CANCEL,            GUIDialog_ViewSettings::onCmdCancel),
 
     FXMAPFUNC(SEL_COMMAND,  MID_SIMPLE_VIEW_SAVE,   GUIDialog_ViewSettings::onCmdSaveSetting),
     FXMAPFUNC(SEL_UPDATE,   MID_SIMPLE_VIEW_SAVE,   GUIDialog_ViewSettings::onUpdSaveSetting),
@@ -1205,7 +1203,8 @@ GUIDialog_ViewSettings::onUpdImportSetting(FXObject* sender, FXSelector, void* p
 
 void
 GUIDialog_ViewSettings::buildDecalsTable() {
-    myDecalsTable = new MFXAddEditTypedTable(myDecalsFrame, this, MID_TABLE, GUIDesignViewSettingsDecalsTable);
+    myDecalsTable = new MFXDecalsTable(this, myDecalsFrame);
+/*
     myDecalsTable->setVisibleRows(5);
     myDecalsTable->setVisibleColumns(7);
     myDecalsTable->setTableSize(5, 7);
@@ -1215,11 +1214,13 @@ GUIDialog_ViewSettings::buildDecalsTable() {
         myDecalsTable->setCellType(i, CT_REAL);
         myDecalsTable->setNumberCellParams(i, -10000000, 10000000, 1, 10, 100, "%.2f");
     }
+*/
 }
 
 
 void
 GUIDialog_ViewSettings::rebuildDecalsTable() {
+/*
     // clear all items
     myDecalsTable->clearItems();
     // declare num of colums
@@ -1261,6 +1262,7 @@ GUIDialog_ViewSettings::rebuildDecalsTable() {
     for (int i = 0; i < (cols - 1); i++) {
         myDecalsTable->setItemText(row, i, " ");
     }
+*/
 }
 
 
@@ -1589,6 +1591,7 @@ GUIDialog_ViewSettings::updateVehicleParams() {
     myVehicleTextParamKey->setNumVisible(myVehicleTextParamKey->getNumItems());
 }
 
+
 void
 GUIDialog_ViewSettings::updatePOIParams() {
     myPOITextParamKey->clearItems();
@@ -1599,8 +1602,10 @@ GUIDialog_ViewSettings::updatePOIParams() {
     myPOITextParamKey->setNumVisible(myPOITextParamKey->getNumItems());
 }
 
+
 long
 GUIDialog_ViewSettings::onCmdEditTable(FXObject*, FXSelector, void* ptr) {
+/*
     MFXEditedTableItem* i = (MFXEditedTableItem*) ptr;
     std::string value = i->item->getText().text();
     // check whether the inserted value is empty
@@ -1701,6 +1706,7 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*, FXSelector, void* ptr) {
         rebuildDecalsTable();
     }
     myParent->update();
+*/
     return 1;
 }
 
