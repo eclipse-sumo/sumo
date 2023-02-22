@@ -353,7 +353,7 @@ GNEAdditionalHandler::buildParkingSpace(const CommonXMLStructure::SumoBaseObject
     } else if (!length.empty() && !GNEAttributeCarrier::canParse<double>(length)) {
         writeError(TL("Could not build parking space in netedit; attribute length cannot be parse to float."));
     } else if (!angle.empty() && !GNEAttributeCarrier::canParse<double>(angle)) {
-        writeError(TL("Could not build parking space in netedit; attribute angel cannot be parse to float."));
+        writeError(TL("Could not build parking space in netedit; attribute angle cannot be parse to float."));
     } else {
         // get netedit parameters
         NeteditParameters neteditParameters(sumoBaseObject);
