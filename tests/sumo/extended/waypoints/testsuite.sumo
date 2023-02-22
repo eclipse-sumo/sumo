@@ -33,3 +33,6 @@ use_ended_parking
 
 # ignore capacity on parkingarea
 parkingarea
+
+# reject triggered waypoint
+triggered_forbidden
