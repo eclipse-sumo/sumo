@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-21 18:42+0100\n"
-"PO-Revision-Date: 2023-02-22 12:21+0000\n"
-"Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
+"PO-Revision-Date: 2023-02-22 14:31+0000\n"
+"Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
 "Language: de\n"
@@ -7735,11 +7735,11 @@ msgstr " Dialog"
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditional.cpp:154
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditional.cpp:164
 msgid "Cursor position over additional shape: "
-msgstr "Mausposition über zusätzliche Shape: "
+msgstr "Zeigerposition über zusätzliche Shape: "
 
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditional.cpp:158
 msgid "Cursor position over lane: "
-msgstr "Mausposition über Fahrstreifen: "
+msgstr "Zeigerposition über Fahrstreifen: "
 
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditional.cpp:168
 msgid "Mouse position over edge: "
@@ -8344,157 +8344,179 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNEPersonTrip.cpp:306
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNEPersonTrip.cpp:317
 msgid "This personTrip use junctions"
-msgstr ""
+msgstr "Diese Personenfahrt benutzt Knotenpunkte"
 
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:227
 msgid "netedit doesn't support route distributions"
-msgstr ""
+msgstr "netedit unterstützt keine Routenverteilungen"
 
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:995
 msgid "Containers don't support stops at busStops"
-msgstr ""
+msgstr "Container unterstützen keine Haltepunkte an den Bushaltepunkten"
 
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1003
 msgid "Persons don't support stops at containerStops"
-msgstr ""
+msgstr "Personen unterstützen keine Haltepunkte an den Containerhaltepunkten"
 
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1011
 msgid "Persons don't support stops at chargingStations"
-msgstr ""
+msgstr "Personen unterstützen keine Haltepunkte an den Ladestationen"
 
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1014
 msgid "Containers don't support stops at chargingStations"
-msgstr ""
+msgstr "Container unterstützen keine Haltepunkte an Ladestationen"
 
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1022
 msgid "Persons don't support stops at parkingAreas"
-msgstr ""
+msgstr "Personen unterstützen keine Haltepunkte an Parkplätzen"
 
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1025
 msgid "Containers don't support stops at parkingAreas"
-msgstr ""
+msgstr "Container unterstützen keine Haltepunkte an Parkplätzen"
 
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1035
+#, fuzzy
 msgid "vehicles don't support stops at edges"
-msgstr ""
+msgstr "Fahrzeuge unterstützen keine Haltepunkte an Kanten"
 
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1048
 msgid "A stop must be defined either over a stoppingPlace, a edge or a lane"
 msgstr ""
+"Ein Haltepunkt muss entweder über einem Halteplatz, einer Kante oder einem "
+"Fahrstreifen definiert werden"
 
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1050
 msgid "A stop requires only a stoppingPlace, edge or lane"
 msgstr ""
+"Ein Haltepunkt benötigt nur einen Halteplatz, eine Kante oder einen "
+"Fahrstreifen"
 
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1170
 msgid "A person trip from edge to edge needs two edges edge"
-msgstr ""
+msgstr "Eine Personenfahrt von Kante zu Kante benötigt zwei Kanten"
 
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1180
 msgid "A person trip from edge to busStop needs one edge and one busStop"
 msgstr ""
+"Eine Personenfahrt von Kante zur einen Bushaltepunkt benötigt eine Kante und "
+"einen Bushaltepunkt"
 
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1190
 msgid "A person trip from junction to junction needs two junctions junction"
 msgstr ""
+"Eine Personenfahrt von Knotenpunkt zu Knotenpunkt benötigt zwei Knotenpunkte"
 
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1201
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1360
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1381
 msgid "A ride from busStop to edge needs a busStop and an edge"
 msgstr ""
+"Eine Fahrt von Bushaltepunkt zur Kante benötigt einen Bushaltepunkt und eine "
+"Kante"
 
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1211
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1370
 msgid "A transport from busStop to busStop needs two busStops"
 msgstr ""
+"Ein Transport von Bushaltepunkt zu Bushaltepunkt benötigt zwei Bushaltepunkte"
 
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1221
 msgid "A transport with edges attribute needs a list of edges"
-msgstr ""
+msgstr "Ein Transport mit Kanten-Attributen benötigt eine Liste von Kanten"
 
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1231
 msgid "A route transport needs a route"
-msgstr ""
+msgstr "Ein Routentransport benötigt eine Route"
 
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1241
 msgid "A ride from busStop to junction needs a busStop and an junction"
 msgstr ""
+"Eine Fahrt von Bushaltepunkt zum Knotenpunkt benötigt einen Bushaltepunkt "
+"und einen Knotenpunkt"
 
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1252
 msgid "A ride from edge to edge needs two edges edge"
-msgstr ""
+msgstr "Eine Fahrt von Kante zu Kante benötigt zwei Kanten"
 
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1262
 msgid "A ride from edge to busStop needs one edge and one busStop"
 msgstr ""
+"Eine Fahrt von Kante zum Bushaltepunkt benötigt eine Kante und einen "
+"Bushaltepunkt"
 
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1276
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1415
 msgid "A stop has to be placed over an edge"
-msgstr ""
+msgstr "Ein Haltepunkt muss über einer Kante platziert sein"
 
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1287
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1426
 msgid "A stop has to be placed over a busStop"
-msgstr ""
+msgstr "Ein Halt muss über einen Bushaltepunkt platziert werden"
 
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1391
+#, fuzzy
 msgid "A tranship from busStop to busStop needs two busStops"
 msgstr ""
+"Ein Umschlag von Bushaltepunkt zu Bushaltepunkt benötigt zwei Bushaltepunkte"
 
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1401
 msgid "A tranship with edges attribute needs a list of edges"
-msgstr ""
+msgstr "Ein Umschlag mit Kanten-Attributen benötigt eine Liste von Kanten"
 
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNEStop.cpp:443
+#, fuzzy
 msgid "Invalid Stop parent"
-msgstr ""
+msgstr "Ungültiger Eltern-Halt"
 
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNEStop.cpp:458
+#, fuzzy
 msgid "Invalid parent"
-msgstr ""
+msgstr "Ungültiger Elternteil"
 
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNEVehicle.cpp:645
 msgid "Invalid vehicle tag"
-msgstr ""
+msgstr "Ungültiger Fahrzeug-Tag"
 
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNEWalk.cpp:331
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNEWalk.cpp:346
 msgid "This walk use junctions"
-msgstr ""
+msgstr "Dieser Fußweg benutzt Knotenpunkte"
 
 #: /home/micha/programming/sumo/src/netedit/elements/network/GNEConnection.cpp:679
+#, fuzzy
 msgid "Could not set attribute '%' (tls is broken)"
-msgstr ""
+msgstr "Konnte Attribute '%' nicht anwenden (LSA ist gebrochen)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/network/GNEEdge.cpp:2169
 msgid "Could not compute smooth shape for edge '%'"
-msgstr ""
+msgstr "Konnte glatte Shape für Kante '%' nicht berechnen"
 
 #: /home/micha/programming/sumo/src/netedit/elements/network/GNEEdge.cpp:2187
 msgid "Could not compute smooth elevation for edge '%'"
-msgstr ""
+msgstr "Konnte glatte Erhöhung für Kante '%' nicht berechnen"
 
 #: /home/micha/programming/sumo/src/netedit/elements/network/GNEInternalLane.cpp:241
 msgid "invalid link state='%'"
-msgstr ""
+msgstr "ungültiger Linkstand='%'"
 
 #: /home/micha/programming/sumo/src/netedit/elements/network/GNEJunction.cpp:335
 msgid "Reset junction shapes"
-msgstr ""
+msgstr "Knotenpunkt-Shapes zurücksetzen"
 
 #: /home/micha/programming/sumo/src/netedit/elements/network/GNELane.cpp:470
 msgid "Unexpected LinkState '%'"
-msgstr ""
+msgstr "Unerwarteter Linkstand '%'"
 
 #: /home/micha/programming/sumo/src/netedit/elements/network/GNELane.cpp:810
 msgid "Lane Parametric Length cannot be never 0"
-msgstr ""
+msgstr "Fahrstreifenparameter Länge kann niemals 0 sein"
 
 #: /home/micha/programming/sumo/src/netedit/elements/network/GNELane.cpp:972
 msgid "Opposite lane '%' does not connect the same nodes as edge '%'!"
 msgstr ""
+"Gegenüberliegender Fahrstreifen '%' verbindet nicht die selben Knoten wie "
+"Kante '%'!"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEAttributesCreator.cpp:49
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:738
@@ -8764,7 +8786,7 @@ msgstr " Quelle"
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:417
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:478
 msgid " destination"
-msgstr ""
+msgstr " Ziel"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:506
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:632
@@ -9350,75 +9372,85 @@ msgstr "Personenhaltepunkte"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEDeleteFrame.cpp:56
 msgid "Delete geometry points"
-msgstr ""
+msgstr "Geometriepunkte löschen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEDeleteFrame.cpp:230
 msgid "Protect Elements"
-msgstr ""
+msgstr "Elemente sichern"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEDeleteFrame.cpp:232
 msgid "Protect additional elements"
-msgstr ""
+msgstr "Weitere Elemente sichern"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEDeleteFrame.cpp:235
 msgid "Protect TAZ elements"
-msgstr ""
+msgstr "Verkehrsumlegungszonen-Elemente sichern"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEDeleteFrame.cpp:238
 msgid "Protect demand elements"
-msgstr ""
+msgstr "Nachfrageelemente sichern"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEDeleteFrame.cpp:241
 msgid "Protect data elements"
-msgstr ""
+msgstr "Datenelemente sichern"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEElementSet.cpp:48
+#, fuzzy
 msgid "Element Set"
-msgstr ""
+msgstr "Elementsatz"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEElementSet.cpp:75
+#, fuzzy
 msgid "Invalid supermode"
-msgstr ""
+msgstr "Ungültiger Supermodus"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:100
 msgid "Mark as front element"
-msgstr ""
+msgstr "Als Frontelement markieren"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:181
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:310
+#, fuzzy
 msgid "Set new parent"
-msgstr ""
+msgstr "Neues Elternteil setzen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:372
 msgid ""
 "- Mark as front element: Mark element as front element (Will be drawn over "
 "all other elements)\n"
 msgstr ""
+"- Als Frontelement markieren: Element als Frontelement markieren (Wird über "
+"alle anderen Elemente gezogen)\n"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:373
 msgid "- Block movement: disable movement in move mode\n"
-msgstr ""
+msgstr "- Bewegung blockieren: Bewegung im Bewegungsmodus deaktivieren\n"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:374
 msgid ""
 "- Block shape: Disable moving of shape's vertices and edges. Entire shape "
 "can be moved'.\n"
 msgstr ""
+"- Block-Shape: Deaktiviert das Verschieben der Scheitelpunkte und Kanten der "
+"Shape. Gesamte Shape kann verschoben werden'.\n"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:375
 msgid ""
 "- Close shape: Add or remove the last vertex with the same position of first "
 "edge'."
 msgstr ""
+"- Shape schließen: Hinzufügen oder Entfernen des letzten Scheitelpunkts mit "
+"der gleichen Position der ersten Kante."
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:406
 msgid "GEO Attributes"
-msgstr ""
+msgstr "Geo-Attribute"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:470
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEShapeFrame.cpp:90
+#, fuzzy
 msgid "No geo-conversion defined"
-msgstr ""
+msgstr "Keine Geo-Umsetzung definiert"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:524
 msgid ""
@@ -9435,97 +9467,107 @@ msgid ""
 " For a GEO-referenced network, geo coordinates are represented as pairs of "
 "Longitude and Latitude\n"
 msgstr ""
+" Bei einem Geo-referenzierten Netz werden Geokoordinaten als Längen- und "
+"Breitengradpaare dargestellt\n"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:553
 msgid " in decimal degrees without extra symbols. (N,W..)\n"
-msgstr ""
+msgstr " in Dezimalgrad ohne zusätzliche Symbole. (N,W..)\n"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:554
 msgid " - Longitude: East-west position of a point on the Earth's surface.\n"
-msgstr ""
+msgstr " - Längengrad: Ost-West-Position eines Punktes auf der Erdoberfläche.\n"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:555
 msgid " - Latitude: North-south position of a point on the Earth's surface.\n"
 msgstr ""
+" - Breitengrad: Nord-Süd-Position eines Punktes auf der Erdoberfläche.\n"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:556
+#, fuzzy
 msgid ""
 " - CheckBox 'geo' enables or disables saving position in GEO coordinates\n"
 msgstr ""
+" - CheckBox 'geo' aktiviert oder deaktiviert das Speichern der Position in "
+"Geo-Koordinaten\n"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:570
 msgid "Templates"
-msgstr ""
+msgstr "Vorlagen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:574
 msgid "Set as Template"
-msgstr ""
+msgstr "Als Vorlage setzen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:578
 msgid "clear Edge Template"
-msgstr ""
+msgstr "Kantenvorlage entfernen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:673
 msgid "Only one edge must be inspected"
-msgstr ""
+msgstr "Nur eine Kante muss geprüft werden"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:737
 msgid "No edge Template Set"
-msgstr ""
+msgstr "Kein Kantenvorlage-Satz"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:749
 msgid "Parameters"
-msgstr ""
+msgstr "Parameter"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:908
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:911
 msgid "Additional dialog"
-msgstr ""
+msgstr "Zusätzlicher Dialog"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:927
 msgid "Open rerouter dialog"
-msgstr ""
+msgstr "Rerouter-Dialog öffnen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:933
 msgid "Open calibrator dialog"
-msgstr ""
+msgstr "Kalibrator-Dialog öffnen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:939
 msgid "Open calibrator lane dialog"
-msgstr ""
+msgstr "Kalibrator-Fahrstreifen-Dialog öffnen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:945
+#, fuzzy
 msgid "Open VSS dialog"
-msgstr ""
+msgstr "VSS-Dialog öffnen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchAttribute.cpp:58
 msgid "Apply selection"
-msgstr ""
+msgstr "Auswahl anwenden"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchAttribute.cpp:112
 msgid "Unknown set"
-msgstr ""
+msgstr "Unbekannter Satz"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchAttribute.cpp:270
+#, fuzzy
 msgid ""
 "- The 'Match Attribute' controls allow to specify a set of objects which are "
 "then applied to the current selection\n"
 msgstr ""
+"- Die Steuerelemente 'Match Attribute' ermöglichen die Angabe einer Reihe "
+"von Objekten, die dann auf die aktuelle Auswahl angewendet werden\n"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchAttribute.cpp:271
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchGenericDataAttribute.cpp:460
 msgid "  according to the current 'Modification Mode'.\n"
-msgstr ""
+msgstr "  entsprechend dem aktuellen 'Modifikationsmodus'.\n"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchAttribute.cpp:272
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchGenericDataAttribute.cpp:461
 msgid "     1. Select an object type from the first input box\n"
-msgstr ""
+msgstr "     1. Im ersten Eingabefeld einen Objekttyp auswählen\n"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchAttribute.cpp:273
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchGenericDataAttribute.cpp:462
 msgid "     2. Select an attribute from the second input box\n"
-msgstr ""
+msgstr "     2. Im zweiten Eingabefeld ein Attribut auswählen\n"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchAttribute.cpp:274
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchGenericDataAttribute.cpp:463
