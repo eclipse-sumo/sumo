@@ -1,0 +1,13 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <edgeData id="ed0" edges="left middle right" file="aggregated.xml" writeAttributes="arrived"/>
+
+    <route id="r0" edges="beg middle"/>
+
+    <rerouter id="rerouter" edges="beg">
+	   <interval begin="0" end="86400">
+		   <destProbReroute id="left" probability="1"/>
+		   <destProbReroute id="right" probability="1"/>
+		   <destProbReroute id="keepDestination" probability="1"/>
+	   </interval>
+   </rerouter>
+</additional>
