@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed 11 Dec 2019 01:23:20 PM CET by Eclipse SUMO netedit Version v1_4_0+0035-a7b6fee
+<!-- generated on Wed 11 Dec 2019 01:20:27 PM CET by Eclipse SUMO netedit Version v1_4_0+0035-a7b6fee
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="input_net.net.xml"/>
+        <sumo-net-file value="/scr2/debug/6398/input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="input_net.net.xml"/>
+        <output-file value="/scr2/debug/6398/input_net.net.xml"/>
     </output>
 
     <processing>
@@ -30,8 +30,7 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="input_additional.add.xml"/>
-        <route-files value="/scr2/debug/6398/input_routes.rou.xml"/>
+        <additional-files value="/scr2/debug/6398/input_additional.add.xml"/>
     </netedit>
 
     <report>
@@ -41,13 +40,6 @@
 </configuration>
 -->
 
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vType id="train" vClass="rail"/>
-    <vType id="splitTrain" vClass="rail" length="50"/>
-    <trip id="t0" type="splitTrain" depart="0.00" from="a" to="c">
-        <stop busStop="B" duration="60.00" triggered="join" extension="300"/>
-    </trip>
-    <trip id="t1" type="splitTrain" depart="30" from="d" to="b">
-        <stop busStop="B" duration="5.00" join="t0"/>
-    </trip>
-</routes>
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="B" lane="b_0" startPos="50.00" endPos="250.00"/>
+</additional>

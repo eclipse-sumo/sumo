@@ -4,6 +4,12 @@ split
 # join two train parts into a single train
 join
 
+# join two train parts into a single train (but the other train never comes)
+join_fail
+
+# join two train parts into a single train (but the other train never comes)
+join_fail_abort
+
 # join two train parts into a single train. Make sure that the rail model can close the gap
 join_RB425
 

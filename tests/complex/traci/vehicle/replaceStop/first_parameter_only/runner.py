@@ -93,13 +93,16 @@ while traci.simulation.getMinExpectedNumber() > 0:
         traci.vehicle.setStopParameter(vehID, 0, "split", "train0")
         traci.vehicle.setStopParameter(vehID, 0, "join", "train1")
         traci.vehicle.setStopParameter(vehID, 0, "line", "S42")
-        traci.vehicle.setStopParameter(vehID, 0, "speed", "3")
+        try:
+            traci.vehicle.setStopParameter(vehID, 0, "speed", "3")
+        except traci.TraCIException:
+            pass
         traci.vehicle.setStopParameter(vehID, 0, "started", "0:1:23")
         traci.vehicle.setStopParameter(vehID, 0, "ended", "0:1:42")
         traci.vehicle.setStopParameter(vehID, 2, "onDemand", "true")
     if traci.simulation.getTime() == 6:
         getParams(vehID, 0)
-    if traci.simulation.getTime() == 200:
+    if traci.simulation.getTime() == 150:
         getParams(vehID, -1)
     traci.simulationStep()
 traci.close()
