@@ -1158,7 +1158,13 @@ Stops can be childs of vehicles, routes, persons or containers.
 - if the stop uses attribute 'speed', than that speed will be maintained between startPos and endPos
 
 ## Waypoints
-By defining attribute 'speed' with a positive value, the stop definition is turned into a waypoint. The vehicle will drive past the given lane and keep the defined speed while between startPos end endPos. The 'duration' and 'until' values are ignored.
+By defining attribute 'speed' with a positive value, the stop definition is turned into a waypoint. The vehicle will drive past the given lane and keep the defined speed while between startPos end endPos. 
+
+Special handling of other attributes:
+
+- the 'duration' value is ignored
+- the 'triggered' value is not compatible with waypoints and will trigger an errr
+- when the 'until' value is set, vehicles may stop when reaching a waypoint too early
 
 ## Jumps
 When defining attribute 'jump' with a non-negative value, the vehicle will leave the network for the given duration and re-enter it on the edge of it's next stop (or on it's arrival edge). Any intervening edges are skipped and it is permitted to have a disconnected route between the start and end of the jump.  
