@@ -509,10 +509,6 @@ SUMORouteHandler::parseStop(SUMOVehicleParameter::Stop& stop, const SUMOSAXAttri
         WRITE_WARNING("Stop at parkingarea overrides attribute 'parking' for stop" + errorSuffix);
         stop.parking = ParkingType::OFFROAD;
     }
-    if (!ok) {
-        errorOutput->inform("Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop" + errorSuffix);
-        return false;
-    }
 
     // expected persons
     const std::vector<std::string>& expected = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_EXPECTED, nullptr, ok);
