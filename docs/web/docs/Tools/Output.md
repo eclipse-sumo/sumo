@@ -296,8 +296,9 @@ where -t: name of output files containing vehicle information, generate
 ```
 
 ## computeStoppingPlaceUsage.py
-This tool reads stop-output and generates occupancy-over-time for stopping places (i.e. parkingArea).
-A distinct output file will be created for each stopping place.
+This tool reads stop-output and tracks the number of stopped vehicles over time at stopping places (i.e. parkingArea).
+A distinct output file will be created for each stopping place. 
+If option **--only-changes** is set, only time steps in which the number of stopped vehicles changes, are recorded. 
 
 Example:
 ```
