@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-02-22 09:08:27 by Eclipse SUMO sumo Version v1_16_0+0599-1eac720
+<!-- generated on 2023-02-22 09:21:44 by Eclipse SUMO sumo Version v1_16_0+0602-6f89b7b
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -19,14 +19,14 @@
     </report>
 
     <traci_server>
-        <remote-port value="39708"/>
+        <remote-port value="56262"/>
     </traci_server>
 
 </configuration>
 -->
 
 <stops xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/stopinfo_file.xsd">
-    <stopinfo id="ego" type="DEFAULT_VEHTYPE" lane="A1B1_0" pos="56.93" parking="0" started="16.00" ended="76.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="busStop_A1B1"/>
-    <stopinfo id="ego" type="DEFAULT_VEHTYPE" lane="B1C1_0" pos="64.01" parking="0" started="92.00" ended="152.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="busStop_B1C1"/>
-    <stopinfo id="ego" type="DEFAULT_VEHTYPE" lane="C1D1_0" pos="59.89" parking="0" started="166.00" ended="226.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="busStop_C1D1"/>
+    <stopinfo id="ego" type="DEFAULT_VEHTYPE" lane="A1B1_0" pos="56.93" parking="0" started="16.00" ended="177.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="busStop_A1B1"/>
+    <stopinfo id="ego" type="DEFAULT_VEHTYPE" lane="B1C1_0" pos="64.01" parking="0" started="193.00" ended="253.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="busStop_B1C1"/>
+    <stopinfo id="ego" type="DEFAULT_VEHTYPE" lane="C1D1_0" pos="59.89" parking="0" started="267.00" ended="327.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="busStop_C1D1"/>
 </stops>

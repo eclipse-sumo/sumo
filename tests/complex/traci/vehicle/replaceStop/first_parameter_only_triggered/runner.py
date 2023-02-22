@@ -73,11 +73,11 @@ traci.start([sumoBinary,
 
 vehID = "ego"
 
-while traci.simulation.getMinExpectedNumber() > 0:
+while traci.simulation.getMinExpectedNumber() > 0 or traci.simulation.getTime() < 200:
     if traci.simulation.getTime() == 5:
         traci.vehicle.setStopParameter(vehID, 0, "triggered", "person")
         traci.vehicle.setStopParameter(vehID, 0, "expected", "p0 p1")
-        traci.vehicle.setStopParameter(vehID, 0, "extension", "200")
+        traci.vehicle.setStopParameter(vehID, 0, "extension", "100")
     if traci.simulation.getTime() == 6:
         getParams(vehID, 0)
     if traci.simulation.getTime() == 200:

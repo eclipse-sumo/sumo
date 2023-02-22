@@ -9,7 +9,7 @@ posLat -1073741824.00
 arrival -1
 duration 60.00
 until -1
-extension 200.00
+extension 100.00
 parking 0
 triggered person
 permitted 
@@ -23,25 +23,25 @@ speed 0.00
 started -1
 ended -1
 stop parameters for index -1 at time 200.0:
-index 1
-edge B1C1
+index 0
+edge A1B1
 lane 0
-startPos 54.05
-endPos 64.05
+startPos 46.95
+endPos 56.95
 posLat -1073741824.00
 arrival -1
 duration 60.00
 until -1
-extension -1
+extension 100.00
 parking 0
-triggered 
+triggered person
 permitted 
-expected 
+expected p0 p1
 actType 
 tripId 
 split 
 join 
 line 
 speed 0.00
-started 92.00
-ended 152.00
+started 16.00
+ended 177.00
