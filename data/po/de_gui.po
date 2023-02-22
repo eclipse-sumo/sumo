@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-21 18:42+0100\n"
-"PO-Revision-Date: 2023-02-22 15:25+0000\n"
+"PO-Revision-Date: 2023-02-22 16:34+0000\n"
 "Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -10255,153 +10255,172 @@ msgstr "Aktuell ausgewähltes Fahrzeug ist ungültig."
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEVehicleFrame.cpp:196
 msgid "Current selected vehicle type isn't valid."
-msgstr ""
+msgstr "Aktuell ausgewählter Fahrzeugtyp ist ungültig."
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEAdditionalFrame.cpp:85
+#, fuzzy
 msgid "Current selected additional isn't valid."
-msgstr ""
+msgstr "Aktuell ausgewählte weitere Daten sind ungültig."
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEAdditionalFrame.cpp:154
 msgid "E2 multilane detectors need at least two consecutive lanes"
 msgstr ""
+"E2 mehrspurige Detektoren benötigen mindestens zwei aufeinanderfolgende "
+"Fahrstreifen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEAdditionalFrame.cpp:278
 msgid " must be selected before insertion of "
-msgstr ""
+msgstr " muss vor dem Einfügen ausgewählt werden "
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEAdditionalFrame.cpp:308
 msgid "Attribute '"
-msgstr ""
+msgstr "Attribut '"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEAdditionalFrame.cpp:308
 msgid "' cannot be greater than attribute '"
-msgstr ""
+msgstr "' kann nicht größer sein als Attribut '"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEAdditionalFrame.cpp:325
 msgid "List ofe dges cannot be empty"
-msgstr ""
+msgstr "Liste von Kanten kann nicht leer sein"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEAdditionalFrame.cpp:335
 msgid "List of lanes cannot be empty"
-msgstr ""
+msgstr "Liste von Fahrstreifen kann nicht leer sein"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEAdditionalFrame.cpp:435
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEWireFrame.cpp:232
 msgid "Currently unsupported. Create rerouter elements using rerouter dialog"
 msgstr ""
+"Aktuell nicht unterstützt. Zum Erstellen von Rerouter-Elementen den Rerouter-"
+"Dialog nutzen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEAdditionalFrame.cpp:440
 msgid "Currently unsupported. Create VSS steps using VSS dialog"
 msgstr ""
+"Aktuell nicht unterstützt. Zum Erstellen von VSS-Schritten den VSS-Dialog "
+"nutzen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEAdditionalFrame.cpp:445
 msgid "Currently unsupported. Create calibratorFlows using calibrator dialog"
 msgstr ""
+"Aktuell nicht unterstützt. Zum Erstellen von Kalibrator-Flüssen den "
+"Kalibrator-Dialog nutzen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:66
 msgid "Lane"
-msgstr ""
+msgstr "Fahrstreifen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:68
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:78
 msgid "No lane selected"
-msgstr ""
+msgstr "Kein Fahrstreifen ausgewählt"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:80
 msgid "Current Lane: "
-msgstr ""
+msgstr "Aktueller Fahrstreifen: "
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:89
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:395
 msgid "Modifications"
-msgstr ""
+msgstr "Modifikationen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:93
 msgid "Discard connection modifications (Esc)"
-msgstr ""
+msgstr "Verbindungsänderungen verwerfen (Esc)"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:96
 msgid "Save connection modifications (Enter)"
-msgstr ""
+msgstr "Verbindungsänderungen speichern (Enter)"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:100
 msgid "Protect routes"
-msgstr ""
+msgstr "Routen sichern"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:112
 msgid "Changes reverted"
-msgstr ""
+msgstr "Änderungen rückgängig gemacht"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:129
 msgid "Error saving connection operations"
-msgstr ""
+msgstr "Fehler beim Speichern der Verbindungsoperationen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:130
+#, fuzzy
 msgid "Connection edition  cannot be saved because route '"
-msgstr ""
+msgstr "Verbindungsbearbeitung kann nicht gespeichert werden, da Route '"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:130
 msgid "' is broken."
-msgstr ""
+msgstr "' ist gebrochen."
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:138
 msgid "Changes accepted"
-msgstr ""
+msgstr "Änderungen akzeptiert"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:151
 msgid "Operations"
-msgstr ""
+msgstr "Operationen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:155
 msgid "Select Dead Ends"
-msgstr ""
+msgstr "Sackgassen auswählen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:155
 msgid ""
 "Selects all lanes that have no outgoing connection (clears previous "
 "selection)"
 msgstr ""
+"Wählt alle Fahrstreifen aus, die keine ausgehende Verbindung haben (löscht "
+"die vorherige Auswahl)"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:158
 msgid "Select Dead Starts"
-msgstr ""
+msgstr "Sackgassenanfänge auswählen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:158
 msgid ""
 "Selects all lanes that have no incoming connection (clears previous "
 "selection)"
 msgstr ""
+"Wählt alle Fahrstreifen aus, die keine eingehende Verbindung haben (löscht "
+"die vorherige Auswahl)"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:161
 msgid "Select Conflicts"
-msgstr ""
+msgstr "Konflikte auswählen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:161
 msgid ""
 "Selects all lanes with more than one incoming connection from the same edge "
 "(clears previous selection)"
 msgstr ""
+"Wählt alle Fahrstreifen mit mehr als einer eingehenden Verbindung von "
+"derselben Kante aus (löscht die vorherige Auswahl)"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:164
 msgid "Select Passing"
-msgstr ""
+msgstr "Ende auswählen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:164
+#, fuzzy
 msgid ""
 "Selects all lanes with a connection that has has the 'pass' attribute set"
 msgstr ""
+"Wählt alle Fahrstreifen mit einer Verbindung aus, für die das Attribut "
+"'Durchgang' festgelegt ist"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:167
 msgid "Clear Selected"
-msgstr ""
+msgstr "Auswahl leeren"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:167
 msgid "Clears all connections of all selected objects"
-msgstr ""
+msgstr "Entfernt alle Verbindungen von allen ausgewählten Objekten"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:170
 msgid "Reset Selected"
-msgstr ""
+msgstr "Auswahl zurücksetzen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:170
 msgid "Recomputes connections at all selected junctions"
@@ -10413,13 +10432,13 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:289
 msgid "reset connections from selected lanes"
-msgstr ""
+msgstr "Verbindungen von ausgewählten Fahrstreifen zurücksetzen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:308
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEProhibitionFrame.cpp:168
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2309
 msgid "Selection"
-msgstr ""
+msgstr "Auswahl"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:313
 msgid "-Hold <SHIFT> while"
@@ -10443,11 +10462,11 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:322
 msgid " clicking to create "
-msgstr ""
+msgstr " klicken zum Erstellen "
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:323
 msgid " conflicting connections"
-msgstr ""
+msgstr " widersprüchliche Verbindungen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:324
 msgid " (i.e. at zipper nodes"
@@ -10463,15 +10482,15 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:342
 msgid "Possible Target"
-msgstr ""
+msgstr "Mögliches Ziel"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:347
 msgid "Source lane"
-msgstr ""
+msgstr "Quell-Fahrstreifen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:351
 msgid "Target lane"
-msgstr ""
+msgstr "Ziel-Fahrstreifen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:355
 msgid "Target (pass)"
@@ -10479,160 +10498,171 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:359
 msgid "Conflict"
-msgstr ""
+msgstr "Konflikt"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:371
 msgid "Edit Connections"
-msgstr ""
+msgstr "Verbindungen bearbeiten"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:437
 msgid "modify connections"
-msgstr ""
+msgstr "Verbindungen ändern"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:488
 msgid "Pedestrian connections are generated automatically"
-msgstr ""
+msgstr "Fußgängerverbindungen wurden automatisch generiert"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:490
 msgid "Incompatible vehicle class permissions"
-msgstr ""
+msgstr "Inkompatible Fahrzeugklassenberechtigungen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:492
 msgid "Another lane from the same edge already connects to that lane"
 msgstr ""
+"Ein anderer Fahrstreifen von derselben Kante ist bereits mit diesem "
+"Fahrstreifen verbunden"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:500
 msgid "Invalid target for connection"
-msgstr ""
+msgstr "Ungültiges Ziel für die Verbindung"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:71
 msgid "Template selector"
-msgstr ""
+msgstr "Vorlagen-Auswähler"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:76
 msgid "Create default edge"
-msgstr ""
+msgstr "Standard-Kante erstellen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:79
 msgid "Disallow for pedestrians"
-msgstr ""
+msgstr "Für Fußgänger nicht erlaubt"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:81
 msgid "Add Sidewalk"
-msgstr ""
+msgstr "Seitenweg hinzufügen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:84
 msgid "Use edgeType/template"
-msgstr ""
+msgstr "Kantentyp/Vorlage nutzen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:92
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:436
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1261
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1326
 msgid "Add"
-msgstr ""
+msgstr "Hinzufügen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:92
 msgid "Add edge type"
-msgstr ""
+msgstr "Kantentyp hinzufügen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:95
 msgid "Delete edge type"
-msgstr ""
+msgstr "Kantentyp löschen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:98
+#, fuzzy
 msgid "Create from template"
-msgstr ""
+msgstr "Vorlage erstellen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:98
+#, fuzzy
 msgid "Create edgeType from template"
-msgstr ""
+msgstr "Kantentyp von der Vorlage erstellen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:317
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:366
 msgid "create new edge type"
-msgstr ""
+msgstr "Neuen Kantentyp erstellen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:339
 msgid "delete edge type"
-msgstr ""
+msgstr "Kantentyp löschen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:404
 msgid "template: "
-msgstr ""
+msgstr "Vorlage: "
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:428
+#, fuzzy
 msgid "LaneType selector"
-msgstr ""
+msgstr "Fahrstreifen-Typ-Auswähler"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:436
 msgid "Add lane type"
-msgstr ""
+msgstr "Fahrstreifentyp hinzufügen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:439
 msgid "Delete lane type"
-msgstr ""
+msgstr "Fahrstreifentyp löschen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:536
 msgid "add laneType"
-msgstr ""
+msgstr "Fahrstreifentyp hinzufügen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:573
 msgid "remove laneType"
-msgstr ""
+msgstr "Fahrstreifentyp entfernen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:622
 msgid "- ESC:"
-msgstr ""
+msgstr "- ESC:"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:623
 msgid "  Deselect origin"
-msgstr ""
+msgstr "  Ursprung abwählen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:624
+#, fuzzy
 msgid "- Control+Click:"
-msgstr ""
+msgstr "- Control+Click:"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:625
 msgid "  Move view"
-msgstr ""
+msgstr "  Ansicht verschieben"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:626
+#, fuzzy
 msgid "- Shift+Click:"
-msgstr ""
+msgstr "- Shift+Click:"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:627
+#, fuzzy
 msgid "  Splits edge in both directions"
-msgstr ""
+msgstr "  Teilt Kanten in beide Richtungen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:628
 msgid "- Alt+Shift+Click:"
 msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:629
+#, fuzzy
 msgid "  Splits edge in one direction"
-msgstr ""
+msgstr "  Teilt Kante in eine Richtung"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:642
 msgid "Create Edge"
-msgstr ""
+msgstr "Kante erstellen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:666
 msgid "Select either default edgeType or a custom edgeType or template"
 msgstr ""
+"Entweder den standardmäßigen Kantentyp, einen benutzerdefinierten Kantentyp "
+"oder eine benutzerdefinierte Vorlage auswählen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:668
 msgid "Invalid edge attributes"
-msgstr ""
+msgstr "Ungültige Kanten-Attribute"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:670
 msgid "Invalid lane attributes"
-msgstr ""
+msgstr "Ungültige Fahrstreifen-Attribute"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:681
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:746
 msgid "create new edge"
-msgstr ""
+msgstr "Neue Kanten erstellen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:740
 msgid "edge created without an open CommandGroup"
@@ -10648,7 +10678,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECrossingFrame.cpp:97
 msgid "selection of edges"
-msgstr ""
+msgstr "Auswahl von Kanten"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECrossingFrame.cpp:102
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:505
@@ -10657,29 +10687,30 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:654
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:658
 msgid "Use selected edges"
-msgstr ""
+msgstr "Ausgewählte Kanten nutzen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECrossingFrame.cpp:105
 msgid "Clear edges"
-msgstr ""
+msgstr "Kanten entfernen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECrossingFrame.cpp:108
+#, fuzzy
 msgid "Invert edges"
-msgstr ""
+msgstr "Kanten einfügen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECrossingFrame.cpp:196
 msgid "Crossing parameters"
-msgstr ""
+msgstr "Fußgängerfurt-Parameter"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECrossingFrame.cpp:484
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1568
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1572
 msgid "Create"
-msgstr ""
+msgstr "Erstellen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECrossingFrame.cpp:487
 msgid "Create crossing"
-msgstr ""
+msgstr "Fußgängerfurt erstellen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECrossingFrame.cpp:514
 msgid ""
