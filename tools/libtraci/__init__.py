@@ -78,6 +78,7 @@ TraCINextStopData.__repr__ = _vehicle.StopData.__repr__
 TraCIReservation.__attr_repr__ = _person.Reservation.__attr_repr__
 TraCIReservation.__repr__ = _person.Reservation.__repr__
 
+
 def set_phases(self, phases):
     new_phases = [TraCIPhase(p.duration, p.state, p.minDur, p.maxDur, p.next, p.name) for p in phases]
     TraCILogic_phases_set(self, new_phases)
