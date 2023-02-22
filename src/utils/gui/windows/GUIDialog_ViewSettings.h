@@ -134,10 +134,10 @@ public:
     };
 
     /** @brief Constructor
-     * @param[in] parent The view to report changed settings to
+     * @param[in] SUMOAbstractView The view to report changed settings to
      * @param[in, out] settings The current settings that can be changed
      */
-    GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIVisualizationSettings* settings);
+    GUIDialog_ViewSettings(GUISUMOAbstractView* SUMOAbstractView, GUIVisualizationSettings* settings);
 
     /// @brief FOX need this
     GUIDialog_ViewSettings() : myBackup("DUMMY") {}
@@ -224,7 +224,7 @@ public:
 
 protected:
     /// @brief The parent view (which settings are changed)
-    GUISUMOAbstractView* myParent = nullptr;
+    GUISUMOAbstractView* mySUMOAbstractView = nullptr;
 
     /// @brief The current settings
     GUIVisualizationSettings* mySettings = nullptr;
