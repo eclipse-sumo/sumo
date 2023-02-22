@@ -105,7 +105,7 @@ GNETagProperties::checkTagIntegrity() const {
     }
     // if element can mask the start and end position, check that bot attributes exist
     if (canMaskStartEndPos() && (!hasAttribute(SUMO_ATTR_STARTPOS) || !hasAttribute(SUMO_ATTR_ENDPOS))) {
-        throw ProcessError(TL("If attribute mask the start and end position, bot attribute has to be defined"));
+        throw ProcessError(TL("If attributes mask the start and end position, both attributes have to be defined"));
     }
     // check that master tag is valid
     if (isChild() && myParentTags.empty()) {
