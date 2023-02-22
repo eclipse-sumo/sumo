@@ -7,6 +7,8 @@ set(utils_foxtools_STAT_SRCS
    MFXBaseObject.h
    MFXButtonTooltip.cpp
    MFXButtonTooltip.h
+   MFXDecalsTable.cpp
+   MFXDecalsTable.h
    MFXToggleButtonTooltip.cpp
    MFXToggleButtonTooltip.h
    MFXCheckableButton.cpp
