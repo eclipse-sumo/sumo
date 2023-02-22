@@ -22,16 +22,14 @@
 
 #include <vector>
 
+#include <utils/foxtools/fxheader.h>
 #include <utils/common/UtilExceptions.h>
-#include <netedit/frames/network/GNETLSEditorFrame.h>
 
 // ===========================================================================
 // class declaration
 // ===========================================================================
 
-class MFXTextFieldTooltip;
-class MFXLabelTooltip;
-class MFXMenuButtonTooltip;
+class GUIDialog_ViewSettings;
 
 // ===========================================================================
 // class definitions
@@ -45,16 +43,10 @@ class MFXDecalsTable : public FXHorizontalFrame {
 
 public:
     /// @brief constructor (Exactly like the FXButton constructor)
-    MFXDecalsTable(GNETLSEditorFrame::TLSPhases* TLSPhasesParent);
+    MFXDecalsTable(GUIDialog_ViewSettings* dialogViewSettingsParent, FXComposite *parent);
 
     /// @brief destructor (Called automatically)
     ~MFXDecalsTable();
-
-    /// @frame get pointer to TLSEditorFrame phases parent
-    GNETLSEditorFrame::TLSPhases* getTLSPhasesParent() const;
-
-    /// @brief recalc width (call when all labels and contents are fill)
-    void recalcTableWidth();
 
     /// @brief clear table
     void clearTable();
@@ -122,13 +114,13 @@ protected:
 
     public:
         /// @brief constructor for textField
-        Cell(MFXDecalsTable* TLSTable, MFXTextFieldTooltip* textField, int col, int row);
+        Cell(MFXDecalsTable* decalsTable, FXTextField* textField, int col, int row);
 
         /// @brief constructor for index label
-        Cell(MFXDecalsTable* TLSTable, FXLabel* indexLabel, FXLabel* indexLabelBold, int col, int row);
+        Cell(MFXDecalsTable* decalsTable, FXLabel* indexLabel, FXLabel* indexLabelBold, int col, int row);
 
         /// @brief constructor for buttons
-        Cell(MFXDecalsTable* TLSTable, MFXButtonTooltip* button, int col, int row);
+        Cell(MFXDecalsTable* decalsTable, FXButton* button, int col, int row);
 
         /// @brief destructor
         ~Cell();
@@ -145,20 +137,14 @@ protected:
         /// @brief set focus in the current cell
         void setFocus();
 
-        /// @brief get double value (only for types 'u' and 'd')
-        double getDoubleValue() const;
-
-        /// @brief set tooltip
-        void setTooltip(const std::string& toolTip);
-
         /// @brief get textField
-        MFXTextFieldTooltip* getTextField() const;
+        FXTextField* getTextField() const;
 
         /// @brief get index label
         FXLabel* getIndexLabel() const;
 
-        /// @brief get remove, move up or move down button
-        MFXButtonTooltip* getButton();
+        /// @brief get open button
+        FXButton* getButton();
 
         /// @brief show label index normal
         void showIndexLabelNormal();
@@ -179,11 +165,11 @@ protected:
         void disableButton();
 
     private:
-        /// @brief pointer to TLSTable parent
-        MFXDecalsTable* myTLSTable = nullptr;
+        /// @brief pointer to decals table parent
+        MFXDecalsTable* myDecalsTable = nullptr;
 
-        /// @brief MFXTextFieldTooltip
-        MFXTextFieldTooltip* myTextField = nullptr;
+        /// @brief FXTextField
+        FXTextField* myTextField = nullptr;
 
         /// @brief index label
         FXLabel* myIndexLabel = nullptr;
@@ -192,7 +178,7 @@ protected:
         FXLabel* myIndexLabelBold = nullptr;
 
         /// @brief button
-        MFXButtonTooltip* myButton = nullptr;
+        FXButton* myButton = nullptr;
 
         /// @brief column index
         const int myCol;
@@ -243,7 +229,7 @@ protected:
         FXVerticalFrame* myVerticalFrame = nullptr;
 
         /// @brief column top tooltip label
-        MFXLabelTooltip* myTopLabel = nullptr;
+        FXLabel* myTopLabel = nullptr;
 
         /// @brief vertical frame
         FXVerticalFrame* myVerticalCellFrame = nullptr;
@@ -313,8 +299,8 @@ protected:
     /// @brief font for index selected
     FXFont* myIndexSelectedFont = nullptr;
 
-    /// @frame pointer to TLSEditorFrame phases parent
-    GNETLSEditorFrame::TLSPhases* myTLSPhasesParent = nullptr;
+    /// @frame pointer to GUIDialog_ViewSettings parent
+    GUIDialog_ViewSettings* myDialogViewSettings = nullptr;
 
     /// @brief columns
     std::vector<Column*> myColumns;

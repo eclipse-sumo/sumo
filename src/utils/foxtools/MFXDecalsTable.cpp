@@ -24,12 +24,10 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/GNEApplicationWindow.h>
-#include <utils/foxtools/MFXTextFieldTooltip.h>
-#include <utils/foxtools/MFXLabelTooltip.h>
-#include <utils/foxtools/MFXMenuButtonTooltip.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/windows/GUIAppEnum.h>
+#include <utils/gui/windows/GUIDialog_ViewSettings.h>
 
 
 #define EXTRAMARGING 1
@@ -61,14 +59,12 @@ FXIMPLEMENT(MFXDecalsTable, FXHorizontalFrame, MFXDecalsTableMap, ARRAYNUMBER(MF
 // MFXDecalsTable - public methods
 // ---------------------------------------------------------------------------
 
-MFXDecalsTable::MFXDecalsTable(GNETLSEditorFrame::TLSPhases* TLSPhasesParent) :
-    FXHorizontalFrame(TLSPhasesParent->getCollapsableFrame(), GUIDesignAuxiliarTLSTable),
+MFXDecalsTable::MFXDecalsTable(GUIDialog_ViewSettings* dialogViewSettingsParent, FXComposite *parent) :
+    FXHorizontalFrame(parent, GUIDesignAuxiliarTLSTable),
     myProgramFont(new FXFont(getApp(), "Courier New", 10)),
     myIndexFont(new FXFont(getApp(), "Segoe UI", 9)),
     myIndexSelectedFont(new FXFont(getApp(), "Segoe UI", 9, FXFont::Bold)),
-    myTLSPhasesParent(TLSPhasesParent) {
-    // set default width
-    recalcTableWidth();
+    myDialogViewSettings(dialogViewSettingsParent) {
 }
 
 
@@ -77,57 +73,6 @@ MFXDecalsTable::~MFXDecalsTable() {
     delete myProgramFont;
     delete myIndexFont;
     delete myIndexSelectedFont;
-}
-
-
-GNETLSEditorFrame::TLSPhases*
-MFXDecalsTable::getTLSPhasesParent() const {
-    return myTLSPhasesParent;
-}
-
-
-void
-MFXDecalsTable::recalcTableWidth() {
-    // get minimum width of all elements
-    int minimumTableWidth = 0;
-    // get pointer to name column
-    Column* nameColumn = nullptr;
-    // iterate over all columns
-    for (const auto& column : myColumns) {
-        // check if this is the name column
-        if (column->getType() == 'm') {
-            // save column
-            nameColumn = column;
-        } else {
-            // get minimum column width
-            const auto  minimunColWidth = column->getColumnMinimumWidth();
-            // set columnwidth
-            column->setColumnWidth(minimunColWidth);
-            // update minimum table width
-            minimumTableWidth += minimunColWidth;
-        }
-    }
-    // adjust name column
-    if (nameColumn) {
-        // get column name width
-        const int minimumColNameWidth = nameColumn->getColumnMinimumWidth();
-        // get scrollBar width
-        const int scrollBarWidth = myTLSPhasesParent->getTLSEditorParent()->getScrollBarWidth();
-        // get frame area width - padding (30, constant, 15 left, 15 right)
-        const auto frameAreaWidth = myTLSPhasesParent->getTLSEditorParent()->getViewNet()->getViewParent()->getFrameAreaWidth() - 30;
-        // continue depending of minimum table width
-        if ((frameAreaWidth - (minimumTableWidth + minimumColNameWidth + scrollBarWidth)) > 0) {
-            nameColumn->setColumnWidth(frameAreaWidth - minimumTableWidth - scrollBarWidth);
-            setWidth(frameAreaWidth);
-        } else {
-            nameColumn->setColumnWidth(minimumColNameWidth);
-            setWidth(minimumTableWidth + minimumColNameWidth);
-        }
-    } else if (minimumTableWidth > 0) {
-        setWidth(minimumTableWidth);
-    } else {
-        setWidth(DEFAULTWIDTH);
-    }
 }
 
 
@@ -279,6 +224,7 @@ MFXDecalsTable::onCmdEditRow(FXObject* sender, FXSelector, void*) {
             // get text field
             const auto textField = myRows.at(rowIndex)->getCells().at(columnIndex)->getTextField();
             if (textField == sender) {
+/*
                 // edit value and change value depending of result
                 if (myTLSPhasesParent->changePhaseValue(columnIndex, rowIndex, textField->getText().text())) {
                     WRITE_DEBUG(("Valid " + myColumns.at(columnIndex)->getColumnLabelTop()).text());
@@ -289,6 +235,7 @@ MFXDecalsTable::onCmdEditRow(FXObject* sender, FXSelector, void*) {
                     WRITE_DEBUG(("Invalid " + myColumns.at(columnIndex)->getColumnLabelTop()).text());
                     textField->setTextColor(FXRGB(255, 0, 0));
                 }
+*/
                 return 1;
             }
         }
@@ -345,7 +292,7 @@ MFXDecalsTable::onCmdAddPhase(FXObject* sender, FXSelector, void*) {
         for (const auto& cell : myRows.at(indexRow)->getCells()) {
             if (cell->getButton() == sender) {
                 // add row
-                myTLSPhasesParent->addPhase(indexRow);
+                //myTLSPhasesParent->addPhase(indexRow);
                 // stop
                 return 0;
             }
@@ -370,8 +317,6 @@ MFXDecalsTable::updateIndexLabel() {
             }
         }
     }
-    // update coloring
-    myTLSPhasesParent->updateTLSColoring();
 }
 
 
@@ -395,8 +340,8 @@ MFXDecalsTable::moveFocus() {
 // MFXDecalsTable::Cell - methods
 // ---------------------------------------------------------------------------
 
-MFXDecalsTable::Cell::Cell(MFXDecalsTable* TLSTable, MFXTextFieldTooltip* textField, int col, int row) :
-    myTLSTable(TLSTable),
+MFXDecalsTable::Cell::Cell(MFXDecalsTable* decalsTable, FXTextField* textField, int col, int row) :
+    myDecalsTable(decalsTable),
     myTextField(textField),
     myCol(col),
     myRow(row) {
@@ -405,8 +350,8 @@ MFXDecalsTable::Cell::Cell(MFXDecalsTable* TLSTable, MFXTextFieldTooltip* textFi
 }
 
 
-MFXDecalsTable::Cell::Cell(MFXDecalsTable* TLSTable, FXLabel* indexLabel, FXLabel* indexLabelBold, int col, int row) :
-    myTLSTable(TLSTable),
+MFXDecalsTable::Cell::Cell(MFXDecalsTable* decalsTable, FXLabel* indexLabel, FXLabel* indexLabelBold, int col, int row) :
+    myDecalsTable(decalsTable),
     myIndexLabel(indexLabel),
     myIndexLabelBold(indexLabelBold),
     myCol(col),
@@ -420,8 +365,8 @@ MFXDecalsTable::Cell::Cell(MFXDecalsTable* TLSTable, FXLabel* indexLabel, FXLabe
 }
 
 
-MFXDecalsTable::Cell::Cell(MFXDecalsTable* TLSTable, MFXButtonTooltip* button, int col, int row) :
-    myTLSTable(TLSTable),
+MFXDecalsTable::Cell::Cell(MFXDecalsTable* decalsTable, FXButton* button, int col, int row) :
+    myDecalsTable(decalsTable),
     myButton(button),
     myCol(col),
     myRow(row) {
@@ -506,29 +451,7 @@ MFXDecalsTable::Cell::setFocus() {
 }
 
 
-double
-MFXDecalsTable::Cell::getDoubleValue() const {
-    if (myTextField->getText().empty()) {
-        return 0;
-    } else if (!GNEAttributeCarrier::canParse<double>(myTextField->getText().text())) {
-        throw ProcessError(TL("Cannot be parsed to double"));
-    } else {
-        return GNEAttributeCarrier::parse<double>(myTextField->getText().text());
-    }
-}
-
-
-void
-MFXDecalsTable::Cell::setTooltip(const std::string& toolTip) {
-    if (myTextField) {
-        myTextField->setToolTipText(toolTip.c_str());
-    } else {
-        throw ProcessError(TL("Tooltips only for TextFields"));
-    }
-}
-
-
-MFXTextFieldTooltip*
+FXTextField*
 MFXDecalsTable::Cell::getTextField() const {
     return myTextField;
 }
@@ -540,7 +463,7 @@ MFXDecalsTable::Cell::getIndexLabel() const {
 }
 
 
-MFXButtonTooltip*
+FXButton*
 MFXDecalsTable::Cell::getButton() {
     return myButton;
 }
@@ -580,7 +503,7 @@ MFXDecalsTable::Cell::getRow() const {
 
 char
 MFXDecalsTable::Cell::getType() const {
-    return myTLSTable->myColumns.at(myCol)->getType();
+    return myDecalsTable->myColumns.at(myCol)->getType();
 }
 
 
@@ -615,15 +538,11 @@ MFXDecalsTable::Column::Column(MFXDecalsTable* table, const int index, const cha
         case 't':
         case 'b':
             // empty label
-            myTopLabel = new MFXLabelTooltip(myVerticalFrame,
-                                             table->getTLSPhasesParent()->getTLSEditorParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
-                                             "", nullptr, GUIDesignLabelTLSTableEmpty);
+            myTopLabel = new FXLabel(myVerticalFrame, "", nullptr, GUIDesignLabelTLSTableEmpty);
             break;
         default:
             // ticked label
-            myTopLabel = new MFXLabelTooltip(myVerticalFrame,
-                                             table->getTLSPhasesParent()->getTLSEditorParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
-                                             "", nullptr, GUIDesignLabelTLSTableEmpty);
+            myTopLabel = new FXLabel(myVerticalFrame, "", nullptr, GUIDesignLabelTLSTableEmpty);
             break;
     }
     // create vertical frame for cells
@@ -779,16 +698,14 @@ MFXDecalsTable::Row::Row(MFXDecalsTable* table) :
             case ('m'):
             case ('-'): {
                 // create textField for values
-                auto textField = new MFXTextFieldTooltip(table->myColumns.at(columnIndex)->getVerticalCellFrame(),
-                        table->getTLSPhasesParent()->getTLSEditorParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
+                auto textField = new FXTextField(table->myColumns.at(columnIndex)->getVerticalCellFrame(),
                         GUIDesignTextFieldNCol, table, MID_GNE_TLSTABLE_TEXTFIELD, GUIDesignTextFieldTLSTable);
                 myCells.push_back(new Cell(table, textField, columnIndex, numCells));
                 break;
             }
             case ('p'): {
                 // create text field for program (state)
-                auto textField = new MFXTextFieldTooltip(table->myColumns.at(columnIndex)->getVerticalCellFrame(),
-                        table->getTLSPhasesParent()->getTLSEditorParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
+                auto textField = new FXTextField(table->myColumns.at(columnIndex)->getVerticalCellFrame(),
                         GUIDesignTextFieldNCol, table, MID_GNE_TLSTABLE_TEXTFIELD, GUIDesignTextFieldTLSTable);
                 // set special font
                 textField->setFont(myTable->myProgramFont);
@@ -797,8 +714,7 @@ MFXDecalsTable::Row::Row(MFXDecalsTable* table) :
             }
             case ('d'): {
                 // create button for delete phase
-                auto button = new MFXButtonTooltip(table->myColumns.at(columnIndex)->getVerticalCellFrame(),
-                    table->getTLSPhasesParent()->getTLSEditorParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
+                auto button = new FXButton(table->myColumns.at(columnIndex)->getVerticalCellFrame(),
                     (std::string("\t") + TL("Delete phase") + std::string("\t") + TL("Delete this phase.")).c_str(),
                     GUIIconSubSys::getIcon(GUIIcon::REMOVE), table, MID_GNE_TLSTABLE_REMOVEPHASE, GUIDesignButtonIcon);
                 myCells.push_back(new Cell(table, button, columnIndex, numCells));
