@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-21 18:29+0100\n"
-"PO-Revision-Date: 2023-02-22 14:31+0000\n"
+"PO-Revision-Date: 2023-02-22 14:41+0000\n"
 "Last-Translator: Rhea-Xiao <xiao.translations@gmail.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -33,7 +33,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/activitygen/AGActivityGen.cpp:62
 msgid "Generating work positions"
-msgstr ""
+msgstr "生成工作位置"
 
 #: /home/micha/programming/sumo/src/activitygen/AGActivityGen.cpp:66
 msgid "Building bus lines"
@@ -41,19 +41,19 @@ msgstr "正在搭建公交路线"
 
 #: /home/micha/programming/sumo/src/activitygen/AGActivityGen.cpp:71
 msgid "Generating population"
-msgstr ""
+msgstr "生成人口"
 
 #: /home/micha/programming/sumo/src/activitygen/AGActivityGen.cpp:75
 msgid "Allocating schools"
-msgstr ""
+msgstr "分配学校"
 
 #: /home/micha/programming/sumo/src/activitygen/AGActivityGen.cpp:79
 msgid "Allocating work places"
-msgstr ""
+msgstr "分配工作场所"
 
 #: /home/micha/programming/sumo/src/activitygen/AGActivityGen.cpp:83
 msgid "Allocating car places"
-msgstr ""
+msgstr "分配车位"
 
 #: /home/micha/programming/sumo/src/activitygen/AGActivityGenHandler.cpp:178
 #, c-format
