@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-21 18:42+0100\n"
-"PO-Revision-Date: 2023-02-22 11:27+0000\n"
-"Last-Translator: fanzhengzhuo <1183669391@qq.com>\n"
+"PO-Revision-Date: 2023-02-22 15:25+0000\n"
+"Last-Translator: Rhea-Xiao <xiao.translations@gmail.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
 "Language: zh\n"
@@ -2710,15 +2710,16 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:256
 msgid "Input"
-msgstr ""
+msgstr "输入"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:257
 msgid "Output"
 msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:259
+#, fuzzy
 msgid "Processing"
-msgstr ""
+msgstr "处理中"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:260
 msgid "Building Defaults"
@@ -2768,7 +2769,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:272
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2352
 msgid "Time"
-msgstr ""
+msgstr "时间"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:278
 msgid "Load sumo config"
