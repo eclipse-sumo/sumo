@@ -1689,9 +1689,16 @@ MSVehicle::processNextStop(double currentVelocity) {
 #endif
             }
             // joining only takes place after stop duration is over
-            if (stop.joinTriggered && !myAmRegisteredAsWaiting && stop.duration <= 0) {
-                MSNet::getInstance()->getVehicleControl().registerOneWaiting();
-                myAmRegisteredAsWaiting = true;
+            if (stop.joinTriggered && !myAmRegisteredAsWaiting 
+                    && stop.duration <= (stop.pars.extension >= 0 ? -stop.pars.extension : 0)) {
+                if (stop.pars.extension >= 0) {
+                    WRITE_WARNINGF(TL("Vehicle '%' aborts joining after extension of %s at time %."), getID(), STEPS2TIME(stop.pars.extension), time2string(SIMSTEP));
+                    stop.joinTriggered = false;
+                } else {
+                    // keep stopping indefinitely but ensure that simulation terminates
+                    MSNet::getInstance()->getVehicleControl().registerOneWaiting();
+                    myAmRegisteredAsWaiting = true;
+                }
             }
             if (stop.getSpeed() > 0) {
                 //waypoint mode
