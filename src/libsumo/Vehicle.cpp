@@ -1178,6 +1178,9 @@ Vehicle::setStopParameter(const std::string& vehID, int nextStopIndex,
             pars.parking = SUMOVehicleParameter::parseParkingType(value);
             pars.parametersSet |= STOP_PARKING_SET;
         } else if (param == toString(SUMO_ATTR_TRIGGERED)) {
+            if (pars.speed > 0 && value != "") {
+                throw ProcessError(TLF("Waypoint (speed = %) at index % does not support triggers", pars.speed, nextStopIndex));
+            }
             SUMOVehicleParameter::parseStopTriggers(StringTokenizer(value).getVector(), false, pars);
             pars.parametersSet |= STOP_TRIGGER_SET;
             // also update dynamic value
@@ -1208,7 +1211,11 @@ Vehicle::setStopParameter(const std::string& vehID, int nextStopIndex,
             pars.line = value;
             pars.parametersSet |= STOP_LINE_SET;
         } else if (param == toString(SUMO_ATTR_SPEED)) {
-            pars.speed = StringUtils::toDouble(value);
+            const double speed = StringUtils::toDouble(value);
+            if (speed > 0 && pars.getTriggers().size() > 0) {
+                throw ProcessError(TLF("Triggered stop at index % cannot be changed into a waypoint by setting speed to %", nextStopIndex, speed));
+            }
+            pars.speed = speed;
             pars.parametersSet |= STOP_SPEED_SET;
         } else if (param == toString(SUMO_ATTR_STARTED)) {
             pars.started = string2time(value);
