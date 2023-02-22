@@ -1179,7 +1179,7 @@ Vehicle::setStopParameter(const std::string& vehID, int nextStopIndex,
             pars.parametersSet |= STOP_PARKING_SET;
         } else if (param == toString(SUMO_ATTR_TRIGGERED)) {
             SUMOVehicleParameter::parseStopTriggers(StringTokenizer(value).getVector(), false, pars);
-            pars.parametersSet |= STOP_TRIGGERED;
+            pars.parametersSet |= STOP_TRIGGER_SET;
         } else if (param == toString(SUMO_ATTR_EXPECTED)) {
             pars.awaitedPersons = StringTokenizer(value).getSet();
             pars.parametersSet |= STOP_EXPECTED_SET;
