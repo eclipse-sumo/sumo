@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-21 18:42+0100\n"
-"PO-Revision-Date: 2023-02-22 11:58+0000\n"
+"PO-Revision-Date: 2023-02-22 12:21+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -5172,9 +5172,8 @@ msgstr ""
 "des Knotenpunkt von)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1182
-#, fuzzy
 msgid "Show if edge is bidirectional"
-msgstr "Zeigt an ob es eine Zweirichtungs-Kante ist"
+msgstr "Zeigt an, ob es eine Zweirichtungskante ist"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1188
 msgid "Distance"
@@ -5836,10 +5835,9 @@ msgid "The id of Multilane E2"
 msgstr "Die ID vom mehrspurigen E2"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2081
-#, fuzzy
 msgid "The sequence of lane ids in which the detector shall be laid on"
 msgstr ""
-"Die Reihenfolge der Fahrstreifen-IDs, in denen der Detektor angebracht "
+"Die Abfolge der IDs der Fahrstreifen, auf denen der Detektor angebracht "
 "werden soll"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2091
@@ -5859,7 +5857,6 @@ msgstr "Die ID von E3"
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2162
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2315
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3214
-#, fuzzy
 msgid "X-Y position of detector in editor (Only used in netedit)"
 msgstr "X-Y-Position des Detektors im Editor (wird nur in netedit verwendet)"
 
@@ -6010,7 +6007,6 @@ msgstr ""
 "werden sollen"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2541
-#, fuzzy
 msgid "X,Y position in editor (Only used in netedit)"
 msgstr "X-Y-Position im Editor (wird nur in netedit verwendet)"
 
@@ -6685,7 +6681,6 @@ msgid "ContainerStop associated with this stop"
 msgstr "Containerhaltepunkt, die diesem Haltepunkt zugeordnet ist"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4029
-#, fuzzy
 msgid "ChargingStation associated with this stop"
 msgstr "Ladestation (chargingStation), die diesem Haltepunkt zugeordnet ist"
 
@@ -6712,9 +6707,8 @@ msgid "ContainerWaypoint associated with this waypoint"
 msgstr "Containerwegpunkt, der diesem Wegpunkt zugeordnet ist"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4140
-#, fuzzy
 msgid "ChargingStation associated with this waypoint"
-msgstr "Ladestation (chargingStation) wurde diesem Wegpunkt zugeordnet"
+msgstr "Mit diesem Wegpunkt verknüpfte Ladestation (chargingStation)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4156
 msgid "ParkingArea associated with this waypoint"
@@ -7719,15 +7713,14 @@ msgstr "Kopieren "
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditional.cpp:138
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNETAZSourceSink.cpp:128
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEGenericData.cpp:128
-#, fuzzy
 msgid " name to clipboard"
-msgstr " in die Zwischenablage angeben"
+msgstr " Name in Zwischenablage"
 
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditional.cpp:139
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNETAZSourceSink.cpp:129
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEGenericData.cpp:129
 msgid " typed name to clipboard"
-msgstr ""
+msgstr " Name mit Typangabe in Zwischenablage"
 
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditional.cpp:146
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEGenericData.cpp:136
@@ -7755,7 +7748,7 @@ msgstr "Mausposition über Kante: "
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditional.cpp:171
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEGenericData.cpp:139
 msgid "Cursor position in view: "
-msgstr ""
+msgstr "Zeigerposition in Ansicht: "
 
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditional.cpp:382
 msgid "Invalid number of edges"
