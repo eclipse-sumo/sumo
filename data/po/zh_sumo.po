@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-21 18:29+0100\n"
-"PO-Revision-Date: 2023-02-22 14:41+0000\n"
+"PO-Revision-Date: 2023-02-22 15:25+0000\n"
 "Last-Translator: Rhea-Xiao <xiao.translations@gmail.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -25,7 +25,7 @@ msgstr "正在读取数据输入"
 
 #: /home/micha/programming/sumo/src/activitygen/AGActivityGen.cpp:54
 msgid "Consolidating statistics"
-msgstr "合并统计数据"
+msgstr "正在合并统计"
 
 #: /home/micha/programming/sumo/src/activitygen/AGActivityGen.cpp:58
 msgid "Building street representation"
@@ -33,7 +33,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/activitygen/AGActivityGen.cpp:62
 msgid "Generating work positions"
-msgstr "生成工作位置"
+msgstr "正在生成工作地点"
 
 #: /home/micha/programming/sumo/src/activitygen/AGActivityGen.cpp:66
 msgid "Building bus lines"
@@ -41,28 +41,28 @@ msgstr "正在搭建公交路线"
 
 #: /home/micha/programming/sumo/src/activitygen/AGActivityGen.cpp:71
 msgid "Generating population"
-msgstr "生成人口"
+msgstr "正在生成人口数据"
 
 #: /home/micha/programming/sumo/src/activitygen/AGActivityGen.cpp:75
 msgid "Allocating schools"
-msgstr "分配学校"
+msgstr "正在分配学校"
 
 #: /home/micha/programming/sumo/src/activitygen/AGActivityGen.cpp:79
 msgid "Allocating work places"
-msgstr "分配工作场所"
+msgstr "正在分配工作场所"
 
 #: /home/micha/programming/sumo/src/activitygen/AGActivityGen.cpp:83
 msgid "Allocating car places"
-msgstr "分配车位"
+msgstr "正在分配车位"
 
 #: /home/micha/programming/sumo/src/activitygen/AGActivityGenHandler.cpp:178
 #, c-format
 msgid "Edge '%' is not known."
-msgstr ""
+msgstr "边缘 '%' i 未知。"
 
 #: /home/micha/programming/sumo/src/activitygen/AGActivityGenHandler.cpp:329
 msgid "Unknown bus station '%'."
-msgstr ""
+msgstr "未知公交车站'%'。"
 
 #: /home/micha/programming/sumo/src/activitygen/AGFrame.cpp:53
 #: /home/micha/programming/sumo/src/activitygen/AGFrame.cpp:61
@@ -160,7 +160,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:89
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:92
 msgid "Input"
-msgstr ""
+msgstr "输入"
 
 #: /home/micha/programming/sumo/src/activitygen/AGFrame.cpp:54
 #: /home/micha/programming/sumo/src/activitygen/AGFrame.cpp:72
@@ -327,7 +327,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:125
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:128
 msgid "Output"
-msgstr ""
+msgstr "输出"
 
 #: /home/micha/programming/sumo/src/activitygen/AGFrame.cpp:55
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:53
@@ -591,8 +591,9 @@ msgstr ""
 #: /home/micha/programming/sumo/src/tools/emissionsMap_main.cpp:110
 #: /home/micha/programming/sumo/src/tools/emissionsMap_main.cpp:112
 #: /home/micha/programming/sumo/src/tools/emissionsMap_main.cpp:114
+#, fuzzy
 msgid "Processing"
-msgstr ""
+msgstr "处理中"
 
 #: /home/micha/programming/sumo/src/activitygen/AGFrame.cpp:56
 #: /home/micha/programming/sumo/src/activitygen/AGFrame.cpp:81
@@ -614,75 +615,76 @@ msgstr ""
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:116
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:119
 msgid "Time"
-msgstr ""
+msgstr "时间"
 
 #: /home/micha/programming/sumo/src/activitygen/AGFrame.cpp:61
 msgid "Use FILE as SUMO-network to create trips for"
-msgstr ""
+msgstr "使用FILE作为SUMO网络，以创建行程，用于"
 
 #: /home/micha/programming/sumo/src/activitygen/AGFrame.cpp:64
 msgid "Loads the SUMO-statistics FILE"
-msgstr ""
+msgstr "加载SUMO统计文件"
 
 #: /home/micha/programming/sumo/src/activitygen/AGFrame.cpp:72
 msgid "Write generated trips to FILE"
-msgstr ""
+msgstr "将生成的行程写入文件"
 
 #: /home/micha/programming/sumo/src/activitygen/AGFrame.cpp:81
 msgid ""
 "Sets the time of beginning of the simulation during the first day (in "
 "seconds)"
-msgstr ""
+msgstr "设置第一天模拟的开始时间（以秒为单位）"
 
 #: /home/micha/programming/sumo/src/activitygen/AGFrame.cpp:84
 msgid ""
 "Sets the time of ending of the simulation during the last day (in seconds)"
-msgstr ""
+msgstr "设置最后一天模拟的结束时间（以秒为单位）"
 
 #: /home/micha/programming/sumo/src/activitygen/AGFrame.cpp:87
 msgid "Sets the duration of the simulation in days"
-msgstr ""
+msgstr "设置模拟的持续时间（以天为单位）"
 
 #: /home/micha/programming/sumo/src/activitygen/activitygen_main.cpp:64
 #: /home/micha/programming/sumo/src/router/ROLoader.cpp:111
 msgid "Missing definition of network to load!"
-msgstr ""
+msgstr "缺少要加载的网络定义！"
 
 #: /home/micha/programming/sumo/src/activitygen/activitygen_main.cpp:67
 #, c-format
 msgid "The network file '%' could not be accessed."
-msgstr ""
+msgstr "无法访问网络文件“%' c”。"
 
 #: /home/micha/programming/sumo/src/activitygen/activitygen_main.cpp:69
 #: /home/micha/programming/sumo/src/router/ROLoader.cpp:116
+#, fuzzy
 msgid "Loading net"
-msgstr ""
+msgstr "加载网络"
 
 #: /home/micha/programming/sumo/src/activitygen/activitygen_main.cpp:79
 #: /home/micha/programming/sumo/src/netload/NLEdgeControlBuilder.cpp:227
 #: /home/micha/programming/sumo/src/router/ROLoader.cpp:133
 #, c-format
 msgid "Deprecated vehicle classes '%' in input network."
-msgstr ""
+msgstr "输入网络中的废弃车辆类 '%'。"
 
 #: /home/micha/programming/sumo/src/activitygen/activitygen_main.cpp:89
 msgid ""
 "Generates trips of persons throughout a day for the microscopic, multi-modal "
 "traffic simulation SUMO."
-msgstr ""
+msgstr "为微观、多模态的交通仿真软件SUMO生成全天的人员行程。"
 
 #: /home/micha/programming/sumo/src/activitygen/activitygen_main.cpp:113
-#, c-format
+#, c-format, fuzzy
 msgid "Loaded % edges."
-msgstr ""
+msgstr "已加载 % edges。"
 
 #: /home/micha/programming/sumo/src/activitygen/city/AGCity.cpp:427
 msgid "No street that allows passenger vehicles found in this city."
-msgstr ""
+msgstr "在该城市未发现允许客运车辆通行的街道。"
 
 #: /home/micha/programming/sumo/src/activitygen/city/AGWorkPosition.cpp:126
 msgid "Work position already occupied. Cannot give it to another adult."
-msgstr ""
+msgstr "工作岗位已饱和，无法提供给另一位成年人。"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFDetFlowLoader.cpp:76
 msgid "At least one value lies beyond given time boundaries."
