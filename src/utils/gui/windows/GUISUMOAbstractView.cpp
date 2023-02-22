@@ -1556,7 +1556,7 @@ GUISUMOAbstractView::showViewschemeEditor() {
         myVisualizationChanger =
             new GUIDialog_ViewSettings(
             this, myVisualizationSettings,
-            &myDecals, &myDecalsLock);
+            &myDecals, &myDecalsLockMutex);
         myVisualizationChanger->create();
     } else {
         myVisualizationChanger->setCurrent(myVisualizationSettings);
@@ -1764,7 +1764,7 @@ GUISUMOAbstractView::checkGDALImage(Decal& d) {
 void
 GUISUMOAbstractView::drawDecals() {
     GLHelper::pushName(0);
-    myDecalsLock.lock();
+    myDecalsLockMutex.lock();
     for (GUISUMOAbstractView::Decal& d : myDecals) {
         if (d.skip2D) {
             continue;
@@ -1802,7 +1802,7 @@ GUISUMOAbstractView::drawDecals() {
         GUITexturesHelper::drawTexturedBox(d.glID, -halfWidth, -halfHeight, halfWidth, halfHeight);
         GLHelper::popMatrix();
     }
-    myDecalsLock.unlock();
+    myDecalsLockMutex.unlock();
     GLHelper::popName();
 }
 

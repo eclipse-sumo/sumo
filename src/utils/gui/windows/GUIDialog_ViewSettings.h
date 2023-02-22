@@ -238,7 +238,7 @@ protected:
     std::vector<GUISUMOAbstractView::Decal>* myDecals = nullptr;
 
     /// @brief Lock used when changing the decals
-    FXMutex* myDecalsLock = nullptr;
+    FXMutex* myDecalsLockMutex = nullptr;
 
     /// @name Dialog elements
     /// @{

@@ -553,7 +553,7 @@ protected:
     std::vector<Decal> myDecals;
 
     /// @brief The mutex to use before accessing the decals list in order to avoid thread conflicts
-    FXMutex myDecalsLock;
+    FXMutex myDecalsLockMutex;
     ///@}
 
     /// @brief Snapshots

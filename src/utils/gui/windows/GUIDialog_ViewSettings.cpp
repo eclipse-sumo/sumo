@@ -90,7 +90,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
     mySettings(settings),
     myBackup(settings->name, settings->netedit),
     myDecals(decals),
-    myDecalsLock(decalsLock) {
+    myDecalsLockMutex(decalsLock) {
     // make a backup copy
     myBackup.copy(*settings);
     // create content frame
@@ -908,11 +908,11 @@ GUIDialog_ViewSettings::loadSettings(const std::string& file) {
         mySettings = &gSchemeStorage.get(settingsName);
     }
     if (handler.hasDecals()) {
-        myDecalsLock->lock();
+        myDecalsLockMutex->lock();
         (*myDecals) = handler.getDecals();
         rebuildDecalsTable();
         myParent->update();
-        myDecalsLock->unlock();
+        myDecalsLockMutex->unlock();
     }
     if (handler.getDelay() >= 0) {
         myParent->setDelay(handler.getDelay());
@@ -956,14 +956,14 @@ GUIDialog_ViewSettings::saveDecals(OutputDevice& dev) const {
 
 void
 GUIDialog_ViewSettings::loadDecals(const std::string& file) {
-    myDecalsLock->lock();
+    myDecalsLockMutex->lock();
     GUISettingsHandler handler(file);
     if (handler.hasDecals()) {
         (*myDecals) = handler.getDecals();
     }
     rebuildDecalsTable();
     myParent->update();
-    myDecalsLock->unlock();
+    myDecalsLockMutex->unlock();
 }
 
 
@@ -1181,7 +1181,7 @@ GUIDialog_ViewSettings::onCmdSaveXMLDecals(FXObject*, FXSelector, void* /*data*/
 long
 GUIDialog_ViewSettings::onCmdClearDecals(FXObject*, FXSelector, void* /*data*/) {
     // lock decals mutex
-    myDecalsLock->lock();
+    myDecalsLockMutex->lock();
     // clear decals
     myDecals->clear();
     // rebuild list
@@ -1189,7 +1189,7 @@ GUIDialog_ViewSettings::onCmdClearDecals(FXObject*, FXSelector, void* /*data*/) 
     // update view
     myParent->update();
     // unlock decals mutex
-    myDecalsLock->unlock();
+    myDecalsLockMutex->unlock();
     return 1;
 }
 
@@ -1625,9 +1625,9 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*, FXSelector, void* ptr) {
         d.rot = 0;
         d.layer = 0;
         d.screenRelative = false;
-        myDecalsLock->lock();
+        myDecalsLockMutex->lock();
         myDecals->push_back(d);
-        myDecalsLock->unlock();
+        myDecalsLockMutex->unlock();
     } else if (row > static_cast<int>(myDecals->size())) {
         // ignore clicks two lines below existing entries
         return 1;
