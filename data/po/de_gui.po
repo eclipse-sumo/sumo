@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-21 18:42+0100\n"
-"PO-Revision-Date: 2023-02-22 14:41+0000\n"
+"PO-Revision-Date: 2023-02-22 15:25+0000\n"
 "Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -9729,251 +9729,260 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:251
 msgid "Change Z in selection"
-msgstr ""
+msgstr "Z in der Auswahl ändern"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:260
 msgid "Absolute value"
-msgstr ""
+msgstr "Absoluter Wert"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:260
 msgid "Set Z value as absolute"
-msgstr ""
+msgstr "Z-Wert als absolut setzen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:262
 msgid "Relative value"
-msgstr ""
+msgstr "Relativer Wert"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:262
 msgid "Set Z value as relative"
-msgstr ""
+msgstr "Z-Wert relativ setzen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:265
 msgid "Apply Z value"
-msgstr ""
+msgstr "Z-Wert anwenden"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:265
 msgid "Apply Z value to all selected junctions"
-msgstr ""
+msgstr "Z-Wert auf alle ausgewählten Knotenpunkte anwenden"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:518
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:534
 msgid "Shift shape geometry"
-msgstr ""
+msgstr "Shape-Geometrie verschieben"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:534
 msgid ""
 "Shift shape geometry orthogonally to driving direction for all selected "
 "shapes"
 msgstr ""
+"Shape-Geometrie orthogonal zur Fahrtrichtung für alle ausgewählten Shapes "
+"verschieben"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:619
+#, fuzzy
 msgid "-Click over edge to"
-msgstr ""
+msgstr "- Über Kante klicken zu"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:620
 msgid " create or edit"
-msgstr ""
+msgstr " erstellen oder bearbeiten"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:621
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:624
 msgid " geometry point."
-msgstr ""
+msgstr " Geometriepunkt."
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:622
 msgid "-Shift+click over edge"
-msgstr ""
+msgstr "-Shift+click über eine Kante"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:623
 msgid " to edit start or end"
-msgstr ""
+msgstr " zum Bearbeiten starten oder beenden"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:628
 msgid "-Move geometry point"
-msgstr ""
+msgstr "-Geometriepunkt verschieben"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:631
 msgid "-Merge geometry point"
-msgstr ""
+msgstr "-Geometriepunkt zusammenführen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:77
 msgid "Selection information"
-msgstr ""
+msgstr "Information auswählen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:149
 msgid "Modification Mode"
-msgstr ""
+msgstr "Modifikations-Modus"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:152
 msgid "add"
-msgstr ""
+msgstr "hinzufügen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:152
 msgid "Selected objects are added to the previous selection"
-msgstr ""
+msgstr "Ausgewählte Objekte werden der vorherigen Auswahl hinzugefügt"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:154
 msgid "remove"
-msgstr ""
+msgstr "entfernen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:154
 msgid "Selected objects are removed from the previous selection"
-msgstr ""
+msgstr "Ausgewählte Objekte werden aus der vorherigen Auswahl entfernt"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:156
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:662
 msgid "keep"
-msgstr ""
+msgstr "behalten"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:156
 msgid "Restrict previous selection by the current selection"
-msgstr ""
+msgstr "Vorherige Auswahl durch die aktuelle Auswahl einschränken"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:158
 msgid "replace"
-msgstr ""
+msgstr "ersetzen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:158
 msgid "Replace previous selection by the current selection"
-msgstr ""
+msgstr "Vorherige Auswahl durch die aktuelle Auswahl ersetzen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:213
 msgid "Visual Scaling"
-msgstr ""
+msgstr "Visuelle Skalierung"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:242
 msgid "Selection operations"
-msgstr ""
+msgstr "Auswahloperationen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:251
+#, fuzzy
 msgid "Deselect all objects (hotkey: ESC)"
-msgstr ""
+msgstr "Alle Objekte abwählen (Hotkey: ESC)"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:253
 msgid "Invert"
-msgstr ""
+msgstr "Umstellen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:253
 msgid "Invert selection status of all objects"
-msgstr ""
+msgstr "Auswahlstatus von allen Objekten umstellen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:255
+#, fuzzy
 msgid "Save ids of currently selected objects to a file."
-msgstr ""
+msgstr "Die IDs der aktuell ausgewählten Objekte in einer Datei speichern."
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:257
 msgid "Load ids from a file according to the current modification mode."
-msgstr ""
+msgstr "IDs aus einer Datei gemäß dem aktuellen Änderungsmodus laden."
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:259
+#, fuzzy
 msgid "Delete all selected objects (hotkey: DEL)"
-msgstr ""
+msgstr "Alle selektierten Objekte löschen (Hotkey: DEL)"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:261
 msgid "Reduce"
-msgstr ""
+msgstr "Reduzieren"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:261
 msgid "Reduce network to current selection."
-msgstr ""
+msgstr "Netz auf aktuelle Auswahl reduzieren."
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:286
 msgid "Could not open '%'."
-msgstr ""
+msgstr "Konnte '%' nicht öffnen."
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:334
 #: /home/micha/programming/sumo/src/utils/gui/div/GUIDialog_GLChosenEditor.cpp:148
 msgid "Save List of selected Items"
-msgstr ""
+msgstr "Liste ausgewählte Elemente speichern"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:1116
 msgid "Hierarchy operations"
-msgstr ""
+msgstr "Hierarchie-Operationen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:1127
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:1137
 msgid "Select"
-msgstr ""
+msgstr "Auswählen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:1129
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:1139
 msgid "Unselect"
-msgstr ""
+msgstr "Nicht ausgewählt"
 
 #: /home/micha/programming/sumo/src/netedit/frames/data/GNEEdgeDataFrame.cpp:51
 msgid "There is already a % in edge '%'"
-msgstr ""
+msgstr "Es gibt bereits ein % in Kante '%'"
 
 #: /home/micha/programming/sumo/src/netedit/frames/data/GNEGenericDataFrame.cpp:69
 msgid "DataSet"
-msgstr ""
+msgstr "Datensatz"
 
 #: /home/micha/programming/sumo/src/netedit/frames/data/GNEGenericDataFrame.cpp:72
 msgid "Create new dataSet"
-msgstr ""
+msgstr "Neuen Datensatz erstellen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/data/GNEGenericDataFrame.cpp:83
 msgid "Create dataSet"
-msgstr ""
+msgstr "Datensatz erstellen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/data/GNEGenericDataFrame.cpp:140
 msgid "Invalid dataSet ID"
-msgstr ""
+msgstr "Ungültige Datensatz-ID"
 
 #: /home/micha/programming/sumo/src/netedit/frames/data/GNEGenericDataFrame.cpp:142
 msgid "Invalid empty dataSet ID"
-msgstr ""
+msgstr "Ungültige leere Datensatz-ID"
 
 #: /home/micha/programming/sumo/src/netedit/frames/data/GNEGenericDataFrame.cpp:144
 msgid "Invalid duplicated dataSet ID"
-msgstr ""
+msgstr "Ungültige doppelte Datensatz-ID"
 
 #: /home/micha/programming/sumo/src/netedit/frames/data/GNEGenericDataFrame.cpp:198
 msgid "Interval"
-msgstr ""
+msgstr "Intervall"
 
 #: /home/micha/programming/sumo/src/netedit/frames/data/GNEGenericDataFrame.cpp:201
 msgid "Create new interval"
-msgstr ""
+msgstr "Neues Intervall erstellen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/data/GNEGenericDataFrame.cpp:219
 msgid "create interval"
-msgstr ""
+msgstr "Intervall erstellen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/data/GNEGenericDataFrame.cpp:392
 msgid "Data attributes"
-msgstr ""
+msgstr "Daten-Attribute"
 
 #: /home/micha/programming/sumo/src/netedit/frames/data/GNEMeanDataFrame.cpp:68
 msgid "MeanData Type"
-msgstr ""
+msgstr "MeanData-Typ"
 
 #: /home/micha/programming/sumo/src/netedit/frames/data/GNEMeanDataFrame.cpp:161
 msgid "MeanData Editor"
-msgstr ""
+msgstr "MeanData Editor"
 
 #: /home/micha/programming/sumo/src/netedit/frames/data/GNEMeanDataFrame.cpp:164
 msgid "Create MeanData"
-msgstr ""
+msgstr "MeanData erstellen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/data/GNEMeanDataFrame.cpp:167
 msgid "Delete MeanData"
-msgstr ""
+msgstr "MeanData löschen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/data/GNEMeanDataFrame.cpp:170
 msgid "Copy MeanData"
-msgstr ""
+msgstr "MeanData kopieren"
 
 #: /home/micha/programming/sumo/src/netedit/frames/data/GNEMeanDataFrame.cpp:276
+#, fuzzy
 msgid "Current MeanData"
-msgstr ""
+msgstr "MeanData aktuell"
 
 #: /home/micha/programming/sumo/src/netedit/frames/data/GNETAZRelDataFrame.cpp:54
+#, fuzzy
 msgid "Confirm TAZRelation"
-msgstr ""
+msgstr "Verkehrsumlegungszonen-Beziehung bestätigen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/data/GNETAZRelDataFrame.cpp:56
+#, fuzzy
 msgid "Create TAZRelation"
-msgstr ""
+msgstr "Verkehrsumlegungszonen-Beziehung erstellen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/data/GNETAZRelDataFrame.cpp:56
 msgid "Click fromTaz and toTaz (confirm hotkey <ENTER>)"
@@ -9981,51 +9990,55 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/data/GNETAZRelDataFrame.cpp:58
 msgid "Clear selection"
-msgstr ""
+msgstr "Auswahl entfernen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/data/GNETAZRelDataFrame.cpp:58
+#, fuzzy
 msgid "Clear selected TAZs (hotkey <ESC>)"
-msgstr ""
+msgstr "Ausgewählte Verkehrsumlegungszonen entfernen (Hotkey <ESC>)"
 
 #: /home/micha/programming/sumo/src/netedit/frames/data/GNETAZRelDataFrame.cpp:122
 msgid "From TAZ"
-msgstr ""
+msgstr "Ausgangs-Verkehrsumlegungszone"
 
 #: /home/micha/programming/sumo/src/netedit/frames/data/GNETAZRelDataFrame.cpp:128
 msgid "To TAZ"
-msgstr ""
+msgstr "End-Verkehrsumlegungszone"
 
 #: /home/micha/programming/sumo/src/netedit/frames/data/GNETAZRelDataFrame.cpp:177
 #, c-format
 msgid "A % must be defined within an interval."
-msgstr ""
+msgstr "Ein % muss innerhalb eines Intervalls definiert sein."
 
 #: /home/micha/programming/sumo/src/netedit/frames/data/GNETAZRelDataFrame.cpp:179
 msgid "There is already a % defined in TAZ'%'."
-msgstr ""
+msgstr "In der Verkehrsumlegungszone '%' ist ein % bereits definiert."
 
 #: /home/micha/programming/sumo/src/netedit/frames/data/GNETAZRelDataFrame.cpp:181
 msgid "There is already a % defined between TAZ'%' and '%'."
 msgstr ""
+"Zwischen der Verkehrsumlegungszone '%' und '%' ist bereits ein % definiert."
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEContainerFrame.cpp:117
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEContainerPlanFrame.cpp:114
 msgid "Current selected container isn't valid."
-msgstr ""
+msgstr "Aktuell ausgewählter Container ist ungültig."
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEContainerFrame.cpp:122
 msgid "Current selected container type isn't valid."
-msgstr ""
+msgstr "Aktuell ausgewählter Container-Typ ist ungültig."
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEContainerFrame.cpp:127
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEContainerPlanFrame.cpp:119
 msgid "Current selected container plan isn't valid."
-msgstr ""
+msgstr "Aktuell ausgewählter Container-Plan ist ungültig."
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEContainerFrame.cpp:242
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEVehicleFrame.cpp:285
 msgid "VType with vClass == 'pedestrian' is oriented to pedestrians"
 msgstr ""
+"Fahrzeugtyp mit der Fahrzeugklasse == 'pedestrian' ist auf Fußgänger "
+"ausgerichtet"
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEContainerFrame.cpp:244
 msgid "VType with vClass != 'ignoring' is not oriented to containers"
@@ -10033,21 +10046,21 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEContainerFrame.cpp:267
 msgid "Invalid container parameters."
-msgstr ""
+msgstr "Ungültige Container-Parameter."
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEPersonFrame.cpp:117
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEPersonPlanFrame.cpp:140
 msgid "Current selected person isn't valid."
-msgstr ""
+msgstr "Aktuell ausgewählte Person ist ungültig."
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEPersonFrame.cpp:122
 msgid "Current selected person type isn't valid."
-msgstr ""
+msgstr "Aktuell ausgewählter Personentyp ist ungültig."
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEPersonFrame.cpp:127
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEPersonPlanFrame.cpp:146
 msgid "Current selected person plan isn't valid."
-msgstr ""
+msgstr "Aktuell ausgewählter Personenplan ist ungültig."
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEPersonFrame.cpp:250
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEVehicleFrame.cpp:287
@@ -10057,56 +10070,61 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEPersonFrame.cpp:252
 msgid "VType with vClass != 'pedestrian' is not oriented to persons"
 msgstr ""
+"Fahrzeugtyp mit der Fahrzeugklasse != 'pedestrian' ist nicht auf Personen "
+"ausgerichtet"
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEPersonFrame.cpp:275
 msgid "Invalid person parameters."
-msgstr ""
+msgstr "Ungültige Personenparameter."
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNERouteFrame.cpp:52
 msgid "Route mode"
-msgstr ""
+msgstr "Routenmodus"
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEStopFrame.cpp:71
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEStopFrame.cpp:78
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEStopFrame.cpp:85
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEStopFrame.cpp:92
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEStopFrame.cpp:99
+#, fuzzy
 msgid "- Shift+Click to select parent\n"
-msgstr ""
+msgstr "- Shift+ Klick um Elternteil auszuwählen\n"
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEStopFrame.cpp:72
+#, fuzzy
 msgid "- Click over a bus stop to\n"
-msgstr ""
+msgstr "- Über einen Bushaltepunkt klicken zum\n"
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEStopFrame.cpp:73
 msgid "  create a stop."
-msgstr ""
+msgstr "  einen Haltepunkt erstellen."
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEStopFrame.cpp:79
 msgid "- Click over a container stop\n"
-msgstr ""
+msgstr "- Klicke über einen Container-Halt\n"
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEStopFrame.cpp:80
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEStopFrame.cpp:87
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEStopFrame.cpp:94
+#, fuzzy
 msgid "  to create a stop."
-msgstr ""
+msgstr "  zum Erstellen eines Bushaltepunktes"
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEStopFrame.cpp:86
 msgid "- Click over a charging station\n"
-msgstr ""
+msgstr "- Klicke über eine Ladestation\n"
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEStopFrame.cpp:93
 msgid "- Click over a parking area\n"
-msgstr ""
+msgstr "- Klicke über einen Parkplatz\n"
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEStopFrame.cpp:100
 msgid "- Click over a lane to create\n"
-msgstr ""
+msgstr "- Klicke über einen Fahrstreifen zum Erstellen\n"
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEStopFrame.cpp:101
 msgid "  a stop."
-msgstr ""
+msgstr "  ein Halt."
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEStopFrame.cpp:105
 msgid "- No stop parents in current\n"
@@ -10114,19 +10132,19 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEStopFrame.cpp:106
 msgid "  network."
-msgstr ""
+msgstr "  Netz."
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEStopFrame.cpp:189
 msgid "Selected Stop type isn't valid."
-msgstr ""
+msgstr "Der ausgewählte Haltepunkttyp ist ungültig."
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEStopFrame.cpp:197
 msgid "Selected % '%' as stop parent."
-msgstr ""
+msgstr "% '%' als übergeordnetes Element ausgewählt."
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEStopFrame.cpp:200
 msgid "Selected Stop parent isn't valid."
-msgstr ""
+msgstr "Ausgewähltes übergeordnetes Haltepunkt-Element ist ungültig."
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEStopFrame.cpp:206
 msgid "Current selected Stop parent isn't valid."
@@ -10146,36 +10164,36 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNETypeFrame.cpp:68
 msgid "Current Type"
-msgstr ""
+msgstr "Aktueller Typ"
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNETypeFrame.cpp:225
 msgid "Type Editor"
-msgstr ""
+msgstr "Typ-Editor"
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNETypeFrame.cpp:228
 msgid "Create Type"
-msgstr ""
+msgstr "Typ erstellen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNETypeFrame.cpp:230
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNETypeFrame.cpp:275
 msgid "Delete Type"
-msgstr ""
+msgstr "Typ löschen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNETypeFrame.cpp:232
 msgid "Copy Type"
-msgstr ""
+msgstr "Typ kopieren"
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNETypeFrame.cpp:263
 msgid "Reset Type"
-msgstr ""
+msgstr "Typ zurücksetzen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNETypeFrame.cpp:418
 msgid "VType Distributions"
-msgstr ""
+msgstr "Fahrzeugtyp-Verteilung"
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNETypeFrame.cpp:421
 msgid "Show VType Distributions"
-msgstr ""
+msgstr "Fahrzeugtyp-Verteilung anzeigen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEVehicleFrame.cpp:71
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEVehicleFrame.cpp:93
@@ -10184,7 +10202,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEVehicleFrame.cpp:72
 msgid "  create a vehicle."
-msgstr ""
+msgstr "  erstellt ein Fahrzeug."
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEVehicleFrame.cpp:76
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEVehicleFrame.cpp:81
@@ -10195,16 +10213,16 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEVehicleFrame.cpp:77
 msgid "  create a Trip."
-msgstr ""
+msgstr "  erstellt eine Fahrt."
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEVehicleFrame.cpp:82
 msgid "  create a vehicle with\n"
-msgstr ""
+msgstr "  erstellt ein Fahrzeug mit\n"
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEVehicleFrame.cpp:83
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEVehicleFrame.cpp:105
 msgid "  embedded route."
-msgstr ""
+msgstr "  eingelagerter Route."
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEVehicleFrame.cpp:87
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEVehicleFrame.cpp:109
@@ -10213,27 +10231,27 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEVehicleFrame.cpp:88
 msgid "  to create a Trip."
-msgstr ""
+msgstr "  zum Erstellen einer Fahrt."
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEVehicleFrame.cpp:94
 msgid "  create a routeFlow."
-msgstr ""
+msgstr "  erstellt einen Routenfluss."
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEVehicleFrame.cpp:99
 msgid "  create a flow."
-msgstr ""
+msgstr "  erstellt einen Fluss."
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEVehicleFrame.cpp:104
 msgid "  create a flow with\n"
-msgstr ""
+msgstr "  erstellt einen Fluss mit\n"
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEVehicleFrame.cpp:110
 msgid "  to create a flow."
-msgstr ""
+msgstr "  zum Erstellen eines Flusses."
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEVehicleFrame.cpp:191
 msgid "Current selected vehicle isn't valid."
-msgstr ""
+msgstr "Aktuell ausgewähltes Fahrzeug ist ungültig."
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEVehicleFrame.cpp:196
 msgid "Current selected vehicle type isn't valid."
