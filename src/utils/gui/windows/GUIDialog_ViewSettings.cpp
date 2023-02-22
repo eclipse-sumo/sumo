@@ -1205,7 +1205,7 @@ GUIDialog_ViewSettings::onUpdImportSetting(FXObject* sender, FXSelector, void* p
 
 void
 GUIDialog_ViewSettings::buildDecalsTable() {
-    myDecalsTable = new MFXAddEditTypedTable(myDecalsFrame, this, MID_TABLE, GUIDesignViewSettingsDecalsTable);
+    myDecalsTable = new MFXAddEditTypedTable(myHorizontalFrameDecals, this, MID_TABLE, GUIDesignViewSettingsDecalsTable);
     myDecalsTable->setVisibleRows(5);
     myDecalsTable->setVisibleColumns(7);
     myDecalsTable->setTableSize(5, 7);
@@ -1220,6 +1220,10 @@ GUIDialog_ViewSettings::buildDecalsTable() {
 
 void
 GUIDialog_ViewSettings::rebuildDecalsTable() {
+    for (const auto &addDecalButton : myAddDecalButtons) {
+        delete addDecalButton;
+    }
+    myAddDecalButtons.clear();
     // clear all items
     myDecalsTable->clearItems();
     // declare num of colums
@@ -1260,6 +1264,13 @@ GUIDialog_ViewSettings::rebuildDecalsTable() {
     // set dummy text to allow edit
     for (int i = 0; i < (cols - 1); i++) {
         myDecalsTable->setItemText(row, i, " ");
+    }
+    // 
+    for (int i = 0; i <= row; i++) {
+        FXButton *button = new FXButton(myHorizontalFrameDecals, "",
+            GUIIconSubSys::getIcon(GUIIcon::OPEN), this, MID_GNE_TLSTABLE_COPYPHASE, GUIDesignButtonIcon);
+        //button->create();
+        myAddDecalButtons.push_back(button);
     }
 }
 
@@ -1862,6 +1873,7 @@ GUIDialog_ViewSettings::buildBackgroundFrame(FXTabBook* tabbook) {
     FXVerticalFrame* verticalFrameDecals = new FXVerticalFrame(verticalFrame, GUIDesignViewSettingsVerticalFrame3);
     new FXLabel(verticalFrameDecals, TL("Decals:"));
     myDecalsFrame = new FXVerticalFrame(verticalFrameDecals);
+    myHorizontalFrameDecals = new FXHorizontalFrame(myDecalsFrame, GUIDesignAuxiliarFrame);
     FXHorizontalFrame* horizontalFrameButtonsDecals = new FXHorizontalFrame(verticalFrameDecals, GUIDesignViewSettingsHorizontalFrame2);
     new FXButton(horizontalFrameButtonsDecals, TL("&Load XML Decals"), nullptr, this, MID_SIMPLE_VIEW_LOAD_DECALS_XML, GUIDesignViewSettingsButton1);
     new FXButton(horizontalFrameButtonsDecals, TL("&Save XML Decals"), nullptr, this, MID_SIMPLE_VIEW_SAVE_DECALS_XML, GUIDesignViewSettingsButton1);
