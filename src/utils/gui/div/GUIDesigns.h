@@ -588,10 +588,11 @@ class MFXMenuCheckIcon;
 
 #define GUIDesignViewSettingsColorWell2         (LAYOUT_FIX_WIDTH | LAYOUT_CENTER_Y | LAYOUT_SIDE_TOP | FRAME_SUNKEN | FRAME_THICK | ICON_AFTER_TEXT), 0, 0, 100, 0, 0, 0, 0, 0
 
-/// @brief MFX Add/Edit Typed Table
-#define GUIDesignViewSettingsMFXTable           (LAYOUT_FILL_Y | LAYOUT_FIX_WIDTH) /*|LAYOUT_FIX_HEIGHT*/, 0, 0, 470, 0
+/// @brief decals table
+#define GUIDesignViewSettingsDecalsTable        (LAYOUT_FILL_Y | LAYOUT_FIX_WIDTH), 0, 0, 550, 0
 
-#define GUIDesignViewSettingsMFXTableJustify    (JUSTIFY_CENTER_X | JUSTIFY_TOP)
+/// @brief decals cell
+#define GUIDesignViewSettingsDecalsCellTable    (JUSTIFY_CENTER_X | JUSTIFY_TOP)
 
 /// @}
 

@@ -249,6 +249,7 @@ protected:
 
     FXColorWell* myBackgroundColor = nullptr;
     FXVerticalFrame* myDecalsFrame = nullptr;
+    std::vector<FXButton*> myAddDecalButtons;
     MFXAddEditTypedTable* myDecalsTable = nullptr;
 
     /// @brief selection colors

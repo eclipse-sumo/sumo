@@ -72,7 +72,7 @@ FXDEFMAP(GUIDialog_ViewSettings) GUIDialog_ViewSettingsMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_SIMPLE_VIEW_IMPORT, GUIDialog_ViewSettings::onCmdImportSetting),
     FXMAPFUNC(SEL_UPDATE,   MID_SIMPLE_VIEW_IMPORT, GUIDialog_ViewSettings::onUpdImportSetting),
     // decals
-    FXMAPFUNC(SEL_COMMAND,  MID_SIMPLE_VIEW_LOAD_DECALS_XML,    GUIDialog_ViewSettings::onCmdLoadXMLDecals),
+    FXMAPFUNC(SEL_COMMAND,  MID_SIMPLE_VIEW_LOAD_DECAL,         GUIDialog_ViewSettings::onCmdLoadDecal),
     FXMAPFUNC(SEL_COMMAND,  MID_SIMPLE_VIEW_LOAD_DECALS_XML,    GUIDialog_ViewSettings::onCmdLoadXMLDecals),
     FXMAPFUNC(SEL_COMMAND,  MID_SIMPLE_VIEW_SAVE_DECALS_XML,    GUIDialog_ViewSettings::onCmdSaveXMLDecals),
     FXMAPFUNC(SEL_COMMAND,  MID_SIMPLE_VIEW_CLEAR_DECALS,       GUIDialog_ViewSettings::onCmdClearDecals),
@@ -1205,7 +1205,7 @@ GUIDialog_ViewSettings::onUpdImportSetting(FXObject* sender, FXSelector, void* p
 
 void
 GUIDialog_ViewSettings::buildDecalsTable() {
-    myDecalsTable = new MFXAddEditTypedTable(myDecalsFrame, this, MID_TABLE, GUIDesignViewSettingsMFXTable);
+    myDecalsTable = new MFXAddEditTypedTable(myDecalsFrame, this, MID_TABLE, GUIDesignViewSettingsDecalsTable);
     myDecalsTable->setVisibleRows(5);
     myDecalsTable->setVisibleColumns(7);
     myDecalsTable->setTableSize(5, 7);
@@ -1220,10 +1220,13 @@ GUIDialog_ViewSettings::buildDecalsTable() {
 
 void
 GUIDialog_ViewSettings::rebuildDecalsTable() {
+    // clear all items
     myDecalsTable->clearItems();
+    // declare num of colums
     const int cols = 8;
-    // set table attributes
+    // declare num of rows (number of current decals + 1, but show at least 10)
     const int numRows = MAX2((int)10, (int)myDecals->size() + 1);
+    // set table attributes
     myDecalsTable->setTableSize(numRows, cols);
     myDecalsTable->setColumnText(0, "file");
     myDecalsTable->setColumnText(1, "centerX");
@@ -1233,30 +1236,30 @@ GUIDialog_ViewSettings::rebuildDecalsTable() {
     myDecalsTable->setColumnText(5, "rotation");
     myDecalsTable->setColumnText(6, "layer");
     myDecalsTable->setColumnText(7, "relative");
+    // adjust header
     FXHeader* header = myDecalsTable->getColumnHeader();
     header->setHeight(getApp()->getNormalFont()->getFontHeight() + getApp()->getNormalFont()->getFontAscent());
-    int k;
-    for (k = 0; k < cols; k++) {
-        header->setItemJustify(k, GUIDesignViewSettingsMFXTableJustify);
-        header->setItemSize(k, 60);
+    for (int i = 0; i < cols; i++) {
+        header->setItemJustify(i, GUIDesignViewSettingsDecalsCellTable);
+        header->setItemSize(i, 60);
     }
     header->setItemSize(0, 150);
     // insert already known decals information into table
     FXint row = 0;
-    for (const GUISUMOAbstractView::Decal& d : *myDecals) {
-        myDecalsTable->setItemText(row, 0, d.filename.c_str());
-        myDecalsTable->setItemText(row, 1, toString<double>(d.centerX).c_str());
-        myDecalsTable->setItemText(row, 2, toString<double>(d.centerY).c_str());
-        myDecalsTable->setItemText(row, 3, toString<double>(d.width).c_str());
-        myDecalsTable->setItemText(row, 4, toString<double>(d.height).c_str());
-        myDecalsTable->setItemText(row, 5, toString<double>(d.rot).c_str());
-        myDecalsTable->setItemText(row, 6, toString<double>(d.layer).c_str());
-        myDecalsTable->setItemText(row, 7, toString<double>(d.screenRelative).c_str());
+    for (const auto &decal : *myDecals) {
+        myDecalsTable->setItemText(row, 0, decal.filename.c_str());
+        myDecalsTable->setItemText(row, 1, toString<double>(decal.centerX).c_str());
+        myDecalsTable->setItemText(row, 2, toString<double>(decal.centerY).c_str());
+        myDecalsTable->setItemText(row, 3, toString<double>(decal.width).c_str());
+        myDecalsTable->setItemText(row, 4, toString<double>(decal.height).c_str());
+        myDecalsTable->setItemText(row, 5, toString<double>(decal.rot).c_str());
+        myDecalsTable->setItemText(row, 6, toString<double>(decal.layer).c_str());
+        myDecalsTable->setItemText(row, 7, toString<double>(decal.screenRelative).c_str());
         row++;
     }
-    // insert dummy last field
-    for (k = 0; k < 7; k++) {
-        myDecalsTable->setItemText(row, k, " ");
+    // set dummy text to allow edit
+    for (int i = 0; i < (cols - 1); i++) {
+        myDecalsTable->setItemText(row, i, " ");
     }
 }
 
