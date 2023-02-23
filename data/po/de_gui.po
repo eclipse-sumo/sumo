@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-21 18:42+0100\n"
-"PO-Revision-Date: 2023-02-23 15:28+0000\n"
+"PO-Revision-Date: 2023-02-23 16:40+0000\n"
 "Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -7830,10 +7830,13 @@ msgstr ""
 "einen float eingelesen werden."
 
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:356
+#, fuzzy
 msgid ""
 "Could not build parking space in netedit; attribute angel cannot be parse to "
 "float."
 msgstr ""
+"Konnte keinen Parkplatz in netedit erstellen; Attribut Angel kann nicht als "
+"float eingelesen werden."
 
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:377
 msgid "add parking space in '"
@@ -7921,7 +7924,7 @@ msgstr "' in '"
 
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:956
 msgid "' due overlapping."
-msgstr ""
+msgstr "' wegen Überlappung."
 
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:978
 #, fuzzy
@@ -7954,7 +7957,7 @@ msgstr "Dynamische Geschwindigkeitsanzeige hinzufügen '"
 
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1213
 msgid "add VSS Step in '"
-msgstr ""
+msgstr "VSS-Schritt hinzufügen in '"
 
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1244
 msgid "Could not build Vaporizer with ID '"
@@ -8161,10 +8164,12 @@ msgstr "' benötigt mindestens einen Eintritt oder einen Austritt"
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEMultiEntryExitDetector.cpp:299
 msgid "An entry-exit detector needs at least one entry detector"
 msgstr ""
+"Ein Eingangs-/Ausgangsdetektor benötigt mindestens einen Eingangsdetektor"
 
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEMultiEntryExitDetector.cpp:302
 msgid "An entry-exit detector needs at least one exit detector"
 msgstr ""
+"Ein Eingangs-/Ausgangsdetektor benötigt mindestens einen Ausgangsdetektor"
 
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEPOI.cpp:261
 msgid "Release from lane"
@@ -8262,15 +8267,15 @@ msgstr "Datenintervall hinzufügen"
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEDataHandler.cpp:128
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEDataHandler.cpp:165
 msgid "add edge rel"
-msgstr ""
+msgstr "Kantenrelation hinzufügen"
 
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEDataHandler.cpp:205
 msgid "There is already a TAZ rel defined between '"
-msgstr ""
+msgstr "Es ist bereits ein Verkehrsumlegungszonenrelation definiert zwischen '"
 
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEDataHandler.cpp:207
 msgid "There is already a TAZ rel defined in '"
-msgstr ""
+msgstr "Es ist bereits ein Verkehrsumlegungszonenrelation definiert in '"
 
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEDataHandler.cpp:211
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEDataHandler.cpp:222
@@ -8340,6 +8345,9 @@ msgid ""
 "Calling non-implemented function checkChildDemandElementRestriction during "
 "saving of %. It muss be reimplemented in child class"
 msgstr ""
+"Aufruf der nicht implementierten Funktion checkChildDemandElementRestriction "
+"beim Speichern von %. Es muss in der untergeordneten Klasse neu "
+"implementiert werden"
 
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNEPersonTrip.cpp:306
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNEPersonTrip.cpp:317
@@ -9453,10 +9461,13 @@ msgid "No geo-conversion defined"
 msgstr "Keine Geo-Umsetzung definiert"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:524
+#, fuzzy
 msgid ""
 "myGEOAttributeTextField must be hidden becaurse there isn't GEO Attribute to "
 "edit"
 msgstr ""
+"myGEOAttributeTextField muss ausgeblendet werden, da es kein zu "
+"bearbeitendes GEO-Attribut gibt"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:551
 msgid " SUMO uses the World Geodetic System 84 (WGS84/UTM).\n"
@@ -10209,7 +10220,7 @@ msgstr "  erstellt ein Fahrzeug."
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEVehicleFrame.cpp:98
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEVehicleFrame.cpp:103
 msgid "- Select two edges to\n"
-msgstr ""
+msgstr "- Wähle zwei Kanten aus\n"
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEVehicleFrame.cpp:77
 msgid "  create a Trip."
@@ -10227,7 +10238,7 @@ msgstr "  eingelagerter Route."
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEVehicleFrame.cpp:87
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEVehicleFrame.cpp:109
 msgid "- Select two junctions\n"
-msgstr ""
+msgstr "- Wähle zwei Knotenpunkte aus\n"
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEVehicleFrame.cpp:88
 msgid "  to create a Trip."
@@ -10424,11 +10435,12 @@ msgstr "Auswahl zurücksetzen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:170
 msgid "Recomputes connections at all selected junctions"
-msgstr ""
+msgstr "Berechnet Verbindungen an allen ausgewählten Knoten neu"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:262
 msgid "clear connections from selected lanes, edges and junctions"
 msgstr ""
+"Verbindungen von ausgewählten Fahrspuren, Kanten und Knotenpunkten entfernen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:289
 msgid "reset connections from selected lanes"
@@ -10441,24 +10453,28 @@ msgid "Selection"
 msgstr "Auswahl"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:313
+#, fuzzy
 msgid "-Hold <SHIFT> while"
-msgstr ""
+msgstr "-Hold <SHIFT> while"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:314
 msgid " clicking to create"
-msgstr ""
+msgstr " klicken zum Erstellen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:315
+#, fuzzy
 msgid " unyielding connections"
-msgstr ""
+msgstr " Verbindungen ohne Vorfahrtsrechten"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:316
+#, fuzzy
 msgid " (pass=true)."
-msgstr ""
+msgstr " (pass=true)."
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:321
+#, fuzzy
 msgid "-Hold <CTRL> while"
-msgstr ""
+msgstr "-Hold <CTRL> while"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:322
 msgid " clicking to create "
@@ -10470,15 +10486,15 @@ msgstr " widersprüchliche Verbindungen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:324
 msgid " (i.e. at zipper nodes"
-msgstr ""
+msgstr " (d. h. an Reißverschlussknoten"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:325
 msgid " or with incompatible"
-msgstr ""
+msgstr " oder mit inkompatibel"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:326
 msgid " permissions"
-msgstr ""
+msgstr " Berechtigungen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:342
 msgid "Possible Target"
@@ -10493,8 +10509,9 @@ msgid "Target lane"
 msgstr "Zielfahrstreifen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:355
+#, fuzzy
 msgid "Target (pass)"
-msgstr ""
+msgstr "Ziel (pass)"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:359
 msgid "Conflict"
@@ -10633,7 +10650,7 @@ msgstr "  Teilt Kanten in beiden Richtungen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:628
 msgid "- Alt+Shift+Click:"
-msgstr ""
+msgstr "- Alt+Shift+Click:"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:629
 #, fuzzy
@@ -10664,16 +10681,17 @@ msgid "create new edge"
 msgstr "Neue Kante erstellen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:740
+#, fuzzy
 msgid "edge created without an open CommandGroup"
-msgstr ""
+msgstr "Kante ohne geöffnete CommandGroup erstellt"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:751
 msgid "An edge with the same geometry already exists!"
-msgstr ""
+msgstr "Eine Kante mit der gleichen Geometrie existiert bereits!"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:754
 msgid "Start- and endpoint for an edge must be distinct!"
-msgstr ""
+msgstr "Start- und Endpunkt einer Kante müssen verschieden sein!"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECrossingFrame.cpp:97
 msgid "selection of edges"
@@ -11057,7 +11075,7 @@ msgstr "Entfernen "
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:601
 msgid " edges from to selection"
-msgstr ""
+msgstr " Kanten von bis Auswahl"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:603
 msgid "Add "
@@ -11112,12 +11130,14 @@ msgstr " Verkehrsumlegungszonen?"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:855
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:868
+#, fuzzy
 msgid "Set zero fringe probabilities"
-msgstr ""
+msgstr "Nullrandwahrscheinlichkeiten festlegen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:857
+#, fuzzy
 msgid "set zero fringe probabilities"
-msgstr ""
+msgstr "Nullrandwahrscheinlichkeiten festlegen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:868
 msgid "No source/sinks to update."
@@ -11453,8 +11473,9 @@ msgid "duplicate program '%' of traffic light '%'"
 msgstr "doppeltes Programm '%' für die LSA '%'"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1829
+#, fuzzy
 msgid "myProgramComboBox must have the same number of TLSDefinitions"
-msgstr ""
+msgstr "myProgramComboBox muss die gleiche Anzahl von TLSDefinitions haben"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1856
 #, fuzzy
@@ -11499,7 +11520,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1891
 msgid "Group Sig."
-msgstr ""
+msgstr "Gruppenzeichen."
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1892
 msgid ""
@@ -11520,7 +11541,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1897
 msgid "Ungroup Sig."
-msgstr ""
+msgstr "Umgruppiertes Zeichen."
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1898
 msgid "Let every connection use a distinct index (reverse state grouping)"
@@ -11720,12 +11741,14 @@ msgid "Error during encoding!"
 msgstr "Fehler beim Encodieren!"
 
 #: /home/micha/programming/sumo/src/utils/gui/globjects/GUIGLObjectPopupMenu.cpp:98
+#, fuzzy
 msgid "MenuPaneChild cannot be NULL"
-msgstr ""
+msgstr "MenuPaneChild  kann nicht null sein"
 
 #: /home/micha/programming/sumo/src/utils/gui/globjects/GUIGLObjectPopupMenu.cpp:103
+#, fuzzy
 msgid "MenuPaneChild already inserted"
-msgstr ""
+msgstr "MenuPaneChild  ist bereits eingefügt"
 
 #: /home/micha/programming/sumo/src/utils/gui/globjects/GUIGLObjectPopupMenu.cpp:137
 #: /home/micha/programming/sumo/src/utils/gui/globjects/GUIGLObjectPopupMenu.cpp:148
@@ -11821,8 +11844,9 @@ msgid "Select/deselect current object"
 msgstr "Aktuelles Objekt auswählen/abwählen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:94
+#, fuzzy
 msgid "&Filter substring"
-msgstr ""
+msgstr "&Filter Substring"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:95
 #, fuzzy
@@ -11902,11 +11926,11 @@ msgstr "Ansichtssettings importieren"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1126
 msgid "Load Decals"
-msgstr ""
+msgstr "Bilder laden"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1143
 msgid "Save Decals"
-msgstr ""
+msgstr "Bilder speichern"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1258
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1323
@@ -11982,7 +12006,7 @@ msgstr "Minimale Größe"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1756
 msgid "Exaggerate by"
-msgstr ""
+msgstr "Überzogen um"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1802
 msgid "Save the setting to registry"
@@ -12014,7 +12038,7 @@ msgstr "Verzögerung"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1811
 msgid "Decals"
-msgstr ""
+msgstr "Bilder"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1812
 msgid "Breakpoints"
@@ -12022,19 +12046,19 @@ msgstr "Unterbrechungspunkte"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1831
 msgid "Decals:"
-msgstr ""
+msgstr "Bilder:"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1834
 msgid "&Load Decals"
-msgstr ""
+msgstr "&Lade Bilder"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1835
 msgid "&Save Decals"
-msgstr ""
+msgstr "&Speicher Bilder"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1836
 msgid "&Clear Decals"
-msgstr ""
+msgstr "&Entferne Bilder"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1841
 msgid "Toggle grid"
@@ -12125,8 +12149,9 @@ msgid "Show rails"
 msgstr "Schienen anzeigen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1939
+#, fuzzy
 msgid "Spread bidirectional railways/roads"
-msgstr ""
+msgstr "Zweirichtungs Schienenwege teilen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1939
 #, fuzzy
@@ -12141,7 +12166,7 @@ msgstr "Zweite Shape"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1947
 msgid "Exaggerate width by"
-msgstr ""
+msgstr "Breite überzogen um"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1953
 msgid "Minimum size"
@@ -12392,43 +12417,44 @@ msgstr "Verschiedenes"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2366
 msgid "hide below threshold"
-msgstr ""
+msgstr "unter der Schwelle verbergen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2373
 msgid "Exaggerate edgeRelation width by"
-msgstr ""
+msgstr "Kantenbeziehungsbreit überziehen um"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2378
 msgid "Exaggerate tazRelation width by"
-msgstr ""
+msgstr "Verkehrsumlegungszonenbeziehungsbreite überziehen um"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2384
 msgid "Show data color value"
-msgstr ""
+msgstr "Datenfarbenwert anzeigen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2390
 msgid "Legend"
-msgstr ""
+msgstr "Legende"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2395
 msgid "Show Size Legend"
-msgstr ""
+msgstr "Legendengröße anzeigen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2398
 msgid "Show Edge Color Legend"
-msgstr ""
+msgstr "Kantenfarbenlegende anzeigen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2401
 msgid "Show Vehicle Color Legend"
-msgstr ""
+msgstr "Fahrzeugfarbenlegende anzeigen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2414
+#, fuzzy
 msgid "Dither"
-msgstr ""
+msgstr "Schwankung"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2420
 msgid "Draw boundaries"
-msgstr ""
+msgstr "Grenzen zeichnen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2423
 msgid "Force draw for position selection"
@@ -12440,23 +12466,23 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2429
 msgid "Disable dotted contours during selection/deletion"
-msgstr ""
+msgstr "Gepunktete Konturen beim Auswählen/Löschen deaktivieren"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2432
 msgid "Recalculate boundaries"
-msgstr ""
+msgstr "Grenzen neu berechnen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2435
 msgid "Show geometry point indices"
-msgstr ""
+msgstr "Geometriepunktindizes anzeigen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2441
 msgid "3D view"
-msgstr ""
+msgstr "3D Ansicht"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2446
 msgid "Show TLS link markers"
-msgstr ""
+msgstr "LSA Linkmarker anzeigen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2449
 msgid "Show domes around TLS models from decals"
@@ -12464,136 +12490,145 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2452
 msgid "Show auto-generated TLS models"
-msgstr ""
+msgstr "Automatisch generiere LSA-Modelle anzeigen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2454
 msgid "Show head-up display"
-msgstr ""
+msgstr "Warndisplay anzeigen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2460
 msgid "Sun brightness"
-msgstr ""
+msgstr "Helligkeit der Sonne"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2472
 msgid "Sky color"
-msgstr ""
+msgstr "Himmelsfarbe"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:80
 msgid "MainWindow initialized twice"
-msgstr ""
+msgstr "Hauptfenster zweimal initialisiert"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:272
 msgid "A GUIMainWindow instance was not yet constructed."
-msgstr ""
+msgstr "Eine GUIMainWindow-Instanz wurde noch nicht erstellt."
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:294
+#, fuzzy
 msgid "option window-size requires INT,INT"
-msgstr ""
+msgstr "Option Fenstergröße erfordert INT,INT"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:311
+#, fuzzy
 msgid "option window-pos requires INT,INT"
-msgstr ""
+msgstr "Option Fensterposition erfordert INT,INT"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:340
+#, fuzzy
 msgid "Langua&ge"
-msgstr ""
+msgstr "Sprach&e"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:342
 msgid "Change language to english. (en)"
-msgstr ""
+msgstr "Sprache zu Englisch wechseln. (en)"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:344
 msgid "Change language to german. (de)"
-msgstr ""
+msgstr "Sprache zu Deutsch ändern. (de)"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:346
 msgid "Change language to spanish. (es)"
-msgstr ""
+msgstr "Sprache zu Spanisch ändern. (es)"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:348
 msgid "Change language to french. (fr)"
-msgstr ""
+msgstr "Sprache zu Französisch ändern. (fr)"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:350
 msgid "简体中文 (zh)"
-msgstr ""
+msgstr "简体中文 (zh)"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:352
 msgid "繁體中文 (zh-Hant)"
-msgstr ""
+msgstr "繁體中文 (zh-Hant)"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:354
 msgid "Change language to turkish. (tr)"
-msgstr ""
+msgstr "Sprache zu Türkisch ändern. (tr)"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:356
 msgid "Change language to hungarian. (hu)"
-msgstr ""
+msgstr "Sprache in Ungarisch ändern. (hu)"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:370
 msgid "german"
-msgstr ""
+msgstr "Deutsch"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:374
 msgid "spanish"
-msgstr ""
+msgstr "Spanisch"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:378
 msgid "french"
-msgstr ""
+msgstr "Französisch"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:382
 msgid "chinese"
-msgstr ""
+msgstr "Chinesisch"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:386
 msgid "chinese simplified"
-msgstr ""
+msgstr "Chinesisch vereinfacht"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:390
 msgid "turkish"
-msgstr ""
+msgstr "Türkisch"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:394
 msgid "hungarian"
-msgstr ""
+msgstr "Ungarisch"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:398
 msgid "english"
-msgstr ""
+msgstr "Englisch"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:406
 msgid "Language changed to "
-msgstr ""
+msgstr "Sprache wechseln in "
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:408
 msgid "Restart needed"
-msgstr ""
+msgstr "Neustart erforderlich"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:409
 msgid "Changing display language needs restart to take effect."
 msgstr ""
+"Die Änderung der Anzeigesprache muss neu gestartet werden, damit sie wirksam "
+"wird."
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:412
+#, fuzzy
 msgid ""
 "For the Debug build you might also need to set the LANG environment variable."
 msgstr ""
+"Für den Debug-Build muss möglicherweise auch die Umgebungsvariable LANG "
+"festgelegt werden."
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:415
+#, fuzzy
 msgid "Under development. You can help to improve the translation at:"
-msgstr ""
+msgstr "In Entwicklung. Sie können helfen, die Übersetzung zu verbessern unter:"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUISUMOAbstractView.cpp:258
 msgid " (No projection defined)"
-msgstr ""
+msgstr " (Keine Projektion definiert)"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUISUMOAbstractView.cpp:1711
 msgid "Could not convert coordinates in %."
-msgstr ""
+msgstr "Konnte Koordinaten nicht in % konvertieren."
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUISUMOAbstractView.cpp:1726
 msgid "Could not allocate memory for %."
-msgstr ""
+msgstr "Konnte Datenspeicher für % nicht zuweisen."
 
 #~ msgid "RecomputeData"
 #~ msgstr "Berechne Daten neu"
