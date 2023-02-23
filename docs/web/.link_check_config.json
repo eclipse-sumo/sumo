@@ -10,6 +10,9 @@
       "pattern": "{{Version}}"
     },
     {
+      "pattern": "https://wiki.openstreetmap.org/wiki/"
+    },
+    {
       "pattern": "https://build.opensuse.org/project/show/science:dlr"
     },
     {
