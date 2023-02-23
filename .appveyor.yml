@@ -32,7 +32,8 @@ environment:
           ver: 2022
           generator: "Visual Studio 17 2022"
           configuration: Release
-          cmake_opts: "-DENABLE_JAVA_BINDINGS=0 -DCHECK_OPTIONAL_LIBS=0 -DNETEDIT=0 -A x64"
+#          cmake_opts: "-DENABLE_JAVA_BINDINGS=0 -DCHECK_OPTIONAL_LIBS=0 -DNETEDIT=0 -A x64"
+          cmake_opts: "-DENABLE_JAVA_BINDINGS=0 -DCHECK_OPTIONAL_LIBS=0 -A x64"
           PYTHON: C:\Python38-x64
         # - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2022
         #   ver: 2022
