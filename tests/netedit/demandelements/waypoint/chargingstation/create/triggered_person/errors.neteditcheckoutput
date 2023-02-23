@@ -1,18 +1,3 @@
-Warning: Vehicle 'flow.0' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=-7.65, offset=0.09), time=9.00.
-Warning: Vehicle 'flow.1' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=-8.77, offset=7.42), time=15.00.
-Warning: Vehicle 'flow.2' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=-7.53, offset=4.98), time=19.00.
-Warning: Vehicle 'flow.3' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=-9.31, offset=8.68), time=22.00.
-Warning: Vehicle 'flow.4' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=-9.30, offset=9.53), time=25.00.
-Warning: Vehicle 'flow.5' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=-7.84, offset=5.81), time=30.00.
-Warning: Vehicle 'flow.6' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=-8.55, offset=7.09), time=33.00.
-Warning: Vehicle 'flow.7' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=-7.87, offset=3.84), time=37.00.
-Warning: Vehicle 'flow.8' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=-8.28, offset=4.70), time=41.00.
-Warning: Vehicle 'flow.9' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=-8.15, offset=3.09), time=45.00.
-Warning: Vehicle 'flow.10' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=-7.74, offset=5.93), time=49.00.
-Warning: Vehicle 'flow.11' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=-7.79, offset=6.37), time=53.00.
-Warning: Vehicle 'flow.12' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=-10.03, offset=12.17), time=56.00.
-Warning: Vehicle 'flow.13' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=-8.77, offset=7.80), time=59.00.
-Warning: Vehicle 'flow.14' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=-8.71, offset=8.05), time=63.00.
-Warning: Vehicle 'flow.15' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=-9.23, offset=10.73), time=67.00.
-Warning: Vehicle 'flow.16' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=-8.15, offset=7.09), time=71.00.
-Warning: Vehicle 'flow.17' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=-9.24, offset=10.42), time=75.00.
+Error: Triggers and waypoints cannot be combined at 'chargingStationB' in vehicle 'flow'.
+Error: Triggers and waypoints cannot be combined at 'chargingStationB' in vehicle 'flow'.
+Error: Triggers and waypoints cannot be combined at 'chargingStationB' in vehicle 'flow'.

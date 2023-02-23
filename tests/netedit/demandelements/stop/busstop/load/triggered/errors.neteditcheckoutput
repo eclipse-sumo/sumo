@@ -1,8 +1,4 @@
 Error: Attribute 'triggered' in definition of a stop is empty.
-Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'busStop' in route 'route_0'.
 Error: Attribute 'triggered' in definition of a stop is empty.
-Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'busStop' in route 'route_2'.
 Error: Attribute 'triggered' in definition of a stop is empty.
-Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'busStop' in route 'route_3'.
 Error: Attribute 'triggered' in definition of a stop is empty.
-Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'busStop' in route 'route_4'.

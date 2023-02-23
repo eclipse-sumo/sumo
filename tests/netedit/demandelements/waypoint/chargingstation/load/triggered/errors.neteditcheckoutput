@@ -6,3 +6,4 @@ Error: Attribute 'triggered' in definition of a stop is empty.
 Error: Invalid duration or end time is given for a stop at 'chargingStation' in vehicle 'flow_3'.
 Error: Attribute 'triggered' in definition of a stop is empty.
 Error: Invalid duration or end time is given for a stop at 'chargingStation' in vehicle 'flow_4'.
+Error: Triggers and waypoints cannot be combined at 'chargingStation' in vehicle 'flow_5'.

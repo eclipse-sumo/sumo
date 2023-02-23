@@ -6,3 +6,4 @@ Error: Attribute 'triggered' in definition of a stop is empty.
 Error: Invalid duration or end time is given for a stop at 'containerStop' in vehicle 'trip_3'.
 Error: Attribute 'triggered' in definition of a stop is empty.
 Error: Invalid duration or end time is given for a stop at 'containerStop' in vehicle 'trip_4'.
+Error: Triggers and waypoints cannot be combined at 'containerStop' in vehicle 'trip_5'.

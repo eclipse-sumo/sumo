@@ -1,17 +1,3 @@
 Error: Attribute 'triggered' in definition of a stop is empty.
-Error: Invalid duration or end time is given for a stop on lane '' in vehicle 'routeFlow_3'.
-Warning: Vehicle 'routeFlow_5.0' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
-Warning: Vehicle 'routeFlow_5.1' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
-Warning: Vehicle 'routeFlow_5.1' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=-8.02, offset=4.82), time=231.00.
-Warning: Vehicle 'routeFlow_5.2' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
-Warning: Vehicle 'routeFlow_5.2' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=-7.87, offset=0.39), time=429.00.
-Warning: Vehicle 'routeFlow_5.3' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
-Warning: Vehicle 'routeFlow_5.3' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=-7.25, offset=0.05), time=629.00.
-Warning: Vehicle 'routeFlow_5.4' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
-Warning: Vehicle 'routeFlow_5.4' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=-8.98, offset=5.29), time=831.00.
-Warning: Vehicle 'routeFlow_5.5' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
-Warning: Vehicle 'routeFlow_5.5' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=-9.03, offset=6.70), time=1028.00.
-Warning: Vehicle 'routeFlow_5.6' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
-Warning: Vehicle 'routeFlow_5.6' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=-8.54, offset=5.95), time=1229.00.
-Warning: Vehicle 'routeFlow_5.7' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
-Warning: Vehicle 'routeFlow_5.7' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=-8.36, offset=4.16), time=1429.00.
+Error: Invalid duration or end time is given for a stop on lane 'gneE1_0' in vehicle 'routeFlow_3'.
+Error: Triggers and waypoints cannot be combined on lane 'gneE1_0' in vehicle 'routeFlow_5'.

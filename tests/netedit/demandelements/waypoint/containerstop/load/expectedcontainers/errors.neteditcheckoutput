@@ -1,4 +1,4 @@
-Warning: Vehicle 'trip_0' ignores container triggered stop on lane 'gneE0_0' due to capacity constraints.
-Warning: Vehicle 'trip_1' ignores container triggered stop on lane 'gneE0_0' due to capacity constraints.
-Warning: Vehicle 'trip_2' ignores container triggered stop on lane 'gneE0_0' due to capacity constraints.
-Warning: Vehicle 'trip_3' ignores container triggered stop on lane 'gneE0_0' due to capacity constraints.
+Error: Triggers and waypoints cannot be combined at 'containerStop' in vehicle 'trip_0'.
+Error: Triggers and waypoints cannot be combined at 'containerStop' in vehicle 'trip_1'.
+Error: Triggers and waypoints cannot be combined at 'containerStop' in vehicle 'trip_2'.
+Error: Triggers and waypoints cannot be combined at 'containerStop' in vehicle 'trip_3'.

@@ -1,1 +1,2 @@
-Warning: Vehicle 'trip' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=-10.10, offset=11.18), time=95.00.
+Error: Triggers and waypoints cannot be combined at 'containerStopA' in vehicle 'trip'.
+Error: Triggers and waypoints cannot be combined at 'containerStopB' in vehicle 'trip'.
