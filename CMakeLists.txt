@@ -252,7 +252,7 @@ if (SUMO_LIBRARIES AND WIN32)
     file(GLOB ZLIB_PATH "${SUMO_LIBRARIES}/3rdPartyLibs/zlib-?.?.??")
     file(GLOB PROJ_PATH "${SUMO_LIBRARIES}/proj-?.?.?")
     file(GLOB FOX_PATH "${SUMO_LIBRARIES}/fox-?.?.??")
-    file(GLOB FREETYPE_PATH "${SUMO_LIBRARIES}/freetype-2.??.?")
+    file(GLOB FREETYPE_PATH "${SUMO_LIBRARIES}/3rdPartyLibs/freetype-2.??.?")
     file(GLOB EIGEN3_PATH "${SUMO_LIBRARIES}/eigen-3.?.?")
     file(GLOB GETTEXT_PATH "${SUMO_LIBRARIES}/gettext-?.??")
     # set all paths in prefix
@@ -262,7 +262,7 @@ if (SUMO_LIBRARIES AND WIN32)
                                  "${PROJ_PATH}/bin/*.dll"
                                  "${FOX_PATH}/bin/*.dll"
                                  "${ZLIB_PATH}/bin/*.dll"
-#                                 "${FREETYPE_PATH}/bin/*.dll"
+                                 "${FREETYPE_PATH}/bin/*.dll"
                                  "${GETTEXT_PATH}/bin/*.dll"
                                  "${SUMO_LIBRARIES}/3rdPartyLibs/bzip2-*/bin/*.dll"
                                  "${SUMO_LIBRARIES}/3rdPartyLibs/curl-*/bin/*.dll"
