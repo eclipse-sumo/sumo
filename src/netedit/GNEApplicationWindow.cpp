@@ -351,6 +351,9 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     // toolbar tools
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARTOOLS_NETDIFF,   GNEApplicationWindow::onCmdToolNetDiff),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARTOOLS_NETDIFF,   GNEApplicationWindow::onUpdToolNetDiff),
+    // report tools
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_REPORTS_NETDIFF, GNEApplicationWindow::onCmdReportsApp),
+    //FXMAPFUNC(SEL_UPDATE, MID_GNE_TOOLBARTOOLS_NETDIFF, GNEApplicationWindow::onUpdToolNetDiff),
     // toolbar windows
     FXMAPFUNC(SEL_COMMAND,  MID_CLEARMESSAGEWINDOW,     GNEApplicationWindow::onCmdClearMsgWindow),
     // toolbar help
@@ -440,6 +443,7 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPa
     myProcessingMenuCommands(this),
     myLocateMenuCommands(this),
     myToolsMenuCommands(this),
+    myReportsMenuCommands(this),
     myWindowsMenuCommands(this),
     myHelpMenuCommands(this),
     mySupermodeCommands(this),
@@ -602,6 +606,7 @@ GNEApplicationWindow::~GNEApplicationWindow() {
     delete myProcessingMenu;
     delete myLocatorMenu;
     delete myToolsMenu;
+    delete myReportsMenu;
     delete myWindowMenu;
     delete myHelpMenu;
     delete myLanguageMenu;
@@ -1113,6 +1118,35 @@ GNEApplicationWindow::onCmdClose(FXObject*, FXSelector, void*) {
 
 
 long
+GNEApplicationWindow::onCmdReportsApp(FXObject* sender, FXSelector sel, void* e) {
+    onCmdSaveSUMOConfig(sender,sel,e);
+    auto& neteditOptions = OptionsCont::getOptions();
+    std::string configPath = neteditOptions.getString("sumocfg-file");
+
+    std::string sumoReport = "Sumo_ReportPython.exe";
+    const char* sumoPath = getenv("SUMO_HOME");
+
+    if (sumoPath != nullptr) {
+
+        std::string newPath = std::string(sumoPath) + "\\bin\\Sumo_ReportPython";
+
+        if (FileHelpers::isReadable(newPath) || FileHelpers::isReadable(newPath + ".exe")) {
+            sumoReport = newPath + ".exe";
+        }
+    }
+    std::string cmd = sumoReport;
+    // start in background
+
+    cmd = cmd + " -c " + configPath ;
+
+    WRITE_MESSAGE(TL("Running ") + cmd);
+    // yay! fun with dangerous commands... Never use this over the internet
+    SysUtils::runHiddenCommand(cmd);
+    
+    return 1; 
+}
+
+long
 GNEApplicationWindow::onCmdLocate(FXObject*, FXSelector sel, void*) {
     if (myMDIClient->numChildren() > 0) {
         GNEViewParent* w = dynamic_cast<GNEViewParent*>(myMDIClient->getActiveChild());
@@ -1449,6 +1483,10 @@ GNEApplicationWindow::fillMenuBar() {
     myToolsMenu = new FXMenuPane(this);
     GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, TL("&Tools"), nullptr, myToolsMenu);
     myToolsMenuCommands.buildToolsMenuCommands(myToolsMenu);
+    // build sim reports menu
+    myReportsMenu = new FXMenuPane(this);
+    GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, TL("&Reports"), nullptr, myReportsMenu);
+    myReportsMenuCommands.buildReportsMenuCommands(myReportsMenu);
     // build windows menu
     myWindowMenu = new FXMenuPane(this);
     GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, TL("&Window"), nullptr, myWindowMenu);
@@ -4658,6 +4696,7 @@ GNEApplicationWindow::GNEApplicationWindow() :
     myProcessingMenuCommands(this),
     myLocateMenuCommands(this),
     myToolsMenuCommands(this),
+    myReportsMenuCommands(this),
     myWindowsMenuCommands(this),
     myHelpMenuCommands(this),
     mySupermodeCommands(this) {

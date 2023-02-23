@@ -178,6 +178,9 @@ public:
 
     /// @brief called when the command/FXCall run NetDiff is updated
     long onUpdToolNetDiff(FXObject*, FXSelector, void*);
+   
+    /// @brief called when the command/FXCall run Reports is executed
+    long onCmdReportsApp(FXObject*, FXSelector, void*);
 
     /// @brief called when the command/FXCall save network is executed
     long onCmdSaveNetwork(FXObject*, FXSelector, void*);
@@ -591,6 +594,7 @@ protected:
         *myProcessingMenu = nullptr,
         *myLocatorMenu = nullptr,
         *myToolsMenu = nullptr,
+        *myReportsMenu = nullptr,
         *myWindowMenu = nullptr,
         *myHelpMenu = nullptr;
 
@@ -667,6 +671,9 @@ private:
 
     /// @brief Tools Menu Commands
     GNEApplicationWindowHelper::ToolsMenuCommands myToolsMenuCommands;
+    
+    /// @brief Tools Menu Commands
+    GNEApplicationWindowHelper::ReportsMenuCommands myReportsMenuCommands;
 
     /// @brief Windows Menu Commands
     GNEApplicationWindowHelper::WindowsMenuCommands myWindowsMenuCommands;

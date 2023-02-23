@@ -1133,9 +1133,7 @@ GUIApplicationWindow::onCmdOpenShapes(FXObject*, FXSelector, void*) {
 
 long
 GUIApplicationWindow::onCmdOpen3d(FXObject* d, FXSelector, void*) {
-    FXRegistry reg("SUMO GUI", "sumo-gui");
-    reg.read();
-    std::string currentConfig =  myRecentConfigs.getFile(1).text(); //reg.readStringEntry("configs", "FILE1");
+    std::string currentConfig =  myRecentConfigs.getFile(1).text(); 
     std::string sumoUnity = "Sumo-UnityPython.exe";
     const char* sumoPath = getenv("SUMO_HOME");
     

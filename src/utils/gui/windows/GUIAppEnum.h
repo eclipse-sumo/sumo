@@ -1482,6 +1482,8 @@ enum {
 
     MID_APP3D,
 
+    MID_GNE_REPORTS_NETDIFF,
+
     /// @brief last element of enum (not used)
     MID_LAST
 };
