@@ -196,10 +196,6 @@ def computeTrackOrdering(options, mainLine, edges, nodeCoords, edgeShapes):
         for edge in edges:
             if edge.getFromNode() == node or edge.getToNode() == node:
                 continue
-            if (abs(x - nodeCoords[edge.getFromNode().getID()][0]) < options.trackOffset or
-                abs(x - nodeCoords[edge.getToNode().getID()][0]) < options.trackOffset):
-                # avoid inner points with close spacing
-                continue
             shape = edgeShapes[edge.getID()]
             intersects = gh.intersectsAtLengths2D(vertical, shape)
             intersects = [i - INTERSECT_RANGE for i in intersects]
@@ -287,7 +283,7 @@ def optimizeTrackOrder(options, edges, nodes, virtualNodes, orderings, nodeCoord
             ySimilarConstraints += constraints
             numPrios = len(constraints)
         yPrios += [2 if straight else 1] * numPrios
-        print("edge=%s straight=%s vNodes=%s" % (edge.getID(), straight, [getVNodeID(vn) for vn in vNodes]))
+        #print("edge=%s straight=%s vNodes=%s" % (edge.getID(), straight, [getVNodeID(vn) for vn in vNodes]))
 
     k = len(generalizedNodes)
     m = len(ySimilarConstraints)
@@ -381,15 +377,17 @@ def patchShapes(options, edges, nodeCoords, edgeShapes, nodeYValues):
         edgeID = edge.getID()
         fromCoord = nodeCoords[edge.getFromNode().getID()]
         toCoord = nodeCoords[edge.getToNode().getID()]
+        shape = [fromCoord, toCoord]
         if edgeID in edgeYValues:
-            shape = edgeYValues[edgeID]
-            shape += [fromCoord, toCoord]
+            for coord in edgeYValues[edgeID]:
+                if (abs(coord[0] - fromCoord[0]) < options.trackOffset or
+                    abs(coord[0] - toCoord[0]) < options.trackOffset):
+                    continue
+                shape.append(coord)
             shape.sort()
             if fromCoord[0] > toCoord[0]:
                 shape = list(reversed(shape))
-            edgeShapes[edgeID] = shape
-        else:
-            edgeShapes[edgeID] = [fromCoord, toCoord]
+        edgeShapes[edgeID] = shape
 
 
 def shapeStr(shape):
