@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-21 18:42+0100\n"
-"PO-Revision-Date: 2023-02-23 16:40+0000\n"
+"PO-Revision-Date: 2023-02-23 20:19+0000\n"
 "Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -7869,7 +7869,7 @@ msgstr "' in netedit; Fahrstreifen sind nicht aufeinanderfolgend."
 
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:592
 msgid "add entry-exit detector '"
-msgstr ""
+msgstr "Eingangs-Ausgangs-Detektor hinzufügen '"
 
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:627
 #, fuzzy
@@ -7878,7 +7878,7 @@ msgstr "Eintrittsdetektor in ' hinzufügen"
 
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:662
 msgid "add exit detector in '"
-msgstr ""
+msgstr "Ausgangsdetektor hinzufügen in '"
 
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:699
 #, fuzzy
@@ -8478,7 +8478,6 @@ msgid "Invalid Stop parent"
 msgstr "Ungültiger Eltern-Halt"
 
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNEStop.cpp:458
-#, fuzzy
 msgid "Invalid parent"
 msgstr "Ungültiger Elternteil"
 
@@ -8492,7 +8491,6 @@ msgid "This walk use junctions"
 msgstr "Dieser Fußweg benutzt Knotenpunkte"
 
 #: /home/micha/programming/sumo/src/netedit/elements/network/GNEConnection.cpp:679
-#, fuzzy
 msgid "Could not set attribute '%' (tls is broken)"
 msgstr "Konnte Attribute '%' nicht anwenden (LSA ist gebrochen)"
 
@@ -8895,7 +8893,6 @@ msgid "Definition"
 msgstr "Definition"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrame.cpp:236
-#, fuzzy
 msgid "Opening HelpAttributes dialog for tag '"
 msgstr "Öffne  HelpAttributes -Dialog für Tag '"
 
@@ -9403,7 +9400,6 @@ msgid "Protect data elements"
 msgstr "Datenelemente sichern"
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEElementSet.cpp:48
-#, fuzzy
 msgid "Element Set"
 msgstr "Elementsatz"
 
@@ -9996,8 +9992,11 @@ msgid "Create TAZRelation"
 msgstr "Verkehrsumlegungszonen-Beziehung erstellen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/data/GNETAZRelDataFrame.cpp:56
+#, fuzzy
 msgid "Click fromTaz and toTaz (confirm hotkey <ENTER>)"
 msgstr ""
+"Klicken Ausgangsverkehrsumlegungszone und Endverkehrsumlegungszone (Hotkey "
+"bestätigen <ENTER>)"
 
 #: /home/micha/programming/sumo/src/netedit/frames/data/GNETAZRelDataFrame.cpp:58
 msgid "Clear selection"
@@ -10052,8 +10051,11 @@ msgstr ""
 "ausgerichtet"
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEContainerFrame.cpp:244
+#, fuzzy
 msgid "VType with vClass != 'ignoring' is not oriented to containers"
 msgstr ""
+"Fahrzeugtyp mit der Fahrzeugklasse != 'ignoring' ist nicht auf Container "
+"ausgerichtet"
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEContainerFrame.cpp:267
 msgid "Invalid container parameters."
@@ -10075,8 +10077,11 @@ msgstr "Aktuell ausgewählter Personenplan ist ungültig."
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEPersonFrame.cpp:250
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEVehicleFrame.cpp:287
+#, fuzzy
 msgid "VType with vClass == 'ignoring' is oriented to containers"
 msgstr ""
+"Fahrzeugtyp mit der Fahrzeugklasse == 'ignoring' orientiert sich an "
+"Containern"
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEPersonFrame.cpp:252
 msgid "VType with vClass != 'pedestrian' is not oriented to persons"
@@ -10138,8 +10143,9 @@ msgid "  a stop."
 msgstr "  ein Halt."
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEStopFrame.cpp:105
+#, fuzzy
 msgid "- No stop parents in current\n"
-msgstr ""
+msgstr "- Kein Haltepunkt erzogen im Lauf\n"
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEStopFrame.cpp:106
 msgid "  network."
@@ -10158,20 +10164,21 @@ msgid "Selected Stop parent isn't valid."
 msgstr "Ausgewähltes übergeordnetes Haltepunkt-Element ist ungültig."
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEStopFrame.cpp:206
+#, fuzzy
 msgid "Current selected Stop parent isn't valid."
-msgstr ""
+msgstr "Aktuell ausgewählter übergeordneter Haltepunkt ist ungültig."
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEStopFrame.cpp:237
 msgid "Current selected Stop type isn't valid."
-msgstr ""
+msgstr "Aktuell ausgewählter Haltepunkttyp ist ungültig."
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEStopFrame.cpp:336
 msgid "Stop must be placed over a route's edge"
-msgstr ""
+msgstr "Haltepunkt muss über einer Routenkante platziert sein"
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEStopFrame.cpp:349
 msgid "Stop must be placed over an embedded route's edge"
-msgstr ""
+msgstr "Haltepunkt muss über einer eingelagerten Routenkante platziert sein"
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNETypeFrame.cpp:68
 msgid "Current Type"
@@ -10209,7 +10216,7 @@ msgstr "Fahrzeugtyp-Verteilung anzeigen"
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEVehicleFrame.cpp:71
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEVehicleFrame.cpp:93
 msgid "- Click over a route to\n"
-msgstr ""
+msgstr "- Über eine Route klicken zum\n"
 
 #: /home/micha/programming/sumo/src/netedit/frames/demand/GNEVehicleFrame.cpp:72
 msgid "  create a vehicle."
@@ -10807,11 +10814,12 @@ msgstr "Kein Konflikt mit der ausgewählten Verbindung"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEProhibitionFrame.cpp:107
 msgid "Yields"
-msgstr ""
+msgstr "Vorfahrt geben / lassen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEProhibitionFrame.cpp:108
+#, fuzzy
 msgid "Connection yields the selected connection"
-msgstr ""
+msgstr "Verbindung ergibt die ausgewählte Verbindung"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEProhibitionFrame.cpp:113
 #, fuzzy
@@ -11029,8 +11037,9 @@ msgid "New sink"
 msgstr "Neues Ziel"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:507
+#, fuzzy
 msgid "Set zero fringe prob."
-msgstr ""
+msgstr "Nullrand-Wahrscheinlichkeit setzen."
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:511
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:646
@@ -11620,8 +11629,9 @@ msgstr ""
 "Infrastruktur."
 
 #: /home/micha/programming/sumo/src/utils/gui/cursors/GUICursorSubSys.cpp:82
+#, fuzzy
 msgid "GUICursorSubSys already init"
-msgstr ""
+msgstr "GUICursorSubSys bereits initialisiert"
 
 #: /home/micha/programming/sumo/src/utils/gui/div/GLHelper.cpp:184
 msgid ""
@@ -11879,8 +11889,9 @@ msgid "case-sensitive search"
 msgstr "Suchen nach Groß- und Kleinschreibung"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:103
+#, fuzzy
 msgid "auto-center"
-msgstr ""
+msgstr "Automatisches Zentrum"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_EditViewport.cpp:65
 #, fuzzy
@@ -12485,8 +12496,9 @@ msgid "Show TLS link markers"
 msgstr "LSA Linkmarker anzeigen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2449
+#, fuzzy
 msgid "Show domes around TLS models from decals"
-msgstr ""
+msgstr "Wölbungen um LSA-Modelle von den Bildern anzeigen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2452
 msgid "Show auto-generated TLS models"
