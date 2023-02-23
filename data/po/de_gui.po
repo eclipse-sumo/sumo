@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-21 18:42+0100\n"
-"PO-Revision-Date: 2023-02-23 12:52+0000\n"
+"PO-Revision-Date: 2023-02-23 12:58+0000\n"
 "Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -10733,59 +10733,59 @@ msgstr "- Auf Kandidaten klicken"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECrossingFrame.cpp:543
 msgid " edges for selecting."
-msgstr ""
+msgstr " Kanten zum Auswählen."
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECrossingFrame.cpp:547
 msgid " Candidate"
-msgstr ""
+msgstr " Kandidat"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECrossingFrame.cpp:551
 msgid " Selected"
-msgstr ""
+msgstr " Ausgewählt"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECrossingFrame.cpp:554
 msgid " Invalid"
-msgstr ""
+msgstr " Ungültig"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECrossingFrame.cpp:567
 msgid "Crossings"
-msgstr ""
+msgstr "Fußgängerfurten"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEProhibitionFrame.cpp:55
 msgid "Selected connection"
-msgstr ""
+msgstr "Ausgewählte Verbindung"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEProhibitionFrame.cpp:71
 msgid "No Connection selected\n"
-msgstr ""
+msgstr "Keine Verbindung ausgewählt\n"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEProhibitionFrame.cpp:74
 msgid "- Junction: "
-msgstr ""
+msgstr "- Knotenpunkt: "
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEProhibitionFrame.cpp:75
 msgid "- From lane: "
-msgstr ""
+msgstr "- Ausgangsfahrstreifen: "
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEProhibitionFrame.cpp:76
 msgid "- To lane: "
-msgstr ""
+msgstr "- Endfahrstreifen: "
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEProhibitionFrame.cpp:94
 msgid "Selected"
-msgstr ""
+msgstr "Ausgewählt"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEProhibitionFrame.cpp:95
 msgid "Current selected connection"
-msgstr ""
+msgstr "Aktuell ausgewählte Verbindung"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEProhibitionFrame.cpp:101
 msgid "No conflict"
-msgstr ""
+msgstr "Kein Widerspruch"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEProhibitionFrame.cpp:102
 msgid "No conflict with the selected connection"
-msgstr ""
+msgstr "Kein Konflikt mit der ausgewählten Verbindung"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEProhibitionFrame.cpp:107
 msgid "Yields"
