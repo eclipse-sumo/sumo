@@ -41,7 +41,7 @@ from sumolib.miscutils import Colorgen  # noqa
 import sumolib.geomhelper as gh
 
 INTERSECT_RANGE = 1e5
-COMPRESSION_WEIGHT = 0.001
+COMPRESSION_WEIGHT = 0.01
 STRAIGHT_WEIGHT = 2
 OTHER_WEIGHT = 1
 
@@ -269,7 +269,6 @@ def optimizeTrackOrder(options, edges, nodes, virtualNodes, orderings, nodeCoord
         angle = gh.angleTo2D(nodeCoords[edge.getFromNode().getID()], nodeCoords[edge.getToNode().getID()])
         straight = min(abs(angle), abs(angle - math.pi)) < np.deg2rad(10)
 
-        #print("edge=%s vNodes=%s" % (edge.getID(), [(getVNodeID(vn), getVNodeX(vn)) for vn in vNodes]))
         constraints = []
         for vNode, vNode2 in zip(vNodes[:-1], vNodes[1:]):
             #print("keepSame:", getVNodeID(vNode), getVNodeID(vNode2))
@@ -284,6 +283,7 @@ def optimizeTrackOrder(options, edges, nodes, virtualNodes, orderings, nodeCoord
             ySimilarConstraints += constraints
             numPrios = len(constraints)
         yPrios += [2 if straight else 1] * numPrios
+        print("edge=%s straight=%s vNodes=%s" % (edge.getID(), straight, [getVNodeID(vn) for vn in vNodes]))
 
     k = len(generalizedNodes)
     m = len(ySimilarConstraints)
@@ -320,11 +320,11 @@ def optimizeTrackOrder(options, edges, nodes, virtualNodes, orderings, nodeCoord
 
     # inner points should all have the same y value
     q2 = len(ySameConstraints)
-    A = np.zeros((q2, n))
-    b = [0] * q2
+    A_eq = np.zeros((q2, n))
+    b_eq = [0] * q2
     for row, (fromI, toI) in enumerate(ySameConstraints):
-        A[row][fromI] = 1
-        A[row][toI] = -1
+        A_eq[row][fromI] = 1
+        A_eq[row][toI] = -1
 
     # minimization objective (only minimize slack variables)
     c = [COMPRESSION_WEIGHT] * k + yPrios
@@ -336,13 +336,13 @@ def optimizeTrackOrder(options, edges, nodes, virtualNodes, orderings, nodeCoord
         print("q2=%s" % q2)
         print("A_ub (%s) %s" % (A_ub.shape, A_ub))
         print("b_ub (%s) %s" % (len(b_ub), b_ub))
-        print("A (%s) %s" % (A.shape, A))
-        print("b (%s) %s" % (len(b), b))
+        print("A_eq (%s) %s" % (A_eq.shape, A_eq))
+        print("b_eq (%s) %s" % (len(b_eq), b_eq))
         print("c (%s) %s" % (len(c), c))
 
     if options.verbose:
         print("Starting optimization")
-    res = opt.linprog(c, A_ub=A_ub, b_ub=b_ub)
+    res = opt.linprog(c, A_ub=A_ub, b_ub=b_ub, A_eq=A_eq, b_eq=b_eq)
 
     if not res.success:
         sys.stderr.write("Optimization failed\n")
