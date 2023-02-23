@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="CGImap 0.8.8 (4073665 spike-06.openstreetmap.org)" copyright="OpenStreetMap and contributors" attribution="http://www.openstreetmap.org/copyright" license="http://opendatacommons.org/licenses/odbl/1-0/">
+ <bounds minlat="66.9580000" minlon="21.3306000" maxlat="66.9836000" maxlon="21.3968000"/>
+ <node id="55225520" visible="true" version="5" changeset="582728" timestamp="2008-10-26T19:59:52Z" user="Peilscheibe" uid="35560" lat="66.8694569" lon="21.6552507"/>
+ <node id="764689292" visible="true" version="1" changeset="4904616" timestamp="2010-06-04T22:08:51Z" user="glebius" uid="94786" lat="66.8708514" lon="21.6534922"/>
+ <node id="55225521" visible="true" version="1" uid="94788" lat="66.8694569" lon="21.6652507"/>
+ <node id="764689293" visible="true" version="1" uid="94787" lat="66.8708514" lon="21.6634922"/>
+ <way id="7631418" visible="true" version="34" changeset="128384828" timestamp="2022-11-02T10:47:35Z" user="Misa_zumba" uid="8774347">
+  <nd ref="55225520"/>
+  <nd ref="764689292"/>
+  <tag k="lanes:forward" v="4"/>
+  <tag k="lanes:backward" v="4"/>
+  <tag k="psv:lanes:forward" v="no|yes|designated|no"/>
+  <tag k="bicycle:lanes:forward" v="no|no|no|designated"/>
+  <tag k="psv:lanes:backward" v="no|yes|designated|no"/>
+  <tag k="bicycle:lanes:backward" v="no|no|no|designated"/>
+  <tag k="highway" v="tertiary"/>
+  <tag k="int_ref" v="E 10"/>
+  <tag k="maxspeed" v="100"/>
+  <tag k="ref" v="E 10"/>
+  <tag k="surface" v="asphalt"/>
+ </way>
+ <way id="7631419" visible="true" version="34" uid="8774348">
+  <nd ref="55225521"/>
+  <nd ref="764689293"/>
+  <tag k="lanes:forward" v="4"/>
+  <tag k="lanes:backward" v="4"/>
+  <tag k="psv:lanes:forward" v="no|yes|designated|no"/>
+  <tag k="bicycle:lanes:forward" v="no|no|no|designated"/>
+  <tag k="highway" v="tertiary"/>
+  <tag k="int_ref" v="E 10"/>
+  <tag k="maxspeed" v="100"/>
+  <tag k="ref" v="E 10"/>
+  <tag k="surface" v="asphalt"/>
+ </way>
+</osm>
