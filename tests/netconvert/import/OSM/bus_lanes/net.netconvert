@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-06-22 08:14:28 by Eclipse SUMO netconvert Version v1_13_0+1094-d2dab2e946c
+<!-- generated on 2023-02-23 08:24:21 by Eclipse SUMO netconvert Version v1_16_0+0644-b9a2633
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -320,13 +320,22 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <phase duration="5"  state="rr"/>
     </tlLogic>
 
-    <junction id="138559856" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="-2.48,2.02 2.48,-2.02"/>
+    <junction id="138559856" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="-2.48,2.02 2.48,-2.02">
+        <param key="TMC:cid_58:tabcd_1:Class" value="Point"/>
+        <param key="TMC:cid_58:tabcd_1:Direction" value="positive"/>
+        <param key="TMC:cid_58:tabcd_1:LCLversion" value="9.00"/>
+        <param key="TMC:cid_58:tabcd_1:LocationCode" value="21134"/>
+        <param key="TMC:cid_58:tabcd_1:NextLocationCode" value="21135"/>
+        <param key="TMC:cid_58:tabcd_1:PrevLocationCode" value="21133"/>
+        <param key="highway" value="traffic_signals"/>
+    </junction>
     <junction id="1665723004" type="priority" x="567.65" y="684.15" incLanes="-153959895_0 22721677#0_0 22721677#0_1" intLanes=":1665723004_0_0 :1665723004_1_0 :1665723004_2_0 :1665723004_3_0 :1665723004_3_1" shape="568.99,690.78 573.92,686.69 572.81,684.23 572.72,682.70 572.92,680.96 573.42,679.03 574.23,676.89 568.35,674.37 567.19,676.07 566.53,676.36 565.82,676.27 565.06,675.80 564.24,674.96 559.32,679.04">
         <request index="0" response="11000" foes="11000" cont="0"/>
         <request index="1" response="00100" foes="00100" cont="0"/>
         <request index="2" response="00000" foes="00010" cont="0"/>
         <request index="3" response="00000" foes="00001" cont="0"/>
         <request index="4" response="00000" foes="00001" cont="0"/>
+        <param key="custom" value="foobar"/>
     </junction>
     <junction id="2032008711" type="priority" x="1530.43" y="2620.23" incLanes="319539204#0_0 319539204#0_1" intLanes=":2032008711_0_0 :2032008711_0_1" shape="1527.81,2623.22 1534.06,2621.84 1534.05,2620.98 1534.20,2620.64 1534.45,2620.35 1534.81,2620.13 1535.27,2619.96 1534.75,2618.03 1533.91,2618.08 1533.58,2617.96 1533.32,2617.73 1533.12,2617.39 1532.98,2616.96 1526.73,2618.34">
         <request index="0" response="00" foes="00" cont="0"/>
@@ -348,6 +357,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </junction>
     <junction id="833045069" type="priority" x="1562.48" y="2683.13" incLanes="69607668_0" intLanes=":833045069_0_0" shape="1562.48,2683.13 1561.95,2679.97 1562.48,2683.13">
         <request index="0" response="0" foes="0" cont="0"/>
+        <param key="access" value="permissive"/>
+        <param key="barrier" value="lift_gate"/>
+        <param key="bicycle" value="yes"/>
+        <param key="foot" value="yes"/>
     </junction>
     <junction id="833045686" type="priority" x="1575.87" y="2636.56" incLanes="69607680_0" intLanes=":833045686_0_0" shape="1575.87,2636.56 1575.16,2633.44 1575.87,2636.56">
         <request index="0" response="0" foes="0" cont="0"/>
@@ -359,10 +372,19 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <junction id="937153130" type="traffic_light" x="671.96" y="806.99" incLanes="22721677#1_0 22721677#1_1" intLanes=":937153130_0_0 :937153130_0_1" shape="669.53,809.08 674.54,805.09 674.28,804.79 669.46,809.00">
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
+        <param key="crossing" value="traffic_signals"/>
+        <param key="crossing_ref" value="pelican"/>
+        <param key="highway" value="traffic_signals"/>
+        <param key="tactile_paving" value="yes"/>
+        <param key="traffic_signals:sound" value="yes"/>
     </junction>
     <junction id="937153169" type="traffic_light" x="684.64" y="822.89" incLanes="22721677#2_0 22721677#2_1" intLanes=":937153169_0_0 :937153169_0_1" shape="682.28,825.06 687.17,820.93 687.06,820.80 682.05,824.79">
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
+        <param key="crossing" value="traffic_signals"/>
+        <param key="crossing_ref" value="pelican"/>
+        <param key="tactile_paving" value="yes"/>
+        <param key="traffic_signals:sound" value="yes"/>
     </junction>
 
     <junction id=":833044434_6_0" type="internal" x="1543.39" y="2683.20" incLanes=":833044434_4_0 319539204#1_0" intLanes=":833044434_2_0 :833044434_3_0"/>
