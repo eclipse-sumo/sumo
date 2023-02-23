@@ -182,6 +182,10 @@ def angle2D(p1, p2):
     return dtheta
 
 
+def angleTo2D(p1, p2):
+    return math.atan2(p2[1] - p1[1], p2[0] - p1[0])
+
+
 def naviDegree(rad):
     return normalizeAngle(math.degrees(math.pi / 2. - rad), 0, 360, 360)
 
@@ -245,6 +249,15 @@ def orthoIntersection(a, b):
         return mul(mul(c, dotProduct(a, a)), 1 / quot)
     else:
         return None
+
+
+def rotateAround2D(p, rad, origin):
+    s = math.sin(rad);
+    c = math.cos(rad);
+    tmp = sub(p, origin)
+    tmp2 = [tmp[0] * c - tmp[1] * s,
+            tmp[0] * s + tmp[1] * c]
+    return add(tmp2, origin)
 
 
 def length(a):
