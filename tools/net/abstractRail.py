@@ -196,6 +196,10 @@ def computeTrackOrdering(options, mainLine, edges, nodeCoords, edgeShapes):
         for edge in edges:
             if edge.getFromNode() == node or edge.getToNode() == node:
                 continue
+            if (abs(x - nodeCoords[edge.getFromNode().getID()][0]) < options.trackOffset or
+                abs(x - nodeCoords[edge.getToNode().getID()][0]) < options.trackOffset):
+                # avoid inner points with close spacing
+                continue
             shape = edgeShapes[edge.getID()]
             intersects = gh.intersectsAtLengths2D(vertical, shape)
             intersects = [i - INTERSECT_RANGE for i in intersects]
