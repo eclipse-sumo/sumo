@@ -429,6 +429,9 @@ class MFXMenuCheckIcon;
 /// @brief design for auxiliar (Without borders) frames used in TLSTable
 #define GUIDesignAuxiliarTLSTable               (LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 
+/// @brief design for auxiliar (Without borders) frames used in MFXDecalsTable
+#define GUIDesignMFXDecalTable                  (LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 400, 0, 0, 0, 0, 0, 0, 0
+
 /// @}
 
 

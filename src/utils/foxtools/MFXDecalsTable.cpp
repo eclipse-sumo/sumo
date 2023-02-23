@@ -60,7 +60,7 @@ FXIMPLEMENT(MFXDecalsTable, FXHorizontalFrame, MFXDecalsTableMap, ARRAYNUMBER(MF
 // ---------------------------------------------------------------------------
 
 MFXDecalsTable::MFXDecalsTable(GUIDialog_ViewSettings* dialogViewSettingsParent, FXComposite *parent) :
-    FXHorizontalFrame(parent, GUIDesignAuxiliarTLSTable),
+    FXHorizontalFrame(parent, GUIDesignMFXDecalTable),
     myIndexFont(new FXFont(getApp(), "Segoe UI", 9)),
     myIndexSelectedFont(new FXFont(getApp(), "Segoe UI", 9, FXFont::Bold)),
     myDialogViewSettings(dialogViewSettingsParent) {
@@ -102,11 +102,17 @@ MFXDecalsTable::fillTable() {
     // create rows
     for (int i = 0; i < (int)myDialogViewSettings->getSUMOAbstractView()->getDecals().size(); i++) {
         myRows.push_back(new Row(this));
-    }
-    // if we have only a row, disable remove and move buttons
-    if (myRows.size() == 1) {
-        myRows.front()->disableButtons();
-    }
+    }   
+    // set headers
+    myColumns.at(0)->setColumnLabelTop("file", "");
+    myColumns.at(1)->setColumnLabelTop("centerX", "");
+    myColumns.at(2)->setColumnLabelTop("centerY", "");
+    myColumns.at(3)->setColumnLabelTop("width", "");
+    myColumns.at(4)->setColumnLabelTop("height", "");
+    myColumns.at(5)->setColumnLabelTop("rotation", "");
+    myColumns.at(6)->setColumnLabelTop("layer", "");
+    myColumns.at(7)->setColumnLabelTop("relative", "");
+    recalc();
 }
 
 
@@ -680,7 +686,7 @@ MFXDecalsTable::Row::Row(MFXDecalsTable* table) :
         const int numCells = (int)myCells.size();
         // continue depending of type
         switch (table->myColumns.at(columnIndex)->getType()) {
-            case ('s'): {
+            case ('i'): {
                 // create labels for index
                 auto indexLabel = new FXLabel(table->myColumns.at(columnIndex)->getVerticalCellFrame(),
                                               toString(myTable->myRows.size()).c_str(), nullptr, GUIDesignLabelTLSTableIndex);
@@ -692,21 +698,18 @@ MFXDecalsTable::Row::Row(MFXDecalsTable* table) :
                 myCells.push_back(new Cell(table, indexLabel, indexLabelBold, columnIndex, numCells));
                 break;
             }
-            case ('u'):
-            case ('f'):
-            case ('m'):
-            case ('-'): {
+            case ('f'): {
                 // create textField for values
                 auto textField = new FXTextField(table->myColumns.at(columnIndex)->getVerticalCellFrame(),
                         GUIDesignTextFieldNCol, table, MID_GNE_TLSTABLE_TEXTFIELD, GUIDesignTextFieldTLSTable);
                 myCells.push_back(new Cell(table, textField, columnIndex, numCells));
                 break;
             }
-            case ('d'): {
+            case ('b'): {
                 // create button for delete phase
                 auto button = new FXButton(table->myColumns.at(columnIndex)->getVerticalCellFrame(),
-                    (std::string("\t") + TL("Delete phase") + std::string("\t") + TL("Delete this phase.")).c_str(),
-                    GUIIconSubSys::getIcon(GUIIcon::REMOVE), table, MID_GNE_TLSTABLE_REMOVEPHASE, GUIDesignButtonIcon);
+                    (std::string("\t") + TL("Open decal") + std::string("\t") + TL("Open decal.")).c_str(),
+                    GUIIconSubSys::getIcon(GUIIcon::OPEN), table, MID_GNE_TLSTABLE_REMOVEPHASE, GUIDesignButtonIcon);
                 myCells.push_back(new Cell(table, button, columnIndex, numCells));
                 break;
             }
