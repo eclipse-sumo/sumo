@@ -23,13 +23,13 @@ from __future__ import print_function
 import os
 import sys
 import random
-from heapq import heappush,heappop
+from heapq import heappush, heappop
 from collections import defaultdict
 from itertools import chain
 SUMO_HOME = os.environ.get('SUMO_HOME',
                            os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
 sys.path.append(os.path.join(SUMO_HOME, 'tools'))
-import sumolib
+import sumolib  # noqa
 from sumolib.options import ArgumentParser  # noqa
 from sumolib.miscutils import Colorgen  # noqa
 
@@ -84,7 +84,8 @@ class Station:
         outf.write('    </taz>\n')
 
         if self.coord:
-            outf.write('    <poi id="%s" name="%s" x="%s" y="%s"/>\n' % (index, self.name, self.coord[0], self.coord[1]))
+            outf.write('    <poi id="%s" name="%s" x="%s" y="%s"/>\n' %
+                       (index, self.name, self.coord[0], self.coord[1]))
 
 
 def allowsAny(edge, vclasses):
@@ -96,7 +97,7 @@ def allowsAny(edge, vclasses):
 
 def initStations(options, net):
     stations = defaultdict(Station)
-    
+
     numStops = 0
     numIgnoredStops = 0
     for stop in sumolib.xml.parse(options.stopfile, ['busStop', 'trainStop']):
@@ -123,17 +124,15 @@ def initStations(options, net):
             print("Ignored %s stops because they did not allow any of the vclasses '%s'" % (
                 numIgnoredStops, ','.join(options.vclasses)))
 
-
-
     return stations
 
 
 def findParallel(options, net, stations):
     for station in stations.values():
-        coords = sum(station.platforms, []) 
+        coords = sum(station.platforms, [])
         station.coord = (
-                sum([c[0] for c in coords]) / len(coords),
-                sum([c[1] for c in coords]) / len(coords))
+            sum([c[0] for c in coords]) / len(coords),
+            sum([c[1] for c in coords]) / len(coords))
 
         for edge, dist in net.getNeighboringEdges(*station.coord, options.parallelRadius):
             station.edges.add(edge)
@@ -142,12 +141,12 @@ def findParallel(options, net, stations):
 def findGroup(mergedStations, station):
     for group in mergedStations:
         if station in group:
-            return group;
+            return group
     assert(False)
 
 
 def mergeGroups(stations, mergedStations, group1, group2):
-    if group1 == None or group1 == group2:
+    if group1 is None or group1 == group2:
         return group2
 
     name1 = '|'.join(sorted(group1))
@@ -240,6 +239,7 @@ def main(options):
         for i, name in enumerate(sorted(stations.keys())):
             stations[name].write(outf, i, options.colorgen())
         outf.write("</additional>\n")
+
 
 if __name__ == "__main__":
     main(get_options())
