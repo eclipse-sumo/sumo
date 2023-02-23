@@ -65,12 +65,16 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/bin)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR}/bin)
 add_library(libsumostatic STATIC ${libsumostatic_STAT_SRCS})
 add_dependencies(libsumostatic generate-version-h install_dll)
-set_property(TARGET libsumostatic PROPERTY FOLDER "libsumo")
+set_target_properties(libsumostatic PROPERTIES FOLDER "libsumo" PREFIX ""
+    OUTPUT_NAME libsumostatic${BINARY_SUFFIX}
+    OUTPUT_NAME_DEBUG libsumostatic${BINARY_SUFFIX}D)
 
 if (FOX_FOUND)
     add_library(libsumoguistatic STATIC ${libsumostatic_STAT_SRCS} GUI.cpp GUI.h)
     add_dependencies(libsumoguistatic generate-version-h install_dll)
-    set_property(TARGET libsumoguistatic PROPERTY FOLDER "libsumo")
+    set_target_properties(libsumoguistatic PROPERTIES FOLDER "libsumo" PREFIX ""
+        OUTPUT_NAME libsumoguistatic${BINARY_SUFFIX}
+        OUTPUT_NAME_DEBUG libsumoguistatic${BINARY_SUFFIX}D)
     target_compile_definitions(libsumoguistatic PUBLIC HAVE_LIBSUMOGUI)
     add_library(libsumocpp SHARED ${libsumostatic_STAT_SRCS} GUI.cpp GUI.h)
     target_compile_definitions(libsumocpp PUBLIC HAVE_LIBSUMOGUI)
@@ -83,10 +87,9 @@ else ()
 endif()
 add_dependencies(libsumocpp generate-version-h install_dll)
 
-set_property(TARGET libsumocpp PROPERTY FOLDER "libsumo")
-set_target_properties(libsumocpp PROPERTIES PREFIX "")
-set_target_properties(libsumocpp PROPERTIES OUTPUT_NAME libsumocpp${BINARY_SUFFIX})
-set_target_properties(libsumocpp PROPERTIES OUTPUT_NAME_DEBUG libsumocpp${BINARY_SUFFIX}D)
+set_target_properties(libsumocpp PROPERTIES FOLDER "libsumo" PREFIX ""
+    OUTPUT_NAME libsumocpp${BINARY_SUFFIX}
+    OUTPUT_NAME_DEBUG libsumocpp${BINARY_SUFFIX}D)
 target_include_directories(libsumocpp PUBLIC $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/src>)
 install(TARGETS libsumocpp EXPORT SUMOConfig
     DESTINATION bin
@@ -223,7 +226,7 @@ if(SWIG_FOUND)
             if ((GNU_COMPILER OR CLANG_COMPILER) AND NOT APPLE)
                 swig_link_libraries(libsumo -Wl,--whole-archive ${libsumo_link_library} ${sumolibs} -Wl,--no-whole-archive)
             else()
-                set_property(TARGET ${SWIG_MODULE_libsumo_REAL_NAME} PROPERTY FOLDER "libsumo")
+                set_target_properties(${SWIG_MODULE_libsumo_REAL_NAME} PROPERTIES FOLDER "libsumo")
                 swig_link_libraries(libsumo ${libsumo_link_library} ${sumolibs} ${PYTHON_LIBRARIES})
             endif()
             if (WIN32)

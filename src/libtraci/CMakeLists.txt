@@ -40,7 +40,9 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/bin)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR}/bin)
 add_library(libtracistatic STATIC ${libtracistatic_STAT_SRCS})
 add_dependencies(libtracistatic generate-version-h install_dll)
-set_property(TARGET libtracistatic PROPERTY FOLDER "libtraci")
+set_target_properties(libtracistatic PROPERTIES FOLDER "libtraci" PREFIX ""
+    OUTPUT_NAME libtracistatic${BINARY_SUFFIX}
+    OUTPUT_NAME_DEBUG libtracistatic${BINARY_SUFFIX}D)
 
 if (WIN32)
     set(libtcpip foreign_tcpip ws2_32)
@@ -49,10 +51,9 @@ else()
 endif()
 
 add_library(libtracicpp SHARED ${libtracistatic_STAT_SRCS})
-set_property(TARGET libtracicpp PROPERTY FOLDER "libtraci")
-set_target_properties(libtracicpp PROPERTIES PREFIX "")
-set_target_properties(libtracicpp PROPERTIES OUTPUT_NAME libtracicpp${BINARY_SUFFIX})
-set_target_properties(libtracicpp PROPERTIES OUTPUT_NAME_DEBUG libtracicpp${BINARY_SUFFIX}D)
+set_target_properties(libtracicpp PROPERTIES FOLDER "libtraci" PREFIX ""
+    OUTPUT_NAME libtracicpp${BINARY_SUFFIX}
+    OUTPUT_NAME_DEBUG libtracicpp${BINARY_SUFFIX}D)
 target_include_directories(libtracicpp PUBLIC $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/src>)
 install(TARGETS libtracicpp EXPORT SUMOConfig
     DESTINATION bin
@@ -173,7 +174,7 @@ if(SWIG_FOUND)
             if ((GNU_COMPILER OR CLANG_COMPILER) AND NOT APPLE)
                 swig_link_libraries(libtraci -Wl,--whole-archive libtracistatic ${libtcpip} -Wl,--no-whole-archive)
             else()
-                set_property(TARGET ${SWIG_MODULE_libtraci_REAL_NAME} PROPERTY FOLDER "libtraci")
+                set_target_properties(${SWIG_MODULE_libtraci_REAL_NAME} PROPERTIES FOLDER "libtraci")
                 swig_link_libraries(libtraci libtracistatic ${libtcpip} ${PYTHON_LIBRARIES})
             endif()
             if (WIN32)
