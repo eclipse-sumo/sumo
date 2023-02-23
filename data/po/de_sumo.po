@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-21 18:29+0100\n"
-"PO-Revision-Date: 2023-02-22 15:25+0000\n"
+"PO-Revision-Date: 2023-02-23 16:40+0000\n"
 "Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -10526,7 +10526,7 @@ msgstr "Unbekannte LSA in '%'."
 
 #: /home/micha/programming/sumo/src/osgview/GUIOSGView.cpp:972
 msgid " (No projection defined)"
-msgstr ""
+msgstr " (Keine Projektion definiert)"
 
 #: /home/micha/programming/sumo/src/osgview/GUIOSGView.cpp:976
 #: /home/micha/programming/sumo/src/osgview/GUIOSGView.cpp:977
