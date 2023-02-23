@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-21 18:42+0100\n"
-"PO-Revision-Date: 2023-02-23 11:14+0000\n"
-"Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
+"PO-Revision-Date: 2023-02-23 12:52+0000\n"
+"Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
 "Language: de\n"
@@ -10715,18 +10715,21 @@ msgid ""
 "There is already another crossing with the same edges in the junction; "
 "Duplicated crossing aren't allowed."
 msgstr ""
+"Es gibt bereits eine andere Fußgängerfurt mit den gleichen Kanten im "
+"Knotenpunkt; Doppelte Fußgängerfurten sind nicht erlaubt."
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECrossingFrame.cpp:540
 msgid "-Click over junction to"
-msgstr ""
+msgstr "- Auf den Knotenpunkt klicken um"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECrossingFrame.cpp:541
 msgid " mark candidate edges."
-msgstr ""
+msgstr " Kandidatenkanten markieren."
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECrossingFrame.cpp:542
+#, fuzzy
 msgid "-Click over candidate"
-msgstr ""
+msgstr "- Auf Kandidaten klicken"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECrossingFrame.cpp:543
 msgid " edges for selecting."
@@ -10957,7 +10960,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:386
 msgid "No TAZ Selected"
-msgstr ""
+msgstr "Keine Verkehrsumlegungszone ausgewählt"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:398
 msgid "Confirm changes"
@@ -11017,7 +11020,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:582
 msgid "Remove all edges from selection"
-msgstr ""
+msgstr "Alle Kanten aus der Auswahl entfernen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:584
 msgid "Add all edges to selection"
@@ -11065,17 +11068,17 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:672
 msgid "  current selection."
-msgstr ""
+msgstr "  aktuelle Auswahl."
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:849
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:852
 msgid "Set weight 0 in "
-msgstr ""
+msgstr "Setzte Gewicht 0 in "
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:849
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:852
 msgid " sources and "
-msgstr ""
+msgstr " Quellen und "
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:850
 msgid " sinks from TAZ '"
@@ -11185,7 +11188,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:119
 msgid "Edit Traffic Light"
-msgstr ""
+msgstr "LSA bearbeiten"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:183
 msgid "Click over a junction to edit a TLS"
@@ -11246,7 +11249,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:562
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:563
 msgid "Assign E1 detectors to the current TLS"
-msgstr ""
+msgstr "E1-Detektoren der aktuellen LSA zuweisen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:563
 msgid "Disable assign E1 mode"
