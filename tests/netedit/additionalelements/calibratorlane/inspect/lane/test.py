@@ -31,23 +31,23 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 # go to additional mode
 netedit.additionalMode()
 
-# select calibrator
+# select calibratorLane
 netedit.changeElement("calibratorLane")
 
-# create calibrator
-netedit.leftClick(referencePosition, 245, 180)
+# create calibratorLane
+netedit.leftClick(referencePosition, 312, 250)
 
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect calibrator
-netedit.leftClick(referencePosition, 300, 230)
+# inspect calibratorLane
+netedit.leftClick(referencePosition, 463, 229)
 
 # Change parameter id with a non valid value (non existent ID)
 netedit.modifyAttribute(netedit.attrs.calibrator.inspect.edgeLane, "dummyEdge", True)
 
 # Change parameter id with a valid value
-netedit.modifyAttribute(netedit.attrs.calibrator.inspect.edgeLane, "gneE3", True)
+netedit.modifyAttribute(netedit.attrs.calibrator.inspect.edgeLane, "top", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)

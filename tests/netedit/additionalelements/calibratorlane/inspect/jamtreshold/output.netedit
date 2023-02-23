@@ -2,8 +2,8 @@ TestFunctions: Netedit opened successfully
 Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 calibratorLane
-TestFunctions: Clicked over position 549 - 348
-TestFunctions: Clicked over position 604 - 398
+TestFunctions: Clicked over position 616 - 418
+TestFunctions: Clicked over position 767 - 397
 ///;;
 
 type1 type2

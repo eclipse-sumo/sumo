@@ -31,17 +31,17 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 # go to additional mode
 netedit.additionalMode()
 
-# select calibrator
+# select calibratorLane
 netedit.changeElement("calibratorLane")
 
-# create calibrator
-netedit.leftClick(referencePosition, 245, 180)
+# create calibratorLane
+netedit.leftClick(referencePosition, 312, 250)
 
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect calibrator
-netedit.leftClick(referencePosition, 300, 230)
+# inspect calibratorLane
+netedit.leftClick(referencePosition, 463, 229)
 
 # Change parameter id with a non valid value (invalid characters)
 netedit.modifyAttribute(netedit.attrs.calibrator.inspect.output, "///;;", True)

@@ -31,20 +31,26 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 # go to additional mode
 netedit.additionalMode()
 
-# select calibrator
+# select calibratorLane
 netedit.changeElement("calibratorLane")
 
-# create first calibrator
-netedit.leftClick(referencePosition, 245, 140)
+# change center view
+netedit.changeDefaultBoolValue(netedit.attrs.calibrator.create.center)
 
-# create second calibrator
-netedit.leftClick(referencePosition, 200, 280)
+# create first calibratorLane
+netedit.leftClick(referencePosition, 485, 250)
+
+# change center view
+netedit.changeDefaultBoolValue(netedit.attrs.calibrator.create.center)
+
+# create second calibratorLane
+netedit.leftClick(referencePosition, 255, 250)
 
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect calibrator
-netedit.leftClick(referencePosition, 300, 225)
+# inspect calibratorLane
+netedit.leftClick(referencePosition, 463, 229)
 
 # Change parameter id with a non valid value (Duplicated ID)
 netedit.modifyAttribute(netedit.attrs.calibrator.inspect.id, "ca_0", True)
