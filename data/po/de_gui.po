@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-21 18:42+0100\n"
-"PO-Revision-Date: 2023-02-22 16:34+0000\n"
-"Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
+"PO-Revision-Date: 2023-02-23 07:45+0000\n"
+"Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
 "Language: de\n"
@@ -10628,9 +10628,8 @@ msgid "- Shift+Click:"
 msgstr "- Shift+Click:"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:627
-#, fuzzy
 msgid "  Splits edge in both directions"
-msgstr "  Teilt Kanten in beide Richtungen"
+msgstr "  Teilt Kanten in beiden Richtungen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:628
 msgid "- Alt+Shift+Click:"
@@ -10653,16 +10652,16 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:668
 msgid "Invalid edge attributes"
-msgstr "Ungültige Kanten-Attribute"
+msgstr "Ungültige Kantenattribute"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:670
 msgid "Invalid lane attributes"
-msgstr "Ungültige Fahrstreifen-Attribute"
+msgstr "Ungültige Fahrstreifenattribute"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:681
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:746
 msgid "create new edge"
-msgstr "Neue Kanten erstellen"
+msgstr "Neue Kante erstellen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:740
 msgid "edge created without an open CommandGroup"
@@ -10694,13 +10693,12 @@ msgid "Clear edges"
 msgstr "Kanten entfernen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECrossingFrame.cpp:108
-#, fuzzy
 msgid "Invert edges"
-msgstr "Kanten einfügen"
+msgstr "Kantenfolge umdrehen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECrossingFrame.cpp:196
 msgid "Crossing parameters"
-msgstr "Fußgängerfurt-Parameter"
+msgstr "Fußgängerfurtparameter"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECrossingFrame.cpp:484
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1568
