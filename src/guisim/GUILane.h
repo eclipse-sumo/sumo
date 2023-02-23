@@ -93,13 +93,13 @@ public:
         return getEdge().getID();
     }
 
-    void addSecondaryShape(const PositionVector& shape);
+    void addSecondaryShape(const PositionVector& shape) override;
 
     const PositionVector& getSecondaryShape() {
         return myShape2;
     }
 
-    double getLengthGeometryFactor(bool secondaryShape) const {
+    double getLengthGeometryFactor(bool secondaryShape) const override {
         return secondaryShape ? myLengthGeometryFactor2 :  myLengthGeometryFactor;
     }
 
@@ -212,7 +212,7 @@ public:
     double getClickPriority() const override;
     //@}
 
-    const PositionVector& getShape(bool secondary) const;
+    const PositionVector& getShape(bool secondary) const override;
     const std::vector<double>& getShapeRotations(bool secondary) const;
     const std::vector<double>& getShapeLengths(bool secondary) const;
 

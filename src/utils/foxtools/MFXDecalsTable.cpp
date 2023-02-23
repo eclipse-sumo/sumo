@@ -100,7 +100,7 @@ MFXDecalsTable::fillTable() {
         myColumns.push_back(new Column(this, i, columnsType.at(i)));
     }
     // create rows
-    for (int i = 0; i < myDialogViewSettings->getSUMOAbstractView()->getDecals().size(); i++) {
+    for (int i = 0; i < (int)myDialogViewSettings->getSUMOAbstractView()->getDecals().size(); i++) {
         myRows.push_back(new Row(this));
     }
     // if we have only a row, disable remove and move buttons

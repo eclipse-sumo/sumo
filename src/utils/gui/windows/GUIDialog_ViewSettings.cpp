@@ -1606,7 +1606,7 @@ GUIDialog_ViewSettings::updatePOIParams() {
 
 
 long
-GUIDialog_ViewSettings::onCmdEditTable(FXObject*, FXSelector, void* ptr) {
+GUIDialog_ViewSettings::onCmdEditTable(FXObject*, FXSelector, void* /* ptr */) {
 /*
     MFXEditedTableItem* i = (MFXEditedTableItem*) ptr;
     std::string value = i->item->getText().text();
