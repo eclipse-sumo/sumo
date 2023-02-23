@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-21 18:42+0100\n"
-"PO-Revision-Date: 2023-02-23 14:28+0000\n"
+"PO-Revision-Date: 2023-02-23 14:55+0000\n"
 "Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -11646,7 +11646,7 @@ msgstr "Liste der ausgewählten Elemente öffnen"
 
 #: /home/micha/programming/sumo/src/utils/gui/div/GUIDialog_GLChosenEditor.cpp:137
 msgid "Errors while loading Selection"
-msgstr ""
+msgstr "Fehler beim Laden der Auswahl"
 
 #: /home/micha/programming/sumo/src/utils/gui/div/GUISelectedStorage.cpp:116
 msgid "Unknown object in GUISelectedStorage::select (id=%)."
@@ -11662,59 +11662,62 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/utils/gui/div/GUIVideoEncoder.h:74
 msgid "Unknown format!"
-msgstr ""
+msgstr "Unbekanntes Format!"
 
 #: /home/micha/programming/sumo/src/utils/gui/div/GUIVideoEncoder.h:91
+#, fuzzy
 msgid "Unknown codec, falling back to HEVC!"
-msgstr ""
+msgstr "Unbekannter Codec, Rückgriff auf HEVC!"
 
 #: /home/micha/programming/sumo/src/utils/gui/div/GUIVideoEncoder.h:95
 msgid "Unknown codec!"
-msgstr ""
+msgstr "Unbekannter Codec!"
 
 #: /home/micha/programming/sumo/src/utils/gui/div/GUIVideoEncoder.h:100
 msgid "Could not allocate video codec context!"
-msgstr ""
+msgstr "Konnte Videocodeckontext nicht zuweisen!"
 
 #: /home/micha/programming/sumo/src/utils/gui/div/GUIVideoEncoder.h:136
 msgid "Could not open codec!"
-msgstr ""
+msgstr "Konnte Codec nicht öffnen!"
 
 #: /home/micha/programming/sumo/src/utils/gui/div/GUIVideoEncoder.h:142
 msgid "Could not allocate video frame!"
-msgstr ""
+msgstr "Konnte Videoframe nicht zuweisen!"
 
 #: /home/micha/programming/sumo/src/utils/gui/div/GUIVideoEncoder.h:148
 msgid "Could not allocate the video frame data!"
-msgstr ""
+msgstr "Konnte die Videoframedaten nicht zuweisen!"
 
 #: /home/micha/programming/sumo/src/utils/gui/div/GUIVideoEncoder.h:155
 msgid "Failed to open output file!"
-msgstr ""
+msgstr "Öffnen der Ausgabedatei fehlgeschlagen!"
 
 #: /home/micha/programming/sumo/src/utils/gui/div/GUIVideoEncoder.h:160
 msgid "Failed to write file header!"
-msgstr ""
+msgstr "Fehler beim Schreiben der Dateikopfzeile!"
 
 #: /home/micha/programming/sumo/src/utils/gui/div/GUIVideoEncoder.h:165
 msgid "Could not allocate video packet!"
-msgstr ""
+msgstr "Konnte Videopaket nicht zuweisen!"
 
 #: /home/micha/programming/sumo/src/utils/gui/div/GUIVideoEncoder.h:175
+#, fuzzy
 msgid "Error sending final frame!"
-msgstr ""
+msgstr "Fehler beim Senden des finales Frames!"
 
 #: /home/micha/programming/sumo/src/utils/gui/div/GUIVideoEncoder.h:183
 msgid "Error during final encoding step!"
-msgstr ""
+msgstr "Fehler beim finalen Encodierungsschritt!"
 
 #: /home/micha/programming/sumo/src/utils/gui/div/GUIVideoEncoder.h:214
+#, fuzzy
 msgid "Error sending frame for encoding!"
-msgstr ""
+msgstr "Fehler beim Senden des Frames zur Encodierung!"
 
 #: /home/micha/programming/sumo/src/utils/gui/div/GUIVideoEncoder.h:222
 msgid "Error during encoding!"
-msgstr ""
+msgstr "Fehler beim Encodieren!"
 
 #: /home/micha/programming/sumo/src/utils/gui/globjects/GUIGLObjectPopupMenu.cpp:98
 msgid "MenuPaneChild cannot be NULL"
@@ -11733,159 +11736,169 @@ msgstr ""
 #: /home/micha/programming/sumo/src/utils/gui/globjects/GUIGLObjectPopupMenu.cpp:252
 #: /home/micha/programming/sumo/src/utils/gui/globjects/GUIGLObjectPopupMenu.cpp:264
 msgid "Object is NULL"
-msgstr ""
+msgstr "Objekt ist null"
 
 #: /home/micha/programming/sumo/src/utils/gui/globjects/GUIGLObjectPopupMenu.cpp:170
 msgid "Object must be a lane"
-msgstr ""
+msgstr "Objekt muss ein Fahrstreifen sein"
 
 #: /home/micha/programming/sumo/src/utils/gui/globjects/GUIShapeContainer.cpp:56
 msgid "Replacing POI '%'"
-msgstr ""
+msgstr "Ersetze Pol '%'"
 
 #: /home/micha/programming/sumo/src/utils/gui/globjects/GUIShapeContainer.cpp:81
 msgid "Replacing polygon '%'"
-msgstr ""
+msgstr "Ersetze Polygon '%'"
 
 #: /home/micha/programming/sumo/src/utils/gui/images/GUIIconSubSys.cpp:942
 msgid "Instance was previously created"
-msgstr ""
+msgstr "Instanz wurde zuvor erstellt"
 
 #: /home/micha/programming/sumo/src/utils/gui/images/GUITextureSubSys.cpp:223
 msgid "Undefined texture"
-msgstr ""
+msgstr "Undefinierte Textur"
 
 #: /home/micha/programming/sumo/src/utils/gui/images/VClassIcons.cpp:91
 msgid "Invalid vClass"
-msgstr ""
+msgstr "Ungültige Fahrzeugklasse"
 
 #: /home/micha/programming/sumo/src/utils/gui/settings/GUISettingsHandler.cpp:77
 msgid "The 'value' attribute is deprecated for breakpoints. Please use 'time'."
 msgstr ""
+"Das 'value'-Attribut ist für Haltepunkte veraltet. Bitte verwende 'time'."
 
 #: /home/micha/programming/sumo/src/utils/gui/settings/GUISettingsHandler.cpp:383
+#, fuzzy
 msgid "The 'filename' attribute is deprecated for decals. Please use 'file'."
 msgstr ""
+"Das Attribut 'filename' ist für Abziehbilder veraltet. Bitte verwende "
+"'Datei'."
 
 #: /home/micha/programming/sumo/src/utils/gui/settings/GUISettingsHandler.cpp:559
 msgid " Could not decode breakpoint '%'"
-msgstr ""
+msgstr " Konnte Unterbrechungspunkt '%' nicht dekodieren"
 
 #: /home/micha/programming/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:2348
 msgid "No color defined for LinkState '%'"
-msgstr ""
+msgstr "Keinen Farbe definiert für den Linkstand '%'"
 
 #: /home/micha/programming/sumo/src/utils/gui/tracker/GUIParameterTracker.cpp:116
 msgid "Save the data..."
-msgstr ""
+msgstr "Speicher die Daten..."
 
 #: /home/micha/programming/sumo/src/utils/gui/tracker/GUIParameterTracker.cpp:131
 msgid "Multiplot"
-msgstr ""
+msgstr "Multiplot"
 
 #: /home/micha/programming/sumo/src/utils/gui/tracker/GUIParameterTracker.cpp:219
 msgid "Save Data"
-msgstr ""
+msgstr "Daten speichern"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:84
 msgid "Track"
-msgstr ""
+msgstr "Gleis"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:91
 msgid "&Hide Unselected"
 msgstr "Andere ausblenden"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:92
+#, fuzzy
 msgid "By &Name"
-msgstr ""
+msgstr "Von &Name"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:92
 msgid "Locate item by name"
-msgstr ""
+msgstr "Element anhand des Namens lokalisieren"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:93
+#, fuzzy
 msgid "&Select/deselect"
-msgstr ""
+msgstr "&Ausgewählt/abgewählt"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:93
 msgid "Select/deselect current object"
-msgstr ""
+msgstr "Aktuelles Objekt auswählen/abwählen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:94
 msgid "&Filter substring"
 msgstr ""
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:95
+#, fuzzy
 msgid "Select &all"
-msgstr ""
+msgstr "&alle auswählen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:95
 msgid "Select all items in list"
-msgstr ""
+msgstr "Alle Elemente der Liste auswählen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:96
+#, fuzzy
 msgid "&Deselect all"
-msgstr ""
+msgstr "&alles abwählen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:96
 msgid "Deselect all items in list"
-msgstr ""
+msgstr "Alle Elemente der Lister abwählen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:97
 msgid "&Update"
-msgstr ""
+msgstr "&Aktualisieren"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:97
 msgid "Reload all ids"
-msgstr ""
+msgstr "Alle IDs erneut laden"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:101
 msgid "case-sensitive search"
-msgstr ""
+msgstr "Suchen nach Groß- und Kleinschreibung"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:103
 msgid "auto-center"
 msgstr ""
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_EditViewport.cpp:65
+#, fuzzy
 msgid "Load viewport from file"
-msgstr ""
+msgstr "Ansichtsbereich aus Datei laden"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_EditViewport.cpp:67
+#, fuzzy
 msgid "Save viewport to file"
-msgstr ""
+msgstr "Ansichtsbereich in Datei speichern"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_EditViewport.cpp:210
 msgid "Load Viewport"
-msgstr ""
+msgstr "Ansichtsbereich laden"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_EditViewport.cpp:229
 msgid "Save Viewport"
-msgstr ""
+msgstr "Ansichtsbereich speichern"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_Options.cpp:113
 msgid "Accept settings"
-msgstr ""
+msgstr "Settings akzeptieren"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:88
 msgid "View Settings"
-msgstr ""
+msgstr "Settings anzeigen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:977
 msgid "Enter a name"
-msgstr ""
+msgstr "Name eintragen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:979
 msgid "Please enter an alphanumeric name: "
-msgstr ""
+msgstr "Bitte gebe einen alphanumerischen Namen ein: "
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1058
 msgid "Export view settings"
-msgstr ""
+msgstr "Ansichtssettings exportieren"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1109
 msgid "Import view settings"
-msgstr ""
+msgstr "Ansichtssettings importieren"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1126
 msgid "Load Decals"
@@ -11898,12 +11911,12 @@ msgstr ""
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1258
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1323
 msgid "No Data"
-msgstr ""
+msgstr "Keine Daten"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1262
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1327
 msgid "Remove"
-msgstr ""
+msgstr "Entfernen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1612
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1620
@@ -11912,7 +11925,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1644
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1652
 msgid "The value must be a float, is:"
-msgstr ""
+msgstr "Der Wert muss ein float sein, ist:"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1613
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1621
@@ -11922,24 +11935,24 @@ msgstr ""
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1653
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1661
 msgid "Number format error"
-msgstr ""
+msgstr "Nummernformatfehler"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1660
 msgid "The value must be a bool, is:"
-msgstr ""
+msgstr "Der Wert muss ein Boolean sein, ist:"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1704
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1749
 msgid "Only for selected"
-msgstr ""
+msgstr "Nur für ausgewählte"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1706
 msgid "constant text size"
-msgstr ""
+msgstr "konstante Textgröße"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1709
 msgid "Size"
-msgstr ""
+msgstr "Größe"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1714
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1827
@@ -11952,20 +11965,20 @@ msgstr ""
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2289
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2352
 msgid "Color"
-msgstr ""
+msgstr "Farbe"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1716
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1822
 msgid "Background"
-msgstr ""
+msgstr "Hintergrund"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1747
 msgid "Draw with constant size when zoomed out"
-msgstr ""
+msgstr "Beim Verkleinern mit konstanter Größe zeichnen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1752
 msgid "Minimum Size"
-msgstr ""
+msgstr "Minimale Größe"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1756
 msgid "Exaggerate by"
@@ -11973,15 +11986,15 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1802
 msgid "Save the setting to registry"
-msgstr ""
+msgstr "Die Einstellung in der Registrierung speichern"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1803
 msgid "Remove the setting from registry"
-msgstr ""
+msgstr "Die Einstellung in der Registrierung entfernen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1804
 msgid "Export setting to file"
-msgstr ""
+msgstr "Setting in die Datei exportieren"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1805
 msgid "Load setting from file"
