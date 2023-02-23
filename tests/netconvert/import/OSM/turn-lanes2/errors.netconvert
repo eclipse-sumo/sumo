@@ -1,3 +1,5 @@
+Warning: Unknown lane use specifier '' ignored for way '546118531'
+Warning: Unknown lane use specifier '' ignored for way '546118531'
 Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.residential' (first occurrence for edge '23454697').
 Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.secondary' (first occurrence for edge '24660415').
 Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.secondary_link' (first occurrence for edge '32928686').

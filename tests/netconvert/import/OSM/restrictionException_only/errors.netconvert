@@ -1,3 +1,6 @@
+Warning: Unknown lane use specifier 'permissiv' ignored for way '38101625'
+Warning: Unknown lane use specifier 'permissiv' ignored for way '406730591'
+Warning: Unknown lane use specifier 'permissiv' ignored for way '576411466'
 Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.primary' (first occurrence for edge '4852528').
 Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.tertiary' (first occurrence for edge '38101627').
 Warning: No way found for reference '533775756' in relation '8405932'

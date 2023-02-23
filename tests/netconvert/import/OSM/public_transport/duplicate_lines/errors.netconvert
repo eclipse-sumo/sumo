@@ -1,3 +1,8 @@
+Warning: Unknown lane use specifier '' ignored for way '110450334'
+Warning: Unknown lane use specifier '' ignored for way '110450334'
+Warning: Unknown lane use specifier '' ignored for way '245193868'
+Warning: Unknown lane use specifier '' ignored for way '245193868'
+Warning: Unknown lane use specifier '' ignored for way '110450334'
 Warning: No way found for reference '475519856' in relation '2008468'
 Warning: Ignoring restriction relation '2008468' with unknown to-way.
 Warning: No way found for reference '13863062' in relation '2873596'
@@ -30,3 +35,4 @@ Warning: Could not build program '0' for traffic light '29325955'
 Warning: Speed of straight connection '-28362838#0_0->28362836#0_1' reduced by 5.12 due to turning radius of 13.97 (length=4.22, angle=33.35).
 Warning: 6 total messages of type: Ignoring duplicate PT line '%'.
 Warning: 6 total messages of type: No way found for reference '%' in relation '%'
+Warning: 8 total messages of type: Unknown lane use specifier '%' ignored for way '%'
