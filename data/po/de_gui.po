@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-21 18:42+0100\n"
-"PO-Revision-Date: 2023-02-23 12:58+0000\n"
+"PO-Revision-Date: 2023-02-23 14:09+0000\n"
 "Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -10796,167 +10796,181 @@ msgid "Connection yields the selected connection"
 msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEProhibitionFrame.cpp:113
+#, fuzzy
 msgid "Has right of way"
-msgstr ""
+msgstr "Hat Vorfahrt"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEProhibitionFrame.cpp:114
+#, fuzzy
 msgid "Connection has right of way with the selected connection"
-msgstr ""
+msgstr "Die Verbindung hat Vorfahrt mit der ausgewählten Verbindung"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEProhibitionFrame.cpp:119
 msgid "Unregulated conflict"
-msgstr ""
+msgstr "Unregulierter Konflikt"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEProhibitionFrame.cpp:120
 msgid "Connection has a unregulated conflict with the selected connection"
 msgstr ""
+"Verbindung hat einen ungeregelten Konflikt mit der ausgewählten Verbindung"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEProhibitionFrame.cpp:125
 msgid "Mutual conflict"
-msgstr ""
+msgstr "Gegenseitiger Konflikt"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEProhibitionFrame.cpp:126
 msgid "Connection has a mutual conflict with the selected connection"
 msgstr ""
+"Verbindung hat einen gegenseitigen Konflikt mit der ausgewählten Verbindung"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEProhibitionFrame.cpp:175
 msgid "Save prohibition modifications (Enter)"
-msgstr ""
+msgstr "Verbotsänderungen speichern (Enter)"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEProhibitionFrame.cpp:179
 msgid "Unselect connection"
-msgstr ""
+msgstr "Nicht ausgewählte Verbindung"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEProhibitionFrame.cpp:181
 msgid "Unselect connection (Esc)"
-msgstr ""
+msgstr "Nicht ausgewählte Verbindung (Esc)"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEProhibitionFrame.cpp:229
 msgid "Prohibitions"
-msgstr ""
+msgstr "Verbote"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEShapeFrame.cpp:56
+#, fuzzy
 msgid "GEO POI Creator"
-msgstr ""
+msgstr "Geo-Pol-Ersteller"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEShapeFrame.cpp:59
 msgid "Format: Lon-Lat"
-msgstr ""
+msgstr "Format: Längengrad- Breitengrad"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEShapeFrame.cpp:60
 msgid "Format: Lat-Lon"
-msgstr ""
+msgstr "Format: Breitengrad- Längengrad"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEShapeFrame.cpp:66
+#, fuzzy
 msgid "Center View after creation"
-msgstr ""
+msgstr "Zentrumsansicht nach Erstellung"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEShapeFrame.cpp:68
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEShapeFrame.cpp:121
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEShapeFrame.cpp:178
 msgid "Create GEO POI (clipboard)"
-msgstr ""
+msgstr "Geo-Pol erstellen (Zwischenablage)"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEShapeFrame.cpp:71
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEShapeFrame.cpp:136
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEShapeFrame.cpp:140
 msgid "Cartesian equivalence:"
-msgstr ""
+msgstr "Kartesische Äquivalenz:"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEShapeFrame.cpp:72
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEShapeFrame.cpp:141
 msgid "- X = give valid longitude"
-msgstr ""
+msgstr "- X = gültigen Längengrad angeben"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEShapeFrame.cpp:73
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEShapeFrame.cpp:142
 msgid "- Y = give valid latitude"
-msgstr ""
+msgstr "- Y = gültigen Breitengrad angeben"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEShapeFrame.cpp:119
 msgid "Create GEO POI"
-msgstr ""
+msgstr "Geo-Pol erstellen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEShapeFrame.cpp:171
 msgid "Using clipboard"
-msgstr ""
+msgstr "Zwischenablage nutzen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEShapeFrame.cpp:227
 msgid "Shapes"
-msgstr ""
+msgstr "Shapes"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEShapeFrame.cpp:330
+#, fuzzy
 msgid "POILane can be only placed over lanes"
-msgstr ""
+msgstr "Polstreifen kann nur über einen Fahrstreifen platziert werden"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEShapeFrame.cpp:374
 msgid "Current selected shape isn't valid."
-msgstr ""
+msgstr "Aktuell ausgewählte Shape ist nicht gültig."
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEShapeFrame.cpp:422
 msgid "Polygon shape cannot be empty"
-msgstr ""
+msgstr "Polygon-Shape kann nicht leer sein"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:152
 msgid "TAZ"
-msgstr ""
+msgstr "Verkehrsumlegungszone"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:160
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:204
 msgid "No TAZ selected"
-msgstr ""
+msgstr "Keine Verkehrsumlegungszone ausgewählt"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:173
 msgid "Current TAZ: "
-msgstr ""
+msgstr "Aktuelle Verkehrsumlegungszone: "
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:336
+#, fuzzy
 msgid "Invalid TAZ Child"
-msgstr ""
+msgstr "Ungültiges Verkehrsumlegungszonenkind"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:345
 msgid "TAZ Statistics"
-msgstr ""
+msgstr "Verkehrsumlegungszonenstatistiken"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:348
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:891
 msgid "Statistics"
-msgstr ""
+msgstr "Statistiken"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:375
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:1132
 msgid "- Number of edges: "
-msgstr ""
+msgstr "- Anzahl von Kanten: "
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:376
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:1137
+#, fuzzy
 msgid "- Min source: "
-msgstr ""
+msgstr "- Mindestquelle: "
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:377
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:1138
+#, fuzzy
 msgid "- Max source: "
-msgstr ""
+msgstr "- Maximalquelle: "
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:378
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:1139
+#, fuzzy
 msgid "- Average source: "
-msgstr ""
+msgstr "- Durchschnittsquelle: "
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:380
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:1141
+#, fuzzy
 msgid "- Min sink: "
-msgstr ""
+msgstr "- Mindestziel: "
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:381
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:1142
+#, fuzzy
 msgid "- Max sink: "
-msgstr ""
+msgstr "- Maximalziel: "
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:382
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:1143
+#, fuzzy
 msgid "- Average sink: "
-msgstr ""
+msgstr "- Durchschnittsziel: "
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:386
 msgid "No TAZ Selected"
@@ -10964,35 +10978,37 @@ msgstr "Keine Verkehrsumlegungszone ausgewählt"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:398
 msgid "Confirm changes"
-msgstr ""
+msgstr "Änderungen bestätigen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:401
 msgid "Cancel changes"
-msgstr ""
+msgstr "Änderungen aufheben"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:431
 msgid "TAZ changes"
-msgstr ""
+msgstr "Verkehrsumlegungszonenänderungen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:484
 msgid "TAZ Sources/Sinks"
-msgstr ""
+msgstr "Verkehrsumlegungszonenquellen/ziele"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:490
+#, fuzzy
 msgid "Membership"
-msgstr ""
+msgstr "Mitgliedschaft"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:491
+#, fuzzy
 msgid "Toggle"
-msgstr ""
+msgstr "Umschalten"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:496
 msgid "New source"
-msgstr ""
+msgstr "Neue Quelle"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:501
 msgid "New sink"
-msgstr ""
+msgstr "Neues Ziel"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:507
 msgid "Set zero fringe prob."
@@ -11000,23 +11016,24 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:511
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:646
+#, fuzzy
 msgid "- Toggle Membership:"
-msgstr ""
+msgstr "- Mitgliedschaft ein-/ausschalten:"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:512
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:647
 msgid "  Create new Sources/Sinks"
-msgstr ""
+msgstr "  Neue Quellen/Ziele erstellen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:513
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:648
 msgid "  with given weights."
-msgstr ""
+msgstr "  mit gegebenen Gewichten."
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:563
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:656
 msgid "Remove all edges"
-msgstr ""
+msgstr "Alle Kanten entfernen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:582
 msgid "Remove all edges from selection"
@@ -11024,19 +11041,19 @@ msgstr "Alle Kanten aus der Auswahl entfernen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:584
 msgid "Add all edges to selection"
-msgstr ""
+msgstr "Alle Kanten zur Auswahl hinzufügen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:588
 msgid "Remove edge from selection"
-msgstr ""
+msgstr "Kante aus der Auswahl entfernen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:590
 msgid "Add edge to selection"
-msgstr ""
+msgstr "Kante zur Auswahl hinzufügen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:601
 msgid "Remove "
-msgstr ""
+msgstr "Entfernen "
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:601
 msgid " edges from to selection"
@@ -11044,27 +11061,28 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:603
 msgid "Add "
-msgstr ""
+msgstr "Hinzufügen "
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:603
 msgid " edges to selection"
-msgstr ""
+msgstr " Kanten zur Auswahl"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:639
 msgid "toggle"
-msgstr ""
+msgstr "ein-/ausschalten"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:669
+#, fuzzy
 msgid "- Keep Membership:"
-msgstr ""
+msgstr "- Mitgliedschaft behalten:"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:670
 msgid "  Select Sources/Sinks."
-msgstr ""
+msgstr "  Quellen/Ziele auswählen."
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:671
 msgid "- Press ESC to clear"
-msgstr ""
+msgstr "- ESC drücken zum Entfernen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:672
 msgid "  current selection."
@@ -11082,15 +11100,15 @@ msgstr " Quellen und "
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:850
 msgid " sinks from TAZ '"
-msgstr ""
+msgstr " Ziele von der Verkehrsumlegungszone '"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:853
 msgid " sinks from "
-msgstr ""
+msgstr " Ziele von "
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:853
 msgid " TAZs?"
-msgstr ""
+msgstr " Verkehrsumlegungszonen?"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:855
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:868
@@ -11103,88 +11121,93 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:868
 msgid "No source/sinks to update."
-msgstr ""
+msgstr "Keine Quellen/Ziele zum Aktualisieren."
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:878
 msgid "Selection Statistics"
-msgstr ""
+msgstr "Auswahlstatistiken"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:882
 msgid "Source"
-msgstr ""
+msgstr "Quelle"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:887
 msgid "Sink"
-msgstr ""
+msgstr "Ziel"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:919
+#, fuzzy
 msgid "TAZEdgeColor already selected"
-msgstr ""
+msgstr "Verkehrsumlegungszonen-Kantenfarbe bereits ausgewählt"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:951
 msgid "edge wasn't found"
-msgstr ""
+msgstr "Kante wurde nicht gefunden"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:953
 msgid "Invalid edge"
-msgstr ""
+msgstr "Ungültige Kante"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:1130
 msgid "- Edge ID: "
-msgstr ""
+msgstr "- Kanten ID: "
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:1165
 msgid "TAZ parameters"
-msgstr ""
+msgstr "Verkehrsumlegungszonenparameter"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:1190
 msgid "Edges within"
-msgstr ""
+msgstr "Kanten innerhalb"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:1191
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:1298
 msgid "use"
-msgstr ""
+msgstr "nutzen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:1300
 msgid "not use"
-msgstr ""
+msgstr "nicht genutzt"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:1330
 msgid "Non TAZ Edge"
-msgstr ""
+msgstr "Keine Verkehrsumlegungszonenkante"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:1334
 msgid "Selected TAZ Edge"
-msgstr ""
+msgstr "Ausgewählte Verkehrsumlegungszonenkante"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:1339
+#, fuzzy
 msgid "Color by Source"
-msgstr ""
+msgstr "Farbe der Quelle"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:1341
+#, fuzzy
 msgid "Color by Sink"
-msgstr ""
+msgstr "Farbe des Ziels"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:1343
+#, fuzzy
 msgid "Color by Source + Sink"
-msgstr ""
+msgstr "Farbe nach Quelle + Ziel"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:1345
+#, fuzzy
 msgid "Color by Source - Sink"
-msgstr ""
+msgstr "Farbe nach Quelle - Ziel"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:1448
 msgid "TAZs"
-msgstr ""
+msgstr "Verkehrsumlegungszonen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:1614
 msgid "TAZ shape needs at least three points"
-msgstr ""
+msgstr "Verkehrsumlegungszonen-Shape benötigt mindestens drei Punkte"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:1692
 msgid "Edge cannot be null"
-msgstr ""
+msgstr "Kante kann nicht Null sein"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:119
 msgid "Edit Traffic Light"
@@ -11192,59 +11215,62 @@ msgstr "LSA bearbeiten"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:183
 msgid "Click over a junction to edit a TLS"
-msgstr ""
+msgstr "Über einen Knotenpunkt klicken zum Bearbeiten einer LSA"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:195
 msgid "Save TLS Changes"
-msgstr ""
+msgstr "LSA-Änderungen speichern"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:196
 msgid ""
 "There is unsaved changes in current edited traffic light.\n"
 "Do you want to save it before changing mode?"
 msgstr ""
+"Es gibt nicht gespeicherte Änderungen in der aktuell bearbeiteten LSA.\n"
+"Möchtest Du es speichern, bevor Du den Modus änderst?"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:242
 msgid "tlLogic '%', program '%' could not be built"
-msgstr ""
+msgstr "Konnte LSA-Logik '%', Programm '%' nicht erstellen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:255
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:2923
 msgid "Loaded "
-msgstr ""
+msgstr "Geladen "
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:255
 msgid " programs"
-msgstr ""
+msgstr " Programme"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:416
 msgid "Invalid phase index"
-msgstr ""
+msgstr "Ungültiger Phasenindex"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:512
 msgid "modifying TLS definition"
-msgstr ""
+msgstr "LSA-Definition verändern"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:526
 msgid "Unsaved modifications. Abort or Save"
-msgstr ""
+msgstr "Nicht gespeicherter Änderungen. Verwerfen oder speichern"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:546
 msgid "Traffic light Attributes"
-msgstr ""
+msgstr "LSA-Attribute"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:555
 msgid "parameters"
-msgstr ""
+msgstr "Parameter"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:562
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:563
 msgid "Assign E1 detectors"
-msgstr ""
+msgstr "E1-Detektoren festlegen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:562
+#, fuzzy
 msgid "Enable assign E1 mode"
-msgstr ""
+msgstr "E1-Zuweisungsmodus aktivieren"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:562
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:563
@@ -11252,212 +11278,224 @@ msgid "Assign E1 detectors to the current TLS"
 msgstr "E1-Detektoren der aktuellen LSA zuweisen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:563
+#, fuzzy
 msgid "Disable assign E1 mode"
-msgstr ""
+msgstr "E1-Zuweisungsmodus deaktivieren"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:589
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1383
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1827
 msgid "Junction cannot be NULL"
-msgstr ""
+msgstr "Knotenpunkt kann nicht Null sein"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:879
 msgid "Traffic Light"
-msgstr ""
+msgstr "LSA"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:884
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:945
 msgid "Junction ID"
-msgstr ""
+msgstr "Knotenpunkt ID"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:891
 msgid "TLS ID"
-msgstr ""
+msgstr "LSA ID"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:910
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:911
 msgid "Join"
-msgstr ""
+msgstr "Zusammenführen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:910
 msgid "Enable join mode"
-msgstr ""
+msgstr "Zusammenführungsmodus aktivieren"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:910
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:911
+#, fuzzy
 msgid "Join TLS and junctions in the current junction."
-msgstr ""
+msgstr "Füge die LSA und die Knotenpunkte am aktuellen Knotenpunkt zusammen."
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:911
 msgid "Disable join mode"
-msgstr ""
+msgstr "Zusammenführungsmodus deaktivieren"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:916
 msgid "Disjoin"
-msgstr ""
+msgstr "Trennen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:916
 msgid "Disjoin current TLS"
-msgstr ""
+msgstr "Aktuelle LSA trennen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:916
 msgid "Disjoin current TLS."
-msgstr ""
+msgstr "Aktuelle LSA trennen."
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:952
 msgid "no junction selected"
-msgstr ""
+msgstr "Kein Knotenpunkt ausgewählt"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:974
 msgid "Junction IDs"
-msgstr ""
+msgstr "Knotenpunkt IDs"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1061
 msgid "rename TLS"
-msgstr ""
+msgstr "LSA umbenennen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1140
 msgid "change TLS type"
-msgstr ""
+msgstr "LSA-Typ ändern"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1216
 msgid "join TLS"
-msgstr ""
+msgstr "LSA zusammenführen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1278
 msgid "disjoin TLS"
-msgstr ""
+msgstr "LSA trennen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1328
 msgid "Traffic Light Programs"
-msgstr ""
+msgstr "LSA-Programme"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1341
 msgid "Create TLS"
-msgstr ""
+msgstr "LSA erstellen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1341
 msgid "Create a new traffic light program."
-msgstr ""
+msgstr "Erstelle ein neues LSA-Programm."
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1344
+#, fuzzy
 msgid ""
 "Delete a traffic light program. If all programs are deleted the junction "
 "turns into a priority junction."
 msgstr ""
+"LSA-Programm löschen. Wenn alle Programme gelöscht werden, wird der "
+"Knotenpunkt zu einem Vorrangsknotenpunkt."
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1347
 msgid "Reset single"
-msgstr ""
+msgstr "Einzeln zurücksetzen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1347
 msgid "Reset current TLS program."
-msgstr ""
+msgstr "Aktuelles LSA-Programm zurücksetzen."
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1350
 msgid "Reset all"
-msgstr ""
+msgstr "Alles zurücksetzen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1350
 msgid "Reset all TLS programs."
-msgstr ""
+msgstr "Alle LSA-Programme zurücksetzen."
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1353
 msgid "Save program modifications. (Enter)"
-msgstr ""
+msgstr "Programmänderungen speichern. (Enter)"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1356
 msgid "Discard program modifications. (Esc)"
-msgstr ""
+msgstr "Programmänderungen verwerfen. (Esc)"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1451
 msgid "TLSDefinition cannot be found"
-msgstr ""
+msgstr "LSA-Definition kann nicht gefunden werden"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1493
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1506
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1525
 msgid "TLS cannot be created"
-msgstr ""
+msgstr "LSA kann nicht erstellt werden"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1494
 msgid "Traffic Light cannot be created because junction must have"
-msgstr ""
+msgstr "LSA kann nicht erstellt werden, da ein Knotenpunkt vorhanden sein muss"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1495
 msgid "at least one incoming edge and one outgoing edge."
-msgstr ""
+msgstr "mindestens eine eingehende Kante und eine ausgehende Kante."
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1507
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1526
 msgid "Traffic Light cannot be created because junction"
-msgstr ""
+msgstr "LSA kann nicht erstellt werden, da Knotenpunkt"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1508
 msgid "must have at least one connection."
-msgstr ""
+msgstr "muss mindestens eine Verbindung haben."
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1527
 msgid "must have at least one controlled connection."
-msgstr ""
+msgstr "muss mindestens eine kontrollierte Verbindung haben."
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1570
 msgid "Duplicate"
-msgstr ""
+msgstr "Doppelt"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1610
 msgid "reset current program"
-msgstr ""
+msgstr "aktuelles Programm zurücksetzen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1649
 msgid "reset TLS"
-msgstr ""
+msgstr "LSA zurücksetzen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1785
 msgid "junction cannot be null"
-msgstr ""
+msgstr "Knotenpunkt kann nicht null sein"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1810
 msgid "duplicate program '%' of traffic light '%'"
-msgstr ""
+msgstr "doppeltes Programm '%' für die LSA '%'"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1829
 msgid "myProgramComboBox must have the same number of TLSDefinitions"
 msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1856
+#, fuzzy
 msgid "Traffic light does not control any links"
-msgstr ""
+msgstr "Die LSA steuert keine Links"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1868
 msgid "Phases"
-msgstr ""
+msgstr "Phasen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1879
 msgid "Clean States"
-msgstr ""
+msgstr "Status entfernen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1880
 msgid "Clean unused states from all phase"
-msgstr ""
+msgstr "Unbenutzte Zustände von allen Phasen bereinigen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1881
 msgid "Clean unused states from all phase. (Not allowed for multiple programs)"
 msgstr ""
+"Unbenutzte Zustände von allen Phasen bereinigen. (Nicht zulässig für mehrere "
+"Programme)"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1885
 msgid "Add States"
-msgstr ""
+msgstr "Status hinzufügen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1886
+#, fuzzy
 msgid "Extend the state vector for all phases by one entry"
-msgstr ""
+msgstr "Erweitere den Zustandsvektor für alle Phasen um einen Eintrag"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1887
 msgid ""
 "Extend the state vector for all phases by one entry. (Unused until a "
 "connection or crossing is assigned to the new index)"
 msgstr ""
+"Erweitere den Zustandsvektor für alle Phasen um einen Eintrag. (Wird nicht "
+"verwendet, bis dem neuen Index eine Verbindung oder eine Fußgängerfurt "
+"zugewiesen wird)"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1891
 msgid "Group Sig."
@@ -11468,12 +11506,17 @@ msgid ""
 "Shorten state definition by letting connections with the same signal states "
 "use the same index"
 msgstr ""
+"Verkürze die Zustandsdefinition, indem Verbindungen mit denselben "
+"Signalzuständen denselben Index verwenden"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1893
 msgid ""
 "Shorten state definition by letting connections with the same signal states "
 "use the same index. (Not allowed for multiple programs)"
 msgstr ""
+"Verkürze die Zustandsdefinition, indem Verbindungen mit denselben "
+"Signalzuständen denselben Index verwenden. (Nicht zulässig für mehrere "
+"Programme)"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1897
 msgid "Ungroup Sig."
@@ -11482,61 +11525,66 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1898
 msgid "Let every connection use a distinct index (reverse state grouping)"
 msgstr ""
+"Lasse jede Verbindung einen eindeutigen Index verwenden (umgekehrte "
+"Zustandsgruppierung)"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1899
 msgid ""
 "Let every connection use a distinct index (reverse state grouping). (Not "
 "allowed for multiple programs)"
 msgstr ""
+"Lasse jede Verbindung einen eindeutigen Index verwenden (umgekehrte "
+"Zustandsgruppierung). (Nicht zulässig für mehrere Programme)"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:2027
 msgid "invalid column"
-msgstr ""
+msgstr "ungültige Spalte"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:2586
 msgid "Error deleting phase '"
-msgstr ""
+msgstr "Fehler beim löschen von Phase '"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:2858
 msgid "TLS Program File"
-msgstr ""
+msgstr "LSA-Programmdatei"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:2862
 msgid "Load TLS program from additional file"
-msgstr ""
+msgstr "LSA-Programm aus weiterer Datei laden"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:2864
 msgid "Save TLS program to additional file"
-msgstr ""
+msgstr "LSA-Programm in weiterer Datei speichern"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:2923
 msgid " new programs for tlLogic '"
-msgstr ""
+msgstr " neue Programme für LSA-Logik '"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:2928
 msgid "Updated program '"
-msgstr ""
+msgstr "Aktualisiertes Programm '"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:2928
 msgid "' for tlLogic '"
-msgstr ""
+msgstr "' für LSA-Logik '"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:2932
 msgid "No programs found for traffic light '"
-msgstr ""
+msgstr "Keine Programme gefunden für die LSA '"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:2951
+#, fuzzy
 msgid "Save TLS Program as"
-msgstr ""
+msgstr "LSA-Programm speichern als"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEWireFrame.cpp:75
 msgid "Current selected wire isn't valid."
-msgstr ""
+msgstr "Aktuell ausgewählte Oberleitung ist ungültig."
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEWireFrame.cpp:117
 #, c-format
 msgid "A % needs at least two lane positions"
-msgstr ""
+msgstr "Ein % benötigt mindestens zwei Fahrstreifenpositionen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEWireFrame.cpp:237
 msgid "Currently unsupported. Create VSS steps elements using VSS dialog"
