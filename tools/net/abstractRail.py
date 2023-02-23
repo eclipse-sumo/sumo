@@ -41,6 +41,9 @@ from sumolib.miscutils import Colorgen  # noqa
 import sumolib.geomhelper as gh
 
 INTERSECT_RANGE = 1e5
+COMPRESSION_WEIGHT = 0.001
+STRAIGHT_WEIGHT = 2
+OTHER_WEIGHT = 1
 
 
 def get_options():
@@ -181,8 +184,10 @@ def computeTrackOrdering(options, mainLine, edges, nodeCoords, edgeShapes):
     nodes = getNodes(edges)
     virtualNodes = defaultdict(list)
 
-    for node in nodes:
-        x, y = nodeCoords[node.getID()]
+    xyNodes = [(nodeCoords[n.getID()], n) for n in nodes]
+    xyNodes.sort(key=lambda x : x[0][0])
+
+    for (x, y), node in xyNodes:
         node._newX = x
         vertical = [(x, -INTERSECT_RANGE), (x, INTERSECT_RANGE)]
         ordering = []
@@ -207,9 +212,9 @@ def computeTrackOrdering(options, mainLine, edges, nodeCoords, edgeShapes):
             # also append the actual node before sorting
             ordering.append((y, node))
             ordering.sort(key=lambda x : x[0])
-            orderings.append((x, node.getID(), ordering))
+            ordering = [vn for y, vn in ordering]
+            orderings.append((node.getID(), ordering))
 
-    orderings.sort()
     #for o in orderings: print(o)
 
     # step 3:
@@ -240,16 +245,17 @@ def optimizeTrackOrder(options, edges, nodes, virtualNodes, orderings, nodeCoord
 
     # collect ordering constraints for nodes and virtual nodes
     yOrderConstraints = []
-    for x, nodeID, ordering in orderings:
-        for y, vNode in ordering:
+    for nodeID, ordering in orderings:
+        for vNode in ordering:
             if vNode not in nodes:
                 nodeIndex[vNode] = len(generalizedNodes)
                 generalizedNodes.append(vNode)
 
-        for (y, vNode), (y2, vNode2) in zip(ordering[:-1], ordering[1:]):
+        for vNode, vNode2 in zip(ordering[:-1], ordering[1:]):
             yOrderConstraints.append((nodeIndex[vNode], nodeIndex[vNode2]))
 
     # collect constraints for keeping edges parallel
+    ySimilarConstraints = []
     ySameConstraints = []
     yPrios = []
     for edge in edges:
@@ -261,13 +267,23 @@ def optimizeTrackOrder(options, edges, nodes, virtualNodes, orderings, nodeCoord
         straight = min(abs(angle), abs(angle - math.pi)) < np.deg2rad(10)
 
         #print("edge=%s vNodes=%s" % (edge.getID(), [(getVNodeID(vn), getVNodeX(vn)) for vn in vNodes]))
+        constraints = []
         for vNode, vNode2 in zip(vNodes[:-1], vNodes[1:]):
-            print("keepSame:", getVNodeID(vNode), getVNodeID(vNode2))
-            ySameConstraints.append((nodeIndex[vNode], nodeIndex[vNode2]))
-            yPrios.append(2 if straight else 1)
+            #print("keepSame:", getVNodeID(vNode), getVNodeID(vNode2))
+            constraints.append((nodeIndex[vNode], nodeIndex[vNode2]))
+
+        numPrios = 2
+        if len(constraints) > 2:
+            ySameConstraints += constraints[1:-1]
+            ySimilarConstraints.append(constraints[0])
+            ySimilarConstraints.append(constraints[-1])
+        else:
+            ySimilarConstraints += constraints
+            numPrios = len(constraints)
+        yPrios += [2 if straight else 1] * numPrios
 
     k = len(generalizedNodes)
-    m = len(ySameConstraints)
+    m = len(ySimilarConstraints)
     m2 = m * 2
     # n: number of variables
     n = k + m
@@ -277,12 +293,12 @@ def optimizeTrackOrder(options, edges, nodes, virtualNodes, orderings, nodeCoord
     # we use m slack variables for the differences between y-values (one per edge)
     # x2 =  [x, s]
 
-    b_ub = [0] * m2 + [-20] * len(yOrderConstraints)
+    b_ub = [0] * m2 + [-options.trackOffset] * len(yOrderConstraints)
     A_ub = np.zeros((q, n))
 
     row = 0
     # encode inequalities for slack variables (minimize differences)
-    for slackI, (fromI, toI) in enumerate(ySameConstraints):
+    for slackI, (fromI, toI) in enumerate(ySimilarConstraints):
         slackI += k
         A_ub[row][fromI] = 1
         A_ub[row][toI] = -1
@@ -299,14 +315,25 @@ def optimizeTrackOrder(options, edges, nodes, virtualNodes, orderings, nodeCoord
         A_ub[row][index2] = -1
         row += 1
 
+    # inner points should all have the same y value
+    q2 = len(ySameConstraints)
+    A = np.zeros((q2, n))
+    b = [0] * q2
+    for row, (fromI, toI) in enumerate(ySameConstraints):
+        A[row][fromI] = 1
+        A[row][toI] = -1
+
     # minimization objective (only minimize slack variables)
-    c = [0] * k + yPrios
+    c = [COMPRESSION_WEIGHT] * k + yPrios
 
     print("k=%s" % k)
     print("m=%s" % m)
     print("q=%s" % q)
+    print("q2=%s" % q2)
     print("A_ub (%s) %s" % (A_ub.shape, A_ub))
     print("b_ub (%s) %s" % (len(b_ub), b_ub))
+    print("A (%s) %s" % (A.shape, A))
+    print("b (%s) %s" % (len(b), b))
     print("c (%s) %s" % (len(c), c))
 
     res = opt.linprog(c, A_ub=A_ub, b_ub=b_ub)
