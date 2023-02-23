@@ -71,7 +71,7 @@ public:
 protected:
     /** @brief An internal representation of an OSM-node
      */
-    struct NIOSMNode {
+    struct NIOSMNode : public Parameterised {
         NIOSMNode(long long int _id, double _lon, double _lat)
             :
             id(_id), lon(_lon), lat(_lat), ele(0.),
@@ -303,6 +303,12 @@ private:
     /// @brief import turning signals (turn:lanes) to guide connection building
     bool myImportTurnSigns;
 
+    /// @brief whether additional way and node attributes shall be imported
+    static bool myAllAttributes;
+
+    /// @brief extra attributes to import
+    static std::set<std::string> myExtraAttributes;
+
     /** @brief Builds an NBNode
      *
      * If a node with the given id is already known, nothing is done.
@@ -511,12 +517,6 @@ protected:
 
         /// @brief A map of non-numeric speed descriptions to their numeric values
         std::map<std::string, double> mySpeedMap;
-
-        /// @brief whether additional way attributes shall be added to the edge
-        bool myAllAttributes;
-
-        /// @brief extra attributes to import
-        std::set<std::string> myExtraAttributes;
 
     private:
         /** @brief invalidated copy constructor */

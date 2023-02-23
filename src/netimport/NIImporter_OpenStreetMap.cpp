@@ -64,6 +64,8 @@
 const double NIImporter_OpenStreetMap::MAXSPEED_UNGIVEN = -1;
 
 const long long int NIImporter_OpenStreetMap::INVALID_ID = std::numeric_limits<long long int>::max();
+bool NIImporter_OpenStreetMap::myAllAttributes(false);
+std::set<std::string> NIImporter_OpenStreetMap::myExtraAttributes;
 
 // ===========================================================================
 // Private classes
@@ -138,6 +140,14 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
     myImportSidewalks = oc.getBool("osm.sidewalks");
     myImportBikeAccess = oc.getBool("osm.bike-access");
     myImportCrossings = oc.getBool("osm.crossings");
+
+    myAllAttributes = OptionsCont::getOptions().getBool("osm.all-attributes");
+    std::vector<std::string> extra = OptionsCont::getOptions().getStringVector("osm.extra-attributes");
+    myExtraAttributes.insert(extra.begin(), extra.end());
+    if (myExtraAttributes.count("all") != 0) {
+        // import all
+        myExtraAttributes.clear();
+    }
 
     // load nodes, first
     NodesHandler nodesHandler(myOSMNodes, myUniqueNodes, oc);
@@ -419,6 +429,7 @@ NIImporter_OpenStreetMap::insertNodeChecking(long long int id, NBNodeCont& nc, N
             node->setParameter("buffer_stop", "true");
             node->setFringeType(FringeType::INNER);
         }
+        node->updateParameters(n->getParametersMap());
     }
     return node;
 }
@@ -941,6 +952,10 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(int element, const SUMOSA
                 interpretTransportType(key, myCurrentNode);
             }
         }
+        if (myAllAttributes && (myExtraAttributes.count(key) != 0 || myExtraAttributes.size() == 0)) {
+            const std::string info = "node=" + toString(myCurrentNode->id) + ", k=" + key;
+            myCurrentNode->setParameter(key, attrs.get<std::string>(SUMO_ATTR_V, info.c_str(), ok, false));
+        }
     }
 }
 
@@ -1050,13 +1065,6 @@ NIImporter_OpenStreetMap::EdgesHandler::EdgesHandler(
     mySpeedMap["UZ:urban"] = 70;
     mySpeedMap["UZ:rural"] = 100;
     mySpeedMap["UZ:motorway"] = 110;
-    myAllAttributes = OptionsCont::getOptions().getBool("osm.all-attributes");
-    std::vector<std::string> extra = OptionsCont::getOptions().getStringVector("osm.extra-attributes");
-    myExtraAttributes.insert(extra.begin(), extra.end());
-    if (myExtraAttributes.count("all") != 0) {
-        // import all
-        myExtraAttributes.clear();
-    }
 }
 
 NIImporter_OpenStreetMap::EdgesHandler::~EdgesHandler() = default;
