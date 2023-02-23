@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-21 18:29+0100\n"
-"PO-Revision-Date: 2023-02-22 16:34+0000\n"
-"Last-Translator: Rhea-Xiao <xiao.translations@gmail.com>\n"
+"PO-Revision-Date: 2023-02-23 12:06+0000\n"
+"Last-Translator: Aaron Wong <aaronwong688@foxmail.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
 "Language: zh\n"
@@ -28,9 +28,8 @@ msgid "Consolidating statistics"
 msgstr "正在合并统计"
 
 #: /home/micha/programming/sumo/src/activitygen/AGActivityGen.cpp:58
-#, fuzzy
 msgid "Building street representation"
-msgstr "正在搭建街道图像显示"
+msgstr "搭建街道显示"
 
 #: /home/micha/programming/sumo/src/activitygen/AGActivityGen.cpp:62
 msgid "Generating work positions"
@@ -691,7 +690,7 @@ msgstr "至少有一个值超出了给定的时间界限。"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFDetFlowLoader.cpp:104
 msgid "At least one line does not contain the correct number of columns."
-msgstr ""
+msgstr "至少有一行未包含正确的一列数字"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFDetector.cpp:171
 msgid "Missing routes for detector '%'."
