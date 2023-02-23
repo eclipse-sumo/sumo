@@ -60,8 +60,10 @@ def get_options():
                   help="output prefix for patch files")
     ap.add_option("--track-offset", type=float, default=20, dest="trackOffset",
                   help="default distance between parallel tracks")
-    ap.add_option("--skip-building", action="store_true", dest="skipBuilding",
-                    default=False, help="do not call netconvert with the patch files")
+    ap.add_option("--skip-building", action="store_true", dest="skipBuilding", default=False,
+                  help="do not call netconvert with the patch files")
+    ap.add_option("-d", "--debug-output", action="store_true", default=False, dest="verbose2",
+                  help="tell me more about what you are doing")
     options = ap.parse_args()
 
     if not options.netfile:
@@ -220,7 +222,8 @@ def computeTrackOrdering(options, mainLine, edges, nodeCoords, edgeShapes):
     # step 3:
     nodeYValues = optimizeTrackOrder(options, edges, nodes, virtualNodes, orderings, nodeCoords)
 
-    for k,v in nodeYValues.items(): print(getVNodeID(k), v)
+    if options.verbose2:
+        for k,v in nodeYValues.items(): print(getVNodeID(k), v)
     return nodeYValues
 
 
@@ -326,25 +329,30 @@ def optimizeTrackOrder(options, edges, nodes, virtualNodes, orderings, nodeCoord
     # minimization objective (only minimize slack variables)
     c = [COMPRESSION_WEIGHT] * k + yPrios
 
-    print("k=%s" % k)
-    print("m=%s" % m)
-    print("q=%s" % q)
-    print("q2=%s" % q2)
-    print("A_ub (%s) %s" % (A_ub.shape, A_ub))
-    print("b_ub (%s) %s" % (len(b_ub), b_ub))
-    print("A (%s) %s" % (A.shape, A))
-    print("b (%s) %s" % (len(b), b))
-    print("c (%s) %s" % (len(c), c))
+    if options.verbose2:
+        print("k=%s" % k)
+        print("m=%s" % m)
+        print("q=%s" % q)
+        print("q2=%s" % q2)
+        print("A_ub (%s) %s" % (A_ub.shape, A_ub))
+        print("b_ub (%s) %s" % (len(b_ub), b_ub))
+        print("A (%s) %s" % (A.shape, A))
+        print("b (%s) %s" % (len(b), b))
+        print("c (%s) %s" % (len(c), c))
 
+    if options.verbose:
+        print("Starting optimization")
     res = opt.linprog(c, A_ub=A_ub, b_ub=b_ub)
 
     if not res.success:
-        print("Optimization failed")
+        sys.stderr.write("Optimization failed\n")
         sys.exit(1)
 
     if options.verbose:
-        print("Optimization succeeded (score=%s)" % np.dot(res.x, c))
-        print(res.x)
+        if options.verbose:
+            print("Optimization succeeded (score=%s)" % np.dot(res.x, c))
+        if options.verbose2:
+            print(res.x)
     yValues = res.x[:k]  # cut of slack variables
     #print(yValues)
 
@@ -371,6 +379,7 @@ def patchShapes(options, edges, nodeCoords, edgeShapes, nodeYValues):
         toCoord = nodeCoords[edge.getToNode().getID()]
         if edgeID in edgeYValues:
             shape = edgeYValues[edgeID]
+            shape += [fromCoord, toCoord]
             shape.sort()
             if fromCoord[0] > toCoord[0]:
                 shape = list(reversed(shape))
