@@ -225,7 +225,9 @@ GUIOSGView::GUIOSGView(
     myHUD->addChild(myTextNode);
     myHUD->setGraphicsContext(myAdapter);
     myHUD->setViewport(0, 0, w, h);
+#ifndef DEBUG:
     myViewer->addSlave(myHUD, false);
+#endif
     myCameraManipulator->updateHUDText();
 
     // adjust the main light
