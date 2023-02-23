@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-21 18:42+0100\n"
-"PO-Revision-Date: 2023-02-23 07:45+0000\n"
+"PO-Revision-Date: 2023-02-23 11:14+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -10486,11 +10486,11 @@ msgstr "Mögliches Ziel"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:347
 msgid "Source lane"
-msgstr "Quell-Fahrstreifen"
+msgstr "Quellfahrstreifen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:351
 msgid "Target lane"
-msgstr "Ziel-Fahrstreifen"
+msgstr "Zielfahrstreifen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:355
 msgid "Target (pass)"
@@ -10540,7 +10540,7 @@ msgstr "Für Fußgänger nicht erlaubt"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:81
 msgid "Add Sidewalk"
-msgstr "Seitenweg hinzufügen"
+msgstr "Gehweg hinzufügen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:84
 msgid "Use edgeType/template"
