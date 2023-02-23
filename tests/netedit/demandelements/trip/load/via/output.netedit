@@ -1,7 +1,7 @@
 TestFunctions: Netedit opened successfully
 Finding reference
-TestFunctions: 'reference.png' found. Position: 304 - 168
-TestFunctions: Clicked over position 304 - 168
-TestFunctions: Clicked over position 304 - 168
-TestFunctions: Clicked over position 304 - 168
+TestFunctions: 'reference.png' found. Position: 304 - 197
+TestFunctions: Position of 'reference.png' isn't consistent
+TestFunctions: Clicked over position 304 - 197
+TestFunctions: Clicked over position 304 - 197
 TestFunctions: Netedit closed successfully

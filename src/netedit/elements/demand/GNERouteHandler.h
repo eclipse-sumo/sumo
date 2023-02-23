@@ -153,6 +153,9 @@ public:
     /// @brief check if there is already a vehicle (Vehicle, Trip, Flow or Flow) with the given ID
     bool isVehicleIdDuplicated(const std::string& id);
 
+    /// @brief check if via attribute is valid
+    bool isViaAttributeValid(const std::vector<std::string>& via);
+
     /// @brief check if there is already a person (Person or PersonFlow) with the given ID
     bool isPersonIdDuplicated(const std::string& id);
 
