@@ -18,7 +18,7 @@
 """
 Convert a geodetical rail network in a abstract (schematic) rail network.
 If the network is segmented (stationDistricts.py), the resulting network will be
-a hybrid of multple schematic pieces being oriented in a roughly geodetical manner 
+a hybrid of multple schematic pieces being oriented in a roughly geodetical manner
 """
 from __future__ import absolute_import
 from __future__ import print_function
@@ -26,6 +26,9 @@ import os
 import sys
 import random
 import subprocess
+import numpy as np
+import math
+import scipy.optimize as opt
 from heapq import heappush,heappop
 from collections import defaultdict
 from itertools import chain
@@ -36,6 +39,8 @@ import sumolib
 from sumolib.options import ArgumentParser  # noqa
 from sumolib.miscutils import Colorgen  # noqa
 import sumolib.geomhelper as gh
+
+INTERSECT_RANGE = 1e5
 
 
 def get_options():
@@ -50,6 +55,10 @@ def get_options():
                   help="Load network regions from additional file (as taz elements)")
     ap.add_option("-o", "--output-prefix", dest="prefix",
                   help="output prefix for patch files")
+    ap.add_option("--track-offset", type=float, default=20, dest="trackOffset",
+                  help="default distance between parallel tracks")
+    ap.add_option("--skip-building", action="store_true", dest="skipBuilding",
+                    default=False, help="do not call netconvert with the patch files")
     options = ap.parse_args()
 
     if not options.netfile:
@@ -77,7 +86,23 @@ def loadRegions(options, net):
             regions[taz.name] = [net.getEdge(e) for e in edges if net.hasEdge(e)]
     else:
         regions['ALL'] = list(net.getEdges())
+
+    # keep only one edge for each bidiEdge pair
+
     return regions
+
+def filterBidi(edges):
+    return [e for e in edges if e.getBidi() is None or e.getID() < e.getBidi().getID()]
+
+
+def initShapes(edges, nodeCoords, edgeShapes):
+    nodes = getNodes(edges)
+
+    for node in nodes:
+        nodeCoords[node.getID()] = node.getCoord()
+
+    for edge in edges:
+        edgeShapes[edge.getID()] = edge.getShape(True)
 
 
 def findMainline(options, net, edges):
@@ -103,26 +128,25 @@ def findMainline(options, net, edges):
 
     mainLine = None
     if xDelta > yDelta:
-        mainLine = [coordsByX[-1], coordsByX[0]]
+        mainLine = [coordsByX[0], coordsByX[-1]]
     else:
-        mainLine = [coordsByY[-1], coordsByY[0]]
+        mainLine = [coordsByY[0], coordsByY[-1]]
 
     return mainLine
 
 
-def rotateByMainLine(mainLine, edges, nodeCoords, edgeShapes, reverse):
+def getNodes(edges):
     nodes = set()
-    center = mainLine[0]
-    angle = gh.angleTo2D(mainLine[0], mainLine[1])
-
     for edge in edges:
         nodes.add(edge.getFromNode())
         nodes.add(edge.getToNode())
+    return nodes
 
-    # init
-    for node in nodes:
-        if node.getID() not in nodeCoords:
-            nodeCoords[node.getID()] = node.getCoord()
+
+def rotateByMainLine(mainLine, edges, nodeCoords, edgeShapes, reverse):
+    center = mainLine[0]
+    angle = gh.angleTo2D(mainLine[0], mainLine[1])
+    nodes = getNodes(edges)
 
     if reverse:
         def transform(coord):
@@ -140,15 +164,196 @@ def rotateByMainLine(mainLine, edges, nodeCoords, edgeShapes, reverse):
         nodeCoords[node.getID()] = transform(coord)
 
     for edge in edges:
-        if edge.getID() in edgeShapes:
+        shape = edgeShapes[edge.getID()]
+        edgeShapes[edge.getID()] = [transform(coord) for coord in shape]
+
+
+def computeTrackOrdering(options, mainLine, edges, nodeCoords, edgeShapes):
+    """
+    precondition: network is rotated so that the mainLine is on the horizontal
+    for each x-value we imagine a vertical line and find all the edges that intersect
+    this gives a list of track orderings
+    Then we try to assign integers for each edge that are consistent with this ordering
+    """
+
+    # step 1: find ordering constraints
+    orderings = []
+    nodes = getNodes(edges)
+    virtualNodes = defaultdict(list)
+
+    for node in nodes:
+        x, y = nodeCoords[node.getID()]
+        node._newX = x
+        vertical = [(x, -INTERSECT_RANGE), (x, INTERSECT_RANGE)]
+        ordering = []
+        for edge in edges:
+            if edge.getFromNode() == node or edge.getToNode() == node:
+                continue
             shape = edgeShapes[edge.getID()]
-            edgeShapes[edge.getID()] = [transform(coord) for coord in shape]
+            intersects = gh.intersectsAtLengths2D(vertical, shape)
+            intersects = [i - INTERSECT_RANGE for i in intersects]
+            # intersects now holds y-values
+            if len(intersects) == 1:
+                virtualNode = (edge.getID(), x)
+                ordering.append((intersects[0], virtualNode))
+                virtualNodes[edge].append(virtualNode)
+            elif len(intersects) > 1:
+                sys.stderr.write(("Cannot compute track ordering for edge '%s'" +
+                                  "because runs orthogonal to the main line (intersects: %s)\n") % (
+                                  edge.getID(), intersects))
+                #print("vertical=%s %s=%s" % (shapeStr(vertical), edge.getID(), shapeStr(shape)))
+
+        if ordering:
+            # also append the actual node before sorting
+            ordering.append((y, node))
+            ordering.sort(key=lambda x : x[0])
+            orderings.append((x, node.getID(), ordering))
+
+    orderings.sort()
+    #for o in orderings: print(o)
+
+    # step 3:
+    nodeYValues = optimizeTrackOrder(options, edges, nodes, virtualNodes, orderings, nodeCoords)
+
+    for k,v in nodeYValues.items(): print(getVNodeID(k), v)
+    return nodeYValues
 
 
-def patchShapes(options, edges, nodeCoords, edgeShapes):
+def getVNodeX(vNode):
+    try:
+        return vNode._newX
+    except:
+        return vNode[1]
+
+def getVNodeID(vNode):
+    try:
+        return vNode.getID()
+    except:
+        return vNode
+
+
+def optimizeTrackOrder(options, edges, nodes, virtualNodes, orderings, nodeCoords):
+
+    generalizedNodes = list(nodes)
+    generalizedNodes.sort(key=lambda n : n.getID())
+    nodeIndex = dict((n, i) for i, n in enumerate(generalizedNodes))
+
+    # collect ordering constraints for nodes and virtual nodes
+    yOrderConstraints = []
+    for x, nodeID, ordering in orderings:
+        for y, vNode in ordering:
+            if vNode not in nodes:
+                nodeIndex[vNode] = len(generalizedNodes)
+                generalizedNodes.append(vNode)
+
+        for (y, vNode), (y2, vNode2) in zip(ordering[:-1], ordering[1:]):
+            yOrderConstraints.append((nodeIndex[vNode], nodeIndex[vNode2]))
+
+    # collect constraints for keeping edges parallel
+    ySameConstraints = []
+    yPrios = []
     for edge in edges:
-        edgeShapes[edge.getID()] = [nodeCoords[edge.getFromNode().getID()],
-                                    nodeCoords[edge.getToNode().getID()]]
+        vNodes = virtualNodes[edge]
+        vNodes.append(edge.getFromNode())
+        vNodes.append(edge.getToNode())
+        vNodes.sort(key=getVNodeX)
+        angle = gh.angleTo2D(nodeCoords[edge.getFromNode().getID()], nodeCoords[edge.getToNode().getID()])
+        straight = min(abs(angle), abs(angle - math.pi)) < np.deg2rad(10)
+
+        #print("edge=%s vNodes=%s" % (edge.getID(), [(getVNodeID(vn), getVNodeX(vn)) for vn in vNodes]))
+        for vNode, vNode2 in zip(vNodes[:-1], vNodes[1:]):
+            print("keepSame:", getVNodeID(vNode), getVNodeID(vNode2))
+            ySameConstraints.append((nodeIndex[vNode], nodeIndex[vNode2]))
+            yPrios.append(2 if straight else 1)
+
+    k = len(generalizedNodes)
+    m = len(ySameConstraints)
+    m2 = m * 2
+    # n: number of variables
+    n = k + m
+    # q: number of equations: 2 per ySame constraint to minimize the absolute difference and one per elementary ordering constraint
+    q = m2 + len(yOrderConstraints)
+
+    # we use m slack variables for the differences between y-values (one per edge)
+    # x2 =  [x, s]
+
+    b_ub = [0] * m2 + [-20] * len(yOrderConstraints)
+    A_ub = np.zeros((q, n))
+
+    row = 0
+    # encode inequalities for slack variables (minimize differences)
+    for slackI, (fromI, toI) in enumerate(ySameConstraints):
+        slackI += k
+        A_ub[row][fromI] = 1
+        A_ub[row][toI] = -1
+        A_ub[row][slackI] = -1
+        row += 1
+        A_ub[row][fromI] = -1
+        A_ub[row][toI] = 1
+        A_ub[row][slackI] = -1
+        row += 1
+
+    # encode inequalities for ordering
+    for index1, index2 in yOrderConstraints:
+        A_ub[row][index1] = 1
+        A_ub[row][index2] = -1
+        row += 1
+
+    # minimization objective (only minimize slack variables)
+    c = [0] * k + yPrios
+
+    print("k=%s" % k)
+    print("m=%s" % m)
+    print("q=%s" % q)
+    print("A_ub (%s) %s" % (A_ub.shape, A_ub))
+    print("b_ub (%s) %s" % (len(b_ub), b_ub))
+    print("c (%s) %s" % (len(c), c))
+
+    res = opt.linprog(c, A_ub=A_ub, b_ub=b_ub)
+
+    if not res.success:
+        print("Optimization failed")
+        sys.exit(1)
+
+    if options.verbose:
+        print("Optimization succeeded (score=%s)" % np.dot(res.x, c))
+        print(res.x)
+    yValues = res.x[:k]  # cut of slack variables
+    #print(yValues)
+
+    nodeYValues = dict([(vNode, yValues[i]) for vNode, i in nodeIndex.items()])
+    return nodeYValues
+
+
+def patchShapes(options, edges, nodeCoords, edgeShapes, nodeYValues):
+    nodes = getNodes(edges)
+
+    for node in nodes:
+        coord = nodeCoords[node.getID()]
+        nodeCoords[node.getID()] = (coord[0], nodeYValues[node])
+
+    edgeYValues = defaultdict(list)
+    for vNode, y in nodeYValues.items():
+        if vNode not in nodes:
+            edgeID, x = vNode
+            edgeYValues[edgeID].append((x, y))
+
+    for edge in edges:
+        edgeID = edge.getID()
+        fromCoord = nodeCoords[edge.getFromNode().getID()]
+        toCoord = nodeCoords[edge.getToNode().getID()]
+        if edgeID in edgeYValues:
+            shape = edgeYValues[edgeID]
+            shape.sort()
+            if fromCoord[0] > toCoord[0]:
+                shape = list(reversed(shape))
+            edgeShapes[edgeID] = shape
+        else:
+            edgeShapes[edgeID] = [fromCoord, toCoord]
+
+
+def shapeStr(shape):
+    return ' '.join(["%.2f,%.2f" % coord for coord in shape])
 
 
 def main(options):
@@ -162,14 +367,16 @@ def main(options):
     edgeShapes = dict()
 
     for edges in regions.values():
+        edges = filterBidi(edges)
+        initShapes(edges, nodeCoords, edgeShapes)
+
         mainLine = findMainline(options, net, edges)
         rotateByMainLine(mainLine, edges, nodeCoords, edgeShapes, False)
-        
-        #computeTrackOrdering(edges, mainLine)
+        nodeYValues = computeTrackOrdering(options, mainLine, edges, nodeCoords, edgeShapes)
         #computeDistinctHorizontalPoints()
         #squeezeHorizontal(edges)
 
-        patchShapes(options, edges, nodeCoords, edgeShapes)
+        patchShapes(options, edges, nodeCoords, edgeShapes, nodeYValues)
         #rotateByMainLine(mainLine, edges, nodeCoords, edgeShapes, True)
 
     with open(options.output_nodes, 'w') as outf_nod:
@@ -186,18 +393,20 @@ def main(options):
             shape = edgeShapes[edgeID]
             edge = net.getEdge(edgeID)
             outf_edg.write('    <edge id="%s" shape="%s" length="%.2f"/>\n' % (
-                edgeID,
-                ' '.join(["%.2f,%.2f" % coord for coord in shape]),
-                edge.getLength()))
+                edgeID, shapeStr(shape), edge.getLength()))
+            if edge.getBidi():
+                outf_edg.write('    <edge id="%s" shape="%s" length="%.2f"/>\n' % (
+                    edge.getBidi().getID(), shapeStr(reversed(shape)), edge.getLength()))
         outf_edg.write("</edges>\n")
 
-    NETCONVERT = sumolib.checkBinary('netconvert')
-    subprocess.call([NETCONVERT,
-        '-s', options.netfile,
-        '-n', options.output_nodes,
-        '-e', options.output_edges,
-        '-o', options.output_net,
-        ])
+    if not options.skipBuilding:
+        NETCONVERT = sumolib.checkBinary('netconvert')
+        subprocess.call([NETCONVERT,
+            '-s', options.netfile,
+            '-n', options.output_nodes,
+            '-e', options.output_edges,
+            '-o', options.output_net,
+            ], stdout=subprocess.DEVNULL)
 
 if __name__ == "__main__":
     main(get_options())
