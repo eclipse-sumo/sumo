@@ -60,7 +60,7 @@ public class Subscription {
                 TraCIStringList vehIDs = TraCIStringList.cast(entry.getValue());
                 for (String vehID : vehIDs.getValue()) {
                     System.out.println("Subscription Departed vehicles: " + vehID);
-                    Vehicle.subscribe(vehID, new IntVector(new int[] { libtraci.getVAR_POSITION(), libtraci.getVAR_SPEED() }));
+                    Vehicle.subscribe(vehID, new IntVector(new int[] { Constants.VAR_POSITION, Constants.VAR_SPEED }));
                 }
             }
             TreeMap<String, TraCIResults> vsRes = sortedMap(Vehicle.getAllSubscriptionResults());
