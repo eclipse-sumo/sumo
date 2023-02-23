@@ -526,12 +526,6 @@ protected:
      */
     void rebuildColorMatrices(bool doCreate = false);
 
-    /// @brief build the decals table
-    void buildDecalsTable();
-
-    /// @brief Rebuilds the decals table
-    void rebuildDecalsTable();
-
     /** @brief Loads a scheme from a file
      * @param[in] file The name of the file to read the settings from
      */

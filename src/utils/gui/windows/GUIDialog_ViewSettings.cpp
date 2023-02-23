@@ -914,7 +914,7 @@ GUIDialog_ViewSettings::loadSettings(const std::string& file) {
     if (handler.hasDecals()) {
         mySUMOAbstractView->getDecalsLockMutex().lock();
         mySUMOAbstractView->getDecals() = handler.getDecals();
-        rebuildDecalsTable();
+        myDecalsTable->fillTable();
         mySUMOAbstractView->update();
         mySUMOAbstractView->getDecalsLockMutex().unlock();
     }
@@ -963,7 +963,7 @@ GUIDialog_ViewSettings::loadDecals(const std::string& file) {
     if (handler.hasDecals()) {
         mySUMOAbstractView->getDecals() = handler.getDecals();
     }
-    rebuildDecalsTable();
+    myDecalsTable->fillTable();
     mySUMOAbstractView->update();
     mySUMOAbstractView->getDecalsLockMutex().unlock();
 }
@@ -1186,8 +1186,8 @@ GUIDialog_ViewSettings::onCmdClearDecals(FXObject*, FXSelector, void* /*data*/) 
     mySUMOAbstractView->getDecalsLockMutex().lock();
     // clear decals
     mySUMOAbstractView->getDecals().clear();
-    // rebuild list
-    rebuildDecalsTable();
+    // refill table
+    myDecalsTable->fillTable();
     // update view
     mySUMOAbstractView->update();
     // unlock decals mutex
@@ -1202,27 +1202,10 @@ GUIDialog_ViewSettings::onUpdImportSetting(FXObject* sender, FXSelector, void* p
     return 1;
 }
 
-
-void
-GUIDialog_ViewSettings::buildDecalsTable() {
-    myDecalsTable = new MFXDecalsTable(this, myDecalsFrame);
 /*
-    myDecalsTable->setVisibleRows(5);
-    myDecalsTable->setVisibleColumns(7);
-    myDecalsTable->setTableSize(5, 7);
-    myDecalsTable->setBackColor(FXRGB(255, 255, 255));
-    myDecalsTable->getRowHeader()->setWidth(0);
-    for (int i = 1; i <= 5; ++i) {
-        myDecalsTable->setCellType(i, CT_REAL);
-        myDecalsTable->setNumberCellParams(i, -10000000, 10000000, 1, 10, 100, "%.2f");
-    }
-*/
-}
-
-
 void
 GUIDialog_ViewSettings::rebuildDecalsTable() {
-/*
+
     // clear all items
     myDecalsTable->clearItems();
     // declare num of colums
@@ -1264,9 +1247,9 @@ GUIDialog_ViewSettings::rebuildDecalsTable() {
     for (int i = 0; i < (cols - 1); i++) {
         myDecalsTable->setItemText(row, i, " ");
     }
-*/
-}
 
+}
+*/
 
 FXMatrix*
 GUIDialog_ViewSettings::rebuildColorMatrix(FXVerticalFrame* frame,
@@ -1399,11 +1382,10 @@ GUIDialog_ViewSettings::rebuildScaleMatrix(FXVerticalFrame* frame,
 void
 GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) {
     // decals
-    delete myDecalsTable;
-    buildDecalsTable();
-    rebuildDecalsTable();
+    myDecalsTable = new MFXDecalsTable(this, myDecalsFrame);
     if (doCreate) {
         myDecalsTable->create();
+        myDecalsTable->fillTable();
     }
     FXMatrix* m = rebuildColorMatrix(myLaneColorSettingFrame, myLaneColors, myLaneThresholds, myLaneButtons, myLaneColorInterpolation, mySettings->getLaneEdgeScheme());
     if (doCreate) {
