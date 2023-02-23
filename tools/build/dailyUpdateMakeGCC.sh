@@ -74,7 +74,11 @@ if test -e $SUMO_BINDIR/sumo -a $SUMO_BINDIR/sumo -nt build/$FILEPREFIX/Makefile
   else
     tests/runTests.sh -b $FILEPREFIX -name $TESTLABEL &> $TESTLOG
     if which Xvfb &>/dev/null; then
-      tests/runTests.sh -a sumo.gui -b $FILEPREFIX -name $TESTLABEL >> $TESTLOG 2>&1
+      if test ${FILEPREFIX::10} == "clangMacOS"; then
+        tests/runTests.sh -a sumo.gui.mac -b $FILEPREFIX -name $TESTLABEL >> $TESTLOG 2>&1
+      else
+        tests/runTests.sh -a sumo.gui -b $FILEPREFIX -name $TESTLABEL >> $TESTLOG 2>&1
+      fi
     fi
   fi
   tests/runTests.sh -b $FILEPREFIX -name $TESTLABEL -coll >> $TESTLOG 2>&1
