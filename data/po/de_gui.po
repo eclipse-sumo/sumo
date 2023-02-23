@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-21 18:42+0100\n"
-"PO-Revision-Date: 2023-02-23 14:09+0000\n"
+"PO-Revision-Date: 2023-02-23 14:28+0000\n"
 "Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -11589,6 +11589,7 @@ msgstr "Ein % benötigt mindestens zwei Fahrstreifenpositionen"
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEWireFrame.cpp:237
 msgid "Currently unsupported. Create VSS steps elements using VSS dialog"
 msgstr ""
+"Derzeit nicht unterstützt. Erstelle VSS-Schrittelemente mit dem VSS-Dialog"
 
 #: /home/micha/programming/sumo/src/netedit/netedit_main.cpp:49
 msgid ""
@@ -11606,36 +11607,42 @@ msgid ""
 "invalid matrix counter. Check that number of pushMatrix and popMatrix "
 "functions calls are the same"
 msgstr ""
+"ungültiger Matrixzähler. Stelle sicher, dass die Anzahl der PushMatrix- und "
+"PopMatrix-Funktionsaufrufe gleich ist"
 
 #: /home/micha/programming/sumo/src/utils/gui/div/GLHelper.cpp:195
 msgid ""
 "invalid Name counter. Check that number of pushName and popName functions "
 "calls are the same"
 msgstr ""
+"ungültiger Namenszähler. Überprüfe, ob die Anzahl der Funktionsaufrufe "
+"pushName und popName gleich ist"
 
 #: /home/micha/programming/sumo/src/utils/gui/div/GUIDialog_GLChosenEditor.cpp:75
+#, fuzzy
 msgid "&Load selection"
-msgstr ""
+msgstr "&Lade Auswahl"
 
 #: /home/micha/programming/sumo/src/utils/gui/div/GUIDialog_GLChosenEditor.cpp:77
 msgid "&Save selection"
-msgstr ""
+msgstr "&Auswahl speichern"
 
 #: /home/micha/programming/sumo/src/utils/gui/div/GUIDialog_GLChosenEditor.cpp:81
 msgid "&Deselect chosen"
-msgstr ""
+msgstr "&Auswahl abwählen"
 
 #: /home/micha/programming/sumo/src/utils/gui/div/GUIDialog_GLChosenEditor.cpp:83
 msgid "&Clear selection"
-msgstr ""
+msgstr "&Auswahl leeren"
 
 #: /home/micha/programming/sumo/src/utils/gui/div/GUIDialog_GLChosenEditor.cpp:87
+#, fuzzy
 msgid "Cl&ose"
-msgstr ""
+msgstr "Schl&ießen"
 
 #: /home/micha/programming/sumo/src/utils/gui/div/GUIDialog_GLChosenEditor.cpp:125
 msgid "Open List of Selected Items"
-msgstr ""
+msgstr "Liste der ausgewählten Elemente öffnen"
 
 #: /home/micha/programming/sumo/src/utils/gui/div/GUIDialog_GLChosenEditor.cpp:137
 msgid "Errors while loading Selection"
