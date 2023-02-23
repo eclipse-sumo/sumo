@@ -41,10 +41,10 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect vaporizers
-netedit.leftClick(referencePosition, 533, 200)
+netedit.leftClick(referencePosition, 253, 321)
 
 # check parameters
-netedit.checkParameters(referencePosition, netedit.attrs.vaporizer.inspectSelection.parameters, True)
+netedit.checkParameters(referencePosition, netedit.attrs.vaporizer.inspectSelection.parameters, False)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

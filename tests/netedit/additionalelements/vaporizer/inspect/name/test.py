@@ -35,10 +35,7 @@ netedit.additionalMode()
 netedit.changeElement("vaporizer")
 
 # create vaporizer
-netedit.leftClick(referencePosition, 250, 120)
-
-# recompute (needed for vertical position)
-netedit.rebuildNetwork()
+netedit.leftClick(referencePosition, 338, 252)
 
 # recompute (needed for vertical position)
 netedit.rebuildNetwork()
@@ -47,16 +44,13 @@ netedit.rebuildNetwork()
 netedit.inspectMode()
 
 # inspect first vaporizer
-netedit.leftClick(referencePosition, 325, 227)
+netedit.leftClick(referencePosition, 512, 276)
 
 # Change parameter 3 with a valid value
-netedit.modifyAttribute(netedit.attrs.vaporizer.inspect.name, "%%$$$""", True)
+netedit.modifyAttribute(netedit.attrs.vaporizer.inspect.name, "%%$$$""", False)
 
 # Change parameter 3 with a valid value
-netedit.modifyAttribute(netedit.attrs.vaporizer.inspect.name, "customName", True)
-
-# click over an empty area
-netedit.leftClick(referencePosition, 0, 0)
+netedit.modifyAttribute(netedit.attrs.vaporizer.inspect.name, "customName", False)
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)

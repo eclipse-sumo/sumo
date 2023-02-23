@@ -41,13 +41,13 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect vaporizers
-netedit.leftClick(referencePosition, 533, 200)
+netedit.leftClick(referencePosition, 253, 321)
 
 # Set invalid name
-netedit.modifyAttribute(netedit.attrs.vaporizer.inspectSelection.name, "%%%$$""", True)
+netedit.modifyAttribute(netedit.attrs.vaporizer.inspectSelection.name, "%%%$$""", False)
 
 # Set valid name
-netedit.modifyAttribute(netedit.attrs.vaporizer.inspectSelection.name, "customName", True)
+netedit.modifyAttribute(netedit.attrs.vaporizer.inspectSelection.name, "customName", False)
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)

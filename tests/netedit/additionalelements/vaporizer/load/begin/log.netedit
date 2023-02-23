@@ -1,5 +1,5 @@
 Error: Attribute 'begin' is missing in definition of a vaporizer.
 Error: Attribute 'begin' is missing in definition of a vaporizer.
 Error: Attribute 'begin' in definition of a vaporizer is not a valid time value.
-Error: Could not build vaporizer with ID '4' in netedit; attribute begin cannot be negative.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\additionalelements\vaporizer\load\begin\additionals.add.xml failed.
+Error: Could not build vaporizer with ID 'bot' in netedit; attribute begin cannot be negative.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.23Feb162146.4128\netedit.gui\additionalelements\vaporizer\load\begin\additionals.add.xml failed.
