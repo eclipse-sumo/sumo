@@ -723,7 +723,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
                 nbe->setPermissions(SVC_BUS, 0);
             }
             applyChangeProhibition(nbe, e->myChangeForward);
-            applyLaneUseForward(nbe, e);
+            applyLaneUse(nbe, e, true);
             applyTurnSigns(nbe, e->myTurnSignsForward);
             nbe->setTurnSignTarget(last->getID());
             if (addBikeLane && (cyclewayType == WAY_UNKNOWN || (cyclewayType & WAY_FORWARD) != 0)) {
@@ -769,7 +769,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
                 nbe->setPermissions(SVC_BUS, 0);
             }
             applyChangeProhibition(nbe, e->myChangeBackward);
-            applyLaneUseBackward(nbe, e);
+            applyLaneUse(nbe, e, false);
             applyTurnSigns(nbe, e->myTurnSignsBackward);
             nbe->setTurnSignTarget(first->getID());
             if (addBikeLane && (cyclewayType == WAY_UNKNOWN || (cyclewayType & WAY_BACKWARD) != 0)) {
@@ -1148,6 +1148,9 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
                 && key != "foot"
                 && key != "bicycle"
                 && key != "oneway:bicycle"
+                && key != "bus:lanes"
+                && key != "bus:lanes:forward"
+                && key != "bus:lanes:backward"
                 && key != "psv:lanes"
                 && key != "psv:lanes:forward"
                 && key != "psv:lanes:backward"
@@ -1458,19 +1461,25 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
         } else if (key == "change:backward" || key == "change:lanes:backward") {
             myCurrentEdge->myChangeBackward = interpretChangeType(value);
         } else if (key == "vehicle:lanes" || key == "vehicle:lanes:forward") {
-            interpretLaneUseForward(value, SVC_PASSENGER);
-            interpretLaneUseForward(value, SVC_PRIVATE);
+            interpretLaneUse(value, SVC_PASSENGER, true);
+            interpretLaneUse(value, SVC_PRIVATE, true);
         } else if (key == "vehicle:lanes:backward") {
-            interpretLaneUseBackward(value, SVC_PASSENGER);
-            interpretLaneUseBackward(value, SVC_PRIVATE);
+            interpretLaneUse(value, SVC_PASSENGER, false);
+            interpretLaneUse(value, SVC_PRIVATE, false);
+        } else if (key == "bus:lanes" || key == "bus:lanes:forward") {
+            interpretLaneUse(value, SVC_BUS, true);
+        } else if (key == "bus:lanes:backward") {
+            interpretLaneUse(value, SVC_BUS, false);
         } else if (key == "psv:lanes" || key == "psv:lanes:forward") {
-            interpretLaneUseForward(value, SVC_BUS);
+            interpretLaneUse(value, SVC_BUS, true);
+            interpretLaneUse(value, SVC_TAXI, true);
         } else if (key == "psv:lanes:backward") {
-            interpretLaneUseBackward(value, SVC_BUS);
+            interpretLaneUse(value, SVC_BUS, false);
+            interpretLaneUse(value, SVC_TAXI, false);
         } else if (key == "bicycle:lanes" || key == "bicycle:lanes:forward") {
-            interpretLaneUseForward(value, SVC_BICYCLE);
+            interpretLaneUse(value, SVC_BICYCLE, true);
         } else if (key == "bicycle:lanes:backward") {
-            interpretLaneUseBackward(value, SVC_BICYCLE);
+            interpretLaneUse(value, SVC_BICYCLE, false);
         } else if (StringUtils::startsWith(key, "turn:lanes")) {
             const std::vector<std::string> values = StringTokenizer(value, "|").getVector();
             std::vector<int> turnCodes;
@@ -1567,25 +1576,25 @@ NIImporter_OpenStreetMap::EdgesHandler::interpretChangeType(const std::string& v
     return result;
 }
 
+
 void
-NIImporter_OpenStreetMap::EdgesHandler::interpretLaneUseForward(const std::string& value, SUMOVehicleClass svc) const {
-    // shorten name for convenience
-    NIImporter_OpenStreetMap::Edge* e = myCurrentEdge;
+NIImporter_OpenStreetMap::EdgesHandler::interpretLaneUse(const std::string& value, SUMOVehicleClass svc, const bool forward) const {
     const std::vector<std::string> values = StringTokenizer(value, "|").getVector();
+    std::vector<bool>& designated = forward ? myCurrentEdge->myDesignatedLaneForward : myCurrentEdge->myDesignatedLaneBackward;
+    std::vector<SVCPermissions>& allowed = forward ? myCurrentEdge->myAllowedLaneForward : myCurrentEdge->myAllowedLaneBackward;
+    std::vector<SVCPermissions>& disallowed = forward ? myCurrentEdge->myDisallowedLaneForward : myCurrentEdge->myDisallowedLaneBackward;
+    designated.resize(MAX2(designated.size(), values.size()), false);
+    allowed.resize(MAX2(allowed.size(), values.size()), SVC_IGNORING);
+    disallowed.resize(MAX2(disallowed.size(), values.size()), SVC_IGNORING);
     int i = 0;
     for (const std::string& val : values) {
-        // enlarge vectors if necessary
-        if (i >= (int)e->myDesignatedLaneForward.size()) { e->myDesignatedLaneForward.push_back(false); }
-        if (i >= (int)e->myAllowedLaneForward.size()) { e->myAllowedLaneForward.push_back(SVC_IGNORING); }
-        if (i >= (int)e->myDisallowedLaneForward.size()) { e->myDisallowedLaneForward.push_back(SVC_IGNORING); }
-
         if (val == "yes" || val == "permissive") {
-            e->myAllowedLaneForward[i] |= svc;
+            allowed[i] |= svc;
         } else if (val == "lane" || val == "designated") {
-            e->myAllowedLaneForward[i] |= svc;
-            e->myDesignatedLaneForward[i] = true;
+            allowed[i] |= svc;
+            designated[i] = true;
         } else if (val == "no") {
-            e->myDisallowedLaneForward[i] |= svc;
+            disallowed[i] |= svc;
         } else {
             WRITE_WARNINGF(TL("Unknown lane use specifier '%' ignored for way '%'"), val, myCurrentEdge->id);
         }
@@ -1593,31 +1602,6 @@ NIImporter_OpenStreetMap::EdgesHandler::interpretLaneUseForward(const std::strin
     }
 }
 
-void
-NIImporter_OpenStreetMap::EdgesHandler::interpretLaneUseBackward(const std::string& value, SUMOVehicleClass svc) const {
-    // shorten name for convenience
-    NIImporter_OpenStreetMap::Edge* e = myCurrentEdge;
-    const std::vector<std::string> values = StringTokenizer(value, "|").getVector();
-    int i = 0;
-    for (const std::string& val : values) {
-        // enlarge vectors if necessary
-        if (i >= (int)e->myDesignatedLaneBackward.size()) { e->myDesignatedLaneBackward.push_back(false); }
-        if (i >= (int)e->myAllowedLaneBackward.size()) { e->myAllowedLaneBackward.push_back(SVC_IGNORING); }
-        if (i >= (int)e->myDisallowedLaneBackward.size()) { e->myDisallowedLaneBackward.push_back(SVC_IGNORING); }
-
-        if (val == "yes" || val == "permissive") {
-            e->myAllowedLaneBackward[i] |= svc;
-        } else if (val == "lane" || val == "designated") {
-            e->myAllowedLaneBackward[i] |= svc;
-            e->myDesignatedLaneBackward[i] = true;
-        } else if (val == "no") {
-            e->myDisallowedLaneBackward[i] |= svc;
-        } else {
-            WRITE_WARNINGF(TL("Unknown lane use specifier '%' ignored for way '%'"), val, myCurrentEdge->id);
-        }
-        i++;
-    }
-}
 
 void
 NIImporter_OpenStreetMap::EdgesHandler::myEndElement(int element) {
@@ -2498,6 +2482,7 @@ NIImporter_OpenStreetMap::interpretTransportType(const std::string& type, NIOSMN
     return result;
 }
 
+
 void
 NIImporter_OpenStreetMap::applyChangeProhibition(NBEdge* e, int changeProhibition) {
     bool multiLane = changeProhibition > 3;
@@ -2513,81 +2498,32 @@ NIImporter_OpenStreetMap::applyChangeProhibition(NBEdge* e, int changeProhibitio
     }
 }
 
-void
-NIImporter_OpenStreetMap::applyLaneUseForward(NBEdge* e, NIImporter_OpenStreetMap::Edge* nie) {
-    int noLanes = e->getNumLanes();
-    if (myImportLaneAccess) {
-        const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
-        for (int lane = 0; lane < noLanes; lane++) {
-            // laneUse stores from left to right
-            const int i = lefthand ? lane : e->getNumLanes() - 1 - lane;
 
-            if (nie->myDesignatedLaneForward.size() > (long unsigned int) i && nie->myDesignatedLaneForward[i]) {
+void
+NIImporter_OpenStreetMap::applyLaneUse(NBEdge* e, NIImporter_OpenStreetMap::Edge* nie, const bool forward) {
+    if (myImportLaneAccess) {
+        const int numLanes = e->getNumLanes();
+        const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
+        const std::vector<bool>& designated = forward ? nie->myDesignatedLaneForward : nie->myDesignatedLaneBackward;
+        const std::vector<SVCPermissions>& allowed = forward ? nie->myAllowedLaneForward : nie->myAllowedLaneBackward;
+        const std::vector<SVCPermissions>& disallowed = forward ? nie->myDisallowedLaneForward : nie->myDisallowedLaneBackward;
+        for (int lane = 0; lane < numLanes; lane++) {
+            // laneUse stores from left to right
+            const int i = lefthand ? lane : numLanes - 1 - lane;
+            // Extra allowed SVCs for this lane or none if no info was present for the lane
+            const SVCPermissions extraAllowed = i < (int)allowed.size() ? allowed[i] : SVC_IGNORING;
+            // Extra disallowed SVCs for this lane or none if no info was present for the lane
+            const SVCPermissions extraDisallowed = i < (int)disallowed.size() ? disallowed[i] : SVC_IGNORING;
+            if (i < (int)designated.size() && designated[i]) {
                 // if designated, delete all permissions
                 e->setPermissions(SVC_IGNORING, lane);
+                e->preferVehicleClass(lane, extraAllowed);
             }
-        }
-        for (int lane = 0; lane < noLanes; lane++) {
-            // laneUse stores from left to right
-            const int i = lefthand ? lane : e->getNumLanes() - 1 - lane;
-
-            SVCPermissions svc = e->getPermissions(lane);
-            // Extra allowed SVCs for this lane. 
-            // Set to SVC_IGNORING if an array index out of bounds would happen.
-            SVCPermissions extraAllowed = nie->myAllowedLaneForward.size() > (long unsigned int) i ? nie->myAllowedLaneForward[i] : SVC_IGNORING;
-            // Extra disallowed SVCs for this lane. 
-            // Set to SVC_IGNORING if an array index out of bounds would happen.
-            SVCPermissions extraDisallowed = nie->myDisallowedLaneForward.size() > (long unsigned int) i ? nie->myDisallowedLaneForward[i] : SVC_IGNORING;
-
-            svc |= extraAllowed;
-            svc &= ~extraDisallowed;
- 
-            e->setPermissions(svc, lane);
- 
-            if (nie->myDesignatedLaneForward.size() > (long unsigned int) i && nie->myDesignatedLaneForward[i]) {
-                e->preferVehicleClass(i, (SUMOVehicleClass) extraAllowed);
-            }
+            e->setPermissions((e->getPermissions(lane) | extraAllowed) & (~extraDisallowed), lane);
         }
     }
 }
 
-void
-NIImporter_OpenStreetMap::applyLaneUseBackward(NBEdge* e, NIImporter_OpenStreetMap::Edge* nie) {
-    int noLanes = e->getNumLanes();
-    if (myImportLaneAccess) {
-        const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
-        for (int lane = 0; lane < noLanes; lane++) {
-            // laneUse stores from left to right
-            const int i = lefthand ? lane : e->getNumLanes() - 1 - lane;
-
-            if (nie->myDesignatedLaneBackward.size() > (long unsigned int) i && nie->myDesignatedLaneBackward[i]) {
-                // if designated, delete all permissions
-                e->setPermissions(SVC_IGNORING, lane);
-            }
-        }
-        for (int lane = 0; lane < noLanes; lane++) {
-            // laneUse stores from left to right
-            const int i = lefthand ? lane : e->getNumLanes() - 1 - lane;
-
-            SVCPermissions svc = e->getPermissions(lane);
-            // Extra allowed SVCs for this lane. 
-            // Set to SVC_IGNORING if an array index out of bounds would happen.
-            SVCPermissions extraAllowed = nie->myAllowedLaneBackward.size() > (long unsigned int) i ? nie->myAllowedLaneBackward[i] : SVC_IGNORING;
-            // Extra disallowed SVCs for this lane. 
-            // Set to SVC_IGNORING if an array index out of bounds would happen.
-            SVCPermissions extraDisallowed = nie->myDisallowedLaneBackward.size() > (long unsigned int) i ? nie->myDisallowedLaneBackward[i] : SVC_IGNORING;
-
-            svc |= extraAllowed;
-            svc &= ~extraDisallowed;
- 
-            e->setPermissions(svc, lane);
- 
-            if (nie->myDesignatedLaneBackward.size() > (long unsigned int) i && nie->myDesignatedLaneBackward[i]) {
-                e->preferVehicleClass(i, (SUMOVehicleClass) extraAllowed);
-            }
-        }
-    }
-}
 
 void
 NIImporter_OpenStreetMap::applyTurnSigns(NBEdge* e, const std::vector<int>& turnSigns) {
@@ -2607,5 +2543,6 @@ NIImporter_OpenStreetMap::applyTurnSigns(NBEdge* e, const std::vector<int>& turn
         }
     }
 }
+
 
 /****************************************************************************/

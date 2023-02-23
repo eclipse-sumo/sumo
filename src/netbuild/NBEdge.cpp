@@ -3950,14 +3950,15 @@ NBEdge::disallowVehicleClass(int lane, SUMOVehicleClass vclass) {
 
 
 void
-NBEdge::preferVehicleClass(int lane, SUMOVehicleClass vclass) {
+NBEdge::preferVehicleClass(int lane, SVCPermissions vclasses) {
     if (lane < 0) { // all lanes are meant...
         for (int i = 0; i < (int)myLanes.size(); i++) {
-            allowVehicleClass(i, vclass);
+            preferVehicleClass(i, vclasses);
         }
     } else {
         assert(lane < (int)myLanes.size());
-        myLanes[lane].preferred |= vclass;
+        myLanes[lane].permissions |= vclasses;
+        myLanes[lane].preferred |= vclasses;
     }
 }
 

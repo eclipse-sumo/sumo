@@ -376,26 +376,15 @@ protected:
     static void applyChangeProhibition(NBEdge* e, int changeProhibition);
     /// Applies lane use information from `nie` to `e`. Uses the member values
     /// `myLaneAllowedForward`, `myLaneDisallowedForward` and `myLaneDesignatedForward`
-    /// to determine the ultimate lane uses. 
-    /// When a value of `e->myLaneDesignatedForward` is `true`, all permissions for the corresponding
-    /// lane will be deleted before adding permissions from `e->myLaneAllowedForward`.
-    /// SVCs from `e->myLaneAllowedForward` will be added to the existing permissions (for each lane). 
-    /// SVCs from `e->myLaneDisallowedForward` will be subtracted from the existing permissions.
+    /// or the respective backward values to determine the ultimate lane uses. 
+    /// When a value of `e->myLaneDesignatedForward/Backward` is `true`, all permissions for the corresponding
+    /// lane will be deleted before adding permissions from `e->myLaneAllowedForward/Backward`.
+    /// SVCs from `e->myLaneAllowedForward/Backward` will be added to the existing permissions (for each lane). 
+    /// SVCs from `e->myLaneDisallowedForward/Backward` will be subtracted from the existing permissions.
     /// @brief Applies lane use information from `nie` to `e`. 
     /// @param e The NBEdge that the new information will be written to.
     /// @param nie Ths Edge that the information comes from.
-    void applyLaneUseForward(NBEdge* e, NIImporter_OpenStreetMap::Edge* nie);
-    /// Applies lane use information from `nie` to `e`. Uses the member values
-    /// `myLaneAllowedBackward`, `myLaneDisallowedBackward` and `myLaneDesignatedBackward`
-    /// to determine the ultimate lane uses. 
-    /// When a value of `e->myLaneDesignatedBackward` is `true`, all permissions for the corresponding
-    /// lane will be deleted before adding permissions from `e->myLaneAllowedBackward`.
-    /// SVCs from `e->myLaneAllowedBackward` will be added to the existing permissions (for each lane). 
-    /// SVCs from `e->myLaneDisallowedBackward` will be subtracted from the existing permissions.
-    /// @brief Applies lane use information from `nie` to `e`. 
-    /// @param e The NBEdge that the new information will be written to.
-    /// @param nie Ths Edge that the information comes from.
-    void applyLaneUseBackward(NBEdge* e, NIImporter_OpenStreetMap::Edge* nie);
+    void applyLaneUse(NBEdge* e, NIImporter_OpenStreetMap::Edge* nie, const bool forward);
 
     void applyTurnSigns(NBEdge* e, const std::vector<int>& turnSigns);
 
@@ -531,8 +520,7 @@ protected:
 
         int interpretChangeType(const std::string& value) const;
 
-        void interpretLaneUseForward(const std::string& value, SUMOVehicleClass svc) const;
-        void interpretLaneUseBackward(const std::string& value, SUMOVehicleClass svc) const;
+        void interpretLaneUse(const std::string& value, SUMOVehicleClass svc, const bool forward) const;
 
 
     private:
