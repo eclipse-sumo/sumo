@@ -43,6 +43,15 @@ def get_options(args=None):
     return argParser.parse_args(args)
 
 
+def check_replace(replace_edges, e, offset):
+    replace_edges.setdefault(e, e)
+    new_edge = "%s.%s" % (e, int(offset))
+    if " " + new_edge not in replace_edges[e]:
+        replace_edges[e] += " " + new_edge
+        return new_edge
+    return None
+
+
 def main(options):
     locs = collections.defaultdict(list)
     stops = {}
@@ -54,31 +63,50 @@ def main(options):
                 locs[stop.lane[:stop.lane.rfind("_")]].append(stop)
             stops[stop.id] = stop
     net = sumolib.net.readNet(options.network) if options.network else None
-    with open(options.split_output, "w") as out:
+    with sumolib.openz(options.split_output, "w") as out:
         sumolib.xml.writeHeader(out, root="edges", schemaPath="edgediff_file.xsd", options=options)
         for e, sl in locs.items():
             if len(sl) > 1:
+                skip = set()
+                sorted_stops = list(sorted(sl, key=lambda x: float(x.startPos)))
+                seen = set()
+                prev_end = 0.
+                for s in sorted_stops:
+                    if float(s.startPos) > prev_end:
+                        if len(seen) > 1:
+                            print("Skipping overlapping stops %s." % ", ".join(sorted(seen)))
+                            skip.update(seen)
+                        seen = set()
+                    seen.add(s.id)
+                    prev_end = max(prev_end, float(s.endPos))
+                if len(seen) > 1:
+                    print("Skipping overlapping stops %s." % ", ".join(sorted(seen)))
+                    skip.update(seen)
                 print('    <edge id="%s">' % e, file=out)
                 prev_end = .1
-                for s in sorted(sl, key=lambda x: float(x.endPos)):
+                new_edge = None
+                for s in sorted_stops:
                     start = float(s.startPos)
-                    if prev_end > .1 and start < prev_end:
-                        print("Skipping overlapping stop %s." % s.id)
-                        continue
                     end = float(s.endPos)
-                    if start > prev_end and (not net or net.getEdge(e).getLength() > start):
-                        print('        <split pos="%s"/>' % s.startPos, file=out)
-                    if not net or net.getEdge(e).getLength() > end + 0.1:
-                        print('        <split pos="%s"/>' % s.endPos, file=out)
-                    if start > 0:
-                        stops[s.id].lane = e + ".%s%s" % (int(start), s.lane[s.lane.rfind("_"):])
-                        stops[s.id].startPos = "0"
-                        stops[s.id].endPos = "%s" % (end - start)
-                        replace_edges.setdefault(e, e)
-                        replace_edges[e] += " %s.%s" % (e, int(start))
-                    replace_edges.setdefault(e, e)
-                    replace_edges[e] += " %s.%s" % (e, int(end))
-                    prev_end = end + .1
+                    split = False
+                    if s.id not in skip and (not net or net.getEdge(e).getLength() > start):
+                        new_edge = check_replace(replace_edges, e, start)
+                        if new_edge:
+                            print('        <split pos="%s"/>' % start, file=out)
+                            prev_split = start
+                            stops[s.id].lane = new_edge + s.lane[s.lane.rfind("_"):]
+                            stops[s.id].startPos = "0"
+                            stops[s.id].endPos = "%.2f" % (end - start)
+                            split = True
+                    if new_edge and not split:
+                        stops[s.id].lane = new_edge + s.lane[s.lane.rfind("_"):]
+                        stops[s.id].startPos = "%.2f" % (start - prev_split)
+                        stops[s.id].endPos = "%.2f" % (end - prev_split)
+                    if s.id not in skip and (not net or net.getEdge(e).getLength() > end + .1):
+                        new_edge = check_replace(replace_edges, e, end)
+                        if new_edge:
+                            print('        <split pos="%s"/>' % end, file=out)
+                            prev_split = end
                 print('    </edge>', file=out)
         print('</edges>', file=out)
     if net:
@@ -88,7 +116,7 @@ def main(options):
         sumolib.xml.writeHeader(stop_out, root="additional", options=options)
         for s in stops.values():
             stop_out.write(s.toXML("    "))
-        print('    </additional>', file=stop_out)
+        print('</additional>', file=stop_out)
     if options.routes:
         with sumolib.openz(options.routes) as route_in, sumolib.openz(options.route_output, "w") as route_out:
             for line in route_in:
