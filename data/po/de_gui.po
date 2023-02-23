@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-21 18:42+0100\n"
-"PO-Revision-Date: 2023-02-23 14:55+0000\n"
+"PO-Revision-Date: 2023-02-23 15:28+0000\n"
 "Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -317,23 +317,23 @@ msgstr "Öffnet einen Dialog, um ein Polygon zu finden."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:556
 msgid "Show Internal Structures"
-msgstr "Zeige interne Struktur"
+msgstr "Interne Strukturen anzeigen"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:556
 msgid "Show internal junctions and streets in locator dialog."
-msgstr "Zeige interne Knotenpunkte und Kanten im Finden-Dialog."
+msgstr "Interne Knotenpunkte und Kanten im Finden-Dialog anzeigen."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:559
 msgid "Show Parking Vehicles"
-msgstr "Zeige geparkte Fahrzeuge"
+msgstr "Parkende Fahrzeuge anzeigen"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:559
 msgid "Show parking vehicles in locator dialog."
-msgstr "Zeige geparkte Fahrzeuge im Finden-Dialog."
+msgstr "Parkende Fahrzeuge im Finden-Dialog anzeigen."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:563
 msgid "Show vehicles outside the road network"
-msgstr "Zeige sich außerhalb des Netzes befindende Fahrzeuge"
+msgstr "Außerhalb des Netzes befindende Fahrzeuge anzeigen"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:563
 msgid ""
@@ -11998,19 +11998,19 @@ msgstr "Setting in die Datei exportieren"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1805
 msgid "Load setting from file"
-msgstr ""
+msgstr "Setting aus Datei laden"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1808
 msgid "Export includes:"
-msgstr ""
+msgstr "Der Export umfasst:"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1809
 msgid "Viewport"
-msgstr ""
+msgstr "Ansichtsbereich"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1810
 msgid "Delay"
-msgstr ""
+msgstr "Verzögerung"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1811
 msgid "Decals"
@@ -12018,7 +12018,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1812
 msgid "Breakpoints"
-msgstr ""
+msgstr "Unterbrechungspunkte"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1831
 msgid "Decals:"
@@ -12038,19 +12038,21 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1841
 msgid "Toggle grid"
-msgstr ""
+msgstr "Raster ein/-ausschalten"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1845
+#, fuzzy
 msgid "x-spacing"
-msgstr ""
+msgstr "x-Abstand"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1850
+#, fuzzy
 msgid "y-spacing"
-msgstr ""
+msgstr "y-Abstand"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1859
 msgid "Streets"
-msgstr ""
+msgstr "Straßen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1867
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1896
@@ -12062,75 +12064,80 @@ msgstr ""
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2258
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2293
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2354
+#, fuzzy
 msgid "Interpolate"
-msgstr ""
+msgstr "Interpolieren"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1879
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2141
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2364
 msgid "Recalibrate Rainbow"
-msgstr ""
+msgstr "Regenbogen neu kalibrieren"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1881
 msgid "hide below"
-msgstr ""
+msgstr "unten verstecken"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1885
 msgid "hide above"
-msgstr ""
+msgstr "oben verstecken"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1894
 msgid "Scale width"
-msgstr ""
+msgstr "Skalenbreite"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1917
 msgid "Show bike markings"
-msgstr ""
+msgstr "Fahrradmarkierungen anzeigen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1919
 msgid "Show turning arrows"
-msgstr ""
+msgstr "Drehpfeile anzeigen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1922
 msgid "Show right-of-way rules"
-msgstr ""
+msgstr "Vorfahrtsregeln anzeigen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1924
+#, fuzzy
 msgid "Realistic stop line colors"
-msgstr ""
+msgstr "Realistische Fahrstreifenfarben"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1927
 msgid "Show lane borders"
-msgstr ""
+msgstr "Fahrstreifengrenzen anzeigen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1929
 msgid "Show lane direction"
-msgstr ""
+msgstr "Fahrstreifenrichtung anzeigen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1932
+#, fuzzy
 msgid "Hide macro connectors"
-msgstr ""
+msgstr "Makrokonnektoren ausblenden"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1934
 msgid "Show sublanes"
-msgstr ""
+msgstr "Subfahrstreifen anzeigen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1937
 msgid "Show rails"
-msgstr ""
+msgstr "Schienen anzeigen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1939
 msgid "Spread bidirectional railways/roads"
 msgstr ""
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1939
+#, fuzzy
 msgid ""
 "Make both directional edges for a bidirectional railways or roads visible"
 msgstr ""
+"Macht beide Richtungskanten für bidirektionale Schienen oder Straßen sichtbar"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1942
 msgid "Secondary shape"
-msgstr ""
+msgstr "Zweite Shape"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1947
 msgid "Exaggerate width by"
@@ -12138,245 +12145,250 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1953
 msgid "Minimum size"
-msgstr ""
+msgstr "Minimale Größe"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1959
 msgid "Show edge id"
-msgstr ""
+msgstr "Kanten ID anzeigen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1960
 msgid "Show street name"
-msgstr ""
+msgstr "Straßenname anzeigen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1961
 msgid "Show edge color value"
-msgstr ""
+msgstr "Kantenfarbenwert anzeigen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1962
 msgid "Show edge scale value"
-msgstr ""
+msgstr "Kantenskalenwert anzeigen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1973
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2056
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2096
 msgid "Show As"
-msgstr ""
+msgstr "Anzeigen als"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1975
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2058
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2098
 msgid "'triangles'"
-msgstr ""
+msgstr "'Dreiecke'"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1976
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2099
 msgid "'boxes'"
-msgstr ""
+msgstr "'Kisten'"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1977
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2060
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2100
 msgid "'simple shapes'"
-msgstr ""
+msgstr "'einfache Shapes'"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1978
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2061
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2101
 msgid "'raster images'"
-msgstr ""
+msgstr "'Rasterelemente'"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1979
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2059
 msgid "'circles'"
-msgstr ""
+msgstr "'Kreise'"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2001
 msgid "Scale size"
-msgstr ""
+msgstr "Skalengröße"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2010
 msgid "Show vehicle id"
-msgstr ""
+msgstr "Fahrzeug ID anzeigen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2011
 msgid "Show vehicle color value"
-msgstr ""
+msgstr "Fahrzeugfarbenwert anzeigen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2012
 msgid "Show vehicle scale value"
-msgstr ""
+msgstr "Fahrzeugskalenwert anzeigen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2013
 msgid "Show vehicle text param"
-msgstr ""
+msgstr "Fahrzeugtextparameter anzeigen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2020
 msgid "Show blinker / brake lights"
-msgstr ""
+msgstr "Blinker / Bremslichter anzeigen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2022
 msgid "Show minimum gap"
-msgstr ""
+msgstr "Minimale Lücke anzeigen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2024
 msgid "Show brake gap"
-msgstr ""
+msgstr "Bremslücke anzeigen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2026
 msgid "Show Bluetooth range"
-msgstr ""
+msgstr "Bluetooth-Reichweite anzeigen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2028
 msgid "Show route index"
-msgstr ""
+msgstr "Routenindex anzeigen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2030
+#, fuzzy
 msgid "Scale length with geometry"
-msgstr ""
+msgstr "Skalenlänge mit Geometrie"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2032
 msgid "Show parking info"
-msgstr ""
+msgstr "Parkinformation anzeigen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2034
+#, fuzzy
 msgid "Draw reversed vehicles in reverse"
-msgstr ""
+msgstr "Rückwärts gefahrene Fahrzeuge rückwärts zeichnen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2079
 msgid "Show person id"
-msgstr ""
+msgstr "Personen ID zeigen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2080
 msgid "Show person color value"
-msgstr ""
+msgstr "Personenfarbenwert anzeigen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2091
 msgid "Containers"
-msgstr ""
+msgstr "Container"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2119
 msgid "Show container id"
-msgstr ""
+msgstr "Container ID anzeigen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2147
 msgid "Draw junction shape"
-msgstr ""
+msgstr "Knotenpunkt-Shape zeichnen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2149
 msgid "Draw crossings/walkingareas"
-msgstr ""
+msgstr "Fußgängerfurten/Walkingareas zeichnen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2151
 msgid "Show lane to lane connections"
-msgstr ""
+msgstr "Verbindungen von Fahrtstreifen zu Fahrstreifen anzeigen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2155
+#, fuzzy
 msgid "Show link tls index"
-msgstr ""
+msgstr "Link LSA-Index anzeigen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2156
+#, fuzzy
 msgid "Show link junction index"
-msgstr ""
+msgstr "Link Fahrstreifenindex anzeigen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2157
 msgid "Show junction id"
-msgstr ""
+msgstr "Knotenpunkt ID anzeigen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2158
 msgid "Show internal junction id"
-msgstr ""
+msgstr "Interne Knotenpunkt ID anzeigen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2159
 msgid "Show internal edge id"
-msgstr ""
+msgstr "Interne Kanten ID anzeigen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2160
 msgid "Show crossing and walkingarea id"
-msgstr ""
+msgstr "Fußgängerfurt und walkingArea ID anzeigen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2161
 msgid "Show traffic light phase index"
-msgstr ""
+msgstr "LSA Phasenindex anzeigen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2162
 msgid "Show traffic light phase name"
-msgstr ""
+msgstr "LSA Phasenname anzeigen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2163
 msgid "Show junction name"
-msgstr ""
+msgstr "Knotenpunktname anzeigen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2174
 msgid "Show object id"
-msgstr ""
+msgstr "Objekt ID anzeigen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2175
 msgid "Show full name"
-msgstr ""
+msgstr "Vollständigen Namen anzeigen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2182
 msgid "StoppingPlace"
-msgstr ""
+msgstr "Halteplatz"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2183
 msgid "body"
-msgstr ""
+msgstr "Körper"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2184
 msgid "sign"
-msgstr ""
+msgstr "Zeichen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2207
 msgid "element"
-msgstr ""
+msgstr "Element"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2208
 msgid "color"
-msgstr ""
+msgstr "Farbe"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2209
 msgid "width"
-msgstr ""
+msgstr "Breite"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2249
 msgid "POIs"
-msgstr ""
+msgstr "Pole"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2265
 msgid "POI detail"
-msgstr ""
+msgstr "Poldetail"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2270
 msgid "Show poi id"
-msgstr ""
+msgstr "Pol ID anzeigen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2271
 msgid "Show poi type"
-msgstr ""
+msgstr "Poltypen anzeigen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2272
 msgid "Show poi text param"
-msgstr ""
+msgstr "Poltextparameter anzeigen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2284
 msgid "Polygons"
-msgstr ""
+msgstr "Polygone"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2299
 msgid "Show polygon id"
-msgstr ""
+msgstr "Polygon ID anzeigen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2300
 msgid "Show polygon types"
-msgstr ""
+msgstr "Polygontypen anzeigen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2314
 msgid "Default Selection Color"
-msgstr ""
+msgstr "Standard Auswahlfarbe"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2317
+#, fuzzy
 msgid "Miscellaneous"
-msgstr ""
+msgstr "Verschiedenes"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2366
 msgid "hide below threshold"
