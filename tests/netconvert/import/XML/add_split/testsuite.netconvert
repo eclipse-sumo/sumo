@@ -83,3 +83,6 @@ duplicate_id
 
 # preserve type information
 lane_type
+
+# see #12695
+beyond_end
