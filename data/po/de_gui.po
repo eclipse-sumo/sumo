@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-21 18:42+0100\n"
-"PO-Revision-Date: 2023-02-24 13:36+0000\n"
-"Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
+"PO-Revision-Date: 2023-02-24 14:48+0000\n"
+"Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
 "Language: de\n"
@@ -3012,11 +3012,14 @@ msgstr "Darstellungseinstellungen in dieser Ausgabedatei speichern"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:459
 msgid "Defines the begin time in seconds; The simulation starts at this time"
-msgstr "Definiert die Zeit zu Simulationsbeginn in Sekunden"
+msgstr ""
+"Definiert die Startzeit in Sekunden; Die Simulation beginnt zu diesem "
+"Zeitpunkt"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:462
 msgid "Defines the end time in seconds; The simulation ends at this time"
-msgstr "Definiert die Zeit in Sekunden, wann die Simulation endet"
+msgstr ""
+"Definiert die Endzeit in Sekunden; Die Simulation endet zu diesem Zeitpunkt"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:465
 msgid ""
