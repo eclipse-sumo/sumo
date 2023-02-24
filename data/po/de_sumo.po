@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-21 18:29+0100\n"
-"PO-Revision-Date: 2023-02-24 13:58+0000\n"
+"PO-Revision-Date: 2023-02-24 14:48+0000\n"
 "Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -2217,29 +2217,33 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:128
 msgid "Save the emission values of each vehicle"
-msgstr ""
+msgstr "Emissionswerte von jedem Fahrzeug speichern"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:130
 msgid "Write emission values with the given precision (default 2)"
-msgstr ""
+msgstr "Emissionswerte mit der angegebenen Genauigkeit schreiben (Standard 2)"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:132
 msgid "Save the positions in emission output using geo-coordinates (lon/lat)"
 msgstr ""
+"Positionen in der Emissionsausgabe mit Geokoordinaten (Länge/Breite) "
+"speichern"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:135
 msgid ""
 "Write emission values scaled to the step length rather than as per-second "
 "values"
 msgstr ""
+"Emissionswerte skaliert auf die Schrittlänge und nicht als Werte pro Sekunde "
+"schreiben"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:138
 msgid "Save the battery values of each vehicle"
-msgstr ""
+msgstr "Batteriewerte von jedem Fahrzeug speichern"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:140
 msgid "Write battery values with the given precision (default 2)"
-msgstr ""
+msgstr "Batteriewerte mit der angegebenen Genauigkeit schreiben (Standard 2)"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:143
 msgid "Save the elecHybrid values of each vehicle"
@@ -2255,19 +2259,19 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:150
 msgid "Write data of charging stations"
-msgstr ""
+msgstr "Daten der Ladestationen schreiben"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:153
 msgid "Write data of overhead wire segments"
-msgstr ""
+msgstr "Daten der Oberleitungssegmente schreiben"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:156
 msgid "Write data of electrical substation stations"
-msgstr ""
+msgstr "Daten der elektrischen Unterstationen schreiben"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:158
 msgid "Write substation values with the given precision (default 2)"
-msgstr ""
+msgstr "Stationswerte mit der angegebenen Genauigkeit schreiben (Standard 2)"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:161
 msgid "Save the Floating Car Data"
@@ -2305,14 +2309,17 @@ msgstr "Generische Parameterwerte zur FCD-Ausgabe hinzufügen"
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:175
 msgid "Restrict fcd output to the edge selection from the given input file"
 msgstr ""
+"Beschränkt die FCD-Ausgabe auf die Kantenauswahl aus der angegebenen "
+"Eingabedatei"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:177
 msgid "List attributes that should be included in the FCD output"
-msgstr ""
+msgstr "Attribute die in der FCD-Ausgabe enthalten sein sollten auflisten"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:179
 msgid "List shape names that should be used to filter the FCD output"
 msgstr ""
+"Shape-Namen die zum Filtern der FCD-Ausgabe verwendet werden sollen auflisten"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:182
 msgid ""
@@ -2321,15 +2328,15 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:185
 msgid "Save a lot of information for each timestep (very redundant)"
-msgstr ""
+msgstr "Viele Informationen für jeden Zeitschritt (sehr redundant) speichern"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:188
 msgid "Save the vehicle queues at the junctions (experimental)"
-msgstr ""
+msgstr "Fahrzeugwarteschlangen an den Knotenpunkten (experimentell) speichern"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:190
 msgid "Save vehicle queues with the given period"
-msgstr ""
+msgstr "Fahrzeugwarteschlangen mit dem angegebenen Zeitraum speichern"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:193
 msgid ""
@@ -2339,79 +2346,90 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:195
 msgid "Save the vehicle trajectories in the Amitran format"
-msgstr ""
+msgstr "Fahrzeugtrajektorien im Amitran-Format speichern"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:200
 msgid "Save aggregated vehicle departure info into FILE"
-msgstr ""
+msgstr "Aggregierte Fahrzeugabfahrtsinformationen in Datei speichern"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:203
 msgid "Save summary-output with the given period"
-msgstr ""
+msgstr "Zusammenfassungsausgabe mit dem angegebenen Zeitraum speichern"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:206
 msgid "Save aggregated person counts into FILE"
-msgstr ""
+msgstr "Aggregierte Personenzählungen in Datei speichern"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:210
 msgid "Save single vehicle trip info into FILE"
-msgstr ""
+msgstr "Einzelfahrzeugfahrt in Datei speichern"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:213
 msgid ""
 "Write tripinfo output for vehicles which have not arrived at simulation end"
 msgstr ""
+"Fahrteninformations-Ausgabe für Fahrzeuge die das Simulationsende noch nicht "
+"erreicht haben schreiben"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:216
 msgid ""
 "Write tripinfo output for vehicles which have not departed at simulation end "
 "because of depart delay"
 msgstr ""
+"Fahrteninformations-Ausgabe für Fahrzeuge die am Simulationsende wegen einer "
+"Abfahrtsverzögerung nicht abgefahren sind schreiben"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:220
 msgid "Save single vehicle route info into FILE"
-msgstr ""
+msgstr "Einzelfahrzeugrouteninformation in Datei speichern"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:224
 msgid "Write the exit times for all edges"
-msgstr ""
+msgstr "Austrittszeiten für alle Kanten schreiben"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:228
 msgid "Write the last route only"
-msgstr ""
+msgstr "Nur die letzte Route schreiben"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:232
 msgid "Sorts the output by departure time"
-msgstr ""
+msgstr "Sortiert die Ausgabe nach der Abfahrtszeit"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:236
+#, fuzzy
 msgid "Write the output in the duarouter alternatives style"
-msgstr ""
+msgstr "Die Ausgabe im alternativen duarouter-Stil schreiben"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:239
 msgid "Write costs for all routes"
-msgstr ""
+msgstr "Kosten für alle Routen schreiben"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:243
 msgid "Write the output with the intended instead of the real departure time"
 msgstr ""
+"Die Ausgabe mit der beabsichtigten statt der tatsächlichen Abfahrtszeit "
+"schreiben"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:250
 msgid ""
 "Write vehroute output for vehicles which have not arrived at simulation end"
 msgstr ""
+"Fahrzeugroutenausgabe für Fahrzeuge die das Simulationsende noch nicht "
+"erreicht haben schreiben"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:253
 msgid "Skip vehroute output for public transport vehicles"
-msgstr ""
+msgstr "Fahrzeugausgabe für Fahrzeuge des öffentlichen Verkehrs überspringen"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:256
+#, fuzzy
 msgid "Include invalid routes and route stubs in vehroute output"
 msgstr ""
+"Ungültige Routen und Routen-Stubs in die Fahrzeugroutenausgabe einschließen"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:259
 msgid "Include information about edges between stops"
-msgstr ""
+msgstr "Informationen zu Kanten zwischen Haltepunkten hinzufügen"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:262
 msgid ""
@@ -2468,19 +2486,20 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:298
 msgid "Write collision information into FILE"
-msgstr ""
+msgstr "Kollisionsinformationen in Datei schreiben"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:301
 msgid "Write aggregated traffic statistics for all edges into FILE"
-msgstr ""
+msgstr "Aggregierte Verkehrsstatistiken für alle Kanten in Datei schreiben"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:303
 msgid "Write aggregated traffic statistics for all lanes into FILE"
 msgstr ""
+"Aggregierte Verkehrsstatistiken für alle Fahrstreifen in Datei schreiben"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:307
 msgid "Write overall statistics into FILE"
-msgstr ""
+msgstr "Gesamtstatistiken in Datei schreiben"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:311
 msgid "Save movereminder states of selected vehicles into FILE"
@@ -2492,55 +2511,61 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:317
 msgid "Use TIME[] as times at which a network state written"
-msgstr ""
+msgstr "Nutze Zeit[] als Zeiten zu denen ein Netzstand geschrieben wird"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:319
 msgid "save state repeatedly after TIME period"
-msgstr ""
+msgstr "Stand nach der Zeitperiode wiederholt speichern"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:321
+#, fuzzy
 msgid "Keep only the last INT periodic state files"
-msgstr ""
+msgstr "Nur die letzten periodischen INT-Zustandsdateien behalten"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:323
 msgid "Prefix for network states"
-msgstr ""
+msgstr "Präfix für Netzstand"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:325
 msgid "Suffix for network states (.xml.gz or .xml)"
-msgstr ""
+msgstr "Suffix für Netzstände (.xml.gz oder .xml)"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:327
 msgid "Files for network states"
-msgstr ""
+msgstr "Dateien für Netzstände"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:329
+#, fuzzy
 msgid "Save random number generator states"
-msgstr ""
+msgstr "Zustände des Zufallszahlengenerators speichern"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:331
 msgid "Save person and container states (experimental)"
-msgstr ""
+msgstr "Personen- und Containerstände (experimentell) speichern"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:333
 msgid "Save rail signal constraints"
-msgstr ""
+msgstr "Gleissignalbeschränkungen speichern"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:335
 msgid "Write internal state values with the given precision (default 2)"
 msgstr ""
+"Interne Standwerte mit der angegebenen Genauigkeit schreiben (Standard 2)"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:339
 msgid "Defines the begin time in seconds; The simulation starts at this time"
 msgstr ""
+"Definiert die Startzeit in Sekunden; Die Simulation beginnt zu diesem "
+"Zeitpunkt"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:342
 msgid "Defines the end time in seconds; The simulation ends at this time"
 msgstr ""
+"Definiert die Endzeit in Sekunden; Die Simulation endet zu diesem Zeitpunkt"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:345
 msgid "Defines the step duration in seconds"
-msgstr ""
+msgstr "Definiert die Schrittdauer in Sekunden"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:348
 msgid ""
@@ -2555,24 +2580,28 @@ msgid ""
 msgstr ""
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:354
+#, fuzzy
 msgid "Defines the number of threads for parallel simulation"
-msgstr ""
+msgstr "Definiert die Anzahl der Fäden für die parallele Simulation"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:357
 msgid ""
 "Defines the resolution in m when handling lateral positioning within a lane "
 "(with -1 all vehicles drive at the center of their lane"
 msgstr ""
+"Definiert die Auflösung in m bei der Handhabung der Querpositionierung "
+"innerhalb eines Fahrstreifens (bei -1 fahren alle Fahrzeuge in der Mitte "
+"ihres Fahrstreifens"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:361
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:142
 msgid "Load routes for the next number of seconds ahead"
-msgstr ""
+msgstr "Routen für die nächste Anzahl von Sekunden im Voraus laden"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:364
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:145
 msgid "Disable (junction) internal links"
-msgstr ""
+msgstr "(Knotenpunkt) interne Links deaktivieren"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:367
 msgid ""
@@ -2582,11 +2611,11 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:370
 msgid "Do not check whether routes are connected"
-msgstr ""
+msgstr "Prüft nicht, ob Routen verbunden sind"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:373
 msgid "Do not check whether accidents occur"
-msgstr ""
+msgstr "Prüft nicht, ob es zu Unfällen kommt"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:376
 msgid "How to deal with collisions: [none,warn,teleport,remove]"
@@ -2700,16 +2729,20 @@ msgstr ""
 msgid ""
 "Allow inserting a vehicle in a situation which requires emergency braking"
 msgstr ""
+"Einfahren eines Fahrzeugs in eine Situation, die eine Notbremsung erfordert "
+"erlauben"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:442
 msgid ""
 "Each vehicle receives a random offset to its depart value drawn uniformly "
 "from [0, TIME]"
 msgstr ""
+"Jedes Fahrzeug erhält einen zufälligen Versatz zu seinem Abfahrtswert, der "
+"einheitlich aus [0, Zeit] gezogen wird"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:445
 msgid "Duration of a lane change maneuver (default 0)"
-msgstr ""
+msgstr "Dauer eines Fahrstreifenwechselmanövers (Standard 0)"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:448
 msgid "Whether overtaking on the right on motorways is permitted"
@@ -2717,11 +2750,11 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:451
 msgid "Switches off all traffic lights."
-msgstr ""
+msgstr "Schaltet alle LSAs aus."
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:454
 msgid "Sets default visibility for actuation detectors"
-msgstr ""
+msgstr "Legt die Standardsichtbarkeit für Betätigungsdetektoren fest"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:457
 msgid "Sets default jam-threshold parameter for all actuation detectors"
@@ -2730,14 +2763,15 @@ msgstr ""
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:460
 msgid "Sets default detector length parameter for all actuation detectors"
 msgstr ""
+"Legt den Standard-Detektorlängenparameter für alle Betätigungsdetektoren fest"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:463
 msgid "Sets default range for detecting delayed vehicles"
-msgstr ""
+msgstr "Legt den Standardbereich für die Erkennung verspäteter Fahrzeuge fest"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:466
 msgid "Minimum deceleration when braking at yellow"
-msgstr ""
+msgstr "Mindestverzögerung beim Bremsen bei Gelb"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:469
 msgid "Let railsignals operate in moving-block mode by default"
@@ -2849,6 +2883,8 @@ msgstr ""
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:526
 msgid "Fraction of stripes to reserve for oncoming pedestrians"
 msgstr ""
+"Bruchteil der Streifen, der für entgegenkommende Fußgänger reserviert werden "
+"soll"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:529
 msgid ""
@@ -2859,6 +2895,8 @@ msgstr ""
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:532
 msgid "Maximum width in m to reserve for oncoming pedestrians"
 msgstr ""
+"Maximale Breite in m, die für entgegenkommende Fußgänger reserviert werden "
+"kann"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:535
 msgid "Interpret departPosLat for walks in legacy style"
@@ -2925,7 +2963,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/tools/emissionsMap_main.cpp:129
 #: /home/micha/programming/sumo/src/tools/emissionsMap_main.cpp:132
 msgid "Emissions"
-msgstr ""
+msgstr "Emissionen"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:603
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:59
@@ -2960,34 +2998,34 @@ msgstr ""
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_BTreceiver.cpp:68
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_BTreceiver.cpp:71
 msgid "Communication"
-msgstr ""
+msgstr "Kommunikation"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:615
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Battery.cpp:52
 msgid "Battery"
-msgstr ""
+msgstr "Batterie"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:621
 msgid "Disable performance reports for individual simulation steps"
-msgstr ""
+msgstr "Leistungsberichte für einzelne Simulationsschritte deaktivieren"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:624
 msgid "Enable statistics on vehicle trips"
-msgstr ""
+msgstr "Statistiken zu Fahrzeugfahrten aktivieren"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:627
 msgid "Disable console output of current simulation step"
-msgstr ""
+msgstr "Konsolenausgabe des aktuellen Simulationsschritts deaktivieren"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:630
 msgid "Number of simulation steps between step-log outputs"
-msgstr ""
+msgstr "Anzahl der Simulationsschritte zwischen Schrittprotokollausgaben"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:633
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:635
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:637
 msgid "TraCI Server"
-msgstr ""
+msgstr "TraCI-Server"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:635
 msgid "Enables TraCI Server if set"
