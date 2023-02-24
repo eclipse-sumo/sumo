@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-21 18:29+0100\n"
-"PO-Revision-Date: 2023-02-24 15:29+0000\n"
+"PO-Revision-Date: 2023-02-24 16:13+0000\n"
 "Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -6180,24 +6180,32 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:192
 msgid "reduces too similar geometry points"
-msgstr ""
+msgstr "reduziert zu ähnlichen Geometriepunkten"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:195
+#, fuzzy
 msgid ""
 "Warn about edge geometries with an angle above DEGREES in successive segments"
 msgstr ""
+"Warnt vor Kantengeometrien mit einem Winkel über Grad in "
+"aufeinanderfolgenden Segmenten"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:198
+#, fuzzy
 msgid ""
 "Warn about edge geometries with a turning radius less than METERS at the "
 "start or end"
 msgstr ""
+"Warnt  vor Kantengeometrien mit einem Wenderadius von weniger als die Meter "
+"am Anfang oder Ende"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:201
+#, fuzzy
 msgid ""
 "Straighten edge geometries to avoid turning radii less than geometry.min-"
 "radius"
 msgstr ""
+"Kantengeometrien, um Wenderadien kleiner als geometry.min-radius begradigen"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:204
 msgid ""
