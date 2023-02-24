@@ -61,6 +61,8 @@ def get_options():
                   help="output prefix for patch files")
     ap.add_option("--filter-regions", dest="filterRegions",
                   help="filter regions by name or id")
+    ap.add_option("--keep-all", action="store_true", dest="keepAll", default=False,
+                  help="keep original regions outside the filtered regions")
     ap.add_option("--horizontal", action="store_true", dest="horizontal", default=False,
                   help="output shapes roughly aligned along the horizontal")
     ap.add_option("--track-offset", type=float, default=20, dest="trackOffset",
@@ -476,7 +478,7 @@ def main(options):
                 outf_edg.write('    <edge id="%s" shape="%s" length="%.2f"/>\n' % (
                     edge.getBidi().getID(), shapeStr(reversed(shape)), edge.getLength()))
         # remove the rest of the network
-        if options.filterRegions:
+        if options.filterRegions and not options.keepAll:
             for edge in net.getEdges():
                 if edge.getID() not in edgeShapes and edge.getBidi() not in edgeShapes:
                     outf_edg.write('    <delete id="%s"/>\n' % (edge.getID()))
