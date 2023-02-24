@@ -28,6 +28,7 @@
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/foxtools/MFXUtils.h>
 #include <utils/foxtools/MFXComboBoxIcon.h>
+#include <utils/foxtools/MFXAddEditTypedTable.h>
 #include <utils/common/RGBColor.h>
 #include <utils/common/ToString.h>
 #include <utils/common/StringUtils.h>
@@ -55,11 +56,12 @@ FXDEFMAP(GUIDialog_ViewSettings::SizePanel) GUIDialog_SizeMap[] = {
 };
 
 FXDEFMAP(GUIDialog_ViewSettings) GUIDialog_ViewSettingsMap[] = {
-    FXMAPFUNC(SEL_CHANGED,  MID_SIMPLE_VIEW_COLORCHANGE,    GUIDialog_ViewSettings::onCmdColorChange),
-    FXMAPFUNC(SEL_COMMAND,  MID_SIMPLE_VIEW_COLORCHANGE,    GUIDialog_ViewSettings::onCmdColorChange),
-    FXMAPFUNC(SEL_COMMAND,  MID_SIMPLE_VIEW_NAMECHANGE,     GUIDialog_ViewSettings::onCmdNameChange),
-    FXMAPFUNC(SEL_COMMAND,  MID_SETTINGS_OK,                GUIDialog_ViewSettings::onCmdOk),
-    FXMAPFUNC(SEL_COMMAND,  MID_SETTINGS_CANCEL,            GUIDialog_ViewSettings::onCmdCancel),
+    FXMAPFUNC(SEL_CHANGED,  MID_SIMPLE_VIEW_COLORCHANGE,            GUIDialog_ViewSettings::onCmdColorChange),
+    FXMAPFUNC(SEL_COMMAND,  MID_SIMPLE_VIEW_COLORCHANGE,            GUIDialog_ViewSettings::onCmdColorChange),
+    FXMAPFUNC(SEL_COMMAND,  MID_SIMPLE_VIEW_NAMECHANGE,             GUIDialog_ViewSettings::onCmdNameChange),
+    FXMAPFUNC(SEL_COMMAND,  MID_SETTINGS_OK,                        GUIDialog_ViewSettings::onCmdOk),
+    FXMAPFUNC(SEL_COMMAND,  MID_SETTINGS_CANCEL,                    GUIDialog_ViewSettings::onCmdCancel),
+    FXMAPFUNC(SEL_CHANGED,  MFXAddEditTypedTable::ID_TEXT_CHANGED,  GUIDialog_ViewSettings::onCmdEditTable),
 
     FXMAPFUNC(SEL_COMMAND,  MID_SIMPLE_VIEW_SAVE,   GUIDialog_ViewSettings::onCmdSaveSetting),
     FXMAPFUNC(SEL_UPDATE,   MID_SIMPLE_VIEW_SAVE,   GUIDialog_ViewSettings::onUpdSaveSetting),
@@ -83,10 +85,10 @@ FXIMPLEMENT(GUIDialog_ViewSettings::SizePanel,  FXObject,       GUIDialog_SizeMa
 // method definitions
 // ===========================================================================
 
-GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* SUMOAbstractView, GUIVisualizationSettings* settings) :
-    FXDialogBox(SUMOAbstractView, TL("View Settings"), GUIDesignViewSettingsMainDialog),
+GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIVisualizationSettings* settings) :
+    FXDialogBox(parent, TL("View Settings"), GUIDesignViewSettingsMainDialog),
     GUIPersistentWindowPos(this, "VIEWSETTINGS", true, 20, 40, 700, 500, 400, 20),
-    mySUMOAbstractView(SUMOAbstractView),
+    myParent(parent),
     mySettings(settings),
     myBackup(settings->name, settings->netedit) {
     // make a backup copy
@@ -146,7 +148,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* SUMOAbstract
 
 
 GUIDialog_ViewSettings::~GUIDialog_ViewSettings() {
-    mySUMOAbstractView->remove(this);
+    myParent->remove(this);
     // delete name panels
     delete myInternalJunctionNamePanel;
     delete myInternalEdgeNamePanel;
@@ -186,12 +188,6 @@ GUIDialog_ViewSettings::~GUIDialog_ViewSettings() {
 }
 
 
-GUISUMOAbstractView*
-GUIDialog_ViewSettings::getSUMOAbstractView() const {
-    return mySUMOAbstractView;
-}
-
-
 void
 GUIDialog_ViewSettings::show() {
     // update buttons that can be changed externally
@@ -199,6 +195,12 @@ GUIDialog_ViewSettings::show() {
     myGridXSizeDialer->setValue(mySettings->gridXSize);
     myGridYSizeDialer->setValue(mySettings->gridYSize);
     FXDialogBox::show();
+}
+
+
+GUISUMOAbstractView*
+GUIDialog_ViewSettings::getSUMOAbstractView() {
+    return myParent;
 }
 
 
@@ -221,7 +223,7 @@ long
 GUIDialog_ViewSettings::onCmdCancel(FXObject*, FXSelector, void*) {
     hide();
     mySettings->copy(myBackup);
-    mySUMOAbstractView->update();
+    myParent->update();
     return 1;
 }
 
@@ -388,9 +390,9 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* ptr) {
     myShowColorLegend->setCheck(mySettings->showColorLegend);
     myShowVehicleColorLegend->setCheck(mySettings->showVehicleColorLegend);
 
-    mySUMOAbstractView->setColorScheme(mySettings->name);
+    myParent->setColorScheme(mySettings->name);
     update();
-    mySUMOAbstractView->update();
+    myParent->update();
     return 1;
 }
 
@@ -709,15 +711,15 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
 
     // lanes (colors)
     if (sender == myLaneColorRainbow) {
-        mySUMOAbstractView->buildColorRainbow(tmpSettings, tmpSettings.getLaneEdgeScheme(), tmpSettings.getLaneEdgeMode(), GLO_LANE,
+        myParent->buildColorRainbow(tmpSettings, tmpSettings.getLaneEdgeScheme(), tmpSettings.getLaneEdgeMode(), GLO_LANE,
                                     myLaneColorRainbowCheck->getCheck() != FALSE, myLaneColorRainbowThreshold->getValue(),
                                     myLaneColorRainbowCheck2->getCheck() != FALSE, myLaneColorRainbowThreshold2->getValue());
         doRebuildColorMatrices = true;
     } else if (sender == myJunctionColorRainbow) {
-        mySUMOAbstractView->buildColorRainbow(tmpSettings, tmpSettings.junctionColorer.getScheme(), tmpSettings.junctionColorer.getActive(), GLO_JUNCTION);
+        myParent->buildColorRainbow(tmpSettings, tmpSettings.junctionColorer.getScheme(), tmpSettings.junctionColorer.getActive(), GLO_JUNCTION);
         doRebuildColorMatrices = true;
     } else if (sender == myDataColorRainbow) {
-        mySUMOAbstractView->buildColorRainbow(tmpSettings, tmpSettings.dataColorer.getScheme(), tmpSettings.dataColorer.getActive(), GLO_TAZRELDATA,
+        myParent->buildColorRainbow(tmpSettings, tmpSettings.dataColorer.getScheme(), tmpSettings.dataColorer.getActive(), GLO_TAZRELDATA,
                                     myDataColorRainbowCheck->getCheck() != FALSE, myDataColorRainbowThreshold->getValue());
         doRebuildColorMatrices = true;
     }
@@ -864,7 +866,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     }
     // openGL
     if (sender == myRecalculateBoundaries) {
-        mySUMOAbstractView->recalculateBoundaries();
+        myParent->recalculateBoundaries();
     }
 
     if (tmpSettings == *mySettings) {
@@ -886,19 +888,19 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
         // - the comboBox of all other views (only append) XXX @todo
         index = mySchemeName->appendItem(tmpSettings.name.c_str());
         mySchemeName->setCurrentItem(index);
-        mySUMOAbstractView->getColoringSchemesCombo()->appendItem(tmpSettings.name.c_str());
+        myParent->getColoringSchemesCombo()->appendItem(tmpSettings.name.c_str());
     }
-    mySUMOAbstractView->getColoringSchemesCombo()->setCurrentItem(
-        mySUMOAbstractView->getColoringSchemesCombo()->findItem(tmpSettings.name.c_str()));
+    myParent->getColoringSchemesCombo()->setCurrentItem(
+        myParent->getColoringSchemesCombo()->findItem(tmpSettings.name.c_str()));
     gSchemeStorage.add(tmpSettings); // overwrites existing
     mySettings = &gSchemeStorage.get(tmpSettings.name);
-    mySUMOAbstractView->setColorScheme(tmpSettings.name);
+    myParent->setColorScheme(tmpSettings.name);
 
     if (doRebuildColorMatrices) {
         rebuildColorMatrices(true);
     }
-    mySUMOAbstractView->handle(this, FXSEL(SEL_CHANGED, MID_SIMPLE_VIEW_COLORCHANGE), nullptr);
-    mySUMOAbstractView->forceRefresh();
+    myParent->handle(this, FXSEL(SEL_CHANGED, MID_SIMPLE_VIEW_COLORCHANGE), nullptr);
+    myParent->forceRefresh();
     getApp()->forceRefresh();
     return 1;
 }
@@ -906,51 +908,53 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
 void
 GUIDialog_ViewSettings::loadSettings(const std::string& file) {
     GUISettingsHandler handler(file, true, mySettings->netedit);
-    for (std::string settingsName : handler.addSettings(mySUMOAbstractView)) {
+    for (std::string settingsName : handler.addSettings(myParent)) {
         FXint index = mySchemeName->appendItem(settingsName.c_str());
         mySchemeName->setCurrentItem(index);
         mySettings = &gSchemeStorage.get(settingsName);
     }
     if (handler.hasDecals()) {
-        mySUMOAbstractView->getDecalsLockMutex().lock();
-        mySUMOAbstractView->getDecals() = handler.getDecals();
-        myDecalsTable->fillTable();
-        mySUMOAbstractView->update();
-        mySUMOAbstractView->getDecalsLockMutex().unlock();
+        myParent->getDecalsLockMutex().lock();
+        myParent->getDecals() = handler.getDecals();
+        rebuildDecalsTable();
+        myParent->update();
+        myParent->getDecalsLockMutex().unlock();
     }
     if (handler.getDelay() >= 0) {
-        mySUMOAbstractView->setDelay(handler.getDelay());
+        myParent->setDelay(handler.getDelay());
     }
     if (handler.getBreakpoints().size() > 0) {
-        mySUMOAbstractView->setBreakpoints(handler.getBreakpoints());
+        myParent->setBreakpoints(handler.getBreakpoints());
     }
-    handler.applyViewport(mySUMOAbstractView);
+    handler.applyViewport(myParent);
     rebuildColorMatrices(true);
 }
 
 
 void
 GUIDialog_ViewSettings::saveDecals(OutputDevice& dev) const {
-    for (const auto &decal : mySUMOAbstractView->getDecals()) {
-        bool isLight = decal.filename.substr(0, 5) == "light" && decal.filename.length() == 6 && isdigit(decal.filename[5]);
+    std::vector<GUISUMOAbstractView::Decal>::iterator j;
+    for (j = myParent->getDecals().begin(); j != myParent->getDecals().end(); ++j) {
+        GUISUMOAbstractView::Decal& d = *j;
+        bool isLight = d.filename.substr(0, 5) == "light" && d.filename.length() == 6 && isdigit(d.filename[5]);
         if (isLight) {
             dev.openTag(SUMO_TAG_VIEWSETTINGS_LIGHT);
-            dev.writeAttr(SUMO_ATTR_INDEX, decal.filename.substr(5, 1));
+            dev.writeAttr(SUMO_ATTR_INDEX, d.filename.substr(5, 1));
         } else {
             dev.openTag(SUMO_TAG_VIEWSETTINGS_DECAL);
-            dev.writeAttr("file", decal.filename);
-            dev.writeAttr("screenRelative", decal.screenRelative);
+            dev.writeAttr("file", d.filename);
+            dev.writeAttr("screenRelative", d.screenRelative);
         }
-        dev.writeAttr(SUMO_ATTR_CENTER_X, decal.centerX);
-        dev.writeAttr(SUMO_ATTR_CENTER_Y, decal.centerY);
-        dev.writeAttr(SUMO_ATTR_CENTER_Z, decal.centerZ);
-        dev.writeAttr(SUMO_ATTR_WIDTH, decal.width);
-        dev.writeAttr(SUMO_ATTR_HEIGHT, decal.height);
-        dev.writeAttr("altitude", decal.altitude);
-        dev.writeAttr("rotation", decal.rot);
-        dev.writeAttr("tilt", decal.tilt);
-        dev.writeAttr("roll", decal.roll);
-        dev.writeAttr(SUMO_ATTR_LAYER, decal.layer);
+        dev.writeAttr(SUMO_ATTR_CENTER_X, d.centerX);
+        dev.writeAttr(SUMO_ATTR_CENTER_Y, d.centerY);
+        dev.writeAttr(SUMO_ATTR_CENTER_Z, d.centerZ);
+        dev.writeAttr(SUMO_ATTR_WIDTH, d.width);
+        dev.writeAttr(SUMO_ATTR_HEIGHT, d.height);
+        dev.writeAttr("altitude", d.altitude);
+        dev.writeAttr("rotation", d.rot);
+        dev.writeAttr("tilt", d.tilt);
+        dev.writeAttr("roll", d.roll);
+        dev.writeAttr(SUMO_ATTR_LAYER, d.layer);
         dev.closeTag();
     }
 }
@@ -958,14 +962,14 @@ GUIDialog_ViewSettings::saveDecals(OutputDevice& dev) const {
 
 void
 GUIDialog_ViewSettings::loadDecals(const std::string& file) {
-    mySUMOAbstractView->getDecalsLockMutex().lock();
+    myParent->getDecalsLockMutex().lock();
     GUISettingsHandler handler(file);
     if (handler.hasDecals()) {
-        mySUMOAbstractView->getDecals() = handler.getDecals();
+        myParent->getDecals() = handler.getDecals();
     }
-    myDecalsTable->fillTable();
-    mySUMOAbstractView->update();
-    mySUMOAbstractView->getDecalsLockMutex().unlock();
+    rebuildDecalsTable();
+    myParent->update();
+    myParent->getDecalsLockMutex().unlock();
 }
 
 
@@ -1004,17 +1008,17 @@ GUIDialog_ViewSettings::onCmdSaveSetting(FXObject*, FXSelector, void* /*data*/) 
     tmpSettings.name = name;
     if (name == mySettings->name || StringUtils::startsWith(mySettings->name, "custom_")) {
         gSchemeStorage.remove(mySettings->name);
-        mySUMOAbstractView->getColoringSchemesCombo()->setItemText(index, name.c_str());
+        myParent->getColoringSchemesCombo()->setItemText(index, name.c_str());
     } else {
         gSchemeStorage.get(mySettings->name).copy(myBackup);
         index = mySchemeName->appendItem(name.c_str());
-        mySUMOAbstractView->getColoringSchemesCombo()->appendItem(name.c_str());
-        mySUMOAbstractView->getColoringSchemesCombo()->setCurrentItem(
-            mySUMOAbstractView->getColoringSchemesCombo()->findItem(name.c_str()));
+        myParent->getColoringSchemesCombo()->appendItem(name.c_str());
+        myParent->getColoringSchemesCombo()->setCurrentItem(
+            myParent->getColoringSchemesCombo()->findItem(name.c_str()));
     }
     gSchemeStorage.add(tmpSettings);
     mySchemeName->setItemText(index, name.c_str());
-    mySUMOAbstractView->setColorScheme(name);
+    myParent->setColorScheme(name);
     mySettings = &gSchemeStorage.get(name);
     myBackup.copy(*mySettings);
     gSchemeStorage.writeSettings(getApp());
@@ -1066,23 +1070,23 @@ GUIDialog_ViewSettings::onCmdExportSetting(FXObject*, FXSelector, void* /*data*/
     try {
         OutputDevice& dev = OutputDevice::getDevice(file.text(), false);
         dev.openTag(SUMO_TAG_VIEWSETTINGS);
-        if (mySUMOAbstractView->is3DView()) {
+        if (myParent->is3DView()) {
             dev.writeAttr(SUMO_ATTR_TYPE, "osg");
         }
         mySettings->save(dev);
         if (mySaveViewPort->getCheck()) {
-            mySUMOAbstractView->getViewportEditor()->writeXML(dev);
+            myParent->getViewportEditor()->writeXML(dev);
         }
         if (mySaveDelay->getCheck()) {
             dev.openTag(SUMO_TAG_DELAY);
-            dev.writeAttr(SUMO_ATTR_VALUE, mySUMOAbstractView->getDelay());
+            dev.writeAttr(SUMO_ATTR_VALUE, myParent->getDelay());
             dev.closeTag();
         }
         if (mySaveDecals->getCheck()) {
             saveDecals(dev);
         }
         if (!mySettings->netedit && mySaveBreakpoints->getCheck()) {
-            for (SUMOTime t : mySUMOAbstractView->retrieveBreakpoints()) {
+            for (SUMOTime t : myParent->retrieveBreakpoints()) {
                 dev.openTag(SUMO_TAG_BREAKPOINT);
                 dev.writeAttr(SUMO_ATTR_TIME, time2string(t));
                 dev.closeTag();
@@ -1174,7 +1178,7 @@ GUIDialog_ViewSettings::onCmdSaveXMLDecals(FXObject*, FXSelector, void* /*data*/
         dev.closeTag();
         dev.close();
     } catch (IOError& e) {
-        FXMessageBox::error(mySUMOAbstractView, MBOX_OK, TL("Storing failed!"), "%s", e.what());
+        FXMessageBox::error(myParent, MBOX_OK, TL("Storing failed!"), "%s", e.what());
     }
     return 1;
 }
@@ -1183,15 +1187,15 @@ GUIDialog_ViewSettings::onCmdSaveXMLDecals(FXObject*, FXSelector, void* /*data*/
 long
 GUIDialog_ViewSettings::onCmdClearDecals(FXObject*, FXSelector, void* /*data*/) {
     // lock decals mutex
-    mySUMOAbstractView->getDecalsLockMutex().lock();
+    myParent->getDecalsLockMutex().lock();
     // clear decals
-    mySUMOAbstractView->getDecals().clear();
-    // refill table
-    myDecalsTable->fillTable();
+    myParent->getDecals().clear();
+    // rebuild list
+    rebuildDecalsTable();
     // update view
-    mySUMOAbstractView->update();
+    myParent->update();
     // unlock decals mutex
-    mySUMOAbstractView->getDecalsLockMutex().unlock();
+    myParent->getDecalsLockMutex().unlock();
     return 1;
 }
 
@@ -1202,16 +1206,30 @@ GUIDialog_ViewSettings::onUpdImportSetting(FXObject* sender, FXSelector, void* p
     return 1;
 }
 
-/*
+
+void
+GUIDialog_ViewSettings::buildDecalsTable() {
+    myDecalsTable = new MFXAddEditTypedTable(myDecalsFrame, this, MID_TABLE, GUIDesignViewSettingsDecalsTable);
+    myDecalsTable->setVisibleRows(5);
+    myDecalsTable->setVisibleColumns(7);
+    myDecalsTable->setTableSize(5, 7);
+    myDecalsTable->setBackColor(FXRGB(255, 255, 255));
+    myDecalsTable->getRowHeader()->setWidth(0);
+    for (int i = 1; i <= 5; ++i) {
+        myDecalsTable->setCellType(i, CT_REAL);
+        myDecalsTable->setNumberCellParams(i, -10000000, 10000000, 1, 10, 100, "%.2f");
+    }
+}
+
+
 void
 GUIDialog_ViewSettings::rebuildDecalsTable() {
-
     // clear all items
     myDecalsTable->clearItems();
     // declare num of colums
     const int cols = 8;
     // declare num of rows (number of current decals + 1, but show at least 10)
-    const int numRows = MAX2((int)10, (int)myDecals->size() + 1);
+    const int numRows = MAX2((int)10, (int)myParent->getDecals().size() + 1);
     // set table attributes
     myDecalsTable->setTableSize(numRows, cols);
     myDecalsTable->setColumnText(0, "file");
@@ -1232,7 +1250,7 @@ GUIDialog_ViewSettings::rebuildDecalsTable() {
     header->setItemSize(0, 150);
     // insert already known decals information into table
     FXint row = 0;
-    for (const auto &decal : *myDecals) {
+    for (const auto &decal : myParent->getDecals()) {
         myDecalsTable->setItemText(row, 0, decal.filename.c_str());
         myDecalsTable->setItemText(row, 1, toString<double>(decal.centerX).c_str());
         myDecalsTable->setItemText(row, 2, toString<double>(decal.centerY).c_str());
@@ -1247,9 +1265,8 @@ GUIDialog_ViewSettings::rebuildDecalsTable() {
     for (int i = 0; i < (cols - 1); i++) {
         myDecalsTable->setItemText(row, i, " ");
     }
-
 }
-*/
+
 
 FXMatrix*
 GUIDialog_ViewSettings::rebuildColorMatrix(FXVerticalFrame* frame,
@@ -1382,10 +1399,11 @@ GUIDialog_ViewSettings::rebuildScaleMatrix(FXVerticalFrame* frame,
 void
 GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) {
     // decals
-    myDecalsTable = new MFXDecalsTable(this, myDecalsFrame);
+    delete myDecalsTable;
+    buildDecalsTable();
+    rebuildDecalsTable();
     if (doCreate) {
         myDecalsTable->create();
-        myDecalsTable->fillTable();
     }
     FXMatrix* m = rebuildColorMatrix(myLaneColorSettingFrame, myLaneColors, myLaneThresholds, myLaneButtons, myLaneColorInterpolation, mySettings->getLaneEdgeScheme());
     if (doCreate) {
@@ -1409,7 +1427,7 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) {
     myMeanDataID->hide();
     if (activeSchemeName == GUIVisualizationSettings::SCHEME_NAME_EDGE_PARAM_NUMERICAL) {
         myParamKey->appendItem(mySettings->edgeParam.c_str());
-        for (const std::string& attr : mySUMOAbstractView->getEdgeLaneParamKeys(true)) {
+        for (const std::string& attr : myParent->getEdgeLaneParamKeys(true)) {
             if (attr != mySettings->edgeParam) {
                 myParamKey->appendItem(attr.c_str());
             }
@@ -1417,7 +1435,7 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) {
         myParamKey->enable();
     } else if (activeSchemeName == GUIVisualizationSettings::SCHEME_NAME_LANE_PARAM_NUMERICAL) {
         myParamKey->appendItem(mySettings->laneParam.c_str());
-        for (const std::string& attr : mySUMOAbstractView->getEdgeLaneParamKeys(false)) {
+        for (const std::string& attr : myParent->getEdgeLaneParamKeys(false)) {
             if (attr != mySettings->laneParam) {
                 myParamKey->appendItem(attr.c_str());
             }
@@ -1425,7 +1443,7 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) {
         myParamKey->enable();
     } else if (activeSchemeName == GUIVisualizationSettings::SCHEME_NAME_EDGEDATA_NUMERICAL) {
         myParamKey->appendItem(mySettings->edgeData.c_str());
-        for (const std::string& attr : mySUMOAbstractView->getEdgeDataAttrs()) {
+        for (const std::string& attr : myParent->getEdgeDataAttrs()) {
             if (attr != mySettings->edgeData) {
                 myParamKey->appendItem(attr.c_str());
             }
@@ -1436,7 +1454,7 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) {
         if (mySettings->edgeDataID != "") {
             myMeanDataID->appendItem(mySettings->edgeDataID.c_str());
         }
-        for (const std::string& attr : mySUMOAbstractView->getMeanDataIDs()) {
+        for (const std::string& attr : myParent->getMeanDataIDs()) {
             if (attr != mySettings->edgeDataID) {
                 myMeanDataID->appendItem(attr.c_str());
             }
@@ -1450,7 +1468,7 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) {
             myMeanDataID->show();
             myMeanDataID->setNumVisible(myMeanDataID->getNumItems());
             myParamKey->appendItem(mySettings->edgeData.c_str());
-            for (const std::string& attr : mySUMOAbstractView->getMeanDataAttrs(mySettings->edgeDataID)) {
+            for (const std::string& attr : myParent->getMeanDataAttrs(mySettings->edgeDataID)) {
                 if (attr != mySettings->edgeData) {
                     myParamKey->appendItem(attr.c_str());
                 }
@@ -1464,7 +1482,7 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) {
 
     if (activeScaleSchemeName == GUIVisualizationSettings::SCHEME_NAME_EDGEDATA_NUMERICAL) {
         myScalingParamKey->appendItem(mySettings->edgeDataScaling.c_str());
-        for (const std::string& attr : mySUMOAbstractView->getEdgeDataAttrs()) {
+        for (const std::string& attr : myParent->getEdgeDataAttrs()) {
             if (attr != mySettings->edgeDataScaling) {
                 myScalingParamKey->appendItem(attr.c_str());
             }
@@ -1544,7 +1562,7 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) {
         if (activeSchemeName == GUIVisualizationSettings::SCHEME_NAME_DATA_ATTRIBUTE_NUMERICAL) {
             myDataParamKey->clearItems();
             myDataParamKey->appendItem(mySettings->relDataAttr.c_str());
-            for (const std::string& attr : mySUMOAbstractView->getRelDataAttrs()) {
+            for (const std::string& attr : myParent->getRelDataAttrs()) {
                 if (attr != mySettings->relDataAttr) {
                     myDataParamKey->appendItem(attr.c_str());
                 }
@@ -1567,7 +1585,7 @@ GUIDialog_ViewSettings::updateVehicleParams() {
     myVehicleTextParamKey->clearItems();
     myVehicleParamKey->appendItem(mySettings->vehicleParam.c_str());
     myVehicleTextParamKey->appendItem(mySettings->vehicleTextParam.c_str());
-    for (const std::string& attr : mySUMOAbstractView->getVehicleParamKeys(false)) {
+    for (const std::string& attr : myParent->getVehicleParamKeys(false)) {
         myVehicleParamKey->appendItem(attr.c_str());
         myVehicleTextParamKey->appendItem(attr.c_str());
     }
@@ -1575,21 +1593,18 @@ GUIDialog_ViewSettings::updateVehicleParams() {
     myVehicleTextParamKey->setNumVisible(myVehicleTextParamKey->getNumItems());
 }
 
-
 void
 GUIDialog_ViewSettings::updatePOIParams() {
     myPOITextParamKey->clearItems();
     myPOITextParamKey->appendItem(mySettings->poiTextParam.c_str());
-    for (const std::string& attr : mySUMOAbstractView->getPOIParamKeys()) {
+    for (const std::string& attr : myParent->getPOIParamKeys()) {
         myPOITextParamKey->appendItem(attr.c_str());
     }
     myPOITextParamKey->setNumVisible(myPOITextParamKey->getNumItems());
 }
 
-
 long
-GUIDialog_ViewSettings::onCmdEditTable(FXObject*, FXSelector, void* /* ptr */) {
-/*
+GUIDialog_ViewSettings::onCmdEditTable(FXObject*, FXSelector, void* ptr) {
     MFXEditedTableItem* i = (MFXEditedTableItem*) ptr;
     std::string value = i->item->getText().text();
     // check whether the inserted value is empty
@@ -1599,24 +1614,24 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*, FXSelector, void* /* ptr */) {
     GUISUMOAbstractView::Decal d;
     int row = i->row;
     // check whether we add a new entry or edit an existing entry
-    if (row == static_cast<int>(myDecals->size())) {
+    if (row == static_cast<int>(myParent->getDecals().size())) {
         d.filename = "";
-        d.centerX = double(mySUMOAbstractView->getGridWidth() / 2.);
-        d.centerY = double(mySUMOAbstractView->getGridHeight() / 2.);
+        d.centerX = double(myParent->getGridWidth() / 2.);
+        d.centerY = double(myParent->getGridHeight() / 2.);
         d.width = 0.;
         d.height = 0.;
         d.initialised = false;
         d.rot = 0;
         d.layer = 0;
         d.screenRelative = false;
-        mySUMOAbstractView->getDecalsLockMutex().lock();
-        myDecals->push_back(d);
-        mySUMOAbstractView->getDecalsLockMutex().unlock();
-    } else if (row > static_cast<int>(myDecals->size())) {
+        myParent->getDecalsLockMutex().lock();
+        myParent->getDecals().push_back(d);
+        myParent->getDecalsLockMutex().unlock();
+    } else if (row > static_cast<int>(myParent->getDecals().size())) {
         // ignore clicks two lines below existing entries
         return 1;
     } else {
-        d = (*myDecals)[row];
+        d = myParent->getDecals()[row];
     }
 
     switch (i->col) {
@@ -1685,12 +1700,11 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*, FXSelector, void* /* ptr */) {
         default:
             throw 1;
     }
-    (*myDecals)[row] = d;
+    myParent->getDecals()[row] = d;
     if (!i->updateOnly) {
         rebuildDecalsTable();
     }
-    mySUMOAbstractView->update();
-*/
+    myParent->update();
     return 1;
 }
 

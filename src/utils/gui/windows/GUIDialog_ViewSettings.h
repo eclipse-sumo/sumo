@@ -25,7 +25,7 @@
 #include <utils/foxtools/fxheader.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/gui/div/GUIPersistentWindowPos.h>
-#include <utils/foxtools/MFXDecalsTable.h>
+#include <utils/foxtools/MFXAddEditTypedTable.h>
 
 
 // ===========================================================================
@@ -103,7 +103,6 @@ public:
 
         /// @name FOX-callbacks
         /// @{
-
         /// @brief Called if something (color, width, etc.) has been changed
         long onCmdSizeChange(FXObject* obj, FXSelector sel, void* ptr);
 
@@ -134,10 +133,10 @@ public:
     };
 
     /** @brief Constructor
-     * @param[in] SUMOAbstractView The view to report changed settings to
+     * @param[in] parent The view to report changed settings to
      * @param[in, out] settings The current settings that can be changed
      */
-    GUIDialog_ViewSettings(GUISUMOAbstractView* SUMOAbstractView, GUIVisualizationSettings* settings);
+    GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIVisualizationSettings* settings);
 
     /// @brief FOX need this
     GUIDialog_ViewSettings() : myBackup("DUMMY") {}
@@ -145,11 +144,11 @@ public:
     /// @brief Destructor
     ~GUIDialog_ViewSettings();
 
-    /// @brief get the parent view
-    GUISUMOAbstractView* getSUMOAbstractView() const;
-
     /// @brief show view settings dialog
     void show();
+
+    /// @brief get GUISUMOAbstractView parent
+    GUISUMOAbstractView* getSUMOAbstractView();
 
     /** @brief Sets current settings (called if reopened)
      * @param[in, out] settings The current settings that can be changed
@@ -209,7 +208,6 @@ public:
 
     /// @brief Called if the decals shall be cleared
     long onCmdClearDecals(FXObject*, FXSelector, void* data);
-
     /// @}
 
     /** @brief Returns the name of the currently chosen scheme
@@ -224,7 +222,7 @@ public:
 
 protected:
     /// @brief The parent view (which settings are changed)
-    GUISUMOAbstractView* mySUMOAbstractView = nullptr;
+    GUISUMOAbstractView* myParent = nullptr;
 
     /// @brief The current settings
     GUIVisualizationSettings* mySettings = nullptr;
@@ -241,7 +239,7 @@ protected:
 
     FXColorWell* myBackgroundColor = nullptr;
     FXVerticalFrame* myDecalsFrame = nullptr;
-    MFXDecalsTable* myDecalsTable = nullptr;
+    MFXAddEditTypedTable* myDecalsTable = nullptr;
 
     /// @brief selection colors
     FXColorWell* mySelectionColor = nullptr;
@@ -525,6 +523,12 @@ protected:
      * @param[in] doCreate Whether "create" shall be called (only if built the first time)
      */
     void rebuildColorMatrices(bool doCreate = false);
+
+    /// @brief build the decals table
+    void buildDecalsTable();
+
+    /// @brief Rebuilds the decals table
+    void rebuildDecalsTable();
 
     /** @brief Loads a scheme from a file
      * @param[in] file The name of the file to read the settings from
