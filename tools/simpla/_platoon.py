@@ -16,6 +16,7 @@
 
 from ._platoonmode import PlatoonMode
 from . import _reporting as rp
+from . import _config as cfg
 
 warn = rp.Warner("Platoon")
 report = rp.Reporter("Platoon")
@@ -229,7 +230,7 @@ class Platoon(object):
 
         mode = PlatoonMode.LEADER if (index < self.size() - 1) else PlatoonMode.NONE
         # splitImpatience = 1. - math.exp(min([0., self._vehicles[index]._timeUntilSplit]))
-        pltn = Platoon(self._vehicles[index:], self._controlInterval, False)
+        pltn = Platoon(self._vehicles[index:], self._controlInterval, cfg.MAX_VEHICLES, False)
 
         if not pltn.setModeWithImpatience(mode, self._controlInterval):
             # could not split off platoon safely
