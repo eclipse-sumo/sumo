@@ -653,6 +653,11 @@ NBEdgeCont::splitAt(NBDistrictCont& dc,
         geomPos *= edge->getGeometry().length() / edge->getLoadedLength();
     }
     std::pair<PositionVector, PositionVector> geoms = edge->getGeometry().splitAt(geomPos);
+    // reduce inaccuracies and preserve bidi
+    if (geoms.first[-1].almostSame(node->getPosition())) {
+        geoms.first[-1] = node->getPosition();
+        geoms.second[0] = node->getPosition();
+    }
     // build and insert the edges
     NBEdge* one = new NBEdge(firstEdgeName, edge->myFrom, node, edge, geoms.first, noLanesFirstEdge);
     NBEdge* two = new NBEdge(secondEdgeName, node, edge->myTo, edge, geoms.second, noLanesSecondEdge);
