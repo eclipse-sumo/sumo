@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-21 18:29+0100\n"
-"PO-Revision-Date: 2023-02-24 14:58+0000\n"
+"PO-Revision-Date: 2023-02-24 15:21+0000\n"
 "Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -3145,11 +3145,11 @@ msgstr "GUI im Gaming-Modus starten"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:700
 msgid "Select the game type ('tls', 'drt')"
-msgstr ""
+msgstr "Spieltyp ('tls', 'drt') auswählen"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:703
 msgid "Start the simulation after loading"
-msgstr ""
+msgstr "Simulation nach dem Laden starten"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:706
 msgid "Use FLOAT in ms as delay between simulation steps"
@@ -3157,55 +3157,58 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:709
 msgid "Use TIME[] as times when the simulation should halt"
-msgstr ""
+msgstr "Verwende Zeit[] als Zeiten, zu denen die Simulation anhalten soll"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:713
 msgid "Load edge/lane weights for visualization from FILE"
-msgstr ""
+msgstr "Kanten-/Fahrstreifengewichte für die Visualisierung aus Datei laden"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:716
 msgid "Load a secondary road network for abstract visualization from FILE"
-msgstr ""
+msgstr "Sekundäres Straßennetz zur abstrakten Visualisierung aus Datei laden"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:719
+#, fuzzy
 msgid "Restart the simulation after ending (demo mode)"
-msgstr ""
+msgstr "Simulation nach beenden (demo Modus) neu starten"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:722
 msgid "Do not load background pictures"
-msgstr ""
+msgstr "Konnte keine Hintergrundbilder laden"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:725
+#, fuzzy
 msgid "Load current viewport from registry"
-msgstr ""
+msgstr "Aktuellen Ansichtsbereich vom Eintrag laden"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:728
 msgid "Create initial window with the given x,y size"
-msgstr ""
+msgstr "Anfangsfenster mit der angegebenen x,y-Größe erstellen"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:731
 msgid "Create initial window at the given x,y position"
-msgstr ""
+msgstr "Anfangsfenster mit der angegebenen x,y-Position erstellen"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:734
 msgid "The aggregation period for value tracker windows"
-msgstr ""
+msgstr "Der Aggregationszeitraum für Wertverfolgungsfenster"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:738
 msgid "Start with an OpenSceneGraph view instead of the regular 2D view"
 msgstr ""
+"Beginne mit einer OpenSceneGraph-Ansicht anstelle der regulären 2D-Ansicht"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:743
 msgid "Enable overlay for screen recognition"
-msgstr ""
+msgstr "Überlagerung für die Bildschirmerkennung aktivieren"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:747
 msgid "Enable output messages during GUI-Testing"
-msgstr ""
+msgstr "Ausgabemeldungen während der GUI-Testung aktivieren"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:751
 msgid "Save gui settings in the given settings output file"
-msgstr ""
+msgstr "Gui-Settings in der gegebene Setting-Ausgabedatei speichern"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:802
 msgid "No network file (-n) specified."
@@ -4601,11 +4604,14 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Taxi.cpp:85
 msgid "Write information from the dispatch algorithm to FILE"
-msgstr ""
+msgstr "Informationen vom Versandalgorithmus in Datei schreiben"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Taxi.cpp:88
+#, fuzzy
 msgid "Load dispatch algorithm parameters in format KEY1:VALUE1[,KEY2:VALUE]"
 msgstr ""
+"Parameter des Dispatch-Algorithmus im Format "
+"SCHLÜSSEL1:WERT1[,SCHLÜSSEL2:WERT] laden"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Taxi.cpp:91
 msgid "The period between successive calls to the dispatcher"
@@ -4691,33 +4697,43 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ToC.cpp:116
 msgid "Vehicle type for manual driving regime."
-msgstr ""
+msgstr "Fahrzeugtyp für manuelles Fahrregime."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ToC.cpp:118
 msgid "Vehicle type for automated driving regime."
-msgstr ""
+msgstr "Fahrzeugtyp für automatisiertes Fahrregime."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ToC.cpp:120
 msgid "Average response time needed by a driver to take back control."
 msgstr ""
+"Durchschnittliche Reaktionszeit, die ein Fahrer benötigt, um die Kontrolle "
+"zurückzuerlangen."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ToC.cpp:122
+#, fuzzy
 msgid "Recovery rate for the driver's awareness after a ToC."
-msgstr ""
+msgstr "Erholungsrate für das Bewusstsein des Fahrers nach einer ToC."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ToC.cpp:124
 msgid ""
 "Attention level below which a driver restrains from performing lane changes "
 "(value in [0,1])."
 msgstr ""
+"Aufmerksamkeitsniveau, unterhalb dessen ein Fahrer einen Fahrstreifenwechsel "
+"unterbindet (Wert in [0,1])."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ToC.cpp:126
+#, fuzzy
 msgid "Average awareness a driver has initially after a ToC (value in [0,1])."
 msgstr ""
+"Durchschnittliches Bewusstsein, das ein Fahrer anfänglich nach einem ToC hat "
+"(Wert in [0,1])."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ToC.cpp:128
 msgid "Deceleration rate applied during a 'minimum risk maneuver'."
 msgstr ""
+"Verzögerungsrate, die während eines 'Manövers mit minimalem Risiko' "
+"angewendet wird."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ToC.cpp:130
 msgid ""
@@ -4757,10 +4773,13 @@ msgid "Additional spacing for ToC preparation phase."
 msgstr ""
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ToC.cpp:146
+#, fuzzy
 msgid ""
 "Maximal deceleration applied for establishing increased gap in ToC "
 "preparation phase."
 msgstr ""
+"Maximale Verzögerung, die angewendet wird, um eine vergrößerte Lücke in der "
+"ToC-Vorbereitungsphase herzustellen."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ToC.cpp:148
 msgid ""
@@ -4858,11 +4877,11 @@ msgstr "Unbekannter ToC-Stand '%'"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Tripinfo.cpp:85
 msgid "Tripinfo Device"
-msgstr ""
+msgstr "Fahrteninformationseinrichtung"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Vehroutes.cpp:89
 msgid "Vehroutes Device"
-msgstr ""
+msgstr "Fahrzeugrouteneinrichtung"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDispatch.cpp:97
 msgid ""
@@ -6232,7 +6251,7 @@ msgstr "Eisenbahn"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:226
 msgid "Repair topology of the railway network"
-msgstr ""
+msgstr "Topologie des Gleisnetzes reparieren"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:229
 msgid ""
@@ -6252,15 +6271,16 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:238
 msgid "Make all rails usable in both direction"
-msgstr ""
+msgstr "Alle Gleise in beide Richtungen nutzbar machen"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:241
 msgid "Make all rails edge ids from FILE usable in both direction"
-msgstr ""
+msgstr "Alle Gleiskanten IDs von Datei in beide Richtungen nutzbar machen"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:244
 msgid "Set edge priority values based on estimated main direction"
 msgstr ""
+"Kantenvorrangswerte basierend auf der geschätzten Hauptrichtung einstellen"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:247
 msgid "Extend loaded edge priority values based on estimated main direction"
@@ -6296,7 +6316,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:273
 msgid "Turn off normalizing node positions"
-msgstr ""
+msgstr "Deaktiviert die Normalisierung von Knotenpositionen"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:277
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:186
@@ -6350,12 +6370,15 @@ msgid "Interprets STR[] as list of junctions to exclude from joining"
 msgstr ""
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:338
+#, fuzzy
 msgid "Modifies all edge speeds by adding FLOAT"
-msgstr ""
+msgstr "Ändert alle Kantengeschwindigkeiten durch Hinzufügen eines floats"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:341
+#, fuzzy
 msgid "Modifies all edge speeds by multiplying by FLOAT"
 msgstr ""
+"Ändert alle Kantengeschwindigkeiten durch multiplizieren mit einen float"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:344
 msgid "Modifies all edge speeds to at least FLOAT"
@@ -6389,7 +6412,7 @@ msgstr "Fußgänger"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:457
 msgid "Always build walking areas even if there are no crossings"
-msgstr ""
+msgstr "Baut immer Laufflächen, auch wenn keine Kreuzungen vorhanden sind"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:460
 msgid ""
