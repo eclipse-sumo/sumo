@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-21 18:29+0100\n"
-"PO-Revision-Date: 2023-02-24 16:25+0000\n"
+"PO-Revision-Date: 2023-02-24 16:32+0000\n"
 "Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -1731,43 +1731,50 @@ msgstr "Unbekanntes Ziel '%'."
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:71
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:121
 msgid "Does not save vtype information"
-msgstr ""
+msgstr "Konnte Fahrzeugtypinformation nicht speichern"
 
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:74
 msgid "Writes edge loads and final costs into FILE"
-msgstr ""
+msgstr "Kantenladungen und finale Kosten in Datei schreiben"
 
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:77
 msgid "Writes complete distance matrix into FILE"
-msgstr ""
+msgstr "Schreibt komplette Distanzmatrix in Datei"
 
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:81
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:85
+#, fuzzy
 msgid "Loads O/D-files from FILE(s)"
-msgstr ""
+msgstr "Ladet Quelle-/Zieldateien von Datei(en)"
 
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:86
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:90
+#, fuzzy
 msgid "Loads O/D-matrix in Amitran format from FILE(s)"
-msgstr ""
+msgstr "Ladet Quelle-/Zielmatrix im Amitran-Format von Datei(en)"
 
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:89
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:93
+#, fuzzy
 msgid "Loads O/D-matrix in tazRelation format from FILE(s)"
 msgstr ""
+"Ladet Quelle-/Zielmatrix im Verkehrsumlegungszonenrelations-Format von "
+"Datei(en)"
 
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:93
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:97
 msgid "Define data attribute for loading counts (default 'count')"
-msgstr ""
+msgstr "Datenattribut für Ladezählungen definieren (Standard 'count')"
 
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:96
 msgid "The travel time influence of prior intervals"
-msgstr ""
+msgstr "Der Reisezeiteinfluss früherer Intervalle"
 
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:99
+#, fuzzy
 msgid "Parameter key(s) defining source (and sink) taz"
 msgstr ""
+"Parameterschlüssel, die Quell (und Ziel) Verkehrsumlegungszone definieren"
 
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:102
 msgid "Ignore attributes 'fromTaz' and 'toTaz'"
