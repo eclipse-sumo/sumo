@@ -22,3 +22,6 @@ basic
 
 # 4 flows in a grid network that cannot be coordinate full (different demand levels)
 4flows_b
+
+# continue on disconnected routes
+disconnected
