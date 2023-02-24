@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-21 18:42+0100\n"
-"PO-Revision-Date: 2023-02-24 14:48+0000\n"
+"PO-Revision-Date: 2023-02-24 14:58+0000\n"
 "Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -2980,7 +2980,7 @@ msgstr "Texturen deaktivieren"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:427
 msgid "Load visualisation settings from FILE"
-msgstr "Darstellungseinstellungen aus Datei laden"
+msgstr "Darstellungseinstellung von Datei laden"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:432
 msgid "Load current viewport from registry"
