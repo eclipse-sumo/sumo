@@ -585,9 +585,9 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     // if we had been able to extract the number of lanes, override the highway type default
     if (e->myNoLanes > 0) {
         if (addForward && !addBackward) {
-            numLanesForward = e->myNoLanes;
+            numLanesForward = e->myNoLanesForward > 0 ? e->myNoLanesForward : e->myNoLanes;
         } else if (!addForward && addBackward) {
-            numLanesBackward = e->myNoLanes;
+            numLanesBackward = e->myNoLanesForward < 0 ? -e->myNoLanesForward : e->myNoLanes;
         } else {
             if (e->myNoLanesForward > 0) {
                 numLanesForward = e->myNoLanesForward;
@@ -1148,6 +1148,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
                 && key != "foot"
                 && key != "bicycle"
                 && key != "oneway:bicycle"
+                && key != "oneway:bus"
                 && key != "bus:lanes"
                 && key != "bus:lanes:forward"
                 && key != "bus:lanes:backward"
@@ -1350,6 +1351,11 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
             if (value == "no") {
                 // need to add a cycle way in reversed direction of way
                 myCurrentEdge->myCyclewayType = WAY_BACKWARD;
+            }
+        } else if (key == "oneway:bus") {
+            if (value == "no") {
+                // need to add a bus way in reversed direction of way
+                myCurrentEdge->myBuswayType = WAY_BACKWARD;
             }
         } else if (key == "lanes") {
             try {
