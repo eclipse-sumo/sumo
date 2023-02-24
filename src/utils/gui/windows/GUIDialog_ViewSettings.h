@@ -26,6 +26,7 @@
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/gui/div/GUIPersistentWindowPos.h>
 #include <utils/foxtools/MFXAddEditTypedTable.h>
+#include <utils/foxtools/MFXDecalsTable.h>
 
 
 // ===========================================================================
@@ -240,6 +241,7 @@ protected:
     FXColorWell* myBackgroundColor = nullptr;
     FXVerticalFrame* myDecalsFrame = nullptr;
     MFXAddEditTypedTable* myDecalsTable = nullptr;
+    MFXDecalsTable* myNewDecalsTable = nullptr;
 
     /// @brief selection colors
     FXColorWell* mySelectionColor = nullptr;

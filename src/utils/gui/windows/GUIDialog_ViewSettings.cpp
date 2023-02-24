@@ -194,6 +194,9 @@ GUIDialog_ViewSettings::show() {
     myShowGrid->setCheck(mySettings->showGrid);
     myGridXSizeDialer->setValue(mySettings->gridXSize);
     myGridYSizeDialer->setValue(mySettings->gridYSize);
+    // create myNewDecalsTable
+    myNewDecalsTable->create();
+    myNewDecalsTable->fillTable();
     FXDialogBox::show();
 }
 
@@ -1404,6 +1407,7 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) {
     rebuildDecalsTable();
     if (doCreate) {
         myDecalsTable->create();
+        myNewDecalsTable->fillTable();
     }
     FXMatrix* m = rebuildColorMatrix(myLaneColorSettingFrame, myLaneColors, myLaneThresholds, myLaneButtons, myLaneColorInterpolation, mySettings->getLaneEdgeScheme());
     if (doCreate) {
@@ -1866,6 +1870,7 @@ GUIDialog_ViewSettings::buildBackgroundFrame(FXTabBook* tabbook) {
     FXVerticalFrame* verticalFrameDecals = new FXVerticalFrame(verticalFrame, GUIDesignViewSettingsVerticalFrame3);
     new FXLabel(verticalFrameDecals, TL("Decals:"));
     myDecalsFrame = new FXVerticalFrame(verticalFrameDecals);
+    myNewDecalsTable = new MFXDecalsTable(this, myDecalsFrame);
     FXHorizontalFrame* horizontalFrameButtonsDecals = new FXHorizontalFrame(verticalFrameDecals, GUIDesignViewSettingsHorizontalFrame2);
     new FXButton(horizontalFrameButtonsDecals, TL("&Load XML Decals"), nullptr, this, MID_SIMPLE_VIEW_LOAD_DECALS_XML, GUIDesignViewSettingsButton1);
     new FXButton(horizontalFrameButtonsDecals, TL("&Save XML Decals"), nullptr, this, MID_SIMPLE_VIEW_SAVE_DECALS_XML, GUIDesignViewSettingsButton1);
