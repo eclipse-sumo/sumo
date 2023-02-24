@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-21 18:29+0100\n"
-"PO-Revision-Date: 2023-02-24 16:32+0000\n"
+"PO-Revision-Date: 2023-02-24 17:03+0000\n"
 "Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -1777,37 +1777,43 @@ msgstr ""
 "Parameterschlüssel, die Quell (und Ziel) Verkehrsumlegungszone definieren"
 
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:102
+#, fuzzy
 msgid "Ignore attributes 'fromTaz' and 'toTaz'"
-msgstr ""
+msgstr "Ignoriere Attribute  'fromTaz' und 'toTaz'"
 
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:106
 msgid ""
 "Defines the time interval when aggregating single vehicle input; Defaults to "
 "one hour"
 msgstr ""
+"Definiert das Zeitintervall beim Aggregieren einzelner Fahrzeugeingaben; "
+"Standardmäßig eine Stunde"
 
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:109
 msgid "Ignore edge priorities when calculating capacities and restraints"
 msgstr ""
+"Ignoriert Kantenvorränge bei der Berechnung von Kapazitäten und Restriktionen"
 
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:115
 msgid ""
 "Aggregate routing queries with the same origin for different vehicle types"
 msgstr ""
+"Routinganfragen mit gleichem Ursprung für unterschiedliche Fahrzeugtypen "
+"aggregieren"
 
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:153
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:137
 msgid "Scales the loaded flows by FLOAT"
-msgstr ""
+msgstr "Skaliert die geladenen Flüsse per float"
 
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:156
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:146
 msgid "Defines the name of the vehicle type to use"
-msgstr ""
+msgstr "Definiert den Namen des zu verwendenden Fahrzeugtyps"
 
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:159
 msgid "Defines the prefix for vehicle flow names"
-msgstr ""
+msgstr "Definiert das Präfix für den Fahrzeugflussnamen"
 
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:162
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:152
@@ -1824,12 +1830,15 @@ msgid "Keep traffic flows of all time slots in the net"
 msgstr ""
 
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:172
+#, fuzzy
 msgid "Choose a assignment method: incremental, UE or SUE"
-msgstr ""
+msgstr "Wähle eine Zuweisungsmethode: inkrementell, UE oder SUE"
 
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:175
 msgid "Use FLOAT as tolerance when checking for SUE stability"
 msgstr ""
+"Verwende float als Toleranz bei der Überprüfung der SUE-Stabilität ("
+"Stochastisches Nutzergleichgewicht)"
 
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:178
 msgid ""
@@ -1848,24 +1857,34 @@ msgid "Penalize existing routes with FLOAT to find secondary routes"
 msgstr ""
 
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:188
+#, fuzzy
 msgid "Use FLOAT as the upper bound to determine auxiliary link cost"
 msgstr ""
+"Verwende float als Obergrenze, um die Kosten für Hilfsverbindungen zu "
+"bestimmen"
 
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:192
+#, fuzzy
 msgid "Use FLOAT as the lower bound to determine auxiliary link cost"
 msgstr ""
+"Verwende float als Untergrenze, um die Kosten für Hilfsverbindungen zu "
+"bestimmen"
 
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:195
 msgid ""
 "maximal number of iterations for new route searching in incremental and "
 "stochastic user assignment"
 msgstr ""
+"maximale Anzahl von Iterationen für die Suche nach neuen Routen bei "
+"inkrementeller und stochastischer Benutzerzuweisung"
 
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:198
 msgid ""
 "maximal number of inner iterations for user equilibrium calculation in the "
 "stochastic user assignment"
 msgstr ""
+"maximale Anzahl innerer Iterationen für die Benutzergleichgewichtsberechnung "
+"in der stochastischen Benutzerzuordnung"
 
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:223
 msgid "Use FLOAT as (c-)logit's beta for the commonality factor"
@@ -3085,16 +3104,19 @@ msgid "Factor for calculating the net free-free headway time"
 msgstr ""
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:647
+#, fuzzy
 msgid "Factor for calculating the net free-jam headway time"
-msgstr ""
+msgstr "Faktor zur Berechnung der Netto-Stauvorlaufzeit"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:649
+#, fuzzy
 msgid "Factor for calculating the jam-free headway time"
-msgstr ""
+msgstr "Faktor zur Berechnung der staufreien Taktzeit"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:651
+#, fuzzy
 msgid "Factor for calculating the jam-jam headway time"
-msgstr ""
+msgstr "Faktor zur Berechnung der Stau-Stau-Vorlaufzeit"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:656
 msgid "Enable multiple queues at edge ends"
@@ -3157,8 +3179,9 @@ msgid "Load visualisation settings from FILE"
 msgstr "Darstellungseinstellung von Datei laden"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:694
+#, fuzzy
 msgid "Quits the GUI when the simulation stops"
-msgstr ""
+msgstr "Beendet die gui, wenn die Simulation stoppt"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:697
 msgid "Start the GUI in gaming mode"
@@ -3173,8 +3196,10 @@ msgid "Start the simulation after loading"
 msgstr "Simulation nach dem Laden starten"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:706
+#, fuzzy
 msgid "Use FLOAT in ms as delay between simulation steps"
 msgstr ""
+"Verwende float in Millisekunden als Verzögerung zwischen Simulationsschritten"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:709
 msgid "Use TIME[] as times when the simulation should halt"
@@ -6013,77 +6038,83 @@ msgstr "Netzstandards"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:52
 msgid "The default number of lanes in an edge"
-msgstr ""
+msgstr "Die Standardanzahl von Fahrtstreifen in einer Kante"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:56
 msgid "The default width of lanes"
-msgstr ""
+msgstr "Die Standardbreite von Fahrstreifen"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:59
+#, fuzzy
 msgid "The default method for computing lane shapes from edge shapes"
 msgstr ""
+"Die Standardmethode zum Berechnen von Fahrstreifen-Shapes aus Kanten-Shapes"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:63
 msgid "The default speed on an edge (in m/s)"
-msgstr ""
+msgstr "Die Standardgeschwindigkeit auf einer Kante (in m/s)"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:67
 msgid "The default friction on an edge"
-msgstr ""
+msgstr "Die Standardreibung an einer Kante"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:71
 msgid "The default priority of an edge"
-msgstr ""
+msgstr "Der Standardvorrang von einer Kante"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:74
 msgid "The default edge type"
-msgstr ""
+msgstr "Der Standardkantentyp"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:77
 msgid "The default width of added sidewalks"
-msgstr ""
+msgstr "Die Standardbreite von hinzugefügten Gehwegen"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:80
 msgid "The default width of added bike lanes"
-msgstr ""
+msgstr "Die Standardbreite von hinzugefügten Radfahrstreifen"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:83
 msgid "The default width of a pedestrian crossing"
-msgstr ""
+msgstr "Die Standardbreite einer Fußgängerfurt"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:86
 msgid "The default speed 'limit' on a pedestrian crossing (in m/s)"
 msgstr ""
+"die Standard-Geschwindigkeitsbegrenzung auf einem Fußgängerüberweg (in m/s)"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:89
 msgid "The default speed 'limit' on a pedestrian walkingarea (in m/s)"
 msgstr ""
+"Die Standardgeschwindigkeit 'limit' auf einer Fußgänger walkingArea (in m/s)"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:92
 msgid "The default for allowed vehicle classes"
-msgstr ""
+msgstr "Der Standard für erlaubte Fahrzeugklassen"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:95
 msgid "The default for disallowed vehicle classes"
-msgstr ""
+msgstr "Der Standard für nicht erlaubte Fahrzeugklassen"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:98
 msgid "Whether junctions should be kept clear by default"
-msgstr ""
+msgstr "Ob Abzweigungen standardmäßig freigehalten werden sollen"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:101
 msgid "The default turning radius of intersections"
-msgstr ""
+msgstr "Der Standardwenderadius von Kreuzungen"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:104
 msgid "The default length when overriding connection lengths"
-msgstr ""
+msgstr "Die Standardlänge beim Überschreiben von Verbindungslängen"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:107
 msgid ""
 "The default algorithm for computing right of way rules ('default', "
 "'edgePriority')"
 msgstr ""
+"Der Standardalgorithmus zum Berechnen von Vorfahrtsregeln ('default', "
+"'edgePriority')"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:110
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:113
@@ -6132,7 +6163,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:126
 msgid "Remaps IDs of edges to integers starting at INT"
-msgstr ""
+msgstr "Ordnet IDs von Kanten neu zu ganzen Zahlen zu, beginnend bei INT"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:130
 msgid ""
@@ -6189,15 +6220,15 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:168
 msgid "Ensure that the given list of edges is not modified"
-msgstr ""
+msgstr "Stelle sicher, dass die angegebene Kantenliste nicht geändert wird"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:176
 msgid "Ensure that edges with public transport stops are not modified"
-msgstr ""
+msgstr "Stelle sicher, dass Kanten mit ÖPNV-Haltestellen nicht verändert werden"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:188
 msgid "splits geometry to restrict segment length"
-msgstr ""
+msgstr "Teilt die Geometrie, um die Segmentlänge zu beschränken"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:192
 msgid "reduces too similar geometry points"
@@ -6233,21 +6264,28 @@ msgid ""
 "Straighten edge geometries to avoid turning radii less than geometry.min-"
 "radius (only railways)"
 msgstr ""
+"Kantengeometrien begradigen, um Wenderadien kleiner als geometry.min-radius "
+"zu vermeiden (nur Eisenbahnen)"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:207
 msgid ""
 "Warn if the junction shape is to far away from the original node position"
 msgstr ""
+"Warnen, wenn die Knotenpunktgeometrie zu weit von der ursprünglichen "
+"Knotenposition entfernt ist"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:210
 msgid "Warn if edges overlap by more than the given threshold value"
 msgstr ""
+"Warnt, wenn Kanten sich um mehr als den angegebenen Schwellenwert überlappen"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:213
 msgid ""
 "Ignore overlapping edges if they are separated vertically by the given "
 "threshold."
 msgstr ""
+"Überlappende Kanten ignorieren, wenn sie vertikal durch den angegebenen "
+"Schwellenwert getrennt sind."
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:216
 msgid "Modify edge geometries to avoid overlap at junctions"
