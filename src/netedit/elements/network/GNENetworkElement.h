@@ -136,6 +136,8 @@ public:
     /// @brief select element
     void selectGLObject();
 
+    /// @brief Returns the name of the object (default "")
+    virtual const std::string getOptionalName() const;
     /// @}
 
     /// @name inherited from GNEAttributeCarrier

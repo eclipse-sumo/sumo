@@ -134,6 +134,16 @@ GNENetworkElement::selectGLObject() {
 }
 
 
+const std::string
+GNENetworkElement::getOptionalName() const {
+    try {
+        return getAttribute(SUMO_ATTR_NAME);
+    } catch (InvalidArgument&) {
+        return "";
+    }
+}
+
+
 std::string
 GNENetworkElement::getPopUpID() const {
     if (myTagProperty.getTag() == SUMO_TAG_CONNECTION) {

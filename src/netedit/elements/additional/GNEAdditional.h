@@ -105,6 +105,9 @@ public:
     /// @brief get GUIGlObject associated with this AttributeCarrier
     GUIGlObject* getGUIGlObject();
 
+    /// @brief Returns the name of the object (default "")
+    virtual const std::string getOptionalName() const;
+
     /// @brief obtain additional geometry
     const GUIGeometry& getAdditionalGeometry() const;
 

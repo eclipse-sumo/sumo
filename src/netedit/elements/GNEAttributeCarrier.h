@@ -144,6 +144,13 @@ public:
      */
     virtual bool isAttributeComputed(SumoXMLAttr key) const;
 
+    /* @brief method for check if the value for certain attribute is set
+     * @param[in] key The attribute key
+     */
+    bool hasAttribute(SumoXMLAttr key) const {
+        return myTagProperty.hasAttribute(key);
+    }
+
     /// @brief get PopPup ID (Used in AC Hierarchy)
     virtual std::string getPopUpID() const = 0;
 

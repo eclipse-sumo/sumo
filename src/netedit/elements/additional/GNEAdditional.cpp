@@ -78,6 +78,16 @@ GNEAdditional::getGUIGlObject() {
 }
 
 
+const std::string
+GNEAdditional::getOptionalName() const {
+    try {
+        return getAttribute(SUMO_ATTR_NAME);
+    } catch (InvalidArgument&) {
+        return "";
+    }
+}
+
+
 const GUIGeometry&
 GNEAdditional::getAdditionalGeometry() const {
     return myAdditionalGeometry;
