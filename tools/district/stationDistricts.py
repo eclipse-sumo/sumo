@@ -45,6 +45,8 @@ def get_options():
                   help="Include consider edges allowing VCLASS")
     ap.add_option("--parallel-radius", type=float, default=100, dest="parallelRadius",
                   help="search radius for finding parallel edges")
+    ap.add_option("--merge", action="store_true", default=False,
+                  help="merge stations that have a common edge")
     ap.add_option("--hue", default="random",
                   help="hue for taz (float from [0,1] or 'random')")
     ap.add_option("--saturation", default=1,
@@ -195,7 +197,7 @@ def assignByDistance(options, net, stations):
     edgeStation = dict()
     for station in stations.values():
         for edge in station.edges:
-            assert edge not in edgeStation
+            assert(edge not in edgeStation or not options.merge)
             edgeStation[edge] = station.name
 
     remaining = set()
@@ -231,7 +233,8 @@ def main(options):
 
     stations = initStations(options, net)
     findParallel(options, net, stations)
-    mergeStations(stations, options.verbose)
+    if options.merge:
+        mergeStations(stations, options.verbose)
     assignByDistance(options, net, stations)
 
     with open(options.output, 'w') as outf:
