@@ -99,23 +99,20 @@ protected:
     class Cell {
 
     public:
-        /// @brief constructor for textField (t)
+        /// @brief constructor for textField
         Cell(MFXDecalsTable* decalsTable, FXTextField* textField, int col, int row);
 
-        /// @brief constructor for index label (i)
+        /// @brief constructor for index label
         Cell(MFXDecalsTable* decalsTable, FXLabel* indexLabel, FXLabel* indexLabelBold, int col, int row);
 
-        /// @brief constructor for buttons (b)
+        /// @brief constructor for buttons
         Cell(MFXDecalsTable* decalsTable, FXButton* button, int col, int row);
-
+        
+        /// @brief constructor for check buttons
+        Cell(MFXDecalsTable* decalsTable, FXCheckButton* checkButton, int col, int row);
+        
         /// @brief destructor
         ~Cell();
-
-        /// @brief Enable cell
-        void enable();
-
-        /// @brief Disable cell
-        void disable();
 
         /// @brief check if current cell has focus
         bool hasFocus() const;
@@ -132,6 +129,9 @@ protected:
         /// @brief get open button
         FXButton* getButton();
 
+        /// @brief get check button
+        FXCheckButton* getCheckButton();
+
         /// @brief show label index normal
         void showIndexLabelNormal();
 
@@ -146,9 +146,6 @@ protected:
 
         /// @brief get column type
         char getType() const;
-
-        /// @brief disable button (used for delete, move up and move down)
-        void disableButton();
 
     private:
         /// @brief pointer to decals table parent
@@ -165,6 +162,9 @@ protected:
 
         /// @brief button
         FXButton* myButton = nullptr;
+
+        /// @brief check button
+        FXCheckButton* myCheckButton= nullptr;
 
         /// @brief column index
         const int myCol;

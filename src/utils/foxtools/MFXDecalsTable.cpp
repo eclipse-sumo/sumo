@@ -95,14 +95,25 @@ MFXDecalsTable::fillTable() {
     // first clear table
     clearTable();
     // create columns
-    std::string columnsType = "ibffffffff";
+    std::string columnsType = "ibfffffffc";
     for (int i = 0; i < (FXint)columnsType.size(); i++) {
         myColumns.push_back(new Column(this, i, columnsType.at(i)));
     }
     // create rows
-    for (int i = 0; i < (int)myDialogViewSettings->getSUMOAbstractView()->getDecals().size(); i++) {
-        myRows.push_back(new Row(this));
-    }   
+    for (const auto &decal : myDialogViewSettings->getSUMOAbstractView()->getDecals()) {
+        // create row
+        auto row = new Row(this);
+        // fill cells
+        row->getCells().at(2)->getTextField()->setText(decal.filename.c_str());
+        row->getCells().at(3)->getTextField()->setText(toString(decal.centerX).c_str());
+        row->getCells().at(4)->getTextField()->setText(toString(decal.centerY).c_str());
+        row->getCells().at(5)->getTextField()->setText(toString(decal.width).c_str());
+        row->getCells().at(6)->getTextField()->setText(toString(decal.height).c_str());
+        row->getCells().at(7)->getTextField()->setText(toString(decal.rot).c_str());
+        row->getCells().at(8)->getTextField()->setText(toString(decal.layer).c_str());
+        row->getCells().at(9)->getCheckButton()->setCheck(decal.screenRelative);
+        myRows.push_back(row);
+    }
     // set headers
     myColumns.at(2)->setColumnLabel("filename", "");
     myColumns.at(3)->setColumnLabel("centerX", "");
@@ -369,6 +380,16 @@ MFXDecalsTable::Cell::Cell(MFXDecalsTable* decalsTable, FXButton* button, int co
 }
 
 
+MFXDecalsTable::Cell::Cell(MFXDecalsTable* decalsTable, FXCheckButton* checkButton, int col, int row) :
+    myDecalsTable(decalsTable),
+    myCheckButton(checkButton),
+    myCol(col),
+    myRow(row) {
+    // create
+    checkButton->create();
+}
+
+
 MFXDecalsTable::Cell::~Cell() {
     // delete all elements
     if (myTextField) {
@@ -383,40 +404,8 @@ MFXDecalsTable::Cell::~Cell() {
     if (myButton) {
         delete myButton;
     }
-}
-
-void
-MFXDecalsTable::Cell::enable() {
-    // enable all elements
-    if (myTextField) {
-        myTextField->enable();
-    }
-    if (myIndexLabel) {
-        myIndexLabel->enable();
-    }
-    if (myIndexLabelBold) {
-        myIndexLabelBold->enable();
-    }
-    if (myButton) {
-        myButton->enable();
-    }
-}
-
-
-void
-MFXDecalsTable::Cell::disable() {
-    // disable all elements
-    if (myTextField) {
-        myTextField->disable();
-    }
-    if (myIndexLabel) {
-        myIndexLabel->disable();
-    }
-    if (myIndexLabelBold) {
-        myIndexLabelBold->disable();
-    }
-    if (myButton) {
-        myButton->disable();
+    if (myCheckButton) {
+        delete myCheckButton;
     }
 }
 
@@ -427,6 +416,8 @@ MFXDecalsTable::Cell::hasFocus() const {
     if (myTextField && myTextField->hasFocus()) {
         return true;
     } else if (myButton && myButton->hasFocus()) {
+        return true;
+    } else if (myCheckButton && myCheckButton->hasFocus()) {
         return true;
     } else {
         return false;
@@ -441,6 +432,8 @@ MFXDecalsTable::Cell::setFocus() {
         myTextField->setFocus();
     } else if (myButton) {
         myButton->setFocus();
+    } else if (myCheckButton) {
+        myCheckButton->setFocus();
     }
 }
 
@@ -460,6 +453,12 @@ MFXDecalsTable::Cell::getIndexLabel() const {
 FXButton*
 MFXDecalsTable::Cell::getButton() {
     return myButton;
+}
+
+
+FXCheckButton*
+MFXDecalsTable::Cell::getCheckButton() {
+    return myCheckButton;
 }
 
 
@@ -498,14 +497,6 @@ MFXDecalsTable::Cell::getRow() const {
 char
 MFXDecalsTable::Cell::getType() const {
     return myDecalsTable->myColumns.at(myCol)->getType();
-}
-
-
-void
-MFXDecalsTable::Cell::disableButton() {
-    if (myButton) {
-        myButton->disable();
-    }
 }
 
 
@@ -579,25 +570,11 @@ MFXDecalsTable::Column::setColumnLabel(const std::string& text, const std::strin
 void
 MFXDecalsTable::Column::adjustColumnWidth() {
     // declare columnWidth
-    int columnWidth = 0;
+    int columnWidth = GUIDesignHeight;
     // adjust depending of label
     if (myType == 'f') {
         // calculate top label width
         columnWidth = myTopLabel->getFont()->getTextWidth(myTopLabel->getText().text(), myTopLabel->getText().length() + EXTRAMARGING);
-        // iterate over all textFields and check widths
-        for (const auto& row : myTable->myRows) {
-            // get text field
-            const auto textField = row->getCells().at(myIndex)->getTextField();
-            // get textField width
-            const auto textFieldWidth = textField->getFont()->getTextWidth(textField->getText().text(), textField->getText().length() + EXTRAMARGING);
-            // compare widths
-            if (textFieldWidth > columnWidth) {
-                columnWidth = textFieldWidth;
-            }
-        }
-    } else {
-        // is an index column, then return icon size
-        columnWidth = GUIDesignHeight;
     }
     // adjust width in all rows
     for (const auto& row : myTable->myRows) {
@@ -650,11 +627,18 @@ MFXDecalsTable::Row::Row(MFXDecalsTable* table) :
                 break;
             }
             case ('b'): {
-                // create button for delete phase
+                // create button for open decal
                 auto button = new FXButton(table->myColumns.at(columnIndex)->getVerticalCellFrame(),
                     (std::string("\t") + TL("Open decal") + std::string("\t") + TL("Open decal.")).c_str(),
                     GUIIconSubSys::getIcon(GUIIcon::OPEN), table, MID_GNE_TLSTABLE_REMOVEPHASE, GUIDesignButtonIcon);
                 myCells.push_back(new Cell(table, button, columnIndex, numCells));
+                break;
+            }
+            case ('c'): {
+                // create checkbox for 
+                auto checkableButton = new FXCheckButton(table->myColumns.at(columnIndex)->getVerticalCellFrame(),
+                        "", table, MID_HOTKEY_C_MODE_CONNECT_PERSONPLAN, GUIDesignMFXCheckableButtonSquare);
+                myCells.push_back(new Cell(table, checkableButton, columnIndex, numCells));
                 break;
             }
             default:
@@ -692,17 +676,6 @@ MFXDecalsTable::Row::setText(int index, const std::string& text) const {
 const std::vector<MFXDecalsTable::Cell*>&
 MFXDecalsTable::Row::getCells() const {
     return myCells;
-}
-
-
-void
-MFXDecalsTable::Row::disableButtons() {
-    // search move up button and disable it
-    for (const auto& cell : myCells) {
-        if ((cell->getType() == 'd') || (cell->getType() == 'b') || (cell->getType() == 't')) {
-            cell->disableButton();
-        }
-    }
 }
 
 
