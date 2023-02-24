@@ -1,16 +1,30 @@
 <add>
     <tlLogic id="gneJ21" type="static" programID="manual" offset="0.00">
 	    <!--                              012345678901234567 -->
-        <phase duration="3.00"     state="yyyyyyyrrrrrrrrrrr"/>
-        <phase duration="3.00"     state="rrrrrrrrrrrrrrrrrr"/>
-        <!-- <phase duration="10000.00" state="rrrrrrrgGrrrrrGggg"/> until #12676 is fixed -->
-        <phase duration="10000.00" state="rrrrrrrgGrrrrrGggr"/>
-        <phase duration="3.00"     state="rrrrrrrryyrrrrryyy"/>
-        <phase duration="3.00"     state="rrrrrrrrrrrrrrrrrr"/>
-        <phase duration="10000.00" state="rrrrrrrrrGGgggrrrr"/>
-        <phase duration="3.00"     state="rrrrrrrrryyyyyrrrr"/>
-        <phase duration="3.00"     state="rrrrrrrrrrrrrrrrrr"/>
-        <phase duration="10000.00" state="ggGGgggrrrrrrrrrrr"/>
+		<phase duration="10000" state="gGgrrrGgrrrrrGGrGG" name ="1"/>	
+		
+		<phase duration="1"  state="gGgrrrGgrrrrrGrrGr" name ="1.2"/>
+		<phase duration="3"  state="yyyrrryyrrrrrrrrrr" name ="1.2"/>
+		<phase duration="6"  state="rrrrrrrrrrrrrrrrrr" name ="1.2"/>
+		<phase duration="1"  state="rrrrrrrrrrGrrrrGrr" name ="1.2"/>
+		<phase duration="1"  state="rrruurrruuGrrrrGrr" name ="1.2"/>
+		<phase duration="5"  state="rrrgGrrrgGGrrrrGrr" name ="1.2"/>
+
+		<phase duration="10000"  state="rrrgGrrrgGGGGrrGrr" name ="2"/>
+
+		<phase duration="3"  state="rrrgGrrryyGrrrrGrr" name ="2.3"/>
+		<phase duration="1"  state="rrrgGrrrrrGrrrrGrr" name ="2.3"/>
+		<phase duration="1"  state="rrrgGurrrrGrrrrGrr" name ="2.3"/>	
+		<phase duration="2"  state="rrrgGGrrrrGrrrrGrr" name ="2.3"/>
+
+		<phase duration="10000" state="rrrgGGrrrrGrrrrGrr" name ="3" />				
+	
+		<phase duration="3"  state="rrryyGrrrrrrrrrrrr" name ="3.1"/>
+		<phase duration="3"  state="rrrrryrrrrrrrrrrrr" name ="3.1"/>	
+		<phase duration="1"  state="rrrrrrrrrrrrrrrrrr" name ="3.1"/>
+		<phase duration="1"  state="rrrrrrrrrrrrrrGrrG" name ="3.1"/>	
+		<phase duration="1"  state="uuurrruurrrrrGGrGG" name ="3.1"/>	
+		<phase duration="3"  state="gGgrrrGgrrrrrGGrGG" name ="3.1"/>		
         <param key="hotkeyAbort" value="y"/>
     </tlLogic>
 </add>
