@@ -88,13 +88,11 @@ def loadRegions(options, net):
     if options.regionfile:
         for taz in sumolib.xml.parse(options.regionfile, 'taz'):
             edgeIDs = taz.edges.split()
-            regions[taz.name] = [net.getEdge(e) for e in edges if net.hasEdge(e)]
+            regions[taz.attr_name] = [net.getEdge(e) for e in edgeIDs if net.hasEdge(e)]
     else:
         regions['ALL'] = list(net.getEdges())
-
-    # keep only one edge for each bidiEdge pair
-
     return regions
+
 
 def filterBidi(edges):
     return [e for e in edges if e.getBidi() is None or e.getID() < e.getBidi().getID()]
@@ -206,7 +204,7 @@ def computeTrackOrdering(options, mainLine, edges, nodeCoords, edgeShapes):
                 virtualNodes[edge].append(virtualNode)
             elif len(intersects) > 1:
                 sys.stderr.write(("Cannot compute track ordering for edge '%s'" +
-                                  "because runs orthogonal to the main line (intersects: %s)\n") % (
+                                  " because it runs orthogonal to the main line (intersects: %s)\n") % (
                                   edge.getID(), intersects))
                 #print("vertical=%s %s=%s" % (shapeStr(vertical), edge.getID(), shapeStr(shape)))
 
@@ -346,7 +344,7 @@ def optimizeTrackOrder(options, edges, nodes, virtualNodes, orderings, nodeCoord
 
     if not res.success:
         sys.stderr.write("Optimization failed\n")
-        sys.exit(1)
+        return dict()
 
     if options.verbose:
         if options.verbose:
@@ -404,18 +402,19 @@ def main(options):
     nodeCoords = dict()
     edgeShapes = dict()
 
-    for edges in regions.values():
+    for name, edges in regions.items():
         edges = filterBidi(edges)
+        if options.verbose:
+            print("Processing region '%s' with %s edges" % (name, len(edges)))
         initShapes(edges, nodeCoords, edgeShapes)
-
         mainLine = findMainline(options, net, edges)
         rotateByMainLine(mainLine, edges, nodeCoords, edgeShapes, False)
         nodeYValues = computeTrackOrdering(options, mainLine, edges, nodeCoords, edgeShapes)
         #computeDistinctHorizontalPoints()
         #squeezeHorizontal(edges)
-
-        patchShapes(options, edges, nodeCoords, edgeShapes, nodeYValues)
-        #rotateByMainLine(mainLine, edges, nodeCoords, edgeShapes, True)
+        if nodeYValues:
+            patchShapes(options, edges, nodeCoords, edgeShapes, nodeYValues)
+        rotateByMainLine(mainLine, edges, nodeCoords, edgeShapes, True)
 
     with open(options.output_nodes, 'w') as outf_nod:
         sumolib.writeXMLHeader(outf_nod, "$Id$", "nodes", options=options)
