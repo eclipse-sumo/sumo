@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-21 18:29+0100\n"
-"PO-Revision-Date: 2023-02-24 13:36+0000\n"
+"PO-Revision-Date: 2023-02-24 13:58+0000\n"
 "Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -1242,10 +1242,13 @@ msgstr "Kostenattribut in die Routenausgabe einschließen"
 
 #: /home/micha/programming/sumo/src/duarouter/RODUAFrame.cpp:92
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:552
+#, fuzzy
 msgid ""
 "Edge weights for routing are dynamically disturbed by a random factor drawn "
 "uniformly from [1,FLOAT)"
 msgstr ""
+"Kantengewichte für das Routing werden dynamisch durch einen Zufallsfaktor "
+"gestört, der einheitlich aus [1,FLOAT) gezogen wird."
 
 #: /home/micha/programming/sumo/src/duarouter/RODUAFrame.cpp:95
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:118
@@ -1339,9 +1342,12 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/duarouter/RODUAFrame.cpp:160
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:573
+#, fuzzy
 msgid ""
 "Use FLOAT as a factor on pedestrian maximum speed during intermodal routing"
 msgstr ""
+"Verwendet float als Faktor für die Höchstgeschwindigkeit von Fußgängern "
+"während des intermodalen Routings"
 
 #: /home/micha/programming/sumo/src/duarouter/RODUAFrame.cpp:163
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:576
@@ -1785,12 +1791,12 @@ msgstr ""
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:162
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:152
 msgid "Uses STR[] as a timeline definition"
-msgstr ""
+msgstr "Nutzt STR[] als Zeitspannendefiniton"
 
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:165
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:155
 msgid "Uses STR as a 24h-timeline definition"
-msgstr ""
+msgstr "Nutzt STR als 24-Stunden Zeitspannendefinition"
 
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:168
 msgid "Keep traffic flows of all time slots in the net"
@@ -2152,40 +2158,43 @@ msgstr ""
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Routing.cpp:94
 #: /home/micha/programming/sumo/src/microsim/devices/MSTransportableDevice_Routing.cpp:46
 msgid "Routing"
-msgstr ""
+msgstr "Routing"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:78
 msgid "Load road network description from FILE"
-msgstr ""
+msgstr "Straßennetzbeschreibung aus Datei laden"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:83
 msgid "Load routes descriptions from FILE(s)"
-msgstr ""
+msgstr "Routenbeschreibungen aus Datei(en) laden"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:87
 msgid "Load further descriptions from FILE(s)"
-msgstr ""
+msgstr "Weitere Beschreibungen aus Datei(en) laden"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:91
 msgid "Load edge/lane weights for online rerouting from FILE"
 msgstr ""
+"Kanten-/Fahrstreifengewichte für die Online-Umleitung aus der Datei laden"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:94
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:108
 msgid "Name of the xml attribute which gives the edge weight"
-msgstr ""
+msgstr "Name des xml-Attributs welches das Kantengewicht angibt"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:97
 msgid "Loads a network state from FILE"
-msgstr ""
+msgstr "Ladet den Netzstand aus Datei"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:99
 msgid "Shifts all times loaded from a saved state by the given offset"
 msgstr ""
+"Verschiebt alle Zeiten, die aus einem gespeicherten Zustand geladen wurden, "
+"um den angegebenen Versatz"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:101
 msgid "Removes vehicles with the given IDs from the loaded state"
-msgstr ""
+msgstr "Entfernt Fahrzeuge mit den gegebenen IDs aus dem geladenen Stand"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:104
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:134
@@ -2196,7 +2205,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:114
 msgid "Save complete network states into FILE"
-msgstr ""
+msgstr "Komplette Netzzustände in Datei speichern"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:119
 msgid "Write also empty edges completely when dumping"
@@ -2262,32 +2271,36 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:161
 msgid "Save the Floating Car Data"
-msgstr ""
+msgstr "Floating-Car-Daten speichern"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:163
 msgid "Save the Floating Car Data using geo-coordinates (lon/lat)"
 msgstr ""
+"Floating Car Data welche Geokoordinaten (Längengrad/Breitengrad) verwenden "
+"speichern"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:165
 msgid "Add the vehicle signal state to the FCD output (brake lights etc.)"
-msgstr ""
+msgstr "Fahrzeugsignalzustand zum FCD-Ausgang (Bremslichter usw.) hinzufügen"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:167
 msgid "Add kilometrage to the FCD output (linear referencing)"
-msgstr ""
+msgstr "Kilometerstand zur FCD-Ausgabe hinzufügen (lineare Referenzierung)"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:169
 msgid "Add acceleration to the FCD output"
-msgstr ""
+msgstr "Beschleunigung zur FCD-Ausgabe hinzufügen"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:171
 msgid ""
 "Add leader vehicle information to the FCD output (within the given distance)"
 msgstr ""
+"Führende Fahrzeuginformationen zur FCD Ausgabe hinzufügen (innerhalb der "
+"angegebenen Entfernung)"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:173
 msgid "Add generic parameter values to the FCD output"
-msgstr ""
+msgstr "Generische Parameterwerte zur FCD-Ausgabe hinzufügen"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:175
 msgid "Restrict fcd output to the edge selection from the given input file"
