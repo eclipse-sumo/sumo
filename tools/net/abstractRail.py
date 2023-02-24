@@ -429,6 +429,15 @@ def patchShapes(options, edges, nodeCoords, edgeShapes, nodeYValues):
                 shape = list(reversed(shape))
         edgeShapes[edgeID] = shape
 
+def cleanShapes(options, net, nodeCoords, edgeShapes):
+    """Ensure consistent edge shape in case the same edge was part of multiple regions"""
+    for edgeID, shape in edgeShapes.items():
+        edge = net.getEdge(edgeID)
+        fromID = edge.getFromNode().getID()
+        toID = edge.getToNode().getID()
+        shape[0] = nodeCoords[fromID]
+        shape[-1] = nodeCoords[toID]
+
 
 def shapeStr(shape):
     return ' '.join(["%.2f,%.2f" % coord for coord in shape])
@@ -459,6 +468,9 @@ def main(options):
         if not options.horizontal:
             rotateByMainLine(mainLine, edges, nodeCoords, edgeShapes, True)
 
+    if len(regions) > 1:
+        cleanShapes(options, net, nodeCoords, edgeShapes)
+
     with open(options.output_nodes, 'w') as outf_nod:
         sumolib.writeXMLHeader(outf_nod, "$Id$", "nodes", options=options)
         for nodeID in sorted(nodeCoords.keys()):
@@ -485,6 +497,8 @@ def main(options):
         outf_edg.write("</edges>\n")
 
     if not options.skipBuilding:
+        if options.verbose:
+            print("Building new net")
         NETCONVERT = sumolib.checkBinary('netconvert')
         subprocess.call([NETCONVERT,
             '-s', options.netfile,
