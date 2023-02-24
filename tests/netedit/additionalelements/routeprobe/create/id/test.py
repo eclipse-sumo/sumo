@@ -38,13 +38,13 @@ netedit.changeElement("routeProbe")
 netedit.changeDefaultValue(netedit.attrs.routeProbe.create.id, "&&&&&&&&")
 
 # try to create RouteProbe with invalid filename
-netedit.leftClick(referencePosition, 250, 235)
+netedit.leftClick(referencePosition, 315, 253)
 
 # set valid filename
 netedit.changeDefaultValue(netedit.attrs.routeProbe.create.id, "custom_id")
 
 # create routeProbe (camera will be moved)
-netedit.leftClick(referencePosition, 250, 235)
+netedit.leftClick(referencePosition, 325, 253)
 
 # Check undo redo
 netedit.undo(referencePosition, 1)
