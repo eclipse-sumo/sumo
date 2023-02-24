@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-21 18:42+0100\n"
-"PO-Revision-Date: 2023-02-24 14:58+0000\n"
+"PO-Revision-Date: 2023-02-24 15:21+0000\n"
 "Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -2983,24 +2983,25 @@ msgid "Load visualisation settings from FILE"
 msgstr "Darstellungseinstellung von Datei laden"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:432
+#, fuzzy
 msgid "Load current viewport from registry"
-msgstr "Aktuellen Ansichtsbereich aus Registry laden"
+msgstr "Aktuellen Ansichtsbereich vom Eintrag laden"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:435
 msgid "Create initial window with the given x,y size"
-msgstr "Erstelle Fenster mit der Breite/Höhe x,y"
+msgstr "Anfangsfenster mit der angegebenen x,y-Größe erstellen"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:438
 msgid "Create initial window at the given x,y position"
-msgstr "Erstelle Fenster an der Position x,y"
+msgstr "Anfangsfenster mit der angegebenen x,y-Position erstellen"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:443
 msgid "Enable overlay for screen recognition"
-msgstr "Aktiviere Überlagerung für Bildschirmerkennung"
+msgstr "Überlagerung für die Bildschirmerkennung aktivieren"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:446
 msgid "Enable output messages during GUI-Testing"
-msgstr "Aktivere Ausgabemeldungen während GUI-Test"
+msgstr "Ausgabemeldungen während der GUI-Testung aktivieren"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:449
 msgid "Enable output messages during GUI-Testing specific of gl functions"
