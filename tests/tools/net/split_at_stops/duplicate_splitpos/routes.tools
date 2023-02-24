@@ -17,7 +17,7 @@
 
     <netedit>
         <additional-files value="/home/kobo/dlr/debug/2811/input_additional.add.xml"/>
-        <route-files value="/home/kobo/dlr/debug/2811/input_routes.rou.xml"/>
+      <route-files value="/home/kobo/dlr/debug/2811/input_routes.rou.xml"/>
     </netedit>
 
     <report>
@@ -29,7 +29,7 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vType id="train" length="40.00" vClass="rail"/>
-    <route edges="a a.30 a.70 a.230 a.270 a.430 a.470" color="yellow" id="route_0"/>
+    <route edges="a a.30 a.70 a.80" color="yellow" id="route_0"/>
     <vehicle id="v0" type="train" depart="0.00" line="S42" route="route_0">
         <stop busStop="B" until="60.00"/>
         <stop busStop="C" until="70.00"/>
