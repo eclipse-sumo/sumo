@@ -275,6 +275,7 @@ errors:column ([0-9]*) \(line [0-9]*\){REPLACE column \1}
 errors:Scipy version [0-9]+\.[0-9]+\.[0-9]+{REPLACE Scipy}
 errors:OptimizeWarning
 errors:(file:)?/.*/tests/sumo/{REPLACE sumo/tests/sumo/}
+errors:/.*/tests/../tools/{REPLACE sumo/tools/}
 errors:.*statistics.py:[0-9]+{REPLACE statistics.py:}
 errors:.*[/\\]([a-zA-Z0-9]*).py", line [0-9]+{REPLACE \1.py}
 errors:unknown url type{REPLACE [Errno 2] No such file or directory}
