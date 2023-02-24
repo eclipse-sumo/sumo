@@ -32,7 +32,7 @@ import sumolib  # noqa
 
 def get_options(args=None):
     argParser = sumolib.options.ArgumentParser()
-    argParser.add_argument("stopfile", nargs="*", help="stop files to process")
+    argParser.add_argument("stopfile", nargs="+", help="stop files to process")
     argParser.add_argument("-n", "--network", help="validate positions against this network")
     argParser.add_argument("-r", "--routes", help="route file to adapt")
     argParser.add_argument("--split-output", default="splits.edg.xml", help="split file to generate")
@@ -62,6 +62,9 @@ def main(options):
             if stop.name in types:
                 locs[stop.lane[:stop.lane.rfind("_")]].append(stop)
             stops[stop.id] = stop
+    if not locs:
+        print("No stops of type '%s' found." % options.stop_type)
+        return
     net = sumolib.net.readNet(options.network) if options.network else None
     with sumolib.openz(options.split_output, "w") as out:
         sumolib.xml.writeHeader(out, root="edges", schemaPath="edgediff_file.xsd", options=options)
