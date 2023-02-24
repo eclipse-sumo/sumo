@@ -188,6 +188,7 @@ public:
 
     /// @brief @name Dealing with snapshots
     ///@{
+
     /** @brief Sets the snapshot time to file map
      * @param[in] snaps The snapshots to take at certain times
      * @param[in] w The snapshot image width
@@ -219,6 +220,7 @@ public:
 
     /// @brief get the current simulation time
     virtual SUMOTime getCurrentTimeStep() const;
+
     ///@}
 
     /// @brief get the viewport and create it on first access
@@ -317,6 +319,7 @@ public:
 
     /// @brief @name Additional visualisations
     ///@{
+
     /** @brief Adds an object to call its additional visualisation method
      * @param[in] which The object to add
      * @return Always true
@@ -336,6 +339,7 @@ public:
      * @see GUIGlObject::drawGLAdditional
      */
     bool isAdditionalGLVisualisationEnabled(GUIGlObject* const which) const;
+
     ///@}
 
     /// @brief get position of current popup
@@ -352,55 +356,55 @@ public:
     struct Decal {
 
         /// @brief Constructor
-        Decal();
+        Decal() {};
 
         /// @brief The path to the file the image is located at
         std::string filename;
 
         /// @brief The center of the image in x-direction (net coordinates, in m)
-        double centerX;
+        double centerX = 0;
 
         /// @brief The center of the image in y-direction (net coordinates, in m)
-        double centerY;
+        double centerY = 0;
 
         /// @brief The center of the image in z-direction (net coordinates, in m)
-        double centerZ;
+        double centerZ = 0;
 
         /// @brief The width of the image (net coordinates in x-direction, in m)
-        double width;
+        double width = 0;
 
         /// @brief The height of the image (net coordinates in y-direction, in m)
-        double height;
+        double height = 0;
 
         /// @brief The altitude of the image (net coordinates in z-direction, in m)
-        double altitude;
+        double altitude = 0;
 
         /// @brief The rotation of the image in the ground plane (in degrees)
-        double rot;
+        double rot = 0;
 
         /// @brief The tilt of the image to the ground plane (in degrees)
-        double tilt;
+        double tilt = 0;
 
         /// @brief The roll of the image to the ground plane (in degrees)
-        double roll;
+        double roll = 0;
 
         /// @brief The layer of the image
-        double layer;
+        double layer = 0;
 
         /// @brief Whether this image was initialised (inserted as a texture)
-        bool initialised;
+        bool initialised = false;
 
         /// @brief Whether this image should be skipped in 2D-views
-        bool skip2D;
+        bool skip2D = false;
 
         /// @brief Whether this image should be skipped in 2D-views
-        bool screenRelative;
+        bool screenRelative = false;
 
         /// @brief whether the decal shall be drawn in screen coordinates, rather than network coordinates
-        int glID;
+        int glID = -1;
 
         /// @brief The image pointer for later cleanup
-        FXImage* image;
+        FXImage* image = nullptr;
     };
 
     /// @brief The list of decals to show
@@ -531,7 +535,7 @@ protected:
     const SUMORTree* myGrid;
 
     /// @brief The perspective changer
-    GUIPerspectiveChanger* myChanger;
+    GUIPerspectiveChanger* myChanger = nullptr;
 
     /// @brief Panning flag
     bool myPanning = false;
@@ -558,24 +562,26 @@ protected:
     GUIVisualizationSettings* myVisualizationSettings;
 
     /// @brief Internal information whether doInit() was called
-    bool myAmInitialised;
+    bool myAmInitialised = false;
 
     /// @brief viewport chooser
-    GUIDialog_EditViewport* myViewportChooser;
+    GUIDialog_EditViewport* myGUIDialogEditViewport = nullptr;
 
     /// @brief Position of the cursor relative to the window
     FXint myWindowCursorPositionX, myWindowCursorPositionY;
 
     /// @brief Visualization changer
-    GUIDialog_ViewSettings* myVisualizationChanger;
+    GUIDialog_ViewSettings* myGUIDialogViewSettings = nullptr;
 
     /// @brief @name Optionally shown decals
     ///@{
+
     /// @brief The list of decals to show
     std::vector<Decal> myDecals;
 
     /// @brief The mutex to use before accessing the decals list in order to avoid thread conflicts
     FXMutex myDecalsLockMutex;
+
     ///@}
 
     /// @brief Snapshots
@@ -594,7 +600,7 @@ protected:
     std::map<GUIGlObject*, int> myAdditionallyDrawn;
 
     /// @brief counter for measuring rendering time
-    long myFrameDrawTime;
+    long myFrameDrawTime = 0;
 
 private:
     /// @brief struct used for sorting objects by layer

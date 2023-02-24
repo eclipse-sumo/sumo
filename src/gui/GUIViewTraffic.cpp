@@ -162,9 +162,9 @@ GUIViewTraffic::setColorScheme(const std::string& name) {
     if (!gSchemeStorage.contains(name)) {
         return false;
     }
-    if (myVisualizationChanger != nullptr) {
-        if (myVisualizationChanger->getCurrentScheme() != name) {
-            myVisualizationChanger->setCurrentScheme(name);
+    if (myGUIDialogViewSettings != nullptr) {
+        if (myGUIDialogViewSettings->getCurrentScheme() != name) {
+            myGUIDialogViewSettings->setCurrentScheme(name);
         }
     }
     myVisualizationSettings = &gSchemeStorage.get(name.c_str());

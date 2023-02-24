@@ -404,9 +404,9 @@ GUIOSGView::setColorScheme(const std::string& name) {
     if (!gSchemeStorage.contains(name)) {
         return false;
     }
-    if (myVisualizationChanger != 0) {
-        if (myVisualizationChanger->getCurrentScheme() != name) {
-            myVisualizationChanger->setCurrentScheme(name);
+    if (myGUIDialogViewSettings != 0) {
+        if (myGUIDialogViewSettings->getCurrentScheme() != name) {
+            myGUIDialogViewSettings->setCurrentScheme(name);
         }
     }
     myVisualizationSettings = &gSchemeStorage.get(name.c_str());
@@ -517,7 +517,7 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
     }
 
     const SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
-    if (now != myLastUpdate || (myVisualizationChanger != 0 && myVisualizationChanger->shown())) {
+    if (now != myLastUpdate || (myGUIDialogViewSettings != 0 && myGUIDialogViewSettings->shown())) {
         GUINet::getGUIInstance()->updateColor(*myVisualizationSettings);
     }
     if (now != myLastUpdate && myTracked != 0) {
@@ -607,7 +607,7 @@ GUIOSGView::removeTransportable(MSTransportable* t) {
 void GUIOSGView::updateViewportValues() {
     osg::Vec3d lookFrom, lookAt, up;
     myViewer->getCameraManipulator()->getInverseMatrix().getLookAt(lookFrom, lookAt, up);
-    myViewportChooser->setValues(Position(lookFrom[0], lookFrom[1], lookFrom[2]),
+    myGUIDialogEditViewport->setValues(Position(lookFrom[0], lookFrom[1], lookFrom[2]),
                                  Position(lookAt[0], lookAt[1], lookAt[2]), calculateRotation(lookFrom, lookAt, up));
 }
 
@@ -618,9 +618,9 @@ GUIOSGView::showViewportEditor() {
     osg::Vec3d lookFrom, lookAt, up;
     myViewer->getCameraManipulator()->getInverseMatrix().getLookAt(lookFrom, lookAt, up);
     Position from(lookFrom[0], lookFrom[1], lookFrom[2]), at(lookAt[0], lookAt[1], lookAt[2]);
-    myViewportChooser->setOldValues(from, at, calculateRotation(lookFrom, lookAt, up));
-    myViewportChooser->setZoomValue(100);
-    myViewportChooser->show();
+    myGUIDialogEditViewport->setOldValues(from, at, calculateRotation(lookFrom, lookAt, up));
+    myGUIDialogEditViewport->setZoomValue(100);
+    myGUIDialogEditViewport->show();
 }
 
 
@@ -651,7 +651,7 @@ GUIOSGView::setViewportFromToRot(const Position& lookFrom, const Position& lookA
     up = normal * cos(angle) - orthogonal * sin(angle);
     up.normalize();
 
-    double zoom = (myViewportChooser != nullptr) ? myViewportChooser->getZoomValue() : 100.;
+    double zoom = (myGUIDialogEditViewport != nullptr) ? myGUIDialogEditViewport->getZoomValue() : 100.;
     lookFromOSG = lookFromOSG + viewAxis * (100. - zoom);
     lookAtOSG = lookFromOSG - viewAxis;
     myViewer->getCameraManipulator()->setHomePosition(lookFromOSG, lookAtOSG, up);
@@ -858,7 +858,7 @@ GUIOSGView::onMouseMove(FXObject* sender, FXSelector sel, void* ptr) {
     FXEvent* event = (FXEvent*)ptr;
     osgGA::GUIEventAdapter* ea = myAdapter->getEventQueue()->mouseMotion((float)event->win_x, (float)event->win_y);
     setWindowCursorPosition(ea->getXnormalized(), ea->getYnormalized());
-    if (myViewportChooser != nullptr && myViewportChooser->shown()) {
+    if (myGUIDialogEditViewport != nullptr && myGUIDialogEditViewport->shown()) {
         updateViewportValues();
     }
     updatePositionInformation();
