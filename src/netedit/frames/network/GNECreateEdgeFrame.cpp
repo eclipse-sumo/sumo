@@ -737,7 +737,7 @@ GNECreateEdgeFrame::processClick(const Position& clickedPosition, const GNEViewN
                     if (myViewNet->getUndoList()->hasCommandGroup()) {
                         myViewNet->getUndoList()->end();
                     } else {
-                        std::cout << TL("edge created without an open CommandGroup") << std::endl;
+                        std::cout << "edge created without an open CommandGroup" << std::endl;
                     }
                     // if we're creating edges in chain mode, mark junction as junction edge source
                     if (chainEdge) {

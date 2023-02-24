@@ -95,12 +95,12 @@ void
 GUIGLObjectPopupMenu::insertMenuPaneChild(FXMenuPane* child) {
     // Check that MenuPaneChild isn't NULL
     if (child == nullptr) {
-        throw ProcessError(TL("MenuPaneChild cannot be NULL"));
+        throw ProcessError("MenuPaneChild cannot be NULL");
     }
     // Check that MenuPaneChild wasn't already inserted
     for (const auto& pane : myMenuPanes) {
         if (pane == child) {
-            throw ProcessError(TL("MenuPaneChild already inserted"));
+            throw ProcessError("MenuPaneChild already inserted");
         }
     }
     // Insert MenuPaneChild

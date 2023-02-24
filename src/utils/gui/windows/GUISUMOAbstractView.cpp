@@ -1732,7 +1732,7 @@ GUISUMOAbstractView::checkGDALImage(Decal& d) {
     const int picSize = xSize * ySize;
     FXColor* result;
     if (!FXMALLOC(&result, FXColor, picSize)) {
-        WRITE_WARNINGF(TL("Could not allocate memory for %."), d.filename);
+        WRITE_WARNINGF("Could not allocate memory for %.", d.filename);
         return 0;
     }
     for (int j = 0; j < picSize; j++) {

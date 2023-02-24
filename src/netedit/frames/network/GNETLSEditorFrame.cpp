@@ -1824,9 +1824,9 @@ GNETLSEditorFrame::TLSDefinition::createTLS(GNEJunction* junction) {
 bool
 GNETLSEditorFrame::TLSDefinition::switchProgram() {
     if (myTLSEditorParent->myTLSJunction->getCurrentJunction() == nullptr) {
-        throw ProcessError(TL("Junction cannot be NULL"));
+        throw ProcessError("Junction cannot be NULL");
     } else if (getNumberOfTLSDefinitions() != getNumberOfPrograms()) {
-        throw ProcessError(TL("myProgramComboBox must have the same number of TLSDefinitions"));
+        throw ProcessError("myProgramComboBox must have the same number of TLSDefinitions");
     } else {
         // reset save flag
         myHaveModifications = false;

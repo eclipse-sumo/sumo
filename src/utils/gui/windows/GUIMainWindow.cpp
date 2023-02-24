@@ -77,7 +77,7 @@ GUIMainWindow::GUIMainWindow(FXApp* app) :
     myRightDock = new FXDockSite(this, LAYOUT_SIDE_RIGHT | LAYOUT_FILL_Y);
     // avoid instance Windows twice
     if (myInstance != nullptr) {
-        throw ProcessError(TL("MainWindow initialized twice"));
+        throw ProcessError("MainWindow initialized twice");
     }
     myInstance = this;
     //myGLVisual->setStencilSize(8); // enable stencil buffer
@@ -269,7 +269,7 @@ GUIMainWindow::getInstance() {
     if (myInstance != nullptr) {
         return myInstance;
     }
-    throw ProcessError(TL("A GUIMainWindow instance was not yet constructed."));
+    throw ProcessError("A GUIMainWindow instance was not yet constructed.");
 }
 
 
