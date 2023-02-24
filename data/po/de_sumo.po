@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-21 18:29+0100\n"
 "PO-Revision-Date: 2023-02-24 15:21+0000\n"
-"Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
+"Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
 "Language: de\n"
@@ -873,13 +873,13 @@ msgstr "Schreibt nur Emissionszeiten"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:156
 msgid "Do not route on these edges"
-msgstr "Keine Route verläuft auf diesen Kanten"
+msgstr "Keine Route über diese Kanten legen"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:159
-#, fuzzy
 msgid "Only route on edges allowing the given vclass"
 msgstr ""
-"Nur Kanten die die gegebene Fahrzeugklasse erlauben für die Route verwenden"
+"Nur Kanten, welche die gegebene Fahrzeugklasse erlauben, für die Route "
+"verwenden"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:162
 msgid "Allow turnarounds as route continuations"
