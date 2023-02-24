@@ -1689,7 +1689,7 @@ GNETAZFrame::addOrRemoveTAZMember(GNEEdge* edge) {
         myTAZChildDefaultParameters->updateSelectEdgesButton();
         return true;
     } else {
-        throw ProcessError(TL("Edge cannot be null"));
+        throw ProcessError("Edge cannot be null");
     }
 }
 

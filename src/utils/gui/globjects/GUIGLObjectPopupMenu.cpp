@@ -134,7 +134,7 @@ GUIGLObjectPopupMenu::onCmdCenter(FXObject*, FXSelector, void*) {
     if (myObject) {
         myParent->centerTo(myObject->getGlID(), true, -1);
     } else {
-        throw ProcessError(TL("Object is NULL"));
+        throw ProcessError("Object is NULL");
     }
     return 1;
 }
@@ -145,7 +145,7 @@ GUIGLObjectPopupMenu::onCmdCopyName(FXObject*, FXSelector, void*) {
     if (myObject) {
         GUIUserIO::copyToClipboard(*myParent->getApp(), myObject->getMicrosimID());
     } else {
-        throw ProcessError(TL("Object is NULL"));
+        throw ProcessError("Object is NULL");
     }
     return 1;
 }
@@ -156,7 +156,7 @@ GUIGLObjectPopupMenu::onCmdCopyTypedName(FXObject*, FXSelector, void*) {
     if (myObject) {
         GUIUserIO::copyToClipboard(*myParent->getApp(), myObject->getFullName());
     } else {
-        throw ProcessError(TL("Object is NULL"));
+        throw ProcessError("Object is NULL");
     }
     return 1;
 }
@@ -165,7 +165,7 @@ GUIGLObjectPopupMenu::onCmdCopyTypedName(FXObject*, FXSelector, void*) {
 long
 GUIGLObjectPopupMenu::onCmdCopyEdgeName(FXObject*, FXSelector, void*) {
     if (myObject == nullptr) {
-        throw ProcessError(TL("Object is NULL"));
+        throw ProcessError("Object is NULL");
     } else if (myObject->getType() != GLO_LANE) {
         throw ProcessError(TL("Object must be a lane"));
     } else {
@@ -225,7 +225,7 @@ GUIGLObjectPopupMenu::onCmdShowPars(FXObject*, FXSelector, void*) {
     if (myObject) {
         myObject->getParameterWindow(*myApplication, *myParent);
     } else {
-        throw ProcessError(TL("Object is NULL"));
+        throw ProcessError("Object is NULL");
     }
     return 1;
 }
@@ -237,7 +237,7 @@ GUIGLObjectPopupMenu::onCmdShowTypePars(FXObject*, FXSelector, void*) {
     if (myObject) {
         myObject->getTypeParameterWindow(*myApplication, *myParent);
     } else {
-        throw ProcessError(TL("Object is NULL"));
+        throw ProcessError("Object is NULL");
     }
     return 1;
 }
@@ -249,7 +249,7 @@ GUIGLObjectPopupMenu::onCmdAddSelected(FXObject*, FXSelector, void*) {
         gSelected.select(myObject->getGlID());
         myParent->update();
     } else {
-        throw ProcessError(TL("Object is NULL"));
+        throw ProcessError("Object is NULL");
     }
     return 1;
 }
@@ -261,7 +261,7 @@ GUIGLObjectPopupMenu::onCmdRemoveSelected(FXObject*, FXSelector, void*) {
         gSelected.deselect(myObject->getGlID());
         myParent->update();
     } else {
-        throw ProcessError(TL("Object is NULL"));
+        throw ProcessError("Object is NULL");
     }
     return 1;
 }

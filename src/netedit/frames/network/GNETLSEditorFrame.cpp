@@ -586,7 +586,7 @@ GNETLSEditorFrame::TLSAttributes::initTLSAttributes() {
     // get current edited junction
     const auto junction = myTLSEditorParent->myTLSJunction->getCurrentJunction();
     if (junction == nullptr) {
-        throw ProcessError(TL("Junction cannot be NULL"));
+        throw ProcessError("Junction cannot be NULL");
     } else {
         // enable Offset
         myOffsetTextField->enable();
@@ -1380,7 +1380,7 @@ GNETLSEditorFrame::TLSDefinition::initTLSDefinitions() {
     // get current edited junction
     const auto junction = myTLSEditorParent->myTLSJunction->getCurrentJunction();
     if (junction == nullptr) {
-        throw ProcessError(TL("Junction cannot be NULL"));
+        throw ProcessError("Junction cannot be NULL");
     } else {
         // clear definitions
         myTLSDefinitions.clear();
@@ -1782,7 +1782,7 @@ GNETLSEditorFrame::TLSDefinition::createTLS(GNEJunction* junction) {
     const auto currentTLS = getCurrentTLSProgramID();
     // check conditions
     if (junction == nullptr) {
-        throw ProcessError(TL("junction cannot be null"));
+        throw ProcessError("junction cannot be null");
     } else if (junction->getAttribute(SUMO_ATTR_TYPE) != toString(SumoXMLNodeType::TRAFFIC_LIGHT)) {
         // set junction as TLS
         junction->setAttribute(SUMO_ATTR_TYPE, toString(SumoXMLNodeType::TRAFFIC_LIGHT), myTLSEditorParent->getViewNet()->getUndoList());

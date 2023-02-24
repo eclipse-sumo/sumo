@@ -181,7 +181,7 @@ void
 GLHelper::checkCounterMatrix() {
 #ifdef CHECK_PUSHPOP
     if (myMatrixCounterDebug != 0) {
-        WRITE_WARNING(TL("invalid matrix counter. Check that number of pushMatrix and popMatrix functions calls are the same"));
+        WRITE_WARNING("invalid matrix counter. Check that number of pushMatrix and popMatrix functions calls are the same");
     }
     myMatrixCounterDebug = 0;
 #endif
@@ -192,7 +192,7 @@ void
 GLHelper::checkCounterName() {
 #ifdef CHECK_PUSHPOP
     if (myNameCounter != 0) {
-        WRITE_WARNING(TL("invalid Name counter. Check that number of pushName and popName functions calls are the same"));
+        WRITE_WARNING("invalid Name counter. Check that number of pushName and popName functions calls are the same");
     }
     myNameCounter = 0;
 #endif
