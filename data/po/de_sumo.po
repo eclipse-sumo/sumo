@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-21 18:29+0100\n"
-"PO-Revision-Date: 2023-02-24 14:48+0000\n"
+"PO-Revision-Date: 2023-02-24 14:58+0000\n"
 "Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -3029,11 +3029,11 @@ msgstr "TraCI-Server"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:635
 msgid "Enables TraCI Server if set"
-msgstr ""
+msgstr "Aktiviert ob der TraCI-Server gesetzt ist"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:637
 msgid "Expected number of connecting clients"
-msgstr ""
+msgstr "Erwartete Anzahl von verbindenden Clients"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:639
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:641
@@ -3049,15 +3049,15 @@ msgstr ""
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:677
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:679
 msgid "Mesoscopic"
-msgstr ""
+msgstr "Mesoskopisch"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:641
 msgid "Enables mesoscopic simulation"
-msgstr ""
+msgstr "Aktiviert mesoskopische Simulation"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:643
 msgid "Length of an edge segment in mesoscopic simulation"
-msgstr ""
+msgstr "Länge eines Kantensegments in der mesoskopischen Simulation"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:645
 msgid "Factor for calculating the net free-free headway time"
@@ -3077,30 +3077,35 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:656
 msgid "Enable multiple queues at edge ends"
-msgstr ""
+msgstr "Mehrere Warteschlangen an Kantenenden aktivieren"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:658
 msgid "Enable separate queues for every lane"
-msgstr ""
+msgstr "Separate Warteschlangen für jeden Fahrstreifen aktivieren"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:660
 msgid ""
 "Do not build queues (or reduce capacity) for lanes allowing only the given "
 "vclasses"
 msgstr ""
+"Konnte keine Warteschlangen (oder reduzierte Kapazität) für Fahrstreifen, "
+"die nur die angegebenen Fahrzeugklassen zulassen bauen"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:663
+#, fuzzy
 msgid "Enable mesoscopic traffic light and priority junction handling"
-msgstr ""
+msgstr "Mesoskopische LSA und Vorrangs-Knotenpunkt-Handhabung aktivieren"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:677
 msgid "Enable mesoscopic overtaking"
-msgstr ""
+msgstr "Mesoskopisches Überholen aktivieren"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:679
 msgid ""
 "Time interval for rechecking insertion into the next segment after failure"
 msgstr ""
+"Zeitintervall für die erneute Überprüfung des Einfügens in das nächste "
+"Segment nach dem Ausfall"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:689
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:691
@@ -3122,12 +3127,13 @@ msgstr ""
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:743
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:747
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:751
+#, fuzzy
 msgid "GUI Only"
-msgstr ""
+msgstr "Nur GUI"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:691
 msgid "Load visualisation settings from FILE"
-msgstr ""
+msgstr "Darstellungseinstellung von Datei laden"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:694
 msgid "Quits the GUI when the simulation stops"
@@ -3135,7 +3141,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:697
 msgid "Start the GUI in gaming mode"
-msgstr ""
+msgstr "GUI im Gaming-Modus starten"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:700
 msgid "Select the game type ('tls', 'drt')"
