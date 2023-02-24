@@ -1304,7 +1304,8 @@ GNEAdditionalHandler::buildTAZ(const CommonXMLStructure::SumoBaseObject* sumoBas
         // get netedit parameters
         NeteditParameters neteditParameters(sumoBaseObject);
         // build TAZ with the given shape
-        GNEAdditional* TAZ = new GNETAZ(id, myNet, TAZShape, center, fill, color, name, parameters);
+        const Position center2 = center == Position::INVALID ? TAZShape.getCentroid() : center;
+        GNEAdditional* TAZ = new GNETAZ(id, myNet, TAZShape, center2, fill, color, name, parameters);
         // disable updating geometry of TAZ children during insertion (because in large nets provokes slowdowns)
         myNet->disableUpdateGeometry();
         // add it depending of allow undoRed

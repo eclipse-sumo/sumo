@@ -219,7 +219,9 @@ GNETAZ::updateCenteringBoundary(const bool updateGrid) {
     // use shape as boundary
     myAdditionalBoundary = myShape.getBoxBoundary();
     // add center
-    myAdditionalBoundary.add(myTAZCenter);
+    if (myTAZCenter != Position::INVALID) {
+        myAdditionalBoundary.add(myTAZCenter);
+    }
     // grow boundary
     myAdditionalBoundary.grow(10);
     // add object into net
