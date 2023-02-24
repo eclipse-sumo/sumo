@@ -28,6 +28,7 @@ import random
 import subprocess
 import numpy as np
 import math
+import time
 import scipy.optimize as opt
 from heapq import heappush,heappop
 from collections import defaultdict
@@ -60,6 +61,12 @@ def get_options():
                   help="output prefix for patch files")
     ap.add_option("--track-offset", type=float, default=20, dest="trackOffset",
                   help="default distance between parallel tracks")
+    ap.add_option("--time-limit", type=float, dest="timeLimit",
+                  help="time limit per region")
+    ap.add_option("--max-iter", type=int, dest="maxIter",
+                  help="maximum number of solver iterations per region")
+    ap.add_option("--skip-large", type=int, dest="skipLarge",
+                  help="skip regions require more than the given number of constraints")
     ap.add_option("--skip-building", action="store_true", dest="skipBuilding", default=False,
                   help="do not call netconvert with the patch files")
     ap.add_option("-d", "--debug-output", action="store_true", default=False, dest="verbose2",
@@ -338,9 +345,26 @@ def optimizeTrackOrder(options, edges, nodes, virtualNodes, orderings, nodeCoord
         print("b_eq (%s) %s" % (len(b_eq), b_eq))
         print("c (%s) %s" % (len(c), c))
 
+    if options.skipLarge and (q + q2) > options.skipLarge:
+        sys.stderr.write("Skipping optimization with %s inequalities and %s equalities\n" % (q, q2))
+        return dict()
+
+    linProgOpts = {}
+    started = time.time()
     if options.verbose:
-        print("Starting optimization")
-    res = opt.linprog(c, A_ub=A_ub, b_ub=b_ub, A_eq=A_eq, b_eq=b_eq)
+        print("Starting optimization with %s inequalities and %s equalities" % (
+            q, q2))
+
+    if options.verbose2:
+        linProgOpts["disp"] = True
+
+    if options.timeLimit:
+        linProgOpts["time_limit"] = options.timeLimit
+
+    if options.maxIter:
+        linProgOpts["maxiter"] = options.maxIter
+
+    res = opt.linprog(c, A_ub=A_ub, b_ub=b_ub, A_eq=A_eq, b_eq=b_eq, options=linProgOpts)
 
     if not res.success:
         sys.stderr.write("Optimization failed\n")
@@ -348,7 +372,9 @@ def optimizeTrackOrder(options, edges, nodes, virtualNodes, orderings, nodeCoord
 
     if options.verbose:
         if options.verbose:
-            print("Optimization succeeded (score=%s)" % np.dot(res.x, c))
+            score = np.dot(res.x, c)
+            runtime = time.time() - started
+            print("Optimization succeeded after %ss (score=%s)" % (runtime, score))
         if options.verbose2:
             print(res.x)
     yValues = res.x[:k]  # cut of slack variables
