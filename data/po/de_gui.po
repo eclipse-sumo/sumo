@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-21 18:42+0100\n"
-"PO-Revision-Date: 2023-02-24 09:18+0000\n"
-"Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
+"PO-Revision-Date: 2023-02-24 12:48+0000\n"
+"Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
 "Language: de\n"
@@ -12155,7 +12155,7 @@ msgstr "Subfahrstreifen anzeigen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1937
 msgid "Show rails"
-msgstr "Schienen anzeigen"
+msgstr "Gleise anzeigen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1939
 #, fuzzy
@@ -12257,7 +12257,7 @@ msgstr "Blinker / Bremslichter anzeigen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2022
 msgid "Show minimum gap"
-msgstr "Minimale Lücke anzeigen"
+msgstr "Mindestabstand anzeigen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2024
 msgid "Show brake gap"
@@ -12341,11 +12341,11 @@ msgstr "Fußgängerfurt und walkingArea ID anzeigen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2161
 msgid "Show traffic light phase index"
-msgstr "LSA Phasenindex anzeigen"
+msgstr "LSA-Phasenindex anzeigen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2162
 msgid "Show traffic light phase name"
-msgstr "LSA Phasenname anzeigen"
+msgstr "LSA-Phasenname anzeigen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2163
 msgid "Show junction name"
