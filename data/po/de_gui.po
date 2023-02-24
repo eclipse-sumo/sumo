@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-21 18:42+0100\n"
-"PO-Revision-Date: 2023-02-23 20:19+0000\n"
-"Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
+"PO-Revision-Date: 2023-02-24 08:16+0000\n"
+"Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
 "Language: de\n"
@@ -8492,7 +8492,7 @@ msgstr "Dieser Fußweg benutzt Knotenpunkte"
 
 #: /home/micha/programming/sumo/src/netedit/elements/network/GNEConnection.cpp:679
 msgid "Could not set attribute '%' (tls is broken)"
-msgstr "Konnte Attribute '%' nicht anwenden (LSA ist gebrochen)"
+msgstr "Konnte Attribut '%' nicht anwenden (LSA ist ungültig)"
 
 #: /home/micha/programming/sumo/src/netedit/elements/network/GNEEdge.cpp:2169
 msgid "Could not compute smooth shape for edge '%'"
@@ -11889,9 +11889,8 @@ msgid "case-sensitive search"
 msgstr "Suchen nach Groß- und Kleinschreibung"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:103
-#, fuzzy
 msgid "auto-center"
-msgstr "Automatisches Zentrum"
+msgstr "automatisch zentrieren"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_EditViewport.cpp:65
 #, fuzzy
@@ -12496,9 +12495,8 @@ msgid "Show TLS link markers"
 msgstr "LSA Linkmarker anzeigen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2449
-#, fuzzy
 msgid "Show domes around TLS models from decals"
-msgstr "Wölbungen um LSA-Modelle von den Bildern anzeigen"
+msgstr "Über Hintergrundbilder definierte Signalkuppen für LSA anzeigen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2452
 msgid "Show auto-generated TLS models"
@@ -12589,7 +12587,7 @@ msgstr "Chinesisch"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:386
 msgid "chinese simplified"
-msgstr "Chinesisch vereinfacht"
+msgstr "Chinesisch (vereinfacht)"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:390
 msgid "turkish"
