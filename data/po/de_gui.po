@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-21 18:42+0100\n"
 "PO-Revision-Date: 2023-02-24 15:21+0000\n"
-"Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
+"Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
 "Language: de\n"
@@ -11832,16 +11832,15 @@ msgstr "Daten speichern"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:84
 msgid "Track"
-msgstr "Gleis"
+msgstr "Verfolgen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:91
 msgid "&Hide Unselected"
 msgstr "Andere ausblenden"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:92
-#, fuzzy
 msgid "By &Name"
-msgstr "Von &Name"
+msgstr "Nach &Namen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:92
 msgid "Locate item by name"
@@ -12023,19 +12022,19 @@ msgstr "Überzogen um"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1802
 msgid "Save the setting to registry"
-msgstr "Die Einstellung in der Registrierung speichern"
+msgstr "Die Einstellungen in der Registry speichern"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1803
 msgid "Remove the setting from registry"
-msgstr "Die Einstellung in der Registrierung entfernen"
+msgstr "Die Einstellung aus der Registry entfernen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1804
 msgid "Export setting to file"
-msgstr "Setting in die Datei exportieren"
+msgstr "Einstellungen in die Datei exportieren"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1805
 msgid "Load setting from file"
-msgstr "Setting aus Datei laden"
+msgstr "Einstellungen aus Datei laden"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1808
 msgid "Export includes:"
@@ -12195,7 +12194,7 @@ msgstr "Kantenfarbenwert anzeigen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1962
 msgid "Show edge scale value"
-msgstr "Kantenskalenwert anzeigen"
+msgstr "Kantenskalierfaktor anzeigen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1973
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2056
