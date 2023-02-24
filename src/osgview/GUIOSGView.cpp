@@ -204,6 +204,8 @@ GUIOSGView::GUIOSGView(
 
     myTextNode = new osg::Geode();
     myText = new osgText::Text;
+    myText->setCharacterSizeMode(osgText::Text::SCREEN_COORDS);
+    myText->setShaderTechnique(osgText::NO_TEXT_SHADER);
     osgText::Font* font = osgText::readFontFile("arial.ttf");
     if (font != nullptr) {
         myText->setFont(font);
