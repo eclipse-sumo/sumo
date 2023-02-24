@@ -147,7 +147,7 @@ public:
     }
 
     /// @brief Returns the name of the object (default "")
-    virtual const std::string getOptionalName() const {
+    virtual const std::string getOptionalName() const override {
         return getShapeName();
     }
     //@}
