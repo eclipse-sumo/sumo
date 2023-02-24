@@ -8,12 +8,12 @@
         <param key="KeyA1" value="valueA1"/>
         <param key="KeyA3" value="valueA2"/>
         <param key="KeyA2" value="valueA3"/>
-    </calibratorLane>
+    </calibrator>
 
     <!-- calibratorLane B -->
     <calibrator id="calibratorB" lane="center1_0" pos="30" period="40" name="NameB" routeProbe="RouteProbeB" output="fileB.txt">
         <param key="KeyB1" value="valueB1"/>
         <param key="KeyB3" value="valueB2"/>
         <param key="KeyB2" value="valueB3"/>
-    </calibratorLane>
+    </calibrator>
 </additional>

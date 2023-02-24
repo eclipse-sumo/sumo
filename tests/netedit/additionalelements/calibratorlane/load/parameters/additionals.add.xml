@@ -33,6 +33,6 @@
      <!-- valid generic parameter (valid) -->
      <param key="keyFinal" value="valueFinal"/>
 
-    </calibratorLane>
+    </calibrator>
 
 </additional>

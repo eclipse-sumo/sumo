@@ -38,7 +38,7 @@ netedit.changeElement("calibratorLane")
 netedit.changeDefaultBoolValue(netedit.attrs.calibrator.create.center)
 
 # create first calibratorLane
-netedit.leftClick(referencePosition, 485, 250)
+netedit.leftClick(referencePosition, 492, 258)
 
 # change center view
 netedit.changeDefaultBoolValue(netedit.attrs.calibrator.create.center)
