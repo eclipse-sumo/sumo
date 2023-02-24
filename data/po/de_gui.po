@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-21 18:42+0100\n"
-"PO-Revision-Date: 2023-02-24 12:48+0000\n"
+"PO-Revision-Date: 2023-02-24 13:36+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -11873,7 +11873,7 @@ msgstr "&alles abwählen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:96
 msgid "Deselect all items in list"
-msgstr "Alle Elemente der Lister abwählen"
+msgstr "Alle Elemente der Liste abwählen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:97
 msgid "&Update"
@@ -11931,7 +11931,7 @@ msgstr "Ansichtssettings exportieren"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1109
 msgid "Import view settings"
-msgstr "Ansichtssettings importieren"
+msgstr "Darstellungseinstellungen importieren"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1126
 msgid "Load Decals"
@@ -12132,9 +12132,8 @@ msgid "Show right-of-way rules"
 msgstr "Vorfahrtsregeln anzeigen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1924
-#, fuzzy
 msgid "Realistic stop line colors"
-msgstr "Realistische Fahrstreifenfarben"
+msgstr "Realistische Haltelinienfarben"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1927
 msgid "Show lane borders"
@@ -12158,16 +12157,13 @@ msgid "Show rails"
 msgstr "Gleise anzeigen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1939
-#, fuzzy
 msgid "Spread bidirectional railways/roads"
-msgstr "Zweirichtungs Schienenwege teilen"
+msgstr "Zweirichtungsgleise/-straßen nebeneinander zeichnen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1939
-#, fuzzy
 msgid ""
 "Make both directional edges for a bidirectional railways or roads visible"
-msgstr ""
-"Macht beide Richtungskanten für bidirektionale Schienen oder Straßen sichtbar"
+msgstr "Zeige beide Richtungskanten für bidirektionale Gleise oder Straßen an"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1942
 msgid "Secondary shape"
@@ -12272,9 +12268,8 @@ msgid "Show route index"
 msgstr "Routenindex anzeigen"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2030
-#, fuzzy
 msgid "Scale length with geometry"
-msgstr "Skalenlänge mit Geometrie"
+msgstr "Länge zusammen mit Geometrie skalieren"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2032
 msgid "Show parking info"
