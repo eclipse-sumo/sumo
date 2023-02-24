@@ -73,7 +73,7 @@ def get_options():
                   help="skip regions require more than the given number of constraints")
     ap.add_option("--skip-building", action="store_true", dest="skipBuilding", default=False,
                   help="do not call netconvert with the patch files")
-    ap.add_option("-d", "--debug-output", action="store_true", default=False, dest="verbose2",
+    ap.add_option("--extra-verbose", action="store_true", default=False, dest="verbose2",
                   help="tell me more about what you are doing")
     options = ap.parse_args()
 
@@ -153,6 +153,9 @@ def findMainline(options, net, edges):
     else:
         mainLine = [coordsByY[0], coordsByY[-1]]
 
+    if options.verbose2:
+        print("mainLine=", shapeStr(mainLine))
+
     return mainLine
 
 
@@ -171,13 +174,13 @@ def rotateByMainLine(mainLine, edges, nodeCoords, edgeShapes, reverse):
 
     if reverse:
         def transform(coord):
-            coord = gh.rotateAround2D(coord, -angle, (0, 0))
+            coord = gh.rotateAround2D(coord, angle, (0, 0))
             coord = gh.add(coord, center)
             return coord
     else:
         def transform(coord):
             coord = gh.sub(coord, center)
-            coord = gh.rotateAround2D(coord, angle, (0, 0))
+            coord = gh.rotateAround2D(coord, -angle, (0, 0))
             return coord
 
     for node in nodes:
@@ -397,12 +400,12 @@ def optimizeTrackOrder(options, edges, nodes, virtualNodes, orderings, nodeCoord
 
 def patchShapes(options, edges, nodeCoords, edgeShapes, nodeYValues):
     nodes = getNodes(edges)
+    edgeYValues = defaultdict(list)
 
     for node in nodes:
         coord = nodeCoords[node.getID()]
         nodeCoords[node.getID()] = (coord[0], nodeYValues[node])
 
-    edgeYValues = defaultdict(list)
     for vNode, y in nodeYValues.items():
         if vNode not in nodes:
             edgeID, x = vNode
