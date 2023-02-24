@@ -118,6 +118,8 @@ enum class DepartDefinition {
     NOW,
     /// @brief The departure is triggered by a train split
     SPLIT,
+    /// @brief The departure is at simulation start
+    BEGIN,
     /// @brief Tag for the last element in the enum for safe int casting
     DEF_MAX
 };

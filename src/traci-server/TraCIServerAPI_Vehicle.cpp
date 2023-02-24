@@ -979,6 +979,10 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                     depart = "containerTriggered";
                 } else if (-departCode == static_cast<int>(DepartDefinition::NOW)) {
                     depart = "now";
+                } else if (-departCode == static_cast<int>(DepartDefinition::SPLIT)) {
+                    depart = "split";
+                } else if (-departCode == static_cast<int>(DepartDefinition::BEGIN)) {
+                    depart = "begin";
                 }
 
                 double departPosCode;

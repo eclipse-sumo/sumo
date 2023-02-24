@@ -316,11 +316,13 @@ SUMOVehicleParameter::parseDepart(const std::string& val, const std::string& ele
         dd = DepartDefinition::TRIGGERED;
     } else if (val == "containerTriggered") {
         dd = DepartDefinition::CONTAINER_TRIGGERED;
-    } else if (val == "split") {
-        dd = DepartDefinition::SPLIT;
     } else if (val == "now") {
         // only used via TraCI. depart must be set by the calling code
         dd = DepartDefinition::NOW;
+    } else if (val == "split") {
+        dd = DepartDefinition::SPLIT;
+    } else if (val == "begin") {
+        dd = DepartDefinition::BEGIN;
     } else {
         try {
             depart = string2time(val);
@@ -749,8 +751,12 @@ SUMOVehicleParameter::getDepart() const {
         return "triggered";
     } else if (departProcedure == DepartDefinition::CONTAINER_TRIGGERED) {
         return "containerTriggered";
+//    } else if (departProcedure == DepartDefinition::NOW) {  // TODO check whether this is useful in XML input (currently TraCI only)
+//        return "now";
     } else if (departProcedure == DepartDefinition::SPLIT) {
         return "split";
+    } else if (departProcedure == DepartDefinition::BEGIN) {
+        return "begin";
     } else {
         return time2string(depart);
     }

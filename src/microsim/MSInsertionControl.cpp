@@ -248,7 +248,7 @@ MSInsertionControl::determineCandidates(SUMOTime time) {
                 int quota = pars->repetitionProbability < 0 ? 1 : vehControl.getQuota(scale);
                 if (quota > 0) {
                     vehControl.addVehicle(newPars->id, vehicle);
-                    if (pars->departProcedure == DepartDefinition::GIVEN) {
+                    if (pars->departProcedure == DepartDefinition::GIVEN || pars->departProcedure == DepartDefinition::BEGIN) {
                         add(vehicle);
                     }
                     i->index++;
@@ -259,7 +259,7 @@ MSInsertionControl::determineCandidates(SUMOTime time) {
                                             pars->depart + pars->repetitionsDone * pars->repetitionTotalOffset + computeRandomDepartOffset();
                         SUMOVehicle* const quotaVehicle = vehControl.buildVehicle(quotaPars, route, vtype, !MSGlobals::gCheckRoutes);
                         vehControl.addVehicle(quotaPars->id, quotaVehicle);
-                        if (pars->departProcedure == DepartDefinition::GIVEN) {
+                        if (pars->departProcedure == DepartDefinition::GIVEN || pars->departProcedure == DepartDefinition::BEGIN) {
                             add(quotaVehicle);
                         }
                         pars->repetitionsDone++;

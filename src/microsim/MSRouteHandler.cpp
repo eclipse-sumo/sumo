@@ -530,7 +530,7 @@ MSRouteHandler::closeVehicle() {
         route = MSRoute::dictionary(embeddedRouteID, &myParsingRNG);
     }
     MSVehicleControl& vehControl = MSNet::getInstance()->getVehicleControl();
-    if (myVehicleParameter->departProcedure == DepartDefinition::GIVEN) {
+    if (myVehicleParameter->departProcedure == DepartDefinition::GIVEN || myVehicleParameter->departProcedure == DepartDefinition::BEGIN) {
         // let's check whether this vehicle had to depart before the simulation starts
         if (!(myAddVehiclesDirectly || checkLastDepart()) || (myVehicleParameter->depart < string2time(OptionsCont::getOptions().getString("begin")) && !myAmLoadingState)) {
             return;
@@ -636,7 +636,7 @@ MSRouteHandler::closeVehicle() {
             }
             int offset = 0;
             for (int i = 1; i < quota; i++) {
-                if (vehicle->getParameter().departProcedure == DepartDefinition::GIVEN) {
+                if (vehicle->getParameter().departProcedure == DepartDefinition::GIVEN || vehicle->getParameter().departProcedure == DepartDefinition::BEGIN) {
                     MSNet::getInstance()->getInsertionControl().add(vehicle);
                 }
                 SUMOVehicleParameter* newPars = new SUMOVehicleParameter(*myVehicleParameter);
@@ -679,7 +679,7 @@ MSRouteHandler::closeVehicle() {
     // check whether the vehicle shall be added directly to the network or
     //  shall stay in the internal buffer
     if (vehicle != nullptr) {
-        if (vehicle->getParameter().departProcedure == DepartDefinition::GIVEN) {
+        if (vehicle->getParameter().departProcedure == DepartDefinition::GIVEN || vehicle->getParameter().departProcedure == DepartDefinition::BEGIN) {
             MSNet::getInstance()->getInsertionControl().add(vehicle);
         }
     }
