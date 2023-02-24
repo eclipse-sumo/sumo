@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-21 18:29+0100\n"
-"PO-Revision-Date: 2023-02-23 16:40+0000\n"
+"PO-Revision-Date: 2023-02-24 13:36+0000\n"
 "Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -617,8 +617,9 @@ msgid "Time"
 msgstr "Zeit"
 
 #: /home/micha/programming/sumo/src/activitygen/AGFrame.cpp:61
+#, fuzzy
 msgid "Use FILE as SUMO-network to create trips for"
-msgstr ""
+msgstr "Verwende DATEI als SUMO-Netz, um Fahrten zu erstellen"
 
 #: /home/micha/programming/sumo/src/activitygen/AGFrame.cpp:64
 #, fuzzy
@@ -761,8 +762,9 @@ msgid "Loads detector descriptions from FILE"
 msgstr "Detektorbeschreibung aus der Datei lädt"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:75
+#, fuzzy
 msgid "Loads detector flows from FILE(s)"
-msgstr ""
+msgstr "Lädt Detektorflüsse aus DATEI(en)"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:82
 #, fuzzy
@@ -771,54 +773,67 @@ msgstr "Berechnete Routen speichern in DATEI"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:85
 msgid "Forces dfrouter to compute routes for in-between detectors"
-msgstr ""
+msgstr "Zwingt dfrouter, Routen für dazwischen liegende Detektoren zu berechnen"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:89
+#, fuzzy
 msgid "Saves typed detectors to FILE"
-msgstr ""
+msgstr "Speichert typisierte Detektoren in DATEI"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:92
+#, fuzzy
 msgid "Saves detector positions as pois to FILE"
-msgstr ""
+msgstr "Speichert Detektorpositionen als Pole in DATEI"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:95
 msgid "Saves emitter definitions for source detectors to FILE"
-msgstr ""
+msgstr "Speichert Emitterdefinitionen für Quelldetektoren in einer Datei"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:98
 msgid "Add vehicle types to the emitters file (PKW, LKW)"
-msgstr ""
+msgstr "Fahrzeugtypen in Emitterdatei hinzufügen (PKW, LKW)"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:101
 msgid ""
 "Write generated vehicle types into separate FILE instead of including them "
 "into the emitters-output"
 msgstr ""
+"Generierte Fahrzeugtypen in separate Datei schreiben, anstatt sie in die "
+"Emitter-Ausgabe aufzunehmen"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:104
+#, fuzzy
 msgid "Saves emitter positions as pois to FILE"
-msgstr ""
+msgstr "Speichert Emitterpositionen als Pole in Datei"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:108
+#, fuzzy
 msgid "Saves variable seed sign definitions for sink detectors to FILE"
 msgstr ""
+"Speichert variable Ursprungs-Zeichendefinitionen für Zieldetektoren in einer "
+"Datei"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:111
 msgid "Saves rerouter definitions for sink detectors to FILE"
-msgstr ""
+msgstr "Speichert Rerouterdefinitionen für Zieldetektoren in Datei"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:114
 msgid ""
 "Write induction loop definitions for the given detector positions to FILE"
 msgstr ""
+"Induktionsschleifendefinitionen für die gegebenen Detektorpositionen in "
+"Datei schreiben"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:117
 msgid "Add source detectors to the validation output"
-msgstr ""
+msgstr "Quelldetektoren zur validierten Ausgabe hinzufügen"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:123
+#, fuzzy
 msgid "Derive missing flow values from upstream or downstream (not working!)"
 msgstr ""
+"Fehlende Durchflusswerte von oberhalb oder unterhalb ableiten (funktioniert "
+"nicht!)"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:127
 #, fuzzy
@@ -831,77 +846,86 @@ msgstr "Nur vor nicht einlesbaren Detektoren warnen"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:135
 msgid "Recomputes detector types even if given"
-msgstr ""
+msgstr "Berechnet Detektortypen neu, auch wenn angegeben"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:139
 msgid "Recomputes routes even if given"
-msgstr ""
+msgstr "Berechnet Routen neu, auch wenn angegeben"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:143
+#, fuzzy
 msgid "Keeps routes even if they have exhausted max-search-depth"
 msgstr ""
+"Behält Routen bei, auch wenn sie die maximale Suchtiefe ausgereift haben"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:146
 msgid "Keeps routes even if a shorter one exists"
-msgstr ""
+msgstr "Behält Routen bei, auch wenn eine kürzere existiert"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:150
 msgid "Number of edges to follow a route without passing a detector"
 msgstr ""
+"Anzahl der Kanten, um einer Route zu folgen, ohne einen Detektor zu passieren"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:153
 msgid "Writes only emission times"
-msgstr ""
+msgstr "Schreibt nur Emissionszeiten"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:156
 msgid "Do not route on these edges"
-msgstr ""
+msgstr "Keine Route verläuft auf diesen Kanten"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:159
+#, fuzzy
 msgid "Only route on edges allowing the given vclass"
 msgstr ""
+"Nur Kanten die die gegebene Fahrzeugklasse erlauben für die Route verwenden"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:162
 msgid "Allow turnarounds as route continuations"
-msgstr ""
+msgstr "Wenden als Fortsetzung der Route zulassen"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:167
 msgid "Minimum distance in meters between start and end node of every route"
-msgstr ""
+msgstr "Mindestabstand in Metern zwischen Start- und Endknoten jeder Route"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:170
+#, fuzzy
 msgid "generate random departure times for emitted vehicles"
-msgstr ""
+msgstr "Generiert zufällige Abfahrtszeiten für emittierte Fahrzeuge"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:174
 msgid "Multiply flow times with TIME to get seconds"
-msgstr ""
+msgstr "Multiplizier die Durchflusszeiten mit der Zeit, um Sekunden zu erhalten"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:177
+#, fuzzy
 msgid "Subtracts TIME seconds from (scaled) flow times"
-msgstr ""
+msgstr "Subtrahiert Zeit-Sekunden von (skalierten) Durchflusszeiten"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:180
 msgid "Expected distance between two successive data sets"
-msgstr ""
+msgstr "Erwarteter Abstand zwischen zwei aufeinanderfolgenden Datensätzen"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:185
 msgid "Write calibrators to FILE"
-msgstr ""
+msgstr "Kalibratoren in Datei schreiben"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:188
 msgid "Include routes in the output which have no vehicles"
-msgstr ""
+msgstr "Routen ohne Fahrzeuge in die Ausgabe aufnehmen"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:192
 msgid ""
 "Checks whether detectors with calculated flow 0 can attract additional "
 "traffic"
 msgstr ""
+"Überprüft, ob Detektoren mit berechnetem Fluss 0 zusätzlichen Verkehr "
+"anziehen können"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:195
 msgid "Removes empty detectors from the list"
-msgstr ""
+msgstr "Entfernt leere Detektoren von der Liste"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:198
 msgid ""
@@ -913,64 +937,68 @@ msgid ""
 "Try to determine further inflows to an inbetween detector when computing "
 "split probabilities"
 msgstr ""
+"Versucht bei der Berechnung von Trennwahrscheinlichkeiten weitere Zuflüsse "
+"zu einem Zwischendetektor zu ermitteln"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:205
 msgid "Scale factor for flows"
-msgstr ""
+msgstr "Skalierungsfaktor für Flüsse"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:209
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:123
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:167
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:199
 msgid "Assigns a default depart lane"
-msgstr ""
+msgstr "Weist eine standardmäßige Abfahrtsspur zu"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:212
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:127
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:170
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:202
 msgid "Assigns a default depart position"
-msgstr ""
+msgstr "Weist eine standardmäßige Abfahrtsposition zu"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:215
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:131
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:173
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:205
 msgid "Assigns a default depart speed"
-msgstr ""
+msgstr "Weist eine standardmäßige Abfahrtsgeschwindigkeit zu"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:218
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:135
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:176
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:208
 msgid "Assigns a default arrival lane"
-msgstr ""
+msgstr "Weist einen Standardankunftsfahrstreifen zu"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:221
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:139
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:179
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:211
 msgid "Assigns a default arrival position"
-msgstr ""
+msgstr "Weist eine Standardankunftsposition zu"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:224
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:143
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:182
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:214
 msgid "Assigns a default arrival speed"
-msgstr ""
+msgstr "Weist eine Standardankunftsgeschwindigkeit zu"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:227
 msgid "The default speed deviation of vehicles"
-msgstr ""
+msgstr "Die Standardgeschwindigkeitsabweichung von Fahrzeugen"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:231
 msgid "Defines the begin time; Previous defs will be discarded"
-msgstr ""
+msgstr "Definiert die Startzeit; Vorherige Definitionen werden verworfen"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:234
 msgid "Defines the end time; Later defs will be discarded; Defaults to one day"
 msgstr ""
+"Definiert die Endzeit; Spätere Definitionen werden verworfen; Standardmäßig "
+"ein Tag"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:239
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:242
@@ -1000,20 +1028,20 @@ msgstr ""
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:110
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:113
 msgid "Report"
-msgstr ""
+msgstr "Bericht"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:239
 msgid "Lists detectors with no flow (enable -v)"
-msgstr ""
+msgstr "Listet Detektoren ohne Flüsse auf (erlaubt -v)"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:242
 msgid "Prints aggregated detector flows"
-msgstr ""
+msgstr "Gibt aggregierte Detektorflüsse aus"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:246
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:225
 msgid "Disable console output of route parsing step"
-msgstr ""
+msgstr "Deaktiviert die Konsolenausgabe des Routeneinleseschritts"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFNet.cpp:113
 msgid "Computing detector types"
@@ -1185,31 +1213,32 @@ msgstr "Baut Fahrzeugrouten für SUMO unter der Verwendung von Detektorwerten."
 
 #: /home/micha/programming/sumo/src/duarouter/RODUAFrame.cpp:69
 msgid "Write generated route alternatives to FILE"
-msgstr ""
+msgstr "Generierte Routenalternativen in Datei schreiben"
 
 #: /home/micha/programming/sumo/src/duarouter/RODUAFrame.cpp:72
+#, fuzzy
 msgid "Write edge splits and connectivity to FILE"
-msgstr ""
+msgstr "Kantenauftrennungen und Konnektivitäten in Datei schreiben"
 
 #: /home/micha/programming/sumo/src/duarouter/RODUAFrame.cpp:75
 msgid "Write intermodal edges with lengths and travel times to FILE"
-msgstr ""
+msgstr "Intermodale Kanten mit Längen und Fahrzeiten in Datei schreiben"
 
 #: /home/micha/programming/sumo/src/duarouter/RODUAFrame.cpp:78
 msgid "Write trips instead of vehicles (for validating trip input)"
-msgstr ""
+msgstr "Fahrten statt Fahrzeuge schreiben (zur Validierung der Fahrteingabe)"
 
 #: /home/micha/programming/sumo/src/duarouter/RODUAFrame.cpp:81
 msgid "Write trips with geo-coordinates"
-msgstr ""
+msgstr "Fahrten mit Geokoordinaten schreiben"
 
 #: /home/micha/programming/sumo/src/duarouter/RODUAFrame.cpp:84
 msgid "Write trips with fromJunction and toJunction"
-msgstr ""
+msgstr "Fahrten mit Ausgangs- und Endknotenpunkt schreiben"
 
 #: /home/micha/programming/sumo/src/duarouter/RODUAFrame.cpp:87
 msgid "Include the cost attribute in route output"
-msgstr ""
+msgstr "Kostenattribut in die Routenausgabe einschließen"
 
 #: /home/micha/programming/sumo/src/duarouter/RODUAFrame.cpp:92
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:552
