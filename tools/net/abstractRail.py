@@ -59,6 +59,10 @@ def get_options():
                   help="Load network regions from additional file (as taz elements)")
     ap.add_option("-o", "--output-prefix", dest="prefix",
                   help="output prefix for patch files")
+    ap.add_option("--filter-regions", dest="filterRegions",
+                  help="filter regions by name or id")
+    ap.add_option("--horizontal", action="store_true", dest="horizontal", default=False,
+                  help="output shapes roughly aligned along the horizontal")
     ap.add_option("--track-offset", type=float, default=20, dest="trackOffset",
                   help="default distance between parallel tracks")
     ap.add_option("--time-limit", type=float, dest="timeLimit",
@@ -87,6 +91,8 @@ def get_options():
     options.output_edges = options.prefix + ".edg.xml"
     options.output_net = options.prefix + ".net.xml"
 
+    options.filterRegions = set(options.filterRegions.split(",")) if options.filterRegions else set()
+
     return options
 
 
@@ -94,8 +100,13 @@ def loadRegions(options, net):
     regions = dict()
     if options.regionfile:
         for taz in sumolib.xml.parse(options.regionfile, 'taz'):
+            name = taz.attr_name
+            if (options.filterRegions 
+                and name not in options.filterRegions
+                and taz.id not in options.filterRegions):
+                continue
             edgeIDs = taz.edges.split()
-            regions[taz.attr_name] = [net.getEdge(e) for e in edgeIDs if net.hasEdge(e)]
+            regions[name] = [net.getEdge(e) for e in edgeIDs if net.hasEdge(e)]
     else:
         regions['ALL'] = list(net.getEdges())
     return regions
@@ -440,7 +451,8 @@ def main(options):
         #squeezeHorizontal(edges)
         if nodeYValues:
             patchShapes(options, edges, nodeCoords, edgeShapes, nodeYValues)
-        rotateByMainLine(mainLine, edges, nodeCoords, edgeShapes, True)
+        if not options.horizontal:
+            rotateByMainLine(mainLine, edges, nodeCoords, edgeShapes, True)
 
     with open(options.output_nodes, 'w') as outf_nod:
         sumolib.writeXMLHeader(outf_nod, "$Id$", "nodes", options=options)
@@ -460,6 +472,11 @@ def main(options):
             if edge.getBidi():
                 outf_edg.write('    <edge id="%s" shape="%s" length="%.2f"/>\n' % (
                     edge.getBidi().getID(), shapeStr(reversed(shape)), edge.getLength()))
+        # remove the rest of the network
+        if options.filterRegions:
+            for edge in net.getEdges():
+                if edge.getID() not in edgeShapes and edge.getBidi() not in edgeShapes:
+                    outf_edg.write('    <delete id="%s"/>\n' % (edge.getID()))
         outf_edg.write("</edges>\n")
 
     if not options.skipBuilding:
