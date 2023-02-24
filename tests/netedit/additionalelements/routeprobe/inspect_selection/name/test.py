@@ -28,9 +28,6 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
-# recompute (needed for vertical position)
-netedit.rebuildNetwork()
-
 # go to select mode
 netedit.selectMode()
 
@@ -41,7 +38,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect routeProbes
-netedit.leftClick(referencePosition, 552, 205)
+netedit.leftClick(referencePosition, 223, 313)
 
 # Change parameter 1 with an non valid value
 netedit.modifyAttribute(netedit.attrs.routeProbe.inspectSelection.name, "%%%;:..&&%$%$", True)

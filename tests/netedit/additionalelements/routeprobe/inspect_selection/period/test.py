@@ -28,9 +28,6 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
-# recompute (needed for vertical position)
-netedit.rebuildNetwork()
-
 # go to select mode
 netedit.selectMode()
 
@@ -41,7 +38,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect routeProbes
-netedit.leftClick(referencePosition, 552, 205)
+netedit.leftClick(referencePosition, 223, 313)
 
 # Set invalid period
 netedit.modifyAttribute(netedit.attrs.routeProbe.inspectSelection.frequency, "-30", True)
