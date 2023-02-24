@@ -73,6 +73,8 @@ def get_options():
                   help="maximum number of solver iterations per region")
     ap.add_option("--skip-large", type=int, dest="skipLarge",
                   help="skip regions require more than the given number of constraints")
+    ap.add_option("--skip-yopt", action="store_true", dest="skipYOpt", default=False,
+                  help="do not optimize the track offsets")
     ap.add_option("--skip-building", action="store_true", dest="skipBuilding", default=False,
                   help="do not call netconvert with the patch files")
     ap.add_option("--extra-verbose", action="store_true", default=False, dest="verbose2",
@@ -282,8 +284,9 @@ def optimizeTrackOrder(options, edges, nodes, virtualNodes, orderings, nodeCoord
         straight = min(abs(angle), abs(angle - math.pi)) < np.deg2rad(10)
 
         constraints = []
+        print(" ".join(["%s:%s" % (getVNodeID(vn), getVNodeX(vn)) for vn in vNodes]))
         for vNode, vNode2 in zip(vNodes[:-1], vNodes[1:]):
-            #print("keepSame:", getVNodeID(vNode), getVNodeID(vNode2))
+            #print("keepSame: %s | %s" % (getVNodeID(vNode), getVNodeID(vNode2)))
             constraints.append((nodeIndex[vNode], nodeIndex[vNode2]))
 
         numPrios = 2
@@ -452,11 +455,12 @@ def main(options):
         initShapes(edges, nodeCoords, edgeShapes)
         mainLine = findMainline(options, net, edges)
         rotateByMainLine(mainLine, edges, nodeCoords, edgeShapes, False)
-        nodeYValues = computeTrackOrdering(options, mainLine, edges, nodeCoords, edgeShapes)
+        if not options.skipYOpt:
+            nodeYValues = computeTrackOrdering(options, mainLine, edges, nodeCoords, edgeShapes)
+            if nodeYValues:
+                patchShapes(options, edges, nodeCoords, edgeShapes, nodeYValues)
         #computeDistinctHorizontalPoints()
         #squeezeHorizontal(edges)
-        if nodeYValues:
-            patchShapes(options, edges, nodeCoords, edgeShapes, nodeYValues)
         if not options.horizontal:
             rotateByMainLine(mainLine, edges, nodeCoords, edgeShapes, True)
 
