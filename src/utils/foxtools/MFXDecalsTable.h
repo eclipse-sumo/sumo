@@ -67,10 +67,7 @@ public:
     void selectRow(const int rowIndex);
 
     /// @brief Change column header text
-    void setColumnLabelTop(const int column, const std::string& text, const std::string& tooltip = "");
-
-    /// @brief Change column bottom text
-    void setColumnLabelBot(const int column, const std::string& text);
+    void setColumnLabel(const int column, const std::string& text, const std::string& tooltip = "");
 
     /// @brief fill table
     void fillTable();
@@ -195,20 +192,11 @@ protected:
         /// @brief get column type
         char getType() const;
 
-        /// @brief get column label top
-        FXString getColumnLabelTop() const;
+        /// @brief get column label
+        FXString getColumnLabel() const;
 
-        /// @brief set column label top
-        void setColumnLabelTop(const std::string& text, const std::string& tooltip);
-
-        /// @brief set column label boit
-        void setColumnLabelBot(const std::string& text);
-
-        /// @brief get column minimum width
-        int getColumnMinimumWidth();
-
-        /// @brief set colum width
-        void setColumnWidth(const int colWidth);
+        /// @brief set column label
+        void setColumnLabel(const std::string& text, const std::string& tooltip);
 
     private:
         /// @brief pointer to table
@@ -223,17 +211,14 @@ protected:
         /// @brief vertical frame
         FXVerticalFrame* myVerticalCellFrame = nullptr;
 
-        /// @brief column bot label
-        FXLabel* myBotLabel = nullptr;
-
         /// @brief column index
         const int myIndex;
 
         /// @brief column type
         const char myType;
 
-        /// @brief check if current type correspond to a textField
-        bool isTextFieldColumn() const;
+        /// @brief adjust column width
+        void adjustColumnWidth();
 
         /// @brief default constructor
         Column();

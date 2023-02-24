@@ -104,15 +104,14 @@ MFXDecalsTable::fillTable() {
         myRows.push_back(new Row(this));
     }   
     // set headers
-    myColumns.at(0)->setColumnLabelTop("file", "");
-    myColumns.at(1)->setColumnLabelTop("centerX", "");
-    myColumns.at(2)->setColumnLabelTop("centerY", "");
-    myColumns.at(3)->setColumnLabelTop("width", "");
-    myColumns.at(4)->setColumnLabelTop("height", "");
-    myColumns.at(5)->setColumnLabelTop("rotation", "");
-    myColumns.at(6)->setColumnLabelTop("layer", "");
-    myColumns.at(7)->setColumnLabelTop("relative", "");
-    recalc();
+    myColumns.at(2)->setColumnLabel("filename", "");
+    myColumns.at(3)->setColumnLabel("centerX", "");
+    myColumns.at(4)->setColumnLabel("centerY", "");
+    myColumns.at(5)->setColumnLabel("width", "");
+    myColumns.at(6)->setColumnLabel("height", "");
+    myColumns.at(7)->setColumnLabel("rotation", "");
+    myColumns.at(8)->setColumnLabel("layer", "");
+    myColumns.at(9)->setColumnLabel("relative", "");
 }
 
 
@@ -163,19 +162,9 @@ MFXDecalsTable::selectRow(const int row) {
 
 
 void
-MFXDecalsTable::setColumnLabelTop(const int column, const std::string& text, const std::string& tooltip) {
+MFXDecalsTable::setColumnLabel(const int column, const std::string& text, const std::string& tooltip) {
     if ((column >= 0) && (column < (int)myColumns.size())) {
-        myColumns.at(column)->setColumnLabelTop(text, tooltip);
-    } else {
-        throw ProcessError(TL("Invalid column"));
-    }
-}
-
-
-void
-MFXDecalsTable::setColumnLabelBot(const int column, const std::string& text) {
-    if ((column >= 0) && (column < (int)myColumns.size())) {
-        myColumns.at(column)->setColumnLabelBot(text);
+        myColumns.at(column)->setColumnLabel(text, tooltip);
     } else {
         throw ProcessError(TL("Invalid column"));
     }
@@ -536,43 +525,21 @@ MFXDecalsTable::Column::Column(MFXDecalsTable* table, const int index, const cha
     // create vertical frame
     myVerticalFrame = new FXVerticalFrame(table, GUIDesignAuxiliarTLSTable);
     // create top label
-    switch (myType) {
-        case 's':
-        case 'i':
-        case 'd':
-        case 't':
-        case 'b':
-            // empty label
-            myTopLabel = new FXLabel(myVerticalFrame, "", nullptr, GUIDesignLabelTLSTableEmpty);
-            break;
-        default:
-            // ticked label
-            myTopLabel = new FXLabel(myVerticalFrame, "", nullptr, GUIDesignLabelTLSTableEmpty);
-            break;
+    if (myType == 'f') {
+        // ticked label
+        myTopLabel = new FXLabel(myVerticalFrame, "", nullptr, GUIDesignLabelTLSTable);
+    } else {
+        // empty label
+        myTopLabel = new FXLabel(myVerticalFrame, "", nullptr, GUIDesignLabelTLSTableEmpty);
     }
     // create vertical frame for cells
     myVerticalCellFrame = new FXVerticalFrame(myVerticalFrame, GUIDesignAuxiliarTLSTable);
-    // create bot label
-    switch (myType) {
-        case 's':
-            // label with icon
-            myBotLabel = new FXLabel(myVerticalFrame, "", GUIIconSubSys::getIcon(GUIIcon::SUM), GUIDesignLabelTLSTable);
-            break;
-        case 'u':
-        case 'p':
-            // ticked label
-            myBotLabel = new FXLabel(myVerticalFrame, "", nullptr, GUIDesignLabelTLSTable);
-            break;
-        default:
-            // empty label
-            myBotLabel = new FXLabel(myVerticalFrame, "", nullptr, GUIDesignLabelTLSTableEmpty);
-            break;
-    }
     // create elements
     myVerticalFrame->create();
     myTopLabel->create();
     myVerticalCellFrame->create();
-    myBotLabel->create();
+    // adjust column width
+    adjustColumnWidth();
 }
 
 
@@ -595,33 +562,26 @@ MFXDecalsTable::Column::getType() const {
 
 
 FXString
-MFXDecalsTable::Column::getColumnLabelTop() const {
+MFXDecalsTable::Column::getColumnLabel() const {
     return myTopLabel->getText();
 }
 
 
 void
-MFXDecalsTable::Column::setColumnLabelTop(const std::string& text, const std::string& tooltip) {
+MFXDecalsTable::Column::setColumnLabel(const std::string& text, const std::string& tooltip) {
     myTopLabel->setText(text.c_str());
     myTopLabel->setTipText(tooltip.c_str());
+    // adjust column width
+    adjustColumnWidth();
 }
 
 
 void
-MFXDecalsTable::Column::setColumnLabelBot(const std::string& text) {
-    myBotLabel->setText(text.c_str());
-}
-
-
-int
-MFXDecalsTable::Column::getColumnMinimumWidth() {
+MFXDecalsTable::Column::adjustColumnWidth() {
     // declare columnWidth
     int columnWidth = 0;
-    // check column type
-    if (myType == 's') {
-        // set index column width
-        columnWidth = 30;
-    } else if (isTextFieldColumn()) {
+    // adjust depending of label
+    if (myType == 'f') {
         // calculate top label width
         columnWidth = myTopLabel->getFont()->getTextWidth(myTopLabel->getText().text(), myTopLabel->getText().length() + EXTRAMARGING);
         // iterate over all textFields and check widths
@@ -635,38 +595,22 @@ MFXDecalsTable::Column::getColumnMinimumWidth() {
                 columnWidth = textFieldWidth;
             }
         }
-        // calculate bot label width
-        const auto botLabelWidth = myBotLabel->getFont()->getTextWidth(myBotLabel->getText().text(), myBotLabel->getText().length() + EXTRAMARGING);
-        if (botLabelWidth > columnWidth) {
-            columnWidth = botLabelWidth;
-        }
     } else {
         // is an index column, then return icon size
         columnWidth = GUIDesignHeight;
     }
-    return columnWidth;
-}
-
-
-void
-MFXDecalsTable::Column::setColumnWidth(const int colWidth) {
-    // only adjust for textField columns
-    if (isTextFieldColumn()) {
-        for (const auto& row : myTable->myRows) {
-            row->getCells().at(myIndex)->getTextField()->setWidth(colWidth);
+    // adjust width in all rows
+    for (const auto& row : myTable->myRows) {
+        if (row->getCells().at(myIndex)->getTextField()) {
+            row->getCells().at(myIndex)->getTextField()->setWidth(columnWidth);
+        } else if (row->getCells().at(myIndex)->getButton()) {
+            row->getCells().at(myIndex)->getButton()->setWidth(columnWidth);
         }
     }
     // adjust labels and vertical frames
-    myVerticalFrame->setWidth(colWidth);
-    myTopLabel->setWidth(colWidth);
-    myVerticalCellFrame->setWidth(colWidth);
-    myBotLabel->setWidth(colWidth);
-}
-
-
-bool
-MFXDecalsTable::Column::isTextFieldColumn() const {
-    return ((myType == 'u') || (myType == 'f') || (myType == 'p') || (myType == 'm') || (myType == '-'));
+    myVerticalFrame->setWidth(columnWidth);
+    myTopLabel->setWidth(columnWidth);
+    myVerticalCellFrame->setWidth(columnWidth);
 }
 
 
