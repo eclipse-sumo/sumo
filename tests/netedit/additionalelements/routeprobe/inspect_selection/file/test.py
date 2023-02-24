@@ -41,10 +41,10 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 223, 313)
 
 # Change parameter 2 with a non valid value (invalid characters)
-netedit.modifyAttribute(netedit.attrs.routeProbe.inspectSelection.file, "$$$$$$$$", True)
+netedit.modifyAttribute(netedit.attrs.routeProbe.inspectSelection.file, "$$$$$$$$", False)
 
 # Change parameter 2 with a valid value
-netedit.modifyAttribute(netedit.attrs.routeProbe.inspectSelection.file, "fileA.txt", True)
+netedit.modifyAttribute(netedit.attrs.routeProbe.inspectSelection.file, "fileA.txt", False)
 
 # Check undos and redos
 netedit.undo(referencePosition, 3)

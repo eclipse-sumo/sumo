@@ -34,23 +34,20 @@ netedit.additionalMode()
 # select routeProbe
 netedit.changeElement("routeProbe")
 
-# recompute (needed for vertical position)
-netedit.rebuildNetwork()
-
 # create routeProbe
-netedit.leftClick(referencePosition, 250, 120)
+netedit.leftClick(referencePosition, 315, 253)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first routeProbe
-netedit.leftClick(referencePosition, 325, 223)
+netedit.leftClick(referencePosition, 494, 272)
 
 # Change parameter 4 with a non valid value (invalid characters)
-netedit.modifyAttribute(netedit.attrs.routeProbe.inspect.file, "$$$$$$$$", True)
+netedit.modifyAttribute(netedit.attrs.routeProbe.inspect.file, "$$$$$$$$", False)
 
 # Change parameter 4 with a valid value
-netedit.modifyAttribute(netedit.attrs.routeProbe.inspect.file, "fileA.txt", True)
+netedit.modifyAttribute(netedit.attrs.routeProbe.inspect.file, "fileA.txt", False)
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)

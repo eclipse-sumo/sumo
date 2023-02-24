@@ -35,19 +35,16 @@ netedit.additionalMode()
 netedit.changeElement("routeProbe")
 
 # create routeProbe
-netedit.leftClick(referencePosition, 250, 120)
-
-# recompute (needed for vertical position)
-netedit.rebuildNetwork()
+netedit.leftClick(referencePosition, 315, 253)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first routeProbe
-netedit.leftClick(referencePosition, 325, 223)
+netedit.leftClick(referencePosition, 494, 272)
 
 # check parameters
-netedit.checkParameters(referencePosition, netedit.attrs.routeProbe.inspect.parameters, True)
+netedit.checkParameters(referencePosition, netedit.attrs.routeProbe.inspect.parameters, False)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

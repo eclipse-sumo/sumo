@@ -28,9 +28,6 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
-# recompute (needed for vertical position)
-netedit.rebuildNetwork()
-
 # go to additional mode
 netedit.additionalMode()
 
@@ -38,25 +35,25 @@ netedit.additionalMode()
 netedit.changeElement("routeProbe")
 
 # create routeProbe
-netedit.leftClick(referencePosition, 250, 120)
+netedit.leftClick(referencePosition, 452, 207)
 
 # create another routeProbe (for duplicated ID)
-netedit.leftClick(referencePosition, 250, 235)
+netedit.leftClick(referencePosition, 220, 296)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first routeProbe
-netedit.leftClick(referencePosition, 325, 223)
+netedit.leftClick(referencePosition, 495, 273)
 
 # Change parameter 0 with a non valid value (Duplicated ID)
-netedit.modifyAttribute(netedit.attrs.routeProbe.inspect.id, "rp_1", True)
+netedit.modifyAttribute(netedit.attrs.routeProbe.inspect.id, "rp_1", False)
 
 # Change parameter 0 with a non valid value (Invalid ID)
-netedit.modifyAttribute(netedit.attrs.routeProbe.inspect.id, "Id with spaces", True)
+netedit.modifyAttribute(netedit.attrs.routeProbe.inspect.id, "Id with spaces", False)
 
 # Change parameter 0 with a valid value
-netedit.modifyAttribute(netedit.attrs.routeProbe.inspect.id, "correctID", True)
+netedit.modifyAttribute(netedit.attrs.routeProbe.inspect.id, "correctID", False)
 
 # Check undos and redos
 netedit.undo(referencePosition, 3)
