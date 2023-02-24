@@ -521,7 +521,7 @@ GNEInspectorFrame::GEOAttributesEditor::onCmdSetGEOAttribute(FXObject* obj, FXSe
                     myGEOAttributeTextField->setTextColor(FXRGB(255, 0, 0));
                 }
             } else {
-                throw ProcessError(TL("myGEOAttributeTextField must be hidden becaurse there isn't GEO Attribute to edit"));
+                throw ProcessError("myGEOAttributeTextField must be hidden becaurse there isn't GEO Attribute to edit");
             }
         } else if (obj == myUseGEOCheckButton) {
             // update GEO Attribute of entire selection
