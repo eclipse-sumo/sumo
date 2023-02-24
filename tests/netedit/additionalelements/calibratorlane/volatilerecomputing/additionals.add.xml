@@ -5,12 +5,12 @@
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Calibrators -->
-    <calibratorLane id="ca_0" edge="E0" pos="0.00"/>
-    <calibratorLane id="ca_1" edge="top" pos="0.00"/>
-    <calibratorLane id="ca_2" edge="E5" pos="0.00"/>
-    <calibratorLane id="ca_3" edge="E4" pos="0.00"/>
-    <calibratorLane id="ca_4" edge="E1" pos="0.00"/>
-    <calibratorLane id="ca_5" edge="bot" pos="0.00"/>
-    <calibratorLane id="calibrator_center0_3" lane="center0_0" pos="0.00" period="100.00" output="calibrator_center0_3.txt"/>
-    <calibratorLane id="calibrator_center1_2" lane="center1_0" pos="0.00" period="100.00" output="calibrator_center1_2.txt"/>
+    <calibrator id="ca_0" edge="E0" pos="0.00"/>
+    <calibrator id="ca_1" edge="top" pos="0.00"/>
+    <calibrator id="ca_2" edge="E5" pos="0.00"/>
+    <calibrator id="ca_3" edge="E4" pos="0.00"/>
+    <calibrator id="ca_4" edge="E1" pos="0.00"/>
+    <calibrator id="ca_5" edge="bot" pos="0.00"/>
+    <calibrator id="calibrator_center0_3" lane="center0_0" pos="0.00" period="100.00" output="calibrator_center0_3.txt"/>
+    <calibrator id="calibrator_center1_2" lane="center1_0" pos="0.00" period="100.00" output="calibrator_center1_2.txt"/>
 </additional>

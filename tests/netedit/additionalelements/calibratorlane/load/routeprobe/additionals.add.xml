@@ -3,12 +3,12 @@
     <routeProbe id="myRouteProbe" lane="center0_0" period="3600" file="RouteProbeA.xml" begin="0.00"/>
 
     <!-- non valid routeProbe (invalid ID) -->
-    <calibratorLane id="calibrator01" lane="center0_0" pos="26.00" period="120.00" routeProbe="%%$%$$$" output="calibrator01.txt"/>
+    <calibrator id="calibrator01" lane="center0_0" pos="26.00" period="120.00" routeProbe="%%$%$$$" output="calibrator01.txt"/>
 
     <!-- valid routeProbe (empty ID) -->
-    <calibratorLane id="calibrator02" lane="center0_0" pos="26.00" period="120.00" routeProbe="" output="calibrator02.txt"/>
+    <calibrator id="calibrator02" lane="center0_0" pos="26.00" period="120.00" routeProbe="" output="calibrator02.txt"/>
 
     <!-- valid routeProbe -->
-    <calibratorLane id="calibrator03" lane="center0_0" pos="26.00" period="120.00" routeProbe="myRouteProbe" output="calibrator03.txt"/>
+    <calibrator id="calibrator03" lane="center0_0" pos="26.00" period="120.00" routeProbe="myRouteProbe" output="calibrator03.txt"/>
 
 </additional>
