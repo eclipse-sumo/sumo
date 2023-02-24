@@ -558,18 +558,18 @@ NBEdgeCont::processSplits(NBEdge* e, std::vector<Split> splits,
     }
     // patch lane offsets
     e = retrieve(firstID);
-    if (splits.front().pos != 0) {
-        // add a dummy split at the beginning to ensure correct offset
-        Split start;
-        start.pos = 0;
-        for (int lane = 0; lane < (int)e->getNumLanes(); ++lane) {
-            start.lanes.push_back(lane);
-        }
-        start.offset = splits.front().offset;
-        start.offsetFactor = splits.front().offsetFactor;
-        splits.insert(splits.begin(), start);
-    }
     if (e != nullptr) {
+        if (splits.front().pos != 0) {
+            // add a dummy split at the beginning to ensure correct offset
+            Split start;
+            start.pos = 0;
+            for (int lane = 0; lane < (int)e->getNumLanes(); ++lane) {
+                start.lanes.push_back(lane);
+            }
+            start.offset = splits.front().offset;
+            start.offsetFactor = splits.front().offsetFactor;
+            splits.insert(splits.begin(), start);
+        }
         for (const Split& split : splits) {
             int maxLeft = split.lanes.back();
             double offset = split.offset;
