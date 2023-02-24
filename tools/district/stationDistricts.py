@@ -32,6 +32,7 @@ sys.path.append(os.path.join(SUMO_HOME, 'tools'))
 import sumolib  # noqa
 from sumolib.options import ArgumentParser  # noqa
 from sumolib.miscutils import Colorgen  # noqa
+import sumolib.geomhelper as gh
 
 
 def get_options():
@@ -41,6 +42,8 @@ def get_options():
     ap.add_option("-n", "--net-file", dest="netfile", help="the network to read lane and edge permissions")
     ap.add_option("-s", "--stop-file", dest="stopfile", help="the additional file with stops")
     ap.add_option("-o", "--output", help="output taz file")
+    ap.add_option("--split-output", dest="splitOutput",
+                  help="generate splits for edges assigned to multiple stations")
     ap.add_option("--vclasses", default="rail,rail_urban",
                   help="Include consider edges allowing VCLASS")
     ap.add_option("--parallel-radius", type=float, default=100, dest="parallelRadius",
@@ -192,6 +195,49 @@ def mergeStations(stations, verbose=False):
         print("Merged %s stations" % (initialStations - finalStations))
 
 
+def splitStations(options, stations):
+    edgeStation = defaultdict(set)
+    for station in stations.values():
+        for edge in station.edges:
+            edgeStation[edge].add(station)
+
+    bidiSplits = defaultdict(list)
+    with open(options.splitOutput, 'w') as outf:
+        sumolib.writeXMLHeader(outf, "$Id$", "edges", schemaPath="edgediff_file.xsd", options=options)
+        for edge, stations in edgeStation.items():
+            if len(stations) == 1:
+                continue
+            shape = edge.getShape(True)
+            stationOffsets = []
+            for station in stations:
+                offset = gh.polygonOffsetWithMinimumDistanceToPoint(station.coord, shape, perpendicular=False)
+                stationOffsets.append((offset, station.name))
+            stationOffsets.sort()
+
+            splits = []
+            for (o1, n1), (o2, n2) in zip(stationOffsets[:-1], stationOffsets[1:]):
+                if o1 != o2:
+                    pos = (o1 + o2) / 2
+                    splits.append((pos, "%s.%s" % (edge.getID(), int(pos))))
+                else:
+                    sys.stderr.write("Cannot split edge '%s' between stations '%s' and '%s'\n" % (
+                        edge.getID(), n1, n2))
+
+            if edge.getBidi():
+                if edge.getBidi() in bidiSplits:
+                    bidiLength = edge.getBidi().getLength()
+                    splits = [(bidiLength - p, n) for p, n in reversed(bidiSplits[edge.getBidi()])]
+                else:
+                    bidiSplits[edge] = splits
+
+            outf.write('    <edge id="%s">\n' % edge.getID())
+            for pos, nodeID in splits:
+                outf.write('        <split pos="%s" id="%s"/>\n' % (pos, nodeID))
+            outf.write('    </edge>\n')
+
+        outf.write("</edges>\n")
+
+
 def assignByDistance(options, net, stations):
     """assign edges to closest station"""
     edgeStation = dict()
@@ -235,6 +281,8 @@ def main(options):
     findParallel(options, net, stations)
     if options.merge:
         mergeStations(stations, options.verbose)
+    elif options.splitOutput:
+        splitStations(options, stations)
     assignByDistance(options, net, stations)
 
     with open(options.output, 'w') as outf:
