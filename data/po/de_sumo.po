@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-21 18:29+0100\n"
-"PO-Revision-Date: 2023-02-24 15:21+0000\n"
-"Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
+"PO-Revision-Date: 2023-02-24 15:29+0000\n"
+"Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
 "Language: de\n"
@@ -6121,23 +6121,26 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:134
 msgid "Removes vehicle class restrictions from imported edges"
-msgstr ""
+msgstr "Entfernt Fahrzeugklasseneinschränkungen von importierten Kanten"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:138
 msgid "Disables building turnarounds"
-msgstr ""
+msgstr "Deaktiviert das Erstellen von Kehrtwenden"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:142
 msgid "Disables building turnarounds at tls-controlled junctions"
 msgstr ""
+"Deaktiviert das Erstellen von Kehrtwenden an LSA gesteuerten Knotenpunkten"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:145
 msgid "Disables building turnarounds at geometry-like junctions"
 msgstr ""
+"Deaktiviert das Erstellen von Kehrtwenden an geometrieähnlichen Knotenpunkten"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:148
+#, fuzzy
 msgid "Disables building turnarounds except at dead end junctions"
-msgstr ""
+msgstr "Deaktiviert das Erstellen von Kehrtwenden außer an Sackgassen"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:151
 msgid ""
@@ -6151,11 +6154,11 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:157
 msgid "Disables building connections to left"
-msgstr ""
+msgstr "Deaktiviert das Erstellen von Linksverbindungen"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:161
 msgid "Splits edges across geometry nodes"
-msgstr ""
+msgstr "Trennt Kanten entlang Geometrieknoten"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:165
 msgid ""
@@ -6220,6 +6223,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:216
 msgid "Modify edge geometries to avoid overlap at junctions"
 msgstr ""
+"Ändert Kantengeometrien um das Überlappen von Knotenpunkten zu verhindern"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:219
 msgid ""
@@ -6292,7 +6296,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:254
 msgid "The maximum road accesses registered per rail stops"
-msgstr ""
+msgstr "Die maximal registrierten Straßenzugänge pro Bahnhaltestellen"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:258
 msgid ""
