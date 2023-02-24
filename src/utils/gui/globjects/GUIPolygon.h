@@ -145,6 +145,11 @@ public:
     double getClickPriority() const override {
         return getShapeLayer();
     }
+
+    /// @brief Returns the name of the object (default "")
+    virtual const std::string getOptionalName() const {
+        return getShapeName();
+    }
     //@}
 
     /// @brief set a new shape and update the tesselation

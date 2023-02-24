@@ -107,6 +107,11 @@ public:
     double getClickPriority() const override {
         return getShapeLayer();
     }
+
+    /// @brief Returns the name of the object (default "")
+    virtual const std::string getOptionalName() const {
+        return getShapeName();
+    }
     //@}
 
     /// @brief check if POI can be drawn
