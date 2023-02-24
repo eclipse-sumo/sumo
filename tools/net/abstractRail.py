@@ -132,7 +132,7 @@ def findMainline(options, net, edges):
     """use platforms to determine mainline orientation"""
     knownEdges = set([e.getID() for e in edges])
 
-    platforms = []
+    angles = []
     for stop in sumolib.xml.parse(options.stopfile, ['busStop', 'trainStop']):
         name = stop.getAttributeSecure("attr_name", stop.id)
         edgeID = stop.lane.rsplit('_', 1)[0]
@@ -141,19 +141,10 @@ def findMainline(options, net, edges):
         edge = net.getEdge(edgeID)
         begCoord = gh.positionAtShapeOffset(edge.getShape(), float(stop.startPos))
         endCoord = gh.positionAtShapeOffset(edge.getShape(), float(stop.endPos))
-        platforms.append(begCoord)
-        platforms.append(endCoord)
+        angles.append((gh.angleTo2D(begCoord, endCoord), (begCoord, endCoord)))
 
-    coordsByX = sorted(platforms, key=lambda coord : coord[0])
-    coordsByY = sorted(platforms, key=lambda coord : coord[1])
-    xDelta = coordsByX[-1][0] - coordsByX[0][0]
-    yDelta = coordsByY[-1][1] - coordsByY[0][1]
-
-    mainLine = None
-    if xDelta > yDelta:
-        mainLine = [coordsByX[0], coordsByX[-1]]
-    else:
-        mainLine = [coordsByY[0], coordsByY[-1]]
+    angles.sort()
+    mainLine = angles[int(len(angles) / 2)][1]
 
     if options.verbose2:
         print("mainLine=", shapeStr(mainLine))
@@ -304,7 +295,8 @@ def optimizeTrackOrder(options, edges, nodes, virtualNodes, orderings, nodeCoord
             ySimilarConstraints += constraints
             numPrios = len(constraints)
         yPrios += [2 if straight else 1] * numPrios
-        #print("edge=%s straight=%s vNodes=%s" % (edge.getID(), straight, [getVNodeID(vn) for vn in vNodes]))
+        if options.verbose2:
+            print("edge=%s straight=%s vNodes=%s" % (edge.getID(), straight, [getVNodeID(vn) for vn in vNodes]))
 
     k = len(generalizedNodes)
     m = len(ySimilarConstraints)
