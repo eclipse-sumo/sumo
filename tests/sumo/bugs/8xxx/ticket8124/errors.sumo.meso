@@ -1,8 +1,3 @@
 Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
-Warning: Missing green phase in tlLogic 'gneJ1', program '0' for tl-index 4
+Warning: Missing green phase in tlLogic 'gneJ1', program '0' for tl-index 4.
 Warning: Teleporting vehicle 'flow_west_north.1'; waited too long, from edge 'west':1 to edge '-north':1, time=321.97.
-Warning: Teleporting vehicle 'flow_west_north.2'; waited too long, from edge 'west':1 to edge '-north':1, time=625.22.
-Warning: Teleporting vehicle 'flow_west_north.3'; waited too long, from edge 'west':1 to edge '-north':1, time=928.46.
-Warning: Teleporting vehicle 'flow_west_north.4'; waited too long, from edge 'west':1 to edge '-north':1, time=1231.70.
-Warning: Teleporting vehicle 'flow_west_north.5'; waited too long, from edge 'west':1 to edge '-north':1, time=1534.94.
-Warning: Teleporting vehicle 'flow_west_north.6'; waited too long, from edge 'west':1 to edge '-north':1, time=1838.18.
