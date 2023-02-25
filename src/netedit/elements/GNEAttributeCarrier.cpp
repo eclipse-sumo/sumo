@@ -5856,12 +5856,9 @@ GNEAttributeCarrier::writeAttributeHelp() {
     if (myTagProperties.size() == 0) {
         fillAttributeCarriers();
     }
-    const std::string opt = "attribute-help-output";
-    OutputDevice::createDeviceByOption(opt, "attributeHelp");
-    OutputDevice& dev = OutputDevice::getDeviceByOption(opt);
     // merge "virtual" netedit tags like  '<walk: edge->edge'
     static std::map<SumoXMLTag, GNETagProperties> xmlTagProperties;
-    for (auto item : myTagProperties) {
+    for (const auto& item : myTagProperties) {
         if (xmlTagProperties.count(item.second.getXMLTag()) == 0) {
             xmlTagProperties[item.second.getXMLTag()] = item.second;
         } else {
@@ -5877,25 +5874,36 @@ GNEAttributeCarrier::writeAttributeHelp() {
             }
         }
     }
-    for (auto item : xmlTagProperties) {
+    const std::string opt = "attribute-help-output";
+    OutputDevice::createDeviceByOption(opt);
+    OutputDevice& dev = OutputDevice::getDeviceByOption(opt);
+    dev << "# Netedit attribute help\n";
+    for (const auto& item : xmlTagProperties) {
         if (item.second.begin() == item.second.end()) {
             // don't write elements without attributes, they are only used for internal purposes
             continue;
         }
-        dev.openTag(item.first);
-        if (item.second.getParentTags().size() > 0) {
-            dev.writeAttr("parents", joinToString(item.second.getParentTags(), " "));
+        if (item.second.getParentTags().empty()) {
+            dev << "\n## " << toString(item.first) << "\n";
+        } else {
+            dev << "\n### " << toString(item.first) << "\n";
+            dev << "child element of ";
+            for (const auto& pTag : item.second.getParentTags()) {
+                dev << "[" << toString(pTag) << "](#" << StringUtils::to_lower_case(toString(pTag)) << ") ";
+            }
+            dev << "\n\n";
         }
-        for (auto it = item.second.begin(); it != item.second.end(); it++) {
-            auto attr = *it;
-            dev.openTag("attribute");
-            dev.writeAttr("name", attr.getAttr());
-            dev.writeAttr("type", attr.getDescription());
-            dev.writeAttr("default", attr.getDefaultValue());
-            dev.writeAttr("help", attr.getDefinition());
-            dev.closeTag();
+        dev << "| Attribute | Type | Description |\n";
+        dev << "|-----------|------|-------------|\n";
+        for (const auto& attr : item.second) {
+            dev << "|" << toString(attr.getAttr()) << "|"
+                << attr.getDescription() << "|"
+                << StringUtils::replace(attr.getDefinition(), "\n", " ");
+            if (attr.getDefaultValue() != "") {
+                dev << " *default:* **" << attr.getDefaultValue() << "**";
+            }
+            dev << "|\n";
         }
-        dev.closeTag();
     }
 }
 
