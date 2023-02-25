@@ -82,6 +82,7 @@ GNELoadThread::run() {
         validInput = true;
     } else if (neteditOptions.getString("net-file").size() > 0) {
         validInput = true;
+        loadedFile = neteditOptions.getString("net-file");
     } else if (neteditOptions.getString("sumocfg-file").size() > 0) {
         // set sumo config as loaded file
         loadedFile = neteditOptions.getString("sumocfg-file");
