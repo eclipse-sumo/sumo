@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-21 18:29+0100\n"
-"PO-Revision-Date: 2023-02-23 12:06+0000\n"
+"PO-Revision-Date: 2023-02-25 09:00+0000\n"
 "Last-Translator: Rhea-Xiao <xiao.translations@gmail.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -29,7 +29,7 @@ msgstr "正在合并统计"
 
 #: /home/micha/programming/sumo/src/activitygen/AGActivityGen.cpp:58
 msgid "Building street representation"
-msgstr "搭建街道显示"
+msgstr "正在搭建街道显示"
 
 #: /home/micha/programming/sumo/src/activitygen/AGActivityGen.cpp:62
 msgid "Generating work positions"
@@ -689,12 +689,13 @@ msgid "At least one value lies beyond given time boundaries."
 msgstr "至少有一个值超出了给定的时间界限。"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFDetFlowLoader.cpp:104
+#, fuzzy
 msgid "At least one line does not contain the correct number of columns."
 msgstr "至少有一行未包含正确的一列数字"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFDetector.cpp:171
 msgid "Missing routes for detector '%'."
-msgstr "缺少装有探测器“%”的路线。"
+msgstr "缺少装有检测器“%”的路线。"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFDetector.cpp:305
 #, c-format
@@ -703,7 +704,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFDetectorHandler.cpp:86
 msgid "Could not add detector '%' (probably the id is already used)."
-msgstr "无法添加探测器“%”（可能 id 已被使用）。"
+msgstr "无法添加检测器“%”（可能 id 已被使用）。"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:54
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:209
@@ -745,11 +746,11 @@ msgstr "加载 SUMO 网络文件"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:70
 msgid "Loads detector descriptions from FILE"
-msgstr "从文件中加载探测器描述"
+msgstr "从文件中加载检测器描述"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:75
 msgid "Loads detector flows from FILE(s)"
-msgstr "从文件中加载探测器贯流"
+msgstr "从文件中加载检测器贯流"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:82
 msgid "Saves computed routes to FILE"
@@ -757,15 +758,15 @@ msgstr "将计算出的路程保存到 FILE中"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:85
 msgid "Forces dfrouter to compute routes for in-between detectors"
-msgstr "强制 dfrouter 计算中间探测器的路程"
+msgstr "强制 dfrouter 计算中间检测器的路程"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:89
 msgid "Saves typed detectors to FILE"
-msgstr "将输入的探测器保存到FILE中"
+msgstr "将输入的检测器保存到FILE中"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:92
 msgid "Saves detector positions as pois to FILE"
-msgstr "将探测器位置保存为pois并添加至FILE"
+msgstr "将检测器位置保存为pois并添加至FILE"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:95
 msgid "Saves emitter definitions for source detectors to FILE"
@@ -788,21 +789,21 @@ msgstr "将发射器位置保存为 pois 并添加至FILE"
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:108
 #, fuzzy
 msgid "Saves variable seed sign definitions for sink detectors to FILE"
-msgstr "将下沉探测器的变量种子符号定义保存至 FILE"
+msgstr "将下沉检测器的变量种子符号定义保存至 FILE"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:111
 #, fuzzy
 msgid "Saves rerouter definitions for sink detectors to FILE"
-msgstr "将下沉探测器的重发器定义保存到 FILE"
+msgstr "将下沉检测器的重发器定义保存到 FILE"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:114
 msgid ""
 "Write induction loop definitions for the given detector positions to FILE"
-msgstr "将给定探测器位置的感应线圈定义写进FILE中"
+msgstr "将给定检测器位置的感应线圈定义写进FILE中"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:117
 msgid "Add source detectors to the validation output"
-msgstr "将源探测器添加至验证输出"
+msgstr "将源检测器添加至验证输出"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:123
 msgid "Derive missing flow values from upstream or downstream (not working!)"
@@ -810,11 +811,11 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:127
 msgid "Switches to highway-mode"
-msgstr ""
+msgstr "切换到高速公路模式"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:131
 msgid "Only warn about unparseable detectors"
-msgstr ""
+msgstr "只对无法解析的检测器发出警告"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:135
 msgid "Recomputes detector types even if given"
