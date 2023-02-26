@@ -654,7 +654,7 @@ NBEdgeCont::splitAt(NBDistrictCont& dc,
     }
     std::pair<PositionVector, PositionVector> geoms = edge->getGeometry().splitAt(geomPos);
     // reduce inaccuracies and preserve bidi
-    if (geoms.first[-1].almostSame(node->getPosition())) {
+    if (geoms.first[-1].almostSame(node->getPosition()) || edge->isBidi()) {
         geoms.first[-1] = node->getPosition();
         geoms.second[0] = node->getPosition();
     }

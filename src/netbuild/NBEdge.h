@@ -1406,6 +1406,11 @@ public:
         myIsBidi = isBidi;
     }
 
+    /// @brief return whether this edge should be a bidi edge
+    bool isBidi() {
+        return myIsBidi;
+    }
+
     // @brief returns a reference to the internal structure for the convenience of netedit
     Lane& getLaneStruct(int lane) {
         assert(lane >= 0);
