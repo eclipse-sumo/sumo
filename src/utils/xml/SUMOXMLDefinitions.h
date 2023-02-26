@@ -89,14 +89,14 @@ enum SumoXMLTag {
     SUMO_TAG_E3DETECTOR,
     /// @brief alternative tag for e3 detector
     SUMO_TAG_ENTRY_EXIT_DETECTOR,
-    /// @brief an edge based mean data detector
-    SUMO_TAG_MEANDATA_EDGE,
-    /// @brief a lane based mean data detector
-    SUMO_TAG_MEANDATA_LANE,
     /// @brief an e3 entry point
     SUMO_TAG_DET_ENTRY,
     /// @brief an e3 exit point
     SUMO_TAG_DET_EXIT,
+    /// @brief an edge based mean data detector
+    SUMO_TAG_MEANDATA_EDGE,
+    /// @brief a lane based mean data detector
+    SUMO_TAG_MEANDATA_LANE,
     /// @brief  An edge-following detector
     SUMO_TAG_EDGEFOLLOWDETECTOR,
     /// @brief An instantenous induction loop

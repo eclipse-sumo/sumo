@@ -124,7 +124,7 @@
 |color|color|The RGBA color with which the trainStop shall be displayed|
 
 ### access
-child element of [busStop](#busstop) [trainStop](#trainstop) 
+child element of [busStop](#busstop), [trainStop](#trainstop)
 
 | Attribute | Type | Description |
 |-----------|------|-------------|
@@ -178,7 +178,7 @@ child element of [busStop](#busstop) [trainStop](#trainstop)
 |angle|angle[0, 360]|The angle of the road-side parking spaces relative to the lane angle, positive means clockwise *default:* **0.00**|
 
 ### space
-child element of [parkingArea](#parkingarea) 
+child element of [parkingArea](#parkingarea)
 
 | Attribute | Type | Description |
 |-----------|------|-------------|
@@ -232,6 +232,24 @@ child element of [parkingArea](#parkingarea)
 |timeThreshold|SUMOTime|The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting) in s *default:* **1.00**|
 |speedThreshold|float|The speed-based threshold that describes how slow a vehicle has to be to be recognized as halting) in m/s *default:* **1.39**|
 
+### detEntry
+child element of [entryExitDetector](#entryexitdetector)
+
+| Attribute | Type | Description |
+|-----------|------|-------------|
+|lane|unique string|The id of the lane the detector shall be laid on. The lane must be a part of the network used|
+|pos|unique float|The position on the lane the detector shall be laid on in meters|
+|friendlyPos|boolean|If set, no error will be reported if element is placed behind the lane. Instead, it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1 *default:* **0**|
+
+### detExit
+child element of [entryExitDetector](#entryexitdetector)
+
+| Attribute | Type | Description |
+|-----------|------|-------------|
+|lane|unique string|The id of the lane the detector shall be laid on. The lane must be a part of the network used|
+|pos|unique float|The position on the lane the detector shall be laid on in meters|
+|friendlyPos|boolean|If set, no error will be reported if element is placed behind the lane. Instead, it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1 *default:* **0**|
+
 ## edgeData
 | Attribute | Type | Description |
 |-----------|------|-------------|
@@ -274,24 +292,6 @@ child element of [parkingArea](#parkingarea)
 |edgesFile|filename|Restrict output to the given the list of edges given in file|
 |aggregate|boolean|Whether the traffic statistic of all edges shall be aggregated into a single value *default:* **0**|
 
-### detEntry
-child element of [entryExitDetector](#entryexitdetector) 
-
-| Attribute | Type | Description |
-|-----------|------|-------------|
-|lane|unique string|The id of the lane the detector shall be laid on. The lane must be a part of the network used|
-|pos|unique float|The position on the lane the detector shall be laid on in meters|
-|friendlyPos|boolean|If set, no error will be reported if element is placed behind the lane. Instead, it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1 *default:* **0**|
-
-### detExit
-child element of [entryExitDetector](#entryexitdetector) 
-
-| Attribute | Type | Description |
-|-----------|------|-------------|
-|lane|unique string|The id of the lane the detector shall be laid on. The lane must be a part of the network used|
-|pos|unique float|The position on the lane the detector shall be laid on in meters|
-|friendlyPos|boolean|If set, no error will be reported if element is placed behind the lane. Instead, it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1 *default:* **0**|
-
 ## instantInductionLoop
 | Attribute | Type | Description |
 |-----------|------|-------------|
@@ -330,7 +330,7 @@ child element of [entryExitDetector](#entryexitdetector)
 |off|boolean|Whether the router should be inactive initially (and switched on in the gui) *default:* **0**|
 
 ### interval
-child element of [rerouter](#rerouter) 
+child element of [rerouter](#rerouter)
 
 | Attribute | Type | Description |
 |-----------|------|-------------|
@@ -338,7 +338,7 @@ child element of [rerouter](#rerouter)
 |end|unique SUMOTime|End *default:* **3600**|
 
 ### destProbReroute
-child element of [interval](#interval) 
+child element of [interval](#interval)
 
 | Attribute | Type | Description |
 |-----------|------|-------------|
@@ -346,7 +346,7 @@ child element of [interval](#interval)
 |probability|float|SUMO Probability *default:* **1.00**|
 
 ### closingReroute
-child element of [interval](#interval) 
+child element of [interval](#interval)
 
 | Attribute | Type | Description |
 |-----------|------|-------------|
@@ -355,7 +355,7 @@ child element of [interval](#interval)
 |disallow|list of vclasses VClasses|disallowed vehicles|
 
 ### closingLaneReroute
-child element of [interval](#interval) 
+child element of [interval](#interval)
 
 | Attribute | Type | Description |
 |-----------|------|-------------|
@@ -364,7 +364,7 @@ child element of [interval](#interval)
 |disallow|list of vclasses VClasses|disallowed vehicles|
 
 ### routeProbReroute
-child element of [interval](#interval) 
+child element of [interval](#interval)
 
 | Attribute | Type | Description |
 |-----------|------|-------------|
@@ -372,7 +372,7 @@ child element of [interval](#interval)
 |probability|float|SUMO Probability *default:* **1.00**|
 
 ### parkingAreaReroute
-child element of [interval](#interval) 
+child element of [interval](#interval)
 
 | Attribute | Type | Description |
 |-----------|------|-------------|
@@ -390,7 +390,7 @@ child element of [interval](#interval)
 |vTypes|list of strings|Space separated list of vehicle type ids to consider (empty to affect all types)|
 
 ### step
-child element of [variableSpeedSign](#variablespeedsign) 
+child element of [variableSpeedSign](#variablespeedsign)
 
 | Attribute | Type | Description |
 |-----------|------|-------------|
@@ -621,7 +621,7 @@ child element of [variableSpeedSign](#variablespeedsign)
 |name|string|Name of POI|
 
 ### tazSource
-child element of [taz](#taz) 
+child element of [taz](#taz)
 
 | Attribute | Type | Description |
 |-----------|------|-------------|
@@ -629,7 +629,7 @@ child element of [taz](#taz)
 |weight|positive float|Depart weight associated to this Edge *default:* **1**|
 
 ### tazSink
-child element of [taz](#taz) 
+child element of [taz](#taz)
 
 | Attribute | Type | Description |
 |-----------|------|-------------|
@@ -637,7 +637,7 @@ child element of [taz](#taz)
 |weight|positive float|Arrival weight associated to this Edget *default:* **1**|
 
 ### flow
-child element of [calibrator](#calibrator) 
+child element of [calibrator](#calibrator)
 
 | Attribute | Type | Description |
 |-----------|------|-------------|
@@ -680,7 +680,7 @@ child element of [calibrator](#calibrator)
 |to|unique string|The name of the edge the edgeRel ends at|
 
 ### tazRelation
-child element of [dataInterval](#datainterval) 
+child element of [dataInterval](#datainterval)
 
 | Attribute | Type | Description |
 |-----------|------|-------------|
@@ -688,7 +688,7 @@ child element of [dataInterval](#datainterval)
 |to|unique string|The name of the TAZ the TAZRel ends at|
 
 ### stop
-child element of [route](#route) [trip](#trip) [flow](#flow) 
+child element of [route](#route), [trip](#trip), [flow](#flow)
 
 | Attribute | Type | Description |
 |-----------|------|-------------|
@@ -798,7 +798,7 @@ child element of [route](#route) [trip](#trip) [flow](#flow)
 |depart|positive float|The time step at which the person shall enter the network *default:* **0.00**|
 
 ### personTrip
-child element of [person](#person) [personFlow](#personflow) 
+child element of [person](#person), [personFlow](#personflow)
 
 | Attribute | Type | Description |
 |-----------|------|-------------|
@@ -813,7 +813,7 @@ child element of [person](#person) [personFlow](#personflow)
 |toJunction|unique string|The name of the junction the person trip ends at|
 
 ### ride
-child element of [person](#person) [personFlow](#personflow) 
+child element of [person](#person), [personFlow](#personflow)
 
 | Attribute | Type | Description |
 |-----------|------|-------------|
@@ -824,7 +824,7 @@ child element of [person](#person) [personFlow](#personflow)
 |toBusStop|unique string|Id of the destination bus stop|
 
 ### walk
-child element of [person](#person) [personFlow](#personflow) 
+child element of [person](#person), [personFlow](#personflow)
 
 | Attribute | Type | Description |
 |-----------|------|-------------|
@@ -858,7 +858,7 @@ child element of [person](#person) [personFlow](#personflow)
 |id|unique string|Data set ID|
 
 ### dataInterval
-child element of [dataSet](#dataset) 
+child element of [dataSet](#dataset)
 
 | Attribute | Type | Description |
 |-----------|------|-------------|
@@ -875,7 +875,7 @@ child element of [dataSet](#dataset)
 |depart|positive float|The time step at which the container shall enter the network *default:* **0.00**|
 
 ### transport
-child element of [person](#person) [personFlow](#personflow) 
+child element of [container](#container), [containerFlow](#containerflow)
 
 | Attribute | Type | Description |
 |-----------|------|-------------|
@@ -886,7 +886,7 @@ child element of [person](#person) [personFlow](#personflow)
 |toContainerStop|unique string|Id of the destination container stop|
 
 ### tranship
-child element of [person](#person) [personFlow](#personflow) 
+child element of [container](#container), [containerFlow](#containerflow)
 
 | Attribute | Type | Description |
 |-----------|------|-------------|
