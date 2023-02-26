@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-02-24 06:54:31.265804 by split_at_stops.py v1_16_0+0669-1570e3c25a5
+<!-- generated on 2023-02-26 16:33:51.441030 by split_at_stops.py v1_16_0+0791-bd51cb00584
 <configuration>
     <network value="input_net.net.xml"/>
     <route-output value="out.rou.xml"/>
@@ -20,7 +20,9 @@
     <trainStop endPos="390.00" id="D" lane="a.80_0" startPos="350.00">
         <access lane="d_0" pos="44.50"/>
     </trainStop>
-    <trainStop endPos="80" id="B2" lane="a_0" startPos="70.2">
+    <trainStop endPos="10" id="A" lane="a_0" startPos="0">
+    </trainStop>
+    <trainStop endPos="10.00" id="B2" lane="a.70_0" startPos="0.20">
     </trainStop>
     <trainStop endPos="150.30" id="C2" lane="a.80_0" startPos="130.00">
     </trainStop>

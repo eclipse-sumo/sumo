@@ -36,6 +36,8 @@
     <trainStop id="D" lane="a_0" startPos="430" endPos="470">
         <access lane="d_0" pos="44.50"/>
     </trainStop>
+    <trainStop id="A" lane="a_0" startPos="0" endPos="10">
+    </trainStop>
     <trainStop id="B2" lane="a_0" startPos="70.2" endPos="80">
     </trainStop>
     <trainStop id="C2" lane="a_0" startPos="210" endPos="230.3">

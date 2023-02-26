@@ -75,6 +75,8 @@ def main(options):
                 seen = set()
                 prev_end = 0.
                 for s in sorted_stops:
+                    if float(s.startPos) == 0.:
+                        skip.add(s.id)
                     if float(s.startPos) > prev_end:
                         if len(seen) > 1:
                             print("Skipping overlapping stops %s." % ", ".join(sorted(seen)))
@@ -86,8 +88,7 @@ def main(options):
                     print("Skipping overlapping stops %s." % ", ".join(sorted(seen)))
                     skip.update(seen)
                 print('    <edge id="%s">' % e, file=out)
-                prev_end = .1
-                new_edge = None
+                curr_edge = None
                 for s in sorted_stops:
                     start = float(s.startPos)
                     end = float(s.endPos)
@@ -101,8 +102,9 @@ def main(options):
                             stops[s.id].startPos = "0"
                             stops[s.id].endPos = "%.2f" % (end - start)
                             split = True
-                    if new_edge and not split:
-                        stops[s.id].lane = new_edge + s.lane[s.lane.rfind("_"):]
+                            curr_edge = new_edge
+                    if curr_edge and not split:
+                        stops[s.id].lane = curr_edge + s.lane[s.lane.rfind("_"):]
                         stops[s.id].startPos = "%.2f" % (start - prev_split)
                         stops[s.id].endPos = "%.2f" % (end - prev_split)
                     if s.id not in skip and (not net or net.getEdge(e).getLength() > end + .1):
@@ -110,6 +112,7 @@ def main(options):
                         if new_edge:
                             print('        <split pos="%s"/>' % end, file=out)
                             prev_split = end
+                            curr_edge = new_edge
                 print('    </edge>', file=out)
         print('</edges>', file=out)
     if net:
