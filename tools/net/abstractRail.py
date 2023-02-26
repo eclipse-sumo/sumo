@@ -284,7 +284,7 @@ def optimizeTrackOrder(options, edges, nodes, virtualNodes, orderings, nodeCoord
         straight = min(abs(angle), abs(angle - math.pi)) < np.deg2rad(10)
 
         constraints = []
-        print(" ".join(["%s:%s" % (getVNodeID(vn), getVNodeX(vn)) for vn in vNodes]))
+        #print(" ".join(["%s:%s" % (getVNodeID(vn), getVNodeX(vn)) for vn in vNodes]))
         for vNode, vNode2 in zip(vNodes[:-1], vNodes[1:]):
             #print("keepSame: %s | %s" % (getVNodeID(vNode), getVNodeID(vNode2)))
             constraints.append((nodeIndex[vNode], nodeIndex[vNode2]))
