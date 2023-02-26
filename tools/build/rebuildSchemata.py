@@ -19,12 +19,11 @@ from __future__ import absolute_import
 from __future__ import print_function
 import os
 import subprocess
+
 homeDir = os.environ.get("SUMO_HOME", os.path.dirname(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 for exe in "activitygen dfrouter duarouter marouter jtrrouter netconvert netgenerate od2trips polyconvert sumo".split():
     exePath = os.path.join(homeDir, "bin", exe)
-    if os.path.exists(exePath) or os.path.exists(exePath + ".exe"):
-        subprocess.call(
-            [exePath, "--save-schema", os.path.join(homeDir, "data", "xsd", exe + "Configuration.xsd")])
-    else:
-        print("Warning! %s not found." % exe)
+    subprocess.check_call([exePath, "--save-schema", os.path.join(homeDir, "data", "xsd", exe + "Configuration.xsd")])
+subprocess.call([os.path.join(homeDir, "bin", "netedit"), "--attribute-help-output",
+                 os.path.join(homeDir, "docs", "web", "docs", "Netedit", "attribute_help.md")])
