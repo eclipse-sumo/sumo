@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-02-21 18:42+0100\n"
+"POT-Creation-Date: 2023-02-26 12:44+0100\n"
 "PO-Revision-Date: 2023-02-22 16:34+0000\n"
 "Last-Translator: Rhea-Xiao <xiao.translations@gmail.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
@@ -180,6 +180,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:503
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1259
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUISUMOAbstractView.cpp:1565
 msgid "Edit Viewport"
 msgstr ""
 
@@ -787,29 +788,65 @@ msgstr ""
 msgid "Simulation started with time: %."
 msgstr ""
 
-#: /home/micha/programming/sumo/src/gui/GUISUMOViewParent.cpp:141
+#: /home/micha/programming/sumo/src/gui/GUISUMOViewParent.cpp:142
 #: /home/micha/programming/sumo/src/netedit/GNEViewParent.cpp:448
 msgid "Save Snapshot"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/gui/GUISUMOViewParent.cpp:166
+#: /home/micha/programming/sumo/src/gui/GUISUMOViewParent.cpp:167
 #: /home/micha/programming/sumo/src/netedit/GNEViewParent.cpp:468
 msgid "No file extension was specified - saving Snapshot as PNG."
 msgstr ""
 
-#: /home/micha/programming/sumo/src/gui/GUISUMOViewParent.cpp:172
+#: /home/micha/programming/sumo/src/gui/GUISUMOViewParent.cpp:173
 #: /home/micha/programming/sumo/src/netedit/GNEViewParent.cpp:475
 msgid "Saving failed."
 msgstr ""
 
-#: /home/micha/programming/sumo/src/gui/GUISUMOViewParent.cpp:174
+#: /home/micha/programming/sumo/src/gui/GUISUMOViewParent.cpp:175
 #: /home/micha/programming/sumo/src/netedit/GNEViewParent.cpp:479
 msgid "Snapshot successfully saved!"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/gui/GUISUMOViewParent.cpp:218
-#: /home/micha/programming/sumo/src/gui/GUISUMOViewParent.cpp:267
+#: /home/micha/programming/sumo/src/gui/GUISUMOViewParent.cpp:219
+#: /home/micha/programming/sumo/src/gui/GUISUMOViewParent.cpp:268
 msgid "Unknown Message ID in onCmdLocate"
+msgstr ""
+
+#: /home/micha/programming/sumo/src/gui/GUISUMOViewParent.cpp:233
+msgid "Junction Chooser"
+msgstr ""
+
+#: /home/micha/programming/sumo/src/gui/GUISUMOViewParent.cpp:237
+msgid "Edge Chooser"
+msgstr ""
+
+#: /home/micha/programming/sumo/src/gui/GUISUMOViewParent.cpp:241
+msgid "Vehicle Chooser"
+msgstr ""
+
+#: /home/micha/programming/sumo/src/gui/GUISUMOViewParent.cpp:245
+msgid "Person Chooser"
+msgstr ""
+
+#: /home/micha/programming/sumo/src/gui/GUISUMOViewParent.cpp:249
+msgid "Container Chooser"
+msgstr ""
+
+#: /home/micha/programming/sumo/src/gui/GUISUMOViewParent.cpp:253
+msgid "Traffic Lights Chooser"
+msgstr ""
+
+#: /home/micha/programming/sumo/src/gui/GUISUMOViewParent.cpp:257
+msgid "Additional Objects Chooser"
+msgstr ""
+
+#: /home/micha/programming/sumo/src/gui/GUISUMOViewParent.cpp:261
+msgid "POI Chooser"
+msgstr ""
+
+#: /home/micha/programming/sumo/src/gui/GUISUMOViewParent.cpp:265
+msgid "Polygon Chooser"
 msgstr ""
 
 #: /home/micha/programming/sumo/src/gui/GUITLLogicPhasesTrackerWindow.cpp:269
@@ -874,8 +911,8 @@ msgstr ""
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_AppSettings.cpp:101
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEAbout.cpp:76
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_EditViewport.cpp:133
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:983
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2487
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:991
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2523
 msgid "&OK"
 msgstr ""
 
@@ -885,9 +922,13 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:639
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixNetworkElements.cpp:390
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_EditViewport.cpp:134
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:984
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2488
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:992
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2524
 msgid "&Cancel"
+msgstr ""
+
+#: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:69
+msgid "Breakpoints Editor"
 msgstr ""
 
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:89
@@ -902,6 +943,12 @@ msgstr ""
 msgid "Clea&r"
 msgstr ""
 
+#: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:126
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:273
+#: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2352
+msgid "Time"
+msgstr "时间"
+
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:141
 msgid "Load Breakpoints"
 msgstr ""
@@ -914,8 +961,8 @@ msgstr ""
 #: /home/micha/programming/sumo/src/utils/gui/div/GUIDialog_GLChosenEditor.cpp:155
 #: /home/micha/programming/sumo/src/utils/gui/tracker/GUIParameterTracker.cpp:258
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_EditViewport.cpp:240
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1090
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1154
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1098
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1181
 msgid "Storing failed!"
 msgstr ""
 
@@ -2660,325 +2707,320 @@ msgstr ""
 msgid "Open MeanData file"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:94
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:95
 #, c-format
 msgid "Loading of sumo config file '%' failed."
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:107
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:108
 #, c-format
 msgid "Loading of netedit config file '%' failed."
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:116
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:117
 msgid ""
 "Invalid input network option. Load with either sumo/netedit/netconvert "
 "config or with -new option"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:129
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:130
 msgid "Invalid Options. Nothing loaded"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:143
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:144
 msgid "Could not build projection!"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:171
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:172
 msgid "Performing initial computation ..."
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:205
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:206
 msgid "Failed to build network."
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:250
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:251
 msgid "Start plain GUI with empty net"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:251
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:252
 msgid "Open a SUMO network"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:252
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:253
 msgid "Open a configuration file (netedit or netconvert config)"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:253
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:254
 msgid "Open a SUMO config file"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:256
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:257
 msgid "Input"
 msgstr "输入"
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:257
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:258
 msgid "Output"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:259
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:260
 msgid "Processing"
 msgstr "处理中"
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:260
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:261
 msgid "Building Defaults"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:262
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:263
 msgid "Ramp Guessing"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:263
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:264
 msgid "Edge Removal"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:264
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:265
 msgid "Unregulated Nodes"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:265
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2130
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:266
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2166
 msgid "Junctions"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:266
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:267
 msgid "Pedestrian"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:267
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:268
 msgid "Bicycle"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:268
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:269
 msgid "Railway"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:269
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:270
 msgid "Formats"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:270
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:271
 msgid "Netedit"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:271
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:272
 msgid "Visualisation"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:272
-#: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2352
-msgid "Time"
-msgstr "时间"
-
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:278
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:279
 msgid "Load sumo config"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:282
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:283
 msgid "Load additional and shapes descriptions from FILE(s)"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:286
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:287
 msgid "Load demand elements descriptions from FILE(s)"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:290
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:291
 msgid "Load data elements descriptions from FILE(s)"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:294
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:295
 msgid "Load meanData descriptions from FILE(s)"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:299
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:300
 msgid "File in which TLS Programs must be saved"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:302
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:303
 msgid "File in which edgeTypes must be saved"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:308
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:309
 msgid "Start netedit with a new network"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:311
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:312
 msgid "Write attribute help to file"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:316
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:317
 msgid "Prefix for node naming"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:319
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:320
 msgid "Prefix for edge naming"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:322
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:323
 msgid "Enable edge-infix (<fromNodeID><infix><toNodeID>)"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:327
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:328
 msgid "Prefix for busStop naming"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:330
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:331
 msgid "Prefix for trainStop naming"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:333
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:334
 msgid "Prefix for containerStop naming"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:336
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:337
 msgid "Prefix for chargingStation naming"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:339
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:340
 msgid "Prefix for parkingArea naming"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:342
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:343
 msgid "Prefix for e1Detector naming"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:345
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:346
 msgid "Prefix for e2Detector naming"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:348
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:349
 msgid "Prefix for e3Detector naming"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:351
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:352
 msgid "Prefix for e1InstantDetector naming"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:354
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:355
 msgid "Prefix for rerouter naming"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:357
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:358
 msgid "Prefix for calibrator naming"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:360
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:361
 msgid "Prefix for routeProbe naming"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:363
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:364
 msgid "Prefix for variable speed sign naming"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:366
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:367
 msgid "prefix for traction substation naming"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:369
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:370
 msgid "Prefix for overhead wire naming"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:372
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:373
 msgid "Prefix for polygon naming"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:375
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:376
 msgid "Prefix for poi naming"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:380
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:381
 msgid "Prefix for route naming"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:383
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:384
 msgid "Prefix for vType naming"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:386
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:387
 msgid "Prefix for vehicle naming"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:389
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:390
 msgid "Prefix for trip naming"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:392
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:393
 msgid "Prefix for flow naming"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:395
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:396
 msgid "Prefix for person naming"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:398
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:399
 msgid "Prefix for personFlow naming"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:401
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:402
 msgid "Prefix for container naming"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:404
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:405
 msgid "Prefix for containerFlow naming"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:411
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:412
 msgid "Prefix for meanDataEdge naming"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:414
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:415
 msgid "Prefix for meanDataLane naming"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:421
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:422
 msgid "Disable icons of special lanes"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:424
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:425
 msgid "Disable textures"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:427
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:428
 msgid "Load visualisation settings from FILE"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:432
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:433
 msgid "Load current viewport from registry"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:435
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:436
 msgid "Create initial window with the given x,y size"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:438
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:439
 msgid "Create initial window at the given x,y position"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:443
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:444
 msgid "Enable overlay for screen recognition"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:446
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:447
 msgid "Enable output messages during GUI-Testing"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:449
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:450
 msgid "Enable output messages during GUI-Testing specific of gl functions"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:452
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:453
 msgid "Save gui settings in the given settings-output file"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:459
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:460
 msgid "Defines the begin time in seconds; The simulation starts at this time"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:462
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:463
 msgid "Defines the end time in seconds; The simulation ends at this time"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:465
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:466
 msgid ""
 "Length of the default interval length between action points for the car-"
 "following and lane-change models (in seconds). If not specified, the "
@@ -2987,13 +3029,13 @@ msgid ""
 "length."
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:468
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:469
 msgid ""
 "Select default speed deviation. A negative value implies vClass specific "
 "defaults (0.1 for the default passenger class"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:507
+#: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:508
 msgid "Failed to reset options."
 msgstr ""
 
@@ -3744,7 +3786,7 @@ msgid "Set mode for edit network elements. (F2)"
 msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2026
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2202
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2238
 msgid "Demand"
 msgstr ""
 
@@ -3757,7 +3799,7 @@ msgid "Set mode for edit traffic demand. (F3)"
 msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2033
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2346
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2382
 msgid "Data"
 msgstr ""
 
@@ -4194,7 +4236,7 @@ msgid "TLS"
 msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewParent.cpp:640
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2169
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2205
 msgid "Additional"
 msgstr ""
 
@@ -4382,11 +4424,6 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_Lane.cpp:170
 msgid "Redo delete lane '"
-msgstr ""
-
-#: /home/micha/programming/sumo/src/netedit/changes/GNEChange_TLS.cpp:50
-#: /home/micha/programming/sumo/src/netedit/changes/GNEChange_TLS.cpp:73
-msgid "If myTlDef is null, forward cannot be false"
 msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_TLS.cpp:172
@@ -7273,7 +7310,8 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNETagProperties.cpp:108
 msgid ""
-"If attribute mask the start and end position, bot attribute has to be defined"
+"If attributes mask the start and end position, both attributes have to be "
+"defined"
 msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNETagProperties.cpp:134
@@ -7313,8 +7351,8 @@ msgstr ""
 msgid "Attribute '%' doesn't exist"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditional.cpp:138
-#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditional.cpp:139
+#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditional.cpp:148
+#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditional.cpp:149
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNETAZSourceSink.cpp:128
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNETAZSourceSink.cpp:129
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEGenericData.cpp:128
@@ -7322,54 +7360,48 @@ msgstr ""
 msgid "Copy "
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditional.cpp:138
+#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditional.cpp:148
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNETAZSourceSink.cpp:128
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEGenericData.cpp:128
 msgid " name to clipboard"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditional.cpp:139
+#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditional.cpp:149
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNETAZSourceSink.cpp:129
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEGenericData.cpp:129
 msgid " typed name to clipboard"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditional.cpp:146
+#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditional.cpp:156
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEGenericData.cpp:136
 msgid "Open "
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditional.cpp:146
+#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditional.cpp:156
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEGenericData.cpp:136
 msgid " Dialog"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditional.cpp:154
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditional.cpp:164
+#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditional.cpp:174
 msgid "Cursor position over additional shape: "
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditional.cpp:158
+#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditional.cpp:168
 msgid "Cursor position over lane: "
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditional.cpp:168
+#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditional.cpp:178
 msgid "Mouse position over edge: "
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditional.cpp:171
+#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditional.cpp:181
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEGenericData.cpp:139
 msgid "Cursor position in view: "
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditional.cpp:382
+#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditional.cpp:392
 msgid "Invalid number of edges"
-msgstr ""
-
-#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditional.cpp:838
-msgid ""
-"Calling non-implemented function checkChildAdditionalRestriction during "
-"saving of %. It muss be reimplemented in child class"
 msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:104
@@ -7432,7 +7464,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:356
 msgid ""
-"Could not build parking space in netedit; attribute angel cannot be parse to "
+"Could not build parking space in netedit; attribute angle cannot be parse to "
 "float."
 msgstr ""
 
@@ -7461,7 +7493,7 @@ msgid "add lane area detector '"
 msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:519
-#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1539
+#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1540
 msgid "' in netedit; Lanes aren't consecutives."
 msgstr ""
 
@@ -7570,68 +7602,68 @@ msgstr ""
 msgid "' in netedit; Invalid Shape."
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1312
+#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1313
 msgid "add TAZ '"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1373
-#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1467
+#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1374
+#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1468
 msgid "add TAZ Sink in '"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1396
-#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1445
+#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1397
+#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1446
 msgid "add TAZ Source in '"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1407
+#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1408
 msgid "update TAZ Source in '"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1478
+#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1479
 msgid "update TAZ Sink in '"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1507
+#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1508
 msgid "add taction substation '"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1539
+#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1540
 msgid "Could not build overhead wire with ID '"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1551
+#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1552
 msgid "add overhead wire '"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1600
+#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1601
 msgid "add polygon '"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1633
-#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1676
-#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1715
+#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1634
+#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1677
+#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1716
 msgid "add POI '"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1707
+#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1708
 msgid "Could not build POI with ID '"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1707
+#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1708
 msgid "' in netedit; Network requires a geo projection."
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1903
-#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1909
-#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1915
-#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1921
-#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1927
-#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1933
-#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1939
-#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1945
-#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:2000
-#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:2018
+#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1904
+#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1910
+#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1916
+#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1922
+#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1928
+#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1934
+#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1940
+#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1946
+#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:2001
+#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:2019
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEDataHandler.cpp:243
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEDataHandler.cpp:249
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEDataHandler.cpp:255
@@ -7640,60 +7672,60 @@ msgstr ""
 msgid "Could not build "
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1903
-#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1909
-#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1915
-#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1927
-#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1933
-#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1939
-#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1945
+#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1904
+#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1910
+#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1916
+#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1928
+#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1934
+#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1940
+#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1946
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEDataHandler.cpp:243
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEDataHandler.cpp:255
 msgid " with ID '"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1903
+#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1904
 msgid "' in netedit; ID contains invalid characters."
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1909
+#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1910
 msgid "' in netedit; Invalid position over lane."
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1915
+#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1916
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEDataHandler.cpp:243
 msgid "' in netedit; declared twice."
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1921
-#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:2000
-#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:2018
+#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1922
+#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:2001
+#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:2019
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEDataHandler.cpp:249
 msgid " doesn't exist."
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1927
+#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1928
 msgid "' in netedit; attribute "
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1927
+#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1928
 msgid " cannot be negative."
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1933
+#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1934
 msgid "' in netedit; list of VTypes isn't valid."
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1939
+#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1940
 msgid "' in netedit; filename is invalid."
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1945
+#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1946
 msgid "' in netedit; list of lanes isn't valid."
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:2000
-#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:2018
+#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:2001
+#: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:2019
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEDataHandler.cpp:249
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEDataHandler.cpp:255
 msgid " in netedit; "
@@ -7831,7 +7863,7 @@ msgstr ""
 msgid "Polygon already simplified"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/elements/additional/GNETAZ.cpp:262
+#: /home/micha/programming/sumo/src/netedit/elements/additional/GNETAZ.cpp:264
 msgid "Set custom Geometry Point"
 msgstr ""
 
@@ -7867,6 +7899,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEDataHandler.cpp:255
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEMeanDataHandler.cpp:132
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1467
 msgid "' doesn't exist."
 msgstr ""
 
@@ -7921,19 +7954,170 @@ msgstr ""
 msgid " in netedit; attribute '"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/elements/demand/GNEDemandElement.cpp:1044
-msgid ""
-"Calling non-implemented function checkChildDemandElementRestriction during "
-"saving of %. It muss be reimplemented in child class"
-msgstr ""
-
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNEPersonTrip.cpp:306
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNEPersonTrip.cpp:317
 msgid "This personTrip use junctions"
 msgstr ""
 
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:71
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:100
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:156
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1455
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1479
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1491
+msgid "There is another "
+msgstr ""
+
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:71
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:100
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:156
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1455
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1479
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1491
+msgid " with the same ID='"
+msgstr ""
+
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:76
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:126
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:161
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:202
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:250
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:287
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:329
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:369
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:412
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:452
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:484
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:511
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:557
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:573
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:589
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:641
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:658
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:673
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:689
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:705
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:742
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:758
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:787
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:814
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:849
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:865
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:905
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:922
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:938
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1063
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1078
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1098
+msgid "add "
+msgstr ""
+
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:102
+msgid " need at least one "
+msgstr ""
+
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:108
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:118
+msgid " with id '"
+msgstr ""
+
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:108
+msgid "' doesn't exist in "
+msgstr ""
+
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:115
+msgid "Invalid definition for "
+msgstr ""
+
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:115
+msgid " in "
+msgstr ""
+
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:118
+msgid "' cannot be created in "
+msgstr ""
+
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:191
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:239
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:276
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:320
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:360
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:403
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:443
+msgid "Invalid vehicle type '"
+msgstr ""
+
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:191
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:239
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:241
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:276
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:278
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:320
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:360
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:403
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:443
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:479
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:506
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:782
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:809
+msgid "' used in "
+msgstr ""
+
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:193
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:195
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:243
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:245
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:280
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:282
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:322
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:324
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:362
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:364
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:405
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:407
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:445
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:447
+msgid " used in "
+msgstr ""
+
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:227
 msgid "netedit doesn't support route distributions"
+msgstr ""
+
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:241
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:278
+msgid "Invalid route '"
+msgstr ""
+
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:243
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:245
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:280
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:282
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:322
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:324
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:362
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:364
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:405
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:407
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:445
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:447
+msgid "Invalid "
+msgstr ""
+
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:280
+msgid " is greater than number of lanes"
+msgstr ""
+
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:282
+msgid " is greater than vType"
+msgstr ""
+
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:479
+msgid "Invalid person type '"
+msgstr ""
+
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:506
+msgid "Invalid personFlow type '"
 msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:995
@@ -8031,6 +8215,10 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1401
 msgid "A tranship with edges attribute needs a list of edges"
+msgstr ""
+
+#: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1467
+msgid "Via edge '"
 msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNEStop.cpp:443
@@ -8881,7 +9069,7 @@ msgid "Wire elements"
 msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETagSelector.cpp:167
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1968
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2004
 msgid "Vehicles"
 msgstr ""
 
@@ -8890,7 +9078,7 @@ msgid "Stops"
 msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETagSelector.cpp:173
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2051
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2087
 msgid "Persons"
 msgstr ""
 
@@ -8988,12 +9176,6 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:470
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEShapeFrame.cpp:90
 msgid "No geo-conversion defined"
-msgstr ""
-
-#: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:524
-msgid ""
-"myGEOAttributeTextField must be hidden becaurse there isn't GEO Attribute to "
-"edit"
 msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:551
@@ -9898,7 +10080,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:308
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEProhibitionFrame.cpp:168
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2309
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2345
 msgid "Selection"
 msgstr ""
 
@@ -10008,8 +10190,8 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:92
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:436
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1261
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1326
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1306
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1371
 msgid "Add"
 msgstr ""
 
@@ -10113,10 +10295,6 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:681
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:746
 msgid "create new edge"
-msgstr ""
-
-#: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:740
-msgid "edge created without an open CommandGroup"
 msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:751
@@ -10631,10 +10809,6 @@ msgstr ""
 msgid "TAZ shape needs at least three points"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:1692
-msgid "Edge cannot be null"
-msgstr ""
-
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:119
 msgid "Edit Traffic Light"
 msgstr ""
@@ -10702,12 +10876,6 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:563
 msgid "Disable assign E1 mode"
-msgstr ""
-
-#: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:589
-#: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1383
-#: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1827
-msgid "Junction cannot be NULL"
 msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:879
@@ -10862,16 +11030,8 @@ msgstr ""
 msgid "reset TLS"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1785
-msgid "junction cannot be null"
-msgstr ""
-
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1810
 msgid "duplicate program '%' of traffic light '%'"
-msgstr ""
-
-#: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1829
-msgid "myProgramComboBox must have the same number of TLSDefinitions"
 msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1856
@@ -10996,22 +11156,6 @@ msgid ""
 "Graphical editor for SUMO networks, demand and additional infrastructure."
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/cursors/GUICursorSubSys.cpp:82
-msgid "GUICursorSubSys already init"
-msgstr ""
-
-#: /home/micha/programming/sumo/src/utils/gui/div/GLHelper.cpp:184
-msgid ""
-"invalid matrix counter. Check that number of pushMatrix and popMatrix "
-"functions calls are the same"
-msgstr ""
-
-#: /home/micha/programming/sumo/src/utils/gui/div/GLHelper.cpp:195
-msgid ""
-"invalid Name counter. Check that number of pushName and popName functions "
-"calls are the same"
-msgstr ""
-
 #: /home/micha/programming/sumo/src/utils/gui/div/GUIDialog_GLChosenEditor.cpp:75
 msgid "&Load selection"
 msgstr ""
@@ -11106,25 +11250,6 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/utils/gui/div/GUIVideoEncoder.h:222
 msgid "Error during encoding!"
-msgstr ""
-
-#: /home/micha/programming/sumo/src/utils/gui/globjects/GUIGLObjectPopupMenu.cpp:98
-msgid "MenuPaneChild cannot be NULL"
-msgstr ""
-
-#: /home/micha/programming/sumo/src/utils/gui/globjects/GUIGLObjectPopupMenu.cpp:103
-msgid "MenuPaneChild already inserted"
-msgstr ""
-
-#: /home/micha/programming/sumo/src/utils/gui/globjects/GUIGLObjectPopupMenu.cpp:137
-#: /home/micha/programming/sumo/src/utils/gui/globjects/GUIGLObjectPopupMenu.cpp:148
-#: /home/micha/programming/sumo/src/utils/gui/globjects/GUIGLObjectPopupMenu.cpp:159
-#: /home/micha/programming/sumo/src/utils/gui/globjects/GUIGLObjectPopupMenu.cpp:168
-#: /home/micha/programming/sumo/src/utils/gui/globjects/GUIGLObjectPopupMenu.cpp:228
-#: /home/micha/programming/sumo/src/utils/gui/globjects/GUIGLObjectPopupMenu.cpp:240
-#: /home/micha/programming/sumo/src/utils/gui/globjects/GUIGLObjectPopupMenu.cpp:252
-#: /home/micha/programming/sumo/src/utils/gui/globjects/GUIGLObjectPopupMenu.cpp:264
-msgid "Object is NULL"
 msgstr ""
 
 #: /home/micha/programming/sumo/src/utils/gui/globjects/GUIGLObjectPopupMenu.cpp:170
@@ -11259,598 +11384,590 @@ msgstr ""
 msgid "Accept settings"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:88
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:89
 msgid "View Settings"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:977
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:985
 msgid "Enter a name"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:979
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:987
 msgid "Please enter an alphanumeric name: "
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1058
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1066
 msgid "Export view settings"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1109
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1117
 msgid "Import view settings"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1126
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1153
 msgid "Load Decals"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1143
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1170
 msgid "Save Decals"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1258
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1323
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1303
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1368
 msgid "No Data"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1262
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1327
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1307
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1372
 msgid "Remove"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1612
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1620
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1628
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1636
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1644
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1652
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1648
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1656
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1664
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1672
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1680
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1688
 msgid "The value must be a float, is:"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1613
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1621
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1629
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1637
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1645
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1653
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1661
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1649
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1657
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1665
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1673
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1681
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1689
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1697
 msgid "Number format error"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1660
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1696
 msgid "The value must be a bool, is:"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1704
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1749
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1740
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1785
 msgid "Only for selected"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1706
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1742
 msgid "constant text size"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1709
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1745
 msgid "Size"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1714
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1827
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1865
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1986
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2068
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2108
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2134
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2254
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2289
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2352
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1750
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1863
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1901
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2022
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2104
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2144
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2170
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2290
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2325
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2388
 msgid "Color"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1716
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1822
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1752
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1858
 msgid "Background"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1747
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1783
 msgid "Draw with constant size when zoomed out"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1752
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1788
 msgid "Minimum Size"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1756
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1792
 msgid "Exaggerate by"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1802
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1838
 msgid "Save the setting to registry"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1803
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1839
 msgid "Remove the setting from registry"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1804
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1840
 msgid "Export setting to file"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1805
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1841
 msgid "Load setting from file"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1808
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1844
 msgid "Export includes:"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1809
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1845
 msgid "Viewport"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1810
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1846
 msgid "Delay"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1811
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1847
 msgid "Decals"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1812
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1848
 msgid "Breakpoints"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1831
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1867
 msgid "Decals:"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1834
-msgid "&Load Decals"
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1870
+msgid "&Load XML Decals"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1835
-msgid "&Save Decals"
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1871
+msgid "&Save XML Decals"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1836
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1872
 msgid "&Clear Decals"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1841
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1877
 msgid "Toggle grid"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1845
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1881
 msgid "x-spacing"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1850
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1886
 msgid "y-spacing"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1859
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1895
 msgid "Streets"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1867
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1896
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1990
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2003
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2072
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2112
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2138
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2258
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2293
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2354
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1903
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1932
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2026
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2039
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2108
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2148
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2174
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2294
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2329
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2390
 msgid "Interpolate"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1879
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2141
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2364
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1915
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2177
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2400
 msgid "Recalibrate Rainbow"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1881
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1917
 msgid "hide below"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1885
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1921
 msgid "hide above"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1894
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1930
 msgid "Scale width"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1917
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1953
 msgid "Show bike markings"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1919
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1955
 msgid "Show turning arrows"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1922
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1958
 msgid "Show right-of-way rules"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1924
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1960
 msgid "Realistic stop line colors"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1927
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1963
 msgid "Show lane borders"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1929
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1965
 msgid "Show lane direction"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1932
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1968
 msgid "Hide macro connectors"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1934
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1970
 msgid "Show sublanes"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1937
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1973
 msgid "Show rails"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1939
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1975
 msgid "Spread bidirectional railways/roads"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1939
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1975
 msgid ""
 "Make both directional edges for a bidirectional railways or roads visible"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1942
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1978
 msgid "Secondary shape"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1947
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1983
 msgid "Exaggerate width by"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1953
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1989
 msgid "Minimum size"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1959
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1995
 msgid "Show edge id"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1960
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1996
 msgid "Show street name"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1961
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1997
 msgid "Show edge color value"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1962
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1998
 msgid "Show edge scale value"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1973
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2056
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2096
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2009
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2092
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2132
 msgid "Show As"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1975
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2058
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2098
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2011
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2094
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2134
 msgid "'triangles'"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1976
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2099
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2012
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2135
 msgid "'boxes'"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1977
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2060
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2100
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2013
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2096
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2136
 msgid "'simple shapes'"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1978
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2061
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2101
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2014
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2097
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2137
 msgid "'raster images'"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1979
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2059
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2015
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2095
 msgid "'circles'"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2001
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2037
 msgid "Scale size"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2010
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2046
 msgid "Show vehicle id"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2011
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2047
 msgid "Show vehicle color value"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2012
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2048
 msgid "Show vehicle scale value"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2013
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2049
 msgid "Show vehicle text param"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2020
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2056
 msgid "Show blinker / brake lights"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2022
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2058
 msgid "Show minimum gap"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2024
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2060
 msgid "Show brake gap"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2026
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2062
 msgid "Show Bluetooth range"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2028
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2064
 msgid "Show route index"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2030
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2066
 msgid "Scale length with geometry"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2032
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2068
 msgid "Show parking info"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2034
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2070
 msgid "Draw reversed vehicles in reverse"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2079
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2115
 msgid "Show person id"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2080
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2116
 msgid "Show person color value"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2091
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2127
 msgid "Containers"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2119
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2155
 msgid "Show container id"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2147
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2183
 msgid "Draw junction shape"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2149
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2185
 msgid "Draw crossings/walkingareas"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2151
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2187
 msgid "Show lane to lane connections"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2155
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2191
 msgid "Show link tls index"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2156
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2192
 msgid "Show link junction index"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2157
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2193
 msgid "Show junction id"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2158
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2194
 msgid "Show internal junction id"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2159
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2195
 msgid "Show internal edge id"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2160
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2196
 msgid "Show crossing and walkingarea id"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2161
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2197
 msgid "Show traffic light phase index"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2162
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2198
 msgid "Show traffic light phase name"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2163
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2199
 msgid "Show junction name"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2174
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2210
 msgid "Show object id"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2175
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2211
 msgid "Show full name"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2182
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2218
 msgid "StoppingPlace"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2183
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2219
 msgid "body"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2184
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2220
 msgid "sign"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2207
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2243
 msgid "element"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2208
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2244
 msgid "color"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2209
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2245
 msgid "width"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2249
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2285
 msgid "POIs"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2265
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2301
 msgid "POI detail"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2270
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2306
 msgid "Show poi id"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2271
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2307
 msgid "Show poi type"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2272
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2308
 msgid "Show poi text param"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2284
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2320
 msgid "Polygons"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2299
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2335
 msgid "Show polygon id"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2300
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2336
 msgid "Show polygon types"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2314
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2350
 msgid "Default Selection Color"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2317
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2353
 msgid "Miscellaneous"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2366
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2402
 msgid "hide below threshold"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2373
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2409
 msgid "Exaggerate edgeRelation width by"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2378
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2414
 msgid "Exaggerate tazRelation width by"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2384
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2420
 msgid "Show data color value"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2390
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2426
 msgid "Legend"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2395
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2431
 msgid "Show Size Legend"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2398
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2434
 msgid "Show Edge Color Legend"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2401
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2437
 msgid "Show Vehicle Color Legend"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2414
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2450
 msgid "Dither"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2420
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2456
 msgid "Draw boundaries"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2423
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2459
 msgid "Force draw for position selection"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2426
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2462
 msgid "Force draw for rectangle selection"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2429
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2465
 msgid "Disable dotted contours during selection/deletion"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2432
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2468
 msgid "Recalculate boundaries"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2435
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2471
 msgid "Show geometry point indices"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2441
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2477
 msgid "3D view"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2446
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2482
 msgid "Show TLS link markers"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2449
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2485
 msgid "Show domes around TLS models from decals"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2452
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2488
 msgid "Show auto-generated TLS models"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2454
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2490
 msgid "Show head-up display"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2460
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2496
 msgid "Sun brightness"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2472
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2508
 msgid "Sky color"
-msgstr ""
-
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:80
-msgid "MainWindow initialized twice"
-msgstr ""
-
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:272
-msgid "A GUIMainWindow instance was not yet constructed."
 msgstr ""
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:294
@@ -11950,14 +12067,10 @@ msgstr ""
 msgid "Under development. You can help to improve the translation at:"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUISUMOAbstractView.cpp:258
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUISUMOAbstractView.cpp:254
 msgid " (No projection defined)"
 msgstr ""
 
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUISUMOAbstractView.cpp:1711
+#: /home/micha/programming/sumo/src/utils/gui/windows/GUISUMOAbstractView.cpp:1716
 msgid "Could not convert coordinates in %."
-msgstr ""
-
-#: /home/micha/programming/sumo/src/utils/gui/windows/GUISUMOAbstractView.cpp:1726
-msgid "Could not allocate memory for %."
 msgstr ""
