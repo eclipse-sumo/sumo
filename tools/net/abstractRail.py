@@ -24,22 +24,19 @@ from __future__ import absolute_import
 from __future__ import print_function
 import os
 import sys
-import random
 import subprocess
 import numpy as np
 import math
 import time
 import scipy.optimize as opt
-from heapq import heappush,heappop
 from collections import defaultdict
-from itertools import chain
 SUMO_HOME = os.environ.get('SUMO_HOME',
                            os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
 sys.path.append(os.path.join(SUMO_HOME, 'tools'))
-import sumolib
+import sumolib  # noqa
 from sumolib.options import ArgumentParser  # noqa
 from sumolib.miscutils import Colorgen  # noqa
-import sumolib.geomhelper as gh
+import sumolib.geomhelper as gh  # noqa
 
 INTERSECT_RANGE = 1e5
 COMPRESSION_WEIGHT = 0.01
@@ -105,9 +102,9 @@ def loadRegions(options, net):
     if options.regionfile:
         for taz in sumolib.xml.parse(options.regionfile, 'taz'):
             name = taz.attr_name
-            if (options.filterRegions 
+            if (options.filterRegions
                 and name not in options.filterRegions
-                and taz.id not in options.filterRegions):
+                    and taz.id not in options.filterRegions):
                 continue
             edgeIDs = taz.edges.split()
             regions[name] = [net.getEdge(e) for e in edgeIDs if net.hasEdge(e)]
@@ -136,9 +133,9 @@ def findMainline(options, net, edges):
 
     angles = []
     for stop in sumolib.xml.parse(options.stopfile, ['busStop', 'trainStop']):
-        name = stop.getAttributeSecure("attr_name", stop.id)
+        # name = stop.getAttributeSecure("attr_name", stop.id)
         edgeID = stop.lane.rsplit('_', 1)[0]
-        if not edgeID in knownEdges:
+        if edgeID not in knownEdges:
             continue
         edge = net.getEdge(edgeID)
         begCoord = gh.positionAtShapeOffset(edge.getShape(), float(stop.startPos))
@@ -201,7 +198,7 @@ def computeTrackOrdering(options, mainLine, edges, nodeCoords, edgeShapes):
     virtualNodes = defaultdict(list)
 
     xyNodes = [(nodeCoords[n.getID()], n) for n in nodes]
-    xyNodes.sort(key=lambda x : x[0][0])
+    xyNodes.sort(key=lambda x: x[0][0])
 
     for (x, y), node in xyNodes:
         node._newX = x
@@ -221,23 +218,24 @@ def computeTrackOrdering(options, mainLine, edges, nodeCoords, edgeShapes):
             elif len(intersects) > 1:
                 sys.stderr.write(("Cannot compute track ordering for edge '%s'" +
                                   " because it runs orthogonal to the main line (intersects: %s)\n") % (
-                                  edge.getID(), intersects))
-                #print("vertical=%s %s=%s" % (shapeStr(vertical), edge.getID(), shapeStr(shape)))
+                    edge.getID(), intersects))
+                # print("vertical=%s %s=%s" % (shapeStr(vertical), edge.getID(), shapeStr(shape)))
 
         if ordering:
             # also append the actual node before sorting
             ordering.append((y, node))
-            ordering.sort(key=lambda x : x[0])
+            ordering.sort(key=lambda x: x[0])
             ordering = [vn for y, vn in ordering]
             orderings.append((node.getID(), ordering))
 
-    #for o in orderings: print(o)
+    # for o in orderings: print(o)
 
     # step 3:
     nodeYValues = optimizeTrackOrder(options, edges, nodes, virtualNodes, orderings, nodeCoords)
 
     if options.verbose2:
-        for k,v in nodeYValues.items(): print(getVNodeID(k), v)
+        for k, v in nodeYValues.items():
+            print(getVNodeID(k), v)
     return nodeYValues
 
 
@@ -246,6 +244,7 @@ def getVNodeX(vNode):
         return vNode._newX
     except:
         return vNode[1]
+
 
 def getVNodeID(vNode):
     try:
@@ -257,7 +256,7 @@ def getVNodeID(vNode):
 def optimizeTrackOrder(options, edges, nodes, virtualNodes, orderings, nodeCoords):
 
     generalizedNodes = list(nodes)
-    generalizedNodes.sort(key=lambda n : n.getID())
+    generalizedNodes.sort(key=lambda n: n.getID())
     nodeIndex = dict((n, i) for i, n in enumerate(generalizedNodes))
 
     # collect ordering constraints for nodes and virtual nodes
@@ -284,9 +283,9 @@ def optimizeTrackOrder(options, edges, nodes, virtualNodes, orderings, nodeCoord
         straight = min(abs(angle), abs(angle - math.pi)) < np.deg2rad(10)
 
         constraints = []
-        #print(" ".join(["%s:%s" % (getVNodeID(vn), getVNodeX(vn)) for vn in vNodes]))
+        # print(" ".join(["%s:%s" % (getVNodeID(vn), getVNodeX(vn)) for vn in vNodes]))
         for vNode, vNode2 in zip(vNodes[:-1], vNodes[1:]):
-            #print("keepSame: %s | %s" % (getVNodeID(vNode), getVNodeID(vNode2)))
+            # print("keepSame: %s | %s" % (getVNodeID(vNode), getVNodeID(vNode2)))
             constraints.append((nodeIndex[vNode], nodeIndex[vNode2]))
 
         numPrios = 2
@@ -306,7 +305,8 @@ def optimizeTrackOrder(options, edges, nodes, virtualNodes, orderings, nodeCoord
     m2 = m * 2
     # n: number of variables
     n = k + m
-    # q: number of equations: 2 per ySame constraint to minimize the absolute difference and one per elementary ordering constraint
+    # q: number of equations:
+    #   2 per ySame constraint to minimize the absolute difference and one per elementary ordering constraint
     q = m2 + len(yOrderConstraints)
 
     # we use m slack variables for the differences between y-values (one per edge)
@@ -389,7 +389,7 @@ def optimizeTrackOrder(options, edges, nodes, virtualNodes, orderings, nodeCoord
         if options.verbose2:
             print(res.x)
     yValues = res.x[:k]  # cut of slack variables
-    #print(yValues)
+    # print(yValues)
 
     nodeYValues = dict([(vNode, yValues[i]) for vNode, i in nodeIndex.items()])
     return nodeYValues
@@ -416,13 +416,14 @@ def patchShapes(options, edges, nodeCoords, edgeShapes, nodeYValues):
         if edgeID in edgeYValues:
             for coord in edgeYValues[edgeID]:
                 if (abs(coord[0] - fromCoord[0]) < options.trackOffset or
-                    abs(coord[0] - toCoord[0]) < options.trackOffset):
+                        abs(coord[0] - toCoord[0]) < options.trackOffset):
                     continue
                 shape.append(coord)
             shape.sort()
             if fromCoord[0] > toCoord[0]:
                 shape = list(reversed(shape))
         edgeShapes[edgeID] = shape
+
 
 def cleanShapes(options, net, nodeCoords, edgeShapes):
     """Ensure consistent edge shape in case the same edge was part of multiple regions"""
@@ -459,8 +460,8 @@ def main(options):
             nodeYValues = computeTrackOrdering(options, mainLine, edges, nodeCoords, edgeShapes)
             if nodeYValues:
                 patchShapes(options, edges, nodeCoords, edgeShapes, nodeYValues)
-        #computeDistinctHorizontalPoints()
-        #squeezeHorizontal(edges)
+        # computeDistinctHorizontalPoints()
+        # squeezeHorizontal(edges)
         if not options.horizontal:
             rotateByMainLine(mainLine, edges, nodeCoords, edgeShapes, True)
 
@@ -497,11 +498,12 @@ def main(options):
             print("Building new net")
         NETCONVERT = sumolib.checkBinary('netconvert')
         subprocess.call([NETCONVERT,
-            '-s', options.netfile,
-            '-n', options.output_nodes,
-            '-e', options.output_edges,
-            '-o', options.output_net,
-            ], stdout=subprocess.DEVNULL)
+                         '-s', options.netfile,
+                         '-n', options.output_nodes,
+                         '-e', options.output_edges,
+                         '-o', options.output_net,
+                         ], stdout=subprocess.DEVNULL)
+
 
 if __name__ == "__main__":
     main(get_options())
