@@ -33,9 +33,9 @@ The following output attributes are generated:
 | Attribute Name | Value Type | Description                                                                  |
 | -------------- | ---------- | ---------------------------------------------------------------------------- |
 | **loaded**     | #          | Number of vehicles that were loaded into the simulation                      |
-| **inserted**   | #          | Number of vehicles inserted                                                  |
-| **running**    | #          | Number of vehicles that were running                                         |
-| **waiting**    | #          | Number of vehicles which were waiting for insertion (could not be inserted)  |
+| **inserted**   | #          | Number of vehicles inserted                                                 |
+| **running**    | #          | Number of vehicles that were running at simulation end                                        |
+| **waiting**    | #          | Number of vehicles with delayed insertion that were still waiting for insertion at simulation end |
 
 
 ## teleports
