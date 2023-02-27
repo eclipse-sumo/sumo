@@ -95,7 +95,7 @@ MFXDecalsTable::fillTable() {
     // first clear table
     clearTable();
     // create columns
-    std::string columnsType = "ibfffffffc";
+    std::string columnsType = "ibfssssssc";
     for (int i = 0; i < (FXint)columnsType.size(); i++) {
         myColumns.push_back(new Column(this, i, columnsType.at(i)));
     }
@@ -514,10 +514,19 @@ MFXDecalsTable::Column::Column(MFXDecalsTable* table, const int index, const cha
     myIndex(index),
     myType(type) {
     // create vertical frame
-    myVerticalFrame = new FXVerticalFrame(table, GUIDesignAuxiliarFrameFixWidth);
+    if (myType == 'f') {
+        myVerticalFrame = new FXVerticalFrame(table, GUIDesignAuxiliarFrame);
+    } else {
+        myVerticalFrame = new FXVerticalFrame(table, GUIDesignAuxiliarFrameFixWidth);
+    }
     // create top label
     if (myType == 'f') {
         // ticked label extended
+        myTopLabel = new MFXLabelTooltip(myVerticalFrame, 
+            table->myDialogViewSettings->getSUMOAbstractView()->getGUIGlChildWindow()->getGUIMainWindowParent()->getStaticTooltipMenu(), 
+            "", nullptr, GUIDesignLabelCenterThick);
+    } else if (myType == 's') {
+        // ticked label fixed
         myTopLabel = new MFXLabelTooltip(myVerticalFrame, 
             table->myDialogViewSettings->getSUMOAbstractView()->getGUIGlChildWindow()->getGUIMainWindowParent()->getStaticTooltipMenu(), 
             "", nullptr, GUIDesignLabelFixedWidthTicked);
@@ -538,7 +547,11 @@ MFXDecalsTable::Column::Column(MFXDecalsTable* table, const int index, const cha
             "", nullptr, GUIDesignLabelFixedWidth);
     }
     // create vertical frame for cells
-    myVerticalCellFrame = new FXVerticalFrame(myVerticalFrame, GUIDesignAuxiliarFrameFixWidth);
+    if (myType == 'f') {
+        myVerticalCellFrame = new FXVerticalFrame(myVerticalFrame, GUIDesignAuxiliarFrame);
+    } else {
+        myVerticalCellFrame = new FXVerticalFrame(myVerticalFrame, GUIDesignAuxiliarFrameFixWidth);
+    }
     // create elements
     myVerticalFrame->create();
     myTopLabel->create();
@@ -583,25 +596,28 @@ MFXDecalsTable::Column::setColumnLabel(const std::string& text, const std::strin
 
 void
 MFXDecalsTable::Column::adjustColumnWidth() {
-    // declare columnWidth
-    int columnWidth = GUIDesignHeight;
-    // adjust depending of label
-    if (myType == 'f') {
-        // calculate top label width
-        columnWidth = myTopLabel->getFont()->getTextWidth(myTopLabel->getText().text(), myTopLabel->getText().length() + EXTRAMARGING);
-    }
-    // adjust width in all rows
-    for (const auto& row : myTable->myRows) {
-        if (row->getCells().at(myIndex)->getTextField()) {
-            row->getCells().at(myIndex)->getTextField()->setWidth(columnWidth);
-        } else if (row->getCells().at(myIndex)->getButton()) {
-            row->getCells().at(myIndex)->getButton()->setWidth(columnWidth);
+    // filename always extended
+    if (myType != 'f') {
+        // declare columnWidth
+        int columnWidth = GUIDesignHeight;
+        // adjust depending of label
+        if (myType == 's') {
+            // calculate top label width
+            columnWidth = myTopLabel->getFont()->getTextWidth(myTopLabel->getText().text(), myTopLabel->getText().length() + EXTRAMARGING);
         }
+        // adjust width in all rows
+        for (const auto& row : myTable->myRows) {
+            if (row->getCells().at(myIndex)->getTextField()) {
+                row->getCells().at(myIndex)->getTextField()->setWidth(columnWidth);
+            } else if (row->getCells().at(myIndex)->getButton()) {
+                row->getCells().at(myIndex)->getButton()->setWidth(columnWidth);
+            }
+        }
+        // adjust labels and vertical frames
+        myVerticalFrame->setWidth(columnWidth);
+        myTopLabel->setWidth(columnWidth);
+        myVerticalCellFrame->setWidth(columnWidth);
     }
-    // adjust labels and vertical frames
-    myVerticalFrame->setWidth(columnWidth);
-    myTopLabel->setWidth(columnWidth);
-    myVerticalCellFrame->setWidth(columnWidth);
 }
 
 
@@ -621,23 +637,30 @@ MFXDecalsTable::Row::Row(MFXDecalsTable* table) :
         const int numCells = (int)myCells.size();
         // continue depending of type
         switch (table->myColumns.at(columnIndex)->getType()) {
+            case ('f'): {
+                // create textField for values
+                auto textField = new FXTextField(table->myColumns.at(columnIndex)->getVerticalCellFrame(),
+                        GUIDesignTextFieldNCol, table, MID_GNE_TLSTABLE_TEXTFIELD, GUIDesignTextField);
+                myCells.push_back(new Cell(table, textField, columnIndex, numCells));
+                break;
+            }
+            case ('s'): {
+                // create textField for values
+                auto textField = new FXTextField(table->myColumns.at(columnIndex)->getVerticalCellFrame(),
+                    GUIDesignTextFieldNCol, table, MID_GNE_TLSTABLE_TEXTFIELD, GUIDesignTextFieldTLSTable);
+                myCells.push_back(new Cell(table, textField, columnIndex, numCells));
+                break;
+            }
             case ('i'): {
                 // create labels for index
                 auto indexLabel = new FXLabel(table->myColumns.at(columnIndex)->getVerticalCellFrame(),
-                                              toString(myTable->myRows.size()).c_str(), nullptr, GUIDesignLabelThick30);
+                    toString(myTable->myRows.size()).c_str(), nullptr, GUIDesignLabelThick30);
                 auto indexLabelBold = new FXLabel(table->myColumns.at(columnIndex)->getVerticalCellFrame(),
-                                                  toString(myTable->myRows.size()).c_str(), nullptr, GUIDesignLabelThick30);
+                    toString(myTable->myRows.size()).c_str(), nullptr, GUIDesignLabelThick30);
                 // set fonts
                 indexLabel->setFont(myTable->myIndexFont);
                 indexLabelBold->setFont(myTable->myIndexSelectedFont);
                 myCells.push_back(new Cell(table, indexLabel, indexLabelBold, columnIndex, numCells));
-                break;
-            }
-            case ('f'): {
-                // create textField for values
-                auto textField = new FXTextField(table->myColumns.at(columnIndex)->getVerticalCellFrame(),
-                        GUIDesignTextFieldNCol, table, MID_GNE_TLSTABLE_TEXTFIELD, GUIDesignTextFieldTLSTable);
-                myCells.push_back(new Cell(table, textField, columnIndex, numCells));
                 break;
             }
             case ('b'): {
