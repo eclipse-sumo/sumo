@@ -1098,27 +1098,27 @@ msgstr "Unbekannte Nachrichten ID in onCmdLocate"
 
 #: /home/micha/programming/sumo/src/gui/GUISUMOViewParent.cpp:233
 msgid "Junction Chooser"
-msgstr "Knotenpunktauswähler"
+msgstr "Knotenpunktauswahl"
 
 #: /home/micha/programming/sumo/src/gui/GUISUMOViewParent.cpp:237
 msgid "Edge Chooser"
-msgstr "Kantenwähler"
+msgstr "Kantenauswahl"
 
 #: /home/micha/programming/sumo/src/gui/GUISUMOViewParent.cpp:241
 msgid "Vehicle Chooser"
-msgstr "Fahrzeugwähler"
+msgstr "Fahrzeugauswahl"
 
 #: /home/micha/programming/sumo/src/gui/GUISUMOViewParent.cpp:245
 msgid "Person Chooser"
-msgstr "Personenwähler"
+msgstr "Personenauswahl"
 
 #: /home/micha/programming/sumo/src/gui/GUISUMOViewParent.cpp:249
 msgid "Container Chooser"
-msgstr "Containerwähler"
+msgstr "Containerauswahl"
 
 #: /home/micha/programming/sumo/src/gui/GUISUMOViewParent.cpp:253
 msgid "Traffic Lights Chooser"
-msgstr "LSA-Wähler"
+msgstr "LSA-Auswahl"
 
 #: /home/micha/programming/sumo/src/gui/GUISUMOViewParent.cpp:257
 msgid "Additional Objects Chooser"
@@ -1126,11 +1126,11 @@ msgstr "Zusätzliche Objektewähler"
 
 #: /home/micha/programming/sumo/src/gui/GUISUMOViewParent.cpp:261
 msgid "POI Chooser"
-msgstr "Polwähler"
+msgstr "Polauswahl"
 
 #: /home/micha/programming/sumo/src/gui/GUISUMOViewParent.cpp:265
 msgid "Polygon Chooser"
-msgstr "Polygonwähler"
+msgstr "Polygonauswahl"
 
 #: /home/micha/programming/sumo/src\gui\GUITLLogicPhasesTrackerWindow.cpp:269
 #: /home/micha/programming/sumo/src/gui/GUITLLogicPhasesTrackerWindow.cpp:269
