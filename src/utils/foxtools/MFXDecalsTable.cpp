@@ -59,7 +59,7 @@ FXIMPLEMENT(MFXDecalsTable, FXVerticalFrame, MFXDecalsTableMap, ARRAYNUMBER(MFXD
 // ---------------------------------------------------------------------------
 
 MFXDecalsTable::MFXDecalsTable(GUIDialog_ViewSettings* dialogViewSettingsParent, FXComposite *parent) :
-    FXVerticalFrame(parent, GUIDesignAuxiliarFrame),
+    FXVerticalFrame(parent, GUIDesignAuxiliarFrameFixHeight),
     myIndexFont(new FXFont(getApp(), "Segoe UI", 9)),
     myIndexSelectedFont(new FXFont(getApp(), "Segoe UI", 9, FXFont::Bold)),
     myDialogViewSettings(dialogViewSettingsParent) {
@@ -130,6 +130,8 @@ MFXDecalsTable::fillTable() {
     myColumns.at(7)->setColumnLabel("rotation", "");
     myColumns.at(8)->setColumnLabel("layer", "");
     myColumns.at(9)->setColumnLabel("r", "relative");
+    // adjust height (header + rows + add button)
+    setHeight(((int)decals.size() + 2) * GUIDesignHeight);
 }
 
 
@@ -334,18 +336,12 @@ MFXDecalsTable::onCmdOpenDecal(FXObject* sender, FXSelector, void*) {
 
 
 long
-MFXDecalsTable::onCmdAddRow(FXObject* sender, FXSelector, void*) {
-    // search selected add button
-    for (int columnIndex = 0; columnIndex < (int)myColumns.size(); columnIndex++) {
-        for (int rowIndex = 0; rowIndex < (int)myRows.size(); rowIndex++) {
-            if (myRows.at(rowIndex)->getCells().at(columnIndex)->getButton() == sender) {
-                ////
-                return 1;
-            }
-        }
-    }
-    // nothing to focus
-    return 0;
+MFXDecalsTable::onCmdAddRow(FXObject*, FXSelector, void*) {
+    // add a new decal
+    myDialogViewSettings->getSUMOAbstractView()->getDecals().push_back(GUISUMOAbstractView::Decal());
+    // refill table
+    fillTable();
+    return 1;
 }
 
 
