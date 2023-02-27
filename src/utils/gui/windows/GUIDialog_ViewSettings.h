@@ -236,7 +236,6 @@ protected:
     FXRealSpinner* myGridYSizeDialer = nullptr;
 
     FXColorWell* myBackgroundColor = nullptr;
-    FXVerticalFrame* myDecalsFrame = nullptr;
     MFXDecalsTable* myDecalsTable = nullptr;
 
     /// @brief selection colors
