@@ -1251,7 +1251,7 @@ msgstr "&Abbrechen"
 
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:69
 msgid "Breakpoints Editor"
-msgstr "Brechpunktbearbeiter"
+msgstr "Unterbrechungspunkteeditor"
 
 #: /home/micha/programming/sumo/src\gui\dialogs\GUIDialog_Breakpoints.cpp:89
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:89
@@ -10068,8 +10068,8 @@ msgid ""
 "Could not build parking space in netedit; attribute angle cannot be parse to "
 "float."
 msgstr ""
-"Konnte keinen Parkraum in netedit erstellen; Attribute Winkel kann nicht als "
-"float eingelesen werden."
+"Konnte keinen Parkraum in netedit erstellen; Attribut angle kann nicht als "
+"Fließkommazahl eingelesen werden."
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:377
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:377
