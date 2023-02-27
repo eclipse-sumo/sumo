@@ -82,7 +82,7 @@ GUISUMOViewParent::GUISUMOViewParent(FXMDIClient* p, FXMDIMenu* mdimenu,
                                      FXint x, FXint y, FXint w, FXint h) :
     GUIGlChildWindow(p, parentWindow, mdimenu, name, nullptr, ic, opts, x, y, w, h) {
     buildSpeedControlToolbar();
-    myParent->addGLChild(this);
+    myGUIMainWindowParent->addGLChild(this);
 }
 
 
@@ -91,16 +91,16 @@ GUISUMOViewParent::init(FXGLCanvas* share, GUINet& net, GUISUMOViewParent::ViewT
     switch (type) {
         default:
         case VIEW_2D_OPENGL:
-            myView = new GUIViewTraffic(myChildWindowContentFrame, *myParent, this, net, myParent->getGLVisual(), share);
+            myView = new GUIViewTraffic(myChildWindowContentFrame, *myGUIMainWindowParent, this, net, myGUIMainWindowParent->getGLVisual(), share);
             break;
 #ifdef HAVE_OSG
         case VIEW_3D_OSG:
-            myView = new GUIOSGView(myChildWindowContentFrame, *myParent, this, net, myParent->getGLVisual(), share);
+            myView = new GUIOSGView(myChildWindowContentFrame, *myGUIMainWindowParent, this, net, myGUIMainWindowParent->getGLVisual(), share);
             break;
 #endif
     }
     myView->buildViewToolBars(this);
-    if (myParent->isGaming()) {
+    if (myGUIMainWindowParent->isGaming()) {
         myStaticNavigationToolBar->hide();
     }
     return myView;
@@ -108,7 +108,7 @@ GUISUMOViewParent::init(FXGLCanvas* share, GUINet& net, GUISUMOViewParent::ViewT
 
 
 GUISUMOViewParent::~GUISUMOViewParent() {
-    myParent->removeGLChild(this);
+    myGUIMainWindowParent->removeGLChild(this);
 }
 
 
@@ -183,16 +183,16 @@ std::vector<GUIGlID>
 GUISUMOViewParent::getObjectIDs(int messageId) const {
     switch (messageId) {
         case MID_HOTKEY_SHIFT_J_LOCATEJUNCTION:
-            return static_cast<GUINet*>(GUINet::getInstance())->getJunctionIDs(myParent->listInternal());
+            return static_cast<GUINet*>(GUINet::getInstance())->getJunctionIDs(myGUIMainWindowParent->listInternal());
         case MID_HOTKEY_SHIFT_E_LOCATEEDGE:
-            return GUIEdge::getIDs(myParent->listInternal());
+            return GUIEdge::getIDs(myGUIMainWindowParent->listInternal());
         case MID_HOTKEY_SHIFT_V_LOCATEVEHICLE: {
             std::vector<GUIGlID> vehicles;
             if (MSGlobals::gUseMesoSim) {
                 static_cast<GUIMEVehicleControl*>(static_cast<GUINet*>(MSNet::getInstance())->getGUIMEVehicleControl())->insertVehicleIDs(vehicles);
             } else {
                 static_cast<GUIVehicleControl&>(MSNet::getInstance()->getVehicleControl()).insertVehicleIDs(
-                    vehicles, myParent->listParking(), myParent->listTeleporting());
+                    vehicles, myGUIMainWindowParent->listParking(), myGUIMainWindowParent->listTeleporting());
             }
             return vehicles;
         }

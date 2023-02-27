@@ -532,7 +532,7 @@ protected:
     GUIMainWindow* myApp;
 
     /// @brief The parent window
-    GUIGlChildWindow* myParent;
+    GUIGlChildWindow* myGlChildWindowParent;
 
     /// @brief The visualization speed-up
     const SUMORTree* myGrid;

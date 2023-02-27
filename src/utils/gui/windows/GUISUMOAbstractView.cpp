@@ -139,7 +139,7 @@ FXIMPLEMENT_ABSTRACT(GUISUMOAbstractView, FXGLCanvas, GUISUMOAbstractViewMap, AR
 GUISUMOAbstractView::GUISUMOAbstractView(FXComposite* p, GUIMainWindow& app, GUIGlChildWindow* parent, const SUMORTree& grid, FXGLVisual* glVis, FXGLCanvas* share) :
     FXGLCanvas(p, glVis, share, p, MID_GLCANVAS, LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0),
     myApp(&app),
-    myParent(parent),
+    myGlChildWindowParent(parent),
     myGrid(&grid),
     myMouseHotspotX(app.getDefaultCursor()->getHotX()),
     myMouseHotspotY(app.getDefaultCursor()->getHotY()),
@@ -189,7 +189,7 @@ GUISUMOAbstractView::getChanger() const {
 
 void
 GUISUMOAbstractView::updateToolTip() {
-    if (myParent->getParent()->getStaticTooltipView()->isStaticToolTipEnabled()) {
+    if (myGlChildWindowParent->getGUIMainWindowParent()->getStaticTooltipView()->isStaticToolTipEnabled()) {
         update();
     }
 }
@@ -336,10 +336,10 @@ GUISUMOAbstractView::paintGL() {
         drawFPS();
     }
     // check if show tooltip
-    if (myParent->getParent()->getStaticTooltipView()->isStaticToolTipEnabled()) {
+    if (myGlChildWindowParent->getGUIMainWindowParent()->getStaticTooltipView()->isStaticToolTipEnabled()) {
         showToolTipFor(idToolTip);
     } else {
-        myParent->getParent()->getStaticTooltipView()->hideStaticToolTip();
+        myGlChildWindowParent->getGUIMainWindowParent()->getStaticTooltipView()->hideStaticToolTip();
     }
     swapBuffers();
 }
@@ -581,12 +581,12 @@ GUISUMOAbstractView::showToolTipFor(const GUIGlID idToolTip) {
     if (idToolTip != GUIGlObject::INVALID_ID) {
         const GUIGlObject* object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(idToolTip);
         if (object != nullptr) {
-            myParent->getParent()->getStaticTooltipView()->showStaticToolTip(object->getFullName().c_str());
+            myGlChildWindowParent->getGUIMainWindowParent()->getStaticTooltipView()->showStaticToolTip(object->getFullName().c_str());
             return true;
         }
     }
     // nothing to show
-    myParent->getParent()->getStaticTooltipView()->hideStaticToolTip();
+    myGlChildWindowParent->getGUIMainWindowParent()->getStaticTooltipView()->hideStaticToolTip();
     return false;
 }
 
@@ -861,7 +861,7 @@ GUISUMOAbstractView::getFPS() const {
 
 GUIGlChildWindow*
 GUISUMOAbstractView::getGUIGlChildWindow() {
-    return myParent;
+    return myGlChildWindowParent;
 }
 
 
@@ -1691,7 +1691,7 @@ GUISUMOAbstractView::getDecalsLockMutex() {
 
 FXComboBox*
 GUISUMOAbstractView::getColoringSchemesCombo() {
-    return myParent->getColoringSchemesCombo();
+    return myGlChildWindowParent->getColoringSchemesCombo();
 }
 
 

@@ -519,17 +519,17 @@ MFXDecalsTable::Column::Column(MFXDecalsTable* table, const int index, const cha
     if (myType == 'f') {
         // ticked label extended
         myTopLabel = new MFXLabelTooltip(myVerticalFrame, 
-            table->myDialogViewSettings->getSUMOAbstractView()->getGUIGlChildWindow()->getParent()->getStaticTooltipMenu(), 
+            table->myDialogViewSettings->getSUMOAbstractView()->getGUIGlChildWindow()->getGUIMainWindowParent()->getStaticTooltipMenu(), 
             "", nullptr, GUIDesignLabelTLSTable);
     } else if (myType == 'c') {
         // ticked label fixed
         myTopLabel = new MFXLabelTooltip(myVerticalFrame, 
-            table->myDialogViewSettings->getSUMOAbstractView()->getGUIGlChildWindow()->getParent()->getStaticTooltipMenu(), 
+            table->myDialogViewSettings->getSUMOAbstractView()->getGUIGlChildWindow()->getGUIMainWindowParent()->getStaticTooltipMenu(), 
             "", nullptr, GUIDesignLabelTLSTableIndex);
     } else {
         // empty label
         myTopLabel = new MFXLabelTooltip(myVerticalFrame, 
-            table->myDialogViewSettings->getSUMOAbstractView()->getGUIGlChildWindow()->getParent()->getStaticTooltipMenu(),
+            table->myDialogViewSettings->getSUMOAbstractView()->getGUIGlChildWindow()->getGUIMainWindowParent()->getStaticTooltipMenu(),
             "", nullptr, GUIDesignLabelTLSTableEmpty);
     }
     // create vertical frame for cells

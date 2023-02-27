@@ -92,7 +92,7 @@ GNEViewParent::GNEViewParent(FXMDIClient* p, FXMDIMenu* mdimenu, const FXString&
     GUIGlChildWindow(p, parentWindow, mdimenu, name, parentWindow->getToolbarsGrip().navigation, ic, opts, x, y, w, h),
     myGNEAppWindows(parentWindow) {
     // Add child to parent
-    myParent->addGLChild(this);
+    myGUIMainWindowParent->addGLChild(this);
 
     // Create Vertical separator
     new FXVerticalSeparator(myGripNavigationToolbar, GUIDesignVerticalSeparator);
@@ -126,7 +126,7 @@ GNEViewParent::GNEViewParent(FXMDIClient* p, FXMDIMenu* mdimenu, const FXString&
     FXComposite* tmp = new FXComposite(this);
 
     // Create view net
-    GNEViewNet* viewNet = new GNEViewNet(tmp, myViewArea, *myParent, this, net, undoList, myParent->getGLVisual(), share);
+    GNEViewNet* viewNet = new GNEViewNet(tmp, myViewArea, *myGUIMainWindowParent, this, net, undoList, myGUIMainWindowParent->getGLVisual(), share);
 
     // show toolbar grips
     myGNEAppWindows->getToolbarsGrip().buildMenuToolbarsGrip();
@@ -161,7 +161,7 @@ GNEViewParent::~GNEViewParent() {
     // delete toolbar grips
     myGNEAppWindows->getToolbarsGrip().destroyParentToolbarsGrips();
     // Remove child before remove
-    myParent->removeGLChild(this);
+    myGUIMainWindowParent->removeGLChild(this);
 }
 
 
@@ -370,7 +370,7 @@ GNEViewParent::hideFramesArea() {
 
 GUIMainWindow*
 GNEViewParent::getGUIMainWindow() const {
-    return myParent;
+    return myGUIMainWindowParent;
 }
 
 
@@ -484,7 +484,7 @@ GNEViewParent::onCmdMakeSnapshot(FXObject*, FXSelector, void*) {
 
 long
 GNEViewParent::onCmdClose(FXObject*, FXSelector /* sel */, void*) {
-    myParent->handle(this, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_W_CLOSESIMULATION), nullptr);
+    myGUIMainWindowParent->handle(this, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_W_CLOSESIMULATION), nullptr);
     return 1;
 }
 

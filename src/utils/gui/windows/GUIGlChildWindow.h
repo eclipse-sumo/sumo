@@ -35,14 +35,13 @@ class MFXMenuButtonTooltip;
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- *
- */
+
 class GUIGlChildWindow : public FXMDIChild {
     FXDECLARE(GUIGlChildWindow)
+
 public:
     /// @brief constructor
-    GUIGlChildWindow(FXMDIClient* p, GUIMainWindow* parentWindow,
+    GUIGlChildWindow(FXMDIClient* p, GUIMainWindow* GUIMainWindowParent,
                      FXMDIMenu* mdimenu, const FXString& name, FXMenuBar* gripNavigationToolbar,
                      FXIcon* ic = NULL, FXuint opts = 0, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0);
 
@@ -58,10 +57,8 @@ public:
     /// @brief return GUISUMOAbstractView
     GUISUMOAbstractView* getView() const;
 
-    /** @brief Returns the main window
-     * @return This view's parent
-     */
-    GUIMainWindow* getParent();
+    /// @brief Returns the GUIMainWindow parent
+    GUIMainWindow* getGUIMainWindowParent();
 
     /// @name buttons call backs
     /// @{
@@ -102,7 +99,7 @@ protected:
     FOX_CONSTRUCTOR(GUIGlChildWindow)
 
     /// @brief The parent window
-    GUIMainWindow* myParent = nullptr;
+    GUIMainWindow* myGUIMainWindowParent = nullptr;
 
     /// @brief The grip navigation tool bar
     FXMenuBar* myGripNavigationToolbar = nullptr;

@@ -104,7 +104,7 @@ GUIDialog_ChooserAbstract::GUIDialog_ChooserAbstract(GUIGlChildWindow* windowsPa
     myInstantCenter->setCheck(getApp()->reg().readIntEntry("LOCATOR", "autoCenter", 0) == 1);
     refreshList(ids);
     // add child in windowsParent
-    myWindowsParent->getParent()->addChild(this);
+    myWindowsParent->getGUIMainWindowParent()->addChild(this);
     loadWindowPos();
     // create and show dialog
     create();
@@ -114,7 +114,7 @@ GUIDialog_ChooserAbstract::GUIDialog_ChooserAbstract(GUIGlChildWindow* windowsPa
 
 GUIDialog_ChooserAbstract::~GUIDialog_ChooserAbstract() {
     // remove child from windowsParent
-    myWindowsParent->getParent()->removeChild(this);
+    myWindowsParent->getGUIMainWindowParent()->removeChild(this);
     getApp()->reg().writeIntEntry("LOCATOR", "autoCenter", myInstantCenter->getCheck());
     getApp()->reg().writeIntEntry("LOCATOR", "caseSensitive", myCaseSensitive->getCheck());
 }
