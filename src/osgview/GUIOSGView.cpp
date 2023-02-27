@@ -143,7 +143,7 @@ GUIOSGView::GUIOSGView(
         delete (myChanger);
     }
 
-#ifdef DEBUG:
+#ifdef DEBUG
     std::cout << "GUIOSGView::GUIOSGView() #1" << std::endl;
 #endif
 
@@ -153,7 +153,7 @@ GUIOSGView::GUIOSGView(
     myViewer = new osgViewer::Viewer();
     myChanger = new GUIOSGPerspectiveChanger(*this, *myGrid);
 
-#ifdef DEBUG:
+#ifdef DEBUG
     std::cout << "GUIOSGView::GUIOSGView() #2" << std::endl;
 #endif
 
@@ -176,7 +176,7 @@ GUIOSGView::GUIOSGView(
         WRITE_ERROR(TL("Could not load traffic light files."));
     }
 
-#ifdef DEBUG:
+#ifdef DEBUG
     std::cout << "GUIOSGView::GUIOSGView() #3" << std::endl;
 #endif
 
@@ -190,7 +190,7 @@ GUIOSGView::GUIOSGView(
     myPlane->addUpdateCallback(new PlaneMoverCallback(myViewer->getCamera()));
     myRoot->addChild(myPlane);
 
-#ifdef DEBUG:
+#ifdef DEBUG
     std::cout << "GUIOSGView::GUIOSGView() #4" << std::endl;
 #endif
 
@@ -208,7 +208,7 @@ GUIOSGView::GUIOSGView(
     myViewer->setThreadingModel(osgViewer::Viewer::SingleThreaded);
     myViewer->addEventHandler(new PickHandler(this));
 
-#ifdef DEBUG:
+#ifdef DEBUG
     std::cout << "GUIOSGView::GUIOSGView() #5" << std::endl;
 #endif
 
@@ -222,7 +222,7 @@ GUIOSGView::GUIOSGView(
     myViewer->home();
     getApp()->addChore(this, MID_CHORE);
 
-#ifdef DEBUG:
+#ifdef DEBUG
     std::cout << "GUIOSGView::GUIOSGView() #6" << std::endl;
 #endif
 
@@ -235,7 +235,7 @@ GUIOSGView::GUIOSGView(
         myText->setFont(font);
     }
 
-#ifdef DEBUG:
+#ifdef DEBUG
     std::cout << "GUIOSGView::GUIOSGView() #7" << std::endl;
 #endif
 
@@ -246,7 +246,7 @@ GUIOSGView::GUIOSGView(
     myText->setBoundingBoxColor(osg::Vec4(0.0f, 0.0f, 0.2f, 0.5f));
     myText->setBoundingBoxMargin(2.0f);
 
-#ifdef DEBUG:
+#ifdef DEBUG
     std::cout << "GUIOSGView::GUIOSGView() #8" << std::endl;
 #endif
 
@@ -260,7 +260,7 @@ GUIOSGView::GUIOSGView(
     myHUD->setAllowEventFocus(false);
     myHUD->addChild(myTextNode);
     
-#ifdef DEBUG:
+#ifdef DEBUG
     std::cout << "GUIOSGView::GUIOSGView() #9" << std::endl;
 #endif
 
