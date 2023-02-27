@@ -29,6 +29,9 @@ taxi
 # test adding vehicles
 add
 
+# test traci access to cfmodel features
+cfmodel
+
 # Tests the vehicle API
 vehicle
 
@@ -111,6 +114,3 @@ ignoreJunctionFoes
 
 # retrieve vehicles that are not visible in the network
 getInvisible
-
-# retrieve tripinfo statistics
-tripinfoRetrieval

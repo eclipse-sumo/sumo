@@ -65,6 +65,8 @@ vss:vss.xml
 rawdump:rawdump.xml
 fcd:fcd.xml
 fcd2:fcd2.xml
+fcd3:fcd3.xml
+fcd4:fcd4.xml
 lanechanges:lanechanges.xml
 results:results.csv
 tls_state:tls_state.xml
@@ -123,6 +125,8 @@ tripinfo2:<!--{[->]}-->
 rawdump:<!--{[->]}-->
 fcd:<!--{[->]}-->
 fcd2:<!--{[->]}-->
+fcd3:<!--{[->]}-->
+fcd4:<!--{[->]}-->
 stops:<!--{[->]}-->
 stopinfos:<!--{[->]}-->
 collisions:<!--{[->]}-->

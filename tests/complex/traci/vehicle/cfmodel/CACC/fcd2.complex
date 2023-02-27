@@ -1,0 +1,719 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-02-27 13:39:12 by Eclipse SUMO sumo Version v1_16_0+0794-bd10729
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <fcd-output value="fcd2.xml"/>
+        <fcd-output.attributes value="speed"/>
+    </output>
+
+    <time>
+        <step-length value="0.5"/>
+    </time>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <no-step-log value="true"/>
+    </report>
+
+    <traci_server>
+        <remote-port value="58503"/>
+    </traci_server>
+
+</configuration>
+-->
+
+<fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
+    <timestep time="0.00">
+        <vehicle id="ego" speed="33.36"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="0.50">
+        <vehicle id="ego" speed="33.36"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="1.00">
+        <vehicle id="ego" speed="33.36"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="1.50">
+        <vehicle id="ego" speed="33.36"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="2.00">
+        <vehicle id="ego" speed="33.36"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="2.50">
+        <vehicle id="ego" speed="33.36"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="3.00">
+        <vehicle id="ego" speed="33.36"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="3.50">
+        <vehicle id="ego" speed="33.36"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="4.00">
+        <vehicle id="ego" speed="33.36"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="4.50">
+        <vehicle id="ego" speed="33.36"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="5.00">
+        <vehicle id="ego" speed="33.36"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="5.50">
+        <vehicle id="ego" speed="33.36"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="6.00">
+        <vehicle id="ego" speed="33.36"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="6.50">
+        <vehicle id="ego" speed="33.36"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="7.00">
+        <vehicle id="ego" speed="33.36"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="7.50">
+        <vehicle id="ego" speed="33.36"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="8.00">
+        <vehicle id="ego" speed="33.36"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="8.50">
+        <vehicle id="ego" speed="31.72"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="9.00">
+        <vehicle id="ego" speed="29.49"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="9.50">
+        <vehicle id="ego" speed="27.26"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="10.00">
+        <vehicle id="ego" speed="25.03"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="10.50">
+        <vehicle id="ego" speed="22.80"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="11.00">
+        <vehicle id="ego" speed="20.57"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="11.50">
+        <vehicle id="ego" speed="18.35"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="12.00">
+        <vehicle id="ego" speed="16.13"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="12.50">
+        <vehicle id="ego" speed="13.92"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="13.00">
+        <vehicle id="ego" speed="11.71"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="13.50">
+        <vehicle id="ego" speed="9.51"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="14.00">
+        <vehicle id="ego" speed="7.32"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="14.50">
+        <vehicle id="ego" speed="5.16"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="15.00">
+        <vehicle id="ego" speed="2.07"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="15.50">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="16.00">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="16.50">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="17.00">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="17.50">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="18.00">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="18.50">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="19.00">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="19.50">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="20.00">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="20.50">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="21.00">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="21.50">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="22.00">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="22.50">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="23.00">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="23.50">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="24.00">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="24.50">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="25.00">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="25.50">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="26.00">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="26.50">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="27.00">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="27.50">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="28.00">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="28.50">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="29.00">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="29.50">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="30.00">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="30.50">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="31.00">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="31.50">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="32.00">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="32.50">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="33.00">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="33.50">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="34.00">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="34.50">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="35.00">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="35.50">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="36.00">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="36.50">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="37.00">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="37.50">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="38.00">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="38.50">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="39.00">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="39.50">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="40.00">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="40.50">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="41.00">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="41.50">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="42.00">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="42.50">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="43.00">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="43.50">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="44.00">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="44.50">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="45.00">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="45.50">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="46.00">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="46.50">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="47.00">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="47.50">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="48.00">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="48.50">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="49.00">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="49.50">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="50.00">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="50.50">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="51.00">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="51.50">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="52.00">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="52.50">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="53.00">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="53.50">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="54.00">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="54.50">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="55.00">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="55.50">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="56.00">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="56.50">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="57.00">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="57.50">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="58.00">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="58.50">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="59.00">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="59.50">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="60.00">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="0.00"/>
+    </timestep>
+    <timestep time="60.50">
+        <vehicle id="ego" speed="0.00"/>
+        <vehicle id="stopped" speed="1.30"/>
+    </timestep>
+    <timestep time="61.00">
+        <vehicle id="ego" speed="1.30"/>
+        <vehicle id="stopped" speed="2.60"/>
+    </timestep>
+    <timestep time="61.50">
+        <vehicle id="ego" speed="2.60"/>
+        <vehicle id="stopped" speed="3.90"/>
+    </timestep>
+    <timestep time="62.00">
+        <vehicle id="ego" speed="3.90"/>
+        <vehicle id="stopped" speed="5.20"/>
+    </timestep>
+    <timestep time="62.50">
+        <vehicle id="ego" speed="5.20"/>
+        <vehicle id="stopped" speed="6.50"/>
+    </timestep>
+    <timestep time="63.00">
+        <vehicle id="ego" speed="6.50"/>
+        <vehicle id="stopped" speed="7.80"/>
+    </timestep>
+    <timestep time="63.50">
+        <vehicle id="ego" speed="7.80"/>
+        <vehicle id="stopped" speed="9.10"/>
+    </timestep>
+    <timestep time="64.00">
+        <vehicle id="ego" speed="9.10"/>
+        <vehicle id="stopped" speed="10.40"/>
+    </timestep>
+    <timestep time="64.50">
+        <vehicle id="ego" speed="10.40"/>
+        <vehicle id="stopped" speed="11.70"/>
+    </timestep>
+    <timestep time="65.00">
+        <vehicle id="ego" speed="11.70"/>
+        <vehicle id="stopped" speed="13.00"/>
+    </timestep>
+    <timestep time="65.50">
+        <vehicle id="ego" speed="13.00"/>
+        <vehicle id="stopped" speed="14.30"/>
+    </timestep>
+    <timestep time="66.00">
+        <vehicle id="ego" speed="14.30"/>
+        <vehicle id="stopped" speed="15.60"/>
+    </timestep>
+    <timestep time="66.50">
+        <vehicle id="ego" speed="15.60"/>
+        <vehicle id="stopped" speed="16.90"/>
+    </timestep>
+    <timestep time="67.00">
+        <vehicle id="ego" speed="16.90"/>
+        <vehicle id="stopped" speed="18.20"/>
+    </timestep>
+    <timestep time="67.50">
+        <vehicle id="ego" speed="18.20"/>
+        <vehicle id="stopped" speed="19.50"/>
+    </timestep>
+    <timestep time="68.00">
+        <vehicle id="ego" speed="19.50"/>
+        <vehicle id="stopped" speed="20.80"/>
+    </timestep>
+    <timestep time="68.50">
+        <vehicle id="ego" speed="20.78"/>
+        <vehicle id="stopped" speed="22.10"/>
+    </timestep>
+    <timestep time="69.00">
+        <vehicle id="ego" speed="22.08"/>
+        <vehicle id="stopped" speed="23.40"/>
+    </timestep>
+    <timestep time="69.50">
+        <vehicle id="ego" speed="23.36"/>
+        <vehicle id="stopped" speed="24.70"/>
+    </timestep>
+    <timestep time="70.00">
+        <vehicle id="ego" speed="24.65"/>
+        <vehicle id="stopped" speed="26.00"/>
+    </timestep>
+    <timestep time="70.50">
+        <vehicle id="ego" speed="25.95"/>
+        <vehicle id="stopped" speed="27.30"/>
+    </timestep>
+    <timestep time="71.00">
+        <vehicle id="ego" speed="27.24"/>
+        <vehicle id="stopped" speed="28.60"/>
+    </timestep>
+    <timestep time="71.50">
+        <vehicle id="ego" speed="28.46"/>
+        <vehicle id="stopped" speed="29.90"/>
+    </timestep>
+    <timestep time="72.00">
+        <vehicle id="ego" speed="29.44"/>
+        <vehicle id="stopped" speed="31.20"/>
+    </timestep>
+    <timestep time="72.50">
+        <vehicle id="ego" speed="30.23"/>
+        <vehicle id="stopped" speed="32.50"/>
+    </timestep>
+    <timestep time="73.00">
+        <vehicle id="ego" speed="30.85"/>
+        <vehicle id="stopped" speed="33.36"/>
+    </timestep>
+    <timestep time="73.50">
+        <vehicle id="ego" speed="31.35"/>
+        <vehicle id="stopped" speed="33.36"/>
+    </timestep>
+    <timestep time="74.00">
+        <vehicle id="ego" speed="31.76"/>
+        <vehicle id="stopped" speed="33.36"/>
+    </timestep>
+    <timestep time="74.50">
+        <vehicle id="ego" speed="32.08"/>
+        <vehicle id="stopped" speed="33.36"/>
+    </timestep>
+    <timestep time="75.00">
+        <vehicle id="ego" speed="32.33"/>
+        <vehicle id="stopped" speed="33.36"/>
+    </timestep>
+    <timestep time="75.50">
+        <vehicle id="ego" speed="32.54"/>
+        <vehicle id="stopped" speed="33.36"/>
+    </timestep>
+    <timestep time="76.00">
+        <vehicle id="ego" speed="32.70"/>
+        <vehicle id="stopped" speed="33.36"/>
+    </timestep>
+    <timestep time="76.50">
+        <vehicle id="ego" speed="32.83"/>
+        <vehicle id="stopped" speed="33.36"/>
+    </timestep>
+    <timestep time="77.00">
+        <vehicle id="ego" speed="32.94"/>
+        <vehicle id="stopped" speed="33.36"/>
+    </timestep>
+    <timestep time="77.50">
+        <vehicle id="ego" speed="33.02"/>
+        <vehicle id="stopped" speed="33.36"/>
+    </timestep>
+    <timestep time="78.00">
+        <vehicle id="ego" speed="33.09"/>
+        <vehicle id="stopped" speed="33.36"/>
+    </timestep>
+    <timestep time="78.50">
+        <vehicle id="ego" speed="33.14"/>
+        <vehicle id="stopped" speed="33.36"/>
+    </timestep>
+    <timestep time="79.00">
+        <vehicle id="ego" speed="33.19"/>
+        <vehicle id="stopped" speed="33.36"/>
+    </timestep>
+    <timestep time="79.50">
+        <vehicle id="ego" speed="33.22"/>
+        <vehicle id="stopped" speed="33.36"/>
+    </timestep>
+    <timestep time="80.00">
+        <vehicle id="ego" speed="33.25"/>
+        <vehicle id="stopped" speed="33.36"/>
+    </timestep>
+    <timestep time="80.50">
+        <vehicle id="ego" speed="33.27"/>
+        <vehicle id="stopped" speed="33.36"/>
+    </timestep>
+    <timestep time="81.00">
+        <vehicle id="ego" speed="33.29"/>
+        <vehicle id="stopped" speed="33.36"/>
+    </timestep>
+    <timestep time="81.50">
+        <vehicle id="ego" speed="33.30"/>
+        <vehicle id="stopped" speed="33.36"/>
+    </timestep>
+    <timestep time="82.00">
+        <vehicle id="ego" speed="33.31"/>
+        <vehicle id="stopped" speed="33.36"/>
+    </timestep>
+    <timestep time="82.50">
+        <vehicle id="ego" speed="33.32"/>
+        <vehicle id="stopped" speed="33.36"/>
+    </timestep>
+    <timestep time="83.00">
+        <vehicle id="ego" speed="33.33"/>
+        <vehicle id="stopped" speed="33.36"/>
+    </timestep>
+    <timestep time="83.50">
+        <vehicle id="ego" speed="33.34"/>
+        <vehicle id="stopped" speed="33.36"/>
+    </timestep>
+    <timestep time="84.00">
+        <vehicle id="ego" speed="33.34"/>
+        <vehicle id="stopped" speed="33.36"/>
+    </timestep>
+    <timestep time="84.50">
+        <vehicle id="ego" speed="33.35"/>
+    </timestep>
+    <timestep time="85.00">
+        <vehicle id="ego" speed="33.36"/>
+    </timestep>
+    <timestep time="85.50"/>
+</fcd-export>
