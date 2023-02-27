@@ -447,6 +447,9 @@ public:
     /// @brief retrieve FPS
     double getFPS() const;
 
+    /// @brief get GUIGlChildWindow
+    GUIGlChildWindow* getGUIGlChildWindow();
+
 protected:
     /// @brief FOX needs this
     FOX_CONSTRUCTOR(GUISUMOAbstractView)

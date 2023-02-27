@@ -122,7 +122,7 @@ MFXDecalsTable::fillTable() {
     myColumns.at(6)->setColumnLabel("height", "");
     myColumns.at(7)->setColumnLabel("rotation", "");
     myColumns.at(8)->setColumnLabel("layer", "");
-    myColumns.at(9)->setColumnLabel("relative", "");
+    myColumns.at(9)->setColumnLabel("r", "relative");
 }
 
 
@@ -517,11 +517,20 @@ MFXDecalsTable::Column::Column(MFXDecalsTable* table, const int index, const cha
     myVerticalFrame = new FXVerticalFrame(table, GUIDesignAuxiliarTLSTable);
     // create top label
     if (myType == 'f') {
-        // ticked label
-        myTopLabel = new FXLabel(myVerticalFrame, "", nullptr, GUIDesignLabelTLSTable);
+        // ticked label extended
+        myTopLabel = new MFXLabelTooltip(myVerticalFrame, 
+            table->myDialogViewSettings->getSUMOAbstractView()->getGUIGlChildWindow()->getParent()->getStaticTooltipMenu(), 
+            "", nullptr, GUIDesignLabelTLSTable);
+    } else if (myType == 'c') {
+        // ticked label fixed
+        myTopLabel = new MFXLabelTooltip(myVerticalFrame, 
+            table->myDialogViewSettings->getSUMOAbstractView()->getGUIGlChildWindow()->getParent()->getStaticTooltipMenu(), 
+            "", nullptr, GUIDesignLabelTLSTableIndex);
     } else {
         // empty label
-        myTopLabel = new FXLabel(myVerticalFrame, "", nullptr, GUIDesignLabelTLSTableEmpty);
+        myTopLabel = new MFXLabelTooltip(myVerticalFrame, 
+            table->myDialogViewSettings->getSUMOAbstractView()->getGUIGlChildWindow()->getParent()->getStaticTooltipMenu(),
+            "", nullptr, GUIDesignLabelTLSTableEmpty);
     }
     // create vertical frame for cells
     myVerticalCellFrame = new FXVerticalFrame(myVerticalFrame, GUIDesignAuxiliarTLSTable);

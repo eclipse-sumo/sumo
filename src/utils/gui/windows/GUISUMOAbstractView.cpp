@@ -858,6 +858,13 @@ GUISUMOAbstractView::getFPS() const {
     return 1000.0 / MAX2((long)1, myFrameDrawTime);
 }
 
+
+GUIGlChildWindow*
+GUISUMOAbstractView::getGUIGlChildWindow() {
+    return myParent;
+}
+
+
 void
 GUISUMOAbstractView::drawFPS() {
     glMatrixMode(GL_PROJECTION);

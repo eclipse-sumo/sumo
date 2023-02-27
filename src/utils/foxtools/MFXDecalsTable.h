@@ -22,8 +22,8 @@
 
 #include <vector>
 
-#include <utils/foxtools/fxheader.h>
 #include <utils/common/UtilExceptions.h>
+#include <utils/foxtools/MFXLabelTooltip.h>
 
 // ===========================================================================
 // class declaration
@@ -206,7 +206,7 @@ protected:
         FXVerticalFrame* myVerticalFrame = nullptr;
 
         /// @brief column top tooltip label
-        FXLabel* myTopLabel = nullptr;
+        MFXLabelTooltip* myTopLabel = nullptr;
 
         /// @brief vertical frame
         FXVerticalFrame* myVerticalCellFrame = nullptr;
