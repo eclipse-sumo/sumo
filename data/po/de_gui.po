@@ -3913,11 +3913,11 @@ msgid ""
 "settings override the default. Must be a multiple of the simulation step-"
 "length."
 msgstr ""
-"Standardintervall (in Sekunden) zwischen action points im "
-"Fahrzeugfolgemodell sowie im Fahrstreifenwechselmodell. Identisch mit dem "
-"Simulationszeitschritt falls nicht definiert. Fahrzeug- oder "
-"fahrzeugtypspezifische Werte übersteuern den Standardwert. Der Wert muss ein "
-"Vielfaches des Simulationszeitschrittes sein."
+"Länge der Standardintervalllänge zwischen Aktionspunkten für die Autofolge- "
+"und Fahrstreifenwechselmodelle (in Sekunden). Wenn nicht angegeben, wird "
+"standardmäßig die Simulationsschrittweite verwendet. Fahrzeug oder "
+"Fahrzeugtyp spezifische Einstellungen setzen die Standardeinstellung außer "
+"Kraft. Muss ein Vielfaches der Simulationsschrittlänge sein."
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:469
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:469
