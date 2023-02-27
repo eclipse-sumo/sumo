@@ -76,7 +76,7 @@ FXIMPLEMENT(GNETLSTable, FXHorizontalFrame, GNETLSTableMap, ARRAYNUMBER(GNETLSTa
 // ---------------------------------------------------------------------------
 
 GNETLSTable::GNETLSTable(GNETLSEditorFrame::TLSPhases* TLSPhasesParent) :
-    FXHorizontalFrame(TLSPhasesParent->getCollapsableFrame(), GUIDesignAuxiliarTLSTable),
+    FXHorizontalFrame(TLSPhasesParent->getCollapsableFrame(), GUIDesignAuxiliarFrameFixWidth),
     myProgramFont(new FXFont(getApp(), "Courier New", 10)),
     myIndexFont(new FXFont(getApp(), "Segoe UI", 9)),
     myIndexSelectedFont(new FXFont(getApp(), "Segoe UI", 9, FXFont::Bold)),
@@ -1051,7 +1051,7 @@ GNETLSTable::Column::Column(GNETLSTable* table, const int index, const char type
     myIndex(index),
     myType(type) {
     // create vertical frame
-    myVerticalFrame = new FXVerticalFrame(table, GUIDesignAuxiliarTLSTable);
+    myVerticalFrame = new FXVerticalFrame(table, GUIDesignAuxiliarFrameFixWidth);
     // create top label
     switch (myType) {
         case 's':
@@ -1062,31 +1062,31 @@ GNETLSTable::Column::Column(GNETLSTable* table, const int index, const char type
             // empty label
             myTopLabel = new MFXLabelTooltip(myVerticalFrame,
                                              table->getTLSPhasesParent()->getTLSEditorParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
-                                             "", nullptr, GUIDesignLabelTLSTableEmpty);
+                                             "", nullptr, GUIDesignLabelFixedWidth);
             break;
         default:
             // ticked label
             myTopLabel = new MFXLabelTooltip(myVerticalFrame,
                                              table->getTLSPhasesParent()->getTLSEditorParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
-                                             "", nullptr, GUIDesignLabelTLSTableEmpty);
+                                             "", nullptr, GUIDesignLabelFixedWidth);
             break;
     }
     // create vertical frame for cells
-    myVerticalCellFrame = new FXVerticalFrame(myVerticalFrame, GUIDesignAuxiliarTLSTable);
+    myVerticalCellFrame = new FXVerticalFrame(myVerticalFrame, GUIDesignAuxiliarFrameFixWidth);
     // create bot label
     switch (myType) {
         case 's':
             // label with icon
-            myBotLabel = new FXLabel(myVerticalFrame, "", GUIIconSubSys::getIcon(GUIIcon::SUM), GUIDesignLabelTLSTable);
+            myBotLabel = new FXLabel(myVerticalFrame, "", GUIIconSubSys::getIcon(GUIIcon::SUM), GUIDesignLabelFixedWidthTicked);
             break;
         case 'u':
         case 'p':
             // ticked label
-            myBotLabel = new FXLabel(myVerticalFrame, "", nullptr, GUIDesignLabelTLSTable);
+            myBotLabel = new FXLabel(myVerticalFrame, "", nullptr, GUIDesignLabelFixedWidthTicked);
             break;
         default:
             // empty label
-            myBotLabel = new FXLabel(myVerticalFrame, "", nullptr, GUIDesignLabelTLSTableEmpty);
+            myBotLabel = new FXLabel(myVerticalFrame, "", nullptr, GUIDesignLabelFixedWidth);
             break;
     }
     // create elements
@@ -1210,9 +1210,9 @@ GNETLSTable::Row::Row(GNETLSTable* table) :
             case ('s'): {
                 // create labels for index
                 auto indexLabel = new FXLabel(table->myColumns.at(columnIndex)->getVerticalCellFrame(),
-                                              toString(myTable->myRows.size()).c_str(), nullptr, GUIDesignLabelTLSTableIndex);
+                                              toString(myTable->myRows.size()).c_str(), nullptr, GUIDesignLabelThick30);
                 auto indexLabelBold = new FXLabel(table->myColumns.at(columnIndex)->getVerticalCellFrame(),
-                                                  toString(myTable->myRows.size()).c_str(), nullptr, GUIDesignLabelTLSTableIndex);
+                                                  toString(myTable->myRows.size()).c_str(), nullptr, GUIDesignLabelThick30);
                 // set fonts
                 indexLabel->setFont(myTable->myIndexFont);
                 indexLabelBold->setFont(myTable->myIndexSelectedFont);

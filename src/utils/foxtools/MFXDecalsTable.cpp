@@ -514,26 +514,31 @@ MFXDecalsTable::Column::Column(MFXDecalsTable* table, const int index, const cha
     myIndex(index),
     myType(type) {
     // create vertical frame
-    myVerticalFrame = new FXVerticalFrame(table, GUIDesignAuxiliarTLSTable);
+    myVerticalFrame = new FXVerticalFrame(table, GUIDesignAuxiliarFrameFixWidth);
     // create top label
     if (myType == 'f') {
         // ticked label extended
         myTopLabel = new MFXLabelTooltip(myVerticalFrame, 
             table->myDialogViewSettings->getSUMOAbstractView()->getGUIGlChildWindow()->getGUIMainWindowParent()->getStaticTooltipMenu(), 
-            "", nullptr, GUIDesignLabelTLSTable);
+            "", nullptr, GUIDesignLabelFixedWidthTicked);
     } else if (myType == 'c') {
-        // ticked label fixed
+        // ticked label for checkbox
         myTopLabel = new MFXLabelTooltip(myVerticalFrame, 
             table->myDialogViewSettings->getSUMOAbstractView()->getGUIGlChildWindow()->getGUIMainWindowParent()->getStaticTooltipMenu(), 
-            "", nullptr, GUIDesignLabelTLSTableIndex);
+            "", nullptr, GUIDesignLabelThick30);
+    } else if (myType == 'i') {
+        // ticked label for index
+        myTopLabel = new MFXLabelTooltip(myVerticalFrame, 
+            table->myDialogViewSettings->getSUMOAbstractView()->getGUIGlChildWindow()->getGUIMainWindowParent()->getStaticTooltipMenu(), 
+            "", nullptr, GUIDesignLabel30);
     } else {
-        // empty label
+        // empty label (for buttons)
         myTopLabel = new MFXLabelTooltip(myVerticalFrame, 
             table->myDialogViewSettings->getSUMOAbstractView()->getGUIGlChildWindow()->getGUIMainWindowParent()->getStaticTooltipMenu(),
-            "", nullptr, GUIDesignLabelTLSTableEmpty);
+            "", nullptr, GUIDesignLabelFixedWidth);
     }
     // create vertical frame for cells
-    myVerticalCellFrame = new FXVerticalFrame(myVerticalFrame, GUIDesignAuxiliarTLSTable);
+    myVerticalCellFrame = new FXVerticalFrame(myVerticalFrame, GUIDesignAuxiliarFrameFixWidth);
     // create elements
     myVerticalFrame->create();
     myTopLabel->create();
@@ -619,9 +624,9 @@ MFXDecalsTable::Row::Row(MFXDecalsTable* table) :
             case ('i'): {
                 // create labels for index
                 auto indexLabel = new FXLabel(table->myColumns.at(columnIndex)->getVerticalCellFrame(),
-                                              toString(myTable->myRows.size()).c_str(), nullptr, GUIDesignLabelTLSTableIndex);
+                                              toString(myTable->myRows.size()).c_str(), nullptr, GUIDesignLabelThick30);
                 auto indexLabelBold = new FXLabel(table->myColumns.at(columnIndex)->getVerticalCellFrame(),
-                                                  toString(myTable->myRows.size()).c_str(), nullptr, GUIDesignLabelTLSTableIndex);
+                                                  toString(myTable->myRows.size()).c_str(), nullptr, GUIDesignLabelThick30);
                 // set fonts
                 indexLabel->setFont(myTable->myIndexFont);
                 indexLabelBold->setFont(myTable->myIndexSelectedFont);
