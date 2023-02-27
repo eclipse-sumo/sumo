@@ -273,7 +273,29 @@ MFXDecalsTable::onCmdKeyPress(FXObject* sender, FXSelector sel, void* ptr) {
 
 
 long
-MFXDecalsTable::onCmdOpenDecal(FXObject*, FXSelector, void*) {
+MFXDecalsTable::onCmdOpenDecal(FXObject* sender, FXSelector, void*) {
+    // configure open dialog
+    FXFileDialog opendialog(this, TL("Open decal"));
+    // select existing file
+    opendialog.setSelectMode(SELECTFILE_EXISTING);
+    // set icon and pattern list
+    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN));
+    opendialog.setPatternList(TL("All files (*)"));
+    // set current folder
+    if (gCurrentFolder.length() != 0) {
+        opendialog.setDirectory(gCurrentFolder);
+    }
+    // open dialog
+    opendialog.execute();
+    // check if file exist
+    if (!opendialog.getFilename().empty()) {
+        // set filename
+        for (int rowIndex = 0; rowIndex < (int)myRows.size(); rowIndex++) {
+            if (myRows.at(rowIndex)->getCells().at(1)->getButton() == sender) {
+                myRows.at(rowIndex)->getCells().at(2)->getTextField()->setText(opendialog.getFilename());
+            }
+        } 
+    }
     return 1;
 }
 
@@ -660,7 +682,7 @@ MFXDecalsTable::Row::Row(MFXDecalsTable* table) :
                 // create button for open decal
                 auto button = new FXButton(table->myColumns.at(columnIndex)->getVerticalCellFrame(),
                     (std::string("\t") + TL("Open decal") + std::string("\t") + TL("Open decal.")).c_str(),
-                    GUIIconSubSys::getIcon(GUIIcon::OPEN), table, MID_GNE_TLSTABLE_REMOVEPHASE, GUIDesignButtonIcon);
+                    GUIIconSubSys::getIcon(GUIIcon::OPEN), table, MID_DECALSTABLE_OPEN, GUIDesignButtonIcon);
                 myCells.push_back(new Cell(table, button, columnIndex, numCells));
                 break;
             }
