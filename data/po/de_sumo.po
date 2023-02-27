@@ -2728,12 +2728,14 @@ msgstr ""
 msgid "Select default car following model (Krauss, IDM, ...)"
 msgstr "Standardfahrzeugfolgemodell (Krauss, IDM, ...) auswählen"
 
-#: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:482
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:482
 msgid ""
 "Select default speed deviation. A negative value implies vClass specific "
 "defaults (0.1 for the default passenger class"
 msgstr ""
+"Standardgeschwindigkeitsabweichung auswählen. Ein negativer Wert impliziert "
+"Fahrzeugklassen-spezifische Standardwerte (0,1 für die Standard-"
+"Passagierklasse"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:485
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:485
@@ -2743,10 +2745,9 @@ msgid ""
 "specific default or the given FLOAT in m/s^2"
 msgstr ""
 
-#: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:488
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:488
 msgid "Use Kirchhoff's laws for solving overhead wire circuit"
-msgstr ""
+msgstr "Kirchhoff´s Regel zum Lösen der Oberleitungsschaltung verwenden"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:491
 msgid ""
@@ -2819,12 +2820,14 @@ msgid ""
 "disable squeezing)"
 msgstr ""
 
-#: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:523
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:523
 msgid ""
 "Time in seconds after which pedestrians start squeezing through a jam while "
 "on a narrow lane when using model 'striping'"
 msgstr ""
+"Zeit in Sekunden, nach der Fußgänger beginnen, sich auf einen schmalen "
+"Fahrstreifen durch einen Stau zu drängen, wenn das Modell 'Striping' "
+"verwendet wird"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:526
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:526
@@ -2891,17 +2894,17 @@ msgid ""
 "estimated time loss ahead of the intersection onto the internal edges"
 msgstr ""
 
-#: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:589
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:589
 msgid ""
 "When set, trips between the same origin and destination will share a taxi by "
 "default"
 msgstr ""
+"Wenn festgelegt, teilen sich Fahrten zwischen demselben Start- und Zielort "
+"standardmäßig ein Taxi"
 
-#: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:598
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:598
 msgid "Replay exact rerouting sequence from vehroute-output"
-msgstr ""
+msgstr "Wiedergabe der genauen Umleitungssequenz aus der Fahrzeugroutenausgabe"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:603
 #: /home/micha/programming/sumo/src\router\ROFrame.cpp:59
@@ -4267,21 +4270,18 @@ msgstr ""
 "Das Element oder der Knoten mit der letzten ID wurden nicht im Kreislauf "
 "gefunden!"
 
-#: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Emissions.cpp:47
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Emissions.cpp:47
 msgid "Recording begin time for emission-data"
-msgstr ""
+msgstr "Zeichnet die Anfangszeit für Emissionsdaten auf"
 
-#: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Emissions.cpp:50
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Emissions.cpp:50
 msgid "Recording period for emission-output"
-msgstr ""
+msgstr "Zeichnet die Periode für die Emissionsausgabe auf"
 
-#: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Example.cpp:48
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Example.cpp:44
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Example.cpp:48
 msgid "Example Device"
-msgstr ""
+msgstr "Beispieleinrichtung"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Example.cpp:48
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Example.cpp:48
@@ -4302,22 +4302,18 @@ msgstr "Ungültiger Wert '%' für den Fahrzeugparameter 'Beispiel'"
 msgid "Invalid value '%'for vType parameter 'example'"
 msgstr "Ungültiger Wert '%' für den Fahrzeugtypparameter 'Beispiel'"
 
-#: /home/micha/programming/sumo/src\microsim\devices\MSDevice_FCD.cpp:67
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_FCD.cpp:67
 msgid "Recording begin time for FCD-data"
-msgstr ""
+msgstr "Beginzeit für FCD-Daten aufzeichnen"
 
-#: /home/micha/programming/sumo/src\microsim\devices\MSDevice_FCD.cpp:70
-#: /home/micha/programming/sumo/src\microsim\devices\MSTransportableDevice_FCD.cpp:49
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_FCD.cpp:70
 #: /home/micha/programming/sumo/src/microsim/devices/MSTransportableDevice_FCD.cpp:49
 msgid "Recording period for FCD-data"
-msgstr ""
+msgstr "Periode für FCD-Daten aufzeichnen"
 
-#: /home/micha/programming/sumo/src\microsim\devices\MSDevice_FCD.cpp:73
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_FCD.cpp:73
 msgid "Record objects in a radius around equipped vehicles"
-msgstr ""
+msgstr "Objekte im Umkreis um ausgerüstete Fahrzeuge aufzeichnen"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_FCD.cpp:123
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_FCD.cpp:123
@@ -4339,11 +4335,12 @@ msgstr ""
 msgid "Unknown attribute '%' to write in fcd output."
 msgstr "Unbekanntes Attribut '%' für die fcd-Ausgabe."
 
-#: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Friction.cpp:48
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Friction.cpp:48
 msgid ""
 "The measurement noise parameter which can be applied to the friction device"
 msgstr ""
+"Der Messgeräuschparameter, der auf die Reibungsvorrichtung angewendet werden "
+"kann"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Friction.cpp:50
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Friction.cpp:50
@@ -4352,20 +4349,18 @@ msgid ""
 "-> e.g. to force false measurements"
 msgstr ""
 
-#: /home/micha/programming/sumo/src\microsim\devices\MSDevice_GLOSA.cpp:49
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_GLOSA.cpp:49
 msgid "The communication range to the traffic light"
-msgstr ""
+msgstr "Die Kommunikationsreichweite zur LSA"
 
-#: /home/micha/programming/sumo/src\microsim\devices\MSDevice_GLOSA.cpp:52
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_GLOSA.cpp:52
 msgid "The maximum speed factor when approaching a green light"
 msgstr ""
+"Der maximale Geschwindigkeitsfaktor bei der Annäherung an eine grüne LSA"
 
-#: /home/micha/programming/sumo/src\microsim\devices\MSDevice_GLOSA.cpp:55
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_GLOSA.cpp:55
 msgid "Minimum speed when coasting towards a red light"
-msgstr ""
+msgstr "Mindestgeschwindigkeit beim Annähern auf eine rote LSA"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_GLOSA.cpp:171
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_GLOSA.cpp:171
@@ -4375,67 +4370,62 @@ msgstr ""
 "Ungültiger Wert '%' für den Parameter 'device.glosa.range' der "
 "Lichtsignalanlage '%'"
 
-#: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Routing.cpp:54
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Routing.cpp:54
 msgid "The period with which the vehicle shall be rerouted"
-msgstr ""
+msgstr "Der Zeitraum, in dem das Fahrzeug umgeleitet werden soll"
 
-#: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Routing.cpp:58
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Routing.cpp:58
 msgid "The rerouting period before depart"
-msgstr ""
+msgstr "Der Umleitungszeitraum vor der Abfahrt"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Routing.cpp:62
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Routing.cpp:62
 msgid "The weight of prior edge weights for exponential moving average"
 msgstr ""
 
-#: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Routing.cpp:66
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Routing.cpp:66
 msgid "The number of steps for moving average weight of prior edge weights"
 msgstr ""
+"Die Anzahl der Schritte für die gleitende durchschnittliche Gewichtung "
+"vorheriger Kantengewichtungen"
 
-#: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Routing.cpp:70
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Routing.cpp:70
 msgid "The interval for updating the edge weights"
-msgstr ""
+msgstr "Das Intervall zum Aktualisieren der Kantengewichte"
 
-#: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Routing.cpp:75
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Routing.cpp:75
 msgid "Use zones (districts) as routing start- and endpoints"
-msgstr ""
+msgstr "Zonen (Bezirke) als Routing-Start- und Endpunkte verwenden"
 
-#: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Routing.cpp:78
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Routing.cpp:78
 msgid ""
 "Use weight files given with option --weight-files for initializing edge "
 "weights"
 msgstr ""
+"Gewichtsdateien, die mit der Option --weight-files zum Initialisieren von "
+"Kantengewichten angegeben werden verwenden"
 
-#: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Routing.cpp:82
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Routing.cpp:82
 msgid "The number of parallel execution threads used for rerouting"
 msgstr ""
+"Die Anzahl paralleler Ausführungsstränge, die für die Umleitung verwendet "
+"werden"
 
-#: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Routing.cpp:85
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Routing.cpp:85
 msgid "Let rerouting happen at the same time for all vehicles"
-msgstr ""
+msgstr "Lässt die Umleitung für alle Fahrzeuge gleichzeitig erfolgen"
 
-#: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Routing.cpp:88
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Routing.cpp:88
 msgid "Allow rerouting triggered by rail signals."
-msgstr ""
+msgstr "Durch Gleissignale ausgelöste Umleitung zulassen."
 
-#: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Routing.cpp:91
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Routing.cpp:91
 msgid "Compute separate average speeds for bicycles"
-msgstr ""
+msgstr "Separate Durchschnittsgeschwindigkeiten für Fahrräder berechnen"
 
-#: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Routing.cpp:94
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Routing.cpp:94
 msgid "Save adapting weights to FILE"
-msgstr ""
+msgstr "Angepasste Gewichte in Datei speichern"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Routing.cpp:102
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Routing.cpp:102
@@ -4477,20 +4467,23 @@ msgstr ""
 "Anpassung der Anzahl der Routen-Stränge an die Anzahl der Simulations-"
 "Stränge."
 
-#: /home/micha/programming/sumo/src\microsim\devices\MSDevice_SSM.cpp:220
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_SSM.cpp:220
 msgid ""
 "Specifies which measures will be logged (as a space or comma-separated "
 "sequence of IDs in ('TTC', 'DRAC', 'PET'))"
 msgstr ""
+"Gibt an, welche Maßnahmen protokolliert werden (als Leerzeichen oder durch "
+"Kommata getrennte Folge von IDs in ('TTC', 'DRAC', 'PET'))"
 
-#: /home/micha/programming/sumo/src\microsim\devices\MSDevice_SSM.cpp:222
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_SSM.cpp:222
 msgid ""
 "Specifies space or comma-separated thresholds corresponding to the specified "
 "measures (see documentation and watch the order!). Only events exceeding the "
 "thresholds will be logged."
 msgstr ""
+"Gibt durch Leerzeichen oder Kommata getrennte Schwellenwerte entsprechend "
+"den angegebenen Maßen an (siehe Dokumentation und Reihenfolge beachten!). "
+"Nur Ereignisse, die die Schwellenwerte überschreiten, werden protokolliert."
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_SSM.cpp:224
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_SSM.cpp:224
@@ -15323,20 +15316,22 @@ msgstr ""
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_FCD.cpp:73
 #: /home/micha/programming/sumo/src/microsim/devices/MSTransportableDevice_FCD.cpp:49
 msgid "FCD Device"
-msgstr ""
+msgstr "FCD-Einrichtung"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Friction.cpp:45
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Friction.cpp:48
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Friction.cpp:50
+#, fuzzy
 msgid "Friction Device"
-msgstr ""
+msgstr "Reibkrafteinrichtung"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_GLOSA.cpp:45
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_GLOSA.cpp:49
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_GLOSA.cpp:52
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_GLOSA.cpp:55
+#, fuzzy
 msgid "GLOSA Device"
-msgstr ""
+msgstr "Glosa-Einrichtung"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_SSM.cpp:215
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_SSM.cpp:220
@@ -15349,7 +15344,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_SSM.cpp:234
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_SSM.cpp:236
 msgid "SSM Device"
-msgstr ""
+msgstr "SSM-Einrichtung"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Taxi.cpp:78
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Taxi.cpp:82
