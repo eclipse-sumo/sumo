@@ -1416,6 +1416,7 @@ enum {
 
     /// @name GNETLSTable
     /// @{
+
     /// @brief TLSTable textField
     MID_GNE_TLSTABLE_TEXTFIELD,
     /// @brief TLSTable button for add phase
@@ -1436,6 +1437,21 @@ enum {
     MID_GNE_TLSTABLE_MOVEUPPHASE,
     /// @brief TLSTable button for move down phase
     MID_GNE_TLSTABLE_MOVEDOWNPHASE,
+
+    /// @}
+
+    /// @name MFXDecalsTable
+    /// @{
+
+    /// @brief TLSTable textField
+    MID_DECALSTABLE_TEXTFIELD,
+    /// @brief open decal
+    MID_DECALSTABLE_OPEN,
+    /// @brief add row
+    MID_DECALSTABLE_ADD,
+    /// @brief add row
+    MID_DECALSTABLE_REMOVE,
+
     /// @}
 
     /// @name other

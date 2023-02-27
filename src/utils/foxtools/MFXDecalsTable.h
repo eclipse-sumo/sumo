@@ -74,11 +74,9 @@ public:
 
     /// @name FOX callbacks
     /// @{
+
     /// @brief called when a row is focused
     long onFocusRow(FXObject*, FXSelector, void*);
-
-    /// @brief called when add phase button is selected
-    long onCmdAddPhasePressed(FXObject*, FXSelector, void*);
 
     /// @brief called when a row is modified
     long onCmdEditRow(FXObject*, FXSelector, void*);
@@ -86,8 +84,14 @@ public:
     /// @brief called when a key is pressed
     long onCmdKeyPress(FXObject*, FXSelector, void*);
 
-    /// @brief called when an add phase button is pressed
-    long onCmdAddPhase(FXObject*, FXSelector, void*);
+    /// @brief called when open decal button is pressed
+    long onCmdOpenDecal(FXObject*, FXSelector, void*);
+
+    /// @brief called when add row button is pressed
+    long onCmdAddRow(FXObject*, FXSelector, void*);
+
+    /// @brief called when remove row button is pressed
+    long onCmdRemoveRow(FXObject*, FXSelector, void*);
 
     /// @}
 

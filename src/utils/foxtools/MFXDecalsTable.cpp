@@ -31,21 +31,21 @@
 
 
 #define EXTRAMARGING 1
-#define DEFAULTWIDTH 190
 
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
 
 FXDEFMAP(MFXDecalsTable) MFXDecalsTableMap[] = {
-    FXMAPFUNC(MID_MBTTIP_FOCUS,     0,                                  MFXDecalsTable::onFocusRow),
-    FXMAPFUNC(MID_MBTTIP_SELECTED,  0,                                  MFXDecalsTable::onCmdAddPhasePressed),
+    FXMAPFUNC(MID_MBTTIP_FOCUS,     0,                  MFXDecalsTable::onFocusRow),
     // text fields
-    FXMAPFUNC(SEL_FOCUSIN,  MID_GNE_TLSTABLE_TEXTFIELD,                 MFXDecalsTable::onFocusRow),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSTABLE_TEXTFIELD,                 MFXDecalsTable::onCmdEditRow),
-    FXMAPFUNC(SEL_KEYPRESS, MID_GNE_TLSTABLE_TEXTFIELD,                 MFXDecalsTable::onCmdKeyPress),
-    // add phase buttons
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSTABLE_ADDPHASE,                  MFXDecalsTable::onCmdAddPhase),
+    FXMAPFUNC(SEL_FOCUSIN,  MID_DECALSTABLE_TEXTFIELD,  MFXDecalsTable::onFocusRow),
+    FXMAPFUNC(SEL_COMMAND,  MID_DECALSTABLE_TEXTFIELD,  MFXDecalsTable::onCmdEditRow),
+    FXMAPFUNC(SEL_KEYPRESS, MID_DECALSTABLE_TEXTFIELD,  MFXDecalsTable::onCmdKeyPress),
+    // row funcitons
+    FXMAPFUNC(SEL_COMMAND,  MID_DECALSTABLE_OPEN,       MFXDecalsTable::onCmdOpenDecal),
+    FXMAPFUNC(SEL_COMMAND,  MID_DECALSTABLE_ADD,        MFXDecalsTable::onCmdAddRow),
+    FXMAPFUNC(SEL_COMMAND,  MID_DECALSTABLE_REMOVE,     MFXDecalsTable::onCmdRemoveRow),
 };
 
 // Object implementation
@@ -206,22 +206,6 @@ MFXDecalsTable::onFocusRow(FXObject* sender, FXSelector, void*) {
 
 
 long
-MFXDecalsTable::onCmdAddPhasePressed(FXObject* sender, FXSelector, void*) {
-    // search selected add button
-    for (int columnIndex = 0; columnIndex < (int)myColumns.size(); columnIndex++) {
-        for (int rowIndex = 0; rowIndex < (int)myRows.size(); rowIndex++) {
-            if (myRows.at(rowIndex)->getCells().at(columnIndex)->getButton() == sender) {
-                ////
-                return 1;
-            }
-        }
-    }
-    // nothing to focus
-    return 0;
-}
-
-
-long
 MFXDecalsTable::onCmdEditRow(FXObject* sender, FXSelector, void*) {
     // search selected text field
     for (int columnIndex = 0; columnIndex < (int)myColumns.size(); columnIndex++) {
@@ -289,21 +273,30 @@ MFXDecalsTable::onCmdKeyPress(FXObject* sender, FXSelector sel, void* ptr) {
 
 
 long
-MFXDecalsTable::onCmdAddPhase(FXObject* sender, FXSelector, void*) {
-    WRITE_DEBUG("Add default phase");
-    // search selected text field
-    for (int indexRow = 0; indexRow < (int)myRows.size(); indexRow++) {
-        // iterate over every cell
-        for (const auto& cell : myRows.at(indexRow)->getCells()) {
-            if (cell->getButton() == sender) {
-                // add row
-                //myTLSPhasesParent->addPhase(indexRow);
-                // stop
-                return 0;
+MFXDecalsTable::onCmdOpenDecal(FXObject*, FXSelector, void*) {
+    return 1;
+}
+
+
+long
+MFXDecalsTable::onCmdAddRow(FXObject* sender, FXSelector, void*) {
+    // search selected add button
+    for (int columnIndex = 0; columnIndex < (int)myColumns.size(); columnIndex++) {
+        for (int rowIndex = 0; rowIndex < (int)myRows.size(); rowIndex++) {
+            if (myRows.at(rowIndex)->getCells().at(columnIndex)->getButton() == sender) {
+                ////
+                return 1;
             }
         }
     }
+    // nothing to focus
     return 0;
+}
+
+
+long
+MFXDecalsTable::onCmdRemoveRow(FXObject*, FXSelector, void*) {
+    return 1;
 }
 
 
@@ -640,14 +633,14 @@ MFXDecalsTable::Row::Row(MFXDecalsTable* table) :
             case ('f'): {
                 // create textField for values
                 auto textField = new FXTextField(table->myColumns.at(columnIndex)->getVerticalCellFrame(),
-                        GUIDesignTextFieldNCol, table, MID_GNE_TLSTABLE_TEXTFIELD, GUIDesignTextField);
+                        GUIDesignTextFieldNCol, table, MID_DECALSTABLE_TEXTFIELD, GUIDesignTextField);
                 myCells.push_back(new Cell(table, textField, columnIndex, numCells));
                 break;
             }
             case ('s'): {
                 // create textField for values
                 auto textField = new FXTextField(table->myColumns.at(columnIndex)->getVerticalCellFrame(),
-                    GUIDesignTextFieldNCol, table, MID_GNE_TLSTABLE_TEXTFIELD, GUIDesignTextFieldTickedMinWidth);
+                    GUIDesignTextFieldNCol, table, MID_DECALSTABLE_TEXTFIELD, GUIDesignTextFieldTickedMinWidth);
                 myCells.push_back(new Cell(table, textField, columnIndex, numCells));
                 break;
             }
