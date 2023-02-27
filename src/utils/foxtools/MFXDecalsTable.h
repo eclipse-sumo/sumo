@@ -78,11 +78,14 @@ public:
     /// @brief called when a row is focused
     long onFocusRow(FXObject*, FXSelector, void*);
 
-    /// @brief called when a row is modified
-    long onCmdEditRow(FXObject*, FXSelector, void*);
-
     /// @brief called when a key is pressed
     long onCmdKeyPress(FXObject*, FXSelector, void*);
+    
+    /// @brief called when a string is updated
+    long onCmdEditRowString(FXObject*, FXSelector, void*);
+    
+    /// @brief called when a checkBox is updated
+    long onCmdEditRowCheckBox(FXObject*, FXSelector, void*);
 
     /// @brief called when open decal button is pressed
     long onCmdOpenDecal(FXObject*, FXSelector, void*);

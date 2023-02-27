@@ -1443,8 +1443,10 @@ enum {
     /// @name MFXDecalsTable
     /// @{
 
-    /// @brief TLSTable textField
+    /// @brief textField
     MID_DECALSTABLE_TEXTFIELD,
+    /// @brief checkbox
+    MID_DECALSTABLE_CHECKBOX,
     /// @brief open decal
     MID_DECALSTABLE_OPEN,
     /// @brief add row
