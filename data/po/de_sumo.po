@@ -824,13 +824,19 @@ msgstr ""
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:570
 #: /home/micha/programming/sumo/src/duarouter/RODUAFrame.cpp:104
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:570
+#, fuzzy
 msgid "Initialize lookup table for astar ALT-variant from the given file"
 msgstr ""
+"Nachschlagetabelle für eine astar ALT-Variante aus der angegebenen Datei "
+"initialisieren"
 
 #: /home/micha/programming/sumo/src\duarouter\RODUAFrame.cpp:107
 #: /home/micha/programming/sumo/src/duarouter/RODUAFrame.cpp:107
+#, fuzzy
 msgid "Save lookup table for astar ALT-variant to the given file"
 msgstr ""
+"Nachschlagetabelle für eine astar ALT-Variante in der angegebenen Datei "
+"speichern"
 
 #: /home/micha/programming/sumo/src\duarouter\RODUAFrame.cpp:117
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:206
@@ -927,20 +933,18 @@ msgstr ""
 "Verwendet float als Faktor für die Höchstgeschwindigkeit von Fußgängern "
 "während des intermodalen Routings"
 
-#: /home/micha/programming/sumo/src\duarouter\RODUAFrame.cpp:163
-#: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:576
 #: /home/micha/programming/sumo/src/duarouter/RODUAFrame.cpp:163
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:576
 msgid ""
 "Use FLOAT as a factor on walking speed against vehicle traffic direction"
 msgstr ""
+"Fließkommazahl als Faktor für die Gehgeschwindigkeit entgegen der "
+"Fahrtrichtung des Fahrzeugs verwenden"
 
-#: /home/micha/programming/sumo/src\duarouter\RODUAFrame.cpp:170
-#: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:583
 #: /home/micha/programming/sumo/src/duarouter/RODUAFrame.cpp:170
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:583
 msgid "Where taxis can drop off customers ('allJunctions, 'ptStops')"
-msgstr ""
+msgstr "Wo Taxis Kunden absetzen können ('allJunctions, 'ptStops')"
 
 #: /home/micha/programming/sumo/src\duarouter\RODUAFrame.cpp:173
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:586
@@ -956,13 +960,13 @@ msgstr "Wo Taxis Kunden abholen können ('allJunctions, 'ptStops')"
 msgid "Estimated time for taxi pickup"
 msgstr "Geschätzte Zeit für die Taxiabholung"
 
-#: /home/micha/programming/sumo/src\duarouter\RODUAFrame.cpp:179
-#: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:595
 #: /home/micha/programming/sumo/src/duarouter/RODUAFrame.cpp:179
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:595
 msgid ""
 "Use FLOAT as a maximum train length when initializing the railway router"
 msgstr ""
+"Fließkommazahl als maximale Zuglänge bei der Initialisierung des Bahnrouters "
+"verwenden"
 
 #: /home/micha/programming/sumo/src\duarouter\RODUAFrame.cpp:216
 #: /home/micha/programming/sumo/src/duarouter/RODUAFrame.cpp:216
@@ -2297,27 +2301,27 @@ msgstr ""
 msgid "Record start of lane change manoeuvres"
 msgstr ""
 
-#: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:287
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:287
 msgid "Record end of lane change manoeuvres"
-msgstr ""
+msgstr "Ende von Fahrstreifenwechselmanövern aufzeichnen"
 
-#: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:290
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:290
 msgid "Record coordinates of lane change manoeuvres"
-msgstr ""
+msgstr "Koordinaten von Fahrstreifenwechselmanövern aufzeichnen"
 
-#: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:293
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:293
 msgid ""
 "Record stops and loading/unloading of passenger and containers for all "
 "vehicles into FILE"
 msgstr ""
+"Halte und das Be-/Entladen von Passagieren und Containern für alle Fahrzeuge "
+"in Datei aufzeichnen"
 
-#: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:295
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:295
 msgid "Write stop output for stops which have not ended at simulation end"
 msgstr ""
+"Haltausgang für Halte, die bei Simulationsende noch nicht beendet sind "
+"schreiben"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:298
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:298
@@ -2342,13 +2346,16 @@ msgstr "Gesamtstatistiken in Datei schreiben"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:311
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:311
+#, fuzzy
 msgid "Save movereminder states of selected vehicles into FILE"
-msgstr ""
+msgstr "Erinnerungszustände ausgewählter Fahrzeuge in Datei speichern"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:313
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:313
+#, fuzzy
 msgid "List of vehicle ids which shall save their movereminder states"
 msgstr ""
+"Liste der Fahrzeug IDs, die die Bewegungserinnerungszustände speichern sollen"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:317
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:317
@@ -2423,17 +2430,21 @@ msgstr "Definiert die Schrittdauer in Sekunden"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:348
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:348
+#, fuzzy
 msgid ""
 "Whether to use ballistic method for the positional update of vehicles "
 "(default is a semi-implicit Euler method)."
 msgstr ""
+"Ob die ballistische Methode für die Positionsaktualisierung von Fahrzeugen "
+"verwendet werden soll (Standard ist eine semi-implizierte Euler-Methode)."
 
-#: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:351
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:351
 msgid ""
 "Whether vehicles that depart between simulation steps should extrapolate the "
 "depart position"
 msgstr ""
+"Ob Fahrzeuge, die zwischen Simulationsschritten abfahren, die "
+"Abfahrtsposition extrapolieren sollen"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:354
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:354
@@ -2465,12 +2476,13 @@ msgstr "Routen für die nächste Anzahl von Sekunden im Voraus laden"
 msgid "Disable (junction) internal links"
 msgstr "(Knotenpunkt) interne Links deaktivieren"
 
-#: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:367
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:367
 msgid ""
 "Ignore vehicles which block the junction after they have been standing for "
 "SECONDS (-1 means never ignore)"
 msgstr ""
+"Fahrzeuge ignorieren, die den Knotenpunkt blockieren, nachdem sie "
+"sekundenlang gestanden haben (-1 bedeutet niemals ignorieren)"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:370
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:370
@@ -2482,134 +2494,151 @@ msgstr "Prüft nicht, ob Routen verbunden sind"
 msgid "Do not check whether accidents occur"
 msgstr "Prüft nicht, ob es zu Unfällen kommt"
 
-#: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:376
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:376
 msgid "How to deal with collisions: [none,warn,teleport,remove]"
-msgstr ""
+msgstr "Umgang mit Kollisionen: [keine, warnen, teleportieren, entfernen]"
 
-#: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:379
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:379
 msgid ""
 "Let vehicle stop for TIME before performing collision.action (except for "
 "action 'none')"
 msgstr ""
+"Lasse das Fahrzeug für eine Zeit anhalten, bevor eine Kollisionsaktion "
+"durchgeführt wird (außer Aktion 'none')"
 
-#: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:382
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:382
 msgid "Enables collisions checks on junctions"
-msgstr ""
+msgstr "Aktiviert Kollisionsprüfungen an Knotenpunkten"
 
-#: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:385
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:385
 msgid "Increase or decrease sensitivity for junction collision check"
 msgstr ""
+"Die Empfindlichkeit für die Knotenpunktkollisionsprüfung erhöhen oder "
+"verringern"
 
-#: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:388
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:388
 msgid ""
 "Sets the fraction of minGap that must be maintained to avoid collision "
 "detection. If a negative value is given, the carFollowModel parameter is used"
 msgstr ""
+"Legt den Bruchteil von der minimalen Lücke fest, der beibehalten werden "
+"muss, um eine Kollisionserkennung zu vermeiden. Bei einem negativen Wert "
+"wird der Parameter des Fahrzeugfolgemodells verwendet"
 
-#: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:391
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:391
 msgid "Delay vehicle insertion to stay within the given maximum number"
 msgstr ""
+"Das Einfügen von Fahrzeugen, um innerhalb der angegebenen Höchstzahl zu "
+"bleiben, verzögern"
 
-#: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:394
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:394
 msgid ""
 "Abort the simulation if the given maximum number of teleports is exceeded"
 msgstr ""
+"Bricht die Simulation ab, wenn die angegebene maximale Anzahl an Teleporten "
+"überschritten wird"
 
-#: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:397
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:397
 msgid ""
 "Scale demand by the given factor (by discarding or duplicating vehicles)"
 msgstr ""
+"Nachfrage anhand des gegebenen Faktors skalieren (durch Ausrangieren oder "
+"Duplizieren von Fahrzeugen)"
 
-#: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:400
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:400
 msgid "Suffix to be added when creating ids for cloned vehicles"
 msgstr ""
+"Beim Erstellen von IDs für geklonte Fahrzeuge muss ein Suffix hinzugefügt "
+"werden"
 
-#: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:403
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:403
 msgid ""
 "Specify how long a vehicle may wait until being teleported, defaults to 300, "
 "non-positive values disable teleporting"
 msgstr ""
+"Gebe an, wie lange ein Fahrzeug warten darf, bis es teleportiert wird, "
+"standardmäßig 300, nicht positive Werte deaktivieren das Teleportieren"
 
-#: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:406
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:406
 msgid ""
 "The waiting time after which vehicles on a fast road (speed > 69km/h) are "
 "teleported if they are on a non-continuing lane"
 msgstr ""
+"Die Wartezeit, nach der Fahrzeuge auf einer Schnellstraße (Geschwindigkeit > "
+"69km/h) teleportiert werden, wenn sie sich auf einem nicht durchgehenden "
+"Fahrstreifen befinden"
 
-#: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:409
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:409
 msgid ""
 "The waiting time after which vehicles on a fast road (default: speed > 69km/"
 "h) are teleported if they are on a non-continuing lane"
 msgstr ""
+"Die Wartezeit, nach der Fahrzeuge auf einer Schnellstraße (Standard: "
+"Geschwindigkeit > 69km/h) teleportiert werden, wenn sie sich auf einem nicht "
+"durchgehenden Fahrstreifen befinden"
 
-#: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:412
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:412
 msgid ""
 "The waiting time after which vehicles with a disconnected route are "
 "teleported. Negative values disable teleporting"
 msgstr ""
+"Die Wartezeit, nach der Fahrzeuge mit unterbrochener Route teleportiert "
+"werden. Negative Werte deaktivieren das Teleportieren"
 
-#: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:415
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:415
 msgid ""
 "Whether vehicles shall be removed after waiting too long instead of being "
 "teleported"
 msgstr ""
+"Ob Fahrzeuge nach zu langer Wartezeit entfernt statt teleportiert werden "
+"sollen"
 
-#: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:418
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:418
 msgid ""
 "The waiting time after which persons / containers waiting for a pickup are "
 "teleported. Negative values disable teleporting"
 msgstr ""
+"Die Wartezeit, nach der auf Abholung wartende Personen/Container "
+"teleportiert werden. Negative Werte deaktivieren das Teleportieren"
 
-#: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:421
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:421
 msgid ""
 "The waiting time after which vehicles on bidirectional edges are teleported"
 msgstr ""
+"Die Wartezeit, nach der Fahrzeuge auf Zweirichtungskanten teleportiert werden"
 
-#: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:424
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:424
 msgid ""
 "Length of time interval, over which accumulated waiting time is taken into "
 "account (default is 100s.)"
 msgstr ""
+"Länge des Zeitintervalls, über das die kumulierte Wartezeit berücksichtigt "
+"wird (Standard sind 100 s.)"
 
-#: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:427
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:427
 msgid "Minimum consecutive waiting time before applying startupDelay"
 msgstr ""
+"Minimale aufeinanderfolgende Wartezeit vor der Anwendung von startupDelay"
 
-#: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:430
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:430
 msgid ""
 "How long vehicles wait for departure before being skipped, defaults to -1 "
 "which means vehicles are never skipped"
 msgstr ""
+"Wie lange Fahrzeuge auf die Abfahrt warten, bevor sie übersprungen werden, "
+"ist standardmäßig -1, was bedeutet, dass Fahrzeuge niemals übersprungen "
+"werden"
 
-#: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:433
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:433
 msgid ""
 "Whether insertion on an edge shall not be repeated in same step once failed"
 msgstr ""
+"Ob das Einfügen an einer Kante nicht im selben Schritt wiederholt werden "
+"soll, wenn es einmal fehlgeschlagen ist"
 
-#: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:436
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:436
 msgid "Whether each vehicle is checked separately for insertion on an edge"
-msgstr ""
+msgstr "Ob jedes Fahrzeug separat auf das Einfügen an einer Kante geprüft wird"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:439
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:439
@@ -2633,10 +2662,9 @@ msgstr ""
 msgid "Duration of a lane change maneuver (default 0)"
 msgstr "Dauer eines Fahrstreifenwechselmanövers (Standard 0)"
 
-#: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:448
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:448
 msgid "Whether overtaking on the right on motorways is permitted"
-msgstr ""
+msgstr "Ob Rechtsüberholen auf Autobahnen erlaubt ist"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:451
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:451
@@ -2669,19 +2697,19 @@ msgstr "Legt den Standardbereich für die Erkennung verspäteter Fahrzeuge fest"
 msgid "Minimum deceleration when braking at yellow"
 msgstr "Mindestverzögerung beim Bremsen bei Gelb"
 
-#: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:469
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:469
 msgid "Let railsignals operate in moving-block mode by default"
-msgstr ""
+msgstr "Gleissignale standardmäßig im Moving-Block-Modus betreiben"
 
-#: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:472
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:472
 msgid ""
 "Specify how long a vehicle may wait until impatience grows from 0 to 1, "
 "defaults to 300, non-positive values disable impatience growth"
 msgstr ""
+"Gebe an, wie lange ein Fahrzeug warten darf, bis die Ungeduld von 0 auf 1 "
+"anwächst, standardmäßig 300, nicht positive Werte deaktivieren das Wachstum "
+"der Ungeduld"
 
-#: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:475
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:475
 msgid ""
 "Length of the default interval length between action points for the car-"
@@ -2690,11 +2718,15 @@ msgid ""
 "settings override the default. Must be a multiple of the simulation step-"
 "length."
 msgstr ""
+"Länge der Standardintervalllänge zwischen Aktionspunkten für die Autofolge- "
+"und Fahrstreifenwechselmodelle (in Sekunden). Wenn nicht angegeben, wird "
+"standardmäßig die Simulationsschrittweite verwendet. Fahrzeug oder "
+"Fahrzeugtyp spezifische Einstellungen setzen die Standardeinstellung außer "
+"Kraft. Muss ein Vielfaches der Simulationsschrittlänge sein."
 
-#: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:478
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:478
 msgid "Select default car following model (Krauss, IDM, ...)"
-msgstr ""
+msgstr "Standardfahrzeugfolgemodell (Krauss, IDM, ...) auswählen"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:482
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:482
