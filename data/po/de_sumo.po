@@ -1082,13 +1082,16 @@ msgstr "Eine Straße wiederverwenden erlauben"
 msgid "Use all source edges as sink edges."
 msgstr "Verwende alle Quellkanten als Zielkanten."
 
-#: /home/micha/programming/sumo/src\jtrrouter\ROJTRFrame.cpp:88
 #: /home/micha/programming/sumo/src/jtrrouter/ROJTRFrame.cpp:88
 msgid ""
 "Subtract upstream flow when inserting a new flow. When option --sources-are-"
 "sinks is set, the upstream flow is limited to the value of the source flow "
 "and the remaining part terminates."
 msgstr ""
+"Subtrahiert den stromaufwärts Fluss, wenn Sie einen neuen Fluss einfügen. "
+"Wenn die Option --sources-are-sinks gesetzt ist, wird der stromaufwärts "
+"Fluss auf den Wert des Quellflusses begrenzt und der verbleibende Teil "
+"terminiert."
 
 #: /home/micha/programming/sumo/src\jtrrouter\ROJTRTurnDefLoader.cpp:68
 #: /home/micha/programming/sumo/src/jtrrouter/ROJTRTurnDefLoader.cpp:68
@@ -1510,10 +1513,9 @@ msgstr "Nutzt STR[] als Zeitspannendefiniton"
 msgid "Uses STR as a 24h-timeline definition"
 msgstr "Nutzt STR als 24-Stunden Zeitspannendefinition"
 
-#: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:168
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:168
 msgid "Keep traffic flows of all time slots in the net"
-msgstr ""
+msgstr "Verkehrsströme aller Zeitschlitze im Netz halten"
 
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:172
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:172
@@ -1528,24 +1530,27 @@ msgstr ""
 "Verwende float als Toleranz bei der Überprüfung der SUE-Stabilität "
 "(Stochastisches Nutzergleichgewicht)"
 
-#: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:178
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:178
 msgid ""
 "Use left-turn penalty FLOAT to calculate link travel time when searching "
 "routes"
 msgstr ""
+"Linksabbiegestrafe Fließkommazahl zur Berechnung der Verbindungsfahrzeit bei "
+"der Suche nach Routen verwenden"
 
-#: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:181
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:181
 msgid ""
 "Use INTEGER as the number of paths needed to be searched for each OD pair at "
 "each iteration"
 msgstr ""
+"INTEGER als die Anzahl der Pfade, die für jedes Quelle-Ziel-Paar bei jeder "
+"Iteration durchsucht werden muss verwenden"
 
-#: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:184
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:184
 msgid "Penalize existing routes with FLOAT to find secondary routes"
 msgstr ""
+"Vorhandene Routen mit Fließkommazahl, um sekundäre Routen zu finden, "
+"bestrafen"
 
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:188
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:188
@@ -1976,10 +1981,13 @@ msgstr "Entfernt Fahrzeuge mit den gegebenen IDs aus dem geladenen Stand"
 #: /home/micha/programming/sumo/src\router\ROFrame.cpp:134
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:104
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:134
+#, fuzzy
 msgid ""
 "Initialize a TAZ for every junction to use attributes toJunction and "
 "fromJunction"
 msgstr ""
+"Eine Verkehrsumlegungszone für jeden Knotenpunkt, um die Attribute "
+"Endknotenpunkt und Ausgangsknotenpunkt zu verwenden, initialisieren"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:114
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:114
@@ -1988,13 +1996,15 @@ msgstr "Komplette Netzzustände in Datei speichern"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:119
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:119
+#, fuzzy
 msgid "Write also empty edges completely when dumping"
-msgstr ""
+msgstr "Beim Abladen auch leere Kanten vollständig schreiben"
 
-#: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:124
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:124
 msgid "Write positions and speeds with the given precision (default 2)"
 msgstr ""
+"Positionen und Geschwindigkeiten mit der angegebenen Genauigkeit (Standard "
+"2) schreiben"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:128
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:128
@@ -2034,18 +2044,22 @@ msgstr "Batteriewerte mit der angegebenen Genauigkeit schreiben (Standard 2)"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:143
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:143
+#, fuzzy
 msgid "Save the elecHybrid values of each vehicle"
-msgstr ""
+msgstr "Die Plug-in-Hybrid-Werte für jedes Fahrzeug speichern"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:145
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:145
+#, fuzzy
 msgid "Write elecHybrid values with the given precision (default 2)"
 msgstr ""
+"Plug-in-Hybrid-Werte mit der angegebenen Genauigkeit (Standard 2) schreiben"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:147
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:147
+#, fuzzy
 msgid "Write elecHybrid values into one aggregated file"
-msgstr ""
+msgstr "Plug-in-Hybrid-Werte in eine aggregierte Datei schreiben"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:150
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:150
@@ -2127,9 +2141,12 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:182
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:182
+#, fuzzy
 msgid ""
 "Restrict SSM device output to the edge selection from the given input file"
 msgstr ""
+"SSM-Geräteausgabe auf die Kantenauswahl aus der angegebenen Eingabedatei "
+"beschränken"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:185
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:185
@@ -2258,48 +2275,46 @@ msgstr ""
 msgid "Include information about edges between stops"
 msgstr "Informationen zu Kanten zwischen Haltepunkten hinzufügen"
 
-#: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:262
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:262
 msgid ""
 "Write the vehicle speedFactor (defaults to 'true' if departSpeed is written)"
 msgstr ""
+"Den Geschwindigkeitsfaktor des Fahrzeugs (standardmäßig 'true', wenn "
+"departureSpeed geschrieben ist) schreiben"
 
-#: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:265
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:265
 msgid "Include internal edges in the output"
-msgstr ""
+msgstr "Interne Kanten in die Ausgabe einfügen"
 
-#: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:269
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:269
 msgid "Save person and container routes to separate FILE"
-msgstr ""
+msgstr "Personen- und Containerrouten in eine separate Datei speichern"
 
-#: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:272
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:272
 msgid "Save links states into FILE"
-msgstr ""
+msgstr "Linkstände in Datei speichern"
 
-#: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:275
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:275
 msgid "Save railsignal-blocks into FILE"
-msgstr ""
+msgstr "Bahnsignalblöcke in Datei speichern"
 
-#: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:278
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:278
 msgid ""
 "Save bluetooth visibilities into FILE (in conjunction with device.btreceiver "
 "and device.btsender)"
 msgstr ""
+"Bluetooth-Sichtbarkeiten in Datei (in Verbindung mit device.btreceiver und "
+"device.btsender) speichern"
 
-#: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:281
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:281
 msgid "Record lane changes and their motivations for all vehicles into FILE"
 msgstr ""
+"Fahrstreifenwechsel und deren Beweggründe für alle Fahrzeuge in Datei "
+"aufzeichnen"
 
-#: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:284
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:284
 msgid "Record start of lane change manoeuvres"
-msgstr ""
+msgstr "Start von Fahrstreifenwechselmanövern aufzeichnen"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:287
 msgid "Record end of lane change manoeuvres"
@@ -2678,8 +2693,11 @@ msgstr "Legt die Standardsichtbarkeit für Betätigungsdetektoren fest"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:457
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:457
+#, fuzzy
 msgid "Sets default jam-threshold parameter for all actuation detectors"
 msgstr ""
+"Legt den standardmäßigen Blockierungsgrenz-Parameter für alle "
+"Betätigungsdetektoren fest"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:460
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:460
@@ -2739,11 +2757,16 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:485
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:485
+#, fuzzy
 msgid ""
 "Select default emergencyDecel value among ('decel', 'default', FLOAT) which "
 "sets the value either to the same as the deceleration value, a vClass-class "
 "specific default or the given FLOAT in m/s^2"
 msgstr ""
+"Standardwert der EmergencyDecel unter ('decel', 'default', Fließkommazahl) "
+"auswählen, der den Wert entweder auf den gleichen wie den Verzögerungswert, "
+"einen Fahrzeugklassen-klassenspezifischen Standardwert oder der angegebenen "
+"Fließkommazahl in m/s^2 setzt"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:488
 msgid "Use Kirchhoff's laws for solving overhead wire circuit"
@@ -2757,24 +2780,29 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:494
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:494
+#, fuzzy
 msgid ""
 "Enable current limits of traction substation during solving the overhead "
 "wire electrical circuit."
 msgstr ""
+"Die Stromgrenzen der Traktionsunterstation während des Lösens des "
+"Oberleitungsstromkreises aktivieren."
 
-#: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:497
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:497
 msgid ""
 "Sets the fraction of emergency decel capability that must be used to trigger "
 "a warning."
 msgstr ""
+"Legt den Bruchteil der Notverzögerungsfähigkeit fest, der verwendet werden "
+"muss, um eine Warnung auszulösen."
 
-#: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:500
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:500
 msgid ""
 "Whether parking simulation includes maneuvering time and associated lane "
 "blocking"
 msgstr ""
+"Ob die Parksimulation die Manövrierzeit und die damit verbundene "
+"Fahrstreifensperrung beinhaltet"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:503
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:503
@@ -8577,20 +8605,22 @@ msgstr "Überspringt die Prüfung auf doppelte Knoten und Kanten"
 msgid "Imports elevation data"
 msgstr "Importiert Höhendaten"
 
-#: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:184
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:184
 msgid ""
 "Reconstruct (relative) elevation based on layer data. Each layer is raised "
 "by FLOAT m"
 msgstr ""
+"Rekonstruiert (relative) Höhen basierend auf Layer-Daten. Jede Schicht wird "
+"um die Flie0kommazahl in m angehoben"
 
-#: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:187
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:187
 #, c-format
 msgid ""
 "Maximum grade threshold in % at 50km/h when reconstrucing elevation based on "
 "layer data. The value is scaled according to road speed."
 msgstr ""
+"Höchststeigungsschwelle in % bei 50 km/h bei Höhenrekonstruktion aus "
+"Layerdaten. Der Wert wird entsprechend der Fahrgeschwindigkeit skaliert."
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:190
 msgid "Whether one-way roads should be spread to the side instead of centered"
@@ -12907,16 +12937,14 @@ msgstr "Ungültiger Verfolgerindex in der Route '%'!"
 msgid "An edge within the route '%' is not known!"
 msgstr "Eine Kante in der Route '%' ist nicht bekannt!"
 
-#: /home/micha/programming/sumo/src\utils\common\MsgHandler.cpp:153
 #: /home/micha/programming/sumo/src/utils/common/MsgHandler.cpp:153
 #, c-format
 msgid "done (%ms)."
-msgstr ""
+msgstr "erledigt (%ms)."
 
-#: /home/micha/programming/sumo/src\utils\common\MsgHandler.cpp:155
 #: /home/micha/programming/sumo/src/utils/common/MsgHandler.cpp:155
 msgid "done."
-msgstr ""
+msgstr "fertig."
 
 #: /home/micha/programming/sumo/src\utils\common\MsgHandler.cpp:253
 #: /home/micha/programming/sumo/src/utils/common/MsgHandler.cpp:253
@@ -12973,15 +13001,13 @@ msgstr ""
 msgid "Invalid format of attribute (%)"
 msgstr "Ungültiges Format für Attribut (%)"
 
-#: /home/micha/programming/sumo/src\utils\common\RandHelper.cpp:65
 #: /home/micha/programming/sumo/src/utils/common/RandHelper.cpp:65
 msgid "Initialises the random number generator with the current system time"
-msgstr ""
+msgstr "Initialisiert den Zufallszahlengenerator mit der aktuellen Systemzeit"
 
-#: /home/micha/programming/sumo/src\utils\common\RandHelper.cpp:69
 #: /home/micha/programming/sumo/src/utils/common/RandHelper.cpp:69
 msgid "Initialises the random number generator with the given value"
-msgstr ""
+msgstr "Initialisiert den Zufallszahlengenerator mit dem angegebenen Wert"
 
 #: /home/micha/programming/sumo/src\utils\common\SUMOVehicleClass.cpp:190
 #: /home/micha/programming/sumo/src/utils/common/SUMOVehicleClass.cpp:190
@@ -13014,114 +13040,102 @@ msgstr ""
 msgid "The vehicle class '%' is deprecated, use '%' instead."
 msgstr "Die Fahrzeugklasse '%' ist veraltet, nutze statt dessen '%'."
 
-#: /home/micha/programming/sumo/src\utils\common\SystemFrame.cpp:43
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:43
 msgid "Loads the named config on startup"
-msgstr ""
+msgstr "Lädt die benannte Konfiguration beim Start"
 
-#: /home/micha/programming/sumo/src\utils\common\SystemFrame.cpp:48
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:48
 msgid "Saves current configuration into FILE"
-msgstr ""
+msgstr "Speichert die aktuelle Konfiguration in Datei"
 
-#: /home/micha/programming/sumo/src\utils\common\SystemFrame.cpp:52
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:52
 msgid "Enforce relative paths when saving the configuration"
-msgstr ""
+msgstr "Relative Pfade beim Speichern der Konfiguration erzwingen"
 
-#: /home/micha/programming/sumo/src\utils\common\SystemFrame.cpp:55
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:55
 msgid "Saves a configuration template (empty) into FILE"
-msgstr ""
+msgstr "Speichert eine Konfigurationsvorlage (leer) in Datei"
 
-#: /home/micha/programming/sumo/src\utils\common\SystemFrame.cpp:58
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:58
 msgid "Saves the configuration schema into FILE"
-msgstr ""
+msgstr "Speichert das Konfigurationsschema in Datei"
 
-#: /home/micha/programming/sumo/src\utils\common\SystemFrame.cpp:62
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:62
 msgid "Adds comments to saved template, configuration, or schema"
 msgstr ""
+"Fügt Kommentare zu gespeicherten Vorlagen, Konfigurationen oder Schemata "
+"hinzu"
 
-#: /home/micha/programming/sumo/src\utils\common\SystemFrame.cpp:71
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:71
 msgid "Switches to verbose output"
-msgstr ""
+msgstr "Wechselt zur ausführlichen Ausgabe"
 
-#: /home/micha/programming/sumo/src\utils\common\SystemFrame.cpp:74
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:74
 msgid "Prints option values before processing"
-msgstr ""
+msgstr "Gibt Optionswerte vor der Verarbeitung aus"
 
-#: /home/micha/programming/sumo/src\utils\common\SystemFrame.cpp:77
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:77
 msgid "Prints this screen or selected topics"
-msgstr ""
+msgstr "Gibt diesen Bildschirm oder ausgewählte Themen aus"
 
-#: /home/micha/programming/sumo/src\utils\common\SystemFrame.cpp:80
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:80
 msgid "Prints the current version"
-msgstr ""
+msgstr "Gibt die aktuelle Version aus"
 
-#: /home/micha/programming/sumo/src\utils\common\SystemFrame.cpp:97
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:97
 msgid "Disables output of warnings"
-msgstr ""
+msgstr "Deaktiviert die Ausgabe von Warnungen"
 
-#: /home/micha/programming/sumo/src\utils\common\SystemFrame.cpp:100
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:100
 msgid "Aggregate warnings of the same type whenever more than INT occur"
-msgstr ""
+msgstr "Warnungen des gleichen Typs, wenn mehr als INT auftreten aggregieren"
 
-#: /home/micha/programming/sumo/src\utils\common\SystemFrame.cpp:104
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:104
 msgid "Writes all messages to FILE (implies verbose)"
-msgstr ""
+msgstr "Schreibt alle Meldungen in Datei (impliziert ausführlich)"
 
-#: /home/micha/programming/sumo/src\utils\common\SystemFrame.cpp:107
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:107
 msgid "Writes all non-error messages to FILE (implies verbose)"
-msgstr ""
+msgstr "Schreibt alle Nicht-Fehlermeldungen in Datei (impliziert ausführlich)"
 
-#: /home/micha/programming/sumo/src\utils\common\SystemFrame.cpp:110
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:110
 msgid "Writes all warnings and errors to FILE"
-msgstr ""
+msgstr "Schreibt alle Warnungen und Fehler in Datei"
 
-#: /home/micha/programming/sumo/src\utils\common\SystemFrame.cpp:113
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:113
 msgid "Language to use in messages"
-msgstr ""
+msgstr "Sprache die für Meldungen verwendet wird"
 
-#: /home/micha/programming/sumo/src\utils\common\SystemFrame.cpp:116
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:116
 msgid "Include license info into every output file"
-msgstr ""
+msgstr "Lizenzinformationen in jede Ausgabedatei einfügen"
 
-#: /home/micha/programming/sumo/src\utils\common\SystemFrame.cpp:119
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:119
 msgid ""
 "Prefix which is applied to all output files. The special string 'TIME' is "
 "replaced by the current time."
 msgstr ""
+"Präfix, das auf alle Ausgabedateien angewendet wird. Die Sonderzeichenfolge "
+"'TIME' wird durch die aktuelle Uhrzeit ersetzt."
 
-#: /home/micha/programming/sumo/src\utils\common\SystemFrame.cpp:122
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:122
 msgid "Defines the number of digits after the comma for floating point output"
 msgstr ""
+"Definiert die Anzahl der Stellen nach dem Komma für die Fließkommaausgabe"
 
-#: /home/micha/programming/sumo/src\utils\common\SystemFrame.cpp:125
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:125
 msgid "Defines the number of digits after the comma for lon,lat output"
 msgstr ""
+"Definiert die Anzahl der Stellen nach dem Komma für die Ausgabe von länge, "
+"breite"
 
-#: /home/micha/programming/sumo/src\utils\common\SystemFrame.cpp:128
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:128
 msgid ""
 "Write time values as hour:minute:second or day:hour:minute:second rather "
 "than seconds"
 msgstr ""
+"Zeitwerte als Stunde:Minute:Sekunde oder Tag:Stunde:Minute:Sekunde statt "
+"Sekunden schreiben"
 
 #: /home/micha/programming/sumo/src\utils\common\UtilExceptions.h:43
 #: /home/micha/programming/sumo/src\utils\xml\XMLSubSys.cpp:184
@@ -14308,12 +14322,13 @@ msgstr "Laufzeitfehler: % beim Einlesen von '%'"
 msgid "Error occurred: % while parsing '%'"
 msgstr "Fehler aufgetreten: % beim Einlesen von '%'"
 
-#: /home/micha/programming/sumo/src\utils\xml\XMLSubSys.cpp:193
 #: /home/micha/programming/sumo/src/utils/xml/XMLSubSys.cpp:193
 msgid ""
 "SAX error occured while parsing '%':\n"
 " %"
 msgstr ""
+"Beim Einlesen von '%' ist ein SAX-Fehler aufgetreten:\n"
+" %"
 
 #: /home/micha/programming/sumo/src\utils\xml\XMLSubSys.cpp:195
 #: /home/micha/programming/sumo/src/utils/xml/XMLSubSys.cpp:195
@@ -15237,10 +15252,13 @@ msgid "Formats"
 msgstr "Formate"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:491
+#, fuzzy
 msgid ""
 "Enable recuperation from the vehicle equipped with elecHybrid device into "
 "the ovrehead wire."
 msgstr ""
+"Rekuperation vom Fahrzeug, das mit einem Plug-in-Hybrid-Gerät ausgestattet "
+"ist, in die Oberleitung aktivieren"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Bluelight.cpp:55
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Bluelight.cpp:59
@@ -15392,7 +15410,7 @@ msgstr "Überspringt die ersten NUM-Zeilen."
 #: /home/micha/programming/sumo/src/utils/common/RandHelper.cpp:65
 #: /home/micha/programming/sumo/src/utils/common/RandHelper.cpp:69
 msgid "Random Number"
-msgstr ""
+msgstr "Zufällige Nummer"
 
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:39
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:43
@@ -15402,7 +15420,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:58
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:62
 msgid "Configuration"
-msgstr ""
+msgstr "Konfiguration"
 
 #~ msgid "Unknown lane use specifier '%' treated as 'no' for way '%'"
 #~ msgstr ""
