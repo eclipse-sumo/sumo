@@ -6755,22 +6755,25 @@ msgstr "Deaktiviert die Normalisierung von Knotenpositionen"
 #: /home/micha/programming/sumo/src\polyconvert\polyconvert_main.cpp:186
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:277
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:186
+#, fuzzy
 msgid "Adds FLOAT to net x-positions"
-msgstr ""
+msgstr "Fügt Fließkommazahl zu den x-Positionen des Netzes hinzu"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:281
 #: /home/micha/programming/sumo/src\polyconvert\polyconvert_main.cpp:190
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:281
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:190
+#, fuzzy
 msgid "Adds FLOAT to net y-positions"
-msgstr ""
+msgstr "Fügt Fließkommazahl zu den y-Positionen des Netzes hinzu"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:284
 #: /home/micha/programming/sumo/src\polyconvert\polyconvert_main.cpp:193
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:284
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:193
+#, fuzzy
 msgid "Adds FLOAT to net z-positions"
-msgstr ""
+msgstr "Fügt Fließkommazahl zu den z-Positionen des Netzes hinzu"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:288
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:288
@@ -6814,8 +6817,11 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:326
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:326
+#, fuzzy
 msgid "Interprets STR[] as list of junctions to exclude from joining"
 msgstr ""
+"Interpretiert STRING[] als Liste von Knotenpunkten, die vom Zusammenführen "
+"ausgeschlossen werden sollen"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:338
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:338
@@ -8697,171 +8703,178 @@ msgstr "(nicht einheitlichen) Namen aus Spalte STR lesen"
 
 #: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:267
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:267
+#, fuzzy
 msgid ""
 "Distance threshold for determining whether distinct shapes are connected "
 "(used when from-id and to-id are not available)"
 msgstr ""
+"Abstandsschwellenwert zum Bestimmen, ob unterschiedliche Shapes verbunden "
+"sind (wird verwendet, wenn Ausgangs-ID und End-ID nicht verfügbar sind)"
 
-#: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:270
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:270
 msgid "Add the list of field names as edge params"
-msgstr ""
+msgstr "Die Liste der Feldnamen als Kantenparameter hinzufügen"
 
 #: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:274
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:274
+#, fuzzy
 msgid "Uses edge type defaults on problems"
-msgstr ""
+msgstr "Nutzt Kantentypstandard bei Problemen"
 
-#: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:279
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:279
 msgid "Insert edges in both directions"
-msgstr ""
+msgstr "Kanten in beide Richtungen einfügen"
 
 #: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:283
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:283
+#, fuzzy
 msgid "Guess the proper projection"
-msgstr ""
+msgstr "Die richtige Projektion annehmen"
 
-#: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:286
-#: /home/micha/programming/sumo/src\polyconvert\polyconvert_main.cpp:125
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:286
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:125
 msgid "Use traditional axis order (lon, lat)"
-msgstr ""
+msgstr "Traditionelle Achsenreihenfolge (länge, breite) verwenden"
 
-#: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:291
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:291
 msgid "Allow more vehicle classes by default"
-msgstr ""
+msgstr "Standardmäßig mehr Fahrzeugklassen zulassen"
 
-#: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:294
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:294
 msgid "The edge lengths given in the DLR Navteq-file will be kept"
 msgstr ""
+"Die in der DLR Navteq-Datei angegebenen Kantenlängen werden beibehalten"
 
 #: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:300
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:300
+#, fuzzy
 msgid "Structure join offset"
-msgstr ""
+msgstr "Strukturvereinigungsversatz"
 
-#: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:303
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:303
 msgid "Use FLOAT as default speed"
-msgstr ""
+msgstr "Fließkommazahl als Standardgeschwindigkeit verwenden"
 
-#: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:306
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:306
 msgid "Factor for edge velocity"
-msgstr ""
+msgstr "Faktor für Kantengeschwindigkeit"
 
-#: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:309
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:309
 msgid "Writes lanes without an explicit speed set"
-msgstr ""
+msgstr "Schreibt Fahrstreifen ohne explizite Geschwindigkeitseinstellung"
 
-#: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:314
-#: /home/micha/programming/sumo/src\polyconvert\polyconvert_main.cpp:95
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:314
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:95
 msgid "Load language mappings from FILE"
-msgstr ""
+msgstr "Sprachzuordnungen aus Datei laden"
 
 #: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:317
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:317
+#, fuzzy
 msgid "Uses priorities from types"
-msgstr ""
+msgstr "Verwendet Vorränge von Typen"
 
 #: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:320
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:320
+#, fuzzy
 msgid "Uses lane numbers from types"
-msgstr ""
+msgstr "Verwendet Fahrstreifennummern von Typen"
 
 #: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:323
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:323
+#, fuzzy
 msgid "Uses speeds from types"
-msgstr ""
+msgstr "Verwendet Geschwindigkeiten von Typen"
 
 #: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:326
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:326
+#, fuzzy
 msgid "Sets connector speed"
-msgstr ""
+msgstr "Stellt die Verbindungsgeschwindigkeit ein"
 
 #: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:330
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:330
+#, fuzzy
 msgid "Sets connector lane number"
-msgstr ""
+msgstr "Stellt die Verbindungsfahrstreifennummer ein"
 
 #: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:333
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:333
+#, fuzzy
 msgid "Excludes connectors"
-msgstr ""
+msgstr "Schließt Konnektoren aus"
 
-#: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:337
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:337
 msgid "Computes the number of lanes from the edges' capacities"
-msgstr ""
+msgstr "Berechnet die Anzahl der Fahrstreifen aus den Kapazitäten der Kanten"
 
-#: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:340
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:340
 msgid "Prints all warnings, some of which are due to VISUM misbehaviour"
 msgstr ""
+"Gibt alle Warnungen aus, von denen einige auf Fehlverhalten von VISUM "
+"zurückzuführen sind"
 
 #: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:345
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:345
 msgid "The factor for flow to no. lanes conversion"
 msgstr ""
 
-#: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:350
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:350
 msgid "Imports all lane types"
-msgstr ""
+msgstr "Importiert alle Fahrstreifentypen"
 
-#: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:352
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:352
 msgid "Whether lane widths shall be ignored."
-msgstr ""
+msgstr "Ob Kantenbreiten ignoriert werden sollen."
 
-#: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:354
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:354
 msgid ""
 "The geometry resolution in m when importing curved geometries as line "
 "segments."
 msgstr ""
+"Die Geometrieauflösung in m beim Import gekrümmter Geometrien als "
+"Liniensegmente."
 
-#: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:356
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:356
 msgid ""
 "Allow stop lines to be built beyond the start of the junction if the "
 "geometries allow so"
 msgstr ""
+"Den Bau von Haltelinien über den Beginn des Knotenpunkts hinaus, wenn die "
+"Geometrien dies zulassen erlauben"
 
-#: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:358
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:358
 msgid ""
 "The minimum lane width for determining start or end of variable-width lanes"
 msgstr ""
+"Die minimale Fahrstreifenbreite zur Bestimmung des Anfangs oder Endes von "
+"Fahrstreifen mit variabler Breite"
 
-#: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:360
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:360
 msgid "Import internal lane shapes"
-msgstr ""
+msgstr "Interne Fahrstreifen-Shapes importieren"
 
-#: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:362
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:362
 msgid "Sets edge-id based on road-id and offset in m (legacy)"
 msgstr ""
+"Legt die Kanten ID basierend auf der Straßen ID und dem Versatz in m fest "
+"(Legacy)"
 
-#: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:364
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:364
 msgid "Use custom lane shapes to compensate discarded lane types"
 msgstr ""
+"Benutzerdefinierte Fahrstreifen-Shapes, um verworfene Fahrstreifentypen zu "
+"kompensieren verwenden"
 
 #: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:375
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:375
+#, fuzzy
 msgid ""
 "Discard all railway signal information loaded from other formats than plain-"
 "xml"
 msgstr ""
+"Alle Eisenbahnsignalinformationen, die aus anderen Formaten als plain-XML "
+"geladen wurden verwerfen"
 
 #: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:397
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:397
