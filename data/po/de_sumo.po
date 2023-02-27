@@ -4485,46 +4485,51 @@ msgstr ""
 "den angegebenen Maßen an (siehe Dokumentation und Reihenfolge beachten!). "
 "Nur Ereignisse, die die Schwellenwerte überschreiten, werden protokolliert."
 
-#: /home/micha/programming/sumo/src\microsim\devices\MSDevice_SSM.cpp:224
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_SSM.cpp:224
 msgid ""
 "Specifies whether trajectories will be logged (if false, only the extremal "
 "values and times are reported)."
 msgstr ""
+"Gibt an, ob Trajektorien protokolliert werden (wenn falsch, werden nur die "
+"Extremwerte und Zeiten gemeldet)."
 
-#: /home/micha/programming/sumo/src\microsim\devices\MSDevice_SSM.cpp:226
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_SSM.cpp:226
 msgid ""
 "Specifies the detection range in meters. For vehicles below this distance "
 "from the equipped vehicle, SSM values are traced."
 msgstr ""
+"Gibt den Erfassungsbereich in Metern an. Für Fahrzeuge unterhalb dieses "
+"Abstands von dem ausgestatteten Fahrzeug werden SSM-Werte verfolgt."
 
-#: /home/micha/programming/sumo/src\microsim\devices\MSDevice_SSM.cpp:228
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_SSM.cpp:228
 msgid ""
 "Specifies the time in seconds to be logged after a conflict is over. "
 "Required >0 if PET is to be calculated for crossing conflicts."
 msgstr ""
+"Gibt die Zeit in Sekunden an, die protokolliert werden soll, nachdem ein "
+"Konflikt beendet ist. Erforderlich >0, wenn PET für Fußgängerfurtkonflikte "
+"berechnet werden soll."
 
-#: /home/micha/programming/sumo/src\microsim\devices\MSDevice_SSM.cpp:230
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_SSM.cpp:230
 msgid "Give a global default filename for the SSM output"
-msgstr ""
+msgstr "Einen globalen Standarddateinamen für die SSM-Ausgabe angeben"
 
-#: /home/micha/programming/sumo/src\microsim\devices\MSDevice_SSM.cpp:232
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_SSM.cpp:232
 msgid "Whether to use coordinates of the original reference system in output"
 msgstr ""
+"Ob Koordinaten des ursprünglichen Referenzsystems in der Ausgabe verwendet "
+"werden sollen"
 
-#: /home/micha/programming/sumo/src\microsim\devices\MSDevice_SSM.cpp:234
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_SSM.cpp:234
 msgid "Whether to write positions (coordinates) for each timestep"
 msgstr ""
+"Ob Positionen (Koordinaten) für jeden Zeitschritt geschrieben werden sollen"
 
-#: /home/micha/programming/sumo/src\microsim\devices\MSDevice_SSM.cpp:236
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_SSM.cpp:236
 msgid "Whether to write lanes and their positions for each timestep"
 msgstr ""
+"Ob Fahrstreifen und ihre Positionen für jeden Zeitschritt geschrieben werden "
+"sollen"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_SSM.cpp:247
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_SSM.cpp:247
@@ -8102,219 +8107,207 @@ msgstr ""
 msgid "Could not build projection!"
 msgstr "Projektion konnte nicht erstellt werden!"
 
-#: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:41
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:41
 msgid "Read edge-type defs from FILE"
-msgstr ""
+msgstr "Kantentypdefinitionen aus Datei lesen"
 
-#: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:44
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:44
 msgid ""
 "The Ids of generated nodes use an alphanumerical code for easier readability "
 "when possible"
 msgstr ""
+"Die IDs der generierten Knoten verwenden nach Möglichkeit einen "
+"alphanumerischen Code für eine einfachere Lesbarkeit"
 
-#: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:48
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:48
 msgid "Generate INT left-turn lanes"
-msgstr ""
+msgstr "INT Linksabbiegefahrstreifen generieren"
 
-#: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:50
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:50
 msgid "Set the length of generated turning lanes to FLOAT"
 msgstr ""
+"Die Länge der generierten Abbiegefahrstreifen auf eine Fließkommazahl "
+"festlegen"
 
-#: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:53
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:53
 msgid ""
 "Apply random spatial perturbation in x direction according the the given "
 "distribution"
 msgstr ""
+"Eine zufällige räumliche Störung in x-Richtung gemäß der angegebenen "
+"Verteilung anwenden"
 
-#: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:55
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:55
 msgid ""
 "Apply random spatial perturbation in y direction according the the given "
 "distribution"
 msgstr ""
+"Eine zufällige räumliche Störung in y-Richtung gemäß der angegebenen "
+"Verteilung anwenden"
 
-#: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:57
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:57
 msgid ""
 "Apply random spatial perturbation in z direction according the the given "
 "distribution"
 msgstr ""
+"Eine zufällige räumliche Störung in z-Richtung gemäß der angegebenen "
+"Verteilung anwenden"
 
-#: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:63
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:63
 msgid "Forces NETGEN to build a grid-like network"
-msgstr ""
+msgstr "Zwingt NETGEN, ein rasterähnliches Netz aufzubauen"
 
-#: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:68
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:68
 msgid "The number of junctions in both dirs"
-msgstr ""
+msgstr "Die Anzahl an Knotenpunkten in beide Richtungen"
 
-#: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:73
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:73
 msgid "The length of streets in both dirs"
-msgstr ""
+msgstr "Die Länge der Straßen in beide Richtungen"
 
-#: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:78
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:78
 msgid "The number of junctions in x-dir; Overrides --grid-number"
-msgstr ""
+msgstr "Die Anzahl der Knotenpunkte in x-Richtung; Überschreibt --grid-number"
 
-#: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:83
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:83
 msgid "The number of junctions in y-dir; Overrides --grid-number"
-msgstr ""
+msgstr "Die Anzahl der Knotenpunkte in y-Richtung; Überschreibt --grid-number"
 
-#: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:88
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:88
 msgid "The length of horizontal streets; Overrides --grid-length"
-msgstr ""
+msgstr "Die Länge der horizontalen Straßen; Überschreibt --grid-length"
 
-#: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:93
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:93
 msgid "The length of vertical streets; Overrides --grid-length"
-msgstr ""
+msgstr "Die Länge der vertikalen Straßen; Überschreibt --grid-length"
 
-#: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:97
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:97
 msgid ""
 "The length of streets attached at the boundary; 0 means no streets are "
 "attached"
 msgstr ""
+"Die Länge der an der Grenze angeschlossenen Straßen; 0 bedeutet, dass keine "
+"Straßen angeschlossen sind"
 
-#: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:100
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:100
 msgid ""
 "The length of streets attached at the boundary in x direction; 0 means no "
 "streets are attached"
 msgstr ""
+"Die Länge der Straßen, die an der Grenze in x-Richtung angeschlossen sind; 0 "
+"bedeutet, dass keine Straßen angeschlossen sind"
 
-#: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:102
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:102
 msgid ""
 "The length of streets attached at the boundary in y direction; 0 means no "
 "streets are attached"
 msgstr ""
+"Die Länge der an der Grenze in y-Richtung angeschlossenen Straßen; 0 "
+"bedeutet, dass keine Straßen angeschlossen sind"
 
-#: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:107
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:107
 msgid "Forces NETGEN to build a spider-net-like network"
-msgstr ""
+msgstr "Zwingt NETGEN, ein Spinnennetz ähnliches Netz aufzubauen"
 
-#: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:112
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:112
 msgid "The number of axes within the net"
-msgstr ""
+msgstr "Die Anzahl der Achsen innerhalb des Netzes"
 
-#: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:117
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:117
 msgid "The number of circles of the net"
-msgstr ""
+msgstr "Die Anzahl der Kreise des Netzes"
 
-#: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:122
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:122
 msgid "The distances between the circles"
-msgstr ""
+msgstr "Die Distanz zwischen Kreisen"
 
-#: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:127
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:127
 msgid "Omit the central node of the network"
-msgstr ""
+msgstr "Den zentralen Knoten des Netzes weglassen"
 
-#: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:133
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:133
 msgid "Forces NETGEN to build a random network"
-msgstr ""
+msgstr "Zwingt NETGEN, ein zufälliges Netz aufzubauen"
 
-#: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:138
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:138
 msgid "Describes how many times an edge shall be added to the net"
-msgstr ""
+msgstr "Beschreibt, wie oft eine Kante zum Netz hinzugefügt werden soll"
 
 #: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:144
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:144
+#, fuzzy
 msgid "Defines the probability to build a reverse edge"
-msgstr ""
+msgstr "Definiert die Wahrscheinlichkeit, eine Umkehrkante zu bilden"
 
-#: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:149
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:149
 msgid "The maximum distance for each edge"
-msgstr ""
+msgstr "Die maximale Distanz für jede Kante"
 
-#: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:154
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:154
 msgid "The minimum distance for each edge"
-msgstr ""
+msgstr "Die minimale Distanz für jede Kante"
 
 #: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:159
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:159
+#, fuzzy
 msgid "The minimum angle for each pair of (bidirectional) roads in DEGREES"
-msgstr ""
+msgstr "Das minimale angle für jedes Paar von (Zweirichtungs-) Straßen in Grad"
 
-#: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:164
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:164
 msgid "The number of tries for creating each node"
-msgstr ""
+msgstr "Die Anzahl der Versuche zum Erstellen jedes Knotens"
 
-#: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:169
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:169
 msgid "Probability for roads to continue at each node"
-msgstr ""
+msgstr "Wahrscheinlichkeit, dass Straßen an jedem Knoten weitergeführt werden"
 
-#: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:174
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:174
 msgid "Probability for a node having exactly 1 neighbor"
-msgstr ""
+msgstr "Wahrscheinlichkeit für einen Knoten mit genau einen Nachbarn"
 
-#: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:179
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:179
 msgid "Probability for a node having exactly 2 neighbors"
-msgstr ""
+msgstr "Wahrscheinlichkeit für einen Knoten mit genau zwei Nachbarn"
 
-#: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:184
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:184
 msgid "Probability for a node having exactly 3 neighbors"
-msgstr ""
+msgstr "Wahrscheinlichkeit für einen Knoten mit genau drei Nachbarn"
 
-#: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:189
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:189
 msgid "Probability for a node having exactly 4 neighbors"
-msgstr ""
+msgstr "Wahrscheinlichkeit für einen Knoten mit genau vier Nachbarn"
 
-#: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:194
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:194
 msgid "Probability for a node having exactly 5 neighbors"
-msgstr ""
+msgstr "Wahrscheinlichkeit für einen Knoten mit genau fünf Nachbarn"
 
-#: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:199
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:199
 msgid "Probability for a node having exactly 6 neighbors"
-msgstr ""
+msgstr "Wahrscheinlichkeit für einen Knoten mit genau sechs Nachbarn"
 
 #: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:203
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:203
+#, fuzzy
 msgid "Draw lane numbers randomly from [1,default.lanenumber]"
-msgstr ""
+msgstr "Fahrstreifennummern zufällig aus [1,default.lanenumber] zeichnen"
 
 #: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:207
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:207
+#, fuzzy
 msgid "Draw edge priority randomly from [1,default.priority]"
-msgstr ""
+msgstr "Kantenpriorität zufällig aus [1,default.priority] zeichnen"
 
 #: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:210
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:210
+#, fuzzy
 msgid "Draw edge type randomly from all loaded types"
-msgstr ""
+msgstr "Kantentyp zufällig aus allen geladenen Typen zeichnen"
 
-#: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:213
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:213
 msgid "Place nodes on a regular grid with spacing rand.min-distance"
 msgstr ""
+"Knoten auf einem regelmäßigen Raster mit den Abständen rand.min-distance "
+"platzieren"
 
 #: /home/micha/programming/sumo/src\netgen\NGFrame.cpp:233
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:233
@@ -8427,96 +8420,83 @@ msgstr "   % Kanten generiert."
 msgid " Removed % traffic lights at geometry-like nodes"
 msgstr " % LSAs am geometrieähnlichen Knoten entfernt"
 
-#: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:53
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:53
 msgid "Read SUMO-net from FILE"
-msgstr ""
+msgstr "SUMO-Netz aus Datei lesen"
 
-#: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:60
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:60
 msgid "Read XML-node defs from FILE"
-msgstr ""
+msgstr "XML-Knotendefinitionen aus Datei lesen"
 
-#: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:66
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:66
 msgid "Read XML-edge defs from FILE"
-msgstr ""
+msgstr "XML-Kantendefinitionen aus Datei lesen"
 
-#: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:72
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:72
 msgid "Read XML-connection defs from FILE"
-msgstr ""
+msgstr "XML-Verbindungsdefinitionen aus Datei lesen"
 
-#: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:75
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:75
 msgid "Read XML-traffic light defs from FILE"
-msgstr ""
+msgstr "XML-LSA-Definitionen aus Datei lesen"
 
-#: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:81
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:81
 msgid "Read XML-type defs from FILE"
-msgstr ""
+msgstr "XML-Typdefinitionen aus Datei lesen"
 
-#: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:86
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:86
 msgid "Reads public transport stops from FILE"
-msgstr ""
+msgstr "Liest ÖV-Haltepunkte aus Datei"
 
-#: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:88
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:88
 msgid "Reads public transport lines from FILE"
-msgstr ""
+msgstr "Liest ÖV-Linien aus Datei"
 
 #: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:90
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:90
+#, fuzzy
 msgid "Reads polygons from FILE for embedding in network where applicable"
-msgstr ""
+msgstr "Liest Polygone aus Datei, um sie ggf. in ein Netzwerk einzubetten"
 
-#: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:97
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:97
 msgid "Read shapefiles (ArcView, Tiger, ...) from files starting with 'FILE'"
 msgstr ""
+"Shape-Dateien (ArcView, Tiger, ...) aus Dateien die mit 'FILE' beginnen lesen"
 
-#: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:102
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:102
 msgid ""
 "Read converted Navteq GDF data (unsplitted Elmar-network) from path 'FILE'"
 msgstr ""
+"Konvertierte Navteq GDF-Daten (ungesplittetes Elmar-Netz) aus Pfad 'FILE' "
+"lesen"
 
-#: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:106
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:106
 msgid "Read OSM-network from path 'FILE(s)'"
-msgstr ""
+msgstr "OSM-Netz aus Pfad 'FILE(s)' lesen"
 
-#: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:110
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:110
 msgid "Read OpenDRIVE-network from FILE"
-msgstr ""
+msgstr "OpenDRIVE-Netz aus Datei lesen"
 
-#: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:114
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:114
 msgid "Read VISUM-net from FILE"
-msgstr ""
+msgstr "VISUM-Netz aus Datei lesen"
 
-#: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:118
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:118
 msgid "Read VISSIM-net from FILE"
-msgstr ""
+msgstr "VISSIM-Netz aus Datei lesen"
 
-#: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:123
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:123
 msgid "Read RoboCup-net from DIR"
-msgstr ""
+msgstr "RoboCup-Netz aus DIR lesen"
 
-#: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:127
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:127
 msgid "Read MATsim-net from FILE"
-msgstr ""
+msgstr "MATsim-Netz aus Datei lesen"
 
-#: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:131
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:131
 msgid "Read ITSUMO-net from FILE"
-msgstr ""
+msgstr "ITSUMO-Netz aus Datei lesen"
 
 #: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:134
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:134
@@ -8528,72 +8508,66 @@ msgstr ""
 msgid "Read heightmap from GeoTIFF"
 msgstr ""
 
-#: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:145
-#: /home/micha/programming/sumo/src\od2trips_main.cpp:159
-#: /home/micha/programming/sumo/src\polyconvert\polyconvert_main.cpp:199
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:145
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:159
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:199
 msgid "Continue on broken input"
-msgstr ""
+msgstr "An gesprochener Eingabe fortfahren"
 
-#: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:148
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:148
 msgid "Continue on invalid connections"
-msgstr ""
+msgstr "An ungültigen Verbindungen fortfahren"
 
-#: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:151
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:151
 msgid "Show errors in connections at parsing"
-msgstr ""
+msgstr "Fehler in Verbindungen beim Einlesen anzeigen"
 
-#: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:154
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:154
 msgid "Continue on unknown edge types"
-msgstr ""
+msgstr "Mit unbekannten Kantentypen fortfahren"
 
 #: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:157
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:157
+#, fuzzy
 msgid "vmax is parsed as given in km/h"
-msgstr ""
+msgstr "maximale Geschwindigkeit wurde in km/h eingelesen"
 
-#: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:160
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:160
 msgid ""
 "Use YYYY-MM-DD date to determine the readiness of features under construction"
 msgstr ""
+"JJJJ-MM-TT Datumsdarstellung um die Bereitschaft der im Bau befindlichen "
+"Funktionen zu bestimmen verwenden"
 
-#: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:163
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:163
 msgid "Remove all z-data"
-msgstr ""
+msgstr "Alle z-Daten entfernen"
 
 #: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:166
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:166
+#, fuzzy
 msgid "Remove the list of keys from all params"
-msgstr ""
+msgstr "Die Schlüsselliste für alle Parameter entfernen"
 
-#: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:169
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:169
 msgid ""
 "List vehicle classes that may ignore lane changing restrictions ('all' "
 "discards all restrictions)"
 msgstr ""
+"Fahrzeugklassen auflisten, die Fahrstreifenwechselbeschränkungen ignorieren "
+"können ('alle' verwirft alle Beschränkungen)"
 
-#: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:174
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:174
 msgid "If edge shapes do not end at the node positions, extend them"
-msgstr ""
+msgstr "Wenn Kantenshapes nicht an den Knotenpositionen enden, verlängre sie"
 
-#: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:178
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:178
 msgid "Skips the check for duplicate nodes and edges"
-msgstr ""
+msgstr "Überspringt die Prüfung auf doppelte Knoten und Kanten"
 
-#: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:181
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:181
 msgid "Imports elevation data"
-msgstr ""
+msgstr "Importiert Höhendaten"
 
 #: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:184
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:184
@@ -8610,128 +8584,116 @@ msgid ""
 "layer data. The value is scaled according to road speed."
 msgstr ""
 
-#: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:190
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:190
 msgid "Whether one-way roads should be spread to the side instead of centered"
-msgstr ""
+msgstr "Ob Einbahnstraßen zur Seite gespreizt statt zentriert werden sollen"
 
-#: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:193
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:193
 msgid "Import lane-specific access restrictions"
-msgstr ""
+msgstr "Fahrstreifenspezifische Zugangsbeschränkungen importieren"
 
 #: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:197
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:197
+#, fuzzy
 msgid "Import bike lanes and fix directions and permissions on bike paths"
 msgstr ""
+"Radwege und Wegbeschreibungen und Genehmigungen auf Radwegen festlegen "
+"importieren"
 
-#: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:200
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:200
 msgid "Import sidewalks"
-msgstr ""
+msgstr "Seitenwege importieren"
 
-#: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:203
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:203
 msgid "Import crossings"
-msgstr ""
+msgstr "Fußgängerfurten importieren"
 
 #: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:206
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:206
+#, fuzzy
 msgid "Import turning arrows from OSM to help with connection building"
-msgstr ""
+msgstr "Drehpfeile aus OSM, um beim Verbindungsaufbau zu helfen importieren"
 
-#: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:209
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:209
 msgid "The default length of a public transport stop in FLOAT m"
-msgstr ""
+msgstr "Die Standardlänge einer ÖV-Haltestelle als Fließkommazahl in m"
 
-#: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:211
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:211
 msgid "The default length of a bus stop in FLOAT m"
-msgstr ""
+msgstr "Die Standardlänge einer Bushaltestelle als Fließkommazahl in m"
 
-#: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:213
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:213
 msgid "The default length of a tram stop in FLOAT m"
-msgstr ""
+msgstr "Die Standardlänge einer Straßenbahnhaltestelle als Fließkommazahl in m"
 
-#: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:215
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:215
 msgid "The default length of a train stop in FLOAT m"
-msgstr ""
+msgstr "Die Standardlänge einer Bahnhaltestelle als Fließkommazahl in m"
 
-#: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:218
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:218
 msgid "Whether additional attributes shall be imported"
-msgstr ""
+msgstr "Ob zusätzliche Attribute importiert werden sollen"
 
-#: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:221
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:221
 msgid ""
 "List of additional attributes that shall be imported from OSM via osm.all-"
 "attributes (set 'all' to import all)"
 msgstr ""
+"Liste der zusätzlichen Attribute, die aus OSM über osm.all-attributes "
+"importiert werden sollen (setze 'all', um alle zu importieren)"
 
-#: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:224
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:224
 msgid ""
 "The speed limit to be set when there is no actual speed limit in reality"
 msgstr ""
+"Die einzustellende Geschwindigkeitsbegrenzung, wenn es in Wirklichkeit keine "
+"tatsächliche Geschwindigkeitsbegrenzung gibt"
 
-#: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:228
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:228
 msgid "The edge lengths given in the MATSIM-file will be kept"
-msgstr ""
+msgstr "Die in der MATSIM-Datei angegebenen Kantenlängen werden beibehalten"
 
-#: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:231
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:231
 msgid "The lane number will be computed from the capacity"
-msgstr ""
+msgstr "Die Fahrstreifennummer wird aus der Kapazität berechnet"
 
-#: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:237
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:237
 msgid "Read edge ids from column STR"
-msgstr ""
+msgstr "Kanten IDs aus Spalte STR lesen"
 
-#: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:241
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:241
 msgid "Read from-node ids from column STR"
-msgstr ""
+msgstr "Ausgangsknoten IDs aus Spalte STR lesen"
 
-#: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:245
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:245
 msgid "Read to-node ids from column STR"
-msgstr ""
+msgstr "Endknoten IDs aus Spalte STR lesen"
 
-#: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:249
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:249
 msgid "Read type ids from column STR"
-msgstr ""
+msgstr "Typen IDs aus Spalte STR lesen"
 
-#: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:252
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:252
 msgid "Read lane number from column STR"
-msgstr ""
+msgstr "Fahrstreifennummer aus Spalte STR lesen"
 
-#: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:255
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:255
 msgid "Read speed from column STR"
-msgstr ""
+msgstr "Geschwindigkeit aus Spalte STR lesen"
 
-#: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:258
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:258
 msgid "Read custom edge length from column STR"
-msgstr ""
+msgstr "Benutzerdefinierte Kantenlänge aus Spalte STR lesen"
 
-#: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:261
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:261
 msgid "Read total edge width from column STR"
-msgstr ""
+msgstr "Totale Kantenbreite aus Spalte STR lesen"
 
 #: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:264
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:264
+#, fuzzy
 msgid "Read (non-unique) name from column STR"
-msgstr ""
+msgstr "(nicht einheitlichen) Namen aus Spalte STR lesen"
 
 #: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:267
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:267
@@ -15396,7 +15358,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:102
 #: /home/micha/programming/sumo/src/netgen/netgen_main.cpp:70
 msgid "Grid Network"
-msgstr ""
+msgstr "Rasternetz"
 
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:107
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:112
@@ -15405,7 +15367,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:127
 #: /home/micha/programming/sumo/src/netgen/netgen_main.cpp:71
 msgid "Spider Network"
-msgstr ""
+msgstr "Spinnennetz"
 
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:133
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:138
@@ -15427,7 +15389,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:213
 #: /home/micha/programming/sumo/src/netgen/netgen_main.cpp:72
 msgid "Random Network"
-msgstr ""
+msgstr "Zufälliges Netz"
 
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:74
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:225
