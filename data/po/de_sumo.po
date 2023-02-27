@@ -6418,7 +6418,7 @@ msgstr "Der Standard für nicht erlaubte Fahrzeugklassen"
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:98
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:98
 msgid "Whether junctions should be kept clear by default"
-msgstr "Ob Abzweigungen standardmäßig freigehalten werden sollen"
+msgstr "Ob Knotenpunkte standardmäßig freigehalten werden sollen"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:101
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:101
@@ -10909,7 +10909,7 @@ msgstr "Falsche Nummer von Stand-Datei-Namen!"
 
 #: /home/micha/programming/sumo/src/netload/NLBuilder.cpp:425
 msgid "Loading % from '%'"
-msgstr "Lade % von '%'"
+msgstr "Lade % aus '%'"
 
 #: /home/micha/programming/sumo/src\netload\NLBuilder.cpp:445
 #: /home/micha/programming/sumo/src/netload/NLBuilder.cpp:445
