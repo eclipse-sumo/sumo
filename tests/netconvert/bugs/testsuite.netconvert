@@ -181,3 +181,6 @@ ticket12419
 
 # prohibitions fail for edge id with '_' 
 ticket12419b
+
+# indirect left turn must not conflict with itself
+ticket12676
