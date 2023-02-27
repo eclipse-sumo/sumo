@@ -68,8 +68,8 @@ class MFXMenuCheckIcon;
 /// @brief text field with min width (used in TLS table)
 #define GUIDesignTextFieldTickedMinWidth        (FRAME_THICK | LAYOUT_FILL_X | LAYOUT_MIN_WIDTH | LAYOUT_FIX_HEIGHT | JUSTIFY_CENTER_Y | JUSTIFY_LEFT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
 
-/// @brief text field with min width and restricted to reals (used in decal table)
-#define GUIDesignTextFieldTickedMinWidthReal    (FRAME_THICK | LAYOUT_FILL_X | LAYOUT_MIN_WIDTH | LAYOUT_FIX_HEIGHT | JUSTIFY_CENTER_Y | JUSTIFY_LEFT | TEXTFIELD_REAL), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
+/// @brief text field with fixed width and restricted to reals (used in decal table)
+#define GUIDesignTextFieldTickedFixWidthReal    (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | JUSTIFY_CENTER_X | JUSTIFY_CENTER_Y | TEXTFIELD_REAL), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
 
 /// @brief Num of column of text field
 #define GUIDesignTextFieldNCol          1
@@ -435,8 +435,8 @@ class MFXMenuCheckIcon;
 /// @brief design for auxiliar vertical frames with fixed width (used in TLSTable and DecalsTable)
 #define GUIDesignAuxiliarFrameFixWidth          (LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 
-/// @brief design for auxiliar (Without borders) frames used in MFXDecalsTable
-#define GUIDesignMFXDecalTable                  (LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+/// @brief design for auxiliar vertical frames with fixed height (DecalsTable)
+#define GUIDesignAuxiliarFrameFixHeight         (LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 
 /// @}
 

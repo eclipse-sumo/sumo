@@ -30,7 +30,7 @@
 #include <utils/gui/windows/GUIDialog_ViewSettings.h>
 
 
-#define EXTRAMARGING 1
+#define EXTRAMARGING 4
 
 // ===========================================================================
 // FOX callback mapping
@@ -48,7 +48,7 @@ FXDEFMAP(MFXDecalsTable) MFXDecalsTableMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(MFXDecalsTable, FXHorizontalFrame, MFXDecalsTableMap, ARRAYNUMBER(MFXDecalsTableMap))
+FXIMPLEMENT(MFXDecalsTable, FXVerticalFrame, MFXDecalsTableMap, ARRAYNUMBER(MFXDecalsTableMap))
 
 // ===========================================================================
 // method definitions
@@ -59,10 +59,16 @@ FXIMPLEMENT(MFXDecalsTable, FXHorizontalFrame, MFXDecalsTableMap, ARRAYNUMBER(MF
 // ---------------------------------------------------------------------------
 
 MFXDecalsTable::MFXDecalsTable(GUIDialog_ViewSettings* dialogViewSettingsParent, FXComposite *parent) :
-    FXHorizontalFrame(parent, GUIDesignMFXDecalTable),
+    FXVerticalFrame(parent, GUIDesignAuxiliarFrame),
     myIndexFont(new FXFont(getApp(), "Segoe UI", 9)),
     myIndexSelectedFont(new FXFont(getApp(), "Segoe UI", 9, FXFont::Bold)),
     myDialogViewSettings(dialogViewSettingsParent) {
+    // create vertical frame for rows
+    myColumnsFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarFrame);
+    // create add button
+    myAddButton = new FXButton(this,
+        (std::string("\t") + TL("Add decal") + std::string("\t") + TL("Add decal.")).c_str(),
+        GUIIconSubSys::getIcon(GUIIcon::ADD), this, MID_DECALSTABLE_ADD, GUIDesignButtonIcon);
 }
 
 
@@ -93,13 +99,15 @@ void
 MFXDecalsTable::fillTable() {
     // first clear table
     clearTable();
+    // get decals
+    const auto decals = myDialogViewSettings->getSUMOAbstractView()->getDecals();
     // create columns
     std::string columnsType = "ibfsssssscd";
     for (int i = 0; i < (FXint)columnsType.size(); i++) {
         myColumns.push_back(new Column(this, i, columnsType.at(i)));
     }
     // create rows
-    for (const auto &decal : myDialogViewSettings->getSUMOAbstractView()->getDecals()) {
+    for (const auto &decal : decals) {
         // create row
         auto row = new Row(this);
         // fill cells
@@ -569,9 +577,9 @@ MFXDecalsTable::Column::Column(MFXDecalsTable* table, const int index, const cha
     myType(type) {
     // create vertical frame
     if (myType == 'f') {
-        myVerticalFrame = new FXVerticalFrame(table, GUIDesignAuxiliarFrame);
+        myVerticalFrame = new FXVerticalFrame(table->myColumnsFrame, GUIDesignAuxiliarFrame);
     } else {
-        myVerticalFrame = new FXVerticalFrame(table, GUIDesignAuxiliarFrameFixWidth);
+        myVerticalFrame = new FXVerticalFrame(table->myColumnsFrame, GUIDesignAuxiliarFrameFixWidth);
     }
     // create top label
     if (myType == 'f') {
@@ -692,16 +700,16 @@ MFXDecalsTable::Row::Row(MFXDecalsTable* table) :
         // continue depending of type
         switch (table->myColumns.at(columnIndex)->getType()) {
             case ('f'): {
-                // create textField for values
+                // create textField for filenames
                 auto textField = new FXTextField(table->myColumns.at(columnIndex)->getVerticalCellFrame(),
                         GUIDesignTextFieldNCol, table, MID_DECALSTABLE_TEXTFIELD, GUIDesignTextField);
                 myCells.push_back(new Cell(table, textField, columnIndex, numCells));
                 break;
             }
             case ('s'): {
-                // create textField for values
+                // create textField for real values
                 auto textField = new FXTextField(table->myColumns.at(columnIndex)->getVerticalCellFrame(),
-                    GUIDesignTextFieldNCol, table, MID_DECALSTABLE_TEXTFIELD, GUIDesignTextFieldTickedMinWidthReal);
+                    GUIDesignTextFieldNCol, table, MID_DECALSTABLE_TEXTFIELD, GUIDesignTextFieldTickedFixWidthReal);
                 myCells.push_back(new Cell(table, textField, columnIndex, numCells));
                 break;
             }

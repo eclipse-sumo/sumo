@@ -37,7 +37,7 @@ class GUIDialog_ViewSettings;
 /**
  * @class MFXDecalsTable
  */
-class MFXDecalsTable : public FXHorizontalFrame {
+class MFXDecalsTable : public FXVerticalFrame {
     /// @brief fox declaration
     FXDECLARE(MFXDecalsTable)
 
@@ -271,6 +271,9 @@ protected:
     /// @brief move focus to current row
     bool moveFocus();
 
+    /// @brief horizontal columns frame
+    FXHorizontalFrame* myColumnsFrame = nullptr;
+
     /// @brief font for index
     FXFont* myIndexFont = nullptr;
 
@@ -285,6 +288,9 @@ protected:
 
     /// @brief rows
     std::vector<Row*> myRows;
+
+    /// @brief add button
+    FXButton* myAddButton = nullptr;
 
     /// @brief current selected row
     int myCurrentSelectedRow = -1;
