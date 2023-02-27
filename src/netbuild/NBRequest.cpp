@@ -854,7 +854,9 @@ bool
 NBRequest::indirectLeftTurnConflict(const NBEdge* from, const NBEdge::Connection& con,
                                     const NBEdge* prohibitorFrom,  const NBEdge::Connection& prohibitorCon, bool foes) const {
     if (from == prohibitorFrom) {
-        if (con.indirectLeft) {
+        if (con.toEdge == prohibitorCon.toEdge) {
+            return false;
+        } else if (con.indirectLeft) {
             LinkDirection dir = myJunction->getDirection(prohibitorFrom, prohibitorCon.toEdge);
             return (dir == LinkDirection::STRAIGHT);
         } else if (foes && prohibitorCon.indirectLeft) {
