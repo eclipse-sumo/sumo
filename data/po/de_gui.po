@@ -3925,9 +3925,9 @@ msgid ""
 "Select default speed deviation. A negative value implies vClass specific "
 "defaults (0.1 for the default passenger class"
 msgstr ""
-"Wähle Standardabweichung der Geschwindigkeit. Bei einem negativen Wert "
-"werden fahrzeugklassenspezifische Standardabweichungen benutzt (0.1 für die "
-"Standardklasse \"passenger\")"
+"Standardgeschwindigkeitsabweichung auswählen. Ein negativer Wert impliziert "
+"Fahrzeugklassen-spezifische Standardwerte (0,1 für die Standard-"
+"Passagierklasse"
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:508
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:508
