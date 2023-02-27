@@ -143,11 +143,19 @@ GUIOSGView::GUIOSGView(
         delete (myChanger);
     }
 
+#ifdef DEBUG:
+    std::cout << "GUIOSGView::GUIOSGView() #1" << std::endl;
+#endif
+
     int w = getWidth();
     int h = getHeight();
     myAdapter = new FXOSGAdapter(this, new FXCursor(parent->getApp(), CURSOR_CROSS));
     myViewer = new osgViewer::Viewer();
     myChanger = new GUIOSGPerspectiveChanger(*this, *myGrid);
+
+#ifdef DEBUG:
+    std::cout << "GUIOSGView::GUIOSGView() #2" << std::endl;
+#endif
 
     const char* sumoPath = getenv("SUMO_HOME");
     if (sumoPath != 0) {
@@ -168,6 +176,10 @@ GUIOSGView::GUIOSGView(
         WRITE_ERROR(TL("Could not load traffic light files."));
     }
 
+#ifdef DEBUG:
+    std::cout << "GUIOSGView::GUIOSGView() #3" << std::endl;
+#endif
+
     // calculate camera frustum to scale the ground plane all across
     double left, right, bottom, top, zNear, zFar;
     myViewer->getCamera()->getProjectionMatrixAsFrustum(left, right, bottom, top, zNear, zFar);
@@ -177,6 +189,10 @@ GUIOSGView::GUIOSGView(
     myPlane->addChild(GUIOSGBuilder::buildPlane((float)(zFar - zNear)));
     myPlane->addUpdateCallback(new PlaneMoverCallback(myViewer->getCamera()));
     myRoot->addChild(myPlane);
+
+#ifdef DEBUG:
+    std::cout << "GUIOSGView::GUIOSGView() #4" << std::endl;
+#endif
 
     // add the stats handler
     osgViewer::StatsHandler* statsHandler = new osgViewer::StatsHandler();
@@ -192,6 +208,10 @@ GUIOSGView::GUIOSGView(
     myViewer->setThreadingModel(osgViewer::Viewer::SingleThreaded);
     myViewer->addEventHandler(new PickHandler(this));
 
+#ifdef DEBUG:
+    std::cout << "GUIOSGView::GUIOSGView() #5" << std::endl;
+#endif
+
     osg::Vec3d lookFrom, lookAt, up;
     myCameraManipulator->getHomePosition(lookFrom, lookAt, up);
     lookFrom = lookAt + osg::Z_AXIS;
@@ -202,6 +222,10 @@ GUIOSGView::GUIOSGView(
     myViewer->home();
     getApp()->addChore(this, MID_CHORE);
 
+#ifdef DEBUG:
+    std::cout << "GUIOSGView::GUIOSGView() #6" << std::endl;
+#endif
+
     myTextNode = new osg::Geode();
     myText = new osgText::Text;
     myText->setCharacterSizeMode(osgText::Text::SCREEN_COORDS);
@@ -210,6 +234,11 @@ GUIOSGView::GUIOSGView(
     if (font != nullptr) {
         myText->setFont(font);
     }
+
+#ifdef DEBUG:
+    std::cout << "GUIOSGView::GUIOSGView() #7" << std::endl;
+#endif
+
     myText->setCharacterSize(16.f);
     myTextNode->addDrawable(myText);
     myText->setAlignment(osgText::TextBase::AlignmentType::LEFT_TOP);
@@ -217,7 +246,12 @@ GUIOSGView::GUIOSGView(
     myText->setBoundingBoxColor(osg::Vec4(0.0f, 0.0f, 0.2f, 0.5f));
     myText->setBoundingBoxMargin(2.0f);
 
+#ifdef DEBUG:
+    std::cout << "GUIOSGView::GUIOSGView() #8" << std::endl;
+#endif
+
     myHUD = new osg::Camera;
+    myHUD->setGraphicsContext(myAdapter);
     myHUD->setProjectionMatrixAsOrtho2D(0, 800, 0, 800); // default size will be overwritten
     myHUD->setReferenceFrame(osg::Transform::ABSOLUTE_RF);
     myHUD->setViewMatrix(osg::Matrix::identity());
@@ -225,7 +259,11 @@ GUIOSGView::GUIOSGView(
     myHUD->setRenderOrder(osg::Camera::POST_RENDER);
     myHUD->setAllowEventFocus(false);
     myHUD->addChild(myTextNode);
-    myHUD->setGraphicsContext(myAdapter);
+    
+#ifdef DEBUG:
+    std::cout << "GUIOSGView::GUIOSGView() #9" << std::endl;
+#endif
+
     myHUD->setViewport(0, 0, w, h);
     myViewer->addSlave(myHUD, false);
     myCameraManipulator->updateHUDText();
