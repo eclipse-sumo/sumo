@@ -4793,8 +4793,9 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Taxi.cpp:91
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Taxi.cpp:91
+#, fuzzy
 msgid "The period between successive calls to the dispatcher"
-msgstr ""
+msgstr "Der Zeitraum zwischen aufeinanderfolgenden Anrufen beim Abfertiger"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Taxi.cpp:94
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Taxi.cpp:94
@@ -6775,45 +6776,46 @@ msgstr "Fügt Fließkommazahl zu den y-Positionen des Netzes hinzu"
 msgid "Adds FLOAT to net z-positions"
 msgstr "Fügt Fließkommazahl zu den z-Positionen des Netzes hinzu"
 
-#: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:288
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:288
 msgid "Flips the y-coordinate along zero"
-msgstr ""
+msgstr "Kehrt die y-Koordinate entlang Null um"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:292
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:292
+#, fuzzy
 msgid "Enable roundabout-guessing"
-msgstr ""
+msgstr "Kreisverkehr-Raten aktivieren"
 
-#: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:295
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:295
 msgid "Default visibility when approaching a roundabout"
-msgstr ""
+msgstr "Standardsichtbarkeit bei Annäherung an einen Kreisverkehr"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:298
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:298
+#, fuzzy
 msgid "Enable guessing of opposite direction lanes usable for overtaking"
 msgstr ""
+"Das Annehmen von Fahrspuren in entgegengesetzter Richtung, die zum Überholen "
+"verwendet werden können aktivieren"
 
-#: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:301
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:301
 msgid "Ensure that opposite edges have the same length"
-msgstr ""
+msgstr "Achte darauf, dass gegenüberliegende Kanten die gleiche Länge haben"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:304
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:304
+#, fuzzy
 msgid "Enable guessing of network fringe nodes"
-msgstr ""
+msgstr "Schätzen von Netzrandknoten aktivieren"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:307
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:307
 msgid "Guess disconnected edges above the given speed as outer fringe"
 msgstr ""
 
-#: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:310
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:310
 msgid "Assumes left-hand traffic on the network"
-msgstr ""
+msgstr "Geht von Linksverkehr im Netz aus"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:326
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:326
@@ -10632,15 +10634,13 @@ msgstr "Ungültiger Fahrstreifenindex % für Kantentyp '%' mit % Fahrstreifen"
 msgid "Could not open vissim-file '%'."
 msgstr "Vissim-Datei '%' konnte nicht geöffnet werden."
 
-#: /home/micha/programming/sumo/src\netimport\vissim\tempstructs\NIVissimConnection.cpp:241
 #: /home/micha/programming/sumo/src/netimport/vissim/tempstructs/NIVissimConnection.cpp:241
 msgid "Could not build connection between '%' and '%'."
-msgstr ""
+msgstr "Konnte keine Verbindung zwischen '%' und '%' erstellen."
 
-#: /home/micha/programming/sumo/src\netimport\vissim\tempstructs\NIVissimConnection.cpp:248
 #: /home/micha/programming/sumo/src/netimport/vissim/tempstructs/NIVissimConnection.cpp:248
 msgid "Lane sizes differ for connection '%'."
-msgstr ""
+msgstr "Fahrstreifengrößen unterscheiden sich für die Verbindung '%'."
 
 #: /home/micha/programming/sumo/src\netimport\vissim\tempstructs\NIVissimConnectionCluster.cpp:496
 #: /home/micha/programming/sumo/src/netimport/vissim/tempstructs/NIVissimConnectionCluster.cpp:496
@@ -10652,186 +10652,164 @@ msgstr ""
 msgid "NIVissimConnectionCluster: how to get an edge's position?"
 msgstr ""
 
-#: /home/micha/programming/sumo/src\netimport\vissim\tempstructs\NIVissimDistrictConnection.cpp:205
 #: /home/micha/programming/sumo/src/netimport/vissim/tempstructs/NIVissimDistrictConnection.cpp:205
 #, c-format
 msgid "Could not build district '%' - edge '%' is missing."
-msgstr ""
+msgstr "Konnte Bezirk '%' nicht erstellen - Kante '%' fehlt."
 
-#: /home/micha/programming/sumo/src\netimport\vissim\tempstructs\NIVissimDistrictConnection.cpp:360
 #: /home/micha/programming/sumo/src/netimport/vissim/tempstructs/NIVissimDistrictConnection.cpp:360
 msgid ""
 "No streams assigned at district'%'.\n"
 " Using default speed 200km/h"
 msgstr ""
+"Keine Ströme dem Bezirk '%' zugewiesen.\n"
+"Nutze Standardgeschwindigkeit 200km/h"
 
-#: /home/micha/programming/sumo/src\netimport\vissim\tempstructs\NIVissimDistrictConnection.cpp:377
-#: /home/micha/programming/sumo/src\netimport\vissim\tempstructs\NIVissimEdge.cpp:526
 #: /home/micha/programming/sumo/src/netimport/vissim/tempstructs/NIVissimDistrictConnection.cpp:377
 #: /home/micha/programming/sumo/src/netimport/vissim/tempstructs/NIVissimEdge.cpp:526
 #, c-format
 msgid "The referenced speed distribution '%' is not known."
-msgstr ""
+msgstr "Die referenzierte Geschwindigkeitsverteilung '%' ist nicht bekannt."
 
-#: /home/micha/programming/sumo/src\netimport\vissim\tempstructs\NIVissimDistrictConnection.cpp:378
-#: /home/micha/programming/sumo/src\netimport\vissim\tempstructs\NIVissimDistrictConnection.cpp:385
 #: /home/micha/programming/sumo/src/netimport/vissim/tempstructs/NIVissimDistrictConnection.cpp:378
 #: /home/micha/programming/sumo/src/netimport/vissim/tempstructs/NIVissimDistrictConnection.cpp:385
 msgid ". Using default."
-msgstr ""
+msgstr ". Nutze Standard."
 
 #: /home/micha/programming/sumo/src\netimport\vissim\tempstructs\NIVissimDisturbance.cpp:143
 #: /home/micha/programming/sumo/src/netimport/vissim/tempstructs/NIVissimDisturbance.cpp:143
 msgid "Ugly split to prohibit '%' by '%'."
 msgstr ""
 
-#: /home/micha/programming/sumo/src\netimport\vissim\tempstructs\NIVissimDisturbance.cpp:186
 #: /home/micha/programming/sumo/src/netimport/vissim/tempstructs/NIVissimDisturbance.cpp:186
 msgid "Could not prohibit '%' by '%'. Have not found disturbance."
-msgstr ""
+msgstr "Konnte '%' von '%' nicht verbieten. Habe keine Störung festgestellt."
 
-#: /home/micha/programming/sumo/src\netimport\vissim\tempstructs\NIVissimDisturbance.cpp:191
 #: /home/micha/programming/sumo/src/netimport/vissim/tempstructs/NIVissimDisturbance.cpp:191
 msgid "Could not prohibit '%' by '%'. Disturbance connects same node."
 msgstr ""
+"Konnte '%' von '%' nicht verbieten. Störung verbindet denselben Knoten."
 
 #: /home/micha/programming/sumo/src\netimport\vissim\tempstructs\NIVissimDisturbance.cpp:210
 #: /home/micha/programming/sumo/src\netimport\vissim\tempstructs\NIVissimDisturbance.cpp:262
 #: /home/micha/programming/sumo/src/netimport/vissim/tempstructs/NIVissimDisturbance.cpp:210
 #: /home/micha/programming/sumo/src/netimport/vissim/tempstructs/NIVissimDisturbance.cpp:262
-#, c-format
+#, fuzzy, c-format
 msgid "Would have to split edge '%' to build a prohibition"
-msgstr ""
+msgstr "Müsste Kante '%' teilen, um ein Verbot zu erstellen"
 
-#: /home/micha/programming/sumo/src\netimport\vissim\tempstructs\NIVissimDisturbance.cpp:237
 #: /home/micha/programming/sumo/src/netimport/vissim/tempstructs/NIVissimDisturbance.cpp:237
 #, c-format
 msgid "Could not prohibit '%' - it was not built."
-msgstr ""
+msgstr "Konnte '%' nicht verbieten - es wurde nicht erstellt."
 
 #: /home/micha/programming/sumo/src\netimport\vissim\tempstructs\NIVissimDisturbance.cpp:243
 #: /home/micha/programming/sumo/src/netimport/vissim/tempstructs/NIVissimDisturbance.cpp:243
+#, fuzzy
 msgid "Could not prohibit '%' by '%'."
-msgstr ""
+msgstr "Konnte '%' von '%' nicht verbieten."
 
 #: /home/micha/programming/sumo/src\netimport\vissim\tempstructs\NIVissimDisturbance.cpp:307
 #: /home/micha/programming/sumo/src/netimport/vissim/tempstructs/NIVissimDisturbance.cpp:307
 msgid "NIVissimDisturbance: no connection"
 msgstr ""
 
-#: /home/micha/programming/sumo/src\netimport\vissim\tempstructs\NIVissimDisturbance.cpp:340
 #: /home/micha/programming/sumo/src/netimport/vissim/tempstructs/NIVissimDisturbance.cpp:340
 #, c-format
 msgid "Could not build % of % disturbances."
-msgstr ""
+msgstr "Konnte % von % Störungen nicht erstellen."
 
-#: /home/micha/programming/sumo/src\netimport\vissim\tempstructs\NIVissimEdge.cpp:439
 #: /home/micha/programming/sumo/src/netimport/vissim/tempstructs/NIVissimEdge.cpp:439
 msgid "Will not build edge '%'."
-msgstr ""
+msgstr "Kante '%' wird nicht erstellt."
 
-#: /home/micha/programming/sumo/src\netimport\vissim\tempstructs\NIVissimEdge.cpp:464
-#: /home/micha/programming/sumo/src\netimport\vissim\tempstructs\NIVissimEdge.cpp:472
 #: /home/micha/programming/sumo/src/netimport/vissim/tempstructs/NIVissimEdge.cpp:464
 #: /home/micha/programming/sumo/src/netimport/vissim/tempstructs/NIVissimEdge.cpp:472
 #, c-format
 msgid "Could not insert node '%' to nodes container."
-msgstr ""
+msgstr "Konnte Knoten '%' nicht in den Knotencontainer einfügen."
 
-#: /home/micha/programming/sumo/src\netimport\vissim\tempstructs\NIVissimEdge.cpp:490
 #: /home/micha/programming/sumo/src/netimport/vissim/tempstructs/NIVissimEdge.cpp:490
 msgid "Could not build edge '%'; would connect same node."
-msgstr ""
+msgstr "Konnte Kante '%' nicht erstellen; würde denselben Knoten verbinden."
 
-#: /home/micha/programming/sumo/src\netimport\vissim\tempstructs\NIVissimEdge.cpp:532
 #: /home/micha/programming/sumo/src/netimport/vissim/tempstructs/NIVissimEdge.cpp:532
 msgid "What about distribution '%' "
-msgstr ""
+msgstr "Was ist mit Verteilung '%' "
 
-#: /home/micha/programming/sumo/src\netimport\vissim\tempstructs\NIVissimTL.cpp:138
 #: /home/micha/programming/sumo/src/netimport/vissim/tempstructs/NIVissimTL.cpp:138
 #, c-format
 msgid "Could not set tls signal at edge '%' - the edge was not built."
 msgstr ""
+"Konnte LSA-Signal an Kante '%' nicht anwenden - die Kante wurde nicht "
+"erstellt."
 
-#: /home/micha/programming/sumo/src\netimport\vissim\tempstructs\NIVissimTL.cpp:152
 #: /home/micha/programming/sumo/src/netimport/vissim/tempstructs/NIVissimTL.cpp:152
 msgid "Edge '%': Lanes were not assigned."
-msgstr ""
+msgstr "Kante '%': Fahrstreifen wurden nicht vergeben."
 
-#: /home/micha/programming/sumo/src\netimport\vissim\tempstructs\NIVissimTL.cpp:375
 #: /home/micha/programming/sumo/src/netimport/vissim/tempstructs/NIVissimTL.cpp:375
 msgid ""
 "Error on adding a traffic light\n"
 " Must be a multiple id ('%')"
 msgstr ""
+"Fehler beim Hinzufügen einer LSA\n"
+"Muss eine mehrfache ID sein ('%')"
 
-#: /home/micha/programming/sumo/src\netimport\vissim\tempstructs\NIVissimTL.cpp:383
 #: /home/micha/programming/sumo/src/netimport/vissim/tempstructs/NIVissimTL.cpp:383
 msgid "The signal group '%' could not be assigned to tl '%'."
-msgstr ""
+msgstr "Die Signalgruppe '%' konnte der LSA '%' nicht zugeordnet werden."
 
-#: /home/micha/programming/sumo/src\netimport\vissim\tempstructs\NIVissimTL.cpp:392
 #: /home/micha/programming/sumo/src/netimport/vissim/tempstructs/NIVissimTL.cpp:392
 msgid "The signal '%' could not be assigned to tl '%'."
-msgstr ""
+msgstr "Das Signal '%' konnte der LSA '%' nicht zugeordnet werden."
 
-#: /home/micha/programming/sumo/src\netimport\vissim\tempstructs\NIVissimTL.cpp:399
 #: /home/micha/programming/sumo/src/netimport/vissim/tempstructs/NIVissimTL.cpp:399
 msgid "Could not set % of % traffic lights."
-msgstr ""
+msgstr "Konnte nicht % von % LSAs anwenden."
 
-#: /home/micha/programming/sumo/src\netimport\vissim\tempstructs\NIVissimTL.cpp:402
 #: /home/micha/programming/sumo/src/netimport/vissim/tempstructs/NIVissimTL.cpp:402
 #, c-format
 msgid "Could not set % of % groups."
-msgstr ""
+msgstr "Konnte % von % Gruppen nicht anwenden."
 
-#: /home/micha/programming/sumo/src\netimport\vissim\tempstructs\NIVissimTL.cpp:405
 #: /home/micha/programming/sumo/src/netimport/vissim/tempstructs/NIVissimTL.cpp:405
 #, c-format
 msgid "Could not set % of % signals."
-msgstr ""
+msgstr "Konnte % von % Signalen nicht anwenden."
 
-#: /home/micha/programming/sumo/src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Lichtsignalanlagendefinition.cpp:84
-#: /home/micha/programming/sumo/src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Signalgruppendefinition.cpp:93
 #: /home/micha/programming/sumo/src/netimport/vissim/typeloader/NIVissimSingleTypeParser_Lichtsignalanlagendefinition.cpp:84
 #: /home/micha/programming/sumo/src/netimport/vissim/typeloader/NIVissimSingleTypeParser_Signalgruppendefinition.cpp:93
 #, c-format
 msgid "Unsupported LSA-Type '%' occurred."
-msgstr ""
+msgstr "Nicht unterstützter LSA-Typ '%' aufgetreten."
 
-#: /home/micha/programming/sumo/src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Signalgeberdefinition.cpp:73
 #: /home/micha/programming/sumo/src/netimport/vissim/typeloader/NIVissimSingleTypeParser_Signalgeberdefinition.cpp:73
 msgid "Omitting unknown traffic light."
-msgstr ""
+msgstr "Auslassen einer unbekannten LSA."
 
-#: /home/micha/programming/sumo/src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Signalgruppendefinition.cpp:142
-#: /home/micha/programming/sumo/src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Signalgruppendefinition.cpp:170
 #: /home/micha/programming/sumo/src/netimport/vissim/typeloader/NIVissimSingleTypeParser_Signalgruppendefinition.cpp:142
 #: /home/micha/programming/sumo/src/netimport/vissim/typeloader/NIVissimSingleTypeParser_Signalgruppendefinition.cpp:170
 msgid "VAS traffic lights are not supported (lsa=%)"
-msgstr ""
+msgstr "VAS-LSAs werden nicht unterstützt (lsa=%)"
 
-#: /home/micha/programming/sumo/src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Signalgruppendefinition.cpp:154
 #: /home/micha/programming/sumo/src/netimport/vissim/typeloader/NIVissimSingleTypeParser_Signalgruppendefinition.cpp:154
 msgid "VSPLUS traffic lights are not supported (lsa=%)"
-msgstr ""
+msgstr "VSPLUS-LSAs werden nicht unterstützt (lsa=%)"
 
-#: /home/micha/programming/sumo/src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Signalgruppendefinition.cpp:162
 #: /home/micha/programming/sumo/src/netimport/vissim/typeloader/NIVissimSingleTypeParser_Signalgruppendefinition.cpp:162
 msgid "TRENDS traffic lights are not supported (lsa=%)"
-msgstr ""
+msgstr "TRENDS-LSAs werden nicht unterstützt (lsa=%)"
 
-#: /home/micha/programming/sumo/src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Signalgruppendefinition.cpp:178
 #: /home/micha/programming/sumo/src/netimport/vissim/typeloader/NIVissimSingleTypeParser_Signalgruppendefinition.cpp:178
 msgid "TL traffic lights are not supported (lsa=%)"
-msgstr ""
+msgstr "TL-LSAs werden nicht unterstützt (lsa=%)"
 
 #: /home/micha/programming/sumo/src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Signalgruppendefinition.cpp:186
 #: /home/micha/programming/sumo/src/netimport/vissim/typeloader/NIVissimSingleTypeParser_Signalgruppendefinition.cpp:186
+#, fuzzy
 msgid "POS traffic lights are not supported (lsa=%)"
-msgstr ""
+msgstr "POS-LSAs werden nicht unterstützt (lsa=%)"
 
 #: /home/micha/programming/sumo/src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Signalgruppendefinition.cpp:194
 #: /home/micha/programming/sumo/src/netimport/vissim/typeloader/NIVissimSingleTypeParser_Signalgruppendefinition.cpp:194
@@ -12018,20 +11996,17 @@ msgstr ""
 msgid "Defines in which column the id can be found"
 msgstr ""
 
-#: /home/micha/programming/sumo/src\polyconvert\polyconvert_main.cpp:134
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:134
 msgid "Defines which columns form the type id (comma separated list)"
-msgstr ""
+msgstr "Definiert, welche Spalten die Typ ID bilden (kommaseparierte Liste)"
 
-#: /home/micha/programming/sumo/src\polyconvert\polyconvert_main.cpp:137
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:137
 msgid "A running number will be used as id"
-msgstr ""
+msgstr "Als ID wird eine laufende Nummer verwendet"
 
-#: /home/micha/programming/sumo/src\polyconvert\polyconvert_main.cpp:140
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:140
 msgid "Extract all additional columns as params"
-msgstr ""
+msgstr "Alle zusätzlichen Spalten als Parameter extrahieren"
 
 #: /home/micha/programming/sumo/src\polyconvert\polyconvert_main.cpp:143
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:143
@@ -12040,20 +12015,21 @@ msgid ""
 "'auto' tries to determine it from the data type"
 msgstr ""
 
-#: /home/micha/programming/sumo/src\polyconvert\polyconvert_main.cpp:148
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:148
 msgid "Reads types from FILE"
-msgstr ""
+msgstr "Liest Typen aus Datei"
 
-#: /home/micha/programming/sumo/src\polyconvert\polyconvert_main.cpp:156
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:156
 msgid "Write generated polygons/pois to FILE"
-msgstr ""
+msgstr "Generierte Polygone/Pole in Datei schreiben"
 
 #: /home/micha/programming/sumo/src\polyconvert\polyconvert_main.cpp:159
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:159
+#, fuzzy
 msgid "Write generated polygons/pois to a dlr-tdp file with the given prefix"
 msgstr ""
+"Generierte Polygone/Pole in eine dlr-tdp Datei mit der gegebenen Präfix "
+"schreiben"
 
 #: /home/micha/programming/sumo/src\polyconvert\polyconvert_main.cpp:165
 #: /home/micha/programming/sumo/src\polyconvert\polyconvert_main.cpp:169
@@ -12087,20 +12063,17 @@ msgstr ""
 msgid "Uses STR as pruning boundary"
 msgstr ""
 
-#: /home/micha/programming/sumo/src\polyconvert\polyconvert_main.cpp:177
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:177
 msgid "Items in STR will be kept though out of boundary"
-msgstr ""
+msgstr "Gegenstände in STR werden außerhalb der Grenzen gehalten"
 
-#: /home/micha/programming/sumo/src\polyconvert\polyconvert_main.cpp:181
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:181
 msgid "Items with names in STR[] will be removed"
-msgstr ""
+msgstr "Elemente mit Namen in STR[] werden entfernt"
 
-#: /home/micha/programming/sumo/src\polyconvert\polyconvert_main.cpp:196
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:196
 msgid "Imports all attributes as key/value pairs"
-msgstr ""
+msgstr "Importiert alle Attribute als Schlüssel/Werte-Paare"
 
 #: /home/micha/programming/sumo/src\polyconvert\polyconvert_main.cpp:202
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:202
@@ -12108,40 +12081,35 @@ msgid ""
 "Adds FLOAT to the layer value for each poi (i.e. to raise it above polygons)"
 msgstr ""
 
-#: /home/micha/programming/sumo/src\polyconvert\polyconvert_main.cpp:206
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:206
 msgid "Sets STR as default color"
-msgstr ""
+msgstr "Legt STR als Standardfarbe fest"
 
-#: /home/micha/programming/sumo/src\polyconvert\polyconvert_main.cpp:209
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:209
 msgid "Sets STR as default prefix"
-msgstr ""
+msgstr "Legt STR als Standardpräfix fest"
 
-#: /home/micha/programming/sumo/src\polyconvert\polyconvert_main.cpp:212
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:212
 msgid "Sets STR as default type"
-msgstr ""
+msgstr "Legt STR als Standardtyp fest"
 
 #: /home/micha/programming/sumo/src\polyconvert\polyconvert_main.cpp:215
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:215
+#, fuzzy
 msgid "Fills polygons by default"
-msgstr ""
+msgstr "Füllt standardmäßig Polygone"
 
-#: /home/micha/programming/sumo/src\polyconvert\polyconvert_main.cpp:218
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:218
 msgid "Sets FLOAT as default layer"
-msgstr ""
+msgstr "Legt Fließkommazahl als Standardebene fest"
 
-#: /home/micha/programming/sumo/src\polyconvert\polyconvert_main.cpp:221
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:221
 msgid "Sets default action to discard"
-msgstr ""
+msgstr "Legt die Standardaktion zum Verwerfen fest"
 
-#: /home/micha/programming/sumo/src\polyconvert\polyconvert_main.cpp:225
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:225
 msgid "Write geo coordinates in output"
-msgstr ""
+msgstr "Geokoordinaten in Ausgabe schreiben"
 
 #: /home/micha/programming/sumo/src\polyconvert\polyconvert_main.cpp:232
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:232
@@ -12185,123 +12153,117 @@ msgstr ""
 "Die Option weights.priority-factor bewirkt keinen Effekt, da alle Kanten den "
 "gleichen Vorrang haben."
 
-#: /home/micha/programming/sumo/src\router\ROFrame.cpp:47
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:47
 msgid "Write generated routes to FILE"
-msgstr ""
+msgstr "Generierte Routen in Datei schreiben"
 
-#: /home/micha/programming/sumo/src\router\ROFrame.cpp:53
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:53
 msgid "Write used vehicle types into separate FILE"
-msgstr ""
+msgstr "Verwendete Fahrzeugtypen in separate Datei schreiben"
 
 #: /home/micha/programming/sumo/src\router\ROFrame.cpp:56
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:56
+#, fuzzy
 msgid "Keep vTypeDistribution ids when writing vehicles and their types"
 msgstr ""
+"Fahrzeugtypverteilungs-IDs beibehalten, wenn Fahrzeuge und ihre Typen "
+"geschrieben werden"
 
-#: /home/micha/programming/sumo/src\router\ROFrame.cpp:63
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:63
 msgid "Use FILE as SUMO-network to route on"
-msgstr ""
+msgstr "Datei als SUMO-Netz für Routen verwenden"
 
-#: /home/micha/programming/sumo/src\router\ROFrame.cpp:66
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:66
 msgid "Write vehicles that reference routes by their id"
-msgstr ""
+msgstr "Fahrzeuge, die Routen anhand ihrer ID referenzieren schreiben"
 
-#: /home/micha/programming/sumo/src\router\ROFrame.cpp:73
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:73
 msgid "Read additional network data (districts, bus stops) from FILE(s)"
-msgstr ""
+msgstr "Zusätzliche Netzdaten (Bezirke, Haltestellen) aus Datei(en) lesen"
 
-#: /home/micha/programming/sumo/src\router\ROFrame.cpp:87
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:87
 msgid "Read sumo routes, alternatives, flows, and trips from FILE(s)"
-msgstr ""
+msgstr "Sumo-Routen, Alternativen, Abläufe und Fahrten aus Datei(en) lesen"
 
-#: /home/micha/programming/sumo/src\router\ROFrame.cpp:101
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:101
 msgid "Read network weights from FILE(s)"
-msgstr ""
+msgstr "Netzgewichte aus Datei(en) lesen"
 
-#: /home/micha/programming/sumo/src\router\ROFrame.cpp:104
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:104
 msgid "Read lane-based network weights from FILE(s)"
-msgstr ""
+msgstr "Fahrstreifenbasierte Netzgewischte aus Datei(en) lesen"
 
-#: /home/micha/programming/sumo/src\router\ROFrame.cpp:125
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:125
 msgid "Continue if a route could not be build"
-msgstr ""
+msgstr "Fortfahren wenn eine Route nicht erstellt werden konnte"
 
-#: /home/micha/programming/sumo/src\router\ROFrame.cpp:128
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:128
 msgid "Prune the number of alternatives to INT"
-msgstr ""
+msgstr "Reduziere die Anzahl der Alternativen zu INT"
 
-#: /home/micha/programming/sumo/src\router\ROFrame.cpp:131
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:131
 msgid "Use origin and destination zones (districts) for in- and output"
-msgstr ""
+msgstr "Herkunfts- und Zielzonen (Bezirke) für Ein- und Ausgabe verwenden"
 
-#: /home/micha/programming/sumo/src\router\ROFrame.cpp:139
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:139
 msgid "Assume input is unsorted"
-msgstr ""
+msgstr "Die Eingabe ist unsortiert annehmen"
 
-#: /home/micha/programming/sumo/src\router\ROFrame.cpp:148
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:148
 msgid "generate random departure times for flow input"
-msgstr ""
+msgstr "generiert zufällige Abfahrtszeiten für die Flusseingabe"
 
-#: /home/micha/programming/sumo/src\router\ROFrame.cpp:151
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:151
 msgid ""
 "Remove loops within the route; Remove turnarounds at start and end of the "
 "route"
 msgstr ""
+"Schleifen innerhalb der Route entfernen; Entferne Wendepunkte am Anfang und "
+"Ende der Route"
 
-#: /home/micha/programming/sumo/src\router\ROFrame.cpp:154
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:154
 msgid "Tries to correct a false route"
-msgstr ""
+msgstr "Versuch eine falsche Route zu korrigieren"
 
-#: /home/micha/programming/sumo/src\router\ROFrame.cpp:157
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:157
 msgid ""
 "Tries to correct an invalid starting edge by using the first usable edge "
 "instead"
 msgstr ""
+"Versuch eine ungültige Anfangskante zu korrigieren, indem stattdessen die "
+"erste verwendbare Kante verwendet wird"
 
-#: /home/micha/programming/sumo/src\router\ROFrame.cpp:160
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:160
 msgid ""
 "Tries to correct an invalid destination edge by using the last usable edge "
 "instead"
 msgstr ""
+"Versuch eine ungültige Zielkante zu korrigieren, indem stattdessen die "
+"letzte verwendbare Kante verwendet wird"
 
-#: /home/micha/programming/sumo/src\router\ROFrame.cpp:163
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:163
 msgid ""
 "Maximum distance when mapping input coordinates (fromXY etc.) to the road "
 "network"
 msgstr ""
+"Maximale Entfernung bei der Zuordnung von Eingabekoordinaten (von x, y usw.) "
+"zum Straßennetz"
 
 #: /home/micha/programming/sumo/src\router\ROFrame.cpp:166
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:166
+#, fuzzy
 msgid "Match positions to junctions instead of edges"
-msgstr ""
+msgstr "Ordnet Positionen zu Knotenpunkten statt Kanten zu"
 
-#: /home/micha/programming/sumo/src\router\ROFrame.cpp:169
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:169
 msgid "Aggregate routing queries with the same origin"
-msgstr ""
+msgstr "Routingabfragen mit demselben Ursprung aggregieren"
 
-#: /home/micha/programming/sumo/src\router\ROFrame.cpp:173
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:173
 msgid "The number of parallel execution threads used for routing"
 msgstr ""
+"Die Anzahl paralleler Ausführungsstränge, die für das Routing verwendet "
+"werden"
 
 #: /home/micha/programming/sumo/src\router\ROFrame.cpp:177
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:177
@@ -12309,38 +12271,37 @@ msgid ""
 "Select among routing algorithms ['dijkstra', 'astar', 'CH', 'CHWrapper']"
 msgstr ""
 
-#: /home/micha/programming/sumo/src\router\ROFrame.cpp:181
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:181
 msgid ""
 "Comma separated list of param keys to compare for additional restrictions"
 msgstr ""
+"Durch Kommata getrennte Liste von Parameterschlüsseln, die auf zusätzliche "
+"Einschränkungen verglichen werden sollen"
 
-#: /home/micha/programming/sumo/src\router\ROFrame.cpp:186
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:186
 msgid "Interpolate edge weights at interval boundaries"
-msgstr ""
+msgstr "Kantengewichte an Intervallgrenzen interpolieren"
 
-#: /home/micha/programming/sumo/src\router\ROFrame.cpp:190
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:190
 msgid "Expand the end of the last loaded weight interval to infinity"
 msgstr ""
+"Das Ende des zuletzt geladenen Gewichtsintervalls auf unendlich expandieren"
 
-#: /home/micha/programming/sumo/src\router\ROFrame.cpp:194
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:194
 msgid ""
 "Apply the given time penalty when computing routing costs for minor-link "
 "internal lanes"
 msgstr ""
+"Die gegebene Zeitstrafe bei der Berechnung der Routing-Kosten für interne "
+"Fahrstreifen kleinerer Verbindungen anwenden"
 
-#: /home/micha/programming/sumo/src\router\ROFrame.cpp:217
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:217
 msgid "Defaults will override given values"
-msgstr ""
+msgstr "Standardwerte überschreiben die angegebenen Werte"
 
-#: /home/micha/programming/sumo/src\router\ROFrame.cpp:222
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:222
 msgid "Defines how often statistics shall be printed"
-msgstr ""
+msgstr "Legt fest, wie oft Statistiken ausgegeben werden sollen"
 
 #: /home/micha/programming/sumo/src\router\ROFrame.cpp:233
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:233
@@ -12646,116 +12607,118 @@ msgid "Computes emissions by driving a time line using SUMO's emission models."
 msgstr ""
 "Berechnet Emissionen aus Fahrzyklen mithilfe der sumo-Emissionsmodelle."
 
-#: /home/micha/programming/sumo/src\tools\emissionsDrivingCycle_main.cpp:70
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:70
 msgid "Defines the file to read the driving cycle from."
-msgstr ""
+msgstr "Definiert die Datei, aus der der Fahrzyklus gelesen werden soll."
 
 #: /home/micha/programming/sumo/src\tools\emissionsDrivingCycle_main.cpp:74
 msgid "Skips the first NUM lines."
 msgstr ""
 
-#: /home/micha/programming/sumo/src\tools\emissionsDrivingCycle_main.cpp:78
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:78
 msgid "Defines the entry separator."
-msgstr ""
+msgstr "Definiert das Eintragstrennzeichen."
 
-#: /home/micha/programming/sumo/src\tools\emissionsDrivingCycle_main.cpp:83
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:83
 msgid ""
 "Defines the netstate, route and trajectory files to read the driving cycles "
 "from."
 msgstr ""
+"Definiert die Netzstand-, Routen- und Trajektoriendateien, aus denen die "
+"Fahrzyklen gelesen werden sollen."
 
-#: /home/micha/programming/sumo/src\tools\emissionsDrivingCycle_main.cpp:86
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:86
 msgid "Load emission parameters (vTypes) from FILE(s)"
-msgstr ""
+msgstr "Emissionsparameter (Fahrzeugtypen) aus Datei(en) laden"
 
-#: /home/micha/programming/sumo/src\tools\emissionsDrivingCycle_main.cpp:89
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:89
 msgid "Defines for which emission class the emissions shall be generated. "
 msgstr ""
+"Definiert, für welche Emissionsklasse die Emissionen erzeugt werden sollen. "
 
-#: /home/micha/programming/sumo/src\tools\emissionsDrivingCycle_main.cpp:92
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:92
 msgid "Defines the vehicle type to use for emission parameters."
-msgstr ""
+msgstr "Definiert den für Emissionsparameter zu verwendenden Fahrzeugtyp."
 
-#: /home/micha/programming/sumo/src\tools\emissionsDrivingCycle_main.cpp:96
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:96
 msgid ""
 "If set, the acceleration is computed instead of being read from the file. "
 msgstr ""
+"Wenn angewendet, wird die Beschleunigung berechnet, anstatt aus der Datei "
+"gelesen zu werden. "
 
-#: /home/micha/programming/sumo/src\tools\emissionsDrivingCycle_main.cpp:99
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:99
 msgid ""
 "If set, the acceleration for time t is computed from v(t+1) - v(t) instead "
 "of v(t) - v(t-1). "
 msgstr ""
+"Wenn angewendet, wird die Beschleunigung für die Zeit t aus v(t+1) - v(t) "
+"statt aus v(t) - v(t-1) berechnet. "
 
-#: /home/micha/programming/sumo/src\tools\emissionsDrivingCycle_main.cpp:102
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:102
 msgid "If set, the acceleration for time t is set to 0 if the speed is 0. "
 msgstr ""
+"Wenn angewendet, wird die Beschleunigung für die Zeit t auf 0 gesetzt, wenn "
+"die Geschwindigkeit 0 ist. "
 
-#: /home/micha/programming/sumo/src\tools\emissionsDrivingCycle_main.cpp:105
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:105
 msgid "If set, the first line of the read file is skipped."
 msgstr ""
+"Wenn angewendet, wird die erste Zeile der gelesenen Datei übersprungen."
 
-#: /home/micha/programming/sumo/src\tools\emissionsDrivingCycle_main.cpp:108
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:108
 msgid "If set, the given speed is interpreted as being given in km/h."
 msgstr ""
+"Wenn angewendet, wird die angegebene Geschwindigkeit als Angabe in km/h "
+"interpretiert."
 
-#: /home/micha/programming/sumo/src\tools\emissionsDrivingCycle_main.cpp:111
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:111
 msgid "If set, the fourth column is read and used as slope (in deg)."
 msgstr ""
+"Wenn angewendet, wird die vierte Spalte gelesen und als Steigung (in Grad) "
+"verwendet."
 
-#: /home/micha/programming/sumo/src\tools\emissionsDrivingCycle_main.cpp:114
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:114
 msgid ""
 "Sets a global slope (in deg) that is used if the file does not contain slope "
 "information."
 msgstr ""
+"Legt eine globale Neigung (in Grad) fest, die verwendet wird, wenn die Datei "
+"keine Neigungsinformation enthält."
 
-#: /home/micha/programming/sumo/src\tools\emissionsDrivingCycle_main.cpp:119
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:119
 msgid "Defines the file to write the emission cycle results into."
 msgstr ""
+"Definiert die Datei, in die die Ergebnisse des Emissionszyklus geschrieben "
+"werden."
 
-#: /home/micha/programming/sumo/src\tools\emissionsDrivingCycle_main.cpp:122
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:122
 msgid "Defines the attributes to write."
-msgstr ""
+msgstr "Definiert die zu schreibenden Attribute."
 
 #: /home/micha/programming/sumo/src\tools\emissionsDrivingCycle_main.cpp:125
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:125
+#, fuzzy
 msgid "Save the emission values of each vehicle in XML"
-msgstr ""
+msgstr "Die Emissionswerte jedes Fahrzeugs in XML speichern"
 
-#: /home/micha/programming/sumo/src\tools\emissionsDrivingCycle_main.cpp:129
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:129
 msgid "Save the aggregated and normed emission values of each vehicle in CSV"
 msgstr ""
+"Die aggregierten und normierten Emissionswerte jedes Fahrzeugs in CSV "
+"speichern"
 
-#: /home/micha/programming/sumo/src\tools\emissionsDrivingCycle_main.cpp:145
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:145
 msgid "Defines the begin time in seconds;"
-msgstr ""
+msgstr "Definiert die Startzeit in Sekunden;"
 
-#: /home/micha/programming/sumo/src\tools\emissionsDrivingCycle_main.cpp:148
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:148
 msgid "Defines the end time in seconds;"
-msgstr ""
+msgstr "Definiert die Endzeit in Sekunden;"
 
-#: /home/micha/programming/sumo/src\tools\emissionsDrivingCycle_main.cpp:152
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:152
 msgid "Not writing anything."
-msgstr ""
+msgstr "Nichts schreiben."
 
 #: /home/micha/programming/sumo/src\tools\emissionsDrivingCycle_main.cpp:169
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:169
@@ -12822,68 +12785,71 @@ msgstr "Datei '%' kann nicht geöffnet werden zum Schreiben."
 msgid "Builds and writes an emissions map for SUMO's emission models."
 msgstr "Baut und schreibt eine Emissionskarte für das SUMOs Emissionsmodelle."
 
-#: /home/micha/programming/sumo/src\tools\emissionsMap_main.cpp:92
 #: /home/micha/programming/sumo/src/tools/emissionsMap_main.cpp:92
 msgid "If set, maps for all available emissions are written."
 msgstr ""
+"Wenn angewendet, werden Karten für alle verfügbaren Emissionen geschrieben."
 
-#: /home/micha/programming/sumo/src\tools\emissionsMap_main.cpp:95
 #: /home/micha/programming/sumo/src/tools/emissionsMap_main.cpp:95
 msgid "Defines the name of the emission class to generate the map for."
 msgstr ""
+"Definiert den Namen der Emissionsklasse, für die die Karte erstellt werden "
+"soll."
 
-#: /home/micha/programming/sumo/src\tools\emissionsMap_main.cpp:98
 #: /home/micha/programming/sumo/src/tools/emissionsMap_main.cpp:98
 msgid "Defines the minimum velocity boundary of the map to generate (in m/s)."
 msgstr ""
+"Definiert die minimale Geschwindigkeitsgrenze der zu generierenden Karte (in "
+"m/s)."
 
-#: /home/micha/programming/sumo/src\tools\emissionsMap_main.cpp:100
 #: /home/micha/programming/sumo/src/tools/emissionsMap_main.cpp:100
 msgid "Defines the maximum velocity boundary of the map to generate (in m/s)."
 msgstr ""
+"Definiert die maximale Geschwindigkeitsgrenze der zu generierenden Karte (in "
+"m/s)."
 
-#: /home/micha/programming/sumo/src\tools\emissionsMap_main.cpp:102
 #: /home/micha/programming/sumo/src/tools/emissionsMap_main.cpp:102
 msgid "Defines the velocity step size (in m/s)."
-msgstr ""
+msgstr "Definiert die Schrittweite der Geschwindigkeit (in m/s)."
 
-#: /home/micha/programming/sumo/src\tools\emissionsMap_main.cpp:104
 #: /home/micha/programming/sumo/src/tools/emissionsMap_main.cpp:104
 msgid ""
 "Defines the minimum acceleration boundary of the map to generate (in m/s^2)."
 msgstr ""
+"Definiert die minimale Beschleunigungsgrenze der zu generierenden Karte (in "
+"m/s^2)."
 
-#: /home/micha/programming/sumo/src\tools\emissionsMap_main.cpp:106
 #: /home/micha/programming/sumo/src/tools/emissionsMap_main.cpp:106
 msgid ""
 "Defines the maximum acceleration boundary of the map to generate (in m/s^2)."
 msgstr ""
+"Definiert die maximale Beschleunigungsgrenze der zu generierenden Karte (in "
+"m/s^2)."
 
-#: /home/micha/programming/sumo/src\tools\emissionsMap_main.cpp:108
 #: /home/micha/programming/sumo/src/tools/emissionsMap_main.cpp:108
 msgid "Defines the acceleration step size (in m/s^2)."
-msgstr ""
+msgstr "Definiert die Beschleunigungsschrittgröße (in m/s^2)."
 
-#: /home/micha/programming/sumo/src\tools\emissionsMap_main.cpp:110
 #: /home/micha/programming/sumo/src/tools/emissionsMap_main.cpp:110
 msgid "Defines the minimum slope boundary of the map to generate (in deg)."
 msgstr ""
+"Definiert die minimale Neigungsgrenze der zu generierenden Karte (in Grad)."
 
-#: /home/micha/programming/sumo/src\tools\emissionsMap_main.cpp:112
 #: /home/micha/programming/sumo/src/tools/emissionsMap_main.cpp:112
 msgid "Defines the maximum slope boundary of the map to generate (in deg)."
 msgstr ""
+"Definiert die maximale Neigungsgrenze der zu erstellenden Karte (in Grad)."
 
-#: /home/micha/programming/sumo/src\tools\emissionsMap_main.cpp:114
 #: /home/micha/programming/sumo/src/tools/emissionsMap_main.cpp:114
 msgid "Defines the slope step size (in deg)."
-msgstr ""
+msgstr "Definiert die Steigungsschrittgröße (in Grad)."
 
-#: /home/micha/programming/sumo/src\tools\emissionsMap_main.cpp:119
 #: /home/micha/programming/sumo/src/tools/emissionsMap_main.cpp:119
 msgid ""
 "Defines the file (or the path if --iterate was set) to write the map(s) into."
 msgstr ""
+"Definiert die Datei (oder den Pfad, wenn --iterate gesetzt wurde), in die "
+"die Karte(n) geschrieben werden sollen."
 
 #: /home/micha/programming/sumo/src\tools\emissionsMap_main.cpp:159
 #: /home/micha/programming/sumo/src/tools/emissionsMap_main.cpp:159
@@ -15329,7 +15295,7 @@ msgstr "SSM-Einrichtung"
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Taxi.cpp:94
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Taxi.cpp:97
 msgid "Taxi Device"
-msgstr ""
+msgstr "Taxi-Einrichtung"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ToC.cpp:112
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ToC.cpp:116
@@ -15418,8 +15384,9 @@ msgid "Projection"
 msgstr ""
 
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:74
+#, fuzzy
 msgid "Skips the firs NUM lines."
-msgstr ""
+msgstr "Überspringt die ersten NUM-Zeilen."
 
 #: /home/micha/programming/sumo/src/utils/common/RandHelper.cpp:61
 #: /home/micha/programming/sumo/src/utils/common/RandHelper.cpp:65
