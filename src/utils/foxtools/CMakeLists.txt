@@ -1,8 +1,6 @@
 set(utils_foxtools_STAT_SRCS
    fxheader.h
    fxexdefs.h
-   MFXAddEditTypedTable.cpp
-   MFXAddEditTypedTable.h
    MFXBaseObject.cpp
    MFXBaseObject.h
    MFXButtonTooltip.cpp

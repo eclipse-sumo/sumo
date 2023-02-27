@@ -25,7 +25,6 @@
 #include <utils/foxtools/fxheader.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/gui/div/GUIPersistentWindowPos.h>
-#include <utils/foxtools/MFXAddEditTypedTable.h>
 #include <utils/foxtools/MFXDecalsTable.h>
 
 
@@ -168,9 +167,6 @@ public:
     /// @brief Called if something (color, width, etc.) has been changed
     long onCmdColorChange(FXObject*, FXSelector, void*);
 
-    /// @brief Called if the decals-table was changed
-    long onCmdEditTable(FXObject*, FXSelector, void* data);
-
     /// @brief Called if the name of the scheme was changed
     long onCmdNameChange(FXObject*, FXSelector, void*);
 
@@ -233,6 +229,7 @@ protected:
 
     /// @name Dialog elements
     /// @{
+
     FXComboBox* mySchemeName = nullptr;
     FXCheckButton* myShowGrid = nullptr;
     FXRealSpinner* myGridXSizeDialer = nullptr;
@@ -240,8 +237,7 @@ protected:
 
     FXColorWell* myBackgroundColor = nullptr;
     FXVerticalFrame* myDecalsFrame = nullptr;
-    MFXAddEditTypedTable* myDecalsTable = nullptr;
-    MFXDecalsTable* myNewDecalsTable = nullptr;
+    MFXDecalsTable* myDecalsTable = nullptr;
 
     /// @brief selection colors
     FXColorWell* mySelectionColor = nullptr;
@@ -525,12 +521,6 @@ protected:
      * @param[in] doCreate Whether "create" shall be called (only if built the first time)
      */
     void rebuildColorMatrices(bool doCreate = false);
-
-    /// @brief build the decals table
-    void buildDecalsTable();
-
-    /// @brief Rebuilds the decals table
-    void rebuildDecalsTable();
 
     /** @brief Loads a scheme from a file
      * @param[in] file The name of the file to read the settings from
