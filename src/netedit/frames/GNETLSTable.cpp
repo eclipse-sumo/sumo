@@ -1226,7 +1226,7 @@ GNETLSTable::Row::Row(GNETLSTable* table) :
                 // create textField for values
                 auto textField = new MFXTextFieldTooltip(table->myColumns.at(columnIndex)->getVerticalCellFrame(),
                         table->getTLSPhasesParent()->getTLSEditorParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
-                        GUIDesignTextFieldNCol, table, MID_GNE_TLSTABLE_TEXTFIELD, GUIDesignTextFieldTLSTable);
+                        GUIDesignTextFieldNCol, table, MID_GNE_TLSTABLE_TEXTFIELD, GUIDesignTextFieldTickedMinWidth);
                 myCells.push_back(new Cell(table, textField, columnIndex, numCells));
                 break;
             }
@@ -1234,7 +1234,7 @@ GNETLSTable::Row::Row(GNETLSTable* table) :
                 // create text field for program (state)
                 auto textField = new MFXTextFieldTooltip(table->myColumns.at(columnIndex)->getVerticalCellFrame(),
                         table->getTLSPhasesParent()->getTLSEditorParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
-                        GUIDesignTextFieldNCol, table, MID_GNE_TLSTABLE_TEXTFIELD, GUIDesignTextFieldTLSTable);
+                        GUIDesignTextFieldNCol, table, MID_GNE_TLSTABLE_TEXTFIELD, GUIDesignTextFieldTickedMinWidth);
                 // set special font
                 textField->setFont(myTable->myProgramFont);
                 myCells.push_back(new Cell(table, textField, columnIndex, numCells));

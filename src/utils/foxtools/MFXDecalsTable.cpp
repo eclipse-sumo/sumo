@@ -647,7 +647,7 @@ MFXDecalsTable::Row::Row(MFXDecalsTable* table) :
             case ('s'): {
                 // create textField for values
                 auto textField = new FXTextField(table->myColumns.at(columnIndex)->getVerticalCellFrame(),
-                    GUIDesignTextFieldNCol, table, MID_GNE_TLSTABLE_TEXTFIELD, GUIDesignTextFieldTLSTable);
+                    GUIDesignTextFieldNCol, table, MID_GNE_TLSTABLE_TEXTFIELD, GUIDesignTextFieldTickedMinWidth);
                 myCells.push_back(new Cell(table, textField, columnIndex, numCells));
                 break;
             }
