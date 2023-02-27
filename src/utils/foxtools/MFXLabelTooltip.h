@@ -17,8 +17,7 @@
 ///
 // Label similar to FXLabel but with the possibility of showing tooltips
 /****************************************************************************/
-#ifndef MFXLabelTooltip_h
-#define MFXLabelTooltip_h
+#pragma once
 #include <config.h>
 
 #include "fxheader.h"
@@ -70,6 +69,3 @@ private:
     /// @brief Invalidated assignment operator.
     MFXLabelTooltip& operator=(const MFXLabelTooltip&) = delete;
 };
-
-
-#endif

@@ -17,15 +17,13 @@
 ///
 // A thread class together with a pool and a task for parallelized computation
 /****************************************************************************/
-
-#ifndef MFXWorkerThread_h
-#define MFXWorkerThread_h
+#pragma once
+#include <config.h>
 
 // #define WORKLOAD_PROFILING
 // at which interval report maximum workload of the threads, needs WORKLOAD_PROFILING
 // undefine to use summary report only
 #define WORKLOAD_INTERVAL 100
-#include <config.h>
 
 #include <list>
 #include <vector>
@@ -413,6 +411,3 @@ private:
     long long int myTotalTime;
 #endif
 };
-
-
-#endif

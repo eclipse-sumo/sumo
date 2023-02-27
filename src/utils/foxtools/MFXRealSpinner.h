@@ -17,8 +17,7 @@
 ///
 // Thin wrapper around FXRealSpinner to modify key interception
 /****************************************************************************/
-#ifndef MFXRealSpinner_h
-#define MFXRealSpinner_h
+#pragma once
 #include <config.h>
 
 #include "fxheader.h"
@@ -46,6 +45,3 @@ protected:
     FOX_CONSTRUCTOR(MFXRealSpinner)
 
 };
-
-
-#endif

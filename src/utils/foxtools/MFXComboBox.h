@@ -17,8 +17,7 @@
 ///
 // Thin wrapper around FXComboBox to modify key interception
 /****************************************************************************/
-#ifndef MFXComboBox_h
-#define MFXComboBox_h
+#pragma once
 #include <config.h>
 
 #include "fxheader.h"
@@ -46,6 +45,3 @@ protected:
     FOX_CONSTRUCTOR(MFXComboBox)
 
 };
-
-
-#endif

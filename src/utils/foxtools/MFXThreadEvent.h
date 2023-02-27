@@ -19,15 +19,12 @@
 ///
 //
 /****************************************************************************/
-#ifndef MFXThreadEvent_h
-#define MFXThreadEvent_h
+#pragma once
 #include <config.h>
 
 #include "fxexdefs.h"
-
-#ifndef FXBASEOBJECT_H
 #include "MFXBaseObject.h"
-#endif
+
 namespace FXEX {
 
 /**
@@ -146,6 +143,3 @@ public:
 };
 
 } // namespace FXEX
-
-
-#endif

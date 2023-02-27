@@ -17,8 +17,7 @@
 ///
 // missing_desc
 /****************************************************************************/
-#ifndef MFXSynchSet_h
-#define MFXSynchSet_h
+#pragma once
 #include <config.h>
 
 #ifdef HAVE_FOX
@@ -175,6 +174,3 @@ public:
 #endif
 
 };
-
-
-#endif

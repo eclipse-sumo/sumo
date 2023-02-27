@@ -20,8 +20,7 @@
 //
 /****************************************************************************/
 
-#ifndef MFXSingleEventThread_h
-#define MFXSingleEventThread_h
+#pragma once
 #include <config.h>
 
 #include "fxheader.h"
@@ -78,6 +77,3 @@ private:
     /// @brief invalidate assignment constructor
     MFXSingleEventThread& operator=(const MFXSingleEventThread&) = delete;
 };
-
-
-#endif

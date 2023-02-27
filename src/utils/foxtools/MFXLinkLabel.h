@@ -18,9 +18,7 @@
 ///
 //
 /****************************************************************************/
-
-#ifndef MFXLinkLabel_h
-#define MFXLinkLabel_h
+#pragma once
 #include <config.h>
 
 #include "fxheader.h"
@@ -56,8 +54,3 @@ public:
     // open the given link in a browser or pdf viewer
     static FXint fxexecute(FXString link);
 };
-
-
-
-
-#endif

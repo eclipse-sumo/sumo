@@ -17,8 +17,7 @@
 ///
 // Some helper functions for FOX
 /****************************************************************************/
-#ifndef MFXUtils_h
-#define MFXUtils_h
+#pragma once
 #include <config.h>
 
 #include "fxheader.h"
@@ -126,6 +125,3 @@ public:
     static FXColor getFXColor(const RGBColor& col);
 
 };
-
-
-#endif

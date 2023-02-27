@@ -17,19 +17,15 @@
 ///
 // missing_desc
 /****************************************************************************/
-#ifndef FXThreadMessageRetriever_h
-#define FXThreadMessageRetriever_h
+#pragma once
 #include <config.h>
 
 #include "FXBaseObject.h"
 
 class FXThreadMessageRetriever : public FXEX::FXBaseObject {
+
 public:
     FXThreadMessageRetriever() { }
+
     ~FXThreadMessageRetriever() { }
-
-private:
 };
-
-
-#endif

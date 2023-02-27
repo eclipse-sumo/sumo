@@ -17,8 +17,7 @@
 ///
 // missing_desc
 /****************************************************************************/
-#ifndef MFXEditableTable_h
-#define MFXEditableTable_h
+#pragma once
 #include <config.h>
 
 #include "fxheader.h"
@@ -134,6 +133,3 @@ protected:
     FOX_CONSTRUCTOR(MFXEditableTable)
 
 };
-
-
-#endif

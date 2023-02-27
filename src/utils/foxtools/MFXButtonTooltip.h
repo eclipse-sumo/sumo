@@ -17,8 +17,7 @@
 ///
 // Button similar to FXButton but with the possibility of showing tooltips
 /****************************************************************************/
-#ifndef MFXButtonTooltip_h
-#define MFXButtonTooltip_h
+#pragma once
 #include <config.h>
 
 #include <string>
@@ -70,6 +69,3 @@ private:
     /// @brief Invalidated assignment operator.
     MFXButtonTooltip& operator=(const MFXButtonTooltip&) = delete;
 };
-
-
-#endif

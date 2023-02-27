@@ -17,18 +17,16 @@
 ///
 // missing_desc
 /****************************************************************************/
-#ifndef MFXInterThreadEventClient_h
-#define MFXInterThreadEventClient_h
+#pragma once
 #include <config.h>
 
 
-
 class MFXInterThreadEventClient {
+
 public:
     MFXInterThreadEventClient() {}
+
     virtual ~MFXInterThreadEventClient() { }
+
     virtual void eventOccurred() = 0;
 };
-
-
-#endif

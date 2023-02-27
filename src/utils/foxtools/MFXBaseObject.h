@@ -19,17 +19,12 @@
 ///
 //
 /****************************************************************************/
-
-#ifndef FXBASEOBJECT_H
-#define FXBASEOBJECT_H
+#pragma once
 #include <config.h>
 
 #include <FXHash.h>
 using namespace FX;
-#ifndef FXOBJECT_H
-#include <FXObject.h>
-using namespace FX;
-#endif
+
 namespace FXEX {
 
 /**
@@ -202,5 +197,4 @@ public:
 };
 
 } // namespace FXEX
-#endif // FXBASEOBJECT_H
 

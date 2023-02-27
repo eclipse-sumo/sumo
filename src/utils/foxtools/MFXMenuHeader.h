@@ -17,8 +17,7 @@
 ///
 // Header for menu commands
 /****************************************************************************/
-#ifndef MFXMenuHeader_h
-#define MFXMenuHeader_h
+#pragma once
 #include <config.h>
 
 #include "fxheader.h"
@@ -32,6 +31,3 @@ public:
     /// @brief destructor
     ~MFXMenuHeader();
 };
-
-
-#endif
