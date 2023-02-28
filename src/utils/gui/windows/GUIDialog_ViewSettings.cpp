@@ -935,29 +935,31 @@ GUIDialog_ViewSettings::loadSettings(const std::string& file) {
 
 void
 GUIDialog_ViewSettings::saveDecals(OutputDevice& dev) const {
-    std::vector<GUISUMOAbstractView::Decal>::iterator j;
-    for (j = myParent->getDecals().begin(); j != myParent->getDecals().end(); ++j) {
-        GUISUMOAbstractView::Decal& d = *j;
-        bool isLight = d.filename.substr(0, 5) == "light" && d.filename.length() == 6 && isdigit(d.filename[5]);
-        if (isLight) {
-            dev.openTag(SUMO_TAG_VIEWSETTINGS_LIGHT);
-            dev.writeAttr(SUMO_ATTR_INDEX, d.filename.substr(5, 1));
-        } else {
-            dev.openTag(SUMO_TAG_VIEWSETTINGS_DECAL);
-            dev.writeAttr("file", d.filename);
-            dev.writeAttr("screenRelative", d.screenRelative);
+    for (const auto &decal : myParent->getDecals()) {
+        // only save decals with non empty filename
+        if (decal.filename.size() > 0) {
+            // check if decal is a light
+            const bool isLight = (decal.filename.substr(0, 5) == "light") && (decal.filename.length() == 6) && isdigit(decal.filename[5]);
+            if (isLight) {
+                dev.openTag(SUMO_TAG_VIEWSETTINGS_LIGHT);
+                dev.writeAttr(SUMO_ATTR_INDEX, decal.filename.substr(5, 1));
+            } else {
+                dev.openTag(SUMO_TAG_VIEWSETTINGS_DECAL);
+                dev.writeAttr("file", decal.filename);
+                dev.writeAttr("screenRelative", decal.screenRelative);
+            }
+            dev.writeAttr(SUMO_ATTR_CENTER_X, decal.centerX);
+            dev.writeAttr(SUMO_ATTR_CENTER_Y, decal.centerY);
+            dev.writeAttr(SUMO_ATTR_CENTER_Z, decal.centerZ);
+            dev.writeAttr(SUMO_ATTR_WIDTH, decal.width);
+            dev.writeAttr(SUMO_ATTR_HEIGHT, decal.height);
+            dev.writeAttr("altitude", decal.altitude);
+            dev.writeAttr("rotation", decal.rot);
+            dev.writeAttr("tilt", decal.tilt);
+            dev.writeAttr("roll", decal.roll);
+            dev.writeAttr(SUMO_ATTR_LAYER, decal.layer);
+            dev.closeTag();
         }
-        dev.writeAttr(SUMO_ATTR_CENTER_X, d.centerX);
-        dev.writeAttr(SUMO_ATTR_CENTER_Y, d.centerY);
-        dev.writeAttr(SUMO_ATTR_CENTER_Z, d.centerZ);
-        dev.writeAttr(SUMO_ATTR_WIDTH, d.width);
-        dev.writeAttr(SUMO_ATTR_HEIGHT, d.height);
-        dev.writeAttr("altitude", d.altitude);
-        dev.writeAttr("rotation", d.rot);
-        dev.writeAttr("tilt", d.tilt);
-        dev.writeAttr("roll", d.roll);
-        dev.writeAttr(SUMO_ATTR_LAYER, d.layer);
-        dev.closeTag();
     }
 }
 
