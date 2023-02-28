@@ -153,13 +153,15 @@ GUICursorDialog::onCmdMoveListDown(FXObject*, FXSelector, void*) {
 
 long
 GUICursorDialog::onCmdProcessFront(FXObject*, FXSelector, void*) {
-    // continue depending of properties
-    if (myType == GUIGLObjectPopupMenu::PopupType::DELETE_ELEMENT) {
-        myMenuCommandGLObjects.front().second->deleteGLObject();
-    } else if (myType == GUIGLObjectPopupMenu::PopupType::SELECT_ELEMENT) {
-        myMenuCommandGLObjects.front().second->selectGLObject();
-    } else if (myType == GUIGLObjectPopupMenu::PopupType::FRONT_ELEMENT) {
-        myMenuCommandGLObjects.front().second->markAsFrontElement();
+    if (myMenuCommandGLObjects.size() > 0) {
+        // continue depending of properties
+        if (myType == GUIGLObjectPopupMenu::PopupType::DELETE_ELEMENT) {
+            myMenuCommandGLObjects.front().second->deleteGLObject();
+        } else if (myType == GUIGLObjectPopupMenu::PopupType::SELECT_ELEMENT) {
+            myMenuCommandGLObjects.front().second->selectGLObject();
+        } else if (myType == GUIGLObjectPopupMenu::PopupType::FRONT_ELEMENT) {
+            myMenuCommandGLObjects.front().second->markAsFrontElement();
+        }
     }
     return 0;
 }
