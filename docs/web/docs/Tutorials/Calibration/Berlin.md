@@ -42,7 +42,7 @@ available to model the bottleneck itself, Variable Speed Signs (VSS)
 vehicles crossing with a new maximum speed, derived from the single
 value data from the detectors.  
   
-Traffic Demand Modelling  
+### Traffic Demand Modelling  
   
 While looking for a work day, outside of the holiday seasons, where considerable congestion occurred, Tuesday the 11 of January 2011 was chosen. The traffic data from this day
 was aggregated to intervals of one minute. This minor simplification
