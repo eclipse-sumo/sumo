@@ -15252,13 +15252,12 @@ msgid "Formats"
 msgstr "Formate"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:491
-#, fuzzy
 msgid ""
 "Enable recuperation from the vehicle equipped with elecHybrid device into "
 "the ovrehead wire."
 msgstr ""
-"Rekuperation vom Fahrzeug, das mit einem Plug-in-Hybrid-Gerät ausgestattet "
-"ist, in die Oberleitung aktivieren"
+"Rekuperation vom Fahrzeug, das mit einem elecHybrid-Gerät ausgestattet ist, "
+"in die Oberleitung aktivieren"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Bluelight.cpp:55
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Bluelight.cpp:59
