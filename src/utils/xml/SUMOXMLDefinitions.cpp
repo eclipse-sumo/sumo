@@ -67,6 +67,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "laneData",                       SUMO_TAG_MEANDATA_LANE },
     { "edgeFollowDetector",             SUMO_TAG_EDGEFOLLOWDETECTOR },
     { "instantInductionLoop",           SUMO_TAG_INSTANT_INDUCTION_LOOP },
+    { "routeProbe",                     SUMO_TAG_ROUTEPROBE },
     { "calibrator",                     SUMO_TAG_CALIBRATOR },
     { "calibratorLane",                 GNE_TAG_CALIBRATOR_LANE },
     { "calibratorFlow",                 GNE_TAG_CALIBRATOR_FLOW },
@@ -79,7 +80,6 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "parkingAreaReroute",             SUMO_TAG_PARKING_AREA_REROUTE },
     { "step",                           SUMO_TAG_STEP },
     { "variableSpeedSign",              SUMO_TAG_VSS },
-    { "routeProbe",                     SUMO_TAG_ROUTEPROBE },
     { "vaporizer",                      SUMO_TAG_VAPORIZER },
     { "tractionSubstation",             SUMO_TAG_TRACTION_SUBSTATION },
     { "overheadWireSegment",            SUMO_TAG_OVERHEAD_WIRE_SEGMENT },   // <- Deprecate

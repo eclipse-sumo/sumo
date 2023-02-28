@@ -2295,7 +2295,46 @@ GNEAttributeCarrier::fillAdditionalElements() {
                                               TL("if the position was negative and larger than the lanes length after multiplication with - 1"),
                                               "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
+    }
+    currentTag = SUMO_TAG_ROUTEPROBE;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag,
+            GNETagProperties::ADDITIONALELEMENT,
+            GNETagProperties::CENTERAFTERCREATION,
+            GUIIcon::ROUTEPROBE, currentTag, {}, FXRGBA(210, 233, 255, 255));
+        // set values of attributes
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
+            GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::AUTOMATICID,
+            TL("The id of RouteProbe"));
+        myTagProperties[currentTag].addAttribute(attrProperty);
 
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_EDGE,
+            GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
+            TL("The id of an edge in the simulation network"));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_PERIOD,
+            GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::DEFAULTVALUE,
+            TL("The frequency in which to report the distribution"),
+            "3600.00");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_NAME,
+            GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
+            TL("Name of route probe"));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_FILE,
+            GNEAttributeProperties::STRING | GNEAttributeProperties::FILENAME | GNEAttributeProperties::DEFAULTVALUE,
+            TL("The file for generated output"));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_BEGIN,
+            GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::DEFAULTVALUE,
+            TL("The time at which to start generating output"),
+            "0");
+        myTagProperties[currentTag].addAttribute(attrProperty);
     }
     currentTag = SUMO_TAG_VSS;
     {
@@ -2710,46 +2749,6 @@ GNEAttributeCarrier::fillAdditionalElements() {
                                               GNEAttributeProperties::FLOAT | GNEAttributeProperties::DEFAULTVALUE,
                                               TL("SUMO Probability"),
                                               "1.00");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-    }
-    currentTag = SUMO_TAG_ROUTEPROBE;
-    {
-        // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::ADDITIONALELEMENT,
-                                      GNETagProperties::CENTERAFTERCREATION,
-                                      GUIIcon::ROUTEPROBE, currentTag, {}, FXRGBA(253, 255, 206, 255));
-        // set values of attributes
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::AUTOMATICID,
-                                              TL("The id of RouteProbe"));
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_EDGE,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                                              TL("The id of an edge in the simulation network"));
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_PERIOD,
-                                              GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::DEFAULTVALUE,
-                                              TL("The frequency in which to report the distribution"),
-                                              "3600.00");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_NAME,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
-                                              TL("Name of route probe"));
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_FILE,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::FILENAME | GNEAttributeProperties::DEFAULTVALUE,
-                                              TL("The file for generated output"));
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_BEGIN,
-                                              GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::DEFAULTVALUE,
-                                              TL("The time at which to start generating output"),
-                                              "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
     currentTag = SUMO_TAG_VAPORIZER;

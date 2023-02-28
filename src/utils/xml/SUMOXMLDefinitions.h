@@ -101,6 +101,8 @@ enum SumoXMLTag {
     SUMO_TAG_EDGEFOLLOWDETECTOR,
     /// @brief An instantenous induction loop
     SUMO_TAG_INSTANT_INDUCTION_LOOP,
+    /// @brief a routeprobe detector
+    SUMO_TAG_ROUTEPROBE,
     /// @brief A calibrator placed over edge
     SUMO_TAG_CALIBRATOR,
     /// @brief A calibrator placed over lane
@@ -125,8 +127,6 @@ enum SumoXMLTag {
     SUMO_TAG_VSS,
     /// @brief trigger: a step description
     SUMO_TAG_STEP,
-    /// @brief a routeprobe detector
-    SUMO_TAG_ROUTEPROBE,
     /// @brief vaporizer of vehicles
     SUMO_TAG_VAPORIZER,
     /// @brief  A traction substation
