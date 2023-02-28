@@ -488,7 +488,7 @@ MSFrame::fillOptions() {
     oc.addDescription("overhead-wire.solver", TL("Processing"), TL("Use Kirchhoff's laws for solving overhead wire circuit"));
 
     oc.doRegister("overhead-wire.recuperation", new Option_Bool(true));
-    oc.addDescription("overhead-wire.recuperation", TL("Processing"), TL("Enable recuperation from the vehicle equipped with elecHybrid device into the ovrehead wire."));
+    oc.addDescription("overhead-wire.recuperation", TL("Processing"), TL("Enable recuperation from the vehicle equipped with elecHybrid device into the overhead wire."));
 
     oc.doRegister("overhead-wire.substation-current-limits", new Option_Bool(true));
     oc.addDescription("overhead-wire.substation-current-limits", TL("Processing"), TL("Enable current limits of traction substation during solving the overhead wire electrical circuit."));
