@@ -1778,7 +1778,7 @@ GUISUMOAbstractView::drawDecals() {
     GLHelper::pushName(0);
     myDecalsLockMutex.lock();
     for (auto &decal : myDecals) {
-        if (decal.skip2D) {
+        if (decal.skip2D || decal.filename.empty()) {
             continue;
         }
         if (!decal.initialised) {

@@ -119,7 +119,13 @@ MFXDecalsTable::fillTable() {
         row->getCells().at(6)->getTextField()->setText(toString(decal.height).c_str());
         row->getCells().at(7)->getSpinner()->setValue(decal.rot);
         row->getCells().at(8)->getTextField()->setText(toString(decal.layer).c_str());
-        row->getCells().at(9)->getCheckButton()->setCheck(decal.screenRelative);
+        if (decal.screenRelative) {
+            row->getCells().at(9)->getCheckButton()->setCheck(true);
+            row->getCells().at(9)->getCheckButton()->setText("true");
+        } else {
+            row->getCells().at(9)->getCheckButton()->setCheck(false);
+            row->getCells().at(9)->getCheckButton()->setText("false");
+        }
         myRows.push_back(row);
     }
     // set headers
@@ -130,7 +136,7 @@ MFXDecalsTable::fillTable() {
     myColumns.at(6)->setColumnLabel("height", "");
     myColumns.at(7)->setColumnLabel("rotation", "");
     myColumns.at(8)->setColumnLabel("layer", "");
-    myColumns.at(9)->setColumnLabel("r", "relative");
+    myColumns.at(9)->setColumnLabel("sRel", "screen relative");
     // adjust height (header + rows + add button)
     setHeight(((int)decals.size() + 2) * GUIDesignHeight);
 }
@@ -304,12 +310,14 @@ long
 MFXDecalsTable::onCmdEditRowCheckBox(FXObject* sender, FXSelector, void*) {
     // get decals
     auto &decals = myDialogViewSettings->getSUMOAbstractView()->getDecals();
-    // get value
-    const auto boolValue = dynamic_cast<FXCheckButton*>(sender)->getCheck();
+    // get check buton
+    auto checkButton = dynamic_cast<FXCheckButton*>(sender);
+    // update text
+    checkButton->setText((checkButton->getCheck() == TRUE) ? "true" : "false");
     // set filename
     for (int rowIndex = 0; rowIndex < (int)myRows.size(); rowIndex++) {
         if (myRows.at(rowIndex)->getCells().at(9)->getCheckButton() == sender) {
-            decals.at(rowIndex).screenRelative = (boolValue == TRUE)? true : false;
+            decals.at(rowIndex).screenRelative = (checkButton->getCheck() == TRUE)? true : false;
         }
     }
     // update view
@@ -698,7 +706,7 @@ MFXDecalsTable::Column::adjustColumnWidth() {
         // declare columnWidth
         int columnWidth = GUIDesignHeight;
         // adjust depending of label
-        if (myType == 's' || myType == 'p') {
+        if ((myType == 's') || (myType == 'p') || (myType == 'c')) {
             // calculate top label width
             columnWidth = myTopLabel->getFont()->getTextWidth(myTopLabel->getText().text(), myTopLabel->getText().length() + EXTRAMARGING);
         }
@@ -770,7 +778,7 @@ MFXDecalsTable::Row::Row(MFXDecalsTable* table) :
             case ('c'): {
                 // create checkbox for 
                 auto checkableButton = new FXCheckButton(table->myColumns.at(columnIndex)->getVerticalCellFrame(),
-                    "", table, MID_DECALSTABLE_CHECKBOX, GUIDesignMFXCheckableButtonSquare);
+                    "false", table, MID_DECALSTABLE_CHECKBOX, GUIDesignMFXCheckableButton);
                 myCells.push_back(new Cell(table, checkableButton, columnIndex, numCells));
                 break;
             }
