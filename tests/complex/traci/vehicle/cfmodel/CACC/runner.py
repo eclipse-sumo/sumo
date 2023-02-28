@@ -27,7 +27,6 @@ from __future__ import print_function
 
 import os
 import sys
-import optparse
 
 # we need to import python modules from the $SUMO_HOME/tools directory
 try:
@@ -35,21 +34,21 @@ try:
         os.path.dirname(__file__), "..", "..", "..", "..")), "tools"))
 except ImportError:
     sys.exit("please declare environment variable 'SUMO_HOME'")
-
 import traci
 from sumolib import checkBinary
 
+
 def run(mode, fname):
     traci.start([sumoBinary,
-        "-n", "input_net.net.xml",
-        "-r", "input_routes.rou.xml",
-        "--fcd-output", fname,
-        "--fcd-output.attributes", "speed", 
-        "--default.speeddev", "0",
-        "--step-length", "0.5",
-        "--no-step-log"])
+                 "-n", "input_net.net.xml",
+                 "-r", "input_routes.rou.xml",
+                 "--fcd-output", fname,
+                 "--fcd-output.attributes", "speed",
+                 "--default.speeddev", "0",
+                 "--step-length", "0.5",
+                 "--no-step-log"])
 
-    traci.vehicle.setParameter("ego","carFollowModel.caccCommunicationsOverrideMode",str(mode))
+    traci.vehicle.setParameter("ego", "carFollowModel.caccCommunicationsOverrideMode", str(mode))
     print("Set OverrideMode: %s , get OverrideMode: %s" % (
         mode,
         traci.vehicle.getParameter("ego","carFollowModel.caccCommunicationsOverrideMode")))
@@ -58,6 +57,7 @@ def run(mode, fname):
         traci.simulationStep()
     traci.close()
 
+
 sumoBinary = checkBinary('sumo')
-for mode, fname in zip(range(0,4), ['fcd.xml', 'fcd2.xml', 'fcd3.xml', 'fcd4.xml']):
+for mode, fname in zip(range(0, 4), ['fcd.xml', 'fcd2.xml', 'fcd3.xml', 'fcd4.xml']):
     run(mode, fname)
