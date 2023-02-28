@@ -78,7 +78,7 @@ distribution, which is influenced by two parameters:
 - Every time a new vehicle is generated, the OSM Web Wizard randomly
 chooses a departure and arrival edge for the vehicle. The *Through
 Traffic Factor* defines how many times it is more likely for an edge
-at the boundary of the simulation area being chosen as compared to an
+at the boundary of the simulation area being chosen, compared to an
 edge entirely located inside the simulation area. A big value for
 the *Through Traffic Factor* implies that many vehicles depart and
 arrive at the boundary of the simulation area, which corresponds to
