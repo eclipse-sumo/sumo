@@ -106,7 +106,7 @@ To obtain a repeating schedule multiple approaches are feasible
 
 ### Schedules
 
-Buses and trams usually run on strict schedules in daily life. Similar alterations are possible in Sumo and are vital while using intermodal routing.   
+Buses and trams usually run on strict schedules in daily life. Similar alterations are possible in SUMO and are vital while using intermodal routing.   
 Such schedules are defined with the attribute `until`. The until attribute is set for the stops.
 The vehicle following this schedule can't leave this stop until this time ('until') has passed and the minimum stoppping time ('duration') has also passed.
 
