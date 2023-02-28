@@ -27,7 +27,7 @@ selection, see figure).
 The result should look more or less like shown in the figure. The
 important thing is the circular shape. Now save the network somewhere
 (`Ctrl-Shift-S`) in an empty directory (we will refer to that place by
-`baseDir`). For the name for the created net-file, type in `circles.net.xml`.
+`baseDir`). Use `circles.net.xml` as the name for the created net-file.
 
 ## Create vehicles and run SUMO
 
@@ -256,7 +256,7 @@ again and again.
 To add the first rerouter we have to check the "id" of the last edge of our 
 route by clicking over the edge with the right button. In this example the edge 
 id is `edge2`. Select the id over the list and click again, this time with the 
-left button, over the edge. The rerouter ahs been created. Now we have to add 
+left button, over the edge. The rerouter has been created. Now we have to add 
 a `destProbReroute`-element. Select the rerouter and click over it with the 
 right-button. Select "Open rerouter Dialog" over the list.
 
