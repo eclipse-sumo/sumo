@@ -118,7 +118,7 @@ Here is our main port area.
 
 <kbd><img src="../images/tutorialport16.png" width="1000"></kbd>
 
-If you have a look at the options allowed for the edges, you will see that they have different allowed vClasses. We prefer to have the same allowed vClasses for all edges (trucks, passenger car, pedestrian, delivery, taxi and bus)
+If you have a look at the "allow"-parameter for the edges, you will see that they have different allowed vClasses. We prefer to have the same allowed vClasses for all edges (trucks, passenger car, pedestrian, delivery, taxi and bus)
 
 Use the select mode (`S`): Select all roads (except the train tracks).
 
@@ -166,7 +166,7 @@ Here you can see that in our scenario there are far too many ships. So it is tim
 
 ## Demand 
 
-Before we edit the demand, it would be a good idea to bring together some information about it. If you are in luck, you get this data directly from the port. Otherwise, there are also some ways to get approximate values. For the ships it is possible to look for data from the automatic identification system (AIS). There are a lot of free sources and you get information about the ships and their movements. Often you can find information about the port from the ports website and from the local logistics companies. Information about the passenger can be retrieved get from openStreetMap and local public transport  and ferry companies. 
+Before we edit the demand, it would be a good idea to bring together some information about it. If you are in luck, you get this data directly from the port. Otherwise, there are also some ways to get approximate values. For the ships it is possible to look for data from the automatic identification system (AIS). There are a lot of free sources and you get information about the ships and their movements. Often you can find information about the port from the ports website and from the local logistics companies. Information about passenger transport can be retrieved from OpenStreetMap and local public transport and ferry companies. 
 
 ### Demand editing 
 If you just want to have a very simple scenario (without containers) then you just change the `Through Traffic Factor` and `count` within the file `build.bat` and generate a better simple demand. For more information see the [osmWebWizard](../Tutorials/OSMWebWizard.md).
@@ -240,7 +240,7 @@ For the passenger cars we use flow definitions:
 ```
 
 #### Staplers
-Because there are no stapler implemented in SUMO, we use trucks equipped with a taxi device. Here, we give them `containerCapacity="1"` and `loadingDuration="30.0"`. (The taxi device also need `personCapacity="1"` because it does not work properly without at the moment.)
+Because there are no stapler implemented in SUMO, we use trucks equipped with a taxi device. Here, we give them `containerCapacity="1"` and `loadingDuration="30.0"` (the taxi device also needs `personCapacity="1"` because it does not work properly without it at the moment).
 ```xml
 <flow id="stapler" begin="0" end="0" number="5" type="type_truck_taxi">
 	<param key="has.taxi.device" value="true"/>
