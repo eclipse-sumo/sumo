@@ -203,12 +203,12 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
                 if (lane->getShape().back().distanceTo2D(sibling->getShape().back()) >= minDist) {
                     // account for lateral shift by the entry links
                     if (sibling->getEntryLink()->isIndirect()) {
-                        myLengthsBehindCrossing.push_back(std::make_pair(-NO_INTERSECTION, -NO_INTERSECTION)); // dummy value, never used
+                        myLengthsBehindCrossing.push_back(ConflictInfo(-NO_INTERSECTION, -NO_INTERSECTION)); // dummy value, never used
 #ifdef MSLink_DEBUG_CROSSING_POINTS
                         std::cout << " " << lane->getID() << " dummy merge with indirect" << (*it_lane)->getID() << "\n";
 #endif
                     } else {
-                        myLengthsBehindCrossing.push_back(std::make_pair(0, 0)); // dummy value, never used
+                        myLengthsBehindCrossing.push_back(ConflictInfo(0, 0)); // dummy value, never used
 #ifdef MSLink_DEBUG_CROSSING_POINTS
                         std::cout << " " << lane->getID() << " dummy merge with " << (*it_lane)->getID() << "\n";
 #endif
@@ -217,14 +217,14 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
                     const double distAfterDivergence = computeDistToDivergence(lane, sibling, minDist, false);
                     const double lbcLane = lane->interpolateGeometryPosToLanePos(distAfterDivergence);
                     const double lbcSibling = sibling->interpolateGeometryPosToLanePos(distAfterDivergence);
-                    myLengthsBehindCrossing.push_back(std::make_pair(lbcLane, lbcSibling));
+                    myLengthsBehindCrossing.push_back(ConflictInfo(lbcLane, lbcSibling));
 #ifdef MSLink_DEBUG_CROSSING_POINTS
                     std::cout
                             << " " << lane->getID()
                             << " merges with " << (*it_lane)->getID()
                             << " nextLane " << lane->getLinkCont()[0]->getViaLaneOrLane()->getID()
-                            << " dist1=" << myLengthsBehindCrossing.back().first
-                            << " dist2=" << myLengthsBehindCrossing.back().second
+                            << " dist1=" << myLengthsBehindCrossing.back().lengthBehindCrossing
+                            << " dist2=" << myLengthsBehindCrossing.back().foeLengtBehindCrossing
                             << "\n";
 #endif
                 }
@@ -268,7 +268,7 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
                     }
                 }
 
-                myLengthsBehindCrossing.push_back(std::make_pair(
+                myLengthsBehindCrossing.push_back(ConflictInfo(
                                                       lane->getLength() - intersections1.back(),
                                                       (*it_lane)->getLength() - intersections2.back()));
 
@@ -278,8 +278,8 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
                         << " totalLength=" << lane->getLength()
                         << " with " << (*it_lane)->getID()
                         << " totalLength=" << (*it_lane)->getLength()
-                        << " dist1=" << myLengthsBehindCrossing.back().first
-                        << " dist2=" << myLengthsBehindCrossing.back().second
+                        << " dist1=" << myLengthsBehindCrossing.back().lengthBehindCrossing
+                        << " dist2=" << myLengthsBehindCrossing.back().foeLengtBehindCrossing
                         << "\n";
 #endif
             }
@@ -309,12 +309,12 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
                     lbcLane = MAX2(0.0, lane->getLength() - lane->interpolateGeometryPosToLanePos(distToDivergence));
                     lbcSibling = MAX2(0.0, sibling->getLength() - sibling->interpolateGeometryPosToLanePos(distToDivergence));
                 }
-                myLengthsBehindCrossing.push_back(std::make_pair(lbcLane, lbcSibling));
+                myLengthsBehindCrossing.push_back(ConflictInfo(lbcLane, lbcSibling));
                 myFoeLanes.push_back(sibling);
 #ifdef MSLink_DEBUG_CROSSING_POINTS
                 std::cout << " adding same-origin foe" << sibling->getID()
-                          << " dist1=" << myLengthsBehindCrossing.back().first
-                          << " dist2=" << myLengthsBehindCrossing.back().second
+                          << " dist1=" << myLengthsBehindCrossing.back().lengthBehindCrossing
+                          << " dist2=" << myLengthsBehindCrossing.back().foeLengtBehindCrossing
                           << "\n";
 #endif
             }
@@ -1085,7 +1085,7 @@ MSLink::getLengthBeforeCrossing(const MSLane* foeLane) const {
         return INVALID_DOUBLE;
     } else {
         // found conflicting lane index
-        double dist = myInternalLaneBefore->getLength() - myLengthsBehindCrossing[foe_ix].first;
+        double dist = myInternalLaneBefore->getLength() - myLengthsBehindCrossing[foe_ix].lengthBehindCrossing;
         if (dist == -10000.) {
             // this is the value in myLengthsBehindCrossing, if the relation allows intersection but none is present for the actual geometry.
             return INVALID_DOUBLE;
@@ -1192,7 +1192,7 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
         const MSLane* foeLane = myFoeLanes[i];
         const MSLink* foeExitLink = foeLane->getLinkCont()[0];
         // distance from the querying vehicle to the crossing point with foeLane
-        double distToCrossing = dist - myLengthsBehindCrossing[i].first;
+        double distToCrossing = dist - myLengthsBehindCrossing[i].lengthBehindCrossing;
         const bool sameTarget = (myLane == foeExitLink->getLane()) && !isInternalJunctionLink();
         const bool sameSource = (myInternalLaneBefore != nullptr && myInternalLaneBefore->getLogicalPredecessorLane() == foeLane->getLogicalPredecessorLane());
         const double crossingWidth = (sameTarget || sameSource) ? 0 : foeLane->getWidth();
@@ -1203,8 +1203,8 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
         if (gDebugFlag1) {
             std::cout << " distToCrossing=" << distToCrossing << " foeLane=" << foeLane->getID() << " cWidth=" << crossingWidth
                       << " ijl=" << isInternalJunctionLink() << " sT=" << sameTarget << " sS=" << sameSource
-                      << " lbc=" << myLengthsBehindCrossing[i].first
-                      << " flbc=" << myLengthsBehindCrossing[i].second
+                      << " lbc=" << myLengthsBehindCrossing[i].lengthBehindCrossing
+                      << " flbc=" << myLengthsBehindCrossing[i].foeLengtBehindCrossing
                       << " contLane=" << contLane
                       << " state=" << toString(myState)
                       << " foeState=" << toString(foeExitLink->getState())
@@ -1233,7 +1233,7 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
             }
             continue;
         }
-        const double foeDistToCrossing = foeLane->getLength() - myLengthsBehindCrossing[i].second;
+        const double foeDistToCrossing = foeLane->getLength() - myLengthsBehindCrossing[i].foeLengtBehindCrossing;
         // it is not sufficient to return the last vehicle on the foeLane because ego might be its leader
         // therefore we return all vehicles on the lane
         //
@@ -1461,7 +1461,7 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
             const double vehWidth = ego->getVehicleType().getWidth() + MSPModel::SAFETY_GAP; // + configurable safety gap
             /// @todo consider lateral position (depending on whether the crossing is encountered on the way in or out)
             // @check lefthand?!
-            const bool wayIn = myLengthsBehindCrossing[i].first < myLaneBefore->getLength() * 0.5;
+            const bool wayIn = myLengthsBehindCrossing[i].lengthBehindCrossing < myLaneBefore->getLength() * 0.5;
             const double vehSideOffset = (foeDistToCrossing + myLaneBefore->getWidth() * 0.5 - vehWidth * 0.5
                                           + ego->getLateralPositionOnLane() * (wayIn ? -1 : 1));
             // can access the movement model here since we already checked for existing persons above

@@ -165,6 +165,17 @@ public:
     typedef std::map<const SUMOVehicle*, const ApproachingVehicleInformation, ComparatorNumericalIdLess> ApproachInfos;
     typedef std::vector<const SUMOVehicle*> BlockingFoes;
 
+    /// @brief pre-computed information for conflict points
+    struct ConflictInfo {
+
+        ConflictInfo(double lbc, double flbc) :
+            lengthBehindCrossing(lbc),
+            foeLengtBehindCrossing(flbc) {}
+
+        double lengthBehindCrossing;
+        double foeLengtBehindCrossing;
+    };
+
     /** @brief Constructor for simulation which uses internal lanes
      *
      * @param[in] succLane The lane approached by this link
@@ -596,7 +607,7 @@ public:
         return myFoeLanes;
     }
 
-    const std::vector<std::pair<double, double> >& getLengthsBehindCrossing() const {
+    const std::vector<ConflictInfo>& getLengthsBehindCrossing() const {
         return myLengthsBehindCrossing;
     }
 
@@ -732,11 +743,10 @@ private:
     double myLateralShift;
 
     /* @brief lengths after the crossing point with foeLane
-     * (lengthOnThis, lengthOnFoe)
      * (index corresponds to myFoeLanes)
      * empty vector for entry links
      * */
-    std::vector<std::pair<double, double> > myLengthsBehindCrossing;
+    std::vector<ConflictInfo> myLengthsBehindCrossing;
 
     // TODO: documentation
     std::vector<MSLink*> myFoeLinks;
