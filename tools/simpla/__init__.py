@@ -12,6 +12,7 @@
 
 # @file    __init__.py
 # @author Leonhard Luecken
+# @author Mirko Barthauer
 # @date   2017-04-09
 
 """
@@ -40,6 +41,8 @@ Usage:
 2) After establishing a connection to SUMO with traci, call simpla.load(<configuration_filename>)
 3) Only applies to SUMO version < 0.30: After starting simpla, call simpla.update() after each call to
    traci.simulationStep()
+4) Optionally query information about current platoons using functions like simpla.getAveragePlatoonSpeed(),
+   simpla.getPlatoonIDList(), ...
 
 Notes:
 1) simpla changes the vehicle types, speedfactors, and lane changemodes of all connected vehicles.
@@ -113,4 +116,58 @@ def update():
         _mgr.step()
     else:
         if rp.VERBOSITY >= 1:
-            warn("call simpla.init(<config_file>) before simpla.update()!")
+            warn("call simpla.load(<config_file>) before simpla.update()!")
+
+
+def getAveragePlatoonLength():
+    '''
+    Get average platoon length from simpla.PlatoonManager
+    '''
+    global _mgr, warn
+    if _mgr is not None:
+        return _mgr.getAveragePlatoonLength()
+    else:
+        raise SimplaException("call simpla.load(<config_file>) before simpla.getAveragePlatoonLength()!")
+    return 0
+    
+    
+def getAveragePlatoonSpeed():
+    '''
+    Get average platoon speed from simpla.PlatoonManager
+    '''
+    global _mgr, warn
+    if _mgr is not None:
+        return _mgr.getAveragePlatoonSpeed()
+    else:
+        raise SimplaException("call simpla.load(<config_file>) before simpla.getAveragePlatoonLength()!")
+    return 0
+    
+    
+def getPlatoonIDList(edgeID):
+    '''
+    getPlatoonIDList(string) -> list(integer)
+    
+    Get the platoon IDs (positive numbers) currently present on the edge given by its ID
+    '''
+    global _mgr, warn
+    if _mgr is not None:
+        return _mgr.getPlatoonIDList(edgeID)
+    else:
+        raise SimplaException("call simpla.load(<config_file>) before simpla.getPlatoonIDList()!")
+    return []
+
+
+def getPlatoonInfo(platoonID):
+    '''
+    
+    getPlatoonInfo(integer) -> dict()
+    
+    Returns a dict with statistical information about the platoon given by its (numerical) ID. 
+    If the platoon has been dissolved, the dict is empty.
+    '''
+    global _mgr, warn
+    if _mgr is not None:
+        return _mgr.getPlatoonInfo(platoonID)
+    else:
+        raise SimplaException("call simpla.load(<config_file>) before simpla.getPlatoonInfo()!")
+    return 0
