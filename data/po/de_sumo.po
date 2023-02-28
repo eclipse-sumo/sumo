@@ -12012,47 +12012,48 @@ msgstr ""
 "Liest Polygone aus FILE unter der Annahme, dass es sich um ein Visum-Netz "
 "handelt"
 
-#: /home/micha/programming/sumo/src\polyconvert\polyconvert_main.cpp:100
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:100
 msgid "Reads pois and shapes from FILE assuming they're coded in XML"
 msgstr ""
+"Liest Pole und Shapes aus Datei unter der Annahme, dass sie in XML kodiert "
+"sind"
 
-#: /home/micha/programming/sumo/src\polyconvert\polyconvert_main.cpp:105
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:105
 msgid "Reads pois from FILE+ assuming they're coded in OSM"
-msgstr ""
+msgstr "Liest Pole aus Datei unter der Annahme, dass sie in OSM codiert sind"
 
-#: /home/micha/programming/sumo/src\polyconvert\polyconvert_main.cpp:107
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:107
 msgid "The type will be made of the key-value - pair"
-msgstr ""
+msgstr "Der Typ wird aus dem Schlüsselwertpaar gebildet"
 
-#: /home/micha/programming/sumo/src\polyconvert\polyconvert_main.cpp:109
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:109
 msgid "The id will be set from the given 'name' attribute"
-msgstr ""
+msgstr "Die ID wird aus dem angegebenen 'name'-Attribut festgelegt"
 
 #: /home/micha/programming/sumo/src\polyconvert\polyconvert_main.cpp:111
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:111
+#, fuzzy
 msgid ""
 "If FLOAT >= 0, assemble one polygon from all ways of a relation if they all "
 "connect with gaps below FLOAT"
 msgstr ""
+"Wenn Fließkommazahl >= 0, ein Polygon aus allen Wegen einer Beziehung "
+"zusammengesetzt ist, wenn sie alle mit Lücken unterhalb von der "
+"Fließkommazahl verbunden sind"
 
-#: /home/micha/programming/sumo/src\polyconvert\polyconvert_main.cpp:118
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:118
 msgid "Reads shapes from shapefiles FILE+"
-msgstr ""
+msgstr "Liest Shapes aus Shapedatei Datei"
 
 #: /home/micha/programming/sumo/src\polyconvert\polyconvert_main.cpp:122
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:122
+#, fuzzy
 msgid "Guesses the shapefile's projection"
-msgstr ""
+msgstr "Errät die Shapedatei Projektion"
 
-#: /home/micha/programming/sumo/src\polyconvert\polyconvert_main.cpp:130
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:130
 msgid "Defines in which column the id can be found"
-msgstr ""
+msgstr "Definiert, in welcher Spalte die ID zu finden ist"
 
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:134
 msgid "Defines which columns form the type id (comma separated list)"
@@ -12068,10 +12069,13 @@ msgstr "Alle zusätzlichen Spalten als Parameter extrahieren"
 
 #: /home/micha/programming/sumo/src\polyconvert\polyconvert_main.cpp:143
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:143
+#, fuzzy
 msgid ""
 "[auto|true|false]. Forces the 'fill' status to the given value. Default "
 "'auto' tries to determine it from the data type"
 msgstr ""
+"[auto|true|false]. Erzwingt den Füllstatus auf den angegebenen Wert. "
+"Standard 'auto' versucht es aus dem Datentyp zu ermitteln"
 
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:148
 msgid "Reads types from FILE"
@@ -12106,21 +12110,25 @@ msgstr "Ausästen"
 
 #: /home/micha/programming/sumo/src\polyconvert\polyconvert_main.cpp:165
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:165
+#, fuzzy
 msgid "Enables pruning on net boundaries"
-msgstr ""
+msgstr "Aktiviert das Ausästen an Netzgrenzen"
 
-#: /home/micha/programming/sumo/src\polyconvert\polyconvert_main.cpp:169
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:169
 msgid ""
 "Uses FLOAT,FLOAT,FLOAT,FLOAT as offset definition added to the net boundary. "
 "Positive values grow the boundary on all sides while negative values shrink "
 "it."
 msgstr ""
+"Verwendet FLOAT,FLOAT,FLOAT,FLOAT als Versatz-Definition, die der Netzgrenze "
+"hinzugefügt wird. Positive Werte vergrößern die Grenze auf allen Seiten, "
+"während negative Werte sie verkleinern."
 
 #: /home/micha/programming/sumo/src\polyconvert\polyconvert_main.cpp:172
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:172
+#, fuzzy
 msgid "Uses STR as pruning boundary"
-msgstr ""
+msgstr "Verwendet STR als Ausästelungs-Grenze"
 
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:177
 msgid "Items in STR will be kept though out of boundary"
@@ -12136,9 +12144,12 @@ msgstr "Importiert alle Attribute als Schlüssel/Werte-Paare"
 
 #: /home/micha/programming/sumo/src\polyconvert\polyconvert_main.cpp:202
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:202
+#, fuzzy
 msgid ""
 "Adds FLOAT to the layer value for each poi (i.e. to raise it above polygons)"
 msgstr ""
+"Fügt Fließkommazahl zum Layer-Wert für jeden Poö hinzu (d.h. um ihn über "
+"Polygone zu erheben)"
 
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:206
 msgid "Sets STR as default color"
@@ -12324,9 +12335,12 @@ msgstr "Die Anzahl paralleler Threads, die für das Routing verwendet werden"
 
 #: /home/micha/programming/sumo/src\router\ROFrame.cpp:177
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:177
+#, fuzzy
 msgid ""
 "Select among routing algorithms ['dijkstra', 'astar', 'CH', 'CHWrapper']"
 msgstr ""
+"Unter den Routing-Algorithmen ['dijkstra', 'astar', 'CH', 'CHWrapper'] "
+"auswählen"
 
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:181
 msgid ""
