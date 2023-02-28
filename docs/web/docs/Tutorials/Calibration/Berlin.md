@@ -26,8 +26,7 @@ of the induction loops is given in Fig. 1.
 Preparing a traffic simulation includes modelling the road network as
 well as modelling the traffic demand within the traffic network.  
 
-Traffic
-Net Modelling  
+### Traffic Net Modelling  
   
 The simulation net includes the section between
 “Wegedornstraße” and “Adlergestell”. It represents the exact number of
