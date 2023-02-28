@@ -9,7 +9,8 @@ responsive transport service. Most of the files in the directory are for the
 for the new version only `createNetTaxi.py` is relevant.
 
 This tutorial explains how to build such a scenario programmatically by generating
-all input files with a (python) script we call `createNetTaxi.py`. The easiest way of the following is probably to read the existing code side by side with this tutorial
+all input files with a (python) script we call `createNetTaxi.py`. The easiest way
+to follow it, is probably to read the existing code side by side with this tutorial
 since not every line wil be covered here. Some basic knowledge of Python is assumed.
 
 Most parameters for the application (including the paths to the
@@ -117,7 +118,7 @@ Note that the back leading streets do not have a side walk because the passenger
 only allowed to enter and leave on the side of the parking lot.
 
 Now we only need the vertical running streets and we are done with the basic network.
-Here we do not need further nodes - we only connect the existing part - but we need
+Here we do not need further nodes - we only connect the existing parts - but we need
 sidewalks again on both sides for the people to walk to the bus.
 ```
 for row in range(DOUBLE_ROWS):
@@ -252,8 +253,8 @@ which you can open and run with sumo-gui (again double click or from the console
 sumo-gui park05_cyber.sumocfg
 ```
 Feel free to change the layout of the parking lot and the behavior
-(speed, capacity etc.) of the vehicles. Whenever you edit constants.py
-or createNetTaxi.py, remember to re-execute createNetTaxi.py before running the scenario.
+(speed, capacity etc.) of the vehicles. Whenever you edit `constants.py`
+or `createNetTaxi.py`, remember to re-execute `createNetTaxi.py` before running the scenario.
 
 ## Description of the dispatching algorithm
 TBD
