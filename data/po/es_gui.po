@@ -730,12 +730,10 @@ msgstr "&Tutorial"
 msgid "Open Tutorial."
 msgstr "Abrir tutorial."
 
-#: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:654
-#: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2029
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:654
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2029
 msgid "&Feedback"
-msgstr ""
+msgstr "&Feedback"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:654
 msgid "Open feedback dialog."
@@ -14178,30 +14176,25 @@ msgstr ""
 msgid "TAZEdgeColor already selected"
 msgstr ""
 
-#: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:951
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:951
 msgid "edge wasn't found"
-msgstr ""
+msgstr "calle (edge) no encontrada"
 
-#: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:953
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:953
 msgid "Invalid edge"
-msgstr ""
+msgstr "calle (edge) inválida"
 
-#: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:1130
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:1130
 msgid "- Edge ID: "
-msgstr ""
+msgstr "- calle (edge) ID: "
 
-#: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:1165
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:1165
 msgid "TAZ parameters"
-msgstr ""
+msgstr "Parámetros de zona de análisis de tráfico (TAZ)"
 
-#: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:1190
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:1190
 msgid "Edges within"
-msgstr ""
+msgstr "calles (edges) interiores"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:1191
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:1298
@@ -14212,15 +14205,13 @@ msgstr "usar"
 msgid "not use"
 msgstr "no usar"
 
-#: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:1330
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:1330
 msgid "Non TAZ Edge"
-msgstr ""
+msgstr "Sin calle (edge) en zona de análisis de tráfico (TAZ)"
 
-#: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:1334
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:1334
 msgid "Selected TAZ Edge"
-msgstr ""
+msgstr "calle (edge) de zona de análisis de tráfico (TAZ) seleccionada"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:1339
 msgid "Color by Source"
@@ -14259,17 +14250,17 @@ msgstr "Haga click sobre un cruce para editar semáforos"
 msgid "Save TLS Changes"
 msgstr "Guardar cambios al semáforo"
 
-#: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:196
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:196
 msgid ""
 "There is unsaved changes in current edited traffic light.\n"
 "Do you want to save it before changing mode?"
 msgstr ""
+"Hay cambios sin guardar en el semáforo actual\n"
+"¿Quiere guardarlos antes de cambiar de modo?"
 
-#: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:242
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:242
 msgid "tlLogic '%', program '%' could not be built"
-msgstr ""
+msgstr "Lógica de semáforo '%', programa '%' no se puede crear"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:255
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:2923
@@ -14280,24 +14271,21 @@ msgstr "Cargado "
 msgid " programs"
 msgstr " programas"
 
-#: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:416
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:416
 msgid "Invalid phase index"
-msgstr ""
+msgstr "Índice de fase inválido"
 
-#: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:512
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:512
 msgid "modifying TLS definition"
-msgstr ""
+msgstr "modificación de definición de semáforo (TLS)"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:526
 msgid "Unsaved modifications. Abort or Save"
 msgstr "Cambios no guardados. Cancelar o guardar"
 
-#: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:546
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:546
 msgid "Traffic light Attributes"
-msgstr ""
+msgstr "atributos de semáforo"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:555
 msgid "parameters"
@@ -14308,47 +14296,40 @@ msgstr "parámetros"
 msgid "Assign E1 detectors"
 msgstr "Asignar detector E1"
 
-#: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:562
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:562
 msgid "Enable assign E1 mode"
-msgstr ""
+msgstr "Activar modo de asignación der E1s"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:562
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:563
 msgid "Assign E1 detectors to the current TLS"
 msgstr "Asignar detector E1 al semáforo actual"
 
-#: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:563
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:563
 msgid "Disable assign E1 mode"
-msgstr ""
+msgstr "Desactivar modo de asignación der E1s"
 
-#: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:879
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:879
 msgid "Traffic Light"
-msgstr ""
+msgstr "Semáforo"
 
-#: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:884
-#: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:945
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:884
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:945
 msgid "Junction ID"
-msgstr ""
+msgstr "cruce (junction) ID"
 
-#: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:891
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:891
 msgid "TLS ID"
-msgstr ""
+msgstr "Semáforo (TLS) ID"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:910
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:911
 msgid "Join"
 msgstr "Juntar"
 
-#: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:910
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:910
 msgid "Enable join mode"
-msgstr ""
+msgstr "Activar modo de unión"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:910
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:911
@@ -14357,10 +14338,9 @@ msgstr ""
 msgid "Join TLS and junctions in the current junction."
 msgstr ""
 
-#: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:911
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:911
 msgid "Disable join mode"
-msgstr ""
+msgstr "Desactivar modo de unión"
 
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:916
 msgid "Disjoin"
