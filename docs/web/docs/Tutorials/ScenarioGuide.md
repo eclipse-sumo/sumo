@@ -6,7 +6,7 @@ title: ScenarioGuide
 
 This Tutorial is meant to serve as a high-level guide for building a
 [sumo](../sumo.md) scenario. It provides an outline of the typical
-steps when building a scenario and lists the recommended wiki pages for
+steps followed when building a scenario and lists the recommended wiki pages for
 each step.
 
 !!! note
@@ -24,7 +24,7 @@ interface.
 ## If you already have some network data
 
 Check whether a direct import is possible:
-[Networks/Import](../Networks/Import.md). Otherwise you will need
+[Networks/Import](../Networks/Import.md). Otherwise, you will need
 to convert the data to a simple XML-format which can be read by
 [netconvert](../netconvert.md). Read this page:
 [Networks/Import](../Networks/Import.md).
@@ -49,7 +49,7 @@ have:
 # Improve your Scenario
 
 Most methods for network import leave some aspect of deficient network
-quality. Very often this manifests as unexpected/unrealistic traffic
+quality. This often manifests as unexpected/unrealistic traffic
 jams and teleporting vehicle errors.
 
 ## Modifying the Network
@@ -67,7 +67,7 @@ lights. The recommended ways to perform the necessary changes include:
     this during the initial import (i.e. load an OSM-file along with
     your plain-xml files)
 3.  directly adjust your network with GUI: after opening the program
-    [netedit](../Netedit/index.md) you load the network file
+    [netedit](../Netedit/index.md) you first load the network file
     (\*.net.xml)that needs to be modified. Then you choose the
     respective functions in netedit to modify e.g. the number of lanes,
     road shapes, traffic signal plans, intersection geometries, and to
