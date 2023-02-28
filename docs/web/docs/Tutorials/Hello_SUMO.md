@@ -7,7 +7,7 @@ title: Hello SUMO
 
 ## Introduction
 
-This tutorial is aimed at first time Sumo users. We are building the
+This tutorial is aimed at first time SUMO users. We are building the
 simplest net possible and let a single car drive on it. All files
 mentioned here can also be found in the {{SUMO}}/docs/tutorial/hello directory.
 The most recent version can be found in the repository at [{{SUMO}}/tests/complex/tutorial/hello/data/]({{Source}}tests/complex/tutorial/hello/data/).
