@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_16_0+0438-8d3de4a
+Eclipse SUMO sumo Version v1_16_0+0831-2ca9790
  Copyright (C) 2001-2023 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -310,7 +310,7 @@ Processing Options:
                                         overhead wire circuit
   --overhead-wire.recuperation         Enable recuperation from the vehicle
                                         equipped with elecHybrid device into the
-                                        ovrehead wire.
+                                        overhead wire.
   --overhead-wire.substation-current-limits  Enable current limits of traction
                                         substation during solving the overhead
                                         wire electrical circuit.

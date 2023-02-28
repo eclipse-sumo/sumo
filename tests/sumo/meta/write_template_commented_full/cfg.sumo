@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-02-20 14:02:00 by Eclipse SUMO sumo Version v1_16_0+0438-8d3de4a
+<!-- generated on 2023-02-28 15:00:11 by Eclipse SUMO sumo Version v1_16_0+0831-2ca9790
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -456,7 +456,7 @@
         <!-- Use Kirchhoff&apos;s laws for solving overhead wire circuit -->
         <overhead-wire.solver value="true" type="BOOL"/>
 
-        <!-- Enable recuperation from the vehicle equipped with elecHybrid device into the ovrehead wire. -->
+        <!-- Enable recuperation from the vehicle equipped with elecHybrid device into the overhead wire. -->
         <overhead-wire.recuperation value="true" type="BOOL"/>
 
         <!-- Enable current limits of traction substation during solving the overhead wire electrical circuit. -->

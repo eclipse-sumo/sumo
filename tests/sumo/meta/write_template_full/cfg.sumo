@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-02-20 14:01:59 by Eclipse SUMO sumo Version v1_16_0+0438-8d3de4a
+<!-- generated on 2023-02-28 15:00:11 by Eclipse SUMO sumo Version v1_16_0+0831-2ca9790
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -164,7 +164,7 @@
         <default.speeddev value="-1" type="FLOAT" help="Select default speed deviation. A negative value implies vClass specific defaults (0.1 for the default passenger class"/>
         <default.emergencydecel value="default" type="STR" help="Select default emergencyDecel value among (&apos;decel&apos;, &apos;default&apos;, FLOAT) which sets the value either to the same as the deceleration value, a vClass-class specific default or the given FLOAT in m/s^2"/>
         <overhead-wire.solver value="true" type="BOOL" help="Use Kirchhoff&apos;s laws for solving overhead wire circuit"/>
-        <overhead-wire.recuperation value="true" type="BOOL" help="Enable recuperation from the vehicle equipped with elecHybrid device into the ovrehead wire."/>
+        <overhead-wire.recuperation value="true" type="BOOL" help="Enable recuperation from the vehicle equipped with elecHybrid device into the overhead wire."/>
         <overhead-wire.substation-current-limits value="true" type="BOOL" help="Enable current limits of traction substation during solving the overhead wire electrical circuit."/>
         <emergencydecel.warning-threshold value="1" type="FLOAT" help="Sets the fraction of emergency decel capability that must be used to trigger a warning."/>
         <parking.maneuver value="false" type="BOOL" help="Whether parking simulation includes maneuvering time and associated lane blocking"/>
