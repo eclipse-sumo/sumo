@@ -37,8 +37,8 @@ It would be very beneficial if you did take a look at the traci-beginner tutoria
 
 
 ## TaxiService
-At the start of the simulation five people are created and heading to the nearby bus stop and waiting for a shuttle to pick them up.   
-In the same area some taxis are created after some steps. There is no additional bus planned for this area, hence there have to be a emergency pick ups for the people waiting. When the count of people waiting reaches a certain point, the taxis receive the reservations and pick up each customer individually.   
+At the start of the simulation, five people are created and are heading to the nearby bus stop and waiting for a shuttle to pick them up.   
+In the same area, some taxis are created after a few steps. There is no additional bus planned for this area, hence there must be emergency pick ups for the people waiting. When the count of people waiting reaches a certain point, the taxis receive the reservations and pick up each customer individually.   
 
 
 ![](../images/TaxiTutorial01.gif)
@@ -74,11 +74,12 @@ To create a vehicle of type taxi you have to add the key parameter:
        <param key="has.taxi.device" value="true"/>
    </vType>
 ```
-There are other option to define the taxis behavior. You can decide when the taxis are going to disappear or if they start circling the area. In this example the taxis will keep circling the area, even when there are no longer people in the simulation. This is done by choosing a dispatch-algorithm at the start of the simulation, which is discussed later in the tutorial.  
+There are other option to define the taxis behavior. You can decide when the taxis are going to disappear or if they should start circling the area. In this example the taxis will keep circling the area, even when there are no longer people in the simulation. This is done by choosing a dispatch-algorithm at the start of the simulation, which is discussed later in the tutorial.  
 
 
 Next you can create a person, which departs at the start and heads to the designated bus stop.
-Essential here is the third line, declaring the person wants to go by taxi to edge gneE2. Essential is the lines parameter.  
+
+The third line here is essential, declaring that the person wants to go by taxi to edge gneE2. The `lines` parameter is also essential here.  
 ```
 <person id="HeadingBusstop1" depart="0.00" color="green">
     <walk from="-gneE1" busStop="busStop_gneE0_0_0"/>
@@ -86,7 +87,7 @@ Essential here is the third line, declaring the person wants to go by taxi to ed
 </person>
 ```
 It is also possible to define personTrips for intermodal routing or group several people together.   
-Like in the beginner traci tutorials shown you can create a runner.py file to manage the taxi creation in your project.
+Like in the beginner traci tutorials shown you can create a `runner.py` file to manage the taxi creation in your project.
 Within the example method, four taxis are created and dispatched at a given time.  
 ```
 # Creating 4 taxis
@@ -97,8 +98,8 @@ def createTaxi(time):
         traci.vehicle.add(f'taxiV{i}', 'route_0', 'taxi', depart=f'{time}', line='taxi')
 ```
 #### Dispatch and Pickup
-For this example we are using "-device.taxi.dispatch-algorithm traci". Within this algorithm one has to declare which customers should be picked up by which taxi. Meaning you have to pass the existing reservations to the designated taxi you'd like to use for the pick up. There are other algorithms like greedy, greedyClosest etc. that work differently with the reservations.   
-Next the taxi fleet, containing all taxis in the map, are saved into "fleet", while all reservations are saved into "reservations". Afterwards the first taxi in the fleet is called and given the first reservation from "reservation_ids".
+For this example we are using "-device.taxi.dispatch-algorithm traci". Within this algorithm, one has to declare which customers should be picked up by which taxi. Meaning you have to pass the existing reservations to the designated taxi you'd like to use for the pick up. There are other algorithms like greedy, greedyClosest etc. that work differently with the reservations.   
+Next, the taxi fleet, containing all taxis in the map, are saved into "fleet", while all reservations are saved into "reservations". Afterwards the first taxi in the fleet is called and given the first reservation from "reservation_ids".
 ```
 fleet = traci.vehicle.getTaxiFleet(0)
 reservations = traci.person.getTaxiReservations(0)
@@ -163,8 +164,8 @@ The passengers are dropped of in the order of the extension.
 
 ### sumocfg
 Additional lines are added to the config files:
-To be able to use traci.taxis one has to add a algorithm to the config files.
-Furthermore, to prevent the taxis to simply vanish after dropping of their person, the line declaring
+To be able to use traci.taxis, one has to add a algorithm to the config files.
+Furthermore, to prevent the taxis simply vanishing after dropping of their person(s), the line declaring
 randomCircling has been added. After delivering the person to the right position the taxi starts
 driving around in the network after a short break.
 ```
