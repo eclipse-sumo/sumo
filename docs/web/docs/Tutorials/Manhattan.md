@@ -44,9 +44,9 @@ used to generated suitable randomFlows with the following options.
 ```
 
 The option **--flows 100** defines the number of vehicles that shall drive in the
-network. Usually a `<flow>` is used to defined multiple vehicles but in this
+network. Usually a `<flow>` is used to define multiple vehicles but in this
 case each flow generates just a single vehicle at the start of the
-simulation. (hence the option **--end 1**). The option **--jtrrouter** must be set to generate flows
+simulation (hence the option **--end 1**). The option **--jtrrouter** must be set to generate flows
 without destination. Otherwise the generated vehicles might end their
 trip too early. The arguments supplied to option **--trip-attributes** are set to ensure that
 multiple vehicles may enter the source edge in the first step.
