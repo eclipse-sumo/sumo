@@ -1595,18 +1595,23 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:223
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:223
+#, fuzzy
 msgid "Use FLOAT as (c-)logit's beta for the commonality factor"
 msgstr ""
+"Fließkommazahl als (c-)Logit´s beta für den Gemeinsamkeitsfaktor verwenden"
 
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:227
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:227
+#, fuzzy
 msgid "Use FLOAT as (c-)logit's gamma for the commonality factor"
 msgstr ""
+"Fließkommazahl als (c-)Logit´s gamma für den Gemeinsamkeitsfaktor verwenden"
 
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:231
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:231
+#, fuzzy
 msgid "Use FLOAT as (c-)logit's theta"
-msgstr ""
+msgstr "Fließkommazahl als (c-)Logit´s theta verwenden"
 
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:239
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:239
@@ -2166,10 +2171,13 @@ msgstr "Fahrzeugwarteschlangen mit dem angegebenen Zeitraum speichern"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:193
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:193
+#, fuzzy
 msgid ""
 "Save complete vehicle positions inclusive speed values in the VTK Format "
 "(usage: /path/out will produce /path/out_$TIMESTEP$.vtp files)"
 msgstr ""
+"Komplette Fahrzeugpositionen inklusive Geschwindigkeitswerte im VTK-Format "
+"(Verwendung: /path/out erzeugt /path/out_$TIMESTEP$.vtp-Dateien) speichern"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:195
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:195
@@ -2807,47 +2815,56 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:503
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:503
+#, fuzzy
 msgid "Override stop until times with stop ended times when given"
-msgstr ""
+msgstr "Halte-bis-Zeiten mit Halt-Ende-Zeiten, wenn angegeben, überschreiben"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:507
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:507
+#, fuzzy
 msgid "Select among pedestrian models ['nonInteracting', 'striping', 'remote']"
 msgstr ""
+"Untere Fußgängermodelle ['nonInteracting', 'striping', 'remote'] auswählen"
 
-#: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:510
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:510
 msgid ""
 "Width of parallel stripes for segmenting a sidewalk (meters) for use with "
 "model 'striping'"
 msgstr ""
+"Breite der parallelen Streifen zum Segmentieren eines Bürgersteigs (Meter) "
+"zur Verwendung mit dem Modell 'striping'"
 
-#: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:513
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:513
 msgid "Factor for random slow-downs [0,1] for use with model 'striping'"
 msgstr ""
+"Faktor für zufällige Verlangsamung [0,1] zur Verwendung mit Modell 'striping'"
 
-#: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:516
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:516
 msgid ""
 "Minimal gap / safety buffer (in meters) from a pedestrian to another vehicle "
 "for use with model 'striping'"
 msgstr ""
+"Minimaler Abstand / Sicherheitspuffer (in Metern) von einem Fußgänger zu "
+"einem anderen Fahrzeug zur Verwendung mit dem Modell 'striping'"
 
-#: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:519
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:519
 msgid ""
 "Time in seconds after which pedestrians start squeezing through a jam when "
 "using model 'striping' (non-positive values disable squeezing)"
 msgstr ""
+"Zeit in Sekunden, nach der Fußgänger beginnen, sich durch einen Stau zu "
+"zwängen, wenn das Modell 'striping' verwendet wird (nicht positive Werte "
+"deaktivieren das Zwängen)"
 
-#: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:521
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:521
 msgid ""
 "Time in seconds after which pedestrians start squeezing through a jam while "
 "on a pedestrian crossing when using model 'striping' (non-positive values "
 "disable squeezing)"
 msgstr ""
+"Zeit in Sekunden, nach der Fußgänger beginnen, sich auf einem "
+"Fußgängerüberweg durch einen Stau zu zwängen, wenn das Modell 'striping' "
+"verwendet wird (nicht positive Werte deaktivieren das Zwängen)"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:523
 msgid ""
@@ -2865,12 +2882,13 @@ msgstr ""
 "Bruchteil der Streifen, der für entgegenkommende Fußgänger reserviert werden "
 "soll"
 
-#: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:529
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:529
 msgid ""
 "Fraction of stripes to reserve for oncoming pedestrians on crossings and "
 "walkingareas"
 msgstr ""
+"Bruchteil der Streifen, die für entgegenkommende Fußgänger auf "
+"Fußgängerfurten und walkingAreas reserviert werden sollen"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:532
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:532
@@ -2879,49 +2897,52 @@ msgstr ""
 "Maximale Breite in m, die für entgegenkommende Fußgänger reserviert werden "
 "kann"
 
-#: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:535
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:535
 msgid "Interpret departPosLat for walks in legacy style"
-msgstr ""
+msgstr "departurePosLat für Spaziergänge im Legacy-Stil interpretieren"
 
-#: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:538
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:538
 msgid ""
 "Generate INT intermediate points to smooth out lanes within the walkingarea"
 msgstr ""
+"INT-Zwischenpunkte zum Glätten von Fahrstreifen innerhalb der walkingArea "
+"generieren"
 
-#: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:541
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:541
 msgid "The address (host:port) of the external simulation"
-msgstr ""
+msgstr "Die Adresse (Host:Port) der externen Simulation"
 
-#: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:544
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:544
 msgid ""
 "Tolerance to apply when matching pedestrian and vehicle positions on "
 "boarding at individual stops"
 msgstr ""
+"Anzuwendende Toleranz beim Abgleich von Fußgänger- und Fahrzeugpositionen "
+"beim Einsteigen an einzelnen Haltepunkten"
 
-#: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:555
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:555
 msgid ""
 "Apply the given time penalty when computing minimum routing costs for minor-"
 "link internal lanes"
 msgstr ""
+"Die gegebene Zeitstrafe bei der Berechnung der minimalen Routing-Kosten für "
+"interne Fahrstreifen kleinerer Verbindungen einsetzen"
 
-#: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:558
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:558
 msgid ""
 "Apply scaled travel time penalties based on green split when computing "
 "minimum routing costs for internal lanes at traffic lights"
 msgstr ""
+"Skalierte Reisezeitstrafen basierend auf Grünaufteilung bei der Berechnung "
+"der Mindestroutenkosten für interne Fahrstreifen an LSAs einsetzen"
 
-#: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:564
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:564
 msgid ""
 "Distinguish travel time by turn direction and shift a fraction of the "
 "estimated time loss ahead of the intersection onto the internal edges"
 msgstr ""
+"Fahrzeit nach Abbiegerichtung unterscheiden und einen Bruchteil des "
+"geschätzten Zeitverlusts vor der Kreuzung auf die inneren Kanten verschieben"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:589
 msgid ""
@@ -2935,27 +2956,21 @@ msgstr ""
 msgid "Replay exact rerouting sequence from vehroute-output"
 msgstr "Wiedergabe der genauen Umleitungssequenz aus der Fahrzeugroutenausgabe"
 
-#: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:603
-#: /home/micha/programming/sumo/src\router\ROFrame.cpp:59
-#: /home/micha/programming/sumo/src\tools\emissionsDrivingCycle_main.cpp:133
-#: /home/micha/programming/sumo/src\tools\emissionsMap_main.cpp:123
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:603
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:59
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:133
 #: /home/micha/programming/sumo/src/tools/emissionsMap_main.cpp:123
 msgid "Return fuel consumption values in (legacy) unit l instead of mg"
 msgstr ""
+"Die Kraftstoffverbrauchswerte in der (alten) Einheit l anstelle von mg "
+"zurückgeben"
 
-#: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:606
-#: /home/micha/programming/sumo/src\router\ROFrame.cpp:90
-#: /home/micha/programming/sumo/src\tools\emissionsDrivingCycle_main.cpp:136
-#: /home/micha/programming/sumo/src\tools\emissionsMap_main.cpp:126
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:606
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:90
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:136
 #: /home/micha/programming/sumo/src/tools/emissionsMap_main.cpp:126
 msgid "Determines where to load PHEMlight definitions from"
-msgstr ""
+msgstr "Bestimmt, woher PHEMlight-Definitionen geladen werden"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:609
 #: /home/micha/programming/sumo/src\router\ROFrame.cpp:93
@@ -2965,19 +2980,20 @@ msgstr ""
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:93
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:139
 #: /home/micha/programming/sumo/src/tools/emissionsMap_main.cpp:129
+#, fuzzy
 msgid "Enable fleet age modelling with the given reference year in PHEMlight5"
 msgstr ""
+"Modellierung des Flottenalters mit dem gegebenen Bezugsjahr in PHEMlight5 "
+"aktivieren"
 
-#: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:612
-#: /home/micha/programming/sumo/src\router\ROFrame.cpp:96
-#: /home/micha/programming/sumo/src\tools\emissionsDrivingCycle_main.cpp:142
-#: /home/micha/programming/sumo/src\tools\emissionsMap_main.cpp:132
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:612
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:96
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:142
 #: /home/micha/programming/sumo/src/tools/emissionsMap_main.cpp:132
 msgid "Set ambient temperature to correct NOx emissions in PHEMlight5"
 msgstr ""
+"Die Umgebungstemperatur, um die NOx-Emissionen in PHEMlight5 zu korrigieren, "
+"einstellen"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:621
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:621
@@ -3021,8 +3037,9 @@ msgstr "Länge eines Kantensegments in der mesoskopischen Simulation"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:645
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:645
+#, fuzzy
 msgid "Factor for calculating the net free-free headway time"
-msgstr ""
+msgstr "Faktor zur Berechnung der Netto-Frei-Frei-Taktzeit"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:647
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:647
@@ -4081,18 +4098,19 @@ msgstr "Ungültiger Zeit-Wert '%' für Parameter '%'"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_BTreceiver.cpp:65
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_BTreceiver.cpp:65
+#, fuzzy
 msgid "The range of the bt receiver"
-msgstr ""
+msgstr "Die Reichweite des BT-Empfängers"
 
-#: /home/micha/programming/sumo/src\microsim\devices\MSDevice_BTreceiver.cpp:68
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_BTreceiver.cpp:68
 msgid "Whether all recognition point shall be written"
-msgstr ""
+msgstr "Ob alle Erkennungspunkte geschrieben werden sollen"
 
-#: /home/micha/programming/sumo/src\microsim\devices\MSDevice_BTreceiver.cpp:71
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_BTreceiver.cpp:71
 msgid "The offtime used for calculating detection probability (in seconds)"
 msgstr ""
+"Die zur Berechnung der Erkennungswahrscheinlichkeit verwendete Auszeit (in "
+"Sekunden)"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_BTreceiver.cpp:295
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_BTreceiver.cpp:295
@@ -4123,10 +4141,9 @@ msgstr ""
 "btsender: Position vom Fahrzeug '%', welches nicht auf der Strecke ist, kann "
 "nicht aktualisiert werden."
 
-#: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Battery.cpp:52
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Battery.cpp:52
 msgid "Track fuel consumption for non-electric vehicles"
-msgstr ""
+msgstr "Den Kraftstoffverbrauch für nicht elektrische Fahrzeuge verfolgen"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Battery.cpp:109
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Battery.cpp:122
@@ -15268,7 +15285,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Bluelight.cpp:55
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Bluelight.cpp:59
 msgid "Bluelight Device"
-msgstr ""
+msgstr "Blaulichteinrichtung"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ElecHybrid.cpp:55
 msgid "ElecHybrid Device"
