@@ -1240,10 +1240,9 @@ msgstr "Tamam"
 msgid "&Cancel"
 msgstr "İptal Et"
 
-#: /home/micha/programming/sumo/src\gui\dialogs\GUIDialog_Breakpoints.cpp:69
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:69
 msgid "Breakpoints Editor"
-msgstr ""
+msgstr "Kesme Noktaları Düzenleyicisi"
 
 #: /home/micha/programming/sumo/src\gui\dialogs\GUIDialog_Breakpoints.cpp:89
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:89
@@ -1260,13 +1259,11 @@ msgstr "Kaydet"
 msgid "Clea&r"
 msgstr "Temizle"
 
-#: /home/micha/programming/sumo/src\gui\dialogs\GUIDialog_Breakpoints.cpp:126
-#: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2391
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:126
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:273
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2352
 msgid "Time"
-msgstr ""
+msgstr "Zaman"
 
 #: /home/micha/programming/sumo/src\gui\dialogs\GUIDialog_Breakpoints.cpp:141
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:141
@@ -1300,20 +1297,17 @@ msgstr "Kayıt Başarısız!"
 msgid "Time format error"
 msgstr "Zaman Formatı Hatası"
 
-#: /home/micha/programming/sumo/src\gui\dialogs\GUIDialog_Feedback.cpp:46
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_Feedback.cpp:46
 msgid "- General problem solving"
-msgstr ""
+msgstr "- Genel problem çözme"
 
-#: /home/micha/programming/sumo/src\gui\dialogs\GUIDialog_Feedback.cpp:50
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_Feedback.cpp:50
 msgid "- Sumo-user mailing list"
-msgstr ""
+msgstr "- Sumo-kullanıcısı posta listesi"
 
-#: /home/micha/programming/sumo/src\gui\dialogs\GUIDialog_Feedback.cpp:54
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_Feedback.cpp:54
 msgid "- Send us an Email"
-msgstr ""
+msgstr "- Bize bir e-posta gönderin"
 
 #: /home/micha/programming/sumo/src\guisim\Command_Hotkey_InductionLoop.cpp:55
 #: /home/micha/programming/sumo/src\guisim\Command_Hotkey_InductionLoop.cpp:59
@@ -1407,65 +1401,51 @@ msgstr "'den TIS Programlarını Yükleme"
 msgid "Loaded edge types from '"
 msgstr "'den yüklenen kesim türleri"
 
-#: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:883
-#: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:916
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:883
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:916
 msgid "load edgeTypes"
-msgstr ""
+msgstr "Kesim Tipleri Yükle"
 
-#: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:914
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:914
 msgid "Reloaded edge types from '"
-msgstr ""
+msgstr "'Dosyadan yüklenen kesim tipleri"
 
-#: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:971
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:971
 msgid "Reloading netedit config file '"
-msgstr ""
+msgstr "Netedit yapılandırma dosyası yeniden yükleniyor"
 
-#: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:975
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:975
 msgid "Reloading sumo config file '"
-msgstr ""
+msgstr "Sumo yapılandırma dosyası yeniden yükleniyor '"
 
-#: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:979
-#: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:1040
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:979
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1040
 msgid "Reloading network file '"
-msgstr ""
+msgstr "Ağ dosyası yeniden yükleniyor '"
 
-#: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:995
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:995
 msgid "&Reload Netedit config"
-msgstr ""
+msgstr "Netedit yapılandırmasını yeniden yükle"
 
-#: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:996
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:996
 msgid "&Reload Sumo config"
-msgstr ""
+msgstr "Sumo yapılandırmasını yeniden yükle"
 
-#: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:997
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:997
-#, fuzzy
 msgid "&Reload Network"
-msgstr "Ağ"
+msgstr "Ağı Yeniden Yükle"
 
-#: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:1301
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1301
 msgid "Loading of '"
-msgstr ""
+msgstr "' Yüklemesi"
 
-#: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:1306
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1306
 msgid "'"
-msgstr ""
+msgstr "'"
 
-#: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:1306
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1306
 msgid "' loaded."
-msgstr ""
+msgstr "' yüklendi."
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:1395
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1395
@@ -1487,99 +1467,82 @@ msgstr "İşlem"
 msgid "&Tools"
 msgstr "Araçlar"
 
-#: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:1512
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1512
 msgid "Network computed"
-msgstr ""
+msgstr "Ağ hesaplandı"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:1516
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1516
 msgid "Press F5"
 msgstr "F5'e Bas"
 
-#: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:1517
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1517
 msgid "Network requires recomputing"
-msgstr ""
+msgstr "Ağ yeniden hesaplama gerektirir"
 
-#: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:1584
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1584
 msgid "Loading console arguments"
-msgstr ""
+msgstr "Konsol bağımsız değişkenleri yükleniyor"
 
-#: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:1612
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1612
 msgid "Creating new network."
-msgstr ""
+msgstr "Yeni ağ oluşturuluyor."
 
-#: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:1623
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1623
-#, fuzzy
 msgid "Trying to load an empty network"
-msgstr "Ağda Herhangi Bir Şerit Yok"
+msgstr "Boş bir ağ yüklenmeye çalışılıyor"
 
-#: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:1639
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1639
 msgid "Loading network file '"
-msgstr ""
+msgstr "' ağ dosyası yükleniyor"
 
-#: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:1651
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1651
-#, fuzzy
 msgid "Trying to load an empty configuration"
-msgstr "Netconvert Yapılandırmasını Aç"
+msgstr "Boş bir yapılandırma yüklenmeye çalışılıyor"
 
-#: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:1667
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1667
 msgid "Loading configuration file '"
-msgstr ""
+msgstr "' yapılandırma dosyası yükleniyor"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:1698
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1698
 msgid "Select Import Options"
 msgstr "İçeri Aktarma Seçeneklerini Seç"
 
-#: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:1705
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1705
 msgid "Loading OSM file '"
-msgstr ""
+msgstr "' OSM dosyası yükleniyor"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:1727
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1727
 msgid "Recompute with volatile options"
 msgstr "Havai Seçeneklerle Yeniden Hesapla"
 
-#: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:1728
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1728
 msgid ""
 "Changes produced in the net due a recomputing with volatile options cannot "
 "be undone. Continue?"
 msgstr ""
+"Hassa seçeneklerle yeniden hesaplama nedeniyle ağda üretilen değişiklikler "
+"geri alınamaz. Devam et?"
 
-#: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:1963
-#: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:2023
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1963
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:2023
 msgid "Running "
-msgstr ""
+msgstr "Çalışıyor "
 
-#: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:1986
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1986
-#, fuzzy
 msgid "Loading network '"
-msgstr "Ağ Kaydı Başarısız!"
+msgstr "' ağ yükleniyor"
 
-#: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:1986
-#: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:1995
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1986
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1995
 msgid "' in SUMO-GUI"
-msgstr ""
+msgstr "' SUMO-GUI'de"
 
-#: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:1995
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1995
 msgid "Loading sumo config '"
-msgstr ""
+msgstr "' sumo yapılandırması yükleniyor"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:2296
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:2296
@@ -1614,10 +1577,9 @@ msgstr "İleri Al"
 msgid "Saving Network failed!"
 msgstr "Ağ Kaydı Başarısız!"
 
-#: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:3034
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3034
 msgid "Network saved in '"
-msgstr ""
+msgstr "Ağ ' dosyaya kaydedildi"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:3085
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3085
