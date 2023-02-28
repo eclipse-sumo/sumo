@@ -27,3 +27,6 @@ ticket12511
 
 # crash when lane changing while turning
 ticket12618
+
+# collision on junction
+ticket12715

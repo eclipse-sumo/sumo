@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-02-28 13:29:45 by Eclipse SUMO netedit Version v1_16_0+0825-7952f59
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <vType id="t0" carFollowModel="EIDM"/>
+    <vehicle id="f_0" depart="0.00" type="t0">
+        <route edges="WC CN"/>
+    </vehicle>
+    <vehicle id="f_2" depart="2.00">
+        <route edges="EC CW"/>
+    </vehicle>
+    <vehicle id="f_1" depart="8.00">
+        <route edges="NC CW"/>
+    </vehicle>
+</routes>
