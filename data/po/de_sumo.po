@@ -1522,7 +1522,7 @@ msgstr "Nutzt STR als 24-Stunden Zeitspannendefinition"
 
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:168
 msgid "Keep traffic flows of all time slots in the net"
-msgstr "Verkehrsströme aller Zeitschlitze im Netz halten"
+msgstr "Verkehrsströme aller Zeitintervalle im Netz behalten"
 
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:172
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:172
@@ -2315,7 +2315,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:284
 msgid "Record start of lane change manoeuvres"
-msgstr "Beginn von Fahrstreifenwechselmanövern aufzeichnen"
+msgstr "Beginn von Fahrstreifenwechseln aufzeichnen"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:287
 msgid "Record end of lane change manoeuvres"
