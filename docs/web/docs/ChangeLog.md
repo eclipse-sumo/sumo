@@ -7,24 +7,41 @@ title: ChangeLog
 ### Bugfixes
 
 - Simulation
-  - Fixed crash related to lane-changin in tight corners. Issue #12618 (regression in 1.13.0)
+  - Fixed crash related to lane-changing in tight corners. Issue #12618 (regression in 1.13.0)
+  - Fixed crash with option **--device.rerouting.threads**. Issue #12711 (regression 1.16.0)
   - Attribute `lcCooperative` no longer impacts speed adjustments that a vehicle needs for it's personal lane change maneuvers. #9473
   - Fixed invalid interpretation of sublane positioning of junction leaders during lane changing. Issue #12580
   - Fixed unsuitable lateral alignment on bidi edge when preparing for a turning movement. Issue #11436
   - Fixed collision at parallel lanes with different lengths. Issue #12590
   - Fixed crash when using option **--collision.action remove** and vehicles collide after lane changing. Issue #12583
   - Traffic light type `delay_based` no longer generates overlapping detectors (which could cause invalid switching decisions). Issue #12615
+  - Simulation now terminates even when a stop with `triggered="join"` fails. Issue #12668
+  - Stop attribute `extension` now works for `triggered="join"`. Issue #12666
+  - Waypoints with attribute 'triggered' now result in an error rather than undefined behavior. Issue #12665
 
 - netedit
-  - Fixed bug that prevent creation of crossing at priority junctions with speed above 50k/mh. Issue #12609 (regression in 1.16.0)
   - Fixed bug when showing list of newly created vehicle types in type mode. Issue #12625 (regression in 1.15.0)
+  - Fixed bug that prevent creation of crossing at priority junctions with speed above 50k/mh. Issue #12609 (regression in 1.16.0)  
+  - The name of the current network is shown in application title bar again. Issue #12702 (regression in 1.16.0)
   - Fixed bug that caused junction shape to change on repeated computations. Issue #12584
   - Fixed running phase duration for rail crossing in parameter window. Issue #12642
+  - Centering on TAZ now works if the TAZ was loaded without a shape. Issue #12687
 
 - sumo-gui
   - Fixed random (rare) crash when having an open detector attribute window. Issue #12595 (regression in 1.16.0)
-  - Flight mode navigation in 3D view is now working on Linux. Issue #12503
-  - Fixed loading of 2D viewports into 3D scene. Issue #12638
+  - 3D View (OSG view) fixes:
+    - Flight mode navigation is now working on Linux. Issue #12503
+    - Fixed loading of 2D viewports. Issue #12638
+    - Fixed invalid interpretation of background image attribute. Issue #12671
+    - Fixed usage of non-Ascii characters. Issue #12628
+    - Preset visualisation scheme in GUI settings file is now used. Issue #12682
+
+- netconvert
+  - OSM: fixed importing lane access for `psv`. Issue #12457
+  - OSM: fixed handling of one-way roads that allow buses in reverse direction. Issue #12592
+  - Fixed crash when loading split beyond edge length. Issue #12695
+  - Bidi status is no longer lost after symmetrical split. Issue #12698
+  - Fixed invalid right-of-way rules involing indirect left turns. Issue #12676
 
 - TraCI
   - Fixed wrong edgeId in error message of `simulation.findIntermodalRoute`. Issue #12591
@@ -37,31 +54,46 @@ title: ChangeLog
   - Fixed invalid error when calling option **--save-template**. Issue #12589
   - Selected python tools now handle 'stdout' and 'stderr' as magic file names (i.e. *gtfs2pt.py* with more tools to follow). Issue #12588
   - Fixed broken routes for public transport from GTFS caused by invalid permissions. Issue #12276
+  - tlsCoordinator.py now handles disconnected routes. Issue #11255
 
 ### Enhancements
+
+- Simulation
+  - Vehroute-output now includes the used vehicles for `<driving>` stage. Issue #12520
+Closed
 
 - netconvert
   - Added options **--shapefile.width** and **--shapefile.length** to allow importing custom widths and lengtsh from [shape files](Networks/Import/ArcView.md). Issue #12575
   - Exceptions for turning restrictions are now imported from OSM. Issue #12645
+  - Option **--osm.extra-attributes** now also applies to all node attributes. Issue #12677
+  - OSM: Supporting bus lane restrictions using `psv`. Issue #6767
+
+- netedit
+  - All objects with a name attribute can now be located by name using the locate-dialog. Issue #12686
 
 - sumo-gui
   - Dynamically modified values for `latAlignment` (i.e. when preparing to turn) are now listed in the type-parameter dialog. Issue #12579
   - The attribute value that is used for scaling edge widths can now be drawn as an annotation. Issue #12544
   - Statistic output now includes person teleport count. Issue #12271
   - Option **--alternative-net-file** can now be used to load secondary network shapes. Hotkey CTRL+K can be used to switch between primary and secondary shapes. This is intended to support rail simulations where geographical and abstract shapes are available. Issue #11551
+  - Added `.gif`-file support to 3D view. Issue #12672
 
 - TraCI
   - Added function `vehicle.setLateralLanePosition`. Issue #12568
   - Function `vehicle.setStopParameter` now supports "onDemand". Issue #12632
+  - Function `vehicle.setStopParameter` now works correclty with key 'triggered'. Issue #12664
   - Functions [vehicle.getParameter](TraCI/Vehicle_Value_Retrieval.md#supported_device_parameters) and [simulation.getParameter](TraCI/Simulation_Value_Retrieval.md#device_parameter_retrieval) can now retrieve various aggregated trip statistics. Issue #12631
+  - TraCIConstants are now available as static values for the Java bindings. Issue #12371
 
 - tools
   - Visualization tools now support option **--alpha** to set background transparancy. Issue #12556
   - Added new tool [generateRerouters.py](Tools/Misc.md#generatererouterspy) to generate rerouters for a given set of closed edges including automatic computation of suitable notification edges. Issue #12510
+  - Added new tool [split_at_stops.py](Tools/Net.md#split_at_stopspy) to ensure that each bus/train-stop has it's own edge. Issue #12519
   - racing.py: now supports collision sound. Issue #12540
   - randomTrips.py: Added option **--random-factor** to apply random disturbances to edge probabilities (i.e. to break up symmetry in small networks). Issue #12603
   - randomTrips.py: Trips no longer start or end inside a roundabout. To restore the old behavior, option **--allow-roundabouts** can be set. Issue #12619
   - osmWebWizard.py: No longer starts/ends trips on motorways or slip roads (except at the fringe). Issue #12620
+  - Improved comaptatibility between sumolib phase definitions and libsumo phase definitions. Issue #12131
   - plotXMLAttributes.py:
     - can plot by sorting rank with attribute value `@RANK`. Issue #12607
     - can plot by input order with attribute value `@INDEX` (note that this was the behavior of @RANK in 1.16.0). Issue #12607
