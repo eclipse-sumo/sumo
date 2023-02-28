@@ -193,3 +193,14 @@ By default, normal edge geometries will be exported. This can be changed with op
 
 - **--lanes**: write lane geometries
 - **--internal**: write junction-internal edges or lanes
+
+
+# split_at_stops.py
+
+Generates an .edg.xml patch file with `split` definitions to ensure that each public transport stop of the given type (default `<trainStop>`) is on a separate edge from every other stop. The tool also generates an updated `.net.xml` and stop file. Furthermore, it can adapt a route-file so it matches the updated network.
+
+Example call:
+```
+python tools/net/split_at_stops.py <stopfile> -n <net-file> -r <route-file> -o <output-net-file> --stop-output <output-stop-file> --route-output <output-route-file> --stop-type busStop
+```
+
