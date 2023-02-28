@@ -77,8 +77,8 @@ If your GTFS data has a (non-empty) `shapes.txt` file it also has route informat
 For the rest of the tutorial, we will assume that you always want to import at least the schedules from GTFS.
 
 From OSM you can (sometimes) get abstract schedules ("line runs every 10 minutes on weekdays") and also stop locations and routes.
-While it may be desirable to choose from every of the three data types individually whether it should be imported from OSM
-or from GTFS currently only the following scenarios are possible:
+While it may be desirable to choose for every of the three data types individually whether it should be imported from OSM
+or from GTFS, currently, only the following scenarios are possible:
 
 - Ignore the OSM and route data completely, see [Routes from shortest path](GTFS.md#routes_from_shortest_path).
   - This approach works with every network (not only OSM) and is the default if you do not have ptline output or your GTFS does not contain a shapes.txt file
@@ -123,7 +123,7 @@ The call is:
 python tools/import/gtfs/gtfs2pt.py -n osm.net.xml --gtfs GTFS_VBB_Juni-Dezember-2019.zip --date 20190904 --osm-routes osm_ptlines.xml --repair --modes bus
 ```
 
-The option **--repair** is not mandatory but is helpful. It takes the given ptLines
+The option **--repair** is not mandatory, but helpful. It takes the given ptLines
 and tries to repair them using duarouter before the mapping. If some routes of the
 ptLines are not valid, they won't be used for the mapping.
 
