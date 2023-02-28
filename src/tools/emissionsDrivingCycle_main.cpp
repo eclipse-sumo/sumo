@@ -71,7 +71,7 @@ main(int argc, char** argv) {
 
     oc.doRegister("timeline-file.skip", new Option_Integer(0));
     oc.addSynonyme("timeline.skip", "timeline-file.skip");
-    oc.addDescription("timeline-file.skip", TL("Input"), TL("Skips the firs NUM lines."));
+    oc.addDescription("timeline-file.skip", TL("Input"), TL("Skips the first NUM lines."));
 
     oc.doRegister("timeline-file.separator", new Option_String(";"));
     oc.addSynonyme("timeline.separator", "timeline-file.separator");
