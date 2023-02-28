@@ -6860,33 +6860,36 @@ msgid "Modifies all edge speeds by multiplying by FLOAT"
 msgstr ""
 "Ändert alle Kantengeschwindigkeiten durch multiplizieren mit einen float"
 
-#: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:344
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:344
 msgid "Modifies all edge speeds to at least FLOAT"
-msgstr ""
+msgstr "Ändert alle Kantengeschwindigkeiten auf mindestens eine Fließkommazahl"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:352
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:352
+#, fuzzy
 msgid "Generate INT intermediate points to smooth out intersection corners"
-msgstr ""
+msgstr "INT Zwischenpunkte zum Glätten von Schnittecken generieren"
 
-#: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:355
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:355
 msgid ""
 "Generate INT intermediate points to smooth out lanes within the intersection"
 msgstr ""
+"INT Zwischenpunkte zum Glätten von Fahrstreifen innerhalb der Kreuzung "
+"generieren"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:358
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:358
+#, fuzzy
 msgid ""
 "Generate longer intersections to allow for smooth s-curves when the number "
 "of lanes changes"
 msgstr ""
+"Längere Kreuzungen, um glatte S-Kurven zu ermöglichen, wenn sich die Anzahl "
+"der Fahrstreifen ändert, generieren"
 
-#: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:398
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:398
 msgid "Forces rectangular cuts between lanes and intersections"
-msgstr ""
+msgstr "Erzwingt rechtwinklige Schnitte zwischen Fahrstreifen und Kreuzungen"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:457
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:457
@@ -6900,42 +6903,47 @@ msgid ""
 "pedestrian junction within FLOAT"
 msgstr ""
 
-#: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:605
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:605
 msgid "Only keep edges with speed in meters/second > FLOAT"
 msgstr ""
+"Behalte nur Kanten mit Geschwindigkeit in Metern/Sekunde > Fließkommazahl"
 
-#: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:609
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:609
 msgid "Remove edges in STR[]"
-msgstr ""
+msgstr "Kanten in STR[] entfernen"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:613
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:613
+#, fuzzy
 msgid ""
 "Only keep edges in STR[] or those which are kept due to other keep-edges or "
 "remove-edges options"
 msgstr ""
+"Behalte nur Kanten in STR[] oder solche, die aufgrund anderer keep-edges- "
+"oder remove-edge-Optionen erhalten bleiben"
 
-#: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:616
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:616
 msgid ""
 "Only keep edges in FILE (Each id on a single line. Selection files from sumo-"
 "gui are also supported) or those which are kept due to other keep-edges or "
 "remove-edges options"
 msgstr ""
+"Behalte nur Kanten in Datei (jede ID in einer einzelnen Zeile. "
+"Auswahldateien von Sumo-GUI werden ebenfalls unterstützt) oder solche, die "
+"aufgrund anderer Optionen zum Beibehalten von Kanten oder zum Entfernen von "
+"Kanten beibehalten werden"
 
-#: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:619
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:619
 msgid ""
 "Remove edges in FILE. (Each id on a single line. Selection files from sumo-"
 "gui are also supported)"
 msgstr ""
+"Kanten in Datei entfernen. (Jede ID in einer einzelnen Zeile. Auswahldateien "
+"von Sumo-GUI werden ebenfalls unterstützt)"
 
-#: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:623
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:623
 msgid "Remove edges after joining"
-msgstr ""
+msgstr "Kanten nach dem Zusammenführen entfernen"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:627
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:627
@@ -6983,25 +6991,21 @@ msgstr ""
 msgid "Removes isolated edges"
 msgstr ""
 
-#: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:657
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:657
 msgid "All nodes will be unregulated"
-msgstr ""
+msgstr "Alle Knoten werden unreguliert sein"
 
-#: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:662
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:662
 msgid "Do not regulate nodes in STR[]"
-msgstr ""
+msgstr "Knoten in STR[] nicht regulieren"
 
-#: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:666
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:666
 msgid "Do not regulate district nodes"
-msgstr ""
+msgstr "Bezirksknoten nicht regulieren"
 
-#: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:672
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:672
 msgid "Enable ramp-guessing"
-msgstr ""
+msgstr "Zufahrtsrampenheuristik aktivieren"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:675
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:675
