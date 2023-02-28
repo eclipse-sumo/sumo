@@ -20,8 +20,8 @@ Despite the keywords online, socket, and python API, this tutorial does
 ## Network setup
 
 The goal is to build a simple network where the vehicles drive in
-circles so we setup four nodes for the corners as follows
-(circular.nod.xml):
+circles so we set up four nodes at the corners as follows
+(`circular.nod.xml`):
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -36,7 +36,7 @@ circles so we setup four nodes for the corners as follows
 
 All edges connecting the nodes should have the same number of lanes and
 the same maximum speed. In order to save on typing we define the edge
-type in a separate file (circular.typ.xml):
+type in a separate file (`circular.typ.xml`):
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -46,7 +46,7 @@ type in a separate file (circular.typ.xml):
 </types>
 ```
 
-Finally we define the edges connecting the nodes (circular.edg.xml):
+Finally we define the edges connecting the nodes (`circular.edg.xml`):
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -66,9 +66,9 @@ netconvert -n circular.nod.xml -t circular.typ.xml -e circular.edg.xml -o
 ```
 
 In order to simplify the resulting net (and get the highest speed out of
-the simulation) we omit turnarounds and simplify the movement over
+the simulation), we omit turnarounds and simplify the movement over
 junctions by removing the junction internal lanes. The complete
-netconvert configuration file (circular.netccfg):
+netconvert configuration file is as follows (`circular.netccfg`):
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
