@@ -4157,12 +4157,13 @@ msgstr ""
 "Es wird versucht, in das Batteriegerät von Fahrzeug '%' ein ungültiges % (%) "
 "einzugeben."
 
-#: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Bluelight.cpp:59
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Bluelight.cpp:59
 msgid ""
 "Set the distance at which other drivers react to the blue light and siren "
 "sound"
 msgstr ""
+"Die Entfernung, in der andere Fahrer auf das Blaulicht und den Sirenenton "
+"reagieren, einstellen"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Bluelight.cpp:68
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Bluelight.cpp:68
@@ -4172,15 +4173,6 @@ msgstr ""
 "Blaulicht-Einrichtung ist nicht kompatibel mit der mesoskopischen Simulation "
 "(wurde für Fahrzeug '%' ignoriert)"
 
-#: /home/micha/programming/sumo/src\microsim\devices\MSDevice_DriverState.cpp:66
-#: /home/micha/programming/sumo/src\microsim\devices\MSDevice_DriverState.cpp:68
-#: /home/micha/programming/sumo/src\microsim\devices\MSDevice_DriverState.cpp:70
-#: /home/micha/programming/sumo/src\microsim\devices\MSDevice_DriverState.cpp:72
-#: /home/micha/programming/sumo/src\microsim\devices\MSDevice_DriverState.cpp:74
-#: /home/micha/programming/sumo/src\microsim\devices\MSDevice_DriverState.cpp:76
-#: /home/micha/programming/sumo/src\microsim\devices\MSDevice_DriverState.cpp:78
-#: /home/micha/programming/sumo/src\microsim\devices\MSDevice_DriverState.cpp:80
-#: /home/micha/programming/sumo/src\microsim\devices\MSDevice_DriverState.cpp:82
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_DriverState.cpp:63
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_DriverState.cpp:66
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_DriverState.cpp:68
@@ -4192,62 +4184,64 @@ msgstr ""
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_DriverState.cpp:80
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_DriverState.cpp:82
 msgid "Driver State Device"
-msgstr ""
+msgstr "Fahrerstandeinrichtung"
 
-#: /home/micha/programming/sumo/src\microsim\devices\MSDevice_DriverState.cpp:66
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_DriverState.cpp:66
 msgid "Initial value assigned to the driver's awareness."
-msgstr ""
+msgstr "Anfänglicher Wert, der dem Bewusstsein des Fahrers zugewiesen wird."
 
-#: /home/micha/programming/sumo/src\microsim\devices\MSDevice_DriverState.cpp:68
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_DriverState.cpp:68
 msgid "Time scale for the error process."
-msgstr ""
+msgstr "Zeitskala für den Fehlerprozess."
 
-#: /home/micha/programming/sumo/src\microsim\devices\MSDevice_DriverState.cpp:70
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_DriverState.cpp:70
 msgid "Noise intensity driving the error process."
-msgstr ""
+msgstr "Rauschintensität, die den Fehlerprozess antreibt."
 
-#: /home/micha/programming/sumo/src\microsim\devices\MSDevice_DriverState.cpp:72
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_DriverState.cpp:72
 msgid ""
 "General scaling coefficient for applying the error to the perceived speed "
 "difference (error also scales with distance)."
 msgstr ""
+"Allgemeiner Skalierungskoeffizient zum Anwenden des Fehlers auf die "
+"wahrgenommene Geschwindigkeitsdifferenz (Fehler skaliert auch mit der "
+"Entfernung)."
 
-#: /home/micha/programming/sumo/src\microsim\devices\MSDevice_DriverState.cpp:74
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_DriverState.cpp:74
 msgid ""
 "General scaling coefficient for applying the error to the perceived distance "
 "(error also scales with distance)."
 msgstr ""
+"Allgemeiner Skalierungskoeffizient zum Anwenden des Fehlers auf die "
+"wahrgenommene Entfernung (Fehler skaliert auch mit der Entfernung)."
 
-#: /home/micha/programming/sumo/src\microsim\devices\MSDevice_DriverState.cpp:76
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_DriverState.cpp:76
 msgid ""
 "Base threshold for recognizing changes in the speed difference (threshold "
 "also scales with distance)."
 msgstr ""
+"Basisschwelle zur Erkennung von Änderungen der Geschwindigkeitsdifferenz "
+"(Schwelle skaliert auch mit der Entfernung)."
 
-#: /home/micha/programming/sumo/src\microsim\devices\MSDevice_DriverState.cpp:78
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_DriverState.cpp:78
 msgid ""
 "Base threshold for recognizing changes in the headway (threshold also scales "
 "with distance)."
 msgstr ""
+"Basisschwellwert zur Erkennung von Abstandsänderungen (Schwellwert skaliert "
+"auch mit Abstand)."
 
-#: /home/micha/programming/sumo/src\microsim\devices\MSDevice_DriverState.cpp:80
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_DriverState.cpp:80
 msgid "Minimal admissible value for the driver's awareness."
-msgstr ""
+msgstr "Minimal zulässiger Wert für das Bewusstsein des Fahrers."
 
-#: /home/micha/programming/sumo/src\microsim\devices\MSDevice_DriverState.cpp:82
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_DriverState.cpp:82
 msgid ""
 "Maximal reaction time (~action step length) induced by decreased awareness "
 "level (reached for awareness=minAwareness)."
 msgstr ""
+"Maximale Reaktionszeit (~Aktionsschrittlänge) induziert durch verringertes "
+"Bewusstseinsniveau (erreicht für Bewusstsein=minAwareness)."
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_ElecHybrid.cpp:102
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_ElecHybrid.cpp:116
@@ -4312,12 +4306,13 @@ msgstr "Zeichnet die Periode für die Emissionsausgabe auf"
 msgid "Example Device"
 msgstr "Beispieleinrichtung"
 
-#: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Example.cpp:48
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Example.cpp:48
 msgid ""
 "An exemplary parameter which can be used by all instances of the example "
 "device"
 msgstr ""
+"Ein beispielhafter Parameter, der von allen Instanzen des Beispielgeräts "
+"verwendet werden kann"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Example.cpp:63
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Example.cpp:63
@@ -4373,10 +4368,13 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Friction.cpp:50
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Friction.cpp:50
+#, fuzzy
 msgid ""
 "The measurement offset parameter which can be applied to the friction device "
 "-> e.g. to force false measurements"
 msgstr ""
+"Der Messversatzparameter, der auf die Friktionsvorrichtung angewendet werden "
+"kann -> z. falsche Messungen zu erzwingen"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_GLOSA.cpp:49
 msgid "The communication range to the traffic light"
@@ -4407,10 +4405,11 @@ msgstr "Der Zeitraum, in dem das Fahrzeug umgeleitet werden soll"
 msgid "The rerouting period before depart"
 msgstr "Der Umleitungszeitraum vor der Abfahrt"
 
-#: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Routing.cpp:62
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Routing.cpp:62
 msgid "The weight of prior edge weights for exponential moving average"
 msgstr ""
+"Die Gewichtung vorheriger Kantengewichtungen für den exponentiellen "
+"gleitenden Durchschnitt"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Routing.cpp:66
 msgid "The number of steps for moving average weight of prior edge weights"
@@ -4802,10 +4801,13 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Taxi.cpp:82
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Taxi.cpp:82
+#, fuzzy
 msgid ""
 "The dispatch algorithm [greedy|greedyClosest|greedyShared|routeExtension|"
 "traci]"
 msgstr ""
+"Der Dispatch-Algorithmus [greedy|greedyClosest|greedyShared|routeExtension|"
+"traci]"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Taxi.cpp:85
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Taxi.cpp:85
@@ -4826,15 +4828,13 @@ msgstr ""
 msgid "The period between successive calls to the dispatcher"
 msgstr "Der Zeitraum zwischen aufeinanderfolgenden Anrufen beim Abfertiger"
 
-#: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Taxi.cpp:94
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Taxi.cpp:94
 msgid "The behavior of idle taxis [stop|randomCircling]"
-msgstr ""
+msgstr "Das Verhalten von untätigen Taxis [stop|randomCircling]"
 
-#: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Taxi.cpp:97
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Taxi.cpp:97
 msgid "Write information from the idling algorithm to FILE"
-msgstr ""
+msgstr "Informationen aus dem Leerlaufalgorithmus in Datei schreiben"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Taxi.cpp:115
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Taxi.cpp:115
@@ -4938,50 +4938,64 @@ msgstr ""
 "Verzögerungsrate, die während eines 'Manövers mit minimalem Risiko' "
 "angewendet wird."
 
-#: /home/micha/programming/sumo/src\microsim\devices\MSDevice_ToC.cpp:130
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ToC.cpp:130
 msgid ""
 "Time, which the vehicle requires to have ahead to continue in automated "
 "mode. The default value of 0 indicates no dynamic triggering of ToCs."
 msgstr ""
+"Zeit, die das Fahrzeug voraus haben muss, um im automatisierten Modus "
+"weiterzufahren. Der Standardwert von 0 gibt an, dass Steuerungsübergaben "
+"(ToCs) nicht dynamisch ausgelöst werden."
 
-#: /home/micha/programming/sumo/src\microsim\devices\MSDevice_ToC.cpp:132
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ToC.cpp:132
 msgid "Probability that a dynamically triggered TOR is not answered in time."
 msgstr ""
+"Wahrscheinlichkeit, dass ein dynamisch ausgelöstes TOR nicht rechtzeitig "
+"beantwortet wird."
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_ToC.cpp:134
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ToC.cpp:134
+#, fuzzy
 msgid "If true, the vehicle tries to change to the right during an MRM."
 msgstr ""
+"Wenn wahr, versucht das Fahrzeug während eines MRM nach rechts zu wechseln."
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_ToC.cpp:136
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ToC.cpp:136
+#, fuzzy
 msgid ""
 "If set, the vehicle tries to reach the given named stopping place during an "
 "MRM."
 msgstr ""
+"Wenn gesetzt, versucht das Fahrzeug während eines MRM den angegebenen "
+"benannten Haltepunkt zu erreichen."
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_ToC.cpp:138
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ToC.cpp:138
+#, fuzzy
 msgid "Duration the vehicle stays at the safe spot after an MRM."
-msgstr ""
+msgstr "Verweildauer des Fahrzeugs am sicheren Ort nach einem MRM."
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_ToC.cpp:140
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ToC.cpp:140
+#, fuzzy
 msgid ""
 "Maximal acceleration that may be applied during the ToC preparation phase."
 msgstr ""
+"Maximale Beschleunigung, die während der Steuerungsübergabe-"
+"Vorbereitungsphase (ToC) angewendet werden kann."
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_ToC.cpp:142
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ToC.cpp:142
+#, fuzzy
 msgid "Timegap for ToC preparation phase."
-msgstr ""
+msgstr "Zeitlücke für Steuerungsübergaben-Vorbereitungsphase (ToC)."
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_ToC.cpp:144
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ToC.cpp:144
+#, fuzzy
 msgid "Additional spacing for ToC preparation phase."
-msgstr ""
+msgstr "Zusätzlicher Abstand für Steuerübergaben-Vorbereitungsphase (ToC)."
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_ToC.cpp:146
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ToC.cpp:146
@@ -4995,21 +5009,24 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_ToC.cpp:148
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ToC.cpp:148
+#, fuzzy
 msgid ""
 "Rate of adaptation towards the increased headway during ToC preparation."
 msgstr ""
+"Anpassungsrate an den erhöhten Fortschritt während der Steuerungsübergaben-"
+"Vorbereitung (ToC)."
 
-#: /home/micha/programming/sumo/src\microsim\devices\MSDevice_ToC.cpp:150
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ToC.cpp:150
 msgid ""
 "Whether a coloring scheme shall by applied to indicate the different ToC "
 "stages."
 msgstr ""
+"Ob ein Farbschema angewendet werden soll, um die verschiedenen "
+"Steuerungsübergaben-Stufen (ToC) anzuzeigen."
 
-#: /home/micha/programming/sumo/src\microsim\devices\MSDevice_ToC.cpp:152
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ToC.cpp:152
 msgid "Switches on output by specifying an output filename."
-msgstr ""
+msgstr "Schaltet die Ausgabe durch Angabe eines Ausgabedateinamens ein."
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_ToC.cpp:161
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ToC.cpp:161
@@ -5165,10 +5182,9 @@ msgstr ""
 msgid "Unknown routing algorithm '%'!"
 msgstr "Unbekannter Routen-Algorithmus '%'!"
 
-#: /home/micha/programming/sumo/src\microsim\devices\MSTransportableDevice_Routing.cpp:46
 #: /home/micha/programming/sumo/src/microsim/devices/MSTransportableDevice_Routing.cpp:46
 msgid "The period with which the person shall be rerouted"
-msgstr ""
+msgstr "Der Zeitraum, in dem die Person umgeleitet werden soll"
 
 #: /home/micha/programming/sumo/src\microsim\engine\VehicleEngineHandler.cpp:157
 #: /home/micha/programming/sumo/src/microsim/engine/VehicleEngineHandler.cpp:157
@@ -6499,35 +6515,35 @@ msgstr ""
 "Der Standardalgorithmus zum Berechnen von Vorfahrtsregeln ('default', "
 "'edgePriority')"
 
-#: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:110
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:110
 msgid ""
 "Allow building right-before-left junctions when the incoming edge speeds are "
 "below FLOAT (m/s)"
 msgstr ""
+"Erstellen von Rechts-vor-Links-Knotenpunkten, wenn die eingehenden "
+"Kantengeschwindigkeiten unter FLOAT (m/s) liegen, zulassen"
 
-#: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:113
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:113
 msgid ""
 "Build left-before-right junctions instead of right-before-left junctions"
 msgstr ""
+"Links-vor-Rechts-Knotenpunkte statt Rechts-vor-Links-Knotenpunkte erstellen"
 
-#: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:117
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:117
 msgid "Omits internal links"
-msgstr ""
+msgstr "Lässt interne Links weg"
 
-#: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:120
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:120
 msgid ""
 "Remaps alphanumerical IDs of nodes and edges to ensure that all IDs are "
 "integers"
 msgstr ""
+"Ordnet alphanumerische IDs von Knoten und Kanten neu zu, um sicherzustellen, "
+"dass alle IDs ganze Zahlen sind"
 
-#: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:123
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:123
 msgid "Remaps IDs of nodes to integers starting at INT"
-msgstr ""
+msgstr "Ordnet IDs von Knoten neu zu ganzen Zahlen zu, beginnend bei INT"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:126
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:126
@@ -6536,10 +6552,13 @@ msgstr "Ordnet IDs von Kanten neu zu ganzen Zahlen zu, beginnend bei INT"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:130
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:130
+#, fuzzy
 msgid ""
 "Ensures that generated ids do not included any of the typed IDs from FILE "
 "(sumo-gui selection file format)"
 msgstr ""
+"Stellt sicher, dass generierte IDs keine der eingegebenen IDs aus Datei "
+"(sumo-gui selection file format) enthalten"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:134
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:134
@@ -15267,7 +15286,7 @@ msgstr "Blaulichteinrichtung"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ElecHybrid.cpp:55
 msgid "ElecHybrid Device"
-msgstr ""
+msgstr "ElecHybrid-Einrichtung"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_FCD.cpp:63
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_FCD.cpp:67
@@ -15335,8 +15354,9 @@ msgstr "Taxi-Einrichtung"
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ToC.cpp:148
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ToC.cpp:150
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ToC.cpp:152
+#, fuzzy
 msgid "ToC Device"
-msgstr ""
+msgstr "Steuerungsübergabe-Einrichtung (ToC)"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:269
 msgid ""
