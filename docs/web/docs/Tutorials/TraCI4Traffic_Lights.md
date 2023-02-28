@@ -76,7 +76,7 @@ Then we start to control the simulation. We let the server simulate one
 simulation step, read the induction loop and switch the phase of the
 traffic light until the end is reached where no vehicle exists on the
 road anymore. If we find a vehicle on the induction loop the phase is
-switched such that the north south-direction gets green. If no vehicle
+switched such that the north-south direction gets green. If no vehicle
 is on the detector, and we are not already in the process of switching
 (so EW has still green), we try to keep this phase by simply setting it
 again. In the end, we close the connection.
