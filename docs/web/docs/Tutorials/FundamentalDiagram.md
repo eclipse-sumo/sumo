@@ -25,12 +25,12 @@ circular route where the density is increased over time. Such a scenario
 can be found at [{{SUMO}}/tests/sumo/cf_model/drive_in_circles]({{Source}}tests/sumo/cf_model/drive_in_circles).
 
 There are different ways for increasing the density. The key problem
-that must be solved is, that density can only be increased when there is
-sufficient space to insert additional vehicles. In a closed system all
+that must be solved is that density can only be increased when there is
+sufficient space to insert additional vehicles. In a closed system, all
 the space is eventually taken up by the existing vehicles and the safety
 gaps between them. Additional space can only be obtained by lowering the
 speed in some parts of the circle to reduce these gaps.
-A special case are scenarios that feature spontaneous break down of speed and a travelling jam wave which permits different local densities over time.
+A special case is scenarios that feature spontaneous break down of speed and a travelling jam wave which permits different local densities over time.
 
 ## Reducing the speed evenly
 
