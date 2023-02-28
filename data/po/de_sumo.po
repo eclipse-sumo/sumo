@@ -2042,24 +2042,18 @@ msgstr "Batteriewerte von jedem Fahrzeug speichern"
 msgid "Write battery values with the given precision (default 2)"
 msgstr "Batteriewerte mit der angegebenen Genauigkeit schreiben (Standard 2)"
 
-#: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:143
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:143
-#, fuzzy
 msgid "Save the elecHybrid values of each vehicle"
-msgstr "Die Plug-in-Hybrid-Werte für jedes Fahrzeug speichern"
+msgstr "Die elecHybrid-Werte für jedes Fahrzeug speichern"
 
-#: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:145
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:145
-#, fuzzy
 msgid "Write elecHybrid values with the given precision (default 2)"
 msgstr ""
-"Plug-in-Hybrid-Werte mit der angegebenen Genauigkeit (Standard 2) schreiben"
+"elecHybrid-Werte mit der angegebenen Genauigkeit (Standard 2) schreiben"
 
-#: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:147
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:147
-#, fuzzy
 msgid "Write elecHybrid values into one aggregated file"
-msgstr "Plug-in-Hybrid-Werte in eine aggregierte Datei schreiben"
+msgstr "elecHybrid-Werte in eine aggregierte Datei schreiben"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:150
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:150
@@ -2279,8 +2273,8 @@ msgstr "Informationen zu Kanten zwischen Haltepunkten hinzufügen"
 msgid ""
 "Write the vehicle speedFactor (defaults to 'true' if departSpeed is written)"
 msgstr ""
-"Den Geschwindigkeitsfaktor des Fahrzeugs (standardmäßig 'true', wenn "
-"departureSpeed geschrieben ist) schreiben"
+"Den Geschwindigkeitsfaktor (speedFactor) des Fahrzeugs schreiben "
+"(standardmäßig 'true', wenn departSpeed geschrieben ist)"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:265
 msgid "Include internal edges in the output"
