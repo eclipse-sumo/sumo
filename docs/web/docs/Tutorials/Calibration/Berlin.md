@@ -54,7 +54,7 @@ different vehicle parameters, was added into the resulting routes and emitters-f
 vehicles starting or ending on minor roads. For all vehicles passing the
 study area only along main roads, a vehicle distribution including 6
 different vehicle types were defined as the induction loops detect 5+1
-different vehicle classes. The split into the different vehicle types was deduced from the measured data. From the vehicle parameters, only vehicle length could be measured directly. For all other ones, assumptions were made in order to receive a good match of the congestion in the
+different vehicle classes. The split into the different vehicle types was deduced from the measured data. From the vehicle parameters, only the vehicle length could be measured directly. For all other ones, assumptions were made in order to receive a good match of the congestion in the
 simulation to the real queue length. Framework conditions like
 plausibility and difference between the vehicle classes were considered, such as passenger cars having a higher acceleration and deceleration
 than trucks.
@@ -63,7 +63,7 @@ than trucks.
 
 In order to obtain the same measurements from simulation than from
 reality “Induction loops” \[6\] were instantiated at the same positions
-within the simulation net as in reality. To assess if the congestion within the simulation had the same extent and duration as in reality, the data for eastbound traffic at MQ 22 and MQ32 was analyzed. Figure 2
+within the simulation net as in reality. To assess if the congestion within the simulation had the same extent and duration as in reality, the data for eastbound traffic at MQ 22 and MQ 32 was analyzed. Figure 2
 shows the speed at the observation points, aggregated to intervals of
 one minute.
 
