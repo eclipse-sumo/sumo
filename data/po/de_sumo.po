@@ -13113,7 +13113,7 @@ msgid ""
 "Prefix which is applied to all output files. The special string 'TIME' is "
 "replaced by the current time."
 msgstr ""
-"Präfix, das auf alle Ausgabedateien angewendet wird. Die Sonderzeichenfolge "
+"Auf alle Ausgabedateien anzuwendendes Präfix. Die besondere Zeichenfolge "
 "'TIME' wird durch die aktuelle Uhrzeit ersetzt."
 
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:122
