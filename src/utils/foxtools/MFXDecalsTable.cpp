@@ -41,6 +41,7 @@ FXDEFMAP(MFXDecalsTable) MFXDecalsTableMap[] = {
     FXMAPFUNC(SEL_FOCUSIN,  MID_DECALSTABLE_TEXTFIELD,  MFXDecalsTable::onFocusRow),
     FXMAPFUNC(SEL_KEYPRESS, MID_DECALSTABLE_TEXTFIELD,  MFXDecalsTable::onCmdKeyPress),
     FXMAPFUNC(SEL_COMMAND,  MID_DECALSTABLE_TEXTFIELD,  MFXDecalsTable::onCmdEditRowString),
+    FXMAPFUNC(SEL_COMMAND,  MID_DECALSTABLE_SPINNER,    MFXDecalsTable::onCmdEditRowSpinner),
     FXMAPFUNC(SEL_COMMAND,  MID_DECALSTABLE_CHECKBOX,   MFXDecalsTable::onCmdEditRowCheckBox),
     FXMAPFUNC(SEL_COMMAND,  MID_DECALSTABLE_OPEN,       MFXDecalsTable::onCmdOpenDecal),
     FXMAPFUNC(SEL_COMMAND,  MID_DECALSTABLE_ADD,        MFXDecalsTable::onCmdAddRow),
@@ -102,7 +103,7 @@ MFXDecalsTable::fillTable() {
     // get decals
     const auto decals = myDialogViewSettings->getSUMOAbstractView()->getDecals();
     // create columns
-    std::string columnsType = "ibfsssssscd";
+    std::string columnsType = "ibfsssspscd";
     for (int i = 0; i < (FXint)columnsType.size(); i++) {
         myColumns.push_back(new Column(this, i, columnsType.at(i)));
     }
@@ -116,7 +117,7 @@ MFXDecalsTable::fillTable() {
         row->getCells().at(4)->getTextField()->setText(toString(decal.centerY).c_str());
         row->getCells().at(5)->getTextField()->setText(toString(decal.width).c_str());
         row->getCells().at(6)->getTextField()->setText(toString(decal.height).c_str());
-        row->getCells().at(7)->getTextField()->setText(toString(decal.rot).c_str());
+        row->getCells().at(7)->getSpinner()->setValue(decal.rot);
         row->getCells().at(8)->getTextField()->setText(toString(decal.layer).c_str());
         row->getCells().at(9)->getCheckButton()->setCheck(decal.screenRelative);
         myRows.push_back(row);
@@ -271,8 +272,26 @@ MFXDecalsTable::onCmdEditRowString(FXObject* sender, FXSelector, void*) {
             decals.at(rowIndex).width = StringUtils::toDouble(value);
         } else if (myRows.at(rowIndex)->getCells().at(6)->getTextField() == sender) {
             decals.at(rowIndex).height = StringUtils::toDouble(value);
-        } else if (myRows.at(rowIndex)->getCells().at(7)->getTextField() == sender) {
-            decals.at(rowIndex).rot = StringUtils::toDouble(value);
+        } else if (myRows.at(rowIndex)->getCells().at(8)->getTextField() == sender) {
+            decals.at(rowIndex).layer = StringUtils::toDouble(value);
+        }
+    }
+    // update view
+    myDialogViewSettings->getSUMOAbstractView()->update();
+    return 1;
+}
+
+
+long
+MFXDecalsTable::onCmdEditRowSpinner(FXObject* sender, FXSelector, void*) {
+    // get decals
+    auto &decals = myDialogViewSettings->getSUMOAbstractView()->getDecals();
+    // get value
+    const auto value = dynamic_cast<FXRealSpinner*>(sender)->getValue();
+    // set filename
+    for (int rowIndex = 0; rowIndex < (int)myRows.size(); rowIndex++) {
+        if (myRows.at(rowIndex)->getCells().at(7)->getSpinner() == sender) {
+            decals.at(rowIndex).rot = value;
         }
     }
     // update view
@@ -448,6 +467,16 @@ MFXDecalsTable::Cell::Cell(MFXDecalsTable* decalsTable, FXCheckButton* checkButt
 }
 
 
+MFXDecalsTable::Cell::Cell(MFXDecalsTable* decalsTable, FXRealSpinner* spinner, int col, int row) :
+    myDecalsTable(decalsTable),
+    mySpinner(spinner),
+    myCol(col),
+    myRow(row) {
+    // create
+    spinner->create();
+}
+
+
 MFXDecalsTable::Cell::~Cell() {
     // delete all elements
     if (myTextField) {
@@ -520,6 +549,12 @@ MFXDecalsTable::Cell::getCheckButton() {
 }
 
 
+FXRealSpinner*
+MFXDecalsTable::Cell::getSpinner() {
+    return mySpinner;
+}
+
+
 void
 MFXDecalsTable::Cell::showIndexLabelNormal() {
     myIndexLabel->show();
@@ -571,6 +606,8 @@ MFXDecalsTable::Column::Column(MFXDecalsTable* table, const int index, const cha
     myTable(table),
     myIndex(index),
     myType(type) {
+    // get static tooltip
+    auto staticTooltip = table->myDialogViewSettings->getSUMOAbstractView()->getGUIGlChildWindow()->getGUIMainWindowParent()->getStaticTooltipMenu();
     // create vertical frame
     if (myType == 'f') {
         myVerticalFrame = new FXVerticalFrame(table->myColumnsFrame, GUIDesignAuxiliarFrame);
@@ -578,31 +615,33 @@ MFXDecalsTable::Column::Column(MFXDecalsTable* table, const int index, const cha
         myVerticalFrame = new FXVerticalFrame(table->myColumnsFrame, GUIDesignAuxiliarFrameFixWidth);
     }
     // create top label
-    if (myType == 'f') {
-        // ticked label extended
-        myTopLabel = new MFXLabelTooltip(myVerticalFrame, 
-            table->myDialogViewSettings->getSUMOAbstractView()->getGUIGlChildWindow()->getGUIMainWindowParent()->getStaticTooltipMenu(), 
-            "", nullptr, GUIDesignLabelCenterThick);
-    } else if (myType == 's') {
-        // ticked label fixed
-        myTopLabel = new MFXLabelTooltip(myVerticalFrame, 
-            table->myDialogViewSettings->getSUMOAbstractView()->getGUIGlChildWindow()->getGUIMainWindowParent()->getStaticTooltipMenu(), 
-            "", nullptr, GUIDesignLabelFixedWidthTicked);
-    } else if (myType == 'c') {
-        // ticked label for checkbox
-        myTopLabel = new MFXLabelTooltip(myVerticalFrame, 
-            table->myDialogViewSettings->getSUMOAbstractView()->getGUIGlChildWindow()->getGUIMainWindowParent()->getStaticTooltipMenu(), 
-            "", nullptr, GUIDesignLabelThick30);
-    } else if (myType == 'i') {
-        // ticked label for index
-        myTopLabel = new MFXLabelTooltip(myVerticalFrame, 
-            table->myDialogViewSettings->getSUMOAbstractView()->getGUIGlChildWindow()->getGUIMainWindowParent()->getStaticTooltipMenu(), 
-            "", nullptr, GUIDesignLabel30);
-    } else {
-        // empty label (for buttons)
-        myTopLabel = new MFXLabelTooltip(myVerticalFrame, 
-            table->myDialogViewSettings->getSUMOAbstractView()->getGUIGlChildWindow()->getGUIMainWindowParent()->getStaticTooltipMenu(),
-            "", nullptr, GUIDesignLabelFixedWidth);
+    switch (myType) {
+        case ('f'): {
+            // ticked label extended
+            myTopLabel = new MFXLabelTooltip(myVerticalFrame, staticTooltip, "", nullptr, GUIDesignLabelCenterThick);
+            break;
+        }
+        case ('p'): 
+        case ('s'): {
+            // ticked label fixed
+            myTopLabel = new MFXLabelTooltip(myVerticalFrame, staticTooltip, "", nullptr, GUIDesignLabelFixedWidthTicked);
+            break;
+        }
+        case ('c'): {
+            // ticked label for checkbox
+            myTopLabel = new MFXLabelTooltip(myVerticalFrame, staticTooltip, "", nullptr, GUIDesignLabelThick30);
+            break;
+        }
+        case ('i'): {
+            // ticked label for index
+            myTopLabel = new MFXLabelTooltip(myVerticalFrame, staticTooltip, "", nullptr, GUIDesignLabel30);
+            break;
+        }
+        default: {
+            // empty label (for buttons)
+            myTopLabel = new MFXLabelTooltip(myVerticalFrame, staticTooltip,  "", nullptr, GUIDesignLabelFixedWidth);
+            break;
+        }
     }
     // create vertical frame for cells
     if (myType == 'f') {
@@ -659,7 +698,7 @@ MFXDecalsTable::Column::adjustColumnWidth() {
         // declare columnWidth
         int columnWidth = GUIDesignHeight;
         // adjust depending of label
-        if (myType == 's') {
+        if (myType == 's' || myType == 'p') {
             // calculate top label width
             columnWidth = myTopLabel->getFont()->getTextWidth(myTopLabel->getText().text(), myTopLabel->getText().length() + EXTRAMARGING);
         }
@@ -703,10 +742,17 @@ MFXDecalsTable::Row::Row(MFXDecalsTable* table) :
                 break;
             }
             case ('s'): {
-                // create textField for real values
+                // create textField for textfiedl real values
                 auto textField = new FXTextField(table->myColumns.at(columnIndex)->getVerticalCellFrame(),
                     GUIDesignTextFieldNCol, table, MID_DECALSTABLE_TEXTFIELD, GUIDesignTextFieldTickedFixWidthReal);
                 myCells.push_back(new Cell(table, textField, columnIndex, numCells));
+                break;
+            }
+            case ('p'): {
+                // create spinner for real values
+                auto spinner = new FXRealSpinner(table->myColumns.at(columnIndex)->getVerticalCellFrame(), GUIDesignTextFieldNCol, 
+                    table, MID_DECALSTABLE_SPINNER, GUIDesignSpinDialDecalsTable);
+                myCells.push_back(new Cell(table, spinner, columnIndex, numCells));
                 break;
             }
             case ('i'): {

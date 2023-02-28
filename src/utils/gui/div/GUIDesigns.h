@@ -509,6 +509,9 @@ class MFXMenuCheckIcon;
 /// @brief desing for spin dial attribute
 #define GUIDesignSpinDialAttribute       (FRAME_THICK | FRAME_SUNKEN | LAYOUT_TOP | LAYOUT_CENTER_Y | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT | SPIN_NOMIN | SPIN_NOMAX), 0, 0, 0, GUIDesignHeight, 0, 0, 0, 0
 
+/// @brief desing for standard spin dial
+#define GUIDesignSpinDialDecalsTable    (FRAME_THICK | FRAME_SUNKEN | JUSTIFY_CENTER_X | JUSTIFY_CENTER_Y | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | SPIN_NOMIN | SPIN_NOMAX), 0, 0, 100, GUIDesignHeight, 0, 0, 0, 0
+
 /// @}
 
 

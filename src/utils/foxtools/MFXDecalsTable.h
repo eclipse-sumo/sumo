@@ -84,6 +84,9 @@ public:
     /// @brief called when a string is updated
     long onCmdEditRowString(FXObject*, FXSelector, void*);
     
+    /// @brief called when a spinner is updated
+    long onCmdEditRowSpinner(FXObject*, FXSelector, void*);
+
     /// @brief called when a checkBox is updated
     long onCmdEditRowCheckBox(FXObject*, FXSelector, void*);
 
@@ -118,6 +121,9 @@ protected:
         /// @brief constructor for check buttons
         Cell(MFXDecalsTable* decalsTable, FXCheckButton* checkButton, int col, int row);
         
+        /// @brief constructor for spinners
+        Cell(MFXDecalsTable* decalsTable, FXRealSpinner* spinner, int col, int row);
+
         /// @brief destructor
         ~Cell();
 
@@ -138,6 +144,9 @@ protected:
 
         /// @brief get check button
         FXCheckButton* getCheckButton();
+
+        /// @brief get spinner
+        FXRealSpinner* getSpinner();
 
         /// @brief show label index normal
         void showIndexLabelNormal();
@@ -169,6 +178,9 @@ protected:
 
         /// @brief button
         FXButton* myButton = nullptr;
+
+        /// @brief spinner
+        FXRealSpinner* mySpinner = nullptr;
 
         /// @brief check button
         FXCheckButton* myCheckButton= nullptr;

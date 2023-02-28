@@ -1447,6 +1447,8 @@ enum {
     MID_DECALSTABLE_TEXTFIELD,
     /// @brief checkbox
     MID_DECALSTABLE_CHECKBOX,
+    /// @brief spinner
+    MID_DECALSTABLE_SPINNER,
     /// @brief open decal
     MID_DECALSTABLE_OPEN,
     /// @brief add row
