@@ -114,3 +114,6 @@ ignoreJunctionFoes
 
 # retrieve vehicles that are not visible in the network
 getInvisible
+
+# retrieve tripinfo statistics
+tripinfoRetrieval
