@@ -4080,6 +4080,8 @@ MSVehicle::processLaneAdvances(std::vector<MSLane*>& passedLanes, std::string& e
                     }
                     if (link->isConflictEntryLink()) {
                         myJunctionConflictEntryTime = MSNet::getInstance()->getCurrentTimeStep();
+                        // renew yielded request
+                        myJunctionEntryTime = myJunctionEntryTimeNeverYield;
                     }
                     if (link->isExitLink()) {
                         // passed junction, reset for approaching the next one
