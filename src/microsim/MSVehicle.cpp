@@ -2793,6 +2793,11 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         //  speed limits are not emergencies (e.g. when the limit changes suddenly due to TraCI or a variableSpeedSignal)
         const double va = MAX2(cfModel.freeSpeed(this, getSpeed(), seen, laneMaxV), vMinComfortable);
         v = MIN2(va, v);
+#ifdef DEBUG_PLAN_MOVE
+        if (DEBUG_COND) {
+            std::cout << "   laneMaxV=" << laneMaxV << " freeSpeed=" << va << " v=" << v << "\n";
+        }
+#endif
         if (lane->getEdge().isInternal()) {
             seenInternal += lane->getLength();
         } else {
@@ -3466,7 +3471,7 @@ MSVehicle::processLinkApproaches(double& vSafe, double& vSafeMin, double& vSafeM
                 // become junction leader
 #ifdef DEBUG_EXEC_MOVE
                 if (DEBUG_COND) {
-                    std::cout << SIMTIME << " reseting junctionEntryTime at junction '" << link->getJunction()->getID() << "' beause of non-request exitLink\n";
+                    std::cout << SIMTIME << " resetting junctionEntryTime at junction '" << link->getJunction()->getID() << "' beause of non-request exitLink\n";
                 }
 #endif
                 myJunctionEntryTime = SUMOTime_MAX;
