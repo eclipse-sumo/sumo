@@ -838,21 +838,15 @@ msgstr ""
 "Nachschlagetabelle für eine astar ALT-Variante in der angegebenen Datei "
 "speichern"
 
-#: /home/micha/programming/sumo/src\duarouter\RODUAFrame.cpp:117
-#: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:206
 #: /home/micha/programming/sumo/src/duarouter/RODUAFrame.cpp:117
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:206
-#, fuzzy
 msgid "Use FLOAT as Gawron's beta"
-msgstr "Fließkommazahl als Gawron's beta verwenden"
+msgstr "Fließkommazahl in Gawron als beta verwenden"
 
-#: /home/micha/programming/sumo/src\duarouter\RODUAFrame.cpp:121
-#: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:210
 #: /home/micha/programming/sumo/src/duarouter/RODUAFrame.cpp:121
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:210
-#, fuzzy
 msgid "Use FLOAT as Gawron's a"
-msgstr "Fließkommazahl als Gawron's alpha verwenden"
+msgstr "Fließkommazahl in Gawron als alpha verwenden"
 
 #: /home/micha/programming/sumo/src\duarouter\RODUAFrame.cpp:124
 #: /home/micha/programming/sumo/src\jtrrouter\ROJTRFrame.cpp:62
@@ -909,24 +903,18 @@ msgid "Use c-logit model (deprecated in favor of --route-choice-method logit)"
 msgstr ""
 "C-Logit-Modell verwenden (veraltet zugunsten von --route-choice-method logit)"
 
-#: /home/micha/programming/sumo/src\duarouter\RODUAFrame.cpp:149
 #: /home/micha/programming/sumo/src/duarouter/RODUAFrame.cpp:149
-#, fuzzy
 msgid "Use FLOAT as logit's beta"
-msgstr "Fließkommazahl als Logit´s beta verwenden"
+msgstr "Fließkommazahl in Logit als beta verwenden"
 
-#: /home/micha/programming/sumo/src\duarouter\RODUAFrame.cpp:153
 #: /home/micha/programming/sumo/src/duarouter/RODUAFrame.cpp:153
-#, fuzzy
 msgid "Use FLOAT as logit's gamma"
-msgstr "Fließkommazahl als Logit´s gamma verwenden"
+msgstr "Fließkommazahl in Logit als gamma verwenden"
 
-#: /home/micha/programming/sumo/src\duarouter\RODUAFrame.cpp:157
 #: /home/micha/programming/sumo/src/duarouter/RODUAFrame.cpp:157
-#, fuzzy
 msgid "Use FLOAT as logit's theta (negative values mean auto-estimation)"
 msgstr ""
-"Fließkommazahl als Logit´s theta verwenden (negative Werte bedeuten "
+"Fließkommazahl in Logit als theta verwenden (negative Werte bedeuten "
 "automatische Schätzung)"
 
 #: /home/micha/programming/sumo/src\duarouter\RODUAFrame.cpp:160
@@ -1095,10 +1083,9 @@ msgid ""
 "sinks is set, the upstream flow is limited to the value of the source flow "
 "and the remaining part terminates."
 msgstr ""
-"Subtrahiert den stromaufwärts Fluss, wenn Sie einen neuen Fluss einfügen. "
-"Wenn die Option --sources-are-sinks gesetzt ist, wird der stromaufwärts "
-"Fluss auf den Wert des Quellflusses begrenzt und der verbleibende Teil "
-"terminiert."
+"Subtrahiert den stromaufwärtigen Fluss, wenn ein neuer Fluss eingefügt wird. "
+"Wenn die Option --sources-are-sinks gesetzt ist, wird der stromaufwärtige "
+"Fluss auf den Quellfluss begrenzt und der verbleibende Teil terminiert."
 
 #: /home/micha/programming/sumo/src\jtrrouter\ROJTRTurnDefLoader.cpp:68
 #: /home/micha/programming/sumo/src/jtrrouter/ROJTRTurnDefLoader.cpp:68
@@ -1593,12 +1580,10 @@ msgstr ""
 "maximale Anzahl innerer Iterationen für die Benutzergleichgewichtsberechnung "
 "in der stochastischen Benutzerzuordnung"
 
-#: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:223
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:223
-#, fuzzy
 msgid "Use FLOAT as (c-)logit's beta for the commonality factor"
 msgstr ""
-"Fließkommazahl als (c-)Logit´s beta für den Gemeinsamkeitsfaktor verwenden"
+"Fließkommazahl in (c-)Logit als beta für den Gemeinsamkeitsfaktor verwenden"
 
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:227
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:227
@@ -1607,11 +1592,9 @@ msgid "Use FLOAT as (c-)logit's gamma for the commonality factor"
 msgstr ""
 "Fließkommazahl als (c-)Logit´s gamma für den Gemeinsamkeitsfaktor verwenden"
 
-#: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:231
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:231
-#, fuzzy
 msgid "Use FLOAT as (c-)logit's theta"
-msgstr "Fließkommazahl als (c-)Logit´s theta verwenden"
+msgstr "Fließkommazahl n (c-)Logit als theta verwenden"
 
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:239
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:239
@@ -6886,7 +6869,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:344
 msgid "Modifies all edge speeds to at least FLOAT"
-msgstr "Ändert alle Kantengeschwindigkeiten auf mindestens eine Fließkommazahl"
+msgstr "Ändert alle Kantengeschwindigkeiten auf mindestens FLOAT"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:352
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:352
@@ -6901,15 +6884,13 @@ msgstr ""
 "INT Zwischenpunkte zum Glätten von Fahrstreifen innerhalb der Kreuzung "
 "generieren"
 
-#: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:358
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:358
-#, fuzzy
 msgid ""
 "Generate longer intersections to allow for smooth s-curves when the number "
 "of lanes changes"
 msgstr ""
-"Längere Kreuzungen, um glatte S-Kurven zu ermöglichen, wenn sich die Anzahl "
-"der Fahrstreifen ändert, generieren"
+"Längere Kreuzungen generieren, wenn sich die Anzahl der Fahrstreifen ändert, "
+"um glatte S-Kurven zu ermöglichen"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:398
 msgid "Forces rectangular cuts between lanes and intersections"
@@ -8641,8 +8622,8 @@ msgid ""
 "Maximum grade threshold in % at 50km/h when reconstrucing elevation based on "
 "layer data. The value is scaled according to road speed."
 msgstr ""
-"Höchststeigungsschwelle in % bei 50 km/h bei Höhenrekonstruktion aus "
-"Layerdaten. Der Wert wird entsprechend der Fahrgeschwindigkeit skaliert."
+"Schwellwert der maximalen Steigung in % bei 50 km/h bei Höhenrekonstruktion "
+"aus Layerdaten. Der Wert wird entsprechend der Fahrgeschwindigkeit skaliert."
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:190
 msgid "Whether one-way roads should be spread to the side instead of centered"
@@ -12313,9 +12294,7 @@ msgstr "Routingabfragen mit demselben Ursprung aggregieren"
 
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:173
 msgid "The number of parallel execution threads used for routing"
-msgstr ""
-"Die Anzahl paralleler Ausführungsstränge, die für das Routing verwendet "
-"werden"
+msgstr "Die Anzahl paralleler Threads, die für das Routing verwendet werden"
 
 #: /home/micha/programming/sumo/src\router\ROFrame.cpp:177
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:177
@@ -12962,11 +12941,11 @@ msgstr "Eine Kante in der Route '%' ist nicht bekannt!"
 #: /home/micha/programming/sumo/src/utils/common/MsgHandler.cpp:153
 #, c-format
 msgid "done (%ms)."
-msgstr "erledigt (%ms)."
+msgstr "abgeschlossen (%ms)."
 
 #: /home/micha/programming/sumo/src/utils/common/MsgHandler.cpp:155
 msgid "done."
-msgstr "fertig."
+msgstr "abgeschlossen."
 
 #: /home/micha/programming/sumo/src\utils\common\MsgHandler.cpp:253
 #: /home/micha/programming/sumo/src/utils/common/MsgHandler.cpp:253
@@ -13130,7 +13109,7 @@ msgstr "Sprache die für Meldungen verwendet wird"
 
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:116
 msgid "Include license info into every output file"
-msgstr "Lizenzinformationen in jede Ausgabedatei einfügen"
+msgstr "Lizenzinformationen jeder Ausgabedatei beifügen"
 
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:119
 msgid ""
@@ -13142,14 +13121,13 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:122
 msgid "Defines the number of digits after the comma for floating point output"
-msgstr ""
-"Definiert die Anzahl der Stellen nach dem Komma für die Fließkommaausgabe"
+msgstr "Definiert die Anzahl der Nachkommastellen für die Fließkommaausgabe"
 
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:125
 msgid "Defines the number of digits after the comma for lon,lat output"
 msgstr ""
-"Definiert die Anzahl der Stellen nach dem Komma für die Ausgabe von länge, "
-"breite"
+"Definiert die Anzahl der Nachkommastellen für die Ausgabe von geographischen "
+"Koordinaten (Länge, Breite)"
 
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:128
 msgid ""
@@ -15432,7 +15410,7 @@ msgstr "Überspringt die ersten NUM-Zeilen."
 #: /home/micha/programming/sumo/src/utils/common/RandHelper.cpp:65
 #: /home/micha/programming/sumo/src/utils/common/RandHelper.cpp:69
 msgid "Random Number"
-msgstr "Zufällige Nummer"
+msgstr "Zufallszahl"
 
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:39
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:43
