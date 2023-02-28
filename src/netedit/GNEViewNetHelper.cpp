@@ -264,6 +264,25 @@ GNEViewNetHelper::ObjectsUnderCursor::filterLockedElements(const GNEViewNetHelpe
 }
 
 
+void
+GNEViewNetHelper::ObjectsUnderCursor::shortDataElements() {
+    // declare set for sort generic datas by begin->end->AC
+    std::set<std::pair<double, std::pair<double, GNEAttributeCarrier*> > > sortedDataElements;
+    // short only lane objects (because shortData elements is used only in data mode)
+    for (const auto &AC : myLaneObjects.attributeCarriers) {
+        if (AC->getTagProperty().isGenericData()) {
+            const double begin = GNEAttributeCarrier::parse<double>(AC->getAttribute(SUMO_ATTR_BEGIN));
+            const double end = GNEAttributeCarrier::parse<double>(AC->getAttribute(SUMO_ATTR_END));
+            sortedDataElements.insert(std::make_pair(begin, std::make_pair(end, AC)));
+        }
+    }
+    myLaneObjects.attributeCarriers.clear();
+    for (const auto &sortedDataElement : sortedDataElements) {
+        myLaneObjects.attributeCarriers.push_back(sortedDataElement.second.second);
+    }
+}
+
+
 GUIGlID
 GNEViewNetHelper::ObjectsUnderCursor::getGlIDFront() const {
     if (getGUIGlObjectFront()) {

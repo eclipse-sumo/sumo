@@ -1140,6 +1140,8 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
         } else if (myEditModes.isCurrentSupermodeDemand()) {
             processLeftButtonPressDemand(eventData);
         } else if (myEditModes.isCurrentSupermodeData()) {
+            // short data elements by begin
+            myObjectsUnderCursor.shortDataElements();
             processLeftButtonPressData(eventData);
         }
         makeNonCurrent();
