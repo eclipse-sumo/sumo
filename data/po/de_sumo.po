@@ -842,15 +842,17 @@ msgstr ""
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:206
 #: /home/micha/programming/sumo/src/duarouter/RODUAFrame.cpp:117
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:206
+#, fuzzy
 msgid "Use FLOAT as Gawron's beta"
-msgstr ""
+msgstr "Fließkommazahl als Gawron's beta verwenden"
 
 #: /home/micha/programming/sumo/src\duarouter\RODUAFrame.cpp:121
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:210
 #: /home/micha/programming/sumo/src/duarouter/RODUAFrame.cpp:121
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:210
+#, fuzzy
 msgid "Use FLOAT as Gawron's a"
-msgstr ""
+msgstr "Fließkommazahl als Gawron's alpha verwenden"
 
 #: /home/micha/programming/sumo/src\duarouter\RODUAFrame.cpp:124
 #: /home/micha/programming/sumo/src\jtrrouter\ROJTRFrame.cpp:62
@@ -909,18 +911,23 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src\duarouter\RODUAFrame.cpp:149
 #: /home/micha/programming/sumo/src/duarouter/RODUAFrame.cpp:149
+#, fuzzy
 msgid "Use FLOAT as logit's beta"
-msgstr ""
+msgstr "Fließkommazahl als Logit´s beta verwenden"
 
 #: /home/micha/programming/sumo/src\duarouter\RODUAFrame.cpp:153
 #: /home/micha/programming/sumo/src/duarouter/RODUAFrame.cpp:153
+#, fuzzy
 msgid "Use FLOAT as logit's gamma"
-msgstr ""
+msgstr "Fließkommazahl als Logit´s gamma verwenden"
 
 #: /home/micha/programming/sumo/src\duarouter\RODUAFrame.cpp:157
 #: /home/micha/programming/sumo/src/duarouter/RODUAFrame.cpp:157
+#, fuzzy
 msgid "Use FLOAT as logit's theta (negative values mean auto-estimation)"
 msgstr ""
+"Fließkommazahl als Logit´s theta verwenden (negative Werte bedeuten "
+"automatische Schätzung)"
 
 #: /home/micha/programming/sumo/src\duarouter\RODUAFrame.cpp:160
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:573
@@ -13257,32 +13264,33 @@ msgstr "Nutzt eine einfache Methode für die Projektion"
 msgid "Scaling factor for input coordinates"
 msgstr "Skalierungsfaktor für die Eingabekoordinaten"
 
-#: /home/micha/programming/sumo/src\utils\geom\GeoConvHelper.cpp:276
 #: /home/micha/programming/sumo/src/utils/geom/GeoConvHelper.cpp:276
 msgid "Rotation (clockwise degrees) for input coordinates"
-msgstr ""
+msgstr "Drehung (Grad im Uhrzeigersinn) für Eingabekoordinaten"
 
 #: /home/micha/programming/sumo/src\utils\geom\GeoConvHelper.cpp:280
 #: /home/micha/programming/sumo/src/utils/geom/GeoConvHelper.cpp:280
+#, fuzzy
 msgid ""
 "Determine the UTM zone (for a universal transversal mercator projection "
 "based on the WGS84 ellipsoid)"
 msgstr ""
+"Bestimme die UTM-Zone (für eine universelle transversale Mercator-Projektion "
+"basierend auf dem WGS84-Ellipsoid)"
 
 #: /home/micha/programming/sumo/src\utils\geom\GeoConvHelper.cpp:286
 #: /home/micha/programming/sumo/src/utils/geom/GeoConvHelper.cpp:286
+#, fuzzy
 msgid "Uses STR as proj.4 definition for projection"
-msgstr ""
+msgstr "Verwendet STR als proj.4-Definition für die Projektion"
 
-#: /home/micha/programming/sumo/src\utils\geom\GeoConvHelper.cpp:289
 #: /home/micha/programming/sumo/src/utils/geom/GeoConvHelper.cpp:289
 msgid "Inverses projection"
-msgstr ""
+msgstr "Inverse Projektion"
 
-#: /home/micha/programming/sumo/src\utils\geom\GeoConvHelper.cpp:292
 #: /home/micha/programming/sumo/src/utils/geom/GeoConvHelper.cpp:292
 msgid "Convert from Gauss-Krueger to UTM"
-msgstr ""
+msgstr "Konvertieren von Gauß-Krüger zu UTM"
 
 #: /home/micha/programming/sumo/src\utils\geom\GeoConvHelper.cpp:416
 #: /home/micha/programming/sumo/src/utils/geom/GeoConvHelper.cpp:416
