@@ -73,7 +73,7 @@ are *traci.trafficlights.getPhase()* and traci.trafficlights.setPhase().
 
 ## Person related TraCI functions
 
-To simulate the push buttonm it must be known whether pedestrians are
+To simulate pressing the button, it must be known whether pedestrians are
 waiting to cross the intersection. The following TraCI functions are
 used:
 
