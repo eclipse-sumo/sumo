@@ -6,7 +6,7 @@ title: ScenarioGuide
 
 This Tutorial is meant to serve as a high-level guide for building a
 [sumo](../sumo.md) scenario. It provides an outline of the typical
-steps followed when building a scenario and lists the recommended wiki pages for
+steps followed when building a scenario and lists the recommended documentation pages for
 each step.
 
 !!! note
@@ -68,7 +68,7 @@ lights. The recommended ways to perform the necessary changes include:
     your plain-xml files)
 3.  directly adjust your network with GUI: after opening the program
     [netedit](../Netedit/index.md) you first load the network file
-    (\*.net.xml)that needs to be modified. Then you choose the
+    (\*.net.xml) that needs to be modified. Then you choose the
     respective functions in netedit to modify e.g. the number of lanes,
     road shapes, traffic signal plans, intersection geometries, and to
     combine intersections or edges.
