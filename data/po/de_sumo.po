@@ -6588,17 +6588,19 @@ msgstr ""
 msgid "Disables building turnarounds except at dead end junctions"
 msgstr "Deaktiviert das Erstellen von Kehrtwenden außer an Sackgassen"
 
-#: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:151
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:151
 msgid ""
 "Disables building turnarounds except at at junctions with a dedicated "
 "turning lane"
 msgstr ""
+"Deaktiviert Gebäudeumkehrungen außer an Knotenpunkten mit einer eigenen "
+"Abbiegefahrstreifen"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:154
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:154
+#, fuzzy
 msgid "Disables building turnarounds at fringe junctions"
-msgstr ""
+msgstr "Deaktiviert das Erstellen von Wendungen an Randknotenpunkten"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:157
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:157
@@ -6612,10 +6614,13 @@ msgstr "Trennt Kanten entlang Geometrieknoten"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:165
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:165
+#, fuzzy
 msgid ""
 "Replace nodes which only define edge geometry by geometry points (joins "
 "edges)"
 msgstr ""
+"Knoten, die nur Kantengeometrie definieren, durch Geometriepunkte "
+"(verbündete Kanten), ersetzen"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:168
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:168
@@ -6706,41 +6711,49 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:219
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:219
+#, fuzzy
 msgid ""
 "join adjacent lanes that have the same permissions and which do not admit "
 "lane-changing (sidewalks and disallowed lanes)"
 msgstr ""
+"auf benachbarte Fahrstreifen auffahren, die die gleichen Berechtigungen "
+"haben und die keinen Fahrstreifenwechsel zulassen (Bürgersteige und nicht "
+"zugelassene Fahrstreifen)"
 
-#: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:222
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:222
 msgid ""
 "Matches stops outside the road network to the referencing pt line when below "
 "the given distance"
 msgstr ""
+"Ordnet Haltepunkte außerhalb des Straßennetzes der referenzierenden "
+"Punktlinie zu, wenn diese unter der angegebenen Entfernung liegt"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:226
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:226
 msgid "Repair topology of the railway network"
 msgstr "Topologie des Gleisnetzes reparieren"
 
-#: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:229
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:229
 msgid ""
 "Repair topology of the railway network just enough to let loaded public "
 "transport lines to work"
 msgstr ""
+"Topologie des Schienennetzes das gerade ausreicht, um die ausgelastete ÖV-"
+"Linien zum Laufen zu bringen, reparieren"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:232
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:232
+#, fuzzy
 msgid ""
 "Allow bidirectional rail use wherever rails with opposite directions meet at "
 "a straight angle"
 msgstr ""
+"Zweirichtungs Gleiseinsatz überall dort, wo Gleise mit entgegengesetzten "
+"Richtungen in einem geraden Winkel aufeinander treffen, zulassen"
 
-#: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:235
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:235
 msgid "Add turn-around connections at all loaded stops."
-msgstr ""
+msgstr "Wendeverbindungen an allen geladenen Haltepunkten hinzufügen."
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:238
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:238
@@ -6758,38 +6771,42 @@ msgid "Set edge priority values based on estimated main direction"
 msgstr ""
 "Kantenvorrangswerte basierend auf der geschätzten Hauptrichtung einstellen"
 
-#: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:247
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:247
 msgid "Extend loaded edge priority values based on estimated main direction"
 msgstr ""
+"Prioritätswerte geladener Kanten basierend auf der geschätzten Hauptrichtung "
+"erweitern"
 
-#: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:250
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:250
 msgid "The search radius for finding suitable road accesses for rail stops"
 msgstr ""
+"Der Suchradius zum Finden geeigneter Straßenzugänge für Bahnhaltestellen"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:254
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:254
 msgid "The maximum road accesses registered per rail stops"
 msgstr "Die maximal registrierten Straßenzugänge pro Bahnhaltestellen"
 
-#: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:258
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:258
 msgid ""
 "The walking length of the access is computed as air-line distance multiplied "
 "by FLOAT"
 msgstr ""
+"Die Gehlänge des Zugangs wird als Luftlinienentfernung multipliziert mit "
+"Fließkommazahl berechnet"
 
-#: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:262
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:262
 msgid "Skips automatic generation of stops on the bidi-edge of a loaded stop"
 msgstr ""
+"Überspringt die automatische Generierung von Haltepunkten an der "
+"Zweirichtungskante eines geladenen Haltepunktes"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:266
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:266
-#, c-format
+#, fuzzy, c-format
 msgid "Warn about edge geometries with a grade in % above FLOAT."
 msgstr ""
+"Warnung vor Kantengeometrien mit einer Steigung in % über die Fließkommazahl."
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:269
 msgid "Smooth edge geometries with a grade above the warning threshold."
@@ -6858,8 +6875,11 @@ msgstr "Schätzen von Netzrandknoten aktivieren"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:307
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:307
+#, fuzzy
 msgid "Guess disconnected edges above the given speed as outer fringe"
 msgstr ""
+"Getrennte Kanten oberhalb der gegebenen Geschwindigkeit als äußerer Rand "
+"erraten"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:310
 msgid "Assumes left-hand traffic on the network"
@@ -6922,10 +6942,13 @@ msgstr "Baut immer Laufflächen, auch wenn keine Kreuzungen vorhanden sind"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:460
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:460
+#, fuzzy
 msgid ""
 "Do not create a walkingarea between sidewalks that are connected by a "
 "pedestrian junction within FLOAT"
 msgstr ""
+"In Fließkommazahl keine walkingArea zwischen Bürgersteigen, die durch eine "
+"Fußgängerknotenpunkten verbunden sind, erstellen"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:605
 msgid "Only keep edges with speed in meters/second > FLOAT"
@@ -6969,51 +6992,49 @@ msgstr ""
 msgid "Remove edges after joining"
 msgstr "Kanten nach dem Zusammenführen entfernen"
 
-#: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:627
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:627
 msgid ""
 "Only keep edges which are located within the given boundary (given either as "
 "CARTESIAN corner coordinates <xmin,ymin,xmax,ymax> or as polygon <x0,y0,x1,"
 "y1,...>)"
 msgstr ""
+"Nur Kanten behalten, die innerhalb der gegebenen Grenze liegen (entweder als "
+"kartesische Eckkoordinaten <xmin,ymin,xmax,ymax> oder als Polygon <x0,y0,x1,"
+"y1,...> angegeben)"
 
-#: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:630
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:630
 msgid ""
 "Only keep edges which are located within the given boundary (given either as "
 "GEODETIC corner coordinates <lon-min,lat-min,lon-max,lat-max> or as polygon "
 "<lon0,lat0,lon1,lat1,...>)"
 msgstr ""
+"Nur Kanten behalten, die innerhalb der gegebenen Grenze liegen (entweder als "
+"geodetic Eckkoordinaten <lon-min,lat-min,lon-max,lat-max> oder als Polygon "
+"<lon0,lat0,lon1,lat1,...> angegeben). )"
 
-#: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:634
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:634
 msgid "Only keep edges which allow one of the vclasses in STR[]"
-msgstr ""
+msgstr "Nur Kanten behalten, die eine der Fahrzeugklassen in STR[] zulassen"
 
-#: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:637
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:637
 msgid "Remove edges which allow only vclasses from STR[]"
-msgstr ""
+msgstr "Kanten, die nur Fahrzeugklassen von STR[] zulassen, entfernen"
 
-#: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:640
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:640
 msgid "Only keep edges where type is in STR[]"
-msgstr ""
+msgstr "Nur Kanten behalten, bei denen Typ in STR[] ist"
 
-#: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:643
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:643
 msgid "Only keep the INT largest weakly connected components"
-msgstr ""
+msgstr "Halte nur die INT größten schwach verbundenen Komponenten"
 
-#: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:646
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:646
 msgid "Remove edges where type is in STR[]"
-msgstr ""
+msgstr "Kanten, an denen der Typ in STR[] steht, entfernen"
 
-#: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:650
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:650
 msgid "Removes isolated edges"
-msgstr ""
+msgstr "Isolierte Kanten entfernen"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:657
 msgid "All nodes will be unregulated"
@@ -7033,45 +7054,44 @@ msgstr "Zufahrtsrampenheuristik aktivieren"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:675
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:675
+#, fuzzy
 msgid ""
 "Guess on-ramps and mark acceleration lanes if they exist but do not add new "
 "lanes"
 msgstr ""
+"Auffahrten erraten und markiere Beschleunigungsfahrstreifen, falls "
+"vorhanden, aber füge keine neuen Fahrstreifen hinzu"
 
-#: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:679
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:679
 msgid "Treat edges with speed > FLOAT as no ramps"
-msgstr ""
+msgstr "Kanten mit Geschwindigkeit > Fleißkommazahl als keine Rampen behandeln"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:683
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:683
+#, fuzzy
 msgid "Treat edges with speed < FLOAT as no highways"
 msgstr ""
+"Kanten mit Geschwindigkeit < Fließkommazahl als keine Autobahnen behandeln"
 
-#: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:687
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:687
 msgid "Use FLOAT as ramp-length"
-msgstr ""
+msgstr "Fließkommazahl als Rampenlänge verwenden"
 
-#: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:691
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:691
 msgid "Use FLOAT as minimum ramp-length"
-msgstr ""
+msgstr "Fließkommazahl als minimale Rampenlänge verwenden"
 
-#: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:695
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:695
 msgid "Tries to handle the given edges as ramps"
-msgstr ""
+msgstr "Versucht, die angegebenen Kanten als Auffahrten zu behandeln"
 
-#: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:698
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:698
 msgid "Do not consider the given edges as ramps"
-msgstr ""
+msgstr "Die angegebenen Kanten nicht als Auffahrten betrachten"
 
-#: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:702
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:702
 msgid "Avoids edge splitting"
-msgstr ""
+msgstr "Vermeidet Kantenaufteilung"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:713
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:713
@@ -8556,15 +8576,13 @@ msgstr "MATsim-Netz aus Datei lesen"
 msgid "Read ITSUMO-net from FILE"
 msgstr "ITSUMO-Netz aus Datei lesen"
 
-#: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:134
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:134
 msgid "Read heightmap from ArcGIS shapefile"
-msgstr ""
+msgstr "Höhenkarte aus ArcGIS-Shapefile lesen"
 
-#: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:137
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:137
 msgid "Read heightmap from GeoTIFF"
-msgstr ""
+msgstr "Höhenkarte von GeoTIFF lesen"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:145
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:159
@@ -8870,8 +8888,9 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:345
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:345
+#, fuzzy
 msgid "The factor for flow to no. lanes conversion"
-msgstr ""
+msgstr "Der Faktor für Durchfluss zu Nr. Fahrstreifen umbauen"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:350
 msgid "Imports all lane types"
@@ -10728,10 +10747,9 @@ msgstr "Die referenzierte Geschwindigkeitsverteilung '%' ist nicht bekannt."
 msgid ". Using default."
 msgstr ". Nutze Standard."
 
-#: /home/micha/programming/sumo/src\netimport\vissim\tempstructs\NIVissimDisturbance.cpp:143
 #: /home/micha/programming/sumo/src/netimport/vissim/tempstructs/NIVissimDisturbance.cpp:143
 msgid "Ugly split to prohibit '%' by '%'."
-msgstr ""
+msgstr "Ungünstige Aufteilung, um '%' durch '%' zu verbieten."
 
 #: /home/micha/programming/sumo/src/netimport/vissim/tempstructs/NIVissimDisturbance.cpp:186
 msgid "Could not prohibit '%' by '%'. Have not found disturbance."
@@ -10863,10 +10881,9 @@ msgstr "TL-LSAs werden nicht unterstützt (lsa=%)"
 msgid "POS traffic lights are not supported (lsa=%)"
 msgstr "POS-LSAs werden nicht unterstützt (lsa=%)"
 
-#: /home/micha/programming/sumo/src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Signalgruppendefinition.cpp:194
 #: /home/micha/programming/sumo/src/netimport/vissim/typeloader/NIVissimSingleTypeParser_Signalgruppendefinition.cpp:194
 msgid "externally defined traffic lights are not supported (lsa=%)"
-msgstr ""
+msgstr "extern definierte LSA werden nicht unterstützt (lsa=%)"
 
 #: /home/micha/programming/sumo/src/netimport/vissim/typeloader/NIVissimSingleTypeParser_Simdauer.cpp:49
 msgid "Simulation duration could not be parsed"
@@ -11299,124 +11316,124 @@ msgstr ""
 "Ignoriere einen ungültigen Zugang vom nicht für Fußgänger zulässigen "
 "Fahrstreifen '%' in der Bushaltestelle '%'."
 
-#: /home/micha/programming/sumo/src\netwrite\NWFrame.cpp:54
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:54
 msgid "The generated net will be written to FILE"
-msgstr ""
+msgstr "Das generierte Netz wird in Datei geschrieben"
 
 #: /home/micha/programming/sumo/src\netwrite\NWFrame.cpp:59
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:59
+#, fuzzy
 msgid "Prefix of files to write plain xml nodes, edges and connections to"
 msgstr ""
+"Präfix von Dateien, in die einfache XML-Knoten, Kanten und Verbindungen "
+"geschrieben werden sollen"
 
-#: /home/micha/programming/sumo/src\netwrite\NWFrame.cpp:62
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:62
 msgid "Write all lanes and their attributes even when they are not customized"
 msgstr ""
+"Alle Fahrstreifen und ihre Attribute, auch wenn sie nicht angepasst sind, "
+"schreiben"
 
-#: /home/micha/programming/sumo/src\netwrite\NWFrame.cpp:69
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:69
 msgid "Defines a prefix for edge and junction names"
-msgstr ""
+msgstr "Definiert ein Präfix für Kanten- und Knotenpunktnamen"
 
-#: /home/micha/programming/sumo/src\netwrite\NWFrame.cpp:74
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:74
 msgid "Write geo coordinates in plain-xml"
-msgstr ""
+msgstr "Geokoordinaten in plain-xml schreiben"
 
-#: /home/micha/programming/sumo/src\netwrite\NWFrame.cpp:79
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:79
 msgid "The generated net will be written to FILE using Amitran format"
-msgstr ""
+msgstr "Das generierte Netz wird im Amitran-Format in eine Datei geschrieben"
 
-#: /home/micha/programming/sumo/src\netwrite\NWFrame.cpp:82
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:82
 msgid "The generated net will be written to FILE using MATsim format"
-msgstr ""
+msgstr "Das generierte Netz wird im MATsim-Format in eine Datei geschrieben"
 
-#: /home/micha/programming/sumo/src\netwrite\NWFrame.cpp:85
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:85
 msgid "The generated net will be written to FILE using OpenDRIVE format"
-msgstr ""
+msgstr "Das generierte Netz wird im OpenDRIVE-Format in eine Datei geschrieben"
 
-#: /home/micha/programming/sumo/src\netwrite\NWFrame.cpp:88
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:88
 msgid ""
 "The generated net will be written to dlr-navteq files with the given PREFIX"
 msgstr ""
+"Das generierte Netz wird mit dem angegebenen Prefix in dlr-navteq-Dateien "
+"geschrieben"
 
-#: /home/micha/programming/sumo/src\netwrite\NWFrame.cpp:91
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:91
 msgid ""
 "The network coordinates are written with the specified level of output "
 "precision"
 msgstr ""
+"Die Netzkoordinaten werden mit der angegebenen Ausgabegenauigkeit geschrieben"
 
-#: /home/micha/programming/sumo/src\netwrite\NWFrame.cpp:94
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:94
 msgid "Street names will be included in the output (if available)"
-msgstr ""
+msgstr "Straßennamen werden in die Ausgabe aufgenommen (falls verfügbar)"
 
-#: /home/micha/programming/sumo/src\netwrite\NWFrame.cpp:97
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:97
 msgid "Writes original names, if given, as parameter"
-msgstr ""
+msgstr "Schreibt Originalnamen, falls angegeben, als Parameter"
 
 #: /home/micha/programming/sumo/src\netwrite\NWFrame.cpp:100
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:100
+#, fuzzy
 msgid "Writes street signs as POIs to FILE"
-msgstr ""
+msgstr "Schreibt Straßenschilder als Pole in die Datei"
 
-#: /home/micha/programming/sumo/src\netwrite\NWFrame.cpp:104
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:104
 msgid "Writes public transport stops to FILE"
-msgstr ""
+msgstr "Schreibt Haltepunkte des ÖVs in Datei"
 
-#: /home/micha/programming/sumo/src\netwrite\NWFrame.cpp:106
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:106
 msgid "Writes public transport lines to FILE"
-msgstr ""
+msgstr "Schreibt ÖV-Linien in Datei"
 
-#: /home/micha/programming/sumo/src\netwrite\NWFrame.cpp:108
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:108
 msgid "Clean-up pt stops that are not served by any line"
-msgstr ""
+msgstr "Haltestellen, die von keiner Linie bedient werden, entfernen"
 
-#: /home/micha/programming/sumo/src\netwrite\NWFrame.cpp:111
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:111
 msgid "Writes parking areas to FILE"
-msgstr ""
+msgstr "Schreibt Parkplätze in Datei"
 
-#: /home/micha/programming/sumo/src\netwrite\NWFrame.cpp:114
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:114
 msgid "Analyze topology of the railway network"
-msgstr ""
+msgstr "Topologie des Eisenbahnnetzes analysieren"
 
-#: /home/micha/programming/sumo/src\netwrite\NWFrame.cpp:118
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:118
 msgid ""
 "Write shapes that are embedded in the network input and that are not "
 "supported by polyconvert (OpenDRIVE)"
 msgstr ""
+"Shapes, die in die Netzwerkeingabe eingebettet sind und nicht von "
+"polyconvert (OpenDRIVE) unterstützt werden, schreiben"
 
 #: /home/micha/programming/sumo/src\netwrite\NWFrame.cpp:123
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:123
+#, fuzzy
 msgid ""
 "Builds parameterized curves whenever the angular change  between straight "
 "segments exceeds FLOAT degrees"
 msgstr ""
+"Erstellt parametrisierte Kurven, wenn die Winkeländerung zwischen geraden "
+"Segmenten Fließkommazahl in Grad überschreitet"
 
-#: /home/micha/programming/sumo/src\netwrite\NWFrame.cpp:127
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:127
 msgid "Write lanes in lefthand networks on the left side (positive indices)"
 msgstr ""
+"Fahrstreifen in linken Netz auf der linken Seite (positive Indizes) schreiben"
 
 #: /home/micha/programming/sumo/src\netwrite\NWFrame.cpp:130
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:130
+#, fuzzy
 msgid ""
 "Match loaded shapes to the closest edge within FLOAT and export as road "
 "objects"
 msgstr ""
+"Geladene Shapes der nächstgelegenen Kante in Fließkommazahl zuordnen und "
+"Export als Straßenobjekte"
 
 #: /home/micha/programming/sumo/src\netwrite\NWFrame.cpp:154
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:154
@@ -11519,81 +11536,68 @@ msgid ""
 msgstr ""
 "Ignoriere Option \"proj.plain-geo\", da keine geo-conversion definiert wurde"
 
-#: /home/micha/programming/sumo/src\od2trips_main.cpp:80
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:80
 msgid "Loads TAZ (districts; also from networks) from FILE(s)"
-msgstr ""
+msgstr "Ladet Verkehrsumlegungszone (Bezirke; auch von Netzen) aus Datei(en)"
 
-#: /home/micha/programming/sumo/src\od2trips_main.cpp:102
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:102
 msgid "Writes trip definitions into FILE"
-msgstr ""
+msgstr "Schreibt Fahrtendefinitionen in Datei"
 
-#: /home/micha/programming/sumo/src\od2trips_main.cpp:105
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:105
 msgid "Writes flow definitions into FILE"
-msgstr ""
+msgstr "Schreibt Flussdefinitionen in Datei"
 
-#: /home/micha/programming/sumo/src\od2trips_main.cpp:108
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:108
 msgid "Writes probabilistic flow instead of evenly spaced flow"
 msgstr ""
+"Schreibt probabilistischen Fluss statt Fluss in gleichmäßigen Abständen"
 
-#: /home/micha/programming/sumo/src\od2trips_main.cpp:111
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:111
 msgid "Writes pedestrians instead of vehicles"
-msgstr ""
+msgstr "Schreibt Fußgänger anstelle von Fahrzeugen"
 
-#: /home/micha/programming/sumo/src\od2trips_main.cpp:114
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:114
 msgid "Writes persontrips instead of vehicles"
-msgstr ""
+msgstr "Schreibt Personenfahrten anstelle von Fahrzeugen"
 
-#: /home/micha/programming/sumo/src\od2trips_main.cpp:117
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:117
 msgid "Add modes attribute to personTrips"
-msgstr ""
+msgstr "Modiattribute zu Personenfahrten hinzufügen"
 
-#: /home/micha/programming/sumo/src\od2trips_main.cpp:124
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:124
 msgid "Writes trips between junctions"
-msgstr ""
+msgstr "Schreibt Fahrten zwischen Knotenpunkten"
 
-#: /home/micha/programming/sumo/src\od2trips_main.cpp:129
-#: /home/micha/programming/sumo/src\router\ROFrame.cpp:116
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:129
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:116
 msgid "Defines the begin time; Previous trips will be discarded"
-msgstr ""
+msgstr "Definiert die Startzeit; Frühere Fahrten werden verworfen"
 
-#: /home/micha/programming/sumo/src\od2trips_main.cpp:132
-#: /home/micha/programming/sumo/src\router\ROFrame.cpp:119
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:132
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:119
 msgid ""
 "Defines the end time; Later trips will be discarded; Defaults to the maximum "
 "time that SUMO can represent"
 msgstr ""
+"Definiert die Endzeit; Spätere Fahrten werden verworfen; Standardmäßig die "
+"maximale Zeit, die SUMO darstellen kann"
 
-#: /home/micha/programming/sumo/src\od2trips_main.cpp:140
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:140
 msgid "Spreads trips uniformly over each time period"
-msgstr ""
+msgstr "Verteilt Fahrten gleichmäßig über jeden Zeitraum"
 
-#: /home/micha/programming/sumo/src\od2trips_main.cpp:143
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:143
 msgid "Always choose source and sink edge which are not identical"
-msgstr ""
+msgstr "Wähle immer Quell- und Zielkante, die nicht identisch sind"
 
-#: /home/micha/programming/sumo/src\od2trips_main.cpp:149
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:149
 msgid "Defines the prefix for vehicle names"
-msgstr ""
+msgstr "Definiert das Präfix für Fahrzeugnamen"
 
-#: /home/micha/programming/sumo/src\od2trips_main.cpp:162
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:162
 msgid "Disable console output of current time step"
-msgstr ""
+msgstr "Konsolenausgabe des aktuellen Zeitschritts deaktivieren"
 
 #: /home/micha/programming/sumo/src\od2trips_main.cpp:193
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:193
@@ -11984,27 +11988,29 @@ msgstr ""
 "Der Polygon-Typ '%' konnte nicht hinzugefügt werden (wahrscheinlich wird die "
 "ID bereits verwendet)."
 
-#: /home/micha/programming/sumo/src\polyconvert\polyconvert_main.cpp:81
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:81
 msgid "Loads SUMO-network FILE as reference to offset and projection"
-msgstr ""
+msgstr "Lädt SUMO-Netzdatei als Referenz für den Versatz und die Projektion"
 
-#: /home/micha/programming/sumo/src\polyconvert\polyconvert_main.cpp:85
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:85
 msgid ""
 "Reads polygons from FILE assuming they're coded in DLR-Navteq (Elmar)-format"
 msgstr ""
+"Liest Polygone aus Datei unter der Annahme, dass sie im DLR-Navteq (Elmar)-"
+"Format kodiert sind"
 
-#: /home/micha/programming/sumo/src\polyconvert\polyconvert_main.cpp:87
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:87
 msgid ""
 "Reads pois from FILE+ assuming they're coded in DLR-Navteq (Elmar)-format"
 msgstr ""
+"Liest Pole aus Datei unter der Annahme, dass sie im DLR-Navteq (Elmar)-"
+"Format codiert sind"
 
-#: /home/micha/programming/sumo/src\polyconvert\polyconvert_main.cpp:92
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:92
 msgid "Reads polygons from FILE assuming it's a Visum-net"
 msgstr ""
+"Liest Polygone aus FILE unter der Annahme, dass es sich um ein Visum-Netz "
+"handelt"
 
 #: /home/micha/programming/sumo/src\polyconvert\polyconvert_main.cpp:100
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:100
@@ -12094,8 +12100,9 @@ msgstr ""
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:172
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:177
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:181
+#, fuzzy
 msgid "Pruning"
-msgstr ""
+msgstr "Ausästen"
 
 #: /home/micha/programming/sumo/src\polyconvert\polyconvert_main.cpp:165
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:165
@@ -15362,6 +15369,7 @@ msgstr "Steuerungsübergabe-Einrichtung (ToC)"
 msgid ""
 "Smooth edge edge geometries with a grade in above the warning threshold."
 msgstr ""
+"Glatte Kante Kantengeometrien mit einem Gefälle oberhalb der Warnschwelle."
 
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:63
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:68
@@ -15419,7 +15427,7 @@ msgstr "Zufälliges Netz"
 #: /home/micha/programming/sumo/src/utils/geom/GeoConvHelper.cpp:289
 #: /home/micha/programming/sumo/src/utils/geom/GeoConvHelper.cpp:292
 msgid "Projection"
-msgstr ""
+msgstr "Projektion"
 
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:74
 #, fuzzy
