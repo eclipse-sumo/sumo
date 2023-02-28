@@ -5,7 +5,7 @@ title: GTFS
 # Introduction
 
 This tutorial shows you how to refine your existing public transit (PT) simulation
-scenario with data in the [General Transit Specification Format](https://developers.google.com/transit/gtfs) (GTFS format)
+scenario with data in the [General Transit Specification Format](https://developers.google.com/transit/gtfs) (GTFS)
 which is available for many regions. It is advisable to do the
 [Public Transport Tutorial](PT_from_OpenStreetMap.md) first.
 
