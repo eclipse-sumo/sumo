@@ -12,7 +12,7 @@ flows on a multi-lane highway and modifying and saving view settings.
 Editing geometry points
 
 Open [netedit](../Netedit/index.md) to
-create a fictional highway. We keep this very simplistic for the start
+create a fictional highway. We keep this very simplistic to star
 and consider a segment without on- or off-ramps. Enter the edge creation
 mode by pressing `e` and create an edge that is a few kilometers long.
 <b>Hint</b>: you can start with a long straight edge and then change to
@@ -43,8 +43,8 @@ All of these should in themselves have a certain heterogeneity that can
 be achieved in a simple way by giving the corresponding `vType`-element
 an attribute `speedDev` (see [Speed
 Distributions](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#speed_distributions)).
-We will use this approach here but for more sophisticated realizations
-of vehicle variability we recommend the script
+We will use this approach here, but for more sophisticated realizations
+of vehicle variability, we recommend using the script
 `createVehTypeDistribution.py` in the {{SUMO}}/tools directory.
 
 Create a routes-file `autobahn.rou.xml` with the following content:
