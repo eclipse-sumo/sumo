@@ -2314,7 +2314,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:284
 msgid "Record start of lane change manoeuvres"
-msgstr "Start von Fahrstreifenwechselmanövern aufzeichnen"
+msgstr "Beginn von Fahrstreifenwechselmanövern aufzeichnen"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:287
 msgid "Record end of lane change manoeuvres"
