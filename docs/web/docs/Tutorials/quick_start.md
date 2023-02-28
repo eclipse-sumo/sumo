@@ -167,7 +167,7 @@ are expected:
 | L17          | L13        | 1        | 1      |
 | L17          | L13        | 2        | 2      |
 
-The meaning of each attribute as follows:
+The meaning of each attribute is as follows:
 
 - (a) **from**: ID of the link for which the traffic movements will be
   specified.
