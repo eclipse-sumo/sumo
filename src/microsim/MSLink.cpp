@@ -1204,7 +1204,7 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
         const MSLink* foeExitLink = foeLane->getLinkCont()[0];
         // distance from the querying vehicle to the crossing point with foeLane
         double distToCrossing = dist - myLengthsBehindCrossing[i].lengthBehindCrossing;
-        const bool sameTarget = (myLane == foeExitLink->getLane()) && !isInternalJunctionLink();
+        const bool sameTarget = (myLane == foeExitLink->getLane()) && !isInternalJunctionLink() && !foeExitLink->isInternalJunctionLink();
         const bool sameSource = (myInternalLaneBefore != nullptr && myInternalLaneBefore->getLogicalPredecessorLane() == foeLane->getLogicalPredecessorLane());
         const double crossingWidth = (sameTarget || sameSource) ? 0 : foeLane->getWidth();
         const double foeCrossingWidth = (sameTarget || sameSource) ? 0 : myInternalLaneBefore->getWidth();
