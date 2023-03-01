@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-01-11 14:02:17 by Eclipse SUMO sumo Version v1_15_0+1552-77b40087aab
+<!-- generated on 2023-03-01 16:33:22 by Eclipse SUMO sumo Version v1_16_0+0873-8b8d030
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -34,7 +34,7 @@
     <safety collisions="0" emergencyStops="0"/>
     <persons loaded="0" running="0" jammed="0"/>
     <personTeleports total="0" abortWait="0" wrongDest="0"/>
-    <vehicleTripStatistics count="2000" routeLength="461.10" speed="4.33" duration="129.35" waitingTime="60.85" timeLoss="93.28" departDelay="3.84" departDelayWaiting="-1.00" totalTravelTime="258710.00" totalDepartDelay="7680.00"/>
+    <vehicleTripStatistics count="2000" routeLength="468.00" speed="4.18" duration="143.98" waitingTime="73.62" timeLoss="107.35" departDelay="5.46" departDelayWaiting="-1.00" totalTravelTime="287957.00" totalDepartDelay="10917.00"/>
     <pedestrianStatistics number="0" routeLength="0.00" duration="0.00" timeLoss="0.00"/>
     <rideStatistics number="0"/>
     <transportStatistics number="0"/>
