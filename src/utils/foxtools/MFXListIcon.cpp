@@ -31,8 +31,8 @@
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(FXList) MFXListIconMap[]={
-    FXMAPFUNC(SEL_PAINT, 0, FXList::onPaint),
+FXDEFMAP(MFXListIcon) MFXListIconMap[]={
+    FXMAPFUNC(SEL_PAINT, 0, MFXListIcon::onPaint),
 };
 
 // Object implementation
