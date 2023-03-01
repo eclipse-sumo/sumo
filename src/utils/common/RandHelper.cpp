@@ -62,11 +62,11 @@ RandHelper::insertRandOptions() {
 
     oc.doRegister("random", new Option_Bool(false));
     oc.addSynonyme("random", "abs-rand", true);
-    oc.addDescription("random", TL("Random Number"), TL("Initialises the random number generator with the current system time"));
+    oc.addDescription("random", "Random Number", TL("Initialises the random number generator with the current system time"));
 
     oc.doRegister("seed", new Option_Integer(23423));
     oc.addSynonyme("seed", "srand", true);
-    oc.addDescription("seed", TL("Random Number"), TL("Initialises the random number generator with the given value"));
+    oc.addDescription("seed", "Random Number", TL("Initialises the random number generator with the given value"));
 }
 
 

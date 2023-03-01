@@ -40,26 +40,26 @@ SystemFrame::addConfigurationOptions(OptionsCont& oc) {
 
     oc.doRegister("configuration-file", 'c', new Option_FileName());
     oc.addSynonyme("configuration-file", "configuration");
-    oc.addDescription("configuration-file", TL("Configuration"), TL("Loads the named config on startup"));
+    oc.addDescription("configuration-file", "Configuration", TL("Loads the named config on startup"));
     oc.addXMLDefault("configuration-file");
 
     oc.doRegister("save-configuration", 'C', new Option_FileName());
     oc.addSynonyme("save-config", "save-configuration");
-    oc.addDescription("save-configuration", TL("Configuration"), TL("Saves current configuration into FILE"));
+    oc.addDescription("save-configuration", "Configuration", TL("Saves current configuration into FILE"));
 
     oc.doRegister("save-configuration.relative", new Option_Bool(false));
     oc.addSynonyme("save-config.relative", "save-configuration.relative");
-    oc.addDescription("save-configuration.relative", TL("Configuration"), TL("Enforce relative paths when saving the configuration"));
+    oc.addDescription("save-configuration.relative", "Configuration", TL("Enforce relative paths when saving the configuration"));
 
     oc.doRegister("save-template", new Option_FileName());
-    oc.addDescription("save-template", TL("Configuration"), TL("Saves a configuration template (empty) into FILE"));
+    oc.addDescription("save-template", "Configuration", TL("Saves a configuration template (empty) into FILE"));
 
     oc.doRegister("save-schema", new Option_FileName());
-    oc.addDescription("save-schema", TL("Configuration"), TL("Saves the configuration schema into FILE"));
+    oc.addDescription("save-schema", "Configuration", TL("Saves the configuration schema into FILE"));
 
     oc.doRegister("save-commented", new Option_Bool(false));
     oc.addSynonyme("save-commented", "save-template.commented");
-    oc.addDescription("save-commented", TL("Configuration"), TL("Adds comments to saved template, configuration, or schema"));
+    oc.addDescription("save-commented", "Configuration", TL("Adds comments to saved template, configuration, or schema"));
 }
 
 
@@ -68,16 +68,16 @@ SystemFrame::addReportOptions(OptionsCont& oc) {
     oc.addOptionSubTopic(TL("Report"));
 
     oc.doRegister("verbose", 'v', new Option_Bool(false));
-    oc.addDescription("verbose", TL("Report"), TL("Switches to verbose output"));
+    oc.addDescription("verbose", "Report", TL("Switches to verbose output"));
 
     oc.doRegister("print-options", new Option_Bool(false));
-    oc.addDescription("print-options", TL("Report"), TL("Prints option values before processing"));
+    oc.addDescription("print-options", "Report", TL("Prints option values before processing"));
 
     oc.doRegister("help", '?', new Option_BoolExtended(false));
-    oc.addDescription("help", TL("Report"), TL("Prints this screen or selected topics"));
+    oc.addDescription("help", "Report", TL("Prints this screen or selected topics"));
 
     oc.doRegister("version", 'V', new Option_Bool(false));
-    oc.addDescription("version", TL("Report"), TL("Prints the current version"));
+    oc.addDescription("version", "Report", TL("Prints the current version"));
 
     oc.doRegister("xml-validation", 'X', new Option_String("local"));
     oc.addDescription("xml-validation", "Report", "Set schema validation scheme of XML inputs (\"never\", \"local\", \"auto\" or \"always\")");
@@ -94,38 +94,38 @@ SystemFrame::addReportOptions(OptionsCont& oc) {
 
     oc.doRegister("no-warnings", 'W', new Option_Bool(false));
     oc.addSynonyme("no-warnings", "suppress-warnings", true);
-    oc.addDescription("no-warnings", TL("Report"), TL("Disables output of warnings"));
+    oc.addDescription("no-warnings", "Report", TL("Disables output of warnings"));
 
     oc.doRegister("aggregate-warnings", new Option_Integer(-1));
-    oc.addDescription("aggregate-warnings", TL("Report"), TL("Aggregate warnings of the same type whenever more than INT occur"));
+    oc.addDescription("aggregate-warnings", "Report", TL("Aggregate warnings of the same type whenever more than INT occur"));
 
     oc.doRegister("log", 'l', new Option_FileName());
     oc.addSynonyme("log", "log-file");
-    oc.addDescription("log", TL("Report"), TL("Writes all messages to FILE (implies verbose)"));
+    oc.addDescription("log", "Report", TL("Writes all messages to FILE (implies verbose)"));
 
     oc.doRegister("message-log", new Option_FileName());
-    oc.addDescription("message-log", TL("Report"), TL("Writes all non-error messages to FILE (implies verbose)"));
+    oc.addDescription("message-log", "Report", TL("Writes all non-error messages to FILE (implies verbose)"));
 
     oc.doRegister("error-log", new Option_FileName());
-    oc.addDescription("error-log", TL("Report"), TL("Writes all warnings and errors to FILE"));
+    oc.addDescription("error-log", "Report", TL("Writes all warnings and errors to FILE"));
 
     oc.doRegister("language", new Option_String("C"));
-    oc.addDescription("language", TL("Report"), TL("Language to use in messages"));
+    oc.addDescription("language", "Report", TL("Language to use in messages"));
 
     oc.doRegister("write-license", new Option_Bool(false));
-    oc.addDescription("write-license", TL("Output"), TL("Include license info into every output file"));
+    oc.addDescription("write-license", "Output", TL("Include license info into every output file"));
 
     oc.doRegister("output-prefix", new Option_String());
-    oc.addDescription("output-prefix", TL("Output"), TL("Prefix which is applied to all output files. The special string 'TIME' is replaced by the current time."));
+    oc.addDescription("output-prefix", "Output", TL("Prefix which is applied to all output files. The special string 'TIME' is replaced by the current time."));
 
     oc.doRegister("precision", new Option_Integer(2));
-    oc.addDescription("precision", TL("Output"), TL("Defines the number of digits after the comma for floating point output"));
+    oc.addDescription("precision", "Output", TL("Defines the number of digits after the comma for floating point output"));
 
     oc.doRegister("precision.geo", new Option_Integer(6));
-    oc.addDescription("precision.geo", TL("Output"), TL("Defines the number of digits after the comma for lon,lat output"));
+    oc.addDescription("precision.geo", "Output", TL("Defines the number of digits after the comma for lon,lat output"));
 
     oc.doRegister("human-readable-time", 'H', new Option_Bool(false));
-    oc.addDescription("human-readable-time", TL("Output"), TL("Write time values as hour:minute:second or day:hour:minute:second rather than seconds"));
+    oc.addDescription("human-readable-time", "Output", TL("Write time values as hour:minute:second or day:hour:minute:second rather than seconds"));
 }
 
 
