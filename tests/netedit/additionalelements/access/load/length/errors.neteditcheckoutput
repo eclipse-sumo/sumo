@@ -1,0 +1,3 @@
+Error: Invalid position 10.00 for access on lane 'E0_0' in stop 'busStop_0'.
+Error: Invalid position 10.00 for access on lane 'E4_0' in stop 'busStop_0'.
+Quitting (on error).
