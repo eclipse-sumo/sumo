@@ -260,6 +260,12 @@ GNEDemandElement::updateGLObject() {
 }
 
 
+bool
+GNEDemandElement::isPathElementSelected() const {
+    return mySelected;
+}
+
+
 double
 GNEDemandElement::getPathElementDepartValue() const {
     // get previous person Plan

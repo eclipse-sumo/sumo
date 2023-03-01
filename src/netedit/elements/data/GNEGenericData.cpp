@@ -185,6 +185,12 @@ GNEGenericData::updateGLObject() {
 }
 
 
+bool
+GNEGenericData::isPathElementSelected() const {
+    return mySelected;
+}
+
+
 double
 GNEGenericData::getPathElementDepartValue() const {
     return 0;

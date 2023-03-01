@@ -209,6 +209,9 @@ public:
     /// @brief compute pathElement
     virtual void computePathElement();
 
+    /// @brief check if path element is selected
+    bool isPathElementSelected() const;
+
     /**@brief Draws partial object (lane)
      * @param[in] s The settings for the current view (may influence drawing)
      * @param[in] lane GNELane in which draw partial

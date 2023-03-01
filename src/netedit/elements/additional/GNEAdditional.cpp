@@ -254,6 +254,12 @@ GNEAdditional::computePathElement() {
 }
 
 
+bool
+GNEAdditional::isPathElementSelected() const {
+    return mySelected;
+}
+
+
 void
 GNEAdditional::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*lane*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
     // Nothing to draw
