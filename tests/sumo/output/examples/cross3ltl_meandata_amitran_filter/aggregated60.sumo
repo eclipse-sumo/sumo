@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-03-01 13:04:26 by Eclipse SUMO sumo Version v1_16_0+0850-438bb8b
+<!-- generated on 2023-03-01 14:32:40 by Eclipse SUMO sumo Version v1_16_0+0853-bb3bf2e
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -212,45 +212,45 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <link id="43" amount="13" averageSpeed="443"/>
     </timeSlice>
     <timeSlice startTime="840000" duration="60000">
-        <link id="32" amount="19" averageSpeed="801"/>
+        <link id="32" amount="19" averageSpeed="800"/>
         <link id="33" amount="14" averageSpeed="1038"/>
-        <link id="34" amount="3" averageSpeed="223"/>
+        <link id="34" amount="3" averageSpeed="224"/>
         <link id="35" amount="15" averageSpeed="1009"/>
         <link id="36" amount="5" averageSpeed="1039"/>
         <link id="37" amount="11" averageSpeed="508"/>
         <link id="38" amount="23" averageSpeed="986"/>
-        <link id="39" amount="13" averageSpeed="1038"/>
-        <link id="40" amount="11" averageSpeed="527"/>
+        <link id="39" amount="13" averageSpeed="1037"/>
+        <link id="40" amount="11" averageSpeed="526"/>
         <link id="41" amount="12" averageSpeed="1042"/>
-        <link id="42" amount="14" averageSpeed="1038"/>
+        <link id="42" amount="14" averageSpeed="1037"/>
         <link id="43" amount="19" averageSpeed="437"/>
     </timeSlice>
     <timeSlice startTime="900000" duration="60000">
-        <link id="32" amount="10" averageSpeed="677"/>
+        <link id="32" amount="10" averageSpeed="678"/>
         <link id="33" amount="21" averageSpeed="997"/>
-        <link id="34" amount="18" averageSpeed="215"/>
+        <link id="34" amount="19" averageSpeed="216"/>
         <link id="35" amount="12" averageSpeed="1009"/>
         <link id="36" amount="18" averageSpeed="1038"/>
         <link id="37" amount="12" averageSpeed="502"/>
-        <link id="38" amount="23" averageSpeed="987"/>
-        <link id="39" amount="6" averageSpeed="1037"/>
-        <link id="40" amount="13" averageSpeed="527"/>
+        <link id="38" amount="24" averageSpeed="988"/>
+        <link id="39" amount="6" averageSpeed="1038"/>
+        <link id="40" amount="14" averageSpeed="528"/>
         <link id="41" amount="17" averageSpeed="1042"/>
         <link id="42" amount="13" averageSpeed="1038"/>
         <link id="43" amount="11" averageSpeed="436"/>
     </timeSlice>
     <timeSlice startTime="960000" duration="40000">
-        <link id="32" amount="13" averageSpeed="636"/>
-        <link id="33" amount="7" averageSpeed="958"/>
-        <link id="34" amount="3" averageSpeed="211"/>
+        <link id="32" amount="14" averageSpeed="635"/>
+        <link id="33" amount="7" averageSpeed="961"/>
+        <link id="34" amount="2" averageSpeed="213"/>
         <link id="35" amount="13" averageSpeed="1009"/>
         <link id="36" amount="6" averageSpeed="1038"/>
         <link id="37" amount="11" averageSpeed="512"/>
-        <link id="38" amount="15" averageSpeed="986"/>
-        <link id="39" amount="12" averageSpeed="1037"/>
-        <link id="40" amount="10" averageSpeed="521"/>
+        <link id="38" amount="14" averageSpeed="987"/>
+        <link id="39" amount="13" averageSpeed="1038"/>
+        <link id="40" amount="8" averageSpeed="521"/>
         <link id="41" amount="5" averageSpeed="1042"/>
-        <link id="42" amount="8" averageSpeed="1038"/>
+        <link id="42" amount="9" averageSpeed="1037"/>
         <link id="43" amount="10" averageSpeed="426"/>
     </timeSlice>
 </linkData>

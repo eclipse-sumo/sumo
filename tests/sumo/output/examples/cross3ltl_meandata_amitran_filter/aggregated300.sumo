@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-03-01 13:04:26 by Eclipse SUMO sumo Version v1_16_0+0850-438bb8b
+<!-- generated on 2023-03-01 14:32:40 by Eclipse SUMO sumo Version v1_16_0+0853-bb3bf2e
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -157,8 +157,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </link>
     </timeSlice>
     <timeSlice startTime="900000" duration="100000">
-        <link id="32" amount="23">
-            <actorConfig id="0" amount="23"/>
+        <link id="32" amount="24">
+            <actorConfig id="0" amount="24"/>
         </link>
         <link id="33" amount="28">
             <actorConfig id="0" amount="28"/>
@@ -178,17 +178,17 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <link id="38" amount="38">
             <actorConfig id="0" amount="38"/>
         </link>
-        <link id="39" amount="18">
-            <actorConfig id="0" amount="18"/>
+        <link id="39" amount="19">
+            <actorConfig id="0" amount="19"/>
         </link>
-        <link id="40" amount="23">
-            <actorConfig id="0" amount="23"/>
+        <link id="40" amount="22">
+            <actorConfig id="0" amount="22"/>
         </link>
         <link id="41" amount="22">
             <actorConfig id="0" amount="22"/>
         </link>
-        <link id="42" amount="21">
-            <actorConfig id="0" amount="21"/>
+        <link id="42" amount="22">
+            <actorConfig id="0" amount="22"/>
         </link>
         <link id="43" amount="21">
             <actorConfig id="0" amount="21"/>

@@ -1,0 +1,4 @@
+Warning: Teleporting vehicle 'flow_0.31'; waited too long (wrong lane), lane='SC_1', time=951.00.
+Warning: Vehicle 'flow_0.31' ends teleporting on edge 'CW', time=951.00.
+Warning: Teleporting vehicle 'flow_0.32'; waited too long (wrong lane), lane='SC_1', time=952.00.
+Warning: Vehicle 'flow_0.32' ends teleporting on edge 'CW', time=952.00.
