@@ -240,7 +240,7 @@ Your version of Visual Studio doesn't support Debugging, you can only compile in
 
 	The last line is compulsory. Store it as _vcpkg.json_ and put it at the root directory of vcpkg, on the same level as _vcpkg.exe_. Then simply run `vcpkg.exe install`, vcpkg will detect your manifest file and download the packages inside accordingly. At the moment this is the only way to download a package with a specific version.
 
-5. Now delete the manifest file. Using vcpkg too, download and compile the other third-party dependencies with the command generic command `vcpkg.exe install package-name:triplet`:
+5. Now delete the manifest file. Using vcpkg too, download and compile the other third-party dependencies with the command generic command `vcpkg.exe install package-name:triplet` (a default triplet has been set above):
     
 	```
     vcpkg.exe install boost zlib spdlog poly2tri glm cgal pybind11
@@ -273,8 +273,10 @@ Your version of Visual Studio doesn't support Debugging, you can only compile in
 1. Build SUMO as usual, Visual Studio will say that it can't find JuPedSim. Then in the CMake cache file, search for the `JUPEDSIM_DIR` variable and set it with the installation path mentionned above:
 
     ```
-	JUPEDSIM_DIR:PATH=/c/Users/[username]/[path-to-jpscore]/install
+	JUPEDSIM_DIR:PATH=C:\Users\[username]\[path-to-jpscore]\install
     ```
+	
+	Notice how the path is written (Windows-style convention).
 	
 2. Then rebuild SUMO; JuPedSim is found.
 3. The JuPedSIM and third-party binaries need to be copied to the SUMO 'bin' directory for execution (`jupedsim.dll`, `mpfr-6.dll`, `gmp-10.dll`, `spdlog.dll` and `fmt.dll`). These binaries are located in the 'build/bin' subdirectory of jpscore or in the subdirectory 'installed' of vcpkg (or 'installed/debug' for _Debug_ binaries; in that case some binaries have an additional 'd' at the end).
