@@ -839,12 +839,26 @@ void
 GNEPathManager::drawLanePathElements(const GUIVisualizationSettings& s, const GNELane* lane) {
     if (myLaneSegments.count(lane) > 0) {
         int numRoutes = 0;
+        // first draw selected elements (for drawing over other elements)
         for (const auto& segment : myLaneSegments.at(lane)) {
-            // draw segment
-            segment->getPathElement()->drawPartialGL(s, lane, segment, 0);
-            // check if path element is a route
-            if (segment->getPathElement()->isRoute()) {
-                numRoutes++;
+            if (segment->getPathElement()->isPathElementSelected()) {
+                // draw segment
+                segment->getPathElement()->drawPartialGL(s, lane, segment, 2);
+                // check if path element is a route
+                if (segment->getPathElement()->isRoute()) {
+                    numRoutes++;
+                }
+            }
+        }
+        // now draw non selected elements
+        for (const auto& segment : myLaneSegments.at(lane)) {
+            if (!segment->getPathElement()->isPathElementSelected()) {
+                // draw segment
+                segment->getPathElement()->drawPartialGL(s, lane, segment, 0);
+                // check if path element is a route
+                if (segment->getPathElement()->isRoute()) {
+                    numRoutes++;
+                }
             }
         }
         // check if draw overlapped routes
@@ -858,8 +872,17 @@ GNEPathManager::drawLanePathElements(const GUIVisualizationSettings& s, const GN
 void
 GNEPathManager::drawJunctionPathElements(const GUIVisualizationSettings& s, const GNEJunction* junction) {
     if (myJunctionSegments.count(junction) > 0) {
+        // first draw selected elements (for drawing over other elements)
         for (const auto& segment : myJunctionSegments.at(junction)) {
-            segment->getPathElement()->drawPartialGL(s, segment->getPreviousLane(), segment->getNextLane(), segment, 0);
+            if (segment->getPathElement()->isPathElementSelected()) {
+                segment->getPathElement()->drawPartialGL(s, segment->getPreviousLane(), segment->getNextLane(), segment, 0);
+            }
+        }
+        // now draw non selected elements
+        for (const auto& segment : myJunctionSegments.at(junction)) {
+            if (!segment->getPathElement()->isPathElementSelected()) {
+                segment->getPathElement()->drawPartialGL(s, segment->getPreviousLane(), segment->getNextLane(), segment, 0);
+            }
         }
     }
 }
