@@ -14870,14 +14870,14 @@ msgstr "Status entfernen"
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1880
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1880
 msgid "Clean unused states from all phase"
-msgstr "Unbenutzte Zustände von allen Phasen bereinigen"
+msgstr "Ungenutzte Signalbilder aus allen Phasen entfernen"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1881
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1881
 msgid "Clean unused states from all phase. (Not allowed for multiple programs)"
 msgstr ""
-"Unbenutzte Zustände von allen Phasen bereinigen. (Nicht zulässig für mehrere "
-"Programme)"
+"Unbenutzte Signalbilder aus allen Phasen entfernen. (Nicht zulässig für "
+"mehrere Programme)"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1885
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1885
