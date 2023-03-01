@@ -48,11 +48,11 @@ RODFFrame::fillOptions() {
 
     // insert options sub-topics
     SystemFrame::addConfigurationOptions(oc); // fill this subtopic, too
-    oc.addOptionSubTopic(TL("Input"));
-    oc.addOptionSubTopic(TL("Output"));
-    oc.addOptionSubTopic(TL("Processing"));
-    oc.addOptionSubTopic(TL("Defaults"));
-    oc.addOptionSubTopic(TL("Time"));
+    oc.addOptionSubTopic("Input");
+    oc.addOptionSubTopic("Output");
+    oc.addOptionSubTopic("Processing");
+    oc.addOptionSubTopic("Defaults");
+    oc.addOptionSubTopic("Time");
 
     // register the options
     // register input-options

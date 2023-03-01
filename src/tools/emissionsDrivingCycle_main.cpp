@@ -64,7 +64,7 @@ main(int argc, char** argv) {
 
     // add options
     SystemFrame::addConfigurationOptions(oc);
-    oc.addOptionSubTopic(TL("Input"));
+    oc.addOptionSubTopic("Input");
     oc.doRegister("timeline-file", 't', new Option_FileName());
     oc.addSynonyme("timeline", "timeline-file");
     oc.addDescription("timeline-file", "Input", TL("Defines the file to read the driving cycle from."));
@@ -91,7 +91,7 @@ main(int argc, char** argv) {
     oc.doRegister("vtype", new Option_String());
     oc.addDescription("vtype", "Input", TL("Defines the vehicle type to use for emission parameters."));
 
-    oc.addOptionSubTopic(TL("Processing"));
+    oc.addOptionSubTopic("Processing");
     oc.doRegister("compute-a", 'a', new Option_Bool(false));
     oc.addDescription("compute-a", "Processing", TL("If set, the acceleration is computed instead of being read from the file. "));
 
@@ -113,7 +113,7 @@ main(int argc, char** argv) {
     oc.doRegister("slope", new Option_Float(0));
     oc.addDescription("slope", "Processing", TL("Sets a global slope (in deg) that is used if the file does not contain slope information."));
 
-    oc.addOptionSubTopic(TL("Output"));
+    oc.addOptionSubTopic("Output");
     oc.doRegister("output-file", 'o', new Option_String());
     oc.addSynonyme("output", "output-file");
     oc.addDescription("output", "Output", TL("Defines the file to write the emission cycle results into."));
@@ -128,7 +128,7 @@ main(int argc, char** argv) {
     oc.addSynonyme("sum", "sum-output");
     oc.addDescription("sum-output", "Output", TL("Save the aggregated and normed emission values of each vehicle in CSV"));
 
-    oc.addOptionSubTopic(TL("Emissions"));
+    oc.addOptionSubTopic("Emissions");
     oc.doRegister("emissions.volumetric-fuel", new Option_Bool(false));
     oc.addDescription("emissions.volumetric-fuel", "Emissions", TL("Return fuel consumption values in (legacy) unit l instead of mg"));
 

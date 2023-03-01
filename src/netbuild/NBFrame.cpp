@@ -223,39 +223,39 @@ NBFrame::fillOptions(bool forNetgen) {
         // railway processing options
 
         oc.doRegister("railway.topology.repair", new Option_Bool(false));
-        oc.addDescription("railway.topology.repair", TL("Railway"), TL("Repair topology of the railway network"));
+        oc.addDescription("railway.topology.repair", "Railway", TL("Repair topology of the railway network"));
 
         oc.doRegister("railway.topology.repair.minimal", new Option_Bool(false));
-        oc.addDescription("railway.topology.repair.minimal", TL("Railway"), TL("Repair topology of the railway network just enough to let loaded public transport lines to work"));
+        oc.addDescription("railway.topology.repair.minimal", "Railway", TL("Repair topology of the railway network just enough to let loaded public transport lines to work"));
 
         oc.doRegister("railway.topology.repair.connect-straight", new Option_Bool(false));
-        oc.addDescription("railway.topology.repair.connect-straight", TL("Railway"), TL("Allow bidirectional rail use wherever rails with opposite directions meet at a straight angle"));
+        oc.addDescription("railway.topology.repair.connect-straight", "Railway", TL("Allow bidirectional rail use wherever rails with opposite directions meet at a straight angle"));
 
         oc.doRegister("railway.topology.repair.stop-turn", new Option_Bool(false));
-        oc.addDescription("railway.topology.repair.stop-turn", TL("Railway"), TL("Add turn-around connections at all loaded stops."));
+        oc.addDescription("railway.topology.repair.stop-turn", "Railway", TL("Add turn-around connections at all loaded stops."));
 
         oc.doRegister("railway.topology.all-bidi", new Option_Bool(false));
-        oc.addDescription("railway.topology.all-bidi", TL("Railway"), TL("Make all rails usable in both direction"));
+        oc.addDescription("railway.topology.all-bidi", "Railway", TL("Make all rails usable in both direction"));
 
         oc.doRegister("railway.topology.all-bidi.input-file", new Option_FileName());
-        oc.addDescription("railway.topology.all-bidi.input-file", TL("Railway"), TL("Make all rails edge ids from FILE usable in both direction"));
+        oc.addDescription("railway.topology.all-bidi.input-file", "Railway", TL("Make all rails edge ids from FILE usable in both direction"));
 
         oc.doRegister("railway.topology.direction-priority", new Option_Bool(false));
-        oc.addDescription("railway.topology.direction-priority", TL("Railway"), TL("Set edge priority values based on estimated main direction"));
+        oc.addDescription("railway.topology.direction-priority", "Railway", TL("Set edge priority values based on estimated main direction"));
 
         oc.doRegister("railway.topology.extend-priority", new Option_Bool(false));
-        oc.addDescription("railway.topology.extend-priority", TL("Railway"), TL("Extend loaded edge priority values based on estimated main direction"));
+        oc.addDescription("railway.topology.extend-priority", "Railway", TL("Extend loaded edge priority values based on estimated main direction"));
 
         oc.doRegister("railway.access-distance", new Option_Float(150.f));
-        oc.addDescription("railway.access-distance", TL("Railway"), TL("The search radius for finding suitable road accesses for rail stops"));
+        oc.addDescription("railway.access-distance", "Railway", TL("The search radius for finding suitable road accesses for rail stops"));
         oc.addSynonyme("railway.access-distance", "osm.stop-output.footway-access-distance", true);
 
         oc.doRegister("railway.max-accesses", new Option_Integer(5));
-        oc.addDescription("railway.max-accesses", TL("Railway"), TL("The maximum road accesses registered per rail stops"));
+        oc.addDescription("railway.max-accesses", "Railway", TL("The maximum road accesses registered per rail stops"));
         oc.addSynonyme("railway.max-accesses", "osm.stop-output.footway-max-accesses", true);
 
         oc.doRegister("railway.access-factor", new Option_Float(1.5));
-        oc.addDescription("railway.access-factor", TL("Railway"), TL("The walking length of the access is computed as air-line distance multiplied by FLOAT"));
+        oc.addDescription("railway.access-factor", "Railway", TL("The walking length of the access is computed as air-line distance multiplied by FLOAT"));
         oc.addSynonyme("railway.access-factor", "osm.stop-output.footway-access-factor", true);
 
         oc.doRegister("ptstop-output.no-bidi", new Option_Bool(false));

@@ -75,7 +75,7 @@ int MSDevice_Taxi::myMaxContainerCapacity(0);
 // ---------------------------------------------------------------------------
 void
 MSDevice_Taxi::insertOptions(OptionsCont& oc) {
-    oc.addOptionSubTopic(TL("Taxi Device"));
+    oc.addOptionSubTopic("Taxi Device");
     insertDefaultAssignmentOptions("taxi", "Taxi Device", oc);
 
     oc.doRegister("device.taxi.dispatch-algorithm", new Option_String("greedy"));

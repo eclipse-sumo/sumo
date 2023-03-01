@@ -60,7 +60,7 @@ long long int MSDevice_FCD::myWrittenAttributes(myDefaultMask);
 // ---------------------------------------------------------------------------
 void
 MSDevice_FCD::insertOptions(OptionsCont& oc) {
-    oc.addOptionSubTopic(TL("FCD Device"));
+    oc.addOptionSubTopic("FCD Device");
     insertDefaultAssignmentOptions("fcd", "FCD Device", oc);
 
     oc.doRegister("device.fcd.begin", new Option_String("-1"));

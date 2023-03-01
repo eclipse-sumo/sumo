@@ -254,23 +254,23 @@ GNELoadThread::fillOptions(OptionsCont& neteditOptions) {
     neteditOptions.addCallExample("-sumocfg-file <CONFIGURATION>", TL("Open a SUMO config file"));
 
     SystemFrame::addConfigurationOptions(neteditOptions); // this subtopic is filled here, too
-    neteditOptions.addOptionSubTopic(TL("Input"));
-    neteditOptions.addOptionSubTopic(TL("Output"));
+    neteditOptions.addOptionSubTopic("Input");
+    neteditOptions.addOptionSubTopic("Output");
     GeoConvHelper::addProjectionOptions(neteditOptions);
-    neteditOptions.addOptionSubTopic(TL("Processing"));
-    neteditOptions.addOptionSubTopic(TL("Building Defaults"));
+    neteditOptions.addOptionSubTopic("Processing");
+    neteditOptions.addOptionSubTopic("Building Defaults");
     neteditOptions.addOptionSubTopic("TLS Building");
-    neteditOptions.addOptionSubTopic(TL("Ramp Guessing"));
-    neteditOptions.addOptionSubTopic(TL("Edge Removal"));
-    neteditOptions.addOptionSubTopic(TL("Unregulated Nodes"));
-    neteditOptions.addOptionSubTopic(TL("Junctions"));
-    neteditOptions.addOptionSubTopic(TL("Pedestrian"));
-    neteditOptions.addOptionSubTopic(TL("Bicycle"));
-    neteditOptions.addOptionSubTopic(TL("Railway"));
-    neteditOptions.addOptionSubTopic(TL("Formats"));
-    neteditOptions.addOptionSubTopic(TL("Netedit"));
-    neteditOptions.addOptionSubTopic(TL("Visualisation"));
-    neteditOptions.addOptionSubTopic(TL("Time"));
+    neteditOptions.addOptionSubTopic("Ramp Guessing");
+    neteditOptions.addOptionSubTopic("Edge Removal");
+    neteditOptions.addOptionSubTopic("Unregulated Nodes");
+    neteditOptions.addOptionSubTopic("Junctions");
+    neteditOptions.addOptionSubTopic("Pedestrian");
+    neteditOptions.addOptionSubTopic("Bicycle");
+    neteditOptions.addOptionSubTopic("Railway");
+    neteditOptions.addOptionSubTopic("Formats");
+    neteditOptions.addOptionSubTopic("Netedit");
+    neteditOptions.addOptionSubTopic("Visualisation");
+    neteditOptions.addOptionSubTopic("Time");
 
     // TOPIC: Input
 

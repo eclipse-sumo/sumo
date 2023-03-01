@@ -42,7 +42,7 @@
 // ---------------------------------------------------------------------------
 void
 MSDevice_GLOSA::insertOptions(OptionsCont& oc) {
-    oc.addOptionSubTopic(TL("GLOSA Device"));
+    oc.addOptionSubTopic("GLOSA Device");
     insertDefaultAssignmentOptions("glosa", "GLOSA Device", oc);
 
     oc.doRegister("device.glosa.range", new Option_Float(100.0));

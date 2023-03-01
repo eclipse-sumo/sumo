@@ -212,7 +212,7 @@ MSDevice_SSM::cleanup() {
 
 void
 MSDevice_SSM::insertOptions(OptionsCont& oc) {
-    oc.addOptionSubTopic(TL("SSM Device"));
+    oc.addOptionSubTopic("SSM Device");
     insertDefaultAssignmentOptions("ssm", "SSM Device", oc);
 
     // custom options

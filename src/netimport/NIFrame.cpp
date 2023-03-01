@@ -372,7 +372,7 @@ NIFrame::fillOptions(bool forNetedit) {
 
     // register railway options
     oc.doRegister("railway.signals.discard", new Option_Bool(false));
-    oc.addDescription("railway.signals.discard", TL("Railway"), TL("Discard all railway signal information loaded from other formats than plain-xml"));
+    oc.addDescription("railway.signals.discard", "Railway", TL("Discard all railway signal information loaded from other formats than plain-xml"));
 }
 
 

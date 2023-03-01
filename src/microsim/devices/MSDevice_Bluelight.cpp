@@ -52,7 +52,7 @@
 // ---------------------------------------------------------------------------
 void
 MSDevice_Bluelight::insertOptions(OptionsCont& oc) {
-    oc.addOptionSubTopic(TL("Bluelight Device"));
+    oc.addOptionSubTopic("Bluelight Device");
     insertDefaultAssignmentOptions("bluelight", "Bluelight Device", oc);
 
     oc.doRegister("device.bluelight.reactiondist", new Option_Float(25.0));

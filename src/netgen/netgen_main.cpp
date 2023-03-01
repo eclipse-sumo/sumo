@@ -67,19 +67,19 @@ fillOptions() {
 
     // insert options sub-topics
     SystemFrame::addConfigurationOptions(oc); // this subtopic is filled here, too
-    oc.addOptionSubTopic(TL("Grid Network"));
-    oc.addOptionSubTopic(TL("Spider Network"));
-    oc.addOptionSubTopic(TL("Random Network"));
-    oc.addOptionSubTopic(TL("Input"));
-    oc.addOptionSubTopic(TL("Output"));
-    oc.addOptionSubTopic(TL("Processing"));
-    oc.addOptionSubTopic(TL("Building Defaults"));
+    oc.addOptionSubTopic("Grid Network");
+    oc.addOptionSubTopic("Spider Network");
+    oc.addOptionSubTopic("Random Network");
+    oc.addOptionSubTopic("Input");
+    oc.addOptionSubTopic("Output");
+    oc.addOptionSubTopic("Processing");
+    oc.addOptionSubTopic("Building Defaults");
     oc.addOptionSubTopic("TLS Building");
-    oc.addOptionSubTopic(TL("Edge Removal"));
-    oc.addOptionSubTopic(TL("Unregulated Nodes"));
-    oc.addOptionSubTopic(TL("Junctions"));
-    oc.addOptionSubTopic(TL("Pedestrian"));
-    oc.addOptionSubTopic(TL("Bicycle"));
+    oc.addOptionSubTopic("Edge Removal");
+    oc.addOptionSubTopic("Unregulated Nodes");
+    oc.addOptionSubTopic("Junctions");
+    oc.addOptionSubTopic("Pedestrian");
+    oc.addOptionSubTopic("Bicycle");
     SystemFrame::addReportOptions(oc); // this subtopic is filled here, too
 
     NGFrame::fillOptions();

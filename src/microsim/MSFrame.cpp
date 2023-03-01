@@ -65,11 +65,11 @@ MSFrame::fillOptions() {
 
     // insert options sub-topics
     SystemFrame::addConfigurationOptions(oc); // fill this subtopic, too
-    oc.addOptionSubTopic(TL("Input"));
-    oc.addOptionSubTopic(TL("Output"));
-    oc.addOptionSubTopic(TL("Time"));
-    oc.addOptionSubTopic(TL("Processing"));
-    oc.addOptionSubTopic(TL("Routing"));
+    oc.addOptionSubTopic("Input");
+    oc.addOptionSubTopic("Output");
+    oc.addOptionSubTopic("Time");
+    oc.addOptionSubTopic("Processing");
+    oc.addOptionSubTopic("Routing");
 
     // register configuration options
     //  register input options
@@ -598,7 +598,7 @@ MSFrame::fillOptions() {
     oc.addDescription("replay-rerouting", "Routing", TL("Replay exact rerouting sequence from vehroute-output"));
 
     // devices
-    oc.addOptionSubTopic(TL("Emissions"));
+    oc.addOptionSubTopic("Emissions");
     oc.doRegister("emissions.volumetric-fuel", new Option_Bool(false));
     oc.addDescription("emissions.volumetric-fuel", "Emissions", TL("Return fuel consumption values in (legacy) unit l instead of mg"));
 
@@ -611,8 +611,8 @@ MSFrame::fillOptions() {
     oc.doRegister("phemlight-temperature", new Option_Float(INVALID_DOUBLE));
     oc.addDescription("phemlight-temperature", "Emissions", TL("Set ambient temperature to correct NOx emissions in PHEMlight5"));
 
-    oc.addOptionSubTopic(TL("Communication"));
-    oc.addOptionSubTopic(TL("Battery"));
+    oc.addOptionSubTopic("Communication");
+    oc.addOptionSubTopic("Battery");
     MSDevice::insertOptions(oc);
 
     // register report options
@@ -630,13 +630,13 @@ MSFrame::fillOptions() {
     oc.addDescription("step-log.period", "Report", TL("Number of simulation steps between step-log outputs"));
 
     //remote port 0 if not used
-    oc.addOptionSubTopic(TL("TraCI Server"));
+    oc.addOptionSubTopic("TraCI Server");
     oc.doRegister("remote-port", new Option_Integer(0));
     oc.addDescription("remote-port", "TraCI Server", TL("Enables TraCI Server if set"));
     oc.doRegister("num-clients", new Option_Integer(1));
     oc.addDescription("num-clients", "TraCI Server", TL("Expected number of connecting clients"));
 
-    oc.addOptionSubTopic(TL("Mesoscopic"));
+    oc.addOptionSubTopic("Mesoscopic");
     oc.doRegister("mesosim", new Option_Bool(false));
     oc.addDescription("mesosim", "Mesoscopic", TL("Enables mesoscopic simulation"));
     oc.doRegister("meso-edgelength", new Option_Float(98.0f));
@@ -686,7 +686,7 @@ MSFrame::fillOptions() {
 
     // add GUI options
     // the reason that we include them in vanilla sumo as well is to make reusing config files easy
-    oc.addOptionSubTopic(TL("GUI Only"));
+    oc.addOptionSubTopic("GUI Only");
     oc.doRegister("gui-settings-file", 'g', new Option_FileName());
     oc.addDescription("gui-settings-file", "GUI Only", TL("Load visualisation settings from FILE"));
 

@@ -46,11 +46,11 @@ ROJTRFrame::fillOptions() {
 
     // insert options sub-topics
     SystemFrame::addConfigurationOptions(oc);
-    oc.addOptionSubTopic(TL("Input"));
-    oc.addOptionSubTopic(TL("Output"));
-    oc.addOptionSubTopic(TL("Processing"));
-    oc.addOptionSubTopic(TL("Defaults"));
-    oc.addOptionSubTopic(TL("Time"));
+    oc.addOptionSubTopic("Input");
+    oc.addOptionSubTopic("Output");
+    oc.addOptionSubTopic("Processing");
+    oc.addOptionSubTopic("Defaults");
+    oc.addOptionSubTopic("Time");
 
     ROFrame::fillOptions(oc);
 

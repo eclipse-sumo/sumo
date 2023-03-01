@@ -64,11 +64,11 @@ fillOptions() {
 
     // insert options sub-topics
     SystemFrame::addConfigurationOptions(oc); // fill this subtopic, too
-    oc.addOptionSubTopic(TL("Input"));
-    oc.addOptionSubTopic(TL("Output"));
-    oc.addOptionSubTopic(TL("Time"));
-    oc.addOptionSubTopic(TL("Processing"));
-    oc.addOptionSubTopic(TL("Defaults"));
+    oc.addOptionSubTopic("Input");
+    oc.addOptionSubTopic("Output");
+    oc.addOptionSubTopic("Time");
+    oc.addOptionSubTopic("Processing");
+    oc.addOptionSubTopic("Defaults");
     SystemFrame::addReportOptions(oc); // fill this subtopic, too
 
 

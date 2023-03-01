@@ -58,7 +58,7 @@ void
 RandHelper::insertRandOptions() {
     OptionsCont& oc = OptionsCont::getOptions();
     // registers random number options
-    oc.addOptionSubTopic(TL("Random Number"));
+    oc.addOptionSubTopic("Random Number");
 
     oc.doRegister("random", new Option_Bool(false));
     oc.addSynonyme("random", "abs-rand", true);

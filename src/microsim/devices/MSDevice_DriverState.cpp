@@ -60,7 +60,7 @@
 // ---------------------------------------------------------------------------
 void
 MSDevice_DriverState::insertOptions(OptionsCont& oc) {
-    oc.addOptionSubTopic(TL("Driver State Device"));
+    oc.addOptionSubTopic("Driver State Device");
     insertDefaultAssignmentOptions("driverstate", "Driver State Device", oc);
     oc.doRegister("device.driverstate.initialAwareness", new Option_Float(DriverStateDefaults::initialAwareness));
     oc.addDescription("device.driverstate.initialAwareness", TL("Driver State Device"), TL("Initial value assigned to the driver's awareness."));

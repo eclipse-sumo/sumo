@@ -42,7 +42,7 @@
 // ---------------------------------------------------------------------------
 void
 MSDevice_Friction::insertOptions(OptionsCont& oc) {
-    oc.addOptionSubTopic(TL("Friction Device"));
+    oc.addOptionSubTopic("Friction Device");
     insertDefaultAssignmentOptions("friction", "Friction Device", oc);
     oc.doRegister("device.friction.stdDev", new Option_Float(.1)); //default .1
     oc.addDescription("device.friction.stdDev", "Friction Device", TL("The measurement noise parameter which can be applied to the friction device"));

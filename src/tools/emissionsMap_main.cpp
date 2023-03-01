@@ -87,7 +87,7 @@ main(int argc, char** argv) {
     oc.setApplicationName("emissionsMap", "Eclipse SUMO emissionsMap Version " VERSION_STRING);
     // add options
     SystemFrame::addConfigurationOptions(oc);
-    oc.addOptionSubTopic(TL("Processing"));
+    oc.addOptionSubTopic("Processing");
     oc.doRegister("iterate", 'i', new Option_Bool(false));
     oc.addDescription("iterate", "Processing", TL("If set, maps for all available emissions are written."));
 
@@ -113,12 +113,12 @@ main(int argc, char** argv) {
     oc.doRegister("s-step", new Option_Float(1.));
     oc.addDescription("s-step", "Processing", TL("Defines the slope step size (in deg)."));
 
-    oc.addOptionSubTopic(TL("Output"));
+    oc.addOptionSubTopic("Output");
     oc.doRegister("output-file", 'o', new Option_String());
     oc.addSynonyme("output", "output-file");
     oc.addDescription("output", "Output", TL("Defines the file (or the path if --iterate was set) to write the map(s) into."));
 
-    oc.addOptionSubTopic(TL("Emissions"));
+    oc.addOptionSubTopic("Emissions");
     oc.doRegister("emissions.volumetric-fuel", new Option_Bool(false));
     oc.addDescription("emissions.volumetric-fuel", "Emissions", TL("Return fuel consumption values in (legacy) unit l instead of mg"));
 

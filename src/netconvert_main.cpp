@@ -56,20 +56,20 @@ fillOptions() {
 
     // insert options sub-topics
     SystemFrame::addConfigurationOptions(oc); // this subtopic is filled here, too
-    oc.addOptionSubTopic(TL("Input"));
-    oc.addOptionSubTopic(TL("Output"));
+    oc.addOptionSubTopic("Input");
+    oc.addOptionSubTopic("Output");
     GeoConvHelper::addProjectionOptions(oc);
-    oc.addOptionSubTopic(TL("Processing"));
-    oc.addOptionSubTopic(TL("Building Defaults"));
+    oc.addOptionSubTopic("Processing");
+    oc.addOptionSubTopic("Building Defaults");
     oc.addOptionSubTopic("TLS Building");
-    oc.addOptionSubTopic(TL("Ramp Guessing"));
-    oc.addOptionSubTopic(TL("Edge Removal"));
-    oc.addOptionSubTopic(TL("Unregulated Nodes"));
-    oc.addOptionSubTopic(TL("Junctions"));
-    oc.addOptionSubTopic(TL("Pedestrian"));
-    oc.addOptionSubTopic(TL("Bicycle"));
-    oc.addOptionSubTopic(TL("Railway"));
-    oc.addOptionSubTopic(TL("Formats"));
+    oc.addOptionSubTopic("Ramp Guessing");
+    oc.addOptionSubTopic("Edge Removal");
+    oc.addOptionSubTopic("Unregulated Nodes");
+    oc.addOptionSubTopic("Junctions");
+    oc.addOptionSubTopic("Pedestrian");
+    oc.addOptionSubTopic("Bicycle");
+    oc.addOptionSubTopic("Railway");
+    oc.addOptionSubTopic("Formats");
 
     NIFrame::fillOptions();
     NBFrame::fillOptions(false);

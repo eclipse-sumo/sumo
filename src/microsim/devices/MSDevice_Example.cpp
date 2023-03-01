@@ -41,7 +41,7 @@
 // ---------------------------------------------------------------------------
 void
 MSDevice_Example::insertOptions(OptionsCont& oc) {
-    oc.addOptionSubTopic(TL("Example Device"));
+    oc.addOptionSubTopic("Example Device");
     insertDefaultAssignmentOptions("example", "Example Device", oc);
 
     oc.doRegister("device.example.parameter", new Option_Float(0.0));

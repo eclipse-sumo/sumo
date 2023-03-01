@@ -82,7 +82,7 @@ std::vector<SUMOTime> MSDevice_Tripinfo::myTotalRideDuration({0, 0});
 // ---------------------------------------------------------------------------
 void
 MSDevice_Tripinfo::insertOptions(OptionsCont& oc) {
-    oc.addOptionSubTopic(TL("Tripinfo Device"));
+    oc.addOptionSubTopic("Tripinfo Device");
     insertDefaultAssignmentOptions("tripinfo", "Tripinfo Device", oc);
 }
 

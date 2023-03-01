@@ -36,7 +36,7 @@
 // ===========================================================================
 void
 SystemFrame::addConfigurationOptions(OptionsCont& oc) {
-    oc.addOptionSubTopic(TL("Configuration"));
+    oc.addOptionSubTopic("Configuration");
 
     oc.doRegister("configuration-file", 'c', new Option_FileName());
     oc.addSynonyme("configuration-file", "configuration");
@@ -65,7 +65,7 @@ SystemFrame::addConfigurationOptions(OptionsCont& oc) {
 
 void
 SystemFrame::addReportOptions(OptionsCont& oc) {
-    oc.addOptionSubTopic(TL("Report"));
+    oc.addOptionSubTopic("Report");
 
     oc.doRegister("verbose", 'v', new Option_Bool(false));
     oc.addDescription("verbose", "Report", TL("Switches to verbose output"));

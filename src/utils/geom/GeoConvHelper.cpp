@@ -263,7 +263,7 @@ GeoConvHelper::init(const std::string& proj, const Position& offset, const Bound
 
 void
 GeoConvHelper::addProjectionOptions(OptionsCont& oc) {
-    oc.addOptionSubTopic(TL("Projection"));
+    oc.addOptionSubTopic("Projection");
 
     oc.doRegister("simple-projection", new Option_Bool(false));
     oc.addSynonyme("simple-projection", "proj.simple", true);

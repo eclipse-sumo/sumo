@@ -65,12 +65,12 @@ fillOptions() {
 
     // insert options sub-topics
     SystemFrame::addConfigurationOptions(oc); // fill this subtopic, too
-    oc.addOptionSubTopic(TL("Input"));
-    oc.addOptionSubTopic(TL("Output"));
+    oc.addOptionSubTopic("Input");
+    oc.addOptionSubTopic("Output");
     GeoConvHelper::addProjectionOptions(oc);
-    oc.addOptionSubTopic(TL("Pruning"));
-    oc.addOptionSubTopic(TL("Processing"));
-    oc.addOptionSubTopic(TL("Building Defaults"));
+    oc.addOptionSubTopic("Pruning");
+    oc.addOptionSubTopic("Processing");
+    oc.addOptionSubTopic("Building Defaults");
 
 
     // register options

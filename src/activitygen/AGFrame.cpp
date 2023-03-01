@@ -50,10 +50,10 @@ void AGFrame::fillOptions() {
 
     // Add categories and insert the standard options
     SystemFrame::addConfigurationOptions(oc);
-    oc.addOptionSubTopic(TL("Input"));
-    oc.addOptionSubTopic(TL("Output"));
-    oc.addOptionSubTopic(TL("Processing"));
-    oc.addOptionSubTopic(TL("Time"));
+    oc.addOptionSubTopic("Input");
+    oc.addOptionSubTopic("Output");
+    oc.addOptionSubTopic("Processing");
+    oc.addOptionSubTopic("Time");
 
     // Insert options
     oc.doRegister("net-file", 'n', new Option_FileName());

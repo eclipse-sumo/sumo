@@ -52,7 +52,7 @@
 // ---------------------------------------------------------------------------
 void
 MSDevice_ElecHybrid::insertOptions(OptionsCont& oc) {
-    oc.addOptionSubTopic(TL("ElecHybrid Device"));
+    oc.addOptionSubTopic("ElecHybrid Device");
     insertDefaultAssignmentOptions("elechybrid", "ElecHybrid Device", oc);
 }
 

@@ -109,7 +109,7 @@ SumoRNG MSDevice_ToC::myResponseTimeRNG("toc");
 // ---------------------------------------------------------------------------
 void
 MSDevice_ToC::insertOptions(OptionsCont& oc) {
-    oc.addOptionSubTopic(TL("ToC Device"));
+    oc.addOptionSubTopic("ToC Device");
     insertDefaultAssignmentOptions("toc", "ToC Device", oc);
 
     oc.doRegister("device.toc.manualType", new Option_String());
