@@ -44,10 +44,10 @@ MSDevice_Emissions::insertOptions(OptionsCont& oc) {
     insertDefaultAssignmentOptions("emissions", "Emissions", oc);
 
     oc.doRegister("device.emissions.begin", new Option_String("-1"));
-    oc.addDescription("device.emissions.begin", TL("Emissions"), TL("Recording begin time for emission-data"));
+    oc.addDescription("device.emissions.begin", "Emissions", TL("Recording begin time for emission-data"));
 
     oc.doRegister("device.emissions.period", new Option_String("0"));
-    oc.addDescription("device.emissions.period", TL("Emissions"), TL("Recording period for emission-output"));
+    oc.addDescription("device.emissions.period", "Emissions", TL("Recording period for emission-output"));
 }
 
 

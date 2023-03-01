@@ -51,47 +51,47 @@ MSDevice_Routing::insertOptions(OptionsCont& oc) {
 
     oc.doRegister("device.rerouting.period", new Option_String("0", "TIME"));
     oc.addSynonyme("device.rerouting.period", "device.routing.period", true);
-    oc.addDescription("device.rerouting.period", TL("Routing"), TL("The period with which the vehicle shall be rerouted"));
+    oc.addDescription("device.rerouting.period", "Routing", TL("The period with which the vehicle shall be rerouted"));
 
     oc.doRegister("device.rerouting.pre-period", new Option_String("60", "TIME"));
     oc.addSynonyme("device.rerouting.pre-period", "device.routing.pre-period", true);
-    oc.addDescription("device.rerouting.pre-period", TL("Routing"), TL("The rerouting period before depart"));
+    oc.addDescription("device.rerouting.pre-period", "Routing", TL("The rerouting period before depart"));
 
     oc.doRegister("device.rerouting.adaptation-weight", new Option_Float(0));
     oc.addSynonyme("device.rerouting.adaptation-weight", "device.routing.adaptation-weight", true);
-    oc.addDescription("device.rerouting.adaptation-weight", TL("Routing"), TL("The weight of prior edge weights for exponential moving average"));
+    oc.addDescription("device.rerouting.adaptation-weight", "Routing", TL("The weight of prior edge weights for exponential moving average"));
 
     oc.doRegister("device.rerouting.adaptation-steps", new Option_Integer(180));
     oc.addSynonyme("device.rerouting.adaptation-steps", "device.routing.adaptation-steps", true);
-    oc.addDescription("device.rerouting.adaptation-steps", TL("Routing"), TL("The number of steps for moving average weight of prior edge weights"));
+    oc.addDescription("device.rerouting.adaptation-steps", "Routing", TL("The number of steps for moving average weight of prior edge weights"));
 
     oc.doRegister("device.rerouting.adaptation-interval", new Option_String("1", "TIME"));
     oc.addSynonyme("device.rerouting.adaptation-interval", "device.routing.adaptation-interval", true);
-    oc.addDescription("device.rerouting.adaptation-interval", TL("Routing"), TL("The interval for updating the edge weights"));
+    oc.addDescription("device.rerouting.adaptation-interval", "Routing", TL("The interval for updating the edge weights"));
 
     oc.doRegister("device.rerouting.with-taz", new Option_Bool(false));
     oc.addSynonyme("device.rerouting.with-taz", "device.routing.with-taz", true);
     oc.addSynonyme("device.rerouting.with-taz", "with-taz");
-    oc.addDescription("device.rerouting.with-taz", TL("Routing"), TL("Use zones (districts) as routing start- and endpoints"));
+    oc.addDescription("device.rerouting.with-taz", "Routing", TL("Use zones (districts) as routing start- and endpoints"));
 
     oc.doRegister("device.rerouting.init-with-loaded-weights", new Option_Bool(false));
-    oc.addDescription("device.rerouting.init-with-loaded-weights", TL("Routing"), TL("Use weight files given with option --weight-files for initializing edge weights"));
+    oc.addDescription("device.rerouting.init-with-loaded-weights", "Routing", TL("Use weight files given with option --weight-files for initializing edge weights"));
 
     oc.doRegister("device.rerouting.threads", new Option_Integer(0));
     oc.addSynonyme("device.rerouting.threads", "routing-threads");
-    oc.addDescription("device.rerouting.threads", TL("Routing"), TL("The number of parallel execution threads used for rerouting"));
+    oc.addDescription("device.rerouting.threads", "Routing", TL("The number of parallel execution threads used for rerouting"));
 
     oc.doRegister("device.rerouting.synchronize", new Option_Bool(false));
-    oc.addDescription("device.rerouting.synchronize", TL("Routing"), TL("Let rerouting happen at the same time for all vehicles"));
+    oc.addDescription("device.rerouting.synchronize", "Routing", TL("Let rerouting happen at the same time for all vehicles"));
 
     oc.doRegister("device.rerouting.railsignal", new Option_Bool(true));
-    oc.addDescription("device.rerouting.railsignal", TL("Routing"), TL("Allow rerouting triggered by rail signals."));
+    oc.addDescription("device.rerouting.railsignal", "Routing", TL("Allow rerouting triggered by rail signals."));
 
     oc.doRegister("device.rerouting.bike-speeds", new Option_Bool(false));
-    oc.addDescription("device.rerouting.bike-speeds", TL("Routing"), TL("Compute separate average speeds for bicycles"));
+    oc.addDescription("device.rerouting.bike-speeds", "Routing", TL("Compute separate average speeds for bicycles"));
 
     oc.doRegister("device.rerouting.output", new Option_FileName());
-    oc.addDescription("device.rerouting.output", TL("Routing"), TL("Save adapting weights to FILE"));
+    oc.addDescription("device.rerouting.output", "Routing", TL("Save adapting weights to FILE"));
 }
 
 
