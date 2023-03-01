@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jan 21 21:59:35 2019 by Eclipse SUMO Version v1_1_0+0258-169157deea
+<!-- generated on 2023-03-01 13:04:25 by Eclipse SUMO sumo Version v1_16_0+0850-438bb8b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -169,7 +174,7 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="170.00" id="test1" vType="DEFAULT_VEHTYPE">
         <vehicle id="always_left.0" lane="4o_0" pos="228.62" x="501.65" y="739.97" speed="11.05"/>
         <vehicle id="always_left.1" lane="4o_0" pos="129.58" x="501.65" y="640.93" speed="10.36"/>
-        <vehicle id="always_left.2" lane="4o_0" pos="17.13" x="501.65" y="528.48" speed="10.02"/>
+        <vehicle id="always_left.2" lane="4o_0" pos="0.08" x="501.65" y="511.43" speed="6.33"/>
         <vehicle id="always_left.3" lane="1si_2" pos="185.53" x="437.03" y="498.35" speed="13.75"/>
         <vehicle id="always_left.4" lane="1si_2" pos="45.39" x="296.89" y="498.35" speed="13.32"/>
         <vehicle id="always_left.5" lane="1fi_0" pos="188.13" x="188.13" y="498.35" speed="11.07"/>
@@ -200,10 +205,10 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="vertical.6" lane="3fi_0" pos="54.25" x="501.65" y="54.25" speed="10.44"/>
     </timestep>
     <timestep time="180.00" id="test1" vType="DEFAULT_VEHTYPE">
-        <vehicle id="always_left.0" lane="4o_0" pos="335.31" x="501.65" y="846.66" speed="10.04"/>
-        <vehicle id="always_left.1" lane="4o_0" pos="235.58" x="501.65" y="746.93" speed="11.06"/>
-        <vehicle id="always_left.2" lane="4o_0" pos="123.59" x="501.65" y="634.94" speed="10.62"/>
-        <vehicle id="always_left.3" lane="4o_0" pos="43.39" x="501.65" y="554.74" speed="10.02"/>
+        <vehicle id="always_left.0" lane="4o_0" pos="335.00" x="501.65" y="846.35" speed="10.92"/>
+        <vehicle id="always_left.1" lane="4o_0" pos="236.27" x="501.65" y="747.62" speed="10.04"/>
+        <vehicle id="always_left.2" lane="4o_0" pos="103.41" x="501.65" y="614.76" speed="11.06"/>
+        <vehicle id="always_left.3" lane="4o_0" pos="43.48" x="501.65" y="554.83" speed="10.62"/>
         <vehicle id="always_left.4" lane="1si_2" pos="178.60" x="430.10" y="498.35" speed="13.84"/>
         <vehicle id="always_left.5" lane="1si_2" pos="47.49" x="298.99" y="498.35" speed="13.73"/>
         <vehicle id="always_left.6" lane="1fi_0" pos="191.24" x="191.24" y="498.35" speed="10.64"/>
@@ -237,10 +242,10 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="vertical.7" lane="3fi_0" pos="54.49" x="501.65" y="54.49" speed="10.12"/>
     </timestep>
     <timestep time="190.00" id="test1" vType="DEFAULT_VEHTYPE">
-        <vehicle id="always_left.0" lane="4o_0" pos="442.23" x="501.65" y="953.58" speed="11.06"/>
-        <vehicle id="always_left.1" lane="4o_0" pos="339.16" x="501.65" y="850.51" speed="10.46"/>
-        <vehicle id="always_left.2" lane="4o_0" pos="229.95" x="501.65" y="741.30" speed="11.09"/>
-        <vehicle id="always_left.3" lane="4o_0" pos="146.91" x="501.65" y="658.26" speed="10.27"/>
+        <vehicle id="always_left.0" lane="4o_0" pos="438.74" x="501.65" y="950.09" speed="10.72"/>
+        <vehicle id="always_left.1" lane="4o_0" pos="343.18" x="501.65" y="854.53" speed="11.06"/>
+        <vehicle id="always_left.2" lane="4o_0" pos="206.98" x="501.65" y="718.33" speed="10.46"/>
+        <vehicle id="always_left.3" lane="4o_0" pos="149.84" x="501.65" y="661.19" speed="11.09"/>
         <vehicle id="always_left.4" lane="1si_2" pos="236.15" x="487.65" y="498.35" speed="0.00"/>
         <vehicle id="always_left.5" lane="1si_2" pos="179.86" x="431.36" y="498.35" speed="12.84"/>
         <vehicle id="always_left.6" lane="1si_2" pos="51.70" x="303.20" y="498.35" speed="12.68"/>
@@ -267,10 +272,10 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="horizontal.7" lane="2fi_0" pos="190.13" x="809.87" y="501.65" speed="10.09"/>
         <vehicle id="horizontal.8" lane="2fi_0" pos="82.69" x="917.31" y="501.65" speed="10.56"/>
         <vehicle id="horizontal.9" lane="2fi_0" pos="5.10" x="994.90" y="501.65" speed="0.00"/>
-        <vehicle id="vertical.0" lane="4o_0" pos="69.45" x="501.65" y="580.80" speed="10.79"/>
-        <vehicle id="vertical.1" lane="4o_0" pos="47.96" x="501.65" y="559.31" speed="10.91"/>
-        <vehicle id="vertical.2" lane="4o_0" pos="25.14" x="501.65" y="536.49" speed="9.83"/>
-        <vehicle id="vertical.3" lane="4o_0" pos="5.62" x="501.65" y="516.97" speed="9.97"/>
+        <vehicle id="vertical.0" lane="4o_0" pos="67.67" x="501.65" y="579.02" speed="10.27"/>
+        <vehicle id="vertical.1" lane="4o_0" pos="48.43" x="501.65" y="559.78" speed="10.63"/>
+        <vehicle id="vertical.2" lane="4o_0" pos="25.56" x="501.65" y="536.91" speed="10.91"/>
+        <vehicle id="vertical.3" lane="4o_0" pos="5.05" x="501.65" y="516.40" speed="9.41"/>
         <vehicle id="vertical.4" lane=":0_9_0" pos="8.83" x="504.22" y="497.44" speed="10.53"/>
         <vehicle id="vertical.5" lane="3si_1" pos="146.81" x="504.95" y="398.31" speed="13.80"/>
         <vehicle id="vertical.6" lane="3si_1" pos="11.96" x="504.95" y="263.46" speed="12.49"/>
@@ -278,11 +283,11 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="vertical.8" lane="3fi_0" pos="56.07" x="501.65" y="56.07" speed="10.92"/>
     </timestep>
     <timestep time="200.00" id="test1" vType="DEFAULT_VEHTYPE">
-        <vehicle id="always_left.0" lane="4fi_0" pos="52.58" x="498.35" y="947.42" speed="11.00"/>
-        <vehicle id="always_left.1" lane="4o_0" pos="443.58" x="501.65" y="954.93" speed="9.98"/>
+        <vehicle id="always_left.0" lane="4fi_0" pos="47.75" x="498.35" y="952.25" speed="9.90"/>
+        <vehicle id="always_left.1" lane="4o_0" pos="447.55" x="501.65" y="958.90" speed="9.96"/>
         <vehicle id="always_left.10" lane="1fi_0" pos="5.10" x="5.10" y="498.35" speed="0.00"/>
-        <vehicle id="always_left.2" lane="4o_0" pos="331.16" x="501.65" y="842.51" speed="10.33"/>
-        <vehicle id="always_left.3" lane="4o_0" pos="251.16" x="501.65" y="762.51" speed="10.60"/>
+        <vehicle id="always_left.2" lane="4o_0" pos="311.41" x="501.65" y="822.76" speed="9.98"/>
+        <vehicle id="always_left.3" lane="4o_0" pos="251.05" x="501.65" y="762.40" speed="10.33"/>
         <vehicle id="always_left.4" lane="1si_2" pos="236.15" x="487.65" y="498.35" speed="0.00"/>
         <vehicle id="always_left.5" lane="1si_2" pos="228.65" x="480.15" y="498.35" speed="0.00"/>
         <vehicle id="always_left.6" lane="1si_2" pos="182.55" x="434.05" y="498.35" speed="13.46"/>
@@ -311,24 +316,24 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="horizontal.7" lane="2si_1" pos="48.58" x="699.92" y="504.95" speed="13.61"/>
         <vehicle id="horizontal.8" lane="2fi_0" pos="187.17" x="812.83" y="501.65" speed="10.47"/>
         <vehicle id="horizontal.9" lane="2fi_0" pos="88.51" x="911.49" y="501.65" speed="10.06"/>
-        <vehicle id="vertical.0" lane="4o_0" pos="173.96" x="501.65" y="685.31" speed="10.31"/>
-        <vehicle id="vertical.1" lane="4o_0" pos="153.26" x="501.65" y="664.61" speed="10.74"/>
-        <vehicle id="vertical.2" lane="4o_0" pos="129.46" x="501.65" y="640.81" speed="10.58"/>
-        <vehicle id="vertical.3" lane="4o_0" pos="106.85" x="501.65" y="618.20" speed="9.87"/>
-        <vehicle id="vertical.4" lane="4o_0" pos="86.23" x="501.65" y="597.58" speed="9.88"/>
-        <vehicle id="vertical.5" lane="4o_0" pos="12.08" x="501.65" y="523.43" speed="10.28"/>
+        <vehicle id="vertical.0" lane="4o_0" pos="171.92" x="501.65" y="683.27" speed="10.60"/>
+        <vehicle id="vertical.1" lane="4o_0" pos="151.27" x="501.65" y="662.62" speed="10.14"/>
+        <vehicle id="vertical.2" lane="4o_0" pos="130.63" x="501.65" y="641.98" speed="10.50"/>
+        <vehicle id="vertical.3" lane="4o_0" pos="108.95" x="501.65" y="620.30" speed="10.58"/>
+        <vehicle id="vertical.4" lane="4o_0" pos="86.45" x="501.65" y="597.80" speed="9.87"/>
+        <vehicle id="vertical.5" lane="4o_0" pos="11.69" x="501.65" y="523.04" speed="9.88"/>
         <vehicle id="vertical.6" lane="3si_1" pos="144.42" x="504.95" y="395.92" speed="13.01"/>
         <vehicle id="vertical.7" lane="3si_1" pos="9.91" x="504.95" y="261.41" speed="11.45"/>
         <vehicle id="vertical.8" lane="3fi_0" pos="161.20" x="501.65" y="161.20" speed="10.59"/>
         <vehicle id="vertical.9" lane="3fi_0" pos="55.67" x="501.65" y="55.67" speed="10.11"/>
     </timestep>
     <timestep time="210.00" id="test1" vType="DEFAULT_VEHTYPE">
-        <vehicle id="always_left.0" lane="4fi_0" pos="157.34" x="498.35" y="842.66" speed="10.19"/>
-        <vehicle id="always_left.1" lane="4fi_0" pos="53.31" x="498.35" y="946.69" speed="10.95"/>
+        <vehicle id="always_left.0" lane="4fi_0" pos="152.02" x="498.35" y="847.98" speed="9.94"/>
+        <vehicle id="always_left.1" lane="4fi_0" pos="58.76" x="498.35" y="941.24" speed="10.19"/>
         <vehicle id="always_left.10" lane="1fi_0" pos="90.87" x="90.87" y="498.35" speed="10.59"/>
         <vehicle id="always_left.11" lane="1fi_0" pos="5.10" x="5.10" y="498.35" speed="0.00"/>
-        <vehicle id="always_left.2" lane="4o_0" pos="433.92" x="501.65" y="945.27" speed="11.00"/>
-        <vehicle id="always_left.3" lane="4o_0" pos="357.60" x="501.65" y="868.95" speed="11.06"/>
+        <vehicle id="always_left.2" lane="4o_0" pos="415.08" x="501.65" y="926.43" speed="10.53"/>
+        <vehicle id="always_left.3" lane="4o_0" pos="354.31" x="501.65" y="865.66" speed="10.81"/>
         <vehicle id="always_left.4" lane="1si_2" pos="236.15" x="487.65" y="498.35" speed="0.00"/>
         <vehicle id="always_left.5" lane="1si_2" pos="228.65" x="480.15" y="498.35" speed="0.00"/>
         <vehicle id="always_left.6" lane="1si_2" pos="221.15" x="472.65" y="498.35" speed="0.00"/>
@@ -359,13 +364,13 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="horizontal.7" lane="2si_1" pos="181.19" x="567.31" y="504.95" speed="13.33"/>
         <vehicle id="horizontal.8" lane="2si_1" pos="47.27" x="701.23" y="504.95" speed="13.32"/>
         <vehicle id="horizontal.9" lane="2fi_0" pos="194.06" x="805.94" y="501.65" speed="10.21"/>
-        <vehicle id="vertical.0" lane="4o_0" pos="278.10" x="501.65" y="789.45" speed="10.55"/>
-        <vehicle id="vertical.1" lane="4o_0" pos="257.53" x="501.65" y="768.88" speed="10.34"/>
+        <vehicle id="vertical.0" lane="4o_0" pos="276.92" x="501.65" y="788.27" speed="11.00"/>
+        <vehicle id="vertical.1" lane="4o_0" pos="256.16" x="501.65" y="767.51" speed="11.06"/>
         <vehicle id="vertical.10" lane="3fi_0" pos="54.24" x="501.65" y="54.24" speed="10.52"/>
-        <vehicle id="vertical.2" lane="4o_0" pos="232.97" x="501.65" y="744.32" speed="10.48"/>
-        <vehicle id="vertical.3" lane="4o_0" pos="210.95" x="501.65" y="722.30" speed="10.54"/>
-        <vehicle id="vertical.4" lane="4o_0" pos="189.37" x="501.65" y="700.72" speed="10.01"/>
-        <vehicle id="vertical.5" lane="4o_0" pos="116.21" x="501.65" y="627.56" speed="10.89"/>
+        <vehicle id="vertical.2" lane="4o_0" pos="234.77" x="501.65" y="746.12" speed="10.55"/>
+        <vehicle id="vertical.3" lane="4o_0" pos="213.54" x="501.65" y="724.89" speed="10.34"/>
+        <vehicle id="vertical.4" lane="4o_0" pos="189.00" x="501.65" y="700.35" speed="10.48"/>
+        <vehicle id="vertical.5" lane="4o_0" pos="115.40" x="501.65" y="626.75" speed="10.54"/>
         <vehicle id="vertical.6" lane="4o_0" pos="10.02" x="501.65" y="521.37" speed="10.22"/>
         <vehicle id="vertical.7" lane="3si_1" pos="140.82" x="504.95" y="392.32" speed="13.48"/>
         <vehicle id="vertical.8" lane="3si_1" pos="14.51" x="504.95" y="266.01" speed="12.60"/>
