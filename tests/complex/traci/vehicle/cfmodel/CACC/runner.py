@@ -51,7 +51,7 @@ def run(mode, fname):
     traci.vehicle.setParameter("ego", "carFollowModel.caccCommunicationsOverrideMode", str(mode))
     print("Set OverrideMode: %s , get OverrideMode: %s" % (
         mode,
-        traci.vehicle.getParameter("ego","carFollowModel.caccCommunicationsOverrideMode")))
+        traci.vehicle.getParameter("ego", "carFollowModel.caccCommunicationsOverrideMode")))
 
     while traci.simulation.getMinExpectedNumber() > 0:
         traci.simulationStep()
