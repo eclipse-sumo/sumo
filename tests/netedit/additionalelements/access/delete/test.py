@@ -28,9 +28,6 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
-# apply zoom
-netedit.setZoom("25", "20", "25")
-
 # go to additional mode
 netedit.additionalMode()
 
@@ -38,23 +35,20 @@ netedit.additionalMode()
 netedit.changeElement("busStop")
 
 # create BusStop with default parameters
-netedit.leftClick(referencePosition, 375, 250)
+netedit.leftClick(referencePosition, 428, 257)
 
-# select Access
+# select Access detector
 netedit.changeElement("access")
 
-# Create Access
+# Create Access detector
 netedit.selectAdditionalChild(netedit.attrs.access.create.parent, 0)
-netedit.leftClick(referencePosition, 200, 90)
-
-# Create second Access
-netedit.leftClick(referencePosition, 185, 268)
+netedit.leftClick(referencePosition, 152, 166)
 
 # go to delete mode
 netedit.deleteMode()
 
 # delete Access
-netedit.leftClick(referencePosition, 213, 90)
+netedit.leftClick(referencePosition, 152, 166)
 
 # undo
 netedit.undo(referencePosition, 1)
@@ -63,7 +57,7 @@ netedit.undo(referencePosition, 1)
 netedit.deleteMode()
 
 # delete busStop
-netedit.leftClick(referencePosition, 500, 315)
+netedit.leftClick(referencePosition, 458, 270)
 
 # undo
 netedit.undo(referencePosition, 1)
@@ -72,8 +66,8 @@ netedit.undo(referencePosition, 1)
 netedit.deleteMode()
 
 # delete both acces
-netedit.leftClick(referencePosition, 215, 90)
-netedit.leftClick(referencePosition, 185, 268)
+netedit.leftClick(referencePosition, 152, 166)
+netedit.leftClick(referencePosition, 458, 270)
 
 # Check undo redo
 netedit.undo(referencePosition, 5)

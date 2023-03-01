@@ -28,9 +28,6 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
-# apply zoom
-netedit.setZoom("25", "20", "25")
-
 # go to additional mode
 netedit.additionalMode()
 
@@ -38,20 +35,21 @@ netedit.additionalMode()
 netedit.changeElement("busStop")
 
 # create BusStop with default parameters
-netedit.leftClick(referencePosition, 375, 250)
+netedit.leftClick(referencePosition, 428, 257)
 
 # select Access
 netedit.changeElement("access")
 
-# Create Access
+# Create two Access
 netedit.selectAdditionalChild(netedit.attrs.access.create.parent, 0)
-netedit.leftClick(referencePosition, 200, 110)
+netedit.leftClick(referencePosition, 153, 124)
+netedit.leftClick(referencePosition, 152, 308)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect Access
-netedit.leftClick(referencePosition, 210, 95)
+netedit.leftClick(referencePosition, 153, 124)
 
 # Change parameter lane with a non valid value (dummy Lane)
 netedit.modifyAttribute(netedit.attrs.access.inspect.lane, "dummyLane", True)
@@ -60,10 +58,10 @@ netedit.modifyAttribute(netedit.attrs.access.inspect.lane, "dummyLane", True)
 netedit.modifyAttribute(netedit.attrs.access.inspect.lane, "", True)
 
 # Change parameter lane with a non valid value (There is another Access in the same edge)
-netedit.modifyAttribute(netedit.attrs.access.inspect.lane, "gneE3_0", True)
+netedit.modifyAttribute(netedit.attrs.access.inspect.lane, "E1_0", True)
 
 # Change parameter lane with a valid value (other lane)
-netedit.modifyAttribute(netedit.attrs.access.inspect.lane, "gneE1_0", True)
+netedit.modifyAttribute(netedit.attrs.access.inspect.lane, "E5_0", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 4)

@@ -28,9 +28,6 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
-# apply zoom
-netedit.setZoom("25", "0", "25")
-
 # go to additional mode
 netedit.additionalMode()
 
@@ -38,7 +35,7 @@ netedit.additionalMode()
 netedit.changeElement("busStop")
 
 # create BusStop with default parameters
-netedit.leftClick(referencePosition, 275, 250)
+netedit.leftClick(referencePosition, 428, 257)
 
 # select Access detector
 netedit.changeElement("access")
@@ -51,13 +48,13 @@ netedit.changeDefaultValue(netedit.attrs.access.create.length, "dummyLenght")
 netedit.changeDefaultValue(netedit.attrs.access.create.length, "-4")
 
 # Try to create Access
-netedit.leftClick(referencePosition, 50, 200)
+netedit.leftClick(referencePosition, 152, 143)
 
 # set valid length
 netedit.changeDefaultValue(netedit.attrs.access.create.length, "3.5")
 
 # Create access
-netedit.leftClick(referencePosition, 50, 200)
+netedit.leftClick(referencePosition, 152, 166)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)
