@@ -6940,15 +6940,13 @@ msgstr "Erzwingt rechtwinklige Schnitte zwischen Fahrstreifen und Kreuzungen"
 msgid "Always build walking areas even if there are no crossings"
 msgstr "Baut immer Laufflächen, auch wenn keine Kreuzungen vorhanden sind"
 
-#: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:460
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:460
-#, fuzzy
 msgid ""
 "Do not create a walkingarea between sidewalks that are connected by a "
 "pedestrian junction within FLOAT"
 msgstr ""
-"In Fließkommazahl keine walkingArea zwischen Bürgersteigen, die durch eine "
-"Fußgängerknotenpunkten verbunden sind, erstellen"
+"Keine walkingArea zwischen maximal FLOAT voneinander entfernten Gehwegen "
+"erstellen, die durch einen Fußgängerknotenpunkt verbunden sind"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:605
 msgid "Only keep edges with speed in meters/second > FLOAT"
@@ -7009,8 +7007,8 @@ msgid ""
 "<lon0,lat0,lon1,lat1,...>)"
 msgstr ""
 "Nur Kanten behalten, die innerhalb der gegebenen Grenze liegen (entweder als "
-"geodetic Eckkoordinaten <lon-min,lat-min,lon-max,lat-max> oder als Polygon "
-"<lon0,lat0,lon1,lat1,...> angegeben). )"
+"geodätische Eckkoordinaten <lon-min,lat-min,lon-max,lat-max> oder als "
+"Polygon <lon0,lat0,lon1,lat1,...> angegeben)"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:634
 msgid "Only keep edges which allow one of the vclasses in STR[]"
@@ -7018,19 +7016,20 @@ msgstr "Nur Kanten behalten, die eine der Fahrzeugklassen in STR[] zulassen"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:637
 msgid "Remove edges which allow only vclasses from STR[]"
-msgstr "Kanten, die nur Fahrzeugklassen von STR[] zulassen, entfernen"
+msgstr ""
+"Ausschließlich für Fahrzeugklassen in STR[] zugelassene Kanten entfernen"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:640
 msgid "Only keep edges where type is in STR[]"
-msgstr "Nur Kanten behalten, bei denen Typ in STR[] ist"
+msgstr "Nur Kanten behalten, deren Typ in STR[] enhalten ist"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:643
 msgid "Only keep the INT largest weakly connected components"
-msgstr "Halte nur die INT größten schwach verbundenen Komponenten"
+msgstr "Behalte nur die INT größten schwach verbundenen Komponenten"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:646
 msgid "Remove edges where type is in STR[]"
-msgstr "Kanten, an denen der Typ in STR[] steht, entfernen"
+msgstr "Kanten mit einem in STR[] enthaltenen Typ entfernen"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:650
 msgid "Removes isolated edges"
@@ -7064,7 +7063,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:679
 msgid "Treat edges with speed > FLOAT as no ramps"
-msgstr "Kanten mit Geschwindigkeit > Fleißkommazahl als keine Rampen behandeln"
+msgstr "Kanten mit Geschwindigkeit > Fleißkommazahl nicht als Rampen behandeln"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:683
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:683
@@ -8886,11 +8885,9 @@ msgstr ""
 "Gibt alle Warnungen aus, von denen einige auf Fehlverhalten von VISUM "
 "zurückzuführen sind"
 
-#: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:345
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:345
-#, fuzzy
 msgid "The factor for flow to no. lanes conversion"
-msgstr "Der Faktor für Durchfluss zu Nr. Fahrstreifen umbauen"
+msgstr "Der Faktor zur Ableitung der Fahrstreifenanzahl aus dem Fluss"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:350
 msgid "Imports all lane types"
@@ -10749,7 +10746,7 @@ msgstr ". Nutze Standard."
 
 #: /home/micha/programming/sumo/src/netimport/vissim/tempstructs/NIVissimDisturbance.cpp:143
 msgid "Ugly split to prohibit '%' by '%'."
-msgstr "Ungünstige Aufteilung, um '%' durch '%' zu verbieten."
+msgstr "Ungünstige Aufteilung, um '%' durch '%' zu verhindern."
 
 #: /home/micha/programming/sumo/src/netimport/vissim/tempstructs/NIVissimDisturbance.cpp:186
 msgid "Could not prohibit '%' by '%'. Have not found disturbance."
@@ -11585,11 +11582,11 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:140
 msgid "Spreads trips uniformly over each time period"
-msgstr "Verteilt Fahrten gleichmäßig über jeden Zeitraum"
+msgstr "Verteilt Fahrten gleichmäßig über jedes Zeitintervall"
 
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:143
 msgid "Always choose source and sink edge which are not identical"
-msgstr "Wähle immer Quell- und Zielkante, die nicht identisch sind"
+msgstr "Wähle immer eine von der Quellkante verschiedene Zielkante"
 
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:149
 msgid "Defines the prefix for vehicle names"
@@ -12020,7 +12017,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:105
 msgid "Reads pois from FILE+ assuming they're coded in OSM"
-msgstr "Liest Pole aus Datei unter der Annahme, dass sie in OSM codiert sind"
+msgstr "Liest Pol aus Datei unter der Annahme, dass sie in OSM codiert sind"
 
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:107
 msgid "The type will be made of the key-value - pair"
@@ -12093,20 +12090,14 @@ msgstr ""
 "Generierte Polygone/Pole in eine dlr-tdp Datei mit der gegebenen Präfix "
 "schreiben"
 
-#: /home/micha/programming/sumo/src\polyconvert\polyconvert_main.cpp:165
-#: /home/micha/programming/sumo/src\polyconvert\polyconvert_main.cpp:169
-#: /home/micha/programming/sumo/src\polyconvert\polyconvert_main.cpp:172
-#: /home/micha/programming/sumo/src\polyconvert\polyconvert_main.cpp:177
-#: /home/micha/programming/sumo/src\polyconvert\polyconvert_main.cpp:181
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:71
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:165
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:169
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:172
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:177
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:181
-#, fuzzy
 msgid "Pruning"
-msgstr "Ausästen"
+msgstr "Beschneidet"
 
 #: /home/micha/programming/sumo/src\polyconvert\polyconvert_main.cpp:165
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:165
@@ -12120,15 +12111,13 @@ msgid ""
 "Positive values grow the boundary on all sides while negative values shrink "
 "it."
 msgstr ""
-"Verwendet FLOAT,FLOAT,FLOAT,FLOAT als Versatz-Definition, die der Netzgrenze "
-"hinzugefügt wird. Positive Werte vergrößern die Grenze auf allen Seiten, "
-"während negative Werte sie verkleinern."
+"Verwendet FLOAT,FLOAT,FLOAT,FLOAT als Versatzdefinition, die zur Netzgrenze "
+"addiert wird. Positive Werte vergrößern die Grenze auf allen Seiten, während "
+"negative Werte sie verkleinern."
 
-#: /home/micha/programming/sumo/src\polyconvert\polyconvert_main.cpp:172
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:172
-#, fuzzy
 msgid "Uses STR as pruning boundary"
-msgstr "Verwendet STR als Ausästelungs-Grenze"
+msgstr "Verwendet STR als Beschneidungsgrenze"
 
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:177
 msgid "Items in STR will be kept though out of boundary"
@@ -12142,14 +12131,12 @@ msgstr "Elemente mit Namen in STR[] werden entfernt"
 msgid "Imports all attributes as key/value pairs"
 msgstr "Importiert alle Attribute als Schlüssel/Werte-Paare"
 
-#: /home/micha/programming/sumo/src\polyconvert\polyconvert_main.cpp:202
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:202
-#, fuzzy
 msgid ""
 "Adds FLOAT to the layer value for each poi (i.e. to raise it above polygons)"
 msgstr ""
-"Fügt Fließkommazahl zum Layer-Wert für jeden Poö hinzu (d.h. um ihn über "
-"Polygone zu erheben)"
+"Fügt FLOAT zum Layer-Wert für jeden PoI hinzu (d.h. um ihn über Polygone zu "
+"erheben)"
 
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:206
 msgid "Sets STR as default color"
@@ -12333,13 +12320,11 @@ msgstr "Routingabfragen mit demselben Ursprung aggregieren"
 msgid "The number of parallel execution threads used for routing"
 msgstr "Die Anzahl paralleler Threads, die für das Routing verwendet werden"
 
-#: /home/micha/programming/sumo/src\router\ROFrame.cpp:177
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:177
-#, fuzzy
 msgid ""
 "Select among routing algorithms ['dijkstra', 'astar', 'CH', 'CHWrapper']"
 msgstr ""
-"Unter den Routing-Algorithmen ['dijkstra', 'astar', 'CH', 'CHWrapper'] "
+"Einen der Routing-Algorithmen ['dijkstra', 'astar', 'CH', 'CHWrapper'] "
 "auswählen"
 
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:181
