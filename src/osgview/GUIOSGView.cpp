@@ -217,8 +217,8 @@ GUIOSGView::GUIOSGView(
     myHUD->setClearMask(GL_DEPTH_BUFFER_BIT);
     myHUD->setRenderOrder(osg::Camera::POST_RENDER);
     myHUD->setAllowEventFocus(false);
-    myHUD->addChild(myTextNode);
     myHUD->setGraphicsContext(myAdapter);
+    myHUD->addChild(myTextNode);
     myHUD->setViewport(0, 0, w, h);
     myViewer->addSlave(myHUD, false);
     myCameraManipulator->updateHUDText();
