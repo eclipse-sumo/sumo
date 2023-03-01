@@ -39,12 +39,11 @@ Running the simulation:
 
 ## Net, routes, demand and schedules
 ### Net
-First, the net has to be created and the bus stops must be built. There are several ways to accomplish this.   
-One can for example write them by hand into the xml file or use netedit for it.
+First, the net has to be created and bus stops must be built. There are several ways to accomplish this - one can, for example, write them by hand into the xml file or use netedit for this.
 
 #### Using netedit
 Bus stops can be easily created with the bus stop tool at the top of the window.   
-Following gifs will describe the basic creation of the net used in this tutorial.
+The following gifs will describe the basic creation of the net used in this tutorial.
 ![](../images/PublicTransport02.gif)
 *Creating an edge with reverse line and side walks.*
 
@@ -81,7 +80,7 @@ The routes are written into the `routes.rou.xml` file.
 Below you can see examples from the code for the routes of the trams and buses.
 
 
-To obtain a repeating schedule multiple approaches are feasible
+To obtain a repeating schedule multiple approaches are feasible:
 
 - define repeating vehicles (`<flow>`) that disappear after running the route once. This is useful if the network does not contain the full circuit of the route
 - define a single vehicle with a repeating route. This is ideal for letting delays from one round of the schedule carry over to the next round
@@ -108,7 +107,7 @@ To obtain a repeating schedule multiple approaches are feasible
 
 Buses and trams usually run on strict schedules in daily life. Similar alterations are possible in SUMO and are vital while using intermodal routing.   
 Such schedules are defined with the attribute `until`. The until attribute is set for the stops.
-The vehicle following this schedule can't leave this stop until this time ('until') has passed and the minimum stoppping time ('duration') has also passed.
+A vehicle following this schedule can't leave this stop until this time ('until') has passed and the minimum stoppping time ('duration') has also passed.
 
 
 ## Demand
@@ -122,7 +121,7 @@ The travel demand consists of persons that can choose their mode of transport fr
 ```
 
 Instead of flows, all persons and vehicles can also be defined individually and person plans can be defined with explicit steps.
-Use sumo option **--vehroute** output to learn how a `<personFlow>` is expanded into multiple travel stages during the simulation.
+Use the SUMO option **--vehroute** output to learn how a `<personFlow>` is expanded into multiple travel stages during the simulation.
 
 ```
 <person id="HeadingBusstop20" depart="1.00" color="green">
@@ -144,9 +143,9 @@ Use sumo option **--vehroute** output to learn how a `<personFlow>` is expanded 
 
 
 ## sumocfg
-As you probably have seen from other tutorials, you bind everything together
-with a sumocfg. Within you set the net, route and additional files.   
-Afterwards you can start your simulation by clicking on it or starting it over on the
+As you have probably seen from other tutorials, you bind everything together
+with a sumocfg. Within this, you set the net, route and additional files.   
+Afterwards, you can start your simulation by clicking on it or starting it over on the
 command line.
 
 ```
