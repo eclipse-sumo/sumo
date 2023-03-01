@@ -170,14 +170,14 @@ public:
 
         ConflictInfo(double lbc, double flbc, double wf = 1) :
             lengthBehindCrossing(lbc),
-            foeLengtBehindCrossing(flbc),
+            foeLengthBehindCrossing(flbc),
             widthFactor(wf)
         {}
 
         /// @brief length of internal lane after the crossing point
         double lengthBehindCrossing;
         /// @brief length of foe internal lane after the crossing point
-        double foeLengtBehindCrossing;
+        double foeLengthBehindCrossing;
         /* @brief factor for applying to the width of foe vehicles when
          * computing conflict space (due to angle of incidence below 90 degrees) */
         double widthFactor;

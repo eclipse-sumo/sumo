@@ -224,7 +224,7 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
                             << " merges with " << (*it_lane)->getID()
                             << " nextLane " << lane->getLinkCont()[0]->getViaLaneOrLane()->getID()
                             << " dist1=" << myLengthsBehindCrossing.back().lengthBehindCrossing
-                            << " dist2=" << myLengthsBehindCrossing.back().foeLengtBehindCrossing
+                            << " dist2=" << myLengthsBehindCrossing.back().foeLengthBehindCrossing
                             << "\n";
 #endif
                 }
@@ -289,7 +289,7 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
                         << " with " << (*it_lane)->getID()
                         << " totalLength=" << (*it_lane)->getLength()
                         << " dist1=" << myLengthsBehindCrossing.back().lengthBehindCrossing
-                        << " dist2=" << myLengthsBehindCrossing.back().foeLengtBehindCrossing
+                        << " dist2=" << myLengthsBehindCrossing.back().foeLengthBehindCrossing
                         << " widthFactor=" << myLengthsBehindCrossing.back().widthFactor
                         << "\n";
 #endif
@@ -325,7 +325,7 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
 #ifdef MSLink_DEBUG_CROSSING_POINTS
                 std::cout << " adding same-origin foe" << sibling->getID()
                           << " dist1=" << myLengthsBehindCrossing.back().lengthBehindCrossing
-                          << " dist2=" << myLengthsBehindCrossing.back().foeLengtBehindCrossing
+                          << " dist2=" << myLengthsBehindCrossing.back().foeLengthBehindCrossing
                           << "\n";
 #endif
             }
@@ -1215,7 +1215,7 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
             std::cout << " distToCrossing=" << distToCrossing << " foeLane=" << foeLane->getID() << " cWidth=" << crossingWidth
                       << " ijl=" << isInternalJunctionLink() << " sT=" << sameTarget << " sS=" << sameSource
                       << " lbc=" << myLengthsBehindCrossing[i].lengthBehindCrossing
-                      << " flbc=" << myLengthsBehindCrossing[i].foeLengtBehindCrossing
+                      << " flbc=" << myLengthsBehindCrossing[i].foeLengthBehindCrossing
                       << " contLane=" << contLane
                       << " state=" << toString(myState)
                       << " foeState=" << toString(foeExitLink->getState())
@@ -1244,7 +1244,7 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
             }
             continue;
         }
-        const double foeDistToCrossing = foeLane->getLength() - myLengthsBehindCrossing[i].foeLengtBehindCrossing;
+        const double foeDistToCrossing = foeLane->getLength() - myLengthsBehindCrossing[i].foeLengthBehindCrossing;
         // it is not sufficient to return the last vehicle on the foeLane because ego might be its leader
         // therefore we return all vehicles on the lane
         //
