@@ -20,6 +20,7 @@
 #pragma once
 #include <config.h>
 
+#include <geos.h>
 #include <jupedsim/jupedsim.h>
 #include "microsim/MSNet.h"
 #include "MSPModel.h"

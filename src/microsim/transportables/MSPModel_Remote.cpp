@@ -20,6 +20,7 @@
 
 #include <algorithm>
 #include <fstream>
+#include <geos.h>
 #include <jupedsim/jupedsim.h>
 #include "microsim/MSEdge.h"
 #include "microsim/MSLane.h"
