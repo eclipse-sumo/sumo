@@ -266,7 +266,7 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.addDescription("geometry.max-grade", TL("Processing"), TL("Warn about edge geometries with a grade in % above FLOAT."));
 
     oc.doRegister("geometry.max-grade.fix", new Option_Bool(true));
-    oc.addDescription("geometry.max-grade.fix", TL("Processing"), TL("Smooth edge edge geometries with a grade in above the warning threshold."));
+    oc.addDescription("geometry.max-grade.fix", TL("Processing"), TL("Smooth edge geometries with a grade above the warning threshold."));
 
     oc.doRegister("offset.disable-normalization", new Option_Bool(false));
     oc.addSynonyme("offset.disable-normalization", "disable-normalize-node-positions", true);
