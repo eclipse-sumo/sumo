@@ -256,7 +256,7 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
                     const double angleDiff = GeomHelper::getMinAngleDiff(angle1, angle2);
                     //const double angleDiff = MIN2(GeomHelper::getMinAngleDiff(angle1, angle2),
                     //                              GeomHelper::getMinAngleDiff(angle1, angle2 + 180));
-                    widthFactor = 1 / MAX2(sin(DEG2RAD(angleDiff)), 0.2);
+                    widthFactor = 1 / MAX2(sin(DEG2RAD(angleDiff)), 0.2) * 2 - 1;
                     //std::cout << "  intersection of " << lane->getID() << " with " << (*it_lane)->getID() << " angle1=" << angle1 << " angle2=" << angle2 << " angleDiff=" << angleDiff << " widthFactor=" << widthFactor << "\n";
                     // lane width affects the crossing point
                     intersections1.back() -= (*it_lane)->getWidth() / 2 * widthFactor;
