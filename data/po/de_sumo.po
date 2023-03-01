@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-02-24 17:03+0000\n"
+"PO-Revision-Date: 2023-03-02 06:44+0000\n"
 "Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.16-dev\n"
+"X-Generator: Weblate 4.16\n"
 
 #: /home/micha/programming/sumo/src\activitygen\AGActivityGen.cpp:46
 #: /home/micha/programming/sumo/src/activitygen/AGActivityGen.cpp:46
@@ -2765,10 +2765,13 @@ msgid "Use Kirchhoff's laws for solving overhead wire circuit"
 msgstr "Kirchhoff´s Regel zum Lösen der Oberleitungsschaltung verwenden"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:491
+#, fuzzy
 msgid ""
 "Enable recuperation from the vehicle equipped with elecHybrid device into "
 "the overhead wire."
 msgstr ""
+"Rekuperation aus dem mit elecHybrid ausgestatteten Fahrzeug in die "
+"Oberleitung ermöglichen."
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:494
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:494
@@ -6810,7 +6813,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:269
 msgid "Smooth edge geometries with a grade above the warning threshold."
-msgstr ""
+msgstr "Glatte Kantengeometrien mit einer Steigung oberhalb der Warnschwelle."
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:273
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:273
@@ -12668,8 +12671,9 @@ msgid "Defines the file to read the driving cycle from."
 msgstr "Definiert die Datei, aus der der Fahrzyklus gelesen werden soll."
 
 #: /home/micha/programming/sumo/src\tools\emissionsDrivingCycle_main.cpp:74
+#, fuzzy
 msgid "Skips the first NUM lines."
-msgstr ""
+msgstr "Überspringt die ersten NUM Zeilen."
 
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:78
 msgid "Defines the entry separator."
@@ -13220,11 +13224,11 @@ msgstr "Eine durch die Leistung gegebene Beschleunigung wurde nicht gefunden."
 
 #: /home/micha/programming/sumo/src\utils\foxtools\MFXDecalsTable.cpp:71
 msgid "Add decal"
-msgstr ""
+msgstr "Hintergrund(bild) hinzufügen"
 
 #: /home/micha/programming/sumo/src\utils\foxtools\MFXDecalsTable.cpp:71
 msgid "Add decal."
-msgstr ""
+msgstr "Hintergrund(bild) hinzufügen."
 
 #: /home/micha/programming/sumo/src/utils/foxtools/MFXDecalsTable.cpp:125
 #: /home/micha/programming/sumo/src/utils/foxtools/MFXDecalsTable.cpp:136
@@ -13246,7 +13250,7 @@ msgstr "Hintergrund(bild) öffnen"
 
 #: /home/micha/programming/sumo/src\utils\foxtools\MFXDecalsTable.cpp:337
 msgid "All files (*)"
-msgstr ""
+msgstr "Alle Dateien (*)"
 
 #: /home/micha/programming/sumo/src/utils/foxtools/MFXDecalsTable.cpp:711
 msgid "Open decal."
@@ -13254,11 +13258,11 @@ msgstr "Öffne Hintergrund(bild)."
 
 #: /home/micha/programming/sumo/src\utils\foxtools\MFXDecalsTable.cpp:796
 msgid "Remove decal"
-msgstr ""
+msgstr "Hintergrund(bild) entfernen"
 
 #: /home/micha/programming/sumo/src\utils\foxtools\MFXDecalsTable.cpp:796
 msgid "Remove decal."
-msgstr ""
+msgstr "Hintergrund(bild) entfernen."
 
 #: /home/micha/programming/sumo/src\utils\geom\GeoConvHelper.cpp:86
 #: /home/micha/programming/sumo/src/utils/geom/GeoConvHelper.cpp:86
