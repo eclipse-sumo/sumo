@@ -249,13 +249,22 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
                 } else if (intersections2.size() > 1) {
                     std::sort(intersections2.begin(), intersections2.end());
                 }
+                double widthFactor = 1;
                 if (haveIntersection) {
+                    const double angle1 = GeomHelper::naviDegree(lane->getShape().rotationAtOffset(intersections1.back()));
+                    const double angle2 = GeomHelper::naviDegree((*it_lane)->getShape().rotationAtOffset(intersections2.back()));
+                    const double angleDiff = GeomHelper::getMinAngleDiff(angle1, angle2);
+                    //const double angleDiff = MIN2(GeomHelper::getMinAngleDiff(angle1, angle2),
+                    //                              GeomHelper::getMinAngleDiff(angle1, angle2 + 180));
+                    widthFactor = 1 / MAX2(sin(DEG2RAD(angleDiff)), 0.2);
+                    //std::cout << "  intersection of " << lane->getID() << " with " << (*it_lane)->getID() << " angle1=" << angle1 << " angle2=" << angle2 << " angleDiff=" << angleDiff << " widthFactor=" << widthFactor << "\n";
                     // lane width affects the crossing point
                     intersections1.back() -= (*it_lane)->getWidth() / 2;
                     intersections2.back() -= lane->getWidth() / 2;
-                    // ensure negative offset for weird geometries
+                    // ensure non-negative offset for weird geometries
                     intersections1.back() = MAX2(0.0, intersections1.back());
                     intersections2.back() = MAX2(0.0, intersections2.back());
+
 
                     // also length/geometry factor. (XXX: Why subtract width/2 *before* converting geometric position to lane pos? refs #3031)
                     intersections1.back() = lane->interpolateGeometryPosToLanePos(intersections1.back());
@@ -270,7 +279,8 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
 
                 myLengthsBehindCrossing.push_back(ConflictInfo(
                                                       lane->getLength() - intersections1.back(),
-                                                      (*it_lane)->getLength() - intersections2.back()));
+                                                      (*it_lane)->getLength() - intersections2.back(),
+                                                      widthFactor));
 
 #ifdef MSLink_DEBUG_CROSSING_POINTS
                 std::cout
@@ -280,6 +290,7 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
                         << " totalLength=" << (*it_lane)->getLength()
                         << " dist1=" << myLengthsBehindCrossing.back().lengthBehindCrossing
                         << " dist2=" << myLengthsBehindCrossing.back().foeLengtBehindCrossing
+                        << " widthFactor=" << myLengthsBehindCrossing.back().widthFactor
                         << "\n";
 #endif
             }
@@ -1247,7 +1258,9 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
             const double leaderBackDist = foeDistToCrossing - leaderBack;
             const double l2 = ego != nullptr ? ego->getLength() + 2 : 0; // add some slack to account for further meeting-angle effects
             const double sagitta = ego != nullptr && myRadius != std::numeric_limits<double>::max() ? myRadius - sqrt(myRadius * myRadius - 0.25 * l2 * l2) : 0;
-            const bool pastTheCrossingPoint = leaderBackDist + foeCrossingWidth + sagitta < 0;
+            const double fcw = (leader->getSpeed() > SUMO_const_haltingSpeed || ego == nullptr ? foeCrossingWidth :
+                    foeCrossingWidth * (1 + myLengthsBehindCrossing[i].widthFactor) * 0.5);
+            const bool pastTheCrossingPoint = leaderBackDist + fcw + sagitta < 0;
             const bool foeIsBicycleTurn = (leader->getVehicleType().getVehicleClass() == SVC_BICYCLE
                                            && foeLane->getIncomingLanes().front().viaLink->getDirection() == LinkDirection::LEFT);
             const bool ignoreIndirectBicycleTurn = pastTheCrossingPoint && foeIsBicycleTurn;
@@ -1266,6 +1279,7 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                           << " lb=" << leaderBack
                           << " lbd=" << leaderBackDist
                           << " fcwidth=" << foeCrossingWidth
+                          << " fcw=" << fcw
                           << " r=" << myRadius
                           << " sagitta=" << sagitta
                           << " foePastCP=" << pastTheCrossingPoint
