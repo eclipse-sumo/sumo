@@ -78,74 +78,74 @@ fillOptions() {
     // original network
     oc.doRegister("net-file", 'n', new Option_FileName());
     oc.addSynonyme("net-file", "net");
-    oc.addDescription("net-file", TL("Input"), TL("Loads SUMO-network FILE as reference to offset and projection"));
+    oc.addDescription("net-file", "Input", TL("Loads SUMO-network FILE as reference to offset and projection"));
 
     // dlrnavteq import
     oc.doRegister("dlr-navteq-poly-files", new Option_FileName());
-    oc.addDescription("dlr-navteq-poly-files", TL("Input"), TL("Reads polygons from FILE assuming they're coded in DLR-Navteq (Elmar)-format"));
+    oc.addDescription("dlr-navteq-poly-files", "Input", TL("Reads polygons from FILE assuming they're coded in DLR-Navteq (Elmar)-format"));
     oc.doRegister("dlr-navteq-poi-files", new Option_FileName());
-    oc.addDescription("dlr-navteq-poi-files", TL("Input"), TL("Reads pois from FILE+ assuming they're coded in DLR-Navteq (Elmar)-format"));
+    oc.addDescription("dlr-navteq-poi-files", "Input", TL("Reads pois from FILE+ assuming they're coded in DLR-Navteq (Elmar)-format"));
 
     // visum import
     oc.doRegister("visum-files", new Option_FileName());
     oc.addSynonyme("visum-files", "visum");
-    oc.addDescription("visum-files", TL("Input"), TL("Reads polygons from FILE assuming it's a Visum-net"));
+    oc.addDescription("visum-files", "Input", TL("Reads polygons from FILE assuming it's a Visum-net"));
 
     oc.doRegister("visum.language-file", new Option_FileName());
-    oc.addDescription("visum.language-file", TL("Input"), TL("Load language mappings from FILE"));
+    oc.addDescription("visum.language-file", "Input", TL("Load language mappings from FILE"));
 
     // xml import
     oc.doRegister("xml-files", new Option_FileName());
     oc.addSynonyme("xml-files", "xml");
-    oc.addDescription("xml-files", TL("Input"), TL("Reads pois and shapes from FILE assuming they're coded in XML"));
+    oc.addDescription("xml-files", "Input", TL("Reads pois and shapes from FILE assuming they're coded in XML"));
 
     // osm import
     oc.doRegister("osm-files", new Option_FileName());
     oc.addSynonyme("osm-files", "osm");
-    oc.addDescription("osm-files", TL("Input"), TL("Reads pois from FILE+ assuming they're coded in OSM"));
+    oc.addDescription("osm-files", "Input", TL("Reads pois from FILE+ assuming they're coded in OSM"));
     oc.doRegister("osm.keep-full-type", new Option_Bool(false));
-    oc.addDescription("osm.keep-full-type", TL("Input"), TL("The type will be made of the key-value - pair"));
+    oc.addDescription("osm.keep-full-type", "Input", TL("The type will be made of the key-value - pair"));
     oc.doRegister("osm.use-name", new Option_Bool(false));
-    oc.addDescription("osm.use-name", TL("Input"), TL("The id will be set from the given 'name' attribute"));
+    oc.addDescription("osm.use-name", "Input", TL("The id will be set from the given 'name' attribute"));
     oc.doRegister("osm.merge-relations", new Option_Float(-1));
-    oc.addDescription("osm.merge-relations", TL("Input"), TL("If FLOAT >= 0, assemble one polygon from all ways of a relation if they all connect with gaps below FLOAT"));
+    oc.addDescription("osm.merge-relations", "Input", TL("If FLOAT >= 0, assemble one polygon from all ways of a relation if they all connect with gaps below FLOAT"));
 
     // arcview import
     oc.doRegister("shapefile-prefixes", new Option_FileName());
     oc.addSynonyme("shapefile-prefixes", "shapefile-prefix");
     oc.addSynonyme("shapefile-prefixes", "shapefile");
     oc.addSynonyme("shapefile-prefixes", "shape-files", true);
-    oc.addDescription("shapefile-prefixes", TL("Input"), TL("Reads shapes from shapefiles FILE+"));
+    oc.addDescription("shapefile-prefixes", "Input", TL("Reads shapes from shapefiles FILE+"));
 
     oc.doRegister("shapefile.guess-projection", new Option_Bool(false));
     oc.addSynonyme("shapefile.guess-projection", "arcview.guess-projection", true);
-    oc.addDescription("shapefile.guess-projection", TL("Input"), TL("Guesses the shapefile's projection"));
+    oc.addDescription("shapefile.guess-projection", "Input", TL("Guesses the shapefile's projection"));
 
     oc.doRegister("shapefile.traditional-axis-mapping", new Option_Bool(false));
-    oc.addDescription("shapefile.traditional-axis-mapping", TL("Input"), TL("Use traditional axis order (lon, lat)"));
+    oc.addDescription("shapefile.traditional-axis-mapping", "Input", TL("Use traditional axis order (lon, lat)"));
 
     oc.doRegister("shapefile.id-column", new Option_String());
     oc.addSynonyme("shapefile.id-column", "shapefile.id-name", true);
     oc.addSynonyme("shapefile.id-column", "shape-files.id-name", true);
-    oc.addDescription("shapefile.id-column", TL("Input"), TL("Defines in which column the id can be found"));
+    oc.addDescription("shapefile.id-column", "Input", TL("Defines in which column the id can be found"));
 
     oc.doRegister("shapefile.type-columns", new Option_StringVector());
     oc.addSynonyme("shapefile.type-columns", "shapefile.type-column");
-    oc.addDescription("shapefile.type-columns", TL("Input"), TL("Defines which columns form the type id (comma separated list)"));
+    oc.addDescription("shapefile.type-columns", "Input", TL("Defines which columns form the type id (comma separated list)"));
 
     oc.doRegister("shapefile.use-running-id", new Option_Bool(false));
-    oc.addDescription("shapefile.use-running-id", TL("Input"), TL("A running number will be used as id"));
+    oc.addDescription("shapefile.use-running-id", "Input", TL("A running number will be used as id"));
 
     oc.doRegister("shapefile.add-param", new Option_Bool(false));
-    oc.addDescription("shapefile.add-param", TL("Input"), TL("Extract all additional columns as params"));
+    oc.addDescription("shapefile.add-param", "Input", TL("Extract all additional columns as params"));
 
     oc.doRegister("shapefile.fill", new Option_String());
-    oc.addDescription("shapefile.fill", TL("Input"), TL("[auto|true|false]. Forces the 'fill' status to the given value. Default 'auto' tries to determine it from the data type"));
+    oc.addDescription("shapefile.fill", "Input", TL("[auto|true|false]. Forces the 'fill' status to the given value. Default 'auto' tries to determine it from the data type"));
 
     // typemap reading
     oc.doRegister("type-file", new Option_FileName());
     oc.addSynonyme("type-file", "typemap", true);
-    oc.addDescription("type-file", TL("Input"), TL("Reads types from FILE"));
+    oc.addDescription("type-file", "Input", TL("Reads types from FILE"));
 
     // need to do this here to be able to check for network and route input options
     SystemFrame::addReportOptions(oc);
@@ -153,10 +153,10 @@ fillOptions() {
     // output
     oc.doRegister("output-file", 'o', new Option_FileName());
     oc.addSynonyme("output-file", "output");
-    oc.addDescription("output-file", TL("Output"), TL("Write generated polygons/pois to FILE"));
+    oc.addDescription("output-file", "Output", TL("Write generated polygons/pois to FILE"));
 
     oc.doRegister("dlr-tdp-output", new Option_FileName());
-    oc.addDescription("dlr-tdp-output", TL("Output"), TL("Write generated polygons/pois to a dlr-tdp file with the given prefix"));
+    oc.addDescription("dlr-tdp-output", "Output", TL("Write generated polygons/pois to a dlr-tdp file with the given prefix"));
 
 
     // prunning options
@@ -183,46 +183,46 @@ fillOptions() {
 
     oc.doRegister("offset.x", new Option_Float(0));
     oc.addSynonyme("offset.x", "x-offset-to-apply", true);
-    oc.addDescription("offset.x", TL("Processing"), TL("Adds FLOAT to net x-positions"));
+    oc.addDescription("offset.x", "Processing", TL("Adds FLOAT to net x-positions"));
 
     oc.doRegister("offset.y", new Option_Float(0));
     oc.addSynonyme("offset.y", "y-offset-to-apply", true);
-    oc.addDescription("offset.y", TL("Processing"), TL("Adds FLOAT to net y-positions"));
+    oc.addDescription("offset.y", "Processing", TL("Adds FLOAT to net y-positions"));
 
     oc.doRegister("offset.z", new Option_Float(0));
-    oc.addDescription("offset.z", TL("Processing"), TL("Adds FLOAT to net z-positions"));
+    oc.addDescription("offset.z", "Processing", TL("Adds FLOAT to net z-positions"));
 
     oc.doRegister("all-attributes", new Option_Bool(false));
-    oc.addDescription("all-attributes", TL("Processing"), TL("Imports all attributes as key/value pairs"));
+    oc.addDescription("all-attributes", "Processing", TL("Imports all attributes as key/value pairs"));
 
     oc.doRegister("ignore-errors", new Option_Bool(false));
-    oc.addDescription("ignore-errors", TL("Processing"), TL("Continue on broken input"));
+    oc.addDescription("ignore-errors", "Processing", TL("Continue on broken input"));
 
     oc.doRegister("poi-layer-offset", new Option_Float(0));
-    oc.addDescription("poi-layer-offset", TL("Processing"), TL("Adds FLOAT to the layer value for each poi (i.e. to raise it above polygons)"));
+    oc.addDescription("poi-layer-offset", "Processing", TL("Adds FLOAT to the layer value for each poi (i.e. to raise it above polygons)"));
 
     // building defaults options
     oc.doRegister("color", new Option_String("0.2,0.5,1."));
-    oc.addDescription("color", TL("Building Defaults"), TL("Sets STR as default color"));
+    oc.addDescription("color", "Building Defaults", TL("Sets STR as default color"));
 
     oc.doRegister("prefix", new Option_String(""));
-    oc.addDescription("prefix", TL("Building Defaults"), TL("Sets STR as default prefix"));
+    oc.addDescription("prefix", "Building Defaults", TL("Sets STR as default prefix"));
 
     oc.doRegister("type", new Option_String("unknown"));
-    oc.addDescription("type", TL("Building Defaults"), TL("Sets STR as default type"));
+    oc.addDescription("type", "Building Defaults", TL("Sets STR as default type"));
 
     oc.doRegister("fill", new Option_Bool(true));
-    oc.addDescription("fill", TL("Building Defaults"), TL("Fills polygons by default"));
+    oc.addDescription("fill", "Building Defaults", TL("Fills polygons by default"));
 
     oc.doRegister("layer", new Option_Float(-1));
-    oc.addDescription("layer", TL("Building Defaults"), TL("Sets FLOAT as default layer"));
+    oc.addDescription("layer", "Building Defaults", TL("Sets FLOAT as default layer"));
 
     oc.doRegister("discard", new Option_Bool(false));
-    oc.addDescription("discard", TL("Building Defaults"), TL("Sets default action to discard"));
+    oc.addDescription("discard", "Building Defaults", TL("Sets default action to discard"));
 
     // projection
     oc.doRegister("proj.plain-geo", new Option_Bool(false));
-    oc.addDescription("proj.plain-geo", TL("Projection"), TL("Write geo coordinates in output"));
+    oc.addDescription("proj.plain-geo", "Projection", TL("Write geo coordinates in output"));
 }
 
 

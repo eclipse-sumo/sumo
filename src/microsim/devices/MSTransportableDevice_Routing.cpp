@@ -43,7 +43,7 @@ MSTransportableDevice_Routing::insertOptions(OptionsCont& oc) {
     insertDefaultAssignmentOptions("rerouting", "Routing", oc, true);
     oc.doRegister("person-device.rerouting.period", new Option_String("0", "TIME"));
     oc.addSynonyme("person-device.rerouting.period", "person-device.routing.period", true);
-    oc.addDescription("person-device.rerouting.period", TL("Routing"), TL("The period with which the person shall be rerouted"));
+    oc.addDescription("person-device.rerouting.period", "Routing", TL("The period with which the person shall be rerouted"));
 }
 
 

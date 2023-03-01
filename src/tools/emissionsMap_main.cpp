@@ -89,47 +89,47 @@ main(int argc, char** argv) {
     SystemFrame::addConfigurationOptions(oc);
     oc.addOptionSubTopic(TL("Processing"));
     oc.doRegister("iterate", 'i', new Option_Bool(false));
-    oc.addDescription("iterate", TL("Processing"), TL("If set, maps for all available emissions are written."));
+    oc.addDescription("iterate", "Processing", TL("If set, maps for all available emissions are written."));
 
     oc.doRegister("emission-class", 'e', new Option_String());
-    oc.addDescription("emission-class", TL("Processing"), TL("Defines the name of the emission class to generate the map for."));
+    oc.addDescription("emission-class", "Processing", TL("Defines the name of the emission class to generate the map for."));
 
     oc.doRegister("v-min", new Option_Float(0.));
-    oc.addDescription("v-min", TL("Processing"), TL("Defines the minimum velocity boundary of the map to generate (in m/s)."));
+    oc.addDescription("v-min", "Processing", TL("Defines the minimum velocity boundary of the map to generate (in m/s)."));
     oc.doRegister("v-max", new Option_Float(50.));
-    oc.addDescription("v-max", TL("Processing"), TL("Defines the maximum velocity boundary of the map to generate (in m/s)."));
+    oc.addDescription("v-max", "Processing", TL("Defines the maximum velocity boundary of the map to generate (in m/s)."));
     oc.doRegister("v-step", new Option_Float(2.));
-    oc.addDescription("v-step", TL("Processing"), TL("Defines the velocity step size (in m/s)."));
+    oc.addDescription("v-step", "Processing", TL("Defines the velocity step size (in m/s)."));
     oc.doRegister("a-min", new Option_Float(-4.));
-    oc.addDescription("a-min", TL("Processing"), TL("Defines the minimum acceleration boundary of the map to generate (in m/s^2)."));
+    oc.addDescription("a-min", "Processing", TL("Defines the minimum acceleration boundary of the map to generate (in m/s^2)."));
     oc.doRegister("a-max", new Option_Float(4.));
-    oc.addDescription("a-max", TL("Processing"), TL("Defines the maximum acceleration boundary of the map to generate (in m/s^2)."));
+    oc.addDescription("a-max", "Processing", TL("Defines the maximum acceleration boundary of the map to generate (in m/s^2)."));
     oc.doRegister("a-step", new Option_Float(.5));
-    oc.addDescription("a-step", TL("Processing"), TL("Defines the acceleration step size (in m/s^2)."));
+    oc.addDescription("a-step", "Processing", TL("Defines the acceleration step size (in m/s^2)."));
     oc.doRegister("s-min", new Option_Float(-10.));
-    oc.addDescription("s-min", TL("Processing"), TL("Defines the minimum slope boundary of the map to generate (in deg)."));
+    oc.addDescription("s-min", "Processing", TL("Defines the minimum slope boundary of the map to generate (in deg)."));
     oc.doRegister("s-max", new Option_Float(10.));
-    oc.addDescription("s-max", TL("Processing"), TL("Defines the maximum slope boundary of the map to generate (in deg)."));
+    oc.addDescription("s-max", "Processing", TL("Defines the maximum slope boundary of the map to generate (in deg)."));
     oc.doRegister("s-step", new Option_Float(1.));
-    oc.addDescription("s-step", TL("Processing"), TL("Defines the slope step size (in deg)."));
+    oc.addDescription("s-step", "Processing", TL("Defines the slope step size (in deg)."));
 
     oc.addOptionSubTopic(TL("Output"));
     oc.doRegister("output-file", 'o', new Option_String());
     oc.addSynonyme("output", "output-file");
-    oc.addDescription("output", TL("Output"), TL("Defines the file (or the path if --iterate was set) to write the map(s) into."));
+    oc.addDescription("output", "Output", TL("Defines the file (or the path if --iterate was set) to write the map(s) into."));
 
     oc.addOptionSubTopic(TL("Emissions"));
     oc.doRegister("emissions.volumetric-fuel", new Option_Bool(false));
-    oc.addDescription("emissions.volumetric-fuel", TL("Emissions"), TL("Return fuel consumption values in (legacy) unit l instead of mg"));
+    oc.addDescription("emissions.volumetric-fuel", "Emissions", TL("Return fuel consumption values in (legacy) unit l instead of mg"));
 
     oc.doRegister("phemlight-path", new Option_FileName(StringVector({ "./PHEMlight/" })));
-    oc.addDescription("phemlight-path", TL("Emissions"), TL("Determines where to load PHEMlight definitions from"));
+    oc.addDescription("phemlight-path", "Emissions", TL("Determines where to load PHEMlight definitions from"));
 
     oc.doRegister("phemlight-year", new Option_Integer(0));
-    oc.addDescription("phemlight-year", TL("Emissions"), TL("Enable fleet age modelling with the given reference year in PHEMlight5"));
+    oc.addDescription("phemlight-year", "Emissions", TL("Enable fleet age modelling with the given reference year in PHEMlight5"));
 
     oc.doRegister("phemlight-temperature", new Option_Float(INVALID_DOUBLE));
-    oc.addDescription("phemlight-temperature", TL("Emissions"), TL("Set ambient temperature to correct NOx emissions in PHEMlight5"));
+    oc.addDescription("phemlight-temperature", "Emissions", TL("Set ambient temperature to correct NOx emissions in PHEMlight5"));
 
     SystemFrame::addReportOptions(oc);
 
