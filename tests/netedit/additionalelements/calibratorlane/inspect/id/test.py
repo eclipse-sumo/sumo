@@ -44,7 +44,7 @@ netedit.leftClick(referencePosition, 492, 258)
 netedit.changeDefaultBoolValue(netedit.attrs.calibrator.create.center)
 
 # create second calibratorLane
-netedit.leftClick(referencePosition, 255, 250)
+netedit.leftClick(referencePosition, 266, 258)
 
 # go to inspect mode
 netedit.inspectMode()
