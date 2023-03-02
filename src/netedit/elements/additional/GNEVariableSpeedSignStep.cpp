@@ -60,6 +60,24 @@ GNEVariableSpeedSignStep::writeAdditional(OutputDevice& device) const {
 }
 
 
+bool
+GNEVariableSpeedSignStep::isAdditionalValid() const {
+    return true;
+}
+
+
+std::string
+GNEVariableSpeedSignStep::getAdditionalProblem() const {
+    return "";
+}
+
+
+void
+GNEVariableSpeedSignStep::fixAdditionalProblem() {
+    // nothing to fix
+}
+
+
 GNEMoveOperation*
 GNEVariableSpeedSignStep::getMoveOperation() {
     // VSS Steps cannot be moved

@@ -58,14 +58,16 @@ public:
     ~GNEContainerStop();
 
     /**@brief write additional element into a xml file
-     * @param[in] device device in which write parameters of additional element
-     */
+    * @param[in] device device in which write parameters of additional element
+    */
     void writeAdditional(OutputDevice& device) const;
 
     /// @name Functions related with geometry of element
     /// @{
+
     /// @brief update pre-computed geometry information
     void updateGeometry();
+
     /// @}
 
     /// @name inherited from GUIGlObject
@@ -79,6 +81,7 @@ public:
 
     /// @name inherited from GNEAttributeCarrier
     /// @{
+
     /* @brief method for getting the Attribute of an XML key
      * @param[in] key The attribute key
      * @return string with the value associated to key

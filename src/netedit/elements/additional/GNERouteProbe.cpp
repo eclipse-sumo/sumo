@@ -86,6 +86,24 @@ GNERouteProbe::writeAdditional(OutputDevice& device) const {
 }
 
 
+bool
+GNERouteProbe::isAdditionalValid() const {
+    return true;
+}
+
+
+std::string
+GNERouteProbe::getAdditionalProblem() const {
+    return "";
+}
+
+
+void
+GNERouteProbe::fixAdditionalProblem() {
+    // nothing to fix
+}
+
+
 void
 GNERouteProbe::updateGeometry() {
     // calculate perpendicular line

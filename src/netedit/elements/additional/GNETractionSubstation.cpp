@@ -72,6 +72,24 @@ GNETractionSubstation::writeAdditional(OutputDevice& device) const {
 }
 
 
+bool
+GNETractionSubstation::isAdditionalValid() const {
+    return true;
+}
+
+
+std::string
+GNETractionSubstation::getAdditionalProblem() const {
+    return "";
+}
+
+
+void
+GNETractionSubstation::fixAdditionalProblem() {
+    // nothing to fix
+}
+
+
 GNEMoveOperation*
 GNETractionSubstation::getMoveOperation() {
     // return move operation for additional placed in view

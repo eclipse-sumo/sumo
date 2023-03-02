@@ -111,6 +111,7 @@ public:
 
     /// @name inherited from GNEAdditional
     /// @{
+
     /// @brief update pre-computed geometry information
     void updateGeometry() override;
 
@@ -128,9 +129,18 @@ public:
                            const GNENetworkElement* newElement, GNEUndoList* undoList) override;
 
     /**@brief write additional element into a xml file
-     * @param[in] device device in which write parameters of additional element
-     */
-    void writeAdditional(OutputDevice& device) const override;
+    * @param[in] device device in which write parameters of additional element
+    */
+    void writeAdditional(OutputDevice& device) const;
+
+    /// @brief check if current additional is valid to be writed into XML (must be reimplemented in all detector children)
+    bool isAdditionalValid() const;
+
+    /// @brief return a string with the current additional problem (must be reimplemented in all detector children)
+    std::string getAdditionalProblem() const;
+
+    /// @brief fix additional problem (must be reimplemented in all detector children)
+    void fixAdditionalProblem();
 
     /// @brief Returns the numerical id of the object
     GUIGlID getGlID() const;
@@ -166,6 +176,7 @@ public:
 
     /// @name inherited from GNEAttributeCarrier
     /// @{
+
     /**@brief method for getting the Attribute of an XML key
      * @param[in] key The attribute key
      * @return string with the value associated to key
@@ -199,6 +210,7 @@ public:
      * @param[in] key The attribute key
      */
     bool isAttributeEnabled(SumoXMLAttr key) const override;
+
     /// @}
 
     /// @brief get PopPup ID (Used in AC Hierarchy)

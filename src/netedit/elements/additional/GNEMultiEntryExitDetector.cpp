@@ -117,6 +117,24 @@ GNEMultiEntryExitDetector::writeAdditional(OutputDevice& device) const {
 }
 
 
+bool
+GNEMultiEntryExitDetector::isAdditionalValid() const {
+    return true;
+}
+
+
+std::string
+GNEMultiEntryExitDetector::getAdditionalProblem() const {
+    return "";
+}
+
+
+void
+GNEMultiEntryExitDetector::fixAdditionalProblem() {
+    // nothing to fix
+}
+
+
 void
 GNEMultiEntryExitDetector::updateGeometry() {
     // update additional geometry

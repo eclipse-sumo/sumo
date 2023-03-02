@@ -68,6 +68,24 @@ GNEClosingReroute::writeAdditional(OutputDevice& device) const {
 }
 
 
+bool
+GNEClosingReroute::isAdditionalValid() const {
+    return true;
+}
+
+
+std::string
+GNEClosingReroute::getAdditionalProblem() const {
+    return "";
+}
+
+
+void
+GNEClosingReroute::fixAdditionalProblem() {
+    // nothing to fix
+}
+
+
 GNEMoveOperation*
 GNEClosingReroute::getMoveOperation() {
     // GNEClosingReroutes cannot be moved

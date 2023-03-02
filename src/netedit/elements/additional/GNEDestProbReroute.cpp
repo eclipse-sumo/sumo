@@ -61,6 +61,24 @@ GNEDestProbReroute::writeAdditional(OutputDevice& device) const {
 }
 
 
+bool
+GNEDestProbReroute::isAdditionalValid() const {
+    return true;
+}
+
+
+std::string
+GNEDestProbReroute::getAdditionalProblem() const {
+    return "";
+}
+
+
+void
+GNEDestProbReroute::fixAdditionalProblem() {
+    // nothing to fix
+}
+
+
 GNEMoveOperation*
 GNEDestProbReroute::getMoveOperation() {
     // GNEDestProbReroutes cannot be moved

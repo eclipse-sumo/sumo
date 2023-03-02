@@ -54,6 +54,24 @@ void GNEVariableSpeedSignSymbol::writeAdditional(OutputDevice& /*device*/) const
 }
 
 
+bool
+GNEVariableSpeedSignSymbol::isAdditionalValid() const {
+    return true;
+}
+
+
+std::string
+GNEVariableSpeedSignSymbol::getAdditionalProblem() const {
+    return "";
+}
+
+
+void
+GNEVariableSpeedSignSymbol::fixAdditionalProblem() {
+    // nothing to fix
+}
+
+
 void
 GNEVariableSpeedSignSymbol::updateGeometry() {
     // update additional geometry

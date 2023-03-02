@@ -82,6 +82,7 @@ public:
 
     /// @name members and functions relative to write additionals into XML
     /// @{
+
     /**@brief write additional element into a xml file
      * @param[in] device device in which write parameters of additional element
      */
@@ -95,6 +96,7 @@ public:
 
     /// @brief fix additional problem
     void fixAdditionalProblem();
+    
     /// @}
 
     /// @brief update pre-computed geometry information
@@ -102,11 +104,13 @@ public:
 
     /// @name inherited from GUIGlObject
     /// @{
+
     /**@brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)
      * @see GUIGlObject::drawGL
      */
     void drawGL(const GUIVisualizationSettings& s) const;
+    
     /// @}
 
     /// @name inherited from GNEPathManager::PathElement
@@ -134,6 +138,7 @@ public:
 
     /// @name inherited from GNEAttributeCarrier
     /// @{
+
     /* @brief method for getting the Attribute of an XML key
      * @param[in] key The attribute key
      * @return string with the value associated to key
@@ -159,6 +164,7 @@ public:
      * @return true if the value is valid, false in other case
      */
     bool isValid(SumoXMLAttr key, const std::string& value);
+    
     /// @}
 
 protected:

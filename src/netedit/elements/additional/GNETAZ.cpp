@@ -183,6 +183,24 @@ GNETAZ::writeAdditional(OutputDevice& device) const {
 }
 
 
+bool
+GNETAZ::isAdditionalValid() const {
+    return true;
+}
+
+
+std::string
+GNETAZ::getAdditionalProblem() const {
+    return "";
+}
+
+
+void
+GNETAZ::fixAdditionalProblem() {
+    // nothing to fix
+}
+
+
 void
 GNETAZ::updateGeometry() {
     // just update geometry

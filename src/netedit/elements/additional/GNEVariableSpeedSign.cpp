@@ -80,6 +80,24 @@ GNEVariableSpeedSign::writeAdditional(OutputDevice& device) const {
 }
 
 
+bool
+GNEVariableSpeedSign::GNEVariableSpeedSign::isAdditionalValid() const {
+    return true;
+}
+
+
+std::string
+GNEVariableSpeedSign::GNEVariableSpeedSign::getAdditionalProblem() const {
+    return "";
+}
+
+
+void
+GNEVariableSpeedSign::GNEVariableSpeedSign::fixAdditionalProblem() {
+    // nothing to fix
+}
+
+
 GNEMoveOperation*
 GNEVariableSpeedSign::getMoveOperation() {
     // return move operation for additional placed in view

@@ -66,6 +66,24 @@ GNEParkingAreaReroute::writeAdditional(OutputDevice& device) const {
 }
 
 
+bool
+GNEParkingAreaReroute::isAdditionalValid() const {
+    return true;
+}
+
+
+std::string
+GNEParkingAreaReroute::getAdditionalProblem() const {
+    return "";
+}
+
+
+void
+GNEParkingAreaReroute::fixAdditionalProblem() {
+    // nothing to fix
+}
+
+
 GNEMoveOperation*
 GNEParkingAreaReroute::getMoveOperation() {
     // GNEParkingAreaReroutes cannot be moved

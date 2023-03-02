@@ -57,20 +57,20 @@ public:
 
     /// @name members and functions relative to write additionals into XML
     /// @{
-    /// @brief check if current additional is valid to be writed into XML
+    /**@brief write additional element into a xml file
+    * @param[in] device device in which write parameters of additional element
+    */
+    virtual void writeAdditional(OutputDevice& device) const = 0;
+
+    /// @brief check if current additional is valid to be writed into XML (must be reimplemented in all detector children)
     bool isAdditionalValid() const;
 
-    /// @brief return a string with the current additional problem
+    /// @brief return a string with the current additional problem (must be reimplemented in all detector children)
     std::string getAdditionalProblem() const;
 
-    /// @brief fix additional problem
+    /// @brief fix additional problem (must be reimplemented in all detector children)
     void fixAdditionalProblem();
     /// @}
-
-    /**@brief write additional element into a xml file
-     * @param[in] device device in which write parameters of additional element
-     */
-    virtual void writeAdditional(OutputDevice& device) const = 0;
 
     /// @name Functions related with geometry of element
     /// @{

@@ -97,6 +97,24 @@ GNECalibratorFlow::writeAdditional(OutputDevice& device) const {
 }
 
 
+bool
+GNECalibratorFlow::isAdditionalValid() const {
+    return true;
+}
+
+
+std::string
+GNECalibratorFlow::getAdditionalProblem() const {
+    return "";
+}
+
+
+void
+GNECalibratorFlow::fixAdditionalProblem() {
+    // nothing to fix
+}
+
+
 GNEMoveOperation*
 GNECalibratorFlow::getMoveOperation() {
     // calibrators flow cannot be moved

@@ -96,6 +96,23 @@ GNERerouter::writeAdditional(OutputDevice& device) const {
 }
 
 
+bool
+GNERerouter::isAdditionalValid() const {
+    return true;
+}
+
+
+std::string GNERerouter::getAdditionalProblem() const {
+    return "";
+}
+
+
+void
+GNERerouter::fixAdditionalProblem() {
+    // nothing to fix
+}
+
+
 GNEMoveOperation*
 GNERerouter::getMoveOperation() {
     // return move operation for additional placed in view

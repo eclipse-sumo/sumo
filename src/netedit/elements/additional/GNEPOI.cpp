@@ -166,6 +166,24 @@ GNEPOI::writeAdditional(OutputDevice& device) const {
 }
 
 
+bool
+GNEPOI::isAdditionalValid() const {
+    return true;
+}
+
+
+std::string
+GNEPOI::getAdditionalProblem() const {
+    return "";
+}
+
+
+void
+GNEPOI::fixAdditionalProblem() {
+    // nothing to fix
+}
+
+
 void
 GNEPOI::updateGeometry() {
     // set position

@@ -147,6 +147,24 @@ GNECalibrator::writeAdditional(OutputDevice& device) const {
 }
 
 
+bool
+GNECalibrator::isAdditionalValid() const {
+    return true;
+}
+
+
+std::string
+GNECalibrator::getAdditionalProblem() const {
+    return "";
+}
+
+
+void
+GNECalibrator::fixAdditionalProblem() {
+    // nothing to fix
+}
+
+
 GNEMoveOperation*
 GNECalibrator::getMoveOperation() {
     // calibrators cannot be moved

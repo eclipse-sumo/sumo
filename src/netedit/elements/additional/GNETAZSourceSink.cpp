@@ -74,6 +74,24 @@ GNETAZSourceSink::writeAdditional(OutputDevice& device) const {
 }
 
 
+bool
+GNETAZSourceSink::isAdditionalValid() const {
+    return true;
+}
+
+
+std::string
+GNETAZSourceSink::getAdditionalProblem() const {
+    return "";
+}
+
+
+void
+GNETAZSourceSink::fixAdditionalProblem() {
+    // nothing to fix
+}
+
+
 double
 GNETAZSourceSink::getDepartWeight() const {
     return myDepartWeight;

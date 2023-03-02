@@ -80,6 +80,24 @@ GNEVaporizer::writeAdditional(OutputDevice& device) const {
 }
 
 
+bool
+GNEVaporizer::isAdditionalValid() const {
+    return true;
+}
+
+
+std::string
+GNEVaporizer::getAdditionalProblem() const {
+    return "";
+}
+
+
+void
+GNEVaporizer::fixAdditionalProblem() {
+    // nothing to fix
+}
+
+
 void
 GNEVaporizer::updateGeometry() {
     // calculate perpendicular line

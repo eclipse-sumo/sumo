@@ -55,6 +55,24 @@ GNERerouterSymbol::writeAdditional(OutputDevice& /*device*/) const {
 }
 
 
+bool
+GNERerouterSymbol::isAdditionalValid() const {
+    return true;
+}
+
+
+std::string
+GNERerouterSymbol::getAdditionalProblem() const {
+    return "";
+}
+
+
+void
+GNERerouterSymbol::fixAdditionalProblem() {
+    // nothing to fix
+}
+
+
 void
 GNERerouterSymbol::updateGeometry() {
     // clear geometries

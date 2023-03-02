@@ -118,6 +118,21 @@ GNEParkingSpace::writeAdditional(OutputDevice& device) const {
 }
 
 
+bool GNEParkingSpace::isAdditionalValid() const {
+    return true;
+}
+
+
+std::string GNEParkingSpace::getAdditionalProblem() const {
+    return "";
+}
+
+
+void GNEParkingSpace::fixAdditionalProblem() {
+    // nothing to fix
+}
+
+
 void
 GNEParkingSpace::updateGeometry() {
     // get width an length

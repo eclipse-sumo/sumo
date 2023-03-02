@@ -66,13 +66,28 @@ public:
     /// @brief get edge in which this Access is placed
     GNEEdge* getEdge() const;
 
+    /// @name members and functions relative to write additionals into XML
+    /// @{
+
     /**@brief write additional element into a xml file
-     * @param[in] device device in which write parameters of additional element
-     */
+    * @param[in] device device in which write parameters of additional element
+    */
     void writeAdditional(OutputDevice& device) const;
+
+    /// @brief check if current additional is valid to be writed into XML (must be reimplemented in all detector children)
+    bool isAdditionalValid() const;
+
+    /// @brief return a string with the current additional problem (must be reimplemented in all detector children)
+    std::string getAdditionalProblem() const;
+
+    /// @brief fix additional problem (must be reimplemented in all detector children)
+    void fixAdditionalProblem();
+
+    /// @}
 
     /// @name Functions related with geometry of element
     /// @{
+
     /// @brief update pre-computed geometry information
     void updateGeometry();
 
@@ -84,23 +99,26 @@ public:
 
     /// @brief split geometry
     void splitEdgeGeometry(const double splitPosition, const GNENetworkElement* originalElement, const GNENetworkElement* newElement, GNEUndoList* undoList);
+    
     /// @}
 
     /// @name inherited from GUIGlObject
     /// @{
+
     /// @brief Returns the name (ID) of the parent object
     std::string getParentName() const;
 
-    /// @{
     /**@brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)
      * @see GUIGlObject::drawGL
      */
     void drawGL(const GUIVisualizationSettings& s) const;
+    
     /// @}
 
     /// @name inherited from GNEAttributeCarrier
     /// @{
+
     /* @brief method for getting the Attribute of an XML key
      * @param[in] key The attribute key
      * @return string with the value associated to key
@@ -135,6 +153,7 @@ public:
 
     /// @brief get Hierarchy Name (Used in AC Hierarchy)
     std::string getHierarchyName() const;
+
     /// @}
 
 protected:

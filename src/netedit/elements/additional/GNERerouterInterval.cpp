@@ -82,6 +82,24 @@ GNERerouterInterval::writeAdditional(OutputDevice& device) const {
 }
 
 
+bool
+GNERerouterInterval::isAdditionalValid() const {
+    return true;
+}
+
+
+std::string
+GNERerouterInterval::getAdditionalProblem() const {
+    return "";
+}
+
+
+void
+GNERerouterInterval::fixAdditionalProblem() {
+    // nothing to fix
+}
+
+
 GNEMoveOperation*
 GNERerouterInterval::getMoveOperation() {
     // rerouter intervals cannot be moved

@@ -145,6 +145,22 @@ GNEAccess::writeAdditional(OutputDevice& device) const {
 }
 
 
+bool
+GNEAccess::isAdditionalValid() const {
+    return true;
+}
+
+
+std::string GNEAccess::getAdditionalProblem() const {
+    return "";
+}
+
+
+void GNEAccess::fixAdditionalProblem() {
+    // nothing to fix
+}
+
+
 GNEEdge*
 GNEAccess::getEdge() const {
     return getParentLanes().front()->getParentEdge();

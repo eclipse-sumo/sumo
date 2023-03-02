@@ -172,6 +172,24 @@ GNEPoly::writeAdditional(OutputDevice& device) const {
 }
 
 
+bool
+GNEPoly::isAdditionalValid() const {
+    return true;
+}
+
+
+std::string
+GNEPoly::getAdditionalProblem() const {
+    return "";
+}
+
+
+void
+GNEPoly::fixAdditionalProblem() {
+    // nothing to fix
+}
+
+
 GUIGlID
 GNEPoly::getGlID() const {
     return GUIGlObject::getGlID();

@@ -116,20 +116,25 @@ public:
 
     /// @name members and functions relative to write additionals into XML
     /// @{
+
     /**@brief write additional element into a xml file
      * @param[in] device device in which write parameters of additional element
      */
     virtual void writeAdditional(OutputDevice& device) const = 0;
 
     /// @brief check if current additional is valid to be written into XML (by default true, can be reimplemented in children)
-    virtual bool isAdditionalValid() const;
+    virtual bool isAdditionalValid() const = 0;
 
     /// @brief return a string with the current additional problem (by default empty, can be reimplemented in children)
-    virtual std::string getAdditionalProblem() const;
+    virtual std::string getAdditionalProblem() const = 0;
 
     /// @brief fix additional problem (by default throw an exception, has to be reimplemented in children)
-    virtual void fixAdditionalProblem();
+    virtual void fixAdditionalProblem() = 0;
+
     /// @}
+
+    /// @name functions related with geometry
+    /// @{
 
     /**@brief open Additional Dialog
      * @note: if additional needs an additional dialog, this function has to be implemented in childrens (see GNERerouter and GNEVariableSpeedSign)
@@ -154,6 +159,7 @@ public:
 
     /// @brief split geometry
     virtual void splitEdgeGeometry(const double splitPosition, const GNENetworkElement* originalElement, const GNENetworkElement* newElement, GNEUndoList* undoList) = 0;
+    
     /// @}
 
     /// @name inherited from GUIGlObject
@@ -249,6 +255,7 @@ public:
 
     /// @name inherited from GNEAttributeCarrier
     /// @{
+
     /* @brief method for getting the Attribute of an XML key
      * @param[in] key The attribute key
      * @return string with the value associated to key
@@ -289,6 +296,7 @@ public:
 
     /// @brief get Hierarchy Name (Used in AC Hierarchy)
     virtual std::string getHierarchyName() const = 0;
+    
     /// @}
 
     /// @brief draw parent and child lines

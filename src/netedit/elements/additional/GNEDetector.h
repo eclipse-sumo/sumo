@@ -76,6 +76,7 @@ public:
 
     /// @name members and functions relative to write additionals into XML
     /// @{
+
     /**@brief write additional element into a xml file
      * @param[in] device device in which write parameters of additional element
      */
@@ -89,6 +90,7 @@ public:
 
     /// @brief fix additional problem (must be reimplemented in all detector children)
     virtual void fixAdditionalProblem() = 0;
+    
     /// @}
 
     /// @brief get lane
@@ -102,6 +104,7 @@ public:
 
     /// @name Functions related with geometry of element
     /// @{
+
     /// @brief update pre-computed geometry information
     virtual void updateGeometry() = 0;
 
@@ -113,10 +116,12 @@ public:
 
     /// @brief split geometry
     void splitEdgeGeometry(const double splitPosition, const GNENetworkElement* originalElement, const GNENetworkElement* newElement, GNEUndoList* undoList);
+    
     /// @}
 
     /// @name inherited from GUIGLObject
     /// @{
+
     /**@brief Returns the name of the parent object
      * @return This object's parent id
      */
@@ -127,10 +132,12 @@ public:
      * @see GUIGlObject::drawGL
      */
     virtual void drawGL(const GUIVisualizationSettings& s) const = 0;
+    
     /// @}
 
     /// @name inherited from GNEAttributeCarrier
     /// @{
+
     /* @brief method for getting the Attribute of an XML key
      * @param[in] key The attribute key
      * @return string with the value associated to key
@@ -165,6 +172,7 @@ public:
 
     /// @brief get Hierarchy Name (Used in AC Hierarchy)
     std::string getHierarchyName() const;
+    
     /// @}
 
 protected:
