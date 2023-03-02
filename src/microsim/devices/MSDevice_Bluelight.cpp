@@ -56,7 +56,7 @@ MSDevice_Bluelight::insertOptions(OptionsCont& oc) {
     insertDefaultAssignmentOptions("bluelight", "Bluelight Device", oc);
 
     oc.doRegister("device.bluelight.reactiondist", new Option_Float(25.0));
-    oc.addDescription("device.bluelight.reactiondist", "Battery", TL("Set the distance at which other drivers react to the blue light and siren sound"));
+    oc.addDescription("device.bluelight.reactiondist", "Bluelight Device", TL("Set the distance at which other drivers react to the blue light and siren sound"));
 }
 
 
