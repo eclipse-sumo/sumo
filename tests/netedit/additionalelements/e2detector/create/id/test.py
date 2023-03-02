@@ -35,25 +35,25 @@ netedit.additionalMode()
 netedit.changeElement("laneAreaDetector")
 
 # Create E2
-netedit.leftClick(referencePosition, 140, 245)
+netedit.leftClick(referencePosition, 427, 253)
 
 # set a invalid  id (duplicated)
 netedit.changeDefaultValue(netedit.attrs.E2.create.id, "e2_0")
 
 # try to create E2 with invalid id
-netedit.leftClick(referencePosition, 180, 245)
+netedit.leftClick(referencePosition, 381, 253)
 
 # set a invalid  id
 netedit.changeDefaultValue(netedit.attrs.E2.create.id, ";;;")
 
 # try to create E2 with invalid id
-netedit.leftClick(referencePosition, 200, 245)
+netedit.leftClick(referencePosition, 427, 253)
 
 # set a valid id
 netedit.changeDefaultValue(netedit.attrs.E2.create.id, "customID")
 
 # create E2 with valid id
-netedit.leftClick(referencePosition, 220, 245)
+netedit.leftClick(referencePosition, 381, 253)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

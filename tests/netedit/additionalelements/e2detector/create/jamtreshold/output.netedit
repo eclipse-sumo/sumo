@@ -3,11 +3,11 @@ Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 laneAreaDetector
 dummyJamTreshold
-TestFunctions: Clicked over position 754 - 388
+TestFunctions: Clicked over position 731 - 421
 -30
-TestFunctions: Clicked over position 764 - 388
+TestFunctions: Clicked over position 685 - 421
 15.5
-TestFunctions: Clicked over position 774 - 388
+TestFunctions: Clicked over position 731 - 421
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Netedit closed successfully

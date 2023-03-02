@@ -38,19 +38,19 @@ netedit.changeElement("laneAreaDetector")
 netedit.changeDefaultValue(netedit.attrs.E2.create.jamThreshold, "dummyJamTreshold")
 
 # try to create E2 with invalid jam threshold
-netedit.leftClick(referencePosition, 450, 220)
+netedit.leftClick(referencePosition, 427, 253)
 
 # set invalid jam threshold
 netedit.changeDefaultValue(netedit.attrs.E2.create.jamThreshold, "-30")
 
 # try to create E2 with invalid jam threshold
-netedit.leftClick(referencePosition, 460, 220)
+netedit.leftClick(referencePosition, 381, 253)
 
 # set valid jam threshold
 netedit.changeDefaultValue(netedit.attrs.E2.create.jamThreshold, "15.5")
 
 # create E2 with valid jam threshold
-netedit.leftClick(referencePosition, 470, 220)
+netedit.leftClick(referencePosition, 427, 253)
 
 # Check undo redo
 netedit.undo(referencePosition, 1)

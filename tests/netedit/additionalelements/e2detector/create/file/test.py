@@ -38,13 +38,13 @@ netedit.changeElement("laneAreaDetector")
 netedit.changeDefaultValue(netedit.attrs.E2.create.file, "&&&&&&&&")
 
 # try to create E2 with invalid filename
-netedit.leftClick(referencePosition, 400, 250)
+netedit.leftClick(referencePosition, 427, 253)
 
 # set valid filename
 netedit.changeDefaultValue(netedit.attrs.E2.create.file, "myOwnFilename.txt")
 
 # create E2 with valid filename
-netedit.leftClick(referencePosition, 400, 250)
+netedit.leftClick(referencePosition, 381, 253)
 
 # Check undo redo
 netedit.undo(referencePosition, 1)

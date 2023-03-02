@@ -38,13 +38,13 @@ netedit.changeElement("laneAreaDetector")
 netedit.changeDefaultValue(netedit.attrs.E2.create.name, ";;;;$$$")
 
 # try to create E2 with invalid name
-netedit.leftClick(referencePosition, 300, 250)
+netedit.leftClick(referencePosition, 427, 253)
 
 # set valid name
 netedit.changeDefaultValue(netedit.attrs.E2.create.name, "customName")
 
 # create E2 with valid name
-netedit.leftClick(referencePosition, 305, 250)
+netedit.leftClick(referencePosition, 381, 253)
 
 # Check undo redo
 netedit.undo(referencePosition, 1)

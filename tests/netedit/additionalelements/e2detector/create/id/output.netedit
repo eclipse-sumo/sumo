@@ -2,13 +2,13 @@ TestFunctions: Netedit opened successfully
 Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 laneAreaDetector
-TestFunctions: Clicked over position 444 - 413
+TestFunctions: Clicked over position 731 - 421
 e2_0
-TestFunctions: Clicked over position 484 - 413
+TestFunctions: Clicked over position 685 - 421
 ;;;
-TestFunctions: Clicked over position 504 - 413
+TestFunctions: Clicked over position 731 - 421
 customID
-TestFunctions: Clicked over position 524 - 413
+TestFunctions: Clicked over position 685 - 421
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Netedit closed successfully
