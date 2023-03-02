@@ -32,7 +32,7 @@ sys.path.append(os.path.join(SUMO_HOME, 'tools'))
 import sumolib  # noqa
 from sumolib.options import ArgumentParser  # noqa
 from sumolib.miscutils import Colorgen  # noqa
-import sumolib.geomhelper as gh
+import sumolib.geomhelper as gh  # noqa
 
 
 def get_options():

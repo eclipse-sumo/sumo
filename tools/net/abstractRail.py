@@ -242,14 +242,14 @@ def computeTrackOrdering(options, mainLine, edges, nodeCoords, edgeShapes):
 def getVNodeX(vNode):
     try:
         return vNode._newX
-    except:
+    except AttributeError:
         return vNode[1]
 
 
 def getVNodeID(vNode):
     try:
         return vNode.getID()
-    except:
+    except AttributeError:
         return vNode
 
 

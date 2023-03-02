@@ -252,8 +252,8 @@ def orthoIntersection(a, b):
 
 
 def rotateAround2D(p, rad, origin):
-    s = math.sin(rad);
-    c = math.cos(rad);
+    s = math.sin(rad)
+    c = math.cos(rad)
     tmp = sub(p, origin)
     tmp2 = [tmp[0] * c - tmp[1] * s,
             tmp[0] * s + tmp[1] * c]
