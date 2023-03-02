@@ -147,17 +147,45 @@ GNEAccess::writeAdditional(OutputDevice& device) const {
 
 bool
 GNEAccess::isAdditionalValid() const {
-    return true;
+    // with friendly position enabled position is "always fixed"
+    if (myFriendlyPosition) {
+        return true;
+    } else {
+        return fabs(myPositionOverLane) <= getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
+    }
 }
 
 
 std::string GNEAccess::getAdditionalProblem() const {
-    return "";
+    // obtain final length
+    const double len = getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
+    // check if detector has a problem
+    if (GNEAdditionalHandler::checkLanePosition(myPositionOverLane, 0, len, myFriendlyPosition)) {
+        return "";
+    } else {
+        // declare variable for error position
+        std::string errorPosition;
+        // check positions over lane
+        if (myPositionOverLane < 0) {
+            errorPosition = (toString(SUMO_ATTR_POSITION) + " < 0");
+        }
+        if (myPositionOverLane > len) {
+            errorPosition = (toString(SUMO_ATTR_POSITION) + TL(" > lanes's length"));
+        }
+        return errorPosition;
+    }
 }
 
 
 void GNEAccess::fixAdditionalProblem() {
-    // nothing to fix
+    // declare new position
+    double newPositionOverLane = myPositionOverLane;
+    // declare new lenght (but unsed in this context)
+    double length = 0;
+    // fix pos and length with fixLanePosition
+    GNEAdditionalHandler::fixLanePosition(newPositionOverLane, length, getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength());
+    // set new position
+    setAttribute(SUMO_ATTR_POSITION, toString(newPositionOverLane), myNet->getViewNet()->getUndoList());
 }
 
 
