@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-02-24 15:21+0000\n"
-"Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
-"gui-netedit/de/>\n"
+"PO-Revision-Date: 2023-03-03 06:59+0000\n"
+"Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
+"sumo-gui-netedit/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.16-dev\n"
+"X-Generator: Weblate 4.16.2-dev\n"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:291
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:294
@@ -3853,7 +3853,7 @@ msgstr "Texturen deaktivieren"
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:428
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:428
 msgid "Load visualisation settings from FILE"
-msgstr "Darstellungseinstellung von Datei laden"
+msgstr "Darstellungseinstellung von FILE laden"
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:433
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:433
