@@ -1,13 +1,8 @@
-Warning: Found sharp turn with radius 7.75 at the end of edge '25610924#0'.
 Warning: Lane '124262120_0' is not connected from any incoming edge at junction '1383487041'.
 Warning: Lane '124264571_0' is not connected from any incoming edge at junction '1383506147'.
-Warning: Speed of turning connection '-124262124_0->124262109#2_0' reduced by 41.74 due to turning radius of 1.32 (length=1.28, angle=175.38).
-Warning: Speed of turning connection '-458067265_0->124262109#4_0' reduced by 40.58 due to turning radius of 2.72 (length=4.69, angle=175.17).
-Warning: Speed of turning connection '-458067266_0->124262109#5_0' reduced by 40.57 due to turning radius of 2.72 (length=4.70, angle=174.89).
-Warning: Speed of turning connection '-458067267_0->124262127_0' reduced by 35.01 due to turning radius of 16.18 (length=37.56, angle=174.89).
-Warning: Connection '-124262115_0->124262125#1_0' is only 0.10m short.
-/usr/lib64/python3.6/importlib/_bootstrap.py:219: ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__
-  return f(*args, **kwds)
-/usr/lib64/python3.6/importlib/_bootstrap.py:219: ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__
-  return f(*args, **kwds)
-Optimization failed
+Warning: Speed of turning connection '124262109#1_0->124262124_0' reduced by 32.40 due to turning radius of 26.35 (length=6.76, angle=50.16).
+Warning: Speed of turning connection '-124262124_0->124262109#2_0' reduced by 39.41 due to turning radius of 4.61 (length=6.30, angle=129.85).
+Warning: Speed of turning connection '-458067265_0->124262109#4_0' reduced by 39.01 due to turning radius of 5.36 (length=9.56, angle=155.24).
+Warning: Speed of straight connection '25776793_0->469983240_0' reduced by 43.61 due to turning radius of 74.78 (length=7.80, angle=41.04).
+Warning: Speed of turning connection '-458067266_0->124262109#5_0' reduced by 39.30 due to turning radius of 4.80 (length=7.75, angle=145.98).
+Warning: 10 total messages of type: Speed of % connection '%' reduced by % due to turning radius of % (length=%, angle=%).

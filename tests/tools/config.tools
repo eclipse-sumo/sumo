@@ -235,6 +235,7 @@ output:Cache: hits
 output:function .* called at .*
 output:function .* finished after .*
 output:optional arguments:{REPLACE options:}
+output:succeeded after .*{REPLACE succeeded after TIME}
 dualog:uration:.*ms
 dualog:uration:.*s
 dualog:Real time factor
