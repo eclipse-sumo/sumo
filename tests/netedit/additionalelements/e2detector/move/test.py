@@ -35,23 +35,20 @@ netedit.additionalMode()
 netedit.changeElement("laneAreaDetector")
 
 # create E2
-netedit.leftClick(referencePosition, 232, 240)
+netedit.leftClick(referencePosition, 427, 253)
 
 # change to move mode
 netedit.moveMode()
 
 # move E2 to right
-netedit.moveElement(referencePosition, 277, 240, 418, 240)
+netedit.moveElement(referencePosition, 450, 258, 583, 258)
 
 # move E2 to left
-netedit.moveElement(referencePosition, 418, 240, 182, 240)
-
-# move E2 to right
-netedit.moveElement(referencePosition, 182, 240, 373, 240)
+netedit.moveElement(referencePosition, 583, 258, 336, 258)
 
 # Check undos and redos
-netedit.undo(referencePosition, 4)
-netedit.redo(referencePosition, 4)
+netedit.undo(referencePosition, 3)
+netedit.redo(referencePosition, 3)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

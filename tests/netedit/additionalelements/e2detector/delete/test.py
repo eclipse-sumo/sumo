@@ -35,7 +35,7 @@ netedit.additionalMode()
 netedit.changeElement("laneAreaDetector")
 
 # create E2
-netedit.leftClick(referencePosition, 250, 260)
+netedit.leftClick(referencePosition, 427, 253)
 
 # Change to delete
 netedit.deleteMode()
@@ -44,13 +44,13 @@ netedit.deleteMode()
 netedit.changeProtectAdditionalElements(referencePosition)
 
 # delete created E2
-netedit.leftClick(referencePosition, 260, 260)
+netedit.leftClick(referencePosition, 474, 255)
 
 # delete loaded E2
-netedit.leftClick(referencePosition, 450, 260)
+netedit.leftClick(referencePosition, 375, 289)
 
 # delete lane with the second loaded E2
-netedit.leftClick(referencePosition, 200, 230)
+netedit.leftClick(referencePosition, 514, 177)
 
 # Check undo
 netedit.undo(referencePosition, 3)
@@ -62,7 +62,7 @@ netedit.deleteMode()
 netedit.changeProtectAdditionalElements(referencePosition)
 
 # try to delete lane with the second loaded E2 (doesn't allowed)
-netedit.leftClick(referencePosition, 200, 230)
+netedit.leftClick(referencePosition, 514, 177)
 
 # wait warning
 netedit.waitDeleteWarning()
