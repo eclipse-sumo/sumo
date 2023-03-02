@@ -77,7 +77,7 @@ homepage.
 Documentation
 ---------------
 
-- The main documentation is at [sumo.dlr.de/docs](https://sumo.dlr.de/docs). Note, that this tracks the [develpment version](https://sumo.dlr.de/docs/FAQ.html#why_does_sumo_not_behave_as_documented_in_this_wiki).
+- The main documentation is at [sumo.dlr.de/docs](https://sumo.dlr.de/docs). Note, that this tracks the [development version](https://sumo.dlr.de/docs/FAQ.html#why_does_sumo_not_behave_as_documented_in_this_wiki).
 - A mirror of the main documentation is at [sumo.sourceforge.net/docs](https://sumo.sourceforge.net/docs).
 - A offline version of the documentation is part of every release and can be accessed via `docs/userdoc/index.html`.
 
