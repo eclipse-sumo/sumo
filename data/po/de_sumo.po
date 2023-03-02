@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-02 12:13+0000\n"
+"PO-Revision-Date: 2023-03-02 13:41+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -6601,9 +6601,8 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:154
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:154
-#, fuzzy
 msgid "Disables building turnarounds at fringe junctions"
-msgstr "Deaktiviert das Erstellen von Wendungen an Randknotenpunkten"
+msgstr "Deaktiviert das Erstellen von Wendefahrbahnen an Randknotenpunkten"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:157
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:157
@@ -6617,13 +6616,12 @@ msgstr "Trennt Kanten entlang Geometrieknoten"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:165
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:165
-#, fuzzy
 msgid ""
 "Replace nodes which only define edge geometry by geometry points (joins "
 "edges)"
 msgstr ""
-"Knoten, die nur Kantengeometrie definieren, durch Geometriepunkte "
-"(verbündete Kanten), ersetzen"
+"Knoten, die nur Kantengeometrie definieren, durch Geometriepunkte ersetzen ("
+"Kanten verbinden)"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:168
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:168
@@ -6728,8 +6726,8 @@ msgid ""
 "Matches stops outside the road network to the referencing pt line when below "
 "the given distance"
 msgstr ""
-"Ordnet Haltepunkte außerhalb des Straßennetzes der referenzierenden "
-"Punktlinie zu, wenn diese unter der angegebenen Entfernung liegt"
+"Ordnet Haltepunkte außerhalb des Straßennetzes der referenzierenden ÖV-Linie "
+"zu, wenn diese unter der angegebenen Entfernung liegen"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:226
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:226
@@ -6796,7 +6794,7 @@ msgid ""
 "by FLOAT"
 msgstr ""
 "Die Gehlänge des Zugangs wird als Luftlinienentfernung multipliziert mit "
-"Fließkommazahl berechnet"
+"FLOAT berechnet"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:262
 msgid "Skips automatic generation of stops on the bidi-edge of a loaded stop"
@@ -7070,18 +7068,16 @@ msgstr "Kanten mit Geschwindigkeit > Fleißkommazahl nicht als Rampen behandeln"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:683
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:683
-#, fuzzy
 msgid "Treat edges with speed < FLOAT as no highways"
-msgstr ""
-"Kanten mit Geschwindigkeit < Fließkommazahl als keine Autobahnen behandeln"
+msgstr "Kanten mit Geschwindigkeit < FLOAT nicht als Autobahnen behandeln"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:687
 msgid "Use FLOAT as ramp-length"
-msgstr "Fließkommazahl als Rampenlänge verwenden"
+msgstr "FLOATl als Rampenlänge verwenden"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:691
 msgid "Use FLOAT as minimum ramp-length"
-msgstr "Fließkommazahl als minimale Rampenlänge verwenden"
+msgstr "FLOAT als minimale Rampenlänge verwenden"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:695
 msgid "Tries to handle the given edges as ramps"
@@ -11318,20 +11314,19 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:54
 msgid "The generated net will be written to FILE"
-msgstr "Das generierte Netz wird in Datei geschrieben"
+msgstr "Das generierte Netz wird nach FILE geschrieben"
 
 #: /home/micha/programming/sumo/src\netwrite\NWFrame.cpp:59
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:59
-#, fuzzy
 msgid "Prefix of files to write plain xml nodes, edges and connections to"
 msgstr ""
-"Präfix von Dateien, in die einfache XML-Knoten, Kanten und Verbindungen "
+"Präfix von Dateien, in die Plain-XML-Knoten, Kanten und Verbindungen "
 "geschrieben werden sollen"
 
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:62
 msgid "Write all lanes and their attributes even when they are not customized"
 msgstr ""
-"Alle Fahrstreifen und ihre Attribute, auch wenn sie nicht angepasst sind, "
+"Alle Fahrstreifen und ihre Attribute, auch wenn sie nicht angepasst wurden, "
 "schreiben"
 
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:69
@@ -11358,7 +11353,7 @@ msgstr "Das generierte Netz wird im OpenDRIVE-Format in eine Datei geschrieben"
 msgid ""
 "The generated net will be written to dlr-navteq files with the given PREFIX"
 msgstr ""
-"Das generierte Netz wird mit dem angegebenen Prefix in dlr-navteq-Dateien "
+"Das generierte Netz wird mit dem angegebenen Präfix in dlr-navteq-Dateien "
 "geschrieben"
 
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:91
@@ -11378,13 +11373,12 @@ msgstr "Schreibt Originalnamen, falls angegeben, als Parameter"
 
 #: /home/micha/programming/sumo/src\netwrite\NWFrame.cpp:100
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:100
-#, fuzzy
 msgid "Writes street signs as POIs to FILE"
-msgstr "Schreibt Straßenschilder als Pole in die Datei"
+msgstr "Schreibt Straßenschilder als Pol in die Datei"
 
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:104
 msgid "Writes public transport stops to FILE"
-msgstr "Schreibt Haltepunkte des ÖVs in Datei"
+msgstr "Schreibt Haltepunkte des ÖV in Datei"
 
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:106
 msgid "Writes public transport lines to FILE"
@@ -11412,18 +11406,18 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src\netwrite\NWFrame.cpp:123
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:123
-#, fuzzy
 msgid ""
 "Builds parameterized curves whenever the angular change  between straight "
 "segments exceeds FLOAT degrees"
 msgstr ""
 "Erstellt parametrisierte Kurven, wenn die Winkeländerung zwischen geraden "
-"Segmenten Fließkommazahl in Grad überschreitet"
+"Segmenten in Grad FLOAT überschreitet"
 
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:127
 msgid "Write lanes in lefthand networks on the left side (positive indices)"
 msgstr ""
-"Fahrstreifen in linken Netz auf der linken Seite (positive Indizes) schreiben"
+"Fahrstreifen in Linksverkehrnetzen von der linken Seite aus (positive "
+"Indizes) schreiben"
 
 #: /home/micha/programming/sumo/src\netwrite\NWFrame.cpp:130
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:130
@@ -11551,7 +11545,8 @@ msgstr "Schreibt Flussdefinitionen in Datei"
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:108
 msgid "Writes probabilistic flow instead of evenly spaced flow"
 msgstr ""
-"Schreibt probabilistischen Fluss statt Fluss in gleichmäßigen Abständen"
+"Schreibt probabilistischen Fluss anstatt eines Flusses mit gleichmäßigen "
+"Abständen"
 
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:111
 msgid "Writes pedestrians instead of vehicles"
@@ -11563,7 +11558,7 @@ msgstr "Schreibt Personenfahrten anstelle von Fahrzeugen"
 
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:117
 msgid "Add modes attribute to personTrips"
-msgstr "Modiattribute zu Personenfahrten hinzufügen"
+msgstr "modes-Attribut zu Personenfahrten (personTrip) hinzufügen"
 
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:124
 msgid "Writes trips between junctions"
@@ -12015,7 +12010,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:100
 msgid "Reads pois and shapes from FILE assuming they're coded in XML"
 msgstr ""
-"Liest Pole und Shapes aus Datei unter der Annahme, dass sie in XML kodiert "
+"Liest PoI und Shapes aus Datei unter der Annahme, dass sie in XML kodiert "
 "sind"
 
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:105
@@ -12032,14 +12027,12 @@ msgstr "Die ID wird aus dem angegebenen 'name'-Attribut festgelegt"
 
 #: /home/micha/programming/sumo/src\polyconvert\polyconvert_main.cpp:111
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:111
-#, fuzzy
 msgid ""
 "If FLOAT >= 0, assemble one polygon from all ways of a relation if they all "
 "connect with gaps below FLOAT"
 msgstr ""
-"Wenn Fließkommazahl >= 0, ein Polygon aus allen Wegen einer Beziehung "
-"zusammengesetzt ist, wenn sie alle mit Lücken unterhalb von der "
-"Fließkommazahl verbunden sind"
+"Wenn FLOAT >= 0 ist, setze ein Polygon aus allen Wegen einer Beziehung "
+"zusammen, wenn diese eine maximale Lücke FLOAT zum Nachbarweg haben"
 
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:118
 msgid "Reads shapes from shapefiles FILE+"
@@ -12104,9 +12097,8 @@ msgstr "Beschneidet"
 
 #: /home/micha/programming/sumo/src\polyconvert\polyconvert_main.cpp:165
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:165
-#, fuzzy
 msgid "Enables pruning on net boundaries"
-msgstr "Aktiviert das Ausästen an Netzgrenzen"
+msgstr "Aktiviert das Beschneiden an Netzgrenzen"
 
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:169
 msgid ""
@@ -13224,11 +13216,11 @@ msgstr "Eine durch die Leistung gegebene Beschleunigung wurde nicht gefunden."
 
 #: /home/micha/programming/sumo/src\utils\foxtools\MFXDecalsTable.cpp:71
 msgid "Add decal"
-msgstr "Hintergrund(bild) hinzufügen"
+msgstr "Hintergrund hinzufügen"
 
 #: /home/micha/programming/sumo/src\utils\foxtools\MFXDecalsTable.cpp:71
 msgid "Add decal."
-msgstr "Hintergrund(bild) hinzufügen."
+msgstr "Hintergrund hinzufügen."
 
 #: /home/micha/programming/sumo/src/utils/foxtools/MFXDecalsTable.cpp:125
 #: /home/micha/programming/sumo/src/utils/foxtools/MFXDecalsTable.cpp:136
@@ -13246,7 +13238,7 @@ msgstr "Ungültige Spalte"
 
 #: /home/micha/programming/sumo/src/utils/foxtools/MFXDecalsTable.cpp:711
 msgid "Open decal"
-msgstr "Hintergrund(bild) öffnen"
+msgstr "Hintergrund öffnen"
 
 #: /home/micha/programming/sumo/src\utils\foxtools\MFXDecalsTable.cpp:337
 msgid "All files (*)"
@@ -13254,15 +13246,15 @@ msgstr "Alle Dateien (*)"
 
 #: /home/micha/programming/sumo/src/utils/foxtools/MFXDecalsTable.cpp:711
 msgid "Open decal."
-msgstr "Öffne Hintergrund(bild)."
+msgstr "Öffne Hintergrund."
 
 #: /home/micha/programming/sumo/src\utils\foxtools\MFXDecalsTable.cpp:796
 msgid "Remove decal"
-msgstr "Hintergrund(bild) entfernen"
+msgstr "Hintergrund entfernen"
 
 #: /home/micha/programming/sumo/src\utils\foxtools\MFXDecalsTable.cpp:796
 msgid "Remove decal."
-msgstr "Hintergrund(bild) entfernen."
+msgstr "Hintergrund entfernen."
 
 #: /home/micha/programming/sumo/src\utils\geom\GeoConvHelper.cpp:86
 #: /home/micha/programming/sumo/src/utils/geom/GeoConvHelper.cpp:86
