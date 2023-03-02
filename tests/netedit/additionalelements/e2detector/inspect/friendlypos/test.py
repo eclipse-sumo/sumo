@@ -35,13 +35,13 @@ netedit.additionalMode()
 netedit.changeElement("laneAreaDetector")
 
 # create E2
-netedit.leftClick(referencePosition, 250, 130)
+netedit.leftClick(referencePosition, 520, 210)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first E2
-netedit.leftClick(referencePosition, 350, 130)
+netedit.leftClick(referencePosition, 480, 210)
 
 # Change boolean parameter friendly pos
 netedit.modifyBoolAttribute(netedit.attrs.E2.inspect.friendlyPos, True)

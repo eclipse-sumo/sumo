@@ -38,7 +38,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect E2s
-netedit.leftClick(referencePosition, 350, 310)
+netedit.leftClick(referencePosition, 582, 180)
 
 # Change parameter length with a non valid value(dummy)
 netedit.modifyAttribute(netedit.attrs.E2.inspectSelection.length, "dummyLength", True)
