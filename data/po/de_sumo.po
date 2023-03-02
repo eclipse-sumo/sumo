@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-02 13:41+0000\n"
+"PO-Revision-Date: 2023-03-02 14:13+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -6555,13 +6555,12 @@ msgstr "Ordnet IDs von Kanten neu zu ganzen Zahlen zu, beginnend bei INT"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:130
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:130
-#, fuzzy
 msgid ""
 "Ensures that generated ids do not included any of the typed IDs from FILE "
 "(sumo-gui selection file format)"
 msgstr ""
-"Stellt sicher, dass generierte IDs keine der eingegebenen IDs aus Datei "
-"(sumo-gui selection file format) enthalten"
+"Stellt sicher, dass generierte IDs keine der eingegebenen IDs aus FILE ("
+"Netzelementauswahlformat für sumo-gui) enthalten"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:134
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:134
