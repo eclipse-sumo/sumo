@@ -1,0 +1,8 @@
+# braking can still allow the priority vehicle to pass first
+cannot_stop_pass_later
+
+# vehicle is too fast to stop even with emergency decel, trying to brake causes collision
+cannot_stop_collision
+
+# vehicle is too fast to stop even with emergency decel
+cannot_stop_pass_first
