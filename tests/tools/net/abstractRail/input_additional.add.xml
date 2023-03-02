@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-03-02 08:13:22 by Eclipse SUMO netedit Version v1_16_0+0877-a4743b5
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- StoppingPlaces -->
+    <busStop id="1383487268" name="Nauen" lane="458067259_0" startPos="195.86" endPos="395.86" friendlyPos="true" lines="RB14"/>
+    <busStop id="1383487272" name="Nauen" lane="469983242_0" startPos="212.00" endPos="412.00" friendlyPos="true" lines="RE8 RE2"/>
+    <busStop id="1383487284" name="Nauen" lane="458067262_0" startPos="213.92" endPos="413.92" friendlyPos="true" lines="RB10"/>
+</additional>
