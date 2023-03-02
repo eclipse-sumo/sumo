@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version v1_16_0+0027-a0cc867
+Eclipse SUMO netconvert Version v1_16_0+0875-d196e53626f
  Copyright (C) 2001-2023 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -187,8 +187,8 @@ Processing Options:
                                         the bidi-edge of a loaded stop
   --geometry.max-grade FLOAT           Warn about edge geometries with a grade
                                         in % above FLOAT.
-  --geometry.max-grade.fix             Smooth edge edge geometries with a grade
-                                        in above the warning threshold.
+  --geometry.max-grade.fix             Smooth edge geometries with a grade
+                                        above the warning threshold.
   --offset.disable-normalization       Turn off normalizing node positions
   --offset.x FLOAT                     Adds FLOAT to net x-positions
   --offset.y FLOAT                     Adds FLOAT to net y-positions

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-01-25 08:44:26 by Eclipse SUMO netgenerate Version v1_15_0+1914-84100d0141c
+<!-- generated on 2023-03-02 07:43:40 by Eclipse SUMO netgenerate Version v1_16_0+0875-d196e53626f
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -57,9 +57,6 @@
         <!-- The length of streets attached at the boundary in y direction; 0 means no streets are attached -->
         <grid.y-attach-length value="0" type="FLOAT"/>
 
-    </grid_network>
-
-    <spider_network>
         <!-- Forces NETGEN to build a spider-net-like network -->
         <spider value="false" synonymes="s spider-net" type="BOOL"/>
 
@@ -75,7 +72,7 @@
         <!-- Omit the central node of the network -->
         <spider.omit-center value="false" synonymes="nocenter spider-omit-center" type="BOOL"/>
 
-    </spider_network>
+    </grid_network>
 
     <random_network>
         <!-- Forces NETGEN to build a random network -->
@@ -255,7 +252,7 @@
         <!-- Warn about edge geometries with a grade in % above FLOAT. -->
         <geometry.max-grade value="10" type="FLOAT"/>
 
-        <!-- Smooth edge edge geometries with a grade in above the warning threshold. -->
+        <!-- Smooth edge geometries with a grade above the warning threshold. -->
         <geometry.max-grade.fix value="true" type="BOOL"/>
 
         <!-- Turn off normalizing node positions -->
