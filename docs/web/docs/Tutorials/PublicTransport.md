@@ -26,9 +26,9 @@ Main topics are:
   - [traci._busstop](https://sumo.dlr.de/pydoc/traci._busstop.html)
 
 # Public Transport Tutorial
-At the beginning of the simulation buses and trams are getting dispatched to cater to their designated routes.   
-Simultaneously people are created. Each person hurries to their favourite bus stop and waits for their bus or tram.   
-They're getting picked up and brought to the target bus stop.
+At the beginning of the simulation, buses and trams are being dispatched to cater to their designated routes.   
+Simultaneously, people are created. Each person hurries to their favourite bus stop and waits for their bus or tram.   
+They then are picked up and brought to their target bus stops.
 
 Running the simulation:
 ```
@@ -39,12 +39,11 @@ Running the simulation:
 
 ## Net, routes, demand and schedules
 ### Net
-First the net has to be created and the bus stops be build. There are several ways to accomplish this.   
-One can for example write them by hand into the xml file or use netedit for it.
+First, the net has to be created and bus stops must be built. There are several ways to accomplish this - one can, for example, write them by hand into the xml file or use netedit for this.
 
 #### Using netedit
 Bus stops can be easily created with the bus stop tool at the top of the window.   
-Following gifs will describe the basic creation of the net used in this tutorial.
+The following gifs will describe the basic creation of the net used in this tutorial.
 ![](../images/PublicTransport02.gif)
 *Creating an edge with reverse line and side walks.*
 
@@ -57,11 +56,11 @@ Following gifs will describe the basic creation of the net used in this tutorial
 If you are not sure about how to create a net in netedit, take a look at this tutorial:
 
 * [Quick Start](quick_start.md)
-It explains the use of edges, connections, demands, routes etc. in depth.
+It explains the use of edges, connections, demands, routes etc., in depth.
 
-When saving the net you should as well save your additionals.
-Bus stops should be written in the additional.add.xml file to provide the stops for the people and vehicles.   
-An example how an xml code for the bus stop may look like:
+When saving the net you should save your additionals as well.
+Bus stops should be written in the `additional.add.xml` file to provide the stops for the people and vehicles.   
+An example xml code for the bus stop may look like this:
 
 ```
     <busStop id="A_bus" lane="-E1_1" startPos="14.42" endPos="24.42"/>
@@ -76,15 +75,15 @@ If a busStop is on an edge that does not permit pedestrians (i.e. tram track) it
 
 ## Public Transport
 The created bus stops can be used as the stopping points within the route declaration.   
-Those routes can later be assigned to vehicles, in this case the trams and buses.
-The routes are written into the routes.rou.xml file.   
+Those routes can later be assigned to vehicles, in this case, trams and buses.
+The routes are written into the `routes.rou.xml` file.   
 Below you can see examples from the code for the routes of the trams and buses.
 
 
-To obtain a repeating schedule multiple approaches are feasible
+To obtain a repeating schedule multiple approaches are feasible:
 
 - define repeating vehicles (`<flow>`) that disappear after running the route once. This is useful if the network does not contain the full circuit of the route
-- define a single vehicle with a repeating route. This is ideal for letting delays from one round of the scheduel carry over to the next round
+- define a single vehicle with a repeating route. This is ideal for letting delays from one round of the schedule carry over to the next round
 
 ```
     <vType id="bus" vClass="bus"/>
@@ -106,9 +105,9 @@ To obtain a repeating schedule multiple approaches are feasible
 
 ### Schedules
 
-Buses and trams usually run by strict schedules in daily life. Similar alterations are possible in Sumo and vital when using intermodal routing.   
-Such schedules are defined with the attribute until. The until attribute is set for the stops.
-The vehicle following this schedule can't leave this stop until this time ('until') has passed and the minimum stoppping time ('duration') has also passed.
+Buses and trams usually run on strict schedules in daily life. Similar alterations are possible in SUMO and are vital while using intermodal routing.   
+Such schedules are defined with the attribute `until`. The until attribute is set for the stops.
+A vehicle following this schedule can't leave this stop until this time ('until') has passed and the minimum stoppping time ('duration') has also passed.
 
 
 ## Demand
@@ -122,7 +121,7 @@ The travel demand consists of persons that can choose their mode of transport fr
 ```
 
 Instead of flows, all persons and vehicles can also be defined individually and person plans can be defined with explicit steps.
-Use sumo option **--vehroute** output to learn how a `<personFlow>` is expanded into multiple travel stages during the simulation.
+Use the sumo option **--vehroute** output to learn how a `<personFlow>` is expanded into multiple travel stages during the simulation.
 
 ```
 <person id="HeadingBusstop20" depart="1.00" color="green">
@@ -144,9 +143,9 @@ Use sumo option **--vehroute** output to learn how a `<personFlow>` is expanded 
 
 
 ## sumocfg
-As you probably have seen from other tutorials you bind everything together
-with a sumocfg. Within you set the net, route and additional files.   
-Afterwards you can start your simulation by clicking on it or starting it over the
+As you have probably seen from other tutorials, you bind everything together
+with a sumocfg. Within this, you set the net, route and additional files.   
+Afterwards, you can start your simulation by clicking on it or starting it over on the
 command line.
 
 ```

@@ -26,12 +26,12 @@ The network should contain edges for all traffic types (modes) you want
 to model and the relevant edge types. The script currently supports
 the following mapping:
 
-- tram -> all edges allowing SUMO's vehicle class tram
-- subway -> OSM type railway.subway
-- light_rail -> OSM type railway.light_rail
-- train -> OSM type railway.rail
-- bus -> all edges allowing SUMO's vehicle class bus
-- ship -> OSM type ship
+- `tram` -> all edges allowing SUMO's vehicle class tram
+- `subway` -> OSM type railway.subway
+- `light_rail` -> OSM type railway.light_rail
+- `train` -> OSM type railway.rail
+- `bus` -> all edges allowing SUMO's vehicle class bus
+- `ship` -> OSM type ship
 
 If the network does not contain edge types, only bus and tram mappings are possible which will use the edges
 allowing the relevant vehicle classes.
@@ -72,13 +72,13 @@ the script can merge this information with the GTFS data.
 In general there are three types of data
 we can extract from GTFS: schedules (in minute precision for every vehicle), stop locations (geo coordinates),
 and routes (geo coordinates of the travelled streets), where the latter is optional. The GTFS file should be in
-zip format and contain at least routes.txt, stops.txt, stop_times.txt, trips.txt, calendar.txt and calendar_dates.txt.
-If your GTFS data has a (non-empty) shapes.txt file it also has route information.
+zip format and contain at least `routes.txt`, `stops.txt`, `stop_times.txt`, `trips.txt`, `calendar.txt` and `calendar_dates.txt`.
+If your GTFS data has a (non-empty) `shapes.txt` file it also has route information.
 For the rest of the tutorial, we will assume that you always want to import at least the schedules from GTFS.
 
 From OSM you can (sometimes) get abstract schedules ("line runs every 10 minutes on weekdays") and also stop locations and routes.
 While it may be desirable to choose for every of the three data types individually whether it should be imported from OSM
-or from GTFS currently only the following scenarios are possible:
+or from GTFS, currently, only the following scenarios are possible:
 
 - Ignore the OSM and route data completely, see [Routes from shortest path](GTFS.md#routes_from_shortest_path).
   - This approach works with every network (not only OSM) and is the default if you do not have ptline output or your GTFS does not contain a shapes.txt file
@@ -98,9 +98,9 @@ python tools/import/gtfs/gtfs2pt.py -n osm.net.xml --gtfs GTFS_VBB_Juni-Dezember
 
 The script runs for about five minutes and generates several subdirectories but in the end it provides three output files:
 
-- pt_vtypes.xml
-- gtfs_publictransport.add.xml (defining the static routes and stops)
-- gtfs_publictransport.rou.xml (defining the single public transport vehicles)
+- `pt_vtypes.xml`
+- `gtfs_publictransport.add.xml` (defining the static routes and stops)
+- `gtfs_publictransport.rou.xml` (defining the single public transport vehicles)
 
 The vtypes output generates very simple vehicle type definitions for the different public transport modes in use. You are encouraged to modify this file and adapt
 it to the real situation especially concerning capacity (number of seats) for the different modes. You may of course also use vehicle types from another source and skip this output.
@@ -123,16 +123,16 @@ The call is:
 python tools/import/gtfs/gtfs2pt.py -n osm.net.xml --gtfs GTFS_VBB_Juni-Dezember-2019.zip --date 20190904 --osm-routes osm_ptlines.xml --repair --modes bus
 ```
 
-The option **--repair** is not mandatory but helpful. It takes the given ptLines
+The option **--repair** is not mandatory, but helpful. It takes the given ptLines
 and tries to repair them using duarouter before the mapping. If some routes of the
-ptLines are not valid, then they won't be used for the mapping.
+ptLines are not valid, they won't be used for the mapping.
 
 The script generates four output files:
 
-- gtfs_publictransport.add.xml (defining the stops)
-- gtfs_publictransport.rou.xml (defining the single public transport vehicles)
-- gtfs_missing.xml contains the elements (stops and ptLines) of the GTFS data that could not be imported
-- invalid_osm_routes.txt contains the warnings and errors from the repair of the ptLines
+- `gtfs_publictransport.add.xml` (defining the stops)
+- `gtfs_publictransport.rou.xml` (defining the single public transport vehicles)
+- `gtfs_missing.xml` contains the elements (stops and ptLines) of the GTFS data that could not be imported
+- `invalid_osm_routes.txt` contains the warnings and errors from the repair of the ptLines
 
 To run the simulation call:
 

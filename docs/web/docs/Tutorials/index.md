@@ -48,7 +48,7 @@ The SUMO User Conference is an anual event organized by the German Aerospace Cen
 * [ScenarioGuide](ScenarioGuide.md) - High level outline of the steps needed to build a simulation scenario
 * [HighwayDetector](HighwayDetector.md) - How to create a highway scenario based on induction loop data
 * [FundamentalDiagram](FundamentalDiagram.md) - How to compute a fundamental diagram with SUMO
-* [PT from OpenStreetMap](PT_from_OpenStreetMap.md) - Shows how to create a runnable public transit scenario entirely from [OpenStreetMap](https://www.openstreetmap.org/)
+* [PT from OpenStreetMap](PT_from_OpenStreetMap.md) - Creating a runnable public transit scenario entirely from [OpenStreetMap](https://www.openstreetmap.org/)
 * [Importing GTFS](GTFS.md) - Importing public transport schedules from public sources using the General Transit Feed Specification
 * [Port](port.md) - Creating a scenario that simulates the port logistics of an arbitrary port from [OpenStreetMap](https://www.openstreetmap.org/)
 

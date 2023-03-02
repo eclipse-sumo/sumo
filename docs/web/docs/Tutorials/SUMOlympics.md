@@ -5,7 +5,7 @@ title: SUMOlympics
 This tutorial sets up a competition (a collective 100 meter sprint) for
 different traffic modes. You will learn how to create special lanes and
 (very simple) traffic lights in [netedit](../Netedit/index.md), use different vehicle classes
-to define vehicle types and you will create flows for the different
+to define vehicle types and create flows for the different
 types. All files can also be found in the {{SUMO}}/docs/tutorial/sumolympics
 directory.
 
@@ -18,7 +18,7 @@ by the PTV Group](https://www.youtube.com/watch?v=IpaNLxrtHOs).
 
 Open netedit and create a new network and add a single
 edge by pressing `e` for entering the edge creation mode and clicking on
-two different locations in the editing area. Change to inspection mode
+two different locations in the editing area. Change to the inspection mode
 (press `i`) and click on the starting point of the edge (at the location
 of your first click). Now enter `0,0` in the textfield labeled `pos` in
 the inspector panel on the left (see figure). Do the same for the edge's
@@ -27,7 +27,7 @@ the name `sumolympics.net.xml` (press `Ctrl+Shift-S`).
 
 Now we have a long road, which will be the stage of our competition. The
 participants in the competition will be transportation modes, i.e.,
-busses, trams, bicycles, passenger cars, and feet. They should travel on
+buses, trams, bicycles, passenger cars, and feet. They should travel on
 different lanes side-by-side. Thus, we have to add lanes for each mode.
 To do so, right-click on the edge and hover over "add restricted lane"
 in the context menu. This will show you three choices for the creation
@@ -53,7 +53,7 @@ inspect mode, change its width to 2.1 meters in the left panel.
 <img src="../images/sumolympics_netedit_3.png" width="1000"/>
 
 Now let us split the edge to create a starting point for the
-competitors: Right-click somewhere on the edge and select "Split edge
+competitors: Right-click anywhere on the edge and select "Split edge
 here" from the context menu. Then click on the created node (in SUMO
 terminology this is already a _junction_). Set its x-coordinate to 900
 and its y-coordinate to 0 in the `pos`-field just as you did above when
@@ -148,8 +148,8 @@ Adjust the step delay to 100 ms and press the run button
 
 # Defining a start signal by using a traffic light
 
-There os one thing left to do for a fair and complete competition: all 
-competitors should be allowed to position freely in front of the
+There is one thing left to do for a fair and complete competition: all 
+competitors should be allowed to position themselves freely in front of the
 scratch line (the bicyclists are inserted in a row, though they could
 achieve a much better result by grouping more densely using the whole
 lane width).
@@ -181,6 +181,6 @@ lights](../Simulation/Traffic_Lights.md).
 
 <img src="../images/sumolympics_sumogui_2.png" width="1000"/>
 
-Get the popcorn and start the simulation\!
+Grab some popcorn and start the simulation\!
 
 Back to [Tutorials](index.md).

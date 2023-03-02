@@ -5,7 +5,7 @@ title: San Pablo Dam
 This tutorial describes the execution of the simulation in a loop using
 a control script. The aim is to calibrate the simulation to a given
 real-world dataset. This tutorial may be used for further research on
-car-following models or on optimization algorithms.
+car-following models or optimization algorithms.
 
 It is assumed that road network building and routes definition is known
 from other tutorials, as [Tutorials/Hello
@@ -17,12 +17,8 @@ All files mentioned here can be found in the repository at [{{SUMO}}/tests/compl
 
 # Description
 
-Models for vehicle movement have usually several parameters which
-control the behaviour of the vehicle. Their default values are usually
-set based on assumptions or measures or by adapting them to a given data
-set. When moving to a different scenario, they often have to be
-re-adapted for being valid. Due to this, calibration is a crucial step
-in preparing a traffic simulation scenario.
+Models for vehicle movement usually have several parameters which control the behaviour of the vehicle. Their default values are usually set based on assumptions or measures or by adapting them to a given data
+set. When moving to a different scenario, they often have to be re-adapted so as to be valid. Due to this, calibration is a crucial step in preparing a traffic simulation scenario.
 
 This tutorial shows one possibility to calibrate a car-following model
 to match a set of data gained from the real world. The data set we use
@@ -78,7 +74,7 @@ vehicles have the same type. The values for this type - the
 car-following parameter to optimize - are documented in the function gof
 in "runner.py". Please note that we keep "minGap" at 2.5m constantly -
 this should be changed for other models than the used SUMO-Krauß-model.
-If wished, they may be set to the default parameter values before
+If desired, they may be set to the default parameter values before
 performing the calibration (see the end of runner.py).
 
 # Simulation Settings
@@ -122,7 +118,7 @@ other files are completely static.
 
 We use SciPy's "COBYLA" implementation. It requires callbacks for
 determining the error which we have to supply. Our callback (function
-`gof` in "runner.py") works as following:
+`gof` in "runner.py") works as follows:
 
 1.  Write the current vehicle type with the parameters supported by the
     optimizer into a file named "input_types.add.xml"
