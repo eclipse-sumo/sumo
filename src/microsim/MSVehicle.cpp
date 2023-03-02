@@ -3450,6 +3450,17 @@ MSVehicle::processLinkApproaches(double& vSafe, double& vSafeMin, double& vSafeM
             } else if (link->getState() == LINKSTATE_ZIPPER) {
                 vSafeZipper = MIN2(vSafeZipper,
                                    link->getZipperSpeed(this, dpi.myDistance, dpi.myVLinkPass, dpi.myArrivalTime, &collectFoes));
+            } else if (!canBrake
+                    // always brake hard for traffic lights (since an emergency stop is necessary anyway)
+                    && link->getTLLogic() == nullptr
+                    // cannot brake even with emergency deceleration
+                    && dpi.myDistance < getCarFollowModel().brakeGap(myState.mySpeed, getCarFollowModel().getEmergencyDecel(), 0.)) {
+#ifdef DEBUG_EXEC_MOVE
+                if (DEBUG_COND) {
+                    std::cout << SIMTIME << " too fast to brake for closed link\n";
+                }
+#endif
+                vSafe = dpi.myVLinkPass;
             } else {
                 vSafe = dpi.myVLinkWait;
                 myHaveToWaitOnNextLink = true;
