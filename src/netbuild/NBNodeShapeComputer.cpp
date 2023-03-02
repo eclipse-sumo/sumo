@@ -619,9 +619,13 @@ NBNodeShapeComputer::computeEdgeBoundaries(const EdgeVector& edges,
         if (geomsCW[edge].length2D() < NUMERICAL_EPS) {
             geomsCW[edge] = edge->getGeometry();
         }
-        // extend the boundary by extrapolating it by EXT m
+        // cut off all parts beyond EXT to avoid issues with curved-back roads
+        geomsCCW[edge] = geomsCCW[edge].getSubpart2D(0, MAX2(EXT, edge->getTotalWidth()));
+        geomsCW[edge] = geomsCW[edge].getSubpart2D(0, MAX2(EXT, edge->getTotalWidth()));
+        // extend the boundary by extrapolating it by EXT m towards the junction
         geomsCCW[edge].extrapolate2D(EXT, true);
         geomsCW[edge].extrapolate2D(EXT, true);
+        // ensure minimum length by extending it away from the junction
         geomsCCW[edge].extrapolate(EXT2, false, true);
         geomsCW[edge].extrapolate(EXT2, false, true);
     }
