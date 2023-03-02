@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-02 14:13+0000\n"
-"Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
+"PO-Revision-Date: 2023-03-03 06:59+0000\n"
+"Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
 "Language: de\n"
@@ -79,18 +79,18 @@ msgstr "Unbekannte Busstation '%'."
 #: /home/micha/programming/sumo/src/activitygen/AGFrame.cpp:61
 #, fuzzy
 msgid "Use FILE as SUMO-network to create trips for"
-msgstr "Verwende DATEI als SUMO-Netz, um Fahrten zu erstellen"
+msgstr "Verwende FILE als SUMO-Netz, um Fahrten zu erstellen"
 
 #: /home/micha/programming/sumo/src\activitygen\AGFrame.cpp:64
 #: /home/micha/programming/sumo/src/activitygen/AGFrame.cpp:64
 #, fuzzy
 msgid "Loads the SUMO-statistics FILE"
-msgstr "SUMO-Statistikdatei lädt"
+msgstr "SUMO-Statistik FILE lädt"
 
 #: /home/micha/programming/sumo/src\activitygen\AGFrame.cpp:72
 #: /home/micha/programming/sumo/src/activitygen/AGFrame.cpp:72
 msgid "Write generated trips to FILE"
-msgstr "Generierte Fahrten in Datei schreiben"
+msgstr "Generierte Fahrten in FILE schreiben"
 
 #: /home/micha/programming/sumo/src\activitygen\AGFrame.cpp:81
 #: /home/micha/programming/sumo/src/activitygen/AGFrame.cpp:81
@@ -202,26 +202,25 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src\dfrouter\RODFFrame.cpp:61
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:61
+#, fuzzy
 msgid "Loads the SUMO-network FILE"
-msgstr "Lädt die SUMO-Netzdatei"
+msgstr "Lädt den SUMO-Netz FILE"
 
 #: /home/micha/programming/sumo/src\dfrouter\RODFFrame.cpp:70
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:70
 #, fuzzy
 msgid "Loads detector descriptions from FILE"
-msgstr "Detektorbeschreibung aus der Datei lädt"
+msgstr "Detektorbeschreibung aus dem FILE lädt"
 
 #: /home/micha/programming/sumo/src\dfrouter\RODFFrame.cpp:75
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:75
-#, fuzzy
 msgid "Loads detector flows from FILE(s)"
-msgstr "Lädt Detektorflüsse aus DATEI(en)"
+msgstr "Lädt Detektorflüsse aus FILE(s)"
 
 #: /home/micha/programming/sumo/src\dfrouter\RODFFrame.cpp:82
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:82
-#, fuzzy
 msgid "Saves computed routes to FILE"
-msgstr "Berechnete Routen speichern in DATEI"
+msgstr "Berechnete Routen speichern in FILE"
 
 #: /home/micha/programming/sumo/src\dfrouter\RODFFrame.cpp:85
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:85
@@ -231,20 +230,18 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src\dfrouter\RODFFrame.cpp:89
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:89
-#, fuzzy
 msgid "Saves typed detectors to FILE"
-msgstr "Speichert typisierte Detektoren in DATEI"
+msgstr "Speichert typisierte Detektoren in FILE"
 
 #: /home/micha/programming/sumo/src\dfrouter\RODFFrame.cpp:92
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:92
-#, fuzzy
 msgid "Saves detector positions as pois to FILE"
-msgstr "Speichert Detektorpositionen als Pole in DATEI"
+msgstr "Speichert Detektorpositionen als Pole in FILE"
 
 #: /home/micha/programming/sumo/src\dfrouter\RODFFrame.cpp:95
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:95
 msgid "Saves emitter definitions for source detectors to FILE"
-msgstr "Speichert Emitterdefinitionen für Quelldetektoren in einer Datei"
+msgstr "Speichert Emitterdefinitionen für Quelldetektoren in FILE"
 
 #: /home/micha/programming/sumo/src\dfrouter\RODFFrame.cpp:98
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:98
@@ -257,35 +254,32 @@ msgid ""
 "Write generated vehicle types into separate FILE instead of including them "
 "into the emitters-output"
 msgstr ""
-"Generierte Fahrzeugtypen in separate Datei schreiben, anstatt sie in die "
+"Generierte Fahrzeugtypen in separaten FILE schreiben, anstatt sie in die "
 "Emitter-Ausgabe aufzunehmen"
 
 #: /home/micha/programming/sumo/src\dfrouter\RODFFrame.cpp:104
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:104
-#, fuzzy
 msgid "Saves emitter positions as pois to FILE"
-msgstr "Speichert Emitterpositionen als Pole in Datei"
+msgstr "Speichert Emitterpositionen als Pole in FILE"
 
 #: /home/micha/programming/sumo/src\dfrouter\RODFFrame.cpp:108
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:108
-#, fuzzy
 msgid "Saves variable seed sign definitions for sink detectors to FILE"
 msgstr ""
-"Speichert variable Ursprungs-Zeichendefinitionen für Zieldetektoren in einer "
-"Datei"
+"Speichert variable Ursprungs-Zeichendefinitionen für Zieldetektoren in FILE"
 
 #: /home/micha/programming/sumo/src\dfrouter\RODFFrame.cpp:111
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:111
 msgid "Saves rerouter definitions for sink detectors to FILE"
-msgstr "Speichert Rerouterdefinitionen für Zieldetektoren in Datei"
+msgstr "Speichert Rerouterdefinitionen für Zieldetektoren in FILE"
 
 #: /home/micha/programming/sumo/src\dfrouter\RODFFrame.cpp:114
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:114
 msgid ""
 "Write induction loop definitions for the given detector positions to FILE"
 msgstr ""
-"Induktionsschleifendefinitionen für die gegebenen Detektorpositionen in "
-"Datei schreiben"
+"Induktionsschleifendefinitionen für die gegebenen Detektorpositionen in FILE "
+"schreiben"
 
 #: /home/micha/programming/sumo/src\dfrouter\RODFFrame.cpp:117
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:117
@@ -392,7 +386,7 @@ msgstr "Erwarteter Abstand zwischen zwei aufeinanderfolgenden Datensätzen"
 #: /home/micha/programming/sumo/src\dfrouter\RODFFrame.cpp:185
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:185
 msgid "Write calibrators to FILE"
-msgstr "Kalibratoren in Datei schreiben"
+msgstr "Kalibratoren in FILE schreiben"
 
 #: /home/micha/programming/sumo/src\dfrouter\RODFFrame.cpp:188
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:188
@@ -651,7 +645,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src\dfrouter\dfrouter_main.cpp:70
 #: /home/micha/programming/sumo/src/dfrouter/dfrouter_main.cpp:70
 msgid "No detector file given (use --detector-files <FILE>)."
-msgstr "Keine Detektordatei vorhanden (benutze --detector-files <Datei>)."
+msgstr "Keine Detektordatei vorhanden (benutze --detector-files < FILE>)."
 
 #: /home/micha/programming/sumo/src\dfrouter\dfrouter_main.cpp:76
 #: /home/micha/programming/sumo/src/dfrouter/dfrouter_main.cpp:76
@@ -740,18 +734,17 @@ msgstr "Baut Fahrzeugrouten für SUMO unter der Verwendung von Detektorwerten."
 #: /home/micha/programming/sumo/src\duarouter\RODUAFrame.cpp:69
 #: /home/micha/programming/sumo/src/duarouter/RODUAFrame.cpp:69
 msgid "Write generated route alternatives to FILE"
-msgstr "Generierte Routenalternativen in Datei schreiben"
+msgstr "Generierte Routenalternativen in FILE schreiben"
 
 #: /home/micha/programming/sumo/src\duarouter\RODUAFrame.cpp:72
 #: /home/micha/programming/sumo/src/duarouter/RODUAFrame.cpp:72
-#, fuzzy
 msgid "Write edge splits and connectivity to FILE"
-msgstr "Kantenauftrennungen und Konnektivitäten in Datei schreiben"
+msgstr "Kantenauftrennungen und Konnektivitäten in FILE schreiben"
 
 #: /home/micha/programming/sumo/src\duarouter\RODUAFrame.cpp:75
 #: /home/micha/programming/sumo/src/duarouter/RODUAFrame.cpp:75
 msgid "Write intermodal edges with lengths and travel times to FILE"
-msgstr "Intermodale Kanten mit Längen und Fahrzeiten in Datei schreiben"
+msgstr "Intermodale Kanten mit Längen und Fahrzeiten in FILE schreiben"
 
 #: /home/micha/programming/sumo/src\duarouter\RODUAFrame.cpp:78
 #: /home/micha/programming/sumo/src/duarouter/RODUAFrame.cpp:78
@@ -841,12 +834,12 @@ msgstr ""
 #: /home/micha/programming/sumo/src/duarouter/RODUAFrame.cpp:117
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:206
 msgid "Use FLOAT as Gawron's beta"
-msgstr "Fließkommazahl in Gawron als beta verwenden"
+msgstr "FLOAT in Gawron als beta verwenden"
 
 #: /home/micha/programming/sumo/src/duarouter/RODUAFrame.cpp:121
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:210
 msgid "Use FLOAT as Gawron's a"
-msgstr "Fließkommazahl in Gawron als alpha verwenden"
+msgstr "FLOAT in Gawron als alpha verwenden"
 
 #: /home/micha/programming/sumo/src\duarouter\RODUAFrame.cpp:124
 #: /home/micha/programming/sumo/src\jtrrouter\ROJTRFrame.cpp:62
@@ -905,17 +898,17 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/duarouter/RODUAFrame.cpp:149
 msgid "Use FLOAT as logit's beta"
-msgstr "Fließkommazahl in Logit als beta verwenden"
+msgstr "FLOAT in Logit als beta verwenden"
 
 #: /home/micha/programming/sumo/src/duarouter/RODUAFrame.cpp:153
 msgid "Use FLOAT as logit's gamma"
-msgstr "Fließkommazahl in Logit als gamma verwenden"
+msgstr "FLOAT in Logit als gamma verwenden"
 
 #: /home/micha/programming/sumo/src/duarouter/RODUAFrame.cpp:157
 msgid "Use FLOAT as logit's theta (negative values mean auto-estimation)"
 msgstr ""
-"Fließkommazahl in Logit als theta verwenden (negative Werte bedeuten "
-"automatische Schätzung)"
+"FLOAT in Logit als theta verwenden (negative Werte bedeuten automatische "
+"Schätzung)"
 
 #: /home/micha/programming/sumo/src\duarouter\RODUAFrame.cpp:160
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:573
@@ -925,7 +918,7 @@ msgstr ""
 msgid ""
 "Use FLOAT as a factor on pedestrian maximum speed during intermodal routing"
 msgstr ""
-"Verwendet float als Faktor für die Höchstgeschwindigkeit von Fußgängern "
+"Verwendet FLOAT als Faktor für die Höchstgeschwindigkeit von Fußgängern "
 "während des intermodalen Routings"
 
 #: /home/micha/programming/sumo/src/duarouter/RODUAFrame.cpp:163
@@ -933,8 +926,8 @@ msgstr ""
 msgid ""
 "Use FLOAT as a factor on walking speed against vehicle traffic direction"
 msgstr ""
-"Fließkommazahl als Faktor für die Gehgeschwindigkeit entgegen der "
-"Fahrtrichtung des Fahrzeugs verwenden"
+"FLOAT als Faktor für die Gehgeschwindigkeit entgegen der Fahrtrichtung des "
+"Fahrzeugs verwenden"
 
 #: /home/micha/programming/sumo/src/duarouter/RODUAFrame.cpp:170
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:583
@@ -960,8 +953,7 @@ msgstr "Geschätzte Zeit für die Taxiabholung"
 msgid ""
 "Use FLOAT as a maximum train length when initializing the railway router"
 msgstr ""
-"Fließkommazahl als maximale Zuglänge bei der Initialisierung des Bahnrouters "
-"verwenden"
+"FLOAT als maximale Zuglänge bei der Initialisierung des Bahnrouters verwenden"
 
 #: /home/micha/programming/sumo/src\duarouter\RODUAFrame.cpp:216
 #: /home/micha/programming/sumo/src/duarouter/RODUAFrame.cpp:216
@@ -1043,7 +1035,7 @@ msgstr "Die Kanten '%' und '%' sind nicht verbunden."
 #: /home/micha/programming/sumo/src\jtrrouter\ROJTRFrame.cpp:59
 #: /home/micha/programming/sumo/src/jtrrouter/ROJTRFrame.cpp:59
 msgid "Read turning ratios from FILE(s)"
-msgstr "Wendeverhältnisse aus Datei(en) lesen"
+msgstr "Wendeverhältnisse aus FILE(s) lesen"
 
 #: /home/micha/programming/sumo/src\jtrrouter\ROJTRFrame.cpp:69
 #: /home/micha/programming/sumo/src/jtrrouter/ROJTRFrame.cpp:69
@@ -1393,38 +1385,35 @@ msgstr "Konnte Fahrzeugtypinformation nicht speichern"
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:74
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:74
 msgid "Writes edge loads and final costs into FILE"
-msgstr "Kantenladungen und finale Kosten in Datei schreiben"
+msgstr "Kantenladungen und finale Kosten in FILE schreiben"
 
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:77
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:77
 msgid "Writes complete distance matrix into FILE"
-msgstr "Schreibt komplette Distanzmatrix in Datei"
+msgstr "Schreibt komplette Distanzmatrix in FILE"
 
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:81
 #: /home/micha/programming/sumo/src\od2trips_main.cpp:85
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:81
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:85
-#, fuzzy
 msgid "Loads O/D-files from FILE(s)"
-msgstr "Ladet Quelle-/Zieldateien von Datei(en)"
+msgstr "Ladet Quelle-/Zieldateien von FILE(s)"
 
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:86
 #: /home/micha/programming/sumo/src\od2trips_main.cpp:90
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:86
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:90
-#, fuzzy
 msgid "Loads O/D-matrix in Amitran format from FILE(s)"
-msgstr "Ladet Quelle-/Zielmatrix im Amitran-Format von Datei(en)"
+msgstr "Ladet Quelle-/Zielmatrix im Amitran-Format von FILE(s)"
 
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:89
 #: /home/micha/programming/sumo/src\od2trips_main.cpp:93
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:89
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:93
-#, fuzzy
 msgid "Loads O/D-matrix in tazRelation format from FILE(s)"
 msgstr ""
 "Ladet Quelle-/Zielmatrix im Verkehrsumlegungszonenrelations-Format von "
-"Datei(en)"
+"FILE(s)"
 
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:93
 #: /home/micha/programming/sumo/src\od2trips_main.cpp:97
@@ -1479,7 +1468,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:153
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:137
 msgid "Scales the loaded flows by FLOAT"
-msgstr "Skaliert die geladenen Flüsse per float"
+msgstr "Skaliert die geladenen Flüsse per FLOAT"
 
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:156
 #: /home/micha/programming/sumo/src\od2trips_main.cpp:146
@@ -1521,16 +1510,16 @@ msgstr "Wähle eine Zuweisungsmethode: inkrementell, UE oder SUE"
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:175
 msgid "Use FLOAT as tolerance when checking for SUE stability"
 msgstr ""
-"Verwende float als Toleranz bei der Überprüfung der SUE-Stabilität "
-"(Stochastisches Nutzergleichgewicht)"
+"Verwende FLOAT als Toleranz bei der Überprüfung der SUE-Stabilität ("
+"Stochastisches Nutzergleichgewicht)"
 
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:178
 msgid ""
 "Use left-turn penalty FLOAT to calculate link travel time when searching "
 "routes"
 msgstr ""
-"Linksabbiegestrafe Fließkommazahl zur Berechnung der Verbindungsfahrzeit bei "
-"der Suche nach Routen verwenden"
+"Linksabbiegestrafe FLOAT zur Berechnung der Verbindungsfahrzeit bei der "
+"Suche nach Routen verwenden"
 
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:181
 msgid ""
@@ -1542,24 +1531,20 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:184
 msgid "Penalize existing routes with FLOAT to find secondary routes"
-msgstr ""
-"Vorhandene Routen mit Fließkommazahl, um sekundäre Routen zu finden, "
-"bestrafen"
+msgstr "Vorhandene Routen mit FLOAT, um sekundäre Routen zu finden, bestrafen"
 
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:188
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:188
-#, fuzzy
 msgid "Use FLOAT as the upper bound to determine auxiliary link cost"
 msgstr ""
-"Verwende float als Obergrenze, um die Kosten für Hilfsverbindungen zu "
+"Verwende FLOAT als Obergrenze, um die Kosten für Hilfsverbindungen zu "
 "bestimmen"
 
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:192
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:192
-#, fuzzy
 msgid "Use FLOAT as the lower bound to determine auxiliary link cost"
 msgstr ""
-"Verwende float als Untergrenze, um die Kosten für Hilfsverbindungen zu "
+"Verwende FLOAT als Untergrenze, um die Kosten für Hilfsverbindungen zu "
 "bestimmen"
 
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:195
@@ -1582,19 +1567,17 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:223
 msgid "Use FLOAT as (c-)logit's beta for the commonality factor"
-msgstr ""
-"Fließkommazahl in (c-)Logit als beta für den Gemeinsamkeitsfaktor verwenden"
+msgstr "FLOAT in (c-)Logit als beta für den Gemeinsamkeitsfaktor verwenden"
 
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:227
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:227
 #, fuzzy
 msgid "Use FLOAT as (c-)logit's gamma for the commonality factor"
-msgstr ""
-"Fließkommazahl als (c-)Logit´s gamma für den Gemeinsamkeitsfaktor verwenden"
+msgstr "FLOAT als (c-)Logit´s gamma für den Gemeinsamkeitsfaktor verwenden"
 
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:231
 msgid "Use FLOAT as (c-)logit's theta"
-msgstr "Fließkommazahl n (c-)Logit als theta verwenden"
+msgstr "FLOAT n (c-)Logit als theta verwenden"
 
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:239
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:239
@@ -1930,23 +1913,23 @@ msgstr ""
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:78
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:78
 msgid "Load road network description from FILE"
-msgstr "Straßennetzbeschreibung aus Datei laden"
+msgstr "Straßennetzbeschreibung aus FILE laden"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:83
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:83
 msgid "Load routes descriptions from FILE(s)"
-msgstr "Routenbeschreibungen aus Datei(en) laden"
+msgstr "Routenbeschreibungen aus FILE(s) laden"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:87
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:87
 msgid "Load further descriptions from FILE(s)"
-msgstr "Weitere Beschreibungen aus Datei(en) laden"
+msgstr "Weitere Beschreibungen aus FILE(s) laden"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:91
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:91
 msgid "Load edge/lane weights for online rerouting from FILE"
 msgstr ""
-"Kanten-/Fahrstreifengewichte für die Online-Umleitung aus der Datei laden"
+"Kanten-/Fahrstreifengewichte für die Online-Umleitung aus der FILE laden"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:94
 #: /home/micha/programming/sumo/src\router\ROFrame.cpp:108
@@ -1958,7 +1941,7 @@ msgstr "Name des xml-Attributs welches das Kantengewicht angibt"
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:97
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:97
 msgid "Loads a network state from FILE"
-msgstr "Ladet den Netzstand aus Datei"
+msgstr "Ladet den Netzstand aus FILE"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:99
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:99
@@ -1987,7 +1970,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:114
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:114
 msgid "Save complete network states into FILE"
-msgstr "Komplette Netzzustände in Datei speichern"
+msgstr "Komplette Netzzustände in FILE speichern"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:119
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:119
@@ -2170,7 +2153,7 @@ msgstr "Fahrzeugtrajektorien im Amitran-Format speichern"
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:200
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:200
 msgid "Save aggregated vehicle departure info into FILE"
-msgstr "Aggregierte Fahrzeugabfahrtsinformationen in Datei speichern"
+msgstr "Aggregierte Fahrzeugabfahrtsinformationen in FILE speichern"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:203
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:203
@@ -2180,12 +2163,12 @@ msgstr "Zusammenfassungsausgabe mit dem angegebenen Zeitraum speichern"
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:206
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:206
 msgid "Save aggregated person counts into FILE"
-msgstr "Aggregierte Personenzählungen in Datei speichern"
+msgstr "Aggregierte Personenzählungen in FILE speichern"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:210
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:210
 msgid "Save single vehicle trip info into FILE"
-msgstr "Einzelfahrzeugfahrt in Datei speichern"
+msgstr "Einzelfahrzeugfahrt in FILE speichern"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:213
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:213
@@ -2207,7 +2190,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:220
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:220
 msgid "Save single vehicle route info into FILE"
-msgstr "Einzelfahrzeugrouteninformation in Datei speichern"
+msgstr "Einzelfahrzeugrouteninformation in FILE speichern"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:224
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:224
@@ -2280,28 +2263,28 @@ msgstr "Interne Kanten in die Ausgabe einfügen"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:269
 msgid "Save person and container routes to separate FILE"
-msgstr "Personen- und Containerrouten in eine separate Datei speichern"
+msgstr "Personen- und Containerrouten in einen separaten FILE speichern"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:272
 msgid "Save links states into FILE"
-msgstr "Linkstände in Datei speichern"
+msgstr "Linkstände in FILE speichern"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:275
 msgid "Save railsignal-blocks into FILE"
-msgstr "Bahnsignalblöcke in Datei speichern"
+msgstr "Bahnsignalblöcke in FILE speichern"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:278
 msgid ""
 "Save bluetooth visibilities into FILE (in conjunction with device.btreceiver "
 "and device.btsender)"
 msgstr ""
-"Bluetooth-Sichtbarkeiten in Datei (in Verbindung mit device.btreceiver und "
+"Bluetooth-Sichtbarkeiten in FILE (in Verbindung mit device.btreceiver und "
 "device.btsender) speichern"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:281
 msgid "Record lane changes and their motivations for all vehicles into FILE"
 msgstr ""
-"Fahrstreifenwechsel und deren Beweggründe für alle Fahrzeuge in Datei "
+"Fahrstreifenwechsel und deren Beweggründe für alle Fahrzeuge in FILE "
 "aufzeichnen"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:284
@@ -2322,7 +2305,7 @@ msgid ""
 "vehicles into FILE"
 msgstr ""
 "Halte und das Be-/Entladen von Passagieren und Containern für alle Fahrzeuge "
-"in Datei aufzeichnen"
+"in FILE aufzeichnen"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:295
 msgid "Write stop output for stops which have not ended at simulation end"
@@ -2333,29 +2316,27 @@ msgstr ""
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:298
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:298
 msgid "Write collision information into FILE"
-msgstr "Kollisionsinformationen in Datei schreiben"
+msgstr "Kollisionsinformationen in FILE schreiben"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:301
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:301
 msgid "Write aggregated traffic statistics for all edges into FILE"
-msgstr "Aggregierte Verkehrsstatistiken für alle Kanten in Datei schreiben"
+msgstr "Aggregierte Verkehrsstatistiken für alle Kanten in FILE schreiben"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:303
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:303
 msgid "Write aggregated traffic statistics for all lanes into FILE"
-msgstr ""
-"Aggregierte Verkehrsstatistiken für alle Fahrstreifen in Datei schreiben"
+msgstr "Aggregierte Verkehrsstatistiken für alle Fahrstreifen in FILE schreiben"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:307
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:307
 msgid "Write overall statistics into FILE"
-msgstr "Gesamtstatistiken in Datei schreiben"
+msgstr "Gesamtstatistiken in FILE schreiben"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:311
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:311
-#, fuzzy
 msgid "Save movereminder states of selected vehicles into FILE"
-msgstr "Erinnerungszustände ausgewählter Fahrzeuge in Datei speichern"
+msgstr "Erinnerungszustände ausgewählter Fahrzeuge in FILE speichern"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:313
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:313
@@ -2749,16 +2730,15 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:485
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:485
-#, fuzzy
 msgid ""
 "Select default emergencyDecel value among ('decel', 'default', FLOAT) which "
 "sets the value either to the same as the deceleration value, a vClass-class "
 "specific default or the given FLOAT in m/s^2"
 msgstr ""
-"Standardwert der EmergencyDecel unter ('decel', 'default', Fließkommazahl) "
-"auswählen, der den Wert entweder auf den gleichen wie den Verzögerungswert, "
-"einen Fahrzeugklassen-klassenspezifischen Standardwert oder der angegebenen "
-"Fließkommazahl in m/s^2 setzt"
+"Standardwert der EmergencyDecel unter ('decel', 'default', FLOAT) auswählen, "
+"der den Wert entweder auf den gleichen wie den Verzögerungswert, einen "
+"Fahrzeugklassen-klassenspezifischen Standardwert oder der angegebenen FLOAT "
+"in m/s^2 setzt"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:488
 msgid "Use Kirchhoff's laws for solving overhead wire circuit"
@@ -3086,7 +3066,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:691
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:691
 msgid "Load visualisation settings from FILE"
-msgstr "Darstellungseinstellung von Datei laden"
+msgstr "Darstellungseinstellung von FILE laden"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:694
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:694
@@ -3111,10 +3091,9 @@ msgstr "Simulation nach dem Laden starten"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:706
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:706
-#, fuzzy
 msgid "Use FLOAT in ms as delay between simulation steps"
 msgstr ""
-"Verwende float in Millisekunden als Verzögerung zwischen Simulationsschritten"
+"Verwende FLOAT in Millisekunden als Verzögerung zwischen Simulationsschritten"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:709
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:709
@@ -3124,12 +3103,12 @@ msgstr "Verwende Zeit[] als Zeiten, zu denen die Simulation anhalten soll"
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:713
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:713
 msgid "Load edge/lane weights for visualization from FILE"
-msgstr "Kanten-/Fahrstreifengewichte für die Visualisierung aus Datei laden"
+msgstr "Kanten-/Fahrstreifengewichte für die Visualisierung aus FILE laden"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:716
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:716
 msgid "Load a secondary road network for abstract visualization from FILE"
-msgstr "Sekundäres Straßennetz zur abstrakten Visualisierung aus Datei laden"
+msgstr "Sekundäres Straßennetz zur abstrakten Visualisierung aus FILE laden"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:719
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:719
@@ -4456,7 +4435,7 @@ msgstr "Separate Durchschnittsgeschwindigkeiten für Fahrräder berechnen"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Routing.cpp:94
 msgid "Save adapting weights to FILE"
-msgstr "Angepasste Gewichte in Datei speichern"
+msgstr "Angepasste Gewichte in FILE speichern"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Routing.cpp:102
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Routing.cpp:102
@@ -4815,7 +4794,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Taxi.cpp:85
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Taxi.cpp:85
 msgid "Write information from the dispatch algorithm to FILE"
-msgstr "Informationen vom Versandalgorithmus in Datei schreiben"
+msgstr "Informationen vom Versandalgorithmus in FILE schreiben"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Taxi.cpp:88
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Taxi.cpp:88
@@ -4837,7 +4816,7 @@ msgstr "Das Verhalten von untätigen Taxis [stop|randomCircling]"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Taxi.cpp:97
 msgid "Write information from the idling algorithm to FILE"
-msgstr "Informationen aus dem Leerlaufalgorithmus in Datei schreiben"
+msgstr "Informationen aus dem Leerlaufalgorithmus in FILE schreiben"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice_Taxi.cpp:115
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Taxi.cpp:115
@@ -6763,7 +6742,7 @@ msgstr "Alle Gleise in beide Richtungen nutzbar machen"
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:241
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:241
 msgid "Make all rails edge ids from FILE usable in both direction"
-msgstr "Alle Gleiskanten IDs von Datei in beide Richtungen nutzbar machen"
+msgstr "Alle Gleiskanten IDs von FILE in beide Richtungen nutzbar machen"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:244
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:244
@@ -6805,8 +6784,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:266
 #, fuzzy, c-format
 msgid "Warn about edge geometries with a grade in % above FLOAT."
-msgstr ""
-"Warnung vor Kantengeometrien mit einer Steigung in % über die Fließkommazahl."
+msgstr "Warnung vor Kantengeometrien mit einer Steigung in % über die FLOAT."
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:269
 msgid "Smooth edge geometries with a grade above the warning threshold."
@@ -6821,25 +6799,22 @@ msgstr "Deaktiviert die Normalisierung von Knotenpositionen"
 #: /home/micha/programming/sumo/src\polyconvert\polyconvert_main.cpp:186
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:277
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:186
-#, fuzzy
 msgid "Adds FLOAT to net x-positions"
-msgstr "Fügt Fließkommazahl zu den x-Positionen des Netzes hinzu"
+msgstr "Fügt FLOAT zu den x-Positionen des Netzes hinzu"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:281
 #: /home/micha/programming/sumo/src\polyconvert\polyconvert_main.cpp:190
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:281
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:190
-#, fuzzy
 msgid "Adds FLOAT to net y-positions"
-msgstr "Fügt Fließkommazahl zu den y-Positionen des Netzes hinzu"
+msgstr "Fügt FLOAT zu den y-Positionen des Netzes hinzu"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:284
 #: /home/micha/programming/sumo/src\polyconvert\polyconvert_main.cpp:193
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:284
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:193
-#, fuzzy
 msgid "Adds FLOAT to net z-positions"
-msgstr "Fügt Fließkommazahl zu den z-Positionen des Netzes hinzu"
+msgstr "Fügt FLOAT zu den z-Positionen des Netzes hinzu"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:288
 msgid "Flips the y-coordinate along zero"
@@ -6895,16 +6870,14 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:338
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:338
-#, fuzzy
 msgid "Modifies all edge speeds by adding FLOAT"
-msgstr "Ändert alle Kantengeschwindigkeiten durch Hinzufügen eines floats"
+msgstr "Ändert alle Kantengeschwindigkeiten durch Hinzufügen eines FLOAT"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:341
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:341
-#, fuzzy
 msgid "Modifies all edge speeds by multiplying by FLOAT"
 msgstr ""
-"Ändert alle Kantengeschwindigkeiten durch multiplizieren mit einen float"
+"Ändert alle Kantengeschwindigkeiten durch multiplizieren mit einen FLOAT"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:344
 msgid "Modifies all edge speeds to at least FLOAT"
@@ -6950,8 +6923,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:605
 msgid "Only keep edges with speed in meters/second > FLOAT"
-msgstr ""
-"Behalte nur Kanten mit Geschwindigkeit in Metern/Sekunde > Fließkommazahl"
+msgstr "Behalte nur Kanten mit Geschwindigkeit in Metern/Sekunde > FLOAT"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:609
 msgid "Remove edges in STR[]"
@@ -6973,17 +6945,17 @@ msgid ""
 "gui are also supported) or those which are kept due to other keep-edges or "
 "remove-edges options"
 msgstr ""
-"Behalte nur Kanten in Datei (jede ID in einer einzelnen Zeile. "
-"Auswahldateien von Sumo-GUI werden ebenfalls unterstützt) oder solche, die "
-"aufgrund anderer Optionen zum Beibehalten von Kanten oder zum Entfernen von "
-"Kanten beibehalten werden"
+"Behalte nur Kanten in FILE (jede ID in einer einzelnen Zeile. Auswahldateien "
+"von Sumo-GUI werden ebenfalls unterstützt) oder solche, die aufgrund anderer "
+"Optionen zum Beibehalten von Kanten oder zum Entfernen von Kanten "
+"beibehalten werden"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:619
 msgid ""
 "Remove edges in FILE. (Each id on a single line. Selection files from sumo-"
 "gui are also supported)"
 msgstr ""
-"Kanten in Datei entfernen. (Jede ID in einer einzelnen Zeile. Auswahldateien "
+"Kanten in FILE entfernen. (Jede ID in einer einzelnen Zeile. Auswahldateien "
 "von Sumo-GUI werden ebenfalls unterstützt)"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:623
@@ -7063,7 +7035,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:679
 msgid "Treat edges with speed > FLOAT as no ramps"
-msgstr "Kanten mit Geschwindigkeit > Fleißkommazahl nicht als Rampen behandeln"
+msgstr "Kanten mit Geschwindigkeit > FLOAT nicht als Rampen behandeln"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:683
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:683
@@ -7072,7 +7044,7 @@ msgstr "Kanten mit Geschwindigkeit < FLOAT nicht als Autobahnen behandeln"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:687
 msgid "Use FLOAT as ramp-length"
-msgstr "FLOATl als Rampenlänge verwenden"
+msgstr "FLOAT als Rampenlänge verwenden"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:691
 msgid "Use FLOAT as minimum ramp-length"
@@ -8184,7 +8156,7 @@ msgstr "Projektion konnte nicht erstellt werden!"
 
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:41
 msgid "Read edge-type defs from FILE"
-msgstr "Kantentypdefinitionen aus Datei lesen"
+msgstr "Kantentypdefinitionen aus FILE lesen"
 
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:44
 msgid ""
@@ -8200,9 +8172,7 @@ msgstr "INT Linksabbiegefahrstreifen generieren"
 
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:50
 msgid "Set the length of generated turning lanes to FLOAT"
-msgstr ""
-"Die Länge der generierten Abbiegefahrstreifen auf eine Fließkommazahl "
-"festlegen"
+msgstr "Die Länge der generierten Abbiegefahrstreifen auf einen FLOAT festlegen"
 
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:53
 msgid ""
@@ -8497,41 +8467,40 @@ msgstr " % LSAs am geometrieähnlichen Knoten entfernt"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:53
 msgid "Read SUMO-net from FILE"
-msgstr "SUMO-Netz aus Datei lesen"
+msgstr "SUMO-Netz aus FILE lesen"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:60
 msgid "Read XML-node defs from FILE"
-msgstr "XML-Knotendefinitionen aus Datei lesen"
+msgstr "XML-Knotendefinitionen aus FILE lesen"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:66
 msgid "Read XML-edge defs from FILE"
-msgstr "XML-Kantendefinitionen aus Datei lesen"
+msgstr "XML-Kantendefinitionen aus FILE lesen"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:72
 msgid "Read XML-connection defs from FILE"
-msgstr "XML-Verbindungsdefinitionen aus Datei lesen"
+msgstr "XML-Verbindungsdefinitionen aus FILE lesen"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:75
 msgid "Read XML-traffic light defs from FILE"
-msgstr "XML-LSA-Definitionen aus Datei lesen"
+msgstr "XML-LSA-Definitionen aus FILE lesen"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:81
 msgid "Read XML-type defs from FILE"
-msgstr "XML-Typdefinitionen aus Datei lesen"
+msgstr "XML-Typdefinitionen aus FILE lesen"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:86
 msgid "Reads public transport stops from FILE"
-msgstr "Liest ÖV-Haltepunkte aus Datei"
+msgstr "Liest ÖV-Haltepunkte aus FILE"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:88
 msgid "Reads public transport lines from FILE"
-msgstr "Liest ÖV-Linien aus Datei"
+msgstr "Liest ÖV-Linien aus FILE"
 
 #: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:90
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:90
-#, fuzzy
 msgid "Reads polygons from FILE for embedding in network where applicable"
-msgstr "Liest Polygone aus Datei, um sie ggf. in ein Netzwerk einzubetten"
+msgstr "Liest Polygone aus FILE, um sie ggf. in ein Netzwerk einzubetten"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:97
 msgid "Read shapefiles (ArcView, Tiger, ...) from files starting with 'FILE'"
@@ -8551,15 +8520,15 @@ msgstr "OSM-Netz aus Pfad 'FILE(s)' lesen"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:110
 msgid "Read OpenDRIVE-network from FILE"
-msgstr "OpenDRIVE-Netz aus Datei lesen"
+msgstr "OpenDRIVE-Netz aus FILE lesen"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:114
 msgid "Read VISUM-net from FILE"
-msgstr "VISUM-Netz aus Datei lesen"
+msgstr "VISUM-Netz aus FILE lesen"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:118
 msgid "Read VISSIM-net from FILE"
-msgstr "VISSIM-Netz aus Datei lesen"
+msgstr "VISSIM-Netz aus FILE lesen"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:123
 msgid "Read RoboCup-net from DIR"
@@ -8567,11 +8536,11 @@ msgstr "RoboCup-Netz aus DIR lesen"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:127
 msgid "Read MATsim-net from FILE"
-msgstr "MATsim-Netz aus Datei lesen"
+msgstr "MATsim-Netz aus FILE lesen"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:131
 msgid "Read ITSUMO-net from FILE"
-msgstr "ITSUMO-Netz aus Datei lesen"
+msgstr "ITSUMO-Netz aus FILE lesen"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:134
 msgid "Read heightmap from ArcGIS shapefile"
@@ -8648,7 +8617,7 @@ msgid ""
 "by FLOAT m"
 msgstr ""
 "Rekonstruiert (relative) Höhen basierend auf Layer-Daten. Jede Schicht wird "
-"um die Flie0kommazahl in m angehoben"
+"um den FLOAT in m angehoben"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:187
 #, c-format
@@ -8691,19 +8660,19 @@ msgstr "Drehpfeile aus OSM, um beim Verbindungsaufbau zu helfen importieren"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:209
 msgid "The default length of a public transport stop in FLOAT m"
-msgstr "Die Standardlänge einer ÖV-Haltestelle als Fließkommazahl in m"
+msgstr "Die Standardlänge einer ÖV-Haltestelle als FLOAT in m"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:211
 msgid "The default length of a bus stop in FLOAT m"
-msgstr "Die Standardlänge einer Bushaltestelle als Fließkommazahl in m"
+msgstr "Die Standardlänge einer Bushaltestelle als FLOAT in m"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:213
 msgid "The default length of a tram stop in FLOAT m"
-msgstr "Die Standardlänge einer Straßenbahnhaltestelle als Fließkommazahl in m"
+msgstr "Die Standardlänge einer Straßenbahnhaltestelle als FLOAT in m"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:215
 msgid "The default length of a train stop in FLOAT m"
-msgstr "Die Standardlänge einer Bahnhaltestelle als Fließkommazahl in m"
+msgstr "Die Standardlänge einer Bahnhaltestelle als FLOAT in m"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:218
 msgid "Whether additional attributes shall be imported"
@@ -8822,7 +8791,7 @@ msgstr "Strukturvereinigungsversatz"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:303
 msgid "Use FLOAT as default speed"
-msgstr "Fließkommazahl als Standardgeschwindigkeit verwenden"
+msgstr "FLOAT als Standardgeschwindigkeit verwenden"
 
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:306
 msgid "Factor for edge velocity"
@@ -8835,7 +8804,7 @@ msgstr "Schreibt Fahrstreifen ohne explizite Geschwindigkeitseinstellung"
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:314
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:95
 msgid "Load language mappings from FILE"
-msgstr "Sprachzuordnungen aus Datei laden"
+msgstr "Sprachzuordnungen aus FILE laden"
 
 #: /home/micha/programming/sumo/src\netimport\NIFrame.cpp:317
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:317
@@ -11338,15 +11307,15 @@ msgstr "Geokoordinaten in plain-xml schreiben"
 
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:79
 msgid "The generated net will be written to FILE using Amitran format"
-msgstr "Das generierte Netz wird im Amitran-Format in eine Datei geschrieben"
+msgstr "Das generierte Netz wird im Amitran-Format in FILE geschrieben"
 
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:82
 msgid "The generated net will be written to FILE using MATsim format"
-msgstr "Das generierte Netz wird im MATsim-Format in eine Datei geschrieben"
+msgstr "Das generierte Netz wird im MATsim-Format in FILE geschrieben"
 
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:85
 msgid "The generated net will be written to FILE using OpenDRIVE format"
-msgstr "Das generierte Netz wird im OpenDRIVE-Format in eine Datei geschrieben"
+msgstr "Das generierte Netz wird im OpenDRIVE-Format in FILE geschrieben"
 
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:88
 msgid ""
@@ -11373,15 +11342,15 @@ msgstr "Schreibt Originalnamen, falls angegeben, als Parameter"
 #: /home/micha/programming/sumo/src\netwrite\NWFrame.cpp:100
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:100
 msgid "Writes street signs as POIs to FILE"
-msgstr "Schreibt Straßenschilder als Pol in die Datei"
+msgstr "Schreibt Straßenschilder als Pol in FILE"
 
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:104
 msgid "Writes public transport stops to FILE"
-msgstr "Schreibt Haltepunkte des ÖV in Datei"
+msgstr "Schreibt Haltepunkte des ÖV in FILE"
 
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:106
 msgid "Writes public transport lines to FILE"
-msgstr "Schreibt ÖV-Linien in Datei"
+msgstr "Schreibt ÖV-Linien in FILE"
 
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:108
 msgid "Clean-up pt stops that are not served by any line"
@@ -11389,7 +11358,7 @@ msgstr "Haltestellen, die von keiner Linie bedient werden, entfernen"
 
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:111
 msgid "Writes parking areas to FILE"
-msgstr "Schreibt Parkplätze in Datei"
+msgstr "Schreibt Parkplätze in FILE"
 
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:114
 msgid "Analyze topology of the railway network"
@@ -11420,13 +11389,12 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src\netwrite\NWFrame.cpp:130
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:130
-#, fuzzy
 msgid ""
 "Match loaded shapes to the closest edge within FLOAT and export as road "
 "objects"
 msgstr ""
-"Geladene Shapes der nächstgelegenen Kante in Fließkommazahl zuordnen und "
-"Export als Straßenobjekte"
+"Geladene Shapes der nächstgelegenen Kante in FLOAT zuordnen und Export als "
+"Straßenobjekte"
 
 #: /home/micha/programming/sumo/src\netwrite\NWFrame.cpp:154
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:154
@@ -11531,15 +11499,15 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:80
 msgid "Loads TAZ (districts; also from networks) from FILE(s)"
-msgstr "Ladet Verkehrsumlegungszone (Bezirke; auch von Netzen) aus Datei(en)"
+msgstr "Ladet Verkehrsumlegungszone (Bezirke; auch von Netzen) aus FILE(s)"
 
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:102
 msgid "Writes trip definitions into FILE"
-msgstr "Schreibt Fahrtendefinitionen in Datei"
+msgstr "Schreibt Fahrtendefinitionen in FILE"
 
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:105
 msgid "Writes flow definitions into FILE"
-msgstr "Schreibt Flussdefinitionen in Datei"
+msgstr "Schreibt Flussdefinitionen in FILE"
 
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:108
 msgid "Writes probabilistic flow instead of evenly spaced flow"
@@ -11984,21 +11952,21 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:81
 msgid "Loads SUMO-network FILE as reference to offset and projection"
-msgstr "Lädt SUMO-Netzdatei als Referenz für den Versatz und die Projektion"
+msgstr "Lädt SUMO-Netz FILE als Referenz für den Versatz und die Projektion"
 
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:85
 msgid ""
 "Reads polygons from FILE assuming they're coded in DLR-Navteq (Elmar)-format"
 msgstr ""
-"Liest Polygone aus Datei unter der Annahme, dass sie im DLR-Navteq (Elmar)-"
+"Liest Polygone aus FILE unter der Annahme, dass sie im DLR-Navteq (Elmar)-"
 "Format kodiert sind"
 
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:87
 msgid ""
 "Reads pois from FILE+ assuming they're coded in DLR-Navteq (Elmar)-format"
 msgstr ""
-"Liest Pole aus Datei unter der Annahme, dass sie im DLR-Navteq (Elmar)-"
-"Format codiert sind"
+"Liest Pole aus FILE unter der Annahme, dass sie im DLR-Navteq (Elmar)-Format "
+"codiert sind"
 
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:92
 msgid "Reads polygons from FILE assuming it's a Visum-net"
@@ -12009,12 +11977,11 @@ msgstr ""
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:100
 msgid "Reads pois and shapes from FILE assuming they're coded in XML"
 msgstr ""
-"Liest PoI und Shapes aus Datei unter der Annahme, dass sie in XML kodiert "
-"sind"
+"Liest PoI und Shapes aus FILE unter der Annahme, dass sie in XML kodiert sind"
 
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:105
 msgid "Reads pois from FILE+ assuming they're coded in OSM"
-msgstr "Liest Pol aus Datei unter der Annahme, dass sie in OSM codiert sind"
+msgstr "Liest Pol aus FILE unter der Annahme, dass sie in OSM codiert sind"
 
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:107
 msgid "The type will be made of the key-value - pair"
@@ -12035,7 +12002,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:118
 msgid "Reads shapes from shapefiles FILE+"
-msgstr "Liest Shapes aus Shapedatei Datei"
+msgstr "Liest Shapes aus Shapedatei FILE"
 
 #: /home/micha/programming/sumo/src\polyconvert\polyconvert_main.cpp:122
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:122
@@ -12071,11 +12038,11 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:148
 msgid "Reads types from FILE"
-msgstr "Liest Typen aus Datei"
+msgstr "Liest Typen aus FILE"
 
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:156
 msgid "Write generated polygons/pois to FILE"
-msgstr "Generierte Polygone/Pole in Datei schreiben"
+msgstr "Generierte Polygone/Pole in FILE schreiben"
 
 #: /home/micha/programming/sumo/src\polyconvert\polyconvert_main.cpp:159
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:159
@@ -12152,7 +12119,7 @@ msgstr "Füllt standardmäßig Polygone"
 
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:218
 msgid "Sets FLOAT as default layer"
-msgstr "Legt Fließkommazahl als Standardebene fest"
+msgstr "Legt FLOAT als Standardebene fest"
 
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:221
 msgid "Sets default action to discard"
@@ -12206,11 +12173,11 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:47
 msgid "Write generated routes to FILE"
-msgstr "Generierte Routen in Datei schreiben"
+msgstr "Generierte Routen in FILE schreiben"
 
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:53
 msgid "Write used vehicle types into separate FILE"
-msgstr "Verwendete Fahrzeugtypen in separate Datei schreiben"
+msgstr "Verwendete Fahrzeugtypen in separaten FILE schreiben"
 
 #: /home/micha/programming/sumo/src\router\ROFrame.cpp:56
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:56
@@ -12222,7 +12189,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:63
 msgid "Use FILE as SUMO-network to route on"
-msgstr "Datei als SUMO-Netz für Routen verwenden"
+msgstr "FILE als SUMO-Netz für Routen verwenden"
 
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:66
 msgid "Write vehicles that reference routes by their id"
@@ -12230,19 +12197,19 @@ msgstr "Fahrzeuge, die Routen anhand ihrer ID referenzieren schreiben"
 
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:73
 msgid "Read additional network data (districts, bus stops) from FILE(s)"
-msgstr "Zusätzliche Netzdaten (Bezirke, Haltestellen) aus Datei(en) lesen"
+msgstr "Zusätzliche Netzdaten (Bezirke, Haltestellen) aus FILE(s) lesen"
 
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:87
 msgid "Read sumo routes, alternatives, flows, and trips from FILE(s)"
-msgstr "Sumo-Routen, Alternativen, Abläufe und Fahrten aus Datei(en) lesen"
+msgstr "Sumo-Routen, Alternativen, Abläufe und Fahrten aus FILE(s) lesen"
 
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:101
 msgid "Read network weights from FILE(s)"
-msgstr "Netzgewichte aus Datei(en) lesen"
+msgstr "Netzgewichte aus FILE(s) lesen"
 
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:104
 msgid "Read lane-based network weights from FILE(s)"
-msgstr "Fahrstreifenbasierte Netzgewischte aus Datei(en) lesen"
+msgstr "Fahrstreifenbasierte Netzgewischte aus FILE(s) lesen"
 
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:125
 msgid "Continue if a route could not be build"
@@ -12680,7 +12647,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:86
 msgid "Load emission parameters (vTypes) from FILE(s)"
-msgstr "Emissionsparameter (Fahrzeugtypen) aus Datei(en) laden"
+msgstr "Emissionsparameter (Fahrzeugtypen) aus FILE(s) laden"
 
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:89
 msgid "Defines for which emission class the emissions shall be generated. "
@@ -13067,7 +13034,7 @@ msgstr "Lädt die benannte Konfiguration beim Start"
 
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:48
 msgid "Saves current configuration into FILE"
-msgstr "Speichert die aktuelle Konfiguration in Datei"
+msgstr "Speichert die aktuelle Konfiguration in FILE"
 
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:52
 msgid "Enforce relative paths when saving the configuration"
@@ -13075,11 +13042,11 @@ msgstr "Relative Pfade beim Speichern der Konfiguration erzwingen"
 
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:55
 msgid "Saves a configuration template (empty) into FILE"
-msgstr "Speichert eine Konfigurationsvorlage (leer) in Datei"
+msgstr "Speichert eine Konfigurationsvorlage (leer) in FILE"
 
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:58
 msgid "Saves the configuration schema into FILE"
-msgstr "Speichert das Konfigurationsschema in Datei"
+msgstr "Speichert das Konfigurationsschema in FILE"
 
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:62
 msgid "Adds comments to saved template, configuration, or schema"
@@ -13113,15 +13080,15 @@ msgstr "Warnungen des gleichen Typs, wenn mehr als INT auftreten aggregieren"
 
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:104
 msgid "Writes all messages to FILE (implies verbose)"
-msgstr "Schreibt alle Meldungen in Datei (impliziert ausführlich)"
+msgstr "Schreibt alle Meldungen in FILE (impliziert ausführlich)"
 
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:107
 msgid "Writes all non-error messages to FILE (implies verbose)"
-msgstr "Schreibt alle Nicht-Fehlermeldungen in Datei (impliziert ausführlich)"
+msgstr "Schreibt alle Nicht-Fehlermeldungen in FILE (impliziert ausführlich)"
 
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:110
 msgid "Writes all warnings and errors to FILE"
-msgstr "Schreibt alle Warnungen und Fehler in Datei"
+msgstr "Schreibt alle Warnungen und Fehler in FILE"
 
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:113
 msgid "Language to use in messages"
