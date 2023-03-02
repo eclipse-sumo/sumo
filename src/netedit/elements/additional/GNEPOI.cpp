@@ -172,11 +172,9 @@ GNEPOI::isAdditionalValid() const {
     // only for POIS over lanes
     if (getParentLanes().size() == 0) {
         return true;
-/*
-    } else if (myFriendlyPosition) {
+    } else if (getFriendlyPos()) {
         // with friendly position enabled position is "always fixed"
         return true;
-*/
     } else {
         return fabs(myPosOverLane) <= getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
     }
@@ -190,7 +188,7 @@ GNEPOI::getAdditionalProblem() const {
         // obtain final length
         const double len = getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
         // check if detector has a problem
-        if (GNEAdditionalHandler::checkLanePosition(myPosOverLane, 0, len, /*myFriendlyPosition*/ false)) {
+        if (GNEAdditionalHandler::checkLanePosition(myPosOverLane, 0, len, getFriendlyPos())) {
             return "";
         } else {
             // declare variable for error position
