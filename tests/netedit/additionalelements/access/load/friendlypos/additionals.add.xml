@@ -2,10 +2,10 @@
     <busStop id="busStop_0" lane="center0_1" startPos="23.00" endPos="33.00">
 
         <!-- non valid friendly position (missing) -->
-        <access lane="E0_0" pos="10"/>
+        <access lane="E0_0" pos="1"/>
 
         <!-- non valid friendly position (dummy) -->
-        <access lane="E1_0" pos="10" length="10" friendlyPos="dummyFriendlyPos"/>
+        <access lane="E1_0" pos="1" length="10" friendlyPos="dummyFriendlyPos"/>
 
         <!-- valid friendly position, invalid position 1 -->
         <access lane="E1_0" pos="4000" length="10" friendlyPos="1"/>

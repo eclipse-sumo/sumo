@@ -2,12 +2,12 @@
     <busStop id="busStop_0" lane="center0_1" startPos="23.00" endPos="33.00">
 
         <!-- non valid lane (missing) -->
-        <access pos="5" length="10" friendlyPos="0"/>
+        <access pos="1" length="10" friendlyPos="0"/>
 
         <!-- non valid Lane (dummy) -->
-        <access lane="dummyLane" pos="10" length="10" friendlyPos="0"/>
+        <access lane="dummyLane" pos="1.1" length="10" friendlyPos="0"/>
 
         <!-- Valid Lane -->
-        <access lane="E0_0" pos="15" length="10" friendlyPos="0"/>
+        <access lane="E0_0" pos="1.2" length="10" friendlyPos="0"/>
     </busStop>
 </additional>

@@ -41,7 +41,7 @@ netedit.leftClick(referencePosition, 428, 257)
 netedit.changeElement("access")
 
 # try to create Access without select child
-netedit.leftClick(referencePosition, 152, 166)
+netedit.leftClick(referencePosition, 152, 95)
 
 # Check undo redo
 netedit.undo(referencePosition, 1)

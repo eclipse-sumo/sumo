@@ -38,7 +38,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect Access
-netedit.leftClick(referencePosition, 843, 123)
+netedit.leftClick(referencePosition, 838, 214)
 
 # Change friendly position
 netedit.modifyAttribute(netedit.attrs.access.inspectSelection.friendlyPos, "true", True)

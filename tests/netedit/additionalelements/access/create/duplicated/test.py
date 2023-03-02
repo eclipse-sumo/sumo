@@ -42,10 +42,10 @@ netedit.changeElement("access")
 
 # Create Access detector
 netedit.selectAdditionalChild(netedit.attrs.access.create.parent, 0)
-netedit.leftClick(referencePosition, 152, 166)
+netedit.leftClick(referencePosition, 152, 95)
 
 # Try to create another Access in the same edge
-netedit.leftClick(referencePosition, 200, 200)
+netedit.leftClick(referencePosition, 152, 145)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

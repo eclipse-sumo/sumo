@@ -42,13 +42,13 @@ netedit.changeElement("access")
 
 # Create Access
 netedit.selectAdditionalChild(netedit.attrs.access.create.parent, 0)
-netedit.leftClick(referencePosition, 153, 124)
+netedit.leftClick(referencePosition, 153, 95)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # delete Access
-netedit.leftClick(referencePosition, 153, 124)
+netedit.leftClick(referencePosition, 153, 95)
 
 # Change parameter pos with a non valid value (dummy position X)
 netedit.modifyAttribute(netedit.attrs.access.inspect.pos, "dummy position", True)
@@ -63,7 +63,7 @@ netedit.modifyAttribute(netedit.attrs.access.inspect.pos, "-1000", True)
 netedit.modifyAttribute(netedit.attrs.access.inspect.pos, "1000", True)
 
 # Change parameter pos with a valid value (middle lane)
-netedit.modifyAttribute(netedit.attrs.access.inspect.pos, "25", True)
+netedit.modifyAttribute(netedit.attrs.access.inspect.pos, "2.1", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 6)

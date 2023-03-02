@@ -54,7 +54,7 @@ netedit.leftClick(referencePosition, 152, 143)
 netedit.changeDefaultValue(netedit.attrs.access.create.length, "3.5")
 
 # Create access
-netedit.leftClick(referencePosition, 152, 166)
+netedit.leftClick(referencePosition, 152, 95)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

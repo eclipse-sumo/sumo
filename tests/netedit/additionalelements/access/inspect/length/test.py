@@ -42,13 +42,13 @@ netedit.changeElement("access")
 
 # Create Access
 netedit.selectAdditionalChild(netedit.attrs.access.create.parent, 0)
-netedit.leftClick(referencePosition, 153, 124)
+netedit.leftClick(referencePosition, 153, 95)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # delete Access
-netedit.leftClick(referencePosition, 153, 124)
+netedit.leftClick(referencePosition, 153, 95)
 
 # Change length (invalid)
 netedit.modifyAttribute(netedit.attrs.access.inspect.length, "dummyLenght", True)

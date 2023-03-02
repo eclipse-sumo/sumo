@@ -8,13 +8,13 @@
         <access lane="E1_0" pos="" length="10" friendlyPos="0"/>
 
         <!-- non valid Position (negative) -->
-        <access lane="E1_0" pos="-10" length="10" friendlyPos="0"/>
+        <access lane="E1_0" pos="-1" length="10" friendlyPos="0"/>
 
         <!-- non valid Position (overpassing lane) -->
         <access lane="E5_0" pos="2000" length="10" friendlyPos="0"/>
 
         <!-- valid Position -->
-        <access lane="E4_0" pos="10" length="10" friendlyPos="0"/>
+        <access lane="E4_0" pos="1.1" length="10" friendlyPos="0"/>
 
     </busStop>
 </additional>

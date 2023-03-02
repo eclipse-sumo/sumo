@@ -42,14 +42,14 @@ netedit.changeElement("access")
 
 # Create two Access
 netedit.selectAdditionalChild(netedit.attrs.access.create.parent, 0)
-netedit.leftClick(referencePosition, 153, 124)
+netedit.leftClick(referencePosition, 153, 95)
 netedit.leftClick(referencePosition, 152, 308)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect Access
-netedit.leftClick(referencePosition, 153, 124)
+netedit.leftClick(referencePosition, 153, 95)
 
 # Change parameter lane with a non valid value (dummy Lane)
 netedit.modifyAttribute(netedit.attrs.access.inspect.lane, "dummyLane", True)
@@ -61,7 +61,7 @@ netedit.modifyAttribute(netedit.attrs.access.inspect.lane, "", True)
 netedit.modifyAttribute(netedit.attrs.access.inspect.lane, "E1_0", True)
 
 # Change parameter lane with a valid value (other lane)
-netedit.modifyAttribute(netedit.attrs.access.inspect.lane, "E5_0", True)
+netedit.modifyAttribute(netedit.attrs.access.inspect.lane, "E4_0", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 4)
@@ -69,6 +69,9 @@ netedit.redo(referencePosition, 4)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)
+
+# set friendlyPos 
+netedit.typeSpace()
 
 # quit netedit
 netedit.quit(neteditProcess)
