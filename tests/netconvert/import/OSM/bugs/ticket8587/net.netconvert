@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-10-04 09:25:48 by Eclipse SUMO netconvert Version v1_14_1+1404-60b7850a127
+<!-- generated on 2023-03-02 15:11:11 by Eclipse SUMO netconvert Version v1_16_0+0943-f4d562fe610
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -420,7 +420,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="-6272848#7_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="53.99" shape="444.40,720.22 481.00,700.70"/>
     </edge>
     <edge id="-6272848#8" from="6769491506" to="6769491515" priority="3" type="highway.residential">
-        <lane id="-6272848#8_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="9.39" shape="435.96,724.72 436.10,724.65"/>
+        <lane id="-6272848#8_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="9.39" shape="436.10,724.65 436.19,724.60"/>
     </edge>
     <edge id="-6272848#9" from="7541249508" to="6769491506" priority="3" type="highway.residential" shape="596.72,815.03 556.35,823.15 536.16,826.15 514.02,817.70 500.09,810.71 492.69,807.54 481.75,806.69 449.15,813.93 439.46,810.91 432.43,800.39 423.99,773.30 416.44,747.86 419.02,739.02 426.82,731.58 432.63,728.31">
         <lane id="-6272848#9_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="257.66" shape="592.12,817.58 556.62,824.73 535.98,827.80 513.37,819.17 499.42,812.16 492.31,809.12 481.87,808.30 449.08,815.58 438.44,812.27 430.97,801.08 422.46,773.77 414.77,747.86 417.61,738.16 425.86,730.28 427.75,729.22"/>
@@ -1110,7 +1110,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="6272848#7_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="53.99" shape="482.51,703.52 445.91,723.05"/>
     </edge>
     <edge id="6272848#8" from="6769491515" to="6769491506" priority="3" type="highway.residential">
-        <lane id="6272848#8_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="9.39" shape="437.60,727.47 437.47,727.54"/>
+        <lane id="6272848#8_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="9.39" shape="437.61,727.47 437.52,727.52"/>
     </edge>
     <edge id="6272848#9" from="6769491506" to="7541249508" priority="3" type="highway.residential" shape="432.63,728.31 426.82,731.58 419.02,739.02 416.44,747.86 423.99,773.30 432.43,800.39 439.46,810.91 449.15,813.93 481.75,806.69 492.69,807.54 500.09,810.71 514.02,817.70 536.16,826.15 556.35,823.15 596.72,815.03">
         <lane id="6272848#9_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="257.66" shape="429.32,732.01 427.78,732.87 420.44,739.88 418.11,747.85 425.52,772.84 433.89,799.69 440.48,809.55 449.22,812.27 481.64,805.07 493.08,805.97 500.76,809.25 514.66,816.24 536.34,824.51 556.07,821.57 591.49,814.45"/>
@@ -2265,7 +2265,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="5" response="0000000" foes="0000010"/>
         <request index="6" response="0011000" foes="0011110"/>
     </junction>
-    <junction id="6769491515" type="priority" x="440.92" y="723.90" incLanes="721633557_0 6272848#7_0 -6272848#8_0" intLanes="" shape="440.40,729.74 446.09,726.46 445.82,725.66 445.86,725.31 446.01,725.00 446.28,724.71 446.66,724.46 443.65,718.81 435.21,723.31 438.22,728.96 439.05,728.73 439.43,728.80 439.78,728.99 440.10,729.30">
+    <junction id="6769491515" type="priority" x="440.92" y="723.90" incLanes="721633557_0 6272848#7_0 -6272848#8_0" intLanes="" shape="440.54,729.66 446.09,726.46 445.82,725.66 445.86,725.31 446.01,725.00 446.28,724.71 446.66,724.46 443.65,718.81 435.36,723.23 438.36,728.88 439.19,728.65 439.57,728.72 439.92,728.91 440.24,729.22">
         <request index="0" response="0010000" foes="0010000"/>
         <request index="1" response="1110000" foes="1110000"/>
         <request index="2" response="1001000" foes="1001000"/>

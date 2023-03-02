@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-12-08 07:32:55 by Eclipse SUMO netconvert Version v1_15_0+0874-f80104bf5c0
+<!-- generated on 2023-03-02 15:05:42 by Eclipse SUMO netconvert Version v1_16_0+0943-f4d562fe610
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <type-files value="${SUMO_HOME}/data/typemap/osmNetconvert.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertUrbanDe.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertPedestrians.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertShips.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertBicycle.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertAerialway.typ.xml"/>
-        <osm-files value="/home/kobo/.texttest/tmp/tools.08Dec073247.213938/tools/import/OSM/webWizard/osm_bbox.osm.xml"/>
+        <osm-files value="/home/kobo/.texttest/tmp/tools.02Mar150527.2643548/tools/import/OSM/webWizard/osm_bbox.osm.xml"/>
     </input>
 
     <output>
@@ -53,10 +53,6 @@
         <osm.bike-access value="true"/>
         <osm.sidewalks value="true"/>
     </formats>
-
-    <report>
-        <verbose value="true"/>
-    </report>
 
 </configuration>
 -->
@@ -147,8 +143,8 @@
         <access lane="-204032443#1_0" pos="7.62" length="6.96" friendlyPos="1"/>
         <access lane="204032443#0_0" pos="28.63" length="22.56" friendlyPos="1"/>
         <access lane="318915602#3_0" pos="7.69" length="18.09" friendlyPos="1"/>
-        <access lane="378662086_0" pos="11.72" length="39.83" friendlyPos="1"/>
-        <access lane="438607993_0" pos="4.05" length="15.17" friendlyPos="1"/>
+        <access lane="378662086_0" pos="11.66" length="39.90" friendlyPos="1"/>
+        <access lane="438607993_0" pos="0.32" length="15.17" friendlyPos="1"/>
     </busStop>
     <busStop id="1668717159" name="S Oranienburger Straße" lane="101699672_0" startPos="325.39" endPos="350.39" friendlyPos="true" lines="M5 M1">
         <access lane="-4396823#0_0" pos="165.44" length="5.09" friendlyPos="1"/>

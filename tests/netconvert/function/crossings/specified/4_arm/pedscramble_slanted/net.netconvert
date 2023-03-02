@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-01-25 08:45:34 by Eclipse SUMO netconvert Version v1_15_0+1914-84100d0141c
+<!-- generated on 2023-03-02 15:11:21 by Eclipse SUMO netconvert Version v1_16_0+0943-f4d562fe610
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -204,7 +204,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <phase duration="5"  state="rrrrrrrrrrrrrrrrrrrrrr"/>
     </tlLogic>
 
-    <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="NC_0 NC_1 NC_2 EC_0 EC_1 EC_2 SC_0 SC_1 SC_2 WC_0 WC_1 WC_2 :C_w1_0 :C_w2_0 :C_w0_0 :C_w3_0" intLanes=":C_16_0 :C_1_0 :C_1_1 :C_17_0 :C_18_0 :C_5_0 :C_5_1 :C_19_0 :C_20_0 :C_9_0 :C_9_1 :C_21_0 :C_22_0 :C_13_0 :C_13_1 :C_23_0 :C_c0_0 :C_c1_0 :C_c2_0 :C_c3_0 :C_c4_0 :C_c5_0" shape="112.94,126.23 126.23,112.94 124.82,110.97 124.83,110.28 125.31,109.79 126.26,109.50 127.69,109.40 127.69,90.60 119.95,90.13 112.60,88.73 105.64,86.39 99.06,83.12 92.87,78.91 87.06,73.77 73.77,87.06 75.18,89.03 75.17,89.72 74.69,90.21 73.74,90.50 72.31,90.60 72.31,109.40 80.05,109.87 87.40,111.27 94.36,113.61 100.94,116.88 107.13,121.09" radius="5.00">
+    <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="NC_0 NC_1 NC_2 EC_0 EC_1 EC_2 SC_0 SC_1 SC_2 WC_0 WC_1 WC_2 :C_w1_0 :C_w2_0 :C_w0_0 :C_w3_0" intLanes=":C_16_0 :C_1_0 :C_1_1 :C_17_0 :C_18_0 :C_5_0 :C_5_1 :C_19_0 :C_20_0 :C_9_0 :C_9_1 :C_21_0 :C_22_0 :C_13_0 :C_13_1 :C_23_0 :C_c0_0 :C_c1_0 :C_c2_0 :C_c3_0 :C_c4_0 :C_c5_0" shape="112.94,126.23 126.23,112.94 124.82,110.97 124.83,110.28 125.31,109.79 126.26,109.50 127.69,109.40 127.69,90.60 118.13,90.43 110.84,89.69 104.96,88.02 99.62,85.04 93.95,80.42 87.06,73.77 73.77,87.06 75.18,89.03 75.17,89.72 74.69,90.21 73.74,90.50 72.31,90.60 72.31,109.40 80.05,109.87 87.40,111.27 94.36,113.61 100.94,116.88 107.13,121.09" radius="5.00">
         <request index="0"  response="1010110000000000000000" foes="1010110000000001100000" cont="1"/>
         <request index="1"  response="0110111001000010000000" foes="0110111111100011100000" cont="0"/>
         <request index="2"  response="0110111001000010000000" foes="0110111111100011100000" cont="0"/>

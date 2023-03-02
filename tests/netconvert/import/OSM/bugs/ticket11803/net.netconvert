@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-12-05 17:07:44 by Eclipse SUMO netconvert Version v1_15_0+0783-6ed32014969
+<!-- generated on 2023-03-02 15:11:11 by Eclipse SUMO netconvert Version v1_16_0+0943-f4d562fe610
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -482,7 +482,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="891530598#4_0" index="0" allow="pedestrian" speed="2.78" length="4.48" width="2.00" shape="627.17,513.91 623.63,513.15 623.48,514.00"/>
     </edge>
     <edge id="891530598#5" from="8286483918" to="6371464865" priority="1" type="highway.footway" spreadType="center" shape="622.99,516.80 622.45,519.85 621.02,524.65 622.75,525.31 622.55,526.92 623.02,528.35 624.05,529.70 625.70,530.78 625.49,531.43 624.68,534.00">
-        <lane id="891530598#5_0" index="0" allow="pedestrian" speed="2.78" length="15.24" width="2.00" shape="622.62,518.94 622.45,519.85 621.02,524.65 622.75,525.31 622.55,526.92 623.02,528.35 624.05,529.70 625.70,530.78 625.49,531.42"/>
+        <lane id="891530598#5_0" index="0" allow="pedestrian" speed="2.78" length="15.20" width="2.00" shape="622.62,518.94 622.45,519.85 621.02,524.65 622.75,525.31 622.55,526.92 623.02,528.35 624.05,529.70 625.70,530.78 625.51,531.37"/>
     </edge>
     <edge id="891530598#6" from="6371464865" to="8286515588" priority="1" type="highway.footway" spreadType="center" shape="624.68,534.00 623.93,536.37 621.30,544.75 622.31,545.27">
         <lane id="891530598#6_0" index="0" allow="pedestrian" speed="2.78" length="7.50" width="2.00" shape="624.00,536.17 623.93,536.37 621.75,543.33"/>
@@ -567,7 +567,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <junction id="6371464816" type="dead_end" x="683.00" y="447.42" incLanes="1003104735#0_0 680474050#1_0" intLanes="" shape="684.31,449.74 685.55,448.17 681.75,445.04 680.45,446.56 680.98,447.23 681.07,447.58 681.04,447.94 680.89,448.30 680.63,448.68 682.15,449.97 682.83,449.43 683.19,449.33 683.55,449.35 683.93,449.48"/>
     <junction id="6371464817" type="dead_end" x="675.43" y="456.39" incLanes="492977555#1_0" intLanes="" shape="675.96,458.11 677.23,456.56 674.90,454.67 673.64,456.22 676.53,456.64 675.00,455.35"/>
     <junction id="6371464862" type="dead_end" x="629.10" y="566.87" incLanes="891530598#0_0" intLanes="" shape="631.16,568.69 631.85,566.82 627.16,565.08 626.46,566.96 627.40,569.04 629.32,569.61"/>
-    <junction id="6371464865" type="dead_end" x="624.68" y="534.00" incLanes="891530598#5_0 81042176_0" intLanes="" shape="626.47,531.64 624.49,531.19 624.62,531.68 624.29,531.83 623.82,531.90 623.30,531.86 622.84,531.69 621.79,533.39 622.69,534.13 622.96,534.54 623.10,534.96 623.13,535.41 623.04,535.87 624.95,536.47"/>
+    <junction id="6371464865" type="dead_end" x="624.68" y="534.00" incLanes="891530598#5_0 81042176_0" intLanes="" shape="626.47,531.64 624.45,531.08 622.84,531.69 621.79,533.39 622.69,534.13 622.96,534.54 623.10,534.96 623.13,535.41 623.04,535.87 624.95,536.47"/>
     <junction id="6525622993" type="dead_end" x="758.58" y="571.06" incLanes="" intLanes="" shape="758.96,570.14 758.20,571.99"/>
     <junction id="6525623002" type="dead_end" x="797.41" y="552.73" incLanes="" intLanes="" shape="797.41,552.73 796.97,553.62"/>
     <junction id="7473798619" type="dead_end" x="1289.11" y="228.90" incLanes="1003104735#1_0" intLanes="" shape="1289.56,228.00 1288.66,229.79"/>

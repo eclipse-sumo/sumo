@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-10-14 10:53:04 by Eclipse SUMO netconvert Version v1_14_1+1736-14b74e8
+<!-- generated on 2023-03-02 15:11:05 by Eclipse SUMO netconvert Version v1_16_0+0943-f4d562fe610
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,7 +14,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <type-files value="/scr1/sumo/data/typemap/osmNetconvert.typ.xml,/scr1/sumo/data/typemap/osmNetconvertAerialway.typ.xml"/>
+        <type-files value="/home/kobo/dlr/sumo/data/typemap/osmNetconvert.typ.xml,/home/kobo/dlr/sumo/data/typemap/osmNetconvertAerialway.typ.xml"/>
         <osm-files value="osm.xml"/>
     </input>
 
@@ -398,13 +398,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="544997070_0" index="0" allow="pedestrian" speed="2.78" length="8.89" width="2.00" shape="1247.62,827.47 1246.74,823.49"/>
     </edge>
     <edge id="544997071" from="5267790196" to="267273652" priority="1" type="highway.steps" spreadType="center" shape="1240.74,831.20 1248.12,829.45 1247.64,827.59">
-        <lane id="544997071_0" index="0" allow="pedestrian" speed="1.39" length="9.49" width="2.00" shape="1240.74,831.20 1248.12,829.45 1247.67,827.71"/>
+        <lane id="544997071_0" index="0" allow="pedestrian" speed="1.39" length="9.49" width="2.00" shape="1243.66,830.50 1248.12,829.45 1247.67,827.71"/>
     </edge>
     <edge id="544997072" from="5267790197" to="5267790196" priority="1" type="highway.footway" spreadType="center" shape="1241.39,834.12 1240.32,834.38 1239.68,831.37 1240.74,831.20">
         <lane id="544997072_0" index="0" allow="pedestrian" speed="2.78" length="3.10" width="2.00" shape="1240.64,831.21 1240.74,831.20"/>
     </edge>
     <edge id="544997073" from="5267790198" to="5267790197" priority="1" type="highway.steps" spreadType="center">
-        <lane id="544997073_0" index="0" allow="pedestrian" speed="1.39" length="6.63" width="2.00" shape="1247.68,832.54 1241.54,834.08"/>
+        <lane id="544997073_0" index="0" allow="pedestrian" speed="1.39" length="6.63" width="2.00" shape="1247.68,832.54 1241.39,834.12"/>
     </edge>
     <edge id="544997074" from="5267790199" to="5267790198" priority="1" type="highway.footway" spreadType="center" shape="1248.77,835.31 1249.64,835.06 1249.23,833.36 1248.98,832.22 1247.82,832.51">
         <lane id="544997074_0" index="0" allow="pedestrian" speed="2.78" length="5.02" width="2.00" shape="1248.77,835.31 1249.64,835.06 1249.23,833.36 1248.98,832.22 1247.97,832.47"/>
@@ -674,8 +674,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>
-    <junction id="5267790196" type="dead_end" x="1240.74" y="831.20" incLanes="544997072_0" intLanes="" shape="1241.01,832.16 1240.55,830.21 1240.88,832.20 1240.89,832.15 1240.91,832.16 1240.98,832.16"/>
-    <junction id="5267790197" type="dead_end" x="1241.39" y="834.12" incLanes="544997073_0" intLanes="" shape="1241.78,835.05 1241.29,833.11 1241.20,833.16 1241.16,833.19 1241.13,833.20 1241.10,833.20 1241.07,833.09 1241.48,835.12"/>
+    <junction id="5267790196" type="dead_end" x="1240.74" y="831.20" incLanes="544997072_0" intLanes="" shape="1243.89,831.48 1243.43,829.53 1240.58,830.21 1240.90,832.19 1241.38,831.62 1241.96,831.55 1243.32,831.54"/>
+    <junction id="5267790197" type="dead_end" x="1241.39" y="834.12" incLanes="544997073_0" intLanes="" shape="1241.64,835.09 1241.15,833.15 1241.63,835.09"/>
     <junction id="5267790198" type="dead_end" x="1247.82" y="832.51" incLanes="544997074_0" intLanes="" shape="1248.21,833.44 1247.73,831.50 1247.44,831.57 1247.92,833.51 1248.06,833.44 1248.12,833.40 1248.16,833.38 1248.20,833.39"/>
     <junction id="5267790199" type="dead_end" x="1248.77" y="835.31" incLanes="544997075_0" intLanes="" shape="1249.63,836.10 1247.94,834.48 1248.40,836.42"/>
     <junction id="5267790200" type="dead_end" x="1243.24" y="836.63" incLanes="544997076_0" intLanes="" shape="1243.61,837.57 1243.15,835.62 1242.86,835.69 1243.33,837.64"/>
