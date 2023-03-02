@@ -121,7 +121,7 @@ The travel demand consists of persons that can choose their mode of transport fr
 ```
 
 Instead of flows, all persons and vehicles can also be defined individually and person plans can be defined with explicit steps.
-Use the SUMO option **--vehroute** output to learn how a `<personFlow>` is expanded into multiple travel stages during the simulation.
+Use the sumo option **--vehroute** output to learn how a `<personFlow>` is expanded into multiple travel stages during the simulation.
 
 ```
 <person id="HeadingBusstop20" depart="1.00" color="green">
