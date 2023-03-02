@@ -27,6 +27,10 @@
 #include "MFXListIcon.h"
 #include "MFXListItemIcon.h"
 
+
+#define LINE_SPACING    4   // Line spacing between items
+#define ICON_SIZE       16
+
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
@@ -44,6 +48,16 @@ FXIMPLEMENT(MFXListIcon, FXList, MFXListIconMap, ARRAYNUMBER(MFXListIconMap))
 
 MFXListIcon::MFXListIcon(FXComposite *p, FXObject* tgt, FXSelector sel, FXuint opts, FXint x, FXint y, FXint w,FXint h):
     FXList(p, tgt, sel, opts, x, y, w, h) {
+}
+
+
+FXint
+MFXListIcon::getDefaultHeight() {
+    if (visible) {
+        return visible * (LINE_SPACING + FXMAX(font->getFontHeight(), ICON_SIZE));
+    } else {
+        return FXScrollArea::getDefaultHeight();
+    }
 }
 
 
