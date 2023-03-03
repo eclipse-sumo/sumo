@@ -199,6 +199,13 @@ def simulationStep(step=0):
     return connection.check().simulationStep(step)
 
 
+def executeMove():
+    """executeMove() -> None
+    Make "half" a simulation step.
+    """
+    connection.check().executeMove()
+
+
 def addStepListener(listener):
     """addStepListener(traci.StepListener) -> int
 

@@ -273,6 +273,14 @@ class SimulationDomain(Domain):
             raise FatalTraCIError("Not connected.")
         return self._connection.simulationStep(time)
 
+    def executeMove(self):
+        """executeMove() -> None
+        Make "half" a simulation step.
+        """
+        if self._connection is None:
+            raise FatalTraCIError("Not connected.")
+        self._connection.executeMove()
+
     def getCurrentTime(self):
         """getCurrentTime() -> integer
 
