@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-02-28 15:00:11 by Eclipse SUMO sumo Version v1_16_0+0831-2ca9790
+<!-- generated on 2023-03-03 14:51:09 by Eclipse SUMO sumo Version v1_16_0+0960-2106523
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -337,6 +337,7 @@
         <device.driverstate.errorNoiseIntensityCoefficient value="0.2" type="FLOAT" help="Noise intensity driving the error process."/>
         <device.driverstate.speedDifferenceErrorCoefficient value="0.15" type="FLOAT" help="General scaling coefficient for applying the error to the perceived speed difference (error also scales with distance)."/>
         <device.driverstate.headwayErrorCoefficient value="0.75" type="FLOAT" help="General scaling coefficient for applying the error to the perceived distance (error also scales with distance)."/>
+        <device.driverstate.freeSpeedErrorCoefficient value="0" type="FLOAT" help="General scaling coefficient for applying the error to the vehicle&apos;s own speed when driving without a leader (error also scales with own speed)."/>
         <device.driverstate.speedDifferenceChangePerceptionThreshold value="0.1" type="FLOAT" help="Base threshold for recognizing changes in the speed difference (threshold also scales with distance)."/>
         <device.driverstate.headwayChangePerceptionThreshold value="0.1" type="FLOAT" help="Base threshold for recognizing changes in the headway (threshold also scales with distance)."/>
         <device.driverstate.minAwareness value="0.1" type="FLOAT" help="Minimal admissible value for the driver&apos;s awareness."/>

@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_16_0+0831-2ca9790
+Eclipse SUMO sumo Version v1_16_0+0960-2106523
  Copyright (C) 2001-2023 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -650,6 +650,11 @@ Driver State Device Options:
                                         coefficient for applying the error to
                                         the perceived distance (error also
                                         scales with distance).
+  --device.driverstate.freeSpeedErrorCoefficient FLOAT  General scaling
+                                        coefficient for applying the error to
+                                        the vehicle's own speed when driving
+                                        without a leader (error also scales with
+                                        own speed).
   --device.driverstate.speedDifferenceChangePerceptionThreshold FLOAT  Base
                                         threshold for recognizing changes in the
                                         speed difference (threshold also scales
