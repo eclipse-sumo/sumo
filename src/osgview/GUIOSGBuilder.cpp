@@ -589,7 +589,7 @@ GUIOSGView::OSGMovable
 GUIOSGBuilder::buildMovable(const MSVehicleType& type) {
     GUIOSGView::OSGMovable m;
     m.pos = new osg::PositionAttitudeTransform();
-    double enlarge = 0.;
+    double enlarge = 0.05;
     const std::string& osgFile = type.getOSGFile();
     if (myCars.find(osgFile) == myCars.end()) {
         myCars[osgFile] = osgDB::readNodeFile(osgFile);
@@ -615,7 +615,6 @@ GUIOSGBuilder::buildMovable(const MSVehicleType& type) {
                                   type.getLength() / (bbox.yMax() - bbox.yMin()),
                                   type.getHeight() / (bbox.zMax() - bbox.zMin())));
         m.pos->addChild(base);
-        enlarge = type.getMinGap() / 2.;
 
         // material for coloring the vehicle body
         m.mat = new osg::Material();
@@ -625,10 +624,11 @@ GUIOSGBuilder::buildMovable(const MSVehicleType& type) {
         ss->setMode(GL_BLEND, osg::StateAttribute::OVERRIDE | osg::StateAttribute::PROTECTED | osg::StateAttribute::ON);
     }
     m.lights = new osg::Switch();
-    for (double offset = -0.3; offset < 0.5; offset += 0.6) {
+    for (double sideFactor = -1.; sideFactor < 2.5; sideFactor += 2.) {
         osg::Geode* geode = new osg::Geode();
-        osg::ShapeDrawable* right = new osg::ShapeDrawable(new osg::Sphere(osg::Vec3d(offset, (type.getLength() - .9) / 2., (type.getHeight() - .5) / 2.), .1f));
+        osg::ShapeDrawable* right = new osg::ShapeDrawable(new osg::Sphere(osg::Vec3d((type.getWidth() / 2. + enlarge)*sideFactor, 0., type.getHeight() / 2.), 0.2f));
         geode->addDrawable(right);
+        //pat->addChild(geode);
         setShapeState(right);
         right->setColor(osg::Vec4(1.f, .5f, 0.f, .8f));
         osg::Sequence* seq = new osg::Sequence();
@@ -643,24 +643,22 @@ GUIOSGBuilder::buildMovable(const MSVehicleType& type) {
         seq->setMode(osg::Sequence::START);
         m.lights->addChild(seq);
     }
-
     osg::Geode* geode = new osg::Geode();
     osg::CompositeShape* comp = new osg::CompositeShape();
-    comp->addChild(new osg::Sphere(osg::Vec3d(-0.3, (type.getLength() + .8) / 2., (type.getHeight() - .5) / 2.), .1f));
-    comp->addChild(new osg::Sphere(osg::Vec3d(0.3, (type.getLength() + .8) / 2., (type.getHeight() - .5) / 2.), .1f));
+    comp->addChild(new osg::Sphere(osg::Vec3d(-(type.getWidth() / 2. + enlarge), type.getLength() + enlarge, type.getHeight() / 2.), .2f));
+    comp->addChild(new osg::Sphere(osg::Vec3d(type.getWidth() / 2. + enlarge, type.getLength() + enlarge, type.getHeight() / 2.), .2f));
     osg::ShapeDrawable* brake = new osg::ShapeDrawable(comp);
     brake->setColor(osg::Vec4(1.f, 0.f, 0.f, .8f));
     geode->addDrawable(brake);
     setShapeState(brake);
     m.lights->addChild(geode);
 
-    osg::Vec3d center(0, type.getLength() / 2., type.getHeight() / 2.);
+    osg::Vec3d center(0, -type.getLength() / 2., 0.);
     osg::PositionAttitudeTransform* ellipse = new osg::PositionAttitudeTransform();
     ellipse->addChild(geode);
     ellipse->addChild(m.lights);
     ellipse->setPivotPoint(center);
     ellipse->setPosition(center);
-    ellipse->setScale(osg::Vec3d(type.getWidth() + enlarge, type.getLength() + enlarge, type.getHeight() + enlarge));
     m.pos->addChild(ellipse);
     m.active = true;
     return m;
