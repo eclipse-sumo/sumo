@@ -3133,9 +3133,13 @@ GNEApplicationWindow::onCmdSaveNeteditConfig(FXObject*, FXSelector, void*) {
     if (neteditOptions.getString("configuration-file").empty()) {
         return onCmdSaveNeteditConfigAs(nullptr, 0, nullptr);
     } else {
+        // get config file
         const auto neteditConfigFile = neteditOptions.getString("configuration-file");
-        // get config file without extension
+        // get file path
+        const auto filePath = FileHelpers::getFilePath(neteditConfigFile);
+        // get patter file
         const auto patterFile = StringUtils::replace(neteditConfigFile, ".neteditcfg", "");
+        // get config file without extension
         if (neteditOptions.getString("net-file").empty()) {
             neteditOptions.set("net-file", patterFile + ".net.xml");
         }
@@ -3168,7 +3172,7 @@ GNEApplicationWindow::onCmdSaveNeteditConfig(FXObject*, FXSelector, void*) {
         std::ofstream out(StringUtils::transcodeToLocal(neteditConfigFile));
         if (out.good()) {
             // write netedit config
-            neteditOptions.writeConfiguration(out, true, false, false, neteditConfigFile, true);
+            neteditOptions.writeConfiguration(out, true, false, false, filePath, true);
             // write info
             WRITE_MESSAGE(TL("Netedit configuration saved in '") + neteditConfigFile + "'");
             // config saved
