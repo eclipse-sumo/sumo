@@ -265,26 +265,22 @@ MFXDecalsTable::onCmdEditRowString(FXObject* sender, FXSelector, void*) {
     auto &decals = myDialogViewSettings->getSUMOAbstractView()->getDecals();
     // get value
     const std::string value = dynamic_cast<FXTextField*>(sender)->getText().text();
-    try {
-        // set filename
-        for (int rowIndex = 0; rowIndex < (int)myRows.size(); rowIndex++) {
-            // continue depending of string
-            if (myRows.at(rowIndex)->getCells().at(2)->getTextField() == sender) {
-                decals.at(rowIndex).filename = value;
-            } else if (myRows.at(rowIndex)->getCells().at(3)->getTextField() == sender) {
-                decals.at(rowIndex).centerX = StringUtils::toDouble(value);
-            } else if (myRows.at(rowIndex)->getCells().at(4)->getTextField() == sender) {
-                decals.at(rowIndex).centerY = StringUtils::toDouble(value);
-            } else if (myRows.at(rowIndex)->getCells().at(5)->getTextField() == sender) {
-                decals.at(rowIndex).width = StringUtils::toDouble(value);
-            } else if (myRows.at(rowIndex)->getCells().at(6)->getTextField() == sender) {
-                decals.at(rowIndex).height = StringUtils::toDouble(value);
-            } else if (myRows.at(rowIndex)->getCells().at(8)->getTextField() == sender) {
-                decals.at(rowIndex).layer = StringUtils::toDouble(value);
-            }
+    // set filename
+    for (int rowIndex = 0; rowIndex < (int)myRows.size(); rowIndex++) {
+        // continue depending of string
+        if (myRows.at(rowIndex)->getCells().at(2)->getTextField() == sender) {
+            decals.at(rowIndex).filename = value;
+        } else if (myRows.at(rowIndex)->getCells().at(3)->getTextField() == sender) {
+            decals.at(rowIndex).centerX = StringUtils::toDouble(value);
+        } else if (myRows.at(rowIndex)->getCells().at(4)->getTextField() == sender) {
+            decals.at(rowIndex).centerY = StringUtils::toDouble(value);
+        } else if (myRows.at(rowIndex)->getCells().at(5)->getTextField() == sender) {
+            decals.at(rowIndex).width = StringUtils::toDouble(value);
+        } else if (myRows.at(rowIndex)->getCells().at(6)->getTextField() == sender) {
+            decals.at(rowIndex).height = StringUtils::toDouble(value);
+        } else if (myRows.at(rowIndex)->getCells().at(8)->getTextField() == sender) {
+            decals.at(rowIndex).layer = StringUtils::toDouble(value);
         }
-    } catch (...) {
-        WRITE_ERROR(value);
     }
     // update view
     myDialogViewSettings->getSUMOAbstractView()->update();
@@ -720,6 +716,8 @@ MFXDecalsTable::Column::adjustColumnWidth() {
                 row->getCells().at(myIndex)->getTextField()->setWidth(columnWidth);
             } else if (row->getCells().at(myIndex)->getButton()) {
                 row->getCells().at(myIndex)->getButton()->setWidth(columnWidth);
+            } else if (row->getCells().at(myIndex)->getSpinner()) {
+                row->getCells().at(myIndex)->getSpinner()->setWidth(columnWidth);
             }
         }
         // adjust labels and vertical frames
