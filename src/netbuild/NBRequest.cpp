@@ -876,7 +876,9 @@ NBRequest::checkLaneFoesByClass(const NBEdge::Connection& con,
     SVCPermissions svc = con.toEdge->getPermissions(con.toLane);
     SVCPermissions svc2 = prohibitorFrom->getPermissions(prohibitorCon.fromLane) & prohibitorCon.toEdge->getPermissions(prohibitorCon.toLane);
     // check for lane level conflict if the only common classes are bicycles or pedestrians
-    return (svc & svc2 & ~(SVC_BICYCLE | SVC_PEDESTRIAN)) == 0;
+    return ((svc & svc2 & ~(SVC_BICYCLE | SVC_PEDESTRIAN)) == 0
+            // or if the connection is to a dedicated lane whereas the prohibitor is a "general" lane
+            || (((svc & SVC_PASSENGER) == 0) && ((svc2 & SVC_PASSENGER) != 0)));
 }
 
 
