@@ -52,6 +52,9 @@ TRACI_CONST int CMD_GETVERSION = 0x00;
 // command: load
 TRACI_CONST int CMD_LOAD = 0x01;
 
+// command: execute move (half step)
+TRACI_CONST int CMD_EXECUTEMOVE = 0x7d;
+
 // command: simulation step
 TRACI_CONST int CMD_SIMSTEP = 0x02;
 

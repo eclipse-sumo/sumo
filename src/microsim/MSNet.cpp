@@ -796,6 +796,9 @@ MSNet::simulationStep() {
     if (myLogExecutionTime) {
         myTraCIStepDuration -= SysUtils::getCurrentMillis();
     }
+    if (t != nullptr && lastTraCICmd == libsumo::CMD_EXECUTEMOVE) {
+        t->processCommands(myStep, true);
+    }
     const int numControlled = libsumo::Helper::postProcessRemoteControl();
     if (numControlled > 0 && MSGlobals::gCheck4Accidents) {
         myEdges->detectCollisions(myStep, STAGE_REMOTECONTROL);

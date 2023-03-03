@@ -309,6 +309,7 @@ TraCIServer::TraCIServer(const SUMOTime begin, const int port, const int numClie
     myDoCloseConnection = false;
 
     // display warning if internal lanes are not used
+    // TODO this may be redundant to the warning in NLBuilder::build
     if (!MSGlobals::gUsingInternalLanes && !MSGlobals::gUseMesoSim) {
         WRITE_WARNING(TL("Starting TraCI without using internal lanes!"));
         MsgHandler::getWarningInstance()->inform("Vehicles will jump over junctions.", false);
@@ -579,16 +580,16 @@ TraCIServer::sendOutputToAll() const {
 
 
 int
-TraCIServer::processCommands(const SUMOTime step) {
+TraCIServer::processCommands(const SUMOTime step, const bool afterMove) {
 #ifdef DEBUG_MULTI_CLIENTS
     std::cout << SIMTIME << " processCommands(step = " << step << "):\n" << std::endl;
 #endif
     try {
-        int cmd = 0;
+        int finalCmd = 0;
         const bool firstStep = myCurrentSocket != mySockets.end();
         // update client order if requested
         processReorderingRequests();
-        if (!firstStep) {
+        if (!firstStep && !afterMove) {
             // This is the entry point after performing a SUMO step (block is skipped before first SUMO step since then no simulation results have to be sent)
             // update subscription results
             postProcessSimulationStep();
@@ -604,7 +605,7 @@ TraCIServer::processCommands(const SUMOTime step) {
 #ifdef DEBUG_MULTI_CLIENTS
             std::cout << "    next target time is larger than next SUMO simstep (" << step << "). Returning from processCommands()." << std::endl;
 #endif
-            return cmd;
+            return finalCmd;
         }
 
         // Simulation should run until
@@ -612,7 +613,7 @@ TraCIServer::processCommands(const SUMOTime step) {
         // 2. got libsumo::CMD_CLOSE or
         // 3. got libsumo::CMD_LOAD or
         // 4. Client closes socket connection
-        while (!myDoCloseConnection && myTargetTime <= (MSNet::getInstance()->getCurrentTimeStep())) {
+        while (!myDoCloseConnection && myTargetTime <= (MSNet::getInstance()->getCurrentTimeStep()) && finalCmd != libsumo::CMD_EXECUTEMOVE) {
 #ifdef DEBUG_MULTI_CLIENTS
             std::cout << "  Next target time: " << myTargetTime << std::endl;
 #endif
@@ -625,7 +626,7 @@ TraCIServer::processCommands(const SUMOTime step) {
                           << std::endl;
 #endif
 
-                if (myCurrentSocket->second->targetTime > myTargetTime) {
+                if (myCurrentSocket->second->targetTime > myTargetTime || (afterMove && !myCurrentSocket->second->executeMove)) {
                     // this client must wait
 #ifdef DEBUG_MULTI_CLIENTS
                     std::cout <<  "       skipping client " << myCurrentSocket->second->socket
@@ -634,10 +635,8 @@ TraCIServer::processCommands(const SUMOTime step) {
                     myCurrentSocket++;
                     continue;
                 }
-                bool done = false;
-                bool closed = false;
-                bool load = false;
-                while (!done && !closed && !load) {
+                finalCmd = 0;
+                while (finalCmd == 0) {
                     if (!myInputStorage.valid_pos()) {
                         // have read request completely, send response if adequate
                         if (myOutputStorage.size() > 0) {
@@ -654,46 +653,23 @@ TraCIServer::processCommands(const SUMOTime step) {
                     }
 
                     while (myInputStorage.valid_pos() && !myDoCloseConnection) {
-                        cmd = dispatchCommand();
-#ifdef DEBUG_MULTI_CLIENTS
-                        std::cout << "    Received command " << cmd << std::endl;
-#endif
-                        if (cmd == libsumo::CMD_SIMSTEP) {
-#ifdef DEBUG_MULTI_CLIENTS
-                            std::cout << "    Received command SIM_STEP, end turn for client " << myCurrentSocket->second->socket << std::endl;
-#endif
-                            done = true;
-                        } else if (cmd == libsumo::CMD_LOAD) {
-#ifdef DEBUG_MULTI_CLIENTS
-                            std::cout << "    Received command LOAD." << std::endl;
-#endif
-                            load = true;
-                        } else if (cmd == libsumo::CMD_CLOSE) {
-#ifdef DEBUG_MULTI_CLIENTS
-                            std::cout << "    Received command CLOSE." << std::endl;
-#endif
-                            closed = true;
+                        const int cmd = dispatchCommand();
+                        if (cmd == libsumo::CMD_SIMSTEP || cmd == libsumo::CMD_LOAD || cmd == libsumo::CMD_EXECUTEMOVE || cmd == libsumo::CMD_CLOSE) {
+                            finalCmd = cmd;
                         }
                     }
                 }
-                if (done) {
-                    // Clear vehicleStateChanges and transportableStateChanges for this client
-                    // -> For subsequent TraCI stepping
-                    // that is performed within this SUMO step, no updates on vehicle states
-                    // belonging to the last SUMO simulation step will be received by this client.
-                    for (auto& item : myCurrentSocket->second->vehicleStateChanges) {
-                        item.second.clear();
-                    }
-                    for (auto& item : myCurrentSocket->second->transportableStateChanges) {
-                        item.second.clear();
-                    }
-                    myCurrentSocket++;
-                } else if (load) {
-                    myCurrentSocket = mySockets.end();
-                } else {
-                    assert(closed);
-                    // remove current socket and increment to next socket in ordering
-                    myCurrentSocket = removeCurrentSocket();
+                switch (finalCmd) {
+                    case libsumo::CMD_LOAD:
+                        myCurrentSocket = mySockets.end();
+                        break;
+                    case libsumo::CMD_CLOSE:
+                        assert(closed);
+                        // remove current socket and increment to next socket in ordering
+                        myCurrentSocket = removeCurrentSocket();
+                        break;
+                    default:
+                        break;
                 }
             }
             if (!myLoadArgs.empty()) {
@@ -724,7 +700,7 @@ TraCIServer::processCommands(const SUMOTime step) {
         for (auto& item : myTransportableStateChanges) {
             item.second.clear();
         }
-        return cmd;
+        return finalCmd;
     } catch (std::invalid_argument& e) {
         throw ProcessError(e.what());
     } catch (libsumo::TraCIException& e) {
@@ -741,6 +717,7 @@ TraCIServer::cleanup() {
     myTargetTime = string2time(OptionsCont::getOptions().getString("begin"));
     for (myCurrentSocket = mySockets.begin(); myCurrentSocket != mySockets.end(); ++myCurrentSocket) {
         myCurrentSocket->second->targetTime = myTargetTime;
+        myCurrentSocket->second->executeMove = false;
     }
     myOutputStorage.reset();
     myInputStorage.reset();
@@ -824,6 +801,12 @@ TraCIServer::dispatchCommand() {
                 }
                 break;
             }
+            case libsumo::CMD_EXECUTEMOVE:
+                myCurrentSocket->second->executeMove = true;
+                myCurrentSocket++;
+                success = true;
+                writeStatusCmd(libsumo::CMD_EXECUTEMOVE, libsumo::RTYPE_OK, "");
+                break;
             case libsumo::CMD_SIMSTEP: {
                 const double nextT = myInputStorage.readDouble();
                 if (nextT == 0.) {
@@ -831,6 +814,7 @@ TraCIServer::dispatchCommand() {
                 } else {
                     myCurrentSocket->second->targetTime = TIME2STEPS(nextT);
                 }
+                myCurrentSocket->second->executeMove = false;
 #ifdef DEBUG_MULTI_CLIENTS
                 std::cout << "       commandId == libsumo::CMD_SIMSTEP"
                           << ", next target time for client is " << myCurrentSocket->second->targetTime << std::endl;
@@ -840,6 +824,17 @@ TraCIServer::dispatchCommand() {
                     // @note: In the other case the simstep results are sent to all after the SUMO step was performed, see entry point for processCommands()
                     sendSingleSimStepResponse();
                 }
+                // Clear vehicleStateChanges and transportableStateChanges for this client
+                // -> For subsequent TraCI stepping
+                // that is performed within this SUMO step, no updates on vehicle states
+                // belonging to the last SUMO simulation step will be received by this client.
+                for (auto& item : myCurrentSocket->second->vehicleStateChanges) {
+                    item.second.clear();
+                }
+                for (auto& item : myCurrentSocket->second->transportableStateChanges) {
+                    item.second.clear();
+                }
+                myCurrentSocket++;
                 return commandId;
             }
             case libsumo::CMD_CLOSE:
@@ -1635,6 +1630,7 @@ TraCIServer::stateLoaded(SUMOTime targetTime) {
     myTargetTime = targetTime;
     for (auto& s : mySockets) {
         s.second->targetTime = targetTime;
+        s.second->executeMove = false;
         for (auto& stateChange : s.second->vehicleStateChanges) {
             stateChange.second.clear();
         }
