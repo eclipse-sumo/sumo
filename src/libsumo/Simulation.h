@@ -71,6 +71,9 @@ public:
     /// @brief Advances by one step (or up to the given time)
     static void step(const double time = 0.);
 
+    /// @brief Advances a "half" step
+    static void executeMove();
+
     /// @brief close simulation
     static void close(const std::string& reason = "Libsumo requested termination.");
 

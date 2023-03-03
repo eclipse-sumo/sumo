@@ -148,6 +148,12 @@ Simulation::step(const double time) {
 
 
 void
+Simulation::executeMove() {
+    MSNet::getInstance()->simulationStep(true);
+}
+
+
+void
 Simulation::close(const std::string& reason) {
     Helper::clearSubscriptions();
     if (

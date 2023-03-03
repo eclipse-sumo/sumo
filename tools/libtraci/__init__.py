@@ -150,6 +150,7 @@ init = simulation.init
 load = simulation.load
 isLoaded = simulation.isLoaded
 getVersion = simulation.getVersion
+executeMove = simulation.executeMove
 setOrder = simulation.setOrder
 
 _libtraci_step = simulation.step

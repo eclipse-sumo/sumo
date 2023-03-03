@@ -262,8 +262,7 @@ public:
     /** @brief Performs a single simulation step
      * @todo Which exceptions may occur?
      */
-    void simulationStep();
-
+    void simulationStep(const bool onlyMove=false);
 
     /** @brief loads routes for the next few steps */
     void loadRoutes();
@@ -840,6 +839,10 @@ protected:
     /// @brief remove collisions from the previous simulation step
     void removeOutdatedCollisions();
 
+    /** @brief Performs the parts of the simulation step which happen after the move
+     */
+    void postMoveStep();
+
 protected:
     /// @brief Unique instance of MSNet
     static MSNet* myInstance;
@@ -847,8 +850,11 @@ protected:
     /// @brief Route loader for dynamic loading of routes
     SUMORouteLoaderControl* myRouteLoaders;
 
-    /// @brief Current time step.
+    /// @brief Current time step
     SUMOTime myStep;
+
+    /// @brief whether libsumo triggered a partial step (executeMove)
+    bool myStepCompletionMissing = false;
 
     /// @brief Maximum number of teleports.
     int myMaxTeleports;

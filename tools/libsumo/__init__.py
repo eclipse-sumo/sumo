@@ -151,6 +151,7 @@ hasGUI = simulation.hasGUI
 load = simulation.load
 isLoaded = simulation.isLoaded
 getVersion = simulation.getVersion
+executeMove = simulation.executeMove
 
 _libsumo_step = simulation.step
 
