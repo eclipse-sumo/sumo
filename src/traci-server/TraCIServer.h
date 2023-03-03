@@ -92,7 +92,7 @@ public:
     /// @brief process all commands until the next SUMO simulation step.
     ///        It is guaranteed that t->getTargetTime() >= myStep after call
     ///        (except the case that a load or close command is received)s
-    void processCommandsUntilSimStep(SUMOTime step);
+    int processCommands(const SUMOTime step);
 
     /// @brief clean up subscriptions
     void cleanup();

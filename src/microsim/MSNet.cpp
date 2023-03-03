@@ -686,11 +686,12 @@ MSNet::simulationStep() {
               << std::endl;
 #endif
     TraCIServer* t = TraCIServer::getInstance();
+    int lastTraCICmd = 0;
     if (t != nullptr) {
         if (myLogExecutionTime) {
             myTraCIStepDuration = SysUtils::getCurrentMillis();
         }
-        t->processCommandsUntilSimStep(myStep);
+        lastTraCICmd = t->processCommands(myStep);
 #ifdef DEBUG_SIMSTEP
         bool loadRequested = !TraCI::getLoadArgs().empty();
         assert(t->getTargetTime() >= myStep || loadRequested || TraCIServer::wasClosed());

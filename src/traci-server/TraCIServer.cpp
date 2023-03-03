@@ -350,7 +350,7 @@ TraCIServer::TraCIServer(const SUMOTime begin, const int port, const int numClie
         if (numClients > 1) {
             checkClientOrdering();
         }
-        // set myCurrentSocket != mySockets.end() to indicate that this is the first step in processCommandsUntilSimStep()
+        // set myCurrentSocket != mySockets.end() to indicate that this is the first step in processCommands()
         myCurrentSocket = mySockets.begin();
     } catch (tcpip::SocketException& e) {
         throw ProcessError(e.what());
@@ -578,12 +578,13 @@ TraCIServer::sendOutputToAll() const {
 }
 
 
-void
-TraCIServer::processCommandsUntilSimStep(SUMOTime step) {
+int
+TraCIServer::processCommands(const SUMOTime step) {
 #ifdef DEBUG_MULTI_CLIENTS
-    std::cout << SIMTIME << " processCommandsUntilSimStep(step = " << step << "):\n" << std::endl;
+    std::cout << SIMTIME << " processCommands(step = " << step << "):\n" << std::endl;
 #endif
     try {
+        int cmd = 0;
         const bool firstStep = myCurrentSocket != mySockets.end();
         // update client order if requested
         processReorderingRequests();
@@ -601,11 +602,9 @@ TraCIServer::processCommandsUntilSimStep(SUMOTime step) {
 
         if (step < myTargetTime) {
 #ifdef DEBUG_MULTI_CLIENTS
-            if (step < myTargetTime) {
-                std::cout << "    next target time is larger than next SUMO simstep (" << step << "). Returning from processCommandsUntilSimStep()." << std::endl;
-            }
+            std::cout << "    next target time is larger than next SUMO simstep (" << step << "). Returning from processCommands()." << std::endl;
 #endif
-            return;
+            return cmd;
         }
 
         // Simulation should run until
@@ -642,16 +641,9 @@ TraCIServer::processCommandsUntilSimStep(SUMOTime step) {
                     if (!myInputStorage.valid_pos()) {
                         // have read request completely, send response if adequate
                         if (myOutputStorage.size() > 0) {
-#ifdef DEBUG_MULTI_CLIENTS
-                            std::cout << "    sending response..." << std::endl;
-#endif
                             // send response to previous query
                             myCurrentSocket->second->socket->sendExact(myOutputStorage);
                             myOutputStorage.reset();
-                        } else {
-#ifdef DEBUG_MULTI_CLIENTS
-                            std::cout << "    No input and no output stored (This is the next client)." << std::endl;
-#endif
                         }
 #ifdef DEBUG_MULTI_CLIENTS
                         std::cout << "    resetting input storage and reading next command..." << std::endl;
@@ -662,8 +654,7 @@ TraCIServer::processCommandsUntilSimStep(SUMOTime step) {
                     }
 
                     while (myInputStorage.valid_pos() && !myDoCloseConnection) {
-                        // dispatch command
-                        const int cmd = dispatchCommand();
+                        cmd = dispatchCommand();
 #ifdef DEBUG_MULTI_CLIENTS
                         std::cout << "    Received command " << cmd << std::endl;
 #endif
@@ -690,11 +681,11 @@ TraCIServer::processCommandsUntilSimStep(SUMOTime step) {
                     // -> For subsequent TraCI stepping
                     // that is performed within this SUMO step, no updates on vehicle states
                     // belonging to the last SUMO simulation step will be received by this client.
-                    for (std::map<MSNet::VehicleState, std::vector<std::string> >::iterator i = myCurrentSocket->second->vehicleStateChanges.begin(); i != myCurrentSocket->second->vehicleStateChanges.end(); ++i) {
-                        (*i).second.clear();
+                    for (auto& item : myCurrentSocket->second->vehicleStateChanges) {
+                        item.second.clear();
                     }
-                    for (std::map<MSNet::TransportableState, std::vector<std::string> >::iterator i = myCurrentSocket->second->transportableStateChanges.begin(); i != myCurrentSocket->second->transportableStateChanges.end(); ++i) {
-                        (*i).second.clear();
+                    for (auto& item : myCurrentSocket->second->transportableStateChanges) {
+                        item.second.clear();
                     }
                     myCurrentSocket++;
                 } else if (load) {
@@ -727,12 +718,13 @@ TraCIServer::processCommandsUntilSimStep(SUMOTime step) {
         }
         // All clients are done with the current time step
         // Reset myVehicleStateChanges and myTransportableStateChanges
-        for (std::map<MSNet::VehicleState, std::vector<std::string> >::iterator i = myVehicleStateChanges.begin(); i != myVehicleStateChanges.end(); ++i) {
-            (*i).second.clear();
+        for (auto& item : myVehicleStateChanges) {
+            item.second.clear();
         }
-        for (std::map<MSNet::TransportableState, std::vector<std::string> >::iterator i = myTransportableStateChanges.begin(); i != myTransportableStateChanges.end(); ++i) {
-            (*i).second.clear();
+        for (auto& item : myTransportableStateChanges) {
+            item.second.clear();
         }
+        return cmd;
     } catch (std::invalid_argument& e) {
         throw ProcessError(e.what());
     } catch (libsumo::TraCIException& e) {
@@ -845,7 +837,7 @@ TraCIServer::dispatchCommand() {
 #endif
                 if (myCurrentSocket->second->targetTime <= MSNet::getInstance()->getCurrentTimeStep()) {
                     // This is not the last TraCI simstep in the current SUMO simstep -> send single simstep response.
-                    // @note: In the other case the simstep results are sent to all after the SUMO step was performed, see entry point for processCommandsUntilSimStep()
+                    // @note: In the other case the simstep results are sent to all after the SUMO step was performed, see entry point for processCommands()
                     sendSingleSimStepResponse();
                 }
                 return commandId;
