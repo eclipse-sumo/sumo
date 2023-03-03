@@ -141,6 +141,10 @@ public:
         return myHeadwayErrorCoefficient;
     }
 
+    inline double getFreeSpeedErrorCoefficient() const {
+        return myFreeSpeedErrorCoefficient;
+    }
+
     inline double getSpeedDifferenceChangePerceptionThreshold() const {
         return mySpeedDifferenceChangePerceptionThreshold;
     }
@@ -197,6 +201,10 @@ public:
         myHeadwayErrorCoefficient = value;
     }
 
+    inline void setFreeSpeedErrorCoefficient(const double value)  {
+        myFreeSpeedErrorCoefficient = value;
+    }
+
     inline void setSpeedDifferenceChangePerceptionThreshold(const double value)  {
         mySpeedDifferenceChangePerceptionThreshold = value;
     }
@@ -245,6 +253,9 @@ public:
 //    inline double getAppliedAcceleration(double desiredAccel) {
 //        return desiredAccel + myError.getState();
 //    };
+
+    /// @brief apply perception error to own speed
+    double getPerceivedOwnSpeed(double speed);
 
     /// @brief This method checks whether the errorneous speed difference that would be perceived for this step
     ///        differs sufficiently from the previously perceived to be actually perceived. If so, it sets the
@@ -296,6 +307,7 @@ private:
     /// @brief Scaling coefficients for the magnitude of errors
     double mySpeedDifferenceErrorCoefficient;
     double myHeadwayErrorCoefficient;
+    double myFreeSpeedErrorCoefficient;
     /// @brief Thresholds above a change in the corresponding quantity is perceived.
     /// @note  In the comparison, we multiply the actual change amount by the current
     ///       gap to the object to reflect a more precise perception if the object is closer.
@@ -703,5 +715,6 @@ struct DriverStateDefaults {
     static double speedDifferenceChangePerceptionThreshold;
     static double headwayChangePerceptionThreshold;
     static double headwayErrorCoefficient;
+    static double freeSpeedErrorCoefficient;
     static double maximalReactionTimeFactor;
 };

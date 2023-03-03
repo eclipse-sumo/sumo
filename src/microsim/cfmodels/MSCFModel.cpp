@@ -200,7 +200,7 @@ MSCFModel::finalizeSpeed(MSVehicle* const veh, double vPos) const {
     // aMax: Maximal admissible acceleration until the next action step, such that the vehicle's maximal
     // desired speed on the current lane will not be exceeded when the
     // acceleration is maintained until the next action step.
-    double aMax = (veh->getLane()->getVehicleMaxSpeed(veh) * factor - oldV) / veh->getActionStepLengthSecs();
+    double aMax = (MAX2(veh->getLane()->getVehicleMaxSpeed(veh), vPos) * factor - oldV) / veh->getActionStepLengthSecs();
     // apply planned speed constraints and acceleration constraints
     double vMax = MIN3(oldV + ACCEL2SPEED(aMax), maxNextSpeed(oldV, veh), vStop);
     // do not exceed max decel even if it is unsafe
@@ -1046,6 +1046,14 @@ MSCFModel::calculateEmergencyDeceleration(double gap, double egoSpeed, double pr
     return b2;
 }
 
+
+void
+MSCFModel::applyOwnSpeedPerceptionError(const MSVehicle* const veh, double &speed) const {
+    if (!veh->hasDriverState()) {
+        return;
+    }
+    speed = veh->getDriverState()->getPerceivedOwnSpeed(speed);
+}
 
 
 void

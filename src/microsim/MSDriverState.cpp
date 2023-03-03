@@ -82,6 +82,7 @@ double DriverStateDefaults::errorTimeScaleCoefficient = 100.0;
 double DriverStateDefaults::errorNoiseIntensityCoefficient = 0.2;
 double DriverStateDefaults::speedDifferenceErrorCoefficient = 0.15;
 double DriverStateDefaults::headwayErrorCoefficient = 0.75;
+double DriverStateDefaults::freeSpeedErrorCoefficient = 0.0;
 double DriverStateDefaults::speedDifferenceChangePerceptionThreshold = 0.1;
 double DriverStateDefaults::headwayChangePerceptionThreshold = 0.1;
 double DriverStateDefaults::maximalReactionTimeFactor = 1.0;
@@ -132,6 +133,7 @@ MSSimpleDriverState::MSSimpleDriverState(MSVehicle* veh) :
     myErrorNoiseIntensityCoefficient(DriverStateDefaults::errorNoiseIntensityCoefficient),
     mySpeedDifferenceErrorCoefficient(DriverStateDefaults::speedDifferenceErrorCoefficient),
     myHeadwayErrorCoefficient(DriverStateDefaults::headwayErrorCoefficient),
+    myFreeSpeedErrorCoefficient(DriverStateDefaults::freeSpeedErrorCoefficient),
     myHeadwayChangePerceptionThreshold(DriverStateDefaults::headwayChangePerceptionThreshold),
     mySpeedDifferenceChangePerceptionThreshold(DriverStateDefaults::speedDifferenceChangePerceptionThreshold),
     myOriginalReactionTime(veh->getActionStepLengthSecs()),
@@ -215,6 +217,12 @@ MSSimpleDriverState::setAwareness(const double value) {
         myError.setState(0.);
     }
     updateReactionTime();
+}
+
+
+double
+MSSimpleDriverState::getPerceivedOwnSpeed(double speed) {
+    return speed + myFreeSpeedErrorCoefficient * myError.getState() * sqrt(speed);
 }
 
 

@@ -164,6 +164,18 @@ public:
     int getModelID() const {
         return SUMO_TAG_CF_CACC;
     }
+
+    /** @brief Returns the maximum velocity the CF-model wants to achieve in the next step
+     * @param[in] maxSpeed The maximum achievable speed in the next step
+     * @param[in] maxSpeedLane The maximum speed the vehicle wants to drive on this lane (Speedlimit*SpeedFactor)
+     */
+    double maximumLaneSpeedCF(const MSVehicle* const veh, double maxSpeed, double maxSpeedLane) const {
+        double result = MIN2(maxSpeed, maxSpeedLane);
+        if (myApplyDriverstate) {
+            applyOwnSpeedPerceptionError(veh, result);
+        }
+        return result;
+    }
     /// @}
 
 

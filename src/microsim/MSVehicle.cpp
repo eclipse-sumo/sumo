@@ -2115,7 +2115,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         laneMaxV = std::numeric_limits<double>::max();
     }
     // v is the initial maximum velocity of this vehicle in this step
-    double v = cfModel.maximumLaneSpeedCF(maxV, laneMaxV);
+    double v = cfModel.maximumLaneSpeedCF(this, maxV, laneMaxV);
     // if we are modelling parking then we dawdle until the manoeuvre is complete - by setting a very low max speed
     //   in practice this only applies to exit manoeuvre because entry manoeuvre just delays setting stop.reached - when the vehicle is virtually stopped
     if (MSGlobals::gModelParkingManoeuver && !manoeuvreIsComplete()) {
