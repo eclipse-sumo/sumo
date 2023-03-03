@@ -205,8 +205,6 @@ void
 GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration
     const double accessExaggeration = getExaggeration(s);
-    // declare width
-    const double radius = 0.5;
     // first check if additional has to be drawn
     if (s.drawAdditionals(accessExaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // get color
@@ -220,6 +218,10 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
         }
         // avoid draw invisible elements
         if (accessColor.alpha() != 0) {
+            // get distance squared between mouse and access
+            const double distanceSquared = getPositionInView().distanceSquaredTo2D(myNet->getViewNet()->getPositionInformation());
+            // declare radius
+            const double radius = (distanceSquared <= 1) ? 1 : 0.5;
             // draw parent and child lines
             drawParentChildLines(s, accessColor);
             // Start drawing adding an gl identificator
