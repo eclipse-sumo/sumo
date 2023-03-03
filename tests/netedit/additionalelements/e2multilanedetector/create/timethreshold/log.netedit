@@ -1,2 +1,1 @@
 Error: Could not build laneAreaDetector with ID 'e2_0' in netedit; attribute timeThreshold cannot be negative.
-Warning: E2 multilane detectors need at least two consecutive lanes

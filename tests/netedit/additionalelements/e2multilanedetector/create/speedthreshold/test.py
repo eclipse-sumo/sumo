@@ -38,8 +38,8 @@ netedit.additionalMode()
 netedit.changeElement("multiLaneAreaDetector")
 
 # select lanes
-netedit.leftClick(referencePosition, 190, 240)
-netedit.leftClick(referencePosition, 440, 240)
+netedit.leftClick(referencePosition, 426, 253)
+netedit.leftClick(referencePosition, 496, 208)
 
 # set invalid speed threshold
 netedit.changeDefaultValue(netedit.attrs.E2Multilane.create.speedThreshold, "-14")
