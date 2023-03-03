@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-02-23 08:24:55 by Eclipse SUMO netconvert Version v1_16_0+0644-b9a2633
+<!-- generated on 2023-03-03 09:52:35 by Eclipse SUMO netconvert Version v1_16_0+0956-72e0ef1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -361,7 +361,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="4" response="00000" foes="00001" cont="0"/>
     </junction>
     <junction id="2032008711" type="priority" x="1530.43" y="2620.23" incLanes="-54844571_0 319539204#0_0 319539204#0_1" intLanes=":2032008711_0_0 :2032008711_1_0 :2032008711_2_0 :2032008711_5_0 :2032008711_4_0" shape="1528.03,2624.20 1534.28,2622.82 1534.28,2621.95 1534.44,2621.61 1534.71,2621.32 1535.09,2621.09 1535.58,2620.91 1534.53,2617.05 1533.69,2617.11 1533.37,2616.98 1533.10,2616.75 1532.90,2616.41 1532.76,2615.98 1526.51,2617.37">
-        <request index="0" response="10100" foes="10100" cont="0"/>
+        <request index="0" response="00100" foes="00100" cont="0"/>
         <request index="1" response="01000" foes="01000" cont="0"/>
         <request index="2" response="00000" foes="01001" cont="0"/>
         <request index="3" response="00100" foes="00110" cont="1"/>
@@ -374,7 +374,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <junction id="3663247364" type="dead_end" x="1621.79" y="3032.83" incLanes="319539204#2_0 319539204#2_1" intLanes="" shape="1624.92,3032.14 1618.67,3033.53"/>
     <junction id="539758831" type="dead_end" x="740.05" y="890.59" incLanes="22721677#3_0 22721677#3_1" intLanes="" shape="742.54,888.58 737.57,892.61"/>
     <junction id="833044434" type="priority" x="1545.03" y="2686.02" incLanes="-69607668_0 319539204#1_0 319539204#1_1" intLanes=":833044434_0_0 :833044434_0_1 :833044434_2_0 :833044434_3_0 :833044434_6_0 :833044434_5_0" shape="1542.96,2691.48 1549.21,2690.09 1549.19,2689.25 1549.34,2688.93 1549.58,2688.68 1549.92,2688.50 1550.36,2688.38 1549.32,2682.07 1548.27,2682.07 1547.87,2681.93 1547.55,2681.69 1547.32,2681.35 1547.17,2680.91 1540.92,2682.29">
-        <request index="0" response="101000" foes="101000" cont="0"/>
+        <request index="0" response="001000" foes="001000" cont="0"/>
         <request index="1" response="101000" foes="101000" cont="0"/>
         <request index="2" response="010000" foes="010000" cont="0"/>
         <request index="3" response="000000" foes="010011" cont="0"/>

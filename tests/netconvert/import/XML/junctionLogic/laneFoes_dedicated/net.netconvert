@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-02-28 16:44:28 by Eclipse SUMO netconvert Version v1_16_0+0835-1599cb9
+<!-- generated on 2023-03-03 09:52:32 by Eclipse SUMO netconvert Version v1_16_0+0956-72e0ef1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -79,7 +79,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="1" response="0000000" foes="1001100" cont="0"/>
         <request index="2" response="1110011" foes="1110011" cont="0"/>
         <request index="3" response="1000010" foes="1000010" cont="0"/>
-        <request index="4" response="0000001" foes="0000101" cont="0"/>
+        <request index="4" response="0000000" foes="0000000" cont="0"/>
         <request index="5" response="0000001" foes="0000101" cont="0"/>
         <request index="6" response="0000011" foes="0001111" cont="0"/>
     </junction>
@@ -95,7 +95,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from="EC" to="CE" fromLane="0" toLane="0" via=":C_3_0" dir="t" state="m"/>
     <connection from="NC" to="-SC" fromLane="0" toLane="1" via=":C_0_0" dir="s" state="M"/>
     <connection from="NC" to="CE" fromLane="0" toLane="0" via=":C_1_0" dir="l" state="M"/>
-    <connection from="WC" to="-SC" fromLane="0" toLane="0" via=":C_4_0" dir="r" state="m"/>
+    <connection from="WC" to="-SC" fromLane="0" toLane="0" via=":C_4_0" dir="r" state="M"/>
     <connection from="WC" to="-SC" fromLane="0" toLane="1" via=":C_4_1" dir="r" state="m"/>
     <connection from="WC" to="CE" fromLane="0" toLane="0" via=":C_6_0" dir="s" state="m"/>
 
