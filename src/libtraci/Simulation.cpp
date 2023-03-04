@@ -129,6 +129,12 @@ Simulation::step(const double time) {
 
 
 void
+Simulation::executeMove() {
+    Connection::getActive().doCommand(libsumo::CMD_EXECUTEMOVE, -1, "");
+}
+
+
+void
 Simulation::close(const std::string& /* reason */) {
     Connection::getActive().close();
 }
