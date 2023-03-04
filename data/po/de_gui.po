@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-03 06:59+0000\n"
+"PO-Revision-Date: 2023-03-05 16:38+0000\n"
 "Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -3648,22 +3648,22 @@ msgstr "Sumo-Konfiguration laden"
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:283
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:283
 msgid "Load additional and shapes descriptions from FILE(s)"
-msgstr "Weitere Daten und Shapes aus Datei(en) laden"
+msgstr "Weitere Daten und Shapes aus FILE(s) laden"
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:287
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:287
 msgid "Load demand elements descriptions from FILE(s)"
-msgstr "Nachfrageelemente aus Datei(en) laden"
+msgstr "Nachfrageelemente aus FILE(s) laden"
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:291
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:291
 msgid "Load data elements descriptions from FILE(s)"
-msgstr "Datenelemente aus Datei(en) laden"
+msgstr "Datenelemente aus FILE(s) laden"
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:295
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:295
 msgid "Load meanData descriptions from FILE(s)"
-msgstr "MeanData-Definitionen aus Datei(en) laden"
+msgstr "MeanData-Definitionen aus FILE(s) laden"
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:300
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:300
