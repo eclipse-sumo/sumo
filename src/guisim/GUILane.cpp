@@ -923,11 +923,11 @@ GUILane::debugDrawFoeIntersections() const {
     const double orthoLength = 0.5;
     const MSLink* link = getLinkCont().front();
     const std::vector<const MSLane*>& foeLanes = link->getFoeLanes();
-    const auto& lengthsBehind = link->getLengthsBehindCrossing();
-    if (foeLanes.size() == lengthsBehind.size()) {
+    const auto& conflicts = link->getConflicts();
+    if (foeLanes.size() == conflicts.size()) {
         for (int i = 0; i < (int)foeLanes.size(); ++i) {
             const MSLane* l = foeLanes[i];
-            Position pos = l->geometryPositionAtOffset(l->getLength() - lengthsBehind[i].foeLengthBehindCrossing);
+            Position pos = l->geometryPositionAtOffset(l->getLength() - conflicts[i].foeLengthBehindCrossing);
             PositionVector ortho = l->getShape().getOrthogonal(pos, 10, true, orthoLength);
             if (ortho.length() < orthoLength) {
                 ortho.extrapolate(orthoLength - ortho.length(), false, true);

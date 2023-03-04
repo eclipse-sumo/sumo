@@ -614,8 +614,8 @@ public:
         return myFoeLanes;
     }
 
-    const std::vector<ConflictInfo>& getLengthsBehindCrossing() const {
-        return myLengthsBehindCrossing;
+    const std::vector<ConflictInfo>& getConflicts() const {
+        return myConflicts;
     }
 
     const std::vector<MSLink*>& getFoeLinks() const {
@@ -753,7 +753,7 @@ private:
      * (index corresponds to myFoeLanes)
      * empty vector for entry links
      * */
-    std::vector<ConflictInfo> myLengthsBehindCrossing;
+    std::vector<ConflictInfo> myConflicts;
 
     // TODO: documentation
     std::vector<MSLink*> myFoeLinks;
