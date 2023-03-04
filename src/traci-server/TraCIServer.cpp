@@ -664,7 +664,6 @@ TraCIServer::processCommands(const SUMOTime step, const bool afterMove) {
                         myCurrentSocket = mySockets.end();
                         break;
                     case libsumo::CMD_CLOSE:
-                        assert(closed);
                         // remove current socket and increment to next socket in ordering
                         myCurrentSocket = removeCurrentSocket();
                         break;
