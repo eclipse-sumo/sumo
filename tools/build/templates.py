@@ -27,7 +27,7 @@ from __future__ import absolute_import
 import sys
 import os
 from os.path import dirname, join
-from subprocess import check_output
+from subprocess import check_output, CalledProcessError
 
 # list of folders and tools
 tools = [
@@ -82,7 +82,11 @@ def generateSumoTemplate(sumoBin):
         # show info
         print("Obtaining sumo template")
         # obtain template piping stdout using check_output
-        template = check_output([sumoBin, "--save-template", "stdout"], universal_newlines=True)
+        try:
+            template = check_output([sumoBin, "--save-template", "stdout"], universal_newlines=True)
+        except CalledProcessError as e:
+            sys.stderr.write("Error when generating template for sumocfg: '%s'" % e)
+            return 'const std::string sumoTemplate = "";'
         # join variable and formated template
         return 'const std::string sumoTemplate = "' + formatBinTemplate(template)
     # if binary wasn't found, then raise exception
@@ -101,7 +105,11 @@ def generateToolTemplate(toolDir, subDir, toolName):
         # show info
         print("Obtaining '" + toolName + "' tool template")
         # obtain template piping stdout using check_output
-        template = check_output([sys.executable, toolPath, "--save-template", "stdout"], universal_newlines=True)
+        try:
+            template = check_output([sys.executable, toolPath, "--save-template", "stdout"], universal_newlines=True)
+        except CalledProcessError as e:
+            sys.stderr.write("Error when generating tool template for %s: '%s'" % (toolName, e))
+            return "const std::string " + toolName + 'Template = "";'
         # join variable and formated template
         return "const std::string " + toolName + 'Template = ' + formatToolTemplate(template)
     # if tool wasn't found, then raise exception
