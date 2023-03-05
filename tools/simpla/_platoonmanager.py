@@ -199,10 +199,10 @@ class PlatoonManager(traci.StepListener):
             traci.vehicle.unsubscribe(veh.getID())
         self._connectedVehicles = dict()
         simpla._platoon.Platoon._nextID = 0
-    
+
     def getAveragePlatoonLength(self):
         '''getAveragePlatoonLength() -> float
-        
+
         Returns the average number of vehicles in a platoon or 0 if there are no platoons
         '''
         platoonCount = len(self._platoons)
@@ -210,33 +210,35 @@ class PlatoonManager(traci.StepListener):
             return 0
         else:
             return sum([platoon.size() for platoon in self._platoons.values()])/platoonCount
-    
+
     def getAveragePlatoonSpeed(self):
         '''getAveragePlatoonSpeed() -> float
-        
+
         Returns the average speed of all vehicles in platoons or 0 if there are no platoons / or all in stand
         '''
         vehCount = sum([platoon.size() for platoon in self._platoons.values()])
         if vehCount == 0:
             return 0
-        else:
-            return sum([vehicle.state.speed for platoon in self._platoons.values() for vehicle in platoon.getVehicles()])/vehCount
+        s = sum([vehicle.state.speed for platoon in self._platoons.values() for vehicle in platoon.getVehicles()])
+        return s / vehCount
 
     def getPlatoonIDList(self, edgeID):
         '''getPlatoonIDList(string) -> list(integer)
-        
+
         Returns the list of platoon IDs where at least one vehicle is currently on the edge given by its ID
         '''
-        return [pID for pID, platoon in self._platoons.items() if edgeID in [vehicle.state.edgeID for vehicle in platoon.getVehicles()]]
+        return [pID for pID, platoon in self._platoons.items()
+                if edgeID in [vehicle.state.edgeID for vehicle in platoon.getVehicles()]]
 
     def getPlatoonInfo(self, platoonID):
         '''getPlatoonInfo(platoonID) -> dict
-        
+
         Returns a dict with statistical information about the platoon given by its (numerical) ID
         '''
         if platoonID in self._platoons:
             plt = self._platoons[platoonID]
-            return {"laneID" : plt.getLeader().state.laneID, "members" : [vehicle.getID() for vehicle in plt.getVehicles()]}
+            return {"laneID": plt.getLeader().state.laneID,
+                    "members": [vehicle.getID() for vehicle in plt.getVehicles()]}
         else:
             return {}
 

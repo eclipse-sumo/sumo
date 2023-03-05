@@ -129,8 +129,8 @@ def getAveragePlatoonLength():
     else:
         raise SimplaException("call simpla.load(<config_file>) before simpla.getAveragePlatoonLength()!")
     return 0
-    
-    
+
+
 def getAveragePlatoonSpeed():
     '''
     Get average platoon speed from simpla.PlatoonManager
@@ -141,12 +141,12 @@ def getAveragePlatoonSpeed():
     else:
         raise SimplaException("call simpla.load(<config_file>) before simpla.getAveragePlatoonLength()!")
     return 0
-    
-    
+
+
 def getPlatoonIDList(edgeID):
     '''
     getPlatoonIDList(string) -> list(integer)
-    
+
     Get the platoon IDs (positive numbers) currently present on the edge given by its ID
     '''
     global _mgr, warn
@@ -159,10 +159,10 @@ def getPlatoonIDList(edgeID):
 
 def getPlatoonInfo(platoonID):
     '''
-    
+
     getPlatoonInfo(integer) -> dict()
-    
-    Returns a dict with statistical information about the platoon given by its (numerical) ID. 
+
+    Returns a dict with statistical information about the platoon given by its (numerical) ID.
     If the platoon has been dissolved, the dict is empty.
     '''
     global _mgr, warn

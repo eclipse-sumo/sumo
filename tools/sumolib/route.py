@@ -16,8 +16,6 @@
 # @date    2013-10-23
 
 from __future__ import print_function
-import os
-import sys
 from .miscutils import euclidean
 from .geomhelper import polygonOffsetWithMinimumDistanceToPoint
 

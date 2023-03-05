@@ -70,7 +70,7 @@ netedit.redo(referencePosition, 4)
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)
 
-# set friendlyPos 
+# set friendlyPos
 netedit.typeSpace()
 
 # quit netedit
