@@ -59,6 +59,7 @@ error dynamics.
 | errorNoiseIntensityCoefficient           | float | 0.2                         | Noise intensity constant that controls the noise intensity of the underlying error process.  |
 | speedDifferenceErrorCoefficient          | float | 0.15                        | Scaling coefficient for the error applied to the speed difference input of the car-following model. |
 | headwayErrorCoefficient                  | float | 0.75                        | Scaling coefficient for the error applied to the distance input of the car-following model.  |
+| freeSpeedErrorCoefficient                | float | 0.0                         | Scaling coefficient for the error applied to free driving speed  |
 | speedDifferenceChangePerceptionThreshold | float | 0.1                         | Constant controlling the threshold for the perception of changes in the speed difference  |
 | headwayChangePerceptionThreshold         | float | 0.1                         | Constant controlling the threshold for the perception of changes in the distance input.      |
 | minAwareness                             | float | 0.1                         | The minimal value for the driver awareness (a technical parameter to avoid a blow up of the term `1/minAwareness`).   |
