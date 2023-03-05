@@ -284,6 +284,7 @@ def openz(fileOrURL, mode="r", **kwargs):
     Also enforces UTF8 on text output / input.
     Should be compatible with python 2 and 3.
     """
+    encoding = kwargs.get("encoding", "utf8")
     try:
         if fileOrURL.startswith("http://") or fileOrURL.startswith("https://"):
             return io.BytesIO(urlopen(fileOrURL).read())
@@ -294,7 +295,7 @@ def openz(fileOrURL, mode="r", **kwargs):
         if fileOrURL.endswith(".gz") and "w" in mode:
             if "b" in mode:
                 return gzip.open(fileOrURL, mode="w")
-            return gzip.open(fileOrURL, mode="wt", encoding="utf8")
+            return gzip.open(fileOrURL, mode="wt", encoding=encoding)
         if kwargs.get("tryGZip", True) and "r" in mode:
             with gzip.open(fileOrURL) as fd:
                 fd.read(1)
@@ -302,9 +303,9 @@ def openz(fileOrURL, mode="r", **kwargs):
                 return gzip.open(fileOrURL)
             if sys.version_info[0] < 3:
                 return codecs.getreader('utf-8')(gzip.open(fileOrURL))
-            return gzip.open(fileOrURL, mode="rt", encoding="utf8")
+            return gzip.open(fileOrURL, mode="rt", encoding=encoding)
     except OSError:
         pass
     if "b" in mode:
         return io.open(fileOrURL, mode=mode)
-    return io.open(fileOrURL, mode=mode, encoding="utf8")
+    return io.open(fileOrURL, mode=mode, encoding=encoding)
