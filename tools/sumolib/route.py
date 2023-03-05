@@ -18,11 +18,8 @@
 from __future__ import print_function
 import os
 import sys
-SUMO_HOME = os.environ.get('SUMO_HOME',
-                           os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
-sys.path.append(os.path.join(SUMO_HOME, 'tools'))
-from sumolib.miscutils import euclidean  # noqa
-from sumolib.geomhelper import polygonOffsetWithMinimumDistanceToPoint  # noqa
+from .miscutils import euclidean
+from .geomhelper import polygonOffsetWithMinimumDistanceToPoint
 
 try:
     basestring
