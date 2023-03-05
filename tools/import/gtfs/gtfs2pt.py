@@ -145,7 +145,8 @@ def splitNet(options):
                 if "railway." + mode in seenTypes:
                     edgeFilter = ["--keep-edges.by-type", "railway." + mode]
             elif mode == "train":
-                edgeFilter = ["--keep-edges.by-type", "railway.rail,railway.light_rail"]
+                if "railway.rail" in seenTypes or "railway.light_rail" in seenTypes:
+                    edgeFilter = ["--keep-edges.by-type", "railway.rail,railway.light_rail"]
             elif mode in ("tram", "bus"):
                 edgeFilter = ["--keep-edges.by-vclass", mode]
             if edgeFilter:
@@ -153,7 +154,10 @@ def splitNet(options):
                         os.path.getmtime(netPrefix + ".net.xml") > os.path.getmtime(numIdNet)):
                     print("Reusing old", netPrefix + ".net.xml")
                 else:
-                    subprocess.call(netcCall + ["-s", numIdNet, "-o", netPrefix + ".net.xml"] + edgeFilter)
+                    if subprocess.call(netcCall + ["-s", numIdNet, "-o", netPrefix + ".net.xml"] + edgeFilter):
+                        print("Error generating %s.net.xml, maybe it does not contain infrastructure for '%s'." %
+                              (netPrefix, mode))
+                        continue
                     if doNavteqOut:
                         subprocess.call(netcCall + ["-s", netPrefix + ".net.xml", "-o", "NUL", "--dismiss-vclasses"
                                                     "--dlr-navteq-output", netPrefix])
