@@ -40,13 +40,13 @@
 
 class GNEApplicationWindow;
 class GNELoadThread;
+class GNENet;
+class GNEToolDialog;
 class GNEUndoList;
 class GNEUndoListDialog;
-class GNENet;
 class GNEViewNet;
 class GUIEvent;
 class MFXMenuCheckIcon;
-class GNEToolDialog;
 
 // ===========================================================================
 // class definition
@@ -960,6 +960,9 @@ struct GNEApplicationWindowHelper {
 
         /// @brief build tools
         void buildTools();
+
+        /// @brief netdiff tool
+        GNEToolDialog* netDiffTool = nullptr;
 
         /// @brief generate rerouters tool
         GNEToolDialog* generateReroutersTool = nullptr;

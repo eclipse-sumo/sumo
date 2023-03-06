@@ -25,9 +25,7 @@
 #include <netedit/dialogs/GNEFixNetworkElements.h>
 #include <netedit/dialogs/GNEOverwriteElementsDialog.h>
 #include <netedit/dialogs/GNEUndoListDialog.h>
-#include <netedit/dialogs/tools/GNEToolAddStops2Routes.h>
-#include <netedit/dialogs/tools/GNEToolGenerateRerouters.h>
-#include <netedit/dialogs/tools/GNEToolNetDiff.h>
+#include <netedit/dialogs/tools/GNEToolDialog.h>
 #include <netedit/elements/GNEGeneralHandler.h>
 #include <netedit/elements/data/GNEDataHandler.h>
 #include <netedit/elements/network/GNECrossing.h>
@@ -1130,7 +1128,8 @@ GNEApplicationWindow::onCmdLocate(FXObject*, FXSelector sel, void*) {
 
 long
 GNEApplicationWindow::onCmdToolNetDiff(FXObject*, FXSelector, void*) {
-    //
+    // open tool diff dialog
+    myToolsMenuCommands.netDiffTool->openToolDialog();
     return 1;
 }
 
@@ -1138,7 +1137,7 @@ GNEApplicationWindow::onCmdToolNetDiff(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdToolGenerateRerouters(FXObject*, FXSelector, void*) {
     // open generate rerouter dialog
-    myToolsMenuCommands.generateRerouters->openToolDialog();
+    myToolsMenuCommands.generateReroutersTool->openToolDialog();
     return 1;
 }
 
@@ -1146,7 +1145,7 @@ GNEApplicationWindow::onCmdToolGenerateRerouters(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdToolAddStop2Routes(FXObject*, FXSelector, void*) {
     // open add stops to routes dialog
-    myToolsMenuCommands.addStops2Routes->openToolDialog();
+    myToolsMenuCommands.addStops2RoutesTool->openToolDialog();
     return 1;
 }
 
