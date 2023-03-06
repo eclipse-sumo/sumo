@@ -225,6 +225,9 @@ GUIOSGView::GUIOSGView(
 
     // adjust the main light
     adoptViewSettings();
+
+    osgUtil::Optimizer optimizer;
+    optimizer.optimize(myRoot);
 }
 
 

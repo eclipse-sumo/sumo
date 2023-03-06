@@ -65,6 +65,7 @@
 #include <osgGA/TerrainManipulator>
 //#include <osgGA/TrackballManipulator>
 #include <osgText/FadeText>
+#include <osgUtil/Optimizer>
 #include <osgUtil/Tessellator>
 #include <osgUtil/SmoothingVisitor>
 #include <osgViewer/Viewer>
