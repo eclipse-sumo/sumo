@@ -39,11 +39,12 @@ jobs:
         path: jpscore-deps
 
     - name: Building jpscore
+      shell: cmd
       run: |
         mkdir jpscore-build
         mkdir jpscore-install
         cd jpscore-build
-        cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_PREFIX_PATH=$PWD/../jpscore-deps -DCMAKE_INSTALL_PREFIX=$PWD/../jpscore-install -DBUILD_JPSVIS=OFF ../jpscore
+        cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_PREFIX_PATH=%CD%/../jpscore-deps/x64-windows-static -DCMAKE_INSTALL_PREFIX=%CD%/../jpscore-install -DBUILD_JPSVIS=OFF ../jpscore
         cmake --build .
         cmake --install .
 
