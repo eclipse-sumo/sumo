@@ -9,3 +9,6 @@ unsorted
 
 # one route file and only one traffic light with traffic volumes
 named_routes
+
+# division by 0
+ticket12760

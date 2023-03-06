@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/scr1/sumo/tests/../tools/tlsCycleAdaptation.py", line 482, in <module>
+    main(options)
+  File "/scr1/sumo/tests/../tools/tlsCycleAdaptation.py", line 457, in main
+    groupFlowsMap = optimizeGreenTime(tl, groupFlowsMap, phaseLaneIndexMap, currentLength, options)
+  File "/scr1/sumo/tests/../tools/tlsCycleAdaptation.py", line 365, in optimizeGreenTime
+    (criticalFlowRateMap[i] / sum(criticalFlowRateMap.values())) - options.yellowtime + options.losttime
+ZeroDivisionError: float division by zero

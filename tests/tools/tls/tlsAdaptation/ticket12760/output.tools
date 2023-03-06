@@ -1,0 +1,25 @@
+the total number of tls: 6
+Begin time:0
+parsing route file: input_routes.rou.xml
+Parsed 92 vehicles from input_routes.rou.xml.
+Skipping TLS 'joinedS_1' due to unused states (59 states, 37 connections)
+tl-logic ID: 10205342654
+phase: 0
+group flows: [42, 1.0]
+The used lanes: [[1]]
+phase: 2
+group flows: [42, 0]
+The used lanes: [[1]]
+the current cycle length:90 sec
+Green time for phase 0: 12
+Green time for phase 2: 4
+The optimal cycle length:24
+
+tl-logic ID: 10205342655
+phase: 0
+group flows: [42, 0]
+The used lanes: [[1]]
+phase: 2
+group flows: [42]
+The used lanes: []
+the current cycle length:90 sec

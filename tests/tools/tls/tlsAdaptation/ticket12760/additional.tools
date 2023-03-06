@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-03-06 11:05:22.166763 by tlsCycleAdaptation.py v1_16_0+0993-e2aecbd
+<configuration>
+    <net-file value="input_net.net.xml"/>
+    <output-file value="out.add.xml"/>
+    <route-files value="input_routes.rou.xml"/>
+    <verbose value="True"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <tlLogic id="10205342654" type="actuated" programID="a" offset="0">
+        <phase duration="12" state="rGG"/>
+        <phase duration="4" state="ryy"/>
+        <phase duration="4" state="Grr"/>
+        <phase duration="4" state="yrr"/>
+    </tlLogic>
