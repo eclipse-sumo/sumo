@@ -159,18 +159,18 @@ OptionsCont::isDefault(const std::string& name) const {
 
 Option*
 OptionsCont::getSecure(const std::string& name) const {
-    auto k = myValues.find(name);
-    if (k == myValues.end()) {
+    const auto &valuesFinder = myValues.find(name);
+    if (valuesFinder == myValues.end()) {
         throw ProcessError(TLF("No option with the name '%' exists.", name));
     }
-    std::map<std::string, bool>::iterator s = myDeprecatedSynonymes.find(name);
-    if (s != myDeprecatedSynonymes.end() && !s->second) {
+    const auto &synonymFinder = myDeprecatedSynonymes.find(name);
+    if ((synonymFinder != myDeprecatedSynonymes.end()) && !synonymFinder->second) {
         std::string defaultName;
-        for (std::map<std::string, std::vector<std::string> >::const_iterator i = mySubTopicEntries.begin(); i != mySubTopicEntries.end(); ++i) {
-            for (std::vector<std::string>::const_iterator j = i->second.begin(); j != i->second.end(); ++j) {
-                auto l = myValues.find(*j);
-                if (l != myValues.end() && l->second == k->second) {
-                    defaultName = *j;
+        for (const auto &subtopicEntry : mySubTopicEntries) {
+            for (const auto &value : subtopicEntry.second) {
+                const auto l = myValues.find(value);
+                if ((l != myValues.end()) && (l->second == valuesFinder->second)) {
+                    defaultName = value;
                     break;
                 }
             }
@@ -179,9 +179,9 @@ OptionsCont::getSecure(const std::string& name) const {
             }
         }
         WRITE_WARNINGF(TL("Please note that '%' is deprecated.\n Use '%' instead."), name, defaultName);
-        s->second = true;
+        synonymFinder->second = true;
     }
-    return k->second;
+    return valuesFinder->second;
 }
 
 
@@ -279,13 +279,13 @@ OptionsCont::setByRootElement(const std::string& root, const std::string& value)
 std::vector<std::string>
 OptionsCont::getSynonymes(const std::string& name) const {
     Option* o = getSecure(name);
-    std::vector<std::string> v(0);
-    for (auto i = myValues.begin(); i != myValues.end(); i++) {
-        if ((*i).second == o && name != (*i).first) {
-            v.push_back((*i).first);
+    std::vector<std::string> synonymes;
+    for (const auto &value : myValues) {
+        if ((value.second == o) && (name != value.first)) {
+            synonymes.push_back(value.first);
         }
     }
-    return v;
+    return synonymes;
 }
 
 
@@ -299,29 +299,28 @@ std::ostream&
 operator<<(std::ostream& os, const OptionsCont& oc) {
     std::vector<std::string> done;
     os << "Options set:" << std::endl;
-    for (auto i = oc.myValues.begin();
-            i != oc.myValues.end(); i++) {
-        std::vector<std::string>::iterator j = std::find(done.begin(), done.end(), (*i).first);
-        if (j == done.end()) {
-            std::vector<std::string> synonymes = oc.getSynonymes((*i).first);
+    for (const auto &value : oc.myValues) {
+        const auto &finder = std::find(done.begin(), done.end(), value.first);
+        if (finder == done.end()) {
+            std::vector<std::string> synonymes = oc.getSynonymes(value.first);
             if (synonymes.size() != 0) {
-                os << (*i).first << " (";
-                for (j = synonymes.begin(); j != synonymes.end(); j++) {
-                    if (j != synonymes.begin()) {
+                os << value.first << " (";
+                for (auto &synonym = synonymes.begin(); synonym != synonymes.end(); synonym++) {
+                    if (synonym != synonymes.begin()) {
                         os << ", ";
                     }
-                    os << (*j);
+                    os << (*synonym);
                 }
                 os << ")";
             } else {
-                os << (*i).first;
+                os << value.first;
             }
-            if ((*i).second->isSet()) {
-                os << ": " << (*i).second->getValueString() << std::endl;
+            if (value.second->isSet()) {
+                os << ": " << value.second->getValueString() << std::endl;
             } else {
                 os << ": <INVALID>" << std::endl;
             }
-            done.push_back((*i).first);
+            done.push_back(value.first);
             copy(synonymes.begin(), synonymes.end(), back_inserter(done));
         }
     }
@@ -331,20 +330,20 @@ operator<<(std::ostream& os, const OptionsCont& oc) {
 
 void
 OptionsCont::relocateFiles(const std::string& configuration) const {
-    for (Option* const option : myAddresses) {
+    for (const auto &option : myAddresses) {
         if (option->isFileName() && option->isSet()) {
             StringVector fileList = StringVector(option->getStringVector());
-            for (std::string& f : fileList) {
-                f = FileHelpers::checkForRelativity(f, configuration);
+            for (auto &file : fileList) {
+                file = FileHelpers::checkForRelativity(file, configuration);
                 try {
-                    f = StringUtils::urlDecode(f);
+                    file = StringUtils::urlDecode(file);
                 } catch (NumberFormatException& e) {
-                    WRITE_WARNING(toString(e.what()) + " when trying to decode filename '" + f + "'.");
+                    WRITE_WARNING(toString(e.what()) + " when trying to decode filename '" + file + "'.");
                 }
             }
             StringVector rawList = StringTokenizer(option->getValueString(), ",").getVector();
-            for (std::string& f : rawList) {
-                f = FileHelpers::checkForRelativity(f, configuration);
+            for (auto &file : rawList) {
+                file = FileHelpers::checkForRelativity(file, configuration);
             }
             const std::string conv = joinToString(fileList, ',');
             if (conv != joinToString(option->getStringVector(), ',')) {
@@ -372,10 +371,10 @@ OptionsCont::isUsableFileList(const std::string& name) const {
         WRITE_ERRORF(TL("The file list for '%' is empty."), name);
         ok = false;
     }
-    for (std::vector<std::string>::const_iterator fileIt = files.begin(); fileIt != files.end(); ++fileIt) {
-        if (!FileHelpers::isReadable(*fileIt)) {
-            if (*fileIt != "") {
-                WRITE_ERRORF(TL("File '%' is not accessible (%)."), *fileIt, std::strerror(errno));
+    for (const auto &file : files) {
+        if (!FileHelpers::isReadable(file)) {
+            if (file != "") {
+                WRITE_ERRORF(TL("File '%' is not accessible (%)."), file, std::strerror(errno));
                 ok = false;
             } else {
                 WRITE_WARNING(TL("Empty file name given; ignoring."));
@@ -394,13 +393,13 @@ OptionsCont::checkDependingSuboptions(const std::string& name, const std::string
     }
     bool ok = true;
     std::vector<std::string> seenSynonymes;
-    for (auto i = myValues.begin(); i != myValues.end(); i++) {
-        if (std::find(seenSynonymes.begin(), seenSynonymes.end(), (*i).first) != seenSynonymes.end()) {
+    for (const auto &value : myValues) {
+        if (std::find(seenSynonymes.begin(), seenSynonymes.end(), value.first) != seenSynonymes.end()) {
             continue;
         }
-        if ((*i).second->isSet() && !(*i).second->isDefault() && (*i).first.find(prefix) == 0) {
-            WRITE_ERRORF(TL("Option '%' needs option '%'."), (*i).first, name);
-            std::vector<std::string> synonymes = getSynonymes((*i).first);
+        if (value.second->isSet() && !value.second->isDefault() && value.first.find(prefix) == 0) {
+            WRITE_ERRORF(TL("Option '%' needs option '%'."), value.first, name);
+            std::vector<std::string> synonymes = getSynonymes(value.first);
             std::copy(synonymes.begin(), synonymes.end(), std::back_inserter(seenSynonymes));
             ok = false;
         }
@@ -414,10 +413,11 @@ OptionsCont::reportDoubleSetting(const std::string& arg) const {
     std::vector<std::string> synonymes = getSynonymes(arg);
     std::ostringstream s;
     s << "A value for the option '" + arg + "' was already set.\n Possible synonymes: ";
-    for (std::vector<std::string>::iterator i = synonymes.begin(); i != synonymes.end();) {
-        s << (*i);
-        i++;
-        if (i != synonymes.end()) {
+    auto synonym = synonymes.begin();
+    while (synonym != synonymes.end()) {
+        s << (*synonym);
+        synonym++;
+        if (synonym != synonymes.end()) {
             s << ", ";
         }
     }
@@ -473,8 +473,8 @@ OptionsCont::isWriteable(const std::string& name) {
 
 void
 OptionsCont::clear() {
-    for (auto i = myAddresses.begin(); i != myAddresses.end(); i++) {
-        delete (*i);
+    for (const auto& addresse : myAddresses) {
+        delete addresse;
     }
     myAddresses.clear();
     myValues.clear();
@@ -554,7 +554,7 @@ OptionsCont::splitLines(std::ostream& os, std::string what,
             if (splitPos != std::string::npos) {
                 os << what.substr(0, splitPos) << std::endl;
                 what = what.substr(splitPos + 1);
-                for (int r = 0; r < nextOffset + 1; ++r) {
+                for (int r = 0; r < (nextOffset + 1); ++r) {
                     os << ' ';
                 }
             } else {
@@ -578,8 +578,8 @@ OptionsCont::processMetaOptions(bool missingOptions) {
         // no options are given
         std::cout << myFullName << std::endl;
         std::cout << TL(" Build features: ") << HAVE_ENABLED << std::endl;
-        for (const std::string& c : myCopyrightNotices) {
-            std::cout << " " << TL(c.data()) << std::endl;
+        for (const auto& copyrightNotice : myCopyrightNotices) {
+            std::cout << " " << copyrightNotice.data() << std::endl;
         }
         std::cout << TL(" License EPL-2.0: Eclipse Public License Version 2 <https://eclipse.org/legal/epl-v20.html>") << std::endl;
         std::cout << TL(" Use --help to get the list of options.") << std::endl;
@@ -590,8 +590,8 @@ OptionsCont::processMetaOptions(bool missingOptions) {
     // check whether the help shall be printed
     if (getBool("help")) {
         std::cout << myFullName << std::endl;
-        for (const std::string& c : myCopyrightNotices) {
-            std::cout << " " << TL(c.data()) << std::endl;
+        for (const auto& copyrightNotice : myCopyrightNotices) {
+            std::cout << " " << copyrightNotice.data() << std::endl;
         }
         printHelp(std::cout);
         return true;
@@ -600,8 +600,8 @@ OptionsCont::processMetaOptions(bool missingOptions) {
     if (getBool("version")) {
         std::cout << myFullName << std::endl;
         std::cout << TL(" Build features: ") << HAVE_ENABLED << std::endl;
-        for (const std::string& c : myCopyrightNotices) {
-            std::cout << " " << TL(c.data()) << std::endl;
+        for (const auto& copyrightNotice : myCopyrightNotices) {
+            std::cout << " " << copyrightNotice.data() << std::endl;
         }
         std::cout << "\n" << myFullName << " is part of SUMO.\n";
         std::cout << "This program and the accompanying materials\n";
@@ -706,7 +706,6 @@ OptionsCont::getFullName() const {
 
 void
 OptionsCont::printHelp(std::ostream& os) {
-    std::vector<std::string>::const_iterator i, j;
     // print application description
     splitLines(os, TL(myAppDescription.c_str()), 0, 0);
     os << std::endl;
@@ -715,16 +714,15 @@ OptionsCont::printHelp(std::ostream& os) {
     //  we want to know how large the largest not-too-large-entry will be
     int tooLarge = 40;
     int maxSize = 0;
-    for (i = mySubTopics.begin(); i != mySubTopics.end(); ++i) {
-        const std::vector<std::string>& entries = mySubTopicEntries[*i];
-        for (j = entries.begin(); j != entries.end(); ++j) {
-            Option* o = getSecure(*j);
+    for (const auto &subTopic : mySubTopics) {
+        for (const auto &entry : mySubTopicEntries[subTopic]) {
+            Option* o = getSecure(entry);
             // name, two leading spaces and "--"
-            int csize = (int)j->length() + 2 + 4;
+            int csize = (int)entry.length() + 2 + 4;
             // abbreviation length ("-X, "->4chars) if any
-            const std::vector<std::string> synonymes = getSynonymes(*j);
-            for (std::vector<std::string>::const_iterator s = synonymes.begin(); s != synonymes.end(); ++s) {
-                if (s->length() == 1 && myDeprecatedSynonymes.count(*s) == 0) {
+            const auto synonymes = getSynonymes(entry);
+            for (const auto &synonym : synonymes) {
+                if (synonym.length() == 1 && myDeprecatedSynonymes.count(synonym) == 0) {
                     csize += 4;
                     break;
                 }
@@ -744,7 +742,7 @@ OptionsCont::printHelp(std::ostream& os) {
     const std::string helpTopic = StringUtils::to_lower_case(getSecure("help")->getValueString());
     if (helpTopic != "") {
         bool foundTopic = false;
-        for (const std::string& topic : mySubTopics) {
+        for (const auto &topic : mySubTopics) {
             if (StringUtils::to_lower_case(topic).find(helpTopic) != std::string::npos) {
                 foundTopic = true;
                 printHelpOnTopic(topic, tooLarge, maxSize, os);
@@ -766,16 +764,16 @@ OptionsCont::printHelp(std::ostream& os) {
         os << myAdditionalMessage << std::endl << ' ' << std::endl;
     }
     // print the options
-    for (i = mySubTopics.begin(); i != mySubTopics.end(); ++i) {
-        printHelpOnTopic(*i, tooLarge, maxSize, os);
+    for (const auto &subTopic : mySubTopics) {
+        printHelpOnTopic(subTopic, tooLarge, maxSize, os);
     }
     os << std::endl;
     // print usage examples, calc size first
     if (myCallExamples.size() != 0) {
         os << "Examples:" << std::endl;
-        for (std::vector<std::pair<std::string, std::string> >::const_iterator e = myCallExamples.begin(); e != myCallExamples.end(); ++e) {
-            os << "  " << myAppName << ' ' << e->first << std::endl;
-            os << "    " << e->second << std::endl;
+        for (const auto &callExample : myCallExamples) {
+            os << "  " << myAppName << ' ' << callExample.first << std::endl;
+            os << "    " << callExample.second << std::endl;
         }
     }
     os << std::endl;
@@ -787,16 +785,16 @@ OptionsCont::printHelp(std::ostream& os) {
 void
 OptionsCont::printHelpOnTopic(const std::string& topic, int tooLarge, int maxSize, std::ostream& os) {
     os << topic << " Options:" << std::endl;
-    for (std::string entry : mySubTopicEntries[topic]) {
+    for (const auto &entry : mySubTopicEntries[topic]) {
         // start length computation
         int csize = (int)entry.length() + 2;
         Option* o = getSecure(entry);
         os << "  ";
         // write abbreviation if given
-        std::vector<std::string> synonymes = getSynonymes(entry);
-        for (std::vector<std::string>::const_iterator s = synonymes.begin(); s != synonymes.end(); ++s) {
-            if (s->length() == 1 && myDeprecatedSynonymes.count(*s) == 0) {
-                os << '-' << *s << ", ";
+        const auto synonymes = getSynonymes(entry);
+        for (const auto &synonym : synonymes) {
+            if (synonym.length() == 1 && myDeprecatedSynonymes.count(synonym) == 0) {
+                os << '-' << synonym << ", ";
                 csize += 4;
                 break;
             }
@@ -840,7 +838,7 @@ OptionsCont::writeConfiguration(std::ostream& os, const bool filled,
         os << myAppName;
     }
     os << "Configuration.xsd\">" << std::endl << std::endl;
-    for (std::string subtopic : mySubTopics) {
+    for (auto subtopic : mySubTopics) {
         if (subtopic == "Configuration" && !complete) {
             continue;
         }
@@ -869,8 +867,8 @@ OptionsCont::writeConfiguration(std::ostream& os, const bool filled,
             if (o->isSet() && (filled || o->isDefault())) {
                 if (o->isFileName() && relativeTo != "") {
                     StringVector fileList = StringTokenizer(o->getValueString(), ",").getVector();
-                    for (std::string& f : fileList) {
-                        f = FileHelpers::fixRelative(StringUtils::urlEncode(f, " ;%"), relativeTo,
+                    for (auto file : fileList) {
+                        file = FileHelpers::fixRelative(StringUtils::urlEncode(file, " ;%"), relativeTo,
                                                      forceRelative || getBool("save-configuration.relative"));
                     }
                     os << StringUtils::escapeXML(joinToString(fileList, ','), inComment);
@@ -882,11 +880,11 @@ OptionsCont::writeConfiguration(std::ostream& os, const bool filled,
                 std::vector<std::string> synonymes = getSynonymes(name);
                 if (!synonymes.empty()) {
                     os << "\" synonymes=\"";
-                    for (std::vector<std::string>::const_iterator s = synonymes.begin(); s != synonymes.end(); ++s) {
-                        if (s != synonymes.begin()) {
+                    for (auto synonym = synonymes.begin(); synonym != synonymes.end(); synonym++) {
+                        if (synonym != synonymes.begin()) {
                             os << " ";
                         }
-                        os << (*s);
+                        os << (*synonym);
                     }
                 }
                 os << "\" type=\"" << o->getTypeName();
@@ -917,8 +915,7 @@ OptionsCont::writeSchema(std::ostream& os) {
     os << "    <xsd:element name=\"configuration\" type=\"configurationType\"/>\n\n";
     os << "    <xsd:complexType name=\"configurationType\">\n";
     os << "        <xsd:all>\n";
-    for (std::vector<std::string>::const_iterator i = mySubTopics.begin(); i != mySubTopics.end(); ++i) {
-        std::string subtopic = *i;
+    for (auto subtopic : mySubTopics) {
         if (subtopic == "Configuration") {
             continue;
         }
@@ -928,8 +925,7 @@ OptionsCont::writeSchema(std::ostream& os) {
     }
     os << "        </xsd:all>\n";
     os << "    </xsd:complexType>\n\n";
-    for (std::vector<std::string>::const_iterator i = mySubTopics.begin(); i != mySubTopics.end(); ++i) {
-        std::string subtopic = *i;
+    for (auto subtopic : mySubTopics) {
         if (subtopic == "Configuration") {
             continue;
         }
@@ -937,9 +933,8 @@ OptionsCont::writeSchema(std::ostream& os) {
         subtopic = StringUtils::to_lower_case(subtopic);
         os << "    <xsd:complexType name=\"" << subtopic << "TopicType\">\n";
         os << "        <xsd:all>\n";
-        const std::vector<std::string>& entries = mySubTopicEntries[*i];
-        for (std::vector<std::string>::const_iterator j = entries.begin(); j != entries.end(); ++j) {
-            Option* o = getSecure(*j);
+        for (const auto &entry : mySubTopicEntries[subtopic]) {
+            Option* o = getSecure(entry);
             std::string type = o->getTypeName();
             type = StringUtils::to_lower_case(type);
             if (type == "int[]") {
@@ -948,7 +943,7 @@ OptionsCont::writeSchema(std::ostream& os) {
             if (type == "str[]") {
                 type = "strArray";
             }
-            os << "            <xsd:element name=\"" << *j << "\" type=\"" << type << "OptionType\" minOccurs=\"0\"/>\n";
+            os << "            <xsd:element name=\"" << entry << "\" type=\"" << type << "OptionType\" minOccurs=\"0\"/>\n";
         }
         os << "        </xsd:all>\n";
         os << "    </xsd:complexType>\n\n";
