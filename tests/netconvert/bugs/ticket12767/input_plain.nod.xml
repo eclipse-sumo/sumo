@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-03-06 16:45:21 by Eclipse SUMO netedit Version v1_16_0+1039-3cbc10a7960
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="miv.net.xml.gz"/>
+    </input>
+
+    <output>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<nodes version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="-598668.09,-5783261.49" convBoundary="4970.02,9751.39,5047.92,9973.40" origBoundary="10.393336,52.146862,10.787296,52.408126" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <node id="1348243109" x="4970.02" y="9973.40" type="dead_end"/>
+    <node id="3351857314" x="5029.12" y="9790.72" type="dead_end"/>
+    <node id="3351857317" x="5009.87" y="9839.55" type="priority"/>
+    <node id="47839116" x="5003.49" y="9886.33" type="dead_end"/>
+    <node id="50028659" x="5038.01" y="9791.69" type="dead_end"/>
+    <node id="5671614353" x="4999.03" y="9873.26" type="priority"/>
+    <node id="cluster_2676123005_3351857307_3351857308_59886780" x="5047.92" y="9751.39" type="dead_end">
+        <param key="origEdgeIds" value="-328364071#0 -328364071#1 -328364071#2 328364071#0 328364071#1 328364071#2"/>
+        <param key="origId" value="2676123005 3351857307 3351857308 59886780"/>
+    </node>
+    <node id="cluster_3351857325_3351857326" x="4978.79" y="9926.70" type="dead_end">
+        <param key="origEdgeIds" value="121709566#2"/>
+        <param key="origId" value="3351857325 3351857326"/>
+    </node>
+</nodes>
