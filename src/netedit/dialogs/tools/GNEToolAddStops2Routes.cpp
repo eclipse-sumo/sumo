@@ -27,7 +27,7 @@
 // ===========================================================================
 
 GNEToolAddStops2Routes::GNEToolAddStops2Routes(GNEApplicationWindow* GNEApp) :
-    GNEToolDialog(GNEApp, "Add stops to routes", addStops2RoutesTemplate, 400, 400) {
+    GNEToolDialog(GNEApp, "Add stops to routes", addStops2RoutesTemplate) {
 }
 
 

@@ -18,16 +18,14 @@
 // Dialog for GNEToolNetDiff
 /****************************************************************************/
 
-
 #include "GNEToolNetDiff.h"
-
 
 // ============================================-===============================
 // member method definitions
 // ===========================================================================
 
 GNEToolNetDiff::GNEToolNetDiff(GNEApplicationWindow* GNEApp) :
-    GNEToolDialog(GNEApp, "NetDiff", "", 300, 300) {
+    GNEToolDialog(GNEApp, "NetDiff", "") {
     // build elements
     /*
     new GNEToolDialogElements::Separator(myContentFrame, "Input");

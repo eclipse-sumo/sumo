@@ -42,7 +42,7 @@ class GNEToolDialog : protected FXTopWindow {
 
 public:
     /// @brief Constructor
-    GNEToolDialog(GNEApplicationWindow* GNEApp, const std::string& name, const std::string& templateTool, const int dialogWidth, const int dialogHeight);
+    GNEToolDialog(GNEApplicationWindow* GNEApp, const std::string& name, const std::string& templateTool);
 
     /// @brief destructor
     ~GNEToolDialog();

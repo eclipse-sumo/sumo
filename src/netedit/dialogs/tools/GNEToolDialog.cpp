@@ -42,8 +42,9 @@ FXIMPLEMENT(GNEToolDialog, FXTopWindow, GNEToolDialogMap, ARRAYNUMBER(GNEToolDia
 // member method definitions
 // ===========================================================================
 
-GNEToolDialog::GNEToolDialog(GNEApplicationWindow* GNEApp, const std::string& name, const std::string& templateTool, const int dialogWidth, const int dialogHeight) :
-    FXTopWindow(GNEApp->getApp(), name.c_str(), GUIIconSubSys::getIcon(GUIIcon::EMPTY), GUIIconSubSys::getIcon(GUIIcon::EMPTY), GUIDesignDialogBoxExplicit(dialogWidth, dialogHeight)),
+GNEToolDialog::GNEToolDialog(GNEApplicationWindow* GNEApp, const std::string& name, const std::string& templateTool) :
+    FXTopWindow(GNEApp->getApp(), name.c_str(), GUIIconSubSys::getIcon(GUIIcon::EMPTY), 
+        GUIIconSubSys::getIcon(GUIIcon::EMPTY), GUIDesignDialogBoxExplicit(400, 400)),
     myGNEApp(GNEApp),
     myTemplateTool(templateTool) {
     // create main frame
