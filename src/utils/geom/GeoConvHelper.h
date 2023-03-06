@@ -150,6 +150,9 @@ public:
     /// @brief Returns the original projection definition
     const std::string& getProjString() const;
 
+    /// @brief init projString such as 'UTM' in loaded projection
+    void resolveAbstractProjection();
+
     /// @brief @brief writes the location element
     static void writeLocation(OutputDevice& into);
 

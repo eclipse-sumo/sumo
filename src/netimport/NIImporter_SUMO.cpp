@@ -985,6 +985,7 @@ NIImporter_SUMO::loadLocation(const SUMOSAXAttributes& attrs) {
     if (ok) {
         Position networkOffset = s[0];
         result = new GeoConvHelper(proj, networkOffset, origBoundary, convBoundary);
+        result->resolveAbstractProjection();
         GeoConvHelper::setLoaded(*result);
     }
     return result;

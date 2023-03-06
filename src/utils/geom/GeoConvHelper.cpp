@@ -257,19 +257,24 @@ void
 GeoConvHelper::init(const std::string& proj, const Position& offset, const Boundary& orig,
                     const Boundary& conv, double scale) {
     myProcessing = GeoConvHelper(proj, offset, orig, conv, scale);
-    if (myProcessing.myProjection == nullptr &&
-            myProcessing.myProjectionMethod != NONE && myProcessing.myProjectionMethod != SIMPLE) {
-        // try to initialized projection based on origBoundary
-        Position tmp = orig.getCenter();
-        myProcessing.x2cartesian(tmp, false);
-        if (myProcessing.myProjection == nullptr) {
-            WRITE_WARNING("Failed to intialized projection '" + proj + "' based on origBoundary centered on '" + toString(orig.getCenter()) + "'");
-            myProcessing.myProjectionMethod = NONE;
-        }
-    }
+    myProcessing.resolveAbstractProjection();
     myFinal = myProcessing;
 }
 
+void
+GeoConvHelper::resolveAbstractProjection() {
+    if (myProjection == nullptr &&
+            myProjectionMethod != NONE && myProjectionMethod != SIMPLE) {
+        const std::string origProj = myProjString;
+        // try to initialized projection based on origBoundary
+        Position tmp = myOrigBoundary.getCenter();
+        x2cartesian(tmp, false);
+        if (myProjection == nullptr) {
+            WRITE_WARNING("Failed to intialized projection '" + origProj + "' based on origBoundary centered on '" + toString(myOrigBoundary.getCenter()) + "'");
+            myProjectionMethod = NONE;
+        }
+    }
+}
 
 void
 GeoConvHelper::addProjectionOptions(OptionsCont& oc) {
