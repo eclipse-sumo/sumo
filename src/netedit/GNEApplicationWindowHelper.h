@@ -46,6 +46,7 @@ class GNEViewNet;
 class GUIEvent;
 class MFXMenuCheckIcon;
 class GNEToolGenerateRerouters;
+class GNEToolAddStops2Routes;
 
 
 // ===========================================================================
@@ -963,6 +964,9 @@ struct GNEApplicationWindowHelper {
 
         /// @brief generate rerouters tool
         GNEToolGenerateRerouters* generateRerouters = nullptr;
+
+        /// @brief add stops to routes tool
+        GNEToolAddStops2Routes* addStops2Routes = nullptr;
 
     private:
         /// @brief pointer to current GNEApplicationWindows

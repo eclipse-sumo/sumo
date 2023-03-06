@@ -27,12 +27,10 @@
 // ===========================================================================
 
 GNEToolGenerateRerouters::GNEToolGenerateRerouters(GNEApplicationWindow* GNEApp) :
-    GNEToolDialog(GNEApp, "Generate rerouters", generateReroutersTemplate, 200, 200) {
+    GNEToolDialog(GNEApp, "Generate rerouters", generateReroutersTemplate, 400, 400) {
 }
 
 
 GNEToolGenerateRerouters::~GNEToolGenerateRerouters() {}
-
-
 
 /****************************************************************************/

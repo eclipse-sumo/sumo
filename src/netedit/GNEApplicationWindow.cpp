@@ -25,6 +25,7 @@
 #include <netedit/dialogs/GNEFixNetworkElements.h>
 #include <netedit/dialogs/GNEOverwriteElementsDialog.h>
 #include <netedit/dialogs/GNEUndoListDialog.h>
+#include <netedit/dialogs/tools/GNEToolAddStops2Routes.h>
 #include <netedit/dialogs/tools/GNEToolGenerateRerouters.h>
 #include <netedit/dialogs/tools/GNEToolNetDiff.h>
 #include <netedit/elements/GNEGeneralHandler.h>
@@ -1144,7 +1145,8 @@ GNEApplicationWindow::onCmdToolGenerateRerouters(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdToolAddStop2Routes(FXObject*, FXSelector, void*) {
-    //
+    // open add stops to routes dialog
+    myToolsMenuCommands.addStops2Routes->openToolDialog();
     return 1;
 }
 

@@ -18,6 +18,7 @@
 // The main window of Netedit (adapted from GUIApplicationWindow)
 /****************************************************************************/
 
+#include <netedit/dialogs/tools/GNEToolAddStops2Routes.h>
 #include <netedit/dialogs/tools/GNEToolGenerateRerouters.h>
 #include <netedit/elements/GNEAttributeCarrier.h>
 #include <netedit/templates.h>
@@ -2000,6 +2001,7 @@ GNEApplicationWindowHelper::ToolsMenuCommands::buildToolsMenuCommands(FXMenuPane
 void
 GNEApplicationWindowHelper::ToolsMenuCommands::buildTools() {
     generateRerouters = new GNEToolGenerateRerouters(myGNEApp);
+    addStops2Routes = new GNEToolAddStops2Routes(myGNEApp);
 }
 
 // ---------------------------------------------------------------------------
