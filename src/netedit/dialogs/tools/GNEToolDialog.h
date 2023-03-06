@@ -20,6 +20,8 @@
 #pragma once
 #include <config.h>
 
+#include <utils/options/OptionsCont.h>
+
 #include "GNEToolDialogElements.h"
 
 // ===========================================================================
@@ -42,7 +44,7 @@ class GNEToolDialog : protected FXTopWindow {
 
 public:
     /// @brief Constructor
-    GNEToolDialog(GNEApplicationWindow* GNEApp, const std::string& name, const std::string& templateTool);
+    GNEToolDialog(GNEApplicationWindow* GNEApp, const std::string& name, const std::string& templateToolStr);
 
     /// @brief destructor
     ~GNEToolDialog();
@@ -76,21 +78,21 @@ protected:
     /// @brief FOX needs this
     FOX_CONSTRUCTOR(GNEToolDialog)
 
+private:
     /// @brief pointer to GNEApplicationWindow
     GNEApplicationWindow* myGNEApp;
+
+    /// @brief tools options
+    OptionsCont myToolsOptions;
 
     /// @brief vertical frame for contents
     FXVerticalFrame* myContentFrame = nullptr;
 
-    /// @brief execute dialog as modal
-    FXint openAsModalDialog(FXuint placement = PLACEMENT_CURSOR);
-
-private:
-    /// @brief string with template tool
-    const std::string myTemplateTool;
-
     /// @brief list of arguments
     std::vector<GNEToolDialogElements::Argument*> myArguments;
+
+    /// @brief execute dialog as modal
+    FXint openAsModalDialog(FXuint placement = PLACEMENT_CURSOR);
 
     /// @brief Invalidated copy constructor.
     GNEToolDialog(const GNEToolDialog&) = delete;

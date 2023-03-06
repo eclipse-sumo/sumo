@@ -18,9 +18,9 @@
 // Abstract dialog for tools
 /****************************************************************************/
 
-#include <utils/gui/div/GUIDesigns.h>
-#include <netedit/changes/GNEChange_Additional.h>
 #include <netedit/GNEApplicationWindow.h>
+#include <utils/gui/div/GUIDesigns.h>
+#include <utils/handlers/TemplateHandler.h>
 
 #include "GNEToolDialog.h"
 
@@ -42,11 +42,12 @@ FXIMPLEMENT(GNEToolDialog, FXTopWindow, GNEToolDialogMap, ARRAYNUMBER(GNEToolDia
 // member method definitions
 // ===========================================================================
 
-GNEToolDialog::GNEToolDialog(GNEApplicationWindow* GNEApp, const std::string& name, const std::string& templateTool) :
+GNEToolDialog::GNEToolDialog(GNEApplicationWindow* GNEApp, const std::string& name, const std::string& templateToolStr) :
     FXTopWindow(GNEApp->getApp(), name.c_str(), GUIIconSubSys::getIcon(GUIIcon::EMPTY), 
         GUIIconSubSys::getIcon(GUIIcon::EMPTY), GUIDesignDialogBoxExplicit(400, 400)),
-    myGNEApp(GNEApp),
-    myTemplateTool(templateTool) {
+    myGNEApp(GNEApp) {
+    // parse tool options
+    TemplateHandler::parseTemplate(myToolsOptions, templateToolStr);
     // create main frame
     FXVerticalFrame* mainFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrame);
     // build horizontalFrame for content

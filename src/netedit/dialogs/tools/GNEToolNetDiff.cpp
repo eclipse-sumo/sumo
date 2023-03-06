@@ -26,16 +26,6 @@
 
 GNEToolNetDiff::GNEToolNetDiff(GNEApplicationWindow* GNEApp) :
     GNEToolDialog(GNEApp, "NetDiff", "") {
-    // build elements
-    /*
-    new GNEToolDialogElements::Separator(myContentFrame, "Input");
-    new GNEToolDialogElements::FileNameArgument(myContentFrame, this, "source", "");
-    new GNEToolDialogElements::FileNameArgument(myContentFrame, this, "destiny", "");
-    new GNEToolDialogElements::Separator(myContentFrame, "Output");
-    new GNEToolDialogElements::FileNameArgument(myContentFrame, this, "output", "");
-    */
-    // open as modal dialog
-    openAsModalDialog();
 }
 
 
