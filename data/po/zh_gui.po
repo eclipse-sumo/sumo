@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-02-22 16:34+0000\n"
-"Last-Translator: Rhea-Xiao <xiao.translations@gmail.com>\n"
+"PO-Revision-Date: 2023-03-10 06:09+0000\n"
+"Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
 "Language: zh\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.16-dev\n"
+"X-Generator: Weblate 4.16.2-dev\n"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:291
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:294
@@ -51,338 +51,338 @@ msgstr "就绪。"
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:443
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:1370
 msgid "&File"
-msgstr ""
+msgstr "&档案"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:445
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:192
 msgid "New Window"
-msgstr ""
+msgstr "新视窗"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:445
 msgid "Open a new sumo-gui window."
-msgstr ""
+msgstr "开启一个新的 sumo-gui 视窗。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:449
 msgid "&Open Simulation..."
-msgstr ""
+msgstr "&开启仿真..."
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:449
 msgid "Open a simulation (Configuration file)."
-msgstr ""
+msgstr "开启仿真(设定档案)。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:452
 msgid "Open &Network..."
-msgstr ""
+msgstr "开启 &路网..."
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:452
 msgid "Open a network."
-msgstr ""
+msgstr "开启路网。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:455
 msgid "Open Shapes "
-msgstr ""
+msgstr "打开图形档案。 "
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:455
 msgid "Load POIs and Polygons for visualization."
-msgstr ""
+msgstr "载入兴趣点(POIs)和多边形以进行视觉化。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:458
 msgid "Open EdgeData "
-msgstr ""
+msgstr "打开 EdgeData档案。 "
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:458
 msgid "Load edge related data for visualization."
-msgstr ""
+msgstr "载入路段相关资料以进行视觉化。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:461
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:998
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:244
 msgid "&Reload"
-msgstr ""
+msgstr "&重新载入"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:461
 msgid "Reloads the simulation / the network."
-msgstr ""
+msgstr "重新载入仿真和路网。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:464
 msgid "Quick-Reload"
-msgstr ""
+msgstr "快速重新载入"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:464
 msgid "Reloads the simulation (but not network)."
-msgstr ""
+msgstr "重新载入仿真 (不含路网)。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:468
 msgid "Save Configuration"
-msgstr ""
+msgstr "储存设定档"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:468
 msgid "Save current options as a configuration file."
-msgstr ""
+msgstr "存储目前选项于设定档案。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:471
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:288
 msgid "Close"
-msgstr ""
+msgstr "关闭"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:471
 msgid "Close the simulation."
-msgstr ""
+msgstr "关闭仿真。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:479
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:1391
 msgid "&Quit"
-msgstr ""
+msgstr "&退出"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:479
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:1391
 msgid "Quit the Application."
-msgstr ""
+msgstr "退出应用程序。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:488
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:1407
 msgid "&Edit"
-msgstr ""
+msgstr "&编辑"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:490
 msgid "Edit Selected..."
-msgstr ""
+msgstr "编辑选择..."
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:490
 msgid "Opens a dialog for editing the list of selected items."
-msgstr ""
+msgstr "打开用于编辑所选项目表的对话框。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:493
 msgid "Select lanes which allow..."
-msgstr ""
+msgstr "选择允许... 的车道"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:493
 msgid "Opens a menu for selecting a vehicle class by which to selected lanes."
-msgstr ""
+msgstr "打开选单选择所选车道上允许的车辆类型。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:497
 msgid "Edit Breakpoints"
-msgstr ""
+msgstr "编辑中的断点"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:497
 msgid "Opens a dialog for editing breakpoints."
-msgstr ""
+msgstr "打开对话窗以编辑其中断电。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:500
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1256
 msgid "Edit Visualisation"
-msgstr ""
+msgstr "编辑视觉化表现"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:500
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1256
 msgid "Opens a dialog for editing visualization settings."
-msgstr ""
+msgstr "打开对话窗来编辑视觉化表现选项。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:503
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1259
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUISUMOAbstractView.cpp:1572
 msgid "Edit Viewport"
-msgstr ""
+msgstr "编辑视区"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:503
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1259
 msgid "Opens a dialog for editing viewing area, zoom and rotation."
-msgstr ""
+msgstr "打开对话窗来编辑观看区域，放大和旋转。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:507
 msgid "Open network in netedit"
-msgstr ""
+msgstr "在netedit內打开路网"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:507
 msgid "Opens current network in NETEDIT."
-msgstr ""
+msgstr "在 NETEDIT 內打开现有路网。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:514
 msgid "&Settings"
-msgstr ""
+msgstr "&设置"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:516
 #: /home/micha/programming/sumo/src\gui\dialogs\GUIDialog_AppSettings.cpp:53
 msgid "Application Settings"
-msgstr ""
+msgstr "应用程序设置"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:516
 msgid "Open a Dialog for Application Settings editing."
-msgstr ""
+msgstr "打开对话窗来进行设置编辑。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:519
 msgid "Gaming Mode\tCtrl+G\tToggle gaming mode on/off."
-msgstr ""
+msgstr "游戏模式\tCtrl+G\t打开/关闭游戏模式。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:522
 msgid "Full Screen Mode"
-msgstr ""
+msgstr "全屏幕模式"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:522
 msgid "Toggle full screen mode on/off."
-msgstr ""
+msgstr "切换全屏幕模式 打开/关闭。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:526
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:1443
 msgid "&Locate"
-msgstr ""
+msgstr "&定位"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:528
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1302
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1933
 msgid "&Junctions"
-msgstr ""
+msgstr "&路口"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:528
 msgid "Open a Dialog for Locating a Junction."
-msgstr ""
+msgstr "打开对话窗来进行路口定位。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:531
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1307
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1936
 msgid "&Edges"
-msgstr ""
+msgstr "&路段"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:531
 msgid "Open a Dialog for Locating an Edge."
-msgstr ""
+msgstr "打开对话窗来进行路段定位。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:534
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1362
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1942
 msgid "&Vehicles"
-msgstr ""
+msgstr "&车辆"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:534
 msgid "Open a Dialog for Locating a Vehicle."
-msgstr ""
+msgstr "打开对话窗来进行车辆定位。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:537
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1367
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1945
 msgid "&Persons"
-msgstr ""
+msgstr "&人员"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:537
 msgid "Open a Dialog for Locating a Person."
-msgstr ""
+msgstr "打开对话窗来进行人员定位。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:540
 msgid "&Container"
-msgstr ""
+msgstr "&集装箱"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:540
 msgid "Open a Dialog for Locating a Container."
-msgstr ""
+msgstr "打开对话窗来进行集装箱定位。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:543
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1954
 msgid "&TLS"
-msgstr ""
+msgstr "&交通信号"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:543
 msgid "Open a Dialog for Locating a Traffic Light."
-msgstr ""
+msgstr "打开对话窗来进行交通信号灯定位。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:546
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:592
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1957
 msgid "&Additional"
-msgstr ""
+msgstr "&额外的"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:546
 msgid "Open a Dialog for Locating an Additional Structure."
-msgstr ""
+msgstr "打开对话窗来进行附加结构的定位。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:549
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1960
 msgid "P&oI"
-msgstr ""
+msgstr "P&oI"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:549
 msgid "Open a Dialog for Locating a Point of Interest."
-msgstr ""
+msgstr "打开对话窗来进行兴趣点的定位。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:552
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1963
 msgid "Po&lygon"
-msgstr ""
+msgstr "多变形"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:552
 msgid "Open a Dialog for Locating a Polygon."
-msgstr ""
+msgstr "打开对话窗来进行多边形的定位。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:556
 msgid "Show Internal Structures"
-msgstr ""
+msgstr "展示内部结构"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:556
 msgid "Show internal junctions and streets in locator dialog."
-msgstr ""
+msgstr "在定位对话窗中显示内部路口和道路。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:559
 msgid "Show Parking Vehicles"
-msgstr ""
+msgstr "显示停车车辆"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:559
 msgid "Show parking vehicles in locator dialog."
-msgstr ""
+msgstr "在定位对话窗中显示停车车辆。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:563
 msgid "Show vehicles outside the road network"
-msgstr ""
+msgstr "显示路网外的车辆"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:563
 msgid ""
 "Show vehicles that are teleporting or driving remote-controlled outside the "
 "road network in locator dialog."
-msgstr ""
+msgstr "在定位对话窗中显示在路网外被遣送(teleporting)或被远程控制的车辆。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:569
 msgid "Simulation"
-msgstr ""
+msgstr "仿真"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:571
 #: /home/micha/programming/sumo/src\netedit\dialogs\tools\GNEToolDialog.cpp:55
 msgid "Run"
-msgstr ""
+msgstr "执行"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:571
 msgid "Start/ Resume the simulation."
-msgstr ""
+msgstr "开始/恢复仿真。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:574
 msgctxt "Simulation"
 msgid "Stop"
-msgstr ""
+msgstr "停止"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:574
 msgid "Halt the simulation."
-msgstr ""
+msgstr "暂停仿真。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:577
 msgid "Step"
-msgstr ""
+msgstr "时间节距"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:577
 msgid "Perform one simulation step."
-msgstr ""
+msgstr "执行以个仿真时间节距。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:580
 msgid "Delay+"
-msgstr ""
+msgstr "延迟+"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:580
 msgid "Increase simulation step delay."
-msgstr ""
+msgstr "增加仿真时间节距的延迟。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:582
 msgid "Delay-"
-msgstr ""
+msgstr "延迟-"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:582
 msgid "Decrease simulation step delay."
-msgstr ""
+msgstr "减少仿真时间节距的延迟。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:584
 #: /home/micha/programming/sumo/src\netedit\dialogs\GNEMultipleParametersDialog.cpp:288
@@ -393,11 +393,11 @@ msgstr ""
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2864
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_EditViewport.cpp:67
 msgid "Save"
-msgstr ""
+msgstr "存储"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:584
 msgid "Save the current simulation state to a file."
-msgstr ""
+msgstr "现有仿真状态另存新档案。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:587
 #: /home/micha/programming/sumo/src\netedit\dialogs\GNEMultipleParametersDialog.cpp:287
@@ -407,290 +407,291 @@ msgstr ""
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2862
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_EditViewport.cpp:65
 msgid "Load"
-msgstr ""
+msgstr "载入"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:587
 msgid "Load simulation state for the current network from file."
-msgstr ""
+msgstr "将仿真状态档案载入当前路网中。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:591
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:1451
 msgid "&Window"
-msgstr ""
+msgstr "&视窗"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:592
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:746
 msgid "Open new view"
-msgstr ""
+msgstr "打开新视窗"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:594
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:749
 msgid "Open new 3D view"
-msgstr ""
+msgstr "打开新的三维视窗"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:597
 msgid "Tile &Horizontally"
-msgstr ""
+msgstr "图砖&水平方向"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:600
 msgid "Tile &Vertically"
-msgstr ""
+msgstr "图砖&垂直方向"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:603
 msgid "Cascade"
-msgstr ""
+msgstr "级联 (Cascade)"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:607
 #: /home/micha/programming/sumo/src\gui\dialogs\GUIDialog_Breakpoints.cpp:97
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:99
 msgid "&Close"
-msgstr ""
+msgstr "&关闭"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:617
 msgid "&Others..."
-msgstr ""
+msgstr "&其它..."
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:621
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1997
 msgid "Show Status Line"
-msgstr ""
+msgstr "显示状态列"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:621
 msgid "Toggle the Status Bar on/off."
-msgstr ""
+msgstr "切换状态控制杆(打开/关闭)。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:624
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2000
 msgid "Show Message Window"
-msgstr ""
+msgstr "显示信息窗"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:624
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2000
 msgid "Toggle the Message Window on/off."
-msgstr ""
+msgstr "切换信息窗(打开/关闭)。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:627
 msgid "Show Simulation Time"
-msgstr ""
+msgstr "显示仿真时间"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:627
 msgid "Toggle the Simulation Time on/off."
-msgstr ""
+msgstr "切换仿真时间(打开/关闭)。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:630
 msgid "Show Simulation Delay"
-msgstr ""
+msgstr "显示仿真延迟"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:630
 msgid "Toggle the Simulation Delay Entry on/off."
-msgstr ""
+msgstr "切换仿真延迟输入(打开/关闭)。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:636
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2004
 msgid "Clear Message Window"
-msgstr ""
+msgstr "清除信息窗內信息"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:636
 msgid "Clear the message window."
-msgstr ""
+msgstr "清除信息窗内信息。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:643
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:1456
 msgid "&Help"
-msgstr ""
+msgstr "&求助"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:645
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2020
 msgid "&Online Documentation"
-msgstr ""
+msgstr "&线上使用手册"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:645
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2020
 msgid "Open Online documentation."
-msgstr ""
+msgstr "打开线上使用手册。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:648
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2023
 msgid "&Changelog"
-msgstr ""
+msgstr "&更改记录"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:648
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2023
 msgid "Open Changelog."
-msgstr ""
+msgstr "打开更改记录。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:650
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2025
 msgid "&Hotkeys"
-msgstr ""
+msgstr "&快捷键"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:650
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2025
 msgid "Open Hotkeys."
-msgstr ""
+msgstr "打开快捷键。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:652
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2027
 msgid "&Tutorial"
-msgstr ""
+msgstr "&范例教学"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:652
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2027
 msgid "Open Tutorial."
-msgstr ""
+msgstr "打开范例教学。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:654
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2029
 msgid "&Feedback"
-msgstr ""
+msgstr "&回馈意见"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:654
 msgid "Open feedback dialog."
-msgstr ""
+msgstr "打开回馈意见对话窗。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:657
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2032
 msgid "&About"
-msgstr ""
+msgstr "&关于"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:657
 msgid "About sumo-gui."
-msgstr ""
+msgstr "关于 sumo-gui。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:672
 msgid "\tOpen simulation\tOpen a simulation (Configuration file)."
-msgstr ""
+msgstr "\t打开仿真\t打开一仿真 (设定档)。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:674
 msgid "\tOpen network\tOpen a network."
-msgstr ""
+msgstr "\t打开路网\t打开一路网。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:676
 msgid "\tReload\tReloads the simulation / the network."
-msgstr ""
+msgstr "\t重重新载入\t重新载入仿真/ 路网。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:685
 msgid "\tRun\tStart/Resume the loaded simulation."
-msgstr ""
+msgstr "\t执行\t开始/恢复已载入的仿真。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:687
 msgid "\tStop\tHalt the running simulation."
-msgstr ""
+msgstr "\t停止\t暂停执行中的仿真。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:689
 msgid "\tStep\tPerform a single simulation step."
-msgstr ""
+msgstr "\t时间节距\t执行单一仿真时间节距。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:697
 msgid ""
 "Time:\tToggle between time formats\tToggle between seconds and hour:minute:"
 "seconds display."
-msgstr ""
+msgstr "时间:\t切换时间格式\t时间显示切换：秒 或 小时：分钟：秒。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:711
 msgid ""
 "Delay (ms):\tDelay per simulated second\tDelay per simulated second. Click "
 "to toggle between the last two delay values."
-msgstr ""
+msgstr "延迟(毫秒):\t每个仿真秒(simulated second)的延迟\t每个仿真秒的延迟。"
+"按键执行最后两个延迟值的切换 。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:734
 msgid "Scale Traffic:"
-msgstr ""
+msgstr "依比例增減交通："
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:734
 msgid ""
 "Scale traffic from flows and vehicles that are loaded incrementally from "
 "route files."
-msgstr ""
+msgstr "依据从路径档案中逐量载入的流量和车辆数来增减交通量。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:746
 msgid "Open a new microscopic view."
-msgstr ""
+msgstr "打开新的微观仿真视窗。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:749
 msgid "Open a new 3D view."
-msgstr ""
+msgstr "打开新的三维视窗。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:759
 msgid "Waiting Time:"
-msgstr ""
+msgstr "等待时间："
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:759
 msgid "Time spent waiting accumulated for all vehicles"
-msgstr ""
+msgstr "所有车辆累计的等待时间。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:770
 msgid "Time Loss:"
-msgstr ""
+msgstr "损失时间："
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:770
 msgid ""
 "Time lost due to being unable to drive with maximum speed for all vehicles"
-msgstr ""
+msgstr "所有车辆由于无法以最大速度行驶而损失的时间"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:781
 msgid "Distance (km):"
-msgstr ""
+msgstr "距离（公里）："
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:781
 msgid "Total distance driven by DRT vehicles"
-msgstr ""
+msgstr "需求反应运输(DRT)车辆的总行驶距离"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:792
 msgid "Emergency Vehicle waiting time:"
-msgstr ""
+msgstr "紧急救援车辆的等候时间："
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:792
 msgid "Time spent waiting accumulated for emergency vehicles"
-msgstr ""
+msgstr "紧急救援车辆累计的等待时间"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:817
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:142
 msgid "Cl&ear Recent Networks"
-msgstr ""
+msgstr "清除最近打开过的路网"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:818
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:143
 msgid "No Recent Networks"
-msgstr ""
+msgstr "无最近打开过的路网"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:822
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:147
 msgid "Recent Networks"
-msgstr ""
+msgstr "最近打开过的路网"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:840
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:165
 msgid "Cl&ear Recent Configs"
-msgstr ""
+msgstr "清除最近打开过的设定档案"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:841
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:166
 msgid "No Recent Configs"
-msgstr ""
+msgstr "无最近打开过的设定档案"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:845
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:170
 msgid "Recent Configs"
-msgstr ""
+msgstr "最近打开过的设定档案"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:985
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:1020
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:1057
 msgid "Running %."
-msgstr ""
+msgstr "执行中 %。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:1067
 msgid "Open Simulation Configuration"
-msgstr ""
+msgstr "打开仿真设定档"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:1087
 msgid "Open Network"
-msgstr ""
+msgstr "打开路网"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:1107
 msgid "Open Shapes"
-msgstr ""
+msgstr "打开几何物件(shape)"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:1121
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:1149
@@ -700,170 +701,170 @@ msgstr ""
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:4636
 #, c-format
 msgid "Loading of % failed."
-msgstr ""
+msgstr "% 档案载入失败。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:1138
 msgid "Open EdgeData"
-msgstr ""
+msgstr "打开EdgeData档案"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:1172
 msgid "Reloading."
-msgstr ""
+msgstr "重新载入。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:1182
 msgid "Quick-Reloading."
-msgstr ""
+msgstr "快速重新载入。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:1192
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:1070
 msgid "Already loading!"
-msgstr ""
+msgstr "已经载入！"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:1204
 msgid "Save SUMO Configuration"
-msgstr ""
+msgstr "存储SUMO设定档"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:1219
 msgid "Configuration saved to %."
-msgstr ""
+msgstr "设定档案存储于%。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:1221
 msgid "Could not save configuration to %."
-msgstr ""
+msgstr "无法将设定档存储于%。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:1277
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:1303
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:2131
 msgid "No simulation loaded!"
-msgstr ""
+msgstr "沒有载入任何仿真档案 ！"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:1319
 msgid "Save Simulation State"
-msgstr ""
+msgstr "存储仿真状态"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:1333
 msgid "Simulation state saved to '%'."
-msgstr ""
+msgstr "仿真状态保存到 '%'。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:1341
 msgid "Load Simulation State"
-msgstr ""
+msgstr "载入仿真状态"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:1353
 msgid "State loaded from '%'."
-msgstr ""
+msgstr "从 '%'载入仿真状态(state)。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:1355
 msgid "Failed to load state from '%' (%)."
-msgstr ""
+msgstr "无法从%' (%)载入仿真状态(state) 。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:1812
 #, c-format
 msgid "Loading of '%' failed!"
-msgstr ""
+msgstr "%'档案载入失败！"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:1826
 #, c-format
 msgid "'%' loaded."
-msgstr ""
+msgstr "已载入。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:2024
 msgid "Simulation ended"
-msgstr ""
+msgstr "仿真结束"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:2122
 msgid "Loading '%'."
-msgstr ""
+msgstr "'%'载入中。"
 
 #: /home/micha/programming/sumo/src\gui\GUILoadThread.cpp:206
 msgid "Could not load edgedata-files '%'"
-msgstr ""
+msgstr "无法载入路段资料档案 (edgedata-files) '%'"
 
 #: /home/micha/programming/sumo/src\gui\GUIRunThread.cpp:100
 #: /home/micha/programming/sumo/src\gui\GUIRunThread.cpp:106
 msgid "Quitting (on error)."
-msgstr ""
+msgstr "退出 (由于错误)。"
 
 #: /home/micha/programming/sumo/src\gui\GUIRunThread.cpp:265
 msgid "Simulation started with time: %."
-msgstr ""
+msgstr "仿真开始时间： %。"
 
 #: /home/micha/programming/sumo/src\gui\GUISUMOViewParent.cpp:142
 #: /home/micha/programming/sumo/src\netedit\GNEViewParent.cpp:448
 msgid "Save Snapshot"
-msgstr ""
+msgstr "存储快照(snapshot)"
 
 #: /home/micha/programming/sumo/src\gui\GUISUMOViewParent.cpp:167
 #: /home/micha/programming/sumo/src\netedit\GNEViewParent.cpp:468
 msgid "No file extension was specified - saving Snapshot as PNG."
-msgstr ""
+msgstr "未指定副档名 – 快照存储为可携式网络图像格式(PNG)。"
 
 #: /home/micha/programming/sumo/src\gui\GUISUMOViewParent.cpp:173
 #: /home/micha/programming/sumo/src\netedit\GNEViewParent.cpp:475
 msgid "Saving failed."
-msgstr ""
+msgstr "存储失败。"
 
 #: /home/micha/programming/sumo/src\gui\GUISUMOViewParent.cpp:175
 #: /home/micha/programming/sumo/src\netedit\GNEViewParent.cpp:479
 msgid "Snapshot successfully saved!"
-msgstr ""
+msgstr "快照已经成功存储！"
 
 #: /home/micha/programming/sumo/src\gui\GUISUMOViewParent.cpp:219
 #: /home/micha/programming/sumo/src\gui\GUISUMOViewParent.cpp:268
 msgid "Unknown Message ID in onCmdLocate"
-msgstr ""
+msgstr "在onCmdLocate 里未知信息ID"
 
 #: /home/micha/programming/sumo/src\gui\GUISUMOViewParent.cpp:233
 msgid "Junction Chooser"
-msgstr ""
+msgstr "路口选择器"
 
 #: /home/micha/programming/sumo/src\gui\GUISUMOViewParent.cpp:237
 msgid "Edge Chooser"
-msgstr ""
+msgstr "路段选择器"
 
 #: /home/micha/programming/sumo/src\gui\GUISUMOViewParent.cpp:241
 msgid "Vehicle Chooser"
-msgstr ""
+msgstr "车辆选择器"
 
 #: /home/micha/programming/sumo/src\gui\GUISUMOViewParent.cpp:245
 msgid "Person Chooser"
-msgstr ""
+msgstr "人选择器"
 
 #: /home/micha/programming/sumo/src\gui\GUISUMOViewParent.cpp:249
 msgid "Container Chooser"
-msgstr ""
+msgstr "集装箱选择器"
 
 #: /home/micha/programming/sumo/src\gui\GUISUMOViewParent.cpp:253
 msgid "Traffic Lights Chooser"
-msgstr ""
+msgstr "交通信号选择器"
 
 #: /home/micha/programming/sumo/src\gui\GUISUMOViewParent.cpp:257
 msgid "Additional Objects Chooser"
-msgstr ""
+msgstr "附加对象选择器"
 
 #: /home/micha/programming/sumo/src\gui\GUISUMOViewParent.cpp:261
 msgid "POI Chooser"
-msgstr ""
+msgstr "兴趣点选择器"
 
 #: /home/micha/programming/sumo/src\gui\GUISUMOViewParent.cpp:265
 msgid "Polygon Chooser"
-msgstr ""
+msgstr "多边形选择器"
 
 #: /home/micha/programming/sumo/src\gui\GUITLLogicPhasesTrackerWindow.cpp:269
 msgid "phase names"
-msgstr ""
+msgstr "相位名称"
 
 #: /home/micha/programming/sumo/src\gui\GUITLLogicPhasesTrackerWindow.cpp:272
 msgid "detectors"
-msgstr ""
+msgstr "探测器"
 
 #: /home/micha/programming/sumo/src\gui\GUITLLogicPhasesTrackerWindow.cpp:273
 msgid "conditions"
-msgstr ""
+msgstr "条件"
 
 #: /home/micha/programming/sumo/src\gui\GUITLLogicPhasesTrackerWindow.cpp:336
 msgid "Overflow in time computation occurred."
-msgstr ""
+msgstr "时间计算出现溢出。"
 
 #: /home/micha/programming/sumo/src\gui\dialogs\GUIDialog_AboutSUMO.cpp:69
 #: /home/micha/programming/sumo/src\gui\dialogs\GUIDialog_Feedback.cpp:58
@@ -882,31 +883,31 @@ msgstr ""
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:173
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_Options.cpp:113
 msgid "OK"
-msgstr ""
+msgstr "确定"
 
 #: /home/micha/programming/sumo/src\gui\dialogs\GUIDialog_AppSettings.cpp:62
 msgid "Quit on Simulation End"
-msgstr ""
+msgstr "由于仿真结束而退出"
 
 #: /home/micha/programming/sumo/src\gui\dialogs\GUIDialog_AppSettings.cpp:64
 msgid "Autostart Simulation on Load and Reload"
-msgstr ""
+msgstr "载入和重新载入后自动开启仿真"
 
 #: /home/micha/programming/sumo/src\gui\dialogs\GUIDialog_AppSettings.cpp:66
 msgid "Reload Simulation after finish (Demo mode)"
-msgstr ""
+msgstr "结束后重新载入仿真（展示模式）"
 
 #: /home/micha/programming/sumo/src\gui\dialogs\GUIDialog_AppSettings.cpp:68
 msgid "Locate elements when clicking on messages"
-msgstr ""
+msgstr "点击信息时进行要素（element）定位"
 
 #: /home/micha/programming/sumo/src\gui\dialogs\GUIDialog_AppSettings.cpp:74
 msgid "Breakpoint offset when clicking on time message"
-msgstr ""
+msgstr "点击时间信息时偏移中断点的时间"
 
 #: /home/micha/programming/sumo/src\gui\dialogs\GUIDialog_AppSettings.cpp:98
 msgid "Allow Textures"
-msgstr ""
+msgstr "允许纹理 (Textures)"
 
 #: /home/micha/programming/sumo/src\gui\dialogs\GUIDialog_AppSettings.cpp:101
 #: /home/micha/programming/sumo/src\netedit\dialogs\GNEAbout.cpp:76
@@ -914,7 +915,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:995
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2352
 msgid "&OK"
-msgstr ""
+msgstr "&确定"
 
 #: /home/micha/programming/sumo/src\gui\dialogs\GUIDialog_AppSettings.cpp:102
 #: /home/micha/programming/sumo/src\netedit\dialogs\GNEDemandElementDialog.cpp:64
@@ -925,23 +926,23 @@ msgstr ""
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:996
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2353
 msgid "&Cancel"
-msgstr ""
+msgstr "&取消"
 
 #: /home/micha/programming/sumo/src\gui\dialogs\GUIDialog_Breakpoints.cpp:69
 msgid "Breakpoints Editor"
-msgstr ""
+msgstr "编辑中断点"
 
 #: /home/micha/programming/sumo/src\gui\dialogs\GUIDialog_Breakpoints.cpp:89
 msgid "&Load"
-msgstr ""
+msgstr "&载入"
 
 #: /home/micha/programming/sumo/src\gui\dialogs\GUIDialog_Breakpoints.cpp:91
 msgid "&Save"
-msgstr ""
+msgstr "&存储"
 
 #: /home/micha/programming/sumo/src\gui\dialogs\GUIDialog_Breakpoints.cpp:94
 msgid "Clea&r"
-msgstr ""
+msgstr "清除"
 
 #: /home/micha/programming/sumo/src\gui\dialogs\GUIDialog_Breakpoints.cpp:126
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2391
@@ -950,11 +951,11 @@ msgstr "时间"
 
 #: /home/micha/programming/sumo/src\gui\dialogs\GUIDialog_Breakpoints.cpp:141
 msgid "Load Breakpoints"
-msgstr ""
+msgstr "载入中断点"
 
 #: /home/micha/programming/sumo/src\gui\dialogs\GUIDialog_Breakpoints.cpp:162
 msgid "Save Breakpoints"
-msgstr ""
+msgstr "存储中断点"
 
 #: /home/micha/programming/sumo/src\gui\dialogs\GUIDialog_Breakpoints.cpp:172
 #: /home/micha/programming/sumo/src\utils\gui\div\GUIDialog_GLChosenEditor.cpp:155
@@ -963,24 +964,24 @@ msgstr ""
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1102
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1183
 msgid "Storing failed!"
-msgstr ""
+msgstr "存储失败！"
 
 #: /home/micha/programming/sumo/src\gui\dialogs\GUIDialog_Breakpoints.cpp:241
 #: /home/micha/programming/sumo/src\gui\dialogs\GUIDialog_Breakpoints.cpp:244
 msgid "Time format error"
-msgstr ""
+msgstr "时间格式错误"
 
 #: /home/micha/programming/sumo/src\gui\dialogs\GUIDialog_Feedback.cpp:46
 msgid "- General problem solving"
-msgstr ""
+msgstr "-解决一般问题"
 
 #: /home/micha/programming/sumo/src\gui\dialogs\GUIDialog_Feedback.cpp:50
 msgid "- Sumo-user mailing list"
-msgstr ""
+msgstr "-SUMO用户邮件列表"
 
 #: /home/micha/programming/sumo/src\gui\dialogs\GUIDialog_Feedback.cpp:54
 msgid "- Send us an Email"
-msgstr ""
+msgstr "-给我们发送邮件"
 
 #: /home/micha/programming/sumo/src\guisim\Command_Hotkey_InductionLoop.cpp:55
 #: /home/micha/programming/sumo/src\guisim\Command_Hotkey_InductionLoop.cpp:59
@@ -988,385 +989,385 @@ msgstr ""
 #: /home/micha/programming/sumo/src\guisim\Command_Hotkey_TrafficLight.cpp:60
 #, c-format
 msgid "Hotkey '%' is not supported"
-msgstr ""
+msgstr "不支持快捷键''%' i"
 
 #: /home/micha/programming/sumo/src\guisim\GUIBaseVehicle.cpp:300
 msgid "GUI-triggered stop not implemented for meso"
-msgstr ""
+msgstr "通过图像使用界面 (GUI) 触发的停止指令尚未完成于meso內"
 
 #: /home/micha/programming/sumo/src\guisim\GUIBaseVehicle.cpp:876
 #: /home/micha/programming/sumo/src\guisim\GUIVehicle.cpp:668
 msgid "Vehicle parameter '%' key '%' is not a number for vehicle '%'."
-msgstr ""
+msgstr "车辆参数 '% '键 '% '不是车辆'% '的数字。"
 
 #: /home/micha/programming/sumo/src\guisim\GUINet.cpp:326
 msgid "Network size exceeds 1 Lightyear. Please reconsider your inputs.\n"
-msgstr ""
+msgstr "路网规模超过1光年。请重新考虑您的输入。\n"
 
 #: /home/micha/programming/sumo/src\guisim\GUINet.cpp:666
 msgid "Trying to set data value for the unknown edge '%'."
-msgstr ""
+msgstr "尝试为未知路段 '%'设定数据值。"
 
 #: /home/micha/programming/sumo/src\guisim\GUINet.cpp:690
 msgid ""
 "Trying to set data value for the unknown relation from edge '%' to edge '%'."
-msgstr ""
+msgstr "尝试为从路段  '%' 到路段'% 的未知关系(relation)设定数据值。"
 
 #: /home/micha/programming/sumo/src\guisim\GUINet.cpp:708
 msgid "No data defined after simulation begin time."
-msgstr ""
+msgstr "仿真开始时间后没有资料被定义。"
 
 #: /home/micha/programming/sumo/src\guisim_main.cpp:57
 msgid "GUI version of the microscopic, multi-modal traffic simulation SUMO."
-msgstr ""
+msgstr "微观多运具交通仿真软件SUMO的图形用户界面（GUI）版本。"
 
 #: /home/micha/programming/sumo/src\guisim_main.cpp:77
 #: /home/micha/programming/sumo/src\netedit\netedit_main.cpp:81
 msgid "This system has no OpenGL support. Exiting."
-msgstr ""
+msgstr "此系统不支持开放图形语言(OpenGL)。 退出中。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:460
 msgid "A microscopic, multi-modal traffic simulation."
-msgstr ""
+msgstr "微观多运具交通仿真软件。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:495
 msgid "Recomputing"
-msgstr ""
+msgstr "重新计算"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:495
 msgid "Recomputing is needed"
-msgstr ""
+msgstr "需要重新计算"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:504
 msgid "Test coordinate"
-msgstr ""
+msgstr "测试坐标"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:816
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:839
 msgid "loading TLS Programs from '"
-msgstr ""
+msgstr "从..载入交通信号方案"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:881
 msgid "Loaded edge types from '"
-msgstr ""
+msgstr "载入的路段类型从 '"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:883
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:916
 msgid "load edgeTypes"
-msgstr ""
+msgstr "载入路段类型"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:914
 msgid "Reloaded edge types from '"
-msgstr ""
+msgstr "重新载入的路段类型从 '"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:971
 msgid "Reloading netedit config file '"
-msgstr ""
+msgstr "重新载入netedit 的设定档案"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:975
 msgid "Reloading sumo config file '"
-msgstr ""
+msgstr "重新载入sumo的设定档案"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:979
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:1040
 msgid "Reloading network file '"
-msgstr ""
+msgstr "重新载入路网档案"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:995
 msgid "&Reload Netedit config"
-msgstr ""
+msgstr "&重新载入 Netedit 的设定档"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:996
 msgid "&Reload Sumo config"
-msgstr ""
+msgstr "&重新载入Sumo的设定档"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:997
 msgid "&Reload Network"
-msgstr ""
+msgstr "&重新载入路网"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:1301
 msgid "Loading of '"
-msgstr ""
+msgstr "...载入中"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:1306
 msgid "'"
-msgstr ""
+msgstr "'"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:1306
 msgid "' loaded."
-msgstr ""
+msgstr "已载入。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:1395
 msgid "&Modes"
-msgstr ""
+msgstr "&运具"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:1432
 msgid "L&ock"
-msgstr ""
+msgstr "锁定"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:1439
 msgid "&Processing"
-msgstr ""
+msgstr "&处理中"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:1447
 msgid "&Tools"
-msgstr ""
+msgstr "&工具"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:1512
 msgid "Network computed"
-msgstr ""
+msgstr "路网已计算完成"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:1516
 msgid "Press F5"
-msgstr ""
+msgstr "按F5按键"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:1517
 msgid "Network requires recomputing"
-msgstr ""
+msgstr "路网需要重新计算"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:1584
 msgid "Loading console arguments"
-msgstr ""
+msgstr "加载控制台参数"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:1612
 msgid "Creating new network."
-msgstr ""
+msgstr "建立新路网。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:1623
 msgid "Trying to load an empty network"
-msgstr ""
+msgstr "尝试载入一个空白路网"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:1639
 msgid "Loading network file '"
-msgstr ""
+msgstr "载入路网档案"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:1651
 msgid "Trying to load an empty configuration"
-msgstr ""
+msgstr "尝试载入一个空白设定档"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:1667
 msgid "Loading configuration file '"
-msgstr ""
+msgstr "载入设定档案"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:1698
 msgid "Select Import Options"
-msgstr ""
+msgstr "选择汇入选项"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:1705
 msgid "Loading OSM file '"
-msgstr ""
+msgstr "载入开放街图（OSM)档案"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:1727
 msgid "Recompute with volatile options"
-msgstr ""
+msgstr "用易变的选项进行重新计算"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:1728
 msgid ""
 "Changes produced in the net due a recomputing with volatile options cannot "
 "be undone. Continue?"
-msgstr ""
+msgstr "由于使用易变选项重新计算而在网络中产生的更改将无法复原。 还继续执行吗？"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:1963
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:2023
 msgid "Running "
-msgstr ""
+msgstr "执行中 "
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:1986
 msgid "Loading network '"
-msgstr ""
+msgstr "载入路网 '"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:1986
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:1995
 msgid "' in SUMO-GUI"
-msgstr ""
+msgstr "' 在 SUMO-GUI 中"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:1995
 msgid "Loading sumo config '"
-msgstr ""
+msgstr "载入Sumo的设定档"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:2296
 msgid "Configure Options"
-msgstr ""
+msgstr "设定选项"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:2309
 msgid "SUMO Options"
-msgstr ""
+msgstr "SUMO选项"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:2328
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1241
 #: /home/micha/programming/sumo/src\netedit\GNEViewParent.cpp:102
 msgid "Undo"
-msgstr ""
+msgstr "还原"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:2360
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1244
 #: /home/micha/programming/sumo/src\netedit\GNEViewParent.cpp:105
 msgid "Redo"
-msgstr ""
+msgstr "重做"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:3029
 msgid "Saving Network failed!"
-msgstr ""
+msgstr "存储路网失败！"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:3034
 msgid "Network saved in '"
-msgstr ""
+msgstr "路网存储于 '"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:3085
 msgid "Saving plain xml failed!"
-msgstr ""
+msgstr "存储纯 xml档案失败！"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:3092
 msgid "Plain XML saved with prefix '"
-msgstr ""
+msgstr "以前置字为基础存储的纯 XML档案 '"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:3113
 msgid "Saving joined junctions failed!"
-msgstr ""
+msgstr "存储整合路口失败！"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:3119
 msgid "Joined junctions saved to '"
-msgstr ""
+msgstr "整合路口存储于"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:3173
 msgid "Netedit configuration saved in '"
-msgstr ""
+msgstr "netedit的设定档案存储于'"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:3179
 msgid "Could not save netedit configuration in '"
-msgstr ""
+msgstr "无法将netedit的设定档案存储于 '"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:3283
 msgid "SUMO configuration saved in '"
-msgstr ""
+msgstr "SUMO设定档案存储于 '"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:3291
 msgid "Could not save SUMO configuration in '"
-msgstr ""
+msgstr "无法将SUMO设定档案存储于 '"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:3345
 msgid "TLS Programs saved in '"
-msgstr ""
+msgstr "交通信号方案存储于 '"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:3350
 msgid "Saving TLS Programs failed!"
-msgstr ""
+msgstr "交通信号方案存储失败！"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:3393
 msgid "EdgeType saved in '"
-msgstr ""
+msgstr "路段类型（EdgeType）存储于'"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:3398
 msgid "Saving edgeTypes failed!"
-msgstr ""
+msgstr "存储路段类型（EdgeType）失败！"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:3502
 msgid "load additionals from '"
-msgstr ""
+msgstr "载入其它档案 '"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:3506
 #: /home/micha/programming/sumo/src\netedit\GNENet.cpp:1304
 msgid "Loading of additional file failed: "
-msgstr ""
+msgstr "载入附加档案失败： "
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:3512
 #: /home/micha/programming/sumo/src\netedit\GNENet.cpp:1306
 msgid "Loading of additional file sucessfully: "
-msgstr ""
+msgstr "成功载入附加档案： "
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:3538
 msgid "reloading additionals from '"
-msgstr ""
+msgstr "从 ' 重新载入附加档案"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:3543
 msgid "Reloading of additional file failed: "
-msgstr ""
+msgstr "重新载入附加档案失败： "
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:3585
 msgid "Additionals saved in '"
-msgstr ""
+msgstr "附加档案存储于 '"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:3655
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:4559
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:4562
 msgid "loading demand elements from '"
-msgstr ""
+msgstr "从 ' 载入交通需求要素"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:3659
 #: /home/micha/programming/sumo/src\netedit\GNENet.cpp:1315
 msgid "Loading of route file failed: "
-msgstr ""
+msgstr "载入路径档案失败： "
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:3665
 #: /home/micha/programming/sumo/src\netedit\GNENet.cpp:1317
 msgid "Loading of route file sucessfully: "
-msgstr ""
+msgstr "成功载入路径档案： "
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:3696
 msgid "Reloading of route file failed: "
-msgstr ""
+msgstr "重新载入路径档案失败： "
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:3736
 msgid "Demand elements saved in '"
-msgstr ""
+msgstr "交通需求要素存储于 '"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:3808
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:4628
 msgid "loading data elements from '"
-msgstr ""
+msgstr "从 '载入数据要素"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:3812
 #: /home/micha/programming/sumo/src\netedit\GNENet.cpp:1326
 msgid "Loading of data file failed: "
-msgstr ""
+msgstr "载入数据档案失败： "
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:3818
 #: /home/micha/programming/sumo/src\netedit\GNENet.cpp:1328
 msgid "Loading of data file sucessfully: "
-msgstr ""
+msgstr "成功载入数据档案： "
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:3848
 msgid "reloading data elements from '"
-msgstr ""
+msgstr "从 ' 重新载入数据要素"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:3853
 msgid "Reloading of data file failed: "
-msgstr ""
+msgstr "载入数据档案失败： "
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:3894
 msgid "Data elements saved in '"
-msgstr ""
+msgstr "数据要素存储于 '"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:3963
 msgid "load meanDatas from '"
-msgstr ""
+msgstr "从' 载入meanDatas"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:3967
 #: /home/micha/programming/sumo/src\netedit\GNENet.cpp:1337
 msgid "Loading of meandata file failed: "
-msgstr ""
+msgstr "载入meandata档案失败： "
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:3973
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:4004
 #: /home/micha/programming/sumo/src\netedit\GNENet.cpp:1339
 msgid "Loading of meandata file sucessfully: "
-msgstr ""
+msgstr "成功载入meandata档案： "
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:3999
 msgid "reloading meanDatas from '"
-msgstr ""
+msgstr "从 ' 重新载入meanDatas"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:4042
 msgid "MeanDatas saved in '"
-msgstr ""
+msgstr "MeanDatas存储于 '"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:4088
 msgid "Confirm close Network"
-msgstr ""
+msgstr "确认关闭路网"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:4089
 msgid "You have unsaved changes in the network."
-msgstr ""
+msgstr "您在路网中有尚未存储的变更。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:4090
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:4156
@@ -1374,639 +1375,639 @@ msgstr ""
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:4244
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:4288
 msgid "Do you wish to close and discard all changes?"
-msgstr ""
+msgstr "您要关闭并放弃所有变更吗？"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:4154
 msgid "Save additional elements before close"
-msgstr ""
+msgstr "关闭前存储附加要素"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:4155
 msgid "You have unsaved additional elements."
-msgstr ""
+msgstr "您有尚未存储的附加要素。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:4198
 msgid "Save demand elements before close"
-msgstr ""
+msgstr "关闭前存储需求要素"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:4199
 msgid "You have unsaved demand elements."
-msgstr ""
+msgstr "您有尚未存储的需求要素。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:4242
 msgid "Save data elements before close"
-msgstr ""
+msgstr "关闭前存储数据要素"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:4243
 msgid "You have unsaved data elements."
-msgstr ""
+msgstr "您有尚未存储的数据要素。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:4286
 msgid "Save meanData elements before close"
-msgstr ""
+msgstr "关闭前存储meanData要素"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:4287
 msgid "You have unsaved meanData elements."
-msgstr ""
+msgstr "您有尚未存储的meanData要素。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:4524
 msgid "loading additional elements from '"
-msgstr ""
+msgstr "从 ' 载入附加要素"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:4527
 msgid "loading additionals from '"
-msgstr ""
+msgstr "从档案载入附加內容"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:4594
 msgid "loading meanDatas from '"
-msgstr ""
+msgstr "从'档案载入meanDatas"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:4597
 msgid "loading meandatas from '"
-msgstr ""
+msgstr "从'档案载入meandatas"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:4631
 msgid "Loading data elements from '"
-msgstr ""
+msgstr "从 '载入数据要素"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:122
 msgid "nets"
-msgstr ""
+msgstr "路网"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:123
 msgid "configs"
-msgstr ""
+msgstr "设定档案"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:188
 msgid "&New Network"
-msgstr ""
+msgstr "&新路网"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:188
 msgid "Create a new network."
-msgstr ""
+msgstr "建立新路网。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:192
 msgid "Open a new netedit window."
-msgstr ""
+msgstr "打开新的netedit 视窗。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:199
 msgid "Load Netedit config..."
-msgstr ""
+msgstr "载入Netedit 设定档案..."
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:199
 msgid "Load a netedit configuration file."
-msgstr ""
+msgstr "载入netedit 设定档。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:203
 msgid "Load Sumo config..."
-msgstr ""
+msgstr "载入Sumo设定档案..."
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:203
 msgid "Load a SUMO configuration file."
-msgstr ""
+msgstr "载入 SUMO 设定档。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:210
 msgid "&Open Network..."
-msgstr ""
+msgstr "&打开路网..."
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:210
 msgid "Open a SUMO network."
-msgstr ""
+msgstr "打开SUMO路网。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:214
 msgid "Open Netconvert Configura&tion..."
-msgstr ""
+msgstr "打开Netconvert设定档案..."
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:214
 msgid "Open a configuration file with NETCONVERT options."
-msgstr ""
+msgstr "使用NETCONVERT选项打开设定档案。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:218
 msgid "Import &Foreign Network..."
-msgstr ""
+msgstr "输入 &外部路网..."
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:218
 msgid "Import a foreign network such as OSM."
-msgstr ""
+msgstr "输入外部路网，例如 OSM。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:225
 msgid "&Save Network"
-msgstr ""
+msgstr "&存储路网"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:225
 msgid "Save the network."
-msgstr ""
+msgstr "存储路网。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:229
 msgid "Save Net&work As..."
-msgstr ""
+msgstr "将路网另存为..."
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:229
 msgid "Save the network to another file."
-msgstr ""
+msgstr "将路网存储到另外一个档案。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:233
 msgid "Save Plain XM&L..."
-msgstr ""
+msgstr "存储純XML档案..."
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:233
 msgid "Save a plain XML representation of the network."
-msgstr ""
+msgstr "将路网以纯 XML形式进行存储。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:237
 msgid "Save &Joined Junctions..."
-msgstr ""
+msgstr "存储整合的路口..."
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:237
 msgid "Save log of joined junctions (allows reproduction of joins)."
-msgstr ""
+msgstr "存储整合路口的记录（允许连接点重现）。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:244
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:248
 msgid "Reload the network."
-msgstr ""
+msgstr "重新载入路网。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:248
 msgid "Reload Network"
-msgstr ""
+msgstr "重新载入路网"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:255
 msgid "Netedit Config"
-msgstr ""
+msgstr "Netedit设定档"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:259
 msgid "Sumo Config"
-msgstr ""
+msgstr "Sumo设定档"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:263
 msgid "Traffic Lights"
-msgstr ""
+msgstr "交通信号"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:267
 msgid "Edge Types"
-msgstr ""
+msgstr "路段类型"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:271
 msgid "Additionals and Shapes"
-msgstr ""
+msgstr "附加档案及图形物件"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:275
 msgid "Demand Elements"
-msgstr ""
+msgstr "交通需求要素"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:279
 msgid "Data Elements"
-msgstr ""
+msgstr "数据要素"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:283
 msgid "MeanData Elements"
-msgstr ""
+msgstr "MeanData要素"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:288
 msgid "Close the network."
-msgstr ""
+msgstr "关闭路网。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:322
 msgid "Save Netedit Config"
-msgstr ""
+msgstr "存储Netedit设定档"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:322
 msgid "Save netedit configuration file."
-msgstr ""
+msgstr "存储netedit设定档。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:326
 msgid "Save Netedit Config As..."
-msgstr ""
+msgstr "将 Netedit 设定档另存为..."
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:326
 msgid "Save netedit configuration in a new file."
-msgstr ""
+msgstr "将 netedit 设定档存储为一个新档案。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:332
 msgid "Reload Netedit Config"
-msgstr ""
+msgstr "重新载入 Netedit 的设定档"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:332
 msgid "Reload netedit configuration."
-msgstr ""
+msgstr "重新载入 netedit 的设定档。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:340
 msgid "Save Sumo Config"
-msgstr ""
+msgstr "存储Sumo设定档"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:340
 msgid "Save sumo configuration file."
-msgstr ""
+msgstr "存储sumo设定档。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:344
 msgid "Save Sumo Config As..."
-msgstr ""
+msgstr "將Sumo设定档另存为..."
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:344
 msgid "Save sumo configuration in a new file."
-msgstr ""
+msgstr "將 sumo 设定档另存为一个新档案。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:350
 msgid "Reload Sumo Config"
-msgstr ""
+msgstr "重新载入Sumo的设定档"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:350
 msgid "Reload sumo configuration."
-msgstr ""
+msgstr "重新载入Sumo的设定档。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:358
 msgid "Load TLS Programs..."
-msgstr ""
+msgstr "载入交通信号方案..."
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:358
 msgid "Load programs for traffic lights in the current net."
-msgstr ""
+msgstr "在现有的路网内载入交通信号方案。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:364
 msgid "Save TLS Programs"
-msgstr ""
+msgstr "存储交通信号方案"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:364
 msgid "Save all traffic light programs of the current network."
-msgstr ""
+msgstr "在现有的路网内存储所有交通信号方案。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:368
 msgid "Save TLS Programs As..."
-msgstr ""
+msgstr "将交通信号方案另存为..."
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:368
 msgid "Save all traffic light programs of the current network to another file."
-msgstr ""
+msgstr "现有路网内所有交通信号方案另存新档。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:374
 msgid "Reload TLS Programs"
-msgstr ""
+msgstr "重新载入交通信号方案"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:374
 msgid "Reload TLS Programs."
-msgstr ""
+msgstr "重新载入交通信号方案。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:382
 msgid "Load Edge Types..."
-msgstr ""
+msgstr "载入路段类型..."
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:382
 msgid "Load edge types in the current net."
-msgstr ""
+msgstr "在现有的路网内载入路段类型。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:388
 msgid "Save Edge Types"
-msgstr ""
+msgstr "存储路段类型"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:388
 msgid "Save edge types of the current net."
-msgstr ""
+msgstr "存储现有路网内的路段类型。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:392
 msgid "Save Edge Types As..."
-msgstr ""
+msgstr "将路段类型另存为…"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:392
 msgid "Save edge types of the current net to another file."
-msgstr ""
+msgstr "将现有路网内的路段类型另存新档。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:398
 msgid "Reload edge types"
-msgstr ""
+msgstr "重新载入路段类型"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:398
 msgid "Reload edge types."
-msgstr ""
+msgstr "重新载入路段类型。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:406
 msgid "Load Additionals..."
-msgstr ""
+msgstr "载入附加档案…"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:406
 msgid "Load additionals and shapes."
-msgstr ""
+msgstr "载入附加档案及图形物件档案。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:412
 msgid "Save Additionals"
-msgstr ""
+msgstr "存储附加档案"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:412
 msgid "Save additionals and shapes."
-msgstr ""
+msgstr "存储附加档案及图形物件档案。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:416
 msgid "Save Additionals As..."
-msgstr ""
+msgstr "将附加档案另存为..."
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:416
 msgid "Save additional elements to another file."
-msgstr ""
+msgstr "將附加要素(element)另存新档。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:422
 msgid "Reload Additionals"
-msgstr ""
+msgstr "重新载入附加档案"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:422
 msgid "Reload additionals."
-msgstr ""
+msgstr "重新载入附加档案。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:430
 msgid "Load Demand Elements..."
-msgstr ""
+msgstr "载入需求要素..."
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:430
 msgid "Load demand elements."
-msgstr ""
+msgstr "载入需求要素。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:436
 msgid "Save Demand Elements"
-msgstr ""
+msgstr "存储需求要素"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:436
 msgid "Save demand elements."
-msgstr ""
+msgstr "存储需求要素 。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:440
 msgid "Save Demand Elements As..."
-msgstr ""
+msgstr "將需求要素另存为…"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:440
 msgid "Save demand elements to another file."
-msgstr ""
+msgstr "將需求要素另存新档。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:446
 msgid "Reload Demand Elements"
-msgstr ""
+msgstr "重新载入需求要素"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:446
 msgid "Reload demand elements."
-msgstr ""
+msgstr "重新载入需求要素。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:454
 msgid "Load Data Elements..."
-msgstr ""
+msgstr "载入数据要素..."
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:454
 msgid "Load data elements."
-msgstr ""
+msgstr "载入数据要素。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:460
 msgid "Save Data Elements"
-msgstr ""
+msgstr "存储数据要素"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:460
 msgid "Save data elements."
-msgstr ""
+msgstr "存储数据要素。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:464
 msgid "Save Data Elements As..."
-msgstr ""
+msgstr "將数据要素另存为…"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:464
 msgid "Save data elements to another file."
-msgstr ""
+msgstr "將数据要素另存新档。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:470
 msgid "Reload Data Elements"
-msgstr ""
+msgstr "重新载入数据要素"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:470
 msgid "Reload data elements."
-msgstr ""
+msgstr "重新载入数据要素。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:478
 msgid "Load MeanDatas..."
-msgstr ""
+msgstr "载入 MeanDatas..."
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:478
 msgid "Load meanDatas and shapes."
-msgstr ""
+msgstr "载入 MeanDatas及图形物件档案。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:484
 msgid "Save MeanDatas"
-msgstr ""
+msgstr "存储MeanDatas"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:484
 msgid "Save meanDatas and shapes."
-msgstr ""
+msgstr "存储MeanDatas及图形物件档案。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:488
 msgid "Save MeanDatas As..."
-msgstr ""
+msgstr "將MeanDatas另存为…"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:488
 msgid "Save meanData elements to another file."
-msgstr ""
+msgstr "將meanDatas要素另存新档。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:494
 msgid "Reload MeanDatas"
-msgstr ""
+msgstr "重新载入MeanDatas"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:494
 msgid "Reload meanDatas."
-msgstr ""
+msgstr "重新载入MeanDatas。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:514
 msgid "&Inspect"
-msgstr ""
+msgstr "&检查"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:514
 msgid "Inspect elements and change their attributes."
-msgstr ""
+msgstr "检查要素并更改其属性。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:517
 msgid "&Delete"
-msgstr ""
+msgstr "&删除"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:517
 msgid "Delete elements."
-msgstr ""
+msgstr "刪除要素。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:520
 msgid "&Select"
-msgstr ""
+msgstr "&选择"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:520
 msgid "Select elements."
-msgstr ""
+msgstr "选择要素。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:577
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:658
 msgid "&Move"
-msgstr ""
+msgstr "＆移动"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:577
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:658
 msgid "Move elements."
-msgstr ""
+msgstr "移动要素。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:580
 msgid "&Edge"
-msgstr ""
+msgstr "＆路段"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:580
 msgid "Create junction and edges."
-msgstr ""
+msgstr "建立路口及路段。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:583
 msgid "&Connection"
-msgstr ""
+msgstr "&连接"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:583
 msgid "Modes connections between lanes."
-msgstr ""
+msgstr "车道之间的运具连接。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:586
 msgid "Pro&hibition"
-msgstr ""
+msgstr "禁止"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:586
 msgid "Modes connection prohibitions."
-msgstr ""
+msgstr "禁止运具连接。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:589
 msgid "Modes traffic lights over junctions."
-msgstr ""
+msgstr "模式 交通信号位于路口。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:592
 msgid "Create additional elements."
-msgstr ""
+msgstr "建立附加要素。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:595
 msgid "C&rossing"
-msgstr ""
+msgstr "跨越"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:595
 msgid "Create crossings between edges."
-msgstr ""
+msgstr "在路段之间建立人行穿越道。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:598
 msgid "TA&Z"
-msgstr ""
+msgstr "TAZ"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:598
 msgid "Create Traffic Assignment Zones."
-msgstr ""
+msgstr "建立交通指派分区。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:601
 msgid "Create Points-Of-Interest and polygons."
-msgstr ""
+msgstr "建立兴趣点及多边形物件。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:604
 msgid "&Wire"
-msgstr ""
+msgstr "&通讯线(Wire)"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:604
 msgid "Create wires."
-msgstr ""
+msgstr "建立通讯线。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:661
 #: /home/micha/programming/sumo/src\netedit\GNEViewParent.cpp:590
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2744
 msgid "Route"
-msgstr ""
+msgstr "路径"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:661
 msgid "Create Routes."
-msgstr ""
+msgstr "建立路径。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:664
 #: /home/micha/programming/sumo/src\netedit\GNEViewParent.cpp:529
 msgid "Vehicle"
-msgstr ""
+msgstr "车辆"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:664
 msgid "Create vehicles."
-msgstr ""
+msgstr "建立车辆。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:667
 msgid "Type"
-msgstr ""
+msgstr "类型"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:667
 msgid "Create types (vehicles, person an containers)."
-msgstr ""
+msgstr "建立类型（车辆, 人和容器）。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:670
 #: /home/micha/programming/sumo/src\netedit\GNEViewParent.cpp:598
 msgid "Stop"
-msgstr ""
+msgstr "停止"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:670
 msgid "Create stops."
-msgstr ""
+msgstr "建立停靠点。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:673
 #: /home/micha/programming/sumo/src\netedit\GNEViewParent.cpp:576
 msgid "Person"
-msgstr ""
+msgstr "人员"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:673
 msgid "Create persons."
-msgstr ""
+msgstr "建立人员。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:676
 msgid "Person plan"
-msgstr ""
+msgstr "人员旅运计划"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:676
 msgid "Create person plans."
-msgstr ""
+msgstr "建立人员旅运计划。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:679
 #: /home/micha/programming/sumo/src\netedit\frames\GNETagSelector.cpp:179
 msgid "Container"
-msgstr ""
+msgstr "集装箱"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:679
 msgid "Create containers."
-msgstr ""
+msgstr "建立集装箱。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:682
 msgid "Container plan"
-msgstr ""
+msgstr "集装箱计划"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:682
 msgid "Create container plans."
-msgstr ""
+msgstr "建立集装箱计划。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:717
 msgid "&EdgeData"
-msgstr ""
+msgstr "&路段数据"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:717
 msgid "Create edgeData elements."
-msgstr ""
+msgstr "建立路段数据要素。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:720
 msgid "Edge&Relation"
-msgstr ""
+msgstr "路段&关系"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:720
 msgid "Create edgeRelation elements."
-msgstr ""
+msgstr "建立路段关系要素。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:723
 msgid "TA&ZRelation"
-msgstr ""
+msgstr "交通分区关系线"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:723
 msgid "Create TAZRelation elements."
-msgstr ""
+msgstr "建立交通分区关系要素。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:726
 msgid "&MeanData"
-msgstr ""
+msgstr "&平均值数据"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:726
 msgid "Create MeanData edge/lanes."
-msgstr ""
+msgstr "建立MeanData路段车道。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:788
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:985
 #: /home/micha/programming/sumo/src\netedit\GNEViewNetHelper.cpp:2316
 #: /home/micha/programming/sumo/src\netedit\GNEViewNetHelper.cpp:2627
 msgid "Show grid"
-msgstr ""
+msgstr "显示网格"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:793
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:990
@@ -2015,385 +2016,385 @@ msgstr ""
 #: /home/micha/programming/sumo/src\netedit\GNEViewNetHelper.cpp:2635
 #: /home/micha/programming/sumo/src\netedit\GNEViewNetHelper.cpp:2922
 msgid "Hide junction shape"
-msgstr ""
+msgstr "隐藏路口形状"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:798
 msgid "Draw vehicles spread in lane or in depart position"
-msgstr ""
+msgstr "绘制在车道上或是在出发位置上的车辆"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:803
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1140
 #: /home/micha/programming/sumo/src\netedit\GNEViewNetHelper.cpp:2340
 #: /home/micha/programming/sumo/src\netedit\GNEViewNetHelper.cpp:2944
 msgid "Show demand elements"
-msgstr ""
+msgstr "显示需求要素"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:808
 msgid "Clicking should target lanes"
-msgstr ""
+msgstr "点选目标车道"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:813
 #: /home/micha/programming/sumo/src\netedit\GNEViewNetHelper.cpp:2355
 msgid "Show connections over junctions"
-msgstr ""
+msgstr "显示路口内的连接线(connection)"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:818
 #: /home/micha/programming/sumo/src\netedit\GNEViewNetHelper.cpp:2363
 msgid "Hide connections"
-msgstr ""
+msgstr "隐藏連接线(connection)"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:823
 msgid "Show sub-additional elements"
-msgstr ""
+msgstr "显示次要附加要素"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:828
 #: /home/micha/programming/sumo/src\netedit\GNEViewNetHelper.cpp:2379
 msgid "Show TAZ elements"
-msgstr ""
+msgstr "显示TAZ要素"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:833
 msgid "Selecting multiple edges automatically select their junctions"
-msgstr ""
+msgstr "选择多个路段时即会自动选择其相交路口"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:838
 msgid "Clicking should apply state changes to all phases of TLS plan"
-msgstr ""
+msgstr "点选后交通信号方案內所有相位(phase)将使用改变的状态I(state)"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:843
 msgid "Ask for confirmation before merging junction"
-msgstr ""
+msgstr "合并路口前要求确认"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:848
 msgid "Show bubbles over junctions shapes"
-msgstr ""
+msgstr "在路口形狀上显示气泡(bubble)"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:853
 msgid "Apply mouse movement to elevation"
-msgstr ""
+msgstr "將鼠标移动应用为高程"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:858
 msgid "Create consecutive edges"
-msgstr ""
+msgstr "建立连续路段"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:863
 msgid "Create an edge in the opposite direction"
-msgstr ""
+msgstr "在相反方向建立一个路段"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:995
 #: /home/micha/programming/sumo/src\netedit\GNEViewNetHelper.cpp:2643
 msgid "Draw vehicles spread/depart position"
-msgstr ""
+msgstr "绘制车辆散布/出发位置"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1000
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1135
 #: /home/micha/programming/sumo/src\netedit\GNEViewNetHelper.cpp:2651
 #: /home/micha/programming/sumo/src\netedit\GNEViewNetHelper.cpp:2937
 msgid "Show shapes"
-msgstr ""
+msgstr "显示图形物件"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1005
 #: /home/micha/programming/sumo/src\netedit\GNEViewNetHelper.cpp:2659
 msgid "Show all trips"
-msgstr ""
+msgstr "显示所有行程"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1010
 #: /home/micha/programming/sumo/src\netedit\GNEViewNetHelper.cpp:2667
 msgid "Show all person plans"
-msgstr ""
+msgstr "显示有旅行者计划"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1015
 #: /home/micha/programming/sumo/src\netedit\GNEViewNetHelper.cpp:2675
 msgid "Lock selected person"
-msgstr ""
+msgstr "锁定选取的人"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1020
 msgid "Show all container plans"
-msgstr ""
+msgstr "显示所有容器(container)运送计划"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1025
 #: /home/micha/programming/sumo/src\netedit\GNEViewNetHelper.cpp:2691
 msgid "Lock selected container"
-msgstr ""
+msgstr "锁定选定的容器"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1030
 #: /home/micha/programming/sumo/src\netedit\GNEViewNetHelper.cpp:2699
 msgid "Show non-inspected demand elements"
-msgstr ""
+msgstr "显示非检查的需求要素"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1035
 #: /home/micha/programming/sumo/src\netedit\GNEViewNetHelper.cpp:2707
 msgid "Show number of overlapped routes"
-msgstr ""
+msgstr "显示重叠路段的数量"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1130
 #: /home/micha/programming/sumo/src\netedit\GNEViewNetHelper.cpp:2930
 msgid "Show additionals"
-msgstr ""
+msgstr "显示附加物"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1145
 msgid "Draw TAZRel from center"
-msgstr ""
+msgstr "从中心点绘制交通分区关系线"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1150
 msgid "Draw TAZ fill"
-msgstr ""
+msgstr "绘制填充的交通分区"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1155
 msgid "Only draw TAZRel from"
-msgstr ""
+msgstr "仅从...分区绘制交通分区关系线"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1160
 msgid "Only draw TAZRel to"
-msgstr ""
+msgstr "仅绘制交通分区关系线到...分区"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1241
 msgid "Undo the last change."
-msgstr ""
+msgstr "复原上次的更改。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1244
 msgid "Redo the last change."
-msgstr ""
+msgstr "重做上次的更改。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1247
 msgid "Show undo/redo history"
-msgstr ""
+msgstr "显示复原/重做历史记录"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1247
 msgid "Open undo/redo history dialog."
-msgstr ""
+msgstr "开启复原/重做的历史对话框。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1268
 msgid "Clear front element"
-msgstr ""
+msgstr "清除前面的要素"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1268
 msgid "Clear current front element"
-msgstr ""
+msgstr "清除目前前面的要素"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1277
 msgid "Load additionals in sumo-gui"
-msgstr ""
+msgstr "在sumo-gui內载入附加物"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1277
 msgid "Load additionals in sumo-gui."
-msgstr ""
+msgstr "在sumo-gui內载入附加物。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1281
 msgid "Load demand in sumo-gui"
-msgstr ""
+msgstr "在sumo-gui內载入需求"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1281
 msgid "Load demand in sumo-gui."
-msgstr ""
+msgstr "在sumo-gui內载入需求。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1285
 msgid "Open in sumo-gui"
-msgstr ""
+msgstr "在sumo-gui內开启"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1285
 msgid "Opens the sumo-gui application with the current network."
-msgstr ""
+msgstr "用現有路网开启sumo-gui 应用程式。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1312
 msgid "&Lanes"
-msgstr ""
+msgstr "&车道"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1317
 msgid "&Connections"
-msgstr ""
+msgstr "&连接线"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1322
 msgid "C&rossings"
-msgstr ""
+msgstr "人行道"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1327
 msgid "Walkin&gAreas"
-msgstr ""
+msgstr "步行区"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1332
 msgid "&Additionals"
-msgstr ""
+msgstr "&附加物"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1337
 msgid "&TAZs"
-msgstr ""
+msgstr "&交通分区"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1342
 msgid "&Wires"
-msgstr ""
+msgstr "&通讯线"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1347
 msgid "&Polygons"
-msgstr ""
+msgstr "&多边形物件"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1352
 msgid "P&OIs"
-msgstr ""
+msgstr "兴趣点"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1357
 msgid "&Routes"
-msgstr ""
+msgstr "&路径"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1372
 msgid "Person&Trips"
-msgstr ""
+msgstr "人&行程"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1377
 msgid "&Walks"
-msgstr ""
+msgstr "&步行"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1382
 msgid "Ri&des"
-msgstr ""
+msgstr "&搭乘"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1387
 msgid "&Containers"
-msgstr ""
+msgstr "&容器"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1392
 msgid "Tra&nsports"
-msgstr ""
+msgstr "运输"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1397
 msgid "Trans&hips"
-msgstr ""
+msgstr "&转运"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1402
 msgid "Stop&s"
-msgstr ""
+msgstr "停靠点&"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1407
 msgid "&EdgeDatas"
-msgstr ""
+msgstr "&路段数据"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1412
 msgid "E&dgeRelDatas"
-msgstr ""
+msgstr "路段关系数据(EdgeRelDatas)"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1417
 msgid "Edge&TAZRel"
-msgstr ""
+msgstr "路段&交通分区关系"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1425
 msgid "Lock selected elements"
-msgstr ""
+msgstr "锁住选定的要件"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1425
 msgid "selected elements"
-msgstr ""
+msgstr "选定的要素"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1432
 msgid "Lock all elements"
-msgstr ""
+msgstr "锁定所有要素"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1432
 msgid "all elements"
-msgstr ""
+msgstr "所有要素"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1436
 msgid "Unlock all elements"
-msgstr ""
+msgstr "解除锁定所有的要素"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1772
 msgid "Compute Junctions"
-msgstr ""
+msgstr "计算路口"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1772
 msgid "Compute junction shape and logic."
-msgstr ""
+msgstr "计算路口的形狀和逻辑。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1775
 msgid "Compute Junctions with volatile options"
-msgstr ""
+msgstr "根据可变选项计算路口"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1775
 msgid "Compute junction shape and logic using volatile junctions."
-msgstr ""
+msgstr "根据可变路口计算路口形狀和逻辑。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1778
 msgid "Clean Junctions"
-msgstr ""
+msgstr "清除路口"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1778
 msgid "Remove solitary junctions."
-msgstr ""
+msgstr "移除孤立的路口。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1781
 msgid "Join Selected Junctions"
-msgstr ""
+msgstr "合并选定的路口"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1781
 msgid "Join selected junctions into a single junction."
-msgstr ""
+msgstr "将选定的路口合并为一个单一路口。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1784
 msgid "Clean invalid crossings"
-msgstr ""
+msgstr "清除无效的人行道"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1784
 msgid "Clear invalid crossings."
-msgstr ""
+msgstr "清除无效的人行道。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1790
 msgid "Recompute Network in Data Mode"
-msgstr ""
+msgstr "在数据模式下重新计算路网"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1796
 msgid "Compute demand"
-msgstr ""
+msgstr "计算需求"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1796
 msgid "Computes demand elements."
-msgstr ""
+msgstr "计算需求要素。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1799
 msgid "Clean routes"
-msgstr ""
+msgstr "清除路径"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1799
 msgid "Removes routes without vehicles."
-msgstr ""
+msgstr "移除沒有车辆的路径。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1802
 msgid "Join routes"
-msgstr ""
+msgstr "合并路径"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1802
 msgid "Joins routes with the same edges."
-msgstr ""
+msgstr "合并具有相同路段的路径。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1805
 msgid "Adjust person plans"
-msgstr ""
+msgstr "调整个人旅行计划"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1805
 msgid "Adjust person plans (start/end positions, arrival positions, etc.)"
-msgstr ""
+msgstr "调整个人旅行计划（起始/结束位置、抵达位置等）"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1808
 msgid "Clean invalid route elements"
-msgstr ""
+msgstr "清除无效的路径要素"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1808
 msgid "Clear elements with an invalid path (routes, Trips, Flows...)."
-msgstr ""
+msgstr "清除与无效路线相关的要素(路径、旅程、流量...)。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1814
 msgid "Sumo options"
-msgstr ""
+msgstr "sumo选项"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1814
 msgid "Configure sumo Options."
-msgstr ""
+msgstr "设定sumo的选项。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1820
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEDeleteFrame.cpp:53
 msgid "Options"
-msgstr ""
+msgstr "选项"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1820
 msgid "Configure netedit Options."
-msgstr ""
+msgstr "设定netedit 的选项。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1933
 msgid "Open a dialog for locating a Junction."
