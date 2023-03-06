@@ -7,6 +7,8 @@ set(netedit_dialogs_tools_SRCS
    GNEToolNetDiff.cpp
    GNEToolGenerateRerouters.h
    GNEToolGenerateRerouters.cpp
+   GNEToolAddStops2Routes.h
+   GNEToolAddStops2Routes.cpp
    )
 
 add_library(netedit_dialogs_tools STATIC ${netedit_dialogs_tools_SRCS})
