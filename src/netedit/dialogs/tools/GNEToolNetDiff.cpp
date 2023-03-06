@@ -27,7 +27,7 @@
 // ===========================================================================
 
 GNEToolNetDiff::GNEToolNetDiff(GNEApplicationWindow* GNEApp) :
-    GNEToolDialog(GNEApp, "NetDiff", 300, 300) {
+    GNEToolDialog(GNEApp, "NetDiff", "", 300, 300) {
     // build elements
     /*
     new GNEToolDialogElements::Separator(myContentFrame, "Input");

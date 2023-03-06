@@ -13,78 +13,35 @@
 /****************************************************************************/
 /// @file    GNEToolGenerateRerouters.h
 /// @author  Pablo Alvarez Lopez
-/// @date    Jun 2022
+/// @date    Mar 2023
 ///
-// Abstract dialog for tools
+// Dialog for generate rerouters
 /****************************************************************************/
 #pragma once
 #include <config.h>
 
-#include "GNEToolGenerateReroutersElements.h"
+#include "GNEToolDialog.h"
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 
-class GNEUndoList;
 class GNEApplicationWindow;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNEToolGenerateRerouters : protected FXTopWindow {
-    /// @brief FOX-declaration
-    FXDECLARE(GNEToolGenerateRerouters)
+class GNEToolGenerateRerouters : public GNEToolDialog {
 
 public:
     /// @brief Constructor
-    GNEToolGenerateRerouters(GNEApplicationWindow* GNEApp, const std::string& name, const int dialogWidth, const int dialogHeight);
+    GNEToolGenerateRerouters(GNEApplicationWindow* GNEApp);
 
     /// @brief destructor
     ~GNEToolGenerateRerouters();
 
-    /// @brief open window
-    void openToolDialog();
-
-    /// @brief hide window
-    void hideToolDialog();
-
-    /// @brief shown
-    bool shown() const;
-
-    /// @brief add argument
-    void addArgument(GNEToolGenerateReroutersElements::Argument* argument);
-
-    /// @name FOX-callbacks
-    /// @{
-    /// @brief event after press run button
-    long onCmdRun(FXObject*, FXSelector, void*);
-
-    /// @brief event after press cancel button
-    long onCmdCancel(FXObject*, FXSelector, void*);
-
-    /// @brief event after press reset button
-    long onCmdReset(FXObject*, FXSelector, void*);
-
-    /// @}
-
-protected:
-    /// @brief FOX needs this
-    FOX_CONSTRUCTOR(GNEToolGenerateRerouters)
-
-    /// @brief pointer to GNEApplicationWindow
-    GNEApplicationWindow* myGNEApp;
-
-    /// @brief vertical frame for contents
-    FXVerticalFrame* myContentFrame = nullptr;
-
-    /// @brief execute dialog as modal
-    FXint openAsModalDialog(FXuint placement = PLACEMENT_CURSOR);
-
 private:
-    /// @brief list of arguments
-    std::vector<GNEToolGenerateReroutersElements::Argument*> myArguments;
 
     /// @brief Invalidated copy constructor.
     GNEToolGenerateRerouters(const GNEToolGenerateRerouters&) = delete;

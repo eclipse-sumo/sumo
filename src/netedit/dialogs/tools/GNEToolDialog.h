@@ -43,7 +43,7 @@ class GNEToolDialog : protected FXTopWindow {
 
 public:
     /// @brief Constructor
-    GNEToolDialog(GNEApplicationWindow* GNEApp, const std::string& name, const int dialogWidth, const int dialogHeight);
+    GNEToolDialog(GNEApplicationWindow* GNEApp, const std::string& name, const std::string& templateTool, const int dialogWidth, const int dialogHeight);
 
     /// @brief destructor
     ~GNEToolDialog();
@@ -87,6 +87,9 @@ protected:
     FXint openAsModalDialog(FXuint placement = PLACEMENT_CURSOR);
 
 private:
+    /// @brief string with template tool
+    const std::string myTemplateTool;
+
     /// @brief list of arguments
     std::vector<GNEToolDialogElements::Argument*> myArguments;
 

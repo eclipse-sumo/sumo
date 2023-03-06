@@ -13,126 +13,26 @@
 /****************************************************************************/
 /// @file    GNEToolGenerateRerouters.cpp
 /// @author  Pablo Alvarez Lopez
-/// @date    Jun 2022
+/// @date    Mar 2023
 ///
-// Abstract dialog for tools
+// Dialog for generate rerouters
 /****************************************************************************/
 
-#include <utils/gui/div/GUIDesigns.h>
-#include <netedit/changes/GNEChange_Additional.h>
-#include <netedit/GNEApplicationWindow.h>
+#include <netedit/templates.h>
 
 #include "GNEToolGenerateRerouters.h"
 
-
 // ===========================================================================
-// FOX callback mapping
-// ===========================================================================
-
-FXDEFMAP(GNEToolGenerateRerouters) GNEToolGenerateReroutersMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_RUN,     GNEToolGenerateRerouters::onCmdRun),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_CANCEL,  GNEToolGenerateRerouters::onCmdCancel),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_RESET,   GNEToolGenerateRerouters::onCmdReset),
-};
-
-// Object implementation
-FXIMPLEMENT(GNEToolGenerateRerouters, FXTopWindow, GNEToolGenerateReroutersMap, ARRAYNUMBER(GNEToolGenerateReroutersMap))
-
-// ============================================-===============================
 // member method definitions
 // ===========================================================================
 
-GNEToolGenerateRerouters::GNEToolGenerateRerouters(GNEApplicationWindow* GNEApp, const std::string& name, const int dialogWidth, const int dialogHeight) :
-    FXTopWindow(GNEApp->getApp(), name.c_str(), GUIIconSubSys::getIcon(GUIIcon::EMPTY), GUIIconSubSys::getIcon(GUIIcon::EMPTY), GUIDesignDialogBoxExplicit(dialogWidth, dialogHeight)),
-    myGNEApp(GNEApp) {
-    // create main frame
-    FXVerticalFrame* mainFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrame);
-    // build horizontalFrame for content
-    myContentFrame = new FXVerticalFrame(mainFrame, GUIDesignContentsFrame);
-    // create buttons centered
-    FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(mainFrame, GUIDesignHorizontalFrame);
-    new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
-    new FXButton(buttonsFrame, (TL("Run") + std::string("\t\t") + TL("close accepting changes")).c_str(),  GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_BUTTON_RUN, GUIDesignButtonAccept);
-    new FXButton(buttonsFrame, (TL("Cancel") + std::string("\t\t") + TL("close discarding changes")).c_str(), GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCancel);
-    new FXButton(buttonsFrame, (TL("Reset") + std::string("\t\t") + TL("reset to previous values")).c_str(),  GUIIconSubSys::getIcon(GUIIcon::RESET),  this, MID_GNE_BUTTON_RESET,  GUIDesignButtonReset);
-    new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
-
+GNEToolGenerateRerouters::GNEToolGenerateRerouters(GNEApplicationWindow* GNEApp) :
+    GNEToolDialog(GNEApp, "Generate rerouters", generateReroutersTemplate, 200, 200) {
 }
 
 
 GNEToolGenerateRerouters::~GNEToolGenerateRerouters() {}
 
 
-void
-GNEToolGenerateRerouters::openToolDialog() {
-    // show dialog
-    show(PLACEMENT_SCREEN);
-    // open as modal dialog (will block all windows until stop() or stopModal() is called)
-    myGNEApp->getApp()->runModalFor(this);
-
-}
-
-
-void
-GNEToolGenerateRerouters::hideToolDialog() {
-}
-
-
-bool
-GNEToolGenerateRerouters::shown() const {
-    return FXWindow::shown();
-}
-
-
-void
-GNEToolGenerateRerouters::addArgument(GNEToolGenerateReroutersElements::Argument* argument) {
-    myArguments.push_back(argument);
-}
-
-
-long
-GNEToolGenerateRerouters::onCmdRun(FXObject*, FXSelector, void*) {
-    // RUN
-
-
-    // stop modal
-    myGNEApp->getApp()->stopModal(this);
-    // hide dialog
-    hide();
-    return 1;
-}
-
-
-long
-GNEToolGenerateRerouters::onCmdCancel(FXObject*, FXSelector, void*) {
-    // stop modal
-    myGNEApp->getApp()->stopModal(this);
-    // hide dialog
-    hide();
-    return 1;
-}
-
-
-long
-GNEToolGenerateRerouters::onCmdReset(FXObject*, FXSelector, void*) {
-    // iterate over all arguments and reset values
-    for (const auto& argument : myArguments) {
-        argument->resetValues();
-    }
-    return 1;
-}
-
-
-FXint
-GNEToolGenerateRerouters::openAsModalDialog(FXuint placement) {
-    // create Dialog
-    create();
-    // show in the given position
-    show(placement);
-    // refresh APP
-    getApp()->refresh();
-    // open as modal dialog (will block all windows until stop() or stopModal() is called)
-    return getApp()->runModalFor(this);
-}
 
 /****************************************************************************/
