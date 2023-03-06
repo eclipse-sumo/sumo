@@ -18,18 +18,19 @@
 // The main window of Netedit (adapted from GUIApplicationWindow)
 /****************************************************************************/
 
-#include <netedit/templates.h>
+#include <netedit/dialogs/tools/GNEToolGenerateRerouters.h>
 #include <netedit/elements/GNEAttributeCarrier.h>
-#include <utils/gui/div/GUIDesigns.h>
-#include <utils/foxtools/MFXMenuCheckIcon.h>
+#include <netedit/templates.h>
 #include <utils/common/FileHelpers.h>
+#include <utils/foxtools/MFXMenuCheckIcon.h>
+#include <utils/gui/div/GUIDesigns.h>
 #include <utils/handlers/TemplateHandler.h>
 #include <utils/options/OptionsLoader.h>
-#include <xercesc/sax/HandlerBase.hpp>
-#include <xercesc/sax/AttributeList.hpp>
-#include <xercesc/sax/SAXParseException.hpp>
-#include <xercesc/sax/SAXException.hpp>
 #include <xercesc/parsers/SAXParser.hpp>
+#include <xercesc/sax/AttributeList.hpp>
+#include <xercesc/sax/HandlerBase.hpp>
+#include <xercesc/sax/SAXException.hpp>
+#include <xercesc/sax/SAXParseException.hpp>
 
 #include <regex>
 
@@ -1976,6 +1977,11 @@ GNEApplicationWindowHelper::ToolsMenuCommands::ToolsMenuCommands(GNEApplicationW
 }
 
 
+GNEApplicationWindowHelper::ToolsMenuCommands::~ToolsMenuCommands() {
+    delete generateRerouters;
+}
+
+
 void
 GNEApplicationWindowHelper::ToolsMenuCommands::buildToolsMenuCommands(FXMenuPane* locateMenu) {
     // build tools menu commands
@@ -1988,6 +1994,12 @@ GNEApplicationWindowHelper::ToolsMenuCommands::buildToolsMenuCommands(FXMenuPane
     GUIDesigns::buildFXMenuCommandShortcut(locateMenu,
         TL("&add stop to routes"), "", "Execute python script add stop to routes.",
         GUIIconSubSys::getIcon(GUIIcon::TOOL_ADDSTOP2ROUTES), myGNEApp, MID_GNE_TOOLBARTOOLS_ADDSTOP2ROUTES);
+}
+
+
+void
+GNEApplicationWindowHelper::ToolsMenuCommands::buildTools() {
+    generateRerouters = new GNEToolGenerateRerouters(myGNEApp);
 }
 
 // ---------------------------------------------------------------------------
@@ -2843,4 +2855,3 @@ GNEApplicationWindowHelper::openFileDialog(FXWindow* window, const std::string t
 }
 
 /****************************************************************************/
-

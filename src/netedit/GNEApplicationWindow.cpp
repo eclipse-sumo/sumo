@@ -20,45 +20,46 @@
 
 #include <gui/dialogs/GUIDialog_Feedback.h>
 #include <netbuild/NBFrame.h>
+#include <netedit/changes/GNEChange_EdgeType.h>
 #include <netedit/dialogs/GNEAbout.h>
-#include <netedit/dialogs/GNEUndoListDialog.h>
+#include <netedit/dialogs/GNEFixNetworkElements.h>
 #include <netedit/dialogs/GNEOverwriteElementsDialog.h>
+#include <netedit/dialogs/GNEUndoListDialog.h>
+#include <netedit/dialogs/tools/GNEToolGenerateRerouters.h>
 #include <netedit/dialogs/tools/GNEToolNetDiff.h>
+#include <netedit/elements/GNEGeneralHandler.h>
+#include <netedit/elements/data/GNEDataHandler.h>
 #include <netedit/elements/network/GNECrossing.h>
 #include <netedit/elements/network/GNEEdgeType.h>
 #include <netedit/elements/network/GNELaneType.h>
-#include <netedit/elements/GNEGeneralHandler.h>
-#include <netedit/elements/data/GNEDataHandler.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netedit/frames/network/GNECreateEdgeFrame.h>
 #include <netedit/frames/network/GNETAZFrame.h>
 #include <netedit/frames/network/GNETLSEditorFrame.h>
-#include <netedit/changes/GNEChange_EdgeType.h>
-#include <netedit/dialogs/GNEFixNetworkElements.h>
+#include <netedit/templates.h>
 #include <netimport/NIFrame.h>
-#include <netimport/NIXMLTypesHandler.h>
 #include <netimport/NITypeLoader.h>
+#include <netimport/NIXMLTypesHandler.h>
 #include <netwrite/NWFrame.h>
 #include <utils/common/SystemFrame.h>
 #include <utils/foxtools/MFXLinkLabel.h>
+#include <utils/foxtools/MFXMenuCheckIcon.h>
 #include <utils/gui/cursors/GUICursorSubSys.h>
-#include <utils/gui/globjects/GUISaveDialog.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/div/GUIDialog_GLChosenEditor.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GUIUserIO.h>
 #include <utils/gui/events/GUIEvent_Message.h>
+#include <utils/gui/globjects/GUISaveDialog.h>
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
 #include <utils/gui/settings/GUISettingsHandler.h>
 #include <utils/gui/shortcuts/GUIShortcutsSubSys.h>
 #include <utils/gui/windows/GUIDialog_Options.h>
 #include <utils/gui/windows/GUIPerspectiveChanger.h>
-#include <utils/foxtools/MFXMenuCheckIcon.h>
-#include <utils/xml/XMLSubSys.h>
 #include <utils/handlers/TemplateHandler.h>
+#include <utils/xml/XMLSubSys.h>
 #include <xercesc/parsers/SAXParser.hpp>
-#include <netedit/templates.h>
 
 #include "GNEApplicationWindow.h"
 #include "GNEEvent_NetworkLoaded.h"
@@ -1135,7 +1136,8 @@ GNEApplicationWindow::onCmdToolNetDiff(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdToolGenerateRerouters(FXObject*, FXSelector, void*) {
-    //
+    // open generate rerouter dialog
+    myToolsMenuCommands.generateRerouters->openToolDialog();
     return 1;
 }
 
@@ -1394,6 +1396,7 @@ GNEApplicationWindow::fillMenuBar() {
     myToolsMenu = new FXMenuPane(this);
     GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, TL("&Tools"), nullptr, myToolsMenu);
     myToolsMenuCommands.buildToolsMenuCommands(myToolsMenu);
+    myToolsMenuCommands.buildTools();
     // build windows menu
     myWindowMenu = new FXMenuPane(this);
     GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, TL("&Window"), nullptr, myWindowMenu);
