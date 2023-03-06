@@ -70,6 +70,8 @@ def formatToolTemplate(templateStr):
     templateStr = templateStr.replace("\n", '"\n')
     templateStr = templateStr[:-1]
     # update last line
+    if templateStr == '':
+        templateStr = '""'
     templateStr += ';\n'
     return templateStr
 
