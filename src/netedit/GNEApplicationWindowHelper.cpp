@@ -18,8 +18,7 @@
 // The main window of Netedit (adapted from GUIApplicationWindow)
 /****************************************************************************/
 
-#include <netedit/dialogs/tools/GNEToolAddStops2Routes.h>
-#include <netedit/dialogs/tools/GNEToolGenerateRerouters.h>
+#include <netedit/dialogs/tools/GNEToolDialog.h>
 #include <netedit/elements/GNEAttributeCarrier.h>
 #include <netedit/templates.h>
 #include <utils/common/FileHelpers.h>
@@ -1979,7 +1978,8 @@ GNEApplicationWindowHelper::ToolsMenuCommands::ToolsMenuCommands(GNEApplicationW
 
 
 GNEApplicationWindowHelper::ToolsMenuCommands::~ToolsMenuCommands() {
-    delete generateRerouters;
+    delete generateReroutersTool;
+    delete addStops2RoutesTool;
 }
 
 
@@ -2000,8 +2000,8 @@ GNEApplicationWindowHelper::ToolsMenuCommands::buildToolsMenuCommands(FXMenuPane
 
 void
 GNEApplicationWindowHelper::ToolsMenuCommands::buildTools() {
-    generateRerouters = new GNEToolGenerateRerouters(myGNEApp);
-    addStops2Routes = new GNEToolAddStops2Routes(myGNEApp);
+    generateReroutersTool = new GNEToolDialog(myGNEApp, "Add stops to routes", addStops2RoutesTemplate);
+    addStops2RoutesTool = new GNEToolDialog(myGNEApp, "Generate rerouters", generateReroutersTemplate);
 }
 
 // ---------------------------------------------------------------------------

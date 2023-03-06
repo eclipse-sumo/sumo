@@ -37,6 +37,7 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
+
 class GNEApplicationWindow;
 class GNELoadThread;
 class GNEUndoList;
@@ -45,9 +46,7 @@ class GNENet;
 class GNEViewNet;
 class GUIEvent;
 class MFXMenuCheckIcon;
-class GNEToolGenerateRerouters;
-class GNEToolAddStops2Routes;
-
+class GNEToolDialog;
 
 // ===========================================================================
 // class definition
@@ -963,10 +962,10 @@ struct GNEApplicationWindowHelper {
         void buildTools();
 
         /// @brief generate rerouters tool
-        GNEToolGenerateRerouters* generateRerouters = nullptr;
+        GNEToolDialog* generateReroutersTool = nullptr;
 
         /// @brief add stops to routes tool
-        GNEToolAddStops2Routes* addStops2Routes = nullptr;
+        GNEToolDialog* addStops2RoutesTool = nullptr;
 
     private:
         /// @brief pointer to current GNEApplicationWindows
