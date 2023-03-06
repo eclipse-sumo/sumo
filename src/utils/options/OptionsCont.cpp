@@ -75,7 +75,7 @@ OptionsCont::~OptionsCont() {
 void
 OptionsCont::doRegister(const std::string& name, Option* v) {
     assert(v != 0);
-    ItemAddressContType::iterator i = std::find(myAddresses.begin(), myAddresses.end(), v);
+    auto i = std::find(myAddresses.begin(), myAddresses.end(), v);
     if (i == myAddresses.end()) {
         myAddresses.push_back(v);
     }
@@ -95,8 +95,8 @@ OptionsCont::doRegister(const std::string& name1, char abbr, Option* v) {
 
 void
 OptionsCont::addSynonyme(const std::string& name1, const std::string& name2, bool isDeprecated) {
-    KnownContType::iterator i1 = myValues.find(name1);
-    KnownContType::iterator i2 = myValues.find(name2);
+    auto i1 = myValues.find(name1);
+    auto i2 = myValues.find(name2);
     if (i1 == myValues.end() && i2 == myValues.end()) {
         throw ProcessError("Neither the option '" + name1 + "' nor the option '" + name2 + "' is known yet");
     }
@@ -135,7 +135,7 @@ OptionsCont::exists(const std::string& name) const {
 
 bool
 OptionsCont::isSet(const std::string& name, bool failOnNonExistant) const {
-    KnownContType::const_iterator i = myValues.find(name);
+    auto i = myValues.find(name);
     if (i == myValues.end()) {
         if (failOnNonExistant) {
             throw ProcessError(TLF("Internal request for unknown option '%'!", name));
@@ -149,7 +149,7 @@ OptionsCont::isSet(const std::string& name, bool failOnNonExistant) const {
 
 bool
 OptionsCont::isDefault(const std::string& name) const {
-    KnownContType::const_iterator i = myValues.find(name);
+    auto i = myValues.find(name);
     if (i == myValues.end()) {
         return false;
     }
@@ -159,7 +159,7 @@ OptionsCont::isDefault(const std::string& name) const {
 
 Option*
 OptionsCont::getSecure(const std::string& name) const {
-    KnownContType::const_iterator k = myValues.find(name);
+    auto k = myValues.find(name);
     if (k == myValues.end()) {
         throw ProcessError(TLF("No option with the name '%' exists.", name));
     }
@@ -168,7 +168,7 @@ OptionsCont::getSecure(const std::string& name) const {
         std::string defaultName;
         for (std::map<std::string, std::vector<std::string> >::const_iterator i = mySubTopicEntries.begin(); i != mySubTopicEntries.end(); ++i) {
             for (std::vector<std::string>::const_iterator j = i->second.begin(); j != i->second.end(); ++j) {
-                KnownContType::const_iterator l = myValues.find(*j);
+                auto l = myValues.find(*j);
                 if (l != myValues.end() && l->second == k->second) {
                     defaultName = *j;
                     break;
@@ -280,7 +280,7 @@ std::vector<std::string>
 OptionsCont::getSynonymes(const std::string& name) const {
     Option* o = getSecure(name);
     std::vector<std::string> v(0);
-    for (KnownContType::const_iterator i = myValues.begin(); i != myValues.end(); i++) {
+    for (auto i = myValues.begin(); i != myValues.end(); i++) {
         if ((*i).second == o && name != (*i).first) {
             v.push_back((*i).first);
         }
@@ -299,7 +299,7 @@ std::ostream&
 operator<<(std::ostream& os, const OptionsCont& oc) {
     std::vector<std::string> done;
     os << "Options set:" << std::endl;
-    for (OptionsCont::KnownContType::const_iterator i = oc.myValues.begin();
+    for (auto i = oc.myValues.begin();
             i != oc.myValues.end(); i++) {
         std::vector<std::string>::iterator j = std::find(done.begin(), done.end(), (*i).first);
         if (j == done.end()) {
@@ -394,7 +394,7 @@ OptionsCont::checkDependingSuboptions(const std::string& name, const std::string
     }
     bool ok = true;
     std::vector<std::string> seenSynonymes;
-    for (KnownContType::const_iterator i = myValues.begin(); i != myValues.end(); i++) {
+    for (auto i = myValues.begin(); i != myValues.end(); i++) {
         if (std::find(seenSynonymes.begin(), seenSynonymes.end(), (*i).first) != seenSynonymes.end()) {
             continue;
         }
@@ -473,8 +473,7 @@ OptionsCont::isWriteable(const std::string& name) {
 
 void
 OptionsCont::clear() {
-    ItemAddressContType::iterator i;
-    for (i = myAddresses.begin(); i != myAddresses.end(); i++) {
+    for (auto i = myAddresses.begin(); i != myAddresses.end(); i++) {
         delete (*i);
     }
     myAddresses.clear();
@@ -674,6 +673,34 @@ OptionsCont::processMetaOptions(bool missingOptions) {
         }
     }
     return false;
+}
+
+
+const std::vector<std::string>&
+OptionsCont::getSubTopics() const {
+    return mySubTopics;
+}
+
+
+std::vector<std::string>
+OptionsCont::getSubTopicsEntries(const std::string& subtopic) const {
+    if (mySubTopicEntries.count(subtopic) > 0) {
+        return mySubTopicEntries.find(subtopic)->second;
+    } else {
+        return std::vector<std::string>();
+    }
+}
+
+
+std::string
+OptionsCont::getTypeName(const std::string name) {
+    return getSecure(name)->getTypeName();
+}
+
+
+const std::string&
+OptionsCont::getFullName() const {
+    return myFullName;
 }
 
 
@@ -967,6 +994,5 @@ OptionsCont::isInStringVector(const std::string& optionName,
     }
     return false;
 }
-
 
 /****************************************************************************/
