@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-02-22 11:27+0000\n"
+"PO-Revision-Date: 2023-03-10 06:09+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.16-dev\n"
+"X-Generator: Weblate 4.16.2-dev\n"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:291
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:294
@@ -457,7 +457,7 @@ msgstr "顯示狀態列"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:621
 msgid "Toggle the Status Bar on/off."
-msgstr "開啟/關閉狀態控制桿。"
+msgstr "切換狀態控制桿(開啟/關閉)。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:624
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2000
@@ -467,7 +467,7 @@ msgstr "顯示訊息窗"
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:624
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2000
 msgid "Toggle the Message Window on/off."
-msgstr "開啟/關閉訊息窗。"
+msgstr "切換訊息窗(開啟/關閉)。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:627
 msgid "Show Simulation Time"
@@ -475,7 +475,7 @@ msgstr "顯示模擬時間"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:627
 msgid "Toggle the Simulation Time on/off."
-msgstr "開啟/關閉模擬時間。"
+msgstr "切換模擬時間(開啟/關閉)。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:630
 msgid "Show Simulation Delay"
@@ -483,7 +483,7 @@ msgstr "顯示模擬延遲"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:630
 msgid "Toggle the Simulation Delay Entry on/off."
-msgstr "開啟/關閉模擬延遲輸入。"
+msgstr "切換模擬延遲輸入(開啟/關閉)。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:636
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2004
@@ -522,12 +522,12 @@ msgstr "開啟變更記錄。"
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:650
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2025
 msgid "&Hotkeys"
-msgstr "&快速鍵"
+msgstr "&快捷鍵"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:650
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2025
 msgid "Open Hotkeys."
-msgstr "開啟快速鍵。"
+msgstr "開啟快捷鍵。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:652
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2027
@@ -537,16 +537,16 @@ msgstr "&範例教學"
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:652
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2027
 msgid "Open Tutorial."
-msgstr "開啟Tutorial。"
+msgstr "開啟範例教學。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:654
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2029
 msgid "&Feedback"
-msgstr ""
+msgstr "&回饋意見"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:654
 msgid "Open feedback dialog."
-msgstr ""
+msgstr "開啟回饋意見對話窗。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:657
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2032
@@ -591,9 +591,8 @@ msgstr "時間:\t切換時間格式\t時間顯示切換：秒 或 小時：分�
 msgid ""
 "Delay (ms):\tDelay per simulated second\tDelay per simulated second. Click "
 "to toggle between the last two delay values."
-msgstr ""
-"延遲(毫秒):\t每個模擬秒(simulated second)的延遲\t每個模擬秒(simulated second)"
-"的延遲. 按鍵進行最後兩個延遲值的切換。"
+msgstr "延遲(毫秒):\t每個模擬秒(simulated second)的延遲\t每個模擬秒的延遲. "
+"按鍵進行最後兩個延遲值的切換。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:734
 msgid "Scale Traffic:"
@@ -603,7 +602,7 @@ msgstr "依比例增減交通："
 msgid ""
 "Scale traffic from flows and vehicles that are loaded incrementally from "
 "route files."
-msgstr "依據交通流量及由路徑檔案漸進地載入的車輛來增減交通。"
+msgstr "依據從路徑檔案中逐量载入的流量和车辆數來增減交通量。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:746
 msgid "Open a new microscopic view."
@@ -619,7 +618,7 @@ msgstr "停等時間："
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:759
 msgid "Time spent waiting accumulated for all vehicles"
-msgstr "所有車輛累計的等待時間"
+msgstr "所有車輛累計的等待時間。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:770
 msgid "Time Loss:"
@@ -636,20 +635,20 @@ msgstr "距離(公里)："
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:781
 msgid "Total distance driven by DRT vehicles"
-msgstr "需求反應運輸(DRT)車輛行駛的總距離"
+msgstr "需求反應運輸(DRT)車輛的總行駛距離"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:792
 msgid "Emergency Vehicle waiting time:"
-msgstr "緊急救援車輛等候時間："
+msgstr "緊急救援車輛的等候時間："
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:792
 msgid "Time spent waiting accumulated for emergency vehicles"
-msgstr "緊急救援車輛累計等待的時間"
+msgstr "緊急救援車輛累計的等待時間"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:817
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:142
 msgid "Cl&ear Recent Networks"
-msgstr "Cl&ear 最近開啟過的路網"
+msgstr "清除最近開啟過的路網"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:818
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:143
@@ -664,7 +663,7 @@ msgstr "最近開啟過的路網"
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:840
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:165
 msgid "Cl&ear Recent Configs"
-msgstr "Cl&ear 最近開啟過的設定檔案"
+msgstr "清除最近開啟過的設定檔案"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:841
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:166
@@ -702,15 +701,15 @@ msgstr "開啟幾何物件(shape)"
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:4636
 #, c-format
 msgid "Loading of % failed."
-msgstr "載入的 % f失敗。"
+msgstr "% f檔案載入失敗。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:1138
 msgid "Open EdgeData"
-msgstr "開啟EdgeData"
+msgstr "開啟 EdgeData檔案"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:1172
 msgid "Reloading."
-msgstr "重新輸入."
+msgstr "重新載入。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:1182
 msgid "Quick-Reloading."
@@ -762,7 +761,7 @@ msgstr "無法從 '%' (%)載入模擬狀態(state) 。"
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:1812
 #, c-format
 msgid "Loading of '%' failed!"
-msgstr "載入 '%'失敗！"
+msgstr "'%'檔案載入失敗！"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:1826
 #, c-format
@@ -779,7 +778,7 @@ msgstr "'%'載入中。"
 
 #: /home/micha/programming/sumo/src\gui\GUILoadThread.cpp:206
 msgid "Could not load edgedata-files '%'"
-msgstr "無法載入路段數據檔案(edgedata-files) '%'"
+msgstr "無法載入路段資料檔案(edgedata-files) '%'"
 
 #: /home/micha/programming/sumo/src\gui\GUIRunThread.cpp:100
 #: /home/micha/programming/sumo/src\gui\GUIRunThread.cpp:106
@@ -793,7 +792,7 @@ msgstr "模擬開始時間： %。"
 #: /home/micha/programming/sumo/src\gui\GUISUMOViewParent.cpp:142
 #: /home/micha/programming/sumo/src\netedit\GNEViewParent.cpp:448
 msgid "Save Snapshot"
-msgstr "儲存快照"
+msgstr "儲存快照(snapshot)"
 
 #: /home/micha/programming/sumo/src\gui\GUISUMOViewParent.cpp:167
 #: /home/micha/programming/sumo/src\netedit\GNEViewParent.cpp:468
