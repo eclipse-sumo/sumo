@@ -1201,7 +1201,7 @@ NBNode::computeLanes2Lanes() {
     //  two in, one out, the outgoing has the same number of lanes as the sum of the incoming
     //  --> highway on-ramp
     if (myIncomingEdges.size() == 2 && myOutgoingEdges.size() == 1) {
-        NBEdge* out = myOutgoingEdges[0];
+        NBEdge* const out = myOutgoingEdges[0];
         NBEdge* in1 = myIncomingEdges[0];
         NBEdge* in2 = myIncomingEdges[1];
         const int outOffset = MAX2(0, out->getFirstNonPedestrianNonBicycleLaneIndex(FORWARD, true));
@@ -1217,6 +1217,9 @@ NBNode::computeLanes2Lanes() {
                 && in1->getSpecialLane(SVC_BICYCLE) == -1
                 && in2->getSpecialLane(SVC_BICYCLE) == -1
                 && out->getSpecialLane(SVC_BICYCLE) == -1
+                && in1->getSpecialLane(SVC_TRAM) == -1
+                && in2->getSpecialLane(SVC_TRAM) == -1
+                && out->getSpecialLane(SVC_TRAM) == -1
                 && isLongEnough(out, MIN_WEAVE_LENGTH)) {
 #ifdef DEBUG_CONNECTION_GUESSING
             if (DEBUGCOND) {
