@@ -131,9 +131,7 @@ enum class GUIIcon {
 
     /// @name tools
     /// @{
-    TOOL_NETDIFF,
-    TOOL_GENERATEREROUTERS,
-    TOOL_ADDSTOP2ROUTES,
+    TOOL_PYTHON,
     /// @}
 
     /// @name green and yellow objects icons

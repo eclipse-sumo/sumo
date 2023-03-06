@@ -1989,13 +1989,13 @@ GNEApplicationWindowHelper::ToolsMenuCommands::buildToolsMenuCommands(FXMenuPane
     // build tools menu commands
     GUIDesigns::buildFXMenuCommandShortcut(locateMenu,
         TL("&NetDiff"), "", "Execute NetDiff.",
-        GUIIconSubSys::getIcon(GUIIcon::TOOL_NETDIFF), myGNEApp, MID_GNE_TOOLBARTOOLS_NETDIFF);
+        GUIIconSubSys::getIcon(GUIIcon::TOOL_PYTHON), myGNEApp, MID_GNE_TOOLBARTOOLS_NETDIFF);
     GUIDesigns::buildFXMenuCommandShortcut(locateMenu,
         TL("&Generate rerouters"), "", "Execute python script generate rerouters.",
-        GUIIconSubSys::getIcon(GUIIcon::TOOL_GENERATEREROUTERS), myGNEApp, MID_GNE_TOOLBARTOOLS_GENERATEREROUTERS);
+        GUIIconSubSys::getIcon(GUIIcon::TOOL_PYTHON), myGNEApp, MID_GNE_TOOLBARTOOLS_GENERATEREROUTERS);
     GUIDesigns::buildFXMenuCommandShortcut(locateMenu,
-        TL("&add stop to routes"), "", "Execute python script add stop to routes.",
-        GUIIconSubSys::getIcon(GUIIcon::TOOL_ADDSTOP2ROUTES), myGNEApp, MID_GNE_TOOLBARTOOLS_ADDSTOP2ROUTES);
+        TL("&Add stop to routes"), "", "Execute python script add stop to routes.",
+        GUIIconSubSys::getIcon(GUIIcon::TOOL_PYTHON), myGNEApp, MID_GNE_TOOLBARTOOLS_ADDSTOP2ROUTES);
 }
 
 

@@ -1,5 +1,5 @@
 /* XPM */
-static const char *tool_addstop2routes_xpm[] = {
+static const char *tool_python_xpm[] = {
 /* columns rows colors chars-per-pixel */
 "16 16 1 1",
 "U c None",
