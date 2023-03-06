@@ -42,7 +42,7 @@ netedit.fixStoppingPlace("activateFriendlyPos")
 netedit.saveNeteditConfig(referencePosition)
 
 # create new connections
-netedit.fixStoppingPlace("activateFriendlyPos")
+netedit.typeSpace()
 
 # quit netedit
 netedit.quit(neteditProcess)

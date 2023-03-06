@@ -1,40 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 02.10.2018 15:54:20 by Eclipse SUMO netedit Version v1_0_0+0003-85a2829977
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
-
-    <input>
-        <sumo-net-file value="D:\sumo\tests\netedit\additionalElements\e2MultiLaneDetector\volatileRecomputing\input_net.net.xml"/>
-    </input>
-
-    <output>
-        <output-file value="D:\sumo\tests\netedit\additionalElements\e2MultiLaneDetector\volatileRecomputing\input_net.net.xml"/>
-        <plain-output-prefix value=""/>
-    </output>
-
-    <processing>
-        <offset.disable-normalization value="true"/>
-        <lefthand value="false"/>
-    </processing>
-
-    <junctions>
-        <no-turnarounds value="true"/>
-        <junctions.corner-detail value="5"/>
-        <junctions.limit-turn-speed value="5.5"/>
-        <rectangular-lane-cut value="false"/>
-    </junctions>
-
-    <pedestrian>
-        <walkingareas value="false"/>
-    </pedestrian>
-
-</configuration>
+<!-- generated on 2023-03-06 09:15:30 by Eclipse SUMO netedit Version v1_16_0+0965-87357b180fb
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <laneAreaDetector id="multiLaneAreaDetector_0" lanes="gneE2_0 gneE14_0 gneE8_0 gneE0_0 gneE10_0 gneE11_0" pos="22.80" period="900.00" file="multiLaneAreaDetector_0.xml" endPos="2.80"/>
-    <laneAreaDetector id="multiLaneAreaDetector_1" lanes="gneE2_4 gneE4_0 gneE12_0 gneE7_0 gneE13_0" pos="32.80" period="900.00" file="multiLaneAreaDetector_1.xml" endPos="2.80"/>
-    <laneAreaDetector id="multiLaneAreaDetector_2" lanes="gneE13_0 gneE4_0 gneE2_4" pos="2.80" period="900.00" file="multiLaneAreaDetector_2.xml" endPos="2.80"/>
-    <laneAreaDetector id="multiLaneAreaDetector_3" lanes="gneE5_0 gneE6_0 gneE9_0 gneE1_0" pos="6.80" period="900.00" file="multiLaneAreaDetector_3.xml" endPos="16.80"/>
-    <laneAreaDetector id="multiLaneAreaDetector_4" lanes="gneE1_0 gneE5_0 gneE13_0 gneE4_0 gneE2_4" pos="36.80" period="900.00" file="multiLaneAreaDetector_4.xml" endPos="22.80"/>
+    <!-- Detectors -->
+    <laneAreaDetector id="e2_0" lanes="center1_0 E5_1" pos="31.50" endPos="2.10" period="300.00" file="e2_0.xml"/>
+    <laneAreaDetector id="e2_1" lanes="E4_1 center0_0" pos="1.00" endPos="15.50" period="300.00" file="e2_1.xml"/>
+    <laneAreaDetector id="e2_2" lanes="top_0 E0_1" pos="27.00" endPos="1.00" period="300.00" file="e2_2.xml"/>
+    <laneAreaDetector id="e2_3" lanes="center1_1 center0_1" pos="25.50" endPos="21.50" period="300.00" file="e2_3.xml"/>
+    <laneAreaDetector id="e2_4" lanes="E1_1 bot_0" pos="2.10" endPos="15.00" period="300.00" file="e2_4.xml"/>
+    <laneAreaDetector id="e2_5" lanes="bot_0 E4_1" pos="29.00" endPos="1.00" period="300.00" file="e2_5.xml"/>
+    <laneAreaDetector id="e2_6" lanes="E5_1 top_0" pos="2.10" endPos="13.00" period="300.00" file="e2_6.xml"/>
+    <laneAreaDetector id="e2_7" lanes="E0_1 center1_0" pos="1.00" endPos="17.50" period="300.00" file="e2_7.xml"/>
+    <laneAreaDetector id="e2_8" lanes="center0_0 E1_1" pos="29.50" endPos="0.10" period="300.00" file="e2_8.xml"/>
+    <laneAreaDetector id="e2_9" lanes="center0_1 center1_1" pos="25.50" endPos="21.50" period="300.00" file="e2_9.xml"/>
 </additional>

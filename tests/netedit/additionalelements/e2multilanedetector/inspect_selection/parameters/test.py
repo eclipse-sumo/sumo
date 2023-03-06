@@ -41,7 +41,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect selection
-netedit.leftClick(referencePosition, 320, 250)
+netedit.leftClick(referencePosition, 670, 255)
 
 # check parameters
 netedit.checkParameters(referencePosition, netedit.attrs.E2Multilane.inspectSelection.parameters, True)
