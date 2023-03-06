@@ -75,3 +75,6 @@ ticket9062
 
 # faulty permissions leading to a faulty network (triggered by ptlines)
 ticket9701
+
+# missing tls on rail crossing
+ticket12765
