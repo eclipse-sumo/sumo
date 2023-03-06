@@ -32,6 +32,12 @@ jobs:
         cd jpscore
         vcpkg.exe --x-install-root=../jpscore-deps --triplet=x64-windows-static install
 
+    - name: Uploading dependency artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: jpscore-deps
+        path: jpscore-deps
+
     - name: Building jpscore
       run: |
         mkdir jpscore-build
@@ -62,4 +68,5 @@ jobs:
     - name: Building Examples and Tests
       run: |
         cd sumo/cmake-build
-        make CTEST_OUTPUT_ON_FAILURE=1 examples test
+        cmake --build . --target examples
+        ctest --output-on-failure
