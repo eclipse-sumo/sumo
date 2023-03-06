@@ -980,7 +980,7 @@ cannot be used, it is replaced by a cone shape pointing to the direction of trav
 
 # Visualizing edge-related data
 
-Several applications generated edge-related measures for one or more
+Several applications generate edge-related measures for one or more
 time-intervals.
 
 - [edgeData-output files](Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md)  
