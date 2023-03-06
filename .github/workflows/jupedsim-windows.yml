@@ -43,7 +43,7 @@ jobs:
         mkdir jpscore-build
         mkdir jpscore-install
         cd jpscore-build
-        cmake -GNinja -DCMAKE_BUILD_TYPE=Debug -DCMAKE_PREFIX_PATH=$PWD/../jpscore-deps -DCMAKE_INSTALL_PREFIX=$PWD/../jpscore-install -DBUILD_JPSVIS=OFF ../jpscore
+        cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_PREFIX_PATH=$PWD/../jpscore-deps -DCMAKE_INSTALL_PREFIX=$PWD/../jpscore-install -DBUILD_JPSVIS=OFF ../jpscore
         cmake --build .
         cmake --install .
 
