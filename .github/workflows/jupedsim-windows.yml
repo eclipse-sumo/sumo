@@ -32,12 +32,12 @@ jobs:
         cd jpscore
         vcpkg.exe --x-install-root=../jpscore-deps --triplet=x64-windows-static install
 
-#        cmake -GNinja -DCMAKE_BUILD_TYPE=Debug -DCMAKE_PREFIX_PATH=$PWD/../jpscore-deps -DCMAKE_INSTALL_PREFIX=$PWD/../jpscore-install -DBUILD_JPSVIS=OFF ../jpscore
     - name: Building jpscore
       run: |
-        mkdir jpscore-build jpscore-install
+        mkdir jpscore-build
+        mkdir jpscore-install
         cd jpscore-build
-        cmake -GNinja -DCMAKE_PREFIX_PATH=../jpscore-deps -DCMAKE_INSTALL_PREFIX=../jpscore-install -DBUILD_JPSVIS=OFF ../jpscore
+        cmake -GNinja -DCMAKE_BUILD_TYPE=Debug -DCMAKE_PREFIX_PATH=$PWD/../jpscore-deps -DCMAKE_INSTALL_PREFIX=$PWD/../jpscore-install -DBUILD_JPSVIS=OFF ../jpscore
         cmake --build .
         cmake --install .
 
@@ -52,17 +52,12 @@ jobs:
         cd sumo
         git fetch --tags --force
 
-    - name: ccache
-      if: github.event_name != 'schedule'
-      uses: hendrikmuhs/ccache-action@v1.2.2
-
     - name: Configuring and building SUMO
       run: |
         mkdir -p sumo/cmake-build 
         cd sumo/cmake-build 
         cmake -DJUPEDSIM_DIR=$PWD/../../jpscore-install ..
-        make -j4
-        sudo make install
+        cmake --build .
 
     - name: Building Examples and Tests
       run: |
