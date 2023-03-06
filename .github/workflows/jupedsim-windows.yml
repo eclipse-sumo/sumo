@@ -1,0 +1,70 @@
+name: jupedsim-windows
+
+on: 
+  push:            # run on push events
+    paths-ignore:  # but ignore everything in the docs subfolder 
+      - 'docs/**'
+    branches:
+      - '**'
+    tags:
+      - '*'
+  pull_request:    # run on pull requests
+    paths-ignore:  # but ignore everything in the docs subfolder 
+      - 'docs/**'
+  schedule:
+    - cron:  '5 0 * * *'
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Cloning jpscore
+      uses: actions/checkout@v3
+      with:
+        repository: jupedsim/jpscore
+        ref: SUMO-Integration
+        path: jpscore
+
+    - name: Building jpscore dependencies
+      run:  |
+        mkdir jpscore-deps
+        cd jpscore
+        vcpkg.exe --x-install-root=../jpscore-deps --triplet=x64-windows-static install
+
+    - name: Building jpscore
+      run: |
+        mkdir jpscore-build jpscore-install
+        cd jpscore-build
+#        cmake -GNinja -DCMAKE_BUILD_TYPE=Debug -DCMAKE_PREFIX_PATH=$PWD/../jpscore-deps -DCMAKE_INSTALL_PREFIX=$PWD/../jpscore-install -DBUILD_JPSVIS=OFF ../jpscore
+        cmake -GNinja -DCMAKE_PREFIX_PATH=../jpscore-deps -DCMAKE_INSTALL_PREFIX=../jpscore-install -DBUILD_JPSVIS=OFF ../jpscore
+        cmake --build .
+        cmake --install .
+
+    - name: Cloning SUMO
+      uses: actions/checkout@v3
+      with:
+        path: sumo
+        fetch-depth: 0
+ 
+    - name: Fetching SUMO tags
+      run: |
+        cd sumo
+        git fetch --tags --force
+
+    - name: ccache
+      if: github.event_name != 'schedule'
+      uses: hendrikmuhs/ccache-action@v1.2.2
+
+    - name: Configuring and building SUMO
+      run: |
+        mkdir -p sumo/cmake-build 
+        cd sumo/cmake-build 
+        cmake -DJUPEDSIM_DIR=$PWD/../../jpscore-install ..
+        make -j4
+        sudo make install
+
+    - name: Building Examples and Tests
+      run: |
+        cd sumo/cmake-build
+        make CTEST_OUTPUT_ON_FAILURE=1 examples test
