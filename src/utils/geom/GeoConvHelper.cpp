@@ -263,6 +263,7 @@ GeoConvHelper::init(const std::string& proj, const Position& offset, const Bound
 
 void
 GeoConvHelper::resolveAbstractProjection() {
+#ifdef PROJ_API_FILE
     if (myProjection == nullptr &&
             myProjectionMethod != NONE && myProjectionMethod != SIMPLE) {
         const std::string origProj = myProjString;
@@ -274,6 +275,7 @@ GeoConvHelper::resolveAbstractProjection() {
             myProjectionMethod = NONE;
         }
     }
+#endif
 }
 
 void
