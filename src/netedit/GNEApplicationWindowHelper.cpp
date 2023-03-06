@@ -2001,7 +2001,7 @@ GNEApplicationWindowHelper::ToolsMenuCommands::buildToolsMenuCommands(FXMenuPane
 
 void
 GNEApplicationWindowHelper::ToolsMenuCommands::buildTools() {
-    netDiffTool = new GNEToolDialog(myGNEApp, "Netdiff", "");   // TMP
+    netDiffTool = new GNEToolDialog(myGNEApp, "Netdiff", netdiffTemplate);
     generateReroutersTool = new GNEToolDialog(myGNEApp, "Add stops to routes", addStops2RoutesTemplate);
     addStops2RoutesTool = new GNEToolDialog(myGNEApp, "Generate rerouters", generateReroutersTemplate);
 }

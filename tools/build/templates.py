@@ -32,7 +32,8 @@ from subprocess import check_output, CalledProcessError
 # list of folders and tools
 tools = [
     [".", "generateRerouters"],
-    ["route", "addStops2Routes"]
+    ["route", "addStops2Routes"],
+    ["net", "netdiff"]
 ]
 
 
