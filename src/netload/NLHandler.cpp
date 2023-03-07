@@ -126,6 +126,9 @@ NLHandler::myStartElement(int element,
             case SUMO_TAG_CONNECTION:
                 addConnection(attrs);
                 break;
+            case SUMO_TAG_CONFLICT:
+                addConflict(attrs);
+                break;
             case SUMO_TAG_TLLOGIC:
                 initTrafficLightLogic(attrs);
                 break;
@@ -1394,7 +1397,7 @@ NLHandler::addConnection(const SUMOSAXAttributes& attrs) {
         return;
     }
 
-    MSLink* link = nullptr;
+    myCurrentLink = nullptr;
     try {
         const int fromLaneIdx = attrs.get<int>(SUMO_ATTR_FROM_LANE, nullptr, ok);
         const int toLaneIdx = attrs.get<int>(SUMO_ATTR_TO_LANE, nullptr, ok);
@@ -1460,11 +1463,11 @@ NLHandler::addConnection(const SUMOSAXAttributes& attrs) {
         } else {
             length = fromLane->getShape()[-1].distanceTo(toLane->getShape()[0]);
         }
-        link = new MSLink(fromLane, toLane, via, dir, state, length, foeVisibilityDistance, keepClear, logic, tlLinkIdx, indirect);
+        myCurrentLink = new MSLink(fromLane, toLane, via, dir, state, length, foeVisibilityDistance, keepClear, logic, tlLinkIdx, indirect);
         if (via != nullptr) {
-            via->addIncomingLane(fromLane, link);
+            via->addIncomingLane(fromLane, myCurrentLink);
         } else {
-            toLane->addIncomingLane(fromLane, link);
+            toLane->addIncomingLane(fromLane, myCurrentLink);
         }
         toLane->addApproachingLane(fromLane, myNetworkVersion < MMVersion(0, 25));
 
@@ -1472,14 +1475,52 @@ NLHandler::addConnection(const SUMOSAXAttributes& attrs) {
         // check whether this link is controlled by a traffic light
         // we can not reuse logic here because it might be an inactive one
         if (tlID != "") {
-            myJunctionControlBuilder.getTLLogic(tlID).addLink(link, fromLane, tlLinkIdx);
+            myJunctionControlBuilder.getTLLogic(tlID).addLink(myCurrentLink, fromLane, tlLinkIdx);
         }
         // add the link
-        fromLane->addLink(link);
+        fromLane->addLink(myCurrentLink);
 
     } catch (InvalidArgument& e) {
         WRITE_ERROR(e.what());
     }
+}
+
+
+void
+NLHandler::addConflict(const SUMOSAXAttributes& attrs) {
+    if (myCurrentLink == nullptr) {
+        throw InvalidArgument(toString(SUMO_TAG_CONFLICT) + " must occur within a " + toString(SUMO_TAG_CONNECTION) + " element");
+    }
+    if (!MSGlobals::gUsingInternalLanes) {
+        return;
+    }
+    bool ok = true;
+    const std::string fromID = attrs.get<std::string>(SUMO_ATTR_FROM, nullptr, ok);
+    const std::string toID = attrs.get<std::string>(SUMO_ATTR_TO, nullptr, ok);
+    const int fromLaneIdx = attrs.get<int>(SUMO_ATTR_FROM_LANE, nullptr, ok);
+    const int toLaneIdx = attrs.get<int>(SUMO_ATTR_TO_LANE, nullptr, ok);
+    double startPos = attrs.get<double>(SUMO_ATTR_STARTPOS, nullptr, ok);
+    double endPos = attrs.get<double>(SUMO_ATTR_ENDPOS, nullptr, ok);
+    MSEdge* from = MSEdge::dictionary(fromID);
+    if (from == nullptr) {
+        WRITE_ERRORF(TL("Unknown from-edge '%' in conflict."), fromID);
+        return;
+    }
+    MSEdge* to = MSEdge::dictionary(toID);
+    if (to == nullptr) {
+        WRITE_ERRORF(TL("Unknown to-edge '%' in connflict."), toID);
+        return;
+    }
+    if (fromLaneIdx < 0 || fromLaneIdx >= (int)from->getLanes().size() ||
+            toLaneIdx < 0 || toLaneIdx >= (int)to->getLanes().size()) {
+        WRITE_ERRORF(TL("Invalid lane index in conflict with '%' to '%'."), from->getID(), to->getID());
+        return;
+    }
+    MSLane* fromLane = from->getLanes()[fromLaneIdx];
+    MSLane* toLane = to->getLanes()[toLaneIdx];
+    assert(fromLane);
+    assert(toLane);
+    myCurrentLink->addCustomConflict(fromLane, toLane, startPos, endPos);
 }
 
 

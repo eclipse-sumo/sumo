@@ -131,6 +131,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "stopLane",                       SUMO_TAG_STOP_LANE },
     { "polygonType",                    SUMO_TAG_POLYTYPE },
     { "connection",                     SUMO_TAG_CONNECTION },
+    { "conflict",                       SUMO_TAG_CONFLICT },
     { "prohibition",                    SUMO_TAG_PROHIBITION },
     { "split",                          SUMO_TAG_SPLIT },
     { "node",                           SUMO_TAG_NODE },

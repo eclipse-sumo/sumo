@@ -166,6 +166,12 @@ MSLink::~MSLink() {
 
 
 void
+MSLink::addCustomConflict(const MSLane* from, const MSLane* to, double startPos, double endPos) {
+    myCustomConflicts.push_back(CustomConflict(from, to, startPos, endPos));
+}
+
+
+void
 MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
                               const std::vector<MSLink*>& foeLinks,
                               const std::vector<MSLane*>& foeLanes,

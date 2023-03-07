@@ -222,8 +222,10 @@ enum SumoXMLTag {
     SUMO_TAG_STOP_PARKINGAREA,
     /// @brief type of polygon
     SUMO_TAG_POLYTYPE,
-    /// @brief connectio between two lanes
+    /// @brief connectioon between two lanes
     SUMO_TAG_CONNECTION,
+    /// @brief conflict between two connections
+    SUMO_TAG_CONFLICT,
     /// @brief prohibition of circulation between two edges
     SUMO_TAG_PROHIBITION,
     /// @brief split something

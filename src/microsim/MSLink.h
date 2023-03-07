@@ -195,6 +195,16 @@ public:
         double getLengthBehindCrossing(const MSLink* exitLink) const;
     };
 
+    /// @brief holds user defined conflict positions (must be interpreted for the correct exitLink)
+    struct CustomConflict {
+        CustomConflict(const MSLane* f, const MSLane* t, double s, double e) :
+            from(f), to(t), startPos(s), endPos(e) {}
+        const MSLane* from;
+        const MSLane* to;
+        double startPos;
+        double endPos;
+    };
+
     /** @brief Constructor for simulation which uses internal lanes
      *
      * @param[in] succLane The lane approached by this link
@@ -219,6 +229,7 @@ public:
     /// @brief Destructor
     ~MSLink();
 
+    void addCustomConflict(const MSLane* from, const MSLane* to, double startPos, double endPos);
 
     /** @brief Sets the request information
      *
@@ -769,6 +780,8 @@ private:
      * empty vector for entry links
      * */
     std::vector<ConflictInfo> myConflicts;
+
+    std::vector<CustomConflict> myCustomConflicts;
 
     // TODO: documentation
     std::vector<MSLink*> myFoeLinks;
