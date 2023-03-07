@@ -175,23 +175,23 @@ public:
     /// @brief pre-computed information for conflict points
     struct ConflictInfo {
 
-        ConflictInfo(double lbc, double wf = 1, ConflictFlag fl = CONFLICT_DEFAULT) :
+        ConflictInfo(double lbc, double cs, ConflictFlag fl = CONFLICT_DEFAULT) :
             foeConflictIndex(-1),
             lengthBehindCrossing(lbc),
-            widthFactor(wf),
+            conflictSize(cs),
             flag(fl)
         {}
         /// @brief the conflict from the perspective of the foe
         int foeConflictIndex;
         /// @brief length of internal lane after the crossing point
         double lengthBehindCrossing;
-        /* @brief factor for applying to the width of foe vehicles when
-         * computing conflict space (due to angle of incidence below 90 degrees) */
-        double widthFactor;
+        /// @brief the length of the conflict space
+        double conflictSize;
 
         ConflictFlag flag;
 
         double getFoeLengthBehindCrossing(const MSLink* foeExitLink) const;
+        double getFoeConflictSize(const MSLink* foeExitLink) const;
         double getLengthBehindCrossing(const MSLink* exitLink) const;
     };
 
