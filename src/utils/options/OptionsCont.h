@@ -622,9 +622,6 @@ public:
     /// @brief get end option
     std::map<std::string, Option*>::const_iterator end() const;
 
-    /// @brief get number of options
-    size_t size() const;
-
 private:
     /** @brief Returns the named option
      *

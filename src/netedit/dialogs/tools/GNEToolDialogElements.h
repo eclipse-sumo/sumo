@@ -55,23 +55,20 @@ public:
         /// @brief reset to default value
         virtual void reset() = 0;
 
-        /// @brief get argument name
-        const std::string getName() const;
-
-        /// @brief get argument options
-        const Option* getOption() const;
-
     protected:
         /// @brief default constructor
         Argument();
 
-    private:
         /// @brief argument name
         const std::string myName;
 
         /// @brief argument options
         const Option* myOption;
 
+        /// @brief argument name
+        const std::string myDefaultValue;
+
+    private:
         /// @brief Invalidated copy constructor.
         Argument(const Argument&) = delete;
 
@@ -160,8 +157,8 @@ public:
         FXTextField* myStringTextField = nullptr;
 
     private:
-        /// @brief label name
-        FXLabel* myNameLabel = nullptr;
+        /// @brief parameter name
+        FXLabel* myParameterName = nullptr;
 
         /// @brief Invalidated copy constructor.
         StringArgument(const StringArgument&) = delete;

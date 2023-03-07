@@ -716,12 +716,6 @@ OptionsCont::end() const {
 }
 
 
-size_t
-OptionsCont::size() const {
-    return myValues.size();
-}
-
-
 void
 OptionsCont::printHelp(std::ostream& os) {
     // print application description

@@ -63,23 +63,12 @@ FXIMPLEMENT(GNEToolDialogElements::FloatArgument,       FXHorizontalFrame, Float
 
 GNEToolDialogElements::Argument::Argument(const std::string &name, const Option* option) :
     myName(name),
-    myOption(option) {
+    myOption(option),
+    myDefaultValue(option->getValueString()) {
 }
 
 
 GNEToolDialogElements::Argument::~Argument() {}
-
-
-const std::string
-GNEToolDialogElements::Argument::getName() const {
-    return myName;
-}
-
-
-const Option*
-GNEToolDialogElements::Argument::getOption() const {
-    return myOption;
-}
 
 
 GNEToolDialogElements::Argument::Argument():
@@ -94,14 +83,16 @@ GNEToolDialogElements::FileNameArgument::FileNameArgument(GNEToolDialog* toolDia
     FXHorizontalFrame(toolDialogParent->getContentFrame(), GUIDesignAuxiliarHorizontalFrame),
     Argument(name, option) {
     // create label with name
-    myNameLabel = new FXLabel(this, name.c_str(), nullptr, GUIDesignLabelThick150);
+    myNameLabel = new FXLabel(this, name.c_str(), nullptr, GUIDesignLabelFixedWidth);
     // Create Open button
     myFilenameButton = new FXButton(this, (std::string("\t\t") + TL("Select filename")).c_str(), 
         GUIIconSubSys::getIcon(GUIIcon::OPEN_NET), this, FXDialogBox::ID_ACCEPT, GUIDesignButtonIcon);
     // create text field for filename
     myFilenameTextField = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFielWidth50);
     // create label with name
-    new FXLabel(this, option->getDescription().c_str(), nullptr, GUIDesignLabelThick150);
+    new FXLabel(this, option->getDescription().c_str(), nullptr, GUIDesignLabelThick500);
+    // reset after creation
+    reset();
 }
 
 
@@ -113,7 +104,7 @@ GNEToolDialogElements::FileNameArgument::getNameLabel() {
 
 void
 GNEToolDialogElements::FileNameArgument::reset() {
-    myFilenameTextField->setText("");
+    myFilenameTextField->setText(myDefaultValue.c_str());
 }
 
 
@@ -139,24 +130,26 @@ GNEToolDialogElements::StringArgument::StringArgument(GNEToolDialog* toolDialogP
         const std::string name, const Option* option, const int type) :
     FXHorizontalFrame(toolDialogParent->getContentFrame(), GUIDesignAuxiliarHorizontalFrame),
     Argument(name, option) {
-    // create label with name
-    myNameLabel = new FXLabel(this, name.c_str(), nullptr, GUIDesignLabelThick150);
+    // create label with parameter name
+    myParameterName = new FXLabel(this, name.c_str(), nullptr, GUIDesignLabelFixedWidth);
     // create text field for filename
     myStringTextField = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldTools(type));
     // create label with name
-    new FXLabel(this, option->getDescription().c_str(), nullptr, GUIDesignLabelThick150);
+    new FXLabel(this, option->getDescription().c_str(), nullptr, GUIDesignLabelThick500);
+    // reset after creation
+    reset();
 }
 
 
 FXLabel*
 GNEToolDialogElements::StringArgument::getNameLabel() {
-    return myNameLabel;
+    return myParameterName;
 }
 
 
 void
 GNEToolDialogElements::StringArgument::reset() {
-    myStringTextField->setText("");
+    myStringTextField->setText(myDefaultValue.c_str());
 }
 
 

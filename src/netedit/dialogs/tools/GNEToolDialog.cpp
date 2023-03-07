@@ -25,6 +25,8 @@
 #include "GNEToolDialog.h"
 
 
+#define EXTRAMARGING 4
+
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
@@ -126,6 +128,7 @@ GNEToolDialog::onCmdReset(FXObject*, FXSelector, void*) {
 
 void
 GNEToolDialog::buildArguments() {
+    int maxColumnWidth = 0;
     // iterate over options
     for (const auto &option : myToolsOptions) {
         if (option.second->isInteger()) {
@@ -139,9 +142,20 @@ GNEToolDialog::buildArguments() {
         } else {
             myArguments.push_back(new GNEToolDialogElements::StringArgument(this, option.first, option.second));
         }
+        // check column width
+        int columnWidth = myArguments.back()->getNameLabel()->getFont()->getTextWidth(option.first.c_str(), option.first.size() + EXTRAMARGING);
+        if (columnWidth > maxColumnWidth) {
+            maxColumnWidth = columnWidth;
+        }
     }
     // set content frame size
-    myContentFrame->setHeight(GUIDesignHeight * myToolsOptions.size());
+    myContentFrame->setHeight(GUIDesignHeight * (int)myArguments.size());
+    // adjust parameter label
+    for (auto &argument : myArguments) {
+        argument->getNameLabel()->setWidth(maxColumnWidth);
+    }
+
+    // USE MFXLabelTooltip
 }
 
 /****************************************************************************/
