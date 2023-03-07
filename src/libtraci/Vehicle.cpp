@@ -14,6 +14,7 @@
 /// @file    Vehicle.cpp
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
+/// @author  Mirko Barthauer
 /// @date    30.05.2012
 ///
 // C++ TraCI client API implementation
@@ -364,6 +365,54 @@ Vehicle::getNextTLS(const std::string& vehID) {
 std::vector<libsumo::TraCINextStopData>
 Vehicle::getNextStops(const std::string& vehID) {
     return getStops(vehID, 0);
+}
+
+std::vector<libsumo::TraCIConnection>
+Vehicle::getNextLinks(const std::string& vehID) {
+    std::vector<libsumo::TraCIConnection> result;
+    tcpip::Storage& ret = Dom::get(libsumo::VAR_NEXT_LINKS, vehID);
+    ret.readInt(); // components
+    // number of items
+    ret.readUnsignedByte();
+    ret.readInt();
+
+    int linkNo = ret.readInt();
+    for (int i = 0; i < linkNo; ++i) {
+
+        ret.readUnsignedByte();
+        std::string approachedLane = ret.readString();
+
+        ret.readUnsignedByte();
+        std::string approachedLaneInternal = ret.readString();
+
+        ret.readUnsignedByte();
+        bool hasPrio = ret.readUnsignedByte() != 0;
+
+        ret.readUnsignedByte();
+        bool isOpen = ret.readUnsignedByte() != 0;
+
+        ret.readUnsignedByte();
+        bool hasFoe = ret.readUnsignedByte() != 0;
+
+        ret.readUnsignedByte();
+        std::string state = ret.readString();
+
+        ret.readUnsignedByte();
+        std::string direction = ret.readString();
+
+        ret.readUnsignedByte();
+        double length = ret.readDouble();
+
+        result.push_back(libsumo::TraCIConnection(approachedLane,
+            hasPrio,
+            isOpen,
+            hasFoe,
+            approachedLaneInternal,
+            state,
+            direction,
+            length));
+    }
+    return result;
 }
 
 std::vector<libsumo::TraCINextStopData>

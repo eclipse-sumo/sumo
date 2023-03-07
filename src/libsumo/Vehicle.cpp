@@ -13,6 +13,7 @@
 /****************************************************************************/
 /// @file    Vehicle.cpp
 /// @author  Jakob Erdmann
+/// @author  Mirko Barthauer
 /// @date    15.03.2017
 ///
 // C++ Vehicle API
@@ -488,6 +489,79 @@ Vehicle::getNextTLS(const std::string& vehID) {
 std::vector<TraCINextStopData>
 Vehicle::getNextStops(const std::string& vehID) {
     return getStops(vehID, 0);
+}
+
+std::vector<libsumo::TraCIConnection> 
+Vehicle::getNextLinks(const std::string& vehID) {
+    std::vector<libsumo::TraCIConnection> result;
+    MSBaseVehicle* vehicle = Helper::getVehicle(vehID);
+    MSVehicle* veh = dynamic_cast<MSVehicle*>(vehicle);
+    if (!vehicle->isOnRoad()) {
+        return result;
+    }
+    if (veh != nullptr) {
+        const MSLane* lane = veh->getLane();
+        const std::vector<MSLane*>& bestLaneConts = veh->getBestLanesContinuation(lane);
+        double seen = lane->getLength() - veh->getPositionOnLane();
+        int view = 1;
+        const SUMOTime currTime = MSNet::getInstance()->getCurrentTimeStep();
+        std::vector<MSLink*>::const_iterator linkIt = MSLane::succLinkSec(*veh, view, *lane, bestLaneConts);
+        while (!lane->isLinkEnd(linkIt)) {
+            if (!lane->getEdge().isInternal()) {
+                const MSLink* link = (*linkIt);
+                const std::string approachedLane = link->getLane() != nullptr ? link->getLane()->getID() : "";
+                const bool hasPrio = link->havePriority();
+                const double speed = MIN2(lane->getSpeedLimit(), link->getLane()->getSpeedLimit());
+                const bool isOpen = link->opened(currTime, speed, speed, SUMOVTypeParameter::getDefault().length,
+                    SUMOVTypeParameter::getDefault().impatience, SUMOVTypeParameter::getDefaultDecel(), 0);
+                const bool hasFoe = link->hasApproachingFoe(currTime, currTime, 0, SUMOVTypeParameter::getDefaultDecel());
+                const std::string approachedInternal = link->getViaLane() != nullptr ? link->getViaLane()->getID() : "";
+                const std::string state = SUMOXMLDefinitions::LinkStates.getString(link->getState());
+                const std::string direction = SUMOXMLDefinitions::LinkDirections.getString(link->getDirection());
+                const double length = link->getLength();
+                result.push_back(TraCIConnection(approachedLane, hasPrio, isOpen, hasFoe, approachedInternal, state, direction, length));
+            }
+            lane = (*linkIt)->getViaLaneOrLane();
+            if (!lane->getEdge().isInternal()) {
+                view++;
+            }
+            seen += lane->getLength();
+            linkIt = MSLane::succLinkSec(*veh, view, *lane, bestLaneConts);
+        }
+        // consider edges beyond bestLanes
+        const int remainingEdges = (int)(veh->getRoute().end() - veh->getCurrentRouteEdge()) - view;
+        for (int i = 0; i < remainingEdges; i++) {
+            const MSEdge* prev = *(veh->getCurrentRouteEdge() + view + i - 1);
+            const MSEdge* next = *(veh->getCurrentRouteEdge() + view + i);
+            const std::vector<MSLane*>* allowed = prev->allowedLanes(*next, veh->getVClass());
+            if (allowed != nullptr && allowed->size() != 0) {
+                for (const MSLink* const link : allowed->front()->getLinkCont()) {
+                    if (&link->getLane()->getEdge() == next) {
+                        const std::string approachedLane = link->getLane() != nullptr ? link->getLane()->getID() : "";
+                        const bool hasPrio = link->havePriority();
+                        const double speed = MIN2(lane->getSpeedLimit(), link->getLane()->getSpeedLimit());
+                        const bool isOpen = link->opened(currTime, speed, speed, SUMOVTypeParameter::getDefault().length,
+                            SUMOVTypeParameter::getDefault().impatience, SUMOVTypeParameter::getDefaultDecel(), 0);
+                        const bool hasFoe = link->hasApproachingFoe(currTime, currTime, 0, SUMOVTypeParameter::getDefaultDecel());
+                        const std::string approachedInternal = link->getViaLane() != nullptr ? link->getViaLane()->getID() : "";
+                        const std::string state = SUMOXMLDefinitions::LinkStates.getString(link->getState());
+                        const std::string direction = SUMOXMLDefinitions::LinkDirections.getString(link->getDirection());
+                        const double length = link->getLength();
+                        result.push_back(TraCIConnection(approachedLane, hasPrio, isOpen, hasFoe, approachedInternal, state, direction, length));
+                        seen += allowed->front()->getLength();
+                    }
+                }
+            }
+            else {
+                // invalid route, cannot determine nextTLS
+                break;
+            }
+        }
+    }
+    else {
+        WRITE_WARNING("getNextLinks not yet implemented for meso");
+    }
+    return result;
 }
 
 std::vector<TraCINextStopData>

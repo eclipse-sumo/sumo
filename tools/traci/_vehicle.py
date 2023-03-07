@@ -20,6 +20,7 @@
 # @author  Laura Bieker
 # @author  Daniel Krajzewicz
 # @author  Leonhard Luecken
+# @author  Mirko Barthauer
 # @date    2011-03-09
 
 from __future__ import absolute_import
@@ -203,6 +204,32 @@ def _readNextStops(result):
     return tuple(nextStop)
 
 
+def _readNextLinks(result):
+    result.read("!Bi")  # Type Compound, Length
+    nbLinks = result.readInt()
+    links = []
+    for _ in range(nbLinks):
+        result.read("!B")                           # Type String
+        approachedLane = result.readString()
+        result.read("!B")                           # Type String
+        approachedInternal = result.readString()
+        result.read("!B")                           # Type Byte
+        hasPrio = bool(result.read("!B")[0])
+        result.read("!B")                           # Type Byte
+        isOpen = bool(result.read("!B")[0])
+        result.read("!B")                           # Type Byte
+        hasFoe = bool(result.read("!B")[0])
+        result.read("!B")                           # Type String
+        state = result.readString()
+        result.read("!B")                           # Type String
+        direction = result.readString()
+        result.read("!B")                           # Type Float
+        length = result.readDouble()
+        links.append((approachedLane, hasPrio, isOpen, hasFoe,
+                      approachedInternal, state, direction, length))
+    return tuple(links)
+
+
 _RETURN_VALUE_FUNC = {tc.VAR_ROUTE_VALID: lambda result: bool(result.read("!i")[0]),
                       tc.VAR_BEST_LANES: _readBestLanes,
                       tc.VAR_LEADER: _readLeader,
@@ -210,6 +237,7 @@ _RETURN_VALUE_FUNC = {tc.VAR_ROUTE_VALID: lambda result: bool(result.read("!i")[
                       tc.VAR_NEIGHBORS: _readNeighbors,
                       tc.VAR_NEXT_TLS: _readNextTLS,
                       tc.VAR_NEXT_STOPS: _readNextStops,
+                      tc.VAR_NEXT_LINKS: _readNextLinks,
                       tc.VAR_NEXT_STOPS2: _readStopData,
                       # ignore num compounds and type int
                       tc.CMD_CHANGELANE: lambda result: result.read("!iBiBi")[2::2]}
@@ -703,7 +731,7 @@ class VehicleDomain(VTypeDomain):
 
     @deprecated()
     def getNextStops(self, vehID):
-        """getNextStop(string) -> [(string, double, string, int, double, double)], ...
+        """getNextStop(string) -> [(string, double, string, int, double, double), ...]
 
         Return list of upcoming stops [(lane, endPos, stoppingPlaceID, stopFlags, duration, until), ...]
         where integer stopFlag is defined as:
@@ -718,6 +746,13 @@ class VehicleDomain(VTypeDomain):
         with each of these flags defined as 0 or 1.
         """
         return self._getUniversal(tc.VAR_NEXT_STOPS, vehID)
+
+    def getNextLinks(self, vehID):
+        """getNextLinks(string) -> [(string, string, bool, bool, bool, string, string, double), ...]
+
+        Return list of upcoming links along the route [(lane, via, priority, opened, foe, state, direction, length), ...]
+        """
+        return self._getUniversal(tc.VAR_NEXT_LINKS, vehID)
 
     def getStops(self, vehID, limit=0):
         """getStops(string, int) -> [StopData, ...],

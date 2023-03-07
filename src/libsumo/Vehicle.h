@@ -87,6 +87,7 @@ public:
     static std::vector<libsumo::TraCIBestLanesData> getBestLanes(const std::string& vehID);
     static std::vector<libsumo::TraCINextTLSData> getNextTLS(const std::string& vehID);
     static std::vector<libsumo::TraCINextStopData> getNextStops(const std::string& vehID);
+    static std::vector<libsumo::TraCIConnection> getNextLinks(const std::string& vehID);
     static std::vector<libsumo::TraCINextStopData> getStops(const std::string& vehID, int limit = 0);
     static int getStopState(const std::string& vehID);
     static std::string getStopParameter(const std::string& vehID, int nextStopIndex, const std::string& param);
