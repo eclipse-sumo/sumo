@@ -47,19 +47,24 @@ public:
         Argument(const std::string &name_, const Option* option_);
 
         /// @brief destructor
-        ~Argument();
+        virtual ~Argument();
 
         /// @brief reset to default value
         virtual void reset() = 0;
 
-    protected:
-        /// @brief argument name
-        const std::string name;
+        /// @brief get argument name
+        const std::string getName() const;
 
-        /// @brief default value
-        const Option* option;
+        /// @brief get argument options
+        const Option* getOption() const;
 
     private:
+        /// @brief argument name
+        const std::string myName;
+
+        /// @brief argument options
+        const Option* myOption;
+
         /// @brief default constructor
         Argument();
 
@@ -71,7 +76,7 @@ public:
     };
 
     /// @brief filename
-    class FileNameArgument : protected FXVerticalFrame, protected Argument {
+    class FileNameArgument : protected FXVerticalFrame, public Argument {
 
     public:
         /// @brief constructor

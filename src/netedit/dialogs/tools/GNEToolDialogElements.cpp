@@ -31,16 +31,29 @@
 // member method definitions
 // ===========================================================================
 
-GNEToolDialogElements::Argument::Argument(const std::string &name_, const Option* option_) :
-    name(name_),
-    option(option_) {
+GNEToolDialogElements::Argument::Argument(const std::string &name, const Option* option) :
+    myName(name),
+    myOption(option) {
 }
 
 
 GNEToolDialogElements::Argument::~Argument() {}
 
 
-GNEToolDialogElements::Argument::Argument() {}
+const std::string
+GNEToolDialogElements::Argument::getName() const {
+    return myName;
+}
+
+
+const Option*
+GNEToolDialogElements::Argument::getOption() const {
+    return myOption;
+}
+
+
+GNEToolDialogElements::Argument::Argument():
+    myOption(nullptr) {}
 
 
 GNEToolDialogElements::FileNameArgument::FileNameArgument(GNEToolDialog* toolDialogParent, const std::string name, const Option* option) :

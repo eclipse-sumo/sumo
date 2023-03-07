@@ -142,11 +142,14 @@ GNEToolDialog::openAsModalDialog(FXuint placement) {
 
 void
 GNEToolDialog::buildArguments() {
+    int i = 4;
     // iterate over options
     for (const auto &option : myToolsOptions) {
         // build argument
-        GNEToolDialogElements::FileNameArgument(this, option.first, option.second);
+        myArguments.push_back(new GNEToolDialogElements::FileNameArgument(this, option.first, option.second));
+        i += 2;
     }
+    setHeight(GUIDesignHeight * i);
 }
 
 /****************************************************************************/
