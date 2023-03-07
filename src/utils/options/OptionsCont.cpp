@@ -49,20 +49,20 @@
 // ===========================================================================
 // static member definitions
 // ===========================================================================
-OptionsCont OptionsCont::myOptions;
 
+OptionsCont OptionsCont::myOptions;
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
+
 OptionsCont&
 OptionsCont::getOptions() {
     return myOptions;
 }
 
 
-OptionsCont::OptionsCont()
-    : myAddresses(), myValues(), myDeprecatedSynonymes() {
+OptionsCont::OptionsCont() {
     myCopyrightNotices.push_back(TL("Copyright (C) 2001-2023 German Aerospace Center (DLR) and others; https://sumo.dlr.de"));
 }
 
@@ -305,7 +305,7 @@ operator<<(std::ostream& os, const OptionsCont& oc) {
             std::vector<std::string> synonymes = oc.getSynonymes(value.first);
             if (synonymes.size() != 0) {
                 os << value.first << " (";
-                for (auto &synonym = synonymes.begin(); synonym != synonymes.end(); synonym++) {
+                for (auto synonym = synonymes.begin(); synonym != synonymes.end(); synonym++) {
                     if (synonym != synonymes.begin()) {
                         os << ", ";
                     }
@@ -701,6 +701,18 @@ OptionsCont::getTypeName(const std::string name) {
 const std::string&
 OptionsCont::getFullName() const {
     return myFullName;
+}
+
+
+std::map<std::string, Option*>::iterator
+OptionsCont::begin() {
+    return myValues.begin();
+}
+
+
+std::map<std::string, Option*>::iterator
+OptionsCont::end() {
+    return myValues.end();
 }
 
 

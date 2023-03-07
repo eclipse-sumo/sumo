@@ -616,6 +616,12 @@ public:
     /// @brief get options full name
     const std::string& getFullName() const;
 
+    /// @brief const begin element
+    std::map<std::string, Option*>::iterator begin();
+
+    /// @brief end element
+    std::map<std::string, Option*>::iterator end();
+
 private:
     /** @brief Returns the named option
      *
@@ -688,8 +694,8 @@ private:
     bool myWriteLicense;
 
     /// @brief invalid copy constructor
-    OptionsCont(const OptionsCont& s);
+    OptionsCont(const OptionsCont& s) = delete;
 
     /// @brief invalid assignment operator
-    OptionsCont& operator=(const OptionsCont& s);
+    OptionsCont& operator=(const OptionsCont& s) = delete;
 };
