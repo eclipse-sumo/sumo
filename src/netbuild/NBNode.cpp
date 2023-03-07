@@ -1336,7 +1336,7 @@ NBNode::computeLanes2Lanes() {
                 in->setConnection(i + inOffset - outOffset, out, i, NBEdge::Lane2LaneInfoType::COMPUTED);
             }
             //std::cout << " special case f at node=" << getID() << " inOffset=" << inOffset << " outOffset=" << outOffset << "\n";
-            if (out->getSpecialLane(SVC_BICYCLE) >= 0) {
+            if (out->getSpecialLane(SVC_BICYCLE) >= 0 || (out->getPermissions() & SVC_TRAM) != 0) {
                 recheckVClassConnections(out);
             }
             return;
@@ -1453,7 +1453,7 @@ NBNode::computeLanes2Lanes() {
 
 void
 NBNode::recheckVClassConnections(NBEdge* currentOutgoing) {
-    int bikeLaneTarget = currentOutgoing->getSpecialLane(SVC_BICYCLE);
+    const int bikeLaneTarget = currentOutgoing->getSpecialLane(SVC_BICYCLE);
 
     // ensure that all modes have a connection if possible
     for (NBEdge* incoming : myIncomingEdges) {
@@ -1558,7 +1558,7 @@ NBNode::recheckVClassConnections(NBEdge* currentOutgoing) {
                     && incoming->getConnectionsFromLane(-1, currentOutgoing, bikeLaneTarget).size() == 0) {
                 // find origin lane that allows bicycles
                 int start = 0;
-                int end = (int)incoming->getNumLanes();
+                int end = incoming->getNumLanes();
                 int inc = 1;
                 if (dir == LinkDirection::TURN || dir == LinkDirection::LEFT || dir == LinkDirection::PARTLEFT) {
                     std::swap(start, end);
