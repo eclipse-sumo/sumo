@@ -111,14 +111,26 @@ Option::getValueString() const {
 
 
 bool
-Option::isBool() const {
+Option::isDefault() const {
+    return myHaveTheDefaultValue;
+}
+
+
+bool
+Option::isInteger() const {
     return false;
 }
 
 
 bool
-Option::isDefault() const {
-    return myHaveTheDefaultValue;
+Option::isFloat() const {
+    return false;
+}
+
+
+bool
+Option::isBool() const {
+    return false;
 }
 
 
@@ -192,6 +204,12 @@ Option_Integer::set(const std::string& v, const std::string& orig, const bool /*
     }
 }
 
+
+bool
+Option_Integer::isInteger() const {
+    return true;
+}
+
 // -------------------------------------------------------------------------
 // Option_String - methods
 // -------------------------------------------------------------------------
@@ -250,6 +268,12 @@ Option_Float::set(const std::string& v, const std::string& orig, const bool /* a
     } catch (...) {
         throw ProcessError(TLF("'%' is not a valid float.", v));
     }
+}
+
+
+bool
+Option_Float::isFloat() const {
+    return true;
 }
 
 // -------------------------------------------------------------------------

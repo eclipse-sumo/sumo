@@ -165,6 +165,28 @@ public:
      * @return The stored value encoded into a string-
      */
     const std::string& getValueString() const;
+    
+    /** @brief Returns the information whether the option holds the default value
+    *
+    * @return true if the option was not set from command line / configuration, false otherwise
+    */
+    virtual bool isDefault() const;
+
+    /** @brief Returns the information whether the option is a int option
+    *
+    * Returns false. Only Option_Integer overrides this method returning true.
+    *
+    * @return true if the Option is an Option_Integer, false otherwise
+    */
+    virtual bool isInteger() const;
+
+    /** @brief Returns the information whether the option is a float option
+    *
+    * Returns false. Only Option_Float overrides this method returning true.
+    *
+    * @return true if the Option is an Option_Float, false otherwise
+    */
+    virtual bool isFloat() const;
 
     /** @brief Returns the information whether the option is a bool option
      *
@@ -173,12 +195,6 @@ public:
      * @return true if the Option is an Option_Bool, false otherwise
      */
     virtual bool isBool() const;
-
-    /** @brief Returns the information whether the option holds the default value
-     *
-     * @return true if the option was not set from command line / configuration, false otherwise
-     */
-    virtual bool isDefault() const;
 
     /** @brief Returns the information whether this option is a file name
      *
@@ -311,6 +327,14 @@ public:
      */
     bool set(const std::string& v, const std::string& orig, const bool append);
 
+    /** @brief Returns the information whether the option is a int option
+    *
+    * Returns false. Only Option_Integer overrides this method returning true.
+    *
+    * @return true if the Option is an Option_Integer, false otherwise
+    */
+    bool isInteger() const;
+
 private:
     /// @brief the value, valid only when the base-classes "myAmSet"-member is true
     int myValue;
@@ -398,6 +422,14 @@ public:
      * @exception InvalidArgument If the value could not be converted into a double
      */
     bool set(const std::string& v, const std::string& orig, const bool append);
+
+    /** @brief Returns the information whether the option is a float option
+    *
+    * Returns false. Only Option_Float overrides this method returning true.
+    *
+    * @return true if the Option is an Option_Float, false otherwise
+    */
+    bool isFloat() const;
 
 private:
     /// @brief the value, valid only when the base-classes "myAmSet"-member is true
