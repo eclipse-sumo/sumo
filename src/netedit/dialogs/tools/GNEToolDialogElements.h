@@ -111,12 +111,12 @@ public:
         FileNameArgument& operator=(const FileNameArgument&) = delete;
     };
 
-    /// @brief filename
+    /// @brief string
     class StringArgument : protected FXHorizontalFrame, public Argument {
 
     public:
         /// @brief constructor
-        StringArgument(GNEToolDialog* toolDialogParent, const std::string name, const Option* option);
+        StringArgument(GNEToolDialog* toolDialogParent, const std::string name, const Option* option, const int type = 0);
 
         /// @brief get label
         FXLabel* getNameLabel();
@@ -127,17 +127,48 @@ public:
         /// get argument (parameter and value)
         std::string getArgument() const;
 
+    protected:
+        /// @brief string Textfield
+        FXTextField* myStringTextField = nullptr;
+
     private:
         /// @brief label name
         FXLabel* myNameLabel = nullptr;
-
-        /// @brief string Textfield
-        FXTextField* myStringTextField = nullptr;
 
         /// @brief Invalidated copy constructor.
         StringArgument(const StringArgument&) = delete;
 
         /// @brief Invalidated assignment operator.
         StringArgument& operator=(const StringArgument&) = delete;
+    };
+
+    /// @brief int
+    class IntArgument : protected StringArgument {
+
+    public:
+        /// @brief constructor
+        IntArgument(GNEToolDialog* toolDialogParent, const std::string name, const Option* option);
+
+    private:
+        /// @brief Invalidated copy constructor.
+        IntArgument(const IntArgument&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        IntArgument& operator=(const IntArgument&) = delete;
+    };
+
+    /// @brief float
+    class FloatArgument : protected StringArgument {
+
+    public:
+        /// @brief constructor
+        FloatArgument(GNEToolDialog* toolDialogParent, const std::string name, const Option* option);
+
+    private:
+        /// @brief Invalidated copy constructor.
+        FloatArgument(const IntArgument&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        FloatArgument& operator=(const IntArgument&) = delete;
     };
 };

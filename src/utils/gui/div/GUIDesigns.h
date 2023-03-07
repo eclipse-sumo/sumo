@@ -71,6 +71,9 @@ class MFXMenuCheckIcon;
 /// @brief text field with fixed width and restricted to reals (used in decal table)
 #define GUIDesignTextFieldTickedFixWidthReal    (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | JUSTIFY_CENTER_X | JUSTIFY_CENTER_Y | TEXTFIELD_REAL), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
 
+/// @brief text field used in tools
+#define GUIDesignTextFieldTools(type)           (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | type), 0, 0, 50, GUIDesignHeight, 2, 2, 2, 2
+
 /// @brief Num of column of text field
 #define GUIDesignTextFieldNCol          1
 

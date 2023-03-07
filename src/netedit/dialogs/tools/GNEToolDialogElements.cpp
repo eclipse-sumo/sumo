@@ -63,7 +63,8 @@ GNEToolDialogElements::Argument::Argument():
 // GNEToolDialogElements::FileNameArgument - methods
 // ---------------------------------------------------------------------------
 
-GNEToolDialogElements::FileNameArgument::FileNameArgument(GNEToolDialog* toolDialogParent, const std::string name, const Option* option) :
+GNEToolDialogElements::FileNameArgument::FileNameArgument(GNEToolDialog* toolDialogParent, 
+        const std::string name, const Option* option) :
     FXHorizontalFrame(toolDialogParent->getContentFrame(), GUIDesignAuxiliarHorizontalFrame),
     Argument(name, option) {
     // create label with name
@@ -96,16 +97,17 @@ GNEToolDialogElements::FileNameArgument::getArgument() const {
 }
 
 // ---------------------------------------------------------------------------
-// GNEToolDialogElements::FileNameArgument - methods
+// GNEToolDialogElements::StringArgument - methods
 // ---------------------------------------------------------------------------
 
-GNEToolDialogElements::StringArgument::StringArgument(GNEToolDialog* toolDialogParent, const std::string name, const Option* option) :
+GNEToolDialogElements::StringArgument::StringArgument(GNEToolDialog* toolDialogParent, 
+        const std::string name, const Option* option, const int type) :
     FXHorizontalFrame(toolDialogParent->getContentFrame(), GUIDesignAuxiliarHorizontalFrame),
     Argument(name, option) {
     // create label with name
     myNameLabel = new FXLabel(this, name.c_str(), nullptr, GUIDesignLabelThick150);
     // create text field for filename
-    myStringTextField = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFielWidth50);
+    myStringTextField = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldTools(type));
     // create label with name
     new FXLabel(this, option->getDescription().c_str(), nullptr, GUIDesignLabelThick150);
 }
@@ -126,6 +128,22 @@ GNEToolDialogElements::StringArgument::reset() {
 std::string
 GNEToolDialogElements::StringArgument::getArgument() const {
     return "";
+}
+
+// ---------------------------------------------------------------------------
+// GNEToolDialogElements::IntArgument - methods
+// ---------------------------------------------------------------------------
+
+GNEToolDialogElements::IntArgument::IntArgument(GNEToolDialog* toolDialogParent, const std::string name, const Option* option) :
+    StringArgument(toolDialogParent, name, option, TEXTFIELD_INTEGER) {
+}
+
+// ---------------------------------------------------------------------------
+// GNEToolDialogElements::FloatArgument - methods
+// ---------------------------------------------------------------------------
+
+GNEToolDialogElements::FloatArgument::FloatArgument(GNEToolDialog* toolDialogParent, const std::string name, const Option* option) :
+    StringArgument(toolDialogParent, name, option, TEXTFIELD_REAL) {
 }
 
 /****************************************************************************/
