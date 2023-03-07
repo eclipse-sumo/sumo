@@ -126,7 +126,6 @@ GNEToolDialog::onCmdReset(FXObject*, FXSelector, void*) {
 
 void
 GNEToolDialog::buildArguments() {
-    int i = 4;
     // iterate over options
     for (const auto &option : myToolsOptions) {
         if (option.second->isInteger()) {
@@ -140,9 +139,9 @@ GNEToolDialog::buildArguments() {
         } else {
             myArguments.push_back(new GNEToolDialogElements::StringArgument(this, option.first, option.second));
         }
-        i++;
     }
-    myContentFrame->setHeight(GUIDesignHeight * i);
+    // set content frame size
+    myContentFrame->setHeight(GUIDesignHeight * myToolsOptions.size());
 }
 
 /****************************************************************************/

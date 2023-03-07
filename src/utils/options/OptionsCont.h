@@ -616,11 +616,14 @@ public:
     /// @brief get options full name
     const std::string& getFullName() const;
 
-    /// @brief const begin element
-    std::map<std::string, Option*>::iterator begin();
+    /// @brief get begin option
+    std::map<std::string, Option*>::const_iterator begin() const;
 
-    /// @brief end element
-    std::map<std::string, Option*>::iterator end();
+    /// @brief get end option
+    std::map<std::string, Option*>::const_iterator end() const;
+
+    /// @brief get number of options
+    size_t size() const;
 
 private:
     /** @brief Returns the named option

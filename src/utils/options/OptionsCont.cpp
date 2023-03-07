@@ -704,15 +704,21 @@ OptionsCont::getFullName() const {
 }
 
 
-std::map<std::string, Option*>::iterator
-OptionsCont::begin() {
-    return myValues.begin();
+std::map<std::string, Option*>::const_iterator
+OptionsCont::begin() const {
+    return myValues.cbegin();
 }
 
 
-std::map<std::string, Option*>::iterator
-OptionsCont::end() {
-    return myValues.end();
+std::map<std::string, Option*>::const_iterator
+OptionsCont::end() const {
+    return myValues.cend();
+}
+
+
+size_t
+OptionsCont::size() const {
+    return myValues.size();
 }
 
 
