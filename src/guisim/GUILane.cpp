@@ -927,7 +927,7 @@ GUILane::debugDrawFoeIntersections() const {
     if (foeLanes.size() == conflicts.size()) {
         for (int i = 0; i < (int)foeLanes.size(); ++i) {
             const MSLane* l = foeLanes[i];
-            Position pos = l->geometryPositionAtOffset(l->getLength() - conflicts[i].foeLengthBehindCrossing);
+            Position pos = l->geometryPositionAtOffset(l->getLength() - conflicts[i].lengthBehindCrossing);
             PositionVector ortho = l->getShape().getOrthogonal(pos, 10, true, orthoLength);
             if (ortho.length() < orthoLength) {
                 ortho.extrapolate(orthoLength - ortho.length(), false, true);

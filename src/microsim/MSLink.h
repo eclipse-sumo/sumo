@@ -165,22 +165,34 @@ public:
     typedef std::map<const SUMOVehicle*, const ApproachingVehicleInformation, ComparatorNumericalIdLess> ApproachInfos;
     typedef std::vector<const SUMOVehicle*> BlockingFoes;
 
+    enum ConflictFlag {
+        CONFLICT_DEFAULT,
+        CONFLICT_DUMMY_MERGE,
+        CONFLICT_NO_INTERSECTION,
+        CONFLICT_STOP_AT_INTERNAL_JUNCTION
+    };
+
     /// @brief pre-computed information for conflict points
     struct ConflictInfo {
 
-        ConflictInfo(double lbc, double flbc, double wf = 1) :
+        ConflictInfo(double lbc, double wf = 1, ConflictFlag fl = CONFLICT_DEFAULT) :
+            foeConflictIndex(-1),
             lengthBehindCrossing(lbc),
-            foeLengthBehindCrossing(flbc),
-            widthFactor(wf)
+            widthFactor(wf),
+            flag(fl)
         {}
-
+        /// @brief the conflict from the perspective of the foe
+        int foeConflictIndex;
         /// @brief length of internal lane after the crossing point
         double lengthBehindCrossing;
-        /// @brief length of foe internal lane after the crossing point
-        double foeLengthBehindCrossing;
         /* @brief factor for applying to the width of foe vehicles when
          * computing conflict space (due to angle of incidence below 90 degrees) */
         double widthFactor;
+
+        ConflictFlag flag;
+
+        double getFoeLengthBehindCrossing(const MSLink* foeExitLink) const;
+        double getLengthBehindCrossing(const MSLink* exitLink) const;
     };
 
     /** @brief Constructor for simulation which uses internal lanes
@@ -633,6 +645,9 @@ public:
     /// @brief get string description for this link
     std::string  getDescription() const;
 
+    /// @brief post-processing for legacy networks
+    static void recheckSetRequestInformation();
+
 private:
     /// @brief return whether the given vehicles may NOT merge safely
     static inline bool unsafeMergeSpeeds(double leaderSpeed, double followerSpeed, double leaderDecel, double followerDecel) {
@@ -785,6 +800,9 @@ private:
 
     static const SUMOTime myLookaheadTime;
     static const SUMOTime myLookaheadTimeZipper;
+
+    /// @brief links that need post processing after initialization (to deal with legacy networks)
+    static std::set<std::pair<MSLink*, MSLink*> > myRecheck;
 
     MSLink* myParallelRight;
     MSLink* myParallelLeft;

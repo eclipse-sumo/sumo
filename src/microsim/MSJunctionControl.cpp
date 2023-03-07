@@ -24,6 +24,7 @@
 #include <algorithm>
 #include "MSInternalJunction.h"
 #include "MSJunctionControl.h"
+#include "MSLink.h"
 
 
 // ===========================================================================
@@ -51,6 +52,7 @@ MSJunctionControl::postloadInitContainer() {
             i.second->postloadInit();
         }
     }
+    MSLink::recheckSetRequestInformation();
 }
 
 
