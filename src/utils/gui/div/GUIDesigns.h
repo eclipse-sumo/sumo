@@ -635,6 +635,9 @@ class MFXMenuCheckIcon;
 /// @brief design for dialog box with specift width and height that can be stretched (But not shrinked)
 #define GUIDesignDialogBoxExplicitStretchable(width, height)    (DECOR_CLOSE | DECOR_TITLE | LAYOUT_EXPLICIT | DECOR_STRETCHABLE), 0, 0, width, height, 4, 4, 4, 4, 4, 4
 
+/// @brief design for dialog box for tools
+#define GUIDesignDialogBoxTools                                 (DECOR_CLOSE | DECOR_TITLE), 0, 0, 0, 0, 4, 4, 4, 4, 4, 4
+
 /// @}
 
 

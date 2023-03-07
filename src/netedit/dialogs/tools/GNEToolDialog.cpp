@@ -30,9 +30,10 @@
 // ===========================================================================
 
 FXDEFMAP(GNEToolDialog) GNEToolDialogMap[] = {
+    FXMAPFUNC(SEL_CLOSE,    0,                      GNEToolDialog::onCmdCancel),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_RUN,     GNEToolDialog::onCmdRun),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_CANCEL,  GNEToolDialog::onCmdCancel),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_RESET,   GNEToolDialog::onCmdReset),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_RESET,   GNEToolDialog::onCmdReset)
 };
 
 // Object implementation
@@ -44,14 +45,14 @@ FXIMPLEMENT(GNEToolDialog, FXTopWindow, GNEToolDialogMap, ARRAYNUMBER(GNEToolDia
 
 GNEToolDialog::GNEToolDialog(GNEApplicationWindow* GNEApp, const std::string& name, const std::string& templateToolStr) :
     FXTopWindow(GNEApp->getApp(), name.c_str(), GUIIconSubSys::getIcon(GUIIcon::EMPTY), 
-        GUIIconSubSys::getIcon(GUIIcon::EMPTY), GUIDesignDialogBoxExplicit(400, 400)),
+        GUIIconSubSys::getIcon(GUIIcon::EMPTY), GUIDesignDialogBoxTools),
     myGNEApp(GNEApp) {
     // parse tool options
     TemplateHandler::parseTemplate(myToolsOptions, templateToolStr);
     // create main frame
     FXVerticalFrame* mainFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrame);
     // build horizontalFrame for content
-    myContentFrame = new FXVerticalFrame(mainFrame, GUIDesignContentsFrame);
+    myContentFrame = new FXVerticalFrame(mainFrame, GUIDesignAuxiliarFrame);
     // build arguments
     buildArguments();
     // add separator
@@ -70,22 +71,22 @@ GNEToolDialog::~GNEToolDialog() {}
 
 
 void
-GNEToolDialog::openToolDialog() {
+GNEToolDialog::show() {
     // show dialog
-    show(PLACEMENT_SCREEN);
+    FXTopWindow::show(PLACEMENT_SCREEN);
+    // refresh APP
+    getApp()->refresh();
     // open as modal dialog (will block all windows until stop() or stopModal() is called)
     myGNEApp->getApp()->runModalFor(this);
 }
 
 
 void
-GNEToolDialog::hideToolDialog() {
-}
-
-
-bool
-GNEToolDialog::shown() const {
-    return FXWindow::shown();
+GNEToolDialog::hide() {
+    // stop modal
+    myGNEApp->getApp()->stopModal(this);
+    // hide dialog
+    FXTopWindow::hide();
 }
 
 
@@ -99,9 +100,7 @@ long
 GNEToolDialog::onCmdRun(FXObject*, FXSelector, void*) {
     // RUN
 
-    // stop modal
-    myGNEApp->getApp()->stopModal(this);
-    // hide dialog
+    // hide tool dialog
     hide();
     return 1;
 }
@@ -109,9 +108,7 @@ GNEToolDialog::onCmdRun(FXObject*, FXSelector, void*) {
 
 long
 GNEToolDialog::onCmdCancel(FXObject*, FXSelector, void*) {
-    // stop modal
-    myGNEApp->getApp()->stopModal(this);
-    // hide dialog
+    // just hide tool dialog
     hide();
     return 1;
 }
@@ -124,19 +121,6 @@ GNEToolDialog::onCmdReset(FXObject*, FXSelector, void*) {
         argument->reset();
     }
     return 1;
-}
-
-
-FXint
-GNEToolDialog::openAsModalDialog(FXuint placement) {
-    // create Dialog
-    create();
-    // show in the given position
-    show(placement);
-    // refresh APP
-    getApp()->refresh();
-    // open as modal dialog (will block all windows until stop() or stopModal() is called)
-    return getApp()->runModalFor(this);
 }
 
 
@@ -158,7 +142,7 @@ GNEToolDialog::buildArguments() {
         }
         i++;
     }
-    setHeight(GUIDesignHeight * i);
+    myContentFrame->setHeight(GUIDesignHeight * i);
 }
 
 /****************************************************************************/

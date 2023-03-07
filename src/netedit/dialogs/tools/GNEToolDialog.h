@@ -50,13 +50,10 @@ public:
     ~GNEToolDialog();
 
     /// @brief open window
-    void openToolDialog();
+    void show();
 
     /// @brief hide window
-    void hideToolDialog();
-
-    /// @brief shown
-    bool shown() const;
+    void hide();
 
     /// @brief get vertical frame for contents
     FXVerticalFrame* getContentFrame() const;
@@ -79,9 +76,6 @@ protected:
     /// @brief FOX needs this
     FOX_CONSTRUCTOR(GNEToolDialog)
     
-    /// @brief execute dialog as modal
-    FXint openAsModalDialog(FXuint placement = PLACEMENT_CURSOR);
-
     /// @brief build arguments
     void buildArguments();
 

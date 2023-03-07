@@ -1129,7 +1129,7 @@ GNEApplicationWindow::onCmdLocate(FXObject*, FXSelector sel, void*) {
 long
 GNEApplicationWindow::onCmdToolNetDiff(FXObject*, FXSelector, void*) {
     // open tool diff dialog
-    myToolsMenuCommands.netDiffTool->openToolDialog();
+    myToolsMenuCommands.netDiffTool->show();
     return 1;
 }
 
@@ -1137,7 +1137,7 @@ GNEApplicationWindow::onCmdToolNetDiff(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdToolGenerateRerouters(FXObject*, FXSelector, void*) {
     // open generate rerouter dialog
-    myToolsMenuCommands.generateReroutersTool->openToolDialog();
+    myToolsMenuCommands.generateReroutersTool->show();
     return 1;
 }
 
@@ -1145,7 +1145,7 @@ GNEApplicationWindow::onCmdToolGenerateRerouters(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdToolAddStop2Routes(FXObject*, FXSelector, void*) {
     // open add stops to routes dialog
-    myToolsMenuCommands.addStops2RoutesTool->openToolDialog();
+    myToolsMenuCommands.addStops2RoutesTool->show();
     return 1;
 }
 
