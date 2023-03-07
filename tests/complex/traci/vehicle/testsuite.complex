@@ -1,3 +1,6 @@
+# test retrieval of upcoming links
+getNextLinks
+
 # test accessing the ssm device
 ssm
 
