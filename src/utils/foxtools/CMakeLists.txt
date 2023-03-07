@@ -13,8 +13,6 @@ set(utils_foxtools_STAT_SRCS
    MFXCheckableButton.h
    MFXComboBox.cpp
    MFXComboBox.h
-   MFXEditableTable.cpp
-   MFXEditableTable.h
    MFXGroupBoxModule.cpp
    MFXGroupBoxModule.h
    MFXComboBoxIcon.cpp
