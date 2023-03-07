@@ -598,7 +598,7 @@ GUIViewTraffic::showLaneReachability(GUILane* lane, FXObject* menu, FXSelector) 
             for (MSLane* const l : e->getLanes()) {
                 if (l->allowsVehicleClass(svc)) {
                     GUILane* gLane = dynamic_cast<GUILane*>(l);
-                    gSelected.select(gLane->getGlID());
+                    gSelected.select(gLane->getGlID(), false);
                     gLane->setReachability(traveltime);
                 }
             }
@@ -614,6 +614,7 @@ GUIViewTraffic::showLaneReachability(GUILane* lane, FXObject* menu, FXSelector) 
                 }
             }
         }
+        gSelected.notifyChanged();
     }
     return 1;
 }

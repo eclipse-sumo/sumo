@@ -174,6 +174,9 @@ public:
      */
     void clear();
 
+    /// @brief inform the update target of earlier changes
+    void notifyChanged();
+
     /** @brief Loads a selection list (optionally with restricted type)
      *
      * @param[in] filename The name of the file to load the list of selected objects from

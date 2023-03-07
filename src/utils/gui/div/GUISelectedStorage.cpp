@@ -184,6 +184,14 @@ GUISelectedStorage::clear() {
 }
 
 
+void
+GUISelectedStorage::notifyChanged() {
+    if (myUpdateTarget) {
+        myUpdateTarget->selectionUpdated();
+    }
+}
+
+
 std::set<GUIGlID>
 GUISelectedStorage::loadIDs(const std::string& filename, std::string& msgOut, GUIGlObjectType type, int maxErrors) {
     std::set<GUIGlID> result;
