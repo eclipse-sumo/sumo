@@ -49,6 +49,9 @@ public:
         /// @brief destructor
         virtual ~Argument();
 
+        /// @brief get label
+        virtual FXLabel* getNameLabel() = 0;
+
         /// @brief reset to default value
         virtual void reset() = 0;
 
@@ -76,26 +79,31 @@ public:
     };
 
     /// @brief filename
-    class FileNameArgument : protected FXVerticalFrame, public Argument {
+    class FileNameArgument : protected FXHorizontalFrame, public Argument {
 
     public:
         /// @brief constructor
         FileNameArgument(GNEToolDialog* toolDialogParent, const std::string name, const Option* option);
-
-        /// get argument (parameter and value)
-        std::string getArgument() const;
+        
+        /// @brief get label
+        FXLabel* getNameLabel();
 
         /// @brief reset argument values
         void reset();
 
-    protected:
+        /// get argument (parameter and value)
+        std::string getArgument() const;
+
+    private:
+        /// @brief label name
+        FXLabel* myNameLabel = nullptr;
+
         /// @brief filename button
         FXButton* myFilenameButton = nullptr;
 
         /// @brief filename Textfield
         FXTextField* myFilenameTextField = nullptr;
 
-    private:
         /// @brief Invalidated copy constructor.
         FileNameArgument(const FileNameArgument&) = delete;
 
@@ -103,18 +111,33 @@ public:
         FileNameArgument& operator=(const FileNameArgument&) = delete;
     };
 
-    /// @brief separator
-    class Separator : protected FXVerticalFrame {
+    /// @brief filename
+    class StringArgument : protected FXHorizontalFrame, public Argument {
 
     public:
         /// @brief constructor
-        Separator(FXComposite* parent, const std::string name);
+        StringArgument(GNEToolDialog* toolDialogParent, const std::string name, const Option* option);
+
+        /// @brief get label
+        FXLabel* getNameLabel();
+
+        /// @brief reset argument values
+        void reset();
+
+        /// get argument (parameter and value)
+        std::string getArgument() const;
 
     private:
+        /// @brief label name
+        FXLabel* myNameLabel = nullptr;
+
+        /// @brief string Textfield
+        FXTextField* myStringTextField = nullptr;
+
         /// @brief Invalidated copy constructor.
-        Separator(const Separator&) = delete;
+        StringArgument(const StringArgument&) = delete;
 
         /// @brief Invalidated assignment operator.
-        Separator& operator=(const Separator&) = delete;
+        StringArgument& operator=(const StringArgument&) = delete;
     };
 };

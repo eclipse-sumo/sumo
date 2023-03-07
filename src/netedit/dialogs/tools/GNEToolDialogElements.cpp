@@ -31,6 +31,10 @@
 // member method definitions
 // ===========================================================================
 
+// ---------------------------------------------------------------------------
+// GNEToolDialogElements::Argument - methods
+// ---------------------------------------------------------------------------
+
 GNEToolDialogElements::Argument::Argument(const std::string &name, const Option* option) :
     myName(name),
     myOption(option) {
@@ -55,21 +59,28 @@ GNEToolDialogElements::Argument::getOption() const {
 GNEToolDialogElements::Argument::Argument():
     myOption(nullptr) {}
 
+// ---------------------------------------------------------------------------
+// GNEToolDialogElements::FileNameArgument - methods
+// ---------------------------------------------------------------------------
 
 GNEToolDialogElements::FileNameArgument::FileNameArgument(GNEToolDialog* toolDialogParent, const std::string name, const Option* option) :
-    FXVerticalFrame(toolDialogParent->getContentFrame(), GUIDesignAuxiliarHorizontalFrame),
+    FXHorizontalFrame(toolDialogParent->getContentFrame(), GUIDesignAuxiliarHorizontalFrame),
     Argument(name, option) {
-    new FXLabel(this, name.c_str(), nullptr, GUIDesignLabelLeftThick);
+    // create label with name
+    myNameLabel = new FXLabel(this, name.c_str(), nullptr, GUIDesignLabelThick150);
     // Create Open button
-    auto horizontalFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    myFilenameButton = new FXButton(horizontalFrame, (std::string("\t\t") + TL("Select filename")).c_str(), GUIIconSubSys::getIcon(GUIIcon::OPEN_NET), this, FXDialogBox::ID_ACCEPT, GUIDesignButtonIcon);
-    myFilenameTextField = new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    myFilenameButton = new FXButton(this, (std::string("\t\t") + TL("Select filename")).c_str(), 
+        GUIIconSubSys::getIcon(GUIIcon::OPEN_NET), this, FXDialogBox::ID_ACCEPT, GUIDesignButtonIcon);
+    // create text field for filename
+    myFilenameTextField = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFielWidth50);
+    // create label with name
+    new FXLabel(this, option->getDescription().c_str(), nullptr, GUIDesignLabelThick150);
 }
 
 
-std::string
-GNEToolDialogElements::FileNameArgument::getArgument() const {
-    return "";
+FXLabel*
+GNEToolDialogElements::FileNameArgument::getNameLabel() {
+    return myNameLabel;
 }
 
 
@@ -79,9 +90,42 @@ GNEToolDialogElements::FileNameArgument::reset() {
 }
 
 
-GNEToolDialogElements::Separator::Separator(FXComposite* parent, const std::string name) :
-    FXVerticalFrame(parent, GUIDesignAuxiliarHorizontalFrame) {
-    new FXLabel(this, name.c_str(), nullptr, GUIDesignLabelCenterThick);
+std::string
+GNEToolDialogElements::FileNameArgument::getArgument() const {
+    return "";
+}
+
+// ---------------------------------------------------------------------------
+// GNEToolDialogElements::FileNameArgument - methods
+// ---------------------------------------------------------------------------
+
+GNEToolDialogElements::StringArgument::StringArgument(GNEToolDialog* toolDialogParent, const std::string name, const Option* option) :
+    FXHorizontalFrame(toolDialogParent->getContentFrame(), GUIDesignAuxiliarHorizontalFrame),
+    Argument(name, option) {
+    // create label with name
+    myNameLabel = new FXLabel(this, name.c_str(), nullptr, GUIDesignLabelThick150);
+    // create text field for filename
+    myStringTextField = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFielWidth50);
+    // create label with name
+    new FXLabel(this, option->getDescription().c_str(), nullptr, GUIDesignLabelThick150);
+}
+
+
+FXLabel*
+GNEToolDialogElements::StringArgument::getNameLabel() {
+    return myNameLabel;
+}
+
+
+void
+GNEToolDialogElements::StringArgument::reset() {
+    myStringTextField->setText("");
+}
+
+
+std::string
+GNEToolDialogElements::StringArgument::getArgument() const {
+    return "";
 }
 
 /****************************************************************************/
