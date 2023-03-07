@@ -47,7 +47,7 @@ jobs:
         cd jpscore-build
         cmake -DCMAKE_PREFIX_PATH=%CD%/../jpscore-deps/x64-windows -DCMAKE_INSTALL_PREFIX=%CD%/../jpscore-install -DBUILD_JPSVIS=OFF ../jpscore
         cmake --build . --config Release
-        cmake --install .
+        cmake --install . --config Release
 
     - name: Uploading release artifacts
       uses: actions/upload-artifact@v3
@@ -63,7 +63,7 @@ jobs:
         cd jpscore-build-debug
         cmake -DCMAKE_PREFIX_PATH=%CD%/../jpscore-deps/x64-windows -DCMAKE_INSTALL_PREFIX=%CD%/../jpscore-install-debug -DBUILD_JPSVIS=OFF ../jpscore
         cmake --build . --config Debug
-        cmake --install .
+        cmake --install . --config Debug
 
     - name: Uploading debug artifacts
       uses: actions/upload-artifact@v3
