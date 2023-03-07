@@ -37,6 +37,7 @@
 #include "MSDevice_SSM.h"
 #include "MSDevice_ToC.h"
 #include "MSDevice_DriverState.h"
+#include "MSDevice_PerIvan.h"
 #include "MSDevice_Bluelight.h"
 #include "MSDevice_FCD.h"
 #include "MSDevice_Taxi.h"
@@ -77,6 +78,7 @@ MSDevice::insertOptions(OptionsCont& oc) {
     MSDevice_SSM::insertOptions(oc);
     MSDevice_ToC::insertOptions(oc);
     MSDevice_DriverState::insertOptions(oc);
+    MSDevice_PerIvan::insertOptions(oc);
     MSDevice_Bluelight::insertOptions(oc);
     MSDevice_FCD::insertOptions(oc);
     MSDevice_ElecHybrid::insertOptions(oc);
@@ -114,6 +116,7 @@ MSDevice::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& int
     MSDevice_SSM::buildVehicleDevices(v, into);
     MSDevice_ToC::buildVehicleDevices(v, into);
     MSDevice_DriverState::buildVehicleDevices(v, into);
+    MSDevice_PerIvan::buildVehicleDevices(v, into);
     MSDevice_Bluelight::buildVehicleDevices(v, into);
     MSDevice_FCD::buildVehicleDevices(v, into);
     MSDevice_ElecHybrid::buildVehicleDevices(v, into);

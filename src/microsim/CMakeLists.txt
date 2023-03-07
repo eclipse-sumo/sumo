@@ -81,6 +81,8 @@ set(microsim_STAT_SRCS
    MSStateHandler.cpp
    MSDriverState.h
    MSDriverState.cpp
+   MSPerIvan.h
+   MSPerIvan.cpp
    Command_RouteReplacement.h
    Command_RouteReplacement.cpp
 )

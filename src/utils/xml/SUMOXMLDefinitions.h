@@ -871,6 +871,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_HEADWAY_TIME_CACC_TO_ACC,
     SUMO_ATTR_SC_MIN_GAP,
     SUMO_ATTR_APPLYDRIVERSTATE,
+    SUMO_ATTR_APPLYPERIVAN,
     /// @}
 
 
@@ -1434,6 +1435,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_RNG_DEVICE_BT,
     SUMO_ATTR_RNG_DEVICE_TOC,
     SUMO_ATTR_RNG_DRIVERSTATE,
+    SUMO_ATTR_RNG_PERIVAN,
     // @}
 
     //@name meso edge type attributes

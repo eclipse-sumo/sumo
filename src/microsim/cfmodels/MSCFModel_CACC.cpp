@@ -96,6 +96,7 @@ MSCFModel_CACC::MSCFModel_CACC(const MSVehicleType* vtype) :
     myCollisionAvoidanceGainGapDot(vtype->getParameter().getCFParam(SUMO_ATTR_CA_GAIN_GAP_DOT_CACC, DEFAULT_CA_GAIN_GAP_DOT_CACC)),
     myHeadwayTimeACC(vtype->getParameter().getCFParam(SUMO_ATTR_HEADWAY_TIME_CACC_TO_ACC, DEFAULT_HEADWAYTIME_ACC)),
     myApplyDriverstate(vtype->getParameter().getCFParam(SUMO_ATTR_APPLYDRIVERSTATE, 0)),
+    myApplyPerIvan(vtype->getParameter().getCFParam(SUMO_ATTR_APPLYPERIVAN, 0)),
     myEmergencyThreshold(vtype->getParameter().getCFParam(SUMO_ATTR_CA_OVERRIDE, DEFAULT_EMERGENCY_OVERRIDE_THRESHOLD)),
     mySpeedControlMinGap(vtype->getParameter().getCFParam(SUMO_ATTR_SC_MIN_GAP, DEFAULT_SC_MIN_GAP)) {
     myCollisionMinGapFactor = vtype->getParameter().getCFParam(SUMO_ATTR_COLLISION_MINGAP_FACTOR, 0.1);
@@ -116,6 +117,10 @@ MSCFModel_CACC::freeSpeed(const MSVehicle* const veh, double speed, double seen,
 double
 MSCFModel_CACC::followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const pred, const CalcReason usage) const {
     if (myApplyDriverstate) {
+        applyHeadwayAndSpeedDifferencePerceptionErrors(veh, speed, gap2pred, predSpeed, predMaxDecel, pred);
+    }
+
+    if (myApplyPerIvan) {
         applyHeadwayAndSpeedDifferencePerceptionErrors(veh, speed, gap2pred, predSpeed, predMaxDecel, pred);
     }
 
@@ -151,6 +156,9 @@ MSCFModel_CACC::stopSpeed(const MSVehicle* const veh, const double speed, double
         applyHeadwayPerceptionError(veh, speed, gap);
     }
 
+    if (myApplyPerIvan) {
+        applyHeadwayPerceptionError(veh, speed, gap);
+    }
     // NOTE: This allows return of smaller values than minNextSpeed().
     // Only relevant for the ballistic update: We give the argument headway=TS, to assure that
     // the stopping position is approached with a uniform deceleration also for tau!=TS.

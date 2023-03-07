@@ -52,6 +52,7 @@
 #include <microsim/MSRoute.h>
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSDriverState.h>
+#include <microsim/MSPerIvan.h>
 #include <netload/NLHandler.h>
 #include "MSStateHandler.h"
 
@@ -207,6 +208,9 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             }
             if (attrs.hasAttribute(SUMO_ATTR_RNG_DRIVERSTATE)) {
                 RandHelper::loadState(attrs.getString(SUMO_ATTR_RNG_DRIVERSTATE), OUProcess::getRNG());
+            }
+            if (attrs.hasAttribute(SUMO_ATTR_RNG_PERIVAN)) {
+                RandHelper::loadState(attrs.getString(SUMO_ATTR_RNG_PERIVAN), OUProcess::getRNG());
             }
             if (attrs.hasAttribute(SUMO_ATTR_RNG_DEVICE_TOC)) {
                 RandHelper::loadState(attrs.getString(SUMO_ATTR_RNG_DEVICE_TOC), MSDevice_ToC::getResponseTimeRNG());
@@ -500,6 +504,7 @@ MSStateHandler::saveRNGs(OutputDevice& out) {
     out.writeAttr(SUMO_ATTR_RNG_DEVICE, RandHelper::saveState(MSDevice::getEquipmentRNG()));
     out.writeAttr(SUMO_ATTR_RNG_DEVICE_BT, RandHelper::saveState(MSDevice_BTreceiver::getRNG()));
     out.writeAttr(SUMO_ATTR_RNG_DRIVERSTATE, RandHelper::saveState(OUProcess::getRNG()));
+    out.writeAttr(SUMO_ATTR_RNG_PERIVAN, RandHelper::saveState(OUProcess::getRNG()));
     out.writeAttr(SUMO_ATTR_RNG_DEVICE_TOC, RandHelper::saveState(MSDevice_ToC::getResponseTimeRNG()));
     MSLane::saveRNGStates(out);
     out.closeTag();

@@ -174,6 +174,9 @@ public:
         if (myApplyDriverstate) {
             applyOwnSpeedPerceptionError(veh, result);
         }
+        if (myApplyPerIvan) {
+            applyOwnSpeedPerceptionError(veh, result);
+        }
         return result;
     }
     /// @}
@@ -247,6 +250,7 @@ private:
     double myCollisionAvoidanceGainGapDot;
     double myHeadwayTimeACC;
     double myApplyDriverstate;
+    double myApplyPerIvan;
     double myEmergencyThreshold;
     double mySpeedControlMinGap;
 

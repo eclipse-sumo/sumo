@@ -54,6 +54,7 @@
 #include <microsim/transportables/MSPModel.h>
 #include <microsim/devices/MSDevice_Transportable.h>
 #include <microsim/devices/MSDevice_DriverState.h>
+#include <microsim/devices/MSDevice_PerIvan.h>
 #include <microsim/devices/MSDevice_Friction.h>
 #include <microsim/devices/MSDevice_Vehroutes.h>
 #include <microsim/devices/MSDevice_ElecHybrid.h>
@@ -83,6 +84,7 @@
 #include "MSRoute.h"
 #include "MSLeaderInfo.h"
 #include "MSDriverState.h"
+#include "MSPerIvan.h"
 
 //#define DEBUG_PLAN_MOVE
 //#define DEBUG_PLAN_MOVE_LEADERINFO
@@ -962,6 +964,7 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars, ConstMSRoutePtr route,
     myTimeLoss(0),
     myState(0, 0, 0, 0, 0),
     myDriverState(nullptr),
+    myPerIvan(nullptr),
     myActionStep(true),
     myLastActionTime(0),
     myLane(nullptr),
@@ -1037,6 +1040,7 @@ MSVehicle::initDevices() {
     MSBaseVehicle::initDevices();
     myLaneChangeModel = MSAbstractLaneChangeModel::build(myType->getLaneChangeModel(), *this);
     myDriverState = static_cast<MSDevice_DriverState*>(getDevice(typeid(MSDevice_DriverState)));
+    myPerIvan = static_cast<MSDevice_PerIvan*>(getDevice(typeid(MSDevice_PerIvan)));
     myFrictionDevice = static_cast<MSDevice_Friction*>(getDevice(typeid(MSDevice_Friction)));
 }
 
@@ -2037,6 +2041,11 @@ MSVehicle::planMove(const SUMOTime t, const MSLeaderInfo& ahead, const double le
     if (hasDriverState()) {
         myDriverState->update();
         setActionStepLength(myDriverState->getDriverState()->getActionStepLength(), false);
+    }
+
+    if (hasPerIvan()) {
+        myPerIvan->update();
+        setActionStepLength(myPerIvan->getPerIvan()->getActionStepLength(), false);
     }
 
     if (!checkActionStep(t)) {
@@ -7187,6 +7196,11 @@ MSVehicle::loadPreviousApproaching(MSLink* link, bool setRequest,
 std::shared_ptr<MSSimpleDriverState>
 MSVehicle::getDriverState() const {
     return myDriverState->getDriverState();
+}
+
+std::shared_ptr<MSSimplePerIvan>
+MSVehicle::getPerIvan() const {
+    return myPerIvan->getPerIvan();
 }
 
 

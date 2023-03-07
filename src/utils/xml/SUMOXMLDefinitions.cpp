@@ -577,6 +577,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "tauCACCToACC",                   SUMO_ATTR_HEADWAY_TIME_CACC_TO_ACC },
     { "speedControlMinGap",             SUMO_ATTR_SC_MIN_GAP },
     { "applyDriverState",               SUMO_ATTR_APPLYDRIVERSTATE },
+    { "applyPerIvan",                   SUMO_ATTR_APPLYPERIVAN },
 
     { "trainType",              SUMO_ATTR_TRAIN_TYPE },
 
@@ -986,6 +987,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "device.btreceiver", SUMO_ATTR_RNG_DEVICE_BT },
     { "device.toc",        SUMO_ATTR_RNG_DEVICE_TOC },
     { "driverState",       SUMO_ATTR_RNG_DRIVERSTATE },
+    { "perIvan",           SUMO_ATTR_RNG_PERIVAN },
     // @}
 
     //@name meso edge type attributes
