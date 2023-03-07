@@ -237,6 +237,15 @@
         <xsd:attribute name="nArgs" type="xsd:int" use="required"/>
     </xsd:complexType>
 
+    <xsd:complexType name="conflictType">
+        <xsd:attribute name="from" type="xsd:string" use="required"/>
+        <xsd:attribute name="to" type="xsd:string" use="required"/>
+        <xsd:attribute name="fromLane" type="xsd:nonNegativeInteger" use="required"/>
+        <xsd:attribute name="toLane" type="xsd:nonNegativeInteger" use="required"/>
+        <xsd:attribute name="startPos" type="xsd:float" use="required"/>
+        <xsd:attribute name="endPos" type="xsd:float" use="required"/>
+    </xsd:complexType>
+
     <xsd:complexType name="paramType">
         <xsd:attribute name="key" type="xsd:string" use="required"/>
         <xsd:attribute name="value" type="xsd:string" use="optional"/>
