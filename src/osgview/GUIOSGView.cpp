@@ -375,14 +375,26 @@ GUIOSGView::position(int x, int y, int w, int h) {
 void
 GUIOSGView::updateHUDPosition(int w, int h) {
     // keep the HUD text in the left top corner
+#ifdef DEBUG
+    std::cout << "GUIOSGView::updateHUDPosition() begin" << std::endl;
+#endif
     myHUD->setProjectionMatrixAsOrtho2D(0, w, 0, h);
     myText->setPosition(osg::Vec3d(0., static_cast<double>(height), 0.));
+#ifdef DEBUG
+    std::cout << "GUIOSGView::updateHUDPosition() end" << std::endl;
+#endif
 }
 
 
 void
 GUIOSGView::updateHUDText(const std::string text) {
+#ifdef DEBUG
+    std::cout << "GUIOSGView::updateHUDText(" << text << ") begin" << std::endl;
+#endif
     myText->setText(text, osgText::String::ENCODING_UTF8);
+#ifdef DEBUG
+    std::cout << "GUIOSGView::updateHUDText(" << text << ") end" << std::endl;
+#endif
 }
 
 
