@@ -27,17 +27,16 @@
 #include <exception>
 #include <utils/common/UtilExceptions.h>
 
-
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @typedef IntVector
+
+/**@typedef IntVector
  * @brief Definition of a vector of ints
  */
 typedef std::vector<int> IntVector;
-/**
- * @typedef StringVector
+
+/**@typedef StringVector
  * @brief Definition of a vector of strings
  */
 typedef std::vector<std::string> StringVector;
@@ -71,8 +70,9 @@ typedef std::vector<std::string> StringVector;
  *  stores a man-readable type name for this option.
  */
 class Option {
+
 public:
-    /** destructor */
+    /// @brief destructor
     virtual ~Option();
 
     /** @brief returns the information whether this options holds a valid value
@@ -164,9 +164,7 @@ public:
      *
      * @return The stored value encoded into a string-
      */
-    const std::string& getValueString() const {
-        return myValueString;
-    }
+    const std::string& getValueString() const;
 
     /** @brief Returns the information whether the option is a bool option
      *
@@ -246,7 +244,6 @@ protected:
      */
     bool markSet(const std::string& orig);
 
-protected:
     /** @brief Constructor
      *
      * This constructor should be used by derived classes.
@@ -256,7 +253,6 @@ protected:
      */
     Option(bool set = false);
 
-protected:
     /// @brief A type name for this option (has presets, but may be overwritten)
     std::string myTypeName;
 
@@ -264,29 +260,25 @@ protected:
     std::string myValueString;
 
 private:
-    /** @brief information whether the value is set */
+    /// @brief information whether the value is set
     bool myAmSet;
 
-    /** @brief information whether the value is the default value (is then set) */
+    /// @brief information whether the value is the default value (is then set)
     bool myHaveTheDefaultValue;
 
-    /** @brief information whether the value may be changed */
+    /// @brief information whether the value may be changed
     bool myAmWritable;
 
     /// @brief The description what this option does
     std::string myDescription;
-
 };
 
+// -------------------------------------------------------------------------
+// Option_Integer
+// -------------------------------------------------------------------------
 
-/* -------------------------------------------------------------------------
- * Option_Integer
- * ----------------------------------------------------------------------- */
-/**
- * @class Option_Integer
- * @brief An integer-option
- */
 class Option_Integer : public Option {
+
 public:
     /** @brief Constructor for an option with a default value
      *
@@ -320,15 +312,16 @@ public:
     bool set(const std::string& v, const std::string& orig, const bool append);
 
 private:
-    /** the value, valid only when the base-classes "myAmSet"-member is true */
+    /// @brief the value, valid only when the base-classes "myAmSet"-member is true
     int myValue;
 };
 
+// -------------------------------------------------------------------------
+// Option_String
+// -------------------------------------------------------------------------
 
-/* -------------------------------------------------------------------------
- * Option_String
- * ----------------------------------------------------------------------- */
 class Option_String : public Option {
+
 public:
     /** @brief Constructor for an option with no default value
      *
@@ -364,16 +357,16 @@ public:
     bool set(const std::string& v, const std::string& orig, const bool append);
 
 protected:
-    /** the value, valid only when the base-classes "myAmSet"-member is true */
+    /// @brief the value, valid only when the base-classes "myAmSet"-member is true
     std::string myValue;
-
 };
 
+// -------------------------------------------------------------------------
+// Option_Float
+// -------------------------------------------------------------------------
 
-/* -------------------------------------------------------------------------
- * Option_Float
- * ----------------------------------------------------------------------- */
 class Option_Float : public Option {
+
 public:
     /** @brief Constructor for an option with a default value
      *
@@ -407,15 +400,16 @@ public:
     bool set(const std::string& v, const std::string& orig, const bool append);
 
 private:
-    /** the value, valid only when the base-classes "myAmSet"-member is true */
+    /// @brief the value, valid only when the base-classes "myAmSet"-member is true
     double myValue;
 };
 
+// -------------------------------------------------------------------------
+// Option_Bool
+// -------------------------------------------------------------------------
 
-/* -------------------------------------------------------------------------
- * Option_Bool
- * ----------------------------------------------------------------------- */
 class Option_Bool : public Option {
+
 public:
     /** @brief Constructor for an option with a default value
      *
@@ -431,7 +425,7 @@ public:
      */
     bool getBool() const;
 
-    /** sets the given value (converts it to bool) */
+    /// @brief sets the given value (converts it to bool)
     bool set(const std::string& v, const std::string& orig, const bool append);
 
     /** @brief Returns true, the information whether the option is a bool option
@@ -444,16 +438,16 @@ public:
     bool isBool() const;
 
 protected:
-    /** the value, valid only when the base-classes "myAmSet"-member is true */
+    /// @brief the value, valid only when the base-classes "myAmSet"-member is true
     bool myValue;
 };
 
+// -------------------------------------------------------------------------
+// Option_BoolExtended
+// -------------------------------------------------------------------------
 
-
-/* -------------------------------------------------------------------------
- * Option_BoolExtended
- * ----------------------------------------------------------------------- */
 class Option_BoolExtended : public Option_Bool {
+
 public:
     /** @brief Constructor for an option that can be used without an argument
      * like Option_BoolExtended but which also handles value strings
@@ -464,18 +458,18 @@ public:
      */
     Option_BoolExtended(bool value);
 
-    /** sets the given value (converts it to bool) */
+    /// @brief sets the given value (converts it to bool)
     bool set(const std::string& v, const std::string& orig, const bool append);
 };
 
+// -------------------------------------------------------------------------
+// Option_IntVector
+// -------------------------------------------------------------------------
 
-/* -------------------------------------------------------------------------
- * Option_IntVector
- * ----------------------------------------------------------------------- */
 class Option_IntVector : public Option {
+
 public:
-    /** @brief Constructor for an option with no default value
-     */
+    /// @brief Constructor for an option with no default value
     Option_IntVector();
 
     /** @brief Constructor for an option with a default value
@@ -508,18 +502,18 @@ public:
     bool set(const std::string& v, const std::string& orig, const bool append);
 
 private:
-    /** the value, valid only when the base-classes "myAmSet"-member is true */
+    /// @brief the value, valid only when the base-classes "myAmSet"-member is true
     IntVector myValue;
 };
 
+// -------------------------------------------------------------------------
+// Option_StringVector
+// -------------------------------------------------------------------------
 
-/* -------------------------------------------------------------------------
- * Option_StringVector
- * ----------------------------------------------------------------------- */
 class Option_StringVector : public Option {
+
 public:
-    /** @brief Constructor for an option with no default value
-     */
+    /// @brief Constructor for an option with no default value
     Option_StringVector();
 
     /** @brief Constructor for an option with a default value
@@ -553,18 +547,18 @@ public:
     bool set(const std::string& v, const std::string& orig, const bool append);
 
 private:
-    /** the value, valid only when the base-classes "myAmSet"-member is true */
+    /// @brief the value, valid only when the base-classes "myAmSet"-member is true
     StringVector myValue;
 };
 
+// -------------------------------------------------------------------------
+// Option_FileName
+// -------------------------------------------------------------------------
 
-/* -------------------------------------------------------------------------
- * Option_FileName
- * ----------------------------------------------------------------------- */
 class Option_FileName : public Option_StringVector {
+
 public:
-    /** @brief Constructor for an option with no default value
-     */
+    /// @brief Constructor for an option with no default value
     Option_FileName();
 
     /** @brief Constructor for an option with a default value

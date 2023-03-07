@@ -36,11 +36,16 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-/* -------------------------------------------------------------------------
- * Option - methods
- * ----------------------------------------------------------------------- */
-Option::Option(bool set)
-    : myAmSet(set), myHaveTheDefaultValue(true), myAmWritable(true) {}
+
+// -------------------------------------------------------------------------
+// Option - methods
+// -------------------------------------------------------------------------
+
+Option::Option(bool set) : 
+    myAmSet(set), 
+    myHaveTheDefaultValue(true), 
+    myAmWritable(true) {
+}
 
 
 Option::~Option() {}
@@ -99,6 +104,12 @@ Option::markSet(const std::string& orig) {
 }
 
 
+const std::string&
+Option::getValueString() const {
+    return myValueString;
+}
+
+
 bool
 Option::isBool() const {
     return false;
@@ -152,12 +163,13 @@ Option::getTypeName() const {
     return myTypeName;
 }
 
+// -------------------------------------------------------------------------
+// Option_Integer - methods
+// -------------------------------------------------------------------------
 
-/* -------------------------------------------------------------------------
- * Option_Integer - methods
- * ----------------------------------------------------------------------- */
-Option_Integer::Option_Integer(int value)
-    : Option(true), myValue(value) {
+Option_Integer::Option_Integer(int value) :
+    Option(true), 
+    myValue(value) {
     myTypeName = "INT";
     myValueString = toString(value);
 }
@@ -180,18 +192,19 @@ Option_Integer::set(const std::string& v, const std::string& orig, const bool /*
     }
 }
 
+// -------------------------------------------------------------------------
+// Option_String - methods
+// -------------------------------------------------------------------------
 
-/* -------------------------------------------------------------------------
- * Option_String - methods
- * ----------------------------------------------------------------------- */
-Option_String::Option_String()
-    : Option() {
+Option_String::Option_String() : 
+    Option() {
     myTypeName = "STR";
 }
 
 
-Option_String::Option_String(const std::string& value, std::string typeName)
-    : Option(true), myValue(value) {
+Option_String::Option_String(const std::string& value, std::string typeName) :
+    Option(true), 
+    myValue(value) {
     myTypeName = typeName;
     myValueString = value;
 }
@@ -209,12 +222,13 @@ Option_String::set(const std::string& v, const std::string& orig, const bool /* 
     return markSet(orig);
 }
 
+// -------------------------------------------------------------------------
+// Option_Float - methods
+// -------------------------------------------------------------------------
 
-/* -------------------------------------------------------------------------
- * Option_Float - methods
- * ----------------------------------------------------------------------- */
-Option_Float::Option_Float(double value)
-    : Option(true), myValue(value) {
+Option_Float::Option_Float(double value) : 
+    Option(true), 
+    myValue(value) {
     myTypeName = "FLOAT";
     std::ostringstream oss;
     oss << value;
@@ -238,12 +252,13 @@ Option_Float::set(const std::string& v, const std::string& orig, const bool /* a
     }
 }
 
+// -------------------------------------------------------------------------
+// Option_Bool - methods
+// -------------------------------------------------------------------------
 
-/* -------------------------------------------------------------------------
- * Option_Bool - methods
- * ----------------------------------------------------------------------- */
-Option_Bool::Option_Bool(bool value)
-    : Option(true), myValue(value) {
+Option_Bool::Option_Bool(bool value) :
+    Option(true),
+    myValue(value) {
     myTypeName = "BOOL";
     myValueString = value ? "true" : "false";
 }
@@ -271,12 +286,12 @@ Option_Bool::isBool() const {
     return true;
 }
 
+// -------------------------------------------------------------------------
+// Option_BoolExtended - methods
+// -------------------------------------------------------------------------
 
-/* -------------------------------------------------------------------------
- * Option_BoolExtended - methods
- * ----------------------------------------------------------------------- */
-Option_BoolExtended::Option_BoolExtended(bool value)
-    : Option_Bool(value) {
+Option_BoolExtended::Option_BoolExtended(bool value) : 
+    Option_Bool(value) {
 }
 
 
@@ -291,12 +306,12 @@ Option_BoolExtended::set(const std::string& v, const std::string& orig, const bo
     return markSet(orig);
 }
 
+// -------------------------------------------------------------------------
+// Option_IntVector - methods
+// -------------------------------------------------------------------------
 
-/* -------------------------------------------------------------------------
- * Option_IntVector - methods
- * ----------------------------------------------------------------------- */
-Option_IntVector::Option_IntVector()
-    : Option() {
+Option_IntVector::Option_IntVector() :
+    Option() {
     myTypeName = "INT[]";
 }
 
@@ -335,17 +350,18 @@ Option_IntVector::set(const std::string& v, const std::string& orig, const bool 
     }
 }
 
+// -------------------------------------------------------------------------
+// Option_StringVector - methods
+// -------------------------------------------------------------------------
 
-/* -------------------------------------------------------------------------
- * Option_StringVector - methods
- * ----------------------------------------------------------------------- */
-Option_StringVector::Option_StringVector() : Option() {
+Option_StringVector::Option_StringVector() :
+    Option() {
     myTypeName = "STR[]";
 }
 
 
-Option_StringVector::Option_StringVector(const StringVector& value)
-    : Option(true), myValue(value) {
+Option_StringVector::Option_StringVector(const StringVector& value) :
+    Option(true), myValue(value) {
     myTypeName = "STR[]";
     myValueString = joinToString(value, ",");
 }
@@ -369,17 +385,18 @@ Option_StringVector::set(const std::string& v, const std::string& orig, const bo
     return markSet(append && getValueString() != "" ? getValueString() + "," + orig : orig);
 }
 
+// -------------------------------------------------------------------------
+// Option_FileName - methods
+// -------------------------------------------------------------------------
 
-/* -------------------------------------------------------------------------
- * Option_FileName - methods
- * ----------------------------------------------------------------------- */
-Option_FileName::Option_FileName() : Option_StringVector() {
+Option_FileName::Option_FileName() :
+    Option_StringVector() {
     myTypeName = "FILE";
 }
 
 
-Option_FileName::Option_FileName(const StringVector& value)
-    : Option_StringVector(value) {
+Option_FileName::Option_FileName(const StringVector& value) :
+    Option_StringVector(value) {
     myTypeName = "FILE";
 }
 
@@ -393,6 +410,5 @@ std::string
 Option_FileName::getString() const {
     return joinToString(getStringVector(), ",");
 }
-
 
 /****************************************************************************/
