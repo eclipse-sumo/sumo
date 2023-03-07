@@ -42,3 +42,6 @@ ticket12721c
 
 # collision on junction
 ticket12721d
+
+# collision on junction, making use of #12738
+ticket12721d_customConflicts
