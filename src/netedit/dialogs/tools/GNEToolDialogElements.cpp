@@ -28,6 +28,32 @@
 
 
 // ===========================================================================
+// FOX callback mapping
+// ===========================================================================
+
+FXDEFMAP(GNEToolDialogElements::FileNameArgument) FileNameArgumentMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEToolDialogElements::FileNameArgument::onCmdSetValue),
+};
+
+FXDEFMAP(GNEToolDialogElements::StringArgument) StringArgumentMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEToolDialogElements::StringArgument::onCmdSetValue),
+};
+
+FXDEFMAP(GNEToolDialogElements::IntArgument) IntArgumentMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEToolDialogElements::IntArgument::onCmdSetValue),
+};
+
+FXDEFMAP(GNEToolDialogElements::FloatArgument) FloatArgumentMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEToolDialogElements::FloatArgument::onCmdSetValue),
+};
+
+// Object implementation
+FXIMPLEMENT(GNEToolDialogElements::FileNameArgument,    FXHorizontalFrame, FileNameArgumentMap, ARRAYNUMBER(FileNameArgumentMap))
+FXIMPLEMENT(GNEToolDialogElements::StringArgument,      FXHorizontalFrame, StringArgumentMap,   ARRAYNUMBER(StringArgumentMap))
+FXIMPLEMENT(GNEToolDialogElements::IntArgument,         FXHorizontalFrame, IntArgumentMap,      ARRAYNUMBER(IntArgumentMap))
+FXIMPLEMENT(GNEToolDialogElements::FloatArgument,       FXHorizontalFrame, FloatArgumentMap,    ARRAYNUMBER(FloatArgumentMap))
+
+// ===========================================================================
 // member method definitions
 // ===========================================================================
 
@@ -96,6 +122,15 @@ GNEToolDialogElements::FileNameArgument::getArgument() const {
     return "";
 }
 
+
+long
+GNEToolDialogElements::FileNameArgument::onCmdSetValue(FXObject*, FXSelector, void*) {
+    return 1;
+}
+
+
+GNEToolDialogElements::FileNameArgument::FileNameArgument() {}
+
 // ---------------------------------------------------------------------------
 // GNEToolDialogElements::StringArgument - methods
 // ---------------------------------------------------------------------------
@@ -130,6 +165,16 @@ GNEToolDialogElements::StringArgument::getArgument() const {
     return "";
 }
 
+
+long
+GNEToolDialogElements::StringArgument::onCmdSetValue(FXObject*, FXSelector, void*) {
+    return 1;
+}
+
+
+GNEToolDialogElements::StringArgument::StringArgument() {
+}
+
 // ---------------------------------------------------------------------------
 // GNEToolDialogElements::IntArgument - methods
 // ---------------------------------------------------------------------------
@@ -138,12 +183,20 @@ GNEToolDialogElements::IntArgument::IntArgument(GNEToolDialog* toolDialogParent,
     StringArgument(toolDialogParent, name, option, TEXTFIELD_INTEGER) {
 }
 
+
+GNEToolDialogElements::IntArgument::IntArgument() {
+}
+
 // ---------------------------------------------------------------------------
 // GNEToolDialogElements::FloatArgument - methods
 // ---------------------------------------------------------------------------
 
 GNEToolDialogElements::FloatArgument::FloatArgument(GNEToolDialog* toolDialogParent, const std::string name, const Option* option) :
     StringArgument(toolDialogParent, name, option, TEXTFIELD_REAL) {
+}
+
+
+GNEToolDialogElements::FloatArgument::FloatArgument() {
 }
 
 /****************************************************************************/

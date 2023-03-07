@@ -61,15 +61,16 @@ public:
         /// @brief get argument options
         const Option* getOption() const;
 
+    protected:
+        /// @brief default constructor
+        Argument();
+
     private:
         /// @brief argument name
         const std::string myName;
 
         /// @brief argument options
         const Option* myOption;
-
-        /// @brief default constructor
-        Argument();
 
         /// @brief Invalidated copy constructor.
         Argument(const Argument&) = delete;
@@ -80,6 +81,8 @@ public:
 
     /// @brief filename
     class FileNameArgument : protected FXHorizontalFrame, public Argument {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEToolDialogElements::FileNameArgument)
 
     public:
         /// @brief constructor
@@ -93,6 +96,18 @@ public:
 
         /// get argument (parameter and value)
         std::string getArgument() const;
+    
+        /// @name FOX-callbacks
+        /// @{
+
+        /// @brief Called when user changes Z value
+        long onCmdSetValue(FXObject*, FXSelector, void*);
+
+        /// @}
+
+    protected:
+        /// @brief FOX need this
+        FileNameArgument();
 
     private:
         /// @brief label name
@@ -113,6 +128,8 @@ public:
 
     /// @brief string
     class StringArgument : protected FXHorizontalFrame, public Argument {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEToolDialogElements::StringArgument)
 
     public:
         /// @brief constructor
@@ -127,7 +144,18 @@ public:
         /// get argument (parameter and value)
         std::string getArgument() const;
 
+        /// @name FOX-callbacks
+        /// @{
+
+        /// @brief Called when user changes Z value
+        long onCmdSetValue(FXObject*, FXSelector, void*);
+
+        /// @}
+
     protected:
+        /// @brief FOX need this
+        StringArgument();
+
         /// @brief string Textfield
         FXTextField* myStringTextField = nullptr;
 
@@ -143,11 +171,17 @@ public:
     };
 
     /// @brief int
-    class IntArgument : protected StringArgument {
+    class IntArgument : public StringArgument {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEToolDialogElements::IntArgument)
 
     public:
         /// @brief constructor
         IntArgument(GNEToolDialog* toolDialogParent, const std::string name, const Option* option);
+
+    protected:
+        /// @brief FOX need this
+        IntArgument();
 
     private:
         /// @brief Invalidated copy constructor.
@@ -158,11 +192,17 @@ public:
     };
 
     /// @brief float
-    class FloatArgument : protected StringArgument {
+    class FloatArgument : public StringArgument {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEToolDialogElements::FloatArgument)
 
     public:
         /// @brief constructor
         FloatArgument(GNEToolDialog* toolDialogParent, const std::string name, const Option* option);
+    
+    protected:
+        /// @brief FOX need this
+        FloatArgument();
 
     private:
         /// @brief Invalidated copy constructor.
