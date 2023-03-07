@@ -31,12 +31,13 @@ jobs:
         mkdir jpscore-deps
         cd jpscore
         vcpkg.exe --x-install-root=../jpscore-deps --triplet=x64-windows-static install
+        Compress-Archive -Path ../jpscore-deps -DestinationPath ../jpscore-deps.zip
 
     - name: Uploading dependency artifacts
       uses: actions/upload-artifact@v3
       with:
-        name: jpscore-deps
-        path: jpscore-deps
+        name: deps
+        path: jpscore-deps.zip
 
     - name: Building jpscore
       shell: cmd
@@ -44,7 +45,17 @@ jobs:
         mkdir jpscore-build
         mkdir jpscore-install
         cd jpscore-build
-        cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_PREFIX_PATH=%CD%/../jpscore-deps/x64-windows-static -DCMAKE_INSTALL_PREFIX=%CD%/../jpscore-install -DBUILD_JPSVIS=OFF ../jpscore
+        cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH=%CD%/../jpscore-deps/x64-windows-static -DCMAKE_INSTALL_PREFIX=%CD%/../jpscore-install -DBUILD_JPSVIS=OFF ../jpscore
+        cmake --build .
+        cmake --install .
+
+    - name: Building jpscore debug
+      shell: cmd
+      run: |
+        mkdir jpscore-build-debug
+        mkdir jpscore-install-debug
+        cd jpscore-build-debug
+        cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_PREFIX_PATH=%CD%/../jpscore-deps/x64-windows-static -DCMAKE_INSTALL_PREFIX=%CD%/../jpscore-install-debug -DBUILD_JPSVIS=OFF ../jpscore
         cmake --build .
         cmake --install .
 
