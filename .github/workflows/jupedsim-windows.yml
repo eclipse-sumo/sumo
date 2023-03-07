@@ -45,9 +45,15 @@ jobs:
         mkdir jpscore-build
         mkdir jpscore-install
         cd jpscore-build
-        cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH=%CD%/../jpscore-deps/x64-windows -DCMAKE_INSTALL_PREFIX=%CD%/../jpscore-install -DBUILD_JPSVIS=OFF ../jpscore
-        cmake --build .
+        cmake -DCMAKE_PREFIX_PATH=%CD%/../jpscore-deps/x64-windows -DCMAKE_INSTALL_PREFIX=%CD%/../jpscore-install -DBUILD_JPSVIS=OFF ../jpscore
+        cmake --build . --config Release
         cmake --install .
+
+    - name: Uploading release artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: jpscore-release
+        path: jpscore-install
 
     - name: Building jpscore debug
       shell: cmd
@@ -55,9 +61,15 @@ jobs:
         mkdir jpscore-build-debug
         mkdir jpscore-install-debug
         cd jpscore-build-debug
-        cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_PREFIX_PATH=%CD%/../jpscore-deps/x64-windows -DCMAKE_INSTALL_PREFIX=%CD%/../jpscore-install-debug -DBUILD_JPSVIS=OFF ../jpscore
-        cmake --build .
+        cmake -DCMAKE_PREFIX_PATH=%CD%/../jpscore-deps/x64-windows -DCMAKE_INSTALL_PREFIX=%CD%/../jpscore-install-debug -DBUILD_JPSVIS=OFF ../jpscore
+        cmake --build . --config Debug
         cmake --install .
+
+    - name: Uploading debug artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: jpscore-debug
+        path: jpscore-install-debug
 
     - name: Cloning SUMO
       uses: actions/checkout@v3
