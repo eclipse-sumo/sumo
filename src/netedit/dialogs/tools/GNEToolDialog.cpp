@@ -145,9 +145,18 @@ GNEToolDialog::buildArguments() {
     int i = 4;
     // iterate over options
     for (const auto &option : myToolsOptions) {
-        // build argument
-        myArguments.push_back(new GNEToolDialogElements::FileNameArgument(this, option.first, option.second));
-        i += 2;
+        if (option.second->isInteger()) {
+            myArguments.push_back(new GNEToolDialogElements::IntArgument(this, option.first, option.second));
+        } else if (option.second->isFloat()) {
+            myArguments.push_back(new GNEToolDialogElements::FloatArgument(this, option.first, option.second));
+        } else if (option.second->isBool()) {
+            //myArguments.push_back(new GNEToolDialogElements::FileNameArgument(this, option.first, option.second));
+        } else if (option.second->isFileName()) {
+            myArguments.push_back(new GNEToolDialogElements::FileNameArgument(this, option.first, option.second));       
+        } else {
+            myArguments.push_back(new GNEToolDialogElements::StringArgument(this, option.first, option.second));
+        }
+        i++;
     }
     setHeight(GUIDesignHeight * i);
 }
