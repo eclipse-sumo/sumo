@@ -58,11 +58,12 @@ public:
     /// @brief shown
     bool shown() const;
 
-    /// @brief add argument
-    void addArgument(GNEToolDialogElements::Argument* argument);
+    /// @brief get vertical frame for contents
+    FXVerticalFrame* getContentFrame() const;
 
     /// @name FOX-callbacks
     /// @{
+
     /// @brief event after press run button
     long onCmdRun(FXObject*, FXSelector, void*);
 
@@ -77,6 +78,12 @@ public:
 protected:
     /// @brief FOX needs this
     FOX_CONSTRUCTOR(GNEToolDialog)
+    
+    /// @brief execute dialog as modal
+    FXint openAsModalDialog(FXuint placement = PLACEMENT_CURSOR);
+
+    /// @brief build arguments
+    void buildArguments();
 
 private:
     /// @brief pointer to GNEApplicationWindow
@@ -90,9 +97,6 @@ private:
 
     /// @brief list of arguments
     std::vector<GNEToolDialogElements::Argument*> myArguments;
-
-    /// @brief execute dialog as modal
-    FXint openAsModalDialog(FXuint placement = PLACEMENT_CURSOR);
 
     /// @brief Invalidated copy constructor.
     GNEToolDialog(const GNEToolDialog&) = delete;

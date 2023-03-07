@@ -27,16 +27,13 @@
 #include "GNEToolDialog.h"
 
 
-// ============================================-===============================
+// ===========================================================================
 // member method definitions
 // ===========================================================================
 
-GNEToolDialogElements::Argument::Argument(GNEToolDialog* _toolDialogParent, const std::string name, const std::string parameter_) :
-    toolDialogParent(_toolDialogParent),
-    argumentName(name),
-    parameter(parameter_) {
-    // add argument in GNEToolDialog parent
-    _toolDialogParent->addArgument(this);
+GNEToolDialogElements::Argument::Argument(const std::string &name_, const Option* option_) :
+    name(name_),
+    option(option_) {
 }
 
 
@@ -46,10 +43,10 @@ GNEToolDialogElements::Argument::~Argument() {}
 GNEToolDialogElements::Argument::Argument() {}
 
 
-GNEToolDialogElements::FileNameArgument::FileNameArgument(FXComposite* parent, GNEToolDialog* toolDialogParent, const std::string name, const std::string parameter) :
-    FXVerticalFrame(parent, GUIDesignAuxiliarHorizontalFrame),
-    Argument(toolDialogParent, name, parameter) {
-    new FXLabel(this, parameter.empty() ? name.c_str() : (name + " (" + parameter + ")").c_str(), nullptr, GUIDesignLabelLeftThick);
+GNEToolDialogElements::FileNameArgument::FileNameArgument(GNEToolDialog* toolDialogParent, const std::string name, const Option* option) :
+    FXVerticalFrame(toolDialogParent->getContentFrame(), GUIDesignAuxiliarHorizontalFrame),
+    Argument(name, option) {
+    new FXLabel(this, name.c_str(), nullptr, GUIDesignLabelLeftThick);
     // Create Open button
     auto horizontalFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     myFilenameButton = new FXButton(horizontalFrame, (std::string("\t\t") + TL("Select filename")).c_str(), GUIIconSubSys::getIcon(GUIIcon::OPEN_NET), this, FXDialogBox::ID_ACCEPT, GUIDesignButtonIcon);
@@ -64,7 +61,7 @@ GNEToolDialogElements::FileNameArgument::getArgument() const {
 
 
 void
-GNEToolDialogElements::FileNameArgument::resetValues() {
+GNEToolDialogElements::FileNameArgument::reset() {
     myFilenameTextField->setText("");
 }
 

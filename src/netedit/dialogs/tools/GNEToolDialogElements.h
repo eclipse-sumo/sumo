@@ -20,16 +20,16 @@
 #pragma once
 #include <config.h>
 
-#include <fx.h>
+#include <utils/foxtools/fxheader.h>
 #include <string>
 #include <vector>
-
 
 // ===========================================================================
 // class declaration
 // ===========================================================================
 
 class GNEToolDialog;
+class Option;
 
 // ===========================================================================
 // class definitions
@@ -44,26 +44,20 @@ public:
 
     public:
         /// @brief constructor
-        Argument(GNEToolDialog* toolDialogParent, const std::string name, const std::string parameter_);
+        Argument(const std::string &name_, const Option* option_);
 
         /// @brief destructor
-        virtual ~Argument();
+        ~Argument();
 
-        /// @brief get argument (parameter and value)
-        virtual std::string getArgument() const = 0;
-
-        /// @brief reset argument values
-        virtual void resetValues() = 0;
+        /// @brief reset to default value
+        virtual void reset() = 0;
 
     protected:
-        /// pointer to toolDialog parent
-        const GNEToolDialog* toolDialogParent = nullptr;
-
         /// @brief argument name
-        const std::string argumentName;
+        const std::string name;
 
-        /// @brief parameter
-        const std::string parameter;
+        /// @brief default value
+        const Option* option;
 
     private:
         /// @brief default constructor
@@ -81,13 +75,13 @@ public:
 
     public:
         /// @brief constructor
-        FileNameArgument(FXComposite* parent, GNEToolDialog* toolDialogParent, const std::string name, const std::string parameter);
+        FileNameArgument(GNEToolDialog* toolDialogParent, const std::string name, const Option* option);
 
         /// get argument (parameter and value)
         std::string getArgument() const;
 
         /// @brief reset argument values
-        void resetValues();
+        void reset();
 
     protected:
         /// @brief filename button
@@ -103,7 +97,6 @@ public:
         /// @brief Invalidated assignment operator.
         FileNameArgument& operator=(const FileNameArgument&) = delete;
     };
-
 
     /// @brief separator
     class Separator : protected FXVerticalFrame {

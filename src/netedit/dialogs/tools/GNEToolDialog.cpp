@@ -52,6 +52,10 @@ GNEToolDialog::GNEToolDialog(GNEApplicationWindow* GNEApp, const std::string& na
     FXVerticalFrame* mainFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrame);
     // build horizontalFrame for content
     myContentFrame = new FXVerticalFrame(mainFrame, GUIDesignContentsFrame);
+    // build arguments
+    buildArguments();
+    // add separator
+    new FXSeparator(mainFrame);
     // create buttons centered
     FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(mainFrame, GUIDesignHorizontalFrame);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
@@ -59,7 +63,6 @@ GNEToolDialog::GNEToolDialog(GNEApplicationWindow* GNEApp, const std::string& na
     new FXButton(buttonsFrame, (TL("Cancel") + std::string("\t\t") + TL("close discarding changes")).c_str(), GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCancel);
     new FXButton(buttonsFrame, (TL("Reset") + std::string("\t\t") + TL("reset to previous values")).c_str(),  GUIIconSubSys::getIcon(GUIIcon::RESET),  this, MID_GNE_BUTTON_RESET,  GUIDesignButtonReset);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
-
 }
 
 
@@ -86,9 +89,9 @@ GNEToolDialog::shown() const {
 }
 
 
-void
-GNEToolDialog::addArgument(GNEToolDialogElements::Argument* argument) {
-    myArguments.push_back(argument);
+FXVerticalFrame*
+GNEToolDialog::getContentFrame() const {
+    return myContentFrame;
 }
 
 
@@ -118,7 +121,7 @@ long
 GNEToolDialog::onCmdReset(FXObject*, FXSelector, void*) {
     // iterate over all arguments and reset values
     for (const auto& argument : myArguments) {
-        argument->resetValues();
+        argument->reset();
     }
     return 1;
 }
@@ -134,6 +137,16 @@ GNEToolDialog::openAsModalDialog(FXuint placement) {
     getApp()->refresh();
     // open as modal dialog (will block all windows until stop() or stopModal() is called)
     return getApp()->runModalFor(this);
+}
+
+
+void
+GNEToolDialog::buildArguments() {
+    // iterate over options
+    for (const auto &option : myToolsOptions) {
+        // build argument
+        GNEToolDialogElements::FileNameArgument(this, option.first, option.second);
+    }
 }
 
 /****************************************************************************/
