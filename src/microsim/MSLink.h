@@ -705,6 +705,9 @@ private:
 
     static bool ignoreFoe(const SUMOTrafficObject* ego, const SUMOVehicle* foe);
 
+    /// @brief return CustomConflict with foeLane if it is defined
+    const CustomConflict* getCustomConflict(const MSLane* foeLane) const;
+
 private:
     /// @brief The lane behind the junction approached by this link
     MSLane* myLane;

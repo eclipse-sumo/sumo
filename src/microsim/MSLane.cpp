@@ -2934,6 +2934,16 @@ MSLane::getNormalPredecessorLane() const {
 }
 
 
+const MSLane*
+MSLane::getNormalSuccessorLane() const {
+    if (isInternal()) {
+        return getCanonicalSuccessorLane()->getNormalSuccessorLane();
+    } else {
+        return this;
+    }
+}
+
+
 MSLane*
 MSLane::getLogicalPredecessorLane(const MSEdge& fromEdge) const {
     for (const IncomingLaneInfo& cand : myIncomingLanes) {

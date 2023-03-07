@@ -179,6 +179,20 @@ MSLink::addCustomConflict(const MSLane* from, const MSLane* to, double startPos,
     myCustomConflicts.push_back(CustomConflict(from, to, startPos, endPos));
 }
 
+const MSLink::CustomConflict*
+MSLink::getCustomConflict(const MSLane* foeLane) const {
+    if (myCustomConflicts.size() > 0) {
+        const MSLane* foeFrom = foeLane->getNormalPredecessorLane();
+        const MSLane* foeTo = foeLane->getNormalSuccessorLane();
+        for (const CustomConflict& cc : myCustomConflicts) {
+            if (cc.from == foeFrom && cc.to == foeTo) {
+                return &cc;
+            }
+        }
+
+    }
+    return nullptr;
+}
 
 void
 MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
@@ -233,8 +247,57 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
         if (lane->getIncomingLanes().size() != 1) {
             throw ProcessError("Internal lane '" + lane->getID() + "' has " + toString(lane->getIncomingLanes().size()) + " predecessors");
         }
+        const MSLink* junctionEntryLink = lane->getEntryLink();
+        const bool isSecondPart = isExitLinkAfterInternalJunction();
         // compute crossing points
         for (const MSLane* foeLane : myFoeLanes) {
+            const CustomConflict* cc = junctionEntryLink != nullptr ? junctionEntryLink->getCustomConflict(foeLane) : nullptr;
+            if (cc != nullptr) {
+                // handle custom conflict definition
+                double startPos = cc->startPos;
+                const double conflictSize = cc->endPos - cc->startPos;
+                if (isSecondPart) {
+                    startPos -= junctionEntryLink->getViaLane()->getLength();
+                }
+                // the foe connection may be split at an internal
+                // junction, we need to figure out whether the current
+                // foeLane is the intended target for the custom conflict
+                // There are two possibilities:
+                // a) We have no custom conflict for the reverse pair of connections
+                //    -> just check whether lane and foeLane intersect
+                // b) We have a "reverse" custom conflict
+                //    -> check whether it covers the foeLane
+                const CustomConflict* rcc = foeLane->getEntryLink()->getCustomConflict(lane);
+                bool haveIntersection = false;
+                if (rcc == nullptr) {
+                    // a)
+                    haveIntersection = lane->getShape().intersectsAtLengths2D(foeLane->getShape()).size() > 0;
+                } else {
+                    // b)
+                    const bool foeIsSecondPart = foeLane->getLogicalPredecessorLane()->isInternal();
+                    double foeStartPos = rcc->startPos;
+                    const double foeConflictSize = rcc->endPos - rcc->startPos;
+                    if (foeIsSecondPart) {
+                        foeStartPos -= foeLane->getLogicalPredecessorLane()->getLength();
+                    }
+                    const double foeEndPos = foeStartPos + foeConflictSize;
+                    haveIntersection = ((foeStartPos > 0 && foeStartPos < foeLane->getLength())
+                            || (foeEndPos > 0 && foeEndPos < foeLane->getLength()));
+                }
+                if (haveIntersection) {
+                    myConflicts.push_back(ConflictInfo(lane->getLength() - startPos, conflictSize));
+                } else {
+                    myConflicts.push_back(ConflictInfo(-NO_INTERSECTION, 0));
+                }
+#ifdef MSLink_DEBUG_CROSSING_POINTS
+                std::cout << " " << lane->getID() << " custom conflict with " << foeLane->getID() << " customReverse=" << (rcc != nullptr)
+                    << " haveIntersection=" << haveIntersection
+                    << " startPos=" << startPos << " conflictSize=" << conflictSize
+                    << " lbc=" << myConflicts.back().lengthBehindCrossing
+                    << "\n";
+#endif
+                continue;
+            }
             myHavePedestrianCrossingFoe = myHavePedestrianCrossingFoe || foeLane->getEdge().isCrossing();
             const bool sameTarget = myLane == foeLane->getLinkCont()[0]->getLane();
             if (sameTarget && !beforeInternalJunction && !contIntersect(lane, foeLane)) {
@@ -324,7 +387,7 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
                         << " with " << foeLane->getID()
                         << " totalLength=" << foeLane->getLength()
                         << " dist1=" << myConflicts.back().lengthBehindCrossing
-                        << " widthFactor=" << myConflicts.back().widthFactor
+                        << " widthFactor=" << myConflicts.back().conflictSize / foeLane->getWidth()
                         << "\n";
 #endif
             }
@@ -487,7 +550,7 @@ MSLink::recheckSetRequestInformation() {
         ci.foeConflictIndex = foeExitLink->myConflicts.size();
         foeExitLink->myConflicts.push_back(ConflictInfo(foeLane->getLength() - intersections1.back(), conflictSize2));
 #ifdef MSLink_DEBUG_CROSSING_POINTS
-        std::cout << "    ci=" << conflictIndex << " wf=" << ci.widthFactor << " flag=" << ci.flag << " flbc=" << foeExitLink->myConflicts.back().lengthBehindCrossing << "\n";
+        std::cout << "    ci=" << conflictIndex << " wf=" << widthFactor << " flag=" << ci.flag << " flbc=" << foeExitLink->myConflicts.back().lengthBehindCrossing << "\n";
 #endif
     }
     myRecheck.clear();
