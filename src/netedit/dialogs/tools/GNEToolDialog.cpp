@@ -85,6 +85,8 @@ GNEToolDialog::show() {
     FXTopWindow::show(PLACEMENT_SCREEN);
     // refresh APP
     getApp()->refresh();
+    // adjust parameter column (call always after create elements)
+    adjustParameterColumn();
     // open as modal dialog (will block all windows until stop() or stopModal() is called)
     myGNEApp->getApp()->runModalFor(this);
 }
@@ -135,6 +137,8 @@ GNEToolDialog::onCmdReset(FXObject*, FXSelector, void*) {
 
 void
 GNEToolDialog::buildArguments() {
+    // first add header
+    myArguments.push_back(new GNEToolDialogElements::HeaderArgument(this));
     // iterate over options
     for (const auto &option : myToolsOptions) {
         if (option.second->isInteger()) {
@@ -151,6 +155,24 @@ GNEToolDialog::buildArguments() {
     }
     // set content frame height
     myContentFrame->setHeight(GUIDesignHeight * (int)myArguments.size());
+}
+
+
+void
+GNEToolDialog::adjustParameterColumn() {
+    int maximumWidth = 0;
+    // iterate over all arguments and find the maximum width
+    for (const auto &argument : myArguments) {
+        const auto label = argument->getParameterLabel();
+        const int columnWidth = label->getFont()->getTextWidth(label->getText().text(), label->getText().length() + EXTRAMARGING);
+        if (columnWidth > maximumWidth) {
+            maximumWidth = columnWidth;
+        }
+    }
+    // set maximum width for all parameter labels
+    for (const auto &argument : myArguments) {
+        argument->getParameterLabel()->setWidth(maximumWidth);
+    }
 }
 
 /****************************************************************************/

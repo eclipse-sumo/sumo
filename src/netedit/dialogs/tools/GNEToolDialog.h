@@ -82,6 +82,9 @@ protected:
     /// @brief build arguments
     void buildArguments();
 
+    /// @brief adjust parameter column
+    void adjustParameterColumn();
+
 private:
     /// @brief pointer to GNEApplicationWindow
     GNEApplicationWindow* myGNEApp;
