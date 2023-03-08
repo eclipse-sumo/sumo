@@ -29,6 +29,7 @@
 // ===========================================================================
 
 class GNEToolDialog;
+class MFXLabelTooltip;
 class Option;
 
 // ===========================================================================
@@ -48,9 +49,6 @@ public:
 
         /// @brief destructor
         virtual ~Argument();
-
-        /// @brief get label
-        virtual FXLabel* getNameLabel() = 0;
 
         /// @brief reset to default value
         virtual void reset() = 0;
@@ -84,9 +82,6 @@ public:
     public:
         /// @brief constructor
         FileNameArgument(GNEToolDialog* toolDialogParent, const std::string name, const Option* option);
-        
-        /// @brief get label
-        FXLabel* getNameLabel();
 
         /// @brief reset argument values
         void reset();
@@ -108,7 +103,7 @@ public:
 
     private:
         /// @brief label name
-        FXLabel* myNameLabel = nullptr;
+        MFXLabelTooltip* myNameLabel = nullptr;
 
         /// @brief filename button
         FXButton* myFilenameButton = nullptr;
@@ -131,9 +126,6 @@ public:
     public:
         /// @brief constructor
         StringArgument(GNEToolDialog* toolDialogParent, const std::string name, const Option* option, const int type = 0);
-
-        /// @brief get label
-        FXLabel* getNameLabel();
 
         /// @brief reset argument values
         void reset();
@@ -158,7 +150,7 @@ public:
 
     private:
         /// @brief parameter name
-        FXLabel* myParameterName = nullptr;
+        MFXLabelTooltip* myParameterName = nullptr;
 
         /// @brief Invalidated copy constructor.
         StringArgument(const StringArgument&) = delete;

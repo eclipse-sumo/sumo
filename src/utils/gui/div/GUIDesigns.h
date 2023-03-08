@@ -304,7 +304,7 @@ class MFXMenuCheckIcon;
 #define GUIDesignLabelThick100              (FRAME_THICK | ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 100, GUIDesignHeight, 2, 2, 2, 2
 
 /// @brief label with thick, text justify to left and width of 500
-#define GUIDesignLabelThick500              (FRAME_THICK | JUSTIFY_LEFT | ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 500, GUIDesignHeight, 2, 2, 2, 2
+#define GUIDesignLabelThick500              (FRAME_THICK | JUSTIFY_LEFT | ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 100, GUIDesignHeight, 2, 2, 2, 2
 
 /// @brief label with fix width 30 and height (used in TLS table and decal table)
 #define GUIDesignLabel30                    (LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | ICON_BEFORE_TEXT | JUSTIFY_CENTER_X | JUSTIFY_CENTER_Y), 0, 0, 30, GUIDesignHeight, 2, 2, 2, 2

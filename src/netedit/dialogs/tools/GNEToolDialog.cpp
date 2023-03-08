@@ -19,6 +19,7 @@
 /****************************************************************************/
 
 #include <netedit/GNEApplicationWindow.h>
+#include <utils/foxtools/MFXLabelTooltip.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/handlers/TemplateHandler.h>
 
@@ -70,6 +71,12 @@ GNEToolDialog::GNEToolDialog(GNEApplicationWindow* GNEApp, const std::string& na
 
 
 GNEToolDialog::~GNEToolDialog() {}
+
+
+GNEApplicationWindow*
+GNEToolDialog::getGNEApp() const {
+    return myGNEApp;
+}
 
 
 void
@@ -154,8 +161,6 @@ GNEToolDialog::buildArguments() {
     for (auto &argument : myArguments) {
         argument->getNameLabel()->setWidth(maxColumnWidth);
     }
-
-    // USE MFXLabelTooltip
 }
 
 /****************************************************************************/

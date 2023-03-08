@@ -49,6 +49,9 @@ public:
     /// @brief destructor
     ~GNEToolDialog();
 
+    /// @brief get to GNEApplicationWindow
+    GNEApplicationWindow* getGNEApp() const;
+
     /// @brief open window
     void show();
 
