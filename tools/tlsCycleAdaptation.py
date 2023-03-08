@@ -155,7 +155,6 @@ def getFlows(net, routeFiles, tlsList, begin, verbose, isSorted=False):
             for conn in tlsFlowsMap[t.getID()][subRoute]:
                 tlsFlowsMap[t.getID()][subRoute][conn] /= totalConns
                 connFlowsMap[t.getID()][conn] = tlsFlowsMap[t.getID()][subRoute][conn]
-
         # remove the redundant connection flows
         connFlowsMap = removeRedundantFlows(t, connFlowsMap)
 
@@ -236,6 +235,7 @@ def getLaneGroupFlows(tl, connFlowsMap, phases, greenFilter):
     greenTime = 0
     currentLength = 0
     phaseLaneIndexMap = collections.defaultdict(list)
+    
     for i, p in enumerate(phases):
         currentLength += p.duration
         if 'G' in p.state and 'y' not in p.state and p.duration >= greenFilter:
@@ -247,25 +247,33 @@ def getLaneGroupFlows(tl, connFlowsMap, phases, greenFilter):
                 inEdge = connsList[j][0]._edge._id
                 if j == 0:
                     exEdge = inEdge
-                if (inEdge == exEdge and control == 'G') or (inEdge == exEdge and
-                                                             control == 'g' and j not in ownGreenConnsList):
+                # protected green directly after major green for the same edge
+                if ((inEdge == exEdge) and ((control == 'G') or ( control == 'g' and j not in ownGreenConnsList))): 
                     if j in connFlowsMap[tl._id]:
                         groupFlows += connFlowsMap[tl._id][j]
                     if connsList[j][0].getIndex() not in laneIndexList:
                         laneIndexList.append(connsList[j][0].getIndex())
-
+                        
+                # fromEdge is different from the previous one or the last state
                 if exEdge != inEdge or j == len(p.state) - 1:
+                    # save the data of the previous group
                     if laneIndexList:
                         phaseLaneIndexMap[i].append(laneIndexList)
                         groupFlowsMap[i].append(groupFlows)
-
+                    # reset
                     laneIndexList = []
                     groupFlows = 0
                     if control == "G":
-                        if j in connFlowsMap[tl._id]:
+                        if connsList[j][0].getIndex() not in laneIndexList:
+                            laneIndexList.append(connsList[j][0].getIndex())
+
+                        if j in connFlowsMap[tl._id]:  # only flows > 0
                             groupFlows = connFlowsMap[tl._id][j]
-                            if connsList[j][0].getIndex() not in laneIndexList:
-                                laneIndexList.append(connsList[j][0].getIndex())
+                    # todo: consider minor green
+                    if (j == len(p.state) - 1) and laneIndexList:
+                        phaseLaneIndexMap[i].append(laneIndexList)
+                        groupFlowsMap[i].append(groupFlows)
+                                
                 exEdge = inEdge
         elif 'G' not in p.state and 'g' in p.state and 'y' not in p.state and 'r' not in p.state:
             print("Check: only g for all connections:%s in phase %s" % (tl._id, i))
@@ -360,6 +368,7 @@ def optimizeGreenTime(tl, groupFlowsMap, phaseLaneIndexMap, currentLength, optio
     adjustGreenTimes = 0
     totalGreenTimes = 0
     subtotalGreenTimes = 0
+
     for i in criticalFlowRateMap:
         groupFlowsMap[i][0] = effGreenTime * \
             (criticalFlowRateMap[i] / sum(criticalFlowRateMap.values())) - options.yellowtime + options.losttime
