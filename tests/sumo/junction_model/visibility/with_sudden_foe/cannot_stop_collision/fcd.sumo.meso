@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jun 11 12:12:13 2020 by Eclipse SUMO Version v1_6_0+0674-e659555e74
+<!-- generated on 2023-03-08 21:31:51 by Eclipse SUMO sumo Version v1_16_0+1096-b85ca027cdf
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -16,11 +21,17 @@ SPDX-License-Identifier: EPL-2.0
     <output>
         <write-license value="true"/>
         <fcd-output value="fcd.xml"/>
+        <fcd-output.attributes value="speed,acceleration"/>
     </output>
 
+    <time>
+        <step-length value="0.5"/>
+    </time>
+
     <processing>
+        <collision.action value="warn"/>
+        <collision.check-junctions value="true"/>
         <default.speeddev value="0"/>
-        <pedestrian.model value="nonInteracting"/>
     </processing>
 
     <report>
@@ -38,63 +49,98 @@ SPDX-License-Identifier: EPL-2.0
 
 <fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
     <timestep time="0.00">
-        <vehicle id="veh1" x="0.00" y="48.35" angle="90.00" type="1" speed="13.89" pos="0.00" edge="WC" slope="0.00"/>
+        <vehicle id="veh1" speed="20.00"/>
+    </timestep>
+    <timestep time="0.50">
+        <vehicle id="veh1" speed="20.00"/>
     </timestep>
     <timestep time="1.00">
-        <vehicle id="veh1" x="0.00" y="48.35" angle="90.00" type="1" speed="13.89" pos="0.00" edge="WC" slope="0.00"/>
-        <vehicle id="veh2" x="98.35" y="150.00" angle="180.00" type="1" speed="13.89" pos="0.00" edge="NC" slope="0.00"/>
+        <vehicle id="veh1" speed="20.00"/>
+    </timestep>
+    <timestep time="1.50">
+        <vehicle id="veh1" speed="20.00"/>
     </timestep>
     <timestep time="2.00">
-        <vehicle id="veh1" x="0.00" y="48.35" angle="90.00" type="1" speed="13.89" pos="0.00" edge="WC" slope="0.00"/>
-        <vehicle id="veh2" x="98.35" y="150.00" angle="180.00" type="1" speed="13.89" pos="0.00" edge="NC" slope="0.00"/>
+        <vehicle id="veh1" speed="20.00"/>
+    </timestep>
+    <timestep time="2.50">
+        <vehicle id="veh1" speed="20.00"/>
     </timestep>
     <timestep time="3.00">
-        <vehicle id="veh1" x="0.00" y="48.35" angle="90.00" type="1" speed="13.89" pos="0.00" edge="WC" slope="0.00"/>
-        <vehicle id="veh2" x="98.35" y="150.00" angle="180.00" type="1" speed="13.89" pos="0.00" edge="NC" slope="0.00"/>
+        <vehicle id="veh1" speed="20.00"/>
+    </timestep>
+    <timestep time="3.50">
+        <vehicle id="veh1" speed="20.00"/>
+        <vehicle id="veh2" speed="20.00"/>
     </timestep>
     <timestep time="4.00">
-        <vehicle id="veh1" x="0.00" y="48.35" angle="90.00" type="1" speed="13.89" pos="0.00" edge="WC" slope="0.00"/>
-        <vehicle id="veh2" x="98.35" y="150.00" angle="180.00" type="1" speed="13.89" pos="0.00" edge="NC" slope="0.00"/>
+        <vehicle id="veh1" speed="20.00"/>
+        <vehicle id="veh2" speed="20.00"/>
+    </timestep>
+    <timestep time="4.50">
+        <vehicle id="veh1" speed="20.00"/>
+        <vehicle id="veh2" speed="20.00"/>
     </timestep>
     <timestep time="5.00">
-        <vehicle id="veh1" x="0.00" y="48.35" angle="90.00" type="1" speed="13.89" pos="0.00" edge="WC" slope="0.00"/>
-        <vehicle id="veh2" x="98.35" y="150.00" angle="180.00" type="1" speed="13.89" pos="0.00" edge="NC" slope="0.00"/>
+        <vehicle id="veh1" speed="20.00"/>
+        <vehicle id="veh2" speed="20.00"/>
+    </timestep>
+    <timestep time="5.50">
+        <vehicle id="veh1" speed="20.00"/>
+        <vehicle id="veh2" speed="20.00"/>
     </timestep>
     <timestep time="6.00">
-        <vehicle id="veh1" x="0.00" y="48.35" angle="90.00" type="1" speed="13.89" pos="0.00" edge="WC" slope="0.00"/>
-        <vehicle id="veh2" x="98.35" y="150.00" angle="180.00" type="1" speed="13.89" pos="0.00" edge="NC" slope="0.00"/>
+        <vehicle id="veh1" speed="20.00"/>
+        <vehicle id="veh2" speed="20.00"/>
+    </timestep>
+    <timestep time="6.50">
+        <vehicle id="veh1" speed="20.00"/>
+        <vehicle id="veh2" speed="20.00"/>
     </timestep>
     <timestep time="7.00">
-        <vehicle id="veh1" x="0.00" y="48.35" angle="90.00" type="1" speed="0.00" pos="0.00" edge="WC" slope="0.00"/>
-        <vehicle id="veh2" x="98.35" y="150.00" angle="180.00" type="1" speed="13.89" pos="0.00" edge="NC" slope="0.00"/>
+        <vehicle id="veh1" speed="20.00"/>
+        <vehicle id="veh2" speed="20.00"/>
+    </timestep>
+    <timestep time="7.50">
+        <vehicle id="veh1" speed="20.00"/>
+        <vehicle id="veh2" speed="20.00"/>
     </timestep>
     <timestep time="8.00">
-        <vehicle id="veh1" x="104.75" y="48.35" angle="90.00" type="1" speed="13.89" pos="0.00" edge="CE" slope="0.00"/>
-        <vehicle id="veh2" x="98.35" y="45.25" angle="180.00" type="1" speed="13.89" pos="0.00" edge="CS" slope="0.00"/>
+        <vehicle id="veh1" speed="20.00"/>
+        <vehicle id="veh2" speed="20.00"/>
+    </timestep>
+    <timestep time="8.50">
+        <vehicle id="veh1" speed="20.00"/>
+        <vehicle id="veh2" speed="20.00"/>
     </timestep>
     <timestep time="9.00">
-        <vehicle id="veh1" x="104.75" y="48.35" angle="90.00" type="1" speed="13.89" pos="0.00" edge="CE" slope="0.00"/>
-        <vehicle id="veh2" x="98.35" y="45.25" angle="180.00" type="1" speed="13.89" pos="0.00" edge="CS" slope="0.00"/>
+        <vehicle id="veh1" speed="20.00"/>
+        <vehicle id="veh2" speed="20.00"/>
+    </timestep>
+    <timestep time="9.50">
+        <vehicle id="veh1" speed="20.00"/>
+        <vehicle id="veh2" speed="20.00"/>
     </timestep>
     <timestep time="10.00">
-        <vehicle id="veh1" x="104.75" y="48.35" angle="90.00" type="1" speed="13.89" pos="0.00" edge="CE" slope="0.00"/>
-        <vehicle id="veh2" x="98.35" y="45.25" angle="180.00" type="1" speed="13.89" pos="0.00" edge="CS" slope="0.00"/>
+        <vehicle id="veh2" speed="20.00"/>
+    </timestep>
+    <timestep time="10.50">
+        <vehicle id="veh2" speed="20.00"/>
     </timestep>
     <timestep time="11.00">
-        <vehicle id="veh1" x="104.75" y="48.35" angle="90.00" type="1" speed="13.89" pos="0.00" edge="CE" slope="0.00"/>
-        <vehicle id="veh2" x="98.35" y="45.25" angle="180.00" type="1" speed="13.89" pos="0.00" edge="CS" slope="0.00"/>
+        <vehicle id="veh2" speed="20.00"/>
+    </timestep>
+    <timestep time="11.50">
+        <vehicle id="veh2" speed="20.00"/>
     </timestep>
     <timestep time="12.00">
-        <vehicle id="veh1" x="104.75" y="48.35" angle="90.00" type="1" speed="13.89" pos="0.00" edge="CE" slope="0.00"/>
-        <vehicle id="veh2" x="98.35" y="45.25" angle="180.00" type="1" speed="13.89" pos="0.00" edge="CS" slope="0.00"/>
+        <vehicle id="veh2" speed="20.00"/>
+    </timestep>
+    <timestep time="12.50">
+        <vehicle id="veh2" speed="20.00"/>
     </timestep>
     <timestep time="13.00">
-        <vehicle id="veh1" x="104.75" y="48.35" angle="90.00" type="1" speed="13.89" pos="0.00" edge="CE" slope="0.00"/>
-        <vehicle id="veh2" x="98.35" y="45.25" angle="180.00" type="1" speed="13.89" pos="0.00" edge="CS" slope="0.00"/>
+        <vehicle id="veh2" speed="20.00"/>
     </timestep>
-    <timestep time="14.00">
-        <vehicle id="veh1" x="104.75" y="48.35" angle="90.00" type="1" speed="13.89" pos="0.00" edge="CE" slope="0.00"/>
-        <vehicle id="veh2" x="98.35" y="45.25" angle="180.00" type="1" speed="13.89" pos="0.00" edge="CS" slope="0.00"/>
-    </timestep>
-    <timestep time="15.00"/>
+    <timestep time="13.50"/>
 </fcd-export>
