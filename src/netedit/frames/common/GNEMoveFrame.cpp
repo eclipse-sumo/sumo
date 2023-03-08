@@ -173,7 +173,7 @@ GNEMoveFrame::ShiftEdgeSelectedGeometry::ShiftEdgeSelectedGeometry(GNEMoveFrame*
     // create horizontal frame
     FXHorizontalFrame* myZValueFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     // create elements for Z value
-    new FXLabel(myZValueFrame, "Shift value", 0, GUIDesignLabelAttribute);
+    new FXLabel(myZValueFrame, "Shift value", 0, GUIDesignLabelThickedFixed(100));
     myShiftValueTextField = new FXTextField(myZValueFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldRestricted(TEXTFIELD_REAL));
     myShiftValueTextField->setText("0");
     // create apply button
@@ -253,7 +253,7 @@ GNEMoveFrame::ChangeZInSelection::ChangeZInSelection(GNEMoveFrame* moveFramePare
     // create horizontal frame
     FXHorizontalFrame* myZValueFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     // create elements for Z value
-    new FXLabel(myZValueFrame, "Z value", 0, GUIDesignLabelAttribute);
+    new FXLabel(myZValueFrame, "Z value", 0, GUIDesignLabelThickedFixed(100));
     myZValueTextField = new FXTextField(myZValueFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldRestricted(TEXTFIELD_REAL));
     myZValueTextField->setText("0");
     // Create all options buttons
@@ -520,13 +520,13 @@ GNEMoveFrame::ShiftShapeGeometry::ShiftShapeGeometry(GNEMoveFrame* moveFramePare
     // create horizontal frame
     FXHorizontalFrame* horizontalFrameX = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     // create elements for Z value
-    new FXLabel(horizontalFrameX, "X value", 0, GUIDesignLabelAttribute);
+    new FXLabel(horizontalFrameX, "X value", 0, GUIDesignLabelThickedFixed(100));
     myShiftValueXTextField = new FXTextField(horizontalFrameX, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldRestricted(TEXTFIELD_REAL));
     myShiftValueXTextField->setText("0");
     // create horizontal frame
     FXHorizontalFrame* horizontalFrameY = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     // create elements for Z value
-    new FXLabel(horizontalFrameY, "Y value", 0, GUIDesignLabelAttribute);
+    new FXLabel(horizontalFrameY, "Y value", 0, GUIDesignLabelThickedFixed(100));
     myShiftValueYTextField = new FXTextField(horizontalFrameY, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldRestricted(TEXTFIELD_REAL));
     myShiftValueYTextField->setText("0");
     // create apply button

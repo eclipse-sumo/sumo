@@ -57,7 +57,7 @@ GNEAttributesCreatorRow::GNEAttributesCreatorRow(GNEAttributesCreator* Attribute
     // Create left visual elements
     myAttributeLabel = new MFXLabelTooltip(this,
         AttributesCreatorParent->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
-        TL("name"), nullptr, GUIDesignLabelAttribute);
+        TL("name"), nullptr, GUIDesignLabelThickedFixed(100));
     myAttributeLabel->hide();
     myEnableAttributeCheckButton = new FXCheckButton(this, TL("name"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButtonAttribute);
     myEnableAttributeCheckButton->hide();

@@ -56,7 +56,7 @@ GNEConsecutiveSelector::GNEConsecutiveSelector(GNEFrame* frameParent, const bool
     myFrameParent(frameParent),
     myAllowOneLane(allowOneLane) {
     // create label for route info
-    myInfoPathLabel = new FXLabel(getCollapsableFrame(), TL("No lanes selected"), 0, GUIDesignLabelFrameThicked);
+    myInfoPathLabel = new FXLabel(getCollapsableFrame(), TL("No lanes selected"), 0, GUIDesignLabelThicked);
     // create button for finish route creation
     myFinishCreationButton = new FXButton(getCollapsableFrame(), TL("Finish path creation"), nullptr, this, MID_GNE_FINISH, GUIDesignButton);
     myFinishCreationButton->disable();

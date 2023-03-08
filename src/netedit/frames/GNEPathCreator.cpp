@@ -149,7 +149,7 @@ GNEPathCreator::GNEPathCreator(GNEFrame* frameParent) :
     myToStoppingPlace(nullptr),
     myRoute(nullptr) {
     // create label for route info
-    myInfoRouteLabel = new FXLabel(getCollapsableFrame(), TL("No edges selected"), 0, GUIDesignLabelFrameThicked);
+    myInfoRouteLabel = new FXLabel(getCollapsableFrame(), TL("No edges selected"), 0, GUIDesignLabelThicked);
     // create button for use last route
     myUseLastRoute = new FXButton(getCollapsableFrame(), TL("Use last route"), GUIIconSubSys::getIcon(GUIIcon::ROUTE), this, MID_GNE_PATHCREATOR_USELASTROUTE, GUIDesignButton);
     myUseLastRoute->disable();

@@ -547,7 +547,7 @@ GNETLSEditorFrame::TLSAttributes::TLSAttributes(GNETLSEditorFrame* TLSEditorPare
     myTLSEditorParent(TLSEditorParent) {
     // create frame, label and TextField for Offset (By default disabled)
     FXHorizontalFrame* horizontalFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(horizontalFrame, toString(SUMO_ATTR_OFFSET).c_str(), nullptr, GUIDesignLabelAttribute);
+    new FXLabel(horizontalFrame, toString(SUMO_ATTR_OFFSET).c_str(), nullptr, GUIDesignLabelThickedFixed(100));
     myOffsetTextField = new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_TLSFRAME_ATTRIBUTES_OFFSET, GUIDesignTextField);
     myOffsetTextField->disable();
     // create frame, label and TextField for parameters (By default disabled)
@@ -881,20 +881,20 @@ GNETLSEditorFrame::TLSJunction::TLSJunction(GNETLSEditorFrame* TLSEditorParent) 
     myCurrentJunction(nullptr) {
     // Create frame for junction IDs
     FXHorizontalFrame* junctionIDFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    myJunctionIDLabel = new FXLabel(junctionIDFrame, TL("Junction ID"), nullptr, GUIDesignLabelAttribute);
+    myJunctionIDLabel = new FXLabel(junctionIDFrame, TL("Junction ID"), nullptr, GUIDesignLabelThickedFixed(100));
     myJunctionIDTextField = new MFXTextFieldTooltip(junctionIDFrame,
             TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
             GUIDesignTextFieldNCol, this, 0, GUIDesignTextField);
     myJunctionIDTextField->disable();
     // Create frame for TLS Program ID
     FXHorizontalFrame* TLSIDFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(TLSIDFrame, TL("TLS ID"), nullptr, GUIDesignLabelAttribute);
+    new FXLabel(TLSIDFrame, TL("TLS ID"), nullptr, GUIDesignLabelThickedFixed(100));
     myTLSIDTextField = new MFXTextFieldTooltip(TLSIDFrame,
             TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
             GUIDesignTextFieldNCol, this, MID_GNE_TLSFRAME_TLSJUNCTION_ID, GUIDesignTextField);
     // create frame, label and textfield for type
     FXHorizontalFrame* typeFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(typeFrame, toString(SUMO_ATTR_TYPE).c_str(), nullptr, GUIDesignLabelAttribute);
+    new FXLabel(typeFrame, toString(SUMO_ATTR_TYPE).c_str(), nullptr, GUIDesignLabelThickedFixed(100));
     myTLSTypeComboBox = new MFXComboBoxIcon(typeFrame, GUIDesignComboBoxNCol, false, this, MID_GNE_TLSFRAME_TLSJUNCTION_TYPE, GUIDesignComboBoxAttribute);
     // fill comboBox (only certain TL types)
     myTLSTypeComboBox->appendIconItem(toString(TrafficLightType::STATIC).c_str());
@@ -1329,7 +1329,7 @@ GNETLSEditorFrame::TLSDefinition::TLSDefinition(GNETLSEditorFrame* TLSEditorPare
     myTLSEditorParent(TLSEditorParent) {
     // create frame, label and comboBox for programID
     FXHorizontalFrame* programFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(programFrame, toString(SUMO_ATTR_PROGRAMID).c_str(), nullptr, GUIDesignLabelAttribute);
+    new FXLabel(programFrame, toString(SUMO_ATTR_PROGRAMID).c_str(), nullptr, GUIDesignLabelThickedFixed(100));
     myProgramComboBox = new FXComboBox(programFrame, GUIDesignComboBoxNCol, this, MID_GNE_TLSFRAME_DEFINITION_SWITCHPROGRAM, GUIDesignComboBoxAttribute);
     myProgramComboBox->setEditable(false);
     myProgramComboBox->disable();

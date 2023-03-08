@@ -72,7 +72,7 @@ GNEMultipleParametersDialog::ParametersValues::ParametersValues(FXHorizontalFram
     FXGroupBox(frame, "Parameters", GUIDesignGroupBoxFrameFill) {
     // create labels for keys and values
     FXHorizontalFrame* horizontalFrameLabels = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    myKeyLabel = new FXLabel(horizontalFrameLabels, "key", nullptr, GUIDesignLabelThickFixed(100));
+    myKeyLabel = new FXLabel(horizontalFrameLabels, "key", nullptr, GUIDesignLabelThickedFixed(100));
     new FXLabel(horizontalFrameLabels, "value", nullptr, GUIDesignLabelCenterThick);
     new FXLabel(horizontalFrameLabels, "", nullptr, GUIDesignLabelIconThick);
     // create scroll windows

@@ -632,12 +632,12 @@ MFXDecalsTable::Column::Column(MFXDecalsTable* table, const int index, const cha
         case ('p'): 
         case ('s'): {
             // ticked label fixed
-            myTopLabel = new MFXLabelTooltip(myVerticalFrame, staticTooltip, "", nullptr, GUIDesignLabelThickFixed(0));
+            myTopLabel = new MFXLabelTooltip(myVerticalFrame, staticTooltip, "", nullptr, GUIDesignLabelThickedFixed(0));
             break;
         }
         case ('c'): {
             // ticked label for checkbox
-            myTopLabel = new MFXLabelTooltip(myVerticalFrame, staticTooltip, "", nullptr, GUIDesignLabelThickFixed(30));
+            myTopLabel = new MFXLabelTooltip(myVerticalFrame, staticTooltip, "", nullptr, GUIDesignLabelThickedFixed(30));
             break;
         }
         case ('i'): {
@@ -768,9 +768,9 @@ MFXDecalsTable::Row::Row(MFXDecalsTable* table) :
             case ('i'): {
                 // create labels for index
                 auto indexLabel = new FXLabel(table->myColumns.at(columnIndex)->getVerticalCellFrame(),
-                    toString(myTable->myRows.size()).c_str(), nullptr, GUIDesignLabelThickFixed(30));
+                    toString(myTable->myRows.size()).c_str(), nullptr, GUIDesignLabelThickedFixed(30));
                 auto indexLabelBold = new FXLabel(table->myColumns.at(columnIndex)->getVerticalCellFrame(),
-                    toString(myTable->myRows.size()).c_str(), nullptr, GUIDesignLabelThickFixed(30));
+                    toString(myTable->myRows.size()).c_str(), nullptr, GUIDesignLabelThickedFixed(30));
                 // set fonts
                 indexLabel->setFont(myTable->myIndexFont);
                 indexLabelBold->setFont(myTable->myIndexSelectedFont);

@@ -487,18 +487,18 @@ GNETAZFrame::TAZChildDefaultParameters::TAZChildDefaultParameters(GNETAZFrame* T
     myDefaultTAZSinkWeight(1) {
     // create checkbox for toggle membership
     myToggleMembershipFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(myToggleMembershipFrame, TL("Membership"), 0, GUIDesignLabelAttribute);
+    new FXLabel(myToggleMembershipFrame, TL("Membership"), 0, GUIDesignLabelThickedFixed(100));
     myToggleMembership = new FXCheckButton(myToggleMembershipFrame, TL("Toggle"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     // by default enabled
     myToggleMembership->setCheck(TRUE);
     // create default TAZ Source weight
     myDefaultTAZSourceFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(myDefaultTAZSourceFrame, TL("New source"), 0, GUIDesignLabelAttribute);
+    new FXLabel(myDefaultTAZSourceFrame, TL("New source"), 0, GUIDesignLabelThickedFixed(100));
     myTextFieldDefaultValueTAZSources = new FXTextField(myDefaultTAZSourceFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myTextFieldDefaultValueTAZSources->setText("1");
     // create default TAZ Sink weight
     myDefaultTAZSinkFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(myDefaultTAZSinkFrame, TL("New sink"), 0, GUIDesignLabelAttribute);
+    new FXLabel(myDefaultTAZSinkFrame, TL("New sink"), 0, GUIDesignLabelThickedFixed(100));
     myTextFieldDefaultValueTAZSinks = new FXTextField(myDefaultTAZSinkFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myTextFieldDefaultValueTAZSinks->setText("1");
     // Create button for use selected edges
@@ -879,12 +879,12 @@ GNETAZFrame::TAZSelectionStatistics::TAZSelectionStatistics(GNETAZFrame* TAZFram
     myTAZFrameParent(TAZFrameParent) {
     // create default TAZ Source weight
     myTAZSourceFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(myTAZSourceFrame, TL("Source"), 0, GUIDesignLabelAttribute);
+    new FXLabel(myTAZSourceFrame, TL("Source"), 0, GUIDesignLabelThickedFixed(100));
     myTextFieldTAZSourceWeight = new FXTextField(myTAZSourceFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myTAZSourceFrame->hide();
     // create default TAZ Sink weight
     myTAZSinkFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(myTAZSinkFrame, TL("Sink"), 0, GUIDesignLabelAttribute);
+    new FXLabel(myTAZSinkFrame, TL("Sink"), 0, GUIDesignLabelThickedFixed(100));
     myTextFieldTAZSinkWeight = new FXTextField(myTAZSinkFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myTAZSinkFrame->hide();
     // create label for statistics
@@ -1169,11 +1169,11 @@ GNETAZFrame::TAZParameters::TAZParameters(GNETAZFrame* TAZFrameParent) :
     myTAZTemplate = new GNETAZ(TAZFrameParent->getViewNet()->getNet());
     // create Button and string textField for center (by default, empty)
     FXHorizontalFrame* centerParameter = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(centerParameter, toString(SUMO_ATTR_CENTER).c_str(), 0, GUIDesignLabelAttribute);
+    new FXLabel(centerParameter, toString(SUMO_ATTR_CENTER).c_str(), 0, GUIDesignLabelThickedFixed(100));
     myTextFieldCenter = new FXTextField(centerParameter, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     // create Button and string textField for color and set blue as default color
     FXHorizontalFrame* fillParameter = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(fillParameter, toString(SUMO_ATTR_FILL).c_str(), 0, GUIDesignLabelAttribute);
+    new FXLabel(fillParameter, toString(SUMO_ATTR_FILL).c_str(), 0, GUIDesignLabelThickedFixed(100));
     myCheckButtonFill = new FXCheckButton(fillParameter, "false", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myCheckButtonFill->setCheck(FALSE);
     // create Button and string textField for color and set blue as default color
@@ -1183,11 +1183,11 @@ GNETAZFrame::TAZParameters::TAZParameters(GNETAZFrame* TAZFrameParent) :
     myTextFieldColor->setText("blue");
     // create Button and string textField for name and set blue as default name
     FXHorizontalFrame* nameParameter = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(nameParameter, toString(SUMO_ATTR_NAME).c_str(), 0, GUIDesignLabelAttribute);
+    new FXLabel(nameParameter, toString(SUMO_ATTR_NAME).c_str(), 0, GUIDesignLabelThickedFixed(100));
     myTextFieldName = new FXTextField(nameParameter, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     // create Label and CheckButton for use innen edges with true as default value
     FXHorizontalFrame* useInnenEdges = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(useInnenEdges, TL("Edges within"), 0, GUIDesignLabelAttribute);
+    new FXLabel(useInnenEdges, TL("Edges within"), 0, GUIDesignLabelThickedFixed(100));
     myAddEdgesWithinCheckButton = new FXCheckButton(useInnenEdges, TL("use"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myAddEdgesWithinCheckButton->setCheck(true);
     // Create help button

@@ -70,7 +70,7 @@ GNECrossingFrame::JunctionInformation::JunctionInformation(GNECrossingFrame* cro
     // Create frame for junction ID
     FXHorizontalFrame* junctionIDFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     // create label
-    new FXLabel(junctionIDFrame, "", nullptr, GUIDesignLabelAttribute);
+    new FXLabel(junctionIDFrame, "", nullptr, GUIDesignLabelThickedFixed(100));
     // create text field and disable it
     myTextFieldJunctionID = new FXTextField(junctionIDFrame, GUIDesignTextFieldNCol, this, MID_GNE_SELECT, GUIDesignTextField);
     myTextFieldJunctionID->disable();
@@ -202,19 +202,19 @@ GNECrossingFrame::CrossingParameters::CrossingParameters(GNECrossingFrame* cross
     FXHorizontalFrame* crossingParameter = nullptr;
     // create label and string textField for edges
     crossingParameter = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    myCrossingEdgesLabel = new FXLabel(crossingParameter, toString(SUMO_ATTR_EDGES).c_str(), nullptr, GUIDesignLabelAttribute);
+    myCrossingEdgesLabel = new FXLabel(crossingParameter, toString(SUMO_ATTR_EDGES).c_str(), nullptr, GUIDesignLabelThickedFixed(100));
     myCrossingEdges = new FXTextField(crossingParameter, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myCrossingEdgesLabel->disable();
     myCrossingEdges->disable();
     // create label and checkbox for Priority
     crossingParameter = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    myCrossingPriorityLabel = new FXLabel(crossingParameter, toString(SUMO_ATTR_PRIORITY).c_str(), nullptr, GUIDesignLabelAttribute);
+    myCrossingPriorityLabel = new FXLabel(crossingParameter, toString(SUMO_ATTR_PRIORITY).c_str(), nullptr, GUIDesignLabelThickedFixed(100));
     myCrossingPriorityCheckButton = new FXCheckButton(crossingParameter, "", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myCrossingPriorityLabel->disable();
     myCrossingPriorityCheckButton->disable();
     // create label and textfield for width
     crossingParameter = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    myCrossingWidthLabel = new FXLabel(crossingParameter, toString(SUMO_ATTR_WIDTH).c_str(), nullptr, GUIDesignLabelAttribute);
+    myCrossingWidthLabel = new FXLabel(crossingParameter, toString(SUMO_ATTR_WIDTH).c_str(), nullptr, GUIDesignLabelThickedFixed(100));
     myCrossingWidth = new FXTextField(crossingParameter, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myCrossingWidthLabel->disable();
     myCrossingWidth->disable();

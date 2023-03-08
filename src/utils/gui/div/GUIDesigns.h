@@ -57,7 +57,7 @@ class MFXMenuCheckIcon;
 #define GUIDesignTextFieldFixedRestricted(width, type)  (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | type), 0, 0, width, GUIDesignHeight, 2, 2, 2, 2
 
 /// @brief text field with min width (used in TLS table)
-#define GUIDesignTextFieldTickedMinWidth                (FRAME_THICK | LAYOUT_FILL_X | LAYOUT_MIN_WIDTH | LAYOUT_FIX_HEIGHT | JUSTIFY_CENTER_Y | JUSTIFY_LEFT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
+#define GUIDesignTextFieldTLSTable                      (FRAME_THICK | LAYOUT_FILL_X | LAYOUT_MIN_WIDTH | LAYOUT_FIX_HEIGHT | JUSTIFY_CENTER_Y | JUSTIFY_LEFT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
 
 /// @brief Num of column of text field
 #define GUIDesignTextFieldNCol          1
@@ -243,12 +243,6 @@ class MFXMenuCheckIcon;
 /// @brief label squared over frame with thick and with text justify to center
 #define GUIDesignLabelIconThick             (FRAME_THICK | JUSTIFY_NORMAL | LAYOUT_FILL_X | ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, GUIDesignHeight, GUIDesignHeight, 2, 2, 2, 2
 
-/// @brief label extended over the matrix column with thick frame
-#define GUIDesignLabelAttribute             (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | ICON_BEFORE_TEXT), 0, 0, 100, GUIDesignHeight, 2, 2, 2, 2
-
-/// @brief label extended over the matrix column with thick frame
-#define GUIDesignLabelAttribute150          (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | ICON_BEFORE_TEXT), 0, 0, 150, GUIDesignHeight, 2, 2, 2, 2
-
 /// @brief label extended over frame without thick and with text justify to left
 #define GUIDesignLabelAboutInfo             (JUSTIFY_LEFT | LAYOUT_FILL_X | ICON_BEFORE_TEXT), 0, 0, 0, 0, 2, 2, 0, 0
 
@@ -277,13 +271,19 @@ class MFXMenuCheckIcon;
 #define GUIDesignLabelFrameInformation      (JUSTIFY_LEFT | LAYOUT_FILL_X | ICON_BEFORE_TEXT), 0, 0, 0, 0, 2, 2, 2, 2
 
 /// @brief label extended over frame without thick and with text justify to left, used to show information in frames
-#define GUIDesignLabelFrameThicked          (FRAME_THICK | JUSTIFY_LEFT | LAYOUT_FILL_X | ICON_BEFORE_TEXT), 0, 0, 0, 0, 2, 2, 2, 2
+#define GUIDesignLabelThicked               (FRAME_THICK | JUSTIFY_LEFT | LAYOUT_FILL_X | ICON_BEFORE_TEXT), 0, 0, 0, 0, 2, 2, 2, 2
 
 /// @brief label, icon before text, text centered and custom width
 #define GUIDesignLabelFixed(width)          (ICON_BEFORE_TEXT | JUSTIFY_CENTER_X | JUSTIFY_CENTER_Y | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, width, GUIDesignHeight, 2, 2, 2, 2
 
 /// @brief label thicked, icon before text, text centered and custom width
-#define GUIDesignLabelThickFixed(width)     (FRAME_THICK | ICON_BEFORE_TEXT | JUSTIFY_CENTER_X | JUSTIFY_CENTER_Y | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, width, GUIDesignHeight, 2, 2, 2, 2
+#define GUIDesignLabelThickedFixed(width)   (FRAME_THICK | ICON_BEFORE_TEXT | JUSTIFY_CENTER_X | JUSTIFY_CENTER_Y | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, width, GUIDesignHeight, 2, 2, 2, 2
+
+/// @brief label extended over the matrix column with thick frame
+#define GUIDesignLabelThickedFixed(width)   (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | ICON_BEFORE_TEXT), 0, 0, width, GUIDesignHeight, 2, 2, 2, 2
+
+/// @brief label extended over the matrix column with thick frame
+#define GUIDesignLabelThickedFixed(width)   (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | ICON_BEFORE_TEXT), 0, 0, width, GUIDesignHeight, 2, 2, 2, 2
 
 /// @brief label used in statusBar
 #define GUIDesignLabelStatusBar             (LAYOUT_CENTER_Y), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2

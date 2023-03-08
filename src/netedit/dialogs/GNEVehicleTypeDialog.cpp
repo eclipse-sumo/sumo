@@ -64,7 +64,7 @@ GNEVehicleTypeDialog::VTypeAttributes::VClassRow::VClassRow(VTypeAttributes* VTy
     // create two auxiliary frames
     FXVerticalFrame* verticalFrameLabelAndComboBox = new FXVerticalFrame(this, GUIDesignAuxiliarVerticalFrame);
     // create FXComboBox for VClass
-    new FXLabel(verticalFrameLabelAndComboBox, toString(SUMO_ATTR_VCLASS).c_str(), nullptr, GUIDesignLabelAttribute150);
+    new FXLabel(verticalFrameLabelAndComboBox, toString(SUMO_ATTR_VCLASS).c_str(), nullptr, GUIDesignLabelThickedFixed(150));
     myComboBoxVClass = new MFXComboBoxIcon(verticalFrameLabelAndComboBox, GUIDesignComboBoxNCol, true,
                                            VTypeAttributesParent, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBox);
     myComboBoxVClassLabelImage = new FXLabel(this, "", nullptr, GUIDesignLabelTickedIcon180x46);
@@ -271,7 +271,7 @@ GNEVehicleTypeDialog::VTypeAttributes::VShapeRow::VShapeRow(VTypeAttributes* VTy
     // create two auxiliar frames
     FXVerticalFrame* verticalFrameLabelAndComboBox = new FXVerticalFrame(this, GUIDesignAuxiliarVerticalFrame);
     // create combo for vehicle shapes
-    new FXLabel(verticalFrameLabelAndComboBox, toString(SUMO_ATTR_GUISHAPE).c_str(), nullptr, GUIDesignLabelAttribute150);
+    new FXLabel(verticalFrameLabelAndComboBox, toString(SUMO_ATTR_GUISHAPE).c_str(), nullptr, GUIDesignLabelThickedFixed(150));
     myComboBoxShape = new MFXComboBoxIcon(verticalFrameLabelAndComboBox, GUIDesignComboBoxNCol, false,
                                           VTypeAttributesParent, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBox);
     myComboBoxShapeLabelImage = new FXLabel(this, "", nullptr, GUIDesignLabelTickedIcon180x46);
@@ -444,7 +444,7 @@ GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow::VTypeAttributeRow(VTyp
     } else if (rowAttrType == ROWTYPE_PARAMETERS) {
         myButton = new FXButton(this, TL("Edit parameters"), nullptr, VTypeAttributesParent, MID_GNE_OPEN_PARAMETERS_DIALOG, GUIDesignButtonRectangular150);
     } else {
-        new FXLabel(this, filterAttributeName(attr), nullptr, GUIDesignLabelAttribute150);
+        new FXLabel(this, filterAttributeName(attr), nullptr, GUIDesignLabelThickedFixed(150));
     }
     // now check if we have to create a textfield or a ComboBox
     if ((rowAttrType == ROWTYPE_STRING) || (rowAttrType == ROWTYPE_COLOR) || (rowAttrType == ROWTYPE_FILENAME) || (rowAttrType == ROWTYPE_PARAMETERS)) {
@@ -857,7 +857,7 @@ GNEVehicleTypeDialog::VTypeAttributes::buildAttributesA(FXVerticalFrame* column)
 
     // 02 create FXTextField and Label for vehicleTypeID
     FXHorizontalFrame* row = new FXHorizontalFrame(column, GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(row, toString(SUMO_ATTR_ID).c_str(), nullptr, GUIDesignLabelAttribute150);
+    new FXLabel(row, toString(SUMO_ATTR_ID).c_str(), nullptr, GUIDesignLabelThickedFixed(150));
     myTextFieldVehicleTypeID = new FXTextField(row, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldFixed(180));
 
     // 03 create FXTextField and Button for Color
@@ -1256,7 +1256,7 @@ GNEVehicleTypeDialog::CarFollowingModelParameters::CarFollowingModelParameters(G
 
     // declare combo box
     FXHorizontalFrame* row = new FXHorizontalFrame(myVerticalFrameRows, GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(row, "Algorithm", nullptr, GUIDesignLabelAttribute150);
+    new FXLabel(row, "Algorithm", nullptr, GUIDesignLabelThickedFixed(150));
     myComboBoxCarFollowModel = new MFXComboBoxIcon(row, GUIDesignComboBoxNCol, false, this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBox);
 
     // fill combo Box with all Car following models
@@ -1815,7 +1815,7 @@ GNEVehicleTypeDialog::CarFollowingModelParameters::CarFollowingModelRow::CarFoll
     myCarFollowingModelParametersParent(carFollowingModelParametersParent),
     myAttr(attr),
     myTextField(nullptr) {
-    new FXLabel(this, toString(attr).c_str(), nullptr, GUIDesignLabelAttribute150);
+    new FXLabel(this, toString(attr).c_str(), nullptr, GUIDesignLabelThickedFixed(150));
     myTextField = new FXTextField(this, GUIDesignTextFieldNCol, carFollowingModelParametersParent, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldFixed(180));
 }
 

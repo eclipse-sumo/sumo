@@ -54,12 +54,12 @@ GNEGeometryPointDialog::GNEGeometryPointDialog(GNEViewNet* viewNet, Position* po
     FXVerticalFrame* mainFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrame);
     // create frame for X,Y
     FXHorizontalFrame* XYFrame = new FXHorizontalFrame(mainFrame, GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(XYFrame, "X,Y,[Z]", nullptr, GUIDesignLabelThickFixed(75));
+    new FXLabel(XYFrame, "X,Y,[Z]", nullptr, GUIDesignLabelThickedFixed(75));
     myTextFieldXY = new FXTextField(XYFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myTextFieldXY->setText(toString(*pos).c_str());
     // create frame for lon,lat
     FXHorizontalFrame* lonLatFrame = new FXHorizontalFrame(mainFrame, GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(lonLatFrame, "lon,lat,[Z]", nullptr, GUIDesignLabelThickFixed(75));
+    new FXLabel(lonLatFrame, "lon,lat,[Z]", nullptr, GUIDesignLabelThickedFixed(75));
     myTextFieldLonLat = new FXTextField(lonLatFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     // check if enable geo coordinates
     if (myGeo) {

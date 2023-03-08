@@ -51,23 +51,23 @@ GNEFlowEditor::GNEFlowEditor(GNEViewNet* viewNet, GNEFrame* frameParent) :
     myViewNet(viewNet) {
     // create comboBox for option A
     FXHorizontalFrame* auxiliarHorizontalFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    auto terminatelabel = new FXLabel(auxiliarHorizontalFrame, "terminate", nullptr, GUIDesignLabelAttribute);
+    auto terminatelabel = new FXLabel(auxiliarHorizontalFrame, "terminate", nullptr, GUIDesignLabelThickedFixed(100));
     terminatelabel->setTipText("Terminate attribute");
     myTerminateComboBox = new FXComboBox(auxiliarHorizontalFrame, GUIDesignComboBoxNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxAttribute);
     // create comboBox for spacing
     mySpacingFrameComboBox = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    auto spacingAttribute = new FXLabel(mySpacingFrameComboBox, "spacing", nullptr, GUIDesignLabelAttribute);
+    auto spacingAttribute = new FXLabel(mySpacingFrameComboBox, "spacing", nullptr, GUIDesignLabelThickedFixed(100));
     spacingAttribute->setTipText("Terminate attribute");
     mySpacingComboBox = new FXComboBox(mySpacingFrameComboBox, GUIDesignComboBoxNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxAttribute);
     // create textField for option A
     myTerminateFrameTextField = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     myTerminateLabel = new MFXLabelTooltip(myTerminateFrameTextField,
-                                           frameParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(), "A", nullptr, GUIDesignLabelAttribute);
+                                           frameParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(), "A", nullptr, GUIDesignLabelThickedFixed(100));
     myTerminateTextField = new FXTextField(myTerminateFrameTextField, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     // create textField for spacing
     mySpacingFrameTextField = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     mySpacingLabel = new MFXLabelTooltip(mySpacingFrameTextField, frameParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
-                                         "B", nullptr, GUIDesignLabelAttribute);
+                                         "B", nullptr, GUIDesignLabelThickedFixed(100));
     mySpacingTextField = new FXTextField(mySpacingFrameTextField, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     // fill terminate
     myTerminateComboBox->appendItem(toString(SUMO_ATTR_END).c_str());

@@ -81,9 +81,9 @@ GNEToolDialogElements::Argument::Argument() {}
 GNEToolDialogElements::HeaderArgument::HeaderArgument(GNEToolDialog* toolDialogParent) :
     FXHorizontalFrame(toolDialogParent->getContentFrame(), GUIDesignAuxiliarHorizontalFrame) {
     // create parameter label
-    myParameterLabel = new MFXLabelTooltip(this, toolDialogParent->getGNEApp()->getStaticTooltipMenu(), TL("Parameter"), nullptr, GUIDesignLabelThickFixed(0));
+    myParameterLabel = new MFXLabelTooltip(this, toolDialogParent->getGNEApp()->getStaticTooltipMenu(), TL("Parameter"), nullptr, GUIDesignLabelThickedFixed(0));
     // create text field for filename
-    new MFXLabelTooltip(this, toolDialogParent->getGNEApp()->getStaticTooltipMenu(), TL("Value"), nullptr, GUIDesignLabelThickFixed(50));
+    new MFXLabelTooltip(this, toolDialogParent->getGNEApp()->getStaticTooltipMenu(), TL("Value"), nullptr, GUIDesignLabelThickedFixed(50));
 }
 
 
@@ -113,7 +113,7 @@ GNEToolDialogElements::FileNameArgument::FileNameArgument(GNEToolDialog* toolDia
     FXHorizontalFrame(toolDialogParent->getContentFrame(), GUIDesignAuxiliarHorizontalFrame),
     Argument(name, option->getValueString()) {
     // create parameter label
-    myParameterLabel = new MFXLabelTooltip(this, toolDialogParent->getGNEApp()->getStaticTooltipMenu(), name.c_str(), nullptr, GUIDesignLabelThickFixed(0));
+    myParameterLabel = new MFXLabelTooltip(this, toolDialogParent->getGNEApp()->getStaticTooltipMenu(), name.c_str(), nullptr, GUIDesignLabelThickedFixed(0));
     myParameterLabel->setTipText(option->getDescription().c_str());
     // Create Open button
     myFilenameButton = new FXButton(this, (std::string("\t\t") + TL("Select filename")).c_str(), 
@@ -121,7 +121,7 @@ GNEToolDialogElements::FileNameArgument::FileNameArgument(GNEToolDialog* toolDia
     // create text field for filename
     myFilenameTextField = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldFixed(180));
     // create label for description
-    //new MFXLabelTooltip(this, toolDialogParent->getGNEApp()->getStaticTooltipMenu(), option->getDescription().c_str(), nullptr, GUIDesignLabelThickFixed(400));
+    //new MFXLabelTooltip(this, toolDialogParent->getGNEApp()->getStaticTooltipMenu(), option->getDescription().c_str(), nullptr, GUIDesignLabelThickedFixed(400));
     // reset after creation
     reset();
 }
@@ -162,7 +162,7 @@ GNEToolDialogElements::StringArgument::StringArgument(GNEToolDialog* toolDialogP
     FXHorizontalFrame(toolDialogParent->getContentFrame(), GUIDesignAuxiliarHorizontalFrame),
     Argument(name, option->getValueString()) {
     // create parameter label
-    myParameterLabel = new MFXLabelTooltip(this, toolDialogParent->getGNEApp()->getStaticTooltipMenu(), name.c_str(), nullptr, GUIDesignLabelThickFixed(0));
+    myParameterLabel = new MFXLabelTooltip(this, toolDialogParent->getGNEApp()->getStaticTooltipMenu(), name.c_str(), nullptr, GUIDesignLabelThickedFixed(0));
     myParameterLabel->setTipText(option->getDescription().c_str());
     // create text field for filename
     myStringTextField = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldFixedRestricted(180, type));

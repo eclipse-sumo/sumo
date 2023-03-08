@@ -3109,7 +3109,7 @@ void
 GNEViewNetHelper::IntervalBar::buildIntervalBarElements() {
     // create interval label
     FXLabel* genericDataLabel = new FXLabel(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar,
-                                            "Data type", 0, GUIDesignLabelAttribute);
+                                            "Data type", 0, GUIDesignLabelThickedFixed(100));
     genericDataLabel->create();
     // create combo box for generic datas
     myGenericDataTypesComboBox = new FXComboBox(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar,
@@ -3123,7 +3123,7 @@ GNEViewNetHelper::IntervalBar::buildIntervalBarElements() {
     myGenericDataTypesComboBox->setNumVisible(myGenericDataTypesComboBox->getNumItems());
     // create dataSet label
     FXLabel* dataSetLabel = new FXLabel(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar,
-                                        "Data sets", 0, GUIDesignLabelAttribute);
+                                        "Data sets", 0, GUIDesignLabelThickedFixed(100));
     dataSetLabel->create();
     // create combo box for sets
     myDataSetsComboBox = new FXComboBox(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar,
@@ -3143,7 +3143,7 @@ GNEViewNetHelper::IntervalBar::buildIntervalBarElements() {
     myEndTextField->create();
     // create parameter label
     FXLabel* parameterLabel = new FXLabel(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar,
-                                          "Parameter", 0, GUIDesignLabelAttribute);
+                                          "Parameter", 0, GUIDesignLabelThickedFixed(100));
     parameterLabel->create();
     // create combo box for attributes
     myParametersComboBox = new FXComboBox(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar,

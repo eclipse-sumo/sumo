@@ -57,16 +57,16 @@ GNENeteditAttributes::GNENeteditAttributes(GNEFrame* frameParent) :
     myReferencePointMatchBox->appendItem(TL("reference center"));
     // Create Frame for Length Label and textField
     myLengthFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(myLengthFrame, toString(SUMO_ATTR_LENGTH).c_str(), 0, GUIDesignLabelAttribute);
+    new FXLabel(myLengthFrame, toString(SUMO_ATTR_LENGTH).c_str(), 0, GUIDesignLabelThickedFixed(100));
     myLengthTextField = new FXTextField(myLengthFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myLengthTextField->setText("10");
     // Create Frame for block close polygon and checkBox (By default disabled)
     myCloseShapeFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(myCloseShapeFrame, TL("Close shape"), 0, GUIDesignLabelAttribute);
+    new FXLabel(myCloseShapeFrame, TL("Close shape"), 0, GUIDesignLabelThickedFixed(100));
     myCloseShapeCheckButton = new FXCheckButton(myCloseShapeFrame, "false", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     // Create Frame for center element after creation (By default enabled)
     myCenterViewAfterCreationFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(myCenterViewAfterCreationFrame, TL("Center view"), 0, GUIDesignLabelAttribute);
+    new FXLabel(myCenterViewAfterCreationFrame, TL("Center view"), 0, GUIDesignLabelThickedFixed(100));
     myCenterViewAfterCreationButton = new FXCheckButton(myCenterViewAfterCreationFrame, "false", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myCenterViewAfterCreationButton->setCheck(true);
     // Create help button
