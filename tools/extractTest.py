@@ -338,7 +338,7 @@ for d, p in [
     if options.python_script:
         pyBatch.write("""]:
     if p.wait() != 0:
-        print("Error: '%s' failed for '%s'!" % (" ".join(p.args), d))
+        print("Error: '%s' failed for '%s'!" % (" ".join(getattr(p, "args", [str(p.pid)])), d))
         sys.exit(1)\n""")
 
 
