@@ -1118,7 +1118,7 @@ GNESelectorFrame::SelectionHierarchy::SelectionHierarchy(GNESelectorFrame* selec
     myCurrentSelectedParent(Selection::ALL),
     myCurrentSelectedChild(Selection::ALL) {
     // create label for parents
-    new FXLabel(getCollapsableFrame(), "Select parents", nullptr, GUIDesignLabelThickCenter);
+    new FXLabel(getCollapsableFrame(), "Select parents", nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL));
     // Create FXComboBox for parent comboBox
     myParentsComboBox = new FXComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, this, MID_GNE_SELECT, GUIDesignComboBox);
     // create parent buttons
@@ -1128,7 +1128,7 @@ GNESelectorFrame::SelectionHierarchy::SelectionHierarchy(GNESelectorFrame* selec
     // Create "unselect" Button
     myUnselectParentsButton = new FXButton(parentButtons, TL("Unselect"), GUIIconSubSys::getIcon(GUIIcon::UNSELECT), this, MID_GNE_SELECTORFRAME_PARENTS, GUIDesignButton);
     // create label for parents
-    new FXLabel(getCollapsableFrame(), "Select children", nullptr, GUIDesignLabelThickCenter);
+    new FXLabel(getCollapsableFrame(), "Select children", nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL));
     // Create FXComboBox for parent comboBox
     myChildrenComboBox = new FXComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, this, MID_GNE_SELECT, GUIDesignComboBox);
     // create children buttons

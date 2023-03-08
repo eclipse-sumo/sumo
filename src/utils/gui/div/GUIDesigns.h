@@ -217,8 +217,6 @@ class MFXMenuCheckIcon;
 /// @}
 
 
-// JUSTIFY_LEFT, JUSTIFY_RIGHT, JUSTIFY_NORMAL
-
 /// @name FXLabels
 /// @{
 /// @brief label extended over frame
@@ -232,9 +230,6 @@ class MFXMenuCheckIcon;
 
 /// @brief label thicked, icon before text, text centered and custom width
 #define GUIDesignLabelThickedFixed(width)   (FRAME_THICK | ICON_BEFORE_TEXT | JUSTIFY_CENTER_X | JUSTIFY_CENTER_Y | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, width, GUIDesignHeight, 2, 2, 2, 2
-
-/// @brief label extended over frame without thick and with text justify to left, used to show information in frames
-#define GUIDesignLabelThicked               (FRAME_THICK | JUSTIFY_LEFT | LAYOUT_FILL_X | ICON_BEFORE_TEXT), 0, 0, 0, 0, 2, 2, 2, 2
 
 /// @brief label squared over frame with thick and with text justify to center
 #define GUIDesignLabelIconThick             (FRAME_THICK | JUSTIFY_NORMAL | LAYOUT_FILL_X | ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, GUIDesignHeight, GUIDesignHeight, 2, 2, 2, 2
@@ -256,9 +251,6 @@ class MFXMenuCheckIcon;
 
 /// @brief design for label with icon
 #define GUIDesignLabelIcon                  (LAYOUT_CENTER_Y | LAYOUT_CENTER_X), 0, 0, 0, 0, 2, 2, 0, 0
-
-/// @brief label with thick, text justify to left and extended with (used in selector frame)
-#define GUIDesignLabelThickCenter           (FRAME_THICK | ICON_BEFORE_TEXT | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT | LAYOUT_CENTER_Y | LAYOUT_CENTER_X), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
 
 /// @brief label ticked filled extended over frame used for VClasses/VShapes. (can be used by icons of 64x32 pixels)
 #define GUIDesignLabelTickedIcon180x46      (FRAME_THICK | ICON_BEFORE_TEXT | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT | LAYOUT_FIX_WIDTH), 0, 0, 180, 46, 2, 2, 2, 2
