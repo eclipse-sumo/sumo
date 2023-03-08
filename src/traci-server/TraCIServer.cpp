@@ -659,17 +659,6 @@ TraCIServer::processCommands(const SUMOTime step, const bool afterMove) {
                         }
                     }
                 }
-                switch (finalCmd) {
-                    case libsumo::CMD_LOAD:
-                        myCurrentSocket = mySockets.end();
-                        break;
-                    case libsumo::CMD_CLOSE:
-                        // remove current socket and increment to next socket in ordering
-                        myCurrentSocket = removeCurrentSocket();
-                        break;
-                    default:
-                        break;
-                }
             }
             if (!myLoadArgs.empty()) {
 #ifdef DEBUG_MULTI_CLIENTS
@@ -794,6 +783,7 @@ TraCIServer::dispatchCommand() {
                     // XXX: This only cares for the client that issued the load command.
                     // Multiclient-load functionality is still to be implemented. Refs #3146.
                     myCurrentSocket->second->socket->sendExact(myOutputStorage);
+                    myCurrentSocket = mySockets.end();
                     myOutputStorage.reset();
                 } catch (libsumo::TraCIException& e) {
                     return writeErrorStatusCmd(libsumo::CMD_LOAD, e.what(), myOutputStorage);
@@ -844,6 +834,8 @@ TraCIServer::dispatchCommand() {
                     // Last client has closed connection
                     myDoCloseConnection = true;
                 }
+                // remove current socket and increment to next socket in ordering
+                myCurrentSocket = removeCurrentSocket();
                 success = true;
                 break;
             case libsumo::CMD_SETORDER: {
