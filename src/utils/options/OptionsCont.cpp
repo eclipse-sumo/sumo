@@ -879,7 +879,7 @@ OptionsCont::writeConfiguration(std::ostream& os, const bool filled,
             if (o->isSet() && (filled || o->isDefault())) {
                 if (o->isFileName() && relativeTo != "") {
                     StringVector fileList = StringTokenizer(o->getValueString(), ",").getVector();
-                    for (auto file : fileList) {
+                    for (auto &file : fileList) {
                         file = FileHelpers::fixRelative(StringUtils::urlEncode(file, " ;%"), relativeTo,
                                                      forceRelative || getBool("save-configuration.relative"));
                     }
