@@ -626,7 +626,7 @@ MFXDecalsTable::Column::Column(MFXDecalsTable* table, const int index, const cha
     switch (myType) {
         case ('f'): {
             // ticked label extended
-            myTopLabel = new MFXLabelTooltip(myVerticalFrame, staticTooltip, "", nullptr, GUIDesignLabelCenterThick);
+            myTopLabel = new MFXLabelTooltip(myVerticalFrame, staticTooltip, "", nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL));
             break;
         }
         case ('p'): 

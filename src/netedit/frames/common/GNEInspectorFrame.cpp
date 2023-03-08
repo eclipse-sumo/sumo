@@ -100,7 +100,7 @@ GNEInspectorFrame::NeteditAttributesEditor::NeteditAttributesEditor(GNEInspector
     myMarkFrontElementButton = new FXButton(getCollapsableFrame(), TL("Mark as front element"), GUIIconSubSys::getIcon(GUIIcon::FRONTELEMENT),
                                             this, MID_GNE_MARKFRONTELEMENT, GUIDesignButton);
     // Create elements for parent additional
-    myLabelParentAdditional = new FXLabel(getCollapsableFrame(), "Parent", nullptr, GUIDesignLabelCenterThick);
+    myLabelParentAdditional = new FXLabel(getCollapsableFrame(), "Parent", nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL));
     myTextFieldParentAdditional = new FXTextField(getCollapsableFrame(), GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     mySetNewParentButton = new MFXCheckableButton(false, getCollapsableFrame(),
             inspectorFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),

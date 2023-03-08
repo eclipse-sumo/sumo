@@ -75,7 +75,7 @@ GNESingleParametersDialog::ParametersValues::ParametersValues(FXHorizontalFrame*
     // create labels for keys and values
     FXHorizontalFrame* horizontalFrameLabels = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     myKeyLabel = new FXLabel(horizontalFrameLabels, "key", nullptr, GUIDesignLabelThickedFixed(100));
-    new FXLabel(horizontalFrameLabels, "value", nullptr, GUIDesignLabelCenterThick);
+    new FXLabel(horizontalFrameLabels, "value", nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL));
     // create scroll windows
     FXScrollWindow* scrollWindow = new FXScrollWindow(this, LAYOUT_FILL);
     // create vertical frame for rows

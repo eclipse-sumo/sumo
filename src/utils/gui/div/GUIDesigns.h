@@ -217,22 +217,24 @@ class MFXMenuCheckIcon;
 /// @}
 
 
+// JUSTIFY_LEFT, JUSTIFY_RIGHT, JUSTIFY_NORMAL
+
 /// @name FXLabels
 /// @{
 /// @brief label extended over frame
 #define GUIDesignLabel(justify)             (LAYOUT_FILL_X | ICON_BEFORE_TEXT | justify | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
 
-/// @brief label extended over frame with thick and with text justify to left
-#define GUIDesignLabelThick                 (FRAME_THICK | LAYOUT_FILL_X | ICON_BEFORE_TEXT | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
+/// @brief label, icon before text, text centered and custom width
+#define GUIDesignLabelFixed(width)          (ICON_BEFORE_TEXT | JUSTIFY_CENTER_X | JUSTIFY_CENTER_Y | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, width, GUIDesignHeight, 2, 2, 2, 2
 
 /// @brief label extended over frame with thick and with text justify to left
-#define GUIDesignLabelLeftThick             (FRAME_THICK | JUSTIFY_LEFT | LAYOUT_FILL_X | ICON_BEFORE_TEXT | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
+#define GUIDesignLabelThick(justify)        (FRAME_THICK | LAYOUT_FILL_X | ICON_BEFORE_TEXT | justify  | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
 
-/// @brief label extended over frame with thick and with text justify to right
-#define GUIDesignLabelRightThick            (FRAME_THICK | JUSTIFY_RIGHT | LAYOUT_FILL_X | ICON_BEFORE_TEXT | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
+/// @brief label thicked, icon before text, text centered and custom width
+#define GUIDesignLabelThickedFixed(width)   (FRAME_THICK | ICON_BEFORE_TEXT | JUSTIFY_CENTER_X | JUSTIFY_CENTER_Y | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, width, GUIDesignHeight, 2, 2, 2, 2
 
-/// @brief label extended over frame with thick and with text justify to center
-#define GUIDesignLabelCenterThick           (FRAME_THICK | JUSTIFY_NORMAL | LAYOUT_FILL_X | ICON_BEFORE_TEXT | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
+/// @brief label extended over frame without thick and with text justify to left, used to show information in frames
+#define GUIDesignLabelThicked               (FRAME_THICK | JUSTIFY_LEFT | LAYOUT_FILL_X | ICON_BEFORE_TEXT), 0, 0, 0, 0, 2, 2, 2, 2
 
 /// @brief label squared over frame with thick and with text justify to center
 #define GUIDesignLabelIconThick             (FRAME_THICK | JUSTIFY_NORMAL | LAYOUT_FILL_X | ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, GUIDesignHeight, GUIDesignHeight, 2, 2, 2, 2
@@ -263,15 +265,6 @@ class MFXMenuCheckIcon;
 
 /// @brief label extended over frame without thick and with text justify to left, used to show information in frames
 #define GUIDesignLabelFrameInformation      (JUSTIFY_LEFT | LAYOUT_FILL_X | ICON_BEFORE_TEXT), 0, 0, 0, 0, 2, 2, 2, 2
-
-/// @brief label extended over frame without thick and with text justify to left, used to show information in frames
-#define GUIDesignLabelThicked               (FRAME_THICK | JUSTIFY_LEFT | LAYOUT_FILL_X | ICON_BEFORE_TEXT), 0, 0, 0, 0, 2, 2, 2, 2
-
-/// @brief label, icon before text, text centered and custom width
-#define GUIDesignLabelFixed(width)          (ICON_BEFORE_TEXT | JUSTIFY_CENTER_X | JUSTIFY_CENTER_Y | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, width, GUIDesignHeight, 2, 2, 2, 2
-
-/// @brief label thicked, icon before text, text centered and custom width
-#define GUIDesignLabelThickedFixed(width)   (FRAME_THICK | ICON_BEFORE_TEXT | JUSTIFY_CENTER_X | JUSTIFY_CENTER_Y | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, width, GUIDesignHeight, 2, 2, 2, 2
 
 /// @brief label used in statusBar
 #define GUIDesignLabelStatusBar             (LAYOUT_CENTER_Y), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2

@@ -315,7 +315,7 @@ GNEFrame::getPredefinedTagsMML() const {
 FXLabel*
 GNEFrame::buildRainbow(FXComposite* parent) {
     // create label for color information
-    FXLabel* label = new FXLabel(parent, TL("Scale: Min -> Max"), nullptr, GUIDesignLabelCenterThick);
+    FXLabel* label = new FXLabel(parent, TL("Scale: Min -> Max"), nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL));
     // create frame for color scale
     FXHorizontalFrame* horizontalFrameColors = new FXHorizontalFrame(parent, GUIDesignAuxiliarHorizontalFrame);
     for (const auto& color : GNEViewNetHelper::getRainbowScaledColors()) {
