@@ -92,15 +92,9 @@ GNEToolDialogElements::FileNameArgument::FileNameArgument(GNEToolDialog* toolDia
     // create text field for filename
     myFilenameTextField = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFielWidth50);
     // create label with name
-    new MFXLabelTooltip(this, toolDialogParent->getGNEApp()->getStaticTooltipMenu(), option->getDescription().c_str(), nullptr, GUIDesignLabelThick500);
+    new MFXLabelTooltip(this, toolDialogParent->getGNEApp()->getStaticTooltipMenu(), option->getDescription().c_str(), nullptr, GUIDesignLabelThickFixed(400));
     // reset after creation
     reset();
-}
-
-
-MFXLabelTooltip*
-GNEToolDialogElements::FileNameArgument::getNameLabel() {
-    return myNameLabel;
 }
 
 
@@ -137,15 +131,9 @@ GNEToolDialogElements::StringArgument::StringArgument(GNEToolDialog* toolDialogP
     // create text field for filename
     myStringTextField = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldTools(type));
     // create label with name
-    new MFXLabelTooltip(this, toolDialogParent->getGNEApp()->getStaticTooltipMenu(), option->getDescription().c_str(), nullptr, GUIDesignLabelThick500);
+    new MFXLabelTooltip(this, toolDialogParent->getGNEApp()->getStaticTooltipMenu(), option->getDescription().c_str(), nullptr, GUIDesignLabelThickFixed(400));
     // reset after creation
     reset();
-}
-
-
-MFXLabelTooltip*
-GNEToolDialogElements::StringArgument::getNameLabel() {
-    return myParameterName;
 }
 
 
