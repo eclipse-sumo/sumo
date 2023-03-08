@@ -1077,12 +1077,12 @@ GNETLSTable::Column::Column(GNETLSTable* table, const int index, const char type
     switch (myType) {
         case 's':
             // label with icon
-            myBotLabel = new FXLabel(myVerticalFrame, "", GUIIconSubSys::getIcon(GUIIcon::SUM), GUIDesignLabelFixedWidthTicked);
+            myBotLabel = new FXLabel(myVerticalFrame, "", GUIIconSubSys::getIcon(GUIIcon::SUM), GUIDesignLabelThickFixed(0));
             break;
         case 'u':
         case 'p':
             // ticked label
-            myBotLabel = new FXLabel(myVerticalFrame, "", nullptr, GUIDesignLabelFixedWidthTicked);
+            myBotLabel = new FXLabel(myVerticalFrame, "", nullptr, GUIDesignLabelThickFixed(0));
             break;
         default:
             // empty label
@@ -1210,9 +1210,9 @@ GNETLSTable::Row::Row(GNETLSTable* table) :
             case ('s'): {
                 // create labels for index
                 auto indexLabel = new FXLabel(table->myColumns.at(columnIndex)->getVerticalCellFrame(),
-                                              toString(myTable->myRows.size()).c_str(), nullptr, GUIDesignLabelThick30);
+                                              toString(myTable->myRows.size()).c_str(), nullptr, GUIDesignLabelThickFixed(30));
                 auto indexLabelBold = new FXLabel(table->myColumns.at(columnIndex)->getVerticalCellFrame(),
-                                                  toString(myTable->myRows.size()).c_str(), nullptr, GUIDesignLabelThick30);
+                                                  toString(myTable->myRows.size()).c_str(), nullptr, GUIDesignLabelThickFixed(30));
                 // set fonts
                 indexLabel->setFont(myTable->myIndexFont);
                 indexLabelBold->setFont(myTable->myIndexSelectedFont);

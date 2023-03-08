@@ -295,22 +295,16 @@ class MFXMenuCheckIcon;
 #define GUIDesignLabelFrameThicked          (FRAME_THICK | JUSTIFY_LEFT | LAYOUT_FILL_X | ICON_BEFORE_TEXT), 0, 0, 0, 0, 2, 2, 2, 2
 
 /// @brief label thicked, icon before text, text centered and custom width
-#define GUIDesignLabelThickFixed(width)     (FRAME_THICK | ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, width, GUIDesignHeight, 2, 2, 2, 2
+#define GUIDesignLabelThickFixed(width)     (FRAME_THICK | ICON_BEFORE_TEXT | JUSTIFY_CENTER_X | JUSTIFY_CENTER_Y | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, width, GUIDesignHeight, 2, 2, 2, 2
 
 /// @brief label with fix width 30 and height (used in TLS table and decal table)
 #define GUIDesignLabel30                    (LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | ICON_BEFORE_TEXT | JUSTIFY_CENTER_X | JUSTIFY_CENTER_Y), 0, 0, 30, GUIDesignHeight, 2, 2, 2, 2
-
-/// @brief label ticked with fix width 30 and height (used in TLS table and decal table)
-#define GUIDesignLabelThick30               (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | ICON_BEFORE_TEXT | JUSTIFY_CENTER_X | JUSTIFY_CENTER_Y), 0, 0, 30, GUIDesignHeight, 2, 2, 2, 2
 
 /// @brief label used in statusBar
 #define GUIDesignLabelStatusBar             (LAYOUT_CENTER_Y), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
 
 /// @brief label used in MFXGroupBoxModule
 #define GUIDesignLabelMFXGroupBoxModule     (FRAME_GROOVE | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
-
-/// @brief label ticked with fix width (used in TLS table and decal  table)
-#define GUIDesignLabelFixedWidthTicked      (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | ICON_BEFORE_TEXT | JUSTIFY_CENTER_X | JUSTIFY_CENTER_Y), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
 
 /// @brief label with fix width (used in TLS table and decal table)
 #define GUIDesignLabelFixedWidth            (LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | ICON_BEFORE_TEXT | JUSTIFY_CENTER_X | JUSTIFY_CENTER_Y), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
