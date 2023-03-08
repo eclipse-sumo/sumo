@@ -119,7 +119,7 @@ GNEToolDialogElements::FileNameArgument::FileNameArgument(GNEToolDialog* toolDia
     myFilenameButton = new FXButton(this, (std::string("\t\t") + TL("Select filename")).c_str(), 
         GUIIconSubSys::getIcon(GUIIcon::OPEN_NET), this, FXDialogBox::ID_ACCEPT, GUIDesignButtonIcon);
     // create text field for filename
-    myFilenameTextField = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldWidth180);
+    myFilenameTextField = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldFixed(180));
     // create label for description
     //new MFXLabelTooltip(this, toolDialogParent->getGNEApp()->getStaticTooltipMenu(), option->getDescription().c_str(), nullptr, GUIDesignLabelThickFixed(400));
     // reset after creation
@@ -165,9 +165,7 @@ GNEToolDialogElements::StringArgument::StringArgument(GNEToolDialog* toolDialogP
     myParameterLabel = new MFXLabelTooltip(this, toolDialogParent->getGNEApp()->getStaticTooltipMenu(), name.c_str(), nullptr, GUIDesignLabelThickFixed(0));
     myParameterLabel->setTipText(option->getDescription().c_str());
     // create text field for filename
-    myStringTextField = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldTools(type));
-    // create label for description
-    //new MFXLabelTooltip(this, toolDialogParent->getGNEApp()->getStaticTooltipMenu(), option->getDescription().c_str(), nullptr, GUIDesignLabelThickFixed(400));
+    myStringTextField = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldFixedRestricted(180, type));
     // reset after creation
     reset();
 }

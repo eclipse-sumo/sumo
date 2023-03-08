@@ -212,7 +212,7 @@ GNEUndoListDialog::GUIRow::GUIRow(GNEUndoListDialog* undoListDialog, FXVerticalF
     myTextFieldDescription = new MFXTextFieldTooltip(horizontalFrame, staticToolTip, GUIDesignTextFieldNCol, undoListDialog, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myTextFieldDescription->setEditable(false);
     // build text label
-    myTextFieldTimeStamp = new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, undoListDialog, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldWidth70);
+    myTextFieldTimeStamp = new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, undoListDialog, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldFixed(70));
     myTextFieldTimeStamp->setEditable(false);
     // create elements
     horizontalFrame->create();

@@ -45,34 +45,19 @@ class MFXMenuCheckIcon;
 /// @name FXTextFields
 /// @{
 /// @brief text field extended over Frame with thick frame
-#define GUIDesignTextField                      (FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
+#define GUIDesignTextField                              (FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
 
 /// @brief text field extended over Frame with thick frame (int)
-#define GUIDesignTextFieldInt                   (FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT | TEXTFIELD_INTEGER), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
+#define GUIDesignTextFieldRestricted(type)              (FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT | type), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
 
-/// @brief text field extended over Frame with thick frame (real)
-#define GUIDesignTextFieldReal                  (FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT | TEXTFIELD_REAL), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
+/// @brief text field with fixed width
+#define GUIDesignTextFieldFixed(width)                  (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, width, GUIDesignHeight, 2, 2, 2, 2
 
-/// @brief text field with thick frame and width 50
-#define GUIDesignTextFieldWidth50                (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 50, GUIDesignHeight, 2, 2, 2, 2
-
-/// @brief text field with thick frame and width 70
-#define GUIDesignTextFieldWidth70                (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 70, GUIDesignHeight, 2, 2, 2, 2
-
-/// @brief text field with thick frame and width 50 and limited to doubles
-#define GUIDesignTextFieldWidth50Real            (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | TEXTFIELD_REAL), 0, 0, 50, GUIDesignHeight, 2, 2, 2, 2
-
-/// @brief text field with thick frame, width of 180 (Used in type frame)
-#define GUIDesignTextFieldWidth180               (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 180, GUIDesignHeight, 2, 2, 2, 2
+/// @brief text field with fixed width
+#define GUIDesignTextFieldFixedRestricted(width, type)  (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | type), 0, 0, width, GUIDesignHeight, 2, 2, 2, 2
 
 /// @brief text field with min width (used in TLS table)
-#define GUIDesignTextFieldTickedMinWidth        (FRAME_THICK | LAYOUT_FILL_X | LAYOUT_MIN_WIDTH | LAYOUT_FIX_HEIGHT | JUSTIFY_CENTER_Y | JUSTIFY_LEFT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
-
-/// @brief text field with fixed width and restricted to reals (used in decal table)
-#define GUIDesignTextFieldTickedFixWidthReal    (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | JUSTIFY_CENTER_X | JUSTIFY_CENTER_Y | TEXTFIELD_REAL), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
-
-/// @brief text field used in tools
-#define GUIDesignTextFieldTools(type)           (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | type), 0, 0, 180, GUIDesignHeight, 2, 2, 2, 2
+#define GUIDesignTextFieldTickedMinWidth                (FRAME_THICK | LAYOUT_FILL_X | LAYOUT_MIN_WIDTH | LAYOUT_FIX_HEIGHT | JUSTIFY_CENTER_Y | JUSTIFY_LEFT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
 
 /// @brief Num of column of text field
 #define GUIDesignTextFieldNCol          1

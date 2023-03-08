@@ -754,7 +754,7 @@ MFXDecalsTable::Row::Row(MFXDecalsTable* table) :
             case ('s'): {
                 // create textField for textfiedl real values
                 auto textField = new FXTextField(table->myColumns.at(columnIndex)->getVerticalCellFrame(),
-                    GUIDesignTextFieldNCol, table, MID_DECALSTABLE_TEXTFIELD, GUIDesignTextFieldTickedFixWidthReal);
+                    GUIDesignTextFieldNCol, table, MID_DECALSTABLE_TEXTFIELD, GUIDesignTextFieldFixedRestricted(0, TEXTFIELD_REAL));
                 myCells.push_back(new Cell(table, textField, columnIndex, numCells));
                 break;
             }
