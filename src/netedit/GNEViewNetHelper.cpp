@@ -3135,11 +3135,11 @@ GNEViewNetHelper::IntervalBar::buildIntervalBarElements() {
     myIntervalCheckBox->create();
     // create textfield for begin
     myBeginTextField = new FXTextField(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar,
-                                       GUIDesignTextFieldNCol, myViewNet, MID_GNE_INTERVALBAR_BEGIN, GUIDesignTextFielWidth50Real);
+                                       GUIDesignTextFieldNCol, myViewNet, MID_GNE_INTERVALBAR_BEGIN, GUIDesignTextFieldWidth50Real);
     myBeginTextField->create();
     // create text field for end
     myEndTextField = new FXTextField(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar,
-                                     GUIDesignTextFieldNCol, myViewNet, MID_GNE_INTERVALBAR_END, GUIDesignTextFielWidth50Real);
+                                     GUIDesignTextFieldNCol, myViewNet, MID_GNE_INTERVALBAR_END, GUIDesignTextFieldWidth50Real);
     myEndTextField->create();
     // create parameter label
     FXLabel* parameterLabel = new FXLabel(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().intervalBar,

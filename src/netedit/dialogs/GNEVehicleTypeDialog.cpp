@@ -448,7 +448,7 @@ GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow::VTypeAttributeRow(VTyp
     }
     // now check if we have to create a textfield or a ComboBox
     if ((rowAttrType == ROWTYPE_STRING) || (rowAttrType == ROWTYPE_COLOR) || (rowAttrType == ROWTYPE_FILENAME) || (rowAttrType == ROWTYPE_PARAMETERS)) {
-        myTextField = new FXTextField(this, GUIDesignTextFieldNCol, VTypeAttributesParent, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFielWidth180);
+        myTextField = new FXTextField(this, GUIDesignTextFieldNCol, VTypeAttributesParent, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldWidth180);
     } else if (rowAttrType == ROWTYPE_COMBOBOX) {
         myComboBox = new MFXComboBoxIcon(this, GUIDesignComboBoxNCol, false, VTypeAttributesParent, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxWidth180);
         // fill combo Box with values
@@ -858,7 +858,7 @@ GNEVehicleTypeDialog::VTypeAttributes::buildAttributesA(FXVerticalFrame* column)
     // 02 create FXTextField and Label for vehicleTypeID
     FXHorizontalFrame* row = new FXHorizontalFrame(column, GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(row, toString(SUMO_ATTR_ID).c_str(), nullptr, GUIDesignLabelAttribute150);
-    myTextFieldVehicleTypeID = new FXTextField(row, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFielWidth180);
+    myTextFieldVehicleTypeID = new FXTextField(row, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldWidth180);
 
     // 03 create FXTextField and Button for Color
     myColor = new VTypeAttributeRow(this, column, SUMO_ATTR_COLOR, VTypeAttributeRow::RowAttrType::ROWTYPE_COLOR);
@@ -1816,7 +1816,7 @@ GNEVehicleTypeDialog::CarFollowingModelParameters::CarFollowingModelRow::CarFoll
     myAttr(attr),
     myTextField(nullptr) {
     new FXLabel(this, toString(attr).c_str(), nullptr, GUIDesignLabelAttribute150);
-    myTextField = new FXTextField(this, GUIDesignTextFieldNCol, carFollowingModelParametersParent, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFielWidth180);
+    myTextField = new FXTextField(this, GUIDesignTextFieldNCol, carFollowingModelParametersParent, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldWidth180);
 }
 
 

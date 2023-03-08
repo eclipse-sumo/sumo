@@ -54,16 +54,16 @@ class MFXMenuCheckIcon;
 #define GUIDesignTextFieldReal                  (FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT | TEXTFIELD_REAL), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
 
 /// @brief text field with thick frame and width 50
-#define GUIDesignTextFielWidth50                (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 50, GUIDesignHeight, 2, 2, 2, 2
+#define GUIDesignTextFieldWidth50                (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 50, GUIDesignHeight, 2, 2, 2, 2
 
 /// @brief text field with thick frame and width 70
-#define GUIDesignTextFielWidth70                (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 70, GUIDesignHeight, 2, 2, 2, 2
+#define GUIDesignTextFieldWidth70                (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 70, GUIDesignHeight, 2, 2, 2, 2
 
 /// @brief text field with thick frame and width 50 and limited to doubles
-#define GUIDesignTextFielWidth50Real            (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | TEXTFIELD_REAL), 0, 0, 50, GUIDesignHeight, 2, 2, 2, 2
+#define GUIDesignTextFieldWidth50Real            (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | TEXTFIELD_REAL), 0, 0, 50, GUIDesignHeight, 2, 2, 2, 2
 
 /// @brief text field with thick frame, width of 180 (Used in type frame)
-#define GUIDesignTextFielWidth180               (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 180, GUIDesignHeight, 2, 2, 2, 2
+#define GUIDesignTextFieldWidth180               (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 180, GUIDesignHeight, 2, 2, 2, 2
 
 /// @brief text field with min width (used in TLS table)
 #define GUIDesignTextFieldTickedMinWidth        (FRAME_THICK | LAYOUT_FILL_X | LAYOUT_MIN_WIDTH | LAYOUT_FIX_HEIGHT | JUSTIFY_CENTER_Y | JUSTIFY_LEFT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
