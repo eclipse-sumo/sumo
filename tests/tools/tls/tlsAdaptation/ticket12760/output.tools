@@ -5,8 +5,8 @@ Parsed 92 vehicles from input_routes.rou.xml.
 Skipping TLS 'joinedS_1' due to unused states (59 states, 37 connections)
 tl-logic ID: 10205342654
 phase: 0
-group flows: [42, 1.0]
-The used lanes: [[1]]
+group flows: [42, 1.0, 4.0]
+The used lanes: [[1], [1]]
 phase: 2
 group flows: [42, 0]
 The used lanes: [[1]]
@@ -17,9 +17,37 @@ The optimal cycle length:24
 
 tl-logic ID: 10205342655
 phase: 0
+group flows: [42, 0, 4.0]
+The used lanes: [[1], [1]]
+phase: 2
 group flows: [42, 0]
 The used lanes: [[1]]
-phase: 2
-group flows: [42]
-The used lanes: []
 the current cycle length:90 sec
+Green time for phase 0: 12
+Green time for phase 2: 4
+The optimal cycle length:24
+
+tl-logic ID: 2656297586
+phase: 0
+group flows: [42, 0, 7.0, 3.5]
+The used lanes: [[1, 2], [1], [1]]
+phase: 2
+group flows: [42, 0]
+The used lanes: [[0]]
+the current cycle length:90 sec
+Green time for phase 0: 12
+Green time for phase 2: 4
+The optimal cycle length:24
+
+tl-logic ID: 735143105
+phase: 0
+group flows: [42, 10.0]
+The used lanes: [[1, 2]]
+phase: 2
+group flows: [42, 1.0, 0]
+The used lanes: [[1], [1]]
+the current cycle length:90 sec
+Green time for phase 0: 10
+Green time for phase 2: 4
+The optimal cycle length:22
+

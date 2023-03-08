@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-03-06 11:05:22.166763 by tlsCycleAdaptation.py v1_16_0+0993-e2aecbd
+<!-- generated on 2023-03-08 12:09:39.554313 by tlsCycleAdaptation.py v1_16_0+1037-be149f44e07
 <configuration>
     <net-file value="input_net.net.xml"/>
     <output-file value="out.add.xml"/>
@@ -16,3 +16,22 @@
         <phase duration="4" state="Grr"/>
         <phase duration="4" state="yrr"/>
     </tlLogic>
+    <tlLogic id="10205342655" type="actuated" programID="a" offset="0">
+        <phase duration="12" state="GrG"/>
+        <phase duration="4" state="yry"/>
+        <phase duration="4" state="rGr"/>
+        <phase duration="4" state="ryr"/>
+    </tlLogic>
+    <tlLogic id="2656297586" type="actuated" programID="a" offset="0">
+        <phase duration="12" state="gGrrGG"/>
+        <phase duration="4" state="yyrryy"/>
+        <phase duration="4" state="rrGGrr"/>
+        <phase duration="4" state="rryyrr"/>
+    </tlLogic>
+    <tlLogic id="735143105" type="actuated" programID="a" offset="0">
+        <phase duration="10" state="GGrr"/>
+        <phase duration="4" state="yyrr"/>
+        <phase duration="4" state="rrGG"/>
+        <phase duration="4" state="rryy"/>
+    </tlLogic>
+</additional>
