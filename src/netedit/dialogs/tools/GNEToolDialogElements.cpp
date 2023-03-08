@@ -85,13 +85,13 @@ GNEToolDialogElements::FileNameArgument::FileNameArgument(GNEToolDialog* toolDia
     FXHorizontalFrame(toolDialogParent->getContentFrame(), GUIDesignAuxiliarHorizontalFrame),
     Argument(name, option) {
     // create label with name
-    myNameLabel = new MFXLabelTooltip(this, toolDialogParent->getGNEApp()->getStaticTooltipMenu(), name.c_str(), nullptr, GUIDesignLabelFixedWidth);
+    myNameLabel = new MFXLabelTooltip(this, toolDialogParent->getGNEApp()->getStaticTooltipMenu(), name.c_str(), nullptr, GUIDesignLabelThickFixed(100));
     // Create Open button
     myFilenameButton = new FXButton(this, (std::string("\t\t") + TL("Select filename")).c_str(), 
         GUIIconSubSys::getIcon(GUIIcon::OPEN_NET), this, FXDialogBox::ID_ACCEPT, GUIDesignButtonIcon);
     // create text field for filename
     myFilenameTextField = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFielWidth50);
-    // create label with name
+    // create label for description
     new MFXLabelTooltip(this, toolDialogParent->getGNEApp()->getStaticTooltipMenu(), option->getDescription().c_str(), nullptr, GUIDesignLabelThickFixed(400));
     // reset after creation
     reset();
@@ -127,10 +127,10 @@ GNEToolDialogElements::StringArgument::StringArgument(GNEToolDialog* toolDialogP
     FXHorizontalFrame(toolDialogParent->getContentFrame(), GUIDesignAuxiliarHorizontalFrame),
     Argument(name, option) {
     // create label with parameter name
-    myParameterName = new MFXLabelTooltip(this, toolDialogParent->getGNEApp()->getStaticTooltipMenu(), name.c_str(), nullptr, GUIDesignLabelFixedWidth);
+    myParameterName = new MFXLabelTooltip(this, toolDialogParent->getGNEApp()->getStaticTooltipMenu(), name.c_str(), nullptr, GUIDesignLabelThickFixed(120));
     // create text field for filename
     myStringTextField = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldTools(type));
-    // create label with name
+    // create label for description
     new MFXLabelTooltip(this, toolDialogParent->getGNEApp()->getStaticTooltipMenu(), option->getDescription().c_str(), nullptr, GUIDesignLabelThickFixed(400));
     // reset after creation
     reset();

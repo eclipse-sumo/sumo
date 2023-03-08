@@ -1062,13 +1062,13 @@ GNETLSTable::Column::Column(GNETLSTable* table, const int index, const char type
             // empty label
             myTopLabel = new MFXLabelTooltip(myVerticalFrame,
                                              table->getTLSPhasesParent()->getTLSEditorParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
-                                             "", nullptr, GUIDesignLabelFixedWidth);
+                                             "", nullptr, GUIDesignLabelFixed(0));
             break;
         default:
             // ticked label
             myTopLabel = new MFXLabelTooltip(myVerticalFrame,
                                              table->getTLSPhasesParent()->getTLSEditorParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
-                                             "", nullptr, GUIDesignLabelFixedWidth);
+                                             "", nullptr, GUIDesignLabelThickFixed(0));
             break;
     }
     // create vertical frame for cells
@@ -1086,7 +1086,7 @@ GNETLSTable::Column::Column(GNETLSTable* table, const int index, const char type
             break;
         default:
             // empty label
-            myBotLabel = new FXLabel(myVerticalFrame, "", nullptr, GUIDesignLabelFixedWidth);
+            myBotLabel = new FXLabel(myVerticalFrame, "", nullptr, GUIDesignLabelFixed(0));
             break;
     }
     // create elements

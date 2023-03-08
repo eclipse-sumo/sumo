@@ -642,12 +642,12 @@ MFXDecalsTable::Column::Column(MFXDecalsTable* table, const int index, const cha
         }
         case ('i'): {
             // ticked label for index
-            myTopLabel = new MFXLabelTooltip(myVerticalFrame, staticTooltip, "", nullptr, GUIDesignLabel30);
+            myTopLabel = new MFXLabelTooltip(myVerticalFrame, staticTooltip, "", nullptr, GUIDesignLabelFixed(30));
             break;
         }
         default: {
             // empty label (for buttons)
-            myTopLabel = new MFXLabelTooltip(myVerticalFrame, staticTooltip,  "", nullptr, GUIDesignLabelFixedWidth);
+            myTopLabel = new MFXLabelTooltip(myVerticalFrame, staticTooltip,  "", nullptr, GUIDesignLabelFixed(0));
             break;
         }
     }
