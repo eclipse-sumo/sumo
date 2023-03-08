@@ -45,7 +45,7 @@ public:
 
     public:
         /// @brief constructor
-        Argument(const std::string &name_, const Option* option_);
+        Argument(const std::string &parameter, const std::string &defaultValue);
 
         /// @brief destructor
         virtual ~Argument();
@@ -53,15 +53,15 @@ public:
         /// @brief reset to default value
         virtual void reset() = 0;
 
+        /// @brief get parameter label
+        virtual MFXLabelTooltip* getParameterLabel() const = 0;
+
     protected:
         /// @brief default constructor
         Argument();
 
-        /// @brief argument name
-        const std::string myName;
-
-        /// @brief argument options
-        const Option* myOption;
+        /// @brief parameter
+        const std::string myParameter;
 
         /// @brief argument name
         const std::string myDefaultValue;
@@ -72,6 +72,39 @@ public:
 
         /// @brief Invalidated assignment operator.
         Argument& operator=(const Argument&) = delete;
+    };
+
+    /// @brief header
+    class HeaderArgument : protected FXHorizontalFrame, public Argument {
+
+    public:
+        /// @brief constructor
+        HeaderArgument(GNEToolDialog* toolDialogParent);
+
+        /// @brief reset argument values
+        void reset();
+
+        /// @brief get parameter label
+        MFXLabelTooltip* getParameterLabel() const;
+
+        /// get argument (parameter and value)
+        std::string getArgument() const;
+
+    private:
+        /// @brief parameter label
+        MFXLabelTooltip* myParameterLabel = nullptr;
+
+        /// @brief filename button
+        FXButton* myFilenameButton = nullptr;
+
+        /// @brief filename Textfield
+        FXTextField* myFilenameTextField = nullptr;
+
+        /// @brief Invalidated copy constructor.
+        HeaderArgument(const HeaderArgument&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        HeaderArgument& operator=(const HeaderArgument&) = delete;
     };
 
     /// @brief filename
@@ -85,6 +118,9 @@ public:
 
         /// @brief reset argument values
         void reset();
+
+        /// @brief get parameter label
+        MFXLabelTooltip* getParameterLabel() const;
 
         /// get argument (parameter and value)
         std::string getArgument() const;
@@ -102,8 +138,8 @@ public:
         FileNameArgument();
 
     private:
-        /// @brief label name
-        MFXLabelTooltip* myNameLabel = nullptr;
+        /// @brief parameter label
+        MFXLabelTooltip* myParameterLabel = nullptr;
 
         /// @brief filename button
         FXButton* myFilenameButton = nullptr;
@@ -130,6 +166,9 @@ public:
         /// @brief reset argument values
         void reset();
 
+        /// @brief get parameter label
+        MFXLabelTooltip* getParameterLabel() const;
+
         /// get argument (parameter and value)
         std::string getArgument() const;
 
@@ -149,8 +188,8 @@ public:
         FXTextField* myStringTextField = nullptr;
 
     private:
-        /// @brief parameter name
-        MFXLabelTooltip* myParameterName = nullptr;
+        /// @brief parameter label
+        MFXLabelTooltip* myParameterLabel = nullptr;
 
         /// @brief Invalidated copy constructor.
         StringArgument(const StringArgument&) = delete;
