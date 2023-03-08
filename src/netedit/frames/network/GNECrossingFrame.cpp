@@ -544,14 +544,14 @@ GNECrossingFrame::Information::Information(GNECrossingFrame* crossingFrameParent
     // create label
     new FXLabel(getCollapsableFrame(), information.str().c_str(), 0, GUIDesignLabelFrameInformation);
     // candidate
-    FXLabel* colorCandidateLabel = new FXLabel(getCollapsableFrame(), TL(" Candidate"), 0, GUIDesignLabelLeft);
+    FXLabel* colorCandidateLabel = new FXLabel(getCollapsableFrame(), TL(" Candidate"), 0, GUIDesignLabel(JUSTIFY_LEFT));
     colorCandidateLabel->setBackColor(MFXUtils::getFXColor(crossingFrameParent->getViewNet()->getVisualisationSettings().candidateColorSettings.possible));
     colorCandidateLabel->setTextColor(MFXUtils::getFXColor(RGBColor::WHITE));
     // selected
-    FXLabel* colorSelectedLabel = new FXLabel(getCollapsableFrame(), TL(" Selected"), 0, GUIDesignLabelLeft);
+    FXLabel* colorSelectedLabel = new FXLabel(getCollapsableFrame(), TL(" Selected"), 0, GUIDesignLabel(JUSTIFY_LEFT));
     colorSelectedLabel->setBackColor(MFXUtils::getFXColor(crossingFrameParent->getViewNet()->getVisualisationSettings().candidateColorSettings.target));
     // invalid
-    FXLabel* colorInvalidLabel = new FXLabel(getCollapsableFrame(), TL(" Invalid"), 0, GUIDesignLabelLeft);
+    FXLabel* colorInvalidLabel = new FXLabel(getCollapsableFrame(), TL(" Invalid"), 0, GUIDesignLabel(JUSTIFY_LEFT));
     colorInvalidLabel->setBackColor(MFXUtils::getFXColor(crossingFrameParent->getViewNet()->getVisualisationSettings().candidateColorSettings.invalid));
     colorInvalidLabel->setTextColor(MFXUtils::getFXColor(RGBColor::WHITE));
 }

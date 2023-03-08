@@ -319,7 +319,7 @@ GNEFrame::buildRainbow(FXComposite* parent) {
     // create frame for color scale
     FXHorizontalFrame* horizontalFrameColors = new FXHorizontalFrame(parent, GUIDesignAuxiliarHorizontalFrame);
     for (const auto& color : GNEViewNetHelper::getRainbowScaledColors()) {
-        FXLabel* colorLabel = new FXLabel(horizontalFrameColors, "", nullptr, GUIDesignLabelLeft);
+        FXLabel* colorLabel = new FXLabel(horizontalFrameColors, "", nullptr, GUIDesignLabel(JUSTIFY_LEFT));
         colorLabel->setBackColor(MFXUtils::getFXColor(color));
     }
     return label;

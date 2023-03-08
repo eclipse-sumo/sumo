@@ -43,15 +43,15 @@ GUIDialog_Feedback::GUIDialog_Feedback(FXWindow* parent) :
     // create frame for links
     FXVerticalFrame* linksFrame = new FXVerticalFrame(mainInfoFrame, GUIDesignLabelAboutInfo);
     // general problem solving
-    (new MFXLinkLabel(linksFrame, TL("- General problem solving"), nullptr, GUIDesignLabelLeft))->setTipText("https://sumo.dlr.de/docs/FAQ.html#general_problem_solving");
+    (new MFXLinkLabel(linksFrame, TL("- General problem solving"), nullptr, GUIDesignLabel(JUSTIFY_LEFT)))->setTipText("https://sumo.dlr.de/docs/FAQ.html#general_problem_solving");
     // empty label
     new FXLabel(linksFrame, " ", nullptr, GUIDesignLabelAboutInfo);
     // mailing list
-    (new MFXLinkLabel(linksFrame, TL("- Sumo-user mailing list"), nullptr, GUIDesignLabelLeft))->setTipText("https://accounts.eclipse.org/mailing-list/sumo-user");
+    (new MFXLinkLabel(linksFrame, TL("- Sumo-user mailing list"), nullptr, GUIDesignLabel(JUSTIFY_LEFT)))->setTipText("https://accounts.eclipse.org/mailing-list/sumo-user");
     // empty label
     new FXLabel(linksFrame, " ", nullptr, GUIDesignLabelAboutInfo);
     // link to Email page
-    (new MFXLinkLabel(linksFrame, TL("- Send us an Email"), nullptr, GUIDesignLabelLeft))->setTipText("https://www.dlr.de/ts/en/desktopdefault.aspx/tabid-1231/mailcontact-30303/");
+    (new MFXLinkLabel(linksFrame, TL("- Send us an Email"), nullptr, GUIDesignLabel(JUSTIFY_LEFT)))->setTipText("https://www.dlr.de/ts/en/desktopdefault.aspx/tabid-1231/mailcontact-30303/");
     // centered ok-button
     FXHorizontalFrame* buttonFrame = new FXHorizontalFrame(this, GUIDesignHorizontalFrame);
     new FXHorizontalFrame(buttonFrame, GUIDesignAuxiliarHorizontalFrame);

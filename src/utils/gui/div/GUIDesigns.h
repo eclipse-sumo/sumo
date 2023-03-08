@@ -219,14 +219,8 @@ class MFXMenuCheckIcon;
 
 /// @name FXLabels
 /// @{
-/// @brief label extended over frame without thick and with text justify to left
-#define GUIDesignLabelLeft                  (JUSTIFY_LEFT | LAYOUT_FILL_X | ICON_BEFORE_TEXT | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
-
-/// @brief label extended over frame without thick and with text justify to right
-#define GUIDesignLabelRight                 (JUSTIFY_RIGHT | LAYOUT_FILL_X | ICON_BEFORE_TEXT | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
-
-/// @brief label extended over frame without thick and with text justify to center
-#define GUIDesignLabelCenter                (JUSTIFY_NORMAL | LAYOUT_FILL_X | ICON_BEFORE_TEXT | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
+/// @brief label extended over frame
+#define GUIDesignLabel(justify)             (LAYOUT_FILL_X | ICON_BEFORE_TEXT | justify | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
 
 /// @brief label extended over frame with thick and with text justify to left
 #define GUIDesignLabelThick                 (FRAME_THICK | LAYOUT_FILL_X | ICON_BEFORE_TEXT | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
@@ -278,12 +272,6 @@ class MFXMenuCheckIcon;
 
 /// @brief label thicked, icon before text, text centered and custom width
 #define GUIDesignLabelThickedFixed(width)   (FRAME_THICK | ICON_BEFORE_TEXT | JUSTIFY_CENTER_X | JUSTIFY_CENTER_Y | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, width, GUIDesignHeight, 2, 2, 2, 2
-
-/// @brief label extended over the matrix column with thick frame
-#define GUIDesignLabelThickedFixed(width)   (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | ICON_BEFORE_TEXT), 0, 0, width, GUIDesignHeight, 2, 2, 2, 2
-
-/// @brief label extended over the matrix column with thick frame
-#define GUIDesignLabelThickedFixed(width)   (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | ICON_BEFORE_TEXT), 0, 0, width, GUIDesignHeight, 2, 2, 2, 2
 
 /// @brief label used in statusBar
 #define GUIDesignLabelStatusBar             (LAYOUT_CENTER_Y), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2

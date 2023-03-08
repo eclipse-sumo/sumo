@@ -625,10 +625,10 @@ GNEMoveFrame::Information::Information(GNEMoveFrame* moveFrameParent) :
     // create label
     new FXLabel(getCollapsableFrame(), information.str().c_str(), 0, GUIDesignLabelFrameInformation);
     // create source label
-    FXLabel* sourceLabel = new FXLabel(getCollapsableFrame(), TL("-Move geometry point"), 0, GUIDesignLabelLeft);
+    FXLabel* sourceLabel = new FXLabel(getCollapsableFrame(), TL("-Move geometry point"), 0, GUIDesignLabel(JUSTIFY_LEFT));
     sourceLabel->setBackColor(MFXUtils::getFXColor(RGBColor::ORANGE));
     // create target label
-    FXLabel* targetLabel = new FXLabel(getCollapsableFrame(), TL("-Merge geometry point"), 0, GUIDesignLabelLeft);
+    FXLabel* targetLabel = new FXLabel(getCollapsableFrame(), TL("-Merge geometry point"), 0, GUIDesignLabel(JUSTIFY_LEFT));
     targetLabel->setBackColor(MFXUtils::getFXColor(RGBColor::CYAN));
 }
 

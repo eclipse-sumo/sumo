@@ -68,7 +68,7 @@ GNEAbout::GNEAbout(FXWindow* parent) :
     (new MFXLinkLabel(this, "SPDX-License-Identifier: EPL-2.0", nullptr, GUIDesignLabelAboutInfo))->setTipText("https://www.eclipse.org/legal/epl-v20.html");
 
     // link to homepage
-    (new MFXLinkLabel(this, "https://www.eclipse.org/sumo", nullptr, GUIDesignLabelCenter))->setTipText("https://www.eclipse.org/sumo");
+    (new MFXLinkLabel(this, "https://www.eclipse.org/sumo", nullptr, GUIDesignLabel(JUSTIFY_NORMAL)))->setTipText("https://www.eclipse.org/sumo");
 
     // centered ok-button
     FXHorizontalFrame* buttonFrame = new FXHorizontalFrame(this, GUIDesignHorizontalFrame);

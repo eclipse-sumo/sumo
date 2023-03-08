@@ -157,7 +157,7 @@ GNETAZFrame::CurrentTAZ::CurrentTAZ(GNETAZFrame* TAZFrameParent) :
     myMaxSourceMinusSinkWeight(0),
     myMinSourceMinusSinkWeight(-1) {
     // create TAZ label
-    myCurrentTAZLabel = new FXLabel(getCollapsableFrame(), TL("No TAZ selected"), 0, GUIDesignLabelLeft);
+    myCurrentTAZLabel = new FXLabel(getCollapsableFrame(), TL("No TAZ selected"), 0, GUIDesignLabel(JUSTIFY_LEFT));
 }
 
 
@@ -1327,11 +1327,11 @@ GNETAZFrame::TAZEdgesGraphic::TAZEdgesGraphic(GNETAZFrame* TAZFrameParent) :
     myEdgeDefaultColor(RGBColor::GREY),
     myEdgeSelectedColor(RGBColor::MAGENTA) {
     // create label for non taz edge color information
-    FXLabel* NonTAZEdgeLabel = new FXLabel(getCollapsableFrame(), TL("Non TAZ Edge"), nullptr, GUIDesignLabelCenter);
+    FXLabel* NonTAZEdgeLabel = new FXLabel(getCollapsableFrame(), TL("Non TAZ Edge"), nullptr, GUIDesignLabel(JUSTIFY_NORMAL));
     NonTAZEdgeLabel->setBackColor(MFXUtils::getFXColor(myEdgeDefaultColor));
     NonTAZEdgeLabel->setTextColor(MFXUtils::getFXColor(RGBColor::WHITE));
     // create label for selected TAZEdgeColor color information
-    FXLabel* selectedTAZEdgeLabel = new FXLabel(getCollapsableFrame(), TL("Selected TAZ Edge"), nullptr, GUIDesignLabelCenter);
+    FXLabel* selectedTAZEdgeLabel = new FXLabel(getCollapsableFrame(), TL("Selected TAZ Edge"), nullptr, GUIDesignLabel(JUSTIFY_NORMAL));
     selectedTAZEdgeLabel->setBackColor(MFXUtils::getFXColor(myEdgeSelectedColor));
     // build rainbow
     GNEFrame::buildRainbow(this);

@@ -65,7 +65,7 @@ FXIMPLEMENT(GNEConnectorFrame::ConnectionOperations,    MFXGroupBoxModule, Conne
 GNEConnectorFrame::CurrentLane::CurrentLane(GNEConnectorFrame* connectorFrameParent) :
     MFXGroupBoxModule(connectorFrameParent, TL("Lane")) {
     // create lane label
-    myCurrentLaneLabel = new FXLabel(getCollapsableFrame(), TL("No lane selected"), 0, GUIDesignLabelLeft);
+    myCurrentLaneLabel = new FXLabel(getCollapsableFrame(), TL("No lane selected"), 0, GUIDesignLabel(JUSTIFY_LEFT));
 }
 
 
@@ -339,24 +339,24 @@ GNEConnectorFrame::Legend::Legend(GNEConnectorFrame* connectorFrameParent) :
     MFXGroupBoxModule(connectorFrameParent, TL("Information")) {
 
     // create possible target label
-    FXLabel* possibleTargetLabel = new FXLabel(getCollapsableFrame(), TL("Possible Target"), 0, GUIDesignLabelLeft);
+    FXLabel* possibleTargetLabel = new FXLabel(getCollapsableFrame(), TL("Possible Target"), 0, GUIDesignLabel(JUSTIFY_LEFT));
     possibleTargetLabel->setBackColor(MFXUtils::getFXColor(connectorFrameParent->getViewNet()->getVisualisationSettings().candidateColorSettings.possible));
     possibleTargetLabel->setTextColor(MFXUtils::getFXColor(RGBColor::WHITE));
 
     // create source label
-    FXLabel* sourceLabel = new FXLabel(getCollapsableFrame(), TL("Source lane"), 0, GUIDesignLabelLeft);
+    FXLabel* sourceLabel = new FXLabel(getCollapsableFrame(), TL("Source lane"), 0, GUIDesignLabel(JUSTIFY_LEFT));
     sourceLabel->setBackColor(MFXUtils::getFXColor(connectorFrameParent->getViewNet()->getVisualisationSettings().candidateColorSettings.source));
 
     // create target label
-    FXLabel* targetLabel = new FXLabel(getCollapsableFrame(), TL("Target lane"), 0, GUIDesignLabelLeft);
+    FXLabel* targetLabel = new FXLabel(getCollapsableFrame(), TL("Target lane"), 0, GUIDesignLabel(JUSTIFY_LEFT));
     targetLabel->setBackColor(MFXUtils::getFXColor(connectorFrameParent->getViewNet()->getVisualisationSettings().candidateColorSettings.target));
 
     // create target (pass) label
-    FXLabel* targetPassLabel = new FXLabel(getCollapsableFrame(), TL("Target (pass)"), 0, GUIDesignLabelLeft);
+    FXLabel* targetPassLabel = new FXLabel(getCollapsableFrame(), TL("Target (pass)"), 0, GUIDesignLabel(JUSTIFY_LEFT));
     targetPassLabel->setBackColor(MFXUtils::getFXColor(connectorFrameParent->getViewNet()->getVisualisationSettings().candidateColorSettings.special));
 
     // create conflict label
-    FXLabel* conflictLabel = new FXLabel(getCollapsableFrame(), TL("Conflict"), 0, GUIDesignLabelLeft);
+    FXLabel* conflictLabel = new FXLabel(getCollapsableFrame(), TL("Conflict"), 0, GUIDesignLabel(JUSTIFY_LEFT));
     conflictLabel->setBackColor(MFXUtils::getFXColor(connectorFrameParent->getViewNet()->getVisualisationSettings().candidateColorSettings.conflict));
 }
 
