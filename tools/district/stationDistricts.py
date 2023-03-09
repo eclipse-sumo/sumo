@@ -44,6 +44,8 @@ def get_options():
     ap.add_option("-o", "--output", help="output taz file")
     ap.add_option("--split-output", dest="splitOutput",
                   help="generate splits for edges assigned to multiple stations")
+    ap.add_option("--poi-output", dest="poiOutput",
+                  help="generate a point of interest for every station")
     ap.add_option("--vclasses", default="rail,rail_urban",
                   help="Include consider edges allowing VCLASS")
     ap.add_option("--parallel-radius", type=float, default=100, dest="parallelRadius",
@@ -81,15 +83,15 @@ class Station:
         self.platforms = []
         self.coord = None
 
-    def write(self, outf, index, color):
+    def write(self, outf, outf_poi, index, color):
         outf.write('    <taz id="%s" name="%s" color="%s" edges="%s">\n' % (
             index, self.name, color, ' '.join(sorted([e.getID() for e in self.edges]))))
         if self.coord:
             outf.write('       <param key="coord" value="%s"/>\n' % ' '.join(map(str, self.coord)))
         outf.write('    </taz>\n')
 
-        if self.coord:
-            outf.write('    <poi id="%s" name="%s" x="%s" y="%s"/>\n' %
+        if self.coord and outf_poi:
+            outf_poi.write('    <poi id="%s" name="%s" x="%s" y="%s"/>\n' %
                        (index, self.name, self.coord[0], self.coord[1]))
 
 
@@ -285,11 +287,19 @@ def main(options):
         splitStations(options, stations)
     assignByDistance(options, net, stations)
 
+    outf_poi = None
+    if options.poiOutput:
+        outf_poi = open(options.poiOutput, 'w')
+        sumolib.writeXMLHeader(outf_poi, "$Id$", "additional", options=options)
+
     with open(options.output, 'w') as outf:
         sumolib.writeXMLHeader(outf, "$Id$", "additional", options=options)
         for i, name in enumerate(sorted(stations.keys())):
-            stations[name].write(outf, i, options.colorgen())
+            stations[name].write(outf, outf_poi, i, options.colorgen())
         outf.write("</additional>\n")
+
+    if outf_poi:
+        outf_poi.close()
 
 
 if __name__ == "__main__":
