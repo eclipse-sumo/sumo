@@ -20,6 +20,8 @@
 #pragma once
 #include <config.h>
 
+#include <memory>
+#include <unordered_set>
 #include <geos.h>
 #include <jupedsim/jupedsim.h>
 #include "microsim/MSNet.h"
@@ -93,26 +95,29 @@ private:
         double getSpeed(const MSStageMoving& stage) const;
         const MSEdge* getNextEdge(const MSStageMoving& stage) const;
         void moveToXY(MSPerson* p, Position pos, MSLane* lane, double lanePos,
-            double lanePosLat, double angle, int routeOffset,
-            const ConstMSEdgeVector& edges, SUMOTime t);
+            double lanePosLat, double angle, int routeOffset, const ConstMSEdgeVector& edges, SUMOTime t);
 
         Position getDestination(void) const;
         JPS_AgentId getAgentId(void) const;
 
     private:
+        MSStageMoving* myStage;
+        MSPerson* myPerson;
         Position myPosition;
         Position myDestination;
         double myAngle;
-        MSStageMoving* myStage;
-        MSPerson* myPerson;
         JPS_Journey myJourney;
         JPS_AgentId myAgentId;
         ConstMSEdgeVector myCustomRoute;
     };
 
-    MSNet* myNet;
+    MSNet* myNetwork;
+    bool myNetworkConnectedness;
     int myNumActivePedestrians = 0;
     std::vector<PState*> myPedestrianStates;
+
+    geos::geom::GeometryFactory* myGeometryFactory;
+
     JPS_GeometryBuilder myGeometryBuilder;
     JPS_Geometry myGeometry;
     JPS_AreasBuilder myAreasBuilder;
@@ -120,6 +125,7 @@ private:
     JPS_OperationalModel myModel;
     JPS_ModelParameterProfileId myParameterProfileId;
     JPS_Simulation mySimulation;
+
     const PedestrianRoutingMode myRoutingMode = PedestrianRoutingMode::SUMO_ROUTING;
 
 #ifdef DEBUG
@@ -131,4 +137,13 @@ private:
 
     void initialize();
     MSLane* getNextPedestrianLane(const MSLane* const currentLane) const;
+    static MSLane* getPedestrianLane(MSEdge* edge);
+    static Position getAnchor(MSLane* lane, MSEdge* edge, ConstMSEdgeVector incoming);
+    static Position getAnchor(MSLane* lane, MSEdge* edge, MSEdgeVector incoming);
+    static std::tuple<ConstMSEdgeVector, ConstMSEdgeVector, std::unordered_set<MSEdge*>> getAdjacentEdgesOfJunction(MSJunction* junction);
+    static MSEdgeVector getAdjacentEdgesOfEdge(MSEdge* edge);
+    static bool hasWalkingAreasInbetween(MSEdge* edge, MSEdge* otherEdge, ConstMSEdgeVector adjacentEdgesOfJunction);
+    geos::geom::Geometry* createShapeFromCenterLine(PositionVector centerLine, double width, int capStyle);
+    geos::geom::Geometry* createShapeFromAnchors(Position anchor, MSLane* lane, Position otherAnchor, MSLane* otherLane);
+    geos::geom::Geometry* buildPedestrianNetwork(MSNet* network);
 };

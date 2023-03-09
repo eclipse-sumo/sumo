@@ -20,12 +20,17 @@
 
 #include <algorithm>
 #include <fstream>
-#include <geos.h>
+#include <typeinfo>
+#include <geos/geom/PrecisionModel.h>
+#include <geos/geom/GeometryFactory.h>
+#include <geos/operation/buffer/BufferOp.h>
+#include <geos/operation/union/UnaryUnionOp.h>
 #include <jupedsim/jupedsim.h>
 #include "microsim/MSEdge.h"
 #include "microsim/MSLane.h"
 #include "microsim/MSLink.h"
 #include "microsim/MSEdgeControl.h"
+#include "microsim/MSJunctionControl.h"
 #include "microsim/MSEventControl.h"
 #include "libsumo/Person.h"
 #include "utils/geom/Position.h"
@@ -37,8 +42,7 @@
 const SUMOTime MSPModel_Remote::JPS_DELTA_T = 10;
 const double MSPModel_Remote::JPS_EXIT_TOLERANCE = 1;
 
-
-MSPModel_Remote::MSPModel_Remote(const OptionsCont& oc, MSNet* net) : myNet(net) {
+MSPModel_Remote::MSPModel_Remote(const OptionsCont& oc, MSNet* net) : myNetwork(net) {
     initialize();
     Event* e = new Event(this);
     net->getBeginOfTimestepEvents()->addEvent(e, net->getCurrentTimeStep() + DELTA_T);
@@ -47,6 +51,7 @@ MSPModel_Remote::MSPModel_Remote(const OptionsCont& oc, MSNet* net) : myNet(net)
 
 MSPModel_Remote::~MSPModel_Remote() {
     clearState();
+
     JPS_Simulation_Free(mySimulation);
     JPS_OperationalModel_Free(myModel);
     JPS_Areas_Free(myAreas);
@@ -219,6 +224,188 @@ void MSPModel_Remote::clearState() {
 }
 
 
+MSLane* 
+MSPModel_Remote::getPedestrianLane(MSEdge* edge) {
+    for (MSLane* lane : edge->getLanes()) {
+        SVCPermissions permissions = lane->getPermissions();
+        if (permissions == SVC_PEDESTRIAN) {
+            return lane;
+        }
+    }
+
+    return nullptr;
+}
+
+
+Position 
+MSPModel_Remote::getAnchor(MSLane* lane, MSEdge* edge, ConstMSEdgeVector incoming) {
+    if (std::count(incoming.begin(), incoming.end(), edge)) {
+        return lane->getShape().back();
+    }
+
+    return lane->getShape().front();
+}
+
+
+Position
+MSPModel_Remote::getAnchor(MSLane* lane, MSEdge* edge, MSEdgeVector incoming) {
+    if (std::count(incoming.begin(), incoming.end(), edge)) {
+        return lane->getShape().back();
+    }
+
+    return lane->getShape().front();
+}
+
+
+std::tuple<ConstMSEdgeVector, ConstMSEdgeVector, std::unordered_set<MSEdge*>> 
+MSPModel_Remote::getAdjacentEdgesOfJunction(MSJunction* junction) {
+    ConstMSEdgeVector incoming = junction->getIncoming();
+    ConstMSEdgeVector outgoing = junction->getOutgoing();
+    ConstMSEdgeVector adjacentVector = incoming;
+    adjacentVector.insert(adjacentVector.end(), outgoing.begin(), outgoing.end());
+    
+    std::unordered_set<MSEdge*> adjacentSet;
+    for (const MSEdge* edge : adjacentVector) {
+        adjacentSet.insert(const_cast<MSEdge*>(edge));
+    }
+
+    return std::make_tuple(incoming, outgoing, adjacentSet);
+}
+
+
+MSEdgeVector 
+MSPModel_Remote::getAdjacentEdgesOfEdge(MSEdge* edge) {
+    MSEdgeVector incoming = edge->getPredecessors();
+    MSEdgeVector outgoing = edge->getSuccessors();
+    MSEdgeVector adjacent = incoming;
+    adjacent.insert(adjacent.end(), outgoing.begin(), outgoing.end());
+
+    return adjacent;
+}
+
+
+bool 
+MSPModel_Remote::hasWalkingAreasInbetween(MSEdge* edge, MSEdge* otherEdge, ConstMSEdgeVector adjacentEdgesOfJunction) {
+    for (const MSEdge* nextEdge : getAdjacentEdgesOfEdge(edge)) {
+        if ((nextEdge->getFunction() == SumoXMLEdgeFunc::WALKINGAREA) && 
+            (std::count(adjacentEdgesOfJunction.begin(), adjacentEdgesOfJunction.end(), edge))) {
+            
+            MSEdgeVector walkingAreOutgoing = nextEdge->getSuccessors();
+            if (std::count(walkingAreOutgoing.begin(), walkingAreOutgoing.end(), otherEdge)) {
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
+
+geos::geom::Geometry*
+MSPModel_Remote::createShapeFromCenterLine(PositionVector centerLine, double width, int capStyle) {
+    geos::geom::CoordinateArraySequence coordinates;
+    for (Position p : centerLine) {
+        coordinates.add(geos::geom::Coordinate(p.x(), p.y()));
+    }
+
+    geos::geom::LineString* lineString = myGeometryFactory->createLineString(coordinates);
+
+    return lineString->buffer(width, 16, capStyle).get();
+}
+
+
+geos::geom::Geometry*
+MSPModel_Remote::createShapeFromAnchors(Position anchor, MSLane* lane, Position otherAnchor, MSLane* otherLane) {
+    geos::geom::Geometry* shape;
+if (lane->getWidth() == otherLane->getWidth()) {
+    PositionVector anchors = { anchor, otherAnchor };
+    shape = createShapeFromCenterLine(anchors, lane->getWidth() / 2.0, geos::operation::buffer::BufferOp::CAP_ROUND);
+}
+else {
+    geos::geom::Point* anchorPoint = myGeometryFactory->createPoint(geos::geom::Coordinate(anchor.x(), anchor.y()));
+    geos::geom::Geometry* dilatedAnchorPoint = anchorPoint->buffer(lane->getWidth() / 2.0, 16, geos::operation::buffer::BufferOp::CAP_ROUND).get();
+
+    geos::geom::Point* otherAnchorPoint = myGeometryFactory->createPoint(geos::geom::Coordinate(otherAnchor.x(), otherAnchor.y()));
+    geos::geom::Geometry* dilatedOtherAnchorPoint = otherAnchorPoint->buffer(lane->getWidth() / 2.0, 16, geos::operation::buffer::BufferOp::CAP_ROUND).get();
+
+    std::vector<geos::geom::Geometry*> polygons = { dilatedAnchorPoint, dilatedOtherAnchorPoint };
+    geos::geom::MultiPolygon* multiPolygon = myGeometryFactory->createMultiPolygon(&polygons);
+
+    shape = multiPolygon->convexHull().get();
+}
+
+return shape;
+}
+
+
+geos::geom::Geometry*
+MSPModel_Remote::buildPedestrianNetwork(MSNet* network) {
+    std::vector<geos::geom::Geometry*> dilatedPedestrianLanes;
+    for (const auto& junctionWithID : network->getJunctionControl()) {
+        MSJunction* junction = junctionWithID.second;
+        ConstMSEdgeVector incoming;
+        ConstMSEdgeVector outgoing;
+        std::unordered_set<MSEdge*> adjacent;
+        std::tie(incoming, outgoing, adjacent) = getAdjacentEdgesOfJunction(junction);
+
+        for (MSEdge* edge : adjacent) {
+            if (edge->getFunction() == SumoXMLEdgeFunc::NORMAL) {
+                MSLane* lane = getPedestrianLane(edge);
+                if (lane) {
+                    Position anchor = getAnchor(lane, edge, incoming);
+                    geos::geom::Geometry* dilatedLaneLine = createShapeFromCenterLine(lane->getShape(), lane->getWidth() / 2.0, geos::operation::buffer::BufferOp::CAP_BUTT);
+                    dilatedPedestrianLanes.push_back(dilatedLaneLine);
+
+                    for (MSEdge* nextEdge : adjacent) {
+                        if ((nextEdge != edge) && (nextEdge->getFunction() == SumoXMLEdgeFunc::NORMAL)) {
+                            if (hasWalkingAreasInbetween(edge, nextEdge, ConstMSEdgeVector(adjacent.begin(), adjacent.end()))) {
+                                MSLane* nextLane = getPedestrianLane(nextEdge);
+                                if (nextLane) {
+                                    Position nextAnchor = getAnchor(nextLane, nextEdge, incoming);
+                                    geos::geom::Geometry* dilatedLaneLine = createShapeFromAnchors(anchor, lane, nextAnchor, nextLane);
+                                    dilatedPedestrianLanes.push_back(dilatedLaneLine);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        for (MSEdge* edge : adjacent) {
+            if (edge->getFunction() == SumoXMLEdgeFunc::CROSSING) {
+                MSLane* lane = getPedestrianLane(edge);
+                if (lane) {
+                    geos::geom::Geometry* dilatedCrossingLane = createShapeFromCenterLine(lane->getShape(), lane->getWidth() / 2.0, geos::operation::buffer::BufferOp::CAP_BUTT);
+                    dilatedPedestrianLanes.push_back(dilatedCrossingLane);
+
+                    for (MSEdge* nextEdge : getAdjacentEdgesOfEdge(edge)) {
+                        if ((nextEdge->getFunction() == SumoXMLEdgeFunc::WALKINGAREA) && (std::count(adjacent.begin(), adjacent.end(), nextEdge))) {
+                            MSEdgeVector walkingAreaAdjacent = getAdjacentEdgesOfEdge(nextEdge);
+                            for (MSEdge* nextNextEdge : walkingAreaAdjacent) {
+                                if (nextNextEdge != edge) {
+                                    MSLane* nextLane = getPedestrianLane(nextNextEdge);
+                                    if (nextLane) {
+                                        MSEdgeVector nextEdgeIncoming = nextEdge->getPredecessors();
+                                        Position anchor = getAnchor(lane, edge, nextEdgeIncoming);
+                                        Position nextAnchor = getAnchor(nextLane, nextNextEdge, nextEdgeIncoming);
+                                        geos::geom::Geometry* dilatedLaneLine = createShapeFromAnchors(anchor, lane, nextAnchor, nextLane);
+                                        dilatedPedestrianLanes.push_back(dilatedLaneLine);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    geos::geom::Geometry* pedestrianNetwork = geos::operation::geounion::UnaryUnionOp::Union(dilatedPedestrianLanes).get();
+    return pedestrianNetwork;
+}
+
+
 void
 MSPModel_Remote::initialize() {
     myGeometryBuilder = JPS_GeometryBuilder_Create();
@@ -226,85 +413,96 @@ MSPModel_Remote::initialize() {
 
 #ifdef DEBUG
     std::ofstream geometryDumpFile;
-    geometryDumpFile.open("geometry.txt");
+    geometryDumpFile.open("geometry.wkt");
 #endif
 
-	for (const MSEdge* const edge : (myNet->getEdgeControl()).getEdges()) {
-        const MSLane* lane = getSidewalk<MSEdge, MSLane>(edge);
-        if (lane) {
-            PositionVector shape = lane->getShape();
+    geos::geom::Geometry* pedestrianNetwork = buildPedestrianNetwork(myNetwork);
+    if (typeid(pedestrianNetwork).name() == "Polygon") {
+        myNetworkConnectedness = true;
+    }
+    else if (typeid(pedestrianNetwork).name() == "MultiPolygon") {
+        myNetworkConnectedness = false;
+    }
+    else {
+        // error
+    }
 
-            // Apparently CGAL expects polygons to be oriented CCW.
-            if (shape.isClockwiseOriented()) {
-                shape = shape.reverse();
-            }
-            assert(!shape.isClockwiseOriented());
+//	for (const MSEdge* const edge : (myNetwork->getEdgeControl()).getEdges()) {
+//        const MSLane* lane = getSidewalk<MSEdge, MSLane>(edge);
+//        if (lane) {
+//            PositionVector shape = lane->getShape();
+//
+//            // Apparently CGAL expects polygons to be oriented CCW.
+//            if (shape.isClockwiseOriented()) {
+//                shape = shape.reverse();
+//            }
+//            assert(!shape.isClockwiseOriented());
+//
+//            /* The code below is in theory more robust as there would be a guarantee that
+//               the shape is CCW-oriented. However at the moment the sort algorithm doesn't
+//               work for non-convex polygons.
+//               PositionVector shape = lane->getShape();
+//               shape.sortAsPolyCWByAngle();
+//               shape = shape.reverse();
+//               assert(!shape.isClockwiseOriented());
+//            */
+//            
+//            std::vector<double> lanePolygonCoordinatesFlattened;
+//
+//            if (edge->isWalkingArea()) {
+//                if (shape.area() == 0.0) {
+//                    continue;
+//                }
+//
+//                auto last = shape.isClosed() ? shape.end()-1 : shape.end();
+//                for (auto position = shape.begin(); position != last; position++) {
+//                    lanePolygonCoordinatesFlattened.push_back(position->x());
+//                    lanePolygonCoordinatesFlattened.push_back(position->y());
+//                } 
+//
+//                /*std::vector<std::pair<double, double>> lanePolygonCoordinates;
+//                for (const Position& position : shape)
+//                    lanePolygonCoordinates.push_back(std::make_pair<double, double>(position.x(), position.y()));
+//
+//                auto end = lanePolygonCoordinates.end();
+//                for (auto it = lanePolygonCoordinates.begin(); it != end; ++it) {
+//                    end = std::remove(it + 1, end, *it);
+//                }
+//
+//                lanePolygonCoordinates.erase(end, lanePolygonCoordinates.end());
+//
+//                for (auto position = lanePolygonCoordinates.begin(); position != lanePolygonCoordinates.end(); position++) {
+//                    lanePolygonCoordinatesFlattened.push_back(position->first);
+//                    lanePolygonCoordinatesFlattened.push_back(position->second);
+//                }*/
+//            }
+//            else {
+//                double amount = lane->getWidth() / 2.0;
+//                shape.move2side(amount);
+//                Position bottomFirstCorner = shape[0];
+//                Position bottomSecondCorner = shape[1];
+//                shape = lane->getShape();
+//                shape.move2side(-amount);
+//                Position topFirstCorner = shape[0];
+//                Position topSecondCorner = shape[1];
+//
+//                std::vector<Position> lanePolygon{ topFirstCorner, bottomFirstCorner, bottomSecondCorner, topSecondCorner };
+//                for (const Position& position : lanePolygon) {
+//                    lanePolygonCoordinatesFlattened.push_back(position.x());
+//                    lanePolygonCoordinatesFlattened.push_back(position.y());
+//                }
+//            }
+//            
+//#ifdef DEBUG
+//            geometryDumpFile << "Lane " <<  lane->getID() << std::endl;
+//            for (double coordinate: lanePolygonCoordinatesFlattened) {
+//                geometryDumpFile << coordinate << std::endl;
+//            }
+//#endif
 
-            /* The code below is in theory more robust as there would be a guarantee that
-               the shape is CCW-oriented. However at the moment the sort algorithm doesn't
-               work for non-convex polygons.
-               PositionVector shape = lane->getShape();
-               shape.sortAsPolyCWByAngle();
-               shape = shape.reverse();
-               assert(!shape.isClockwiseOriented());
-            */
-            
-            std::vector<double> lanePolygonCoordinatesFlattened;
-
-            if (edge->isWalkingArea()) {
-                if (shape.area() == 0.0) {
-                    continue;
-                }
-
-                auto last = shape.isClosed() ? shape.end()-1 : shape.end();
-                for (auto position = shape.begin(); position != last; position++) {
-                    lanePolygonCoordinatesFlattened.push_back(position->x());
-                    lanePolygonCoordinatesFlattened.push_back(position->y());
-                } 
-
-                /*std::vector<std::pair<double, double>> lanePolygonCoordinates;
-                for (const Position& position : shape)
-                    lanePolygonCoordinates.push_back(std::make_pair<double, double>(position.x(), position.y()));
-
-                auto end = lanePolygonCoordinates.end();
-                for (auto it = lanePolygonCoordinates.begin(); it != end; ++it) {
-                    end = std::remove(it + 1, end, *it);
-                }
-
-                lanePolygonCoordinates.erase(end, lanePolygonCoordinates.end());
-
-                for (auto position = lanePolygonCoordinates.begin(); position != lanePolygonCoordinates.end(); position++) {
-                    lanePolygonCoordinatesFlattened.push_back(position->first);
-                    lanePolygonCoordinatesFlattened.push_back(position->second);
-                }*/
-            }
-            else {
-                double amount = lane->getWidth() / 2.0;
-                shape.move2side(amount);
-                Position bottomFirstCorner = shape[0];
-                Position bottomSecondCorner = shape[1];
-                shape = lane->getShape();
-                shape.move2side(-amount);
-                Position topFirstCorner = shape[0];
-                Position topSecondCorner = shape[1];
-
-                std::vector<Position> lanePolygon{ topFirstCorner, bottomFirstCorner, bottomSecondCorner, topSecondCorner };
-                for (const Position& position : lanePolygon) {
-                    lanePolygonCoordinatesFlattened.push_back(position.x());
-                    lanePolygonCoordinatesFlattened.push_back(position.y());
-                }
-            }
-            
-#ifdef DEBUG
-            geometryDumpFile << "Lane " <<  lane->getID() << std::endl;
-            for (double coordinate: lanePolygonCoordinatesFlattened) {
-                geometryDumpFile << coordinate << std::endl;
-            }
-#endif
-
-            JPS_GeometryBuilder_AddAccessibleArea(myGeometryBuilder, lanePolygonCoordinatesFlattened.data(), lanePolygonCoordinatesFlattened.size() / 2);
-        }
-	}
+ //           JPS_GeometryBuilder_AddAccessibleArea(myGeometryBuilder, lanePolygonCoordinatesFlattened.data(), lanePolygonCoordinatesFlattened.size() / 2);
+ //       }
+	//}
 
 #ifdef DEBUG
     geometryDumpFile.close();
