@@ -204,3 +204,16 @@ Example call:
 python tools/net/split_at_stops.py <stopfile> -n <net-file> -r <route-file> -o <output-net-file> --stop-output <output-stop-file> --route-output <output-route-file> --stop-type busStop
 ```
 
+note !!!
+     A similar functionality is achieved by [stationDistricts.py --split-output FILE](District.md#stationdistrictspy) which splits edges at the midpoint between stops.
+
+# abstractRail.py
+
+Converts a geodetical rail network into an abstract (schematic) rail network.
+If the network is segmented (with [stationDistricts.py](District.md#stationdistrictspy)), the resulting network will be
+a hybrid of multiple schematic pieces being oriented in a roughly geodetical manner
+
+Example call:
+```
+python tools/net/abstractRail.py -n input_net.net.xml --stop-file input_additional.add.xml --region-file stations.taz.xml -o abstract.net.xml
+```
