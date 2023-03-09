@@ -47,7 +47,7 @@ def get_options():
     ap.add_option("--poi-output", dest="poiOutput",
                   help="generate a point of interest for every station")
     ap.add_option("--vclasses", default="rail,rail_urban",
-                  help="Include consider edges allowing VCLASS")
+                  help="Include only edges allowing VCLASS")
     ap.add_option("--parallel-radius", type=float, default=100, dest="parallelRadius",
                   help="search radius for finding parallel edges")
     ap.add_option("--merge", action="store_true", default=False,
