@@ -1,4 +1,4 @@
-Eclipse SUMO netgenerate Version v1_16_0+0875-d196e53626f
+Eclipse SUMO netgenerate Version v1_16_0+1117-b006029d26d
  Copyright (C) 2001-2023 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Synthetic network generator for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -40,14 +40,14 @@ Grid Network Options:
   --grid.y-attach-length FLOAT         The length of streets attached at the
                                         boundary in y direction;
                                         0 means no streets are attached
+
+Spider Network Options:
   -s, --spider                         Forces NETGEN to build a spider-net-like
                                         network
   --spider.arm-number INT              The number of axes within the net
   --spider.circle-number INT           The number of circles of the net
   --spider.space-radius FLOAT          The distances between the circles
   --spider.omit-center                 Omit the central node of the network
-
-Spider Network Options:
 
 Random Network Options:
   -r, --rand                           Forces NETGEN to build a random network

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-03-02 07:43:40 by Eclipse SUMO netgenerate Version v1_16_0+0875-d196e53626f
+<!-- generated on 2023-03-09 08:30:17 by Eclipse SUMO netgenerate Version v1_16_0+1117-b006029d26d
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -25,12 +25,15 @@
         <grid.attach-length value="0" synonymes="attach-length" type="FLOAT" help="The length of streets attached at the boundary; 0 means no streets are attached"/>
         <grid.x-attach-length value="0" type="FLOAT" help="The length of streets attached at the boundary in x direction; 0 means no streets are attached"/>
         <grid.y-attach-length value="0" type="FLOAT" help="The length of streets attached at the boundary in y direction; 0 means no streets are attached"/>
+    </grid_network>
+
+    <spider_network>
         <spider value="false" synonymes="s spider-net" type="BOOL" help="Forces NETGEN to build a spider-net-like network"/>
         <spider.arm-number value="13" synonymes="arms spider-arm-number" type="INT" help="The number of axes within the net"/>
         <spider.circle-number value="20" synonymes="circles spider-circle-number" type="INT" help="The number of circles of the net"/>
         <spider.space-radius value="100" synonymes="radius spider-space-rad" type="FLOAT" help="The distances between the circles"/>
         <spider.omit-center value="false" synonymes="nocenter spider-omit-center" type="BOOL" help="Omit the central node of the network"/>
-    </grid_network>
+    </spider_network>
 
     <random_network>
         <rand value="false" synonymes="r random-net" type="BOOL" help="Forces NETGEN to build a random network"/>
