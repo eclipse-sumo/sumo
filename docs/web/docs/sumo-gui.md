@@ -137,6 +137,9 @@ are listed below:
 - Shift-LeftClick: 
   - vehicle: start tracking
   - rerouter: change routeProbReroute probabilities
+- Double-LeftClick: stop tracking
+- Ctrl + J: toggle 'show junction shapes'
+- Ctrl + K: toggle 'show secondary edge shape' (loaded with option **--alternative-net-file**)
 
 ## Object Properties / Right-Click-Functions
 
