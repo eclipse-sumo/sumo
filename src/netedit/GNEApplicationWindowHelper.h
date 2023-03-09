@@ -961,16 +961,13 @@ struct GNEApplicationWindowHelper {
         /// @brief build tools
         void buildTools();
 
-        /// @brief netdiff tool
-        GNEToolDialog* netDiffTool = nullptr;
-
-        /// @brief generate rerouters tool
-        GNEToolDialog* generateReroutersTool = nullptr;
-
-        /// @brief add stops to routes tool
-        GNEToolDialog* addStops2RoutesTool = nullptr;
+        /// @brief show tool
+        void showTool(FXSelector sel) const;
 
     private:
+        /// @brief map with tools
+        std::map<FXSelector, GNEToolDialog*> myTools;
+
         /// @brief pointer to current GNEApplicationWindows
         GNEApplicationWindow* myGNEApp;
 
