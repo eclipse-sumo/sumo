@@ -163,7 +163,7 @@ def fillOptions(argParser):
     argParser.add_argument("-w", "--weighted", action="store_true",
                            default=False, help="Weights sources/sinks by lane number and length")
     argParser.add_argument("-f", "--assign-from", action="store_true",
-                           default=False, help="Assign the edge always to the district where the \"from\" node " +
+                           default=False, help="Assign the edge always to the district where the 'from' node " +
                            "is located")
     argParser.add_argument("-i", "--internal", action="store_true",
                            default=False, help="Include internal edges in output")

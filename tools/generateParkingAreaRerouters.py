@@ -76,7 +76,7 @@ def get_options(cmd_args=None):
         help='Do no reroute to parkingAreas with less than min-capacity')
     parser.add_argument(
         '--distribute', dest='distribute',
-        help='Distribute alternatives by distance according to the given weights. "3,1"'
+        help='Distribute alternatives by distance according to the given weights. 3,1 '
         + 'means that 75 percent of the alternatives are below the median distance of all'
         + 'alternatives in range and 25 percent are above the median distance')
     parser.add_argument(
