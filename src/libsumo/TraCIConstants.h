@@ -644,6 +644,12 @@ TRACI_CONST int TRAFFICLIGHT_TYPE_ACTUATED = 0x03;
 TRACI_CONST int TRAFFICLIGHT_TYPE_DELAYBASED = 0x04;
 
 // ****************************************
+// Lane change directions
+// ****************************************
+TRACI_CONST int LANECHANGE_LEFT = 0x00;
+TRACI_CONST int LANECHANGE_RIGHT = 0x01;
+
+// ****************************************
 // FILTER TYPES (for context subscription filters)
 // ****************************************
 
@@ -898,6 +904,9 @@ TRACI_CONST int LANE_ALLOWED = 0x34;
 
 // list of not allowed vehicle classes (get&set: lanes)
 TRACI_CONST int LANE_DISALLOWED = 0x35;
+
+// list of allowed vehicle classes for lane changes (get&set: lanes)
+TRACI_CONST int LANE_CHANGES = 0x3c;
 
 // list of foe lanes (get: lanes)
 TRACI_CONST int VAR_FOES = 0x37;

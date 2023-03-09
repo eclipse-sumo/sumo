@@ -18,6 +18,7 @@
 /// @author  Michael Behrisch
 /// @author  Robert Hilbrich
 /// @author  Leonhard Luecken
+/// @author  Mirko Barthauer
 /// @date    30.05.2012
 ///
 // C++ TraCI client API implementation
@@ -137,6 +138,14 @@ Lane::getAllowed(const std::string& laneID) {
 std::vector<std::string>
 Lane::getDisallowed(const std::string& laneID) {
     return Dom::getStringVector(libsumo::LANE_DISALLOWED, laneID); // negation yields disallowed
+}
+
+
+std::vector<std::string>
+Lane::getChangePermissions(const std::string& laneID, const int direction) {
+    tcpip::Storage content;
+    StoHelp::writeTypedInt(content, direction);
+    return Dom::getStringVector(libsumo::LANE_CHANGES, laneID, &content);
 }
 
 
@@ -291,6 +300,16 @@ Lane::setDisallowed(const std::string& laneID, std::string disallowedClasses) {
 void
 Lane::setDisallowed(const std::string& laneID, std::vector<std::string> disallowedClasses) {
     Dom::setStringVector(libsumo::LANE_DISALLOWED, laneID, disallowedClasses);
+}
+
+
+void
+Lane::setChangePermissions(const std::string& laneID, std::vector<std::string> allowedClasses, const int direction) {
+    tcpip::Storage content;
+    StoHelp::writeCompound(content, 2);
+    StoHelp::writeTypedStringList(content, allowedClasses);
+    StoHelp::writeTypedInt(content, direction);
+    Dom::set(libsumo::LANE_CHANGES, laneID, &content);
 }
 
 

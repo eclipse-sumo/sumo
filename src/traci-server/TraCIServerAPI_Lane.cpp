@@ -18,6 +18,7 @@
 /// @author  Laura Bieker
 /// @author  Mario Krumnow
 /// @author  Leonhard Luecken
+/// @author  Mirko Barthauer
 /// @date    07.05.2009
 ///
 // APIs for getting/setting lane values via TraCI
@@ -120,7 +121,7 @@ TraCIServerAPI_Lane::processSet(TraCIServer& server, tcpip::Storage& inputStorag
     // variable
     int variable = inputStorage.readUnsignedByte();
     if (variable != libsumo::VAR_MAXSPEED && variable != libsumo::VAR_LENGTH && variable != libsumo::LANE_ALLOWED && variable != libsumo::LANE_DISALLOWED
-            && variable != libsumo::VAR_PARAMETER) {
+            && variable != libsumo::VAR_PARAMETER && variable != libsumo::LANE_CHANGES) {
         return server.writeErrorStatusCmd(libsumo::CMD_SET_LANE_VARIABLE, "Change Lane State: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
     }
     // id
@@ -155,6 +156,12 @@ TraCIServerAPI_Lane::processSet(TraCIServer& server, tcpip::Storage& inputStorag
             case libsumo::LANE_DISALLOWED: {
                 const std::vector<std::string> classes = StoHelp::readTypedStringList(inputStorage, "Not allowed vehicle classes must be given as a list of strings.");
                 libsumo::Lane::setDisallowed(id, classes);
+                break;
+            }
+            case libsumo::LANE_CHANGES: {
+                const std::vector<std::string> classes = StoHelp::readTypedStringList(inputStorage, "Vehicle classes allowed to change lane must be given as a list of strings.");
+                const int direction = StoHelp::readTypedInt(inputStorage, "The lane change direction must be given as an integer.");
+                libsumo::Lane::setChangePermissions(id, classes, direction);
                 break;
             }
             case libsumo::VAR_PARAMETER: {

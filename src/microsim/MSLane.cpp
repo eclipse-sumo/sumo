@@ -4219,6 +4219,18 @@ MSLane::hadPermissionChanges() const {
 }
 
 
+void
+MSLane::setChangeLeft(SVCPermissions permissions) {
+    myChangeLeft = permissions;
+}
+
+
+void
+MSLane::setChangeRight(SVCPermissions permissions) {
+    myChangeRight = permissions;
+}
+
+
 bool
 MSLane::hasPedestrians() const {
     MSNet* const net = MSNet::getInstance();

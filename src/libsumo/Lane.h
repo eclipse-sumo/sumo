@@ -52,6 +52,7 @@ public:
     static double getFriction(const std::string& laneID);
     static std::vector<std::string> getAllowed(const std::string& laneID);
     static std::vector<std::string> getDisallowed(const std::string& laneID);
+    static std::vector<std::string> getChangePermissions(const std::string& laneID, const int direction);
     static std::vector<libsumo::TraCIConnection> getLinks(const std::string& laneID);
     static libsumo::TraCIPositionVector getShape(const std::string& laneID);
     static double getWidth(const std::string& laneID);
@@ -83,6 +84,7 @@ public:
     static void setAllowed(const std::string& laneID, std::vector<std::string> allowedClasses);
     static void setDisallowed(const std::string& laneID, std::string disallowedClasses);
     static void setDisallowed(const std::string& laneID, std::vector<std::string> disallowedClasses);
+    static void setChangePermissions(const std::string& laneID, std::vector<std::string> allowedClasses, const int direction);
     static void setMaxSpeed(const std::string& laneID, double speed);
     static void setLength(const std::string& laneID, double length);
     static void setFriction(const std::string& laneID, double friction);
