@@ -26,6 +26,7 @@ from __future__ import absolute_import
 
 import sys
 import os
+import re
 from os.path import dirname, join
 from subprocess import check_output, CalledProcessError
 
@@ -283,6 +284,9 @@ def formatToolTemplate(templateStr):
     """
     @brief format python tool template
     """
+    # replace all current directory values (src/netedit)
+    templateStr = re.sub("(?<=value)(.*)(?=netedit)", "", templateStr)
+    templateStr = templateStr.replace('netedit', '="')
     # replace " with \"
     templateStr = templateStr.replace('"', '\\"')
     # add quotes and end lines
