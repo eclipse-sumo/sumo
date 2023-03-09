@@ -68,7 +68,7 @@ def get_options(args=None):
                     help="Store generated vehicle types in a separate file")
     op.add_argument("--weights-prefix", dest="weightsprefix",
                     help="loads probabilities for being source, destination and via-edge from the files named " +
-                    "<prefix>.src.xml, <prefix>.dst.xml and <prefix>.via.xml")
+                    "'prefix'.src.xml, 'prefix'.dst.xml and 'prefix'.via.xml")
     op.add_argument("--weights-output-prefix", dest="weights_outprefix",
                     help="generates weights files for visualisation")
     op.add_argument("--pedestrians", action="store_true",
@@ -87,7 +87,7 @@ def get_options(args=None):
                     default="", help="prefix for the trip ids")
     op.add_argument("-t", "--trip-attributes", dest="tripattrs", default="",
                     help="additional trip attributes. When generating pedestrians, attributes for " +
-                    "<person> and <walk> are supported.")
+                    "'person' and 'walk' are supported.")
     op.add_argument("--fringe-start-attributes", dest="fringeattrs",
                     default="", help="additional trip attributes when starting on a fringe.")
     op.add_argument("-b", "--begin", default=0, help="begin time")
@@ -104,9 +104,9 @@ def get_options(args=None):
     op.add_argument("--edge-param", dest="edgeParam",
                     help="use the given edge parameter as factor for edge")
     op.add_argument("--speed-exponent", type=float, dest="speed_exponent", metavar="FLOAT",
-                    default=0.0, help="weight edge probability by speed^<FLOAT> (default 0)")
+                    default=0.0, help="weight edge probability by speed^'FLOAT' (default 0)")
     op.add_argument("--fringe-speed-exponent", type=float, dest="fringe_speed_exponent", metavar="FLOAT",
-                    help="weight fringe edge probability by speed^<FLOAT> (default: speed exponent)")
+                    help="weight fringe edge probability by speed^'FLOAT' (default: speed exponent)")
     op.add_argument("--angle", type=float, dest="angle", default=90.0,
                     help="weight edge probability by angle [0-360] relative to the network center")
     op.add_argument("--angle-factor", type=float, dest="angle_weight",
@@ -114,10 +114,10 @@ def get_options(args=None):
     op.add_argument("--random-factor", type=float, dest="randomFactor", default=1.0,
                     help="edge weights are dynamically disturbed by a random factor drawn uniformly from [1,FLOAT]")
     op.add_argument("--fringe-factor", dest="fringe_factor",
-                    default="1.0", help="multiply weight of fringe edges by <FLOAT> (default 1)" +
+                    default="1.0", help="multiply weight of fringe edges by 'FLOAT' (default 1)" +
                     " or set value 'max' to force all traffic to start/end at the fringe.")
     op.add_argument("--fringe-threshold", type=float, dest="fringe_threshold", default=0.0,
-                    help="only consider edges with speed above <FLOAT> as fringe edges (default 0)")
+                    help="only consider edges with speed above 'FLOAT' as fringe edges (default 0)")
     op.add_argument("--allow-fringe", dest="allow_fringe", action="store_true", default=False,
                     help="Allow departing on edges that leave the network and arriving on edges " +
                     "that enter the network (via turnarounds or as 1-edge trips")
@@ -127,11 +127,11 @@ def get_options(args=None):
     op.add_argument("--fringe-junctions", action="store_true", dest="fringeJunctions",
                     default=False, help="Determine fringe edges based on junction attribute 'fringe'")
     op.add_argument("--min-distance", type=float, dest="min_distance", metavar="FLOAT", default=0.0,
-                    help="require start and end edges for each trip to be at least <FLOAT> m apart")
+                    help="require start and end edges for each trip to be at least 'FLOAT' m apart")
     op.add_argument("--min-distance.fringe", type=float, dest="min_dist_fringe", metavar="FLOAT",
-                    help="require start and end edges for each fringe to fringe trip to be at least <FLOAT> m apart")
+                    help="require start and end edges for each fringe to fringe trip to be at least 'FLOAT' m apart")
     op.add_argument("--max-distance", type=float, dest="max_distance", metavar="FLOAT",
-                    help="require start and end edges for each trip to be at most <FLOAT> m " +
+                    help="require start and end edges for each trip to be at most 'FLOAT' m " +
                     "apart (default 0 which disables any checks)")
     op.add_argument("-i", "--intermediate", type=int,
                     default=0, help="generates the given number of intermediate way points")

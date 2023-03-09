@@ -61,17 +61,17 @@ def addPlotOptions(optParser):
     optParser.add_option("-l", "--labels", dest="labels",
                          default=None, help="Defines the labels to use")
     optParser.add_option("--xlim", dest="xlim",
-                         default=None, help="Defines x-limits of the figure <XMIN>,<XMAX>")
+                         default=None, help="Defines x-limits of the figure 'XMIN','XMAX'")
     optParser.add_option("--ylim", dest="ylim",
-                         default=None, help="Defines y-limits of the figure <YMIN>,<YMAX>")
+                         default=None, help="Defines y-limits of the figure 'YMIN','YMAX'")
     optParser.add_option("--xticks", dest="xticks",
-                         default=None, help="Set x-axis ticks <XMIN>,<XMAX>,<XSTEP>,<XSIZE> or <XSIZE>")
+                         default=None, help="Set x-axis ticks 'XMIN','XMAX','XSTEP','XSIZE' or 'XSIZE'")
     optParser.add_option("--yticks", dest="yticks",
-                         default=None, help="Set y-axis ticks <YMIN>,<YMAX>,<YSTEP>,<YSIZE> or <YSIZE>")
+                         default=None, help="Set y-axis ticks 'YMIN','YMAX','YSTEP','YSIZE' or 'YSIZE'")
     optParser.add_option("--xticks-file", dest="xticksFile",
-                         default=None, help="Load x-axis ticks from file (<LABEL> or <FLOAT>:<LABEL> per line)")
+                         default=None, help="Load x-axis ticks from file ('LABEL' or 'FLOAT':'LABEL' per line)")
     optParser.add_option("--yticks-file", dest="yticksFile",
-                         default=None, help="Load y-axis ticks from file (<LABEL> or <FLOAT>:<LABEL> per line)")
+                         default=None, help="Load y-axis ticks from file ('LABEL' or 'FLOAT':'LABEL' per line)")
     optParser.add_option("--xtime0", dest="xtime0", action="store_true",
                          default=False, help="Use a time formatter for x-ticks (hh)")
     optParser.add_option("--ytime0", dest="ytime0", action="store_true",
@@ -109,9 +109,9 @@ def addPlotOptions(optParser):
     optParser.add_option("--titlesize", dest="titlesize",
                          type=int, default=16, help="Set the title size")
     optParser.add_option("--adjust", dest="adjust",
-                         default=None, help="Adjust the subplots <LEFT>,<BOTTOM> or <LEFT>,<BOTTOM>,<RIGHT>,<TOP>")
+                         default=None, help="Adjust the subplots 'LEFT','BOTTOM' or 'LEFT','BOTTOM','RIGHT','TOP'")
     optParser.add_option("-s", "--size", dest="size",
-                         default=False, help="Defines the figure size <X>,<Y>")
+                         default=False, help="Defines the figure size 'X','Y'")
     optParser.add_option("--no-legend", dest="nolegend", action="store_true",
                          default=False, help="Disables the legend")
     optParser.add_option("--legend-position", dest="legendposition",
