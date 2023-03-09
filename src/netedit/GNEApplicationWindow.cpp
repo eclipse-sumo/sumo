@@ -1124,7 +1124,7 @@ GNEApplicationWindow::onCmdLocate(FXObject*, FXSelector sel, void*) {
 
 long
 GNEApplicationWindow::onCmdOpenToolDialog(FXObject*, FXSelector sel, void*) {
-    myToolsMenuCommands.showTool(sel);
+    myToolsMenuCommands.showTool(FXSELID(sel));
     return 1;
 }
 
@@ -1375,8 +1375,7 @@ GNEApplicationWindow::fillMenuBar() {
     // build tools menu
     myToolsMenu = new FXMenuPane(this);
     GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, TL("&Tools"), nullptr, myToolsMenu);
-    myToolsMenuCommands.buildToolsMenuCommands(myToolsMenu);
-    myToolsMenuCommands.buildTools();
+    myToolsMenuCommands.buildTools(myToolsMenu);
     // build windows menu
     myWindowMenu = new FXMenuPane(this);
     GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, TL("&Window"), nullptr, myWindowMenu);

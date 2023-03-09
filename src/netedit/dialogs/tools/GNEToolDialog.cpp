@@ -46,10 +46,15 @@ FXIMPLEMENT(GNEToolDialog, FXTopWindow, GNEToolDialogMap, ARRAYNUMBER(GNEToolDia
 // member method definitions
 // ===========================================================================
 
-GNEToolDialog::GNEToolDialog(GNEApplicationWindow* GNEApp, const std::string& name, const std::string& templateToolStr) :
+GNEToolDialog::GNEToolDialog(GNEApplicationWindow* GNEApp, const std::string& name, FXMenuPane* menu,
+        FXSelector selector, const std::string& templateToolStr) :
     FXTopWindow(GNEApp->getApp(), name.c_str(), GUIIconSubSys::getIcon(GUIIcon::EMPTY), 
         GUIIconSubSys::getIcon(GUIIcon::EMPTY), GUIDesignDialogBoxTools),
-    myGNEApp(GNEApp) {
+    myGNEApp(GNEApp),
+    mySelector(selector) {
+    // build menu command
+    GUIDesigns::buildFXMenuCommandShortcut(menu, name, "", "Execute " + name + ".", 
+        GUIIconSubSys::getIcon(GUIIcon::TOOL_PYTHON), GNEApp, selector);
     // parse tool options
     TemplateHandler::parseTemplate(myToolsOptions, templateToolStr);
     // create main frame
@@ -63,9 +68,12 @@ GNEToolDialog::GNEToolDialog(GNEApplicationWindow* GNEApp, const std::string& na
     // create buttons centered
     FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(mainFrame, GUIDesignHorizontalFrame);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
-    new FXButton(buttonsFrame, (TL("Run") + std::string("\t\t") + TL("close accepting changes")).c_str(),  GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_BUTTON_RUN, GUIDesignButtonAccept);
-    new FXButton(buttonsFrame, (TL("Cancel") + std::string("\t\t") + TL("close discarding changes")).c_str(), GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCancel);
-    new FXButton(buttonsFrame, (TL("Reset") + std::string("\t\t") + TL("reset to previous values")).c_str(),  GUIIconSubSys::getIcon(GUIIcon::RESET),  this, MID_GNE_BUTTON_RESET,  GUIDesignButtonReset);
+    new FXButton(buttonsFrame, (TL("Run") + std::string("\t\t") + TL("close accepting changes")).c_str(),
+        GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_BUTTON_RUN, GUIDesignButtonAccept);
+    new FXButton(buttonsFrame, (TL("Cancel") + std::string("\t\t") + TL("close discarding changes")).c_str(),
+        GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCancel);
+    new FXButton(buttonsFrame, (TL("Reset") + std::string("\t\t") + TL("reset to previous values")).c_str(), 
+        GUIIconSubSys::getIcon(GUIIcon::RESET),  this, MID_GNE_BUTTON_RESET,  GUIDesignButtonReset);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
 }
 
@@ -132,6 +140,12 @@ GNEToolDialog::onCmdReset(FXObject*, FXSelector, void*) {
         argument->reset();
     }
     return 1;
+}
+
+
+GNEToolDialog::GNEToolDialog() :
+    myGNEApp(nullptr),
+    mySelector(MID_LAST) {
 }
 
 

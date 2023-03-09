@@ -44,7 +44,8 @@ class GNEToolDialog : protected FXTopWindow {
 
 public:
     /// @brief Constructor
-    GNEToolDialog(GNEApplicationWindow* GNEApp, const std::string& name, const std::string& templateToolStr);
+    GNEToolDialog(GNEApplicationWindow* GNEApp, const std::string& name, FXMenuPane* menu, 
+                  const FXSelector selector, const std::string& templateToolStr);
 
     /// @brief destructor
     ~GNEToolDialog();
@@ -77,7 +78,7 @@ public:
 
 protected:
     /// @brief FOX needs this
-    FOX_CONSTRUCTOR(GNEToolDialog)
+    GNEToolDialog();
     
     /// @brief build arguments
     void buildArguments();
@@ -97,6 +98,9 @@ private:
 
     /// @brief list of arguments
     std::vector<GNEToolDialogElements::Argument*> myArguments;
+
+    /// @brief selector corresponds to this tool dialog
+    const FXSelector mySelector;
 
     /// @brief Invalidated copy constructor.
     GNEToolDialog(const GNEToolDialog&) = delete;
