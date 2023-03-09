@@ -90,3 +90,27 @@ Generates a grid of districts (TAZ) with a given width (in m) for a given networ
 ```
 python tools/district/gridDistricts.py -n <net-file> -o <output-file> -w 300
 ```
+
+
+## stationDistricts.py
+
+Segment a public transport network based on nearby stations.
+A station is defined by all stops (`<busStop>` or `<trainStop>`) that have the same `name` attribute. Each edge that belongs to the public transport network for a configurable list of vClasses is assigned to the nearest station. Each station is then written as a `<taz>` with it's assigned edges.
+By default only edges that permit vehicle classes `rail` or `rail_urban` are considered (can be set via option **--vclasses**)
+The following edges are considered part of the public transport network:
+
+- a) edges that have a stop
+- b) edges within a configurable radius around a station
+- c) edges that are connected to edges of category a) or b)
+
+If there are multiple stops with different names (stations) on the same edge, the following behaviors are possible:
+
+- **default**: the edge belongs to multiple stations (`<taz>`) 
+- option **--merge**: the stations are merged into a joint station with `name="<NAME1>|<NAME2>"`
+- option **--split-output**: a patch file with splits is written that allows further processing of the input network. After splitting the net and running **stationDistricts.py** again, each stop will have it's own edge
+
+Example call: 
+
+```
+python tools/district/stationDistricts.py -n <net-file> -s <stop-file> -o <output-file>
+```
