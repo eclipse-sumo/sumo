@@ -104,27 +104,27 @@ NGFrame::fillOptions() {
     //  register spider-net options
     oc.doRegister("spider", 's', new Option_Bool(false));
     oc.addSynonyme("spider", "spider-net", true);
-    oc.addDescription("spider", "Grid Network", TL("Forces NETGEN to build a spider-net-like network"));
+    oc.addDescription("spider", "Spider Network", TL("Forces NETGEN to build a spider-net-like network"));
 
     oc.doRegister("spider.arm-number", new Option_Integer(13));
     oc.addSynonyme("spider.arm-number", "spider-arm-number", true);
     oc.addSynonyme("spider.arm-number", "arms");
-    oc.addDescription("spider.arm-number", "Grid Network", TL("The number of axes within the net"));
+    oc.addDescription("spider.arm-number", "Spider Network", TL("The number of axes within the net"));
 
     oc.doRegister("spider.circle-number", new Option_Integer(20));
     oc.addSynonyme("spider.circle-number", "spider-circle-number", true);
     oc.addSynonyme("spider.circle-number", "circles");
-    oc.addDescription("spider.circle-number", "Grid Network", TL("The number of circles of the net"));
+    oc.addDescription("spider.circle-number", "Spider Network", TL("The number of circles of the net"));
 
     oc.doRegister("spider.space-radius", new Option_Float(100));
     oc.addSynonyme("spider.space-radius", "spider-space-rad", true);
     oc.addSynonyme("spider.space-radius", "radius");
-    oc.addDescription("spider.space-radius", "Grid Network", TL("The distances between the circles"));
+    oc.addDescription("spider.space-radius", "Spider Network", TL("The distances between the circles"));
 
     oc.doRegister("spider.omit-center", new Option_Bool(false));
     oc.addSynonyme("spider.omit-center", "spider-omit-center", true);
     oc.addSynonyme("spider.omit-center", "nocenter");
-    oc.addDescription("spider.omit-center", "Grid Network", TL("Omit the central node of the network"));
+    oc.addDescription("spider.omit-center", "Spider Network", TL("Omit the central node of the network"));
 
 
     //  register random-net options
