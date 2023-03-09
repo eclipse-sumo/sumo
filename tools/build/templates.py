@@ -34,111 +34,111 @@ from subprocess import check_output, CalledProcessError
 tools = [
 
 # detector
-    #["detector", ".", "aggregateFlows"],
-    #["detector", ".", "detector"],
+    #["detector", ".", "aggregateFlows"],   NO CONFIG
+    #["detector", ".", "detector"],         NO CONFIG
     ["detector", ".", "edgeDataFromFlow"],
-    #["detector", ".", "filterFlows"],
-    #["detector", ".", "flowFromEdgeData"],
-    #["detector", ".", "flowFromRoutes"],
-    #["detector", ".", "flowrouter"],
+    #["detector", ".", "filterFlows"],      NO CONFIG
+    #["detector", ".", "flowFromEdgeData"], NO CONFIG
+    #["detector", ".", "flowFromRoutes"],   NO CONFIG    
+    #["detector", ".", "flowrouter"],       NO CONFIG
     ["detector", ".", "mapDetectors"],
-    #["detector", ".", "plotFlows"],
-    #["detector", ".", "routeUsage"],
-    #["detector", ".", "validate"],
+    #["detector", ".", "plotFlows"],        NO CONFIG
+    #["detector", ".", "routeUsage"],       NO CONFIG
+    #["detector", ".", "validate"],         NO CONFIG
 
 # district
-    #["district", ".", "aggregateAndSplitMatrices"],
-    #["district", ".", "countConnectionsInDistricts"],
-    #["district", ".", "districtMapper"],
-    #["district", ".", "filterDistricts"],
-    #["district", ".", "gridDistricts"],
+    #["district", ".", "aggregateAndSplitMatrices"],    NO CONFIG    
+    #["district", ".", "countConnectionsInDistricts"],  NO CONFIG
+    #["district", ".", "districtMapper"],               NO CONFIG
+    #["district", ".", "filterDistricts"],              NO CONFIG
+    #["district", ".", "gridDistricts"],                NO CONFIG
     ["district", ".", "stationDistricts"],
     
 # drt
-    #["drt", ".", "darpSolvers"],
-    #["drt", ".", "drtOnline"],
+    #["drt", ".", "darpSolvers"],   NO CONFIG
+    #["drt", ".", "drtOnline"],     NO CONFIG
     ["drt", ".", "drtOrtools"],
-    #["drt", ".", "ortools_pdp"],
+    #["drt", ".", "ortools_pdp"],   NO CONFIG
 
 # emissions
-    #["emissions", ".", "findMinDiffModel"],
-    #["emissions", ".", "nefz"],
+    #["emissions", ".", "findMinDiffModel"],    NO CONFIG
+    #["emissions", ".", "nefz"],                NO CONFIG
     
 # import
     ["import", "citybrain", "citybrain_flow"],
     ["import", "citybrain", "citybrain_infostep"],
     ["import", "citybrain", "citybrain_road"],
     ["import", "gtfs", "gtfs2fcd"],
-    #["import", "gtfs", "gtfs2osm"],
+    #["import", "gtfs", "gtfs2osm"],                                NO CONFIG
     ["import", "gtfs", "gtfs2pt"],
-    #["import", "vissim", "convert_detectors2SUMO"],
-    #["import", "vissim", "convert_vissimXML_flows_statRoutes"],
-    #["import", "vissim", "tls_vissimXML2SUMOnet_update"],
-    #["import", "vissim", "vissim_parseBusStops"],
-    #["import", "vissim", "vissim_parseRoutes"],
-    #["import", "vissim", "vissim2poly"],
-    #["import", "visum", "visum_convertEdgeTypes"],
-    #["import", "visum", "visum_convertRoutes"],
-    #["import", "visum", "visum_convertTurnPercentages"],
-    #["import", "visum", "visum_parseZaehlstelle"],
-    #["import", ".", "matsim_importPlans"],
-    #["import", ".", "signal_POIs_from_xodr"],
-    #["import", ".", "osmTaxiStop"],
+    #["import", "vissim", "convert_detectors2SUMO"],                NO CONFIG
+    #["import", "vissim", "convert_vissimXML_flows_statRoutes"],    NO CONFIG
+    #["import", "vissim", "tls_vissimXML2SUMOnet_update"],          NO CONFIG
+    #["import", "vissim", "vissim_parseBusStops"],                  NO CONFIG
+    #["import", "vissim", "vissim_parseRoutes"],                    NO CONFIG    
+    #["import", "vissim", "vissim2poly"],                           NO CONFIG    
+    #["import", "visum", "visum_convertEdgeTypes"],                 NO CONFIG    
+    #["import", "visum", "visum_convertRoutes"],                    NO CONFIG
+    #["import", "visum", "visum_convertTurnPercentages"],           NO CONFIG
+    #["import", "visum", "visum_parseZaehlstelle"],                 NO CONFIG
+    #["import", ".", "matsim_importPlans"],                         NO CONFIG
+    #["import", ".", "signal_POIs_from_xodr"],                      NO CONFIG    
+    #["import", ".", "osmTaxiStop"],                                NO CONFIG
 
 # net
     ["net", ".", "abstractRail"],
-    #["net", ".", "createRoundaboutConnections"],
+    #["net", ".", "createRoundaboutConnections"],   NO CONFIG
     ["net", ".", "net2geojson"],
     ["net", ".", "net2jpsgeometry"],
     ["net", ".", "net2kml"],
     ["net", ".", "net2poly"],
-    #["net", ".", "netcheck"],
+    #["net", ".", "netcheck"],                      NO CONFIG
     ["net", ".", "netdiff"],
-    #["net", ".", "netduplicate"],
-    #["net", ".", "netmatch"],
+    #["net", ".", "netduplicate"],                  NO CONFIG
+    #["net", ".", "netmatch"],                      NO CONFIG
     ["net", ".", "network_statistics"],
-    #["net", ".", "odConnectionsCheck"],
-    #["net", ".", "prepareVISUM"],
+    #["net", ".", "odConnectionsCheck"],            NO CONFIG
+    #["net", ".", "prepareVISUM"],                  NO CONFIG
     ["net", ".", "reduceLanes"],
-    #["net", ".", "reprojectpolys"],
+    #["net", ".", "reprojectpolys"],                NO CONFIG
     ["net", ".", "split_at_stops"],
-    #["net", ".", "visum_mapDistricts"],
-    #["net", ".", "xmlconnections_mapEdges"],
-    #["net", ".", "xmledges_applyOffset"],
-    #["net", ".", "xmlnodes_applyOffset"],
+    #["net", ".", "visum_mapDistricts"],            NO CONFIG
+    #["net", ".", "xmlconnections_mapEdges"],       NO CONFIG
+    #["net", ".", "xmledges_applyOffset"],          NO CONFIG
+    #["net", ".", "xmlnodes_applyOffset"],          NO CONFIG    
     
 # route
-    #["route", ".", "addParkingAreaStops2Routes"],
-    #["route", ".", "addParkingAreaStops2Trips"],
+    #["route", ".", "addParkingAreaStops2Routes"],  NO CONFIG
+    #["route", ".", "addParkingAreaStops2Trips"],   NO CONFIG
     ["route", ".", "addStopDelay"],
     ["route", ".", "addStops2Routes"],
     ["route", ".", "addTAZ"],
-    #["route", ".", "analyzePersonPlans"],
+    #["route", ".", "analyzePersonPlans"],          NO CONFIG
     ["route", ".", "checkStopOrder"],
-    #["route", ".", "cutRoutes"],
+    #["route", ".", "cutRoutes"],                   NO CONFIG
     #["route", ".", "cutTrips"],
     ["route", ".", "implausibleRoutes"],
-    #["route", ".", "route_1htoDay"],
-    #["route", ".", "route_departOffset"],
-    #["route", ".", "route2alts"],
+    #["route", ".", "route_1htoDay"],               NO CONFIG
+    #["route", ".", "route_departOffset"],          NO CONFIG
+    #["route", ".", "route2alts"],                  NO CONFIG
     ["route", ".", "route2OD"],
-    #["route", ".", "route2poly"],
-    #["route", ".", "route2sel"],
-    #["route", ".", "routecheck"],
-    #["route", ".", "routecompare"],
+    #["route", ".", "route2poly"],                  NO CONFIG
+    #["route", ".", "route2sel"],                   NO CONFIG    
+    #["route", ".", "routecheck"],                  NO CONFIG
+    #["route", ".", "routecompare"],                NO CONFIG
     ["route", ".", "routeStats"],
     ["route", ".", "scaleTimeLine"],
-    #["route", ".", "sort_routes"],
-    #["route", ".", "splitRandom"],
-    #["route", ".", "splitRouteFiles"],
-    #["route", ".", "tracegenerator"],
+    #["route", ".", "sort_routes"],                 NO CONFIG
+    #["route", ".", "splitRandom"],                 NO CONFIG
+    #["route", ".", "splitRouteFiles"],             NO CONFIG
+    #["route", ".", "tracegenerator"],              NO CONFIG    
     ["route", ".", "tracemapper"],
-    #["route", ".", "vehicle2flow"],
+    #["route", ".", "vehicle2flow"],                NO CONFIG
     
 # output
-    #["output", ".", "accelerations"],
-    #["output", ".", "aggregateBatteryOutput"],
-    #["output", ".", "analyze_pedestrian_jam"],
+    #["output", ".", "accelerations"],                      NO CONFIG
+    #["output", ".", "aggregateBatteryOutput"],             NO CONFIG
+    #["output", ".", "analyze_pedestrian_jam"],             NO CONFIG
     ["output", ".", "analyze_teleports"],
     ["output", ".", "attributeDiff"],
     ["output", ".", "attributeStats"],
@@ -147,105 +147,105 @@ tools = [
     ["output", ".", "computeStoppingPlaceUsage"],
     ["output", ".", "countLaneChanges"],
     ["output", ".", "edgeDataDiff"],
-    #["output", ".", "edgeDataStatistics"],
+    #["output", ".", "edgeDataStatistics"],                 NO CONFIG
     ["output", ".", "fcdDiff"],
-    #["output", ".", "generateITetrisIntersectionMetrics"],
-    #["output", ".", "generateITetrisNetworkMetrics"],
-    #["output", ".", "generateMeanDataDefinitions"],
-    #["output", ".", "generateTLSE1Detectors"],
+    #["output", ".", "generateITetrisIntersectionMetrics"], NO CONFIG
+    #["output", ".", "generateITetrisNetworkMetrics"],      NO CONFIG
+    #["output", ".", "generateMeanDataDefinitions"],        NO CONFIG
+    #["output", ".", "generateTLSE1Detectors"],             NO CONFIG
     ["output", ".", "generateTLSE2Detectors"],
-    #["output", ".", "generateTLSE3Detectors"],
-    #["output", ".", "netdumpdiff"],
-    #["output", ".", "netdumpmean"],
+    #["output", ".", "generateTLSE3Detectors"],             NO CONFIG
+    #["output", ".", "netdumpdiff"],                        NO CONFIG
+    #["output", ".", "netdumpmean"],                        NO CONFIG
     ["output", ".", "parkingSearchTraffic"],
     ["output", ".", "scheduleStats"],
-    #["output", ".", "statisticsElements"],
+    #["output", ".", "statisticsElements"],                 NO CONFIG
     ["output", ".", "stopOrder"],
-    #["output", ".", "tables"],
-    #["output", ".", "timingStats"],
-    #["output", ".", "tripinfoByTAZ"],
+    #["output", ".", "tables"],                             NO CONFIG
+    #["output", ".", "timingStats"],                        NO CONFIG
+    #["output", ".", "tripinfoByTAZ"],                      NO CONFIG
     ["output", ".", "tripinfoByType"],
-    #["output", ".", "tripinfoDiff"],
-    #["output", ".", "tripStatistics"],
+    #["output", ".", "tripinfoDiff"],                       NO CONFIG
+    #["output", ".", "tripStatistics"],                     NO CONFIG
     ["output", ".", "vehLanes"],
-    #["output", ".", "vehroute2amitranOD"],
+    #["output", ".", "vehroute2amitranOD"],                 NO CONFIG
     ["output", ".", "vehrouteCountValidation"],
     ["output", ".", "vehrouteDiff"],
     ["output", ".", "walkFactor"],
 
 # shapes
-    #["shapes", ".", "circlePolygon"],
-    #["shapes", ".", "CSV2polyconvertXML"],
-    #["shapes", ".", "poi_alongRoads"],
-    #["shapes", ".", "poi_at_stops"],
-    #["shapes", ".", "poi_atTLS"],
+    #["shapes", ".", "circlePolygon"],      NO CONFIG
+    #["shapes", ".", "CSV2polyconvertXML"], NO CONFIG
+    #["shapes", ".", "poi_alongRoads"],     NO CONFIG
+    #["shapes", ".", "poi_at_stops"],       NO CONFIG
+    #["shapes", ".", "poi_atTLS"],          NO CONFIG
 
 # tls
-    #["tls", ".", "buildTransitions"],
-    #["tls", ".", "createTlsCsv"],
-    #["tls", ".", "tls_check"],
-    #["tls", ".", "tls_csv2SUMO"],
-    #["tls", ".", "tls_csvSignalGroups"],
+    #["tls", ".", "buildTransitions"],      NO CONFIG
+    #["tls", ".", "createTlsCsv"],          NO CONFIG
+    #["tls", ".", "tls_check"],             NO CONFIG
+    #["tls", ".", "tls_csv2SUMO"],          NO CONFIG
+    #["tls", ".", "tls_csvSignalGroups"],   NO CONFIG
 
 # turn-defs
-    #["turn-defs", ".", "collectinghandler"],
-    #["turn-defs", ".", "connections"],
-    #["turn-defs", ".", "generateTurnDefs"],
-    #["turn-defs", ".", "generateTurnRatios"],
-    #["turn-defs", ".", "turnCount2EdgeCount"],
-    #["turn-defs", ".", "turndefinitions"],
-    #["turn-defs", ".", "turnFile2EdgeRelations"],
+    #["turn-defs", ".", "collectinghandler"],       NO CONFIG
+    #["turn-defs", ".", "connections"],             NO CONFIG
+    #["turn-defs", ".", "generateTurnDefs"],        NO CONFIG
+    #["turn-defs", ".", "generateTurnRatios"],      NO CONFIG
+    #["turn-defs", ".", "turnCount2EdgeCount"],     NO CONFIG
+    #["turn-defs", ".", "turndefinitions"],         NO CONFIG
+    #["turn-defs", ".", "turnFile2EdgeRelations"],  NO CONFIG
 
 # visualization
-    #["visualization", ".", "macrOutput"],
-    #["visualization", ".", "mpl_dump_onNet"],
-    #["visualization", ".", "mpl_dump_timeline"],
-    #["visualization", ".", "mpl_dump_twoAgainst"],
-    #["visualization", ".", "mpl_tripinfos_twoAgainst"],
-    #["visualization", ".", "plot_csv_bars"],
-    #["visualization", ".", "plot_csv_pie"],
-    #["visualization", ".", "plot_csv_timeline"],
-    #["visualization", ".", "plot_net_dump"],
-    #["visualization", ".", "plot_net_selection"],
-    #["visualization", ".", "plot_net_speeds"],
-    #["visualization", ".", "plot_net_trafficLights"],
-    #["visualization", ".", "plot_summary"],
-    #["visualization", ".", "plot_tripinfo_distributions"],
+    #["visualization", ".", "macrOutput"],                  NO CONFIG
+    #["visualization", ".", "mpl_dump_onNet"],              NO CONFIG
+    #["visualization", ".", "mpl_dump_timeline"],           NO CONFIG
+    #["visualization", ".", "mpl_dump_twoAgainst"],         NO CONFIG
+    #["visualization", ".", "mpl_tripinfos_twoAgainst"],    NO CONFIG
+    #["visualization", ".", "plot_csv_bars"],               NO CONFIG
+    #["visualization", ".", "plot_csv_pie"],                NO CONFIG
+    #["visualization", ".", "plot_csv_timeline"],           NO CONFIG
+    #["visualization", ".", "plot_net_dump"],               NO CONFIG
+    #["visualization", ".", "plot_net_selection"],          NO CONFIG
+    #["visualization", ".", "plot_net_speeds"],             NO CONFIG
+    #["visualization", ".", "plot_net_trafficLights"],      NO CONFIG
+    #["visualization", ".", "plot_summary"],                NO CONFIG
+    #["visualization", ".", "plot_tripinfo_distributions"], NO CONFIG
     ["visualization", ".", "plotXMLAttributes"],
 
 # xml
-    #["xml", ".", "addSchema"],
-    #["xml", ".", "binary2plain"],
-    #["xml", ".", "changeAttribute"],
-    #["xml", ".", "csv2xml"],
-    #["xml", ".", "filterElements"],
-    #["xml", ".", "protobuf2xml"],
-    #["xml", ".", "xml2csv"],
-    #["xml", ".", "xml2protobuf"],
-    #["xml", ".", "xsd"],
+    #["xml", ".", "addSchema"],         NO CONFIG
+    #["xml", ".", "binary2plain"],      NO CONFIG
+    #["xml", ".", "changeAttribute"],   NO CONFIG
+    #["xml", ".", "csv2xml"],           NO CONFIG
+    #["xml", ".", "filterElements"],    NO CONFIG
+    #["xml", ".", "protobuf2xml"],      NO CONFIG
+    #["xml", ".", "xml2csv"],           NO CONFIG
+    #["xml", ".", "xml2protobuf"],      NO CONFIG
+    #["xml", ".", "xsd"],               NO CONFIG
 
 # other
-    #[".", ".", "averageTripStatistics"],
+    #[".", ".", "averageTripStatistics"],       NO CONFIG         
     [".", ".", "countEdgeUsage"],
-    #[".", ".", "createVehTypeDistribution"],
+    #[".", ".", "createVehTypeDistribution"],   NO CONFIG
     [".", ".", "edgesInDistricts"],
     [".", ".", "evacuateAreas"],
     [".", ".", "extractTest"],
     [".", ".", "fcdReplay"],
     [".", ".", "findAllRoutes"],
     [".", ".", "generateBidiDistricts"],
-    #[".", ".", "generateContinuousRerouters"],
+    #[".", ".", "generateContinuousRerouters"], NO CONFIG
     [".", ".", "generateParkingAreaRerouters"],
     [".", ".", "generateParkingAreas"],
-    #[".", ".", "generateParkingLots"],
+    #[".", ".", "generateParkingLots"],         NO CONFIG
     [".", ".", "generateRailSignalConstraints"],
     [".", ".", "generateRerouters"],
-    #[".", ".", "jtcrouter"],
+    #[".", ".", "jtcrouter"],                   NO CONFIG
     [".", ".", "osmBuild"],
     [".", ".", "osmGet"],
     [".", ".", "osmWebWizard"],
     [".", ".", "plot_trajectories"],
-    #[".", ".", "ptlines2flows"],
+    #[".", ".", "ptlines2flows"],               NO CONFIG
     [".", ".", "randomTrips"],
     [".", ".", "routeSampler"],
     [".", ".", "runSeeds"],
@@ -253,7 +253,7 @@ tools = [
     [".", ".", "tileGet"],
     [".", ".", "tlsCoordinator"],
     [".", ".", "tlsCycleAdaptation"],
-    #[".", ".", "traceExporter"]
+    #[".", ".", "traceExporter"]                NO CONFIG
 ]
 
 
