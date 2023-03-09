@@ -453,6 +453,10 @@ GUIViewTraffic::onGamingClick(Position pos) {
             }
         }
         if (minTll != nullptr) {
+            if (minTll->getPhaseNumber() == 0) {
+                // MSRailSignal
+                return;
+            }
             const int nextPhase = (minTll->getCurrentPhaseIndex() + 1) % minTll->getPhaseNumber();
             minTll->changeStepAndDuration(tlsControl, MSNet::getInstance()->getCurrentTimeStep(), nextPhase, -1);
             update();

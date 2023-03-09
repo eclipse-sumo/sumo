@@ -304,7 +304,7 @@ GUITrafficLightLogicWrapper::getLinkIndex(const MSLink* const link) const {
 void
 GUITrafficLightLogicWrapper::drawGL(const GUIVisualizationSettings& s) const {
     if (s.gaming) {
-        if (!MSNet::getInstance()->getTLSControl().isActive(&myTLLogic)) {
+        if (!MSNet::getInstance()->getTLSControl().isActive(&myTLLogic) || myTLLogic.getPhases().size() == 0) {
             return;
         }
         const std::string& curState = myTLLogic.getCurrentPhaseDef().getState();
