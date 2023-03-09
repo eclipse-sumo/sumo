@@ -754,7 +754,7 @@ enum {
     MID_GNE_TOOLBARTOOLS_IMPORT_GTFS_FCD,
 
     /// @brief call tool gtfs2pt
-    MID_GNE_TOOLBARTOOLS_IMPORT_GTF_S2PT,
+    MID_GNE_TOOLBARTOOLS_IMPORT_GTFS_PT,
 
     /// @brief call tool abstractRail
     MID_GNE_TOOLBARTOOLS_NET_ABSTRACTRAIL,

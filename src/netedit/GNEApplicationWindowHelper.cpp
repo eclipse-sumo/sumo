@@ -1978,6 +1978,7 @@ GNEApplicationWindowHelper::ToolsMenuCommands::ToolsMenuCommands(GNEApplicationW
 
 
 GNEApplicationWindowHelper::ToolsMenuCommands::~ToolsMenuCommands() {
+    // delete all tools
     for (const auto &tool : myTools) {
         delete tool.second;
     }
@@ -1985,290 +1986,312 @@ GNEApplicationWindowHelper::ToolsMenuCommands::~ToolsMenuCommands() {
 
 
 void
-GNEApplicationWindowHelper::ToolsMenuCommands::buildTools(FXMenuPane* locateMenu) {
-    // build tools menu commands
-
-    GUIDesigns::buildFXMenuCommandShortcut(locateMenu,
-        TL("&Generate rerouters"), "", "Execute python script generate rerouters.",
-        GUIIconSubSys::getIcon(GUIIcon::TOOL_PYTHON), myGNEApp, MID_GNE_TOOLBARTOOLS_GENERATEREROUTERS);
-    GUIDesigns::buildFXMenuCommandShortcut(locateMenu,
-        TL("&Add stop to routes"), "", "Execute python script add stop to routes.",
-        GUIIconSubSys::getIcon(GUIIcon::TOOL_PYTHON), myGNEApp, MID_GNE_TOOLBARTOOLS_ROUTE_ADDSTOP2ROUTES);
-
+GNEApplicationWindowHelper::ToolsMenuCommands::buildTools(FXMenuPane* toolsMenu, FXMenuPane* toolsDetectorMenu, 
+    FXMenuPane* toolsDistrictMenu, FXMenuPane* toolsDRTMenu, FXMenuPane* toolsImportMenu, FXMenuPane* toolsImportCityBrainMenu,
+    FXMenuPane* toolsImportGTFSMenu, FXMenuPane* toolsNetMenu, FXMenuPane* toolsRouteMenu, FXMenuPane* toolsOutputMenu, 
+    FXMenuPane* toolsVisualizationMenu) {
 
     // build detector tools
     myTools[MID_GNE_TOOLBARTOOLS_DETECTOR_EDGEDATAFROMFLOW] = new GNEToolDialog(myGNEApp,
-        "Edge data from Flow", locateMenu, MID_GNE_TOOLBARTOOLS_DETECTOR_EDGEDATAFROMFLOW,
+        "Edge data from Flow", toolsDetectorMenu, MID_GNE_TOOLBARTOOLS_DETECTOR_EDGEDATAFROMFLOW,
         edgeDataFromFlowTemplate);
 
     myTools[MID_GNE_TOOLBARTOOLS_DETECTOR_MAPDETECTORS] = new GNEToolDialog(myGNEApp,
-        "Map detectors", locateMenu, MID_GNE_TOOLBARTOOLS_DETECTOR_MAPDETECTORS,
+        "Map detectors", toolsDetectorMenu, MID_GNE_TOOLBARTOOLS_DETECTOR_MAPDETECTORS,
         mapDetectorsTemplate);
+
+    new FXMenuCascade(toolsMenu, TL("Detectors"), GUIIconSubSys::getIcon(GUIIcon::E1), toolsDetectorMenu);
 
     // build district tools
     myTools[MID_GNE_TOOLBARTOOLS_DISTRICT_STATIONDISTRICTS] = new GNEToolDialog(myGNEApp,
-        "Station districts", locateMenu, MID_GNE_TOOLBARTOOLS_DISTRICT_STATIONDISTRICTS,
+        "Station districts", toolsDistrictMenu, MID_GNE_TOOLBARTOOLS_DISTRICT_STATIONDISTRICTS,
         stationDistrictsTemplate);
+
+    new FXMenuCascade(toolsMenu, TL("Districts"), GUIIconSubSys::getIcon(GUIIcon::TAZ), toolsDistrictMenu);
 
     // build DRT tools
     myTools[MID_GNE_TOOLBARTOOLS_DRT_DRTORTOOLS] = new GNEToolDialog(myGNEApp,
-        "DRT Ortools", locateMenu, MID_GNE_TOOLBARTOOLS_DRT_DRTORTOOLS,
+        "DRT Ortools", toolsDRTMenu, MID_GNE_TOOLBARTOOLS_DRT_DRTORTOOLS,
         drtOrtoolsTemplate);
+
+    new FXMenuCascade(toolsMenu, TL("DRT"), GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_TAXI), toolsDRTMenu);
 
     // build import citybrain tools
     myTools[MID_GNE_TOOLBARTOOLS_IMPORT_CITYBRAIN_FLOW] = new GNEToolDialog(myGNEApp,
-        "CityBrain flow", locateMenu, MID_GNE_TOOLBARTOOLS_IMPORT_CITYBRAIN_FLOW,
+        "CityBrain flow", toolsImportCityBrainMenu, MID_GNE_TOOLBARTOOLS_IMPORT_CITYBRAIN_FLOW,
         citybrain_flowTemplate);
 
     myTools[MID_GNE_TOOLBARTOOLS_IMPORT_CITYBRAIN_INFOSTEP] = new GNEToolDialog(myGNEApp,
-        "CityBrain infostep", locateMenu, MID_GNE_TOOLBARTOOLS_IMPORT_CITYBRAIN_INFOSTEP,
+        "CityBrain infostep", toolsImportCityBrainMenu, MID_GNE_TOOLBARTOOLS_IMPORT_CITYBRAIN_INFOSTEP,
         citybrain_infostepTemplate);
 
     myTools[MID_GNE_TOOLBARTOOLS_IMPORT_CITYBRAIN_ROAD] = new GNEToolDialog(myGNEApp,
-        "CityBrain road", locateMenu, MID_GNE_TOOLBARTOOLS_IMPORT_CITYBRAIN_ROAD,
+        "CityBrain road", toolsImportCityBrainMenu, MID_GNE_TOOLBARTOOLS_IMPORT_CITYBRAIN_ROAD,
         citybrain_roadTemplate);
+
+    new FXMenuCascade(toolsImportMenu, TL("CityBrain"), GUIIconSubSys::getIcon(GUIIcon::MODEADDITIONAL), toolsImportCityBrainMenu);
 
     // build import gtfs tools
     myTools[MID_GNE_TOOLBARTOOLS_IMPORT_GTFS_FCD] = new GNEToolDialog(myGNEApp,
-        "GTFS to fcd", locateMenu, MID_GNE_TOOLBARTOOLS_IMPORT_GTFS_FCD,
+        "GTFS to fcd", toolsImportGTFSMenu, MID_GNE_TOOLBARTOOLS_IMPORT_GTFS_FCD,
         gtfs2fcdTemplate);
 
-    myTools[MID_GNE_TOOLBARTOOLS_IMPORT_GTF_S2PT] = new GNEToolDialog(myGNEApp,
-        "GTFS to pt", locateMenu, MID_GNE_TOOLBARTOOLS_IMPORT_GTF_S2PT,
+    myTools[MID_GNE_TOOLBARTOOLS_IMPORT_GTFS_PT] = new GNEToolDialog(myGNEApp,
+        "GTFS to pt", toolsImportGTFSMenu, MID_GNE_TOOLBARTOOLS_IMPORT_GTFS_PT,
         gtfs2ptTemplate);
+
+    new FXMenuCascade(toolsImportMenu, TL("GTFS"), GUIIconSubSys::getIcon(GUIIcon::MODEADDITIONAL), toolsImportGTFSMenu);
+
+    // build import tools
+
+    new FXMenuCascade(toolsMenu, TL("Import"), GUIIconSubSys::getIcon(GUIIcon::OPEN), toolsImportMenu);
 
     // build net tools
     myTools[MID_GNE_TOOLBARTOOLS_NET_ABSTRACTRAIL] = new GNEToolDialog(myGNEApp,
-        "Abstract rail", locateMenu, MID_GNE_TOOLBARTOOLS_NET_ABSTRACTRAIL,
+        "Abstract rail", toolsNetMenu, MID_GNE_TOOLBARTOOLS_NET_ABSTRACTRAIL,
         abstractRailTemplate);
 
     myTools[MID_GNE_TOOLBARTOOLS_NET_NET2GEOJSON] = new GNEToolDialog(myGNEApp,
-        "Net to geoJson", locateMenu, MID_GNE_TOOLBARTOOLS_NET_NET2GEOJSON,
+        "Net to geoJson", toolsNetMenu, MID_GNE_TOOLBARTOOLS_NET_NET2GEOJSON,
         net2geojsonTemplate);
 
     myTools[MID_GNE_TOOLBARTOOLS_NET_NET2JPSGEOMETRY] = new GNEToolDialog(myGNEApp,
-        "Net to JPS geometry", locateMenu, MID_GNE_TOOLBARTOOLS_NET_NET2JPSGEOMETRY,
+        "Net to JPS geometry", toolsNetMenu, MID_GNE_TOOLBARTOOLS_NET_NET2JPSGEOMETRY,
         net2jpsgeometryTemplate);
 
     myTools[MID_GNE_TOOLBARTOOLS_NET_NET2KML] = new GNEToolDialog(myGNEApp,
-        "Net to KLM", locateMenu, MID_GNE_TOOLBARTOOLS_NET_NET2KML,
+        "Net to KLM", toolsNetMenu, MID_GNE_TOOLBARTOOLS_NET_NET2KML,
         net2kmlTemplate);
 
     myTools[MID_GNE_TOOLBARTOOLS_NET_NET2POLY] = new GNEToolDialog(myGNEApp,
-        "Net to poly", locateMenu, MID_GNE_TOOLBARTOOLS_NET_NET2POLY,
+        "Net to poly", toolsNetMenu, MID_GNE_TOOLBARTOOLS_NET_NET2POLY,
         net2polyTemplate);
 
     myTools[MID_GNE_TOOLBARTOOLS_NET_NETDIFF] = new GNEToolDialog(myGNEApp,
-        "Net diff", locateMenu, MID_GNE_TOOLBARTOOLS_NET_NETDIFF,
+        "Net diff", toolsNetMenu, MID_GNE_TOOLBARTOOLS_NET_NETDIFF,
         netdiffTemplate);
 
     myTools[MID_GNE_TOOLBARTOOLS_NET_NETWORK_STATISTICS] = new GNEToolDialog(myGNEApp,
-        "Network statistics", locateMenu, MID_GNE_TOOLBARTOOLS_NET_NETWORK_STATISTICS,
+        "Network statistics", toolsNetMenu, MID_GNE_TOOLBARTOOLS_NET_NETWORK_STATISTICS,
         network_statisticsTemplate);
 
     myTools[MID_GNE_TOOLBARTOOLS_NET_REDUCELANES] = new GNEToolDialog(myGNEApp,
-        "reduce lanes", locateMenu, MID_GNE_TOOLBARTOOLS_NET_REDUCELANES,
+        "reduce lanes", toolsNetMenu, MID_GNE_TOOLBARTOOLS_NET_REDUCELANES,
         reduceLanesTemplate);
 
     myTools[MID_GNE_TOOLBARTOOLS_NET_SPLITATSTOPS] = new GNEToolDialog(myGNEApp,
-        "Split at stops", locateMenu, MID_GNE_TOOLBARTOOLS_NET_SPLITATSTOPS,
+        "Split at stops", toolsNetMenu, MID_GNE_TOOLBARTOOLS_NET_SPLITATSTOPS,
         split_at_stopsTemplate);
+
+    new FXMenuCascade(toolsMenu, TL("Net"), GUIIconSubSys::getIcon(GUIIcon::MODECREATEEDGE), toolsNetMenu);
 
     // build route tools
     myTools[MID_GNE_TOOLBARTOOLS_ROUTE_ADDSTOPDELAY] = new GNEToolDialog(myGNEApp,
-        "Add stop delay", locateMenu, MID_GNE_TOOLBARTOOLS_ROUTE_ADDSTOPDELAY,
+        "Add stop delay", toolsRouteMenu, MID_GNE_TOOLBARTOOLS_ROUTE_ADDSTOPDELAY,
         addStopDelayTemplate);
 
     myTools[MID_GNE_TOOLBARTOOLS_ROUTE_ADDSTOP2ROUTES] = new GNEToolDialog(myGNEApp,
-        "Add stops to routes", locateMenu, MID_GNE_TOOLBARTOOLS_ROUTE_ADDSTOP2ROUTES,
+        "Add stops to routes", toolsRouteMenu, MID_GNE_TOOLBARTOOLS_ROUTE_ADDSTOP2ROUTES,
         addStops2RoutesTemplate);
 
     myTools[MID_GNE_TOOLBARTOOLS_ROUTE_ADDTAZ] = new GNEToolDialog(myGNEApp,
-        "Add TAZ", locateMenu, MID_GNE_TOOLBARTOOLS_ROUTE_ADDTAZ,
+        "Add TAZ", toolsRouteMenu, MID_GNE_TOOLBARTOOLS_ROUTE_ADDTAZ,
         addTAZTemplate);
 
     myTools[MID_GNE_TOOLBARTOOLS_ROUTE_CHECKSTOPORDER] = new GNEToolDialog(myGNEApp,
-        "Check stop order", locateMenu, MID_GNE_TOOLBARTOOLS_ROUTE_CHECKSTOPORDER,
+        "Check stop order", toolsRouteMenu, MID_GNE_TOOLBARTOOLS_ROUTE_CHECKSTOPORDER,
         checkStopOrderTemplate);
 
     myTools[MID_GNE_TOOLBARTOOLS_ROUTE_IMPLAUSIBLEROUTES] = new GNEToolDialog(myGNEApp,
-        "Implausible routes", locateMenu, MID_GNE_TOOLBARTOOLS_ROUTE_IMPLAUSIBLEROUTES,
+        "Implausible routes", toolsRouteMenu, MID_GNE_TOOLBARTOOLS_ROUTE_IMPLAUSIBLEROUTES,
         implausibleRoutesTemplate);
 
     myTools[MID_GNE_TOOLBARTOOLS_ROUTE_ROUTE2OD] = new GNEToolDialog(myGNEApp,
-        "Route to OD", locateMenu, MID_GNE_TOOLBARTOOLS_ROUTE_ROUTE2OD,
+        "Route to OD", toolsRouteMenu, MID_GNE_TOOLBARTOOLS_ROUTE_ROUTE2OD,
         route2ODTemplate);
 
     myTools[MID_GNE_TOOLBARTOOLS_ROUTE_ROUTESTATS] = new GNEToolDialog(myGNEApp,
-        "Route stats", locateMenu, MID_GNE_TOOLBARTOOLS_ROUTE_ROUTESTATS,
+        "Route stats", toolsRouteMenu, MID_GNE_TOOLBARTOOLS_ROUTE_ROUTESTATS,
         routeStatsTemplate);
 
     myTools[MID_GNE_TOOLBARTOOLS_ROUTE_SCALETIMELINE] = new GNEToolDialog(myGNEApp,
-        "Scale time line", locateMenu, MID_GNE_TOOLBARTOOLS_ROUTE_SCALETIMELINE,
+        "Scale time line", toolsRouteMenu, MID_GNE_TOOLBARTOOLS_ROUTE_SCALETIMELINE,
         scaleTimeLineTemplate);
 
     myTools[MID_GNE_TOOLBARTOOLS_ROUTE_TRACEMAPPER] = new GNEToolDialog(myGNEApp,
-        "Tracemapper", locateMenu, MID_GNE_TOOLBARTOOLS_ROUTE_TRACEMAPPER,
+        "Tracemapper", toolsRouteMenu, MID_GNE_TOOLBARTOOLS_ROUTE_TRACEMAPPER,
         tracemapperTemplate);
+
+    new FXMenuCascade(toolsMenu, TL("Route"), GUIIconSubSys::getIcon(GUIIcon::MODEADDITIONAL), toolsRouteMenu);
 
     // build output tools
     myTools[MID_GNE_TOOLBARTOOLS_OUTPUT_ANALYZETELEPORTS] = new GNEToolDialog(myGNEApp,
-        "Analyze teleports", locateMenu, MID_GNE_TOOLBARTOOLS_OUTPUT_ANALYZETELEPORTS,
+        "Analyze teleports", toolsOutputMenu, MID_GNE_TOOLBARTOOLS_OUTPUT_ANALYZETELEPORTS,
         analyze_teleportsTemplate);
 
     myTools[MID_GNE_TOOLBARTOOLS_OUTPUT_ATTRIBUTEDIFF] = new GNEToolDialog(myGNEApp,
-        "Attribute diff", locateMenu, MID_GNE_TOOLBARTOOLS_OUTPUT_ATTRIBUTEDIFF,
+        "Attribute diff", toolsOutputMenu, MID_GNE_TOOLBARTOOLS_OUTPUT_ATTRIBUTEDIFF,
         attributeDiffTemplate);
 
     myTools[MID_GNE_TOOLBARTOOLS_OUTPUT_ATTRIBUTESTATS] = new GNEToolDialog(myGNEApp,
-        "Attribute stats", locateMenu, MID_GNE_TOOLBARTOOLS_OUTPUT_ATTRIBUTESTATS,
+        "Attribute stats", toolsOutputMenu, MID_GNE_TOOLBARTOOLS_OUTPUT_ATTRIBUTESTATS,
         attributeStatsTemplate);
+
     myTools[MID_GNE_TOOLBARTOOLS_OUTPUT_COMPUTECOORDINATION] = new GNEToolDialog(myGNEApp,
-        "Compute coordination", locateMenu, MID_GNE_TOOLBARTOOLS_OUTPUT_COMPUTECOORDINATION,
+        "Compute coordination", toolsOutputMenu, MID_GNE_TOOLBARTOOLS_OUTPUT_COMPUTECOORDINATION,
         computeCoordinationTemplate);
 
     myTools[MID_GNE_TOOLBARTOOLS_OUTPUT_COMPUTEPASSENGERCOUNTS] = new GNEToolDialog(myGNEApp,
-        "Compute passenger counts", locateMenu, MID_GNE_TOOLBARTOOLS_OUTPUT_COMPUTEPASSENGERCOUNTS,
+        "Compute passenger counts", toolsOutputMenu, MID_GNE_TOOLBARTOOLS_OUTPUT_COMPUTEPASSENGERCOUNTS,
         computePassengerCountsTemplate);
 
     myTools[MID_GNE_TOOLBARTOOLS_OUTPUT_COMPUTESTOPPINGPLACEUSAGE] = new GNEToolDialog(myGNEApp,
-        "Compute stoppingPlace usage", locateMenu, MID_GNE_TOOLBARTOOLS_OUTPUT_COMPUTESTOPPINGPLACEUSAGE,
+        "Compute stoppingPlace usage", toolsOutputMenu, MID_GNE_TOOLBARTOOLS_OUTPUT_COMPUTESTOPPINGPLACEUSAGE,
         computeStoppingPlaceUsageTemplate);
 
     myTools[MID_GNE_TOOLBARTOOLS_OUTPUT_COUNTLANECHANGES] = new GNEToolDialog(myGNEApp,
-        "Count lane changes", locateMenu, MID_GNE_TOOLBARTOOLS_OUTPUT_COUNTLANECHANGES,
+        "Count lane changes", toolsOutputMenu, MID_GNE_TOOLBARTOOLS_OUTPUT_COUNTLANECHANGES,
         countLaneChangesTemplate);
 
     myTools[MID_GNE_TOOLBARTOOLS_OUTPUT_EDGEDATADIFF] = new GNEToolDialog(myGNEApp,
-        "Edge data diff", locateMenu, MID_GNE_TOOLBARTOOLS_OUTPUT_EDGEDATADIFF,
+        "Edge data diff", toolsOutputMenu, MID_GNE_TOOLBARTOOLS_OUTPUT_EDGEDATADIFF,
         edgeDataDiffTemplate);
 
     myTools[MID_GNE_TOOLBARTOOLS_OUTPUT_FCDDIFF] = new GNEToolDialog(myGNEApp,
-        "FCD diff", locateMenu, MID_GNE_TOOLBARTOOLS_OUTPUT_FCDDIFF,
+        "FCD diff", toolsOutputMenu, MID_GNE_TOOLBARTOOLS_OUTPUT_FCDDIFF,
         fcdDiffTemplate);
+
     myTools[MID_GNE_TOOLBARTOOLS_OUTPUT_GENERATETLSE2DETECTORS] = new GNEToolDialog(myGNEApp,
-        "Generate TLS E2 detectors", locateMenu, MID_GNE_TOOLBARTOOLS_OUTPUT_GENERATETLSE2DETECTORS,
+        "Generate TLS E2 detectors", toolsOutputMenu, MID_GNE_TOOLBARTOOLS_OUTPUT_GENERATETLSE2DETECTORS,
         generateTLSE2DetectorsTemplate);
 
     myTools[MID_GNE_TOOLBARTOOLS_OUTPUT_PARKINGSEARCHTRAFFIC] = new GNEToolDialog(myGNEApp,
-        "Parking search traffic", locateMenu, MID_GNE_TOOLBARTOOLS_OUTPUT_PARKINGSEARCHTRAFFIC,
+        "Parking search traffic", toolsOutputMenu, MID_GNE_TOOLBARTOOLS_OUTPUT_PARKINGSEARCHTRAFFIC,
         parkingSearchTrafficTemplate);
 
     myTools[MID_GNE_TOOLBARTOOLS_OUTPUT_SCHEDULESTATS] = new GNEToolDialog(myGNEApp,
-        "Schedule stats", locateMenu, MID_GNE_TOOLBARTOOLS_OUTPUT_SCHEDULESTATS,
+        "Schedule stats", toolsOutputMenu, MID_GNE_TOOLBARTOOLS_OUTPUT_SCHEDULESTATS,
         scheduleStatsTemplate);
 
     myTools[MID_GNE_TOOLBARTOOLS_OUTPUT_STOPORDER] = new GNEToolDialog(myGNEApp,
-        "Stop order", locateMenu, MID_GNE_TOOLBARTOOLS_OUTPUT_STOPORDER,
+        "Stop order", toolsOutputMenu, MID_GNE_TOOLBARTOOLS_OUTPUT_STOPORDER,
         stopOrderTemplate);
 
     myTools[MID_GNE_TOOLBARTOOLS_OUTPUT_TRIPINFOBYTYPE] = new GNEToolDialog(myGNEApp,
-        "Tripinfo by type", locateMenu, MID_GNE_TOOLBARTOOLS_OUTPUT_TRIPINFOBYTYPE,
+        "Tripinfo by type", toolsOutputMenu, MID_GNE_TOOLBARTOOLS_OUTPUT_TRIPINFOBYTYPE,
         tripinfoByTypeTemplate);
 
     myTools[MID_GNE_TOOLBARTOOLS_OUTPUT_VEHLANES] = new GNEToolDialog(myGNEApp,
-        "Veh lanes", locateMenu, MID_GNE_TOOLBARTOOLS_OUTPUT_VEHLANES,
+        "Veh lanes", toolsOutputMenu, MID_GNE_TOOLBARTOOLS_OUTPUT_VEHLANES,
         vehLanesTemplate);
 
     myTools[MID_GNE_TOOLBARTOOLS_OUTPUT_VEHROUTECOUNTVALIDATION] = new GNEToolDialog(myGNEApp,
-        "Vehroute count validation", locateMenu, MID_GNE_TOOLBARTOOLS_OUTPUT_VEHROUTECOUNTVALIDATION,
+        "Vehroute count validation", toolsOutputMenu, MID_GNE_TOOLBARTOOLS_OUTPUT_VEHROUTECOUNTVALIDATION,
         vehrouteCountValidationTemplate);
 
     myTools[MID_GNE_TOOLBARTOOLS_OUTPUT_VEHROUTEDIFF] = new GNEToolDialog(myGNEApp,
-        "Vehroute diff", locateMenu, MID_GNE_TOOLBARTOOLS_OUTPUT_VEHROUTEDIFF,
+        "Vehroute diff", toolsOutputMenu, MID_GNE_TOOLBARTOOLS_OUTPUT_VEHROUTEDIFF,
         vehrouteDiffTemplate);
 
     myTools[MID_GNE_TOOLBARTOOLS_OUTPUT_WALKFACTOR] = new GNEToolDialog(myGNEApp,
-        "Walk factor", locateMenu, MID_GNE_TOOLBARTOOLS_OUTPUT_WALKFACTOR,
+        "Walk factor", toolsOutputMenu, MID_GNE_TOOLBARTOOLS_OUTPUT_WALKFACTOR,
         walkFactorTemplate);
+
+    new FXMenuCascade(toolsMenu, TL("Output"), GUIIconSubSys::getIcon(GUIIcon::SAVE), toolsOutputMenu);
 
     // build visualization tools
     myTools[MID_GNE_TOOLBARTOOLS_VISUALIZATION_PLOTXMLATTRIBUTES] = new GNEToolDialog(myGNEApp,
-        "Plot XML attributes", locateMenu, MID_GNE_TOOLBARTOOLS_VISUALIZATION_PLOTXMLATTRIBUTES,
+        "Plot XML attributes", toolsVisualizationMenu, MID_GNE_TOOLBARTOOLS_VISUALIZATION_PLOTXMLATTRIBUTES,
         plotXMLAttributesTemplate);
 
+    new FXMenuCascade(toolsMenu, TL("Visualization"), GUIIconSubSys::getIcon(GUIIcon::COLORWHEEL), toolsVisualizationMenu);
+
     // build other tools
+
+    new FXMenuSeparator(toolsMenu);
+
     myTools[MID_GNE_TOOLBARTOOLS_COUNTEDGEUSAGE] = new GNEToolDialog(myGNEApp,
-        "Count edge usage", locateMenu, MID_GNE_TOOLBARTOOLS_COUNTEDGEUSAGE,
+        "Count edge usage", toolsMenu, MID_GNE_TOOLBARTOOLS_COUNTEDGEUSAGE,
         countEdgeUsageTemplate);
 
     myTools[MID_GNE_TOOLBARTOOLS_EDGESINDISTRICTS] = new GNEToolDialog(myGNEApp,
-        "Edges in districts", locateMenu, MID_GNE_TOOLBARTOOLS_EDGESINDISTRICTS,
+        "Edges in districts", toolsMenu, MID_GNE_TOOLBARTOOLS_EDGESINDISTRICTS,
         edgesInDistrictsTemplate);
 
     myTools[MID_GNE_TOOLBARTOOLS_EVACUATEAREAS] = new GNEToolDialog(myGNEApp,
-        "Evacuate areas", locateMenu, MID_GNE_TOOLBARTOOLS_EVACUATEAREAS,
+        "Evacuate areas", toolsMenu, MID_GNE_TOOLBARTOOLS_EVACUATEAREAS,
         evacuateAreasTemplate);
 
     myTools[MID_GNE_TOOLBARTOOLS_EXTRACTTEST] = new GNEToolDialog(myGNEApp,
-        "Extract test", locateMenu, MID_GNE_TOOLBARTOOLS_EXTRACTTEST,
+        "Extract test", toolsMenu, MID_GNE_TOOLBARTOOLS_EXTRACTTEST,
         extractTestTemplate);
 
     myTools[MID_GNE_TOOLBARTOOLS_FCDREPLAY] = new GNEToolDialog(myGNEApp,
-        "FCD replay", locateMenu, MID_GNE_TOOLBARTOOLS_FCDREPLAY,
+        "FCD replay", toolsMenu, MID_GNE_TOOLBARTOOLS_FCDREPLAY,
         fcdReplayTemplate);
 
     myTools[MID_GNE_TOOLBARTOOLS_FINDALLROUTES] = new GNEToolDialog(myGNEApp,
-        "Find all routes", locateMenu, MID_GNE_TOOLBARTOOLS_FINDALLROUTES,
+        "Find all routes", toolsMenu, MID_GNE_TOOLBARTOOLS_FINDALLROUTES,
         findAllRoutesTemplate);
 
     myTools[MID_GNE_TOOLBARTOOLS_GENERATEBIDIDISTRICTS] = new GNEToolDialog(myGNEApp,
-        "Generate bidi districts", locateMenu, MID_GNE_TOOLBARTOOLS_GENERATEBIDIDISTRICTS,
+        "Generate bidi districts", toolsMenu, MID_GNE_TOOLBARTOOLS_GENERATEBIDIDISTRICTS,
         generateBidiDistrictsTemplate);
 
     myTools[MID_GNE_TOOLBARTOOLS_GENERATEPARKINGAREAREROUTERS] = new GNEToolDialog(myGNEApp,
-        "Generate parking area rerouters", locateMenu, MID_GNE_TOOLBARTOOLS_GENERATEPARKINGAREAREROUTERS,
+        "Generate parking area rerouters", toolsMenu, MID_GNE_TOOLBARTOOLS_GENERATEPARKINGAREAREROUTERS,
         generateParkingAreaReroutersTemplate);
 
     myTools[MID_GNE_TOOLBARTOOLS_GENERATEPARKINGAREAS] = new GNEToolDialog(myGNEApp,
-        "Generate parking areas", locateMenu, MID_GNE_TOOLBARTOOLS_GENERATEPARKINGAREAS,
+        "Generate parking areas", toolsMenu, MID_GNE_TOOLBARTOOLS_GENERATEPARKINGAREAS,
         generateParkingAreasTemplate);
 
     myTools[MID_GNE_TOOLBARTOOLS_GENERATERAILSIGNALCONSTRAINTS] = new GNEToolDialog(myGNEApp,
-        "Generate rail signal constraints", locateMenu, MID_GNE_TOOLBARTOOLS_GENERATERAILSIGNALCONSTRAINTS,
+        "Generate rail signal constraints", toolsMenu, MID_GNE_TOOLBARTOOLS_GENERATERAILSIGNALCONSTRAINTS,
         generateRailSignalConstraintsTemplate);
 
     myTools[MID_GNE_TOOLBARTOOLS_GENERATEREROUTERS] = new GNEToolDialog(myGNEApp,
-        "Generate rerouters", locateMenu, MID_GNE_TOOLBARTOOLS_GENERATEREROUTERS,
+        "Generate rerouters", toolsMenu, MID_GNE_TOOLBARTOOLS_GENERATEREROUTERS,
         generateReroutersTemplate);
 
     myTools[MID_GNE_TOOLBARTOOLS_OSMBUILD] = new GNEToolDialog(myGNEApp,
-        "OSM build", locateMenu, MID_GNE_TOOLBARTOOLS_OSMBUILD,
+        "OSM build", toolsMenu, MID_GNE_TOOLBARTOOLS_OSMBUILD,
         osmBuildTemplate);
 
     myTools[MID_GNE_TOOLBARTOOLS_OSMGET] = new GNEToolDialog(myGNEApp,
-        "OSM get", locateMenu, MID_GNE_TOOLBARTOOLS_OSMGET,
+        "OSM get", toolsMenu, MID_GNE_TOOLBARTOOLS_OSMGET,
         osmGetTemplate);
 
     myTools[MID_GNE_TOOLBARTOOLS_OSMWEBWIZARD] = new GNEToolDialog(myGNEApp,
-        "OSM web wizard", locateMenu, MID_GNE_TOOLBARTOOLS_OSMWEBWIZARD,
+        "OSM web wizard", toolsMenu, MID_GNE_TOOLBARTOOLS_OSMWEBWIZARD,
         osmWebWizardTemplate);
 
     myTools[MID_GNE_TOOLBARTOOLS_PLOTTRAJECTORIES] = new GNEToolDialog(myGNEApp,
-        "Plot trajectories", locateMenu, MID_GNE_TOOLBARTOOLS_PLOTTRAJECTORIES,
+        "Plot trajectories", toolsMenu, MID_GNE_TOOLBARTOOLS_PLOTTRAJECTORIES,
         plot_trajectoriesTemplate);
 
     myTools[MID_GNE_TOOLBARTOOLS_RANDOMTRIPS] = new GNEToolDialog(myGNEApp,
-        "Random Trips", locateMenu, MID_GNE_TOOLBARTOOLS_RANDOMTRIPS,
+        "Random Trips", toolsMenu, MID_GNE_TOOLBARTOOLS_RANDOMTRIPS,
         randomTripsTemplate);
 
     myTools[MID_GNE_TOOLBARTOOLS_ROUTESAMPLER] = new GNEToolDialog(myGNEApp,
-        "Route sampler", locateMenu, MID_GNE_TOOLBARTOOLS_ROUTESAMPLER,
+        "Route sampler", toolsMenu, MID_GNE_TOOLBARTOOLS_ROUTESAMPLER,
         routeSamplerTemplate);
 
     myTools[MID_GNE_TOOLBARTOOLS_RUNSEEDS] = new GNEToolDialog(myGNEApp,
-        "Run seeds", locateMenu, MID_GNE_TOOLBARTOOLS_RUNSEEDS,
+        "Run seeds", toolsMenu, MID_GNE_TOOLBARTOOLS_RUNSEEDS,
         runSeedsTemplate);
+
     myTools[MID_GNE_TOOLBARTOOLS_TILEGET] = new GNEToolDialog(myGNEApp,
-        "Tile get", locateMenu, MID_GNE_TOOLBARTOOLS_TILEGET,
+        "Tile get", toolsMenu, MID_GNE_TOOLBARTOOLS_TILEGET,
         tileGetTemplate);
 
     myTools[MID_GNE_TOOLBARTOOLS_TLSCOORDINATOR] = new GNEToolDialog(myGNEApp,
-        "TLS coordinator", locateMenu, MID_GNE_TOOLBARTOOLS_TLSCOORDINATOR,
+        "TLS coordinator", toolsMenu, MID_GNE_TOOLBARTOOLS_TLSCOORDINATOR,
         tlsCoordinatorTemplate);
 
     myTools[MID_GNE_TOOLBARTOOLS_TLSCYCLEADAPTATION] = new GNEToolDialog(myGNEApp,
-        "TLS cycle adaptation", locateMenu, MID_GNE_TOOLBARTOOLS_TLSCYCLEADAPTATION,
+        "TLS cycle adaptation", toolsMenu, MID_GNE_TOOLBARTOOLS_TLSCYCLEADAPTATION,
         tlsCycleAdaptationTemplate);
 }
 

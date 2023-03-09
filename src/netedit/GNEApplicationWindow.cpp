@@ -535,40 +535,25 @@ GNEApplicationWindow::create() {
     gCurrentFolder = getApp()->reg().readStringEntry("SETTINGS", "basedir", "");
     // Create main window
     FXMainWindow::create();
-    // create menu panes
-    myFileMenu->create();
-    myModesMenu->create();
-    myEditMenu->create();
-    myFileMenuNeteditConfig->create();
-    myFileMenuSumoConfig->create();
-    myFileMenuTLS->create();
-    myFileMenuEdgeTypes->create();
-    myFileMenuAdditionals->create();
-    myFileMenuDemandElements->create();
-    myFileMenuDataElements->create();
-    myFileMenuMeanDataElements->create();
-    myWindowMenu->create();
-    myHelpMenu->create();
-    myLanguageMenu->create();
-
-    FXint textWidth = getApp()->getNormalFont()->getTextWidth("8", 1) * 22;
+    // get text width
+    const auto textWidth = getApp()->getNormalFont()->getTextWidth("8", 1) * 22;
+    // adjust cartesian and geo frame
     myCartesianFrame->setWidth(textWidth);
     myGeoFrame->setWidth(textWidth);
-
     // fill online maps
     if (myOnlineMaps.empty()) {
         myOnlineMaps["GeoHack"] = "https://geohack.toolforge.org/geohack.php?params=%lat;%lon_scale:1000";
         myOnlineMaps["GoogleSat"] = "https://www.google.com/maps?ll=%lat,%lon&t=h&z=18";
         myOnlineMaps["OSM"] = "https://www.openstreetmap.org/?mlat=%lat&mlon=%lon&zoom=18&layers=M";
     }
-
+    // show application windows
     show(PLACEMENT_DEFAULT);
+    // check if maximice
     if (!OptionsCont::getOptions().isSet("window-size")) {
         if (getApp()->reg().readIntEntry("SETTINGS", "maximized", 0) == 1) {
             maximize();
         }
     }
-
 }
 
 
@@ -600,6 +585,16 @@ GNEApplicationWindow::~GNEApplicationWindow() {
     delete myProcessingMenu;
     delete myLocatorMenu;
     delete myToolsMenu;
+    delete myToolsDetectorMenu;
+    delete myToolsDistrictMenu;
+    delete myToolsDRTMenu;
+    delete myToolsImportMenu;
+    delete myToolsImportCityBrainMenu;
+    delete myToolsImportGTFSMenu;
+    delete myToolsNetMenu;
+    delete myToolsRouteMenu;
+    delete myToolsOutputMenu;
+    delete myToolsVisualizationMenu;
     delete myWindowMenu;
     delete myHelpMenu;
     delete myLanguageMenu;
@@ -1374,8 +1369,20 @@ GNEApplicationWindow::fillMenuBar() {
     myLocateMenuCommands.buildLocateMenuCommands(myLocatorMenu);
     // build tools menu
     myToolsMenu = new FXMenuPane(this);
+    myToolsDetectorMenu = new FXMenuPane(this);
+    myToolsDistrictMenu = new FXMenuPane(this);
+    myToolsDRTMenu = new FXMenuPane(this);
+    myToolsImportMenu = new FXMenuPane(this);
+    myToolsImportCityBrainMenu = new FXMenuPane(this);
+    myToolsImportGTFSMenu = new FXMenuPane(this);
+    myToolsNetMenu = new FXMenuPane(this);
+    myToolsRouteMenu = new FXMenuPane(this);
+    myToolsOutputMenu = new FXMenuPane(this);
+    myToolsVisualizationMenu = new FXMenuPane(this);
     GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, TL("&Tools"), nullptr, myToolsMenu);
-    myToolsMenuCommands.buildTools(myToolsMenu);
+    myToolsMenuCommands.buildTools(myToolsMenu, myToolsDetectorMenu, myToolsDistrictMenu, 
+        myToolsDRTMenu, myToolsImportMenu, myToolsImportCityBrainMenu, myToolsImportGTFSMenu, 
+        myToolsNetMenu, myToolsRouteMenu, myToolsOutputMenu, myToolsVisualizationMenu);
     // build windows menu
     myWindowMenu = new FXMenuPane(this);
     GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, TL("&Window"), nullptr, myWindowMenu);

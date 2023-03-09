@@ -593,6 +593,16 @@ protected:
         *myProcessingMenu = nullptr,
         *myLocatorMenu = nullptr,
         *myToolsMenu = nullptr,
+        *myToolsDetectorMenu = nullptr,
+        *myToolsDistrictMenu = nullptr,
+        *myToolsDRTMenu = nullptr,
+        *myToolsImportMenu = nullptr,
+        *myToolsImportCityBrainMenu = nullptr,
+        *myToolsImportGTFSMenu = nullptr,
+        *myToolsNetMenu = nullptr,
+        *myToolsRouteMenu = nullptr,
+        *myToolsOutputMenu = nullptr,
+        *myToolsVisualizationMenu = nullptr,
         *myWindowMenu = nullptr,
         *myHelpMenu = nullptr;
 

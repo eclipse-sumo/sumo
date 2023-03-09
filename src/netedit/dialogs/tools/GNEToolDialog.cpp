@@ -53,7 +53,7 @@ GNEToolDialog::GNEToolDialog(GNEApplicationWindow* GNEApp, const std::string& na
     myGNEApp(GNEApp),
     mySelector(selector) {
     // build menu command
-    GUIDesigns::buildFXMenuCommandShortcut(menu, name, "", "Execute " + name + ".", 
+    GUIDesigns::buildFXMenuCommandShortcut(menu, name, "", "Execute python tool '" + name + "'.", 
         GUIIconSubSys::getIcon(GUIIcon::TOOL_PYTHON), GNEApp, selector);
     // parse tool options
     TemplateHandler::parseTemplate(myToolsOptions, templateToolStr);
