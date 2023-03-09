@@ -284,6 +284,8 @@ def formatToolTemplate(templateStr):
     """
     @brief format python tool template
     """
+    if templateStr == '' or templateStr[0] != "<":
+        return '"";\n'
     # replace all current directory values (src/netedit)
     templateStr = re.sub("(?<=value)(.*)(?=netedit)", "", templateStr)
     templateStr = templateStr.replace('netedit', '="')
