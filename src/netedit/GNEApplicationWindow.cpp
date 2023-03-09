@@ -351,12 +351,8 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_L_LOCATEPOLY,          GNEApplicationWindow::onCmdLocate),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_SHIFT_L_LOCATEPOLY,          GNEApplicationWindow::onUpdNeedsNetwork),
     // toolbar tools
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARTOOLS_NETDIFF,           GNEApplicationWindow::onCmdToolNetDiff),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARTOOLS_NETDIFF,           GNEApplicationWindow::onUpdPythonTool),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARTOOLS_GENERATEREROUTERS, GNEApplicationWindow::onCmdToolGenerateRerouters),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARTOOLS_GENERATEREROUTERS, GNEApplicationWindow::onUpdPythonTool),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARTOOLS_ADDSTOP2ROUTES,    GNEApplicationWindow::onCmdToolAddStop2Routes),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARTOOLS_ADDSTOP2ROUTES,    GNEApplicationWindow::onUpdPythonTool),
+    FXMAPFUNCS(SEL_COMMAND, MID_GNE_TOOLBARTOOLS_DETECTOR_EDGEDATAFROMFLOW, MID_GNE_TOOLBARTOOLS_TLSCYCLEADAPTATION,    GNEApplicationWindow::onCmdOpenToolDialog),
+    FXMAPFUNCS(SEL_UPDATE,  MID_GNE_TOOLBARTOOLS_DETECTOR_EDGEDATAFROMFLOW, MID_GNE_TOOLBARTOOLS_TLSCYCLEADAPTATION,    GNEApplicationWindow::onUpdPythonTool),
     // toolbar windows
     FXMAPFUNC(SEL_COMMAND,  MID_CLEARMESSAGEWINDOW,     GNEApplicationWindow::onCmdClearMsgWindow),
     // toolbar help
@@ -1127,25 +1123,8 @@ GNEApplicationWindow::onCmdLocate(FXObject*, FXSelector sel, void*) {
 
 
 long
-GNEApplicationWindow::onCmdToolNetDiff(FXObject*, FXSelector, void*) {
-    // open tool diff dialog
-    myToolsMenuCommands.netDiffTool->show();
-    return 1;
-}
-
-
-long
-GNEApplicationWindow::onCmdToolGenerateRerouters(FXObject*, FXSelector, void*) {
-    // open generate rerouter dialog
-    myToolsMenuCommands.generateReroutersTool->show();
-    return 1;
-}
-
-
-long
-GNEApplicationWindow::onCmdToolAddStop2Routes(FXObject*, FXSelector, void*) {
-    // open add stops to routes dialog
-    myToolsMenuCommands.addStops2RoutesTool->show();
+GNEApplicationWindow::onCmdOpenToolDialog(FXObject*, FXSelector sel, void*) {
+    myToolsMenuCommands.showTool(sel);
     return 1;
 }
 

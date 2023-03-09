@@ -173,14 +173,8 @@ public:
     /// @brief called when the command/FXCall locate is executed
     long onCmdLocate(FXObject*, FXSelector, void*);
 
-    /// @brief called when the command/FXCall run NetDiff is executed
-    long onCmdToolNetDiff(FXObject*, FXSelector, void*);
-
-    /// @brief called when the command/FXCall run generate rerouters is executed
-    long onCmdToolGenerateRerouters(FXObject*, FXSelector, void*);
-
-    /// @brief called when the command/FXCall run add stop to routes is executed
-    long onCmdToolAddStop2Routes(FXObject*, FXSelector, void*);
+    /// @brief called when user press over a tool dialog button
+    long onCmdOpenToolDialog(FXObject*, FXSelector sel, void*);
 
     /// @brief called when the command/FXCall python tool is updated
     long onUpdPythonTool(FXObject*, FXSelector, void*);
