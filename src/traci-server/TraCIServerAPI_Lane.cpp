@@ -160,7 +160,7 @@ TraCIServerAPI_Lane::processSet(TraCIServer& server, tcpip::Storage& inputStorag
             }
             case libsumo::LANE_CHANGES: {
                 const std::vector<std::string> classes = StoHelp::readTypedStringList(inputStorage, "Vehicle classes allowed to change lane must be given as a list of strings.");
-                const int direction = StoHelp::readTypedInt(inputStorage, "The lane change direction must be given as an integer.");
+                const int direction = StoHelp::readTypedByte(inputStorage, "The lane change direction must be given as an integer.");
                 libsumo::Lane::setChangePermissions(id, classes, direction);
                 break;
             }
