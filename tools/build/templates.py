@@ -33,227 +33,227 @@ from subprocess import check_output, CalledProcessError
 # list of folders and tools
 tools = [
 
-# detector
-    #["detector", ".", "aggregateFlows"],   NO CONFIG
-    #["detector", ".", "detector"],         NO CONFIG
-    ["detector", ".", "edgeDataFromFlow"],
-    #["detector", ".", "filterFlows"],      NO CONFIG
-    #["detector", ".", "flowFromEdgeData"], NO CONFIG
-    #["detector", ".", "flowFromRoutes"],   NO CONFIG    
-    #["detector", ".", "flowrouter"],       NO CONFIG
-    ["detector", ".", "mapDetectors"],
-    #["detector", ".", "plotFlows"],        NO CONFIG
-    #["detector", ".", "routeUsage"],       NO CONFIG
-    #["detector", ".", "validate"],         NO CONFIG
+    # detector
+    # "detector/aggregateFlows.py",   NO CONFIG
+    # "detector/detector.py",         NO CONFIG
+    "detector/edgeDataFromFlow.py",
+    # "detector/filterFlows.py",      NO CONFIG
+    # "detector/flowFromEdgeData.py", NO CONFIG
+    # "detector/flowFromRoutes.py",   NO CONFIG
+    # "detector/flowrouter.py",       NO CONFIG
+    "detector/mapDetectors.py",
+    # "detector/plotFlows.py",        NO CONFIG
+    # "detector/routeUsage.py",       NO CONFIG
+    # "detector/validate.py",         NO CONFIG
 
-# district
-    #["district", ".", "aggregateAndSplitMatrices"],    NO CONFIG    
-    #["district", ".", "countConnectionsInDistricts"],  NO CONFIG
-    #["district", ".", "districtMapper"],               NO CONFIG
-    #["district", ".", "filterDistricts"],              NO CONFIG
-    #["district", ".", "gridDistricts"],                NO CONFIG
-    ["district", ".", "stationDistricts"],
-    
-# drt
-    #["drt", ".", "darpSolvers"],   NO CONFIG
-    #["drt", ".", "drtOnline"],     NO CONFIG
-    ["drt", ".", "drtOrtools"],
-    #["drt", ".", "ortools_pdp"],   NO CONFIG
+    # district
+    # "district/aggregateAndSplitMatrices.py",    NO CONFIG
+    # "district/countConnectionsInDistricts.py",  NO CONFIG
+    # "district/districtMapper.py",               NO CONFIG
+    # "district/filterDistricts.py",              NO CONFIG
+    # "district/gridDistricts.py",                NO CONFIG
+    "district/stationDistricts.py",
 
-# emissions
-    #["emissions", ".", "findMinDiffModel"],    NO CONFIG
-    #["emissions", ".", "nefz"],                NO CONFIG
-    
-# import
-    ["import", "citybrain", "citybrain_flow"],
-    ["import", "citybrain", "citybrain_infostep"],
-    ["import", "citybrain", "citybrain_road"],
-    ["import", "gtfs", "gtfs2fcd"],
-    #["import", "gtfs", "gtfs2osm"],                                NO CONFIG
-    ["import", "gtfs", "gtfs2pt"],
-    #["import", "vissim", "convert_detectors2SUMO"],                NO CONFIG
-    #["import", "vissim", "convert_vissimXML_flows_statRoutes"],    NO CONFIG
-    #["import", "vissim", "tls_vissimXML2SUMOnet_update"],          NO CONFIG
-    #["import", "vissim", "vissim_parseBusStops"],                  NO CONFIG
-    #["import", "vissim", "vissim_parseRoutes"],                    NO CONFIG    
-    #["import", "vissim", "vissim2poly"],                           NO CONFIG    
-    #["import", "visum", "visum_convertEdgeTypes"],                 NO CONFIG    
-    #["import", "visum", "visum_convertRoutes"],                    NO CONFIG
-    #["import", "visum", "visum_convertTurnPercentages"],           NO CONFIG
-    #["import", "visum", "visum_parseZaehlstelle"],                 NO CONFIG
-    #["import", ".", "matsim_importPlans"],                         NO CONFIG
-    #["import", ".", "signal_POIs_from_xodr"],                      NO CONFIG    
-    #["import", ".", "osmTaxiStop"],                                NO CONFIG
+    # drt
+    # "drt/darpSolvers.py",   NO CONFIG
+    # "drt/drtOnline.py",     NO CONFIG
+    "drt/drtOrtools.py",
+    # "drt/ortools_pdp.py",   NO CONFIG
 
-# net
-    ["net", ".", "abstractRail"],
-    #["net", ".", "createRoundaboutConnections"],   NO CONFIG
-    ["net", ".", "net2geojson"],
-    ["net", ".", "net2jpsgeometry"],
-    ["net", ".", "net2kml"],
-    ["net", ".", "net2poly"],
-    #["net", ".", "netcheck"],                      NO CONFIG
-    ["net", ".", "netdiff"],
-    #["net", ".", "netduplicate"],                  NO CONFIG
-    #["net", ".", "netmatch"],                      NO CONFIG
-    ["net", ".", "network_statistics"],
-    #["net", ".", "odConnectionsCheck"],            NO CONFIG
-    #["net", ".", "prepareVISUM"],                  NO CONFIG
-    ["net", ".", "reduceLanes"],
-    #["net", ".", "reprojectpolys"],                NO CONFIG
-    ["net", ".", "split_at_stops"],
-    #["net", ".", "visum_mapDistricts"],            NO CONFIG
-    #["net", ".", "xmlconnections_mapEdges"],       NO CONFIG
-    #["net", ".", "xmledges_applyOffset"],          NO CONFIG
-    #["net", ".", "xmlnodes_applyOffset"],          NO CONFIG    
-    
-# route
-    #["route", ".", "addParkingAreaStops2Routes"],  NO CONFIG
-    #["route", ".", "addParkingAreaStops2Trips"],   NO CONFIG
-    ["route", ".", "addStopDelay"],
-    ["route", ".", "addStops2Routes"],
-    ["route", ".", "addTAZ"],
-    #["route", ".", "analyzePersonPlans"],          NO CONFIG
-    ["route", ".", "checkStopOrder"],
-    #["route", ".", "cutRoutes"],                   NO CONFIG
-    #["route", ".", "cutTrips"],
-    ["route", ".", "implausibleRoutes"],
-    #["route", ".", "route_1htoDay"],               NO CONFIG
-    #["route", ".", "route_departOffset"],          NO CONFIG
-    #["route", ".", "route2alts"],                  NO CONFIG
-    ["route", ".", "route2OD"],
-    #["route", ".", "route2poly"],                  NO CONFIG
-    #["route", ".", "route2sel"],                   NO CONFIG    
-    #["route", ".", "routecheck"],                  NO CONFIG
-    #["route", ".", "routecompare"],                NO CONFIG
-    ["route", ".", "routeStats"],
-    ["route", ".", "scaleTimeLine"],
-    #["route", ".", "sort_routes"],                 NO CONFIG
-    #["route", ".", "splitRandom"],                 NO CONFIG
-    #["route", ".", "splitRouteFiles"],             NO CONFIG
-    #["route", ".", "tracegenerator"],              NO CONFIG    
-    ["route", ".", "tracemapper"],
-    #["route", ".", "vehicle2flow"],                NO CONFIG
-    
-# output
-    #["output", ".", "accelerations"],                      NO CONFIG
-    #["output", ".", "aggregateBatteryOutput"],             NO CONFIG
-    #["output", ".", "analyze_pedestrian_jam"],             NO CONFIG
-    ["output", ".", "analyze_teleports"],
-    ["output", ".", "attributeDiff"],
-    ["output", ".", "attributeStats"],
-    ["output", ".", "computeCoordination"],
-    ["output", ".", "computePassengerCounts"],
-    ["output", ".", "computeStoppingPlaceUsage"],
-    ["output", ".", "countLaneChanges"],
-    ["output", ".", "edgeDataDiff"],
-    #["output", ".", "edgeDataStatistics"],                 NO CONFIG
-    ["output", ".", "fcdDiff"],
-    #["output", ".", "generateITetrisIntersectionMetrics"], NO CONFIG
-    #["output", ".", "generateITetrisNetworkMetrics"],      NO CONFIG
-    #["output", ".", "generateMeanDataDefinitions"],        NO CONFIG
-    #["output", ".", "generateTLSE1Detectors"],             NO CONFIG
-    ["output", ".", "generateTLSE2Detectors"],
-    #["output", ".", "generateTLSE3Detectors"],             NO CONFIG
-    #["output", ".", "netdumpdiff"],                        NO CONFIG
-    #["output", ".", "netdumpmean"],                        NO CONFIG
-    ["output", ".", "parkingSearchTraffic"],
-    ["output", ".", "scheduleStats"],
-    #["output", ".", "statisticsElements"],                 NO CONFIG
-    ["output", ".", "stopOrder"],
-    #["output", ".", "tables"],                             NO CONFIG
-    #["output", ".", "timingStats"],                        NO CONFIG
-    #["output", ".", "tripinfoByTAZ"],                      NO CONFIG
-    ["output", ".", "tripinfoByType"],
-    #["output", ".", "tripinfoDiff"],                       NO CONFIG
-    #["output", ".", "tripStatistics"],                     NO CONFIG
-    ["output", ".", "vehLanes"],
-    #["output", ".", "vehroute2amitranOD"],                 NO CONFIG
-    ["output", ".", "vehrouteCountValidation"],
-    ["output", ".", "vehrouteDiff"],
-    ["output", ".", "walkFactor"],
+    # emissions
+    # "emissions/findMinDiffModel.py",    NO CONFIG
+    # "emissions/nefz.py",                NO CONFIG
 
-# shapes
-    #["shapes", ".", "circlePolygon"],      NO CONFIG
-    #["shapes", ".", "CSV2polyconvertXML"], NO CONFIG
-    #["shapes", ".", "poi_alongRoads"],     NO CONFIG
-    #["shapes", ".", "poi_at_stops"],       NO CONFIG
-    #["shapes", ".", "poi_atTLS"],          NO CONFIG
+    # import
+    "import/citybrain/citybrain_flow.py",
+    "import/citybrain/citybrain_infostep.py",
+    "import/citybrain/citybrain_road.py",
+    "import/gtfs/gtfs2fcd.py",
+    # "import/gtfs/gtfs2osm.py",                                NO CONFIG
+    "import/gtfs/gtfs2pt.py",
+    # "import/vissim/convert_detectors2SUMO.py",                NO CONFIG
+    # "import/vissim/convert_vissimXML_flows_statRoutes.py",    NO CONFIG
+    # "import/vissim/tls_vissimXML2SUMOnet_update.py",          NO CONFIG
+    # "import/vissim/vissim_parseBusStops.py",                  NO CONFIG
+    # "import/vissim/vissim_parseRoutes.py",                    NO CONFIG
+    # "import/vissim/vissim2poly.py",                           NO CONFIG
+    # "import/visum/visum_convertEdgeTypes.py",                 NO CONFIG
+    # "import/visum/visum_convertRoutes.py",                    NO CONFIG
+    # "import/visum/visum_convertTurnPercentages.py",           NO CONFIG
+    # "import/visum/visum_parseZaehlstelle.py",                 NO CONFIG
+    # "import/matsim_importPlans.py",                         NO CONFIG
+    # "import/signal_POIs_from_xodr.py",                      NO CONFIG
+    # "import/osmTaxiStop.py",                                NO CONFIG
 
-# tls
-    #["tls", ".", "buildTransitions"],      NO CONFIG
-    #["tls", ".", "createTlsCsv"],          NO CONFIG
-    #["tls", ".", "tls_check"],             NO CONFIG
-    #["tls", ".", "tls_csv2SUMO"],          NO CONFIG
-    #["tls", ".", "tls_csvSignalGroups"],   NO CONFIG
+    # net
+    "net/abstractRail.py",
+    # "net/createRoundaboutConnections.py",   NO CONFIG
+    "net/net2geojson.py",
+    "net/net2jpsgeometry.py",
+    "net/net2kml.py",
+    "net/net2poly.py",
+    # "net/netcheck.py",                      NO CONFIG
+    "net/netdiff.py",
+    # "net/netduplicate.py",                  NO CONFIG
+    # "net/netmatch.py",                      NO CONFIG
+    "net/network_statistics.py",
+    # "net/odConnectionsCheck.py",            NO CONFIG
+    # "net/prepareVISUM.py",                  NO CONFIG
+    "net/reduceLanes.py",
+    # "net/reprojectpolys.py",                NO CONFIG
+    "net/split_at_stops.py",
+    # "net/visum_mapDistricts.py",            NO CONFIG
+    # "net/xmlconnections_mapEdges.py",       NO CONFIG
+    # "net/xmledges_applyOffset.py",          NO CONFIG
+    # "net/xmlnodes_applyOffset.py",          NO CONFIG
 
-# turn-defs
-    #["turn-defs", ".", "collectinghandler"],       NO CONFIG
-    #["turn-defs", ".", "connections"],             NO CONFIG
-    #["turn-defs", ".", "generateTurnDefs"],        NO CONFIG
-    #["turn-defs", ".", "generateTurnRatios"],      NO CONFIG
-    #["turn-defs", ".", "turnCount2EdgeCount"],     NO CONFIG
-    #["turn-defs", ".", "turndefinitions"],         NO CONFIG
-    #["turn-defs", ".", "turnFile2EdgeRelations"],  NO CONFIG
+    # route
+    # "route/addParkingAreaStops2Routes.py",  NO CONFIG
+    # "route/addParkingAreaStops2Trips.py",   NO CONFIG
+    "route/addStopDelay.py",
+    "route/addStops2Routes.py",
+    "route/addTAZ.py",
+    # "route/analyzePersonPlans.py",          NO CONFIG
+    "route/checkStopOrder.py",
+    # "route/cutRoutes.py",                   NO CONFIG
+    # "route/cutTrips.py",
+    "route/implausibleRoutes.py",
+    # "route/route_1htoDay.py",               NO CONFIG
+    # "route/route_departOffset.py",          NO CONFIG
+    # "route/route2alts.py",                  NO CONFIG
+    "route/route2OD.py",
+    # "route/route2poly.py",                  NO CONFIG
+    # "route/route2sel.py",                   NO CONFIG
+    # "route/routecheck.py",                  NO CONFIG
+    # "route/routecompare.py",                NO CONFIG
+    "route/routeStats.py",
+    "route/scaleTimeLine.py",
+    # "route/sort_routes.py",                 NO CONFIG
+    # "route/splitRandom.py",                 NO CONFIG
+    # "route/splitRouteFiles.py",             NO CONFIG
+    # "route/tracegenerator.py",              NO CONFIG
+    "route/tracemapper.py",
+    # "route/vehicle2flow.py",                NO CONFIG
 
-# visualization
-    #["visualization", ".", "macrOutput"],                  NO CONFIG
-    #["visualization", ".", "mpl_dump_onNet"],              NO CONFIG
-    #["visualization", ".", "mpl_dump_timeline"],           NO CONFIG
-    #["visualization", ".", "mpl_dump_twoAgainst"],         NO CONFIG
-    #["visualization", ".", "mpl_tripinfos_twoAgainst"],    NO CONFIG
-    #["visualization", ".", "plot_csv_bars"],               NO CONFIG
-    #["visualization", ".", "plot_csv_pie"],                NO CONFIG
-    #["visualization", ".", "plot_csv_timeline"],           NO CONFIG
-    #["visualization", ".", "plot_net_dump"],               NO CONFIG
-    #["visualization", ".", "plot_net_selection"],          NO CONFIG
-    #["visualization", ".", "plot_net_speeds"],             NO CONFIG
-    #["visualization", ".", "plot_net_trafficLights"],      NO CONFIG
-    #["visualization", ".", "plot_summary"],                NO CONFIG
-    #["visualization", ".", "plot_tripinfo_distributions"], NO CONFIG
-    ["visualization", ".", "plotXMLAttributes"],
+    # output
+    # "output/accelerations.py",                      NO CONFIG
+    # "output/aggregateBatteryOutput.py",             NO CONFIG
+    # "output/analyze_pedestrian_jam.py",             NO CONFIG
+    "output/analyze_teleports.py",
+    "output/attributeDiff.py",
+    "output/attributeStats.py",
+    "output/computeCoordination.py",
+    "output/computePassengerCounts.py",
+    "output/computeStoppingPlaceUsage.py",
+    "output/countLaneChanges.py",
+    "output/edgeDataDiff.py",
+    # "output/edgeDataStatistics.py",                 NO CONFIG
+    "output/fcdDiff.py",
+    # "output/generateITetrisIntersectionMetrics.py", NO CONFIG
+    # "output/generateITetrisNetworkMetrics.py",      NO CONFIG
+    # "output/generateMeanDataDefinitions.py",        NO CONFIG
+    # "output/generateTLSE1Detectors.py",             NO CONFIG
+    "output/generateTLSE2Detectors.py",
+    # "output/generateTLSE3Detectors.py",             NO CONFIG
+    # "output/netdumpdiff.py",                        NO CONFIG
+    # "output/netdumpmean.py",                        NO CONFIG
+    "output/parkingSearchTraffic.py",
+    "output/scheduleStats.py",
+    # "output/statisticsElements.py",                 NO CONFIG
+    "output/stopOrder.py",
+    # "output/tables.py",                             NO CONFIG
+    # "output/timingStats.py",                        NO CONFIG
+    # "output/tripinfoByTAZ.py",                      NO CONFIG
+    "output/tripinfoByType.py",
+    # "output/tripinfoDiff.py",                       NO CONFIG
+    # "output/tripStatistics.py",                     NO CONFIG
+    "output/vehLanes.py",
+    # "output/vehroute2amitranOD.py",                 NO CONFIG
+    "output/vehrouteCountValidation.py",
+    "output/vehrouteDiff.py",
+    "output/walkFactor.py",
 
-# xml
-    #["xml", ".", "addSchema"],         NO CONFIG
-    #["xml", ".", "binary2plain"],      NO CONFIG
-    #["xml", ".", "changeAttribute"],   NO CONFIG
-    #["xml", ".", "csv2xml"],           NO CONFIG
-    #["xml", ".", "filterElements"],    NO CONFIG
-    #["xml", ".", "protobuf2xml"],      NO CONFIG
-    #["xml", ".", "xml2csv"],           NO CONFIG
-    #["xml", ".", "xml2protobuf"],      NO CONFIG
-    #["xml", ".", "xsd"],               NO CONFIG
+    # shapes
+    # "shapes/circlePolygon.py",      NO CONFIG
+    # "shapes/CSV2polyconvertXML.py", NO CONFIG
+    # "shapes/poi_alongRoads.py",     NO CONFIG
+    # "shapes/poi_at_stops.py",       NO CONFIG
+    # "shapes/poi_atTLS.py",          NO CONFIG
 
-# other
-    #[".", ".", "averageTripStatistics"],       NO CONFIG         
-    [".", ".", "countEdgeUsage"],
-    #[".", ".", "createVehTypeDistribution"],   NO CONFIG
-    [".", ".", "edgesInDistricts"],
-    [".", ".", "evacuateAreas"],
-    [".", ".", "extractTest"],
-    [".", ".", "fcdReplay"],
-    [".", ".", "findAllRoutes"],
-    [".", ".", "generateBidiDistricts"],
-    #[".", ".", "generateContinuousRerouters"], NO CONFIG
-    [".", ".", "generateParkingAreaRerouters"],
-    [".", ".", "generateParkingAreas"],
-    #[".", ".", "generateParkingLots"],         NO CONFIG
-    [".", ".", "generateRailSignalConstraints"],
-    [".", ".", "generateRerouters"],
-    #[".", ".", "jtcrouter"],                   NO CONFIG
-    [".", ".", "osmBuild"],
-    [".", ".", "osmGet"],
-    [".", ".", "osmWebWizard"],
-    [".", ".", "plot_trajectories"],
-    #[".", ".", "ptlines2flows"],               NO CONFIG
-    [".", ".", "randomTrips"],
-    [".", ".", "routeSampler"],
-    [".", ".", "runSeeds"],
-    [".", ".", "stateReplay"],
-    [".", ".", "tileGet"],
-    [".", ".", "tlsCoordinator"],
-    [".", ".", "tlsCycleAdaptation"],
-    #[".", ".", "traceExporter"]                NO CONFIG
+    # tls
+    # "tls/buildTransitions.py",      NO CONFIG
+    # "tls/createTlsCsv.py",          NO CONFIG
+    # "tls/tls_check.py",             NO CONFIG
+    # "tls/tls_csv2SUMO.py",          NO CONFIG
+    # "tls/tls_csvSignalGroups.py",   NO CONFIG
+
+    # turn-defs
+    # "turn-defs/collectinghandler.py",       NO CONFIG
+    # "turn-defs/connections.py",             NO CONFIG
+    # "turn-defs/generateTurnDefs.py",        NO CONFIG
+    # "turn-defs/generateTurnRatios.py",      NO CONFIG
+    # "turn-defs/turnCount2EdgeCount.py",     NO CONFIG
+    # "turn-defs/turndefinitions.py",         NO CONFIG
+    # "turn-defs/turnFile2EdgeRelations.py",  NO CONFIG
+
+    # visualization
+    # "visualization/macrOutput.py",                  NO CONFIG
+    # "visualization/mpl_dump_onNet.py",              NO CONFIG
+    # "visualization/mpl_dump_timeline.py",           NO CONFIG
+    # "visualization/mpl_dump_twoAgainst.py",         NO CONFIG
+    # "visualization/mpl_tripinfos_twoAgainst.py",    NO CONFIG
+    # "visualization/plot_csv_bars.py",               NO CONFIG
+    # "visualization/plot_csv_pie.py",                NO CONFIG
+    # "visualization/plot_csv_timeline.py",           NO CONFIG
+    # "visualization/plot_net_dump.py",               NO CONFIG
+    # "visualization/plot_net_selection.py",          NO CONFIG
+    # "visualization/plot_net_speeds.py",             NO CONFIG
+    # "visualization/plot_net_trafficLights.py",      NO CONFIG
+    # "visualization/plot_summary.py",                NO CONFIG
+    # "visualization/plot_tripinfo_distributions.py", NO CONFIG
+    "visualization/plotXMLAttributes.py",
+
+    # xml
+    # "xml/addSchema.py",         NO CONFIG
+    # "xml/binary2plain.py",      NO CONFIG
+    # "xml/changeAttribute.py",   NO CONFIG
+    # "xml/csv2xml.py",           NO CONFIG
+    # "xml/filterElements.py",    NO CONFIG
+    # "xml/protobuf2xml.py",      NO CONFIG
+    # "xml/xml2csv.py",           NO CONFIG
+    # "xml/xml2protobuf.py",      NO CONFIG
+    # "xml/xsd.py",               NO CONFIG
+
+    # other
+    # "averageTripStatistics.py",       NO CONFIG
+    "countEdgeUsage.py",
+    # "createVehTypeDistribution.py",   NO CONFIG
+    "edgesInDistricts.py",
+    "evacuateAreas.py",
+    "extractTest.py",
+    "fcdReplay.py",
+    "findAllRoutes.py",
+    "generateBidiDistricts.py",
+    # "generateContinuousRerouters.py", NO CONFIG
+    "generateParkingAreaRerouters.py",
+    "generateParkingAreas.py",
+    # "generateParkingLots.py",         NO CONFIG
+    "generateRailSignalConstraints.py",
+    "generateRerouters.py",
+    # "jtcrouter.py",                   NO CONFIG
+    "osmBuild.py",
+    "osmGet.py",
+    "osmWebWizard.py",
+    "plot_trajectories.py",
+    # "ptlines2flows.py",               NO CONFIG
+    "randomTrips.py",
+    "routeSampler.py",
+    "runSeeds.py",
+    "stateReplay.py",
+    "tileGet.py",
+    "tlsCoordinator.py",
+    "tlsCycleAdaptation.py",
+    # "traceExporter",                NO CONFIG
 ]
 
 
@@ -285,21 +285,14 @@ def formatToolTemplate(templateStr):
     @brief format python tool template
     """
     if templateStr == '' or templateStr[0] != "<":
-        return '"";\n'
+        return '""'
     # replace all current directory values (src/netedit)
     templateStr = re.sub("(?<=value)(.*)(?=netedit)", "", templateStr)
     templateStr = templateStr.replace('netedit', '="')
     # replace " with \"
     templateStr = templateStr.replace('"', '\\"')
     # add quotes and end lines
-    templateStr = templateStr.replace("<", '"<')
-    templateStr = templateStr.replace("\n", '"\n')
-    templateStr = templateStr[:-1]
-    # update last line
-    if templateStr == '':
-        templateStr = '""'
-    templateStr += '\n'
-    return templateStr
+    return templateStr.replace("<", '"<').replace("\n", '"\n')
 
 
 def generateSumoTemplate(sumoBin):
@@ -322,33 +315,21 @@ def generateSumoTemplate(sumoBin):
                     "Make sure that sumo or sumoD was generated in bin folder")
 
 
-def generateToolPath(subDirA, subDirB, toolName):
-    """
-    @brief generate tool path
-    """
-    path = ""
-    if (subDirA != '.'):
-        path += (subDirA + '/')
-    if (subDirB != '.'):
-        path += (subDirB + '/')
-    return 'tools/' + path + toolName + '.py'
-
-
-def generateToolTemplate(toolDir, subDirA, subDirB, toolName):
+def generateToolTemplate(toolDir, toolPath):
     """
     @brief generate tool template
     """
-    # get toolPath
-    toolPath = os.path.join(toolDir, subDirA, subDirB, toolName + ".py")
+    toolName = os.path.basename(toolPath)[:-3]
     # create pair
-    pair = 'const std::pair<std::string, std::string> ' + toolName + 'Template = std::make_pair("' + generateToolPath(subDirA, subDirB, toolName) + '",\n'
+    pair = 'const std::pair<std::string, std::string> %sTemplate = std::make_pair("tools/%s",\n' % (toolName, toolPath)
     # check if exists
-    if os.path.exists(toolPath):
+    if os.path.exists(join(toolDir, toolPath)):
         # show info
         print("Obtaining '" + toolName + "' tool template")
         # obtain template piping stdout using check_output
         try:
-            template = check_output([sys.executable, toolPath, "--save-template", "stdout"], universal_newlines=True)
+            template = check_output([sys.executable, join(toolDir, toolPath),
+                                     "--save-template", "stdout"], universal_newlines=True)
         except CalledProcessError as e:
             sys.stderr.write("Error when generating tool template for %s: '%s'" % (toolName, e))
             return pair + '"");\n'
@@ -369,4 +350,4 @@ if __name__ == "__main__":
         print(generateSumoTemplate(sys.argv[1]), file=templateHeaderFile)
         # generate Tool templates
         for tool in tools:
-            print(generateToolTemplate(toolDir, tool[0], tool[1], tool[2]), file=templateHeaderFile)
+            print(generateToolTemplate(toolDir, tool), file=templateHeaderFile)
