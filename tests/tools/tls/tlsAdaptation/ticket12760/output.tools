@@ -29,8 +29,8 @@ The optimal cycle length:24
 
 tl-logic ID: 2656297586
 phase: 0
-group flows: [42, 0, 7.0, 3.5]
-The used lanes: [[1, 2], [1], [1]]
+group flows: [42, 0, 7.0]
+The used lanes: [[1, 2], [1]]
 phase: 2
 group flows: [42, 0]
 The used lanes: [[0]]
@@ -44,8 +44,8 @@ phase: 0
 group flows: [42, 10.0]
 The used lanes: [[1, 2]]
 phase: 2
-group flows: [42, 1.0, 0]
-The used lanes: [[1], [1]]
+group flows: [42, 1.0]
+The used lanes: [[1]]
 the current cycle length:90 sec
 Green time for phase 0: 10
 Green time for phase 2: 4

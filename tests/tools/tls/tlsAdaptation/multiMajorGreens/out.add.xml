@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-03-10 12:52:49.614839 by tlsCycleAdaptation.py v1_16_0+1099-613aa0b9866
+<configuration>
+    <net-file value="input_net.net.xml"/>
+    <output-file value="out.add.xml"/>
+    <route-files value="input_routes.rou.xml"/>
+    <verbose value="True"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <tlLogic id="10205342654" type="actuated" programID="a" offset="0">
+        <phase duration="12" state="rGG"/>
+        <phase duration="4" state="ryy"/>
+        <phase duration="4" state="Grr"/>
+        <phase duration="4" state="yrr"/>
+    </tlLogic>
+    <tlLogic id="10205342655" type="actuated" programID="a" offset="0">
+        <phase duration="12" state="GrG"/>
+        <phase duration="4" state="yry"/>
+        <phase duration="4" state="rGr"/>
+        <phase duration="4" state="ryr"/>
+    </tlLogic>
+    <tlLogic id="2656297586" type="actuated" programID="a" offset="0">
+        <phase duration="12" state="gGrrGG"/>
+        <phase duration="4" state="yyrryy"/>
+        <phase duration="4" state="rrGGrr"/>
+        <phase duration="4" state="rryyrr"/>
+    </tlLogic>
+    <tlLogic id="735143105" type="actuated" programID="a" offset="0">
+        <phase duration="10" state="GGrr"/>
+        <phase duration="4" state="yyrr"/>
+        <phase duration="4" state="rrGG"/>
+        <phase duration="4" state="rryy"/>
+    </tlLogic>
+</additional>
