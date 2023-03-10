@@ -322,30 +322,40 @@ def generateSumoTemplate(sumoBin):
                     "Make sure that sumo or sumoD was generated in bin folder")
 
 
+def generateToolPath(subDirA, subDirB, toolName):
+    """
+    @brief generate tool path
+    """
+    path = ""
+    if (subDirA != '.'):
+        path += (subDirA + '/')
+    if (subDirB != '.'):
+        path += (subDirB + '/')
+    return 'tools/' + path + toolName + '.py'
+
+
 def generateToolTemplate(toolDir, subDirA, subDirB, toolName):
     """
     @brief generate tool template
     """
     # get toolPath
-    toolPath = os.path.join(subDirA, subDirB, toolName + ".py")
-    # get path
-    path = os.path.join(toolDir, toolPath)
+    toolPath = os.path.join(toolDir, subDirA, subDirB, toolName + ".py")
     # create pair
-    pair = 'const std::pair<std::string, std::string> ' + toolName + 'Template = std::make_pair("' + toolPath + '",\n'
+    pair = 'const std::pair<std::string, std::string> ' + toolName + 'Template = std::make_pair("' + generateToolPath(subDirA, subDirB, toolName) + '",\n'
     # check if exists
-    if os.path.exists(path):
+    if os.path.exists(toolPath):
         # show info
         print("Obtaining '" + toolName + "' tool template")
         # obtain template piping stdout using check_output
         try:
-            template = check_output([sys.executable, path, "--save-template", "stdout"], universal_newlines=True)
+            template = check_output([sys.executable, toolPath, "--save-template", "stdout"], universal_newlines=True)
         except CalledProcessError as e:
             sys.stderr.write("Error when generating tool template for %s: '%s'" % (toolName, e))
             return pair + ');\n'
         # join variable and formated template
         return pair + formatToolTemplate(template) + ');\n'
     # if tool wasn't found, then raise exception
-    raise Exception(toolName + "Template cannot be generated. '" + path + "' not found.")
+    raise Exception(toolName + "Template cannot be generated. '" + toolPath + "' not found.")
 
 
 if __name__ == "__main__":
