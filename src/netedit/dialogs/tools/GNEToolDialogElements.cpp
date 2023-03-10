@@ -31,36 +31,18 @@
 // ===========================================================================
 
 FXDEFMAP(GNEToolDialogElements::Argument) ArgumentMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEToolDialogElements::Argument::XXXX),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEToolDialogElements::Argument::onCmdSetValue),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_RESET,          GNEToolDialogElements::Argument::onCmdSetValue),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_RESET,          GNEToolDialogElements::Argument::onUpdResetValue),
 };
 
 FXDEFMAP(GNEToolDialogElements::FileNameArgument) FileNameArgumentMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEToolDialogElements::FileNameArgument::onCmdSetFilenameValue),
-};
-
-FXDEFMAP(GNEToolDialogElements::StringArgument) StringArgumentMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEToolDialogElements::StringArgument::onCmdSetStringValue),
-};
-
-FXDEFMAP(GNEToolDialogElements::IntArgument) IntArgumentMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEToolDialogElements::IntArgument::onCmdSetIntValue),
-};
-
-FXDEFMAP(GNEToolDialogElements::FloatArgument) FloatArgumentMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEToolDialogElements::FloatArgument::onCmdSetFloatValue),
-};
-
-FXDEFMAP(GNEToolDialogElements::BoolArgument) BoolArgumentMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEToolDialogElements::BoolArgument::onCmdSetBoolValue),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECT,  GNEToolDialogElements::FileNameArgument::onCmdOpenFilename),
 };
 
 // Object implementation
 FXIMPLEMENT_ABSTRACT(GNEToolDialogElements::Argument,   FXHorizontalFrame,                  ArgumentMap,            ARRAYNUMBER(ArgumentMap))
 FXIMPLEMENT(GNEToolDialogElements::FileNameArgument,    GNEToolDialogElements::Argument,    FileNameArgumentMap,    ARRAYNUMBER(FileNameArgumentMap))
-FXIMPLEMENT(GNEToolDialogElements::StringArgument,      GNEToolDialogElements::Argument,    StringArgumentMap,      ARRAYNUMBER(StringArgumentMap))
-FXIMPLEMENT(GNEToolDialogElements::IntArgument,         GNEToolDialogElements::Argument,    IntArgumentMap,         ARRAYNUMBER(IntArgumentMap))
-FXIMPLEMENT(GNEToolDialogElements::FloatArgument,       GNEToolDialogElements::Argument,    FloatArgumentMap,       ARRAYNUMBER(FloatArgumentMap))
-FXIMPLEMENT(GNEToolDialogElements::BoolArgument,        GNEToolDialogElements::Argument,    BoolArgumentMap,        ARRAYNUMBER(BoolArgumentMap))
 
 // ===========================================================================
 // member method definitions
@@ -77,6 +59,10 @@ GNEToolDialogElements::Argument::Argument(GNEToolDialog* toolDialogParent, const
     // create parameter label
     myParameterLabel = new MFXLabelTooltip(this, toolDialogParent->getGNEApp()->getStaticTooltipMenu(), parameter.c_str(), nullptr, GUIDesignLabelThickedFixed(0));
     myParameterLabel->setTipText(description.c_str());
+    // create horizontal frame for textField
+    myAuxiliarTextFieldFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarFrameFixedWidth(250));
+    // Create reset button
+    myResetButton = new FXButton(this, "", GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GNE_RESET, GUIDesignButtonIcon);
 }
 
 
@@ -90,35 +76,24 @@ GNEToolDialogElements::Argument::getParameterLabel() const {
 
 
 long
-GNEToolDialogElements::Argument::XXXX(FXObject*, FXSelector, void*) {
-    //
+GNEToolDialogElements::Argument::onCmdResetValue(FXObject*, FXSelector, void*) {
+    // just reset value
+    reset();
     return 1;
 }
 
 
+long
+GNEToolDialogElements::Argument::onUpdResetValue(FXObject*, FXSelector, void*) {
+    if (getValue() != myDefaultValue) {
+        return myResetButton->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+    } else {
+        return myResetButton->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+    }
+}
+
+
 GNEToolDialogElements::Argument::Argument() {}
-
-// ---------------------------------------------------------------------------
-// GNEToolDialogElements::HeaderArgument - methods
-// ---------------------------------------------------------------------------
-
-GNEToolDialogElements::HeaderArgument::HeaderArgument(GNEToolDialog* toolDialogParent) :
-    Argument(toolDialogParent, "Parameter", "", "") {
-    // create text field for filename
-    new MFXLabelTooltip(this, toolDialogParent->getGNEApp()->getStaticTooltipMenu(), TL("Value"), nullptr, GUIDesignLabelThickedFixed(50));
-}
-
-
-void
-GNEToolDialogElements::HeaderArgument::reset() {
-    // nothing to reset
-}
-
-
-const std::string
-GNEToolDialogElements::HeaderArgument::getValue() const {
-    return "";
-}
 
 // ---------------------------------------------------------------------------
 // GNEToolDialogElements::FileNameArgument - methods
@@ -128,10 +103,10 @@ GNEToolDialogElements::FileNameArgument::FileNameArgument(GNEToolDialog* toolDia
         const std::string name, const Option* option) :
     Argument(toolDialogParent, name, option->getValueString(), option->getDescription()) {
     // Create Open button
-    myFilenameButton = new FXButton(this, (std::string("\t\t") + TL("Select filename")).c_str(), 
+    myFilenameButton = new FXButton(myAuxiliarTextFieldFrame, (std::string("\t\t") + TL("Select filename")).c_str(), 
         GUIIconSubSys::getIcon(GUIIcon::OPEN_NET), this, FXDialogBox::ID_ACCEPT, GUIDesignButtonIcon);
     // create text field for filename
-    myFilenameTextField = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldFixed(180));
+    myFilenameTextField = new FXTextField(myAuxiliarTextFieldFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     // reset after creation
     reset();
 }
@@ -144,7 +119,13 @@ GNEToolDialogElements::FileNameArgument::reset() {
 
 
 long
-GNEToolDialogElements::FileNameArgument::onCmdSetFilenameValue(FXObject*, FXSelector, void*) {
+GNEToolDialogElements::FileNameArgument::onCmdOpenFilename(FXObject*, FXSelector, void*) {
+    return 1;
+}
+
+
+long
+GNEToolDialogElements::FileNameArgument::onCmdSetValue(FXObject*, FXSelector, void*) {
     return 1;
 }
 
@@ -164,7 +145,7 @@ GNEToolDialogElements::FileNameArgument::getValue() const {
 GNEToolDialogElements::StringArgument::StringArgument(GNEToolDialog* toolDialogParent, const std::string name, const Option* option) :
     Argument(toolDialogParent, name, option->getValueString(), option->getDescription()) {
     // create text field for filename
-    myStringTextField = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldFixedRestricted(180, 0));
+    myStringTextField = new FXTextField(myAuxiliarTextFieldFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     // reset after creation
     reset();
 }
@@ -177,12 +158,9 @@ GNEToolDialogElements::StringArgument::reset() {
 
 
 long
-GNEToolDialogElements::StringArgument::onCmdSetStringValue(FXObject*, FXSelector, void*) {
+GNEToolDialogElements::StringArgument::onCmdSetValue(FXObject*, FXSelector, void*) {
     return 1;
 }
-
-
-GNEToolDialogElements::StringArgument::StringArgument() {}
 
 
 const std::string
@@ -197,7 +175,7 @@ GNEToolDialogElements::StringArgument::getValue() const {
 GNEToolDialogElements::IntArgument::IntArgument(GNEToolDialog* toolDialogParent, const std::string name, const Option* option) :
     Argument(toolDialogParent, name, option->getValueString(), option->getDescription()) {
     // create text field for filename
-    myIntTextField = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldFixedRestricted(180, TEXTFIELD_INTEGER));
+    myIntTextField = new FXTextField(myAuxiliarTextFieldFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldRestricted(TEXTFIELD_INTEGER));
     // reset after creation
     reset();
 }
@@ -210,12 +188,9 @@ GNEToolDialogElements::IntArgument::reset() {
 
 
 long
-GNEToolDialogElements::IntArgument::onCmdSetIntValue(FXObject*, FXSelector, void*) {
+GNEToolDialogElements::IntArgument::onCmdSetValue(FXObject*, FXSelector, void*) {
     return 1;
 }
-
-
-GNEToolDialogElements::IntArgument::IntArgument() {}
 
 
 const std::string
@@ -230,7 +205,7 @@ GNEToolDialogElements::IntArgument::getValue() const {
 GNEToolDialogElements::FloatArgument::FloatArgument(GNEToolDialog* toolDialogParent, const std::string name, const Option* option) :
     Argument(toolDialogParent, name, option->getValueString(), option->getDescription()) {
     // create text field for filename
-    myFloatTextField = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldFixedRestricted(180, TEXTFIELD_REAL));
+    myFloatTextField = new FXTextField(myAuxiliarTextFieldFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldRestricted(TEXTFIELD_REAL));
     // reset after creation
     reset();
 }
@@ -243,12 +218,9 @@ GNEToolDialogElements::FloatArgument::reset() {
 
 
 long
-GNEToolDialogElements::FloatArgument::onCmdSetFloatValue(FXObject*, FXSelector, void*) {
+GNEToolDialogElements::FloatArgument::onCmdSetValue(FXObject*, FXSelector, void*) {
     return 1;
 }
-
-
-GNEToolDialogElements::FloatArgument::FloatArgument() {}
 
 
 const std::string
@@ -263,7 +235,7 @@ GNEToolDialogElements::FloatArgument::getValue() const {
 GNEToolDialogElements::BoolArgument::BoolArgument(GNEToolDialog* toolDialogParent, const std::string name, const Option* option) :
     Argument(toolDialogParent, name, option->getValueString(), option->getDescription()) {
     // create text field for filename
-    myBoolTextField = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldFixedRestricted(180, TEXTFIELD_REAL));
+    myBoolTextField = new FXTextField(myAuxiliarTextFieldFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldRestricted(TEXTFIELD_REAL));
     // reset after creation
     reset();
 }
@@ -276,12 +248,9 @@ GNEToolDialogElements::BoolArgument::reset() {
 
 
 long
-GNEToolDialogElements::BoolArgument::onCmdSetBoolValue(FXObject*, FXSelector, void*) {
+GNEToolDialogElements::BoolArgument::onCmdSetValue(FXObject*, FXSelector, void*) {
     return 1;
 }
-
-
-GNEToolDialogElements::BoolArgument::BoolArgument() {}
 
 
 const std::string

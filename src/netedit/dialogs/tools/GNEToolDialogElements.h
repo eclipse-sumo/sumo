@@ -41,7 +41,7 @@ class GNEToolDialogElements {
 
 public:
     /// @brief argument
-    class Argument : protected FXHorizontalFrame {
+    class Argument : public FXHorizontalFrame {
         /// @brief FOX-declaration
         FXDECLARE_ABSTRACT(GNEToolDialogElements::Argument)
 
@@ -61,8 +61,14 @@ public:
         /// @name FOX-callbacks
         /// @{
 
-        /// @brief Called when user changes Z value
-        long XXXX(FXObject*, FXSelector, void*);
+        /// @brief Called when user changes argument value
+        virtual long onCmdSetValue(FXObject*, FXSelector, void*) = 0;
+
+        /// @brief Called when user press reset button
+        long onCmdResetValue(FXObject*, FXSelector, void*);
+
+        /// @brief Called when user press reset button
+        long onUpdResetValue(FXObject*, FXSelector, void*);
 
         /// @}
 
@@ -79,37 +85,21 @@ public:
         /// @brief argument name
         const std::string myDefaultValue;
 
+        /// @brief auxliar text field for textfield frames
+        FXHorizontalFrame* myAuxiliarTextFieldFrame = nullptr;
+
     private:
         /// @brief parameter label
         MFXLabelTooltip* myParameterLabel = nullptr;
+
+        /// @brief reset button
+        FXButton* myResetButton = nullptr;
 
         /// @brief Invalidated copy constructor.
         Argument(const Argument&) = delete;
 
         /// @brief Invalidated assignment operator.
         Argument& operator=(const Argument&) = delete;
-    };
-
-    /// @brief header
-    class HeaderArgument : public Argument {
-
-    public:
-        /// @brief constructor
-        HeaderArgument(GNEToolDialog* toolDialogParent);
-
-        /// @brief reset to default value
-        void reset();
-
-    protected:
-        /// @brief get value
-        const std::string getValue() const;
-    
-    private:
-        /// @brief Invalidated copy constructor.
-        HeaderArgument(const HeaderArgument&) = delete;
-
-        /// @brief Invalidated assignment operator.
-        HeaderArgument& operator=(const HeaderArgument&) = delete;
     };
 
     /// @brief filename argument
@@ -124,8 +114,11 @@ public:
         /// @brief reset to default value
         void reset();
 
+        /// @brief Called when user press open filename button
+        long onCmdOpenFilename(FXObject*, FXSelector, void*);
+
         /// @brief Called when user set filename
-        long onCmdSetFilenameValue(FXObject*, FXSelector, void*);
+        long onCmdSetValue(FXObject*, FXSelector, void*);
 
     protected:
         /// @brief FOX need this
@@ -150,8 +143,6 @@ public:
 
     /// @brief string argument
     class StringArgument : public Argument {
-        /// @brief FOX-declaration
-        FXDECLARE(GNEToolDialogElements::StringArgument)
 
     public:
         /// @brief constructor
@@ -161,12 +152,9 @@ public:
         void reset();
 
         /// @brief Called when user set string value
-        long onCmdSetStringValue(FXObject*, FXSelector, void*);
+        long onCmdSetValue(FXObject*, FXSelector, void*);
 
     protected:
-        /// @brief FOX need this
-        StringArgument();
-
         /// @brief get value
         const std::string getValue() const;
 
@@ -183,8 +171,6 @@ public:
 
     /// @brief int argument
     class IntArgument : public Argument {
-        /// @brief FOX-declaration
-        FXDECLARE(GNEToolDialogElements::IntArgument)
 
     public:
         /// @brief constructor
@@ -194,12 +180,9 @@ public:
         void reset();
 
         /// @brief Called when user set int value
-        long onCmdSetIntValue(FXObject*, FXSelector, void*);
+        long onCmdSetValue(FXObject*, FXSelector, void*);
 
     protected:
-        /// @brief FOX need this
-        IntArgument();
-
         /// @brief get value
         const std::string getValue() const;
 
@@ -216,8 +199,6 @@ public:
 
     /// @brief float argument
     class FloatArgument : public Argument {
-        /// @brief FOX-declaration
-        FXDECLARE(GNEToolDialogElements::FloatArgument)
 
     public:
         /// @brief constructor
@@ -227,12 +208,9 @@ public:
         void reset();
 
         /// @brief Called when user set float value
-        long onCmdSetFloatValue(FXObject*, FXSelector, void*);
+        long onCmdSetValue(FXObject*, FXSelector, void*);
 
     protected:
-        /// @brief FOX need this
-        FloatArgument();
-
         /// @brief get value
         const std::string getValue() const;
 
@@ -250,8 +228,6 @@ public:
 
     /// @brief bool argument
     class BoolArgument : public Argument {
-        /// @brief FOX-declaration
-        FXDECLARE(GNEToolDialogElements::BoolArgument)
 
     public:
         /// @brief constructor
@@ -260,13 +236,10 @@ public:
         /// @brief reset to default value
         void reset();
 
-        /// @brief Called when user set float value
-        long onCmdSetBoolValue(FXObject*, FXSelector, void*);
+        /// @brief Called when user set bool value
+        long onCmdSetValue(FXObject*, FXSelector, void*);
 
     protected:
-        /// @brief FOX need this
-        BoolArgument();
-
         /// @brief get value
         const std::string getValue() const;
 
