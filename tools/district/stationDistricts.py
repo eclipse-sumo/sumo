@@ -32,6 +32,7 @@ sys.path.append(os.path.join(SUMO_HOME, 'tools'))
 import sumolib  # noqa
 from sumolib.options import ArgumentParser  # noqa
 from sumolib.miscutils import Colorgen  # noqa
+from sumolib import openz
 import sumolib.geomhelper as gh  # noqa
 
 
@@ -204,7 +205,7 @@ def splitStations(options, stations):
             edgeStation[edge].add(station)
 
     bidiSplits = defaultdict(list)
-    with open(options.splitOutput, 'w') as outf:
+    with openz(options.splitOutput, 'w') as outf:
         sumolib.writeXMLHeader(outf, "$Id$", "edges", schemaPath="edgediff_file.xsd", options=options)
         for edge, stations in edgeStation.items():
             if len(stations) == 1:
@@ -289,10 +290,10 @@ def main(options):
 
     outf_poi = None
     if options.poiOutput:
-        outf_poi = open(options.poiOutput, 'w')
+        outf_poi = openz(options.poiOutput, 'w')
         sumolib.writeXMLHeader(outf_poi, "$Id$", "additional", options=options)
 
-    with open(options.output, 'w') as outf:
+    with openz(options.output, 'w') as outf:
         sumolib.writeXMLHeader(outf, "$Id$", "additional", options=options)
         for i, name in enumerate(sorted(stations.keys())):
             stations[name].write(outf, outf_poi, i, options.colorgen())
