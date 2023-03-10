@@ -217,3 +217,14 @@ Example call:
 ```
 python tools/net/abstractRail.py -n input_net.net.xml --stop-file input_additional.add.xml --region-file stations.taz.xml -o abstract.net.xml
 ```
+
+## Further options
+
+- **--filter-regions**: Only convert the given list of regions and delete everything else
+- **--keep-all**: When filtering regions, keep all other regions at their old geometry. This may be used to build region-specific patch files than can the combined to patch larger parts of the network**
+- **--horizontal**: The abstract network is aligned on the horizontal
+- **--track-offset**: Define the offset between parallel tracks in m (default 20)
+- **--skip-building**: Only create patch files but do not assemble the new network
+
+!!! caution
+    If the network is large and not segmented or if the individual station segments are large, the conversion process can take a long time. The option **--skip-large INT** can be used to selective skip large regions (measured by the number of optimization constraints, reported via **--verbose** output).
