@@ -1086,21 +1086,6 @@ struct GNEApplicationWindowHelper {
         const std::string myFile;
     };
 
-    /// @brief GNETools
-    class GNETools {
-
-    public:
-        /// @brief Constructor
-        GNETools();
-
-    private:
-        /// @brief generateReroutes options container
-        OptionsCont myGenerateReroutersOptions;
-
-        /// @brief stops2Routes options container
-        OptionsCont myAddStops2RoutesOptions;
-    };
-
     /// @brief toggle edit options Network menu commands (called in GNEApplicationWindow::onCmdToggleEditOptions)
     static bool toggleEditOptionsNetwork(GNEViewNet* viewNet, const MFXCheckableButton* menuCheck,
                                          const int numericalKeyPressed, FXObject* obj, FXSelector sel);
