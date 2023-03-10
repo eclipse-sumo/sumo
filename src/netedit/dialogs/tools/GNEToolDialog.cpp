@@ -26,7 +26,7 @@
 #include "GNEToolDialog.h"
 
 
-#define EXTRAMARGING 4
+#define MARGING 4
 
 // ===========================================================================
 // FOX callback mapping
@@ -40,7 +40,7 @@ FXDEFMAP(GNEToolDialog) GNEToolDialogMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEToolDialog, FXTopWindow, GNEToolDialogMap, ARRAYNUMBER(GNEToolDialogMap))
+FXIMPLEMENT(GNEToolDialog, FXDialogBox, GNEToolDialogMap, ARRAYNUMBER(GNEToolDialogMap))
 
 // ============================================-===============================
 // member method definitions
@@ -48,8 +48,7 @@ FXIMPLEMENT(GNEToolDialog, FXTopWindow, GNEToolDialogMap, ARRAYNUMBER(GNEToolDia
 
 GNEToolDialog::GNEToolDialog(GNEApplicationWindow* GNEApp, const std::string& name, FXMenuPane* menu,
         FXSelector selector, const std::string& templateToolStr) :
-    FXTopWindow(GNEApp->getApp(), name.c_str(), GUIIconSubSys::getIcon(GUIIcon::EMPTY), 
-        GUIIconSubSys::getIcon(GUIIcon::EMPTY), GUIDesignDialogBoxTools),
+    FXDialogBox(GNEApp->getApp(), name.c_str(), GUIDesignDialogBoxExplicit(0, 0)),
     myGNEApp(GNEApp),
     mySelector(selector) {
     // build menu command
@@ -57,24 +56,26 @@ GNEToolDialog::GNEToolDialog(GNEApplicationWindow* GNEApp, const std::string& na
         GUIIconSubSys::getIcon(GUIIcon::TOOL_PYTHON), GNEApp, selector);
     // parse tool options
     TemplateHandler::parseTemplate(myToolsOptions, templateToolStr);
-    // create main frame
-    FXVerticalFrame* mainFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrame);
     // build horizontalFrame for content
-    myContentFrame = new FXVerticalFrame(mainFrame, GUIDesignAuxiliarFrame);
+    myContentFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrameFixed);
+    // first add header
+    auto headerFrame = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarHorizontalFrame);
+    myParameterLabel = new FXLabel(headerFrame, TL("Parameter"), nullptr, GUIDesignLabelThickedFixed(0));
+    new FXLabel(headerFrame, TL("Value"), nullptr, GUIDesignLabelThickedFixed(250));
     // build arguments
     buildArguments();
     // add separator
-    new FXSeparator(mainFrame);
+    mySeparator = new FXSeparator(this);
     // create buttons centered
-    FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(mainFrame, GUIDesignHorizontalFrame);
-    new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
-    new FXButton(buttonsFrame, (TL("Run") + std::string("\t\t") + TL("close accepting changes")).c_str(),
+    myButtonsFrame = new FXHorizontalFrame(this, GUIDesignHorizontalFrame);
+    new FXHorizontalFrame(myButtonsFrame, GUIDesignAuxiliarHorizontalFrame);
+    new FXButton(myButtonsFrame, (TL("Run") + std::string("\t\t") + TL("close accepting changes")).c_str(),
         GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_BUTTON_RUN, GUIDesignButtonAccept);
-    new FXButton(buttonsFrame, (TL("Cancel") + std::string("\t\t") + TL("close discarding changes")).c_str(),
+    new FXButton(myButtonsFrame, (TL("Cancel") + std::string("\t\t") + TL("close discarding changes")).c_str(),
         GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCancel);
-    new FXButton(buttonsFrame, (TL("Reset") + std::string("\t\t") + TL("reset to previous values")).c_str(), 
+    new FXButton(myButtonsFrame, (TL("Reset") + std::string("\t\t") + TL("reset to previous values")).c_str(), 
         GUIIconSubSys::getIcon(GUIIcon::RESET),  this, MID_GNE_BUTTON_RESET,  GUIDesignButtonReset);
-    new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
+    new FXHorizontalFrame(myButtonsFrame, GUIDesignAuxiliarHorizontalFrame);
 }
 
 
@@ -95,6 +96,8 @@ GNEToolDialog::show() {
     getApp()->refresh();
     // adjust parameter column (call always after create elements)
     adjustParameterColumn();
+    // resize dialog (Marging + contentFrame + MARGING separator + MARGING + buttonsFrame + MARGING)
+    resize(myContentFrame->getWidth(), myContentFrame->getHeight() + mySeparator->getHeight() + myButtonsFrame->getHeight() + (4 * MARGING));
     // open as modal dialog (will block all windows until stop() or stopModal() is called)
     myGNEApp->getApp()->runModalFor(this);
 }
@@ -151,8 +154,6 @@ GNEToolDialog::GNEToolDialog() :
 
 void
 GNEToolDialog::buildArguments() {
-    // first add header
-    myArguments.push_back(new GNEToolDialogElements::HeaderArgument(this));
     // iterate over options
     for (const auto &option : myToolsOptions) {
         if (option.second->isInteger()) {
@@ -167,8 +168,6 @@ GNEToolDialog::buildArguments() {
             myArguments.push_back(new GNEToolDialogElements::StringArgument(this, option.first, option.second));
         }
     }
-    // set content frame height
-    myContentFrame->setHeight(GUIDesignHeight * (int)myArguments.size());
 }
 
 
@@ -178,7 +177,7 @@ GNEToolDialog::adjustParameterColumn() {
     // iterate over all arguments and find the maximum width
     for (const auto &argument : myArguments) {
         const auto label = argument->getParameterLabel();
-        const int columnWidth = label->getFont()->getTextWidth(label->getText().text(), label->getText().length() + EXTRAMARGING);
+        const int columnWidth = label->getFont()->getTextWidth(label->getText().text(), label->getText().length() + MARGING);
         if (columnWidth > maximumWidth) {
             maximumWidth = columnWidth;
         }
@@ -187,6 +186,11 @@ GNEToolDialog::adjustParameterColumn() {
     for (const auto &argument : myArguments) {
         argument->getParameterLabel()->setWidth(maximumWidth);
     }
+    // set parameter label width
+    myParameterLabel->setWidth(maximumWidth);
+    // set content frame size (MARGING + Parameter + TextField + MARGING)
+    myContentFrame->setWidth(MARGING + maximumWidth + 250 + GUIDesignHeight + MARGING);
+    myContentFrame->setHeight(GUIDesignHeight * ((int)myArguments.size() + 1));
 }
 
 /****************************************************************************/

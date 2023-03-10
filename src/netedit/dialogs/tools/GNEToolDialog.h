@@ -38,7 +38,7 @@ class GNEApplicationWindow;
  * @class GNEToolDialog
  * @brief Abstract dialog for tools
  */
-class GNEToolDialog : protected FXTopWindow {
+class GNEToolDialog : protected FXDialogBox {
     /// @brief FOX-declaration
     FXDECLARE(GNEToolDialog)
 
@@ -79,7 +79,7 @@ public:
 protected:
     /// @brief FOX needs this
     GNEToolDialog();
-    
+
     /// @brief build arguments
     void buildArguments();
 
@@ -95,6 +95,15 @@ private:
 
     /// @brief vertical frame for contents
     FXVerticalFrame* myContentFrame = nullptr;
+
+    /// @brief parameter label
+    FXLabel* myParameterLabel = nullptr;
+
+    /// @brief separator
+    FXSeparator* mySeparator = nullptr;
+
+    /// @brief buttons frame
+    FXHorizontalFrame* myButtonsFrame = nullptr;
 
     /// @brief list of arguments
     std::vector<GNEToolDialogElements::Argument*> myArguments;
