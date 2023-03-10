@@ -47,16 +47,19 @@ public:
 
     public:
         /// @brief constructor
-        Argument(GNEToolDialog* toolDialogParent, const std::string &parameter, const std::string &defaultValue, const std::string &description);
+        Argument(GNEToolDialog* toolDialogParent, const std::string &parameter, const Option* option);
 
         /// @brief destructor
         ~Argument();
 
+        /// @brief reset to default value
+        virtual void reset() = 0;
+
         /// @brief get parameter label
         MFXLabelTooltip* getParameterLabel() const;
 
-        /// @brief reset to default value
-        virtual void reset() = 0;
+        /// @brief get argument
+        const std::string getArgument() const;
 
         /// @name FOX-callbacks
         /// @{
@@ -78,9 +81,6 @@ public:
 
         /// @brief get value
         virtual const std::string getValue() const = 0;
-
-        /// @brief parameter
-        const std::string myParameter;
 
         /// @brief argument name
         const std::string myDefaultValue;
@@ -243,8 +243,8 @@ public:
         /// @brief get value
         const std::string getValue() const;
 
-        /// @brief float textField
-        FXTextField* myBoolTextField = nullptr;
+        /// @brief check button
+        FXCheckButton* myCheckButton = nullptr;
 
     private:
         /// @brief Invalidated copy constructor.
