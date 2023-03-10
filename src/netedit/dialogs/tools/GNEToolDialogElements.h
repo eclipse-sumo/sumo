@@ -41,24 +41,37 @@ class GNEToolDialogElements {
 
 public:
     /// @brief argument
-    class Argument {
+    class Argument : protected FXHorizontalFrame {
+        /// @brief FOX-declaration
+        FXDECLARE_ABSTRACT(GNEToolDialogElements::Argument)
 
     public:
         /// @brief constructor
-        Argument(const std::string &parameter, const std::string &defaultValue);
+        Argument(GNEToolDialog* toolDialogParent, const std::string &parameter, const std::string &defaultValue, const std::string &description);
 
         /// @brief destructor
-        virtual ~Argument();
+        ~Argument();
+
+        /// @brief get parameter label
+        MFXLabelTooltip* getParameterLabel() const;
 
         /// @brief reset to default value
         virtual void reset() = 0;
 
-        /// @brief get parameter label
-        virtual MFXLabelTooltip* getParameterLabel() const = 0;
+        /// @name FOX-callbacks
+        /// @{
+
+        /// @brief Called when user changes Z value
+        long XXXX(FXObject*, FXSelector, void*);
+
+        /// @}
 
     protected:
         /// @brief default constructor
         Argument();
+
+        /// @brief get value
+        virtual const std::string getValue() const = 0;
 
         /// @brief parameter
         const std::string myParameter;
@@ -67,6 +80,9 @@ public:
         const std::string myDefaultValue;
 
     private:
+        /// @brief parameter label
+        MFXLabelTooltip* myParameterLabel = nullptr;
+
         /// @brief Invalidated copy constructor.
         Argument(const Argument&) = delete;
 
@@ -75,31 +91,20 @@ public:
     };
 
     /// @brief header
-    class HeaderArgument : protected FXHorizontalFrame, public Argument {
+    class HeaderArgument : public Argument {
 
     public:
         /// @brief constructor
         HeaderArgument(GNEToolDialog* toolDialogParent);
 
-        /// @brief reset argument values
+        /// @brief reset to default value
         void reset();
 
-        /// @brief get parameter label
-        MFXLabelTooltip* getParameterLabel() const;
-
-        /// get argument (parameter and value)
-        std::string getArgument() const;
-
+    protected:
+        /// @brief get value
+        const std::string getValue() const;
+    
     private:
-        /// @brief parameter label
-        MFXLabelTooltip* myParameterLabel = nullptr;
-
-        /// @brief filename button
-        FXButton* myFilenameButton = nullptr;
-
-        /// @brief filename Textfield
-        FXTextField* myFilenameTextField = nullptr;
-
         /// @brief Invalidated copy constructor.
         HeaderArgument(const HeaderArgument&) = delete;
 
@@ -107,44 +112,33 @@ public:
         HeaderArgument& operator=(const HeaderArgument&) = delete;
     };
 
-    /// @brief filename
-    class FileNameArgument : protected FXHorizontalFrame, public Argument {
+    /// @brief filename argument
+    class FileNameArgument : public Argument {
         /// @brief FOX-declaration
         FXDECLARE(GNEToolDialogElements::FileNameArgument)
 
     public:
         /// @brief constructor
         FileNameArgument(GNEToolDialog* toolDialogParent, const std::string name, const Option* option);
-
-        /// @brief reset argument values
+    
+        /// @brief reset to default value
         void reset();
 
-        /// @brief get parameter label
-        MFXLabelTooltip* getParameterLabel() const;
-
-        /// get argument (parameter and value)
-        std::string getArgument() const;
-    
-        /// @name FOX-callbacks
-        /// @{
-
-        /// @brief Called when user changes Z value
-        long onCmdSetValue(FXObject*, FXSelector, void*);
-
-        /// @}
+        /// @brief Called when user set filename
+        long onCmdSetFilenameValue(FXObject*, FXSelector, void*);
 
     protected:
         /// @brief FOX need this
         FileNameArgument();
 
-    private:
-        /// @brief parameter label
-        MFXLabelTooltip* myParameterLabel = nullptr;
+        /// @brief get value
+        const std::string getValue() const;
 
+    private:
         /// @brief filename button
         FXButton* myFilenameButton = nullptr;
 
-        /// @brief filename Textfield
+        /// @brief filename textField
         FXTextField* myFilenameTextField = nullptr;
 
         /// @brief Invalidated copy constructor.
@@ -154,43 +148,32 @@ public:
         FileNameArgument& operator=(const FileNameArgument&) = delete;
     };
 
-    /// @brief string
-    class StringArgument : protected FXHorizontalFrame, public Argument {
+    /// @brief string argument
+    class StringArgument : public Argument {
         /// @brief FOX-declaration
         FXDECLARE(GNEToolDialogElements::StringArgument)
 
     public:
         /// @brief constructor
-        StringArgument(GNEToolDialog* toolDialogParent, const std::string name, const Option* option, const int type = 0);
+        StringArgument(GNEToolDialog* toolDialogParent, const std::string name, const Option* option);
 
-        /// @brief reset argument values
+        /// @brief reset to default value
         void reset();
 
-        /// @brief get parameter label
-        MFXLabelTooltip* getParameterLabel() const;
-
-        /// get argument (parameter and value)
-        std::string getArgument() const;
-
-        /// @name FOX-callbacks
-        /// @{
-
-        /// @brief Called when user changes Z value
-        long onCmdSetValue(FXObject*, FXSelector, void*);
-
-        /// @}
+        /// @brief Called when user set string value
+        long onCmdSetStringValue(FXObject*, FXSelector, void*);
 
     protected:
         /// @brief FOX need this
         StringArgument();
 
-        /// @brief string Textfield
+        /// @brief get value
+        const std::string getValue() const;
+
+        /// @brief string textField
         FXTextField* myStringTextField = nullptr;
 
     private:
-        /// @brief parameter label
-        MFXLabelTooltip* myParameterLabel = nullptr;
-
         /// @brief Invalidated copy constructor.
         StringArgument(const StringArgument&) = delete;
 
@@ -198,8 +181,8 @@ public:
         StringArgument& operator=(const StringArgument&) = delete;
     };
 
-    /// @brief int
-    class IntArgument : public StringArgument {
+    /// @brief int argument
+    class IntArgument : public Argument {
         /// @brief FOX-declaration
         FXDECLARE(GNEToolDialogElements::IntArgument)
 
@@ -207,9 +190,21 @@ public:
         /// @brief constructor
         IntArgument(GNEToolDialog* toolDialogParent, const std::string name, const Option* option);
 
+        /// @brief reset to default value
+        void reset();
+
+        /// @brief Called when user set int value
+        long onCmdSetIntValue(FXObject*, FXSelector, void*);
+
     protected:
         /// @brief FOX need this
         IntArgument();
+
+        /// @brief get value
+        const std::string getValue() const;
+
+        /// @brief int textField
+        FXTextField* myIntTextField = nullptr;
 
     private:
         /// @brief Invalidated copy constructor.
@@ -219,8 +214,8 @@ public:
         IntArgument& operator=(const IntArgument&) = delete;
     };
 
-    /// @brief float
-    class FloatArgument : public StringArgument {
+    /// @brief float argument
+    class FloatArgument : public Argument {
         /// @brief FOX-declaration
         FXDECLARE(GNEToolDialogElements::FloatArgument)
 
@@ -228,9 +223,21 @@ public:
         /// @brief constructor
         FloatArgument(GNEToolDialog* toolDialogParent, const std::string name, const Option* option);
     
+        /// @brief reset to default value
+        void reset();
+
+        /// @brief Called when user set float value
+        long onCmdSetFloatValue(FXObject*, FXSelector, void*);
+
     protected:
         /// @brief FOX need this
         FloatArgument();
+
+        /// @brief get value
+        const std::string getValue() const;
+
+        /// @brief float textField
+        FXTextField* myFloatTextField = nullptr;
 
     private:
         /// @brief Invalidated copy constructor.
@@ -238,5 +245,39 @@ public:
 
         /// @brief Invalidated assignment operator.
         FloatArgument& operator=(const IntArgument&) = delete;
+    };
+
+
+    /// @brief bool argument
+    class BoolArgument : public Argument {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEToolDialogElements::BoolArgument)
+
+    public:
+        /// @brief constructor
+        BoolArgument(GNEToolDialog* toolDialogParent, const std::string name, const Option* option);
+
+        /// @brief reset to default value
+        void reset();
+
+        /// @brief Called when user set float value
+        long onCmdSetBoolValue(FXObject*, FXSelector, void*);
+
+    protected:
+        /// @brief FOX need this
+        BoolArgument();
+
+        /// @brief get value
+        const std::string getValue() const;
+
+        /// @brief float textField
+        FXTextField* myBoolTextField = nullptr;
+
+    private:
+        /// @brief Invalidated copy constructor.
+        BoolArgument(const IntArgument&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        BoolArgument& operator=(const IntArgument&) = delete;
     };
 };

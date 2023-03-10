@@ -160,7 +160,7 @@ GNEToolDialog::buildArguments() {
         } else if (option.second->isFloat()) {
             myArguments.push_back(new GNEToolDialogElements::FloatArgument(this, option.first, option.second));
         } else if (option.second->isBool()) {
-            //myArguments.push_back(new GNEToolDialogElements::FileNameArgument(this, option.first, option.second));
+            myArguments.push_back(new GNEToolDialogElements::BoolArgument(this, option.first, option.second));
         } else if (option.second->isFileName()) {
             myArguments.push_back(new GNEToolDialogElements::FileNameArgument(this, option.first, option.second));       
         } else {
