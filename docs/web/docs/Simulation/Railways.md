@@ -388,6 +388,8 @@ Constraints can be queried and modified via TraCI:
 
 # Visualization
 
+## Trains
+
 The length of railway carriages, locomotive and the gap between the
 carriages can be configured using the following [generic vType
 parameters](../Simulation/GenericParameters.md):
@@ -397,6 +399,29 @@ parameters](../Simulation/GenericParameters.md):
 - carriageGap
 
 These parameters control the appearance of trains in [sumo-gui](../sumo-gui.md) when drawing vehicles with the style 'simple shapes'.
+
+## Network
+
+By default, railway tracks are shown in [sumo-gui](../sumo-gui.md) in a distinct style:
+
+- tracks and crossties are rendendered instead of filled shapes when zoomed in (configurable with visualization setting *show rails*)
+- junction shapes are not shown and the internal edges that make up a railway switch are always visible (can be changed setting junction coloring to any scheme other than *uniform*)
+- traffic light (rail signal) indicators are drawn with an offset to the right to indicate the direction in which the signal is applied
+- for each pair of edges that make up a bidirectional track, only of is drawn to avoid artefacts. To make both edges visible (i.e. for selecting or otherwise interacting with that edge), the visualization setting *spread bidirectional railways* in the *Streets* tab can be activated
+
+## Abstract Networks
+
+Road networks are most often modelled according to their actual layout in [cartesian space](../Geo-Coordinates.md). Such networks have all distances and angles in the same proportions as those of geographical map.
+
+In the railway domain it is often useful to work with schematic (also called abstract) networks instead of (or in addition to) geographical networks.
+Such abstract networks can make it easiert so see all tracks and switches on a single screen without zooming and panning. SUMO supports working with abstract maps in the following ways:
+
+- all roads and tracks can have a custom "length" value that differs from their visual length. This allows to separate the visualization of the network from it's simulation behavior (w.r.t. distance travelled).
+- sumo-gui supports loading an abstract map of a network along with a geographical map by using options **-n geo.net.xml -N abstract.net.xml**. The two networks must have the exact same topology and may only differ in their geometry.
+  - The user may switch between the visualization of either geometry via the hotkey **CTRL+K** or by setting Street visualization setting *secondary shape*.
+  - All outputs that include geometry information (i.e. [fcd-output](Output/FCDOutput.md)) will be according the the network loaded with option **-n**
+ - the tool [abstractRail.py](../Tools/Net.html#abstractrailpy) can be used to convert geographic rail networks in abstract rail networks
+ 
 
 # Miscellaneous
 - Error checking for [railway schedules](Public_Transport.md#single_vehicles_and_trips) can be done with the tool [checkStopOrder.py](../Tools/Routes.md#checkstoporderpy) 
