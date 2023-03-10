@@ -44,8 +44,8 @@ class GNEToolDialog : protected FXDialogBox {
 
 public:
     /// @brief Constructor
-    GNEToolDialog(GNEApplicationWindow* GNEApp, const std::string& name, FXMenuPane* menu, 
-                  const FXSelector selector, const std::string& templateToolStr);
+    GNEToolDialog(GNEApplicationWindow* GNEApp, const std::pair<std::string, std::string> &templateTool, 
+                  FXMenuPane* menu, const FXSelector selector);
 
     /// @brief destructor
     ~GNEToolDialog();

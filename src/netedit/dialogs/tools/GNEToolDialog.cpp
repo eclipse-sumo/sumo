@@ -19,6 +19,7 @@
 /****************************************************************************/
 
 #include <netedit/GNEApplicationWindow.h>
+#include <utils/common/FileHelpers.h>
 #include <utils/foxtools/MFXLabelTooltip.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/handlers/TemplateHandler.h>
@@ -46,16 +47,21 @@ FXIMPLEMENT(GNEToolDialog, FXDialogBox, GNEToolDialogMap, ARRAYNUMBER(GNEToolDia
 // member method definitions
 // ===========================================================================
 
-GNEToolDialog::GNEToolDialog(GNEApplicationWindow* GNEApp, const std::string& name, FXMenuPane* menu,
-        FXSelector selector, const std::string& templateToolStr) :
-    FXDialogBox(GNEApp->getApp(), name.c_str(), GUIDesignDialogBoxExplicit(0, 0)),
+GNEToolDialog::GNEToolDialog(GNEApplicationWindow* GNEApp, const std::pair<std::string, std::string> &templateTool, 
+        FXMenuPane* menu, FXSelector selector) :
+    FXDialogBox(GNEApp->getApp(), "Tool", GUIDesignDialogBoxExplicit(0, 0)),
     myGNEApp(GNEApp),
     mySelector(selector) {
+    // get tool name from path
+    const auto toolName = FileHelpers::getFileFromPath(templateTool.first, true);
+    // set dialog name and icon
+    setTitle(toolName.c_str());
+    setIcon(GUIIconSubSys::getIcon(GUIIcon::TOOL_PYTHON));
     // build menu command
-    GUIDesigns::buildFXMenuCommandShortcut(menu, name, "", "Execute python tool '" + name + "'.", 
+    GUIDesigns::buildFXMenuCommandShortcut(menu, toolName, "", "Execute python tool '" + toolName + "'.", 
         GUIIconSubSys::getIcon(GUIIcon::TOOL_PYTHON), GNEApp, selector);
     // parse tool options
-    TemplateHandler::parseTemplate(myToolsOptions, templateToolStr);
+    TemplateHandler::parseTemplate(myToolsOptions, templateTool.second);
     // build horizontalFrame for content
     myContentFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrameFixed);
     // first add header
