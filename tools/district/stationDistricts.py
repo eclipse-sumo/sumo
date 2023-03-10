@@ -85,15 +85,15 @@ class Station:
         self.coord = None
 
     def write(self, outf, outf_poi, index, color):
-        outf.write('    <taz id="%s" name="%s" color="%s" edges="%s">\n' % (
-            index, self.name, color, ' '.join(sorted([e.getID() for e in self.edges]))))
+        outf.write(u'    <taz id="%s" name="%s" color="%s" edges="%s">\n' %
+                   (index, self.name, color, ' '.join(sorted([e.getID() for e in self.edges]))))
         if self.coord:
-            outf.write('       <param key="coord" value="%s"/>\n' % ' '.join(map(str, self.coord)))
-        outf.write('    </taz>\n')
+            outf.write(u'       <param key="coord" value="%s"/>\n' % ' '.join(map(str, self.coord)))
+        outf.write(u'    </taz>\n')
 
         if self.coord and outf_poi:
-            outf_poi.write('    <poi id="%s" name="%s" x="%s" y="%s"/>\n' %
-                       (index, self.name, self.coord[0], self.coord[1]))
+            outf_poi.write(u'    <poi id="%s" name="%s" x="%s" y="%s"/>\n' %
+                           (index, self.name, self.coord[0], self.coord[1]))
 
 
 def allowsAny(edge, vclasses):
@@ -142,7 +142,7 @@ def findParallel(options, net, stations):
             sum([c[0] for c in coords]) / len(coords),
             sum([c[1] for c in coords]) / len(coords))
 
-        for edge, dist in net.getNeighboringEdges(*station.coord, options.parallelRadius):
+        for edge, dist in net.getNeighboringEdges(station.coord[0], station.coord[1], options.parallelRadius):
             station.edges.add(edge)
 
 
@@ -207,7 +207,7 @@ def splitStations(options, stations):
     bidiSplits = defaultdict(list)
     with openz(options.splitOutput, 'w') as outf:
         sumolib.writeXMLHeader(outf, "$Id$", "edges", schemaPath="edgediff_file.xsd", options=options)
-        for edge, stations in edgeStation.items():
+        for edge, stations in sorted(edgeStation.items(), key=lambda e: e[0].getID()):
             if len(stations) == 1:
                 continue
             shape = edge.getShape(True)
@@ -233,12 +233,12 @@ def splitStations(options, stations):
                 else:
                     bidiSplits[edge] = splits
 
-            outf.write('    <edge id="%s">\n' % edge.getID())
+            outf.write(u'    <edge id="%s">\n' % edge.getID())
             for pos, nodeID in splits:
-                outf.write('        <split pos="%s" id="%s"/>\n' % (pos, nodeID))
-            outf.write('    </edge>\n')
+                outf.write(u'        <split pos="%s" id="%s"/>\n' % (pos, nodeID))
+            outf.write(u'    </edge>\n')
 
-        outf.write("</edges>\n")
+        outf.write(u"</edges>\n")
 
 
 def assignByDistance(options, net, stations):
@@ -297,7 +297,7 @@ def main(options):
         sumolib.writeXMLHeader(outf, "$Id$", "additional", options=options)
         for i, name in enumerate(sorted(stations.keys())):
             stations[name].write(outf, outf_poi, i, options.colorgen())
-        outf.write("</additional>\n")
+        outf.write(u"</additional>\n")
 
     if outf_poi:
         outf_poi.close()
