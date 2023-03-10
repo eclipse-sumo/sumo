@@ -357,11 +357,14 @@ class MFXMenuCheckIcon;
 /// @brief design for the main content frame of every frame/dialog
 #define GUIDesignContentsFrame                  (LAYOUT_FILL_X | LAYOUT_FILL_Y)
 
-/// @brief design for the GNEFrame
-#define GUIDesignContentsGNEFrame               (LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-
-/// @brief design for auxiliar (Without borders) frames used to pack another frames extended in all directions
+/// @brief design for auxiliar (Without borders) frame extended in all directions
 #define GUIDesignAuxiliarFrame                  (LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+
+/// @brief design for auxiliar (Without borders) fixed
+#define GUIDesignAuxiliarFrameFixed             (LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+
+/// @brief design for auxiliar (Without borders) frame with fixed width and extended height
+#define GUIDesignAuxiliarFrameFixedWidth(width) (LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y), 0, 0, width, 0, 0, 0, 0, 0, 0, 0
 
 /// @brief design for auxiliar (Without borders) horizontal frame used to pack another frames
 #define GUIDesignAuxiliarHorizontalFrame        (LAYOUT_FILL_X), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
@@ -574,9 +577,6 @@ class MFXMenuCheckIcon;
 
 /// @brief design for dialog box with specift width and height that can be stretched (But not shrinked)
 #define GUIDesignDialogBoxExplicitStretchable(width, height)    (DECOR_CLOSE | DECOR_TITLE | LAYOUT_EXPLICIT | DECOR_STRETCHABLE), 0, 0, width, height, 4, 4, 4, 4, 4, 4
-
-/// @brief design for dialog box for tools
-#define GUIDesignDialogBoxTools                                 (DECOR_CLOSE | DECOR_TITLE), 0, 0, 0, 0, 4, 4, 4, 4, 4, 4
 
 /// @}
 
