@@ -298,7 +298,7 @@ def formatToolTemplate(templateStr):
     # update last line
     if templateStr == '':
         templateStr = '""'
-    templateStr += ';\n'
+    templateStr += '\n'
     return templateStr
 
 
@@ -327,21 +327,25 @@ def generateToolTemplate(toolDir, subDirA, subDirB, toolName):
     @brief generate tool template
     """
     # get toolPath
-    toolPath = os.path.join(toolDir, subDirA, subDirB, toolName + ".py")
+    toolPath = os.path.join(subDirA, subDirB, toolName + ".py")
+    # get path
+    path = os.path.join(toolDir, toolPath)
+    # create pair
+    pair = 'const std::pair<std::string, std::string> ' + toolName + 'Template = std::make_pair("' + toolPath + '",\n'
     # check if exists
-    if os.path.exists(toolPath):
+    if os.path.exists(path):
         # show info
         print("Obtaining '" + toolName + "' tool template")
         # obtain template piping stdout using check_output
         try:
-            template = check_output([sys.executable, toolPath, "--save-template", "stdout"], universal_newlines=True)
+            template = check_output([sys.executable, path, "--save-template", "stdout"], universal_newlines=True)
         except CalledProcessError as e:
             sys.stderr.write("Error when generating tool template for %s: '%s'" % (toolName, e))
-            return "const std::string " + toolName + 'Template = "";'
+            return pair + ');\n'
         # join variable and formated template
-        return "const std::string " + toolName + 'Template = ' + formatToolTemplate(template)
+        return pair + formatToolTemplate(template) + ');\n'
     # if tool wasn't found, then raise exception
-    raise Exception(toolName + "Template cannot be generated. '" + toolPath + "' not found.")
+    raise Exception(toolName + "Template cannot be generated. '" + path + "' not found.")
 
 
 if __name__ == "__main__":
