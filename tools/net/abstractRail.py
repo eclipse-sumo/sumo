@@ -159,14 +159,15 @@ def getNodes(edges):
     return nodes
 
 
-def rotateByMainLine(mainLine, edges, nodeCoords, edgeShapes, reverse):
+def rotateByMainLine(mainLine, edges, nodeCoords, edgeShapes, reverse, horizontal = False):
     center = mainLine[0]
     angle = gh.angleTo2D(mainLine[0], mainLine[1])
     nodes = getNodes(edges)
 
     if reverse:
         def transform(coord):
-            coord = gh.rotateAround2D(coord, angle, (0, 0))
+            if not horizontal:
+                coord = gh.rotateAround2D(coord, angle, (0, 0))
             coord = gh.add(coord, center)
             return coord
     else:
@@ -462,8 +463,7 @@ def main(options):
                 patchShapes(options, edges, nodeCoords, edgeShapes, nodeYValues)
         # computeDistinctHorizontalPoints()
         # squeezeHorizontal(edges)
-        if not options.horizontal:
-            rotateByMainLine(mainLine, edges, nodeCoords, edgeShapes, True)
+        rotateByMainLine(mainLine, edges, nodeCoords, edgeShapes, True, options.horizontal)
 
     if len(regions) > 1:
         cleanShapes(options, net, nodeCoords, edgeShapes)
