@@ -64,6 +64,13 @@ public:
      * @return The directory of the named file
      */
     static std::string getFilePath(const std::string& path);
+    
+    /** @brief Removes the path information from the given path
+     *
+     * @param[in] path The path to the file to return the file (with extension)
+     * @return the named file (with extension)
+     */
+    static std::string getFileFromPath(std::string path, const bool removeExtension);
 
     /** @brief Add an extension to the given file path
      *

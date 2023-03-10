@@ -81,11 +81,29 @@ FileHelpers::isDirectory(std::string path) {
 
 std::string
 FileHelpers::getFilePath(const std::string& path) {
-    const std::string::size_type beg = path.find_last_of("\\/");
+    const auto beg = path.find_last_of("\\/");
     if (beg == std::string::npos) {
         return "";
     }
     return path.substr(0, beg + 1);
+}
+
+
+std::string
+FileHelpers::getFileFromPath(std::string path, const bool removeExtension) {
+    // first remove extension
+    if (removeExtension) {
+        const auto begExtension = path.find_last_of(".");
+        if (begExtension != std::string::npos) {
+            path = path.substr(0, begExtension);
+        }
+    }
+    // now remove path
+    const auto begPath = path.find_last_of("\\/");
+    if (begPath != std::string::npos) {
+        path = path.substr(begPath + 1, path.size());
+    }
+    return path;
 }
 
 
