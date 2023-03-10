@@ -204,8 +204,8 @@ Example call:
 python tools/net/split_at_stops.py <stopfile> -n <net-file> -r <route-file> -o <output-net-file> --stop-output <output-stop-file> --route-output <output-route-file> --stop-type busStop
 ```
 
-note !!!
-     A similar functionality is achieved by [stationDistricts.py --split-output FILE](District.md#stationdistrictspy) which splits edges at the midpoint between stops.
+!!! note
+    A similar functionality is achieved by [stationDistricts.py --split-output FILE](District.md#stationdistrictspy) which splits edges at the midpoint between stops.
 
 # abstractRail.py
 
