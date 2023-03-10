@@ -351,7 +351,7 @@ def generateToolTemplate(toolDir, subDirA, subDirB, toolName):
             template = check_output([sys.executable, toolPath, "--save-template", "stdout"], universal_newlines=True)
         except CalledProcessError as e:
             sys.stderr.write("Error when generating tool template for %s: '%s'" % (toolName, e))
-            return pair + ');\n'
+            return pair + '"");\n'
         # join variable and formated template
         return pair + formatToolTemplate(template) + ');\n'
     # if tool wasn't found, then raise exception
