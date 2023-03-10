@@ -121,6 +121,7 @@ routesA:outA.rou.xml
 routesB:outB.rou.xml
 tripinfos:004/tripinfo_004.xml
 additional:out.add.xml
+additional2:out2.add.xml
 diff_nod:diff.nod.xml
 diff_edg:diff.edg.xml
 diff_con:diff.con.xml
@@ -304,6 +305,7 @@ od:<!-- generated on{[->]}-->
 net:<!--{[->]}-->
 tripinfos:<!--{[->]}-->
 additional:<!-- generated on{[->]}-->
+additional2:<!-- generated on{[->]}-->
 osmimport:<!--{[->]}-->
 osmstops:<!--{[->]}-->
 osmlines:<!--{[->]}-->

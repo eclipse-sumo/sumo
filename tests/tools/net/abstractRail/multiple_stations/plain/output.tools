@@ -1,0 +1,5 @@
+Reading net
+Processing region 'ALL' with 198 edges
+Starting optimization with 1792 inequalities and 916 equalities
+Optimization succeeded after 15.662547588348389s (score=5397.800404988016)
+Building new net

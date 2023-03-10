@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-03-10 17:34:38.525480 by stationDistricts.py v1_16_0+1166-e79ff1d49c2
+<!-- generated on 2023-03-10 18:09:48.483508 by stationDistricts.py v1_16_0+1167-46f216acae3
 <configuration>
     <net-file value="input_net.net.xml"/>
-    <output value="dummy.xml"/>
+    <output value="out2.add.xml"/>
     <split-output value="out.add.xml"/>
     <stop-file value="input_additional.add.xml"/>
 </configuration>
