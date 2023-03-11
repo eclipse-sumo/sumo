@@ -38,6 +38,11 @@ from sumolib.options import ArgumentParser  # noqa
 from sumolib.miscutils import Colorgen  # noqa
 import sumolib.geomhelper as gh  # noqa
 
+try:
+    sys.stdout.reconfigure(encoding='utf-8')
+except:
+    pass
+
 INTERSECT_RANGE = 1e5
 COMPRESSION_WEIGHT = 0.01
 STRAIGHT_WEIGHT = 2
