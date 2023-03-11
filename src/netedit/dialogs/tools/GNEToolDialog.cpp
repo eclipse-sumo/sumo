@@ -61,7 +61,11 @@ GNEToolDialog::GNEToolDialog(GNEApplicationWindow* GNEApp, const std::pair<std::
     GUIDesigns::buildFXMenuCommandShortcut(menu, toolName, "", "Execute python tool '" + toolName + "'.", 
         GUIIconSubSys::getIcon(GUIIcon::TOOL_PYTHON), GNEApp, selector);
     // parse tool options
-    TemplateHandler::parseTemplate(myToolsOptions, templateTool.second);
+    if (templateTool.second != "") {
+        try {
+            TemplateHandler::parseTemplate(myToolsOptions, templateTool.second);
+        } catch (ProcessError&) { }
+    }
     // build horizontalFrame for content
     myContentFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrameFixed);
     // first add header
