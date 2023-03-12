@@ -1,23 +1,23 @@
 Reading net
 Processing region 'Bestensee' with 2 edges
-Starting optimization with 4 inequalities and 0 equalities
-Optimization succeeded after 0.007564544677734375s (score=3.4830080197278065e-10)
+Starting optimization with 8 inequalities
+Optimization succeeded after 0.008323431015014648s (score=3.006291478189441e-10)
 Processing region 'Eichwalde' with 30 edges
-Starting optimization with 135 inequalities and 18 equalities
-Optimization succeeded after 0.12275290489196777s (score=59.000001915528905)
+Starting optimization with 164 inequalities
+Optimization succeeded after 0.20284223556518555s (score=55.80000001950115)
 Processing region 'Königs Wusterhausen' with 108 edges
-Starting optimization with 900 inequalities and 429 equalities
-Optimization succeeded after 109.6974503993988s (score=3217.8000302163914)
+Starting optimization with 998 inequalities
+Optimization succeeded after 54.560973167419434s (score=2490.4000006829465)
 Processing region 'Niederlehme' with 5 edges
-Starting optimization with 10 inequalities and 0 equalities
-Optimization succeeded after 0.006710529327392578s (score=2.8439263186875997e-09)
+Starting optimization with 20 inequalities
+Optimization succeeded after 0.006926774978637695s (score=2.6812058256744186e-09)
 Processing region 'Wildau' with 17 edges
-Starting optimization with 74 inequalities and 10 equalities
-Optimization succeeded after 0.030517578125s (score=92.8000043193819)
+Starting optimization with 100 inequalities
+Optimization succeeded after 0.041875600814819336s (score=88.0000000182941)
 Processing region 'Zeesen' with 6 edges
-Starting optimization with 18 inequalities and 0 equalities
-Optimization succeeded after 0.009374856948852539s (score=1.200000090819034)
+Starting optimization with 26 inequalities
+Optimization succeeded after 0.009815454483032227s (score=1.4000000024051076)
 Processing region 'Zeuthen' with 18 edges
-Starting optimization with 67 inequalities and 7 equalities
-Optimization succeeded after 0.025130271911621094s (score=85.60000002036368)
+Starting optimization with 97 inequalities
+Optimization succeeded after 0.03849959373474121s (score=83.60000049158235)
 Building new net
