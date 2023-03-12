@@ -1,23 +1,23 @@
 Reading net
 Processing region 'Bestensee' with 2 edges
 Starting optimization with 8 inequalities
-Optimization succeeded after 0.008323431015014648s (score=3.006291478189441e-10)
+Optimization succeeded after 0.00771331787109375s (score=3.006291478189441e-10)
 Processing region 'Eichwalde' with 30 edges
-Starting optimization with 164 inequalities
-Optimization succeeded after 0.20284223556518555s (score=55.80000001950115)
+Starting optimization with 157 inequalities
+Optimization succeeded after 0.2737305164337158s (score=55.800000001268884)
 Processing region 'Königs Wusterhausen' with 108 edges
-Starting optimization with 998 inequalities
-Optimization succeeded after 54.560973167419434s (score=2490.4000006829465)
+Starting optimization with 946 inequalities
+Optimization succeeded after 64.84149742126465s (score=2490.4000411864577)
 Processing region 'Niederlehme' with 5 edges
 Starting optimization with 20 inequalities
-Optimization succeeded after 0.006926774978637695s (score=2.6812058256744186e-09)
+Optimization succeeded after 0.013135433197021484s (score=2.6812058256744186e-09)
 Processing region 'Wildau' with 17 edges
-Starting optimization with 100 inequalities
-Optimization succeeded after 0.041875600814819336s (score=88.0000000182941)
+Starting optimization with 88 inequalities
+Optimization succeeded after 0.04062032699584961s (score=87.80000001346694)
 Processing region 'Zeesen' with 6 edges
 Starting optimization with 26 inequalities
-Optimization succeeded after 0.009815454483032227s (score=1.4000000024051076)
+Optimization succeeded after 0.019022226333618164s (score=1.4000000024051076)
 Processing region 'Zeuthen' with 18 edges
-Starting optimization with 97 inequalities
-Optimization succeeded after 0.03849959373474121s (score=83.60000049158235)
+Starting optimization with 87 inequalities
+Optimization succeeded after 0.0445859432220459s (score=83.60000015024487)
 Building new net

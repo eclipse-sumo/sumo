@@ -1,5 +1,5 @@
 Reading net
 Processing region 'ALL' with 65 edges
-Starting optimization with 543 inequalities
-Optimization succeeded after 9.082785367965698s (score=1747.2000006009616)
+Starting optimization with 549 inequalities
+Optimization succeeded after 12.440596342086792s (score=1747.2000061044218)
 Building new net
