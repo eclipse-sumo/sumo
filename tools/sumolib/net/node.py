@@ -198,3 +198,6 @@ class Node:
                 if not (e.getToNode() in neighboring) and not(e.getToNode().getID() == self.getID()):
                     neighboring.append(e.getToNode())
         return neighboring
+
+    def __repr__(self):
+        return '<junction id="%s"/>' % self._id

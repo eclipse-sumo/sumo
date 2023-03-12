@@ -195,8 +195,8 @@ def rotateByMainLine(mainLine, edges, nodeCoords, edgeShapes, reverse,
 def getEdgeOrdering(edgeIDs, ordering, useOutgoing):
     result = []
     for vN in ordering:
-        if type(vN) == tuple:
-            result.append(vN[0])
+        if type(vN) == sumolib.net.edge.Edge:
+            result.append(vN.getID())
         else:
             edges = vN.getOutgoing() if useOutgoing else vN.getIncoming()
             # filter bidi
