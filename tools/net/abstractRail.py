@@ -192,6 +192,41 @@ def rotateByMainLine(mainLine, edges, nodeCoords, edgeShapes, reverse,
         edgeShapes[edge.getID()] = [transform(coord) for coord in shape]
 
 
+def getEdgeOrdering(edgeIDs, ordering, useOutgoing):
+    result = []
+    for vN in ordering:
+        if type(vN) == tuple:
+            result.append(vN[0])
+        else:
+            edges = vN.getOutgoing() if useOutgoing else vN.getIncoming()
+            # filter bidi
+            edges = [e.getID() for e in edges if e.getID() in edgeIDs]
+            if len(edges) == 1:
+                result.append(edges[0])
+            else:
+                result.append(None)
+    return result
+
+def differentOrderings(edgeIDs, o1, o2):
+    """
+    check whether two orderings are different
+    """
+    if o2 is None or len(o1) != len(o2):
+        return True
+
+    # convert node to edge (two possibilities for each ordering)
+    o1a = getEdgeOrdering(edgeIDs, o1, True)
+    o1b = getEdgeOrdering(edgeIDs, o1, False)
+    o2a = getEdgeOrdering(edgeIDs, o2, True)
+    o2b = getEdgeOrdering(edgeIDs, o2, False)
+
+    for o1x in [o1a, o1b]:
+        for o2x in [o2a, o2b]:
+            if o1x == o2x:
+                return False
+    return True
+
+
 def computeTrackOrdering(options, mainLine, edges, nodeCoords, edgeShapes):
     """
     precondition: network is rotated so that the mainLine is on the horizontal
@@ -203,11 +238,14 @@ def computeTrackOrdering(options, mainLine, edges, nodeCoords, edgeShapes):
     # step 1: find ordering constraints
     orderings = []
     nodes = getNodes(edges)
+    edgeIDs = set([e.getID() for e in edges])
     virtualNodes = defaultdict(list)
 
     xyNodes = [(nodeCoords[n.getID()], n) for n in nodes]
     xyNodes.sort(key=lambda x: x[0][0])
 
+    prevOrdering = None
+    sameOrdering = []
     for (x, y), node in xyNodes:
         node._newX = x
         vertical = [(x, -INTERSECT_RANGE), (x, INTERSECT_RANGE)]
@@ -234,12 +272,26 @@ def computeTrackOrdering(options, mainLine, edges, nodeCoords, edgeShapes):
             ordering.append((y, node))
             ordering.sort(key=lambda x: x[0])
             ordering = [vn for y, vn in ordering]
-            orderings.append((node.getID(), ordering))
 
-    # for o in orderings: print(o)
+            if differentOrderings(edgeIDs, ordering, prevOrdering):
+                orderings.append((node.getID(), ordering))
+                prevOrdering = ordering
+                if options.verbose2:
+                    print(x, list(map(getVNodeID, ordering)))
+            else:
+                sameOrdering.append((prevOrdering, ordering))
+                if options.verbose2:
+                    print("sameOrdering:", prevOrdering, ordering)
 
     # step 3:
     nodeYValues = optimizeTrackOrder(options, edges, nodes, virtualNodes, orderings, nodeCoords)
+
+    # step 4: apply yValues to virtual nodes that were skipped
+    for prevOrdering, ordering in sameOrdering:
+        #print("sameOrdering:", prevOrdering, ordering)
+        for n1, n2 in zip(prevOrdering, ordering):
+            #print("n1=%s n2=%s y=%s" % (getVNodeID(n1), getVNodeID(n2), nodeYValues[n1]))
+            nodeYValues[n2] = nodeYValues[n1]
 
     if options.verbose2:
         for k, v in nodeYValues.items():
@@ -283,7 +335,7 @@ def optimizeTrackOrder(options, edges, nodes, virtualNodes, orderings, nodeCoord
     ySameConstraints = []
     yPrios = []
     for edge in edges:
-        vNodes = virtualNodes[edge]
+        vNodes = [vN for vN in virtualNodes[edge] if vN in nodeIndex]
         vNodes.append(edge.getFromNode())
         vNodes.append(edge.getToNode())
         vNodes.sort(key=getVNodeX)
