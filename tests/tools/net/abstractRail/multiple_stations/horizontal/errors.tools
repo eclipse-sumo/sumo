@@ -1,6 +1,2 @@
 Cannot compute track ordering for edge '-176623658#0' because it runs orthogonal to the main line (intersects: [-824.2652473284106, -725.7540932715638])
-Warning: Found sharp turn with radius 2.87 at the start of edge '1119144142#1'.
-Warning: Found angle of 178.07 degrees at edge '1119219107', segment 0.
-Warning: Found sharp turn with radius 7.07 at the start of edge '1119219107'.
-Warning: Found sharp turn with radius 6.77 at the start of edge '26633642#0'.
 Warning: Lane '-347977095_0' is not connected from any incoming edge at junction '428647707'.

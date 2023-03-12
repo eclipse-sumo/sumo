@@ -1,15 +1,8 @@
-/home/kobo/dlr/sumo/tests/../tools/net/abstractRail.py:381: OptimizeWarning: Solving system with option 'cholesky':True failed. It is normal for this to happen occasionally, especially as the solution is approached. However, if you see this frequently, consider setting option 'cholesky' to False.
-  res = opt.linprog(c, A_ub=A_ub, b_ub=b_ub, options=linProgOpts)
-/home/kobo/dlr/sumo/tests/../tools/net/abstractRail.py:381: OptimizeWarning: Solving system with option 'sym_pos':True failed. It is normal for this to happen occasionally, especially as the solution is approached. However, if you see this frequently, consider setting option 'sym_pos' to False.
-  res = opt.linprog(c, A_ub=A_ub, b_ub=b_ub, options=linProgOpts)
-/home/kobo/dlr/sumo/tests/../tools/net/abstractRail.py:381: OptimizeWarning: Solving system with option 'sym_pos':False failed. This may happen occasionally, especially as the solution is approached. However, if you see this frequently, your problem may be numerically challenging. If you cannot improve the formulation, consider setting 'lstsq' to True. Consider also setting `presolve` to True, if it is not already.
-  res = opt.linprog(c, A_ub=A_ub, b_ub=b_ub, options=linProgOpts)
-Warning: Found angle of 138.06 degrees at edge '-153134060#3', segment 0.
 Warning: Found angle of 136.73 degrees at edge '-326225735#1', segment 1.
-Warning: Found angle of 143.55 degrees at edge '1151635682', segment 1.
-Warning: Found angle of 138.06 degrees at edge '153134060#3', segment 0.
 Warning: Found angle of 143.54 degrees at edge '22955557#8', segment 0.
+Warning: Found angle of 140.36 degrees at edge '248740648#3', segment 0.
+Warning: Found angle of 136.39 degrees at edge '248740648#4.1425', segment 23.
+Warning: Found angle of 136.49 degrees at edge '255228349#0', segment 0.
 Warning: Found sharp turn with radius 7.06 at the start of edge '255228349#0'.
-Warning: Found sharp turn with radius 6.76 at the start of edge '26633642#0'.
 Warning: Lane '-347977095_0' is not connected from any incoming edge at junction '428647707'.
-Warning: 18 total messages of type: Found angle of % degrees at edge '%', segment %.
+Warning: 13 total messages of type: Found angle of % degrees at edge '%', segment %.
