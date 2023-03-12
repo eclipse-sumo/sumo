@@ -294,8 +294,14 @@ def computeTrackOrdering(options, mainLine, edges, nodeCoords, edgeShapes):
 
 
 def optimizeTrackOrder(options, edges, nodes, orderings, nodeCoords):
+    constrainedEdges = set()
+    for nodeID, ordering in orderings:
+        for vNode in ordering:
+            if type(vNode) == sumolib.net.edge.Edge:
+                constrainedEdges.add(vNode)
+
     # every node and every edge is assigned a single y-values
-    generalizedNodes = list(nodes) + list(edges)
+    generalizedNodes = list(nodes) + list(constrainedEdges)
     generalizedNodes.sort(key=lambda n: n.getID())
     nodeIndex = dict((n, i) for i, n in enumerate(generalizedNodes))
 
@@ -311,9 +317,14 @@ def optimizeTrackOrder(options, edges, nodes, orderings, nodeCoords):
     for edge in edges:
         angle = gh.angleTo2D(nodeCoords[edge.getFromNode().getID()], nodeCoords[edge.getToNode().getID()])
         straight = min(abs(angle), abs(angle - math.pi)) < np.deg2rad(10)
-        ySimilarConstraints.append((nodeIndex[edge.getFromNode()], nodeIndex[edge]))
-        ySimilarConstraints.append((nodeIndex[edge.getToNode()], nodeIndex[edge]))
-        yPrios += [2 if straight else 1] * 2
+        if edge in constrainedEdges:
+            numConstraints = 2
+            ySimilarConstraints.append((nodeIndex[edge.getFromNode()], nodeIndex[edge]))
+            ySimilarConstraints.append((nodeIndex[edge.getToNode()], nodeIndex[edge]))
+        else:
+            numConstraints = 1
+            ySimilarConstraints.append((nodeIndex[edge.getFromNode()], nodeIndex[edge.getToNode()]))
+        yPrios += [2 if straight else 1] * numConstraints
 
     k = len(generalizedNodes)
     m = len(ySimilarConstraints)
