@@ -164,7 +164,8 @@ def getNodes(edges):
     return nodes
 
 
-def rotateByMainLine(mainLine, edges, nodeCoords, edgeShapes, reverse, horizontal = False):
+def rotateByMainLine(mainLine, edges, nodeCoords, edgeShapes, reverse,
+        horizontal = False, multiRegions = False):
     center = mainLine[0]
     angle = gh.angleTo2D(mainLine[0], mainLine[1])
     nodes = getNodes(edges)
@@ -173,7 +174,8 @@ def rotateByMainLine(mainLine, edges, nodeCoords, edgeShapes, reverse, horizonta
         def transform(coord):
             if not horizontal:
                 coord = gh.rotateAround2D(coord, angle, (0, 0))
-            coord = gh.add(coord, center)
+            if multiRegions:
+                coord = gh.add(coord, center)
             return coord
     else:
         def transform(coord):
@@ -452,6 +454,7 @@ def main(options):
     net = sumolib.net.readNet(options.netfile)
 
     regions = loadRegions(options, net)
+    multiRegions = len(regions) > 1
     nodeCoords = dict()
     edgeShapes = dict()
 
@@ -468,7 +471,7 @@ def main(options):
                 patchShapes(options, edges, nodeCoords, edgeShapes, nodeYValues)
         # computeDistinctHorizontalPoints()
         # squeezeHorizontal(edges)
-        rotateByMainLine(mainLine, edges, nodeCoords, edgeShapes, True, options.horizontal)
+        rotateByMainLine(mainLine, edges, nodeCoords, edgeShapes, True, options.horizontal, multiRegions)
 
     if len(regions) > 1:
         cleanShapes(options, net, nodeCoords, edgeShapes)
