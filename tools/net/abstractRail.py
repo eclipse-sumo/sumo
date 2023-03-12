@@ -239,8 +239,6 @@ def computeTrackOrdering(options, mainLine, edges, nodeCoords, edgeShapes):
     orderings = []
     nodes = getNodes(edges)
     edgeIDs = set([e.getID() for e in edges])
-    virtualNodes = defaultdict(list)
-
     xyNodes = [(nodeCoords[n.getID()], n) for n in nodes]
     xyNodes.sort(key=lambda x: x[0][0])
 
@@ -258,9 +256,7 @@ def computeTrackOrdering(options, mainLine, edges, nodeCoords, edgeShapes):
             intersects = [i - INTERSECT_RANGE for i in intersects]
             # intersects now holds y-values
             if len(intersects) == 1:
-                virtualNode = (edge.getID(), x)
-                ordering.append((intersects[0], virtualNode))
-                virtualNodes[edge].append(virtualNode)
+                ordering.append((intersects[0], edge))
             elif len(intersects) > 1:
                 sys.stderr.write(("Cannot compute track ordering for edge '%s'" +
                                   " because it runs orthogonal to the main line (intersects: %s)\n") % (
@@ -277,88 +273,47 @@ def computeTrackOrdering(options, mainLine, edges, nodeCoords, edgeShapes):
                 orderings.append((node.getID(), ordering))
                 prevOrdering = ordering
                 if options.verbose2:
-                    print(x, list(map(getVNodeID, ordering)))
+                    print(x, list(map(lambda x: x.getID(), ordering)))
             else:
                 sameOrdering.append((prevOrdering, ordering))
                 if options.verbose2:
                     print("sameOrdering:", prevOrdering, ordering)
 
     # step 3:
-    nodeYValues = optimizeTrackOrder(options, edges, nodes, virtualNodes, orderings, nodeCoords)
+    nodeYValues = optimizeTrackOrder(options, edges, nodes, orderings, nodeCoords)
 
     # step 4: apply yValues to virtual nodes that were skipped
     for prevOrdering, ordering in sameOrdering:
-        #print("sameOrdering:", prevOrdering, ordering)
         for n1, n2 in zip(prevOrdering, ordering):
-            #print("n1=%s n2=%s y=%s" % (getVNodeID(n1), getVNodeID(n2), nodeYValues[n1]))
             nodeYValues[n2] = nodeYValues[n1]
 
     if options.verbose2:
         for k, v in nodeYValues.items():
-            print(getVNodeID(k), v)
+            print(k.getID(), v)
     return nodeYValues
 
 
-def getVNodeX(vNode):
-    try:
-        return vNode._newX
-    except AttributeError:
-        return vNode[1]
-
-
-def getVNodeID(vNode):
-    try:
-        return vNode.getID()
-    except AttributeError:
-        return vNode
-
-
-def optimizeTrackOrder(options, edges, nodes, virtualNodes, orderings, nodeCoords):
-
-    generalizedNodes = list(nodes)
+def optimizeTrackOrder(options, edges, nodes, orderings, nodeCoords):
+    # every node and every edge is assigned a single y-values
+    generalizedNodes = list(nodes) + list(edges)
     generalizedNodes.sort(key=lambda n: n.getID())
     nodeIndex = dict((n, i) for i, n in enumerate(generalizedNodes))
 
     # collect ordering constraints for nodes and virtual nodes
     yOrderConstraints = []
     for nodeID, ordering in orderings:
-        for vNode in ordering:
-            if vNode not in nodes:
-                nodeIndex[vNode] = len(generalizedNodes)
-                generalizedNodes.append(vNode)
-
         for vNode, vNode2 in zip(ordering[:-1], ordering[1:]):
             yOrderConstraints.append((nodeIndex[vNode], nodeIndex[vNode2]))
 
     # collect constraints for keeping edges parallel
-    ySimilarConstraints = []
-    ySameConstraints = []
     yPrios = []
+    ySimilarConstraints = []
     for edge in edges:
-        vNodes = [vN for vN in virtualNodes[edge] if vN in nodeIndex]
-        vNodes.append(edge.getFromNode())
-        vNodes.append(edge.getToNode())
-        vNodes.sort(key=getVNodeX)
         angle = gh.angleTo2D(nodeCoords[edge.getFromNode().getID()], nodeCoords[edge.getToNode().getID()])
         straight = min(abs(angle), abs(angle - math.pi)) < np.deg2rad(10)
-
-        constraints = []
-        # print(" ".join(["%s:%s" % (getVNodeID(vn), getVNodeX(vn)) for vn in vNodes]))
-        for vNode, vNode2 in zip(vNodes[:-1], vNodes[1:]):
-            # print("keepSame: %s | %s" % (getVNodeID(vNode), getVNodeID(vNode2)))
-            constraints.append((nodeIndex[vNode], nodeIndex[vNode2]))
-
-        numPrios = 2
-        if len(constraints) > 2:
-            ySameConstraints += constraints[1:-1]
-            ySimilarConstraints.append(constraints[0])
-            ySimilarConstraints.append(constraints[-1])
-        else:
-            ySimilarConstraints += constraints
-            numPrios = len(constraints)
-        yPrios += [2 if straight else 1] * numPrios
-        if options.verbose2:
-            print("edge=%s straight=%s vNodes=%s" % (edge.getID(), straight, [getVNodeID(vn) for vn in vNodes]))
+        ySimilarConstraints.append((nodeIndex[edge.getFromNode()], nodeIndex[edge]))
+        ySimilarConstraints.append((nodeIndex[edge.getToNode()], nodeIndex[edge]))
+        yPrios += [2 if straight else 1] * 2
 
     k = len(generalizedNodes)
     m = len(ySimilarConstraints)
@@ -394,14 +349,6 @@ def optimizeTrackOrder(options, edges, nodes, virtualNodes, orderings, nodeCoord
         A_ub[row][index2] = -1
         row += 1
 
-    # inner points should all have the same y value
-    q2 = len(ySameConstraints)
-    A_eq = np.zeros((q2, n))
-    b_eq = [0] * q2
-    for row, (fromI, toI) in enumerate(ySameConstraints):
-        A_eq[row][fromI] = 1
-        A_eq[row][toI] = -1
-
     # minimization objective (only minimize slack variables)
     c = [COMPRESSION_WEIGHT] * k + yPrios
 
@@ -409,22 +356,18 @@ def optimizeTrackOrder(options, edges, nodes, virtualNodes, orderings, nodeCoord
         print("k=%s" % k)
         print("m=%s" % m)
         print("q=%s" % q)
-        print("q2=%s" % q2)
         print("A_ub (%s) %s" % (A_ub.shape, A_ub))
         print("b_ub (%s) %s" % (len(b_ub), b_ub))
-        print("A_eq (%s) %s" % (A_eq.shape, A_eq))
-        print("b_eq (%s) %s" % (len(b_eq), b_eq))
         print("c (%s) %s" % (len(c), c))
 
-    if options.skipLarge and (q + q2) > options.skipLarge:
-        sys.stderr.write("Skipping optimization with %s inequalities and %s equalities\n" % (q, q2))
+    if options.skipLarge and q > options.skipLarge:
+        sys.stderr.write("Skipping optimization with %s inequalities\n" % q)
         return dict()
 
     linProgOpts = {}
     started = time.time()
     if options.verbose:
-        print("Starting optimization with %s inequalities and %s equalities" % (
-            q, q2))
+        print("Starting optimization with %s inequalities" % q)
 
     if options.verbose2:
         linProgOpts["disp"] = True
@@ -435,7 +378,7 @@ def optimizeTrackOrder(options, edges, nodes, virtualNodes, orderings, nodeCoord
     if options.maxIter:
         linProgOpts["maxiter"] = options.maxIter
 
-    res = opt.linprog(c, A_ub=A_ub, b_ub=b_ub, A_eq=A_eq, b_eq=b_eq, options=linProgOpts)
+    res = opt.linprog(c, A_ub=A_ub, b_ub=b_ub, options=linProgOpts)
 
     if not res.success:
         sys.stderr.write("Optimization failed\n")
@@ -465,8 +408,19 @@ def patchShapes(options, edges, nodeCoords, edgeShapes, nodeYValues):
 
     for vNode, y in nodeYValues.items():
         if vNode not in nodes:
-            edgeID, x = vNode
-            edgeYValues[edgeID].append((x, y))
+            fromID = vNode.getFromNode().getID()
+            toID = vNode.getToNode().getID()
+            x1, y1 = nodeCoords[fromID]
+            x2, y2 = nodeCoords[toID]
+            xDelta = x2 - x1
+            length = abs(xDelta)
+            yDelta1 = abs(y1 - y)
+            yDelta2 = abs(y2 - y)
+            xOffset1 = min(yDelta1, length / 2)
+            xOffset2 = min(yDelta2, length / 2)
+            sign = 1 if x2 > x1 else -1
+            edgeYValues[vNode.getID()].append((x1 + xOffset1 * sign, y))
+            edgeYValues[vNode.getID()].append((x2 - xOffset2 * sign, y))
 
     for edge in edges:
         edgeID = edge.getID()
@@ -475,9 +429,6 @@ def patchShapes(options, edges, nodeCoords, edgeShapes, nodeYValues):
         shape = [fromCoord, toCoord]
         if edgeID in edgeYValues:
             for coord in edgeYValues[edgeID]:
-                if (abs(coord[0] - fromCoord[0]) < options.trackOffset or
-                        abs(coord[0] - toCoord[0]) < options.trackOffset):
-                    continue
                 shape.append(coord)
             shape.sort()
             if fromCoord[0] > toCoord[0]:
