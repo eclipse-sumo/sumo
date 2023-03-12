@@ -69,6 +69,8 @@ def get_options():
                   help="output shapes roughly aligned along the horizontal")
     ap.add_option("--track-offset", type=float, default=20, dest="trackOffset",
                   help="default distance between parallel tracks")
+    ap.add_option("--track-length", type=float, default=20, dest="trackLength",
+                  help="maximum length of track pieces")
     ap.add_option("--time-limit", type=float, dest="timeLimit",
                   help="time limit per region")
     ap.add_option("--max-iter", type=int, dest="maxIter",
@@ -411,12 +413,14 @@ def optimizeTrackOrder(options, edges, nodes, orderings, nodeCoords):
 
 def patchShapes(options, edges, nodeCoords, edgeShapes, nodeYValues):
     nodes = getNodes(edges)
-    edgeYValues = defaultdict(list)
 
+    # patch node y-values
+    edgeYValues = defaultdict(list)
     for node in nodes:
         coord = nodeCoords[node.getID()]
         nodeCoords[node.getID()] = (coord[0], nodeYValues[node])
 
+    # compute inner edge shape points (0 or 2 per edge)
     for vNode, y in nodeYValues.items():
         if vNode not in nodes:
             fromID = vNode.getFromNode().getID()
@@ -433,6 +437,7 @@ def patchShapes(options, edges, nodeCoords, edgeShapes, nodeYValues):
             edgeYValues[vNode.getID()].append((x1 + xOffset1 * sign, y))
             edgeYValues[vNode.getID()].append((x2 - xOffset2 * sign, y))
 
+    # set edge shapes
     for edge in edges:
         edgeID = edge.getID()
         fromCoord = nodeCoords[edge.getFromNode().getID()]
@@ -445,6 +450,40 @@ def patchShapes(options, edges, nodeCoords, edgeShapes, nodeYValues):
             if fromCoord[0] > toCoord[0]:
                 shape = list(reversed(shape))
         edgeShapes[edgeID] = shape
+
+
+def patchXValues(options, nodeCoords, edgeShapes):
+    xValues = set([c[0] for c in nodeCoords.values()])
+    for shape in edgeShapes.values():
+        xValues.update([c[0] for c in shape])
+
+    xValues = sorted(list(xValues))
+    xValues2 = list(xValues)
+    baseRank = getIndexOfClosestToZero(xValues)
+    for i in range(len(xValues2) - 1):
+        dist = xValues2[i + 1] - xValues2[i]
+        if dist > options.trackLength:
+            for j in range(i + 1):
+                xValues2[j] += dist - options.trackLength
+    # shift the central point back to 0
+    shift = xValues2[baseRank]
+    xValues2 = [x - shift for x in xValues2]
+    xMap = dict(zip(xValues, xValues2))
+
+    for nodeID, coord in nodeCoords.items():
+        nodeCoords[nodeID] = (xMap[coord[0]], coord[1])
+    for edgeID, shape in edgeShapes.items():
+        edgeShapes[edgeID] = [(xMap[c[0]], c[1]) for c in shape]
+
+
+def getIndexOfClosestToZero(values):
+    result = None
+    bestValue = 1e100
+    for i, v in enumerate(values):
+        if abs(v) < bestValue:
+            result = i
+            bestValue = abs(v)
+    return result
 
 
 def cleanShapes(options, net, nodeCoords, edgeShapes):
@@ -483,8 +522,8 @@ def main(options):
             nodeYValues = computeTrackOrdering(options, mainLine, edges, nodeCoords, edgeShapes)
             if nodeYValues:
                 patchShapes(options, edges, nodeCoords, edgeShapes, nodeYValues)
-        # computeDistinctHorizontalPoints()
-        # squeezeHorizontal(edges)
+                if options.trackLength:
+                    patchXValues(options, nodeCoords, edgeShapes)
         rotateByMainLine(mainLine, edges, nodeCoords, edgeShapes, True, options.horizontal, multiRegions)
 
     if len(regions) > 1:
