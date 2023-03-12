@@ -1,8 +1,9 @@
-Warning: Found angle of 136.73 degrees at edge '-326225735#1', segment 1.
-Warning: Found angle of 143.54 degrees at edge '22955557#8', segment 0.
-Warning: Found angle of 140.36 degrees at edge '248740648#3', segment 0.
-Warning: Found angle of 136.39 degrees at edge '248740648#4.1425', segment 23.
-Warning: Found angle of 136.49 degrees at edge '255228349#0', segment 0.
-Warning: Found sharp turn with radius 7.06 at the start of edge '255228349#0'.
+Warning: Found angle of 150.99 degrees at edge '22955557#8', segment 0.
+Warning: Found sharp turn with radius 5.43 at the start of edge '22955557#8'.
+Warning: Found angle of 112.70 degrees at edge '248740648#3', segment 0.
+Warning: Found angle of 118.47 degrees at edge '337460727#0', segment 0.
+Warning: Found angle of 118.47 degrees at edge '392159899#0', segment 0.
+Warning: Found angle of 150.65 degrees at edge '441932169#5', segment 0.
+Warning: Found sharp turn with radius 4.35 at the start of edge '441932173#2'.
 Warning: Lane '-347977095_0' is not connected from any incoming edge at junction '428647707'.
-Warning: 13 total messages of type: Found angle of % degrees at edge '%', segment %.
+Warning: 8 total messages of type: Found angle of % degrees at edge '%', segment %.
