@@ -1,9 +1,3 @@
-C:\erdm_ja\sumo-dev\tools\net\abstractRail.py:379: OptimizeWarning: Solving system with option 'cholesky':True failed. It is normal for this to happen occasionally, especially as the solution is approached. However, if you see this frequently, consider setting option 'cholesky' to False.
-  res = opt.linprog(c, A_ub=A_ub, b_ub=b_ub, A_eq=A_eq, b_eq=b_eq, options=linProgOpts)
-C:\erdm_ja\sumo-dev\tools\net\abstractRail.py:379: OptimizeWarning: Solving system with option 'sym_pos':True failed. It is normal for this to happen occasionally, especially as the solution is approached. However, if you see this frequently, consider setting option 'sym_pos' to False.
-  res = opt.linprog(c, A_ub=A_ub, b_ub=b_ub, A_eq=A_eq, b_eq=b_eq, options=linProgOpts)
-C:\erdm_ja\sumo-dev\tools\net\abstractRail.py:379: OptimizeWarning: Solving system with option 'sym_pos':False failed. This may happen occasionally, especially as the solution is approached. However, if you see this frequently, your problem may be numerically challenging. If you cannot improve the formulation, consider setting 'lstsq' to True. Consider also setting `presolve` to True, if it is not already.
-  res = opt.linprog(c, A_ub=A_ub, b_ub=b_ub, A_eq=A_eq, b_eq=b_eq, options=linProgOpts)
 Warning: Found angle of 136.39 degrees at edge '-326225735#1', segment 17.
 Warning: Found angle of 141.50 degrees at edge '22955557#8', segment 1.
 Warning: Found angle of 136.39 degrees at edge '248740648#4.1425', segment 23.
