@@ -174,7 +174,7 @@ def rotateByMainLine(mainLine, edges, nodeCoords, edgeShapes, reverse,
         def transform(coord):
             if not horizontal:
                 coord = gh.rotateAround2D(coord, angle, (0, 0))
-            if multiRegions:
+            if multiRegions or not horizontal:
                 coord = gh.add(coord, center)
             return coord
     else:
