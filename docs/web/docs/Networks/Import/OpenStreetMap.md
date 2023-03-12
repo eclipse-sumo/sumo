@@ -529,6 +529,9 @@ name from the input network that it is derived from in a child element:
 Some OSM elements may not appear in the created network because they are
 joined with other elements or converted to (unnamed) geometry points
 along an edge (due to option **--geometry-remove**).
+Thus, a sequence of ways (i.e. "42", "43", "57") without intersection, would be joined into a single SUMO edge using the id of the first way ("42").
+
+Also, option [**--junctions.join**](#junctions) can lead to the removal of some ways and nodes. Multiple nodes ("1", "2") are joined into "cluster_1_2" and the edges that are within the cluster are converted into internal edges named ":cluster_1_2_INDEX".
 
 ## Warnings during Import
 
