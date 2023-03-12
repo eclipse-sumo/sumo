@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-12 14:44+0000\n"
+"PO-Revision-Date: 2023-03-12 16:29+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
@@ -5247,19 +5247,19 @@ msgstr "设定自定的路段类型(用于指定的车辆类型速限)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1500
 msgid "turning direction for this connection (computed)"
-msgstr ""
+msgstr "此连接线(connection)的转向（计算过的)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1505
 msgid "link state for this connection (computed)"
-msgstr ""
+msgstr "此连接线(connection)的连接状态(link state) (计算过的)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1535
 msgid "The id of bus stop"
-msgstr ""
+msgstr "公交站的识别名(id)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1540
 msgid "The name of the lane the bus stop shall be located at"
-msgstr ""
+msgstr "公共汽车站所在的车道名称"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1545
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1609
@@ -5269,7 +5269,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4073
 msgid ""
 "The begin position on the lane (the lower position on the lane) in meters"
-msgstr ""
+msgstr "车道上的起始位置(车道上较低位置)(以米为单位)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1550
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1614
@@ -5282,11 +5282,12 @@ msgstr ""
 msgid ""
 "The end position on the lane (the higher position on the lane) in meters, "
 "must be larger than startPos by more than 0.1m"
-msgstr ""
+msgstr "车道上的结束位置(车道上较高的位置) (以米为单位), 必须比起始位置(startPos)"
+"大于 0.1米以上"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1555
 msgid "Name of busStop"
-msgstr ""
+msgstr "公交站(busStop)的名称"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1560
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1624
@@ -5307,12 +5308,12 @@ msgstr ""
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4437
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4807
 msgid "If set, no error will be reported if element is placed behind the lane."
-msgstr ""
+msgstr "如果设定，若元素放置在车道后面，不会报告任何错误。"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1561
 msgid ""
 "Instead, it will be placed 0.1 meters from the lanes end or at position 0.1"
-msgstr ""
+msgstr "相反地，它将放置在距离 车道尽头0.1 米处或 0.1位置(position)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1562
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1626
@@ -5335,42 +5336,42 @@ msgstr ""
 msgid ""
 "if the position was negative and larger than the lanes length after "
 "multiplication with - 1"
-msgstr ""
+msgstr "如果位置为负值且大于乘以 - 1 后的车道长度"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1568
 msgid ""
 "Meant to be the names of the bus lines that stop at this bus stop. This is "
 "only used for visualization purposes"
-msgstr ""
+msgstr "意思是在这个公交站的公交线路的名称。这仅用于视觉化目的"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1573
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1637
 msgid ""
 "Larger numbers of persons trying to enter will create an upstream jam on the "
 "sidewalk"
-msgstr ""
+msgstr "大量人群试图进入将会在人行道上造成上游堵塞"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1579
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1643
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1741
 msgid "Optional space definition for vehicles that park at this stop"
-msgstr ""
+msgstr "停于此停靠点的车辆的自选空间定义(space defintion)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1585
 msgid "The RGBA color with which the busStop shall be displayed"
-msgstr ""
+msgstr "显示公交车站的RGBA颜色"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1599
 msgid "The id of train stop"
-msgstr ""
+msgstr "火车站的识别名(id)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1604
 msgid "The name of the lane the train stop shall be located at"
-msgstr ""
+msgstr "火车站所在车道的名称"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1619
 msgid "Name of trainStop"
-msgstr ""
+msgstr "火车站(trainStop)名称"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1625
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1681
@@ -5391,156 +5392,157 @@ msgstr ""
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4808
 msgid ""
 "Instead, it will be placed 0.1 meters from the lanes end or at position 0.1,"
-msgstr ""
+msgstr "相反地，它将放置在距离车道末端 0.1 米处或 0.1 米位置，"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1632
 msgid ""
 "Meant to be the names of the train lines that stop at this train stop. This "
 "is only used for visualization purposes"
-msgstr ""
+msgstr "意为停靠该火车站的火車线路的名称。这仅用于视觉化目的"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1649
 msgid "The RGBA color with which the trainStop shall be displayed"
-msgstr ""
+msgstr "显示火车站(trainStop)的RGBA颜色"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1663
 msgid "The name of the lane the stop access shall be located at"
-msgstr ""
+msgstr "停靠站通道(access)应位于的车道的名称"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1668
 msgid "The position on the lane (the lower position on the lane) in meters"
-msgstr ""
+msgstr "车道上的位置(车道上较低的位置) (以米为单位)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1674
 msgid "The walking length of the access in meters"
-msgstr ""
+msgstr "通道的步行长度(米)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1697
 msgid "The id of container stop"
-msgstr ""
+msgstr "集装箱(container)停靠站的识别名(id)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1702
 msgid "The name of the lane the container stop shall be located at"
-msgstr ""
+msgstr "集装箱(container)停靠站应位于的车道的名称"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1717
 msgid "Name of containerStop"
-msgstr ""
+msgstr "集装箱停靠站(containerStop)的名称"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1730
 msgid ""
 "meant to be the names of the bus lines that stop at this container stop. "
 "This is only used for visualization purposes"
-msgstr ""
+msgstr "意思是停靠此集装箱停靠站的公交线路的名称。这仅用于视觉化目的"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1735
 msgid ""
 "Larger numbers of container trying to enter will create an upstream jam on "
 "the sidewalk"
-msgstr ""
+msgstr "大量集装箱container)试图进入将会在人行道上造成上游堵塞"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1747
 msgid "The RGBA color with which the containerStop shall be displayed"
-msgstr ""
+msgstr "显示集装箱停靠站(containerStop)的RGBA顏色"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1760
 msgid "The id of charging station"
-msgstr ""
+msgstr "充电站的识别名（id）"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1765
 msgid "Lane of the charging station location"
-msgstr ""
+msgstr "充电站所在车道"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1770
 msgid "Begin position in the specified lane"
-msgstr ""
+msgstr "指定车道的起始位置"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1775
 msgid "End position in the specified lane"
-msgstr ""
+msgstr "指定车道的结束位置"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1780
 msgid "Name of chargingStation"
-msgstr ""
+msgstr "充电站名称"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1793
 msgid "Charging power in W"
-msgstr ""
+msgstr "充电功率（W）"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1799
 msgid "Charging efficiency [0,1]"
-msgstr ""
+msgstr "充电效率 [0,1]"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1806
 msgid ""
 "Enable or disable charge in transit, i.e. vehicle must or must not to stop "
 "for charging"
-msgstr ""
+msgstr "在运输过程中启用或禁用充电，即车辆必须或不得停车充电"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1812
 msgid ""
 "Time delay after the vehicles has reached / stopped on the charging station, "
 "before the energy transfer (charging) begins"
-msgstr ""
+msgstr "车辆到达/停在充电站后，能量传输（充电）开始之前的时间延迟"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1826
 msgid "The id of ParkingArea"
-msgstr ""
+msgstr "停车场的id"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1831
 msgid "The name of the lane the Parking Area shall be located at"
-msgstr ""
+msgstr "停车场所在的车道名称"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1846
 msgid "Lane position in that vehicle must depart when leaves parkingArea"
-msgstr ""
+msgstr "车辆在离开停车区时必须离开的车道位置"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1851
 msgid "Name of parkingArea"
-msgstr ""
+msgstr "停车场名称"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1856
 msgid " The number of parking spaces for road-side parking"
-msgstr ""
+msgstr " 路边停车位数量"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1862
 msgid ""
 "If set, vehicles will park on the road lane and thereby reducing capacity"
-msgstr ""
+msgstr "如果设定，车辆将停在车道上，从而减少容量"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1876
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1913
 msgid "The width of the road-side parking spaces"
-msgstr ""
+msgstr "路边停车位的宽度"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1882
 msgid ""
 "The length of the road-side parking spaces. By default (endPos - startPos) / "
 "roadsideCapacity"
-msgstr ""
+msgstr "路边停车位的长度。预设情況下为（终点位置 - 开始位置）/路边容量"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1888
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1923
 msgid ""
 "The angle of the road-side parking spaces relative to the lane angle, "
 "positive means clockwise"
-msgstr ""
+msgstr "路边停车位相对于车道的角度，正值表示顺时针方向"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1908
 msgid "Name of parking space"
-msgstr ""
+msgstr "停车位名称"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1918
 msgid "The length of the road-side parking spaces"
-msgstr ""
+msgstr "路边停车位的长度"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1928
 msgid "The slope of the road-side parking spaces"
-msgstr ""
+msgstr "路边停车位的坡度"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1943
+#, fuzzy
 msgid "The id of E1"
-msgstr ""
+msgstr "E1 的id"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1948
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2000
@@ -5550,14 +5552,14 @@ msgstr ""
 msgid ""
 "The id of the lane the detector shall be laid on. The lane must be a part of "
 "the network used"
-msgstr ""
+msgstr "检测器所在车道的 ID。车道必须位于所用路网內"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1953
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2273
 msgid ""
 "The position on the lane the detector shall be laid on in meters. The "
 "position must be a value between -1*lane's length and the lane's length"
-msgstr ""
+msgstr "检测器在车道上的位置应以米为单位设置。该位置必须是在正负一个车道长度之間"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1958
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2016
@@ -5566,11 +5568,11 @@ msgstr ""
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5770
 msgid ""
 "The aggregation period the values the detector collects shall be summed up"
-msgstr ""
+msgstr "在汇总期内检测器采集到的值应相加"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1964
 msgid "Name of induction loop"
-msgstr ""
+msgstr "检测器名称"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1969
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2032
@@ -5578,7 +5580,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2179
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2283
 msgid "The path to the output file"
-msgstr ""
+msgstr "输出档案的路径"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1974
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2037
@@ -5586,38 +5588,39 @@ msgstr ""
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2184
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2288
 msgid "Space separated list of vehicle type ids to consider"
-msgstr ""
+msgstr "要考虑的车辆类型ID的空格分隔清单"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1995
+#, fuzzy
 msgid "The id of E2"
-msgstr ""
+msgstr "E2 的id"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2005
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2086
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2214
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2241
 msgid "The position on the lane the detector shall be laid on in meters"
-msgstr ""
+msgstr "检测器在车道上的位置应以米为单位"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2010
 msgid "The length of the detector in meters"
-msgstr ""
+msgstr "检测器的长度（以米为单位）"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2022
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2102
 msgid "The traffic light that triggers aggregation when switching"
-msgstr ""
+msgstr "切换时触发聚合的交通信号灯"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2027
 msgid "Name of lane area detector"
-msgstr ""
+msgstr "车道区域检测器名称"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2042
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2122
 msgid ""
 "The time-based threshold that describes how much time has to pass until a "
 "vehicle is recognized as halting)"
-msgstr ""
+msgstr "以时间为基础的阈值，用来定义车辆必须停等多少时间才会被认为是停等"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2048
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2128
@@ -5625,159 +5628,160 @@ msgstr ""
 msgid ""
 "The speed-based threshold that describes how slow a vehicle has to be to be "
 "recognized as halting) in m/s"
-msgstr ""
+msgstr "以速度为基础的閾值，用来定义车辆必须行驶多慢才会被认为是停等 (单位为 米/秒)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2054
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2134
 msgid ""
 "The minimum distance to the next standing vehicle in order to make this "
 "vehicle count as a participant to the jam) in m"
-msgstr ""
+msgstr "车辆到下一个停等的车辆的最短距离(米)，此距离用于计算该车辆是否被视为堵塞的参"
+"与者"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2076
 msgid "The id of Multilane E2"
-msgstr ""
+msgstr "多车道检测器E2 (Multilane E2)的设别名(id)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2081
 msgid "The sequence of lane ids in which the detector shall be laid on"
-msgstr ""
+msgstr "检测器应铺设在的车道ID的顺序"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2091
 msgid "The end position on the lane the detector shall be laid on in meters"
-msgstr ""
+msgstr "检测器在车道上的终点位置 (米为单位)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2107
 msgid "Name of Multilane E2 detector"
-msgstr ""
+msgstr "多车道检测器E2 (Multilane E2) 名称"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2157
 msgid "The id of E3"
-msgstr ""
+msgstr "E3的设别名(id)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2162
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2354
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3213
 msgid "X-Y position of detector in editor (Only used in netedit)"
-msgstr ""
+msgstr "在编辑器(editor)內,检测器的x,y位置 (只用于netedit)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2174
 msgid "Name of Entry Exit detector"
-msgstr ""
+msgstr "出入口检测器的名称"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2189
 msgid ""
 "The time-based threshold that describes how much time has to pass until a "
 "vehicle is recognized as halting) in s"
-msgstr ""
+msgstr "以时间为基础的閾值, 用来定义车辆必须停等多少时间才会被认为是停等"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2263
 msgid "The id of Instant Induction Loop (E1Instant)"
-msgstr ""
+msgstr "即时感应线圈(E1Instant)的识别名（ id）"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2278
 msgid "Name of instant induction loop"
-msgstr ""
+msgstr "即時检测器(instant induction loop)的名称"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2309
 msgid "The id of RouteProbe"
-msgstr ""
+msgstr "路径取样(RouteProbe)的识别名(id)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2314
 msgid "The id of an edge in the simulation network"
-msgstr ""
+msgstr "仿真路网內的路段识别名(id)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2319
 msgid "The frequency in which to report the distribution"
-msgstr ""
+msgstr "报告分布的频率"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2325
 msgid "Name of route probe"
-msgstr ""
+msgstr "路径取样(route probe)的名称"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2330
 msgid "The file for generated output"
-msgstr ""
+msgstr "用于存储输出（output)的档案"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2335
 msgid "The time at which to start generating output"
-msgstr ""
+msgstr "开始产生输出的时间"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2349
 msgid "The id of Variable Speed Signal"
-msgstr ""
+msgstr "可变速度标志的识别名(id)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2360
 msgid "List of Variable Speed Sign lanes"
-msgstr ""
+msgstr "设有可变速度标志的车道清单"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2365
 msgid "Name of Variable Speed Signal"
-msgstr ""
+msgstr "可变速度标志的名称"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2370
 msgid ""
 "Space separated list of vehicle type ids to consider (empty to affect all "
 "types)"
-msgstr ""
+msgstr "考虑的车辆类型 ID , 并以空格分隔的清单（空的(empty)表示影响所有类型）"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2396
 msgid "Speed"
-msgstr ""
+msgstr "速度"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2410
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2466
 msgid "The id of Calibrator"
-msgstr ""
+msgstr "校准器(Calibrator)的识别名(id)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2415
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3159
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3179
 msgid "The id of edge in the simulation network"
-msgstr ""
+msgstr "仿真路网內的路段的识别名(id)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2420
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2476
 msgid "The position of the calibrator on the specified lane"
-msgstr ""
+msgstr "在指定车道上的校准器(calibrator)的位置"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2426
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2482
 msgid ""
 "The aggregation interval in which to calibrate the flows. Default is step-"
 "length"
-msgstr ""
+msgstr "用于校准流量时的聚合时间间隔(aggregation interval)。预设值为步长"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2432
 msgid "Name of Calibrator"
-msgstr ""
+msgstr "校准器名称"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2437
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2493
 msgid ""
 "The id of the routeProbe element from which to determine the route "
 "distribution for generated vehicles"
-msgstr ""
+msgstr "决定所产生车辆的路径分布的的路径取样（routeProbe）要素的识别名称(ID)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2442
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2498
 msgid "The output file for writing calibrator information or NULL"
-msgstr ""
+msgstr "用于写入校准器信息的输出文件或无效信息（NULL）"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2447
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2503
 msgid "A threshold value to detect and clear unexpected jamming"
-msgstr ""
+msgstr "用于检测及清除无预期阻塞的閾值"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2453
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2509
 msgid ""
 "space separated list of vehicle type ids to consider (empty to affect all "
 "types)"
-msgstr ""
+msgstr "考虑的车辆类型 ID , 并以空格分隔的清单（空的(empty)表示影响所有类型）"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2471
 msgid "The id of lane in the simulation network"
-msgstr ""
+msgstr "仿真路网內的路段的识别名(id)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2488
 msgid "Name of calibrator lane"
