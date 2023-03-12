@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-12 12:38+0000\n"
+"PO-Revision-Date: 2023-03-12 13:08+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
@@ -5044,7 +5044,7 @@ msgstr "路段的长度(单位为米)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1155
 msgid "street name (need not be unique, used for visualization)"
-msgstr ""
+msgstr "街道名称(不需要是唯一的(unique), 用于视觉化)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1166
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1247
