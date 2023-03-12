@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-12 13:08+0000\n"
+"PO-Revision-Date: 2023-03-12 14:44+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
@@ -5049,199 +5049,201 @@ msgstr "街道名称(不需要是唯一的(unique), 用于视觉化)"
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1166
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1247
 msgid "Move the stop line back from the intersection by the given amount"
-msgstr ""
+msgstr "依据给定的量, 将停等线移到路口前方"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1172
 msgid ""
 "Custom position in which shape start (by default position of junction from)"
-msgstr ""
+msgstr "形状(shape)开始的自定位置(路口起始(from)为预设位置)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1177
 msgid ""
 "Custom position in which shape end (by default position of junction from)"
-msgstr ""
+msgstr "形状(shape)j结束的自定位置(路口起始(from)为预设位置)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1182
 msgid "Show if edge is bidirectional"
-msgstr ""
+msgstr "显示路段是否是双向的"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1188
 msgid "Distance"
-msgstr ""
+msgstr "距离"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1194
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1288
 msgid "The stop offset as positive value in meters"
-msgstr ""
+msgstr "停靠点偏移量(stop offset)为正值，以米为单位"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1200
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1294
 msgid "Specifies, for which vehicle classes the stopOffset does NOT apply."
-msgstr ""
+msgstr "指定停靠点偏移量( stopOffset)不适用的车辆类别。"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1214
 msgid "Lane ID (Automatic, non editable)"
-msgstr ""
+msgstr "车道识别名 （ID）(自动生成, 无法编辑)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1219
 msgid ""
 "The enumeration index of the lane (0 is the rightmost lane, <NUMBER_LANES>-1 "
 "is the leftmost one)"
-msgstr ""
+msgstr "车道的枚举指数（0是最右边的车道，<NUMBER_LANES>-1是最左边的车道）"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1224
 msgid "Speed in meters per second"
-msgstr ""
+msgstr "速度(米/秒)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1241
 msgid "Width in meters (used for visualization)"
-msgstr ""
+msgstr "宽度(米) (用于视觉化)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1253
 msgid "Enable or disable lane as acceleration lane"
-msgstr ""
+msgstr "启用或停用车道作为加速车道"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1259
 msgid "If the shape is given it overrides the computation based on edge shape"
-msgstr ""
+msgstr "如果给定了形状(shape)，它将覆盖基于路段计算出来的形状(shape)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1264
 msgid "If given, this defines the opposite direction lane"
-msgstr ""
+msgstr "如果给定，这定义了相反方向的车道"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1269
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1474
 msgid "Permit changing left only for to the given vehicle classes"
-msgstr ""
+msgstr "允许给定的车辆类别改变为仅能左转 (left only)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1276
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1481
 msgid "Permit changing right only for to the given vehicle classes"
-msgstr ""
+msgstr "允许给定的车辆类别改变为仅能右转(right only)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1283
 msgid "Lane type description (optional)"
-msgstr ""
+msgstr "车道类型说明(可自选(optional))"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1308
 msgid "Crossing ID"
-msgstr ""
+msgstr "穿越道识别名ID)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1313
+#, fuzzy
 msgid "The (road) edges which are crossed"
-msgstr ""
+msgstr "被穿越的路段"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1318
 msgid ""
 "Whether the pedestrians have priority over the vehicles (automatically set "
 "to true at tls-controlled intersections)"
-msgstr ""
+msgstr "行人是否优先于车辆（在交通信号控制的路口会自动设置为真值(true)）"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1324
 msgid "The width of the crossings"
-msgstr ""
+msgstr "穿越道的宽度"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1330
 msgid "sets the tls-index for this crossing"
-msgstr ""
+msgstr "设定穿越道的交通信号指数(tls-index)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1336
 msgid "sets the opposite-direction tls-index for this crossing"
-msgstr ""
+msgstr "设定此穿越道的对向交通信号指数(tls-index)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1342
 msgid "Overrids default shape of pedestrian crossing"
-msgstr ""
+msgstr "覆盖人行穿越道的预设形状"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1355
 msgid "Walking Area ID"
-msgstr ""
+msgstr "步行区的识别名(ID)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1360
 msgid "The width of the WalkingArea"
-msgstr ""
+msgstr "步行区(WalkingArea)的宽度"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1366
 msgid "The length of the WalkingArea in meter"
-msgstr ""
+msgstr "步行区(WalkingArea)的长度(米)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1371
 msgid "Overrids default shape of pedestrian sidewalk"
-msgstr ""
+msgstr "覆盖人行道的默认形状"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1384
 msgid "The name of the edge the vehicles leave"
-msgstr ""
+msgstr "车辆离开的路段的名称"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1389
 msgid "The name of the edge the vehicles may reach when leaving 'from'"
-msgstr ""
+msgstr "当离开起始点(from)时,车辆可能到达的路段的名称"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1394
 msgid "the lane index of the incoming lane (numbers starting with 0)"
-msgstr ""
+msgstr "进场的(incoming)车道的车道指数(lane index) (数字从0开始)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1399
 msgid "the lane index of the outgoing lane (numbers starting with 0)"
-msgstr ""
+msgstr "出场的(outgoing)车道的车道指数（数字从0开始)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1404
 msgid ""
 "if set, vehicles which pass this (lane-2-lane) connection) will not wait"
-msgstr ""
+msgstr "如果设定, 通过这个（车道-2-车道）连接的车辆将不会等待"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1410
 msgid ""
 "if set to false, vehicles which pass this (lane-2-lane) connection) will not "
 "worry about blocking the intersection"
-msgstr ""
+msgstr "如果设置为假值（false），通过这个（车道-2-车道）连接的车辆将不会担心堵塞路口"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1416
 msgid ""
 "If set to a more than 0 value, an internal junction will be built at this "
 "position (in m)/n from the start of the internal lane for this connection"
-msgstr ""
+msgstr "如果设置为大于0的值，将在该连接的内部车道起点的这个位置（以m计）/n处建立一个"
+"内部结点"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1422
 msgid ""
 "If set to true, This connection will not be TLS-controlled despite its node "
 "being controlled"
-msgstr ""
+msgstr "如果设置为 真值\"true\"，该连接将不会被交通信号控制，尽管其节点被控制"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1428
 msgid "Vision distance between vehicles"
-msgstr ""
+msgstr "车辆之间的视距"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1434
 msgid "sets index of this connection within the controlling traffic light"
-msgstr ""
+msgstr "设置该连接线在交通控制信号中的索引指数"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1440
 msgid ""
 "sets index for the internal junction of this connection within the "
 "controlling traffic light"
-msgstr ""
+msgstr "为控制交通信号灯内的该连接的内部路口设置索引指数"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1457
 msgid "sets custom speed limit for the connection"
-msgstr ""
+msgstr "设定连接线(connection)的自定速限"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1463
 msgid "sets custom length for the connection"
-msgstr ""
+msgstr "设定连接线(connection)的自定长度"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1469
 msgid "sets custom shape for the connection"
-msgstr ""
+msgstr "设定连接线(connection)的自定形状(shape)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1488
 msgid "if set to true, vehicles will make a turn in 2 steps"
-msgstr ""
+msgstr "若设定为真值(true), 车辆将分两步转弯"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1494
 msgid ""
 "set a custom edge type (for applying vClass-specific speed restrictions)"
-msgstr ""
+msgstr "设定自定的路段类型(用于指定的车辆类型速限)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1500
 msgid "turning direction for this connection (computed)"
