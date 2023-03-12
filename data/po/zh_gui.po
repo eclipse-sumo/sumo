@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-12 16:29+0000\n"
+"PO-Revision-Date: 2023-03-12 21:21+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
@@ -5785,138 +5785,140 @@ msgstr "仿真路网內的路段的识别名(id)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2488
 msgid "Name of calibrator lane"
-msgstr ""
+msgstr "校准器所在车道的名称"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2522
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3709
 msgid "The id of the route the vehicle shall drive along"
-msgstr ""
+msgstr "车辆行驶路径的识别名(id)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2527
 msgid "First calibrator flow departure time"
-msgstr ""
+msgstr "第一个校准器流量离开时间"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2533
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4962
 msgid "End of departure interval"
-msgstr ""
+msgstr "出发间隔结束"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2543
 msgid "The id of the vehicle type to use for this calibrator flow"
-msgstr ""
+msgstr "用于此校准器流量的车辆类型的识别名(ID)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2549
 msgid "Number of vehicless per hour, equally spaced"
-msgstr ""
+msgstr "每小时车辆数，等距"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2555
 msgid "Vehicle's speed"
-msgstr ""
+msgstr "车速"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2570
 msgid "The id of Rerouter"
-msgstr ""
+msgstr "改道裝置的识别名(id)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2575
 msgid "An edge id or a list of edge ids where vehicles shall be rerouted"
-msgstr ""
+msgstr "车辆应改道的路段识别名(id)或是清单"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2580
 msgid "X,Y position in editor (Only used in netedit)"
-msgstr ""
+msgstr "编辑器中的 X,Y 位置（仅用于netedit ）"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2586
 msgid "Name of Rerouter"
-msgstr ""
+msgstr "改道裝置名称"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2591
 msgid "The probability for vehicle rerouting (0-1)"
-msgstr ""
+msgstr "车辆重新搜寻路径(rerouting)机率(0-1)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2597
 msgid ""
 "The waiting time threshold (in s) that must be reached to activate rerouting "
 "(default -1 which disables the threshold)"
-msgstr ""
+msgstr "启动路径重新搜寻必须达到的等待时间閾值, 以秒为单位(预设值为-1, "
+"表示禁用此閾值)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2603
 msgid ""
 "The list of vehicle types that shall be affected by this rerouter (empty to "
 "affect all types)"
-msgstr ""
+msgstr "受此重新搜寻路径裝置(rerouter)影响的车辆类型清单(空的表示所有车辆类型將被影响"
+")"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2608
 msgid ""
 "Whether the router should be inactive initially (and switched on in the gui)"
-msgstr ""
+msgstr "路径重新搜寻裝置(rerouter)是否最初应处于非活动状态（并在 gui 中开启）"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2630
 msgid "Begin"
-msgstr ""
+msgstr "开始"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2636
 msgid "End"
-msgstr ""
+msgstr "结束"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2656
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2680
 msgid "allowed vehicles"
-msgstr ""
+msgstr "允许的车辆"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2661
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2685
 msgid "disallowed vehicles"
-msgstr ""
+msgstr "不允许的车辆"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2674
 msgid "Lane ID"
-msgstr ""
+msgstr "车道识别名（ID）"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2704
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2724
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2750
 msgid "SUMO Probability"
-msgstr ""
+msgstr "SUMO机率"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2718
 msgid "ParkingArea ID"
-msgstr ""
+msgstr "停车区域识别名(ID)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2730
 msgid "Enable or disable visibility for parking area reroutes"
-msgstr ""
+msgstr "启用或禁用停车区改道的可见度 ( visibility)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2764
 msgid "Edge in which vaporizer is placed"
-msgstr ""
+msgstr "设置蒸发装置(vaporizer)的路段"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2769
 msgid "Start Time"
-msgstr ""
+msgstr "开始时间"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2775
 msgid "End Time"
-msgstr ""
+msgstr "结束时间"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2781
 msgid "Name of vaporizer"
-msgstr ""
+msgstr "蒸发装置名称"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2802
 msgid "The id of the polygon"
-msgstr ""
+msgstr "多边形物件的识别名(id)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2807
 msgid "The shape of the polygon"
-msgstr ""
+msgstr "多边形物件的形狀"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2812
 msgid "The RGBA color with which the polygon shall be displayed"
-msgstr ""
+msgstr "显示多边形的RGBA颜色"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2818
 msgid "An information whether the polygon shall be filled"
-msgstr ""
+msgstr "多边形是否应该被填充的信息"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2824
 msgid "The default line width for drawing an unfilled polygon"
