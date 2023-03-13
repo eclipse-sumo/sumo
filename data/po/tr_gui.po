@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-13 13:31+0000\n"
+"PO-Revision-Date: 2023-03-13 14:02+0000\n"
 "Last-Translator: kyasin <yasingoka@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/tr/>\n"
@@ -4328,7 +4328,6 @@ msgstr " Veri moduna geçiş gerektirir. Devam et?"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:845
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:845
-#, fuzzy
 msgid "Confirm switch mode"
 msgstr "Değiştirme Modunu Onayla"
 
@@ -5383,7 +5382,6 @@ msgstr "Son değişikliği yinele. (Ctrl+Y)"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewParent.cpp:113
 #: /home/micha/programming/sumo/src/netedit/GNEViewParent.cpp:113
-#, fuzzy
 msgid "Compute path manager"
 msgstr "Yol yöneticisini hesapla"
 
@@ -5736,9 +5734,8 @@ msgstr "Kabul et"
 
 #: /home/micha/programming/sumo/src\netedit\dialogs\GNEAdditionalDialog.cpp:62
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEAdditionalDialog.cpp:62
-#, fuzzy
 msgid "Close accepting changes"
-msgstr "Kabul edilen değişiklikleri kapat"
+msgstr "Değişiklikleri kabul etmeyi kapat"
 
 #: /home/micha/programming/sumo/src\netedit\dialogs\GNEAdditionalDialog.cpp:63
 #: /home/micha/programming/sumo/src\netedit\dialogs\tools\GNEToolDialog.cpp:56
@@ -5753,9 +5750,8 @@ msgstr "İptal"
 
 #: /home/micha/programming/sumo/src\netedit\dialogs\GNEAdditionalDialog.cpp:63
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEAdditionalDialog.cpp:63
-#, fuzzy
 msgid "Close discarding changes"
-msgstr "Kabul edilmeyen değişiklikleri kapat"
+msgstr "Değişiklikleri silmeyi kapat"
 
 #: /home/micha/programming/sumo/src\netedit\dialogs\GNEAdditionalDialog.cpp:64
 #: /home/micha/programming/sumo/src\netedit\dialogs\tools\GNEToolDialog.cpp:57
@@ -7017,6 +7013,7 @@ msgid ""
 "if the position was negative and larger than the lanes length after "
 "multiplication with - 1"
 msgstr ""
+"konum negatifse ve - 1 ile çarpıldıktan sonra şerit uzunluğundan büyükse"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1568
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1568
@@ -7024,6 +7021,8 @@ msgid ""
 "Meant to be the names of the bus lines that stop at this bus stop. This is "
 "only used for visualization purposes"
 msgstr ""
+"Bu otobüs durağında duran otobüs hatlarının adları anlamına gelir. Bu sadece "
+"görselleştirme amacıyla kullanılır"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1573
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1637
@@ -7033,6 +7032,7 @@ msgid ""
 "Larger numbers of persons trying to enter will create an upstream jam on the "
 "sidewalk"
 msgstr ""
+"İçeri girmeye çalışan çok sayıda kişi kaldırımda sıkışıklık yaratacaktır"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1579
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1643
@@ -7041,27 +7041,27 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1643
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1741
 msgid "Optional space definition for vehicles that park at this stop"
-msgstr ""
+msgstr "Bu durağa park eden araçlar için isteğe bağlı alan tanımı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1585
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1585
 msgid "The RGBA color with which the busStop shall be displayed"
-msgstr ""
+msgstr "Otobüs durağının görüntüleneceği RGBA rengi (busStop)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1599
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1599
 msgid "The id of train stop"
-msgstr ""
+msgstr "Tren durağının kimliği"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1604
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1604
 msgid "The name of the lane the train stop shall be located at"
-msgstr ""
+msgstr "Tren durağının bulunduğu şeridin adı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1619
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1619
 msgid "Name of trainStop"
-msgstr ""
+msgstr "Tren Durağının Adı (trainStop)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1625
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1681
@@ -7100,6 +7100,8 @@ msgstr ""
 msgid ""
 "Instead, it will be placed 0.1 meters from the lanes end or at position 0.1,"
 msgstr ""
+"Bunun yerine, şerit sonundan 0,1 metre uzağa veya 0,1 konumuna "
+"yerleştirilecektir,"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1632
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1632
@@ -7107,41 +7109,43 @@ msgid ""
 "Meant to be the names of the train lines that stop at this train stop. This "
 "is only used for visualization purposes"
 msgstr ""
+"Bu tren durağında duran tren hatlarının adları anlamına gelir. Bu sadece "
+"görselleştirme amacıyla kullanılır"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1649
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1649
 msgid "The RGBA color with which the trainStop shall be displayed"
-msgstr ""
+msgstr "Tren durağının görüntüleneceği RGBA rengi (trainStop)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1663
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1663
 msgid "The name of the lane the stop access shall be located at"
-msgstr ""
+msgstr "Durak erişiminin bulunduğu şeridin adı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1668
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1668
 msgid "The position on the lane (the lower position on the lane) in meters"
-msgstr ""
+msgstr "Metre cinsinden şerit üzerindeki konum (şerit üzerindeki alt konum)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1674
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1674
 msgid "The walking length of the access in meters"
-msgstr ""
+msgstr "Erişimin metre cinsinden yürüme uzunluğu"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1697
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1697
 msgid "The id of container stop"
-msgstr ""
+msgstr "Konteyner durağının kimliği"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1702
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1702
 msgid "The name of the lane the container stop shall be located at"
-msgstr ""
+msgstr "Konteyner durağının bulunacağı şeridin adı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1717
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1717
 msgid "Name of containerStop"
-msgstr ""
+msgstr "Konteyner durağının adı (containerStop)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1730
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1730
@@ -7149,53 +7153,55 @@ msgid ""
 "meant to be the names of the bus lines that stop at this container stop. "
 "This is only used for visualization purposes"
 msgstr ""
+"bu konteyner durağında duran otobüs hatlarının adları anlamına gelir. Bu "
+"sadece görselleştirme amacıyla kullanılır"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1735
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1735
 msgid ""
 "Larger numbers of container trying to enter will create an upstream jam on "
 "the sidewalk"
-msgstr ""
+msgstr "Girmeye çalışan çok sayıda konteyner kaldırımda sıkışıklık yaratacaktır"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1747
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1747
 msgid "The RGBA color with which the containerStop shall be displayed"
-msgstr ""
+msgstr "Konteyner durağının (containerStop) görüntüleneceği RGBA rengi"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1760
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1760
 msgid "The id of charging station"
-msgstr ""
+msgstr "Şarj istasyonunun kimliği"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1765
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1765
 msgid "Lane of the charging station location"
-msgstr ""
+msgstr "Şarj istasyonu konumunun şeridi"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1770
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1770
 msgid "Begin position in the specified lane"
-msgstr ""
+msgstr "Belirtilen şeritte başlangıç konumu"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1775
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1775
 msgid "End position in the specified lane"
-msgstr ""
+msgstr "Belirtilen şeritte bitiş pozisyonu"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1780
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1780
 msgid "Name of chargingStation"
-msgstr ""
+msgstr "Şarj İstasyonunun Adı (chargingStation)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1793
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1793
 msgid "Charging power in W"
-msgstr ""
+msgstr "W cinsinden şarj gücü"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1799
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1799
 msgid "Charging efficiency [0,1]"
-msgstr ""
+msgstr "Şarj verimliliği [0,1]"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1806
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1806
@@ -7203,6 +7209,8 @@ msgid ""
 "Enable or disable charge in transit, i.e. vehicle must or must not to stop "
 "for charging"
 msgstr ""
+"Geçiş sırasında şarjı etkinleştirin veya devre dışı bırakın, yani araç şarj "
+"için durmalı veya durmamalı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1812
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1812
@@ -7210,31 +7218,34 @@ msgid ""
 "Time delay after the vehicles has reached / stopped on the charging station, "
 "before the energy transfer (charging) begins"
 msgstr ""
+"Araçlar şarj istasyonuna ulaştıktan / durduktan sonra, enerji aktarımı (şarj)"
+" başlamadan önce zaman gecikmesi"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1826
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1826
 msgid "The id of ParkingArea"
-msgstr ""
+msgstr "Park alanının kimliği (ParkingArea)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1831
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1831
 msgid "The name of the lane the Parking Area shall be located at"
-msgstr ""
+msgstr "Park Alanının yer alacağı şeridin adı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1846
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1846
 msgid "Lane position in that vehicle must depart when leaves parkingArea"
 msgstr ""
+"Park alanından (parkingArea) çıkarken aracın ayrılması gereken şerit konumu"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1851
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1851
 msgid "Name of parkingArea"
-msgstr ""
+msgstr "Park alanının adı (parkingArea)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1856
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1856
 msgid " The number of parking spaces for road-side parking"
-msgstr ""
+msgstr " Yol kenarı park için park yeri sayısı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1862
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1862
