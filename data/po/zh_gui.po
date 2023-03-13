@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-13 12:56+0000\n"
+"PO-Revision-Date: 2023-03-13 13:25+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
@@ -6297,94 +6297,94 @@ msgstr "用于此行程的车辆类型识别名(id)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3624
 msgid "The name of the edge the trip starts at"
-msgstr ""
+msgstr "行程开始的路段的名称"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3629
 msgid "The name of the edge the trip ends at"
-msgstr ""
+msgstr "行程结束的路段的名称"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3634
 msgid "List of intermediate edge ids which shall be part of the trip"
-msgstr ""
+msgstr "应作为行程一部分的中间路段的清单"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3642
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3682
 msgid ""
 "The departure time of the (first) trip which is generated using this trip "
 "definition"
-msgstr ""
+msgstr "使用行程定义所产生的(第一个)行程出发时间"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3658
 msgid "The id of trip"
-msgstr ""
+msgstr "行程识别名(id)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3669
 msgid "The name of the junction the trip starts at"
-msgstr ""
+msgstr "行程开始的路口的名称"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3674
 msgid "The name of the junction the trip ends at"
-msgstr ""
+msgstr "行程结束的路口的名称"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3698
 msgid "The id of vehicle"
-msgstr ""
+msgstr "车辆的识别名(id)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3703
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3748
 msgid "The id of the vehicle type to use for this vehicle"
-msgstr ""
+msgstr "使用此车辆的车辆类型识别名(id)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3714
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3754
 msgid "The index of the edge within route the vehicle starts at"
-msgstr ""
+msgstr "在路径上, 车辆开始的路段的指数(index)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3719
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3759
 msgid "The index of the edge within route the vehicle ends at"
-msgstr ""
+msgstr "在路径上, 车辆结束的路段的指数(index)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3727
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3767
 msgid "The time step at which the vehicle shall enter the network"
-msgstr ""
+msgstr "车辆应进入路网时的时间步长(time step)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3743
 msgid "The ID of the vehicle"
-msgstr ""
+msgstr "车辆的识别名(ID)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3783
 msgid "The ID of the flow"
-msgstr ""
+msgstr "流量的识别名(ID)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3788
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3830
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3867
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3909
 msgid "The id of the flow type to use for this flow"
-msgstr ""
+msgstr "用于此流量的流量类型的识别名(id)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3794
 msgid "The name of the edge the flow starts at"
-msgstr ""
+msgstr "流量开始的路段的名称"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3799
 msgid "The name of the edge the flow ends at"
-msgstr ""
+msgstr "流量结束的路段的名称"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3804
 msgid "List of intermediate edge ids which shall be part of the flow"
-msgstr ""
+msgstr "流量使用的中间路段的识别名(id)清单"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3825
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3862
 msgid "The id of the flow"
-msgstr ""
+msgstr "流量识别名(id)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3836
 msgid "The name of the junction the flow starts at"
-msgstr ""
+msgstr "流量开始的路口的名称"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3841
 msgid "The name of the junction the flow ends at"
