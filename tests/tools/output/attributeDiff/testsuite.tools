@@ -1,3 +1,6 @@
+# group attributes by id
+id-attribute
+
 # subtract all attributes in the input files
 default
 
