@@ -48,18 +48,18 @@ FXIMPLEMENT(GNEToolDialog, FXDialogBox, GNEToolDialogMap, ARRAYNUMBER(GNEToolDia
 // ===========================================================================
 
 GNEToolDialog::GNEToolDialog(GNEApplicationWindow* GNEApp, const std::pair<std::string, std::string> &templateTool, 
-        FXMenuPane* menu, FXSelector selector) :
+        FXMenuPane* menu, const bool postProcessing) :
     FXDialogBox(GNEApp->getApp(), "Tool", GUIDesignDialogBoxExplicit(0, 0)),
     myGNEApp(GNEApp),
-    mySelector(selector) {
+    myPostProcessing(postProcessing) {
     // get tool name from path
     const auto toolName = FileHelpers::getFileFromPath(templateTool.first, true);
     // set dialog name and icon
     setTitle(toolName.c_str());
     setIcon(GUIIconSubSys::getIcon(GUIIcon::TOOL_PYTHON));
     // build menu command
-    GUIDesigns::buildFXMenuCommandShortcut(menu, toolName, "", "Execute python tool '" + toolName + "'.", 
-        GUIIconSubSys::getIcon(GUIIcon::TOOL_PYTHON), GNEApp, selector);
+    myMenuCommand = GUIDesigns::buildFXMenuCommandShortcut(menu, toolName, "", "Execute python tool '" + toolName + "'.", 
+        GUIIconSubSys::getIcon(GUIIcon::TOOL_PYTHON), GNEApp, MID_GNE_TOOL);
     // parse tool options
     if (templateTool.second != "") {
         try {
@@ -95,6 +95,12 @@ GNEToolDialog::~GNEToolDialog() {}
 GNEApplicationWindow*
 GNEToolDialog::getGNEApp() const {
     return myGNEApp;
+}
+
+
+FXMenuCommand*
+GNEToolDialog::getMenuCommand() const {
+    return myMenuCommand;
 }
 
 
@@ -158,7 +164,7 @@ GNEToolDialog::onCmdReset(FXObject*, FXSelector, void*) {
 
 GNEToolDialog::GNEToolDialog() :
     myGNEApp(nullptr),
-    mySelector(MID_LAST) {
+    myPostProcessing(false) {
 }
 
 

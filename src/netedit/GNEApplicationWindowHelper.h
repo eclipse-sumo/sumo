@@ -962,11 +962,11 @@ struct GNEApplicationWindowHelper {
                         FXMenuPane* toolsOutputMenu, FXMenuPane* toolsVisualizationMenu);
 
         /// @brief show tool
-        void showTool(FXSelector sel) const;
+        void showTool(FXObject* menuCommand) const;
 
     private:
         /// @brief map with tools
-        std::map<FXSelector, GNEToolDialog*> myTools;
+        std::vector<GNEToolDialog*> myTools;
 
         /// @brief pointer to current GNEApplicationWindows
         GNEApplicationWindow* myGNEApp;

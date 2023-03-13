@@ -179,6 +179,9 @@ public:
     /// @brief called when the command/FXCall python tool is updated
     long onUpdPythonTool(FXObject*, FXSelector, void*);
 
+    /// @brief called after closing tool dialog with postprocessing
+    long onCmdPostProcessingTool(FXObject*, FXSelector sel, void*);
+
     /// @brief called when the command/FXCall save network is executed
     long onCmdSaveNetwork(FXObject*, FXSelector, void*);
 

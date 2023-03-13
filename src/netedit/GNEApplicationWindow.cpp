@@ -351,8 +351,9 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_L_LOCATEPOLY,          GNEApplicationWindow::onCmdLocate),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_SHIFT_L_LOCATEPOLY,          GNEApplicationWindow::onUpdNeedsNetwork),
     // toolbar tools
-    FXMAPFUNCS(SEL_COMMAND, MID_GNE_TOOLBARTOOLS_DETECTOR_EDGEDATAFROMFLOW, MID_GNE_TOOLBARTOOLS_TLSCYCLEADAPTATION,    GNEApplicationWindow::onCmdOpenToolDialog),
-    FXMAPFUNCS(SEL_UPDATE,  MID_GNE_TOOLBARTOOLS_DETECTOR_EDGEDATAFROMFLOW, MID_GNE_TOOLBARTOOLS_TLSCYCLEADAPTATION,    GNEApplicationWindow::onUpdPythonTool),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_TOOL,                GNEApplicationWindow::onCmdOpenToolDialog),
+    FXMAPFUNC(SEL_UPDATE,  MID_GNE_TOOL,                GNEApplicationWindow::onUpdPythonTool),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_TOOL_POSTPROCESSING, GNEApplicationWindow::onCmdOpenToolDialog),
     // toolbar windows
     FXMAPFUNC(SEL_COMMAND,  MID_CLEARMESSAGEWINDOW,     GNEApplicationWindow::onCmdClearMsgWindow),
     // toolbar help
@@ -1118,8 +1119,8 @@ GNEApplicationWindow::onCmdLocate(FXObject*, FXSelector sel, void*) {
 
 
 long
-GNEApplicationWindow::onCmdOpenToolDialog(FXObject*, FXSelector sel, void*) {
-    myToolsMenuCommands.showTool(FXSELID(sel));
+GNEApplicationWindow::onCmdOpenToolDialog(FXObject* obj, FXSelector sel, void*) {
+    myToolsMenuCommands.showTool(obj);
     return 1;
 }
 
@@ -1127,6 +1128,12 @@ GNEApplicationWindow::onCmdOpenToolDialog(FXObject*, FXSelector sel, void*) {
 long 
 GNEApplicationWindow::onUpdPythonTool(FXObject*, FXSelector, void*) {
     // currently always enabled
+    return 1;
+}
+
+
+long
+GNEApplicationWindow::onCmdPostProcessingTool(FXObject*, FXSelector sel, void*) {
     return 1;
 }
 

@@ -45,13 +45,16 @@ class GNEToolDialog : protected FXDialogBox {
 public:
     /// @brief Constructor
     GNEToolDialog(GNEApplicationWindow* GNEApp, const std::pair<std::string, std::string> &templateTool, 
-                  FXMenuPane* menu, const FXSelector selector);
+                  FXMenuPane* menu, const bool postProcessing);
 
     /// @brief destructor
     ~GNEToolDialog();
 
     /// @brief get to GNEApplicationWindow
     GNEApplicationWindow* getGNEApp() const;
+
+    /// @brief get menu command
+    FXMenuCommand *getMenuCommand() const;
 
     /// @brief open window
     void show();
@@ -90,6 +93,9 @@ private:
     /// @brief pointer to GNEApplicationWindow
     GNEApplicationWindow* myGNEApp;
 
+    /// @brief menu command associated with this tool
+    FXMenuCommand* myMenuCommand;
+
     /// @brief tools options
     OptionsCont myToolsOptions;
 
@@ -108,8 +114,8 @@ private:
     /// @brief list of arguments
     std::vector<GNEToolDialogElements::Argument*> myArguments;
 
-    /// @brief selector corresponds to this tool dialog
-    const FXSelector mySelector;
+    /// @brief tool requieres postprocessing
+    const bool myPostProcessing;
 
     /// @brief Invalidated copy constructor.
     GNEToolDialog(const GNEToolDialog&) = delete;
