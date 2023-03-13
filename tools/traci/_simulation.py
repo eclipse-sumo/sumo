@@ -279,7 +279,7 @@ class SimulationDomain(Domain):
         """
         if self._connection is None:
             raise FatalTraCIError("Not connected.")
-        self._connection.executeMove()
+        self._connection._sendCmd(tc.CMD_EXECUTEMOVE, None, None)
 
     def getCurrentTime(self):
         """getCurrentTime() -> integer

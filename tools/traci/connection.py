@@ -371,12 +371,6 @@ class Connection(StepManager):
         self.manageStepListeners(step)
         return responses
 
-    def executeMove(self):
-        """executeMove() -> None
-        Make "half" a simulation step.
-        """
-        self._sendCmd(tc.CMD_EXECUTEMOVE, None, None)
-
     def getVersion(self):
         command = tc.CMD_GETVERSION
         result = self._sendCmd(command, None, None)
