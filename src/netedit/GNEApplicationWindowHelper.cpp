@@ -1990,10 +1990,11 @@ GNEApplicationWindowHelper::ToolsMenuCommands::buildTools(FXMenuPane* toolsMenu,
     // build template tools
     for (const auto &templateTool : templateTools) {
         if (menuPaneToolMaps.count(templateTool.subfolder) > 0) {
-            myTools.push_back(new GNEToolDialog(myGNEApp, templateTool.pythonPath, templateTool.templateStr, 
-                menuPaneToolMaps.at(templateTool.subfolder), false));
+            myTools.push_back(new GNEToolDialog(myGNEApp, templateTool.pythonPath, 
+                                                templateTool.templateStr, menuPaneToolMaps.at(templateTool.subfolder)));
         } else {
-            myTools.push_back(new GNEToolDialog(myGNEApp, templateTool.pythonPath, templateTool.templateStr, toolsMenu, false));
+            myTools.push_back(new GNEToolDialog(myGNEApp, templateTool.pythonPath, 
+                                                templateTool.templateStr, toolsMenu));
         }
     }
 }

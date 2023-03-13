@@ -45,7 +45,7 @@ class GNEToolDialog : protected FXDialogBox {
 public:
     /// @brief Constructor
     GNEToolDialog(GNEApplicationWindow* GNEApp,const std::string &pythonPath, 
-                  const std::string &templateStr, FXMenuPane* menu, const bool postProcessing);
+                  const std::string &templateStr, FXMenuPane* menu);
 
     /// @brief destructor
     ~GNEToolDialog();
@@ -113,9 +113,6 @@ private:
 
     /// @brief list of arguments
     std::vector<GNEToolDialogElements::Argument*> myArguments;
-
-    /// @brief tool requieres postprocessing
-    const bool myPostProcessing;
 
     /// @brief Invalidated copy constructor.
     GNEToolDialog(const GNEToolDialog&) = delete;

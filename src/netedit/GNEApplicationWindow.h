@@ -174,13 +174,16 @@ public:
     long onCmdLocate(FXObject*, FXSelector, void*);
 
     /// @brief called when user press over a tool dialog button
-    long onCmdOpenToolDialog(FXObject*, FXSelector sel, void*);
+    long onCmdOpenToolDialog(FXObject*, FXSelector, void*);
+
+    /// @brief called when user run a tool
+    long onCmdRunTool(FXObject*, FXSelector, void*);
+
+    /// @brief post processing after run tool
+    long onCmdPostProcessingTool(FXObject*, FXSelector, void*);
 
     /// @brief called when the command/FXCall python tool is updated
     long onUpdPythonTool(FXObject*, FXSelector, void*);
-
-    /// @brief called after closing tool dialog with postprocessing
-    long onCmdPostProcessingTool(FXObject*, FXSelector sel, void*);
 
     /// @brief called when the command/FXCall save network is executed
     long onCmdSaveNetwork(FXObject*, FXSelector, void*);

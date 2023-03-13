@@ -730,10 +730,11 @@ enum {
     /// @{
 
     /// @brief call tool
-    MID_GNE_TOOL,
-
+    MID_GNE_OPENTOOLDIALOG,
+    /// @brief run tool
+    MID_GNE_RUNTOOL,
     /// @brief call tool for post processing
-    MID_GNE_TOOL_POSTPROCESSING,
+    MID_GNE_POSTPROCESSINGTOOL,
 
     /// @}
 
