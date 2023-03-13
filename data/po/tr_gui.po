@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-13 13:25+0000\n"
+"PO-Revision-Date: 2023-03-13 13:27+0000\n"
 "Last-Translator: kyasin <yasingoka@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/tr/>\n"
@@ -6899,6 +6899,8 @@ msgstr "Otobüs durağının bulunacağı şeridin adı"
 msgid ""
 "The begin position on the lane (the lower position on the lane) in meters"
 msgstr ""
+"Şerit üzerindeki başlangıç konumu (şerit üzerindeki alt konum) metre "
+"cinsinden"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1550
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1614
@@ -6920,11 +6922,13 @@ msgid ""
 "The end position on the lane (the higher position on the lane) in meters, "
 "must be larger than startPos by more than 0.1m"
 msgstr ""
+"Metre cinsinden şerit üzerindeki son konum (şerit üzerindeki en yüksek konum)"
+", startPos değerinden 0,1m daha büyük olmalıdır"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1555
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1555
 msgid "Name of busStop"
-msgstr ""
+msgstr "Otobüs durağının adı (busStop)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1560
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1624
@@ -6963,7 +6967,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4438
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4808
 msgid "If set, no error will be reported if element is placed behind the lane."
-msgstr ""
+msgstr "Ayarlanırsa, eleman şeridin arkasına yerleştirilirse hata bildirilmez."
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1561
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1561
