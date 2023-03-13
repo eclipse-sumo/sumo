@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-13 08:53+0000\n"
+"PO-Revision-Date: 2023-03-13 10:07+0000\n"
 "Last-Translator: kyasin <yasingoka@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/tr/>\n"
@@ -4500,12 +4500,12 @@ msgstr "TAB Geometri Noktası konumunu değiştir"
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:2648
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2646
 msgid "reset end points of selected edges"
-msgstr ""
+msgstr "seçilen kesimlerin bitiş noktalarını sıfırla"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:2659
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2657
 msgid "reset end points of edge '"
-msgstr ""
+msgstr "' kesimin bitiş noktalarını sıfırla"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:2678
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2676
