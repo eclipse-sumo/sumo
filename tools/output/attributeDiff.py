@@ -93,7 +93,7 @@ def main():
             if options.idAttribute:
                 for ids in idStack:
                     if ids:
-                        elementDescription += '.' + '.'.join(ids)
+                        elementDescription += '|' + '.'.join(ids)
 
             if options.attribute is None:
                 for k, v in node.items():
@@ -157,9 +157,13 @@ def main():
     if options.xml_output is not None:
         with open(options.xml_output, 'w') as f:
             sumolib.writeXMLHeader(f, root="attributeDiff")
-            for elem in sorted(differences.keys()):
+            for elem_id in sorted(differences.keys()):
+                parts = elem_id.split('|')
+                elem = parts[0]
                 f.write('    <%s' % elem)
-                for attr, d in sorted(differences[elem].items()):
+                if len(parts) > 1:
+                    f.write(' id="%s"' % parts[1])
+                for attr, d in sorted(differences[elem_id].items()):
                     f.write(' %s="%s"' % (attr, d))
                 f.write('/>\n')
             f.write('</attributeDiff>\n')
