@@ -256,7 +256,7 @@ tools = [
     # "traceExporter",                NO CONFIG
 ]
 
-def buildHeader(templateHeaderFile):
+def buildTemplateToolHeader(templateHeaderFile):
     print(
         "#include <string>\n"
         "#include <vector>\n"
@@ -265,17 +265,22 @@ def buildHeader(templateHeaderFile):
         "struct TemplateTool {\n"
         "\n"
         "    // @brief constructor\n"
-        "    TemplateTool(const std::string name_, const std::string path_, const std::string templateStr_) :\n"
+        "    TemplateTool(const std::string name_, const std::string pythonPath_,\n"
+        "        const std::string subfolder_, const std::string templateStr_) :\n"
         "        name(name_),\n"
-        "        path(path_),\n"
+        "        pythonPath(pythonPath_),\n"
+        "        subfolder(subfolder_),\n"
         "        templateStr(templateStr_) {\n"
         "    }\n"
         "\n"
         "    // @brief tool name\n"
         "    const std::string name;\n"
         "\n"
-        "    // @brief tool path\n"
-        "    const std::string path;\n"
+        "    // @brief python path\n"
+        "    const std::string pythonPath;\n"
+        "\n"
+        "    // @brief subfolder path\n"
+        "    const std::string subfolder;\n"
         "\n"
         "    // @brief tool template\n"
         "    const std::string templateStr;\n"
@@ -346,7 +351,7 @@ def generateToolTemplate(toolDir, toolPath):
     """
     toolName = os.path.basename(toolPath)[:-3]
     # create templateTool
-    templateTool = 'TemplateTool("%s", "tools/%s",\n' % (toolName, toolPath)
+    templateTool = 'TemplateTool("%s", "tools/%s", "%s",\n' % (toolName, toolPath, os.path.dirname(toolPath))
     # check if exists
     if os.path.exists(join(toolDir, toolPath)):
         # show info
@@ -371,10 +376,12 @@ if __name__ == "__main__":
     toolDir = join(dirname(__file__), '..')
     # write templates.h
     with open("templates.h", 'w') as templateHeaderFile:
-        buildHeader(templateHeaderFile)
-        print(generateSumoTemplate(sys.argv[1]), file=templateHeaderFile)
+        # generate templateTool header 
+        buildTemplateToolHeader(templateHeaderFile)
         # generate Tool templates
         print("const std::vector<TemplateTool> templateTools {\n", file=templateHeaderFile)
         for tool in tools:
             print(generateToolTemplate(toolDir, tool), file=templateHeaderFile)
         print("};", file=templateHeaderFile)
+        # generate SUMO Template
+        print(generateSumoTemplate(sys.argv[1]), file=templateHeaderFile)
