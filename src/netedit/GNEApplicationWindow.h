@@ -609,6 +609,9 @@ protected:
         *myWindowMenu = nullptr,
         *myHelpMenu = nullptr;
 
+    /// @brief map with menu pane tools and strings
+    std::map<std::string, FXMenuPane*> myMenuPaneToolMaps;
+
     /// @brief menu title for modes
     FXMenuTitle* myModesMenuTitle = nullptr;
 

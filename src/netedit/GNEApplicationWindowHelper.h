@@ -956,10 +956,7 @@ struct GNEApplicationWindowHelper {
         ~ToolsMenuCommands();
 
         /// @brief build tools (and menu commands)
-        void buildTools(FXMenuPane* toolsMenu, FXMenuPane* toolsDetectorMenu, FXMenuPane* toolsDistrictMenu, 
-                        FXMenuPane* toolsDRTMenu, FXMenuPane* toolsImportMenu, FXMenuPane* toolsImportCityBrainMenu,
-                        FXMenuPane* toolsImportGTFSMenu, FXMenuPane* toolsNetMenu, FXMenuPane* toolsRouteMenu,
-                        FXMenuPane* toolsOutputMenu, FXMenuPane* toolsVisualizationMenu);
+        void buildTools(FXMenuPane* toolsMenu, const std::map<std::string, FXMenuPane*> &menuPaneToolMaps);
 
         /// @brief show tool
         void showTool(FXObject* menuCommand) const;

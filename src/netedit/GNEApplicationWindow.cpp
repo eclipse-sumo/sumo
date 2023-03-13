@@ -1387,9 +1387,32 @@ GNEApplicationWindow::fillMenuBar() {
     myToolsOutputMenu = new FXMenuPane(this);
     myToolsVisualizationMenu = new FXMenuPane(this);
     GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, TL("&Tools"), nullptr, myToolsMenu);
-    myToolsMenuCommands.buildTools(myToolsMenu, myToolsDetectorMenu, myToolsDistrictMenu, 
-        myToolsDRTMenu, myToolsImportMenu, myToolsImportCityBrainMenu, myToolsImportGTFSMenu, 
-        myToolsNetMenu, myToolsRouteMenu, myToolsOutputMenu, myToolsVisualizationMenu);
+    // build tools menu cascasde
+    new FXMenuCascade(myToolsMenu, TL("Detectors"), GUIIconSubSys::getIcon(GUIIcon::E1), myToolsDetectorMenu);
+    new FXMenuCascade(myToolsMenu, TL("Districts"), GUIIconSubSys::getIcon(GUIIcon::TAZ), myToolsDistrictMenu);
+    new FXMenuCascade(myToolsMenu, TL("DRT"), GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_TAXI), myToolsDRTMenu);
+    new FXMenuCascade(myToolsImportMenu, TL("CityBrain"), GUIIconSubSys::getIcon(GUIIcon::MODEADDITIONAL), myToolsImportCityBrainMenu);
+    new FXMenuCascade(myToolsImportMenu, TL("GTFS"), GUIIconSubSys::getIcon(GUIIcon::MODEADDITIONAL), myToolsImportGTFSMenu);
+    new FXMenuCascade(myToolsMenu, TL("Import"), GUIIconSubSys::getIcon(GUIIcon::OPEN), myToolsImportMenu);
+    new FXMenuCascade(myToolsMenu, TL("Net"), GUIIconSubSys::getIcon(GUIIcon::MODECREATEEDGE), myToolsNetMenu);
+    new FXMenuCascade(myToolsMenu, TL("Route"), GUIIconSubSys::getIcon(GUIIcon::MODEADDITIONAL), myToolsRouteMenu);
+    new FXMenuCascade(myToolsMenu, TL("Output"), GUIIconSubSys::getIcon(GUIIcon::SAVE), myToolsOutputMenu);
+    new FXMenuCascade(myToolsMenu, TL("Visualization"), GUIIconSubSys::getIcon(GUIIcon::COLORWHEEL), myToolsVisualizationMenu);
+    // add separator between folders
+    new FXMenuSeparator(myToolsMenu);
+    // create map with tool Menu panes and their associated folder
+    myMenuPaneToolMaps["detector"] = myToolsDetectorMenu;
+    myMenuPaneToolMaps["district"] = myToolsDistrictMenu;
+    myMenuPaneToolMaps["drt"] = myToolsDRTMenu;
+    myMenuPaneToolMaps["import"] = myToolsImportMenu;
+    myMenuPaneToolMaps["import/citybrain"] = myToolsImportCityBrainMenu;
+    myMenuPaneToolMaps["import/gtfs"] = myToolsImportGTFSMenu;
+    myMenuPaneToolMaps["net"] = myToolsNetMenu;
+    myMenuPaneToolMaps["route"] = myToolsRouteMenu;
+    myMenuPaneToolMaps["output"] = myToolsOutputMenu;
+    myMenuPaneToolMaps["visualization"] = myToolsVisualizationMenu;
+    // build tools
+    myToolsMenuCommands.buildTools(myToolsMenu, myMenuPaneToolMaps);
     // build windows menu
     myWindowMenu = new FXMenuPane(this);
     GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, TL("&Window"), nullptr, myWindowMenu);
