@@ -228,20 +228,20 @@ def getLaneGroupFlows(tl, connFlowsMap, phases, greenFilter, multiOwnGreenMap, g
     # check if there are shared lane groups, i.e. some lane groups have only "g" (no "G")
     ownGreenConnsList = []   # connections with major green
     for i, p in enumerate(phases):
-        #j is the linkIndex
+        # j is the linkIndex
         for j, control in enumerate(p.state):
             if control == "G":
                 if j not in ownGreenConnsList:
                     ownGreenConnsList.append(j)
-                elif not getmultiOwnGreen:       # j could be put more than once in the map  
+                elif not getmultiOwnGreen:       # j could be put more than once in the map
                     multiOwnGreenMap[tl._id].append(j)
                     if options.verbose:
-                        print('TLS:%s, tl-index with more than one major-green:%s' %(tl._id, multiOwnGreenMap[tl._id]))
+                        print('TLS:%s, tl-index with more than one major-green:%s' % (tl._id, multiOwnGreenMap[tl._id]))
     yellowRedTime = 0
     greenTime = 0
     currentLength = 0
     phaseLaneIndexMap = collections.defaultdict(list)
-    
+
     for i, p in enumerate(phases):
         currentLength += p.duration
         if 'G' in p.state and 'y' not in p.state and p.duration >= greenFilter:
@@ -257,9 +257,10 @@ def getLaneGroupFlows(tl, connFlowsMap, phases, greenFilter, multiOwnGreenMap, g
                 if j == 0:
                     exEdge = inEdge
                 # protected green directly after major green for the same edge
-                if ((inEdge == exEdge) and ((control == 'G') or ( control == 'g' and j not in ownGreenConnsList))): 
+                if ((inEdge == exEdge) and ((control == 'G') or (control == 'g' and j not in ownGreenConnsList))):
                     if j in connFlowsMap[tl._id]:
-                        # if a connection flow has more than one major green, the flow is regularly distributed in each "major green"
+                        # if a connection flow has more than one major green,
+                        # the flow is regularly distributed in each "major green"
                         groupFlows += connFlowsMap[tl._id][j]/float(multiOwnGreenFactor)
 
                     if connsList[j][0].getIndex() not in laneIndexList:
@@ -271,7 +272,7 @@ def getLaneGroupFlows(tl, connFlowsMap, phases, greenFilter, multiOwnGreenMap, g
                     if laneIndexList:
                         phaseLaneIndexMap[i].append(laneIndexList)
                         groupFlowsMap[i].append(groupFlows)
-           
+
                         # reset
                         laneIndexList = []
                         groupFlows = 0
@@ -425,6 +426,7 @@ def optimizeGreenTime(tl, groupFlowsMap, phaseLaneIndexMap, currentLength, multi
 
     return groupFlowsMap
 
+
 def main(options):
     net = sumolib.net.readNet(options.netfile, withPrograms=True, withPedestrianConnections=True)
     tlsList = net.getTrafficLights()
@@ -437,7 +439,7 @@ def main(options):
 
     # remove the tls where no traffic volumes exist
     effectiveTlsList = getEffectiveTlsList(tlsList, connFlowsMap, options.verbose)
-    
+
     # prepare a map for any connection flow has more than one major-green in states
     multiOwnGreenMap = {}
     getmultiOwnGreen = False
@@ -459,8 +461,8 @@ def main(options):
                         phases = programs[pro].getPhases()
 
                         # get the connection flows and group flows
-                        groupFlowsMap, phaseLaneIndexMap, currentLength, multiOwnGreenMap, getmultiOwnGreen = getLaneGroupFlows(
-                            tl, connFlowsMap, phases, 0, multiOwnGreenMap, getmultiOwnGreen)
+                        r = getLaneGroupFlows(tl, connFlowsMap, phases, 0, multiOwnGreenMap, getmultiOwnGreen)
+                        groupFlowsMap, phaseLaneIndexMap, currentLength, multiOwnGreenMap, getmultiOwnGreen = r
 
                         # only optimize the cycle length
                         cycleList = getMaxOptimizedCycle(groupFlowsMap, phaseLaneIndexMap,
@@ -482,11 +484,13 @@ def main(options):
                     phases = programs[pro].getPhases()
 
                     # get the connection flows and group flows
-                    groupFlowsMap, phaseLaneIndexMap, currentLength, multiOwnGreenMap, getmultiOwnGreen = getLaneGroupFlows(
-                        tl, connFlowsMap, phases, options.greenFilter, multiOwnGreenMap, getmultiOwnGreen)
+                    r = getLaneGroupFlows(tl, connFlowsMap, phases, options.greenFilter,
+                                          multiOwnGreenMap, getmultiOwnGreen)
+                    groupFlowsMap, phaseLaneIndexMap, currentLength, multiOwnGreenMap, getmultiOwnGreen = r
 
                     # optimize the cycle length and calculate the respective green splits
-                    groupFlowsMap = optimizeGreenTime(tl, groupFlowsMap, phaseLaneIndexMap, currentLength, multiOwnGreenMap, options)
+                    groupFlowsMap = optimizeGreenTime(tl, groupFlowsMap, phaseLaneIndexMap,
+                                                      currentLength, multiOwnGreenMap, options)
 
                 # write output
                 outf.write('    <tlLogic id="%s" type="%s" programID="%s" offset="%i">\n' %

@@ -101,15 +101,15 @@ class LaneDomain(Domain):
         Returns a list of disallowed vehicle classes.
         """
         return self._getUniversal(tc.LANE_DISALLOWED, laneID)
-    
+
     def getChangePermissions(self, laneID, direction):
         """getChangePermissions(string, int) -> list(string)
-        
-        Returns a list of vehicle classesa allowed to change to the neighbor lane indicated by the direction 
+
+        Returns a list of vehicle classesa allowed to change to the neighbor lane indicated by the direction
         (left=0, right=1).
         """
         return self._getUniversal(tc.LANE_CHANGES, laneID, "b", direction)
-    
+
     def getLinkNumber(self, laneID):
         """getLinkNumber(string) -> integer
 
@@ -315,7 +315,7 @@ class LaneDomain(Domain):
     def setChangePermissions(self, laneID, allowedClasses, direction):
         """setChangePermissions(string, list, int) -> None
 
-        Sets a list of vehicle classes allowed to change to the neighbor lane indicated by direction 
+        Sets a list of vehicle classes allowed to change to the neighbor lane indicated by direction
         (left=0, right=1).
         """
         self._setCmd(tc.LANE_CHANGES, laneID, "lb", allowedClasses, direction)

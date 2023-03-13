@@ -31,8 +31,7 @@ SUMO_HOME = os.environ.get('SUMO_HOME',
 sys.path.append(os.path.join(SUMO_HOME, 'tools'))
 import sumolib  # noqa
 from sumolib.options import ArgumentParser  # noqa
-from sumolib.miscutils import Colorgen  # noqa
-from sumolib import openz
+from sumolib.miscutils import Colorgen, openz  # noqa
 import sumolib.geomhelper as gh  # noqa
 
 

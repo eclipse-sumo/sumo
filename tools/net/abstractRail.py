@@ -40,7 +40,7 @@ import sumolib.geomhelper as gh  # noqa
 
 try:
     sys.stdout.reconfigure(encoding='utf-8')
-except:
+except:  # noqa
     pass
 
 INTERSECT_RANGE = 1e5
@@ -167,7 +167,7 @@ def getNodes(edges):
 
 
 def rotateByMainLine(mainLine, edges, nodeCoords, edgeShapes, reverse,
-        horizontal = False, multiRegions = False):
+                     horizontal=False, multiRegions=False):
     center = mainLine[0]
     angle = gh.angleTo2D(mainLine[0], mainLine[1])
     nodes = getNodes(edges)
@@ -208,6 +208,7 @@ def getEdgeOrdering(edgeIDs, ordering, useOutgoing):
             else:
                 result.append(None)
     return result
+
 
 def differentOrderings(edgeIDs, o1, o2):
     """
