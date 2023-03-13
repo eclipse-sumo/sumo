@@ -970,7 +970,7 @@ struct GNEApplicationWindowHelper {
         std::vector<GNEToolDialog*> myTools;
 
         /// @brief run tool dialog
-        GNERunToolDialog* myRunToolDialog;
+        GNERunToolDialog* myRunToolDialog = nullptr;
 
         /// @brief pointer to current GNEApplicationWindows
         GNEApplicationWindow* myGNEApp;

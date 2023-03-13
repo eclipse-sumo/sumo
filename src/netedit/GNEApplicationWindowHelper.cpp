@@ -1984,7 +1984,7 @@ GNEApplicationWindowHelper::ToolsMenuCommands::~ToolsMenuCommands() {
         delete tool;
     }
     // delete run tool dialog
-    myRunToolDialog;
+    delete myRunToolDialog;
 }
 
 
