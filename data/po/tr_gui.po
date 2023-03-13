@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-13 11:46+0000\n"
+"PO-Revision-Date: 2023-03-13 12:56+0000\n"
 "Last-Translator: kyasin <yasingoka@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/tr/>\n"
@@ -5547,79 +5547,79 @@ msgstr "Geri taşımayı yinele "
 #: /home/micha/programming/sumo/src\netedit\changes\GNEChange_Connection.cpp:108
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_Connection.cpp:108
 msgid "Redo create connection '"
-msgstr ""
+msgstr "' Bağlantı oluşturmayı yinele"
 
 #: /home/micha/programming/sumo/src\netedit\changes\GNEChange_Connection.cpp:111
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_Connection.cpp:111
 msgid "Redo delete connection '"
-msgstr ""
+msgstr "' Bağlantı silmeyi yinele"
 
 #: /home/micha/programming/sumo/src\netedit\changes\GNEChange_Crossing.cpp:163
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_Crossing.cpp:163
 msgid "Undo create crossing"
-msgstr ""
+msgstr "Geçit oluşturmayı geri al"
 
 #: /home/micha/programming/sumo/src\netedit\changes\GNEChange_Crossing.cpp:165
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_Crossing.cpp:165
 msgid "Undo delete crossing"
-msgstr ""
+msgstr "Geçit silmeyi geri al"
 
 #: /home/micha/programming/sumo/src\netedit\changes\GNEChange_Crossing.cpp:173
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_Crossing.cpp:173
 msgid "Redo create crossing"
-msgstr ""
+msgstr "Geçit oluşturmayı yinele"
 
 #: /home/micha/programming/sumo/src\netedit\changes\GNEChange_Crossing.cpp:175
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_Crossing.cpp:175
 msgid "Redo delete crossing"
-msgstr ""
+msgstr "Geçit silmeyi yinele"
 
 #: /home/micha/programming/sumo/src\netedit\changes\GNEChange_Edge.cpp:136
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_Edge.cpp:136
 msgid "Undo create edge '"
-msgstr ""
+msgstr "' Kesim oluşturmayı geri al"
 
 #: /home/micha/programming/sumo/src\netedit\changes\GNEChange_Edge.cpp:138
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_Edge.cpp:138
 msgid "Undo delete edge '"
-msgstr ""
+msgstr "' Kesim silmeyi geri al"
 
 #: /home/micha/programming/sumo/src\netedit\changes\GNEChange_Edge.cpp:146
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_Edge.cpp:146
 msgid "Redo create edge '"
-msgstr ""
+msgstr "' Kesim oluşturmayı yinele"
 
 #: /home/micha/programming/sumo/src\netedit\changes\GNEChange_Edge.cpp:148
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_Edge.cpp:148
 msgid "Redo delete edge '"
-msgstr ""
+msgstr "' Kesim silmeyi yinele"
 
 #: /home/micha/programming/sumo/src\netedit\changes\GNEChange_EdgeType.cpp:111
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_EdgeType.cpp:111
 msgid "Undo create edgeType '"
-msgstr ""
+msgstr "' Kesim Tipi oluşturmayı geri al"
 
 #: /home/micha/programming/sumo/src\netedit\changes\GNEChange_EdgeType.cpp:113
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_EdgeType.cpp:113
 msgid "Undo delete edgeType '"
-msgstr ""
+msgstr "' Kesim tipi silmeyi geri al"
 
 #: /home/micha/programming/sumo/src\netedit\changes\GNEChange_EdgeType.cpp:121
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_EdgeType.cpp:121
 msgid "Redo create edgeType '"
-msgstr ""
+msgstr "' Kesim tipi oluşturmayı yinele"
 
 #: /home/micha/programming/sumo/src\netedit\changes\GNEChange_EdgeType.cpp:123
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_EdgeType.cpp:123
 msgid "Redo delete edgeType '"
-msgstr ""
+msgstr "' Kesim tipi silmeyi yinele"
 
 #: /home/micha/programming/sumo/src\netedit\changes\GNEChange_EnableAttribute.cpp:113
 #: /home/micha/programming/sumo/src\netedit\changes\GNEChange_EnableAttribute.cpp:115
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_EnableAttribute.cpp:113
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_EnableAttribute.cpp:115
 msgid "Undo enable "
-msgstr ""
+msgstr "Geri alma etkin "
 
 #: /home/micha/programming/sumo/src\netedit\changes\GNEChange_EnableAttribute.cpp:113
 #: /home/micha/programming/sumo/src\netedit\changes\GNEChange_EnableAttribute.cpp:115
@@ -5630,94 +5630,95 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_EnableAttribute.cpp:123
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_EnableAttribute.cpp:125
 msgid " attribute in '"
-msgstr ""
+msgstr " şuradaki öznitelik '"
 
 #: /home/micha/programming/sumo/src\netedit\changes\GNEChange_EnableAttribute.cpp:123
 #: /home/micha/programming/sumo/src\netedit\changes\GNEChange_EnableAttribute.cpp:125
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_EnableAttribute.cpp:123
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_EnableAttribute.cpp:125
 msgid "Redo enable "
-msgstr ""
+msgstr "Yineleme etkin "
 
 #: /home/micha/programming/sumo/src\netedit\changes\GNEChange_Junction.cpp:109
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_Junction.cpp:109
 msgid "Undo create junction '"
-msgstr ""
+msgstr "' Kavşak oluşturmayı geri al"
 
 #: /home/micha/programming/sumo/src\netedit\changes\GNEChange_Junction.cpp:111
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_Junction.cpp:111
 msgid "Undo delete junction '"
-msgstr ""
+msgstr "' Kavşak silmeyi geri al"
 
 #: /home/micha/programming/sumo/src\netedit\changes\GNEChange_Junction.cpp:119
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_Junction.cpp:119
 msgid "Redo create junction '"
-msgstr ""
+msgstr "' Kavşak oluşturmayı yinele"
 
 #: /home/micha/programming/sumo/src\netedit\changes\GNEChange_Junction.cpp:121
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_Junction.cpp:121
 msgid "Redo delete junction '"
-msgstr ""
+msgstr "' Kavşak silmeyi yinele"
 
 #: /home/micha/programming/sumo/src\netedit\changes\GNEChange_Lane.cpp:158
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_Lane.cpp:158
 msgid "Undo create lane '"
-msgstr ""
+msgstr "' Şerit oluşturmayı geri al"
 
 #: /home/micha/programming/sumo/src\netedit\changes\GNEChange_Lane.cpp:160
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_Lane.cpp:160
 msgid "Undo delete lane '"
-msgstr ""
+msgstr "' Şerit silmeyi geri al"
 
 #: /home/micha/programming/sumo/src\netedit\changes\GNEChange_Lane.cpp:168
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_Lane.cpp:168
 msgid "Redo create lane '"
-msgstr ""
+msgstr "' Şerit oluşturmayı yinele"
 
 #: /home/micha/programming/sumo/src\netedit\changes\GNEChange_Lane.cpp:170
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_Lane.cpp:170
 msgid "Redo delete lane '"
-msgstr ""
+msgstr "' Şerit silmeyi yinele"
 
 #: /home/micha/programming/sumo/src\netedit\changes\GNEChange_TLS.cpp:172
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_TLS.cpp:172
 msgid "Undo create TLS '"
-msgstr ""
+msgstr "' TIS oluşturmayı geri al"
 
 #: /home/micha/programming/sumo/src\netedit\changes\GNEChange_TLS.cpp:174
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_TLS.cpp:174
 msgid "Undo delete TLS '"
-msgstr ""
+msgstr "' TIS silmeyi geri al"
 
 #: /home/micha/programming/sumo/src\netedit\changes\GNEChange_TLS.cpp:182
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_TLS.cpp:182
 msgid "Redo create TLS '"
-msgstr ""
+msgstr "' TIS oluşturmayı yinele"
 
 #: /home/micha/programming/sumo/src\netedit\changes\GNEChange_TLS.cpp:184
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_TLS.cpp:184
 msgid "Redo delete TLS '"
-msgstr ""
+msgstr "' TIS silmeyi yinele"
 
 #: /home/micha/programming/sumo/src\netedit\dialogs\GNEAbout.cpp:38
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEAbout.cpp:38
 msgid "About Eclipse SUMO netedit"
-msgstr ""
+msgstr "Eclipse SUMO Netedit Hakkında"
 
 #: /home/micha/programming/sumo/src\netedit\dialogs\GNEAbout.cpp:53
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEAbout.cpp:53
 msgid "Network editor for Eclipse SUMO, the Simulation of Urban MObility"
-msgstr ""
+msgstr "Eclipse SUMO, Kentsel Hareketlilik Simülasyonu için ağ editörü"
 
 #: /home/micha/programming/sumo/src\netedit\dialogs\GNEAbout.cpp:54
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEAbout.cpp:54
 msgid "Graphical editor for road networks and infrastructure."
-msgstr ""
+msgstr "Yol ağları ve altyapı için grafik düzenleyici."
 
 #: /home/micha/programming/sumo/src\netedit\dialogs\GNEAbout.cpp:66
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEAbout.cpp:66
 msgid "This application is based on code provided by the Eclipse SUMO project."
 msgstr ""
+"Bu uygulama, Eclipse SUMO projesi tarafından sağlanan koda dayanmaktadır."
 
 #: /home/micha/programming/sumo/src\netedit\dialogs\GNEAbout.cpp:67
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEAbout.cpp:67
@@ -5725,16 +5726,19 @@ msgid ""
 "These core components are available under the conditions of the Eclipse "
 "Public License v2."
 msgstr ""
+"Bu çekirdek bileşenler Eclipse Kamu Lisansı v2 koşulları altında "
+"kullanılabilir."
 
 #: /home/micha/programming/sumo/src\netedit\dialogs\GNEAdditionalDialog.cpp:62
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEAdditionalDialog.cpp:62
 msgid "Accept"
-msgstr ""
+msgstr "Kabul et"
 
 #: /home/micha/programming/sumo/src\netedit\dialogs\GNEAdditionalDialog.cpp:62
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEAdditionalDialog.cpp:62
+#, fuzzy
 msgid "Close accepting changes"
-msgstr ""
+msgstr "Kabul edilen değişiklikleri kapat"
 
 #: /home/micha/programming/sumo/src\netedit\dialogs\GNEAdditionalDialog.cpp:63
 #: /home/micha/programming/sumo/src\netedit\dialogs\tools\GNEToolDialog.cpp:56
@@ -5745,24 +5749,25 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:93
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1356
 msgid "Cancel"
-msgstr ""
+msgstr "İptal"
 
 #: /home/micha/programming/sumo/src\netedit\dialogs\GNEAdditionalDialog.cpp:63
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEAdditionalDialog.cpp:63
+#, fuzzy
 msgid "Close discarding changes"
-msgstr ""
+msgstr "Kabul edilmeyen değişiklikleri kapat"
 
 #: /home/micha/programming/sumo/src\netedit\dialogs\GNEAdditionalDialog.cpp:64
 #: /home/micha/programming/sumo/src\netedit\dialogs\tools\GNEToolDialog.cpp:57
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEAdditionalDialog.cpp:64
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNEToolDialog.cpp:57
 msgid "Reset"
-msgstr ""
+msgstr "Sıfırla"
 
 #: /home/micha/programming/sumo/src\netedit\dialogs\GNEAdditionalDialog.cpp:64
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEAdditionalDialog.cpp:64
 msgid "Reset to previous values"
-msgstr ""
+msgstr "Önceki değerlere sıfırla"
 
 #: /home/micha/programming/sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:276
 #: /home/micha/programming/sumo/src\netedit\dialogs\GNEMultipleParametersDialog.cpp:649
@@ -5776,9 +5781,8 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:690
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:494
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_EditViewport.cpp:133
-#, fuzzy
 msgid "accept"
-msgstr "Onayla"
+msgstr "kabul et"
 
 #: /home/micha/programming/sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:276
 #: /home/micha/programming/sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:277
@@ -5824,7 +5828,6 @@ msgstr "Onayla"
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchAttribute.cpp:298
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchGenericDataAttribute.cpp:487
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_EditViewport.cpp:134
-#, fuzzy
 msgid "close"
 msgstr "Kapat"
 
@@ -5838,7 +5841,6 @@ msgstr "Kapat"
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEOverwriteElementsDialog.cpp:60
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:691
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:495
-#, fuzzy
 msgid "cancel"
 msgstr "İptal Et"
 
@@ -5849,13 +5851,12 @@ msgstr "İptal Et"
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:651
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:692
 msgid "reset"
-msgstr ""
+msgstr "Sıfırla"
 
 #: /home/micha/programming/sumo/src\netedit\dialogs\GNECalibratorDialog.cpp:237
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNECalibratorDialog.cpp:237
-#, fuzzy
 msgid "routes cannot be empty"
-msgstr "Parametre Anahtarı Boş Olamaz"
+msgstr "rotalar boş olamaz"
 
 #: /home/micha/programming/sumo/src\netedit\dialogs\GNECalibratorDialog.cpp:472
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNECalibratorDialog.cpp:472
@@ -5879,9 +5880,8 @@ msgstr "Onayla"
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEDemandElementDialog.cpp:63
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEGeometryPointDialog.cpp:75
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNEToolDialog.cpp:55
-#, fuzzy
 msgid "close accepting changes"
-msgstr "Onayla\t\tOnaylanan Değişiklikleri Kaydet"
+msgstr "Kabul edilen değişiklikleri kapat"
 
 #: /home/micha/programming/sumo/src\netedit\dialogs\GNEDemandElementDialog.cpp:64
 #: /home/micha/programming/sumo/src\netedit\dialogs\GNEGeometryPointDialog.cpp:76
@@ -5889,14 +5889,13 @@ msgstr "Onayla\t\tOnaylanan Değişiklikleri Kaydet"
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEDemandElementDialog.cpp:64
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEGeometryPointDialog.cpp:76
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNEToolDialog.cpp:56
-#, fuzzy
 msgid "close discarding changes"
-msgstr "İptal Et\t\tOnaylanmamış Değişiklikleri Kapat"
+msgstr "Kabul edilmeyen değişiklikleri kapat"
 
 #: /home/micha/programming/sumo/src\netedit\dialogs\GNEDemandElementDialog.cpp:65
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEDemandElementDialog.cpp:65
 msgid "&Reset"
-msgstr ""
+msgstr "Sıfırla"
 
 #: /home/micha/programming/sumo/src\netedit\dialogs\GNEDemandElementDialog.cpp:65
 #: /home/micha/programming/sumo/src\netedit\dialogs\GNEGeometryPointDialog.cpp:77
@@ -5904,20 +5903,18 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEDemandElementDialog.cpp:65
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEGeometryPointDialog.cpp:77
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNEToolDialog.cpp:57
-#, fuzzy
 msgid "reset to previous values"
-msgstr "Sıfırla\t\tÖnceki Değerlere Sıfırla"
+msgstr "Önceki değerlere sıfırla"
 
 #: /home/micha/programming/sumo/src\netedit\dialogs\GNEDialogACChooser.cpp:111
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEDialogACChooser.cpp:111
-#, fuzzy
 msgid "Invalid Junction"
-msgstr "Kavşaklar"
+msgstr "Geçersiz Kavşak"
 
 #: /home/micha/programming/sumo/src\netedit\dialogs\GNEDialogACChooser.cpp:117
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEDialogACChooser.cpp:117
 msgid "Invalid number of TLSs"
-msgstr ""
+msgstr "Geçersiz TIS sayısı"
 
 #: /home/micha/programming/sumo/src\netedit\dialogs\GNEFixAdditionalElements.cpp:257
 #: /home/micha/programming/sumo/src\netedit\dialogs\GNEFixAdditionalElements.cpp:333
@@ -5932,13 +5929,12 @@ msgstr "friendlyPos (Varsayılan Yerleşimi) Aktifleştir ve Kaydet"
 #: /home/micha/programming/sumo/src\netedit\dialogs\GNEFixAdditionalElements.cpp:333
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixAdditionalElements.cpp:257
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixAdditionalElements.cpp:333
-#, fuzzy
 msgid ""
 "Friendly pos parameter will be activated in all stopping places and E2 "
 "detectors"
 msgstr ""
-"Varsayılan Yerleşimi Aktifleştir ve Kaydet\t\tVarsayılan Yerleşim "
-"Parametresi Tüm Duraklama Alanlarında ve E2 Dedektörlerinde Aktifleştirilecek"
+"Friendly pos parametresi tüm durak yerlerinde ve E2 dedektörlerinde aktif "
+"olacak"
 
 #: /home/micha/programming/sumo/src\netedit\dialogs\GNEFixAdditionalElements.cpp:259
 #: /home/micha/programming/sumo/src\netedit\dialogs\GNEFixDemandElements.cpp:460
@@ -5949,11 +5945,8 @@ msgstr "Geçersiz Pozisyonları Kaydet"
 
 #: /home/micha/programming/sumo/src\netedit\dialogs\GNEFixAdditionalElements.cpp:259
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixAdditionalElements.cpp:259
-#, fuzzy
 msgid "Save stopping places and E2 detectors with invalid positions"
-msgstr ""
-"Geçersiz Pozisyonları Kaydet\t\tDuraklama Alanları ve E2 Dedektörlerini "
-"Geçersiz Pozisyonlarla Kaydet"
+msgstr "Durak yerlerini ve E2 dedektörlerini geçersiz konumlarla kaydet"
 
 #: /home/micha/programming/sumo/src\netedit\dialogs\GNEFixAdditionalElements.cpp:263
 #: /home/micha/programming/sumo/src\netedit\dialogs\GNEFixAdditionalElements.cpp:335
@@ -5968,54 +5961,42 @@ msgstr "Pozisyonları Düzelt ve Kaydet"
 #: /home/micha/programming/sumo/src\netedit\dialogs\GNEFixAdditionalElements.cpp:335
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixAdditionalElements.cpp:263
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixAdditionalElements.cpp:335
-#, fuzzy
 msgid "Position of stopping places and E2 detectors will be fixed"
-msgstr ""
-"Pozisyonları Düzelt ve Kaydet\t\tDuraklama Alanları ve E2 Dedektörlerinin "
-"Pozisyonları Düzeltilecek"
+msgstr "Durak yerlerinin ve E2 dedektörlerinin pozisyonu sabitlenecek"
 
 #: /home/micha/programming/sumo/src\netedit\dialogs\GNEFixAdditionalElements.cpp:265
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixAdditionalElements.cpp:265
-#, fuzzy
 msgid "Select invalid additionals"
-msgstr "Ekler"
+msgstr "Geçersiz ekleri seç"
 
 #: /home/micha/programming/sumo/src\netedit\dialogs\GNEFixAdditionalElements.cpp:265
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixAdditionalElements.cpp:265
-#, fuzzy
 msgid ""
 "Cancel saving of additionals and select invalid stopping places and E2 "
 "detectors"
 msgstr ""
-"Geçersiz Ekleri Seç\t\tEkleri Kaydetmeyi İptal Et ve Geçersiz Duraklama "
-"Alanları ve E2 Dedektörlerini Kaydet"
+"İlavelerin kaydedilmesini iptal et ve geçersiz durak yerleri ile E2 "
+"dedektörlerini seç"
 
 #: /home/micha/programming/sumo/src\netedit\dialogs\GNEFixAdditionalElements.cpp:325
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixAdditionalElements.cpp:325
 msgid "Build connections between lanes"
-msgstr ""
+msgstr "Şeritler arasında bağlantılar oluştur"
 
 #: /home/micha/programming/sumo/src\netedit\dialogs\GNEFixAdditionalElements.cpp:325
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixAdditionalElements.cpp:325
-#, fuzzy
 msgid "New connections will be created between non-connected lanes"
-msgstr ""
-"Şeritler Arasında Bağlantılar Oluştur\t\tBağlantısız Şeritler Arasında Yeni "
-"Bağlantılar Oluşturulacak"
+msgstr "Bağlantısız şeritler arasında yeni bağlantılar oluşturulacak"
 
 #: /home/micha/programming/sumo/src\netedit\dialogs\GNEFixAdditionalElements.cpp:327
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixAdditionalElements.cpp:327
-#, fuzzy
 msgid "Remove invalid E2 detectors"
-msgstr "Geçersiz Kesimleri Kaldır"
+msgstr "Geçersiz E2 dedektörlerini kaldır"
 
 #: /home/micha/programming/sumo/src\netedit\dialogs\GNEFixAdditionalElements.cpp:327
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixAdditionalElements.cpp:327
-#, fuzzy
 msgid "Remove Multilane E2 Detectors with non-connected lanes"
-msgstr ""
-"Geçersiz E2 Dedektörlerini Kaldır\t\tBağlantısız Şeritlerde Çok Şeritli E2 "
-"Dedektörlerini Kaldır"
+msgstr "Bağlantısız şeritlerde çok şeritli E2 Dedektörlerini Kaldır"
 
 #: /home/micha/programming/sumo/src\netedit\dialogs\GNEFixDemandElements.cpp:202
 #: /home/micha/programming/sumo/src\netedit\dialogs\GNEFixNetworkElements.cpp:189
@@ -6199,9 +6180,9 @@ msgstr "Parametre Şablonunu Aç"
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:314
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:310
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:307
-#, fuzzy, c-format
+#, c-format
 msgid "Loading of Parameters From % failed."
-msgstr "Çakışan Öğe Listesinin Kaydı Başarısız"
+msgstr "Dosyadan % parametrelerin yüklenmesi başarısız oldu."
 
 #: /home/micha/programming/sumo/src\netedit\dialogs\GNEMultipleParametersDialog.cpp:317
 #: /home/micha/programming/sumo/src\netedit\dialogs\GNESingleParametersDialog.cpp:313
@@ -6209,9 +6190,8 @@ msgstr "Çakışan Öğe Listesinin Kaydı Başarısız"
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:317
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:313
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:310
-#, fuzzy
 msgid "Loaded % Parameters."
-msgstr "Parametreleri Düzenle"
+msgstr "Yüklenen % parametreler."
 
 #: /home/micha/programming/sumo/src\netedit\dialogs\GNEMultipleParametersDialog.cpp:327
 #: /home/micha/programming/sumo/src\netedit\dialogs\GNESingleParametersDialog.cpp:323
@@ -6295,9 +6275,9 @@ msgstr "Parametre Anahtarı Boş Olamaz"
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:460
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:459
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:456
-#, fuzzy, c-format
+#, c-format
 msgid "Key '%' of Parameter contains invalid characters"
-msgstr "Parametre Anahtarı Tanımlı Değil"
+msgstr "Parametrenin '%' Anahtarı geçersiz karakterler içeriyor"
 
 #: /home/micha/programming/sumo/src\netedit\dialogs\GNEMultipleParametersDialog.cpp:463
 #: /home/micha/programming/sumo/src\netedit\dialogs\GNESingleParametersDialog.cpp:462
@@ -6307,7 +6287,7 @@ msgstr "Parametre Anahtarı Tanımlı Değil"
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:459
 #, c-format
 msgid "Key '%' already exist"
-msgstr ""
+msgstr "Anahtar '%' zaten mevcut"
 
 #: /home/micha/programming/sumo/src\netedit\dialogs\GNEMultipleParametersDialog.cpp:478
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:478
@@ -6320,26 +6300,23 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src\netedit\dialogs\GNEOverwriteElementsDialog.cpp:59
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEOverwriteElementsDialog.cpp:59
-#, fuzzy
 msgid "load elements"
-msgstr "Şekil Elemanları"
+msgstr "Elemanları yükle"
 
 #: /home/micha/programming/sumo/src\netedit\dialogs\GNEOverwriteElementsDialog.cpp:60
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEOverwriteElementsDialog.cpp:60
-#, fuzzy
 msgid "cancel loading of elements"
-msgstr "İptal Et\t\tElemanları Yüklemeyi İptal Et"
+msgstr "elemanların yüklenmesini iptal et"
 
 #: /home/micha/programming/sumo/src\netedit\dialogs\GNEOverwriteElementsDialog.cpp:61
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEOverwriteElementsDialog.cpp:61
 msgid "overwrite"
-msgstr ""
+msgstr "üzerine yaz"
 
 #: /home/micha/programming/sumo/src\netedit\dialogs\GNEOverwriteElementsDialog.cpp:61
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEOverwriteElementsDialog.cpp:61
-#, fuzzy
 msgid "overwrite elements"
-msgstr "Üstüne Yaz\t\tElemanları Üstüne Yaz"
+msgstr "elemanların üzerine yaz"
 
 #: /home/micha/programming/sumo/src\netedit\dialogs\GNERerouterIntervalDialog.cpp:182
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNERerouterIntervalDialog.cpp:182
@@ -6377,9 +6354,8 @@ msgstr "Parametreleri Düzenle"
 
 #: /home/micha/programming/sumo/src\netedit\dialogs\GNEVehicleTypeDialog.cpp:465
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEVehicleTypeDialog.cpp:465
-#, fuzzy
 msgid "Invalid row type"
-msgstr "Geçersiz Şerit"
+msgstr "Geçersiz satır türü"
 
 #: /home/micha/programming/sumo/src\netedit\dialogs\GNEVehicleTypeDialog.cpp:659
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEVehicleTypeDialog.cpp:659
@@ -6394,110 +6370,113 @@ msgstr "OSG Dosyası Aç"
 #: /home/micha/programming/sumo/src\netedit\dialogs\tools\GNEToolDialogElements.cpp:55
 #: /home/micha/programming/sumo/src/netedit/dialogs/tools/GNEToolDialogElements.cpp:55
 msgid "Select filename"
-msgstr ""
+msgstr "Dosya adı seç"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:134
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:134
 msgid "Nothing to enable, implement in Children"
-msgstr ""
+msgstr "Etkinleştirilecek bir şey yok, alt bileşenlerde uygulayın"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:141
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:141
 msgid "Nothing to disable, implement in Children"
-msgstr ""
+msgstr "Devre dışı bırakılacak bir şey yok, alt bileşenlerde uygulayın"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:631
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:631
 #, c-format
 msgid "TagProperty for tag '%' not defined"
-msgstr ""
+msgstr "'%' etiketi için TagProperty tanımlanmadı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:849
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:849
 msgid "Nothing to toggle, implement in Children"
-msgstr ""
+msgstr "Değiştirilecek bir şey yok, alt bileşenlerde uygulayın"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:913
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:913
 msgid "The id of the node"
-msgstr ""
+msgstr "Düğümün kimliği"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:918
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1903
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:918
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1903
 msgid "The x-y-z position of the node on the plane in meters"
-msgstr ""
+msgstr "Düzlemdeki düğümün metre cinsinden x-y-z konumu"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:923
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:923
 msgid "An optional type for the node"
-msgstr ""
+msgstr "Düğüm için isteğe bağlı bir tip"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:929
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:929
 msgid "A custom shape for that node"
-msgstr ""
+msgstr "Bu düğüm için özel bir şekil"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:934
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:934
 msgid "Optional turning radius (for all corners) for that node in meters"
 msgstr ""
+"Bu düğüm için metre cinsinden isteğe bağlı dönüş yarıçapı (tüm köşeler için)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:940
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:940
 msgid ""
 "Whether the junction-blocking-heuristic should be activated at this node"
 msgstr ""
+"Kavşak engelleme sezgiselinin bu düğümde etkinleştirilip "
+"etkinleştirilmeyeceği"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:946
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:946
 msgid "How to compute right of way rules at this node"
-msgstr ""
+msgstr "Bu düğümde geçiş hakkı kuralları nasıl hesaplanır?"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:953
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:953
 msgid "Whether this junction is at the fringe of the network"
-msgstr ""
+msgstr "Bu kavşağın ağın sınırında olup olmadığı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:960
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:960
 msgid "Optional name of junction"
-msgstr ""
+msgstr "İsteğe bağlı kavşak adı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:965
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:965
 msgid "An optional type for the traffic light algorithm"
-msgstr ""
+msgstr "Trafik ışığı algoritması için isteğe bağlı bir tür"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:971
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:971
 msgid "An optional layout for the traffic light plan"
-msgstr ""
+msgstr "Trafik ışığı planı için isteğe bağlı bir düzen"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:980
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:980
 msgid "An optional id for the traffic light program"
-msgstr ""
+msgstr "Trafik ışığı programı için isteğe bağlı bir kimlik"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:993
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:993
 msgid "The id of the edge"
-msgstr ""
+msgstr "Kesimin kimliği"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:998
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1116
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:998
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1116
 msgid "The number of lanes of the edge"
-msgstr ""
+msgstr "Kesimin şerit sayısı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1004
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1104
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1004
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1104
 msgid "The maximum speed allowed on the edge in m/s"
-msgstr ""
+msgstr "Kesimde m/s cinsinden izin verilen maksimum hız"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1010
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1064
@@ -6512,6 +6491,7 @@ msgstr ""
 msgid ""
 "Explicitly allows the given vehicle classes (not given will be not allowed)"
 msgstr ""
+"Verilen araç sınıflarına açıkça izin verir (verilmeyenlere izin verilmez)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1016
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1070
@@ -6526,6 +6506,7 @@ msgstr ""
 msgid ""
 "Explicitly disallows the given vehicle classes (not given will be allowed)"
 msgstr ""
+"Verilen araç sınıflarına açıkça izin verilmez (verilmeyenlere izin verilir)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1021
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1148
@@ -6535,13 +6516,15 @@ msgid ""
 "The spreadType defines how to compute the lane geometry from the edge "
 "geometry (used for visualization)"
 msgstr ""
+"spreadType, şerit geometrisinin kenar geometrisinden nasıl hesaplanacağını "
+"tanımlar (görselleştirme için kullanılır)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1028
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1110
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1028
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1110
 msgid "The priority of the edge"
-msgstr ""
+msgstr "Kesimin önceliği"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1034
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1160
@@ -6550,27 +6533,31 @@ msgstr ""
 msgid ""
 "Lane width for all lanes of this edge in meters (used for visualization)"
 msgstr ""
+"Bu kesimin tüm şeritleri için metre cinsinden şerit genişliği ("
+"görselleştirme için kullanılır)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1040
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1040
 msgid "The width of the sidewalk that should be added as an additional lane"
-msgstr ""
+msgstr "Ek şerit olarak eklenmesi gereken kaldırımın genişliği"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1045
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1045
 msgid "The width of the bike lane that should be added as an additional lane"
-msgstr ""
+msgstr "Ek şerit olarak eklenmesi gereken bisiklet yolunun genişliği"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1058
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1058
 msgid "The maximum speed allowed on the lane in m/s"
-msgstr ""
+msgstr "Kesimde m/s cinsinden izin verilen maksimum hız"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1075
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1075
 msgid ""
 "Lane width for all lanes of this lane in meters (used for visualization)"
 msgstr ""
+"Bu şeridin tüm şeritleri için metre cinsinden şerit genişliği ("
+"görselleştirme için kullanılır)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1089
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2650
@@ -6579,22 +6566,22 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2611
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2659
 msgid "Edge ID"
-msgstr ""
+msgstr "Kesim Kimliği"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1094
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1094
 msgid "The name of a node within the nodes-file the edge shall start at"
-msgstr ""
+msgstr "Kesimin başlayacağı düğüm dosyası içindeki bir düğümün adı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1099
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1099
 msgid "The name of a node within the nodes-file the edge shall end at"
-msgstr ""
+msgstr "Kesimin biteceği düğüm dosyası içindeki bir düğümün adı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1122
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1122
 msgid "The name of a type within the SUMO edge type file"
-msgstr ""
+msgstr "SUMO kesim tipi dosyası içindeki bir tipin adı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1138
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1138
@@ -6602,64 +6589,66 @@ msgid ""
 "If the shape is given it should start and end with the positions of the from-"
 "node and to-node"
 msgstr ""
+"Şekil verilmişse, düğümden gelen ve düğüme giden konumlarıyla başlamalı ve "
+"bitmelidir"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1143
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1143
 msgid "The length of the edge in meter"
-msgstr ""
+msgstr "Metre cinsinden kesim uzunluğu"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1155
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1155
 msgid "street name (need not be unique, used for visualization)"
-msgstr ""
+msgstr "sokak adı (benzersiz olması gerekmez, görselleştirme için kullanılır)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1166
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1247
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1166
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1247
 msgid "Move the stop line back from the intersection by the given amount"
-msgstr ""
+msgstr "Dur çizgisini kavşaktan verilen miktar kadar geriye taşı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1172
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1172
 msgid ""
 "Custom position in which shape start (by default position of junction from)"
-msgstr ""
+msgstr "Şeklin başladığı özel konum (varsayılan olarak birleşme noktası konumu)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1177
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1177
 msgid ""
 "Custom position in which shape end (by default position of junction from)"
-msgstr ""
+msgstr "Şeklin bittiği özel konum (varsayılan olarak birleşme noktası konumu)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1182
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1182
 msgid "Show if edge is bidirectional"
-msgstr ""
+msgstr "Kesimin çift yönlü olup olmadığını göster"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1188
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1188
 msgid "Distance"
-msgstr ""
+msgstr "Mesafe"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1194
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1288
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1194
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1288
 msgid "The stop offset as positive value in meters"
-msgstr ""
+msgstr "Metre cinsinden pozitif değer olarak durak ötelemesi"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1200
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1294
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1200
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1294
 msgid "Specifies, for which vehicle classes the stopOffset does NOT apply."
-msgstr ""
+msgstr "stopOffset'in hangi araç sınıfları için geçerli OLMADIĞINI belirtir."
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1214
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1214
 msgid "Lane ID (Automatic, non editable)"
-msgstr ""
+msgstr "Şerit Kimliği (Otomatik, düzenlenemez)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1219
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1219
@@ -6667,26 +6656,28 @@ msgid ""
 "The enumeration index of the lane (0 is the rightmost lane, <NUMBER_LANES>-1 "
 "is the leftmost one)"
 msgstr ""
+"Şeridin numaralandırma indeksi (0 en sağdaki şerittir, <NUMBER_LANES>-1 en "
+"soldaki şerittir)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1224
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1224
 msgid "Speed in meters per second"
-msgstr ""
+msgstr "Saniyede metre cinsinden hız"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1241
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1241
 msgid "Width in meters (used for visualization)"
-msgstr ""
+msgstr "Metre cinsinden genişlik (görselleştirme için kullanılır)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1253
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1253
 msgid "Enable or disable lane as acceleration lane"
-msgstr ""
+msgstr "Şeridi hızlanma şeridi olarak etkinleştirin veya devre dışı bırakın"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1259
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1259
 msgid "If the shape is given it overrides the computation based on edge shape"
-msgstr ""
+msgstr "Şekil verilirse, kesim şekline dayalı hesaplamayı geçersiz kılar"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1264
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1264
