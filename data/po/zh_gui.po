@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-13 13:27+0000\n"
+"PO-Revision-Date: 2023-03-13 13:31+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
@@ -6397,38 +6397,38 @@ msgstr "流量应该行经的路径的识别名(id)"
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3878
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3915
 msgid "The index of the edge within route the flow starts at"
-msgstr ""
+msgstr "流量在其路径上开始的路段的指数(index)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3883
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3920
 msgid "The index of the edge within route the flow ends at"
-msgstr ""
+msgstr "流量在其路径上结束的路段的指数(index)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3904
 msgid "The name of the flow"
-msgstr ""
+msgstr "流量的名称"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3957
 msgid "The name of the lane the stop shall be located at"
-msgstr ""
+msgstr "停靠站应位于的车道的名称"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3980
 msgid "The lateral offset on the named lane at which the vehicle must stop"
-msgstr ""
+msgstr "车辆必須停靠于指定车道的侧向偏移值"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3996
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4842
 msgid "BusStop associated with this stop"
-msgstr ""
+msgstr "与此停靠点相关的公交站"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4012
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4472
 msgid "ContainerStop associated with this stop"
-msgstr ""
+msgstr "与此停靠点相关的集装箱停靠点(ContainerStop)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4028
 msgid "ChargingStation associated with this stop"
-msgstr ""
+msgstr "与此停靠点相关的充点站(ChargingStation)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4044
 msgid "ParkingArea associated with this stop"
