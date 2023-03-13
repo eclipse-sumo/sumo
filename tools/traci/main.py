@@ -203,7 +203,7 @@ def executeMove():
     """executeMove() -> None
     Make "half" a simulation step.
     """
-    connection.check().executeMove()
+    connection.check().simulation.executeMove()
 
 
 def addStepListener(listener):
