@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-13 13:25+0000\n"
+"PO-Revision-Date: 2023-03-13 13:27+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
@@ -6388,11 +6388,11 @@ msgstr "流量开始的路口的名称"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3841
 msgid "The name of the junction the flow ends at"
-msgstr ""
+msgstr "流量结束的路口的名称"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3873
 msgid "The id of the route the flow shall drive along"
-msgstr ""
+msgstr "流量应该行经的路径的识别名(id)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3878
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3915
