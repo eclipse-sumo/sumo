@@ -589,13 +589,20 @@ GNEApplicationWindow::~GNEApplicationWindow() {
     delete myToolsDetectorMenu;
     delete myToolsDistrictMenu;
     delete myToolsDRTMenu;
+    delete myToolsEmissionsMenu;
     delete myToolsImportMenu;
     delete myToolsImportCityBrainMenu;
     delete myToolsImportGTFSMenu;
+    delete myToolsImportVissim;
+    delete myToolsImportVisum;
     delete myToolsNetMenu;
     delete myToolsRouteMenu;
     delete myToolsOutputMenu;
+    delete myToolsShapes;
+    delete myToolsTLS;
+    delete myToolsTurnDefs;
     delete myToolsVisualizationMenu;
+    delete myToolsXML;
     delete myWindowMenu;
     delete myHelpMenu;
     delete myLanguageMenu;
@@ -1119,7 +1126,7 @@ GNEApplicationWindow::onCmdLocate(FXObject*, FXSelector sel, void*) {
 
 
 long
-GNEApplicationWindow::onCmdOpenToolDialog(FXObject* obj, FXSelector sel, void*) {
+GNEApplicationWindow::onCmdOpenToolDialog(FXObject* obj, FXSelector, void*) {
     myToolsMenuCommands.showTool(obj);
     return 1;
 }
@@ -1133,7 +1140,7 @@ GNEApplicationWindow::onUpdPythonTool(FXObject*, FXSelector, void*) {
 
 
 long
-GNEApplicationWindow::onCmdPostProcessingTool(FXObject*, FXSelector sel, void*) {
+GNEApplicationWindow::onCmdPostProcessingTool(FXObject*, FXSelector, void*) {
     return 1;
 }
 
@@ -1391,26 +1398,41 @@ GNEApplicationWindow::fillMenuBar() {
     new FXMenuCascade(myToolsMenu, TL("Detectors"), GUIIconSubSys::getIcon(GUIIcon::E1), myToolsDetectorMenu);
     new FXMenuCascade(myToolsMenu, TL("Districts"), GUIIconSubSys::getIcon(GUIIcon::TAZ), myToolsDistrictMenu);
     new FXMenuCascade(myToolsMenu, TL("DRT"), GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_TAXI), myToolsDRTMenu);
-    new FXMenuCascade(myToolsImportMenu, TL("CityBrain"), GUIIconSubSys::getIcon(GUIIcon::MODEADDITIONAL), myToolsImportCityBrainMenu);
-    new FXMenuCascade(myToolsImportMenu, TL("GTFS"), GUIIconSubSys::getIcon(GUIIcon::MODEADDITIONAL), myToolsImportGTFSMenu);
-    new FXMenuCascade(myToolsMenu, TL("Import"), GUIIconSubSys::getIcon(GUIIcon::OPEN), myToolsImportMenu);
+    new FXMenuCascade(myToolsMenu, TL("Emissions"), GUIIconSubSys::getIcon(GUIIcon::TOOL_EMISSIONS), myToolsEmissionsMenu);
+    new FXMenuCascade(myToolsImportMenu, TL("CityBrain"), GUIIconSubSys::getIcon(GUIIcon::TOOL_CITYBRAIN), myToolsImportCityBrainMenu);
+    new FXMenuCascade(myToolsImportMenu, TL("GTFS"), GUIIconSubSys::getIcon(GUIIcon::TOOL_GTFS), myToolsImportGTFSMenu);
+    new FXMenuCascade(myToolsImportMenu, TL("Vissim"), GUIIconSubSys::getIcon(GUIIcon::TOOL_VISSIM), myToolsImportVissim);
+    new FXMenuCascade(myToolsImportMenu, TL("Visum"), GUIIconSubSys::getIcon(GUIIcon::TOOL_VISUM), myToolsImportVisum);
+    new FXMenuCascade(myToolsMenu, TL("Import"), GUIIconSubSys::getIcon(GUIIcon::TOOL_IMPORT), myToolsImportMenu);
     new FXMenuCascade(myToolsMenu, TL("Net"), GUIIconSubSys::getIcon(GUIIcon::MODECREATEEDGE), myToolsNetMenu);
     new FXMenuCascade(myToolsMenu, TL("Route"), GUIIconSubSys::getIcon(GUIIcon::MODEADDITIONAL), myToolsRouteMenu);
-    new FXMenuCascade(myToolsMenu, TL("Output"), GUIIconSubSys::getIcon(GUIIcon::SAVE), myToolsOutputMenu);
+    new FXMenuCascade(myToolsMenu, TL("Output"), GUIIconSubSys::getIcon(GUIIcon::TOOL_OUTPUT), myToolsOutputMenu);
+    new FXMenuCascade(myToolsMenu, TL("Shapes"), GUIIconSubSys::getIcon(GUIIcon::MODESHAPE), myToolsShapes);
+    new FXMenuCascade(myToolsMenu, TL("TLS"), GUIIconSubSys::getIcon(GUIIcon::MODETLS), myToolsTLS);
+    new FXMenuCascade(myToolsMenu, TL("Turn-defs"), GUIIconSubSys::getIcon(GUIIcon::TOOL_TURNDEFS), myToolsTurnDefs);
     new FXMenuCascade(myToolsMenu, TL("Visualization"), GUIIconSubSys::getIcon(GUIIcon::COLORWHEEL), myToolsVisualizationMenu);
-    // add separator between folders
+    new FXMenuCascade(myToolsMenu, TL("XML"), GUIIconSubSys::getIcon(GUIIcon::TOOL_XML), myToolsXML);
+    // add separators between folders
     new FXMenuSeparator(myToolsMenu);
+    new FXMenuSeparator(myToolsImportMenu);
     // create map with tool Menu panes and their associated folder
     myMenuPaneToolMaps["detector"] = myToolsDetectorMenu;
     myMenuPaneToolMaps["district"] = myToolsDistrictMenu;
     myMenuPaneToolMaps["drt"] = myToolsDRTMenu;
+    myMenuPaneToolMaps["emissions"] = myToolsEmissionsMenu;
     myMenuPaneToolMaps["import"] = myToolsImportMenu;
     myMenuPaneToolMaps["import/citybrain"] = myToolsImportCityBrainMenu;
     myMenuPaneToolMaps["import/gtfs"] = myToolsImportGTFSMenu;
+    myMenuPaneToolMaps["import/vissim"] = myToolsImportVissim;
+    myMenuPaneToolMaps["import/visum"] = myToolsImportVisum;
     myMenuPaneToolMaps["net"] = myToolsNetMenu;
     myMenuPaneToolMaps["route"] = myToolsRouteMenu;
     myMenuPaneToolMaps["output"] = myToolsOutputMenu;
+    myMenuPaneToolMaps["shapes"] = myToolsShapes;
+    myMenuPaneToolMaps["tls"] = myToolsTLS;
+    myMenuPaneToolMaps["turn-defs"] = myToolsTurnDefs;
     myMenuPaneToolMaps["visualization"] = myToolsVisualizationMenu;
+    myMenuPaneToolMaps["xml"] = myToolsXML;
     // build tools
     myToolsMenuCommands.buildTools(myToolsMenu, myMenuPaneToolMaps);
     // build windows menu

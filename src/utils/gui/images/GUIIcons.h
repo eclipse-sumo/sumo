@@ -132,6 +132,15 @@ enum class GUIIcon {
     /// @name tools
     /// @{
     TOOL_PYTHON,
+    TOOL_EMISSIONS,
+    TOOL_CITYBRAIN,
+    TOOL_GTFS,
+    TOOL_VISSIM,
+    TOOL_VISUM,
+    TOOL_IMPORT,
+    TOOL_OUTPUT,
+    TOOL_TURNDEFS,
+    TOOL_XML,
     /// @}
 
     /// @name green and yellow objects icons

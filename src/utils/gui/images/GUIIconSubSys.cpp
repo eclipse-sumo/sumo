@@ -81,6 +81,15 @@
 #include "locate_poly.xpm"
 
 #include "tool_python.xpm"
+#include "tool_emissions.xpm"
+#include "tool_citybrain.xpm"
+#include "tool_gtfs.xpm"
+#include "tool_vissim.xpm"
+#include "tool_visum.xpm"
+#include "tool_import.xpm"
+#include "tool_output.xpm"
+#include "tool_turndefs.xpm"
+#include "tool_xml.xpm"
 
 #include "green_container.xpm"
 #include "yellow_container.xpm"
@@ -551,6 +560,15 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::LOCATEPOLY] = new FXXPMIcon(a, locate_poly_xpm);
 
     myIcons[GUIIcon::TOOL_PYTHON] = new FXXPMIcon(a, tool_python_xpm);
+    myIcons[GUIIcon::TOOL_EMISSIONS] = new FXXPMIcon(a, tool_emissions_xpm);
+    myIcons[GUIIcon::TOOL_CITYBRAIN] = new FXXPMIcon(a, tool_citybrain_xpm);
+    myIcons[GUIIcon::TOOL_GTFS] = new FXXPMIcon(a, tool_gtfs_xpm);
+    myIcons[GUIIcon::TOOL_VISSIM] = new FXXPMIcon(a, tool_vissim_xpm);
+    myIcons[GUIIcon::TOOL_VISUM] = new FXXPMIcon(a, tool_visum_xpm);
+    myIcons[GUIIcon::TOOL_IMPORT] = new FXXPMIcon(a, tool_import_xpm);
+    myIcons[GUIIcon::TOOL_OUTPUT] = new FXXPMIcon(a, tool_output_xpm);
+    myIcons[GUIIcon::TOOL_TURNDEFS] = new FXXPMIcon(a, tool_turndefs_xpm);
+    myIcons[GUIIcon::TOOL_XML] = new FXXPMIcon(a, tool_xml_xpm);
 
     myIcons[GUIIcon::GREENCONTAINER] = new FXXPMIcon(a, green_container_xpm);
     myIcons[GUIIcon::GREENEDGE] = new FXXPMIcon(a, green_edge_xpm);
