@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-13 13:27+0000\n"
+"PO-Revision-Date: 2023-03-13 13:31+0000\n"
 "Last-Translator: kyasin <yasingoka@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/tr/>\n"
@@ -6974,6 +6974,8 @@ msgstr "Ayarlanırsa, eleman şeridin arkasına yerleştirilirse hata bildirilme
 msgid ""
 "Instead, it will be placed 0.1 meters from the lanes end or at position 0.1"
 msgstr ""
+"Bunun yerine, şerit sonundan 0,1 metre uzağa veya 0,1 konumuna "
+"yerleştirilecektir"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1562
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1626
