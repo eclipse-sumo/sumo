@@ -8,6 +8,10 @@ Building a scenario is a lot of work. If you have built a SUMO scenario
 you can share (under a sufficiently open license), please
 [contact us](../Contact.md).
 
+# Berlin
+
+- [Mosaic Berlin Sumo Traffic (BeST) Scenario on GitHub](https://github.com/mosaic-addons/best-scenario)
+
 # Bologna
 
 A small-scale scenario based on the city of Bologna. The large
@@ -23,7 +27,7 @@ of Bologna", SUMO2014, p 19-26
 - [Bologna Scenario on GitHub](https://github.com/DLR-TS/sumo-scenarios/tree/main/bologna/)
 - (Old release) [Download .zip files from SourceForge](http://sourceforge.net/projects/sumo/files/traffic_data/scenarios/Bologna_small)
 
-# Brunswick
+# Braunschweig
 
 - [Brunswick Scenario on GitHub](https://github.com/DLR-TS/sumo-scenarios/tree/main/brunswick)
 
