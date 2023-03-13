@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-13 16:26+0000\n"
+"PO-Revision-Date: 2023-03-13 16:59+0000\n"
 "Last-Translator: kyasin <yasingoka@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/tr/>\n"
@@ -8045,22 +8045,22 @@ msgstr "Devrenin ardışık şeritlerinin listesi"
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3254
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3255
 msgid "Starting position in the specified lane"
-msgstr ""
+msgstr "Belirtilen şeritte başlangıç konumu"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3260
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3261
 msgid "Ending position in the specified lane"
-msgstr ""
+msgstr "Belirtilen şeritteki bitiş konumu"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3274
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3275
 msgid "Inner lanes, where placing of overhead wire is restricted"
-msgstr ""
+msgstr "Havai tel yerleştirmenin kısıtlı olduğu iç şeritler"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3287
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3288
 msgid "Overhead wire clamp ID"
-msgstr ""
+msgstr "Havai kablo kelepçesi kimliği (ID)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3292
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3293
@@ -8068,11 +8068,13 @@ msgid ""
 "ID of the overhead wire segment, to the start of which the overhead wire "
 "clamp is connected"
 msgstr ""
+"Başlangıcına havai kablo kelepçesinin bağlı olduğu havai kablo segmentinin "
+"kimliği (ID)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3297
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3298
 msgid "ID of the overhead wire segment lane of overheadWireIDStartClamp"
-msgstr ""
+msgstr "Havai kablo segmenti şeridinin kimliği (overheadWireIDStartClamp)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3302
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3303
@@ -8080,16 +8082,18 @@ msgid ""
 "ID of the overhead wire segment, to the end of which the overhead wire clamp "
 "is connected"
 msgstr ""
+"Havai kablo kelepçesinin ucuna bağlı olduğu havai kablo segmentinin kimliği "
+"(ID)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3307
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3308
 msgid "ID of the overhead wire segment lane of overheadWireIDEndClamp"
-msgstr ""
+msgstr "Havai kablo segmenti şeridinin kimliği (overheadWireIDStartClamp) (ID)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3330
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3331
 msgid "The id of Route"
-msgstr ""
+msgstr "Rota'nın kimliği"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3335
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3367
@@ -8099,20 +8103,22 @@ msgid ""
 "The edges the vehicle shall drive along, given as their ids, separated using "
 "spaces"
 msgstr ""
+"Aracın üzerinde ilerleyeceği kesimler, boşluklarla ayrılmış kimlikleri "
+"olarak verilir"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3340
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3372
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3341
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3373
 msgid "This route's color"
-msgstr ""
+msgstr "Bu rotanın rengi"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3345
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3377
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3346
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3378
 msgid "The number of times that the edges of this route shall be repeated"
-msgstr ""
+msgstr "Bu rotanın kesimlerinin tekrarlanma sayısı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3351
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3383
@@ -8122,53 +8128,55 @@ msgid ""
 "When defining a repeating route with stops and those stops use the until "
 "attribute,"
 msgstr ""
+"Duraklar ve bu duraklarla birlikte tekrar eden bir rota tanımlarken until "
+"niteliğini kullanın,"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3352
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3384
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3353
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3385
 msgid "the times will be shifted forward by 'cycleTime' on each repeat"
-msgstr ""
+msgstr "zamanlar her tekrarda 'cycleTime' kadar ileri kaydırılacaktır"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3399
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3400
 msgid "The id of VehicleType distribution"
-msgstr ""
+msgstr "Araç tipi (VehicleType) dağılımının kimliği"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3421
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3422
 msgid "The id of VehicleType"
-msgstr ""
+msgstr "Araç tipinin kimliği (VehicleType)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3426
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3427
 msgid "Vehicle Type Distribution"
-msgstr ""
+msgstr "Araç Tipi Dağılımı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3431
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3432
 msgid "An abstract vehicle class"
-msgstr ""
+msgstr "Soyut bir araç sınıfı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3438
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3439
 msgid "This vehicle type's color"
-msgstr ""
+msgstr "Bu araç tipinin rengi"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3443
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3444
 msgid "The vehicle's netto-length (length) [m]"
-msgstr ""
+msgstr "Aracın net uzunluğu (uzunluk) [m]"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3448
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3449
 msgid "Empty space after leader [m]"
-msgstr ""
+msgstr "Liderden sonraki boşluk [m]"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3453
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3454
 msgid "The vehicle's maximum velocity [m/s]"
-msgstr ""
+msgstr "Aracın maksimum hızı [m/s]"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3458
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3459
@@ -8176,36 +8184,38 @@ msgid ""
 "The vehicles expected multiplicator for lane speed limits (or a distribution "
 "specifier)"
 msgstr ""
+"Şerit hız sınırları için beklenen araç çarpanı (veya bir dağıtım belirteci)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3463
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3464
 msgid "The vehicles desired maximum velocity (interacts with speedFactor)."
-msgstr ""
+msgstr "Araçların istenen maksimum hızı (speedFactor ile etkileşim halindedir)."
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3464
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3465
 msgid "Applicable when no speed Limit applies (bicycles, some motorways) [m/s]"
 msgstr ""
+"Hız sınırı olmadığında uygulanabilir (bisikletler, bazı otoyollar) [m/s]"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3469
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3470
 msgid "An abstract emission class"
-msgstr ""
+msgstr "Soyut bir emisyon sınıfı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3475
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3476
 msgid "How this vehicle is rendered"
-msgstr ""
+msgstr "Bu aracın nasıl işlendiği"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3481
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3482
 msgid "The vehicle's width [m] (only used for drawing)"
-msgstr ""
+msgstr "Aracın genişliği [m] (sadece çizim için kullanılır)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3487
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3488
 msgid "The vehicle's height [m] (only used for drawing)"
-msgstr ""
+msgstr "Aracın yüksekliği [m] (sadece çizim için kullanılır)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3493
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3494
@@ -8213,55 +8223,57 @@ msgid ""
 "Image file for rendering vehicles of this type (should be grayscale to allow "
 "functional coloring)"
 msgstr ""
+"Bu tip araçların işlenmesi için görüntü dosyası (işlevsel renklendirmeye "
+"izin vermek için gri tonlamalı olmalıdır)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3498
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3499
 msgid "The model used for changing lanes"
-msgstr ""
+msgstr "Şerit değiştirmek için kullanılan model"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3505
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3506
 msgid "The model used for car following"
-msgstr ""
+msgstr "Araç takibi için kullanılan model"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3512
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3513
 msgid ""
 "The number of persons (excluding an autonomous driver) the vehicle can "
 "transport"
-msgstr ""
+msgstr "Aracın taşıyabileceği kişi sayısı (otonom sürücü hariç)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3517
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3518
 msgid "The number of containers the vehicle can transport"
-msgstr ""
+msgstr "Aracın taşıyabileceği konteyner sayısı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3522
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3523
 msgid "The time required by a person to board the vehicle"
-msgstr ""
+msgstr "Bir kişinin araca binmesi için gereken süre"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3528
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3529
 msgid "The time required to load a container onto the vehicle"
-msgstr ""
+msgstr "Bir konteynerin araca yüklenmesi için gereken süre"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3534
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3535
 msgid "The preferred lateral alignment when using the sublane-model"
-msgstr ""
+msgstr "Alt şerit modeli kullanılırken tercih edilen yanal hizalama"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3541
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3542
 msgid ""
 "The minimum lateral gap at a speed difference of 50km/h when using the "
 "sublane-model"
-msgstr ""
+msgstr "Alt şerit modeli kullanırken 50km/s hız farkındaki minimum yanal boşluk"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3547
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3548
 msgid "The maximum lateral speed when using the sublane-model"
-msgstr ""
+msgstr "Alt şerit modelini kullanırken maksimum yanal hız"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3553
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3554
@@ -8269,60 +8281,62 @@ msgid ""
 "The interval length for which vehicle performs its decision logic "
 "(acceleration and lane-changing)"
 msgstr ""
+"Aracın karar mantığını gerçekleştirdiği aralık uzunluğu (hızlanma ve şerit "
+"değiştirme)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3559
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3560
 msgid ""
 "The probability when being added to a distribution without an explicit "
 "probability"
-msgstr ""
+msgstr "Açık bir olasılık olmaksızın bir dağılıma eklendiğinde olasılık"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3565
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3566
 msgid "3D model file for this class"
-msgstr ""
+msgstr "Bu sınıf için 3B model dosyası"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3570
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3571
 msgid "Carriage lengths"
-msgstr ""
+msgstr "Taşıma uzunlukları"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3575
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3576
 msgid "Locomotive lengths"
-msgstr ""
+msgstr "Lokomotif uzunlukları"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3580
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3581
 msgid "GAP between carriages"
-msgstr ""
+msgstr "Vagonlar arasındaki boşluk"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3613
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3614
 msgid "The ID of trip"
-msgstr ""
+msgstr "Seyahatin kimliği (ID)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3618
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3663
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3619
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3664
 msgid "The id of the vehicle type to use for this trip"
-msgstr ""
+msgstr "Bu yolculuk için kullanılacak araç türünün kimliği"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3624
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3625
 msgid "The name of the edge the trip starts at"
-msgstr ""
+msgstr "Seyahatin başladığı kesimin adı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3629
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3630
 msgid "The name of the edge the trip ends at"
-msgstr ""
+msgstr "Seyahatin bittiği kesimin adı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3634
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3635
 msgid "List of intermediate edge ids which shall be part of the trip"
-msgstr ""
+msgstr "Seyahatin bir parçası olacak ara kesim kimliklerinin listesi"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3642
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3682
@@ -8331,65 +8345,65 @@ msgstr ""
 msgid ""
 "The departure time of the (first) trip which is generated using this trip "
 "definition"
-msgstr ""
+msgstr "Bu seyahat tanımı kullanılarak oluşturulan (ilk) seyahatin kalkış saati"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3658
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3659
 msgid "The id of trip"
-msgstr ""
+msgstr "Seyahatin kimliği (ID)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3669
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3670
 msgid "The name of the junction the trip starts at"
-msgstr ""
+msgstr "Seyahatin başladığı kavşağın adı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3674
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3675
 msgid "The name of the junction the trip ends at"
-msgstr ""
+msgstr "Seyahatin bittiği kavşağın adı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3698
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3699
 msgid "The id of vehicle"
-msgstr ""
+msgstr "Araç kimliği"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3703
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3748
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3704
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3749
 msgid "The id of the vehicle type to use for this vehicle"
-msgstr ""
+msgstr "Bu araç için kullanılacak araç tipinin kimliği"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3714
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3754
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3715
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3755
 msgid "The index of the edge within route the vehicle starts at"
-msgstr ""
+msgstr "Aracın başladığı rota içindeki kesimin dizini"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3719
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3759
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3720
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3760
 msgid "The index of the edge within route the vehicle ends at"
-msgstr ""
+msgstr "Aracın sonlandığı rota içindeki kesimin dizini"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3727
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3767
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3728
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3768
 msgid "The time step at which the vehicle shall enter the network"
-msgstr ""
+msgstr "Aracın ağa gireceği zaman adımı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3743
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3744
 msgid "The ID of the vehicle"
-msgstr ""
+msgstr "Aracın kimliği"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3783
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3784
 msgid "The ID of the flow"
-msgstr ""
+msgstr "Akımın kimliği"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3788
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3830
@@ -8400,149 +8414,150 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3868
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3910
 msgid "The id of the flow type to use for this flow"
-msgstr ""
+msgstr "Bu akım için kullanılacak akım türünün kimliği"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3794
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3795
 msgid "The name of the edge the flow starts at"
-msgstr ""
+msgstr "Akımın başladığı kesimin adı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3799
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3800
 msgid "The name of the edge the flow ends at"
-msgstr ""
+msgstr "Akımın sona erdiği kesimin adı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3804
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3805
 msgid "List of intermediate edge ids which shall be part of the flow"
-msgstr ""
+msgstr "Akımın bir parçası olacak ara kesim kimliklerinin listesi"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3825
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3862
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3826
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3863
 msgid "The id of the flow"
-msgstr ""
+msgstr "Akımın kimliği"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3836
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3837
 msgid "The name of the junction the flow starts at"
-msgstr ""
+msgstr "Akımın başladığı kavşağın adı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3841
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3842
 msgid "The name of the junction the flow ends at"
-msgstr ""
+msgstr "Akımın sona erdiği kavşağın adı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3873
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3874
 msgid "The id of the route the flow shall drive along"
-msgstr ""
+msgstr "Akımın ilerleyeceği rotanın kimliği"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3878
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3915
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3879
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3916
 msgid "The index of the edge within route the flow starts at"
-msgstr ""
+msgstr "Akımın başladığı rota içindeki kesimin indeksi"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3883
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3920
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3884
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3921
 msgid "The index of the edge within route the flow ends at"
-msgstr ""
+msgstr "Akımın bittiği rota içindeki kesimin dizini"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3904
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3905
 msgid "The name of the flow"
-msgstr ""
+msgstr "Akımın adı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3957
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3958
 msgid "The name of the lane the stop shall be located at"
-msgstr ""
+msgstr "Durağın bulunacağı şeridin adı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3980
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3981
 msgid "The lateral offset on the named lane at which the vehicle must stop"
-msgstr ""
+msgstr "Aracın durması gereken adlandırılmış şeritteki yanal öteleme"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3996
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4842
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:3997
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4843
 msgid "BusStop associated with this stop"
-msgstr ""
+msgstr "Bu durakla ilişkili otobüs durağı (BusStop)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4012
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4472
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4013
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4473
 msgid "ContainerStop associated with this stop"
-msgstr ""
+msgstr "Bu durakla ilişkili konteyner durağı (ContainerStop)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4028
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4029
 msgid "ChargingStation associated with this stop"
-msgstr ""
+msgstr "Bu durakla ilişkili şarj istasyonu (ChargingStation)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4044
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4045
 msgid "ParkingArea associated with this stop"
-msgstr ""
+msgstr "Bu durakla ilişkili park alanı (ParkingArea)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4068
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4069
 msgid "The name of the lane the waypoint shall be located at"
-msgstr ""
+msgstr "Yol ara noktasının bulunacağı şeridin adı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4091
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4092
 msgid "The lateral offset on the named lane at which the vehicle must waypoint"
 msgstr ""
+"Aracın yol ara noktası olması gereken, adlandırılmış şeritteki yanal sapma"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4107
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4108
 msgid "BusWaypoint associated with this waypoint"
-msgstr ""
+msgstr "Bu ara nokta ile ilişkili otobüs ara noktası (BusWaypoint)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4123
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4124
 msgid "ContainerWaypoint associated with this waypoint"
-msgstr ""
+msgstr "Bu ara nokta ile ilişkili konteyner ara noktası (ContainerWaypoint)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4139
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4140
 msgid "ChargingStation associated with this waypoint"
-msgstr ""
+msgstr "Bu ara nokta ile ilişkili Şarj İstasyonu (ChargingStation)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4155
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4156
 msgid "ParkingArea associated with this waypoint"
-msgstr ""
+msgstr "Bu ara nokta ile ilişkili Park Alanı (ParkingArea)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4183
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4184
 msgid "The time step at which the person shall enter the network"
-msgstr ""
+msgstr "Yolcunun ağa gireceği zaman adımı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4223
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4224
 msgid "The time step at which the container shall enter the network"
-msgstr ""
+msgstr "Konteynerin ağa gireceği zaman adımı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4259
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4289
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4260
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4290
 msgid "The name of the edge the transport starts at"
-msgstr ""
+msgstr "Taşımanın başladığı kesimin adı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4264
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4265
 msgid "The name of the edge the transport ends at"
-msgstr ""
+msgstr "Taşımanın bittiği kesimin adı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4269
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4337
@@ -8555,33 +8570,33 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4638
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4745
 msgid "arrival position on the destination edge"
-msgstr ""
+msgstr "hedef kesim üzerindeki varış konumu"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4275
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4299
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4276
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4300
 msgid "list of vehicle alternatives to take for the transport"
-msgstr ""
+msgstr "Taşıma için alınacak araç alternatiflerinin listesi"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4294
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4362
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4295
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4363
 msgid "Id of the destination container stop"
-msgstr ""
+msgstr "Hedef konteyner durağının kimliği"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4321
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4357
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4322
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4358
 msgid "The name of the edge the tranship starts at"
-msgstr ""
+msgstr "Aktarmanın başladığı kesimin adı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4326
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4327
 msgid "The name of the edge the tranship ends at"
-msgstr ""
+msgstr "Aktarmanın bittiği kesimin adı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4331
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4367
@@ -8590,7 +8605,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4368
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4393
 msgid "The position at which the tranship shall enter the net"
-msgstr ""
+msgstr "Aktarmanın ağa gireceği konum"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4343
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4373
@@ -8599,14 +8614,14 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4374
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4405
 msgid "speed of the container for this tranship in m/s"
-msgstr ""
+msgstr "Bu aktarma için konteynerin m/s cinsinden hızı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4387
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4669
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4388
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4670
 msgid "id of the edges to walk"
-msgstr ""
+msgstr "yürünecek kesimlerin kimliği"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4398
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4674
@@ -8615,14 +8630,14 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4675
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4694
 msgid "Arrival position on the destination edge"
-msgstr ""
+msgstr "Hedef kesim üzerindeki varış konumu"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4427
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4797
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4428
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4798
 msgid "The name of the edge the stop shall be located at"
-msgstr ""
+msgstr "Durağın bulunacağı kesimin adı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4445
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4477
@@ -8635,7 +8650,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4848
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5550
 msgid "Minimum duration for stopping"
-msgstr ""
+msgstr "Minimum durma süresi"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4452
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4484
@@ -8648,7 +8663,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4855
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5557
 msgid "The time step at which the route continues"
-msgstr ""
+msgstr "Rotanın devam ettiği zaman adımı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4458
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4490
@@ -8656,18 +8671,19 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4491
 msgid "Activity displayed for stopped container in GUI and output files "
 msgstr ""
+"GUI ve çıktı dosyalarında durdurulan konteyner için görüntülenen etkinlik "
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4511
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4551
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4512
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4552
 msgid "The name of the edge the person trip starts at"
-msgstr ""
+msgstr "Yolcu seyahatinin başladığı kesimin adı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4516
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4517
 msgid "The name of the edge the person trip ends at"
-msgstr ""
+msgstr "Yolcu seyahatinin bittiği kesimin adı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4527
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4561
@@ -8676,7 +8692,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4562
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4596
 msgid "List of possible vehicle types to take"
-msgstr ""
+msgstr "Alınabilecek olası araç tiplerinin listesi"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4532
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4566
@@ -8688,6 +8704,8 @@ msgid ""
 "List of possible traffic modes. Walking is always possible regardless of "
 "this value"
 msgstr ""
+"Olası trafik modlarının listesi. Bu değerden bağımsız olarak yürüyüş her "
+"zaman mümkündür"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4537
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4571
@@ -8697,86 +8715,87 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4606
 msgid "list of vehicle alternatives to take for the person trip"
 msgstr ""
+"Yolcu seyahati̇ i̇çi̇n alınabi̇lecek araç alternati̇fleri̇ni̇n li̇stesi̇"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4556
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4557
 msgid "Id of the destination busStop"
-msgstr ""
+msgstr "Hedef otobüs durağının kimliği (busStop)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4585
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4586
 msgid "The name of the junction the person trip starts at"
-msgstr ""
+msgstr "Yolcu seyahatinin başladığı kavşağın adı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4590
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4591
 msgid "The name of the junction the person trip ends at"
-msgstr ""
+msgstr "Yolcu seyahatinin sona erdiği kavşağın adı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4627
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4651
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4628
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4652
 msgid "The name of the edge the walk starts at"
-msgstr ""
+msgstr "Yürüyüşün başladığı kesimin adı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4632
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4633
 msgid "The name of the edge the walk ends at"
-msgstr ""
+msgstr "Yürüyüşün bittiği kesimin adı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4656
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4769
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4657
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4770
 msgid "Id of the destination bus stop"
-msgstr ""
+msgstr "Hedef otobüs durağının kimliği"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4688
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4689
 msgid "The id of the route to walk"
-msgstr ""
+msgstr "Yürünecek rotanın kimliği"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4708
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4709
 msgid "The name of the junction the walk starts at"
-msgstr ""
+msgstr "Yürüyüşün başladığı kavşağın adı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4713
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4714
 msgid "The name of the junction the walk ends at"
-msgstr ""
+msgstr "Yürüyüşün bittiği kavşağın adı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4734
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4764
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4735
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4765
 msgid "The name of the edge the ride starts at"
-msgstr ""
+msgstr "Yolculuğun başladığı kesimin adı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4739
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4740
 msgid "The name of the edge the ride ends at"
-msgstr ""
+msgstr "Yolculuğun bittiği kesimin adı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4750
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4774
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4751
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4775
 msgid "list of vehicle alternatives to take for the ride"
-msgstr ""
+msgstr "yolculuk için alınacak araç alternatiflerinin listesi"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4828
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4860
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4829
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4861
 msgid "Activity displayed for stopped person in GUI and output files "
-msgstr ""
+msgstr "GUI ve çıktı dosyalarında duran yolcu için görüntülenen etkinlik "
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4872
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4873
 msgid "This vehicle's color"
-msgstr ""
+msgstr "Bu aracın rengi"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4878
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4879
