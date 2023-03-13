@@ -15,7 +15,7 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    Jun 2022
 ///
-// Abstract dialog for tools
+// Dialog for tools
 /****************************************************************************/
 
 #include <netedit/GNEApplicationWindow.h>

@@ -11,18 +11,16 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEToolDialog.h
+/// @file    GNERunToolDialog.h
 /// @author  Pablo Alvarez Lopez
-/// @date    Jun 2022
+/// @date    Mar 2023
 ///
-// Dialog for tools
+// Dialog for run tools
 /****************************************************************************/
 #pragma once
 #include <config.h>
 
-#include <utils/options/OptionsCont.h>
-
-#include "GNEToolDialogElements.h"
+#include <utils/foxtools/fxheader.h>
 
 // ===========================================================================
 // class declarations
@@ -35,35 +33,28 @@ class GNEApplicationWindow;
 // ===========================================================================
 
 /**
- * @class GNEToolDialog
+ * @class GNERunToolDialog
  * @brief Abstract dialog for tools
  */
-class GNEToolDialog : protected FXDialogBox {
+class GNERunToolDialog : protected FXDialogBox {
     /// @brief FOX-declaration
-    FXDECLARE(GNEToolDialog)
+    FXDECLARE(GNERunToolDialog)
 
 public:
     /// @brief Constructor
-    GNEToolDialog(GNEApplicationWindow* GNEApp, const std::string &pythonPath, 
-                  const std::string &templateStr, FXMenuPane* menu);
+    GNERunToolDialog(GNEApplicationWindow* GNEApp);
 
     /// @brief destructor
-    ~GNEToolDialog();
+    ~GNERunToolDialog();
 
     /// @brief get to GNEApplicationWindow
     GNEApplicationWindow* getGNEApp() const;
-
-    /// @brief get menu command
-    FXMenuCommand *getMenuCommand() const;
 
     /// @brief open window
     void show();
 
     /// @brief hide window
     void hide();
-
-    /// @brief get vertical frame for contents
-    FXVerticalFrame* getContentFrame() const;
 
     /// @name FOX-callbacks
     /// @{
@@ -81,43 +72,16 @@ public:
 
 protected:
     /// @brief FOX needs this
-    GNEToolDialog();
-
-    /// @brief build arguments
-    void buildArguments();
-
-    /// @brief adjust parameter column
-    void adjustParameterColumn();
+    GNERunToolDialog();
 
 private:
     /// @brief pointer to GNEApplicationWindow
     GNEApplicationWindow* myGNEApp;
 
-    /// @brief menu command associated with this tool
-    FXMenuCommand* myMenuCommand;
-
-    /// @brief tools options
-    OptionsCont myToolsOptions;
-
-    /// @brief vertical frame for contents
-    FXVerticalFrame* myContentFrame = nullptr;
-
-    /// @brief parameter label
-    FXLabel* myParameterLabel = nullptr;
-
-    /// @brief separator
-    FXSeparator* mySeparator = nullptr;
-
-    /// @brief buttons frame
-    FXHorizontalFrame* myButtonsFrame = nullptr;
-
-    /// @brief list of arguments
-    std::vector<GNEToolDialogElements::Argument*> myArguments;
-
     /// @brief Invalidated copy constructor.
-    GNEToolDialog(const GNEToolDialog&) = delete;
+    GNERunToolDialog(const GNERunToolDialog&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNEToolDialog& operator=(const GNEToolDialog&) = delete;
+    GNERunToolDialog& operator=(const GNERunToolDialog&) = delete;
 };
 

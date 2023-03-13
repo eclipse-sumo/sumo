@@ -3,6 +3,8 @@ set(netedit_dialogs_tools_SRCS
    GNEToolDialog.cpp
    GNEToolDialogElements.h
    GNEToolDialogElements.cpp
+   GNERunToolDialog.h
+   GNERunToolDialog.cpp
    )
 
 add_library(netedit_dialogs_tools STATIC ${netedit_dialogs_tools_SRCS})
