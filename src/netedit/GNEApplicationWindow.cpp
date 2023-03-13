@@ -1128,15 +1128,13 @@ GNEApplicationWindow::onCmdLocate(FXObject*, FXSelector sel, void*) {
 
 long
 GNEApplicationWindow::onCmdOpenToolDialog(FXObject* obj, FXSelector, void*) {
-    myToolsMenuCommands.showTool(obj);
-    return 1;
+    return myToolsMenuCommands.showTool(obj);
 }
 
 
 long
-GNEApplicationWindow::onCmdRunTool(FXObject*, FXSelector, void*) {
-    // currently always enabled
-    return 1;
+GNEApplicationWindow::onCmdRunTool(FXObject* obj, FXSelector, void*) {
+    return myToolsMenuCommands.runToolDialog(obj);
 }
 
 

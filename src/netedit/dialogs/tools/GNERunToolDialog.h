@@ -50,8 +50,8 @@ public:
     /// @brief get to GNEApplicationWindow
     GNEApplicationWindow* getGNEApp() const;
 
-    /// @brief open window
-    void show();
+    /// @brief run tool (this open windows)
+    void runTool(GNEToolDialog* toolDialog);
 
     /// @brief hide window
     void hide();

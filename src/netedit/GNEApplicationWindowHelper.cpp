@@ -19,6 +19,7 @@
 /****************************************************************************/
 
 #include <netedit/dialogs/tools/GNEToolDialog.h>
+#include <netedit/dialogs/tools/GNERunToolDialog.h>
 #include <netedit/elements/GNEAttributeCarrier.h>
 #include <netedit/templates.h>
 #include <utils/common/FileHelpers.h>
@@ -1982,6 +1983,8 @@ GNEApplicationWindowHelper::ToolsMenuCommands::~ToolsMenuCommands() {
     for (const auto &tool : myTools) {
         delete tool;
     }
+    // delete run tool dialog
+    myRunToolDialog;
 }
 
 
@@ -1997,17 +2000,34 @@ GNEApplicationWindowHelper::ToolsMenuCommands::buildTools(FXMenuPane* toolsMenu,
                                                 templateTool.templateStr, toolsMenu));
         }
     }
+    // build run tool dialog
+    myRunToolDialog = new GNERunToolDialog(myGNEApp);
 }
 
 
-void
+long
 GNEApplicationWindowHelper::ToolsMenuCommands::showTool(FXObject* menuCommand) const {
     // iterate over all tools and find menu command
     for (const auto &tool : myTools) {
         if (tool->getMenuCommand() == menuCommand) {
             tool->show();
+            return 1;
         }
     }
+    return 0;
+}
+
+
+long
+GNEApplicationWindowHelper::ToolsMenuCommands::runToolDialog(FXObject* menuCommand) const {
+    // iterate over all tools and find menu command
+    for (const auto &tool : myTools) {
+        if (tool->getMenuCommand() == menuCommand) {
+            myRunToolDialog->runTool(tool);
+            return 1;
+        }
+    }
+    return 0;
 }
 
 // ---------------------------------------------------------------------------

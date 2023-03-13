@@ -42,6 +42,7 @@ class GNEApplicationWindow;
 class GNELoadThread;
 class GNENet;
 class GNEToolDialog;
+class GNERunToolDialog;
 class GNEUndoList;
 class GNEUndoListDialog;
 class GNEViewNet;
@@ -959,11 +960,17 @@ struct GNEApplicationWindowHelper {
         void buildTools(FXMenuPane* toolsMenu, const std::map<std::string, FXMenuPane*> &menuPaneToolMaps);
 
         /// @brief show tool
-        void showTool(FXObject* menuCommand) const;
+        long showTool(FXObject* menuCommand) const;
+
+        /// @brief run tool dialog
+        long runToolDialog(FXObject* menuCommand) const;
 
     private:
         /// @brief map with tools
         std::vector<GNEToolDialog*> myTools;
+
+        /// @brief run tool dialog
+        GNERunToolDialog* myRunToolDialog;
 
         /// @brief pointer to current GNEApplicationWindows
         GNEApplicationWindow* myGNEApp;

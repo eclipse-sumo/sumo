@@ -174,10 +174,10 @@ public:
     long onCmdLocate(FXObject*, FXSelector, void*);
 
     /// @brief called when user press over a tool dialog button
-    long onCmdOpenToolDialog(FXObject*, FXSelector, void*);
+    long onCmdOpenToolDialog(FXObject* obj, FXSelector, void*);
 
     /// @brief called when user run a tool
-    long onCmdRunTool(FXObject*, FXSelector, void*);
+    long onCmdRunTool(FXObject* obj, FXSelector, void*);
 
     /// @brief post processing after run tool
     long onCmdPostProcessingTool(FXObject*, FXSelector, void*);

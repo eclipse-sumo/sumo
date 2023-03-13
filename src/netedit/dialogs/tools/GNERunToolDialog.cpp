@@ -72,9 +72,9 @@ GNERunToolDialog::getGNEApp() const {
 }
 
 void
-GNERunToolDialog::show() {
+GNERunToolDialog::runTool(GNEToolDialog* toolDialog) {
     // show dialog
-    FXTopWindow::show(PLACEMENT_SCREEN);
+    FXDialogBox::show(PLACEMENT_SCREEN);
     // refresh APP
     getApp()->refresh();
     // open as modal dialog (will block all windows until stop() or stopModal() is called)
@@ -87,7 +87,7 @@ GNERunToolDialog::hide() {
     // stop modal
     myGNEApp->getApp()->stopModal(this);
     // hide dialog
-    FXTopWindow::hide();
+    FXDialogBox::hide();
 }
 
 

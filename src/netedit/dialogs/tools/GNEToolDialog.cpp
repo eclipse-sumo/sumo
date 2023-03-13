@@ -106,7 +106,7 @@ GNEToolDialog::getMenuCommand() const {
 void
 GNEToolDialog::show() {
     // show dialog
-    FXTopWindow::show(PLACEMENT_SCREEN);
+    FXDialogBox::show(PLACEMENT_SCREEN);
     // refresh APP
     getApp()->refresh();
     // adjust parameter column (call always after create elements)
@@ -123,7 +123,7 @@ GNEToolDialog::hide() {
     // stop modal
     myGNEApp->getApp()->stopModal(this);
     // hide dialog
-    FXTopWindow::hide();
+    FXDialogBox::hide();
 }
 
 
@@ -135,11 +135,10 @@ GNEToolDialog::getContentFrame() const {
 
 long
 GNEToolDialog::onCmdRun(FXObject*, FXSelector, void*) {
-    // RUN
-
     // hide tool dialog
     hide();
-    return 1;
+    // run tool
+    return myGNEApp->tryHandle(myMenuCommand, FXSEL(SEL_COMMAND, MID_GNE_RUNTOOL), nullptr);
 }
 
 
