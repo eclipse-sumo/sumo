@@ -750,7 +750,8 @@ class VehicleDomain(VTypeDomain):
     def getNextLinks(self, vehID):
         """getNextLinks(string) -> [(string, string, bool, bool, bool, string, string, double), ...]
 
-        Return list of upcoming links along the route [(lane, via, priority, opened, foe, state, direction, length), ...]
+        Return list of upcoming links along the route [(lane, via, priority, opened, foe,
+         state, direction, length), ...]
         """
         return self._getUniversal(tc.VAR_NEXT_LINKS, vehID)
 

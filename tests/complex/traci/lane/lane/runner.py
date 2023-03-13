@@ -71,9 +71,11 @@ centerLaneID = "2si_1"
 print("allowed to change to the left", traci.lane.getChangePermissions(centerLaneID, traci.constants.LANECHANGE_LEFT))
 print("allowed to change to the right", traci.lane.getChangePermissions(centerLaneID, traci.constants.LANECHANGE_RIGHT))
 traci.lane.setChangePermissions(centerLaneID, ['ignoring'], traci.constants.LANECHANGE_LEFT)
-print("allowed to change to the left after setChangePermissions", traci.lane.getChangePermissions(centerLaneID, traci.constants.LANECHANGE_LEFT))
+print("allowed to change to the left after setChangePermissions",
+      traci.lane.getChangePermissions(centerLaneID, traci.constants.LANECHANGE_LEFT))
 traci.lane.setChangePermissions(centerLaneID, ['passenger'], traci.constants.LANECHANGE_RIGHT)
-print("allowed to change to the right after setChangePermissions", traci.lane.getChangePermissions(centerLaneID, traci.constants.LANECHANGE_RIGHT))
+print("allowed to change to the right after setChangePermissions",
+      traci.lane.getChangePermissions(centerLaneID, traci.constants.LANECHANGE_RIGHT))
 
 traci.lane.setAllowed(laneID, ["taxi"])
 print("after setAllowed", traci.lane.getAllowed(
