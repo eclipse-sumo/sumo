@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-12 21:21+0000\n"
+"PO-Revision-Date: 2023-03-13 10:35+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
@@ -5922,186 +5922,186 @@ msgstr "多边形是否应该被填充的信息"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2824
 msgid "The default line width for drawing an unfilled polygon"
-msgstr ""
+msgstr "绘制未填满的多边形的预设线宽"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2830
 msgid "The layer in which the polygon lies"
-msgstr ""
+msgstr "多边形物件所在的图层"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2836
 msgid "A typename for the polygon"
-msgstr ""
+msgstr "多边形物件的类型名称(typename)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2842
 msgid "Polygon's name"
-msgstr ""
+msgstr "多边形的名称"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2847
 msgid "A bitmap to use for rendering this polygon"
-msgstr ""
+msgstr "用于呈现此多边形的点阵图"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2853
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2924
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3014
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3091
 msgid "Enable or disable use image file as a relative path"
-msgstr ""
+msgstr "允许或禁止使用图像档案作为相对路径"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2859
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2930
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3020
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3097
 msgid "Angle of rendered image in degree"
-msgstr ""
+msgstr "呈现的图像的角度 (以度为单位)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2873
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2944
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3034
 msgid "The id of the POI"
-msgstr ""
+msgstr "兴趣点的识别名(id)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2878
 msgid "The position in view"
-msgstr ""
+msgstr "视图中的位置"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2883
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2973
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3050
 msgid "The color with which the POI shall be displayed"
-msgstr ""
+msgstr "显示兴趣点的颜色"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2889
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2979
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3056
 msgid "A typename for the POI"
-msgstr ""
+msgstr "兴趣点的类型名称（typename)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2895
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2985
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3062
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3146
 msgid "Name of POI"
-msgstr ""
+msgstr "兴趣点的名称"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2900
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2990
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3067
 msgid "The layer of the POI for drawing and selecting"
-msgstr ""
+msgstr "用于绘制或选择的兴趣点的图层"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2906
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2996
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3073
 msgid "Width of rendered image in meters"
-msgstr ""
+msgstr "呈现的图像的宽度(以米为单位)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2912
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3002
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3079
 msgid "Height of rendered image in meters"
-msgstr ""
+msgstr "呈现的图像的高度(以米为单位)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2918
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3008
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3085
 msgid "A bitmap to use for rendering this POI"
-msgstr ""
+msgstr "用于呈现此兴趣点的点阵图"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2949
 msgid "The name of the lane at which the POI is located at"
-msgstr ""
+msgstr "兴趣点所在车道的名称"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2954
 msgid ""
 "The position on the named lane or in the net in meters at which the POI is "
 "located at"
-msgstr ""
+msgstr "兴趣点在已命名车道或路网的位置(以米为单位)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2967
 msgid "The lateral offset on the named lane at which the POI is located at"
-msgstr ""
+msgstr "兴趣点所在的已命名车道的侧向偏移值(lateral offset)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3040
 msgid "The longitud position of the parking vehicle on the view"
-msgstr ""
+msgstr "停车车辆在视图上的经度位置"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3045
 msgid "The latitud position of the parking vehicle on the view"
-msgstr ""
+msgstr "停车车辆在视图上的纬度位置"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3119
 msgid "The id of the TAZ"
-msgstr ""
+msgstr "交通分区(TAZ)的识别名(id)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3124
 msgid "The shape of the TAZ"
-msgstr ""
+msgstr "交通分区TAZ)的形状"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3129
 msgid "TAZ center"
-msgstr ""
+msgstr "交通分区(TAZ)中心"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3134
 msgid "An information whether the TAZ shall be filled"
-msgstr ""
+msgstr "是否应填写交通分区（TAZ）的信息"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3140
 msgid "The RGBA color with which the TAZ shall be displayed"
-msgstr ""
+msgstr "显示的交通分区(TAZ)的颜色(RGBA)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3165
 msgid "Depart weight associated to this Edge"
-msgstr ""
+msgstr "与此路段相关的出发权重(depart weight)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3185
 msgid "Arrival weight associated to this Edget"
-msgstr ""
+msgstr "与此路段相关的抵达权重 (arrival weight)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3208
 msgid "Traction substation ID"
-msgstr ""
+msgstr "牵引变电站的识别名(ID)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3219
 msgid "Voltage of at connection point for the overhead wire"
-msgstr ""
+msgstr "用于架空电线的接触点的电压"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3225
 msgid "Current limit of the feeder line"
-msgstr ""
+msgstr "馈电线路的电流限制"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3239
 msgid "Overhead wire segment ID"
-msgstr ""
+msgstr "架空电线区段识别名(ID)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3244
 msgid "Substation to which the circuit is connected"
-msgstr ""
+msgstr "连接电路的变电站"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3249
 msgid "List of consecutive lanes of the circuit"
-msgstr ""
+msgstr "电路(circuit)所在的连续车道清单"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3254
 msgid "Starting position in the specified lane"
-msgstr ""
+msgstr "在指定车道上的开始位置"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3260
 msgid "Ending position in the specified lane"
-msgstr ""
+msgstr "在指定车道上的结束位置"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3274
 msgid "Inner lanes, where placing of overhead wire is restricted"
-msgstr ""
+msgstr "限制设置架空电线的內车道"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3287
 msgid "Overhead wire clamp ID"
-msgstr ""
+msgstr "架空电线夹的识别名(ID)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3292
 msgid ""
 "ID of the overhead wire segment, to the start of which the overhead wire "
 "clamp is connected"
-msgstr ""
+msgstr "与架空电线夹起点连接的架空电线区段的识别名(ID)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3297
 msgid "ID of the overhead wire segment lane of overheadWireIDStartClamp"
