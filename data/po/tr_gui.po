@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-06 08:31+0000\n"
+"PO-Revision-Date: 2023-03-13 08:53+0000\n"
 "Last-Translator: kyasin <yasingoka@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/tr/>\n"
@@ -2444,7 +2444,7 @@ msgstr "Trafik Atama Bölgeleri Oluştur."
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:601
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:601
 msgid "Create Points-Of-Interest and polygons."
-msgstr ""
+msgstr "Etki Noktaları ve çokgenler oluştur."
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:604
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:604
@@ -2454,7 +2454,7 @@ msgstr "Enerji Hattı"
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:604
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:604
 msgid "Create wires."
-msgstr ""
+msgstr "Kablo oluştur."
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:661
 #: /home/micha/programming/sumo/src\netedit\GNEViewParent.cpp:590
@@ -2462,37 +2462,35 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:661
 #: /home/micha/programming/sumo/src/netedit/GNEViewParent.cpp:590
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:2705
-#, fuzzy
 msgid "Route"
 msgstr "Rota"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:661
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:661
 msgid "Create Routes."
-msgstr ""
+msgstr "Rota oluştur."
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:664
 #: /home/micha/programming/sumo/src\netedit\GNEViewParent.cpp:529
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:664
 #: /home/micha/programming/sumo/src/netedit/GNEViewParent.cpp:529
-#, fuzzy
 msgid "Vehicle"
-msgstr "Araçlar"
+msgstr "Araç"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:664
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:664
 msgid "Create vehicles."
-msgstr ""
+msgstr "Araç oluştur."
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:667
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:667
 msgid "Type"
-msgstr ""
+msgstr "Tip"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:667
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:667
 msgid "Create types (vehicles, person an containers)."
-msgstr ""
+msgstr "Tip oluştur (araçlar, kişiler ve konteynerler)."
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:670
 #: /home/micha/programming/sumo/src\netedit\GNEViewParent.cpp:598
@@ -2504,33 +2502,29 @@ msgstr "Dur"
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:670
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:670
 msgid "Create stops."
-msgstr ""
+msgstr "Durak oluştur."
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:673
 #: /home/micha/programming/sumo/src\netedit\GNEViewParent.cpp:576
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:673
 #: /home/micha/programming/sumo/src/netedit/GNEViewParent.cpp:576
-#, fuzzy
 msgid "Person"
-msgstr "Yolcular"
+msgstr "Yolcu"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:673
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:673
-#, fuzzy
 msgid "Create persons."
-msgstr "Yolcu Planını Sil"
+msgstr "Yolcu oluştur."
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:676
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:676
-#, fuzzy
 msgid "Person plan"
-msgstr "Yolcu Planları"
+msgstr "Yolcu planı"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:676
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:676
-#, fuzzy
 msgid "Create person plans."
-msgstr "Yolcu Planını Sil"
+msgstr "Yolcu planları oluştur."
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:679
 #: /home/micha/programming/sumo/src\netedit\frames\GNETagSelector.cpp:179
@@ -2541,55 +2535,48 @@ msgstr "Konteyner"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:679
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:679
-#, fuzzy
 msgid "Create containers."
-msgstr "Konteynerler"
+msgstr "Konteyner oluştur."
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:682
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:682
-#, fuzzy
 msgid "Container plan"
-msgstr "Konteyner Planları"
+msgstr "Konteyner planı"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:682
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:682
-#, fuzzy
 msgid "Create container plans."
-msgstr "Konteyner Planları"
+msgstr "Konteyner planı oluştur."
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:717
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:717
-#, fuzzy
 msgid "&EdgeData"
-msgstr "Kesit Verileri"
+msgstr "&EdgeData"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:717
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:717
-#, fuzzy
 msgid "Create edgeData elements."
-msgstr "Veri Elemanları Dosyasını Farklı Kaydet"
+msgstr "Kesim verisi elemanları oluştur."
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:720
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:720
-#, fuzzy
 msgid "Edge&Relation"
-msgstr "Kesit&TAB İlişkili"
+msgstr "Kesim&İlişki"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:720
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:720
 msgid "Create edgeRelation elements."
-msgstr ""
+msgstr "Kesim ilişkili elemanlar oluştur."
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:723
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:723
 msgid "TA&ZRelation"
-msgstr ""
+msgstr "TAB İlişkili"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:723
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:723
-#, fuzzy
 msgid "Create TAZRelation elements."
-msgstr "TAB Elemanları"
+msgstr "TAB ilişkili elemanlar oluştur."
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:726
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:726
@@ -2598,9 +2585,8 @@ msgstr "Ortalama Veri"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:726
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:726
-#, fuzzy
 msgid "Create MeanData edge/lanes."
-msgstr "Ortalama Veriler Dosyasını Farklı Kaydet"
+msgstr "MeanData kesim/şeritleri oluştur."
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:788
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:985
@@ -2611,7 +2597,7 @@ msgstr "Ortalama Veriler Dosyasını Farklı Kaydet"
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2297
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2608
 msgid "Show grid"
-msgstr ""
+msgstr "Izgarayı göster"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:793
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:990
@@ -2626,12 +2612,12 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2616
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2903
 msgid "Hide junction shape"
-msgstr ""
+msgstr "Kavşak şeklini gizle"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:798
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:798
 msgid "Draw vehicles spread in lane or in depart position"
-msgstr ""
+msgstr "Yolda ya da ayrılma pozisyonunda yayılmış araçları çizin"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:803
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1140
@@ -2641,86 +2627,83 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1140
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2321
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2925
-#, fuzzy
 msgid "Show demand elements"
-msgstr "Talep Elemanları Dosyasını Kaydet"
+msgstr "Talep elemanlarını göster"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:808
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:808
 msgid "Clicking should target lanes"
-msgstr ""
+msgstr "Tıklama şeritleri hedeflemelidir"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:813
 #: /home/micha/programming/sumo/src\netedit\GNEViewNetHelper.cpp:2355
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:813
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2336
 msgid "Show connections over junctions"
-msgstr ""
+msgstr "Kavşaklar üzerindeki bağlantıları göster"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:818
 #: /home/micha/programming/sumo/src\netedit\GNEViewNetHelper.cpp:2363
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:818
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2344
-#, fuzzy
 msgid "Hide connections"
-msgstr "Bağlantılar"
+msgstr "Bağlantıları gizle"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:823
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:823
-#, fuzzy
 msgid "Show sub-additional elements"
-msgstr "Ek Elemanlar"
+msgstr "Alt ek öğeleri göster"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:828
 #: /home/micha/programming/sumo/src\netedit\GNEViewNetHelper.cpp:2379
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:828
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2360
-#, fuzzy
 msgid "Show TAZ elements"
-msgstr "TAB Elemanları"
+msgstr "TAB öğelerini göster"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:833
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:833
 msgid "Selecting multiple edges automatically select their junctions"
-msgstr ""
+msgstr "Çoklu kesim seçmek otomatik olarak onların kavşaklarını seçer"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:838
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:838
 msgid "Clicking should apply state changes to all phases of TLS plan"
 msgstr ""
+"Tıklandığında devre değişiklikleri TLS planının tüm aşamalarına "
+"uygulanmalıdır"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:843
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:843
 msgid "Ask for confirmation before merging junction"
-msgstr ""
+msgstr "Kavşağı birleştirmeden önce onay iste"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:848
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:848
 msgid "Show bubbles over junctions shapes"
-msgstr ""
+msgstr "Kavşak şekilleri üzerinde baloncukları göster"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:853
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:853
 msgid "Apply mouse movement to elevation"
-msgstr ""
+msgstr "Yükseltme için fare hareketini uygula"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:858
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:858
-#, fuzzy
 msgid "Create consecutive edges"
-msgstr "Çakışan Kesimleri Seç"
+msgstr "Ardışık kesimler oluştur"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:863
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:863
 msgid "Create an edge in the opposite direction"
-msgstr ""
+msgstr "Ters yönde bir kesim oluştur"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:995
 #: /home/micha/programming/sumo/src\netedit\GNEViewNetHelper.cpp:2643
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:995
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2624
 msgid "Draw vehicles spread/depart position"
-msgstr ""
+msgstr "Araçların yayılma/ayrılma pozisyonunu çiz"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1000
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1135
@@ -2731,155 +2714,141 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2632
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2918
 msgid "Show shapes"
-msgstr ""
+msgstr "Şekilleri göster"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1005
 #: /home/micha/programming/sumo/src\netedit\GNEViewNetHelper.cpp:2659
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1005
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2640
 msgid "Show all trips"
-msgstr ""
+msgstr "Tüm seyahatleri göster"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1010
 #: /home/micha/programming/sumo/src\netedit\GNEViewNetHelper.cpp:2667
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1010
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2648
-#, fuzzy
 msgid "Show all person plans"
-msgstr "Geçersiz Yolcu Planlarını Kaydet"
+msgstr "Tüm yolcu planlarını göster"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1015
 #: /home/micha/programming/sumo/src\netedit\GNEViewNetHelper.cpp:2675
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1015
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2656
-#, fuzzy
 msgid "Lock selected person"
-msgstr "Yolcu Planını Sil"
+msgstr "Seçili yolcuyu kilitle"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1020
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1020
-#, fuzzy
 msgid "Show all container plans"
-msgstr "Konteyner Planları"
+msgstr "Tüm konteyner planlarını göster"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1025
 #: /home/micha/programming/sumo/src\netedit\GNEViewNetHelper.cpp:2691
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1025
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2672
 msgid "Lock selected container"
-msgstr ""
+msgstr "Seçili konteyneri kilitle"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1030
 #: /home/micha/programming/sumo/src\netedit\GNEViewNetHelper.cpp:2699
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1030
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2680
-#, fuzzy
 msgid "Show non-inspected demand elements"
-msgstr "   Sonraki Elemanın İncelenmesi İçin\n"
+msgstr "Denetlenmeyen talep unsurlarını göster"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1035
 #: /home/micha/programming/sumo/src\netedit\GNEViewNetHelper.cpp:2707
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1035
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2688
 msgid "Show number of overlapped routes"
-msgstr ""
+msgstr "Çakışan rota sayısını göster"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1130
 #: /home/micha/programming/sumo/src\netedit\GNEViewNetHelper.cpp:2930
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1130
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:2911
-#, fuzzy
 msgid "Show additionals"
-msgstr "Ekler"
+msgstr "Ekleri göster"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1145
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1145
 msgid "Draw TAZRel from center"
-msgstr ""
+msgstr "Merkezden TABİlişkili çiz"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1150
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1150
 msgid "Draw TAZ fill"
-msgstr ""
+msgstr "TAB dolgusu çiz"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1155
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1155
 msgid "Only draw TAZRel from"
-msgstr ""
+msgstr "Sadece dosyadan TABİlişkili çiz"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1160
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1160
 msgid "Only draw TAZRel to"
-msgstr ""
+msgstr "Sadece dosyaya TABİlişkili çiz"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1241
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1241
 msgid "Undo the last change."
-msgstr ""
+msgstr "Son değişikliği geri al."
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1244
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1244
-#, fuzzy
 msgid "Redo the last change."
-msgstr "Son Şeridi Kaldır"
+msgstr "Son değişikliği yinele."
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1247
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1247
 msgid "Show undo/redo history"
-msgstr ""
+msgstr "Geri alma/yineleme geçmişini göster"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1247
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1247
 msgid "Open undo/redo history dialog."
-msgstr ""
+msgstr "Geri al/yinele geçmişi iletişim kutusunu aç."
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1268
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1268
-#, fuzzy
 msgid "Clear front element"
-msgstr "Kaynak Eleman"
+msgstr "Ön elemanı temizle"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1268
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1268
-#, fuzzy
 msgid "Clear current front element"
-msgstr "Kaynak Eleman"
+msgstr "Geçerli ön elemanı temizle"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1277
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1277
-#, fuzzy
 msgid "Load additionals in sumo-gui"
-msgstr "Ekler Dosyasını Farklı Kaydet"
+msgstr "Ekleri sumo-gui'de yükle"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1277
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1277
-#, fuzzy
 msgid "Load additionals in sumo-gui."
-msgstr "Ekler Dosyasını Farklı Kaydet"
+msgstr "Ekleri sumo-gui'de yükle"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1281
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1281
-#, fuzzy
 msgid "Load demand in sumo-gui"
-msgstr "Yeni Bir sumo-gui (SUMO-GKA) Penceresi Aç."
+msgstr "Talebi sumo-gui'de yükle"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1281
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1281
-#, fuzzy
 msgid "Load demand in sumo-gui."
-msgstr "Yeni Bir sumo-gui (SUMO-GKA) Penceresi Aç."
+msgstr "Talebi sumo-gui'de yükle."
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1285
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1285
-#, fuzzy
 msgid "Open in sumo-gui"
-msgstr "Yeni Bir sumo-gui (SUMO-GKA) Penceresi Aç."
+msgstr "Sumo-gui'de aç"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1285
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1285
-#, fuzzy
 msgid "Opens the sumo-gui application with the current network."
-msgstr "Mevcut Ağ ile Netedit Uygulaması Açar."
+msgstr "Geçerli ağ ile sumo-gui uygulamasını açar."
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1312
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1312
@@ -2983,182 +2952,166 @@ msgstr "Kesit&TAB İlişkili"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1425
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1425
-#, fuzzy
 msgid "Lock selected elements"
-msgstr "Çakışık Elemanlar"
+msgstr "Seçilen elemanları kilitle"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1425
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1425
-#, fuzzy
 msgid "selected elements"
-msgstr "Çakışık Elemanlar"
+msgstr "seçilen elemanlar"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1432
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1432
-#, fuzzy
 msgid "Lock all elements"
-msgstr "Ek Elemanlar"
+msgstr "Tüm elemanları kilitle"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1432
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1432
-#, fuzzy
 msgid "all elements"
-msgstr "Şekil Elemanları"
+msgstr "tüm elemanlar"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1436
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1436
-#, fuzzy
 msgid "Unlock all elements"
-msgstr "Ağ Elemanları"
+msgstr "Tüm elemanların kilidini aç"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1772
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1772
-#, fuzzy
 msgid "Compute Junctions"
-msgstr "Kavşaklar"
+msgstr "Kavşakları Hesapla"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1772
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1772
 msgid "Compute junction shape and logic."
-msgstr ""
+msgstr "Kavşak şeklini ve mantığını hesapla."
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1775
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1775
-#, fuzzy
 msgid "Compute Junctions with volatile options"
-msgstr "Havai Seçeneklerle Yeniden Hesapla"
+msgstr "Kavşakları hassas seçeneklerle hesapla"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1775
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1775
 msgid "Compute junction shape and logic using volatile junctions."
-msgstr ""
+msgstr "Kavşak şekil ve mantığını hassas seçenekler kullanarak hesapla."
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1778
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1778
-#, fuzzy
 msgid "Clean Junctions"
-msgstr "Kavşaklar"
+msgstr "Kavşakları temizle"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1778
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1778
 msgid "Remove solitary junctions."
-msgstr ""
+msgstr "Münferit kavşakları kaldır."
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1781
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1781
 msgid "Join Selected Junctions"
-msgstr ""
+msgstr "Seçili kavşakları bağla"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1781
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1781
 msgid "Join selected junctions into a single junction."
-msgstr ""
+msgstr "Seçili kavşakları tek bir kavşakta birleştir."
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1784
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1784
-#, fuzzy
 msgid "Clean invalid crossings"
-msgstr "Geçersiz Geçitleri Kaydet"
+msgstr "Geçersiz geçitleri temizle"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1784
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1784
-#, fuzzy
 msgid "Clear invalid crossings."
-msgstr "Geçersiz Geçitleri Kaydet"
+msgstr "Geçersiz geçitleri temizle."
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1790
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1790
 msgid "Recompute Network in Data Mode"
-msgstr ""
+msgstr "Veri Modunda Ağı Yeniden Hesapla"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1796
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1796
 msgid "Compute demand"
-msgstr ""
+msgstr "Talebi hesapla"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1796
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1796
-#, fuzzy
 msgid "Computes demand elements."
-msgstr "Talep Elemanları Dosyası Yükle"
+msgstr "Talep elemanlarını hesaplar."
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1799
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1799
-#, fuzzy
 msgid "Clean routes"
-msgstr "Son Rotayı Kullan"
+msgstr "Rotaları temizle"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1799
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1799
-#, fuzzy
 msgid "Removes routes without vehicles."
-msgstr "Araç Rotası Dışındaki Durakları Kaldır"
+msgstr "Araç içermeyen rotaları kaldırır."
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1802
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1802
-#, fuzzy
 msgid "Join routes"
-msgstr "Geçersiz Rotaları Kaldır"
+msgstr "Rotaları birleştir"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1802
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1802
 msgid "Joins routes with the same edges."
-msgstr ""
+msgstr "Aynı kesimlere sahip rotaları birleştirir."
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1805
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1805
-#, fuzzy
 msgid "Adjust person plans"
-msgstr "Yolcu Planları"
+msgstr "Yolcu planlarını ayarla"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1805
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1805
 msgid "Adjust person plans (start/end positions, arrival positions, etc.)"
 msgstr ""
+"Yolcu planlarını ayarla (başlangıç/bitiş pozisyonları, varış pozisyonları, "
+"vb.)"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1808
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1808
-#, fuzzy
 msgid "Clean invalid route elements"
-msgstr "Geçersiz Rotaları Kaydet"
+msgstr "Geçersiz rota elemanlarını temizle"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1808
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1808
 msgid "Clear elements with an invalid path (routes, Trips, Flows...)."
 msgstr ""
+"Geçersiz bir yola sahip öğeleri temizle (rotalar, seyahatler, akımlar...)."
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1814
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1814
 msgid "Sumo options"
-msgstr ""
+msgstr "Sumo seçenekleri"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1814
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1814
 msgid "Configure sumo Options."
-msgstr ""
+msgstr "Sumo Seçeneklerini Yapılandır."
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1820
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEDeleteFrame.cpp:53
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1820
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEDeleteFrame.cpp:53
-#, fuzzy
 msgid "Options"
-msgstr "SUMO Seçenekleri"
+msgstr "Seçenekler"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1820
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1820
 msgid "Configure netedit Options."
-msgstr ""
+msgstr "netedit Seçeneklerini Yapılandır."
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1933
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1933
-#, fuzzy
 msgid "Open a dialog for locating a Junction."
-msgstr "Bir Kavşak Belirlemek İçin İletişim Kutusu Aç."
+msgstr "Bir Kavşak Belirlemek İçin İletişim Penceresi Aç."
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1936
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1936
-#, fuzzy
 msgid "Open a dialog for locating an Edge."
 msgstr "Bir Kesim Belirlemek İçin İletişim Penceresi Aç."
 
@@ -3169,19 +3122,16 @@ msgstr "Yürüme Alanları"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1939
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1939
-#, fuzzy
 msgid "Open a dialog for locating a Walking Area."
-msgstr "Bir Konteyner Belirlemek İçin İletişim Penceresi Aç."
+msgstr "Bir Yürüme Alanı Belirlemek İçin İletişim Penceresi Aç."
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1942
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1942
-#, fuzzy
 msgid "Open a dialog for locating a Vehicle."
 msgstr "Bir Araç Belirlemek İçin İletişim Penceresi Aç."
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1945
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1945
-#, fuzzy
 msgid "Open a dialog for locating a Person."
 msgstr "Bir Yolcu Belirlemek İçin İletişim Penceresi Aç."
 
@@ -3192,9 +3142,8 @@ msgstr "Rota"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1948
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1948
-#, fuzzy
 msgid "Open a dialog for locating a Route."
-msgstr "Bir Konteyner Belirlemek İçin İletişim Penceresi Aç."
+msgstr "Bir Rota Belirlemek İçin İletişim Penceresi Aç."
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1951
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1951
@@ -3203,31 +3152,26 @@ msgstr "Duraklar"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1951
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1951
-#, fuzzy
 msgid "Open a dialog for locating a Stop."
-msgstr "Bir Kavşak Belirlemek İçin İletişim Kutusu Aç."
+msgstr "Bir Durak Belirlemek İçin İletişim Kutusu Aç."
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1954
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1954
-#, fuzzy
 msgid "Open a dialog for locating a Traffic Light."
 msgstr "Bir Trafik Işığı Belirlemek İçin İletişim Penceresi Aç."
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1957
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1957
-#, fuzzy
 msgid "Open a dialog for locating an Additional Structure."
 msgstr "Bir Ek Yapı Belirlemek İçin İletişim Penceresi Aç."
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1960
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1960
-#, fuzzy
 msgid "Open a dialog for locating a Point of Interest."
 msgstr "Bir Etki Noktası Belirlemek İçin İletişim Penceresi Aç."
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1963
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1963
-#, fuzzy
 msgid "Open a dialog for locating a Polygon."
 msgstr "Bir Çokgen Belirlemek İçin İletişim Penceresi Aç."
 
@@ -3238,20 +3182,18 @@ msgstr "NetDiff"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1997
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1997
-#, fuzzy
 msgid "Toggle this Status Bar on/off."
-msgstr "Durum Çubuğunu Göster\t\tDurum Çubuğunu Aç/Kapa."
+msgstr "Durum Çubuğunu Aç/Kapa."
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2004
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2004
-#, fuzzy
 msgid "Clear the Message Window."
 msgstr "Mesaj Penceresini Temizle."
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2029
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2029
 msgid "Open feedback channels."
-msgstr ""
+msgstr "Geri bildirim kanallarını aç."
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2032
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2032
@@ -3266,7 +3208,7 @@ msgstr "Ağ"
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2068
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2068
 msgid "Select network mode."
-msgstr ""
+msgstr "Ağ modunu seç."
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2071
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2071
@@ -3276,7 +3218,7 @@ msgstr "Talep"
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2071
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2071
 msgid "Select demand mode."
-msgstr ""
+msgstr "Talep modunu seç."
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2074
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2074
@@ -3286,38 +3228,36 @@ msgstr "Veri"
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2074
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2074
 msgid "Select data mode."
-msgstr ""
+msgstr "Veri modunu seç."
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2106
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2110
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2106
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2110
-#, fuzzy
 msgid "Could not load SUMO configuration '"
-msgstr "SUMO Yapılandırmasını Farklı Kaydet"
+msgstr "SUMO yapılandırması yüklenemedi '"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2155
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2159
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2155
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2159
 msgid "Could not load netedit configuration '"
-msgstr ""
+msgstr "netedit yapılandırması yüklenemedi '"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2604
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2604
-#, fuzzy
 msgid "Save Network file as"
 msgstr "Ağı Farklı Kaydet"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2605
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2605
 msgid "SUMO Network files (*.net.xml)"
-msgstr ""
+msgstr "SUMO Ağ dosyaları (*.net.xml)"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2606
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2606
 msgid "SUMO Network files zipped (*.net.xml.gz)"
-msgstr ""
+msgstr "Sıkıştırılmış SUMO Ağ dosyaları (*.net.xml.gz)"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2607
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2607
@@ -3325,17 +3265,18 @@ msgid ""
 "XML files (*.xml)\n"
 "All files (*)"
 msgstr ""
+"XML dosyaları (*.xml)\n"
+"Tüm dosyalar (*)"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2609
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2609
-#, fuzzy
 msgid "Open Network file"
-msgstr "Ağ Yükle"
+msgstr "Ağ dosyası aç"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2610
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2610
 msgid "SUMO Network files (*.net.xml,*.net.xml.gz)"
-msgstr ""
+msgstr "SUMO Ağ dosyaları (*.net.xml,*.net.xml.gz)"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2611
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2621
@@ -3368,7 +3309,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2761
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2766
 msgid "XML files (*.xml)"
-msgstr ""
+msgstr "XML dosyaları (*.xml)"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2612
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2622
@@ -3409,122 +3350,113 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2762
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2767
 msgid "All files (*)"
-msgstr ""
+msgstr "Tüm dosyalar (*)"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2619
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2619
-#, fuzzy
 msgid "Open NetConvert file"
-msgstr "Netconvert Yapılandırmasını Aç"
+msgstr "NetConvert dosyası aç"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2620
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2620
 msgid "Netconvert files (*.netccfg)"
-msgstr ""
+msgstr "Netconvert dosyaları (*.netccfg)"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2628
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2628
 msgid "Save plain XML as"
-msgstr ""
+msgstr "Yalın XML'i farklı kaydet"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2634
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2634
-#, fuzzy
 msgid "Save joined Junctions as"
-msgstr "Birleşmiş Kavşakları Kaydet"
+msgstr "Birleştirilmiş Kavşakları farklı kaydet"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2635
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2635
 msgid "Junction files (*.nod.xml)"
-msgstr ""
+msgstr "Kavşak dosyaları (*.nod.xml)"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2643
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2643
-#, fuzzy
 msgid "Open OSM file"
-msgstr "OSG Dosyası Aç"
+msgstr "OSM Dosyası Aç"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2644
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2644
 msgid "OSM net (*.osm.xml,*.osm)"
-msgstr ""
+msgstr "OSM ağı (*.osm.xml,*.osm)"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2651
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2651
 msgid "Save netedit Config file as"
-msgstr ""
+msgstr "netedit Yapılandırma dosyasını farklı kaydet"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2652
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2656
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2652
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2656
 msgid "Netedit Config files (*.neteditcfg)"
-msgstr ""
+msgstr "Netedit Yapılandırma dosyaları (*.neteditcfg)"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2655
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2655
 msgid "Open netedit Config file"
-msgstr ""
+msgstr "netedit Yapılandırma dosyasını aç"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2665
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2665
-#, fuzzy
 msgid "Save SUMO Config file as"
-msgstr "SUMO Yapılandırmasını Farklı Kaydet"
+msgstr "SUMO Yapılandırma Dosyasını Farklı Kaydet"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2666
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2670
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2666
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2670
 msgid "SUMO Config files (*.sumocfg)"
-msgstr ""
+msgstr "SUMO Yapılandırma dosyaları (*.sumocfg)"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2669
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2669
-#, fuzzy
 msgid "Open SUMO Config file"
-msgstr "SUMOConfig Dosyası Aç"
+msgstr "SUMO Yapılandırma Dosyası Aç"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2679
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2679
-#, fuzzy
 msgid "Save TLS file as"
-msgstr "Kesim Tipi Dosyasını Farklı Kaydet"
+msgstr "TIS dosyasını farklı kaydet"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2680
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2685
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2680
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2685
 msgid "TLS files (*.tll.xml)"
-msgstr ""
+msgstr "TIS dosyaları (*.tll.xml)"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2684
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2684
-#, fuzzy
 msgid "Open TLS file"
-msgstr "OSG Dosyası Aç"
+msgstr "TIS Dosyası Aç"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2695
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2695
-#, fuzzy
 msgid "Save EdgeType file as"
 msgstr "Kesim Tipi Dosyasını Farklı Kaydet"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2696
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2696
 msgid "EdgeType files (*.tll.xml)"
-msgstr ""
+msgstr "Kesim Tipi dosyaları (*.tll.xml)"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2700
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2700
-#, fuzzy
 msgid "Open EdgeType file"
-msgstr "Kesim Tipi Dosyası Kaydet"
+msgstr "Kesim Tipi dosyası aç"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2701
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2701
 msgid "EdgeType files (*.typ.xml)"
-msgstr ""
+msgstr "Kesim Tipi dosyaları (*.typ.xml)"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2711
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2711
@@ -3536,7 +3468,7 @@ msgstr "Ekler Dosyasını Farklı Kaydet"
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2712
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2717
 msgid "Additional files (*.add.xml)"
-msgstr ""
+msgstr "Ek dosyalar (*.add.xml)"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2716
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2716
@@ -3545,72 +3477,66 @@ msgstr "Ekler Dosyası Yükle"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2727
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2727
-#, fuzzy
 msgid "Save Route file as"
-msgstr "Kesim Tipi Dosyasını Farklı Kaydet"
+msgstr "Rota dosyasını farklı kaydet"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2728
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2733
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2728
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2733
 msgid "Route files (*.rou.xml)"
-msgstr ""
+msgstr "Rota dosyaları (*.rou.xml)"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2732
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2732
-#, fuzzy
 msgid "Open Route file"
-msgstr "Veri Elemanları Dosyası Yükle"
+msgstr "Rota dosyasını aç"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2743
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2743
-#, fuzzy
 msgid "Save Data file as"
-msgstr "Ortalama Veriler Dosyasını Farklı Kaydet"
+msgstr "Veri dosyasını farklı kaydet"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2744
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2749
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2744
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2749
 msgid "Data files (*.dat.xml)"
-msgstr ""
+msgstr "Veri dosyaları (*.dat.xml)"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2748
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2748
-#, fuzzy
 msgid "Open Data file"
-msgstr "Ortalama Veriler Dosyasını Aç"
+msgstr "Veri dosyası aç"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2759
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2759
-#, fuzzy
 msgid "Save MeanData file as"
-msgstr "Ortalama Veriler Dosyasını Farklı Kaydet"
+msgstr "MeanData dosyasını farklı kaydet"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2760
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2765
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2760
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2765
 msgid "Meandata files (*.add.xml)"
-msgstr ""
+msgstr "Meandata dosyaları (*.add.xml)"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2764
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2764
-#, fuzzy
 msgid "Open MeanData file"
-msgstr "Ortalama Veriler Dosyasını Aç"
+msgstr "MeanData dosyası aç"
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:95
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:95
-#, fuzzy, c-format
+#, c-format
 msgid "Loading of sumo config file '%' failed."
-msgstr "Çakışan Öğe Listesinin Kaydı Başarısız"
+msgstr "sumo yapılandırma dosyasının yüklenmesi '%' başarısız oldu."
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:108
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:108
-#, fuzzy, c-format
+#, c-format
 msgid "Loading of netedit config file '%' failed."
-msgstr "Ekler Dosyasının Kaydı Başarısız!"
+msgstr "netedit yapılandırma dosyasının yüklenmesi '%' başarısız oldu."
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:117
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:117
@@ -3618,6 +3544,8 @@ msgid ""
 "Invalid input network option. Load with either sumo/netedit/netconvert "
 "config or with -new option"
 msgstr ""
+"Geçersiz giriş ağı seçeneği. sumo/netedit/netconvert yapılandırması ile veya "
+"-new seçeneği ile yükle"
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:130
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:130
@@ -3632,7 +3560,7 @@ msgstr "Projeksiyon Oluşturulamıyor!"
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:172
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:172
 msgid "Performing initial computation ..."
-msgstr ""
+msgstr "Ön Hesaplama Gerçekleştiriliyor..."
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:206
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:206
@@ -3642,282 +3570,285 @@ msgstr "Ağ Oluşturulması Başarısız."
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:251
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:251
 msgid "Start plain GUI with empty net"
-msgstr ""
+msgstr "Boş ağ ile yalın GUI başlat"
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:252
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:252
 msgid "Open a SUMO network"
-msgstr ""
+msgstr "Bir SUMO ağı aç"
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:253
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:253
 msgid "Open a configuration file (netedit or netconvert config)"
-msgstr ""
+msgstr "Bir yapılandırma dosyası aç (netedit veya netconvert)"
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:254
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:254
 msgid "Open a SUMO config file"
-msgstr ""
+msgstr "Bir SUMO yapılandırma dosyası aç"
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:279
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:279
 msgid "Load sumo config"
-msgstr ""
+msgstr "Sumo yapılandırması yükle"
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:283
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:283
 msgid "Load additional and shapes descriptions from FILE(s)"
-msgstr ""
+msgstr "Dosya(lar)dan ek ve şekil açıklamaları yükle"
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:287
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:287
 msgid "Load demand elements descriptions from FILE(s)"
-msgstr ""
+msgstr "Dosya(lar)dan talep elemanları açıklamaları yükle"
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:291
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:291
 msgid "Load data elements descriptions from FILE(s)"
-msgstr ""
+msgstr "Dosya(lar)dan talep elemanları açıklamaları yükle"
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:295
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:295
 msgid "Load meanData descriptions from FILE(s)"
-msgstr ""
+msgstr "Dosya(lar)dan meanData açıklamaları yükle"
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:300
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:300
 msgid "File in which TLS Programs must be saved"
-msgstr ""
+msgstr "TIS Programlarının kaydedilmesi gereken dosya"
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:303
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:303
 msgid "File in which edgeTypes must be saved"
-msgstr ""
+msgstr "Kesim tiplerinin kaydedilmesi gereken dosya"
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:309
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:309
 msgid "Start netedit with a new network"
-msgstr ""
+msgstr "netedit'i yeni bir ağ ile başlat"
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:312
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:312
 msgid "Write attribute help to file"
-msgstr ""
+msgstr "Öznitelik yardımını dosyaya yaz"
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:317
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:317
 msgid "Prefix for node naming"
-msgstr ""
+msgstr "Düğüm adlandırma için önek"
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:320
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:320
 msgid "Prefix for edge naming"
-msgstr ""
+msgstr "Kesim adlandırma için önek"
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:323
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:323
 msgid "Enable edge-infix (<fromNodeID><infix><toNodeID>)"
-msgstr ""
+msgstr "Kesim içekini etkinleştir ((<DüğümdenID><içek><DüğümeID>)"
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:328
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:328
 msgid "Prefix for busStop naming"
-msgstr ""
+msgstr "Otobüs durağı adlandırması için önek"
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:331
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:331
 msgid "Prefix for trainStop naming"
-msgstr ""
+msgstr "Tren durağı adlandırması için önek"
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:334
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:334
 msgid "Prefix for containerStop naming"
-msgstr ""
+msgstr "Konteyner durağı adlandırması için önek"
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:337
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:337
 msgid "Prefix for chargingStation naming"
-msgstr ""
+msgstr "Şarj istasyonu adlandırması için önek"
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:340
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:340
 msgid "Prefix for parkingArea naming"
-msgstr ""
+msgstr "Park alanı adlandırması için önek"
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:343
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:343
 msgid "Prefix for e1Detector naming"
-msgstr ""
+msgstr "e1Dedektör adlandırması için önek"
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:346
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:346
 msgid "Prefix for e2Detector naming"
-msgstr ""
+msgstr "e2Dedektör adlandırması için önek"
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:349
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:349
 msgid "Prefix for e3Detector naming"
-msgstr ""
+msgstr "e3Dedektör adlandırması için önek"
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:352
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:352
 msgid "Prefix for e1InstantDetector naming"
-msgstr ""
+msgstr "e1InstantDetector adlandırması için önek"
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:355
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:355
 msgid "Prefix for rerouter naming"
-msgstr ""
+msgstr "Yeniden rotalayıcı adlandırması için önek"
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:358
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:358
 msgid "Prefix for calibrator naming"
-msgstr ""
+msgstr "Kalibratör adlandırması için önek"
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:361
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:361
 msgid "Prefix for routeProbe naming"
-msgstr ""
+msgstr "routeProbe adlandırması için önek"
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:364
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:364
 msgid "Prefix for variable speed sign naming"
-msgstr ""
+msgstr "Değişken hız işareti adlandırması için önek"
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:367
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:367
 msgid "prefix for traction substation naming"
-msgstr ""
+msgstr "cer trafo merkezi adlandırması için önek"
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:370
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:370
 msgid "Prefix for overhead wire naming"
-msgstr ""
+msgstr "Havai hat adlandırması için önek"
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:373
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:373
 msgid "Prefix for polygon naming"
-msgstr ""
+msgstr "Çokgen adlandırması için önek"
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:376
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:376
 msgid "Prefix for poi naming"
-msgstr ""
+msgstr "EN adlandırması için önek"
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:381
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:381
 msgid "Prefix for route naming"
-msgstr ""
+msgstr "Rota adlandırması için önek"
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:384
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:384
 msgid "Prefix for vType naming"
-msgstr ""
+msgstr "Araç Tipi adlandırması için önek"
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:387
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:387
 msgid "Prefix for vehicle naming"
-msgstr ""
+msgstr "Araç adlandırması için önek"
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:390
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:390
 msgid "Prefix for trip naming"
-msgstr ""
+msgstr "Yolculuk adlandırması için önek"
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:393
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:393
 msgid "Prefix for flow naming"
-msgstr ""
+msgstr "Akım adlandırması için önek"
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:396
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:396
 msgid "Prefix for person naming"
-msgstr ""
+msgstr "Yolcu adlandırması için önek"
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:399
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:399
 msgid "Prefix for personFlow naming"
-msgstr ""
+msgstr "personFlow adlandırması için önek (Yolcu Akımı)"
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:402
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:402
 msgid "Prefix for container naming"
-msgstr ""
+msgstr "Konteyner adlandırması için önek"
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:405
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:405
 msgid "Prefix for containerFlow naming"
-msgstr ""
+msgstr "containerFlow adlandırması için önek (Konteyner Akımı)"
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:412
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:412
 msgid "Prefix for meanDataEdge naming"
-msgstr ""
+msgstr "meanDataEdge adlandırması için önek"
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:415
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:415
 msgid "Prefix for meanDataLane naming"
-msgstr ""
+msgstr "meanDataLane adlandırması için önek"
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:422
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:422
 msgid "Disable icons of special lanes"
-msgstr ""
+msgstr "Özel şeritlerin simgelerini devre dışı bırak"
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:425
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:425
 msgid "Disable textures"
-msgstr ""
+msgstr "Dokuları devre dışı bırak"
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:428
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:428
 msgid "Load visualisation settings from FILE"
-msgstr ""
+msgstr "Görselleştirme ayarlarını Dosya'dan yükle"
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:433
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:433
 msgid "Load current viewport from registry"
-msgstr ""
+msgstr "Geçerli görünüm alanını kayıt defterinden yükle"
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:436
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:436
 msgid "Create initial window with the given x,y size"
-msgstr ""
+msgstr "Verilen x,y boyutuyla ilk pencereyi oluştur"
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:439
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:439
 msgid "Create initial window at the given x,y position"
-msgstr ""
+msgstr "Verilen x,y boyutunda ilk pencereyi oluştur"
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:444
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:444
 msgid "Enable overlay for screen recognition"
-msgstr ""
+msgstr "Ekran tanıma için yer paylaşımını etkinleştir"
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:447
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:447
 msgid "Enable output messages during GUI-Testing"
-msgstr ""
+msgstr "GUI-Test sırasında çıktı mesajlarını etkinleştir"
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:450
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:450
 msgid "Enable output messages during GUI-Testing specific of gl functions"
 msgstr ""
+"gl fonksiyonlarına özgü GUI-Test sırasında çıktı mesajlarını etkinleştir"
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:453
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:453
 msgid "Save gui settings in the given settings-output file"
-msgstr ""
+msgstr "Gui ayarlarını verilen ayarlar-çıktı dosyasına kaydet"
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:460
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:460
 msgid "Defines the begin time in seconds; The simulation starts at this time"
 msgstr ""
+"Başlangıç zamanını saniye cinsinden tanımlar; simülasyon bu zamanda başlar"
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:463
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:463
 msgid "Defines the end time in seconds; The simulation ends at this time"
 msgstr ""
+"Bitiş zamanını saniye cinsinden tanımlar; simülasyon bu zamanda sona erer"
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:466
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:466
@@ -3928,6 +3859,11 @@ msgid ""
 "settings override the default. Must be a multiple of the simulation step-"
 "length."
 msgstr ""
+"Araç takip ve şerit değiştirme modelleri için eylem noktaları arasındaki "
+"varsayılan aralık uzunluğu (saniye cinsinden). Belirtilmezse, simülasyon "
+"adım uzunluğu varsayılan olarak kullanılır. Araç veya Araç-Tipine özgü "
+"ayarlar varsayılanı geçersiz kılar. Simülasyon adım uzunluğunun katı "
+"olmalıdır."
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:469
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:469
@@ -3935,42 +3871,43 @@ msgid ""
 "Select default speed deviation. A negative value implies vClass specific "
 "defaults (0.1 for the default passenger class"
 msgstr ""
+"Varsayılan hız sapmasını seçin. Negatif bir değer Araç-Sınıfına özgü "
+"varsayılanlar anlamına gelir (varsayılan yolcu sınıfı için 0,1)"
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:508
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:508
-#, fuzzy
 msgid "Failed to reset options."
-msgstr "Seçenek Çözümlemesi Başarısız."
+msgstr "Seçenekler sıfırlanamadı."
 
 #: /home/micha/programming/sumo/src\netedit\GNENet.cpp:370
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:370
 msgid "delete junction"
-msgstr ""
+msgstr "kavşağı sil"
 
 #: /home/micha/programming/sumo/src\netedit\GNENet.cpp:412
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:412
 msgid "delete edge"
-msgstr ""
+msgstr "kesimi sil"
 
 #: /home/micha/programming/sumo/src\netedit\GNENet.cpp:491
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:491
 msgid "replace edge"
-msgstr ""
+msgstr "kesimi değiştir"
 
 #: /home/micha/programming/sumo/src\netedit\GNENet.cpp:553
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:553
 msgid "delete lane"
-msgstr ""
+msgstr "şeridi sil"
 
 #: /home/micha/programming/sumo/src\netedit\GNENet.cpp:588
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:588
 msgid "delete connection"
-msgstr ""
+msgstr "bağlantıyı sil"
 
 #: /home/micha/programming/sumo/src\netedit\GNENet.cpp:603
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:603
 msgid "delete crossing"
-msgstr ""
+msgstr "geçidi sil"
 
 #: /home/micha/programming/sumo/src\netedit\GNENet.cpp:621
 #: /home/micha/programming/sumo/src\netedit\GNENet.cpp:650
@@ -3985,385 +3922,380 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:698
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:728
 msgid "delete "
-msgstr ""
+msgstr "Sil "
 
 #: /home/micha/programming/sumo/src\netedit\GNENet.cpp:644
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:644
 msgid "Trying to delete a default Vehicle Type"
-msgstr ""
+msgstr "Varsayılan bir Araç Tipi silinmeye çalışılıyor"
 
 #: /home/micha/programming/sumo/src\netedit\GNENet.cpp:737
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:2685
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:737
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2683
 msgid "duplicate lane"
-msgstr ""
+msgstr "Şeridi yinele"
 
 #: /home/micha/programming/sumo/src\netedit\GNENet.cpp:856
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:856
 msgid "split edge"
-msgstr ""
+msgstr "Kesimi böl"
 
 #: /home/micha/programming/sumo/src\netedit\GNENet.cpp:973
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:973
 msgid "split edges"
-msgstr ""
+msgstr "Kesimleri böl"
 
 #: /home/micha/programming/sumo/src\netedit\GNENet.cpp:995
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:995
 msgid "reverse edge"
-msgstr ""
+msgstr "Kesimi ters çevir"
 
 #: /home/micha/programming/sumo/src\netedit\GNENet.cpp:1008
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1008
 msgid "add reversed edge"
-msgstr ""
+msgstr "Ters kesim ekle"
 
 #: /home/micha/programming/sumo/src\netedit\GNENet.cpp:1043
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1043
 msgid "merge junctions"
-msgstr ""
+msgstr "kavşakları birleştir"
 
 #: /home/micha/programming/sumo/src\netedit\GNENet.cpp:1079
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1079
 msgid "select roundabout"
-msgstr ""
+msgstr "Dönel ada seç"
 
 #: /home/micha/programming/sumo/src\netedit\GNENet.cpp:1095
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1095
 msgid "create roundabout"
-msgstr ""
+msgstr "Dönel ada oluştur"
 
 #: /home/micha/programming/sumo/src\netedit\GNENet.cpp:1273
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1273
-#, fuzzy
 msgid "Forced computing junctions with volatile options ..."
-msgstr "Havai Seçeneklerle Yeniden Hesapla"
+msgstr "Hassas seçeneklerle kavşak hesaplama zorlaması..."
 
 #: /home/micha/programming/sumo/src\netedit\GNENet.cpp:1275
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1275
 msgid "Forced computing junctions ..."
-msgstr ""
+msgstr "Kavşak hesaplama zorlaması..."
 
 #: /home/micha/programming/sumo/src\netedit\GNENet.cpp:1282
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1282
-#, fuzzy
 msgid "Computing junctions with volatile options ..."
-msgstr "Havai Seçeneklerle Yeniden Hesapla"
+msgstr "Kavşaklar hassas seçeneklerle hesaplanıyor..."
 
 #: /home/micha/programming/sumo/src\netedit\GNENet.cpp:1284
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1284
 msgid "Computing junctions ..."
-msgstr ""
+msgstr "Kavşaklar hesaplanıyor..."
 
 #: /home/micha/programming/sumo/src\netedit\GNENet.cpp:1347
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1347
-#, fuzzy
 msgid "Finished computing junctions."
-msgstr "Rota Oluşturmayı Tamamla"
+msgstr "Kavşak hesaplaması tamamlandı."
 
 #: /home/micha/programming/sumo/src\netedit\GNENet.cpp:1353
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1353
-#, fuzzy
 msgid "Computing demand elements ..."
-msgstr "Talep Elemanları Dosyası Yükle"
+msgstr "Talep elemanları hesaplanıyor..."
 
 #: /home/micha/programming/sumo/src\netedit\GNENet.cpp:1367
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1367
 msgid "Finished computing demand elements."
-msgstr ""
+msgstr "Talep elemanlarının hesaplaması tamamlandı."
 
 #: /home/micha/programming/sumo/src\netedit\GNENet.cpp:1373
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1373
-#, fuzzy
 msgid "Computing data elements ..."
-msgstr "Veri Elemanları Kaydı Başarısız!"
+msgstr "Veri elemanları hesaplanıyor..."
 
 #: /home/micha/programming/sumo/src\netedit\GNENet.cpp:1380
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1380
 msgid "Finished computing data elements."
-msgstr ""
+msgstr "Veri elemanlarının hesaplaması tamamlandı."
 
 #: /home/micha/programming/sumo/src\netedit\GNENet.cpp:1459
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1459
 msgid "Position of joined junction"
-msgstr ""
+msgstr "Birleştirilmiş kavşağın konumu"
 
 #: /home/micha/programming/sumo/src\netedit\GNENet.cpp:1460
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1460
 msgid ""
 "There is another unselected junction in the same position of joined junction."
-msgstr ""
+msgstr "Birleştirilmiş kavşağın aynı konumunda seçilmemiş başka bir kavşak var."
 
 #: /home/micha/programming/sumo/src\netedit\GNENet.cpp:1461
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1461
 msgid "It will be joined with the other selected junctions. Continue?"
-msgstr ""
+msgstr "Diğer seçilen kavşaklarla birleştirilecektir. Devam et?"
 
 #: /home/micha/programming/sumo/src\netedit\GNENet.cpp:1582
 #: /home/micha/programming/sumo/src\netedit\GNENet.cpp:1592
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1582
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1592
 msgid "Clear crossings"
-msgstr ""
+msgstr "Geçitleri temizle"
 
 #: /home/micha/programming/sumo/src\netedit\GNENet.cpp:1583
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1583
 msgid "There are no invalid crossings to remove."
-msgstr ""
+msgstr "Kaldırılması gereken geçersiz geçit yok."
 
 #: /home/micha/programming/sumo/src\netedit\GNENet.cpp:1593
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1593
 msgid "Crossings will be cleared. Continue?"
-msgstr ""
+msgstr "Geçitler temizlenecek. Devam et?"
 
 #: /home/micha/programming/sumo/src\netedit\GNENet.cpp:1604
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1604
 msgid "clear crossings"
-msgstr ""
+msgstr "Geçitleri temizle"
 
 #: /home/micha/programming/sumo/src\netedit\GNENet.cpp:1617
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1617
 msgid "clear junctions"
-msgstr ""
+msgstr "Kavşakları temizle"
 
 #: /home/micha/programming/sumo/src\netedit\GNENet.cpp:1646
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1646
 msgid "clear unused routes"
-msgstr ""
+msgstr "kullanılmayan rotaları temizle"
 
 #: /home/micha/programming/sumo/src\netedit\GNENet.cpp:1701
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1701
 msgid "merge routes"
-msgstr ""
+msgstr "rotaları birleştir"
 
 #: /home/micha/programming/sumo/src\netedit\GNENet.cpp:1755
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1755
 msgid "adjust person plans"
-msgstr ""
+msgstr "Yolcu planlarını ayarla"
 
 #: /home/micha/programming/sumo/src\netedit\GNENet.cpp:1795
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1795
 msgid "remove invalid demand elements"
-msgstr ""
+msgstr "geçersiz talep elemanlarını kaldır"
 
 #: /home/micha/programming/sumo/src\netedit\GNENet.cpp:1810
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1810
 msgid "replace junction by geometry"
-msgstr ""
+msgstr "Kavşakları geometriye göre değiştir"
 
 #: /home/micha/programming/sumo/src\netedit\GNENet.cpp:1855
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1855
 msgid "Junction isn't removable"
-msgstr ""
+msgstr "Kavşak kaldırılabilir değil"
 
 #: /home/micha/programming/sumo/src\netedit\GNENet.cpp:1867
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1867
 msgid "split junction"
-msgstr ""
+msgstr "Kavşağı böl"
 
 #: /home/micha/programming/sumo/src\netedit\GNENet.cpp:1907
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1907
 msgid "Could not rename split node to '%'"
-msgstr ""
+msgstr "Bölünmüş düğüm '%' olarak yeniden adlandırılamadı"
 
 #: /home/micha/programming/sumo/src\netedit\GNENet.cpp:1946
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1946
 msgid "clear junction connections"
-msgstr ""
+msgstr "Kavşak bağlantılarını temizle"
 
 #: /home/micha/programming/sumo/src\netedit\GNENet.cpp:1958
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1958
 msgid "reset junction connections"
-msgstr ""
+msgstr "Kavşak bağlantılarını sıfırla"
 
 #: /home/micha/programming/sumo/src\netedit\GNENet.cpp:1969
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1969
 msgid "clear additional elements"
-msgstr ""
+msgstr "Ek elemanları temizle"
 
 #: /home/micha/programming/sumo/src\netedit\GNENet.cpp:1982
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1982
 msgid "clear demand elements"
-msgstr ""
+msgstr "Talep elemanlarını temizle"
 
 #: /home/micha/programming/sumo/src\netedit\GNENet.cpp:1995
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1995
 msgid "clear data elements"
-msgstr ""
+msgstr "Veri elemanlarını temizle"
 
 #: /home/micha/programming/sumo/src\netedit\GNENet.cpp:2006
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:2006
 msgid "clear meanData elements"
-msgstr ""
+msgstr "meanData elemanlarını temizle"
 
 #: /home/micha/programming/sumo/src\netedit\GNENet.cpp:2326
 #: /home/micha/programming/sumo/src\netedit\GNENet.cpp:2403
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:2326
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:2403
 msgid "Duplicated ID"
-msgstr ""
+msgstr "Yinelenmiş ID"
 
 #: /home/micha/programming/sumo/src\netedit\GNENet.cpp:2689
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:2689
 msgid "Network size exceeds 1 Lightyear. Please reconsider your inputs."
 msgstr ""
+"Ağ boyutu 1 Işıkyılı'nı aşıyor. Lütfen girdilerinizi tekrar gözden geçirin."
 
 #: /home/micha/programming/sumo/src\netedit\GNENetHelper.cpp:1461
 #: /home/micha/programming/sumo/src/netedit/GNENetHelper.cpp:1461
 msgid "Default vType doesn't exist"
-msgstr ""
+msgstr "Varsayılan vType mevcut değil (Araç Tipi)"
 
 #: /home/micha/programming/sumo/src\netedit\GNENetHelper.cpp:2473
 #: /home/micha/programming/sumo/src/netedit/GNENetHelper.cpp:2473
-#, fuzzy
 msgid "Invalid meanData pointer"
-msgstr "Geçersiz Şerit"
+msgstr "Geçersiz meanData işaretçisi"
 
 #: /home/micha/programming/sumo/src\netedit\GNENetHelper.cpp:2734
 #: /home/micha/programming/sumo/src/netedit/GNENetHelper.cpp:2734
 msgid "Redo replace in TLS"
-msgstr ""
+msgstr "TIS'da değiştirmeyi yinele"
 
 #: /home/micha/programming/sumo/src\netedit\GNENetHelper.cpp:2740
 #: /home/micha/programming/sumo/src/netedit/GNENetHelper.cpp:2740
 msgid "Undo replace in TLS"
-msgstr ""
+msgstr "TIS'da değiştirmeyi geri al"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:332
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:332
 msgid "Locate Junctions"
-msgstr ""
+msgstr "Kavşakları belirle"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:332
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:332
 msgid "Locate a junction within the network. (Shift+J)"
-msgstr ""
+msgstr "Ağ içinde bir kavşak belirle. (Shift+J)"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:336
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:336
 msgid "Locate Edges"
-msgstr ""
+msgstr "Kesimleri Bul"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:336
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:336
 msgid "Locate an edge within the network. (Shift+E)"
-msgstr ""
+msgstr "Ağ içinde bir kesim bul. (Shift+E)"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:340
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:340
 msgid "Locate WalkingAreas"
-msgstr ""
+msgstr "Yürüyüş Alanlarını Bul"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:340
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:340
 msgid "Locate a walkingArea within the network. (Shift+W)"
-msgstr ""
+msgstr "Ağ içinde bir yürüme alanı bul. (Shift+W)"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:344
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:344
 msgid "Locate Vehicles"
-msgstr ""
+msgstr "Araçları Bul"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:344
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:344
 msgid "Locate a vehicle within the network. (Shift+V)"
-msgstr ""
+msgstr "Ağ içinde bir araç bul. (Shift+V)"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:348
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:348
 msgid "Locate Persons"
-msgstr ""
+msgstr "Yolcuları Bul"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:348
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:348
 msgid "Locate a person within the network. (Shift+P)"
-msgstr ""
+msgstr "Ağdaki bir yolcuyu bul. (Shift+P)"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:352
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:352
 msgid "Locate Route"
-msgstr ""
+msgstr "Rotayı Bul"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:352
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:352
 msgid "Locate a route within the network. (Shift+R)"
-msgstr ""
+msgstr "Ağ içinde bir rota bul. (Shift+R)"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:356
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:356
 msgid "Locate Stops"
-msgstr ""
+msgstr "Durakları Bul"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:356
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:356
 msgid "Locate a stop within the network. (Shift+S)"
-msgstr ""
+msgstr "Ağ içinde bir durak bul. (Shift+S)"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:367
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:367
 msgid "Locate TLS"
-msgstr ""
+msgstr "TIS Bul"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:367
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:367
 msgid "Locate a tls within the network. (Shift+T)"
-msgstr ""
+msgstr "Ağ içinde bir TIS bul. (Shift+T)"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:371
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:371
 msgid "Locate Additional"
-msgstr ""
+msgstr "Ek Bul"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:371
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:371
 msgid "Locate an additional structure within the network. (Shift+A)"
-msgstr ""
+msgstr "Ağ içinde ek bir yapı bul. (Shift+A)"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:375
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:375
 msgid "Locate PoI"
-msgstr ""
+msgstr "EN Bul"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:375
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:375
 msgid "Locate a PoI within the network. (Shift+O)"
-msgstr ""
+msgstr "Ağ içinde bir EN bul. (Shift+O)"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:379
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:379
 msgid "Locate Polygon"
-msgstr ""
+msgstr "Çokgen Bul"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:379
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:379
 msgid "Locate a Polygon within the network. (Shift+L)"
-msgstr ""
+msgstr "Ağ içinde bir Çokgen bul. (Shift+L)"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:453
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:453
 msgid "Remove from Selected"
-msgstr ""
+msgstr "Seçilenlerden Kaldır"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:455
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:455
 msgid "Add to Selected"
-msgstr ""
+msgstr "Seçilenlere Ekle"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:612
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:612
 msgid "GUI-Settings cannot be saved in "
-msgstr ""
+msgstr "GUI-Ayarları dosyaya kaydedilemez: "
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:805
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:805
 msgid "Confirm Junction Merger"
-msgstr ""
+msgstr "Kavşak Birleştiriciyi Onayla"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:806
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:806
 msgid "Do you wish to merge junctions '"
-msgstr ""
+msgstr "Kavşakları birleştirmek istiyor musunuz '"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:807
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:956
@@ -4372,197 +4304,198 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:956
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEDataHandler.cpp:205
 msgid "' and '"
-msgstr ""
+msgstr "' ve '"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:808
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:808
 msgid "' will be eliminated and its roads added to '"
-msgstr ""
+msgstr "' ortadan kaldırılacak ve yolları ' eklenecek"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:836
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:836
 msgid " requires switch to network mode. Continue?"
-msgstr ""
+msgstr " Ağ moduna geçiş gerektirir. Devam et?"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:838
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:838
 msgid " requires switch to demand mode. Continue?"
-msgstr ""
+msgstr " Talep moduna geçiş gerektirir. Devam et?"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:840
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:840
 msgid " requires switch to data mode. Continue?"
-msgstr ""
+msgstr " Veri moduna geçiş gerektirir. Devam et?"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:845
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:845
+#, fuzzy
 msgid "Confirm switch mode"
-msgstr ""
+msgstr "Değiştirme Modunu Onayla"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:1423
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:1421
 msgid "Cannot delete in this mode"
-msgstr ""
+msgstr "Bu modda silinemez"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:1426
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:1424
 msgid "delete network inspected elements"
-msgstr ""
+msgstr "ağ ile incelenen elemanları sil"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:1434
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:1432
 msgid "delete network selection"
-msgstr ""
+msgstr "ağ seçimini sil"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:1442
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:1440
 msgid "delete demand inspected elements"
-msgstr ""
+msgstr "taleple incelenen elemanları sil"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:1450
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:1448
 msgid "delete demand selection"
-msgstr ""
+msgstr "talep seçimini sil"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:1458
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:1456
 msgid "delete data inspected elements"
-msgstr ""
+msgstr "veriyle incelenen elemanları sil"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:1466
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:1464
 msgid "delete data selection"
-msgstr ""
+msgstr "veri seçimini sil"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:2101
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2099
 msgid "Reverse selected edges"
-msgstr ""
+msgstr "Seçilen kesimleri tersine çevir"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:2108
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2106
 msgid "Reverse edge"
-msgstr ""
+msgstr "Kesimi ters çevir"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:2122
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2120
 msgid "Add Reverse edge for selected edges"
-msgstr ""
+msgstr "Seçilen kesimlere ters kesim ekle"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:2129
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2127
 msgid "Add reverse edge"
-msgstr ""
+msgstr "Ters kesim ekle"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:2143
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2141
 msgid "Add Reverse disconnected edge for selected edges"
-msgstr ""
+msgstr "Seçilen kesimler için ters, bağlantısız kesim ekle"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:2150
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2148
 msgid "Add reverse disconnected edge"
-msgstr ""
+msgstr "Ters bağlantısız kesim ekle"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:2179
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2177
 msgid "reset geometry points"
-msgstr ""
+msgstr "geometri noktalarını sıfırla"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:2200
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2198
 msgid "straighten selected edges"
-msgstr ""
+msgstr "seçili kesimleri düzelt"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:2208
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2206
 msgid "straighten edge"
-msgstr ""
+msgstr "kesimi düzelt"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:2222
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:2243
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2220
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2241
 msgid "straighten elevation of selected edges"
-msgstr ""
+msgstr "seçili kesimlerin yüksekliğini düzelt"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:2229
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:2250
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2227
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2248
 msgid "straighten edge elevation"
-msgstr ""
+msgstr "kesim yükseltisini düzelt"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:2264
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2262
 msgid "smooth elevation of selected edges"
-msgstr ""
+msgstr "seçili kesimlerin pürüzsüz yükseltilmesi"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:2271
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2269
 msgid "smooth edge elevation"
-msgstr ""
+msgstr "pürüzsüz kesim yükseltme"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:2285
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2283
 msgid "reset edge lengths"
-msgstr ""
+msgstr "kenar uzunluklarını sıfırla"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:2314
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2312
 msgid "copy edge template"
-msgstr ""
+msgstr "kesim şablonunu kopyala"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:2335
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2333
 msgid "simplify shapes"
-msgstr ""
+msgstr "şekilleri basitleştir"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:2377
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2375
 msgid "close polygon shapes"
-msgstr ""
+msgstr "çokgen şekilleri kapat"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:2408
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2406
 msgid "open polygon shapes"
-msgstr ""
+msgstr "çokgen şekilleri aç"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:2457
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2455
 msgid "select within polygon boundary"
-msgstr ""
+msgstr "çokgen sınırı içinde seç"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:2502
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2500
 #, c-format
 msgid "No lanes around % to attach it"
-msgstr ""
+msgstr "% etrafında bağlanacak şerit yok"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:2525
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2523
 msgid "attach POI into lane"
-msgstr ""
+msgstr "EN'i şeride bağla"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:2538
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2536
 msgid "release POI from lane"
-msgstr ""
+msgstr "EN'i şeritten serbest bırak"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:2572
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2570
 msgid "change edge Geometry Point position"
-msgstr ""
+msgstr "Kesim Geometri Noktası konumunu değiştir"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:2604
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2602
 msgid "change polygon Geometry Point position"
-msgstr ""
+msgstr "Çokgen Geometri Noktası konumunu değiştir"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:2624
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2622
 msgid "change TAZ Geometry Point position"
-msgstr ""
+msgstr "TAB Geometri Noktası konumunu değiştir"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:2648
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2646
