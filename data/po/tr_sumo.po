@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-02-17 13:16+0000\n"
+"PO-Revision-Date: 2023-03-13 08:53+0000\n"
 "Last-Translator: kyasin <yasingoka@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/tr/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.16-dev\n"
+"X-Generator: Weblate 4.16.2-dev\n"
 
 #: /home/micha/programming/sumo/src\activitygen\AGActivityGen.cpp:46
 #: /home/micha/programming/sumo/src/activitygen/AGActivityGen.cpp:46
@@ -2239,11 +2239,13 @@ msgstr ""
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:339
 msgid "Defines the begin time in seconds; The simulation starts at this time"
 msgstr ""
+"Başlangıç zamanını saniye cinsinden tanımlar; simülasyon bu zamanda başlar"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:342
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:342
 msgid "Defines the end time in seconds; The simulation ends at this time"
 msgstr ""
+"Bitiş zamanını saniye cinsinden tanımlar; simülasyon bu zamanda sona erer"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:345
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:345
@@ -2510,6 +2512,11 @@ msgid ""
 "settings override the default. Must be a multiple of the simulation step-"
 "length."
 msgstr ""
+"Araç takip ve şerit değiştirme modelleri için eylem noktaları arasındaki "
+"varsayılan aralık uzunluğu (saniye cinsinden). Belirtilmezse, simülasyon "
+"adım uzunluğu varsayılan olarak kullanılır. Araç veya Araç-Tipine özgü "
+"ayarlar varsayılanı geçersiz kılar. Simülasyon adım uzunluğunun katı "
+"olmalıdır."
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:478
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:478
@@ -2522,6 +2529,8 @@ msgid ""
 "Select default speed deviation. A negative value implies vClass specific "
 "defaults (0.1 for the default passenger class"
 msgstr ""
+"Varsayılan hız sapmasını seçin. Negatif bir değer Araç-Sınıfına özgü "
+"varsayılanlar anlamına gelir (varsayılan yolcu sınıfı için 0,1)"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:485
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:485
@@ -2827,7 +2836,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:691
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:691
 msgid "Load visualisation settings from FILE"
-msgstr ""
+msgstr "Görselleştirme ayarlarını Dosya'dan yükle"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:694
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:694
@@ -2882,17 +2891,17 @@ msgstr ""
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:725
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:725
 msgid "Load current viewport from registry"
-msgstr ""
+msgstr "Geçerli görünüm alanını kayıt defterinden yükle"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:728
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:728
 msgid "Create initial window with the given x,y size"
-msgstr ""
+msgstr "Verilen x,y boyutuyla ilk pencereyi oluştur"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:731
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:731
 msgid "Create initial window at the given x,y position"
-msgstr ""
+msgstr "Verilen x,y boyutunda ilk pencereyi oluştur"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:734
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:734
@@ -2907,12 +2916,12 @@ msgstr ""
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:743
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:743
 msgid "Enable overlay for screen recognition"
-msgstr ""
+msgstr "Ekran tanıma için yer paylaşımını etkinleştir"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:747
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:747
 msgid "Enable output messages during GUI-Testing"
-msgstr ""
+msgstr "GUI-Test sırasında çıktı mesajlarını etkinleştir"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:751
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:751
@@ -12720,7 +12729,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src\utils\foxtools\MFXDecalsTable.cpp:337
 msgid "All files (*)"
-msgstr ""
+msgstr "Tüm dosyalar (*)"
 
 #: /home/micha/programming/sumo/src\utils\foxtools\MFXDecalsTable.cpp:788
 #: /home/micha/programming/sumo/src/utils/foxtools/MFXDecalsTable.cpp:711
