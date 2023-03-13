@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-13 16:59+0000\n"
+"PO-Revision-Date: 2023-03-13 17:13+0000\n"
 "Last-Translator: kyasin <yasingoka@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/tr/>\n"
@@ -8800,32 +8800,32 @@ msgstr "Bu aracın rengi"
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4878
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4879
 msgid "The lane on which thevehicle shall be inserted"
-msgstr ""
+msgstr "Aracın yerleştirileceği şerit"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4884
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4885
 msgid "The position at which the vehicle shall enter the net"
-msgstr ""
+msgstr "Aracın ağa gireceği konum"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4890
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4891
 msgid "The speed with which the vehicle shall enter the network"
-msgstr ""
+msgstr "Aracın ağa gireceği hız"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4896
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4897
 msgid "The lane at which the vehicle shall leave the network"
-msgstr ""
+msgstr "Aracın ağdan ayrılacağı şerit"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4902
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4903
 msgid "The position at which the vehicle shall leave the network"
-msgstr ""
+msgstr "Aracın ağdan ayrılacağı konum"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4908
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4909
 msgid "The speed with which the vehicle shall leave the network"
-msgstr ""
+msgstr "Aracın ağdan ayrılacağı hız"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4914
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4915
@@ -8833,61 +8833,63 @@ msgid ""
 "A string specifying the id of a public transport line which can be used when "
 "specifying person rides"
 msgstr ""
+"Kişi yolculuklarını belirtirken kullanılabilecek bir toplu taşıma hattının "
+"kimliğini belirten bir dize"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4919
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4920
 msgid "The number of occupied seats when the vehicle is inserted"
-msgstr ""
+msgstr "Araç yerleştirildiğinde dolu olan koltuk sayısı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4925
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4926
 msgid "The number of occupied container places when the vehicle is inserted"
-msgstr ""
+msgstr "Araç yerleştirildiğinde dolu konteyner yerlerinin sayısı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4931
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4932
 msgid ""
 "The lateral position on the departure lane at which the vehicle shall enter "
 "the net"
-msgstr ""
+msgstr "Aracın ağa gireceği kalkış şeridi üzerindeki yanal konum"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4937
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4938
 msgid ""
 "The lateral position on the arrival lane at which the vehicle shall arrive"
-msgstr ""
+msgstr "Aracın ulaşacağı varış şeridi üzerindeki yanal konum"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4943
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4944
 msgid "Insertion checks"
-msgstr ""
+msgstr "Yerleştirme kontrolleri"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4956
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4957
 msgid "First flow departure time"
-msgstr ""
+msgstr "İlk akım kalkış zamanı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4968
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4989
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4969
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4990
 msgid "probability for emitting a flow each second"
-msgstr ""
+msgstr "her saniye bir akım yayma olasılığı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4969
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4970
 msgid "(not together with vehsPerHour or period)"
-msgstr ""
+msgstr "(vehsPerHour veya periyot ile birlikte değil)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4975
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4976
 msgid "Number of flows per hour, equally spaced"
-msgstr ""
+msgstr "Saat başına akım sayısı, eşit aralıklı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4976
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4977
 msgid "(not together with period or probability or poisson)"
-msgstr ""
+msgstr "(periyot veya olasılık veya poisson ile birlikte değil)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4982
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4983
