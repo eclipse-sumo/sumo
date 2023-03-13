@@ -263,10 +263,12 @@ traci.person.replaceStage("p3", 1, stage4)
 print_remaining_plan("p3", "(after replacement)")
 
 print("speed (before setSpeed)", traci.person.getSpeed("p3"))
-print("maxSpeed (before setSpeed)", traci.vehicletype.getMaxSpeed(traci.person.getTypeID("p3")))
+print("type maxSpeed (before setSpeed)", traci.vehicletype.getMaxSpeed(traci.person.getTypeID("p3")))
+print("person maxSpeed (before setSpeed)", traci.person.getMaxSpeed("p3"))
 traci.person.setSpeed("p3", 4.2)
 print("speed (after setSpeed)", traci.person.getSpeed("p3"))
-print("maxSpeed (after setSpeed)", traci.vehicletype.getMaxSpeed(traci.person.getTypeID("p3")))
+print("type maxSpeed (after setSpeed)", traci.vehicletype.getMaxSpeed(traci.person.getTypeID("p3")))
+print("person maxSpeed (after setSpeed)", traci.person.getMaxSpeed("p3"))
 
 for i in range(41):
     traci.simulationStep()
