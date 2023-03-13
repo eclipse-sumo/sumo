@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-13 10:07+0000\n"
+"PO-Revision-Date: 2023-03-13 10:35+0000\n"
 "Last-Translator: kyasin <yasingoka@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/tr/>\n"
@@ -4510,42 +4510,42 @@ msgstr "' kesimin bitiş noktalarını sıfırla"
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:2678
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2676
 msgid "duplicate selected lanes"
-msgstr ""
+msgstr "Seçilen şeritleri yinele"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:2715
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2713
 msgid "reset custom lane shapes"
-msgstr ""
+msgstr "özel şerit şekillerini sıfırla"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:2722
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2720
 msgid "reset custom lane shape"
-msgstr ""
+msgstr "özel şerit şekillerini sıfırla"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:2738
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2736
 msgid "reset opposite lanes"
-msgstr ""
+msgstr "karşı şeritleri sıfırla"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:2745
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2743
 msgid "reset opposite lane"
-msgstr ""
+msgstr "karşı şeridi sıfırla"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:2799
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2797
 msgid "select lane reachability"
-msgstr ""
+msgstr "şerit erişilebilirliğini seçin"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:2841
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2839
 msgid "Multiple lane in the same edge selected"
-msgstr ""
+msgstr "Aynı kesimde birden fazla şerit seçildi"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:2842
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2840
 msgid "There are selected lanes that belong to the same edge."
-msgstr ""
+msgstr "Aynı kesime ait seçilmiş şeritler var."
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:2843
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2841
