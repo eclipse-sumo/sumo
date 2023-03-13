@@ -1205,6 +1205,9 @@ Person::handleVariable(const std::string& objID, const int variable, VariableWra
             return wrapper->wrapInt(objID, variable, getRemainingStages(objID));
         case VAR_VEHICLE:
             return wrapper->wrapString(objID, variable, getVehicle(objID));
+        case VAR_MAXSPEED:
+            // integrate desiredMaxSpeed and individual speedFactor
+            return wrapper->wrapDouble(objID, variable, getMaxSpeed(objID));
         case libsumo::VAR_PARAMETER:
             paramData->readUnsignedByte();
             return wrapper->wrapString(objID, variable, getParameter(objID, paramData->readString()));
