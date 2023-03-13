@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-13 14:21+0000\n"
+"PO-Revision-Date: 2023-03-13 15:07+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
@@ -6444,36 +6444,36 @@ msgstr "车辆必须在已指定车道上定点的侧向偏移值"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4107
 msgid "BusWaypoint associated with this waypoint"
-msgstr ""
+msgstr "与此定位点相关的公交车定点(BusWaypoint)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4123
 msgid "ContainerWaypoint associated with this waypoint"
-msgstr ""
+msgstr "与此定位点相关的集装箱定点(ContainerWaypoint)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4139
 msgid "ChargingStation associated with this waypoint"
-msgstr ""
+msgstr "与此定点相关的充点站"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4155
 msgid "ParkingArea associated with this waypoint"
-msgstr ""
+msgstr "与此定点相关的停车场区域"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4183
 msgid "The time step at which the person shall enter the network"
-msgstr ""
+msgstr "人员应进入路网的时间步长"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4223
 msgid "The time step at which the container shall enter the network"
-msgstr ""
+msgstr "货箱(container)应该进入路网的时间步长"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4259
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4289
 msgid "The name of the edge the transport starts at"
-msgstr ""
+msgstr "运送开始的路段的名称"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4264
 msgid "The name of the edge the transport ends at"
-msgstr ""
+msgstr "运送结束的路段的名称"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4269
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4337
@@ -6481,54 +6481,54 @@ msgstr ""
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4637
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4744
 msgid "arrival position on the destination edge"
-msgstr ""
+msgstr "目标路段上的抵达位置"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4275
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4299
 msgid "list of vehicle alternatives to take for the transport"
-msgstr ""
+msgstr "运送的替代车辆清单"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4294
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4362
 msgid "Id of the destination container stop"
-msgstr ""
+msgstr "货箱的目的地停靠点的识别名(id)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4321
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4357
 msgid "The name of the edge the tranship starts at"
-msgstr ""
+msgstr "运送开始的路段的名称"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4326
 msgid "The name of the edge the tranship ends at"
-msgstr ""
+msgstr "运送结束的路段的名称"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4331
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4367
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4392
 msgid "The position at which the tranship shall enter the net"
-msgstr ""
+msgstr "运送应进入路网时的位置"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4343
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4373
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4404
 msgid "speed of the container for this tranship in m/s"
-msgstr ""
+msgstr "运送货箱的速度(米/秒)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4387
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4669
 msgid "id of the edges to walk"
-msgstr ""
+msgstr "步行的路段的识别名(id)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4398
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4674
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4693
 msgid "Arrival position on the destination edge"
-msgstr ""
+msgstr "目的地路段上的抵达位置"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4427
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4797
 msgid "The name of the edge the stop shall be located at"
-msgstr ""
+msgstr "停靠点应位于的路段的名称"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4445
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4477
@@ -6536,7 +6536,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4847
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5549
 msgid "Minimum duration for stopping"
-msgstr ""
+msgstr "最短停靠时间"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4452
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4484
@@ -6544,27 +6544,27 @@ msgstr ""
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4854
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5556
 msgid "The time step at which the route continues"
-msgstr ""
+msgstr "路径继续时的时间长度"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4458
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4490
 msgid "Activity displayed for stopped container in GUI and output files "
-msgstr ""
+msgstr "在GUI及输入文件中显示停靠的货箱(container)的活动 "
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4511
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4551
 msgid "The name of the edge the person trip starts at"
-msgstr ""
+msgstr "人行程开始的路段的名称"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4516
 msgid "The name of the edge the person trip ends at"
-msgstr ""
+msgstr "人行程結束的路段的名称"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4527
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4561
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4595
 msgid "List of possible vehicle types to take"
-msgstr ""
+msgstr "可供使用的车辆类型的清单"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4532
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4566
@@ -6572,34 +6572,34 @@ msgstr ""
 msgid ""
 "List of possible traffic modes. Walking is always possible regardless of "
 "this value"
-msgstr ""
+msgstr "可能的交通运具清单。无论此值如何，步行始终是可能的"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4537
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4571
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4605
 msgid "list of vehicle alternatives to take for the person trip"
-msgstr ""
+msgstr "人行程可以使用的替代车辆清单"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4556
 msgid "Id of the destination busStop"
-msgstr ""
+msgstr "公交车终点站的识别名(id)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4585
 msgid "The name of the junction the person trip starts at"
-msgstr ""
+msgstr "人行程开始的路口的名称"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4590
 msgid "The name of the junction the person trip ends at"
-msgstr ""
+msgstr "人行程结束的路口的名称"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4627
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4651
 msgid "The name of the edge the walk starts at"
-msgstr ""
+msgstr "步行开始的路口的名称"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4632
 msgid "The name of the edge the walk ends at"
-msgstr ""
+msgstr "步行结束的路段的名称"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4656
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4769
