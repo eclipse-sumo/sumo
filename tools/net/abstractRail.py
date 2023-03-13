@@ -452,10 +452,13 @@ def patchShapes(options, edges, nodeCoords, edgeShapes, nodeYValues):
         edgeShapes[edgeID] = shape
 
 
-def patchXValues(options, nodeCoords, edgeShapes):
-    xValues = set([c[0] for c in nodeCoords.values()])
-    for shape in edgeShapes.values():
-        xValues.update([c[0] for c in shape])
+def patchXValues(options, edges, nodeCoords, edgeShapes):
+    nodes = getNodes(edges)
+    xValues = set()
+    for node in nodes:
+        xValues.add(nodeCoords[node.getID()][0])
+    for edge in edges:
+        xValues.update([c[0] for c in edgeShapes[edge.getID()]])
 
     xValues = sorted(list(xValues))
     xValues2 = list(xValues)
@@ -470,10 +473,12 @@ def patchXValues(options, nodeCoords, edgeShapes):
     xValues2 = [x - shift for x in xValues2]
     xMap = dict(zip(xValues, xValues2))
 
-    for nodeID, coord in nodeCoords.items():
-        nodeCoords[nodeID] = (xMap[coord[0]], coord[1])
-    for edgeID, shape in edgeShapes.items():
-        edgeShapes[edgeID] = [(xMap[c[0]], c[1]) for c in shape]
+    for node in nodes:
+        coord = nodeCoords[node.getID()]
+        nodeCoords[node.getID()] = (xMap[coord[0]], coord[1])
+    for edge in edges:
+        shape = edgeShapes[edge.getID()]
+        edgeShapes[edge.getID()] = [(xMap[c[0]], c[1]) for c in shape]
 
 
 def getIndexOfClosestToZero(values):
@@ -523,7 +528,7 @@ def main(options):
             if nodeYValues:
                 patchShapes(options, edges, nodeCoords, edgeShapes, nodeYValues)
                 if options.trackLength:
-                    patchXValues(options, nodeCoords, edgeShapes)
+                    patchXValues(options, edges, nodeCoords, edgeShapes)
         rotateByMainLine(mainLine, edges, nodeCoords, edgeShapes, True, options.horizontal, multiRegions)
 
     if len(regions) > 1:
