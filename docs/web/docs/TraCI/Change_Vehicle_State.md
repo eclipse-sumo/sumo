@@ -117,8 +117,7 @@ The stop flags are a bitset with the following additive components
 
 Please note: 
 The duration for the lane change is the time the vehicle tries to perfom the lane change(s). If the duration is too small to perform all lane changes then the vehicle stops changing lanes after the duration. 
-
-After the vehicle has sucessfully performed the lane change(s) the vehicle continues its journey normally. This means the vehicle will not stay on the lane for the whole duration if the vehicle decides to change back the lanes.  
+After the vehicle has sucessfully performed the lane change(s) it will remain on that lane for the remainder of the duration.
 
 ### slow down (0x14)
 
