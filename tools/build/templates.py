@@ -256,6 +256,32 @@ tools = [
     # "traceExporter",                NO CONFIG
 ]
 
+def buildHeader(templateHeaderFile):
+    print(
+        "#include <string>\n"
+        "\n"
+        "// @brief template tool\n"
+        "struct TemplateTool {\n"
+        "\n"
+        "    // @brief constructor\n"
+        "    TemplateTool(const std::string name_, const std::string path_, const std::string templateStr_) :\n"
+        "        name(name_),\n"
+        "        path(path_),\n"
+        "        templateStr(templateStr_) {\n"
+        "    }\n"
+        "\n"
+        "    // @brief tool name\n"
+        "    const std::string name;\n"
+        "\n"
+        "    // @brief tool path\n"
+        "    const std::string path;\n"
+        "\n"
+        "    // @brief tool template\n"
+        "    const std::string templateStr;\n"
+        "\n"
+        "};\n",
+    file=templateHeaderFile)
+
 
 def formatBinTemplate(templateStr):
     """
@@ -321,7 +347,7 @@ def generateToolTemplate(toolDir, toolPath):
     """
     toolName = os.path.basename(toolPath)[:-3]
     # create pair
-    pair = 'const std::pair<std::string, std::string> %sTemplate = std::make_pair("tools/%s",\n' % (toolName, toolPath)
+    pair = 'const TemplateTool %sTemplate("%s", "tools/%s",\n' % (toolName, toolName, toolPath)
     # check if exists
     if os.path.exists(join(toolDir, toolPath)):
         # show info
@@ -346,7 +372,7 @@ if __name__ == "__main__":
     toolDir = join(dirname(__file__), '..')
     # write templates.h
     with open("templates.h", 'w') as templateHeaderFile:
-        print("#include <string>\n", file=templateHeaderFile)
+        buildHeader(templateHeaderFile)
         print(generateSumoTemplate(sys.argv[1]), file=templateHeaderFile)
         # generate Tool templates
         for tool in tools:
