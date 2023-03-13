@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-13 10:35+0000\n"
+"PO-Revision-Date: 2023-03-13 12:56+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
@@ -6105,195 +6105,195 @@ msgstr "与架空电线夹起点连接的架空电线区段的识别名(ID)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3297
 msgid "ID of the overhead wire segment lane of overheadWireIDStartClamp"
-msgstr ""
+msgstr "架空电线开始夹(overheadWireIDStartClamp)的架空电线区段车道的识别名(ID)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3302
 msgid ""
 "ID of the overhead wire segment, to the end of which the overhead wire clamp "
 "is connected"
-msgstr ""
+msgstr "与架空电线夹终点连接的架空电线区段的识别名(ID)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3307
 msgid "ID of the overhead wire segment lane of overheadWireIDEndClamp"
-msgstr ""
+msgstr "架空电线终点夹(overheadWireIDEndClamp)的架空电线区段车道的识别名(ID)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3330
 msgid "The id of Route"
-msgstr ""
+msgstr "路径识别名(id)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3335
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3367
 msgid ""
 "The edges the vehicle shall drive along, given as their ids, separated using "
 "spaces"
-msgstr ""
+msgstr "车辆应沿着的路段行驶，以其ID形式给出，用空格分隔"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3340
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3372
 msgid "This route's color"
-msgstr ""
+msgstr "路径的颜色"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3345
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3377
 msgid "The number of times that the edges of this route shall be repeated"
-msgstr ""
+msgstr "此路径上的路段应该重复的次数"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3351
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3383
 msgid ""
 "When defining a repeating route with stops and those stops use the until "
 "attribute,"
-msgstr ""
+msgstr "在定义带有停靠点的重复路径时，这些停靠点使用 until 属性，"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3352
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3384
 msgid "the times will be shifted forward by 'cycleTime' on each repeat"
-msgstr ""
+msgstr "每次重复时, 时间将通过周期时间(cycleTime)向前移动"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3399
 msgid "The id of VehicleType distribution"
-msgstr ""
+msgstr "车辆类型(VehicleType)分布的识别名(id)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3421
 msgid "The id of VehicleType"
-msgstr ""
+msgstr "车辆类型(VehicleType)的识别名(id)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3426
 msgid "Vehicle Type Distribution"
-msgstr ""
+msgstr "车辆类型分布"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3431
 msgid "An abstract vehicle class"
-msgstr ""
+msgstr "抽象的车辆类别"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3438
 msgid "This vehicle type's color"
-msgstr ""
+msgstr "此车辆类型的顏色"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3443
 msgid "The vehicle's netto-length (length) [m]"
-msgstr ""
+msgstr "车辆的净长度(长度)[米]"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3448
 msgid "Empty space after leader [m]"
-msgstr ""
+msgstr "领前者(leader)后的空白空间[米]"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3453
 msgid "The vehicle's maximum velocity [m/s]"
-msgstr ""
+msgstr "车辆的最大速度[米/秒]"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3458
 msgid ""
 "The vehicles expected multiplicator for lane speed limits (or a distribution "
 "specifier)"
-msgstr ""
+msgstr "车辆预期的车道速度限制的乘法器(multiplicator)（或分布指定器(specifier)）"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3463
 msgid "The vehicles desired maximum velocity (interacts with speedFactor)."
-msgstr ""
+msgstr "车辆期望的最大速度(与速度因素(speedFactor)交互作用)。"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3464
 msgid "Applicable when no speed Limit applies (bicycles, some motorways) [m/s]"
-msgstr ""
+msgstr "适用于无速度限制的情況（自行车、某些高速公路）[米/秒]"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3469
 msgid "An abstract emission class"
-msgstr ""
+msgstr "抽象的排放物类别"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3475
 msgid "How this vehicle is rendered"
-msgstr ""
+msgstr "此车辆如何被呈現"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3481
 msgid "The vehicle's width [m] (only used for drawing)"
-msgstr ""
+msgstr "车辆宽度 [米] (只用于绘制)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3487
 msgid "The vehicle's height [m] (only used for drawing)"
-msgstr ""
+msgstr "车辆长度 [米] (只用于绘制)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3493
 msgid ""
 "Image file for rendering vehicles of this type (should be grayscale to allow "
 "functional coloring)"
-msgstr ""
+msgstr "用于渲染这种类型的车辆的图像文件（应该是灰度的，以便进行功能性着色）"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3498
 msgid "The model used for changing lanes"
-msgstr ""
+msgstr "用于车道变换的模式"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3505
 msgid "The model used for car following"
-msgstr ""
+msgstr "用于跟车的模式"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3512
 msgid ""
 "The number of persons (excluding an autonomous driver) the vehicle can "
 "transport"
-msgstr ""
+msgstr "车辆能运载的人数(不含自动驾驶车的驾驶员)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3517
 msgid "The number of containers the vehicle can transport"
-msgstr ""
+msgstr "车辆能运载的集装箱(containers)数量"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3522
 msgid "The time required by a person to board the vehicle"
-msgstr ""
+msgstr "乘客上车需要的时间"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3528
 msgid "The time required to load a container onto the vehicle"
-msgstr ""
+msgstr "将集装箱(container)装载到车辆上所需的时间"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3534
 msgid "The preferred lateral alignment when using the sublane-model"
-msgstr ""
+msgstr "使用sublane模式时，首选的横向排列方式"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3541
 msgid ""
 "The minimum lateral gap at a speed difference of 50km/h when using the "
 "sublane-model"
-msgstr ""
+msgstr "使用sublane模式时, 在速差为50公里/小時下的最小侧向间距"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3547
 msgid "The maximum lateral speed when using the sublane-model"
-msgstr ""
+msgstr "使用sublane模式时, 最大侧向速度"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3553
 msgid ""
 "The interval length for which vehicle performs its decision logic "
 "(acceleration and lane-changing)"
-msgstr ""
+msgstr "车辆执行决策逻辑（加速和车道变化）的时间间隔长度"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3559
 msgid ""
 "The probability when being added to a distribution without an explicit "
 "probability"
-msgstr ""
+msgstr "在沒有明确机率的情況下, 加入到分布中的机率"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3565
 msgid "3D model file for this class"
-msgstr ""
+msgstr "用于此类别的三维模式"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3570
 msgid "Carriage lengths"
-msgstr ""
+msgstr "车厢长度"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3575
 msgid "Locomotive lengths"
-msgstr ""
+msgstr "火车长度"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3580
 msgid "GAP between carriages"
-msgstr ""
+msgstr "车厢之间的间隔"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3613
 msgid "The ID of trip"
-msgstr ""
+msgstr "行程的识别名(ID)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3618
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3663
 msgid "The id of the vehicle type to use for this trip"
-msgstr ""
+msgstr "用于此行程的车辆类型识别名(id)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3624
 msgid "The name of the edge the trip starts at"
