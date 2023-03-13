@@ -259,6 +259,7 @@ tools = [
 def buildHeader(templateHeaderFile):
     print(
         "#include <string>\n"
+        "#include <vector>\n"
         "\n"
         "// @brief template tool\n"
         "struct TemplateTool {\n"
@@ -278,10 +279,8 @@ def buildHeader(templateHeaderFile):
         "\n"
         "    // @brief tool template\n"
         "    const std::string templateStr;\n"
-        "\n"
         "};\n",
     file=templateHeaderFile)
-
 
 def formatBinTemplate(templateStr):
     """
@@ -346,8 +345,8 @@ def generateToolTemplate(toolDir, toolPath):
     @brief generate tool template
     """
     toolName = os.path.basename(toolPath)[:-3]
-    # create pair
-    pair = 'const TemplateTool %sTemplate("%s", "tools/%s",\n' % (toolName, toolName, toolPath)
+    # create templateTool
+    templateTool = 'TemplateTool("%s", "tools/%s",\n' % (toolName, toolPath)
     # check if exists
     if os.path.exists(join(toolDir, toolPath)):
         # show info
@@ -358,9 +357,9 @@ def generateToolTemplate(toolDir, toolPath):
                                      "--save-template", "stdout"], universal_newlines=True)
         except CalledProcessError as e:
             sys.stderr.write("Error when generating tool template for %s: '%s'" % (toolName, e))
-            return pair + '"");\n'
+            return templateTool + '"");\n'
         # join variable and formated template
-        return pair + formatToolTemplate(template) + ');\n'
+        return templateTool + formatToolTemplate(template) + '),\n'
     # if tool wasn't found, then raise exception
     raise Exception(toolName + "Template cannot be generated. '" + toolPath + "' not found.")
 
@@ -375,5 +374,7 @@ if __name__ == "__main__":
         buildHeader(templateHeaderFile)
         print(generateSumoTemplate(sys.argv[1]), file=templateHeaderFile)
         # generate Tool templates
+        print("const std::vector<TemplateTool> templateTools {\n", file=templateHeaderFile)
         for tool in tools:
             print(generateToolTemplate(toolDir, tool), file=templateHeaderFile)
+        print("};", file=templateHeaderFile)
