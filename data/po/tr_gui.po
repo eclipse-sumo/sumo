@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-13 12:56+0000\n"
+"PO-Revision-Date: 2023-03-13 13:25+0000\n"
 "Last-Translator: kyasin <yasingoka@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/tr/>\n"
@@ -6682,36 +6682,36 @@ msgstr "Şekil verilirse, kesim şekline dayalı hesaplamayı geçersiz kılar"
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1264
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1264
 msgid "If given, this defines the opposite direction lane"
-msgstr ""
+msgstr "Verilirse, bu ters yön şeridini tanımlar"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1269
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1474
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1269
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1474
 msgid "Permit changing left only for to the given vehicle classes"
-msgstr ""
+msgstr "Sadece verilen araç sınıfları için sola geçişe izin ver"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1276
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1481
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1276
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1481
 msgid "Permit changing right only for to the given vehicle classes"
-msgstr ""
+msgstr "Sadece verilen araç sınıfları için sağa geçişe izin ver"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1283
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1283
 msgid "Lane type description (optional)"
-msgstr ""
+msgstr "Şerit tipi açıklaması (isteğe bağlı)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1308
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1308
 msgid "Crossing ID"
-msgstr ""
+msgstr "Geçit Kimliği"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1313
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1313
 msgid "The (road) edges which are crossed"
-msgstr ""
+msgstr "Kesişen (yol) kesimler"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1318
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1318
@@ -6719,72 +6719,75 @@ msgid ""
 "Whether the pedestrians have priority over the vehicles (automatically set "
 "to true at tls-controlled intersections)"
 msgstr ""
+"Yayaların araçlara göre önceliği olup olmadığı (tls kontrollü kavşaklarda "
+"otomatik olarak true olarak ayarlanır)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1324
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1324
 msgid "The width of the crossings"
-msgstr ""
+msgstr "Geçitlerin genişliği"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1330
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1330
 msgid "sets the tls-index for this crossing"
-msgstr ""
+msgstr "bu geçiş için tıs indeksini ayarlar"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1336
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1336
 msgid "sets the opposite-direction tls-index for this crossing"
-msgstr ""
+msgstr "bu geçiş için ters yöndeki tıs indeksini ayarlar"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1342
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1342
 msgid "Overrids default shape of pedestrian crossing"
-msgstr ""
+msgstr "Yaya geçidinin varsayılan şeklini geçersiz kılar"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1355
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1355
 msgid "Walking Area ID"
-msgstr ""
+msgstr "Yürüyüş Alanı Kimliği"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1360
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1360
 msgid "The width of the WalkingArea"
-msgstr ""
+msgstr "Yürüyüş Alanının genişliği (WalkingArea)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1366
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1366
 msgid "The length of the WalkingArea in meter"
-msgstr ""
+msgstr "Yürüme Alanının metre cinsinden uzunluğu (WalkingArea)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1371
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1371
 msgid "Overrids default shape of pedestrian sidewalk"
-msgstr ""
+msgstr "Yaya kaldırımının varsayılan şeklini geçersiz kılar"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1384
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1384
 msgid "The name of the edge the vehicles leave"
-msgstr ""
+msgstr "Araçların ayrıldığı kesimin adı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1389
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1389
 msgid "The name of the edge the vehicles may reach when leaving 'from'"
-msgstr ""
+msgstr "Araçların 'dan' ayrılırken ulaşabileceği kesimin adı (from)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1394
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1394
 msgid "the lane index of the incoming lane (numbers starting with 0)"
-msgstr ""
+msgstr "gelen şeridin şerit indeksi (0 ile başlayan sayılar)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1399
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1399
 msgid "the lane index of the outgoing lane (numbers starting with 0)"
-msgstr ""
+msgstr "giden şeridin şerit indeksi (0 ile başlayan sayılar)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1404
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1404
 msgid ""
 "if set, vehicles which pass this (lane-2-lane) connection) will not wait"
 msgstr ""
+"ayarlanırsa, bu (şeritten şeride) bağlantıyı geçen araçlar beklemeyecektir"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1410
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1410
@@ -6792,6 +6795,8 @@ msgid ""
 "if set to false, vehicles which pass this (lane-2-lane) connection) will not "
 "worry about blocking the intersection"
 msgstr ""
+"false olarak ayarlanırsa, bu (şeritten şeride) bağlantıyı geçen araçlar "
+"kavşağı engelleme konusunda endişelenmeyecektir"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1416
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1416
@@ -6799,6 +6804,9 @@ msgid ""
 "If set to a more than 0 value, an internal junction will be built at this "
 "position (in m)/n from the start of the internal lane for this connection"
 msgstr ""
+"0'dan büyük bir değere ayarlanırsa, bu bağlantı için dahili şeridin "
+"başlangıcından itibaren bu konumda (m)/n cinsinden bir dahili kavşak inşa "
+"edilecektir"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1422
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1422
@@ -6806,16 +6814,18 @@ msgid ""
 "If set to true, This connection will not be TLS-controlled despite its node "
 "being controlled"
 msgstr ""
+"true olarak ayarlanırsa, düğümü kontrol edilmesine rağmen bu bağlantı TLS "
+"kontrollü olmayacaktır"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1428
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1428
 msgid "Vision distance between vehicles"
-msgstr ""
+msgstr "Araçlar arası görüş mesafesi"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1434
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1434
 msgid "sets index of this connection within the controlling traffic light"
-msgstr ""
+msgstr "Bu bağlantının dizinini kontrol eden trafik ışığı içinde ayarlar"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1440
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1440
@@ -6823,52 +6833,56 @@ msgid ""
 "sets index for the internal junction of this connection within the "
 "controlling traffic light"
 msgstr ""
+"kontrol eden trafik ışığı içinde bu bağlantının dahili kavşağı için dizin "
+"ayarlar"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1457
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1457
 msgid "sets custom speed limit for the connection"
-msgstr ""
+msgstr "bağlantı için özel hız sınırını ayarlar"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1463
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1463
 msgid "sets custom length for the connection"
-msgstr ""
+msgstr "bağlantı için özel uzunluk ayarlar"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1469
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1469
 msgid "sets custom shape for the connection"
-msgstr ""
+msgstr "bağlantı için özel şekil ayarlar"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1488
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1488
 msgid "if set to true, vehicles will make a turn in 2 steps"
-msgstr ""
+msgstr "true olarak ayarlanırsa, araçlar 2 adımda dönüş yapacaktır"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1494
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1494
 msgid ""
 "set a custom edge type (for applying vClass-specific speed restrictions)"
 msgstr ""
+"özel bir kesim tipi ayarla (Araç tipine özgü hız kısıtlamalarını uygulamak "
+"için)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1500
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1500
 msgid "turning direction for this connection (computed)"
-msgstr ""
+msgstr "bu bağlantı için dönüş yönü (hesaplanmış)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1505
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1505
 msgid "link state for this connection (computed)"
-msgstr ""
+msgstr "bu bağlantı için bağlantı durumu (hesaplanmış)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1535
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1535
 msgid "The id of bus stop"
-msgstr ""
+msgstr "Otobüs durağının kimliği"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1540
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:1540
 msgid "The name of the lane the bus stop shall be located at"
-msgstr ""
+msgstr "Otobüs durağının bulunacağı şeridin adı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1545
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1609
