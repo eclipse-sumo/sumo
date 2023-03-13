@@ -1066,9 +1066,9 @@ class VehicleDomain(VTypeDomain):
 
     def changeLane(self, vehID, laneIndex, duration):
         """changeLane(string, int, double) -> None
-
-        Forces a lane change to the lane with the given index; if successful,
-        the lane will be chosen for the given amount of time (in s).
+        Forces a lane change to the lane with the given index; The lane change
+        will be attempted for the given duration (in s) and if it succeeds,
+        the vehicle will stay on that lane for the remaining duration.
         """
         if type(duration) is int and duration >= 1000:
             warnings.warn("API change now handles duration as floating point seconds", stacklevel=2)
