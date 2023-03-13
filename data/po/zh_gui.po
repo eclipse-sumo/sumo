@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-13 13:31+0000\n"
+"PO-Revision-Date: 2023-03-13 14:21+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
@@ -6432,15 +6432,15 @@ msgstr "与此停靠点相关的充点站(ChargingStation)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4044
 msgid "ParkingArea associated with this stop"
-msgstr ""
+msgstr "与此停靠点相关的停车区域"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4068
 msgid "The name of the lane the waypoint shall be located at"
-msgstr ""
+msgstr "定位点(waypoint)应位于的车道的名称"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4091
 msgid "The lateral offset on the named lane at which the vehicle must waypoint"
-msgstr ""
+msgstr "车辆必须在已指定车道上定点的侧向偏移值"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4107
 msgid "BusWaypoint associated with this waypoint"
