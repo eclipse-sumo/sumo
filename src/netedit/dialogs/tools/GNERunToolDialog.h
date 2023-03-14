@@ -15,7 +15,7 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    Mar 2023
 ///
-// Dialog for run tools
+// Dialog for running tools
 /****************************************************************************/
 #pragma once
 #include <config.h>

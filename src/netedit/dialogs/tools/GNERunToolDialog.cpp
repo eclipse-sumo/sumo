@@ -13,8 +13,9 @@
 /****************************************************************************/
 /// @file    GNERunToolDialog.cpp
 /// @author  Pablo Alvarez Lopez
+/// @date    Mar 2023
 ///
-// Dialog for run tools
+// Dialog for running tools
 /****************************************************************************/
 
 #include <netedit/GNEApplicationWindow.h>
