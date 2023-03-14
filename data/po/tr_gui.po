@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-13 17:13+0000\n"
+"PO-Revision-Date: 2023-03-14 06:57+0000\n"
 "Last-Translator: kyasin <yasingoka@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/tr/>\n"
@@ -8894,17 +8894,17 @@ msgstr "(periyot veya olasılık veya poisson ile birlikte değil)"
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4982
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4983
 msgid "Insert equally spaced flows at that period"
-msgstr ""
+msgstr "Bu dönemde eşit aralıklı akımlar ekleyin"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4983
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4984
 msgid "(not together with vehsPerHour or probability or poisson)"
-msgstr ""
+msgstr "(vehsPerHour veya olasılık veya poisson ile birlikte değil)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4990
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4991
 msgid "(not together with vehsPerHour or period or poisson)"
-msgstr ""
+msgstr "(vehsPerHour veya period veya poisson ile birlikte değil)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4996
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4997
@@ -8912,133 +8912,136 @@ msgid ""
 "Insert flow expected vehicles per second with poisson distributed insertion "
 "rate"
 msgstr ""
+"Poisson dağılımlı ekleme oranı ile saniyede beklenen araç akımını ekleyin"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4997
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:4998
 msgid "(not together with period or vehsPerHour or probability)"
-msgstr ""
+msgstr "(period veya vehsPerHour veya olasılık ile birlikte değil)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5010
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5011
 msgid "The acceleration ability of vehicles of this type [m/s^2]"
-msgstr ""
+msgstr "Bu tip araçların ivmelenme kabiliyeti [m/s^2]"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5016
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5017
 msgid "The deceleration ability of vehicles of this type [m/s^2]"
-msgstr ""
+msgstr "Bu tip araçların yavaşlama kabiliyeti [m/s^2]"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5022
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5023
 msgid ""
 "The apparent deceleration of the vehicle as used by the standard model [m/"
 "s^2]"
-msgstr ""
+msgstr "Standart model tarafından kullanılan aracın görünür yavaşlaması [m/s^2]"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5028
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5029
 msgid "The maximal physically possible deceleration for the vehicle [m/s^2]"
-msgstr ""
+msgstr "Araç için fiziksel olarak mümkün olan azami yavaşlama [m/s^2]"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5034
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5041
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5035
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5042
 msgid "Car-following model parameter"
-msgstr ""
+msgstr "Araç takip modeli parametresi"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5047
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5048
 msgid "SKRAUSSX parameter 1"
-msgstr ""
+msgstr "SKRAUSSX parametre 1"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5052
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5053
 msgid "SKRAUSSX parameter 2"
-msgstr ""
+msgstr "SKRAUSSX parametre 2"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5057
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5058
 msgid "SKRAUSSX parameter 3"
-msgstr ""
+msgstr "SKRAUSSX parametre 3"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5062
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5063
 msgid "SKRAUSSX parameter 4"
-msgstr ""
+msgstr "SKRAUSSX parametre 4"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5067
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5068
 msgid "SKRAUSSX parameter 5"
-msgstr ""
+msgstr "SKRAUSSX parametre 5"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5072
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5073
 msgid "EIDM Look ahead / preview parameter [s]"
-msgstr ""
+msgstr "EIDM İleri görüş / önizleme parametresi [s]"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5078
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5079
 msgid "EIDM AP Reaction Time parameter [s]"
-msgstr ""
+msgstr "EIDM AP Reaksiyon Süresi parametresi [s]"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5084
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5085
 msgid "EIDM Wiener Process parameter for the Driving Error [s]"
-msgstr ""
+msgstr "Sürüş Hatası için EIDM Wiener Süreci parametresi [s]"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5090
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5091
 msgid "EIDM Wiener Process parameter for the Estimation Error [s]"
-msgstr ""
+msgstr "Tahmin Hatası için EIDM Wiener Süreci parametresi [s]"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5096
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5097
 msgid "EIDM Coolness parameter of the Enhanced IDM [-]"
-msgstr ""
+msgstr "Geliştirilmiş IDM'nin EIDM Sakinlik parametresi [-]"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5103
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5104
 msgid "EIDM leader speed estimation error parameter [-]"
-msgstr ""
+msgstr "EIDM lider hız tahmini hata parametresi [-]"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5109
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5110
 msgid "EIDM gap estimation error parameter [-]"
-msgstr ""
+msgstr "EIDM boşluk tahmini hata parametresi [-]"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5115
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5116
 msgid "EIDM driving error parameter [-]"
-msgstr ""
+msgstr "EIDM sürüş hatası parametresi [-]"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5121
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5122
 msgid "EIDM maximal jerk parameter [m/s^3]"
-msgstr ""
+msgstr "EIDM maksimum sarsıntı parametresi [m/s^3]"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5127
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5128
 msgid ""
 "EIDM maximal negative acceleration between two Action Points (threshold) [m/"
 "s^2]"
-msgstr ""
+msgstr "EIDM iki Eylem Noktası arasındaki maksimum negatif ivme (eşik) [m/s^2]"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5133
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5134
 msgid ""
 "EIDM Time parameter until vehicle reaches amax after startup/driveoff [s]"
 msgstr ""
+"EIDM Araç başlangıç/kalkıştan sonra amax'a ulaşana kadar geçen süre "
+"parametresi [s]"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5139
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5140
 msgid "EIDM Flatness parameter of startup/driveoff curve [-]"
-msgstr ""
+msgstr "EIDM Başlangıç/kalkış eğrisinin düzlük parametresi [-]"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5145
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5146
 msgid "EIDM Shift parameter of startup/driveoff curve [-]"
-msgstr ""
+msgstr "EIDM Başlangıç/kalkış eğrisinin kaydırma parametresi [-]"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5151
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5152
@@ -9046,6 +9049,8 @@ msgid ""
 "EIDM parameter if model shall include vehicle dynamics into the acceleration "
 "calculation [0/1]"
 msgstr ""
+"Modelin hızlanma hesabına araç dinamiklerini dahil etmesi gerekiyorsa EIDM "
+"parametresi [0/1]"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5157
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5158
@@ -9053,20 +9058,22 @@ msgid ""
 "EIDM parameter how many vehicles are taken into the preview calculation of "
 "the driver (at least always 1!) [-]"
 msgstr ""
+"EIDM parametresi sürücünün ön izleme hesaplamasına kaç aracın alınacağı (en "
+"azından her zaman 1!) [-]"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5163
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5169
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5164
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5170
 msgid "Peter Wagner 2009 parameter"
-msgstr ""
+msgstr "Peter Wagner 2009 parametresi"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5175
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5181
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5176
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5182
 msgid "IDMM parameter"
-msgstr ""
+msgstr "IDMM parametresi"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5187
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5193
@@ -9087,44 +9094,44 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5230
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5236
 msgid "W99 parameter"
-msgstr ""
+msgstr "W99 parametresi"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5241
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5246
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5242
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5247
 msgid "Wiedemann parameter"
-msgstr ""
+msgstr "Wiedemann parametresi"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5251
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5252
 msgid "MinGap factor parameter"
-msgstr ""
+msgstr "Min. Boşluk (MinGap) faktörü parametresi"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5256
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5257
 msgid "K parameter"
-msgstr ""
+msgstr "K parametresi"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5261
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5262
 msgid "Kerner Phi parameter"
-msgstr ""
+msgstr "Kerner Phi parametresi"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5266
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5267
 msgid "IDM Delta parameter"
-msgstr ""
+msgstr "IDM Delta parametresi"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5271
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5272
 msgid "IDM Stepping parameter"
-msgstr ""
+msgstr "IDM Adımlama parametresi"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5276
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5277
 msgid "Train Types"
-msgstr ""
+msgstr "Tren Tipleri"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5289
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5290
@@ -9132,6 +9139,7 @@ msgid ""
 "Minimum distance to pedestrians that are walking towards the conflict point "
 "with the ego vehicle."
 msgstr ""
+"Ego aracı ile çatışma noktasına doğru yürüyen yayalara olan minimum mesafe."
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5295
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5296
@@ -9139,6 +9147,8 @@ msgid ""
 "The accumulated waiting time after which a vehicle will drive onto an "
 "intersection even though this might cause jamming."
 msgstr ""
+"Sıkışmaya neden olsa bile bir aracın bir kavşağa gireceği birikmiş bekleme "
+"süresi."
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5301
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5302
@@ -9146,6 +9156,8 @@ msgid ""
 "This value causes vehicles to violate a yellow light if the duration of the "
 "yellow phase is lower than the given threshold."
 msgstr ""
+"Bu değer, sarı fazın süresi verilen eşikten düşükse araçların sarı ışığı "
+"ihlal etmesine neden olur."
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5307
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5308
@@ -9153,6 +9165,8 @@ msgid ""
 "This value causes vehicles to violate a red light if the duration of the red "
 "phase is lower than the given threshold."
 msgstr ""
+"Bu değer, kırmızı fazın süresi verilen eşikten düşükse araçların kırmızı "
+"ışık ihlali yapmasına neden olur."
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5313
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5314
@@ -9160,6 +9174,8 @@ msgid ""
 "This value causes vehicles affected by jmDriveAfterRedTime to slow down when "
 "violating a red light."
 msgstr ""
+"Bu değer, jmDriveAfterRedTime tarafından etkilenen araçların kırmızı ışık "
+"ihlali yaparken yavaşlamasına neden olur."
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5319
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5320
@@ -9167,17 +9183,21 @@ msgid ""
 "This value causes vehicles to ignore foe vehicles that have right-of-way "
 "with the given probability."
 msgstr ""
+"Bu değer, araçların verilen olasılıkla geçiş hakkına sahip olan rakip "
+"araçları göz ardı etmesine neden olur."
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5325
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5326
 msgid "This value is used in conjunction with jmIgnoreFoeProb."
-msgstr ""
+msgstr "Bu değer jmIgnoreFoeProb ile birlikte kullanılır."
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5326
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5327
 msgid ""
 "Only vehicles with a speed below or equal to the given value may be ignored."
 msgstr ""
+"Yalnızca hızı verilen değerin altında veya bu değere eşit olan araçlar göz "
+"ardı edilebilir."
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5332
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5333
@@ -9185,6 +9205,8 @@ msgid ""
 "This value configures driving imperfection (dawdling) while passing a minor "
 "link."
 msgstr ""
+"Bu değer, küçük bir bağlantıyı geçerken sürüş kusurunu (oyalanma) "
+"yapılandırır."
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5338
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5339
@@ -9192,11 +9214,13 @@ msgid ""
 "This value defines the minimum time gap when passing ahead of a prioritized "
 "vehicle. "
 msgstr ""
+"Bu değer, öncelikli bir aracın önünden geçerken minimum zaman aralığını "
+"tanımlar. "
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5344
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5345
 msgid "Willingess of drivers to impede vehicles with higher priority"
-msgstr ""
+msgstr "Sürücülerin daha yüksek önceliğe sahip araçları engelleme istekliliği"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5357
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5358
@@ -9204,6 +9228,8 @@ msgid ""
 "The eagerness for performing strategic lane changing. Higher values result "
 "in earlier lane-changing."
 msgstr ""
+"Stratejik şerit değiştirme gerçekleştirme isteği. Daha yüksek değerler daha "
+"erken şerit değiştirmeye neden olur."
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5363
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5364
@@ -9211,6 +9237,8 @@ msgid ""
 "The willingness for performing cooperative lane changing. Lower values "
 "result in reduced cooperation."
 msgstr ""
+"İşbirliğine dayalı şerit değiştirme gerçekleştirme istekliliği. Düşük "
+"değerler işbirliğinin azalmasına neden olur."
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5369
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5370
@@ -9218,6 +9246,8 @@ msgid ""
 "The eagerness for performing lane changing to gain speed. Higher values "
 "result in more lane-changing."
 msgstr ""
+"Hız kazanmak için şerit değiştirme yapma isteği. Daha yüksek değerler daha "
+"fazla şerit değiştirmeye neden olur."
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5375
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5376
@@ -9225,12 +9255,14 @@ msgid ""
 "The eagerness for following the obligation to keep right. Higher values "
 "result in earlier lane-changing."
 msgstr ""
+"Sağda kalma zorunluluğunu takip etme isteği. Daha yüksek değerler daha erken "
+"şerit değiştirmeye neden olur."
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5381
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5382
 msgid ""
 "The eagerness for using the configured lateral alignment within the lane."
-msgstr ""
+msgstr "Şerit içinde yapılandırılmış yanal hizalamayı kullanma isteği."
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5382
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5383
@@ -9238,6 +9270,8 @@ msgid ""
 "Higher values result in increased willingness to sacrifice speed for "
 "alignment."
 msgstr ""
+"Daha yüksek değerler, hizalama için hızdan ödün verme isteğinin artmasına "
+"neden olur."
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5388
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5389
@@ -9245,11 +9279,13 @@ msgid ""
 "The eagerness for overtaking through the opposite-direction lane. Higher "
 "values result in more lane-changing."
 msgstr ""
+"Karşı yön şeridinden sollama yapma isteği. Daha yüksek değerler daha fazla "
+"şerit değiştirmeye neden olur."
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5394
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5395
 msgid "Willingness to encroach laterally on other drivers."
-msgstr ""
+msgstr "Diğer sürücüleri yanlamasına gasp etme isteği."
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5400
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5401
@@ -9257,16 +9293,18 @@ msgid ""
 "Minimum lateral gap when encroaching laterally on other drives (alternative "
 "way to define lcPushy)"
 msgstr ""
+"Diğer sürücüleri yanal olarak gasp ederken minimum yanal boşluk (lcPushy'yi "
+"tanımlamanın alternatif yolu)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5406
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5407
 msgid "Willingness to accept lower front and rear gaps on the target lane."
-msgstr ""
+msgstr "Hedef şeritte alt ön ve arka boşlukları kabul etme isteği."
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5412
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5413
 msgid "Dynamic factor for modifying lcAssertive and lcPushy."
-msgstr ""
+msgstr "lcAssertive ve lcPushy'yi değiştirmek için dinamik faktör."
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5418
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5419
@@ -9274,11 +9312,13 @@ msgid ""
 "Time to reach maximum impatience (of 1). Impatience grows whenever a lane-"
 "change manoeuvre is blocked."
 msgstr ""
+"Maksimum sabırsızlığa ulaşma süresi (1'in). Bir şerit değiştirme manevrası "
+"engellendiğinde sabırsızlık artar."
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5424
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5425
 msgid "Maximum lateral acceleration per second."
-msgstr ""
+msgstr "Saniye başına maksimum yanal ivme."
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5430
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5431
@@ -9286,6 +9326,8 @@ msgid ""
 "Factor for configuring the strategic lookahead distance when a change to the "
 "left is necessary (relative to right lookahead)."
 msgstr ""
+"Sola doğru bir değişiklik gerektiğinde (sağ önden görüşe göre) stratejik "
+"önden bakış mesafesini yapılandırma faktörü."
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5436
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5437
@@ -9293,11 +9335,13 @@ msgid ""
 "Factor for configuring the threshold asymmetry when changing to the left or "
 "to the right for speed gain."
 msgstr ""
+"Hız artışı için sola veya sağa geçerken eşik asimetrisini yapılandırma "
+"faktörü."
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5442
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5443
 msgid "Upper bound on lateral speed when standing."
-msgstr ""
+msgstr "Durgunken yanal hızda üst sınır."
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5448
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5449
@@ -9305,27 +9349,30 @@ msgid ""
 "Upper bound on lateral speed while moving computed as lcMaxSpeedLatStanding "
 "+ lcMaxSpeedLatFactor * getSpeed()"
 msgstr ""
+"Hareket halindeyken yanal hızın üst sınırı lcMaxSpeedLatStanding + "
+"lcMaxSpeedLatFactor * getSpeed() olarak hesaplanır"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5454
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5455
 msgid ""
 "Distance to an upcoming turn on the vehicles route, below which the alignment"
 msgstr ""
+"Araç güzergahında, hizalamanın altında kalan yaklaşan bir dönüşe olan mesafe"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5455
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5456
 msgid "should be dynamically adapted to match the turn direction."
-msgstr ""
+msgstr "dönüş yönüne uyacak şekilde dinamik olarak uyarlanmalıdır."
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5461
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5462
 msgid "The probability for violating rules gainst overtaking on the right."
-msgstr ""
+msgstr "Sağdan sollamaya karşı kuralları ihlal etme olasılığı."
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5467
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5468
 msgid "Time threshold for the willingness to change right."
-msgstr ""
+msgstr "Sağ şeride değişim isteği için zaman eşiği."
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5473
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5474
@@ -9333,41 +9380,43 @@ msgid ""
 "Speed difference factor for the eagerness of overtaking a neighbor vehicle "
 "before changing lanes (threshold = factor*speedlimit)."
 msgstr ""
+"Şerit değiştirmeden önce komşu bir aracı sollama isteği için hız farkı "
+"faktörü (eşik = faktör*hız sınırı)."
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5495
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5496
 msgid "The name of the person"
-msgstr ""
+msgstr "Yolcunun adı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5500
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5501
 msgid "The id of the person type to use for this person"
-msgstr ""
+msgstr "Bu yolcu için kullanılacak yolcu türünün kimliği"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5506
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5507
 msgid "This person's color"
-msgstr ""
+msgstr "Bu yolcunun rengi"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5512
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5513
 msgid "The position at which the person shall enter the net"
-msgstr ""
+msgstr "Yolcunun ağa gireceği pozisyon"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5525
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5526
 msgid "The name of the container"
-msgstr ""
+msgstr "Konteynerin adı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5530
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5531
 msgid "The id of the container type to use for this container"
-msgstr ""
+msgstr "Bu konteyner için kullanılacak konteyner tipinin kimliği"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5536
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5537
 msgid "This container's color"
-msgstr ""
+msgstr "Bu konteynerin rengi"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5562
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5563
@@ -9375,31 +9424,35 @@ msgid ""
 "If set to a non-negative time value, then the stop duration can be extended "
 "at most by the extension value in seconds"
 msgstr ""
+"Negatif olmayan bir zaman değerine ayarlanırsa, durdurma süresi en fazla "
+"saniye cinsinden uzatma değeri kadar uzatılabilir"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5568
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5569
 msgid "Whether a person or container or bth may end the stop"
 msgstr ""
+"Bir kişinin veya konteynerin veya bth'nin durmayı sonlandırıp "
+"sonlandıramayacağı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5575
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5576
 msgid "List of elements that must board the vehicle before it may continue"
-msgstr ""
+msgstr "Devam etmeden önce araca binmesi gereken elemanların listesi"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5580
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5581
 msgid "List of elements that can board the vehicle before it may continue"
-msgstr ""
+msgstr "Devam etmeden önce araca binebilecek elemanların listesi"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5585
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5586
 msgid "Whether the vehicle stops on the road or beside"
-msgstr ""
+msgstr "Aracın yolda mı yoksa yol kenarında mı durduğu"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5592
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5593
 msgid "Activity displayed for stopped person in GUI and output files"
-msgstr ""
+msgstr "GUI ve çıktı dosyalarında duran yolcu için görüntülenen etkinlik"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5597
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5598
@@ -9407,6 +9460,8 @@ msgid ""
 "Parameter to be applied to the vehicle to track the trip id within a "
 "cyclical public transport route"
 msgstr ""
+"Döngüsel bir toplu taşıma rotası içinde yolculuk kimliğini izlemek için "
+"araca uygulanacak parametre"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5602
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5603
@@ -9414,89 +9469,96 @@ msgid ""
 "New line attribute to be set on the vehicle when reaching this stop (for "
 "cyclical public transport route)"
 msgstr ""
+"Bu durağa ulaşıldığında araçta ayarlanacak yeni hat niteliği (döngüsel toplu "
+"taşıma rotası için)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5608
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5609
 msgid "Speed to be kept while driving between startPos and endPos"
-msgstr ""
+msgstr "StartPos ve endPos arasında sürüş sırasında korunacak hız"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5614
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5615
 msgid ""
 "Whether the stop may be skipped if no passengers wants to embark or disembark"
 msgstr ""
+"Hiçbir yolcunun binmek veya inmek istememesi durumunda durağın atlanıp "
+"atlanamayacağı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5621
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5622
 msgid ""
 "transfer time if there shall be a jump from this stop to the next route edge"
-msgstr ""
+msgstr "Bu duraktan bir sonraki rota kesimine atlama olacaksa transfer süresi"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5643
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5644
 msgid "Data set ID"
-msgstr ""
+msgstr "Veri seti kimliği (ID)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5659
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5660
 msgid "Interval ID"
-msgstr ""
+msgstr "Aralık Kimliği (ID)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5665
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5666
 msgid "Data interval begin time"
-msgstr ""
+msgstr "Veri aralığı başlangıç zamanı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5671
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5672
 msgid "Data interval end time"
-msgstr ""
+msgstr "Veri aralığı bitiş zamanı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5687
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5688
 msgid "edge ID"
-msgstr ""
+msgstr "Kesim Kimliği (ID)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5701
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5702
 msgid "The name of the edge the edgeRel starts at"
-msgstr ""
+msgstr "edgeRel'in başladığı kesimin adı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5706
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5707
 msgid "The name of the edge the edgeRel ends at"
-msgstr ""
+msgstr "edgeRel'in bittiği kesimin adı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5720
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5721
 msgid "The name of the TAZ the TAZRel starts at"
-msgstr ""
+msgstr "TABİlişkili'nin başladığı TAB'ın adı (TAZRel, TAZ)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5725
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5726
 msgid "The name of the TAZ the TAZRel ends at"
-msgstr ""
+msgstr "TABİlişkili'nin bittiği TAB'ın adı (TAZRel, TAB)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5760
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5761
 msgid "The id of this set of measurements"
-msgstr ""
+msgstr "Bu ölçüm setinin kimliği"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5765
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5766
 msgid "The path to the output file. The path may be relative"
-msgstr ""
+msgstr "Çıktı dosyasının yolu. Yol göreceli olabilir"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5775
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5776
 msgid ""
 "The time to start writing. If not given, the simulation's begin is used."
 msgstr ""
+"Yazmaya başlama zamanı. Verilmediği takdirde, simülasyonun başlangıcı "
+"kullanılır."
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5780
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5781
 msgid "The time to end writing. If not given the simulation's end is used."
 msgstr ""
+"Yazmayı bitirme zamanı. Verilmediği takdirde simülasyonun sonu kullanılır."
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5785
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5786
@@ -9504,33 +9566,39 @@ msgid ""
 "If set to true, edges/lanes which were not use by a vehicle during this "
 "period will not be written"
 msgstr ""
+"Doğru olarak ayarlanırsa, bu süre zarfında bir araç tarafından kullanılmayan "
+"kesimler/şeritler yazılmayacaktır"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5792
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5793
 msgid "If set, junction internal edges/lanes will be written as well"
-msgstr ""
+msgstr "Ayarlanırsa, kavşak iç kesimleri/şeritleri de yazılacaktır"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5798
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5799
 msgid ""
 "The maximum traveltime in seconds to write if only very small movements occur"
 msgstr ""
+"Yalnızca çok küçük hareketlerin meydana gelmesi durumunda yazılacak saniye "
+"cinsinden maksimum seyahat süresi"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5804
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5805
 msgid ""
 "Consider an edge/lane unused if it has at most this many sampled seconds"
 msgstr ""
+"En fazla şu kadar örneklenmiş saniyesi olan bir kesimi/şeridi kullanılmamış "
+"kabul et"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5810
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5811
 msgid "The maximum speed to consider a vehicle halting;"
-msgstr ""
+msgstr "Bir aracın durduğunu dikkate almak için maksimum hız;"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5816
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5817
 msgid "space separated list of vehicle type ids to consider"
-msgstr ""
+msgstr "Dikkate alınacak araç türü kimliklerinin boşlukla ayrılmış listesi"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5821
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5822
@@ -9538,6 +9606,8 @@ msgid ""
 "whether aggregation should be performed over all vehicles that entered the "
 "edge/lane in the aggregation interval"
 msgstr ""
+"birleştirme işleminin, birleştirme aralığında kesime/şeride giren tüm "
+"araçlar üzerinden gerçekleştirilip gerçekleştirilmeyeceği"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5827
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5828
@@ -9545,21 +9615,23 @@ msgid ""
 "Whether pedestrians shall be recorded instead of vehicles. Allowed value is "
 "walk"
 msgstr ""
+"Araçlar yerine yayaların kaydedilip kaydedilmeyeceği. İzin verilen değer "
+"yürümektir"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5832
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5833
 msgid "List of attribute names that shall be written"
-msgstr ""
+msgstr "Yazılacak öznitelik adlarının listesi"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5837
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5838
 msgid "Restrict output to the given list of edge ids"
-msgstr ""
+msgstr "Çıktıyı verilen kesim kimlikleri listesiyle kısıtlar"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5842
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5843
 msgid "Restrict output to the given the list of edges given in file"
-msgstr ""
+msgstr "Çıktıyı dosyada verilen kesimlerin listesiyle kısıtlayın"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5847
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:5848
@@ -9567,11 +9639,12 @@ msgid ""
 "Whether the traffic statistic of all edges shall be aggregated into a single "
 "value"
 msgstr ""
+"Tüm kesimlerin trafik istatistiğinin tek bir değerde toplanıp toplanmayacağı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEHierarchicalElement.cpp:421
 #: /home/micha/programming/sumo/src/netedit/elements/GNEHierarchicalElement.cpp:421
 msgid "Some child meanData were lost during sorting"
-msgstr ""
+msgstr "Sıralama sırasında bazı alt ortalama veriler kayboldu (meanData)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNETagProperties.cpp:96
 #: /home/micha/programming/sumo/src/netedit/elements/GNETagProperties.cpp:96
@@ -9579,6 +9652,8 @@ msgid ""
 "element must be at least networkElement, additional, TAZ, demandElement, "
 "dataElement or meanData"
 msgstr ""
+"Eleman en az networkElement, additional, TAZ, demandElement, dataElement "
+"veya meanData olmalıdır"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNETagProperties.cpp:100
 #: /home/micha/programming/sumo/src/netedit/elements/GNETagProperties.cpp:100
@@ -9586,11 +9661,13 @@ msgid ""
 "element can be only a networkElement, additional, demandElement, dataElement "
 "or meanData at the same time"
 msgstr ""
+"eleman aynı anda sadece bir networkElement, additional, demandElement, "
+"dataElement veya meanData olabilir"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNETagProperties.cpp:104
 #: /home/micha/programming/sumo/src/netedit/elements/GNETagProperties.cpp:104
 msgid "element can be only a shape, TAZ or wire element at the same time"
-msgstr ""
+msgstr "eleman aynı anda sadece bir şekil, TAB veya kablo elemanı olabilir"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNETagProperties.cpp:108
 #: /home/micha/programming/sumo/src/netedit/elements/GNETagProperties.cpp:108
@@ -9598,51 +9675,53 @@ msgid ""
 "If attributes mask the start and end position, both attributes have to be "
 "defined"
 msgstr ""
+"Öznitelikler başlangıç ve bitiş konumunu maskeliyorsa, her iki özniteliğin "
+"de tanımlanması gerekir"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNETagProperties.cpp:134
 #: /home/micha/programming/sumo/src/netedit/elements/GNETagProperties.cpp:134
 msgid "Attributes aren't combinables"
-msgstr ""
+msgstr "Öznitelikler birleştirilemez"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNETagProperties.cpp:136
 #: /home/micha/programming/sumo/src/netedit/elements/GNETagProperties.cpp:136
 msgid "allow need a disallow attribute in the same tag"
-msgstr ""
+msgstr "izin verme aynı etikette bir izin vermeme niteliğine ihtiyaç duyar"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNETagProperties.cpp:138
 #: /home/micha/programming/sumo/src/netedit/elements/GNETagProperties.cpp:138
 msgid "disallow need an allow attribute in the same tag"
-msgstr ""
+msgstr "izin vermeme aynı etiket içinde bir izin verme niteliğine ihtiyaç duyar"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNETagProperties.cpp:152
 #: /home/micha/programming/sumo/src/netedit/elements/GNETagProperties.cpp:152
 #, c-format
 msgid "attribute '%' doesn't have a default value"
-msgstr ""
+msgstr "'%' özniteliğinin varsayılan bir değeri yoktur"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNETagProperties.cpp:158
 #: /home/micha/programming/sumo/src/netedit/elements/GNETagProperties.cpp:158
 #, c-format
 msgid "Attribute '%' not defined"
-msgstr ""
+msgstr "'%' özniteliği tanımlanmadı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNETagProperties.cpp:165
 #: /home/micha/programming/sumo/src/netedit/elements/GNETagProperties.cpp:165
 #, c-format
 msgid "Maximum number of attributes for tag % exceeded"
-msgstr ""
+msgstr "% etiketi için maksimum öznitelik sayısı aşıldı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNETagProperties.cpp:170
 #: /home/micha/programming/sumo/src/netedit/elements/GNETagProperties.cpp:170
 #, c-format
 msgid "Attribute '%' already inserted"
-msgstr ""
+msgstr "Öznitelik '%' zaten eklendi"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNETagProperties.cpp:207
 #: /home/micha/programming/sumo/src/netedit/elements/GNETagProperties.cpp:207
 #, c-format
 msgid "Attribute '%' doesn't exist"
-msgstr ""
+msgstr "Öznitelik '%' mevcut değil"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditional.cpp:148
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditional.cpp:149
@@ -9657,7 +9736,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEGenericData.cpp:128
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEGenericData.cpp:129
 msgid "Copy "
-msgstr ""
+msgstr "Kopyala "
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditional.cpp:148
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNETAZSourceSink.cpp:128
@@ -9666,7 +9745,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNETAZSourceSink.cpp:128
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEGenericData.cpp:128
 msgid " name to clipboard"
-msgstr ""
+msgstr " panoya ad"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditional.cpp:149
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNETAZSourceSink.cpp:129
@@ -9675,60 +9754,60 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNETAZSourceSink.cpp:129
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEGenericData.cpp:129
 msgid " typed name to clipboard"
-msgstr ""
+msgstr " panoya yazılan ad"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditional.cpp:156
 #: /home/micha/programming/sumo/src\netedit\elements\data\GNEGenericData.cpp:136
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditional.cpp:156
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEGenericData.cpp:136
 msgid "Open "
-msgstr ""
+msgstr "Açık "
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditional.cpp:156
 #: /home/micha/programming/sumo/src\netedit\elements\data\GNEGenericData.cpp:136
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditional.cpp:156
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEGenericData.cpp:136
 msgid " Dialog"
-msgstr ""
+msgstr " İletişim"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditional.cpp:164
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditional.cpp:174
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditional.cpp:164
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditional.cpp:174
 msgid "Cursor position over additional shape: "
-msgstr ""
+msgstr "Ek şekil üzerinde imleç konumu: "
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditional.cpp:168
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditional.cpp:168
 msgid "Cursor position over lane: "
-msgstr ""
+msgstr "Şerit üzerinde imleç konumu: "
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditional.cpp:178
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditional.cpp:178
 msgid "Mouse position over edge: "
-msgstr ""
+msgstr "Kesim üzerinde fare konumu: "
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditional.cpp:181
 #: /home/micha/programming/sumo/src\netedit\elements\data\GNEGenericData.cpp:139
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditional.cpp:181
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEGenericData.cpp:139
 msgid "Cursor position in view: "
-msgstr ""
+msgstr "Görünümdeki imleç konumu: "
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditional.cpp:392
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditional.cpp:392
 msgid "Invalid number of edges"
-msgstr ""
+msgstr "Geçersiz kesim sayısı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:104
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:104
 msgid "add bus stop '"
-msgstr ""
+msgstr "otobüs durağı ekle '"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:148
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:148
 msgid "add train stop '"
-msgstr ""
+msgstr "tren durağı ekle '"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:186
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:186
@@ -9736,46 +9815,48 @@ msgid ""
 "Could not build access in netedit; busStop parent already owns an access in "
 "the edge '"
 msgstr ""
+"Netedit'te erişim oluşturulamadı; busStop üst öğesi zaten kesimde bir "
+"erişime sahip '"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:188
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:188
 msgid "Could not build access in netedit; The lane '"
-msgstr ""
+msgstr "netedit'te erişim oluşturulamadı; Şerit '"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:188
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:188
 msgid "' doesn't support pedestrians"
-msgstr ""
+msgstr "' yayaları desteklemiyor"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:194
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:194
 msgid "add access in '"
-msgstr ""
+msgstr "erişim ekle '"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:235
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:235
 msgid "add container stop '"
-msgstr ""
+msgstr "konteyner durağı ekle '"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:279
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:279
 msgid "add charging station '"
-msgstr ""
+msgstr "şarj istasyonu ekle '"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:322
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:322
 msgid "Could not build parking area with ID '"
-msgstr ""
+msgstr "Kimlikle (ID) park alanı oluşturulamadı '"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:322
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:322
 msgid "' in netedit; Invalid departPos over lane."
-msgstr ""
+msgstr "' netedit'te; Şerit üzerinde geçersiz kalkış pozisyonu (departPos)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:330
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:330
 msgid "add parking area '"
-msgstr ""
+msgstr "park alanı ekle '"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:352
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:352
@@ -9783,6 +9864,8 @@ msgid ""
 "Could not build parking space in netedit; attribute width cannot be parse to "
 "float."
 msgstr ""
+"Netedit'te park yeri oluşturulamadı; öznitelik genişliği ondalıklı olarak "
+"ayrıştırılamıyor."
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:354
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:354
@@ -9790,6 +9873,8 @@ msgid ""
 "Could not build parking space in netedit; attribute length cannot be parse "
 "to float."
 msgstr ""
+"Netedit'te park yeri oluşturulamadı; öznitelik uzunluğu ondalıklı olarak "
+"ayrıştırılamıyor."
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:356
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:356
@@ -9797,16 +9882,18 @@ msgid ""
 "Could not build parking space in netedit; attribute angle cannot be parse to "
 "float."
 msgstr ""
+"Netedit'te park yeri oluşturulamadı; öznitelik açısı ondalıklı olarak "
+"ayrıştırılamıyor."
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:377
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:377
 msgid "add parking space in '"
-msgstr ""
+msgstr "' içine park yeri ekle"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:421
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:421
 msgid "add induction loop '"
-msgstr ""
+msgstr "indüksiyon döngüsü ekle '"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:461
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:519
@@ -9815,110 +9902,110 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:519
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:528
 msgid "Could not build lane area detector with ID '"
-msgstr ""
+msgstr "' Kimliği (ID) ile şerit alanı dedektörü oluşturulamadı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:461
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:528
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:461
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:528
 msgid "' in netedit; invalid traffic light ID."
-msgstr ""
+msgstr "netedit'te; geçersiz trafik ışığı kimliği (ID)."
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:486
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:547
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:486
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:547
 msgid "add lane area detector '"
-msgstr ""
+msgstr "şerit alanı dedektörü ekle '"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:519
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1540
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:519
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1540
 msgid "' in netedit; Lanes aren't consecutives."
-msgstr ""
+msgstr "' netedit'te; Şeritler ardışık değildir."
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:592
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:592
 msgid "add entry-exit detector '"
-msgstr ""
+msgstr "giriş-çıkış dedektörü ekle'"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:627
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:627
 msgid "add entry detector in '"
-msgstr ""
+msgstr "' içine giriş dedektörü ekleyin"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:662
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:662
 msgid "add exit detector in '"
-msgstr ""
+msgstr "' içine çıkış dedektörü ekleyin"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:699
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:699
 msgid "add instant induction loop '"
-msgstr ""
+msgstr "anlık indüksiyon döngüsü ekle '"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:749
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:749
 msgid "add lane calibrator '"
-msgstr ""
+msgstr "şerit kalibratörü ekle '"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:803
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:803
 msgid "add calibrator '"
-msgstr ""
+msgstr "kali̇bratör ekle '"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:844
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:844
 msgid "add calibrator flow in '"
-msgstr ""
+msgstr "' içine kalibratör akımı ekleyin"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:900
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:900
 msgid "add rerouter '"
-msgstr ""
+msgstr "yeniden yönlendirici ekle '"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:939
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:939
 msgid "Could not build interval with ID '"
-msgstr ""
+msgstr "' Kimlik (ID) ile aralık oluşturulamadı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:939
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1244
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:939
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1244
 msgid "' in netedit; begin is greather than end."
-msgstr ""
+msgstr "' netedit'te; başlangıç bitişten daha büyüktür."
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:947
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:947
 msgid "add rerouter interval in '"
-msgstr ""
+msgstr "' içine yeniden yönlendirici aralığı ekleyin"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:956
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:956
 msgid "Could not build interval with begin '"
-msgstr ""
+msgstr "' Başlangıç ile aralık oluşturulamadı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:956
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:956
 msgid "' in '"
-msgstr ""
+msgstr "' içinde '"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:956
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:956
 msgid "' due overlapping."
-msgstr ""
+msgstr "' ifadesinin örtüşmesi nedeniyle."
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:978
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:978
 msgid "add closing lane reroute in '"
-msgstr ""
+msgstr "' içine kapanış şeridi yeniden yönlendirmesi ekle"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1006
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1006
 msgid "add closing reroute in '"
-msgstr ""
+msgstr "' içine kapanış yeniden yönlendirme ekle"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1033
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1033
