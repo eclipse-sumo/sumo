@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-14 12:31+0000\n"
+"PO-Revision-Date: 2023-03-14 12:38+0000\n"
 "Last-Translator: kyasin <yasingoka@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/tr/>\n"
@@ -13406,7 +13406,7 @@ msgstr "seçilen şeritlerden, kenarlardan ve kavşaklardan bağlantıları sıf
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:289
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:289
 msgid "reset connections from selected lanes"
-msgstr ""
+msgstr "seçilen şeritlerden bağlantıları sıfırla"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:308
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:168
@@ -13415,137 +13415,137 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEProhibitionFrame.cpp:168
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2345
 msgid "Selection"
-msgstr ""
+msgstr "Seçim"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:313
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:313
 msgid "-Hold <SHIFT> while"
-msgstr ""
+msgstr "<SHIFT> tuşunu basılı tutarken"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:314
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:314
 msgid " clicking to create"
-msgstr ""
+msgstr " oluşturmak için tıkla"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:315
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:315
 msgid " unyielding connections"
-msgstr ""
+msgstr " Yol vermeyen bağlantılar"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:316
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:316
 msgid " (pass=true)."
-msgstr ""
+msgstr " (pass=true)."
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:321
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:321
 msgid "-Hold <CTRL> while"
-msgstr ""
+msgstr "<CTRL> tuşunu basılı tutarken"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:322
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:322
 msgid " clicking to create "
-msgstr ""
+msgstr " oluşturmak için tıklayın "
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:323
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:323
 msgid " conflicting connections"
-msgstr ""
+msgstr " çatışan bağlantılar"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:324
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:324
 msgid " (i.e. at zipper nodes"
-msgstr ""
+msgstr " (örneğin fermuar düğümlerinde"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:325
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:325
 msgid " or with incompatible"
-msgstr ""
+msgstr " veya uyumsuz"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:326
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:326
 msgid " permissions"
-msgstr ""
+msgstr " izinler"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:342
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:342
 msgid "Possible Target"
-msgstr ""
+msgstr "Olası Hedef"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:347
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:347
 msgid "Source lane"
-msgstr ""
+msgstr "Kaynak şerit"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:351
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:351
 msgid "Target lane"
-msgstr ""
+msgstr "Hedef şerit"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:355
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:355
 msgid "Target (pass)"
-msgstr ""
+msgstr "Hedef (pass)"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:359
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:359
 msgid "Conflict"
-msgstr ""
+msgstr "Çatışma"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:371
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:371
 msgid "Edit Connections"
-msgstr ""
+msgstr "Bağlantıları Düzenle"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:437
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:437
 msgid "modify connections"
-msgstr ""
+msgstr "bağlantıları değiştir"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:488
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:488
 msgid "Pedestrian connections are generated automatically"
-msgstr ""
+msgstr "Yaya bağlantıları otomatik olarak üretilir"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:490
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:490
 msgid "Incompatible vehicle class permissions"
-msgstr ""
+msgstr "Uyumsuz araç sınıfı izinleri"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:492
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:492
 msgid "Another lane from the same edge already connects to that lane"
-msgstr ""
+msgstr "Aynı kesimden gelen başka bir şerit zaten bu şeride bağlanıyor"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:500
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEConnectorFrame.cpp:500
 msgid "Invalid target for connection"
-msgstr ""
+msgstr "Bağlantı için geçersiz hedef"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:71
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:71
 msgid "Template selector"
-msgstr ""
+msgstr "Şablon seçici"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:76
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:76
 msgid "Create default edge"
-msgstr ""
+msgstr "Varsayılan kesim oluştur"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:79
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:79
 msgid "Disallow for pedestrians"
-msgstr ""
+msgstr "Yayalara izin verme"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:81
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:81
 msgid "Add Sidewalk"
-msgstr ""
+msgstr "Kaldırım Ekle"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:84
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:84
 msgid "Use edgeType/template"
-msgstr ""
+msgstr "Kesim Tipi/Şablonu kullan"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:92
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:436
@@ -13556,64 +13556,64 @@ msgstr ""
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1306
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1371
 msgid "Add"
-msgstr ""
+msgstr "Ekle"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:92
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:92
 msgid "Add edge type"
-msgstr ""
+msgstr "Kesim tipi ekle"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:95
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:95
 msgid "Delete edge type"
-msgstr ""
+msgstr "Kesim tipini sil"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:98
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:98
 msgid "Create from template"
-msgstr ""
+msgstr "Şablondan oluştur"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:98
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:98
 msgid "Create edgeType from template"
-msgstr ""
+msgstr "Şablondan Kesim Tipi oluştur"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:317
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:366
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:317
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:366
 msgid "create new edge type"
-msgstr ""
+msgstr "yeni kesim tipi oluştur"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:339
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:339
 msgid "delete edge type"
-msgstr ""
+msgstr "Kesim tipini sil"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:404
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:404
 msgid "template: "
-msgstr ""
+msgstr "şablon: "
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:428
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:428
 msgid "LaneType selector"
-msgstr ""
+msgstr "Şerit Tipi seçici"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:436
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:436
 msgid "Add lane type"
-msgstr ""
+msgstr "Şerit türü ekle"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:439
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:439
 msgid "Delete lane type"
-msgstr ""
+msgstr "Şerit tipini sil"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:536
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:536
 msgid "add laneType"
-msgstr ""
+msgstr "Şerit türü ekle"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:573
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:573
