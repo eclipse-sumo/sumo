@@ -4,6 +4,9 @@ vtype_basic
 # checks using  vtype distribution with existing types
 vtypeDist_useExisting
 
+# checks using  vtype distribution with existing types and custom probabilities
+vtypeDist_useExisting_overrideProbabilities
+
 # checks using basic route distribution
 route_basic
 
