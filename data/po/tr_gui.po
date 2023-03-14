@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-14 06:57+0000\n"
+"PO-Revision-Date: 2023-03-14 07:17+0000\n"
 "Last-Translator: kyasin <yasingoka@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/tr/>\n"
@@ -10010,101 +10010,101 @@ msgstr "' içine kapanış yeniden yönlendirme ekle"
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1033
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1033
 msgid "add dest prob reroute in '"
-msgstr ""
+msgstr "' içine hedef inceleme yeniden yönlendirmesi ekle"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1061
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1061
 msgid "add parking area reroute in '"
-msgstr ""
+msgstr "' içine park alanı yeniden yönlendirmesi ekle"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1089
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1089
 msgid "add route prob reroute in '"
-msgstr ""
+msgstr "' içine rota inceleme yeniden yönlendirmesi ekle"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1126
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1126
 msgid "add route probe '"
-msgstr ""
+msgstr "rota sorgulama ekle '"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1172
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1172
 msgid "add Variable Speed Sign '"
-msgstr ""
+msgstr "Değişken Hız İşareti ekle '"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1213
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1213
 msgid "add VSS Step in '"
-msgstr ""
+msgstr "' içine VSS Adımı ekle"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1244
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1244
 msgid "Could not build Vaporizer with ID '"
-msgstr ""
+msgstr "' Kimlik (ID) ile Buharlaştırıcı oluşturulamadı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1250
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1250
 msgid "add vaporizer in '"
-msgstr ""
+msgstr "' içine buharlaştırıcı ekle"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1302
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1302
 msgid "Could not build TAZ with ID '"
-msgstr ""
+msgstr "' Kimlik ile TAB oluşturulamadı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1302
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1302
 msgid "' in netedit; Invalid Shape."
-msgstr ""
+msgstr "' netedit'te; Geçersiz Şekil."
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1313
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1313
 msgid "add TAZ '"
-msgstr ""
+msgstr "TAB ekle '"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1374
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1468
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1374
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1468
 msgid "add TAZ Sink in '"
-msgstr ""
+msgstr "' içine TAB Alıcı ekle"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1397
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1446
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1397
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1446
 msgid "add TAZ Source in '"
-msgstr ""
+msgstr "' içine TAB kaynağı ekle"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1408
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1408
 msgid "update TAZ Source in '"
-msgstr ""
+msgstr "' içinde TAB kaynağını güncelle"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1479
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1479
 msgid "update TAZ Sink in '"
-msgstr ""
+msgstr "' içinde TAB alıcısını güncelle"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1508
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1508
 msgid "add taction substation '"
-msgstr ""
+msgstr "cer trafo merkezi̇ ekle '"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1540
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1540
 msgid "Could not build overhead wire with ID '"
-msgstr ""
+msgstr "' kimliğine (ID) sahip havai hat oluşturulamadı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1552
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1552
 msgid "add overhead wire '"
-msgstr ""
+msgstr "havai hat ekle '"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1601
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1601
 msgid "add polygon '"
-msgstr ""
+msgstr "çokgen ekle '"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1634
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1677
@@ -10113,17 +10113,17 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1677
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1716
 msgid "add POI '"
-msgstr ""
+msgstr "EN ekle '"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1708
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1708
 msgid "Could not build POI with ID '"
-msgstr ""
+msgstr "' Kimlik (ID) ile EN oluşturulamadı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1708
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1708
 msgid "' in netedit; Network requires a geo projection."
-msgstr ""
+msgstr "' netedit'te; Ağ coğrafi projeksiyon gerektirir."
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1904
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1910
@@ -10156,7 +10156,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEMeanDataHandler.cpp:116
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEMeanDataHandler.cpp:132
 msgid "Could not build "
-msgstr ""
+msgstr "Oluşturulamadı "
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1904
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1910
@@ -10177,24 +10177,24 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEDataHandler.cpp:243
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEDataHandler.cpp:255
 msgid " with ID '"
-msgstr ""
+msgstr " ' Kimlik (ID) ile"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1904
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1904
 msgid "' in netedit; ID contains invalid characters."
-msgstr ""
+msgstr "' netedit'te; Kimlik (ID) geçersiz karakterler içeriyor."
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1910
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1910
 msgid "' in netedit; Invalid position over lane."
-msgstr ""
+msgstr "' netedit'te; Şerit üzerinde geçersiz konum."
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1916
 #: /home/micha/programming/sumo/src\netedit\elements\data\GNEDataHandler.cpp:243
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1916
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEDataHandler.cpp:243
 msgid "' in netedit; declared twice."
-msgstr ""
+msgstr "' netedit'te; iki kez bildirilmiştir."
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1922
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2001
@@ -10205,32 +10205,32 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:2019
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEDataHandler.cpp:249
 msgid " doesn't exist."
-msgstr ""
+msgstr " yok."
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1928
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1928
 msgid "' in netedit; attribute "
-msgstr ""
+msgstr "' netedit'te; Öznitelik "
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1928
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1928
 msgid " cannot be negative."
-msgstr ""
+msgstr " negatif olamaz."
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1934
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1934
 msgid "' in netedit; list of VTypes isn't valid."
-msgstr ""
+msgstr "' netedit'te; Araç Tipi (VTypes) listesi geçerli değil."
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1940
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1940
 msgid "' in netedit; filename is invalid."
-msgstr ""
+msgstr "' netedit'te; dosya adı geçersiz."
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1946
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEAdditionalHandler.cpp:1946
 msgid "' in netedit; list of lanes isn't valid."
-msgstr ""
+msgstr "' netedit'te; şeritlerin listesi geçerli değil."
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2001
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2019
@@ -10241,30 +10241,30 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEDataHandler.cpp:249
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEDataHandler.cpp:255
 msgid " in netedit; "
-msgstr ""
+msgstr " netedit'te; "
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNECalibrator.cpp:176
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNECalibrator.cpp:176
 msgid "Both edges and lanes aren't defined"
-msgstr ""
+msgstr "Hem kesimler hem de şeritler tanımlı değil"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNECalibrator.cpp:220
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNECalibrator.cpp:462
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNECalibrator.cpp:220
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNECalibrator.cpp:462
 msgid "Both myEdge and myLane aren't defined"
-msgstr ""
+msgstr "Hem Kesimlerim (myEdge) hem de Şeritlerim (myLane) tanımlanmamış"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNECalibratorFlow.cpp:94
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNECalibratorFlow.cpp:94
 msgid "calibratorFlow of  calibrator '"
-msgstr ""
+msgstr "' Kalibratörün kalibratör akımı (calibratorFlow)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNECalibratorFlow.cpp:95
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNECalibratorFlow.cpp:95
 msgid ""
 "' cannot be written. Either type or vehsPerHour or speed must be enabled"
-msgstr ""
+msgstr "' yazılamaz. Tür veya saat başına araç veya hız etkinleştirilmelidir"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEEntryExitDetector.cpp:97
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEInductionLoopDetector.cpp:115
@@ -10287,14 +10287,14 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEStoppingPlace.cpp:132
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEStoppingPlace.cpp:137
 msgid " > lanes's length"
-msgstr ""
+msgstr " > şeritlerin uzunluğu"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNELaneAreaDetector.cpp:179
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEOverheadWire.cpp:125
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNELaneAreaDetector.cpp:179
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEOverheadWire.cpp:125
 msgid "lanes aren't consecutives"
-msgstr ""
+msgstr "şeritler ardışık değil"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNELaneAreaDetector.cpp:183
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEOverheadWire.cpp:129
