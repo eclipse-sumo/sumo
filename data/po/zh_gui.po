@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-14 14:05+0000\n"
+"PO-Revision-Date: 2023-03-14 14:28+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
@@ -7058,96 +7058,96 @@ msgstr "与车辆路线上即将出现的转弯的距离，低于该转弯的路
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5455
 msgid "should be dynamically adapted to match the turn direction."
-msgstr ""
+msgstr "应该动态地调整以符合转弯方向。"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5461
 msgid "The probability for violating rules gainst overtaking on the right."
-msgstr ""
+msgstr "违反规则的概率以能进行右侧超车。"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5467
 msgid "Time threshold for the willingness to change right."
-msgstr ""
+msgstr "愿意向右变换的时间阈值。"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5473
 msgid ""
 "Speed difference factor for the eagerness of overtaking a neighbor vehicle "
 "before changing lanes (threshold = factor*speedlimit)."
-msgstr ""
+msgstr "改变车道前急于超越邻车的速度差系数（阈值=系数*速度限制）。"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5495
 msgid "The name of the person"
-msgstr ""
+msgstr "人的姓名"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5500
 msgid "The id of the person type to use for this person"
-msgstr ""
+msgstr "这个人要使用的人的类型的id"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5506
 msgid "This person's color"
-msgstr ""
+msgstr "这个人的颜色"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5512
 msgid "The position at which the person shall enter the net"
-msgstr ""
+msgstr "该人应在什么位置入网"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5525
 msgid "The name of the container"
-msgstr ""
+msgstr "货箱的名称"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5530
 msgid "The id of the container type to use for this container"
-msgstr ""
+msgstr "这个货箱要使用的货箱类型的id"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5536
 msgid "This container's color"
-msgstr ""
+msgstr "这个货箱的颜色"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5562
 msgid ""
 "If set to a non-negative time value, then the stop duration can be extended "
 "at most by the extension value in seconds"
-msgstr ""
+msgstr "如果设置为一个非负的时间值，那么停止时间最多可以延长秒数的延长值"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5568
 msgid "Whether a person or container or bth may end the stop"
-msgstr ""
+msgstr "一个人或货箱或bth是否可以结束停留"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5575
 msgid "List of elements that must board the vehicle before it may continue"
-msgstr ""
+msgstr "在车辆继续之前，必須登上车辆的要素清单"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5580
 msgid "List of elements that can board the vehicle before it may continue"
-msgstr ""
+msgstr "在车辆继续之前，可以登上车辆的要素清单"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5585
 msgid "Whether the vehicle stops on the road or beside"
-msgstr ""
+msgstr "无论车辆是停在路上还是停在旁边"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5592
 msgid "Activity displayed for stopped person in GUI and output files"
-msgstr ""
+msgstr "在图形用户界面和输出文件中显示被拦截者的活动"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5597
 msgid ""
 "Parameter to be applied to the vehicle to track the trip id within a "
 "cyclical public transport route"
-msgstr ""
+msgstr "应用于车辆的参数，以跟踪环线公共交通路线内的行程ID"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5602
 msgid ""
 "New line attribute to be set on the vehicle when reaching this stop (for "
 "cyclical public transport route)"
-msgstr ""
+msgstr "当到达这一站时，将在车辆上设置新的线路属性（适用于环线公共交通线路）"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5608
 msgid "Speed to be kept while driving between startPos and endPos"
-msgstr ""
+msgstr "在startPos和endPos之间行驶时要保持的速度"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5614
 msgid ""
 "Whether the stop may be skipped if no passengers wants to embark or disembark"
-msgstr ""
+msgstr "如果没有乘客想上船或下船，是否可以跳过该站"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5621
 msgid ""
