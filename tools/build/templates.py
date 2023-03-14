@@ -256,6 +256,7 @@ tools = [
     # "traceExporter",                NO CONFIG
 ]
 
+
 def buildTemplateToolHeader(templateHeaderFile):
     print(
         "#include <string>\n"
@@ -285,7 +286,8 @@ def buildTemplateToolHeader(templateHeaderFile):
         "    // @brief tool template\n"
         "    const std::string templateStr;\n"
         "};\n",
-    file=templateHeaderFile)
+        file=templateHeaderFile)
+
 
 def formatBinTemplate(templateStr):
     """
@@ -376,7 +378,7 @@ if __name__ == "__main__":
     toolDir = join(dirname(__file__), '..')
     # write templates.h
     with open("templates.h", 'w') as templateHeaderFile:
-        # generate templateTool header 
+        # generate templateTool header
         buildTemplateToolHeader(templateHeaderFile)
         # generate Tool templates
         print("const std::vector<TemplateTool> templateTools {\n", file=templateHeaderFile)
