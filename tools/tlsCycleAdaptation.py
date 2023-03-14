@@ -17,10 +17,11 @@
 
 """
 - The Webster's equation is used to optimize the cycle length
-  and the green times of the traffic lights in a sumo network
-  with a given route file.
+  and the green times of the traffic lights at common intersections
+  in a sumo network with a given route file (vehicles and bicycles).
 
 - Traffic lights without traffic flows will not be optimized.
+
 - PCE is used instead of the number of vehicles.
 
 - If a lane group has green times in more than one phase,
@@ -34,6 +35,8 @@
   the defined option value
 
 - Duration for all-red phase will be not adjusted.
+
+- Pedestrains are not considered yet.
 """
 
 from __future__ import absolute_import
@@ -82,6 +85,8 @@ def get_options(args=None):
                          help="use the calculated max cycle length as the cycle length for all intersections")
     optParser.add_option("--sorted", action="store_true", default=False,
                          help="assume the route file is sorted (aborts reading earlier)")
+    optParser.add_option("--skip", dest="skip", type=str,
+                         default='', help="the tls ids, which are skipped and seperated by comma")
     optParser.add_option("-v", "--verbose", dest="verbose", action="store_true",
                          default=False, help="tell me what you are doing")
     return optParser.parse_args(args=args)
@@ -161,24 +166,24 @@ def getFlows(net, routeFiles, tlsList, begin, verbose, isSorted=False):
     return connFlowsMap
 
 
-def getEffectiveTlsList(tlsList, connFlowsMap, verbose):
+def getEffectiveTlsList(tlsList, connFlowsMap, skipList, verbose):
     effectiveTlsList = []
+    tlsList = [tl for tl in tlsList if tl._id not in skipList]
     for tl in tlsList:
         if len(tl.getPrograms()) == 0:
             continue
-        valid = True
+
         for program in tl.getPrograms().values():
             for phase in program.getPhases():
                 if len(phase.state) > len(tl.getConnections()):
-                    print("Skipping TLS '%s' due to unused states (%s states, %s connections)" % (
-                        tl.getID(), len(phase.state), len(tl.getConnections())))
-                    valid = False
+                    print("Warning: the number of unused states at TLS %s: %s (%s states, %s connections)" % (
+                        tl.getID(), (len(phase.state)-len(tl.getConnections())), len(phase.state), len(tl.getConnections())))
                     break
-        if valid:
-            for conn in connFlowsMap[tl.getID()]:
-                if connFlowsMap[tl.getID()][conn] > 0:
-                    effectiveTlsList.append(tl)
-                    break
+
+        for conn in connFlowsMap[tl.getID()]:
+            if connFlowsMap[tl.getID()][conn] > 0:
+                effectiveTlsList.append(tl)
+                break
     return effectiveTlsList
 
 
@@ -223,24 +228,35 @@ def identityCheck(e1, incomingLinks, identical):
 def getLaneGroupFlows(tl, connFlowsMap, phases, greenFilter, multiOwnGreenMap, getmultiOwnGreen):
     connsList = tl.getConnections()
     groupFlowsMap = {}  # i(phase): duration, laneGroup1, laneGroup2, ...
-    connsList = sorted(connsList, key=lambda connsList: connsList[2])
+    connsList = sorted(connsList, key=lambda connsList: connsList[2]) #tls-linkIndex: connsList[i][2]
+    aktiveLinkIndices = set()
+
+    # get acktive link indices that used in the current TLS plan
+    # the connections with internal links for walking areas and crossings are also considered
+    for conn in connsList:
+        for toEdge in conn[0]._edge._outgoing:
+            for c in conn[0]._edge._outgoing[toEdge]:
+                if c._tlLink >= 0 and toEdge._function not in ["crossing","walkingarea","internal"]:
+                    aktiveLinkIndices.add(c._tlLink)
 
     # check if there are shared lane groups, i.e. some lane groups have only "g" (no "G")
     ownGreenConnsList = []   # connections with major green
     for i, p in enumerate(phases):
-        # j is the linkIndex
+        #j is the linkIndex
         for j, control in enumerate(p.state):
-            if control == "G":
+            if control == "G" and j in aktiveLinkIndices:
                 if j not in ownGreenConnsList:
                     ownGreenConnsList.append(j)
-                elif not getmultiOwnGreen:       # j could be put more than once in the map
+                elif not getmultiOwnGreen:       # j could be put more than once in the map  
                     multiOwnGreenMap[tl._id].append(j)
-                    if options.verbose:
-                        print('TLS:%s, tl-index with more than one major-green:%s' % (tl._id, multiOwnGreenMap[tl._id]))
+    if options.verbose:
+        if multiOwnGreenMap[tl._id]:
+            print('TLS: %s --> the tl-indices with more than one major-green:%s' %(tl._id, multiOwnGreenMap[tl._id]))
     yellowRedTime = 0
     greenTime = 0
     currentLength = 0
     phaseLaneIndexMap = collections.defaultdict(list)
+
 
     for i, p in enumerate(phases):
         currentLength += p.duration
@@ -249,50 +265,49 @@ def getLaneGroupFlows(tl, connFlowsMap, phases, greenFilter, multiOwnGreenMap, g
             groupFlowsMap[i] = [p.duration]
             groupFlows = 0
             laneIndexList = []
+            exEdge = None
             for j, control in enumerate(p.state):
-                inEdge = connsList[j][0]._edge._id
-                multiOwnGreenFactor = 1
-                multiOwnGreenFactor += multiOwnGreenMap[tl._id].count(j)
-                processed = False
-                if j == 0:
-                    exEdge = inEdge
-                # protected green directly after major green for the same edge
-                if ((inEdge == exEdge) and ((control == 'G') or (control == 'g' and j not in ownGreenConnsList))):
-                    if j in connFlowsMap[tl._id]:
-                        # if a connection flow has more than one major green,
-                        # the flow is regularly distributed in each "major green"
-                        groupFlows += connFlowsMap[tl._id][j]/float(multiOwnGreenFactor)
+                if j in aktiveLinkIndices:
+                    inEdge = connsList[j][0]._edge._id
+                    multiOwnGreenFactor = 1
+                    multiOwnGreenFactor += multiOwnGreenMap[tl._id].count(j)
+                    processed = False
+                    if not exEdge:
+                        exEdge = inEdge
+                    # protected green directly after major green for the same edge
+                    if ((inEdge == exEdge) and ((control == 'G') or ( control == 'g' and j not in ownGreenConnsList))): 
+                        if j in connFlowsMap[tl._id]:
+                            # if a connection flow has more than one major green, the flow is regularly distributed in each "major green"
+                            groupFlows += connFlowsMap[tl._id][j]/float(multiOwnGreenFactor)
 
-                    if connsList[j][0].getIndex() not in laneIndexList:
-                        laneIndexList.append(connsList[j][0].getIndex())
-                    processed = True
-                # fromEdge is different from the previous one or the last state
-                if exEdge != inEdge or j == len(p.state) - 1:
-                    # save the data of the previous group
-                    if laneIndexList:
-                        phaseLaneIndexMap[i].append(laneIndexList)
-                        groupFlowsMap[i].append(groupFlows)
-
-                        # reset
-                        laneIndexList = []
-                        groupFlows = 0
-                        if (j == len(p.state) - 1) and processed:
-                            break
-                    if control == "G":
                         if connsList[j][0].getIndex() not in laneIndexList:
                             laneIndexList.append(connsList[j][0].getIndex())
-                        if j in connFlowsMap[tl._id]:  # only flows > 0
-                            groupFlows += connFlowsMap[tl._id][j]/float(multiOwnGreenFactor)
-                    # todo: consider minor green
+                        processed = True
+                    # fromEdge is different from the previous one or the last state
+                    if exEdge != inEdge or j == len(p.state) - 1:
+                        # save the data of the previous group
+                        if laneIndexList:
+                            phaseLaneIndexMap[i].append(laneIndexList)
+                            groupFlowsMap[i].append(groupFlows)
+                            # reset
+                            laneIndexList = []
+                            groupFlows = 0
+                            if (j == len(p.state) - 1) and processed:
+                                break
+                        if control == "G":
+                            if connsList[j][0].getIndex() not in laneIndexList:
+                                laneIndexList.append(connsList[j][0].getIndex())
+                            if j in connFlowsMap[tl._id]:  # only flows > 0
+                                groupFlows += connFlowsMap[tl._id][j]/float(multiOwnGreenFactor)
+                        # todo: consider minor green
+                        if (j == len(p.state) - 1) and laneIndexList:
+                            phaseLaneIndexMap[i].append(laneIndexList)
+                            groupFlowsMap[i].append(groupFlows)
+                            # reset
+                            laneIndexList = []
+                            groupFlows = 0
 
-                    if (j == len(p.state) - 1) and laneIndexList:
-                        phaseLaneIndexMap[i].append(laneIndexList)
-                        groupFlowsMap[i].append(groupFlows)
-                        # reset
-                        laneIndexList = []
-                        groupFlows = 0
-
-                exEdge = inEdge
+                    exEdge = inEdge
         elif 'G' not in p.state and 'g' in p.state and 'y' not in p.state and 'r' not in p.state:
             print("Check: only g for all connections:%s in phase %s" % (tl._id, i))
         elif ('G' not in p.state and 'g' not in p.state) or ('G' not in p.state and 'y' in p.state and 'r' in p.state):
@@ -426,10 +441,11 @@ def optimizeGreenTime(tl, groupFlowsMap, phaseLaneIndexMap, currentLength, multi
 
     return groupFlowsMap
 
-
 def main(options):
     net = sumolib.net.readNet(options.netfile, withPrograms=True, withPedestrianConnections=True)
     tlsList = net.getTrafficLights()
+    skipList = []
+    skipList = options.skip.split(",")
 
     if options.verbose:
         print("the total number of tls: %s" % len(tlsList))
@@ -437,9 +453,9 @@ def main(options):
     # get traffic flows for each connection at each TL
     connFlowsMap = getFlows(net, options.routefiles, tlsList, options.begin, options.verbose, options.sorted)
 
-    # remove the tls where no traffic volumes exist
-    effectiveTlsList = getEffectiveTlsList(tlsList, connFlowsMap, options.verbose)
-
+    # remove the tls where no traffic volumes exist and which should be skipped
+    effectiveTlsList = getEffectiveTlsList(tlsList, connFlowsMap, skipList, options.verbose)
+    
     # prepare a map for any connection flow has more than one major-green in states
     multiOwnGreenMap = {}
     getmultiOwnGreen = False
@@ -461,8 +477,8 @@ def main(options):
                         phases = programs[pro].getPhases()
 
                         # get the connection flows and group flows
-                        r = getLaneGroupFlows(tl, connFlowsMap, phases, 0, multiOwnGreenMap, getmultiOwnGreen)
-                        groupFlowsMap, phaseLaneIndexMap, currentLength, multiOwnGreenMap, getmultiOwnGreen = r
+                        groupFlowsMap, phaseLaneIndexMap, currentLength, multiOwnGreenMap, getmultiOwnGreen = getLaneGroupFlows(
+                            tl, connFlowsMap, phases, 0, multiOwnGreenMap, getmultiOwnGreen)
 
                         # only optimize the cycle length
                         cycleList = getMaxOptimizedCycle(groupFlowsMap, phaseLaneIndexMap,
@@ -484,13 +500,11 @@ def main(options):
                     phases = programs[pro].getPhases()
 
                     # get the connection flows and group flows
-                    r = getLaneGroupFlows(tl, connFlowsMap, phases, options.greenFilter,
-                                          multiOwnGreenMap, getmultiOwnGreen)
-                    groupFlowsMap, phaseLaneIndexMap, currentLength, multiOwnGreenMap, getmultiOwnGreen = r
+                    groupFlowsMap, phaseLaneIndexMap, currentLength, multiOwnGreenMap, getmultiOwnGreen = getLaneGroupFlows(
+                        tl, connFlowsMap, phases, options.greenFilter, multiOwnGreenMap, getmultiOwnGreen)
 
                     # optimize the cycle length and calculate the respective green splits
-                    groupFlowsMap = optimizeGreenTime(tl, groupFlowsMap, phaseLaneIndexMap,
-                                                      currentLength, multiOwnGreenMap, options)
+                    groupFlowsMap = optimizeGreenTime(tl, groupFlowsMap, phaseLaneIndexMap, currentLength, multiOwnGreenMap, options)
 
                 # write output
                 outf.write('    <tlLogic id="%s" type="%s" programID="%s" offset="%i">\n' %
