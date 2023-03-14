@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-14 08:40+0000\n"
+"PO-Revision-Date: 2023-03-14 09:07+0000\n"
 "Last-Translator: kyasin <yasingoka@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/tr/>\n"
@@ -12708,18 +12708,18 @@ msgstr ""
 #: /home/micha/programming/sumo/src/utils/foxtools/MFXDecalsTable.cpp:125
 #: /home/micha/programming/sumo/src/utils/foxtools/MFXDecalsTable.cpp:136
 msgid "Invalid row or column"
-msgstr ""
+msgstr "Geçersiz satır veya sütun"
 
 #: /home/micha/programming/sumo/src\utils\foxtools\MFXDecalsTable.cpp:186
 #: /home/micha/programming/sumo/src/utils/foxtools/MFXDecalsTable.cpp:160
 msgid "Invalid row"
-msgstr ""
+msgstr "Geçersiz satır"
 
 #: /home/micha/programming/sumo/src\utils\foxtools\MFXDecalsTable.cpp:196
 #: /home/micha/programming/sumo/src/utils/foxtools/MFXDecalsTable.cpp:170
 #: /home/micha/programming/sumo/src/utils/foxtools/MFXDecalsTable.cpp:180
 msgid "Invalid column"
-msgstr ""
+msgstr "Geçersiz sütun"
 
 #: /home/micha/programming/sumo/src\utils\foxtools\MFXDecalsTable.cpp:332
 #: /home/micha/programming/sumo/src\utils\foxtools\MFXDecalsTable.cpp:788
