@@ -610,12 +610,23 @@ MSPModel_Striping::getNextLane(const PState& ped, const MSLane* currentLane, con
                               << "' to '" << (nextRouteEdge == nullptr ? "NULL" : nextRouteEdge->getID())
                               << "\n";
                 }
-                WRITE_WARNING("Person '" + ped.myPerson->getID() + "' could not find route across junction '" + junction->getID()
-                              + "' from walkingArea '" + currentEdge->getID()
-                              + "' to edge '" + nextRouteEdge->getID() + "', time=" +
-                              time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
-                // error indicated by nextDir == UNDEFINED_DIRECTION
-                nextLane = nextRouteLane;
+                // check if a direct connection exists (moving onto the walkingarea was the wrong choice)
+                if (ped.myDir == FORWARD) {
+                    link = prevLane->getLinkTo(nextRouteLane);
+                } else {
+                    link = nextRouteLane->getLinkTo(prevLane);
+                }
+                if (link != nullptr) {
+                    // leave direction as UNDEFINED_DIRECTION to signal that currentLane must be changed
+                    nextLane = link->getViaLaneOrLane();
+                } else {
+                    WRITE_WARNING("Person '" + ped.myPerson->getID() + "' could not find route across junction '" + junction->getID()
+                            + "' from walkingArea '" + currentEdge->getID()
+                            + "' to edge '" + nextRouteEdge->getID() + "', time=" +
+                            time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
+                    // error indicated by nextDir == UNDEFINED_DIRECTION
+                    nextLane = nextRouteLane;
+                }
             }
         } else if (currentEdge == nextRouteEdge) {
             // strange loop in this route. No need to use walkingArea
@@ -1882,6 +1893,13 @@ MSPModel_Striping::PState::moveToNextLane(SUMOTime currentTime) {
                     if DEBUGCOND(*this) {
                         std::cout << "  mWAPath shape=" << myWalkingAreaPath->shape << " length=" << myWalkingAreaPath->length << "\n";
                     }
+                } else if (myNLI.link != nullptr) {
+                    // using direct connection (instead of using walkingarea)
+                    myLane = myNLI.lane;
+                    assert(!myLane->getEdge().isWalkingArea());
+                    myStage->moveToNextEdge(myPerson, currentTime, myDir, &myLane->getEdge());
+                    myWalkingAreaPath = nullptr;
+                    myNLI = getNextLane(*this, myLane, oldLane);
                 } else {
                     // disconnnected route. move to the next edge
                     if (OptionsCont::getOptions().getBool("ignore-route-errors")) {
