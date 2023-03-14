@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-14 11:40+0000\n"
+"PO-Revision-Date: 2023-03-14 16:48+0000\n"
 "Last-Translator: kyasin <yasingoka@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/tr/>\n"
@@ -11289,7 +11289,7 @@ msgstr "Bilinmeyen '%' Otobüs Durağı."
 #: /home/micha/programming/sumo/src\osgview\GUIOSGView.cpp:968
 #: /home/micha/programming/sumo/src/osgview/GUIOSGView.cpp:975
 msgid " (No projection defined)"
-msgstr ""
+msgstr " (Projeksiyon tanımlanmadı)"
 
 #: /home/micha/programming/sumo/src\osgview\GUIOSGView.cpp:972
 #: /home/micha/programming/sumo/src\osgview\GUIOSGView.cpp:973
@@ -13868,7 +13868,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:89
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:92
 msgid "Input"
-msgstr ""
+msgstr "Girdi"
 
 #: /home/micha/programming/sumo/src/activitygen/AGFrame.cpp:54
 #: /home/micha/programming/sumo/src/activitygen/AGFrame.cpp:72
@@ -14035,7 +14035,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:125
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:128
 msgid "Output"
-msgstr ""
+msgstr "Çıktı"
 
 #: /home/micha/programming/sumo/src/activitygen/AGFrame.cpp:55
 #: /home/micha/programming/sumo/src/dfrouter/RODFFrame.cpp:53
@@ -14300,7 +14300,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/tools/emissionsMap_main.cpp:112
 #: /home/micha/programming/sumo/src/tools/emissionsMap_main.cpp:114
 msgid "Processing"
-msgstr ""
+msgstr "İşleme"
 
 #: /home/micha/programming/sumo/src/activitygen/AGFrame.cpp:56
 #: /home/micha/programming/sumo/src/activitygen/AGFrame.cpp:81
@@ -14615,7 +14615,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:218
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:221
 msgid "Building Defaults"
-msgstr ""
+msgstr "Yapılandırma Varsayılanları"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:110
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:113
@@ -14635,7 +14635,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netconvert_main.cpp:68
 #: /home/micha/programming/sumo/src/netgen/netgen_main.cpp:80
 msgid "Junctions"
-msgstr ""
+msgstr "Kavşaklar"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:226
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:229
@@ -14651,7 +14651,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netconvert_main.cpp:71
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:375
 msgid "Railway"
-msgstr ""
+msgstr "Demiryolu"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:269
 msgid ""
@@ -14663,7 +14663,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netconvert_main.cpp:69
 #: /home/micha/programming/sumo/src/netgen/netgen_main.cpp:81
 msgid "Pedestrian"
-msgstr ""
+msgstr "Yaya"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:605
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:609
@@ -14682,7 +14682,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netconvert_main.cpp:66
 #: /home/micha/programming/sumo/src/netgen/netgen_main.cpp:78
 msgid "Edge Removal"
-msgstr ""
+msgstr "Kesim Kaldırma"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:657
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:662
@@ -14690,7 +14690,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netconvert_main.cpp:67
 #: /home/micha/programming/sumo/src/netgen/netgen_main.cpp:79
 msgid "Unregulated Nodes"
-msgstr ""
+msgstr "Düzenlenmemiş Düğümler"
 
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:672
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:675
@@ -14703,12 +14703,12 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:702
 #: /home/micha/programming/sumo/src/netconvert_main.cpp:65
 msgid "Ramp Guessing"
-msgstr ""
+msgstr "Katılım Tahmini"
 
 #: /home/micha/programming/sumo/src/netconvert_main.cpp:70
 #: /home/micha/programming/sumo/src/netgen/netgen_main.cpp:82
 msgid "Bicycle"
-msgstr ""
+msgstr "Bisiklet"
 
 #: /home/micha/programming/sumo/src/netconvert_main.cpp:72
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:166
@@ -14772,7 +14772,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:362
 #: /home/micha/programming/sumo/src/netimport/NIFrame.cpp:364
 msgid "Formats"
-msgstr ""
+msgstr "Formatlar"
 
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:63
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:68
