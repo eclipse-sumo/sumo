@@ -384,7 +384,7 @@ def checkMod(toolDir, reference):
     mtime = os.path.getmtime(reference)
     for root, _, files in os.walk(toolDir):
         for f in files:
-            if f[:-3] == ".py" and os.path.getmtime(join(root, f)) > mtime:
+            if f[-3:] == ".py" and os.path.getmtime(join(root, f)) > mtime:
                 return True
     srcDir = join(dirname(toolDir), 'src')
     for p in SOURCE_DEPS:
