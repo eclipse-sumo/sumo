@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-14 09:07+0000\n"
+"PO-Revision-Date: 2023-03-14 11:30+0000\n"
 "Last-Translator: kyasin <yasingoka@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/tr/>\n"
@@ -12285,44 +12285,44 @@ msgstr "Kesim Şablon Seti Yok"
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:749
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:749
 msgid "Parameters"
-msgstr ""
+msgstr "Parametreler"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:908
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:911
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:908
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:911
 msgid "Additional dialog"
-msgstr ""
+msgstr "Ek iletişim kutusu"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:927
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:927
 msgid "Open rerouter dialog"
-msgstr ""
+msgstr "Yeniden yönlendirici iletişim kutusunu aç"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:933
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:933
 msgid "Open calibrator dialog"
-msgstr ""
+msgstr "Kalibratör iletişim kutusunu aç"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:939
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:939
 msgid "Open calibrator lane dialog"
-msgstr ""
+msgstr "Kalibratör şeridi iletişim kutusunu aç"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:945
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:945
 msgid "Open VSS dialog"
-msgstr ""
+msgstr "VSS iletişim kutusunu aç"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:58
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchAttribute.cpp:58
 msgid "Apply selection"
-msgstr ""
+msgstr "Seçimi uygula"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:112
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchAttribute.cpp:112
 msgid "Unknown set"
-msgstr ""
+msgstr "Bilinmeyen set"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:270
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchAttribute.cpp:270
@@ -12330,27 +12330,29 @@ msgid ""
 "- The 'Match Attribute' controls allow to specify a set of objects which are "
 "then applied to the current selection\n"
 msgstr ""
+"- 'Eşleştirme Özelliği' kontrolleri, daha sonra geçerli seçime uygulanacak "
+"bir dizi nesnenin belirlenmesine olanak tanır\n"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:271
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:460
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchAttribute.cpp:271
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchGenericDataAttribute.cpp:460
 msgid "  according to the current 'Modification Mode'.\n"
-msgstr ""
+msgstr "  mevcut 'Modifikasyon Modu'na göre.\n"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:272
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:461
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchAttribute.cpp:272
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchGenericDataAttribute.cpp:461
 msgid "     1. Select an object type from the first input box\n"
-msgstr ""
+msgstr "     1. İlk giriş kutusundan bir nesne türü seçin\n"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:273
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:462
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchAttribute.cpp:273
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchGenericDataAttribute.cpp:462
 msgid "     2. Select an attribute from the second input box\n"
-msgstr ""
+msgstr "     2. İkinci giriş kutusundan bir öznitelik seçin\n"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:274
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:463
@@ -12360,13 +12362,15 @@ msgid ""
 "     3. Enter a 'match expression' in the third input box and press "
 "<return>\n"
 msgstr ""
+"     3. Üçüncü giriş kutusuna bir 'eşleşme ifadesi' girin ve <return> tuşuna "
+"basın\n"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:276
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:465
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchAttribute.cpp:276
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchGenericDataAttribute.cpp:465
 msgid "- The empty expression matches all objects\n"
-msgstr ""
+msgstr "- Boş ifade tüm nesnelerle eşleşir\n"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:277
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:466
@@ -12376,6 +12380,8 @@ msgid ""
 "- For numerical attributes the match expression must consist of a comparison "
 "operator ('<', '>', '=') and a number.\n"
 msgstr ""
+"- Sayısal öznitelikler için eşleşme ifadesi bir karşılaştırma operatörü ("
+"'<', '>', '=') ve bir sayıdan oluşmalıdır.\n"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:278
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:467
@@ -12385,6 +12391,8 @@ msgid ""
 "- An object matches if the comparison between its attribute and the given "
 "number by the given operator evaluates to 'true'\n"
 msgstr ""
+"- Bir nesne, özniteliği ile verilen sayı arasında verilen işleç tarafından "
+"yapılan karşılaştırma 'doğru' olarak değerlendirilirse eşleşir\n"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:280
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:469
@@ -12394,6 +12402,8 @@ msgid ""
 "- For string attributes the match expression must consist of a comparison "
 "operator ('', '=', '!', '^') and a string.\n"
 msgstr ""
+"- Dize öznitelikleri için eşleşme ifadesi bir karşılaştırma operatörü ('', "
+"'=', '!', '^') ve bir dizeden oluşmalıdır.\n"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:281
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:470
@@ -12403,34 +12413,36 @@ msgid ""
 "     '' (no operator) matches if string is a substring of that object'ts "
 "attribute.\n"
 msgstr ""
+"     '' (operatör yok), dize bu nesnenin özniteliğinin bir alt dizesiyse "
+"eşleşir.\n"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:282
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:471
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchAttribute.cpp:282
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchGenericDataAttribute.cpp:471
 msgid "     '=' matches if string is an exact match.\n"
-msgstr ""
+msgstr "     '=', dize tam eşleşme ise eşleşir.\n"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:283
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:472
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchAttribute.cpp:283
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchGenericDataAttribute.cpp:472
 msgid "     '!' matches if string is not a substring.\n"
-msgstr ""
+msgstr "     '!' dizesi bir alt dize değilse eşleşir.\n"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:284
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:473
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchAttribute.cpp:284
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchGenericDataAttribute.cpp:473
 msgid "     '^' matches if string is not an exact match.\n"
-msgstr ""
+msgstr "     '^', dize tam eşleşme değilse eşleşir.\n"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:286
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:475
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchAttribute.cpp:286
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchGenericDataAttribute.cpp:475
 msgid "- Examples:\n"
-msgstr ""
+msgstr "- Örnekler:\n"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:287
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:476
@@ -12439,6 +12451,8 @@ msgstr ""
 msgid ""
 "     junction; id; 'foo' -> match all junctions that have 'foo' in their id\n"
 msgstr ""
+"     Kavşak; Kimliği; 'foo' -> kimliklerinde 'foo' bulunan tüm kavşaklarla "
+"eşleşir\n"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:288
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:477
@@ -12448,6 +12462,8 @@ msgid ""
 "     junction; type; '=priority' -> match all junctions of type 'priority', "
 "but not of type 'priority_stop'\n"
 msgstr ""
+"     Kavşak; tür; '=priority' -> 'priority' türündeki tüm kavşaklarla "
+"eşleşir, ancak 'priority_stop' türündeki tüm kavşaklarla eşleşmezse eşleşir\n"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:289
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:478
@@ -12455,11 +12471,12 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchGenericDataAttribute.cpp:478
 msgid "     edge; speed; '>10' -> match all edges with a speed above 10\n"
 msgstr ""
+"     edge; speed; '>10' -> hızı 10'un üzerinde olan tüm kesimlerle eşleşir\n"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:87
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchGenericDataAttribute.cpp:87
 msgid "speed"
-msgstr ""
+msgstr "Hız"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:459
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMatchGenericDataAttribute.cpp:459
@@ -12467,99 +12484,102 @@ msgid ""
 "- The 'MatchGenericData Attribute' controls allow to specify a set of "
 "objects which are then applied to the current selection\n"
 msgstr ""
+"- 'MatchGenericData Attribute' kontrolleri, daha sonra geçerli seçime "
+"uygulanacak olan bir dizi nesnenin belirtilmesine izin verir\n"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMoveFrame.cpp:64
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:64
 msgid "Common move options"
-msgstr ""
+msgstr "Yaygın taşıma seçenekleri"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMoveFrame.cpp:66
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:66
 msgid "Allow change lanes"
-msgstr ""
+msgstr "Şerit değiştirmeye izin ver"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMoveFrame.cpp:69
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:69
 msgid "Merge geometry points"
-msgstr ""
+msgstr "Geometri noktalarını birleştir"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMoveFrame.cpp:93
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:93
 msgid "Network move options"
-msgstr ""
+msgstr "Ağ taşıma seçenekleri"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMoveFrame.cpp:96
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:96
 msgid "Move whole polygons"
-msgstr ""
+msgstr "Tüm çokgenleri taşı"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMoveFrame.cpp:132
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:132
 msgid "Demand move options"
-msgstr ""
+msgstr "Talep taşıma seçenekleri"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMoveFrame.cpp:135
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:135
 msgid "Leave stopPersons connected"
-msgstr ""
+msgstr "StopPersons seçeneğini bağlı bırak"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMoveFrame.cpp:171
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:171
 msgid "Shift selected edges geometry"
-msgstr ""
+msgstr "Seçili kesim geometrisini kaydır"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMoveFrame.cpp:180
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:180
 msgid "Apply shift value"
-msgstr ""
+msgstr "Kaydırma değerini uygula"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMoveFrame.cpp:180
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:180
 msgid ""
 "Shift edge geometry orthogonally to driving direction for all selected edges"
 msgstr ""
+"Seçilen tüm kesimler için kesim geometrisini sürüş yönüne dikey olarak kaydır"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMoveFrame.cpp:251
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:251
 msgid "Change Z in selection"
-msgstr ""
+msgstr "Seçimde Z'yi değiştir"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMoveFrame.cpp:260
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:260
 msgid "Absolute value"
-msgstr ""
+msgstr "Mutlak değer"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMoveFrame.cpp:260
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:260
 msgid "Set Z value as absolute"
-msgstr ""
+msgstr "Z değerini mutlak olarak ayarla"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMoveFrame.cpp:262
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:262
 msgid "Relative value"
-msgstr ""
+msgstr "Göreceli değer"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMoveFrame.cpp:262
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:262
 msgid "Set Z value as relative"
-msgstr ""
+msgstr "Z değerini göreli olarak ayarla"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMoveFrame.cpp:265
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:265
 msgid "Apply Z value"
-msgstr ""
+msgstr "Z değerini uygula"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMoveFrame.cpp:265
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:265
 msgid "Apply Z value to all selected junctions"
-msgstr ""
+msgstr "Z değerini seçilen tüm kavşaklara uygula"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMoveFrame.cpp:518
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMoveFrame.cpp:534
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:518
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:534
 msgid "Shift shape geometry"
-msgstr ""
+msgstr "Şekil geometrisini kaydır"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMoveFrame.cpp:534
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:534
@@ -12567,80 +12587,81 @@ msgid ""
 "Shift shape geometry orthogonally to driving direction for all selected "
 "shapes"
 msgstr ""
+"Seçilen tüm şekiller için şekil geometrisini sürüş yönüne dikey olarak kaydır"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMoveFrame.cpp:619
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:619
 msgid "-Click over edge to"
-msgstr ""
+msgstr "-için kesimin üzerine tıkla"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMoveFrame.cpp:620
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:620
 msgid " create or edit"
-msgstr ""
+msgstr " oluştur veya düzenle"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMoveFrame.cpp:621
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMoveFrame.cpp:624
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:621
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:624
 msgid " geometry point."
-msgstr ""
+msgstr " geometri noktası."
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMoveFrame.cpp:622
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:622
 msgid "-Shift+click over edge"
-msgstr ""
+msgstr "-Shift+kesim üzerine tıkla"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMoveFrame.cpp:623
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:623
 msgid " to edit start or end"
-msgstr ""
+msgstr " başlangıcı veya sonu düzenlemek için"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMoveFrame.cpp:628
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:628
 msgid "-Move geometry point"
-msgstr ""
+msgstr "-Geometri noktasını taşı"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMoveFrame.cpp:631
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEMoveFrame.cpp:631
 msgid "-Merge geometry point"
-msgstr ""
+msgstr "-Geometri noktasını birleştir"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNESelectorFrame.cpp:77
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:77
 msgid "Selection information"
-msgstr ""
+msgstr "Seçim bilgileri"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNESelectorFrame.cpp:149
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:149
 msgid "Modification Mode"
-msgstr ""
+msgstr "Değişiklik Modu"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNESelectorFrame.cpp:152
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:152
 msgid "add"
-msgstr ""
+msgstr "ekle"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNESelectorFrame.cpp:152
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:152
 msgid "Selected objects are added to the previous selection"
-msgstr ""
+msgstr "Seçilen nesneler önceki seçime eklendi"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNESelectorFrame.cpp:154
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:154
 msgid "remove"
-msgstr ""
+msgstr "Kaldır"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNESelectorFrame.cpp:154
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:154
 msgid "Selected objects are removed from the previous selection"
-msgstr ""
+msgstr "Seçilen nesneler önceki seçimden çıkarıldı"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNESelectorFrame.cpp:156
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:662
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:156
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:662
 msgid "keep"
-msgstr ""
+msgstr "tut"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNESelectorFrame.cpp:156
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:156
