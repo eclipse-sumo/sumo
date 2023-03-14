@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-03 06:59+0000\n"
-"Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
+"PO-Revision-Date: 2023-03-13 12:56+0000\n"
+"Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
 "Language: de\n"
@@ -6402,7 +6402,7 @@ msgstr "Der Endknoten von Kante '%' ist nicht bekannt."
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:52
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:52
 msgid "The default number of lanes in an edge"
-msgstr "Die Standardanzahl von Fahrtstreifen in einer Kante"
+msgstr "Die Standardanzahl von Fahrstreifen in einer Kante"
 
 #: /home/micha/programming/sumo/src\netbuild\NBFrame.cpp:56
 #: /home/micha/programming/sumo/src/netbuild/NBFrame.cpp:56

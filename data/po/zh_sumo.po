@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-02-25 09:00+0000\n"
-"Last-Translator: Rhea-Xiao <xiao.translations@gmail.com>\n"
+"PO-Revision-Date: 2023-03-12 12:38+0000\n"
+"Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
 "Language: zh\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.16-dev\n"
+"X-Generator: Weblate 4.16.2-dev\n"
 
 #: /home/micha/programming/sumo/src\activitygen\AGActivityGen.cpp:46
 msgid "Reading input"
@@ -1737,11 +1737,11 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:339
 msgid "Defines the begin time in seconds; The simulation starts at this time"
-msgstr ""
+msgstr "定义开始时间（以秒为单位）; 仿真在这个时间开始"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:342
 msgid "Defines the end time in seconds; The simulation ends at this time"
-msgstr ""
+msgstr "定义结束时间（以秒为单位）; 仿真在这个时间结束"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:345
 msgid "Defines the step duration in seconds"
@@ -1962,6 +1962,9 @@ msgid ""
 "settings override the default. Must be a multiple of the simulation step-"
 "length."
 msgstr ""
+"车辆跟车和变道模型的行动点之间的默认间隔长度（以秒为单位）。如果没有指定，则"
+"按默认值使用仿真步长。车辆或VType特定的设置将覆盖默认值。必须是仿真步长的倍数"
+"。"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:478
 msgid "Select default car following model (Krauss, IDM, ...)"
@@ -1971,7 +1974,7 @@ msgstr ""
 msgid ""
 "Select default speed deviation. A negative value implies vClass specific "
 "defaults (0.1 for the default passenger class"
-msgstr ""
+msgstr "选择速度偏差的预设值。负值表示 vClass 特定预设值（ 0.1为小客车等级的预设值"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:485
 msgid ""
@@ -2281,11 +2284,11 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:743
 msgid "Enable overlay for screen recognition"
-msgstr ""
+msgstr "允许荧屏辨识的覆盖"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:747
 msgid "Enable output messages during GUI-Testing"
-msgstr ""
+msgstr "允许在 GU测试期间输出信息"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:751
 msgid "Save gui settings in the given settings output file"
