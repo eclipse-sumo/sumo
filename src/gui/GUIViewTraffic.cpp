@@ -617,6 +617,18 @@ GUIViewTraffic::showLaneReachability(GUILane* lane, FXObject* menu, FXSelector) 
                     check.push_back(nextEdge);
                 }
             }
+            if (svc == SVC_PEDESTRIAN) {
+                // can also walk backwards
+                for (MSEdge* const prevEdge : e->getPredecessors()) {
+                    if (prevEdge->allowedLanes(*e, svc) != nullptr &&
+                            (reachableEdges.count(prevEdge) == 0 ||
+                             // revisit edge via faster path
+                             reachableEdges[prevEdge] > traveltime)) {
+                        reachableEdges[prevEdge] = traveltime;
+                        check.push_back(prevEdge);
+                    }
+                }
+            }
         }
         gSelected.notifyChanged();
     }
