@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-14 12:51+0000\n"
+"PO-Revision-Date: 2023-03-14 14:05+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
@@ -6806,56 +6806,56 @@ msgstr "EIDM前领车速度的预测错误参数[-]"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5109
 msgid "EIDM gap estimation error parameter [-]"
-msgstr ""
+msgstr "EIDM 间距预测错误参数 [-]"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5115
 msgid "EIDM driving error parameter [-]"
-msgstr ""
+msgstr "EIDM 驾驶错误参数 [-]"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5121
 msgid "EIDM maximal jerk parameter [m/s^3]"
-msgstr ""
+msgstr "EIDM 最大急卫参数 [米/立方秒]"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5127
 msgid ""
 "EIDM maximal negative acceleration between two Action Points (threshold) [m/"
 "s^2]"
-msgstr ""
+msgstr "在两个动作点(action points)之间的EIDM 最大负加速度（阈值） [米/平方秒]"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5133
 msgid ""
 "EIDM Time parameter until vehicle reaches amax after startup/driveoff [s]"
-msgstr ""
+msgstr "在启动//行驶后车辆达到最大加速度的EIDM时间参数[秒]"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5139
 msgid "EIDM Flatness parameter of startup/driveoff curve [-]"
-msgstr ""
+msgstr "EIDM 启动/起步曲线平坦度参数 [-]"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5145
 msgid "EIDM Shift parameter of startup/driveoff curve [-]"
-msgstr ""
+msgstr "EIDM 启动/起步曲线的偏移参数 [-]"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5151
 msgid ""
 "EIDM parameter if model shall include vehicle dynamics into the acceleration "
 "calculation [0/1]"
-msgstr ""
+msgstr "EIDM参数，如果模式应将车辆动力学纳入加速度计算 [0/1]"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5157
 msgid ""
 "EIDM parameter how many vehicles are taken into the preview calculation of "
 "the driver (at least always 1!) [-]"
-msgstr ""
+msgstr "EIDM 参数, 有多少车辆被纳入驱动程序的预览计算（至少总是 1！）[-]"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5163
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5169
 msgid "Peter Wagner 2009 parameter"
-msgstr ""
+msgstr "彼得·瓦格纳 (Peter Wagner) 2009 参数"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5175
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5181
 msgid "IDMM parameter"
-msgstr ""
+msgstr "IDMM参数"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5187
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5193
@@ -6867,193 +6867,194 @@ msgstr ""
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5229
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5235
 msgid "W99 parameter"
-msgstr ""
+msgstr "W99 参数"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5241
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5246
 msgid "Wiedemann parameter"
-msgstr ""
+msgstr "魏德曼(Wiedemann)参数"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5251
 msgid "MinGap factor parameter"
-msgstr ""
+msgstr "最小间距(MinGap)因素参数"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5256
 msgid "K parameter"
-msgstr ""
+msgstr "K 参数"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5261
 msgid "Kerner Phi parameter"
-msgstr ""
+msgstr "克纳(Kerner)斐(Phi)参数"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5266
 msgid "IDM Delta parameter"
-msgstr ""
+msgstr "IDM 德尔塔(Delta)参数"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5271
 msgid "IDM Stepping parameter"
-msgstr ""
+msgstr "IDM步进参数"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5276
 msgid "Train Types"
-msgstr ""
+msgstr "火车类型"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5289
 msgid ""
 "Minimum distance to pedestrians that are walking towards the conflict point "
 "with the ego vehicle."
-msgstr ""
+msgstr "行人走向与自我(ego)车辆的冲突点的最小距离。"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5295
 msgid ""
 "The accumulated waiting time after which a vehicle will drive onto an "
 "intersection even though this might cause jamming."
-msgstr ""
+msgstr "即使这可能会导致拥堵，车辆将驶进路口的累积等待时间。"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5301
 msgid ""
 "This value causes vehicles to violate a yellow light if the duration of the "
 "yellow phase is lower than the given threshold."
-msgstr ""
+msgstr "如果黄灯相位的时间低于给定的閾值，则此值会导致车辆闯黃灯。"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5307
 msgid ""
 "This value causes vehicles to violate a red light if the duration of the red "
 "phase is lower than the given threshold."
-msgstr ""
+msgstr "如果红灯相位的时间低于給定的閾值，则此值会导致车辆闯红灯。"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5313
 msgid ""
 "This value causes vehicles affected by jmDriveAfterRedTime to slow down when "
 "violating a red light."
-msgstr ""
+msgstr "此值会导致受 jmDriveAfterRedTime 影响的车辆在闯红灯时减速。"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5319
 msgid ""
 "This value causes vehicles to ignore foe vehicles that have right-of-way "
 "with the given probability."
-msgstr ""
+msgstr "此值会导致车辆忽略具有給定概率的行驶路权的对手(foe)车辆。"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5325
 msgid "This value is used in conjunction with jmIgnoreFoeProb."
-msgstr ""
+msgstr "此值与 jmIgnoreFoeProb 联合使用。"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5326
 msgid ""
 "Only vehicles with a speed below or equal to the given value may be ignored."
-msgstr ""
+msgstr "只有速度低于或等于給定值的车辆才能被忽略。"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5332
 msgid ""
 "This value configures driving imperfection (dawdling) while passing a minor "
 "link."
-msgstr ""
+msgstr "此值用于设定驾驶员在经过次要路段时, 不完善的驾驶情况(磨蹭 dawdling) 。"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5338
 msgid ""
 "This value defines the minimum time gap when passing ahead of a prioritized "
 "vehicle. "
-msgstr ""
+msgstr "此值定义在优先车辆前面超车时的最小时间间隔。 "
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5344
 msgid "Willingess of drivers to impede vehicles with higher priority"
-msgstr ""
+msgstr "驾驶员阻碍具有更高优先权车辆的意愿"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5357
 msgid ""
 "The eagerness for performing strategic lane changing. Higher values result "
 "in earlier lane-changing."
-msgstr ""
+msgstr "渴望进行策略性车道变换的程度。较高的值会导致较早的车道变化。"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5363
 msgid ""
 "The willingness for performing cooperative lane changing. Lower values "
 "result in reduced cooperation."
-msgstr ""
+msgstr "进行合作性的车道变换的意愿。较低的值会导致合作減少。"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5369
 msgid ""
 "The eagerness for performing lane changing to gain speed. Higher values "
 "result in more lane-changing."
-msgstr ""
+msgstr "渴望进行车道变化以提高速度的程度。值越高，車道变换越多。"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5375
 msgid ""
 "The eagerness for following the obligation to keep right. Higher values "
 "result in earlier lane-changing."
-msgstr ""
+msgstr "渴望遵循靠右的义务的程度。值越高，车道变换越早。"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5381
 msgid ""
 "The eagerness for using the configured lateral alignment within the lane."
-msgstr ""
+msgstr "渴望使用已设定( configured)的车道內侧向对齐方式的程度。"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5382
 msgid ""
 "Higher values result in increased willingness to sacrifice speed for "
 "alignment."
-msgstr ""
+msgstr "值越高，则牺牲速度以进行对齐(alignment)的意愿就越高。"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5388
 msgid ""
 "The eagerness for overtaking through the opposite-direction lane. Higher "
 "values result in more lane-changing."
-msgstr ""
+msgstr "渴望利用对向车道超車的程度。值越高，车道变换越多。"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5394
 msgid "Willingness to encroach laterally on other drivers."
-msgstr ""
+msgstr "侧向的侵犯干扰其他驾驶者的意愿。"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5400
 msgid ""
 "Minimum lateral gap when encroaching laterally on other drives (alternative "
 "way to define lcPushy)"
-msgstr ""
+msgstr "侧向地侵犯干扰其他驾驶者的最小侧向间距(也可以用lcPushy來定义)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5406
 msgid "Willingness to accept lower front and rear gaps on the target lane."
-msgstr ""
+msgstr "接受目标车道上较低的前后间距的意愿。"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5412
 msgid "Dynamic factor for modifying lcAssertive and lcPushy."
-msgstr ""
+msgstr "用于修改lcAssertive和lcPushy的动态系数。"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5418
 msgid ""
 "Time to reach maximum impatience (of 1). Impatience grows whenever a lane-"
 "change manoeuvre is blocked."
-msgstr ""
+msgstr "达到最大不耐烦的时间(1)。每当车道变换被阻止时，不耐烦的程度就会增加。"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5424
 msgid "Maximum lateral acceleration per second."
-msgstr ""
+msgstr "每秒最大侧向加速度。"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5430
 msgid ""
 "Factor for configuring the strategic lookahead distance when a change to the "
 "left is necessary (relative to right lookahead)."
-msgstr ""
+msgstr "当需要向左变换（相当于向右前看）时, 用于设定策略性向前看距离的系数(factor)。"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5436
 msgid ""
 "Factor for configuring the threshold asymmetry when changing to the left or "
 "to the right for speed gain."
-msgstr ""
+msgstr "当为了提高速度而向左或向右变换时, 为了设定閾值不对称的系数。"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5442
 msgid "Upper bound on lateral speed when standing."
-msgstr ""
+msgstr "站立时侧向速度的上限。"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5448
 msgid ""
 "Upper bound on lateral speed while moving computed as lcMaxSpeedLatStanding "
 "+ lcMaxSpeedLatFactor * getSpeed()"
-msgstr ""
+msgstr "移动时侧向速度上限的计算为lcMaxSpeedLatStanding + lcMaxSpeedLatFactor * "
+"getSpeed()"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5454
 msgid ""
 "Distance to an upcoming turn on the vehicles route, below which the alignment"
-msgstr ""
+msgstr "与车辆路线上即将出现的转弯的距离，低于该转弯的路线"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5455
 msgid "should be dynamically adapted to match the turn direction."
