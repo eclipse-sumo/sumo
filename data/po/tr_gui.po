@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-14 12:51+0000\n"
+"PO-Revision-Date: 2023-03-14 16:48+0000\n"
 "Last-Translator: kyasin <yasingoka@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/tr/>\n"
@@ -13868,57 +13868,57 @@ msgstr "Düzenlenmemiş çatışma"
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:120
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEProhibitionFrame.cpp:120
 msgid "Connection has a unregulated conflict with the selected connection"
-msgstr ""
+msgstr "Bağlantı, seçilen bağlantı ile düzensiz bir çatışmaya sahip"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:125
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEProhibitionFrame.cpp:125
 msgid "Mutual conflict"
-msgstr ""
+msgstr "Karşılıklı çatışma"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:126
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEProhibitionFrame.cpp:126
 msgid "Connection has a mutual conflict with the selected connection"
-msgstr ""
+msgstr "Bağlantı, seçilen bağlantı ile karşılıklı bir çatışmaya sahip"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:175
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEProhibitionFrame.cpp:175
 msgid "Save prohibition modifications (Enter)"
-msgstr ""
+msgstr "Yasaklama değişikliklerini kaydet (Enter)"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:179
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEProhibitionFrame.cpp:179
 msgid "Unselect connection"
-msgstr ""
+msgstr "Bağlantı seçimini kaldır"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:181
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEProhibitionFrame.cpp:181
 msgid "Unselect connection (Esc)"
-msgstr ""
+msgstr "Bağlantı seçimini kaldır (Esc)"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:229
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEProhibitionFrame.cpp:229
 msgid "Prohibitions"
-msgstr ""
+msgstr "Yasaklar"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEShapeFrame.cpp:56
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEShapeFrame.cpp:56
 msgid "GEO POI Creator"
-msgstr ""
+msgstr "GEO EN Oluşturucu"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEShapeFrame.cpp:59
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEShapeFrame.cpp:59
 msgid "Format: Lon-Lat"
-msgstr ""
+msgstr "Biçim: Boylam-Enlem"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEShapeFrame.cpp:60
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEShapeFrame.cpp:60
 msgid "Format: Lat-Lon"
-msgstr ""
+msgstr "Biçim: Enlem-Boylam"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEShapeFrame.cpp:66
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEShapeFrame.cpp:66
 msgid "Center View after creation"
-msgstr ""
+msgstr "Oluşturulduktan sonra Merkez Görünümü"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEShapeFrame.cpp:68
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEShapeFrame.cpp:121
@@ -13927,7 +13927,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEShapeFrame.cpp:121
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEShapeFrame.cpp:178
 msgid "Create GEO POI (clipboard)"
-msgstr ""
+msgstr "GEO EN oluştur (pano)"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEShapeFrame.cpp:71
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEShapeFrame.cpp:136
@@ -13936,435 +13936,435 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEShapeFrame.cpp:136
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEShapeFrame.cpp:140
 msgid "Cartesian equivalence:"
-msgstr ""
+msgstr "Kartezyen eşdeğerlik:"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEShapeFrame.cpp:72
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEShapeFrame.cpp:141
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEShapeFrame.cpp:72
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEShapeFrame.cpp:141
 msgid "- X = give valid longitude"
-msgstr ""
+msgstr "- X = geçerli boylamı verin"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEShapeFrame.cpp:73
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEShapeFrame.cpp:142
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEShapeFrame.cpp:73
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEShapeFrame.cpp:142
 msgid "- Y = give valid latitude"
-msgstr ""
+msgstr "- Y = geçerli enlemi verin"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEShapeFrame.cpp:119
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEShapeFrame.cpp:119
 msgid "Create GEO POI"
-msgstr ""
+msgstr "GEO EN Oluştur"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEShapeFrame.cpp:171
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEShapeFrame.cpp:171
 msgid "Using clipboard"
-msgstr ""
+msgstr "Panoyu kullanma"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEShapeFrame.cpp:227
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEShapeFrame.cpp:227
 msgid "Shapes"
-msgstr ""
+msgstr "Şekiller"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEShapeFrame.cpp:330
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEShapeFrame.cpp:330
 msgid "POILane can be only placed over lanes"
-msgstr ""
+msgstr "ENŞeridi sadece şeritlerin üzerine yerleştirilebilir"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEShapeFrame.cpp:374
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEShapeFrame.cpp:374
 msgid "Current selected shape isn't valid."
-msgstr ""
+msgstr "Mevcut seçili şekil geçerli değil."
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEShapeFrame.cpp:422
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEShapeFrame.cpp:422
 msgid "Polygon shape cannot be empty"
-msgstr ""
+msgstr "Çokgen şekli boş olamaz"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:152
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:152
 msgid "TAZ"
-msgstr ""
+msgstr "TAB"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:160
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:204
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:160
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:204
 msgid "No TAZ selected"
-msgstr ""
+msgstr "TAB seçilmedi"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:173
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:173
 msgid "Current TAZ: "
-msgstr ""
+msgstr "Mevcut TAB: "
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:336
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:336
 msgid "Invalid TAZ Child"
-msgstr ""
+msgstr "Geçersiz TAB Alt Öğesi"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:345
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:345
 msgid "TAZ Statistics"
-msgstr ""
+msgstr "TAB İstatistikleri"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:348
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:891
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:348
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:891
 msgid "Statistics"
-msgstr ""
+msgstr "İstatistikler"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:375
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:1132
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:375
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:1132
 msgid "- Number of edges: "
-msgstr ""
+msgstr "- Kesim sayısı: "
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:376
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:1137
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:376
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:1137
 msgid "- Min source: "
-msgstr ""
+msgstr "- Minimum kaynak: "
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:377
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:1138
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:377
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:1138
 msgid "- Max source: "
-msgstr ""
+msgstr "- Maksimum kaynak: "
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:378
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:1139
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:378
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:1139
 msgid "- Average source: "
-msgstr ""
+msgstr "- Ortalama kaynak: "
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:380
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:1141
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:380
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:1141
 msgid "- Min sink: "
-msgstr ""
+msgstr "- Minimum batma: "
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:381
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:1142
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:381
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:1142
 msgid "- Max sink: "
-msgstr ""
+msgstr "- Maksimum batma: "
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:382
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:1143
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:382
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:1143
 msgid "- Average sink: "
-msgstr ""
+msgstr "- Ortalama batma: "
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:386
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:386
 msgid "No TAZ Selected"
-msgstr ""
+msgstr "TAB seçilmedi"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:398
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:398
 msgid "Confirm changes"
-msgstr ""
+msgstr "Değişiklikleri onayla"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:401
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:401
 msgid "Cancel changes"
-msgstr ""
+msgstr "Değişiklikleri iptal et"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:431
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:431
 msgid "TAZ changes"
-msgstr ""
+msgstr "TAB değişiklikleri"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:484
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:484
 msgid "TAZ Sources/Sinks"
-msgstr ""
+msgstr "TAB Kaynakları/Alıcıları"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:490
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:490
 msgid "Membership"
-msgstr ""
+msgstr "Üyelik"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:491
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:491
 msgid "Toggle"
-msgstr ""
+msgstr "Değiştir"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:496
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:496
 msgid "New source"
-msgstr ""
+msgstr "Yeni kaynak"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:501
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:501
 msgid "New sink"
-msgstr ""
+msgstr "Yeni Alıcı"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:507
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:507
 msgid "Set zero fringe prob."
-msgstr ""
+msgstr "Sıfır sınır sorgulaması ayarlayın."
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:511
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:646
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:511
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:646
 msgid "- Toggle Membership:"
-msgstr ""
+msgstr "- Üyeliği Değiştir:"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:512
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:647
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:512
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:647
 msgid "  Create new Sources/Sinks"
-msgstr ""
+msgstr "  Yeni Kaynaklar/Alıcılar oluştur"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:513
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:648
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:513
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:648
 msgid "  with given weights."
-msgstr ""
+msgstr "  verilen ağırlıklar ile."
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:563
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:656
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:563
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:656
 msgid "Remove all edges"
-msgstr ""
+msgstr "Tüm kesimleri kaldır"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:582
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:582
 msgid "Remove all edges from selection"
-msgstr ""
+msgstr "Seçimden tüm kesimleri kaldır"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:584
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:584
 msgid "Add all edges to selection"
-msgstr ""
+msgstr "Tüm kesimleri seçime ekle"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:588
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:588
 msgid "Remove edge from selection"
-msgstr ""
+msgstr "Seçimden kesimi kaldır"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:590
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:590
 msgid "Add edge to selection"
-msgstr ""
+msgstr "Seçime kesim ekle"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:601
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:601
 msgid "Remove "
-msgstr ""
+msgstr "Kaldır "
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:601
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:601
 msgid " edges from to selection"
-msgstr ""
+msgstr " seçimden seçime kesimler"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:603
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:603
 msgid "Add "
-msgstr ""
+msgstr "Ekle "
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:603
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:603
 msgid " edges to selection"
-msgstr ""
+msgstr " seçime kesimler"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:639
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:639
 msgid "toggle"
-msgstr ""
+msgstr "Değiştir"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:669
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:669
 msgid "- Keep Membership:"
-msgstr ""
+msgstr "- Üyeliği Sürdür:"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:670
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:670
 msgid "  Select Sources/Sinks."
-msgstr ""
+msgstr "  Kaynaklar/Alıcıları seç."
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:671
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:671
 msgid "- Press ESC to clear"
-msgstr ""
+msgstr "- Temizlemek için ESC tuşuna basın"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:672
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:672
 msgid "  current selection."
-msgstr ""
+msgstr "  Mevcut seçim."
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:849
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:852
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:849
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:852
 msgid "Set weight 0 in "
-msgstr ""
+msgstr "Ağırlığı 0 olarak ayarla "
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:849
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:852
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:849
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:852
 msgid " sources and "
-msgstr ""
+msgstr " kaynaklar ve "
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:850
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:850
 msgid " sinks from TAZ '"
-msgstr ""
+msgstr " ' TAB'dan alıcılar"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:853
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:853
 msgid " sinks from "
-msgstr ""
+msgstr " dosyadan alıcılar "
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:853
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:853
 msgid " TAZs?"
-msgstr ""
+msgstr " TAB'lar?"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:855
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:868
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:855
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:868
 msgid "Set zero fringe probabilities"
-msgstr ""
+msgstr "Sıfır sınır olasılıkları ayarla"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:857
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:857
 msgid "set zero fringe probabilities"
-msgstr ""
+msgstr "Sıfır sınır olasılıkları ayarla"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:868
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:868
 msgid "No source/sinks to update."
-msgstr ""
+msgstr "Güncellenecek kaynak/alıcı yok."
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:878
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:878
 msgid "Selection Statistics"
-msgstr ""
+msgstr "Seçim İstatistikleri"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:882
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:882
 msgid "Source"
-msgstr ""
+msgstr "Kaynak"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:887
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:887
 msgid "Sink"
-msgstr ""
+msgstr "Alıcı"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:919
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:919
 msgid "TAZEdgeColor already selected"
-msgstr ""
+msgstr "TABKesimRengi zaten seçili"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:951
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:951
 msgid "edge wasn't found"
-msgstr ""
+msgstr "kesim bulunamadı"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:953
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:953
 msgid "Invalid edge"
-msgstr ""
+msgstr "Geçersiz kesim"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:1130
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:1130
 msgid "- Edge ID: "
-msgstr ""
+msgstr "- Kesim kimliği (ID): "
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:1165
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:1165
 msgid "TAZ parameters"
-msgstr ""
+msgstr "TAB parametreleri"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:1190
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:1190
 msgid "Edges within"
-msgstr ""
+msgstr "İçindeki kesimler"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:1191
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:1298
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:1191
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:1298
 msgid "use"
-msgstr ""
+msgstr "kullan"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:1300
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:1300
 msgid "not use"
-msgstr ""
+msgstr "kullanma"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:1330
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:1330
 msgid "Non TAZ Edge"
-msgstr ""
+msgstr "TAB Kesim Olmayan"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:1334
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:1334
 msgid "Selected TAZ Edge"
-msgstr ""
+msgstr "Seçilen TAB Kesim"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:1339
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:1339
 msgid "Color by Source"
-msgstr ""
+msgstr "Kaynağa Göre Renk"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:1341
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:1341
 msgid "Color by Sink"
-msgstr ""
+msgstr "Alıcıya göre renk"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:1343
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:1343
 msgid "Color by Source + Sink"
-msgstr ""
+msgstr "Kaynak + Alıcıya göre renk"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:1345
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:1345
 msgid "Color by Source - Sink"
-msgstr ""
+msgstr "Kaynak - Alıcıya göre renk"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:1448
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:1448
 msgid "TAZs"
-msgstr ""
+msgstr "TABlar"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:1614
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:1614
 msgid "TAZ shape needs at least three points"
-msgstr ""
+msgstr "TAB şekli en az üç noktaya ihtiyaç duyar"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:119
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:119
 msgid "Edit Traffic Light"
-msgstr ""
+msgstr "Trafik Işığını Düzenle"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:183
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:183
 msgid "Click over a junction to edit a TLS"
-msgstr ""
+msgstr "Bir TIS'ı düzenlemek için bir kavşağa tıklayın"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:195
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:195
 msgid "Save TLS Changes"
-msgstr ""
+msgstr "TIS Değişikliklerini Kaydet"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:196
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:196
@@ -14372,173 +14372,175 @@ msgid ""
 "There is unsaved changes in current edited traffic light.\n"
 "Do you want to save it before changing mode?"
 msgstr ""
+"Mevcut düzenlenmiş trafik ışığında kaydedilmemiş değişiklikler var.\n"
+"Modu değiştirmeden önce kaydetmek istiyor musunuz?"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:242
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:242
 msgid "tlLogic '%', program '%' could not be built"
-msgstr ""
+msgstr "tlLogic '%', '%' programı oluşturulamadı"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:255
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2923
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:255
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:2923
 msgid "Loaded "
-msgstr ""
+msgstr "Yüklendi "
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:255
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:255
 msgid " programs"
-msgstr ""
+msgstr " programlar"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:416
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:416
 msgid "Invalid phase index"
-msgstr ""
+msgstr "Geçersiz faz dizini"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:512
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:512
 msgid "modifying TLS definition"
-msgstr ""
+msgstr "TIS tanımının değiştirilmesi"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:526
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:526
 msgid "Unsaved modifications. Abort or Save"
-msgstr ""
+msgstr "Kaydedilmemiş değişiklikler. İptal Et veya Kaydet"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:546
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:546
 msgid "Traffic light Attributes"
-msgstr ""
+msgstr "Trafik ışığı Özellikleri"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:555
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:555
 msgid "parameters"
-msgstr ""
+msgstr "parametreler"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:562
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:563
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:562
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:563
 msgid "Assign E1 detectors"
-msgstr ""
+msgstr "E1 dedektörlerini ata"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:562
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:562
 msgid "Enable assign E1 mode"
-msgstr ""
+msgstr "E1 modu atamayı etkinleştir"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:562
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:563
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:562
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:563
 msgid "Assign E1 detectors to the current TLS"
-msgstr ""
+msgstr "E1 dedektörlerini geçerli TIS'a ata"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:563
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:563
 msgid "Disable assign E1 mode"
-msgstr ""
+msgstr "E1 modunu atamayı devre dışı bırak"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:879
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:879
 msgid "Traffic Light"
-msgstr ""
+msgstr "Trafik Işığı"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:884
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:945
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:884
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:945
 msgid "Junction ID"
-msgstr ""
+msgstr "Kavşak Kimliği (ID)"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:891
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:891
 msgid "TLS ID"
-msgstr ""
+msgstr "TIS Kimliği (ID)"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:910
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:911
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:910
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:911
 msgid "Join"
-msgstr ""
+msgstr "Birleştir"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:910
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:910
 msgid "Enable join mode"
-msgstr ""
+msgstr "Birleştirme modunu etkinleştir"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:910
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:911
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:910
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:911
 msgid "Join TLS and junctions in the current junction."
-msgstr ""
+msgstr "Geçerli kavşakta TIS ve kavşakları birleştir."
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:911
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:911
 msgid "Disable join mode"
-msgstr ""
+msgstr "Birleştirme modunu devre dışı bırak"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:916
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:916
 msgid "Disjoin"
-msgstr ""
+msgstr "Ayır"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:916
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:916
 msgid "Disjoin current TLS"
-msgstr ""
+msgstr "Mevcut TIS'ı ayır"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:916
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:916
 msgid "Disjoin current TLS."
-msgstr ""
+msgstr "Mevcut TIS'ı ayır."
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:952
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:952
 msgid "no junction selected"
-msgstr ""
+msgstr "seçili kavşak yok"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:974
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:974
 msgid "Junction IDs"
-msgstr ""
+msgstr "Kavşak Kimlikleri (IDs)"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1061
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1061
 msgid "rename TLS"
-msgstr ""
+msgstr "TLS'yi yeniden adlandır"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1140
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1140
 msgid "change TLS type"
-msgstr ""
+msgstr "TIS türünü değiştir"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1216
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1216
 msgid "join TLS"
-msgstr ""
+msgstr "TIS Birleştir"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1278
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1278
 msgid "disjoin TLS"
-msgstr ""
+msgstr "TIS Ayır"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1328
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1328
 msgid "Traffic Light Programs"
-msgstr ""
+msgstr "Trafik Işığı Programları"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1341
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1341
 msgid "Create TLS"
-msgstr ""
+msgstr "TIS oluştur"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1341
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1341
 msgid "Create a new traffic light program."
-msgstr ""
+msgstr "Yeni bir trafik ışığı programı oluştur."
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1344
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1344
@@ -14546,41 +14548,43 @@ msgid ""
 "Delete a traffic light program. If all programs are deleted the junction "
 "turns into a priority junction."
 msgstr ""
+"Bir trafik ışığı programını sil. Tüm programlar silinirse kavşak öncelikli "
+"kavşağa dönüşür."
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1347
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1347
 msgid "Reset single"
-msgstr ""
+msgstr "Tekli sıfırla"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1347
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1347
 msgid "Reset current TLS program."
-msgstr ""
+msgstr "Mevcut TIS programını sıfırla."
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1350
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1350
 msgid "Reset all"
-msgstr ""
+msgstr "Tümünü Sıfırla"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1350
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1350
 msgid "Reset all TLS programs."
-msgstr ""
+msgstr "Tüm TIS programlarını sıfırla."
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1353
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1353
 msgid "Save program modifications. (Enter)"
-msgstr ""
+msgstr "Program değişikliklerini kaydet. (Enter)"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1356
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1356
 msgid "Discard program modifications. (Esc)"
-msgstr ""
+msgstr "Program değişikliklerini çıkar. (Esc)"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1451
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1451
 msgid "TLSDefinition cannot be found"
-msgstr ""
+msgstr "TIS Tanımı bulunamadı"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1493
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1506
@@ -14589,89 +14593,91 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1506
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1525
 msgid "TLS cannot be created"
-msgstr ""
+msgstr "TIS oluşturulamaz"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1494
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1494
 msgid "Traffic Light cannot be created because junction must have"
-msgstr ""
+msgstr "Kavşak olması gerektiğinden Trafik Işığı oluşturulamıyor"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1495
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1495
 msgid "at least one incoming edge and one outgoing edge."
-msgstr ""
+msgstr "en az bir giriş ve bir çıkış kesimi."
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1507
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1526
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1507
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1526
 msgid "Traffic Light cannot be created because junction"
-msgstr ""
+msgstr "Kavşak nedeniyle Trafik Işığı oluşturulamıyor"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1508
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1508
 msgid "must have at least one connection."
-msgstr ""
+msgstr "en az bir bağlantıya sahip olmalıdır."
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1527
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1527
 msgid "must have at least one controlled connection."
-msgstr ""
+msgstr "en az bir kontrollü bağlantıya sahip olmalıdır."
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1570
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1570
 msgid "Duplicate"
-msgstr ""
+msgstr "Yinele"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1610
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1610
 msgid "reset current program"
-msgstr ""
+msgstr "geçerli programı sıfırla"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1649
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1649
 msgid "reset TLS"
-msgstr ""
+msgstr "TIS'ı sıfırla"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1810
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1810
 msgid "duplicate program '%' of traffic light '%'"
-msgstr ""
+msgstr "'%' trafik ışığının '%' programını yinele"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1856
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1856
 msgid "Traffic light does not control any links"
-msgstr ""
+msgstr "Trafik ışığı herhangi bir bağlantıyı kontrol etmiyor"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1868
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1868
 msgid "Phases"
-msgstr ""
+msgstr "Fazlar"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1879
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1879
 msgid "Clean States"
-msgstr ""
+msgstr "Evreleri Temizle"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1880
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1880
 msgid "Clean unused states from all phase"
-msgstr ""
+msgstr "Kullanılmayan evreleri tüm fazlardan temizle"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1881
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1881
 msgid "Clean unused states from all phase. (Not allowed for multiple programs)"
 msgstr ""
+"Kullanılmayan evreleri tüm fazlardan temizle. (Birden fazla program için "
+"izin verilmez)"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1885
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1885
 msgid "Add States"
-msgstr ""
+msgstr "Evre Ekle"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1886
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1886
 msgid "Extend the state vector for all phases by one entry"
-msgstr ""
+msgstr "Tüm fazlar için evre vektörünü bir girişle genişlet"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1887
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1887
@@ -14679,11 +14685,13 @@ msgid ""
 "Extend the state vector for all phases by one entry. (Unused until a "
 "connection or crossing is assigned to the new index)"
 msgstr ""
+"Tüm fazlar için evre vektörünü bir girişle genişlet. (Yeni dizine bir "
+"bağlantı veya geçit atanana kadar kullanılmaz)"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1891
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1891
 msgid "Group Sig."
-msgstr ""
+msgstr "Grup Sin."
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1892
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1892
@@ -14691,6 +14699,8 @@ msgid ""
 "Shorten state definition by letting connections with the same signal states "
 "use the same index"
 msgstr ""
+"Aynı sinyal evrelerine sahip bağlantıların aynı dizini kullanmasına izin "
+"vererek evre tanımını kısaltın"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1893
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1893
@@ -14698,16 +14708,19 @@ msgid ""
 "Shorten state definition by letting connections with the same signal states "
 "use the same index. (Not allowed for multiple programs)"
 msgstr ""
+"Aynı sinyal evrelerine sahip bağlantıların aynı dizini kullanmasına izin "
+"vererek evre tanımını kısaltın. (Birden fazla program için izin verilmez)"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1897
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1897
 msgid "Ungroup Sig."
-msgstr ""
+msgstr "Sin. Çöz"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1898
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1898
 msgid "Let every connection use a distinct index (reverse state grouping)"
 msgstr ""
+"Her bağlantının ayrı bir dizin kullanmasına izin ver (ters evre gruplaması)"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1899
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1899
@@ -14715,72 +14728,76 @@ msgid ""
 "Let every connection use a distinct index (reverse state grouping). (Not "
 "allowed for multiple programs)"
 msgstr ""
+"Her bağlantının ayrı bir dizin kullanmasına izin verin (ters evre gruplaması)"
+". (Çoklu programlar için izin verilmez)"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2027
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:2027
 msgid "invalid column"
-msgstr ""
+msgstr "Geçersiz sütun"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2586
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:2586
 msgid "Error deleting phase '"
-msgstr ""
+msgstr "Faz silinirken hata oluştu '"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2858
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:2858
 msgid "TLS Program File"
-msgstr ""
+msgstr "TIS Program Dosyası"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2862
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:2862
 msgid "Load TLS program from additional file"
-msgstr ""
+msgstr "TIS programını ek dosyadan yükle"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2864
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:2864
 msgid "Save TLS program to additional file"
-msgstr ""
+msgstr "TIS programını ek dosyaya kaydet"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2923
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:2923
 msgid " new programs for tlLogic '"
-msgstr ""
+msgstr " tlLogic için yeni programlar '"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2928
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:2928
 msgid "Updated program '"
-msgstr ""
+msgstr "Güncellenmiş program '"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2928
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:2928
 msgid "' for tlLogic '"
-msgstr ""
+msgstr "' tlLogic için '"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2932
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:2932
 msgid "No programs found for traffic light '"
-msgstr ""
+msgstr "Trafik ışığı için program bulunamadı '"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2951
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:2951
 msgid "Save TLS Program as"
-msgstr ""
+msgstr "TIS Programını Farklı Kaydet"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEWireFrame.cpp:75
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEWireFrame.cpp:75
 msgid "Current selected wire isn't valid."
-msgstr ""
+msgstr "Mevcut seçilen kablo geçerli değil."
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEWireFrame.cpp:117
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEWireFrame.cpp:117
 #, c-format
 msgid "A % needs at least two lane positions"
-msgstr ""
+msgstr "Bir % en az iki şerit pozisyonuna ihtiyaç duyar"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEWireFrame.cpp:237
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEWireFrame.cpp:237
 msgid "Currently unsupported. Create VSS steps elements using VSS dialog"
 msgstr ""
+"Şu anda desteklenmiyor. VSS iletişim kutusunu kullanarak VSS adımları "
+"öğeleri oluşturun"
 
 #: /home/micha/programming/sumo/src\netedit\netedit_main.cpp:49
 #: /home/micha/programming/sumo/src/netedit/netedit_main.cpp:49
@@ -14791,354 +14808,358 @@ msgstr "SUMO Ağları Talep ve Ek Altyapılar için Grafiksel Düzenleyici."
 #: /home/micha/programming/sumo/src\utils\gui\div\GUIDialog_GLChosenEditor.cpp:75
 #: /home/micha/programming/sumo/src/utils/gui/div/GUIDialog_GLChosenEditor.cpp:75
 msgid "&Load selection"
-msgstr ""
+msgstr "Seçimi yükle"
 
 #: /home/micha/programming/sumo/src\utils\gui\div\GUIDialog_GLChosenEditor.cpp:77
 #: /home/micha/programming/sumo/src/utils/gui/div/GUIDialog_GLChosenEditor.cpp:77
 msgid "&Save selection"
-msgstr ""
+msgstr "Seçimi kaydet"
 
 #: /home/micha/programming/sumo/src\utils\gui\div\GUIDialog_GLChosenEditor.cpp:81
 #: /home/micha/programming/sumo/src/utils/gui/div/GUIDialog_GLChosenEditor.cpp:81
 msgid "&Deselect chosen"
-msgstr ""
+msgstr "Seçimi bırak"
 
 #: /home/micha/programming/sumo/src\utils\gui\div\GUIDialog_GLChosenEditor.cpp:83
 #: /home/micha/programming/sumo/src/utils/gui/div/GUIDialog_GLChosenEditor.cpp:83
 msgid "&Clear selection"
-msgstr ""
+msgstr "Seçimi temizle"
 
 #: /home/micha/programming/sumo/src\utils\gui\div\GUIDialog_GLChosenEditor.cpp:87
 #: /home/micha/programming/sumo/src/utils/gui/div/GUIDialog_GLChosenEditor.cpp:87
 msgid "Cl&ose"
-msgstr ""
+msgstr "Kapat"
 
 #: /home/micha/programming/sumo/src\utils\gui\div\GUIDialog_GLChosenEditor.cpp:125
 #: /home/micha/programming/sumo/src/utils/gui/div/GUIDialog_GLChosenEditor.cpp:125
 msgid "Open List of Selected Items"
-msgstr ""
+msgstr "Seçili Öğelerin Listesini Aç"
 
 #: /home/micha/programming/sumo/src\utils\gui\div\GUIDialog_GLChosenEditor.cpp:137
 #: /home/micha/programming/sumo/src/utils/gui/div/GUIDialog_GLChosenEditor.cpp:137
 msgid "Errors while loading Selection"
-msgstr ""
+msgstr "Seçim yüklenirken oluşan hatalar"
 
 #: /home/micha/programming/sumo/src\utils\gui\div\GUISelectedStorage.cpp:116
 #: /home/micha/programming/sumo/src/utils/gui/div/GUISelectedStorage.cpp:116
 msgid "Unknown object in GUISelectedStorage::select (id=%)."
-msgstr ""
+msgstr "GUISelectedStorage::select (id=%) içinde bilinmeyen nesne."
 
 #: /home/micha/programming/sumo/src\utils\gui\div\GUISelectedStorage.cpp:133
 #: /home/micha/programming/sumo/src/utils/gui/div/GUISelectedStorage.cpp:133
 msgid "Unknown object in GUISelectedStorage::deselect (id=%)."
-msgstr ""
+msgstr "GUISelectedStorage::deselect (id=%) içinde bilinmeyen nesne."
 
 #: /home/micha/programming/sumo/src\utils\gui\div\GUISelectedStorage.cpp:150
 #: /home/micha/programming/sumo/src/utils/gui/div/GUISelectedStorage.cpp:150
 msgid "Unknown object in GUISelectedStorage::toggleSelection (id=%)."
-msgstr ""
+msgstr "GUISelectedStorage::toggleSelection (id=%) içinde bilinmeyen nesne."
 
 #: /home/micha/programming/sumo/src\utils\gui\div\GUIVideoEncoder.h:74
 #: /home/micha/programming/sumo/src/utils/gui/div/GUIVideoEncoder.h:74
 msgid "Unknown format!"
-msgstr ""
+msgstr "Bilinmeyen format!"
 
 #: /home/micha/programming/sumo/src\utils\gui\div\GUIVideoEncoder.h:91
 #: /home/micha/programming/sumo/src/utils/gui/div/GUIVideoEncoder.h:91
 msgid "Unknown codec, falling back to HEVC!"
-msgstr ""
+msgstr "Bilinmeyen kodek, HEVC'ye geri dönüyor!"
 
 #: /home/micha/programming/sumo/src\utils\gui\div\GUIVideoEncoder.h:95
 #: /home/micha/programming/sumo/src/utils/gui/div/GUIVideoEncoder.h:95
 msgid "Unknown codec!"
-msgstr ""
+msgstr "Bilinmeyen kodek!"
 
 #: /home/micha/programming/sumo/src\utils\gui\div\GUIVideoEncoder.h:100
 #: /home/micha/programming/sumo/src/utils/gui/div/GUIVideoEncoder.h:100
 msgid "Could not allocate video codec context!"
-msgstr ""
+msgstr "Video kodek bağlamı tahsis edilemedi!"
 
 #: /home/micha/programming/sumo/src\utils\gui\div\GUIVideoEncoder.h:136
 #: /home/micha/programming/sumo/src/utils/gui/div/GUIVideoEncoder.h:136
 msgid "Could not open codec!"
-msgstr ""
+msgstr "Kodek açılamadı!"
 
 #: /home/micha/programming/sumo/src\utils\gui\div\GUIVideoEncoder.h:142
 #: /home/micha/programming/sumo/src/utils/gui/div/GUIVideoEncoder.h:142
 msgid "Could not allocate video frame!"
-msgstr ""
+msgstr "Video karesi tahsis edilemedi!"
 
 #: /home/micha/programming/sumo/src\utils\gui\div\GUIVideoEncoder.h:148
 #: /home/micha/programming/sumo/src/utils/gui/div/GUIVideoEncoder.h:148
 msgid "Could not allocate the video frame data!"
-msgstr ""
+msgstr "Video kare verileri tahsis edilemedi!"
 
 #: /home/micha/programming/sumo/src\utils\gui\div\GUIVideoEncoder.h:155
 #: /home/micha/programming/sumo/src/utils/gui/div/GUIVideoEncoder.h:155
 msgid "Failed to open output file!"
-msgstr ""
+msgstr "Çıktı dosyası açılamadı!"
 
 #: /home/micha/programming/sumo/src\utils\gui\div\GUIVideoEncoder.h:160
 #: /home/micha/programming/sumo/src/utils/gui/div/GUIVideoEncoder.h:160
 msgid "Failed to write file header!"
-msgstr ""
+msgstr "Dosya başlığı yazılamadı!"
 
 #: /home/micha/programming/sumo/src\utils\gui\div\GUIVideoEncoder.h:165
 #: /home/micha/programming/sumo/src/utils/gui/div/GUIVideoEncoder.h:165
 msgid "Could not allocate video packet!"
-msgstr ""
+msgstr "Video paketi tahsis edilemedi!"
 
 #: /home/micha/programming/sumo/src\utils\gui\div\GUIVideoEncoder.h:175
 #: /home/micha/programming/sumo/src/utils/gui/div/GUIVideoEncoder.h:175
 msgid "Error sending final frame!"
-msgstr ""
+msgstr "Son kare gönderilirken hata oluştu!"
 
 #: /home/micha/programming/sumo/src\utils\gui\div\GUIVideoEncoder.h:183
 #: /home/micha/programming/sumo/src/utils/gui/div/GUIVideoEncoder.h:183
 msgid "Error during final encoding step!"
-msgstr ""
+msgstr "Son kodlama adımı sırasında hata!"
 
 #: /home/micha/programming/sumo/src\utils\gui\div\GUIVideoEncoder.h:214
 #: /home/micha/programming/sumo/src/utils/gui/div/GUIVideoEncoder.h:214
 msgid "Error sending frame for encoding!"
-msgstr ""
+msgstr "Kodlama için kare gönderilirken hata oluştu!"
 
 #: /home/micha/programming/sumo/src\utils\gui\div\GUIVideoEncoder.h:222
 #: /home/micha/programming/sumo/src/utils/gui/div/GUIVideoEncoder.h:222
 msgid "Error during encoding!"
-msgstr ""
+msgstr "Kodlama sırasında hata oluştu!"
 
 #: /home/micha/programming/sumo/src\utils\gui\globjects\GUIGLObjectPopupMenu.cpp:170
 #: /home/micha/programming/sumo/src/utils/gui/globjects/GUIGLObjectPopupMenu.cpp:170
 msgid "Object must be a lane"
-msgstr ""
+msgstr "Nesne bir şerit olmalıdır"
 
 #: /home/micha/programming/sumo/src\utils\gui\globjects\GUIShapeContainer.cpp:56
 #: /home/micha/programming/sumo/src/utils/gui/globjects/GUIShapeContainer.cpp:56
 msgid "Replacing POI '%'"
-msgstr ""
+msgstr "EN '%' değiştiriliyor"
 
 #: /home/micha/programming/sumo/src\utils\gui\globjects\GUIShapeContainer.cpp:81
 #: /home/micha/programming/sumo/src/utils/gui/globjects/GUIShapeContainer.cpp:81
 msgid "Replacing polygon '%'"
-msgstr ""
+msgstr "'%' çokgeni değiştiriliyor"
 
 #: /home/micha/programming/sumo/src\utils\gui\images\GUIIconSubSys.cpp:942
 #: /home/micha/programming/sumo/src/utils/gui/images/GUIIconSubSys.cpp:942
 msgid "Instance was previously created"
-msgstr ""
+msgstr "Örnek daha önce oluşturuldu"
 
 #: /home/micha/programming/sumo/src\utils\gui\images\GUITextureSubSys.cpp:223
 #: /home/micha/programming/sumo/src/utils/gui/images/GUITextureSubSys.cpp:223
 msgid "Undefined texture"
-msgstr ""
+msgstr "Tanımsız doku"
 
 #: /home/micha/programming/sumo/src\utils\gui\images\VClassIcons.cpp:91
 #: /home/micha/programming/sumo/src/utils/gui/images/VClassIcons.cpp:91
 msgid "Invalid vClass"
-msgstr ""
+msgstr "Geçersiz Araç Sınıfı (vClass)"
 
 #: /home/micha/programming/sumo/src\utils\gui\settings\GUISettingsHandler.cpp:77
 #: /home/micha/programming/sumo/src/utils/gui/settings/GUISettingsHandler.cpp:77
 msgid "The 'value' attribute is deprecated for breakpoints. Please use 'time'."
 msgstr ""
+"'value' niteliği kesme noktaları için kullanımdan kaldırılmıştır. Lütfen "
+"'time' kullanın."
 
 #: /home/micha/programming/sumo/src\utils\gui\settings\GUISettingsHandler.cpp:383
 #: /home/micha/programming/sumo/src/utils/gui/settings/GUISettingsHandler.cpp:383
 msgid "The 'filename' attribute is deprecated for decals. Please use 'file'."
 msgstr ""
+"'filename' niteliği çıkartmalar için kullanımdan kaldırılmıştır. Lütfen "
+"'file' kullanın."
 
 #: /home/micha/programming/sumo/src\utils\gui\settings\GUISettingsHandler.cpp:559
 #: /home/micha/programming/sumo/src/utils/gui/settings/GUISettingsHandler.cpp:559
 msgid " Could not decode breakpoint '%'"
-msgstr ""
+msgstr " Kesme noktası '%' kodu çözülemedi"
 
 #: /home/micha/programming/sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:2348
 #: /home/micha/programming/sumo/src/utils/gui/settings/GUIVisualizationSettings.cpp:2348
 msgid "No color defined for LinkState '%'"
-msgstr ""
+msgstr "LinkState '%' için renk tanımlanmadı"
 
 #: /home/micha/programming/sumo/src\utils\gui\tracker\GUIParameterTracker.cpp:116
 #: /home/micha/programming/sumo/src/utils/gui/tracker/GUIParameterTracker.cpp:116
 msgid "Save the data..."
-msgstr ""
+msgstr "Verileri kaydet..."
 
 #: /home/micha/programming/sumo/src\utils\gui\tracker\GUIParameterTracker.cpp:131
 #: /home/micha/programming/sumo/src/utils/gui/tracker/GUIParameterTracker.cpp:131
 msgid "Multiplot"
-msgstr ""
+msgstr "çoklu çizim"
 
 #: /home/micha/programming/sumo/src\utils\gui\tracker\GUIParameterTracker.cpp:219
 #: /home/micha/programming/sumo/src/utils/gui/tracker/GUIParameterTracker.cpp:219
 msgid "Save Data"
-msgstr ""
+msgstr "Veri Kaydet"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:84
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:84
 msgid "Track"
-msgstr ""
+msgstr "Takip Et"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:91
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:91
 msgid "&Hide Unselected"
-msgstr ""
+msgstr "&Seçilmemişleri Gizle"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:92
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:92
 msgid "By &Name"
-msgstr ""
+msgstr "Ad ile"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:92
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:92
 msgid "Locate item by name"
-msgstr ""
+msgstr "Öğeyi adına göre bul"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:93
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:93
 msgid "&Select/deselect"
-msgstr ""
+msgstr "&Seç/seçimi kaldır"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:93
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:93
 msgid "Select/deselect current object"
-msgstr ""
+msgstr "Geçerli nesneyi seç/seçimi kaldır"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:94
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:94
 msgid "&Filter substring"
-msgstr ""
+msgstr "&Alt dizeyi filtrele"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:95
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:95
 msgid "Select &all"
-msgstr ""
+msgstr "Tümünü seç"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:95
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:95
 msgid "Select all items in list"
-msgstr ""
+msgstr "Listedeki tüm öğeleri seç"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:96
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:96
 msgid "&Deselect all"
-msgstr ""
+msgstr "Tümünün seçimini kaldır"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:96
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:96
 msgid "Deselect all items in list"
-msgstr ""
+msgstr "Listedeki tüm öğelerin seçimini kaldır"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:97
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:97
 msgid "&Update"
-msgstr ""
+msgstr "Güncelle"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:97
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:97
 msgid "Reload all ids"
-msgstr ""
+msgstr "Tüm kimlikleri yeniden yükle"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:101
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:101
 msgid "case-sensitive search"
-msgstr ""
+msgstr "büyük/küçük harfe duyarlı arama"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:103
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:103
 msgid "auto-center"
-msgstr ""
+msgstr "oto-merkez"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_EditViewport.cpp:65
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_EditViewport.cpp:65
 msgid "Load viewport from file"
-msgstr ""
+msgstr "Görünüm alanını dosyadan yükle"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_EditViewport.cpp:67
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_EditViewport.cpp:67
 msgid "Save viewport to file"
-msgstr ""
+msgstr "Görünüm alanını dosyaya kaydet"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_EditViewport.cpp:210
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_EditViewport.cpp:210
 msgid "Load Viewport"
-msgstr ""
+msgstr "Görünüm Alanını Yükle"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_EditViewport.cpp:229
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_EditViewport.cpp:229
 msgid "Save Viewport"
-msgstr ""
+msgstr "Görünüm Alanını Kaydet"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_Options.cpp:113
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_Options.cpp:113
 msgid "Accept settings"
-msgstr ""
+msgstr "Ayarları kabul et"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:87
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:89
 msgid "View Settings"
-msgstr ""
+msgstr "Ayarları Görüntüle"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:989
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:985
 msgid "Enter a name"
-msgstr ""
+msgstr "Bir ad girin"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:991
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:987
 msgid "Please enter an alphanumeric name: "
-msgstr ""
+msgstr "Lütfen alfanümerik bir ad girin: "
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1070
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1066
 msgid "Export view settings"
-msgstr ""
+msgstr "Görünüm ayarlarını dışa aktar"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1121
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1117
 msgid "Import view settings"
-msgstr ""
+msgstr "Görünüm ayarlarını içe aktar"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1138
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1155
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1153
 msgid "Load Decals"
-msgstr ""
+msgstr "Etiketleri Yükle"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1172
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1170
 msgid "Save Decals"
-msgstr ""
+msgstr "Etiketleri Kaydet"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1242
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1307
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1303
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1368
 msgid "No Data"
-msgstr ""
+msgstr "Veri Yok"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1246
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1311
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1307
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1372
 msgid "Remove"
-msgstr ""
+msgstr "Kaldır"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1569
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1614
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1740
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1785
 msgid "Only for selected"
-msgstr ""
+msgstr "Sadece seçilenler için"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1571
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1742
 msgid "constant text size"
-msgstr ""
+msgstr "sabit metin boyutu"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1574
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1745
 msgid "Size"
-msgstr ""
+msgstr "Boyut"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1579
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1692
@@ -15161,114 +15182,114 @@ msgstr ""
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2325
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2388
 msgid "Color"
-msgstr ""
+msgstr "Renk"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1581
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1687
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1752
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1858
 msgid "Background"
-msgstr ""
+msgstr "Arka plan"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1612
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1783
 msgid "Draw with constant size when zoomed out"
-msgstr ""
+msgstr "Uzaklaştırıldığında sabit boyutta çizim yapın"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1617
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1788
 msgid "Minimum Size"
-msgstr ""
+msgstr "Minimum Boyut"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1621
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1792
 msgid "Exaggerate by"
-msgstr ""
+msgstr "Tarafından büyütülen"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1667
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1838
 msgid "Save the setting to registry"
-msgstr ""
+msgstr "Ayarı kayıt defterine kaydedin"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1668
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1839
 msgid "Remove the setting from registry"
-msgstr ""
+msgstr "Ayarı kayıt defterinden kaldırın"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1669
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1840
 msgid "Export setting to file"
-msgstr ""
+msgstr "Ayarı dosyaya aktar"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1670
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1841
 msgid "Load setting from file"
-msgstr ""
+msgstr "Ayarı dosyadan yükle"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1673
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1844
 msgid "Export includes:"
-msgstr ""
+msgstr "Dışa aktarma şunları içerir:"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1674
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1845
 msgid "Viewport"
-msgstr ""
+msgstr "Görünüm Alanı"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1675
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1846
 msgid "Delay"
-msgstr ""
+msgstr "Gecikme"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1676
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1847
 msgid "Decals"
-msgstr ""
+msgstr "Etiketler"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1677
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1848
 msgid "Breakpoints"
-msgstr ""
+msgstr "Kesim Noktaları"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1696
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1867
 msgid "Decals:"
-msgstr ""
+msgstr "Etiketler:"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1699
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1870
 msgid "&Load XML Decals"
-msgstr ""
+msgstr "&XML Etiketlerini Yükle"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1700
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1871
 msgid "&Save XML Decals"
-msgstr ""
+msgstr "&XML Etiketlerini Kaydet"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1701
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1872
 msgid "&Clear Decals"
-msgstr ""
+msgstr "Etiketleri Temizle"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1706
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1877
 msgid "Toggle grid"
-msgstr ""
+msgstr "Izgarayı aç/kapat"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1710
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1881
 msgid "x-spacing"
-msgstr ""
+msgstr "x-boşluğu"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1715
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1886
 msgid "y-spacing"
-msgstr ""
+msgstr "y-boşluğu"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1724
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1895
 msgid "Streets"
-msgstr ""
+msgstr "Sokaklar"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1732
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1761
@@ -15291,7 +15312,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2329
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2390
 msgid "Interpolate"
-msgstr ""
+msgstr "enterpolasyon"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1744
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2006
@@ -15300,113 +15321,115 @@ msgstr ""
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2177
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2400
 msgid "Recalibrate Rainbow"
-msgstr ""
+msgstr "Rainbow'u Yeniden Kalibre Et"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1746
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1917
 msgid "hide below"
-msgstr ""
+msgstr "aşağıya sakla"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1750
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1921
 msgid "hide above"
-msgstr ""
+msgstr "yukarıya sakla"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1759
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1930
 msgid "Scale width"
-msgstr ""
+msgstr "Ölçek genişliği"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1782
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1953
 msgid "Show bike markings"
-msgstr ""
+msgstr "Bisiklet işaretlerini göster"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1784
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1955
 msgid "Show turning arrows"
-msgstr ""
+msgstr "Dönüş oklarını göster"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1787
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1958
 msgid "Show right-of-way rules"
-msgstr ""
+msgstr "Geçiş hakkı kurallarını göster"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1789
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1960
 msgid "Realistic stop line colors"
-msgstr ""
+msgstr "Gerçekçi durak çizgisi renkleri"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1792
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1963
 msgid "Show lane borders"
-msgstr ""
+msgstr "Şerit sınırlarını göster"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1794
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1965
 msgid "Show lane direction"
-msgstr ""
+msgstr "Şerit yönünü göster"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1797
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1968
 msgid "Hide macro connectors"
-msgstr ""
+msgstr "Makro bağlantıları gizle"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1799
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1970
 msgid "Show sublanes"
-msgstr ""
+msgstr "Alt şeritleri göster"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1802
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1973
 msgid "Show rails"
-msgstr ""
+msgstr "Rayları göster"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1804
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1975
 msgid "Spread bidirectional railways/roads"
-msgstr ""
+msgstr "Çift yönlü demiryollarını/yolları yay"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1804
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1975
 msgid ""
 "Make both directional edges for a bidirectional railways or roads visible"
 msgstr ""
+"Çift yönlü demiryolları veya yollar için her iki yön kesimini de görünür "
+"hale getir"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1807
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1978
 msgid "Secondary shape"
-msgstr ""
+msgstr "İkincil şekil"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1812
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1983
 msgid "Exaggerate width by"
-msgstr ""
+msgstr "Genişliği şuna göre genişlet"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1818
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1989
 msgid "Minimum size"
-msgstr ""
+msgstr "Minimum boyut"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1824
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1995
 msgid "Show edge id"
-msgstr ""
+msgstr "Kesim kimliğini göster"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1825
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1996
 msgid "Show street name"
-msgstr ""
+msgstr "Sokak adını göster"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1826
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1997
 msgid "Show edge color value"
-msgstr ""
+msgstr "Kesim rengi değerini göster"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1827
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1998
 msgid "Show edge scale value"
-msgstr ""
+msgstr "Kesim ölçeği değerini göster"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1838
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1921
@@ -15415,7 +15438,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2092
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2132
 msgid "Show As"
-msgstr ""
+msgstr "Farklı Göster"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1840
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1923
@@ -15424,14 +15447,14 @@ msgstr ""
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2094
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2134
 msgid "'triangles'"
-msgstr ""
+msgstr "'üçgenler'"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1841
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1964
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2012
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2135
 msgid "'boxes'"
-msgstr ""
+msgstr "'kutular'"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1842
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1925
@@ -15440,7 +15463,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2096
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2136
 msgid "'simple shapes'"
-msgstr ""
+msgstr "'basit şekiller'"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1843
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1926
@@ -15449,548 +15472,554 @@ msgstr ""
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2097
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2137
 msgid "'raster images'"
-msgstr ""
+msgstr "'raster görüntüler'"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1844
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1924
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2015
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2095
 msgid "'circles'"
-msgstr ""
+msgstr "'daireler'"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1866
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2037
 msgid "Scale size"
-msgstr ""
+msgstr "Ölçek boyutu"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1875
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2046
 msgid "Show vehicle id"
-msgstr ""
+msgstr "Araç kimliğini göster"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1876
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2047
 msgid "Show vehicle color value"
-msgstr ""
+msgstr "Araç renk değerini göster"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1877
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2048
 msgid "Show vehicle scale value"
-msgstr ""
+msgstr "Araç ölçek değerini göster"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1878
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2049
 msgid "Show vehicle text param"
-msgstr ""
+msgstr "Araç metin parametresini göster"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1885
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2056
 msgid "Show blinker / brake lights"
-msgstr ""
+msgstr "Sinyal / fren lambalarını göster"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1887
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2058
 msgid "Show minimum gap"
-msgstr ""
+msgstr "Minimum boşluğu göster"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1889
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2060
 msgid "Show brake gap"
-msgstr ""
+msgstr "Fren boşluğunu göster"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1891
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2062
 msgid "Show Bluetooth range"
-msgstr ""
+msgstr "Bluetooth aralığını göster"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1893
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2064
 msgid "Show route index"
-msgstr ""
+msgstr "Rota dizinini göster"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1895
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2066
 msgid "Scale length with geometry"
-msgstr ""
+msgstr "Geometri ile uzunluğu ölçeklendirin"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1897
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2068
 msgid "Show parking info"
-msgstr ""
+msgstr "Park bilgilerini göster"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1899
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2070
 msgid "Draw reversed vehicles in reverse"
-msgstr ""
+msgstr "Ters dönmüş araçları ters çizin"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1944
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2115
 msgid "Show person id"
-msgstr ""
+msgstr "Yolcu kimliğini göster"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1945
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2116
 msgid "Show person color value"
-msgstr ""
+msgstr "Yolcu renk değerini göster"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1956
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2127
 msgid "Containers"
-msgstr ""
+msgstr "Konteynerler"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1984
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2155
 msgid "Show container id"
-msgstr ""
+msgstr "Konteyner kimliğini göster"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1995
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:266
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2166
 msgid "Junctions"
-msgstr ""
+msgstr "Kavşaklar"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2012
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2183
 msgid "Draw junction shape"
-msgstr ""
+msgstr "Kavşak şekli çiz"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2014
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2185
 msgid "Draw crossings/walkingareas"
-msgstr ""
+msgstr "Yaya geçitleri/yürüyüş alanları çizin"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2016
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2187
 msgid "Show lane to lane connections"
-msgstr ""
+msgstr "Şeritten şeride bağlantıları göster"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2020
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2191
 msgid "Show link tls index"
-msgstr ""
+msgstr "Bağlantı TIS dizinini göster"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2021
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2192
 msgid "Show link junction index"
-msgstr ""
+msgstr "Bağlantı kavşak dizinini göster"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2022
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2193
 msgid "Show junction id"
-msgstr ""
+msgstr "Kavşak kimliğini göster"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2023
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2194
 msgid "Show internal junction id"
-msgstr ""
+msgstr "Dahili kavşak kimliğini göster"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2024
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2195
 msgid "Show internal edge id"
-msgstr ""
+msgstr "Dahili kesim kimliğini göster"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2025
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2196
 msgid "Show crossing and walkingarea id"
-msgstr ""
+msgstr "Geçit ve yürüme alanı kimliğini göster"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2026
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2197
 msgid "Show traffic light phase index"
-msgstr ""
+msgstr "Trafik ışığı faz dizinini göster"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2027
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2198
 msgid "Show traffic light phase name"
-msgstr ""
+msgstr "Trafik ışığı faz adını göster"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2028
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2199
 msgid "Show junction name"
-msgstr ""
+msgstr "Kavşak adını göster"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2039
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2210
 msgid "Show object id"
-msgstr ""
+msgstr "Nesne kimliğini göster"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2040
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2211
 msgid "Show full name"
-msgstr ""
+msgstr "Tam adı göster"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2047
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2218
 msgid "StoppingPlace"
-msgstr ""
+msgstr "Duraklama Yeri"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2048
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2219
 msgid "body"
-msgstr ""
+msgstr "gövde"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2049
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2220
 msgid "sign"
-msgstr ""
+msgstr "işaret"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2072
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2243
 msgid "element"
-msgstr ""
+msgstr "eleman"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2073
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2244
 msgid "color"
-msgstr ""
+msgstr "renk"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2074
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2245
 msgid "width"
-msgstr ""
+msgstr "genişlik"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2114
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2285
 msgid "POIs"
-msgstr ""
+msgstr "EN'ler"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2130
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2301
 msgid "POI detail"
-msgstr ""
+msgstr "EN Detayı"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2135
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2306
 msgid "Show poi id"
-msgstr ""
+msgstr "EN kimliğini göster"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2136
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2307
 msgid "Show poi type"
-msgstr ""
+msgstr "EN tipini göster"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2137
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2308
 msgid "Show poi text param"
-msgstr ""
+msgstr "EN metin parametresini göster"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2149
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2320
 msgid "Polygons"
-msgstr ""
+msgstr "Çokgenler"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2164
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2335
 msgid "Show polygon id"
-msgstr ""
+msgstr "Çokgen kimliğini göster"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2165
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2336
 msgid "Show polygon types"
-msgstr ""
+msgstr "Çokgen türlerini göster"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2179
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2350
 msgid "Default Selection Color"
-msgstr ""
+msgstr "Varsayılan Seçim Rengi"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2182
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2353
 msgid "Miscellaneous"
-msgstr ""
+msgstr "Çeşitli"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2231
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2402
 msgid "hide below threshold"
-msgstr ""
+msgstr "eşiğin altında gizle"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2238
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2409
 msgid "Exaggerate edgeRelation width by"
-msgstr ""
+msgstr "Kesimİlişkili genişliğini şuna göre genişlet"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2243
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2414
 msgid "Exaggerate tazRelation width by"
-msgstr ""
+msgstr "TABİlişkili genişliğini şuna göre genişlet"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2249
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2420
 msgid "Show data color value"
-msgstr ""
+msgstr "Veri rengi değerini göster"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2255
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2426
 msgid "Legend"
-msgstr ""
+msgstr "Gösterge"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2260
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2431
 msgid "Show Size Legend"
-msgstr ""
+msgstr "Gösterge Boyutunu Göster"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2263
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2434
 msgid "Show Edge Color Legend"
-msgstr ""
+msgstr "Kesim Rengi Göstergesini Göster"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2266
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2437
 msgid "Show Vehicle Color Legend"
-msgstr ""
+msgstr "Araç Renk Göstergesini Göster"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2279
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2450
 msgid "Dither"
-msgstr ""
+msgstr "Titreşim"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2285
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2456
 msgid "Draw boundaries"
-msgstr ""
+msgstr "Sınırları çiz"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2288
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2459
 msgid "Force draw for position selection"
-msgstr ""
+msgstr "Pozisyon seçimi için çizimi zorla"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2291
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2462
 msgid "Force draw for rectangle selection"
-msgstr ""
+msgstr "Dikdörtgen seçimi için çizimi zorla"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2294
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2465
 msgid "Disable dotted contours during selection/deletion"
-msgstr ""
+msgstr "Seçim/silme sırasında noktalı konturları devre dışı bırak"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2297
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2468
 msgid "Recalculate boundaries"
-msgstr ""
+msgstr "Sınırları yeniden hesapla"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2300
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2471
 msgid "Show geometry point indices"
-msgstr ""
+msgstr "Geometri nokta belirteçlerini göster"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2306
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2477
 msgid "3D view"
-msgstr ""
+msgstr "3B görünüm"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2311
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2482
 msgid "Show TLS link markers"
-msgstr ""
+msgstr "TIS bağlantı işaretleyicilerini göster"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2314
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2485
 msgid "Show domes around TLS models from decals"
-msgstr ""
+msgstr "Etiketlerden TIS modellerinin etrafındaki tepeleri göster"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2317
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2488
 msgid "Show auto-generated TLS models"
-msgstr ""
+msgstr "Otomatik oluşturulan TIS modellerini göster"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2319
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2490
 msgid "Show head-up display"
-msgstr ""
+msgstr "Baş üstü ekranı göster"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2325
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2496
 msgid "Sun brightness"
-msgstr ""
+msgstr "Güneş parlaklığı"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2337
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2508
 msgid "Sky color"
-msgstr ""
+msgstr "Gökyüzü rengi"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIMainWindow.cpp:294
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:294
 msgid "option window-size requires INT,INT"
-msgstr ""
+msgstr "seçenek pencere boyutu INT, INT gerektirir"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIMainWindow.cpp:311
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:311
 msgid "option window-pos requires INT,INT"
-msgstr ""
+msgstr "seçenek pencere boyutu INT, INT gerektirir"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIMainWindow.cpp:340
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:340
 msgid "Langua&ge"
-msgstr ""
+msgstr "Dil"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIMainWindow.cpp:342
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:342
 msgid "Change language to english. (en)"
-msgstr ""
+msgstr "Dili İngilizce olarak değiştirin. (en)"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIMainWindow.cpp:344
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:344
 msgid "Change language to german. (de)"
-msgstr ""
+msgstr "Dili almanca olarak değiştirin. (de)"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIMainWindow.cpp:346
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:346
 msgid "Change language to spanish. (es)"
-msgstr ""
+msgstr "Dili ispanyolca olarak değiştirin. (es)"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIMainWindow.cpp:348
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:348
 msgid "Change language to french. (fr)"
-msgstr ""
+msgstr "Dili Fransızca olarak değiştirin. (fr)"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIMainWindow.cpp:350
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:350
 msgid "简体中文 (zh)"
-msgstr ""
+msgstr "简体中文 (zh)"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIMainWindow.cpp:352
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:352
 msgid "繁體中文 (zh-Hant)"
-msgstr ""
+msgstr "繁體中文 (zh-Hant)"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIMainWindow.cpp:354
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:354
 msgid "Change language to turkish. (tr)"
-msgstr ""
+msgstr "Dili Türkçe olarak değiştirin. (tr)"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIMainWindow.cpp:356
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:356
 msgid "Change language to hungarian. (hu)"
-msgstr ""
+msgstr "Dili Macarca olarak değiştirin. (hu)"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIMainWindow.cpp:370
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:370
 msgid "german"
-msgstr ""
+msgstr "Almanca"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIMainWindow.cpp:374
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:374
 msgid "spanish"
-msgstr ""
+msgstr "İspanyolca"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIMainWindow.cpp:378
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:378
 msgid "french"
-msgstr ""
+msgstr "Fransızca"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIMainWindow.cpp:382
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:382
 msgid "chinese"
-msgstr ""
+msgstr "Çince"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIMainWindow.cpp:386
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:386
 msgid "chinese simplified"
-msgstr ""
+msgstr "Basitleştirilmiş Çince"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIMainWindow.cpp:390
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:390
 msgid "turkish"
-msgstr ""
+msgstr "Türkçe"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIMainWindow.cpp:394
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:394
 msgid "hungarian"
-msgstr ""
+msgstr "Macarca"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIMainWindow.cpp:398
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:398
 msgid "english"
-msgstr ""
+msgstr "İngilizce"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIMainWindow.cpp:406
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:406
 msgid "Language changed to "
-msgstr ""
+msgstr "Dil şu şekilde değiştirildi: "
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIMainWindow.cpp:408
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:408
 msgid "Restart needed"
-msgstr ""
+msgstr "Yeniden başlatma gerekiyor"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIMainWindow.cpp:409
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:409
 msgid "Changing display language needs restart to take effect."
 msgstr ""
+"Ekran dilinin değiştirilmesinin etkili olması için yeniden başlatılması "
+"gerekir."
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIMainWindow.cpp:412
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:412
 msgid ""
 "For the Debug build you might also need to set the LANG environment variable."
 msgstr ""
+"Hata Ayıklama derlemesi için LANG ortam değişkenini de ayarlamanız "
+"gerekebilir."
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIMainWindow.cpp:415
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIMainWindow.cpp:415
 msgid "Under development. You can help to improve the translation at:"
 msgstr ""
+"Geliştirme aşamasında. Çevirinin geliştirilmesine şu adresten yardımcı "
+"olabilirsiniz:"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUISUMOAbstractView.cpp:254
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUISUMOAbstractView.cpp:254
 msgid " (No projection defined)"
-msgstr ""
+msgstr " (Projeksiyon tanımlanmadı)"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUISUMOAbstractView.cpp:1723
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUISUMOAbstractView.cpp:1716
 msgid "Could not convert coordinates in %."
-msgstr ""
+msgstr "Koordinatlar % cinsinden dönüştürülemedi."
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:257
 msgid "Input"
-msgstr ""
+msgstr "Girdi"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:258
 msgid "Output"
-msgstr ""
+msgstr "Çıktı"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:260
 msgid "Processing"
-msgstr ""
+msgstr "İşleme"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:261
 msgid "Building Defaults"
-msgstr ""
+msgstr "Yapılandırma Varsayılanları"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:263
 msgid "Ramp Guessing"
-msgstr ""
+msgstr "Katılım Tahmini"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:264
 msgid "Edge Removal"
-msgstr ""
+msgstr "Kesim Kaldırma"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:265
 msgid "Unregulated Nodes"
-msgstr ""
+msgstr "Düzenlenmemiş Düğümler"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:267
 msgid "Pedestrian"
-msgstr ""
+msgstr "Yaya"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:268
 msgid "Bicycle"
-msgstr ""
+msgstr "Bisiklet"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:269
 msgid "Railway"
-msgstr ""
+msgstr "Demiryolu"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:270
 msgid "Formats"
-msgstr ""
+msgstr "Formatlar"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:271
 msgid "Netedit"
-msgstr ""
+msgstr "Netedit"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:272
 msgid "Visualisation"
-msgstr ""
+msgstr "Görselleştirme"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1648
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1656
@@ -15999,7 +16028,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1680
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1688
 msgid "The value must be a float, is:"
-msgstr ""
+msgstr "Değer bir ondalık olmalıdır:"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1649
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1657
@@ -16009,11 +16038,11 @@ msgstr ""
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1689
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1697
 msgid "Number format error"
-msgstr ""
+msgstr "Sayı biçimi hatası"
 
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1696
 msgid "The value must be a bool, is:"
-msgstr ""
+msgstr "Değer bir bulen olmalıdır:"
 
 #~ msgid "false"
 #~ msgstr "Yanlış"
