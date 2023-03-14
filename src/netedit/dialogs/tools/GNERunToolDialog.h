@@ -60,14 +60,14 @@ public:
     /// @name FOX-callbacks
     /// @{
 
-    /// @brief event after press run button
-    long onCmdRun(FXObject*, FXSelector, void*);
+    /// @brief event after press OK button
+    long onCmdOK(FXObject*, FXSelector, void*);
 
-    /// @brief event after press cancel button
-    long onCmdCancel(FXObject*, FXSelector, void*);
+    /// @brief event after press rerun button
+    long onCmdRerun(FXObject*, FXSelector, void*);
 
-    /// @brief event after press reset button
-    long onCmdReset(FXObject*, FXSelector, void*);
+    /// @brief event after press save button
+    long onCmdSaveLog(FXObject*, FXSelector, void*);
 
     /// @}
 
@@ -78,6 +78,9 @@ protected:
 private:
     /// @brief pointer to GNEApplicationWindow
     GNEApplicationWindow* myGNEApp;
+
+    /// @brief text
+    FXText* myText = nullptr;
 
     /// @brief Invalidated copy constructor.
     GNERunToolDialog(const GNERunToolDialog&) = delete;

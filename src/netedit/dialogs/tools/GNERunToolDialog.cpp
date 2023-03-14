@@ -25,6 +25,7 @@
 #include <utils/handlers/TemplateHandler.h>
 
 #include "GNERunToolDialog.h"
+#include "GNETool.h"
 
 
 #define MARGING 4
@@ -34,10 +35,10 @@
 // ===========================================================================
 
 FXDEFMAP(GNERunToolDialog) GNERunToolDialogMap[] = {
-    FXMAPFUNC(SEL_CLOSE,    0,                      GNERunToolDialog::onCmdCancel),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_RUN,     GNERunToolDialog::onCmdRun),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_CANCEL,  GNERunToolDialog::onCmdCancel),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_RESET,   GNERunToolDialog::onCmdReset)
+    FXMAPFUNC(SEL_CLOSE,    0,                      GNERunToolDialog::onCmdOK),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_ACCEPT,  GNERunToolDialog::onCmdOK),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_RESET,   GNERunToolDialog::onCmdRerun),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_SAVE,    GNERunToolDialog::onCmdSaveLog)
 };
 
 // Object implementation
@@ -50,17 +51,33 @@ FXIMPLEMENT(GNERunToolDialog, FXDialogBox, GNERunToolDialogMap, ARRAYNUMBER(GNER
 GNERunToolDialog::GNERunToolDialog(GNEApplicationWindow* GNEApp) :
     FXDialogBox(GNEApp->getApp(), "Tool", GUIDesignDialogBoxExplicit(0, 0)),
     myGNEApp(GNEApp) {
-    new FXSeparator(this);
+    // set icon
+    setIcon(GUIIconSubSys::getIcon(GUIIcon::TOOL_PYTHON));
+    // create content frame
+    auto contentFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrame);
+    // create header frame
+    auto headerFrame = new FXHorizontalFrame(contentFrame, GUIDesignHorizontalFrame);
+    // adjust padding
+    headerFrame->setPadLeft(0);
+    headerFrame->setPadRight(0);
+    new FXButton(headerFrame, (std::string("\t\t") + TL("Save output")).c_str(), 
+        GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_GNE_BUTTON_SAVE, GUIDesignButtonIcon);
+    new FXLabel(headerFrame, TL("Console output"), nullptr, GUIDesignLabelThick(JUSTIFY_LEFT));
+    // create text
+    auto textFrame = new FXVerticalFrame(contentFrame, GUIDesignFrameThick);
+    myText = new FXText(textFrame, 0, 0, (TEXT_READONLY | LAYOUT_FILL_X | LAYOUT_FILL_Y));
+    // add separator
+    new FXSeparator(contentFrame);
     // create buttons centered
-    FXHorizontalFrame *buttonsFrame = new FXHorizontalFrame(this, GUIDesignHorizontalFrame);
+    auto buttonsFrame = new FXHorizontalFrame(contentFrame, GUIDesignHorizontalFrame);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
-    new FXButton(buttonsFrame, (TL("Run") + std::string("\t\t") + TL("close accepting changes")).c_str(),
-        GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_BUTTON_RUN, GUIDesignButtonAccept);
-    new FXButton(buttonsFrame, (TL("Cancel") + std::string("\t\t") + TL("close discarding changes")).c_str(),
-        GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCancel);
-    new FXButton(buttonsFrame, (TL("Reset") + std::string("\t\t") + TL("reset to previous values")).c_str(), 
+    new FXButton(buttonsFrame, (TL("OK") + std::string("\t\t") + TL("close dialog")).c_str(),
+        GUIIconSubSys::getIcon(GUIIcon::OK), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonAccept);
+    new FXButton(buttonsFrame, (TL("Rerun") + std::string("\t\t") + TL("rerun tool")).c_str(), 
         GUIIconSubSys::getIcon(GUIIcon::RESET),  this, MID_GNE_BUTTON_RESET,  GUIDesignButtonReset);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
+    // resize
+    resize(640, 480);
 }
 
 
@@ -74,7 +91,8 @@ GNERunToolDialog::getGNEApp() const {
 
 
 void
-GNERunToolDialog::runTool(GNETool* /*tool*/) {
+GNERunToolDialog::runTool(GNETool* tool) {
+    setTitle((tool->getToolName()  + " output").c_str());
     // show dialog
     FXDialogBox::show(PLACEMENT_SCREEN);
     // refresh APP
@@ -94,17 +112,7 @@ GNERunToolDialog::hide() {
 
 
 long
-GNERunToolDialog::onCmdRun(FXObject*, FXSelector, void*) {
-    // RUN
-
-    // hide tool dialog
-    hide();
-    return 1;
-}
-
-
-long
-GNERunToolDialog::onCmdCancel(FXObject*, FXSelector, void*) {
+GNERunToolDialog::onCmdOK(FXObject*, FXSelector, void*) {
     // just hide tool dialog
     hide();
     return 1;
@@ -112,7 +120,13 @@ GNERunToolDialog::onCmdCancel(FXObject*, FXSelector, void*) {
 
 
 long
-GNERunToolDialog::onCmdReset(FXObject*, FXSelector, void*) {
+GNERunToolDialog::onCmdRerun(FXObject*, FXSelector, void*) {
+    return 1;
+}
+
+
+long
+GNERunToolDialog::onCmdSaveLog(FXObject*, FXSelector, void*) {
     return 1;
 }
 
