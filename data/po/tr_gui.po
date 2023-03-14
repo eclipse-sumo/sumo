@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-14 08:40+0000\n"
+"PO-Revision-Date: 2023-03-14 09:07+0000\n"
 "Last-Translator: kyasin <yasingoka@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/tr/>\n"
@@ -11270,7 +11270,7 @@ msgstr "  Son eklenen nokta."
 #: /home/micha/programming/sumo/src\netedit\frames\GNEDrawingShape.cpp:137
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDrawingShape.cpp:137
 msgid "A new point cannot be added if drawing wasn't started"
-msgstr ""
+msgstr "Çizim başlatılmadıysa yeni bir nokta eklenemez"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEE2DetectorLegendModule.cpp:34
 #: /home/micha/programming/sumo/src\netedit\frames\GNEPathLegendModule.cpp:34
@@ -11298,28 +11298,28 @@ msgstr "Bilgi"
 #: /home/micha/programming/sumo/src/netedit/frames/GNEE2DetectorLegendModule.cpp:38
 #: /home/micha/programming/sumo/src/netedit/frames/GNEPathLegendModule.cpp:38
 msgid " edge candidate"
-msgstr ""
+msgstr " kesim adayı"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEE2DetectorLegendModule.cpp:42
 #: /home/micha/programming/sumo/src\netedit\frames\GNEPathLegendModule.cpp:42
 #: /home/micha/programming/sumo/src/netedit/frames/GNEE2DetectorLegendModule.cpp:42
 #: /home/micha/programming/sumo/src/netedit/frames/GNEPathLegendModule.cpp:42
 msgid " last edge selected"
-msgstr ""
+msgstr " seçilen son kesim"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEE2DetectorLegendModule.cpp:45
 #: /home/micha/programming/sumo/src\netedit\frames\GNEPathLegendModule.cpp:45
 #: /home/micha/programming/sumo/src/netedit/frames/GNEE2DetectorLegendModule.cpp:45
 #: /home/micha/programming/sumo/src/netedit/frames/GNEPathLegendModule.cpp:45
 msgid " edge selected"
-msgstr ""
+msgstr " seçilen kesim"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEE2DetectorLegendModule.cpp:48
 #: /home/micha/programming/sumo/src\netedit\frames\GNEPathLegendModule.cpp:51
 #: /home/micha/programming/sumo/src/netedit/frames/GNEE2DetectorLegendModule.cpp:48
 #: /home/micha/programming/sumo/src/netedit/frames/GNEPathLegendModule.cpp:51
 msgid " edge disconnected"
-msgstr ""
+msgstr " kesim bağlantısı kesildi"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEElementTree.cpp:62
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:62
@@ -11330,21 +11330,21 @@ msgstr "Hiyerarşi"
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:211
 #, c-format
 msgid "Default Vehicle Type '%' cannot be removed"
-msgstr ""
+msgstr "Varsayılan Araç Türü '%' kaldırılamaz"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEElementTree.cpp:316
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:83
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:316
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:83
 msgid "Center"
-msgstr ""
+msgstr "Merkez"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEElementTree.cpp:323
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:1252
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:323
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:1252
 msgid "Inspect"
-msgstr ""
+msgstr "İncele"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEElementTree.cpp:324
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNESelectorFrame.cpp:259
@@ -11357,7 +11357,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:439
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1344
 msgid "Delete"
-msgstr ""
+msgstr "Sil"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEElementTree.cpp:397
 #: /home/micha/programming/sumo/src\netedit\frames\GNEElementTree.cpp:416
@@ -11366,7 +11366,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:416
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:477
 msgid " origin"
-msgstr ""
+msgstr " köken"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEElementTree.cpp:398
 #: /home/micha/programming/sumo/src\netedit\frames\GNEElementTree.cpp:417
@@ -11375,7 +11375,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:417
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:478
 msgid " destination"
-msgstr ""
+msgstr " Hedef"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEElementTree.cpp:506
 #: /home/micha/programming/sumo/src\netedit\frames\GNEElementTree.cpp:632
@@ -11384,7 +11384,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:632
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:706
 msgid " additionals..."
-msgstr ""
+msgstr " ekler..."
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEElementTree.cpp:520
 #: /home/micha/programming/sumo/src\netedit\frames\GNEElementTree.cpp:583
@@ -11395,7 +11395,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:646
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:720
 msgid " demand elements..."
-msgstr ""
+msgstr " talep elemanları..."
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEElementTree.cpp:534
 #: /home/micha/programming/sumo/src\netedit\frames\GNEElementTree.cpp:597
@@ -11406,7 +11406,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:660
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:738
 msgid " edges..."
-msgstr ""
+msgstr " kesimler..."
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEElementTree.cpp:548
 #: /home/micha/programming/sumo/src\netedit\frames\GNEElementTree.cpp:611
@@ -11417,29 +11417,29 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:674
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:756
 msgid " lanes..."
-msgstr ""
+msgstr " şeritler..."
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEElementTree.cpp:569
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:569
 msgid " TAZElements..."
-msgstr ""
+msgstr " TAB Elemanları..."
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEElementTree.cpp:815
 #: /home/micha/programming/sumo/src\netedit\frames\GNEElementTree.cpp:911
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:815
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:911
 msgid "Data elements"
-msgstr ""
+msgstr "Veri Elemanları"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEElementTree.cpp:841
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:841
 msgid "Incomings"
-msgstr ""
+msgstr "Gelenler"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEElementTree.cpp:851
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:851
 msgid "Outgoing"
-msgstr ""
+msgstr "Gidenler"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEElementTree.cpp:890
 #: /home/micha/programming/sumo/src\netedit\frames\GNENetworkSelector.cpp:65
@@ -11474,64 +11474,64 @@ msgstr "Oran"
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFlowEditor.cpp:343
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFlowEditor.cpp:343
 msgid "change multiple flow attributes"
-msgstr ""
+msgstr "çoklu akım özniteliklerini değiştir"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFlowEditor.cpp:369
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFlowEditor.cpp:369
 msgid "enable multiple flow attributes"
-msgstr ""
+msgstr "çoklu akım özniteliklerini etkinleştir"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFlowEditor.cpp:385
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFlowEditor.cpp:385
 msgid "disable multiple flow attributes"
-msgstr ""
+msgstr "çoklu akım özniteliklerini devre dışı bırak"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFlowEditor.cpp:540
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFlowEditor.cpp:568
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFlowEditor.cpp:540
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFlowEditor.cpp:568
 msgid "different: "
-msgstr ""
+msgstr "farklı: "
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFrame.cpp:185
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrame.cpp:185
 msgid "Parameters of "
-msgstr ""
+msgstr "Parametreleri "
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFrame.cpp:195
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrame.cpp:195
 msgid "Attribute"
-msgstr ""
+msgstr "Öznitelik"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFrame.cpp:196
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrame.cpp:196
 msgid "Description"
-msgstr ""
+msgstr "Açıklama"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFrame.cpp:197
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrame.cpp:197
 msgid "Definition"
-msgstr ""
+msgstr "Tanım"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFrame.cpp:236
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrame.cpp:236
 msgid "Opening HelpAttributes dialog for tag '"
-msgstr ""
+msgstr "Etiket için HelpAttributes iletişim kutusu açılıyor '"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFrame.cpp:236
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrame.cpp:236
 msgid "' showing "
-msgstr ""
+msgstr "' gösteriliyor "
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFrame.cpp:236
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrame.cpp:236
 msgid " attributes"
-msgstr ""
+msgstr " Öznitelikler"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFrame.cpp:246
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrame.cpp:246
 msgid "Closing HelpAttributes dialog for tag '"
-msgstr ""
+msgstr "Etiket için HelpAttributes iletişim kutusu kapatılıyor '"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFrame.cpp:318
 #: /home/micha/programming/sumo/src\netedit\frames\data\GNEGenericDataFrame.cpp:417
@@ -11540,21 +11540,21 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/frames/data/GNEGenericDataFrame.cpp:417
 #: /home/micha/programming/sumo/src/netedit/frames/data/GNEGenericDataFrame.cpp:494
 msgid "Scale: Min -> Max"
-msgstr ""
+msgstr "Ölçek: Min -> Maks"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:159
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:160
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:159
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:160
 msgid "Inspect vehicle "
-msgstr ""
+msgstr "Aracı incele "
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:171
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:172
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:171
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:172
 msgid "Open dialog for editing color"
-msgstr ""
+msgstr "Renk düzenleme için iletişim kutusunu aç"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:176
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:177
@@ -11566,6 +11566,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:249
 msgid "Open dialog for editing allowed vClasses"
 msgstr ""
+"İzin verilen araç sınıflarını (vClasses) düzenlemek için iletişim kutusunu aç"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:472
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:491
@@ -11574,47 +11575,47 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:491
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:607
 msgid "change multiple attributes"
-msgstr ""
+msgstr "birden çok özniteliği değiştir"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:610
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:610
 msgid "change "
-msgstr ""
+msgstr "değiştir "
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:610
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:610
 msgid " attribute"
-msgstr ""
+msgstr " öznitelik"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:664
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:664
 msgid "Value '"
-msgstr ""
+msgstr "Değer '"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:664
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:664
 msgid "' for attribute "
-msgstr ""
+msgstr "' öznitelik için "
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:664
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:664
 msgid " of "
-msgstr ""
+msgstr " . "
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:664
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:664
 msgid " isn't valid"
-msgstr ""
+msgstr " geçerli değil"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:681
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:681
 msgid "enable attribute '"
-msgstr ""
+msgstr "' özniteliği etkinleştir"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:689
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:689
 msgid "disable attribute '"
-msgstr ""
+msgstr "' özniteliği devre dışı bırak"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:963
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:963
@@ -11648,36 +11649,36 @@ msgstr "Netedit Öznitelikleri"
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:55
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:195
 msgid "reference left"
-msgstr ""
+msgstr "sol referans"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNENeteditAttributes.cpp:56
 #: /home/micha/programming/sumo/src\netedit\frames\GNENeteditAttributes.cpp:201
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:56
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:201
 msgid "reference right"
-msgstr ""
+msgstr "sağ referans"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNENeteditAttributes.cpp:57
 #: /home/micha/programming/sumo/src\netedit\frames\GNENeteditAttributes.cpp:206
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:57
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:206
 msgid "reference center"
-msgstr ""
+msgstr "referans merkezi̇"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNENeteditAttributes.cpp:69
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:69
 msgid "Center view"
-msgstr ""
+msgstr "Merkez görünüm"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNENeteditAttributes.cpp:137
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:137
 msgid "Current selected reference point isn't valid"
-msgstr ""
+msgstr "Seçilen mevcut referans noktası geçerli değil"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNENeteditAttributes.cpp:231
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:231
 msgid "- Reference point: Mark the initial position of the additional element."
-msgstr ""
+msgstr "- Referans Noktası: Ek Elemanın Başlangıç Pozisyonunu İşaretle."
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNENeteditAttributes.cpp:232
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:232
@@ -11685,23 +11686,25 @@ msgid ""
 "  Example: If you want to create a busStop with a length of 30 in the point "
 "100 of the lane:"
 msgstr ""
+"  Örnek: Şeridin 100 Noktasında 30 Uzunluğunda Bir Otobüs Durağı Oluşturmak "
+"İstiyorsanız:"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNENeteditAttributes.cpp:233
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:233
 msgid "  - Reference Left will create it with startPos = 70 and endPos = 100."
-msgstr ""
+msgstr "  - Sol Referans, startPos = 70 ve endPos = 100 ile oluşturacaktır."
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNENeteditAttributes.cpp:234
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:234
 msgid ""
 "  - Reference Right will create it with startPos = 100 and endPos = 130."
-msgstr ""
+msgstr "  - Sağ Referans, startPos = 100 ve endPos = 130 ile oluşturacaktır."
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNENeteditAttributes.cpp:235
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:235
 msgid ""
 "  - Reference Center will create it with startPos = 85 and endPos = 115."
-msgstr ""
+msgstr "  - Referans Merkezi startPos = 85 ve endPos = 115 ile oluşturacaktır."
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNENeteditAttributes.cpp:236
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:236
@@ -11709,11 +11712,13 @@ msgid ""
 "- Block movement: if is enabled, the created additional element will be "
 "blocked. i.e. cannot be moved with"
 msgstr ""
+"- Hareketi engelle: etkinleştirilirse, oluşturulan ek eleman engellenir. "
+"yani şununla taşınamaz"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNENeteditAttributes.cpp:237
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:237
 msgid "  the mouse. This option can be modified inspecting element."
-msgstr ""
+msgstr "  fare. Bu seçenek eleman incelenerek değiştirilebilir."
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNENeteditAttributes.cpp:238
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:238
@@ -11734,20 +11739,19 @@ msgstr "Seçimi Kullan"
 #: /home/micha/programming/sumo/src\netedit\frames\GNENetworkSelector.cpp:63
 #: /home/micha/programming/sumo/src/netedit/frames/GNENetworkSelector.cpp:63
 msgid "-Click over an edge to select"
-msgstr ""
+msgstr "-Seçmek için bir kesimin üzerine tıkla"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNENetworkSelector.cpp:69
 #: /home/micha/programming/sumo/src/netedit/frames/GNENetworkSelector.cpp:69
 msgid "-Click over an lane to select"
-msgstr ""
+msgstr "-Seçmek için bir şeridin üzerine tıkla"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNENetworkSelector.cpp:74
 #: /home/micha/programming/sumo/src\netedit\frames\GNENetworkSelector.cpp:183
 #: /home/micha/programming/sumo/src/netedit/frames/GNENetworkSelector.cpp:74
 #: /home/micha/programming/sumo/src/netedit/frames/GNENetworkSelector.cpp:183
-#, fuzzy
 msgid "Invalid NetworkElementType"
-msgstr "Ağ Elemanları"
+msgstr "Geçersiz ağ eleman türü"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEOverlappedInspection.cpp:52
 #: /home/micha/programming/sumo/src/netedit/frames/GNEOverlappedInspection.cpp:52
@@ -11757,32 +11761,32 @@ msgstr "Çakışık Elemanlar"
 #: /home/micha/programming/sumo/src\netedit\frames\GNEOverlappedInspection.cpp:62
 #: /home/micha/programming/sumo/src/netedit/frames/GNEOverlappedInspection.cpp:62
 msgid "Overlapped "
-msgstr ""
+msgstr "Çakışık "
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEOverlappedInspection.cpp:275
 #: /home/micha/programming/sumo/src/netedit/frames/GNEOverlappedInspection.cpp:275
 msgid "GEO attributes Help"
-msgstr ""
+msgstr "GEO öznitelikleri Yardım"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEOverlappedInspection.cpp:278
 #: /home/micha/programming/sumo/src/netedit/frames/GNEOverlappedInspection.cpp:278
 msgid " - Click in the same position"
-msgstr ""
+msgstr " - Aynı pozisyona tıkla"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEOverlappedInspection.cpp:279
 #: /home/micha/programming/sumo/src/netedit/frames/GNEOverlappedInspection.cpp:279
 msgid "   for inspect next element"
-msgstr ""
+msgstr "   Sonraki Elemanın İncelenmesi İçin"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEOverlappedInspection.cpp:280
 #: /home/micha/programming/sumo/src/netedit/frames/GNEOverlappedInspection.cpp:280
 msgid " - Shift + Click in the same"
-msgstr ""
+msgstr " - Aynı şekilde Shift + Tıklama"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEOverlappedInspection.cpp:281
 #: /home/micha/programming/sumo/src/netedit/frames/GNEOverlappedInspection.cpp:281
 msgid "   position for inspect"
-msgstr ""
+msgstr "   İnceleme İçin Pozisyon"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEOverlappedInspection.cpp:282
 #: /home/micha/programming/sumo/src/netedit/frames/GNEOverlappedInspection.cpp:282
@@ -11857,11 +11861,15 @@ msgstr "Sadece İki Kesim İzinli"
 #: /home/micha/programming/sumo/src/netedit/frames/GNEPathCreator.cpp:449
 msgid "Invalid edge (SHIFT + click to add an invalid vClass edge)"
 msgstr ""
+"Geçersiz kesim (geçersiz bir araç sınıfı (vClass) kesimi eklemek için SHIFT +"
+" tıklayın)"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEPathCreator.cpp:456
 #: /home/micha/programming/sumo/src/netedit/frames/GNEPathCreator.cpp:456
 msgid "Invalid edge (CONTROL + click to add a disconnected edge)"
 msgstr ""
+"Geçersiz kesim (bağlantısı kesilmiş bir kesim eklemek için CONTROL + "
+"tıklayın)"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEPathCreator.cpp:531
 #: /home/micha/programming/sumo/src/netedit/frames/GNEPathCreator.cpp:531
@@ -11886,7 +11894,7 @@ msgstr "- Ortalama Hız: "
 #: /home/micha/programming/sumo/src\netedit\frames\GNEPathLegendModule.cpp:48
 #: /home/micha/programming/sumo/src/netedit/frames/GNEPathLegendModule.cpp:48
 msgid " edge conflict (vClass)"
-msgstr ""
+msgstr " kesim çatışması (araç sınıfı (vClass))"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNESelectorParent.cpp:36
 #: /home/micha/programming/sumo/src/netedit/frames/GNESelectorParent.cpp:36
@@ -11896,149 +11904,146 @@ msgstr "Kaynak Seçici"
 #: /home/micha/programming/sumo/src\netedit\frames\GNESelectorParent.cpp:39
 #: /home/micha/programming/sumo/src/netedit/frames/GNESelectorParent.cpp:39
 msgid "No element selected"
-msgstr ""
+msgstr "Seçili eleman yok"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNESelectorParent.cpp:82
 #: /home/micha/programming/sumo/src/netedit/frames/GNESelectorParent.cpp:82
 msgid "Parent type: "
-msgstr ""
+msgstr "Ebeveyn türü: "
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNETLSTable.cpp:219
 #: /home/micha/programming/sumo/src\netedit\frames\GNETLSTable.cpp:230
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:219
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:230
-#, fuzzy
 msgid "Invalid row or column"
-msgstr "Geçersiz Şerit"
+msgstr "Geçersiz satır veya sütun"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNETLSTable.cpp:254
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:254
-#, fuzzy
 msgid "Invalid row"
-msgstr "Geçersiz Şerit"
+msgstr "Geçersiz satır"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNETLSTable.cpp:264
 #: /home/micha/programming/sumo/src\netedit\frames\GNETLSTable.cpp:274
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:264
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:274
-#, fuzzy
 msgid "Invalid column"
-msgstr "Geçersiz Şerit"
+msgstr "Geçersiz sütun"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNETLSTable.cpp:609
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:609
 msgid "Accumulated: "
-msgstr ""
+msgstr "Birikmiş: "
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNETLSTable.cpp:679
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:679
 msgid "Add phase"
-msgstr ""
+msgstr "Faz ekle"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNETLSTable.cpp:679
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:679
 msgid "Add new phase."
-msgstr ""
+msgstr "Yeni faz ekle."
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNETLSTable.cpp:684
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:684
 msgid "Default phase"
-msgstr ""
+msgstr "Varsayılan faz"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNETLSTable.cpp:684
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:684
 msgid "Add default phase."
-msgstr ""
+msgstr "Varsayılan faz ekle."
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNETLSTable.cpp:689
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:689
 msgid "Duplicate phase"
-msgstr ""
+msgstr "Fazı yinele"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNETLSTable.cpp:689
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:689
 msgid "Duplicate this phase."
-msgstr ""
+msgstr "Bu fazı yinele."
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNETLSTable.cpp:694
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:694
 msgid "Red phase"
-msgstr ""
+msgstr "Kırmızı faz"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNETLSTable.cpp:694
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:694
 msgid "Add red phase."
-msgstr ""
+msgstr "Kırmızı faz ekle."
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNETLSTable.cpp:699
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:699
 msgid "Yellow phase"
-msgstr ""
+msgstr "Sarı faz"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNETLSTable.cpp:699
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:699
 msgid "Add yellow phase."
-msgstr ""
+msgstr "Sarı faz ekle."
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNETLSTable.cpp:704
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:704
 msgid "Green phase"
-msgstr ""
+msgstr "Yeşil faz"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNETLSTable.cpp:704
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:704
 msgid "Add green phase."
-msgstr ""
+msgstr "Yeşil faz ekle."
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNETLSTable.cpp:709
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:709
 msgid "Green priority phase"
-msgstr ""
+msgstr "Yeşil öncelikli faz"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNETLSTable.cpp:709
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:709
 msgid "Add green priority phase."
-msgstr ""
+msgstr "Yeşil öncelikli faz ekle."
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNETLSTable.cpp:910
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:910
 msgid "Cannot be parsed to double"
-msgstr ""
+msgstr "Çift olarak ayrıştırılamaz"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNETLSTable.cpp:922
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:922
 msgid "Tooltips only for TextFields"
-msgstr ""
+msgstr "Sadece metin alanları için ipuçları"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNETLSTable.cpp:1252
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:1252
 msgid "Delete phase"
-msgstr ""
+msgstr "Fazı sil"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNETLSTable.cpp:1252
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:1252
 msgid "Delete this phase."
-msgstr ""
+msgstr "Bu fazı sil."
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNETLSTable.cpp:1261
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:1261
 msgid "Move phase up"
-msgstr ""
+msgstr "Fazı yukarı taşı"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNETLSTable.cpp:1261
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:1261
 msgid "Move this phase up."
-msgstr ""
+msgstr "Bu fazı yukarı taşı."
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNETLSTable.cpp:1270
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:1270
 msgid "Move phase down"
-msgstr ""
+msgstr "Fazı aşağı taşı"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNETLSTable.cpp:1270
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:1270
 msgid "Move this phase down."
-msgstr ""
+msgstr "Bu fazı aşağı taşı."
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNETagSelector.cpp:89
 #: /home/micha/programming/sumo/src/netedit/frames/GNETagSelector.cpp:89
@@ -12122,54 +12127,54 @@ msgstr "Yolcu Durakları"
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEDeleteFrame.cpp:56
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEDeleteFrame.cpp:56
 msgid "Delete geometry points"
-msgstr ""
+msgstr "Geometri noktalarını sil"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEDeleteFrame.cpp:230
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEDeleteFrame.cpp:230
 msgid "Protect Elements"
-msgstr ""
+msgstr "Elemanları Koru"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEDeleteFrame.cpp:232
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEDeleteFrame.cpp:232
 msgid "Protect additional elements"
-msgstr ""
+msgstr "Ek elemanları koru"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEDeleteFrame.cpp:235
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEDeleteFrame.cpp:235
 msgid "Protect TAZ elements"
-msgstr ""
+msgstr "TAB elemanlarını koru"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEDeleteFrame.cpp:238
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEDeleteFrame.cpp:238
 msgid "Protect demand elements"
-msgstr ""
+msgstr "Talep elemanlarını koru"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEDeleteFrame.cpp:241
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEDeleteFrame.cpp:241
 msgid "Protect data elements"
-msgstr ""
+msgstr "Veri elemanlarını koru"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEElementSet.cpp:48
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEElementSet.cpp:48
 msgid "Element Set"
-msgstr ""
+msgstr "Eleman Seti"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEElementSet.cpp:75
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEElementSet.cpp:75
 msgid "Invalid supermode"
-msgstr ""
+msgstr "Geçersiz süper mod"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:100
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:100
 msgid "Mark as front element"
-msgstr ""
+msgstr "Ön eleman olarak işaretle"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:181
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:310
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:181
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:310
 msgid "Set new parent"
-msgstr ""
+msgstr "Yeni ebeveyn ayarla"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:372
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:372
@@ -12177,11 +12182,13 @@ msgid ""
 "- Mark as front element: Mark element as front element (Will be drawn over "
 "all other elements)\n"
 msgstr ""
+"- Ön eleman olarak işaretle: Elemanı ön eleman olarak işaretle (Diğer tüm "
+"elemanların üzerine çizilecektir)\n"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:373
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:373
 msgid "- Block movement: disable movement in move mode\n"
-msgstr ""
+msgstr "- Hareketi engelle: hareket modunda hareketi devre dışı bırak\n"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:374
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:374
@@ -12189,6 +12196,8 @@ msgid ""
 "- Block shape: Disable moving of shape's vertices and edges. Entire shape "
 "can be moved'.\n"
 msgstr ""
+"- Şekli kısıtla: Şeklin köşelerinin ve kenarlarının taşınmasını devre dışı "
+"bırakın. Tüm şekil hareket ettirilebilir'.\n"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:375
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:375
@@ -12196,23 +12205,25 @@ msgid ""
 "- Close shape: Add or remove the last vertex with the same position of first "
 "edge'."
 msgstr ""
+"- Şekli kapat: İlk kesimin aynı konumuna sahip son köşeyi ekleyin veya "
+"kaldırın."
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:406
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:406
 msgid "GEO Attributes"
-msgstr ""
+msgstr "GEO Öznitelikleri"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:470
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEShapeFrame.cpp:90
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:470
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEShapeFrame.cpp:90
 msgid "No geo-conversion defined"
-msgstr ""
+msgstr "Tanımlanmış coğrafi dönüşüm yok"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:551
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:551
 msgid " SUMO uses the World Geodetic System 84 (WGS84/UTM).\n"
-msgstr ""
+msgstr " SUMO, Dünya Jeodezik Sistemi 84'ü (WGS84/UTM) kullanır.\n"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:552
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:552
@@ -12220,52 +12231,56 @@ msgid ""
 " For a GEO-referenced network, geo coordinates are represented as pairs of "
 "Longitude and Latitude\n"
 msgstr ""
+" GEO referanslı bir ağ için, coğrafi koordinatlar Boylam ve Enlem çiftleri "
+"olarak temsil edilir.\n"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:553
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:553
 msgid " in decimal degrees without extra symbols. (N,W..)\n"
-msgstr ""
+msgstr " ekstra semboller olmadan ondalık derece cinsinden. (N,W..)\n"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:554
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:554
 msgid " - Longitude: East-west position of a point on the Earth's surface.\n"
-msgstr ""
+msgstr " - Boylam: Dünya yüzeyindeki bir noktanın doğu-batı konumu.\n"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:555
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:555
 msgid " - Latitude: North-south position of a point on the Earth's surface.\n"
-msgstr ""
+msgstr " - Enlem: Dünya yüzeyindeki bir noktanın kuzey-güney konumu.\n"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:556
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:556
 msgid ""
 " - CheckBox 'geo' enables or disables saving position in GEO coordinates\n"
 msgstr ""
+" - CheckBox 'geo', GEO koordinatlarında kaydetme konumunu etkinleştirir veya "
+"devre dışı bırakır\n"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:570
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:570
 msgid "Templates"
-msgstr ""
+msgstr "Şablonlar"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:574
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:574
 msgid "Set as Template"
-msgstr ""
+msgstr "Şablon Olarak Ayarla"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:578
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:578
 msgid "clear Edge Template"
-msgstr ""
+msgstr "Kesim Şablonunu temizle"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:673
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:673
 msgid "Only one edge must be inspected"
-msgstr ""
+msgstr "Sadece bir kesim incelenmelidir"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:737
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:737
 msgid "No edge Template Set"
-msgstr ""
+msgstr "Kesim Şablon Seti Yok"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:749
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNEInspectorFrame.cpp:749
