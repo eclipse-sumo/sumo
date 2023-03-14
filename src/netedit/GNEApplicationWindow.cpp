@@ -1393,13 +1393,20 @@ GNEApplicationWindow::fillMenuBar() {
     myToolsDetectorMenu = new FXMenuPane(this);
     myToolsDistrictMenu = new FXMenuPane(this);
     myToolsDRTMenu = new FXMenuPane(this);
+    myToolsEmissionsMenu = new FXMenuPane(this);
     myToolsImportMenu = new FXMenuPane(this);
     myToolsImportCityBrainMenu = new FXMenuPane(this);
     myToolsImportGTFSMenu = new FXMenuPane(this);
+    myToolsImportVissim = new FXMenuPane(this);
+    myToolsImportVisum = new FXMenuPane(this);
     myToolsNetMenu = new FXMenuPane(this);
     myToolsRouteMenu = new FXMenuPane(this);
     myToolsOutputMenu = new FXMenuPane(this);
+    myToolsShapes = new FXMenuPane(this);
+    myToolsTLS = new FXMenuPane(this);
+    myToolsTurnDefs = new FXMenuPane(this);
     myToolsVisualizationMenu = new FXMenuPane(this);
+    myToolsXML = new FXMenuPane(this);
     GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, TL("&Tools"), nullptr, myToolsMenu);
     // build tools menu cascasde
     new FXMenuCascade(myToolsMenu, TL("Detectors"), GUIIconSubSys::getIcon(GUIIcon::E1), myToolsDetectorMenu);
