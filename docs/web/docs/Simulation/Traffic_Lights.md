@@ -114,6 +114,7 @@ traffic lights](#actuated_traffic_lights).
 
 To convert an existing .net.xml file so that all traffic lights are actuated,
 perform the following steps:
+
   - netconvert -s orig.net.xml --plain-output-prefix plain
   - netconvert -e plain.edg.xml -n plain.nod.xml -x plain.con.xml -o
     updated.net.xml --ignore-errors.edge-type --tls.default-type
