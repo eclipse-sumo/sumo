@@ -48,6 +48,9 @@ teleport_multihop
 # teleporting over multiple edges (with reinsertion instead of teleport-to-end)
 teleport_multihop2
 
+# remove jammed vehicles
+teleport_remove
+
 # vehicles are moving in circles
 circle_reroute
 
