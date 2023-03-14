@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-14 15:07+0000\n"
+"PO-Revision-Date: 2023-03-14 16:48+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
@@ -7323,12 +7323,12 @@ msgstr "超过了标签的最大属性数 %"
 #: /home/micha/programming/sumo/src\netedit\elements\GNETagProperties.cpp:170
 #, c-format
 msgid "Attribute '%' already inserted"
-msgstr ""
+msgstr "属性'%'已插入"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNETagProperties.cpp:207
 #, c-format
 msgid "Attribute '%' doesn't exist"
-msgstr ""
+msgstr "属性'%'不存在"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditional.cpp:148
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditional.cpp:149
@@ -7337,217 +7337,217 @@ msgstr ""
 #: /home/micha/programming/sumo/src\netedit\elements\data\GNEGenericData.cpp:128
 #: /home/micha/programming/sumo/src\netedit\elements\data\GNEGenericData.cpp:129
 msgid "Copy "
-msgstr ""
+msgstr "复制 "
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditional.cpp:148
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNETAZSourceSink.cpp:128
 #: /home/micha/programming/sumo/src\netedit\elements\data\GNEGenericData.cpp:128
 msgid " name to clipboard"
-msgstr ""
+msgstr " 名称至剪贴板"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditional.cpp:149
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNETAZSourceSink.cpp:129
 #: /home/micha/programming/sumo/src\netedit\elements\data\GNEGenericData.cpp:129
 msgid " typed name to clipboard"
-msgstr ""
+msgstr " 输入名字到剪贴板上"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditional.cpp:156
 #: /home/micha/programming/sumo/src\netedit\elements\data\GNEGenericData.cpp:136
 msgid "Open "
-msgstr ""
+msgstr "打开 "
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditional.cpp:156
 #: /home/micha/programming/sumo/src\netedit\elements\data\GNEGenericData.cpp:136
 msgid " Dialog"
-msgstr ""
+msgstr " 对话"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditional.cpp:164
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditional.cpp:174
 msgid "Cursor position over additional shape: "
-msgstr ""
+msgstr "光标在附加形状上的位置 : "
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditional.cpp:168
 msgid "Cursor position over lane: "
-msgstr ""
+msgstr "光标在车道上的位置: "
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditional.cpp:178
 msgid "Mouse position over edge: "
-msgstr ""
+msgstr "鼠标在路段的位置: "
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditional.cpp:181
 #: /home/micha/programming/sumo/src\netedit\elements\data\GNEGenericData.cpp:139
 msgid "Cursor position in view: "
-msgstr ""
+msgstr "光标在视图中的位置: "
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditional.cpp:392
 msgid "Invalid number of edges"
-msgstr ""
+msgstr "无效的路段号"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:104
 msgid "add bus stop '"
-msgstr ""
+msgstr "添加公共汽车站 '"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:148
 msgid "add train stop '"
-msgstr ""
+msgstr "添加火车站 '"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:186
 msgid ""
 "Could not build access in netedit; busStop parent already owns an access in "
 "the edge '"
-msgstr ""
+msgstr "无法在netedit中建立访问；busStop父级已经在路段拥有一个访问"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:188
 msgid "Could not build access in netedit; The lane '"
-msgstr ""
+msgstr "无法在netedit中建立访问；车道'"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:188
 msgid "' doesn't support pedestrians"
-msgstr ""
+msgstr "'不支持行人"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:194
 msgid "add access in '"
-msgstr ""
+msgstr "在''中添加访问权限"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:235
 msgid "add container stop '"
-msgstr ""
+msgstr "添加货箱停止'"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:279
 msgid "add charging station '"
-msgstr ""
+msgstr "加装充电站'"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:322
 msgid "Could not build parking area with ID '"
-msgstr ""
+msgstr "不能用ID建立停车区 '"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:322
 msgid "' in netedit; Invalid departPos over lane."
-msgstr ""
+msgstr "netedit中的'；在车道上无效的出发位置。"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:330
 msgid "add parking area '"
-msgstr ""
+msgstr "添加停车区 '"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:352
 msgid ""
 "Could not build parking space in netedit; attribute width cannot be parse to "
 "float."
-msgstr ""
+msgstr "无法在netedit中建立停车位；属性宽度不能被解析为浮动值。"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:354
 msgid ""
 "Could not build parking space in netedit; attribute length cannot be parse "
 "to float."
-msgstr ""
+msgstr "无法在netedit中建立停车位；属性长度不能被解析为浮点。"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:356
 msgid ""
 "Could not build parking space in netedit; attribute angle cannot be parse to "
 "float."
-msgstr ""
+msgstr "无法在netedit中建立停车位；属性长度不能被解析为浮点。"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:377
 msgid "add parking space in '"
-msgstr ""
+msgstr "在''中添加停车位"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:421
 msgid "add induction loop '"
-msgstr ""
+msgstr "添加感应线圈 '"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:461
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:519
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:528
 msgid "Could not build lane area detector with ID '"
-msgstr ""
+msgstr "无法建立ID为''的车道区检测器"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:461
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:528
 msgid "' in netedit; invalid traffic light ID."
-msgstr ""
+msgstr "'在netedit中；无效的交通信号灯ID。"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:486
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:547
 msgid "add lane area detector '"
-msgstr ""
+msgstr "添加车道区域检测器 '"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:519
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1540
 msgid "' in netedit; Lanes aren't consecutives."
-msgstr ""
+msgstr "netedit中的'；车道不是连续的。"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:592
 msgid "add entry-exit detector '"
-msgstr ""
+msgstr "添加进入-退出检测器'"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:627
 msgid "add entry detector in '"
-msgstr ""
+msgstr "在''添加进入检测器"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:662
 msgid "add exit detector in '"
-msgstr ""
+msgstr "在''添加出去检测器"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:699
 msgid "add instant induction loop '"
-msgstr ""
+msgstr "添加即时感应线圈"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:749
 msgid "add lane calibrator '"
-msgstr ""
+msgstr "添加车道校准器'"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:803
 msgid "add calibrator '"
-msgstr ""
+msgstr "添加校准器 '"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:844
 msgid "add calibrator flow in '"
-msgstr ""
+msgstr "在''中加入流量校准器"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:900
 msgid "add rerouter '"
-msgstr ""
+msgstr "添加掉头'"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:939
 msgid "Could not build interval with ID '"
-msgstr ""
+msgstr "无法用ID' 建立时间间隔"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:939
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1244
 msgid "' in netedit; begin is greather than end."
-msgstr ""
+msgstr "netedit中的'；开始（begin）比结束（end）要大。"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:947
 msgid "add rerouter interval in '"
-msgstr ""
+msgstr "在''中添加掉头间隔时间"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:956
 msgid "Could not build interval with begin '"
-msgstr ""
+msgstr "无法建立以'开始'为开头的间隔"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:956
 msgid "' in '"
-msgstr ""
+msgstr "'在 '"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:956
 msgid "' due overlapping."
-msgstr ""
+msgstr "'由于有重叠。"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:978
 msgid "add closing lane reroute in '"
-msgstr ""
+msgstr "在''添加关闭的车道改道"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1006
 msgid "add closing reroute in '"
-msgstr ""
+msgstr "在''中添加关闭掉头"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1033
 msgid "add dest prob reroute in '"
-msgstr ""
+msgstr "在''中添加目的地可能的重新路由"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1061
 msgid "add parking area reroute in '"
-msgstr ""
+msgstr "在''添加停车区''改变路线"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1089
 msgid "add route prob reroute in '"
