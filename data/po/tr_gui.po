@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-14 11:30+0000\n"
+"PO-Revision-Date: 2023-03-14 11:40+0000\n"
 "Last-Translator: kyasin <yasingoka@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/tr/>\n"
@@ -12666,203 +12666,203 @@ msgstr "tut"
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNESelectorFrame.cpp:156
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:156
 msgid "Restrict previous selection by the current selection"
-msgstr ""
+msgstr "Önceki seçimi geçerli seçimle kısıtla"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNESelectorFrame.cpp:158
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:158
 msgid "replace"
-msgstr ""
+msgstr "değiştir"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNESelectorFrame.cpp:158
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:158
 msgid "Replace previous selection by the current selection"
-msgstr ""
+msgstr "Önceki seçimi geçerli seçimle değiştir"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNESelectorFrame.cpp:213
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:213
 msgid "Visual Scaling"
-msgstr ""
+msgstr "Görsel Ölçeklendirme"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNESelectorFrame.cpp:242
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:242
 msgid "Selection operations"
-msgstr ""
+msgstr "Seçim işlemleri"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNESelectorFrame.cpp:251
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:251
 msgid "Deselect all objects (hotkey: ESC)"
-msgstr ""
+msgstr "Tüm nesnelerin seçimini kaldır (kısayol tuşu: ESC)"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNESelectorFrame.cpp:253
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:253
 msgid "Invert"
-msgstr ""
+msgstr "Ters çevir"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNESelectorFrame.cpp:253
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:253
 msgid "Invert selection status of all objects"
-msgstr ""
+msgstr "Tüm nesnelerin seçim durumunu tersine çevir"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNESelectorFrame.cpp:255
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:255
 msgid "Save ids of currently selected objects to a file."
-msgstr ""
+msgstr "Seçili nesnelerin kimliklerini bir dosyaya kaydet."
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNESelectorFrame.cpp:257
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:257
 msgid "Load ids from a file according to the current modification mode."
-msgstr ""
+msgstr "Geçerli değişiklik moduna göre kimlikleri bir dosyadan yükle."
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNESelectorFrame.cpp:259
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:259
 msgid "Delete all selected objects (hotkey: DEL)"
-msgstr ""
+msgstr "Seçilen tüm nesneleri sil (kısayol tuşu: DEL)"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNESelectorFrame.cpp:261
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:261
 msgid "Reduce"
-msgstr ""
+msgstr "Azalt"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNESelectorFrame.cpp:261
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:261
 msgid "Reduce network to current selection."
-msgstr ""
+msgstr "Ağı mevcut seçime indirgeyin."
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNESelectorFrame.cpp:286
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:286
 msgid "Could not open '%'."
-msgstr ""
+msgstr "'%' açılamadı."
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNESelectorFrame.cpp:334
 #: /home/micha/programming/sumo/src\utils\gui\div\GUIDialog_GLChosenEditor.cpp:148
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:334
 #: /home/micha/programming/sumo/src/utils/gui/div/GUIDialog_GLChosenEditor.cpp:148
 msgid "Save List of selected Items"
-msgstr ""
+msgstr "Seçilen Öğelerin Listesini Kaydet"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1116
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:1116
 msgid "Hierarchy operations"
-msgstr ""
+msgstr "Hiyerarşi işlemleri"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1127
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1137
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:1127
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:1137
 msgid "Select"
-msgstr ""
+msgstr "Seç"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1129
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1139
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:1129
 #: /home/micha/programming/sumo/src/netedit/frames/common/GNESelectorFrame.cpp:1139
 msgid "Unselect"
-msgstr ""
+msgstr "Seçimi Kaldır"
 
 #: /home/micha/programming/sumo/src\netedit\frames\data\GNEEdgeDataFrame.cpp:51
 #: /home/micha/programming/sumo/src/netedit/frames/data/GNEEdgeDataFrame.cpp:51
 msgid "There is already a % in edge '%'"
-msgstr ""
+msgstr "'%' kesiminde zaten bir % var"
 
 #: /home/micha/programming/sumo/src\netedit\frames\data\GNEGenericDataFrame.cpp:69
 #: /home/micha/programming/sumo/src/netedit/frames/data/GNEGenericDataFrame.cpp:69
 msgid "DataSet"
-msgstr ""
+msgstr "Veri Seti"
 
 #: /home/micha/programming/sumo/src\netedit\frames\data\GNEGenericDataFrame.cpp:72
 #: /home/micha/programming/sumo/src/netedit/frames/data/GNEGenericDataFrame.cpp:72
 msgid "Create new dataSet"
-msgstr ""
+msgstr "Yeni bir veri seti oluştur"
 
 #: /home/micha/programming/sumo/src\netedit\frames\data\GNEGenericDataFrame.cpp:83
 #: /home/micha/programming/sumo/src/netedit/frames/data/GNEGenericDataFrame.cpp:83
 msgid "Create dataSet"
-msgstr ""
+msgstr "Veri seti oluştur"
 
 #: /home/micha/programming/sumo/src\netedit\frames\data\GNEGenericDataFrame.cpp:140
 #: /home/micha/programming/sumo/src/netedit/frames/data/GNEGenericDataFrame.cpp:140
 msgid "Invalid dataSet ID"
-msgstr ""
+msgstr "Geçersiz veri seti kimliği (ID)"
 
 #: /home/micha/programming/sumo/src\netedit\frames\data\GNEGenericDataFrame.cpp:142
 #: /home/micha/programming/sumo/src/netedit/frames/data/GNEGenericDataFrame.cpp:142
 msgid "Invalid empty dataSet ID"
-msgstr ""
+msgstr "Geçersiz boş veri seti kimliği (ID)"
 
 #: /home/micha/programming/sumo/src\netedit\frames\data\GNEGenericDataFrame.cpp:144
 #: /home/micha/programming/sumo/src/netedit/frames/data/GNEGenericDataFrame.cpp:144
 msgid "Invalid duplicated dataSet ID"
-msgstr ""
+msgstr "Geçersiz çoğaltılmış veri seti kimliği (ID)"
 
 #: /home/micha/programming/sumo/src\netedit\frames\data\GNEGenericDataFrame.cpp:198
 #: /home/micha/programming/sumo/src/netedit/frames/data/GNEGenericDataFrame.cpp:198
 msgid "Interval"
-msgstr ""
+msgstr "Aralık"
 
 #: /home/micha/programming/sumo/src\netedit\frames\data\GNEGenericDataFrame.cpp:201
 #: /home/micha/programming/sumo/src/netedit/frames/data/GNEGenericDataFrame.cpp:201
 msgid "Create new interval"
-msgstr ""
+msgstr "Yeni aralık oluştur"
 
 #: /home/micha/programming/sumo/src\netedit\frames\data\GNEGenericDataFrame.cpp:219
 #: /home/micha/programming/sumo/src/netedit/frames/data/GNEGenericDataFrame.cpp:219
 msgid "create interval"
-msgstr ""
+msgstr "aralık oluştur"
 
 #: /home/micha/programming/sumo/src\netedit\frames\data\GNEGenericDataFrame.cpp:392
 #: /home/micha/programming/sumo/src/netedit/frames/data/GNEGenericDataFrame.cpp:392
 msgid "Data attributes"
-msgstr ""
+msgstr "Veri öznitelikleri"
 
 #: /home/micha/programming/sumo/src\netedit\frames\data\GNEMeanDataFrame.cpp:68
 #: /home/micha/programming/sumo/src/netedit/frames/data/GNEMeanDataFrame.cpp:68
 msgid "MeanData Type"
-msgstr ""
+msgstr "OrtalamaVeri (MeanData) Türü"
 
 #: /home/micha/programming/sumo/src\netedit\frames\data\GNEMeanDataFrame.cpp:161
 #: /home/micha/programming/sumo/src/netedit/frames/data/GNEMeanDataFrame.cpp:161
 msgid "MeanData Editor"
-msgstr ""
+msgstr "OrtalamaVeri (MeanData) Düzenleyici"
 
 #: /home/micha/programming/sumo/src\netedit\frames\data\GNEMeanDataFrame.cpp:164
 #: /home/micha/programming/sumo/src/netedit/frames/data/GNEMeanDataFrame.cpp:164
 msgid "Create MeanData"
-msgstr ""
+msgstr "OrtalamaVeri (MeanData) Oluştur"
 
 #: /home/micha/programming/sumo/src\netedit\frames\data\GNEMeanDataFrame.cpp:167
 #: /home/micha/programming/sumo/src/netedit/frames/data/GNEMeanDataFrame.cpp:167
 msgid "Delete MeanData"
-msgstr ""
+msgstr "OrtalamaVeri'yi (MeanData) sil"
 
 #: /home/micha/programming/sumo/src\netedit\frames\data\GNEMeanDataFrame.cpp:170
 #: /home/micha/programming/sumo/src/netedit/frames/data/GNEMeanDataFrame.cpp:170
 msgid "Copy MeanData"
-msgstr ""
+msgstr "OrtalamaVeri'yi (MeanData) kopyala"
 
 #: /home/micha/programming/sumo/src\netedit\frames\data\GNEMeanDataFrame.cpp:276
 #: /home/micha/programming/sumo/src/netedit/frames/data/GNEMeanDataFrame.cpp:276
 msgid "Current MeanData"
-msgstr ""
+msgstr "Geçerli OrtalamaVeri (MeanData)"
 
 #: /home/micha/programming/sumo/src\netedit\frames\data\GNETAZRelDataFrame.cpp:54
 #: /home/micha/programming/sumo/src/netedit/frames/data/GNETAZRelDataFrame.cpp:54
 msgid "Confirm TAZRelation"
-msgstr ""
+msgstr "TABİlişkili'yi onayla"
 
 #: /home/micha/programming/sumo/src\netedit\frames\data\GNETAZRelDataFrame.cpp:56
 #: /home/micha/programming/sumo/src/netedit/frames/data/GNETAZRelDataFrame.cpp:56
 msgid "Create TAZRelation"
-msgstr ""
+msgstr "TABİlişkili oluştur"
 
 #: /home/micha/programming/sumo/src\netedit\frames\data\GNETAZRelDataFrame.cpp:56
 #: /home/micha/programming/sumo/src/netedit/frames/data/GNETAZRelDataFrame.cpp:56
 msgid "Click fromTaz and toTaz (confirm hotkey <ENTER>)"
-msgstr ""
+msgstr "TAB'dan ve TAB'a seçeneklerine tıklayın (onaylama kısayolu <ENTER>)"
 
 #: /home/micha/programming/sumo/src\netedit\frames\data\GNETAZRelDataFrame.cpp:58
 #: /home/micha/programming/sumo/src/netedit/frames/data/GNETAZRelDataFrame.cpp:58
 msgid "Clear selection"
-msgstr ""
+msgstr "Seçimi temizle"
 
 #: /home/micha/programming/sumo/src\netedit\frames\data\GNETAZRelDataFrame.cpp:58
 #: /home/micha/programming/sumo/src/netedit/frames/data/GNETAZRelDataFrame.cpp:58
