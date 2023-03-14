@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-03-08 12:09:39.554313 by tlsCycleAdaptation.py v1_16_0+1037-be149f44e07
+<!-- generated on 2023-03-14 15:00:29.923223 by tlsCycleAdaptation.py v1_16_0+1154-eb73212805b
 <configuration>
     <net-file value="input_net.net.xml"/>
     <output-file value="out.add.xml"/>
@@ -33,5 +33,22 @@
         <phase duration="4" state="yyrr"/>
         <phase duration="4" state="rrGG"/>
         <phase duration="4" state="rryy"/>
+    </tlLogic>
+    <tlLogic id="joinedS_1" type="actuated" programID="a" offset="0">
+        <phase duration="4" state="GGGGrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrGGrrrrrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="4" state="GGGGrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="4" state="yyyyrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="4" state="GrrGggggggGggGrrGgggrrrrrrrgggGrrgGrrrrrrrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="4" state="GrrGggggggGggGrrGgggrrrrrrrgggGrrgrrrrrrrrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="4" state="yrryyyyyyyyyyyrryyyyrrrrrrryyyyrryrrrrrrrrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="6" state="rrrrrrrrrrgggGGGGrrrgGGGrrrgggrrGGGrrrrrrrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="6" state="rrrrrrrrrrgggGGGGrrrgGGGrrrgggrrGGrrrrrrrrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="4" state="rrrrrrrrrryyyyyyyrrryyyyrrryyyrryyrrrrrrrrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="4" state="rrrrrrrrrrgggGGGGrrrGrrrGgGgggrrGGGrrrrrrrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="4" state="rrrrrrrrrrgggGGGGrrrGrrrGgGgggrrGGrrrrrrrrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="4" state="rrrrrrrrrryyyyyyyrrryrrryyyyyyrryyrrrrrrrrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="4" state="rrrrrrrrrrgggGGGGrrrGrrrrrrgggGGrrGrrrrrrrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="4" state="rrrrrrrrrrgggGGGGrrrGrrrrrrgggGGrrrrrrrrrrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="4" state="rrrrrrrrrryyyyyyyrrryrrrrrryyyyyrrrrrrrrrrrrrrrrrrrrrrrrrrr"/>
     </tlLogic>
 </additional>
