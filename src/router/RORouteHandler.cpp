@@ -254,16 +254,30 @@ RORouteHandler::openVehicleTypeDistribution(const SUMOSAXAttributes& attrs) {
     if (ok) {
         myCurrentVTypeDistribution = new RandomDistributor<SUMOVTypeParameter*>();
         if (attrs.hasAttribute(SUMO_ATTR_VTYPES)) {
+            std::vector<double> probs;
+            if (attrs.hasAttribute(SUMO_ATTR_PROBS)) {
+                StringTokenizer st(attrs.get<std::string>(SUMO_ATTR_PROBS, myCurrentVTypeDistributionID.c_str(), ok));
+                while (st.hasNext()) {
+                    probs.push_back(StringUtils::toDoubleSecure(st.next(), 1.0));
+                }
+            }
             const std::string vTypes = attrs.get<std::string>(SUMO_ATTR_VTYPES, myCurrentVTypeDistributionID.c_str(), ok);
             StringTokenizer st(vTypes);
+            int probIndex = 0;
             while (st.hasNext()) {
                 const std::string typeID = st.next();
                 SUMOVTypeParameter* const type = myNet.getVehicleTypeSecure(typeID);
                 if (type == nullptr) {
                     myErrorOutput->inform("Unknown vehicle type '" + typeID + "' in distribution '" + myCurrentVTypeDistributionID + "'.");
                 } else {
-                    myCurrentVTypeDistribution->add(type, type->defaultProbability);
+                    const double prob = ((int)probs.size() > probIndex ? probs[probIndex] : type->defaultProbability);
+                    myCurrentVTypeDistribution->add(type, prob);
                 }
+                probIndex++;
+            }
+            if (probs.size() > 0 && probIndex != (int)probs.size()) {
+                WRITE_WARNING("Got " + toString(probs.size()) + " probabilities for " + toString(probIndex) +
+                        " types in vTypeDistribution '" + myCurrentVTypeDistributionID + "'");
             }
         }
     }
