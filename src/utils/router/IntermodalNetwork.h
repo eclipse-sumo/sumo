@@ -253,13 +253,13 @@ public:
                 _IntermodalEdge* endConnector = getArrivalConnector(edge);
                 pair.first->addSuccessor(endConnector);
                 pair.second->addSuccessor(endConnector);
-            }
 #ifdef IntermodalRouter_DEBUG_NETWORK
-            std::cout << "     " << startConnector->getID() << " -> " << pair.first->getID() << "\n";
-            std::cout << "     " << startConnector->getID() << " -> " << pair.second->getID() << "\n";
-            std::cout << "     " << pair.first->getID() << " -> " << endConnector->getID() << "\n";
-            std::cout << "     " << pair.second->getID() << " -> " << endConnector->getID() << "\n";
+                std::cout << "     " << startConnector->getID() << " -> " << pair.first->getID() << "\n";
+                std::cout << "     " << startConnector->getID() << " -> " << pair.second->getID() << "\n";
+                std::cout << "     " << pair.first->getID() << " -> " << endConnector->getID() << "\n";
+                std::cout << "     " << pair.second->getID() << " -> " << endConnector->getID() << "\n";
 #endif
+            }
         }
     }
 
