@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-14 08:26+0000\n"
+"PO-Revision-Date: 2023-03-14 08:40+0000\n"
 "Last-Translator: kyasin <yasingoka@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/tr/>\n"
@@ -10873,7 +10873,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1190
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1190
 msgid "A person trip from junction to junction needs two junctions junction"
-msgstr ""
+msgstr "Kavşaktan kavşağa seyahat eden bir kişi iki kavşağa ihtiyaç duyar"
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1201
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1360
@@ -10883,6 +10883,8 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1381
 msgid "A ride from busStop to edge needs a busStop and an edge"
 msgstr ""
+"Otobüs durağından (busStop) kesime yolculuk için bir Otobüs durağı (busStop) "
+"ve bir kesim gerekir"
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1211
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1370
@@ -10890,122 +10892,132 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1370
 msgid "A transport from busStop to busStop needs two busStops"
 msgstr ""
+"Otobüs durağından (busStop) otobüs durağına (busStop) ulaşım için iki otobüs "
+"durağı (busStop) gerekir"
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1221
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1221
 msgid "A transport with edges attribute needs a list of edges"
 msgstr ""
+"Kesimler özelliğine sahip bir taşıma, kesimlerin bir listesine ihtiyaç duyar"
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1231
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1231
 msgid "A route transport needs a route"
-msgstr ""
+msgstr "Bir rota taşımacılığının bir rotaya ihtiyacı vardır"
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1241
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1241
 msgid "A ride from busStop to junction needs a busStop and an junction"
 msgstr ""
+"Otobüs durağından (busStop) kavşağa bir yolculuk için bir otobüs durağı "
+"(busStop) ve bir kavşak gerekir"
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1252
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1252
 msgid "A ride from edge to edge needs two edges edge"
-msgstr ""
+msgstr "Kesimden kesime bir yolculuk için iki kesime ihtiyaç vardır"
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1262
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1262
 msgid "A ride from edge to busStop needs one edge and one busStop"
 msgstr ""
+"Kesimden otobüs durağına (busStop) bir yolculuk için bir kesim ve bir otobüs "
+"durağı (busStop) gerekir"
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1276
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1415
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1276
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1415
 msgid "A stop has to be placed over an edge"
-msgstr ""
+msgstr "Bir durak kesimin üzerine yerleştirilmelidir"
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1287
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1426
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1287
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1426
 msgid "A stop has to be placed over a busStop"
-msgstr ""
+msgstr "Bir durak, bir otobüs durağı (busStop) üzerine yerleştirilmelidir"
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1391
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1391
 msgid "A tranship from busStop to busStop needs two busStops"
 msgstr ""
+"Otobüs durağından (busStop) otobüs durağına aktarma için iki otobüs durağı "
+"(busStop) gerekir"
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1401
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1401
 msgid "A tranship with edges attribute needs a list of edges"
 msgstr ""
+"Kesimler özelliğine sahip bir aktarma, kesimlerin bir listesine ihtiyaç duyar"
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1467
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1467
 msgid "Via edge '"
-msgstr ""
+msgstr "Kesim üzerinden '"
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNEStop.cpp:443
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNEStop.cpp:443
 msgid "Invalid Stop parent"
-msgstr ""
+msgstr "Geçersiz Durak ebeveyni"
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNEStop.cpp:458
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNEStop.cpp:458
 msgid "Invalid parent"
-msgstr ""
+msgstr "Geçersiz ebeveyn"
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNEVehicle.cpp:645
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNEVehicle.cpp:645
 msgid "Invalid vehicle tag"
-msgstr ""
+msgstr "Geçersiz araç etiketi"
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNEWalk.cpp:331
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNEWalk.cpp:346
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNEWalk.cpp:331
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNEWalk.cpp:346
 msgid "This walk use junctions"
-msgstr ""
+msgstr "Bu yürüyüş kavşakları kullanır"
 
 #: /home/micha/programming/sumo/src\netedit\elements\network\GNEConnection.cpp:679
 #: /home/micha/programming/sumo/src/netedit/elements/network/GNEConnection.cpp:679
 msgid "Could not set attribute '%' (tls is broken)"
-msgstr ""
+msgstr "'%' özniteliği ayarlanamadı (tıs bozuk)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\network\GNEEdge.cpp:2169
 #: /home/micha/programming/sumo/src/netedit/elements/network/GNEEdge.cpp:2169
 msgid "Could not compute smooth shape for edge '%'"
-msgstr ""
+msgstr "'%' kesimi için pürüzsüz şekil hesaplanamadı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\network\GNEEdge.cpp:2187
 #: /home/micha/programming/sumo/src/netedit/elements/network/GNEEdge.cpp:2187
 msgid "Could not compute smooth elevation for edge '%'"
-msgstr ""
+msgstr "'%' kesimi için pürüzsüz yükseklik hesaplanamadı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\network\GNEInternalLane.cpp:241
 #: /home/micha/programming/sumo/src/netedit/elements/network/GNEInternalLane.cpp:241
 msgid "invalid link state='%'"
-msgstr ""
+msgstr "geçersiz bağlantı durumu='%'"
 
 #: /home/micha/programming/sumo/src\netedit\elements\network\GNEJunction.cpp:335
 #: /home/micha/programming/sumo/src/netedit/elements/network/GNEJunction.cpp:335
 msgid "Reset junction shapes"
-msgstr ""
+msgstr "Kavşak şekillerini sıfırla"
 
 #: /home/micha/programming/sumo/src\netedit\elements\network\GNELane.cpp:470
 #: /home/micha/programming/sumo/src/netedit/elements/network/GNELane.cpp:470
 msgid "Unexpected LinkState '%'"
-msgstr ""
+msgstr "Beklenmeyen Bağlantı Durumu '%'"
 
 #: /home/micha/programming/sumo/src\netedit\elements\network\GNELane.cpp:810
 #: /home/micha/programming/sumo/src/netedit/elements/network/GNELane.cpp:810
 msgid "Lane Parametric Length cannot be never 0"
-msgstr ""
+msgstr "Şerit Parametrik Uzunluğu asla 0 olamaz"
 
 #: /home/micha/programming/sumo/src\netedit\elements\network\GNELane.cpp:972
 #: /home/micha/programming/sumo/src/netedit/elements/network/GNELane.cpp:972
 msgid "Opposite lane '%' does not connect the same nodes as edge '%'!"
-msgstr ""
+msgstr "Karşıt şerit '%', '%' kesimi ile aynı düğümleri bağlamıyor!"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEAttributesCreator.cpp:49
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:738
@@ -11019,7 +11031,7 @@ msgstr "Dahili Öznitelikler"
 #: /home/micha/programming/sumo/src/netedit/frames/GNEAttributesCreator.cpp:175
 #: /home/micha/programming/sumo/src/netedit/frames/GNEAttributesCreator.cpp:177
 msgid "Invalid input parameter of "
-msgstr ""
+msgstr "Geçersiz giriş parametresi "
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEAttributesCreatorRow.cpp:60
 #: /home/micha/programming/sumo/src\netedit\frames\GNEAttributesCreatorRow.cpp:62
@@ -11045,12 +11057,12 @@ msgstr "Devre Dışı"
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:455
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:1252
 msgid "Color Dialog"
-msgstr ""
+msgstr "Renk İletişim Kutusu"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEAttributesCreatorRow.cpp:476
 #: /home/micha/programming/sumo/src/netedit/frames/GNEAttributesCreatorRow.cpp:476
 msgid "Unsupported additional ID"
-msgstr ""
+msgstr "Desteklenmeyen ek kimlik (ID)"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:55
 #: /home/micha/programming/sumo/src/netedit/frames/GNEConsecutiveSelector.cpp:55
@@ -11087,12 +11099,12 @@ msgstr "Aday Şeritleri Göster"
 #: /home/micha/programming/sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:73
 #: /home/micha/programming/sumo/src/netedit/frames/GNEConsecutiveSelector.cpp:73
 msgid "-BACKSPACE: undo click"
-msgstr ""
+msgstr "-GERİ AL: tıklamayı geri al"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:73
 #: /home/micha/programming/sumo/src/netedit/frames/GNEConsecutiveSelector.cpp:73
 msgid "-ESC: Abort path creation"
-msgstr ""
+msgstr "-ESC: Güzergah oluşturmayı iptal et"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:134
 #: /home/micha/programming/sumo/src/netedit/frames/GNEConsecutiveSelector.cpp:134
@@ -11111,7 +11123,7 @@ msgstr "Şerit Güzergahı İçin En Az İki Şerit Gerekir"
 #: /home/micha/programming/sumo/src/netedit/frames/GNEPathCreator.cpp:393
 #: /home/micha/programming/sumo/src/netedit/frames/GNEPathCreator.cpp:469
 msgid "route creation"
-msgstr ""
+msgstr "rota oluşturma"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:406
 #: /home/micha/programming/sumo/src/netedit/frames/GNEConsecutiveSelector.cpp:406
@@ -11128,7 +11140,7 @@ msgstr "- Uzunluk: "
 #: /home/micha/programming/sumo/src\netedit\frames\GNEDemandSelector.cpp:48
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDemandSelector.cpp:48
 msgid "Parent "
-msgstr ""
+msgstr "Ebeveyn "
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEDemandSelector.cpp:65
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDemandSelector.cpp:65
@@ -11138,62 +11150,62 @@ msgstr "Kaynak Eleman"
 #: /home/micha/programming/sumo/src\netedit\frames\GNEDemandSelector.cpp:108
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDemandSelector.cpp:108
 msgid "select item..."
-msgstr ""
+msgstr "öğe seç..."
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEDemandSelector.cpp:110
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDemandSelector.cpp:110
 msgid "-Select an item in the list or"
-msgstr ""
+msgstr "-Listeden bir öğe seçin veya"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEDemandSelector.cpp:110
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDemandSelector.cpp:110
 msgid "click over an element in view"
-msgstr ""
+msgstr "görünümdeki bir öğenin üzerine tıklayın"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEDemandSelector.cpp:133
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDemandSelector.cpp:133
 msgid "select sub-item..."
-msgstr ""
+msgstr "alt öğe seç..."
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEDemandSelector.cpp:136
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDemandSelector.cpp:136
 msgid "-Clicked over multiple"
-msgstr ""
+msgstr "-Birden fazla tıklandı"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEDemandSelector.cpp:137
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDemandSelector.cpp:137
 msgid "elements"
-msgstr ""
+msgstr "Elemanlar"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEDemandSelector.cpp:138
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDemandSelector.cpp:138
 msgid " - Select an item in the"
-msgstr ""
+msgstr " - İçinden bir öğe seçin"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEDemandSelector.cpp:139
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDemandSelector.cpp:139
 msgid " list or click over an"
-msgstr ""
+msgstr " listeleyin veya üzerine tıklayın"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEDemandSelector.cpp:140
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDemandSelector.cpp:140
 msgid " element in view"
-msgstr ""
+msgstr " görünümdeki eleman"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEDemandSelector.cpp:332
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDemandSelector.cpp:332
 msgid "Selected item '"
-msgstr ""
+msgstr "Seçilen öğe '"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEDemandSelector.cpp:332
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDemandSelector.cpp:332
 msgid "' in DemandElementSelector"
-msgstr ""
+msgstr "' içinde Talep Eleman Seçici"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEDemandSelector.cpp:345
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDemandSelector.cpp:345
 msgid "Selected invalid item in DemandElementSelector"
-msgstr ""
+msgstr "Talep eleman seçicide geçersiz öğe seçildi"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEDrawingShape.cpp:48
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDrawingShape.cpp:48
@@ -11218,42 +11230,42 @@ msgstr "Çizimi İptal Et"
 #: /home/micha/programming/sumo/src\netedit\frames\GNEDrawingShape.cpp:58
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDrawingShape.cpp:58
 msgid "- 'Start drawing' or ENTER"
-msgstr ""
+msgstr "- 'Çizime başla' veya ENTER"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEDrawingShape.cpp:59
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDrawingShape.cpp:59
 msgid "  to create shape."
-msgstr ""
+msgstr "  şekil oluşturmak için."
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEDrawingShape.cpp:60
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDrawingShape.cpp:60
 msgid "- 'Stop drawing' or ENTER to"
-msgstr ""
+msgstr "- 'Çizimi durdur' veya ENTER"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEDrawingShape.cpp:61
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDrawingShape.cpp:61
 msgid "  finish shape creation."
-msgstr ""
+msgstr "  şekil oluşturmayı bitir."
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEDrawingShape.cpp:62
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDrawingShape.cpp:62
 msgid "- 'Abort drawing' or ESC to"
-msgstr ""
+msgstr "- 'Çizimi iptal et' veya ESC"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEDrawingShape.cpp:63
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDrawingShape.cpp:63
 msgid "  abort shape creation."
-msgstr ""
+msgstr "  şekil oluşturmayı iptal et."
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEDrawingShape.cpp:64
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDrawingShape.cpp:64
 msgid "- 'Shift + Click' to remove"
-msgstr ""
+msgstr "- Kaldırmak için 'Shift + Tıkla'"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEDrawingShape.cpp:65
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDrawingShape.cpp:65
 msgid "  last inserted point."
-msgstr ""
+msgstr "  Son eklenen nokta."
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEDrawingShape.cpp:137
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDrawingShape.cpp:137
