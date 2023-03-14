@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-13 08:53+0000\n"
+"PO-Revision-Date: 2023-03-14 08:40+0000\n"
 "Last-Translator: kyasin <yasingoka@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/tr/>\n"
@@ -5876,7 +5876,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src\netbuild\NBEdgeCont.cpp:921
 #: /home/micha/programming/sumo/src/netbuild/NBEdgeCont.cpp:921
 msgid "Opposite lane '%' does not connect the same nodes as edge '%'!"
-msgstr ""
+msgstr "Karşıt şerit '%', '%' kesimi ile aynı düğümleri bağlamıyor!"
 
 #: /home/micha/programming/sumo/src\netbuild\NBEdgeCont.cpp:1421
 #: /home/micha/programming/sumo/src/netbuild/NBEdgeCont.cpp:1421
