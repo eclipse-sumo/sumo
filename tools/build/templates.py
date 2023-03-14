@@ -29,9 +29,10 @@ import os
 import re
 from os.path import dirname, join
 from subprocess import check_output, CalledProcessError
+from glob import glob
 
 # list of folders and tools
-tools = [
+TOOLS = [
 
     # detector
     # "detector/aggregateFlows.py",   NO CONFIG
@@ -253,7 +254,14 @@ tools = [
     "tileGet.py",
     "tlsCoordinator.py",
     "tlsCycleAdaptation.py",
-    # "traceExporter",                NO CONFIG
+    # "traceExporter.py",               NO CONFIG
+]
+
+
+SOURCE_DEPS = [
+    "microsim/MSFrame.cpp", "microsim/devices/*.cpp",
+    "utils/common/RandHelper.cpp", "utils/common/SystemFrame.cpp",
+    "utils/geom/GeoConvHelper.cpp",
 ]
 
 
@@ -357,33 +365,52 @@ def generateToolTemplate(toolDir, toolPath):
     # check if exists
     if os.path.exists(join(toolDir, toolPath)):
         # show info
-        print("Obtaining '" + toolName + "' tool template")
+        print("Obtaining '" + toolName + "' tool template.")
         # obtain template piping stdout using check_output
         try:
             template = check_output([sys.executable, join(toolDir, toolPath),
                                      "--save-template", "stdout"], universal_newlines=True)
+            # join variable and formated template
+            return templateTool + formatToolTemplate(template) + '),\n'
         except CalledProcessError as e:
-            sys.stderr.write("Error when generating tool template for %s: '%s'" % (toolName, e))
-            return templateTool + '""),\n'
-        # join variable and formated template
-        return templateTool + formatToolTemplate(template) + '),\n'
-    # if tool wasn't found, then raise exception
-    raise Exception(toolName + "Template cannot be generated. '" + toolPath + "' not found.")
+            print("Error when generating tool template for %s: '%s'." % (toolName, e), file=sys.stderr)
+    else:
+        print(toolName + "Template cannot be generated. '" + toolPath + "' not found.", file=sys.stderr)
+    return templateTool + '""),\n'
 
 
-if __name__ == "__main__":
+def checkMod(toolDir, reference):
+    mtime = os.path.getmtime(reference)
+    for root, _, files in os.walk(toolDir):
+        for f in files:
+            if f[:-3] == ".py" and os.path.getmtime(join(root, f)) > mtime:
+                return True
+    srcDir = join(dirname(toolDir), 'src')
+    for p in SOURCE_DEPS:
+        for f in glob(join(srcDir, p)):
+            if os.path.getmtime(f) > mtime:
+                return True
+    return False
+
+
+def main():
     if len(sys.argv) == 1:
         sys.exit("Arguments: <pathToSUMO>")
     # get tool dir path (SUMO/tools)
     toolDir = join(dirname(__file__), '..')
-    # write templates.h
-    with open("templates.h", 'w') as templateHeaderFile:
-        # generate templateTool header
-        buildTemplateToolHeader(templateHeaderFile)
-        # generate Tool templates
-        print("const std::vector<TemplateTool> templateTools {\n", file=templateHeaderFile)
-        for tool in tools:
-            print(generateToolTemplate(toolDir, tool), file=templateHeaderFile)
-        print("};", file=templateHeaderFile)
-        # generate SUMO Template
-        print(generateSumoTemplate(sys.argv[1]), file=templateHeaderFile)
+    if not os.path.exists("templates.h") or checkMod(toolDir, "templates.h"):
+        # write templates.h
+        with open("templates.h", 'w') as templateHeaderFile:
+            # generate templateTool header
+            buildTemplateToolHeader(templateHeaderFile)
+            # generate Tool templates
+            print("const std::vector<TemplateTool> templateTools {\n", file=templateHeaderFile)
+            for tool in TOOLS:
+                print(generateToolTemplate(toolDir, tool), file=templateHeaderFile)
+            print("};", file=templateHeaderFile)
+            # generate SUMO Template
+            print(generateSumoTemplate(sys.argv[1]), file=templateHeaderFile)
+
+
+if __name__ == "__main__":
+    main()
