@@ -180,6 +180,12 @@ The function computes the average speed of vehicles across all currently formed 
 avgSpeed = simpla.getAveragePlatoonSpeed()
 ```
 
+## getPlatoonLeaderIDList()
+This utility function returns the leader vehicles' IDs of all pcurrent platoons managed by simpla:
+```
+currentLeaderIDs = simpla.getPlatoonLeaderIDList()
+```
+
 ## getPlatoonIDList() and getPlatoonInfo()
 Platoons can be found by their position on the road network using the edge ID in question.
 The function returns IDs of platoons which currently have at least one member vehicle on the edge given by its **edgeID**. 
@@ -188,6 +194,7 @@ The platoon ID can be used to receive updates using getPlatoonInfo even when the
 platoonIDs = simpla.getPlatoonIDList(edgeID)
 if len(platoonIDs) > 0:
     platoonInfo = simpla.getPlatoonInfo(platoonIDs[0])
+    platoonSize = len(platoonInfo["members"])
 ```
 The function getPlatoonInfo returns a dictionary of values regarding the platoon, using the keys from the table below:
 
