@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-14 07:17+0000\n"
+"PO-Revision-Date: 2023-03-14 08:26+0000\n"
 "Last-Translator: kyasin <yasingoka@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/tr/>\n"
@@ -10301,7 +10301,7 @@ msgstr "şeritler ardışık değil"
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNELaneAreaDetector.cpp:183
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEOverheadWire.cpp:129
 msgid "lanes aren't connected"
-msgstr ""
+msgstr "şeritler bağlı değil"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNELaneAreaDetector.cpp:202
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEOverheadWire.cpp:147
@@ -10310,158 +10310,158 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEOverheadWire.cpp:147
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEStoppingPlace.cpp:141
 msgid " and "
-msgstr ""
+msgstr " ve "
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEMultiEntryExitDetector.cpp:115
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEMultiEntryExitDetector.cpp:115
 msgid "' needs at least one entry and one exit"
-msgstr ""
+msgstr "' en az bir giriş ve bir çıkışa ihtiyaç duyar"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEMultiEntryExitDetector.cpp:299
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEMultiEntryExitDetector.cpp:299
 msgid "An entry-exit detector needs at least one entry detector"
-msgstr ""
+msgstr "Bir giriş-çıkış dedektörü en az bir giriş dedektörüne ihtiyaç duyar"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEMultiEntryExitDetector.cpp:302
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEMultiEntryExitDetector.cpp:302
 msgid "An entry-exit detector needs at least one exit detector"
-msgstr ""
+msgstr "Bir giriş-çıkış dedektörü en az bir çıkış dedektörüne ihtiyaç duyar"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEPOI.cpp:261
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEPOI.cpp:261
 msgid "Release from lane"
-msgstr ""
+msgstr "Şeritten ayrılma"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEPOI.cpp:265
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEPOI.cpp:265
 msgid "Attach to nearest lane"
-msgstr ""
+msgstr "En yakın şeride ekle"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEPoly.cpp:196
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEPoly.cpp:196
 msgid "Simplify Shape"
-msgstr ""
+msgstr "Şekli Basitleştir"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEPoly.cpp:196
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEPoly.cpp:196
 msgid "Replace current shape with a rectangle"
-msgstr ""
+msgstr "Geçerli şekli bir dikdörtgenle değiştir"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEPoly.cpp:202
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEPoly.cpp:202
 msgid "Open shape"
-msgstr ""
+msgstr "Şekli aç"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEPoly.cpp:202
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEPoly.cpp:202
 msgid "Open polygon's shape"
-msgstr ""
+msgstr "Çokgenin şeklini aç"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEPoly.cpp:204
 #: /home/micha/programming/sumo/src\netedit\frames\GNENeteditAttributes.cpp:65
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEPoly.cpp:204
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:65
 msgid "Close shape"
-msgstr ""
+msgstr "şekli kapat"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEPoly.cpp:204
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEPoly.cpp:204
 msgid "Close polygon's shape"
-msgstr ""
+msgstr "Çokgenin şeklini kapat"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEPoly.cpp:206
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEPoly.cpp:206
 msgid "Select elements within polygon"
-msgstr ""
+msgstr "Çokgen içindeki elemanları seç"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEPoly.cpp:206
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEPoly.cpp:206
 msgid "Select elements within polygon boundary"
-msgstr ""
+msgstr "Çokgen sınırı içindeki elemanları seç"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEPoly.cpp:216
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEPoly.cpp:216
 msgid "Remove geometry point"
-msgstr ""
+msgstr "Geometri noktasını kaldır"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEPoly.cpp:216
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEPoly.cpp:216
 msgid "Remove geometry point under mouse"
-msgstr ""
+msgstr "Farenin altındaki geometri noktasını kaldır"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEPoly.cpp:217
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEPoly.cpp:217
 msgid "Set first geometry point"
-msgstr ""
+msgstr "İlk geometri noktasını ayarla"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEPoly.cpp:429
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEPoly.cpp:429
 msgid "Number of remaining points insufficient"
-msgstr ""
+msgstr "Kalan nokta sayısı yetersiz"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEPoly.cpp:456
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEPoly.cpp:456
 msgid "Polygon already opened"
-msgstr ""
+msgstr "Çokgen zaten açıldı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEPoly.cpp:477
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEPoly.cpp:477
 msgid "Polygon already closed"
-msgstr ""
+msgstr "Çokgen zaten kapandı"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEPoly.cpp:488
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEPoly.cpp:488
 msgid "Selected point must be different of the first point"
-msgstr ""
+msgstr "Seçilen nokta ilk noktadan farklı olmalıdır"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEPoly.cpp:553
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNEPoly.cpp:553
 msgid "Polygon already simplified"
-msgstr ""
+msgstr "Poligon zaten basitleştirilmiş"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNETAZ.cpp:264
 #: /home/micha/programming/sumo/src/netedit/elements/additional/GNETAZ.cpp:264
 msgid "Set custom Geometry Point"
-msgstr ""
+msgstr "Özel Geometri Noktası ayarla"
 
 #: /home/micha/programming/sumo/src\netedit\elements\data\GNEDataHandler.cpp:62
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEDataHandler.cpp:62
 msgid "add data set"
-msgstr ""
+msgstr "veri seti ekle"
 
 #: /home/micha/programming/sumo/src\netedit\elements\data\GNEDataHandler.cpp:87
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEDataHandler.cpp:87
 msgid "add data set and data interval"
-msgstr ""
+msgstr "veri seti ve veri aralığı ekle"
 
 #: /home/micha/programming/sumo/src\netedit\elements\data\GNEDataHandler.cpp:100
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEDataHandler.cpp:100
 msgid "add data interval"
-msgstr ""
+msgstr "veri aralığı ekle"
 
 #: /home/micha/programming/sumo/src\netedit\elements\data\GNEDataHandler.cpp:128
 #: /home/micha/programming/sumo/src\netedit\elements\data\GNEDataHandler.cpp:165
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEDataHandler.cpp:128
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEDataHandler.cpp:165
 msgid "add edge rel"
-msgstr ""
+msgstr "kesim ilişkisi ekle"
 
 #: /home/micha/programming/sumo/src\netedit\elements\data\GNEDataHandler.cpp:205
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEDataHandler.cpp:205
 msgid "There is already a TAZ rel defined between '"
-msgstr ""
+msgstr "' arasında tanımlanmış bir TAB ilişkisi zaten var"
 
 #: /home/micha/programming/sumo/src\netedit\elements\data\GNEDataHandler.cpp:207
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEDataHandler.cpp:207
 msgid "There is already a TAZ rel defined in '"
-msgstr ""
+msgstr "' içinde tanımlanmış bir TAB ilişkisi zaten var"
 
 #: /home/micha/programming/sumo/src\netedit\elements\data\GNEDataHandler.cpp:211
 #: /home/micha/programming/sumo/src\netedit\elements\data\GNEDataHandler.cpp:222
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEDataHandler.cpp:211
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEDataHandler.cpp:222
 msgid "add TAZ rel"
-msgstr ""
+msgstr "TAB ilişkisi ekle"
 
 #: /home/micha/programming/sumo/src\netedit\elements\data\GNEDataHandler.cpp:255
 #: /home/micha/programming/sumo/src\netedit\elements\data\GNEMeanDataHandler.cpp:132
@@ -10470,80 +10470,80 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEMeanDataHandler.cpp:132
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1467
 msgid "' doesn't exist."
-msgstr ""
+msgstr "' yok."
 
 #: /home/micha/programming/sumo/src\netedit\elements\data\GNEDataInterval.cpp:173
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEDataInterval.cpp:173
 msgid "GenericData was already inserted"
-msgstr ""
+msgstr "GenericData zaten eklendi"
 
 #: /home/micha/programming/sumo/src\netedit\elements\data\GNEDataInterval.cpp:199
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEDataInterval.cpp:199
 msgid "GenericData wasn't previously inserted"
-msgstr ""
+msgstr "GenericData daha önce eklenmemiş"
 
 #: /home/micha/programming/sumo/src\netedit\elements\data\GNEDataSet.cpp:214
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEDataSet.cpp:214
 msgid "DataInterval was already inserted"
-msgstr ""
+msgstr "DataInterval zaten eklendi"
 
 #: /home/micha/programming/sumo/src\netedit\elements\data\GNEDataSet.cpp:231
 #: /home/micha/programming/sumo/src\netedit\elements\data\GNEDataSet.cpp:255
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEDataSet.cpp:231
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEDataSet.cpp:255
 msgid "DataInterval wasn't previously inserted"
-msgstr ""
+msgstr "DataInterval daha önce eklenmedi"
 
 #: /home/micha/programming/sumo/src\netedit\elements\data\GNEGenericData.cpp:310
 #: /home/micha/programming/sumo/src\netedit\elements\network\GNEEdgeType.cpp:155
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEGenericData.cpp:310
 #: /home/micha/programming/sumo/src/netedit/elements/network/GNEEdgeType.cpp:155
 msgid "Invalid index"
-msgstr ""
+msgstr "Geçersiz dizin"
 
 #: /home/micha/programming/sumo/src\netedit\elements\data\GNEMeanDataHandler.cpp:64
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEMeanDataHandler.cpp:64
 msgid "Could not build meanDataEdge; "
-msgstr ""
+msgstr "MeanDataEdge oluşturulamadı; "
 
 #: /home/micha/programming/sumo/src\netedit\elements\data\GNEMeanDataHandler.cpp:64
 #: /home/micha/programming/sumo/src\netedit\elements\data\GNEMeanDataHandler.cpp:93
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEMeanDataHandler.cpp:64
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEMeanDataHandler.cpp:93
 msgid " already exist"
-msgstr ""
+msgstr " zaten var"
 
 #: /home/micha/programming/sumo/src\netedit\elements\data\GNEMeanDataHandler.cpp:70
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEMeanDataHandler.cpp:70
 msgid "add meanDataEdge"
-msgstr ""
+msgstr "meanDataEdge ekle"
 
 #: /home/micha/programming/sumo/src\netedit\elements\data\GNEMeanDataHandler.cpp:93
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEMeanDataHandler.cpp:93
 msgid "Could not build meanDataLane; "
-msgstr ""
+msgstr "meanDataLane oluşturulamadı; "
 
 #: /home/micha/programming/sumo/src\netedit\elements\data\GNEMeanDataHandler.cpp:99
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEMeanDataHandler.cpp:99
 msgid "add meanDataLane"
-msgstr ""
+msgstr "meanDataLane ekle"
 
 #: /home/micha/programming/sumo/src\netedit\elements\data\GNEMeanDataHandler.cpp:116
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEMeanDataHandler.cpp:116
 msgid " in netedit; edge doesn't exist."
-msgstr ""
+msgstr " netedit'te; kesim mevcut değil."
 
 #: /home/micha/programming/sumo/src\netedit\elements\data\GNEMeanDataHandler.cpp:132
 #: /home/micha/programming/sumo/src/netedit/elements/data/GNEMeanDataHandler.cpp:132
 msgid " in netedit; attribute '"
-msgstr ""
+msgstr " netedit'te; öznitelik '"
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNEPersonTrip.cpp:306
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNEPersonTrip.cpp:317
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNEPersonTrip.cpp:306
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNEPersonTrip.cpp:317
 msgid "This personTrip use junctions"
-msgstr ""
+msgstr "Bu Yolcu Seyahati (personTrip) kavşakları kullanır"
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:71
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:100
@@ -10558,7 +10558,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1479
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1491
 msgid "There is another "
-msgstr ""
+msgstr "Başka bir tane daha var "
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:71
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:100
@@ -10573,7 +10573,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1479
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1491
 msgid " with the same ID='"
-msgstr ""
+msgstr " aynı kimliğe sahip (ID)='"
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:76
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:126
@@ -10640,39 +10640,39 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1078
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1098
 msgid "add "
-msgstr ""
+msgstr "ekle "
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:102
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:102
 msgid " need at least one "
-msgstr ""
+msgstr " en az bir tane gerekir "
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:108
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:118
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:108
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:118
 msgid " with id '"
-msgstr ""
+msgstr " ' Kimlik (ID) ile"
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:108
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:108
 msgid "' doesn't exist in "
-msgstr ""
+msgstr "' içinde yok "
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:115
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:115
 msgid "Invalid definition for "
-msgstr ""
+msgstr "için geçersiz tanım "
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:115
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:115
 msgid " in "
-msgstr ""
+msgstr " içinde "
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:118
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:118
 msgid "' cannot be created in "
-msgstr ""
+msgstr "' içinde oluşturulamaz "
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:191
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:239
@@ -10689,7 +10689,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:403
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:443
 msgid "Invalid vehicle type '"
-msgstr ""
+msgstr "Geçersiz araç tipi '"
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:191
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:239
@@ -10718,7 +10718,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:782
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:809
 msgid "' used in "
-msgstr ""
+msgstr "' içinde kullanılan "
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:193
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:195
@@ -10749,19 +10749,19 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:445
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:447
 msgid " used in "
-msgstr ""
+msgstr " içinde kullanılan "
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:227
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:227
 msgid "netedit doesn't support route distributions"
-msgstr ""
+msgstr "netedit rota dağıtımlarını desteklemiyor"
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:241
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:278
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:241
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:278
 msgid "Invalid route '"
-msgstr ""
+msgstr "Geçersiz rota'"
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:243
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:245
@@ -10788,82 +10788,87 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:445
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:447
 msgid "Invalid "
-msgstr ""
+msgstr "Geçersiz "
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:280
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:280
 msgid " is greater than number of lanes"
-msgstr ""
+msgstr " şerit sayısından daha büyük"
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:282
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:282
 msgid " is greater than vType"
-msgstr ""
+msgstr " Araç Tipi'nden (vType) daha büyük"
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:479
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:479
 msgid "Invalid person type '"
-msgstr ""
+msgstr "Geçersiz yolcu tipi '"
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:506
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:506
 msgid "Invalid personFlow type '"
-msgstr ""
+msgstr "Geçersiz yolcu akımı (personFlow) türü '"
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:995
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:995
 msgid "Containers don't support stops at busStops"
-msgstr ""
+msgstr "Konteynerler otobüs duraklarındaki durakları desteklemez"
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1003
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1003
 msgid "Persons don't support stops at containerStops"
-msgstr ""
+msgstr "Yolcular konteyner duraklarındaki durakları desteklemez"
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1011
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1011
 msgid "Persons don't support stops at chargingStations"
-msgstr ""
+msgstr "Yolcular şarj istasyonlarındaki durakları desteklemez"
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1014
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1014
 msgid "Containers don't support stops at chargingStations"
-msgstr ""
+msgstr "Konteynerler şarj istasyonlarındaki durakları desteklemez"
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1022
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1022
 msgid "Persons don't support stops at parkingAreas"
-msgstr ""
+msgstr "Yolcular park alanlarındaki durakları desteklemez"
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1025
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1025
 msgid "Containers don't support stops at parkingAreas"
-msgstr ""
+msgstr "Konteynerler park alanlarındaki durakları desteklemez"
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1035
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1035
 msgid "vehicles don't support stops at edges"
-msgstr ""
+msgstr "araçlar kesimlerdeki durakları desteklemez"
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1048
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1048
 msgid "A stop must be defined either over a stoppingPlace, a edge or a lane"
 msgstr ""
+"Bir durak ya bir durak yeri (stoppingPlace), bir kesim ya da bir şerit "
+"üzerinde tanımlanmalıdır"
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1050
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1050
 msgid "A stop requires only a stoppingPlace, edge or lane"
 msgstr ""
+"Bir durak sadece bir durak yeri (stoppingPlace), kesim veya şerit gerektirir"
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1170
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1170
 msgid "A person trip from edge to edge needs two edges edge"
-msgstr ""
+msgstr "Kesimden kesime yolculuk yapan bir kişi iki kesime ihtiyaç duyar"
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1180
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1180
 msgid "A person trip from edge to busStop needs one edge and one busStop"
 msgstr ""
+"Kesimden otobüs durağına giden bir kişi bir kesime ve bir otobüs durağına "
+"ihtiyaç duyar"
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1190
 #: /home/micha/programming/sumo/src/netedit/elements/demand/GNERouteHandler.cpp:1190
