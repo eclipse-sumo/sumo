@@ -49,6 +49,7 @@ while traci.simulation.getMinExpectedNumber() > 0:
         else:
             print("Step %d" % step)
             print("\tsimpla platoon count: %d" % len(platoonIDs))
+            print("\tsimpla platoon leaders: %s" % ", ".join(simpla.getPlatoonLeaderIDList()))
             print("\tsimpla platoon average length: %.2f" % simpla.getAveragePlatoonLength())
             print("\tsimpla platoon average speed: %.2f" % simpla.getAveragePlatoonSpeed())
             platoonInfo = simpla.getPlatoonInfo(platoonID)
