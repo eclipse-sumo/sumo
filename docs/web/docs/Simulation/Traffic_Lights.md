@@ -103,20 +103,31 @@ option **--tls.red.time**.
 
 ## Improving Generated programs with knowledge about traffic demand
 
-- To get traffic lights that adapt to demand dynamically, built the
+### Using actuated traffic lights
+
+To get traffic lights that adapt to demand dynamically, built the
 network with option **--tls.default-type actuated**. This will automatically generate [actuated
-traffic lights](#actuated_traffic_lights). To convert an
-existing .net.xml file so that all traffic lights are actuated,
+traffic lights](#actuated_traffic_lights).
+
+!!! note
+    If the network was created by [osmWebWizard.py](../Tutorials/OSMWebWizard.md) the traffic lights are 'actuated' by default
+
+To convert an existing .net.xml file so that all traffic lights are actuated,
 perform the following steps:
   - netconvert -s orig.net.xml --plain-output-prefix plain
   - netconvert -e plain.edg.xml -n plain.nod.xml -x plain.con.xml -o
     updated.net.xml --ignore-errors.edge-type --tls.default-type
     actuated
-- The tool
+
+### Adapting fixed timings (green split) to known traffic
+
 [tlsCycleAdaptation.py](../Tools/tls.md#tlscycleadaptationpy)
 can be used to modify green phase durations to accommodate a given
 traffic demand.
-- The tool [tlsCoordinator.py](../Tools/tls.md#tlscoordinatorpy)
+
+### Coordinating fixed timings
+
+The tool [tlsCoordinator.py](../Tools/tls.md#tlscoordinatorpy)
 can be used to modify program offsets to generated green waves for a
 given traffic demand.
 
