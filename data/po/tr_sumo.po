@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-14 09:07+0000\n"
+"PO-Revision-Date: 2023-03-14 11:40+0000\n"
 "Last-Translator: kyasin <yasingoka@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/tr/>\n"
@@ -11211,9 +11211,8 @@ msgstr "'%' Kesiminde Önemli Bir Bilgi Eksik."
 #: /home/micha/programming/sumo/src\utils\options\OptionsIO.cpp:154
 #: /home/micha/programming/sumo/src/od/ODMatrix.cpp:647
 #: /home/micha/programming/sumo/src/utils/options/OptionsIO.cpp:154
-#, fuzzy
 msgid "Could not open '%'."
-msgstr "tls '%' Tahsis Edilemedi."
+msgstr "'%' açılamadı."
 
 #: /home/micha/programming/sumo/src\od\ODMatrix.cpp:658
 #: /home/micha/programming/sumo/src\od\ODMatrix.cpp:664
