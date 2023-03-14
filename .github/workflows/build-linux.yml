@@ -129,6 +129,19 @@ jobs:
         sumo/tests/runTests.sh -b ci -a netconvert.gdal.ci,polyconvert.gdal.ci
         sumo/tests/runTests.sh -b ci -a tools.python2.ci
 
+    - name: Compressing test results
+      if: failure()
+      run: |
+        zip -r texttesttmp.zip ~/.texttest/tmp
+
+    - name: Uploading test results
+      if: failure()
+      uses: actions/upload-artifact@v3
+      with:
+        name: texttesttmp
+        path: texttesttmp.zip
+        if-no-files-found: warn
+
     - name: Uploading artifacts (SUMO binaries)
       uses: actions/upload-artifact@v3
       with:
