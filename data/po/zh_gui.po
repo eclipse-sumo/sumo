@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-14 12:31+0000\n"
+"PO-Revision-Date: 2023-03-14 12:38+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
@@ -6725,76 +6725,76 @@ msgstr "（不与 vehsPerHour , 概率或帕松(poisson)分配一起使用）"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4990
 msgid "(not together with vehsPerHour or period or poisson)"
-msgstr ""
+msgstr "（不与 vehsPerHour , 周期或帕松(poisson)分配一起使用）"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4996
 msgid ""
 "Insert flow expected vehicles per second with poisson distributed insertion "
 "rate"
-msgstr ""
+msgstr "根据帕松(poisson)分配注入率, 每秒注入预期车辆的流量"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4997
 msgid "(not together with period or vehsPerHour or probability)"
-msgstr ""
+msgstr "（不与周期, 每小时车辆数(vehsPerHour)或概率一起使用）"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5010
 msgid "The acceleration ability of vehicles of this type [m/s^2]"
-msgstr ""
+msgstr "此类型车辆的加速能力 [米/平方秒]"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5016
 msgid "The deceleration ability of vehicles of this type [m/s^2]"
-msgstr ""
+msgstr "此类型车辆的减速能力[米/平方秒]"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5022
 msgid ""
 "The apparent deceleration of the vehicle as used by the standard model [m/"
 "s^2]"
-msgstr ""
+msgstr "标准模式使用的车辆视在減速 [米/平方秒]"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5028
 msgid "The maximal physically possible deceleration for the vehicle [m/s^2]"
-msgstr ""
+msgstr "车辆的最大物理可能減速度 [米/平方秒]"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5034
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5041
 msgid "Car-following model parameter"
-msgstr ""
+msgstr "跟车模式参数"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5047
 msgid "SKRAUSSX parameter 1"
-msgstr ""
+msgstr "SKRAUSSX参数1"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5052
 msgid "SKRAUSSX parameter 2"
-msgstr ""
+msgstr "SKRAUSSX参数2"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5057
 msgid "SKRAUSSX parameter 3"
-msgstr ""
+msgstr "SKRAUSSX参数3"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5062
 msgid "SKRAUSSX parameter 4"
-msgstr ""
+msgstr "SKRAUSSX参数4"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5067
 msgid "SKRAUSSX parameter 5"
-msgstr ""
+msgstr "SKRAUSSX参数5"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5072
 msgid "EIDM Look ahead / preview parameter [s]"
-msgstr ""
+msgstr "EIDM 前瞻/预览参数 [秒]"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5078
 msgid "EIDM AP Reaction Time parameter [s]"
-msgstr ""
+msgstr "EIDM AP 反应时间参数 [秒]"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5084
 msgid "EIDM Wiener Process parameter for the Driving Error [s]"
-msgstr ""
+msgstr "驾驶误差的EIDM 维纳过程(Wiener process)参数 [秒]"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5090
 msgid "EIDM Wiener Process parameter for the Estimation Error [s]"
-msgstr ""
+msgstr "预测错误的EIDM 维纳过程(Wiener process)参数 [秒]"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5096
 msgid "EIDM Coolness parameter of the Enhanced IDM [-]"
