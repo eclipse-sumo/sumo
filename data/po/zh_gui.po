@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-14 11:30+0000\n"
+"PO-Revision-Date: 2023-03-14 11:40+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
@@ -6669,21 +6669,21 @@ msgstr "车辆离开路网时应有的速度"
 msgid ""
 "A string specifying the id of a public transport line which can be used when "
 "specifying person rides"
-msgstr ""
+msgstr "当指定人员乘車(ride)时, 一个用于指定公共运输路线的识别名的字串"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4919
 msgid "The number of occupied seats when the vehicle is inserted"
-msgstr ""
+msgstr "当车辆被置入路网时, 已占用的座位数"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4925
 msgid "The number of occupied container places when the vehicle is inserted"
-msgstr ""
+msgstr "车辆置入时, 已占用的容器位置数"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4931
 msgid ""
 "The lateral position on the departure lane at which the vehicle shall enter "
 "the net"
-msgstr ""
+msgstr "车辆进入路网时所处的出发车道的侧向位置"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4937
 msgid ""
