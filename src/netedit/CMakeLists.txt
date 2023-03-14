@@ -52,7 +52,7 @@ target_link_libraries(netedit gui_dialogs utils_gui_cursors utils_gui_shortcuts 
         netedit_elements netedit_elements_network netedit_elements_additional netedit_elements_demand netedit_elements_data 
         netedit_changes utils_gui_div utils_gui_settings utils_gui_images netedit_dialogs 
         netedit_dialogs_tools utils_gui_windows utils_gui_globjects utils_gui_tracker utils_foxtools 
-        utils_vehicle utils_emissions foreign_phemlight foreign_phemlight_V5 ${netconvertlibs} ${FOX_LIBRARY} ${GL2PS_LIBRARIES})
+        utils_vehicle utils_emissions foreign_phemlight foreign_phemlight_V5 ${netconvertlibs} ${FOX_LIBRARY} ${GL2PS_LIBRARIES} ${PYTHON_LIBRARY} ${PYTHON_DEBUG_LIBRARY})
 
 # if we're compiling using Visual Studio, add extra options
 if (MSVC)
