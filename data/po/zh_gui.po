@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-14 12:38+0000\n"
+"PO-Revision-Date: 2023-03-14 12:51+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
@@ -6798,11 +6798,11 @@ msgstr "预测错误的EIDM 维纳过程(Wiener process)参数 [秒]"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5096
 msgid "EIDM Coolness parameter of the Enhanced IDM [-]"
-msgstr ""
+msgstr "改善的IDM模式的EIDM 冷却度参数 [-]"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5103
 msgid "EIDM leader speed estimation error parameter [-]"
-msgstr ""
+msgstr "EIDM前领车速度的预测错误参数[-]"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5109
 msgid "EIDM gap estimation error parameter [-]"
