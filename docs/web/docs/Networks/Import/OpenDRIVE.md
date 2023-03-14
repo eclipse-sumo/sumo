@@ -135,3 +135,14 @@ By setting the option **--polygon-output** {{DT_FILE}}, any road objects present
 exported as [loadable shapes](../../Simulation/Shapes.md). If the
 option **--proj.plain-geo true** is set and the input network is geo-referenced, generated shapes
 will be written with geo-coordinate as well.
+
+# Supported Versions and Features
+
+[netconvert](../../netconvert.md) aims to support as many features as possible across OpenDRIVE versions.
+Version 1.4 should generally be supported.
+You can check the feature support per version (and request new featuers) in our issue tracker:
+
+- [OpenDrive 1.4 features](https://github.com/eclipse/sumo/issues/6694)
+- [OpenDrive 1.5 features](https://github.com/eclipse/sumo/issues/6695)
+- [OpenDrive 1.6 features](https://github.com/eclipse/sumo/issues/8901)
+
