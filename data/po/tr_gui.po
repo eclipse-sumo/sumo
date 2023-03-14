@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-14 12:38+0000\n"
+"PO-Revision-Date: 2023-03-14 12:51+0000\n"
 "Last-Translator: kyasin <yasingoka@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/tr/>\n"
@@ -13613,94 +13613,94 @@ msgstr "Şerit tipini sil"
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:536
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:536
 msgid "add laneType"
-msgstr "Şerit türü ekle"
+msgstr "Şerit tipi ekle"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:573
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:573
 msgid "remove laneType"
-msgstr ""
+msgstr "Şerit tipini kaldır"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:622
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:622
 msgid "- ESC:"
-msgstr ""
+msgstr "- ESC:"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:623
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:623
 msgid "  Deselect origin"
-msgstr ""
+msgstr "  Kaynak seçimini kaldır"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:624
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:624
 msgid "- Control+Click:"
-msgstr ""
+msgstr "- Kontrol+Tıkla:"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:625
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:625
 msgid "  Move view"
-msgstr ""
+msgstr "  Görünümü taşı"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:626
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:626
 msgid "- Shift+Click:"
-msgstr ""
+msgstr "- Shift+Tıkla:"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:627
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:627
 msgid "  Splits edge in both directions"
-msgstr ""
+msgstr "  Kesimi her iki yönde de böler"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:628
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:628
 msgid "- Alt+Shift+Click:"
-msgstr ""
+msgstr "- Alt+Shift+Tıkla:"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:629
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:629
 msgid "  Splits edge in one direction"
-msgstr ""
+msgstr "  Kesimi tek yönde böler"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:642
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:642
 msgid "Create Edge"
-msgstr ""
+msgstr "Kesim Oluştur"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:666
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:666
 msgid "Select either default edgeType or a custom edgeType or template"
-msgstr ""
+msgstr "Varsayılan Kesim Tipi veya özel bir Kesim Tipi ya da şablon seçin"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:668
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:668
 msgid "Invalid edge attributes"
-msgstr ""
+msgstr "Geçersiz kesim öznitelikleri"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:670
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:670
 msgid "Invalid lane attributes"
-msgstr ""
+msgstr "Geçersiz şerit öznitelikleri"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:681
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:746
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:681
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:746
 msgid "create new edge"
-msgstr ""
+msgstr "yeni kesim oluştur"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:751
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:751
 msgid "An edge with the same geometry already exists!"
-msgstr ""
+msgstr "Aynı geometriye sahip bir kesim zaten mevcut!"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:754
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECreateEdgeFrame.cpp:754
 msgid "Start- and endpoint for an edge must be distinct!"
-msgstr ""
+msgstr "Bir kesim için başlangıç ve bitiş noktaları farklı olmalıdır!"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECrossingFrame.cpp:97
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECrossingFrame.cpp:97
 msgid "selection of edges"
-msgstr ""
+msgstr "kesimlerin seçimi"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECrossingFrame.cpp:102
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:505
@@ -13715,22 +13715,22 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:654
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETAZFrame.cpp:658
 msgid "Use selected edges"
-msgstr ""
+msgstr "Seçili kesimleri kullan"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECrossingFrame.cpp:105
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECrossingFrame.cpp:105
 msgid "Clear edges"
-msgstr ""
+msgstr "Kesimleri temizle"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECrossingFrame.cpp:108
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECrossingFrame.cpp:108
 msgid "Invert edges"
-msgstr ""
+msgstr "Kesimleri ters çevir"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECrossingFrame.cpp:196
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECrossingFrame.cpp:196
 msgid "Crossing parameters"
-msgstr ""
+msgstr "Geçit parametreleri"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECrossingFrame.cpp:484
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1568
@@ -13739,12 +13739,12 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1568
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNETLSEditorFrame.cpp:1572
 msgid "Create"
-msgstr ""
+msgstr "Oluştur"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECrossingFrame.cpp:487
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECrossingFrame.cpp:487
 msgid "Create crossing"
-msgstr ""
+msgstr "Geçit oluştur"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECrossingFrame.cpp:514
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECrossingFrame.cpp:514
@@ -13752,116 +13752,118 @@ msgid ""
 "There is already another crossing with the same edges in the junction; "
 "Duplicated crossing aren't allowed."
 msgstr ""
+"Kavşakta aynı kesimlere sahip başka bir geçit zaten var; Yinelenen geçitlere "
+"izin verilmez."
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECrossingFrame.cpp:540
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECrossingFrame.cpp:540
 msgid "-Click over junction to"
-msgstr ""
+msgstr "-için kavşak üzerine tıklayın"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECrossingFrame.cpp:541
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECrossingFrame.cpp:541
 msgid " mark candidate edges."
-msgstr ""
+msgstr " aday kesimleri işaretle."
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECrossingFrame.cpp:542
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECrossingFrame.cpp:542
 msgid "-Click over candidate"
-msgstr ""
+msgstr "-Adayın üzerine tıkla"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECrossingFrame.cpp:543
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECrossingFrame.cpp:543
 msgid " edges for selecting."
-msgstr ""
+msgstr " seçim için kesimler."
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECrossingFrame.cpp:547
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECrossingFrame.cpp:547
 msgid " Candidate"
-msgstr ""
+msgstr " Aday"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECrossingFrame.cpp:551
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECrossingFrame.cpp:551
 msgid " Selected"
-msgstr ""
+msgstr " Seçilmiş"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECrossingFrame.cpp:554
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECrossingFrame.cpp:554
 msgid " Invalid"
-msgstr ""
+msgstr " Geçersiz"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECrossingFrame.cpp:567
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNECrossingFrame.cpp:567
 msgid "Crossings"
-msgstr ""
+msgstr "Geçitler"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:55
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEProhibitionFrame.cpp:55
 msgid "Selected connection"
-msgstr ""
+msgstr "Seçilen bağlantı"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:71
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEProhibitionFrame.cpp:71
 msgid "No Connection selected\n"
-msgstr ""
+msgstr "Seçilen Bağlantı Yok\n"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:74
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEProhibitionFrame.cpp:74
 msgid "- Junction: "
-msgstr ""
+msgstr "- Kavşak: "
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:75
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEProhibitionFrame.cpp:75
 msgid "- From lane: "
-msgstr ""
+msgstr "- Şeritten: "
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:76
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEProhibitionFrame.cpp:76
 msgid "- To lane: "
-msgstr ""
+msgstr "- Şeride: "
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:94
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEProhibitionFrame.cpp:94
 msgid "Selected"
-msgstr ""
+msgstr "Seçilmiş"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:95
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEProhibitionFrame.cpp:95
 msgid "Current selected connection"
-msgstr ""
+msgstr "Mevcut seçili bağlantı"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:101
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEProhibitionFrame.cpp:101
 msgid "No conflict"
-msgstr ""
+msgstr "Çatışma yok"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:102
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEProhibitionFrame.cpp:102
 msgid "No conflict with the selected connection"
-msgstr ""
+msgstr "Seçilen bağlantı ile çatışma yok"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:107
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEProhibitionFrame.cpp:107
 msgid "Yields"
-msgstr ""
+msgstr "Yol verir"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:108
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEProhibitionFrame.cpp:108
 msgid "Connection yields the selected connection"
-msgstr ""
+msgstr "Bağlantı, seçilen bağlantıya yol verir"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:113
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEProhibitionFrame.cpp:113
 msgid "Has right of way"
-msgstr ""
+msgstr "Geçiş hakkına sahiptir"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:114
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEProhibitionFrame.cpp:114
 msgid "Connection has right of way with the selected connection"
-msgstr ""
+msgstr "Bağlantı, seçilen bağlantı ile geçiş hakkına sahiptir"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:119
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEProhibitionFrame.cpp:119
 msgid "Unregulated conflict"
-msgstr ""
+msgstr "Düzenlenmemiş çatışma"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:120
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEProhibitionFrame.cpp:120
