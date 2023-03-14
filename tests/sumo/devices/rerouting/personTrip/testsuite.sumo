@@ -4,6 +4,9 @@ junctionTaz
 # test routing on shared roads
 opposite-factor
 
+# person uses "normal" vehicle connection as part of the walk
+vehicle_connection
+
 # Copy of basic
 basic
 
