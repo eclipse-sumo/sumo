@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-14 14:28+0000\n"
+"PO-Revision-Date: 2023-03-14 14:42+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
@@ -7152,100 +7152,100 @@ msgstr "如果没有乘客想上船或下船，是否可以跳过该站"
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5621
 msgid ""
 "transfer time if there shall be a jump from this stop to the next route edge"
-msgstr ""
+msgstr "如果从这一站跳到下一个路线的路段，则转移时间"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5643
 msgid "Data set ID"
-msgstr ""
+msgstr "数据组ID"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5659
 msgid "Interval ID"
-msgstr ""
+msgstr "间隔ID"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5665
 msgid "Data interval begin time"
-msgstr ""
+msgstr "数据间隔开始时间"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5671
 msgid "Data interval end time"
-msgstr ""
+msgstr "数据间隔结束时间"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5687
 msgid "edge ID"
-msgstr ""
+msgstr "路段 ID"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5701
 msgid "The name of the edge the edgeRel starts at"
-msgstr ""
+msgstr "路段Rel开始的路段的名称"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5706
 msgid "The name of the edge the edgeRel ends at"
-msgstr ""
+msgstr "路段Rel结束的路段的名称"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5720
 msgid "The name of the TAZ the TAZRel starts at"
-msgstr ""
+msgstr "交通分区Rel开始的交通分区的名称"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5725
 msgid "The name of the TAZ the TAZRel ends at"
-msgstr ""
+msgstr "交通分区Rel结束的交通分区名称"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5760
 msgid "The id of this set of measurements"
-msgstr ""
+msgstr "这组测量值的id"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5765
 msgid "The path to the output file. The path may be relative"
-msgstr ""
+msgstr "输出文件的路径。该路径可以是相对的"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5775
 msgid ""
 "The time to start writing. If not given, the simulation's begin is used."
-msgstr ""
+msgstr "开始写作的时间。如果没有给出，则使用仿真的开始时间。"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5780
 msgid "The time to end writing. If not given the simulation's end is used."
-msgstr ""
+msgstr "结束写作的时间。如果没有给出，则使用仿真的结束时间。"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5785
 msgid ""
 "If set to true, edges/lanes which were not use by a vehicle during this "
 "period will not be written"
-msgstr ""
+msgstr "如果设置为 \"true\"，在此期间没有被车辆使用的路段/车道将不会被写入"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5792
 msgid "If set, junction internal edges/lanes will be written as well"
-msgstr ""
+msgstr "如果设置，结点内部路段/车道也将被写入"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5798
 msgid ""
 "The maximum traveltime in seconds to write if only very small movements occur"
-msgstr ""
+msgstr "如果只发生非常小的运动，以秒为单位的最大行程时间来书写"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5804
 msgid ""
 "Consider an edge/lane unused if it has at most this many sampled seconds"
-msgstr ""
+msgstr "如果一路段/车道最多有这么多的采样秒数，就认为它没有被使用"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5810
 msgid "The maximum speed to consider a vehicle halting;"
-msgstr ""
+msgstr "认为车辆停止的最大速度；"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5816
 msgid "space separated list of vehicle type ids to consider"
-msgstr ""
+msgstr "以空格分隔的要考虑的车辆类型ID清单"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5821
 msgid ""
 "whether aggregation should be performed over all vehicles that entered the "
 "edge/lane in the aggregation interval"
-msgstr ""
+msgstr "是否应该对在聚集区间内进入路段/车道的所有车辆进行聚集"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5827
 msgid ""
 "Whether pedestrians shall be recorded instead of vehicles. Allowed value is "
 "walk"
-msgstr ""
+msgstr "是否应记录行人而不是车辆。允许的值是步行"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5832
 msgid "List of attribute names that shall be written"
