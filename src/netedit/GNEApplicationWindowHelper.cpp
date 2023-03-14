@@ -18,6 +18,7 @@
 // The main window of Netedit (adapted from GUIApplicationWindow)
 /****************************************************************************/
 
+#include <netedit/dialogs/tools/GNETool.h>
 #include <netedit/dialogs/tools/GNEToolDialog.h>
 #include <netedit/dialogs/tools/GNERunToolDialog.h>
 #include <netedit/elements/GNEAttributeCarrier.h>
@@ -1983,24 +1984,27 @@ GNEApplicationWindowHelper::ToolsMenuCommands::~ToolsMenuCommands() {
     for (const auto &tool : myTools) {
         delete tool;
     }
-    // delete run tool dialog
+    // delete dialogs
+    delete myToolDialog;
     delete myRunToolDialog;
 }
 
 
 void
-GNEApplicationWindowHelper::ToolsMenuCommands::buildTools(FXMenuPane* toolsMenu, const std::map<std::string, FXMenuPane*> &menuPaneToolMaps) {
+GNEApplicationWindowHelper::ToolsMenuCommands::buildTools(FXMenuPane* toolsMenu, 
+        const std::map<std::string, FXMenuPane*> &menuPaneToolMaps) {
     // build template tools
     for (const auto &templateTool : templateTools) {
         if (menuPaneToolMaps.count(templateTool.subfolder) > 0) {
-            myTools.push_back(new GNEToolDialog(myGNEApp, templateTool.pythonPath, 
-                                                templateTool.templateStr, menuPaneToolMaps.at(templateTool.subfolder)));
+            myTools.push_back(new GNETool(myGNEApp, templateTool.pythonPath, 
+                              templateTool.templateStr, menuPaneToolMaps.at(templateTool.subfolder)));
         } else {
-            myTools.push_back(new GNEToolDialog(myGNEApp, templateTool.pythonPath, 
-                                                templateTool.templateStr, toolsMenu));
+            myTools.push_back(new GNETool(myGNEApp, templateTool.pythonPath, 
+                              templateTool.templateStr, toolsMenu));
         }
     }
-    // build run tool dialog
+    // build dialogs
+    myToolDialog = new GNEToolDialog(myGNEApp);
     myRunToolDialog = new GNERunToolDialog(myGNEApp);
 }
 
@@ -2010,7 +2014,7 @@ GNEApplicationWindowHelper::ToolsMenuCommands::showTool(FXObject* menuCommand) c
     // iterate over all tools and find menu command
     for (const auto &tool : myTools) {
         if (tool->getMenuCommand() == menuCommand) {
-            tool->show();
+            myToolDialog->openDialog(tool);
             return 1;
         }
     }
@@ -2040,7 +2044,8 @@ GNEApplicationWindowHelper::WindowsMenuCommands::WindowsMenuCommands(GNEApplicat
 
 
 void
-GNEApplicationWindowHelper::WindowsMenuCommands::buildWindowsMenuCommands(FXMenuPane* windowsMenu, FXStatusBar* statusbar, GUIMessageWindow* messageWindow) {
+GNEApplicationWindowHelper::WindowsMenuCommands::buildWindowsMenuCommands(FXMenuPane* windowsMenu, 
+        FXStatusBar* statusbar, GUIMessageWindow* messageWindow) {
     // build windows menu commands
     GUIDesigns::buildFXMenuCheckbox(windowsMenu,
                                     TL("Show Status Line"), TL("Toggle this Status Bar on/off."),
@@ -2224,7 +2229,8 @@ GNEApplicationWindowHelper::GNENeteditConfigHandler::loadNeteditConfig() {
 // ---------------------------------------------------------------------------
 
 bool
-GNEApplicationWindowHelper::toggleEditOptionsNetwork(GNEViewNet* viewNet, const MFXCheckableButton* menuCheck, const int numericalKeyPressed, FXObject* obj, FXSelector sel) {
+GNEApplicationWindowHelper::toggleEditOptionsNetwork(GNEViewNet* viewNet, const MFXCheckableButton* menuCheck, 
+        const int numericalKeyPressed, FXObject* obj, FXSelector sel) {
     // finally function correspond to visibleMenuCommands[numericalKeyPressed]
     if (menuCheck == viewNet->getNetworkViewOptions().menuCheckToggleGrid) {
         // Toggle menuCheckToggleGrid

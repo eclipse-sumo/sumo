@@ -27,6 +27,7 @@
 // ===========================================================================
 
 class GNEApplicationWindow;
+class GNETool;
 
 // ===========================================================================
 // class definitions
@@ -51,7 +52,7 @@ public:
     GNEApplicationWindow* getGNEApp() const;
 
     /// @brief run tool (this open windows)
-    void runTool(GNEToolDialog* toolDialog);
+    void runTool(GNETool* tool);
 
     /// @brief hide window
     void hide();

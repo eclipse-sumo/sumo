@@ -41,6 +41,7 @@
 class GNEApplicationWindow;
 class GNELoadThread;
 class GNENet;
+class GNETool;
 class GNEToolDialog;
 class GNERunToolDialog;
 class GNEUndoList;
@@ -967,7 +968,10 @@ struct GNEApplicationWindowHelper {
 
     private:
         /// @brief map with tools
-        std::vector<GNEToolDialog*> myTools;
+        std::vector<GNETool*> myTools;
+
+        /// @brief tool dialog
+        GNEToolDialog* myToolDialog = nullptr;
 
         /// @brief run tool dialog
         GNERunToolDialog* myRunToolDialog = nullptr;

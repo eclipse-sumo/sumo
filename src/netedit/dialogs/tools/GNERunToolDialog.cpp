@@ -72,8 +72,9 @@ GNERunToolDialog::getGNEApp() const {
     return myGNEApp;
 }
 
+
 void
-GNERunToolDialog::runTool(GNEToolDialog* /*toolDialog*/) {
+GNERunToolDialog::runTool(GNETool* /*tool*/) {
     // show dialog
     FXDialogBox::show(PLACEMENT_SCREEN);
     // refresh APP

@@ -54,10 +54,10 @@ FXIMPLEMENT(GNEToolDialogElements::FileNameArgument,    GNEToolDialogElements::A
 // ---------------------------------------------------------------------------
 
 GNEToolDialogElements::Argument::Argument(GNEToolDialog* toolDialogParent, const std::string &parameter, const Option* option) :
-    FXHorizontalFrame(toolDialogParent->getContentFrame(), GUIDesignAuxiliarHorizontalFrame),
+    FXHorizontalFrame(toolDialogParent->myContentFrame, GUIDesignAuxiliarHorizontalFrame),
     myDefaultValue((option->getValueString() == "None")? "" : option->getValueString()) {
     // create parameter label
-    myParameterLabel = new MFXLabelTooltip(this, toolDialogParent->getGNEApp()->getStaticTooltipMenu(), parameter.c_str(), nullptr, GUIDesignLabelThickedFixed(0));
+    myParameterLabel = new MFXLabelTooltip(this, toolDialogParent->myGNEApp->getStaticTooltipMenu(), parameter.c_str(), nullptr, GUIDesignLabelThickedFixed(0));
     myParameterLabel->setTipText((option->getTypeName() + ": " + option->getDescription()).c_str());
     // create horizontal frame for textField
     myAuxiliarTextFieldFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarFrameFixedWidth(250));

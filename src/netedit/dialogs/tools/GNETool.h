@@ -20,6 +20,7 @@
 #pragma once
 #include <config.h>
 
+#include <utils/foxtools/fxheader.h>
 #include <utils/options/OptionsCont.h>
 
 // ===========================================================================
@@ -33,7 +34,6 @@ class GNEApplicationWindow;
 // ===========================================================================
 
 class GNETool {
-
 
 public:
     /// @brief Constructor

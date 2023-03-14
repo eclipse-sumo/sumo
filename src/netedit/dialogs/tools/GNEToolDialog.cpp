@@ -25,7 +25,7 @@
 #include <utils/handlers/TemplateHandler.h>
 
 #include "GNEToolDialog.h"
-
+#include "GNETool.h"
 
 #define MARGING 4
 
@@ -47,32 +47,17 @@ FXIMPLEMENT(GNEToolDialog, FXDialogBox, GNEToolDialogMap, ARRAYNUMBER(GNEToolDia
 // member method definitions
 // ===========================================================================
 
-GNEToolDialog::GNEToolDialog(GNEApplicationWindow* GNEApp, const std::string &pythonPath, 
-        const std::string &templateStr, FXMenuPane* menu) :
+GNEToolDialog::GNEToolDialog(GNEApplicationWindow* GNEApp) :
     FXDialogBox(GNEApp->getApp(), "Tool", GUIDesignDialogBoxExplicit(0, 0)),
     myGNEApp(GNEApp) {
-    // get tool name from path
-    const auto toolName = FileHelpers::getFileFromPath(pythonPath, true);
-    // set dialog name and icon
-    setTitle(toolName.c_str());
+    // set icon
     setIcon(GUIIconSubSys::getIcon(GUIIcon::TOOL_PYTHON));
-    // build menu command
-    myMenuCommand = GUIDesigns::buildFXMenuCommandShortcut(menu, toolName, "", TL("Execute python tool '") + toolName + "'.",
-        GUIIconSubSys::getIcon(GUIIcon::TOOL_PYTHON), GNEApp, MID_GNE_OPENTOOLDIALOG);
-    // parse tool options
-    if (templateStr.size() > 0) {
-        try {
-            TemplateHandler::parseTemplate(myToolsOptions, templateStr);
-        } catch (ProcessError&) { }
-    }
     // build horizontalFrame for content
     myContentFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrameFixed);
     // first add header
     auto headerFrame = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarHorizontalFrame);
     myParameterLabel = new FXLabel(headerFrame, TL("Parameter"), nullptr, GUIDesignLabelThickedFixed(0));
     new FXLabel(headerFrame, TL("Value"), nullptr, GUIDesignLabelThickedFixed(250));
-    // build arguments
-    buildArguments();
     // add separator
     mySeparator = new FXSeparator(this);
     // create buttons centered
@@ -91,26 +76,18 @@ GNEToolDialog::GNEToolDialog(GNEApplicationWindow* GNEApp, const std::string &py
 GNEToolDialog::~GNEToolDialog() {}
 
 
-GNEApplicationWindow*
-GNEToolDialog::getGNEApp() const {
-    return myGNEApp;
-}
-
-
-FXMenuCommand*
-GNEToolDialog::getMenuCommand() const {
-    return myMenuCommand;
-}
-
-
 void
-GNEToolDialog::show() {
+GNEToolDialog::openDialog(GNETool* tool) {
+    // set tool
+    myTool = tool;
+    // set title
+    setTitle(myTool->getToolName().c_str());
+    // build arguments
+    buildArguments();
     // show dialog
     FXDialogBox::show(PLACEMENT_SCREEN);
     // refresh APP
     getApp()->refresh();
-    // adjust parameter column (call always after create elements)
-    adjustParameterColumn();
     // resize dialog (Marging + contentFrame + MARGING separator + MARGING + buttonsFrame + MARGING)
     resize(myContentFrame->getWidth(), myContentFrame->getHeight() + mySeparator->getHeight() + myButtonsFrame->getHeight() + (4 * MARGING));
     // open as modal dialog (will block all windows until stop() or stopModal() is called)
@@ -127,18 +104,12 @@ GNEToolDialog::hide() {
 }
 
 
-FXVerticalFrame*
-GNEToolDialog::getContentFrame() const {
-    return myContentFrame;
-}
-
-
 long
 GNEToolDialog::onCmdRun(FXObject*, FXSelector, void*) {
     // hide tool dialog
     hide();
     // run tool
-    return myGNEApp->tryHandle(myMenuCommand, FXSEL(SEL_COMMAND, MID_GNE_RUNTOOL), nullptr);
+    return myGNEApp->tryHandle(myTool->getMenuCommand(), FXSEL(SEL_COMMAND, MID_GNE_RUNTOOL), nullptr);
 }
 
 
@@ -167,8 +138,13 @@ GNEToolDialog::GNEToolDialog() :
 
 void
 GNEToolDialog::buildArguments() {
+    // first clear arguments
+    for (const auto& argument : myArguments) {
+        delete argument;
+    }
+    myArguments.clear();
     // iterate over options
-    for (const auto &option : myToolsOptions) {
+    for (const auto &option : myTool->getToolsOptions()) {
         if (option.second->isInteger()) {
             myArguments.push_back(new GNEToolDialogElements::IntArgument(this, option.first, option.second));
         } else if (option.second->isFloat()) {
@@ -181,6 +157,8 @@ GNEToolDialog::buildArguments() {
             myArguments.push_back(new GNEToolDialogElements::StringArgument(this, option.first, option.second));
         }
     }
+    // adjust parameter column (call always after create elements)
+    adjustParameterColumn();
 }
 
 

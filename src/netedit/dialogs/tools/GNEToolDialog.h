@@ -29,6 +29,7 @@
 // ===========================================================================
 
 class GNEApplicationWindow;
+class GNETool;
 
 // ===========================================================================
 // class definitions
@@ -42,28 +43,21 @@ class GNEToolDialog : protected FXDialogBox {
     /// @brief FOX-declaration
     FXDECLARE(GNEToolDialog)
 
+    /// @brief declare friend class
+    friend class GNEToolDialogElements;
+
 public:
     /// @brief Constructor
-    GNEToolDialog(GNEApplicationWindow* GNEApp, const std::string &pythonPath, 
-                  const std::string &templateStr, FXMenuPane* menu);
+    GNEToolDialog(GNEApplicationWindow* GNEApp);
 
     /// @brief destructor
     ~GNEToolDialog();
 
-    /// @brief get to GNEApplicationWindow
-    GNEApplicationWindow* getGNEApp() const;
-
-    /// @brief get menu command
-    FXMenuCommand *getMenuCommand() const;
-
     /// @brief open window
-    void show();
+    void openDialog(GNETool* tool);
 
     /// @brief hide window
     void hide();
-
-    /// @brief get vertical frame for contents
-    FXVerticalFrame* getContentFrame() const;
 
     /// @name FOX-callbacks
     /// @{
@@ -89,18 +83,15 @@ protected:
     /// @brief adjust parameter column
     void adjustParameterColumn();
 
+    /// @brief vertical frame for contents
+    FXVerticalFrame* myContentFrame = nullptr;
+
 private:
     /// @brief pointer to GNEApplicationWindow
     GNEApplicationWindow* myGNEApp;
 
-    /// @brief menu command associated with this tool
-    FXMenuCommand* myMenuCommand;
-
-    /// @brief tools options
-    OptionsCont myToolsOptions;
-
-    /// @brief vertical frame for contents
-    FXVerticalFrame* myContentFrame = nullptr;
+    /// @brief tool
+    GNETool* myTool = nullptr;
 
     /// @brief parameter label
     FXLabel* myParameterLabel = nullptr;
