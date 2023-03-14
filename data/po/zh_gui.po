@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-13 15:07+0000\n"
+"PO-Revision-Date: 2023-03-14 11:30+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
@@ -6604,66 +6604,66 @@ msgstr "步行结束的路段的名称"
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4656
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4769
 msgid "Id of the destination bus stop"
-msgstr ""
+msgstr "公交车终点站的识别名(id)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4688
 msgid "The id of the route to walk"
-msgstr ""
+msgstr "步行路径的识别名(id)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4708
 msgid "The name of the junction the walk starts at"
-msgstr ""
+msgstr "步行开始的路口的名称"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4713
 msgid "The name of the junction the walk ends at"
-msgstr ""
+msgstr "步行结束的路口的名称"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4734
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4764
 msgid "The name of the edge the ride starts at"
-msgstr ""
+msgstr "乘车(ride)开始的路段的名称"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4739
 msgid "The name of the edge the ride ends at"
-msgstr ""
+msgstr "乘车(ride)结束的路段的名称"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4750
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4774
 msgid "list of vehicle alternatives to take for the ride"
-msgstr ""
+msgstr "乘车时可以使用的替代车辆清单"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4828
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4860
 msgid "Activity displayed for stopped person in GUI and output files "
-msgstr ""
+msgstr "在GUI及输出文件中为停等人员显示的活动 "
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4872
 msgid "This vehicle's color"
-msgstr ""
+msgstr "此车辆的顏色"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4878
 msgid "The lane on which thevehicle shall be inserted"
-msgstr ""
+msgstr "车辆应该被置入的车道"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4884
 msgid "The position at which the vehicle shall enter the net"
-msgstr ""
+msgstr "车辆应进入路网时的所在位置"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4890
 msgid "The speed with which the vehicle shall enter the network"
-msgstr ""
+msgstr "车辆进入路网时的应有速度"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4896
 msgid "The lane at which the vehicle shall leave the network"
-msgstr ""
+msgstr "车辆应离开路网时所在车道"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4902
 msgid "The position at which the vehicle shall leave the network"
-msgstr ""
+msgstr "车辆离开路网时所在位置"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4908
 msgid "The speed with which the vehicle shall leave the network"
-msgstr ""
+msgstr "车辆离开路网时应有的速度"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4914
 msgid ""
