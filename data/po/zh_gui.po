@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-14 11:40+0000\n"
+"PO-Revision-Date: 2023-03-14 12:31+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
@@ -6688,40 +6688,40 @@ msgstr "车辆进入路网时所处的出发车道的侧向位置"
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4937
 msgid ""
 "The lateral position on the arrival lane at which the vehicle shall arrive"
-msgstr ""
+msgstr "车辆抵达时所在抵达车道的側向位置"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4943
 msgid "Insertion checks"
-msgstr ""
+msgstr "插入检查"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4956
 msgid "First flow departure time"
-msgstr ""
+msgstr "第一个流量的出发时间"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4968
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4989
 msgid "probability for emitting a flow each second"
-msgstr ""
+msgstr "每秒注入流量的概率"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4969
 msgid "(not together with vehsPerHour or period)"
-msgstr ""
+msgstr "（不与vehsPerHour 或周期一起使用）"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4975
 msgid "Number of flows per hour, equally spaced"
-msgstr ""
+msgstr "每小时流量的数量,等间隔"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4976
 msgid "(not together with period or probability or poisson)"
-msgstr ""
+msgstr "(不与周期或概率或泊松一起使用)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4982
 msgid "Insert equally spaced flows at that period"
-msgstr ""
+msgstr "在该周期內注入等间距的流量"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4983
 msgid "(not together with vehsPerHour or probability or poisson)"
-msgstr ""
+msgstr "（不与 vehsPerHour , 概率或帕松(poisson)分配一起使用）"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4990
 msgid "(not together with vehsPerHour or period or poisson)"
