@@ -221,15 +221,29 @@ MSRouteHandler::openVehicleTypeDistribution(const SUMOSAXAttributes& attrs) {
     if (ok) {
         myCurrentVTypeDistribution = new RandomDistributor<MSVehicleType*>();
         if (attrs.hasAttribute(SUMO_ATTR_VTYPES)) {
+            std::vector<double> probs;
+            if (attrs.hasAttribute(SUMO_ATTR_PROBS)) {
+                StringTokenizer st(attrs.get<std::string>(SUMO_ATTR_PROBS, myCurrentVTypeDistributionID.c_str(), ok));
+                while (st.hasNext()) {
+                    probs.push_back(StringUtils::toDoubleSecure(st.next(), 1.0));
+                }
+            }
             const std::string vTypes = attrs.get<std::string>(SUMO_ATTR_VTYPES, myCurrentVTypeDistributionID.c_str(), ok);
             StringTokenizer st(vTypes);
+            int probIndex = 0;
             while (st.hasNext()) {
                 std::string vtypeID = st.next();
                 MSVehicleType* type = MSNet::getInstance()->getVehicleControl().getVType(vtypeID, &myParsingRNG);
                 if (type == nullptr) {
                     throw ProcessError("Unknown vtype '" + vtypeID + "' in distribution '" + myCurrentVTypeDistributionID + "'.");
                 }
-                myCurrentVTypeDistribution->add(type, type->getDefaultProbability());
+                const double prob = ((int)probs.size() > probIndex ? probs[probIndex] : type->getDefaultProbability());
+                myCurrentVTypeDistribution->add(type, prob);
+                probIndex++;
+            }
+            if (probs.size() > 0 && probIndex != (int)probs.size()) {
+                WRITE_WARNING("Got " + toString(probs.size()) + " probabilities for " + toString(probIndex) +
+                        " types in vTypeDistribution '" + myCurrentVTypeDistributionID + "'");
             }
         }
     }
