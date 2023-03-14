@@ -230,6 +230,13 @@ class PlatoonManager(traci.StepListener):
         return [pID for pID, platoon in self._platoons.items()
                 if edgeID in [vehicle.state.edgeID for vehicle in platoon.getVehicles()]]
 
+    def getPlatoonLeaderIDList(self):
+        '''getPlatoonLeaderIDList() -> list(string)
+
+        Returns the list of all platoon leader vehicles' IDs
+        '''
+        return [platoon.getLeader().getID() for platoon in self._platoons.values()]
+
     def getPlatoonInfo(self, platoonID):
         '''getPlatoonInfo(platoonID) -> dict
 

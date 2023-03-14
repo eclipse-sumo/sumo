@@ -157,6 +157,20 @@ def getPlatoonIDList(edgeID):
     return []
 
 
+def getPlatoonLeaderIDList():
+    '''
+    getPlatoonLeaderIDList() -> list(string)
+
+    Get the platoon leader vehicle IDs of all platoons managed by simpla
+    '''
+    global _mgr, warn
+    if _mgr is not None:
+        return _mgr.getPlatoonLeaderIDList()
+    else:
+        raise SimplaException("call simpla.load(<config_file>) before simpla.getPlatoonLeaderIDList()!")
+    return []
+
+
 def getPlatoonInfo(platoonID):
     '''
 
