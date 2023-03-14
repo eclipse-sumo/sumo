@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-14 14:42+0000\n"
+"PO-Revision-Date: 2023-03-14 15:07+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
@@ -7249,74 +7249,76 @@ msgstr "是否应记录行人而不是车辆。允许的值是步行"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5832
 msgid "List of attribute names that shall be written"
-msgstr ""
+msgstr "应被写入的属性名称列表"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5837
 msgid "Restrict output to the given list of edge ids"
-msgstr ""
+msgstr "将输出限制在给定的路段ID列表中"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5842
 msgid "Restrict output to the given the list of edges given in file"
-msgstr ""
+msgstr "将输出限制在文件中给出的路段列表中"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5847
 msgid ""
 "Whether the traffic statistic of all edges shall be aggregated into a single "
 "value"
-msgstr ""
+msgstr "是否应将所有路段的流量统计汇总为一个单一的值"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEHierarchicalElement.cpp:421
 msgid "Some child meanData were lost during sorting"
-msgstr ""
+msgstr "一些子meanData 在分类过程中丢失"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNETagProperties.cpp:96
 msgid ""
 "element must be at least networkElement, additional, TAZ, demandElement, "
 "dataElement or meanData"
 msgstr ""
+"要素必须少是 networkElement、additional、TAZ、demandElement、dataElement 或 "
+"meanData"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNETagProperties.cpp:100
 msgid ""
 "element can be only a networkElement, additional, demandElement, dataElement "
 "or meanData at the same time"
-msgstr ""
+msgstr "要素只能同时是networkElement、附加要素、demandElement、dataElement 或meanData"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNETagProperties.cpp:104
 msgid "element can be only a shape, TAZ or wire element at the same time"
-msgstr ""
+msgstr "要素只能同时是图形物件、分区或是通讯线"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNETagProperties.cpp:108
 msgid ""
 "If attributes mask the start and end position, both attributes have to be "
 "defined"
-msgstr ""
+msgstr "如果属性掩盖了开始和结束的位置，两个属性都必须被定义"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNETagProperties.cpp:134
 msgid "Attributes aren't combinables"
-msgstr ""
+msgstr "属性不是可组合的"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNETagProperties.cpp:136
 msgid "allow need a disallow attribute in the same tag"
-msgstr ""
+msgstr "在同一个标签中，允许需要一个不允许属性"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNETagProperties.cpp:138
 msgid "disallow need an allow attribute in the same tag"
-msgstr ""
+msgstr "不允许需要在同一标签中的允许属性"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNETagProperties.cpp:152
 #, c-format
 msgid "attribute '%' doesn't have a default value"
-msgstr ""
+msgstr "属性'%'没有默认值"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNETagProperties.cpp:158
 #, c-format
 msgid "Attribute '%' not defined"
-msgstr ""
+msgstr "属性'%'未定义"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNETagProperties.cpp:165
 #, c-format
 msgid "Maximum number of attributes for tag % exceeded"
-msgstr ""
+msgstr "超过了标签的最大属性数 %"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNETagProperties.cpp:170
 #, c-format
