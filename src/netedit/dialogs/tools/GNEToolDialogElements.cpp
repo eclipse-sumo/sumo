@@ -63,6 +63,8 @@ GNEToolDialogElements::Argument::Argument(GNEToolDialog* toolDialogParent, const
     myAuxiliarTextFieldFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarFrameFixedWidth(250));
     // Create reset button
     myResetButton = new FXButton(this, (std::string("\t\t") + TL("Reset value")).c_str(), GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GNE_RESET, GUIDesignButtonIcon);
+    // create argument
+    create();
 }
 
 
@@ -115,8 +117,10 @@ GNEToolDialogElements::FileNameArgument::FileNameArgument(GNEToolDialog* toolDia
     // Create Open button
     myFilenameButton = new FXButton(myAuxiliarTextFieldFrame, (std::string("\t\t") + TL("Select filename")).c_str(), 
         GUIIconSubSys::getIcon(GUIIcon::OPEN_NET), this, MID_GNE_SELECT, GUIDesignButtonIcon);
+    myFilenameButton->create();
     // create text field for filename
     myFilenameTextField = new FXTextField(myAuxiliarTextFieldFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    myFilenameTextField->create();
     // reset after creation
     reset();
 }
@@ -156,6 +160,7 @@ GNEToolDialogElements::StringArgument::StringArgument(GNEToolDialog* toolDialogP
     Argument(toolDialogParent, name, option) {
     // create text field for string
     myStringTextField = new FXTextField(myAuxiliarTextFieldFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    myStringTextField->create();
     // reset after creation
     reset();
 }
@@ -186,6 +191,7 @@ GNEToolDialogElements::IntArgument::IntArgument(GNEToolDialog* toolDialogParent,
     Argument(toolDialogParent, name, option) {
     // create text field for int
     myIntTextField = new FXTextField(myAuxiliarTextFieldFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldRestricted(TEXTFIELD_INTEGER));
+    myIntTextField->create();
     // reset after creation
     reset();
 }
@@ -216,6 +222,7 @@ GNEToolDialogElements::FloatArgument::FloatArgument(GNEToolDialog* toolDialogPar
     Argument(toolDialogParent, name, option) {
     // create text field for float
     myFloatTextField = new FXTextField(myAuxiliarTextFieldFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldRestricted(TEXTFIELD_REAL));
+    myFloatTextField->create();
     // reset after creation
     reset();
 }
@@ -246,6 +253,7 @@ GNEToolDialogElements::BoolArgument::BoolArgument(GNEToolDialog* toolDialogParen
     Argument(toolDialogParent, name, option) {
     // create check button
     myCheckButton = new FXCheckButton(myAuxiliarTextFieldFrame, "" , this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    myCheckButton->create();
     // reset after creation
     reset();
 }
