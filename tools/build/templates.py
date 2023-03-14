@@ -267,6 +267,7 @@ SOURCE_DEPS = [
 
 def buildTemplateToolHeader(templateHeaderFile):
     print(
+        "#pragma once\n"
         "#include <string>\n"
         "#include <vector>\n"
         "\n"
