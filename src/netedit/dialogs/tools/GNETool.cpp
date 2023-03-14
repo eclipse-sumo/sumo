@@ -20,7 +20,6 @@
 
 #include <netedit/GNEApplicationWindow.h>
 #include <utils/common/FileHelpers.h>
-#include <utils/foxtools/MFXLabelTooltip.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/handlers/TemplateHandler.h>
 #include <utils/common/MsgHandler.h>
@@ -57,6 +56,18 @@ GNETool::~GNETool() {}
 GNEApplicationWindow*
 GNETool::getGNEApp() const {
     return myGNEApp;
+}
+
+
+const std::string&
+GNETool::getToolName() const {
+    return myToolName;
+}
+
+
+OptionsCont&
+GNETool::getToolsOptions() {
+    return myToolsOptions;
 }
 
 

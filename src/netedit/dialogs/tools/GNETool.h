@@ -46,9 +46,15 @@ public:
     /// @brief get to GNEApplicationWindow
     GNEApplicationWindow* getGNEApp() const;
 
+    /// @brief get tool name
+    const std::string &getToolName() const;
+
+    /// @brief get tools options
+    OptionsCont &getToolsOptions();
+
     /// @brief get menu command
     FXMenuCommand *getMenuCommand() const;
-
+    
 private:
     /// @brief pointer to GNEApplicationWindow
     GNEApplicationWindow* myGNEApp;
