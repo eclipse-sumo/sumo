@@ -125,7 +125,7 @@ def import_gtfs(options, gtfsZip):
     stop_times['departure_fixed'] = pd.to_timedelta(stop_times.departure_time)
 
     # avoid trimming trips starting before midnight but ending after
-    fix_trips = stop_times[(stop_times['arrival_fixed'] >= full_day) & # gg/ here i arrive at or after midnight
+    fix_trips = stop_times[(stop_times['arrival_fixed'] >= full_day) & 
                            (stop_times['stop_sequence'] == stop_times['stop_sequence'].min())].trip_id.values.tolist()
 
     stop_times.loc[stop_times.trip_id.isin(fix_trips), 'arrival_fixed'] = stop_times.loc[stop_times.trip_id.isin(
@@ -229,11 +229,11 @@ def filter_gtfs(options, routes, trips_on_day, shapes, stops, stop_times):
     gtfs_data["edge_id"] = None
 
     # search main and secondary shapes for each pt line (route and direction)
-    filtered_stops = gtfs_data.groupby(['route_id', 'direction_id', 'shape_id']
-                                       ).agg({'stop_sequence': 'max'}).reset_index()
+    filtered_stops = gtfs_data.groupby(['route_id', 'direction_id', 'shape_id'])["shape_id"].size().reset_index(name='counts')
     group_shapes = filtered_stops.groupby(['route_id', 'direction_id']).shape_id.aggregate(set).reset_index()
-    filtered_stops = filtered_stops.loc[filtered_stops.groupby(['route_id', 'direction_id'])['stop_sequence'].idxmax()][[  # noqa
-                                    'route_id', 'shape_id', 'direction_id']]
+
+    filtered_stops = filtered_stops.loc[filtered_stops.groupby(['route_id', 'direction_id'])['counts'].idxmax()][[  # noqa
+                                        'route_id', 'shape_id', 'direction_id']]
     filtered_stops = pd.merge(filtered_stops, group_shapes, on=['route_id', 'direction_id'])
 
     # create dict with shapes and their main shape
