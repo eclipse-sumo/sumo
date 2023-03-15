@@ -175,6 +175,9 @@ public:
     /// @brief perform optional final checks (on writing)
     void finalChecks() const;
 
+    /// @brief replace the given link index in all connections
+    void replaceIndex(int oldIndex, int newIndex);
+
 protected:
     /// @brief Collects the links participating in this traffic light (only if not previously loaded)
     void collectLinks();
@@ -204,9 +207,6 @@ protected:
 
     /// @brief return whether the given link index is used by any connectons
     bool isUsed(int index) const;
-
-    /// @brief replace the given link index in all connections
-    void replaceIndex(int oldIndex, int newIndex);
 
     /// brief retrieve all edges with connections that use the given traffic light index
     std::set<const NBEdge*> getEdgesUsingIndex(int index) const;
