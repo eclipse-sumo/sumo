@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-14 16:48+0000\n"
+"PO-Revision-Date: 2023-03-15 07:38+0000\n"
 "Last-Translator: kyasin <yasingoka@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/tr/>\n"
@@ -49,7 +49,7 @@ msgstr "Yok"
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:291
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:498
 msgid "Original coordinate (before coordinate transformation in netconvert)"
-msgstr "Original coordinate (before coordinate transformation in netconvert)"
+msgstr "Orijinal koordinat (netconvert'te koordinat dönüşümünden önce)"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:294
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:501
@@ -82,7 +82,7 @@ msgstr "Yeni Pencere"
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:445
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:445
 msgid "Open a new sumo-gui window."
-msgstr "Yeni Bir sumo-gui (SUMO-GKA) Penceresi Aç."
+msgstr "Yeni bir sumo-gui penceresini aç."
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:449
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:449
@@ -92,17 +92,17 @@ msgstr "Simülasyon Aç..."
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:449
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:449
 msgid "Open a simulation (Configuration file)."
-msgstr "Simülasyon Aç (Yapılandırma Dosyası)."
+msgstr "Bir Simülasyon Aç (Yapılandırma Dosyası)."
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:452
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:452
 msgid "Open &Network..."
-msgstr "Aç&Ağ..."
+msgstr "Ağ Aç..."
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:452
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:452
 msgid "Open a network."
-msgstr "Ağ Dosyası Aç."
+msgstr "Bir Ağ Aç."
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:455
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:455
@@ -117,12 +117,12 @@ msgstr "Görselleştirme için ENler ve Çokgenleri Yükle."
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:458
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:458
 msgid "Open EdgeData "
-msgstr "Kesim Verisi Dosyası Aç "
+msgstr "Kesim Verisi (EdgeData) Aç "
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:458
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:458
 msgid "Load edge related data for visualization."
-msgstr "Görselleştirme için Kesim İlişkili Veri Dosyası Yükle."
+msgstr "Görselleştirme için Kesim İlişkili Veri Yükle."
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:461
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:998
@@ -151,12 +151,12 @@ msgstr "Simülasyonu Yeniden Yükler (Ağ Hariç)."
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:468
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:468
 msgid "Save Configuration"
-msgstr "Yapılandırmaları Kaydet"
+msgstr "Yapılandırmayı Kaydet"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:468
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:468
 msgid "Save current options as a configuration file."
-msgstr "Mevcut Seçenekleri Yapılandırma Dosyası Olarak Kaydet."
+msgstr "Mevcut Seçenekleri Bir Yapılandırma Dosyası Olarak Kaydet."
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:471
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:288
@@ -194,7 +194,7 @@ msgstr "Düzenle"
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:490
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:490
 msgid "Edit Selected..."
-msgstr "Seçilenleri Düzenle..."
+msgstr "Seçileni Düzenle..."
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:490
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:490
@@ -214,12 +214,12 @@ msgstr "Seçilen şeritlere göre bir araç sınıfı seçmek için bir menü a�
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:497
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:497
 msgid "Edit Breakpoints"
-msgstr "Kesim Noktalarını Düzenle"
+msgstr "Kesme Noktalarını Düzenle"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:497
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:497
 msgid "Opens a dialog for editing breakpoints."
-msgstr "Kesim Noktalarını Düzenlemek İçin Bir İletişim Kutusu Açar."
+msgstr "Kesme Noktalarını Düzenlemek İçin Bir İletişim Kutusu Açar."
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:500
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1256
@@ -256,7 +256,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:507
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:507
 msgid "Open network in netedit"
-msgstr "Ağı Netedit'te Aç"
+msgstr "Ağı Netedit'te aç"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:507
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:507
@@ -283,7 +283,7 @@ msgstr "Uygulama Ayarlarının Düzenlenmesi İçin Bir İletişim Penceresi Aç
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:519
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:519
 msgid "Gaming Mode\tCtrl+G\tToggle gaming mode on/off."
-msgstr "Oyun Modu\tCTRL+G\tOyun Modunu Aç/Kapa."
+msgstr "Oyun Modu\tCTRL+G\tOyun Modunu Aç/Kapat."
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:522
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:522
@@ -293,14 +293,14 @@ msgstr "Tam Ekran Modu"
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:522
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:522
 msgid "Toggle full screen mode on/off."
-msgstr "Tam Ekran Modunu Aç/Kapa."
+msgstr "Tam Ekran Modunu Aç/Kapat."
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:526
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:1443
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:526
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1443
 msgid "&Locate"
-msgstr "Belirle"
+msgstr "Bul"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:528
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1302
@@ -314,7 +314,7 @@ msgstr "Kavşaklar"
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:528
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:528
 msgid "Open a Dialog for Locating a Junction."
-msgstr "Bir Kavşak Belirlemek İçin İletişim Kutusu Aç."
+msgstr "Bir Kavşak Bulmak İçin İletişim Kutusu Aç."
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:531
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1307
@@ -328,7 +328,7 @@ msgstr "Kesimler"
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:531
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:531
 msgid "Open a Dialog for Locating an Edge."
-msgstr "Bir Kesim Belirlemek İçin İletişim Penceresi Aç."
+msgstr "Bir Kesim Bulmak İçin İletişim Penceresi Aç."
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:534
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1362
@@ -342,7 +342,7 @@ msgstr "Araçlar"
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:534
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:534
 msgid "Open a Dialog for Locating a Vehicle."
-msgstr "Bir Araç Belirlemek İçin İletişim Penceresi Aç."
+msgstr "Bir Araç Bulmak İçin İletişim Penceresi Aç."
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:537
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1367
@@ -356,7 +356,7 @@ msgstr "Yolcular"
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:537
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:537
 msgid "Open a Dialog for Locating a Person."
-msgstr "Bir Yolcu Belirlemek İçin İletişim Penceresi Aç."
+msgstr "Bir Yolcu Bulmak İçin İletişim Penceresi Aç."
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:540
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:540
@@ -378,7 +378,7 @@ msgstr "TIS"
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:543
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:543
 msgid "Open a Dialog for Locating a Traffic Light."
-msgstr "Bir Trafik Işığı Belirlemek İçin İletişim Penceresi Aç."
+msgstr "Bir Trafik Işığı Bulmak İçin İletişim Penceresi Aç."
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:546
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:592
@@ -392,19 +392,19 @@ msgstr "Ek"
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:546
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:546
 msgid "Open a Dialog for Locating an Additional Structure."
-msgstr "Bir Ek Yapı Belirlemek İçin İletişim Penceresi Aç."
+msgstr "Bir Ek Yapı Bulmak İçin İletişim Penceresi Aç."
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:549
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1960
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:549
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1960
 msgid "P&oI"
-msgstr "Pol"
+msgstr "EN"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:549
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:549
 msgid "Open a Dialog for Locating a Point of Interest."
-msgstr "Bir Etki Noktası Belirlemek İçin İletişim Penceresi Aç."
+msgstr "Bir Etki Noktası Bulmak İçin İletişim Penceresi Aç."
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:552
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1963
@@ -416,7 +416,7 @@ msgstr "Çokgen"
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:552
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:552
 msgid "Open a Dialog for Locating a Polygon."
-msgstr "Bir Çokgen Belirlemek İçin İletişim Penceresi Aç."
+msgstr "Bir Çokgen Bulmak İçin İletişim Penceresi Aç."
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:556
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:556
@@ -426,8 +426,7 @@ msgstr "İç Yapıları Göster"
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:556
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:556
 msgid "Show internal junctions and streets in locator dialog."
-msgstr ""
-"Konum belirleyici iletişim kutusunda dahili kavşakları ve caddeleri gösterin."
+msgstr "Bulucu iletişim kutusunda dahili kavşakları ve caddeleri göster."
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:559
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:559
@@ -437,7 +436,7 @@ msgstr "Park Eden Araçları Göster"
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:559
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:559
 msgid "Show parking vehicles in locator dialog."
-msgstr "Konumlandırıcı Penceresinde Park Eden Araçları Göster."
+msgstr "Bulucu Penceresinde Park Eden Araçları Göster."
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:563
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:563
@@ -450,7 +449,7 @@ msgid ""
 "Show vehicles that are teleporting or driving remote-controlled outside the "
 "road network in locator dialog."
 msgstr ""
-"Konumlandırıcı penceresinde yol ağı dışında ışınlanan veya uzak bağlantılı "
+"Bulucu iletişim penceresinde yol ağı dışında ışınlanan veya uzak bağlantılı "
 "sürüş yapan araçları göster."
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:569
@@ -468,7 +467,7 @@ msgstr "Başlat"
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:571
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:571
 msgid "Start/ Resume the simulation."
-msgstr "Simülasyonu Başlat/Durdur."
+msgstr "Simülasyonu Başlat/Sürdür."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:574
 msgctxt "Simulation"
@@ -578,12 +577,12 @@ msgstr "Yeni 3B görünümü aç"
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:597
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:597
 msgid "Tile &Horizontally"
-msgstr "Döşeme & Yatay"
+msgstr "Yatay Döşeme"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:600
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:600
 msgid "Tile &Vertically"
-msgstr "Döşeme & Dikey"
+msgstr "Dikey Döşeme"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:603
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:603
@@ -602,7 +601,7 @@ msgstr "Kapat"
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:617
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:617
 msgid "&Others..."
-msgstr "Diğer..."
+msgstr "&Diğerleri..."
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:621
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:1997
@@ -614,7 +613,7 @@ msgstr "Durum Satırını Göster"
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:621
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:621
 msgid "Toggle the Status Bar on/off."
-msgstr "Durum Çubuğunu aç/kapa."
+msgstr "Durum Çubuğunu Aç/Kapat."
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:624
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2000
@@ -628,7 +627,7 @@ msgstr "Mesaj Penceresini Göster"
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:624
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2000
 msgid "Toggle the Message Window on/off."
-msgstr "Mesaj Penceresini aç/kapat."
+msgstr "Mesaj Penceresini Aç/Kapat."
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:627
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:627
@@ -638,7 +637,7 @@ msgstr "Simülasyon Zamanını Göster"
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:627
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:627
 msgid "Toggle the Simulation Time on/off."
-msgstr "Simülasyon Zamanını aç/kapat."
+msgstr "Simülasyon Zamanını Aç/Kapat."
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:630
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:630
@@ -648,14 +647,14 @@ msgstr "Simülasyon Gecikmesini Göster"
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:630
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:630
 msgid "Toggle the Simulation Delay Entry on/off."
-msgstr "Simülasyon Gecikme Girişini aç/kapat."
+msgstr "Simülasyon Gecikme Girişini Aç/Kapat."
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:636
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2004
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:636
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2004
 msgid "Clear Message Window"
-msgstr "Mesaj Penceresi Temizle"
+msgstr "Mesaj Penceresini Temizle"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:636
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:636
@@ -674,28 +673,28 @@ msgstr "Yardım"
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:645
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2020
 msgid "&Online Documentation"
-msgstr "Çevrimiçi Dökümantasyon"
+msgstr "Çevrimiçi Belgeler"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:645
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2020
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:645
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2020
 msgid "Open Online documentation."
-msgstr "Çevrimiçi Dökümantasyonu Aç."
+msgstr "Çevrimiçi Belgeleri Aç."
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:648
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2023
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:648
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2023
 msgid "&Changelog"
-msgstr "Değişim Günlüğü"
+msgstr "Değişiklik Günlüğü"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:648
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2023
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:648
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2023
 msgid "Open Changelog."
-msgstr "Değişim Günlüğünü Aç."
+msgstr "Değişiklik Günlüğünü Aç."
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:650
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:2025
@@ -728,7 +727,7 @@ msgstr "Öğreticiyi Aç."
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:654
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2029
 msgid "&Feedback"
-msgstr "&Geribildirim"
+msgstr "Geri Bildirim"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:654
 msgid "Open feedback dialog."
@@ -764,7 +763,7 @@ msgstr "\tYeniden Yükle\tSimülasyonu/Ağı Yeniden Yükler."
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:685
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:685
 msgid "\tRun\tStart/Resume the loaded simulation."
-msgstr "\tÇalıştır\tYüklü Simülasyonu Başlat/Durdur."
+msgstr "\tÇalıştır\tYüklü Simülasyonu Başlat/Sürdür."
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:687
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:687
@@ -805,7 +804,7 @@ msgid ""
 "Scale traffic from flows and vehicles that are loaded incrementally from "
 "route files."
 msgstr ""
-"Rota Dosyalarından Artarak Yüklenen Akım ve Araçlardan Oluşan Trafiği "
+"Rota Dosyalarından Artımlı Yüklenen Akım ve Araçlardan Oluşan Trafiği "
 "Ölçeklendir."
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:746
@@ -919,7 +918,7 @@ msgstr "Simülasyon Yapılandırması Aç"
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:1087
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1087
 msgid "Open Network"
-msgstr "Ağ Yükle"
+msgstr "Ağ Aç"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:1107
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1107
@@ -945,7 +944,7 @@ msgstr "% Yüklemesi Başarısız."
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:1138
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1138
 msgid "Open EdgeData"
-msgstr "Kesim Verilerini Aç"
+msgstr "Kesim Verisi (EdgeData) Aç"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:1172
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1172
@@ -962,7 +961,7 @@ msgstr "Hızlı Yeniden Yükleme."
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1192
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1070
 msgid "Already loading!"
-msgstr "Halen Yükleniyor!"
+msgstr "Zaten Yükleniyor!"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:1204
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1204
@@ -991,7 +990,7 @@ msgstr "Herhangi Bir Simülasyon Yüklenmedi!"
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:1319
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1319
 msgid "Save Simulation State"
-msgstr "Simülasyon Durumu Kaydet"
+msgstr "Simülasyon Durumunu Kaydet"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:1333
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1333
@@ -1028,7 +1027,7 @@ msgstr "'%' yüklendi."
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:2024
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:2024
 msgid "Simulation ended"
-msgstr "Simülasyon Bitti"
+msgstr "Simülasyon Sona Erdi"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:2122
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:2122
@@ -1038,7 +1037,7 @@ msgstr "'%' Yükleniyor."
 #: /home/micha/programming/sumo/src\gui\GUILoadThread.cpp:206
 #: /home/micha/programming/sumo/src/gui/GUILoadThread.cpp:206
 msgid "Could not load edgedata-files '%'"
-msgstr "edgedata dosyaları '%' yüklenemedi"
+msgstr "Kesim Verisi dosyaları (edgedata-files) '%' yüklenemedi"
 
 #: /home/micha/programming/sumo/src\gui\GUIRunThread.cpp:100
 #: /home/micha/programming/sumo/src\gui\GUIRunThread.cpp:106
@@ -1064,7 +1063,7 @@ msgstr "Anlık Görüntü Kaydet"
 #: /home/micha/programming/sumo/src/gui/GUISUMOViewParent.cpp:167
 #: /home/micha/programming/sumo/src/netedit/GNEViewParent.cpp:468
 msgid "No file extension was specified - saving Snapshot as PNG."
-msgstr "Dosya Uzantısı Belirlenmedi - Anlık Görüntü PNG Olarak Kaydediliyor."
+msgstr "Dosya Uzantısı Belirtilmedi - Anlık Görüntü PNG Olarak Kaydediliyor."
 
 #: /home/micha/programming/sumo/src\gui\GUISUMOViewParent.cpp:173
 #: /home/micha/programming/sumo/src\netedit\GNEViewParent.cpp:475
@@ -1085,7 +1084,7 @@ msgstr "Anlık Görüntü Kaydı Başarılı!"
 #: /home/micha/programming/sumo/src/gui/GUISUMOViewParent.cpp:219
 #: /home/micha/programming/sumo/src/gui/GUISUMOViewParent.cpp:268
 msgid "Unknown Message ID in onCmdLocate"
-msgstr "onCmdLocate içinde Bilinmeyen Mesaj Kimliği"
+msgstr "onCmdLocate içinde Bilinmeyen Mesaj Kimliği (ID)"
 
 #: /home/micha/programming/sumo/src/gui/GUISUMOViewParent.cpp:233
 msgid "Junction Chooser"
@@ -1101,7 +1100,7 @@ msgstr "Araç Seçici"
 
 #: /home/micha/programming/sumo/src/gui/GUISUMOViewParent.cpp:245
 msgid "Person Chooser"
-msgstr "Yaya Seçici"
+msgstr "Yolcu Seçici"
 
 #: /home/micha/programming/sumo/src/gui/GUISUMOViewParent.cpp:249
 msgid "Container Chooser"
@@ -1109,11 +1108,11 @@ msgstr "Konteyner Seçici"
 
 #: /home/micha/programming/sumo/src/gui/GUISUMOViewParent.cpp:253
 msgid "Traffic Lights Chooser"
-msgstr "Trafik Işıkları Seçici"
+msgstr "Trafik Işığı Seçici"
 
 #: /home/micha/programming/sumo/src/gui/GUISUMOViewParent.cpp:257
 msgid "Additional Objects Chooser"
-msgstr "Ek Eleman Seçici"
+msgstr "Ek Nesne Seçici"
 
 #: /home/micha/programming/sumo/src/gui/GUISUMOViewParent.cpp:261
 msgid "POI Chooser"
@@ -1196,12 +1195,12 @@ msgstr "Simülasyon Tamamlandığında Yenile (Demo Mod)"
 #: /home/micha/programming/sumo/src\gui\dialogs\GUIDialog_AppSettings.cpp:68
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_AppSettings.cpp:68
 msgid "Locate elements when clicking on messages"
-msgstr "Mesajlara Tıklandığında Elemanları Belirle"
+msgstr "Mesajlara Tıklandığında Elemanları Bul"
 
 #: /home/micha/programming/sumo/src\gui\dialogs\GUIDialog_AppSettings.cpp:74
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_AppSettings.cpp:74
 msgid "Breakpoint offset when clicking on time message"
-msgstr "Zaman Mesajına Tıklandığında Kesim Noktası Ötelemesi"
+msgstr "Zaman Mesajına Tıklandığında Kesme Noktası Ötelemesi"
 
 #: /home/micha/programming/sumo/src\gui\dialogs\GUIDialog_AppSettings.cpp:98
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_AppSettings.cpp:98
@@ -1268,12 +1267,12 @@ msgstr "Zaman"
 #: /home/micha/programming/sumo/src\gui\dialogs\GUIDialog_Breakpoints.cpp:141
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:141
 msgid "Load Breakpoints"
-msgstr "Kesim Noktalarını Yükle"
+msgstr "Kesme Noktalarını Yükle"
 
 #: /home/micha/programming/sumo/src\gui\dialogs\GUIDialog_Breakpoints.cpp:162
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:162
 msgid "Save Breakpoints"
-msgstr "Kesim Noktalarını Kaydet"
+msgstr "Kesme Noktalarını Kaydet"
 
 #: /home/micha/programming/sumo/src\gui\dialogs\GUIDialog_Breakpoints.cpp:172
 #: /home/micha/programming/sumo/src\utils\gui\div\GUIDialog_GLChosenEditor.cpp:155
@@ -1288,7 +1287,7 @@ msgstr "Kesim Noktalarını Kaydet"
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1098
 #: /home/micha/programming/sumo/src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1181
 msgid "Storing failed!"
-msgstr "Kayıt Başarısız!"
+msgstr "Depolama Başarısız!"
 
 #: /home/micha/programming/sumo/src\gui\dialogs\GUIDialog_Breakpoints.cpp:241
 #: /home/micha/programming/sumo/src\gui\dialogs\GUIDialog_Breakpoints.cpp:244
@@ -1324,7 +1323,7 @@ msgstr "'%' Kısayol tuşu desteklenmiyor"
 #: /home/micha/programming/sumo/src\guisim\GUIBaseVehicle.cpp:300
 #: /home/micha/programming/sumo/src/guisim/GUIBaseVehicle.cpp:300
 msgid "GUI-triggered stop not implemented for meso"
-msgstr "GKA-Tetikli Durak Mezo Ölçek İçin Gerçeklenmemiş"
+msgstr "GKA-Tetikli Durak Mezo Ölçek İçin Uygulanmadı"
 
 #: /home/micha/programming/sumo/src\guisim\GUIBaseVehicle.cpp:876
 #: /home/micha/programming/sumo/src\guisim\GUIVehicle.cpp:668
@@ -1342,14 +1341,14 @@ msgstr ""
 #: /home/micha/programming/sumo/src\guisim\GUINet.cpp:666
 #: /home/micha/programming/sumo/src/guisim/GUINet.cpp:666
 msgid "Trying to set data value for the unknown edge '%'."
-msgstr "Bilinmeyen '%' Kesim İçin Veri Değerleri Ayarlanmaya Çalışılıyor."
+msgstr "Bilinmeyen '%' Kesim İçin Veri Değeri Ayarlanmaya Çalışılıyor."
 
 #: /home/micha/programming/sumo/src\guisim\GUINet.cpp:690
 #: /home/micha/programming/sumo/src/guisim/GUINet.cpp:690
 msgid ""
 "Trying to set data value for the unknown relation from edge '%' to edge '%'."
 msgstr ""
-"Bilinmeyen '%' Kesimden '%' Kesime İlişkisi İçin Veri Değerleri Ayarlanmaya "
+"Bilinmeyen '%' Kesimden '%' Kesime İlişkisi İçin Veri Değeri Ayarlanmaya "
 "Çalışılıyor."
 
 #: /home/micha/programming/sumo/src\guisim\GUINet.cpp:708
@@ -1377,7 +1376,7 @@ msgstr "Mikro Ölçekli, Çok Modlu Trafik Simülasyonu."
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:495
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:495
 msgid "Recomputing"
-msgstr "Yeniden Hesaplanıyor"
+msgstr "Yeniden Hesaplama"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:495
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:495
@@ -1394,25 +1393,25 @@ msgstr "Test koordinatı"
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:816
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:839
 msgid "loading TLS Programs from '"
-msgstr "'den TIS Programlarını Yükleme"
+msgstr "' Dosyasından TIS Programları Yükleniyor"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:881
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:881
 msgid "Loaded edge types from '"
-msgstr "'den yüklenen kesim türleri"
+msgstr "' dosyasından yüklenen kesim tipleri"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:883
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:916
 msgid "load edgeTypes"
-msgstr "Kesim Tipleri Yükle"
+msgstr "Kesim Tiplerini (edgeTypes) Yükle"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:914
 msgid "Reloaded edge types from '"
-msgstr "'Dosyadan yüklenen kesim tipleri"
+msgstr "' dosyasından yeniden yüklenen kesim tipleri"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:971
 msgid "Reloading netedit config file '"
-msgstr "Netedit yapılandırma dosyası yeniden yükleniyor"
+msgstr "Netedit yapılandırma dosyası yeniden yükleniyor '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:975
 msgid "Reloading sumo config file '"
@@ -1460,7 +1459,7 @@ msgstr "Kilitle"
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:1439
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1439
 msgid "&Processing"
-msgstr "İşlem"
+msgstr "İşleme"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:1447
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1447
@@ -1516,14 +1515,14 @@ msgstr "' OSM dosyası yükleniyor"
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:1727
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1727
 msgid "Recompute with volatile options"
-msgstr "Havai Seçeneklerle Yeniden Hesapla"
+msgstr "Hassas Seçeneklerle Yeniden Hesapla"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1728
 msgid ""
 "Changes produced in the net due a recomputing with volatile options cannot "
 "be undone. Continue?"
 msgstr ""
-"Hassa seçeneklerle yeniden hesaplama nedeniyle ağda üretilen değişiklikler "
+"Hassas seçeneklerle yeniden hesaplama nedeniyle ağda üretilen değişiklikler "
 "geri alınamaz. Devam et?"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1963
