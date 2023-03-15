@@ -197,13 +197,26 @@ def filter_gtfs(options, routes, trips_on_day, shapes, stops, stop_times):
     """
     stops['stop_lat'] = stops['stop_lat'].astype(float)
     stops['stop_lon'] = stops['stop_lon'].astype(float)
-    shapes['shape_pt_lat'] = shapes['shape_pt_lat'].astype(float)
-    shapes['shape_pt_lon'] = shapes['shape_pt_lon'].astype(float)
-    shapes['shape_pt_sequence'] = shapes['shape_pt_sequence'].astype(float)
+
+    no_shapes = False
+
+    if shapes is None:
+        no_shapes = True
+    else:
+        shapes['shape_pt_lat'] = shapes['shape_pt_lat'].astype(float)
+        shapes['shape_pt_lon'] = shapes['shape_pt_lon'].astype(float)
+        shapes['shape_pt_sequence'] = shapes['shape_pt_sequence'].astype(float) 
+
+        shapes = shapes[(options.bbox[1] <= shapes['shape_pt_lat']) &
+                (shapes['shape_pt_lat'] <= options.bbox[3]) &
+                (options.bbox[0] <= shapes['shape_pt_lon']) &
+                (shapes['shape_pt_lon'] <= options.bbox[2])]
 
     # merge gtfs data from stop_times / trips / routes / stops
     gtfs_data = pd.merge(pd.merge(pd.merge(trips_on_day, stop_times, on='trip_id'),
                          stops, on='stop_id'), routes, on='route_id')
+    if no_shapes:
+        gtfs_data['shape_id'] = gtfs_data['route_id'] + "_" + gtfs_data['direction_id']
 
     # filter relevant information
     gtfs_data = gtfs_data[['route_id', 'shape_id', 'trip_id', 'stop_id',
@@ -216,10 +229,6 @@ def filter_gtfs(options, routes, trips_on_day, shapes, stops, stop_times):
                           (gtfs_data['stop_lat'] <= options.bbox[3]) &
                           (options.bbox[0] <= gtfs_data['stop_lon']) &
                           (gtfs_data['stop_lon'] <= options.bbox[2])]
-    shapes = shapes[(options.bbox[1] <= shapes['shape_pt_lat']) &
-                    (shapes['shape_pt_lat'] <= options.bbox[3]) &
-                    (options.bbox[0] <= shapes['shape_pt_lon']) &
-                    (shapes['shape_pt_lon'] <= options.bbox[2])]
 
     # get list of trips with departure time to allow a sorted output
     trip_list = gtfs_data.loc[gtfs_data.groupby('trip_id').stop_sequence.idxmin()]
@@ -227,27 +236,84 @@ def filter_gtfs(options, routes, trips_on_day, shapes, stops, stop_times):
     # add new column for unambiguous stop_id and edge in sumo
     gtfs_data["stop_item_id"] = None
     gtfs_data["edge_id"] = None
-
-    # search main and secondary shapes for each pt line (route and direction)
-    filtered_stops = gtfs_data.groupby(['route_id', 'direction_id', 'shape_id'])["shape_id"].size().reset_index(name='counts')
-    group_shapes = filtered_stops.groupby(['route_id', 'direction_id']).shape_id.aggregate(set).reset_index()
-
-    filtered_stops = filtered_stops.loc[filtered_stops.groupby(['route_id', 'direction_id'])['counts'].idxmax()][[  # noqa
-                                        'route_id', 'shape_id', 'direction_id']]
-    filtered_stops = pd.merge(filtered_stops, group_shapes, on=['route_id', 'direction_id'])
-
     # create dict with shapes and their main shape
     shapes_dict = {}
-    for row in filtered_stops.itertuples():
-        for sec_shape in row.shape_id_y:
-            shapes_dict[sec_shape] = row.shape_id_x
 
-    # create data frame with main shape for stop location
-    filtered_stops = gtfs_data[gtfs_data['shape_id'].isin(filtered_stops.shape_id_x)]
-    filtered_stops = filtered_stops[['route_id', 'shape_id', 'stop_id',
-                                     'route_short_name', 'route_type',
-                                     'trip_headsign', 'direction_id',
-                                     'stop_name', 'stop_lat', 'stop_lon']].drop_duplicates()
+    if not no_shapes:
+        # search main and secondary shapes for each pt line (route and direction)
+        filtered_stops = gtfs_data.groupby(['route_id', 'direction_id', 'shape_id'])["shape_id"].size().reset_index(name='counts')
+        group_shapes = filtered_stops.groupby(['route_id', 'direction_id']).shape_id.aggregate(set).reset_index()
+
+        filtered_stops = filtered_stops.loc[filtered_stops.groupby(['route_id', 'direction_id'])['counts'].idxmax()][[  # noqa
+                                            'route_id', 'shape_id', 'direction_id']]
+        filtered_stops = pd.merge(filtered_stops, group_shapes, on=['route_id', 'direction_id'])
+
+        for row in filtered_stops.itertuples():
+            for sec_shape in row.shape_id_y:
+                shapes_dict[sec_shape] = row.shape_id_x
+
+        # create data frame with main shape for stop location
+        filtered_stops = gtfs_data[gtfs_data['shape_id'].isin(filtered_stops.shape_id_x)]
+        filtered_stops = filtered_stops[['route_id', 'shape_id', 'stop_id',
+                                        'route_short_name', 'route_type',
+                                        'trip_headsign', 'direction_id',
+                                        'stop_name', 'stop_lat', 'stop_lon']].drop_duplicates()
+    """
+    If not using shapes, searches for the most common sequence of stops in a route. 
+    Only the paths and stops of these main sequences are mapped. Creates 'shapes' with 
+    the coordinates of first and last stop in main route sequences, used for mapping later.
+    """
+    if no_shapes:
+        
+        # create a new stop id with their trip sequence
+        gtfs_data['new_stop_id'] = gtfs_data['stop_sequence'].astype(str) +'_' + gtfs_data['stop_id']
+
+        # for a given trip, put the stops into a list and then into a string
+        group_stops = gtfs_data.groupby(['trip_id','shape_id']).new_stop_id.aggregate(list).reset_index()
+        group_stops['new_stop_id'] = group_stops['new_stop_id'].str.join(' ')
+
+        # for a given shape (route and direction), count the number of times the particular stop sequence (sequence and stop_id) is used
+        group_size = group_stops.groupby(['shape_id','new_stop_id']).new_stop_id.size().reset_index(name='counts')
+
+        # get one main route (most common sequence of stops) for each shape
+        group_routes = group_size.loc[group_size.groupby(['shape_id']).counts.idxmax()]
+
+        # split string of stops into list again
+        group_routes['new_stop_id']=group_routes['new_stop_id'].str.split(' ')
+        
+        # get all stops in all the main routes 
+        routes_stops = group_routes.explode('new_stop_id',ignore_index=True)
+        routes_stops[['stop_sequence','stop_id']]=routes_stops.new_stop_id.str.split('_',expand=True)
+        routes_stops['stop_sequence']=routes_stops['stop_sequence'].astype(float)
+
+        stop_indexes = []
+        # loop through all unique shapes and collect the first and last stop in sequence
+        for shape in routes_stops['shape_id'].unique():
+            first_stop_index = routes_stops.loc[routes_stops['shape_id']==shape,'stop_sequence'].idxmin()
+            last_stop_index =  routes_stops.loc[routes_stops['shape_id']==shape,'stop_sequence'].idxmax()
+            stop_indexes.append(first_stop_index)
+            stop_indexes.append(last_stop_index)
+
+        # drop indexes that have duplicates (i.e. first and last stop are the same)
+        end_stops_index = [x for x in stop_indexes if stop_indexes.count(x) == 1]
+
+        # create new 'shapes' file with the coordinates of first and last stop 
+        stop_info = gtfs_data[['shape_id','stop_id','stop_lat','stop_lon']].drop_duplicates()
+        stop_shape = routes_stops.loc[end_stops_index,['shape_id','stop_id','stop_sequence']]
+        shapes = pd.merge(stop_shape,stop_info,on=['shape_id','stop_id'])
+        shapes = shapes.rename(columns={"stop_sequence":"shape_pt_sequence","stop_lon":"shape_pt_lon","stop_lat":"shape_pt_lat"})
+
+        # all stops of main routes, dropped routes with only 1 stop
+        routes_stops=routes_stops.loc[routes_stops['shape_id'].isin(shapes['shape_id'])]
+
+        # shapes dictionary is just the shape id in both columns
+        for shape in shapes['shape_id'].unique():
+            shapes_dict[shape]= shape
+
+        # all stops of main routes, with other infos. stop_sequence is used in merge because some stops are repeated twice in a route
+        filtered_stops = pd.merge(routes_stops,gtfs_data,on=['shape_id','stop_id','stop_sequence'],how='left')[['route_id', 'stop_id', 'shape_id',
+                                     'route_short_name', 'route_type','trip_headsign','direction_id',
+                                     'stop_name', 'stop_lat', 'stop_lon','stop_sequence']].drop_duplicates(['shape_id','stop_id','stop_sequence']) 
 
     return gtfs_data, trip_list, filtered_stops, shapes, shapes_dict
 
