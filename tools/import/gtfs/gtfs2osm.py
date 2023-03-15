@@ -486,7 +486,7 @@ def map_gtfs_osm(options, net, osm_routes, gtfs_data, shapes, shapes_dict, filte
             if osm_lines:
                 # get the direction for the found routes and take the route
                 # with lower difference
-                diff, osm_id, edges = min(osm_lines, key=lambda x: x[0] if x[0] < 180 else 360 - x[0])
+                diff, osm_id, edges,stops = min(osm_lines, key=lambda x: x[0] if x[0] < 180 else 360 - x[0])
                 # add mapped osm route to dict
                 map_routes[row.shape_id] = (osm_id, edges.split())
             else:
@@ -539,14 +539,14 @@ def map_gtfs_osm(options, net, osm_routes, gtfs_data, shapes, shapes_dict, filte
                 access = getAccess(net, row.stop_lon, row.stop_lat, 100, lane_id)
                 stop_item_id = "%s_%s" % (row.stop_id, len(stop_items[row.stop_id]))
                 stop_items[row.stop_id].append(stop_item_id)
-                map_stops[stop_item_id] = [sumolib.xml.quoteattr(row.stop_name, True),
+                map_stops[stop_item_id] = [sumolib.xml.quoteattr(row.stop_name[0], True),
                                            lane_id, start, end, access, pt_type, edge_inter]
                 _addToDataFrame(gtfs_data, row, shapes_dict, stop_item_id, lane_id.split("_")[0])
                 stop_mapped = True
 
         # if stop not mapped, add to missing stops
         if not stop_mapped:
-            missing_stops.append((row.stop_id, sumolib.xml.quoteattr(row.stop_name, True), row.route_short_name))
+            missing_stops.append((row.stop_id, sumolib.xml.quoteattr(row.stop_name[0], True), row.route_short_name))
 #    pprint(map_routes)
 #    pprint(map_stops)
     return map_routes, map_stops, missing_stops, missing_lines
