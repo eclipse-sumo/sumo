@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-15 15:06+0000\n"
+"PO-Revision-Date: 2023-03-15 23:45+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
@@ -8194,257 +8194,259 @@ msgstr "从公交站到公交站的转运需要两个公交站"
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1401
 msgid "A tranship with edges attribute needs a list of edges"
-msgstr ""
+msgstr "一个带有路段属性的转换需要一个路段列表"
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1467
 msgid "Via edge '"
-msgstr ""
+msgstr "通过路段'"
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNEStop.cpp:443
 msgid "Invalid Stop parent"
-msgstr ""
+msgstr "无效的 \"停止 \"母体"
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNEStop.cpp:458
 msgid "Invalid parent"
-msgstr ""
+msgstr "无效的母体"
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNEVehicle.cpp:645
 msgid "Invalid vehicle tag"
-msgstr ""
+msgstr "无效车辆标签"
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNEWalk.cpp:331
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNEWalk.cpp:346
 msgid "This walk use junctions"
-msgstr ""
+msgstr "这种步行方式使用的路口"
 
 #: /home/micha/programming/sumo/src\netedit\elements\network\GNEConnection.cpp:679
 msgid "Could not set attribute '%' (tls is broken)"
-msgstr ""
+msgstr "无法设置属性'%'（tls已损坏）"
 
 #: /home/micha/programming/sumo/src\netedit\elements\network\GNEEdge.cpp:2169
 msgid "Could not compute smooth shape for edge '%'"
-msgstr ""
+msgstr "无法计算路段'%'的平滑形状"
 
 #: /home/micha/programming/sumo/src\netedit\elements\network\GNEEdge.cpp:2187
 msgid "Could not compute smooth elevation for edge '%'"
-msgstr ""
+msgstr "无法计算路段'%'的平滑高程"
 
 #: /home/micha/programming/sumo/src\netedit\elements\network\GNEInternalLane.cpp:241
 msgid "invalid link state='%'"
-msgstr ""
+msgstr "无效链接状态='%'"
 
 #: /home/micha/programming/sumo/src\netedit\elements\network\GNEJunction.cpp:335
 msgid "Reset junction shapes"
-msgstr ""
+msgstr "重置路口形状"
 
 #: /home/micha/programming/sumo/src\netedit\elements\network\GNELane.cpp:470
 msgid "Unexpected LinkState '%'"
-msgstr ""
+msgstr "未预计到的链接状态'%'"
 
 #: /home/micha/programming/sumo/src\netedit\elements\network\GNELane.cpp:810
 msgid "Lane Parametric Length cannot be never 0"
-msgstr ""
+msgstr "车道参数长度永远不能为0"
 
 #: /home/micha/programming/sumo/src\netedit\elements\network\GNELane.cpp:972
 msgid "Opposite lane '%' does not connect the same nodes as edge '%'!"
-msgstr ""
+msgstr "对面车道'%'与路段%'不能连接在同一节点!"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEAttributesCreator.cpp:49
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:738
 msgid "Internal attributes"
-msgstr ""
+msgstr "内部属性"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEAttributesCreator.cpp:175
 #: /home/micha/programming/sumo/src\netedit\frames\GNEAttributesCreator.cpp:177
 msgid "Invalid input parameter of "
-msgstr ""
+msgstr "无效的输入参数 "
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEAttributesCreatorRow.cpp:60
 #: /home/micha/programming/sumo/src\netedit\frames\GNEAttributesCreatorRow.cpp:62
 msgid "name"
-msgstr ""
+msgstr "名称"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEAttributesCreatorRow.cpp:64
 msgid "button"
-msgstr ""
+msgstr "按钮"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEAttributesCreatorRow.cpp:69
 msgid "Disabled"
-msgstr ""
+msgstr "残障人士"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEAttributesCreatorRow.cpp:425
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:455
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:1252
 msgid "Color Dialog"
-msgstr ""
+msgstr "颜色对话框"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEAttributesCreatorRow.cpp:476
 msgid "Unsupported additional ID"
-msgstr ""
+msgstr "不支持的附加ID"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:55
 msgid "Consecutive lane selector"
-msgstr ""
+msgstr "连续车道选择器"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:59
 #: /home/micha/programming/sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:411
 msgid "No lanes selected"
-msgstr ""
+msgstr "未选择车道"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:61
 msgid "Finish path creation"
-msgstr ""
+msgstr "完成路径创建"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:64
 msgid "Abort path creation"
-msgstr ""
+msgstr "终止创建路径"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:67
 msgid "Remove last lane"
-msgstr ""
+msgstr "删除之前一条车道"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:70
 msgid "Show candidate lanes"
-msgstr ""
+msgstr "显示候选车道"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:73
 msgid "-BACKSPACE: undo click"
-msgstr ""
+msgstr "-BACKSPACE：撤消点击"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:73
 msgid "-ESC: Abort path creation"
-msgstr ""
+msgstr "-ESC：终止创建路径"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:134
 msgid "Invalid lane"
-msgstr ""
+msgstr "无效车道"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:151
 msgid "Lane path needs at least two lanes"
-msgstr ""
+msgstr "车道路径至少需要两条车道"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:171
 #: /home/micha/programming/sumo/src\netedit\frames\GNEPathCreator.cpp:393
 #: /home/micha/programming/sumo/src\netedit\frames\GNEPathCreator.cpp:469
 msgid "route creation"
-msgstr ""
+msgstr "创建路径"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:406
 msgid "- Selected lanes: "
-msgstr ""
+msgstr "- 选定的车道: "
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:407
 #: /home/micha/programming/sumo/src\netedit\frames\GNEPathCreator.cpp:943
 msgid "- Length: "
-msgstr ""
+msgstr "- 长度: "
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEDemandSelector.cpp:48
 msgid "Parent "
-msgstr ""
+msgstr "母体 "
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEDemandSelector.cpp:65
+#, fuzzy
 msgid "Parent element"
-msgstr ""
+msgstr "母元素"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEDemandSelector.cpp:108
 msgid "select item..."
-msgstr ""
+msgstr "请选择项目..."
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEDemandSelector.cpp:110
 msgid "-Select an item in the list or"
-msgstr ""
+msgstr "-在列表中选择一个项目或"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEDemandSelector.cpp:110
 msgid "click over an element in view"
-msgstr ""
+msgstr "点击视图中的要素"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEDemandSelector.cpp:133
 msgid "select sub-item..."
-msgstr ""
+msgstr "选择子项目..."
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEDemandSelector.cpp:136
 msgid "-Clicked over multiple"
-msgstr ""
+msgstr "-点击多个"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEDemandSelector.cpp:137
+#, fuzzy
 msgid "elements"
-msgstr ""
+msgstr "要素"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEDemandSelector.cpp:138
 msgid " - Select an item in the"
-msgstr ""
+msgstr " - 选择一个项目，在"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEDemandSelector.cpp:139
 msgid " list or click over an"
-msgstr ""
+msgstr " 列表或点击一个"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEDemandSelector.cpp:140
 msgid " element in view"
-msgstr ""
+msgstr " 视图中的要素"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEDemandSelector.cpp:332
 msgid "Selected item '"
-msgstr ""
+msgstr "选定的项目'"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEDemandSelector.cpp:332
 msgid "' in DemandElementSelector"
-msgstr ""
+msgstr "' 在需求元素选择器 （DemandElementSelector）中"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEDemandSelector.cpp:345
 msgid "Selected invalid item in DemandElementSelector"
-msgstr ""
+msgstr "在需求元素选择器（DemandElementSelector）內选定的无效项目"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEDrawingShape.cpp:48
 msgid "Drawing"
-msgstr ""
+msgstr "绘图"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEDrawingShape.cpp:52
 msgid "Start drawing"
-msgstr ""
+msgstr "启动绘图"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEDrawingShape.cpp:53
 msgid "Stop drawing"
-msgstr ""
+msgstr "停止绘图"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEDrawingShape.cpp:54
 msgid "Abort drawing"
-msgstr ""
+msgstr "终止绘图"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEDrawingShape.cpp:58
 msgid "- 'Start drawing' or ENTER"
-msgstr ""
+msgstr "- '开始绘图'或回车键"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEDrawingShape.cpp:59
 msgid "  to create shape."
-msgstr ""
+msgstr "  t来创建形状。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEDrawingShape.cpp:60
 msgid "- 'Stop drawing' or ENTER to"
-msgstr ""
+msgstr "- '停止绘图'或回车键来"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEDrawingShape.cpp:61
 msgid "  finish shape creation."
-msgstr ""
+msgstr "  完成形状创建。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEDrawingShape.cpp:62
 msgid "- 'Abort drawing' or ESC to"
-msgstr ""
+msgstr "- '中止绘图'或ESC来"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEDrawingShape.cpp:63
 msgid "  abort shape creation."
-msgstr ""
+msgstr "  终止形状的创建。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEDrawingShape.cpp:64
 msgid "- 'Shift + Click' to remove"
-msgstr ""
+msgstr "- 'Shift + Click'来删除"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEDrawingShape.cpp:65
 msgid "  last inserted point."
-msgstr ""
+msgstr "  最后一个插入点。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEDrawingShape.cpp:137
 msgid "A new point cannot be added if drawing wasn't started"
-msgstr ""
+msgstr "如果没有开始绘图，就不能添加新的点"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEE2DetectorLegendModule.cpp:34
 #: /home/micha/programming/sumo/src\netedit\frames\GNEPathLegendModule.cpp:34
@@ -8456,46 +8458,46 @@ msgstr ""
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECrossingFrame.cpp:535
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:85
 msgid "Information"
-msgstr ""
+msgstr "信息"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEE2DetectorLegendModule.cpp:38
 #: /home/micha/programming/sumo/src\netedit\frames\GNEPathLegendModule.cpp:38
 msgid " edge candidate"
-msgstr ""
+msgstr " 候选路段"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEE2DetectorLegendModule.cpp:42
 #: /home/micha/programming/sumo/src\netedit\frames\GNEPathLegendModule.cpp:42
 msgid " last edge selected"
-msgstr ""
+msgstr " 最后选定的路段"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEE2DetectorLegendModule.cpp:45
 #: /home/micha/programming/sumo/src\netedit\frames\GNEPathLegendModule.cpp:45
 msgid " edge selected"
-msgstr ""
+msgstr " 路段选定"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEE2DetectorLegendModule.cpp:48
 #: /home/micha/programming/sumo/src\netedit\frames\GNEPathLegendModule.cpp:51
 msgid " edge disconnected"
-msgstr ""
+msgstr " 路段断开"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEElementTree.cpp:62
 msgid "Hierarchy"
-msgstr ""
+msgstr "层次划分"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEElementTree.cpp:211
 #, c-format
 msgid "Default Vehicle Type '%' cannot be removed"
-msgstr ""
+msgstr "默认的车辆类型'%'不能被删除"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEElementTree.cpp:316
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:83
 msgid "Center"
-msgstr ""
+msgstr "中心"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEElementTree.cpp:323
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:1252
 msgid "Inspect"
-msgstr ""
+msgstr "检查"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEElementTree.cpp:324
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNESelectorFrame.cpp:259
@@ -8503,129 +8505,130 @@ msgstr ""
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:439
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1344
 msgid "Delete"
-msgstr ""
+msgstr "删除"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEElementTree.cpp:397
 #: /home/micha/programming/sumo/src\netedit\frames\GNEElementTree.cpp:416
 #: /home/micha/programming/sumo/src\netedit\frames\GNEElementTree.cpp:477
 msgid " origin"
-msgstr ""
+msgstr " 来源"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEElementTree.cpp:398
 #: /home/micha/programming/sumo/src\netedit\frames\GNEElementTree.cpp:417
 #: /home/micha/programming/sumo/src\netedit\frames\GNEElementTree.cpp:478
 msgid " destination"
-msgstr ""
+msgstr " 目的地"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEElementTree.cpp:506
 #: /home/micha/programming/sumo/src\netedit\frames\GNEElementTree.cpp:632
 #: /home/micha/programming/sumo/src\netedit\frames\GNEElementTree.cpp:706
 msgid " additionals..."
-msgstr ""
+msgstr " 额外的..."
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEElementTree.cpp:520
 #: /home/micha/programming/sumo/src\netedit\frames\GNEElementTree.cpp:583
 #: /home/micha/programming/sumo/src\netedit\frames\GNEElementTree.cpp:646
 #: /home/micha/programming/sumo/src\netedit\frames\GNEElementTree.cpp:720
+#, fuzzy
 msgid " demand elements..."
-msgstr ""
+msgstr " 需求要素..."
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEElementTree.cpp:534
 #: /home/micha/programming/sumo/src\netedit\frames\GNEElementTree.cpp:597
 #: /home/micha/programming/sumo/src\netedit\frames\GNEElementTree.cpp:660
 #: /home/micha/programming/sumo/src\netedit\frames\GNEElementTree.cpp:738
 msgid " edges..."
-msgstr ""
+msgstr " 路段..."
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEElementTree.cpp:548
 #: /home/micha/programming/sumo/src\netedit\frames\GNEElementTree.cpp:611
 #: /home/micha/programming/sumo/src\netedit\frames\GNEElementTree.cpp:674
 #: /home/micha/programming/sumo/src\netedit\frames\GNEElementTree.cpp:756
 msgid " lanes..."
-msgstr ""
+msgstr " 车道..."
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEElementTree.cpp:569
 msgid " TAZElements..."
-msgstr ""
+msgstr " 交通分区要素..."
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEElementTree.cpp:815
 #: /home/micha/programming/sumo/src\netedit\frames\GNEElementTree.cpp:911
 msgid "Data elements"
-msgstr ""
+msgstr "数据要素"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEElementTree.cpp:841
 msgid "Incomings"
-msgstr ""
+msgstr "收入"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEElementTree.cpp:851
 msgid "Outgoing"
-msgstr ""
+msgstr "支出"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEElementTree.cpp:890
 #: /home/micha/programming/sumo/src\netedit\frames\GNENetworkSelector.cpp:65
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:1325
 msgid "Edges"
-msgstr ""
+msgstr "路段"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEElementTree.cpp:890
 #: /home/micha/programming/sumo/src\netedit\frames\GNENetworkSelector.cpp:71
 msgid "Lanes"
-msgstr ""
+msgstr "车道"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFlowEditor.cpp:50
 msgid "Flow attributes"
-msgstr ""
+msgstr "流量属性"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFlowEditor.cpp:170
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFlowEditor.cpp:469
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFlowEditor.cpp:596
 msgid "rate"
-msgstr ""
+msgstr "率"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFlowEditor.cpp:343
 msgid "change multiple flow attributes"
-msgstr ""
+msgstr "改变多个流量属性"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFlowEditor.cpp:369
 msgid "enable multiple flow attributes"
-msgstr ""
+msgstr "启用多个流量属性"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFlowEditor.cpp:385
 msgid "disable multiple flow attributes"
-msgstr ""
+msgstr "禁用多个流量属性"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFlowEditor.cpp:540
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFlowEditor.cpp:568
 msgid "different: "
-msgstr ""
+msgstr "不同的 : "
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFrame.cpp:185
 msgid "Parameters of "
-msgstr ""
+msgstr "的参数 "
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFrame.cpp:195
 msgid "Attribute"
-msgstr ""
+msgstr "属性"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFrame.cpp:196
 msgid "Description"
-msgstr ""
+msgstr "描述"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFrame.cpp:197
 msgid "Definition"
-msgstr ""
+msgstr "定义"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFrame.cpp:236
 msgid "Opening HelpAttributes dialog for tag '"
-msgstr ""
+msgstr "打开标签的HelpAttributes（帮助属性）对话框 ''。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFrame.cpp:236
 msgid "' showing "
-msgstr ""
+msgstr "'展示 "
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFrame.cpp:236
 msgid " attributes"
-msgstr ""
+msgstr " 属性"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFrame.cpp:246
 msgid "Closing HelpAttributes dialog for tag '"
