@@ -1,13 +1,5 @@
-F
-======================================================================
-FAIL: test_parseTime (__main__.Test_Init)
-----------------------------------------------------------------------
-Traceback (most recent call last):
-  File "/scr1/sumo/tests/../tests/tools/sumolib/miscutils/runner.py", line 38, in test_parseTime
-    self.assertEqual(-1, miscutils.parseTime('-00:00:01'))
-AssertionError: -1 != 1.0
-
+.
 ----------------------------------------------------------------------
 Ran 1 test in 0.000s
 
-FAILED (failures=1)
+OK
