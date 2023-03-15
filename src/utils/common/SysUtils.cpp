@@ -26,23 +26,19 @@
 #include "SysUtils.h"
 
 #ifndef WIN32
-#include <sys/time.h>
-#include <unistd.h>
-
+    #include <sys/time.h>
+    #include <unistd.h>
 #else
-
-#define NOMINMAX
-#include <windows.h>
-#undef NOMINMAX
-
-#define stat _stat
-
+    #define NOMINMAX
+    #include <windows.h>
+    #undef NOMINMAX
+    #define stat _stat
 #endif
-
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
+
 long
 SysUtils::getCurrentMillis() {
 #ifndef WIN32

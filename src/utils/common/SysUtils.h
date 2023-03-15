@@ -28,12 +28,12 @@
  * @brief A few system-specific functions
  */
 class SysUtils {
+
 public:
     /** @brief Returns the current time in milliseconds
      * @return Current time
      */
     static long getCurrentMillis();
-
 
 #ifdef WIN32
     /** @brief Returns the CPU ticks (windows only)
@@ -44,9 +44,9 @@ public:
     static long getWindowsTicks();
 #endif
 
-
     /// @brief run a shell command without popping up any windows (particuarly on win32)
     static unsigned long runHiddenCommand(const std::string& cmd);
 
+    /// @brie get modified time
     static long long getModifiedTime(const std::string& fname);
 };
