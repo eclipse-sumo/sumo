@@ -101,7 +101,7 @@ GNERunToolDialog::runTool(GNETool* tool) {
     // refresh APP
     getApp()->refresh();
     // clear text
-    //myText->setText("");
+    myText->setText("");
     // show dialog
     FXDialogBox::show(PLACEMENT_SCREEN);
     // run tool

@@ -52,6 +52,9 @@ FXint
 GNERunTool::run() {
     // declare buffer
     char buffer[128];
+    for (int i = 0; i < 128; i++) {
+        buffer[i] = '\0';
+    }
     // open process
 #ifdef WIN32
     FILE* pipe = _popen(myTool->getCommand().c_str(), "r");
