@@ -219,6 +219,8 @@ def euclidean(a, b):
 
 def humanReadableTime(seconds):
     result = ""
+    sign = '-' if seconds < 0 else ''
+    seconds = abs(seconds)
     ds = 3600 * 24
     if seconds > ds:
         result = "%s:" % int(seconds / ds)
@@ -230,7 +232,7 @@ def humanReadableTime(seconds):
     if seconds == int(seconds):
         seconds = int(seconds)
     result += "%02i" % seconds
-    return result
+    return sign + result
 
 
 def parseTime(t, factor=1):
