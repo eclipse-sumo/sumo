@@ -375,9 +375,22 @@ def import_osm(options, net):
 
                 line_dir = get_line_dir(line_orig, line_dest)
 
-                osm_routes[ptline.id] = (ptline.attr_name, ptline.line,
+                osm_routes[ptline.id] = [ptline.attr_name, ptline.line,
                                          ptline.type, line_dir,
-                                         ptline_route.edges)
+                                         ptline_route.edges]
+                
+        osm_stops = {}
+        for ptline, ptline_stop in parse_fast_nested(options.osm_routes,
+                                                        "ptLine", ("id"), # egg/ added colour here
+                                                        "busStop", "name"):
+                if ptline.id not in osm_stops:
+                    osm_stops[ptline.id]=[ptline_stop.attr_name]
+                else:
+                    osm_stops[ptline.id].append(ptline_stop.attr_name)
+
+        for index in osm_stops.keys():
+            if index in osm_routes:
+                osm_routes[index].append(osm_stops[index])
     return osm_routes
 
 
@@ -446,6 +459,11 @@ def map_gtfs_osm(options, net, osm_routes, gtfs_data, shapes, shapes_dict, filte
     missing_lines = []
     stop_items = defaultdict(list)
 
+    import re # get different permutations of stop names, and assign the collection of all stop names in route to the stop
+    filtered_stops['stop_name'] = [[x] + re.split(r', | ,|,',x) + [x.replace(',','')] for x in filtered_stops['stop_name']]
+    filtered_shapes = filtered_stops.groupby(['shape_id','route_short_name','route_type','direction_id']).stop_name.aggregate(sum).reset_index(name='stop_name_all')
+    filtered_stops=pd.merge(filtered_stops,filtered_shapes)
+
     for row in filtered_stops.itertuples():
         # check if gtfs route already mapped to osm route
         if row.shape_id not in map_routes:
@@ -460,10 +478,10 @@ def map_gtfs_osm(options, net, osm_routes, gtfs_data, shapes, shapes_dict, filte
             line_dir = get_line_dir((pt_orig.shape_pt_lon, pt_orig.shape_pt_lat),
                                     (pt_dest.shape_pt_lon, pt_dest.shape_pt_lat))
 
-            # get osm lines with same route name and pt type
-            osm_lines = [(abs(line_dir - value[3]), ptline_id, value[4])
+            # get osm lines with same route name and pt type, and if they have at least one matching stop name in osm and gtfs routes
+            osm_lines = [(abs(line_dir - value[3]), ptline_id, value[4],value[5])
                          for ptline_id, value in osm_routes.items()
-                         if value[1] == pt_line_name and value[2] == pt_type]
+                         if value[1] == pt_line_name and value[2] == pt_type and set(value[5])& set(row.stop_name_all)]
 
             if osm_lines:
                 # get the direction for the found routes and take the route
