@@ -1,0 +1,3 @@
+-e tripinfo -a arrival -H input_data.xml
+--xml-output stats.xml
+tools/output/attributeStats.py 
