@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-15 10:26+0000\n"
+"PO-Revision-Date: 2023-03-15 11:07+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
@@ -7791,20 +7791,20 @@ msgstr "开放式形状"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEPoly.cpp:202
 msgid "Open polygon's shape"
-msgstr ""
+msgstr "打开多边形的外形"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEPoly.cpp:204
 #: /home/micha/programming/sumo/src\netedit\frames\GNENeteditAttributes.cpp:65
 msgid "Close shape"
-msgstr ""
+msgstr "关闭的形状"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEPoly.cpp:204
 msgid "Close polygon's shape"
-msgstr ""
+msgstr "关闭多边形的形状"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEPoly.cpp:206
 msgid "Select elements within polygon"
-msgstr ""
+msgstr "选择多边形内的元素"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEPoly.cpp:206
 msgid "Select elements within polygon boundary"
