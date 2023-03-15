@@ -92,12 +92,6 @@ private:
     /// @brief text
     FXText* myText = nullptr;
 
-    /// @brief The text colors used
-    FXHiliteStyle* myStyles;
-
-    /// @brief build styles
-    void buildStyles();
-
     /// @brief Invalidated copy constructor.
     GNERunToolDialog(const GNERunToolDialog&) = delete;
 

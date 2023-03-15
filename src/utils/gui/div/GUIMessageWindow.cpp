@@ -34,16 +34,18 @@
 // ===========================================================================
 // static members
 // ===========================================================================
+
 bool GUIMessageWindow::myLocateLinks = true;
 SUMOTime GUIMessageWindow::myBreakPointOffset = TIME2STEPS(-5);
+FXHiliteStyle* GUIMessageWindow::myStyles = new FXHiliteStyle[8];
 
-/* -------------------------------------------------------------------------
- * GUISUMOAbstractView - FOX callback mapping
- * ----------------------------------------------------------------------- */
+// ===========================================================================
+// FOX callback mapping
+// ===========================================================================
+
 FXDEFMAP(GUIMessageWindow) GUIMessageWindowMap[] = {
-    FXMAPFUNC(SEL_KEYPRESS,             0,      GUIMessageWindow::onKeyPress),
+    FXMAPFUNC(SEL_KEYPRESS, 0, GUIMessageWindow::onKeyPress),
 };
-
 
 FXIMPLEMENT_ABSTRACT(GUIMessageWindow, FXText, GUIMessageWindowMap, ARRAYNUMBER(GUIMessageWindowMap))
 
@@ -53,54 +55,14 @@ FXIMPLEMENT_ABSTRACT(GUIMessageWindow, FXText, GUIMessageWindowMap, ARRAYNUMBER(
 GUIMessageWindow::GUIMessageWindow(FXComposite* parent, GUIMainWindow* mainWindow) :
     FXText(parent, nullptr, 0, 0, 0, 0, 0, 50),
     myMainWindow(mainWindow),
-    myStyles(new FXHiliteStyle[8]),
     myErrorRetriever(nullptr),
     myMessageRetriever(nullptr),
     myWarningRetriever(nullptr) {
     setStyled(true);
     setEditable(false);
-    const FXColor white   = FXRGB(0xff, 0xff, 0xff);
-    const FXColor blue    = FXRGB(0x00, 0x00, 0x88);
-    const FXColor green   = FXRGB(0x00, 0x88, 0x00);
-    const FXColor red     = FXRGB(0x88, 0x00, 0x00);
-    const FXColor yellow  = FXRGB(0xe6, 0x98, 0x00);
-    const FXColor fuchsia = FXRGB(0x88, 0x00, 0x88);
-    // set separator style
-    myStyles[0].normalForeColor = blue;
-    myStyles[0].normalBackColor = white;
-    myStyles[0].selectForeColor = white;
-    myStyles[0].selectBackColor = blue;
-    myStyles[0].hiliteForeColor = blue;
-    myStyles[0].hiliteBackColor = white;
-    myStyles[0].activeBackColor = white;
-    myStyles[0].style = 0;
-    // set message text style
-    myStyles[1] = myStyles[0];
-    myStyles[1].normalForeColor = green;
-    myStyles[1].selectBackColor = green;
-    myStyles[1].hiliteForeColor = green;
-    myStyles[4] = myStyles[1];
-    myStyles[4].style = STYLE_UNDERLINE;
-    // set error text style
-    myStyles[2] = myStyles[0];
-    myStyles[2].normalForeColor = red;
-    myStyles[2].selectBackColor = red;
-    myStyles[2].hiliteForeColor = red;
-    myStyles[5] = myStyles[2];
-    myStyles[5].style = STYLE_UNDERLINE;
-    // set warning text style
-    myStyles[3] = myStyles[0];
-    myStyles[3].normalForeColor = yellow;
-    myStyles[3].selectBackColor = yellow;
-    myStyles[3].hiliteForeColor = yellow;
-    myStyles[6] = myStyles[3];
-    myStyles[6].style = STYLE_UNDERLINE;
-    // set GLDebug text style
-    myStyles[7] = myStyles[0];
-    myStyles[7].normalForeColor = fuchsia;
-    myStyles[7].selectBackColor = fuchsia;
-    myStyles[7].hiliteForeColor = fuchsia;
-    //
+    // fill styles
+    fillStyles();
+    // set styles
     setHiliteStyles(myStyles);
 }
 
@@ -357,6 +319,7 @@ GUIMessageWindow::unregisterMsgHandlers() {
     MsgHandler::getWarningInstance()->removeRetriever(myWarningRetriever);
 }
 
+
 long
 GUIMessageWindow::onKeyPress(FXObject* o, FXSelector sel, void* ptr) {
     FXEvent* e = (FXEvent*) ptr;
@@ -365,6 +328,58 @@ GUIMessageWindow::onKeyPress(FXObject* o, FXSelector sel, void* ptr) {
         return FXText::onKeyPress(o, sel, ptr);
     }
     return 0;
+}
+
+
+FXHiliteStyle*
+GUIMessageWindow::getStyles() {
+    return myStyles;
+}
+
+
+void
+GUIMessageWindow::fillStyles() {
+    const FXColor white   = FXRGB(0xff, 0xff, 0xff);
+    const FXColor blue    = FXRGB(0x00, 0x00, 0x88);
+    const FXColor green   = FXRGB(0x00, 0x88, 0x00);
+    const FXColor red     = FXRGB(0x88, 0x00, 0x00);
+    const FXColor yellow  = FXRGB(0xe6, 0x98, 0x00);
+    const FXColor fuchsia = FXRGB(0x88, 0x00, 0x88);
+    // set separator style
+    myStyles[0].normalForeColor = blue;
+    myStyles[0].normalBackColor = white;
+    myStyles[0].selectForeColor = white;
+    myStyles[0].selectBackColor = blue;
+    myStyles[0].hiliteForeColor = blue;
+    myStyles[0].hiliteBackColor = white;
+    myStyles[0].activeBackColor = white;
+    myStyles[0].style = 0;
+    // set message text style
+    myStyles[1] = myStyles[0];
+    myStyles[1].normalForeColor = green;
+    myStyles[1].selectBackColor = green;
+    myStyles[1].hiliteForeColor = green;
+    myStyles[4] = myStyles[1];
+    myStyles[4].style = STYLE_UNDERLINE;
+    // set error text style
+    myStyles[2] = myStyles[0];
+    myStyles[2].normalForeColor = red;
+    myStyles[2].selectBackColor = red;
+    myStyles[2].hiliteForeColor = red;
+    myStyles[5] = myStyles[2];
+    myStyles[5].style = STYLE_UNDERLINE;
+    // set warning text style
+    myStyles[3] = myStyles[0];
+    myStyles[3].normalForeColor = yellow;
+    myStyles[3].selectBackColor = yellow;
+    myStyles[3].hiliteForeColor = yellow;
+    myStyles[6] = myStyles[3];
+    myStyles[6].style = STYLE_UNDERLINE;
+    // set GLDebug text style
+    myStyles[7] = myStyles[0];
+    myStyles[7].normalForeColor = fuchsia;
+    myStyles[7].selectBackColor = fuchsia;
+    myStyles[7].hiliteForeColor = fuchsia;
 }
 
 /****************************************************************************/

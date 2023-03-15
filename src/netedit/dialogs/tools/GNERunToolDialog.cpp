@@ -51,8 +51,7 @@ FXIMPLEMENT(GNERunToolDialog, FXDialogBox, GNERunToolDialogMap, ARRAYNUMBER(GNER
 
 GNERunToolDialog::GNERunToolDialog(GNEApplicationWindow* GNEApp) :
     FXDialogBox(GNEApp->getApp(), "Tool", GUIDesignDialogBoxExplicit(0, 0)),
-    myGNEApp(GNEApp),
-    myStyles(new FXHiliteStyle[8]) {
+    myGNEApp(GNEApp) {
     // create run tool
     myRunTool = new GNERunTool(this);
     // set icon
@@ -70,8 +69,9 @@ GNERunToolDialog::GNERunToolDialog(GNEApplicationWindow* GNEApp) :
     // create text
     auto textFrame = new FXVerticalFrame(contentFrame, GUIDesignFrameThick);
     myText = new FXText(textFrame, 0, 0, (TEXT_READONLY | LAYOUT_FILL_X | LAYOUT_FILL_Y));
-    // build styles
-    buildStyles();
+    // set styled
+    myText->setHiliteStyles(GUIMessageWindow::getStyles());
+    myText->setStyled(true);
     // create buttons centered
     auto buttonsFrame = new FXHorizontalFrame(contentFrame, GUIDesignHorizontalFrame);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
@@ -85,9 +85,7 @@ GNERunToolDialog::GNERunToolDialog(GNEApplicationWindow* GNEApp) :
 }
 
 
-GNERunToolDialog::~GNERunToolDialog() {
-    delete[] myStyles;
-}
+GNERunToolDialog::~GNERunToolDialog() {}
 
 
 GNEApplicationWindow*
@@ -162,55 +160,6 @@ GNERunToolDialog::onCmdSaveLog(FXObject*, FXSelector, void*) {
 
 GNERunToolDialog::GNERunToolDialog() :
     myGNEApp(nullptr) {
-}
-
-
-void
-GNERunToolDialog::buildStyles() {
-    const FXColor white   = FXRGB(0xff, 0xff, 0xff);
-    const FXColor blue    = FXRGB(0x00, 0x00, 0x88);
-    const FXColor green   = FXRGB(0x00, 0x88, 0x00);
-    const FXColor red     = FXRGB(0x88, 0x00, 0x00);
-    const FXColor yellow  = FXRGB(0xe6, 0x98, 0x00);
-    const FXColor fuchsia = FXRGB(0x88, 0x00, 0x88);
-    // set separator style
-    myStyles[0].normalForeColor = blue;
-    myStyles[0].normalBackColor = white;
-    myStyles[0].selectForeColor = white;
-    myStyles[0].selectBackColor = blue;
-    myStyles[0].hiliteForeColor = blue;
-    myStyles[0].hiliteBackColor = white;
-    myStyles[0].activeBackColor = white;
-    myStyles[0].style = 0;
-    // set message text style
-    myStyles[1] = myStyles[0];
-    myStyles[1].normalForeColor = green;
-    myStyles[1].selectBackColor = green;
-    myStyles[1].hiliteForeColor = green;
-    myStyles[4] = myStyles[1];
-    myStyles[4].style = FXText::STYLE_UNDERLINE;
-    // set error text style
-    myStyles[2] = myStyles[0];
-    myStyles[2].normalForeColor = red;
-    myStyles[2].selectBackColor = red;
-    myStyles[2].hiliteForeColor = red;
-    myStyles[5] = myStyles[2];
-    myStyles[5].style = FXText::STYLE_UNDERLINE;
-    // set warning text style
-    myStyles[3] = myStyles[0];
-    myStyles[3].normalForeColor = yellow;
-    myStyles[3].selectBackColor = yellow;
-    myStyles[3].hiliteForeColor = yellow;
-    myStyles[6] = myStyles[3];
-    myStyles[6].style = FXText::STYLE_UNDERLINE;
-    // set GLDebug text style
-    myStyles[7] = myStyles[0];
-    myStyles[7].normalForeColor = fuchsia;
-    myStyles[7].selectBackColor = fuchsia;
-    myStyles[7].hiliteForeColor = fuchsia;
-    //
-    myText->setHiliteStyles(myStyles);
-    myText->setStyled(true);
 }
 
 /****************************************************************************/
