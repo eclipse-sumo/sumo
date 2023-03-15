@@ -552,12 +552,17 @@ def map_gtfs_osm(options, net, osm_routes, gtfs_data, shapes, shapes_dict, filte
             if osm_lines:
                 # get the direction for the found routes and take the route
                 # with lower difference
-                diff, osm_id, edges,stops = min(osm_lines, key=lambda x: x[0] if x[0] < 180 else 360 - x[0])
+                diff, osm_id,edges,stops = min(osm_lines, key=lambda x: x[0] if x[0] < 180 else 360 - x[0])
+                d = diff if diff < 180 else 360 - diff
+                if d < 160: # to prevent mapping to route going the opposite direction
                 # add mapped osm route to dict
-                map_routes[row.shape_id] = (osm_id, edges.split())
+                    map_routes[row.shape_id] = (osm_id, edges.split())
+                else:
+                    missing_lines.append((row.route_id,pt_line_name,  sumolib.xml.quoteattr(str(row.trip_headsign), True),row.direction_id)) 
+                    continue
             else:
                 # no osm route found, do not map stops of route
-                missing_lines.append((pt_line_name, sumolib.xml.quoteattr(str(row.trip_headsign), True),row.direction_id))
+                missing_lines.append((row.route_id,pt_line_name,  sumolib.xml.quoteattr(str(row.trip_headsign), True),row.direction_id))
                 continue
 
         # set stop's type, class and length
@@ -743,7 +748,7 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
             for stop in sorted(set(missing_stops)):
                 output_file.write(u'    <stop id="%s" name=%s ptLine="%s" direction_id="%s"/>\n' % stop)
             for line in sorted(set(missing_lines)):
-                output_file.write(u'    <ptLine id="%s" trip_headsign=%s direction_id="%s"/>\n' % line)
+                output_file.write(u'    <ptLine id="%s" name="%s" trip_headsign=%s direction_id="%s"/>\n' % line)
             for stop in sorted(set(sequence_errors)):
                 output_file.write(u'    <stopSequence stop_id="%s" stop_name=%s ptLine="%s" trip_headsign=%s direction_id="%s" trip_id="%s"/>\n' % stop)  # noqa
             output_file.write(u'</missingElements>\n')
