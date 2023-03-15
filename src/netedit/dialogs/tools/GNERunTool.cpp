@@ -55,11 +55,11 @@ GNERunTool::run() {
     for (int i = 0; i < 128; i++) {
         buffer[i] = '\0';
     }
-    // open process
+    // open process showing std::err in console
 #ifdef WIN32
-    FILE* pipe = _popen(myTool->getCommand().c_str(), "r");
+    FILE* pipe = _popen((myTool->getCommand() + " 2>&1").c_str(), "r");
 #else
-    FILE* pipe = popen(myTool->getCommand().c_str(), "r");
+    FILE* pipe = popen((myTool->getCommand() + " 2>&1").c_str(), "r");
 #endif 
     if (!pipe) {
         myRunToolDialog->appendErrorMessage(TL("popen() failed!"));
