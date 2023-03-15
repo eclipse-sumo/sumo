@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-15 07:38+0000\n"
+"PO-Revision-Date: 2023-03-15 09:30+0000\n"
 "Last-Translator: kyasin <yasingoka@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/tr/>\n"
@@ -1578,7 +1578,7 @@ msgstr "Ağ Kaydı Başarısız!"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3034
 msgid "Network saved in '"
-msgstr "Ağ ' dosyaya kaydedildi"
+msgstr "Ağ ' dosyasına kaydedildi"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:3085
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3085
@@ -1593,12 +1593,12 @@ msgstr "' önekiyle kaydedilmiş yalın XML"
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:3113
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3113
 msgid "Saving joined junctions failed!"
-msgstr "Birleşmiş Kavşakların Kaydı Başarısız!"
+msgstr "Birleştirilmiş Kavşakların Kaydı Başarısız!"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:3119
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3119
 msgid "Joined junctions saved to '"
-msgstr "' dosyaya kaydedilen birleşik kavşaklar"
+msgstr "' dosyasına kaydedilen birleştirilmiş kavşaklar"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:3173
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3173
@@ -1623,7 +1623,7 @@ msgstr "SUMO yapılandırması dosyaya kaydedilemedi '"
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:3345
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3345
 msgid "TLS Programs saved in '"
-msgstr "TLS Programları dosyaya kaydedildi '"
+msgstr "TIS Programları dosyaya kaydedildi '"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:3350
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3350
@@ -1633,31 +1633,31 @@ msgstr "TIS Programlarının Kaydı Başarısız!"
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:3393
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3393
 msgid "EdgeType saved in '"
-msgstr "EdgeType dosyaya kaydedildi '"
+msgstr "Kesim Tipi (EdgeType) dosyaya kaydedildi '"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:3398
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3398
 msgid "Saving edgeTypes failed!"
-msgstr "Kesim Tipi Dosyası Kaydı Başarısız!"
+msgstr "Kesim Tipleri (edgeTypes) Dosyası Kaydı Başarısız!"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:3502
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3502
 msgid "load additionals from '"
-msgstr "' dosyadan ekleri yükle"
+msgstr "' dosyasından ekleri yükle"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:3506
 #: /home/micha/programming/sumo/src\netedit\GNENet.cpp:1304
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3506
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1304
 msgid "Loading of additional file failed: "
-msgstr "Ekler dosyası yüklenemedi: "
+msgstr "Ek dosyası yüklenemedi: "
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:3512
 #: /home/micha/programming/sumo/src\netedit\GNENet.cpp:1306
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3512
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1306
 msgid "Loading of additional file sucessfully: "
-msgstr "Ekler dosyası başarıyla yüklendi: "
+msgstr "Ek dosyası başarıyla yüklendi: "
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:3538
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3538
@@ -1667,7 +1667,7 @@ msgstr "ekler dosyadan yeniden yükleniyor '"
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:3543
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3543
 msgid "Reloading of additional file failed: "
-msgstr "Ekler dosyasının yeniden yüklenmesi başarısız oldu: "
+msgstr "Ek dosyasının yeniden yüklenmesi başarısız oldu: "
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:3585
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3585
@@ -1746,14 +1746,14 @@ msgstr "Veri elemanları dosyaya kaydedildi '"
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:3963
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3963
 msgid "load meanDatas from '"
-msgstr "meanData verisini dosyadan yükle '"
+msgstr "Ortalama Verileri (meanDatas) dosyadan yükle '"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:3967
 #: /home/micha/programming/sumo/src\netedit\GNENet.cpp:1337
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3967
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1337
 msgid "Loading of meandata file failed: "
-msgstr "meandata dosyasının yüklenmesi başarısız: "
+msgstr "Ortalama Veri (meandata) dosyasının yüklenmesi başarısız: "
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:3973
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:4004
@@ -1762,17 +1762,17 @@ msgstr "meandata dosyasının yüklenmesi başarısız: "
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4004
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1339
 msgid "Loading of meandata file sucessfully: "
-msgstr "meandata dosyası başarıyla yükleniyor: "
+msgstr "Ortalama Veri (meandata) dosyası başarıyla yükleniyor: "
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:3999
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3999
 msgid "reloading meanDatas from '"
-msgstr "meanData dosyadan yeniden yükleniyor '"
+msgstr "Ortalama Veriler (meanDatas) dosyadan yeniden yükleniyor '"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:4042
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4042
 msgid "MeanDatas saved in '"
-msgstr "MeanData dosyaya kaydedildi '"
+msgstr "Ortalama Veriler (MeanDatas) dosyaya kaydedildi '"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:4088
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4088
@@ -1800,12 +1800,12 @@ msgstr "Tüm değişiklikleri kapatmak ve silmek istiyor musunuz?"
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:4154
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4154
 msgid "Save additional elements before close"
-msgstr "Kapatmadan önce ek öğeleri kaydet"
+msgstr "Kapatmadan önce ek elemanları kaydet"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:4155
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4155
 msgid "You have unsaved additional elements."
-msgstr "Kaydedilmemiş ek öğeleriniz var."
+msgstr "Kaydedilmemiş ek elemanlarınız var."
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:4198
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4198
@@ -1830,12 +1830,12 @@ msgstr "Kaydedilmemiş veri elemanlarınız var."
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:4286
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4286
 msgid "Save meanData elements before close"
-msgstr "Kapatmadan önce meanData öğelerini kaydet"
+msgstr "Kapatmadan önce Ortalama Veri (meanData) elemanlarını kaydet"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:4287
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4287
 msgid "You have unsaved meanData elements."
-msgstr "Kaydedilmemiş meanData öğeleriniz var."
+msgstr "Kaydedilmemiş Ortalama Veri (meanData) elemanlarınız var."
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:4524
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4524
@@ -1845,17 +1845,17 @@ msgstr "Ek elemanlar dosyadan yükleniyor '"
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:4527
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4527
 msgid "loading additionals from '"
-msgstr "Ek elemanlar dosyadan yükleniyor '"
+msgstr "Ekler dosyadan yükleniyor '"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:4594
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4594
 msgid "loading meanDatas from '"
-msgstr "meanData dosyadan yükleniyor '"
+msgstr "Ortalama Veriler (meanDatas) dosyadan yükleniyor '"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:4597
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4597
 msgid "loading meandatas from '"
-msgstr "meandata dosyadan yükleniyor '"
+msgstr "Ortalama Veriler (meandatas) dosyadan yükleniyor '"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:4631
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4631
@@ -1875,7 +1875,7 @@ msgstr "Yapılandırmalar"
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:188
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:188
 msgid "&New Network"
-msgstr "&Yeni Ağ"
+msgstr "Yeni Ağ"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:188
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:188
@@ -1890,17 +1890,17 @@ msgstr "Yeni bir netedit penceresi aç."
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:199
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:199
 msgid "Load Netedit config..."
-msgstr "Netedit yapılandırmasını yükle..."
+msgstr "Netedit yapılandırması yükle..."
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:199
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:199
 msgid "Load a netedit configuration file."
-msgstr "Netedit yapılandırma dosyasını yükle."
+msgstr "Bir netedit yapılandırma dosyası yükle."
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:203
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:203
 msgid "Load Sumo config..."
-msgstr "Sumo yapılandırmasını yükle..."
+msgstr "Sumo yapılandırması yükle..."
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:203
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:203
@@ -1910,7 +1910,7 @@ msgstr "Bir SUMO yapılandırma dosyası yükle."
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:210
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:210
 msgid "&Open Network..."
-msgstr "&Ağ Aç..."
+msgstr "Ağ Aç..."
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:210
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:210
@@ -1920,7 +1920,7 @@ msgstr "Bir SUMO ağı aç."
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:214
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:214
 msgid "Open Netconvert Configura&tion..."
-msgstr "Netconvert Yapılandırmasını Aç..."
+msgstr "Netconvert Yapılandırması Aç..."
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:214
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:214
@@ -1930,17 +1930,17 @@ msgstr "NETCONVERT seçeneklerine sahip bir yapılandırma dosyası aç."
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:218
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:218
 msgid "Import &Foreign Network..."
-msgstr "Harici Ağ Yükle..."
+msgstr "Harici Ağ Al..."
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:218
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:218
 msgid "Import a foreign network such as OSM."
-msgstr "OSM gibi harici bir ağ yükle."
+msgstr "OSM gibi harici bir ağ al."
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:225
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:225
 msgid "&Save Network"
-msgstr "Ağ Dosyası Kaydet"
+msgstr "Ağ Kaydet"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:225
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:225
@@ -1970,7 +1970,7 @@ msgstr "Ağın yalın bir XML gösterimini kaydet."
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:237
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:237
 msgid "Save &Joined Junctions..."
-msgstr "Birleşik Kavşakları Kaydet..."
+msgstr "Birleştirilmiş Kavşakları Kaydet..."
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:237
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:237
@@ -2029,7 +2029,7 @@ msgstr "Veri Elemanları"
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:283
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:283
 msgid "MeanData Elements"
-msgstr "MeanData Elemanları"
+msgstr "Ortalama Veri (MeanData) Elemanları"
 
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindowHelper.cpp:288
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:288
