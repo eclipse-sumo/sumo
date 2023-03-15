@@ -23,7 +23,6 @@
 #include <utils/foxtools/MFXLabelTooltip.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/handlers/TemplateHandler.h>
-#include <Python.h>
 
 #include "GNERunToolDialog.h"
 #include "GNETool.h"
