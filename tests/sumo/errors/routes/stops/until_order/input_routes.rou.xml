@@ -6,6 +6,11 @@
         <stop lane="end_0" endPos="4" until="40"/>
     </vehicle>
 
+    <vehicle depart="1" id="until_unordered_ended" route="1">
+        <stop lane="beg_0" endPos="6" until="50" ended="60"/>
+        <stop lane="end_0" endPos="4" until="40"/>
+    </vehicle>
+
     <vehicle depart="1" id="arrival_unordered" route="1">
         <stop lane="beg_0" endPos="6" arrival="50" duration="5"/>
         <stop lane="end_0" endPos="4" arrival="40" duration="5"/>
