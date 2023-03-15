@@ -71,7 +71,7 @@ The following attribute values have a special meaning. Instead of using an attri
 
 - `@INDEX`: the index of the *other* value within the input file is used.
 - `@RANK`: the index of the *other* value within the sorted (descending) list of values is used
-- `@COUNT`: the number of occurences of the *other* value is used (basically a histogram without any binning)
+- `@COUNT`: the number of occurences of the *other* value is used. Together with option **--barplot** or **-hbarplot** this gives a histogram. Binning size can be set via options **--xbin** and **--ybin**.
 - `@BOX`: one or more [box plots](https://en.wikipedia.org/wiki/Box_plot) of the *other* value are drawn. The **--idattr** is used for grouping and there will be one box plot per id
 - `@NONE`: can be used with option **--idattr** to explicitly avoid grouping
 
@@ -292,6 +292,9 @@ Call to generate the plot:
 plotXMLAttributes.py tripinfos.xml tripinfos2.xml -x timeLoss -y @COUNT -i @NONE -s --legend  --barplot --xbin 20 --xclamp :300
 ```
 <img src="../images/hist_timeLoss_clamped.png" width="500px"/>
+
+!!! caution
+    It is importent to set **-i @NONE** to ensure that the timLoss values are aggregated by file rather than by vehicle id.
 
 ## plot_trajectories.py
 
