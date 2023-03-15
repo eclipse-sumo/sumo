@@ -37,5 +37,12 @@ class Test_Init(unittest.TestCase):
         self.assertEqual(25 * 3600 + 61, miscutils.parseTime('1:1:1:1'))
         self.assertEqual(-1, miscutils.parseTime('-00:00:01'))
 
+    def test_humanReadableTime(self):
+        hrt = miscutils.humanReadableTime
+        self.assertEqual(hrt(42), '00:00:42')
+        self.assertEqual(hrt(3661), '01:01:01')
+        self.assertEqual(hrt(25 * 3600 + 61), '1:01:01:01')
+        self.assertEqual(hrt(-1), '-00:00:01')
+
 if __name__ == '__main__':
     unittest.main()
