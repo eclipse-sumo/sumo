@@ -1,16 +1,5 @@
-F.
-======================================================================
-FAIL: test_humanReadableTime (__main__.Test_Init)
-----------------------------------------------------------------------
-Traceback (most recent call last):
-  File "/scr1/sumo/tests/../tests/tools/sumolib/miscutils/runner.py", line 45, in test_humanReadableTime
-    self.assertEqual(hrt(-1), '-00:00:01')
-AssertionError: '00:59:59' != '-00:00:01'
-- 00:59:59
-+ -00:00:01
-
-
+..
 ----------------------------------------------------------------------
 Ran 2 tests in 0.000s
 
-FAILED (failures=1)
+OK
