@@ -1228,15 +1228,15 @@ MSBaseVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& e
     if (iter != myStops.begin()) {
         std::list<MSStop>::iterator iter2 = iter;
         iter2--;
-        if (stop.pars.until >= 0 && iter2->pars.until > stop.pars.until) {
+        if (stop.getUntil() >= 0 && iter2->getUntil() > stop.getUntil()) {
             errorMsg = errorMsgStart + " for vehicle '" + myParameter->id + "' on lane '" + stop.lane->getID()
-                       + "' set to end at " + time2string(stop.pars.until)
-                       + " earlier than previous stop at " + time2string(iter2->pars.until) + ".";
+                       + "' set to end at " + time2string(stop.getUntil())
+                       + " earlier than previous stop at " + time2string(iter2->getUntil()) + ".";
         }
-        if (stop.pars.arrival >= 0 && iter2->pars.until > stop.pars.arrival) {
+        if (stop.pars.arrival >= 0 && iter2->pars.arrival > stop.pars.arrival) {
             errorMsg = errorMsgStart + " for vehicle '" + myParameter->id + "' on lane '" + stop.lane->getID()
                        + "' set to start at " + time2string(stop.pars.arrival)
-                       + " earlier than previous stop end at " + time2string(iter2->pars.until) + ".";
+                       + " earlier than previous stop end at " + time2string(iter2->getUntil()) + ".";
         }
         if (stop.pars.arrival >= 0 && iter2->pars.arrival > stop.pars.arrival) {
             errorMsg = errorMsgStart + " for vehicle '" + myParameter->id + "' on lane '" + stop.lane->getID()
@@ -1244,15 +1244,15 @@ MSBaseVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& e
                        + " earlier than previous stop arrival at " + time2string(iter2->pars.arrival) + ".";
         }
     } else {
-        if (stop.pars.until >= 0 && getParameter().depart > stop.pars.until) {
+        if (stop.getUntil() >= 0 && getParameter().depart > stop.getUntil()) {
             errorMsg = errorMsgStart + " for vehicle '" + myParameter->id + "' on lane '" + stop.lane->getID()
-                       + "' set to end at " + time2string(stop.pars.until)
+                       + "' set to end at " + time2string(stop.getUntil())
                        + " earlier than departure at " + time2string(getParameter().depart) + ".";
         }
     }
-    if (stop.pars.until >= 0 && stop.pars.arrival > stop.pars.until && errorMsg == "") {
+    if (stop.getUntil() >= 0 && stop.pars.arrival > stop.getUntil() && errorMsg == "") {
         errorMsg = errorMsgStart + " for vehicle '" + myParameter->id + "' on lane '" + stop.lane->getID()
-                   + "' set to end at " + time2string(stop.pars.until)
+                   + "' set to end at " + time2string(stop.getUntil())
                    + " earlier than arrival at " + time2string(stop.pars.arrival) + ".";
     }
     myStops.insert(iter, stop);
