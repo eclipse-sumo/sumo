@@ -54,6 +54,9 @@ public:
 
     /// @brief get menu command
     FXMenuCommand *getMenuCommand() const;
+
+    /// @brief get command (python + script + arguments)
+    std::string getCommand() const;
     
 private:
     /// @brief pointer to GNEApplicationWindow

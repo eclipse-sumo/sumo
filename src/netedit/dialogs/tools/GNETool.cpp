@@ -76,4 +76,11 @@ GNETool::getMenuCommand() const {
     return myMenuCommand;
 }
 
+
+std::string
+GNETool::getCommand() const {
+    const std::string sumoHome = getenv("SUMO_HOME");
+    return ("python " + sumoHome + "/" + myPythonPath);
+}
+
 /****************************************************************************/

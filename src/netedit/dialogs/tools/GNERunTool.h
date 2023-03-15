@@ -46,14 +46,14 @@ public:
     ~GNERunTool();
     
     /// @brief run tool
-    void runTool(const std::string &command);
+    void runTool(const GNETool* tool);
 
 private:
     /// @brief pointer to run tool dialog
     GNERunToolDialog* myRunToolDialog;
 
-    /// @brief command
-    std::string myCommand;
+    /// @brief tool
+    const GNETool* myTool = nullptr;
 
     /// @brief starts the thread. The thread ends after the tool is finished
     FXint run();

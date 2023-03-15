@@ -24,6 +24,7 @@
 #include <stdio.h>
 #include <string>
 
+#include "GNETool.h"
 #include "GNERunTool.h"
 #include "GNERunToolDialog.h"
 
@@ -41,8 +42,8 @@ GNERunTool::~GNERunTool() {}
 
 
 void
-GNERunTool::runTool(const std::string &command) {
-    myCommand = command;
+GNERunTool::runTool(const GNETool* tool) {
+    myTool = tool;
     start();
 }
 
@@ -53,21 +54,22 @@ GNERunTool::run() {
     char buffer[128];
     // open process
 #ifdef WIN32
-    FILE* pipe = _popen(myCommand.c_str(), "r");
+    FILE* pipe = _popen(myTool->getCommand().c_str(), "r");
 #else
-    FILE* pipe = popen(myCommand.c_str(), "r");
+    FILE* pipe = popen(myTool->getCommand().c_str(), "r");
 #endif 
     if (!pipe) {
-        myRunToolDialog->appendConsole(TL("popen() failed!"));
+        myRunToolDialog->appendErrorMessage(TL("popen() failed!"));
         return 1;
     } else {
         // start process
-        myRunToolDialog->appendConsole(TL("starting process\n"));
+        myRunToolDialog->appendInfoMessage(TL("starting process\n"));
         try {
-            // add output in RunToolDialog dialog
+            // add buffer
             while (fgets(buffer, sizeof buffer, pipe) != NULL) {
-                myRunToolDialog->appendConsole(buffer);
+                myRunToolDialog->appendBuffer(buffer);
             }
+            myRunToolDialog->appendBuffer(buffer);
         } catch (...) {
             // close process
         #ifdef WIN32
@@ -75,7 +77,7 @@ GNERunTool::run() {
         #else
             pclose(pipe);
         #endif
-            myRunToolDialog->appendConsole(TL("Error processing command\n"));
+            myRunToolDialog->appendErrorMessage(TL("Error processing command\n"));
             return 1;
         }
     }
@@ -86,7 +88,7 @@ GNERunTool::run() {
     pclose(pipe);
 #endif
     // end process
-    myRunToolDialog->appendConsole(TL("process finished\n"));
+    myRunToolDialog->appendInfoMessage(TL("process finished\n"));
     return 1;
 }
 

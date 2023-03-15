@@ -55,8 +55,14 @@ public:
     /// @brief run tool (this open windows)
     void runTool(GNETool* tool);
 
-    /// @brief add text to output console
-    void appendConsole(const std::string &text);
+    /// @brief add info (green) text to output console
+    void appendInfoMessage(const std::string text);
+
+    /// @brief add error (green) text to output console
+    void appendErrorMessage(const std::string text);
+
+    /// @brief add text buffer to output console
+    void appendBuffer(const char *buffer);
 
     /// @name FOX-callbacks
     /// @{
@@ -85,6 +91,12 @@ private:
 
     /// @brief text
     FXText* myText = nullptr;
+
+    /// @brief The text colors used
+    FXHiliteStyle* myStyles;
+
+    /// @brief build styles
+    void buildStyles();
 
     /// @brief Invalidated copy constructor.
     GNERunToolDialog(const GNERunToolDialog&) = delete;
