@@ -19,6 +19,10 @@
 /****************************************************************************/
 
 #include <netedit/GNEApplicationWindow.h>
+#include <iostream>
+#include <stdexcept>
+#include <stdio.h>
+#include <string>
 
 #include "GNERunTool.h"
 #include "GNERunToolDialog.h"
@@ -36,11 +40,53 @@ GNERunTool::GNERunTool(GNERunToolDialog* runToolDialog) :
 GNERunTool::~GNERunTool() {}
 
 
+void
+GNERunTool::runTool(const std::string &command) {
+    myCommand = command;
+    start();
+}
+
+
 FXint
 GNERunTool::run() {
-    for (int i = 0; i < 100000; i++) {
-        myRunToolDialog->appendConsole("Test\n");
+    // declare buffer
+    char buffer[128];
+    // open process
+#ifdef WIN32
+    FILE* pipe = _popen(myCommand.c_str(), "r");
+#else
+    FILE* pipe = popen(cmd, "r");
+#endif 
+    if (!pipe) {
+        myRunToolDialog->appendConsole(TL("popen() failed!"));
+        return 1;
+    } else {
+        // start process
+        myRunToolDialog->appendConsole(TL("starting process\n"));
+        try {
+            // add output in RunToolDialog dialog
+            while (fgets(buffer, sizeof buffer, pipe) != NULL) {
+                myRunToolDialog->appendConsole(buffer);
+            }
+        } catch (...) {
+            // close process
+        #ifdef WIN32
+            _pclose(pipe);
+        #else
+            pclose(pipe);
+        #endif
+            myRunToolDialog->appendConsole(TL("Error processing command\n"));
+            return 1;
+        }
     }
+    // close process
+#ifdef WIN32
+    _pclose(pipe);
+#else
+    pclose(pipe);
+#endif
+    // end process
+    myRunToolDialog->appendConsole(TL("process finished\n"));
     return 1;
 }
 

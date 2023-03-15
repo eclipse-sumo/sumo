@@ -36,7 +36,7 @@ class GNERunToolDialog;
  * @class GNERunTool
  * @brief Abstract dialog for tools
  */
-class GNERunTool : public MFXSingleEventThread  {
+class GNERunTool : protected MFXSingleEventThread  {
 
 public:
     /// @brief Constructor
@@ -45,12 +45,18 @@ public:
     /// @brief destructor
     ~GNERunTool();
     
-    /// @brief starts the thread. The thread ends after the tool is finished
-    FXint run();
+    /// @brief run tool
+    void runTool(const std::string &command);
 
 private:
     /// @brief pointer to run tool dialog
     GNERunToolDialog* myRunToolDialog;
+
+    /// @brief command
+    std::string myCommand;
+
+    /// @brief starts the thread. The thread ends after the tool is finished
+    FXint run();
 
     /// @brief Invalidated copy constructor.
     GNERunTool(const GNERunTool&) = delete;

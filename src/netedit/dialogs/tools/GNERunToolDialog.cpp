@@ -99,8 +99,8 @@ GNERunToolDialog::runTool(GNETool* tool) {
     getApp()->refresh();
     // show dialog
     FXDialogBox::show(PLACEMENT_SCREEN);
-    // run thread
-    myRunTool->start();
+    // run tool
+    myRunTool->runTool("");
     // open as modal dialog (will block all windows until stop() or stopModal() is called)
     myGNEApp->getApp()->runModalFor(this);
 }
