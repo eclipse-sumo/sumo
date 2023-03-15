@@ -240,7 +240,8 @@ def parseTime(t, factor=1):
         pass
     # prepended zero is ignored if the date value already contains days
     days, hours, minutes, seconds = ([0] + list(map(float, t.split(':'))))[-4:]
-    return 3600 * 24 * days + 3600 * hours + 60 * minutes + seconds
+    sign = -1 if t.strip()[0] == '-' else  1
+    return (3600 * 24 * days + 3600 * hours + 60 * minutes + seconds) * sign
 
 
 def parseBool(val):
