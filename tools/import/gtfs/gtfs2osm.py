@@ -92,6 +92,15 @@ for i in range(700, 717):
 for i in range(900, 907):
     GTFS2OSM_MODES[str(i)] = 'tram'
 
+OSM2OSM_MODES = {
+    'bus': ['bus','trolleybus'], # to enable matching of buses categorised as trolleybus in osm
+    'train': 'train',
+    'tram': 'tram',
+    'light_rail':'light_rail',
+    'subway': 'subway',
+    'ferry': 'ferry'
+}
+
 
 @benchmark
 def import_gtfs(options, gtfsZip):
@@ -188,12 +197,13 @@ def import_gtfs(options, gtfsZip):
 @benchmark
 def filter_gtfs(options, routes, trips_on_day, shapes, stops, stop_times):
     """
-    Filters the gtfs-data by the given bounding box and searches the main
-    shapes along with their secondary shapes. A main shape represents the trip
-    with the longest distance of a public transport route. Only the paths (also
-    referred to as routes) and stops of trips with main shapes will be mapped.
-    Trips with secondary shapes will be defined by the start and end edge
-    belonging to the main shape.
+    Filters the gtfs-data by the given bounding box. 
+    
+    If using shapes, searches the main shapes of route. A main shape represents the 
+    trip that is most often taken in a given public transport route. Only the paths 
+    (also referred to as routes) and stops of trips with main shapes will be mapped. 
+    Trips with secondary shapes will be defined by the start and end edge belonging 
+    to the main shape (if they a part of the main shape).
     """
     stops['stop_lat'] = stops['stop_lat'].astype(float)
     stops['stop_lon'] = stops['stop_lon'].astype(float)
@@ -426,7 +436,7 @@ def import_osm(options, net):
             print("Import osm routes")
         osm_routes = {}
         for ptline, ptline_route in parse_fast_nested(options.osm_routes,
-                                                      "ptLine", ("id", "name", "line", "type"),
+                                                      "ptLine", ("id", "name", "line", "type","color"),
                                                       "route", "edges"):
             if ptline.type not in options.modes:
                 continue
@@ -442,12 +452,12 @@ def import_osm(options, net):
                 line_dir = get_line_dir(line_orig, line_dest)
 
                 osm_routes[ptline.id] = [ptline.attr_name, ptline.line,
-                                         ptline.type, line_dir,
+                                         ptline.type, line_dir,ptline.color,
                                          ptline_route.edges]
                 
         osm_stops = {}
         for ptline, ptline_stop in parse_fast_nested(options.osm_routes,
-                                                        "ptLine", ("id"), # egg/ added colour here
+                                                        "ptLine", ("id"),
                                                         "busStop", "name"):
                 if ptline.id not in osm_stops:
                     osm_stops[ptline.id]=[ptline_stop.attr_name]
@@ -547,16 +557,15 @@ def map_gtfs_osm(options, net, osm_routes, gtfs_data, shapes, shapes_dict, filte
             # get osm lines with same route name and pt type, and if they have at least one matching stop name in osm and gtfs routes
             osm_lines = [(abs(line_dir - value[3]), ptline_id, value[4],value[5])
                          for ptline_id, value in osm_routes.items()
-                         if value[1] == pt_line_name and value[2] == pt_type and set(value[5])& set(row.stop_name_all)]
-
+                         if value[1] == pt_line_name and value[2] in OSM2OSM_MODES[pt_type] and set(value[6])& set(row.stop_name_all)]
             if osm_lines:
                 # get the direction for the found routes and take the route
                 # with lower difference
-                diff, osm_id,edges,stops = min(osm_lines, key=lambda x: x[0] if x[0] < 180 else 360 - x[0])
+                diff, osm_id,color,edges = min(osm_lines, key=lambda x: x[0] if x[0] < 180 else 360 - x[0])
                 d = diff if diff < 180 else 360 - diff
                 if d < 160: # to prevent mapping to route going the opposite direction
                 # add mapped osm route to dict
-                    map_routes[row.shape_id] = (osm_id, edges.split())
+                    map_routes[row.shape_id] = (osm_id, edges.split(),color)
                 else:
                     missing_lines.append((row.route_id,pt_line_name,  sumolib.xml.quoteattr(str(row.trip_headsign), True),row.direction_id)) 
                     continue
@@ -685,7 +694,7 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
                 if main_shape not in map_routes:
                     # if route not mapped
                     continue
-
+                pt_color = map_routes[main_shape][2]
                 pt_type = GTFS2OSM_MODES[row.route_type]
                 edges_list = map_routes[main_shape][1]
                 stop_list = gtfs_data[gtfs_data["trip_id"] == row.trip_id].sort_values("stop_sequence")
@@ -708,8 +717,8 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
                             main_shape, row.route_id, seqs[stopSeq],
                             row.arrival_fixed.days + day,
                             str(row.arrival_fixed).split(' ')[2],
-                            min(stop_index), max(stop_index), pt_type)
-                output_file.write(u'    <vehicle id="%s.%s" route="%s" line="%s_%s" depart="%s:%s" departEdge="%s" arrivalEdge="%s" type="%s">\n' % veh_attr)  # noqa
+                            min(stop_index), max(stop_index), pt_type,pt_color)
+                output_file.write(u'    <vehicle id="%s.%s" route="%s" line="%s_%s" depart="%s:%s" departEdge="%s" arrivalEdge="%s" type="%s" color="%s">\n' % veh_attr)  # noqa
                 output_file.write(u'        <param key="gtfs.route_name" value=%s/>\n' %
                                   sumolib.xml.quoteattr(str(row.route_short_name), True))
                 if row.trip_headsign:
@@ -727,7 +736,7 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
                         stop_attr = (stop.stop_item_id, stop.arrival_fixed.days + day,
                                      str(stop.arrival_fixed).split(' ')[2],
                                      options.duration, stop.departure_fixed.days + day,
-                                     str(stop.departure_fixed).split(' ')[2],stop.stop_sequence,stop_list.stop_sequence.max(), # egg/ added stop sequence and total stops, use the last stop sequence instead 
+                                     str(stop.departure_fixed).split(' ')[2],stop.stop_sequence,stop_list.stop_sequence.max(), 
                                      sumolib.xml.quoteattr(stop.stop_name, True))
                         output_file.write(u'        <stop busStop="%s" arrival="%s:%s" duration="%s" until="%s:%s"/><!--stopSequence="%s/%s" %s-->\n' % stop_attr)  # noqa
                     elif stop_index < check_seq:
