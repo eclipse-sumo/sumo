@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-15 11:07+0000\n"
+"PO-Revision-Date: 2023-03-15 12:23+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
@@ -7808,135 +7808,135 @@ msgstr "选择多边形内的元素"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEPoly.cpp:206
 msgid "Select elements within polygon boundary"
-msgstr ""
+msgstr "选择多边形边界内的元素"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEPoly.cpp:216
 msgid "Remove geometry point"
-msgstr ""
+msgstr "删除几何点"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEPoly.cpp:216
 msgid "Remove geometry point under mouse"
-msgstr ""
+msgstr "删除鼠标下的几何点"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEPoly.cpp:217
 msgid "Set first geometry point"
-msgstr ""
+msgstr "设置第一个几何点"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEPoly.cpp:429
 msgid "Number of remaining points insufficient"
-msgstr ""
+msgstr "剩余点数不足"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEPoly.cpp:456
 msgid "Polygon already opened"
-msgstr ""
+msgstr "多边形已经打开"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEPoly.cpp:477
 msgid "Polygon already closed"
-msgstr ""
+msgstr "多边形已经关闭"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEPoly.cpp:488
 msgid "Selected point must be different of the first point"
-msgstr ""
+msgstr "选定的点必须与第一个点不同"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEPoly.cpp:553
 msgid "Polygon already simplified"
-msgstr ""
+msgstr "多边形已经简化了"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNETAZ.cpp:264
 msgid "Set custom Geometry Point"
-msgstr ""
+msgstr "设置自定义几何点"
 
 #: /home/micha/programming/sumo/src\netedit\elements\data\GNEDataHandler.cpp:62
 msgid "add data set"
-msgstr ""
+msgstr "添加数据组"
 
 #: /home/micha/programming/sumo/src\netedit\elements\data\GNEDataHandler.cpp:87
 msgid "add data set and data interval"
-msgstr ""
+msgstr "添加数据组和数据区间"
 
 #: /home/micha/programming/sumo/src\netedit\elements\data\GNEDataHandler.cpp:100
 msgid "add data interval"
-msgstr ""
+msgstr "添加数据区间"
 
 #: /home/micha/programming/sumo/src\netedit\elements\data\GNEDataHandler.cpp:128
 #: /home/micha/programming/sumo/src\netedit\elements\data\GNEDataHandler.cpp:165
 msgid "add edge rel"
-msgstr ""
+msgstr "添加路段的关联（rel）"
 
 #: /home/micha/programming/sumo/src\netedit\elements\data\GNEDataHandler.cpp:205
 msgid "There is already a TAZ rel defined between '"
-msgstr ""
+msgstr "''之间已经定义了一个交通分区(TAZ)的关系"
 
 #: /home/micha/programming/sumo/src\netedit\elements\data\GNEDataHandler.cpp:207
 msgid "There is already a TAZ rel defined in '"
-msgstr ""
+msgstr "已经有一个交通分区关联（TAZ rel）定义在'"
 
 #: /home/micha/programming/sumo/src\netedit\elements\data\GNEDataHandler.cpp:211
 #: /home/micha/programming/sumo/src\netedit\elements\data\GNEDataHandler.cpp:222
 msgid "add TAZ rel"
-msgstr ""
+msgstr "添加交通分区关联（ TAZ rel）"
 
 #: /home/micha/programming/sumo/src\netedit\elements\data\GNEDataHandler.cpp:255
 #: /home/micha/programming/sumo/src\netedit\elements\data\GNEMeanDataHandler.cpp:132
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1467
 msgid "' doesn't exist."
-msgstr ""
+msgstr "'不存在。"
 
 #: /home/micha/programming/sumo/src\netedit\elements\data\GNEDataInterval.cpp:173
 msgid "GenericData was already inserted"
-msgstr ""
+msgstr "GenericData已经被插入"
 
 #: /home/micha/programming/sumo/src\netedit\elements\data\GNEDataInterval.cpp:199
 msgid "GenericData wasn't previously inserted"
-msgstr ""
+msgstr "GenericData之前没有被插入"
 
 #: /home/micha/programming/sumo/src\netedit\elements\data\GNEDataSet.cpp:214
 msgid "DataInterval was already inserted"
-msgstr ""
+msgstr "已经插入数据区间（DataInterval）"
 
 #: /home/micha/programming/sumo/src\netedit\elements\data\GNEDataSet.cpp:231
 #: /home/micha/programming/sumo/src\netedit\elements\data\GNEDataSet.cpp:255
 msgid "DataInterval wasn't previously inserted"
-msgstr ""
+msgstr "数据区间（DataInterval）之前没有插入过"
 
 #: /home/micha/programming/sumo/src\netedit\elements\data\GNEGenericData.cpp:310
 #: /home/micha/programming/sumo/src\netedit\elements\network\GNEEdgeType.cpp:155
 msgid "Invalid index"
-msgstr ""
+msgstr "无效指数"
 
 #: /home/micha/programming/sumo/src\netedit\elements\data\GNEMeanDataHandler.cpp:64
 msgid "Could not build meanDataEdge; "
-msgstr ""
+msgstr "无法建立meanData路段; "
 
 #: /home/micha/programming/sumo/src\netedit\elements\data\GNEMeanDataHandler.cpp:64
 #: /home/micha/programming/sumo/src\netedit\elements\data\GNEMeanDataHandler.cpp:93
 msgid " already exist"
-msgstr ""
+msgstr " 已存在"
 
 #: /home/micha/programming/sumo/src\netedit\elements\data\GNEMeanDataHandler.cpp:70
 msgid "add meanDataEdge"
-msgstr ""
+msgstr "添加 meanData路段"
 
 #: /home/micha/programming/sumo/src\netedit\elements\data\GNEMeanDataHandler.cpp:93
 msgid "Could not build meanDataLane; "
-msgstr ""
+msgstr "无法建立meanData车道; "
 
 #: /home/micha/programming/sumo/src\netedit\elements\data\GNEMeanDataHandler.cpp:99
 msgid "add meanDataLane"
-msgstr ""
+msgstr "添加 meanData车道"
 
 #: /home/micha/programming/sumo/src\netedit\elements\data\GNEMeanDataHandler.cpp:116
 msgid " in netedit; edge doesn't exist."
-msgstr ""
+msgstr " 在netedit中；路段并不存在。"
 
 #: /home/micha/programming/sumo/src\netedit\elements\data\GNEMeanDataHandler.cpp:132
 msgid " in netedit; attribute '"
-msgstr ""
+msgstr " 在netedit中；属性'"
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNEPersonTrip.cpp:306
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNEPersonTrip.cpp:317
 msgid "This personTrip use junctions"
-msgstr ""
+msgstr "这个人的行程中使用的路口"
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:71
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:100
@@ -7945,7 +7945,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1479
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1491
 msgid "There is another "
-msgstr ""
+msgstr "还有另外一个 "
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:71
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:100
@@ -7954,7 +7954,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1479
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1491
 msgid " with the same ID='"
-msgstr ""
+msgstr " 具有相同的ID='"
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:76
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:126
@@ -7989,32 +7989,32 @@ msgstr ""
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1078
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1098
 msgid "add "
-msgstr ""
+msgstr "添加 "
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:102
 msgid " need at least one "
-msgstr ""
+msgstr " 至少要有一个 "
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:108
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:118
 msgid " with id '"
-msgstr ""
+msgstr " ID为''"
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:108
 msgid "' doesn't exist in "
-msgstr ""
+msgstr "' 不存在于 "
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:115
 msgid "Invalid definition for "
-msgstr ""
+msgstr "无效的定义 "
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:115
 msgid " in "
-msgstr ""
+msgstr " 在 "
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:118
 msgid "' cannot be created in "
-msgstr ""
+msgstr "'不能创建在 "
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:191
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:239
@@ -8024,7 +8024,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:403
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:443
 msgid "Invalid vehicle type '"
-msgstr ""
+msgstr "无效的车辆类型'"
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:191
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:239
@@ -8040,7 +8040,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:782
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:809
 msgid "' used in "
-msgstr ""
+msgstr "'用在 "
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:193
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:195
@@ -8057,16 +8057,16 @@ msgstr ""
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:445
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:447
 msgid " used in "
-msgstr ""
+msgstr " 用在 "
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:227
 msgid "netedit doesn't support route distributions"
-msgstr ""
+msgstr "netedit 不支持路径分布"
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:241
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:278
 msgid "Invalid route '"
-msgstr ""
+msgstr "无效的路径'"
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:243
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:245
@@ -8081,23 +8081,23 @@ msgstr ""
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:445
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:447
 msgid "Invalid "
-msgstr ""
+msgstr "无效的 "
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:280
 msgid " is greater than number of lanes"
-msgstr ""
+msgstr " 大于车道数"
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:282
 msgid " is greater than vType"
-msgstr ""
+msgstr " 大于vType"
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:479
 msgid "Invalid person type '"
-msgstr ""
+msgstr "无效的人的类型'"
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:506
 msgid "Invalid personFlow type '"
-msgstr ""
+msgstr "无效的人流类型'"
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:995
 msgid "Containers don't support stops at busStops"
