@@ -5,6 +5,8 @@ set(netedit_dialogs_tools_SRCS
    GNEToolDialog.cpp
    GNEToolDialogElements.h
    GNEToolDialogElements.cpp
+   GNERunTool.h
+   GNERunTool.cpp
    GNERunToolDialog.h
    GNERunToolDialog.cpp
    )
