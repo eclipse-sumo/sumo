@@ -36,7 +36,7 @@ class GNERunToolDialog;
  * @class GNERunTool
  * @brief Abstract dialog for tools
  */
-class GNERunTool : protected MFXSingleEventThread  {
+class GNERunTool : public MFXSingleEventThread  {
 
 public:
     /// @brief Constructor

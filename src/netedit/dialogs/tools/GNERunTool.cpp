@@ -38,7 +38,9 @@ GNERunTool::~GNERunTool() {}
 
 FXint
 GNERunTool::run() {
-
+    for (int i = 0; i < 100000; i++) {
+        myRunToolDialog->appendConsole("Test\n");
+    }
     return 1;
 }
 
