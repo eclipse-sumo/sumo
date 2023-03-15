@@ -55,7 +55,7 @@ GNERunTool::run() {
 #ifdef WIN32
     FILE* pipe = _popen(myCommand.c_str(), "r");
 #else
-    FILE* pipe = popen(cmd, "r");
+    FILE* pipe = popen(myCommand.c_str(), "r");
 #endif 
     if (!pipe) {
         myRunToolDialog->appendConsole(TL("popen() failed!"));
