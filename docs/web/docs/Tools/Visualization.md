@@ -294,7 +294,7 @@ plotXMLAttributes.py tripinfos.xml tripinfos2.xml -x timeLoss -y @COUNT -i @NONE
 <img src="../images/hist_timeLoss_clamped.png" width="500px"/>
 
 !!! caution
-    It is importent to set **-i @NONE** to ensure that the timLoss values are aggregated by file rather than by vehicle id.
+    It is importent to set **-i @NONE** to ensure that the timeLoss values are aggregated by file rather than by vehicle id.
 
 ## plot_trajectories.py
 
