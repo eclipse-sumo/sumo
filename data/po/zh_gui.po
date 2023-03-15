@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-15 14:11+0000\n"
+"PO-Revision-Date: 2023-03-15 14:16+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
@@ -8105,31 +8105,31 @@ msgstr "容器不支持在公共汽车站停车"
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1003
 msgid "Persons don't support stops at containerStops"
-msgstr ""
+msgstr "人员不支持在容器停靠处停车"
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1011
 msgid "Persons don't support stops at chargingStations"
-msgstr ""
+msgstr "人员不支持在充电站停车"
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1014
 msgid "Containers don't support stops at chargingStations"
-msgstr ""
+msgstr "容器不支持在充电站停车"
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1022
 msgid "Persons don't support stops at parkingAreas"
-msgstr ""
+msgstr "不支持在停车区域停车的人"
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1025
 msgid "Containers don't support stops at parkingAreas"
-msgstr ""
+msgstr "容器不支持在停车区停车"
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1035
 msgid "vehicles don't support stops at edges"
-msgstr ""
+msgstr "车辆不支持在路段停车"
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1048
 msgid "A stop must be defined either over a stoppingPlace, a edge or a lane"
-msgstr ""
+msgstr "停车必须在一个停车点、一路段或一条车道上定义一个停车点"
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1050
 msgid "A stop requires only a stoppingPlace, edge or lane"
