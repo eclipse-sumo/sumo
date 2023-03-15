@@ -15,6 +15,7 @@
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
+/// @author  Mirko Barthauer
 /// @date    Mon, 14.04.2008
 ///
 // Importer for networks stored in openDrive format
@@ -98,6 +99,8 @@ protected:
         OPENDRIVE_TAG_LANE,
         OPENDRIVE_TAG_SIGNAL,
         OPENDRIVE_TAG_SIGNALREFERENCE,
+        OPENDRIVE_TAG_CONTROLLER,
+        OPENDRIVE_TAG_CONTROL,
         OPENDRIVE_TAG_VALIDITY,
         OPENDRIVE_TAG_JUNCTION,
         OPENDRIVE_TAG_CONNECTION,
@@ -170,7 +173,8 @@ protected:
         OPENDRIVE_ATTR_RULE,
         OPENDRIVE_ATTR_RESTRICTION,
         OPENDRIVE_ATTR_NAME,
-        OPENDRIVE_ATTR_UNIT    // xodr v1.4
+        OPENDRIVE_ATTR_UNIT,    // xodr v1.4
+        OPENDRIVE_ATTR_SIGNALID
     };
 
 
@@ -422,6 +426,30 @@ protected:
         /// @brief signal validity range
         int minLane;
         int maxLane;
+        /// @brief the controller ID
+        std::string controller;
+    };
+
+
+    /**
+     * @struct OpenDriveController
+     * @brief Representation of a signal group
+     */
+    struct OpenDriveController {
+        /** @brief Constructor
+         * @param[in] idArg The OpenDrive id of the signal group
+         * @param[in] nameArg The type of the signal group
+         */
+        OpenDriveController(const std::string& idArg, const std::string nameArg) :
+            id(idArg), name(nameArg) { }
+
+        /// dummy constructor for use in maps
+        OpenDriveController() {}
+
+        std::string id;
+        std::string name;
+        std::vector<std::string> signalIDs;
+        std::string junction;
     };
 
 
@@ -601,6 +629,47 @@ protected:
         return mySignals;
     }
 
+    std::map<std::string, OpenDriveController>& getControllers() {
+        return myControllers;
+    }
+
+    std::map<std::string, std::vector<std::string>>& getJunctions2Controllers() {
+        return myJunctions2Controllers;
+    }
+
+    OpenDriveController& getController(std::string signalID) {
+        if (mySignals.find(signalID) != mySignals.end() && myControllers.find(mySignals[signalID].controller) != myControllers.end()) {
+            return myControllers[mySignals[signalID].controller];
+        }
+        return OpenDriveController("", "");
+    }
+
+    int getTLIndexForController(std::string controllerID) {
+        // sort them by their id
+        std::string junctionID = myControllers[controllerID].junction;
+        std::vector<std::string> junctionControllers;
+        for (auto& it : myControllers) {
+            if (it.second.junction == junctionID) {
+                junctionControllers.push_back(it.first);
+            }
+        }
+        std::sort(junctionControllers.begin(), junctionControllers.end());
+        auto it = std::find(junctionControllers.begin(), junctionControllers.end(), controllerID);
+        return it - junctionControllers.begin();
+    }
+
+    int getMaxControllerTLIndex(std::string junctionID) {
+        // get the max expected count of controllers at a junction
+        int result = 0;
+        for (auto& it : myControllers) {
+            if (it.second.junction == junctionID) {
+                result++;
+            }
+        }
+        return result;
+    }
+
+
 private:
     void addLink(LinkType lt, const std::string& elementType, const std::string& elementID,
                  const std::string& contactPoint);
@@ -616,6 +685,7 @@ private:
     static std::string revertID(const std::string& id);
     const NBTypeCont& myTypeContainer;
     OpenDriveEdge myCurrentEdge;
+    OpenDriveController myCurrentController;
 
     std::map<std::string, OpenDriveEdge*>& myEdges;
     std::vector<int> myElementStack;
@@ -626,6 +696,8 @@ private:
     ContactPoint myCurrentContactPoint;
     bool myConnectionWasEmpty;
     std::map<std::string, OpenDriveSignal> mySignals;
+    std::map<std::string, OpenDriveController> myControllers;
+    std::map<std::string, std::vector<std::string>> myJunctions2Controllers;
     Position myOffset;
 
     static bool myImportAllTypes;
@@ -684,7 +756,7 @@ protected:
     static void setNodeSecure(NBNodeCont& nc, OpenDriveEdge& e,
                               const std::string& nodeID, NIImporter_OpenDrive::LinkType lt, std::vector<NodeSet>& joinedNodeIDs);
 
-    static NBTrafficLightDefinition* getTLSSecure(NBEdge* inEdge, NBNetBuilder& nb);
+    static NBTrafficLightDefinition* getTLSSecure(NBEdge* inEdge, /*const NBEdge::Connection& conn,*/ NBNetBuilder& nb);
 
 
     static std::pair<NBEdge*, NBEdge*> retrieveSignalEdges(NBNetBuilder& nb, const std::string& fromID, const std::string& toID, const std::string& junction);
