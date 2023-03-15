@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-15 14:16+0000\n"
+"PO-Revision-Date: 2023-03-15 14:49+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
@@ -8133,11 +8133,11 @@ msgstr "停车必须在一个停车点、一路段或一条车道上定义一个
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1050
 msgid "A stop requires only a stoppingPlace, edge or lane"
-msgstr ""
+msgstr "一个停车点只需要一个停车地点、路段或车道"
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1170
 msgid "A person trip from edge to edge needs two edges edge"
-msgstr ""
+msgstr "一个人从路段到路段的行程需要两个路段"
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1180
 msgid "A person trip from edge to busStop needs one edge and one busStop"
