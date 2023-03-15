@@ -31,8 +31,8 @@ if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(tools))
     import sumolib
     from sumolib.xml import _open, parse_fast
-    from sumolib.miscutils import Statistics
-    from sumolib.statistics import setPrecision
+    from sumolib.miscutils import Statistics, humanReadableTime
+    from sumolib.statistics import setPrecision, identity
 else:
     sys.exit("please declare environment variable 'SUMO_HOME'")
 
@@ -57,6 +57,8 @@ def get_options():
                          default=False, help="use fast parser (does not track missing data)")
     optParser.add_option("-p", "--precision", type=int,
                          default=2, help="Set output precision")
+    optParser.add_option("-H", "--human-readable-time", dest="hrTime", default=False, action="store_true",
+                         help="interpret values as times and write them as h:m:s")
     options = optParser.parse_args()
 
     if options.attribute:
@@ -85,6 +87,7 @@ def main():
     allStats = dict()
     missingAttr = defaultdict(set)
     invalidType = defaultdict(set)
+    formatter = humanReadableTime if options.hrTime else identity
 
     if options.fast:
         assert(len(options.element) == 1)
@@ -136,7 +139,7 @@ def main():
 
     histStyle = 1 if len(allStats) == 1 else 0
     for key in sorted(allStats.keys()):
-        print(allStats[key].toString(options.precision, histStyle=histStyle))
+        print(allStats[key].toString(options.precision, histStyle=histStyle, fmt=formatter))
 
     if missingAttr:
         for attr in sorted(missingAttr.keys()):
@@ -170,7 +173,7 @@ def main():
             sumolib.writeXMLHeader(f, "$Id$", "attributeStats")  # noqa
             if options.xmlFlat:
                 for key in sorted(allStats.keys()):
-                    f.write(allStats[key].toXML(options.precision))
+                    f.write(allStats[key].toXML(options.precision, fmt=formatter))
 
             else:
                 elemKeys = defaultdict(list)
@@ -181,7 +184,7 @@ def main():
                     for key in sorted(elemKeys[elem]):
                         attr = key[1]
                         stats = allStats[key]
-                        f.write(stats.toXML(options.precision, tag=attr, indent=8, label=''))
+                        f.write(stats.toXML(options.precision, tag=attr, indent=8, label='', fmt=formatter))
                     f.write('    </%s>\n' % elem)
             f.write('</attributeStats>\n')
 

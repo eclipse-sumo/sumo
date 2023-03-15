@@ -33,6 +33,9 @@ def round(value):  # to round in Python 3 like in Python 2
     else:
         return math.floor(value + 0.5)
 
+def identity(value):
+    return value
+
 
 class _ExtremeType(object):
     """
@@ -70,11 +73,14 @@ uMax = _ExtremeType(True, "uMax")
 uMin = _ExtremeType(False, "uMin")
 
 
-def setPrecision(formatstr, precision, isArray=False):
+def setPrecision(formatstr, precision, isArray=False, preformatted=False):
     if isArray:
         set_printoptions(precision=2)
         return formatstr.replace('%.2f', '%s')
-    return formatstr.replace('%.2f', '%.' + str(int(precision)) + 'f')
+    elif preformatted:
+        return formatstr.replace('%.2f', '%s')
+    else:
+        return formatstr.replace('%.2f', '%.' + str(int(precision)) + 'f')
 
 
 class Statistics:
@@ -208,27 +214,29 @@ class Statistics:
         else:
             return "Histogramm is deactivated"
 
-    def toString(self, precision=2, histStyle=1):
+    def toString(self, precision=2, histStyle=1, fmt=identity):
         """histStyle
             0 : not shown
             1 : one line
             2 : fancy
             """
         if len(self.values) > 0:
+            pre = fmt != identity
             min = ''
             if self.printMin:
-                min = setPrecision('min %.2f%s, ', precision, self.isArray) % (
-                    self.min, ('' if self.min_label is None else ' (%s)' % (self.min_label,)))
-            result = setPrecision('%s: count %s, %smax %.2f%s, mean %.2f', precision, self.isArray) % (
+                min = setPrecision('min %.2f%s, ', precision, self.isArray, pre) % (
+                                   fmt(self.min), ('' if self.min_label is None else ' (%s)' % (self.min_label,)))
+            result = setPrecision('%s: count %s, %smax %.2f%s, mean %.2f', precision, self.isArray, pre) % (
                 self.label, len(self.values), min,
-                self.max,
+                fmt(self.max),
                 ('' if self.max_label is None else ' (%s)' %
                  (self.max_label,)),
-                self.avg())
-            result += setPrecision(', Q1 %.2f, median %.2f, Q3 %.2f', precision, self.isArray) % self.quartiles()
+                fmt(self.avg()))
+            result += setPrecision(', Q1 %.2f, median %.2f, Q3 %.2f', precision, self.isArray, pre) % (
+                                   tuple(map(fmt, self.quartiles())))
             if self.abs:
-                result += setPrecision(', mean_abs %.2f, median_abs %.2f', precision, self.isArray) % (
-                    self.avg_abs(), self.median_abs())
+                result += setPrecision(', mean_abs %.2f, median_abs %.2f', precision, self.isArray, pre) % (
+                    fmt(self.avg_abs()), fmt(self.median_abs()))
             if self.printDev:
                 result += (setPrecision(', stdDev %.2f', precision, self.isArray) % (self.meanAndStdDev()[1]))
             if self.counts is not None:
@@ -244,7 +252,8 @@ class Statistics:
         else:
             return '%s: no values' % self.label
 
-    def toXML(self, precision=2, tag="statistic", indent=4, label=None):
+    def toXML(self, precision=2, tag="statistic", indent=4, label=None, fmt=identity):
+        pre = fmt != identity
         if label is None:
             label = self.label
         description = ' description="%s"' % label if label != '' else ''
@@ -253,11 +262,12 @@ class Statistics:
         if self.count() > 0:
             result += ' count="%i"' % self.count()
             result += (setPrecision(' min="%.2f" minLabel="%s" max="%.2f" maxLabel="%s" mean="%.2f"',
-                                    precision, self.isArray) %
-                       (self.min, self.min_label, self.max, self.max_label, self.avg()))
-            result += setPrecision(' Q1="%.2f" median="%.2f" Q3="%.2f"', precision, self.isArray) % self.quartiles()
-            result += (setPrecision(' meanAbs="%.2f" medianAbs="%.2f"', precision, self.isArray) %
-                       (self.avg_abs(), self.median_abs()))
+                                    precision, self.isArray, pre) %
+                                    (fmt(self.min), self.min_label, fmt(self.max), self.max_label, fmt(self.avg())))
+            result += setPrecision(' Q1="%.2f" median="%.2f" Q3="%.2f"', precision, self.isArray, pre) % (
+                                   tuple(map(fmt, self.quartiles())))
+            result += (setPrecision(' meanAbs="%.2f" medianAbs="%.2f"', precision, self.isArray, pre) %
+                       (fmt(self.avg_abs()), fmt(self.median_abs())))
             if self.printDev:
                 result += (setPrecision(' stdDev="%.2f"', precision, self.isArray) %
                            (self.meanAndStdDev()[1]))
