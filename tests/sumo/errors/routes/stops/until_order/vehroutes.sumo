@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-04-01 10:14:33 by Eclipse SUMO sumo Version v1_12_0+1841-068b292
+<!-- generated on 2023-03-15 14:45:26 by Eclipse SUMO sumo Version v1_16_0+1311-8eff17f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -29,7 +29,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <report>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -60,15 +59,35 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <stop lane="end_0" endPos="4.00" arrival="40.00" duration="5.00"/>
     </vehicle>
 
+    <vehicle id="until_before_depart_with_ended" depart="71.00" arrival="114.00">
+        <route edges="beg end"/>
+        <stop lane="beg_0" endPos="6.00" until="50.00" ended="74.00"/>
+    </vehicle>
+
     <vehicle id="until_arrival_unordered" depart="59.00" arrival="116.00">
         <route edges="beg end"/>
         <stop lane="beg_0" endPos="6.00" until="50.00"/>
         <stop lane="end_0" endPos="4.00" arrival="40.00" until="60.00"/>
     </vehicle>
 
-    <vehicle id="arrival_before_depart" depart="71.00" arrival="118.00">
+    <vehicle id="until_before_depart_with_ended2" depart="75.00" arrival="118.00">
+        <route edges="beg end"/>
+        <stop lane="beg_0" endPos="6.00" until="50.00" ended="78.00"/>
+    </vehicle>
+
+    <vehicle id="arrival_before_depart" depart="79.00" arrival="126.00">
         <route edges="beg end"/>
         <stop lane="beg_0" endPos="6.00" arrival="40.00" duration="5.00"/>
+    </vehicle>
+
+    <vehicle id="arrival_before_depart_with_started" depart="87.00" arrival="134.00">
+        <route edges="beg end"/>
+        <stop lane="beg_0" endPos="6.00" arrival="40.00" duration="5.00" started="89.00"/>
+    </vehicle>
+
+    <vehicle id="arrival_before_depart_with_started2" depart="95.00" arrival="142.00">
+        <route edges="beg end"/>
+        <stop lane="beg_0" endPos="6.00" arrival="40.00" duration="5.00" started="97.00"/>
     </vehicle>
 
 </routes>
