@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-14 16:48+0000\n"
+"PO-Revision-Date: 2023-03-15 10:26+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
@@ -7551,87 +7551,87 @@ msgstr "在''添加停车区''改变路线"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1089
 msgid "add route prob reroute in '"
-msgstr ""
+msgstr "在''添加路线可能会改变路线"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1126
 msgid "add route probe '"
-msgstr ""
+msgstr "添加路线探针 '"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1172
 msgid "add Variable Speed Sign '"
-msgstr ""
+msgstr "添加可变速度标志 '"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1213
 msgid "add VSS Step in '"
-msgstr ""
+msgstr "在''中添加VSS步骤"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1244
 msgid "Could not build Vaporizer with ID '"
-msgstr ""
+msgstr "无法建立具有ID的汽化器'"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1250
 msgid "add vaporizer in '"
-msgstr ""
+msgstr "在''添加汽化器"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1302
 msgid "Could not build TAZ with ID '"
-msgstr ""
+msgstr "无法建立ID为'的交通分区（TAZ）"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1302
 msgid "' in netedit; Invalid Shape."
-msgstr ""
+msgstr "netedit中的'；无效的形状。"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1313
 msgid "add TAZ '"
-msgstr ""
+msgstr "添加 交通分区（TAZ）"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1374
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1468
 msgid "add TAZ Sink in '"
-msgstr ""
+msgstr "在''中加入交通分区（TAZ）沉入其中"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1397
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1446
 msgid "add TAZ Source in '"
-msgstr ""
+msgstr "在''添加交通分区（TAZ）来源"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1408
 msgid "update TAZ Source in '"
-msgstr ""
+msgstr "更新交通分区（TAZ）来源，在''中"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1479
 msgid "update TAZ Sink in '"
-msgstr ""
+msgstr "更新交通分区（TAZ）沉入其中''"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1508
 msgid "add taction substation '"
-msgstr ""
+msgstr "添加行动分站 '"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1540
 msgid "Could not build overhead wire with ID '"
-msgstr ""
+msgstr "无法用ID建立高架线'"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1552
 msgid "add overhead wire '"
-msgstr ""
+msgstr "添加高架线 '"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1601
 msgid "add polygon '"
-msgstr ""
+msgstr "添加多边形 '"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1634
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1677
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1716
 msgid "add POI '"
-msgstr ""
+msgstr "添加兴趣点'"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1708
 msgid "Could not build POI with ID '"
-msgstr ""
+msgstr "无法建立ID为''的兴趣点"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1708
 msgid "' in netedit; Network requires a geo projection."
-msgstr ""
+msgstr "'在netedit中；网络需要一个地理投影。"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1904
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1910
@@ -7649,7 +7649,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src\netedit\elements\data\GNEMeanDataHandler.cpp:116
 #: /home/micha/programming/sumo/src\netedit\elements\data\GNEMeanDataHandler.cpp:132
 msgid "Could not build "
-msgstr ""
+msgstr "无法建立 "
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1904
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1910
@@ -7661,72 +7661,72 @@ msgstr ""
 #: /home/micha/programming/sumo/src\netedit\elements\data\GNEDataHandler.cpp:243
 #: /home/micha/programming/sumo/src\netedit\elements\data\GNEDataHandler.cpp:255
 msgid " with ID '"
-msgstr ""
+msgstr " ID为 '"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1904
 msgid "' in netedit; ID contains invalid characters."
-msgstr ""
+msgstr "'在netedit中；ID包含无效的字符。"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1910
 msgid "' in netedit; Invalid position over lane."
-msgstr ""
+msgstr "netedit中的'；在车道上的位置无效。"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1916
 #: /home/micha/programming/sumo/src\netedit\elements\data\GNEDataHandler.cpp:243
 msgid "' in netedit; declared twice."
-msgstr ""
+msgstr "' 在netedit中；声明了两次。"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1922
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2001
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2019
 #: /home/micha/programming/sumo/src\netedit\elements\data\GNEDataHandler.cpp:249
 msgid " doesn't exist."
-msgstr ""
+msgstr " 不存在。"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1928
 msgid "' in netedit; attribute "
-msgstr ""
+msgstr "'在netedit中；属性 "
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1928
 msgid " cannot be negative."
-msgstr ""
+msgstr " 不能是负数。"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1934
 msgid "' in netedit; list of VTypes isn't valid."
-msgstr ""
+msgstr "netedit中的'；VTypes的列表是无效的。"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1940
 msgid "' in netedit; filename is invalid."
-msgstr ""
+msgstr "'在netedit中；文件名是无效的。"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1946
 msgid "' in netedit; list of lanes isn't valid."
-msgstr ""
+msgstr "'在netedit中；车道的列表是无效的。"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2001
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2019
 #: /home/micha/programming/sumo/src\netedit\elements\data\GNEDataHandler.cpp:249
 #: /home/micha/programming/sumo/src\netedit\elements\data\GNEDataHandler.cpp:255
 msgid " in netedit; "
-msgstr ""
+msgstr " 在netedit中; "
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNECalibrator.cpp:176
 msgid "Both edges and lanes aren't defined"
-msgstr ""
+msgstr "路段和车道都没有定义"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNECalibrator.cpp:220
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNECalibrator.cpp:462
 msgid "Both myEdge and myLane aren't defined"
-msgstr ""
+msgstr "myEdge和myLane都没有被定义"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNECalibratorFlow.cpp:94
 msgid "calibratorFlow of  calibrator '"
-msgstr ""
+msgstr "校准器    的校准流程'"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNECalibratorFlow.cpp:95
 msgid ""
 "' cannot be written. Either type or vehsPerHour or speed must be enabled"
-msgstr ""
+msgstr "'不能被写入。任意类型或vehsPerHour或速度必须被启用"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEEntryExitDetector.cpp:97
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEInductionLoopDetector.cpp:115
@@ -7739,55 +7739,55 @@ msgstr ""
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEStoppingPlace.cpp:132
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEStoppingPlace.cpp:137
 msgid " > lanes's length"
-msgstr ""
+msgstr " > 车道的长度"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNELaneAreaDetector.cpp:179
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEOverheadWire.cpp:125
 msgid "lanes aren't consecutives"
-msgstr ""
+msgstr "车道不是连续的"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNELaneAreaDetector.cpp:183
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEOverheadWire.cpp:129
 msgid "lanes aren't connected"
-msgstr ""
+msgstr "车道没有连接"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNELaneAreaDetector.cpp:202
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEOverheadWire.cpp:147
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEStoppingPlace.cpp:141
 msgid " and "
-msgstr ""
+msgstr " 和 "
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEMultiEntryExitDetector.cpp:115
 msgid "' needs at least one entry and one exit"
-msgstr ""
+msgstr "'至少需要一个入口和一个出口"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEMultiEntryExitDetector.cpp:299
 msgid "An entry-exit detector needs at least one entry detector"
-msgstr ""
+msgstr "一个出入境检测器至少需要一个入境检测器"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEMultiEntryExitDetector.cpp:302
 msgid "An entry-exit detector needs at least one exit detector"
-msgstr ""
+msgstr "一个入口-出口探测器至少需要一个出口探测器"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEPOI.cpp:261
 msgid "Release from lane"
-msgstr ""
+msgstr "从车道放行"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEPOI.cpp:265
 msgid "Attach to nearest lane"
-msgstr ""
+msgstr "连接到最近的车道"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEPoly.cpp:196
 msgid "Simplify Shape"
-msgstr ""
+msgstr "简化形状"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEPoly.cpp:196
 msgid "Replace current shape with a rectangle"
-msgstr ""
+msgstr "用矩形取代当前形状"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEPoly.cpp:202
 msgid "Open shape"
-msgstr ""
+msgstr "开放式形状"
 
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEPoly.cpp:202
 msgid "Open polygon's shape"
