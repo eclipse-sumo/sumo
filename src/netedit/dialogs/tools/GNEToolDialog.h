@@ -56,9 +56,6 @@ public:
     /// @brief open window
     void openDialog(GNETool* tool);
 
-    /// @brief hide window
-    void hide();
-
     /// @name FOX-callbacks
     /// @{
 

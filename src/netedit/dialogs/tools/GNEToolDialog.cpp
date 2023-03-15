@@ -95,18 +95,11 @@ GNEToolDialog::openDialog(GNETool* tool) {
 }
 
 
-void
-GNEToolDialog::hide() {
+long
+GNEToolDialog::onCmdRun(FXObject*, FXSelector, void*) {
     // stop modal
     myGNEApp->getApp()->stopModal(this);
     // hide dialog
-    FXDialogBox::hide();
-}
-
-
-long
-GNEToolDialog::onCmdRun(FXObject*, FXSelector, void*) {
-    // hide tool dialog
     hide();
     // run tool
     return myGNEApp->tryHandle(myTool->getMenuCommand(), FXSEL(SEL_COMMAND, MID_GNE_RUNTOOL), nullptr);
@@ -115,7 +108,9 @@ GNEToolDialog::onCmdRun(FXObject*, FXSelector, void*) {
 
 long
 GNEToolDialog::onCmdCancel(FXObject*, FXSelector, void*) {
-    // just hide tool dialog
+    // stop modal
+    myGNEApp->getApp()->stopModal(this);
+    // hide dialog
     hide();
     return 1;
 }

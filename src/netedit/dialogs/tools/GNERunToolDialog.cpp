@@ -25,6 +25,7 @@
 #include <utils/handlers/TemplateHandler.h>
 
 #include "GNERunToolDialog.h"
+#include "GNERunTool.h"
 #include "GNETool.h"
 
 
@@ -51,6 +52,8 @@ FXIMPLEMENT(GNERunToolDialog, FXDialogBox, GNERunToolDialogMap, ARRAYNUMBER(GNER
 GNERunToolDialog::GNERunToolDialog(GNEApplicationWindow* GNEApp) :
     FXDialogBox(GNEApp->getApp(), "Tool", GUIDesignDialogBoxExplicit(0, 0)),
     myGNEApp(GNEApp) {
+    // create run tool
+    myRunTool = new GNERunTool(this);
     // set icon
     setIcon(GUIIconSubSys::getIcon(GUIIcon::TOOL_PYTHON));
     // create content frame
@@ -66,8 +69,6 @@ GNERunToolDialog::GNERunToolDialog(GNEApplicationWindow* GNEApp) :
     // create text
     auto textFrame = new FXVerticalFrame(contentFrame, GUIDesignFrameThick);
     myText = new FXText(textFrame, 0, 0, (TEXT_READONLY | LAYOUT_FILL_X | LAYOUT_FILL_Y));
-    // add separator
-    new FXSeparator(contentFrame);
     // create buttons centered
     auto buttonsFrame = new FXHorizontalFrame(contentFrame, GUIDesignHorizontalFrame);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
@@ -92,28 +93,30 @@ GNERunToolDialog::getGNEApp() const {
 
 void
 GNERunToolDialog::runTool(GNETool* tool) {
+    // set title
     setTitle((tool->getToolName()  + " output").c_str());
-    // show dialog
-    FXDialogBox::show(PLACEMENT_SCREEN);
     // refresh APP
     getApp()->refresh();
+    // show dialog
+    FXDialogBox::show(PLACEMENT_SCREEN);
+    // run thread
+    myRunTool->start();
     // open as modal dialog (will block all windows until stop() or stopModal() is called)
     myGNEApp->getApp()->runModalFor(this);
 }
 
 
 void
-GNERunToolDialog::hide() {
-    // stop modal
-    myGNEApp->getApp()->stopModal(this);
-    // hide dialog
-    FXDialogBox::hide();
+GNERunToolDialog::appendConsole(const std::string &text) {
+    myText->appendText(text.c_str());
 }
 
 
 long
 GNERunToolDialog::onCmdOK(FXObject*, FXSelector, void*) {
-    // just hide tool dialog
+    // stop modal
+    myGNEApp->getApp()->stopModal(this);
+    // hide dialog
     hide();
     return 1;
 }

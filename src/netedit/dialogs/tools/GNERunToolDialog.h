@@ -27,6 +27,7 @@
 // ===========================================================================
 
 class GNEApplicationWindow;
+class GNERunTool;
 class GNETool;
 
 // ===========================================================================
@@ -54,8 +55,8 @@ public:
     /// @brief run tool (this open windows)
     void runTool(GNETool* tool);
 
-    /// @brief hide window
-    void hide();
+    /// @brief add text to output console
+    void appendConsole(const std::string &text);
 
     /// @name FOX-callbacks
     /// @{
@@ -78,6 +79,9 @@ protected:
 private:
     /// @brief pointer to GNEApplicationWindow
     GNEApplicationWindow* myGNEApp;
+
+    /// @brief thread  for running tool
+    GNERunTool* myRunTool = nullptr;
 
     /// @brief text
     FXText* myText = nullptr;
