@@ -1,6 +1,6 @@
 <viewsettings>
     <delay value="400"/>
-    <viewport zoom="2160" x="5760" y="5670"/>
+    <viewport zoom="353" x="5760" y="5670"/>
     <decal file="678000_5405000_small.png" centerX="5771" centerY="5680" width="120" height="114" rotation="0.00"/>
     <scheme name="game_cross">
         <opengl antialiase="0" dither="0"/>

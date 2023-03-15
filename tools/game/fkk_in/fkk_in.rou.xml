@@ -12,12 +12,11 @@
     <flow id="2_left" from="29119850" to="-148050455#0" begin="0" end="90000" period="55" departSpeed="13.89"/>
 
     <flow id="1_horizontal" from="737320747#4" to="116687469#0" begin="0" end="90000" period="15" departSpeed="13.89"/>
-    <flow id="2_horizontal" from="29119850" to="54169280#1" begin="0" end="90000" period="15" departSpeed="13.89"/>
+    <flow id="2_horizontal" from="29119850" to="54169280#1" begin="0" end="90000" period="30" departSpeed="13.89"/>
 
     <flow id="3_right" from="148050455#0" to="116687469#0" begin="20" end="90000" period="30" departSpeed="13.89"/>
     <flow id="4_right" from="30399663#0" to="54169280#1" begin="20" end="90000" period="40" departSpeed="13.89"/>
-    <flow id="3_left" from="148050455#0" to="54169280#1" begin="20" end="90000" period="45" departSpeed="13.89"/>
-    <flow id="4_left" from="30399663#0" to="116687469#0" begin="20" end="90000" period="45" departSpeed="13.89"/>
+    <flow id="4_left" from="30399663#0" to="116687469#0" begin="20" end="90000" period="15" departSpeed="13.89"/>
 
     <flow id="3_vertical" from="148050455#0" to="-137246371#1" begin="40" end="90000" period="25" departSpeed="13.89"/>
     <flow id="4_vertical" from="30399663#0" to="-148050455#0" begin="40" end="90000" period="25" departSpeed="13.89"/>
