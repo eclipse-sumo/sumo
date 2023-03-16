@@ -2,6 +2,8 @@
 cmake_policy(SET CMP0048 NEW)
 # do not expand quoted variables in if statements
 cmake_policy(SET CMP0054 NEW)
+# find python by path
+set(Python_FIND_STRATEGY LOCATION)
 # Options
 option(CHECK_OPTIONAL_LIBS "Try to download / enable all optional libraries (use only EPL clean libraries, if set to false)" true)
 option(MULTITHREADED_BUILD "Use all available cores for building (applies to Visual Studio only)" true)
@@ -205,7 +207,20 @@ if (CMAKE_GENERATOR MATCHES Xcode)
 endif ()
 message(STATUS "")
 
-find_package(PythonInterp REQUIRED)
+if (${CMAKE_VERSION} VERSION_LESS 3.12.0)
+    find_package(PythonInterp REQUIRED)
+    find_package(PythonLibs)
+else()
+    find_package(Python REQUIRED COMPONENTS Interpreter Development)
+    # definine variables for compatibility. refactor once older cmake unsupported
+    if (Python_FOUND)
+        set(PYTHONLIBS_FOUND ${Python_FOUND})
+        set(PYTHON_EXECUTABLE ${Python_EXECUTABLE})
+        set(PYTHON_LIBRARIES ${Python_LIBRARIES})
+        set(PYTHON_INCLUDE_DIRS ${Python_INCLUDE_DIRS})
+        set(PYTHON_LIBRARY_DIRS ${Python_LIBRARY_DIRS})
+    endif()
+endif()
 message(STATUS "Found Python: " ${PYTHON_EXECUTABLE})
 execute_process(COMMAND ${PYTHON_EXECUTABLE} -c "import setuptools" RESULT_VARIABLE PYTHON_SETUPTOOLS_MISSING ERROR_QUIET)
 execute_process(COMMAND ${PYTHON_EXECUTABLE} -c "import build; import pip; build.__version__" RESULT_VARIABLE PYTHON_BUILD_MISSING ERROR_QUIET)
