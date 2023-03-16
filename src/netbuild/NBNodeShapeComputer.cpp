@@ -126,7 +126,7 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
     const double defaultRadius = getDefaultRadius(oc);
     const bool useDefaultRadius = myNode.getRadius() == NBNode::UNSPECIFIED_RADIUS || myNode.getRadius() == defaultRadius;
     myRadius = (useDefaultRadius ? defaultRadius : myNode.getRadius());
-    const double smallRadius = oc.getFloat("junctions.small-radius");
+    double smallRadius = useDefaultRadius ? oc.getFloat("junctions.small-radius") : myRadius;
     const int cornerDetail = oc.getInt("junctions.corner-detail");
     const double sCurveStretch = oc.getFloat("junctions.scurve-stretch");
     const bool rectangularCut = oc.getBool("rectangular-lane-cut");
