@@ -30,6 +30,10 @@
 #include "sumo_icon16.xpm"
 #include "sumo_logo.xpm"
 
+#include "netgenerate.xpm"
+#include "netedit_icon64.xpm"
+#include "netedit_icon16.xpm"
+
 #include "empty.xpm"
 #include "newnet.xpm"
 #include "play.xpm"
@@ -148,8 +152,6 @@
 #include "undo.xpm"
 #include "redo.xpm"
 #include "undolist.xpm"
-#include "netedit_icon64.xpm"
-#include "netedit_icon16.xpm"
 #include "lock.xpm"
 #include "unlock.xpm"
 #include "lock_selected.xpm"
@@ -489,6 +491,11 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::SUMO] = new FXXPMIcon(a, sumo_icon64_xpm);
     myIcons[GUIIcon::SUMO_MINI] = new FXXPMIcon(a, sumo_icon16_xpm);
     myIcons[GUIIcon::SUMO_LOGO] = new FXXPMIcon(a, sumo_logo_xpm);
+
+    myIcons[GUIIcon::NETGENERATE] = new FXXPMIcon(a, netgenerate_xpm);
+    myIcons[GUIIcon::NETEDIT] = new FXXPMIcon(a, netedit_icon64_xpm);
+    myIcons[GUIIcon::NETEDIT_MINI] = new FXXPMIcon(a, netedit_icon16_xpm);
+
     myIcons[GUIIcon::EMPTY] = new FXXPMIcon(a, empty_xpm);
     myIcons[GUIIcon::NEW_NET] = new FXXPMIcon(a, newnet_xpm);
     myIcons[GUIIcon::RELOAD] = new FXXPMIcon(a, reload_xpm);
@@ -621,8 +628,6 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::UNDO] = new FXXPMIcon(a, undo_xpm);
     myIcons[GUIIcon::REDO] = new FXXPMIcon(a, redo_xpm);
     myIcons[GUIIcon::UNDOLIST] = new FXXPMIcon(a, undolist_xpm);
-    myIcons[GUIIcon::NETEDIT] = new FXXPMIcon(a, netedit_icon64_xpm);
-    myIcons[GUIIcon::NETEDIT_MINI] = new FXXPMIcon(a, netedit_icon16_xpm);
     myIcons[GUIIcon::LOCK] = new FXXPMIcon(a, lock_xpm);
     myIcons[GUIIcon::UNLOCK] = new FXXPMIcon(a, unlock_xpm);
     myIcons[GUIIcon::LOCK_SELECTED] = new FXXPMIcon(a, lockselected_xpm);

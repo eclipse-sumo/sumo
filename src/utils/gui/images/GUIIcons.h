@@ -32,11 +32,22 @@
  */
 enum class GUIIcon {
 
-    /// @name general Interface icons
+    /// @name SUMO Logos
     /// @{
     SUMO,
     SUMO_MINI,
     SUMO_LOGO,
+    /// @}
+
+    /// @name other SUMO programs
+    /// @{
+    NETEDIT,
+    NETEDIT_MINI,
+    NETGENERATE,
+    /// @}
+    
+    /// @name general Interface icons
+    /// @{
     EMPTY,
     NEW_NET,
     RELOAD,
@@ -240,8 +251,6 @@ enum class GUIIcon {
     UNDO,
     REDO,
     UNDOLIST,
-    NETEDIT,
-    NETEDIT_MINI,
     LOCK,
     UNLOCK,
     LOCK_SELECTED,
