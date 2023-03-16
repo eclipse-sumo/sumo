@@ -28,6 +28,11 @@ copy_test_path:input_plain.edg.xml
 copy_test_path:input_plain.con.xml
 copy_test_path:input_plain.tll.xml
 copy_test_path:input_plain.typ.xml
+copy_test_path:input_plain2.nod.xml
+copy_test_path:input_plain2.edg.xml
+copy_test_path:input_plain2.con.xml
+copy_test_path:input_plain2.tll.xml
+copy_test_path:input_plain2.typ.xml
 copy_test_path:input_shapes.add.xml
 copy_test_path:heightmap.tif
 copy_test_path:edge_ids.txt

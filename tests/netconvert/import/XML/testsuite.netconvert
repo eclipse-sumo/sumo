@@ -104,3 +104,6 @@ special_chars
 
 # write plain output will all lane data
 plainLanes
+
+# merge 2 geo-referenced networks
+merge_geo
