@@ -627,10 +627,18 @@ def main(options):
 
             if options.barplot or options.hbarplot:
                 if options.barplot:
-                    center = [x + barOffset * barWidth for x in xvalues]
+                    if numericXCount > 0:
+                        center = [x + barOffset * barWidth for x in xvalues]
+                    else:
+                        center = [x + barOffset * barWidth for x in range(len(xvalues))]
+                        plt.xticks(range(len(xvalues)), xvalues)
                     plt.bar(center, yvalues, width=barWidth, label=dataID)
                 else:
-                    center = [y + barOffset * barWidth for y in yvalues]
+                    if numericYCount > 0:
+                        center = [y + barOffset * barWidth for y in yvalues]
+                    else:
+                        center = [y + barOffset * barWidth for y in range(len(yvalues))]
+                        plt.yticks(range(len(yvalues)), yvalues)
                     plt.barh(center, xvalues, height=barWidth, label=dataID)
                 barOffset += 1
 
