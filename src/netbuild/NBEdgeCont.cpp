@@ -1786,6 +1786,11 @@ NBEdgeCont::joinLanes(SVCPermissions perms) {
 }
 
 
+bool
+NBEdgeCont::MinLaneComparatorIdLess::operator()(const std::pair<NBEdge*, int>& a, const std::pair<NBEdge*, int>& b) const {
+        return a.first->getID() < b.first->getID();
+}
+
 int
 NBEdgeCont::joinTramEdges(NBDistrictCont& dc, NBPTStopCont& sc, NBPTLineCont& lc, double maxDist) {
     // this is different from joinSimilarEdges because there don't need to be
@@ -1816,7 +1821,7 @@ NBEdgeCont::joinTramEdges(NBDistrictCont& dc, NBPTStopCont& sc, NBPTLineCont& lc
         tramTree.Insert(min, max, edge);
     }
     // {targetEdge, laneIndex : tramEdge}
-    std::map<std::pair<NBEdge*, int>, NBEdge*> matches;
+    std::map<std::pair<NBEdge*, int>, NBEdge*, MinLaneComparatorIdLess> matches;
 
     for (NBEdge* edge : targetEdges) {
         Boundary bound = edge->getGeometry().getBoxBoundary();

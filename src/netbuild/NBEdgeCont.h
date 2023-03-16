@@ -708,6 +708,10 @@ private:
         bool warnOnly;
     };
 
+    struct MinLaneComparatorIdLess {
+        bool operator()(const std::pair<NBEdge*, int>& a, const std::pair<NBEdge*, int>& b) const;
+    };
+
     /// @brief The list of connections to recheck
     std::map<std::string, std::vector<PostProcessConnection> > myConnections;
 
