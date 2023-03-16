@@ -38,41 +38,29 @@ enum GUIGlObjectType {
     /// @brief The network - empty
     GLO_NETWORK = 0,
 
-    /// @name shape elements
-    /// @{
-
-    /// @brief reserved GLO type to pack shapes
-    GLO_SHAPE = 1,
-    /// @brief a polygon
-    GLO_POLYGON = 2,
-    /// @brief a poi
-    GLO_POI = 3,
-
-    /// @}
-
     /// @name nettork elements
     /// @{
 
     /// @brief reserved GLO type to pack all network elements
-    GLO_NETWORKELEMENT = 10,
+    GLO_NETWORKELEMENT = 1,
     /// @brief an edge
-    GLO_EDGE = 11,
+    GLO_EDGE = 2,
     /// @brief a lane
-    GLO_LANE = 12,
+    GLO_LANE = 3,
     /// @brief a junction
-    GLO_JUNCTION = 13,
+    GLO_JUNCTION = 4,
     /// @brief a connection
-    GLO_CONNECTION = 14,
+    GLO_CONNECTION = 5,
     /// @brief a walkingArea
-    GLO_WALKINGAREA = 15,
+    GLO_WALKINGAREA = 6,
     /// @brief a tl-logic
-    GLO_CROSSING = 16,
+    GLO_CROSSING = 7,
     /// @brief a tl-logic
-    GLO_TLLOGIC = 17,
+    GLO_TLLOGIC = 8,
     /// @brief an edgeType
-    GLO_EDGETYPE = 18,
+    GLO_EDGETYPE = 9,
     /// @brief a laneType
-    GLO_LANETYPE = 19,
+    GLO_LANETYPE = 10,
 
     /// @}
 
@@ -147,6 +135,18 @@ enum GUIGlObjectType {
 
     /// @brief lane details
     GLO_LANEARROWS = 190,
+
+    /// @name shape elements
+    /// @{
+
+    /// @brief reserved GLO type to pack shapes
+    GLO_SHAPE = 200,
+    /// @brief a polygon
+    GLO_POLYGON = 201,
+    /// @brief a poi
+    GLO_POI = 202,
+
+    /// @}
 
     /// @name demand elements
     /// @{
