@@ -1972,10 +1972,12 @@ GUISUMOAbstractView::filterGUIGLObjectsByLayer(const std::vector<GUIGlObject*>& 
     }
     // declare vector for saving object filtered by layer
     std::vector<GUIGlObject*> objectsFiltered;
-    // insert in objects filtered
+    // insert in objects filtered sorted from bot to top
     for (const auto &object : layerObjects) {
         objectsFiltered.push_back(object.getGLObject());
     }
+    // reverse objets filtered to top from bot
+    std::reverse(objectsFiltered.begin(), objectsFiltered.end());
     return objectsFiltered;
 }
 
