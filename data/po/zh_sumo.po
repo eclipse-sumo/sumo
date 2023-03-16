@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-15 23:45+0000\n"
+"PO-Revision-Date: 2023-03-16 13:39+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -9826,15 +9826,15 @@ msgstr ""
 #: /home/micha/programming/sumo/src\utils\foxtools\MFXDecalsTable.cpp:151
 #: /home/micha/programming/sumo/src\utils\foxtools\MFXDecalsTable.cpp:162
 msgid "Invalid row or column"
-msgstr ""
+msgstr "无效的行或列"
 
 #: /home/micha/programming/sumo/src\utils\foxtools\MFXDecalsTable.cpp:186
 msgid "Invalid row"
-msgstr ""
+msgstr "无效行"
 
 #: /home/micha/programming/sumo/src\utils\foxtools\MFXDecalsTable.cpp:196
 msgid "Invalid column"
-msgstr ""
+msgstr "无效列"
 
 #: /home/micha/programming/sumo/src\utils\foxtools\MFXDecalsTable.cpp:332
 #: /home/micha/programming/sumo/src\utils\foxtools\MFXDecalsTable.cpp:788
