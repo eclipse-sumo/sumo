@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-15 23:45+0000\n"
+"PO-Revision-Date: 2023-03-16 13:05+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
@@ -8632,277 +8632,277 @@ msgstr " 属性"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFrame.cpp:246
 msgid "Closing HelpAttributes dialog for tag '"
-msgstr ""
+msgstr "关闭标签 \"HelpAttributes\"（帮助属性）对话框"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFrame.cpp:318
 #: /home/micha/programming/sumo/src\netedit\frames\data\GNEGenericDataFrame.cpp:417
 #: /home/micha/programming/sumo/src\netedit\frames\data\GNEGenericDataFrame.cpp:494
 msgid "Scale: Min -> Max"
-msgstr ""
+msgstr "规模：最小->最大"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:159
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:160
 msgid "Inspect vehicle "
-msgstr ""
+msgstr "检查车辆 "
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:171
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:172
 msgid "Open dialog for editing color"
-msgstr ""
+msgstr "打开编辑颜色的对话框"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:176
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:177
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:248
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:249
 msgid "Open dialog for editing allowed vClasses"
-msgstr ""
+msgstr "打开编辑允许的vClasses的对话框"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:472
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:491
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:607
 msgid "change multiple attributes"
-msgstr ""
+msgstr "更改多个属性"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:610
 msgid "change "
-msgstr ""
+msgstr "改变 "
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:610
 msgid " attribute"
-msgstr ""
+msgstr " 属性"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:664
 msgid "Value '"
-msgstr ""
+msgstr "价值'"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:664
 msgid "' for attribute "
-msgstr ""
+msgstr "'为属性 "
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:664
 msgid " of "
-msgstr ""
+msgstr " 的 "
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:664
 msgid " isn't valid"
-msgstr ""
+msgstr " 不是有效的"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:681
 msgid "enable attribute '"
-msgstr ""
+msgstr "启用属性"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:689
 msgid "disable attribute '"
-msgstr ""
+msgstr "禁用属性'"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:963
 msgid "Extended attributes"
-msgstr ""
+msgstr "扩展属性"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:966
 msgid "Open attributes editor"
-msgstr ""
+msgstr "打开属性编辑器"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:997
 msgid "Attributes"
-msgstr ""
+msgstr "属性"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:1001
 msgid "Edit attributes"
-msgstr ""
+msgstr "编辑属性"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNENeteditAttributes.cpp:49
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:97
 msgid "Netedit attributes"
-msgstr ""
+msgstr "Netedit的属性"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNENeteditAttributes.cpp:55
 #: /home/micha/programming/sumo/src\netedit\frames\GNENeteditAttributes.cpp:195
 msgid "reference left"
-msgstr ""
+msgstr "参照左"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNENeteditAttributes.cpp:56
 #: /home/micha/programming/sumo/src\netedit\frames\GNENeteditAttributes.cpp:201
 msgid "reference right"
-msgstr ""
+msgstr "参照右"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNENeteditAttributes.cpp:57
 #: /home/micha/programming/sumo/src\netedit\frames\GNENeteditAttributes.cpp:206
 msgid "reference center"
-msgstr ""
+msgstr "参照中心"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNENeteditAttributes.cpp:69
 msgid "Center view"
-msgstr ""
+msgstr "中心视角"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNENeteditAttributes.cpp:137
 msgid "Current selected reference point isn't valid"
-msgstr ""
+msgstr "当前选定的参考点无效"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNENeteditAttributes.cpp:231
 msgid "- Reference point: Mark the initial position of the additional element."
-msgstr ""
+msgstr "- 参考点：标记附加元素的初始位置。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNENeteditAttributes.cpp:232
 msgid ""
 "  Example: If you want to create a busStop with a length of 30 in the point "
 "100 of the lane:"
-msgstr ""
+msgstr "  例子：如果你想在车道的100点处创建一个长度为30的公交站："
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNENeteditAttributes.cpp:233
 msgid "  - Reference Left will create it with startPos = 70 and endPos = 100."
-msgstr ""
+msgstr "  - 参考左图将以startPos = 70和endPos = 100来创建它。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNENeteditAttributes.cpp:234
 msgid ""
 "  - Reference Right will create it with startPos = 100 and endPos = 130."
-msgstr ""
+msgstr "  - 参考右方将以startPos = 100和endPos = 130来创建它。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNENeteditAttributes.cpp:235
 msgid ""
 "  - Reference Center will create it with startPos = 85 and endPos = 115."
-msgstr ""
+msgstr "  - 参考中心将以startPos = 85和endPos = 115来创建它。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNENeteditAttributes.cpp:236
 msgid ""
 "- Block movement: if is enabled, the created additional element will be "
 "blocked. i.e. cannot be moved with"
-msgstr ""
+msgstr "- - 阻止移动：如果启用，创建的附加元素将被阻止，即不能用鼠标移动"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNENeteditAttributes.cpp:237
 msgid "  the mouse. This option can be modified inspecting element."
-msgstr ""
+msgstr "  鼠标。这个选项可以修改检查元素。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNENeteditAttributes.cpp:238
 msgid "- Center view: if is enabled, view will be center over created element."
-msgstr ""
+msgstr "- - 中心视图：如果启用，视图将以创建的元素为中心。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNENetworkSelector.cpp:49
 msgid "NetworkElements"
-msgstr ""
+msgstr "网络要素"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNENetworkSelector.cpp:56
 msgid "Use selected"
-msgstr ""
+msgstr "使用选定的"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNENetworkSelector.cpp:63
 msgid "-Click over an edge to select"
-msgstr ""
+msgstr "-在一个路段上点击选择"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNENetworkSelector.cpp:69
 msgid "-Click over an lane to select"
-msgstr ""
+msgstr "-在一个车道上点击选择"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNENetworkSelector.cpp:74
 #: /home/micha/programming/sumo/src\netedit\frames\GNENetworkSelector.cpp:183
 msgid "Invalid NetworkElementType"
-msgstr ""
+msgstr "无效的网络要素类型"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEOverlappedInspection.cpp:52
 msgid "Overlapped elements"
-msgstr ""
+msgstr "重叠要素"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEOverlappedInspection.cpp:62
 msgid "Overlapped "
-msgstr ""
+msgstr "重叠的 "
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEOverlappedInspection.cpp:275
 msgid "GEO attributes Help"
-msgstr ""
+msgstr "GEO属性帮助"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEOverlappedInspection.cpp:278
 msgid " - Click in the same position"
-msgstr ""
+msgstr " - 在同一位置点击"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEOverlappedInspection.cpp:279
 msgid "   for inspect next element"
-msgstr ""
+msgstr "   用于检查下一个元素"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEOverlappedInspection.cpp:280
 msgid " - Shift + Click in the same"
-msgstr ""
+msgstr " - 在相同的情况下，Shift + Click"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEOverlappedInspection.cpp:281
 msgid "   position for inspect"
-msgstr ""
+msgstr "   检查的位置"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEOverlappedInspection.cpp:282
 msgid "   previous element"
-msgstr ""
+msgstr "   前一个要素"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEPathCreator.cpp:145
 msgid "Route creator"
-msgstr ""
+msgstr "路径创建器"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEPathCreator.cpp:152
 #: /home/micha/programming/sumo/src\netedit\frames\GNEPathCreator.cpp:948
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:1156
 msgid "No edges selected"
-msgstr ""
+msgstr "没有选择的路段"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEPathCreator.cpp:154
 msgid "Use last route"
-msgstr ""
+msgstr "使用最后的路径"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEPathCreator.cpp:157
 msgid "Finish route creation"
-msgstr ""
+msgstr "完成路径创建"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEPathCreator.cpp:160
 msgid "Abort route creation"
-msgstr ""
+msgstr "终止创建路径"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEPathCreator.cpp:163
 msgid "Remove last edge"
-msgstr ""
+msgstr "删除最后路段"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEPathCreator.cpp:166
 msgid "Show candidate edges"
-msgstr ""
+msgstr "显示候选路段"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEPathCreator.cpp:374
 msgid "Double junctions aren't allowed"
-msgstr ""
+msgstr "不允许有双重交叉口"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEPathCreator.cpp:382
 msgid "Only two junctions are allowed"
-msgstr ""
+msgstr "只允许有两个路口"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEPathCreator.cpp:421
 msgid "Double edges aren't allowed"
-msgstr ""
+msgstr "不允许有双侧路段"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEPathCreator.cpp:431
 msgid "Only consecutives edges are allowed"
-msgstr ""
+msgstr "只允许连续的路段"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEPathCreator.cpp:440
 msgid "Only two edges are allowed"
-msgstr ""
+msgstr "只允许有两个路段"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEPathCreator.cpp:449
 msgid "Invalid edge (SHIFT + click to add an invalid vClass edge)"
-msgstr ""
+msgstr "无效的路段（SHIFT+ click 添加无效的vClass路段）"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEPathCreator.cpp:456
 msgid "Invalid edge (CONTROL + click to add a disconnected edge)"
-msgstr ""
+msgstr "无效的路段（CONTROL+click添加断开的路段）"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEPathCreator.cpp:531
 msgid "first select an edge"
-msgstr ""
+msgstr "首先选择一个路段"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEPathCreator.cpp:941
 msgid "- Selected edges: "
-msgstr ""
+msgstr "- 选定的路段: "
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEPathCreator.cpp:942
 msgid "- Path edges: "
-msgstr ""
+msgstr "- 路径路段: "
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEPathCreator.cpp:944
 msgid "- Average speed: "
-msgstr ""
+msgstr "- 平均速度: "
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEPathLegendModule.cpp:48
 msgid " edge conflict (vClass)"
