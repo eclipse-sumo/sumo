@@ -336,24 +336,24 @@ def formatToolTemplate(templateStr):
     return templateStr.replace("<", '"<').replace("\n", '"\n')
 
 
-def generateSumoTemplate(sumoBin):
+def generateTemplate(app, appBin):
     """
-    @brief generate template para sumo
+    @brief generate template for the given app
     """
-    if os.path.exists(sumoBin):
+    if os.path.exists(appBin):
         # show info
-        print("Obtaining sumo template")
+        print("Obtaining " + app + " template")
         # obtain template piping stdout using check_output
         try:
-            template = check_output([sumoBin, "--save-template", "stdout"], universal_newlines=True)
+            template = check_output([appBin, "--save-template", "stdout"], universal_newlines=True)
         except CalledProcessError as e:
-            sys.stderr.write("Error when generating template for sumocfg: '%s'" % e)
-            return 'const std::string sumoTemplate = "";'
+            sys.stderr.write("Error when generating template for " + app + ": '%s'" % e)
+            return 'const std::string ' + app + 'Template = "";'
         # join variable and formated template
-        return 'const std::string sumoTemplate = "' + formatBinTemplate(template)
+        return 'const std::string ' + app + 'Template = "' + formatBinTemplate(template)
     # if binary wasn't found, then raise exception
-    raise Exception("SUMO Template cannot be generated. SUMO binary not found. "
-                    "Make sure that sumo or sumoD was generated in bin folder")
+    raise Exception(app + "template cannot be generated. " + app + " binary not found. "
+                    "Make sure that " + app + " or " + app + "D was generated in bin folder")
 
 
 def generateToolTemplate(toolDir, toolPath):
@@ -408,9 +408,11 @@ def main():
             print("const std::vector<TemplateTool> templateTools {\n", file=templateHeaderFile)
             for tool in TOOLS:
                 print(generateToolTemplate(toolDir, tool), file=templateHeaderFile)
-            print("};", file=templateHeaderFile)
-            # generate SUMO Template
-            print(generateSumoTemplate(sys.argv[1]), file=templateHeaderFile)
+            print("};\n", file=templateHeaderFile)
+            # generate sumo Template
+            print(generateTemplate("sumo", sys.argv[1]), file=templateHeaderFile)
+            # generate netgenerate Template
+            print(generateTemplate("netgenerate", sys.argv[1]), file=templateHeaderFile)
 
 
 if __name__ == "__main__":
