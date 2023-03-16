@@ -12,6 +12,7 @@
 
     <xsd:complexType name="edgesType">
         <xsd:choice minOccurs="0" maxOccurs="unbounded">
+            <xsd:element name="location" type="locationType" maxOccurs="1"/>
             <xsd:element name="edge" type="edgeType"/>
             <xsd:element name="roundabout" type="roundaboutType"/>
             <xsd:element name="delete" type="deleteType"/>
