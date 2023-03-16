@@ -19,6 +19,7 @@ title: ChangeLog
   - Stop attribute `extension` now works for `triggered="join"`. Issue #12666
   - Waypoints with attribute 'triggered' now result in an error rather than undefined behavior. Issue #12665
   - Fixed collision on junction between two conflicting links with internal junction. Issue #12715
+  - Fixed invalid error about disconnected walk for person. Issue #12744
 
 - netedit
   - Fixed bug when showing list of newly created vehicle types in type mode. Issue #12625 (regression in 1.15.0)
@@ -55,6 +56,9 @@ title: ChangeLog
   - Abstract projection is now resolved when loading .net.xml. Issue #12761
   - Fixed tram connections when using option **----edges.join-tram-dist**. Issue #12767
 
+- meso
+  - Option **--time-to-teleport.remove** is now working. Issue #12797
+
 - TraCI
   - Fixed value returned by `person.getMaxSpeed`. Issue #12786 (regression in 1.15.0)
   - Fixed wrong edgeId in error message of `simulation.findIntermodalRoute`. Issue #12591
@@ -75,6 +79,8 @@ title: ChangeLog
 - Simulation
   - Vehroute-output now includes the used vehicles for `<driving>` stage. Issue #12520
   - DriverState should now optionally affects free flow speed (using param `freeSpeedErrorCoefficient`). Issue #6331
+  - Element `<vTypeDistribution>` now supports attribute `probabilities` together with `vTypes` to re-use the same `<Types>` with different probabilities. Issue #12799
+  - Some warnings about inconsistent public transport stop times are now avoided when using option **--use-stop-ended** along with stop attribute `ended`. #12825
 
 - netconvert
   - Added options **--shapefile.width** and **--shapefile.length** to allow importing custom widths and lengtsh from [shape files](Networks/Import/ArcView.md). Issue #12575
@@ -96,6 +102,7 @@ title: ChangeLog
   - Added `.gif`-file support to 3D view. Issue #12672
   - Improved position and scale of vehicle lights in 3D View #12752
   - Background images can now be added via file-dialog. Issue #1627 (also for netedit)
+  - Edge context-menu function *select-reachable* now ignores lane direction when selecting vClass "pedestrian". Issue #12801
   
 - TraCI
   - Added function `vehicle.setLateralLanePosition`. Issue #12568
@@ -116,12 +123,14 @@ title: ChangeLog
   - Added tool [abstractRail.py](Tools/Net.md#abstractrailpy) to generate an abstract/schematic rail network based on a geodetic rail network. Issue #12662
   - Added tool [stationDistricts.py](Tools/District.md#stationdistrictspy) for segementing a public transport network based public transport stations. Issue #12662
   - attributeDiff.py: Can now optionally group attributes by one or more id-attributes before comparing. #12794
+  - attrbuteStats.py: Now supports option **--human-readable-time** (**-H**) to make attributes with large time values more legible. Issue #12822
+  - sumolib.miscutils functions `parseTime` and `humandReadableTime` now handle negative values. Issue #12821, #12823
   - plotXMLAttributes.py:
     - can plot by sorting rank with attribute value `@RANK`. Issue #12607
     - can plot by input order with attribute value `@INDEX` (note that this was the behavior of @RANK in 1.16.0). Issue #12607
     - can plot number of occurences (histogram) with attribute value `@COUNT`. Issue #11971
     - supports binning of data via options **--xbin** and **--ybin** (i.e. for making histograms)
-    - supports bar plots via option **--barplot** and **--hbarplot**. Issue #12612
+    - supports bar plots via option **--barplot** and **--hbarplot**. Issue #12612, #12833
     - supports box plots via option **-x @BOX** or **-y @BOX**. Issue #11994
     - supports clamping of data range via option **--xclamp A:B** and **--yclamp C:D**
 
