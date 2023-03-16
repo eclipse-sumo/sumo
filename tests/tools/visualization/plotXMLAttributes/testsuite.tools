@@ -39,6 +39,9 @@ lanechange_reason_sort_reposition
 # plot categorial data
 lanechange_reason_filter
 
+# plot categorial data
+lanechange_reason_barplot
+
 # plot optional values
 lanechange_missing_data
 
