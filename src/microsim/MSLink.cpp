@@ -418,7 +418,7 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
                 auto it = std::find(myFoeLanes.begin(), myFoeLanes.end(), sibling);
                 if (it != myFoeLanes.end()) {
                     // avoid duplicate foeLane
-                    int replacedIndex = it - myFoeLanes.begin();
+                    const int replacedIndex = (int)(it - myFoeLanes.begin());
                     myConflicts[replacedIndex] = ci;
                 } else {
                     myConflicts.push_back(ci);
@@ -547,7 +547,7 @@ MSLink::recheckSetRequestInformation() {
         std::sort(intersections1.begin(), intersections1.end());
         intersections1.back() -= conflictSize2 / 2;
         intersections1.back() = MAX2(0.0, intersections1.back());
-        ci.foeConflictIndex = foeExitLink->myConflicts.size();
+        ci.foeConflictIndex = (int)foeExitLink->myConflicts.size();
         foeExitLink->myConflicts.push_back(ConflictInfo(foeLane->getLength() - intersections1.back(), conflictSize2));
 #ifdef MSLink_DEBUG_CROSSING_POINTS
         std::cout << "    ci=" << conflictIndex << " wf=" << widthFactor << " flag=" << ci.flag << " flbc=" << foeExitLink->myConflicts.back().lengthBehindCrossing << "\n";

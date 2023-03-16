@@ -502,7 +502,6 @@ Vehicle::getNextLinks(const std::string& vehID) {
     if (veh != nullptr) {
         const MSLane* lane = veh->getLane();
         const std::vector<MSLane*>& bestLaneConts = veh->getBestLanesContinuation(lane);
-        double seen = lane->getLength() - veh->getPositionOnLane();
         int view = 1;
         const SUMOTime currTime = MSNet::getInstance()->getCurrentTimeStep();
         std::vector<MSLink*>::const_iterator linkIt = MSLane::succLinkSec(*veh, view, *lane, bestLaneConts);
@@ -525,7 +524,6 @@ Vehicle::getNextLinks(const std::string& vehID) {
             if (!lane->getEdge().isInternal()) {
                 view++;
             }
-            seen += lane->getLength();
             linkIt = MSLane::succLinkSec(*veh, view, *lane, bestLaneConts);
         }
         // consider edges beyond bestLanes
@@ -548,7 +546,6 @@ Vehicle::getNextLinks(const std::string& vehID) {
                         const std::string direction = SUMOXMLDefinitions::LinkDirections.getString(link->getDirection());
                         const double length = link->getLength();
                         result.push_back(TraCIConnection(approachedLane, hasPrio, isOpen, hasFoe, approachedInternal, state, direction, length));
-                        seen += allowed->front()->getLength();
                     }
                 }
             }

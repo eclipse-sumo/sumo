@@ -113,7 +113,7 @@ GNERunToolDialog::runTool(GNETool* tool) {
 
 void
 GNERunToolDialog::appendInfoMessage(const std::string text) {
-    myText->appendStyledText(text.c_str(), text.length(), 2, TRUE);
+    myText->appendStyledText(text.c_str(), (int)text.length(), 2, TRUE);
     myText->layout();
     myText->update();
 }
@@ -121,7 +121,7 @@ GNERunToolDialog::appendInfoMessage(const std::string text) {
 
 void
 GNERunToolDialog::appendErrorMessage(const std::string text) {
-    myText->appendStyledText(text.c_str(), text.length(), 3, TRUE);
+    myText->appendStyledText(text.c_str(), (int)text.length(), 3, TRUE);
     myText->layout();
     myText->update();
 }
