@@ -259,6 +259,9 @@ private:
     /// @brief element to receive parameters
     std::vector<Parameterised*> myLastParameterised;
 
+    /// @brief The coordinate transformation which was used compute the node coordinates
+    GeoConvHelper* myLocation = nullptr;
+
 private:
 
     /** @brief Parses an edge and stores the values in "myCurrentEdge"

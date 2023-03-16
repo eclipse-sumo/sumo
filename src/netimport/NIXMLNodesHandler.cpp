@@ -67,6 +67,9 @@ NIXMLNodesHandler::myStartElement(int element,
     switch (element) {
         case SUMO_TAG_LOCATION:
             myLocation = NIImporter_SUMO::loadLocation(attrs);
+            if (myLocation) {
+                GeoConvHelper::setLoadedPlain(getFileName(), *myLocation);
+            }
             break;
         case SUMO_TAG_NODE:
             addNode(attrs);

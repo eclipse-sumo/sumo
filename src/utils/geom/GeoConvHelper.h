@@ -107,6 +107,11 @@ public:
     /// @brief sets the coordinate transformation loaded from a location element
     static void setLoaded(const GeoConvHelper& loaded);
 
+    /// @brief registers the coordinate transformation as having been loaded from the given file
+    static void setLoadedPlain(const std::string& nodFile, const GeoConvHelper& loaded);
+
+    static GeoConvHelper* getLoadedPlain(const std::string& edgFile);
+
     /// @brief @brief resets loaded location elements
     static void resetLoaded();
 
@@ -225,6 +230,9 @@ private:
 
     /// @brief the numer of coordinate transformations loaded from location elements
     static int myNumLoaded;
+
+    /// @brief the projections loaded from .nod.xml (to be re-used when loading edg.xml)
+    static std::map<std::string, std::pair<std::string, Position> > myLoadedPlain;
 
     /// @brief make assignment operator private
     GeoConvHelper& operator=(const GeoConvHelper&);

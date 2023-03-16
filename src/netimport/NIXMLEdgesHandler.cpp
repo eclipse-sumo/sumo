@@ -69,13 +69,18 @@ NIXMLEdgesHandler::NIXMLEdgesHandler(NBNodeCont& nc,
 }
 
 
-NIXMLEdgesHandler::~NIXMLEdgesHandler() {}
+NIXMLEdgesHandler::~NIXMLEdgesHandler() {
+    delete myLocation;
+}
 
 
 void
 NIXMLEdgesHandler::myStartElement(int element,
                                   const SUMOSAXAttributes& attrs) {
     switch (element) {
+        case SUMO_TAG_VIEWSETTINGS_EDGES:
+            myLocation = GeoConvHelper::getLoadedPlain(getFileName());
+            break;
         case SUMO_TAG_EDGE:
             addEdge(attrs);
             break;
@@ -431,7 +436,7 @@ NIXMLEdgesHandler::addLane(const SUMOSAXAttributes& attrs) {
     // check whether this lane has a custom shape
     if (attrs.hasAttribute(SUMO_ATTR_SHAPE)) {
         PositionVector shape = attrs.get<PositionVector>(SUMO_ATTR_SHAPE, myCurrentID.c_str(), ok);
-        if (!NBNetBuilder::transformCoordinates(shape)) {
+        if (!NBNetBuilder::transformCoordinates(shape, true, myLocation)) {
             const std::string laneID = myCurrentID + "_" + toString(lane);
             WRITE_ERRORF(TL("Unable to project coordinates for lane '%'."), laneID);
         }
@@ -585,7 +590,7 @@ NIXMLEdgesHandler::tryGetShape(const SUMOSAXAttributes& attrs) {
         }
     }
     PositionVector shape = attrs.getOpt<PositionVector>(SUMO_ATTR_SHAPE, nullptr, ok, PositionVector());
-    if (!NBNetBuilder::transformCoordinates(shape)) {
+    if (!NBNetBuilder::transformCoordinates(shape, true, myLocation)) {
         WRITE_ERRORF(TL("Unable to project coordinates for edge '%'."), myCurrentID);
     }
     myReinitKeepEdgeShape = myKeepEdgeShape;
@@ -632,6 +637,11 @@ NIXMLEdgesHandler::deleteEdge(const SUMOSAXAttributes& attrs) {
 
 void
 NIXMLEdgesHandler::myEndElement(int element) {
+    if (element == SUMO_TAG_VIEWSETTINGS_EDGES) {
+        delete myLocation;
+        myLocation = nullptr;
+        return;
+    }
     if (myCurrentEdge == nullptr) {
         return;
     }

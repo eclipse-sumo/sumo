@@ -42,6 +42,7 @@ GeoConvHelper GeoConvHelper::myProcessing("!", Position(), Boundary(), Boundary(
 GeoConvHelper GeoConvHelper::myLoaded("!", Position(), Boundary(), Boundary());
 GeoConvHelper GeoConvHelper::myFinal("!", Position(), Boundary(), Boundary());
 int GeoConvHelper::myNumLoaded = 0;
+std::map<std::string, std::pair<std::string, Position> > GeoConvHelper::myLoadedPlain;
 
 // ===========================================================================
 // method definitions
@@ -582,8 +583,27 @@ GeoConvHelper::setLoaded(const GeoConvHelper& loaded) {
 
 
 void
+GeoConvHelper::setLoadedPlain(const std::string& nodFile, const GeoConvHelper& loaded) {
+    myLoadedPlain[nodFile] = {loaded.getProjString(), loaded.getOffset()};
+}
+
+
+GeoConvHelper*
+GeoConvHelper::getLoadedPlain(const std::string& edgFile) {
+    std::string nodFile = StringUtils::replace(edgFile, ".edg.xml", ".nod.xml");
+    auto it = myLoadedPlain.find(nodFile);
+    if (it != myLoadedPlain.end()) {
+        return new GeoConvHelper(it->second.first, it->second.second, Boundary(), Boundary());
+    } else {
+        return nullptr;
+    }
+}
+
+
+void
 GeoConvHelper::resetLoaded() {
     myNumLoaded = 0;
+    myLoadedPlain.clear();
 }
 
 
