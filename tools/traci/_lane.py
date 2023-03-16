@@ -318,7 +318,7 @@ class LaneDomain(Domain):
         Sets a list of vehicle classes allowed to change to the neighbor lane indicated by direction
         (left=0, right=1).
         """
-        self._setCmd(tc.LANE_CHANGES, laneID, "lb", allowedClasses, direction)
+        self._setCmd(tc.LANE_CHANGES, laneID, "tlb", 2, allowedClasses, direction)
 
     def setMaxSpeed(self, laneID, speed):
         """setMaxSpeed(string, double) -> None

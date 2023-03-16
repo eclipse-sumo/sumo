@@ -144,7 +144,7 @@ Lane::getDisallowed(const std::string& laneID) {
 std::vector<std::string>
 Lane::getChangePermissions(const std::string& laneID, const int direction) {
     tcpip::Storage content;
-    StoHelp::writeTypedInt(content, direction);
+    StoHelp::writeTypedByte(content, direction);
     return Dom::getStringVector(libsumo::LANE_CHANGES, laneID, &content);
 }
 
@@ -308,7 +308,7 @@ Lane::setChangePermissions(const std::string& laneID, std::vector<std::string> a
     tcpip::Storage content;
     StoHelp::writeCompound(content, 2);
     StoHelp::writeTypedStringList(content, allowedClasses);
-    StoHelp::writeTypedInt(content, direction);
+    StoHelp::writeTypedByte(content, direction);
     Dom::set(libsumo::LANE_CHANGES, laneID, &content);
 }
 
