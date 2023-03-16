@@ -1788,7 +1788,10 @@ NBEdgeCont::joinLanes(SVCPermissions perms) {
 
 bool
 NBEdgeCont::MinLaneComparatorIdLess::operator()(const std::pair<NBEdge*, int>& a, const std::pair<NBEdge*, int>& b) const {
-        return a.first->getID() < b.first->getID();
+    if (a.first->getID() == b.first->getID()) {
+        return a.second < b.second;
+    }
+    return a.first->getID() < b.first->getID();
 }
 
 int
