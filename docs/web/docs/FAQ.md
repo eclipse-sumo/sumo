@@ -1019,12 +1019,13 @@ sumo -c run.sumocfg --seed 2 --output-prefix 2.
 sumo -c run.sumocfg --seed 3 --output-prefix 3.
 ```
 
-The tool [runSeeds.py](Tools/Misc.md#runseedspy) can be used to automate this. 
+The tool [runSeeds.py](Tools/Misc.md#runseedspy) can be used to automate this, parallelize it and even add output options to avoid modifying the .sumocfg:
+
+`tools/runSeeds.py -a sumo -k run.sumocfg --seeds 1:4 --threads 4 --statistic-output stats.xml`
 
 The tool [attributeStats.py](Tools/Output.md#attributestatspy) can be used to generated statistics for multiple runs:
-i.e. if *run.sumocfg* contains the option `<statistic-output value="stats.xml">/`, the command 
-`tools/output/attributeStats.py -e vehicleTripStatistics -a timeLoss *.stats.xml` 
-will generate timeLoss statistics for all runs
+i.e. if simulations where run with the option `<statistic-output value="stats.xml">/`, the command 
+`tools/output/attributeStats.py *.stats.xml` will generate statistics on each of the attributes in the statistic-output file over all runs.
 
 ## Visualization
 
