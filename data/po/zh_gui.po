@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-16 13:05+0000\n"
+"PO-Revision-Date: 2023-03-16 13:39+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
@@ -8906,191 +8906,193 @@ msgstr "- 平均速度: "
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEPathLegendModule.cpp:48
 msgid " edge conflict (vClass)"
-msgstr ""
+msgstr " 路段冲突 (vClass)"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNESelectorParent.cpp:36
 msgid "Parent selector"
-msgstr ""
+msgstr "母体选择器"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNESelectorParent.cpp:39
 msgid "No element selected"
-msgstr ""
+msgstr "没有选择任何要素"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNESelectorParent.cpp:82
 msgid "Parent type: "
-msgstr ""
+msgstr "母体类型: "
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNETLSTable.cpp:219
 #: /home/micha/programming/sumo/src\netedit\frames\GNETLSTable.cpp:230
 msgid "Invalid row or column"
-msgstr ""
+msgstr "无效的行或列"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNETLSTable.cpp:254
 msgid "Invalid row"
-msgstr ""
+msgstr "无效行"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNETLSTable.cpp:264
 #: /home/micha/programming/sumo/src\netedit\frames\GNETLSTable.cpp:274
 msgid "Invalid column"
-msgstr ""
+msgstr "无效列"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNETLSTable.cpp:609
 msgid "Accumulated: "
-msgstr ""
+msgstr "累积的: "
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNETLSTable.cpp:679
 msgid "Add phase"
-msgstr ""
+msgstr "添加相位"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNETLSTable.cpp:679
 msgid "Add new phase."
-msgstr ""
+msgstr "添加新相位。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNETLSTable.cpp:684
 msgid "Default phase"
-msgstr ""
+msgstr "默认相位"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNETLSTable.cpp:684
 msgid "Add default phase."
-msgstr ""
+msgstr "增加默认相位。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNETLSTable.cpp:689
 msgid "Duplicate phase"
-msgstr ""
+msgstr "重复的相位"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNETLSTable.cpp:689
 msgid "Duplicate this phase."
-msgstr ""
+msgstr "复制这个相位。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNETLSTable.cpp:694
 msgid "Red phase"
-msgstr ""
+msgstr "红灯相位"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNETLSTable.cpp:694
 msgid "Add red phase."
-msgstr ""
+msgstr "添加红灯相位。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNETLSTable.cpp:699
 msgid "Yellow phase"
-msgstr ""
+msgstr "黄灯相位"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNETLSTable.cpp:699
 msgid "Add yellow phase."
-msgstr ""
+msgstr "添加黄灯相位。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNETLSTable.cpp:704
 msgid "Green phase"
-msgstr ""
+msgstr "绿灯相位"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNETLSTable.cpp:704
 msgid "Add green phase."
-msgstr ""
+msgstr "添加绿灯相位。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNETLSTable.cpp:709
 msgid "Green priority phase"
-msgstr ""
+msgstr "绿灯优先级相位"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNETLSTable.cpp:709
 msgid "Add green priority phase."
-msgstr ""
+msgstr "添加绿灯优先相位。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNETLSTable.cpp:910
 msgid "Cannot be parsed to double"
-msgstr ""
+msgstr "不能解析为双倍"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNETLSTable.cpp:922
 msgid "Tooltips only for TextFields"
-msgstr ""
+msgstr "只为文字字段（TextFields）提供的工具提示"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNETLSTable.cpp:1252
 msgid "Delete phase"
-msgstr ""
+msgstr "删除相位"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNETLSTable.cpp:1252
 msgid "Delete this phase."
-msgstr ""
+msgstr "删除这个相位。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNETLSTable.cpp:1261
 msgid "Move phase up"
-msgstr ""
+msgstr "上移相位"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNETLSTable.cpp:1261
 msgid "Move this phase up."
-msgstr ""
+msgstr "将这个相位往上移。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNETLSTable.cpp:1270
 msgid "Move phase down"
-msgstr ""
+msgstr "下移相位"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNETLSTable.cpp:1270
 msgid "Move this phase down."
-msgstr ""
+msgstr "把这个相位往下移。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNETagSelector.cpp:89
+#, fuzzy
 msgid "Element"
-msgstr ""
+msgstr "要素"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNETagSelector.cpp:152
 msgid "network elements"
-msgstr ""
+msgstr "路网要素"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNETagSelector.cpp:155
+#, fuzzy
 msgid "Additional elements"
-msgstr ""
+msgstr "附加的要素"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNETagSelector.cpp:158
 msgid "Shape elements"
-msgstr ""
+msgstr "图形物件要素"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNETagSelector.cpp:161
 msgid "TAZ elements"
-msgstr ""
+msgstr "交通分区要素"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNETagSelector.cpp:164
 msgid "Wire elements"
-msgstr ""
+msgstr "通讯线要素"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNETagSelector.cpp:167
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1833
 msgid "Vehicles"
-msgstr ""
+msgstr "车辆"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNETagSelector.cpp:170
 msgid "Stops"
-msgstr ""
+msgstr "停"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNETagSelector.cpp:173
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1916
 msgid "Persons"
-msgstr ""
+msgstr "人员"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNETagSelector.cpp:176
 msgid "Person plans"
-msgstr ""
+msgstr "人员计划"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNETagSelector.cpp:182
 msgid "Container plans"
-msgstr ""
+msgstr "货箱计划"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNETagSelector.cpp:185
 msgid "Person trips"
-msgstr ""
+msgstr "人员行程"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNETagSelector.cpp:188
 msgid "Walks"
-msgstr ""
+msgstr "步行"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNETagSelector.cpp:191
 msgid "Rides"
-msgstr ""
+msgstr "骑行"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNETagSelector.cpp:194
 msgid "Person stops"
-msgstr ""
+msgstr "人员停止"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEDeleteFrame.cpp:56
 msgid "Delete geometry points"
-msgstr ""
+msgstr "删除几何点"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEDeleteFrame.cpp:230
 msgid "Protect Elements"
