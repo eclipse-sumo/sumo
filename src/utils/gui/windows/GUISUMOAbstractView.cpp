@@ -1304,10 +1304,18 @@ GUISUMOAbstractView::openObjectDialog(const std::vector<GUIGlObject*>& objects, 
 
 long
 GUISUMOAbstractView::onKeyPress(FXObject* o, FXSelector sel, void* ptr) {
+    const FXEvent* e = (FXEvent*) ptr;
+    if (e->state & ALTMASK) {
+        myVisualizationSettings->altKeyPressed = true;
+        // update view (for polygon layers)
+        update();
+    } else {
+        myVisualizationSettings->altKeyPressed = false;
+    }
+    // check if process canvas or popup
     if (myPopup != nullptr) {
         return myPopup->onKeyPress(o, sel, ptr);
     } else {
-        FXEvent* e = (FXEvent*) ptr;
         if (e->state & CONTROLMASK) {
             if (e->code == FX::KEY_Page_Up) {
                 myVisualizationSettings->gridXSize *= 2;
@@ -1329,6 +1337,13 @@ GUISUMOAbstractView::onKeyPress(FXObject* o, FXSelector sel, void* ptr) {
 
 long
 GUISUMOAbstractView::onKeyRelease(FXObject* o, FXSelector sel, void* ptr) {
+    const FXEvent* e = (FXEvent*) ptr;
+    if ((e->state & ALTMASK) == 0) {
+        myVisualizationSettings->altKeyPressed = false;
+        // update view (for polygon layers)
+        update();
+    }
+    // check if process canvas or popup
     if (myPopup != nullptr) {
         return myPopup->onKeyRelease(o, sel, ptr);
     } else {
@@ -1337,8 +1352,8 @@ GUISUMOAbstractView::onKeyRelease(FXObject* o, FXSelector sel, void* ptr) {
     }
 }
 
-
 // ------------ Dealing with snapshots
+
 void
 GUISUMOAbstractView::addSnapshot(SUMOTime time, const std::string& file, const int w, const int h) {
 #ifdef DEBUG_SNAPSHOT

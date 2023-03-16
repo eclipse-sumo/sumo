@@ -1062,6 +1062,9 @@ public:
     /// @brief detail settings
     GUIVisualizationDetailSettings detailSettings;
 
+    /// @brief alt key pressed (only used for draw polygons under other elements in SUMO-GUI, store is not needed)
+    bool altKeyPressed = false;
+
 private:
     /// @brief set copy constructor private
     GUIVisualizationSettings(const GUIVisualizationSettings&) = default;
