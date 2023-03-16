@@ -196,6 +196,11 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, const std::string&
     cdevice.writeXMLHeader("connections", "connections_file.xsd", attrs);
     const bool writeNames = oc.getBool("output.street-names");
     const bool writeLanes = oc.getBool("plain-output.lanes");
+
+    // write network offsets and projection to allow reconstruction of original coordinates at least for geo-referenced networks
+    if (!useGeo && gch.usingGeoProjection()) {
+        GeoConvHelper::writeLocation(edevice);
+    }
     LaneSpreadFunction defaultSpread = SUMOXMLDefinitions::LaneSpreadFunctions.get(oc.getString("default.spreadtype"));
     for (std::map<std::string, NBEdge*>::const_iterator i = ec.begin(); i != ec.end(); ++i) {
         // write the edge itself to the edges-files
