@@ -1344,8 +1344,6 @@ GNEApplicationWindow::fillMenuBar() {
     // build Supermode commands and hide it
     mySupermodeCommands.buildSupermodeCommands(myModesMenu);
     mySupermodeCommands.hideSupermodeCommands();
-    // build separator between supermodes y modes
-    new FXMenuSeparator(myModesMenu);
     // build modes menu commands
     myModesMenuCommands.buildModesMenuCommands(myModesMenu);
     // build edit menu
