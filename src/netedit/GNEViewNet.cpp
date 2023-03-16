@@ -2219,14 +2219,14 @@ GNEViewNet::onCmdSmoothEdges(FXObject*, FXSelector, void*) {
     GNEEdge* edge = getEdgeAtPopupPosition();
     if (edge != nullptr) {
         if (edge->isAttributeCarrierSelected()) {
-            myUndoList->begin(GUIIcon::EDGE, TL("straighten elevation of selected edges"));
+            myUndoList->begin(GUIIcon::EDGE, TL("smooth selected edges"));
             const auto selectedEdges = myNet->getAttributeCarriers()->getSelectedEdges();
             for (const auto& selectedEdge : selectedEdges) {
                 selectedEdge->smooth(myUndoList);
             }
             myUndoList->end();
         } else {
-            myUndoList->begin(GUIIcon::EDGE, TL("straighten edge elevation"));
+            myUndoList->begin(GUIIcon::EDGE, TL("smooth edge"));
             edge->smooth(myUndoList);
             myUndoList->end();
         }
