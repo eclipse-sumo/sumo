@@ -33,6 +33,7 @@ def round(value):  # to round in Python 3 like in Python 2
     else:
         return math.floor(value + 0.5)
 
+
 def identity(value):
     return value
 
@@ -225,7 +226,7 @@ class Statistics:
             min = ''
             if self.printMin:
                 min = setPrecision('min %.2f%s, ', precision, self.isArray, pre) % (
-                                   fmt(self.min), ('' if self.min_label is None else ' (%s)' % (self.min_label,)))
+                    fmt(self.min), ('' if self.min_label is None else ' (%s)' % (self.min_label,)))
             result = setPrecision('%s: count %s, %smax %.2f%s, mean %.2f', precision, self.isArray, pre) % (
                 self.label, len(self.values), min,
                 fmt(self.max),
@@ -233,7 +234,7 @@ class Statistics:
                  (self.max_label,)),
                 fmt(self.avg()))
             result += setPrecision(', Q1 %.2f, median %.2f, Q3 %.2f', precision, self.isArray, pre) % (
-                                   tuple(map(fmt, self.quartiles())))
+                tuple(map(fmt, self.quartiles())))
             if self.abs:
                 result += setPrecision(', mean_abs %.2f, median_abs %.2f', precision, self.isArray, pre) % (
                     fmt(self.avg_abs()), fmt(self.median_abs()))
@@ -263,9 +264,9 @@ class Statistics:
             result += ' count="%i"' % self.count()
             result += (setPrecision(' min="%.2f" minLabel="%s" max="%.2f" maxLabel="%s" mean="%.2f"',
                                     precision, self.isArray, pre) %
-                                    (fmt(self.min), self.min_label, fmt(self.max), self.max_label, fmt(self.avg())))
+                       (fmt(self.min), self.min_label, fmt(self.max), self.max_label, fmt(self.avg())))
             result += setPrecision(' Q1="%.2f" median="%.2f" Q3="%.2f"', precision, self.isArray, pre) % (
-                                   tuple(map(fmt, self.quartiles())))
+                tuple(map(fmt, self.quartiles())))
             result += (setPrecision(' meanAbs="%.2f" medianAbs="%.2f"', precision, self.isArray, pre) %
                        (fmt(self.avg_abs()), fmt(self.median_abs())))
             if self.printDev:
