@@ -1029,11 +1029,14 @@ following:
 
 ### Using existing types
 
+Multiple distributions can make use of the same types and optionally override their probabilites
+
 ```xml
 <routes>
     <vType id="type1" accel="0.8" length="5" maxSpeed="70" probability="0.9"/>
     <vType id="type2" accel="1.8" length="15" maxSpeed="50" probability="0.1"/>
     <vTypeDistribution id="typedist1" vTypes="type1 type2"/>
+    <vTypeDistribution id="typedist2" vTypes="type1 type2" probabilities="0.5 0.5"/>
 </routes>
 ```
 
