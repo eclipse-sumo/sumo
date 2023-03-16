@@ -198,6 +198,10 @@ GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* 
         TL("New Window"), "Ctrl+Shift+N", TL("Open a new netedit window."),
         nullptr, myGNEApp, MID_HOTKEY_CTRL_SHIFT_N_NEWWINDOW);
 
+    GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
+        TL("Generate network"), "", TL("Create network using netcgenerate."),
+        GUIIconSubSys::getIcon(GUIIcon::NETGENERATE), myGNEApp, MID_NETGENERATE);
+
     // load sumo/netedit configs
     new FXMenuSeparator(fileMenu);
 

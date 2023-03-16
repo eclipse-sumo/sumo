@@ -458,11 +458,14 @@ public:
     /// @brief called when toggle checkbox compute network when switching between supermodes
     long onCmdToggleComputeNetworkData(FXObject*, FXSelector, void*);
 
-    /// @brief called if the user selects Processing->Configure Options
+    /// @brief called when user press "options" button
     long onCmdOpenOptionsDialog(FXObject*, FXSelector, void*);
 
-    /// @brief called if the user selects Processing->Configure Options
+    /// @brief called when user press "sumo options" button
     long onCmdOpenSumoOptionsDialog(FXObject*, FXSelector, void*);
+
+    /// @brief called when user press "netgenerate" button
+    long onCmdOpenNetgenerateOptionsDialog(FXObject*, FXSelector, void*);
 
     /// @brief called when user press Ctrl+Z
     long onCmdUndo(FXObject*, FXSelector, void*);
@@ -661,8 +664,11 @@ protected:
     /// @brief string to check if undo/redo list is enabled (a String is used to keep the disabling reason)
     std::string myUndoRedoListEnabled;
 
-    /// @brief SUMO options container
+    /// @brief sumo options container
     OptionsCont mySumoOptions;
+
+    /// @brief netgenerate options container
+    OptionsCont myNetgenerateOptions;
 
     /// @brief flag for check if console options was already loaded
     bool myConsoleOptionsLoaded = true;

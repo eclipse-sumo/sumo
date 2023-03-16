@@ -289,6 +289,8 @@ enum {
 
     /// @brief Main window-ID
     MID_WINDOW,
+    /// @brief netgenerate
+    MID_NETGENERATE,
 
     /// @}
 

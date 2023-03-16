@@ -86,6 +86,7 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_N_OPENNETWORK_NEWNETWORK,   GNEApplicationWindow::onCmdNewNetwork),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_N_OPENNETWORK_NEWNETWORK,   GNEApplicationWindow::onUpdOpen),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_SHIFT_N_NEWWINDOW,          GNEApplicationWindow::onCmdNewWindow),
+    FXMAPFUNC(SEL_COMMAND,  MID_NETGENERATE,                            GNEApplicationWindow::onCmdOpenNetgenerateOptionsDialog),
     FXMAPFUNC(SEL_COMMAND,  MID_RECENTFILE,                             GNEApplicationWindow::onCmdOpenRecent),
     FXMAPFUNC(SEL_UPDATE,   MID_RECENTFILE,                             GNEApplicationWindow::onUpdOpen),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_R_RELOAD,                   GNEApplicationWindow::onCmdSmartReload),
@@ -461,8 +462,9 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPa
     // set SUMO Options descriptions
     mySumoOptions.setApplicationDescription(TL("A microscopic, multi-modal traffic simulation."));
     mySumoOptions.setApplicationName("sumo", "Eclipse SUMO sumo Version " VERSION_STRING);
-    // parse tool options
+    // parse options
     TemplateHandler::parseTemplate(mySumoOptions, sumoTemplate);
+    TemplateHandler::parseTemplate(myNetgenerateOptions, netgenerateTemplate);
 }
 
 void
@@ -2294,7 +2296,7 @@ GNEApplicationWindow::onCmdFeedback(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdOpenOptionsDialog(FXObject*, FXSelector, void*) {
-    GUIDialog_Options* wizard = new GUIDialog_Options(this, OptionsCont::getOptions(), TL("Configure Options"), getWidth(), getHeight());
+    GUIDialog_Options* wizard = new GUIDialog_Options(this, OptionsCont::getOptions(), TL("Netedit options"), getWidth(), getHeight());
     if (wizard->execute()) {
         NIFrame::checkOptions(); // needed to set projection parameters
         NBFrame::checkOptions();
@@ -2307,9 +2309,15 @@ GNEApplicationWindow::onCmdOpenOptionsDialog(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdOpenSumoOptionsDialog(FXObject*, FXSelector, void*) {
-    GUIDialog_Options* wizard = new GUIDialog_Options(this, mySumoOptions, TL("SUMO Options"), getWidth(), getHeight());
-    wizard->execute();
-    return 1;
+    GUIDialog_Options* wizard = new GUIDialog_Options(this, mySumoOptions, TL("Sumo options"), getWidth(), getHeight());
+    return wizard->execute();
+}
+
+
+long
+GNEApplicationWindow::onCmdOpenNetgenerateOptionsDialog(FXObject*, FXSelector, void*) {
+    GUIDialog_Options* wizard = new GUIDialog_Options(this, myNetgenerateOptions, TL("Netgenerate options"), getWidth(), getHeight());
+    return wizard->execute();
 }
 
 
