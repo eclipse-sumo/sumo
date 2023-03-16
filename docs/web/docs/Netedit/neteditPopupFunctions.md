@@ -9,7 +9,12 @@ title: neteditPopupFunctions
 
 ## Edge and Lane
 
-- *Split edge here*: Split an edge into two different edges connected with a junction.
+### Split edge here
+
+Split an edge into two different edges connected with a junction.
+
+!!! note
+    Can also be accomplished by ALT+SHIFT+LCLICK in [create edge mode](editModesNetwork.md#create_edges)
 
 ![](../images/neteditSplit1.png)   
 Edge is splitted in the mouse cursor position
@@ -17,9 +22,20 @@ Edge is splitted in the mouse cursor position
 ![](../images/neteditSplit2.png)   
 New edges are connected by a new junction
 
-- *Split edge in both directions here*: Is similar to *Split edge here*, but generate splitted edges in both directions.
-- *Reverse edge*: Reverse the direction of an edge. If the ID of the start and end junctions of edge are respectively A and B, after this operation start and end junction will be B and A.
-- *Add reverse direction*: If don't exist, add a revere edge between two junctions
+### Split edge in both directions here
+
+Is similar to *Split edge here*, but generate splitted edges in both directions.
+
+!!! note
+    Can also be accomplished by SHIFT+LCLICK in [create edge mode](editModesNetwork.md#create_edges)
+
+### Reverse edge
+
+Reverse the direction of an edge. If the ID of the start and end junctions of edge are respectively A and B, after this operation start and end junction will be B and A.
+
+### Add reverse direction
+
+If it doesn't exist, add a reverse edge between two junctions of the clicked edge that has the same (reversed) geometry as the original
 
 ![](../images/neteditReversedirection1.png)   
 In this case, a direction from right to left will be created
@@ -27,7 +43,17 @@ In this case, a direction from right to left will be created
 ![](../images/neteditReversedirection2.png)   
 New edge is parallel to their reverse edge
 
-- *Set geometry endpoint here*: Create an geometry end point. It's useful to mark the start and the end of an road
+### Add reverse disconnected direction
+
+Similar to *Add reverse direction* but the new edge will have new junctions and will run in parallel to the original edge with an offset of twice the edge width.
+
+### Restore geometry endpoints
+
+Resets customized endpoints to their default (the respective junction position an either end)
+
+### Set geometry endpoint here
+
+Create an geometry end point. It's useful to mark the start and the end of an road
 
 ![](../images/neteditEndpoint1.png)   
 Geometry endpoint will be created in the mouse cursor position 
@@ -44,7 +70,32 @@ With the operation move visual shape of an edge can be modified
 ![](../images/neteditStraighten2.png)   
 Straighten edge restore the original shape of an edge
 
-- *Duplicate lane*: duplicate a lane of an edge
+### Reset edge length
+
+Sets the edge length to it's computed value (based on geometry) instead of a custom length.
+
+### Straigthen edge
+
+Removes all geometry points of the edge, thereby making it straight
+
+### Smooth edge
+
+Adds interpolated geometry points between existing geometry points to create a smoothly curved shape.
+
+!!! note
+    The density of points is controlled by option **--opendrive.curve-resolution** (default 2) but this may change in a future version
+
+### Straighten elevation of edge
+
+Sets elevation along the geometry of the edge to a straight interpolation of the elevation between from-junction and to-junction.
+
+### Smooth elevation of edge
+
+Increases geometry point density (similar to [Smooth edge](#smooth_edge)) and sets elevation along the new geometry to a smooth interpolation along the prior elevation points. Keeps x,y geometry unchanged (though at increased point density).
+
+### Duplicate lane
+
+duplicate a lane of an edge
 
 ### Restricted lanes
 
