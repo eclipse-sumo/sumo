@@ -107,3 +107,6 @@ plainLanes
 
 # merge 2 geo-referenced networks
 merge_geo
+
+# merge 2 geo-referenced networks	with exlicit location data in edges file
+merge_geo2
