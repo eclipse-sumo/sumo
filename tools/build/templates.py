@@ -395,8 +395,8 @@ def checkMod(toolDir, reference):
 
 
 def main():
-    if len(sys.argv) == 1:
-        sys.exit("Arguments: <pathToSUMO>")
+    if len(sys.argv) == 2:
+        sys.exit("Arguments: <pathToSumo> <pathToNetgenerate>")
     # get tool dir path (SUMO/tools)
     toolDir = join(dirname(__file__), '..')
     if not os.path.exists("templates.h") or checkMod(toolDir, "templates.h"):
@@ -412,7 +412,7 @@ def main():
             # generate sumo Template
             print(generateTemplate("sumo", sys.argv[1]), file=templateHeaderFile)
             # generate netgenerate Template
-            print(generateTemplate("netgenerate", sys.argv[1]), file=templateHeaderFile)
+            print(generateTemplate("netgenerate", sys.argv[2]), file=templateHeaderFile)
 
 
 if __name__ == "__main__":
