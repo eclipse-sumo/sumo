@@ -21,7 +21,7 @@ Either
 - load the additional file when cutting and then save the reduced additional file or
 - open the reduced network and load the original additional file. All objects outside the reduced network will be discarded with a warning.
 
-## Modifying the shape of both road directions in a synchornized manner
+## Making curved roads
 
 1. switch to [selection mode](editModesCommon.md#select)
 2. click on both directional edges once to select them
