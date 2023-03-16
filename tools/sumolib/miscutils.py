@@ -309,6 +309,8 @@ def openz(fileOrURL, mode="r", **kwargs):
             return gzip.open(fileOrURL, mode="rt", encoding=encoding)
     except OSError:
         pass
+    except IOError:
+        pass
     if "b" in mode:
         return io.open(fileOrURL, mode=mode)
     return io.open(fileOrURL, mode=mode, encoding=encoding)
