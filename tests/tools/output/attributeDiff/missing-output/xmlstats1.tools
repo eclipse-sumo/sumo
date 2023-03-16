@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-03-16 11:13:25.094476 by attributeDiff.py v1_16_0+1348-c6464e4
+  options: input_data.xml input_data2.xml <doubleminus>xml-output stats.xml <doubleminus>id-attribute tripId,busStop -m stats1.xml -M stats2.xml
+-->
+
+<attributeDiff-onlyFirst xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/attributeDiff-onlyFirst_file.xsd">
+    <safety.collisions Q1="0.0" Q3="0.0" count="100.0" max="0.0" mean="0.0" meanAbs="0.0" median="0.0" medianAbs="0.0" min="0.0" stdDev="0.0"/>
+    <safety.emergencyStops Q1="0.0" Q3="0.0" count="100.0" max="0.0" mean="0.0" meanAbs="0.0" median="0.0" medianAbs="0.0" min="0.0" stdDev="0.0"/>
+    <teleports.jam Q1="0.0" Q3="0.0" count="100.0" max="0.0" mean="0.0" meanAbs="0.0" median="0.0" medianAbs="0.0" min="0.0" stdDev="0.0"/>
+    <teleports.total Q1="0.0" Q3="0.0" count="100.0" max="0.0" mean="0.0" meanAbs="0.0" median="0.0" medianAbs="0.0" min="0.0" stdDev="0.0"/>
+    <teleports.wrongLane Q1="0.0" Q3="0.0" count="100.0" max="0.0" mean="0.0" meanAbs="0.0" median="0.0" medianAbs="0.0" min="0.0" stdDev="0.0"/>
+    <teleports.yield Q1="0.0" Q3="0.0" count="100.0" max="0.0" mean="0.0" meanAbs="0.0" median="0.0" medianAbs="0.0" min="0.0" stdDev="0.0"/>
+</attributeDiff-onlyFirst>

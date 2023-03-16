@@ -7,6 +7,9 @@ default
 # subtract all attributes in the input files
 xml_output
 
+# write output for missing elements that could not be compared
+missing-output
+
 # subtract all attributes in the input files
 verbose
 
