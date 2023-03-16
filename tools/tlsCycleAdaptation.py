@@ -257,7 +257,6 @@ def getLaneGroupFlows(tl, connFlowsMap, phases, greenFilter, multiOwnGreenMap, g
     currentLength = 0
     phaseLaneIndexMap = collections.defaultdict(list)
 
-
     for i, p in enumerate(phases):
         currentLength += p.duration
         if 'G' in p.state and 'y' not in p.state and p.duration >= greenFilter:
@@ -275,7 +274,7 @@ def getLaneGroupFlows(tl, connFlowsMap, phases, greenFilter, multiOwnGreenMap, g
                     if not exEdge:
                         exEdge = inEdge
                     # protected green directly after major green for the same edge
-                    if ((inEdge == exEdge) and ((control == 'G') or ( control == 'g' and j not in ownGreenConnsList))): 
+                    if ((inEdge == exEdge) and ((control == 'G') or (control == 'g' and j not in ownGreenConnsList))):
                         if j in connFlowsMap[tl._id]:
                             # if a connection flow has more than one major green, the flow is regularly distributed in each "major green"
                             groupFlows += connFlowsMap[tl._id][j]/float(multiOwnGreenFactor)
@@ -283,6 +282,7 @@ def getLaneGroupFlows(tl, connFlowsMap, phases, greenFilter, multiOwnGreenMap, g
                         if connsList[j][0].getIndex() not in laneIndexList:
                             laneIndexList.append(connsList[j][0].getIndex())
                         processed = True
+                            
                     # fromEdge is different from the previous one or the last state
                     if exEdge != inEdge or j == len(p.state) - 1:
                         # save the data of the previous group
@@ -294,15 +294,22 @@ def getLaneGroupFlows(tl, connFlowsMap, phases, greenFilter, multiOwnGreenMap, g
                             groupFlows = 0
                             if (j == len(p.state) - 1) and processed:
                                 break
+
                         if control == "G":
                             if connsList[j][0].getIndex() not in laneIndexList:
                                 laneIndexList.append(connsList[j][0].getIndex())
                             if j in connFlowsMap[tl._id]:  # only flows > 0
                                 groupFlows += connFlowsMap[tl._id][j]/float(multiOwnGreenFactor)
-                        # todo: consider minor green
+                        elif control == 'g' and j not in ownGreenConnsList:
+                            if connsList[j][0].getIndex() not in laneIndexList:
+                                laneIndexList.append(connsList[j][0].getIndex())
+                            if j in connFlowsMap[tl._id]:  # only flows > 0
+                                groupFlows += connFlowsMap[tl._id][j]/float(multiOwnGreenFactor)
+
                         if (j == len(p.state) - 1) and laneIndexList:
                             phaseLaneIndexMap[i].append(laneIndexList)
                             groupFlowsMap[i].append(groupFlows)
+
                             # reset
                             laneIndexList = []
                             groupFlows = 0
