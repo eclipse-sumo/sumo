@@ -42,6 +42,7 @@
 #include <utils/geom/GeoConvHelper.h>
 #include "NIXMLNodesHandler.h"
 #include "NIXMLEdgesHandler.h"
+#include "NIImporter_SUMO.h"
 
 
 // ===========================================================================
@@ -79,7 +80,12 @@ NIXMLEdgesHandler::myStartElement(int element,
                                   const SUMOSAXAttributes& attrs) {
     switch (element) {
         case SUMO_TAG_VIEWSETTINGS_EDGES:
+            // infer location for legacy networks that don't have location information
             myLocation = GeoConvHelper::getLoadedPlain(getFileName());
+            break;
+        case SUMO_TAG_LOCATION:
+            delete myLocation;
+            myLocation = NIImporter_SUMO::loadLocation(attrs);
             break;
         case SUMO_TAG_EDGE:
             addEdge(attrs);
