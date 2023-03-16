@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-16 13:39+0000\n"
+"PO-Revision-Date: 2023-03-16 15:36+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
@@ -9096,75 +9096,75 @@ msgstr "删除几何点"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEDeleteFrame.cpp:230
 msgid "Protect Elements"
-msgstr ""
+msgstr "保护要素"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEDeleteFrame.cpp:232
 msgid "Protect additional elements"
-msgstr ""
+msgstr "保护附加要素"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEDeleteFrame.cpp:235
 msgid "Protect TAZ elements"
-msgstr ""
+msgstr "保护交通分区（TAZ）要素"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEDeleteFrame.cpp:238
 msgid "Protect demand elements"
-msgstr ""
+msgstr "保护需求要素"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEDeleteFrame.cpp:241
 msgid "Protect data elements"
-msgstr ""
+msgstr "保护数据元素"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEElementSet.cpp:48
 msgid "Element Set"
-msgstr ""
+msgstr "元素组"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEElementSet.cpp:75
 msgid "Invalid supermode"
-msgstr ""
+msgstr "无效的超级模式"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:100
 msgid "Mark as front element"
-msgstr ""
+msgstr "标记为前部要素"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:181
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:310
 msgid "Set new parent"
-msgstr ""
+msgstr "设置新的母体"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:372
 msgid ""
 "- Mark as front element: Mark element as front element (Will be drawn over "
 "all other elements)\n"
-msgstr ""
+msgstr "- 标记为前面的元素：将元素标记为前面的元素（将被画在所有其他元素之上）\n"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:373
 msgid "- Block movement: disable movement in move mode\n"
-msgstr ""
+msgstr "- 阻止移动：在移动模式下禁止移动\n"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:374
 msgid ""
 "- Block shape: Disable moving of shape's vertices and edges. Entire shape "
 "can be moved'.\n"
-msgstr ""
+msgstr "- 块状形状：禁用移动形状的顶点和边缘。整个形状可以被移动'。\n"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:375
 msgid ""
 "- Close shape: Add or remove the last vertex with the same position of first "
 "edge'."
-msgstr ""
+msgstr "- 关闭形状。添加或删除与第一条路段相同位置的最后一个顶点'。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:406
 msgid "GEO Attributes"
-msgstr ""
+msgstr "GEO属性"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:470
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEShapeFrame.cpp:90
 msgid "No geo-conversion defined"
-msgstr ""
+msgstr "没有定义地理转换"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:551
 msgid " SUMO uses the World Geodetic System 84 (WGS84/UTM).\n"
-msgstr ""
+msgstr " SUMO使用世界大地测量系统84（WGS84/UTM）。\n"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:552
 msgid ""
