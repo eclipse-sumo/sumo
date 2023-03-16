@@ -21,6 +21,14 @@ Either
 - load the additional file when cutting and then save the reduced additional file or
 - open the reduced network and load the original additional file. All objects outside the reduced network will be discarded with a warning.
 
+## Modifying the shape of both road directions in a synchornized manner
+
+1. switch to [selection mode](editModesCommon.md#select)
+2. click on both directional edges once to select them
+3. switch to [move mode](editModesCommon.md#move)
+4. click and drag to add / change geometry points (affecting both edges at the same time)
+5. (optionally) [smooth both edges](neteditPopupFunctions.md#smooth_edge) at the same time
+
 ## Specifying the complete geometry of an edge including endpoints
 
 By default, the geometry of an edge starts with the position of the source junction and ends at the position of the destination junction. However, this sometimes leads to undesired junction shapes when dealing with roads that have a large green median strip or when modeling edges that meet at a sharp angle such as highway ramps. Also, when edges in opposite directions have unequal number of lanes (i.e. due to added left-turn lanes) and the road shapes do not line up. The solution is to define an edge geometry with custom endpoints. Below are three alternative methods of accomplishing this.
