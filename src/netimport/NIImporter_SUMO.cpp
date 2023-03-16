@@ -784,6 +784,10 @@ NIImporter_SUMO::addConnection(const SUMOSAXAttributes& attrs) {
         return;
     }
     EdgeAttrs* from = myEdges[fromID];
+    if (from->func == SumoXMLEdgeFunc::INTERNAL) {
+        // internal junction connection
+        return;
+    }
     Connection conn;
     conn.toEdgeID = attrs.get<std::string>(SUMO_ATTR_TO, nullptr, ok);
     int fromLaneIdx = attrs.get<int>(SUMO_ATTR_FROM_LANE, nullptr, ok);
