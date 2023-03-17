@@ -53,7 +53,14 @@ GNERunTool::runTool(const GNETool* tool) {
 
 void
 GNERunTool::abortTool() {
-
+    // cancel thread
+    cancel();
+    // show info
+    myRunToolDialog->appendErrorMessage(TL("cancelled by user\n"));
+    // reset flags
+    myRunning = false;
+    myErrorOccurred = false;
+    myRunToolDialog->updateDialog();
 }
 
 
