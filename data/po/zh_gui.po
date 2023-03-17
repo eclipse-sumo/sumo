@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-17 10:06+0000\n"
+"PO-Revision-Date: 2023-03-17 10:08+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
@@ -9203,15 +9203,15 @@ msgstr "清除路段模板"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:673
 msgid "Only one edge must be inspected"
-msgstr ""
+msgstr "只有一路段必须被检查"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:737
 msgid "No edge Template Set"
-msgstr ""
+msgstr "无路段模板组"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:749
 msgid "Parameters"
-msgstr ""
+msgstr "参数"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:908
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:911
