@@ -457,6 +457,7 @@
 #include "warning.xpm"
 #include "danger.xpm"
 #include "sum.xpm"
+#include "back.xpm"
 
 #include "grid.xpm"
 #include "grid1.xpm"
@@ -925,6 +926,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::WARNING] = new FXXPMIcon(a, warning_xpm);
     myIcons[GUIIcon::DANGER] = new FXXPMIcon(a, danger_xpm);
     myIcons[GUIIcon::SUM] = new FXXPMIcon(a, sum_xpm);
+    myIcons[GUIIcon::BACK] = new FXXPMIcon(a, back_xpm);
 
     myIcons[GUIIcon::GRID] = new FXXPMIcon(a, grid_xpm);
     myIcons[GUIIcon::GRID1] = new FXXPMIcon(a, grid1_xpm);
