@@ -17,7 +17,7 @@ SUMO includes the following emission models:
   emissions data base (open source);
 - [PHEMlight](../Models/Emissions/PHEMlight.md), a derivation of
   the original
-  [PHEM](https://www.ivt.tugraz.at/en/research/areas/em/)
+  [PHEM](https://www.itna.tugraz.at/en/research/areas/em/simulation/phem.html)
   emission model (model is open source, but full data sets are only commercially available);
 - [PHEMlight5](../Models/Emissions/PHEMlight5.md), the V5 version of PHEMlight
   supporting deterioration emission model (model is open source, but full data sets are only commercially available);
