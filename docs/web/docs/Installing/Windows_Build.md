@@ -100,6 +100,14 @@ folders are `32bits/fox-1.6.54/lib`, `32bits/proj_gdal-1911/bin` and
 `32bits/xerces-c-3.2.0/bin`. You can add both to the path but always add the
 64 bit version first.
 
+## Install python packages
+
+Compiling netedit requieres a list of python packages to generate templates. Install it using pip:
+
+```
+pip install google lxml rtree pandas matplotlib pulp pyproj ezdxf scipy fmpy ortools texttest pyautogui pyperclip
+```
+
 ## Manual CMake configuration
 
 ### Method 1: Via CMake GUI
