@@ -44,7 +44,28 @@ GNERunTool::~GNERunTool() {}
 void
 GNERunTool::runTool(const GNETool* tool) {
     myTool = tool;
+    // reset flags
+    myRunning = false;
+    myErrorOccurred = false;
     start();
+}
+
+
+void
+GNERunTool::abortTool() {
+
+}
+
+
+bool
+GNERunTool::isRunning() const {
+    return myRunning;
+}
+
+
+bool
+GNERunTool::errorOccurred() const {
+    return myErrorOccurred;
 }
 
 
@@ -57,43 +78,57 @@ GNERunTool::run() {
     }
     // open process showing std::err in console
 #ifdef WIN32
-    FILE* pipe = _popen((myTool->getCommand() + " 2>&1").c_str(), "r");
+    myPipe = _popen((myTool->getCommand() + " 2>&1").c_str(), "r");
 #else
-    FILE* pipe = popen((myTool->getCommand() + " 2>&1").c_str(), "r");
+    myPipe = popen((myTool->getCommand() + " 2>&1").c_str(), "r");
 #endif 
-    if (!pipe) {
+    if (!myPipe) {
         myRunToolDialog->appendErrorMessage(TL("popen() failed!"));
+        // set error ocurred flag
+        myErrorOccurred = true;
+        myRunToolDialog->updateDialog();
         return 1;
     } else {
+        // set running flag
+        myRunning = true;
+        myRunToolDialog->updateDialog();
         // Show command
         myRunToolDialog->appendBuffer((myTool->getCommand() + "\n").c_str());
         // start process
         myRunToolDialog->appendInfoMessage(TL("starting process...\n"));
         try {
             // add buffer
-            while (fgets(buffer, sizeof buffer, pipe) != NULL) {
+            while (fgets(buffer, sizeof buffer, myPipe) != NULL) {
                 myRunToolDialog->appendBuffer(buffer);
             }
             myRunToolDialog->appendBuffer(buffer);
         } catch (...) {
             // close process
         #ifdef WIN32
-            _pclose(pipe);
+            _pclose(myPipe);
         #else
-            pclose(pipe);
+            pclose(myPipe);
         #endif
             myRunToolDialog->appendErrorMessage(TL("error processing command\n"));
+            // set flags
+            myRunning = false;
+            myErrorOccurred = true;
+            myRunToolDialog->updateDialog();
             return 1;
         }
     }
     // close process
 #ifdef WIN32
-    _pclose(pipe);
+    _pclose(myPipe);
 #else
-    pclose(pipe);
+    pclose(myPipe);
 #endif
+    myPipe = nullptr;
     // end process
     myRunToolDialog->appendInfoMessage(TL("process finished\n"));
+    // set running flag
+    myRunning = false;
+    myRunToolDialog->updateDialog();
     return 1;
 }
 

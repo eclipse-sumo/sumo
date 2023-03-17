@@ -48,12 +48,30 @@ public:
     /// @brief run tool
     void runTool(const GNETool* tool);
 
+    /// @brief abort tool running
+    void abortTool();
+
+    /// @brief check if tool is running
+    bool isRunning() const;
+
+    /// @brief check if during execution an error was Occurred
+    bool errorOccurred() const;
+
 private:
     /// @brief pointer to run tool dialog
     GNERunToolDialog* myRunToolDialog;
 
     /// @brief tool
     const GNETool* myTool = nullptr;
+
+    /// @brief flag for check if tool is running
+    bool myRunning = false;
+
+    /// @brief flag for check if during execution an error was Occurred
+    bool myErrorOccurred = false;
+
+    /// @brief pipe file
+    FILE* myPipe = nullptr;
 
     /// @brief starts the thread. The thread ends after the tool is finished
     FXint run();
