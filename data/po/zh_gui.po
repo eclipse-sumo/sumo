@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-17 10:42+0000\n"
+"PO-Revision-Date: 2023-03-17 10:52+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
@@ -9530,7 +9530,7 @@ msgstr "反转所有对象的选择状态"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNESelectorFrame.cpp:255
 msgid "Save ids of currently selected objects to a file."
-msgstr ""
+msgstr "将当前选择的对象的ID保存到一个文件中。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNESelectorFrame.cpp:257
 msgid "Load ids from a file according to the current modification mode."
