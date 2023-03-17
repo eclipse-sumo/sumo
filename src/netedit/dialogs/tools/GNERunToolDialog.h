@@ -86,7 +86,10 @@ private:
     /// @brief pointer to GNEApplicationWindow
     GNEApplicationWindow* myGNEApp;
 
-    /// @brief thread  for running tool
+    /// @brief tool
+    GNETool* myTool = nullptr;
+
+    /// @brief thread for running tool
     GNERunTool* myRunTool = nullptr;
 
     /// @brief text

@@ -66,7 +66,6 @@ GNERunTool::run() {
         return 1;
     } else {
         // Show command
-        myRunToolDialog->appendInfoMessage(TL("command\n"));
         myRunToolDialog->appendBuffer((myTool->getCommand() + "\n").c_str());
         // start process
         myRunToolDialog->appendInfoMessage(TL("starting process...\n"));

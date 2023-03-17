@@ -104,6 +104,8 @@ GNERunToolDialog::runTool(GNETool* tool) {
     myText->setText("");
     // show dialog
     FXDialogBox::show(PLACEMENT_SCREEN);
+    // set tool
+    myTool = tool;
     // run tool
     myRunTool->runTool(tool);
     // open as modal dialog (will block all windows until stop() or stopModal() is called)
@@ -148,6 +150,12 @@ GNERunToolDialog::onCmdOK(FXObject*, FXSelector, void*) {
 
 long
 GNERunToolDialog::onCmdRerun(FXObject*, FXSelector, void*) {
+    // add line
+    std::string line("-------------------------------------------\n");
+    myText->appendStyledText(line.c_str(), line.length(), 4, TRUE);
+    appendInfoMessage("rerun tool\n");
+    // run tool
+    myRunTool->runTool(myTool);
     return 1;
 }
 
