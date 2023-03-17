@@ -131,6 +131,19 @@ echo $SUMO_HOME
 
 and console shows "/home/<user\>/sumo-<version\>"
 
+## Install python packages
+
+Compiling netedit requieres a list of python packages to generate templates. Install it using pip:
+
+```
+pip install google lxml rtree pandas matplotlib pulp pyproj ezdxf scipy fmpy ortools texttest pyautogui pyperclip
+```
+Or if you're using python3
+
+```
+pip3 install google lxml rtree pandas matplotlib pulp pyproj ezdxf scipy fmpy ortools texttest pyautogui pyperclip
+```
+
 ## Building the SUMO binaries with cmake
 
 To build with cmake version 3 or higher is required.
