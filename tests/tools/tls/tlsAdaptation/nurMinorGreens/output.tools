@@ -1,0 +1,21 @@
+the total number of tls: 1
+Begin time:0
+parsing route file: input_routes.rou.xml
+Parsed 3205 vehicles from input_routes.rou.xml.
+tl-logic ID: J5
+TLS: J5 --> the tl-indices with more than one major-green:[0]
+phase: 0
+group flows: [42, 585.0, 408.0, 417.0]
+The used lanes: [[0, 1], [0, 1], [0]]
+phase: 2
+group flows: [42, 178.0, 790.0]
+The used lanes: [[0], [0, 1]]
+phase: 4
+group flows: [10, 429.0, 417.0]
+The used lanes: [[1], [0]]
+the current cycle length:100 sec
+Green time for phase 0: 13
+Green time for phase 2: 17
+Green time for phase 4: 19
+The optimal cycle length:61
+
