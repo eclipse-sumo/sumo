@@ -90,7 +90,9 @@ GNETool::getCommand() const {
     std::string arguments;
     // add arguments
     for (const auto &option : myToolsOptions) {
-        arguments += ("--" + option.first + " \"" + option.second->getValueString() + "\" ");
+        if (!option.second->isDefault()) {
+            arguments += ("--" + option.first + " \"" + option.second->getValueString() + "\" ");
+        }
     }
     return command + " " + arguments;
 }

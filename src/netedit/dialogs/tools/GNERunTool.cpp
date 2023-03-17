@@ -65,8 +65,11 @@ GNERunTool::run() {
         myRunToolDialog->appendErrorMessage(TL("popen() failed!"));
         return 1;
     } else {
+        // Show command
+        myRunToolDialog->appendInfoMessage(TL("command\n"));
+        myRunToolDialog->appendBuffer((myTool->getCommand() + "\n").c_str());
         // start process
-        myRunToolDialog->appendInfoMessage(TL("starting process\n"));
+        myRunToolDialog->appendInfoMessage(TL("starting process...\n"));
         try {
             // add buffer
             while (fgets(buffer, sizeof buffer, pipe) != NULL) {
@@ -80,7 +83,7 @@ GNERunTool::run() {
         #else
             pclose(pipe);
         #endif
-            myRunToolDialog->appendErrorMessage(TL("Error processing command\n"));
+            myRunToolDialog->appendErrorMessage(TL("error processing command\n"));
             return 1;
         }
     }
