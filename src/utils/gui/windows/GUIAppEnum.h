@@ -1330,6 +1330,12 @@ enum {
     MID_GNE_BUTTON_FOCUS,
     /// @brief run button
     MID_GNE_BUTTON_RUN,
+    /// @brief rerun button
+    MID_GNE_BUTTON_RERUN,
+    /// @brief abort button
+    MID_GNE_BUTTON_ABORT,
+    /// @brief back button
+    MID_GNE_BUTTON_BACK,
 
     /// @}
 

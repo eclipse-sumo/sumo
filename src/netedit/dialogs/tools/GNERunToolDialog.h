@@ -64,17 +64,38 @@ public:
     /// @brief add text buffer to output console
     void appendBuffer(const char *buffer);
 
+    /// @brief update toolDialog
+    void updateDialog();
+
     /// @name FOX-callbacks
     /// @{
 
-    /// @brief event after press OK button
-    long onCmdOK(FXObject*, FXSelector, void*);
+    /// @brief event after press save button
+    long onCmdSaveLog(FXObject*, FXSelector, void*);
+
+    /// @brief event after press abort button
+    long onCmdAbort(FXObject*, FXSelector, void*);
+
+    /// @brief event for updating abort button
+    long onUpdAbort(FXObject*, FXSelector, void*);
 
     /// @brief event after press rerun button
     long onCmdRerun(FXObject*, FXSelector, void*);
 
-    /// @brief event after press save button
-    long onCmdSaveLog(FXObject*, FXSelector, void*);
+    /// @brief event for updating rerun button
+    long onUpdRerun(FXObject*, FXSelector, void*);
+
+    /// @brief event after press back button
+    long onCmdBack(FXObject*, FXSelector, void*);
+
+    /// @brief event for updating back button
+    long onUpdBack(FXObject*, FXSelector, void*);
+
+    /// @brief event after press OK button
+    long onCmdOK(FXObject*, FXSelector, void*);
+
+    /// @brief event after press OK button
+    long onUpdOK(FXObject*, FXSelector, void*);
 
     /// @}
 

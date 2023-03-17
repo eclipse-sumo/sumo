@@ -37,9 +37,15 @@
 
 FXDEFMAP(GNERunToolDialog) GNERunToolDialogMap[] = {
     FXMAPFUNC(SEL_CLOSE,    0,                      GNERunToolDialog::onCmdOK),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_SAVE,    GNERunToolDialog::onCmdSaveLog),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_ABORT,   GNERunToolDialog::onCmdAbort),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_BUTTON_ABORT,   GNERunToolDialog::onUpdAbort),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_RERUN,   GNERunToolDialog::onCmdRerun),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_BUTTON_RERUN,   GNERunToolDialog::onUpdRerun),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_BACK,    GNERunToolDialog::onCmdBack),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_BUTTON_BACK,    GNERunToolDialog::onUpdBack),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_ACCEPT,  GNERunToolDialog::onCmdOK),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_RESET,   GNERunToolDialog::onCmdRerun),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_SAVE,    GNERunToolDialog::onCmdSaveLog)
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_BUTTON_ACCEPT,  GNERunToolDialog::onUpdOK)
 };
 
 // Object implementation
@@ -72,13 +78,23 @@ GNERunToolDialog::GNERunToolDialog(GNEApplicationWindow* GNEApp) :
     // set styled
     myText->setHiliteStyles(GUIMessageWindow::getStyles());
     myText->setStyled(true);
-    // create buttons centered
+    // create buttons Abort, rerun and back
     auto buttonsFrame = new FXHorizontalFrame(contentFrame, GUIDesignHorizontalFrame);
+    new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
+    new FXButton(buttonsFrame, (TL("Abort") + std::string("\t\t") + TL("abort running")).c_str(),
+        GUIIconSubSys::getIcon(GUIIcon::STOP), this, MID_GNE_BUTTON_ABORT, GUIDesignButtonAccept);
+    new FXButton(buttonsFrame, (TL("Rerun") + std::string("\t\t") + TL("rerun tool")).c_str(), 
+        GUIIconSubSys::getIcon(GUIIcon::RESET),  this, MID_GNE_BUTTON_RERUN,  GUIDesignButtonReset);
+    new FXButton(buttonsFrame, (TL("Back") + std::string("\t\t") + TL("back to tool dialog")).c_str(),
+        GUIIconSubSys::getIcon(GUIIcon::BACK), this, MID_GNE_BUTTON_BACK, GUIDesignButtonAccept);
+    new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
+    // add separator
+    new FXSeparator(contentFrame);
+    // create button ok
+    buttonsFrame = new FXHorizontalFrame(contentFrame, GUIDesignHorizontalFrame);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
     new FXButton(buttonsFrame, (TL("OK") + std::string("\t\t") + TL("close dialog")).c_str(),
         GUIIconSubSys::getIcon(GUIIcon::OK), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonAccept);
-    new FXButton(buttonsFrame, (TL("Rerun") + std::string("\t\t") + TL("rerun tool")).c_str(), 
-        GUIIconSubSys::getIcon(GUIIcon::RESET),  this, MID_GNE_BUTTON_RESET,  GUIDesignButtonReset);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
     // resize
     resize(640, 480);
@@ -138,25 +154,10 @@ GNERunToolDialog::appendBuffer(const char *buffer) {
 }
 
 
-long
-GNERunToolDialog::onCmdOK(FXObject*, FXSelector, void*) {
-    // stop modal
-    myGNEApp->getApp()->stopModal(this);
-    // hide dialog
-    hide();
-    return 1;
-}
-
-
-long
-GNERunToolDialog::onCmdRerun(FXObject*, FXSelector, void*) {
-    // add line
-    std::string line("-------------------------------------------\n");
-    myText->appendStyledText(line.c_str(), line.length(), 4, TRUE);
-    appendInfoMessage("rerun tool\n");
-    // run tool
-    myRunTool->runTool(myTool);
-    return 1;
+void
+GNERunToolDialog::updateDialog() {
+    // update all buttons
+    FXDialogBox::update();
 }
 
 
@@ -171,6 +172,64 @@ GNERunToolDialog::onCmdSaveLog(FXObject*, FXSelector, void*) {
         dev.close();
     }
     return 1;
+}
+
+
+long
+GNERunToolDialog::onCmdAbort(FXObject*, FXSelector, void*) {
+    return 1;
+}
+
+
+long
+GNERunToolDialog::onUpdAbort(FXObject* sender, FXSelector, void*) {
+    return sender->handle(this, myRunTool->isRunning()? FXSEL(SEL_COMMAND, ID_ENABLE) : FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+}
+
+
+long
+GNERunToolDialog::onCmdRerun(FXObject*, FXSelector, void*) {
+    // add line and info
+    std::string line("-------------------------------------------\n");
+    myText->appendStyledText(line.c_str(), (int)line.length(), 4, TRUE);
+    appendInfoMessage("rerun tool\n");
+    // run tool
+    myRunTool->runTool(myTool);
+    return 1;
+}
+
+
+long
+GNERunToolDialog::onUpdRerun(FXObject* sender, FXSelector, void*) {
+    return sender->handle(this, myRunTool->isRunning()? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+}
+
+
+long
+GNERunToolDialog::onCmdBack(FXObject* sender, FXSelector, void*) {
+    return sender->handle(this, myRunTool->isRunning()? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+}
+
+
+long
+GNERunToolDialog::onUpdBack(FXObject* sender, FXSelector, void*) {
+    return sender->handle(this, myRunTool->isRunning()? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+}
+
+
+long
+GNERunToolDialog::onCmdOK(FXObject*, FXSelector, void*) {
+    // stop modal
+    myGNEApp->getApp()->stopModal(this);
+    // hide dialog
+    hide();
+    return 1;
+}
+
+
+long
+GNERunToolDialog::onUpdOK(FXObject* sender, FXSelector, void*) {
+    return sender->handle(this, myRunTool->isRunning()? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
 }
 
 
