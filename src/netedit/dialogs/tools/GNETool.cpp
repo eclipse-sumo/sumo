@@ -79,11 +79,20 @@ GNETool::getMenuCommand() const {
 
 std::string
 GNETool::getCommand() const {
-    char* pythonEnv = getenv("PYTHON");
-    const std::string python = pythonEnv == nullptr ? "python" : pythonEnv;
-    char* sumoHomeEnv = getenv("SUMO_HOME");
-    const std::string sumoHome = sumoHomeEnv == nullptr ? "" : sumoHomeEnv + std::string("/");
-    return (python + " " + sumoHome + myPythonPath);
+    // add python script
+    const char* pythonEnv = getenv("PYTHON");
+    const std::string python = (pythonEnv == nullptr)? "python" : pythonEnv;
+    const char* sumoHomeEnv = getenv("SUMO_HOME");
+    const std::string sumoHome = (sumoHomeEnv == nullptr)? "" : sumoHomeEnv + std::string("/");
+    // get command
+    std::string command = python + " " + sumoHome + myPythonPath;
+    // declare arguments
+    std::string arguments;
+    // add arguments
+    for (const auto &option : myToolsOptions) {
+        arguments += ("--" + option.first + " \"" + option.second->getValueString() + "\" ");
+    }
+    return command + " " + arguments;
 }
 
 /****************************************************************************/
