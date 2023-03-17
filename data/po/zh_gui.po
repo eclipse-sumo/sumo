@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-17 12:58+0000\n"
+"PO-Revision-Date: 2023-03-17 15:02+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
@@ -9856,449 +9856,453 @@ msgstr "- 在一条路线上点击，以\n"
 
 #: /home/micha/programming/sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:72
 msgid "  create a vehicle."
-msgstr ""
+msgstr "  创建一个车辆。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:76
 #: /home/micha/programming/sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:81
 #: /home/micha/programming/sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:98
 #: /home/micha/programming/sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:103
 msgid "- Select two edges to\n"
-msgstr ""
+msgstr "- 选择两条路段来\n"
 
 #: /home/micha/programming/sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:77
 msgid "  create a Trip."
-msgstr ""
+msgstr "  创建一个行程。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:82
 msgid "  create a vehicle with\n"
-msgstr ""
+msgstr "  创立一车辆带有\n"
 
 #: /home/micha/programming/sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:83
 #: /home/micha/programming/sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:105
 msgid "  embedded route."
-msgstr ""
+msgstr "  嵌入的路径。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:87
 #: /home/micha/programming/sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:109
 msgid "- Select two junctions\n"
-msgstr ""
+msgstr "- 选择两个路口\n"
 
 #: /home/micha/programming/sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:88
 msgid "  to create a Trip."
-msgstr ""
+msgstr "  来创建一个行程。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:94
 msgid "  create a routeFlow."
-msgstr ""
+msgstr "  创建一个路径流。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:99
 msgid "  create a flow."
-msgstr ""
+msgstr "  创造一个流。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:104
 msgid "  create a flow with\n"
-msgstr ""
+msgstr "  创建一个具有以下特点的流\n"
 
 #: /home/micha/programming/sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:110
 msgid "  to create a flow."
-msgstr ""
+msgstr "  来创建一个流。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:191
 msgid "Current selected vehicle isn't valid."
-msgstr ""
+msgstr "目前选择的车辆无效。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:196
 msgid "Current selected vehicle type isn't valid."
-msgstr ""
+msgstr "当前选择的车辆类型无效。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:85
 msgid "Current selected additional isn't valid."
-msgstr ""
+msgstr "当前所选的附加物无效。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:154
 msgid "E2 multilane detectors need at least two consecutive lanes"
-msgstr ""
+msgstr "E2多车道探测器需要至少两个连续车道"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:278
 msgid " must be selected before insertion of "
-msgstr ""
+msgstr " 必须在插入之前选择 "
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:308
 msgid "Attribute '"
-msgstr ""
+msgstr "属性 '"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:308
 msgid "' cannot be greater than attribute '"
-msgstr ""
+msgstr "'不能大于属性'"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:325
 msgid "List ofe dges cannot be empty"
-msgstr ""
+msgstr "仪表盘列表不能是空的"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:335
 msgid "List of lanes cannot be empty"
-msgstr ""
+msgstr "车道列表不能为空"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:435
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEWireFrame.cpp:232
 msgid "Currently unsupported. Create rerouter elements using rerouter dialog"
-msgstr ""
+msgstr "目前不支持。使用rerouter对话框创建rerouter元素"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:440
 msgid "Currently unsupported. Create VSS steps using VSS dialog"
-msgstr ""
+msgstr "目前不支持。使用VSS对话框创建VSS步骤"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:445
 msgid "Currently unsupported. Create calibratorFlows using calibrator dialog"
-msgstr ""
+msgstr "目前不支持。使用校验器对话框创建校验器流"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:66
 msgid "Lane"
-msgstr ""
+msgstr "车道"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:68
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:78
 msgid "No lane selected"
-msgstr ""
+msgstr "没有选择车道"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:80
 msgid "Current Lane: "
-msgstr ""
+msgstr "当前车道: "
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:89
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:395
 msgid "Modifications"
-msgstr ""
+msgstr "修改"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:93
 msgid "Discard connection modifications (Esc)"
-msgstr ""
+msgstr "放弃连接的修改（Esc）"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:96
 msgid "Save connection modifications (Enter)"
-msgstr ""
+msgstr "保存连接的修改（回车）"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:100
 msgid "Protect routes"
-msgstr ""
+msgstr "保护路径"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:112
 msgid "Changes reverted"
-msgstr ""
+msgstr "更改已被恢复"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:129
 msgid "Error saving connection operations"
-msgstr ""
+msgstr "保存连接操作错误"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:130
 msgid "Connection edition  cannot be saved because route '"
-msgstr ""
+msgstr "连接版本  不能被保存，因为路径的'"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:130
 msgid "' is broken."
-msgstr ""
+msgstr "'被打破。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:138
 msgid "Changes accepted"
-msgstr ""
+msgstr "接受修改"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:151
 msgid "Operations"
-msgstr ""
+msgstr "运作"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:155
 msgid "Select Dead Ends"
-msgstr ""
+msgstr "选择死胡同"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:155
 msgid ""
 "Selects all lanes that have no outgoing connection (clears previous "
 "selection)"
-msgstr ""
+msgstr "选择所有没有出站连接的车道（清除之前的选择）"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:158
 msgid "Select Dead Starts"
-msgstr ""
+msgstr "选择死机"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:158
 msgid ""
 "Selects all lanes that have no incoming connection (clears previous "
 "selection)"
-msgstr ""
+msgstr "选择所有没有传入连接的车道（清除之前的选择）"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:161
 msgid "Select Conflicts"
-msgstr ""
+msgstr "选择冲突"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:161
 msgid ""
 "Selects all lanes with more than one incoming connection from the same edge "
 "(clears previous selection)"
-msgstr ""
+msgstr "选择所有有一个以上来自同一路段的传入连接的车道（清除之前的选择）"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:164
 msgid "Select Passing"
-msgstr ""
+msgstr "选择通过"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:164
 msgid ""
 "Selects all lanes with a connection that has has the 'pass' attribute set"
-msgstr ""
+msgstr "选择所有具有 \"通过 \"属性的连接的车道"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:167
 msgid "Clear Selected"
-msgstr ""
+msgstr "清除选择"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:167
 msgid "Clears all connections of all selected objects"
-msgstr ""
+msgstr "清除所有选定对象的所有连接"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:170
 msgid "Reset Selected"
-msgstr ""
+msgstr "重置选择"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:170
 msgid "Recomputes connections at all selected junctions"
-msgstr ""
+msgstr "重新计算所有选定路口的连接"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:262
 msgid "clear connections from selected lanes, edges and junctions"
-msgstr ""
+msgstr "从选定的车道、路段和路口明确连接"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:289
 msgid "reset connections from selected lanes"
-msgstr ""
+msgstr "从选定的车道重置连接"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:308
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:168
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2174
 msgid "Selection"
-msgstr ""
+msgstr "选择"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:313
 msgid "-Hold <SHIFT> while"
-msgstr ""
+msgstr "-按住<SHIFT>，同时"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:314
 msgid " clicking to create"
-msgstr ""
+msgstr " 点击创建"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:315
 msgid " unyielding connections"
-msgstr ""
+msgstr " 不屈不挠的连接"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:316
 msgid " (pass=true)."
-msgstr ""
+msgstr " ((pass=true)。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:321
 msgid "-Hold <CTRL> while"
-msgstr ""
+msgstr "-按住<CTRL>，同时"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:322
 msgid " clicking to create "
-msgstr ""
+msgstr " 点击创建 "
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:323
 msgid " conflicting connections"
-msgstr ""
+msgstr " 矛盾的联系"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:324
 msgid " (i.e. at zipper nodes"
-msgstr ""
+msgstr " (即在拉链结点上"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:325
 msgid " or with incompatible"
-msgstr ""
+msgstr " 或有不相容的"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:326
 msgid " permissions"
-msgstr ""
+msgstr " 权限"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:342
 msgid "Possible Target"
-msgstr ""
+msgstr "可能的目标"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:347
 msgid "Source lane"
-msgstr ""
+msgstr "来源于车道"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:351
 msgid "Target lane"
-msgstr ""
+msgstr "目标车道"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:355
 msgid "Target (pass)"
-msgstr ""
+msgstr "目标（通过）"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:359
 msgid "Conflict"
-msgstr ""
+msgstr "冲突"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:371
 msgid "Edit Connections"
-msgstr ""
+msgstr "编辑连接"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:437
 msgid "modify connections"
-msgstr ""
+msgstr "修改连接"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:488
 msgid "Pedestrian connections are generated automatically"
-msgstr ""
+msgstr "行人连接是自动生成的"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:490
 msgid "Incompatible vehicle class permissions"
-msgstr ""
+msgstr "不兼容的车辆类别权限"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:492
 msgid "Another lane from the same edge already connects to that lane"
-msgstr ""
+msgstr "来自同一路段的另一条车道已经与该车道相连接"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:500
 msgid "Invalid target for connection"
-msgstr ""
+msgstr "无效的连接目标"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:71
 msgid "Template selector"
-msgstr ""
+msgstr "模板选择器"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:76
 msgid "Create default edge"
-msgstr ""
+msgstr "创建默认路段"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:79
 msgid "Disallow for pedestrians"
-msgstr ""
+msgstr "不允许行人进入"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:81
 msgid "Add Sidewalk"
-msgstr ""
+msgstr "添加人行道"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:84
 msgid "Use edgeType/template"
-msgstr ""
+msgstr "使用路段类型/模板"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:92
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:436
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1245
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1310
 msgid "Add"
-msgstr ""
+msgstr "添加"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:92
 msgid "Add edge type"
-msgstr ""
+msgstr "添加路段类型"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:95
 msgid "Delete edge type"
-msgstr ""
+msgstr "删除路段类型"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:98
 msgid "Create from template"
-msgstr ""
+msgstr "根据模板创建"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:98
 msgid "Create edgeType from template"
-msgstr ""
+msgstr "从模板创建路段类型"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:317
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:366
 msgid "create new edge type"
-msgstr ""
+msgstr "创建新的路段类型"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:339
 msgid "delete edge type"
-msgstr ""
+msgstr "删除路段类型"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:404
 msgid "template: "
-msgstr ""
+msgstr "模板: "
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:428
 msgid "LaneType selector"
-msgstr ""
+msgstr "车道类型选择器"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:436
 msgid "Add lane type"
-msgstr ""
+msgstr "添加车道类型"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:439
 msgid "Delete lane type"
-msgstr ""
+msgstr "删除车道类型"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:536
 msgid "add laneType"
-msgstr ""
+msgstr "添加车道类型"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:573
 msgid "remove laneType"
-msgstr ""
+msgstr "删除车道类型"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:622
+#, fuzzy
 msgid "- ESC:"
-msgstr ""
+msgstr "- ESC:"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:623
 msgid "  Deselect origin"
-msgstr ""
+msgstr "  取消选择原点"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:624
+#, fuzzy
 msgid "- Control+Click:"
-msgstr ""
+msgstr "- Control+Click:"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:625
 msgid "  Move view"
-msgstr ""
+msgstr "  移动视图"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:626
+#, fuzzy
 msgid "- Shift+Click:"
-msgstr ""
+msgstr "- Shift+Click:"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:627
 msgid "  Splits edge in both directions"
-msgstr ""
+msgstr "  在两个方向上分割路段"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:628
+#, fuzzy
 msgid "- Alt+Shift+Click:"
-msgstr ""
+msgstr "- Alt+Shift+Click:"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:629
 msgid "  Splits edge in one direction"
-msgstr ""
+msgstr "  在一个方向上分割路段"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:642
 msgid "Create Edge"
-msgstr ""
+msgstr "创建路段"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:666
 msgid "Select either default edgeType or a custom edgeType or template"
-msgstr ""
+msgstr "选择默认的路段类型或自定义的路段类型或模板"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:668
 msgid "Invalid edge attributes"
-msgstr ""
+msgstr "无效的路段属性"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:670
 msgid "Invalid lane attributes"
-msgstr ""
+msgstr "无效的车道属性"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:681
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:746
 msgid "create new edge"
-msgstr ""
+msgstr "创建新的路段"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:751
 msgid "An edge with the same geometry already exists!"
-msgstr ""
+msgstr "一个具有相同几何形状的路段已经存在了!"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:754
 msgid "Start- and endpoint for an edge must be distinct!"
-msgstr ""
+msgstr "一个路段的起点和终点必须是不同的!"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECrossingFrame.cpp:97
 msgid "selection of edges"
-msgstr ""
+msgstr "选择路段"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECrossingFrame.cpp:102
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:505
@@ -10307,209 +10311,209 @@ msgstr ""
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:654
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:658
 msgid "Use selected edges"
-msgstr ""
+msgstr "使用选定的路段"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECrossingFrame.cpp:105
 msgid "Clear edges"
-msgstr ""
+msgstr "清除路段"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECrossingFrame.cpp:108
 msgid "Invert edges"
-msgstr ""
+msgstr "反转路段"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECrossingFrame.cpp:196
 msgid "Crossing parameters"
-msgstr ""
+msgstr "交叉口的参数"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECrossingFrame.cpp:484
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1568
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1572
 msgid "Create"
-msgstr ""
+msgstr "创建"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECrossingFrame.cpp:487
 msgid "Create crossing"
-msgstr ""
+msgstr "创建交叉口"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECrossingFrame.cpp:514
 msgid ""
 "There is already another crossing with the same edges in the junction; "
 "Duplicated crossing aren't allowed."
-msgstr ""
+msgstr "在路口已经有另一个具有相同路段的交叉口；重复的交叉口是不允许的。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECrossingFrame.cpp:540
 msgid "-Click over junction to"
-msgstr ""
+msgstr "-点击路口，以"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECrossingFrame.cpp:541
 msgid " mark candidate edges."
-msgstr ""
+msgstr " 标出候选路段。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECrossingFrame.cpp:542
 msgid "-Click over candidate"
-msgstr ""
+msgstr "-点击候选上方"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECrossingFrame.cpp:543
 msgid " edges for selecting."
-msgstr ""
+msgstr " 选择的路段。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECrossingFrame.cpp:547
 msgid " Candidate"
-msgstr ""
+msgstr " 候选"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECrossingFrame.cpp:551
 msgid " Selected"
-msgstr ""
+msgstr " 选定的"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECrossingFrame.cpp:554
 msgid " Invalid"
-msgstr ""
+msgstr " 无效的"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECrossingFrame.cpp:567
 msgid "Crossings"
-msgstr ""
+msgstr "交叉"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:55
 msgid "Selected connection"
-msgstr ""
+msgstr "选择连接"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:71
 msgid "No Connection selected\n"
-msgstr ""
+msgstr "没有选择连接\n"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:74
 msgid "- Junction: "
-msgstr ""
+msgstr "- 路口: "
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:75
 msgid "- From lane: "
-msgstr ""
+msgstr "- 从车道: "
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:76
 msgid "- To lane: "
-msgstr ""
+msgstr "- 到车道: "
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:94
 msgid "Selected"
-msgstr ""
+msgstr "选定的"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:95
 msgid "Current selected connection"
-msgstr ""
+msgstr "当前选定的连接"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:101
 msgid "No conflict"
-msgstr ""
+msgstr "无冲突"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:102
 msgid "No conflict with the selected connection"
-msgstr ""
+msgstr "与所选连接没有冲突"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:107
 msgid "Yields"
-msgstr ""
+msgstr "收益率"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:108
 msgid "Connection yields the selected connection"
-msgstr ""
+msgstr "连接产生选定的连接"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:113
 msgid "Has right of way"
-msgstr ""
+msgstr "拥有路权"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:114
 msgid "Connection has right of way with the selected connection"
-msgstr ""
+msgstr "连接处与所选连接处有路权"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:119
 msgid "Unregulated conflict"
-msgstr ""
+msgstr "不受管制的冲突"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:120
 msgid "Connection has a unregulated conflict with the selected connection"
-msgstr ""
+msgstr "连接与选定的连接有不规范的冲突"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:125
 msgid "Mutual conflict"
-msgstr ""
+msgstr "相互冲突"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:126
 msgid "Connection has a mutual conflict with the selected connection"
-msgstr ""
+msgstr "连接与所选择的连接有相互冲突"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:175
 msgid "Save prohibition modifications (Enter)"
-msgstr ""
+msgstr "保存禁止的修改（输入）。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:179
 msgid "Unselect connection"
-msgstr ""
+msgstr "取消选择联系"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:181
 msgid "Unselect connection (Esc)"
-msgstr ""
+msgstr "取消选择连接（Esc）"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:229
 msgid "Prohibitions"
-msgstr ""
+msgstr "禁止的事项"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEShapeFrame.cpp:56
 msgid "GEO POI Creator"
-msgstr ""
+msgstr "GEO 兴趣点创造器"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEShapeFrame.cpp:59
 msgid "Format: Lon-Lat"
-msgstr ""
+msgstr "格式：Lon-Lat"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEShapeFrame.cpp:60
 msgid "Format: Lat-Lon"
-msgstr ""
+msgstr "格式: Lat-Lon"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEShapeFrame.cpp:66
 msgid "Center View after creation"
-msgstr ""
+msgstr "创建后的中心视图"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEShapeFrame.cpp:68
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEShapeFrame.cpp:121
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEShapeFrame.cpp:178
 msgid "Create GEO POI (clipboard)"
-msgstr ""
+msgstr "创建GEO 兴趣点（剪贴板）"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEShapeFrame.cpp:71
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEShapeFrame.cpp:136
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEShapeFrame.cpp:140
 msgid "Cartesian equivalence:"
-msgstr ""
+msgstr "笛卡尔等效："
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEShapeFrame.cpp:72
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEShapeFrame.cpp:141
 msgid "- X = give valid longitude"
-msgstr ""
+msgstr "- X = 给出有效经度"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEShapeFrame.cpp:73
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEShapeFrame.cpp:142
 msgid "- Y = give valid latitude"
-msgstr ""
+msgstr "- Y = 给出有效的纬度"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEShapeFrame.cpp:119
 msgid "Create GEO POI"
-msgstr ""
+msgstr "创建GEO兴趣点"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEShapeFrame.cpp:171
 msgid "Using clipboard"
-msgstr ""
+msgstr "使用剪贴板"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEShapeFrame.cpp:227
 msgid "Shapes"
-msgstr ""
+msgstr "形状"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEShapeFrame.cpp:330
 msgid "POILane can be only placed over lanes"
-msgstr ""
+msgstr "POILane只能放置在车道上"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEShapeFrame.cpp:374
 msgid "Current selected shape isn't valid."
-msgstr ""
+msgstr "当前选择的形状无效。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEShapeFrame.cpp:422
 msgid "Polygon shape cannot be empty"
