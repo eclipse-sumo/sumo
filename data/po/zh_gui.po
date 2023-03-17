@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-17 10:08+0000\n"
+"PO-Revision-Date: 2023-03-17 10:42+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
@@ -9216,118 +9216,122 @@ msgstr "参数"
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:908
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:911
 msgid "Additional dialog"
-msgstr ""
+msgstr "额外对话"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:927
 msgid "Open rerouter dialog"
-msgstr ""
+msgstr "打开重定向器对话框"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:933
 msgid "Open calibrator dialog"
-msgstr ""
+msgstr "打开校准器对话框"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:939
 msgid "Open calibrator lane dialog"
-msgstr ""
+msgstr "打开校准器车道的对话框"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:945
 msgid "Open VSS dialog"
-msgstr ""
+msgstr "打开VSS对话框"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:58
 msgid "Apply selection"
-msgstr ""
+msgstr "应用选择"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:112
 msgid "Unknown set"
-msgstr ""
+msgstr "未知数集"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:270
 msgid ""
 "- The 'Match Attribute' controls allow to specify a set of objects which are "
 "then applied to the current selection\n"
-msgstr ""
+msgstr "- 匹配属性 \"控件允许指定一组对象，然后将其应用于当前选择。\n"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:271
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:460
 msgid "  according to the current 'Modification Mode'.\n"
-msgstr ""
+msgstr "  根据当前的 \"修改模式\"。\n"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:272
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:461
 msgid "     1. Select an object type from the first input box\n"
-msgstr ""
+msgstr "     1. 从第一个输入框中选择一个对象类型\n"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:273
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:462
 msgid "     2. Select an attribute from the second input box\n"
-msgstr ""
+msgstr "     2. 从第二个输入框中选择一个属性\n"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:274
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:463
 msgid ""
 "     3. Enter a 'match expression' in the third input box and press "
 "<return>\n"
-msgstr ""
+msgstr "     3. 在第三个输入框中输入一个 \"匹配表达式\"，然后按<回车>。\n"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:276
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:465
 msgid "- The empty expression matches all objects\n"
-msgstr ""
+msgstr "- 空表达式可以匹配所有对象\n"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:277
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:466
 msgid ""
 "- For numerical attributes the match expression must consist of a comparison "
 "operator ('<', '>', '=') and a number.\n"
-msgstr ""
+msgstr "- "
+"对于数字属性，匹配表达式必须由一个比较运算符（'<'、'>'、'='）和一个数字组成。"
+"\n"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:278
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:467
 msgid ""
 "- An object matches if the comparison between its attribute and the given "
 "number by the given operator evaluates to 'true'\n"
-msgstr ""
+msgstr "- 如果一个对象的属性与给定的数字通过给定的运算符进行比较后评估为'真'，则该对"
+"象匹配。\n"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:280
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:469
 msgid ""
 "- For string attributes the match expression must consist of a comparison "
 "operator ('', '=', '!', '^') and a string.\n"
-msgstr ""
+msgstr "- 对于字符串属性，匹配表达式必须由一个比较运算符（''、'='、'！'、'^'）和一个"
+"字符串组成。\n"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:281
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:470
 msgid ""
 "     '' (no operator) matches if string is a substring of that object'ts "
 "attribute.\n"
-msgstr ""
+msgstr "     ''（无操作符）如果字符串是该对象属性的子串，则匹配。\n"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:282
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:471
 msgid "     '=' matches if string is an exact match.\n"
-msgstr ""
+msgstr "     如果字符串是完全匹配的，'='就会匹配。\n"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:283
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:472
 msgid "     '!' matches if string is not a substring.\n"
-msgstr ""
+msgstr "     如果字符串不是子串，则'！'匹配。\n"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:284
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:473
 msgid "     '^' matches if string is not an exact match.\n"
-msgstr ""
+msgstr "     如果字符串不是完全匹配，'^'就会匹配。\n"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:286
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:475
 msgid "- Examples:\n"
-msgstr ""
+msgstr "- 例子:\n"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:287
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:476
 msgid ""
 "     junction; id; 'foo' -> match all junctions that have 'foo' in their id\n"
-msgstr ""
+msgstr "     junction; id; 'foo' -> 匹配所有id中带有'foo'的结点\n"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:288
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:477
@@ -9335,191 +9339,194 @@ msgid ""
 "     junction; type; '=priority' -> match all junctions of type 'priority', "
 "but not of type 'priority_stop'\n"
 msgstr ""
+"     junction; type; '=priority' -> "
+"匹配所有'priority'类型的路口，但不匹配'priority_stop'类型的路口。\n"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:289
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:478
 msgid "     edge; speed; '>10' -> match all edges with a speed above 10\n"
-msgstr ""
+msgstr "     edge; speed; '>10' -> 匹配所有速度高于10的路段\n"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:87
 msgid "speed"
-msgstr ""
+msgstr "速度"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:459
 msgid ""
 "- The 'MatchGenericData Attribute' controls allow to specify a set of "
 "objects which are then applied to the current selection\n"
-msgstr ""
+msgstr "-- MatchGenericData Attribute \"控件允许指定一组对象"
+"，然后将其应用于当前选择。\n"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMoveFrame.cpp:64
 msgid "Common move options"
-msgstr ""
+msgstr "常见的移动选项"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMoveFrame.cpp:66
 msgid "Allow change lanes"
-msgstr ""
+msgstr "允许改变车道"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMoveFrame.cpp:69
 msgid "Merge geometry points"
-msgstr ""
+msgstr "合并几何点"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMoveFrame.cpp:93
 msgid "Network move options"
-msgstr ""
+msgstr "网络移动选项"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMoveFrame.cpp:96
 msgid "Move whole polygons"
-msgstr ""
+msgstr "移动整个多边形"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMoveFrame.cpp:132
 msgid "Demand move options"
-msgstr ""
+msgstr "需求移动选项"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMoveFrame.cpp:135
 msgid "Leave stopPersons connected"
-msgstr ""
+msgstr "离开停止的人的联系"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMoveFrame.cpp:171
 msgid "Shift selected edges geometry"
-msgstr ""
+msgstr "移动所选边缘的几何形状"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMoveFrame.cpp:180
 msgid "Apply shift value"
-msgstr ""
+msgstr "应用移位值"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMoveFrame.cpp:180
 msgid ""
 "Shift edge geometry orthogonally to driving direction for all selected edges"
-msgstr ""
+msgstr "对于所有选定的路段，将路段的几何形状正交于驱动方向"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMoveFrame.cpp:251
 msgid "Change Z in selection"
-msgstr ""
+msgstr "改变选择中的Z"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMoveFrame.cpp:260
 msgid "Absolute value"
-msgstr ""
+msgstr "绝对值"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMoveFrame.cpp:260
 msgid "Set Z value as absolute"
-msgstr ""
+msgstr "设置Z值为绝对值"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMoveFrame.cpp:262
 msgid "Relative value"
-msgstr ""
+msgstr "相对值"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMoveFrame.cpp:262
 msgid "Set Z value as relative"
-msgstr ""
+msgstr "设置Z值为相对值"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMoveFrame.cpp:265
 msgid "Apply Z value"
-msgstr ""
+msgstr "应用Z值"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMoveFrame.cpp:265
 msgid "Apply Z value to all selected junctions"
-msgstr ""
+msgstr "将Z值应用于所有选定的结点"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMoveFrame.cpp:518
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMoveFrame.cpp:534
 msgid "Shift shape geometry"
-msgstr ""
+msgstr "转移形状的几何图形"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMoveFrame.cpp:534
 msgid ""
 "Shift shape geometry orthogonally to driving direction for all selected "
 "shapes"
-msgstr ""
+msgstr "对于所有选定的形状，将形状的几何形状正交于驱动方向"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMoveFrame.cpp:619
 msgid "-Click over edge to"
-msgstr ""
+msgstr "-点击路段上的"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMoveFrame.cpp:620
 msgid " create or edit"
-msgstr ""
+msgstr " 创建或编辑"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMoveFrame.cpp:621
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMoveFrame.cpp:624
 msgid " geometry point."
-msgstr ""
+msgstr " 几何点。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMoveFrame.cpp:622
 msgid "-Shift+click over edge"
-msgstr ""
+msgstr "-Shift+click 路段"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMoveFrame.cpp:623
 msgid " to edit start or end"
-msgstr ""
+msgstr " 编辑开始或结束"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMoveFrame.cpp:628
 msgid "-Move geometry point"
-msgstr ""
+msgstr "-移动几何点"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEMoveFrame.cpp:631
 msgid "-Merge geometry point"
-msgstr ""
+msgstr "-合并几何点"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNESelectorFrame.cpp:77
 msgid "Selection information"
-msgstr ""
+msgstr "选择信息"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNESelectorFrame.cpp:149
 msgid "Modification Mode"
-msgstr ""
+msgstr "修改模式"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNESelectorFrame.cpp:152
 msgid "add"
-msgstr ""
+msgstr "添加"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNESelectorFrame.cpp:152
 msgid "Selected objects are added to the previous selection"
-msgstr ""
+msgstr "被选中的对象被添加到前一个选择中"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNESelectorFrame.cpp:154
 msgid "remove"
-msgstr ""
+msgstr "删除"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNESelectorFrame.cpp:154
 msgid "Selected objects are removed from the previous selection"
-msgstr ""
+msgstr "选定的对象将从先前的选择中移除"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNESelectorFrame.cpp:156
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:662
 msgid "keep"
-msgstr ""
+msgstr "保持"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNESelectorFrame.cpp:156
 msgid "Restrict previous selection by the current selection"
-msgstr ""
+msgstr "通过当前的选择来限制以前的选择"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNESelectorFrame.cpp:158
 msgid "replace"
-msgstr ""
+msgstr "替换"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNESelectorFrame.cpp:158
 msgid "Replace previous selection by the current selection"
-msgstr ""
+msgstr "用当前的选择取代之前的选择"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNESelectorFrame.cpp:213
 msgid "Visual Scaling"
-msgstr ""
+msgstr "视觉缩放"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNESelectorFrame.cpp:242
 msgid "Selection operations"
-msgstr ""
+msgstr "选择操作"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNESelectorFrame.cpp:251
 msgid "Deselect all objects (hotkey: ESC)"
-msgstr ""
+msgstr "取消选择所有对象（热键：ESC）"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNESelectorFrame.cpp:253
 msgid "Invert"
-msgstr ""
+msgstr "反转"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNESelectorFrame.cpp:253
 msgid "Invert selection status of all objects"
-msgstr ""
+msgstr "反转所有对象的选择状态"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNESelectorFrame.cpp:255
 msgid "Save ids of currently selected objects to a file."
