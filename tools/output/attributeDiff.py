@@ -62,6 +62,7 @@ def get_options():
 
     return options
 
+
 def write(fname, values, root):
     with open(fname, 'w') as f:
         sumolib.writeXMLHeader(f, root=root)
