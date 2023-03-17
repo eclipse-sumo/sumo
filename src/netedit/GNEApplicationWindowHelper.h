@@ -1121,6 +1121,9 @@ struct GNEApplicationWindowHelper {
     /// @brief open joined junctions file dialog
     static std::string saveJoinedJunctionsFileDialog(FXWindow* window);
 
+    /// @brief open tool file dialog
+    static std::string saveToolLog(FXWindow* window);
+
     /// @brief open OSM file dialog
     static std::string openOSMFileDialog(FXWindow* window);
 

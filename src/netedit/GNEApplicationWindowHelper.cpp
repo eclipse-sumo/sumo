@@ -2698,6 +2698,14 @@ GNEApplicationWindowHelper::saveJoinedJunctionsFileDialog(FXWindow* window) {
 
 
 std::string
+GNEApplicationWindowHelper::saveToolLog(FXWindow* window) {
+    return openFileDialog(window, TL("Save tool log"), GUIIcon::SAVE,
+        TL("Text file (*.txt)") + std::string("\n") +
+        TL("All files (*)"), true);
+}
+
+
+std::string
 GNEApplicationWindowHelper::openOSMFileDialog(FXWindow* window) {
     return openFileDialog(window, TL("Open OSM file"), GUIIcon::OPEN_NET,
         TL("OSM net (*.osm.xml,*.osm)"), false);

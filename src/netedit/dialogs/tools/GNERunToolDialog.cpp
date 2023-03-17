@@ -154,6 +154,14 @@ GNERunToolDialog::onCmdRerun(FXObject*, FXSelector, void*) {
 
 long
 GNERunToolDialog::onCmdSaveLog(FXObject*, FXSelector, void*) {
+    // get log file
+    const auto logFile = GNEApplicationWindowHelper::saveToolLog(this);
+    // check that file is valid
+    if (logFile.size() > 0) {
+        OutputDevice& dev = OutputDevice::getDevice(logFile);
+        dev << myText->getText().text();
+        dev.close();
+    }
     return 1;
 }
 
