@@ -76,26 +76,26 @@ public:
     /// @brief event after press abort button
     long onCmdAbort(FXObject*, FXSelector, void*);
 
-    /// @brief event for updating abort button
+    /// @brief event for update abort button
     long onUpdAbort(FXObject*, FXSelector, void*);
 
     /// @brief event after press rerun button
     long onCmdRerun(FXObject*, FXSelector, void*);
 
-    /// @brief event for updating rerun button
+    /// @brief event for update rerun button
     long onUpdRerun(FXObject*, FXSelector, void*);
 
     /// @brief event after press back button
     long onCmdBack(FXObject*, FXSelector, void*);
 
-    /// @brief event for updating back button
+    /// @brief event for update back button
     long onUpdBack(FXObject*, FXSelector, void*);
 
-    /// @brief event after press OK button
-    long onCmdOK(FXObject*, FXSelector, void*);
+    /// @brief event after press close button
+    long onCmdClose(FXObject*, FXSelector, void*);
 
-    /// @brief event after press OK button
-    long onUpdOK(FXObject*, FXSelector, void*);
+    /// @brief event for update close button
+    long onUpdClose(FXObject*, FXSelector, void*);
 
     /// @}
 
@@ -115,6 +115,18 @@ private:
 
     /// @brief text
     FXText* myText = nullptr;
+
+    /// @brief abort button
+    FXButton* myAbortButton = nullptr;
+
+    /// @brief rerun button
+    FXButton* myRerunButton = nullptr;
+
+    /// @brief back button
+    FXButton* myBackButton = nullptr;
+
+    /// @brief close button
+    FXButton* myCloseButton = nullptr;
 
     /// @brief Invalidated copy constructor.
     GNERunToolDialog(const GNERunToolDialog&) = delete;
