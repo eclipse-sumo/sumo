@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-17 10:52+0000\n"
+"PO-Revision-Date: 2023-03-17 12:58+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
@@ -9534,209 +9534,209 @@ msgstr "将当前选择的对象的ID保存到一个文件中。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNESelectorFrame.cpp:257
 msgid "Load ids from a file according to the current modification mode."
-msgstr ""
+msgstr "根据当前的修改模式，从文件中加载id。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNESelectorFrame.cpp:259
 msgid "Delete all selected objects (hotkey: DEL)"
-msgstr ""
+msgstr "删除所有选定的对象（热键：DEL）"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNESelectorFrame.cpp:261
 msgid "Reduce"
-msgstr ""
+msgstr "减少"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNESelectorFrame.cpp:261
 msgid "Reduce network to current selection."
-msgstr ""
+msgstr "将网络减少到当前的选择。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNESelectorFrame.cpp:286
 msgid "Could not open '%'."
-msgstr ""
+msgstr "无法打开'%'。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNESelectorFrame.cpp:334
 #: /home/micha/programming/sumo/src\utils\gui\div\GUIDialog_GLChosenEditor.cpp:148
 msgid "Save List of selected Items"
-msgstr ""
+msgstr "保存所选项目的清单"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1116
 msgid "Hierarchy operations"
-msgstr ""
+msgstr "层次结构操作"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1127
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1137
 msgid "Select"
-msgstr ""
+msgstr "选择"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1129
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1139
 msgid "Unselect"
-msgstr ""
+msgstr "未选择"
 
 #: /home/micha/programming/sumo/src\netedit\frames\data\GNEEdgeDataFrame.cpp:51
 msgid "There is already a % in edge '%'"
-msgstr ""
+msgstr "边缘'%'中已经有一个%"
 
 #: /home/micha/programming/sumo/src\netedit\frames\data\GNEGenericDataFrame.cpp:69
 msgid "DataSet"
-msgstr ""
+msgstr "数据组"
 
 #: /home/micha/programming/sumo/src\netedit\frames\data\GNEGenericDataFrame.cpp:72
 msgid "Create new dataSet"
-msgstr ""
+msgstr "创建新的数据组"
 
 #: /home/micha/programming/sumo/src\netedit\frames\data\GNEGenericDataFrame.cpp:83
 msgid "Create dataSet"
-msgstr ""
+msgstr "创建数据组"
 
 #: /home/micha/programming/sumo/src\netedit\frames\data\GNEGenericDataFrame.cpp:140
 msgid "Invalid dataSet ID"
-msgstr ""
+msgstr "无效的数据组ID"
 
 #: /home/micha/programming/sumo/src\netedit\frames\data\GNEGenericDataFrame.cpp:142
 msgid "Invalid empty dataSet ID"
-msgstr ""
+msgstr "无效的空数据组ID"
 
 #: /home/micha/programming/sumo/src\netedit\frames\data\GNEGenericDataFrame.cpp:144
 msgid "Invalid duplicated dataSet ID"
-msgstr ""
+msgstr "无效重复的数据组ID"
 
 #: /home/micha/programming/sumo/src\netedit\frames\data\GNEGenericDataFrame.cpp:198
 msgid "Interval"
-msgstr ""
+msgstr "间隔"
 
 #: /home/micha/programming/sumo/src\netedit\frames\data\GNEGenericDataFrame.cpp:201
 msgid "Create new interval"
-msgstr ""
+msgstr "创建新的间隔时间"
 
 #: /home/micha/programming/sumo/src\netedit\frames\data\GNEGenericDataFrame.cpp:219
 msgid "create interval"
-msgstr ""
+msgstr "创建时间间隔"
 
 #: /home/micha/programming/sumo/src\netedit\frames\data\GNEGenericDataFrame.cpp:392
 msgid "Data attributes"
-msgstr ""
+msgstr "数据属性"
 
 #: /home/micha/programming/sumo/src\netedit\frames\data\GNEMeanDataFrame.cpp:68
 msgid "MeanData Type"
-msgstr ""
+msgstr "MeanData 类型"
 
 #: /home/micha/programming/sumo/src\netedit\frames\data\GNEMeanDataFrame.cpp:161
 msgid "MeanData Editor"
-msgstr ""
+msgstr "MeanData编辑"
 
 #: /home/micha/programming/sumo/src\netedit\frames\data\GNEMeanDataFrame.cpp:164
 msgid "Create MeanData"
-msgstr ""
+msgstr "创建MeanData"
 
 #: /home/micha/programming/sumo/src\netedit\frames\data\GNEMeanDataFrame.cpp:167
 msgid "Delete MeanData"
-msgstr ""
+msgstr "删除MeanData"
 
 #: /home/micha/programming/sumo/src\netedit\frames\data\GNEMeanDataFrame.cpp:170
 msgid "Copy MeanData"
-msgstr ""
+msgstr "复制MeanData"
 
 #: /home/micha/programming/sumo/src\netedit\frames\data\GNEMeanDataFrame.cpp:276
 msgid "Current MeanData"
-msgstr ""
+msgstr "当前的 MeanData"
 
 #: /home/micha/programming/sumo/src\netedit\frames\data\GNETAZRelDataFrame.cpp:54
 msgid "Confirm TAZRelation"
-msgstr ""
+msgstr "确认交通分区（TAZ）的关系"
 
 #: /home/micha/programming/sumo/src\netedit\frames\data\GNETAZRelDataFrame.cpp:56
 msgid "Create TAZRelation"
-msgstr ""
+msgstr "创建交通分区关系（TAZRelation）"
 
 #: /home/micha/programming/sumo/src\netedit\frames\data\GNETAZRelDataFrame.cpp:56
 msgid "Click fromTaz and toTaz (confirm hotkey <ENTER>)"
-msgstr ""
+msgstr "点击从Taz到 Taz（确认热键<ENTER>）"
 
 #: /home/micha/programming/sumo/src\netedit\frames\data\GNETAZRelDataFrame.cpp:58
 msgid "Clear selection"
-msgstr ""
+msgstr "清除选择"
 
 #: /home/micha/programming/sumo/src\netedit\frames\data\GNETAZRelDataFrame.cpp:58
 msgid "Clear selected TAZs (hotkey <ESC>)"
-msgstr ""
+msgstr "清除选定的TAZ（热键<ESC>）"
 
 #: /home/micha/programming/sumo/src\netedit\frames\data\GNETAZRelDataFrame.cpp:122
 msgid "From TAZ"
-msgstr ""
+msgstr "来自TAZ"
 
 #: /home/micha/programming/sumo/src\netedit\frames\data\GNETAZRelDataFrame.cpp:128
 msgid "To TAZ"
-msgstr ""
+msgstr "至TAZ"
 
 #: /home/micha/programming/sumo/src\netedit\frames\data\GNETAZRelDataFrame.cpp:177
 #, c-format
 msgid "A % must be defined within an interval."
-msgstr ""
+msgstr "必须在一个区间内定义一个%"
 
 #: /home/micha/programming/sumo/src\netedit\frames\data\GNETAZRelDataFrame.cpp:179
 msgid "There is already a % defined in TAZ'%'."
-msgstr ""
+msgstr "在交通分区（TAZ）'%'中已经有一个%的定义。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\data\GNETAZRelDataFrame.cpp:181
 msgid "There is already a % defined between TAZ'%' and '%'."
-msgstr ""
+msgstr "在TAZ'%'和'%'之间已经定义了一个%。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\demand\GNEContainerFrame.cpp:117
 #: /home/micha/programming/sumo/src\netedit\frames\demand\GNEContainerPlanFrame.cpp:114
 msgid "Current selected container isn't valid."
-msgstr ""
+msgstr "当前选择的容器无效。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\demand\GNEContainerFrame.cpp:122
 msgid "Current selected container type isn't valid."
-msgstr ""
+msgstr "当前选择的容器类型无效。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\demand\GNEContainerFrame.cpp:127
 #: /home/micha/programming/sumo/src\netedit\frames\demand\GNEContainerPlanFrame.cpp:119
 msgid "Current selected container plan isn't valid."
-msgstr ""
+msgstr "当前选择的容器计划无效。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\demand\GNEContainerFrame.cpp:242
 #: /home/micha/programming/sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:285
 msgid "VType with vClass == 'pedestrian' is oriented to pedestrians"
-msgstr ""
+msgstr "带有vClass == 'pedestrian'的VType是面向行人的"
 
 #: /home/micha/programming/sumo/src\netedit\frames\demand\GNEContainerFrame.cpp:244
 msgid "VType with vClass != 'ignoring' is not oriented to containers"
-msgstr ""
+msgstr "带有vClass != 'ignoring'的VType不是面向容器的"
 
 #: /home/micha/programming/sumo/src\netedit\frames\demand\GNEContainerFrame.cpp:267
 msgid "Invalid container parameters."
-msgstr ""
+msgstr "无效的容器参数。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\demand\GNEPersonFrame.cpp:117
 #: /home/micha/programming/sumo/src\netedit\frames\demand\GNEPersonPlanFrame.cpp:140
 msgid "Current selected person isn't valid."
-msgstr ""
+msgstr "目前被选中的人是无效的。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\demand\GNEPersonFrame.cpp:122
 msgid "Current selected person type isn't valid."
-msgstr ""
+msgstr "当前选择的人员类型无效。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\demand\GNEPersonFrame.cpp:127
 #: /home/micha/programming/sumo/src\netedit\frames\demand\GNEPersonPlanFrame.cpp:146
 msgid "Current selected person plan isn't valid."
-msgstr ""
+msgstr "目前选定的人的计划是无效的。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\demand\GNEPersonFrame.cpp:250
 #: /home/micha/programming/sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:287
 msgid "VType with vClass == 'ignoring' is oriented to containers"
-msgstr ""
+msgstr "带有vClass == 'ignoring'的VType是面向容器的"
 
 #: /home/micha/programming/sumo/src\netedit\frames\demand\GNEPersonFrame.cpp:252
 msgid "VType with vClass != 'pedestrian' is not oriented to persons"
-msgstr ""
+msgstr "带有vClass != 'pedestrian'的VType不是面向人的"
 
 #: /home/micha/programming/sumo/src\netedit\frames\demand\GNEPersonFrame.cpp:275
 msgid "Invalid person parameters."
-msgstr ""
+msgstr "无效的人员参数。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\demand\GNERouteFrame.cpp:52
 msgid "Route mode"
-msgstr ""
+msgstr "路径模式"
 
 #: /home/micha/programming/sumo/src\netedit\frames\demand\GNEStopFrame.cpp:71
 #: /home/micha/programming/sumo/src\netedit\frames\demand\GNEStopFrame.cpp:78
@@ -9744,115 +9744,115 @@ msgstr ""
 #: /home/micha/programming/sumo/src\netedit\frames\demand\GNEStopFrame.cpp:92
 #: /home/micha/programming/sumo/src\netedit\frames\demand\GNEStopFrame.cpp:99
 msgid "- Shift+Click to select parent\n"
-msgstr ""
+msgstr "- Shift+Click选择母体\n"
 
 #: /home/micha/programming/sumo/src\netedit\frames\demand\GNEStopFrame.cpp:72
 msgid "- Click over a bus stop to\n"
-msgstr ""
+msgstr "- 点击公共汽车站上方的\n"
 
 #: /home/micha/programming/sumo/src\netedit\frames\demand\GNEStopFrame.cpp:73
 msgid "  create a stop."
-msgstr ""
+msgstr "  创建一个站位。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\demand\GNEStopFrame.cpp:79
 msgid "- Click over a container stop\n"
-msgstr ""
+msgstr "- 在一个容器上点击停止\n"
 
 #: /home/micha/programming/sumo/src\netedit\frames\demand\GNEStopFrame.cpp:80
 #: /home/micha/programming/sumo/src\netedit\frames\demand\GNEStopFrame.cpp:87
 #: /home/micha/programming/sumo/src\netedit\frames\demand\GNEStopFrame.cpp:94
 msgid "  to create a stop."
-msgstr ""
+msgstr "  来创建一个站。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\demand\GNEStopFrame.cpp:86
 msgid "- Click over a charging station\n"
-msgstr ""
+msgstr "- 点击进入充电站\n"
 
 #: /home/micha/programming/sumo/src\netedit\frames\demand\GNEStopFrame.cpp:93
 msgid "- Click over a parking area\n"
-msgstr ""
+msgstr "- 在停车区上方点击\n"
 
 #: /home/micha/programming/sumo/src\netedit\frames\demand\GNEStopFrame.cpp:100
 msgid "- Click over a lane to create\n"
-msgstr ""
+msgstr "- 在一个车道上点击，创建\n"
 
 #: /home/micha/programming/sumo/src\netedit\frames\demand\GNEStopFrame.cpp:101
 msgid "  a stop."
-msgstr ""
+msgstr "  一个停靠。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\demand\GNEStopFrame.cpp:105
 msgid "- No stop parents in current\n"
-msgstr ""
+msgstr "- 目前没有停靠的母体\n"
 
 #: /home/micha/programming/sumo/src\netedit\frames\demand\GNEStopFrame.cpp:106
 msgid "  network."
-msgstr ""
+msgstr "  网络。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\demand\GNEStopFrame.cpp:189
 msgid "Selected Stop type isn't valid."
-msgstr ""
+msgstr "所选停靠类型无效。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\demand\GNEStopFrame.cpp:197
 msgid "Selected % '%' as stop parent."
-msgstr ""
+msgstr "选择了%'%'作为停靠的母体。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\demand\GNEStopFrame.cpp:200
 msgid "Selected Stop parent isn't valid."
-msgstr ""
+msgstr "选定的 停靠母体是无效的。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\demand\GNEStopFrame.cpp:206
 msgid "Current selected Stop parent isn't valid."
-msgstr ""
+msgstr "当前选定的 停靠母体是无效的。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\demand\GNEStopFrame.cpp:237
 msgid "Current selected Stop type isn't valid."
-msgstr ""
+msgstr "当前选择的停靠类型无效。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\demand\GNEStopFrame.cpp:336
 msgid "Stop must be placed over a route's edge"
-msgstr ""
+msgstr "停靠必须放在路径的路段上"
 
 #: /home/micha/programming/sumo/src\netedit\frames\demand\GNEStopFrame.cpp:349
 msgid "Stop must be placed over an embedded route's edge"
-msgstr ""
+msgstr "必须在嵌入路线的路段上设置停车位"
 
 #: /home/micha/programming/sumo/src\netedit\frames\demand\GNETypeFrame.cpp:68
 msgid "Current Type"
-msgstr ""
+msgstr "当前类型"
 
 #: /home/micha/programming/sumo/src\netedit\frames\demand\GNETypeFrame.cpp:225
 msgid "Type Editor"
-msgstr ""
+msgstr "类型编辑"
 
 #: /home/micha/programming/sumo/src\netedit\frames\demand\GNETypeFrame.cpp:228
 msgid "Create Type"
-msgstr ""
+msgstr "创建类型"
 
 #: /home/micha/programming/sumo/src\netedit\frames\demand\GNETypeFrame.cpp:230
 #: /home/micha/programming/sumo/src\netedit\frames\demand\GNETypeFrame.cpp:275
 msgid "Delete Type"
-msgstr ""
+msgstr "删除类型"
 
 #: /home/micha/programming/sumo/src\netedit\frames\demand\GNETypeFrame.cpp:232
 msgid "Copy Type"
-msgstr ""
+msgstr "复制类型"
 
 #: /home/micha/programming/sumo/src\netedit\frames\demand\GNETypeFrame.cpp:263
 msgid "Reset Type"
-msgstr ""
+msgstr "重置类型"
 
 #: /home/micha/programming/sumo/src\netedit\frames\demand\GNETypeFrame.cpp:418
 msgid "VType Distributions"
-msgstr ""
+msgstr "V类型分布"
 
 #: /home/micha/programming/sumo/src\netedit\frames\demand\GNETypeFrame.cpp:421
 msgid "Show VType Distributions"
-msgstr ""
+msgstr "显示V型分布"
 
 #: /home/micha/programming/sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:71
 #: /home/micha/programming/sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:93
 msgid "- Click over a route to\n"
-msgstr ""
+msgstr "- 在一条路线上点击，以\n"
 
 #: /home/micha/programming/sumo/src\netedit\frames\demand\GNEVehicleFrame.cpp:72
 msgid "  create a vehicle."
