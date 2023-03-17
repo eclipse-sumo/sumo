@@ -563,8 +563,8 @@ def main(options):
     if not options.skipBuilding:
         if options.verbose:
             print("Building new net")
-        NETCONVERT = sumolib.checkBinary('netconvert')
-        subprocess.call([NETCONVERT,
+        sys.stderr.flush()
+        subprocess.call([sumolib.checkBinary('netconvert'),
                          '-s', options.netfile,
                          '-n', options.output_nodes,
                          '-e', options.output_edges,
