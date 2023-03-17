@@ -47,7 +47,7 @@ public:
 
     public:
         /// @brief constructor
-        Argument(GNEToolDialog* toolDialogParent, const std::string &parameter, const Option* option);
+        Argument(GNEToolDialog* toolDialogParent, const std::string &parameter, Option* option);
 
         /// @brief destructor
         ~Argument();
@@ -82,7 +82,10 @@ public:
         /// @brief get value
         virtual const std::string getValue() const = 0;
 
-        /// @brief argument name
+        /// @brief option
+        Option* myOption;
+
+        /// @brief default value
         const std::string myDefaultValue;
 
         /// @brief auxliar text field for textfield frames
@@ -109,7 +112,7 @@ public:
 
     public:
         /// @brief constructor
-        FileNameArgument(GNEToolDialog* toolDialogParent, const std::string name, const Option* option);
+        FileNameArgument(GNEToolDialog* toolDialogParent, const std::string name, Option* option);
     
         /// @brief reset to default value
         void reset();
@@ -146,7 +149,7 @@ public:
 
     public:
         /// @brief constructor
-        StringArgument(GNEToolDialog* toolDialogParent, const std::string name, const Option* option);
+        StringArgument(GNEToolDialog* toolDialogParent, const std::string name, Option* option);
 
         /// @brief reset to default value
         void reset();
@@ -174,7 +177,7 @@ public:
 
     public:
         /// @brief constructor
-        IntArgument(GNEToolDialog* toolDialogParent, const std::string name, const Option* option);
+        IntArgument(GNEToolDialog* toolDialogParent, const std::string name, Option* option);
 
         /// @brief reset to default value
         void reset();
@@ -202,7 +205,7 @@ public:
 
     public:
         /// @brief constructor
-        FloatArgument(GNEToolDialog* toolDialogParent, const std::string name, const Option* option);
+        FloatArgument(GNEToolDialog* toolDialogParent, const std::string name, Option* option);
     
         /// @brief reset to default value
         void reset();
@@ -231,7 +234,7 @@ public:
 
     public:
         /// @brief constructor
-        BoolArgument(GNEToolDialog* toolDialogParent, const std::string name, const Option* option);
+        BoolArgument(GNEToolDialog* toolDialogParent, const std::string name, Option* option);
 
         /// @brief reset to default value
         void reset();

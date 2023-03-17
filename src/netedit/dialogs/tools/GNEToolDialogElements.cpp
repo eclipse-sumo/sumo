@@ -53,8 +53,9 @@ FXIMPLEMENT(GNEToolDialogElements::FileNameArgument,    GNEToolDialogElements::A
 // GNEToolDialogElements::Argument - methods
 // ---------------------------------------------------------------------------
 
-GNEToolDialogElements::Argument::Argument(GNEToolDialog* toolDialogParent, const std::string &parameter, const Option* option) :
+GNEToolDialogElements::Argument::Argument(GNEToolDialog* toolDialogParent, const std::string &parameter, Option* option) :
     FXHorizontalFrame(toolDialogParent->myContentFrame, GUIDesignAuxiliarHorizontalFrame),
+    myOption(option),
     myDefaultValue((option->getValueString() == "None")? "" : option->getValueString()) {
     // create parameter label
     myParameterLabel = new MFXLabelTooltip(this, toolDialogParent->myGNEApp->getStaticTooltipMenu(), parameter.c_str(), nullptr, GUIDesignLabelThickedFixed(0));
@@ -112,7 +113,7 @@ GNEToolDialogElements::Argument::Argument() {}
 // ---------------------------------------------------------------------------
 
 GNEToolDialogElements::FileNameArgument::FileNameArgument(GNEToolDialog* toolDialogParent, 
-        const std::string name, const Option* option) :
+        const std::string name, Option* option) :
     Argument(toolDialogParent, name, option) {
     // Create Open button
     myFilenameButton = new FXButton(myAuxiliarTextFieldFrame, (std::string("\t\t") + TL("Select filename")).c_str(), 
@@ -129,6 +130,8 @@ GNEToolDialogElements::FileNameArgument::FileNameArgument(GNEToolDialog* toolDia
 void
 GNEToolDialogElements::FileNameArgument::reset() {
     myFilenameTextField->setText(myDefaultValue.c_str());
+    myOption->set(myDefaultValue, myDefaultValue, false);
+    myOption->resetDefault();
 }
 
 
@@ -140,6 +143,12 @@ GNEToolDialogElements::FileNameArgument::onCmdOpenFilename(FXObject*, FXSelector
 
 long
 GNEToolDialogElements::FileNameArgument::onCmdSetValue(FXObject*, FXSelector, void*) {
+    myOption->resetWritable();
+    if (myFilenameTextField->getText().empty()) {
+        reset();
+    } else {
+        myOption->set(myFilenameTextField->getText().text(), myFilenameTextField->getText().text(), false);
+    }
     return 1;
 }
 
@@ -156,7 +165,7 @@ GNEToolDialogElements::FileNameArgument::getValue() const {
 // GNEToolDialogElements::StringArgument - methods
 // ---------------------------------------------------------------------------
 
-GNEToolDialogElements::StringArgument::StringArgument(GNEToolDialog* toolDialogParent, const std::string name, const Option* option) :
+GNEToolDialogElements::StringArgument::StringArgument(GNEToolDialog* toolDialogParent, const std::string name, Option* option) :
     Argument(toolDialogParent, name, option) {
     // create text field for string
     myStringTextField = new FXTextField(myAuxiliarTextFieldFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
@@ -169,11 +178,19 @@ GNEToolDialogElements::StringArgument::StringArgument(GNEToolDialog* toolDialogP
 void
 GNEToolDialogElements::StringArgument::reset() {
     myStringTextField->setText(myDefaultValue.c_str());
+    myOption->set(myDefaultValue, myDefaultValue, false);
+    myOption->resetDefault();
 }
 
 
 long
 GNEToolDialogElements::StringArgument::onCmdSetValue(FXObject*, FXSelector, void*) {
+    myOption->resetWritable();
+    if (myStringTextField->getText().empty()) {
+        reset();
+    } else {
+        myOption->set(myStringTextField->getText().text(), myStringTextField->getText().text(), false);
+    }
     return 1;
 }
 
@@ -187,7 +204,7 @@ GNEToolDialogElements::StringArgument::getValue() const {
 // GNEToolDialogElements::IntArgument - methods
 // ---------------------------------------------------------------------------
 
-GNEToolDialogElements::IntArgument::IntArgument(GNEToolDialog* toolDialogParent, const std::string name, const Option* option) :
+GNEToolDialogElements::IntArgument::IntArgument(GNEToolDialog* toolDialogParent, const std::string name, Option* option) :
     Argument(toolDialogParent, name, option) {
     // create text field for int
     myIntTextField = new FXTextField(myAuxiliarTextFieldFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldRestricted(TEXTFIELD_INTEGER));
@@ -200,11 +217,19 @@ GNEToolDialogElements::IntArgument::IntArgument(GNEToolDialog* toolDialogParent,
 void
 GNEToolDialogElements::IntArgument::reset() {
     myIntTextField->setText(myDefaultValue.c_str());
+    myOption->set(myDefaultValue, myDefaultValue, false);
+    myOption->resetDefault();
 }
 
 
 long
 GNEToolDialogElements::IntArgument::onCmdSetValue(FXObject*, FXSelector, void*) {
+    myOption->resetWritable();
+    if (myIntTextField->getText().empty()) {
+        reset();
+    } else {
+        myOption->set(myIntTextField->getText().text(), myIntTextField->getText().text(), false);
+    }
     return 1;
 }
 
@@ -218,7 +243,7 @@ GNEToolDialogElements::IntArgument::getValue() const {
 // GNEToolDialogElements::FloatArgument - methods
 // ---------------------------------------------------------------------------
 
-GNEToolDialogElements::FloatArgument::FloatArgument(GNEToolDialog* toolDialogParent, const std::string name, const Option* option) :
+GNEToolDialogElements::FloatArgument::FloatArgument(GNEToolDialog* toolDialogParent, const std::string name, Option* option) :
     Argument(toolDialogParent, name, option) {
     // create text field for float
     myFloatTextField = new FXTextField(myAuxiliarTextFieldFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldRestricted(TEXTFIELD_REAL));
@@ -231,11 +256,19 @@ GNEToolDialogElements::FloatArgument::FloatArgument(GNEToolDialog* toolDialogPar
 void
 GNEToolDialogElements::FloatArgument::reset() {
     myFloatTextField->setText(myDefaultValue.c_str());
+    myOption->set(myDefaultValue, myDefaultValue, false);
+    myOption->resetDefault();
 }
 
 
 long
 GNEToolDialogElements::FloatArgument::onCmdSetValue(FXObject*, FXSelector, void*) {
+    myOption->resetWritable();
+    if (myFloatTextField->getText().empty()) {
+        reset();
+    } else {
+        myOption->set(myFloatTextField->getText().text(), myFloatTextField->getText().text(), false);
+    }
     return 1;
 }
 
@@ -249,7 +282,7 @@ GNEToolDialogElements::FloatArgument::getValue() const {
 // GNEToolDialogElements::BoolArgument - methods
 // ---------------------------------------------------------------------------
 
-GNEToolDialogElements::BoolArgument::BoolArgument(GNEToolDialog* toolDialogParent, const std::string name, const Option* option) :
+GNEToolDialogElements::BoolArgument::BoolArgument(GNEToolDialog* toolDialogParent, const std::string name, Option* option) :
     Argument(toolDialogParent, name, option) {
     // create check button
     myCheckButton = new FXCheckButton(myAuxiliarTextFieldFrame, "" , this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
@@ -268,15 +301,20 @@ GNEToolDialogElements::BoolArgument::reset() {
         myCheckButton->setCheck(FALSE);
         myCheckButton->setText(TL("false"));
     }
+    myOption->set(myDefaultValue, myDefaultValue, false);
+    myOption->resetDefault();
 }
 
 
 long
 GNEToolDialogElements::BoolArgument::onCmdSetValue(FXObject*, FXSelector, void*) {
+    myOption->resetWritable();
     if (myCheckButton->getCheck() == TRUE) {
         myCheckButton->setText(TL("true"));
+        myOption->set("true", "true", false);
     } else {
         myCheckButton->setText(TL("false"));
+        myOption->set("false", "false", false);
     }
     return 1;
 }
