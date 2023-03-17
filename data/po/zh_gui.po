@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-16 15:36+0000\n"
+"PO-Revision-Date: 2023-03-17 10:06+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
@@ -9170,36 +9170,36 @@ msgstr " SUMO使用世界大地测量系统84（WGS84/UTM）。\n"
 msgid ""
 " For a GEO-referenced network, geo coordinates are represented as pairs of "
 "Longitude and Latitude\n"
-msgstr ""
+msgstr " 对于GEO-referenced网络，地理坐标表示为一对经度和纬度\n"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:553
 msgid " in decimal degrees without extra symbols. (N,W..)\n"
-msgstr ""
+msgstr " 以十进制度数为单位，没有额外的符号。(N,W.)\n"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:554
 msgid " - Longitude: East-west position of a point on the Earth's surface.\n"
-msgstr ""
+msgstr " - 经度：地球表面一个点的东西方向的位置。\n"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:555
 msgid " - Latitude: North-south position of a point on the Earth's surface.\n"
-msgstr ""
+msgstr " - 纬度：地球表面上一个点的南北位置。\n"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:556
 msgid ""
 " - CheckBox 'geo' enables or disables saving position in GEO coordinates\n"
-msgstr ""
+msgstr " - 复选框 \"geo \"启用或禁用以GEO坐标保存位置。\n"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:570
 msgid "Templates"
-msgstr ""
+msgstr "模板"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:574
 msgid "Set as Template"
-msgstr ""
+msgstr "设为模板"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:578
 msgid "clear Edge Template"
-msgstr ""
+msgstr "清除路段模板"
 
 #: /home/micha/programming/sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:673
 msgid "Only one edge must be inspected"
