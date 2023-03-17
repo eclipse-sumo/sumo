@@ -274,14 +274,16 @@ Lane::getInternalFoes(const std::string& laneID) {
     //return Dom::getFoes(laneID, "");
 }
 
+
 const std::vector<std::string>
 Lane::getPendingVehicles(const std::string& laneID) {
     return Dom::getStringVector(libsumo::VAR_PENDING_VEHICLES, laneID);
 }
 
+
 void
 Lane::setAllowed(const std::string& laneID, std::string allowedClass) {
-    Dom::setString(libsumo::LANE_ALLOWED, laneID, allowedClass);
+    setAllowed(laneID, std::vector<std::string>({allowedClass}));
 }
 
 
