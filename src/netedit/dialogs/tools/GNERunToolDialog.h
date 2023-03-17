@@ -76,26 +76,14 @@ public:
     /// @brief event after press abort button
     long onCmdAbort(FXObject*, FXSelector, void*);
 
-    /// @brief event for update abort button
-    long onUpdAbort(FXObject*, FXSelector, void*);
-
     /// @brief event after press rerun button
     long onCmdRerun(FXObject*, FXSelector, void*);
-
-    /// @brief event for update rerun button
-    long onUpdRerun(FXObject*, FXSelector, void*);
 
     /// @brief event after press back button
     long onCmdBack(FXObject*, FXSelector, void*);
 
-    /// @brief event for update back button
-    long onUpdBack(FXObject*, FXSelector, void*);
-
     /// @brief event after press close button
     long onCmdClose(FXObject*, FXSelector, void*);
-
-    /// @brief event for update close button
-    long onUpdClose(FXObject*, FXSelector, void*);
 
     /// @}
 
