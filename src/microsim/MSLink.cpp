@@ -396,8 +396,8 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
         const MSLane* pred = lane->getLogicalPredecessorLane();
         // to avoid overlap with vehicles that came from pred (especially when pred has endOffset > 0)
         // we add all other internal lanes from pred as foeLanes
-        for (const MSLink* const it : pred->getLinkCont()) {
-            const MSLane* sibling = it->getViaLane();
+        for (const MSLink* const link : pred->getLinkCont()) {
+            const MSLane* const sibling = link->getViaLane();
             if (sibling != lane && sibling != nullptr) {
                 const double minDist = MIN2(DIVERGENCE_MIN_WIDTH, 0.5 * (lane->getWidth() + sibling->getWidth()));
                 if (lane->getShape().front().distanceTo2D(sibling->getShape().front()) >= minDist) {
