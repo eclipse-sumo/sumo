@@ -2,6 +2,7 @@
     <delay value="400"/>
     <viewport zoom="353" x="5760" y="5670"/>
     <decal file="678000_5405000_small.png" centerX="5771" centerY="5680" width="120" height="114" rotation="0.00"/>
+    <decal file="phasen.png" centerX="5731.00" centerY="5690.00" width="38.00" height="30.00" layer="1"/>
     <scheme name="game_cross">
         <opengl antialiase="0" dither="0"/>
         <vehicles vehicleMode="10" vehicleQuality="2" minVehicleSize="1.00" vehicleExaggeration="1.00" showBlinker="1"
