@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-17 15:02+0000\n"
+"PO-Revision-Date: 2023-03-19 03:14+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
@@ -10517,851 +10517,855 @@ msgstr "当前选择的形状无效。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEShapeFrame.cpp:422
 msgid "Polygon shape cannot be empty"
-msgstr ""
+msgstr "多边形形状不能是空的"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:152
 msgid "TAZ"
-msgstr ""
+msgstr "交通分区"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:160
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:204
 msgid "No TAZ selected"
-msgstr ""
+msgstr "未选择交通分区（TAZ）"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:173
 msgid "Current TAZ: "
-msgstr ""
+msgstr "目前的交通分区（TAZ）: "
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:336
 msgid "Invalid TAZ Child"
-msgstr ""
+msgstr "无效的子交通分区（TAZ）"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:345
 msgid "TAZ Statistics"
-msgstr ""
+msgstr "交通分区（TAYZ）统计数据"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:348
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:891
 msgid "Statistics"
-msgstr ""
+msgstr "统计数据"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:375
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:1132
 msgid "- Number of edges: "
-msgstr ""
+msgstr "- 路段号: "
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:376
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:1137
 msgid "- Min source: "
-msgstr ""
+msgstr "- 最小（Min） 来源: "
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:377
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:1138
 msgid "- Max source: "
-msgstr ""
+msgstr "- 最大（Max） 来源: "
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:378
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:1139
 msgid "- Average source: "
-msgstr ""
+msgstr "- 平均来源: "
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:380
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:1141
 msgid "- Min sink: "
-msgstr ""
+msgstr "-- 最小的水槽（sink）: "
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:381
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:1142
 msgid "- Max sink: "
-msgstr ""
+msgstr "-- 最大的水槽（sink） : "
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:382
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:1143
 msgid "- Average sink: "
-msgstr ""
+msgstr "-- 平均的水槽（sink）: "
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:386
 msgid "No TAZ Selected"
-msgstr ""
+msgstr "未选交通分区（TAZ）"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:398
 msgid "Confirm changes"
-msgstr ""
+msgstr "确认更改"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:401
 msgid "Cancel changes"
-msgstr ""
+msgstr "取消更改"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:431
 msgid "TAZ changes"
-msgstr ""
+msgstr "j交通分区（TAZ）的变化"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:484
 msgid "TAZ Sources/Sinks"
-msgstr ""
+msgstr "交通分区（TAZ）来源/汇"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:490
 msgid "Membership"
-msgstr ""
+msgstr "会员"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:491
 msgid "Toggle"
-msgstr ""
+msgstr "切换"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:496
 msgid "New source"
-msgstr ""
+msgstr "新来源"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:501
 msgid "New sink"
-msgstr ""
+msgstr "新水槽 (sink)"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:507
 msgid "Set zero fringe prob."
-msgstr ""
+msgstr "设定零边缘概率。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:511
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:646
 msgid "- Toggle Membership:"
-msgstr ""
+msgstr "- 切换会员："
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:512
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:647
 msgid "  Create new Sources/Sinks"
-msgstr ""
+msgstr "  创建新的源/汇"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:513
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:648
 msgid "  with given weights."
-msgstr ""
+msgstr "  赋予的权重。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:563
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:656
 msgid "Remove all edges"
-msgstr ""
+msgstr "去除所有的路段"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:582
 msgid "Remove all edges from selection"
-msgstr ""
+msgstr "从选择中删除所有的路段"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:584
 msgid "Add all edges to selection"
-msgstr ""
+msgstr "将所有路段添加到选择中"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:588
 msgid "Remove edge from selection"
-msgstr ""
+msgstr "从选择中删除路段"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:590
 msgid "Add edge to selection"
-msgstr ""
+msgstr "为选择添加路段"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:601
 msgid "Remove "
-msgstr ""
+msgstr "删除 "
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:601
 msgid " edges from to selection"
-msgstr ""
+msgstr " 路段从到选择"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:603
 msgid "Add "
-msgstr ""
+msgstr "添加 "
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:603
 msgid " edges to selection"
-msgstr ""
+msgstr " 路段的选择"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:639
 msgid "toggle"
-msgstr ""
+msgstr "切换"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:669
 msgid "- Keep Membership:"
-msgstr ""
+msgstr "- 保留会员资格："
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:670
 msgid "  Select Sources/Sinks."
-msgstr ""
+msgstr "  选择源/汇。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:671
 msgid "- Press ESC to clear"
-msgstr ""
+msgstr "- 按ESC键来清除"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:672
 msgid "  current selection."
-msgstr ""
+msgstr "  目前的选择。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:849
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:852
 msgid "Set weight 0 in "
-msgstr ""
+msgstr "设置权重为0的 "
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:849
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:852
 msgid " sources and "
-msgstr ""
+msgstr " 来源和 "
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:850
 msgid " sinks from TAZ '"
-msgstr ""
+msgstr " 来自交通分区（TAZ）的汇'"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:853
 msgid " sinks from "
-msgstr ""
+msgstr " 跌落，从 "
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:853
 msgid " TAZs?"
-msgstr ""
+msgstr " 交通分区？"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:855
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:868
 msgid "Set zero fringe probabilities"
-msgstr ""
+msgstr "设置零边缘概率"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:857
 msgid "set zero fringe probabilities"
-msgstr ""
+msgstr "设置零边缘概率"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:868
 msgid "No source/sinks to update."
-msgstr ""
+msgstr "没有需要更新的源/汇。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:878
 msgid "Selection Statistics"
-msgstr ""
+msgstr "筛选统计"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:882
 msgid "Source"
-msgstr ""
+msgstr "来源"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:887
 msgid "Sink"
-msgstr ""
+msgstr "汇"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:919
 msgid "TAZEdgeColor already selected"
-msgstr ""
+msgstr "已经选择了交通分区路段颜色（TAZEdgeColor）"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:951
 msgid "edge wasn't found"
-msgstr ""
+msgstr "没有找到路段"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:953
 msgid "Invalid edge"
-msgstr ""
+msgstr "无效路段"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:1130
 msgid "- Edge ID: "
-msgstr ""
+msgstr "- 路段ID: "
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:1165
 msgid "TAZ parameters"
-msgstr ""
+msgstr "交通分区参数"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:1190
 msgid "Edges within"
-msgstr ""
+msgstr "路段内的"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:1191
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:1298
 msgid "use"
-msgstr ""
+msgstr "用"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:1300
 msgid "not use"
-msgstr ""
+msgstr "不用"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:1330
 msgid "Non TAZ Edge"
-msgstr ""
+msgstr "无交通分区路段"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:1334
 msgid "Selected TAZ Edge"
-msgstr ""
+msgstr "选择交通分区路段"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:1339
 msgid "Color by Source"
-msgstr ""
+msgstr "按来源划分的颜色"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:1341
 msgid "Color by Sink"
-msgstr ""
+msgstr "按汇划分的颜色"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:1343
 msgid "Color by Source + Sink"
-msgstr ""
+msgstr "颜色由来源+汇决定"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:1345
 msgid "Color by Source - Sink"
-msgstr ""
+msgstr "颜色由来源-汇决定"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:1448
 msgid "TAZs"
-msgstr ""
+msgstr "一些交通分区"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:1614
 msgid "TAZ shape needs at least three points"
-msgstr ""
+msgstr "交通分区（TAZ）形状至少需要三个点"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:119
 msgid "Edit Traffic Light"
-msgstr ""
+msgstr "编辑交通信号灯"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:183
 msgid "Click over a junction to edit a TLS"
-msgstr ""
+msgstr "点击路口，编辑一个交通信号"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:195
 msgid "Save TLS Changes"
-msgstr ""
+msgstr "保存交通信号（TLS）更改"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:196
 msgid ""
 "There is unsaved changes in current edited traffic light.\n"
 "Do you want to save it before changing mode?"
 msgstr ""
+"在当前编辑的交通信号灯中存在未保存的变化。\n"
+"你想在改变模式之前保存它吗？"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:242
 msgid "tlLogic '%', program '%' could not be built"
-msgstr ""
+msgstr "tlLogic '%', 程序'%'不能被建立"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:255
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2923
 msgid "Loaded "
-msgstr ""
+msgstr "已加载 "
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:255
 msgid " programs"
-msgstr ""
+msgstr " 程序"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:416
 msgid "Invalid phase index"
-msgstr ""
+msgstr "无效的相位指数"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:512
 msgid "modifying TLS definition"
-msgstr ""
+msgstr "修改交通信号（TLS）定义"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:526
 msgid "Unsaved modifications. Abort or Save"
-msgstr ""
+msgstr "未保存的修改。中止或保存"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:546
 msgid "Traffic light Attributes"
-msgstr ""
+msgstr "交通灯属性"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:555
 msgid "parameters"
-msgstr ""
+msgstr "参数"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:562
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:563
 msgid "Assign E1 detectors"
-msgstr ""
+msgstr "指派E1检测器"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:562
 msgid "Enable assign E1 mode"
-msgstr ""
+msgstr "启用指定的E1模式"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:562
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:563
 msgid "Assign E1 detectors to the current TLS"
-msgstr ""
+msgstr "将E1检测器分配给当前的交通信号（TLS）"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:563
 msgid "Disable assign E1 mode"
-msgstr ""
+msgstr "禁用分配E1模式"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:879
 msgid "Traffic Light"
-msgstr ""
+msgstr "交通信号灯"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:884
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:945
 msgid "Junction ID"
-msgstr ""
+msgstr "路口ID"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:891
 msgid "TLS ID"
-msgstr ""
+msgstr "交通信号（TLS）ID"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:910
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:911
 msgid "Join"
-msgstr ""
+msgstr "加入"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:910
 msgid "Enable join mode"
-msgstr ""
+msgstr "启用加入模式"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:910
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:911
 msgid "Join TLS and junctions in the current junction."
-msgstr ""
+msgstr "在当前路口中加入交通信号（TLS）和路口。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:911
 msgid "Disable join mode"
-msgstr ""
+msgstr "禁用加入模式"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:916
 msgid "Disjoin"
-msgstr ""
+msgstr "剥离"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:916
 msgid "Disjoin current TLS"
-msgstr ""
+msgstr "脱离当前的交通信号（TLS）"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:916
 msgid "Disjoin current TLS."
-msgstr ""
+msgstr "脱离当前的交通信号（TLS）。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:952
 msgid "no junction selected"
-msgstr ""
+msgstr "未选择路口"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:974
 msgid "Junction IDs"
-msgstr ""
+msgstr "路口的ID"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1061
 msgid "rename TLS"
-msgstr ""
+msgstr "重命名交通信号（TLS）"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1140
 msgid "change TLS type"
-msgstr ""
+msgstr "改变交通信号（TLS）类型"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1216
 msgid "join TLS"
-msgstr ""
+msgstr "加入交通信号（TLS）"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1278
 msgid "disjoin TLS"
-msgstr ""
+msgstr "脱离交通信号（ TLS）"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1328
 msgid "Traffic Light Programs"
-msgstr ""
+msgstr "交通信号方案"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1341
 msgid "Create TLS"
-msgstr ""
+msgstr "创建交通信号（TLS）"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1341
 msgid "Create a new traffic light program."
-msgstr ""
+msgstr "创建一个新的交通信号方案。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1344
 msgid ""
 "Delete a traffic light program. If all programs are deleted the junction "
 "turns into a priority junction."
-msgstr ""
+msgstr "删除一个交通信号方案。如果所有控制方案都被删除，路口就会变成一个优先路口。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1347
 msgid "Reset single"
-msgstr ""
+msgstr "重置信号"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1347
 msgid "Reset current TLS program."
-msgstr ""
+msgstr "重置当前的交通信号（TLS）程序。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1350
 msgid "Reset all"
-msgstr ""
+msgstr "重置所有"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1350
 msgid "Reset all TLS programs."
-msgstr ""
+msgstr "重置所有交通信号（TLS）程序。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1353
 msgid "Save program modifications. (Enter)"
-msgstr ""
+msgstr "保存程序的修改。(输入Enter)"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1356
 msgid "Discard program modifications. (Esc)"
-msgstr ""
+msgstr "放弃程序的修改。(Esc)"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1451
 msgid "TLSDefinition cannot be found"
-msgstr ""
+msgstr "找不到交通信号的定义（TLSDefinition）"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1493
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1506
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1525
 msgid "TLS cannot be created"
-msgstr ""
+msgstr "不能创建交通信号（TLS）"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1494
 msgid "Traffic Light cannot be created because junction must have"
-msgstr ""
+msgstr "不能创建交通灯，因为路口必须有"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1495
 msgid "at least one incoming edge and one outgoing edge."
-msgstr ""
+msgstr "至少有一条入口路段和出口路段。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1507
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1526
 msgid "Traffic Light cannot be created because junction"
-msgstr ""
+msgstr "不能创建交通灯，因为路口"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1508
 msgid "must have at least one connection."
-msgstr ""
+msgstr "必须至少有一个连接。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1527
 msgid "must have at least one controlled connection."
-msgstr ""
+msgstr "必须至少有一个受控连接。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1570
 msgid "Duplicate"
-msgstr ""
+msgstr "复制的"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1610
 msgid "reset current program"
-msgstr ""
+msgstr "重置当前程序"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1649
 msgid "reset TLS"
-msgstr ""
+msgstr "重置交通信号（TLS）"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1810
 msgid "duplicate program '%' of traffic light '%'"
-msgstr ""
+msgstr "复制交通灯'%'的程序'%'"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1856
 msgid "Traffic light does not control any links"
-msgstr ""
+msgstr "交通灯不控制任何链接"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1868
 msgid "Phases"
-msgstr ""
+msgstr "相位"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1879
 msgid "Clean States"
-msgstr ""
+msgstr "清洁状态"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1880
 msgid "Clean unused states from all phase"
-msgstr ""
+msgstr "清除所有相位的未使用状态"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1881
 msgid "Clean unused states from all phase. (Not allowed for multiple programs)"
-msgstr ""
+msgstr "从所有相位中清理未使用的状态。(不允许有多个程序）"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1885
 msgid "Add States"
-msgstr ""
+msgstr "添加状态"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1886
 msgid "Extend the state vector for all phases by one entry"
-msgstr ""
+msgstr "为所有相位的状态向量扩展一个条目"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1887
 msgid ""
 "Extend the state vector for all phases by one entry. (Unused until a "
 "connection or crossing is assigned to the new index)"
-msgstr ""
+msgstr "将所有相位的状态向量扩展一个条目。(在一个连接或交叉点被分配到新的指数之前未使"
+"用)"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1891
 msgid "Group Sig."
-msgstr ""
+msgstr "灯组。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1892
 msgid ""
 "Shorten state definition by letting connections with the same signal states "
 "use the same index"
-msgstr ""
+msgstr "通过让具有相同信号状态的连接使用相同的指数来缩短状态定义"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1893
 msgid ""
 "Shorten state definition by letting connections with the same signal states "
 "use the same index. (Not allowed for multiple programs)"
-msgstr ""
+msgstr "通过让具有相同信号状态的连接使用相同的指数来缩短状态定义。(对于多个程序来说不"
+"允许)"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1897
 msgid "Ungroup Sig."
-msgstr ""
+msgstr "未分组的信号灯。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1898
 msgid "Let every connection use a distinct index (reverse state grouping)"
-msgstr ""
+msgstr "让每个连接使用一个不同的指数（反向状态分组）"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1899
 msgid ""
 "Let every connection use a distinct index (reverse state grouping). (Not "
 "allowed for multiple programs)"
-msgstr ""
+msgstr "让每个连接使用一个不同的指数（反向状态分组）。(对于多个程序不允许)"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2027
 msgid "invalid column"
-msgstr ""
+msgstr "无效栏"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2586
 msgid "Error deleting phase '"
-msgstr ""
+msgstr "删除错误的相位"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2858
 msgid "TLS Program File"
-msgstr ""
+msgstr "交通信号（TLS)程序文件"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2862
 msgid "Load TLS program from additional file"
-msgstr ""
+msgstr "从附加文件中加载交通信号（TLS）程序"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2864
 msgid "Save TLS program to additional file"
-msgstr ""
+msgstr "将交通信号（TLS）程序保存到其他文件中"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2923
 msgid " new programs for tlLogic '"
-msgstr ""
+msgstr " 交通信号控制逻辑（tlLogic）的新程序'"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2928
 msgid "Updated program '"
-msgstr ""
+msgstr "更新后的方案 '"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2928
 msgid "' for tlLogic '"
-msgstr ""
+msgstr "'为tlLogic'"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2932
 msgid "No programs found for traffic light '"
-msgstr ""
+msgstr "没有找到 \"交通灯 \"的相关程序"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2951
 msgid "Save TLS Program as"
-msgstr ""
+msgstr "将交通信号（TLS）程序保存为"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEWireFrame.cpp:75
 msgid "Current selected wire isn't valid."
-msgstr ""
+msgstr "目前所选的线路是无效的。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEWireFrame.cpp:117
 #, c-format
 msgid "A % needs at least two lane positions"
-msgstr ""
+msgstr "一个%需要至少两个车道位置"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEWireFrame.cpp:237
 msgid "Currently unsupported. Create VSS steps elements using VSS dialog"
-msgstr ""
+msgstr "目前不支持。使用VSS对话框创建VSS步骤元素"
 
 #: /home/micha/programming/sumo/src\netedit\netedit_main.cpp:49
 msgid ""
 "Graphical editor for SUMO networks, demand and additional infrastructure."
-msgstr ""
+msgstr "用于SUMO网络、需求和额外基础设施的图形编辑器。"
 
 #: /home/micha/programming/sumo/src\utils\gui\div\GUIDialog_GLChosenEditor.cpp:75
 msgid "&Load selection"
-msgstr ""
+msgstr "&加载选择"
 
 #: /home/micha/programming/sumo/src\utils\gui\div\GUIDialog_GLChosenEditor.cpp:77
 msgid "&Save selection"
-msgstr ""
+msgstr "&保存选择"
 
 #: /home/micha/programming/sumo/src\utils\gui\div\GUIDialog_GLChosenEditor.cpp:81
 msgid "&Deselect chosen"
-msgstr ""
+msgstr "&选择了 取消选择（Deselect）"
 
 #: /home/micha/programming/sumo/src\utils\gui\div\GUIDialog_GLChosenEditor.cpp:83
 msgid "&Clear selection"
-msgstr ""
+msgstr "&清除选择"
 
 #: /home/micha/programming/sumo/src\utils\gui\div\GUIDialog_GLChosenEditor.cpp:87
 msgid "Cl&ose"
-msgstr ""
+msgstr "关闭"
 
 #: /home/micha/programming/sumo/src\utils\gui\div\GUIDialog_GLChosenEditor.cpp:125
 msgid "Open List of Selected Items"
-msgstr ""
+msgstr "打开所选项目的清单"
 
 #: /home/micha/programming/sumo/src\utils\gui\div\GUIDialog_GLChosenEditor.cpp:137
 msgid "Errors while loading Selection"
-msgstr ""
+msgstr "加载选择时出现错误"
 
 #: /home/micha/programming/sumo/src\utils\gui\div\GUISelectedStorage.cpp:116
 msgid "Unknown object in GUISelectedStorage::select (id=%)."
-msgstr ""
+msgstr "GUISelectedStorage::select(id=%)中的未知对象。"
 
 #: /home/micha/programming/sumo/src\utils\gui\div\GUISelectedStorage.cpp:133
 msgid "Unknown object in GUISelectedStorage::deselect (id=%)."
-msgstr ""
+msgstr "GUISelectedStorage::deselect (id=%)中的未知对象。"
 
 #: /home/micha/programming/sumo/src\utils\gui\div\GUISelectedStorage.cpp:150
 msgid "Unknown object in GUISelectedStorage::toggleSelection (id=%)."
-msgstr ""
+msgstr "GUISelectedStorage::toggleSelection（id=%）中的未知对象。"
 
 #: /home/micha/programming/sumo/src\utils\gui\div\GUIVideoEncoder.h:74
 msgid "Unknown format!"
-msgstr ""
+msgstr "不明格式!"
 
 #: /home/micha/programming/sumo/src\utils\gui\div\GUIVideoEncoder.h:91
 msgid "Unknown codec, falling back to HEVC!"
-msgstr ""
+msgstr "未知的编解码器，退回到HEVC!"
 
 #: /home/micha/programming/sumo/src\utils\gui\div\GUIVideoEncoder.h:95
 msgid "Unknown codec!"
-msgstr ""
+msgstr "未知的编解码器!"
 
 #: /home/micha/programming/sumo/src\utils\gui\div\GUIVideoEncoder.h:100
 msgid "Could not allocate video codec context!"
-msgstr ""
+msgstr "无法分配视频编解码器上下文!"
 
 #: /home/micha/programming/sumo/src\utils\gui\div\GUIVideoEncoder.h:136
 msgid "Could not open codec!"
-msgstr ""
+msgstr "无法打开编解码器!"
 
 #: /home/micha/programming/sumo/src\utils\gui\div\GUIVideoEncoder.h:142
 msgid "Could not allocate video frame!"
-msgstr ""
+msgstr "无法分配视频帧!"
 
 #: /home/micha/programming/sumo/src\utils\gui\div\GUIVideoEncoder.h:148
 msgid "Could not allocate the video frame data!"
-msgstr ""
+msgstr "无法分配视频帧数据!"
 
 #: /home/micha/programming/sumo/src\utils\gui\div\GUIVideoEncoder.h:155
 msgid "Failed to open output file!"
-msgstr ""
+msgstr "打开输出文件失败!"
 
 #: /home/micha/programming/sumo/src\utils\gui\div\GUIVideoEncoder.h:160
 msgid "Failed to write file header!"
-msgstr ""
+msgstr "写入文件头失败!"
 
 #: /home/micha/programming/sumo/src\utils\gui\div\GUIVideoEncoder.h:165
 msgid "Could not allocate video packet!"
-msgstr ""
+msgstr "无法分配视频数据包!"
 
 #: /home/micha/programming/sumo/src\utils\gui\div\GUIVideoEncoder.h:175
 msgid "Error sending final frame!"
-msgstr ""
+msgstr "发送最后一帧时出错!"
 
 #: /home/micha/programming/sumo/src\utils\gui\div\GUIVideoEncoder.h:183
 msgid "Error during final encoding step!"
-msgstr ""
+msgstr "在最后的编码步骤中出错!"
 
 #: /home/micha/programming/sumo/src\utils\gui\div\GUIVideoEncoder.h:214
 msgid "Error sending frame for encoding!"
-msgstr ""
+msgstr "发送编码帧时出错!"
 
 #: /home/micha/programming/sumo/src\utils\gui\div\GUIVideoEncoder.h:222
 msgid "Error during encoding!"
-msgstr ""
+msgstr "编码时出错!"
 
 #: /home/micha/programming/sumo/src\utils\gui\globjects\GUIGLObjectPopupMenu.cpp:170
 msgid "Object must be a lane"
-msgstr ""
+msgstr "对象必须是一个车道"
 
 #: /home/micha/programming/sumo/src\utils\gui\globjects\GUIShapeContainer.cpp:56
 msgid "Replacing POI '%'"
-msgstr ""
+msgstr "取代兴趣点（POI）'%'"
 
 #: /home/micha/programming/sumo/src\utils\gui\globjects\GUIShapeContainer.cpp:81
 msgid "Replacing polygon '%'"
-msgstr ""
+msgstr "取代多边形'%'"
 
 #: /home/micha/programming/sumo/src\utils\gui\images\GUIIconSubSys.cpp:942
 msgid "Instance was previously created"
-msgstr ""
+msgstr "实例是以前创建的"
 
 #: /home/micha/programming/sumo/src\utils\gui\images\GUITextureSubSys.cpp:223
 msgid "Undefined texture"
-msgstr ""
+msgstr "未定义的纹理"
 
 #: /home/micha/programming/sumo/src\utils\gui\images\VClassIcons.cpp:91
 msgid "Invalid vClass"
-msgstr ""
+msgstr "无效的vClass"
 
 #: /home/micha/programming/sumo/src\utils\gui\settings\GUISettingsHandler.cpp:77
 msgid "The 'value' attribute is deprecated for breakpoints. Please use 'time'."
-msgstr ""
+msgstr "断点的'值（value)'属性已被废弃。请使用'时间（time）'。"
 
 #: /home/micha/programming/sumo/src\utils\gui\settings\GUISettingsHandler.cpp:383
 msgid "The 'filename' attribute is deprecated for decals. Please use 'file'."
-msgstr ""
+msgstr "对于贴花，'文件名'属性已被弃用。请使用'文件'。"
 
 #: /home/micha/programming/sumo/src\utils\gui\settings\GUISettingsHandler.cpp:559
 msgid " Could not decode breakpoint '%'"
-msgstr ""
+msgstr " 无法解码断点'%'"
 
 #: /home/micha/programming/sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:2348
 msgid "No color defined for LinkState '%'"
-msgstr ""
+msgstr "没有为链接状态'%'定义颜色"
 
 #: /home/micha/programming/sumo/src\utils\gui\tracker\GUIParameterTracker.cpp:116
 msgid "Save the data..."
-msgstr ""
+msgstr "保存数据..."
 
 #: /home/micha/programming/sumo/src\utils\gui\tracker\GUIParameterTracker.cpp:131
 msgid "Multiplot"
-msgstr ""
+msgstr "多样化"
 
 #: /home/micha/programming/sumo/src\utils\gui\tracker\GUIParameterTracker.cpp:219
 msgid "Save Data"
-msgstr ""
+msgstr "保存数据"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:84
 msgid "Track"
-msgstr ""
+msgstr "轨迹"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:91
 msgid "&Hide Unselected"
-msgstr ""
+msgstr "&隐藏未选择的"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:92
 msgid "By &Name"
-msgstr ""
+msgstr "按&名称"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:92
 msgid "Locate item by name"
-msgstr ""
+msgstr "按名称查找项目"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:93
 msgid "&Select/deselect"
-msgstr ""
+msgstr "&选择/取消选择"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:93
 msgid "Select/deselect current object"
-msgstr ""
+msgstr "选择/取消选择当前对象"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:94
 msgid "&Filter substring"
-msgstr ""
+msgstr "&过滤器子串"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:95
 msgid "Select &all"
-msgstr ""
+msgstr "选择 &所有"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:95
 msgid "Select all items in list"
-msgstr ""
+msgstr "选择列表中的所有项目"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:96
 msgid "&Deselect all"
-msgstr ""
+msgstr "&选择所有"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:96
 msgid "Deselect all items in list"
-msgstr ""
+msgstr "取消选择列表中的所有项目"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:97
 msgid "&Update"
-msgstr ""
+msgstr "&更新"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:97
 msgid "Reload all ids"
-msgstr ""
+msgstr "重新加载所有ID"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:101
 msgid "case-sensitive search"
-msgstr ""
+msgstr "区分大小写的搜索"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:103
 msgid "auto-center"
-msgstr ""
+msgstr "汽车中心"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_EditViewport.cpp:65
 msgid "Load viewport from file"
-msgstr ""
+msgstr "从文件加载视口"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_EditViewport.cpp:67
 msgid "Save viewport to file"
