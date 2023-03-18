@@ -275,7 +275,7 @@ Connection::check_resultState(tcpip::Storage& inMsg, int command, bool ignoreCom
         cmdLength = inMsg.readUnsignedByte();
         cmdId = inMsg.readUnsignedByte();
         if (command != cmdId && !ignoreCommandId) {
-            throw libsumo::TraCIException("#Error: received status response to command: " + toString(cmdId) + " but expected: " + toString(command));
+            throw libsumo::TraCIException("#Error: received status response to command: " + toHex(cmdId) + " but expected: " + toHex(command));
         }
         resultType = inMsg.readUnsignedByte();
         msg = inMsg.readString();
@@ -286,17 +286,17 @@ Connection::check_resultState(tcpip::Storage& inMsg, int command, bool ignoreCom
         case libsumo::RTYPE_ERR:
             throw libsumo::TraCIException(msg);
         case libsumo::RTYPE_NOTIMPLEMENTED:
-            throw libsumo::TraCIException(".. Sent command is not implemented (" + toString(command) + "), [description: " + msg + "]");
+            throw libsumo::TraCIException(".. Sent command is not implemented (" + toHex(command) + "), [description: " + msg + "]");
         case libsumo::RTYPE_OK:
             if (acknowledgement != nullptr) {
-                (*acknowledgement) = ".. Command acknowledged (" + toString(command) + "), [description: " + msg + "]";
+                (*acknowledgement) = ".. Command acknowledged (" + toHex(command) + "), [description: " + msg + "]";
             }
             break;
         default:
-            throw libsumo::TraCIException(".. Answered with unknown result code(" + toString(resultType) + ") to command(" + toString(command) + "), [description: " + msg + "]");
+            throw libsumo::TraCIException(".. Answered with unknown result code(" + toHex(resultType) + ") to command(" + toHex(command) + "), [description: " + msg + "]");
     }
     if ((cmdStart + cmdLength) != (int) inMsg.position()) {
-        throw libsumo::TraCIException("#Error: command at position " + toString(cmdStart) + " has wrong length");
+        throw libsumo::TraCIException("#Error: command at position " + toHex(cmdStart) + " has wrong length");
     }
 }
 

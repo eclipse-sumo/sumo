@@ -152,6 +152,14 @@ private:
         return oss.str();
     }
 
+    template<typename T>
+    inline std::string toHex(const T i, std::streamsize numDigits = 2) {
+        // inspired by http://stackoverflow.com/questions/5100718/int-to-hex-string-in-c
+        std::stringstream stream;
+        stream << "0x" << std::setfill('0') << std::setw(numDigits == 0 ? sizeof(T) * 2 : numDigits) << std::hex << i;
+        return stream.str();
+    }
+
     void readOutput();
 
     /** @brief Constructor, connects to the specified SUMO server
