@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-19 03:14+0000\n"
+"PO-Revision-Date: 2023-03-19 10:24+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
@@ -11369,71 +11369,71 @@ msgstr "从文件加载视口"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_EditViewport.cpp:67
 msgid "Save viewport to file"
-msgstr ""
+msgstr "保存视口到文件"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_EditViewport.cpp:210
 msgid "Load Viewport"
-msgstr ""
+msgstr "加载视口"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_EditViewport.cpp:229
 msgid "Save Viewport"
-msgstr ""
+msgstr "保存视口"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_Options.cpp:113
 msgid "Accept settings"
-msgstr ""
+msgstr "接受设置"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:87
 msgid "View Settings"
-msgstr ""
+msgstr "查看设置"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:989
 msgid "Enter a name"
-msgstr ""
+msgstr "输入一个名称"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:991
 msgid "Please enter an alphanumeric name: "
-msgstr ""
+msgstr "请输入一个字母数字名称: "
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1070
 msgid "Export view settings"
-msgstr ""
+msgstr "出口视图设置"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1121
 msgid "Import view settings"
-msgstr ""
+msgstr "导入视图设置"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1138
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1155
 msgid "Load Decals"
-msgstr ""
+msgstr "装载贴花"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1172
 msgid "Save Decals"
-msgstr ""
+msgstr "保存贴花"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1242
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1307
 msgid "No Data"
-msgstr ""
+msgstr "无数据"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1246
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1311
 msgid "Remove"
-msgstr ""
+msgstr "删除"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1569
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1614
 msgid "Only for selected"
-msgstr ""
+msgstr "仅用于选定的"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1571
 msgid "constant text size"
-msgstr ""
+msgstr "恒定的文字大小"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1574
 msgid "Size"
-msgstr ""
+msgstr "大小"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1579
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1692
@@ -11446,92 +11446,92 @@ msgstr ""
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2154
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2217
 msgid "Color"
-msgstr ""
+msgstr "颜色"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1581
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1687
 msgid "Background"
-msgstr ""
+msgstr "背景"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1612
 msgid "Draw with constant size when zoomed out"
-msgstr ""
+msgstr "缩放时以恒定的尺寸绘图"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1617
 msgid "Minimum Size"
-msgstr ""
+msgstr "最小尺寸"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1621
 msgid "Exaggerate by"
-msgstr ""
+msgstr "夸张的是"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1667
 msgid "Save the setting to registry"
-msgstr ""
+msgstr "将设置保存到注册表"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1668
 msgid "Remove the setting from registry"
-msgstr ""
+msgstr "从注册表中删除设置"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1669
 msgid "Export setting to file"
-msgstr ""
+msgstr "将设置导出到文件"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1670
 msgid "Load setting from file"
-msgstr ""
+msgstr "从文件中加载设置"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1673
 msgid "Export includes:"
-msgstr ""
+msgstr "输出包括："
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1674
 msgid "Viewport"
-msgstr ""
+msgstr "视口"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1675
 msgid "Delay"
-msgstr ""
+msgstr "延迟"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1676
 msgid "Decals"
-msgstr ""
+msgstr "贴花"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1677
 msgid "Breakpoints"
-msgstr ""
+msgstr "分割点"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1696
 msgid "Decals:"
-msgstr ""
+msgstr "贴花："
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1699
 msgid "&Load XML Decals"
-msgstr ""
+msgstr "&加载XML贴花"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1700
 msgid "&Save XML Decals"
-msgstr ""
+msgstr "&保存 XML 贴花"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1701
 msgid "&Clear Decals"
-msgstr ""
+msgstr "&清空贴花"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1706
 msgid "Toggle grid"
-msgstr ""
+msgstr "切换网格"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1710
 msgid "x-spacing"
-msgstr ""
+msgstr "x-间隔"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1715
 msgid "y-spacing"
-msgstr ""
+msgstr "y-间距"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1724
 msgid "Streets"
-msgstr ""
+msgstr "街道"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1732
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1761
@@ -11544,260 +11544,260 @@ msgstr ""
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2158
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2219
 msgid "Interpolate"
-msgstr ""
+msgstr "插值"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1744
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2006
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2229
 msgid "Recalibrate Rainbow"
-msgstr ""
+msgstr "重新校准彩虹"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1746
 msgid "hide below"
-msgstr ""
+msgstr "隐藏在下面"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1750
 msgid "hide above"
-msgstr ""
+msgstr "隐藏在上面"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1759
 msgid "Scale width"
-msgstr ""
+msgstr "尺度宽度"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1782
 msgid "Show bike markings"
-msgstr ""
+msgstr "显示自行车标识"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1784
 msgid "Show turning arrows"
-msgstr ""
+msgstr "显示转向箭头"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1787
 msgid "Show right-of-way rules"
-msgstr ""
+msgstr "显示路权规则"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1789
 msgid "Realistic stop line colors"
-msgstr ""
+msgstr "真实的停止线颜色"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1792
 msgid "Show lane borders"
-msgstr ""
+msgstr "显示车道边框"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1794
 msgid "Show lane direction"
-msgstr ""
+msgstr "显示车道方向"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1797
 msgid "Hide macro connectors"
-msgstr ""
+msgstr "隐藏macro连接器"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1799
 msgid "Show sublanes"
-msgstr ""
+msgstr "显示辅车道"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1802
 msgid "Show rails"
-msgstr ""
+msgstr "显示栏杆"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1804
 msgid "Spread bidirectional railways/roads"
-msgstr ""
+msgstr "铺设双向铁路/公路"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1804
 msgid ""
 "Make both directional edges for a bidirectional railways or roads visible"
-msgstr ""
+msgstr "使双向铁路或公路的两个方向的路段可见"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1807
 msgid "Secondary shape"
-msgstr ""
+msgstr "次要形状"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1812
 msgid "Exaggerate width by"
-msgstr ""
+msgstr "夸大宽度的方法有"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1818
 msgid "Minimum size"
-msgstr ""
+msgstr "最小尺寸"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1824
 msgid "Show edge id"
-msgstr ""
+msgstr "显示路段ID"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1825
 msgid "Show street name"
-msgstr ""
+msgstr "显示街道名称"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1826
 msgid "Show edge color value"
-msgstr ""
+msgstr "显示路段颜色值"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1827
 msgid "Show edge scale value"
-msgstr ""
+msgstr "显示路段比例值"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1838
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1921
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1961
 msgid "Show As"
-msgstr ""
+msgstr "显示为"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1840
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1923
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1963
 msgid "'triangles'"
-msgstr ""
+msgstr "'三角形'"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1841
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1964
 msgid "'boxes'"
-msgstr ""
+msgstr "'盒子'"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1842
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1925
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1965
 msgid "'simple shapes'"
-msgstr ""
+msgstr "'简单的形状'"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1843
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1926
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1966
 msgid "'raster images'"
-msgstr ""
+msgstr "'光栅图像'"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1844
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1924
 msgid "'circles'"
-msgstr ""
+msgstr "'环线'"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1866
 msgid "Scale size"
-msgstr ""
+msgstr "尺度大小"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1875
 msgid "Show vehicle id"
-msgstr ""
+msgstr "显示车辆ID"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1876
 msgid "Show vehicle color value"
-msgstr ""
+msgstr "显示车辆颜色值"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1877
 msgid "Show vehicle scale value"
-msgstr ""
+msgstr "显示车辆比例值"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1878
 msgid "Show vehicle text param"
-msgstr ""
+msgstr "显示车辆文本参数"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1885
 msgid "Show blinker / brake lights"
-msgstr ""
+msgstr "显示转弯灯/制动灯"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1887
 msgid "Show minimum gap"
-msgstr ""
+msgstr "显示最小间隙"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1889
 msgid "Show brake gap"
-msgstr ""
+msgstr "显示制动间隙"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1891
 msgid "Show Bluetooth range"
-msgstr ""
+msgstr "显示蓝牙范围"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1893
 msgid "Show route index"
-msgstr ""
+msgstr "显示路径索引"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1895
 msgid "Scale length with geometry"
-msgstr ""
+msgstr "具有几何形状的音阶长度"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1897
 msgid "Show parking info"
-msgstr ""
+msgstr "显示停车信息"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1899
 msgid "Draw reversed vehicles in reverse"
-msgstr ""
+msgstr "绘制反转的车辆倒车"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1944
 msgid "Show person id"
-msgstr ""
+msgstr "显示个人ID"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1945
 msgid "Show person color value"
-msgstr ""
+msgstr "显示人的颜色值"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1956
 msgid "Containers"
-msgstr ""
+msgstr "容器"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1984
 msgid "Show container id"
-msgstr ""
+msgstr "显示容器ID"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1995
 msgid "Junctions"
-msgstr ""
+msgstr "交叉口"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2012
 msgid "Draw junction shape"
-msgstr ""
+msgstr "绘制交叉口形状"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2014
 msgid "Draw crossings/walkingareas"
-msgstr ""
+msgstr "绘制十字路口/步行区"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2016
 msgid "Show lane to lane connections"
-msgstr ""
+msgstr "显示车道与车道的连接"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2020
 msgid "Show link tls index"
-msgstr ""
+msgstr "显示链接tls索引"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2021
 msgid "Show link junction index"
-msgstr ""
+msgstr "显示链接交叉口索引"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2022
 msgid "Show junction id"
-msgstr ""
+msgstr "显示交叉口的ID"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2023
 msgid "Show internal junction id"
-msgstr ""
+msgstr "显示内部交叉口的ID"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2024
 msgid "Show internal edge id"
-msgstr ""
+msgstr "显示内部路段ID"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2025
 msgid "Show crossing and walkingarea id"
-msgstr ""
+msgstr "显示十字路口和步行区ID"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2026
 msgid "Show traffic light phase index"
-msgstr ""
+msgstr "显示交通信号灯相位索引"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2027
 msgid "Show traffic light phase name"
-msgstr ""
+msgstr "显示交通灯相位名称"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2028
 msgid "Show junction name"
-msgstr ""
+msgstr "显示交叉口名称"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2039
 msgid "Show object id"
-msgstr ""
+msgstr "显示对象的ID"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2040
 msgid "Show full name"
-msgstr ""
+msgstr "显示全名"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2047
 msgid "StoppingPlace"
