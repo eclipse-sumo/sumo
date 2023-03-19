@@ -1287,7 +1287,8 @@ TraCIServer::addSubscriptionFilter() {
     int filterType = myInputStorage.readUnsignedByte();
 
     if (myLastContextSubscription == nullptr) {
-        writeStatusCmd(filterType, libsumo::RTYPE_ERR, "No previous vehicle context subscription exists to apply filter type " + toHex(filterType, 2));
+        writeStatusCmd(libsumo::CMD_ADD_SUBSCRIPTION_FILTER, libsumo::RTYPE_ERR,
+                       "No previous vehicle context subscription exists to apply filter type " + toHex(filterType, 2));
         return false;
     }
 
@@ -1361,7 +1362,8 @@ TraCIServer::addSubscriptionFilter() {
         }
         break;
         default:
-            writeStatusCmd(filterType, libsumo::RTYPE_NOTIMPLEMENTED, "'" + toString(filterType) + "' is no valid filter type code.");
+            writeStatusCmd(libsumo::CMD_ADD_SUBSCRIPTION_FILTER, libsumo::RTYPE_NOTIMPLEMENTED,
+                           "'" + toString(filterType) + "' is no valid filter type code.");
             success  = false;
     }
 
