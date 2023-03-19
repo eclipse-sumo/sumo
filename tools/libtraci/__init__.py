@@ -114,6 +114,7 @@ vehicle.getRightLeaders = wrapAsClassMethod(_vehicle.VehicleDomain.getRightLeade
 vehicle.getLeftFollowers = wrapAsClassMethod(_vehicle.VehicleDomain.getLeftFollowers, vehicle)
 vehicle.getLeftLeaders = wrapAsClassMethod(_vehicle.VehicleDomain.getLeftLeaders, vehicle)
 vehicle.getLaneChangeStatePretty = wrapAsClassMethod(_vehicle.VehicleDomain.getLaneChangeStatePretty, vehicle)
+vehicle._legacyGetLeader = True
 person.removeStages = wrapAsClassMethod(_person.PersonDomain.removeStages, person)
 _trafficlight.TraCIException = TraCIException
 trafficlight.setLinkState = wrapAsClassMethod(_trafficlight.TrafficLightDomain.setLinkState, trafficlight)
@@ -138,11 +139,8 @@ def isLibtraci():
     return True
 
 
-vehicle._legacyGetLeader = True
-
-
 def setLegacyGetLeader(enabled):
-    _vehicle._legacyGetLeader = enabled
+    vehicle._legacyGetLeader = enabled
 
 
 hasGUI = simulation.hasGUI

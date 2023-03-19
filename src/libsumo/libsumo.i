@@ -1,4 +1,5 @@
 %module libsumo
+#define SWIG_MODULE libsumo
 %include "libsumo_typemap.i"
 
 // Add necessary symbols to generated header

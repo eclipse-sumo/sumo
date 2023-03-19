@@ -319,7 +319,7 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
 %exceptionclass libsumo::TraCIException;
 %exceptionclass libsumo::FatalTraCIError;
 
-%pythonprepend libsumo::Vehicle::add(const std::string&, const std::string&, const std::string&, const std::string&, const std::string&,
+%pythonprepend SWIG_MODULE::Vehicle::add(const std::string&, const std::string&, const std::string&, const std::string&, const std::string&,
                                      const std::string&, const std::string&, const std::string&, const std::string&, const std::string&,
                                      const std::string&, const std::string&, const std::string&, int, int) %{
     args = [str(a) for a in args[:13]] + list(args[13:])
@@ -328,7 +328,7 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
             kwargs[key] = str(val)
 %}
 
-%pythonappend libsumo::Vehicle::getLeader(const std::string&, double) %{
+%pythonappend SWIG_MODULE::Vehicle::getLeader(const std::string&, double) %{
     if val[0] == "" and vehicle._legacyGetLeader:
         return None
 %}

@@ -1,4 +1,5 @@
 %module libtraci
+#define SWIG_MODULE libtraci
 #define LIBTRACI 1
 %{
 #define LIBTRACI 1
