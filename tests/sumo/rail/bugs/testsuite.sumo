@@ -61,3 +61,6 @@ ticket12184
 
 # deadlock avoidable due to arrival in the critical block
 ticket12184b
+
+# unsafe insertion with fast training coming from behind
+ticket12857
