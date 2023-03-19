@@ -174,14 +174,17 @@ def close():
     _stepManager.close()
 
 
-def start(args, traceFile=None, traceGetters=True):
-    version = simulation.start(args)
+def start(cmd, port=None, numRetries=constants.DEFAULT_NUM_RETRIES, label="default", verbose=False,
+          traceFile=None, traceGetters=True, stdout=None, doSwitch=True):
+    if port is not None:
+        print("Warning! To make your code usable with traci and libsumo, do not set an explicit port.")
+    version = simulation.start(cmd)
     if traceFile is not None:
         if _stepManager.startTracing(traceFile, traceGetters, DOMAINS):
             # simulationStep shows up as simulation.step
             global _libsumo_step
             _libsumo_step = _stepManager._addTracing(_libsumo_step, "simulation")
-        _stepManager.write("start", repr(args))
+        _stepManager.write("start", repr(cmd))
     return version
 
 

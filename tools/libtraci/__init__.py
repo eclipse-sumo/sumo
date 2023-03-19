@@ -174,14 +174,15 @@ def close():
     _stepManager.close()
 
 
-def start(args, traceFile=None, traceGetters=True):
-    version = simulation.start(args)
+def start(cmd, port=None, numRetries=constants.DEFAULT_NUM_RETRIES, label="default", verbose=False,
+          traceFile=None, traceGetters=True, stdout=None, doSwitch=True):
+    version = simulation.start(cmd, -1 if port is None else port, numRetries, label, verbose)
     if traceFile is not None:
         if _stepManager.startTracing(traceFile, traceGetters, DOMAINS):
             # simulationStep shows up as simulation.step
             global _libtraci_step
             _libtraci_step = _stepManager._addTracing(_libtraci_step, "simulation")
-        _stepManager.write("start", repr(args))
+        _stepManager.write("start", repr(cmd))
     return version
 
 
