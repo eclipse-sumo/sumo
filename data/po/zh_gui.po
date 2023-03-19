@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-19 11:27+0000\n"
+"PO-Revision-Date: 2023-03-19 16:20+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
@@ -11905,156 +11905,157 @@ msgstr "划定边界"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2288
 msgid "Force draw for position selection"
-msgstr ""
+msgstr "强制抽签选取位置"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2291
 msgid "Force draw for rectangle selection"
-msgstr ""
+msgstr "强制绘制的矩形选择"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2294
 msgid "Disable dotted contours during selection/deletion"
-msgstr ""
+msgstr "在选择/删除过程中禁用点状的轮廓线"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2297
 msgid "Recalculate boundaries"
-msgstr ""
+msgstr "重新计算界线"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2300
 msgid "Show geometry point indices"
-msgstr ""
+msgstr "显示几何点的索引"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2306
 msgid "3D view"
-msgstr ""
+msgstr "三维视图"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2311
 msgid "Show TLS link markers"
-msgstr ""
+msgstr "显示交通信号灯（TLS）链接标记"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2314
 msgid "Show domes around TLS models from decals"
-msgstr ""
+msgstr "从贴花中显示交通信号灯（TLS）模型周围的穹顶"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2317
 msgid "Show auto-generated TLS models"
-msgstr ""
+msgstr "显示自动生成的交通信号灯（TLS）模型"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2319
 msgid "Show head-up display"
-msgstr ""
+msgstr "显示平视显示器"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2325
 msgid "Sun brightness"
-msgstr ""
+msgstr "阳光亮度"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2337
 msgid "Sky color"
-msgstr ""
+msgstr "天空的颜色"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIMainWindow.cpp:294
 msgid "option window-size requires INT,INT"
-msgstr ""
+msgstr "选项窗口大小需要INT,INT"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIMainWindow.cpp:311
 msgid "option window-pos requires INT,INT"
-msgstr ""
+msgstr "选项窗口位置（window-pos）需要INT,INT"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIMainWindow.cpp:340
 msgid "Langua&ge"
-msgstr ""
+msgstr "语言"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIMainWindow.cpp:342
 msgid "Change language to english. (en)"
-msgstr ""
+msgstr "将语言改为英文。(en)"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIMainWindow.cpp:344
 msgid "Change language to german. (de)"
-msgstr ""
+msgstr "将语言改为德文。(de)"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIMainWindow.cpp:346
 msgid "Change language to spanish. (es)"
-msgstr ""
+msgstr "将语言改为西班牙文。(es)"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIMainWindow.cpp:348
 msgid "Change language to french. (fr)"
-msgstr ""
+msgstr "将语言改为法语。(fr)"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIMainWindow.cpp:350
 msgid "简体中文 (zh)"
-msgstr ""
+msgstr "简体中文 (zh)"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIMainWindow.cpp:352
+#, fuzzy
 msgid "繁體中文 (zh-Hant)"
-msgstr ""
+msgstr "繁體中文 (zh-Hant)"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIMainWindow.cpp:354
 msgid "Change language to turkish. (tr)"
-msgstr ""
+msgstr "将语言改为土耳其语。(tr)"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIMainWindow.cpp:356
 msgid "Change language to hungarian. (hu)"
-msgstr ""
+msgstr "将语言改为匈牙利语。(hu)"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIMainWindow.cpp:370
 msgid "german"
-msgstr ""
+msgstr "德文"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIMainWindow.cpp:374
 msgid "spanish"
-msgstr ""
+msgstr "西班牙文"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIMainWindow.cpp:378
 msgid "french"
-msgstr ""
+msgstr "法文"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIMainWindow.cpp:382
 msgid "chinese"
-msgstr ""
+msgstr "中文"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIMainWindow.cpp:386
 msgid "chinese simplified"
-msgstr ""
+msgstr "简体中文"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIMainWindow.cpp:390
 msgid "turkish"
-msgstr ""
+msgstr "土耳其文"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIMainWindow.cpp:394
 msgid "hungarian"
-msgstr ""
+msgstr "匈牙利语"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIMainWindow.cpp:398
 msgid "english"
-msgstr ""
+msgstr "英文"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIMainWindow.cpp:406
 msgid "Language changed to "
-msgstr ""
+msgstr "语言改为 "
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIMainWindow.cpp:408
 msgid "Restart needed"
-msgstr ""
+msgstr "需要重新启动"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIMainWindow.cpp:409
 msgid "Changing display language needs restart to take effect."
-msgstr ""
+msgstr "改变显示语言需要重新启动才能生效。"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIMainWindow.cpp:412
 msgid ""
 "For the Debug build you might also need to set the LANG environment variable."
-msgstr ""
+msgstr "对于Debug构建，你可能还需要设置LANG环境变量。"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIMainWindow.cpp:415
 msgid "Under development. You can help to improve the translation at:"
-msgstr ""
+msgstr "正在开发中。你可以在以下网站帮助改进翻译:"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUISUMOAbstractView.cpp:254
 msgid " (No projection defined)"
-msgstr ""
+msgstr " (没有定义的预测)"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUISUMOAbstractView.cpp:1723
 msgid "Could not convert coordinates in %."
-msgstr ""
+msgstr "无法转换以%为单位的坐标。"
 
 #~ msgid "Input"
 #~ msgstr "输入"
