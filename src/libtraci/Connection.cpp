@@ -274,9 +274,6 @@ Connection::check_resultState(tcpip::Storage& inMsg, int command, bool ignoreCom
         cmdStart = inMsg.position();
         cmdLength = inMsg.readUnsignedByte();
         cmdId = inMsg.readUnsignedByte();
-        if (command != cmdId && !ignoreCommandId) {
-            throw libsumo::TraCIException("#Error: received status response to command: " + toHex(cmdId) + " but expected: " + toHex(command));
-        }
         resultType = inMsg.readUnsignedByte();
         msg = inMsg.readString();
     } catch (std::invalid_argument&) {
@@ -294,6 +291,9 @@ Connection::check_resultState(tcpip::Storage& inMsg, int command, bool ignoreCom
             break;
         default:
             throw libsumo::TraCIException(".. Answered with unknown result code(" + toHex(resultType) + ") to command(" + toHex(command) + "), [description: " + msg + "]");
+    }
+    if (command != cmdId && !ignoreCommandId) {
+        throw libsumo::TraCIException("#Error: received status response to command: " + toHex(cmdId) + " but expected: " + toHex(command));
     }
     if ((cmdStart + cmdLength) != (int) inMsg.position()) {
         throw libsumo::TraCIException("#Error: command at position " + toHex(cmdStart) + " has wrong length");
