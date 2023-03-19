@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-19 10:24+0000\n"
+"PO-Revision-Date: 2023-03-19 11:27+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
@@ -11801,107 +11801,107 @@ msgstr "显示全名"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2047
 msgid "StoppingPlace"
-msgstr ""
+msgstr "停靠地点"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2048
 msgid "body"
-msgstr ""
+msgstr "体"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2049
 msgid "sign"
-msgstr ""
+msgstr "标志"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2072
 msgid "element"
-msgstr ""
+msgstr "要素"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2073
 msgid "color"
-msgstr ""
+msgstr "颜色"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2074
 msgid "width"
-msgstr ""
+msgstr "宽度"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2114
 msgid "POIs"
-msgstr ""
+msgstr "兴趣点"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2130
 msgid "POI detail"
-msgstr ""
+msgstr "兴趣点详情"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2135
 msgid "Show poi id"
-msgstr ""
+msgstr "显示兴趣点 id"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2136
 msgid "Show poi type"
-msgstr ""
+msgstr "显示兴趣点类型"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2137
 msgid "Show poi text param"
-msgstr ""
+msgstr "显示兴趣点文本参数"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2149
 msgid "Polygons"
-msgstr ""
+msgstr "多边形"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2164
 msgid "Show polygon id"
-msgstr ""
+msgstr "显示多边形ID"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2165
 msgid "Show polygon types"
-msgstr ""
+msgstr "显示多边形类型"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2179
 msgid "Default Selection Color"
-msgstr ""
+msgstr "默认选择颜色"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2182
 msgid "Miscellaneous"
-msgstr ""
+msgstr "其他事项"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2231
 msgid "hide below threshold"
-msgstr ""
+msgstr "隐藏在阈值以下"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2238
 msgid "Exaggerate edgeRelation width by"
-msgstr ""
+msgstr "夸大路段关系（edgeRelation）的宽度为"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2243
 msgid "Exaggerate tazRelation width by"
-msgstr ""
+msgstr "夸大交通分区关系（tazRelation）的宽度为"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2249
 msgid "Show data color value"
-msgstr ""
+msgstr "显示数据颜色值"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2255
 msgid "Legend"
-msgstr ""
+msgstr "图例"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2260
 msgid "Show Size Legend"
-msgstr ""
+msgstr "显示尺寸图例"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2263
 msgid "Show Edge Color Legend"
-msgstr ""
+msgstr "显示路段颜色图例"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2266
 msgid "Show Vehicle Color Legend"
-msgstr ""
+msgstr "显示车辆颜色图例"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2279
 msgid "Dither"
-msgstr ""
+msgstr "抖动"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2285
 msgid "Draw boundaries"
-msgstr ""
+msgstr "划定边界"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2288
 msgid "Force draw for position selection"
