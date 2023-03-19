@@ -58,6 +58,7 @@ MSVehicleControl::MSVehicleControl() :
     myWaitingForTransportable(0),
     myMaxSpeedFactor(1),
     myMinDeceleration(SUMOVTypeParameter::getDefaultDecel(SVC_IGNORING)),
+    myMinDecelerationRail(SUMOVTypeParameter::getDefaultDecel(SVC_RAIL)),
     myPendingRemovals(MSGlobals::gNumSimThreads > 1) {
 
     initDefaultTypes();
@@ -186,6 +187,8 @@ MSVehicleControl::vehicleDeparted(const SUMOVehicle& v) {
     if ((v.getVClass() & (SVC_PEDESTRIAN | SVC_NON_ROAD)) == 0) {
         // only  worry about deceleration of road users
         myMinDeceleration = MIN2(myMinDeceleration, v.getVehicleType().getCarFollowModel().getMaxDecel());
+    } else if ((v.getVClass() & SVC_RAIL_CLASSES) != 0) {
+        myMinDecelerationRail = MIN2(myMinDecelerationRail, v.getVehicleType().getCarFollowModel().getMaxDecel());
     }
 }
 

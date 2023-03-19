@@ -2617,7 +2617,8 @@ MSLane::getMaximumBrakeDist() const {
     const double maxSpeed = getSpeedLimit() * vc.getMaxSpeedFactor();
     // NOTE: For the euler update this is an upper bound on the actual braking distance (see ticket #860)
     // impose a hard bound due to visibility / common sense to avoid unnecessary computation if there are strange vehicles in the fleet
-    return MIN2(maxSpeed * maxSpeed * 0.5 / vc.getMinDeceleration(),
+    const double minDecel = isRailway(myPermissions) ? vc.getMinDecelerationRail() : vc.getMinDeceleration();
+    return MIN2(maxSpeed * maxSpeed * 0.5 / minDecel,
                 myPermissions == SVC_SHIP ? 10000.0 : 1000.0);
 }
 

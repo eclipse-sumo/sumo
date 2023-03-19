@@ -513,9 +513,14 @@ public:
         return myMaxSpeedFactor;
     }
 
-    /// @brief return the minimum deceleration capability for all vehicles that ever entered the network
+    /// @brief return the minimum deceleration capability for all road vehicles that ever entered the network
     double getMinDeceleration() const {
         return myMinDeceleration;
+    }
+
+    /// @brief return the minimum deceleration capability for all ral vehicles that ever entered the network
+    double getMinDecelerationRail() const {
+        return myMinDecelerationRail;
     }
 
     void adaptIntermodalRouter(MSNet::MSIntermodalRouter& router) const;
@@ -638,8 +643,10 @@ private:
     /// @brief The maximum speed factor for all vehicles in the network
     double myMaxSpeedFactor;
 
-    /// @brief The minimum deceleration capability for all vehicles in the network
+    /// @brief The minimum deceleration capability for all road vehicles in the network
     double myMinDeceleration;
+    /// @brief The minimum deceleration capability for all rail vehicles in the network
+    double myMinDecelerationRail;
 
     /// @brief List of vehicles which belong to public transport
     std::vector<SUMOVehicle*> myPTVehicles;
