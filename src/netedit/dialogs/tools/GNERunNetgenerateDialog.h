@@ -28,7 +28,7 @@
 
 class GNEApplicationWindow;
 class GNERunNetgenerate;
-class GNENetgenerate;
+class OptionsCont;
 
 // ===========================================================================
 // class definitions
@@ -53,7 +53,7 @@ public:
     GNEApplicationWindow* getGNEApp() const;
 
     /// @brief run tool (this open windows)
-    void run(GNENetgenerate* tool);
+    void run(OptionsCont *netgenerateOptions);
 
     /// @brief add info (green) text to output console
     void appendInfoMessage(const std::string text);
@@ -91,15 +91,14 @@ protected:
     /// @brief FOX needs this
     GNERunNetgenerateDialog();
 
+    /// @brief 
+
 private:
     /// @brief pointer to GNEApplicationWindow
     GNEApplicationWindow* myGNEApp;
 
-    /// @brief tool
-    GNENetgenerate* myNetgenerate = nullptr;
-
     /// @brief thread for running tool
-    GNERunNetgenerate* myRun = nullptr;
+    GNERunNetgenerate* myRunNetgenerate = nullptr;
 
     /// @brief text
     FXText* myText = nullptr;
@@ -115,6 +114,9 @@ private:
 
     /// @brief close button
     FXButton* myCloseButton = nullptr;
+
+    /// @brief netgenerate options
+    OptionsCont *myNetgenerateOptions;
 
     /// @brief Invalidated copy constructor.
     GNERunNetgenerateDialog(const GNERunNetgenerateDialog&) = delete;

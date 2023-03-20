@@ -20,10 +20,10 @@
 
 #include <netedit/GNEApplicationWindow.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/options/OptionsCont.h>
 
 #include "GNERunNetgenerateDialog.h"
 #include "GNERunNetgenerate.h"
-#include "GNENetgenerate.h"
 
 
 #define MARGING 4
@@ -52,7 +52,7 @@ GNERunNetgenerateDialog::GNERunNetgenerateDialog(GNEApplicationWindow* GNEApp) :
     FXDialogBox(GNEApp->getApp(), "", GUIDesignDialogBoxExplicit(0, 0)),
     myGNEApp(GNEApp) {
     // create run tool
-    myRun = new GNERunNetgenerate(this);
+    myRunNetgenerate = new GNERunNetgenerate(this);
     // set icon
     setIcon(GUIIconSubSys::getIcon(GUIIcon::TOOL_PYTHON));
     // create content frame
@@ -104,19 +104,19 @@ GNERunNetgenerateDialog::getGNEApp() const {
 
 
 void
-GNERunNetgenerateDialog::run(GNENetgenerate* tool) {
+GNERunNetgenerateDialog::run(OptionsCont *netgenerateOptions) {
     // set title
-    setTitle((tool->getName()  + " output").c_str());
+    setTitle("Netgenerate output");
     // refresh APP
     getApp()->refresh();
     // clear text
     myText->setText("");
     // show dialog
     FXDialogBox::show(PLACEMENT_SCREEN);
-    // set tool
-    myNetgenerate = tool;
+    // set netgenerate options
+    myNetgenerateOptions = netgenerateOptions;
     // run tool
-    myRun->run(tool);
+    myRunNetgenerate->run(myNetgenerateOptions);
     // open as modal dialog (will block all windows until stop() or stopModal() is called)
     myGNEApp->getApp()->runModalFor(this);
 }
@@ -150,7 +150,7 @@ GNERunNetgenerateDialog::appendBuffer(const char *buffer) {
 void
 GNERunNetgenerateDialog::updateDialog() {
     // update buttons
-    if (myRun->isRunning()) {
+    if (myRunNetgenerate->isRunning()) {
         myAbortButton->enable();
         myRerunButton->disable();
         myBackButton->disable();
@@ -169,7 +169,7 @@ GNERunNetgenerateDialog::updateDialog() {
 long
 GNERunNetgenerateDialog::onCmdSaveLog(FXObject*, FXSelector, void*) {
     // get log file
-    const auto logFile = GNEApplicationWindowHelper::saveLog(this);
+    const auto logFile = GNEApplicationWindowHelper::saveToolLog(this);
     // check that file is valid
     if (logFile.size() > 0) {
         OutputDevice& dev = OutputDevice::getDevice(logFile);
@@ -183,7 +183,7 @@ GNERunNetgenerateDialog::onCmdSaveLog(FXObject*, FXSelector, void*) {
 long
 GNERunNetgenerateDialog::onCmdAbort(FXObject*, FXSelector, void*) {
     // abort tool
-    myRun->abort();
+    myRunNetgenerate->abort();
     return 1;
 }
 
@@ -195,7 +195,7 @@ GNERunNetgenerateDialog::onCmdRerun(FXObject*, FXSelector, void*) {
     myText->appendStyledText(line.c_str(), (int)line.length(), 4, TRUE);
     appendInfoMessage("rerun tool\n");
     // run tool
-    myRun->run(myNetgenerate);
+    myRunNetgenerate->run(myNetgenerateOptions);
     return 1;
 }
 
@@ -204,14 +204,14 @@ long
 GNERunNetgenerateDialog::onCmdBack(FXObject*, FXSelector, void*) {
     // close run dialog and open tool dialog
     onCmdClose(nullptr, 0, nullptr);
-    return myGNEApp->handle(myNetgenerate->getMenuCommand(), FXSEL(SEL_COMMAND, MID_GNE_OPENTOOLDIALOG), nullptr);
+    return myGNEApp->handle(this, FXSEL(SEL_COMMAND, MID_NETGENERATE), nullptr);
 }
 
 
 long
 GNERunNetgenerateDialog::onCmdClose(FXObject*, FXSelector, void*) {
     // abort tool
-    myRun->abort();
+    myRunNetgenerate->abort();
     // stop modal
     myGNEApp->getApp()->stopModal(this);
     // hide dialog

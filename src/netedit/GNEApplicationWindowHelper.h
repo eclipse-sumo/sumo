@@ -44,6 +44,7 @@ class GNENet;
 class GNEPythonTool;
 class GNEPythonToolDialog;
 class GNERunPythonToolDialog;
+class GNERunNetgenerateDialog;
 class GNEUndoList;
 class GNEUndoListDialog;
 class GNEViewNet;
@@ -966,6 +967,9 @@ struct GNEApplicationWindowHelper {
         /// @brief run tool dialog
         long runToolDialog(FXObject* menuCommand) const;
 
+        /// @brief run netgenerate dialog
+        long runNetgenerateDialog(OptionsCont *netgenerateOptions) const;
+
     private:
         /// @brief map with python tools
         std::vector<GNEPythonTool*> myPythonTools;
@@ -975,6 +979,9 @@ struct GNEApplicationWindowHelper {
 
         /// @brief run python tool dialog
         GNERunPythonToolDialog* myRunPythonToolDialog = nullptr;
+
+        /// @brief run netgenerate dialog
+        GNERunNetgenerateDialog* myRunNetgenerateDialog = nullptr;
 
         /// @brief pointer to current GNEApplicationWindows
         GNEApplicationWindow* myGNEApp;
