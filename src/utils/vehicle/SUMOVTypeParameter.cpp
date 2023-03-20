@@ -64,6 +64,7 @@ SUMOVTypeParameter::VClassDefaultValues::VClassDefaultValues(SUMOVehicleClass vc
             width = 0.478;
             height = 1.719;
             shape = SUMOVehicleShape::PEDESTRIAN;
+            osgFile = "humanResting.obj";
             emissionClass = PollutantsInterface::getClassByName(EMPREFIX + "zero", vclass);
             mass = 70.; // https://en.wikipedia.org/wiki/Human_body_weight for Europe
             speedFactor.getParameter()[1] = 0.1;
