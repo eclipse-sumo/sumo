@@ -289,12 +289,6 @@ enum {
 
     /// @brief Main window-ID
     MID_WINDOW,
-    /// @brief netgenerate
-    MID_NETGENERATE,
-    /// @brief run tool (bin)
-    MID_RUNTOOL,
-    /// @brief postprocesing after run tool (bin)
-    MID_POSTPROCESSINGTOOL,
 
     /// @}
 
@@ -741,6 +735,12 @@ enum {
     MID_GNE_RUNPYTHONTOOL,
     /// @brief call tool for post processing
     MID_GNE_POSTPROCESSINGPYTHONTOOL,
+    /// @brief netgenerate
+    MID_GNE_NETGENERATE,
+    /// @brief run netgenerate
+    MID_GNE_RUNNETGENERATE,
+    /// @brief postprocesing netgenerate
+    MID_GNE_POSTPROCESSINGNETGENERATE,
 
     /// @}
 

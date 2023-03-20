@@ -86,7 +86,7 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_N_OPENNETWORK_NEWNETWORK,   GNEApplicationWindow::onCmdNewNetwork),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_N_OPENNETWORK_NEWNETWORK,   GNEApplicationWindow::onUpdOpen),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_SHIFT_N_NEWWINDOW,          GNEApplicationWindow::onCmdNewWindow),
-    FXMAPFUNC(SEL_COMMAND,  MID_NETGENERATE,                            GNEApplicationWindow::onCmdOpenNetgenerateOptionsDialog),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_NETGENERATE,                            GNEApplicationWindow::onCmdOpenNetgenerateOptionsDialog),
     FXMAPFUNC(SEL_COMMAND,  MID_RECENTFILE,                             GNEApplicationWindow::onCmdOpenRecent),
     FXMAPFUNC(SEL_UPDATE,   MID_RECENTFILE,                             GNEApplicationWindow::onUpdOpen),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_R_RELOAD,                   GNEApplicationWindow::onCmdSmartReload),
@@ -418,8 +418,8 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_LANGUAGE_HU,    GNEApplicationWindow::onCmdChangeLanguage),
     FXMAPFUNC(SEL_UPDATE,   MID_LANGUAGE_HU,    GNEApplicationWindow::onUpdChangeLanguage),
     // tools
-    FXMAPFUNC(SEL_COMMAND,  MID_RUNTOOL,            GNEApplicationWindow::onCmdRunTool),
-    FXMAPFUNC(SEL_COMMAND,  MID_POSTPROCESSINGTOOL, GNEApplicationWindow::onCmdPostprocessingTool),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_RUNNETGENERATE,             GNEApplicationWindow::onCmdRunNetgenerate),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_POSTPROCESSINGNETGENERATE,  GNEApplicationWindow::onCmdPostprocessingNetgenerate),
     // other
     FXMAPFUNC(SEL_CLIPBOARD_REQUEST,    0,                                          GNEApplicationWindow::onClipboardRequest),
     FXMAPFUNC(SEL_COMMAND,              MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT,     GNEApplicationWindow::onCmdFocusFrame),
@@ -1945,7 +1945,7 @@ long
 GNEApplicationWindow::onCmdNewWindow(FXObject*, FXSelector sel, void* ptr) {
     // get extra arguments
     std::string extraArg;
-    if (sel == MID_POSTPROCESSINGTOOL) {
+    if (sel == MID_GNE_POSTPROCESSINGNETGENERATE) {
         extraArg = " -s " + myNetgenerateOptions.getValueString("output-file");
     }
     FXRegistry reg("SUMO netedit", "netedit");
@@ -2131,14 +2131,14 @@ GNEApplicationWindow::onUpdRequireRecomputing(FXObject*, FXSelector, void*) {
 
 
 long
-GNEApplicationWindow::onCmdRunTool(FXObject*, FXSelector, void*) {
+GNEApplicationWindow::onCmdRunNetgenerate(FXObject*, FXSelector, void*) {
     return myToolsMenuCommands.runNetgenerateDialog(&myNetgenerateOptions);
 }
 
 
 long
-GNEApplicationWindow::onCmdPostprocessingTool(FXObject*obj, FXSelector, void* ptr) {
-    return onCmdNewWindow(obj, MID_POSTPROCESSINGTOOL, ptr);
+GNEApplicationWindow::onCmdPostprocessingNetgenerate(FXObject*obj, FXSelector, void* ptr) {
+    return onCmdNewWindow(obj, MID_GNE_POSTPROCESSINGNETGENERATE, ptr);
 }
 
 

@@ -428,11 +428,11 @@ public:
     /// @brief update label for require recomputing
     long onUpdRequireRecomputing(FXObject* sender, FXSelector sel, void* ptr);
 
-    /// @brief called when run tool is called
-    long onCmdRunTool(FXObject* sender, FXSelector sel, void* ptr);
+    /// @brief called when run netgenerate is called
+    long onCmdRunNetgenerate(FXObject* sender, FXSelector sel, void* ptr);
 
-    /// @brief postprocessing tool
-    long onCmdPostprocessingTool(FXObject* sender, FXSelector sel, void* ptr);
+    /// @brief postprocessing netgenerate
+    long onCmdPostprocessingNetgenerate(FXObject* sender, FXSelector sel, void* ptr);
 
     /// @brief called if the user press key combination Ctrl + G to toggle grid
     long onCmdToggleGrid(FXObject*, FXSelector, void*);

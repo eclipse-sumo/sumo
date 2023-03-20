@@ -39,7 +39,7 @@
 // ===========================================================================
 
 FXDEFMAP(GUIDialog_Options) GUIDialogOptionsMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_RUNTOOL, GUIDialog_Options::onCmdRunTool),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_RUNNETGENERATE, GUIDialog_Options::onCmdRunNetgenerate),
 };
 
 FXDEFMAP(GUIDialog_Options::InputString) InputStringMap[] = {
@@ -102,11 +102,11 @@ GUIDialog_Options::~GUIDialog_Options() { }
 
 
 long
-GUIDialog_Options::onCmdRunTool(FXObject*, FXSelector, void*) {
+GUIDialog_Options::onCmdRunNetgenerate(FXObject*, FXSelector, void*) {
     // close dialog accepting changes
     handle(this, FXSEL(SEL_COMMAND, ID_ACCEPT), nullptr);
     // run tool in mainWindow
-    return myMainWindowParent->handle(this, FXSEL(SEL_COMMAND, MID_RUNTOOL), nullptr);
+    return myMainWindowParent->handle(this, FXSEL(SEL_COMMAND, MID_GNE_RUNNETGENERATE), nullptr);
 }
 
 // ===========================================================================
@@ -304,7 +304,7 @@ GUIDialog_Options::GUIDialog_Options(GUIMainWindow* parent, OptionsCont* options
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
     // continue depending of dialog type
     if (runDialog) {
-        new FXButton(buttonsFrame, (TL("Run") + std::string("\t\t") + TL("Run tool")).c_str(), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_RUNTOOL, GUIDesignButtonOK);
+        new FXButton(buttonsFrame, (TL("Run") + std::string("\t\t") + TL("Run tool")).c_str(), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_RUNNETGENERATE, GUIDesignButtonOK);
         new FXButton(buttonsFrame, (TL("Cancel") + std::string("\t\t") + TL("Cancel tool")).c_str(), GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, ID_CANCEL, GUIDesignButtonOK);
     } else {
         new FXButton(buttonsFrame, (TL("OK") + std::string("\t\t") + TL("Accept settings")).c_str(), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, ID_ACCEPT, GUIDesignButtonOK);

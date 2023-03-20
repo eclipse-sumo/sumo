@@ -203,7 +203,7 @@ long
 GNERunNetgenerateDialog::onCmdBack(FXObject*, FXSelector, void*) {
     // close run dialog and open tool dialog
     onCmdCancel(nullptr, 0, nullptr);
-    return myGNEApp->handle(this, FXSEL(SEL_COMMAND, MID_NETGENERATE), nullptr);
+    return myGNEApp->handle(this, FXSEL(SEL_COMMAND, MID_GNE_NETGENERATE), nullptr);
 }
 
 
@@ -212,7 +212,7 @@ GNERunNetgenerateDialog::onCmdClose(FXObject*, FXSelector, void*) {
     // close run dialog and call postprocessing
     onCmdCancel(nullptr, 0, nullptr);
     // call postprocessing dialog
-    return myGNEApp->handle(this, FXSEL(SEL_COMMAND, MID_POSTPROCESSINGTOOL), nullptr);
+    return myGNEApp->handle(this, FXSEL(SEL_COMMAND, MID_GNE_POSTPROCESSINGNETGENERATE), nullptr);
 }
 
 

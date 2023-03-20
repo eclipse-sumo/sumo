@@ -60,8 +60,8 @@ public:
     /// @brief Destructor
     ~GUIDialog_Options();
 
-    /// @brief called when user press run button
-    long onCmdRunTool(FXObject*, FXSelector, void*);
+    /// @brief called when user press run netgenerate button
+    long onCmdRunNetgenerate(FXObject*, FXSelector, void*);
 
     // ===========================================================================
     // Option input classes
