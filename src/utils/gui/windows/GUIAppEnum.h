@@ -289,10 +289,12 @@ enum {
 
     /// @brief Main window-ID
     MID_WINDOW,
-    /// @brief run tool (used in GUIDialog_Options)
-    MID_RUNTOOL,
     /// @brief netgenerate
     MID_NETGENERATE,
+    /// @brief run tool (bin)
+    MID_RUNTOOL,
+    /// @brief postprocesing after run tool (bin)
+    MID_POSTPROCESSINGTOOL,
 
     /// @}
 

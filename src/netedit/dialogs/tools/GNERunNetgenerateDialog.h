@@ -86,6 +86,9 @@ public:
     /// @brief event after press close button
     long onCmdClose(FXObject*, FXSelector, void*);
 
+    /// @brief event after press cancel button
+    long onCmdCancel(FXObject*, FXSelector, void*);
+
     /// @}
 
 protected:

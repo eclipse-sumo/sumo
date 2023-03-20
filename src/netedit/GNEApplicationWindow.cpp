@@ -396,7 +396,7 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     // threads events
     FXMAPFUNC(FXEX::SEL_THREAD_EVENT,   ID_LOADTHREAD_EVENT,    GNEApplicationWindow::onLoadThreadEvent),
     FXMAPFUNC(FXEX::SEL_THREAD,         ID_LOADTHREAD_EVENT,    GNEApplicationWindow::onLoadThreadEvent),
-    // Edge template functions
+    // edge template functions
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_F1_TEMPLATE_SET,       GNEApplicationWindow::onCmdSetTemplate),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_F2_TEMPLATE_COPY,      GNEApplicationWindow::onCmdCopyTemplate),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_F3_TEMPLATE_CLEAR,     GNEApplicationWindow::onCmdClearTemplate),
@@ -417,13 +417,14 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_LANGUAGE_TR,    GNEApplicationWindow::onUpdChangeLanguage),
     FXMAPFUNC(SEL_COMMAND,  MID_LANGUAGE_HU,    GNEApplicationWindow::onCmdChangeLanguage),
     FXMAPFUNC(SEL_UPDATE,   MID_LANGUAGE_HU,    GNEApplicationWindow::onUpdChangeLanguage),
-    // Other
+    // tools
+    FXMAPFUNC(SEL_COMMAND,  MID_RUNTOOL,            GNEApplicationWindow::onCmdRunTool),
+    FXMAPFUNC(SEL_COMMAND,  MID_POSTPROCESSINGTOOL, GNEApplicationWindow::onCmdPostprocessingTool),
+    // other
     FXMAPFUNC(SEL_CLIPBOARD_REQUEST,    0,                                          GNEApplicationWindow::onClipboardRequest),
     FXMAPFUNC(SEL_COMMAND,              MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT,     GNEApplicationWindow::onCmdFocusFrame),
     FXMAPFUNC(SEL_UPDATE,               MID_GNE_MODESMENUTITLE,                     GNEApplicationWindow::onUpdRequireViewNet),
     FXMAPFUNC(SEL_UPDATE,               MID_GNE_RECOMPUTINGNEEDED,                  GNEApplicationWindow::onUpdRequireRecomputing),
-    FXMAPFUNC(SEL_COMMAND,              MID_RUNTOOL,                                GNEApplicationWindow::onCmdRunTool),
-  
 };
 
 // Object implementation
@@ -2113,8 +2114,7 @@ GNEApplicationWindow::onCmdFocusFrame(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onUpdRequireViewNet(FXObject* sender, FXSelector, void*) {
     // enable or disable sender element depending of viewNet
-    sender->handle(this, myViewNet ? FXSEL(SEL_COMMAND, ID_ENABLE) : FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    return 1;
+    return sender->handle(this, myViewNet ? FXSEL(SEL_COMMAND, ID_ENABLE) : FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
 }
 
 
@@ -2128,6 +2128,33 @@ GNEApplicationWindow::onUpdRequireRecomputing(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdRunTool(FXObject*, FXSelector, void*) {
     return myToolsMenuCommands.runNetgenerateDialog(&myNetgenerateOptions);
+}
+
+
+long
+GNEApplicationWindow::onCmdPostprocessingTool(FXObject*, FXSelector, void*) {
+    // load created newtork
+    auto& neteditOptions = OptionsCont::getOptions();
+    // check if close current file
+    if (onCmdClose(0, 0, 0) == 1) {
+        // store size, position and viewport
+        storeWindowSizeAndPos();
+        gSchemeStorage.saveViewport(0, 0, -1, 0); // recenter view
+        // set flag
+        myAmLoading = true;
+        // fill (reset) all options
+        myLoadThread->fillOptions(neteditOptions);
+        // set default options defined in GNELoadThread::setDefaultOptions(...)
+        myLoadThread->setDefaultOptions(neteditOptions);
+        // set file to load
+        neteditOptions.resetWritable();
+        neteditOptions.set("net-file", myNetgenerateOptions.getValueString("output-file"));
+        // set status bar
+        setStatusBarText(TL("loading generate network file '") + myNetgenerateOptions.getValueString("output-file") + "'");
+        // loaad network
+        myLoadThread->loadNetworkOrConfig();
+    }
+    return 1;
 }
 
 

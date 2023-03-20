@@ -32,7 +32,7 @@
 // ===========================================================================
 
 FXDEFMAP(GNERunNetgenerateDialog) GNERunNetgenerateDialogMap[] = {
-    FXMAPFUNC(SEL_CLOSE,    0,                      GNERunNetgenerateDialog::onCmdClose),
+    FXMAPFUNC(SEL_CLOSE,    0,                      GNERunNetgenerateDialog::onCmdCancel),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_SAVE,    GNERunNetgenerateDialog::onCmdSaveLog),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_ABORT,   GNERunNetgenerateDialog::onCmdAbort),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_RERUN,   GNERunNetgenerateDialog::onCmdRerun),
@@ -202,13 +202,22 @@ GNERunNetgenerateDialog::onCmdRerun(FXObject*, FXSelector, void*) {
 long
 GNERunNetgenerateDialog::onCmdBack(FXObject*, FXSelector, void*) {
     // close run dialog and open tool dialog
-    onCmdClose(nullptr, 0, nullptr);
+    onCmdCancel(nullptr, 0, nullptr);
     return myGNEApp->handle(this, FXSEL(SEL_COMMAND, MID_NETGENERATE), nullptr);
 }
 
 
 long
 GNERunNetgenerateDialog::onCmdClose(FXObject*, FXSelector, void*) {
+    // close run dialog and call postprocessing
+    onCmdCancel(nullptr, 0, nullptr);
+    // call postprocessing dialog
+    return myGNEApp->handle(this, FXSEL(SEL_COMMAND, MID_POSTPROCESSINGTOOL), nullptr);
+}
+
+
+long
+GNERunNetgenerateDialog::onCmdCancel(FXObject*, FXSelector, void*) {
     // abort tool
     myRunNetgenerate->abort();
     // stop modal
