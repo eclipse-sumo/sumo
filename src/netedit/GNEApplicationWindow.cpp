@@ -2312,7 +2312,7 @@ GNEApplicationWindow::onCmdOpenSumoOptionsDialog(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdOpenNetgenerateOptionsDialog(FXObject*, FXSelector, void*) {
-    return GUIDialog_Options::Options(this, myNetgenerateOptions, TL("Netgenerate options"));
+    return GUIDialog_Options::Run(this, myNetgenerateOptions, TL("Netgenerate options"));
 }
 
 

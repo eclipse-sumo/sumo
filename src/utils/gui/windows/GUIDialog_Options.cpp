@@ -75,7 +75,14 @@ FXIMPLEMENT(GUIDialog_Options::InputFilename,       FXHorizontalFrame, InputFile
 
 int
 GUIDialog_Options::Options(GUIMainWindow *windows, OptionsCont& optionsContainer, const char* titleName) {
-    GUIDialog_Options* wizard = new GUIDialog_Options(windows, optionsContainer, titleName, windows->getWidth(), windows->getHeight());
+    GUIDialog_Options* wizard = new GUIDialog_Options(windows, optionsContainer, titleName, false);
+    return wizard->execute();
+}
+
+
+int
+GUIDialog_Options::Run(GUIMainWindow *windows, OptionsCont& optionsContainer, const char* titleName) {
+    GUIDialog_Options* wizard = new GUIDialog_Options(windows, optionsContainer, titleName, true);
     return wizard->execute();
 }
 
@@ -234,8 +241,8 @@ GUIDialog_Options::InputFilename::onCmdSetOption(FXObject*, FXSelector, void*) {
 }
 
 
-GUIDialog_Options::GUIDialog_Options(FXWindow* parent, OptionsCont& optionsContainer, const char* titleName, int width, int height) :
-    FXDialogBox(parent, titleName, GUIDesignDialogBox, 0, 0, width, height),
+GUIDialog_Options::GUIDialog_Options(GUIMainWindow* parent, OptionsCont& optionsContainer, const char* titleName, const bool runDialog) :
+    FXDialogBox(parent, titleName, GUIDesignDialogBox, 0, 0, parent->getWidth(), parent->getHeight()),
     myOptionsContainer(optionsContainer) {
     new FXStatusBar(this, GUIDesignStatusBar);
     FXVerticalFrame* contentFrame = new FXVerticalFrame(this, GUIDesignContentsFrame);
@@ -271,8 +278,17 @@ GUIDialog_Options::GUIDialog_Options(FXWindow* parent, OptionsCont& optionsConta
             }
         }
     }
-    // ok-button
-    new FXButton(contentFrame, (TL("OK") + std::string("\t\t") + TL("Accept settings")).c_str(), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, ID_ACCEPT, GUIDesignButtonOK);
+    // create buttons frame
+    FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(contentFrame, GUIDesignHorizontalFrame);
+    new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
+    // continue depending of dialog type
+    if (runDialog) {
+        new FXButton(buttonsFrame, (TL("Run") + std::string("\t\t") + TL("Run tool")).c_str(), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, ID_ACCEPT, GUIDesignButtonOK);
+        new FXButton(buttonsFrame, (TL("Cancel") + std::string("\t\t") + TL("Cancel tool")).c_str(), GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, ID_CANCEL, GUIDesignButtonOK);
+    } else {
+        new FXButton(buttonsFrame, (TL("OK") + std::string("\t\t") + TL("Accept settings")).c_str(), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, ID_ACCEPT, GUIDesignButtonOK);
+    }
+    new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
 }
 
 /****************************************************************************/
