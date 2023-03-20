@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNETool.cpp
+/// @file    GNEPythonTool.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Jun 2022
 ///
@@ -30,55 +30,55 @@
 // member method definitions
 // ===========================================================================
 
-GNETool::GNETool(GNEApplicationWindow* GNEApp, const std::string &pythonPath, 
+GNEPythonTool::GNEPythonTool(GNEApplicationWindow* GNEApp, const std::string &pythonPath, 
         const std::string &templateStr, FXMenuPane* menu) :
     myGNEApp(GNEApp),
     myPythonPath(pythonPath),
-    myToolName(FileHelpers::getFileFromPath(pythonPath, true)) {
+    myPythonToolName(FileHelpers::getFileFromPath(pythonPath, true)) {
     // build menu command
-    myMenuCommand = GUIDesigns::buildFXMenuCommandShortcut(menu, myToolName, "", TL("Execute python tool '") + myToolName + "'.",
+    myMenuCommand = GUIDesigns::buildFXMenuCommandShortcut(menu, myPythonToolName, "", TL("Execute python tool '") + myPythonToolName + "'.",
         GUIIconSubSys::getIcon(GUIIcon::TOOL_PYTHON), GNEApp, MID_GNE_OPENTOOLDIALOG);
     // parse tool options
     if (templateStr.size() > 0) {
         try {
-            TemplateHandler::parseTemplate(myToolsOptions, templateStr);
+            TemplateHandler::parseTemplate(myPythonToolsOptions, templateStr);
         } catch (ProcessError&) {
-            WRITE_ERROR("Error parsing template of tool: " + myToolName);
+            WRITE_ERROR("Error parsing template of tool: " + myPythonToolName);
         }
     }
 
 }
 
 
-GNETool::~GNETool() {}
+GNEPythonTool::~GNEPythonTool() {}
 
 
 GNEApplicationWindow*
-GNETool::getGNEApp() const {
+GNEPythonTool::getGNEApp() const {
     return myGNEApp;
 }
 
 
 const std::string&
-GNETool::getToolName() const {
-    return myToolName;
+GNEPythonTool::getToolName() const {
+    return myPythonToolName;
 }
 
 
 OptionsCont&
-GNETool::getToolsOptions() {
-    return myToolsOptions;
+GNEPythonTool::getToolsOptions() {
+    return myPythonToolsOptions;
 }
 
 
 FXMenuCommand*
-GNETool::getMenuCommand() const {
+GNEPythonTool::getMenuCommand() const {
     return myMenuCommand;
 }
 
 
 std::string
-GNETool::getCommand() const {
+GNEPythonTool::getCommand() const {
     // add python script
     const char* pythonEnv = getenv("PYTHON");
     const std::string python = (pythonEnv == nullptr)? "python" : pythonEnv;
@@ -89,7 +89,7 @@ GNETool::getCommand() const {
     // declare arguments
     std::string arguments;
     // add arguments
-    for (const auto &option : myToolsOptions) {
+    for (const auto &option : myPythonToolsOptions) {
         arguments += ("--" + option.first + " \"" + option.second->getValueString() + "\" ");
     }
     return command + " " + arguments;

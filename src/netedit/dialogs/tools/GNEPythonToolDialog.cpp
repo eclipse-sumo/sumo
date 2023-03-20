@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEToolDialog.cpp
+/// @file    GNEPythonToolDialog.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Jun 2022
 ///
@@ -33,21 +33,21 @@
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(GNEToolDialog) GNEToolDialogMap[] = {
-    FXMAPFUNC(SEL_CLOSE,    0,                      GNEToolDialog::onCmdCancel),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_RUN,     GNEToolDialog::onCmdRun),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_CANCEL,  GNEToolDialog::onCmdCancel),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_RESET,   GNEToolDialog::onCmdReset)
+FXDEFMAP(GNEPythonToolDialog) GNEPythonToolDialogMap[] = {
+    FXMAPFUNC(SEL_CLOSE,    0,                      GNEPythonToolDialog::onCmdCancel),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_RUN,     GNEPythonToolDialog::onCmdRun),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_CANCEL,  GNEPythonToolDialog::onCmdCancel),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_RESET,   GNEPythonToolDialog::onCmdReset)
 };
 
 // Object implementation
-FXIMPLEMENT(GNEToolDialog, FXDialogBox, GNEToolDialogMap, ARRAYNUMBER(GNEToolDialogMap))
+FXIMPLEMENT(GNEPythonToolDialog, FXDialogBox, GNEPythonToolDialogMap, ARRAYNUMBER(GNEPythonToolDialogMap))
 
 // ============================================-===============================
 // member method definitions
 // ===========================================================================
 
-GNEToolDialog::GNEToolDialog(GNEApplicationWindow* GNEApp) :
+GNEPythonToolDialog::GNEPythonToolDialog(GNEApplicationWindow* GNEApp) :
     FXDialogBox(GNEApp->getApp(), "Tool", GUIDesignDialogBoxExplicit(0, 0)),
     myGNEApp(GNEApp) {
     // set icon
@@ -73,15 +73,15 @@ GNEToolDialog::GNEToolDialog(GNEApplicationWindow* GNEApp) :
 }
 
 
-GNEToolDialog::~GNEToolDialog() {}
+GNEPythonToolDialog::~GNEPythonToolDialog() {}
 
 
 void
-GNEToolDialog::openDialog(GNETool* tool) {
+GNEPythonToolDialog::openDialog(GNEPythonTool* tool) {
     // set tool
-    myTool = tool;
+    myPythonTool = tool;
     // set title
-    setTitle(myTool->getToolName().c_str());
+    setTitle(myPythonTool->getToolName().c_str());
     // build arguments
     buildArguments();
     // show dialog
@@ -96,18 +96,18 @@ GNEToolDialog::openDialog(GNETool* tool) {
 
 
 long
-GNEToolDialog::onCmdRun(FXObject*, FXSelector, void*) {
+GNEPythonToolDialog::onCmdRun(FXObject*, FXSelector, void*) {
     // stop modal
     myGNEApp->getApp()->stopModal(this);
     // hide dialog
     hide();
     // run tool
-    return myGNEApp->tryHandle(myTool->getMenuCommand(), FXSEL(SEL_COMMAND, MID_GNE_RUNTOOL), nullptr);
+    return myGNEApp->tryHandle(myPythonTool->getMenuCommand(), FXSEL(SEL_COMMAND, MID_GNE_RUNTOOL), nullptr);
 }
 
 
 long
-GNEToolDialog::onCmdCancel(FXObject*, FXSelector, void*) {
+GNEPythonToolDialog::onCmdCancel(FXObject*, FXSelector, void*) {
     // stop modal
     myGNEApp->getApp()->stopModal(this);
     // hide dialog
@@ -117,7 +117,7 @@ GNEToolDialog::onCmdCancel(FXObject*, FXSelector, void*) {
 
 
 long
-GNEToolDialog::onCmdReset(FXObject*, FXSelector, void*) {
+GNEPythonToolDialog::onCmdReset(FXObject*, FXSelector, void*) {
     // iterate over all arguments and reset values
     for (const auto& argument : myArguments) {
         argument->reset();
@@ -126,30 +126,30 @@ GNEToolDialog::onCmdReset(FXObject*, FXSelector, void*) {
 }
 
 
-GNEToolDialog::GNEToolDialog() :
+GNEPythonToolDialog::GNEPythonToolDialog() :
     myGNEApp(nullptr) {
 }
 
 
 void
-GNEToolDialog::buildArguments() {
+GNEPythonToolDialog::buildArguments() {
     // first clear arguments
     for (const auto& argument : myArguments) {
         delete argument;
     }
     myArguments.clear();
     // iterate over options
-    for (const auto &option : myTool->getToolsOptions()) {
+    for (const auto &option : myPythonTool->getToolsOptions()) {
         if (option.second->isInteger()) {
-            myArguments.push_back(new GNEToolDialogElements::IntArgument(this, option.first, option.second));
+            myArguments.push_back(new GNEPythonToolDialogElements::IntArgument(this, option.first, option.second));
         } else if (option.second->isFloat()) {
-            myArguments.push_back(new GNEToolDialogElements::FloatArgument(this, option.first, option.second));
+            myArguments.push_back(new GNEPythonToolDialogElements::FloatArgument(this, option.first, option.second));
         } else if (option.second->isBool()) {
-            myArguments.push_back(new GNEToolDialogElements::BoolArgument(this, option.first, option.second));
+            myArguments.push_back(new GNEPythonToolDialogElements::BoolArgument(this, option.first, option.second));
         } else if (option.second->isFileName()) {
-            myArguments.push_back(new GNEToolDialogElements::FileNameArgument(this, option.first, option.second));       
+            myArguments.push_back(new GNEPythonToolDialogElements::FileNameArgument(this, option.first, option.second));       
         } else {
-            myArguments.push_back(new GNEToolDialogElements::StringArgument(this, option.first, option.second));
+            myArguments.push_back(new GNEPythonToolDialogElements::StringArgument(this, option.first, option.second));
         }
     }
     // adjust parameter column (call always after create elements)
@@ -158,7 +158,7 @@ GNEToolDialog::buildArguments() {
 
 
 void
-GNEToolDialog::adjustParameterColumn() {
+GNEPythonToolDialog::adjustParameterColumn() {
     int maximumWidth = 0;
     // iterate over all arguments and find the maximum width
     for (const auto &argument : myArguments) {

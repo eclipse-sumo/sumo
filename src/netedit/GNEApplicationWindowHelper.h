@@ -41,9 +41,9 @@
 class GNEApplicationWindow;
 class GNELoadThread;
 class GNENet;
-class GNETool;
-class GNEToolDialog;
-class GNERunToolDialog;
+class GNEPythonTool;
+class GNEPythonToolDialog;
+class GNERunPythonToolDialog;
 class GNEUndoList;
 class GNEUndoListDialog;
 class GNEViewNet;
@@ -94,22 +94,22 @@ struct GNEApplicationWindowHelper {
         GNEApplicationWindow* myGNEApp;
 
         /// @brief menu bar drag (for file, edit, processing...)
-        FXToolBarShell* myToolBarShellMenu = nullptr;
+        FXToolBarShell* myPythonToolBarShellMenu = nullptr;
 
         /// @brief menu bar drag for super modes (network, demand and data)
-        FXToolBarShell* myToolBarShellSuperModes = nullptr;
+        FXToolBarShell* myPythonToolBarShellSuperModes = nullptr;
 
         /// @brief menu bar drag for save elements
-        FXToolBarShell* myToolBarShellSaveElements = nullptr;
+        FXToolBarShell* myPythonToolBarShellSaveElements = nullptr;
 
         /// @brief menu bar drag for navigation (Zoom, coloring...)
-        FXToolBarShell* myToolBarShellNavigation = nullptr;
+        FXToolBarShell* myPythonToolBarShellNavigation = nullptr;
 
         /// @brief menu bar drag for modes (select, inspect, delete...)
-        FXToolBarShell* myToolBarShellModes = nullptr;
+        FXToolBarShell* myPythonToolBarShellModes = nullptr;
 
         /// @brief menu bar drag for interval bar
-        FXToolBarShell* myToolBarShellIntervalBar = nullptr;
+        FXToolBarShell* myPythonToolBarShellIntervalBar = nullptr;
 
         /// @brief Invalidated copy constructor.
         ToolbarsGrip(const ToolbarsGrip&) = delete;
@@ -967,14 +967,14 @@ struct GNEApplicationWindowHelper {
         long runToolDialog(FXObject* menuCommand) const;
 
     private:
-        /// @brief map with tools
-        std::vector<GNETool*> myTools;
+        /// @brief map with python tools
+        std::vector<GNEPythonTool*> myPythonTools;
 
-        /// @brief tool dialog
-        GNEToolDialog* myToolDialog = nullptr;
+        /// @brief python tool dialog
+        GNEPythonToolDialog* myPythonToolDialog = nullptr;
 
-        /// @brief run tool dialog
-        GNERunToolDialog* myRunToolDialog = nullptr;
+        /// @brief run python tool dialog
+        GNERunPythonToolDialog* myRunPythonToolDialog = nullptr;
 
         /// @brief pointer to current GNEApplicationWindows
         GNEApplicationWindow* myGNEApp;

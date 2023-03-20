@@ -18,9 +18,9 @@
 // The main window of Netedit (adapted from GUIApplicationWindow)
 /****************************************************************************/
 
-#include <netedit/dialogs/tools/GNETool.h>
-#include <netedit/dialogs/tools/GNEToolDialog.h>
-#include <netedit/dialogs/tools/GNERunToolDialog.h>
+#include <netedit/dialogs/tools/GNEPythonTool.h>
+#include <netedit/dialogs/tools/GNEPythonToolDialog.h>
+#include <netedit/dialogs/tools/GNERunPythonToolDialog.h>
 #include <netedit/elements/GNEAttributeCarrier.h>
 #include <netedit/templates.h>
 #include <utils/common/FileHelpers.h>
@@ -52,8 +52,8 @@ GNEApplicationWindowHelper::ToolbarsGrip::ToolbarsGrip(GNEApplicationWindow* GNE
 void
 GNEApplicationWindowHelper::ToolbarsGrip::buildMenuToolbarsGrip() {
     // build menu bar (for File, edit, processing...) using specify design
-    myToolBarShellMenu = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
-    menu = new FXMenuBar(myGNEApp->getTopDock(), myToolBarShellMenu, GUIDesignToolbarMenuBarNetedit);
+    myPythonToolBarShellMenu = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
+    menu = new FXMenuBar(myGNEApp->getTopDock(), myPythonToolBarShellMenu, GUIDesignToolbarMenuBarNetedit);
     // declare toolbar grip for menu bar
     new FXToolBarGrip(menu, menu, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
 }
@@ -62,23 +62,23 @@ GNEApplicationWindowHelper::ToolbarsGrip::buildMenuToolbarsGrip() {
 void
 GNEApplicationWindowHelper::ToolbarsGrip::buildViewParentToolbarsGrips() {
     // build toolbar shells
-    myToolBarShellSuperModes = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
-    myToolBarShellSaveElements = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
-    myToolBarShellNavigation = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
-    myToolBarShellModes = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
-    myToolBarShellIntervalBar = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
+    myPythonToolBarShellSuperModes = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
+    myPythonToolBarShellSaveElements = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
+    myPythonToolBarShellNavigation = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
+    myPythonToolBarShellModes = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
+    myPythonToolBarShellIntervalBar = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
     // build menu bars
-    superModes = new FXMenuBar(myGNEApp->getTopDock(), myToolBarShellSuperModes, GUIDesignToolBarRaisedSame);
+    superModes = new FXMenuBar(myGNEApp->getTopDock(), myPythonToolBarShellSuperModes, GUIDesignToolBarRaisedSame);
     if (OptionsCont::getOptions().getBool("gui-testing")) {
-        saveElements = new FXMenuBar(myGNEApp->getTopDock(), myToolBarShellSaveElements, GUIDesignToolBarRaisedNext);
-        navigation = new FXMenuBar(myGNEApp->getTopDock(), myToolBarShellNavigation, GUIDesignToolBarRaisedSame);
-        modes = new FXMenuBar(myGNEApp->getTopDock(), myToolBarShellModes, GUIDesignToolBarRaisedNext);
+        saveElements = new FXMenuBar(myGNEApp->getTopDock(), myPythonToolBarShellSaveElements, GUIDesignToolBarRaisedNext);
+        navigation = new FXMenuBar(myGNEApp->getTopDock(), myPythonToolBarShellNavigation, GUIDesignToolBarRaisedSame);
+        modes = new FXMenuBar(myGNEApp->getTopDock(), myPythonToolBarShellModes, GUIDesignToolBarRaisedNext);
     } else {
-        saveElements = new FXMenuBar(myGNEApp->getTopDock(), myToolBarShellSaveElements, GUIDesignToolBarRaisedNext);
-        navigation = new FXMenuBar(myGNEApp->getTopDock(), myToolBarShellNavigation, GUIDesignToolBarRaisedSame);
-        modes = new FXMenuBar(myGNEApp->getTopDock(), myToolBarShellModes, GUIDesignToolBarRaisedSame);
+        saveElements = new FXMenuBar(myGNEApp->getTopDock(), myPythonToolBarShellSaveElements, GUIDesignToolBarRaisedNext);
+        navigation = new FXMenuBar(myGNEApp->getTopDock(), myPythonToolBarShellNavigation, GUIDesignToolBarRaisedSame);
+        modes = new FXMenuBar(myGNEApp->getTopDock(), myPythonToolBarShellModes, GUIDesignToolBarRaisedSame);
     }
-    intervalBar = new FXMenuBar(myGNEApp->getTopDock(), myToolBarShellIntervalBar, GUIDesignToolBarRaisedNext);
+    intervalBar = new FXMenuBar(myGNEApp->getTopDock(), myPythonToolBarShellIntervalBar, GUIDesignToolBarRaisedNext);
     // build FXToolBarGrip
     new FXToolBarGrip(superModes, superModes, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
     new FXToolBarGrip(saveElements, saveElements, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
@@ -92,11 +92,11 @@ GNEApplicationWindowHelper::ToolbarsGrip::buildViewParentToolbarsGrips() {
     modes->create();
     intervalBar->create();
     // create toolbar shells
-    myToolBarShellSuperModes->create();
-    myToolBarShellSaveElements->create();
-    myToolBarShellNavigation->create();
-    myToolBarShellModes->create();
-    myToolBarShellIntervalBar->create();
+    myPythonToolBarShellSuperModes->create();
+    myPythonToolBarShellSaveElements->create();
+    myPythonToolBarShellNavigation->create();
+    myPythonToolBarShellModes->create();
+    myPythonToolBarShellIntervalBar->create();
     // recalc top dop after creating elements
     myGNEApp->getTopDock()->recalc();
 }
@@ -111,11 +111,11 @@ GNEApplicationWindowHelper::ToolbarsGrip::destroyParentToolbarsGrips() {
     delete modes;
     delete intervalBar;
     // also delete toolbar shells to avoid floating windows
-    delete myToolBarShellSuperModes;
-    delete myToolBarShellSaveElements;
-    delete myToolBarShellNavigation;
-    delete myToolBarShellModes;
-    delete myToolBarShellIntervalBar;
+    delete myPythonToolBarShellSuperModes;
+    delete myPythonToolBarShellSaveElements;
+    delete myPythonToolBarShellNavigation;
+    delete myPythonToolBarShellModes;
+    delete myPythonToolBarShellIntervalBar;
     // recalc top dop after deleting elements
     myGNEApp->getTopDock()->recalc();
 }
@@ -1985,12 +1985,12 @@ GNEApplicationWindowHelper::ToolsMenuCommands::ToolsMenuCommands(GNEApplicationW
 
 GNEApplicationWindowHelper::ToolsMenuCommands::~ToolsMenuCommands() {
     // delete all tools
-    for (const auto &tool : myTools) {
+    for (const auto &tool : myPythonTools) {
         delete tool;
     }
     // delete dialogs
-    delete myToolDialog;
-    delete myRunToolDialog;
+    delete myPythonToolDialog;
+    delete myRunPythonToolDialog;
 }
 
 
@@ -2000,25 +2000,25 @@ GNEApplicationWindowHelper::ToolsMenuCommands::buildTools(FXMenuPane* toolsMenu,
     // build template tools
     for (const auto &templateTool : templateTools) {
         if (menuPaneToolMaps.count(templateTool.subfolder) > 0) {
-            myTools.push_back(new GNETool(myGNEApp, templateTool.pythonPath, 
+            myPythonTools.push_back(new GNEPythonTool(myGNEApp, templateTool.pythonPath, 
                               templateTool.templateStr, menuPaneToolMaps.at(templateTool.subfolder)));
         } else {
-            myTools.push_back(new GNETool(myGNEApp, templateTool.pythonPath, 
+            myPythonTools.push_back(new GNEPythonTool(myGNEApp, templateTool.pythonPath, 
                               templateTool.templateStr, toolsMenu));
         }
     }
     // build dialogs
-    myToolDialog = new GNEToolDialog(myGNEApp);
-    myRunToolDialog = new GNERunToolDialog(myGNEApp);
+    myPythonToolDialog = new GNEPythonToolDialog(myGNEApp);
+    myRunPythonToolDialog = new GNERunPythonToolDialog(myGNEApp);
 }
 
 
 long
 GNEApplicationWindowHelper::ToolsMenuCommands::showTool(FXObject* menuCommand) const {
     // iterate over all tools and find menu command
-    for (const auto &tool : myTools) {
+    for (const auto &tool : myPythonTools) {
         if (tool->getMenuCommand() == menuCommand) {
-            myToolDialog->openDialog(tool);
+            myPythonToolDialog->openDialog(tool);
             return 1;
         }
     }
@@ -2029,9 +2029,9 @@ GNEApplicationWindowHelper::ToolsMenuCommands::showTool(FXObject* menuCommand) c
 long
 GNEApplicationWindowHelper::ToolsMenuCommands::runToolDialog(FXObject* menuCommand) const {
     // iterate over all tools and find menu command
-    for (const auto &tool : myTools) {
+    for (const auto &tool : myPythonTools) {
         if (tool->getMenuCommand() == menuCommand) {
-            myRunToolDialog->runTool(tool);
+            myRunPythonToolDialog->runTool(tool);
             return 1;
         }
     }

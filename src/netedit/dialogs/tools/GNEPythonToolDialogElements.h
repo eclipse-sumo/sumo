@@ -11,11 +11,11 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEToolDialogElements.h
+/// @file    GNEPythonToolDialogElements.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Jun 2022
 ///
-// Elements used in GNEToolDialog
+// Elements used in GNEPythonToolDialog
 /****************************************************************************/
 #pragma once
 #include <config.h>
@@ -28,7 +28,7 @@
 // class declaration
 // ===========================================================================
 
-class GNEToolDialog;
+class GNEPythonToolDialog;
 class MFXLabelTooltip;
 class Option;
 
@@ -37,17 +37,17 @@ class Option;
 // ===========================================================================
 
 /// @brief elements used in Tool Dialogs
-class GNEToolDialogElements {
+class GNEPythonToolDialogElements {
 
 public:
     /// @brief argument
     class Argument : public FXHorizontalFrame {
         /// @brief FOX-declaration
-        FXDECLARE_ABSTRACT(GNEToolDialogElements::Argument)
+        FXDECLARE_ABSTRACT(GNEPythonToolDialogElements::Argument)
 
     public:
         /// @brief constructor
-        Argument(GNEToolDialog* toolDialogParent, const std::string &parameter, Option* option);
+        Argument(GNEPythonToolDialog* toolDialogParent, const std::string &parameter, Option* option);
 
         /// @brief destructor
         ~Argument();
@@ -108,11 +108,11 @@ public:
     /// @brief filename argument
     class FileNameArgument : public Argument {
         /// @brief FOX-declaration
-        FXDECLARE(GNEToolDialogElements::FileNameArgument)
+        FXDECLARE(GNEPythonToolDialogElements::FileNameArgument)
 
     public:
         /// @brief constructor
-        FileNameArgument(GNEToolDialog* toolDialogParent, const std::string name, Option* option);
+        FileNameArgument(GNEPythonToolDialog* toolDialogParent, const std::string name, Option* option);
     
         /// @brief reset to default value
         void reset();
@@ -149,7 +149,7 @@ public:
 
     public:
         /// @brief constructor
-        StringArgument(GNEToolDialog* toolDialogParent, const std::string name, Option* option);
+        StringArgument(GNEPythonToolDialog* toolDialogParent, const std::string name, Option* option);
 
         /// @brief reset to default value
         void reset();
@@ -177,7 +177,7 @@ public:
 
     public:
         /// @brief constructor
-        IntArgument(GNEToolDialog* toolDialogParent, const std::string name, Option* option);
+        IntArgument(GNEPythonToolDialog* toolDialogParent, const std::string name, Option* option);
 
         /// @brief reset to default value
         void reset();
@@ -205,7 +205,7 @@ public:
 
     public:
         /// @brief constructor
-        FloatArgument(GNEToolDialog* toolDialogParent, const std::string name, Option* option);
+        FloatArgument(GNEPythonToolDialog* toolDialogParent, const std::string name, Option* option);
     
         /// @brief reset to default value
         void reset();
@@ -234,7 +234,7 @@ public:
 
     public:
         /// @brief constructor
-        BoolArgument(GNEToolDialog* toolDialogParent, const std::string name, Option* option);
+        BoolArgument(GNEPythonToolDialog* toolDialogParent, const std::string name, Option* option);
 
         /// @brief reset to default value
         void reset();

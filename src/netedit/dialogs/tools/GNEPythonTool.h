@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNETool.h
+/// @file    GNEPythonTool.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Jun 2022
 ///
@@ -33,15 +33,15 @@ class GNEApplicationWindow;
 // class definitions
 // ===========================================================================
 
-class GNETool {
+class GNEPythonTool {
 
 public:
     /// @brief Constructor
-    GNETool(GNEApplicationWindow* GNEApp, const std::string &pythonPath, 
+    GNEPythonTool(GNEApplicationWindow* GNEApp, const std::string &pythonPath, 
                   const std::string &templateStr, FXMenuPane* menu);
 
     /// @brief destructor
-    ~GNETool();
+    ~GNEPythonTool();
 
     /// @brief get to GNEApplicationWindow
     GNEApplicationWindow* getGNEApp() const;
@@ -66,18 +66,18 @@ private:
     FXMenuCommand* myMenuCommand;
 
     /// @brief tools options
-    OptionsCont myToolsOptions;
+    OptionsCont myPythonToolsOptions;
 
     /// @brief python path
     const std::string myPythonPath;
 
     /// @brief tool name
-    const std::string myToolName;
+    const std::string myPythonToolName;
 
     /// @brief Invalidated copy constructor.
-    GNETool(const GNETool&) = delete;
+    GNEPythonTool(const GNEPythonTool&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNETool& operator=(const GNETool&) = delete;
+    GNEPythonTool& operator=(const GNEPythonTool&) = delete;
 };
 

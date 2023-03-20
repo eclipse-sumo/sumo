@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNERunTool.cpp
+/// @file    GNERunPythonTool.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Mar 2023
 ///
@@ -32,18 +32,18 @@
 // member method definitions
 // ===========================================================================
 
-GNERunTool::GNERunTool(GNERunToolDialog* runToolDialog) :
+GNERunPythonTool::GNERunPythonTool(GNERunPythonToolDialog* runToolDialog) :
     MFXSingleEventThread(runToolDialog->getGNEApp()->getApp(), runToolDialog->getGNEApp()),
-    myRunToolDialog(runToolDialog) {
+    myRunPythonToolDialog(runToolDialog) {
 }
 
 
-GNERunTool::~GNERunTool() {}
+GNERunPythonTool::~GNERunPythonTool() {}
 
 
 void
-GNERunTool::runTool(const GNETool* tool) {
-    myTool = tool;
+GNERunPythonTool::runTool(const GNEPythonTool* tool) {
+    myPythonTool = tool;
     // reset flags
     myRunning = false;
     myErrorOccurred = false;
@@ -52,32 +52,32 @@ GNERunTool::runTool(const GNETool* tool) {
 
 
 void
-GNERunTool::abortTool() {
+GNERunPythonTool::abortTool() {
     // cancel thread
     cancel();
     // show info
-    myRunToolDialog->appendErrorMessage(TL("cancelled by user\n"));
+    myRunPythonToolDialog->appendErrorMessage(TL("cancelled by user\n"));
     // reset flags
     myRunning = false;
     myErrorOccurred = false;
-    myRunToolDialog->updateDialog();
+    myRunPythonToolDialog->updateDialog();
 }
 
 
 bool
-GNERunTool::isRunning() const {
+GNERunPythonTool::isRunning() const {
     return myRunning;
 }
 
 
 bool
-GNERunTool::errorOccurred() const {
+GNERunPythonTool::errorOccurred() const {
     return myErrorOccurred;
 }
 
 
 FXint
-GNERunTool::run() {
+GNERunPythonTool::run() {
     // declare buffer
     char buffer[128];
     for (int i = 0; i < 128; i++) {
@@ -85,30 +85,30 @@ GNERunTool::run() {
     }
     // open process showing std::err in console
 #ifdef WIN32
-    myPipe = _popen((myTool->getCommand() + " 2>&1").c_str(), "r");
+    myPipe = _popen((myPythonTool->getCommand() + " 2>&1").c_str(), "r");
 #else
-    myPipe = popen((myTool->getCommand() + " 2>&1").c_str(), "r");
+    myPipe = popen((myPythonTool->getCommand() + " 2>&1").c_str(), "r");
 #endif 
     if (!myPipe) {
-        myRunToolDialog->appendErrorMessage(TL("popen() failed!"));
+        myRunPythonToolDialog->appendErrorMessage(TL("popen() failed!"));
         // set error ocurred flag
         myErrorOccurred = true;
-        myRunToolDialog->updateDialog();
+        myRunPythonToolDialog->updateDialog();
         return 1;
     } else {
         // set running flag
         myRunning = true;
-        myRunToolDialog->updateDialog();
+        myRunPythonToolDialog->updateDialog();
         // Show command
-        myRunToolDialog->appendBuffer((myTool->getCommand() + "\n").c_str());
+        myRunPythonToolDialog->appendBuffer((myPythonTool->getCommand() + "\n").c_str());
         // start process
-        myRunToolDialog->appendInfoMessage(TL("starting process...\n"));
+        myRunPythonToolDialog->appendInfoMessage(TL("starting process...\n"));
         try {
             // add buffer
             while (fgets(buffer, sizeof buffer, myPipe) != NULL) {
-                myRunToolDialog->appendBuffer(buffer);
+                myRunPythonToolDialog->appendBuffer(buffer);
             }
-            myRunToolDialog->appendBuffer(buffer);
+            myRunPythonToolDialog->appendBuffer(buffer);
         } catch (...) {
             // close process
         #ifdef WIN32
@@ -116,11 +116,11 @@ GNERunTool::run() {
         #else
             pclose(myPipe);
         #endif
-            myRunToolDialog->appendErrorMessage(TL("error processing command\n"));
+            myRunPythonToolDialog->appendErrorMessage(TL("error processing command\n"));
             // set flags
             myRunning = false;
             myErrorOccurred = true;
-            myRunToolDialog->updateDialog();
+            myRunPythonToolDialog->updateDialog();
             return 1;
         }
     }
@@ -132,10 +132,10 @@ GNERunTool::run() {
 #endif
     myPipe = nullptr;
     // end process
-    myRunToolDialog->appendInfoMessage(TL("process finished\n"));
+    myRunPythonToolDialog->appendInfoMessage(TL("process finished\n"));
     // set running flag
     myRunning = false;
-    myRunToolDialog->updateDialog();
+    myRunPythonToolDialog->updateDialog();
     return 1;
 }
 

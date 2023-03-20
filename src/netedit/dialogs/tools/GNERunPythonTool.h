@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNERunTool.h
+/// @file    GNERunPythonTool.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Mar 2023
 ///
@@ -26,27 +26,27 @@
 // class declarations
 // ===========================================================================
 
-class GNERunToolDialog;
+class GNERunPythonToolDialog;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
 /**
- * @class GNERunTool
+ * @class GNERunPythonTool
  * @brief Abstract dialog for tools
  */
-class GNERunTool : protected MFXSingleEventThread  {
+class GNERunPythonTool : protected MFXSingleEventThread  {
 
 public:
     /// @brief Constructor
-    GNERunTool(GNERunToolDialog* runToolDialog);
+    GNERunPythonTool(GNERunPythonToolDialog* runToolDialog);
 
     /// @brief destructor
-    ~GNERunTool();
+    ~GNERunPythonTool();
     
     /// @brief run tool
-    void runTool(const GNETool* tool);
+    void runTool(const GNEPythonTool* tool);
 
     /// @brief abort tool running
     void abortTool();
@@ -59,10 +59,10 @@ public:
 
 private:
     /// @brief pointer to run tool dialog
-    GNERunToolDialog* myRunToolDialog;
+    GNERunPythonToolDialog* myRunPythonToolDialog;
 
     /// @brief tool
-    const GNETool* myTool = nullptr;
+    const GNEPythonTool* myPythonTool = nullptr;
 
     /// @brief flag for check if tool is running
     bool myRunning = false;
@@ -77,9 +77,9 @@ private:
     FXint run();
 
     /// @brief Invalidated copy constructor.
-    GNERunTool(const GNERunTool&) = delete;
+    GNERunPythonTool(const GNERunPythonTool&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNERunTool& operator=(const GNERunTool&) = delete;
+    GNERunPythonTool& operator=(const GNERunPythonTool&) = delete;
 };
 

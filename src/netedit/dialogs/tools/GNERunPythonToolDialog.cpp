@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNERunToolDialog.cpp
+/// @file    GNERunPythonToolDialog.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Mar 2023
 ///
@@ -35,27 +35,27 @@
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(GNERunToolDialog) GNERunToolDialogMap[] = {
-    FXMAPFUNC(SEL_CLOSE,    0,                      GNERunToolDialog::onCmdClose),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_SAVE,    GNERunToolDialog::onCmdSaveLog),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_ABORT,   GNERunToolDialog::onCmdAbort),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_RERUN,   GNERunToolDialog::onCmdRerun),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_BACK,    GNERunToolDialog::onCmdBack),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_ACCEPT,  GNERunToolDialog::onCmdClose)
+FXDEFMAP(GNERunPythonToolDialog) GNERunPythonToolDialogMap[] = {
+    FXMAPFUNC(SEL_CLOSE,    0,                      GNERunPythonToolDialog::onCmdClose),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_SAVE,    GNERunPythonToolDialog::onCmdSaveLog),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_ABORT,   GNERunPythonToolDialog::onCmdAbort),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_RERUN,   GNERunPythonToolDialog::onCmdRerun),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_BACK,    GNERunPythonToolDialog::onCmdBack),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_ACCEPT,  GNERunPythonToolDialog::onCmdClose)
 };
 
 // Object implementation
-FXIMPLEMENT(GNERunToolDialog, FXDialogBox, GNERunToolDialogMap, ARRAYNUMBER(GNERunToolDialogMap))
+FXIMPLEMENT(GNERunPythonToolDialog, FXDialogBox, GNERunPythonToolDialogMap, ARRAYNUMBER(GNERunPythonToolDialogMap))
 
 // ============================================-===============================
 // member method definitions
 // ===========================================================================
 
-GNERunToolDialog::GNERunToolDialog(GNEApplicationWindow* GNEApp) :
+GNERunPythonToolDialog::GNERunPythonToolDialog(GNEApplicationWindow* GNEApp) :
     FXDialogBox(GNEApp->getApp(), "Tool", GUIDesignDialogBoxExplicit(0, 0)),
     myGNEApp(GNEApp) {
     // create run tool
-    myRunTool = new GNERunTool(this);
+    myRunTool = new GNERunPythonTool(this);
     // set icon
     setIcon(GUIIconSubSys::getIcon(GUIIcon::TOOL_PYTHON));
     // create content frame
@@ -97,17 +97,17 @@ GNERunToolDialog::GNERunToolDialog(GNEApplicationWindow* GNEApp) :
 }
 
 
-GNERunToolDialog::~GNERunToolDialog() {}
+GNERunPythonToolDialog::~GNERunPythonToolDialog() {}
 
 
 GNEApplicationWindow*
-GNERunToolDialog::getGNEApp() const {
+GNERunPythonToolDialog::getGNEApp() const {
     return myGNEApp;
 }
 
 
 void
-GNERunToolDialog::runTool(GNETool* tool) {
+GNERunPythonToolDialog::runTool(GNEPythonTool* tool) {
     // set title
     setTitle((tool->getToolName()  + " output").c_str());
     // refresh APP
@@ -117,7 +117,7 @@ GNERunToolDialog::runTool(GNETool* tool) {
     // show dialog
     FXDialogBox::show(PLACEMENT_SCREEN);
     // set tool
-    myTool = tool;
+    myPythonTool = tool;
     // run tool
     myRunTool->runTool(tool);
     // open as modal dialog (will block all windows until stop() or stopModal() is called)
@@ -126,7 +126,7 @@ GNERunToolDialog::runTool(GNETool* tool) {
 
 
 void
-GNERunToolDialog::appendInfoMessage(const std::string text) {
+GNERunPythonToolDialog::appendInfoMessage(const std::string text) {
     myText->appendStyledText(text.c_str(), (int)text.length(), 2, TRUE);
     myText->layout();
     myText->update();
@@ -134,7 +134,7 @@ GNERunToolDialog::appendInfoMessage(const std::string text) {
 
 
 void
-GNERunToolDialog::appendErrorMessage(const std::string text) {
+GNERunPythonToolDialog::appendErrorMessage(const std::string text) {
     myText->appendStyledText(text.c_str(), (int)text.length(), 3, TRUE);
     myText->layout();
     myText->update();
@@ -142,7 +142,7 @@ GNERunToolDialog::appendErrorMessage(const std::string text) {
 
 
 void
-GNERunToolDialog::appendBuffer(const char *buffer) {
+GNERunPythonToolDialog::appendBuffer(const char *buffer) {
     FXString FXText(buffer);
     myText->appendStyledText(FXText, 1, TRUE);
     myText->layout();
@@ -151,7 +151,7 @@ GNERunToolDialog::appendBuffer(const char *buffer) {
 
 
 void
-GNERunToolDialog::updateDialog() {
+GNERunPythonToolDialog::updateDialog() {
     // update buttons
     if (myRunTool->isRunning()) {
         myAbortButton->enable();
@@ -170,7 +170,7 @@ GNERunToolDialog::updateDialog() {
 
 
 long
-GNERunToolDialog::onCmdSaveLog(FXObject*, FXSelector, void*) {
+GNERunPythonToolDialog::onCmdSaveLog(FXObject*, FXSelector, void*) {
     // get log file
     const auto logFile = GNEApplicationWindowHelper::saveToolLog(this);
     // check that file is valid
@@ -184,7 +184,7 @@ GNERunToolDialog::onCmdSaveLog(FXObject*, FXSelector, void*) {
 
 
 long
-GNERunToolDialog::onCmdAbort(FXObject*, FXSelector, void*) {
+GNERunPythonToolDialog::onCmdAbort(FXObject*, FXSelector, void*) {
     // abort tool
     myRunTool->abortTool();
     return 1;
@@ -192,27 +192,27 @@ GNERunToolDialog::onCmdAbort(FXObject*, FXSelector, void*) {
 
 
 long
-GNERunToolDialog::onCmdRerun(FXObject*, FXSelector, void*) {
+GNERunPythonToolDialog::onCmdRerun(FXObject*, FXSelector, void*) {
     // add line and info
     std::string line("-------------------------------------------\n");
     myText->appendStyledText(line.c_str(), (int)line.length(), 4, TRUE);
     appendInfoMessage("rerun tool\n");
     // run tool
-    myRunTool->runTool(myTool);
+    myRunTool->runTool(myPythonTool);
     return 1;
 }
 
 
 long
-GNERunToolDialog::onCmdBack(FXObject*, FXSelector, void*) {
+GNERunPythonToolDialog::onCmdBack(FXObject*, FXSelector, void*) {
     // close runTool dialog and open tool dialog
     onCmdClose(nullptr, 0, nullptr);
-    return myGNEApp->handle(myTool->getMenuCommand(), FXSEL(SEL_COMMAND, MID_GNE_OPENTOOLDIALOG), nullptr);
+    return myGNEApp->handle(myPythonTool->getMenuCommand(), FXSEL(SEL_COMMAND, MID_GNE_OPENTOOLDIALOG), nullptr);
 }
 
 
 long
-GNERunToolDialog::onCmdClose(FXObject*, FXSelector, void*) {
+GNERunPythonToolDialog::onCmdClose(FXObject*, FXSelector, void*) {
     // abort tool
     myRunTool->abortTool();
     // stop modal
@@ -223,7 +223,7 @@ GNERunToolDialog::onCmdClose(FXObject*, FXSelector, void*) {
 }
 
 
-GNERunToolDialog::GNERunToolDialog() :
+GNERunPythonToolDialog::GNERunPythonToolDialog() :
     myGNEApp(nullptr) {
 }
 

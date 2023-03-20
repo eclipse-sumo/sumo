@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNERunToolDialog.h
+/// @file    GNERunPythonToolDialog.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Mar 2023
 ///
@@ -27,33 +27,33 @@
 // ===========================================================================
 
 class GNEApplicationWindow;
-class GNERunTool;
-class GNETool;
+class GNERunPythonTool;
+class GNEPythonTool;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
 /**
- * @class GNERunToolDialog
+ * @class GNERunPythonToolDialog
  * @brief Abstract dialog for tools
  */
-class GNERunToolDialog : protected FXDialogBox {
+class GNERunPythonToolDialog : protected FXDialogBox {
     /// @brief FOX-declaration
-    FXDECLARE(GNERunToolDialog)
+    FXDECLARE(GNERunPythonToolDialog)
 
 public:
     /// @brief Constructor
-    GNERunToolDialog(GNEApplicationWindow* GNEApp);
+    GNERunPythonToolDialog(GNEApplicationWindow* GNEApp);
 
     /// @brief destructor
-    ~GNERunToolDialog();
+    ~GNERunPythonToolDialog();
 
     /// @brief get to GNEApplicationWindow
     GNEApplicationWindow* getGNEApp() const;
 
     /// @brief run tool (this open windows)
-    void runTool(GNETool* tool);
+    void runTool(GNEPythonTool* tool);
 
     /// @brief add info (green) text to output console
     void appendInfoMessage(const std::string text);
@@ -89,17 +89,17 @@ public:
 
 protected:
     /// @brief FOX needs this
-    GNERunToolDialog();
+    GNERunPythonToolDialog();
 
 private:
     /// @brief pointer to GNEApplicationWindow
     GNEApplicationWindow* myGNEApp;
 
     /// @brief tool
-    GNETool* myTool = nullptr;
+    GNEPythonTool* myPythonTool = nullptr;
 
     /// @brief thread for running tool
-    GNERunTool* myRunTool = nullptr;
+    GNERunPythonTool* myRunTool = nullptr;
 
     /// @brief text
     FXText* myText = nullptr;
@@ -117,9 +117,9 @@ private:
     FXButton* myCloseButton = nullptr;
 
     /// @brief Invalidated copy constructor.
-    GNERunToolDialog(const GNERunToolDialog&) = delete;
+    GNERunPythonToolDialog(const GNERunPythonToolDialog&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNERunToolDialog& operator=(const GNERunToolDialog&) = delete;
+    GNERunPythonToolDialog& operator=(const GNERunPythonToolDialog&) = delete;
 };
 

@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEToolDialog.h
+/// @file    GNEPythonToolDialog.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Jun 2022
 ///
@@ -29,32 +29,32 @@
 // ===========================================================================
 
 class GNEApplicationWindow;
-class GNETool;
+class GNEPythonTool;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
 /**
- * @class GNEToolDialog
+ * @class GNEPythonToolDialog
  * @brief Abstract dialog for tools
  */
-class GNEToolDialog : protected FXDialogBox {
+class GNEPythonToolDialog : protected FXDialogBox {
     /// @brief FOX-declaration
-    FXDECLARE(GNEToolDialog)
+    FXDECLARE(GNEPythonToolDialog)
 
     /// @brief declare friend class
-    friend class GNEToolDialogElements;
+    friend class GNEPythonToolDialogElements;
 
 public:
     /// @brief Constructor
-    GNEToolDialog(GNEApplicationWindow* GNEApp);
+    GNEPythonToolDialog(GNEApplicationWindow* GNEApp);
 
     /// @brief destructor
-    ~GNEToolDialog();
+    ~GNEPythonToolDialog();
 
     /// @brief open window
-    void openDialog(GNETool* tool);
+    void openDialog(GNEPythonTool* tool);
 
     /// @name FOX-callbacks
     /// @{
@@ -72,7 +72,7 @@ public:
 
 protected:
     /// @brief FOX needs this
-    GNEToolDialog();
+    GNEPythonToolDialog();
 
     /// @brief build arguments
     void buildArguments();
@@ -88,7 +88,7 @@ private:
     GNEApplicationWindow* myGNEApp;
 
     /// @brief tool
-    GNETool* myTool = nullptr;
+    GNEPythonTool* myPythonTool = nullptr;
 
     /// @brief parameter label
     FXLabel* myParameterLabel = nullptr;
@@ -100,12 +100,12 @@ private:
     FXHorizontalFrame* myButtonsFrame = nullptr;
 
     /// @brief list of arguments
-    std::vector<GNEToolDialogElements::Argument*> myArguments;
+    std::vector<GNEPythonToolDialogElements::Argument*> myArguments;
 
     /// @brief Invalidated copy constructor.
-    GNEToolDialog(const GNEToolDialog&) = delete;
+    GNEPythonToolDialog(const GNEPythonToolDialog&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNEToolDialog& operator=(const GNEToolDialog&) = delete;
+    GNEPythonToolDialog& operator=(const GNEPythonToolDialog&) = delete;
 };
 
