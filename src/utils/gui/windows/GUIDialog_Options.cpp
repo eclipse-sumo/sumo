@@ -28,6 +28,7 @@
 #include <utils/gui/div/GUIIOGlobals.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/windows/GUIAppEnum.h>
+#include <utils/gui/windows/GUIMainWindow.h>
 #include <utils/options/OptionsCont.h>
 
 #include "GUIDialog_Options.h"
@@ -72,45 +73,10 @@ FXIMPLEMENT(GUIDialog_Options::InputFilename,       FXHorizontalFrame, InputFile
 // method definitions
 // ===========================================================================
 
-GUIDialog_Options::GUIDialog_Options(FXWindow* parent, OptionsCont& optionsContainer, const char* titleName, int width, int height) :
-    FXDialogBox(parent, titleName, GUIDesignDialogBox, 0, 0, width, height),
-    myOptionsContainer(optionsContainer) {
-    new FXStatusBar(this, GUIDesignStatusBar);
-    FXVerticalFrame* contentFrame = new FXVerticalFrame(this, GUIDesignContentsFrame);
-    // create tabbook
-    FXTabBook* tabbook = new FXTabBook(contentFrame, nullptr, 0, GUIDesignTabBook);
-    // iterate over all topics
-    for (const auto& topic : myOptionsContainer.getSubTopics()) {
-        // ignore configuration
-        if (topic != "Configuration") {
-            new FXTabItem(tabbook, topic.c_str(), nullptr, TAB_LEFT_NORMAL);
-            FXScrollWindow* scrollTab = new FXScrollWindow(tabbook, LAYOUT_FILL_X | LAYOUT_FILL_Y);
-            FXVerticalFrame* tabContent = new FXVerticalFrame(scrollTab, FRAME_THICK | FRAME_RAISED | LAYOUT_FILL_X | LAYOUT_FILL_Y);
-            const std::vector<std::string> entries = myOptionsContainer.getSubTopicsEntries(topic);
-            for (const auto& entry : entries) {
-                if (entry != "geometry.remove" && entry != "edges.join" && entry != "geometry.split" && entry != "ramps.guess" && entry != "ramps.set") {
-                    const std::string type = myOptionsContainer.getTypeName(entry);
-                    if (type == "STR") {
-                        new InputString(this, tabContent, entry);
-                    } else if (type == "FILE") {
-                        new InputFilename(this, tabContent, entry);
-                    } else if (type == "BOOL") {
-                        new InputBool(this, tabContent, entry);
-                    } else if (type == "INT") {
-                        new InputInt(this, tabContent, entry);
-                    } else if (type == "FLOAT") {
-                        new InputFloat(this, tabContent, entry);
-                    } else if (type == "INT[]") {
-                        new InputIntVector(this, tabContent, entry);
-                    } else if (type == "STR[]") {
-                        new InputStringVector(this, tabContent, entry);
-                    }
-                }
-            }
-        }
-    }
-    // ok-button
-    new FXButton(contentFrame, (TL("OK") + std::string("\t\t") + TL("Accept settings")).c_str(), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, ID_ACCEPT, GUIDesignButtonOK);
+int
+GUIDialog_Options::Options(GUIMainWindow *windows, OptionsCont& optionsContainer, const char* titleName) {
+    GUIDialog_Options* wizard = new GUIDialog_Options(windows, optionsContainer, titleName, windows->getWidth(), windows->getHeight());
+    return wizard->execute();
 }
 
 
@@ -265,6 +231,48 @@ GUIDialog_Options::InputFilename::onCmdSetOption(FXObject*, FXSelector, void*) {
         myTextField->setTextColor(FXRGB(255, 0, 0));
     }
     return 1;
+}
+
+
+GUIDialog_Options::GUIDialog_Options(FXWindow* parent, OptionsCont& optionsContainer, const char* titleName, int width, int height) :
+    FXDialogBox(parent, titleName, GUIDesignDialogBox, 0, 0, width, height),
+    myOptionsContainer(optionsContainer) {
+    new FXStatusBar(this, GUIDesignStatusBar);
+    FXVerticalFrame* contentFrame = new FXVerticalFrame(this, GUIDesignContentsFrame);
+    // create tabbook
+    FXTabBook* tabbook = new FXTabBook(contentFrame, nullptr, 0, GUIDesignTabBook);
+    // iterate over all topics
+    for (const auto& topic : myOptionsContainer.getSubTopics()) {
+        // ignore configuration
+        if (topic != "Configuration") {
+            new FXTabItem(tabbook, topic.c_str(), nullptr, TAB_LEFT_NORMAL);
+            FXScrollWindow* scrollTab = new FXScrollWindow(tabbook, LAYOUT_FILL_X | LAYOUT_FILL_Y);
+            FXVerticalFrame* tabContent = new FXVerticalFrame(scrollTab, FRAME_THICK | FRAME_RAISED | LAYOUT_FILL_X | LAYOUT_FILL_Y);
+            const std::vector<std::string> entries = myOptionsContainer.getSubTopicsEntries(topic);
+            for (const auto& entry : entries) {
+                if (entry != "geometry.remove" && entry != "edges.join" && entry != "geometry.split" && entry != "ramps.guess" && entry != "ramps.set") {
+                    const std::string type = myOptionsContainer.getTypeName(entry);
+                    if (type == "STR") {
+                        new InputString(this, tabContent, entry);
+                    } else if (type == "FILE") {
+                        new InputFilename(this, tabContent, entry);
+                    } else if (type == "BOOL") {
+                        new InputBool(this, tabContent, entry);
+                    } else if (type == "INT") {
+                        new InputInt(this, tabContent, entry);
+                    } else if (type == "FLOAT") {
+                        new InputFloat(this, tabContent, entry);
+                    } else if (type == "INT[]") {
+                        new InputIntVector(this, tabContent, entry);
+                    } else if (type == "STR[]") {
+                        new InputStringVector(this, tabContent, entry);
+                    }
+                }
+            }
+        }
+    }
+    // ok-button
+    new FXButton(contentFrame, (TL("OK") + std::string("\t\t") + TL("Accept settings")).c_str(), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, ID_ACCEPT, GUIDesignButtonOK);
 }
 
 /****************************************************************************/

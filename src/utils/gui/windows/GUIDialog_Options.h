@@ -24,6 +24,12 @@
 
 
 // ===========================================================================
+// class declaration
+// ===========================================================================
+
+class GUIMainWindow;
+
+// ===========================================================================
 // class definitions
 // ===========================================================================
 /**
@@ -33,15 +39,13 @@
 class GUIDialog_Options : public FXDialogBox {
 
 public:
-    /**@brief Constructor
+    /**@brief Constructor for options dialogs
      *
      * @param[in] parent The parent window
      * @param[in] optionsContainer edited option container
      * @param[in] name The title to show
-     * @param[in] width The initial width of the dialog
-     * @param[in] height The initial height of the dialog
      */
-    GUIDialog_Options(FXWindow* parent, OptionsCont& optionsContainer, const char* titleName, int width, int height);
+    static int Options(GUIMainWindow *windows, OptionsCont& optionsContainer, const char* titleName);
 
     /// @brief Destructor
     ~GUIDialog_Options();
@@ -237,6 +241,16 @@ protected:
     OptionsCont& myOptionsContainer;
 
 private:
+    /**@brief Constructor
+     *
+     * @param[in] parent The parent window
+     * @param[in] optionsContainer edited option container
+     * @param[in] name The title to show
+     * @param[in] width The initial width of the dialog
+     * @param[in] height The initial height of the dialog
+     */
+    GUIDialog_Options(FXWindow* parent, OptionsCont& optionsContainer, const char* titleName, int width, int height);
+
     /// @brief Invalidated copy constructor.
     GUIDialog_Options(const GUIDialog_Options&) = delete;
 

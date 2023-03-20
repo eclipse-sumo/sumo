@@ -1697,9 +1697,7 @@ GNEApplicationWindow::loadOSM(const std::string &OSMFile) {
     neteditOptions.set("tls.guess-signals", "true");
     neteditOptions.set("tls.discard-simple", "true");
     // open wizard dialog
-    GUIDialog_Options* wizard =
-        new GUIDialog_Options(this, OptionsCont::getOptions(), TL("Select Import Options"), getWidth(), getHeight());
-    if (wizard->execute()) {
+    if (GUIDialog_Options::Options(this, OptionsCont::getOptions(), TL("Select Import Options"))) {
         NIFrame::checkOptions(); // needed to set projection parameters
         // set file to load
         neteditOptions.resetWritable();
@@ -2296,8 +2294,7 @@ GNEApplicationWindow::onCmdFeedback(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdOpenOptionsDialog(FXObject*, FXSelector, void*) {
-    GUIDialog_Options* wizard = new GUIDialog_Options(this, OptionsCont::getOptions(), TL("Netedit options"), getWidth(), getHeight());
-    if (wizard->execute()) {
+    if (GUIDialog_Options::Options(this, OptionsCont::getOptions(), TL("Netedit options"))) {
         NIFrame::checkOptions(); // needed to set projection parameters
         NBFrame::checkOptions();
         NWFrame::checkOptions();
@@ -2309,15 +2306,13 @@ GNEApplicationWindow::onCmdOpenOptionsDialog(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdOpenSumoOptionsDialog(FXObject*, FXSelector, void*) {
-    GUIDialog_Options* wizard = new GUIDialog_Options(this, mySumoOptions, TL("Sumo options"), getWidth(), getHeight());
-    return wizard->execute();
+    return GUIDialog_Options::Options(this, mySumoOptions, TL("Sumo options"));
 }
 
 
 long
 GNEApplicationWindow::onCmdOpenNetgenerateOptionsDialog(FXObject*, FXSelector, void*) {
-    GUIDialog_Options* wizard = new GUIDialog_Options(this, myNetgenerateOptions, TL("Netgenerate options"), getWidth(), getHeight());
-    return wizard->execute();
+    return GUIDialog_Options::Options(this, myNetgenerateOptions, TL("Netgenerate options"));
 }
 
 
