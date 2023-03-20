@@ -721,9 +721,9 @@ MSRailSignal::LinkInfo::buildDriveWay(MSRouteIterator first, MSRouteIterator end
     if (dw.myProtectedBidi == nullptr) {
         dw.myCoreSize = (int)dw.myRoute.size();
     }
-    dw.checkFlanks(myLink, dw.myForward, visited, true);
-    dw.checkFlanks(myLink, dw.myBidi, visited, false);
-    dw.checkFlanks(myLink, before, visited, true);
+    dw.checkFlanks(myLink, dw.myForward, visited, true, dw.myFlankSwitches);
+    dw.checkFlanks(myLink, dw.myBidi, visited, false, dw.myFlankSwitches);
+    dw.checkFlanks(myLink, before, visited, true, dw.myFlankSwitches);
 
     for (MSLink* link : dw.myFlankSwitches) {
         //std::cout << getID() << " flankSwitch=" << link->getDescription() << "\n";
@@ -1337,7 +1337,7 @@ MSRailSignal::DriveWay::buildRoute(MSLink* origin, double length,
 
 
 void
-MSRailSignal::DriveWay::checkFlanks(const MSLink* originLink, const std::vector<const MSLane*>& lanes, const LaneVisitedMap& visited, bool allFoes) {
+MSRailSignal::DriveWay::checkFlanks(const MSLink* originLink, const std::vector<const MSLane*>& lanes, const LaneVisitedMap& visited, bool allFoes, std::vector<MSLink*>& flankSwitches) const {
 #ifdef DEBUG_CHECK_FLANKS
     std::cout << " checkFlanks lanes=" << toString(lanes) << "\n  visited=" << formatVisitedMap(visited) << " allFoes=" << allFoes << "\n";
 #endif
@@ -1367,10 +1367,10 @@ MSRailSignal::DriveWay::checkFlanks(const MSLink* originLink, const std::vector<
 #ifdef DEBUG_CHECK_FLANKS
                 std::cout << " add flankSwitch junction=" << ili.viaLink->getJunction()->getID() << " index=" << ili.viaLink->getIndex() << " iLane=" << ili.lane->getID() << " prev=" << Named::getIDSecure(prev) <<  " targetLane=" << lane->getID() << " next=" << Named::getIDSecure(next) << "\n";
 #endif
-                myFlankSwitches.push_back(ili.viaLink);
+                flankSwitches.push_back(ili.viaLink);
             } else if (allFoes) {
                 // link is part of the driveway, find foes that cross the driveway without entering
-                checkCrossingFlanks(ili.viaLink, visited);
+                checkCrossingFlanks(ili.viaLink, visited, flankSwitches);
             }
         }
     }
@@ -1378,7 +1378,7 @@ MSRailSignal::DriveWay::checkFlanks(const MSLink* originLink, const std::vector<
 
 
 void
-MSRailSignal::DriveWay::checkCrossingFlanks(MSLink* dwLink, const LaneVisitedMap& visited) {
+MSRailSignal::DriveWay::checkCrossingFlanks(MSLink* dwLink, const LaneVisitedMap& visited, std::vector<MSLink*>& flankSwitches) const {
 #ifdef DEBUG_CHECK_FLANKS
     std::cout << "  checkCrossingFlanks  dwLink=" << dwLink->getDescription() << " visited=" << formatVisitedMap(visited) << "\n";
 #endif
@@ -1403,9 +1403,9 @@ MSRailSignal::DriveWay::checkCrossingFlanks(MSLink* dwLink, const LaneVisitedMap
                         std::cout << " add crossing flankSwitch junction=" << junction->getID() << " index=" << link->getIndex() << "\n";
 #endif
                         if (link->getViaLane() == nullptr) {
-                            myFlankSwitches.push_back(link);
+                            flankSwitches.push_back(link);
                         } else {
-                            myFlankSwitches.push_back(link->getViaLane()->getLinkCont().front());
+                            flankSwitches.push_back(link->getViaLane()->getLinkCont().front());
                         }
                     }
                 }

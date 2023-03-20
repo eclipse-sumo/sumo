@@ -385,11 +385,15 @@ protected:
          */
         void buildRoute(MSLink* origin, double length, MSRouteIterator next, MSRouteIterator end, LaneVisitedMap& visited);
 
-        /// @brief find switches that threaten this driveway
-        void checkFlanks(const MSLink* originLink, const std::vector<const MSLane*>& lanes, const LaneVisitedMap& visited, bool allFoes);
+        /* @brief find switches that threaten this driveway
+         * @param[out] flankSwitches collect the switches
+         */
+        void checkFlanks(const MSLink* originLink, const std::vector<const MSLane*>& lanes, const LaneVisitedMap& visited, bool allFoes, std::vector<MSLink*>& flankSwitches) const;
 
-        /// @brief find links that cross the driveway without entering it
-        void checkCrossingFlanks(MSLink* dwLink, const LaneVisitedMap& visited);
+        /* @brief find links that cross the driveway without entering it
+         * @param[out] flankSwitches collect the switches
+         */
+        void checkCrossingFlanks(MSLink* dwLink, const LaneVisitedMap& visited, std::vector<MSLink*>& flankSwitches) const;
 
         /// @brief find upstream protection from the given link
         void findFlankProtection(MSLink* link, double length, LaneVisitedMap& visited, MSLink* origLink);
