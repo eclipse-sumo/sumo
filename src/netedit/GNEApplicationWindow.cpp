@@ -1942,7 +1942,7 @@ GNEApplicationWindow::onCmdProcessButton(FXObject*, FXSelector sel, void*) {
 
 
 long
-GNEApplicationWindow::onCmdNewWindow(FXObject*, FXSelector sel, void* ptr) {
+GNEApplicationWindow::onCmdNewWindow(FXObject*, FXSelector sel, void* /*ptr*/) {
     // get extra arguments
     std::string extraArg;
     if (sel == MID_GNE_POSTPROCESSINGNETGENERATE) {
