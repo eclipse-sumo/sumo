@@ -53,7 +53,7 @@ GNERunNetgenerateDialog::GNERunNetgenerateDialog(GNEApplicationWindow* GNEApp) :
     // create run tool
     myRunNetgenerate = new GNERunNetgenerate(this);
     // set icon
-    setIcon(GUIIconSubSys::getIcon(GUIIcon::TOOL_PYTHON));
+    setIcon(GUIIconSubSys::getIcon(GUIIcon::NETGENERATE));
     // create content frame
     auto contentFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrame);
     // create header frame

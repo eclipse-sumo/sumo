@@ -39,7 +39,23 @@ GNERunNetgenerate::~GNERunNetgenerate() {}
 void
 GNERunNetgenerate::run(const OptionsCont *netgenerateOptions) {
     // set command
-    myNetgenerateCommand = getenv("SUMO_HOME");
+#ifdef WIN32
+    myNetgenerateCommand = getenv("SUMO_HOME") + std::string("\\bin\\netgenerate.exe");
+#else
+    myNetgenerateCommand = getenv("SUMO_HOME") + std::string("\\bin\\netgenerate");
+#endif
+    // iterate over all topics
+    for (const auto& topic : netgenerateOptions->getSubTopics()) {
+        // ignore configuration
+        if (topic != "Configuration") {
+            const std::vector<std::string> entries = netgenerateOptions->getSubTopicsEntries(topic);
+            for (const auto& entry : entries) {
+                if (!netgenerateOptions->isDefault(entry)) {
+                    myNetgenerateCommand += " --" + entry + " " + netgenerateOptions->getValueString(entry);
+                }
+            }
+        }
+    }
     // reset flags
     myRunning = false;
     myErrorOccurred = false;
