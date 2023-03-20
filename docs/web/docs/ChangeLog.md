@@ -20,6 +20,8 @@ title: ChangeLog
   - Waypoints with attribute 'triggered' now result in an error rather than undefined behavior. Issue #12665
   - Fixed collision on junction between two conflicting links with internal junction. Issue #12715
   - Fixed invalid error about disconnected walk for person. Issue #12744
+  - Fixed invalid error: "Disconnected walk for person". Issue #12744
+  - Fixed unsafe train insertion that could cause a follower train to collide. Issue #12857
 
 - netedit
   - Fixed bug when showing list of newly created vehicle types in type mode. Issue #12625 (regression in 1.15.0)
@@ -31,12 +33,15 @@ title: ChangeLog
   - Avoiding unnecessary scrollbars in combobox. Issue #12717
   - Lane positions defined before network computation are now handled if they become invalid after computation. Issue #12727
   - Additional objects are now always included in zoomed-out rectangle selection. Issue #12733
+  - Fixed invalid description in undolist. Issue #12838
+  - Fixed target of "right click" where a road overlaps a polygon. Issue #12819
 
 - sumo-gui
   - Fixed random (rare) crash when having an open detector attribute window. Issue #12595 (regression in 1.16.0)
   - Fixed crash when loading abstract projection in .net.xml. Issue #12762
   - Fixed freeze when selecting reachable lanes while the selection editor is open. Issue #12766
   - Fixed crash when switching to game mode in rail network. issue #12779
+  - Fixed invisible lane markings at dense geometry. Issue #12837
   - 3D View (OSG view) fixes:
     - Flight mode navigation is now working on Linux. Issue #12503
     - Fixed loading of 2D viewports. Issue #12638
@@ -81,14 +86,18 @@ title: ChangeLog
   - DriverState should now optionally affects free flow speed (using param `freeSpeedErrorCoefficient`). Issue #6331
   - Element `<vTypeDistribution>` now supports attribute `probabilities` together with `vTypes` to re-use the same `<Types>` with different probabilities. Issue #12799
   - Some warnings about inconsistent public transport stop times are now avoided when using option **--use-stop-ended** along with stop attribute `ended`. #12825
+  - `vTypeDistribution` elemen now supports attribute `probabilities`, which can be used to define different type distributions that share types. Issue #12799
 
 - netconvert
   - Added options **--shapefile.width** and **--shapefile.length** to allow importing custom widths and lengtsh from [shape files](Networks/Import/ArcView.md). Issue #12575
   - Exceptions for turning restrictions are now imported from OSM. Issue #12645
   - Option **--osm.extra-attributes** now also applies to all node attributes. Issue #12677
   - OSM: Supporting bus lane restrictions using `psv`. Issue #6767
+  - junction attribute 'radius' now overrides otion **--junctions.small-radius**. Issue #12816
+  - merging two projected plain-xml networks with different offsets is now working. Issue #12841
 
 - netedit
+  - Added menu and dialogs for calling pytho tools without using the command line. Issue #4138
   - All objects with a name attribute can now be located by name using the locate-dialog. Issue #12686
   - Inspect now allows inspecting individual objects that are part of a selection via ALT+LEFT_CLICK. Issue #12690
   - In data mode, overlapped data elements list is now sorted by interval begin. Issue #11330
@@ -103,6 +112,7 @@ title: ChangeLog
   - Improved position and scale of vehicle lights in 3D View #12752
   - Background images can now be added via file-dialog. Issue #1627 (also for netedit)
   - Edge context-menu function *select-reachable* now ignores lane direction when selecting vClass "pedestrian". Issue #12801
+  - Polygons are moved to the lowes layer upon pressing 'ALT'. Issue #12134
   
 - TraCI
   - Added function `vehicle.setLateralLanePosition`. Issue #12568
@@ -123,8 +133,10 @@ title: ChangeLog
   - Added tool [abstractRail.py](Tools/Net.md#abstractrailpy) to generate an abstract/schematic rail network based on a geodetic rail network. Issue #12662
   - Added tool [stationDistricts.py](Tools/District.md#stationdistrictspy) for segementing a public transport network based public transport stations. Issue #12662
   - attributeDiff.py: Can now optionally group attributes by one or more id-attributes before comparing. #12794
+  - attributeDiff.py: optionally write entries that could not be compared (via new options **-m** and **-M**. Issue #12798
   - attrbuteStats.py: Now supports option **--human-readable-time** (**-H**) to make attributes with large time values more legible. Issue #12822
   - sumolib.miscutils functions `parseTime` and `humandReadableTime` now handle negative values. Issue #12821, #12823
+  - tlsCycleAdaptation.py now supports more inputs (i.e. TLS with unused stats). Issue #12777
   - plotXMLAttributes.py:
     - can plot by sorting rank with attribute value `@RANK`. Issue #12607
     - can plot by input order with attribute value `@INDEX` (note that this was the behavior of @RANK in 1.16.0). Issue #12607
