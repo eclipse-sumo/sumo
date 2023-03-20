@@ -99,7 +99,7 @@ GNERunNetgenerate::run() {
 #ifdef WIN32
     myPipe = _popen((myNetgenerateCommand + " 2>&1").c_str(), "r");
 #else
-    myPipe = popen((myNetgenerate->getCommand() + " 2>&1").c_str(), "r");
+    myPipe = popen((myNetgenerateCommand + " 2>&1").c_str(), "r");
 #endif 
     if (!myPipe) {
         myRunNetgenerateDialog->appendErrorMessage(TL("popen() failed!"));
