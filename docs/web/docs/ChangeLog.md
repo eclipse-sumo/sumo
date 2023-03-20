@@ -70,7 +70,10 @@ title: ChangeLog
   - Error when loading a state file now indicates possible version problem. Issue #12593
   - Fixed problem when loading JAVA bindings for libsumo/libtraci via JNI. Caution: Windows users must update their code to load dependent libraries explicitly due to JAVA issues that cannot be fixed on the SUMO side. Issue #12605
   - Fixed incomplete cleanup of SSM output with repeated libsumo runs. Issue #12587
-  - Function `vehicle.setStopParameter` now takes effect when setting "duration". Issue #12630  
+  - Function `vehicle.setStopParameter` now takes effect when setting "duration". Issue #12630
+  - libtraci.lane.setAllowed has been fixed
+  - libtraci.simulation.getCollisions returns meaningful results Issue #12861
+  - Error messages concerning subscription filters now use the correct command id
 
 - tools
   - Fixed invalid error when calling option **--save-template**. Issue #12589
@@ -112,7 +115,7 @@ title: ChangeLog
   - Improved position and scale of vehicle lights in 3D View #12752
   - Background images can now be added via file-dialog. Issue #1627 (also for netedit)
   - Edge context-menu function *select-reachable* now ignores lane direction when selecting vClass "pedestrian". Issue #12801
-  - Polygons are moved to the lowes layer upon pressing 'ALT'. Issue #12134
+  - Polygons are moved to the lowest layer upon pressing 'ALT'. Issue #12134
   
 - TraCI
   - Added function `vehicle.setLateralLanePosition`. Issue #12568
@@ -137,6 +140,7 @@ title: ChangeLog
   - attrbuteStats.py: Now supports option **--human-readable-time** (**-H**) to make attributes with large time values more legible. Issue #12822
   - sumolib.miscutils functions `parseTime` and `humandReadableTime` now handle negative values. Issue #12821, #12823
   - tlsCycleAdaptation.py now supports more inputs (i.e. TLS with unused stats). Issue #12777
+  - new research intersection Ingolstadt scenario for the SUMO game
   - plotXMLAttributes.py:
     - can plot by sorting rank with attribute value `@RANK`. Issue #12607
     - can plot by input order with attribute value `@INDEX` (note that this was the behavior of @RANK in 1.16.0). Issue #12607
