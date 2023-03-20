@@ -9,6 +9,10 @@ set(netedit_dialogs_tools_SRCS
    GNERunPythonTool.cpp
    GNERunPythonToolDialog.h
    GNERunPythonToolDialog.cpp
+   GNERunNetgenerate.h
+   GNERunNetgenerate.cpp
+   GNERunNetgenerateDialog.h
+   GNERunNetgenerateDialog.cpp
    )
 
 add_library(netedit_dialogs_tools STATIC ${netedit_dialogs_tools_SRCS})
