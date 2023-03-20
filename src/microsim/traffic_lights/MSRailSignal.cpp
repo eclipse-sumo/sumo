@@ -471,7 +471,7 @@ MSRailSignal::hasOncomingRailTraffic(MSLink* link, const MSVehicle* ego, bool& b
             const LinkInfo& li = rs->myLinkInfos[link->getTLIndex()];
             for (const DriveWay& dw : li.myDriveways) {
                 //std::cout << SIMTIME << " hasOncomingRailTraffic link=" << getTLLinkID(link) << " dwRoute=" << toString(dw.myRoute) << " bidi=" << toString(dw.myBidi) << "\n";
-                for (MSLane* lane : dw.myBidi) {
+                for (const MSLane* lane : dw.myBidi) {
                     if (!lane->isEmpty()) {
                         MSVehicle* veh = lane->getFirstAnyVehicle();
                         if (std::find(veh->getCurrentRouteEdge(), veh->getRoute().end(), bidi) != veh->getRoute().end()) {
@@ -709,7 +709,7 @@ MSRailSignal::LinkInfo::buildDriveWay(MSRouteIterator first, MSRouteIterator end
 
     DriveWay dw;
     LaneVisitedMap visited;
-    std::vector<MSLane*> before;
+    std::vector<const MSLane*> before;
     appendMapIndex(visited, myLink->getLaneBefore());
     MSLane* fromBidi = myLink->getLaneBefore()->getBidiLane();
     if (fromBidi != nullptr) {
@@ -803,7 +803,7 @@ MSRailSignal::DriveWay::reserve(const Approaching& closest, MSEdgeVector& occupi
         }
     }
     if (conflictLaneOccupied(joinVehicle)) {
-        for (MSLane* bidi : myBidi) {
+        for (const MSLane* bidi : myBidi) {
             if (!bidi->empty() && bidi->getBidiLane() != nullptr) {
                 occupied.push_back(&bidi->getBidiLane()->getEdge());
             }
@@ -985,7 +985,7 @@ MSRailSignal::DriveWay::conflictLaneOccupied(const std::string& joinVehicle, boo
 
 bool
 MSRailSignal::DriveWay::deadlockLaneOccupied(bool store) const {
-    for (MSLane* lane : myBidiExtended) {
+    for (const MSLane* lane : myBidiExtended) {
         if (!lane->empty()) {
             assert(myBidi.size() != 0);
             const MSEdge* lastBidi = myBidi.back()->getNextNormal();
@@ -1337,7 +1337,7 @@ MSRailSignal::DriveWay::buildRoute(MSLink* origin, double length,
 
 
 void
-MSRailSignal::DriveWay::checkFlanks(const MSLink* originLink, const std::vector<MSLane*>& lanes, const LaneVisitedMap& visited, bool allFoes) {
+MSRailSignal::DriveWay::checkFlanks(const MSLink* originLink, const std::vector<const MSLane*>& lanes, const LaneVisitedMap& visited, bool allFoes) {
 #ifdef DEBUG_CHECK_FLANKS
     std::cout << " checkFlanks lanes=" << toString(lanes) << "\n  visited=" << formatVisitedMap(visited) << " allFoes=" << allFoes << "\n";
 #endif
@@ -1350,9 +1350,9 @@ MSRailSignal::DriveWay::checkFlanks(const MSLink* originLink, const std::vector<
         //std::cout << "   reverseOriginLink=" << reverseOriginLink->getDescription() << "\n";
     }
     for (int i = 0; i < (int)lanes.size(); i++) {
-        MSLane* lane = lanes[i];
-        MSLane* prev = i > 0 ? lanes[i - 1] : nullptr;
-        MSLane* next = i + 1 < (int)lanes.size() ? lanes[i + 1] : nullptr;
+        const MSLane* lane = lanes[i];
+        const MSLane* prev = i > 0 ? lanes[i - 1] : nullptr;
+        const MSLane* next = i + 1 < (int)lanes.size() ? lanes[i + 1] : nullptr;
         if (lane->isInternal()) {
             continue;
         }
