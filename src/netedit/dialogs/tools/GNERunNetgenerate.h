@@ -27,6 +27,7 @@
 // ===========================================================================
 
 class GNERunNetgenerateDialog;
+class OptionsCont;
 
 // ===========================================================================
 // class definitions
@@ -34,7 +35,7 @@ class GNERunNetgenerateDialog;
 
 /**
  * @class GNERunNetgenerate
- * @brief Abstract dialog for tools
+ * @brief thread for running netgenerate
  */
 class GNERunNetgenerate : protected MFXSingleEventThread  {
 
@@ -45,26 +46,26 @@ public:
     /// @brief destructor
     ~GNERunNetgenerate();
     
-    /// @brief run tool
-    void run(const GNENetgenerate* tool);
+    /// @brief run netgenerate
+    void run(OptionsCont *netgenerateOptions);
 
-    /// @brief abort tool running
+    /// @brief abort netgenerate running
     void abort();
 
-    /// @brief check if tool is running
+    /// @brief check if netgenerate is running
     bool isRunning() const;
 
     /// @brief check if during execution an error was Occurred
     bool errorOccurred() const;
 
 private:
-    /// @brief pointer to run tool dialog
+    /// @brief pointer to run netgenerate dialog
     GNERunNetgenerateDialog* myRunNetgenerateDialog;
 
-    /// @brief tool
-    const GNENetgenerate* myNetgenerate = nullptr;
+    /// @brief netgenerate command
+    std::string myNetgenerateCommand;
 
-    /// @brief flag for check if tool is running
+    /// @brief flag for check if netgenerate is running
     bool myRunning = false;
 
     /// @brief flag for check if during execution an error was Occurred
@@ -73,7 +74,7 @@ private:
     /// @brief pipe file
     FILE* myPipe = nullptr;
 
-    /// @brief starts the thread. The thread ends after the tool is finished
+    /// @brief starts the thread. The thread ends after the netgenerate is finished
     FXint run();
 
     /// @brief Invalidated copy constructor.

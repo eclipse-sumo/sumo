@@ -20,7 +20,6 @@
 
 #include <netedit/GNEApplicationWindow.h>
 
-#include "GNENetgenerate.h"
 #include "GNERunNetgenerate.h"
 #include "GNERunNetgenerateDialog.h"
 
@@ -38,8 +37,9 @@ GNERunNetgenerate::~GNERunNetgenerate() {}
 
 
 void
-GNERunNetgenerate::run(const GNENetgenerate* tool) {
-    myNetgenerate = tool;
+GNERunNetgenerate::run(OptionsCont *netgenerateOptions) {
+    // set command
+    myNetgenerateCommand/* = netgenerateCommand*/;
     // reset flags
     myRunning = false;
     myErrorOccurred = false;
@@ -81,7 +81,7 @@ GNERunNetgenerate::run() {
     }
     // open process showing std::err in console
 #ifdef WIN32
-    myPipe = _popen((myNetgenerate->getCommand() + " 2>&1").c_str(), "r");
+    myPipe = _popen((myNetgenerateCommand + " 2>&1").c_str(), "r");
 #else
     myPipe = popen((myNetgenerate->getCommand() + " 2>&1").c_str(), "r");
 #endif 
@@ -96,7 +96,7 @@ GNERunNetgenerate::run() {
         myRunning = true;
         myRunNetgenerateDialog->updateDialog();
         // Show command
-        myRunNetgenerateDialog->appendBuffer((myNetgenerate->getCommand() + "\n").c_str());
+        myRunNetgenerateDialog->appendBuffer((myNetgenerateCommand + "\n").c_str());
         // start process
         myRunNetgenerateDialog->appendInfoMessage(TL("starting process...\n"));
         try {
