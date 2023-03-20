@@ -37,7 +37,7 @@ GNEPythonTool::GNEPythonTool(GNEApplicationWindow* GNEApp, const std::string &py
     myPythonToolName(FileHelpers::getFileFromPath(pythonPath, true)) {
     // build menu command
     myMenuCommand = GUIDesigns::buildFXMenuCommandShortcut(menu, myPythonToolName, "", TL("Execute python tool '") + myPythonToolName + "'.",
-        GUIIconSubSys::getIcon(GUIIcon::TOOL_PYTHON), GNEApp, MID_GNE_OPENTOOLDIALOG);
+        GUIIconSubSys::getIcon(GUIIcon::TOOL_PYTHON), GNEApp, MID_GNE_OPENPYTHONTOOLDIALOG);
     // parse tool options
     if (templateStr.size() > 0) {
         try {

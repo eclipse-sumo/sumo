@@ -204,7 +204,7 @@ long
 GNERunPythonToolDialog::onCmdBack(FXObject*, FXSelector, void*) {
     // close runTool dialog and open tool dialog
     onCmdClose(nullptr, 0, nullptr);
-    return myGNEApp->handle(myPythonTool->getMenuCommand(), FXSEL(SEL_COMMAND, MID_GNE_OPENTOOLDIALOG), nullptr);
+    return myGNEApp->handle(myPythonTool->getMenuCommand(), FXSEL(SEL_COMMAND, MID_GNE_OPENPYTHONTOOLDIALOG), nullptr);
 }
 
 

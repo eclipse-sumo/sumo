@@ -289,6 +289,8 @@ enum {
 
     /// @brief Main window-ID
     MID_WINDOW,
+    /// @brief run tool (used in GUIDialog_Options)
+    MID_RUNTOOL,
     /// @brief netgenerate
     MID_NETGENERATE,
 
@@ -732,11 +734,11 @@ enum {
     /// @{
 
     /// @brief call tool
-    MID_GNE_OPENTOOLDIALOG,
-    /// @brief run tool
-    MID_GNE_RUNTOOL,
+    MID_GNE_OPENPYTHONTOOLDIALOG,
+    /// @brief run python
+    MID_GNE_RUNPYTHONTOOL,
     /// @brief call tool for post processing
-    MID_GNE_POSTPROCESSINGTOOL,
+    MID_GNE_POSTPROCESSINGPYTHONTOOL,
 
     /// @}
 

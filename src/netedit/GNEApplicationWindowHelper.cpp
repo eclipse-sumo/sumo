@@ -2043,7 +2043,7 @@ GNEApplicationWindowHelper::ToolsMenuCommands::runToolDialog(FXObject* menuComma
 
 
 long
-GNEApplicationWindowHelper::ToolsMenuCommands::runNetgenerateDialog(OptionsCont *netgenerateOptions) const {
+GNEApplicationWindowHelper::ToolsMenuCommands::runNetgenerateDialog(const OptionsCont *netgenerateOptions) const {
     myRunNetgenerateDialog->run(netgenerateOptions);
     return 0;
 }

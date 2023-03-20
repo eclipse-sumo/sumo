@@ -351,11 +351,11 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_SHIFT_O_LOCATEPOI,           GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_L_LOCATEPOLY,          GNEApplicationWindow::onCmdLocate),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_SHIFT_L_LOCATEPOLY,          GNEApplicationWindow::onUpdNeedsNetwork),
-    // toolbar tools
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_OPENTOOLDIALOG,      GNEApplicationWindow::onCmdOpenToolDialog),
-    FXMAPFUNC(SEL_UPDATE,  MID_GNE_OPENTOOLDIALOG,      GNEApplicationWindow::onUpdPythonTool),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_RUNTOOL,             GNEApplicationWindow::onCmdRunTool),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_POSTPROCESSINGTOOL,  GNEApplicationWindow::onCmdPostProcessingTool),
+    // toolbar python tools
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_OPENPYTHONTOOLDIALOG,        GNEApplicationWindow::onCmdOpenToolDialog),
+    FXMAPFUNC(SEL_UPDATE,  MID_GNE_OPENPYTHONTOOLDIALOG,        GNEApplicationWindow::onUpdPythonTool),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_RUNPYTHONTOOL,               GNEApplicationWindow::onCmdRunTool),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_POSTPROCESSINGPYTHONTOOL,    GNEApplicationWindow::onCmdPostProcessingTool),
     // toolbar windows
     FXMAPFUNC(SEL_COMMAND,  MID_CLEARMESSAGEWINDOW,     GNEApplicationWindow::onCmdClearMsgWindow),
     // toolbar help
@@ -1697,7 +1697,7 @@ GNEApplicationWindow::loadOSM(const std::string &OSMFile) {
     neteditOptions.set("tls.guess-signals", "true");
     neteditOptions.set("tls.discard-simple", "true");
     // open wizard dialog
-    if (GUIDialog_Options::Options(this, OptionsCont::getOptions(), TL("Select Import Options"))) {
+    if (GUIDialog_Options::Options(this, &OptionsCont::getOptions(), TL("Select Import Options"))) {
         NIFrame::checkOptions(); // needed to set projection parameters
         // set file to load
         neteditOptions.resetWritable();
@@ -2294,7 +2294,7 @@ GNEApplicationWindow::onCmdFeedback(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdOpenOptionsDialog(FXObject*, FXSelector, void*) {
-    if (GUIDialog_Options::Options(this, OptionsCont::getOptions(), TL("Netedit options"))) {
+    if (GUIDialog_Options::Options(this, &OptionsCont::getOptions(), TL("Netedit options"))) {
         NIFrame::checkOptions(); // needed to set projection parameters
         NBFrame::checkOptions();
         NWFrame::checkOptions();
@@ -2306,13 +2306,13 @@ GNEApplicationWindow::onCmdOpenOptionsDialog(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdOpenSumoOptionsDialog(FXObject*, FXSelector, void*) {
-    return GUIDialog_Options::Options(this, mySumoOptions, TL("Sumo options"));
+    return GUIDialog_Options::Options(this, &mySumoOptions, TL("Sumo options"));
 }
 
 
 long
 GNEApplicationWindow::onCmdOpenNetgenerateOptionsDialog(FXObject*, FXSelector, void*) {
-    return GUIDialog_Options::Run(this, myNetgenerateOptions, TL("Netgenerate options"));
+    return GUIDialog_Options::Run(this, &myNetgenerateOptions, TL("Netgenerate options"));
 }
 
 

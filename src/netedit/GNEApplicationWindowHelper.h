@@ -968,7 +968,7 @@ struct GNEApplicationWindowHelper {
         long runToolDialog(FXObject* menuCommand) const;
 
         /// @brief run netgenerate dialog
-        long runNetgenerateDialog(OptionsCont *netgenerateOptions) const;
+        long runNetgenerateDialog(const OptionsCont *netgenerateOptions) const;
 
     private:
         /// @brief map with python tools

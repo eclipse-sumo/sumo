@@ -100,7 +100,7 @@ GNEPythonToolDialog::onCmdRun(FXObject*, FXSelector, void*) {
     // hide dialog
     hide();
     // run tool
-    return myGNEApp->tryHandle(myPythonTool->getMenuCommand(), FXSEL(SEL_COMMAND, MID_GNE_RUNTOOL), nullptr);
+    return myGNEApp->tryHandle(myPythonTool->getMenuCommand(), FXSEL(SEL_COMMAND, MID_GNE_RUNPYTHONTOOL), nullptr);
 }
 
 
