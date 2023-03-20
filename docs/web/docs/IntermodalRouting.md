@@ -87,7 +87,7 @@ into account:
 - Individual vehicle transport uses the standard vehicle routing
   costs. This can be influenced by loading custom weights via option **--weight-files**
 - Walking uses the maximum walking speed of the person and multiplies
-  this with a factor, configurable via option **--persontrip.walkfactor** {{DT_FLOAT}} (default *0.9*). The
+  this with a factor, configurable via option **--persontrip.walkfactor** {{DT_FLOAT}} (default *0.75*). The
   factor is used to account for delays due to intersections and
   pedestrian interactions
 - Walking against the direction of traffic may be discouraged on edges that are shared with vehicles. This can be configured with option **--persontrip.walk-opposite-factor**  (default 1.0).
