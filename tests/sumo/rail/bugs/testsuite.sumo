@@ -64,3 +64,6 @@ ticket12184b
 
 # unsafe insertion with fast training coming from behind
 ticket12857
+
+# deadlock on bidirectional track
+ticket12858

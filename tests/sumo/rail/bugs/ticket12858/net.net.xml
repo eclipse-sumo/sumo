@@ -1,0 +1,818 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-03-20 15:22:40 by Eclipse SUMO netedit Version v1_16_0+1476-793cb92
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumocfg-file value="/scr2/DB_Spurplan5/20230317/Stuttgart_2023-03-16_00-00-00_23-00-00_00-00-00/test.sumocfg"/>
+        <route-files value="/scr2/DB_Spurplan5/20230317/Stuttgart_2023-03-16_00-00-00_23-00-00_00-00-00/test.rou.xml"/>
+        <sumo-net-file value="net2.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net2.net.xml"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="-1.00"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<net version="1.16" junctionCornerDetail="5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="-289902.16,-5251643.91" convBoundary="229411.47,169588.92,230072.43,169690.48" origBoundary="6.021351,47.397782,15.031985,54.907633" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <edge id="1000" from="0" to="13" name="4931F-TBEN" priority="3" spreadType="center" length="1.00" bidi="1054" distance="-14500.00">
+        <lane id="1000_0" index="0" allow="rail" speed="33.33" length="1.00" shape="229620.48,169640.14 229681.25,169642.87"/>
+        <param key="direction" value="F"/>
+        <param key="direction_num" value="0"/>
+        <param key="route" value="4931"/>
+        <param key="stem" value="0"/>
+        <param key="track_mark" value="0"/>
+    </edge>
+    <edge id="1001" from="1" to="0" name="4931F-TBEN" priority="3" spreadType="center" length="123.00" bidi="1043" distance="-14500.00">
+        <lane id="1001_0" index="0" allow="rail" speed="33.33" length="123.00" shape="229558.67,169640.16 229620.48,169640.14"/>
+        <param key="direction" value="F"/>
+        <param key="direction_num" value="0"/>
+        <param key="route" value="4931"/>
+        <param key="stem" value="0"/>
+        <param key="track_mark" value="0"/>
+    </edge>
+    <edge id="1002" from="2" to="32" name="4931F-TBEN" priority="3" spreadType="center" length="198.00" bidi="1071" distance="-14921.00">
+        <lane id="1002_0" index="0" allow="rail" speed="33.33" length="198.00" shape="229492.40,169612.60 229514.25,169621.73"/>
+        <param key="direction" value="F"/>
+        <param key="direction_num" value="0"/>
+        <param key="route" value="4931"/>
+        <param key="stem" value="0"/>
+        <param key="track_mark" value="0"/>
+    </edge>
+    <edge id="1003" from="3" to="2" name="4931F-TBEN" priority="3" spreadType="center" length="300.00" bidi="1045" distance="-15119.00">
+        <lane id="1003_0" index="0" allow="rail" speed="33.33" length="300.00" shape="229435.74,169588.92 229492.40,169612.60"/>
+        <param key="direction" value="F"/>
+        <param key="direction_num" value="0"/>
+        <param key="route" value="4931"/>
+        <param key="stem" value="0"/>
+        <param key="track_mark" value="0"/>
+    </edge>
+    <edge id="1005" from="5" to="32" name="4931F-TBEN" priority="0" spreadType="center" length="33.00" bidi="1072" distance="-14921.00">
+        <lane id="1005_0" index="0" allow="rail" speed="13.89" length="33.00" shape="229488.72,169632.38 229513.98,169625.72"/>
+        <param key="direction" value="F"/>
+        <param key="direction_num" value="0"/>
+        <param key="route" value="4931"/>
+        <param key="stem" value="0"/>
+        <param key="track_mark" value="1"/>
+    </edge>
+    <edge id="1006" from="6" to="5" name="4931F-TBEN" priority="0" spreadType="center" length="141.00" bidi="1047" distance="-14954.00">
+        <lane id="1006_0" index="0" allow="rail" speed="33.33" length="141.00" shape="229472.85,169626.11 229487.70,169632.31"/>
+        <param key="direction" value="F"/>
+        <param key="direction_num" value="0"/>
+        <param key="route" value="4931"/>
+        <param key="stem" value="0"/>
+        <param key="track_mark" value="1"/>
+    </edge>
+    <edge id="1007" from="7" to="6" name="4931F-TBEN" priority="0" spreadType="center" length="324.00" bidi="1048" distance="-15095.00">
+        <lane id="1007_0" index="0" allow="rail" speed="33.33" length="324.00" shape="229411.47,169600.46 229472.85,169626.11"/>
+        <param key="direction" value="F"/>
+        <param key="direction_num" value="0"/>
+        <param key="route" value="4931"/>
+        <param key="stem" value="0"/>
+        <param key="track_mark" value="1"/>
+    </edge>
+    <edge id="1010" from="10" to="33" name="4931F-TMB" priority="1" spreadType="center" length="35.00" bidi="1073" distance="-13518.00">
+        <lane id="1010_0" index="0" allow="rail" speed="33.33" length="35.00" shape="229913.70,169682.90 229937.69,169685.20"/>
+        <param key="direction" value="F"/>
+        <param key="direction_num" value="0"/>
+        <param key="route" value="4931"/>
+        <param key="stem" value="0"/>
+        <param key="track_mark" value="-1"/>
+    </edge>
+    <edge id="1011" from="11" to="10" name="4931F-TMB" priority="1" spreadType="center" length="262.00" bidi="1051" distance="-13553.00">
+        <lane id="1011_0" index="0" allow="rail" speed="33.33" length="262.00" shape="229789.56,169671.04 229913.70,169682.90"/>
+        <param key="direction" value="F"/>
+        <param key="direction_num" value="0"/>
+        <param key="route" value="4931"/>
+        <param key="stem" value="0"/>
+        <param key="track_mark" value="-1"/>
+    </edge>
+    <edge id="1012" from="12" to="35" name="4931F-TMB" priority="3" spreadType="center" length="402.00" shape="229730.83,169645.34 229738.59,169646.08 229746.35,169646.82 229754.11,169647.56" bidi="1077" distance="-14291.00">
+        <lane id="1012_0" index="0" allow="rail" speed="33.33" length="402.00" shape="229730.83,169645.34 229738.59,169646.08 229746.35,169646.82 229751.87,169647.35"/>
+        <param key="direction" value="F"/>
+        <param key="direction_num" value="0"/>
+        <param key="route" value="4931"/>
+        <param key="stem" value="0"/>
+        <param key="track_mark" value="0"/>
+    </edge>
+    <edge id="1013" from="13" to="12" name="4931F-TMB" priority="3" spreadType="center" length="209.00" bidi="1053" distance="-14291.00">
+        <lane id="1013_0" index="0" allow="rail" speed="33.33" length="209.00" shape="229681.55,169642.89 229730.83,169645.34"/>
+        <param key="direction" value="F"/>
+        <param key="direction_num" value="0"/>
+        <param key="route" value="4931"/>
+        <param key="stem" value="0"/>
+        <param key="track_mark" value="0"/>
+    </edge>
+    <edge id="1015" from="15" to="14" name="4931F-TMB" priority="3" spreadType="center" length="391.00" bidi="1055" distance="-12861.00">
+        <lane id="1015_0" index="0" allow="rail" speed="33.33" length="391.00" shape="230048.78,169675.71 230072.43,169677.97"/>
+        <param key="direction" value="F"/>
+        <param key="direction_num" value="0"/>
+        <param key="route" value="4931"/>
+        <param key="stem" value="0"/>
+        <param key="track_mark" value="0"/>
+    </edge>
+    <edge id="1016" from="16" to="15" name="4931F-TMB" priority="3" spreadType="center" length="1.00" bidi="1056" distance="-13252.00">
+        <lane id="1016_0" index="0" allow="rail" speed="33.33" length="1.00" shape="230036.96,169674.58 230048.78,169675.71"/>
+        <param key="direction" value="F"/>
+        <param key="direction_num" value="0"/>
+        <param key="route" value="4931"/>
+        <param key="stem" value="0"/>
+        <param key="track_mark" value="0"/>
+    </edge>
+    <edge id="1017" from="17" to="34" name="4931F-TMB" priority="1" spreadType="center" length="2.00" shape="229759.19,169655.08 229762.07,169661.38 229774.04,169669.56" bidi="1075" distance="-13865.00">
+        <lane id="1017_0" index="0" allow="rail" speed="33.33" length="2.00" shape="229759.25,169655.20 229762.07,169661.38 229773.70,169669.33"/>
+        <param key="direction" value="F"/>
+        <param key="direction_num" value="0"/>
+        <param key="route" value="4931"/>
+        <param key="stem" value="0"/>
+        <param key="track_mark" value="-1"/>
+    </edge>
+    <edge id="1026" from="26" to="37" name="4931F-TMB" priority="1" spreadType="center" length="1.00" bidi="1081" distance="-13379.00">
+        <lane id="1026_0" index="0" allow="rail" speed="13.89" length="1.00" shape="230002.10,169681.23 230009.03,169675.73"/>
+        <param key="direction" value="F"/>
+        <param key="direction_num" value="0"/>
+        <param key="route" value="4931"/>
+        <param key="stem" value="0"/>
+        <param key="track_mark" value="-1"/>
+    </edge>
+    <edge id="1027" from="27" to="40" name="4931F-TMB" priority="3" spreadType="center" length="34.00" shape="229884.57,169660.03 229896.64,169661.18 229908.71,169662.33" bidi="1085" distance="-13618.00">
+        <lane id="1027_0" index="0" allow="rail" speed="33.33" length="34.00" shape="229884.57,169660.03 229896.64,169661.18 229908.71,169662.33"/>
+        <param key="direction" value="F"/>
+        <param key="direction_num" value="0"/>
+        <param key="route" value="4931"/>
+        <param key="stem" value="0"/>
+        <param key="track_mark" value="0"/>
+    </edge>
+    <edge id="1028" from="28" to="27" name="4931F-TMB" priority="3" spreadType="center" length="236.00" bidi="1067" distance="-13618.00">
+        <lane id="1028_0" index="0" allow="rail" speed="33.33" length="236.00" shape="229788.02,169650.80 229884.57,169660.03"/>
+        <param key="direction" value="F"/>
+        <param key="direction_num" value="0"/>
+        <param key="route" value="4931"/>
+        <param key="stem" value="0"/>
+        <param key="track_mark" value="0"/>
+    </edge>
+    <edge id="1031" from="32" to="1" name="4931F-TBEN" priority="3" spreadType="center" length="299.00" bidi="1044" distance="-14921.00">
+        <lane id="1031_0" index="0" allow="rail" speed="33.33" length="299.00" shape="229521.87,169624.92 229558.05,169640.04"/>
+        <param key="direction" value="F"/>
+        <param key="direction_num" value="0"/>
+        <param key="route" value="4931"/>
+        <param key="stem" value="1"/>
+        <param key="track_mark" value="0"/>
+    </edge>
+    <edge id="1032" from="33" to="39" name="4931F-TMB" priority="1" spreadType="center" length="28.00" bidi="1084" distance="-13490.00">
+        <lane id="1032_0" index="0" allow="rail" speed="33.33" length="28.00" shape="229937.99,169685.22 229951.49,169686.51"/>
+        <param key="direction" value="F"/>
+        <param key="direction_num" value="0"/>
+        <param key="route" value="4931"/>
+        <param key="stem" value="1"/>
+        <param key="track_mark" value="-1"/>
+    </edge>
+    <edge id="1033" from="34" to="11" name="4931F-TMB" priority="1" spreadType="center" length="50.00" bidi="1052" distance="-13815.00">
+        <lane id="1033_0" index="0" allow="rail" speed="33.33" length="50.00" shape="229774.45,169669.60 229789.56,169671.04"/>
+        <param key="direction" value="F"/>
+        <param key="direction_num" value="0"/>
+        <param key="route" value="4931"/>
+        <param key="stem" value="1"/>
+        <param key="track_mark" value="-1"/>
+    </edge>
+    <edge id="1034" from="35" to="17" name="4931F-TMB" priority="1" spreadType="center" length="25.00" bidi="1058" distance="-13865.00">
+        <lane id="1034_0" index="0" allow="rail" speed="13.89" length="25.00" shape="229756.85,169651.61 229759.12,169654.97"/>
+        <param key="direction" value="F"/>
+        <param key="direction_num" value="0"/>
+        <param key="route" value="4931"/>
+        <param key="stem" value="0"/>
+        <param key="track_mark" value="-1"/>
+    </edge>
+    <edge id="1035" from="35" to="28" name="4931F-TMB" priority="3" spreadType="center" length="37.00" shape="229754.11,169647.56 229775.95,169649.65 229788.02,169650.80" bidi="1068" distance="-13854.00">
+        <lane id="1035_0" index="0" allow="rail" speed="33.33" length="37.00" shape="229758.98,169648.03 229775.95,169649.65 229788.02,169650.80"/>
+        <param key="direction" value="F"/>
+        <param key="direction_num" value="0"/>
+        <param key="route" value="4931"/>
+        <param key="stem" value="1"/>
+        <param key="track_mark" value="0"/>
+    </edge>
+    <edge id="1037" from="37" to="16" name="4931F-TMB" priority="3" spreadType="center" length="127.00" bidi="1057" distance="-13252.00">
+        <lane id="1037_0" index="0" allow="rail" speed="33.33" length="127.00" shape="230015.44,169672.53 230036.96,169674.58"/>
+        <param key="direction" value="F"/>
+        <param key="direction_num" value="0"/>
+        <param key="route" value="4931"/>
+        <param key="stem" value="1"/>
+        <param key="track_mark" value="0"/>
+    </edge>
+    <edge id="1038" from="38" to="37" name="4931F-TMB" priority="3" spreadType="center" length="161.00" shape="229928.26,169664.20 229968.48,169668.04 230013.31,169672.33" bidi="1080" distance="-13409.00">
+        <lane id="1038_0" index="0" allow="rail" speed="33.33" length="161.00" shape="229928.26,169664.20 229968.48,169668.04 230007.87,169671.81"/>
+        <param key="direction" value="F"/>
+        <param key="direction_num" value="0"/>
+        <param key="route" value="4931"/>
+        <param key="stem" value="1"/>
+        <param key="track_mark" value="0"/>
+    </edge>
+    <edge id="1040" from="39" to="26" name="4931F-TMB" priority="1" spreadType="center" length="111.00" shape="229951.64,169686.52 229972.33,169688.50 229993.02,169690.48 230002.02,169681.29" bidi="1066" distance="-13490.00">
+        <lane id="1040_0" index="0" allow="rail" speed="33.33" length="111.00" shape="229951.79,169686.53 229972.33,169688.50 229993.02,169690.48 230001.95,169681.36"/>
+        <param key="direction" value="F"/>
+        <param key="direction_num" value="0"/>
+        <param key="route" value="4931"/>
+        <param key="stem" value="1"/>
+        <param key="track_mark" value="-1"/>
+    </edge>
+    <edge id="1042" from="40" to="38" name="4931F-TMB" priority="3" spreadType="center" length="45.00" bidi="1082" distance="-13540.00">
+        <lane id="1042_0" index="0" allow="rail" speed="33.33" length="45.00" shape="229908.71,169662.33 229928.26,169664.20"/>
+        <param key="direction" value="F"/>
+        <param key="direction_num" value="0"/>
+        <param key="route" value="4931"/>
+        <param key="stem" value="1"/>
+        <param key="track_mark" value="0"/>
+    </edge>
+    <edge id="1043" from="0" to="1" name="4931S-TBEN" priority="0" spreadType="center" length="123.00" bidi="1001" distance="14500.00">
+        <lane id="1043_0" index="0" allow="rail" speed="33.33" length="123.00" shape="229620.48,169640.14 229558.67,169640.16"/>
+        <param key="direction" value="S"/>
+        <param key="direction_num" value="1"/>
+        <param key="route" value="4931"/>
+        <param key="stem" value="0"/>
+        <param key="track_mark" value="0"/>
+    </edge>
+    <edge id="1044" from="1" to="32" name="4931S-TBEN" priority="0" spreadType="center" length="299.00" bidi="1031" distance="14623.00">
+        <lane id="1044_0" index="0" allow="rail" speed="33.33" length="299.00" shape="229558.05,169640.04 229521.87,169624.92"/>
+        <param key="direction" value="S"/>
+        <param key="direction_num" value="1"/>
+        <param key="route" value="4931"/>
+        <param key="stem" value="0"/>
+        <param key="track_mark" value="0"/>
+    </edge>
+    <edge id="1045" from="2" to="3" name="4931S-TBEN" priority="0" spreadType="center" length="300.00" bidi="1003" distance="15119.00">
+        <lane id="1045_0" index="0" allow="rail" speed="33.33" length="300.00" shape="229492.40,169612.60 229435.74,169588.92"/>
+        <param key="direction" value="S"/>
+        <param key="direction_num" value="1"/>
+        <param key="route" value="4931"/>
+        <param key="stem" value="0"/>
+        <param key="track_mark" value="0"/>
+    </edge>
+    <edge id="1047" from="5" to="6" name="4931S-TBEN" priority="3" spreadType="center" length="141.00" bidi="1006" distance="14954.00">
+        <lane id="1047_0" index="0" allow="rail" speed="33.33" length="141.00" shape="229487.70,169632.31 229472.85,169626.11"/>
+        <param key="direction" value="S"/>
+        <param key="direction_num" value="1"/>
+        <param key="route" value="4931"/>
+        <param key="stem" value="0"/>
+        <param key="track_mark" value="-1"/>
+    </edge>
+    <edge id="1048" from="6" to="7" name="4931S-TBEN" priority="3" spreadType="center" length="324.00" bidi="1007" distance="15095.00">
+        <lane id="1048_0" index="0" allow="rail" speed="33.33" length="324.00" shape="229472.85,169626.11 229411.47,169600.46"/>
+        <param key="direction" value="S"/>
+        <param key="direction_num" value="1"/>
+        <param key="route" value="4931"/>
+        <param key="stem" value="0"/>
+        <param key="track_mark" value="-1"/>
+    </edge>
+    <edge id="1051" from="10" to="11" name="4931S-TMB" priority="1" spreadType="center" length="262.00" bidi="1011" distance="13553.00">
+        <lane id="1051_0" index="0" allow="rail" speed="33.33" length="262.00" shape="229913.70,169682.90 229789.56,169671.04"/>
+        <param key="direction" value="S"/>
+        <param key="direction_num" value="1"/>
+        <param key="route" value="4931"/>
+        <param key="stem" value="0"/>
+        <param key="track_mark" value="-1"/>
+    </edge>
+    <edge id="1052" from="11" to="34" name="4931S-TMB" priority="1" spreadType="center" length="50.00" bidi="1033" distance="13815.00">
+        <lane id="1052_0" index="0" allow="rail" speed="33.33" length="50.00" shape="229789.56,169671.04 229774.45,169669.60"/>
+        <param key="direction" value="S"/>
+        <param key="direction_num" value="1"/>
+        <param key="route" value="4931"/>
+        <param key="stem" value="0"/>
+        <param key="track_mark" value="-1"/>
+    </edge>
+    <edge id="1053" from="12" to="13" name="4931S-TMB" priority="0" spreadType="center" length="209.00" bidi="1013" distance="14291.00">
+        <lane id="1053_0" index="0" allow="rail" speed="33.33" length="209.00" shape="229730.83,169645.34 229681.55,169642.89"/>
+        <param key="direction" value="S"/>
+        <param key="direction_num" value="1"/>
+        <param key="route" value="4931"/>
+        <param key="stem" value="0"/>
+        <param key="track_mark" value="0"/>
+    </edge>
+    <edge id="1054" from="13" to="0" name="4931S-TMB" priority="0" spreadType="center" length="1.00" bidi="1000" distance="14500.00">
+        <lane id="1054_0" index="0" allow="rail" speed="33.33" length="1.00" shape="229681.25,169642.87 229620.48,169640.14"/>
+        <param key="direction" value="S"/>
+        <param key="direction_num" value="1"/>
+        <param key="route" value="4931"/>
+        <param key="stem" value="0"/>
+        <param key="track_mark" value="0"/>
+    </edge>
+    <edge id="1055" from="14" to="15" name="4931S-TMB" priority="0" spreadType="center" length="391.00" bidi="1015" distance="12861.00">
+        <lane id="1055_0" index="0" allow="rail" speed="33.33" length="391.00" shape="230072.43,169677.97 230048.78,169675.71"/>
+        <param key="direction" value="S"/>
+        <param key="direction_num" value="1"/>
+        <param key="route" value="4931"/>
+        <param key="stem" value="0"/>
+        <param key="track_mark" value="0"/>
+    </edge>
+    <edge id="1056" from="15" to="16" name="4931S-TMB" priority="0" spreadType="center" length="1.00" bidi="1016" distance="13252.00">
+        <lane id="1056_0" index="0" allow="rail" speed="33.33" length="1.00" shape="230048.78,169675.71 230036.96,169674.58"/>
+        <param key="direction" value="S"/>
+        <param key="direction_num" value="1"/>
+        <param key="route" value="4931"/>
+        <param key="stem" value="0"/>
+        <param key="track_mark" value="0"/>
+    </edge>
+    <edge id="1057" from="16" to="37" name="4931S-TMB" priority="0" spreadType="center" length="127.00" bidi="1037" distance="13252.00">
+        <lane id="1057_0" index="0" allow="rail" speed="33.33" length="127.00" shape="230036.96,169674.58 230015.44,169672.53"/>
+        <param key="direction" value="S"/>
+        <param key="direction_num" value="1"/>
+        <param key="route" value="4931"/>
+        <param key="stem" value="0"/>
+        <param key="track_mark" value="0"/>
+    </edge>
+    <edge id="1058" from="17" to="35" name="4931S-TMB" priority="1" spreadType="center" length="25.00" bidi="1034" distance="13865.00">
+        <lane id="1058_0" index="0" allow="rail" speed="13.89" length="25.00" shape="229759.12,169654.97 229756.85,169651.61"/>
+        <param key="direction" value="S"/>
+        <param key="direction_num" value="1"/>
+        <param key="route" value="4931"/>
+        <param key="stem" value="0"/>
+        <param key="track_mark" value="-1"/>
+    </edge>
+    <edge id="1066" from="26" to="39" name="4931S-TMB" priority="1" spreadType="center" length="111.00" shape="230002.02,169681.29 229993.02,169690.48 229972.33,169688.50 229951.64,169686.52" bidi="1040" distance="13380.00">
+        <lane id="1066_0" index="0" allow="rail" speed="33.33" length="111.00" shape="230001.95,169681.36 229993.02,169690.48 229972.33,169688.50 229951.79,169686.53"/>
+        <param key="direction" value="S"/>
+        <param key="direction_num" value="1"/>
+        <param key="route" value="4931"/>
+        <param key="stem" value="0"/>
+        <param key="track_mark" value="-1"/>
+    </edge>
+    <edge id="1067" from="27" to="28" name="4931S-TMB" priority="0" spreadType="center" length="236.00" bidi="1028" distance="13618.00">
+        <lane id="1067_0" index="0" allow="rail" speed="33.33" length="236.00" shape="229884.57,169660.03 229788.02,169650.80"/>
+        <param key="direction" value="S"/>
+        <param key="direction_num" value="1"/>
+        <param key="route" value="4931"/>
+        <param key="stem" value="0"/>
+        <param key="track_mark" value="0"/>
+    </edge>
+    <edge id="1068" from="28" to="35" name="4931S-TMB" priority="0" spreadType="center" length="37.00" shape="229788.02,169650.80 229775.95,169649.65 229754.11,169647.56" bidi="1035" distance="13854.00">
+        <lane id="1068_0" index="0" allow="rail" speed="33.33" length="37.00" shape="229788.02,169650.80 229775.95,169649.65 229758.98,169648.03"/>
+        <param key="direction" value="S"/>
+        <param key="direction_num" value="1"/>
+        <param key="route" value="4931"/>
+        <param key="stem" value="0"/>
+        <param key="track_mark" value="0"/>
+    </edge>
+    <edge id="1071" from="32" to="2" name="4931S-TBEN" priority="0" spreadType="center" length="198.00" bidi="1002" distance="14921.00">
+        <lane id="1071_0" index="0" allow="rail" speed="33.33" length="198.00" shape="229514.25,169621.73 229492.40,169612.60"/>
+        <param key="direction" value="S"/>
+        <param key="direction_num" value="1"/>
+        <param key="route" value="4931"/>
+        <param key="stem" value="1"/>
+        <param key="track_mark" value="0"/>
+    </edge>
+    <edge id="1072" from="32" to="5" name="4931S-TBEN" priority="3" spreadType="center" length="33.00" bidi="1005" distance="14921.00">
+        <lane id="1072_0" index="0" allow="rail" speed="13.89" length="33.00" shape="229513.98,169625.72 229488.72,169632.38"/>
+        <param key="direction" value="S"/>
+        <param key="direction_num" value="1"/>
+        <param key="route" value="4931"/>
+        <param key="stem" value="0"/>
+        <param key="track_mark" value="-1"/>
+    </edge>
+    <edge id="1073" from="33" to="10" name="4931S-TMB" priority="1" spreadType="center" length="35.00" bidi="1010" distance="13518.00">
+        <lane id="1073_0" index="0" allow="rail" speed="33.33" length="35.00" shape="229937.69,169685.20 229913.70,169682.90"/>
+        <param key="direction" value="S"/>
+        <param key="direction_num" value="1"/>
+        <param key="route" value="4931"/>
+        <param key="stem" value="1"/>
+        <param key="track_mark" value="-1"/>
+    </edge>
+    <edge id="1075" from="34" to="17" name="4931S-TMB" priority="1" spreadType="center" length="2.00" shape="229774.04,169669.56 229762.07,169661.38 229759.19,169655.08" bidi="1017" distance="13865.00">
+        <lane id="1075_0" index="0" allow="rail" speed="33.33" length="2.00" shape="229773.70,169669.33 229762.07,169661.38 229759.25,169655.20"/>
+        <param key="direction" value="S"/>
+        <param key="direction_num" value="1"/>
+        <param key="route" value="4931"/>
+        <param key="stem" value="1"/>
+        <param key="track_mark" value="-1"/>
+    </edge>
+    <edge id="1077" from="35" to="12" name="4931S-TMB" priority="0" spreadType="center" length="402.00" shape="229754.11,169647.56 229746.35,169646.82 229738.59,169646.08 229730.83,169645.34" bidi="1012" distance="13890.00">
+        <lane id="1077_0" index="0" allow="rail" speed="33.33" length="402.00" shape="229751.87,169647.35 229746.35,169646.82 229738.59,169646.08 229730.83,169645.34"/>
+        <param key="direction" value="S"/>
+        <param key="direction_num" value="1"/>
+        <param key="route" value="4931"/>
+        <param key="stem" value="1"/>
+        <param key="track_mark" value="0"/>
+    </edge>
+    <edge id="1080" from="37" to="38" name="4931S-TMB" priority="0" spreadType="center" length="161.00" shape="230013.31,169672.33 229968.48,169668.04 229928.26,169664.20" bidi="1038" distance="13379.00">
+        <lane id="1080_0" index="0" allow="rail" speed="33.33" length="161.00" shape="230007.87,169671.81 229968.48,169668.04 229928.26,169664.20"/>
+        <param key="direction" value="S"/>
+        <param key="direction_num" value="1"/>
+        <param key="route" value="4931"/>
+        <param key="stem" value="1"/>
+        <param key="track_mark" value="0"/>
+    </edge>
+    <edge id="1081" from="37" to="26" name="4931S-TMB" priority="1" spreadType="center" length="1.00" bidi="1026" distance="13379.00">
+        <lane id="1081_0" index="0" allow="rail" speed="13.89" length="1.00" shape="230009.03,169675.73 230002.10,169681.23"/>
+        <param key="direction" value="S"/>
+        <param key="direction_num" value="1"/>
+        <param key="route" value="4931"/>
+        <param key="stem" value="0"/>
+        <param key="track_mark" value="-1"/>
+    </edge>
+    <edge id="1082" from="38" to="40" name="4931S-TMB" priority="0" spreadType="center" length="45.00" bidi="1042" distance="13540.00">
+        <lane id="1082_0" index="0" allow="rail" speed="33.33" length="45.00" shape="229928.26,169664.20 229908.71,169662.33"/>
+        <param key="direction" value="S"/>
+        <param key="direction_num" value="1"/>
+        <param key="route" value="4931"/>
+        <param key="stem" value="1"/>
+        <param key="track_mark" value="0"/>
+    </edge>
+    <edge id="1084" from="39" to="33" name="4931S-TMB" priority="1" spreadType="center" length="28.00" bidi="1032" distance="13490.00">
+        <lane id="1084_0" index="0" allow="rail" speed="33.33" length="28.00" shape="229951.49,169686.51 229937.99,169685.22"/>
+        <param key="direction" value="S"/>
+        <param key="direction_num" value="1"/>
+        <param key="route" value="4931"/>
+        <param key="stem" value="1"/>
+        <param key="track_mark" value="-1"/>
+    </edge>
+    <edge id="1085" from="40" to="27" name="4931S-TMB" priority="0" spreadType="center" length="34.00" shape="229908.71,169662.33 229896.64,169661.18 229884.57,169660.03" bidi="1027" distance="13585.00">
+        <lane id="1085_0" index="0" allow="rail" speed="33.33" length="34.00" shape="229908.71,169662.33 229896.64,169661.18 229884.57,169660.03"/>
+        <param key="direction" value="S"/>
+        <param key="direction_num" value="1"/>
+        <param key="route" value="4931"/>
+        <param key="stem" value="1"/>
+        <param key="track_mark" value="0"/>
+    </edge>
+
+    <junction id="0" type="priority" x="229620.48" y="169640.14" incLanes="1054_0 1001_0" intLanes="" shape="229620.51,169641.74 229620.65,169638.55 229620.38,169638.54 229620.38,169641.74">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+        <param key="ocp" value="TBEN"/>
+        <param key="ocp_name" value="Benningen (Neckar)"/>
+        <param key="ocp_section" value="4931_11895-11906"/>
+        <param key="route" value="4931"/>
+        <param key="signal_direction" value="None"/>
+        <param key="signal_direction_num" value="1"/>
+        <param key="trackplan_name" value=""/>
+    </junction>
+    <junction id="1" type="rail_signal" x="229558.35" y="169640.16" incLanes="1043_0 1031_0" intLanes="" shape="229558.67,169641.76 229558.67,169638.56 229557.44,169641.51 229557.88,169641.68 229558.04,169641.73 229558.20,169641.75 229558.40,169641.76">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+        <param key="ocp" value="TBEN"/>
+        <param key="ocp_name" value="Benningen (Neckar)"/>
+        <param key="ocp_section" value="4931_11895-11906"/>
+        <param key="route" value="4931"/>
+        <param key="signal_direction" value="S"/>
+        <param key="signal_direction_num" value="1"/>
+        <param key="trackplan_name" value="A673"/>
+    </junction>
+    <junction id="10" type="rail_signal" x="229913.70" y="169682.90" incLanes="1073_0 1011_0" intLanes="" shape="229913.55,169684.49 229913.85,169681.31 229913.55,169684.49">
+        <request index="0" response="000" foes="100"/>
+        <request index="1" response="000" foes="000"/>
+        <request index="2" response="001" foes="001"/>
+        <param key="ocp" value="TMB"/>
+        <param key="ocp_name" value="Marbach (Neckar)"/>
+        <param key="ocp_section" value="4931_25003-25021"/>
+        <param key="route" value="4931"/>
+        <param key="signal_direction" value="F"/>
+        <param key="signal_direction_num" value="0"/>
+        <param key="trackplan_name" value="S702"/>
+    </junction>
+    <junction id="11" type="rail_signal" x="229789.56" y="169671.04" incLanes="1051_0 1033_0" intLanes="" shape="229789.41,169672.63 229789.71,169669.45 229789.41,169672.63">
+        <request index="0" response="000" foes="000"/>
+        <request index="1" response="100" foes="100"/>
+        <request index="2" response="000" foes="010"/>
+        <param key="ocp" value="TMB"/>
+        <param key="ocp_name" value="Marbach (Neckar)"/>
+        <param key="ocp_section" value="4931_25003-25021"/>
+        <param key="route" value="4931"/>
+        <param key="signal_direction" value="S"/>
+        <param key="signal_direction_num" value="1"/>
+        <param key="trackplan_name" value="N702"/>
+    </junction>
+    <junction id="12" type="rail_signal" x="229730.83" y="169645.34" incLanes="1077_0 1013_0" intLanes="" shape="229730.78,169646.94 229731.08,169643.76 229730.81,169643.74 229730.65,169646.93">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+        <param key="ocp" value="TMB"/>
+        <param key="ocp_name" value="Marbach (Neckar)"/>
+        <param key="ocp_section" value="4931_25024-25041"/>
+        <param key="route" value="4931"/>
+        <param key="signal_direction" value="F"/>
+        <param key="signal_direction_num" value="0"/>
+        <param key="trackplan_name" value="F774"/>
+    </junction>
+    <junction id="13" type="priority" x="229681.40" y="169642.88" incLanes="1053_0 1000_0" intLanes="" shape="229681.47,169644.49 229681.63,169641.29 229681.32,169641.27 229681.18,169644.47">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+        <param key="ocp" value="TMB"/>
+        <param key="ocp_name" value="Marbach (Neckar)"/>
+        <param key="ocp_section" value="4931_25024-25041"/>
+        <param key="route" value="4931"/>
+        <param key="signal_direction" value="None"/>
+        <param key="signal_direction_num" value="1"/>
+        <param key="trackplan_name" value=""/>
+    </junction>
+    <junction id="14" type="dead_end" x="230072.43" y="169677.97" incLanes="1015_0" intLanes="" shape="230072.58,169676.38 230072.28,169679.56 230072.58,169676.38 230072.28,169679.56">
+        <param key="ocp" value="TMB"/>
+        <param key="ocp_name" value="Marbach (Neckar)"/>
+        <param key="ocp_section" value="4931_25042-25055"/>
+        <param key="route" value="4931"/>
+        <param key="signal_direction" value="F"/>
+        <param key="signal_direction_num" value="0"/>
+        <param key="trackplan_name" value="P731"/>
+    </junction>
+    <junction id="15" type="rail_signal" x="230048.78" y="169675.71" incLanes="1055_0 1016_0" intLanes="" shape="230048.63,169677.30 230048.93,169674.12 230048.63,169677.30">
+        <request index="0" response="000" foes="000"/>
+        <request index="1" response="100" foes="100"/>
+        <request index="2" response="000" foes="010"/>
+        <param key="ocp" value="TMB"/>
+        <param key="ocp_name" value="Marbach (Neckar)"/>
+        <param key="ocp_section" value="4931_25042-25055"/>
+        <param key="route" value="4931"/>
+        <param key="signal_direction" value="S"/>
+        <param key="signal_direction_num" value="1"/>
+        <param key="trackplan_name" value="R731"/>
+    </junction>
+    <junction id="16" type="priority" x="230036.96" y="169674.58" incLanes="1056_0 1037_0" intLanes="" shape="230036.81,169676.17 230037.11,169672.99 230036.81,169676.17">
+        <request index="0" response="000" foes="100"/>
+        <request index="1" response="000" foes="000"/>
+        <request index="2" response="001" foes="001"/>
+        <param key="ocp" value="TMB"/>
+        <param key="ocp_name" value="Marbach (Neckar)"/>
+        <param key="ocp_section" value="4931_25042-25055"/>
+        <param key="route" value="4931"/>
+        <param key="signal_direction" value="None"/>
+        <param key="signal_direction_num" value="1"/>
+        <param key="trackplan_name" value=""/>
+    </junction>
+    <junction id="17" type="priority" x="229759.19" y="169655.08" incLanes="1075_0 1034_0" intLanes="" shape="229757.79,169655.87 229760.70,169654.54 229760.62,169654.36 229760.59,169654.30 229760.55,169654.24 229760.44,169654.07">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+        <param key="ocp" value="TMB"/>
+        <param key="ocp_name" value="Marbach (Neckar)"/>
+        <param key="ocp_section" value="4931_25022-25026"/>
+        <param key="route" value="4931"/>
+        <param key="signal_direction" value="None"/>
+        <param key="signal_direction_num" value="1"/>
+        <param key="trackplan_name" value=""/>
+    </junction>
+    <junction id="2" type="rail_signal" x="229492.40" y="169612.60" incLanes="1071_0 1003_0" intLanes="" shape="229491.78,169614.08 229493.02,169611.12 229491.78,169614.08">
+        <request index="0" response="000" foes="100"/>
+        <request index="1" response="000" foes="000"/>
+        <request index="2" response="001" foes="001"/>
+        <param key="ocp" value="TBEN"/>
+        <param key="ocp_name" value="Benningen (Neckar)"/>
+        <param key="ocp_section" value="4931_11907-11944"/>
+        <param key="route" value="4931"/>
+        <param key="signal_direction" value="F"/>
+        <param key="signal_direction_num" value="0"/>
+        <param key="trackplan_name" value="P601"/>
+    </junction>
+    <junction id="26" type="priority" x="230002.02" y="169681.29" incLanes="1081_0 1040_0" intLanes="" shape="230003.09,169682.48 230001.10,169679.97 230000.99,169680.07 230000.95,169680.10 230000.87,169680.18">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+        <param key="ocp" value="TMB"/>
+        <param key="ocp_name" value="Marbach (Neckar)"/>
+        <param key="ocp_section" value="4931_25057-25068"/>
+        <param key="route" value="4931"/>
+        <param key="signal_direction" value="None"/>
+        <param key="signal_direction_num" value="1"/>
+        <param key="trackplan_name" value=""/>
+    </junction>
+    <junction id="27" type="rail_signal" x="229884.57" y="169660.03" incLanes="1085_0 1028_0" intLanes="" shape="229884.42,169661.62 229884.72,169658.44 229884.42,169661.62">
+        <request index="0" response="000" foes="100"/>
+        <request index="1" response="000" foes="000"/>
+        <request index="2" response="001" foes="001"/>
+        <param key="ocp" value="TMB"/>
+        <param key="ocp_name" value="Marbach (Neckar)"/>
+        <param key="ocp_section" value="4931_25072-25025"/>
+        <param key="route" value="4931"/>
+        <param key="signal_direction" value="F"/>
+        <param key="signal_direction_num" value="0"/>
+        <param key="trackplan_name" value="S701"/>
+    </junction>
+    <junction id="28" type="rail_signal" x="229788.02" y="169650.80" incLanes="1067_0 1035_0" intLanes="" shape="229787.87,169652.39 229788.17,169649.21 229787.87,169652.39">
+        <request index="0" response="000" foes="000"/>
+        <request index="1" response="100" foes="100"/>
+        <request index="2" response="000" foes="010"/>
+        <param key="ocp" value="TMB"/>
+        <param key="ocp_name" value="Marbach (Neckar)"/>
+        <param key="ocp_section" value="4931_25072-25025"/>
+        <param key="route" value="4931"/>
+        <param key="signal_direction" value="S"/>
+        <param key="signal_direction_num" value="1"/>
+        <param key="trackplan_name" value="N701"/>
+    </junction>
+    <junction id="3" type="dead_end" x="229435.74" y="169588.92" incLanes="1045_0" intLanes="" shape="229435.12,169590.40 229436.36,169587.44 229435.12,169590.40 229436.36,169587.44">
+        <param key="ocp" value="TBEN"/>
+        <param key="ocp_name" value="Benningen (Neckar)"/>
+        <param key="ocp_section" value="4931_11907-11944"/>
+        <param key="route" value="4931"/>
+        <param key="signal_direction" value="None"/>
+        <param key="signal_direction_num" value="1"/>
+        <param key="trackplan_name" value=""/>
+    </junction>
+    <junction id="32" type="priority" x="229519.99" y="169624.13" incLanes="1044_0 1002_0 1005_0" intLanes="" shape="229521.26,169626.39 229522.49,169623.44 229514.87,169620.26 229513.64,169623.21 229514.24,169623.57 229514.31,169623.74 229514.22,169623.89 229513.97,169624.04 229513.57,169624.17 229514.39,169627.26 229516.95,169626.35 229517.88,169626.00 229518.80,169625.83 229519.87,169625.93">
+        <request index="0" response="0000" foes="0000"/>
+        <request index="1" response="0000" foes="1000"/>
+        <request index="2" response="0000" foes="1000"/>
+        <request index="3" response="0110" foes="0110"/>
+        <param key="ocp" value="TBEN"/>
+        <param key="ocp_name" value="Benningen (Neckar)"/>
+        <param key="ocp_section" value="4931_11895-11906"/>
+        <param key="route" value="4931"/>
+        <param key="signal_direction" value="None"/>
+        <param key="signal_direction_num" value="1"/>
+        <param key="trackplan_name" value="603"/>
+    </junction>
+    <junction id="33" type="priority" x="229937.84" y="169685.21" incLanes="1084_0 1010_0" intLanes="" shape="229937.84,169686.82 229938.14,169683.63 229937.84,169683.60 229937.54,169686.79">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+        <param key="ocp" value="TMB"/>
+        <param key="ocp_name" value="Marbach (Neckar)"/>
+        <param key="ocp_section" value="4931_25067-25004"/>
+        <param key="route" value="4931"/>
+        <param key="signal_direction" value="None"/>
+        <param key="signal_direction_num" value="1"/>
+        <param key="trackplan_name" value="717"/>
+    </junction>
+    <junction id="34" type="priority" x="229774.04" y="169669.56" incLanes="1052_0 1017_0" intLanes="" shape="229774.30,169671.19 229774.60,169668.01 229772.80,169670.65 229773.30,169670.97 229773.50,169671.06 229773.70,169671.12 229773.96,169671.16">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+        <param key="ocp" value="TMB"/>
+        <param key="ocp_name" value="Marbach (Neckar)"/>
+        <param key="ocp_section" value="4931_25003-25021"/>
+        <param key="route" value="4931"/>
+        <param key="signal_direction" value="None"/>
+        <param key="signal_direction_num" value="1"/>
+        <param key="trackplan_name" value="730"/>
+    </junction>
+    <junction id="35" type="priority" x="229754.11" y="169647.56" incLanes="1058_0 1068_0 1012_0" intLanes="" shape="229755.52,169652.51 229758.17,169650.72 229757.87,169650.04 229757.92,169649.82 229758.09,169649.68 229758.40,169649.61 229758.83,169649.62 229759.13,169646.43 229752.02,169645.75 229751.71,169648.94 229752.80,169649.40 229753.41,169649.90 229754.07,169650.59 229754.77,169651.46">
+        <request index="0" response="0010" foes="0010"/>
+        <request index="1" response="1000" foes="1001"/>
+        <request index="2" response="0000" foes="0000"/>
+        <request index="3" response="0000" foes="0010"/>
+        <param key="ocp" value="TMB"/>
+        <param key="ocp_name" value="Marbach (Neckar)"/>
+        <param key="ocp_section" value="4931_25024-25041"/>
+        <param key="route" value="4931"/>
+        <param key="signal_direction" value="None"/>
+        <param key="signal_direction_num" value="1"/>
+        <param key="trackplan_name" value="731"/>
+    </junction>
+    <junction id="37" type="priority" x="230013.31" y="169672.33" incLanes="1057_0 1038_0 1026_0" intLanes="" shape="230015.29,169674.13 230015.60,169670.94 230008.02,169670.22 230007.71,169673.40 230008.41,169673.58 230008.54,169673.74 230008.52,169673.94 230008.35,169674.19 230008.03,169674.48 230010.02,169676.98 230011.77,169675.35 230012.42,169674.75 230013.12,169674.33 230014.03,169674.11">
+        <request index="0" response="00000" foes="00000"/>
+        <request index="1" response="10000" foes="10000"/>
+        <request index="2" response="11000" foes="11000"/>
+        <request index="3" response="00000" foes="10100"/>
+        <request index="4" response="01000" foes="01110"/>
+        <param key="ocp" value="TMB"/>
+        <param key="ocp_name" value="Marbach (Neckar)"/>
+        <param key="ocp_section" value="4931_25042-25055"/>
+        <param key="route" value="4931"/>
+        <param key="signal_direction" value="None"/>
+        <param key="signal_direction_num" value="1"/>
+        <param key="trackplan_name" value="710"/>
+    </junction>
+    <junction id="38" type="priority" x="229928.26" y="169664.20" incLanes="1080_0 1042_0" intLanes="" shape="229928.11,169665.79 229928.41,169662.61 229928.11,169665.79">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+        <param key="ocp" value="TMB"/>
+        <param key="ocp_name" value="Marbach (Neckar)"/>
+        <param key="ocp_section" value="4931_25063-25071"/>
+        <param key="route" value="4931"/>
+        <param key="signal_direction" value="None"/>
+        <param key="signal_direction_num" value="1"/>
+        <param key="trackplan_name" value="718"/>
+    </junction>
+    <junction id="39" type="priority" x="229951.64" y="169686.52" incLanes="1066_0 1032_0" intLanes="" shape="229951.64,169688.13 229951.94,169684.94 229951.64,169684.91 229951.34,169688.10">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+        <param key="ocp" value="TMB"/>
+        <param key="ocp_name" value="Marbach (Neckar)"/>
+        <param key="ocp_section" value="4931_25057-25068"/>
+        <param key="route" value="4931"/>
+        <param key="signal_direction" value="None"/>
+        <param key="signal_direction_num" value="1"/>
+        <param key="trackplan_name" value="716"/>
+    </junction>
+    <junction id="40" type="priority" x="229908.71" y="169662.33" incLanes="1082_0 1027_0" intLanes="" shape="229908.56,169663.92 229908.86,169660.74 229908.56,169663.92">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+        <param key="ocp" value="TMB"/>
+        <param key="ocp_name" value="Marbach (Neckar)"/>
+        <param key="ocp_section" value="4931_25072-25025"/>
+        <param key="route" value="4931"/>
+        <param key="signal_direction" value="None"/>
+        <param key="signal_direction_num" value="1"/>
+        <param key="trackplan_name" value="719"/>
+    </junction>
+    <junction id="5" type="priority" x="229488.20" y="169632.52" incLanes="1072_0 1006_0" intLanes="" shape="229489.13,169633.93 229488.32,169630.83 229487.08,169633.79 229487.81,169634.06 229488.09,169634.10 229488.37,169634.10 229488.70,169634.04">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+        <param key="ocp" value="TBEN"/>
+        <param key="ocp_name" value="Benningen (Neckar)"/>
+        <param key="ocp_section" value="4931_11908-11980"/>
+        <param key="route" value="4931"/>
+        <param key="signal_direction" value="None"/>
+        <param key="signal_direction_num" value="1"/>
+        <param key="trackplan_name" value=""/>
+    </junction>
+    <junction id="6" type="rail_signal" x="229472.85" y="169626.11" incLanes="1047_0 1007_0" intLanes="" shape="229472.23,169627.59 229473.47,169624.63 229472.23,169627.59">
+        <request index="0" response="000" foes="100"/>
+        <request index="1" response="000" foes="000"/>
+        <request index="2" response="001" foes="001"/>
+        <param key="ocp" value="TBEN"/>
+        <param key="ocp_name" value="Benningen (Neckar)"/>
+        <param key="ocp_section" value="4931_11908-11980"/>
+        <param key="route" value="4931"/>
+        <param key="signal_direction" value="F"/>
+        <param key="signal_direction_num" value="0"/>
+        <param key="trackplan_name" value="P602"/>
+    </junction>
+    <junction id="7" type="dead_end" x="229411.47" y="169600.46" incLanes="1048_0" intLanes="" shape="229410.85,169601.94 229412.09,169598.98 229410.85,169601.94 229412.09,169598.98">
+        <param key="ocp" value="TBEN"/>
+        <param key="ocp_name" value="Benningen (Neckar)"/>
+        <param key="ocp_section" value="4931_11908-11980"/>
+        <param key="route" value="4931"/>
+        <param key="signal_direction" value="None"/>
+        <param key="signal_direction_num" value="1"/>
+        <param key="trackplan_name" value=""/>
+    </junction>
+
+    <connection from="1000" to="1013" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="1001" to="1000" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="1002" to="1031" fromLane="0" toLane="0" uncontrolled="1" dir="s" state="M"/>
+    <connection from="1003" to="1002" fromLane="0" toLane="0" tl="2" linkIndex="0" dir="s" state="O"/>
+    <connection from="1003" to="1045" fromLane="0" toLane="0" uncontrolled="1" dir="t" state="M"/>
+    <connection from="1005" to="1031" fromLane="0" toLane="0" uncontrolled="1" dir="s" state="M"/>
+    <connection from="1006" to="1005" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="1007" to="1006" fromLane="0" toLane="0" tl="6" linkIndex="0" dir="s" state="O"/>
+    <connection from="1007" to="1048" fromLane="0" toLane="0" uncontrolled="1" dir="t" state="M"/>
+    <connection from="1010" to="1032" fromLane="0" toLane="0" uncontrolled="1" dir="s" state="M"/>
+    <connection from="1011" to="1010" fromLane="0" toLane="0" tl="10" linkIndex="0" dir="s" state="O"/>
+    <connection from="1011" to="1051" fromLane="0" toLane="0" uncontrolled="1" dir="t" state="M"/>
+    <connection from="1012" to="1035" fromLane="0" toLane="0" uncontrolled="1" dir="s" state="M"/>
+    <connection from="1012" to="1034" fromLane="0" toLane="0" uncontrolled="1" dir="l" state="M"/>
+    <connection from="1013" to="1012" fromLane="0" toLane="0" tl="12" linkIndex="0" dir="s" state="O"/>
+    <connection from="1016" to="1015" fromLane="0" toLane="0" keepClear="0" uncontrolled="1" dir="s" state="M"/>
+    <connection from="1017" to="1033" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="1026" to="1037" fromLane="0" toLane="0" uncontrolled="1" dir="s" state="M"/>
+    <connection from="1027" to="1042" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="1028" to="1027" fromLane="0" toLane="0" tl="27" linkIndex="0" dir="s" state="O"/>
+    <connection from="1028" to="1067" fromLane="0" toLane="0" uncontrolled="1" dir="t" state="M"/>
+    <connection from="1031" to="1001" fromLane="0" toLane="0" uncontrolled="1" dir="s" state="M"/>
+    <connection from="1032" to="1040" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="1033" to="1011" fromLane="0" toLane="0" keepClear="0" uncontrolled="1" dir="s" state="M"/>
+    <connection from="1034" to="1017" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="1035" to="1028" fromLane="0" toLane="0" keepClear="0" uncontrolled="1" dir="s" state="M"/>
+    <connection from="1037" to="1016" fromLane="0" toLane="0" uncontrolled="1" dir="s" state="M"/>
+    <connection from="1037" to="1057" fromLane="0" toLane="0" uncontrolled="1" dir="t" state="M"/>
+    <connection from="1038" to="1037" fromLane="0" toLane="0" uncontrolled="1" dir="s" state="M"/>
+    <connection from="1040" to="1026" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="1042" to="1038" fromLane="0" toLane="0" uncontrolled="1" dir="s" state="M"/>
+    <connection from="1043" to="1044" fromLane="0" toLane="0" tl="1" linkIndex="0" dir="s" state="O"/>
+    <connection from="1044" to="1072" fromLane="0" toLane="0" uncontrolled="1" dir="R" state="M"/>
+    <connection from="1044" to="1071" fromLane="0" toLane="0" uncontrolled="1" dir="s" state="M"/>
+    <connection from="1047" to="1048" fromLane="0" toLane="0" keepClear="0" uncontrolled="1" dir="s" state="M"/>
+    <connection from="1051" to="1052" fromLane="0" toLane="0" tl="11" linkIndex="0" dir="s" state="O"/>
+    <connection from="1051" to="1011" fromLane="0" toLane="0" uncontrolled="1" dir="t" state="M"/>
+    <connection from="1052" to="1075" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="1053" to="1054" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="1054" to="1043" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="1055" to="1056" fromLane="0" toLane="0" tl="15" linkIndex="0" dir="s" state="O"/>
+    <connection from="1055" to="1015" fromLane="0" toLane="0" uncontrolled="1" dir="t" state="M"/>
+    <connection from="1056" to="1057" fromLane="0" toLane="0" keepClear="0" dir="s" state="M"/>
+    <connection from="1057" to="1081" fromLane="0" toLane="0" uncontrolled="1" dir="R" state="M"/>
+    <connection from="1057" to="1080" fromLane="0" toLane="0" uncontrolled="1" dir="s" state="M"/>
+    <connection from="1057" to="1037" fromLane="0" toLane="0" uncontrolled="1" dir="t" state="M"/>
+    <connection from="1058" to="1077" fromLane="0" toLane="0" uncontrolled="1" dir="r" state="M"/>
+    <connection from="1066" to="1084" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="1067" to="1068" fromLane="0" toLane="0" tl="28" linkIndex="0" dir="s" state="O"/>
+    <connection from="1067" to="1028" fromLane="0" toLane="0" uncontrolled="1" dir="t" state="M"/>
+    <connection from="1068" to="1077" fromLane="0" toLane="0" uncontrolled="1" dir="s" state="M"/>
+    <connection from="1071" to="1045" fromLane="0" toLane="0" keepClear="0" uncontrolled="1" dir="s" state="M"/>
+    <connection from="1072" to="1047" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="1073" to="1051" fromLane="0" toLane="0" keepClear="0" uncontrolled="1" dir="s" state="M"/>
+    <connection from="1075" to="1058" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="1077" to="1053" fromLane="0" toLane="0" uncontrolled="1" dir="s" state="M"/>
+    <connection from="1080" to="1082" fromLane="0" toLane="0" uncontrolled="1" dir="s" state="M"/>
+    <connection from="1081" to="1066" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="1082" to="1085" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="1084" to="1073" fromLane="0" toLane="0" uncontrolled="1" dir="s" state="M"/>
+    <connection from="1085" to="1067" fromLane="0" toLane="0" keepClear="0" uncontrolled="1" dir="s" state="M"/>
+
+</net>
