@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-15 07:38+0000\n"
-"Last-Translator: kyasin <yasingoka@gmail.com>\n"
+"PO-Revision-Date: 2023-03-20 14:25+0000\n"
+"Last-Translator: Necip Güzel <necipguzel@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/tr/>\n"
 "Language: tr\n"
@@ -14840,7 +14840,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/utils/common/RandHelper.cpp:65
 #: /home/micha/programming/sumo/src/utils/common/RandHelper.cpp:69
 msgid "Random Number"
-msgstr ""
+msgstr "Rastgele Numara"
 
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:39
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:43
@@ -14850,7 +14850,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:58
 #: /home/micha/programming/sumo/src/utils/common/SystemFrame.cpp:62
 msgid "Configuration"
-msgstr ""
+msgstr "Ayarlar"
 
 #~ msgid "Unknown lane use specifier '%' treated as 'no' for way '%'"
 #~ msgstr ""
