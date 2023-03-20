@@ -160,8 +160,9 @@ public:
     /** @brief Removes a data collector for a detector from this segment
      *
      * @param[in] data The data collector to remove
+     * @note: currently not used
      */
-    void removeDetector(MSMoveReminder* data);
+    // void removeDetector(MSMoveReminder* data);
 
     /** @brief Updates data of a detector for all vehicle queues
      *

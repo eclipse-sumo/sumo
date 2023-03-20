@@ -243,6 +243,7 @@ MESegment::addDetector(MSMoveReminder* data) {
 }
 
 
+/*
 void
 MESegment::removeDetector(MSMoveReminder* data) {
     std::vector<MSMoveReminder*>::iterator it = std::find(myDetectorData.begin(), myDetectorData.end(), data);
@@ -255,6 +256,7 @@ MESegment::removeDetector(MSMoveReminder* data) {
         }
     }
 }
+*/
 
 
 void
