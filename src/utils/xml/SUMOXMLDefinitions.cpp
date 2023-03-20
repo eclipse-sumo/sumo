@@ -769,6 +769,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "intended",               SUMO_ATTR_INTENDED },
     { "onDemand",               SUMO_ATTR_ONDEMAND },
     { "jump",                   SUMO_ATTR_JUMP },
+    { "usedEnded",              SUMO_ATTR_USED_ENDED },
     { "collision",              SUMO_ATTR_COLLISION },
     { "value",                  SUMO_ATTR_VALUE },
     { "prohibitor",             SUMO_ATTR_PROHIBITOR },
