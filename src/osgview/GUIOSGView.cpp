@@ -36,6 +36,7 @@
 #include <guisim/GUIJunctionWrapper.h>
 #include <guisim/GUILane.h>
 #include <guisim/GUINet.h>
+#include <guisim/GUIPerson.h>
 #include <guisim/GUIVehicle.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSEdgeControl.h>
@@ -505,8 +506,9 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
                 n->setUpdateCallback(new osg::AnimationPathCallback(path));
                 */
                 RGBColor col;
+
                 if (!GUIBaseVehicle::setFunctionalColor(myVisualizationSettings->vehicleColorer.getActive(), veh, col)) {
-                    col = myVisualizationSettings->vehicleColorer.getScheme().getColor(veh->getColorValue(*myVisualizationSettings, myVisualizationSettings->vehicleColorer.getActive()));
+                    col = myVisualizationSettings->vehicleColorer.getScheme().getColor(veh->getColorValue(*myVisualizationSettings, myVisualizationSettings->vehicleColorer.getActive()));   
                 }
                 myVehicles[veh].mat->setDiffuse(osg::Material::FRONT_AND_BACK, osg::Vec4d(col.red() / 255., col.green() / 255., col.blue() / 255., col.alpha() / 255.));
                 myVehicles[veh].lights->setValue(0, veh->signalSet(MSVehicle::VEH_SIGNAL_BLINKER_RIGHT | MSVehicle::VEH_SIGNAL_BLINKER_EMERGENCY));
@@ -568,6 +570,13 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
             n->setPosition(osg::Vec3d(pos.x(), pos.y(), pos.z()));
             const double dir = person->getAngle() + M_PI / 2.;
             n->setAttitude(osg::Quat(dir, osg::Vec3d(0, 0, 1)));
+
+            RGBColor col;
+            GUIPerson* actualPerson = dynamic_cast<GUIPerson*>(person);
+            if (!GUIPerson::setFunctionalColor(myVisualizationSettings->personColorer.getActive(), actualPerson, col)) {
+                col = myVisualizationSettings->personColorer.getScheme().getColor(actualPerson->getColorValue(*myVisualizationSettings, myVisualizationSettings->vehicleColorer.getActive()));  
+            }
+            myPersons[person].mat->setDiffuse(osg::Material::FRONT_AND_BACK, osg::Vec4d(col.red() / 255., col.green() / 255., col.blue() / 255., col.alpha() / 255.));
         }
         ge->releasePersons();
     }

@@ -616,50 +616,52 @@ GUIOSGBuilder::buildMovable(const MSVehicleType& type) {
                                   type.getHeight() / (bbox.zMax() - bbox.zMin())));
         m.pos->addChild(base);
 
-        // material for coloring the vehicle body
+        // material for coloring the person or vehicle body
         m.mat = new osg::Material();
         osg::ref_ptr<osg::StateSet> ss = base->getOrCreateStateSet();
         ss->setAttribute(m.mat, osg::StateAttribute::ON | osg::StateAttribute::OVERRIDE | osg::StateAttribute::PROTECTED);
         ss->setRenderingHint(osg::StateSet::TRANSPARENT_BIN);
         ss->setMode(GL_BLEND, osg::StateAttribute::OVERRIDE | osg::StateAttribute::PROTECTED | osg::StateAttribute::ON);
     }
-    m.lights = new osg::Switch();
-    for (double sideFactor = -1.; sideFactor < 2.5; sideFactor += 2.) {
+    if (type.getVehicleClass() != SVC_PEDESTRIAN) {
+        m.lights = new osg::Switch();
+        for (double sideFactor = -1.; sideFactor < 2.5; sideFactor += 2.) {
+            osg::Geode* geode = new osg::Geode();
+            osg::ShapeDrawable* right = new osg::ShapeDrawable(new osg::Sphere(osg::Vec3d((type.getWidth() / 2. + enlarge)*sideFactor, 0., type.getHeight() / 2.), 0.2f));
+            geode->addDrawable(right);
+            //pat->addChild(geode);
+            setShapeState(right);
+            right->setColor(osg::Vec4(1.f, .5f, 0.f, .8f));
+            osg::Sequence* seq = new osg::Sequence();
+            // Wikipedia says about 1.5Hz
+            seq->addChild(geode, .33);
+            seq->addChild(new osg::Geode(), .33);
+            // loop through all children
+            seq->setInterval(osg::Sequence::LOOP, 0, -1);
+            // real-time playback, repeat indefinitely
+            seq->setDuration(1.0f, -1);
+            // must be started explicitly
+            seq->setMode(osg::Sequence::START);
+            m.lights->addChild(seq);
+        }
         osg::Geode* geode = new osg::Geode();
-        osg::ShapeDrawable* right = new osg::ShapeDrawable(new osg::Sphere(osg::Vec3d((type.getWidth() / 2. + enlarge)*sideFactor, 0., type.getHeight() / 2.), 0.2f));
-        geode->addDrawable(right);
-        //pat->addChild(geode);
-        setShapeState(right);
-        right->setColor(osg::Vec4(1.f, .5f, 0.f, .8f));
-        osg::Sequence* seq = new osg::Sequence();
-        // Wikipedia says about 1.5Hz
-        seq->addChild(geode, .33);
-        seq->addChild(new osg::Geode(), .33);
-        // loop through all children
-        seq->setInterval(osg::Sequence::LOOP, 0, -1);
-        // real-time playback, repeat indefinitely
-        seq->setDuration(1.0f, -1);
-        // must be started explicitly
-        seq->setMode(osg::Sequence::START);
-        m.lights->addChild(seq);
+        osg::CompositeShape* comp = new osg::CompositeShape();
+        comp->addChild(new osg::Sphere(osg::Vec3d(-(type.getWidth() / 2. + enlarge), type.getLength() + enlarge, type.getHeight() / 2.), .2f));
+        comp->addChild(new osg::Sphere(osg::Vec3d(type.getWidth() / 2. + enlarge, type.getLength() + enlarge, type.getHeight() / 2.), .2f));
+        osg::ShapeDrawable* brake = new osg::ShapeDrawable(comp);
+        brake->setColor(osg::Vec4(1.f, 0.f, 0.f, .8f));
+        geode->addDrawable(brake);
+        setShapeState(brake);
+        m.lights->addChild(geode);
+    
+        osg::Vec3d center(0, -type.getLength() / 2., 0.);
+        osg::PositionAttitudeTransform* ellipse = new osg::PositionAttitudeTransform();
+        ellipse->addChild(geode);
+        ellipse->addChild(m.lights);
+        ellipse->setPivotPoint(center);
+        ellipse->setPosition(center);
+        m.pos->addChild(ellipse);
     }
-    osg::Geode* geode = new osg::Geode();
-    osg::CompositeShape* comp = new osg::CompositeShape();
-    comp->addChild(new osg::Sphere(osg::Vec3d(-(type.getWidth() / 2. + enlarge), type.getLength() + enlarge, type.getHeight() / 2.), .2f));
-    comp->addChild(new osg::Sphere(osg::Vec3d(type.getWidth() / 2. + enlarge, type.getLength() + enlarge, type.getHeight() / 2.), .2f));
-    osg::ShapeDrawable* brake = new osg::ShapeDrawable(comp);
-    brake->setColor(osg::Vec4(1.f, 0.f, 0.f, .8f));
-    geode->addDrawable(brake);
-    setShapeState(brake);
-    m.lights->addChild(geode);
-
-    osg::Vec3d center(0, -type.getLength() / 2., 0.);
-    osg::PositionAttitudeTransform* ellipse = new osg::PositionAttitudeTransform();
-    ellipse->addChild(geode);
-    ellipse->addChild(m.lights);
-    ellipse->setPivotPoint(center);
-    ellipse->setPosition(center);
-    m.pos->addChild(ellipse);
     m.active = true;
     return m;
 }

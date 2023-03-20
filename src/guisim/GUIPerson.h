@@ -173,6 +173,12 @@ public:
     /// @brief whether this person is selected in the GUI
     bool isSelected() const override;
 
+    /// @brief sets the color according to the current scheme index and some vehicle function
+    static bool setFunctionalColor(int activeScheme, const MSPerson* person, RGBColor& col);
+
+    /// @brief gets the color value according to the current scheme index
+    double getColorValue(const GUIVisualizationSettings& s, int activeScheme) const override;
+
     /**
      * @class GUIPersonPopupMenu
      *
@@ -260,12 +266,6 @@ public:
 private:
     /// @brief sets the color according to the currente settings
     void setColor(const GUIVisualizationSettings& s) const;
-
-    /// @brief gets the color value according to the current scheme index
-    double getColorValue(const GUIVisualizationSettings& s, int activeScheme) const override;
-
-    /// @brief sets the color according to the current scheme index and some vehicle function
-    bool setFunctionalColor(int activeScheme) const;
 
     /// @brief draw walking area path
     void drawAction_drawWalkingareaPath(const GUIVisualizationSettings& s) const;
