@@ -1942,7 +1942,12 @@ GNEApplicationWindow::onCmdProcessButton(FXObject*, FXSelector sel, void*) {
 
 
 long
-GNEApplicationWindow::onCmdNewWindow(FXObject*, FXSelector, void*) {
+GNEApplicationWindow::onCmdNewWindow(FXObject*, FXSelector sel, void* ptr) {
+    // get extra arguments
+    std::string extraArg;
+    if (sel == MID_POSTPROCESSINGTOOL) {
+        extraArg = " -s " + myNetgenerateOptions.getValueString("output-file");
+    }
     FXRegistry reg("SUMO netedit", "netedit");
     std::string netedit = "netedit";
     const char* sumoPath = getenv("SUMO_HOME");
@@ -1956,7 +1961,7 @@ GNEApplicationWindow::onCmdNewWindow(FXObject*, FXSelector, void*) {
             netedit = "\"" + newPath + "\"";
         }
     }
-    std::string cmd = netedit;
+    std::string cmd = netedit + extraArg;
     // start in background
 #ifndef WIN32
     cmd = cmd + " &";
@@ -2132,29 +2137,8 @@ GNEApplicationWindow::onCmdRunTool(FXObject*, FXSelector, void*) {
 
 
 long
-GNEApplicationWindow::onCmdPostprocessingTool(FXObject*, FXSelector, void*) {
-    // load created newtork
-    auto& neteditOptions = OptionsCont::getOptions();
-    // check if close current file
-    if (onCmdClose(0, 0, 0) == 1) {
-        // store size, position and viewport
-        storeWindowSizeAndPos();
-        gSchemeStorage.saveViewport(0, 0, -1, 0); // recenter view
-        // set flag
-        myAmLoading = true;
-        // fill (reset) all options
-        myLoadThread->fillOptions(neteditOptions);
-        // set default options defined in GNELoadThread::setDefaultOptions(...)
-        myLoadThread->setDefaultOptions(neteditOptions);
-        // set file to load
-        neteditOptions.resetWritable();
-        neteditOptions.set("net-file", myNetgenerateOptions.getValueString("output-file"));
-        // set status bar
-        setStatusBarText(TL("loading generate network file '") + myNetgenerateOptions.getValueString("output-file") + "'");
-        // loaad network
-        myLoadThread->loadNetworkOrConfig();
-    }
-    return 1;
+GNEApplicationWindow::onCmdPostprocessingTool(FXObject*obj, FXSelector, void* ptr) {
+    return onCmdNewWindow(obj, MID_POSTPROCESSINGTOOL, ptr);
 }
 
 
