@@ -8747,7 +8747,7 @@ msgstr "- 参考点：标记附加元素的初始位置。"
 msgid ""
 "  Example: If you want to create a busStop with a length of 30 in the point "
 "100 of the lane:"
-msgstr "  例子：如果你想在车道的100点处创建一个长度为30的公交站："
+msgstr "  例子：如果您想在车道的100点处创建一个长度为30的公交站："
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNENeteditAttributes.cpp:233
 msgid "  - Reference Left will create it with startPos = 70 and endPos = 100."
@@ -10798,7 +10798,7 @@ msgstr "颜色由来源-汇决定"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:1448
 msgid "TAZs"
-msgstr "一些交通分区"
+msgstr "交通分区"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETAZFrame.cpp:1614
 msgid "TAZ shape needs at least three points"
@@ -10822,7 +10822,7 @@ msgid ""
 "Do you want to save it before changing mode?"
 msgstr ""
 "在当前编辑的交通信号灯中存在未保存的变化。\n"
-"你想在改变模式之前保存它吗？"
+"您想在改变模式之前保存它吗？"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:242
 msgid "tlLogic '%', program '%' could not be built"
@@ -12043,15 +12043,15 @@ msgstr "改变显示语言需要重新启动才能生效。"
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIMainWindow.cpp:412
 msgid ""
 "For the Debug build you might also need to set the LANG environment variable."
-msgstr "对于Debug构建，你可能还需要设置LANG环境变量。"
+msgstr "对于調試(Debug)构建，您可能还需要设置LANG环境变量。"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIMainWindow.cpp:415
 msgid "Under development. You can help to improve the translation at:"
-msgstr "正在开发中。你可以在以下网站帮助改进翻译:"
+msgstr "正在开发中。可以在以下网站帮助改进翻译:"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUISUMOAbstractView.cpp:254
 msgid " (No projection defined)"
-msgstr " (没有定义的预测)"
+msgstr " (未定義投影方式)"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUISUMOAbstractView.cpp:1723
 msgid "Could not convert coordinates in %."
