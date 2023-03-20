@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-20 10:03+0000\n"
+"PO-Revision-Date: 2023-03-20 12:23+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -257,31 +257,31 @@ msgstr "只写排放时间"
 
 #: /home/micha/programming/sumo/src\dfrouter\RODFFrame.cpp:156
 msgid "Do not route on these edges"
-msgstr ""
+msgstr "不要在这些路段上布路径"
 
 #: /home/micha/programming/sumo/src\dfrouter\RODFFrame.cpp:159
 msgid "Only route on edges allowing the given vclass"
-msgstr ""
+msgstr "只在允许给定vclass的路段上布路径"
 
 #: /home/micha/programming/sumo/src\dfrouter\RODFFrame.cpp:162
 msgid "Allow turnarounds as route continuations"
-msgstr ""
+msgstr "允许掉头作为路径的延续"
 
 #: /home/micha/programming/sumo/src\dfrouter\RODFFrame.cpp:167
 msgid "Minimum distance in meters between start and end node of every route"
-msgstr ""
+msgstr "每条路线的起点和终点节点之间的最小距离（米）"
 
 #: /home/micha/programming/sumo/src\dfrouter\RODFFrame.cpp:170
 msgid "generate random departure times for emitted vehicles"
-msgstr ""
+msgstr "为排放的车辆生成随机的出发时间"
 
 #: /home/micha/programming/sumo/src\dfrouter\RODFFrame.cpp:174
 msgid "Multiply flow times with TIME to get seconds"
-msgstr ""
+msgstr "将流量倍数与时间相乘，得到秒数"
 
 #: /home/micha/programming/sumo/src\dfrouter\RODFFrame.cpp:177
 msgid "Subtracts TIME seconds from (scaled) flow times"
-msgstr ""
+msgstr "从（按比例）车流时间中减去时间秒数"
 
 #: /home/micha/programming/sumo/src\dfrouter\RODFFrame.cpp:180
 msgid "Expected distance between two successive data sets"
