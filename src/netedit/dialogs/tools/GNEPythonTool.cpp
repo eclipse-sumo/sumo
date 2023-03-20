@@ -24,7 +24,7 @@
 #include <utils/handlers/TemplateHandler.h>
 #include <utils/common/MsgHandler.h>
 
-#include "GNETool.h"
+#include "GNEPythonTool.h"
 
 // ============================================-===============================
 // member method definitions

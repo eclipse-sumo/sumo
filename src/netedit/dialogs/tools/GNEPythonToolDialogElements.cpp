@@ -23,8 +23,8 @@
 #include <utils/foxtools/MFXLabelTooltip.h>
 #include <utils/gui/div/GUIDesigns.h>
 
-#include "GNEToolDialogElements.h"
-#include "GNEToolDialog.h"
+#include "GNEPythonToolDialogElements.h"
+#include "GNEPythonToolDialog.h"
 
 
 // ===========================================================================

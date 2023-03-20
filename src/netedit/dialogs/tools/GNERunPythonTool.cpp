@@ -24,9 +24,9 @@
 #include <stdio.h>
 #include <string>
 
-#include "GNETool.h"
-#include "GNERunTool.h"
-#include "GNERunToolDialog.h"
+#include "GNEPythonTool.h"
+#include "GNERunPythonTool.h"
+#include "GNERunPythonToolDialog.h"
 
 // ============================================-===============================
 // member method definitions

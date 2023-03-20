@@ -24,9 +24,9 @@
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/handlers/TemplateHandler.h>
 
-#include "GNERunToolDialog.h"
-#include "GNERunTool.h"
-#include "GNETool.h"
+#include "GNERunPythonToolDialog.h"
+#include "GNERunPythonTool.h"
+#include "GNEPythonTool.h"
 
 
 #define MARGING 4

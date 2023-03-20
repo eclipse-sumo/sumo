@@ -22,7 +22,7 @@
 
 #include <utils/options/OptionsCont.h>
 
-#include "GNEToolDialogElements.h"
+#include "GNEPythonToolDialogElements.h"
 
 // ===========================================================================
 // class declarations
