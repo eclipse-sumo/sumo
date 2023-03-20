@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-19 16:20+0000\n"
+"PO-Revision-Date: 2023-03-20 10:03+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -148,7 +148,7 @@ msgstr "缺少装有检测器“%”的路线。"
 #: /home/micha/programming/sumo/src\dfrouter\RODFDetector.cpp:305
 #, c-format
 msgid "Detector '%' has no routes!?"
-msgstr ""
+msgstr "检测器'%'没有路线！？"
 
 #: /home/micha/programming/sumo/src\dfrouter\RODFDetectorHandler.cpp:86
 msgid "Could not add detector '%' (probably the id is already used)."
@@ -221,7 +221,7 @@ msgstr "将源检测器添加至验证输出"
 
 #: /home/micha/programming/sumo/src\dfrouter\RODFFrame.cpp:123
 msgid "Derive missing flow values from upstream or downstream (not working!)"
-msgstr ""
+msgstr "从上游或下游推导出缺失的流量值（不工作！）"
 
 #: /home/micha/programming/sumo/src\dfrouter\RODFFrame.cpp:127
 msgid "Switches to highway-mode"
@@ -233,27 +233,27 @@ msgstr "只对无法解析的检测器发出警告"
 
 #: /home/micha/programming/sumo/src\dfrouter\RODFFrame.cpp:135
 msgid "Recomputes detector types even if given"
-msgstr ""
+msgstr "重新计算检测器类型，即使给定"
 
 #: /home/micha/programming/sumo/src\dfrouter\RODFFrame.cpp:139
 msgid "Recomputes routes even if given"
-msgstr ""
+msgstr "重新计算路线，即使给定"
 
 #: /home/micha/programming/sumo/src\dfrouter\RODFFrame.cpp:143
 msgid "Keeps routes even if they have exhausted max-search-depth"
-msgstr ""
+msgstr "保持路线，即使它们已经用尽了最大搜索深度"
 
 #: /home/micha/programming/sumo/src\dfrouter\RODFFrame.cpp:146
 msgid "Keeps routes even if a shorter one exists"
-msgstr ""
+msgstr "即使有更短的路线存在，也要保留"
 
 #: /home/micha/programming/sumo/src\dfrouter\RODFFrame.cpp:150
 msgid "Number of edges to follow a route without passing a detector"
-msgstr ""
+msgstr "在不通过检测器的情况下遵循一条路径的路段的数量"
 
 #: /home/micha/programming/sumo/src\dfrouter\RODFFrame.cpp:153
 msgid "Writes only emission times"
-msgstr ""
+msgstr "只写排放时间"
 
 #: /home/micha/programming/sumo/src\dfrouter\RODFFrame.cpp:156
 msgid "Do not route on these edges"
