@@ -19,10 +19,8 @@
 /****************************************************************************/
 
 #include <netedit/GNEApplicationWindow.h>
-#include <utils/common/FileHelpers.h>
 #include <utils/foxtools/MFXLabelTooltip.h>
 #include <utils/gui/div/GUIDesigns.h>
-#include <utils/handlers/TemplateHandler.h>
 
 #include "GNEPythonToolDialog.h"
 #include "GNEPythonTool.h"

@@ -19,10 +19,6 @@
 /****************************************************************************/
 
 #include <netedit/GNEApplicationWindow.h>
-#include <iostream>
-#include <stdexcept>
-#include <stdio.h>
-#include <string>
 
 #include "GNEPythonTool.h"
 #include "GNERunPythonTool.h"
