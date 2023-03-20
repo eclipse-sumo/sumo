@@ -103,8 +103,10 @@ GUIDialog_Options::~GUIDialog_Options() { }
 
 long
 GUIDialog_Options::onCmdRunTool(FXObject*, FXSelector, void*) {
-
-    return 1;
+    // close dialog accepting changes
+    handle(this, FXSEL(SEL_COMMAND, ID_ACCEPT), nullptr);
+    // run tool in mainWindow
+    return myMainWindowParent->handle(this, FXSEL(SEL_COMMAND, MID_RUNTOOL), nullptr);
 }
 
 // ===========================================================================
@@ -261,6 +263,7 @@ GUIDialog_Options::InputFilename::onCmdSetOption(FXObject*, FXSelector, void*) {
 
 GUIDialog_Options::GUIDialog_Options(GUIMainWindow* parent, OptionsCont* optionsContainer, const char* titleName, const bool runDialog) :
     FXDialogBox(parent, titleName, GUIDesignDialogBox, 0, 0, parent->getWidth(), parent->getHeight()),
+    myMainWindowParent(parent),
     myOptionsContainer(optionsContainer) {
     new FXStatusBar(this, GUIDesignStatusBar);
     FXVerticalFrame* contentFrame = new FXVerticalFrame(this, GUIDesignContentsFrame);

@@ -253,6 +253,9 @@ protected:
     /// @brief FOX needs this
     FOX_CONSTRUCTOR(GUIDialog_Options)
 
+    /// @brief pointer to main window parent
+    GUIMainWindow* myMainWindowParent;
+
     /// @brief refecente to edited Option container
     OptionsCont* myOptionsContainer;
 

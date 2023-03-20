@@ -174,13 +174,13 @@ public:
     long onCmdLocate(FXObject*, FXSelector, void*);
 
     /// @brief called when user press over a tool dialog button
-    long onCmdOpenToolDialog(FXObject* obj, FXSelector, void*);
+    long onCmdOpenPythonToolDialog(FXObject* obj, FXSelector, void*);
 
     /// @brief called when user run a tool
-    long onCmdRunTool(FXObject* obj, FXSelector, void*);
+    long onCmdRunPythonTool(FXObject* obj, FXSelector, void*);
 
     /// @brief post processing after run tool
-    long onCmdPostProcessingTool(FXObject*, FXSelector, void*);
+    long onCmdPostProcessingPythonTool(FXObject*, FXSelector, void*);
 
     /// @brief called when the command/FXCall python tool is updated
     long onUpdPythonTool(FXObject*, FXSelector, void*);
@@ -427,6 +427,9 @@ public:
 
     /// @brief update label for require recomputing
     long onUpdRequireRecomputing(FXObject* sender, FXSelector sel, void* ptr);
+
+    /// @brief called when run tool is called
+    long onCmdRunTool(FXObject* sender, FXSelector sel, void* ptr);
 
     /// @brief called if the user press key combination Ctrl + G to toggle grid
     long onCmdToggleGrid(FXObject*, FXSelector, void*);
