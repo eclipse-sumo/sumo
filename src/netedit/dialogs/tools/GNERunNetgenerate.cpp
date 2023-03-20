@@ -37,9 +37,9 @@ GNERunNetgenerate::~GNERunNetgenerate() {}
 
 
 void
-GNERunNetgenerate::run(OptionsCont *netgenerateOptions) {
+GNERunNetgenerate::run(const OptionsCont *netgenerateOptions) {
     // set command
-    myNetgenerateCommand/* = netgenerateCommand*/;
+    myNetgenerateCommand = getenv("SUMO_HOME");
     // reset flags
     myRunning = false;
     myErrorOccurred = false;

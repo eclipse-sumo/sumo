@@ -20,7 +20,6 @@
 
 #include <netedit/GNEApplicationWindow.h>
 #include <utils/gui/div/GUIDesigns.h>
-#include <utils/options/OptionsCont.h>
 
 #include "GNERunNetgenerateDialog.h"
 #include "GNERunNetgenerate.h"
@@ -104,7 +103,7 @@ GNERunNetgenerateDialog::getGNEApp() const {
 
 
 void
-GNERunNetgenerateDialog::run(OptionsCont *netgenerateOptions) {
+GNERunNetgenerateDialog::run(const OptionsCont *netgenerateOptions) {
     // set title
     setTitle("Netgenerate output");
     // refresh APP

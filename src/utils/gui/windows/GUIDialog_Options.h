@@ -37,6 +37,8 @@ class GUIMainWindow;
  * @briefA Dialog for setting options (see OptionsCont)
  */
 class GUIDialog_Options : public FXDialogBox {
+    /// @brief FOX-declaration
+    FXDECLARE(GUIDialog_Options)
 
 public:
     /**@brief Constructor for options dialogs
@@ -45,7 +47,7 @@ public:
      * @param[in] optionsContainer edited option container
      * @param[in] name The title to show
      */
-    static int Options(GUIMainWindow *windows, OptionsCont& optionsContainer, const char* titleName);
+    static int Options(GUIMainWindow *windows, OptionsCont* optionsContainer, const char* titleName);
 
     /**@brief Constructor for run dialogs
      *
@@ -53,10 +55,13 @@ public:
      * @param[in] optionsContainer edited option container
      * @param[in] name The title to show
      */
-    static int Run(GUIMainWindow *windows, OptionsCont& optionsContainer, const char* titleName);
+    static int Run(GUIMainWindow *windows, OptionsCont* optionsContainer, const char* titleName);
 
     /// @brief Destructor
     ~GUIDialog_Options();
+
+    /// @brief called when user press run button
+    long onCmdRunTool(FXObject*, FXSelector, void*);
 
     // ===========================================================================
     // Option input classes
@@ -245,8 +250,11 @@ public:
     };
 
 protected:
+    /// @brief FOX needs this
+    FOX_CONSTRUCTOR(GUIDialog_Options)
+
     /// @brief refecente to edited Option container
-    OptionsCont& myOptionsContainer;
+    OptionsCont* myOptionsContainer;
 
 private:
     /**@brief Constructor
@@ -258,7 +266,7 @@ private:
      * @param[in] height The initial height of the dialog
      * @param[in] runDialog check if this is a run dialog
      */
-    GUIDialog_Options(GUIMainWindow* parent, OptionsCont& optionsContainer, const char* titleName, const bool runDialog);
+    GUIDialog_Options(GUIMainWindow* parent, OptionsCont* optionsContainer, const char* titleName, const bool runDialog);
 
     /// @brief Invalidated copy constructor.
     GUIDialog_Options(const GUIDialog_Options&) = delete;

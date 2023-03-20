@@ -21,6 +21,7 @@
 #include <config.h>
 
 #include <utils/foxtools/fxheader.h>
+#include <utils/options/OptionsCont.h>
 
 // ===========================================================================
 // class declarations
@@ -53,7 +54,7 @@ public:
     GNEApplicationWindow* getGNEApp() const;
 
     /// @brief run tool (this open windows)
-    void run(OptionsCont *netgenerateOptions);
+    void run(const OptionsCont *netgenerateOptions);
 
     /// @brief add info (green) text to output console
     void appendInfoMessage(const std::string text);
@@ -116,7 +117,7 @@ private:
     FXButton* myCloseButton = nullptr;
 
     /// @brief netgenerate options
-    OptionsCont *myNetgenerateOptions;
+    const OptionsCont *myNetgenerateOptions;
 
     /// @brief Invalidated copy constructor.
     GNERunNetgenerateDialog(const GNERunNetgenerateDialog&) = delete;
