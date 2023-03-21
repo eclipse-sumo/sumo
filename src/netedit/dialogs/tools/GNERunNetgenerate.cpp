@@ -40,9 +40,9 @@ void
 GNERunNetgenerate::run(const OptionsCont *netgenerateOptions) {
     // set command
 #ifdef WIN32
-    myNetgenerateCommand = getenv("SUMO_HOME") + std::string("\\bin\\netgenerate.exe");
+    myNetgenerateCommand = getenv("SUMO_HOME") + std::string("/bin/netgenerate.exe");
 #else
-    myNetgenerateCommand = getenv("SUMO_HOME") + std::string("\\bin\\netgenerate");
+    myNetgenerateCommand = getenv("SUMO_HOME") + std::string("/bin/netgenerate");
 #endif
     // iterate over all topics
     for (const auto& topic : netgenerateOptions->getSubTopics()) {
