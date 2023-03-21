@@ -807,7 +807,7 @@ MSRailSignal::DriveWay::reserve(const Approaching& closest, MSEdgeVector& occupi
             joinVehicle = stop->join;
         }
     }
-    if (conflictLaneOccupied(joinVehicle)) {
+    if (conflictLaneOccupied(joinVehicle, true, closest.first)) {
         for (const MSLane* bidi : myBidi) {
             if (!bidi->empty() && bidi->getBidiLane() != nullptr) {
                 occupied.push_back(&bidi->getBidiLane()->getEdge());
@@ -815,7 +815,7 @@ MSRailSignal::DriveWay::reserve(const Approaching& closest, MSEdgeVector& occupi
         }
 #ifdef DEBUG_SIGNALSTATE
         if (gDebugFlag4) {
-            std::cout << "  conflictLaneOccupied\n";
+            std::cout << "  conflictLaneOccupied by=" << toString(myBlockingVehicles) << " ego=" << Named::getIDSecure(closest.first) << "\n";
         }
 #endif
         return false;
@@ -884,13 +884,13 @@ MSRailSignal::DriveWay::hasLinkConflict(const Approaching& veh, MSLink* foeLink)
         MSRailSignal* foeRS = const_cast<MSRailSignal*>(constFoeRS);
         if (foeRS != nullptr) {
             const DriveWay& foeDriveWay = foeRS->myLinkInfos[foeLink->getTLIndex()].getDriveWay(foe.first);
-            if (foeDriveWay.conflictLaneOccupied("", false) ||
+            if (foeDriveWay.conflictLaneOccupied("", false, foe.first) ||
                     foeDriveWay.deadlockLaneOccupied(false) ||
                     !foeRS->constraintsAllow(foe.first) ||
                     !overlap(foeDriveWay)) {
 #ifdef DEBUG_SIGNALSTATE_PRIORITY
                 if (gDebugFlag4) {
-                    if (foeDriveWay.conflictLaneOccupied("", false)) {
+                    if (foeDriveWay.conflictLaneOccupied("", false, foe.first)) {
                         std::cout << "     foe blocked\n";
                     } else if (!foeRS->constraintsAllow(foe.first)) {
                         std::cout << "     foe constrained\n";
@@ -954,29 +954,39 @@ MSRailSignal::DriveWay::mustYield(const Approaching& veh, const Approaching& foe
 
 
 bool
-MSRailSignal::DriveWay::conflictLaneOccupied(const std::string& joinVehicle, bool store) const {
+MSRailSignal::DriveWay::conflictLaneOccupied(const std::string& joinVehicle, bool store, const SUMOVehicle* ego) const {
     for (const MSLane* lane : myConflictLanes) {
         if (!lane->isEmpty()) {
 #ifdef DEBUG_SIGNALSTATE
             if (gDebugFlag4) {
-                std::cout << SIMTIME << " conflictLane " << lane->getID() << " occupied\n";
+                std::cout << SIMTIME << " conflictLane " << lane->getID() << " occupied ego=" << Named::getIDSecure(ego) << " vehNumber=" << lane->getVehicleNumber() << "\n";
                 if (joinVehicle != "") {
                     std::cout << "  joinVehicle=" << joinVehicle << " occupant=" << toString(lane->getVehiclesSecure()) << "\n";
                     lane->releaseVehicles();
                 }
             }
 #endif
-            if (lane->getVehicleNumber() == 1 && joinVehicle != "") {
-                std::vector<MSVehicle*> vehs = lane->getVehiclesSecure();
-                const bool ignoreJoinTarget = vehs.front()->getID() == joinVehicle && vehs.front()->isStopped();
-                lane->releaseVehicles();
-                if (ignoreJoinTarget) {
+            if (lane->getVehicleNumberWithPartials() == 1) {
+                MSVehicle* foe = lane->getLastAnyVehicle();
+                if (joinVehicle != "") {
+                    if (foe->getID() == joinVehicle && foe->isStopped()) {
 #ifdef DEBUG_SIGNALSTATE
-                    if (gDebugFlag4) {
-                        std::cout << "    ignore join-target '" << joinVehicle << ";\n";
-                    }
+                        if (gDebugFlag4) {
+                            std::cout << "    ignore join-target '" << joinVehicle << "\n";
+                        }
 #endif
-                    continue;
+                        continue;
+                    }
+                }
+                if (ego != nullptr) {
+                    if (foe == ego && std::find(myBidi.begin(), myBidi.end(), lane) != myBidi.end()) {
+#ifdef DEBUG_SIGNALSTATE
+                        if (gDebugFlag4) {
+                            std::cout << "    ignore ego as oncoming '" << ego->getID() << "\n";
+                        }
+#endif
+                        continue;
+                    }
                 }
             }
             if (myStoreVehicles && store) {
