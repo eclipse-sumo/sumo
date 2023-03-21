@@ -1,1 +1,2 @@
-Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
+Warning: Teleporting vehicle 'v_1'; waited too long (yield), lane='E0_0', time=317.00.
+Warning: Vehicle 'v_1' ends teleporting on edge 'E2', time=341.00.
