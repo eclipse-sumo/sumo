@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-03-20 15:23:38 by Eclipse SUMO sumo Version v1_16_0+1476-793cb92
+<!-- generated on 2023-03-21 11:46:08 by Eclipse SUMO sumo Version v1_16_0+1515-7c289bd
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -83,10 +83,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <driveWay edges="1056 1057 1081 1066 1084 1073 1051 1052 1075 1058 1077 1053 1054 1043 1044 1072 1047 1048">
                 <forward lanes="1056_0 1057_0 1081_0 1066_0 1084_0 1073_0 1051_0"/>
                 <bidi lanes="1016_0 1037_0 1026_0 1040_0 1032_0 1010_0 1011_0 1033_0 1017_0 1034_0"
-                    deadlockCheck="1012_0 1013_0 1000_0 1001_0 1031_0 1005_0 1006_0 1007_0"/>
+                    deadlockCheck="1012_0 1013_0 1000_0 1001_0 1031_0 1005_0 1006_0 1007_0 1002_0"/>
                 <flank lanes="1038_0 1042_0 1027_0"/>
                 <protectingSwitches links="35_3 35_3"/>
-                <conflictLinks signals="27_0"/>
+                <conflictLinks signals="27_0 2_0"/>
             </driveWay>
         </link>
     </railSignal>

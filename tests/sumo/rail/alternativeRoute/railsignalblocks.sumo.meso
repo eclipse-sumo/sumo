@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-12-02 08:45:54 by Eclipse SUMO sumo Version v1_15_0+0714-4818e7c
+<!-- generated on 2023-03-21 11:46:08 by Eclipse SUMO sumo Version v1_16_0+1515-7c289bd
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -64,10 +64,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <driveWay edges="T18_0 T29_0 T19_0 T20_0 T21_0 T30_0 T22_0">
                 <forward lanes="T18_0_0 T29_0_0 T19_0_0 T20_0_0"/>
                 <bidi lanes="T18_1_0 T29_1_0 T19_1_0 T20_1_0 T21_1_0"
-                    deadlockCheck="T30_1_0"/>
+                    deadlockCheck="T30_1_0 T25_1_0"/>
                 <flank lanes="T13_0_0 T14_1_0"/>
                 <protectingSwitches links="w9_1 w1_2 w2_1 w9_1"/>
-                <conflictLinks signals=""/>
+                <conflictLinks signals="G_0"/>
             </driveWay>
         </link>
     </railSignal>
@@ -88,9 +88,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <driveWay edges="T11_1 T28_1 T10_1 T9_1 T8_1 T7_1 T27_1 T14_1 T29_1 T18_1 T17_1" core="8">
                 <forward lanes="T11_1_0 T28_1_0 T10_1_0 T9_1_0 T8_1_0"/>
                 <bidi lanes="T28_0_0 T10_0_0 T9_0_0 T8_0_0 T7_0_0"
-                    deadlockCheck="T27_0_0 T14_0_0"/>
+                    deadlockCheck="T27_0_0 T14_0_0 T6_0_0"/>
                 <flank lanes="T15_1_0 T4_0_0"/>
-                <protectingSwitches links="w3_2 w9_0 w3_2"/>
+                <protectingSwitches links="w3_2 w9_0 w3_2 w1_3 w8_3"/>
                 <conflictLinks signals="N3_0"/>
             </driveWay>
         </link>
@@ -100,9 +100,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <driveWay edges="T25_1 T30_1 T15_1 T9_1 T8_1 T7_1 T27_1 T6_1 T5_1 T1_1">
                 <forward lanes="T25_1_0 T30_1_0 T15_1_0 T9_1_0 T8_1_0"/>
                 <bidi lanes="T25_0_0 T30_0_0 T15_0_0 T9_0_0 T8_0_0 T7_0_0"
-                    deadlockCheck="T27_0_0 T6_0_0 T5_0_0 T1_0_0"/>
+                    deadlockCheck="T27_0_0 T6_0_0 T5_0_0 T1_0_0 T14_0_0"/>
                 <flank lanes="T10_1_0 T21_0_0"/>
-                <protectingSwitches links="w3_2 w1_3 w5_1 w3_2"/>
+                <protectingSwitches links="w3_2 w1_3 w5_1 w3_2 w8_3"/>
                 <conflictLinks signals="N1_0"/>
             </driveWay>
         </link>
