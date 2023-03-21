@@ -171,14 +171,14 @@ def get_options(args=None):
                     help="Randomly choose a position on the ending edge of the trip")
 
     group = op.add_mutually_exclusive_group()
-    group.add_argument("-p", "--period", type=str, nargs="+", metavar="FLOAT",
+    group.add_argument("-p", "--period", type=str, nargs="+", metavar="FLOAT", category="flow",
                        action=sumolib.options.SplitAction,
                        help="Generate vehicles with equidistant departure times and period=FLOAT (default 1.0). " +
                        "If option --binomial is used, the expected arrival rate is set to 1/period.")
-    group.add_argument("--insertion-rate", dest="insertionRate", type=str, nargs="+", metavar="FLOAT",
+    group.add_argument("--insertion-rate", dest="insertionRate", type=str, nargs="+", metavar="FLOAT", category="flow",
                        action=sumolib.options.SplitAction,
                        help="How much vehicles arrive in the simulation per hour (alternative to the period option).")
-    group.add_argument("--insertion-density", dest="insertionDensity", type=str, nargs="+", metavar="FLOAT",
+    group.add_argument("--insertion-density", dest="insertionDensity", type=str, nargs="+", metavar="FLOAT", category="flow",
                        action=sumolib.options.SplitAction,
                        help="How much vehicles arrive in the simulation per hour per kilometer of road " +
                        "(alternative to the period option).")

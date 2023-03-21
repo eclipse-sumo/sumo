@@ -48,48 +48,48 @@ def get_options(cmd_args=None):
         prog='generateParkingAreaRerouters.py', usage='%(prog)s [options]',
         description='Generate parking area rerouters from the parking area definition.')
     parser.add_argument(
-        '-a', '--parking-areas', type=str, dest='parking_area_definition', required=True,
+        '-a', '--parking-areas', type=str, category="input", dest='parking_area_definition', required=True,
         help='SUMO parkingArea definition.')
     parser.add_argument(
-        '-n', '--sumo-net', type=str, dest='sumo_net_definition', required=True,
+        '-n', '--sumo-net', type=str, category="input", dest='sumo_net_definition', required=True,
         help='SUMO network definition.')
     parser.add_argument(
-        '--max-number-alternatives', type=int, dest='num_alternatives', default=10,
+        '--max-number-alternatives', type=int, category="processing", dest='num_alternatives', default=10,
         help='Rerouter: max number of alternatives.')
     parser.add_argument(
-        '--max-distance-alternatives', type=float, dest='dist_alternatives', default=500.0,
+        '--max-distance-alternatives', type=float, category="processing", dest='dist_alternatives', default=500.0,
         help='Rerouter: max distance for the alternatives.')
     parser.add_argument(
-        '--min-capacity-visibility-true', type=int, dest='capacity_threshold', default=25,
+        '--min-capacity-visibility-true', type=int, category="processing", dest='capacity_threshold', default=25,
         help='Rerouter: parking capacity for the visibility threshold.')
     parser.add_argument(
-        '--max-distance-visibility-true', type=float, dest='dist_threshold', default=250.0,
+        '--max-distance-visibility-true', type=float, category="processing", dest='dist_threshold', default=250.0,
         help='Rerouter: parking distance for the visibility threshold.')
     parser.add_argument(
-        '--opposite-visible', action="store_true", dest='opposite_visible',
+        '--opposite-visible', action="store_true", category="processing", dest='opposite_visible',
         default=False, help="ParkingArea on the opposite side of the road is always visible")
     parser.add_argument(
-        '--prefer-visible', action="store_true", dest='prefer_visible',
+        '--prefer-visible', action="store_true", category="processing", dest='prefer_visible',
         default=False, help="ParkingAreas which are visible are preferentially")
     parser.add_argument(
-        '--min-capacity', type=int, dest='min_capacity', default=1,
+        '--min-capacity', type=int, category="processing", dest='min_capacity', default=1,
         help='Do no reroute to parkingAreas with less than min-capacity')
     parser.add_argument(
-        '--distribute', dest='distribute',
+        '--distribute', dest='distribute', type=float, category="processing",
         help='Distribute alternatives by distance according to the given weights. 3,1 '
         + 'means that 75 percent of the alternatives are below the median distance of all'
         + 'alternatives in range and 25 percent are above the median distance')
     parser.add_argument(
-        '--visible-ids', dest='visible_ids', default="",
+        '--visible-ids', dest='visible_ids', category="processing", default="",
         help='set list of parkingArea ids as always visible')
     parser.add_argument(
-        '--processes', type=int, dest='processes', default=1,
+        '--processes', type=int, category="processing", dest='processes', default=1,
         help='Number of processes spawned to compute the distance between parking areas.')
     parser.add_argument(
-        '-o', '--output', type=str, dest='output', required=True,
+        '-o', '--output', type=str, category="output", dest='output', required=True,
         help='Name for the output file.')
     parser.add_argument(
-        '--tqdm', dest='with_tqdm', action='store_true',
+        '--tqdm', dest='with_tqdm', category="processing", action='store_true',
         help='Enable TQDM feature.')
     parser.set_defaults(with_tqdm=False)
 

@@ -51,9 +51,10 @@ class ConfigurationReader(handler.ContentHandler):
             if self._options and name not in self._options:
                 return
             help = attrs.get("help", "")
+            cat = attrs.get("category", "")
             option = optparse.Option("--" + name, help=help)
             if attrs["type"] == "BOOL":
-                option = optparse.Option("--" + name, action="store_true", default=False, help=help)
+                option = optparse.Option("--" + name, action="store_true", default=False, help=help, category=cat)
             elif attrs["type"] in ["FLOAT", "TIME"]:
                 option.type = "float"
                 if attrs["value"]:
@@ -119,7 +120,7 @@ def get_prefixed_options(options):
     return options._prefixed_options
 
 
-Option = namedtuple("Option", ["name", "value", "type", "help"])
+Option = namedtuple("Option", ["name", "value", "type", "help", "category"])
 
 
 class OptionReader(handler.ContentHandler):
@@ -131,7 +132,7 @@ class OptionReader(handler.ContentHandler):
 
     def startElement(self, name, attrs):
         if 'value' in attrs:
-            self.opts.append(Option(name, attrs['value'], attrs.get('type'), attrs.get('help')))
+            self.opts.append(Option(name, attrs['value'], attrs.get('type'), attrs.get('help'), attrs.get('category')))
 
 
 def readOptions(filename):
@@ -152,21 +153,33 @@ class ArgumentParser(argparse.ArgumentParser):
 
     def __init__(self, allowed_programs=[], *args, **kwargs):
         argparse.ArgumentParser.__init__(self, *args, **kwargs)
+        # add common argument for loading configuration
         self.add_argument('-c', '--configuration-file', help='read configuration from FILE', metavar="FILE")
+        # add common argument for save configuration
         self.add_argument('-C', '--save-configuration', help='save configuration to FILE and exit', metavar="FILE")
+        # add common argument for save template
         self.add_argument('--save-template', help='save configuration template to FILE and exit', metavar="FILE")
         self._fix_path_args = set()
         self._allowed_programs = allowed_programs
 
     def add_argument(self, *args, **kwargs):
+        # due argparse only accept certains values (action, choices, type, help...), we need to extract extra parameters before call add_argument
         fix_path = kwargs.get("fix_path")
         if "fix_path" in kwargs:
             del kwargs["fix_path"]
+        # get category
+        category = kwargs.get("category")
+        if "category" in kwargs:
+            del kwargs["category"]
+        # parse argument
         a = argparse.ArgumentParser.add_argument(self, *args, **kwargs)
+        # check if fix path
         if fix_path is True:
             for s in a.option_strings:
                 if s.startswith("--"):
                     self._fix_path_args.add(s[2:])
+        # set category
+        a.category = category
 
     def add_option(self, *args, **kwargs):
         """alias for compatibility with OptionParser"""
@@ -204,6 +217,7 @@ class ArgumentParser(argparse.ArgumentParser):
                 default = ''
                 help = ''
                 typeStr = ''
+                category = ''
                 for a in self._actions:
                     if a.dest == k:
                         for s in a.option_strings:
@@ -227,11 +241,15 @@ class ArgumentParser(argparse.ArgumentParser):
                             else:
                                 typeStr = ' type="%s"' % "string"
                             # note: missing time, filename, list of vehicles, edges and lanes
+                            # category
+                            if a.category is not None:
+                                category = ' category="%s"' % a.category
+                            
                         break
                 if print_template or v != a.default:
                     if isinstance(v, list):
                         v = " ".join(map(str, v))
-                    out.write(u'    <%s value="%s"%s%s%s/>\n' % (key, xmlescape(v), default, typeStr, help))
+                    out.write(u'    <%s value="%s"%s%s%s%s/>\n' % (key, xmlescape(v), default, typeStr, help, category))
         out.write(u'</configuration>\n')
 
     def parse_args(self, args=None, namespace=None):
