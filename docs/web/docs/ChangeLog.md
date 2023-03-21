@@ -55,7 +55,7 @@ title: ChangeLog
   - OSM: fixed handling of one-way roads that allow buses in reverse direction. Issue #12592
   - Fixed crash when loading split beyond edge length. Issue #12695
   - Bidi status is no longer lost after symmetrical split. Issue #12698
-  - Fixed invalid right-of-way rules involing indirect left turns. Issue #12676
+  - Fixed invalid right-of-way rules involving indirect left turns. Issue #12676
   - Fixed invalid edge ordering for strongly curved edge. Issue #12735
   - Relaxed right of way rules in the context of dedicated lanes. Issue #12720
   - Abstract projection is now resolved when loading .net.xml. Issue #12761
@@ -89,18 +89,18 @@ title: ChangeLog
   - DriverState should now optionally affects free flow speed (using param `freeSpeedErrorCoefficient`). Issue #6331
   - Element `<vTypeDistribution>` now supports attribute `probabilities` together with `vTypes` to re-use the same `<Types>` with different probabilities. Issue #12799
   - Some warnings about inconsistent public transport stop times are now avoided when using option **--use-stop-ended** along with stop attribute `ended`. #12825
-  - `vTypeDistribution` elemen now supports attribute `probabilities`, which can be used to define different type distributions that share types. Issue #12799
+  - `vTypeDistribution` element now supports attribute `probabilities`, which can be used to define different type distributions that share types. Issue #12799
 
 - netconvert
-  - Added options **--shapefile.width** and **--shapefile.length** to allow importing custom widths and lengtsh from [shape files](Networks/Import/ArcView.md). Issue #12575
+  - Added options **--shapefile.width** and **--shapefile.length** to allow importing custom widths and lengths from [shape files](Networks/Import/ArcView.md). Issue #12575
   - Exceptions for turning restrictions are now imported from OSM. Issue #12645
   - Option **--osm.extra-attributes** now also applies to all node attributes. Issue #12677
   - OSM: Supporting bus lane restrictions using `psv`. Issue #6767
-  - junction attribute 'radius' now overrides otion **--junctions.small-radius**. Issue #12816
+  - junction attribute 'radius' now overrides option **--junctions.small-radius**. Issue #12816
   - merging two projected plain-xml networks with different offsets is now working. Issue #12841
 
 - netedit
-  - Added menu and dialogs for calling pytho tools without using the command line. Issue #4138
+  - Added menu and dialogs for calling python tools without using the command line. Issue #4138
   - All objects with a name attribute can now be located by name using the locate-dialog. Issue #12686
   - Inspect now allows inspecting individual objects that are part of a selection via ALT+LEFT_CLICK. Issue #12690
   - In data mode, overlapped data elements list is now sorted by interval begin. Issue #11330
@@ -120,12 +120,12 @@ title: ChangeLog
 - TraCI
   - Added function `vehicle.setLateralLanePosition`. Issue #12568
   - Function `vehicle.setStopParameter` now supports "onDemand". Issue #12632
-  - Function `vehicle.setStopParameter` now works correclty with key 'triggered'. Issue #12664
+  - Function `vehicle.setStopParameter` now works correctly with key 'triggered'. Issue #12664
   - Functions [vehicle.getParameter](TraCI/Vehicle_Value_Retrieval.md#supported_device_parameters) and [simulation.getParameter](TraCI/Simulation_Value_Retrieval.md#device_parameter_retrieval) can now retrieve various aggregated trip statistics. Issue #12631
   - TraCIConstants are now available as static values for the Java bindings. Issue #12371
 
 - tools
-  - Visualization tools now support option **--alpha** to set background transparancy. Issue #12556
+  - Visualization tools now support option **--alpha** to set background transparency. Issue #12556
   - Added new tool [generateRerouters.py](Tools/Misc.md#generatererouterspy) to generate rerouters for a given set of closed edges including automatic computation of suitable notification edges. Issue #12510
   - Added new tool [split_at_stops.py](Tools/Net.md#split_at_stopspy) to ensure that each bus/train-stop has it's own edge. Issue #12519
   - racing.py: now supports collision sound. Issue #12540
@@ -134,17 +134,17 @@ title: ChangeLog
   - osmWebWizard.py: No longer starts/ends trips on motorways or slip roads (except at the fringe). Issue #12620
   - Improved compatibility between sumolib phase definitions and libsumo phase definitions. Issue #12131
   - Added tool [abstractRail.py](Tools/Net.md#abstractrailpy) to generate an abstract/schematic rail network based on a geodetic rail network. Issue #12662
-  - Added tool [stationDistricts.py](Tools/District.md#stationdistrictspy) for segementing a public transport network based public transport stations. Issue #12662
+  - Added tool [stationDistricts.py](Tools/District.md#stationdistrictspy) for segmenting a public transport network based public transport stations. Issue #12662
   - attributeDiff.py: Can now optionally group attributes by one or more id-attributes before comparing. #12794
   - attributeDiff.py: optionally write entries that could not be compared (via new options **-m** and **-M**. Issue #12798
-  - attrbuteStats.py: Now supports option **--human-readable-time** (**-H**) to make attributes with large time values more legible. Issue #12822
+  - attributeStats.py: Now supports option **--human-readable-time** (**-H**) to make attributes with large time values more legible. Issue #12822
   - sumolib.miscutils functions `parseTime` and `humandReadableTime` now handle negative values. Issue #12821, #12823
   - tlsCycleAdaptation.py now supports more inputs (i.e. TLS with unused stats). Issue #12777
   - new research intersection Ingolstadt scenario for the SUMO game
   - plotXMLAttributes.py:
     - can plot by sorting rank with attribute value `@RANK`. Issue #12607
     - can plot by input order with attribute value `@INDEX` (note that this was the behavior of @RANK in 1.16.0). Issue #12607
-    - can plot number of occurences (histogram) with attribute value `@COUNT`. Issue #11971
+    - can plot number of occurrences (histogram) with attribute value `@COUNT`. Issue #11971
     - supports binning of data via options **--xbin** and **--ybin** (i.e. for making histograms)
     - supports bar plots via option **--barplot** and **--hbarplot**. Issue #12612, #12833
     - supports box plots via option **-x @BOX** or **-y @BOX**. Issue #11994
