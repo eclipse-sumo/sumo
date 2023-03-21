@@ -67,3 +67,6 @@ ticket12857
 
 # deadlock on bidirectional track
 ticket12858
+
+# unsafe reversal on top of rail signal
+ticket12868
