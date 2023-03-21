@@ -115,6 +115,9 @@ public:
             railEdges.push_back(edge->getRailwayRoutingEdge());
         }
         myInternalRouter->prohibit(railEdges);
+#ifdef RailwayRouter_DEBUG_ROUTES
+        std::cout << "RailRouter prohibit=" << toString(toProhibit) << "\n";
+#endif
     }
 
 
