@@ -7111,7 +7111,7 @@ msgid ""
 "If set to a non-negative time value, then the stop duration can be extended "
 "at most by the extension value in seconds"
 msgstr "如果設定一個非負數的時間值,則停等的時間可以被延長 "
-“最多以秒為單位的延長值”
+"最多以秒為單位的延長值"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5568
 msgid "Whether a person or container or bth may end the stop"
