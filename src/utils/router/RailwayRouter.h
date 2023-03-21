@@ -115,6 +115,7 @@ public:
             railEdges.push_back(edge->getRailwayRoutingEdge());
         }
         myInternalRouter->prohibit(railEdges);
+        this->myProhibited = toProhibit;
 #ifdef RailwayRouter_DEBUG_ROUTES
         std::cout << "RailRouter prohibit=" << toString(toProhibit) << "\n";
 #endif
@@ -198,6 +199,16 @@ private:
                     } else {
                         WRITE_WARNING("Railway routing failure due to turn-around on short edge '" + from->getID()
                                       + "' for vehicle '" + vehicle->getID() + "' time=" + time2string(msTime) + ".");
+                    }
+                }
+            }
+            if (this->myProhibited.size() > 0) {
+                // make sure that turnarounds don't use prohibited edges
+                for (const E* e : into) {
+                    if (std::find(this->myProhibited.begin(), this->myProhibited.end(), e) != this->myProhibited.end()) {
+                        into.clear();
+                        success = false;
+                        break;
                     }
                 }
             }
