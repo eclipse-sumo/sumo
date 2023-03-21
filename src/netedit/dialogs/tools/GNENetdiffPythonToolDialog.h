@@ -11,101 +11,38 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEPythonToolDialog.h
+/// @file    GNENetdiffPythonToolDialog.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Jun 2022
 ///
-// Dialog for tools
+// Special dialog for netdiff
 /****************************************************************************/
 #pragma once
 #include <config.h>
 
 #include <utils/options/OptionsCont.h>
 
-#include "GNEPythonToolDialogElements.h"
-
-// ===========================================================================
-// class declarations
-// ===========================================================================
-
-class GNEApplicationWindow;
-class GNEPythonTool;
+#include "GNEPythonToolDialog.h"
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
 /**
- * @class GNEPythonToolDialog
- * @brief Abstract dialog for tools
+ * @class GNENetdiffPythonToolDialog
+ * @brief dialog for netdiff
  */
-class GNEPythonToolDialog : protected FXDialogBox {
-    /// @brief FOX-declaration
-    FXDECLARE(GNEPythonToolDialog)
-
-    /// @brief declare friend class
-    friend class GNEPythonToolDialogElements;
+class GNENetdiffPythonToolDialog : public GNEPythonToolDialog {
 
 public:
     /// @brief Constructor
-    GNEPythonToolDialog(GNEApplicationWindow* GNEApp);
+    GNENetdiffPythonToolDialog(GNEApplicationWindow* GNEApp);
 
     /// @brief destructor
-    ~GNEPythonToolDialog();
-
-    /// @brief open window
-    void openDialog(GNEPythonTool* tool);
-
-    /// @name FOX-callbacks
-    /// @{
-
-    /// @brief event after press run button
-    long onCmdRun(FXObject*, FXSelector, void*);
-
-    /// @brief event after press cancel button
-    long onCmdCancel(FXObject*, FXSelector, void*);
-
-    /// @brief event after press reset button
-    long onCmdReset(FXObject*, FXSelector, void*);
-
-    /// @}
+    ~GNENetdiffPythonToolDialog();
 
 protected:
-    /// @brief FOX needs this
-    GNEPythonToolDialog();
-
     /// @brief build arguments
     virtual void buildArguments();
-
-    /// @brief adjust parameter column
-    void adjustParameterColumn();
-
-    /// @brief vertical frame for contents
-    FXVerticalFrame* myContentFrame = nullptr;
-
-private:
-    /// @brief pointer to GNEApplicationWindow
-    GNEApplicationWindow* myGNEApp;
-
-    /// @brief tool
-    GNEPythonTool* myPythonTool = nullptr;
-
-    /// @brief parameter label
-    FXLabel* myParameterLabel = nullptr;
-
-    /// @brief separator
-    FXSeparator* mySeparator = nullptr;
-
-    /// @brief buttons frame
-    FXHorizontalFrame* myButtonsFrame = nullptr;
-
-    /// @brief list of arguments
-    std::vector<GNEPythonToolDialogElements::Argument*> myArguments;
-
-    /// @brief Invalidated copy constructor.
-    GNEPythonToolDialog(const GNEPythonToolDialog&) = delete;
-
-    /// @brief Invalidated assignment operator.
-    GNEPythonToolDialog& operator=(const GNEPythonToolDialog&) = delete;
 };
 

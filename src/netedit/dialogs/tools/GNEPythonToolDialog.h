@@ -37,7 +37,7 @@ class GNEPythonTool;
 
 /**
  * @class GNEPythonToolDialog
- * @brief Abstract dialog for tools
+ * @brief Dialog for python tool dialog
  */
 class GNEPythonToolDialog : protected FXDialogBox {
     /// @brief FOX-declaration
@@ -75,17 +75,20 @@ protected:
     GNEPythonToolDialog();
 
     /// @brief build arguments
-    void buildArguments();
+    virtual void buildArguments();
 
     /// @brief adjust parameter column
     void adjustParameterColumn();
 
-    /// @brief vertical frame for contents
-    FXVerticalFrame* myContentFrame = nullptr;
+    /// @brief list of arguments
+    std::vector<GNEPythonToolDialogElements::Argument*> myArguments;
 
 private:
     /// @brief pointer to GNEApplicationWindow
     GNEApplicationWindow* myGNEApp;
+
+    /// @brief vertical frame for contents
+    FXVerticalFrame* myContentFrame = nullptr;
 
     /// @brief tool
     GNEPythonTool* myPythonTool = nullptr;
@@ -98,9 +101,6 @@ private:
 
     /// @brief buttons frame
     FXHorizontalFrame* myButtonsFrame = nullptr;
-
-    /// @brief list of arguments
-    std::vector<GNEPythonToolDialogElements::Argument*> myArguments;
 
     /// @brief Invalidated copy constructor.
     GNEPythonToolDialog(const GNEPythonToolDialog&) = delete;
