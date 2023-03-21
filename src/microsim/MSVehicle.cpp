@@ -1689,7 +1689,7 @@ MSVehicle::processNextStop(double currentVelocity) {
 #endif
             }
             // joining only takes place after stop duration is over
-            if (stop.joinTriggered && !myAmRegisteredAsWaiting 
+            if (stop.joinTriggered && !myAmRegisteredAsWaiting
                     && stop.duration <= (stop.pars.extension >= 0 ? -stop.pars.extension : 0)) {
                 if (stop.pars.extension >= 0) {
                     WRITE_WARNINGF(TL("Vehicle '%' aborts joining after extension of %s at time %."), getID(), STEPS2TIME(stop.pars.extension), time2string(SIMSTEP));
@@ -3938,7 +3938,10 @@ MSVehicle::checkReversal(bool& canReverse, double speedThreshold, double seen) c
         }
         //if (isSelected()) std::cout << "   check4 passed\n";
 
-        // ensure that bidi-edges exist for all further edges and that no stops will be skipped when reversing
+        // ensure that bidi-edges exist for all further edges
+        // and that no stops will be skipped when reversing
+        // and that the the train will not be on top of a red rail signal after reversal
+        const MSLane* bidi = myLane->getBidiLane();
         int view = 2;
         for (MSLane* further : myFurtherLanes) {
             if (!further->getEdge().isInternal()) {
@@ -3950,6 +3953,21 @@ MSVehicle::checkReversal(bool& canReverse, double speedThreshold, double seen) c
 #endif
                     return getMaxSpeed();
                 }
+                const MSLane* nextBidi = further->getBidiLane();
+                const MSLink* toNext = bidi->getLinkTo(nextBidi);
+                if (toNext == nullptr) {
+                    // can only happen if the route is invalid
+                    return getMaxSpeed();
+                }
+                if (toNext->haveRed()) {
+#ifdef DEBUG_REVERSE_BIDI
+                    if (DEBUG_COND) {
+                        std::cout << "    do not reverse on a red signal\n";
+                    }
+#endif
+                    return getMaxSpeed();
+                }
+                bidi = nextBidi;
                 if (!myStops.empty() && myStops.front().edge == (myCurrEdge + view)) {
                     const double brakeDist = getCarFollowModel().brakeGap(getSpeed(), getCarFollowModel().getMaxDecel(), 0);
                     const double stopPos = myStops.front().getEndPos(*this);
