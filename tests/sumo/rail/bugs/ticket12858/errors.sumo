@@ -1,3 +1,1 @@
-Warning: Teleporting vehicle 'v_1'; waited too long (yield), lane='1051_0', time=391.00.
-Warning: Vehicle 'v_1' ends teleporting on edge '1054', time=412.00.
-Warning: Vehicle 'v_0' performs emergency stop at the end of lane '1052_0' for unknown reasons (decel=0.00, offset=15.26), time=465.00.
+Warning: Vehicle 'v_0' performs emergency stop at the end of lane '1052_0' for unknown reasons (decel=0.00, offset=12.74), time=125.00.
