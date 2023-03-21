@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNENetdiffPythonToolDialog.cpp
+/// @file    GNENetdiffToolDialog.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Jun 2022
 ///
@@ -22,7 +22,7 @@
 #include <utils/foxtools/MFXLabelTooltip.h>
 #include <utils/gui/div/GUIDesigns.h>
 
-#include "GNENetdiffPythonToolDialog.h"
+#include "GNENetdiffToolDialog.h"
 #include "GNEPythonTool.h"
 
 
@@ -30,16 +30,16 @@
 // member method definitions
 // ===========================================================================
 
-GNENetdiffPythonToolDialog::GNENetdiffPythonToolDialog(GNEApplicationWindow* GNEApp) :
+GNENetdiffToolDialog::GNENetdiffToolDialog(GNEApplicationWindow* GNEApp) :
     GNEPythonToolDialog(GNEApp) {
 }
 
 
-GNENetdiffPythonToolDialog::~GNENetdiffPythonToolDialog() {}
+GNENetdiffToolDialog::~GNENetdiffToolDialog() {}
 
 
 void
-GNENetdiffPythonToolDialog::buildArguments() {
+GNENetdiffToolDialog::buildArguments() {
 /*
     // first clear arguments
     for (const auto& argument : myArguments) {
@@ -49,15 +49,15 @@ GNENetdiffPythonToolDialog::buildArguments() {
     // iterate over options
     for (const auto &option : myPythonTool->getToolsOptions()) {
         if (option.second->isInteger()) {
-            myArguments.push_back(new GNENetdiffPythonToolDialogElements::IntArgument(this, option.first, option.second));
+            myArguments.push_back(new GNENetdiffToolDialogElements::IntArgument(this, option.first, option.second));
         } else if (option.second->isFloat()) {
-            myArguments.push_back(new GNENetdiffPythonToolDialogElements::FloatArgument(this, option.first, option.second));
+            myArguments.push_back(new GNENetdiffToolDialogElements::FloatArgument(this, option.first, option.second));
         } else if (option.second->isBool()) {
-            myArguments.push_back(new GNENetdiffPythonToolDialogElements::BoolArgument(this, option.first, option.second));
+            myArguments.push_back(new GNENetdiffToolDialogElements::BoolArgument(this, option.first, option.second));
         } else if (option.second->isFileName()) {
-            myArguments.push_back(new GNENetdiffPythonToolDialogElements::FileNameArgument(this, option.first, option.second));       
+            myArguments.push_back(new GNENetdiffToolDialogElements::FileNameArgument(this, option.first, option.second));       
         } else {
-            myArguments.push_back(new GNENetdiffPythonToolDialogElements::StringArgument(this, option.first, option.second));
+            myArguments.push_back(new GNENetdiffToolDialogElements::StringArgument(this, option.first, option.second));
         }
     }
     // adjust parameter column (call always after create elements)

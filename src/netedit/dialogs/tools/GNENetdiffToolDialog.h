@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNENetdiffPythonToolDialog.h
+/// @file    GNENetdiffToolDialog.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Jun 2022
 ///
@@ -29,17 +29,17 @@
 // ===========================================================================
 
 /**
- * @class GNENetdiffPythonToolDialog
+ * @class GNENetdiffToolDialog
  * @brief dialog for netdiff
  */
-class GNENetdiffPythonToolDialog : public GNEPythonToolDialog {
+class GNENetdiffToolDialog : public GNEPythonToolDialog {
 
 public:
     /// @brief Constructor
-    GNENetdiffPythonToolDialog(GNEApplicationWindow* GNEApp);
+    GNENetdiffToolDialog(GNEApplicationWindow* GNEApp);
 
     /// @brief destructor
-    ~GNENetdiffPythonToolDialog();
+    ~GNENetdiffToolDialog();
 
 protected:
     /// @brief build arguments

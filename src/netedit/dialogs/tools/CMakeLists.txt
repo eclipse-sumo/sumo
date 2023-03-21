@@ -5,8 +5,8 @@ set(netedit_dialogs_tools_SRCS
    GNEPythonToolDialog.cpp
    GNEPythonToolDialogElements.h
    GNEPythonToolDialogElements.cpp
-   GNENetdiffPythonToolDialog.h
-   GNENetdiffPythonToolDialog.cpp
+   GNENetdiffToolDialog.h
+   GNENetdiffToolDialog.cpp
    GNERunPythonTool.h
    GNERunPythonTool.cpp
    GNERunPythonToolDialog.h
