@@ -42,6 +42,9 @@ public:
     ~GNENetdiffToolDialog();
 
 protected:
+    /// @brief netdiff options
+    OptionsCont myNetdiffOptions;
+
     /// @brief build arguments
     virtual void buildArguments();
 };
