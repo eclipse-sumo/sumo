@@ -29,6 +29,7 @@ import argparse
 import io
 from argparse import RawDescriptionHelpFormatter  # noqa
 from copy import deepcopy
+from functools import wraps
 from .miscutils import openz
 
 
@@ -184,6 +185,11 @@ class ArgumentParser(argparse.ArgumentParser):
     def add_option(self, *args, **kwargs):
         """alias for compatibility with OptionParser"""
         self.add_argument(*args, **kwargs)
+
+    def add_mutually_exclusive_group(self):
+        group = argparse.ArgumentParser.add_mutually_exclusive_group(self)
+        group.add_argument = handleCatoryWrapper(group.add_argument)
+        return group
 
     def write_config_file(self, namespace, exit=True, toString=False):
         if namespace.save_configuration:
@@ -352,6 +358,18 @@ class ArgumentParser(argparse.ArgumentParser):
         self.write_config_file(extended_namespace)
         namespace.config_as_string = self.write_config_file(extended_namespace, toString=True)
         return namespace, remaining_args
+
+
+def handleCatoryWrapper(func):
+    @wraps(func)
+    def inner(*args, **kwargs):
+        category = kwargs.get("category")
+        if "category" in kwargs:
+            del kwargs["category"]
+        result = func(*args, **kwargs)
+        result.category = category
+        return result
+    return inner
 
 
 class SplitAction(argparse.Action):
