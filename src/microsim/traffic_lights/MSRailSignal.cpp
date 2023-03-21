@@ -724,10 +724,9 @@ MSRailSignal::LinkInfo::buildDriveWay(MSRouteIterator first, MSRouteIterator end
     dw.checkFlanks(myLink, dw.myForward, visited, true, dw.myFlankSwitches);
     dw.checkFlanks(myLink, dw.myBidi, visited, false, dw.myFlankSwitches);
     dw.checkFlanks(myLink, before, visited, true, dw.myFlankSwitches);
-
     for (MSLink* link : dw.myFlankSwitches) {
         //std::cout << getID() << " flankSwitch=" << link->getDescription() << "\n";
-        dw.findFlankProtection(link, 0, visited, link);
+        dw.findFlankProtection(link, 0, visited, link, dw.myFlank);
     }
 
 #ifdef DEBUG_BUILD_DRIVEWAY
@@ -1076,7 +1075,7 @@ MSRailSignal::DriveWay::findProtection(const Approaching& veh, MSLink* link) con
         tmp.myFlank.push_back(before);
         LaneVisitedMap visited;
         for (auto ili : before->getIncomingLanes()) {
-            tmp.findFlankProtection(ili.viaLink, myMaxFlankLength, visited, ili.viaLink);
+            tmp.findFlankProtection(ili.viaLink, myMaxFlankLength, visited, ili.viaLink, tmp.myFlank);
         }
         tmp.myConflictLanes = tmp.myFlank;
         tmp.myRoute = myRoute;
@@ -1415,7 +1414,7 @@ MSRailSignal::DriveWay::checkCrossingFlanks(MSLink* dwLink, const LaneVisitedMap
 }
 
 void
-MSRailSignal::DriveWay::findFlankProtection(MSLink* link, double length, LaneVisitedMap& visited, MSLink* origLink) {
+MSRailSignal::DriveWay::findFlankProtection(MSLink* link, double length, LaneVisitedMap& visited, MSLink* origLink, std::vector<const MSLane*>& flank) {
 #ifdef DEBUG_CHECK_FLANKS
     std::cout << "  findFlankProtection link=" << link->getDescription() << " length=" << length << " origLink=" << origLink->getDescription() << "\n";
 #endif
@@ -1441,8 +1440,8 @@ MSRailSignal::DriveWay::findFlankProtection(MSLink* link, double length, LaneVis
             }
             length += lane->getLength();
             if (lane->isInternal()) {
-                myFlank.push_back(lane);
-                findFlankProtection(lane->getIncomingLanes().front().viaLink, length, visited, origLink);
+                flank.push_back(lane);
+                findFlankProtection(lane->getIncomingLanes().front().viaLink, length, visited, origLink, flank);
             } else {
                 bool foundPSwitch = false;
                 for (MSLink* l2 : lane->getLinkCont()) {
@@ -1465,11 +1464,11 @@ MSRailSignal::DriveWay::findFlankProtection(MSLink* link, double length, LaneVis
                     }
                 }
                 if (!foundPSwitch) {
-                    myFlank.push_back(lane);
+                    flank.push_back(lane);
                     // continue search for protection upstream recursively
                     for (auto ili : lane->getIncomingLanes()) {
                         if (ili.viaLink->getDirection() != LinkDirection::TURN) {
-                            findFlankProtection(ili.viaLink, length, visited, origLink);
+                            findFlankProtection(ili.viaLink, length, visited, origLink, flank);
                         }
                     }
                 }

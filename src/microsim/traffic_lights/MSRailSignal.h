@@ -395,8 +395,10 @@ protected:
          */
         void checkCrossingFlanks(MSLink* dwLink, const LaneVisitedMap& visited, std::vector<MSLink*>& flankSwitches) const;
 
-        /// @brief find upstream protection from the given link
-        void findFlankProtection(MSLink* link, double length, LaneVisitedMap& visited, MSLink* origLink);
+        /* @brief find upstream protection from the given link
+         * @param[out] flank: the stored flank lanes
+         */
+        void findFlankProtection(MSLink* link, double length, LaneVisitedMap& visited, MSLink* origLink, std::vector<const MSLane*>& flank);
     };
 
     /* The driveways for each link
