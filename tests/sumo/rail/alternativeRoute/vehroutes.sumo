@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-03-21 11:28:34 by Eclipse SUMO sumo Version v1_16_0+1506-1a0b0e0
+<!-- generated on 2023-03-21 19:27:57 by Eclipse SUMO sumo Version v1_16_0+1526-5bb58df
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -57,11 +57,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </vehicle>
 
     <vehicle id="rail1" type="Freight" depart="1.00" departLane="0" departSpeed="33.3333" speedFactor="1.0000" arrival="204.00">
-        <routeDistribution>
-            <route replacedOnEdge="T8_0" replacedOnIndex="5" reason="railSignal:N2_0" replacedAtTime="66.00" probability="0" edges="T1_0 T5_0 T6_0 T27_0 T7_0 T8_0 T9_0 T15_0 T30_0 T25_0 T26_0"/>
-            <route replacedOnEdge="T8_0" replacedOnIndex="5" reason="railSignal:G_0" replacedAtTime="67.00" probability="0" edges="T1_0 T5_0 T6_0 T27_0 T7_0 T8_0 T9_0 T15_0 T30_0 T25_0 T26_0 T26_1 T25_1 T30_1 T15_1 T9_1 T8_1 T7_1 T27_1 T6_1 T5_1 T1_1 T1_0 T5_0 T13_0 T29_0 T19_0 T20_0 T21_0 T30_0 T25_0 T26_0"/>
-            <route edges="T1_0 T5_0 T6_0 T27_0 T7_0 T8_0 T9_0 T15_0 T30_0 T25_0 T26_0"/>
-        </routeDistribution>
+        <route edges="T1_0 T5_0 T6_0 T27_0 T7_0 T8_0 T9_0 T15_0 T30_0 T25_0 T26_0"/>
     </vehicle>
 
     <vehicle id="rail4" type="Freight" depart="300.00" departLane="0" departSpeed="16.67" speedFactor="1.0000" arrival="428.00">
