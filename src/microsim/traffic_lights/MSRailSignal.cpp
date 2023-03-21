@@ -728,6 +728,12 @@ MSRailSignal::LinkInfo::buildDriveWay(MSRouteIterator first, MSRouteIterator end
         //std::cout << getID() << " flankSwitch=" << link->getDescription() << "\n";
         dw.findFlankProtection(link, 0, visited, link, dw.myFlank);
     }
+    std::vector<MSLink*> flankSwitchesBidiExtended;
+    dw.checkFlanks(myLink, dw.myBidiExtended, visited, false, flankSwitchesBidiExtended);
+    for (MSLink* link : flankSwitchesBidiExtended) {
+        //std::cout << getID() << " flankSwitchBEx=" << link->getDescription() << "\n";
+        dw.findFlankProtection(link, 0, visited, link, dw.myBidiExtended);
+    }
 
 #ifdef DEBUG_BUILD_DRIVEWAY
     if (DEBUG_COND_LINKINFO || true) {
