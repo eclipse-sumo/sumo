@@ -29,7 +29,6 @@
 #include <vector>
 #include <iostream>
 #include <cstdlib>
-#include <cassert>
 #include <ctime>
 #include <cstring>
 #include <cerrno>
@@ -73,23 +72,24 @@ OptionsCont::~OptionsCont() {
 
 
 void
-OptionsCont::doRegister(const std::string& name, Option* v) {
-    assert(v != 0);
-    auto i = std::find(myAddresses.begin(), myAddresses.end(), v);
-    if (i == myAddresses.end()) {
-        myAddresses.push_back(v);
+OptionsCont::doRegister(const std::string& name, Option* o) {
+    if (o == nullptr) {
+        throw ProcessError("Option cannot be null");
+    }
+    if (std::find(myAddresses.begin(), myAddresses.end(), o) == myAddresses.end()) {
+        myAddresses.push_back(o);
     }
     if (myValues.find(name) != myValues.end()) {
         throw ProcessError(name + " is an already used option name.");
     }
-    myValues[name] = v;
+    myValues[name] = o;
 }
 
 
 void
-OptionsCont::doRegister(const std::string& name1, char abbr, Option* v) {
-    doRegister(name1, v);
-    doRegister(convertChar(abbr), v);
+OptionsCont::doRegister(const std::string& name1, char abbr, Option* o) {
+    doRegister(name1, o);
+    doRegister(convertChar(abbr), o);
 }
 
 
@@ -488,8 +488,12 @@ OptionsCont::addDescription(const std::string& name,
                             const std::string& subtopic,
                             const std::string& description) {
     Option* o = getSecure(name);
-    assert(o != 0);
-    assert(find(mySubTopics.begin(), mySubTopics.end(), subtopic) != mySubTopics.end());
+    if (o == nullptr) {
+        throw ProcessError("Option doesn't exist");
+    }
+    if (find(mySubTopics.begin(), mySubTopics.end(), subtopic) == mySubTopics.end()) {
+        throw ProcessError("SubTopic doesn't exist");
+    }
     o->setDescription(description);
     mySubTopicEntries[subtopic].push_back(name);
 }

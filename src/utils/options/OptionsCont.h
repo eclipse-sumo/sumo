@@ -202,10 +202,10 @@ public:
 
     /** @brief Adds an option under the given name
      * @param[in] name The (long) name of the option
-     * @param[in] v The option (typed value storage)
+     * @param[in] o The option (typed value storage)
      * @exception InvalidArgument If the name is already used
      */
-    void doRegister(const std::string& name, Option* v);
+    void doRegister(const std::string& name, Option* o);
 
     /** @brief Adds an option under the given name and the given abbreviation
      *
@@ -216,7 +216,7 @@ public:
      * @param[in] v The option (typed value storage)
      * @exception InvalidArgument If one of the names is already used
      */
-    void doRegister(const std::string& name, char abbr, Option* v);
+    void doRegister(const std::string& name, char abbr, Option* o);
 
     /** @brief Adds a synonyme for an options name (any order)
      *
