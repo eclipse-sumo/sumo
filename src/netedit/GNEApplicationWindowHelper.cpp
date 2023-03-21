@@ -19,7 +19,7 @@
 /****************************************************************************/
 
 #include <netedit/dialogs/tools/GNEPythonTool.h>
-#include <netedit/dialogs/tools/GNEPythonToolDialog.h>
+#include <netedit/dialogs/tools/GNENetdiffToolDialog.h>
 #include <netedit/dialogs/tools/GNERunPythonToolDialog.h>
 #include <netedit/dialogs/tools/GNERunNetgenerateDialog.h>
 #include <netedit/elements/GNEAttributeCarrier.h>
@@ -1991,6 +1991,7 @@ GNEApplicationWindowHelper::ToolsMenuCommands::~ToolsMenuCommands() {
     }
     // delete dialogs
     delete myPythonToolDialog;
+    delete myNetdiffToolDialog;
     delete myRunPythonToolDialog;
     delete myRunNetgenerateDialog;
 }
@@ -2011,6 +2012,7 @@ GNEApplicationWindowHelper::ToolsMenuCommands::buildTools(FXMenuPane* toolsMenu,
     }
     // build dialogs
     myPythonToolDialog = new GNEPythonToolDialog(myGNEApp);
+    myNetdiffToolDialog = new GNENetdiffToolDialog(myGNEApp);
     myRunPythonToolDialog = new GNERunPythonToolDialog(myGNEApp);
     myRunNetgenerateDialog = new GNERunNetgenerateDialog(myGNEApp);
 }
@@ -2021,8 +2023,12 @@ GNEApplicationWindowHelper::ToolsMenuCommands::showTool(FXObject* menuCommand) c
     // iterate over all tools and find menu command
     for (const auto &tool : myPythonTools) {
         if (tool->getMenuCommand() == menuCommand) {
-            myPythonToolDialog->openDialog(tool);
-            return 1;
+            // special case for netdiff
+            if (tool->getToolName() == "netdiff") {
+                return myNetdiffToolDialog->openDialog(tool);
+            } else {
+                return myPythonToolDialog->openDialog(tool);
+            }
         }
     }
     return 0;

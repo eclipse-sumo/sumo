@@ -53,8 +53,8 @@ public:
     /// @brief destructor
     ~GNEPythonToolDialog();
 
-    /// @brief open window
-    void openDialog(GNEPythonTool* tool);
+    /// @brief open dialog
+    long openDialog(GNEPythonTool* tool);
 
     /// @name FOX-callbacks
     /// @{

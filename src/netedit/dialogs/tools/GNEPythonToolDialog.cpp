@@ -74,7 +74,7 @@ GNEPythonToolDialog::GNEPythonToolDialog(GNEApplicationWindow* GNEApp) :
 GNEPythonToolDialog::~GNEPythonToolDialog() {}
 
 
-void
+long
 GNEPythonToolDialog::openDialog(GNEPythonTool* tool) {
     // set tool
     myPythonTool = tool;
@@ -89,7 +89,7 @@ GNEPythonToolDialog::openDialog(GNEPythonTool* tool) {
     // resize dialog (Marging + contentFrame + MARGING separator + MARGING + buttonsFrame + MARGING)
     resize(myContentFrame->getWidth(), myContentFrame->getHeight() + mySeparator->getHeight() + myButtonsFrame->getHeight() + (4 * MARGING));
     // open as modal dialog (will block all windows until stop() or stopModal() is called)
-    myGNEApp->getApp()->runModalFor(this);
+    return myGNEApp->getApp()->runModalFor(this);
 }
 
 
