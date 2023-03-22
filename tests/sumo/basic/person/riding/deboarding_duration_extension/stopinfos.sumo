@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-10-01 21:13:17 by Eclipse SUMO sumo Version v1_10_0+1164-7d4c2ab
+<!-- generated on 2023-03-22 19:09:59 by Eclipse SUMO sumo Version v1_16_0+1578-0fb8d8f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -25,7 +30,6 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -34,7 +38,7 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <stops xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/stopinfo_file.xsd">
-    <stopinfo id="bus" type="DEFAULT_VEHTYPE" lane="beg_0" pos="50.00" parking="0" started="11.00" ended="61.00" delay="-1.00" initialPersons="0" loadedPersons="10" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
-    <stopinfo id="bus" type="DEFAULT_VEHTYPE" lane="left_0" pos="50.00" parking="0" started="131.00" ended="231.00" delay="-1.00" initialPersons="10" loadedPersons="10" unloadedPersons="10" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
-    <stopinfo id="bus" type="DEFAULT_VEHTYPE" lane="end_0" pos="50.00" parking="0" started="349.00" ended="399.00" delay="-1.00" initialPersons="10" loadedPersons="0" unloadedPersons="10" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="bus" type="DEFAULT_VEHTYPE" lane="beg_0" pos="50.00" parking="0" started="11.00" ended="61.00" initialPersons="0" loadedPersons="10" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="bus" type="DEFAULT_VEHTYPE" lane="left_0" pos="50.00" parking="0" started="131.00" ended="231.00" initialPersons="10" loadedPersons="10" unloadedPersons="10" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="bus" type="DEFAULT_VEHTYPE" lane="end_0" pos="50.00" parking="0" started="349.00" ended="399.00" initialPersons="10" loadedPersons="0" unloadedPersons="10" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
 </stops>
