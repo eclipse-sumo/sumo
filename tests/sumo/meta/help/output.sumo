@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_16_0+0960-2106523
+Eclipse SUMO sumo Version v1_16_0+1566-509453c
  Copyright (C) 2001-2023 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -322,6 +322,8 @@ Processing Options:
                                         blocking
   --use-stop-ended                     Override stop until times with stop
                                         ended times when given
+  --use-stop-started                   Override stop arrival times with stop
+                                        started times when given
   --pedestrian.model STR               Select among pedestrian models
                                         ['nonInteracting', 'striping', 'remote']
   --pedestrian.striping.stripe-width FLOAT  Width of parallel stripes for
