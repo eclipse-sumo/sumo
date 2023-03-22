@@ -70,3 +70,6 @@ ticket12858
 
 # unsafe reversal on top of rail signal
 ticket12868
+
+# unsafe rerouting
+ticket12873
