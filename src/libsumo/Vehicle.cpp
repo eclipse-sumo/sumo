@@ -1355,7 +1355,7 @@ Vehicle::changeTarget(const std::string& vehID, const std::string& edgeID) {
     }
     // build a new route between the vehicle's current edge and destination edge
     ConstMSEdgeVector newRoute;
-    const MSEdge* currentEdge = veh->getRerouteOrigin();
+    const MSEdge* currentEdge = *veh->getRerouteOrigin();
     veh->getBaseInfluencer().getRouterTT(veh->getRNGIndex(), veh->getVClass()).compute(
         currentEdge, destEdge, veh, MSNet::getInstance()->getCurrentTimeStep(), newRoute);
     // replace the vehicle's route by the new one (cost is updated by call to reroute())

@@ -96,10 +96,10 @@ public:
 
     /** @brief Returns the starting point for reroutes (usually the current edge)
      *
-     * This differs from *myCurrEdge only if the vehicle is on an internal edge
+     * This differs from myCurrEdge depending on braking distance and rail signals
      * @return The rerouting start point
      */
-    virtual const MSEdge* getRerouteOrigin() const = 0;
+    virtual ConstMSEdgeVector::const_iterator getRerouteOrigin() const = 0;
 
     /** @brief Replaces the current route by the given edges
      *

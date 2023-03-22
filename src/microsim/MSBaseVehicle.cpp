@@ -236,9 +236,9 @@ MSBaseVehicle::stopsAtEdge(const MSEdge* edge) const {
 void
 MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, const bool onInit, const bool withTaz, const bool silent) {
     // check whether to reroute
-    const MSEdge* source = withTaz && onInit ? MSEdge::dictionary(myParameter->fromTaz + "-source") : getRerouteOrigin();
+    const MSEdge* source = withTaz && onInit ? MSEdge::dictionary(myParameter->fromTaz + "-source") : *getRerouteOrigin();
     if (source == nullptr) {
-        source = getRerouteOrigin();
+        source = *getRerouteOrigin();
     }
     const MSEdge* sink = withTaz ? MSEdge::dictionary(myParameter->toTaz + "-sink") : myRoute->getLastEdge();
     if (sink == nullptr) {
@@ -393,7 +393,7 @@ MSBaseVehicle::replaceRouteEdges(ConstMSEdgeVector& edges, double cost, double s
     }
     int oldSize = (int)edges.size();
     if (!onInit) {
-        const MSEdge* const origin = getRerouteOrigin();
+        const MSEdge* const origin = *getRerouteOrigin();
         if (origin != *myCurrEdge && edges.front() == origin) {
             edges.insert(edges.begin(), *myCurrEdge);
             oldSize = (int)edges.size();

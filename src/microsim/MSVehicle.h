@@ -651,7 +651,7 @@ public:
      *  very close to the junction
      * @return The rerouting start point
      */
-    const MSEdge* getRerouteOrigin() const;
+    ConstMSEdgeVector::const_iterator getRerouteOrigin() const;
 
 
     /** @brief Returns the SUMOTime waited (speed was lesser than 0.1m/s)

@@ -1029,7 +1029,7 @@ MSTriggeredRerouter::addParkValues(SUMOVehicle& veh, double brakeGap, bool newDe
     // Compute the route from the current edge to the parking area edge
     ConstMSEdgeVector edgesToPark;
     const double parkPos = pa->getLastFreePos(veh);
-    const MSEdge* rerouteOrigin = veh.getRerouteOrigin();
+    const MSEdge* rerouteOrigin = *veh.getRerouteOrigin();
     router.compute(rerouteOrigin, veh.getPositionOnLane(), parkEdge, parkPos, &veh, MSNet::getInstance()->getCurrentTimeStep(), edgesToPark, true);
 
 #ifdef DEBUG_PARKING

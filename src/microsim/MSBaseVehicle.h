@@ -244,8 +244,8 @@ public:
      * This differs from *myCurrEdge only if the vehicle is on an internal edge
      * @return The rerouting start point
      */
-    virtual const MSEdge* getRerouteOrigin() const {
-        return *myCurrEdge;
+    virtual ConstMSEdgeVector::const_iterator getRerouteOrigin() const {
+        return myCurrEdge;
     }
 
     /** @brief Returns the time loss in seconds

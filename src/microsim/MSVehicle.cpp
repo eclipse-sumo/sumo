@@ -1341,20 +1341,17 @@ MSVehicle::validatePosition(Position result, double offset) const {
 }
 
 
-const MSEdge*
+ConstMSEdgeVector::const_iterator
 MSVehicle::getRerouteOrigin() const {
     // too close to the next junction, so avoid an emergency brake here
     if (myLane != nullptr && (myCurrEdge + 1) != myRoute->end() &&
             myState.myPos > myLane->getLength() - getCarFollowModel().brakeGap(myState.mySpeed, getCarFollowModel().getMaxDecel(), 0.)) {
-        return *(myCurrEdge + 1);
+        return myCurrEdge + 1;
     }
     if (myLane != nullptr) {
-        if (myLaneChangeModel->isOpposite() && isOppositeLane(myLane)) {
-            return myLane->getParallelOpposite()->getNextNormal();
-        }
-        return myLane->getNextNormal();
+        return myLane->isInternal() ? myCurrEdge + 1 : myCurrEdge;
     }
-    return *myCurrEdge;
+    return myCurrEdge;
 }
 
 void
