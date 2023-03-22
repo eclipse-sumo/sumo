@@ -1,0 +1,8 @@
+# vehicle arrives ahead of time
+premature
+
+# vehicle slows down to match scheduled arrival
+premature_slowDown
+
+# vehicle slows down to match scheduled arrival but cannot slow down enough
+premature_slowDown_limit
