@@ -171,6 +171,18 @@ Option::setDescription(const std::string& desc) {
 
 
 const std::string&
+Option::getCategory() const {
+    return myCategory;
+}
+
+
+void
+Option::setCategory(const std::string& desc) {
+    myCategory = desc;
+}
+
+
+const std::string&
 Option::getTypeName() const {
     return myTypeName;
 }

@@ -243,6 +243,22 @@ public:
      */
     void setDescription(const std::string& desc);
 
+    /** @brief Returns the category of what this option does
+     *
+     * The category stored in myDescription is returned.
+     *
+     * @return The category of this option's purpose
+     */
+    const std::string& getCategory() const;
+
+    /** @brief Sets the category of what this option does
+     *
+     * The category stored in myCategory is returned.
+     *
+     * @return The category of this option's purpose
+     */
+    void setCategory(const std::string& desc);
+
     /** @brief Returns the mml-type name of this option
      *
      * The type name stored in myTypeName is returned.
@@ -287,6 +303,9 @@ private:
 
     /// @brief The description what this option does
     std::string myDescription;
+
+    /// @brief The category what this option does
+    std::string myCategory;
 };
 
 // -------------------------------------------------------------------------

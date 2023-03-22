@@ -256,8 +256,23 @@ public:
      * @param[in] description The description
      * @exception InvalidArgument If none of the synonymes or both synonymes with different options were registered before
      */
-    void addDescription(const std::string& name, const std::string& subtopic,
-                        const std::string& description);
+    void addDescription(const std::string& name, const std::string& subtopic, const std::string& description);
+
+    /** @brief Adds a category for an option
+     *
+     * Tries to retrieve the named option and to set the given category. Adds
+     *  the name to the list of option names to be located in the named subtopic.
+     *
+     * Throws an InvalidArgument if the option is not known or already has
+     *  a category set.
+     *
+     * @param[in] name The option's name
+     * @param[in] subtopic The subtopic to locate the category within
+     * @param[in] category The category
+     * @exception InvalidArgument If none of the synonymes or both synonymes with different options were registered before
+     */
+    void addCategory(const std::string& name, const std::string& subtopic, const std::string& category);
+
     /// @}
 
     /// @name Methods for retrieving information about options
@@ -369,6 +384,14 @@ public:
      * @exception InvalidArgument If the named option does not exist
      **/
     const std::string& getDescription(const std::string& name) const;
+
+    /** @brief Returns the option category
+     *
+     * @param[in] name The name of the option to return the category of
+     * @return category
+     * @exception InvalidArgument If the named option does not exist
+     **/
+    const std::string& getCategory(const std::string& name) const;
 
     /** @brief Returns the information whether the named option may be set
      *

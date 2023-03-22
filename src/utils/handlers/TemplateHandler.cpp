@@ -96,7 +96,7 @@ TemplateHandler::startElement(const XMLCh* const name, XERCES_CPP_NAMESPACE::Att
         myOptions.addOptionSubTopic(mySubTopic);
     } else {
         std::vector<std::string> optionAttrs;
-        optionAttrs.resize(4);
+        optionAttrs.resize(5);
         for (int i = 0; i < (int)attributes.getLength(); i++) {
             if (StringUtils::transcode(attributes.getName(i)) == "value") {
                 optionAttrs.at(0) = StringUtils::transcode(attributes.getValue(i));
@@ -106,17 +106,19 @@ TemplateHandler::startElement(const XMLCh* const name, XERCES_CPP_NAMESPACE::Att
                 optionAttrs.at(2) = StringUtils::transcode(attributes.getValue(i));
             } else if (StringUtils::transcode(attributes.getName(i)) == "help") {
                 optionAttrs.at(3) = StringUtils::transcode(attributes.getValue(i));
+            } else if (StringUtils::transcode(attributes.getName(i)) == "category") {
+                optionAttrs.at(4) = StringUtils::transcode(attributes.getValue(i));
             }
         }
         // add option
-        addOption(optionAttrs.at(0), optionAttrs.at(1), optionAttrs.at(2), optionAttrs.at(3));
+        addOption(optionAttrs.at(0), optionAttrs.at(1), optionAttrs.at(2), optionAttrs.at(3), optionAttrs.at(4));
     }
 }
 
 
 bool
 TemplateHandler::addOption(const std::string value, const std::string& synonymes,
-                           const std::string& type, const std::string& help) const {
+                           const std::string& type, const std::string& help, const std::string& category) const {
     if (myOptions.exists(myTopic)) {
         WRITE_WARNING(myTopic + " already exists");
         return false;
@@ -164,6 +166,10 @@ TemplateHandler::addOption(const std::string value, const std::string& synonymes
             // check if add help
             if (help.size() > 0) {
                 myOptions.addDescription(myTopic, mySubTopic, help);
+            }
+            // check if add category
+            if (category.size() > 0) {
+                myOptions.addCategory(myTopic, mySubTopic, category);
             }
             return true;
         } else {
