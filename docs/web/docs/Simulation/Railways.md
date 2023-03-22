@@ -406,7 +406,7 @@ These parameters control the appearance of trains in [sumo-gui](../sumo-gui.md) 
 By default, railway tracks are shown in [sumo-gui](../sumo-gui.md) in a distinct style:
 
 - tracks and crossties are rendendered instead of filled shapes when zoomed in (configurable with visualization setting *show rails*)
-- turning arrows are not show
+- turning arrows are not shown
 - the [white bar that indicates right of way](../sumo-gui.md#right_of_way) is not drawn
 - junction shapes are not shown and the internal edges that make up a railway switch are always visible (can be changed setting junction coloring to any scheme other than *uniform*)
 - traffic light (rail signal) indicators are drawn with an offset to the right to indicate the direction in which the signal is applied
