@@ -54,6 +54,7 @@ for f in sys.argv[1:]:
             fob.write(filedata)
     subprocess.check_call([javac, "-cp", traciJar, fname])
 
+os.environ["PATH"] += os.pathsep + os.path.join(os.environ['SUMO_HOME'], "bin")
 procs = [subprocess.Popen([java, "-Djava.library.path=" + os.path.join(os.environ['SUMO_HOME'], "bin"),
                            "-cp", os.pathsep.join([traciJar, "data"]), sys.argv[1],
                            checkBinary('sumo'), "data/config.sumocfg"])]
