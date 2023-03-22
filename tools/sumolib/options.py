@@ -152,6 +152,22 @@ class ArgumentParser(argparse.ArgumentParser):
     Inspired by https://github.com/bw2/ConfigArgParse
     """
 
+    @staticmethod
+    def net_file(s):
+        return s
+
+    @staticmethod
+    def route_file(s):
+        return s
+
+    @staticmethod
+    def additional_file(s):
+        return s
+
+    @staticmethod
+    def edgedata_file(s):
+        return s
+
     def __init__(self, allowed_programs=[], *args, **kwargs):
         argparse.ArgumentParser.__init__(self, *args, **kwargs)
         # add common argument for loading configuration
@@ -244,6 +260,14 @@ class ArgumentParser(argparse.ArgumentParser):
                                 typeStr = ' type="%s"' % "float"
                             elif (a.type == int):
                                 typeStr = ' type="%s"' % "int"
+                            elif (a.type == self.net_file):
+                                typeStr = ' type="%s"' % "net_file"
+                            elif (a.type == self.route_file):
+                                typeStr = ' type="%s"' % "route_file"
+                            elif (a.type == self.additional_file):
+                                typeStr = ' type="%s"' % "additional_file"
+                            elif (a.type == self.additional_file):
+                                typeStr = ' type="%s"' % "edgedata_file"
                             else:
                                 typeStr = ' type="%s"' % "string"
                             # note: missing time, filename, list of vehicles, edges and lanes

@@ -56,13 +56,13 @@ def get_network(options):
 def get_options(args=None):
     op = sumolib.options.ArgumentParser(description="Generate trips between random locations",
                                         allowed_programs=['duarouter'])
-    op.add_argument("-n", "--net-file", category="input", dest="netfile", required=True,
+    op.add_argument("-n", "--net-file", category="input", dest="netfile", required=True, type=op.net_file,
                     help="define the net file (mandatory)")
-    op.add_argument("-a", "--additional-files", category="input", dest="additional",
+    op.add_argument("-a", "--additional-files", category="input", dest="additional", type=op.additional_file,
                     help="define additional files to be loaded by the router")
-    op.add_argument("-o", "--output-trip-file", category="output", dest="tripfile",
+    op.add_argument("-o", "--output-trip-file", category="output", dest="tripfile", type=op.route_file,
                     default="trips.trips.xml", help="define the output trip filename")
-    op.add_argument("-r", "--route-file", category="output", dest="routefile",
+    op.add_argument("-r", "--route-file", category="output", dest="routefile", type=op.route_file,
                     help="generates route file with duarouter")
     op.add_argument("--vtype-output", category="output", dest="vtypeout",
                     help="Store generated vehicle types in a separate file")
