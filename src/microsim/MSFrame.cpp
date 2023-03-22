@@ -502,6 +502,9 @@ MSFrame::fillOptions() {
     oc.doRegister("use-stop-ended", new Option_Bool(false));
     oc.addDescription("use-stop-ended", "Processing", TL("Override stop until times with stop ended times when given"));
 
+    oc.doRegister("use-stop-started", new Option_Bool(false));
+    oc.addDescription("use-stop-started", "Processing", TL("Override stop arrival times with stop started times when given"));
+
     // pedestrian model
     oc.doRegister("pedestrian.model", new Option_String("striping"));
     oc.addDescription("pedestrian.model", "Processing", TL("Select among pedestrian models ['nonInteracting', 'striping', 'remote']"));
@@ -1068,6 +1071,7 @@ MSFrame::setMSGlobals(OptionsCont& oc) {
     MSGlobals::gStopTolerance = oc.getFloat("ride.stop-tolerance");
     MSGlobals::gTLSYellowMinDecel = oc.getFloat("tls.yellow.min-decel");
     MSGlobals::gUseStopEnded = oc.getBool("use-stop-ended");
+    MSGlobals::gUseStopStarted = oc.getBool("use-stop-started");
 
 #ifdef _DEBUG
     if (oc.isSet("movereminder-output")) {

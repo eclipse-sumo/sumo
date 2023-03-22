@@ -2429,13 +2429,17 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
 #endif
             // optionally slow down to match arrival time
             if (stop.pars.arrival >= 0 && getVehicleType().getParameter().speedFactorPremature > 0) {
-                const double arrivalDelay = getStopArrivalDelay();
+                double arrivalDelay = getStopArrivalDelay();
+                double t = STEPS2TIME(stop.pars.arrival - SIMSTEP);
+                if (stop.pars.started >= 0 && MSGlobals::gUseStopStarted) {
+                    arrivalDelay += STEPS2TIME(stop.pars.arrival - stop.pars.started);
+                    t = STEPS2TIME(stop.pars.started - SIMSTEP);
+                }
                 const double sfp = getVehicleType().getParameter().speedFactorPremature;
                 if (arrivalDelay < 0 && sfp < getChosenSpeedFactor()) {
                     // we can slow down to better match the schedule (and increase energy efficiency)
                     const double s = newStopDist;
                     const double b = getCarFollowModel().getMaxDecel();
-                    const double t = STEPS2TIME(stop.pars.arrival - SIMSTEP);
                     // x = speed for arriving in t seconds
                     // u = time at full speed
                     // u * x + (t - u) * 0.5 * x = s

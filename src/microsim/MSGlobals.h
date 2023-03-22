@@ -128,6 +128,7 @@ public:
 
     /// whether the simulation should replay previous stop times
     static bool gUseStopEnded;
+    static bool gUseStopStarted;
 
     /// whether unit tests are being run
     static bool gUnitTests;
