@@ -32,3 +32,6 @@ parkingSearch
 
 # test execute_move
 execute_move
+
+# test access from multiple threads
+concurrent
