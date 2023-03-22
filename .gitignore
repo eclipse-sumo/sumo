@@ -95,6 +95,7 @@
 /src/tools/emissionsMap
 /src/traci_testclient/TraCITestClient
 # tools dir
+/tools/*.vs
 /tools/*.egg-info
 /tools/[0-9]*
 /tools/game/*.netstate.xml
