@@ -39,10 +39,9 @@ if (NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
   set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Debug" "Release" "RelWithDebInfo")
 endif ()
 
-# set project name
+cmake_minimum_required(VERSION 3.4)
 project("${PROJECT_NAME}" CXX C)
 set(PACKAGE_VERSION "git")
-cmake_minimum_required(VERSION 3.4)
 
 # Check if libraries have to be found, depending on SUMO_LIBRARIES
 set(SUMO_LIBRARIES "$ENV{SUMO_LIBRARIES}" CACHE PATH "Location of SUMOLibraries dependencies")
@@ -212,7 +211,7 @@ if (${CMAKE_VERSION} VERSION_LESS 3.12.0)
     find_package(PythonLibs)
 else()
     find_package(Python REQUIRED COMPONENTS Interpreter Development)
-    # definine variables for compatibility. refactor once older cmake unsupported
+    # define variables for compatibility. refactor once older cmake unsupported
     if (Python_FOUND)
         set(PYTHONLIBS_FOUND ${Python_FOUND})
         set(PYTHON_EXECUTABLE ${Python_EXECUTABLE})
