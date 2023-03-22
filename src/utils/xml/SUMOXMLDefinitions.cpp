@@ -449,6 +449,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "insertionChecks",        SUMO_ATTR_INSERTIONCHECKS },
     { "timeToTeleport",         SUMO_ATTR_TIME_TO_TELEPORT },
     { "timeToTeleportBidi",     SUMO_ATTR_TIME_TO_TELEPORT_BIDI },
+    { "speedFactorPremature",   SUMO_ATTR_SPEEDFACTOR_PREMATURE },
     { "maneuverAngleTimes",     SUMO_ATTR_MANEUVER_ANGLE_TIMES },
     // MSDevice_ElecHybrid
     { "overheadWireChargingPower",      SUMO_ATTR_OVERHEADWIRECHARGINGPOWER },

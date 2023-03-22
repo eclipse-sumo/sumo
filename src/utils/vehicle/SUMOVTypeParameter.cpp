@@ -296,6 +296,7 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
       carriageGap(1),
       timeToTeleport(TTT_UNSET),
       timeToTeleportBidi(TTT_UNSET),
+      speedFactorPremature(-1),
       frontSeatPos(1.7),
       seatingWidth(-1),
       parametersSet(0),
@@ -506,6 +507,12 @@ SUMOVTypeParameter::write(OutputDevice& dev) const {
     }
     if (wasSet(VTYPEPARS_TTT_SET)) {
         dev.writeAttr(SUMO_ATTR_TIME_TO_TELEPORT, time2string(timeToTeleport));
+    }
+    if (wasSet(VTYPEPARS_TTT_BIDI_SET)) {
+        dev.writeAttr(SUMO_ATTR_TIME_TO_TELEPORT_BIDI, time2string(timeToTeleportBidi));
+    }
+    if (wasSet(VTYPEPARS_SPEEDFACTOR_PREMATURE_SET)) {
+        dev.writeAttr(SUMO_ATTR_SPEEDFACTOR_PREMATURE, speedFactorPremature);
     }
     if (wasSet(VTYPEPARS_LANE_CHANGE_MODEL_SET)) {
         dev.writeAttr(SUMO_ATTR_LANE_CHANGE_MODEL, lcModel);

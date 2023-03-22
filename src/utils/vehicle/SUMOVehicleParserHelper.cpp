@@ -1046,6 +1046,16 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
                 vType->parametersSet |= VTYPEPARS_TTT_BIDI_SET;
             }
         }
+        if (attrs.hasAttribute(SUMO_ATTR_SPEEDFACTOR_PREMATURE)) {
+            bool ok = true;
+            const double sfp = attrs.get<double>(SUMO_ATTR_SPEEDFACTOR_PREMATURE, id.c_str(), ok);
+            if (!ok) {
+                return handleVehicleTypeError(hardFail, vType);
+            } else {
+                vType->speedFactorPremature = sfp;
+                vType->parametersSet |= VTYPEPARS_SPEEDFACTOR_PREMATURE_SET;
+            }
+        }
         if (attrs.hasAttribute(SUMO_ATTR_MAXSPEED_LAT)) {
             bool ok = true;
             const double maxSpeedLat = attrs.get<double>(SUMO_ATTR_MAXSPEED_LAT, vType->id.c_str(), ok);

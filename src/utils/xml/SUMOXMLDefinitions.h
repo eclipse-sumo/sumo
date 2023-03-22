@@ -640,6 +640,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_INSERTIONCHECKS,
     SUMO_ATTR_TIME_TO_TELEPORT,
     SUMO_ATTR_TIME_TO_TELEPORT_BIDI,
+    SUMO_ATTR_SPEEDFACTOR_PREMATURE,
     /// @brief Class specific timing values for vehicle maneuvering through angle ranges
     SUMO_ATTR_MANEUVER_ANGLE_TIMES,
     /// @}
