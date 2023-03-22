@@ -81,10 +81,7 @@ will restrict it's usage to one direction at a time.
 
 ### Bidirectional rails in [sumo-gui](../sumo-gui.md)
 
-sumo-gui automatically shows only one of both edges to avoid duplicate
-drawing of cross-ties. The visualization option *show lane direction*
-can be used to identify superposed edges. (arrows in both directions
-will be show).
+Visualization of bidirectional tracks has a distinct [style and dedicated settings](#network).
 
 ### Working with bidirectional tracks in [netedit](../Netedit/index.md)
 
@@ -138,6 +135,8 @@ Signaling](https://en.wikipedia.org/wiki/Automatic_block_signaling).
 
 By setting the [netconvert](../netconvert.md)-option **--railway.signals.discard** all signals
 can be removed from a network.
+
+When working with bidirectional tracks, rail signals will affect both directions of travel by default. This can be [changed in netedit](../Netedit/neteditUsageExamples.md#define_rail_signals_that_only_affect_one_track_direction).
 
 ## Rail Crossings
 
@@ -407,9 +406,17 @@ These parameters control the appearance of trains in [sumo-gui](../sumo-gui.md) 
 By default, railway tracks are shown in [sumo-gui](../sumo-gui.md) in a distinct style:
 
 - tracks and crossties are rendendered instead of filled shapes when zoomed in (configurable with visualization setting *show rails*)
+- turning arrows are not show
+- the [white bar that indicates right of way](../sumo-gui.md#right_of_way) is not drawn
 - junction shapes are not shown and the internal edges that make up a railway switch are always visible (can be changed setting junction coloring to any scheme other than *uniform*)
 - traffic light (rail signal) indicators are drawn with an offset to the right to indicate the direction in which the signal is applied
-- for each pair of edges that make up a bidirectional track, only of is drawn to avoid artefacts. To make both edges visible (i.e. for selecting or otherwise interacting with that edge), the visualization setting *spread bidirectional railways* in the *Streets* tab can be activated
+- for each pair of edges that make up a bidirectional track, only of is drawn to avoid artefacts. To make both edges visible (i.e. for selecting or otherwise interacting with that edge), the visualization setting *spread bidirectional railways/roads* in the *Streets* tab can be activated
+- the pre-defined gui setting scheme *"Rail"* can be used to activate the following settings that are helpful for diagnosing a railway simualation
+  - *spread bidirectional railways/roads*
+  - coloring junctions *by type* (making rail signals more visible)
+  - constant junction size (making rail signals bigger when zoomed out)
+  - show lane direction (direction is otherwise hard to judge for uni-directional tracks)
+  - vehicles are shown as *simple shapes* to ensure articulated train shapes follow curves
 
 ## Abstract Networks
 
