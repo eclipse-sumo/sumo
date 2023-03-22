@@ -360,8 +360,8 @@ catchup="connected_pCatchup" catchupFollower="connected_pCatchupFollower" />
             traci.simulationStep()
 
         self.assertEqual(
-            rp.REPORT_LOG[-1][1], "Platoon '0' splits (ID of new platoon: '6'):\n    Platoon '0': ['connected.1']\n" +
-            "    Platoon '6': ['connected.2'] (PlatoonManager)")
+            rp.REPORT_LOG[-1][1], "Platoon '0' splits (ID of new platoon: '2'):\n    Platoon '0': ['connected.1']\n" +
+            "    Platoon '2': ['connected.2'] (PlatoonManager)")
 
 
 # # ignore some tests for faster execution

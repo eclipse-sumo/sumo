@@ -593,6 +593,14 @@ speed = 13.277319223908126
 decel = 4.5
 followerBrakeGap = 19.587467308173366
 headwayDist = 13.277319223908126 (PVehicle)
+68.5: leaderSpeed = 13.319412546940148
+leaderDecel = 4.5
+gap = 15.021854092960098
+leaderBrakeGap = 19.711861177287403
+speed = 13.277319223908126
+decel = 4.5
+followerBrakeGap = 19.587467308173366
+headwayDist = 13.277319223908126 (PVehicle)
 68.5: Vehicle 'other.1': Setting PlatoonMode 'NONE' (PVehicle)
 68.5: Activated mode PlatoonMode.NONE for platoon '6' (['other.1']) (Platoon)
 Vehicle 'other.1' resets switch waiting time. (PVehicle)
@@ -932,6 +940,14 @@ registered leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
 86.5: Time until split from platoon for veh 'other.1': 0.0 (PVehicle)
+86.5: leaderSpeed = 13.368612064151094
+leaderDecel = 4.5
+gap = 15.088092876892006
+leaderBrakeGap = 19.85775428019624
+speed = 13.611602499905802
+decel = 4.5
+followerBrakeGap = 20.586191401715766
+headwayDist = 13.611602499905802 (PVehicle)
 86.5: leaderSpeed = 13.368612064151094
 leaderDecel = 4.5
 gap = 15.088092876892006
@@ -1485,6 +1501,14 @@ registered leaders: ['None', "<PVehicle 'other.0'>"] (PlatoonManager)
 Vehicle 'v.0' resets switch waiting time. (PVehicle)
 Vehicle 'other.0' resets switch waiting time. (PVehicle)
 120.5: Time until split from platoon for veh 'other.1': 0.0 (PVehicle)
+120.5: leaderSpeed = 13.511745515824297
+leaderDecel = 4.5
+gap = 15.01263426761659
+leaderBrakeGap = 20.28525187604422
+speed = 13.71455041743923
+decel = 4.5
+followerBrakeGap = 20.898765905831397
+headwayDist = 13.71455041743923 (PVehicle)
 120.5: leaderSpeed = 13.511745515824297
 leaderDecel = 4.5
 gap = 15.01263426761659
