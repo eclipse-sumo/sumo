@@ -98,7 +98,7 @@ will be show).
   selection](../Netedit/index.md#match_attribute) and search for
   attribute *bidi* with a value of *1*
 - Create bidirectional tracks [as explained
-  here](../Netedit/index.md#creating_bidirectional_railway_tracks)
+  here](../Netedit/neteditUsageExamples.md#creating_bidirectional_railway_tracks)
 
 ### Routing in bidirectional networks
 When computing train routes in a network with parallel tracks which are usable in both directions, it may be
