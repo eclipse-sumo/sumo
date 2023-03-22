@@ -456,7 +456,7 @@ GNEVTypeDistributionsDialog::ParametersOperations::GNEParameterHandler::myStartE
                             WRITE_WARNINGF(TL("Key '%' of Parameter contains invalid characters"), key);
                         }
                     } else if (myParametersOperationsParent->myParameterDialogParent->myParametersValues->keyExist(key)) {
-                        WRITE_WARNINGF(TL("Key '%' already exist"), key);
+                        WRITE_WARNINGF(TL("Key '%' already exists"), key);
                     } else {
                         // add parameter to vector of myParameterDialogParent
                         myParametersOperationsParent->myParameterDialogParent->myParametersValues->addParameter(std::make_pair(key, value));

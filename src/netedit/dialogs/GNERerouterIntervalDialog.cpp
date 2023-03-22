@@ -318,7 +318,7 @@ GNERerouterIntervalDialog::onCmdAddClosingLaneReroute(FXObject*, FXSelector, voi
         // update closing lane reroutes table
         updateClosingLaneReroutesTable();
     } else {
-        WRITE_WARNING(TL("There is no lanes in the network"));
+        WRITE_WARNING(TL("There are no lanes in the network"));
     }
     return 1;
 }
@@ -338,7 +338,7 @@ GNERerouterIntervalDialog::onCmdAddClosingReroute(FXObject*, FXSelector, void*) 
         // update closing reroutes table
         updateClosingReroutesTable();
     } else {
-        WRITE_WARNING(TL("There is no edges in the network"));
+        WRITE_WARNING(TL("There are no edges in the network"));
     }
     return 1;
 }
@@ -358,7 +358,7 @@ GNERerouterIntervalDialog::onCmdAddDestProbReroute(FXObject*, FXSelector, void*)
         // update dest Prob reroutes table
         updateDestProbReroutesTable();
     } else {
-        WRITE_WARNING(TL("There is no edges in the network"));
+        WRITE_WARNING(TL("There are no edges in the network"));
     }
     return 1;
 }
@@ -395,7 +395,7 @@ GNERerouterIntervalDialog::onCmdAddParkingAreaReroute(FXObject*, FXSelector, voi
         // update dest Prob reroutes table
         updateParkingAreaReroutesTable();
     } else {
-        WRITE_WARNING(TL("There is no parking areas in the network"));
+        WRITE_WARNING(TL("There are no parking areas in the network"));
     }
     return 1;
 }

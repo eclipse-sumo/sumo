@@ -1152,7 +1152,7 @@ GNEAttributeCarrier::fillNetworkElements() {
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_NAME,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
-                                              TL("street name (need not be unique, used for visualization)"));
+                                              TL("street name (does not need to be unique, used for visualization)"));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_WIDTH,
@@ -1339,7 +1339,7 @@ GNEAttributeCarrier::fillNetworkElements() {
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_CUSTOMSHAPE,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::POSITION | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                                              TL("Overrids default shape of pedestrian crossing"));
+                                              TL("Overrides default shape of pedestrian crossing"));
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
     currentTag = SUMO_TAG_WALKINGAREA;
@@ -1368,7 +1368,7 @@ GNEAttributeCarrier::fillNetworkElements() {
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_SHAPE,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::POSITION | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                                              TL("Overrids default shape of pedestrian sidewalk"));
+                                              TL("Overrides default shape of pedestrian sidewalk"));
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
     currentTag = SUMO_TAG_CONNECTION;
