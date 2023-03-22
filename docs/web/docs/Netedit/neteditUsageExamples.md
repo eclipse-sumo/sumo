@@ -183,6 +183,14 @@ directions. To make a unidirectional track usable in both directions,
 6.  in [Create Edges](editModesNetwork.md#create_edges), set the checkbox to *Two-way* and optionally to *Chain*
 7.  continue to created edges. Each click will create bidirectional track
 
+## Define rail signals that only affect one track direction
+
+If a piece of railway track is [modelled for train operations in both directions](#creating_bidirectional_railway_tracks), any rail signal defined on this *bidi*-track will affect both direction of travel by default.
+To change this, the following steps have to be taken:
+
+1. ensure that [edges for both directions of travel are visible](../Simulation/Railways.md#working_with_bidirectional_tracks_in_netedit)
+2. [set connection attribute](#setting_connection_attributes) `uncontrolled=True` for the connection that shall not be controlled
+
 ## Creating a zipper merge
 
 1. use inspect mode to set junction type to 'zipper'.
