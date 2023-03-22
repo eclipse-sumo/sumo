@@ -873,7 +873,7 @@ RouteHandler::parseNestedCFM(const SumoXMLTag tag, const SUMOSAXAttributes& attr
     const auto vTypeObject = myCommonXMLStructure.getCurrentSumoBaseObject()->getParentSumoBaseObject();
     // parse embedded car following model information
     if (vTypeObject && (vTypeObject->getTag() == SUMO_TAG_VTYPE)) {
-        WRITE_WARNINGF(TL("Defining car following parameters in a nested element is deprecated in vType '%', use attributes instead!"), vTypeObject->getStringAttribute(SUMO_ATTR_ID));
+        WRITE_WARNINGF(TL("Defining car-following parameters in a nested element is deprecated in vType '%', use attributes instead!"), vTypeObject->getStringAttribute(SUMO_ATTR_ID));
         // get vType to modify it
         auto vType = vTypeObject->getVehicleTypeParameter();
         // parse nested CFM attributes

@@ -1171,9 +1171,9 @@ SUMOVehicleParserHelper::parseCFMParams(SUMOVTypeParameter* into, const SumoXMLT
     // check if given CFM is allowed
     if (cf_it == allowedCFM.end()) {
         if (SUMOXMLDefinitions::Tags.has((int)element)) {
-            WRITE_ERRORF(TL("Unknown car following model % when parsing vType '%'"), toString(element), into->id);
+            WRITE_ERRORF(TL("Unknown car-following model % when parsing vType '%'"), toString(element), into->id);
         } else {
-            WRITE_ERRORF(TL("Unknown car following model when parsing vType '%'"), into->id);
+            WRITE_ERRORF(TL("Unknown car-following model when parsing vType '%'"), into->id);
         }
         return false;
     }
