@@ -25,6 +25,7 @@ import socket
 import struct
 import sys
 import warnings
+import threading
 
 from . import constants as tc
 from .exceptions import TraCIException, FatalTraCIError
@@ -87,6 +88,7 @@ class Connection(StepManager):
         self._string = bytes()
         self._queue = []
         self._subscriptionMapping = {}
+        self._lock = threading.Lock()
         if traceFile is not None:
             self.startTracing(traceFile, traceGetters, DOMAINS)
         for domain in DOMAINS:
@@ -203,26 +205,27 @@ class Connection(StepManager):
         return packed
 
     def _sendCmd(self, cmdID, varID, objID, format="", *values):
-        self._queue.append(cmdID)
-        packed = self._pack(format, *values)
-        length = len(packed) + 1 + 1  # length and command
-        if varID is not None:
-            if isinstance(varID, tuple):  # begin and end of a subscription
-                length += 8 + 8 + 4 + len(objID)
+        with self._lock:
+            self._queue.append(cmdID)
+            packed = self._pack(format, *values)
+            length = len(packed) + 1 + 1  # length and command
+            if varID is not None:
+                if isinstance(varID, tuple):  # begin and end of a subscription
+                    length += 8 + 8 + 4 + len(objID)
+                else:
+                    length += 1 + 4 + len(objID)
+            if length <= 255:
+                self._string += struct.pack("!BB", length, cmdID)
             else:
-                length += 1 + 4 + len(objID)
-        if length <= 255:
-            self._string += struct.pack("!BB", length, cmdID)
-        else:
-            self._string += struct.pack("!BiB", 0, length + 4, cmdID)
-        if varID is not None:
-            if isinstance(varID, tuple):
-                self._string += struct.pack("!dd", *varID)
-            else:
-                self._string += struct.pack("!B", varID)
-            self._string += struct.pack("!i", len(objID)) + objID.encode("latin1")
-        self._string += packed
-        return self._sendExact()
+                self._string += struct.pack("!BiB", 0, length + 4, cmdID)
+            if varID is not None:
+                if isinstance(varID, tuple):
+                    self._string += struct.pack("!dd", *varID)
+                else:
+                    self._string += struct.pack("!B", varID)
+                self._string += struct.pack("!i", len(objID)) + objID.encode("latin1")
+            self._string += packed
+            return self._sendExact()
 
     def _readSubscription(self, result):
         if _DEBUG:
