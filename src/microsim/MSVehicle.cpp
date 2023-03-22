@@ -2427,6 +2427,34 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
 
             }
 #endif
+            // optionally slow down to match arrival time
+            if (stop.pars.arrival >= 0 && getVehicleType().getParameter().speedFactorPremature > 0) {
+                const double arrivalDelay = getStopArrivalDelay();
+                const double sfp = getVehicleType().getParameter().speedFactorPremature;
+                if (arrivalDelay < 0 && sfp < getChosenSpeedFactor()) {
+                    // we can slow down to better match the schedule (and increase energy efficiency)
+                    const double s = newStopDist;
+                    const double b = getCarFollowModel().getMaxDecel();
+                    const double t = STEPS2TIME(stop.pars.arrival - SIMSTEP);
+                    // x = speed for arriving in t seconds
+                    // u = time at full speed
+                    // u * x + (t - u) * 0.5 * x = s
+                    // t - u = x / b
+                    // eliminate u, solve x
+                    const double x = t * b - sqrt(4 * t * t * b * b - 8 * s * b) * 0.5;
+                    const double vSlowDownMin = MAX2(lane->getSpeedLimit() * sfp, vMinComfortable);
+                    double vSlowDown = x < vSlowDownMin ? vSlowDownMin : x;
+                    //std::cout << SIMTIME << " veh=" << getID() << " ad=" << arrivalDelay << " t=" << t << " vsm=" << vSlowDownMin << " vs=" << vSlowDown << " v=" << v << " v2=" << MIN2(v, vSlowDown) << "\n";
+                    v = MIN2(v, vSlowDown);
+                } else if (arrivalDelay > 0 && sfp > getChosenSpeedFactor()) {
+                    // in principle we could up to catch up with the schedule
+                    // but at this point we can only lower the speed, the
+                    // information would have to be used when computing getVehicleMaxSpeed
+                }
+            }
+
+            // if the vehicle is going to stop we don't need to look further
+            // (except for trains that make use of further link-approach registration for safety purposes)
             if (!isWaypoint && !isRailway(getVClass())) {
                 lfLinks.emplace_back(v, newStopDist);
                 break;
