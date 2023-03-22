@@ -155,7 +155,7 @@ msgid "Detector '%' has no routes!?"
 msgstr "¿¡El detector '%' no tiene rutas!?"
 
 #: /home/micha/programming/sumo/src\dfrouter\RODFDetectorHandler.cpp:86
-msgid "Could not add detector '%' (probably the id is already used)."
+msgid "Could not add detector '%' (probably the ID is already used)."
 msgstr ""
 "No se pudo agregar el detector '%' (probablemente la id ya esté en uso)."
 
@@ -899,7 +899,7 @@ msgid "Person '%' was removed though being controlled by TraCI"
 msgstr ""
 
 #: /home/micha/programming/sumo/src\libsumo\MeanData.cpp:83
-msgid "Found % meanData definitions with id '%'."
+msgid "Found % meanData definitions with ID '%'."
 msgstr ""
 
 #: /home/micha/programming/sumo/src\libsumo\Person.cpp:530
@@ -2428,7 +2428,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src\microsim\MSInsertionControl.cpp:276
 #: /home/micha/programming/sumo/src\router\RONet.cpp:450
 #, c-format
-msgid "Another vehicle with the id '%' exists."
+msgid "Another vehicle with the ID '%' exists."
 msgstr ""
 
 #: /home/micha/programming/sumo/src\microsim\MSInternalJunction.cpp:55
@@ -2564,7 +2564,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src\microsim\MSRouteHandler.cpp:252
 #: /home/micha/programming/sumo/src\microsim\MSRouteHandler.cpp:896
 #, c-format
-msgid "Another vehicle type (or distribution) with the id '%' exists."
+msgid "Another vehicle type (or distribution) with the ID '%' exists."
 msgstr ""
 
 #: /home/micha/programming/sumo/src\microsim\MSRouteHandler.cpp:273
@@ -2607,13 +2607,13 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src\microsim\MSRouteHandler.cpp:429
 #, c-format
-msgid "A vehicle with id '%' already exists."
+msgid "A vehicle with ID '%' already exists."
 msgstr ""
 
 #: /home/micha/programming/sumo/src\microsim\MSRouteHandler.cpp:432
 #: /home/micha/programming/sumo/src\microsim\MSRouteHandler.cpp:506
 #, c-format
-msgid "Another route (or distribution) with the id '%' exists."
+msgid "Another route (or distribution) with the ID '%' exists."
 msgstr ""
 
 #: /home/micha/programming/sumo/src\microsim\MSRouteHandler.cpp:510
@@ -2659,7 +2659,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src\microsim\MSRouteHandler.cpp:972
 #, c-format
-msgid "Another flow with the id '%' exists."
+msgid "Another flow with the ID '%' exists."
 msgstr ""
 
 #: /home/micha/programming/sumo/src\microsim\MSRouteHandler.cpp:1113
@@ -4149,15 +4149,15 @@ msgid ""
 msgstr ""
 
 #: /home/micha/programming/sumo/src\microsim\trigger\MSTriggeredRerouter.cpp:127
-msgid "MSTriggeredRerouter %: No destination edge id given."
+msgid "MSTriggeredRerouter %: No destination edge ID given."
 msgstr ""
 
 #: /home/micha/programming/sumo/src\microsim\trigger\MSTriggeredRerouter.cpp:192
-msgid "MSTriggeredRerouter %: No route id given."
+msgid "MSTriggeredRerouter %: No route ID given."
 msgstr ""
 
 #: /home/micha/programming/sumo/src\microsim\trigger\MSTriggeredRerouter.cpp:217
-msgid "MSTriggeredRerouter %: No parking area id given."
+msgid "MSTriggeredRerouter %: No parking area ID given."
 msgstr ""
 
 #: /home/micha/programming/sumo/src\microsim\trigger\MSTriggeredRerouter.cpp:505
@@ -4376,7 +4376,7 @@ msgid "Edge '%' needs at least one lane."
 msgstr ""
 
 #: /home/micha/programming/sumo/src\netbuild\NBEdge.cpp:462
-msgid "Invalid edge id '%'."
+msgid "Invalid edge ID '%'."
 msgstr ""
 
 #: /home/micha/programming/sumo/src\netbuild\NBEdge.cpp:492
@@ -4514,7 +4514,7 @@ msgid ""
 msgstr ""
 
 #: /home/micha/programming/sumo/src\netbuild\NBEdgeCont.cpp:438
-msgid "Attempt to rename edge using existing id '%'"
+msgid "Attempt to rename edge using existing ID '%'"
 msgstr ""
 
 #: /home/micha/programming/sumo/src\netbuild\NBEdgeCont.cpp:498
@@ -5234,7 +5234,7 @@ msgid "Could not load IDs from '%'."
 msgstr ""
 
 #: /home/micha/programming/sumo/src\netbuild\NBHelpers.cpp:123
-msgid "Invalid lane id '%' (missing '_')."
+msgid "Invalid lane ID '%' (missing '_')."
 msgstr ""
 
 #: /home/micha/programming/sumo/src\netbuild\NBHelpers.cpp:130
@@ -5302,7 +5302,7 @@ msgid "Removed % pt stops because they could not be assigned to the network"
 msgstr ""
 
 #: /home/micha/programming/sumo/src\netbuild\NBNetBuilder.cpp:149
-msgid "Align pt stop id signs with corresponding edge id signs"
+msgid "Align pt stop id signs with corresponding edge ID signs"
 msgstr ""
 
 #: /home/micha/programming/sumo/src\netbuild\NBNetBuilder.cpp:186
@@ -5515,7 +5515,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src\netbuild\NBNode.cpp:299
 #: /home/micha/programming/sumo/src\netbuild\NBNode.cpp:321
-msgid "Invalid node id '%'."
+msgid "Invalid node ID '%'."
 msgstr ""
 
 #: /home/micha/programming/sumo/src\netbuild\NBNode.cpp:465
@@ -5722,7 +5722,7 @@ msgid " Network boundaries:"
 msgstr " Límites de la red:"
 
 #: /home/micha/programming/sumo/src\netbuild\NBNodeCont.cpp:2555
-msgid "Attempt to rename node using existing id '%'"
+msgid "Attempt to rename node using existing ID '%'"
 msgstr ""
 "Intento de renombrar un cruce (junction) usando un identificador '%' ya "
 "existente"
@@ -6678,11 +6678,11 @@ msgid "Edge '%' is not unique. Renaming subsequent edge to '%'."
 msgstr ""
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_ArcView.cpp:354
-msgid "Could not create edge '%'. An edge with the same id already exists."
+msgid "Could not create edge '%'. An edge with the same ID already exists."
 msgstr ""
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_ArcView.cpp:368
-msgid "Could not create edge '-%'. An edge with the same id already exists."
+msgid "Could not create edge '-%'. An edge with the same ID already exists."
 msgstr ""
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_ArcView.cpp:382
@@ -7013,7 +7013,7 @@ msgid "In laneLink-element: incoming road '%' is not known."
 msgstr ""
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_OpenDrive.cpp:2389
-msgid "Ignoring object without id at edge '%'."
+msgid "Ignoring object without ID at edge '%'."
 msgstr ""
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_OpenDrive.cpp:2407
@@ -7441,7 +7441,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_VISUM.cpp:594
 #: /home/micha/programming/sumo/src\netimport\NIImporter_VISUM.cpp:629
-msgid "A duplicate edge id occurred (ID='%')."
+msgid "A duplicate edge ID occurred (ID='%')."
 msgstr ""
 
 #: /home/micha/programming/sumo/src\netimport\NIImporter_VISUM.cpp:614
@@ -7726,7 +7726,7 @@ msgid "Unable to project shape for walkingArea at node '%'."
 msgstr ""
 
 #: /home/micha/programming/sumo/src\netimport\NIXMLEdgesHandler.cpp:211
-msgid "Duplicate edge id occurred ('%'); assuming overwriting is wished."
+msgid "Duplicate edge ID occurred ('%'); assuming overwriting is wished."
 msgstr ""
 
 #: /home/micha/programming/sumo/src\netimport\NIXMLEdgesHandler.cpp:216
@@ -7764,7 +7764,7 @@ msgid "Edge '%' has already a split at position %."
 msgstr ""
 
 #: /home/micha/programming/sumo/src\netimport\NIXMLEdgesHandler.cpp:509
-msgid "Invalid split node id for edge '%' (from- and to-node are forbidden)"
+msgid "Invalid split node ID for edge '%' (from- and to-node are forbidden)"
 msgstr ""
 
 #: /home/micha/programming/sumo/src\netimport\NIXMLEdgesHandler.cpp:547
@@ -7872,7 +7872,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src\netimport\NIXMLTrafficLightsHandler.cpp:140
 #: /home/micha/programming/sumo/src\netimport\NIXMLTrafficLightsHandler.cpp:158
-msgid "Cannot load traffic light program for unknown id '%', programID '%'."
+msgid "Cannot load traffic light program for unknown ID '%', programID '%'."
 msgstr ""
 
 #: /home/micha/programming/sumo/src\netimport\NIXMLTrafficLightsHandler.cpp:331
@@ -8084,7 +8084,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src\netload\NLBuilder.cpp:197
 #: /home/micha/programming/sumo/src\router\RONet.cpp:215
 #, c-format
-msgid "A TAZ with id '%' already exists. Not building junction TAZ."
+msgid "A TAZ with ID '%' already exists. Not building junction TAZ."
 msgstr ""
 
 #: /home/micha/programming/sumo/src\netload\NLBuilder.cpp:228
@@ -8148,7 +8148,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src\netload\NLHandler.cpp:554
 #, c-format
-msgid "Another lane with the id '%' exists."
+msgid "Another lane with the ID '%' exists."
 msgstr ""
 
 #: /home/micha/programming/sumo/src\netload\NLHandler.cpp:624
@@ -8274,7 +8274,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src\netload\NLJunctionControlBuilder.cpp:344
 #, c-format
-msgid "Another logic with id '%' and programID '%' exists."
+msgid "Another logic with ID '%' and programID '%' exists."
 msgstr ""
 
 #: /home/micha/programming/sumo/src\netload\NLJunctionControlBuilder.cpp:471
@@ -8786,7 +8786,7 @@ msgid "Unable to project coordinates for polygon '%'."
 msgstr ""
 
 #: /home/micha/programming/sumo/src\polyconvert\PCLoaderArcView.cpp:184
-msgid "Missing id under '%'"
+msgid "Missing ID under '%'"
 msgstr ""
 
 #: /home/micha/programming/sumo/src\polyconvert\PCLoaderArcView.cpp:232
@@ -8876,7 +8876,7 @@ msgid "Could not find projection parameter in net."
 msgstr ""
 
 #: /home/micha/programming/sumo/src\polyconvert\PCTypeDefHandler.cpp:71
-msgid "Could not add polygon type '%' (probably the id is already used)."
+msgid "Could not add polygon type '%' (probably the ID is already used)."
 msgstr ""
 
 #: /home/micha/programming/sumo/src\polyconvert\polyconvert_main.cpp:81
@@ -8910,7 +8910,7 @@ msgid "The type will be made of the key-value - pair"
 msgstr ""
 
 #: /home/micha/programming/sumo/src\polyconvert\polyconvert_main.cpp:109
-msgid "The id will be set from the given 'name' attribute"
+msgid "The ID will be set from the given 'name' attribute"
 msgstr ""
 
 #: /home/micha/programming/sumo/src\polyconvert\polyconvert_main.cpp:111
@@ -8928,11 +8928,11 @@ msgid "Guesses the shapefile's projection"
 msgstr ""
 
 #: /home/micha/programming/sumo/src\polyconvert\polyconvert_main.cpp:130
-msgid "Defines in which column the id can be found"
+msgid "Defines in which column the ID can be found"
 msgstr ""
 
 #: /home/micha/programming/sumo/src\polyconvert\polyconvert_main.cpp:134
-msgid "Defines which columns form the type id (comma separated list)"
+msgid "Defines which columns form the type ID (comma separated list)"
 msgstr ""
 
 #: /home/micha/programming/sumo/src\polyconvert\polyconvert_main.cpp:137
@@ -9268,7 +9268,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src\router\RONet.cpp:497
 #, c-format
-msgid "Another person with the id '%' exists."
+msgid "Another person with the ID '%' exists."
 msgstr ""
 
 #: /home/micha/programming/sumo/src\router\RONet.cpp:606
@@ -10513,11 +10513,11 @@ msgid "Undefined end for % '%', defaulting to 24hour duration."
 msgstr ""
 
 #: /home/micha/programming/sumo/src\utils\vehicle\SUMOVehicleParserHelper.cpp:402
-msgid "Invalid % id '%'."
+msgid "Invalid % ID '%'."
 msgstr ""
 
 #: /home/micha/programming/sumo/src\utils\vehicle\SUMOVehicleParserHelper.cpp:404
-msgid "Invalid % id '%'. Contains invalid characters."
+msgid "Invalid % ID '%'. Contains invalid characters."
 msgstr ""
 
 #: /home/micha/programming/sumo/src\utils\vehicle\SUMOVehicleParserHelper.cpp:947

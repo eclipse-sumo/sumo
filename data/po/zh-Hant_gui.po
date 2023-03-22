@@ -4885,7 +4885,7 @@ msgid "Nothing to toggle, implement in Children"
 msgstr "無需切換，完成於子(children)類別"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:913
-msgid "The id of the node"
+msgid "The ID of the node"
 msgstr "節點的識別名(id)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:918
@@ -4932,11 +4932,11 @@ msgid "An optional layout for the traffic light plan"
 msgstr "交通號誌計畫的可自選配置(layout)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:980
-msgid "An optional id for the traffic light program"
+msgid "An optional ID for the traffic light program"
 msgstr "交通號誌計畫的可自選識別名(id)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:993
-msgid "The id of the edge"
+msgid "The ID of the edge"
 msgstr "路段的識別名(id)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:998
@@ -5250,7 +5250,7 @@ msgid "link state for this connection (computed)"
 msgstr "此連接線(connection)的鏈接狀態(link state) (計算過的)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1535
-msgid "The id of bus stop"
+msgid "The ID of bus stop"
 msgstr "公車站的識別名(id)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1540
@@ -5359,7 +5359,7 @@ msgid "The RGBA color with which the busStop shall be displayed"
 msgstr "公車站(busStop)的RGBA顏色將會被顯示"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1599
-msgid "The id of train stop"
+msgid "The ID of train stop"
 msgstr "火車站的識別名(id)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1604
@@ -5414,7 +5414,7 @@ msgid "The walking length of the access in meters"
 msgstr "通道的步行長度(公尺)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1697
-msgid "The id of container stop"
+msgid "The ID of container stop"
 msgstr "貨櫃(container)停靠站的識別名(id)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1702
@@ -5442,7 +5442,7 @@ msgid "The RGBA color with which the containerStop shall be displayed"
 msgstr "貨櫃停靠站(containerStop)的RGBA顏色將會被顯示"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1760
-msgid "The id of charging station"
+msgid "The ID of charging station"
 msgstr "充電站的識別名"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1765
@@ -5482,7 +5482,7 @@ msgid ""
 msgstr "車輛到達/停在充電站後，能量傳輸（充電）開始之前的時間延遲"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1826
-msgid "The id of ParkingArea"
+msgid "The ID of ParkingArea"
 msgstr "停車場的id"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1831
@@ -5537,7 +5537,7 @@ msgid "The slope of the road-side parking spaces"
 msgstr "路邊停車位的坡度"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1943
-msgid "The id of E1"
+msgid "The ID of E1"
 msgstr "E1 的id"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1948
@@ -5588,7 +5588,7 @@ msgid "Space separated list of vehicle type ids to consider"
 msgstr "要考慮的車輛類型ID的空格分隔清單"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1995
-msgid "The id of E2"
+msgid "The ID of E2"
 msgstr "E2 的id"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2005
@@ -5637,7 +5637,7 @@ msgstr ""
 "參與者。"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2076
-msgid "The id of Multilane E2"
+msgid "The ID of Multilane E2"
 msgstr "多車道偵測器E2 (Multilane E2)的識別名(id)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2081
@@ -5653,7 +5653,7 @@ msgid "Name of Multilane E2 detector"
 msgstr "多車道偵測器E2 (Multilane E2) 名稱"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2157
-msgid "The id of E3"
+msgid "The ID of E3"
 msgstr "E3的識別名(id)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2162
@@ -5673,7 +5673,7 @@ msgid ""
 msgstr "以時間為基礎的閾值, 用來定義車輛必須停等多少時間才會被認為是停等"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2263
-msgid "The id of Instant Induction Loop (E1Instant)"
+msgid "The ID of Instant Induction Loop (E1Instant)"
 msgstr ""
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2278
@@ -5681,11 +5681,11 @@ msgid "Name of instant induction loop"
 msgstr "即時偵測器(instant induction loop)的名稱"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2309
-msgid "The id of RouteProbe"
+msgid "The ID of RouteProbe"
 msgstr "路徑取樣(RouteProbe)的識別名(id)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2314
-msgid "The id of an edge in the simulation network"
+msgid "The ID of an edge in the simulation network"
 msgstr "模擬路網內的路段識別名(id)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2319
@@ -5705,7 +5705,7 @@ msgid "The time at which to start generating output"
 msgstr "開始產生輸出的時間"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2349
-msgid "The id of Variable Speed Signal"
+msgid "The ID of Variable Speed Signal"
 msgstr "可變速度號誌的識別名(id)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2360
@@ -5728,13 +5728,13 @@ msgstr "速度"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2410
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2466
-msgid "The id of Calibrator"
+msgid "The ID of Calibrator"
 msgstr "校估器(Calibrator)的識別名(id)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2415
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3159
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3179
-msgid "The id of edge in the simulation network"
+msgid "The ID of edge in the simulation network"
 msgstr "模擬路網內的路段的識別名(id)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2420
@@ -5778,7 +5778,7 @@ msgid ""
 msgstr "考慮的車輛類型 ID , 並以空格分隔的清單（空的(empty)表示影響所有類型）"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2471
-msgid "The id of lane in the simulation network"
+msgid "The ID of lane in the simulation network"
 msgstr "模擬路網內的路段的識別名(id)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2488
@@ -5787,7 +5787,7 @@ msgstr "校估器所在車道的名稱"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2522
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3709
-msgid "The id of the route the vehicle shall drive along"
+msgid "The ID of the route the vehicle shall drive along"
 msgstr "車輛行駛路徑的識別名(id)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2527
@@ -5800,7 +5800,7 @@ msgid "End of departure interval"
 msgstr "出發間隔結束"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2543
-msgid "The id of the vehicle type to use for this calibrator flow"
+msgid "The ID of the vehicle type to use for this calibrator flow"
 msgstr "用於此校估器流量的車輛類型的識別名(ID)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2549
@@ -5812,11 +5812,11 @@ msgid "Vehicle's speed"
 msgstr "車速"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2570
-msgid "The id of Rerouter"
+msgid "The ID of Rerouter"
 msgstr "改道裝置的識別名(id)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2575
-msgid "An edge id or a list of edge ids where vehicles shall be rerouted"
+msgid "An edge ID or a list of edge ids where vehicles shall be rerouted"
 msgstr "車輛應改道的路段識別名(id)或是清單"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2580
@@ -5905,7 +5905,7 @@ msgid "Name of vaporizer"
 msgstr "蒸發裝置名稱"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2802
-msgid "The id of the polygon"
+msgid "The ID of the polygon"
 msgstr "多邊形物件的識別名(id)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2807
@@ -5957,7 +5957,7 @@ msgstr "呈現的圖像的角度 (以度為單位)"
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2873
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2944
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3034
-msgid "The id of the POI"
+msgid "The ID of the POI"
 msgstr "興趣點的識別名(id)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2878
@@ -6030,7 +6030,7 @@ msgid "The latitud position of the parking vehicle on the view"
 msgstr "停車車輛在視圖上的緯度位置"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3119
-msgid "The id of the TAZ"
+msgid "The ID of the TAZ"
 msgstr "交通分區(TAZ)的識別名(id)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3124
@@ -6118,7 +6118,7 @@ msgid "ID of the overhead wire segment lane of overheadWireIDEndClamp"
 msgstr "架空電線終點夾(overheadWireIDEndClamp)的架空電線區段車道的識別名(ID)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3330
-msgid "The id of Route"
+msgid "The ID of Route"
 msgstr "路徑識別名(id)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3335
@@ -6151,11 +6151,11 @@ msgid "the times will be shifted forward by 'cycleTime' on each repeat"
 msgstr "每次重複時, 時間將通過週期時間(cycleTime)向前移動"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3399
-msgid "The id of VehicleType distribution"
+msgid "The ID of VehicleType distribution"
 msgstr "車輛類型(VehicleType)分布的識別名(id)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3421
-msgid "The id of VehicleType"
+msgid "The ID of VehicleType"
 msgstr "車輛類型(VehicleType)的識別名(id)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3426
@@ -6292,7 +6292,7 @@ msgstr "旅次的識別名(ID)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3618
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3663
-msgid "The id of the vehicle type to use for this trip"
+msgid "The ID of the vehicle type to use for this trip"
 msgstr "用於此旅次的車輛類型識別名(id)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3624
@@ -6315,7 +6315,7 @@ msgid ""
 msgstr "使用旅次定義所產生的(第一個)旅次出發時間"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3658
-msgid "The id of trip"
+msgid "The ID of trip"
 msgstr "旅次識別名(id)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3669
@@ -6327,12 +6327,12 @@ msgid "The name of the junction the trip ends at"
 msgstr "旅次結束的路口的名稱"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3698
-msgid "The id of vehicle"
+msgid "The ID of vehicle"
 msgstr "車輛的識別名(id)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3703
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3748
-msgid "The id of the vehicle type to use for this vehicle"
+msgid "The ID of the vehicle type to use for this vehicle"
 msgstr "使用此車輛的車輛類型識別名(id)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3714
@@ -6362,7 +6362,7 @@ msgstr "流量的識別名(ID)"
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3830
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3867
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3909
-msgid "The id of the flow type to use for this flow"
+msgid "The ID of the flow type to use for this flow"
 msgstr "用於此流量的流量類型的識別名(id)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3794
@@ -6379,7 +6379,7 @@ msgstr "流量使用的中間路段的識別名(id)清單"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3825
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3862
-msgid "The id of the flow"
+msgid "The ID of the flow"
 msgstr "流量識別名(id)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3836
@@ -6391,7 +6391,7 @@ msgid "The name of the junction the flow ends at"
 msgstr "流量結束的路口的名稱"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3873
-msgid "The id of the route the flow shall drive along"
+msgid "The ID of the route the flow shall drive along"
 msgstr "流量應該行經的路徑的識別名(id)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3878
@@ -6607,7 +6607,7 @@ msgid "Id of the destination bus stop"
 msgstr "公車終點站的識別名(id)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4688
-msgid "The id of the route to walk"
+msgid "The ID of the route to walk"
 msgstr "步行路徑的識別名(id)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4708
@@ -7083,7 +7083,7 @@ msgid "The name of the person"
 msgstr "人員名稱"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5500
-msgid "The id of the person type to use for this person"
+msgid "The ID of the person type to use for this person"
 msgstr "為此人員使用的人員類型識別名(id)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5506
@@ -7099,7 +7099,7 @@ msgid "The name of the container"
 msgstr "貨櫃名稱"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5530
-msgid "The id of the container type to use for this container"
+msgid "The ID of the container type to use for this container"
 msgstr "此貨櫃的貨櫃類型識別名(id)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5536
@@ -7197,7 +7197,7 @@ msgid "The name of the TAZ the TAZRel ends at"
 msgstr "TAZ的名稱,其TAZRel結束於"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5760
-msgid "The id of this set of measurements"
+msgid "The ID of this set of measurements"
 msgstr "此測量值集合的識別名(id)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5765
@@ -8009,7 +8009,7 @@ msgstr " 需要至少一個 "
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:108
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:118
-msgid " with id '"
+msgid " with ID '"
 msgstr "帶有識別名(id) '"
 
 #: /home/micha/programming/sumo/src\netedit\elements\demand\GNERouteHandler.cpp:108
