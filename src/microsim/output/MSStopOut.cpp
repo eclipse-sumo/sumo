@@ -127,7 +127,9 @@ MSStopOut::stopEnded(const SUMOVehicle* veh, const SUMOVehicleParameter::Stop& s
     myDevice.writeAttr(SUMO_ATTR_PARKING, stop.parking);
     myDevice.writeAttr("started", time2string(stop.started));
     myDevice.writeAttr("ended", simEnd ? "-1" : time2string(SIMSTEP));
-    myDevice.writeAttr("delay", delay);
+    if (stop.until >= 0) {
+        myDevice.writeAttr("delay", delay);
+    }
     if (stop.arrival >= 0) {
         myDevice.writeAttr("arrivalDelay", arrivalDelay);
     }
