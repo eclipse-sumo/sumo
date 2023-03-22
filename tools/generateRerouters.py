@@ -31,23 +31,23 @@ import sumolib  # noqa
 
 def get_options(args=None):
     op = sumolib.options.ArgumentParser(description="Generate rerouter definition for closed edges",)
-    op.add_option("-n", "--net-file", dest="netfile",
+    op.add_option("-n", "--net-file", category="input", dest="netfile",
                   help="define the net file (mandatory)")
-    op.add_option("-o", "--output-file", dest="outfile", default="rerouters.xml",
+    op.add_option("-o", "--output-file", category="output", dest="outfile", default="rerouters.xml",
                   help="define the output rerouter filename")
-    op.add_option("-x", "--closed-edges", dest="closedEdges",
+    op.add_option("-x", "--closed-edges", category="input", dest="closedEdges",
                   help="provide a comma-separated list of edges to close")
-    op.add_option("-i", "--id-prefix", dest="idPrefix", default="rr",
+    op.add_option("-i", "--id-prefix", category="processing", dest="idPrefix", default="rr",
                   help="id prefix for generated rerouters")
-    op.add_option("--vclass", default="passenger",
+    op.add_option("--vclass", category="processing", default="passenger",
                   help="only consider necessary detours for the given vehicle class (default passenger)")
-    op.add_option("--allow", default="authority",
+    op.add_option("--allow", category="processing", default="authority",
                   help="vClasses that shall be permitted on the closed edge")
-    op.add_option("--disallow",
+    op.add_option("--disallow", category="processing",
                   help="vClasses that shall be prohibited on the closed edge")
-    op.add_option("-b", "--begin",  default=0, type=float,
+    op.add_option("-b", "--begin", category="time",default=0, type=float,
                   help="begin time for the closing")
-    op.add_option("-e", "--end",  default=86400, type=float,
+    op.add_option("-e", "--end", category="time",default=86400, type=float,
                   help="end time for the closing (default 86400)")
     options = op.parse_args(args=args)
     if not options.netfile or not options.closedEdges:

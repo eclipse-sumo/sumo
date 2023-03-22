@@ -39,17 +39,17 @@ else:
 
 def get_options(args=None):
     ap = sumolib.options.ArgumentParser()
-    ap.add_option("-v", "--verbose", action="store_true", default=False,
+    ap.add_option("-v", "--verbose", category="processing", action="store_true", default=False,
                   help="tell me what you are doing")
-    ap.add_option("-k", "--configuration", metavar="FILE",
+    ap.add_option("-k", "--configuration", category="input", metavar="FILE",
                   help="configuration to run")
-    ap.add_option("-a", "--application", default="sumo", metavar="FILE",
+    ap.add_option("-a", "--application", category="processing", default="sumo", metavar="FILE",
                   help="application to run")
-    ap.add_option("-p", "--output-prefix", default="SEED.", dest="prefix",
+    ap.add_option("-p", "--output-prefix",  category="processing",default="SEED.", dest="prefix",
                   help="output prefix",)
-    ap.add_option("--seeds", default="0:10",
+    ap.add_option("--seeds", category="processing", default="0:10",
                   help="which seeds to run")
-    ap.add_option("--threads", type=int, default=1,
+    ap.add_option("--threads", category="processing", type=int, default=1,
                   help="number of parallel processes")
     # parse options
     options, unknown_args = ap.parse_known_args(args=args)

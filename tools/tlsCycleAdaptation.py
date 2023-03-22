@@ -49,45 +49,45 @@ import sumolib
 
 def get_options(args=None):
     optParser = sumolib.options.ArgumentParser()
-    optParser.add_option("-n", "--net-file", dest="netfile", required=True,
+    optParser.add_option("-n", "--net-file", category="input", dest="netfile", required=True,
                          help="define the net file (mandatory)")
-    optParser.add_option("-o", "--output-file", dest="outfile",
+    optParser.add_option("-o", "--output-file", category="output", dest="outfile",
                          default="tlsAdaptation.add.xml", help="define the output filename")
-    optParser.add_option("-r", "--route-files", dest="routefiles", required=True,
+    optParser.add_option("-r", "--route-files", category="input", dest="routefiles", required=True,
                          help="define the route file separated by comma (mandatory)")
-    optParser.add_option("-b", "--begin", dest="begin", type=int,
+    optParser.add_option("-b", "--begin", category="time", dest="begin", type=int,
                          default=0, help="begin time of the optimization period with unit second")
-    optParser.add_option("-y", "--yellow-time", dest="yellowtime", type=int,
+    optParser.add_option("-y", "--yellow-time", category="processing", dest="yellowtime", type=int,
                          default=4, help="yellow time")
-    optParser.add_option("-a", "--all-red", dest="allred", type=int,
+    optParser.add_option("-a", "--all-red", category="processing", dest="allred", type=int,
                          default=0, help="all-red time per cycle")
-    optParser.add_option("-l", "--lost-time", dest="losttime", type=int,
+    optParser.add_option("-l", "--lost-time", category="processing", dest="losttime", type=int,
                          default=4, help="lost time for start-up and clearance in each phase")
-    optParser.add_option("-g", "--min-green", dest="mingreen", type=int,
+    optParser.add_option("-g", "--min-green", category="processing", dest="mingreen", type=int,
                          default=4, help=" minimal green time when there is no traffic volume")
-    optParser.add_option("--green-filter-time", dest="greenFilter", type=int, default=0,
+    optParser.add_option("--green-filter-time", category="processing", dest="greenFilter", type=int, default=0,
                          help="when computing critical flows, do not count phases with a green time below INT")
-    optParser.add_option("--min-cycle", dest="mincycle", type=int,
+    optParser.add_option("--min-cycle", category="processing", dest="mincycle", type=int,
                          default=20, help="minimal cycle length")
-    optParser.add_option("--max-cycle", dest="maxcycle", type=int,
+    optParser.add_option("--max-cycle", category="processing", dest="maxcycle", type=int,
                          default=120, help="maximal cycle length")
-    optParser.add_option("-e", "--existing-cycle", dest="existcycle", action="store_true",
+    optParser.add_option("-e", "--existing-cycle", category="processing", dest="existcycle", action="store_true",
                          default=False, help="use the existing cycle length")
-    optParser.add_option("--write-critical-flows", dest="write_critical_flows", action="store_true",
+    optParser.add_option("--write-critical-flows", category="processing", dest="write_critical_flows", action="store_true",
                          default=False, help="print critical flows for each tls and phase")
-    optParser.add_option("-p", "--program", dest="program", default="a",
+    optParser.add_option("-p", "--program", category="processing", dest="program", default="a",
                          help="save new definitions with this program id")
-    optParser.add_option("-H", "--saturation-headway", dest="satheadway", type=float, default=2,
+    optParser.add_option("-H", "--saturation-headway", category="processing", dest="satheadway", type=float, default=2,
                          help="saturation headway in seconds for calculating hourly saturation flows")
-    optParser.add_option("-R", "--restrict-cyclelength", dest="restrict", action="store_true",
+    optParser.add_option("-R", "--restrict-cyclelength", category="processing", dest="restrict", action="store_true",
                          default=False, help="restrict the max. cycle length as the given one")
-    optParser.add_option("-u", "--unified-cycle", dest="unicycle", action="store_true", default=False,
+    optParser.add_option("-u", "--unified-cycle", category="processing", dest="unicycle", action="store_true", default=False,
                          help="use the calculated max cycle length as the cycle length for all intersections")
-    optParser.add_option("--sorted", action="store_true", default=False,
+    optParser.add_option("--sorted", category="processing", action="store_true", default=False,
                          help="assume the route file is sorted (aborts reading earlier)")
-    optParser.add_option("--skip", dest="skip", type=str,
+    optParser.add_option("--skip", category="processing", dest="skip", type=str,
                          default='', help="the tls ids, which are skipped and seperated by comma")
-    optParser.add_option("-v", "--verbose", dest="verbose", action="store_true",
+    optParser.add_option("-v", "--verbose", category="processing", dest="verbose", action="store_true",
                          default=False, help="tell me what you are doing")
     return optParser.parse_args(args=args)
 

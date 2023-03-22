@@ -36,14 +36,14 @@ import traci  # noqa
 
 def main():
     parser = sumolib.options.ArgumentParser()
-    parser.add_argument("--sumo-config", default="sumo.sumocfg", help="sumo config file")
-    parser.add_argument("--state-prefix", dest="statePrefix", default="state",
+    parser.add_argument("--sumo-config", category="input", default="sumo.sumocfg", help="sumo config file")
+    parser.add_argument("--state-prefix", category="processing", dest="statePrefix", default="state",
                         help="prefix for synchronized state files")
-    parser.add_argument("--src", help="the remote directory to sync")
-    parser.add_argument("--dst", default="states", help="the subdirectory for the synced files")
-    parser.add_argument("--delay", default=1, type=float, help="the delay between simulation states")
-    parser.add_argument("--iterations", type=int, help="the number of iterations to run (mainly useful for testing)")
-    parser.add_argument("-v", "--verbose", action="store_true", default=False, help="tell me what you are doing")
+    parser.add_argument("--src", category="processing", help="the remote directory to sync")
+    parser.add_argument("--dst", category="processing", default="states", help="the subdirectory for the synced files")
+    parser.add_argument("--delay", category="processing", default=1, type=float, help="the delay between simulation states")
+    parser.add_argument("--iterations", category="processing", type=int, help="the number of iterations to run (mainly useful for testing)")
+    parser.add_argument("-v", "--verbose", category="processing", action="store_true", default=False, help="tell me what you are doing")
     # remaining command line options are treated as rsync args
     options, args = parser.parse_known_args()
 

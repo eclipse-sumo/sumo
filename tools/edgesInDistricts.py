@@ -146,35 +146,35 @@ class DistrictEdgeComputer:
 
 
 def fillOptions(argParser):
-    argParser.add_argument("-v", "--verbose", action="store_true",
+    argParser.add_argument("-v", "--verbose", category="processing", action="store_true",
                            default=False, help="tell me what you are doing")
-    argParser.add_argument("--complete", action="store_true",
+    argParser.add_argument("--complete", category="processing", action="store_true",
                            default=False, help="assign edges only if they are not in more than one district")
-    argParser.add_argument("-n", "--net-file",
+    argParser.add_argument("-n", "--net-file", category="input",
                            help="read SUMO network from FILE (mandatory)", metavar="FILE")
-    argParser.add_argument("-t", "--taz-files",
+    argParser.add_argument("-t", "--taz-files", category="input",
                            help="read districts from FILEs", metavar="FILE")
-    argParser.add_argument("-o", "--output", default="districts.taz.xml",
+    argParser.add_argument("-o", "--output", category="output", default="districts.taz.xml",
                            help="write results to FILE", metavar="FILE")
-    argParser.add_argument("-x", "--max-speed", type=float, dest="maxspeed",
+    argParser.add_argument("-x", "--max-speed", type=float, dest="maxspeed", category="processing",
                            default=1000.0, help="use lanes where speed is not greater than this (m/s)")
-    argParser.add_argument("-m", "--min-speed", type=float, dest="minspeed",
+    argParser.add_argument("-m", "--min-speed", type=float, dest="minspeed", category="processing",
                            default=0., help="use lanes where speed is greater than this (m/s)")
-    argParser.add_argument("-w", "--weighted", action="store_true",
+    argParser.add_argument("-w", "--weighted", action="store_true", category="processing",
                            default=False, help="Weights sources/sinks by lane number and length")
-    argParser.add_argument("-f", "--assign-from", action="store_true",
+    argParser.add_argument("-f", "--assign-from", action="store_true", category="processing",
                            default=False, help="Assign the edge always to the district where the 'from' node " +
                            "is located")
-    argParser.add_argument("-i", "--internal", action="store_true",
+    argParser.add_argument("-i", "--internal", action="store_true", category="processing",
                            default=False, help="Include internal edges in output")
-    argParser.add_argument("-l", "--vclass", help="Include only edges allowing VCLASS")
-    argParser.add_argument("-s", "--shapeinfo", action="store_true",
+    argParser.add_argument("-l", "--vclass", category="processing", help="Include only edges allowing VCLASS")
+    argParser.add_argument("-s", "--shapeinfo", category="processing", action="store_true",
                            default=False, help="write also the shape info in the file")
-    argParser.add_argument("--merge-separator",
+    argParser.add_argument("--merge-separator", category="processing",
                            help="merge edge lists of taz starting with the same string up to the given separator")
-    argParser.add_argument("--merge-param",
+    argParser.add_argument("--merge-param", category="processing",
                            help="merge edge lists of taz/polygons having the same value for the given parameter")
-    argParser.add_argument("--min-length", type=float,
+    argParser.add_argument("--min-length", type=float, category="processing",
                            default=0., help="use edges where length is greater than this (m)")
 
 

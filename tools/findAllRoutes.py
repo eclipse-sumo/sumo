@@ -27,10 +27,10 @@ import sumolib
 
 def get_options(args=None):
     argParser = sumolib.options.ArgumentParser()
-    argParser.add_argument("-n", "--net-file", help="the SUMO net filename")
-    argParser.add_argument("-o", "--output-file", help="the route output filename")
-    argParser.add_argument("-s", "--source-edges", help="comma separated list of source edge ids")
-    argParser.add_argument("-t", "--target-edges", help="comma separated list of target edge ids")
+    argParser.add_argument("-n", "--net-file", category="input", help="the SUMO net filename")
+    argParser.add_argument("-o", "--output-file", category="output", help="the route output filename")
+    argParser.add_argument("-s", "--source-edges", category="input", help="comma separated list of source edge ids")
+    argParser.add_argument("-t", "--target-edges", category="input", help="comma separated list of target edge ids")
     options = argParser.parse_args(args=args)
     if options.net_file is None or options.output_file is None:
         argParser.print_help()

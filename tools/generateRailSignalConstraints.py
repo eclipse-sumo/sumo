@@ -159,70 +159,70 @@ DUAROUTER = sumolib.checkBinary('duarouter')
 
 def get_options(args=None):
     parser = sumolib.options.ArgumentParser(description="Sample routes to match counts")
-    parser.add_argument("-n", "--net-file", dest="netFile",
+    parser.add_argument("-n", "--net-file", category="input",dest="netFile",
                         help="Input network file")
-    parser.add_argument("-a", "--additional-file", dest="addFile",
+    parser.add_argument("-a", "--additional-file", category="input", dest="addFile",
                         help="Input additional file (busStops)")
-    parser.add_argument("-t", "--trip-file", dest="tripFile",
+    parser.add_argument("-t", "--trip-file", category="input", dest="tripFile",
                         help="Input trip file (will be processed into a route file)")
-    parser.add_argument("-r", "--route-file", dest="routeFile",
+    parser.add_argument("-r", "--route-file", category="input", dest="routeFile",
                         help="Input route file (must contain routed vehicles rather than trips)")
-    parser.add_argument("-o", "--output-file", dest="out", default="constraints.add.xml",
+    parser.add_argument("-o", "--output-file", category="output", dest="out", default="constraints.add.xml",
                         help="Output additional file")
-    parser.add_argument("-b", "--begin", default="0",
+    parser.add_argument("-b", "--begin", category="time", default="0",
                         help="ignore vehicles departing before the given begin time (seconds or H:M:S)")
-    parser.add_argument("--until-from-duration", action="store_true", default=False, dest="untilFromDuration",
+    parser.add_argument("--until-from-duration", category="time", action="store_true", default=False, dest="untilFromDuration",
                         help="Use stop arrival+duration instead of 'until' to compute insertion constraints")
-    parser.add_argument("-d", "--delay", default="0",
+    parser.add_argument("-d", "--delay", category="time", default="0",
                         help="Assume given maximum delay when computing the number of intermediate vehicles " +
                         "that pass a given signal (for setting limit)")
-    parser.add_argument("-l", "--limit", type=int, default=0,
+    parser.add_argument("-l", "--limit", category="processing", type=int, default=0,
                         help="Increases the limit value for tracking passed vehicles by the given amount")
-    parser.add_argument("--abort-unordered", dest="abortUnordered", action="store_true", default=False,
+    parser.add_argument("--abort-unordered", category="processing", dest="abortUnordered", action="store_true", default=False,
                         help="Abort generation of constraints for a stop "
                         "once the ordering of vehicles by 'arrival' differs from the ordering by 'until'")
-    parser.add_argument("--premature-threshold", default=600, dest="prematureThreshold",
+    parser.add_argument("--premature-threshold", category="processing", default=600, dest="prematureThreshold",
                         help="Ignore schedule if a train leaves a station ahead of schedule by " +
                         "more than the threshold value")
-    parser.add_argument("--write-inactive", dest="writeInactive", action="store_true", default=False,
+    parser.add_argument("--write-inactive", category="processing", dest="writeInactive", action="store_true", default=False,
                         help="Export aborted constraints as inactive")
-    parser.add_argument("-p", "--ignore-parking", dest="ignoreParking", action="store_true", default=False,
+    parser.add_argument("-p", "--ignore-parking", category="processing", dest="ignoreParking", action="store_true", default=False,
                         help="Ignore unordered timing if the vehicle which arrives first is parking")
-    parser.add_argument("-P", "--skip-parking", dest="skipParking", action="store_true", default=False,
+    parser.add_argument("-P", "--skip-parking", category="processing", dest="skipParking", action="store_true", default=False,
                         help="Do not generate constraints for a vehicle that parks at the next stop")
-    parser.add_argument("--redundant", default=-1, help="Add redundant constraint within given time range " +
+    parser.add_argument("--redundant", category="processing", default=-1, help="Add redundant constraint within given time range " +
                                                         "(reduces impact of modifying constraints at runtime)")
-    parser.add_argument("--bidi-max-range", dest="bidiMaxRange", type=float, default=1,
+    parser.add_argument("--bidi-max-range", category="processing", dest="bidiMaxRange", type=float, default=1,
                         help="Find bidiStops on sequential edges within the given range in m")
-    parser.add_argument("--bidi-conflicts", dest="bidiConflicts", action="store_true", default=False,
+    parser.add_argument("--bidi-conflicts", category="processing", dest="bidiConflicts", action="store_true", default=False,
                         help="Write bidiPredecessor constraints")
-    parser.add_argument("--comment.line", action="store_true", dest="commentLine", default=False,
+    parser.add_argument("--comment.line", category="processing", action="store_true", dest="commentLine", default=False,
                         help="add lines of involved trains in comment")
-    parser.add_argument("--comment.id", action="store_true", dest="commentId", default=False,
+    parser.add_argument("--comment.id", category="processing", action="store_true", dest="commentId", default=False,
                         help="add ids of involved trains in comment (when different from tripId)")
-    parser.add_argument("--comment.switch", action="store_true", dest="commentSwitch", default=False,
+    parser.add_argument("--comment.switch", category="processing", action="store_true", dest="commentSwitch", default=False,
                         help="add id of the merging switch that prompted the constraint")
-    parser.add_argument("--comment.stop", action="store_true", dest="commentStop", default=False,
+    parser.add_argument("--comment.stop", category="processing", action="store_true", dest="commentStop", default=False,
                         help="add busStop id that was used to determine the train ordering for the constraint")
-    parser.add_argument("--comment.time", action="store_true", dest="commentTime", default=False,
+    parser.add_argument("--comment.time", category="processing", action="store_true", dest="commentTime", default=False,
                         help="add timing information for the constraint")
-    parser.add_argument("--comment.all", action="store_true", dest="commentAll", default=False,
+    parser.add_argument("--comment.all", category="processing", action="store_true", dest="commentAll", default=False,
                         help="add all comments")
-    parser.add_argument("--params", action="store_true", dest="commentParams", default=False,
+    parser.add_argument("--params", category="processing", action="store_true", dest="commentParams", default=False,
                         help="stores comments as params")
-    parser.add_argument("-v", "--verbose", action="store_true", default=False,
+    parser.add_argument("-v", "--verbose", category="processing", action="store_true", default=False,
                         help="tell me what you are doing")
-    parser.add_argument("--debug-switch", dest="debugSwitch",
+    parser.add_argument("--debug-switch", category="processing", dest="debugSwitch",
                         help="print debug information for the given merge-switch edge")
-    parser.add_argument("--debug-signal", dest="debugSignal",
+    parser.add_argument("--debug-signal", category="processing", dest="debugSignal",
                         help="print debug information for the given signal id")
-    parser.add_argument("--debug-stop", dest="debugStop",
+    parser.add_argument("--debug-stop", category="processing", dest="debugStop",
                         help="print debug information for the given busStop id")
-    parser.add_argument("--debug-vehicle", dest="debugVehicle",
+    parser.add_argument("--debug-vehicle", category="processing", dest="debugVehicle",
                         help="print debug information for the given vehicle id")
     parser.add_argument("--debug-foe-vehicle", dest="debugFoeVehicle",
                         help="print debug information for the given (foe) vehicle id")
-    parser.add_argument("--debug-edge", dest="debugEdge",
+    parser.add_argument("--debug-edge", category="processing", dest="debugEdge",
                         help="print debug information for the given edge id")
 
     options = parser.parse_args(args=args)

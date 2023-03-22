@@ -30,39 +30,39 @@ from sumolib.miscutils import uMax  # noqa
 
 def get_options(args=None):
     optParser = sumolib.options.ArgumentParser(description="Generate trips between random locations")
-    optParser.add_argument("-n", "--net-file", dest="netfile",
+    optParser.add_argument("-n", "--net-file", category="input", dest="netfile",
                            help="define the net file (mandatory)")
-    optParser.add_argument("-o", "--output-file", dest="outfile",
+    optParser.add_argument("-o", "--output-file", category="output", dest="outfile",
                            default="parkingareas.add.xml", help="define the output filename")
-    optParser.add_argument("-p", "--probability", type=float, default=1,
+    optParser.add_argument("-p", "--probability", category="processing", type=float, default=1,
                            help="Probability for an edge to receive a parkingArea")
-    optParser.add_argument("-L", "--length", type=float, default=6,
+    optParser.add_argument("-L", "--length", category="processing", type=float, default=6,
                            help="Length required per parking space")
-    optParser.add_argument("-l", "--space-length", type=float, default=5, dest="spaceLength",
+    optParser.add_argument("-l", "--space-length", category="processing", type=float, default=5, dest="spaceLength",
                            help="visual length of each parking space")
-    optParser.add_argument("-w", "--width", type=float,
+    optParser.add_argument("-w", "--width", category="processing", type=float,
                            help="visual width of each parking space")
-    optParser.add_argument("-r", "--random-capacity", action="store_true", dest="randCapacity",
+    optParser.add_argument("-r", "--random-capacity", category="processing", action="store_true", dest="randCapacity",
                            default=False, help="Randomize roadsideCapacity")
-    optParser.add_argument("--min", type=int, default=0,
+    optParser.add_argument("--min", category="processing", type=int, default=0,
                            help="Minimum capacity for parkingAreas")
-    optParser.add_argument("--max", type=int, default=uMax,
+    optParser.add_argument("--max", category="processing", type=int, default=uMax,
                            help="Maximum capacity for parkingAreas")
-    optParser.add_argument("--edge-type.keep", dest="edgeTypeKeep",
+    optParser.add_argument("--edge-type.keep", category="processing", dest="edgeTypeKeep",
                            help="Optional list of edge types to keep exclusively")
-    optParser.add_argument("--edge-type.remove", dest="edgeTypeRemove",
+    optParser.add_argument("--edge-type.remove", category="processing", dest="edgeTypeRemove",
                            help="Optional list of edge types to exclude")
-    optParser.add_argument("--keep-all", action="store_true", default=False, dest="keepAll",
+    optParser.add_argument("--keep-all", category="processing", action="store_true", default=False, dest="keepAll",
                            help="whether to keep parkingAreas with 0 capacity")
-    optParser.add_argument("-a", "--angle", type=float,
+    optParser.add_argument("-a", "--angle", category="processing", type=float,
                            help="parking area angle")
-    optParser.add_argument("--prefix", default="pa", help="prefix for the parkingArea ids")
-    optParser.add_argument("-s", "--seed", type=int, default=42, help="random seed")
-    optParser.add_argument("--random", action="store_true", default=False,
+    optParser.add_argument("--prefix", category="processing", default="pa", help="prefix for the parkingArea ids")
+    optParser.add_argument("-s", "--seed", category="processing", type=int, default=42, help="random seed")
+    optParser.add_argument("--random", category="processing", action="store_true", default=False,
                            help="use a random seed to initialize the random number generator")
-    optParser.add_argument("--vclass", default="passenger",
+    optParser.add_argument("--vclass", category="processing", default="passenger",
                            help="only use edges which permit the given vehicle class")
-    optParser.add_argument("-v", "--verbose", action="store_true",
+    optParser.add_argument("-v", "--verbose", category="processing", action="store_true",
                            default=False, help="tell me what you are doing")
 
     options = optParser.parse_args(args=args)

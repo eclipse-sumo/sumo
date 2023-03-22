@@ -56,118 +56,118 @@ def get_network(options):
 def get_options(args=None):
     op = sumolib.options.ArgumentParser(description="Generate trips between random locations",
                                         allowed_programs=['duarouter'])
-    op.add_argument("-n", "--net-file", dest="netfile", required=True,
+    op.add_argument("-n", "--net-file", category="input", dest="netfile", required=True,
                     help="define the net file (mandatory)")
-    op.add_argument("-a", "--additional-files", dest="additional",
+    op.add_argument("-a", "--additional-files", category="input", dest="additional",
                     help="define additional files to be loaded by the router")
-    op.add_argument("-o", "--output-trip-file", dest="tripfile",
+    op.add_argument("-o", "--output-trip-file", category="output", dest="tripfile",
                     default="trips.trips.xml", help="define the output trip filename")
-    op.add_argument("-r", "--route-file", dest="routefile",
+    op.add_argument("-r", "--route-file", category="output", dest="routefile",
                     help="generates route file with duarouter")
-    op.add_argument("--vtype-output", dest="vtypeout",
+    op.add_argument("--vtype-output", category="output", dest="vtypeout",
                     help="Store generated vehicle types in a separate file")
-    op.add_argument("--weights-prefix", dest="weightsprefix",
+    op.add_argument("--weights-prefix", category="processing", dest="weightsprefix",
                     help="loads probabilities for being source, destination and via-edge from the files named " +
                     "'prefix'.src.xml, 'prefix'.dst.xml and 'prefix'.via.xml")
-    op.add_argument("--weights-output-prefix", dest="weights_outprefix",
+    op.add_argument("--weights-output-prefix", category="processing", dest="weights_outprefix",
                     help="generates weights files for visualisation")
-    op.add_argument("--pedestrians", action="store_true",
+    op.add_argument("--pedestrians", category="processing", action="store_true",
                     default=False, help="create a person file with pedestrian trips instead of vehicle trips")
-    op.add_argument("--persontrips", action="store_true",
+    op.add_argument("--persontrips", category="processing", action="store_true",
                     default=False, help="create a person file with person trips instead of vehicle trips")
-    op.add_argument("--personrides", help="create a person file with rides using STR as lines attribute")
-    op.add_argument("--persontrip.transfer.car-walk", dest="carWalkMode",
+    op.add_argument("--personrides", category="processing", help="create a person file with rides using STR as lines attribute")
+    op.add_argument("--persontrip.transfer.car-walk", category="processing", dest="carWalkMode",
                     help="Where are mode changes from car to walking allowed " +
                     "(possible values: 'ptStops', 'allJunctions' and combinations)")
-    op.add_argument("--persontrip.walkfactor", dest="walkfactor", metavar="FLOAT",
+    op.add_argument("--persontrip.walkfactor", category="processing", dest="walkfactor", metavar="FLOAT",
                     help="Use FLOAT as a factor on pedestrian maximum speed during intermodal routing")
-    op.add_argument("--persontrip.walk-opposite-factor", dest="walkoppositefactor", metavar="FLOAT",
+    op.add_argument("--persontrip.walk-opposite-factor", category="processing", dest="walkoppositefactor", metavar="FLOAT",
                     help="Use FLOAT as a factor on pedestrian maximum speed against vehicle traffic direction")
-    op.add_argument("--prefix", dest="tripprefix",
+    op.add_argument("--prefix", category="processing", dest="tripprefix",
                     default="", help="prefix for the trip ids")
-    op.add_argument("-t", "--trip-attributes", dest="tripattrs", default="",
+    op.add_argument("-t", "--trip-attributes", category="processing", dest="tripattrs", default="",
                     help="additional trip attributes. When generating pedestrians, attributes for " +
                     "'person' and 'walk' are supported.")
-    op.add_argument("--fringe-start-attributes", dest="fringeattrs",
+    op.add_argument("--fringe-start-attributes", category="processing", dest="fringeattrs",
                     default="", help="additional trip attributes when starting on a fringe.")
-    op.add_argument("-b", "--begin", default=0, help="begin time")
-    op.add_argument("-e", "--end", default=3600, help="end time (default 3600)")
-    op.add_argument("--random-depart", action="store_true", dest="randomDepart",
+    op.add_argument("-b", "--begin", category="time", default=0, help="begin time")
+    op.add_argument("-e", "--end", category="time", default=3600, help="end time (default 3600)")
+    op.add_argument("--random-depart", category="time", action="store_true", dest="randomDepart",
                     default=False, help="Distribute departures randomly between begin and end")
-    op.add_argument("-s", "--seed", type=int, default=42, help="random seed")
-    op.add_argument("--random", action="store_true",
+    op.add_argument("-s", "--seed", category="processing", type=int, default=42, help="random seed")
+    op.add_argument("--random", category="processing", action="store_true",
                     default=False, help="use a random seed to initialize the random number generator")
-    op.add_argument("-l", "--length", action="store_true",
+    op.add_argument("-l", "--length", category="processing", action="store_true",
                     default=False, help="weight edge probability by length")
-    op.add_argument("-L", "--lanes", action="store_true",
+    op.add_argument("-L", "--lanes", category="processing", action="store_true",
                     default=False, help="weight edge probability by number of lanes")
-    op.add_argument("--edge-param", dest="edgeParam",
+    op.add_argument("--edge-param", category="processing", dest="edgeParam",
                     help="use the given edge parameter as factor for edge")
-    op.add_argument("--speed-exponent", type=float, dest="speed_exponent", metavar="FLOAT",
+    op.add_argument("--speed-exponent", category="processing", type=float, dest="speed_exponent", metavar="FLOAT",
                     default=0.0, help="weight edge probability by speed^'FLOAT' (default 0)")
-    op.add_argument("--fringe-speed-exponent", type=float, dest="fringe_speed_exponent", metavar="FLOAT",
+    op.add_argument("--fringe-speed-exponent", category="processing", type=float, dest="fringe_speed_exponent", metavar="FLOAT",
                     help="weight fringe edge probability by speed^'FLOAT' (default: speed exponent)")
-    op.add_argument("--angle", type=float, dest="angle", default=90.0,
+    op.add_argument("--angle", category="processing", type=float, dest="angle", default=90.0,
                     help="weight edge probability by angle [0-360] relative to the network center")
-    op.add_argument("--angle-factor", type=float, dest="angle_weight",
+    op.add_argument("--angle-factor", category="processing", type=float, dest="angle_weight",
                     default=1.0, help="maximum weight factor for angle")
-    op.add_argument("--random-factor", type=float, dest="randomFactor", default=1.0,
+    op.add_argument("--random-factor", category="processing", type=float, dest="randomFactor", default=1.0,
                     help="edge weights are dynamically disturbed by a random factor drawn uniformly from [1,FLOAT]")
-    op.add_argument("--fringe-factor", dest="fringe_factor",
+    op.add_argument("--fringe-factor", category="processing", dest="fringe_factor",
                     default="1.0", help="multiply weight of fringe edges by 'FLOAT' (default 1)" +
                     " or set value 'max' to force all traffic to start/end at the fringe.")
-    op.add_argument("--fringe-threshold", type=float, dest="fringe_threshold", default=0.0,
+    op.add_argument("--fringe-threshold", category="processing", type=float, dest="fringe_threshold", default=0.0,
                     help="only consider edges with speed above 'FLOAT' as fringe edges (default 0)")
-    op.add_argument("--allow-fringe", dest="allow_fringe", action="store_true", default=False,
+    op.add_argument("--allow-fringe", category="processing", dest="allow_fringe", action="store_true", default=False,
                     help="Allow departing on edges that leave the network and arriving on edges " +
                     "that enter the network (via turnarounds or as 1-edge trips")
-    op.add_argument("--allow-fringe.min-length", type=float, dest="allow_fringe_min_length",
+    op.add_argument("--allow-fringe.min-length", category="processing", type=float, dest="allow_fringe_min_length",
                     help="Allow departing on edges that leave the network and arriving on edges " +
                     "that enter the network, if they have at least the given length")
-    op.add_argument("--fringe-junctions", action="store_true", dest="fringeJunctions",
+    op.add_argument("--fringe-junctions", category="processing", action="store_true", dest="fringeJunctions",
                     default=False, help="Determine fringe edges based on junction attribute 'fringe'")
-    op.add_argument("--min-distance", type=float, dest="min_distance", metavar="FLOAT", default=0.0,
+    op.add_argument("--min-distance", category="processing", type=float, dest="min_distance", metavar="FLOAT", default=0.0,
                     help="require start and end edges for each trip to be at least 'FLOAT' m apart")
-    op.add_argument("--min-distance.fringe", type=float, dest="min_dist_fringe", metavar="FLOAT",
+    op.add_argument("--min-distance.fringe", category="processing", type=float, dest="min_dist_fringe", metavar="FLOAT",
                     help="require start and end edges for each fringe to fringe trip to be at least 'FLOAT' m apart")
-    op.add_argument("--max-distance", type=float, dest="max_distance", metavar="FLOAT",
+    op.add_argument("--max-distance", category="processing", type=float, dest="max_distance", metavar="FLOAT",
                     help="require start and end edges for each trip to be at most 'FLOAT' m " +
                     "apart (default 0 which disables any checks)")
-    op.add_argument("-i", "--intermediate", type=int,
+    op.add_argument("-i", "--intermediate", category="processing", type=int,
                     default=0, help="generates the given number of intermediate way points")
-    op.add_argument("--flows", type=int, default=0,
+    op.add_argument("--flows", category="processing", type=int, default=0,
                     help="generates INT flows that together output vehicles with the specified period")
-    op.add_argument("--jtrrouter", action="store_true",
+    op.add_argument("--jtrrouter", category="processing", action="store_true",
                     default=False, help="Create flows without destination as input for jtrrouter")
-    op.add_argument("--maxtries", type=int, default=100,
+    op.add_argument("--maxtries",  category="processing",type=int, default=100,
                     help="number of attemps for finding a trip which meets the distance constraints")
-    op.add_argument("--binomial", type=int, metavar="N",
+    op.add_argument("--binomial",  category="processing",type=int, metavar="N",
                     help="If this is set, the number of departures per second will be drawn from a binomial " +
                     "distribution with n=N and p=PERIOD/N where PERIOD is the argument given to --period")
-    op.add_argument("--vclass", "--edge-permission", default="passenger",
+    op.add_argument("--vclass", "--edge-permission", category="processing", default="passenger",
                     help="only from and to edges which permit the given vehicle class")
     op.add_argument("--vehicle-class",
                     help="The vehicle class assigned to the generated trips (adds a standard vType definition " +
                     "to the output file).")
-    op.add_argument("--remove-loops", dest="remove_loops", action="store_true",
+    op.add_argument("--remove-loops", category="processing", dest="remove_loops", action="store_true",
                     default=False, help="Remove loops at route start and end")
-    op.add_argument("--random-routing-factor", dest="randomRoutingFactor", type=float, default=1,
+    op.add_argument("--random-routing-factor", category="processing", dest="randomRoutingFactor", type=float, default=1,
                     help="Edge weights for routing are dynamically disturbed "
                     "by a random factor drawn uniformly from [1,FLOAT)")
-    op.add_argument("--junction-taz", dest="junctionTaz", action="store_true",
+    op.add_argument("--junction-taz", category="processing", dest="junctionTaz", action="store_true",
                     default=False, help="Write trips with fromJunction and toJunction")
-    op.add_argument("--via-edge-types", dest="viaEdgeTypes",
+    op.add_argument("--via-edge-types", category="processing", dest="viaEdgeTypes",
                     help="Set list of edge types that cannot be used for departure or arrival " +
                     "(unless being on the fringe)")
-    op.add_argument("--allow-roundabouts", dest="allowRoundabouts", action="store_true",
+    op.add_argument("--allow-roundabouts", category="processing", dest="allowRoundabouts", action="store_true",
                     default=False, help="Permit trips that start or end inside a roundabout")
-    op.add_argument("--validate", default=False, action="store_true",
+    op.add_argument("--validate", category="processing", default=False, action="store_true",
                     help="Whether to produce trip output that is already checked for connectivity")
-    op.add_argument("-v", "--verbose", action="store_true",
+    op.add_argument("-v", "--verbose", category="processing", action="store_true",
                     default=False, help="tell me what you are doing")
-    op.add_argument("--random-departpos", dest="randomDepartPos", action="store_true",
+    op.add_argument("--random-departpos", category="processing", dest="randomDepartPos", action="store_true",
                     help="Randomly choose a position on the starting edge of the trip")
-    op.add_argument("--random-arrivalpos", dest="randomArrivalPos", action="store_true",
+    op.add_argument("--random-arrivalpos", category="processing", dest="randomArrivalPos", action="store_true",
                     help="Randomly choose a position on the ending edge of the trip")
 
     group = op.add_mutually_exclusive_group()

@@ -58,31 +58,31 @@ def getOptions(args=None):
     optParser = ArgumentParser(conflict_handler="resolve")
     helpers.addInteractionOptions(optParser)
     helpers.addPlotOptions(optParser)
-    optParser.add_option("-t", "--trajectory-type", dest="ttype", default="ds",
+    optParser.add_option("-t", "--trajectory-type", category="processing", dest="ttype", default="ds",
                          help="select two letters from [t, s, d, a, i, x, y, k, g] to plot"
                          + " Time, Speed, Distance, Acceleration, Angle,"
                          + " x-Position, y-Position, Kilometrage, leaderGap."
                          + " Default 'ds' plots Distance vs. Speed")
-    optParser.add_option("--persons", action="store_true", default=False, help="plot person trajectories")
-    optParser.add_option("-s", "--show", action="store_true", default=False, help="show plot directly")
-    optParser.add_option("--csv-output", dest="csv_output", help="write plot as csv", metavar="FILE")
-    optParser.add_option("-b", "--ballistic", action="store_true", default=False,
+    optParser.add_option("--persons", category="processing", action="store_true", default=False, help="plot person trajectories")
+    optParser.add_option("-s", "--show", category="processing", action="store_true", default=False, help="show plot directly")
+    optParser.add_option("--csv-output", category="output", dest="csv_output", help="write plot as csv", metavar="FILE")
+    optParser.add_option("-b", "--ballistic", category="processing", action="store_true", default=False,
                          help="perform ballistic integration of distance")
-    optParser.add_option("--filter-route", dest="filterRoute",
+    optParser.add_option("--filter-route", category="processing", dest="filterRoute",
                          help="only export trajectories that pass the given list of edges (regardless of gaps)")
-    optParser.add_option("--filter-edges", dest="filterEdges",
+    optParser.add_option("--filter-edges", category="processing", dest="filterEdges",
                          help="only consider data for the given list of edges")
-    optParser.add_option("--filter-ids", dest="filterIDs",
+    optParser.add_option("--filter-ids", category="processing", dest="filterIDs",
                          help="only consider data for the given list of vehicle (or person) ids")
-    optParser.add_option("-p", "--pick-distance", dest="pickDist", type=float, default=1,
+    optParser.add_option("-p", "--pick-distance", category="processing", dest="pickDist", type=float, default=1,
                          help="pick lines within the given distance in interactive plot mode")
-    optParser.add_option("-i", "--invert-distance-angle", dest="invertDistanceAngle", type=float,
+    optParser.add_option("-i", "--invert-distance-angle", category="processing", dest="invertDistanceAngle", type=float,
                          help="invert distance for trajectories with a average angle near FLOAT")
-    optParser.add_option("--label", help="plot label (default input file name")
-    optParser.add_option("--invert-yaxis", dest="invertYAxis", action="store_true",
+    optParser.add_option("--label", category="processing", help="plot label (default input file name")
+    optParser.add_option("--invert-yaxis", category="processing", dest="invertYAxis", action="store_true",
                          default=False, help="Invert the Y-Axis")
-    optParser.add_option("--legend", action="store_true", default=False, help="Add legend")
-    optParser.add_option("-v", "--verbose", action="store_true", default=False, help="tell me what you are doing")
+    optParser.add_option("--legend", category="processing", action="store_true", default=False, help="Add legend")
+    optParser.add_option("-v", "--verbose", category="processing", action="store_true", default=False, help="tell me what you are doing")
 
     options, args = optParser.parse_known_args(args=args)
     if len(args) < 1:

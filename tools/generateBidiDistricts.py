@@ -31,12 +31,12 @@ import sumolib  # noqa
 
 def parse_args():
     arg_parser = sumolib.options.ArgumentParser()
-    arg_parser.add_argument("-o", "--outfile", help="name of output file")
-    arg_parser.add_argument("-r", "--radius", type=float, default=10., help="maximum air distance around the edge")
-    arg_parser.add_argument("-t", "--travel-distance", type=float, help="maximum travel distance in the graph")
+    arg_parser.add_argument("-o", "--outfile", category="output", help="name of output file")
+    arg_parser.add_argument("-r", "--radius", category="processing", type=float, default=10., help="maximum air distance around the edge")
+    arg_parser.add_argument("-t", "--travel-distance", category="processing", type=float, help="maximum travel distance in the graph")
     arg_parser.add_argument("--symmetrical", action="store_true", default=False,
                             help="extend the bidi-relationship to be symmetrical")
-    arg_parser.add_argument("net", help="SUMO network file")
+    arg_parser.add_argument("net", category="input", help="SUMO network file")
     options = arg_parser.parse_args()
     if options.outfile is None:
         options.outfile = options.net + ".taz.xml"
