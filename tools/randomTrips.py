@@ -282,6 +282,7 @@ def get_options(args=None):
         default="passenger",
         help="only from and to edges which permit the given vehicle class")
     op.add_argument("--vehicle-class",
+        category="processing",
         help="The vehicle class assigned to the generated trips (adds a standard vType definition " +
              "to the output file).")
     op.add_argument("--remove-loops",
@@ -292,6 +293,7 @@ def get_options(args=None):
         help="Remove loops at route start and end")
     op.add_argument("--random-routing-factor",
         category="processing",
+        type=float,
         dest="randomRoutingFactor",
         default=1,
         help="Edge weights for routing are dynamically disturbed by a random factor drawn uniformly from [1,FLOAT)")
