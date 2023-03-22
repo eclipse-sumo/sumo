@@ -263,7 +263,7 @@ def parseTimed(outf, options):
                     periodEnd += period
                     begin += period
                 if depart >= options.end:
-                    break
+                    continue
             number = getFlowNumber(elem) if elem.name == 'flow' else 1
             src, dst, edges = getEdges(elem, options.taz, routeDict)
             filterBy = [src, dst] if options.taz or not edges else edges
