@@ -88,14 +88,6 @@ jobs:
       if: matrix.build_type == 'full' && github.repository == 'eclipse/sumo' && github.event_name == 'schedule' && matrix.compiler == 'gcc'
       uses: warchant/setup-sonar-scanner@v4
 
-    - name: Setting up SonarQube cache
-      if: matrix.build_type == 'full' && github.repository == 'eclipse/sumo' && github.event_name == 'schedule' && matrix.compiler == 'gcc'
-      uses: actions/cache@v3
-      with:
-        path: sumo/sonar-cache
-        key: ${{ github.head_ref }}-${{ github.run_number }}
-        restore-keys: ${{ github.head_ref }}-
-
     - name: Building SUMO with SonarQube wrapper
       if: matrix.build_type == 'full' && github.repository == 'eclipse/sumo' && github.event_name == 'schedule' && matrix.compiler == 'gcc'
       run: |
@@ -104,7 +96,7 @@ jobs:
         unzip -o build-wrapper-linux-x86.zip
         build-wrapper-linux-x86/build-wrapper-linux-x86-64 --out-dir bw-output make -j4
         cd ..
-        sonar-scanner -Dsonar.login=${{ secrets.SONAR_TOKEN }} -Dsonar.cfamily.build-wrapper-output=cmake-build/bw-output -Dsonar.cfamily.cache.enabled=true -Dsonar.cfamily.cache.path=sonar-cache
+        sonar-scanner -Dsonar.login=${{ secrets.SONAR_TOKEN }} -Dsonar.cfamily.build-wrapper-output=cmake-build/bw-output
 
     - name: Building and Installing SUMO
       if: matrix.build_type != 'full' || github.repository != 'eclipse/sumo' || github.event_name != 'schedule' || matrix.compiler != 'gcc'
