@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-20 13:16+0000\n"
+"PO-Revision-Date: 2023-03-24 02:19+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -289,135 +289,135 @@ msgstr "两个连续的数据集之间的预期距离"
 
 #: /home/micha/programming/sumo/src\dfrouter\RODFFrame.cpp:185
 msgid "Write calibrators to FILE"
-msgstr ""
+msgstr "将校准器写入文件（FILE）中"
 
 #: /home/micha/programming/sumo/src\dfrouter\RODFFrame.cpp:188
 msgid "Include routes in the output which have no vehicles"
-msgstr ""
+msgstr "在输出中包括没有车辆的路径"
 
 #: /home/micha/programming/sumo/src\dfrouter\RODFFrame.cpp:192
 msgid ""
 "Checks whether detectors with calculated flow 0 can attract additional "
 "traffic"
-msgstr ""
+msgstr "检查计算流量为0的检测器是否能吸引额外的流量"
 
 #: /home/micha/programming/sumo/src\dfrouter\RODFFrame.cpp:195
 msgid "Removes empty detectors from the list"
-msgstr ""
+msgstr "从列表中删除空的检测器"
 
 #: /home/micha/programming/sumo/src\dfrouter\RODFFrame.cpp:198
 msgid ""
 "Whether edges with unknown status can prevent an edge from becoming a source"
-msgstr ""
+msgstr "状态未知的路段是否能阻止一个路段成为一个来源"
 
 #: /home/micha/programming/sumo/src\dfrouter\RODFFrame.cpp:201
 msgid ""
 "Try to determine further inflows to an inbetween detector when computing "
 "split probabilities"
-msgstr ""
+msgstr "在计算分裂概率时，尝试确定进一步流入一个中间探测器的流量"
 
 #: /home/micha/programming/sumo/src\dfrouter\RODFFrame.cpp:205
 msgid "Scale factor for flows"
-msgstr ""
+msgstr "流量的比例系数"
 
 #: /home/micha/programming/sumo/src\dfrouter\RODFFrame.cpp:209
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:123
 #: /home/micha/programming/sumo/src\od2trips_main.cpp:167
 #: /home/micha/programming/sumo/src\router\ROFrame.cpp:199
 msgid "Assigns a default depart lane"
-msgstr ""
+msgstr "指派一个默认的出发车道"
 
 #: /home/micha/programming/sumo/src\dfrouter\RODFFrame.cpp:212
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:127
 #: /home/micha/programming/sumo/src\od2trips_main.cpp:170
 #: /home/micha/programming/sumo/src\router\ROFrame.cpp:202
 msgid "Assigns a default depart position"
-msgstr ""
+msgstr "指定一个默认的出发点位置"
 
 #: /home/micha/programming/sumo/src\dfrouter\RODFFrame.cpp:215
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:131
 #: /home/micha/programming/sumo/src\od2trips_main.cpp:173
 #: /home/micha/programming/sumo/src\router\ROFrame.cpp:205
 msgid "Assigns a default depart speed"
-msgstr ""
+msgstr "指定一个默认的出发速度"
 
 #: /home/micha/programming/sumo/src\dfrouter\RODFFrame.cpp:218
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:135
 #: /home/micha/programming/sumo/src\od2trips_main.cpp:176
 #: /home/micha/programming/sumo/src\router\ROFrame.cpp:208
 msgid "Assigns a default arrival lane"
-msgstr ""
+msgstr "指定一个默认的到达车道"
 
 #: /home/micha/programming/sumo/src\dfrouter\RODFFrame.cpp:221
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:139
 #: /home/micha/programming/sumo/src\od2trips_main.cpp:179
 #: /home/micha/programming/sumo/src\router\ROFrame.cpp:211
 msgid "Assigns a default arrival position"
-msgstr ""
+msgstr "指定一个默认的到达位置"
 
 #: /home/micha/programming/sumo/src\dfrouter\RODFFrame.cpp:224
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:143
 #: /home/micha/programming/sumo/src\od2trips_main.cpp:182
 #: /home/micha/programming/sumo/src\router\ROFrame.cpp:214
 msgid "Assigns a default arrival speed"
-msgstr ""
+msgstr "指定一个默认的到达速度"
 
 #: /home/micha/programming/sumo/src\dfrouter\RODFFrame.cpp:227
 msgid "The default speed deviation of vehicles"
-msgstr ""
+msgstr "车辆的默认速度偏差"
 
 #: /home/micha/programming/sumo/src\dfrouter\RODFFrame.cpp:231
 msgid "Defines the begin time; Previous defs will be discarded"
-msgstr ""
+msgstr "定义了开始时间；以前的定义将被丢弃"
 
 #: /home/micha/programming/sumo/src\dfrouter\RODFFrame.cpp:234
 msgid "Defines the end time; Later defs will be discarded; Defaults to one day"
-msgstr ""
+msgstr "定义结束时间；以后的定义将被丢弃；默认为一天"
 
 #: /home/micha/programming/sumo/src\dfrouter\RODFFrame.cpp:239
 msgid "Lists detectors with no flow (enable -v)"
-msgstr ""
+msgstr "列出没有流量的检测器（启用-v）"
 
 #: /home/micha/programming/sumo/src\dfrouter\RODFFrame.cpp:242
 msgid "Prints aggregated detector flows"
-msgstr ""
+msgstr "打印汇总的检测器流量"
 
 #: /home/micha/programming/sumo/src\dfrouter\RODFFrame.cpp:246
 #: /home/micha/programming/sumo/src\router\ROFrame.cpp:225
 msgid "Disable console output of route parsing step"
-msgstr ""
+msgstr "禁用路径解析步骤的控制台输出"
 
 #: /home/micha/programming/sumo/src\dfrouter\RODFNet.cpp:113
 msgid "Computing detector types"
-msgstr ""
+msgstr "计算检测器类型"
 
 #: /home/micha/programming/sumo/src\dfrouter\RODFNet.cpp:142
 msgid "Computed detector types:"
-msgstr ""
+msgstr "计算出的探测器类型："
 
 #: /home/micha/programming/sumo/src\dfrouter\RODFNet.cpp:143
 #, c-format
 msgid " % source detectors"
-msgstr ""
+msgstr " %  源检测器"
 
 #: /home/micha/programming/sumo/src\dfrouter\RODFNet.cpp:144
 #, c-format
 msgid " % sink detectors"
-msgstr ""
+msgstr " % 汇检测器"
 
 #: /home/micha/programming/sumo/src\dfrouter\RODFNet.cpp:145
 #, c-format
 msgid " % in-between detectors"
-msgstr ""
+msgstr " % 探测器之间"
 
 #: /home/micha/programming/sumo/src\dfrouter\RODFNet.cpp:146
 #, c-format
 msgid " % invalid detectors"
-msgstr ""
+msgstr " % 无效检测器"
 
 #: /home/micha/programming/sumo/src\dfrouter\RODFNet.cpp:281
 msgid "Could not close route for '%'"
-msgstr ""
+msgstr "无法关闭'%'的路径"
 
 #: /home/micha/programming/sumo/src\dfrouter\RODFNet.cpp:439
 #, c-format
@@ -425,176 +425,178 @@ msgid ""
 "Detector '%' has no flows.\n"
 " Trying to rebuild."
 msgstr ""
+"探测器'%'没有流量。\n"
+" 试图重建。"
 
 #: /home/micha/programming/sumo/src\dfrouter\RODFNet.cpp:467
 msgid " Could not build list of previous flows."
-msgstr ""
+msgstr " 无法建立以前的流量列表。"
 
 #: /home/micha/programming/sumo/src\dfrouter\RODFNet.cpp:504
 msgid " Could not build list of latter flows."
-msgstr ""
+msgstr " 无法建立后面的流量清单。"
 
 #: /home/micha/programming/sumo/src\dfrouter\RODFNet.cpp:591
 msgid "Removed detector '%' because no flows for him exist."
-msgstr ""
+msgstr "删除了检测器'%'，因为不存在它的流量。"
 
 #: /home/micha/programming/sumo/src\dfrouter\RODFNet.cpp:614
 #, c-format
 msgid "Detector '%' has no flow."
-msgstr ""
+msgstr "探测器'%'没有流量。"
 
 #: /home/micha/programming/sumo/src\dfrouter\RODFNet.cpp:701
 #, c-format
 msgid ""
 "Quitting checking for being a source for detector '%' due to seen edge limit."
-msgstr ""
+msgstr "由于看到路段限制，停止检查是否是检测器'%'的来源。"
 
 #: /home/micha/programming/sumo/src\dfrouter\RODFNet.cpp:801
 #, c-format
 msgid ""
 "Quitting checking for being a destination for detector '%' due to seen edge "
 "limit."
-msgstr ""
+msgstr "由于看到路段限制，停止检查是否是检测器'%'的目的地。"
 
 #: /home/micha/programming/sumo/src\dfrouter\RODFNet.cpp:877
 #, c-format
 msgid ""
 "Quitting checking for being a false source for detector '%' due to seen edge "
 "limit."
-msgstr ""
+msgstr "由于看到路段限制，停止检查检测器'%'是否为虚假来源。"
 
 #: /home/micha/programming/sumo/src\dfrouter\RODFNet.cpp:1010
 msgid "Average speedFactor for PKW is % maximum speedFactor is %."
-msgstr ""
+msgstr "小汽车（PKW）的平均速度因子为%，最大速度因子为%。"
 
 #: /home/micha/programming/sumo/src\dfrouter\RODFNet.cpp:1014
 msgid "Average speedFactor for LKW is % maximum speedFactor is %."
-msgstr ""
+msgstr "载重车（LKW）的平均速度因子为%，最大速度因子为%。"
 
 #: /home/micha/programming/sumo/src\dfrouter\dfrouter_main.cpp:70
 msgid "No detector file given (use --detector-files <FILE>)."
-msgstr ""
+msgstr "没有给出检测器文件（使用-检测器-文件<FILE>）。"
 
 #: /home/micha/programming/sumo/src\dfrouter\dfrouter_main.cpp:76
 msgid "Could not open detector file '%'"
-msgstr ""
+msgstr "无法打开检测器文件'%'"
 
 #: /home/micha/programming/sumo/src\dfrouter\dfrouter_main.cpp:88
 msgid "No detectors found."
-msgstr ""
+msgstr "没有发现检测器。"
 
 #: /home/micha/programming/sumo/src\dfrouter\dfrouter_main.cpp:103
 #, c-format
 msgid "The measure-file '%' can not be opened."
-msgstr ""
+msgstr "措施文件'%'无法打开。"
 
 #: /home/micha/programming/sumo/src\dfrouter\dfrouter_main.cpp:124
 msgid "Removing empty detectors"
-msgstr ""
+msgstr "移除空的检测器"
 
 #: /home/micha/programming/sumo/src\dfrouter\dfrouter_main.cpp:128
 msgid "Scanning for empty detectors"
-msgstr ""
+msgstr "扫描空检测器"
 
 #: /home/micha/programming/sumo/src\dfrouter\dfrouter_main.cpp:143
 msgid "No source detectors found."
-msgstr ""
+msgstr "没有发现源探测器。"
 
 #: /home/micha/programming/sumo/src\dfrouter\dfrouter_main.cpp:147
 msgid "Computing routes"
-msgstr ""
+msgstr "计算路径"
 
 #: /home/micha/programming/sumo/src\dfrouter\dfrouter_main.cpp:158
 msgid "The detector types are not defined; use in combination with a network"
-msgstr ""
+msgstr "探测器的类型没有定义；与网络结合使用"
 
 #: /home/micha/programming/sumo/src\dfrouter\dfrouter_main.cpp:162
 msgid "The emitters have no routes; use in combination with a network"
-msgstr ""
+msgstr "发射器没有路径；与网络结合使用。"
 
 #: /home/micha/programming/sumo/src\dfrouter\dfrouter_main.cpp:193
 msgid "Rechecking loaded flows"
-msgstr ""
+msgstr "重新检查加载的流量"
 
 #: /home/micha/programming/sumo/src\dfrouter\dfrouter_main.cpp:198
 msgid "Writing emitters"
-msgstr ""
+msgstr "写入发射器"
 
 #: /home/micha/programming/sumo/src\dfrouter\dfrouter_main.cpp:210
 msgid "Writing emitter pois"
-msgstr ""
+msgstr "写作排放物的pois"
 
 #: /home/micha/programming/sumo/src\dfrouter\dfrouter_main.cpp:217
 msgid "Writing speed triggers"
-msgstr ""
+msgstr "写入速度触发器"
 
 #: /home/micha/programming/sumo/src\dfrouter\dfrouter_main.cpp:224
 msgid "Writing validation detectors"
-msgstr ""
+msgstr "编写验证性检测器"
 
 #: /home/micha/programming/sumo/src\dfrouter\dfrouter_main.cpp:231
 msgid "Writing highway end rerouter"
-msgstr ""
+msgstr "编写高速终点站的重定向器"
 
 #: /home/micha/programming/sumo/src\dfrouter\dfrouter_main.cpp:251
 msgid "Builds vehicle routes for SUMO using detector values."
-msgstr ""
+msgstr "使用检测器值为SUMO建立车辆路径。"
 
 #: /home/micha/programming/sumo/src\duarouter\RODUAFrame.cpp:69
 msgid "Write generated route alternatives to FILE"
-msgstr ""
+msgstr "将生成的路径备选方案写到文件（FILE）中"
 
 #: /home/micha/programming/sumo/src\duarouter\RODUAFrame.cpp:72
 msgid "Write edge splits and connectivity to FILE"
-msgstr ""
+msgstr "将路段分割和连接写入文件（FILE）中"
 
 #: /home/micha/programming/sumo/src\duarouter\RODUAFrame.cpp:75
 msgid "Write intermodal edges with lengths and travel times to FILE"
-msgstr ""
+msgstr "将带有长度和旅行时间的多式联运路段写入文件（FILE）中"
 
 #: /home/micha/programming/sumo/src\duarouter\RODUAFrame.cpp:78
 msgid "Write trips instead of vehicles (for validating trip input)"
-msgstr ""
+msgstr "写下行程而不是车辆（用于验证行程输入）"
 
 #: /home/micha/programming/sumo/src\duarouter\RODUAFrame.cpp:81
 msgid "Write trips with geo-coordinates"
-msgstr ""
+msgstr "用地理坐标写行程"
 
 #: /home/micha/programming/sumo/src\duarouter\RODUAFrame.cpp:84
 msgid "Write trips with fromJunction and toJunction"
-msgstr ""
+msgstr "用地理坐标写行程"
 
 #: /home/micha/programming/sumo/src\duarouter\RODUAFrame.cpp:87
 msgid "Include the cost attribute in route output"
-msgstr ""
+msgstr "在路径输出中包括成本属性"
 
 #: /home/micha/programming/sumo/src\duarouter\RODUAFrame.cpp:92
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:552
 msgid ""
 "Edge weights for routing are dynamically disturbed by a random factor drawn "
 "uniformly from [1,FLOAT)"
-msgstr ""
+msgstr "用于路径的路段权重由一个从[1,FLOAT]中均匀抽取的随机因子动态扰动"
 
 #: /home/micha/programming/sumo/src\duarouter\RODUAFrame.cpp:95
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:118
 msgid ""
 "Aggregation period for the given weight files; triggers rebuilding of "
 "Contraction Hierarchy"
-msgstr ""
+msgstr "给定权重文件的聚集期；触发重建收缩层次结构"
 
 #: /home/micha/programming/sumo/src\duarouter\RODUAFrame.cpp:98
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:112
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:561
 msgid ""
 "Consider edge priorities in addition to travel times, weighted by factor"
-msgstr ""
+msgstr "除考虑旅行时间外，还考虑路段的优先次序，按系数加权计算"
 
 #: /home/micha/programming/sumo/src\duarouter\RODUAFrame.cpp:101
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:567
 msgid ""
 "Initialize lookup table for astar from the given file (generated by marouter "
 "--all-pairs-output)"
-msgstr ""
+msgstr "从给定的文件（由marouter --all-pairs-output生成）初始化astar的查询表"
 
 #: /home/micha/programming/sumo/src\duarouter\RODUAFrame.cpp:104
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:570
