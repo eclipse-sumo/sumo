@@ -83,6 +83,7 @@ Lane::getLinkNumber(const std::string& laneID) {
 
 std::vector<libsumo::TraCIConnection>
 Lane::getLinks(const std::string& laneID) {
+    std::unique_lock<std::mutex> lock{ libtraci::Connection::getActive().getMutex() };
     std::vector<libsumo::TraCIConnection> ret;
     tcpip::Storage& sto = Dom::get(libsumo::LANE_LINKS, laneID);
     sto.readUnsignedByte();

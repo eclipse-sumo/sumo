@@ -97,6 +97,7 @@ InductionLoop::getTimeSinceDetection(const std::string& detID) {
 
 std::vector<libsumo::TraCIVehicleData>
 InductionLoop::getVehicleData(const std::string& detID) {
+    std::unique_lock<std::mutex> lock{ libtraci::Connection::getActive().getMutex() };
     std::vector<libsumo::TraCIVehicleData> result;
     tcpip::Storage& ret = Dom::get(libsumo::LAST_STEP_VEHICLE_DATA, detID);
     ret.readInt();  // components

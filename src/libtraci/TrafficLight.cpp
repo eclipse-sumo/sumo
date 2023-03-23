@@ -56,6 +56,7 @@ TrafficLight::getRedYellowGreenState(const std::string& tlsID) {
 
 std::vector<libsumo::TraCILogic>
 TrafficLight::getAllProgramLogics(const std::string& tlsID) {
+    std::unique_lock<std::mutex> lock{ libtraci::Connection::getActive().getMutex() };
     tcpip::Storage& ret = Dom::get(libsumo::TL_COMPLETE_DEFINITION_RYG, tlsID);
     std::vector<libsumo::TraCILogic> result;
     int numLogics = ret.readInt();
@@ -105,6 +106,7 @@ TrafficLight::getControlledLanes(const std::string& tlsID) {
 
 std::vector<std::vector<libsumo::TraCILink> >
 TrafficLight::getControlledLinks(const std::string& tlsID) {
+    std::unique_lock<std::mutex> lock{ libtraci::Connection::getActive().getMutex() };
     tcpip::Storage& ret = Dom::get(libsumo::TL_CONTROLLED_LINKS, tlsID);
     std::vector< std::vector<libsumo::TraCILink> > result;
     ret.readInt();
@@ -188,6 +190,7 @@ TrafficLight::getConstraints(const std::string& tlsID, const std::string& tripId
     std::vector<libsumo::TraCISignalConstraint> result;
     tcpip::Storage content;
     StoHelp::writeTypedString(content, tripId);
+    std::unique_lock<std::mutex> lock{ libtraci::Connection::getActive().getMutex() };
     tcpip::Storage& ret = Dom::get(libsumo::TL_CONSTRAINT, tlsID, &content);
     ret.readInt(); // components
     // number of items
@@ -217,6 +220,7 @@ TrafficLight::getConstraintsByFoe(const std::string& foeSignal, const std::strin
     std::vector<libsumo::TraCISignalConstraint> result;
     tcpip::Storage content;
     StoHelp::writeTypedString(content, foeId);
+    std::unique_lock<std::mutex> lock{ libtraci::Connection::getActive().getMutex() };
     tcpip::Storage& ret = Dom::get(libsumo::TL_CONSTRAINT_BYFOE, foeSignal, &content);
     ret.readInt(); // components
     // number of items
@@ -310,6 +314,7 @@ TrafficLight::swapConstraints(const std::string& tlsID, const std::string& tripI
     StoHelp::writeTypedString(content, tripId);
     StoHelp::writeTypedString(content, foeSignal);
     StoHelp::writeTypedString(content, foeId);
+    std::unique_lock<std::mutex> lock{ libtraci::Connection::getActive().getMutex() };
     tcpip::Storage& ret = Dom::get(libsumo::TL_CONSTRAINT_SWAP, tlsID, &content);
     ret.readInt(); // components
     // number of items

@@ -93,6 +93,7 @@ Person::getLanePosition(const std::string& personID) {
 
 std::vector<libsumo::TraCIReservation>
 Person::getTaxiReservations(int onlyNew) {
+    std::unique_lock<std::mutex> lock{ libtraci::Connection::getActive().getMutex() };
     tcpip::Storage content;
     StoHelp::writeTypedInt(content, onlyNew);
     tcpip::Storage& ret = Dom::get(libsumo::VAR_TAXI_RESERVATIONS, "", &content);

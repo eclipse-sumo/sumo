@@ -229,7 +229,7 @@ Edge::adaptTraveltime(const std::string& edgeID, double time, double beginSecond
     }
     content.writeByte(libsumo::TYPE_DOUBLE);
     content.writeDouble(time);
-    Connection::getActive().doCommand(libsumo::CMD_SET_EDGE_VARIABLE, libsumo::VAR_EDGE_TRAVELTIME, edgeID, &content);
+    Dom::set(libsumo::VAR_EDGE_TRAVELTIME, edgeID, &content);
 }
 
 
@@ -248,7 +248,7 @@ Edge::setEffort(const std::string& edgeID, double effort, double beginSeconds, d
     }
     content.writeByte(libsumo::TYPE_DOUBLE);
     content.writeDouble(effort);
-    Connection::getActive().doCommand(libsumo::CMD_SET_EDGE_VARIABLE, libsumo::VAR_EDGE_EFFORT, edgeID, &content);
+    Dom::set(libsumo::VAR_EDGE_EFFORT, edgeID, &content);
 }
 
 

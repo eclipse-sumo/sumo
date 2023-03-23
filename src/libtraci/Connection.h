@@ -66,8 +66,12 @@ public:
         myActive = myConnections.find(label)->second;
     }
 
-    const std::string& getLabel() {
+    const std::string& getLabel() const {
         return myLabel;
+    }
+
+    std::mutex& getMutex() const {
+        return myMutex;
     }
 
     /// @brief ends the simulation and closes the connection
@@ -118,9 +122,14 @@ public:
     /// @}
 
 
-    /// @name Command sending methods
-    /// @{
+    tcpip::Storage& doCommand(int command, int var = -1, const std::string& id = "", tcpip::Storage* add = nullptr, int expectedType = -1);
+    void addFilter(int var, tcpip::Storage* add = nullptr);
 
+    void readVariableSubscription(int responseID, tcpip::Storage& inMsg);
+    void readContextSubscription(int responseID, tcpip::Storage& inMsg);
+    void readVariables(tcpip::Storage& inMsg, const std::string& objectID, int variableCount, libsumo::SubscriptionResults& into);
+
+private:
     /** @brief Validates the result state of a command
      * @param[in] inMsg The buffer to read the message from
      * @param[in] command The original command id
@@ -133,16 +142,7 @@ public:
      * @return The command Id
      */
     int check_commandGetResult(tcpip::Storage& inMsg, int command, int expectedType = -1, bool ignoreCommandId = false) const;
-    /// @}
 
-    tcpip::Storage& doCommand(int command, int var, const std::string& id, tcpip::Storage* add = nullptr);
-    void addFilter(int var, tcpip::Storage* add = nullptr);
-
-    void readVariableSubscription(int responseID, tcpip::Storage& inMsg);
-    void readContextSubscription(int responseID, tcpip::Storage& inMsg);
-    void readVariables(tcpip::Storage& inMsg, const std::string& objectID, int variableCount, libsumo::SubscriptionResults& into);
-
-private:
     template <class T>
     static inline std::string toString(const T& t, std::streamsize accuracy = PRECISION) {
         std::ostringstream oss;
