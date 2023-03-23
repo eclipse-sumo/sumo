@@ -40,3 +40,6 @@ named_routes_elements
 
 # Tests for <SUMO_DIST>/tools/countEdgeUsage.py
 named_routes_period
+
+# Tests for <SUMO_DIST>/tools/countEdgeUsage.py
+save_template
