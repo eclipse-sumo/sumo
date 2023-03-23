@@ -2648,6 +2648,9 @@ NBNodeCont::remapIDs(bool numericaIDs, bool reservedIDs, const std::string& pref
             node->setParameter(SUMO_PARAM_ORIGID, node->getID());
         }
         node->setID(idSupplier.getNext());
+        for (NBTrafficLightDefinition* tlDef : node->getControllingTLS()) {
+            tlc.rename(tlDef, node->getID());
+        }
         myNodes[node->getID()] = node;
     }
     if (prefix.empty()) {
