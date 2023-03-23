@@ -6823,12 +6823,13 @@ MSVehicle::resumeFromStopping() {
         }
         // the current stop is no longer valid
         myLane->getEdge().removeWaiting(this);
+        // MSStopOut needs to know whether the stop had a loaded 'ended' value so we call this before replacing the value
+        if (MSStopOut::active()) {
+            MSStopOut::getInstance()->stopEnded(this, stop.pars, stop.lane->getID());
+        }
         stop.pars.ended = MSNet::getInstance()->getCurrentTimeStep();
         for (const auto& rem : myMoveReminders) {
             rem.first->notifyStopEnded();
-        }
-        if (MSStopOut::active()) {
-            MSStopOut::getInstance()->stopEnded(this, stop.pars, stop.lane->getID());
         }
         if (stop.pars.collision && MSLane::getCollisionAction() == MSLane::COLLISION_ACTION_WARN) {
             myCollisionImmunity = TIME2STEPS(5); // leave the conflict area
