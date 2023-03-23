@@ -34,18 +34,21 @@ Add the files to the [{{SUMO}}/src/microsim/lcmodels/CMakeLists.txt]({{Source}}s
 
 ## Loading into simulation
 
+### Registering the model name as possible value
+
 We now add the XML-elements which allow us to define and parse the
 model's parameter. Extend the list of known elements
 "SUMOXMLDefinitions::tags" located in [{{SUMO}}/src/utils/xml/SUMOXMLDefinitions.cpp]({{Source}}src/utils/xml/SUMOXMLDefinitions.cpp).
 In `SUMOXMLDefinitions::laneChangeModelValues` add new values i.e. `{ "LCXYZ", LaneChangeModel::LCXYZ }` (but not as the last element in the array)
 and add the corresponding element to `enum class LaneChangeModel`.
 
-
+### Extending the list of loadable models
 Lane-changing models are instantiated in `MSAbstractLaneChangeModel::build`
 located in
 [{{SUMO}}/src/microsim/lcmodels/MSAbstractLaneChangeModel.cpp]({{Source}}src/microsim/lcmodels/MSAbstractLaneChangeModel.cpp). You'll find a switch, here
 where you have to put the call to your model's constructor into.
 
+### Adding custom model parameers
 
 You may note that all the paramters for the model are loaded within the
 constructur rather than being passed as arguments.
