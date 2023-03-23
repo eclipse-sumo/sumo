@@ -112,38 +112,45 @@ private:
     };
 
     MSNet* myNetwork;
-    bool myNetworkConnectedness;
     int myNumActivePedestrians = 0;
     std::vector<PState*> myPedestrianStates;
 
-    geos::geom::GeometryFactory* myGeometryFactory;
+    geos::geom::GeometryFactory::Ptr myGEOSGeometryFactory;
+    std::vector<geos::geom::Geometry*> myGEOSLineStringsDump;
+    std::vector<geos::geom::Geometry*> myGEOSPointsDump;
+    std::vector<geos::geom::Geometry*> myGEOSBufferedGeometriesDump;
+    std::vector<geos::geom::Geometry*> myGEOSGeometryCollectionsDump;
+    std::vector<geos::geom::Geometry*> myGEOSConvexHullsDump;
+    geos::geom::Geometry* myGEOSPedestrianNetwork;
+    bool myIsPedestrianNetworkConnected;
 
-    JPS_GeometryBuilder myGeometryBuilder;
-    JPS_Geometry myGeometry;
-    JPS_AreasBuilder myAreasBuilder;
-    JPS_Areas myAreas;
-    JPS_OperationalModel myModel;
-    JPS_ModelParameterProfileId myParameterProfileId;
-    JPS_Simulation mySimulation;
+    JPS_GeometryBuilder myJPSGeometryBuilder;
+    JPS_Geometry myJPSGeometry;
+    JPS_AreasBuilder myJPSAreasBuilder;
+    JPS_Areas myJPSAreas;
+    JPS_OperationalModel myJPSModel;
+    JPS_ModelParameterProfileId myJPSParameterProfileId;
+    JPS_Simulation myJPSSimulation;
 
     const PedestrianRoutingMode myRoutingMode = PedestrianRoutingMode::SUMO_ROUTING;
 
-#ifdef DEBUG
-    std::ofstream myTrajectoryDumpFile;
-#endif
-
+    static const int GEOS_QUADRANT_SEGMENTS;
+    static const double GEOS_MIN_AREA;
     static const SUMOTime JPS_DELTA_T;
     static const double JPS_EXIT_TOLERANCE;
 
     void initialize();
-    MSLane* getNextPedestrianLane(const MSLane* const currentLane) const;
+    static MSLane* getNextPedestrianLane(const MSLane* const currentLane);
+    
     static MSLane* getPedestrianLane(MSEdge* edge);
     static Position getAnchor(MSLane* lane, MSEdge* edge, ConstMSEdgeVector incoming);
     static Position getAnchor(MSLane* lane, MSEdge* edge, MSEdgeVector incoming);
     static std::tuple<ConstMSEdgeVector, ConstMSEdgeVector, std::unordered_set<MSEdge*>> getAdjacentEdgesOfJunction(MSJunction* junction);
-    static MSEdgeVector getAdjacentEdgesOfEdge(MSEdge* edge);
+    static const MSEdgeVector getAdjacentEdgesOfEdge(MSEdge* edge);
     static bool hasWalkingAreasInbetween(MSEdge* edge, MSEdge* otherEdge, ConstMSEdgeVector adjacentEdgesOfJunction);
     geos::geom::Geometry* createShapeFromCenterLine(PositionVector centerLine, double width, int capStyle);
     geos::geom::Geometry* createShapeFromAnchors(Position anchor, MSLane* lane, Position otherAnchor, MSLane* otherLane);
     geos::geom::Geometry* buildPedestrianNetwork(MSNet* network);
+    static std::vector<double> getFlattenedCoordinates(const geos::geom::Geometry* geometry);
+    void preparePolygonForJPS(const geos::geom::Polygon* polygon) const;
 };

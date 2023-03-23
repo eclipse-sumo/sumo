@@ -133,7 +133,7 @@ elseif (MSVC)
     # exporting symbols for shared libraries needs to enabled explicitly
     set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
     # add option for enabling console in release mode
-    option(CONSOLE_RELEASE "Enable console in SUMO-GUI and NETEDIT in release (use only for debug purposes)" false)
+    option(CONSOLE_RELEASE "Enable console in SUMO-GUI and NETEDIT in release (use only for debug purposes)" true)
 endif ()
 
 # special debug flags
@@ -243,6 +243,7 @@ if (SUMO_LIBRARIES AND WIN32)
                                  "${FOX_PATH}/bin/*.dll"
                                  "${ZLIB_PATH}/bin/*.dll"
 #                                 "${FREETYPE_PATH}/bin/*.dll"
+                                 "${GEOS_PATH}/bin/*.dll"
                                  "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/bzip2-*/bin/*.dll"
                                  "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/curl-*/bin/*.dll"
                                  "${SUMO_LIBRARIES}${LIB_VERSION}/3rdPartyLibs/libpng-*/bin/*.dll"
