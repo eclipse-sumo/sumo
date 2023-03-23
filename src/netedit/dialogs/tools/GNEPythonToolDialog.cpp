@@ -27,7 +27,7 @@
 
 #define MARGING 4
 #define MAXNUMCOLUMNS 4
-#define NUMROWSBYCOLUMN 10
+#define NUMROWSBYCOLUMN 20
 
 // ===========================================================================
 // FOX callback mapping
@@ -53,15 +53,14 @@ GNEPythonToolDialog::GNEPythonToolDialog(GNEApplicationWindow* GNEApp) :
     // set icon
     setIcon(GUIIconSubSys::getIcon(GUIIcon::TOOL_PYTHON));
     // build row frames
-    auto horizontalFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    horizontalFrame->setHeight(20);
+    auto horizontalFrameRows = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     for (int i = 0; i < MAXNUMCOLUMNS; i++) {
-        myRowFrames.push_back(std::make_pair(0, new FXVerticalFrame(horizontalFrame, GUIDesignAuxiliarFrameFixed)));
+        myRowFrames.push_back(new FXVerticalFrame(horizontalFrameRows, GUIDesignAuxiliarFrameFixed));
     }
     // add header
-    horizontalFrame = new FXHorizontalFrame(getRowFrame(), GUIDesignAuxiliarHorizontalFrame);
-    myParameterLabel = new FXLabel(horizontalFrame, TL("Parameter"), nullptr, GUIDesignLabelThickedFixed(0));
-    new FXLabel(horizontalFrame, TL("Value"), nullptr, GUIDesignLabelThickedFixed(250));
+    auto horizontalFrameLabel = new FXHorizontalFrame(getRowFrame(), GUIDesignAuxiliarHorizontalFrame);
+    myParameterLabel = new FXLabel(horizontalFrameLabel, TL("Parameter"), nullptr, GUIDesignLabelThickedFixed(0));
+    new FXLabel(horizontalFrameLabel, TL("Value"), nullptr, GUIDesignLabelThickedFixed(250));
     // add separator
     mySeparator = new FXSeparator(this);
     // create buttons centered
@@ -96,12 +95,13 @@ GNEPythonToolDialog::openDialog(GNEPythonTool* tool) {
     int rowFramesWidth = 0;
     int rowFramesHeight = 0;
     for (const auto &rowFrame : myRowFrames) {
-        rowFramesWidth += rowFrame.second->getWidth();
-        if (rowFrame.second->getHeight() > rowFramesHeight) {
-            rowFramesHeight = rowFrame.second->getHeight();
+        rowFramesWidth += rowFrame->getWidth();
+        if (rowFrame->getHeight() > rowFramesHeight) {
+            rowFramesHeight = rowFrame->getHeight();
         }
     }
-    resize(rowFramesWidth, rowFramesWidth + mySeparator->getHeight() + myButtonsFrame->getHeight() + (4 * MARGING));
+    // resize dialog (rowFramesWidth, Marging + rowFramesHeight + MARGING separator + MARGING + buttonsFrame + MARGING)
+    resize(rowFramesWidth, rowFramesHeight + mySeparator->getHeight() + myButtonsFrame->getHeight() + (4 * MARGING));
     // open as modal dialog (will block all windows until stop() or stopModal() is called)
     return myGNEApp->getApp()->runModalFor(this);
 }
@@ -140,18 +140,14 @@ GNEPythonToolDialog::onCmdReset(FXObject*, FXSelector, void*) {
 
 FXVerticalFrame*
 GNEPythonToolDialog::getRowFrame() {
-    // get current row column
-    const int numCol = getNumRowColums();
-    // pdate number of elements in rowFrames and return row horizontal frame
-    myRowFrames.at(numCol).first++;
-    return myRowFrames.at(numCol).second;
+    return myRowFrames.at(getNumRowColums());
 }
 
 
 int
 GNEPythonToolDialog::getNumRowColums() const {
-    const int column = (int)myRowFrames.size() / MAXNUMCOLUMNS;
-    return ((column <= MAXNUMCOLUMNS)? column : MAXNUMCOLUMNS) - 1;
+    const int column = (int)myArguments.size() / NUMROWSBYCOLUMN;
+    return (column < MAXNUMCOLUMNS)? column : (MAXNUMCOLUMNS - 1);
 }
 
 
@@ -167,10 +163,6 @@ GNEPythonToolDialog::buildArguments() {
         delete argument;
     }
     myArguments.clear();
-    // now reset columns
-    for (auto &rowFrame : myRowFrames) {
-        rowFrame.first = 0;
-    }
     // iterate over options
     for (const auto &option : myPythonTool->getToolsOptions()) {
         if (option.second->isInteger()) {
@@ -210,12 +202,11 @@ GNEPythonToolDialog::adjustParameterColumn() {
     // set content frame size (MARGING + Parameter + TextField + MARGING)
     for (int i = 0; i < MAXNUMCOLUMNS; i++) {
         if (i <= getNumRowColums()) {
-            myRowFrames.at(i).second->setWidth(MARGING + maximumWidth + 250 + GUIDesignHeight + MARGING);
-            myRowFrames.at(i).second->setHeight(GUIDesignHeight * ((int)myArguments.size() + 1));
-            std::cout << myRowFrames.at(i).first << " " << myRowFrames.at(i).second->numChildren() << std::endl;
+            myRowFrames.at(i)->setWidth(MARGING + maximumWidth + 250 + GUIDesignHeight + MARGING);
+            myRowFrames.at(i)->setHeight(GUIDesignHeight * myRowFrames.at(i)->numChildren());
         } else {
-            myRowFrames.at(i).second->setWidth(0);
-            myRowFrames.at(i).second->setHeight(0);
+            myRowFrames.at(i)->setWidth(0);
+            myRowFrames.at(i)->setHeight(0);
         }
     }
 }

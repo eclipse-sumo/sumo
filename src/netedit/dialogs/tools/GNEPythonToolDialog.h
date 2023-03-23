@@ -94,7 +94,7 @@ private:
     GNEApplicationWindow* myGNEApp;
 
     /// @brief vertical frames for rows
-    std::vector<std::pair<int, FXVerticalFrame*> > myRowFrames;
+    std::vector<FXVerticalFrame*> myRowFrames;
 
     /// @brief tool
     GNEPythonTool* myPythonTool = nullptr;
