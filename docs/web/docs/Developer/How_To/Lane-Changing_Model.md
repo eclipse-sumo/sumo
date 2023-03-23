@@ -34,6 +34,10 @@ Add the files to the [{{SUMO}}/src/microsim/lcmodels/CMakeLists.txt]({{Source}}s
 
 ## Loading into simulation
 
+### Updating the XSD schema files so they permit the new model name
+
+All permited moddels must be defined in [routeTypes.xsd]({{SUMO}}/data/xsd/routeTypes.xsd) in the list of permitted values for the `laneChangeModel` attribute.
+
 ### Registering the model name as possible value
 
 We now add the XML-elements which allow us to define and parse the
