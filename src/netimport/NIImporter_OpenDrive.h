@@ -91,6 +91,7 @@ protected:
         OPENDRIVE_TAG_PARAMPOLY3,
         OPENDRIVE_TAG_LANESECTION,
         OPENDRIVE_TAG_LANEOFFSET,
+        OPENDRIVE_TAG_ACCESS,
         OPENDRIVE_TAG_LEFT,
         OPENDRIVE_TAG_CENTER,
         OPENDRIVE_TAG_RIGHT,
@@ -166,6 +167,8 @@ protected:
         OPENDRIVE_ATTR_TOLANE,
         OPENDRIVE_ATTR_MAX,
         OPENDRIVE_ATTR_SOFFSET,
+        OPENDRIVE_ATTR_RULE,
+        OPENDRIVE_ATTR_RESTRICTION,
         OPENDRIVE_ATTR_NAME,
         OPENDRIVE_ATTR_UNIT    // xodr v1.4
     };
@@ -364,6 +367,9 @@ protected:
         /// @brief average width of removed inside lanes
         double discardedInnerWidthLeft;
         double discardedInnerWidthRight;
+        /// @brief access permission settings
+        std::set<std::string> allowed;
+        std::set<std::string> denied;
     };
 
 

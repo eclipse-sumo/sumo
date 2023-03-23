@@ -16,6 +16,7 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @author  Laura Bieker
+/// @author  Mirko Barthauer
 /// @date    Mon, 14.04.2008
 ///
 // Importer for networks stored in openDrive format
@@ -86,6 +87,7 @@ StringBijection<int>::Entry NIImporter_OpenDrive::openDriveTags[] = {
     { "center",           NIImporter_OpenDrive::OPENDRIVE_TAG_CENTER },
     { "right",            NIImporter_OpenDrive::OPENDRIVE_TAG_RIGHT },
     { "lane",             NIImporter_OpenDrive::OPENDRIVE_TAG_LANE },
+    { "access",           NIImporter_OpenDrive::OPENDRIVE_TAG_ACCESS },
     { "signal",           NIImporter_OpenDrive::OPENDRIVE_TAG_SIGNAL },
     { "signalReference",  NIImporter_OpenDrive::OPENDRIVE_TAG_SIGNALREFERENCE },
     { "validity",         NIImporter_OpenDrive::OPENDRIVE_TAG_VALIDITY },
@@ -153,6 +155,8 @@ StringBijection<int>::Entry NIImporter_OpenDrive::openDriveAttrs[] = {
     { "toLane",         NIImporter_OpenDrive::OPENDRIVE_ATTR_TOLANE },
     { "max",            NIImporter_OpenDrive::OPENDRIVE_ATTR_MAX },
     { "sOffset",        NIImporter_OpenDrive::OPENDRIVE_ATTR_SOFFSET },
+    { "rule",           NIImporter_OpenDrive::OPENDRIVE_ATTR_RULE },
+    { "restriction",    NIImporter_OpenDrive::OPENDRIVE_ATTR_RESTRICTION },
     { "name",           NIImporter_OpenDrive::OPENDRIVE_ATTR_NAME },
     // towards xodr v1.4 speed:unit
     { "unit",           NIImporter_OpenDrive::OPENDRIVE_ATTR_UNIT },
@@ -2360,6 +2364,20 @@ NIImporter_OpenDrive::myStartElement(int element,
                               << "\n";
                 }
 #endif
+            }
+        }
+        break;
+        case OPENDRIVE_TAG_ACCESS: {
+            if (myElementStack.size() >= 2 && myElementStack[myElementStack.size() - 1] == OPENDRIVE_TAG_LANE) {
+                const double s = attrs.get<double>(OPENDRIVE_ATTR_SOFFSET, myCurrentEdge.id.c_str(), ok);
+                std::string rule = attrs.get<std::string>(OPENDRIVE_ATTR_RULE, myCurrentEdge.id.c_str(), ok);
+                std::string vClass = attrs.get<std::string>(OPENDRIVE_ATTR_RESTRICTION, myCurrentEdge.id.c_str(), ok);
+                OpenDriveLaneSection& l = myCurrentEdge.laneSections.back();
+                if (rule == "allow") {
+                    l.allowed.insert(vClass);
+                } else if (rule == "deny") {
+                    l.denied.insert(vClass);
+                }
             }
         }
         break;
