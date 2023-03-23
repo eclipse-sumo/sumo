@@ -2171,6 +2171,16 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
 #ifdef PARALLEL_STOPWATCH
     myLane->getStopWatch()[0].start();
 #endif
+
+    // optionally slow down to match arrival time
+    const double sfp = getVehicleType().getParameter().speedFactorPremature;
+    if (v > vMinComfortable && hasStops() && myStops.front().pars.arrival >= 0 && sfp > 0
+            && v > myLane->getSpeedLimit() * sfp
+            && !myStops.front().reached) {
+        const double vSlowDown = slowDownForSchedule(vMinComfortable);
+        v = MIN2(v, vSlowDown);
+    }
+
     while (true) {
         // check leader on lane
         //  leader is given for the first edge only
@@ -2427,42 +2437,6 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
 
             }
 #endif
-            // optionally slow down to match arrival time
-            if (stop.pars.arrival >= 0 && getVehicleType().getParameter().speedFactorPremature > 0) {
-                double arrivalDelay = getStopArrivalDelay();
-                double t = STEPS2TIME(stop.pars.arrival - SIMSTEP);
-                if (stop.pars.started >= 0 && MSGlobals::gUseStopStarted) {
-                    arrivalDelay += STEPS2TIME(stop.pars.arrival - stop.pars.started);
-                    t = STEPS2TIME(stop.pars.started - SIMSTEP);
-                }
-                const double sfp = getVehicleType().getParameter().speedFactorPremature;
-                if (arrivalDelay < 0 && sfp < getChosenSpeedFactor()) {
-                    // we can slow down to better match the schedule (and increase energy efficiency)
-                    const double vSlowDownMin = MAX2(lane->getSpeedLimit() * sfp, vMinComfortable);
-                    const double s = newStopDist;
-                    const double b = getCarFollowModel().getMaxDecel();
-                    // x = speed for arriving in t seconds
-                    // u = time at full speed
-                    // u * x + (t - u) * 0.5 * x = s
-                    // t - u = x / b
-                    // eliminate u, solve x
-                    const double radicand = 4 * t * t * b * b - 8 * s * b;
-                    const double x = radicand >= 0 ? t * b - sqrt(radicand) * 0.5 : vSlowDownMin;
-                    double vSlowDown = x < vSlowDownMin ? vSlowDownMin : x;
-#ifdef DEBUG_PLAN_MOVE
-                    if (DEBUG_COND) {
-                        std::cout << SIMTIME << " veh=" << getID() << " ad=" << arrivalDelay << " t=" << t << " vsm=" << vSlowDownMin
-                            << " r=" << radicand << " vs=" << vSlowDown << " v=" << v << " v2=" << MIN2(v, vSlowDown) << "\n";
-                    }
-#endif
-                    v = MIN2(v, vSlowDown);
-                } else if (arrivalDelay > 0 && sfp > getChosenSpeedFactor()) {
-                    // in principle we could up to catch up with the schedule
-                    // but at this point we can only lower the speed, the
-                    // information would have to be used when computing getVehicleMaxSpeed
-                }
-            }
-
             // if the vehicle is going to stop we don't need to look further
             // (except for trains that make use of further link-approach registration for safety purposes)
             if (!isWaypoint && !isRailway(getVClass())) {
@@ -2861,6 +2835,45 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
 #endif
 }
 
+
+double
+MSVehicle::slowDownForSchedule(double vMinComfortable) const {
+    const double sfp = getVehicleType().getParameter().speedFactorPremature;
+    const MSStop& stop = myStops.front();
+    std::pair<double, double> timeDist = estimateTimeToNextStop();
+    double arrivalDelay = SIMTIME + timeDist.first - STEPS2TIME(stop.pars.arrival);
+    double t = STEPS2TIME(stop.pars.arrival - SIMSTEP);
+    if (stop.pars.started >= 0 && MSGlobals::gUseStopStarted) {
+        arrivalDelay += STEPS2TIME(stop.pars.arrival - stop.pars.started);
+        t = STEPS2TIME(stop.pars.started - SIMSTEP);
+    }
+    if (arrivalDelay < 0 && sfp < getChosenSpeedFactor()) {
+        // we can slow down to better match the schedule (and increase energy efficiency)
+        const double vSlowDownMin = MAX2(myLane->getSpeedLimit() * sfp, vMinComfortable);
+        const double s = timeDist.second;
+        const double b = getCarFollowModel().getMaxDecel();
+        // x = speed for arriving in t seconds
+        // u = time at full speed
+        // u * x + (t - u) * 0.5 * x = s
+        // t - u = x / b
+        // eliminate u, solve x
+        const double radicand = 4 * t * t * b * b - 8 * s * b;
+        const double x = radicand >= 0 ? t * b - sqrt(radicand) * 0.5 : vSlowDownMin;
+        double vSlowDown = x < vSlowDownMin ? vSlowDownMin : x;
+#ifdef DEBUG_PLAN_MOVE
+        if (DEBUG_COND) {
+            std::cout << SIMTIME << " veh=" << getID() << " ad=" << arrivalDelay << " t=" << t << " vsm=" << vSlowDownMin
+                << " r=" << radicand << " vs=" << vSlowDown << "\n";
+        }
+#endif
+        return vSlowDown;
+    } else if (arrivalDelay > 0 && sfp > getChosenSpeedFactor()) {
+        // in principle we could up to catch up with the schedule
+        // but at this point we can only lower the speed, the
+        // information would have to be used when computing getVehicleMaxSpeed
+    }
+    return getMaxSpeed();
+}
 
 SUMOTime
 MSVehicle::getArrivalTime(SUMOTime t, double seen, double v, double arrivalSpeed) const {
@@ -7456,7 +7469,7 @@ MSVehicle::manoeuvreIsComplete() const {
     return (myManoeuvre.manoeuvreIsComplete());
 }
 
-double
+std::pair<double, double>
 MSVehicle::estimateTimeToNextStop() const {
     if (hasStops()) {
         MSLane* lane = myLane;
@@ -7544,9 +7557,9 @@ MSVehicle::estimateTimeToNextStop() const {
         const double result = travelTime + timeLossAccel + timeLossDecel + timeLossLength;
         //std::cout << SIMTIME << " v=" << c << " a=" << a << " b=" << b << " maxVD=" << maxVD << " tt=" << travelTime
         //    << " ta=" << timeLossAccel << " td=" << timeLossDecel << " tl=" << timeLossLength << " res=" << result << "\n";
-        return MAX2(0.0, result);
+        return {MAX2(0.0, result), dist};
     } else {
-        return INVALID_DOUBLE;
+        return {INVALID_DOUBLE, INVALID_DOUBLE};
     }
 }
 
@@ -7561,7 +7574,7 @@ MSVehicle::getStopDelay() const {
         if (stop.pars.duration > 0) {
             estimatedDepart += stop.pars.duration;
         }
-        estimatedDepart += TIME2STEPS(estimateTimeToNextStop());
+        estimatedDepart += TIME2STEPS(estimateTimeToNextStop().first);
         const double result = MAX2(0.0, STEPS2TIME(estimatedDepart - stop.pars.until));
         return result;
     } else {
@@ -7578,7 +7591,7 @@ MSVehicle::getStopArrivalDelay() const {
         if (stop.reached) {
             return STEPS2TIME(stop.pars.started - stop.pars.arrival);
         } else {
-            return STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep()) + estimateTimeToNextStop() - STEPS2TIME(stop.pars.arrival);
+            return STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep()) + estimateTimeToNextStop().first - STEPS2TIME(stop.pars.arrival);
         }
     } else {
         // vehicles can arrival earlier than planned so arrival delay can be negative

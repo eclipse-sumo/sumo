@@ -1843,6 +1843,9 @@ protected:
     /// @brief try joining the given vehicle to the front of this one (to resolve joinTriggered)
     bool joinTrainPartFront(MSVehicle* veh);
 
+    /// @brief optionally return an upper bound on speed to stay within the schedule
+    double slowDownForSchedule(double vMinComfortable) const;
+
 protected:
 
     /// @brief The time the vehicle waits (is not faster than 0.1m/s) in seconds
@@ -2090,7 +2093,8 @@ protected:
     /// @brief decide whether the given link must be kept clear
     bool keepClear(const MSLink* link) const;
 
-    double estimateTimeToNextStop() const;
+    /// @brief return time (s) and distance to the next stop
+    std::pair<double, double> estimateTimeToNextStop() const;
 
     /* @brief special considerations for opposite direction driving so that the
      * result can be used directly by getPositionOnLane(...) */
