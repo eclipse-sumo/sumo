@@ -193,6 +193,9 @@ public:
         FXTextField* myIntTextField = nullptr;
 
     private:
+        /// @brief invalid int in string format
+        static const std::string INVALID_INT_STR;
+
         /// @brief Invalidated copy constructor.
         IntArgument(const IntArgument&) = delete;
 
@@ -221,6 +224,9 @@ public:
         FXTextField* myFloatTextField = nullptr;
 
     private:
+        /// @brief invalid float in string format
+        static const std::string INVALID_DOUBLE_STR;
+
         /// @brief Invalidated copy constructor.
         FloatArgument(const IntArgument&) = delete;
 

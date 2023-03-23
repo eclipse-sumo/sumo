@@ -28,6 +28,13 @@
 
 
 // ===========================================================================
+// static members
+// ===========================================================================
+
+const std::string GNEPythonToolDialogElements::IntArgument::INVALID_INT_STR = toString(INVALID_INT);
+const std::string GNEPythonToolDialogElements::FloatArgument::INVALID_DOUBLE_STR = toString(INVALID_DOUBLE);
+
+// ===========================================================================
 // FOX callback mapping
 // ===========================================================================
 
@@ -217,7 +224,11 @@ GNEPythonToolDialogElements::IntArgument::IntArgument(GNEPythonToolDialog* toolD
 void
 GNEPythonToolDialogElements::IntArgument::reset() {
     myIntTextField->setText(myDefaultValue.c_str());
-    myOption->set(myDefaultValue, myDefaultValue, false);
+    if (myDefaultValue.empty()) {
+        myOption->set(INVALID_INT_STR, INVALID_INT_STR, false);
+    } else {
+        myOption->set(myDefaultValue, myDefaultValue, false);
+    }
     myOption->resetDefault();
 }
 
@@ -256,7 +267,11 @@ GNEPythonToolDialogElements::FloatArgument::FloatArgument(GNEPythonToolDialog* t
 void
 GNEPythonToolDialogElements::FloatArgument::reset() {
     myFloatTextField->setText(myDefaultValue.c_str());
-    myOption->set(myDefaultValue, myDefaultValue, false);
+    if (myDefaultValue.empty()) {
+        myOption->set(INVALID_DOUBLE_STR, INVALID_DOUBLE_STR, false);
+    } else {
+        myOption->set(myDefaultValue, myDefaultValue, false);
+    }
     myOption->resetDefault();
 }
 
