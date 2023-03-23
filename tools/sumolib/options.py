@@ -208,7 +208,7 @@ class ArgumentParser(argparse.ArgumentParser):
         # set category
         a.category = category
         # set if a is a boolean
-        a.boolean = ((action == "store_true") or ("store_false"))
+        a.boolean = ((action == "store_true") or (action == "store_false"))
 
     def add_option(self, *args, **kwargs):
         """alias for compatibility with OptionParser"""
@@ -411,7 +411,7 @@ def handleCatoryWrapper(func):
         result.category = category
         # set if is a boolean
         action = kwargs.get("action")
-        result.boolean = ((action == "store_true") or ("store_false"))
+        result.boolean = ((action == "store_true") or (action == "store_false"))
         return result
     return inner
 
