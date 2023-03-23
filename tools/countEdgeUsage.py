@@ -31,29 +31,36 @@ def parse_args():
     DEFAULT_ELEMENTS2 = ['vehicle', 'trip', 'flow']
 
     USAGE = "Usage: " + sys.argv[0] + " <routefile> [options]"
-    ap = sumolib.options.ArgumentParser(description="count edge usage by vehicles", usage=USAGE)
-    ap.add_argument("-o", "--output-file", dest="outfile", category="output",
+    op = sumolib.options.ArgumentParser(description="count edge usage by vehicles", usage=USAGE)
+    op.add_argument("-o", "--output-file", dest="outfile", category="output", type=op.file,
                     help="name of output file")
-    ap.add_argument("--subpart", category="processing",
+    op.add_argument("--subpart", category="processing",
                     help="Restrict counts to routes that contain the given consecutive edge sequence")
-    ap.add_argument("--subpart-file", dest="subpart_file", category="processing",
+    op.add_argument("--subpart-file", dest="subpart_file", category="processing", type=op.additional_file,
                     help="Restrict counts to routes that contain one of the consecutive edge sequences " +
                          "in the given input file (one sequence per line)")
-    ap.add_argument("-i", "--intermediate", action="store_true", default=False, category="processing",
+    op.add_argument("-i", "--intermediate", action="store_true", default=False, category="processing",
                     help="count all edges of a route")
-    ap.add_argument("--taz", action="store_true", default=False, category="processing",
+    op.add_argument("--taz", action="store_true", default=False, category="processing",
                     help="use fromTaz and toTaz instead of from and to")
-    ap.add_argument("--elements",  default=','.join(DEFAULT_ELEMENTS), category="processing",
+    op.add_argument("--elements",  default=','.join(DEFAULT_ELEMENTS), category="processing",
                     help="include edges for the given elements in output")
-    ap.add_argument("-b", "--begin", default=0, category="time", help="collect departures after begin time")
-    ap.add_argument("-e", "--end", category="time", help="collect departures up to end time (default unlimited)")
-    ap.add_argument("--period", category="time", help="create data intervals of the given period duration")
-    ap.add_argument("-m", "--min-count", category="processing", default=0, type=int,
+    op.add_argument("-b", "--begin", default=0, category="time",
+                    help="collect departures after begin time")
+    op.add_argument("-e", "--end", category="time",
+                    help="collect departures up to end time (default unlimited)")
+    op.add_argument("--period", category="time",
+                    help="create data intervals of the given period duration")
+    op.add_argument("-m", "--min-count", category="processing", default=0, type=int,
                     help="include only values above the minimum")
-    ap.add_argument("-n", "--net-file", category="processing", help="parse net for geo locations of the edges")
-    ap.add_argument("-p", "--poi-file", category="processing", help="write geo POIs")
-    ap.add_argument("routefiles", nargs="+", category="input", help="Set on or more input route files")
-    options = ap.parse_args()
+    op.add_argument("-n", "--net-file", category="processing",  type=op.net_file,
+                    help="parse net for geo locations of the edges")
+    op.add_argument("-p", "--poi-file", category="processing", type=op.additional_file,
+                    help="write geo POIs")
+    op.add_argument("routefiles", nargs="+", category="input",
+                    help="Set on or more input route files")
+
+    options = op.parse_args()
     if options.outfile is None:
         options.outfile = options.routefiles[0] + ".departsAndArrivals.xml"
     if options.net_file and not options.poi_file:
