@@ -10,6 +10,9 @@ premature_slowDown_limit
 # vehicle arrives ahead of time
 premature_started
 
+# vehicle arrives ahead of time, impossible timing
+premature_started2
+
 # vehicle arrives ahead of time
 premature_useStarted
 
