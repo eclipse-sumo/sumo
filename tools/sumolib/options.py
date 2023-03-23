@@ -282,7 +282,7 @@ class ArgumentParser(argparse.ArgumentParser):
                                 typeStr = ' type="%s"' % "route_file"
                             elif (a.type == self.additional_file):
                                 typeStr = ' type="%s"' % "additional_file"
-                            elif (a.type == self.additional_file):
+                            elif (a.type == self.edgedata_file):
                                 typeStr = ' type="%s"' % "edgedata_file"
                             else:
                                 typeStr = ' type="%s"' % "string"
