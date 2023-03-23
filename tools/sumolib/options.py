@@ -153,6 +153,14 @@ class ArgumentParser(argparse.ArgumentParser):
     """
 
     @staticmethod
+    def time(s):
+        return s
+
+    @staticmethod
+    def file(s):
+        return s
+
+    @staticmethod
     def net_file(s):
         return s
 
@@ -188,6 +196,8 @@ class ArgumentParser(argparse.ArgumentParser):
         category = kwargs.get("category")
         if "category" in kwargs:
             del kwargs["category"]
+        # get action
+        action = kwargs.get("action")
         # parse argument
         a = argparse.ArgumentParser.add_argument(self, *args, **kwargs)
         # check if fix path
@@ -197,6 +207,8 @@ class ArgumentParser(argparse.ArgumentParser):
                     self._fix_path_args.add(s[2:])
         # set category
         a.category = category
+        # set if a is a boolean
+        a.boolean = ((action == "store_true") or ("store_false"))
 
     def add_option(self, *args, **kwargs):
         """alias for compatibility with OptionParser"""
@@ -254,12 +266,16 @@ class ArgumentParser(argparse.ArgumentParser):
                             if a.help is not None:
                                 help = ' help="%s"' % a.help
                             # type (don't use directly a.type, because it writes <class ....>
-                            if (a.type == bool):
+                            if ((a.type == bool) or a.boolean):
                                 typeStr = ' type="%s"' % "bool"
                             elif (a.type == float):
                                 typeStr = ' type="%s"' % "float"
                             elif (a.type == int):
                                 typeStr = ' type="%s"' % "int"
+                            elif (a.type == self.time):
+                                typeStr = ' type="%s"' % "time"
+                            elif (a.type == self.file):
+                                typeStr = ' type="%s"' % "file"
                             elif (a.type == self.net_file):
                                 typeStr = ' type="%s"' % "net_file"
                             elif (a.type == self.route_file):
@@ -388,10 +404,14 @@ def handleCatoryWrapper(func):
     @wraps(func)
     def inner(*args, **kwargs):
         category = kwargs.get("category")
+        # remove category from arguments and set in result
         if "category" in kwargs:
             del kwargs["category"]
         result = func(*args, **kwargs)
         result.category = category
+        # set if is a boolean
+        action = kwargs.get("action")
+        result.boolean = ((action == "store_true") or ("store_false"))
         return result
     return inner
 
