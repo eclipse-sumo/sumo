@@ -2438,6 +2438,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                 const double sfp = getVehicleType().getParameter().speedFactorPremature;
                 if (arrivalDelay < 0 && sfp < getChosenSpeedFactor()) {
                     // we can slow down to better match the schedule (and increase energy efficiency)
+                    const double vSlowDownMin = MAX2(lane->getSpeedLimit() * sfp, vMinComfortable);
                     const double s = newStopDist;
                     const double b = getCarFollowModel().getMaxDecel();
                     // x = speed for arriving in t seconds
@@ -2445,10 +2446,15 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                     // u * x + (t - u) * 0.5 * x = s
                     // t - u = x / b
                     // eliminate u, solve x
-                    const double x = t * b - sqrt(4 * t * t * b * b - 8 * s * b) * 0.5;
-                    const double vSlowDownMin = MAX2(lane->getSpeedLimit() * sfp, vMinComfortable);
+                    const double radicand = 4 * t * t * b * b - 8 * s * b;
+                    const double x = radicand >= 0 ? t * b - sqrt(radicand) * 0.5 : vSlowDownMin;
                     double vSlowDown = x < vSlowDownMin ? vSlowDownMin : x;
-                    //std::cout << SIMTIME << " veh=" << getID() << " ad=" << arrivalDelay << " t=" << t << " vsm=" << vSlowDownMin << " vs=" << vSlowDown << " v=" << v << " v2=" << MIN2(v, vSlowDown) << "\n";
+#ifdef DEBUG_PLAN_MOVE
+                    if (DEBUG_COND) {
+                        std::cout << SIMTIME << " veh=" << getID() << " ad=" << arrivalDelay << " t=" << t << " vsm=" << vSlowDownMin
+                            << " r=" << radicand << " vs=" << vSlowDown << " v=" << v << " v2=" << MIN2(v, vSlowDown) << "\n";
+                    }
+#endif
                     v = MIN2(v, vSlowDown);
                 } else if (arrivalDelay > 0 && sfp > getChosenSpeedFactor()) {
                     // in principle we could up to catch up with the schedule
