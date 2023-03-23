@@ -159,7 +159,7 @@ DUAROUTER = sumolib.checkBinary('duarouter')
 
 def get_options(args=None):
     parser = sumolib.options.ArgumentParser(description="Sample routes to match counts")
-    parser.add_argument("-n", "--net-file", category="input",dest="netFile",
+    parser.add_argument("-n", "--net-file", category="input", dest="netFile",
                         help="Input network file")
     parser.add_argument("-a", "--additional-file", category="input", dest="addFile",
                         help="Input additional file (busStops)")
@@ -171,36 +171,44 @@ def get_options(args=None):
                         help="Output additional file")
     parser.add_argument("-b", "--begin", category="time", default="0",
                         help="ignore vehicles departing before the given begin time (seconds or H:M:S)")
-    parser.add_argument("--until-from-duration", category="time", action="store_true", default=False, dest="untilFromDuration",
+    parser.add_argument("--until-from-duration", action="store_true", default=False, dest="untilFromDuration",
+                        category="time",
                         help="Use stop arrival+duration instead of 'until' to compute insertion constraints")
     parser.add_argument("-d", "--delay", category="time", default="0",
                         help="Assume given maximum delay when computing the number of intermediate vehicles " +
                         "that pass a given signal (for setting limit)")
     parser.add_argument("-l", "--limit", category="processing", type=int, default=0,
                         help="Increases the limit value for tracking passed vehicles by the given amount")
-    parser.add_argument("--abort-unordered", category="processing", dest="abortUnordered", action="store_true", default=False,
+    parser.add_argument("--abort-unordered", dest="abortUnordered", action="store_true", default=False,
+                        category="processing",
                         help="Abort generation of constraints for a stop "
                         "once the ordering of vehicles by 'arrival' differs from the ordering by 'until'")
     parser.add_argument("--premature-threshold", category="processing", default=600, dest="prematureThreshold",
                         help="Ignore schedule if a train leaves a station ahead of schedule by " +
                         "more than the threshold value")
-    parser.add_argument("--write-inactive", category="processing", dest="writeInactive", action="store_true", default=False,
+    parser.add_argument("--write-inactive",dest="writeInactive", action="store_true", default=False,
+                        category="processing",
                         help="Export aborted constraints as inactive")
-    parser.add_argument("-p", "--ignore-parking", category="processing", dest="ignoreParking", action="store_true", default=False,
+    parser.add_argument("-p", "--ignore-parking",dest="ignoreParking", action="store_true", default=False,
+                        category="processing",
                         help="Ignore unordered timing if the vehicle which arrives first is parking")
-    parser.add_argument("-P", "--skip-parking", category="processing", dest="skipParking", action="store_true", default=False,
+    parser.add_argument("-P", "--skip-parking", dest="skipParking", action="store_true", default=False,
+                        category="processing",
                         help="Do not generate constraints for a vehicle that parks at the next stop")
-    parser.add_argument("--redundant", category="processing", default=-1, help="Add redundant constraint within given time range " +
-                                                        "(reduces impact of modifying constraints at runtime)")
+    parser.add_argument("--redundant", category="processing", default=-1,
+                        help=("Add redundant constraint within given time range " +
+                              "(reduces impact of modifying constraints at runtime)"))
     parser.add_argument("--bidi-max-range", category="processing", dest="bidiMaxRange", type=float, default=1,
                         help="Find bidiStops on sequential edges within the given range in m")
-    parser.add_argument("--bidi-conflicts", category="processing", dest="bidiConflicts", action="store_true", default=False,
+    parser.add_argument("--bidi-conflicts", dest="bidiConflicts", action="store_true", default=False,
+                        category="processing",
                         help="Write bidiPredecessor constraints")
     parser.add_argument("--comment.line", category="processing", action="store_true", dest="commentLine", default=False,
                         help="add lines of involved trains in comment")
     parser.add_argument("--comment.id", category="processing", action="store_true", dest="commentId", default=False,
                         help="add ids of involved trains in comment (when different from tripId)")
-    parser.add_argument("--comment.switch", category="processing", action="store_true", dest="commentSwitch", default=False,
+    parser.add_argument("--comment.switch", action="store_true", dest="commentSwitch", default=False,
+                        category="processing",
                         help="add id of the merging switch that prompted the constraint")
     parser.add_argument("--comment.stop", category="processing", action="store_true", dest="commentStop", default=False,
                         help="add busStop id that was used to determine the train ordering for the constraint")

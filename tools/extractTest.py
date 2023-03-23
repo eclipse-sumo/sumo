@@ -53,7 +53,8 @@ def get_options(args=None):
                          help="name of a python script to generate for a batch run")
     optParser.add_option("-i", "--intelligent-names", category="processing", dest="names", action="store_true",
                          default=False, help="generate cfg name from directory name")
-    optParser.add_option("-v", "--verbose", category="processing", action="store_true", default=False, help="more information")
+    optParser.add_option("-v", "--verbose", category="processing", action="store_true", default=False,
+                         help="more information")
     optParser.add_option("-a", "--application", category="processing", help="sets the application to be used")
     optParser.add_option("-s", "--skip-configuration", category="processing", default=False, action="store_true",
                          help="skips creation of an application config from the options.app file")
@@ -61,7 +62,8 @@ def get_options(args=None):
                          help="remove all options related to XML validation")
     optParser.add_option("-d", "--no-subdir", category="processing", dest="noSubdir", action="store_true",
                          default=False, help="store test files directly in the output directory")
-    optParser.add_option("--depth", category="processing", type=int, default=1, help="maximum depth when descending into testsuites")
+    optParser.add_option("--depth", category="processing", type=int, default=1,
+                         help="maximum depth when descending into testsuites")
     options, args = optParser.parse_known_args(args)
     if not options.file and len(args) == 0:
         optParser.print_help()

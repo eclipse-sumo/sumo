@@ -32,8 +32,10 @@ def main():
     parser = sumolib.options.ArgumentParser()
     parser.add_argument("-k", "--sumo-config", category="input", default="sumo.sumocfg", help="sumo config file")
     parser.add_argument("-f", "--fcd-files", category="processing", dest="fcdFiles", help="the fcd files to replay")
-    parser.add_argument("--geo",  category="processing",action="store_true", default=False, help="use fcd data in lon,lat format")
-    parser.add_argument("-v", "--verbose", category="processing", action="store_true", default=False, help="tell me what you are doing")
+    parser.add_argument("--geo",  category="processing", action="store_true", default=False,
+                        help="use fcd data in lon,lat format")
+    parser.add_argument("-v", "--verbose", category="processing", action="store_true", default=False,
+                        help="tell me what you are doing")
     options, args = parser.parse_known_args()
 
     sumoBinary = sumolib.checkBinary("sumo-gui")

@@ -48,7 +48,8 @@ def parse_args():
     ap.add_argument("-b", "--begin", default=0, category="time", help="collect departures after begin time")
     ap.add_argument("-e", "--end", category="time", help="collect departures up to end time (default unlimited)")
     ap.add_argument("--period", category="time", help="create data intervals of the given period duration")
-    ap.add_argument("-m", "--min-count", category="processing", default=0, type=int, help="include only values above the minimum")
+    ap.add_argument("-m", "--min-count", category="processing", default=0, type=int,
+                    help="include only values above the minimum")
     ap.add_argument("-n", "--net-file", category="processing", help="parse net for geo locations of the edges")
     ap.add_argument("-p", "--poi-file", category="processing", help="write geo POIs")
     ap.add_argument("routefiles", nargs="+", category="input", help="Set on or more input route files")
