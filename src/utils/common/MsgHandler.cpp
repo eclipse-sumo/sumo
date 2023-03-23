@@ -113,6 +113,31 @@ MsgHandler::enableDebugGLMessages(bool enable) {
     myWriteDebugGLMessages = enable;
 }
 
+
+std::string
+MsgHandler::insertLineBreaks(std::string msg, int lineWidth) {
+    // TODO: check what FXFont::getTextWidth can do
+    //int textWidth = getApp()->getNormalFont()->getTextWidth
+    if (msg.size() <= lineWidth) {
+        return msg;
+    }
+    int pos = 0;
+    int nextLineBreak = msg.find('\n');
+    int spaceAfterLine = msg.find(' ', lineWidth);
+    while (spaceAfterLine != std::string::npos) {
+        if (nextLineBreak == std::string::npos || nextLineBreak > spaceAfterLine) {
+            msg = msg.replace(spaceAfterLine, 1, "\n");
+            pos = spaceAfterLine + 1;
+        } else {
+            pos = nextLineBreak + 1;
+        }
+        spaceAfterLine = msg.find(' ', pos + lineWidth);
+        nextLineBreak = msg.find('\n', pos);
+    }
+    return msg;
+}
+
+
 void
 MsgHandler::inform(std::string msg, bool addType) {
     if (addType && !myInitialMessages.empty() && myInitialMessages.size() < 5) {
