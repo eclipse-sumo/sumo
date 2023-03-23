@@ -106,18 +106,23 @@ def retrieveMapServerTiles(options, west, south, east, north, decals, net):
 def get_options(args=None):
     optParser = sumolib.options.ArgumentParser()
     optParser.add_option("-p", "--prefix", category="output", default="tile", help="for output file")
-    optParser.add_option("-b", "--bbox", category="input", help="bounding box to retrieve in geo coordinates west,south,east,north")
+    optParser.add_option("-b", "--bbox", category="input",
+                         help="bounding box to retrieve in geo coordinates west,south,east,north")
     optParser.add_option("-t", "--tiles", category="processing", type=int, default=1,
                          help="maximum number of tiles the output gets split into")
-    optParser.add_option("-d", "--output-dir", category="output", default=".", help="optional output directory (must already exist)")
-    optParser.add_option("-s", "--decals-file", category="input", default="settings.xml", help="name of decals settings file")
+    optParser.add_option("-d", "--output-dir", category="output", default=".",
+                         help="optional output directory (must already exist)")
+    optParser.add_option("-s", "--decals-file", category="input",
+                         default="settings.xml", help="name of decals settings file")
     optParser.add_option("-l", "--layer", category="processing", type=int, default=0,
                          help="(int) layer at which the image will appear, default 0")
     optParser.add_option("-x", "--polygon", category="input", help="calculate bounding box from polygon data in file")
     optParser.add_option("-n", "--net", category="input", help="get bounding box from net file")
     optParser.add_option("-k", "--key", category="processing", help="API key to use")
-    optParser.add_option("-m", "--maptype", category="processing", default="satellite", help="map type (roadmap, satellite, hybrid, terrain)")
-    optParser.add_option("-u", "--url", category="processing", default="arcgis", help="Download from the given tile server")
+    optParser.add_option("-m", "--maptype", category="processing", default="satellite",
+                         help="map type (roadmap, satellite, hybrid, terrain)")
+    optParser.add_option("-u", "--url", category="processing", default="arcgis",
+                         help="Download from the given tile server")
     optParser.add_option("-f", "--min-file-size", category="processing", type=int, default=3000,
                          help="maximum number of tiles the output gets split into")
     URL_SHORTCUTS = {

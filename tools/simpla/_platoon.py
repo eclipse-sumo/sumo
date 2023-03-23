@@ -230,15 +230,16 @@ class Platoon(object):
 
         mode = PlatoonMode.LEADER if (index < self.size() - 1) else PlatoonMode.NONE
         # splitImpatience = 1. - math.exp(min([0., self._vehicles[index]._timeUntilSplit]))
-        
+
         # check whether the split is safe and only create the new platoon afterwards
         if not self._vehicles[index].isSwitchSafe(mode):
             return None
         pltn = Platoon(self._vehicles[index:], self._controlInterval, cfg.MAX_VEHICLES, False)
 
-        if not pltn.setModeWithImpatience(mode, self._controlInterval): 
+        if not pltn.setModeWithImpatience(mode, self._controlInterval):
             # could not split off platoon safely
-            return None # TODO: this should not happen because it leaves the platoon object unconnected to the PlatoonManager
+            # TODO: this should not happen because it leaves the platoon object unconnected to the PlatoonManager
+            return None
 
         # split can be taken out safely -> reduce vehicles in this platoon
         self._vehicles = self._vehicles[:index]

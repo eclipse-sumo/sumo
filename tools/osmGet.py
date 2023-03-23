@@ -125,12 +125,15 @@ def readCompressed(conn, urlpath, query, roadTypesJSON, getShapes, filename):
 def get_options(args):
     optParser = sumolib.options.ArgumentParser(description="Get network from OpenStreetMap")
     optParser.add_argument("-p", "--prefix", category="processing", default="osm", help="for output file")
-    optParser.add_argument("-b", "--bbox", category="input", help="bounding box to retrieve in geo coordinates west,south,east,north")
+    optParser.add_argument("-b", "--bbox", category="input",
+                           help="bounding box to retrieve in geo coordinates west,south,east,north")
     optParser.add_argument("-t", "--tiles", category="processing", type=int,
                            default=1, help="number of tiles the output gets split into")
-    optParser.add_argument("-d", "--output-dir", category="output", help="optional output directory (must already exist)")
+    optParser.add_argument("-d", "--output-dir", category="output",
+                           help="optional output directory (must already exist)")
     optParser.add_argument("-a", "--area", category="processing", type=int, help="area id to retrieve")
-    optParser.add_argument("-x", "--polygon", category="processing", help="calculate bounding box from polygon data in file")
+    optParser.add_argument("-x", "--polygon", category="processing",
+                           help="calculate bounding box from polygon data in file")
     optParser.add_argument("-u", "--url", category="processing", default="www.overpass-api.de/api/interpreter",
                            help="Download from the given OpenStreetMap server")
     # alternatives: overpass.kumi.systems/api/interpreter, sumo.dlr.de/osm/api/interpreter
@@ -215,7 +218,7 @@ def get(args=None):
                 e = b + (east - west) / float(num)
                 readCompressed(conn, url.path, '<bbox-query n="%s" s="%s" w="%s" e="%s"/>' % (
                     north, south, b, e), roadTypesJSON, options.shapes,
-                               "%s%s_%s%s" % (options.prefix, i, num, suffix))
+                    "%s%s_%s%s" % (options.prefix, i, num, suffix))
                 b = e
 
     conn.close()

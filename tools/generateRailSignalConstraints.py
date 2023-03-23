@@ -186,10 +186,10 @@ def get_options(args=None):
     parser.add_argument("--premature-threshold", category="processing", default=600, dest="prematureThreshold",
                         help="Ignore schedule if a train leaves a station ahead of schedule by " +
                         "more than the threshold value")
-    parser.add_argument("--write-inactive",dest="writeInactive", action="store_true", default=False,
+    parser.add_argument("--write-inactive", dest="writeInactive", action="store_true", default=False,
                         category="processing",
                         help="Export aborted constraints as inactive")
-    parser.add_argument("-p", "--ignore-parking",dest="ignoreParking", action="store_true", default=False,
+    parser.add_argument("-p", "--ignore-parking", dest="ignoreParking", action="store_true", default=False,
                         category="processing",
                         help="Ignore unordered timing if the vehicle which arrives first is parking")
     parser.add_argument("-P", "--skip-parking", dest="skipParking", action="store_true", default=False,

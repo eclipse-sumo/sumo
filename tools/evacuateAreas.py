@@ -61,7 +61,7 @@ optParser.add_argument("--netfile", category="input", help="give the correspondi
 optParser.add_argument("--cost-modifier", category="processing", action="store_true", default=False,
                        help="change edge weights for priority edges/routes for evacuation")
 optParser.add_argument("--timeline", category="processing", help="Set the evacuation portions, separated by comma; " +
-                                          "the ratios are decided together with the given duration")
+                       "the ratios are decided together with the given duration")
 optParser.add_argument("--begin", category="processing", type=float, default=0, help="Set simulation/routing begin")
 optParser.add_argument("--duration", category="processing", type=float, default=2,
                        help="Set evacuation duration in hour")

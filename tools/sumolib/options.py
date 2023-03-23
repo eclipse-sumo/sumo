@@ -188,7 +188,8 @@ class ArgumentParser(argparse.ArgumentParser):
         self._allowed_programs = allowed_programs
 
     def add_argument(self, *args, **kwargs):
-        # due argparse only accept certains values (action, choices, type, help...), we need to extract extra parameters before call add_argument
+        # due argparse only accept certains values (action, choices, type, help...),
+        #  we need to extract extra parameters before call add_argument
         fix_path = kwargs.get("fix_path")
         if "fix_path" in kwargs:
             del kwargs["fix_path"]
@@ -290,7 +291,7 @@ class ArgumentParser(argparse.ArgumentParser):
                             # category
                             if a.category is not None:
                                 category = ' category="%s"' % a.category
-                            
+
                         break
                 if print_template or v != a.default:
                     if isinstance(v, list):

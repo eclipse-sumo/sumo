@@ -125,7 +125,7 @@ def import_gtfs(options, gtfsZip):
     stop_times['departure_fixed'] = pd.to_timedelta(stop_times.departure_time)
 
     # avoid trimming trips starting before midnight but ending after
-    fix_trips = stop_times[(stop_times['arrival_fixed'] >= full_day) & # gg/ here i arrive at or after midnight
+    fix_trips = stop_times[(stop_times['arrival_fixed'] >= full_day) &  # gg/ here i arrive at or after midnight
                            (stop_times['stop_sequence'] == stop_times['stop_sequence'].min())].trip_id.values.tolist()
 
     stop_times.loc[stop_times.trip_id.isin(fix_trips), 'arrival_fixed'] = stop_times.loc[stop_times.trip_id.isin(

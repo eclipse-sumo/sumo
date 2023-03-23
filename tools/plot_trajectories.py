@@ -63,8 +63,10 @@ def getOptions(args=None):
                          + " Time, Speed, Distance, Acceleration, Angle,"
                          + " x-Position, y-Position, Kilometrage, leaderGap."
                          + " Default 'ds' plots Distance vs. Speed")
-    optParser.add_option("--persons", category="processing", action="store_true", default=False, help="plot person trajectories")
-    optParser.add_option("-s", "--show", category="processing", action="store_true", default=False, help="show plot directly")
+    optParser.add_option("--persons", category="processing", action="store_true",
+                         default=False, help="plot person trajectories")
+    optParser.add_option("-s", "--show", category="processing", action="store_true",
+                         default=False, help="show plot directly")
     optParser.add_option("--csv-output", category="output", dest="csv_output", help="write plot as csv", metavar="FILE")
     optParser.add_option("-b", "--ballistic", category="processing", action="store_true", default=False,
                          help="perform ballistic integration of distance")
@@ -82,7 +84,8 @@ def getOptions(args=None):
     optParser.add_option("--invert-yaxis", category="processing", dest="invertYAxis", action="store_true",
                          default=False, help="Invert the Y-Axis")
     optParser.add_option("--legend", category="processing", action="store_true", default=False, help="Add legend")
-    optParser.add_option("-v", "--verbose", category="processing", action="store_true", default=False, help="tell me what you are doing")
+    optParser.add_option("-v", "--verbose", category="processing", action="store_true",
+                         default=False, help="tell me what you are doing")
 
     options, args = optParser.parse_known_args(args=args)
     if len(args) < 1:

@@ -40,7 +40,8 @@ optParser = sumolib.options.ArgumentParser(description="Import a OpenStreetMap f
 optParser.add_argument("-p", "--prefix", category="processing", default="osm", help="for output file")
 # don't know whether area or bbox call was used
 optParser.add_argument("-f", "--osm-file", category="input", help="full name of the osm file to import")
-optParser.add_argument("-m", "--typemap", category="input", help="typemap file for the extraction of colored areas (optional)")
+optParser.add_argument("-m", "--typemap", category="input",
+                       help="typemap file for the extraction of colored areas (optional)")
 optParser.add_argument("--netconvert-typemap", category="input", help="typemap files for netconverter (optional)")
 optParser.add_argument("-o", "--oldapi-prefix",
                        help="prefix that was used for retrieval with the old API")
@@ -58,7 +59,8 @@ optParser.add_argument("-y", "--polyconvert-options", category="processing",
                        default="-v,--osm.keep-full-type", help="comma-separated options for polyconvert")
 optParser.add_argument("-z", "--gzip", action="store_true", category="processing",
                        default=False, help="save gzipped network")
-optParser.add_argument("-v", "--verbose", category="processing", action="store_true", default=False, help="enable verbose netconvert output")
+optParser.add_argument("-v", "--verbose", category="processing", action="store_true",
+                       default=False, help="enable verbose netconvert output")
 
 
 def getRelative(dirname, option):

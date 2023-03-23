@@ -73,15 +73,15 @@ def get_options(args=None):
                          default=120, help="maximal cycle length")
     optParser.add_option("-e", "--existing-cycle", category="processing", dest="existcycle", action="store_true",
                          default=False, help="use the existing cycle length")
-    optParser.add_option("--write-critical-flows", category="processing", dest="write_critical_flows", action="store_true",
-                         default=False, help="print critical flows for each tls and phase")
+    optParser.add_option("--write-critical-flows", category="processing", dest="write_critical_flows",
+                         action="store_true", default=False, help="print critical flows for each tls and phase")
     optParser.add_option("-p", "--program", category="processing", dest="program", default="a",
                          help="save new definitions with this program id")
     optParser.add_option("-H", "--saturation-headway", category="processing", dest="satheadway", type=float, default=2,
                          help="saturation headway in seconds for calculating hourly saturation flows")
     optParser.add_option("-R", "--restrict-cyclelength", category="processing", dest="restrict", action="store_true",
                          default=False, help="restrict the max. cycle length as the given one")
-    optParser.add_option("-u", "--unified-cycle", category="processing", dest="unicycle", action="store_true", default=False,
+    optParser.add_option("-u", "--unified-cycle", category="processing", action="store_true", default=False,
                          help="use the calculated max cycle length as the cycle length for all intersections")
     optParser.add_option("--sorted", category="processing", action="store_true", default=False,
                          help="assume the route file is sorted (aborts reading earlier)")
@@ -434,7 +434,7 @@ def optimizeGreenTime(tl, groupFlowsMap, phaseLaneIndexMap, currentLength, multi
                 groupFlowsMap[i][0] = int(round((groupFlowsMap[i][0] / float(subtotalGreenTimes)) * adjustGreenTimes))
             totalLength += groupFlowsMap[i][0]
 
-    if options.unicycle and totalLength != optCycle:
+    if options.unified_cycle and totalLength != optCycle:
         diff = optCycle - totalLength
         secs_to_distribute = [int(diff / abs(diff))] * abs(diff)
         keys = list(groupFlowsMap.keys())
@@ -475,7 +475,7 @@ def main(options):
     with open(options.outfile, 'w') as outf:
         sumolib.xml.writeHeader(outf, root="additional", options=options)
         if len(effectiveTlsList) > 0:
-            if options.unicycle:
+            if options.unified_cycle:
                 cycleList = []
                 if options.verbose:
                     print("Firstly only calculate the maximal optimized cycle length! ")
@@ -501,7 +501,8 @@ def main(options):
                     print("The maximal optimized cycle length is %s." % max(cycleList))
                     print(" It will be used for calculating the green splits for all intersections.")
 
-            # calculate the green splits; the optimal length will be also calculate if options.unicycle is set as false.
+            # calculate the green splits;
+            # the optimal length will be also calculate if options.unified_cycle is set as false.
             for tl in effectiveTlsList:
                 if options.verbose:
                     print("tl-logic ID: %s" % tl._id)

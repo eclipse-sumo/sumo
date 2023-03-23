@@ -45,7 +45,7 @@ def get_options(args=None):
                   help="configuration to run")
     ap.add_option("-a", "--application", category="processing", default="sumo", metavar="FILE",
                   help="application to run")
-    ap.add_option("-p", "--output-prefix",  category="processing",default="SEED.", dest="prefix",
+    ap.add_option("-p", "--output-prefix",  category="processing", default="SEED.", dest="prefix",
                   help="output prefix",)
     ap.add_option("--seeds", category="processing", default="0:10",
                   help="which seeds to run")
