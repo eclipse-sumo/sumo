@@ -29,3 +29,6 @@ data_issues
 fast
 precision
 humanReadableTime
+
+# save template
+save_template
