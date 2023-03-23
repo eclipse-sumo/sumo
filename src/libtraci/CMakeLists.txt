@@ -174,7 +174,7 @@ if(SWIG_FOUND)
                 swig_link_libraries(libtraci -Wl,--whole-archive libtracistatic ${libtcpip} -Wl,--no-whole-archive)
             else()
                 set_target_properties(${SWIG_MODULE_libtraci_REAL_NAME} PROPERTIES FOLDER "libtraci")
-                if (${CMAKE_VERSION} VERSION_LESS 3.14.0)
+                if (SKBUILD OR ${CMAKE_VERSION} VERSION_LESS 3.14.0)
                     swig_link_libraries(libtraci libtracistatic ${libtcpip} ${PYTHON_LIBRARIES})
                 else()
                     # using target fixes segfault in macos, swig_link_libraries is also deprecated
