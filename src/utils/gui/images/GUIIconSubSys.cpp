@@ -34,6 +34,10 @@
 #include "netedit_icon64.xpm"
 #include "netedit_icon16.xpm"
 
+#include "netgenerate_grid.xpm"
+#include "netgenerate_spider.xpm"
+#include "netgenerate_random.xpm"
+
 #include "empty.xpm"
 #include "newnet.xpm"
 #include "play.xpm"
@@ -496,6 +500,10 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::NETGENERATE] = new FXXPMIcon(a, netgenerate_xpm);
     myIcons[GUIIcon::NETEDIT] = new FXXPMIcon(a, netedit_icon64_xpm);
     myIcons[GUIIcon::NETEDIT_MINI] = new FXXPMIcon(a, netedit_icon16_xpm);
+
+    myIcons[GUIIcon::NETGENERATE_GRID] = new FXXPMIcon(a, netgenerate_grid_xpm);
+    myIcons[GUIIcon::NETGENERATE_SPIDER] = new FXXPMIcon(a, netgenerate_spider_xpm);
+    myIcons[GUIIcon::NETGENERATE_RANDOM] = new FXXPMIcon(a, netgenerate_random_xpm);
 
     myIcons[GUIIcon::EMPTY] = new FXXPMIcon(a, empty_xpm);
     myIcons[GUIIcon::NEW_NET] = new FXXPMIcon(a, newnet_xpm);

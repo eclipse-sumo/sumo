@@ -45,7 +45,14 @@ enum class GUIIcon {
     NETEDIT_MINI,
     NETGENERATE,
     /// @}
-    
+
+    /// @name netgenerate networks
+    /// @{
+    NETGENERATE_GRID,
+    NETGENERATE_SPIDER,
+    NETGENERATE_RANDOM,
+    /// @}
+
     /// @name general Interface icons
     /// @{
     EMPTY,
