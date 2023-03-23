@@ -83,12 +83,18 @@ protected:
     /// @brief list of arguments
     std::vector<GNEPythonToolDialogElements::Argument*> myArguments;
 
+    /// @brief get row frame
+    FXVerticalFrame* getRowFrame();
+
+    /// @brief get number of row colums
+    int getNumRowColums() const;
+
 private:
     /// @brief pointer to GNEApplicationWindow
     GNEApplicationWindow* myGNEApp;
 
-    /// @brief vertical frame for contents
-    FXVerticalFrame* myContentFrame = nullptr;
+    /// @brief vertical frames for rows
+    std::vector<std::pair<int, FXVerticalFrame*> > myRowFrames;
 
     /// @brief tool
     GNEPythonTool* myPythonTool = nullptr;

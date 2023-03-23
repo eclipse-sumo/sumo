@@ -61,7 +61,7 @@ FXIMPLEMENT(GNEPythonToolDialogElements::FileNameArgument,    GNEPythonToolDialo
 // ---------------------------------------------------------------------------
 
 GNEPythonToolDialogElements::Argument::Argument(GNEPythonToolDialog* toolDialogParent, const std::string &parameter, Option* option) :
-    FXHorizontalFrame(toolDialogParent->myContentFrame, GUIDesignAuxiliarHorizontalFrame),
+    FXHorizontalFrame(toolDialogParent->getRowFrame(), GUIDesignAuxiliarHorizontalFrame),
     myOption(option),
     myDefaultValue((option->getValueString() == "None")? "" : option->getValueString()) {
     // create parameter label
