@@ -133,7 +133,7 @@ elseif (MSVC)
     # exporting symbols for shared libraries needs to enabled explicitly
     set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
     # add option for enabling console in release mode
-    option(CONSOLE_RELEASE "Enable console in SUMO-GUI and NETEDIT in release (use only for debug purposes)" true)
+    option(CONSOLE_RELEASE "Enable console in SUMO-GUI and NETEDIT in release (use only for debug purposes)" false)
 endif ()
 
 # special debug flags
@@ -234,7 +234,7 @@ if (SUMO_LIBRARIES AND WIN32)
     file(GLOB FOX_PATH "${SUMO_LIBRARIES}${LIB_VERSION}/fox-?.?.??")
     file(GLOB FREETYPE_PATH "${SUMO_LIBRARIES}${LIB_VERSION}/freetype-2.??.?")
     file(GLOB EIGEN3_PATH "${SUMO_LIBRARIES}/eigen-3.?.?")
-    file(GLOB GEOS_PATH "${SUMO_LIBRARIES}/geos-*")
+    file(GLOB GEOS_PATH "${SUMO_LIBRARIES}/3rdPartyLibs/geos-*")
     # set all paths in prefix
     set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${EIGEN3_PATH};${XERCES_PATH};${ZLIB_PATH};${PROJ_PATH};${FOX_PATH};${FREETYPE_PATH};${GEOS_PATH}")
     # save in variable SUMO_LIBRARIES_DLL all paths to dll files
@@ -348,7 +348,7 @@ if (CHECK_OPTIONAL_LIBS)
     file(GLOB FFMPEG_PATH "${SUMO_LIBRARIES}/FFMPEG-?.?.?")
     file(GLOB OSG_PATH "${SUMO_LIBRARIES}/OSG-?.?.?")
     file(GLOB GL2PS_PATH "${SUMO_LIBRARIES}${LIB_VERSION}/gl2ps-?.?.?")
-    file(GLOB GEOS_PATH "${SUMO_LIBRARIES}/geos-*")
+    file(GLOB GEOS_PATH "${SUMO_LIBRARIES}/3rdPartyLibs/geos-*")
     set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${GDAL_PATH};${FFMPEG_PATH};${OSG_PATH};${GL2PS_PATH};${GEOS_PATH}")
     file(GLOB SUMO_OPTIONAL_LIBRARIES_DLL "${GDAL_PATH}/bin/*.dll" "${FFMPEG_PATH}/bin/*.dll" "${OSG_PATH}/bin/*.dll" "${GL2PS_PATH}/bin/*.dll")
 
@@ -399,7 +399,7 @@ if (CHECK_OPTIONAL_LIBS)
     find_package(GEOS)
     if (GEOS_FOUND)
         include_directories(SYSTEM ${GEOS_INCLUDE_DIR})
-        #link_directories(${GEOS_LIBRARY})
+        link_directories(${GEOS_LIBRARY})
         set(HAVE_GEOS 1)
         set(ENABLED_FEATURES "${ENABLED_FEATURES} GEOS")
     else (GEOS_FOUND)
