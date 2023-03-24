@@ -3,7 +3,7 @@ set(netconvertlibs
 
 set(sumolibs
         traciserver netload microsim_cfmodels microsim_engine microsim_lcmodels microsim_devices microsim_trigger microsim_output microsim_transportables microsim_actions
-        microsim_traffic_lights microsim mesosim ${commonvehiclelibs})
+        microsim_traffic_lights microsim mesosim ${commonvehiclelibs} ${GEOS_LIBRARY})
 if (OPENSCENEGRAPH_FOUND)
     set(osgviewlib osgview)
 endif ()
