@@ -133,7 +133,7 @@ TemplateHandler::addOption(const std::string value, const std::string& synonymes
             if (value.empty() || (value == "None")) {
                 option->set(INVALID_INT_STR, "", true);
             }
-        } else if ((type == "FLOAT") || (type == "float") || (type == "TIME")) {
+        } else if ((type == "FLOAT") || (type == "float") || (type == "TIME") || (type == "time")) {
             option = new Option_Float(0);
             if (value.empty() || (value == "None")) {
                 option->set(INVALID_DOUBLE_STR, "", true);
@@ -147,7 +147,8 @@ TemplateHandler::addOption(const std::string value, const std::string& synonymes
             option = new Option_IntVector();
         } else if (type == "STR[]") {
             option = new Option_StringVector();
-        } else if (type == "FILE") {
+        } else if ((type == "FILE") || (type == "file") || (type == "net_file") || (type == "additional_file") ||
+                   (type == "route_file") || (type == "edgedata_file")) {
             option = new Option_FileName();
         } else if (type.size() > 0) {
             WRITE_WARNING(type + " is an invalid type");
