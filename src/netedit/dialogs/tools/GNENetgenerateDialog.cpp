@@ -11,81 +11,121 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNENetdiffToolDialog.cpp
+/// @file    GNENetgenerateDialog.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Mar 2023
 ///
-// Special dialog for netgenerate
+// Dialog for netgenerate
 /****************************************************************************/
 
 #include <netedit/GNEApplicationWindow.h>
 #include <utils/foxtools/MFXLabelTooltip.h>
 #include <utils/gui/div/GUIDesigns.h>
 
-#include "GNENetdiffToolDialog.h"
-#include "GNENetgenerateTool.h"
+#include "GNENetgenerateDialog.h"
 
+#define MARGING 4
+#define MAXNUMCOLUMNS 4
+#define NUMROWSBYCOLUMN 20
+
+// ===========================================================================
+// FOX callback mapping
+// ===========================================================================
+
+FXDEFMAP(GNENetgenerateDialog) GNENetgenerateDialogMap[] = {
+    FXMAPFUNC(SEL_CLOSE,    0,                      GNENetgenerateDialog::onCmdCancel),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_RUN,     GNENetgenerateDialog::onCmdRun),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_CANCEL,  GNENetgenerateDialog::onCmdCancel),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_RESET,   GNENetgenerateDialog::onCmdReset)
+};
+
+// Object implementation
+FXIMPLEMENT(GNENetgenerateDialog, FXDialogBox, GNENetgenerateDialogMap, ARRAYNUMBER(GNENetgenerateDialogMap))
 
 // ============================================-===============================
 // member method definitions
 // ===========================================================================
 
-GNENetdiffToolDialog::GNENetdiffToolDialog(GNEApplicationWindow* GNEApp) :
-    GNENetgenerateToolDialog(GNEApp) {
-    // build options for netdiff
-    myNetdiffOptions.addOptionSubTopic("Configuration");
-    myNetdiffOptions.doRegister("original-net", new Option_FileName());
-    myNetdiffOptions.addDescription("original-net", "Configuration", TL("Original network"));
-
-    myNetdiffOptions.doRegister("modified-net", new Option_FileName());
-    myNetdiffOptions.addDescription("modified-net", "Configuration", TL("Modified network"));
-
-    myNetdiffOptions.doRegister("select-modified", new Option_Bool(false));
-    myNetdiffOptions.addDescription("select-modified", "Configuration", TL("Select modified elements"));
-    
-    myNetdiffOptions.doRegister("select-added", new Option_Bool(false));
-    myNetdiffOptions.addDescription("select-added", "Configuration", TL("Select added elements"));
-    
-    myNetdiffOptions.doRegister("select-deleted", new Option_Bool(false));
-    myNetdiffOptions.addDescription("select-deleted", "Configuration", TL("Select deleted elements"));
-    
-    myNetdiffOptions.doRegister("load-shapes-modified", new Option_Bool(false));
-    myNetdiffOptions.addDescription("load-shapes-modified", "Configuration", TL("Load shapes for elements"));
-
-    myNetdiffOptions.doRegister("load-shapes-added", new Option_Bool(false));
-    myNetdiffOptions.addDescription("load-shapes-added", "Configuration", TL("Load shapes for added"));
-
-    myNetdiffOptions.doRegister("load-shapes-deleted", new Option_Bool(false));
-    myNetdiffOptions.addDescription("load-shapes-deleted", "Configuration", TL("Load shapes for deleted elements"));
+GNENetgenerateDialog::GNENetgenerateDialog(GNEApplicationWindow* GNEApp) :
+    FXDialogBox(GNEApp->getApp(), "Netgenerate", GUIDesignDialogBoxExplicit(0, 0)),
+    myGNEApp(GNEApp) {
+    // set icon
+    setIcon(GUIIconSubSys::getIcon(GUIIcon::TOOL_PYTHON));
+/*
+    // build row frames
+    auto horizontalFrameRows = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    // add header
+    auto horizontalFrameLabel = new FXHorizontalFrame(getRowFrame(), GUIDesignAuxiliarHorizontalFrame);
+    myParameterLabel = new FXLabel(horizontalFrameLabel, TL("Parameter"), nullptr, GUIDesignLabelThickedFixed(0));
+    new FXLabel(horizontalFrameLabel, TL("Value"), nullptr, GUIDesignLabelThickedFixed(250));
+    // add separator
+    mySeparator = new FXSeparator(this);
+    // create buttons centered
+    myButtonsFrame = new FXHorizontalFrame(this, GUIDesignHorizontalFrame);
+    new FXHorizontalFrame(myButtonsFrame, GUIDesignAuxiliarHorizontalFrame);
+    new FXButton(myButtonsFrame, (TL("Run") + std::string("\t\t") + TL("close accepting changes")).c_str(),
+        GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_BUTTON_RUN, GUIDesignButtonAccept);
+    new FXButton(myButtonsFrame, (TL("Cancel") + std::string("\t\t") + TL("close discarding changes")).c_str(),
+        GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCancel);
+    new FXButton(myButtonsFrame, (TL("Reset") + std::string("\t\t") + TL("reset to previous values")).c_str(), 
+        GUIIconSubSys::getIcon(GUIIcon::RESET),  this, MID_GNE_BUTTON_RESET,  GUIDesignButtonReset);
+    new FXHorizontalFrame(myButtonsFrame, GUIDesignAuxiliarHorizontalFrame);
+*/
 }
 
 
-GNENetdiffToolDialog::~GNENetdiffToolDialog() {}
+GNENetgenerateDialog::~GNENetgenerateDialog() {}
 
 
-void
-GNENetdiffToolDialog::buildArguments() {
-    // first clear arguments
-    for (const auto& argument : myArguments) {
-        delete argument;
-    }
-    myArguments.clear();
-    // create specific netdiff options
-    for (const auto &option : myNetdiffOptions) {
-        if (option.second->isInteger()) {
-            myArguments.push_back(new GNENetgenerateToolDialogElements::IntArgument(this, option.first, option.second));
-        } else if (option.second->isFloat()) {
-            myArguments.push_back(new GNENetgenerateToolDialogElements::FloatArgument(this, option.first, option.second));
-        } else if (option.second->isBool()) {
-            myArguments.push_back(new GNENetgenerateToolDialogElements::BoolArgument(this, option.first, option.second));
-        } else if (option.second->isFileName()) {
-            myArguments.push_back(new GNENetgenerateToolDialogElements::FileNameArgument(this, option.first, option.second));       
-        } else {
-            myArguments.push_back(new GNENetgenerateToolDialogElements::StringArgument(this, option.first, option.second));
-        }
-    }
-    // adjust parameter column (call always after create elements)
-    adjustParameterColumn();
+long
+GNENetgenerateDialog::openDialog(GNENetgenerate* tool) {
+    // set tool
+    myNetgenerate = tool;
+    // show dialog
+    FXDialogBox::show(PLACEMENT_SCREEN);
+    // refresh APP
+    getApp()->refresh();
+    // resize dialog (Marging + contentFrame + MARGING separator + MARGING + buttonsFrame + MARGING)
+    int rowFramesWidth = 0;
+    int rowFramesHeight = 0;
+    // resize dialog (rowFramesWidth, Marging + rowFramesHeight + MARGING separator + MARGING + buttonsFrame + MARGING)
+    resize(rowFramesWidth, rowFramesHeight + mySeparator->getHeight() + myButtonsFrame->getHeight() + (4 * MARGING));
+    // open as modal dialog (will block all windows until stop() or stopModal() is called)
+    return myGNEApp->getApp()->runModalFor(this);
+}
+
+
+long
+GNENetgenerateDialog::onCmdRun(FXObject*, FXSelector, void*) {
+    // stop modal
+    myGNEApp->getApp()->stopModal(this);
+    // hide dialog
+    hide();
+    // run tool
+    //return myGNEApp->tryHandle(myNetgenerate->getMenuCommand(), FXSEL(SEL_COMMAND, MID_GNE_RUNPYTHONTOOL), nullptr);
+    return 1;
+}
+
+
+long
+GNENetgenerateDialog::onCmdCancel(FXObject*, FXSelector, void*) {
+    // stop modal
+    myGNEApp->getApp()->stopModal(this);
+    // hide dialog
+    hide();
+    return 1;
+}
+
+
+long
+GNENetgenerateDialog::onCmdReset(FXObject*, FXSelector, void*) {
+    // iterate over all arguments and reset values
+    return 1;
+}
+
+
+GNENetgenerateDialog::GNENetgenerateDialog() :
+    myGNEApp(nullptr) {
 }
 
 /****************************************************************************/

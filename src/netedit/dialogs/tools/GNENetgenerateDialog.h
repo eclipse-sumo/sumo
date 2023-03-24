@@ -11,41 +11,87 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNENetdiffToolDialog.h
+/// @file    GNENetgenerateDialog.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Mar 2023
 ///
-// Special dialog for netgenerate
+// Dialog for netgenerate
 /****************************************************************************/
 #pragma once
 #include <config.h>
 
 #include <utils/options/OptionsCont.h>
 
-#include "GNENetgenerateToolDialog.h"
+// ===========================================================================
+// class declarations
+// ===========================================================================
+
+class GNEApplicationWindow;
+class GNENetgenerate;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
 /**
- * @class GNENetdiffToolDialog
- * @brief dialog for netdiff
+ * @class GNENetgenerateDialog
+ * @brief Dialog for netgenerate tool dialog
  */
-class GNENetdiffToolDialog : public GNENetgenerateToolDialog {
+class GNENetgenerateDialog : protected FXDialogBox {
+    /// @brief FOX-declaration
+    FXDECLARE(GNENetgenerateDialog)
+
+    /// @brief declare friend class
+    friend class GNENetgenerateDialogElements;
 
 public:
     /// @brief Constructor
-    GNENetdiffToolDialog(GNEApplicationWindow* GNEApp);
+    GNENetgenerateDialog(GNEApplicationWindow* GNEApp);
 
     /// @brief destructor
-    ~GNENetdiffToolDialog();
+    ~GNENetgenerateDialog();
+
+    /// @brief open dialog
+    long openDialog(GNENetgenerate* tool);
+
+    /// @name FOX-callbacks
+    /// @{
+
+    /// @brief event after press run button
+    long onCmdRun(FXObject*, FXSelector, void*);
+
+    /// @brief event after press cancel button
+    long onCmdCancel(FXObject*, FXSelector, void*);
+
+    /// @brief event after press reset button
+    long onCmdReset(FXObject*, FXSelector, void*);
+
+    /// @}
 
 protected:
-    /// @brief netdiff options
-    OptionsCont myNetdiffOptions;
+    /// @brief FOX needs this
+    GNENetgenerateDialog();
 
-    /// @brief build arguments
-    virtual void buildArguments();
+private:
+    /// @brief pointer to GNEApplicationWindow
+    GNEApplicationWindow* myGNEApp;
+
+    /// @brief tool
+    GNENetgenerate* myNetgenerate = nullptr;
+
+    /// @brief parameter label
+    FXLabel* myParameterLabel = nullptr;
+
+    /// @brief separator
+    FXSeparator* mySeparator = nullptr;
+
+    /// @brief buttons frame
+    FXHorizontalFrame* myButtonsFrame = nullptr;
+
+    /// @brief Invalidated copy constructor.
+    GNENetgenerateDialog(const GNENetgenerateDialog&) = delete;
+
+    /// @brief Invalidated assignment operator.
+    GNENetgenerateDialog& operator=(const GNENetgenerateDialog&) = delete;
 };
 
