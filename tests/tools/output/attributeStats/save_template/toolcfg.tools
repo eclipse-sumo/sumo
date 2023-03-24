@@ -9,7 +9,7 @@
     <human-readable-time value="False" type="bool" help="interpret values as times and write them as h:m:s" category="output"/>
     <id-attribute value="id" type="string" help="attribute to identify data elements" category="input"/>
     <precision value="2" type="int" help="Set output precision" category="output"/>
-    <verbose value="False" type="bool" help="Give more output" category="miscelaneous"/>
+    <verbose value="False" type="bool" help="Give more output"/>
     <xml-output.flat value="False" type="bool" help="legacy xml output" category="output"/>
     <xml-output value="None" type="file" help="output statistic to xml file" category="output"/>
 </configuration>
