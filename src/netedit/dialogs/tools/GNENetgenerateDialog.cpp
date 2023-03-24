@@ -47,30 +47,43 @@ FXIMPLEMENT(GNENetgenerateDialog, FXDialogBox, GNENetgenerateDialogMap, ARRAYNUM
 // ===========================================================================
 
 GNENetgenerateDialog::GNENetgenerateDialog(GNEApplicationWindow* GNEApp) :
-    FXDialogBox(GNEApp->getApp(), "Netgenerate", GUIDesignDialogBoxExplicit(200, 200)),
+    FXDialogBox(GNEApp->getApp(), "Netgenerate", GUIDesignDialogBox),
     myGNEApp(GNEApp) {
     // set icon
     setIcon(GUIIconSubSys::getIcon(GUIIcon::NETGENERATE));
-/*
-    // build row frames
-    auto horizontalFrameRows = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    // add header
-    auto horizontalFrameLabel = new FXHorizontalFrame(getRowFrame(), GUIDesignAuxiliarHorizontalFrame);
-    myParameterLabel = new FXLabel(horizontalFrameLabel, TL("Parameter"), nullptr, GUIDesignLabelThickedFixed(0));
-    new FXLabel(horizontalFrameLabel, TL("Value"), nullptr, GUIDesignLabelThickedFixed(250));
+    // build labels
+    auto horizontalFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    new FXLabel(horizontalFrame, TL("Grid"), nullptr, GUIDesignLabelThickedFixed(GUIDesignBigSizeElement));
+    new FXLabel(horizontalFrame, TL("Spider"), nullptr, GUIDesignLabelThickedFixed(GUIDesignBigSizeElement));
+    new FXLabel(horizontalFrame, TL("Random"), nullptr, GUIDesignLabelThickedFixed(GUIDesignBigSizeElement));
+    // build buttons
+    horizontalFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    myGridNetworkButton = new MFXCheckableButton(false, horizontalFrame, GNEApp->getStaticTooltipMenu(), "",
+        GUIIconSubSys::getIcon(GUIIcon::NETGENERATE_GRID), this, MID_GNE_NETGENERATE_GRID, GUIDesignMFXCheckableButtonBig);
+    mySpiderNetworkButton = new MFXCheckableButton(false, horizontalFrame, GNEApp->getStaticTooltipMenu(), "",
+        GUIIconSubSys::getIcon(GUIIcon::NETGENERATE_SPIDER), this, MID_GNE_NETGENERATE_SPIDER, GUIDesignMFXCheckableButtonBig);
+    myRandomNetworkButton = new MFXCheckableButton(false, horizontalFrame, GNEApp->getStaticTooltipMenu(), "",
+        GUIIconSubSys::getIcon(GUIIcon::NETGENERATE_RANDOM), this, MID_GNE_NETGENERATE_RANDOM, GUIDesignMFXCheckableButtonBig);
+    // add invisible separator
+    new FXSeparator(this, SEPARATOR_NONE);
+    // build output file elements
+    horizontalFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    new FXLabel(horizontalFrame, "output-file", nullptr, GUIDesignLabelThickedFixed(GUIDesignBigSizeElement));
+    new FXButton(horizontalFrame, (std::string("\t\t") + TL("Select filename")).c_str(), 
+    GUIIconSubSys::getIcon(GUIIcon::OPEN_NET), this, MID_GNE_SELECT, GUIDesignButtonIcon);
+    myOutputTextField = new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_OPEN, GUIDesignTextField);
     // add separator
-    mySeparator = new FXSeparator(this);
+    new FXSeparator(this);
     // create buttons centered
-    myButtonsFrame = new FXHorizontalFrame(this, GUIDesignHorizontalFrame);
-    new FXHorizontalFrame(myButtonsFrame, GUIDesignAuxiliarHorizontalFrame);
-    new FXButton(myButtonsFrame, (TL("Run") + std::string("\t\t") + TL("close accepting changes")).c_str(),
+    horizontalFrame = new FXHorizontalFrame(this, GUIDesignHorizontalFrame);
+    new FXHorizontalFrame(horizontalFrame, GUIDesignAuxiliarHorizontalFrame);
+    myRunButton = new FXButton(horizontalFrame, (TL("Run") + std::string("\t\t") + TL("close accepting changes")).c_str(),
         GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_BUTTON_RUN, GUIDesignButtonAccept);
-    new FXButton(myButtonsFrame, (TL("Cancel") + std::string("\t\t") + TL("close discarding changes")).c_str(),
-        GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCancel);
-    new FXButton(myButtonsFrame, (TL("Reset") + std::string("\t\t") + TL("reset to previous values")).c_str(), 
-        GUIIconSubSys::getIcon(GUIIcon::RESET),  this, MID_GNE_BUTTON_RESET,  GUIDesignButtonReset);
-    new FXHorizontalFrame(myButtonsFrame, GUIDesignAuxiliarHorizontalFrame);
-*/
+    myAdvancedButton = new FXButton(horizontalFrame, (TL("Advanced") + std::string("\t\t") + TL("open advance netgenerate dialog")).c_str(),
+        GUIIconSubSys::getIcon(GUIIcon::MODEINSPECT), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonAdvanced);
+    new FXButton(horizontalFrame, (TL("Cancel") + std::string("\t\t") + TL("Close dialog")).c_str(), 
+        GUIIconSubSys::getIcon(GUIIcon::CANCEL),  this, MID_GNE_BUTTON_RESET,  GUIDesignButtonReset);
+    new FXHorizontalFrame(horizontalFrame, GUIDesignAuxiliarHorizontalFrame);
 }
 
 
@@ -86,8 +99,6 @@ GNENetgenerateDialog::openDialog(const OptionsCont *netgenerateOptions) {
     // resize dialog (Marging + contentFrame + MARGING separator + MARGING + buttonsFrame + MARGING)
     int rowFramesWidth = 0;
     int rowFramesHeight = 0;
-    // resize dialog (rowFramesWidth, Marging + rowFramesHeight + MARGING separator + MARGING + buttonsFrame + MARGING)
-    //resize(rowFramesWidth, rowFramesHeight + mySeparator->getHeight() + myButtonsFrame->getHeight() + (4 * MARGING));
     // open as modal dialog (will block all windows until stop() or stopModal() is called)
     return myGNEApp->getApp()->runModalFor(this);
 }

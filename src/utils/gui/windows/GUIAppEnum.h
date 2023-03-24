@@ -739,6 +739,12 @@ enum {
     MID_GNE_NETGENERATE,
     /// @brief netgenerate options
     MID_GNE_NETGENERATEOPTIONS,
+    /// @brief netgenerate grid
+    MID_GNE_NETGENERATE_GRID,
+    /// @brief netgenerate spider
+    MID_GNE_NETGENERATE_SPIDER,
+    /// @brief netgenerate random
+    MID_GNE_NETGENERATE_RANDOM,
     /// @brief run netgenerate
     MID_GNE_RUNNETGENERATE,
     /// @brief postprocesing netgenerate
@@ -910,6 +916,8 @@ enum {
     MID_GNE_CENTER,
     /// @brief copy element
     MID_GNE_COPY,
+    /// @brief open element
+    MID_GNE_OPEN,
     /// @brief select element
     MID_GNE_SELECT,
     /// @brief used to select a type of element in a combo box

@@ -21,13 +21,13 @@
 #include <config.h>
 
 #include <utils/options/OptionsCont.h>
+#include <utils/foxtools/MFXCheckableButton.h>
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 
 class GNEApplicationWindow;
-class GNENetgenerate;
 
 // ===========================================================================
 // class definitions
@@ -76,14 +76,23 @@ private:
     /// @brief pointer to GNEApplicationWindow
     GNEApplicationWindow* myGNEApp;
 
-    /// @brief parameter label
-    FXLabel* myParameterLabel = nullptr;
+    /// @brief grid network
+    MFXCheckableButton* myGridNetworkButton = nullptr;
 
-    /// @brief separator
-    FXSeparator* mySeparator = nullptr;
+    /// @brief grid network
+    MFXCheckableButton* mySpiderNetworkButton = nullptr;
 
-    /// @brief buttons frame
-    FXHorizontalFrame* myButtonsFrame = nullptr;
+    /// @brief grid network
+    MFXCheckableButton* myRandomNetworkButton = nullptr;
+
+    /// @brief output text field
+    FXTextField* myOutputTextField = nullptr;
+    
+    /// @brief run button
+    FXButton* myRunButton = nullptr;
+    
+    /// @brief advanced button
+    FXButton* myAdvancedButton = nullptr;
 
     /// @brief Invalidated copy constructor.
     GNENetgenerateDialog(const GNENetgenerateDialog&) = delete;

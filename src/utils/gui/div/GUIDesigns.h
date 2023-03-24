@@ -42,6 +42,9 @@ class MFXMenuCheckIcon;
 /// @brief rigth marging for frame area
 #define GUIDesignFrameAreaMarging 2
 
+/// @brief elements with big images
+#define GUIDesignBigSizeElement 138
+
 /// @name FXTextFields
 /// @{
 /// @brief text field extended over Frame with thick frame
@@ -134,6 +137,9 @@ class MFXMenuCheckIcon;
 /// @brief checkable button extended over frame
 #define GUIDesignMFXCheckableButton             (BUTTON_NORMAL | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight
 
+/// @brief checkable button extended over frame
+#define GUIDesignMFXCheckableButtonBig          (BUTTON_NORMAL | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, GUIDesignBigSizeElement, GUIDesignBigSizeElement
+
 /// @}
 
 /// @name FXButtons for dialogs
@@ -149,6 +155,9 @@ class MFXMenuCheckIcon;
 
 /// @brief Reset Button
 #define GUIDesignButtonReset                (ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | FRAME_THICK | FRAME_RAISED), 0, 0, 75, GUIDesignHeight, 2, 2, 2, 2
+
+/// @brief Advanced Button
+#define GUIDesignButtonAdvanced             (ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | FRAME_THICK | FRAME_RAISED), 0, 0, 110, GUIDesignHeight, 2, 2, 2, 2
 
 /// @brief overwrite Button
 #define GUIDesignButtonOverwrite            (ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | FRAME_THICK | FRAME_RAISED), 0, 0, 100, GUIDesignHeight, 2, 2, 2, 2
