@@ -13,6 +13,8 @@ set(netedit_dialogs_tools_SRCS
    GNERunPythonToolDialog.cpp
    GNERunNetgenerate.h
    GNERunNetgenerate.cpp
+   GNENetgenerateDialog.h
+   GNENetgenerateDialog.cpp
    GNERunNetgenerateDialog.h
    GNERunNetgenerateDialog.cpp
    )
