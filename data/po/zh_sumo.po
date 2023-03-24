@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-24 10:12+0000\n"
+"PO-Revision-Date: 2023-03-24 10:29+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -1691,55 +1691,55 @@ msgstr "将所有车道的综合交通统计资料写入文件（FILE）中"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:307
 msgid "Write overall statistics into FILE"
-msgstr ""
+msgstr "将总体统计数据写进文件（FILE）"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:311
 msgid "Save movereminder states of selected vehicles into FILE"
-msgstr ""
+msgstr "将所选车辆的移动提醒状态保存到文件（ FILE）中"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:313
 msgid "List of vehicle ids which shall save their movereminder states"
-msgstr ""
+msgstr "应保存其移动提醒状态的车辆ID列表"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:317
 msgid "Use TIME[] as times at which a network state written"
-msgstr ""
+msgstr "使用TIME[]作为网络状态的写入时间"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:319
 msgid "save state repeatedly after TIME period"
-msgstr ""
+msgstr "在TIME期后重复保存状态"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:321
 msgid "Keep only the last INT periodic state files"
-msgstr ""
+msgstr "只保留最后的INT定期状态文件"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:323
 msgid "Prefix for network states"
-msgstr ""
+msgstr "网络状态的前缀"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:325
 msgid "Suffix for network states (.xml.gz or .xml)"
-msgstr ""
+msgstr "网络状态的后缀（.xml.gz或.xml）"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:327
 msgid "Files for network states"
-msgstr ""
+msgstr "网络状态的文件"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:329
 msgid "Save random number generator states"
-msgstr ""
+msgstr "保存随机数发生器的状态"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:331
 msgid "Save person and container states (experimental)"
-msgstr ""
+msgstr "保存人和货箱的状态（实验性）"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:333
 msgid "Save rail signal constraints"
-msgstr ""
+msgstr "存储铁路信号的限制"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:335
 msgid "Write internal state values with the given precision (default 2)"
-msgstr ""
+msgstr "以给定的精度写入内部状态值（默认为2）"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:339
 msgid "Defines the begin time in seconds; The simulation starts at this time"
@@ -1751,214 +1751,217 @@ msgstr "定义结束时间（以秒为单位）; 仿真在这个时间结束"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:345
 msgid "Defines the step duration in seconds"
-msgstr ""
+msgstr "定义了以秒为单位的步长"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:348
 msgid ""
 "Whether to use ballistic method for the positional update of vehicles "
 "(default is a semi-implicit Euler method)."
-msgstr ""
+msgstr "是否使用弹道法进行车辆的位置更新（默认是半隐式欧拉法）"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:351
 msgid ""
 "Whether vehicles that depart between simulation steps should extrapolate the "
 "depart position"
-msgstr ""
+msgstr "在仿真步骤之间出发的车辆是否应该推断出出发的位置"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:354
 msgid "Defines the number of threads for parallel simulation"
-msgstr ""
+msgstr "定义并行仿真的线程数"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:357
 msgid ""
 "Defines the resolution in m when handling lateral positioning within a lane "
 "(with -1 all vehicles drive at the center of their lane"
-msgstr ""
+msgstr "在处理车道内的横向定位时，定义分辨率为m（-1时所有车辆在其车道中心行驶"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:361
 #: /home/micha/programming/sumo/src\router\ROFrame.cpp:142
 msgid "Load routes for the next number of seconds ahead"
-msgstr ""
+msgstr "加载未来若干秒的路径"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:364
 #: /home/micha/programming/sumo/src\router\ROFrame.cpp:145
 msgid "Disable (junction) internal links"
-msgstr ""
+msgstr "禁用（路口）内部链接"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:367
 msgid ""
 "Ignore vehicles which block the junction after they have been standing for "
 "SECONDS (-1 means never ignore)"
-msgstr ""
+msgstr "忽略那些停了几秒钟就堵在路口的车辆（-1表示从不忽略）"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:370
 msgid "Do not check whether routes are connected"
-msgstr ""
+msgstr "不检查路径是否被连接"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:373
 msgid "Do not check whether accidents occur"
-msgstr ""
+msgstr "不检查是否发生事故"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:376
 msgid "How to deal with collisions: [none,warn,teleport,remove]"
-msgstr ""
+msgstr "如何处理碰撞的问题：[无，警告，传送，删除]"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:379
 msgid ""
 "Let vehicle stop for TIME before performing collision.action (except for "
 "action 'none')"
-msgstr ""
+msgstr "在执行碰撞动作前让车辆停顿一段时间（除了动作 \"无\"）"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:382
 msgid "Enables collisions checks on junctions"
-msgstr ""
+msgstr "启用路口处的碰撞检查"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:385
 msgid "Increase or decrease sensitivity for junction collision check"
-msgstr ""
+msgstr "增加或减少路口处碰撞检查的灵敏度"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:388
 msgid ""
 "Sets the fraction of minGap that must be maintained to avoid collision "
 "detection. If a negative value is given, the carFollowModel parameter is used"
-msgstr ""
+msgstr "设置为避免碰撞检测而必须保持的minGap的分数。如果给出一个负值，则使用carFollow"
+"Model参数"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:391
 msgid "Delay vehicle insertion to stay within the given maximum number"
-msgstr ""
+msgstr "延迟车辆插入以保持在给定的最大数量内"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:394
 msgid ""
 "Abort the simulation if the given maximum number of teleports is exceeded"
-msgstr ""
+msgstr "如果超过了给定的最大传送次数，则中止仿真"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:397
 msgid ""
 "Scale demand by the given factor (by discarding or duplicating vehicles)"
-msgstr ""
+msgstr "按给定的系数扩大需求规模（通过抛弃或复制车辆）"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:400
 msgid "Suffix to be added when creating ids for cloned vehicles"
-msgstr ""
+msgstr "为克隆的车辆创建ID时要添加的后缀"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:403
 msgid ""
 "Specify how long a vehicle may wait until being teleported, defaults to 300, "
 "non-positive values disable teleporting"
-msgstr ""
+msgstr "指定车辆在被传送之前可以等待多长时间，默认为300，非正值禁止传送"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:406
 msgid ""
 "The waiting time after which vehicles on a fast road (speed > 69km/h) are "
 "teleported if they are on a non-continuing lane"
-msgstr ""
+msgstr "快速道路上的车辆（速度>69公里/小时）如果在非连续车道上，将被传送的等待时间"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:409
 msgid ""
 "The waiting time after which vehicles on a fast road (default: speed > 69km/"
 "h) are teleported if they are on a non-continuing lane"
-msgstr ""
+msgstr "快速道路上的车辆（默认：速度>69公里/小时）如果在非连续车道上，将被传送的等待"
+"时间"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:412
 msgid ""
 "The waiting time after which vehicles with a disconnected route are "
 "teleported. Negative values disable teleporting"
-msgstr ""
+msgstr "路径断开的车辆被传送的等待时间。负值将禁止传送"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:415
 msgid ""
 "Whether vehicles shall be removed after waiting too long instead of being "
 "teleported"
-msgstr ""
+msgstr "车辆在等待时间过长后是否应被移走，而不是被传送"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:418
 msgid ""
 "The waiting time after which persons / containers waiting for a pickup are "
 "teleported. Negative values disable teleporting"
-msgstr ""
+msgstr "等待取货的人员/货箱被传送的等待时间。负值将禁止传送"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:421
 msgid ""
 "The waiting time after which vehicles on bidirectional edges are teleported"
-msgstr ""
+msgstr "双向路段的车辆被传送后的等待时间"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:424
 msgid ""
 "Length of time interval, over which accumulated waiting time is taken into "
 "account (default is 100s.)"
-msgstr ""
+msgstr "时间间隔的长度，在这个时间间隔内，累积的等待时间被考虑在内（默认为100s）"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:427
 msgid "Minimum consecutive waiting time before applying startupDelay"
-msgstr ""
+msgstr "应用启动延迟前的最小连续等待时间"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:430
 msgid ""
 "How long vehicles wait for departure before being skipped, defaults to -1 "
 "which means vehicles are never skipped"
-msgstr ""
+msgstr "车辆在被跳过之前等待出发的时间，默认为-1，意味着车辆从不被跳过"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:433
 msgid ""
 "Whether insertion on an edge shall not be repeated in same step once failed"
-msgstr ""
+msgstr "一旦失败，在边上的插入是否不得在同一步骤中重复"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:436
 msgid "Whether each vehicle is checked separately for insertion on an edge"
-msgstr ""
+msgstr "是否对每辆汽车进行单独检查以插入边上"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:439
 msgid ""
 "Allow inserting a vehicle in a situation which requires emergency braking"
-msgstr ""
+msgstr "允许在需要紧急制动的情况下插入车辆"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:442
 msgid ""
 "Each vehicle receives a random offset to its depart value drawn uniformly "
 "from [0, TIME]"
-msgstr ""
+msgstr "每辆车都会收到一个从[0, TIME]中均匀抽取的随机偏移其出发值"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:445
 msgid "Duration of a lane change maneuver (default 0)"
-msgstr ""
+msgstr "变道动作的持续时间（默认为0）"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:448
 msgid "Whether overtaking on the right on motorways is permitted"
-msgstr ""
+msgstr "是否允许在高速公路上靠右超车"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:451
 msgid "Switches off all traffic lights."
-msgstr ""
+msgstr "关闭所有交通信号灯。"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:454
 msgid "Sets default visibility for actuation detectors"
-msgstr ""
+msgstr "设置执行探测器的默认可见性"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:457
 msgid "Sets default jam-threshold parameter for all actuation detectors"
-msgstr ""
+msgstr "为所有启动探测器设置默认的干扰阈值参数"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:460
 msgid "Sets default detector length parameter for all actuation detectors"
-msgstr ""
+msgstr "为所有启动探测器设置默认的探测器长度参数"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:463
 msgid "Sets default range for detecting delayed vehicles"
-msgstr ""
+msgstr "设定检测延迟车辆的默认范围"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:466
 msgid "Minimum deceleration when braking at yellow"
-msgstr ""
+msgstr "在黄灯下刹车时的最小减速度"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:469
 msgid "Let railsignals operate in moving-block mode by default"
-msgstr ""
+msgstr "默认情况下，让轨道信号在移动块模式下运作"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:472
 msgid ""
 "Specify how long a vehicle may wait until impatience grows from 0 to 1, "
 "defaults to 300, non-positive values disable impatience growth"
-msgstr ""
+msgstr "指定车辆可以等待多长时间，直到不耐烦从0增长到1，默认为300，非正值禁用不耐烦的"
+"增长"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:475
 msgid ""
@@ -1974,7 +1977,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:478
 msgid "Select default car following model (Krauss, IDM, ...)"
-msgstr ""
+msgstr "选择默认的汽车以下跟车模型（Krauss, IDM, ..）"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:482
 msgid ""
@@ -1988,77 +1991,81 @@ msgid ""
 "sets the value either to the same as the deceleration value, a vClass-class "
 "specific default or the given FLOAT in m/s^2"
 msgstr ""
+"在('decel', 'default', FLOAT)中选择默认的紧急减速值，该值要么与减速值相同"
+"，要么是vClass-class特定的默认值，要么是给定的FLOAT（米/秒^2）"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:488
 msgid "Use Kirchhoff's laws for solving overhead wire circuit"
-msgstr ""
+msgstr "使用Kirchhoff 定律来解决架空线电路的问题"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:491
 msgid ""
 "Enable recuperation from the vehicle equipped with elecHybrid device into "
 "the overhead wire."
-msgstr ""
+msgstr "启用从装有电动混合装置的车辆到架空线的恢复。"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:494
 msgid ""
 "Enable current limits of traction substation during solving the overhead "
 "wire electrical circuit."
-msgstr ""
+msgstr "在解决架空线电气线路时，启用牵引变电站的电流限制。"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:497
 msgid ""
 "Sets the fraction of emergency decel capability that must be used to trigger "
 "a warning."
-msgstr ""
+msgstr "设定必须用于触发警告的紧急减速能力的分数。"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:500
 msgid ""
 "Whether parking simulation includes maneuvering time and associated lane "
 "blocking"
-msgstr ""
+msgstr "停车仿真是否包括机动时间和相关的车道阻塞"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:503
 msgid "Override stop until times with stop ended times when given"
-msgstr ""
+msgstr "在给定的停止时间内，用停止结束时间覆盖停止为止的时间"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:507
 msgid "Select among pedestrian models ['nonInteracting', 'striping', 'remote']"
-msgstr ""
+msgstr "在行人模式中选择['非互动', '剥离', '远程']"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:510
 msgid ""
 "Width of parallel stripes for segmenting a sidewalk (meters) for use with "
 "model 'striping'"
-msgstr ""
+msgstr "用于分割人行道的平行条纹的宽度（米），与 \"剥离 \"模型一起使用"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:513
 msgid "Factor for random slow-downs [0,1] for use with model 'striping'"
-msgstr ""
+msgstr "用于随机减速的系数[0,1]，与 \"剥离 \"模型一起使用"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:516
 msgid ""
 "Minimal gap / safety buffer (in meters) from a pedestrian to another vehicle "
 "for use with model 'striping'"
-msgstr ""
+msgstr "从行人到另一车辆的最小间隙/安全缓冲区（以米为单位），与 \"剥离 \"模型一起使用"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:519
 msgid ""
 "Time in seconds after which pedestrians start squeezing through a jam when "
 "using model 'striping' (non-positive values disable squeezing)"
-msgstr ""
+msgstr "使用 \"剥离 \"模型时"
+"，行人开始挤过拥堵路段的时间，以秒为单位（非正值禁止挤过）"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:521
 msgid ""
 "Time in seconds after which pedestrians start squeezing through a jam while "
 "on a pedestrian crossing when using model 'striping' (non-positive values "
 "disable squeezing)"
-msgstr ""
+msgstr "当使用 \"剥离 \"模型时"
+"，行人在人行横道上开始挤过拥堵的时间，以秒为单位（非正值禁止挤过）"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:523
 msgid ""
 "Time in seconds after which pedestrians start squeezing through a jam while "
 "on a narrow lane when using model 'striping'"
-msgstr ""
+msgstr "在使用 \"剥离 \"模型时，行人在狭窄车道上开始挤过拥堵的时间（秒）"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:526
 msgid "Fraction of stripes to reserve for oncoming pedestrians"
