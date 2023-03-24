@@ -30,5 +30,5 @@ fast
 precision
 humanReadableTime
 
-# save template
-save_template
+# include statistics on absolute values
+abs
