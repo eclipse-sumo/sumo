@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-24 14:44+0000\n"
+"PO-Revision-Date: 2023-03-25 06:04+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -2117,7 +2117,7 @@ msgstr "在计算交通信号灯下内部车道的最小路径成本时，根据
 msgid ""
 "Distinguish travel time by turn direction and shift a fraction of the "
 "estimated time loss ahead of the intersection onto the internal edges"
-msgstr ""
+msgstr "按转弯方向区分旅行时间，并将交叉口前方的估计时间损失的一部分转移到内部路段"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:589
 msgid ""
@@ -2134,111 +2134,111 @@ msgstr "从vehroute-output中重放精确的改道路径的序列"
 #: /home/micha/programming/sumo/src\tools\emissionsDrivingCycle_main.cpp:133
 #: /home/micha/programming/sumo/src\tools\emissionsMap_main.cpp:123
 msgid "Return fuel consumption values in (legacy) unit l instead of mg"
-msgstr ""
+msgstr "以（传统）单位l而不是mg返回燃料消耗值"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:606
 #: /home/micha/programming/sumo/src\router\ROFrame.cpp:90
 #: /home/micha/programming/sumo/src\tools\emissionsDrivingCycle_main.cpp:136
 #: /home/micha/programming/sumo/src\tools\emissionsMap_main.cpp:126
 msgid "Determines where to load PHEMlight definitions from"
-msgstr ""
+msgstr "决定从哪里加载PHEMlight的定义"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:609
 #: /home/micha/programming/sumo/src\router\ROFrame.cpp:93
 #: /home/micha/programming/sumo/src\tools\emissionsDrivingCycle_main.cpp:139
 #: /home/micha/programming/sumo/src\tools\emissionsMap_main.cpp:129
 msgid "Enable fleet age modelling with the given reference year in PHEMlight5"
-msgstr ""
+msgstr "在PHEMlight5中以给定的参考年份启用车队车龄模型"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:612
 #: /home/micha/programming/sumo/src\router\ROFrame.cpp:96
 #: /home/micha/programming/sumo/src\tools\emissionsDrivingCycle_main.cpp:142
 #: /home/micha/programming/sumo/src\tools\emissionsMap_main.cpp:132
 msgid "Set ambient temperature to correct NOx emissions in PHEMlight5"
-msgstr ""
+msgstr "设置环境温度以纠正PHEMlight5中的氮氧化物排放"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:621
 msgid "Disable performance reports for individual simulation steps"
-msgstr ""
+msgstr "禁用单个仿真步骤的性能报告"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:624
 msgid "Enable statistics on vehicle trips"
-msgstr ""
+msgstr "启用车辆行程的统计数据"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:627
 msgid "Disable console output of current simulation step"
-msgstr ""
+msgstr "禁用当前仿真步骤的控制台输出"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:630
 msgid "Number of simulation steps between step-log outputs"
-msgstr ""
+msgstr "阶梯式输出之间的仿真步骤数"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:635
 msgid "Enables TraCI Server if set"
-msgstr ""
+msgstr "如果设定了，则启用TraCI服务器"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:637
 msgid "Expected number of connecting clients"
-msgstr ""
+msgstr "预期的连接客户数量"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:641
 msgid "Enables mesoscopic simulation"
-msgstr ""
+msgstr "实现了中观仿真"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:643
 msgid "Length of an edge segment in mesoscopic simulation"
-msgstr ""
+msgstr "中观仿真中的路段长度"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:645
 msgid "Factor for calculating the net free-free headway time"
-msgstr ""
+msgstr "计算净自由通行时间的因素"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:647
 msgid "Factor for calculating the net free-jam headway time"
-msgstr ""
+msgstr "计算无障碍净通行时间的系数"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:649
 msgid "Factor for calculating the jam-free headway time"
-msgstr ""
+msgstr "计算无堵塞通行时间的因素"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:651
 msgid "Factor for calculating the jam-jam headway time"
-msgstr ""
+msgstr "计算拥堵通行时间的因子"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:656
 msgid "Enable multiple queues at edge ends"
-msgstr ""
+msgstr "在路段端启用多个队列"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:658
 msgid "Enable separate queues for every lane"
-msgstr ""
+msgstr "启用每条车道的单独队列"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:660
 msgid ""
 "Do not build queues (or reduce capacity) for lanes allowing only the given "
 "vclasses"
-msgstr ""
+msgstr "不为只允许给定v类的车道建立队列（或减少容量）"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:663
 msgid "Enable mesoscopic traffic light and priority junction handling"
-msgstr ""
+msgstr "启用中观的交通信号灯和优先路口处理"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:677
 msgid "Enable mesoscopic overtaking"
-msgstr ""
+msgstr "启用中观超车"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:679
 msgid ""
 "Time interval for rechecking insertion into the next segment after failure"
-msgstr ""
+msgstr "失败后重新检查插入下一节的时间间隔"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:691
 msgid "Load visualisation settings from FILE"
-msgstr ""
+msgstr "从文件中加载可视化设置"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:694
 msgid "Quits the GUI when the simulation stops"
-msgstr ""
+msgstr "当仿真停止时退出GUI"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:697
 msgid "Start the GUI in gaming mode"
