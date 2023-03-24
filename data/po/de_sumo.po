@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-13 12:56+0000\n"
+"PO-Revision-Date: 2023-03-24 09:56+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.16.2-dev\n"
+"X-Generator: Weblate 4.17-dev\n"
 
 #: /home/micha/programming/sumo/src\activitygen\AGActivityGen.cpp:46
 #: /home/micha/programming/sumo/src/activitygen/AGActivityGen.cpp:46
@@ -6355,7 +6355,7 @@ msgstr "Kante '%' hat einen vertikalen Sprung von %m."
 #: /home/micha/programming/sumo/src/netbuild/NBEdgeCont.cpp:1757
 #, c-format
 msgid "Edge '%' has a grade of %%."
-msgstr "Kante '%' hat einen Grad von %%."
+msgstr "Kante '%' hat eine Steigung von %%."
 
 #: /home/micha/programming/sumo/src\netbuild\NBEdgeCont.cpp:1767
 #: /home/micha/programming/sumo/src/netbuild/NBEdgeCont.cpp:1767
@@ -6367,7 +6367,7 @@ msgstr "Verbindung '%' hat einen vertikalen Sprung von %m."
 #: /home/micha/programming/sumo/src/netbuild/NBEdgeCont.cpp:1769
 #, c-format
 msgid "Connection '%' has a grade of %%."
-msgstr "Verbindung '%' hat einen Grad von %%."
+msgstr "Verbindung '%' hat eine Steigung von %%."
 
 #: /home/micha/programming/sumo/src\netbuild\NBEdgeCont.cpp:1801
 #: /home/micha/programming/sumo/src/netbuild/NBEdgeCont.cpp:1801
