@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-24 09:17+0000\n"
+"PO-Revision-Date: 2023-03-24 09:56+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -649,181 +649,182 @@ msgstr "为所有的公共交通输入提供路径"
 #: /home/micha/programming/sumo/src\duarouter\RODUAFrame.cpp:142
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:202
 msgid "Choose a route choice method: gawron, logit, or lohse"
-msgstr ""
+msgstr "选择一种路径选择方法：Gawron, logit, 或Lohse"
 
 #: /home/micha/programming/sumo/src\duarouter\RODUAFrame.cpp:145
 msgid "Use c-logit model (deprecated in favor of --route-choice-method logit)"
-msgstr ""
+msgstr "使用c-logit模型（已废弃，改用--路径选择法logit）"
 
 #: /home/micha/programming/sumo/src\duarouter\RODUAFrame.cpp:149
 msgid "Use FLOAT as logit's beta"
-msgstr ""
+msgstr "使用FLOAT作为logit的beta值"
 
 #: /home/micha/programming/sumo/src\duarouter\RODUAFrame.cpp:153
 msgid "Use FLOAT as logit's gamma"
-msgstr ""
+msgstr "使用FLOAT作为Logit的gamma值"
 
 #: /home/micha/programming/sumo/src\duarouter\RODUAFrame.cpp:157
 msgid "Use FLOAT as logit's theta (negative values mean auto-estimation)"
-msgstr ""
+msgstr "使用FLOAT作为Logit的theta（负值意味着自动估计）"
 
 #: /home/micha/programming/sumo/src\duarouter\RODUAFrame.cpp:160
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:573
 msgid ""
 "Use FLOAT as a factor on pedestrian maximum speed during intermodal routing"
-msgstr ""
+msgstr "在多式联运路线中，将FLOAT作为行人最高速度的一个因素"
 
 #: /home/micha/programming/sumo/src\duarouter\RODUAFrame.cpp:163
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:576
 msgid ""
 "Use FLOAT as a factor on walking speed against vehicle traffic direction"
-msgstr ""
+msgstr "使用FLOAT作为步行速度的一个因素，与车辆交通方向相对"
 
 #: /home/micha/programming/sumo/src\duarouter\RODUAFrame.cpp:170
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:583
 msgid "Where taxis can drop off customers ('allJunctions, 'ptStops')"
-msgstr ""
+msgstr "出租车可以让顾客下车的地方（'allJunctions, 'ptStops'）"
 
 #: /home/micha/programming/sumo/src\duarouter\RODUAFrame.cpp:173
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:586
 msgid "Where taxis can pick up customers ('allJunctions, 'ptStops')"
-msgstr ""
+msgstr "出租车可以接客的地方（'allJunctions, 'ptStops'）"
 
 #: /home/micha/programming/sumo/src\duarouter\RODUAFrame.cpp:176
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:592
 msgid "Estimated time for taxi pickup"
-msgstr ""
+msgstr "出租车接人的预计时间"
 
 #: /home/micha/programming/sumo/src\duarouter\RODUAFrame.cpp:179
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:595
 msgid ""
 "Use FLOAT as a maximum train length when initializing the railway router"
-msgstr ""
+msgstr "在初始化铁路路径器时，使用FLOAT作为最大列车长度"
 
 #: /home/micha/programming/sumo/src\duarouter\RODUAFrame.cpp:216
 msgid "Routing algorithm '%' does not support weight-attribute '%'."
-msgstr ""
+msgstr "寻路径算法'%'不支持权重属性'%'。"
 
 #: /home/micha/programming/sumo/src\duarouter\RODUAFrame.cpp:220
 #, c-format
 msgid "Routing algorithm '%' does not support bulk routing."
-msgstr ""
+msgstr "寻路径算法'%'不支持批量路径。"
 
 #: /home/micha/programming/sumo/src\duarouter\RODUAFrame.cpp:228
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:243
 msgid "Invalid route choice method '%'."
-msgstr ""
+msgstr "无效的路径选择方法'%'。"
 
 #: /home/micha/programming/sumo/src\duarouter\RODUAFrame.cpp:232
 msgid ""
 "The --logit option is deprecated, please use --route-choice-method logit."
-msgstr ""
+msgstr "--logit选项已被弃用，请使用--路径选择法logit。"
 
 #: /home/micha/programming/sumo/src\duarouter\RODUAFrame.cpp:244
 msgid "Cannot derive file name for alternatives output, skipping it."
-msgstr ""
+msgstr "无法得出替代输出的文件名，跳过它。"
 
 #: /home/micha/programming/sumo/src\duarouter\RODUAFrame.cpp:251
 msgid ""
 "Option --write-trips.junctions takes no affect when --write-trips is "
 "disabled."
-msgstr ""
+msgstr "当-写行程（write-trips）被禁用时，选项-write-trips.junctions没有影响。"
 
 #: /home/micha/programming/sumo/src\duarouter\duarouter_main.cpp:107
 #, c-format
 msgid "Routing algorithm '%' does not support restriction-params"
-msgstr ""
+msgstr "路径算法'%'不支持限制性参数"
 
 #: /home/micha/programming/sumo/src\duarouter\duarouter_main.cpp:151
 #: /home/micha/programming/sumo/src\marouter\marouter_main.cpp:180
 msgid "Unknown routing Algorithm '%'!"
-msgstr ""
+msgstr "未知的路径算法'%'!"
 
 #: /home/micha/programming/sumo/src\duarouter\duarouter_main.cpp:178
 #: /home/micha/programming/sumo/src\marouter\marouter_main.cpp:210
 msgid "No weight data was loaded for attribute '%'."
-msgstr ""
+msgstr "没有加载属性'%'的权重数据。"
 
 #: /home/micha/programming/sumo/src\duarouter\duarouter_main.cpp:238
 msgid ""
 "Shortest path router and DUE computer for the microscopic, multi-modal "
 "traffic simulation SUMO."
-msgstr ""
+msgstr "最短途径路径和DUE计算机用于微观、多模式交通仿真SUMO。"
 
 #: /home/micha/programming/sumo/src\jtrrouter\ROJTREdge.cpp:64
 #, c-format
 msgid "The edges '%' and '%' are not connected."
-msgstr ""
+msgstr "路段'%'和'%'不相连。"
 
 #: /home/micha/programming/sumo/src\jtrrouter\ROJTRFrame.cpp:59
 msgid "Read turning ratios from FILE(s)"
-msgstr ""
+msgstr "从文件中读取转弯比率"
 
 #: /home/micha/programming/sumo/src\jtrrouter\ROJTRFrame.cpp:69
 msgid "Use STR[] as default turn definition"
-msgstr ""
+msgstr "使用STR[]作为默认的转向定义"
 
 #: /home/micha/programming/sumo/src\jtrrouter\ROJTRFrame.cpp:73
 msgid "Use STR[] as list of sink edges"
-msgstr ""
+msgstr "使用STR[]作为汇路段的列表"
 
 #: /home/micha/programming/sumo/src\jtrrouter\ROJTRFrame.cpp:76
 msgid "Whether all edges are allowed as sink edges"
-msgstr ""
+msgstr "是否允许所有的路段作为汇路段"
 
 #: /home/micha/programming/sumo/src\jtrrouter\ROJTRFrame.cpp:79
 msgid "Ignore road restrictions based on vehicle class"
-msgstr ""
+msgstr "忽略基于车辆类别的道路限制"
 
 #: /home/micha/programming/sumo/src\jtrrouter\ROJTRFrame.cpp:82
 msgid "Allow to re-use a road"
-msgstr ""
+msgstr "允许重新使用一条道路"
 
 #: /home/micha/programming/sumo/src\jtrrouter\ROJTRFrame.cpp:85
 msgid "Use all source edges as sink edges."
-msgstr ""
+msgstr "将所有的源路段作为汇路段。"
 
 #: /home/micha/programming/sumo/src\jtrrouter\ROJTRFrame.cpp:88
 msgid ""
 "Subtract upstream flow when inserting a new flow. When option --sources-are-"
 "sinks is set, the upstream flow is limited to the value of the source flow "
 "and the remaining part terminates."
-msgstr ""
+msgstr "在插入一个新的流量时减去上游流量。当选项--sources-are-"
+"sinks被设置时，上游流量被限制为源流量的值，其余部分终止。"
 
 #: /home/micha/programming/sumo/src\jtrrouter\ROJTRTurnDefLoader.cpp:68
 msgid ""
 "The turn-file format with elements %, % is deprecated, please use % instead."
-msgstr ""
+msgstr "带有%、%元素的turn-file格式已被废弃，请使用%代替。"
 
 #: /home/micha/programming/sumo/src\jtrrouter\ROJTRTurnDefLoader.cpp:87
 #: /home/micha/programming/sumo/src\jtrrouter\jtrrouter_main.cpp:143
 #, c-format
 msgid "The edge '%' declared as a sink is not known."
-msgstr ""
+msgstr "宣布为汇路段'%'不知道是什么。"
 
 #: /home/micha/programming/sumo/src\jtrrouter\ROJTRTurnDefLoader.cpp:116
 msgid "Ignoring flow '%' without 'from'"
-msgstr ""
+msgstr "忽略没有 \"来自 \"的流量'%'"
 
 #: /home/micha/programming/sumo/src\jtrrouter\ROJTRTurnDefLoader.cpp:128
 #, c-format
 msgid "The edge '%' declared as a source is not known."
-msgstr ""
+msgstr "宣布为来源的路段'%'不知道。"
 
 #: /home/micha/programming/sumo/src\jtrrouter\ROJTRTurnDefLoader.cpp:152
 #, c-format
 msgid ""
 "The edge '%' is not known within the network (within a 'from-edge' tag)."
-msgstr ""
+msgstr "路段'%'在网络中不为人知（在'从-路段'标签内）。"
 
 #: /home/micha/programming/sumo/src\jtrrouter\ROJTRTurnDefLoader.cpp:172
 #, c-format
 msgid "The edge '%' is not known within the network (within a 'to-edge' tag)."
-msgstr ""
+msgstr "路段'%'在网络中不为人知（在'to-edge'标签内）。"
 
 #: /home/micha/programming/sumo/src\jtrrouter\ROJTRTurnDefLoader.cpp:178
 msgid "'probability' must be positive (in definition of to-edge '%')."
-msgstr ""
+msgstr "'概率'必须是正数（在to-edge'%'的定义中）。"
 
 #: /home/micha/programming/sumo/src\jtrrouter\ROJTRTurnDefLoader.cpp:201
 #: /home/micha/programming/sumo/src\jtrrouter\ROJTRTurnDefLoader.cpp:206
@@ -831,413 +832,413 @@ msgstr ""
 #: /home/micha/programming/sumo/src\netimport\NIImporter_VISUM.cpp:1400
 #, c-format
 msgid "The edge '%' is not known."
-msgstr ""
+msgstr "路段'%'是不知道的。"
 
 #: /home/micha/programming/sumo/src\jtrrouter\ROJTRTurnDefLoader.cpp:210
 msgid "'probability' must be positive (in edgeRelation from '%' to '%'."
-msgstr ""
+msgstr "'概率'必须是正数（在路段关系（edgeRelation）中从'%'到'%'。"
 
 #: /home/micha/programming/sumo/src\jtrrouter\jtrrouter_main.cpp:94
 msgid ""
 "The defaults for turnings must be a tuple of at least two numbers divided by "
 "','."
-msgstr ""
+msgstr "匝数的默认值必须是一个至少由两个数字除以','的元组。"
 
 #: /home/micha/programming/sumo/src\jtrrouter\jtrrouter_main.cpp:101
 msgid "A turn default is not numeric."
-msgstr ""
+msgstr "转弯的默认值不是数字。"
 
 #: /home/micha/programming/sumo/src\jtrrouter\jtrrouter_main.cpp:182
 msgid ""
 "Router for the microscopic, multi-modal traffic simulation SUMO based on "
 "junction turning ratios."
-msgstr ""
+msgstr "基于路口转弯率的微观、多模式交通仿真SUMO的路径器。"
 
 #: /home/micha/programming/sumo/src\libsumo\GUI.cpp:330
 msgid "This system has no OpenGL support. Exiting."
-msgstr ""
+msgstr "该系统不支持OpenGL。退出。"
 
 #: /home/micha/programming/sumo/src\libsumo\Helper.cpp:904
 #, c-format
 msgid ""
 "Ignoring veh '%' no-opposite subscription filter for geographic range object "
 "collection. Consider using the 'lanes' filter."
-msgstr ""
+msgstr "忽略车辆'%'无对立的订阅过滤器，用于地理范围对象的收集。考虑使用'车道'过滤器。"
 
 #: /home/micha/programming/sumo/src\libsumo\Helper.cpp:1067
 msgid ""
 "Lanes filter is only feasible for context domain 'vehicle' (current is '%'), "
 "ignoring filter..."
-msgstr ""
+msgstr "车道过滤器只对上下文域 \"车辆 \"可行（目前是\"%\"），忽略了过滤器..."
 
 #: /home/micha/programming/sumo/src\libsumo\Helper.cpp:1164
 msgid ""
 "Turn filter is only feasible for context domain 'vehicle' (current is '%'), "
 "ignoring filter..."
-msgstr ""
+msgstr "转向过滤器只对上下文域 \"车辆 \"可行（目前是\"%\"），忽略过滤器..."
 
 #: /home/micha/programming/sumo/src\libsumo\Helper.cpp:1229
 msgid ""
 "Field of vision opening angle ('%') should be within interval (0, 360), "
 "ignoring filter..."
-msgstr ""
+msgstr "视野开放角度（'%'）应在区间（0，360）内，忽略过滤器。"
 
 #: /home/micha/programming/sumo/src\libsumo\Helper.cpp:1341
 msgid ""
 "addSubscriptionFilterLateralDistance could not determine shape of lane '%' "
 "with a lateral shift of %."
-msgstr ""
+msgstr "addSubscriptionFilterLateralDistance无法确定车道'%'的形状，横向移动为%。"
 
 #: /home/micha/programming/sumo/src\libsumo\Helper.cpp:1399
 msgid "Vehicle '%' was removed though being controlled by TraCI"
-msgstr ""
+msgstr "车辆'%'被移除，但被TraCI控制。"
 
 #: /home/micha/programming/sumo/src\libsumo\Helper.cpp:1408
 msgid "Person '%' was removed though being controlled by TraCI"
-msgstr ""
+msgstr "虽然被TraCI控制，但'%'的人被删除了。"
 
 #: /home/micha/programming/sumo/src\libsumo\MeanData.cpp:83
 msgid "Found % meanData definitions with id '%'."
-msgstr ""
+msgstr "找到id为'%'的% meanData定义。"
 
 #: /home/micha/programming/sumo/src\libsumo\Person.cpp:530
 #, c-format
 msgid ""
 "Departure time=% for person '%' is in the past; using current time=% instead."
-msgstr ""
+msgstr "人'%'的出发时间=%是过去的；用当前时间=%代替。"
 
 #: /home/micha/programming/sumo/src\libsumo\Person.cpp:929
 msgid "Could not determine position on lane '% at lateral position %."
-msgstr ""
+msgstr "无法确定车道上的位置'%在横向位置%。"
 
 #: /home/micha/programming/sumo/src\libsumo\Simulation.cpp:105
 msgid "Simulation version % started via libsumo with time: %."
-msgstr ""
+msgstr "仿真版本 % 通过 libsumo 启动，时间： %。"
 
 #: /home/micha/programming/sumo/src\libsumo\Simulation.cpp:693
 msgid ""
 "Ignoring vehicle type '%' when performing intermodal routing because it is "
 "not allowed on the start edge '%'."
-msgstr ""
+msgstr "在执行多式联运路径时，忽略了车辆类型'%'，因为它不允许出现在起始路段'%'。"
 
 #: /home/micha/programming/sumo/src\libsumo\TrafficLight.cpp:647
 #, c-format
 msgid ""
 "Cannot check for all deadlocks on swapConstraints because the route for "
 "vehicle '%' is not computed yet"
-msgstr ""
+msgstr "不能检查swapConstraints的所有死锁，因为车辆'%'的路径还没有被计算出来。"
 
 #: /home/micha/programming/sumo/src\libsumo\Vehicle.cpp:998
 msgid ""
 "Stop replacement parameter 'teleport=%' ignored for vehicle '%' when only "
 "removing stop."
-msgstr ""
+msgstr "当只删除停车时，对车辆'%'的停车替换参数'teleport=%'被忽略。"
 
 #: /home/micha/programming/sumo/src\libsumo\Vehicle.cpp:1107
 #: /home/micha/programming/sumo/src\libsumo\Vehicle.cpp:1230
 msgid "Unsupported parameter '%'"
-msgstr ""
+msgstr "不支持的参数'%'"
 
 #: /home/micha/programming/sumo/src\libsumo\Vehicle.cpp:1182
 msgid "Waypoint (speed = %) at index % does not support triggers"
-msgstr ""
+msgstr "索引%的行驶点（速度=%）不支持触发器"
 
 #: /home/micha/programming/sumo/src\libsumo\Vehicle.cpp:1216
 msgid ""
 "Triggered stop at index % cannot be changed into a waypoint by setting speed "
 "to %"
-msgstr ""
+msgstr "索引%处的触发式停靠不能通过设置速度为%来改变为一个行驶点"
 
 #: /home/micha/programming/sumo/src\libsumo\Vehicle.cpp:1333
 #, c-format
 msgid "Ignoring changeLaneRelative for vehicle '%' that isn't on the road"
-msgstr ""
+msgstr "忽略不在路上的车辆'%'的换车道关系（changeLaneRelative）"
 
 #: /home/micha/programming/sumo/src\libsumo\Vehicle.cpp:1335
 msgid "Ignoring indexOffset % for vehicle '%' on laneIndex %."
-msgstr ""
+msgstr "忽略车道索引 %上的车辆'%'的索引偏移（indexOffset） %。"
 
 #: /home/micha/programming/sumo/src\libsumo\Vehicle.cpp:1427
 #, c-format
 msgid ""
 "Departure time for vehicle '%' is in the past; using current time instead."
-msgstr ""
+msgstr "车辆'%'的出发时间是过去的；用当前时间代替。"
 
 #: /home/micha/programming/sumo/src\libsumo\Vehicle.cpp:1593
 msgid "Could not determine position on lane '%' at lateral position %."
-msgstr ""
+msgstr "无法确定横向位置%的车道'%'上的位置。"
 
 #: /home/micha/programming/sumo/src\libsumo\Vehicle.cpp:1790
 #: /home/micha/programming/sumo/src\microsim\MSBaseVehicle.cpp:422
 msgid "Invalid route replacement for vehicle '%'. %"
-msgstr ""
+msgstr "替换车辆'%'的路径无效。%"
 
 #: /home/micha/programming/sumo/src\libsumo\Vehicle.cpp:2473
 msgid ""
 "Ignoring lane change subscription filter with non-neighboring lane offset "
 "direction=%."
-msgstr ""
+msgstr "忽略非相邻车道偏移方向=%的车道变化订阅过滤器。"
 
 #: /home/micha/programming/sumo/src\libsumo\VehicleType.cpp:289
 #, c-format
 msgid "Automatically setting emergencyDecel to % for vType '%' to match decel."
-msgstr ""
+msgstr "对vType'%'自动设置紧急减速（emergencyDecel）为%，以匹配减速（decel）。"
 
 #: /home/micha/programming/sumo/src\libsumo\VehicleType.cpp:301
 msgid "New value of emergencyDecel (%) is lower than decel (%)"
-msgstr ""
+msgstr "紧急减速（emergencyDecel） (%)的新值低于减速（decel ）(%)。"
 
 #: /home/micha/programming/sumo/src\marouter\ROMAAssignments.cpp:190
 msgid "Unknown origin '%'."
-msgstr ""
+msgstr "未知来源'%'。"
 
 #: /home/micha/programming/sumo/src\marouter\ROMAAssignments.cpp:194
 msgid "Unknown destination '%'."
-msgstr ""
+msgstr "未知目的地'%'。"
 
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:71
 #: /home/micha/programming/sumo/src\od2trips_main.cpp:121
 msgid "Does not save vtype information"
-msgstr ""
+msgstr "不保存vtype信息"
 
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:74
 msgid "Writes edge loads and final costs into FILE"
-msgstr ""
+msgstr "将路段载荷和最终成本写入文件（FILE）中"
 
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:77
 msgid "Writes complete distance matrix into FILE"
-msgstr ""
+msgstr "将完整的距离矩阵写进文件（FILE）"
 
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:81
 #: /home/micha/programming/sumo/src\od2trips_main.cpp:85
 msgid "Loads O/D-files from FILE(s)"
-msgstr ""
+msgstr "从文件FILE(s)中加载O/D文件。"
 
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:86
 #: /home/micha/programming/sumo/src\od2trips_main.cpp:90
 msgid "Loads O/D-matrix in Amitran format from FILE(s)"
-msgstr ""
+msgstr "从FILE(s)加载Amitran格式的O/D矩阵。"
 
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:89
 #: /home/micha/programming/sumo/src\od2trips_main.cpp:93
 msgid "Loads O/D-matrix in tazRelation format from FILE(s)"
-msgstr ""
+msgstr "从FILE(s)中加载交通分区关系（tazRelation）格式的O/D矩阵。"
 
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:93
 #: /home/micha/programming/sumo/src\od2trips_main.cpp:97
 msgid "Define data attribute for loading counts (default 'count')"
-msgstr ""
+msgstr "定义加载计数的数据属性（默认为'计数'）"
 
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:96
 msgid "The travel time influence of prior intervals"
-msgstr ""
+msgstr "之前的间隔时间对旅行时间的影响"
 
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:99
 msgid "Parameter key(s) defining source (and sink) taz"
-msgstr ""
+msgstr "定义源（和汇）的参数键交通分区（ taz）"
 
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:102
 msgid "Ignore attributes 'fromTaz' and 'toTaz'"
-msgstr ""
+msgstr "忽略 \"fromTaz \"和 \"toTaz \"属性"
 
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:106
 msgid ""
 "Defines the time interval when aggregating single vehicle input; Defaults to "
 "one hour"
-msgstr ""
+msgstr "定义汇总单一车辆输入时的时间间隔；默认为1小时"
 
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:109
 msgid "Ignore edge priorities when calculating capacities and restraints"
-msgstr ""
+msgstr "在计算能力和约束条件时，忽略路段优先级"
 
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:115
 msgid ""
 "Aggregate routing queries with the same origin for different vehicle types"
-msgstr ""
+msgstr "对不同类型的车辆进行具有相同出发地的路径查询汇总"
 
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:153
 #: /home/micha/programming/sumo/src\od2trips_main.cpp:137
 msgid "Scales the loaded flows by FLOAT"
-msgstr ""
+msgstr "用FLOAT来衡量加载的流量"
 
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:156
 #: /home/micha/programming/sumo/src\od2trips_main.cpp:146
 msgid "Defines the name of the vehicle type to use"
-msgstr ""
+msgstr "定义了要使用的车辆类型的名称"
 
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:159
 msgid "Defines the prefix for vehicle flow names"
-msgstr ""
+msgstr "定义了车辆流量名称的前缀"
 
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:162
 #: /home/micha/programming/sumo/src\od2trips_main.cpp:152
 msgid "Uses STR[] as a timeline definition"
-msgstr ""
+msgstr "使用STR[]作为时间线的定义"
 
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:165
 #: /home/micha/programming/sumo/src\od2trips_main.cpp:155
 msgid "Uses STR as a 24h-timeline definition"
-msgstr ""
+msgstr "使用STR作为24小时时间线的定义"
 
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:168
 msgid "Keep traffic flows of all time slots in the net"
-msgstr ""
+msgstr "保持网络中所有时段的流量"
 
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:172
 msgid "Choose a assignment method: incremental, UE or SUE"
-msgstr ""
+msgstr "选择一种分配方法：递增、UE或SUE"
 
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:175
 msgid "Use FLOAT as tolerance when checking for SUE stability"
-msgstr ""
+msgstr "检查SUE稳定性时，使用FLOAT作为公差"
 
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:178
 msgid ""
 "Use left-turn penalty FLOAT to calculate link travel time when searching "
 "routes"
-msgstr ""
+msgstr "在搜索路径时，使用左转处罚FLOAT来计算链接旅行时间"
 
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:181
 msgid ""
 "Use INTEGER as the number of paths needed to be searched for each OD pair at "
 "each iteration"
-msgstr ""
+msgstr "使用INTEGER作为每次迭代时每个OD对需要搜索的路径数"
 
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:184
 msgid "Penalize existing routes with FLOAT to find secondary routes"
-msgstr ""
+msgstr "用FLOAT对现有路径进行惩罚，以寻找次级路径"
 
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:188
 msgid "Use FLOAT as the upper bound to determine auxiliary link cost"
-msgstr ""
+msgstr "使用FLOAT作为上界来确定辅助链路成本"
 
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:192
 msgid "Use FLOAT as the lower bound to determine auxiliary link cost"
-msgstr ""
+msgstr "使用FLOAT作为下限来确定辅助链接成本"
 
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:195
 msgid ""
 "maximal number of iterations for new route searching in incremental and "
 "stochastic user assignment"
-msgstr ""
+msgstr "增量和随机用户分配中新路径搜索的最大迭代次数"
 
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:198
 msgid ""
 "maximal number of inner iterations for user equilibrium calculation in the "
 "stochastic user assignment"
-msgstr ""
+msgstr "随机用户分配中用户均衡计算的最大内部迭代次数"
 
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:223
 msgid "Use FLOAT as (c-)logit's beta for the commonality factor"
-msgstr ""
+msgstr "用FLOAT作为(c-)logit的beta值的共性因子"
 
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:227
 msgid "Use FLOAT as (c-)logit's gamma for the commonality factor"
-msgstr ""
+msgstr "使用FLOAT作为(c-)logit的gamma，作为共性因子"
 
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:231
 msgid "Use FLOAT as (c-)logit's theta"
-msgstr ""
+msgstr "使用FLOAT作为(c-)logit的theta"
 
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:239
 msgid "Invalid assignment method '%'."
-msgstr ""
+msgstr "无效的分配方法'%'。"
 
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:247
 msgid ""
 "Contraction hierarchies do not work with k shortest path search (please use "
 "a different routing algorithm)!"
-msgstr ""
+msgstr "收缩分层在k最短路径搜索中不起作用（请使用不同的路径算法）!"
 
 #: /home/micha/programming/sumo/src\marouter\ROMARouteHandler.cpp:87
 msgid "No origin or no destination given, ignoring '%'!"
-msgstr ""
+msgstr "没有给出出发地或目的地，忽略'%'!"
 
 #: /home/micha/programming/sumo/src\marouter\marouter_main.cpp:239
 msgid ""
 "Deterministic user equilibrium ('UE') is not implemented yet, using "
 "stochastic method ('SUE')."
-msgstr ""
+msgstr "确定性的用户平衡（'UE'）还没有实现，使用随机方法（'SUE'）。"
 
 #: /home/micha/programming/sumo/src\marouter\marouter_main.cpp:323
 #: /home/micha/programming/sumo/src\od2trips_main.cpp:315
 msgid "No output file given."
-msgstr ""
+msgstr "没有给出输出文件。"
 
 #: /home/micha/programming/sumo/src\marouter\marouter_main.cpp:340
 msgid ""
 "Import O/D-matrices for macroscopic traffic assignment to generate SUMO "
 "routes."
-msgstr ""
+msgstr "为宏观交通分配导入O/D矩阵，生成SUMO路径。"
 
 #: /home/micha/programming/sumo/src\marouter\marouter_main.cpp:376
 msgid "No districts loaded, will use edge ids!"
-msgstr ""
+msgstr "没有加载区域，将使用路段ID!"
 
 #: /home/micha/programming/sumo/src\marouter\marouter_main.cpp:387
 msgid "No valid vehicles loaded."
-msgstr ""
+msgstr "没有加载有效的车辆。"
 
 #: /home/micha/programming/sumo/src\marouter\marouter_main.cpp:390
 #: /home/micha/programming/sumo/src\od2trips_main.cpp:285
 msgid "Loading failed."
-msgstr ""
+msgstr "加载失败。"
 
 #: /home/micha/programming/sumo/src\mesosim\MELoop.cpp:89
 #: /home/micha/programming/sumo/src\microsim\MSVehicleTransfer.cpp:66
 #: /home/micha/programming/sumo/src\microsim\MSVehicleTransfer.cpp:184
 msgid "Vehicle '%' teleports beyond arrival edge '%', time=%."
-msgstr ""
+msgstr "车辆'%'传送到到达路段'%'之外，时间=%。"
 
 #: /home/micha/programming/sumo/src\mesosim\MELoop.cpp:109
 msgid "Vehicle '%' ends teleporting on edge '%':%, time=%."
-msgstr ""
+msgstr "车辆'%'在路段'%'结束传送：%，时间=%。"
 
 #: /home/micha/programming/sumo/src\mesosim\MELoop.cpp:176
 msgid ""
 "Teleporting vehicle '%'; waited too long, from edge '%':% to edge '%':%, "
 "time=%."
-msgstr ""
+msgstr "传送车辆'%'；等待时间过长，从路段'%'：%到路段'%'：%，时间=%。"
 
 #: /home/micha/programming/sumo/src\mesosim\MELoop.cpp:186
 msgid "Teleporting vehicle '%'; waited too long, from edge '%':%, time=%."
-msgstr ""
+msgstr "传送车辆'%'；等待时间过长，从路段'%'：%，时间=%。"
 
 #: /home/micha/programming/sumo/src\mesosim\METriggeredCalibrator.cpp:137
 #: /home/micha/programming/sumo/src\microsim\trigger\MSCalibrator.cpp:603
 msgid "Clearing jam at calibrator '%' at time=%."
-msgstr ""
+msgstr "清除校准器'%'处的干扰，时间=%。"
 
 #: /home/micha/programming/sumo/src\mesosim\METriggeredCalibrator.cpp:145
 msgid "Could not clear jam at calibrator '%' at time=%."
-msgstr ""
+msgstr "无法清除校准器'%'处的干扰，时间=%。"
 
 #: /home/micha/programming/sumo/src\mesosim\METriggeredCalibrator.cpp:177
 #: /home/micha/programming/sumo/src\microsim\trigger\MSCalibrator.cpp:414
 msgid "No valid routes in calibrator '%'."
-msgstr ""
+msgstr "校准器中没有有效的路径'%'。"
 
 #: /home/micha/programming/sumo/src\mesosim\METriggeredCalibrator.cpp:181
 #: /home/micha/programming/sumo/src\microsim\trigger\MSCalibrator.cpp:418
 msgid "Route '%' in calibrator '%' does not contain edge '%'."
-msgstr ""
+msgstr "校准器'%'中的路径'%'不包含路段%'。"
 
 #: /home/micha/programming/sumo/src\mesosim\MEVehicle.cpp:220
 msgid "Join stops are not available in meso yet (vehicle '%', segment '%')."
-msgstr ""
+msgstr "在中轴线上还没有连接站（车辆'%'，分段'%'）。"
 
 #: /home/micha/programming/sumo/src\mesosim\MEVehicle.cpp:247
 msgid ""
 "Vehicle '%' has multiple stops on segment '%', time=% (stop-output will be "
 "merged)."
-msgstr ""
+msgstr "车辆'%'在'%'段有多个停车点，时间=%（停车输出将被合并）。"
 
 #: /home/micha/programming/sumo/src\mesosim\MEVehicle.cpp:370
 #: /home/micha/programming/sumo/src\microsim\MSVehicle.cpp:1665
 #, c-format
 msgid ""
 "Vehicle '%' ignores triggered stop on lane '%' due to capacity constraints."
-msgstr ""
+msgstr "由于容量限制，车辆'%'忽略了在车道'%'上触发的停车。"
 
 #: /home/micha/programming/sumo/src\mesosim\MEVehicle.cpp:387
 #: /home/micha/programming/sumo/src\microsim\MSVehicle.cpp:1679
@@ -1245,335 +1246,337 @@ msgstr ""
 msgid ""
 "Vehicle '%' ignores container triggered stop on lane '%' due to capacity "
 "constraints."
-msgstr ""
+msgstr "由于容量限制，车辆'%'忽略了货箱在车道'%'上触发的停车。"
 
 #: /home/micha/programming/sumo/src\mesosim\MEVehicle.cpp:554
 msgid "Error: Invalid vehicles in state (may be a micro state)!"
-msgstr ""
+msgstr "错误：状态中的无效车辆（可能是一个微型状态）!"
 
 #: /home/micha/programming/sumo/src\mesosim\MEVehicle.h:188
 #: /home/micha/programming/sumo/src\mesosim\MEVehicle.h:194
 msgid "parkingZoneReroute not implemented for meso"
-msgstr ""
+msgstr "停车区改道未在meso中实施"
 
 #: /home/micha/programming/sumo/src\microsim\MSBaseVehicle.cpp:172
 msgid "Changing a vehicle ID is not permitted"
-msgstr ""
+msgstr "不允许更改车辆ID"
 
 #: /home/micha/programming/sumo/src\microsim\MSBaseVehicle.cpp:289
 msgid "Vehicle '%' is not allowed on any lane of via edge '%'."
-msgstr ""
+msgstr "车辆'%'不允许在通过路段'%'的任何车道上行驶。"
 
 #: /home/micha/programming/sumo/src\microsim\MSBaseVehicle.cpp:317
 msgid "Vehicle '%' has no valid route from edge '%' to stop edge '%'."
-msgstr ""
+msgstr "车辆'%'从路段'%'到停止路段'%'没有有效路径。"
 
 #: /home/micha/programming/sumo/src\microsim\MSBaseVehicle.cpp:361
 #, c-format
 msgid "Vehicle '%' has no valid route."
-msgstr ""
+msgstr "车辆'%'没有有效路径。"
 
 #: /home/micha/programming/sumo/src\microsim\MSBaseVehicle.cpp:363
 msgid "Removing vehicle '%' which has no valid route."
-msgstr ""
+msgstr "移除没有有效路径的车辆'%'。"
 
 #: /home/micha/programming/sumo/src\microsim\MSBaseVehicle.cpp:377
 #, c-format
 msgid "No route for vehicle '%' found."
-msgstr ""
+msgstr "移除没有有效路径的车辆'%'。"
 
 #: /home/micha/programming/sumo/src\microsim\MSBaseVehicle.cpp:447
 #, c-format
 msgid "current edge '%' not found in new route"
-msgstr ""
+msgstr "在新路径中没有找到当前的路段'%'。"
 
 #: /home/micha/programming/sumo/src\microsim\MSBaseVehicle.cpp:460
 msgid "Vehicle is on junction-internal edge leading elsewhere"
-msgstr ""
+msgstr "车辆在交叉口--内侧路段领先于其他地方"
 
 #: /home/micha/programming/sumo/src\microsim\MSBaseVehicle.cpp:473
 msgid ""
 "Vehicle is moving past junction and committed to move to another successor "
 "edge"
-msgstr ""
+msgstr "车辆正驶过交叉口处，并致力于移动到另一个继任路段"
 
 #: /home/micha/programming/sumo/src\microsim\MSBaseVehicle.cpp:543
 msgid "Vehicle '%' could not assign stop '%' after rerouting (%) at time=%."
-msgstr ""
+msgstr "车辆'%'在时间=%的情况下，改道(%)后无法分配停车'%'。"
 
 #: /home/micha/programming/sumo/src\microsim\MSBaseVehicle.cpp:683
 msgid "No connection between edge '%' and edge '%'."
-msgstr ""
+msgstr "路段'%'和路段'%'之间没有联系。"
 
 #: /home/micha/programming/sumo/src\microsim\MSBaseVehicle.cpp:692
 #, c-format
 msgid "Edge '%' prohibits."
-msgstr ""
+msgstr "路段'%'禁止使用。"
 
 #: /home/micha/programming/sumo/src\microsim\MSBaseVehicle.cpp:706
 #, c-format
 msgid "Vehicle '%' is not allowed to depart on its first edge."
-msgstr ""
+msgstr "车辆'%'不允许在其第一个路段出发。"
 
 #: /home/micha/programming/sumo/src\microsim\MSBaseVehicle.cpp:736
 msgid "Vehicle '%' has no valid route. %"
-msgstr ""
+msgstr "车辆'%'没有有效的路径。%"
 
 #: /home/micha/programming/sumo/src\microsim\MSBaseVehicle.cpp:799
 msgid ""
 "Vehicle '%' ignores attribute arrivalEdge=% after rerouting at time=% "
 "(routeLength=%)"
-msgstr ""
+msgstr "车辆'%'在时间=%（路径长度=%）改变路径后，忽略了 "
+"抵达路径（arrivalEdge）=%这一属性。"
 
 #: /home/micha/programming/sumo/src\microsim\MSBaseVehicle.cpp:813
 msgid "Vehicle '%' will not be able to arrive at the given position!"
-msgstr ""
+msgstr "车辆'%'将无法到达给定的位置!"
 
 #: /home/micha/programming/sumo/src\microsim\MSBaseVehicle.cpp:833
 msgid "Vehicle '%' will not be able to arrive at the given lane '%_%'!"
-msgstr ""
+msgstr "车辆'%'将无法到达指定的车道'%_%'!"
 
 #: /home/micha/programming/sumo/src\microsim\MSBaseVehicle.cpp:845
 #: /home/micha/programming/sumo/src\microsim\MSBaseVehicle.cpp:857
 msgid "Vehicle '%' has no usable arrivalLane on edge '%'."
-msgstr ""
+msgstr "车辆'%'在路段%'没有可用的到达车道。"
 
 #: /home/micha/programming/sumo/src\microsim\MSBaseVehicle.cpp:869
 msgid "Vehicle '%' will not be able to arrive with the given speed!"
-msgstr ""
+msgstr "车辆'%'将无法以给定的速度到达！"
 
 #: /home/micha/programming/sumo/src\microsim\MSBaseVehicle.cpp:885
 msgid "Ignoring departEdge % for vehicle '% with % route edges"
-msgstr ""
+msgstr "忽略车辆的出发路段（departEdge ）%，其路线路段为%"
 
 #: /home/micha/programming/sumo/src\microsim\MSBaseVehicle.h:879
 msgid "getLeader not yet implemented for meso"
-msgstr ""
+msgstr "getLeader还没有在meso实现"
 
 #: /home/micha/programming/sumo/src\microsim\MSBaseVehicle.h:893
 msgid "getFollower not yet implemented for meso"
-msgstr ""
+msgstr "getFollower还没有在meso实现"
 
 #: /home/micha/programming/sumo/src\microsim\MSEdge.cpp:660
 msgid ""
 "Choosing new speed factor % for vehicle '%' to match departure speed % (max "
 "%)."
-msgstr ""
+msgstr "为车辆'%'选择新的速度系数%，以匹配出发速度%（最大%）。"
 
 #: /home/micha/programming/sumo/src\microsim\MSEdge.cpp:1264
 #, c-format
 msgid "Bidi-edge '%' does not exist"
-msgstr ""
+msgstr "Bidi-路段'%'不存在"
 
 #: /home/micha/programming/sumo/src\microsim\MSEdge.cpp:1277
 msgid "Ambiguous superposable edges between junction '%' and '%'."
-msgstr ""
+msgstr "路口'%'和'%'之间有模糊的可叠加路段。"
 
 #: /home/micha/programming/sumo/src\microsim\MSEdge.cpp:1308
 #, c-format
 msgid "Edge '%s' and bidi edge '%s' have no matching bidi lanes"
-msgstr ""
+msgstr "路段'%s'和bidi路段'%s'没有匹配的bidi车道"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:78
 msgid "Load road network description from FILE"
-msgstr ""
+msgstr "从文件（FILE）中加载路网描述"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:83
 msgid "Load routes descriptions from FILE(s)"
-msgstr ""
+msgstr "从文件（FILEs)中加载路线描述"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:87
 msgid "Load further descriptions from FILE(s)"
-msgstr ""
+msgstr "从文件 FILE(s)中加载进一步的描述"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:91
 msgid "Load edge/lane weights for online rerouting from FILE"
-msgstr ""
+msgstr "从文件（FILE）中加载路段/车道权重以进行在线重新布局"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:94
 #: /home/micha/programming/sumo/src\router\ROFrame.cpp:108
 msgid "Name of the xml attribute which gives the edge weight"
-msgstr ""
+msgstr "给予路段权重的xml属性的名称"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:97
 msgid "Loads a network state from FILE"
-msgstr ""
+msgstr "从FILE（文件）中加载一个网络状态"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:99
 msgid "Shifts all times loaded from a saved state by the given offset"
-msgstr ""
+msgstr "将所有从保存状态加载的时间按给定的偏移量进行转移"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:101
 msgid "Removes vehicles with the given IDs from the loaded state"
-msgstr ""
+msgstr "从加载状态中移除具有给定ID的车辆"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:104
 #: /home/micha/programming/sumo/src\router\ROFrame.cpp:134
 msgid ""
 "Initialize a TAZ for every junction to use attributes toJunction and "
 "fromJunction"
-msgstr ""
+msgstr "为每个路口处初始化一个交通分区（TAZ），以使用属性toJunction和fromJunction"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:114
 msgid "Save complete network states into FILE"
-msgstr ""
+msgstr "将完整的网络状态保存到文件（FILE）中"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:119
 msgid "Write also empty edges completely when dumping"
-msgstr ""
+msgstr "在倾倒时也要完全写空路段"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:124
 msgid "Write positions and speeds with the given precision (default 2)"
-msgstr ""
+msgstr "以给定的精度写入位置和速度（默认为2）。"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:128
 msgid "Save the emission values of each vehicle"
-msgstr ""
+msgstr "保存每辆车的排放值"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:130
 msgid "Write emission values with the given precision (default 2)"
-msgstr ""
+msgstr "以给定的精度写入排放值（默认为2）"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:132
 msgid "Save the positions in emission output using geo-coordinates (lon/lat)"
-msgstr ""
+msgstr "使用地理坐标（LON/LAT）保存排放输出中的位置"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:135
 msgid ""
 "Write emission values scaled to the step length rather than as per-second "
 "values"
-msgstr ""
+msgstr "写出按步长缩放的排放值，而不是每秒的值"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:138
 msgid "Save the battery values of each vehicle"
-msgstr ""
+msgstr "保存每辆车的电池值"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:140
 msgid "Write battery values with the given precision (default 2)"
-msgstr ""
+msgstr "以给定的精度写入电池值（默认为2）"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:143
 msgid "Save the elecHybrid values of each vehicle"
-msgstr ""
+msgstr "保存每辆车的混合动力值"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:145
 msgid "Write elecHybrid values with the given precision (default 2)"
-msgstr ""
+msgstr "以给定的精度写入混合动力值（默认为2）"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:147
 msgid "Write elecHybrid values into one aggregated file"
-msgstr ""
+msgstr "将混合动力的值写入一个汇总文件中"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:150
 msgid "Write data of charging stations"
-msgstr ""
+msgstr "写入充电站的数据"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:153
 msgid "Write data of overhead wire segments"
-msgstr ""
+msgstr "写入架空线段的数据"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:156
 msgid "Write data of electrical substation stations"
-msgstr ""
+msgstr "写入变电站站的数据"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:158
 msgid "Write substation values with the given precision (default 2)"
-msgstr ""
+msgstr "以给定的精度写入分站值（默认为2）"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:161
 msgid "Save the Floating Car Data"
-msgstr ""
+msgstr "保存浮动的汽车数据"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:163
 msgid "Save the Floating Car Data using geo-coordinates (lon/lat)"
-msgstr ""
+msgstr "使用地理坐标（lon/lat）保存浮动车数据"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:165
 msgid "Add the vehicle signal state to the FCD output (brake lights etc.)"
-msgstr ""
+msgstr "将车辆信号状态添加到FCD输出（刹车灯等）。"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:167
 msgid "Add kilometrage to the FCD output (linear referencing)"
-msgstr ""
+msgstr "在FCD输出中添加公里数（线性参考）"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:169
 msgid "Add acceleration to the FCD output"
-msgstr ""
+msgstr "在FCD输出中添加加速度"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:171
 msgid ""
 "Add leader vehicle information to the FCD output (within the given distance)"
-msgstr ""
+msgstr "在FCD输出中添加领导车辆信息（在给定距离内）"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:173
 msgid "Add generic parameter values to the FCD output"
-msgstr ""
+msgstr "在FCD输出中添加通用参数值"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:175
 msgid "Restrict fcd output to the edge selection from the given input file"
-msgstr ""
+msgstr "将FCD的输出限制在给定输入文件的路段选择上"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:177
 msgid "List attributes that should be included in the FCD output"
-msgstr ""
+msgstr "列出应包括在FCD输出中的属性"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:179
 msgid "List shape names that should be used to filter the FCD output"
-msgstr ""
+msgstr "列出应该用于过滤FCD输出的形状名称"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:182
 msgid ""
 "Restrict SSM device output to the edge selection from the given input file"
-msgstr ""
+msgstr "将SSM设备的输出限制在给定输入文件的路段选择上"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:185
 msgid "Save a lot of information for each timestep (very redundant)"
-msgstr ""
+msgstr "为每个时间段保存大量的信息（非常多余）"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:188
 msgid "Save the vehicle queues at the junctions (experimental)"
-msgstr ""
+msgstr "保存路口的车辆排队时间（实验性的）"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:190
 msgid "Save vehicle queues with the given period"
-msgstr ""
+msgstr "保存给定周期的车辆队列"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:193
 msgid ""
 "Save complete vehicle positions inclusive speed values in the VTK Format "
 "(usage: /path/out will produce /path/out_$TIMESTEP$.vtp files)"
-msgstr ""
+msgstr "以VTK格式保存完整的车辆位置和速度值（用法：/path/out将产生/path/"
+"out_$TIMESTEP$.vtp文件）"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:195
 msgid "Save the vehicle trajectories in the Amitran format"
-msgstr ""
+msgstr "以Amitran格式保存车辆轨迹"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:200
 msgid "Save aggregated vehicle departure info into FILE"
-msgstr ""
+msgstr "将汇总的车辆离开信息保存到文件（FILE）中"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:203
 msgid "Save summary-output with the given period"
-msgstr ""
+msgstr "用给定的周期保存总结-输出"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:206
 msgid "Save aggregated person counts into FILE"
-msgstr ""
+msgstr "将汇总的人数保存到文件（FILE）中"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:210
 msgid "Save single vehicle trip info into FILE"
-msgstr ""
+msgstr "将单一车辆的行程信息保存到文件（FILE）中"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:213
 msgid ""
 "Write tripinfo output for vehicles which have not arrived at simulation end"
-msgstr ""
+msgstr "为没有到达仿真终点的车辆写入行程信息输出"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:216
 msgid ""
 "Write tripinfo output for vehicles which have not departed at simulation end "
 "because of depart delay"
-msgstr ""
+msgstr "写出仿真结束时因出发延迟而未出发的车辆的行程信息输出"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:220
 msgid "Save single vehicle route info into FILE"
