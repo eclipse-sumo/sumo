@@ -4,7 +4,7 @@ no_edges
 
 id
 
-vtype
+type
 
 from
 
@@ -35,6 +35,8 @@ containernumber
 departposlat
 
 arrivalposlat
+
+insertionchecks
 
 begin
 

@@ -7,6 +7,9 @@ single_3arms
 # Tests for building tls programs on single-node tls with two incoming
 single_incoming2arms
 
+# handle parallel bike paths in program generation
+bike_edges
+
 # warn about traffic light with a high cycle time
 high_cycle_time
 

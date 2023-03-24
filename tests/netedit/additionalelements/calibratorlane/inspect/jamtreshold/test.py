@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -31,17 +31,17 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 # go to additional mode
 netedit.additionalMode()
 
-# select calibrator
+# select calibratorLane
 netedit.changeElement("calibratorLane")
 
-# create calibrator
-netedit.leftClick(referencePosition, 245, 180)
+# create calibratorLane
+netedit.leftClick(referencePosition, 312, 250)
 
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect calibrator
-netedit.leftClick(referencePosition, 300, 230)
+# inspect calibratorLane
+netedit.leftClick(referencePosition, 463, 229)
 
 # Change parameter id with a non valid value (invalid characters)
 netedit.modifyAttribute(netedit.attrs.calibrator.inspect.vTypes, "///;;", True)
@@ -56,11 +56,8 @@ netedit.modifyAttribute(netedit.attrs.calibrator.inspect.vTypes, "type1 type2", 
 netedit.undo(referencePosition, 3)
 netedit.redo(referencePosition, 3)
 
-# save additionals
-netedit.saveAdditionals(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

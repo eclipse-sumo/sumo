@@ -1,3 +1,3 @@
 Error: Could not build poi with ID 'POI_10' in netedit; attribute height cannot be negative.
 Error: Could not build poi with ID 'POI_8' in netedit; attribute width cannot be negative.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.27Apr082149.8400\netedit.gui\shapeelements\poilane\volatilerecomputing\input_additionals.add.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.27Apr082149.8400\netedit.gui\shapeelements\poilane\volatilerecomputing\additionals.add.xml failed.

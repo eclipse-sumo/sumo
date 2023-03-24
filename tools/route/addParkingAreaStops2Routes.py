@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2010-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2010-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -39,7 +39,7 @@ def get_options(args=None):
     optParser.add_option("-r", "--route-file", dest="routefile", help="define the route file")
     optParser.add_option("-o", "--output-file", dest="outfile", help="output route file including parking")
     optParser.add_option("-p", "--parking-areas", dest="parking",
-                         help="define the parking areas seperated by comma")
+                         help="define the parking areas separated by comma")
     optParser.add_option("-d", "--parking-duration", dest="duration",
                          help="define the parking duration (in seconds)", default=3600)
     optParser.add_option("-v", "--verbose", dest="verbose", action="store_true",

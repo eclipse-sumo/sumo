@@ -1,3 +1,3 @@
 Error: Attribute 'triggered' in definition of a stop is empty.
 Error: Invalid duration or end time is given for a stop at 'containerStop' in vehicle 'trip_3'.
-Warning: Vehicle 'trip_5' ignores container triggered stop on lane 'gneE0_0' due to capacity constraints.
+Error: Triggers and waypoints cannot be combined at 'containerStop' in vehicle 'trip_5'.

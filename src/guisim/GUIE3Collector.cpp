@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -83,6 +83,15 @@ GUIE3Collector::MyWrapper::getParameterWindow(GUIMainWindow& app,
                 new FunctionBinding<MSE3Collector, double>(&myDetector, &MSE3Collector::getCurrentMeanSpeed));
     ret->mkItem("haltings [#]", true,
                 new FunctionBinding<MSE3Collector, int>(&myDetector, &MSE3Collector::getCurrentHaltingNumber));
+    ret->mkItem("last interval mean travel time [s]", true,
+                new FunctionBinding<MSE3Collector, double>(&myDetector, &MSE3Collector::getLastIntervalMeanTravelTime));
+    ret->mkItem("last interval mean haltings [#]", true,
+                new FunctionBinding<MSE3Collector, double>(&myDetector, &MSE3Collector::getLastIntervalMeanHaltsPerVehicle));
+    ret->mkItem("last interval mean time loss time [s]", true,
+                new FunctionBinding<MSE3Collector, double>(&myDetector, &MSE3Collector::getLastIntervalMeanTimeLoss));
+    ret->mkItem("last interval mean vehicle count [#]", true,
+                new FunctionBinding<MSE3Collector, int>(&myDetector, &MSE3Collector::getLastIntervalVehicleSum));
+
     // close building
     ret->closeBuilding(&myDetector);
     return ret;

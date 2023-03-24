@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -59,6 +59,9 @@ public:
 
         /// @brief get description
         const std::string getDescription() const;
+
+        /// @brief get timeStamp
+        const std::string getTimeStamp() const;
 
         /// @brief get icon
         FXIcon* getIcon() const;
@@ -127,7 +130,7 @@ public:
      */
     void begin(GUIIcon icon, const std::string& description);
 
-    /**@brief Begin undo command sub-group specifing supermode.
+    /**@brief Begin undo command sub-group specifying supermode.
      * This begins a new group of commands that
      * are treated as a single command.  Must eventually be followed by a
      * matching end() after recording the sub-commands. The new sub-group

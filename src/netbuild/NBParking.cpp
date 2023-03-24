@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -41,14 +41,14 @@ NBParking::write(OutputDevice& device, NBEdgeCont& ec) const {
     const NBEdge* e = ec.retrieve(myEdgeID);
     if (e != nullptr) {
         if ((e->getPermissions() & SVC_PASSENGER) == 0) {
-            WRITE_WARNINGF("Ignoring parking area on edge '%' due to invalid permissions.", e->getID());
+            WRITE_WARNINGF(TL("Ignoring parking area on edge '%' due to invalid permissions."), e->getID());
             return;
         }
         // keep minimum distance of 5m to junction corners
         const int cornerDistance = 5;
         int capacity = (int)((e->getFinalLength() - 2 * cornerDistance) / 7.5);
         if (capacity <= 0) {
-            WRITE_WARNINGF("Ignoring parking area on edge '%' due to insufficient space.", e->getID());
+            WRITE_WARNINGF(TL("Ignoring parking area on edge '%' due to insufficient space."), e->getID());
             return;
         }
         int lane = 0;
@@ -68,7 +68,7 @@ NBParking::write(OutputDevice& device, NBEdgeCont& ec) const {
         }
         device.closeTag();
     } else {
-        WRITE_WARNINGF("could not find edge for parkingArea '%s'", getID());
+        WRITE_WARNINGF(TL("Could not find edge for parkingArea '%'."), getID());
     }
     // XXX else: prevent edge merging via --geometry.remove
 }

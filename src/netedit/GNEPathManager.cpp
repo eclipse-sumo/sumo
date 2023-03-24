@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -15,10 +15,9 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    Feb 2011
 ///
-// Manager for paths in NETEDIT (routes, trips, flows...)
+// Manager for paths in netedit (routes, trips, flows...)
 /****************************************************************************/
 
-#include <netbuild/NBEdgeCont.h>
 #include <netbuild/NBNetBuilder.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
@@ -190,19 +189,13 @@ GNEPathManager::Segment::Segment() :
 // GNEPathManager::PathElement - methods
 // ---------------------------------------------------------------------------
 
-GNEPathManager::PathElement::PathElement(GUIGlObject* GLObject, const int options) :
-    myGLObject(GLObject),
+GNEPathManager::PathElement::PathElement(GUIGlObjectType type, const std::string& microsimID, FXIcon* icon, const int options) :
+    GUIGlObject(type, microsimID, icon),
     myOption(options) {
 }
 
 
 GNEPathManager::PathElement::~PathElement() {}
-
-
-GUIGlObject* 
-GNEPathManager::PathElement::getPathGUIGlObject() {
-    return myGLObject;
-}
 
 
 bool
@@ -232,12 +225,6 @@ GNEPathManager::PathElement::isDataElement() const {
 bool
 GNEPathManager::PathElement::isRoute() const {
     return (myOption & PathElement::Options::ROUTE) != 0;
-}
-
-
-GNEPathManager::PathElement::PathElement() :
-    myGLObject(nullptr),
-    myOption(PathElement::Options::NETWORK_ELEMENT) {
 }
 
 // ---------------------------------------------------------------------------
@@ -381,12 +368,12 @@ GNEPathManager::PathCalculator::calculateReachability(const SUMOVehicleClass vCl
         std::vector<GNEEdge*> sucessors;
         // get sucessor edges
         for (const auto& sucessorEdge : edge->getToJunction()->getGNEOutgoingEdges()) {
-            // check if edge is connected with sucessor edge
+            // check if edge is connected with successor edge
             if (consecutiveEdgesConnected(vClass, edge, sucessorEdge)) {
                 sucessors.push_back(sucessorEdge);
             }
         }
-        // add sucessors to check vector
+        // add successors to check vector
         for (const auto& nextEdge : sucessors) {
             // revisit edge via faster path
             if ((reachableEdges.count(nextEdge) == 0) || (reachableEdges[nextEdge] > traveltime)) {
@@ -612,11 +599,28 @@ GNEPathManager::getPathCalculator() {
 
 const GNEPathManager::PathElement*
 GNEPathManager::getPathElement(const GUIGlObject* GLObject) const {
-    auto it = myGLObjects.find(GLObject);
-    if (it == myGLObjects.end()) {
+    // first parse pathElement
+    const auto pathElement = dynamic_cast<const GNEPathManager::PathElement*>(GLObject);
+    if (pathElement == nullptr) {
         return nullptr;
     } else {
-        return it->second;
+        // find it in paths
+        auto it = myPaths.find(pathElement);
+        if (it == myPaths.end()) {
+            return nullptr;
+        } else {
+            return it->first;
+        }
+    }
+}
+
+
+const std::vector<GNEPathManager::Segment*>&
+GNEPathManager::getPathElementSegments(GNEPathManager::PathElement* pathElement) const {
+    if (myPaths.count(pathElement) > 0) {
+        return myPaths.at(pathElement);
+    } else {
+        return myEmptySegments;
     }
 }
 
@@ -664,8 +668,6 @@ GNEPathManager::calculatePathEdges(PathElement* pathElement, SUMOVehicleClass vC
         }
         // remove path element from myPaths
         myPaths.erase(pathElement);
-        // also remove from GLObjects
-        myGLObjects.erase(pathElement->getPathGUIGlObject());
     }
     // continue depending of number of edges
     if (edges.size() > 0) {
@@ -723,8 +725,6 @@ GNEPathManager::calculatePathEdges(PathElement* pathElement, SUMOVehicleClass vC
         }
         // add segment in path
         myPaths[pathElement] = segments;
-        // and also in GLObjects
-        myGLObjects[pathElement->getPathGUIGlObject()] = pathElement;
     }
 }
 
@@ -817,8 +817,6 @@ GNEPathManager::calculateConsecutivePathLanes(PathElement* pathElement, const st
         laneSegments.at(laneSegmentIndex)->markSegmentLabel();
         // add segment in path
         myPaths[pathElement] = segments;
-        // and also in GLObjects
-        myGLObjects[pathElement->getPathGUIGlObject()] = pathElement;
     }
 }
 
@@ -841,12 +839,26 @@ void
 GNEPathManager::drawLanePathElements(const GUIVisualizationSettings& s, const GNELane* lane) {
     if (myLaneSegments.count(lane) > 0) {
         int numRoutes = 0;
+        // first draw selected elements (for drawing over other elements)
         for (const auto& segment : myLaneSegments.at(lane)) {
-            // draw segment
-            segment->getPathElement()->drawPartialGL(s, lane, segment, 0);
-            // check if path element is a route
-            if (segment->getPathElement()->isRoute()) {
-                numRoutes++;
+            if (segment->getPathElement()->isPathElementSelected()) {
+                // draw segment
+                segment->getPathElement()->drawPartialGL(s, lane, segment, 2);
+                // check if path element is a route
+                if (segment->getPathElement()->isRoute()) {
+                    numRoutes++;
+                }
+            }
+        }
+        // now draw non selected elements
+        for (const auto& segment : myLaneSegments.at(lane)) {
+            if (!segment->getPathElement()->isPathElementSelected()) {
+                // draw segment
+                segment->getPathElement()->drawPartialGL(s, lane, segment, 0);
+                // check if path element is a route
+                if (segment->getPathElement()->isRoute()) {
+                    numRoutes++;
+                }
             }
         }
         // check if draw overlapped routes
@@ -860,8 +872,17 @@ GNEPathManager::drawLanePathElements(const GUIVisualizationSettings& s, const GN
 void
 GNEPathManager::drawJunctionPathElements(const GUIVisualizationSettings& s, const GNEJunction* junction) {
     if (myJunctionSegments.count(junction) > 0) {
+        // first draw selected elements (for drawing over other elements)
         for (const auto& segment : myJunctionSegments.at(junction)) {
-            segment->getPathElement()->drawPartialGL(s, segment->getPreviousLane(), segment->getNextLane(), segment, 0);
+            if (segment->getPathElement()->isPathElementSelected()) {
+                segment->getPathElement()->drawPartialGL(s, segment->getPreviousLane(), segment->getNextLane(), segment, 0);
+            }
+        }
+        // now draw non selected elements
+        for (const auto& segment : myJunctionSegments.at(junction)) {
+            if (!segment->getPathElement()->isPathElementSelected()) {
+                segment->getPathElement()->drawPartialGL(s, segment->getPreviousLane(), segment->getNextLane(), segment, 0);
+            }
         }
     }
 }

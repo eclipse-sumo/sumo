@@ -30,7 +30,7 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.12_from_08Mar091225.2372/netedit.gui/netElements/edges/load/shapestart\input_additionals.add.xml"/>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.12_from_08Mar091225.2372/netedit.gui/netElements/edges/load/shapestart\additionals.add.xml"/>
         <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.12_from_08Mar091225.2372/netedit.gui/netElements/edges/load/shapestart\additionals.xml"/>
         <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.12_from_08Mar091225.2372/netedit.gui/netElements/edges/load/shapestart\routes.xml"/>
     </netedit>
@@ -52,7 +52,7 @@
 </configuration>
 -->
 
-<net version="1.9" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="0.00,-44.32" convBoundary="0.00,0.00,50.00,12.65" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 

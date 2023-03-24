@@ -2,4 +2,4 @@ Error: Attribute 'until' in definition of a stop is not a valid time value.
 Error: Invalid duration or end time is given for a stop at 'chargingStation'
 Error: Attribute 'until' in definition of a stop is empty.
 Error: Invalid duration or end time is given for a stop at 'chargingStation'
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.waypoint.chargingstation.08Apr202456.3595/netedit.daily.demand.waypoint.chargingstation/demandelements/waypoint/chargingstation/load/until/input_routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.waypointChargingStation.chargingstation.08Apr202456.3595/netedit.daily.demand.waypointChargingStation.chargingstation/demandelements/waypoint/chargingstation/load/until/routes.rou.xml failed.

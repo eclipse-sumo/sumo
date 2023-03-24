@@ -1,5 +1,5 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2017-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2017-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -18,18 +18,11 @@
 
 from collections import defaultdict
 import os
-import sys
 import xml.etree.ElementTree as ET
 
-if 'SUMO_HOME' in os.environ:
-    tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
-    sys.path.append(tools)
-else:
-    sys.exit("please declare environment variable 'SUMO_HOME'")
-
-from simpla._platoonmode import PlatoonMode  # noqa
-import simpla._reporting as rp  # noqa
-from simpla import SimplaException  # noqa
+from ._platoonmode import PlatoonMode
+from . import _reporting as rp
+from . import SimplaException
 
 warn = rp.Warner("Config")
 report = rp.Reporter("Config")
@@ -41,6 +34,7 @@ def initDefaults():
     They are overriden by specification in a configuration file (see load() method).
     '''
     global CONTROL_RATE, VEH_SELECTORS, MAX_PLATOON_GAP, MAX_PLATOON_HEADWAY, CATCHUP_DIST
+    global MAX_VEHICLES
     global CATCHUP_HEADWAY, PLATOON_SPLIT_TIME, VTYPE_FILE, PLATOON_VTYPES, LC_MODE, USE_HEADWAY
     global SPEEDFACTOR, SWITCH_IMPATIENCE_FACTOR, EDGE_LOOKAHEAD, DIST_LOOKAHEAD, LC_MINDIST
 
@@ -49,6 +43,9 @@ def initDefaults():
 
     # specify substring for vtypes, that should be controlled by platoon manager
     VEH_SELECTORS = [""]
+
+    # The maximal number of vehicles inside a platoon, after which joining is denied
+    MAX_VEHICLES = 10
 
     # Distance in meters below which a vehicle joins a leading platoon
     MAX_PLATOON_GAP = 15.0
@@ -134,7 +131,7 @@ def loadVTypeMap(fn):
         #         if rp.VERBOSITY >= 2:
         if rp.VERBOSITY >= 2:
             report("Loading vehicle type mappings from file '%s'..." % fn, True)
-        splits = [l.split(":") for l in f.readlines()]
+        splits = [line.split(":") for line in f.readlines()]
         NrBadLines = 0
         for j, spl in enumerate(splits):
             if len(spl) >= 2 and len(spl) <= 5:
@@ -192,6 +189,7 @@ def load(filename):
     This loads configuration parameters from a file and overwrites default values.
     '''
     global CONTROL_RATE, VEH_SELECTORS, MAX_PLATOON_GAP, MAX_PLATOON_HEADWAY, CATCHUP_DIST, CATCHUP_HEADWAY
+    global MAX_VEHICLES
     global PLATOON_SPLIT_TIME, VTYPE_FILE, PLATOON_VTYPES, LC_MODE, SPEEDFACTOR, SWITCH_IMPATIENCE_FACTOR
     global EDGE_LOOKAHEAD, DIST_LOOKAHEAD, LC_MINDIST, USE_HEADWAY
 
@@ -220,6 +218,14 @@ def load(filename):
         elif e.tag == "vehicleSelectors":
             if hasAttributes(e):
                 VEH_SELECTORS = list(map(lambda x: x.strip(), list(e.attrib.values())[0].split(",")))
+        elif e.tag == "maxVehicles":
+            if hasAttributes(e):
+                maxVeh = int(list(e.attrib.values())[0])
+                if maxVeh > 0:
+                    MAX_VEHICLES = maxVeh
+                else:
+                    if rp.VERBOSITY >= 1:
+                        warn("Parameter maxVehicles must be positive. Ignoring given value: %s" % (maxVeh), True)
         elif e.tag == "maxPlatoonGap":
             if hasAttributes(e):
                 maxgap = float(list(e.attrib.values())[0])

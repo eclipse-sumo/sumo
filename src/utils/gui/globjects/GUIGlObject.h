@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -56,7 +56,7 @@ struct GUIVisualizationTextSettings;
 
 #ifdef HAVE_OSG
 namespace osg {
-    class Node;
+class Node;
 }
 #endif
 
@@ -77,10 +77,10 @@ public:
      *
      * @param[in] type The GUIGlObjectType type
      * @param[in] microsimID unique ID
-     * @param[in] icon optional icon associated with this GUIGLObject 
+     * @param[in] icon optional icon associated with this GUIGLObject
      * @see GUIGlObjectStorage
      */
-    GUIGlObject(GUIGlObjectType type, const std::string& microsimID, FXIcon *icon);
+    GUIGlObject(GUIGlObjectType type, const std::string& microsimID, FXIcon* icon);
 
     /// @brief Destructor
     virtual ~GUIGlObject();
@@ -104,7 +104,7 @@ public:
     }
 
     /// @brief get icon associated with this GL Object
-    FXIcon *getGLIcon() const;
+    FXIcon* getGLIcon() const;
 
     /// @}
 
@@ -146,7 +146,7 @@ public:
     virtual const std::string getOptionalName() const;
 
     /// @brief Changes the microsimID of the object
-    /// @note happens in NETEDIT
+    /// @note happens in netedit
     virtual void setMicrosimID(const std::string& newID);
 
     /// @brief Returns the type of the object as coded in GUIGlObjectType
@@ -171,7 +171,10 @@ public:
     }
 
     /// @brief return exaggeration associated with this GLObject
-    virtual double getExaggeration(const GUIVisualizationSettings& s) const = 0;
+    virtual double getExaggeration(const GUIVisualizationSettings& s) const {
+        UNUSED_PARAMETER(s);
+        return 1.;
+    }
 
     //// @brief Returns the boundary to which the view shall be centered in order to show the object
     virtual Boundary getCenteringBoundary() const = 0;
@@ -180,16 +183,16 @@ public:
     /// @param[in] s The settings for the current view (may influence drawing)
     virtual void drawGL(const GUIVisualizationSettings& s) const = 0;
 
-    /// @brief check if element is locked (Currently used only in NETEDIT)
+    /// @brief check if element is locked (Currently used only in netedit)
     virtual bool isGLObjectLocked();
 
-    /// @brief mark element as front element (Currently used only in NETEDIT)
+    /// @brief mark element as front element (Currently used only in netedit)
     virtual void markAsFrontElement();
 
-    /// @brief delete GLObject (Currently used only in NETEDIT)
+    /// @brief delete GLObject (Currently used only in netedit)
     virtual void deleteGLObject();
 
-    /// @brief select GLObject (Currently used only in NETEDIT)
+    /// @brief select GLObject (Currently used only in netedit)
     virtual void selectGLObject();
 
     /// @brief update GLObject (geometry, ID, etc.) (optional)
@@ -294,17 +297,20 @@ protected:
     void buildAdditionalsPopupOptions(GUIMainWindow& app, GUIGLObjectPopupMenu* ret, const std::string& type);
 
     /// @brief check if mouse is within elements geometry (for circles)
-    void mouseWithinGeometry(const Position center, const double radius) const;
+    bool mouseWithinGeometry(const Position center, const double radius) const;
 
     /// @brief check if mouse is within elements geometry (for filled shapes)
-    void mouseWithinGeometry(const PositionVector shape) const;
+    bool mouseWithinGeometry(const PositionVector shape) const;
 
     /// @brief check if mouse is within elements geometry (for shapes)
-    void mouseWithinGeometry(const PositionVector shape, const double width) const;
+    bool mouseWithinGeometry(const PositionVector shape, const double width) const;
+
+    /// @brief check if mouse is within elements geometry (for edges)
+    bool mouseWithinGeometry(const PositionVector shape, const double width, GUIGlObject* parent) const;
 
     /// @brief check if mouse is within elements geometry (for rectangles)
-    void mouseWithinGeometry(const Position& pos, const double width, const double height, 
-                               const double offsetX, const double offsetY, const double rot) const;
+    bool mouseWithinGeometry(const Position& pos, const double width, const double height,
+                             const double offsetX, const double offsetY, const double rot) const;
 
 private:
     /// @brief The numerical id of the object
@@ -320,7 +326,7 @@ private:
     std::string myFullName;
 
     /// @brief icon associatd with this GL Object
-    FXIcon *myIcon;
+    FXIcon* myIcon;
 
     /// @brief whether the object can be deleted
     bool myAmBlocked;

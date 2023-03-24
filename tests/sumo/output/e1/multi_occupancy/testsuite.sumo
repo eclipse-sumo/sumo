@@ -1,0 +1,5 @@
+# long loop accomodates 2 vehicles at the same time
+length_2veh
+
+# normal loop accomodates 2 vehicles in parallel
+sublane_2bikes

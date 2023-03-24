@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -221,8 +221,10 @@ public:
      * @param[in] maxSpeed The maximum achievable speed in the next step
      * @param[in] maxSpeedLane The maximum speed the vehicle wants to drive on this lane (Speedlimit*SpeedFactor)
      */
-    virtual double maximumLaneSpeedCF(double maxSpeed, double maxSpeedLane) const {
-        return MIN2(maxSpeed, maxSpeedLane);
+    virtual double maximumLaneSpeedCF(const MSVehicle* const veh, double maxSpeed, double maxSpeedLane) const {
+        double result = MIN2(maxSpeed, maxSpeedLane);
+        applyOwnSpeedPerceptionError(veh, result);
+        return result;
     }
 
 
@@ -387,14 +389,7 @@ public:
      * @param[in] leaderSpeed LEADER's speed
      * @param[in] leaderMaxDecel LEADER's max. deceleration rate
      */
-    inline virtual double getSecureGap(const MSVehicle* const /*veh*/, const MSVehicle* const /*pred*/, const double speed, const double leaderSpeed, const double leaderMaxDecel) const {
-        // The solution approach leaderBrakeGap >= followerBrakeGap is not
-        // secure when the follower can brake harder than the leader because the paths may still cross.
-        // As a workaround we use a value of leaderDecel which errs on the side of caution
-        const double maxDecel = MAX2(myDecel, leaderMaxDecel);
-        double secureGap = MAX2((double) 0, brakeGap(speed, myDecel, myHeadwayTime) - brakeGap(leaderSpeed, maxDecel, 0));
-        return secureGap;
-    }
+    virtual double getSecureGap(const MSVehicle* const veh, const MSVehicle* const /*pred*/, const double speed, const double leaderSpeed, const double leaderMaxDecel) const;
 
     virtual /** @brief Returns the velocity after maximum deceleration
      * @param[in] v The velocity
@@ -656,6 +651,13 @@ public:
     }
 
 protected:
+
+    /** @brief Overwrites sped by the perceived values obtained from the vehicle's driver state,
+     *  @see MSCFModel_Krauss::freeSpeed()
+     * @param[in] veh The vehicle (EGO)
+     * @param[in, out] speed The vehicle's speed
+     */
+    void applyOwnSpeedPerceptionError(const MSVehicle* const veh, double &speed) const;
 
     /** @brief Overwrites gap2pred and predSpeed by the perceived values obtained from the vehicle's driver state,
      *  @see MSCFModel_Krauss::stopSpeed() and MSCFModel_Krauss::followSpeed() for integration into a CF model

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -39,7 +39,7 @@ class GUIGlObject_AbstractAdd : public GUIGlObject {
 
 public:
     /// @brief constructor
-    GUIGlObject_AbstractAdd(GUIGlObjectType type, const std::string& id, FXIcon *icon);
+    GUIGlObject_AbstractAdd(GUIGlObjectType type, const std::string& id, FXIcon* icon);
 
     /// @brief destructor
     ~GUIGlObject_AbstractAdd();

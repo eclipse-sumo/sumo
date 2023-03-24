@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -110,7 +110,7 @@ GNEChange_Lane::undo() {
         myEdge->addLane(myLane, myLaneAttrs, false);
     }
     // enable save networkElements
-    myEdge->getNet()->requireSaveNet(true);
+    myEdge->getNet()->getSavingStatus()->requireSaveNetwork();
 }
 
 
@@ -148,16 +148,16 @@ GNEChange_Lane::redo() {
         myEdge->removeLane(myLane, myRecomputeConnections);
     }
     // enable save networkElements
-    myEdge->getNet()->requireSaveNet(true);
+    myEdge->getNet()->getSavingStatus()->requireSaveNetwork();
 }
 
 
 std::string
 GNEChange_Lane::undoName() const {
     if (myForward) {
-        return ("Undo create " + toString(SUMO_TAG_LANE));
+        return (TL("Undo create lane '") + myLane->getID() + "'");
     } else {
-        return ("Undo delete " + toString(SUMO_TAG_LANE));
+        return (TL("Undo delete lane '") + myLane->getID() + "'");
     }
 }
 
@@ -165,8 +165,8 @@ GNEChange_Lane::undoName() const {
 std::string
 GNEChange_Lane::redoName() const {
     if (myForward) {
-        return ("Redo create " + toString(SUMO_TAG_LANE));
+        return (TL("Redo create lane '") + myLane->getID() + "'");
     } else {
-        return ("Redo delete " + toString(SUMO_TAG_LANE));
+        return (TL("Redo delete lane '") + myLane->getID() + "'");
     }
 }

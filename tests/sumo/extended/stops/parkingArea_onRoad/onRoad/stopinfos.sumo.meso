@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-02-11 11:28:50 by Eclipse SUMO sumo Version v1_12_0+0490-00f3a0f
+<!-- generated on 2023-03-22 17:17:46 by Eclipse SUMO sumo Version v1_16_0+1570-ec89ba0
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -27,12 +27,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <processing>
         <default.speeddev value="0"/>
-        <pedestrian.model value="nonInteracting"/>
     </processing>
 
     <report>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -45,11 +43,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <stops xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/stopinfo_file.xsd">
-    <stopinfo id="flow1.0" type="DEFAULT_VEHTYPE" edge="a" pos="203.21" parking="1" started="14.63" ended="222.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="ParkAreaA"/>
-    <stopinfo id="flow1.1" type="DEFAULT_VEHTYPE" edge="a" pos="203.21" parking="1" started="19.63" ended="227.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="ParkAreaA"/>
-    <stopinfo id="flow1.2" type="DEFAULT_VEHTYPE" edge="a" pos="203.21" parking="1" started="24.63" ended="232.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="ParkAreaA"/>
-    <stopinfo id="flow1.3" type="DEFAULT_VEHTYPE" edge="a" pos="203.21" parking="1" started="29.63" ended="237.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="ParkAreaA"/>
-    <stopinfo id="flow1.4" type="DEFAULT_VEHTYPE" edge="a" pos="203.21" parking="1" started="34.63" ended="242.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="ParkAreaA"/>
-    <stopinfo id="flow1.5" type="DEFAULT_VEHTYPE" edge="a" pos="203.21" parking="1" started="39.63" ended="247.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="ParkAreaA"/>
-    <stopinfo id="flow1.6" type="DEFAULT_VEHTYPE" edge="a" pos="203.21" parking="1" started="44.63" ended="252.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="ParkAreaA"/>
+    <stopinfo id="flow1.0" type="DEFAULT_VEHTYPE" edge="a" pos="203.21" parking="1" started="14.63" ended="222.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="ParkAreaA"/>
+    <stopinfo id="flow1.1" type="DEFAULT_VEHTYPE" edge="a" pos="203.21" parking="1" started="19.63" ended="227.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="ParkAreaA"/>
+    <stopinfo id="flow1.2" type="DEFAULT_VEHTYPE" edge="a" pos="203.21" parking="1" started="24.63" ended="232.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="ParkAreaA"/>
+    <stopinfo id="flow1.3" type="DEFAULT_VEHTYPE" edge="a" pos="203.21" parking="1" started="29.63" ended="237.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="ParkAreaA"/>
+    <stopinfo id="flow1.4" type="DEFAULT_VEHTYPE" edge="a" pos="203.21" parking="1" started="34.63" ended="242.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="ParkAreaA"/>
+    <stopinfo id="flow1.5" type="DEFAULT_VEHTYPE" edge="a" pos="203.21" parking="1" started="39.63" ended="247.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="ParkAreaA"/>
+    <stopinfo id="flow1.6" type="DEFAULT_VEHTYPE" edge="a" pos="203.21" parking="1" started="44.63" ended="252.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="ParkAreaA"/>
 </stops>

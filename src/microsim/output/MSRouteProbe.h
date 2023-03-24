@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -123,7 +123,7 @@ public:
     /* @brief sample a route from the routeDistribution
      * @param[in] last Retrieve route from the previous (complete) collection interval
      */
-    const MSRoute* sampleRoute(bool last = true) const;
+    ConstMSRoutePtr sampleRoute(bool last = true) const;
 
     const MSEdge* getEdge() {
         return myEdge;
@@ -139,10 +139,10 @@ private:
     std::string myLastID;
 
     /// @brief The previous distribution of routes (probability->route)
-    RandomDistributor<const MSRoute*>* myLastRouteDistribution;
+    RandomDistributor<ConstMSRoutePtr>* myLastRouteDistribution;
 
     /// @brief The current distribution of routes (probability->route)
-    RandomDistributor<const MSRoute*>* myCurrentRouteDistribution;
+    RandomDistributor<ConstMSRoutePtr>* myCurrentRouteDistribution;
 
     /// @brief the edge of this route probe
     const MSEdge* myEdge;

@@ -102,4 +102,10 @@ target_prohibits_turns
 
 # test missing connection in osm derived data (#10502)	
 bus_only
+
+# test faulty connection in osm derived data (#12327)	
+bus_bay_bikelanes
+
+# test faulty connection in osm derived data (#12327)	
+bus_bay_bikelanes2
 ramps

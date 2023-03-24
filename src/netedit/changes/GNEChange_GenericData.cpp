@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -49,7 +49,9 @@ GNEChange_GenericData::GNEChange_GenericData(GNEGenericData* genericData, bool f
 GNEChange_GenericData::~GNEChange_GenericData() {
     assert(myGenericData);
     myGenericData->decRef("GNEChange_GenericData");
-    if (myGenericData->unreferenced()) {
+    if (myGenericData->unreferenced() &&
+            myGenericData->getNet()->getAttributeCarriers()->retrieveDataInterval(myDataIntervalParent, false) &&
+            myGenericData->getNet()->getAttributeCarriers()->retrieveGenericData(myGenericData, false)) {
         // show extra information for tests
         WRITE_DEBUG("Deleting unreferenced " + myGenericData->getTagStr());
         // delete generic data from interval parent
@@ -86,7 +88,7 @@ GNEChange_GenericData::undo() {
         restoreHierarchicalContainers();
     }
     // require always save elements
-    myGenericData->getNet()->requireSaveDataElements(true);
+    myGenericData->getNet()->getSavingStatus()->requireSaveDataElements();
 }
 
 
@@ -116,16 +118,16 @@ GNEChange_GenericData::redo() {
         removeElementFromParentsAndChildren(myGenericData);
     }
     // require always save elements
-    myGenericData->getNet()->requireSaveDataElements(true);
+    myGenericData->getNet()->getSavingStatus()->requireSaveDataElements();
 }
 
 
 std::string
 GNEChange_GenericData::undoName() const {
     if (myForward) {
-        return ("Undo create " + myGenericData->getTagStr());
+        return (TL("Undo create ") + myGenericData->getTagStr());
     } else {
-        return ("Undo delete " + myGenericData->getTagStr());
+        return (TL("Undo delete ") + myGenericData->getTagStr());
     }
 }
 
@@ -133,8 +135,8 @@ GNEChange_GenericData::undoName() const {
 std::string
 GNEChange_GenericData::redoName() const {
     if (myForward) {
-        return ("Redo create " + myGenericData->getTagStr());
+        return (TL("Redo create ") + myGenericData->getTagStr());
     } else {
-        return ("Redo delete " + myGenericData->getTagStr());
+        return (TL("Redo delete ") + myGenericData->getTagStr());
     }
 }

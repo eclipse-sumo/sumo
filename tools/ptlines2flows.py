@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2010-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2010-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -43,6 +43,9 @@ def get_options(args=None):
     optParser.add_option("-t", "--trips-file", dest="trips", default="trips.trips.xml", help="output trips file")
     optParser.add_option("-p", "--period", type=float, default=600,
                          help="the default service period (in seconds) to use if none is specified in the ptlines file")
+    optParser.add_option("--period-aerialway", type=float, default=60, dest="periodAerialway",
+                         help="the default service period (in seconds) to use for aerialways "
+                              "if none is specified in the ptlines file")
     optParser.add_option("-b", "--begin", type=float, default=0, help="start time")
     optParser.add_option("-e", "--end", type=float, default=3600, help="end time")
     optParser.add_option("--min-stops", type=int, default=2,
@@ -52,7 +55,7 @@ def get_options(args=None):
     optParser.add_option("--use-osm-routes", default=False, action="store_true",
                          dest='osmRoutes', help="use osm routes")
     optParser.add_option("--extend-to-fringe", default=False, action="store_true", dest='extendFringe',
-                         help="let routes of incomplete lines start/end at the network border " +
+                         help="let routes of incomplete lines start/end at the network border "
                               "if the route edges are known")
     optParser.add_option("--random-begin", default=False, action="store_true",
                          dest='randomBegin', help="randomize begin times within period")
@@ -124,11 +127,11 @@ def writeTypes(fout, prefix, options):
     <vType id="%strain" vClass="rail"%s/>
     <vType id="%ssubway" vClass="rail_urban"%s/>
     <vType id="%slight_rail" vClass="rail_urban"%s/>
-    <vType id="%smonorail" vClass="rail"%s/>
+    <vType id="%smonorail" vClass="rail_urban"%s/>
     <vType id="%strolleybus" vClass="bus"%s/>
     <vType id="%sminibus" vClass="bus"%s/>
     <vType id="%sshare_taxi" vClass="taxi"%s/>
-    <vType id="%saerialway" vClass="bus"%s/>
+    <vType id="%saerialway" vClass="rail_urban"%s length="2.5" width="2" personCapacity="4"/>
     <vType id="%sferry" vClass="ship"%s/>""" % tuple(prefixes_and_sf), file=fout)
 
 
@@ -165,7 +168,10 @@ def createTrips(options):
         for trp_nr, line in enumerate(sumolib.output.parse(options.ptlines, 'ptLine', heterogeneous=True)):
             stop_ids = []
             if not line.hasAttribute("period"):
-                line.setAttribute("period", options.period)
+                if line.type == "aerialway":
+                    line.setAttribute("period", options.periodAerialway)
+                else:
+                    line.setAttribute("period", options.period)
             if line.busStop is not None:
                 for stop in line.busStop:
                     if stop.id not in stopsLanes:
@@ -275,7 +281,7 @@ def createTrips(options):
         fouttrips.write("</routes>\n")
     if options.verbose:
         print("Imported %s lines with %s stops and skipped %s lines" % (numLines, numStops, numSkipped))
-        for lineType, count in typeCount.items():
+        for lineType, count in sorted(typeCount.items()):
             print("   %s: %s" % (lineType, count))
     print("done.")
     return trpMap, stopNames
@@ -314,9 +320,7 @@ def createRoutes(options, trpMap, stopNames):
     with codecs.open(options.outfile, 'w', encoding="UTF8") as foutflows:
         flows = []
         actualDepart = {}  # departure may be delayed when the edge is not yet empty
-        sumolib.writeXMLHeader(
-            foutflows, "$Id: ptlines2flows.py v1_3_1+0313-ccb31df3eb jakob.erdmann@dlr.de 2019-09-02 13:26:32 +0200 $",
-            "routes")
+        sumolib.writeXMLHeader(foutflows, root="routes")
         if not options.novtypes:
             writeTypes(foutflows, options.vtypeprefix, None)
         collections.defaultdict(int)

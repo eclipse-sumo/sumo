@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -341,16 +341,6 @@ GUIPerson::drawAction_drawWalkingareaPath(const GUIVisualizationSettings& s) con
     }
 }
 
-bool
-GUIPerson::isJammed() const {
-    MSPersonStage_Walking* stage = dynamic_cast<MSPersonStage_Walking*>(getCurrentStage());
-    if (stage != nullptr) {
-        return stage->getState()->isJammed();
-    }
-    return false;
-}
-
-
 void
 GUIPerson::drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVisualizationSettings& s) const {
     GLHelper::pushName(getGlID());
@@ -369,9 +359,10 @@ GUIPerson::drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVisualiz
             assert(stage != 0);
             const double exaggeration = getExaggeration(s);
             const ConstMSEdgeVector& edges = stage->getRoute();
+            const bool s2 = s.secondaryShape;
             for (ConstMSEdgeVector::const_iterator it = edges.begin(); it != edges.end(); ++it) {
                 GUILane* lane = static_cast<GUILane*>((*it)->getLanes()[0]);
-                GLHelper::drawBoxLines(lane->getShape(), lane->getShapeRotations(), lane->getShapeLengths(), exaggeration);
+                GLHelper::drawBoxLines(lane->getShape(s2), lane->getShapeRotations(s2), lane->getShapeLengths(s2), exaggeration);
             }
         }
     }
@@ -388,50 +379,52 @@ GUIPerson::setPositionInVehicle(const GUIBaseVehicle::Seat& pos) {
 
 void
 GUIPerson::setColor(const GUIVisualizationSettings& s) const {
+    RGBColor col;
     const GUIColorer& c = s.personColorer;
-    if (!setFunctionalColor(c.getActive())) {
-        GLHelper::setColor(c.getScheme().getColor(getColorValue(s, c.getActive())));
+    if (!setFunctionalColor(c.getActive(), this, col)) {
+        col = c.getScheme().getColor(getColorValue(s, c.getActive()));
     }
+    GLHelper::setColor(col);
 }
 
 
 bool
-GUIPerson::setFunctionalColor(int activeScheme) const {
+GUIPerson::setFunctionalColor(int activeScheme, const MSPerson* person, RGBColor& col) {
     switch (activeScheme) {
         case 0: {
-            if (getParameter().wasSet(VEHPARS_COLOR_SET)) {
-                GLHelper::setColor(getParameter().color);
+            if (person->getParameter().wasSet(VEHPARS_COLOR_SET)) {
+                col = person->getParameter().color;
                 return true;
             }
-            if (getVehicleType().wasSet(VTYPEPARS_COLOR_SET)) {
-                GLHelper::setColor(getVehicleType().getColor());
+            if (person->getVehicleType().wasSet(VTYPEPARS_COLOR_SET)) {
+                col = person->getVehicleType().getColor();
                 return true;
             }
             return false;
         }
         case 2: {
-            if (getParameter().wasSet(VEHPARS_COLOR_SET)) {
-                GLHelper::setColor(getParameter().color);
+            if (person->getParameter().wasSet(VEHPARS_COLOR_SET)) {
+                col = person->getParameter().color;
                 return true;
             }
             return false;
         }
         case 3: {
-            if (getVehicleType().wasSet(VTYPEPARS_COLOR_SET)) {
-                GLHelper::setColor(getVehicleType().getColor());
+            if (person->getVehicleType().wasSet(VTYPEPARS_COLOR_SET)) {
+                col = person->getVehicleType().getColor();
                 return true;
             }
             return false;
         }
         case 9: { // color by angle
-            double hue = GeomHelper::naviDegree(getAngle());
-            GLHelper::setColor(RGBColor::fromHSV(hue, 1., 1.));
+            double hue = GeomHelper::naviDegree(person->getAngle());
+            col = RGBColor::fromHSV(hue, 1., 1.);
             return true;
         }
         case 10: { // color randomly (by pointer)
-            const double hue = (double)((long long int)this % 360); // [0-360]
-            const double sat = (double)(((long long int)this / 360) % 67) / 100. + 0.33; // [0.33-1]
-            GLHelper::setColor(RGBColor::fromHSV(hue, sat, 1.));
+            const double hue = (double)((long long int)person % 360); // [0-360]
+            const double sat = (double)(((long long int)person / 360) % 67) / 100. + 0.33; // [0.33-1]
+            col = RGBColor::fromHSV(hue, sat, 1.);
             return true;
         }
         default:

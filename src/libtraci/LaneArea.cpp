@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2012-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -106,6 +106,47 @@ int
 LaneArea::getLastStepHaltingNumber(const std::string& detID) {
     return Dom::getInt(libsumo::LAST_STEP_VEHICLE_HALTING_NUMBER, detID);
 }
+
+double
+LaneArea::getIntervalOccupancy(const std::string& detID) {
+    return Dom::getDouble(libsumo::VAR_INTERVAL_OCCUPANCY, detID);
+}
+
+double
+LaneArea::getIntervalMeanSpeed(const std::string& detID) {
+    return Dom::getDouble(libsumo::VAR_INTERVAL_SPEED, detID);
+}
+
+double
+LaneArea::getIntervalMaxJamLengthInMeters(const std::string& detID) {
+    return Dom::getDouble(libsumo::VAR_INTERVAL_MAX_JAM_LENGTH_METERS, detID);
+}
+
+int
+LaneArea::getIntervalVehicleNumber(const std::string& detID) {
+    return Dom::getInt(libsumo::VAR_INTERVAL_NUMBER, detID);
+}
+
+double
+LaneArea::getLastIntervalOccupancy(const std::string& detID) {
+    return Dom::getDouble(libsumo::VAR_LAST_INTERVAL_OCCUPANCY, detID);
+}
+
+double
+LaneArea::getLastIntervalMeanSpeed(const std::string& detID) {
+    return Dom::getDouble(libsumo::VAR_LAST_INTERVAL_SPEED, detID);
+}
+
+double
+LaneArea::getLastIntervalMaxJamLengthInMeters(const std::string& detID) {
+    return Dom::getDouble(libsumo::VAR_LAST_INTERVAL_MAX_JAM_LENGTH_METERS, detID);
+}
+
+int
+LaneArea::getLastIntervalVehicleNumber(const std::string& detID) {
+    return Dom::getInt(libsumo::VAR_LAST_INTERVAL_NUMBER, detID);
+}
+
 
 void
 LaneArea::overrideVehicleNumber(const std::string& detID, int num) {

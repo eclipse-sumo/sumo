@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-01-12 11:46:03 by Eclipse SUMO sumo Version v1_14_1+3835-2903bc4e10b
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net2.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <statistic-output value="summary.xml"/>
+    </output>
+
+    <processing>
+        <time-to-teleport value="-1"/>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <traci_server>
+        <remote-port value="55761"/>
+    </traci_server>
+
+    <gui_only>
+        <window-size value="500,500"/>
+        <window-pos value="50,50"/>
+    </gui_only>
+
+</configuration>
+-->
+
+<statistics xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/statistic_file.xsd">
+    <vehicles loaded="2" inserted="2" running="0" waiting="0"/>
+    <teleports total="0" jam="0" yield="0" wrongLane="0"/>
+    <safety collisions="0" emergencyStops="0"/>
+    <persons loaded="0" running="0" jammed="0"/>
+    <personTeleports total="0" abortWait="0" wrongDest="0"/>
+</statistics>

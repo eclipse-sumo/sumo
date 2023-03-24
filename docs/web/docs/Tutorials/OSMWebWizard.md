@@ -39,7 +39,7 @@ excerpt covers a very large area, the simulation might become slow or
 even unresponsive. We suggest choosing a similar zoom level as in the
 initial view.
 
-In the next step, you select the actual area for which you want to
+In the next step, you select the actual area for which you wish to
 generate the simulation scenario. The area selection will be activated
 by clicking the checkbox *Select Area* at the blue area selection panel
 on the right side of the map.
@@ -78,7 +78,7 @@ distribution, which is influenced by two parameters:
 - Every time a new vehicle is generated, the OSM Web Wizard randomly
 chooses a departure and arrival edge for the vehicle. The *Through
 Traffic Factor* defines how many times it is more likely for an edge
-at the boundary of the simulation area being chosen compared to an
+at the boundary of the simulation area being chosen, compared to an
 edge entirely located inside the simulation area. A big value for
 the *Through Traffic Factor* implies that many vehicles depart and
 arrive at the boundary of the simulation area, which corresponds to
@@ -103,7 +103,7 @@ to be downloaded and rendered.
 
 ![wz01.jpg](../images/Wz05.png "wz05.png")
 
-For example one can only choose motorways, primary, 
+For example, one can only choose motorways, primary, 
 secondary and tertiary to simulate major traffic.
 This impacts the file size of the OSM map data.
 
@@ -118,7 +118,7 @@ in a smaller file size.
 
 The complete scenario will be generated automatically once *Generate
 Scenario* in the control panel has been clicked. The scenario generation
-takes a couple of seconds or minutes (depending, among others, on the
+takes a couple of seconds or minutes (depending, among other factors, on the
 size of the scenario). Once the scenario generation process has
 finished, the sumo-gui starts and the simulation can be started by
 pressing the *Play* button.

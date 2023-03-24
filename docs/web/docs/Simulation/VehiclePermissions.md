@@ -18,7 +18,7 @@ The vehicle class of a vehicle is defined by first defining a [vehicle
 type](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#vehicle_types)
 with the appropriate [vehicle
 class](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#abstract_vehicle_class)
-and then[assigning that type to the
+and then [assigning that type to the
 vehicle](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#vehicles_and_routes).
 An example is given below:
 

@@ -1,0 +1,5 @@
+Error: Invalid vehicle type 'dummy_Type' used in flow 'flow_1'.
+Error: Attribute 'type' in definition of flow 'flow_2' is empty.
+Error: a route must be defined either within a vehicle/flow or with an ID attribute
+Error: Invalid vehicle type 'id with invalid characters' used in flow 'flow_3'.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.27Oct081901.8656\netedit.gui\demandelements\flow_embedded\load\type\routes.rou.xml failed.

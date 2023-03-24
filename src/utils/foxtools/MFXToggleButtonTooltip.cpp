@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -32,10 +32,10 @@ FXDEFMAP(MFXToggleButtonTooltip) MFXToggleButtonTooltipMap[] = {
 // Object implementation
 FXIMPLEMENT(MFXToggleButtonTooltip, FXToggleButton, MFXToggleButtonTooltipMap, ARRAYNUMBER(MFXToggleButtonTooltipMap))
 
-MFXToggleButtonTooltip::MFXToggleButtonTooltip(FXComposite* p, MFXStaticToolTip* staticToolTip, 
-        const FXString& text1, const FXString& text2, FXIcon* ic1, FXIcon* ic2, FXObject* tgt, 
+MFXToggleButtonTooltip::MFXToggleButtonTooltip(FXComposite* p, MFXStaticToolTip* staticToolTip,
+        const std::string& text1, const std::string& text2, FXIcon* ic1, FXIcon* ic2, FXObject* tgt,
         FXSelector sel, FXuint opts, FXint x, FXint y, FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb) :
-    FXToggleButton(p, text1, text2, ic1, ic2, tgt, sel, opts, x, y, w, h, pl, pr, pt, pb),
+    FXToggleButton(p, text1.c_str(), text2.c_str(), ic1, ic2, tgt, sel, opts, x, y, w, h, pl, pr, pt, pb),
     myStaticToolTip(staticToolTip) {
 }
 
@@ -59,7 +59,7 @@ MFXToggleButtonTooltip::onLeave(FXObject* sender, FXSelector sel, void* ptr) {
 }
 
 
-long 
+long
 MFXToggleButtonTooltip::onMotion(FXObject* sender, FXSelector sel, void* ptr) {
     // update static tooltip
     myStaticToolTip->onUpdate(sender, sel, ptr);

@@ -1,9 +1,9 @@
-Parsing types from '/home/behr_mi/sumo/data/typemap/osmNetconvert.typ.xml' ... done.
-Parsing nodes from osm-file 'osm.xml' ... done (42ms).
-Parsing edges from osm-file 'osm.xml' ... done (35ms).
+Parsing types from '/home/kobo/dlr/sumo/data/typemap/osmNetconvert.typ.xml' ... done.
+Parsing nodes from osm-file 'osm.xml' ... done (88ms).
+Parsing edges from osm-file 'osm.xml' ... done (78ms).
 Removing duplicate edges ... done.
 Parsing relations from osm-file 'osm.xml' ... 
-done (16ms).
+done (38ms).
  Removed 30 traffic lights before loading plain-XML
  Import done:
    466 nodes loaded.
@@ -13,47 +13,47 @@ Proj projection parameters used: '+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +
 Removing self-loops ... done (0ms).
 Processing public transport stops ... done (1ms).
 Revising public transport stops based on pt lines ... 
-done (0ms).
+done (1ms).
 Align pt stop id signs with corresponding edge id signs ... done (0ms).
 Joining junction clusters ... 
-done (2ms).
+done (4ms).
  Joined 20 junction cluster(s).
-Removing empty nodes and geometry nodes ... done (1ms).
+Removing empty nodes and geometry nodes ... done (4ms).
    94 nodes removed.
-Moving network to origin ... done (7ms).
+Moving network to origin ... done (25ms).
 Computing turning directions ... done (1ms).
-Assigning nodes to traffic lights ... done (0ms).
-Sorting nodes' edges ... done (1ms).
-Computing node shapes ... done (14ms).
-Computing edge shapes ... done (9ms).
-Computing node types ... done (0ms).
+Assigning nodes to traffic lights ... done (3ms).
+Sorting nodes' edges ... done (2ms).
+Computing node shapes ... done (22ms).
+Computing edge shapes ... done (15ms).
+Computing node types ... done (1ms).
 Computing priorities ... done (1ms).
-Computing approached edges ... done (0ms).
+Computing approached edges ... done (1ms).
 Guessing and setting roundabouts ... 
  Guessed 1 roundabout(s).
 done (1ms).
-Computing approaching lanes ... done (3ms).
+Computing approaching lanes ... done (6ms).
 Dividing of lanes on approached lanes ... done (2ms).
 Processing turnarounds ... done (1ms).
 Rechecking of lane endings ... done (0ms).
-Computing traffic light control information ... done (0ms).
-Computing node logics ... done (8ms).
-Computing traffic light logics ... done (0ms).
- 3 traffic light(s) computed.
+Computing traffic light control information ... done (1ms).
+Computing node logics ... done (11ms).
+Computing traffic light logics ... done (1ms).
+ 4 traffic light(s) computed.
 Find accesses for pt rail stops ... done (1ms).
 -----------------------------------------------------
 Summary:
  Node type statistics:
   Unregulated junctions       : 0
   Dead-end junctions          : 33
-  Priority junctions          : 207
+  Priority junctions          : 206
   Right-before-left junctions : 85
-  Traffic light junctions      : 3
+  Traffic light junctions      : 4
   Rail signal junctions      : 1
  Network boundaries:
-  Original boundary  : 13.45,52.42,13.58,52.46
+  Original boundary  : 13.46,52.42,13.58,52.46
   Applied offset     : -395408.93,-5809112.45
   Converted boundary : 0.00,0.00,5580.65,3531.77
 -----------------------------------------------------
-Writing network ... done (52ms).
+Writing network ... done (117ms).
 Success.

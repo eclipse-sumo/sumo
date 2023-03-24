@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -14,6 +14,7 @@
 /// @file    MsgHandler.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
+/// @author  Mirko Barthauer
 /// @date    Tue, 17 Jun 2003
 ///
 // Retrieves messages about the process and gives them further to output
@@ -34,7 +35,6 @@
 // ===========================================================================
 // static member variables
 // ===========================================================================
-
 MsgHandler::Factory MsgHandler::myFactory = nullptr;
 MsgHandler* MsgHandler::myDebugInstance = nullptr;
 MsgHandler* MsgHandler::myGLDebugInstance = nullptr;
@@ -147,6 +147,20 @@ MsgHandler::beginProcessMsg(std::string msg, bool addType) {
 
 
 void
+MsgHandler::endProcessMsg2(bool success, long duration) {
+    if (success) {
+        if (duration > -1) {
+            endProcessMsg(TLF("done (%ms).", toString(duration)));
+        } else {
+            endProcessMsg(TL("done."));
+        }
+    } else {
+        endProcessMsg(TL("failed."));
+    }
+}
+
+
+void
 MsgHandler::endProcessMsg(std::string msg) {
     // inform all other receivers
     for (auto i : myRetrievers) {
@@ -160,9 +174,6 @@ MsgHandler::endProcessMsg(std::string msg) {
 
 void
 MsgHandler::clear(bool resetInformed) {
-    if (resetInformed) {
-        myWasInformed = false;
-    }
     if (myAggregationThreshold >= 0) {
         for (const auto& i : myAggregationCount) {
             if (i.second > myAggregationThreshold) {
@@ -178,6 +189,9 @@ MsgHandler::clear(bool resetInformed) {
         }
         myInitialMessages.clear();
         myWasInformed = wasInformed;
+    }
+    if (resetInformed) {
+        myWasInformed = false;
     }
 }
 
@@ -223,6 +237,41 @@ MsgHandler::removeRetrieverFromAllInstances(OutputDevice* out) {
         myMessageInstance->removeRetriever(out);
     }
 }
+
+
+void
+MsgHandler::setupI18n(const std::string& locale) {
+#ifdef HAVE_INTL
+    if (locale != "") {
+#ifdef WIN32
+        _putenv_s("LANGUAGE", locale.data());
+#else
+        setenv("LANGUAGE", locale.data(), true);
+#endif
+    }
+    if (!setlocale(LC_MESSAGES, "")) {
+        WRITE_WARNINGF(TL("Could not set locale to '%'."), locale);
+    }
+    const char* sumoPath = getenv("SUMO_HOME");
+    if (sumoPath == nullptr) {
+        if (!bindtextdomain("sumo", nullptr)) {
+            WRITE_WARNING(TL("Environment variable SUMO_HOME is not set, could not find localized messages."));
+            return;
+        }
+    } else {
+        const std::string path = sumoPath + std::string("/data/locale/");
+        if (!bindtextdomain("sumo", path.data())) {
+            WRITE_WARNING(TL("Could not find localized messages."));
+            return;
+        }
+    }
+    bind_textdomain_codeset("sumo", "UTF-8");
+    textdomain("sumo");
+#else
+    UNUSED_PARAMETER(locale);
+#endif
+}
+
 
 void
 MsgHandler::initOutputOptions() {

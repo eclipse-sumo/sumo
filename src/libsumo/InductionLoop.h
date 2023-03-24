@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2017-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2017-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -52,6 +52,16 @@ public:
     static double getLastStepMeanLength(const std::string& detID);
     static double getTimeSinceDetection(const std::string& detID);
     static std::vector<libsumo::TraCIVehicleData> getVehicleData(const std::string& detID);
+
+    static double getIntervalOccupancy(const std::string& detID);
+    static double getIntervalMeanSpeed(const std::string& detID);
+    static int getIntervalVehicleNumber(const std::string& detID);
+    static std::vector<std::string> getIntervalVehicleIDs(const std::string& detID);
+
+    static double getLastIntervalOccupancy(const std::string& detID);
+    static double getLastIntervalMeanSpeed(const std::string& detID);
+    static int getLastIntervalVehicleNumber(const std::string& detID);
+    static std::vector<std::string> getLastIntervalVehicleIDs(const std::string& detID);
 
     static void overrideTimeSinceDetection(const std::string& detID, double time);
 

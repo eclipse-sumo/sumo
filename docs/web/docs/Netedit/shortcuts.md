@@ -2,6 +2,17 @@
 title: Shortcuts
 ---
 
+
+## NETEDIT view shortcuts
+
+In addition to the standard [sumo-gui shortcuts for moving the view](../sumo-gui.md#keyboard_shortcuts) there is a large number of netdit-specific shortcuts.
+
+| Shortcut | |
+|:---:|:---:|
+| Ctrl + G | <span style="color:orange">Toggle grid |
+| Ctrl + PgUp | <span style="color:orange">Increase grid size |
+| Ctrl + PgDown | <span style="color:orange">Shrink grid size |
+
 ## NETEDIT mode shortcuts
 
 | Shortcut | Network mode | Demand Mode | Data Mode |
@@ -52,7 +63,6 @@ title: Shortcuts
 | Ctrl + B | <span style="color:orange">Load data elements |
 | Ctrl + C | <span style="color:orange">Copy |
 | Ctrl + D | <span style="color:orange">Load demand elements |
-| Ctrl + G | <span style="color:orange">Toggle grid |
 | Ctrl + H | <span style="color:orange">Load edge type elements |
 | Ctrl + I | <span style="color:orange">Edit visualization |
 | Ctrl + J | <span style="color:orange">Show junction shape |

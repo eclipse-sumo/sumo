@@ -3,3 +3,5 @@ Warning: Minor green from edge '27445180' to edge '24214694' exceeds 19.44m/s. M
 Warning: Minor green from edge '27445016' to edge '27445089' exceeds 19.44m/s. Maybe a left-turn lane is missing.
 Warning: Minor green from edge '27445181' to edge '27445088' exceeds 19.44m/s. Maybe a left-turn lane is missing.
 Warning: Minor green from edge '-24214694' to edge '27445092' exceeds 19.44m/s. Maybe a left-turn lane is missing.
+Warning: Minor green from edge '27445180' to edge '24214694' exceeds 19.44m/s. Maybe a left-turn lane is missing.
+Warning: 8 total messages of type: Minor green from edge '%' to edge '%' exceeds %m/s. Maybe a left-turn lane is missing.

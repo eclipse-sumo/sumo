@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -125,12 +125,13 @@ MSDevice_Transportable::notifyMove(SUMOTrafficObject& /*tObject*/, double /*oldP
                 MSTransportable* transportable = *i;
                 MSStageDriving* const stage = dynamic_cast<MSStageDriving*>(transportable->getCurrentStage());
                 if (stage->canLeaveVehicle(transportable, myHolder, stop)) {
+                    SUMOTime& timeForNext = myAmContainer ? stop.timeToLoadNextContainer : stop.timeToBoardNextPerson;
                     MSDevice_Taxi* taxiDevice = static_cast<MSDevice_Taxi*>(myHolder.getDevice(typeid(MSDevice_Taxi)));
-                    if (taxiDevice != nullptr && stop.timeToBoardNextPerson == 0 && !MSGlobals::gUseMesoSim) {
+                    if (taxiDevice != nullptr && timeForNext == 0 && !MSGlobals::gUseMesoSim) {
                         // taxi passengers must leave at the end of the stop duration
-                        stop.timeToBoardNextPerson = stop.pars.started + stop.pars.duration;
+                        timeForNext = stop.pars.started + stop.pars.duration;
                     }
-                    if (stop.timeToBoardNextPerson - DELTA_T > currentTime) {
+                    if (timeForNext - DELTA_T > currentTime) {
                         // try deboarding again in the next step
                         myStopped = false;
                         break;
@@ -144,14 +145,14 @@ MSDevice_Transportable::notifyMove(SUMOTrafficObject& /*tObject*/, double /*oldP
                         arrivalTime += 1;
                     } else {
                         // no boarding / unboarding time in meso
-                        if (stop.timeToBoardNextPerson > currentTime - DELTA_T) {
-                            stop.timeToBoardNextPerson += boardingDuration;
+                        if (timeForNext > currentTime - DELTA_T) {
+                            timeForNext += boardingDuration;
                         } else {
-                            stop.timeToBoardNextPerson = currentTime + boardingDuration;
+                            timeForNext = currentTime + boardingDuration;
                         }
                     }
                     //ensure that vehicle stops long enough for deboarding
-                    stop.duration = MAX2(stop.duration, stop.timeToBoardNextPerson - currentTime);
+                    stop.duration = MAX2(stop.duration, timeForNext - currentTime);
 
                     i = myTransportables.erase(i); // erase first in case proceed throws an exception
                     if (taxiDevice != nullptr) {
@@ -203,18 +204,16 @@ MSDevice_Transportable::notifyLeave(SUMOTrafficObject& veh, double /*lastPos*/,
                                     MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
     if (reason >= MSMoveReminder::NOTIFICATION_ARRIVED) {
         for (std::vector<MSTransportable*>::iterator i = myTransportables.begin(); i != myTransportables.end();) {
+            MSTransportableControl& tc = myAmContainer ? MSNet::getInstance()->getContainerControl() : MSNet::getInstance()->getPersonControl();
             MSTransportable* transportable = *i;
             if (transportable->getDestination() != veh.getEdge()) {
                 WRITE_WARNING((myAmContainer ? "Teleporting container '" : "Teleporting person '") + transportable->getID() +
                               "' from vehicle destination edge '" + veh.getEdge()->getID() +
                               "' to intended destination edge '" + transportable->getDestination()->getID() + "' time=" + time2string(SIMSTEP));
+                tc.registerTeleportWrongDest();
             }
             if (!transportable->proceed(MSNet::getInstance(), MSNet::getInstance()->getCurrentTimeStep(), true)) {
-                if (myAmContainer) {
-                    MSNet::getInstance()->getContainerControl().erase(transportable);
-                } else {
-                    MSNet::getInstance()->getPersonControl().erase(transportable);
-                }
+                tc.erase(transportable);
             }
             i = myTransportables.erase(i);
         }

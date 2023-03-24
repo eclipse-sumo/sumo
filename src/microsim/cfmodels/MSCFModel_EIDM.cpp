@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -243,7 +243,7 @@ MSCFModel_EIDM::slowToStartTerm(MSVehicle* const veh, const double newSpeed, con
         // When we reach this point, "newSpeed > currentSpeed" already holds
         // Activation of the Drive Off term, when
         if (currentSpeed < ClutchEngageSpeed && // The start speed is lower than ClutchEngageSpeed m/s
-                vars->t_off + 4. - NUMERICAL_EPS < (SIMTIME - remainingDelay - TS * (myIterations - i - 1.) / myIterations) && // the last activation is at least 4 seconds ago 
+                vars->t_off + 4. - NUMERICAL_EPS < (SIMTIME - remainingDelay - TS * (myIterations - i - 1.) / myIterations) && // the last activation is at least 4 seconds ago
                 vars->myap_update == 0 && // the last activation is at least 4 seconds ago AND an Action Point was reached
                 veh->getAcceleration() < MIN2(myAccel / 4, 0.2)) { // && respectMinGap) { // the driver hasn't started accelerating yet (<0.2)
             vars->t_off = (SIMTIME - remainingDelay - TS * (myIterations - i - 1.) / myIterations); // activate the drive off term
@@ -291,16 +291,16 @@ MSCFModel_EIDM::finalizeSpeed(MSVehicle* const veh, double vPos) const {
 #ifdef DEBUG_V
     if (veh->isSelected()) {
         std::cout << SIMTIME
-            << " EIDM::finalizeSpeed "
-            << " veh=" << veh->getID()
-            << " oldV=" << oldV
-            << " vPos=" << vPos
-            << " _vPos=" << _vPos
-            << " vStop=" << vStop
-            << " vMinEmergency=" << vMinEmergency
-            << " vMin=" << vMin
-            << " vMax=" << vMax
-            << "\n";
+                  << " EIDM::finalizeSpeed "
+                  << " veh=" << veh->getID()
+                  << " oldV=" << oldV
+                  << " vPos=" << vPos
+                  << " _vPos=" << _vPos
+                  << " vStop=" << vStop
+                  << " vMinEmergency=" << vMinEmergency
+                  << " vMin=" << vMin
+                  << " vMax=" << vMax
+                  << "\n";
     }
 #endif
 
@@ -362,15 +362,15 @@ MSCFModel_EIDM::finalizeSpeed(MSVehicle* const veh, double vPos) const {
 #ifdef DEBUG_V
     if (veh->isSelected()) {
         std::cout << SIMTIME
-            << " EIDM::finalizeSpeed (2) "
-            << " veh=" << veh->getID()
-            << " timeSinceStartup=" << veh->getTimeSinceStartup()
-            << " myap_update=" << vars->myap_update
-            << " addTime=" << addTime
-            << " vDelay=" << vDelay
-            << " oldV=" << oldV
-            << " vNext=" << vNext
-            << "\n";
+                  << " EIDM::finalizeSpeed (2) "
+                  << " veh=" << veh->getID()
+                  << " timeSinceStartup=" << veh->getTimeSinceStartup()
+                  << " myap_update=" << vars->myap_update
+                  << " addTime=" << addTime
+                  << " vDelay=" << vDelay
+                  << " oldV=" << oldV
+                  << " vNext=" << vNext
+                  << "\n";
     }
 #endif
 
@@ -394,15 +394,15 @@ MSCFModel_EIDM::finalizeSpeed(MSVehicle* const veh, double vPos) const {
 #ifdef DEBUG_V
     if (veh->isSelected()) {
         std::cout << SIMTIME
-            << " EIDM::finalizeSpeed (3) "
-            << " veh=" << veh->getID()
-            << " vars->myw_gap=" << vars->myw_gap
-            << " vars->myw_speed=" << vars->myw_speed
-            << " vars->myw_error=" << vars->myw_error
-            << " vars->lastacc=" << vars->lastacc
-            << " vars->lastrealacc=" << vars->lastrealacc
-            << " vars->lastleaderacc=" << vars->lastleaderacc
-            << "\n";
+                  << " EIDM::finalizeSpeed (3) "
+                  << " veh=" << veh->getID()
+                  << " vars->myw_gap=" << vars->myw_gap
+                  << " vars->myw_speed=" << vars->myw_speed
+                  << " vars->myw_error=" << vars->myw_error
+                  << " vars->lastacc=" << vars->lastacc
+                  << " vars->lastrealacc=" << vars->lastrealacc
+                  << " vars->lastleaderacc=" << vars->lastleaderacc
+                  << "\n";
     }
 #endif
 
@@ -458,14 +458,14 @@ MSCFModel_EIDM::followSpeed(const MSVehicle* const veh, double speed, double gap
 #ifdef DEBUG_V
     if (veh->isSelected()) {
         std::cout << SIMTIME
-            << " EIDM::followSpeed "
-            << " veh=" << veh->getID()
-            << " speed=" << speed
-            << " gap2pred=" << gap2pred
-            << " predSpeed=" << predSpeed
-            << " vars->v0_int=" << vars->v0_int
-            << " update=" << update
-            << "\n";
+                  << " EIDM::followSpeed "
+                  << " veh=" << veh->getID()
+                  << " speed=" << speed
+                  << " gap2pred=" << gap2pred
+                  << " predSpeed=" << predSpeed
+                  << " vars->v0_int=" << vars->v0_int
+                  << " update=" << update
+                  << "\n";
     }
 #endif
 
@@ -497,13 +497,13 @@ MSCFModel_EIDM::stopSpeed(const MSVehicle* const veh, const double speed, double
 #ifdef DEBUG_V
     if (veh->isSelected()) {
         std::cout << SIMTIME
-            << " EIDM::stopSpeed "
-            << " veh=" << veh->getID()
-            << " speed=" << speed
-            << " gap=" << gap
-            << " vars->v0_int=" << vars->v0_int
-            << " update=" << update
-            << "\n";
+                  << " EIDM::stopSpeed "
+                  << " veh=" << veh->getID()
+                  << " speed=" << speed
+                  << " gap=" << gap
+                  << " vars->v0_int=" << vars->v0_int
+                  << " update=" << update
+                  << "\n";
     }
 #endif
 
@@ -603,14 +603,14 @@ MSCFModel_EIDM::freeSpeed(const MSVehicle* const veh, double speed, double seen,
 #ifdef DEBUG_V
     if (veh->isSelected()) {
         std::cout << SIMTIME
-            << " EIDM::freeSpeed "
-            << " veh=" << veh->getID()
-            << " speed=" << speed
-            << " seen=" << seen
-            << " maxSpeed=" << maxSpeed
-            << " update=" << update
-            << " onInsertion=" << onInsertion
-            << "\n";
+                  << " EIDM::freeSpeed "
+                  << " veh=" << veh->getID()
+                  << " speed=" << speed
+                  << " seen=" << seen
+                  << " maxSpeed=" << maxSpeed
+                  << " update=" << update
+                  << " onInsertion=" << onInsertion
+                  << "\n";
     }
 #endif
 
@@ -1129,29 +1129,29 @@ MSCFModel_EIDM::_v(const MSVehicle* const veh, const double gap2pred, const doub
 #ifdef DEBUG_V
     if (veh->isSelected()) {
         std::cout << SIMTIME
-            << " EIDM::_v "
-            << " veh=" << veh->getID()
-            << " vars->minaccel=" << vars->minaccel
-            << " vars->myap_update=" << vars->myap_update
-            << " vars->myv_est_l=" << vars->myv_est_l
-            << " vars->myv_est=" << vars->myv_est
-            << " vars->mys_est=" << vars->mys_est
-            << " vars->wouldacc=" << vars->wouldacc
-            << " vars->realacc=" << vars->realacc
-            << "\n";
+                  << " EIDM::_v "
+                  << " veh=" << veh->getID()
+                  << " vars->minaccel=" << vars->minaccel
+                  << " vars->myap_update=" << vars->myap_update
+                  << " vars->myv_est_l=" << vars->myv_est_l
+                  << " vars->myv_est=" << vars->myv_est
+                  << " vars->mys_est=" << vars->mys_est
+                  << " vars->wouldacc=" << vars->wouldacc
+                  << " vars->realacc=" << vars->realacc
+                  << "\n";
         std::cout << SIMTIME
-            << " EIDM::_v (2) "
-            << " veh=" << veh->getID()
-            << " newSpeed=" << newSpeed
-            << " newGap=" << newGap
-            << " predSpeed=" << predSpeed
-            << " estSpeed=" << estSpeed
-            << " estleaderSpeed=" << estleaderSpeed
-            << " estGap=" << estGap
-            << " wantedacc=" << wantedacc
-            << " wouldacc=" << wouldacc
-            << " acc=" << acc
-            << "\n";
+                  << " EIDM::_v (2) "
+                  << " veh=" << veh->getID()
+                  << " newSpeed=" << newSpeed
+                  << " newGap=" << newGap
+                  << " predSpeed=" << predSpeed
+                  << " estSpeed=" << estSpeed
+                  << " estleaderSpeed=" << estleaderSpeed
+                  << " estGap=" << estGap
+                  << " wantedacc=" << wantedacc
+                  << " wouldacc=" << wouldacc
+                  << " acc=" << acc
+                  << "\n";
     }
 #endif
 

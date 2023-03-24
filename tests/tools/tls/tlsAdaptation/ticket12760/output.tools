@@ -1,0 +1,98 @@
+the total number of tls: 6
+Begin time:0
+parsing route file: input_routes.rou.xml
+Parsed 92 vehicles from input_routes.rou.xml.
+Warning: the number of unused states at TLS joinedS_1: 22 (59 states, 37 connections)
+tl-logic ID: 10205342654
+phase: 0
+group flows: [42, 1.0, 4.0]
+The used lanes: [[1], [1]]
+phase: 2
+group flows: [42, 0]
+The used lanes: [[1]]
+the current cycle length:90 sec
+Green time for phase 0: 12
+Green time for phase 2: 4
+The optimal cycle length:24
+
+tl-logic ID: 10205342655
+phase: 0
+group flows: [42, 0, 4.0]
+The used lanes: [[1], [1]]
+phase: 2
+group flows: [42, 0]
+The used lanes: [[1]]
+the current cycle length:90 sec
+Green time for phase 0: 12
+Green time for phase 2: 4
+The optimal cycle length:24
+
+tl-logic ID: 2656297586
+phase: 0
+group flows: [42, 0, 7.0]
+The used lanes: [[1, 2], [1]]
+phase: 2
+group flows: [42, 0]
+The used lanes: [[0]]
+the current cycle length:90 sec
+Green time for phase 0: 12
+Green time for phase 2: 4
+The optimal cycle length:24
+
+tl-logic ID: 735143105
+phase: 0
+group flows: [42, 10.0]
+The used lanes: [[1, 2]]
+phase: 2
+group flows: [42, 1.0]
+The used lanes: [[1]]
+the current cycle length:90 sec
+Green time for phase 0: 10
+Green time for phase 2: 4
+The optimal cycle length:22
+
+tl-logic ID: joinedS_1
+TLS: joinedS_1 --> the tl-indices with more than one major-green:[0, 1, 2, 3, 0, 3, 0, 3, 10, 13, 16, 30, 13, 16, 13, 14, 15, 16, 21, 22, 23, 32, 33, 13, 14, 15, 16, 32, 33, 13, 14, 15, 16, 20, 24, 26, 32, 33, 13, 14, 15, 16, 20, 30, 13, 14, 15, 16, 20, 30, 31]
+phase: 0
+group flows: [10, 5.0]
+The used lanes: [[1, 2]]
+phase: 1
+group flows: [5, 5.0]
+The used lanes: [[1, 2]]
+phase: 3
+group flows: [10, 0, 0, 0, 0, 0, 0, 0, 0]
+The used lanes: [[1, 2], [0], [0], [0], [1, 2], [0], [0], [1]]
+phase: 4
+group flows: [5, 0, 0, 0, 0, 0, 0, 0, 0]
+The used lanes: [[1, 2], [0], [0], [0], [1, 2], [0], [0], [1]]
+phase: 6
+group flows: [10, 0, 0.0, 5.5, 0]
+The used lanes: [[0], [1, 2], [1], [0]]
+phase: 7
+group flows: [5, 0, 0.0, 5.5, 0]
+The used lanes: [[0], [1, 2], [1], [0]]
+phase: 9
+group flows: [10, 0, 0.0, 0, 4.0, 0]
+The used lanes: [[0], [1, 2], [1], [1], [0]]
+phase: 10
+group flows: [5, 0, 0.0, 0, 4.0, 0]
+The used lanes: [[0], [1, 2], [1], [1], [0]]
+phase: 12
+group flows: [10, 0, 0.0, 0, 0, 0]
+The used lanes: [[0], [1, 2], [1], [0], [1]]
+phase: 13
+group flows: [5, 0, 0.0, 0, 0, 0]
+The used lanes: [[0], [1, 2], [1], [0], [1]]
+the current cycle length:90 sec
+Green time for phase 0: 4
+Green time for phase 1: 4
+Green time for phase 3: 4
+Green time for phase 4: 4
+Green time for phase 6: 6
+Green time for phase 7: 6
+Green time for phase 9: 4
+Green time for phase 10: 4
+Green time for phase 12: 4
+Green time for phase 13: 4
+The optimal cycle length:84
+

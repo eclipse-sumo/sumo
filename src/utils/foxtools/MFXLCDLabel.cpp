@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2004-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2004-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -61,7 +61,7 @@ FXIMPLEMENT(MFXLCDLabel, FXHorizontalFrame, MFXLCDLabelMap, ARRAYNUMBER(MFXLCDLa
 // method definitions
 // ===========================================================================
 
-MFXLCDLabel::MFXLCDLabel(FXComposite* p, MFXStaticToolTip* staticToolTip, FXuint nfig, FXObject* tgt, FXSelector sel, FXuint opts, FXint pl, FXint pr, FXint pt, FXint pb, FXint hs) : 
+MFXLCDLabel::MFXLCDLabel(FXComposite* p, MFXStaticToolTip* staticToolTip, FXuint nfig, FXObject* tgt, FXSelector sel, FXuint opts, FXint pl, FXint pr, FXint pt, FXint pb, FXint hs) :
     FXHorizontalFrame(p, opts, 0, 0, 0, 0, pl, pr, pt, pb, hs, 0),
     myNFigures(nfig),
     myStaticToolTip(staticToolTip) {
@@ -86,7 +86,7 @@ MFXLCDLabel::~MFXLCDLabel() {
 }
 
 
-void 
+void
 MFXLCDLabel::create() {
     FXHorizontalFrame::create();
     for (FXWindow* child = getFirst(); child; child = child->getNext()) {
@@ -95,7 +95,7 @@ MFXLCDLabel::create() {
 }
 
 
-void 
+void
 MFXLCDLabel::detach() {
     for (FXWindow* child = getFirst(); child; child = child->getNext()) {
         child->detach();
@@ -104,7 +104,7 @@ MFXLCDLabel::detach() {
 }
 
 
-void 
+void
 MFXLCDLabel::destroy() {
     for (FXWindow* child = getFirst(); child; child = child->getNext()) {
         child->destroy();
@@ -113,7 +113,7 @@ MFXLCDLabel::destroy() {
 }
 
 
-FXColor 
+FXColor
 MFXLCDLabel::getFgColor() const {
     MFXSevenSegment* child = (MFXSevenSegment*)getFirst();
     return child->getFgColor();
@@ -159,7 +159,7 @@ MFXLCDLabel::setText(FXString lbl) {
 }
 
 
-FXString 
+FXString
 MFXLCDLabel::getText() const {
     return myLabel;
 }
@@ -310,7 +310,7 @@ MFXLCDLabel::onPaint(FXObject*, FXSelector, void* ptr) {
 }
 
 
-long 
+long
 MFXLCDLabel::onEnter(FXObject* obj, FXSelector sel, void* ptr) {
     // show static toolTip depending of myToolTipText
     if (!myToolTipText.empty()) {
@@ -323,7 +323,7 @@ MFXLCDLabel::onEnter(FXObject* obj, FXSelector sel, void* ptr) {
 }
 
 
-long 
+long
 MFXLCDLabel::onLeave(FXObject* obj, FXSelector sel, void* ptr) {
     // hide static toolTip
     myStaticToolTip->hideStaticToolTip();
@@ -331,7 +331,7 @@ MFXLCDLabel::onLeave(FXObject* obj, FXSelector sel, void* ptr) {
 }
 
 
-long 
+long
 MFXLCDLabel::onMotion(FXObject* sender, FXSelector sel, void* ptr) {
     // update static tooltip
     myStaticToolTip->onUpdate(sender, sel, ptr);
@@ -364,7 +364,7 @@ MFXLCDLabel::getDefaultHeight() {
 
 
 void
-MFXLCDLabel::setToolTipText(const FXString &text) {
+MFXLCDLabel::setToolTipText(const FXString& text) {
     myToolTipText = text;
 }
 
@@ -394,7 +394,7 @@ MFXLCDLabel::onQueryTip(FXObject* sender, FXSelector sel, void* ptr) {
 }
 
 
-long 
+long
 MFXLCDLabel::onQueryHelp(FXObject* sender, FXSelector sel, void* ptr) {
     if (getParent()) {
         return getParent()->handle(sender, sel, ptr);
@@ -403,7 +403,7 @@ MFXLCDLabel::onQueryHelp(FXObject* sender, FXSelector sel, void* ptr) {
 }
 
 
-void 
+void
 MFXLCDLabel::drawString(const FXString& lbl) {
     FXint i = 0;
     FXString displayString(' ', myNFigures);

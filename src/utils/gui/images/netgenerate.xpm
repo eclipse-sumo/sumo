@@ -1,0 +1,29 @@
+/* XPM */
+static const char *netgenerate_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 7 1",
+"  c black",
+". c #B00000",
+"X c #D88282",
+"o c #808080",
+"O c none",
+"+ c #DFDFDF",
+"@ c white",
+/* pixels */
+"OOOOOOOOOOOOOOOO",
+"OX.XOOOOOOOX.XOO",
+"O...ooooooo...OO",
+"OX.X+@+ +@+X.XOO",
+"OOo+ +@ @+ +oOOO",
+"OOo@+ + + +@oOOO",
+"OOo+@+X.X+@+oOOO",
+"OOo   ...   oOOO",
+"OOo+@+X.X+@+oOOO",
+"OOo@+ + + +@oOOO",
+"OOo+ +@ @+ +oOOO",
+"OX.X+@+ +@+X.XOO",
+"O...ooooooo...OO",
+"OX.XOOOOOOOX.XOO",
+"OOOOOOOOOOOOOOOO",
+"OOOOOOOOOOOOOOOO"
+};

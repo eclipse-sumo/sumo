@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -24,42 +24,43 @@ import subprocess
 import sumolib
 
 
+SUMO_HOME = os.environ.get("SUMO_HOME", os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
 vclassRemove = {"passenger": ["--keep-edges.by-vclass", "passenger"],
                 "publicTransport": ["--keep-edges.by-vclass", "passenger,bus,tram,rail_urban,rail"],
                 "road": ["--remove-edges.by-vclass", "tram,rail_urban,rail_electric,bicycle,pedestrian"],
                 "all": []}
 possibleVClassOptions = '|'.join(vclassRemove.keys())
 
-DEFAULT_NETCONVERT_OPTS = '''--geometry.remove,--roundabouts.guess,--ramps.guess,-v,--junctions.join,\
---tls.guess-signals,--tls.discard-simple,--tls.join,--output.original-names,--junctions.corner-detail,\
-5,--output.street-names'''
+DEFAULT_NETCONVERT_OPTS = ('--geometry.remove,--roundabouts.guess,--ramps.guess,--junctions.join,'
+                           '--tls.guess-signals,--tls.discard-simple,--tls.join,--output.original-names,'
+                           '--junctions.corner-detail,5,--output.street-names')
 
 
 optParser = sumolib.options.ArgumentParser(description="Import a OpenStreetMap file into SUMO")
-optParser.add_argument("-p", "--prefix", default="osm", help="for output file")
+optParser.add_argument("-p", "--prefix", category="processing", default="osm", help="for output file")
 # don't know whether area or bbox call was used
-optParser.add_argument(
-    "-f", "--osm-file", help="full name of the osm file to import")
-optParser.add_argument("-m", "--typemap", default=None,
+optParser.add_argument("-f", "--osm-file", category="input", help="full name of the osm file to import")
+optParser.add_argument("-m", "--typemap", category="input",
                        help="typemap file for the extraction of colored areas (optional)")
-optParser.add_argument("--netconvert-typemap", default=None,
-                       help="typemap files for netconverter (optional)")
-optParser.add_argument("-o", "--oldapi-prefix", default=None,
+optParser.add_argument("--netconvert-typemap", category="input", help="typemap files for netconverter (optional)")
+optParser.add_argument("-o", "--oldapi-prefix",
                        help="prefix that was used for retrieval with the old API")
-optParser.add_argument("-t", "--tiles", type=int, default=1,
+optParser.add_argument("-t", "--tiles", category="processing", type=int, default=1,
                        help="number of tiles used for retrieving OSM-data via the old api")
-optParser.add_argument("--vehicle-classes", default='all',
+optParser.add_argument("--vehicle-classes", category="processing", default='all',
                        help="[(%s)]extract network for a reduced set of vehicle classes" % possibleVClassOptions)
-optParser.add_argument("-d", "--output-directory", default=os.getcwd(),
+optParser.add_argument("-d", "--output-directory", category="output", default=os.getcwd(),
                        help="directory in which to put the output files")
-optParser.add_argument("-n", "--netconvert-options",
+optParser.add_argument("-n", "--netconvert-options", category="processing",
                        default=DEFAULT_NETCONVERT_OPTS, help="comma-separated options for netconvert")
-optParser.add_argument("--pedestrians", action="store_true",
+optParser.add_argument("--pedestrians", category="processing", action="store_true",
                        default=False, help="add pedestrian infrastructure to the network")
-optParser.add_argument("-y", "--polyconvert-options",
+optParser.add_argument("-y", "--polyconvert-options", category="processing",
                        default="-v,--osm.keep-full-type", help="comma-separated options for polyconvert")
-optParser.add_argument("-z", "--gzip", action="store_true",
+optParser.add_argument("-z", "--gzip", action="store_true", category="processing",
                        default=False, help="save gzipped network")
+optParser.add_argument("-v", "--verbose", category="processing", action="store_true",
+                       default=False, help="enable verbose netconvert output")
 
 
 def getRelative(dirname, option):
@@ -77,7 +78,7 @@ def build(args=None, bindir=None):
             not (options.oldapi_prefix or options.osm_file)):
         optParser.error(
             "exactly one of the options --osm-file and --oldapi-prefix must be supplied")
-    if options.typemap and not os.path.isfile(options.typemap):
+    if options.typemap and not os.path.isfile(options.typemap.replace("${SUMO_HOME}", SUMO_HOME)):
         # fail early because netconvert may take a long time
         optParser.error('typemap file "%s" not found' % options.typemap)
     if options.vehicle_classes not in vclassRemove:

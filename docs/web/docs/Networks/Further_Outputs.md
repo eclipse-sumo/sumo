@@ -113,10 +113,11 @@ Recommended options
 To include road objects in the generated *xodr*-output, the following
 conditions must be met:
 
-- a polygon file is loaded with `<poly>` elements that encode a rectangular
-  shape (4 points) by setting the option **--polygon-files** {{DT_FILE}}
-- edges include the [generic
+- a polygon file is loaded with `<poly>` and `<poi>` elements
+- either:
+  - edges include the [generic
   parameter](../Simulation/GenericParameters.md) `<param key="roadObjects" value="POLY_D1 POLY_ID2 ... POLY_IDK"/>`
+  - option **--opendrive-output.shape-match-dist FLOAT** is set to automatically match loaded polygons and POIs to the closest network edge
 
 Such edges will receive the polygon objects with the indicated IDs as
 road objects
@@ -200,6 +201,11 @@ setting the option **----parking-output** {{DT_FILE}}
 
 When loading an OpenDRIVE file, [embedded road objects can be imported
 as well.](../Networks/Import/OpenDRIVE.md#road_objects)
+They will be written to a file specified by option **--polygon-output**.
+
+## VISUM Districts
+
+When loading a visum network (**--visum-file**) the option **--taz-output** can be used to export embedded district information.
 
 ## Railway Topology
 

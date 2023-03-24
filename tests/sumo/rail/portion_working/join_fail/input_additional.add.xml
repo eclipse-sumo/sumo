@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed 11 Dec 2019 01:20:27 PM CET by Eclipse SUMO netedit Version v1_4_0+0035-a7b6fee
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/scr2/debug/6398/input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/scr2/debug/6398/input_net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <netedit>
+        <additional-files value="/scr2/debug/6398/input_additional.add.xml"/>
+    </netedit>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="B" lane="b_0" startPos="50.00" endPos="250.00"/>
+</additional>

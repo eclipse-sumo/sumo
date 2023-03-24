@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -80,7 +80,7 @@ GNEChange_Additional::undo() {
         restoreHierarchicalContainers();
     }
     // require always save additionals
-    myAdditional->getNet()->requireSaveAdditionals(true);
+    myAdditional->getNet()->getSavingStatus()->requireSaveAdditionals();
 }
 
 
@@ -110,16 +110,16 @@ GNEChange_Additional::redo() {
         removeElementFromParentsAndChildren(myAdditional);
     }
     // require always save additionals
-    myAdditional->getNet()->requireSaveAdditionals(true);
+    myAdditional->getNet()->getSavingStatus()->requireSaveAdditionals();
 }
 
 
 std::string
 GNEChange_Additional::undoName() const {
     if (myForward) {
-        return ("Undo create " + myAdditional->getTagStr());
+        return (TL("Undo create ") + myAdditional->getTagStr() + " '" + myAdditional->getID() + "'");
     } else {
-        return ("Undo delete " + myAdditional->getTagStr());
+        return (TL("Undo delete ") + myAdditional->getTagStr() + " '" + myAdditional->getID() + "'");
     }
 }
 
@@ -127,8 +127,8 @@ GNEChange_Additional::undoName() const {
 std::string
 GNEChange_Additional::redoName() const {
     if (myForward) {
-        return ("Redo create " + myAdditional->getTagStr());
+        return (TL("Redo create ") + myAdditional->getTagStr() + " '" + myAdditional->getID() + "'");
     } else {
-        return ("Redo delete " + myAdditional->getTagStr());
+        return (TL("Redo delete ") + myAdditional->getTagStr() + " '" + myAdditional->getID() + "'");
     }
 }

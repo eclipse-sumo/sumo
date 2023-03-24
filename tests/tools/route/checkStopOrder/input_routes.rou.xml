@@ -26,26 +26,33 @@
     <vType id="train" length="50.00" vClass="rail"/>
     <vehicle id="t0" type="train" depart="0.00" departSpeed="max">
         <route edges="a b c"/>
+        <stop busStop="stop_a" arrival="100.00" duration="30.00" until="130.00"/>
         <stop busStop="stop_c" arrival="100.00" duration="30.00" until="130.00"/>
     </vehicle>
     <vehicle id="t1" type="train" depart="20.00" departSpeed="max">
         <route edges="d e c"/>
+        <stop busStop="stop_d" arrival="10.00" duration="30.00" until="30.00"/>
         <stop busStop="stop_c" arrival="50.00" duration="30.00" until="80.00"/>
     </vehicle>
     <vehicle id="t2" type="train" depart="1000.00" departSpeed="max">
-        <route edges="a b c"/>
-        <stop busStop="stop_c" arrival="1100.00" duration="1030.00" until="1130.00"/>
+        <route edges="a b c d"/>
+        <stop busStop="stop_c" arrival="1100.00" duration="30.00" until="1130.00"/>
+        <stop busStop="stop_d" arrival="1200.00" duration="30.00" until="1230.00"/>
     </vehicle>
     <vehicle id="t3" type="train" depart="1020.00" departSpeed="max">
         <route edges="d e c"/>
         <stop busStop="stop_c" arrival="1050.00" duration="1030.00" until="1180.00"/>
     </vehicle>
     <vehicle id="t4" type="train" depart="2000.00" departSpeed="max">
-        <route edges="a b c"/>
-        <stop busStop="stop_c" arrival="2100.00" duration="2030.00" until="2130.00"/>
+        <route edges="a b c d"/>
+        <stop busStop="stop_a" arrival="2010.00" duration="30.00" until="2030.00"/>
+        <stop busStop="stop_c" arrival="2100.00" duration="30.00" until="2130.00"/>
+        <stop busStop="stop_d" arrival="2200.00" duration="30.00" until="2230.00"/>
     </vehicle>
     <vehicle id="t5" type="train" depart="2020.00" departSpeed="max">
-        <route edges="d e c"/>
-        <stop busStop="stop_c" arrival="2050.00" duration="2030.00" until="2080.00"/>
+        <route edges="d e c b"/>
+        <stop busStop="stop_e" arrival="2010.00" duration="30.00" until="2030.00"/>
+        <stop busStop="stop_c" arrival="2050.00" duration="30.00" until="2080.00"/>
+        <stop busStop="stop_b" arrival="2150.00" duration="30.00" until="2180.00"/>
     </vehicle>
 </routes>

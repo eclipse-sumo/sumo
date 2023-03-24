@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -39,18 +39,18 @@
 
 GNECrossing::GNECrossing(GNENet* net) :
     GNENetworkElement(net, "", GLO_CROSSING, SUMO_TAG_CROSSING, GUIIconSubSys::getIcon(GUIIcon::CROSSING), {}, {}, {}, {}, {}, {}),
-    myParentJunction(nullptr),
-    myTemplateNBCrossing(new NBNode::Crossing(nullptr, {}, 0, false, 0, 0, {})) {
+                  myParentJunction(nullptr),
+myTemplateNBCrossing(new NBNode::Crossing(nullptr, {}, 0, false, 0, 0, {})) {
     // reset default values
     resetDefaultValues();
 }
 
 GNECrossing::GNECrossing(GNEJunction* parentJunction, std::vector<NBEdge*> crossingEdges) :
-    GNENetworkElement(parentJunction->getNet(), parentJunction->getNBNode()->getCrossing(crossingEdges)->id, GLO_CROSSING, 
-    SUMO_TAG_CROSSING, GUIIconSubSys::getIcon(GUIIcon::CROSSING), {}, {}, {}, {}, {}, {}),
-    myParentJunction(parentJunction),
-    myCrossingEdges(crossingEdges),
-    myTemplateNBCrossing(nullptr) {
+    GNENetworkElement(parentJunction->getNet(), parentJunction->getNBNode()->getCrossing(crossingEdges)->id, GLO_CROSSING,
+                      SUMO_TAG_CROSSING, GUIIconSubSys::getIcon(GUIIcon::CROSSING), {}, {}, {}, {}, {}, {}),
+myParentJunction(parentJunction),
+myCrossingEdges(crossingEdges),
+myTemplateNBCrossing(nullptr) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -207,71 +207,78 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
         } else {
             crossingColor = s.colorSettings.crossingColor;
         }
-        // check that current mode isn't TLS
-        if (myNet->getViewNet()->getEditModes().networkEditMode != NetworkEditMode::NETWORK_TLS) {
-            // push name
-            GLHelper::pushName(getGlID());
-            // push layer matrix
-            GLHelper::pushMatrix();
-            // translate to front
-            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_CROSSING);
-            // set color
-            GLHelper::setColor(crossingColor);
-            // draw depending of selection
-            if (s.drawForRectangleSelection || s.drawForPositionSelection) {
-                // just drawn a box line
-                GLHelper::drawBoxLines(myCrossingGeometry.getShape(), halfWidth);
-            } else {
-                // push rail matrix
+        // avoid draw invisible elements
+        if (crossingColor.alpha() != 0) {
+            // check that current mode isn't TLS
+            if (myNet->getViewNet()->getEditModes().networkEditMode != NetworkEditMode::NETWORK_TLS) {
+                // push name
+                GLHelper::pushName(getGlID());
+                // push layer matrix
                 GLHelper::pushMatrix();
-                // draw on top of of the white area between the rails
-                glTranslated(0, 0, 0.1);
-                for (int i = 0; i < (int)myCrossingGeometry.getShape().size() - 1; i++) {
-                    // push draw matrix
+                // translate to front
+                myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_CROSSING);
+                // set color
+                GLHelper::setColor(crossingColor);
+                // draw depending of selection
+                if (s.drawForRectangleSelection || s.drawForPositionSelection) {
+                    // just drawn a box line
+                    GLHelper::drawBoxLines(myCrossingGeometry.getShape(), halfWidth);
+                } else {
+                    // push rail matrix
                     GLHelper::pushMatrix();
-                    // translate and rotate
-                    glTranslated(myCrossingGeometry.getShape()[i].x(), myCrossingGeometry.getShape()[i].y(), 0.0);
-                    glRotated(myCrossingGeometry.getShapeRotations()[i], 0, 0, 1);
-                    // draw crossing depending if isn't being drawn for selecting
-                    for (double t = 0; t < myCrossingGeometry.getShapeLengths()[i]; t += spacing) {
-                        glBegin(GL_QUADS);
-                        glVertex2d(-halfWidth, -t);
-                        glVertex2d(-halfWidth, -t - length);
-                        glVertex2d(halfWidth, -t - length);
-                        glVertex2d(halfWidth, -t);
-                        glEnd();
+                    // draw on top of of the white area between the rails
+                    glTranslated(0, 0, 0.1);
+                    for (int i = 0; i < (int)myCrossingGeometry.getShape().size() - 1; i++) {
+                        // push draw matrix
+                        GLHelper::pushMatrix();
+                        // translate and rotate
+                        glTranslated(myCrossingGeometry.getShape()[i].x(), myCrossingGeometry.getShape()[i].y(), 0.0);
+                        glRotated(myCrossingGeometry.getShapeRotations()[i], 0, 0, 1);
+                        // draw crossing depending if isn't being drawn for selecting
+                        for (double t = 0; t < myCrossingGeometry.getShapeLengths()[i]; t += spacing) {
+                            glBegin(GL_QUADS);
+                            glVertex2d(-halfWidth, -t);
+                            glVertex2d(-halfWidth, -t - length);
+                            glVertex2d(halfWidth, -t - length);
+                            glVertex2d(halfWidth, -t);
+                            glEnd();
+                        }
+                        // pop draw matrix
+                        GLHelper::popMatrix();
                     }
-                    // pop draw matrix
+                    // pop rail matrix
                     GLHelper::popMatrix();
                 }
-                // pop rail matrix
-                GLHelper::popMatrix();
-            }
-            // draw shape points only in Network supemode
-            if (myShapeEdited && s.drawMovingGeometryPoint(selectionScale, s.neteditSizeSettings.crossingGeometryPointRadius) && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
-                // color
-                const RGBColor darkerColor = crossingColor.changedBrightness(-32);
-                // draw geometry points
-                GUIGeometry::drawGeometryPoints(s, myNet->getViewNet()->getPositionInformation(), myCrossingGeometry.getShape(), darkerColor, RGBColor::BLACK,
-                                                s.neteditSizeSettings.crossingGeometryPointRadius, selectionScale,
-                                                myNet->getViewNet()->getNetworkViewOptions().editingElevation(), drawExtremeSymbols);
-                // draw moving hint
-                if (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) {
-                    GUIGeometry::drawMovingHint(s, myNet->getViewNet()->getPositionInformation(), myCrossingGeometry.getShape(), darkerColor,
-                                                s.neteditSizeSettings.crossingGeometryPointRadius, selectionScale);
+                // draw shape points only in Network supemode
+                if (myShapeEdited && s.drawMovingGeometryPoint(selectionScale, s.neteditSizeSettings.crossingGeometryPointRadius) && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
+                    // color
+                    const RGBColor darkerColor = crossingColor.changedBrightness(-32);
+                    // draw geometry points
+                    GUIGeometry::drawGeometryPoints(s, myNet->getViewNet()->getPositionInformation(), myCrossingGeometry.getShape(), darkerColor, RGBColor::BLACK,
+                                                    s.neteditSizeSettings.crossingGeometryPointRadius, selectionScale,
+                                                    myNet->getViewNet()->getNetworkViewOptions().editingElevation(), drawExtremeSymbols);
+                    // draw moving hint
+                    if (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) {
+                        GUIGeometry::drawMovingHint(s, myNet->getViewNet()->getPositionInformation(), myCrossingGeometry.getShape(), darkerColor,
+                                                    s.neteditSizeSettings.crossingGeometryPointRadius, selectionScale);
+                    }
                 }
+                // pop layer matrix
+                GLHelper::popMatrix();
+                // pop name
+                GLHelper::popName();
             }
-            // pop layer matrix
-            GLHelper::popMatrix();
-            // pop name
-            GLHelper::popName();
+            // link indices must be drawn in all edit modes if isn't being drawn for selecting
+            if (s.drawLinkTLIndex.show(myParentJunction) && !s.drawForRectangleSelection) {
+                drawTLSLinkNo(s, NBCrossing);
+            }
+            // draw crosing name
+            if (s.cwaEdgeName.show(this)) {
+                drawName(myCrossingGeometry.getShape().getCentroid(), s.scale, s.edgeName, 0, true);
+            }
+            // draw lock icon
+            GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), 1);
         }
-        // link indices must be drawn in all edit modes if isn't being drawn for selecting
-        if (s.drawLinkTLIndex.show(myParentJunction) && !s.drawForRectangleSelection) {
-            drawTLSLinkNo(s, NBCrossing);
-        }
-        // draw lock icon
-        GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), 1);
         // check if mouse is over element
         mouseWithinGeometry(myCrossingGeometry.getShape(), halfWidth);
         // inspect contour
@@ -352,12 +359,6 @@ GNECrossing::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         }
     }
     return ret;
-}
-
-
-double
-GNECrossing::getExaggeration(const GUIVisualizationSettings& /*s*/) const {
-    return 1;
 }
 
 

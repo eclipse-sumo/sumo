@@ -83,6 +83,9 @@ with_vehtype_dist
 # test distribution of 2 types with different probabilities
 with_vehtype_dist2
 
+# test distribution of 2 types with different probabilities
+with_vehtype_dist_overrideProbs
+
 # same as noid_increasing_time, but a vehicle type distribution is used and written
 with_vehtype_keepdist
 

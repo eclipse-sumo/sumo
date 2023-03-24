@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2017-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2017-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -201,6 +201,11 @@ VehicleType::getScale(const std::string& typeID) {
     return getVType(typeID)->getParameter().scale;
 }
 
+double
+VehicleType::getBoardingDuration(const std::string& typeID) {
+    return STEPS2TIME(getVType(typeID)->getBoardingDuration(true));
+}
+
 void
 VehicleType::setLength(const std::string& typeID, double length)  {
     getVType(typeID)->setLength(length);
@@ -281,7 +286,7 @@ VehicleType::setDecel(const std::string& typeID, double decel)  {
     if (decel > v->getCarFollowModel().getEmergencyDecel()) {
         if (v->getParameter().cfParameter.count(SUMO_ATTR_EMERGENCYDECEL) > 0) {
             // notify user only if emergencyDecel was previously specified
-            WRITE_WARNING("Automatically setting emergencyDecel to " + toString(decel) + " for vType '" + typeID + "' to match decel.");
+            WRITE_WARNINGF(TL("Automatically setting emergencyDecel to % for vType '%' to match decel."), toString(decel), typeID);
         }
         v->setEmergencyDecel(decel);
     }
@@ -293,7 +298,7 @@ VehicleType::setEmergencyDecel(const std::string& typeID, double decel)  {
     MSVehicleType* v = getVType(typeID);
     v->setEmergencyDecel(decel);
     if (decel < v->getCarFollowModel().getMaxDecel()) {
-        WRITE_WARNING("New value of emergencyDecel (" + toString(decel) + ") is lower than decel (" + toString(v->getCarFollowModel().getMaxDecel()) + ")");
+        WRITE_WARNINGF(TL("New value of emergencyDecel (%) is lower than decel (%)"), toString(decel), toString(v->getCarFollowModel().getMaxDecel()));
     }
 }
 
@@ -438,6 +443,8 @@ VehicleType::handleVariableWithID(const std::string& objID, const std::string& t
             return wrapper->wrapString(objID, variable, getLateralAlignment(typeID));
         case VAR_PERSON_CAPACITY:
             return wrapper->wrapInt(objID, variable, getPersonCapacity(typeID));
+        case VAR_BOARDING_DURATION:
+            return wrapper->wrapDouble(objID, variable, getBoardingDuration(typeID));
         case VAR_SCALE:
             return wrapper->wrapDouble(objID, variable, getScale(typeID));
         case libsumo::VAR_PARAMETER:

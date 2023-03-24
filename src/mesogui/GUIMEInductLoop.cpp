@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -141,7 +141,7 @@ GUIMEInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
     glVertex2d(1.0, 2);
     glEnd();
     glBegin(GL_LINES);
-    // without the substracted offsets, lines are partially longer
+    // without the subtracted offsets, lines are partially longer
     //  than the boxes
     glVertex2d(0, 2 - .1);
     glVertex2d(0, -2 + .1);

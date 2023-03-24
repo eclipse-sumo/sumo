@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -26,7 +26,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # recompute
 netedit.rebuildNetwork()
@@ -38,21 +38,16 @@ netedit.additionalMode()
 netedit.changeElement("multiLaneAreaDetector")
 
 # create E2 with default parameters
-netedit.leftClick(referencePosition, 190, 240)
-netedit.leftClick(referencePosition, 440, 240)
-netedit.leftClick(referencePosition, 440, 205)
-netedit.leftClick(referencePosition, 190, 205)
+netedit.leftClick(referencePosition, 426, 253)
+netedit.leftClick(referencePosition, 496, 208)
 netedit.typeEnter()
 
 # Check undo redo
 netedit.undo(referencePosition, 1)
 netedit.redo(referencePosition, 1)
 
-# save additionals
-netedit.saveAdditionals(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

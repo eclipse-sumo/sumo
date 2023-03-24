@@ -21,6 +21,14 @@ Either
 - load the additional file when cutting and then save the reduced additional file or
 - open the reduced network and load the original additional file. All objects outside the reduced network will be discarded with a warning.
 
+## Making curved roads
+
+1. switch to [selection mode](editModesCommon.md#select)
+2. click on both directional edges once to select them
+3. switch to [move mode](editModesCommon.md#move)
+4. click and drag to add / change geometry points (affecting both edges at the same time)
+5. (optionally) [smooth both edges](neteditPopupFunctions.md#smooth_edge) at the same time
+
 ## Specifying the complete geometry of an edge including endpoints
 
 By default, the geometry of an edge starts with the position of the source junction and ends at the position of the destination junction. However, this sometimes leads to undesired junction shapes when dealing with roads that have a large green median strip or when modeling edges that meet at a sharp angle such as highway ramps. Also, when edges in opposite directions have unequal number of lanes (i.e. due to added left-turn lanes) and the road shapes do not line up. The solution is to define an edge geometry with custom endpoints. Below are three alternative methods of accomplishing this.
@@ -175,9 +183,17 @@ directions. To make a unidirectional track usable in both directions,
 6.  in [Create Edges](editModesNetwork.md#create_edges), set the checkbox to *Two-way* and optionally to *Chain*
 7.  continue to created edges. Each click will create bidirectional track
 
+## Define rail signals that only affect one track direction
+
+If a piece of railway track is [modelled for train operations in both directions](#creating_bidirectional_railway_tracks), any rail signal defined on this *bidi*-track will affect both direction of travel by default.
+To change this, the following steps have to be taken:
+
+1. ensure that [edges for both directions of travel are visible](../Simulation/Railways.md#working_with_bidirectional_tracks_in_netedit)
+2. [set connection attribute](#setting_connection_attributes) `uncontrolled=True` for the connection that shall not be controlled
+
 ## Creating a zipper merge
 
-1. use inspect mode to set junction type to 'zipper'
+1. use inspect mode to set junction type to 'zipper'.
 2. use connection mode to add 2 connections which enter the zipper junction with the same target lane. The second connection must be created with CTRL+Click to override conflict protection.
 3. optionally: use inspect mode and enable 'show connections' (Alt+5). Click on the zipper connections (brown) and customize 'visibilityDistance' to set the range where vehicles start zipper merging.
 
@@ -202,4 +218,25 @@ To clean up the states:
   - Object type: Lane
   - Attribute: allow
   - Value: "=pedestrian"
-3. press the `<del>` key.
+3. press the `<del>` key
+
+## Duplicating rightmost lane on all edges
+
+There are several solutions. The first one is as follows:
+
+1. toggle selection to work on lanes by default rather than edges (press Alt+5 when in select mode)
+2. select the desired lanes
+3. apply duplication by right clicking and going into lane operations
+
+The second solution is as follows:
+
+1. select the desired edges and go to the selection mode
+2. in selection panel on the left click: 'select children'
+3. toggle selection modification mode to 'keep'
+4. select lanes by attribute index=0 then apply selection
+5. apply duplication by right clicking and going into lane operations
+
+There is also another solution in case you want to add special lanes to your edges:
+
+1. select edges with the help of the select mode
+2. after right clicking use lane operation 'add restricted lane'

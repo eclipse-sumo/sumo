@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue 05 Sep 2017 09:34:11 AM CEST by SUMO gui Version dev-SVN-r25844
-This data file and the accompanying materials
-are made available under the terms of the Eclipse Public License v2.0
-which accompanies this distribution, and is available at
-http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+<!-- generated on 2022-12-11 20:56:48 by Eclipse SUMO sumo Version v1_15_0+0944-c751163
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -28,8 +23,13 @@ SPDX-License-Identifier: EPL-2.0
     </report>
 
     <traci_server>
-        <remote-port value="59647"/>
+        <remote-port value="33023"/>
     </traci_server>
+
+    <gui_only>
+        <quit-on-end value="true"/>
+        <start value="true"/>
+    </gui_only>
 
 </configuration>
 -->
@@ -102,22 +102,22 @@ SPDX-License-Identifier: EPL-2.0
     </timestep>
     <timestep time="49.00">
         <vehicle id="left" x="100.95" y="90.95" angle="0.00" type="left" speed="0.00" pos="90.95" lane="SC_1" slope="0.00"/>
-        <vehicle id="rescue" x="102.65" y="83.45" angle="8.75" type="rescue" speed="0.00" pos="83.45" lane="SC_1" slope="0.00"/>
+        <vehicle id="rescue" x="102.65" y="83.45" angle="8.85" type="rescue" speed="0.00" pos="83.45" lane="SC_1" slope="0.00"/>
         <vehicle id="right" x="105.65" y="90.95" angle="0.00" type="right" speed="0.00" pos="90.95" lane="SC_0" slope="0.00"/>
     </timestep>
     <timestep time="50.00">
         <vehicle id="left" x="100.95" y="90.95" angle="0.00" type="left" speed="0.00" pos="90.95" lane="SC_1" slope="0.00"/>
-        <vehicle id="rescue" x="103.55" y="83.45" angle="7.01" type="rescue" speed="0.00" pos="83.45" lane="SC_0" slope="0.00"/>
+        <vehicle id="rescue" x="103.55" y="83.45" angle="15.83" type="rescue" speed="0.00" pos="83.45" lane="SC_0" slope="0.00"/>
         <vehicle id="right" x="105.65" y="90.95" angle="0.00" type="right" speed="0.00" pos="90.95" lane="SC_0" slope="0.00"/>
     </timestep>
     <timestep time="51.00">
         <vehicle id="left" x="100.95" y="90.95" angle="0.00" type="left" speed="0.00" pos="90.95" lane="SC_1" slope="0.00"/>
-        <vehicle id="rescue" x="103.35" y="86.05" angle="358.74" type="rescue" speed="2.60" pos="86.05" lane="SC_0" slope="0.00"/>
+        <vehicle id="rescue" x="103.35" y="86.05" angle="7.86" type="rescue" speed="2.60" pos="86.05" lane="SC_0" slope="0.00"/>
         <vehicle id="right" x="105.65" y="90.95" angle="0.00" type="right" speed="0.00" pos="90.95" lane="SC_0" slope="0.00"/>
     </timestep>
     <timestep time="52.00">
         <vehicle id="left" x="100.95" y="90.95" angle="0.00" type="left" speed="0.00" pos="90.95" lane="SC_1" slope="0.00"/>
-        <vehicle id="rescue" x="103.35" y="91.25" angle="0.00" type="rescue" speed="5.20" pos="91.25" lane="SC_0" slope="0.00"/>
+        <vehicle id="rescue" x="103.35" y="91.25" angle="1.58" type="rescue" speed="5.20" pos="91.25" lane="SC_0" slope="0.00"/>
         <vehicle id="right" x="105.65" y="90.95" angle="0.00" type="right" speed="0.00" pos="90.95" lane="SC_0" slope="0.00"/>
     </timestep>
     <timestep time="53.00">

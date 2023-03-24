@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -62,11 +62,11 @@ RandHelper::insertRandOptions() {
 
     oc.doRegister("random", new Option_Bool(false));
     oc.addSynonyme("random", "abs-rand", true);
-    oc.addDescription("random", "Random Number", "Initialises the random number generator with the current system time");
+    oc.addDescription("random", "Random Number", TL("Initialises the random number generator with the current system time"));
 
     oc.doRegister("seed", new Option_Integer(23423));
     oc.addSynonyme("seed", "srand", true);
-    oc.addDescription("seed", "Random Number", "Initialises the random number generator with the given value");
+    oc.addDescription("seed", "Random Number", TL("Initialises the random number generator with the given value"));
 }
 
 

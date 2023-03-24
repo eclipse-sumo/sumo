@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2004-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2004-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -215,6 +215,10 @@ public:
      */
     std::vector<std::string> getVehicleIDs(const int offset) const;
 
+    double getIntervalOccupancy(bool lastInterval = false) const;
+    double getIntervalMeanSpeed(bool lastInterval = false) const;
+    int getIntervalVehicleNumber(bool lastInterval = false) const;
+    std::vector<std::string> getIntervalVehicleIDs(bool lastInterval = false) const;
 
     /** @brief Returns the time since the last vehicle left the detector
      *
@@ -314,7 +318,7 @@ public:
      *            (the latter gives a more complete picture but may include vehicles in multiple steps even if they did not stay on the detector)
      * @return The list of vehicles
      */
-    std::vector<VehicleData> collectVehiclesOnDet(SUMOTime t, bool includeEarly = false, bool leaveTime = false, bool forOccupancy = false) const;
+    std::vector<VehicleData> collectVehiclesOnDet(SUMOTime t, bool includeEarly = false, bool leaveTime = false, bool forOccupancy = false, bool lastInterval = false) const;
 
     /// @brief allows for special color in the gui version
     virtual void setSpecialColor(const RGBColor* /*color*/) {};
@@ -378,6 +382,9 @@ protected:
 
     /// @brief Data for vehicles that have entered the detector (vehicle -> enter time)
     std::map<SUMOTrafficObject*, double> myVehiclesOnDet;
+
+    SUMOTime myLastIntervalEnd;
+    SUMOTime myLastIntervalBegin;
 
 private:
     /// @brief Invalidated copy constructor.

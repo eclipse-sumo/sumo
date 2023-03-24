@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-09-15 10:13:10 by Eclipse SUMO sumo Version v1_14_1+1010-b8e21c2
+<!-- generated on 2022-12-11 20:57:33 by Eclipse SUMO sumo Version v1_15_0+0944-c751163
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -147,12 +147,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="v_0" x="9.08" y="0.00" angle="90.00" type="car" speed="5.00" pos="7.70" lane="E2_0" slope="0.00"/>
     </timestep>
     <timestep time="22.00">
-        <vehicle id="b_0" x="2.73" y="-1.00" angle="98.58" type="bike_bicycle" speed="5.02" pos="1.24" lane="E2_0" slope="0.00"/>
+        <vehicle id="b_0" x="2.73" y="-1.00" angle="81.98" type="bike_bicycle" speed="5.02" pos="1.24" lane="E2_0" slope="0.00"/>
         <vehicle id="b_1" x="169.66" y="0.00" angle="270.00" type="bike_bicycle" speed="6.99" pos="29.28" lane="-E3_0" slope="0.00"/>
         <vehicle id="v_0" x="14.01" y="0.00" angle="90.00" type="car" speed="5.00" pos="12.70" lane="E2_0" slope="0.00"/>
     </timestep>
     <timestep time="23.00">
-        <vehicle id="b_0" x="7.67" y="-1.67" angle="95.82" type="bike_bicycle" speed="5.02" pos="6.26" lane="E2_0" slope="0.00"/>
+        <vehicle id="b_0" x="7.67" y="-1.67" angle="97.66" type="bike_bicycle" speed="5.02" pos="6.26" lane="E2_0" slope="0.00"/>
         <vehicle id="b_1" x="162.77" y="0.00" angle="270.00" type="bike_bicycle" speed="6.99" pos="36.27" lane="-E3_0" slope="0.00"/>
         <vehicle id="v_0" x="18.93" y="0.00" angle="90.00" type="car" speed="5.00" pos="17.70" lane="E2_0" slope="0.00"/>
     </timestep>
@@ -163,12 +163,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </timestep>
     <timestep time="25.00">
         <vehicle id="b_0" x="19.64" y="-1.67" angle="90.00" type="bike_bicycle" speed="6.35" pos="18.42" lane="E2_0" slope="0.00"/>
-        <vehicle id="b_1" x="149.01" y="1.00" angle="276.64" type="bike_bicycle" speed="6.98" pos="50.24" lane="-E3_0" slope="0.00"/>
+        <vehicle id="b_1" x="149.01" y="1.00" angle="278.15" type="bike_bicycle" speed="6.98" pos="50.24" lane="-E3_0" slope="0.00"/>
         <vehicle id="v_0" x="28.78" y="0.00" angle="90.00" type="car" speed="5.00" pos="27.70" lane="E2_0" slope="0.00"/>
     </timestep>
     <timestep time="26.00">
         <vehicle id="b_0" x="26.20" y="-1.67" angle="90.00" type="bike_bicycle" speed="6.66" pos="25.08" lane="E2_0" slope="0.00"/>
-        <vehicle id="b_1" x="142.14" y="1.67" angle="274.49" type="bike_bicycle" speed="6.98" pos="57.22" lane="-E3_0" slope="0.00"/>
+        <vehicle id="b_1" x="142.14" y="1.67" angle="275.52" type="bike_bicycle" speed="6.98" pos="57.22" lane="-E3_0" slope="0.00"/>
         <vehicle id="v_0" x="33.71" y="0.00" angle="90.00" type="car" speed="5.00" pos="32.70" lane="E2_0" slope="0.00"/>
     </timestep>
     <timestep time="27.00">
@@ -184,7 +184,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <timestep time="29.00">
         <vehicle id="b_0" x="46.61" y="-1.67" angle="90.00" type="bike_bicycle" speed="6.96" pos="45.79" lane="E2_0" slope="0.00"/>
         <vehicle id="b_1" x="121.47" y="1.67" angle="270.00" type="bike_bicycle" speed="7.00" pos="78.21" lane="-E3_0" slope="0.00"/>
-        <vehicle id="v_0" x="48.48" y="0.40" angle="87.70" type="car" speed="5.00" pos="47.70" lane="E2_0" slope="0.00"/>
+        <vehicle id="v_0" x="48.48" y="0.40" angle="85.41" type="car" speed="5.00" pos="47.70" lane="E2_0" slope="0.00"/>
     </timestep>
     <timestep time="30.00">
         <vehicle id="b_0" x="53.48" y="-1.67" angle="90.00" type="bike_bicycle" speed="6.98" pos="52.78" lane="E2_0" slope="0.00"/>
@@ -204,12 +204,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <timestep time="33.00">
         <vehicle id="b_0" x="74.16" y="-1.67" angle="90.00" type="bike_bicycle" speed="7.00" pos="73.76" lane="E2_0" slope="0.00"/>
         <vehicle id="b_1" x="94.91" y="1.67" angle="270.00" type="bike_bicycle" speed="6.35" pos="5.17" lane="-E2_0" slope="0.00"/>
-        <vehicle id="v_0" x="68.18" y="-0.20" angle="93.44" type="car" speed="5.00" pos="67.70" lane="E2_0" slope="0.00"/>
+        <vehicle id="v_0" x="68.18" y="-0.20" angle="96.85" type="car" speed="5.00" pos="67.70" lane="E2_0" slope="0.00"/>
     </timestep>
     <timestep time="34.00">
         <vehicle id="b_0" x="81.05" y="-1.67" angle="90.00" type="bike_bicycle" speed="7.00" pos="80.76" lane="E2_0" slope="0.00"/>
         <vehicle id="b_1" x="88.35" y="1.67" angle="270.00" type="bike_bicycle" speed="6.67" pos="11.83" lane="-E2_0" slope="0.00"/>
-        <vehicle id="v_0" x="73.11" y="0.00" angle="88.86" type="car" speed="5.00" pos="72.70" lane="E2_0" slope="0.00"/>
+        <vehicle id="v_0" x="73.11" y="0.00" angle="87.72" type="car" speed="5.00" pos="72.70" lane="E2_0" slope="0.00"/>
     </timestep>
     <timestep time="35.00">
         <vehicle id="b_0" x="87.94" y="-1.67" angle="90.00" type="bike_bicycle" speed="7.00" pos="87.76" lane="E2_0" slope="0.00"/>
@@ -222,12 +222,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="v_0" x="82.96" y="0.00" angle="90.00" type="car" speed="5.00" pos="82.70" lane="E2_0" slope="0.00"/>
     </timestep>
     <timestep time="37.00">
-        <vehicle id="b_0" x="101.73" y="-0.67" angle="83.37" type="bike_bicycle" speed="7.00" pos="1.76" lane="E3_0" slope="0.00"/>
+        <vehicle id="b_0" x="101.73" y="-0.67" angle="81.87" type="bike_bicycle" speed="7.00" pos="1.76" lane="E3_0" slope="0.00"/>
         <vehicle id="b_1" x="67.94" y="1.67" angle="270.00" type="bike_bicycle" speed="6.96" pos="32.55" lane="-E2_0" slope="0.00"/>
         <vehicle id="v_0" x="87.88" y="0.00" angle="90.00" type="car" speed="5.00" pos="87.70" lane="E2_0" slope="0.00"/>
     </timestep>
     <timestep time="38.00">
-        <vehicle id="b_0" x="108.63" y="0.00" angle="85.52" type="bike_bicycle" speed="7.00" pos="8.76" lane="E3_0" slope="0.00"/>
+        <vehicle id="b_0" x="108.63" y="0.00" angle="84.50" type="bike_bicycle" speed="7.00" pos="8.76" lane="E3_0" slope="0.00"/>
         <vehicle id="b_1" x="61.06" y="1.67" angle="270.00" type="bike_bicycle" speed="6.98" pos="39.53" lane="-E2_0" slope="0.00"/>
         <vehicle id="v_0" x="92.81" y="0.00" angle="90.00" type="car" speed="5.00" pos="92.70" lane="E2_0" slope="0.00"/>
     </timestep>
@@ -268,12 +268,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </timestep>
     <timestep time="46.00">
         <vehicle id="b_0" x="163.79" y="0.00" angle="90.00" type="bike_bicycle" speed="7.00" pos="64.76" lane="E3_0" slope="0.00"/>
-        <vehicle id="b_1" x="5.92" y="0.67" angle="263.37" type="bike_bicycle" speed="7.00" pos="95.52" lane="-E2_0" slope="0.00"/>
+        <vehicle id="b_1" x="5.92" y="0.67" angle="261.87" type="bike_bicycle" speed="7.00" pos="95.52" lane="-E2_0" slope="0.00"/>
         <vehicle id="v_0" x="132.21" y="0.00" angle="90.00" type="car" speed="5.00" pos="32.70" lane="E3_0" slope="0.00"/>
     </timestep>
     <timestep time="47.00">
         <vehicle id="b_0" x="170.68" y="0.00" angle="90.00" type="bike_bicycle" speed="7.00" pos="71.76" lane="E3_0" slope="0.00"/>
-        <vehicle id="b_1" x="-3.98" y="1.60" angle="265.52" type="bike_bicycle" speed="7.00" pos="2.52" lane="-E1_0" slope="0.00"/>
+        <vehicle id="b_1" x="-3.98" y="1.60" angle="264.50" type="bike_bicycle" speed="7.00" pos="2.52" lane="-E1_0" slope="0.00"/>
         <vehicle id="v_0" x="137.13" y="0.00" angle="90.00" type="car" speed="5.00" pos="37.70" lane="E3_0" slope="0.00"/>
     </timestep>
     <timestep time="48.00">

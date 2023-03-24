@@ -1,7 +1,0 @@
-
-[Reported by erdm_ja at 03Aug12:27:55]
-search_string:<connection from="SC" to="CN" fromLane="0" toLane="0"
-trigger_on_absence:1
-search_file:net
-full_description:bad connection guessing
-brief_description:see #8899

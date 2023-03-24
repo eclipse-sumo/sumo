@@ -7,5 +7,8 @@ high
 # high visibility with foes (in presence of foes vehicles must wait regardless of visibility)
 with_foe
 
+# high visibility with foe suddenly appearing
+with_sudden_foe
+
 # for major links, the visibility makes no difference
 major

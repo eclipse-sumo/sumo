@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2006-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2006-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -72,7 +72,7 @@ public:
      *
      * @param[in] dc The district container to obtain referenced districts from
      */
-    ODMatrix(const ODDistrictCont& dc);
+    ODMatrix(const ODDistrictCont& dc, double scale);
 
 
     /// Destructor
@@ -103,7 +103,8 @@ public:
     bool add(double vehicleNumber, const std::pair<SUMOTime, SUMOTime>& beginEnd,
              const std::string& origin, const std::string& destination,
              const std::string& vehicleType,
-             const bool originIsEdge = false, const bool destinationIsEdge = false);
+             const bool originIsEdge = false, const bool destinationIsEdge = false,
+             bool noScaling = false);
 
     /** @brief Adds a single vehicle with departure time
      *
@@ -380,6 +381,9 @@ private:
 
     /// @brief user-defined vType
     std::string myVType;
+
+    /// @brief the scaling factor for traffic
+    double myScale;
 
     /**
      * @class cell_by_begin_comparator

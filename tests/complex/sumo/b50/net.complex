@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:31:53 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2023-01-10 08:15:06 by Eclipse SUMO netconvert Version v1_15_0+1486-7b31a69
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -8,14 +8,10 @@
         <edge-files value="input_edges.edg.xml"/>
     </input>
 
-    <report>
-        <aggregate-warnings value="5"/>
-    </report>
-
 </configuration>
 -->
 
-<net version="1.9" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="0.00,0.00" convBoundary="0.00,0.00,990.00,700.00" origBoundary="0.00,0.00,990.00,700.00" projParameter="!"/>
 
@@ -58,8 +54,9 @@
         <lane id=":z0_0_2" index="2" speed="10.03" length="10.09" shape="697.12,694.41 699.02,696.15 701.15,697.40 703.49,698.15 706.06,698.40"/>
     </edge>
     <edge id=":z0_3" function="internal">
-        <lane id=":z0_3_0" index="0" speed="13.89" length="11.02" shape="695.34,698.40 698.34,697.90 700.48,696.80 702.73,695.70 706.06,695.20"/>
-        <lane id=":z0_3_1" index="1" speed="13.89" length="11.02" shape="695.34,698.40 706.06,698.40"/>
+        <lane id=":z0_3_0" index="0" speed="13.89" length="11.65" shape="695.34,698.40 698.24,697.40 700.23,695.20 702.45,693.00 706.06,692.00"/>
+        <lane id=":z0_3_1" index="1" speed="13.89" length="11.65" shape="695.34,698.40 698.34,697.90 700.48,696.80 702.73,695.70 706.06,695.20"/>
+        <lane id=":z0_3_2" index="2" speed="13.89" length="11.65" shape="695.34,698.40 706.06,698.40"/>
     </edge>
     <edge id=":z1_0" function="internal">
         <lane id=":z1_0_0" index="0" speed="4.15" length="1.34" shape="895.72,692.00 896.07,691.97 896.38,691.87 896.66,691.70 896.91,691.47"/>
@@ -210,12 +207,13 @@
     <junction id="f7" type="priority" x="390.00" y="700.00" incLanes="i7_0 i7_1 i7_2" intLanes=":f7_0_0" shape="394.00,700.00 394.00,696.80 391.98,696.33 390.79,695.14 389.21,692.06 388.02,690.87 386.00,690.40 386.00,700.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="z0" type="priority" x="700.00" y="700.00" incLanes="e8_0 e8_1 e8_2 o_0" intLanes=":z0_0_0 :z0_0_1 :z0_0_2 :z0_3_0 :z0_3_1" shape="706.06,700.00 706.06,690.40 704.93,690.25 704.42,690.06 703.93,689.80 703.48,689.47 703.06,689.05 695.93,695.48 696.39,696.21 696.38,696.47 696.20,696.65 695.85,696.76 695.34,696.80 695.34,700.00">
-        <request index="0" response="00000" foes="11000" cont="0"/>
-        <request index="1" response="00000" foes="11000" cont="0"/>
-        <request index="2" response="00000" foes="11000" cont="0"/>
-        <request index="3" response="00111" foes="00111" cont="0"/>
-        <request index="4" response="00111" foes="00111" cont="0"/>
+    <junction id="z0" type="priority" x="700.00" y="700.00" incLanes="e8_0 e8_1 e8_2 o_0" intLanes=":z0_0_0 :z0_0_1 :z0_0_2 :z0_3_0 :z0_3_1 :z0_3_2" shape="706.06,700.00 706.06,690.40 704.93,690.25 704.42,690.06 703.93,689.80 703.48,689.47 703.06,689.05 695.93,695.48 696.39,696.21 696.38,696.47 696.20,696.65 695.85,696.76 695.34,696.80 695.34,700.00">
+        <request index="0" response="000000" foes="111000" cont="0"/>
+        <request index="1" response="000000" foes="111000" cont="0"/>
+        <request index="2" response="000000" foes="111000" cont="0"/>
+        <request index="3" response="000111" foes="000111" cont="0"/>
+        <request index="4" response="000111" foes="000111" cont="0"/>
+        <request index="5" response="000111" foes="000111" cont="0"/>
     </junction>
     <junction id="z1" type="priority" x="900.00" y="700.00" incLanes="e1_0 e1_1 e1_2" intLanes=":z1_0_0 :z1_0_1 :z1_0_2" shape="902.86,696.82 895.72,690.40 895.72,700.00 898.42,699.65 899.65,699.21 900.80,698.59 901.87,697.79">
         <request index="0" response="000" foes="000" cont="0"/>
@@ -296,8 +294,9 @@
     <connection from="i6" to="i7" fromLane="1" toLane="1" via=":f6_0_1" dir="r" state="M"/>
     <connection from="i6" to="i7" fromLane="2" toLane="2" via=":f6_0_2" dir="r" state="M"/>
     <connection from="i7" to="o" fromLane="2" toLane="0" via=":f7_0_0" dir="s" state="M"/>
-    <connection from="o" to="e1" fromLane="0" toLane="1" via=":z0_3_0" dir="s" state="m"/>
-    <connection from="o" to="e1" fromLane="0" toLane="2" via=":z0_3_1" dir="s" state="m"/>
+    <connection from="o" to="e1" fromLane="0" toLane="0" via=":z0_3_0" dir="s" state="m"/>
+    <connection from="o" to="e1" fromLane="0" toLane="1" via=":z0_3_1" dir="s" state="m"/>
+    <connection from="o" to="e1" fromLane="0" toLane="2" via=":z0_3_2" dir="s" state="m"/>
 
     <connection from=":f1_0" to="i2" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from=":f1_0" to="i2" fromLane="1" toLane="1" dir="l" state="M"/>
@@ -321,8 +320,9 @@
     <connection from=":z0_0" to="e1" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":z0_0" to="e1" fromLane="1" toLane="1" dir="r" state="M"/>
     <connection from=":z0_0" to="e1" fromLane="2" toLane="2" dir="r" state="M"/>
-    <connection from=":z0_3" to="e1" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from=":z0_3" to="e1" fromLane="1" toLane="2" dir="s" state="M"/>
+    <connection from=":z0_3" to="e1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":z0_3" to="e1" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from=":z0_3" to="e1" fromLane="2" toLane="2" dir="s" state="M"/>
     <connection from=":z1_0" to="e2" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":z1_0" to="e2" fromLane="1" toLane="1" dir="r" state="M"/>
     <connection from=":z1_0" to="e2" fromLane="2" toLane="2" dir="r" state="M"/>

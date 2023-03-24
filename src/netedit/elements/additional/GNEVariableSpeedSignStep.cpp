@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -30,19 +30,19 @@
 // ===========================================================================
 
 GNEVariableSpeedSignStep::GNEVariableSpeedSignStep(GNENet* net) :
-    GNEAdditional("", net, GLO_VSS_STEP, SUMO_TAG_STEP, GUIIconSubSys::getIcon(GUIIcon::VSSSTEP), 
-        "", {}, {}, {}, {}, {}, {}),
-    myTime(0) {
+    GNEAdditional("", net, GLO_VSS_STEP, SUMO_TAG_STEP, GUIIconSubSys::getIcon(GUIIcon::VSSSTEP),
+                  "", {}, {}, {}, {}, {}, {}),
+myTime(0) {
     // reset default values
     resetDefaultValues();
 }
 
 
 GNEVariableSpeedSignStep::GNEVariableSpeedSignStep(GNEAdditional* variableSpeedSignParent, SUMOTime time, const std::string& speed) :
-    GNEAdditional(variableSpeedSignParent->getNet(), GLO_VSS_STEP, SUMO_TAG_STEP, GUIIconSubSys::getIcon(GUIIcon::VSSSTEP), 
-        "", {}, {}, {}, {variableSpeedSignParent}, {}, {}),
-    myTime(time),
-    mySpeed(speed) {
+    GNEAdditional(variableSpeedSignParent->getNet(), GLO_VSS_STEP, SUMO_TAG_STEP, GUIIconSubSys::getIcon(GUIIcon::VSSSTEP),
+                  "", {}, {}, {}, {variableSpeedSignParent}, {}, {}),
+myTime(time),
+mySpeed(speed) {
     // update boundary of rerouter parent
     variableSpeedSignParent->updateCenteringBoundary(true);
 }
@@ -57,6 +57,24 @@ GNEVariableSpeedSignStep::writeAdditional(OutputDevice& device) const {
     device.writeAttr(SUMO_ATTR_TIME, time2string(myTime));
     device.writeAttr(SUMO_ATTR_SPEED, mySpeed);
     device.closeTag();
+}
+
+
+bool
+GNEVariableSpeedSignStep::isAdditionalValid() const {
+    return true;
+}
+
+
+std::string
+GNEVariableSpeedSignStep::getAdditionalProblem() const {
+    return "";
+}
+
+
+void
+GNEVariableSpeedSignStep::fixAdditionalProblem() {
+    // nothing to fix
 }
 
 

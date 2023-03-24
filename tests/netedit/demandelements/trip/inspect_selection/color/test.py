@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -26,7 +26,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to demand mode
 netedit.supermodeDemand()
@@ -44,29 +44,26 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 330, 150)
 
 # change color using dialog
-netedit.modifyColorAttribute(netedit.attrs.tripFromToEdge.inspectSelection.colorButton, 4, False)
+netedit.modifyColorAttribute(netedit.attrs.trip.inspectSelection.colorButton, 4, False)
 
 # change color with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripFromToEdge.inspectSelection.color, "", False)
+netedit.modifyAttribute(netedit.attrs.trip.inspectSelection.color, "", False)
 
 # change color with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripFromToEdge.inspectSelection.color, "dummyColor", False)
+netedit.modifyAttribute(netedit.attrs.trip.inspectSelection.color, "dummyColor", False)
 
 # change color with an valid value
-netedit.modifyAttribute(netedit.attrs.tripFromToEdge.inspectSelection.color, "cyan", False)
+netedit.modifyAttribute(netedit.attrs.trip.inspectSelection.color, "cyan", False)
 
 # change color with a valid value
-netedit.modifyAttribute(netedit.attrs.tripFromToEdge.inspectSelection.color, "12,13,14", False)
+netedit.modifyAttribute(netedit.attrs.trip.inspectSelection.color, "12,13,14", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 5)
 netedit.redo(referencePosition, 5)
 
-# save routes
-netedit.saveRoutes(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

@@ -1,3 +1,4 @@
-Warning: Vehicle 'routeFlow_1.3' performs emergency braking on lane 'gneE1_0' with decel=9.25, wished=4.50, severity=1.06, time=614.00.
-Warning: Vehicle 'routeFlow_2.4' performs emergency braking on lane 'gneE1_0' with decel=9.54, wished=4.50, severity=1.12, time=819.00.
-Warning: Vehicle 'routeFlow_1.7' performs emergency braking on lane 'gneE1_0' with decel=9.75, wished=4.50, severity=1.17, time=1414.00.
+Error: Triggers and waypoints cannot be combined on lane 'gneE1_0' in vehicle 'routeFlow_0'.
+Error: Triggers and waypoints cannot be combined on lane 'gneE1_0' in vehicle 'routeFlow_1'.
+Error: Triggers and waypoints cannot be combined on lane 'gneE1_0' in vehicle 'routeFlow_2'.
+Error: Triggers and waypoints cannot be combined on lane 'gneE1_0' in vehicle 'routeFlow_3'.

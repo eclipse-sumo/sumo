@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -53,6 +53,8 @@ MSVehicleTransfer::VehicleInformation::operator<(const VehicleInformation& v2) c
 
 void
 MSVehicleTransfer::add(const SUMOTime t, MSVehicle* veh) {
+    const bool jumping = veh->isJumping();
+    const SUMOTime proceed = jumping ? t + veh->getPastStops().back().jump : -1;
     if (veh->isParking()) {
         veh->getLaneChangeModel().endLaneChangeManeuver(MSMoveReminder::NOTIFICATION_PARKING);
         MSNet::getInstance()->informVehicleStateListener(veh, MSNet::VehicleState::STARTING_PARKING);
@@ -61,7 +63,7 @@ MSVehicleTransfer::add(const SUMOTime t, MSVehicle* veh) {
         veh->getLaneChangeModel().endLaneChangeManeuver(MSMoveReminder::NOTIFICATION_TELEPORT);
         MSNet::getInstance()->informVehicleStateListener(veh, MSNet::VehicleState::STARTING_TELEPORT);
         if (veh->succEdge(1) == nullptr) {
-            WRITE_WARNINGF("Vehicle '%' teleports beyond arrival edge '%', time=%.", veh->getID(), veh->getEdge()->getID(), time2string(t));
+            WRITE_WARNINGF(TL("Vehicle '%' teleports beyond arrival edge '%', time=%."), veh->getID(), veh->getEdge()->getID(), time2string(t));
             veh->onRemovalFromNet(MSMoveReminder::NOTIFICATION_TELEPORT_ARRIVED);
             MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
             return;
@@ -69,7 +71,7 @@ MSVehicleTransfer::add(const SUMOTime t, MSVehicle* veh) {
         veh->onRemovalFromNet(MSMoveReminder::NOTIFICATION_TELEPORT);
         veh->enterLaneAtMove(veh->succEdge(1)->getLanes()[0], true);
     }
-    myVehicles.push_back(VehicleInformation(t, veh, -1, veh->isParking()));
+    myVehicles.push_back(VehicleInformation(t, veh, proceed, veh->isParking(), jumping));
 }
 
 
@@ -152,6 +154,8 @@ MSVehicleTransfer::checkInsertions(SUMOTime time) {
                 }
                 i++;
             }
+        } else if (desc.myJumping && desc.myProceedTime > time) {
+            ++i;
         } else {
             const double departPos = 0;
             // get the lane on which this vehicle should continue
@@ -161,7 +165,9 @@ MSVehicleTransfer::checkInsertions(SUMOTime time) {
                          e->getFreeLane(nullptr, vclass, departPos));
             // handle teleporting vehicles, lane may be 0 because permissions were modified by a closing rerouter or TraCI
             if (l != nullptr && l->freeInsertion(*(desc.myVeh), MIN2(l->getSpeedLimit(), desc.myVeh->getMaxSpeed()), 0, MSMoveReminder::NOTIFICATION_TELEPORT)) {
-                WRITE_WARNINGF("Vehicle '%' ends teleporting on edge '%', time=%.", desc.myVeh->getID(), e->getID(), time2string(time));
+                if (!desc.myJumping) {
+                    WRITE_WARNINGF(TL("Vehicle '%' ends teleporting on edge '%', time=%."), desc.myVeh->getID(), e->getID(), time2string(time));
+                }
                 MSNet::getInstance()->informVehicleStateListener(desc.myVeh, MSNet::VehicleState::ENDING_TELEPORT);
                 i = vehInfos.erase(i);
             } else {
@@ -175,7 +181,7 @@ MSVehicleTransfer::checkInsertions(SUMOTime time) {
                     desc.myProceedTime = time + TIME2STEPS(e->getCurrentTravelTime(TeleportMinSpeed));
                 } else if (desc.myProceedTime < time) {
                     if (desc.myVeh->succEdge(1) == nullptr) {
-                        WRITE_WARNINGF("Vehicle '%' teleports beyond arrival edge '%', time=%.", desc.myVeh->getID(), e->getID(), time2string(time));
+                        WRITE_WARNINGF(TL("Vehicle '%' teleports beyond arrival edge '%', time=%."), desc.myVeh->getID(), e->getID(), time2string(time));
                         desc.myVeh->leaveLane(MSMoveReminder::NOTIFICATION_TELEPORT_ARRIVED);
                         MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(desc.myVeh);
                         i = vehInfos.erase(i);
@@ -222,6 +228,9 @@ MSVehicleTransfer::saveState(OutputDevice& out) {
         if (vehInfo.myParking) {
             out.writeAttr(SUMO_ATTR_PARKING, vehInfo.myVeh->getLane()->getID());
         }
+        if (vehInfo.myJumping) {
+            out.writeAttr(SUMO_ATTR_JUMP, true);
+        }
         out.closeTag();
     }
     myVehicles.unlock();
@@ -243,7 +252,9 @@ MSVehicleTransfer::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offs
     }
     SUMOTime proceedTime = (SUMOTime)attrs.getLong(SUMO_ATTR_DEPART);
     MSLane* parkingLane = attrs.hasAttribute(SUMO_ATTR_PARKING) ? MSLane::dictionary(attrs.getString(SUMO_ATTR_PARKING)) : nullptr;
-    myVehicles.push_back(VehicleInformation(-1, veh, proceedTime - offset, parkingLane != nullptr));
+    bool ok = true;
+    const bool jumping = attrs.getOpt<bool>(SUMO_ATTR_JUMP, veh->getID().c_str(), ok, false);
+    myVehicles.push_back(VehicleInformation(-1, veh, proceedTime - offset, parkingLane != nullptr, jumping));
     if (parkingLane != nullptr) {
         parkingLane->addParking(veh);
         veh->setTentativeLaneAndPosition(parkingLane, veh->getPositionOnLane());

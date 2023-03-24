@@ -1,0 +1,3 @@
+Warning: No connection between edge 'E1_depart_connector' and edge 'E4_arrival_connector' found.
+Error: No connection found between edge 'E1' and edge 'E4' for person 'p_0'.
+Quitting (on error).

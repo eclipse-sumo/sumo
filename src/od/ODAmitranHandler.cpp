@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -45,7 +45,7 @@ ODAmitranHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             myBegin = attrs.get<int>(SUMO_ATTR_STARTTIME, myVehicleType.c_str(), ok);
             myEnd = myBegin + attrs.get<int>(SUMO_ATTR_DURATION, myVehicleType.c_str(), ok);
             if (myBegin >= myEnd) {
-                WRITE_ERROR("Invalid duration for timeSlice starting " + toString(myBegin) + ".");
+                WRITE_ERRORF(TL("Invalid duration for timeSlice starting %."), toString(myBegin));
             }
             break;
         case SUMO_TAG_OD_PAIR:

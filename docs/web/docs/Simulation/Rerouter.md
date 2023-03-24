@@ -349,7 +349,7 @@ When 'parking.probability.weight' is set to a positive value, a random number be
 Parameter Name         | Default value | Description                                                              | 
 | -------------------- | ------------- | ------------------------------------------------------------------------ |
 | parking.anywhere     | -1            | permit using any free parkingArea along the way after doing unsuccessful parkingAreaReroute x times (-1 disables this behavior) |
-| parking.frustration  | 100           | increases the preference for visibly free parkingAreas over time (after x unsuccessfull parkingAreaReroutes, targets with unknown occupancy will assumed to be *almost* full)                                 | 
+| parking.frustration  | 100           | increases the preference for visibly free parkingAreas over time (after x unsuccessful parkingAreaReroutes, targets with unknown occupancy will assumed to be *almost* full)                                 | 
 | parking.knowledge    | 0             | Let driver "guess" the exact occupancy of invisible parkingAreas with probability x                   |
 
 ### Destination after rerouting

@@ -14,13 +14,19 @@ Start solving the problem.
  Add distance constraints...
  Add pickup and delivery constraints...
  Add dropoff constraints...
-vehicle 0 with 0 dropoffs
  Add capacity constraints...
+ Add time windows constraints...
+## Done
  Set solution heuristic...
 Start solving the problem.
 Objective:  225735
 Route for vehicle 0:
- 5 ->  1 ->  2 ->  4 ->  3 -> 0
+     5 (L: 0, C: 0, T: (1,310))
+ ->  1 (L: 1, C: 588, T: (43,352))
+ ->  2 (L: 2, C: 1174, T: (85,394))
+ ->  4 (L: 1, C: 1559, T: (176,485))
+ ->  3 (L: 0, C: 2235, T: (291,600))
+ ->  0 (L: 0, C: 2235, T: (291,1972))
 Costs of the route: 2235
 
 Total cost of the routes: 2235
@@ -61,14 +67,19 @@ Start solving the problem.
  Add distance constraints...
  Add pickup and delivery constraints...
  Add dropoff constraints...
-vehicle 0 with 1 dropoffs
-vehicle 0 (4), dropoff 3 (2), res_id 0
+reservation 0 in veh v0 (0)
  Add capacity constraints...
+ Add time windows constraints...
+## Done
  Set solution heuristic...
 Start solving the problem.
 Objective:  125240
 Route for vehicle 0:
- 4 ->  1 ->  3 ->  2 -> 0
+     4 (L: 1, C: 0, T: (180,380))
+ ->  1 (L: 2, C: 470, T: (219,419))
+ ->  3 (L: 1, C: 855, T: (310,510))
+ ->  2 (L: 0, C: 1240, T: (400,600))
+ ->  0 (L: 0, C: 1240, T: (400,897))
 Costs of the route: 1240
 
 Total cost of the routes: 1240

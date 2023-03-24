@@ -36,9 +36,13 @@ set(libtracistatic_STAT_SRCS
     VehicleType.cpp
 )
 
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/bin)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR}/bin)
 add_library(libtracistatic STATIC ${libtracistatic_STAT_SRCS})
 add_dependencies(libtracistatic generate-version-h install_dll)
-set_property(TARGET libtracistatic PROPERTY FOLDER "libtraci")
+set_target_properties(libtracistatic PROPERTIES FOLDER "libtraci" PREFIX ""
+    OUTPUT_NAME libtracistatic${BINARY_SUFFIX}
+    OUTPUT_NAME_DEBUG libtracistatic${BINARY_SUFFIX}D)
 
 if (WIN32)
     set(libtcpip foreign_tcpip ws2_32)
@@ -46,13 +50,10 @@ else()
     set(libtcpip foreign_tcpip)
 endif()
 
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/bin)
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR}/bin)
 add_library(libtracicpp SHARED ${libtracistatic_STAT_SRCS})
-set_property(TARGET libtracicpp PROPERTY FOLDER "libtraci")
-set_target_properties(libtracicpp PROPERTIES PREFIX "")
-set_target_properties(libtracicpp PROPERTIES OUTPUT_NAME libtracicpp${BINARY_SUFFIX})
-set_target_properties(libtracicpp PROPERTIES OUTPUT_NAME_DEBUG libtracicpp${BINARY_SUFFIX}D)
+set_target_properties(libtracicpp PROPERTIES FOLDER "libtraci" PREFIX ""
+    OUTPUT_NAME libtracicpp${BINARY_SUFFIX}
+    OUTPUT_NAME_DEBUG libtracicpp${BINARY_SUFFIX}D)
 target_include_directories(libtracicpp PUBLIC $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/src>)
 install(TARGETS libtracicpp EXPORT SUMOConfig
     DESTINATION bin
@@ -94,6 +95,7 @@ if(SWIG_FOUND)
             endif()
             if (MVN_EXECUTABLE)
                 ADD_CUSTOM_COMMAND(TARGET libtracijni POST_BUILD
+                    COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/../../tools/traci/rebuildConstants.py -o java/Constants.java -j org.eclipse.sumo.libtraci.Constants
                     COMMAND ${CMAKE_COMMAND} -E make_directory src/main/java/org/eclipse/sumo/libtraci
                     COMMAND ${CMAKE_COMMAND} -E copy_directory java src/main/java/org/eclipse/sumo/libtraci
                     COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/../../tools/build/pom.py libtraci
@@ -109,7 +111,25 @@ if(SWIG_FOUND)
         endif()
     endif()
 
-    find_package(PythonLibs)
+    if(ENABLE_CS_BINDINGS)
+        set(CMAKE_SWIG_FLAGS "") # reset from Java
+        set(CMAKE_SWIG_OUTDIR ${CMAKE_CURRENT_BINARY_DIR}/cs)
+        set(SWIG_MODULE_libtracics_EXTRA_DEPS ${libtraci_HEADERS} ../libsumo/libsumo_typemap.i)
+        if (${CMAKE_VERSION} VERSION_GREATER 3.8.0)
+            SWIG_ADD_LIBRARY(libtracics LANGUAGE CSharp SOURCES libtraci.i)
+        else()
+            SWIG_ADD_MODULE(libtracics CSharp libtraci.i)
+        endif()
+        if ((GNU_COMPILER OR CLANG_COMPILER) AND NOT APPLE)
+            set_source_files_properties(${swig_generated_file_fullname} PROPERTIES COMPILE_FLAGS "-Wno-strict-aliasing")
+            swig_link_libraries(libtracics -Wl,--whole-archive libtracistatic ${libtcpip} -Wl,--no-whole-archive)
+        else()
+            swig_link_libraries(libtracics libtracistatic ${libtcpip})
+        endif()
+        set_property(TARGET libtracics PROPERTY FOLDER "libtraci")
+        install(TARGETS libtracics DESTINATION bin LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
+    endif()
+
     if(ENABLE_PYTHON_BINDINGS)
         if (MSVC)
             # recheck that the platform of the generator and python matches
@@ -132,7 +152,7 @@ if(SWIG_FOUND)
             endif()
         endif()
         if(PYTHONLIBS_FOUND)
-            include_directories(${PYTHON_INCLUDE_PATH})
+            include_directories(${PYTHON_INCLUDE_DIRS})
 #                set(CMAKE_SWIG_FLAGS "")
             set(CMAKE_SWIG_FLAGS "-keyword") # is necessary for using keyword args
 # other options which should be evaluated: -builtin, -modern, -extranative
@@ -153,16 +173,25 @@ if(SWIG_FOUND)
             if ((GNU_COMPILER OR CLANG_COMPILER) AND NOT APPLE)
                 swig_link_libraries(libtraci -Wl,--whole-archive libtracistatic ${libtcpip} -Wl,--no-whole-archive)
             else()
-                set_property(TARGET ${SWIG_MODULE_libtraci_REAL_NAME} PROPERTY FOLDER "libtraci")
-                swig_link_libraries(libtraci libtracistatic ${libtcpip} ${PYTHON_LIBRARIES})
+                set_target_properties(${SWIG_MODULE_libtraci_REAL_NAME} PROPERTIES FOLDER "libtraci")
+                if (SKBUILD OR ${CMAKE_VERSION} VERSION_LESS 3.14.0)
+                    swig_link_libraries(libtraci libtracistatic ${libtcpip} ${PYTHON_LIBRARIES})
+                else()
+                    # using target fixes segfault in macos, swig_link_libraries is also deprecated
+                    target_link_libraries(libtraci libtracistatic ${libtcpip} Python::Module)
+                endif()
             endif()
             if (WIN32)
                 swig_link_libraries(libtraci ${PYTHON_LIBRARIES})
             endif()
-            if (NOT ${SETUPTOOLS_MISSING})
-                install(
-                    CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/build/setup-libtraci.py clean --all install --root=\$ENV{DESTDIR}/ --prefix=${CMAKE_INSTALL_PREFIX} --optimize=1)"
-                    COMPONENT pylibtraci)
+            if (NOT ${PYTHON_SETUPTOOLS_MISSING})
+                if (${PYTHON_BUILD_MISSING})
+                    install(CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} ${TOOLS_DIR}/build/setup-libtraci.py clean --all install --root=\$ENV{DESTDIR}/ --prefix=${CMAKE_INSTALL_PREFIX} --optimize=1)"
+                            COMPONENT pylibtraci)
+                else ()
+                    install(CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} ./build/version.py ./build/setup-libtraci.py ./setup.py COMMAND ${PYTHON_EXECUTABLE} -m pip install --root=\$ENV{DESTDIR}/ --prefix=${CMAKE_INSTALL_PREFIX} . WORKING_DIRECTORY ${TOOLS_DIR})"
+                            COMPONENT pylibtraci)
+                endif()
             endif()
         else()
             message(WARNING "ENABLE_PYTHON_BINDINGS is set but Python libraries were not found.")

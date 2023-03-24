@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -72,7 +72,7 @@ NLTriggerBuilder::setHandler(NLHandler* handler) {
 
 void
 NLTriggerBuilder::buildVaporizer(const SUMOSAXAttributes& attrs) {
-    WRITE_WARNING("Vaporizers are deprecated. Use rerouters instead.");
+    WRITE_WARNING(TL("Vaporizers are deprecated. Use rerouters instead."));
     bool ok = true;
     // get the id, throw if not given or empty...
     std::string id = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
@@ -81,7 +81,7 @@ NLTriggerBuilder::buildVaporizer(const SUMOSAXAttributes& attrs) {
     }
     MSEdge* e = MSEdge::dictionary(id);
     if (e == nullptr) {
-        WRITE_ERROR("Unknown edge ('" + id + "') referenced in a vaporizer.");
+        WRITE_ERRORF(TL("Unknown edge ('%') referenced in a vaporizer."), id);
         return;
     }
     SUMOTime begin = attrs.getSUMOTimeReporting(SUMO_ATTR_BEGIN, nullptr, ok);
@@ -90,11 +90,11 @@ NLTriggerBuilder::buildVaporizer(const SUMOSAXAttributes& attrs) {
         return;
     }
     if (begin < 0) {
-        WRITE_ERROR("A vaporization begin time is negative (edge id='" + id + "').");
+        WRITE_ERRORF(TL("A vaporization begin time is negative (edge id='%')."), id);
         return;
     }
     if (begin >= end) {
-        WRITE_ERROR("A vaporization ends before it starts (edge id='" + id + "').");
+        WRITE_ERRORF(TL("A vaporization ends before it starts (edge id='%')."), id);
         return;
     }
     if (end >= string2time(OptionsCont::getOptions().getString("begin"))) {
@@ -188,12 +188,12 @@ NLTriggerBuilder::parseAndBuildOverheadWireSegment(MSNet& net, const SUMOSAXAttr
         the overhead wire segment references a non-existent lane. */
     MSLane* const lane = getLane(attrs, "overheadWireSegment", id);
     if (lane == nullptr) {
-        WRITE_MESSAGE("The overheadWireSegment '" + id + "' was not created as it is attached to internal lane. It will be build automatically.");
+        WRITE_MESSAGEF(TL("The overheadWireSegment '%' was not created as it is attached to internal lane. It will be build automatically."), id);
         return;
     }
 
     if (lane->isInternal()) {
-        WRITE_MESSAGE("The overheadWireSegment '" + id + "' not built as it is attached to internal lane. It will be build automatically.");
+        WRITE_MESSAGEF(TL("The overheadWireSegment '%' not built as it is attached to internal lane. It will be build automatically."), id);
         return;
     }
 
@@ -205,7 +205,7 @@ NLTriggerBuilder::parseAndBuildOverheadWireSegment(MSNet& net, const SUMOSAXAttr
     if (!ok || myHandler->checkStopPos(frompos, topos, lane->getLength(), POSITION_EPS, friendlyPos) != SUMORouteHandler::StopPos::STOPPOS_VALID) {
         frompos = 0;
         topos = lane->getLength();
-        WRITE_MESSAGE("The overheadWireSegment '" + id + "' has wrong position. Automatically set from 0 to the length of the lane.");
+        WRITE_MESSAGEF(TL("The overheadWireSegment '%' has wrong position. Automatically set from 0 to the length of the lane."), id);
         //throw InvalidArgument("Invalid position for overheadWireSegment'" + id + "'.");
     }
 
@@ -213,7 +213,7 @@ NLTriggerBuilder::parseAndBuildOverheadWireSegment(MSNet& net, const SUMOSAXAttr
 #ifndef HAVE_EIGEN
     if (MSGlobals::gOverheadWireSolver && !myHaveWarnedAboutEigen) {
         myHaveWarnedAboutEigen = true;
-        WRITE_WARNING("Overhead wire solver (Eigen) not compiled in, expect errors in overhead wire simulation")
+        WRITE_WARNING(TL("Overhead wire solver (Eigen) not compiled in, expect errors in overhead wire simulation"))
     }
 #endif // !HAVE_EIGEN
 }
@@ -373,17 +373,17 @@ NLTriggerBuilder::parseAndBuildOverheadWireSection(MSNet& net, const SUMOSAXAttr
                     clamp->usage = true;
                 } else {
                     if (clamp->start->getTractionSubstation() != substation) {
-                        WRITE_WARNING("A connecting overhead wire start segment '" + clamp->start->getID() + "' defined for overhead wire clamp '" + clampID + "' is not assigned to the traction substation '" + substationId + "'.");
+                        WRITE_WARNINGF(TL("A connecting overhead wire start segment '%' defined for overhead wire clamp '%' is not assigned to the traction substation '%'."), clamp->start->getID(), clampID, substationId);
                     } else {
-                        WRITE_WARNING("A connecting overhead wire end segment '" + clamp->end->getID() + "' defined for overhead wire clamp '" + clampID + "' is not assigned to the traction substation '" + substationId + "'.");
+                        WRITE_WARNINGF(TL("A connecting overhead wire end segment '%' defined for overhead wire clamp '%' is not assigned to the traction substation '%'."), clamp->end->getID(), clampID, substationId);
                     }
                 }
             } else {
-                WRITE_WARNING("The overhead wire clamp '" + clampID + "' defined in an overhead wire section was not assigned to the substation '" + substationId + "'. Please define proper <overheadWireClamp .../> in additional files before defining overhead wire section.");
+                WRITE_WARNINGF(TL("The overhead wire clamp '%' defined in an overhead wire section was not assigned to the substation '%'. Please define proper <overheadWireClamp .../> in additional files before defining overhead wire section."), clampID, substationId);
             }
         }
 #else
-        WRITE_WARNING("Overhead circuit solver requested, but solver support (Eigen) not compiled in.");
+        WRITE_WARNING(TL("Overhead circuit solver requested, but solver support (Eigen) not compiled in."));
 #endif
     }
 
@@ -394,7 +394,7 @@ NLTriggerBuilder::parseAndBuildOverheadWireSection(MSNet& net, const SUMOSAXAttr
         // check that the electric circuit makes sense
         segments[0]->getCircuit()->checkCircuit(substationId);
 #else
-        WRITE_WARNING("Cannot check circuit, overhead circuit solver support (Eigen) not compiled in.");
+        WRITE_WARNING(TL("Cannot check circuit, overhead circuit solver support (Eigen) not compiled in."));
 #endif
     }
 }
@@ -466,10 +466,10 @@ NLTriggerBuilder::parseAndBuildOverheadWireClamp(MSNet& /*net*/, const SUMOSAXAt
         }
 #else
         UNUSED_PARAMETER(attrs);
-        WRITE_WARNING("Not building overhead wire clamps, overhead wire solver support (Eigen) not compiled in.");
+        WRITE_WARNING(TL("Not building overhead wire clamps, overhead wire solver support (Eigen) not compiled in."));
 #endif
     } else {
-        WRITE_WARNING("Ignoring overhead wire clamps, they make no sense when overhead wire circuit solver is off.");
+        WRITE_WARNING(TL("Ignoring overhead wire clamps, they make no sense when overhead wire circuit solver is off."));
     }
 }
 
@@ -523,7 +523,7 @@ NLTriggerBuilder::addAccess(MSNet& /* net */, const SUMOSAXAttributes& attrs) {
     // get the lane
     MSLane* lane = getLane(attrs, "access", myCurrentStop->getID());
     if (!lane->allowsVehicleClass(SVC_PEDESTRIAN)) {
-        WRITE_WARNING("Ignoring invalid access from non-pedestrian lane '" + lane->getID() + "' in busStop '" + myCurrentStop->getID() + "'.");
+        WRITE_WARNINGF(TL("Ignoring invalid access from non-pedestrian lane '%' in busStop '%'."), lane->getID(), myCurrentStop->getID());
         return;
     }
     // get the positions
@@ -669,26 +669,29 @@ NLTriggerBuilder::parseAndBuildRerouter(MSNet& net, const SUMOSAXAttributes& att
     if (!ok) {
         throw ProcessError();
     }
+    if (MSTriggeredRerouter::getInstances().count(id) > 0) {
+        throw InvalidArgument("Could not build rerouter '" + id + "'; probably declared twice.");
+    }
     MSEdgeVector edges;
     for (const std::string& edgeID : attrs.get<std::vector<std::string> >(SUMO_ATTR_EDGES, id.c_str(), ok)) {
         MSEdge* edge = MSEdge::dictionary(edgeID);
         if (edge == nullptr) {
-            throw InvalidArgument("The edge '" + edgeID + "' to use within MSTriggeredRerouter '" + id + "' is not known.");
+            throw InvalidArgument("The edge '" + edgeID + "' to use within rerouter '" + id + "' is not known.");
         }
         edges.push_back(edge);
     }
     if (!ok) {
-        throw InvalidArgument("The edge to use within MSTriggeredRerouter '" + id + "' is not known.");
+        throw InvalidArgument("The edge to use within rerouter '" + id + "' is not known.");
     }
     if (edges.size() == 0) {
-        throw InvalidArgument("No edges found for MSTriggeredRerouter '" + id + "'.");
+        throw InvalidArgument("No edges found for rerouter '" + id + "'.");
     }
     double prob = attrs.getOpt<double>(SUMO_ATTR_PROB, id.c_str(), ok, 1);
     bool off = attrs.getOpt<bool>(SUMO_ATTR_OFF, id.c_str(), ok, false);
     SUMOTime timeThreshold = TIME2STEPS(attrs.getOpt<double>(SUMO_ATTR_HALTING_TIME_THRESHOLD, id.c_str(), ok, 0));
     const std::string vTypes = attrs.getOpt<std::string>(SUMO_ATTR_VTYPES, id.c_str(), ok, "");
     if (!ok) {
-        throw InvalidArgument("Could not parse MSTriggeredRerouter '" + id + "'.");
+        throw InvalidArgument("Could not parse rerouter '" + id + "'.");
     }
     MSTriggeredRerouter* trigger = buildRerouter(net, id, edges, prob, off, timeThreshold, vTypes);
     // read in the trigger description

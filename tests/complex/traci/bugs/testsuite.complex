@@ -126,3 +126,7 @@ ticket10212b
 
 # bestlanes must be updated after changing vClass
 ticket11117
+
+# moveXY after aborting stop with setStop
+ticket11870
+

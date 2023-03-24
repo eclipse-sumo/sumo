@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2006-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2006-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -69,14 +69,14 @@ MFXStaticToolTip::enableStaticToolTip(const bool value) {
 }
 
 
-bool 
+bool
 MFXStaticToolTip::isStaticToolTipEnabled() const {
     return myEnableStaticTooltip;
 }
 
 
-void 
-MFXStaticToolTip::showStaticToolTip(const FXString &toolTipText) {
+void
+MFXStaticToolTip::showStaticToolTip(const FXString& toolTipText) {
     if (!myEnableStaticTooltip || toolTipText.empty()) {
         hideStaticToolTip();
     } else {
@@ -90,7 +90,7 @@ MFXStaticToolTip::showStaticToolTip(const FXString &toolTipText) {
 }
 
 
-void 
+void
 MFXStaticToolTip::hideStaticToolTip() {
     // clear text
     setText("");
@@ -110,7 +110,7 @@ MFXStaticToolTip::onPaint(FXObject* sender, FXSelector sel, void* obj) {
 }
 
 
-long 
+long
 MFXStaticToolTip::onUpdate(FXObject* sender, FXSelector sel, void* ptr) {
     // Regular GUI update
     FXWindow::onUpdate(sender, sel, ptr);
@@ -120,7 +120,7 @@ MFXStaticToolTip::onUpdate(FXObject* sender, FXSelector sel, void* ptr) {
         hide();
     } else {
         popped = TRUE;
-        FXint x,y; 
+        FXint x, y;
         FXuint state;
         getRoot()->getCursorPosition(x, y, state);
         place(x, y);

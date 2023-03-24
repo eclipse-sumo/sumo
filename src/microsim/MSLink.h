@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2002-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -17,7 +17,7 @@
 /// @author  Michael Behrisch
 /// @date    Sept 2002
 ///
-// A connnection between lanes
+// A connection between lanes
 /****************************************************************************/
 #pragma once
 #include <config.h>
@@ -46,7 +46,7 @@ class MSTrafficLightLogic;
 // ===========================================================================
 /**
  * @class MSLinks
- * @brief A connnection between lanes
+ * @brief A connection between lanes
  *
  * A link is basically a connection between two lanes, stored within the
  *  originating (the one that is being left) lane and pointing to the
@@ -67,18 +67,46 @@ class MSTrafficLightLogic;
 class MSLink {
 public:
 
+    /** @enum LinkLeaderFlag
+     * @brief additional information for link leaders
+     */
+    enum LinkLeaderFlag {
+        /// @brief vehicle is in the way
+        LL_IN_THE_WAY = 1 << 0,
+        /// @brief link leader is passing from left to right
+        LL_FROM_LEFT = 1 << 1,
+        /// @brief link leader is coming from the same (normal) lane
+        LL_SAME_SOURCE = 1 << 2,
+        /// @brief link leader is targeting the same outgoing lane
+        LL_SAME_TARGET = 1 << 3
+    };
+
     struct LinkLeader {
-        LinkLeader(MSVehicle* _veh, double _gap, double _distToCrossing, bool _fromLeft = true, bool _inTheWay = false) :
+        LinkLeader(MSVehicle* _veh, double _gap, double _distToCrossing, int _llFlags = LL_FROM_LEFT, double _latOffst = 0) :
             vehAndGap(std::make_pair(_veh, _gap)),
             distToCrossing(_distToCrossing),
-            fromLeft(_fromLeft),
-            inTheWay(_inTheWay) {
+            llFlags(_llFlags),
+            latOffset(_latOffst)
+        { }
+
+        inline bool fromLeft() const {
+            return (llFlags & LL_FROM_LEFT) != 0;
+        }
+        inline bool inTheWay() const {
+            return (llFlags & LL_IN_THE_WAY) != 0;
+        }
+        inline bool sameTarget() const {
+            return (llFlags & LL_SAME_TARGET) != 0;
+        }
+        inline bool sameSource() const {
+            return (llFlags & LL_SAME_SOURCE) != 0;
         }
 
         std::pair<MSVehicle*, double> vehAndGap;
         double distToCrossing;
-        bool fromLeft;
-        bool inTheWay;
+        int llFlags;
+        double latOffset;
+
     };
 
     typedef std::vector<LinkLeader> LinkLeaders;
@@ -137,6 +165,46 @@ public:
     typedef std::map<const SUMOVehicle*, const ApproachingVehicleInformation, ComparatorNumericalIdLess> ApproachInfos;
     typedef std::vector<const SUMOVehicle*> BlockingFoes;
 
+    enum ConflictFlag {
+        CONFLICT_DEFAULT,
+        CONFLICT_DUMMY_MERGE,
+        CONFLICT_NO_INTERSECTION,
+        CONFLICT_STOP_AT_INTERNAL_JUNCTION
+    };
+
+    /// @brief pre-computed information for conflict points
+    struct ConflictInfo {
+
+        ConflictInfo(double lbc, double cs, ConflictFlag fl = CONFLICT_DEFAULT) :
+            foeConflictIndex(-1),
+            lengthBehindCrossing(lbc),
+            conflictSize(cs),
+            flag(fl)
+        {}
+        /// @brief the conflict from the perspective of the foe
+        int foeConflictIndex;
+        /// @brief length of internal lane after the crossing point
+        double lengthBehindCrossing;
+        /// @brief the length of the conflict space
+        double conflictSize;
+
+        ConflictFlag flag;
+
+        double getFoeLengthBehindCrossing(const MSLink* foeExitLink) const;
+        double getFoeConflictSize(const MSLink* foeExitLink) const;
+        double getLengthBehindCrossing(const MSLink* exitLink) const;
+    };
+
+    /// @brief holds user defined conflict positions (must be interpreted for the correct exitLink)
+    struct CustomConflict {
+        CustomConflict(const MSLane* f, const MSLane* t, double s, double e) :
+            from(f), to(t), startPos(s), endPos(e) {}
+        const MSLane* from;
+        const MSLane* to;
+        double startPos;
+        double endPos;
+    };
+
     /** @brief Constructor for simulation which uses internal lanes
      *
      * @param[in] succLane The lane approached by this link
@@ -161,6 +229,7 @@ public:
     /// @brief Destructor
     ~MSLink();
 
+    void addCustomConflict(const MSLane* from, const MSLane* to, double startPos, double endPos);
 
     /** @brief Sets the request information
      *
@@ -568,8 +637,8 @@ public:
         return myFoeLanes;
     }
 
-    const std::vector<std::pair<double, double> >& getLengthsBehindCrossing() const {
-        return myLengthsBehindCrossing;
+    const std::vector<ConflictInfo>& getConflicts() const {
+        return myConflicts;
     }
 
     const std::vector<MSLink*>& getFoeLinks() const {
@@ -587,6 +656,9 @@ public:
     /// @brief get string description for this link
     std::string  getDescription() const;
 
+    /// @brief post-processing for legacy networks
+    static void recheckSetRequestInformation();
+
 private:
     /// @brief return whether the given vehicles may NOT merge safely
     static inline bool unsafeMergeSpeeds(double leaderSpeed, double followerSpeed, double leaderDecel, double followerDecel) {
@@ -603,7 +675,13 @@ private:
     void checkWalkingAreaFoe(const MSVehicle* ego, const MSLane* foeLane, std::vector<const MSPerson*>* collectBlockers, LinkLeaders& result) const;
 
     /// @brief whether the given person is in front of the car
-    bool isInFront(const MSVehicle* ego, const PositionVector& egoPath, const MSPerson* p) const;
+    bool isInFront(const MSVehicle* ego, const PositionVector& egoPath, const Position& pPos) const;
+
+    /// @brief whether the given person is walking towards the car
+    bool isOnComingPed(const MSVehicle* ego, const MSPerson* p) const;
+
+    /// @brief return extrapolated position of the given person after the given time
+    Position getFuturePosition(const MSPerson* p, double timeHorizon = 1) const;
 
     bool blockedByFoe(const SUMOVehicle* veh, const ApproachingVehicleInformation& avi,
                       SUMOTime arrivalTime, SUMOTime leaveTime, double arrivalSpeed, double leaveSpeed,
@@ -626,6 +704,9 @@ private:
     static bool lateralOverlap(double posLat, double width, double posLat2, double width2);
 
     static bool ignoreFoe(const SUMOTrafficObject* ego, const SUMOVehicle* foe);
+
+    /// @brief return CustomConflict with foeLane if it is defined
+    const CustomConflict* getCustomConflict(const MSLane* foeLane) const;
 
 private:
     /// @brief The lane behind the junction approached by this link
@@ -698,15 +779,21 @@ private:
     double myLateralShift;
 
     /* @brief lengths after the crossing point with foeLane
-     * (lengthOnThis, lengthOnFoe)
      * (index corresponds to myFoeLanes)
      * empty vector for entry links
      * */
-    std::vector<std::pair<double, double> > myLengthsBehindCrossing;
+    std::vector<ConflictInfo> myConflicts;
+
+    std::vector<CustomConflict> myCustomConflicts;
 
     // TODO: documentation
     std::vector<MSLink*> myFoeLinks;
     std::vector<const MSLane*> myFoeLanes;
+
+    /* prioritized links when the traffic light is switched off (only needed for RightOfWay::ALLWAYSTOP)
+     * @note stored as a pointer to save space since it won't be used in most cases
+     */
+    std::vector<MSLink*>* myOffFoeLinks;
 
     /// @brief walkingArea that must be checked when entering the intersection
     const MSLane* myWalkingAreaFoe;
@@ -729,6 +816,9 @@ private:
 
     static const SUMOTime myLookaheadTime;
     static const SUMOTime myLookaheadTimeZipper;
+
+    /// @brief links that need post processing after initialization (to deal with legacy networks)
+    static std::set<std::pair<MSLink*, MSLink*> > myRecheck;
 
     MSLink* myParallelRight;
     MSLink* myParallelLeft;

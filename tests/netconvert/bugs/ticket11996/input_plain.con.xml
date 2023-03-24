@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-11-09 15:28:21 by Eclipse SUMO netconvert Version v1_15_0+0080-34c5855
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.net.xml"/>
+    </input>
+
+    <output>
+        <plain-output-prefix value="input_plain"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="0"/>
+        <junctions.limit-turn-speed value="-1.00"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<connections version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+    <connection from="CE" to="EC" fromLane="0" toLane="0"/>
+
+    <connection from="CN" to="NC" fromLane="0" toLane="0"/>
+
+    <connection from="CW" to="WC" fromLane="0" toLane="0"/>
+
+    <connection from="EC" to="CW" fromLane="0" toLane="0"/>
+
+    <connection from="NC" to="CW" fromLane="0" toLane="0" contPos="20.00"/>
+    <connection from="NC" to="CE" fromLane="0" toLane="0"/>
+
+    <connection from="WC" to="CE" fromLane="0" toLane="0"/>
+    <connection from="WC" to="CN" fromLane="0" toLane="0"/>
+
+</connections>

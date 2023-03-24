@@ -1,7 +1,7 @@
 /* XPM */
 static const char *vclass_custom1_xpm[] = {
 /* columns rows colors chars-per-pixel */
-"64 32 256 2 ",
+"64 32 256 2",
 "   c #D80027",
 ".  c #D80128",
 "X  c #D80229",

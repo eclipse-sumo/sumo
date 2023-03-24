@@ -14,10 +14,8 @@
 # Bash script for the test run of the debug version.
 # Sets environment variables respecting SUMO_HOME and starts texttest.
 
-if test `uname` = "Darwin"; then #macOS specific exports
-  export LC_ALL=C
-  export LANG=C
-fi
+export LC_ALL=C
+export LANG=C
 
 OLDDIR=$PWD
 cd `dirname $0`
@@ -29,6 +27,7 @@ fi
 cd $OLDDIR
 # for clang sanitizer tests
 export LSAN_OPTIONS=suppressions=$SUMO_HOME/build/clang_memleak_suppressions.txt
+export UBSAN_OPTIONS=suppressions=$SUMO_HOME/build/clang_ubsan_suppressions.txt
 
 export ACTIVITYGEN_BINARY="$SUMO_HOME/bin/activitygenD"
 export DFROUTER_BINARY="$SUMO_HOME/bin/dfrouterD"

@@ -11,4 +11,9 @@
         <no-warnings value="false"/>
     </report>
 
+	<time>
+        <begin value="0"/>
+		<end value="3600"/>
+    </time>
+
 </configuration>

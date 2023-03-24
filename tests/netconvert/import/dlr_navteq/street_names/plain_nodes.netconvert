@@ -31,7 +31,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<nodes version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+<nodes version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
     <location netOffset="-328248.16,-5776623.10" convBoundary="0.00,0.00,39850.14,26514.76" origBoundary="1248456.000000,5211834.000000,1306826.000000,5235677.000000" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
     <node id="0" x="17007.34" y="13405.73" type="priority"/>

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -155,7 +155,7 @@ NLEdgeControlBuilder::applyDefaultStopOffsetsToLanes() {
 
 void
 NLEdgeControlBuilder::addNeigh(const std::string id) {
-    myLaneStorage->back()->addNeigh(id);
+    myOppositeLanes.push_back({myLaneStorage->back(), id});
 }
 
 
@@ -179,9 +179,25 @@ NLEdgeControlBuilder::closeLane() {
 
 
 MSEdgeControl*
-NLEdgeControlBuilder::build(double networkVersion) {
+NLEdgeControlBuilder::build(const MMVersion& networkVersion) {
     if (MSGlobals::gUseMesoSim && !OptionsCont::getOptions().getBool("meso-lane-queue")) {
         MSEdge::setMesoIgnoredVClasses(parseVehicleClasses(OptionsCont::getOptions().getStringVector("meso-ignore-lanes-by-vclass")));
+    }
+    // connecting opposite lanes must happen before MSEdge::closeBuilding
+    for (auto item : myOppositeLanes) {
+        MSLane* oppo = MSLane::dictionary(item.second);
+        if (oppo == nullptr) {
+            WRITE_ERRORF("Unknown neigh lane '%' for lane '%'", item.second, item.first->getID());
+        } else {
+            item.first->setOpposite(oppo);
+        }
+    }
+    // consistency check
+    for (auto item : myOppositeLanes) {
+        if (item.first->getOpposite() != nullptr && item.first->getOpposite()->getOpposite() != item.first) {
+            WRITE_WARNINGF(TL("Asymmetrical neigh lane '%' for lane '%'"), item.second, item.first->getID());
+            item.first->getOpposite()->setOpposite(item.first);
+        }
     }
     for (MSEdge* const edge : myEdges) {
         edge->closeBuilding();
@@ -199,7 +215,7 @@ NLEdgeControlBuilder::build(double networkVersion) {
         for (MSEdge* const edge : myEdges) {
             if (edge->isInternal()) {
                 if (edge->getNumSuccessors() != 1 || edge->getNumPredecessors() != 1) {
-                    throw ProcessError("Internal edge '" + edge->getID() + "' is not properly connected (probably a manually modified net.xml).");
+                    throw ProcessError(TLF("Internal edge '%' is not properly connected (probably a manually modified net.xml).", edge->getID()));
                 }
                 if (edge->getSuccessors()[0]->isRoundabout() || edge->getPredecessors()[0]->isRoundabout()) {
                     edge->markAsRoundabout();
@@ -208,15 +224,15 @@ NLEdgeControlBuilder::build(double networkVersion) {
         }
     }
     if (!deprecatedVehicleClassesSeen.empty()) {
-        WRITE_WARNING("Deprecated vehicle classes '" + toString(deprecatedVehicleClassesSeen) + "' in input network.");
+        WRITE_WARNINGF(TL("Deprecated vehicle classes '%' in input network."), toString(deprecatedVehicleClassesSeen));
         deprecatedVehicleClassesSeen.clear();
     }
     // check for bi-directional edges (this are edges in opposing direction and superposable/congruent shapes)
-    if (myBidiEdges.size() > 0 || networkVersion > 1.0) {
+    if (myBidiEdges.size() > 0 || networkVersion > MMVersion(1, 0)) {
         for (auto& item : myBidiEdges) {
             item.first->checkAndRegisterBiDirEdge(item.second);
         }
-        //WRITE_MESSAGE("Loaded " + toString(myBidiEdges.size()) + " bidirectional edges");
+        //WRITE_MESSAGEF(TL("Loaded % bidirectional edges"), toString(myBidiEdges.size()));
     } else {
         // legacy network
         for (MSEdge* e : myEdges) {

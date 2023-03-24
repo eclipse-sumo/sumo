@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -26,7 +26,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # recompute
 netedit.rebuildNetwork()
@@ -38,40 +38,37 @@ netedit.additionalMode()
 netedit.changeElement("multiLaneAreaDetector")
 
 # create E2 with default parameters
-netedit.leftClick(referencePosition, 190, 250)
-netedit.leftClick(referencePosition, 440, 250)
+netedit.leftClick(referencePosition, 426, 253)
+netedit.leftClick(referencePosition, 496, 208)
 netedit.typeEnter()
 
 # go to additional mode
 netedit.inspectMode()
 
 # inspect E2
-netedit.leftClick(referencePosition, 320, 250)
+netedit.leftClick(referencePosition, 486, 253)
 
 # Change parameter lanes with a non valid value (dummy
-netedit.modifyAttribute(netedit.attrs.E2Multilane.inspect.lanes, "dummyLane1 dummyLan2", True)
+netedit.modifyAttribute(netedit.attrs.E2Multilane.inspect.lanes, "dummyLane1 dummyLane2", True)
 
 # Change parameter lanes with a non valid value (Invalid ID)
 netedit.modifyAttribute(netedit.attrs.E2Multilane.inspect.lanes, "Id with spaces", True)
 
 # Change parameter lanes with a non valid value (single lane)
-netedit.modifyAttribute(netedit.attrs.E2Multilane.inspect.lanes, "gneE4_0", True)
+netedit.modifyAttribute(netedit.attrs.E2Multilane.inspect.lanes, "top_0", True)
 
 # Change parameter lanes with a non valid value (non consecutive lanes)
-netedit.modifyAttribute(netedit.attrs.E2Multilane.inspect.lanes, "gneE0_0 gneE4_0", True)
+netedit.modifyAttribute(netedit.attrs.E2Multilane.inspect.lanes, "center1_1 bot_0", True)
 
 # Change parameter lanes with a valid value
-netedit.modifyAttribute(netedit.attrs.E2Multilane.inspect.lanes, "gneE4_0 gneE5_0", True)
+netedit.modifyAttribute(netedit.attrs.E2Multilane.inspect.lanes, "center0_1 center1_1", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)
 netedit.redo(referencePosition, 2)
 
-# save additionals
-netedit.saveAdditionals(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -34,15 +34,15 @@
 // ===========================================================================
 
 GNELaneType::GNELaneType(GNEEdgeType* edgeTypeParent) :
-    GNENetworkElement(edgeTypeParent->getNet(), "", GLO_LANE, SUMO_TAG_LANETYPE, GUIIconSubSys::getIcon(GUIIcon::LANETYPE), {}, {}, {}, {}, {}, {}),
-    myEdgeTypeParent(edgeTypeParent) {
+    GNENetworkElement(edgeTypeParent->getNet(), "", GLO_LANETYPE, SUMO_TAG_LANETYPE, GUIIconSubSys::getIcon(GUIIcon::LANETYPE), {}, {}, {}, {}, {}, {}),
+myEdgeTypeParent(edgeTypeParent) {
 }
 
 
 GNELaneType::GNELaneType(GNEEdgeType* edgeTypeParent, const NBTypeCont::LaneTypeDefinition& laneType) :
-    GNENetworkElement(edgeTypeParent->getNet(), "", GLO_LANE, SUMO_TAG_LANETYPE, GUIIconSubSys::getIcon(GUIIcon::LANETYPE), {}, {}, {}, {}, {}, {}),
-    NBTypeCont::LaneTypeDefinition(laneType),
-    myEdgeTypeParent(edgeTypeParent) {
+    GNENetworkElement(edgeTypeParent->getNet(), "", GLO_LANETYPE, SUMO_TAG_LANETYPE, GUIIconSubSys::getIcon(GUIIcon::LANETYPE), {}, {}, {}, {}, {}, {}),
+NBTypeCont::LaneTypeDefinition(laneType),
+myEdgeTypeParent(edgeTypeParent) {
 }
 
 
@@ -97,12 +97,6 @@ GNELaneType::removeGeometryPoint(const Position /*clickedPosition*/, GNEUndoList
 GUIGLObjectPopupMenu*
 GNELaneType::getPopUpMenu(GUIMainWindow& /*app*/, GUISUMOAbstractView& /*parent*/) {
     return nullptr;
-}
-
-
-double
-GNELaneType::getExaggeration(const GUIVisualizationSettings& /*s*/) const {
-    return 1;
 }
 
 

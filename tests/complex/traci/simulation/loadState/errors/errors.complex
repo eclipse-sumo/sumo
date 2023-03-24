@@ -1,0 +1,5 @@
+Error: Answered with error to command 0xcb: Loading state from 'input_st.xml' failed. Cannot read file 'input_st.xml'!
+Error: Answered with error to command 0xcb: Loading state from 'input_state.xml' failed, check whether SUMO versions match. equal sign expected
+ In file 'input_state.xml'
+ At line/column 5/27.
+

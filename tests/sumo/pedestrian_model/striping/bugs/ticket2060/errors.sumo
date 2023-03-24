@@ -3,10 +3,8 @@ Warning: No connection between edge 'CE_depart_connector' and edge 'CN_arrival_c
 Warning: No connection between edge 'EC_depart_connector' and edge 'NC_arrival_connector' found.
 Warning: No connection between edge 'CE_depart_connector' and edge 'NC_arrival_connector' found.
 Warning: No connection between edge ':C_w1-1.00' and edge 'NC_arrival_connector' found.
-Warning: Person 'backward_backward' could not find route across junction 'C' from walkingArea ':C_w1' to edge 'NC', time=1.00.
 Warning: No connection between edge ':C_w1-1.00' and edge 'CN_arrival_connector' found.
 Warning: Person 'backward_forward' could not find route across junction 'C' from walkingArea ':C_w1' to edge 'CN', time=1.00.
 Warning: No connection between edge ':C_w1-1.00' and edge 'NC_arrival_connector' found.
 Warning: Person 'forward_backward' could not find route across junction 'C' from walkingArea ':C_w1' to edge 'NC', time=290.00.
 Warning: No connection between edge ':C_w1-1.00' and edge 'CN_arrival_connector' found.
-Warning: Person 'forward_forward' could not find route across junction 'C' from walkingArea ':C_w1' to edge 'CN', time=290.00.

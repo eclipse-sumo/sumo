@@ -1,0 +1,17 @@
+Warning: Unknown lane use specifier 'permissiv' ignored for way '38101625'
+Warning: Unknown lane use specifier 'permissiv' ignored for way '406730591'
+Warning: Unknown lane use specifier 'permissiv' ignored for way '576411466'
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.primary' (first occurrence for edge '4852528').
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.tertiary' (first occurrence for edge '38101627').
+Warning: No way found for reference '533775756' in relation '8405932'
+Warning: No way found for reference '12618874' in relation '8405932'
+Warning: Ignoring restriction relation '8405932' with unknown from-way.
+Warning: Ignoring restriction relation '8405932' with unknown to-way.
+Warning: No way found for reference '12802657' in relation '9370151'
+Warning: No way found for reference '38101622' in relation '9370151'
+Warning: Ignoring restriction relation '9370151' with unknown from-way.
+Warning: Ignoring restriction relation '9370151' with unknown to-way.
+Warning: The rail crossing '2281952944' does not have any roads.
+Warning: The rail crossing '660220992' does not have any roads.
+Warning: The rail crossing '7052192922' does not have any roads.
+Warning: The rail crossing '7052192923' does not have any roads.

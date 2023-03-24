@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2008-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2008-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -54,7 +54,7 @@ public:
      * Parses all attributes stored in "SUMOVehicleParameter".
      *
      * @see SUMOVehicleParameter
-     * @param[in] tag SumoXMLTag (used in NETEDIT)
+     * @param[in] tag SumoXMLTag (used in netedit)
      * @param[in] attr The SAX-attributes to get vehicle parameter from
      * @param[in] hardFail enable or disable hard fails if a parameter is invalid
      * @param[in] needID check if flow needs an Id (used by Calibrator flows)

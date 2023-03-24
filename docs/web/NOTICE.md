@@ -31,6 +31,11 @@ This Documentation leverages the following third party content:
 * Project: https://pypi.org/project/mkdocs-git-revision-date-plugin/
 * Source: https://github.com/zhaoterryy/mkdocs-git-revision-date-plugin
 
+### mkdocs-redirects
+* License: MIT License
+* Project: https://pypi.org/project/mkdocs-redirects/
+* Source: https://github.com/mkdocs/mkdocs-redirects
+
 ### mdx_truly_sane_lists
 * Author: @radude
 * License: MIT License

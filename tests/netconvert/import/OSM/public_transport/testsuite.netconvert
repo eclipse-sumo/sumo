@@ -40,3 +40,12 @@ bus_stop_mix_stops_platforms
 
 # import bus stops that use a non-redundant mix of stop and platform members in the route relation
 bus_stop_mix_stops_platforms_lefthand
+
+# wuppertal monorail
+monorail
+
+# wuppertal monorail
+monorail_all
+
+# medellin aerialway
+aerialway

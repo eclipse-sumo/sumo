@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -253,7 +253,7 @@ protected:
      * @brief tag generic data tag
      * @brief pathCreator flag to create pathCreator
      */
-    GNEGenericDataFrame(GNEViewParent *viewParent, GNEViewNet* viewNet, SumoXMLTag tag, const bool pathCreator);
+    GNEGenericDataFrame(GNEViewParent* viewParent, GNEViewNet* viewNet, SumoXMLTag tag, const bool pathCreator);
 
     /// @brief Destructor
     ~GNEGenericDataFrame();
@@ -262,7 +262,7 @@ protected:
     void intervalSelected();
 
     /// @brief create path
-    virtual void createPath(const bool useLastRoute);
+    virtual bool createPath(const bool useLastRoute);
 
     /// @brief dataSet selector modul
     DataSetSelector* myDataSetSelector;

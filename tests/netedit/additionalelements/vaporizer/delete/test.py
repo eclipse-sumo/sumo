@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -26,10 +26,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
-
-# recompute
-netedit.rebuildNetwork()
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # Change to delete
 netedit.deleteMode()
@@ -38,10 +35,10 @@ netedit.deleteMode()
 netedit.changeProtectAdditionalElements(referencePosition)
 
 # delete loaded vaporizer
-netedit.leftClick(referencePosition, 530, 182)
+netedit.leftClick(referencePosition, 246, 315)
 
 # delete lane with the loaded vaporizer
-netedit.leftClick(referencePosition, 310, 240)
+netedit.leftClick(referencePosition, 608, 209)
 
 # Check undo
 netedit.undo(referencePosition, 1)
@@ -53,16 +50,13 @@ netedit.deleteMode()
 netedit.changeProtectAdditionalElements(referencePosition)
 
 # try to delete lane with the  loaded vaporizer (doesn't allowed)
-netedit.leftClick(referencePosition, 310, 240)
+netedit.leftClick(referencePosition, 608, 209)
 
 # wait warning
 netedit.waitDeleteWarning()
 
-# save additionals
-netedit.saveAdditionals(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

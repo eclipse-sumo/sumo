@@ -30,3 +30,6 @@ roundabout_dense_geometry
 
 # see #6585
 high_overlap
+
+# see #12735
+curved_back

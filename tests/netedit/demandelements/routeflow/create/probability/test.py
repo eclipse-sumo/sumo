@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -26,7 +26,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to demand mode
 netedit.supermodeDemand()
@@ -49,47 +49,44 @@ netedit.vehicleMode()
 netedit.changeElement("flow (over route)")
 
 # set invalid arrival pos
-netedit.changeDefaultValue(netedit.attrs.routeflow.create.spacing, "dummySpacing")
+netedit.changeDefaultValue(netedit.attrs.routeFlow.create.spacing, "dummySpacing")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, 274, 392)
 
 # set invalid arrival pos
-netedit.changeDefaultValue(netedit.attrs.routeflow.create.spacing, "probability")
+netedit.changeDefaultValue(netedit.attrs.routeFlow.create.spacing, "probability")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, 274, 392)
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.routeflow.create.spacingOption, "dummy")
+netedit.changeDefaultValue(netedit.attrs.routeFlow.create.spacingOption, "dummy")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, 274, 392)
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.routeflow.create.spacingOption, "-30")
+netedit.changeDefaultValue(netedit.attrs.routeFlow.create.spacingOption, "-30")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, 274, 392)
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.routeflow.create.spacingOption, "20.5")
+netedit.changeDefaultValue(netedit.attrs.routeFlow.create.spacingOption, "20.5")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, 274, 392)
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.routeflow.create.spacingOption, "0.6")
+netedit.changeDefaultValue(netedit.attrs.routeFlow.create.spacingOption, "0.6")
 
 # Check undo redo
 netedit.undo(referencePosition, 4)
 netedit.redo(referencePosition, 4)
 
-# save routes
-netedit.saveRoutes(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -26,7 +26,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to demand mode
 netedit.supermodeDemand()
@@ -38,7 +38,7 @@ netedit.vehicleMode()
 netedit.changeElement("flow (from-to edges)")
 
 # set invalid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowFromToEdge.create.spacing, "dummySpacing")
+netedit.changeDefaultValue(netedit.attrs.flow.create.spacing, "dummySpacing")
 
 # try to create flow
 netedit.leftClick(referencePosition, 274, 392)
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set invalid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowFromToEdge.create.spacing, "vehsPerHour")
+netedit.changeDefaultValue(netedit.attrs.flow.create.spacing, "vehsPerHour")
 
 # create flow
 netedit.leftClick(referencePosition, 274, 392)
@@ -58,7 +58,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowFromToEdge.create.spacingOption, "dummy")
+netedit.changeDefaultValue(netedit.attrs.flow.create.spacingOption, "dummy")
 
 # create flow
 netedit.leftClick(referencePosition, 274, 392)
@@ -68,7 +68,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowFromToEdge.create.spacingOption, "-30")
+netedit.changeDefaultValue(netedit.attrs.flow.create.spacingOption, "-30")
 
 # create flow
 netedit.leftClick(referencePosition, 274, 392)
@@ -78,7 +78,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowFromToEdge.create.spacingOption, "20.5")
+netedit.changeDefaultValue(netedit.attrs.flow.create.spacingOption, "20.5")
 
 # create flow
 netedit.leftClick(referencePosition, 274, 392)
@@ -88,17 +88,14 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowFromToEdge.create.spacingOption, "22")
+netedit.changeDefaultValue(netedit.attrs.flow.create.spacingOption, "22")
 
 # Check undo redo
 netedit.undo(referencePosition, 4)
 netedit.redo(referencePosition, 4)
 
-# save routes
-netedit.saveRoutes(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

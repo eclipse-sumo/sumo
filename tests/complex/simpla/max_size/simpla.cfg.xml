@@ -1,0 +1,16 @@
+<configuration>
+    <vTypeMap original="car" leader="t_leader" follower="t_follower" catchup="t_catchup" catchupFollower="t_catchupFollower" />
+    <!-- controll all vehicles -->
+    <vehicleSelectors></vehicleSelectors> 
+    <verbosity value="4" ></verbosity>
+    <controlRate value="1" />
+    <maxVehicles value="3" />
+    <maxPlatoonGap value="15" />
+    <catchupDist value="100" />
+    <useHeadway value="false" />
+    <!-- deactivated -->
+    <switchImpatienceFactor value="-1" />
+    <platoonSplitTime value="3" ></platoonSplitTime>
+    <lcMode original="594" leader="594" follower="514" catchupFollower="514" />
+    <speedFactor original="-1" leader="1" follower="1.2" catchup="1.2"/>
+</configuration>

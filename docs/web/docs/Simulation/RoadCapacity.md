@@ -100,5 +100,5 @@ The script which produces the data points for the table below can be found [here
 Comments
 
 - default departSpeed is '0' which gives the worst possible insertion capacity
-- default sigma is '0.5' and default speeDev for passenger cars is 0.1
+- default sigma is '0.5' and default speedDev for passenger cars is 0.1
 - for the default *Krauss* model, step-length has a side effect on the average speed reduction from sigma (this can be remedied by setting `sigmaStep="1"` in the `vType`)

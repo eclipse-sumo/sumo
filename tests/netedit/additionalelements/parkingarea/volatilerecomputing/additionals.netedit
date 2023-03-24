@@ -1,33 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-03-04 11:01:51 by Eclipse SUMO netedit Version v1_12_0+1137-e9106068858
+<!-- generated on 2023-02-07 14:38:44 by Eclipse SUMO netedit Version v1_16_0+0024-1134bf4b789
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- StoppingPlaces -->
-    <parkingArea id="pa_7" lane="gneE0_0" startPos="22.00" endPos="32.00" length="5.00">
-        <space x="-10.00" y="39.00"/>
-    </parkingArea>
-    <parkingArea id="parkingArea_gneE1_0_6" lane="gneE1_0" startPos="19.00" endPos="29.00" length="5.00">
-        <space x="-10.00" y="33.00"/>
-    </parkingArea>
-    <parkingArea id="parkingArea_gneE2_0_5" lane="gneE2_0" startPos="8.00" endPos="18.00" length="5.00">
-        <space x="-10.00" y="27.00"/>
-    </parkingArea>
-    <parkingArea id="parkingArea_gneE2_1_4" lane="gneE2_1" startPos="16.00" endPos="26.00" length="5.00">
-        <space x="-10.00" y="21.00"/>
-    </parkingArea>
-    <parkingArea id="parkingArea_gneE2_2_3" lane="gneE2_2" startPos="23.00" endPos="33.00" length="5.00">
-        <space x="-10.00" y="15.00"/>
-    </parkingArea>
-    <parkingArea id="parkingArea_gneE2_3_2" lane="gneE2_3" startPos="31.00" endPos="41.00" length="5.00">
-        <space x="-10.00" y="9.00"/>
-    </parkingArea>
-    <parkingArea id="parkingArea_gneE2_4_1" lane="gneE2_4" startPos="38.00" endPos="48.00" length="5.00">
-        <space x="-10.00" y="3.00"/>
-    </parkingArea>
-    <parkingArea id="parkingArea_gneE4_0_0" lane="gneE4_0" startPos="11.55" endPos="21.55" length="5.00">
-        <space x="-10.00" y="-3.00"/>
-    </parkingArea>
-    <parkingArea id="parkingArea_gneE4_0_8" lane="gneE4_0" startPos="30.00" endPos="40.00" length="5.00"/>
+    <parkingArea id="pa_0" lane="center0_0" startPos="28.00" endPos="38.00"/>
+    <parkingArea id="pa_1" lane="center0_0" startPos="12.00" endPos="22.00"/>
+    <parkingArea id="pa_10" lane="center1_0" startPos="12.00" endPos="22.00"/>
+    <parkingArea id="pa_12" lane="center1_0" startPos="28.00" endPos="38.00"/>
+    <parkingArea id="pa_2" lane="center1_1" startPos="14.00" endPos="24.00"/>
+    <parkingArea id="pa_3" lane="center1_1" startPos="26.00" endPos="36.00"/>
+    <parkingArea id="pa_4" lane="top_0" startPos="12.00" endPos="22.00"/>
+    <parkingArea id="pa_5" lane="top_0" startPos="28.00" endPos="38.00"/>
+    <parkingArea id="pa_6" lane="bot_0" startPos="12.00" endPos="22.00"/>
+    <parkingArea id="pa_7" lane="bot_0" startPos="28.00" endPos="38.00"/>
+    <parkingArea id="pa_8" lane="center0_1" startPos="26.00" endPos="36.00"/>
+    <parkingArea id="pa_9" lane="center0_1" startPos="14.00" endPos="24.00"/>
 </additional>

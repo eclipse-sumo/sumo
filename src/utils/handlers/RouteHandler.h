@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -56,7 +56,7 @@ public:
 
     /// @brief build vType distribution
     virtual void buildVTypeDistribution(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id,
-                                        const std::vector<std::string>& vTypes) = 0;
+                                        const int deterministic, const std::vector<std::string>& vTypes) = 0;
 
     /// @brief build route
     virtual void buildRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, SUMOVehicleClass vClass,
@@ -79,19 +79,19 @@ public:
 
     /// @brief build trip (from-to edges)
     virtual void buildTrip(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
-                           const std::string& fromEdgeID, const std::string& toEdgeID, const std::vector<std::string>& viaIDs) = 0;
+                           const std::string& fromEdgeID, const std::string& toEdgeID) = 0;
 
     /// @brief build trip (from-to junctions)
-    virtual void buildTrip(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
-                           const std::string& fromJunctionID, const std::string& toJunctionID) = 0;
+    virtual void buildTripJunctions(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
+                                    const std::string& fromJunctionID, const std::string& toJunctionID) = 0;
 
     /// @brief build flow (from-to edges)
     virtual void buildFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
-                           const std::string& fromEdgeID, const std::string& toEdgeID, const std::vector<std::string>& viaIDs) = 0;
+                           const std::string& fromEdgeID, const std::string& toEdgeID) = 0;
 
     /// @brief build flow (from-to junctions)
-    virtual void buildFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
-                           const std::string& fromJunctionID, const std::string& toJunctionID) = 0;
+    virtual void buildFlowJunctions(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
+                                    const std::string& fromJunctionID, const std::string& toJunctionID) = 0;
 
     /// @brief build person
     virtual void buildPerson(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& personParameters) = 0;
@@ -133,6 +133,13 @@ public:
 
     /// @}
 
+    /// @brief get flag for check if a element wasn't created
+    bool isErrorCreatingElement() const;
+
+protected:
+    /// @brief write error and enable error creating element
+    void writeError(const std::string& error);
+
 private:
     /// @brief filename (needed for parsing vTypes)
     const std::string myFilename;
@@ -149,8 +156,11 @@ private:
     /// @brief common XML Structure
     CommonXMLStructure myCommonXMLStructure;
 
+    /// @brief flag for check if a element wasn't created
+    bool myErrorCreatingElement = false;
+
     /// @brief write error "invalid id"
-    void writeErrorInvalidID(const SumoXMLTag tag, const std::string& id) const;
+    void writeErrorInvalidID(const SumoXMLTag tag, const std::string& id);
 
     /// @name parse route element attributes
     /// @{
@@ -217,13 +227,13 @@ private:
     /// @}
 
     /// @brief parse stop parameters
-    bool parseStopParameters(SUMOVehicleParameter::Stop& stop, const SUMOSAXAttributes& attrs) const;
+    bool parseStopParameters(SUMOVehicleParameter::Stop& stop, const SUMOSAXAttributes& attrs);
 
     /// @brief check embedded route
     bool isEmbeddedRoute(const SUMOSAXAttributes& attrs) const;
 
     /// @brief check parents
-    void checkParent(const SumoXMLTag currentTag, const std::vector<SumoXMLTag>& parentTags, bool& ok) const;
+    void checkParent(const SumoXMLTag currentTag, const std::vector<SumoXMLTag>& parentTags, bool& ok);
 
     /// @brief invalidate copy constructor
     RouteHandler(const RouteHandler& s) = delete;

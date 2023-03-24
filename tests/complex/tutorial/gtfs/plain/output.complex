@@ -1,39 +1,6 @@
-function import_gtfs called at Wed, 21 Sep 2022 09:58:27 +0000
-function import_gtfs finished after 39.655824 seconds
+function import_gtfs called at Tue, 20 Dec 2022 08:03:16 +0000
+function import_gtfs finished after 7.798710 seconds
 Success.
 Success.
 Success.
 Success.
-Warning! No mapping library found, falling back to tracemapper.
-Warning! Disconnected route '733_109241', no path found. Keeping longer part.
-Warning! Disconnected route '733_109242', no path found. Keeping longer part.
-Warning! Disconnected route '733_109244', no path found. Keeping longer part.
-Warning! Disconnected route '733_280056', no path found. Keeping longer part.
-Warning! Disconnected route '733_280370', no path found. Keeping longer part.
-Warning! Disconnected route '733_280860', no path found. Keeping longer part.
-Warning! Disconnected route '733_281591', no path found. Keeping longer part.
-Warning! Disconnected route '733_281867', no path found. Keeping longer part.
-Warning! Disconnected route '733_285265', no path found. Keeping longer part.
-Warning! Fixed connection 736_281979 26
-Warning! Fixed connection 736_284866 26
-Warning! Disconnected route '428_2442', no path found. Keeping longer part.
-Warning! Disconnected route '733_284973', no path found. Keeping longer part.
-Warning! Fixed connection 363_202043 11
-Warning! Fixed connection 363_202125 14
-Warning! Disconnected route 'N62_236553', no path found. Keeping longer part.
-Warning! Disconnected route 'N62_236569', no path found. Keeping longer part.
-Warning! Fixed connection N68_236759 55
-Warning! Fixed connection X69_246782 22
-Warning! Fixed connection X69_247080 22
-Warning! Fixed connection X69_247100 22
-Warning! No net resources/gtfs/ferry.net.xml
-Warning! No net resources/gtfs/subway.net.xml
-Warning! Disconnected route '62_257596', no path found. Keeping longer part.
-Warning! Disconnected route '62_257696.trimmed', no path found. Keeping longer part.
-Warning! Disconnected route '62_257768', no path found. Keeping longer part.
-Warning! Disconnected route '62_257791', no path found. Keeping longer part.
-Warning! Disconnected route '68_259570', no path found. Keeping longer part.
-Warning! Disconnected route '68_259578', no path found. Keeping longer part.
-Warning! Disconnected route '68_259634.trimmed', no path found. Keeping longer part.
-Warning! Disconnected route '68_68252', no path found. Keeping longer part.
-Warning! Disconnected route '68_68266', no path found. Keeping longer part.

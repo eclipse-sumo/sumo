@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -38,17 +38,14 @@ netedit.changeElement("laneAreaDetector")
 netedit.changeDefaultBoolValue(netedit.attrs.E2.create.friendlyPos)
 
 # create E2 with different friendlyPos
-netedit.leftClick(referencePosition, 400, 220)
+netedit.leftClick(referencePosition, 427, 253)
 
 # Check undo redo
 netedit.undo(referencePosition, 1)
 netedit.redo(referencePosition, 1)
 
-# save additionals
-netedit.saveAdditionals(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

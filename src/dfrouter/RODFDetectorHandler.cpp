@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -83,7 +83,7 @@ RODFDetectorHandler::myStartElement(int element,
             RODFDetector* detector = new RODFDetector(id, lane, pos, type);
             if (!myContainer.addDetector(detector)) {
                 delete detector;
-                throw ProcessError("Could not add detector '" + id + "' (probably the id is already used).");
+                throw ProcessError(TLF("Could not add detector '%' (probably the id is already used).", id));
             }
         } catch (ProcessError& e) {
             if (myIgnoreErrors) {

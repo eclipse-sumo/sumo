@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-08-16 12:49:56 by Eclipse SUMO sumo Version v1_14_1+0331-153d228
+<!-- generated on 2023-01-11 14:02:01 by Eclipse SUMO sumo Version v1_15_0+1552-77b40087aab
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -47,6 +47,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <teleports total="0" jam="0" yield="0" wrongLane="0"/>
     <safety collisions="0" emergencyStops="0"/>
     <persons loaded="0" running="0" jammed="0"/>
+    <personTeleports total="0" abortWait="0" wrongDest="0"/>
     <vehicleTripStatistics count="60" routeLength="96.05" speed="5.54" duration="20.18" waitingTime="9.42" timeLoss="12.42" departDelay="4.47" departDelayWaiting="9.27" totalTravelTime="1211.00" totalDepartDelay="546.00"/>
     <pedestrianStatistics number="0" routeLength="0.00" duration="0.00" timeLoss="0.00"/>
     <rideStatistics number="0"/>

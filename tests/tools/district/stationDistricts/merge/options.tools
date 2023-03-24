@@ -1,0 +1,2 @@
+-n input_net.net.xml --stop-file input_additional.add.xml --output out.add.xml
+--merge

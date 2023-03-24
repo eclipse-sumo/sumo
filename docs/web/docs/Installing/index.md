@@ -91,6 +91,7 @@ If you want to use sumo-gui and/or netedit, you need to install XQuartz as a req
 ```
 brew install --cask xquartz
 ```
+It may be necessary to logout and login again or even reboot to activate the XQuartz integration.
 You can then install the latest stable release of SUMO (with minimal requirements: ```fox```, ```proj```, ```xerces-c```) with the following commands:
 ```
 brew tap dlr-ts/sumo

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2004-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2004-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -113,7 +113,7 @@ public:
     virtual FXint getDefaultHeight();
 
     /// @brief set tooltip text
-    void setToolTipText(const FXString &text);
+    void setToolTipText(const FXString& text);
 
     /// @brief save resources
     virtual void save(FXStream& store) const;
@@ -129,10 +129,10 @@ public:
 
     /// @brief called when mouse leaves in MFXMenuButtonTooltip
     long onLeave(FXObject* obj, FXSelector sel, void* ptr);
-    
+
     /// @brief called when mouse motion in MFXMenuButtonTooltip
     long onMotion(FXObject* obj, FXSelector sel, void* ptr);
-    
+
     /// @brief Update value from a message
     long onCmdSetValue(FXObject*, FXSelector, void* ptr);
 
@@ -169,9 +169,9 @@ protected:
 
     /// @brief The currently shown label
     FXString myLabel;
-    
+
     /// @brief The number of shown figuresi, greater than zero
-    FXint myNFigures;    
+    FXint myNFigures;
 
     /// @brief pointer to staticToolTip
     MFXStaticToolTip* myStaticToolTip;

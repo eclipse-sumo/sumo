@@ -1,5 +1,8 @@
 Warning: Vehicle 'WE_bike.3' performs emergency braking on lane 'WE2_2' with decel=7.00, wished=1.00, severity=1.00, time=39.70.
 Warning: Vehicle 'WE_bike.5' performs emergency braking on lane 'WE12_4' with decel=7.00, wished=1.00, severity=1.00, time=39.70.
 Warning: Vehicle 'WE_bike.2' performs emergency braking on lane 'WE2_1' with decel=7.00, wished=1.00, severity=1.00, time=39.90.
-Warning: Vehicle 'WE_bike.6' performs emergency braking on lane ':J1_15_1' with decel=7.00, wished=1.00, severity=1.00, time=102.70.
-Warning: Vehicle 'WE_bike.7' performs emergency braking on lane 'WE2_1' with decel=7.00, wished=1.00, severity=1.00, time=116.60.
+Warning: Vehicle 'WE_bike.6' performs emergency braking on lane ':J1_15_0' with decel=7.00, wished=1.00, severity=1.00, time=93.90.
+Warning: Vehicle 'WE_bike.5' performs emergency braking on lane ':J1_15_1' with decel=7.00, wished=1.00, severity=1.00, time=94.90.
+Warning: Vehicle 'WE_bike.7' performs emergency braking on lane ':J1_15_1' with decel=7.00, wished=1.00, severity=1.00, time=95.70.
+Warning: Vehicle 'WE_bike.8' performs emergency braking on lane ':J1_15_1' with decel=7.00, wished=1.00, severity=1.00, time=107.10.
+Warning: Vehicle 'WE_bike.4' performs emergency braking on lane 'WE2_1' with decel=7.00, wished=1.00, severity=1.00, time=150.60.

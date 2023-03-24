@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -222,7 +222,7 @@ HelpersEnergy::acceleration(const SUMOEmissionClass /* c */, const PollutantsInt
         case 3:
             return MAX3(x1, x2, x3);
         default:
-            WRITE_ERROR("An acceleration given by the power was not found.");
+            WRITE_ERROR(TL("An acceleration given by the power was not found."));
             return 0;
     }
 

@@ -1,0 +1,55 @@
+Success.
+Building scenario in '/home/micha/.texttest/tmp/complex.perf.22Mar065324.1024278/complex.perf/gtfs_mitte/plain/test'.
+200 OK
+generating trips...
+Skipping line '1231708' because it only drives at night
+Cannot extend route to fringe for line '1929071' (not enough edges given)
+Skipping line '2194813' because it only drives at night
+Skipping line '2194814' because it only drives at night
+Skipping line '2202086' because it only drives at night
+Skipping line '2206192' because it only drives at night
+Skipping line '2211984' because it only drives at night
+Skipping line '2211985' because it only drives at night
+Cannot extend route to fringe for line '2269238' (not enough edges given)
+Cannot extend route to fringe for line '2422951' (not enough edges given)
+Skipping line '2441959' because it only drives at night
+Skipping line '2441960' because it only drives at night
+Skipping line '2512806' because it only drives at night
+Skipping line '2512807' because it only drives at night
+Cannot extend route to fringe for line '2679013' (not enough edges given)
+Cannot extend route to fringe for line '2679014' (not enough edges given)
+Skipping line '28286' because it only drives at night
+Cannot extend route to fringe for line '3019045' (not enough edges given)
+Skipping line '3353027' because it only drives at night
+Skipping line '35040' because it only drives at night
+Skipping line '6187328' because it only drives at night
+Skipping line '6187329' because it only drives at night
+Cannot extend route after last stop for line '6622626' (stop edge 1151326815 not in route)
+Cannot extend route to fringe for line '7794031' (not enough edges given)
+Imported 105 lines with 309 stops and skipped 16 lines
+   bus: 45
+   light_rail: 18
+   subway: 8
+   train: 12
+   tram: 22
+done.
+running SUMO to determine actual departure times...
+done.
+Success.
+creating routes...
+done.
+Success.
+Success.
+Success.
+Success.
+Success.
+Success.
+Written configuration to 'osm.sumocfg'
+function import_gtfs called at Wed, 22 Mar 2023 06:53:48 +0000
+function import_gtfs finished after 7.302259 seconds
+Success.
+Success.
+Success.
+Success.
+Success.
+Success.

@@ -1,70 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-07-07 13:36:34 by Eclipse SUMO netedit Version v1_13_0+1461-64db35494f1
+<!-- generated on 2023-02-10 18:08:48 by Eclipse SUMO netedit Version v1_16_0+0139-4b16fd32ccc
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Jul133417.18952\netedit.gui\demandelements\trip\volatilerecomputing\input_net.net.xml"/>
+        <additional-files value="/home/palcraft/.texttest/tmp/netedit.daily.demand.edges.10Feb145857.53025/netedit.daily.demand.edges/demandelements/trip/volatilerecomputing/additionals.add.xml"/>
+        <route-files value="/home/palcraft/.texttest/tmp/netedit.daily.demand.edges.10Feb145857.53025/netedit.daily.demand.edges/demandelements/trip/volatilerecomputing/routes.rou.xml"/>
+        <data-files value="/home/palcraft/.texttest/tmp/netedit.daily.demand.edges.10Feb145857.53025/netedit.daily.demand.edges/demandelements/trip/volatilerecomputing/datas.dat.xml"/>
+        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.daily.demand.edges.10Feb145857.53025/netedit.daily.demand.edges/demandelements/trip/volatilerecomputing/net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Jul133417.18952\netedit.gui\demandelements\trip\volatilerecomputing\net.net.xml"/>
+        <output-file value="/home/palcraft/.texttest/tmp/netedit.daily.demand.edges.10Feb145857.53025/netedit.daily.demand.edges/demandelements/trip/volatilerecomputing/net.net.xml"/>
     </output>
 
     <processing>
         <geometry.min-radius.fix.railways value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
-        <lefthand value="false"/>
+        <lefthand value="0"/>
     </processing>
 
     <junctions>
         <no-internal-links value="false"/>
         <no-turnarounds value="true"/>
         <junctions.corner-detail value="5"/>
-        <junctions.limit-turn-speed value="5.5"/>
-        <rectangular-lane-cut value="false"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
     </junctions>
 
     <pedestrian>
         <sidewalks.guess value="true"/>
         <crossings.guess value="true"/>
-        <walkingareas value="false"/>
+        <walkingareas value="0"/>
     </pedestrian>
 
-    <netedit>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Jul133417.18952\netedit.gui\demandelements\trip\volatilerecomputing\additionals.xml"/>
-        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Jul133417.18952\netedit.gui\demandelements\trip\volatilerecomputing\additionals.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Jul133417.18952\netedit.gui\demandelements\trip\volatilerecomputing\routes.xml"/>
-        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Jul133417.18952\netedit.gui\demandelements\trip\volatilerecomputing\routes.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Jul133417.18952\netedit.gui\demandelements\trip\volatilerecomputing\datas.xml"/>
-        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Jul133417.18952\netedit.gui\demandelements\trip\volatilerecomputing\datas.xml"/>
-    </netedit>
-
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Jul133417.18952\netedit.gui\demandelements\trip\volatilerecomputing\gui-settings.xml"/>
-        <window-size value="936,697"/>
+        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.daily.demand.edges.10Feb145857.53025/netedit.daily.demand.edges/demandelements/trip/volatilerecomputing/gui-settings.xml"/>
+        <window-size value="936, 697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing-debug value="true"/>
-        <gui-testing-debug-gl value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Jul133417.18952\netedit.gui\demandelements\trip\volatilerecomputing\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.daily.demand.edges.10Feb145857.53025/netedit.daily.demand.edges/demandelements/trip/volatilerecomputing/guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Jul133417.18952\netedit.gui\demandelements\trip\volatilerecomputing\log.txt"/>
+        <error-log value="/home/palcraft/.texttest/tmp/netedit.daily.demand.edges.10Feb145857.53025/netedit.daily.demand.edges/demandelements/trip/volatilerecomputing/log.txt"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.9" junctionCornerDetail="5" walkingareas="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.16" junctionCornerDetail="5" walkingareas="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-10.00,-20.00" convBoundary="0.00,0.00,60.00,40.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
     <edge id=":gneJ4_w0" function="walkingarea">
-        <lane id=":gneJ4_w0_0" index="0" allow="pedestrian" speed="1.00" length="8.40" width="2.00" shape="0.00,-3.20 0.00,-5.20 0.00,5.20 0.00,3.20"/>
+        <lane id=":gneJ4_w0_0" index="0" allow="pedestrian" speed="2.78" length="8.40" width="2.00" shape="0.00,-3.20 0.00,-5.20 0.00,5.20 0.00,3.20"/>
     </edge>
     <edge id=":gneJ5_0" function="internal">
         <lane id=":gneJ5_0_0" index="0" disallow="pedestrian" speed="7.33" length="11.73" shape="58.40,7.20 57.85,4.75 56.20,3.00 53.45,1.95 49.60,1.60"/>
@@ -74,13 +66,13 @@
         <lane id=":gneJ5_1_1" index="1" disallow="pedestrian" speed="8.67" length="16.85" shape="49.60,-1.60 54.85,-1.05 58.60,0.60 60.85,3.35 61.60,7.20"/>
     </edge>
     <edge id=":gneJ5_c0" function="crossing" crossingEdges="gneE4 gneE3">
-        <lane id=":gneJ5_c0_0" index="0" allow="pedestrian" speed="1.00" length="12.80" width="4.00" shape="66.40,5.20 53.60,5.20"/>
+        <lane id=":gneJ5_c0_0" index="0" allow="pedestrian" speed="2.78" length="12.80" width="4.00" shape="66.40,5.20 53.60,5.20"/>
     </edge>
     <edge id=":gneJ5_w0" function="walkingarea">
-        <lane id=":gneJ5_w0_0" index="0" allow="pedestrian" speed="1.00" length="3.53" width="4.00" shape="49.60,3.20 49.60,5.20 51.60,7.20 53.60,7.20 53.49,5.98 53.16,4.98 52.60,4.20 51.82,3.64 50.82,3.31"/>
+        <lane id=":gneJ5_w0_0" index="0" allow="pedestrian" speed="2.78" length="3.53" width="4.00" shape="49.60,3.20 49.60,5.20 51.60,7.20 53.60,7.20 53.49,5.98 53.16,4.98 52.60,4.20 51.82,3.64 50.82,3.31"/>
     </edge>
     <edge id=":gneJ5_w1" function="walkingarea">
-        <lane id=":gneJ5_w1_0" index="0" allow="pedestrian" speed="1.00" length="14.21" width="4.00" shape="66.40,7.20 68.40,7.20 67.70,2.81 65.75,-0.46 62.75,-2.75 58.92,-4.21 54.46,-4.98 49.60,-5.20 49.60,-3.20 54.73,-2.91 58.93,-2.04 62.20,-0.60 64.53,1.42 65.93,4.02"/>
+        <lane id=":gneJ5_w1_0" index="0" allow="pedestrian" speed="2.78" length="14.21" width="4.00" shape="66.40,7.20 68.40,7.20 67.70,2.81 65.75,-0.46 62.75,-2.75 58.92,-4.21 54.46,-4.98 49.60,-5.20 49.60,-3.20 54.73,-2.91 58.93,-2.04 62.20,-0.60 64.53,1.42 65.93,4.02"/>
     </edge>
     <edge id=":gneJ6_0" function="internal">
         <lane id=":gneJ6_0_0" index="0" disallow="pedestrian" speed="8.67" length="16.85" shape="61.60,32.80 60.85,36.65 58.60,39.40 54.85,41.05 49.60,41.60"/>
@@ -90,13 +82,13 @@
         <lane id=":gneJ6_1_1" index="1" disallow="pedestrian" speed="7.33" length="11.73" shape="49.60,38.40 53.45,38.05 56.20,37.00 57.85,35.25 58.40,32.80"/>
     </edge>
     <edge id=":gneJ6_c0" function="crossing" crossingEdges="gneE3 gneE4">
-        <lane id=":gneJ6_c0_0" index="0" allow="pedestrian" speed="1.00" length="12.80" width="4.00" shape="53.60,34.80 66.40,34.80"/>
+        <lane id=":gneJ6_c0_0" index="0" allow="pedestrian" speed="2.78" length="12.80" width="4.00" shape="53.60,34.80 66.40,34.80"/>
     </edge>
     <edge id=":gneJ6_w0" function="walkingarea">
-        <lane id=":gneJ6_w0_0" index="0" allow="pedestrian" speed="1.00" length="14.21" width="4.00" shape="49.60,43.20 49.60,45.20 54.46,44.98 58.92,44.21 62.75,42.75 65.75,40.46 67.70,37.19 68.40,32.80 66.40,32.80 65.93,35.98 64.53,38.58 62.20,40.60 58.93,42.04 54.73,42.91"/>
+        <lane id=":gneJ6_w0_0" index="0" allow="pedestrian" speed="2.78" length="14.21" width="4.00" shape="49.60,43.20 49.60,45.20 54.46,44.98 58.92,44.21 62.75,42.75 65.75,40.46 67.70,37.19 68.40,32.80 66.40,32.80 65.93,35.98 64.53,38.58 62.20,40.60 58.93,42.04 54.73,42.91"/>
     </edge>
     <edge id=":gneJ6_w1" function="walkingarea">
-        <lane id=":gneJ6_w1_0" index="0" allow="pedestrian" speed="1.00" length="3.53" width="4.00" shape="53.60,32.80 51.60,32.80 49.60,34.80 49.60,36.80 50.82,36.69 51.82,36.36 52.60,35.80 53.16,35.02 53.49,34.02"/>
+        <lane id=":gneJ6_w1_0" index="0" allow="pedestrian" speed="2.78" length="3.53" width="4.00" shape="53.60,32.80 51.60,32.80 49.60,34.80 49.60,36.80 50.82,36.69 51.82,36.36 52.60,35.80 53.16,35.02 53.49,34.02"/>
     </edge>
     <edge id=":gneJ7_0" function="internal">
         <lane id=":gneJ7_0_0" index="0" allow="bicycle" speed="7.25" length="11.47" width="2.00" shape="5.50,41.00 2.66,40.52 0.63,39.08 -0.59,36.67 -1.00,33.30"/>
@@ -108,13 +100,13 @@
         <lane id=":gneJ7_2_0" index="0" allow="bicycle" speed="5.77" length="4.84" width="2.00" shape="1.50,35.63 2.13,36.67 3.53,37.52 5.50,37.80"/>
     </edge>
     <edge id=":gneJ7_c0" function="crossing" crossingEdges="gneE6 gneE5">
-        <lane id=":gneJ7_c0_0" index="0" allow="pedestrian" speed="1.00" length="6.40" width="4.00" shape="3.50,36.80 3.50,43.20"/>
+        <lane id=":gneJ7_c0_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="3.50,36.80 3.50,43.20"/>
     </edge>
     <edge id=":gneJ7_w0" function="walkingarea">
-        <lane id=":gneJ7_w0_0" index="0" allow="pedestrian" speed="1.00" length="9.30" width="4.00" shape="-2.00,33.30 -4.00,33.30 -3.83,36.83 -3.23,39.77 -2.11,42.11 -0.35,43.81 2.15,44.85 5.50,45.20 5.50,43.20 3.21,42.93 1.33,42.10 -0.12,40.73 -1.17,38.80 -1.79,36.33"/>
+        <lane id=":gneJ7_w0_0" index="0" allow="pedestrian" speed="2.78" length="9.30" width="4.00" shape="-2.00,33.30 -4.00,33.30 -3.83,36.83 -3.23,39.77 -2.11,42.11 -0.35,43.81 2.15,44.85 5.50,45.20 5.50,43.20 3.21,42.93 1.33,42.10 -0.12,40.73 -1.17,38.80 -1.79,36.33"/>
     </edge>
     <edge id=":gneJ7_w1" function="walkingarea">
-        <lane id=":gneJ7_w1_0" index="0" allow="pedestrian" speed="1.00" length="3.10" width="4.00" shape="5.50,36.80 5.50,34.80 4.00,33.30 2.00,33.30 2.10,34.37 2.39,35.24 2.88,35.92 3.56,36.41 4.43,36.70"/>
+        <lane id=":gneJ7_w1_0" index="0" allow="pedestrian" speed="2.78" length="3.10" width="4.00" shape="5.50,36.80 5.50,34.80 4.00,33.30 2.00,33.30 2.10,34.37 2.39,35.24 2.88,35.92 3.56,36.41 4.43,36.70"/>
     </edge>
     <edge id=":gneJ8_0" function="internal">
         <lane id=":gneJ8_0_0" index="0" allow="bicycle" speed="7.43" length="12.48" width="2.00" shape="-1.00,26.70 -0.59,22.81 0.62,20.02 2.66,18.36 5.50,17.80"/>
@@ -126,19 +118,19 @@
         <lane id=":gneJ8_2_0" index="0" allow="bicycle" speed="5.91" length="4.84" width="2.00" shape="3.17,22.70 2.13,23.32 1.28,24.73 1.00,26.70"/>
     </edge>
     <edge id=":gneJ8_c0" function="crossing" crossingEdges="gneE11 gneE10">
-        <lane id=":gneJ8_c0_0" index="0" allow="pedestrian" speed="1.00" length="4.00" width="4.00" shape="2.00,24.70 -2.00,24.70"/>
+        <lane id=":gneJ8_c0_0" index="0" allow="pedestrian" speed="2.78" length="4.00" width="4.00" shape="2.00,24.70 -2.00,24.70"/>
     </edge>
     <edge id=":gneJ8_w0" function="walkingarea">
-        <lane id=":gneJ8_w0_0" index="0" allow="pedestrian" speed="1.00" length="9.23" width="4.00" shape="5.50,16.80 5.50,14.80 2.15,15.15 -0.35,16.19 -2.11,17.89 -3.23,20.23 -3.83,23.17 -4.00,26.70 -2.00,26.70 -1.79,23.67 -1.17,21.20 -0.12,19.27 1.33,17.90 3.21,17.07"/>
+        <lane id=":gneJ8_w0_0" index="0" allow="pedestrian" speed="2.78" length="9.23" width="4.00" shape="5.50,16.80 5.50,14.80 2.15,15.15 -0.35,16.19 -2.11,17.89 -3.23,20.23 -3.83,23.17 -4.00,26.70 -2.00,26.70 -1.79,23.67 -1.17,21.20 -0.12,19.27 1.33,17.90 3.21,17.07"/>
     </edge>
     <edge id=":gneJ8_w1" function="walkingarea">
-        <lane id=":gneJ8_w1_0" index="0" allow="pedestrian" speed="1.00" length="3.10" width="4.00" shape="2.00,26.70 4.00,26.70 5.50,25.20 5.50,23.20 4.43,23.30 3.56,23.59 2.88,24.07 2.39,24.76 2.10,25.63"/>
+        <lane id=":gneJ8_w1_0" index="0" allow="pedestrian" speed="2.78" length="3.10" width="4.00" shape="2.00,26.70 4.00,26.70 5.50,25.20 5.50,23.20 4.43,23.30 3.56,23.59 2.88,24.07 2.39,24.76 2.10,25.63"/>
     </edge>
     <edge id=":gneJ9_0" function="internal">
         <lane id=":gneJ9_0_0" index="0" disallow="pedestrian" speed="3.65" length="4.67" shape="30.00,18.40 31.20,19.20 31.60,20.00 31.20,20.80 30.00,21.60"/>
     </edge>
     <edge id=":gneJ9_w0" function="walkingarea">
-        <lane id=":gneJ9_w0_0" index="0" allow="pedestrian" speed="1.00" length="8.40" width="2.00" shape="30.00,23.20 30.00,25.20 30.00,14.80 30.00,16.80"/>
+        <lane id=":gneJ9_w0_0" index="0" allow="pedestrian" speed="2.78" length="8.40" width="2.00" shape="30.00,23.20 30.00,25.20 30.00,14.80 30.00,16.80"/>
     </edge>
 
     <edge id="gneE10" from="gneJ7" to="gneJ8" priority="-1">

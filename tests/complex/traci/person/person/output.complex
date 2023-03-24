@@ -31,6 +31,7 @@ stage Stage(type=2, edges=('2fi', '2si', '1o'), travelTime=INVALID, cost=INVALID
 remainingStages 1
 edges ('2fi', '2si', '1o')
 vehicle 
+boardingDuration 0.5
 {0: ('detour', 'detour2', 'horiz', 'newPerson', 'tripTest')}
 step 3.0
 {0: ('detour', 'detour2', 'horiz', 'newPerson', 'tripTest')}
@@ -60,13 +61,14 @@ stage Stage(type=2, edges=('2fi', '2si', '1o'), travelTime=INVALID, cost=INVALID
 remainingStages 1
 edges ('2fi', '2si', '1o')
 vehicle 
+boardingDuration 0.5
 persons ('detour', 'detour2', 'horiz', 'newPerson', 'tripTest')
 person count 5
 examining bla
 recovering from exception after asking for unknown person
 step 6.0
 getIDList ('detour', 'detour2', 'horiz', 'newPerson', 'tripTest')
-numVehs=0, numPersons=5, minExpected=6
+numVehs=0, numPersons=5, minExpected=5
 step 7.0
 {0: ('detour', 'detour2', 'horiz', 'newPerson', 'tripTest')}
 step 8.0
@@ -131,7 +133,9 @@ remaining stages for 'p3' (after replacement)
   0: Stage(type=2, edges=('1fi', '1o'), travelTime=INVALID, cost=INVALID, length=495.25, depart=234.0, departPos=10.0, arrivalPos=10.0, description=walking)
   1: Stage(type=2, edges=('1o', '4o'), travelTime=INVALID, cost=INVALID, length=39.9912480851, depart=INVALID, departPos=10.0, arrivalPos=10.0, description=walking)
 speed (before setSpeed) 0.0
-maxSpeed (before setSpeed) 10.4388888889
+type maxSpeed (before setSpeed) 10.4388888889
+person maxSpeed (before setSpeed) 1.38888888889
 speed (after setSpeed) 0.0
-maxSpeed (after setSpeed) 4.2
+type maxSpeed (after setSpeed) 4.2
+person maxSpeed (after setSpeed) 1.38888888889
 speed (at end) 3.68846979671

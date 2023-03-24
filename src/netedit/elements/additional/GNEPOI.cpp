@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -34,8 +34,10 @@
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/globjects/GUIPointOfInterest.h>
 #include <utils/gui/div/GUIGlobalPostDrawing.h>
+#include <utils/options/OptionsCont.h>
 
 #include "GNEPOI.h"
+#include "GNEAdditionalHandler.h"
 
 
 // ===========================================================================
@@ -56,7 +58,7 @@ GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, cons
                const Parameterised::Map& parameters) :
     PointOfInterest(id, type, color, Position(xLon, yLat), geo, "", 0, false, 0, layer, angle, imgFile, relativePath, width, height, name, parameters),
     GNEAdditional(id, net, GLO_POI, geo ? GNE_TAG_POIGEO : SUMO_TAG_POI, geo ? GUIIconSubSys::getIcon(GUIIcon::POIGEO) : GUIIconSubSys::getIcon(GUIIcon::POI),
-    "", {}, {}, {}, {}, {}, {}) {
+                  "", {}, {}, {}, {}, {}, {}) {
     // update position depending of GEO
     if (geo) {
         Position cartesian(x(), y());
@@ -165,6 +167,63 @@ GNEPOI::writeAdditional(OutputDevice& device) const {
 }
 
 
+bool
+GNEPOI::isAdditionalValid() const {
+    // only for POIS over lanes
+    if (getParentLanes().size() == 0) {
+        return true;
+    } else if (getFriendlyPos()) {
+        // with friendly position enabled position is "always fixed"
+        return true;
+    } else {
+        return fabs(myPosOverLane) <= getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
+    }
+}
+
+
+std::string
+GNEPOI::getAdditionalProblem() const {
+    // only for POIS over lanes
+    if (getParentLanes().size() > 0) {
+        // obtain final length
+        const double len = getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
+        // check if detector has a problem
+        if (GNEAdditionalHandler::checkLanePosition(myPosOverLane, 0, len, getFriendlyPos())) {
+            return "";
+        } else {
+            // declare variable for error position
+            std::string errorPosition;
+            // check positions over lane
+            if (myPosOverLane < 0) {
+                errorPosition = (toString(SUMO_ATTR_POSITION) + " < 0");
+            }
+            if (myPosOverLane > len) {
+                errorPosition = (toString(SUMO_ATTR_POSITION) + TL(" > lanes's length"));
+            }
+            return errorPosition;
+        }
+    } else {
+        return "";
+    }
+}
+
+
+void
+GNEPOI::fixAdditionalProblem() {
+    // only for POIS over lanes
+    if (getParentLanes().size() > 0) {
+        // declare new position
+        double newPositionOverLane = myPosOverLane;
+        // declare new lenght (but unsed in this context)
+        double length = 0;
+        // fix pos and length with fixLanePosition
+        GNEAdditionalHandler::fixLanePosition(newPositionOverLane, length, getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength());
+        // set new position
+        setAttribute(SUMO_ATTR_POSITION, toString(newPositionOverLane), myNet->getViewNet()->getUndoList());
+    }
+}
+
+
 void
 GNEPOI::updateGeometry() {
     // set position
@@ -257,11 +316,11 @@ GNEPOI::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     // continue depending of lane number
     if (getParentLanes().size() > 0) {
         // add option for convert to GNEPOI
-        GUIDesigns::buildFXMenuCommand(ret, "Release from " + toString(SUMO_TAG_LANE), GUIIconSubSys::getIcon(GUIIcon::LANE), &parent, MID_GNE_POI_TRANSFORM);
+        GUIDesigns::buildFXMenuCommand(ret, TL("Release from lane"), GUIIconSubSys::getIcon(GUIIcon::LANE), &parent, MID_GNE_POI_TRANSFORM);
         return ret;
     } else {
         // add option for convert to GNEPOI
-        GUIDesigns::buildFXMenuCommand(ret, "Attach to nearest " + toString(SUMO_TAG_LANE), GUIIconSubSys::getIcon(GUIIcon::LANE), &parent, MID_GNE_POI_TRANSFORM);
+        GUIDesigns::buildFXMenuCommand(ret, TL("Attach to nearest lane"), GUIIconSubSys::getIcon(GUIIcon::LANE), &parent, MID_GNE_POI_TRANSFORM);
     }
     return ret;
 }
@@ -283,14 +342,14 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::pushName(getGlID());
             // draw inner polygon
             if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-                GUIPointOfInterest::drawInnerPOI(s, this, this, drawUsingSelectColor(), GLO_DOTTEDCONTOUR_FRONT,
+                GUIPointOfInterest::drawInnerPOI(s, this, this, drawUsingSelectColor(), GLO_FRONTELEMENT,
                                                  myShapeWidth.length2D(), myShapeHeight.length2D());
             } else {
                 GUIPointOfInterest::drawInnerPOI(s, this, this, drawUsingSelectColor(), getShapeLayer(),
                                                  myShapeWidth.length2D(), myShapeHeight.length2D());
             }
             // draw an orange square mode if there is an image(see #4036)
-            if (!getShapeImgFile().empty() && myNet->getViewNet()->getTestingMode().isTestingEnabled()) {
+            if (!getShapeImgFile().empty() && OptionsCont::getOptions().getBool("gui-testing")) {
                 // Add a draw matrix for drawing logo
                 GLHelper::pushMatrix();
                 glTranslated(x(), y(), getType() + 0.01);

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -15,6 +15,7 @@
 # @author  Daniel Krajzewicz
 # @author  Jakob Erdmann
 # @author  Michael Behrisch
+# @author  Mirko Barthauer
 # @date    2009-07-08
 
 """
@@ -46,21 +47,23 @@ SOURCE_DEST_SEP = ';'
 
 def get_options(args=None):
     optParser = sumolib.options.ArgumentParser(usage="%(prog)s <options> <test directory>")
-    optParser.add_option("-o", "--output", default=".", help="send output to directory")
-    optParser.add_option("-f", "--file", help="read list of source and target dirs from")
-    optParser.add_option("-p", "--python-script",
+    optParser.add_option("-o", "--output", category="output",  default=".", help="send output to directory")
+    optParser.add_option("-f", "--file", category="input", help="read list of source and target dirs from")
+    optParser.add_option("-p", "--python-script", category="input",
                          help="name of a python script to generate for a batch run")
-    optParser.add_option("-i", "--intelligent-names", dest="names", action="store_true",
+    optParser.add_option("-i", "--intelligent-names", category="processing", dest="names", action="store_true",
                          default=False, help="generate cfg name from directory name")
-    optParser.add_option("-v", "--verbose", action="store_true", default=False, help="more information")
-    optParser.add_option("-a", "--application", help="sets the application to be used")
-    optParser.add_option("-s", "--skip-configuration", default=False, action="store_true",
+    optParser.add_option("-v", "--verbose", category="processing", action="store_true", default=False,
+                         help="more information")
+    optParser.add_option("-a", "--application", category="processing", help="sets the application to be used")
+    optParser.add_option("-s", "--skip-configuration", category="processing", default=False, action="store_true",
                          help="skips creation of an application config from the options.app file")
-    optParser.add_option("-x", "--skip-validation", default=False, action="store_true",
+    optParser.add_option("-x", "--skip-validation", category="processing", default=False, action="store_true",
                          help="remove all options related to XML validation")
-    optParser.add_option("-d", "--no-subdir", dest="noSubdir", action="store_true",
+    optParser.add_option("-d", "--no-subdir", category="processing", dest="noSubdir", action="store_true",
                          default=False, help="store test files directly in the output directory")
-    optParser.add_option("--depth", type=int, default=1, help="maximum depth when descending into testsuites")
+    optParser.add_option("--depth", category="processing", type=int, default=1,
+                         help="maximum depth when descending into testsuites")
     options, args = optParser.parse_known_args(args)
     if not options.file and len(args) == 0:
         optParser.print_help()
@@ -280,6 +283,10 @@ for d, p in [
             oldWorkDir = os.getcwd()
             os.chdir(testPath)
             haveConfig = False
+            # look for python executable
+            pythonPath = os.environ["PYTHON"] if "PYTHON" in os.environ else os.environ.get("PYTHON_HOME", "python")
+            if os.path.isdir(pythonPath):
+                pythonPath = os.path.join(pythonPath, "python")
             if app in ["dfrouter", "duarouter", "jtrrouter", "marouter", "netconvert",
                        "netgen", "netgenerate", "od2trips", "polyconvert", "sumo", "activitygen"]:
                 if app == "netgen":
@@ -300,7 +307,7 @@ for d, p in [
                 for i, a in enumerate(appOptions):
                     if a.endswith(".py"):
                         del appOptions[i:i+1]
-                        appOptions[0:0] = [os.environ.get("PYTHON", "python"), '"$SUMO_HOME/%s"' % a]
+                        appOptions[0:0] = [pythonPath, '"$SUMO_HOME/%s"' % a]
                         break
                     if a.endswith(".jar"):
                         del appOptions[i:i+1]
@@ -314,13 +321,13 @@ for d, p in [
                         else:
                             a = '"$SUMO_HOME/%s"' % a
                         del appOptions[i:i+1]
-                        appOptions[0:0] = [os.environ.get("PYTHON", "python"), a]
+                        appOptions[0:0] = [pythonPath, a]
                         break
             if not haveConfig:
                 if options.verbose:
                     print("generating shell scripts for testPath '%s' with call '%s'" %
                           (testPath, " ".join(appOptions)))
-                cmd = [o if " " not in o else "'%s'" % o for o in appOptions]
+                cmd = [ao if " " not in ao else "'%s'" % ao for ao in appOptions]
                 with open(nameBase + ".sh", "w") as sh:
                     sh.write(" ".join(cmd))
                 os.chmod(nameBase + ".sh", os.stat(nameBase + ".sh").st_mode | stat.S_IXUSR)
@@ -333,7 +340,7 @@ for d, p in [
     if options.python_script:
         pyBatch.write("""]:
     if p.wait() != 0:
-        print("Error: '%s' failed for '%s'!" % (" ".join(p.args), d))
+        print("Error: '%s' failed for '%s'!" % (" ".join(getattr(p, "args", [str(p.pid)])), d))
         sys.exit(1)\n""")
 
 

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2006-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2006-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -66,7 +66,7 @@ MFXGroupBoxModule::MFXGroupBoxModule(GNEFrame* frame, const std::string& text, c
         myCollapseButton = new FXButton(headerFrame, "", GUIIconSubSys::getIcon(GUIIcon::COLLAPSE), this, MID_GROUPBOXMODULE_COLLAPSE, GUIDesignButtonMFXGroupBoxModule);
     }
     if (myOptions & Options::EXTENSIBLE) {
-        myExtendButton = new FXButton(headerFrame, "", GUIIconSubSys::getIcon(GUIIcon::EXTEND), this, MID_GROUPBOXMODULE_EXTEND, GUIDesignButtonMFXGroupBoxModule);
+        myExtendButton = new FXButton(headerFrame, "Extend", nullptr, this, MID_GROUPBOXMODULE_EXTEND, GUIDesignButtonMFXGroupBoxModuleExtend);
         myResetWidthButton = new FXButton(headerFrame, "", GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GROUPBOXMODULE_RESETWIDTH, GUIDesignButtonMFXGroupBoxModule);
     }
     if (myOptions & Options::SAVE) {

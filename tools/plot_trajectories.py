@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2007-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2007-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -13,6 +13,7 @@
 
 # @file    plot_trajectories.py
 # @author  Jakob Erdmann
+# @author  Mirko Barthauer
 # @date    2018-08-18
 
 """
@@ -38,6 +39,7 @@ import math  # noqa
 from sumolib.xml import parse_fast_nested  # noqa
 from sumolib.miscutils import uMin, uMax, parseTime  # noqa
 from sumolib.options import ArgumentParser  # noqa
+from sumolib.visualization import helpers  # noqa
 
 KEYS = {
     't': 'Time',
@@ -53,38 +55,48 @@ KEYS = {
 
 
 def getOptions(args=None):
-    optParser = ArgumentParser()
-    optParser.add_option("-t", "--trajectory-type", dest="ttype", default="ds",
+    optParser = ArgumentParser(conflict_handler="resolve")
+    helpers.addInteractionOptions(optParser)
+    helpers.addPlotOptions(optParser)
+    optParser.add_option("-t", "--trajectory-type", category="processing", dest="ttype", default="ds",
                          help="select two letters from [t, s, d, a, i, x, y, k, g] to plot"
                          + " Time, Speed, Distance, Acceleration, Angle,"
                          + " x-Position, y-Position, Kilometrage, leaderGap."
                          + " Default 'ds' plots Distance vs. Speed")
-    optParser.add_option("--persons", action="store_true", default=False, help="plot person trajectories")
-    optParser.add_option("-s", "--show", action="store_true", default=False, help="show plot directly")
-    optParser.add_option("-o", "--output", help="outputfile for saving plots", default="plot.png")
-    optParser.add_option("--csv-output", dest="csv_output", help="write plot as csv", metavar="FILE")
-    optParser.add_option("-b", "--ballistic", action="store_true", default=False,
+    optParser.add_option("--persons", category="processing", action="store_true",
+                         default=False, help="plot person trajectories")
+    optParser.add_option("-s", "--show", category="processing", action="store_true",
+                         default=False, help="show plot directly")
+    optParser.add_option("--csv-output", category="output", dest="csv_output", help="write plot as csv", metavar="FILE")
+    optParser.add_option("-b", "--ballistic", category="processing", action="store_true", default=False,
                          help="perform ballistic integration of distance")
-    optParser.add_option("--filter-route", dest="filterRoute",
+    optParser.add_option("--filter-route", category="processing", dest="filterRoute",
                          help="only export trajectories that pass the given list of edges (regardless of gaps)")
-    optParser.add_option("--filter-edges", dest="filterEdges",
+    optParser.add_option("--filter-edges", category="processing", dest="filterEdges",
                          help="only consider data for the given list of edges")
-    optParser.add_option("--filter-ids", dest="filterIDs",
+    optParser.add_option("--filter-ids", category="processing", dest="filterIDs",
                          help="only consider data for the given list of vehicle (or person) ids")
-    optParser.add_option("-p", "--pick-distance", dest="pickDist", type=float, default=1,
+    optParser.add_option("-p", "--pick-distance", category="processing", dest="pickDist", type=float, default=1,
                          help="pick lines within the given distance in interactive plot mode")
-    optParser.add_option("-i", "--invert-distance-angle", dest="invertDistanceAngle", type=float,
+    optParser.add_option("-i", "--invert-distance-angle", category="processing", dest="invertDistanceAngle", type=float,
                          help="invert distance for trajectories with a average angle near FLOAT")
-    optParser.add_option("--label", help="plot label (default input file name")
-    optParser.add_option("--invert-yaxis", dest="invertYAxis", action="store_true",
+    optParser.add_option("--label", category="processing", help="plot label (default input file name")
+    optParser.add_option("--invert-yaxis", category="processing", dest="invertYAxis", action="store_true",
                          default=False, help="Invert the Y-Axis")
-    optParser.add_option("--legend", action="store_true", default=False, help="Add legend")
-    optParser.add_option("-v", "--verbose", action="store_true", default=False, help="tell me what you are doing")
+    optParser.add_option("--legend", category="processing", action="store_true", default=False, help="Add legend")
+    optParser.add_option("-v", "--verbose", category="processing", action="store_true",
+                         default=False, help="tell me what you are doing")
 
     options, args = optParser.parse_known_args(args=args)
     if len(args) < 1:
         sys.exit("mandatory argument FCD_FILE missing")
     options.fcdfiles = args
+
+    # keep old presets from before integration of common options
+    options.nolegend = not options.legend
+    options.blind = not options.show
+    if options.output is None:
+        options.output = "plot.png"
 
     if options.filterRoute is not None:
         options.filterRoute = options.filterRoute.split(',')
@@ -232,6 +244,10 @@ def main(options):
     minX = uMax
     maxX = uMin
 
+    addArgs = {"picker": line_picker, "linestyle": options.linestyle}
+    if options.marker is not None:
+        addArgs["marker"] = options.marker
+
     for vehID, d in data.items():
         if options.filterRoute is not None:
             skip = False
@@ -254,18 +270,12 @@ def main(options):
         minX = min(minX, min(d[xdata]))
         maxX = max(maxX, max(d[xdata]))
 
-        plt.plot(d[xdata], d[ydata], picker=line_picker, label=vehID)
+        plt.plot(d[xdata], d[ydata], label=vehID, **addArgs)
     if options.invertYAxis:
         plt.axis([minX, maxX, maxY, minY])
-
-    if options.legend > 0:
-        plt.legend()
-
-    plt.savefig(options.output)
     if options.csv_output is not None:
         write_csv(data, options.csv_output)
-    if options.show:
-        plt.show()
+    helpers.closeFigure(fig, fig.axes[0], options)
 
 
 if __name__ == "__main__":

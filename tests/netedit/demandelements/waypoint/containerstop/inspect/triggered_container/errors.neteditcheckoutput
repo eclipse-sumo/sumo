@@ -1,2 +1,1 @@
-Warning: Vehicle 'trip' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
-Warning: Vehicle 'trip' performs emergency braking on lane 'gneE1_0' with decel=10.10, wished=4.50, severity=1.24, time=10.00.
+Error: Triggers and waypoints cannot be combined at 'containerStopB' in vehicle 'trip'.

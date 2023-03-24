@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -17,7 +17,6 @@
 ///
 // A abstract class for editing additional elements
 /****************************************************************************/
-#include <config.h>
 
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/div/GUIDesigns.h>
@@ -60,9 +59,9 @@ GNEAdditionalDialog::GNEAdditionalDialog(GNEAdditional* editedAdditional, bool u
     // create buttons centered
     FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(mainFrame, GUIDesignHorizontalFrame);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
-    myAcceptButton = new FXButton(buttonsFrame, "accept\t\tclose accepting changes",  GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonAccept);
-    myCancelButton = new FXButton(buttonsFrame, "cancel\t\tclose discarding changes", GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCancel);
-    myResetButton = new FXButton(buttonsFrame,  "reset\t\treset to previous values",  GUIIconSubSys::getIcon(GUIIcon::RESET),  this, MID_GNE_BUTTON_RESET,  GUIDesignButtonReset);
+    myAcceptButton = new FXButton(buttonsFrame, (TL("Accept") + std::string("\t\t") + TL("Close accepting changes")).c_str(),  GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonAccept);
+    myCancelButton = new FXButton(buttonsFrame, (TL("Cancel") + std::string("\t\t") + TL("Close discarding changes")).c_str(), GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCancel);
+    myResetButton = new FXButton(buttonsFrame, (TL("Reset") + std::string("\t\t") + TL("Reset to previous values")).c_str(),  GUIIconSubSys::getIcon(GUIIcon::RESET),  this, MID_GNE_BUTTON_RESET,  GUIDesignButtonReset);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
 }
 

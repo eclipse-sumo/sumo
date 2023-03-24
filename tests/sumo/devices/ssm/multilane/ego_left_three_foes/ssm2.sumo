@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Nov 23 12:34:51 2020 by Eclipse SUMO sumo Version v1_7_0+1199-00167769ea
+<!-- generated on 2023-03-01 14:34:32 by Eclipse SUMO sumo Version v1_16_0+0853-bb3bf2e
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -28,13 +33,8 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <no-step-log value="true"/>
     </report>
-
-    <gui_only>
-        <tracker-interval value="0.1"/>
-    </gui_only>
 
 </configuration>
 -->
@@ -48,7 +48,7 @@ SPDX-License-Identifier: EPL-2.0
     <conflict begin="6.30" end="13.30" ego="ego" foe="foe2">
         <minTTC time="NA" position="NA" type="NA" value="NA"/>
         <maxDRAC time="6.30" position="100.52,50.23" type="11" value="4.12"/>
-        <PET time="9.98" position="100.52,50.23" type="17" value="1.59"/>
+        <PET time="9.98" position="100.52,50.23" type="17" value="1.61"/>
     </conflict>
     <conflict begin="7.10" end="14.20" ego="ego" foe="foe3">
         <minTTC time="7.10" position="108.05,48.35" type="7" value="2.23"/>

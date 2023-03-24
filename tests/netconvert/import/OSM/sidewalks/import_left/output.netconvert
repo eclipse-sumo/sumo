@@ -1,0 +1,62 @@
+Parsing types from '/home/micha/sumo/data/typemap/osmNetconvert.typ.xml' ... done.
+Parsing types from '/home/micha/sumo/data/typemap/osmNetconvertUrbanDe.typ.xml' ... done.
+Parsing types from '/home/micha/sumo/data/typemap/osmNetconvertBicycle.typ.xml' ... done.
+Parsing types from '/home/micha/sumo/data/typemap/osmNetconvertPedestrians.typ.xml' ... done.
+Parsing nodes from osm-file 'osm.xml.gz' ... done (2ms).
+Parsing edges from osm-file 'osm.xml.gz' ... done (1ms).
+Removing duplicate edges ... done.
+Adding new type 'cycleway.track|highway.secondary' (first occurrence for edge '79523623').
+Parsing relations from osm-file 'osm.xml.gz' ... 
+done (13ms).
+ Removed 5 traffic lights before loading plain-XML
+ Import done:
+   24 nodes loaded.
+   38 types loaded.
+   34 edges loaded.
+Proj projection parameters used: '+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'.
+Removing self-loops ... done (0ms).
+Processing public transport stops ... done (0ms).
+Revising public transport stops based on pt lines ... 
+done (0ms).
+Align pt stop id signs with corresponding edge id signs ... done (0ms).
+Joining junction clusters ... done (0ms).
+ Joined 1 junction cluster(s).
+Removing empty nodes and geometry nodes ... done (0ms).
+   5 nodes removed.
+Moving network to origin ... done (1ms).
+Computing turning directions ... done (0ms).
+Assigning nodes to traffic lights ... done (0ms).
+Guessing and setting on-/off-ramps ... done (0ms).
+Sorting nodes' edges ... done (0ms).
+Computing node shapes ... done (1ms).
+Computing edge shapes ... done (0ms).
+Computing node types ... done (0ms).
+Guessed 16 pedestrian crossings.
+Computing priorities ... done (0ms).
+Computing approached edges ... done (0ms).
+Guessing and setting roundabouts ... done (0ms).
+Computing approaching lanes ... done (0ms).
+Dividing of lanes on approached lanes ... done (0ms).
+Processing turnarounds ... done (0ms).
+Rechecking of lane endings ... done (0ms).
+Joining traffic light nodes ... done (0ms).
+Computing traffic light control information ... done (0ms).
+Computing node logics ... done (0ms).
+Computing traffic light logics ... done (0ms).
+ 0 traffic light(s) computed.
+Building inner edges ... done (1ms).
+Find accesses for pt rail stops ... done (0ms).
+-----------------------------------------------------
+Summary:
+ Node type statistics:
+  Unregulated junctions       : 0
+  Dead-end junctions          : 8
+  Priority junctions          : 9
+  Right-before-left junctions : 1
+ Network boundaries:
+  Original boundary  : 13.57,52.45,13.58,52.46
+  Applied offset     : -403109.10,-5812345.94
+  Converted boundary : 0.00,0.00,354.46,642.70
+-----------------------------------------------------
+Writing network ... done (6ms).
+Success.

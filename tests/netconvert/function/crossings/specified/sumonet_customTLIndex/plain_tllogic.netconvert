@@ -44,7 +44,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<tlLogics version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tllogic_file.xsd">
+<tlLogics version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tllogic_file.xsd">
     <tlLogic id="C" type="static" programID="0" offset="0">
         <phase duration="28" state="gGGgrrrrgGGgrrrrrGrG"/>
         <phase duration="5"  state="gGGgrrrrgGGgrrrrrrrr"/>

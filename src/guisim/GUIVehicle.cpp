@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -45,6 +45,7 @@
 #include <microsim/MSLane.h>
 #include <microsim/MSLink.h>
 #include <microsim/MSStop.h>
+#include <microsim/MSParkingArea.h>
 #include <microsim/logging/CastingFunctionBinding.h>
 #include <microsim/logging/FunctionBinding.h>
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
@@ -79,19 +80,12 @@
 /* -------------------------------------------------------------------------
  * GUIVehicle - methods
  * ----------------------------------------------------------------------- */
-#ifdef _MSC_VER
-#pragma warning(push)
-/* Disable warning about using "this" in the constructor */
-#pragma warning(disable: 4355)
-#endif
-GUIVehicle::GUIVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
+
+GUIVehicle::GUIVehicle(SUMOVehicleParameter* pars, ConstMSRoutePtr route,
                        MSVehicleType* type, const double speedFactor) :
     MSVehicle(pars, route, type, speedFactor),
     GUIBaseVehicle((MSBaseVehicle&) * this) {
 }
-#ifdef _MSC_VER
-#pragma warning(pop)
-#endif
 
 
 GUIVehicle::~GUIVehicle() {
@@ -245,9 +239,7 @@ GUIVehicle::getTypeParameterWindow(GUIMainWindow& app,
     if (MSGlobals::gLateralResolution > 0) {
         ret->mkItem("minGapLat", false, myType->getMinGapLat());
         ret->mkItem("maxSpeedLat", false, myType->getMaxSpeedLat());
-        ret->mkItem("latAlignment", false, myType->getPreferredLateralAlignment() == LatAlignmentDefinition::GIVEN
-                    ? toString(myType->getPreferredLateralAlignmentOffset())
-                    : toString(myType->getPreferredLateralAlignment()));
+        ret->mkItem("latAlignment", true, new FunctionBindingString<GUIVehicle>(this, &GUIVehicle::getDynamicAlignment));
     } else if (MSGlobals::gLaneChangeDuration > 0) {
         ret->mkItem("maxSpeedLat", false, myType->getMaxSpeedLat());
     }
@@ -267,6 +259,17 @@ GUIVehicle::getTypeParameterWindow(GUIMainWindow& app,
 }
 
 
+std::string
+GUIVehicle::getDynamicAlignment() const {
+    std::string align = myType->getPreferredLateralAlignment() == LatAlignmentDefinition::GIVEN
+        ? toString(myType->getPreferredLateralAlignmentOffset())
+        : toString(myType->getPreferredLateralAlignment());
+    std::string align2 = toString(getLaneChangeModel().getDesiredAlignment());
+    if (align2 != align) {
+        align = align2 + " (default: " + align + ")";
+    }
+    return align;
+}
 
 void
 GUIVehicle::drawAction_drawLinkItems(const GUIVisualizationSettings& s) const {
@@ -300,6 +303,7 @@ GUIVehicle::drawAction_drawLinkItems(const GUIVisualizationSettings& s) const {
 
 void
 GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool asImage) const {
+    const bool s2 = s.secondaryShape;
     RGBColor current = GLHelper::getColor();
     RGBColor darker = current.changedBrightness(-51);
     const double exaggeration = (s.vehicleSize.getExaggeration(s, this)
@@ -347,7 +351,11 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
     int backFurtherIndex = furtherIndex;
     // offsets of front and back
     double carriageOffset = myState.pos();
-    double carriageBackOffset = myState.pos() - firstCarriageLength;
+    if (getLaneChangeModel().isOpposite()) {
+        // @note this still produces some artifacts while not fully on the current lane
+        carriageOffset = MIN2(carriageOffset + getLength(), lane->getLength());
+    }
+    double carriageBackOffset = carriageOffset - firstCarriageLength;
     // handle seats
     int requiredSeats = getNumPassengers();
     int requiredPositions = getNumContainers();
@@ -360,13 +368,31 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
     Position front, back;
     double angle = 0.;
     // position parking vehicle beside the road or track
-    const double lateralOffset = isParking() ? (SUMO_const_laneWidth * (MSGlobals::gLefthand ? -1 : 1)) : 0;
+    const double lateralOffset = (isParking() && getNextStopParameter()->posLat == INVALID_DOUBLE
+                                  ? (getLane()->getWidth() * (MSGlobals::gLefthand ? -1 : 1))
+                                  : -getLateralPositionOnLane());
 
     // draw individual carriages
     double curCLength = firstCarriageLength;
+    int firstCarriageNo = 0;  // default case - we're going forwards
+    const bool reversed = drawReversed(s) || getLaneChangeModel().isOpposite();
+    if (reversed) {
+        firstCarriageNo = numCarriages - 1;
+        if (numCarriages > 1) {
+            carriageBackOffset = carriageOffset - carriageLength;
+        }
+    }
+
     //std::cout << SIMTIME << " veh=" << getID() << " curCLength=" << curCLength << " loc=" << locomotiveLength << " car=" << carriageLength << " tlen=" << totalLength << " len=" << length << "\n";
     for (int i = 0; i < numCarriages; ++i) {
-        if (i > 0) {
+        if (i == firstCarriageNo) {
+            curCLength = firstCarriageLength;
+            if (firstCarriageNo > 0) {
+                // previous loop iteration has adjusted backpos for a normal carriage so have to correct
+                carriageBackOffset += carriageLengthWithGap;
+                carriageBackOffset -= firstCarriageLength + carriageGap;
+            }
+        } else {
             curCLength = carriageLength;
         }
         while (carriageOffset < 0) {
@@ -389,19 +415,29 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
             }
             backLane = prev;
         }
-        front = lane->geometryPositionAtOffset(carriageOffset, lateralOffset);
-        back = backLane->geometryPositionAtOffset(carriageBackOffset, lateralOffset);
+        front = lane->getShape(s2).positionAtOffset(carriageOffset * lane->getLengthGeometryFactor(s2), lateralOffset);
+        back = backLane->getShape(s2).positionAtOffset(carriageBackOffset * lane->getLengthGeometryFactor(s2), lateralOffset);
         if (front == back) {
             // no place for drawing available
             continue;
         }
         const double drawnCarriageLength = front.distanceTo2D(back);
         angle = atan2((front.x() - back.x()), (back.y() - front.y())) * (double) 180.0 / (double) M_PI;
-        if (i >= firstPassengerCarriage) {
-            computeSeats(front, back, SUMO_const_waitingPersonWidth, seatsPerCarriage, exaggeration, requiredSeats, mySeatPositions);
-        }
-        if (i >= firstContainerCarriage) {
-            computeSeats(front, back, SUMO_const_waitingContainerWidth, containersPerCarriage, exaggeration, requiredPositions, myContainerPositions);
+        // if we are in reverse 'first' carriages are drawn last so the >= test doesn't work
+        if (reversed) {
+            if (i <= numCarriages - firstPassengerCarriage) {
+                computeSeats(back, front, SUMO_const_waitingPersonWidth, seatsPerCarriage, exaggeration, requiredSeats, mySeatPositions);
+            }
+            if (i <= numCarriages - firstContainerCarriage) {
+                computeSeats(front, back, SUMO_const_waitingContainerWidth, containersPerCarriage, exaggeration, requiredPositions, myContainerPositions);
+            }
+        } else {
+            if (i >= firstPassengerCarriage) {
+                computeSeats(front, back, SUMO_const_waitingPersonWidth, seatsPerCarriage, exaggeration, requiredSeats, mySeatPositions);
+            }
+            if (i >= firstContainerCarriage) {
+                computeSeats(front, back, SUMO_const_waitingContainerWidth, containersPerCarriage, exaggeration, requiredPositions, myContainerPositions);
+            }
         }
         GLHelper::pushMatrix();
         glTranslated(front.x(), front.y(), getType());
@@ -410,15 +446,15 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
             switch (getVType().getGuiShape()) {
                 case SUMOVehicleShape::TRUCK_SEMITRAILER:
                 case SUMOVehicleShape::TRUCK_1TRAILER:
-                    if (i == 0) {
-                        GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(s, getVType().getGuiShape(), getVType().getWidth() * exaggeration, curCLength, i);
+                    if (i == firstCarriageNo) {  // at the moment amReversed is only ever set for rail - so has no impact in this call
+                        GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(s, getVType().getGuiShape(), getVType().getWidth() * exaggeration, curCLength, 0, false, reversed);
                     } else {
                         GLHelper::setColor(current);
                         GLHelper::drawBoxLine(Position(0, 0), 180, curCLength, halfWidth);
                     }
                     break;
                 default: {
-                    if (i == 0) {
+                    if (i == firstCarriageNo) {
                         GLHelper::setColor(darker);
                     } else {
                         GLHelper::setColor(current);
@@ -435,14 +471,21 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
                     glVertex2d(halfWidth - xCornerCut, 0);
                     glEnd();
                     // indicate front of the head of the train
-                    if (i == 0) {
+                    if (i == firstCarriageNo) {
                         glTranslated(0, 0, 0.1);
                         glColor3d(0, 0, 0);
                         glBegin(GL_TRIANGLE_FAN);
-                        glVertex2d(-halfWidth + 2 * xCornerCut, yCornerCut);
-                        glVertex2d(-halfWidth + xCornerCut, 3 * yCornerCut);
-                        glVertex2d(halfWidth - xCornerCut, 3 * yCornerCut);
-                        glVertex2d(halfWidth - 2 * xCornerCut, yCornerCut);
+                        if (reversed) {  // not quite correct as its drawing at the wrong end of the locomotive - however useful as visual indicator of reverse?
+                            glVertex2d(-halfWidth + xCornerCut, yCornerCut);
+                            glVertex2d(-halfWidth + 2 * xCornerCut, 3 * yCornerCut);
+                            glVertex2d(halfWidth - 2 * xCornerCut, 3 * yCornerCut);
+                            glVertex2d(halfWidth - xCornerCut, yCornerCut);
+                        } else {
+                            glVertex2d(-halfWidth + 2 * xCornerCut, yCornerCut);
+                            glVertex2d(-halfWidth + xCornerCut, 3 * yCornerCut);
+                            glVertex2d(halfWidth - xCornerCut, 3 * yCornerCut);
+                            glVertex2d(halfWidth - 2 * xCornerCut, yCornerCut);
+                        }
                         glEnd();
                         glTranslated(0, 0, -0.1);
                     }
@@ -622,7 +665,8 @@ GUIVehicle::getColorValue(const GUIVisualizationSettings& s, int activeScheme) c
                 try {
                     return StringUtils::toBool(val);
                 } catch (BoolFormatException&) {
-                    WRITE_WARNING("Vehicle parameter '" + myParameter->getParameter(s.vehicleParam, "0") + "' key '" + s.vehicleParam + "' is not a number for vehicle '" + getID() + "'");
+                    WRITE_WARNINGF(TL("Vehicle parameter '%' key '%' is not a number for vehicle '%'."),
+                                   myParameter->getParameter(s.vehicleParam, "0"), s.vehicleParam, getID());
                     return GUIVisualizationSettings::MISSING_DATA;
                 }
             }
@@ -667,18 +711,18 @@ GUIVehicle::drawBestLanes() const {
 
 
 void
-GUIVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r, bool future, bool noLoop, const RGBColor& col) const {
+GUIVehicle::drawRouteHelper(const GUIVisualizationSettings& s, ConstMSRoutePtr r, bool future, bool noLoop, const RGBColor& col) const {
     const double exaggeration = s.vehicleSize.getExaggeration(s, this) * (s.gaming ? 0.5 : 1);
-    MSRouteIterator start = future ? myCurrEdge : r.begin();
+    MSRouteIterator start = future ? myCurrEdge : r->begin();
     MSRouteIterator i = start;
     const std::vector<MSLane*>& bestLaneConts = getBestLanesContinuation();
     // draw continuation lanes when drawing the current route where available
-    int bestLaneIndex = (&r == myRoute ? 0 : (int)bestLaneConts.size());
+    int bestLaneIndex = (r == myRoute ? 0 : (int)bestLaneConts.size());
     std::map<const MSLane*, int> repeatLane; // count repeated occurrences of the same edge
     const double textSize = s.vehicleName.size / s.scale;
     const GUILane* prevLane = nullptr;
     int reversalIndex = 0;
-    const int indexDigits = (int)toString(r.size()).size();
+    const int indexDigits = (int)toString(r->size()).size();
     if (!isOnRoad() && !isParking()) {
         // simulation time has already advanced so isRemoteControlled is always false
         const std::string offRoadLabel = hasInfluencer() && getInfluencer()->isRemoteAffected(SIMSTEP) ? "offRoad" : "teleporting";
@@ -686,7 +730,8 @@ GUIVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r,
     } else if (myLane->isInternal()) {
         bestLaneIndex++;
     }
-    for (; i != r.end(); ++i) {
+    const bool s2 = s.secondaryShape;
+    for (; i != r->end(); ++i) {
         const GUILane* lane;
         if (bestLaneIndex < (int)bestLaneConts.size() && bestLaneConts[bestLaneIndex] != 0 && (*i) == &(bestLaneConts[bestLaneIndex]->getEdge())) {
             lane = static_cast<GUILane*>(bestLaneConts[bestLaneIndex]);
@@ -700,7 +745,7 @@ GUIVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r,
             }
         }
         GLHelper::setColor(col);
-        GLHelper::drawBoxLines(lane->getShape(), lane->getShapeRotations(), lane->getShapeLengths(), exaggeration);
+        GLHelper::drawBoxLines(lane->getShape(s2), lane->getShapeRotations(s2), lane->getShapeLengths(s2), exaggeration);
         if (prevLane != nullptr && lane->getBidiLane() == prevLane) {
             // indicate train reversal
             std::string label = "reverse:" + toString(reversalIndex++);
@@ -712,8 +757,8 @@ GUIVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r,
         }
         if (s.showRouteIndex) {
             std::string label = toString((int)(i - myCurrEdge));
-            const double laneAngle = lane->getShape().angleAt2D(0);
-            Position pos = lane->getShape().front() - Position(0, textSize * repeatLane[lane]) + Position(
+            const double laneAngle = lane->getShape(s2).angleAt2D(0);
+            Position pos = lane->getShape(s2).front() - Position(0, textSize * repeatLane[lane]) + Position(
                                (laneAngle >= -0.25 * M_PI && laneAngle < 0.75 * M_PI ? 1 : -1) * 0.4 * indexDigits * textSize, 0);
             //GLHelper::drawText(label, pos, 1.0, textSize, s.vehicleName.color);
             GLHelper::drawTextSettings(s.vehicleName, label, pos, s.scale, s.angle, 1.0);
@@ -805,7 +850,7 @@ GUIVehicle::getStopInfo() const {
         result += ", triggered";
     } else if (myStops.front().pars.containerTriggered) {
         result += ", containerTriggered";
-    } else if (myStops.front().collision) {
+    } else if (myStops.front().pars.collision) {
         result += ", collision";
     } else if (myStops.front().pars.until != -1) {
         result += ", until=" + time2string(myStops.front().pars.until);
@@ -1065,5 +1110,56 @@ GUIVehicle::rerouteDRTStop(MSStoppingPlace* busStop) {
     assert(haveValidStopEdges());
 }
 
+Position
+GUIVehicle::getVisualPosition(bool s2, const double offset) const {
+    if (s2) {
+        // see MSVehicle::getPosition
+        if (myLane == nullptr) {
+            return Position::INVALID;
+        }
+        if (isParking()) {
+            if (myStops.begin()->parkingarea != nullptr) {
+                return myStops.begin()->parkingarea->getVehiclePosition(*this);
+            } else {
+                // position beside the road
+                PositionVector shp = myLane->getEdge().getLanes()[0]->getShape(s2);
+                shp.move2side(SUMO_const_laneWidth * (MSGlobals::gLefthand ? -1 : 1));
+                return shp.positionAtOffset((getPositionOnLane() + offset) * myLane->getLengthGeometryFactor(s2));
+            }
+        }
+        const PositionVector& shape = myLane->getShape(s2);
+        const double posLat = (MSGlobals::gLefthand ? 1 : -1) * getLateralPositionOnLane();
+        return shape.positionAtOffset((getPositionOnLane() + offset) * myLane->getLengthGeometryFactor(s2), posLat);
+    } else {
+        return getPosition(offset);
+    }
+}
 
+
+double
+GUIVehicle::getVisualAngle(bool s2) const {
+    if (s2) {
+        // see MSVehicle::computeAngle
+        const PositionVector& shape = myLane->getShape(s2);
+        if (isParking()) {
+            if (myStops.begin()->parkingarea != nullptr) {
+                return myStops.begin()->parkingarea->getVehicleAngle(*this);
+            } else {
+                return shape.rotationAtOffset(getPositionOnLane() * myLane->getLengthGeometryFactor(s2));
+            }
+        }
+        // if (myLaneChangeModel->isChangingLanes()) {
+        const double lefthandSign = (MSGlobals::gLefthand ? -1 : 1);
+        Position p1 = getVisualPosition(s2);
+        Position p2 = getVisualPosition(s2, MAX2(0.0, -myType->getLength()));
+        double result = (p1 != p2 ? p2.angleTo2D(p1) :
+                shape.rotationAtOffset(getPositionOnLane() * myLane->getLengthGeometryFactor(s2)));
+        if (myLaneChangeModel->isChangingLanes()) {
+            result += lefthandSign * DEG2RAD(myLaneChangeModel->getAngleOffset());
+        }
+        return result;
+    } else {
+        return getAngle();
+    }
+}
 /****************************************************************************/

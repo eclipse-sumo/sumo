@@ -1,4 +1,4 @@
-Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.primary' (first occurence for edge '198188181').
+Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.primary' (first occurrence for edge '198188181').
 Warning: Removing pt stop '289751411' on non existing edge '185773050'.
 Warning: PT line in relation 165867 with no stops ignored. Probably OSM file is incomplete.
 Warning: No way found for reference '204001555' in relation '1995435'

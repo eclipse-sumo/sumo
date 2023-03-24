@@ -1,1 +1,1 @@
--d tests/tools
+-d tests -x netedit,complex

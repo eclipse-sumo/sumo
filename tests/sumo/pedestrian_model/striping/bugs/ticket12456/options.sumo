@@ -1,0 +1,5 @@
+--net-file net.net.xml --route-files input_routes.rou.xml 
+--no-step-log
+--fcd-output fcd.xml
+--fcd-output.attributes pos,angle,edge,x,y
+

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -127,7 +127,7 @@ public:
     void closeLane();
 
     /// builds the MSEdgeControl-class which holds all edges
-    MSEdgeControl* build(double networkVersion);
+    MSEdgeControl* build(const MMVersion& networkVersion);
 
 
     /** @brief Builds an edge instance (MSEdge in this case)
@@ -172,6 +172,8 @@ protected:
 
     /// @brief temporary storage for bidi attributes (to be resolved after loading all edges)
     std::map<MSEdge*, std::string> myBidiEdges;
+
+    std::vector<std::pair<MSLane*, std::string> > myOppositeLanes;
 
     /** @brief set the stopOffset for the last added lane.
      */

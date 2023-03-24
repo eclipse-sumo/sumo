@@ -19,6 +19,7 @@
 *.csv  text eol=lf
 *.txt  text eol=lf
 *.tcl  text eol=lf
+*.po  text eol=lf
 
 *.complex     text eol=lf
 *.dfrouter    text eol=lf

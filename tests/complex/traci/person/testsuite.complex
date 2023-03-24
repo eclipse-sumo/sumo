@@ -30,3 +30,6 @@ junctionModel.ignoreProb
 
 # test early insertion by removing a stage
 force_depart
+
+# add person that starts in a vehicle
+start_in_vehicle

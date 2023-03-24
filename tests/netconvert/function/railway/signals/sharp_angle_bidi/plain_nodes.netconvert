@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-11-22 13:48:21 by Eclipse SUMO netconvert Version v1_15_0+0512-0bf873c
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_plain.nod.xml"/>
+        <edge-files value="input_plain.edg.xml"/>
+        <connection-files value="input_plain.con.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output-file value="net.net.xml"/>
+        <plain-output-prefix value="plain"/>
+    </output>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<nodes version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="-2700.00,-896.99" convBoundary="0.00,0.00,400.00,3.01" origBoundary="100.00,900.00,4800.00,1000.00" projParameter="!"/>
+
+    <node id="A" x="0.00" y="3.01" type="dead_end"/>
+    <node id="B" x="400.00" y="3.01" type="rail_signal"/>
+    <node id="C" x="100.69" y="0.00" type="dead_end"/>
+</nodes>

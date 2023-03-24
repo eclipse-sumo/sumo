@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Dec 22 15:08:13 2020 by Eclipse SUMO sumo Version v1_8_0+0337-3372cdd
+<!-- generated on 2022-12-04 16:29:31 by Eclipse SUMO sumo Version v1_15_0+0751-db72905
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -25,7 +30,6 @@ SPDX-License-Identifier: EPL-2.0
     <report>
         <verbose value="true"/>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -35,7 +39,7 @@ SPDX-License-Identifier: EPL-2.0
 
 <lanechanges>
     <change id="mustChangeLeft" type="DEFAULT_VEHTYPE" time="9.00" from="end_0" to="end_1" dir="1" speed="13.16" pos="8.22" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
-    <change id="mustChangeLeft" type="DEFAULT_VEHTYPE" time="11.00" from="end_1" to="end_2" dir="1" speed="13.34" pos="35.14" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="3.92" followerSecureGap="0.00" followerSpeed="7.71" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
-    <change id="mustChangeRight" type="DEFAULT_VEHTYPE" time="11.00" from="end_2" to="end_1" dir="-1" speed="7.71" pos="26.22" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="3.92" origLeaderSecureGap="0.00" origLeaderSpeed="13.34"/>
-    <change id="mustChangeRight" type="DEFAULT_VEHTYPE" time="12.00" from="end_1" to="end_0" dir="-1" speed="9.72" pos="35.94" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
+    <change id="mustChangeLeft" type="DEFAULT_VEHTYPE" time="11.00" from="end_1" to="end_2" dir="1" speed="13.34" pos="35.14" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="3.34" followerSecureGap="0.00" followerSpeed="8.29" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
+    <change id="mustChangeRight" type="DEFAULT_VEHTYPE" time="11.00" from="end_2" to="end_1" dir="-1" speed="8.29" pos="26.80" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="3.34" origLeaderSecureGap="0.00" origLeaderSpeed="13.34"/>
+    <change id="mustChangeRight" type="DEFAULT_VEHTYPE" time="12.00" from="end_1" to="end_0" dir="-1" speed="10.30" pos="37.10" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
 </lanechanges>

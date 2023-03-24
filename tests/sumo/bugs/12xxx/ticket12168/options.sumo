@@ -1,0 +1,4 @@
+--no-step-log --net-file=net2.net.xml
+--stop-output stopinfos.xml
+-r input_routes.rou.xml
+-a input_additional.add.xml

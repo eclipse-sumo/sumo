@@ -1,6 +1,1 @@
-Warning: Vehicle 'flow.0' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=-7.65, offset=0.09), time=9.00.
-Warning: Vehicle 'flow.4' performs emergency braking on lane 'gneE1_0' with decel=9.33, wished=4.50, severity=1.07, time=25.00.
-Warning: Vehicle 'flow.7' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=-6.58, offset=0.02), time=37.00.
-Warning: Vehicle 'flow.10' performs emergency braking on lane 'gneE1_0' with decel=9.22, wished=4.50, severity=1.05, time=49.00.
-Warning: Vehicle 'flow.15' performs emergency braking on lane 'gneE1_0' with decel=9.11, wished=4.50, severity=1.02, time=67.00.
-Warning: Vehicle 'flow.16' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=-8.01, offset=1.58), time=70.00.
+Error: Triggers and waypoints cannot be combined at 'chargingStationB' in vehicle 'flow'.

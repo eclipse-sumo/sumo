@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -160,6 +160,28 @@ GUIDanielPerspectiveChanger::onLeftBtnRelease(void* data) {
 
 
 void
+GUIDanielPerspectiveChanger::onMiddleBtnPress(void* data) {
+    myMouseButtonState |= MOUSEBTN_MIDDLE;
+    FXEvent* e = (FXEvent*) data;
+    myMouseXPosition = e->win_x;
+    myMouseYPosition = e->win_y;
+    myMoveOnClick = false;
+    myMouseDownTime = FXThread::time();
+    myZoomBase = myCallback.getPositionInformation();
+}
+
+
+bool
+GUIDanielPerspectiveChanger::onMiddleBtnRelease(void* data) {
+    myMouseButtonState &= ~MOUSEBTN_MIDDLE;
+    FXEvent* e = (FXEvent*) data;
+    myMouseXPosition = e->win_x;
+    myMouseYPosition = e->win_y;
+    return myMoveOnClick;
+}
+
+
+void
 GUIDanielPerspectiveChanger::onRightBtnPress(void* data) {
     myMouseButtonState |= MOUSEBTN_RIGHT;
     FXEvent* e = (FXEvent*) data;
@@ -220,6 +242,7 @@ GUIDanielPerspectiveChanger::onMouseMove(void* data) {
     const bool pastDelay = !gSchemeStorage.getDefault().gaming && FXThread::time() > (myMouseDownTime + myDragDelay);
     switch (myMouseButtonState) {
         case MOUSEBTN_LEFT:
+        case MOUSEBTN_MIDDLE:
             if (pastDelay) {
                 if (myRotation != 0) {
                     Position diffRot = Position(xdiff, ydiff).rotateAround2D(

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-01-06 19:53:43 by Eclipse SUMO sumo Version v1_15_0+1373-69fb6ce3b67
+-->
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+    </input>
+
+</configuration>

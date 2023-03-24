@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -87,11 +87,14 @@ GNEChange_DemandElement::undo() {
         myDemandElement->getNet()->getViewNet()->getViewParent()->getTypeFrame()->getTypeSelector()->refreshTypeSelector();
     }
     // update stack labels
-    if (myOriginalHierarchicalContainer.getParents<std::vector<GNEEdge*> >().size() > 0) {
-        myOriginalHierarchicalContainer.getParents<std::vector<GNEEdge*> >().front()->updateVehicleStackLabels();
+    const auto parentEdges = myOriginalHierarchicalContainer.getParents<std::vector<GNEEdge*> >();
+    if (parentEdges.size() > 0) {
+        parentEdges.front()->updateVehicleStackLabels();
+        parentEdges.front()->updatePersonStackLabels();
+        parentEdges.front()->updateContainerStackLabels();
     }
     // require always save elements
-    myDemandElement->getNet()->requireSaveDemandElements(true);
+    myDemandElement->getNet()->getSavingStatus()->requireSaveDemandElements();
 }
 
 
@@ -125,20 +128,23 @@ GNEChange_DemandElement::redo() {
         myDemandElement->getNet()->getViewNet()->getViewParent()->getTypeFrame()->getTypeSelector()->refreshTypeSelector();
     }
     // update stack labels
-    if (myOriginalHierarchicalContainer.getParents<std::vector<GNEEdge*> >().size() > 0) {
-        myOriginalHierarchicalContainer.getParents<std::vector<GNEEdge*> >().front()->updateVehicleStackLabels();
+    const auto parentEdges = myOriginalHierarchicalContainer.getParents<std::vector<GNEEdge*> >();
+    if (parentEdges.size() > 0) {
+        parentEdges.front()->updateVehicleStackLabels();
+        parentEdges.front()->updatePersonStackLabels();
+        parentEdges.front()->updateContainerStackLabels();
     }
     // require always save elements
-    myDemandElement->getNet()->requireSaveDemandElements(true);
+    myDemandElement->getNet()->getSavingStatus()->requireSaveDemandElements();
 }
 
 
 std::string
 GNEChange_DemandElement::undoName() const {
     if (myForward) {
-        return ("Undo create " + myDemandElement->getTagStr());
+        return (TL("Undo create ") + myDemandElement->getTagStr() + " '" + myDemandElement->getID() + "'");
     } else {
-        return ("Undo delete " + myDemandElement->getTagStr());
+        return (TL("Undo delete ") + myDemandElement->getTagStr() + " '" + myDemandElement->getID() + "'");
     }
 }
 
@@ -146,8 +152,8 @@ GNEChange_DemandElement::undoName() const {
 std::string
 GNEChange_DemandElement::redoName() const {
     if (myForward) {
-        return ("Redo create " + myDemandElement->getTagStr());
+        return (TL("Redo create ") + myDemandElement->getTagStr() + " '" + myDemandElement->getID() + "'");
     } else {
-        return ("Redo delete " + myDemandElement->getTagStr());
+        return (TL("Redo delete ") + myDemandElement->getTagStr() + " '" + myDemandElement->getID() + "'");
     }
 }

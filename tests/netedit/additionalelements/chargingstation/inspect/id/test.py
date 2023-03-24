@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -38,16 +38,16 @@ netedit.changeElement("chargingStation")
 netedit.changeDefaultValue(netedit.attrs.chargingStation.create.references, "reference center")
 
 # create chargingStation 1 in mode "reference center"
-netedit.leftClick(referencePosition, 250, 172)
+netedit.leftClick(referencePosition, 304, 244)
 
 # create chargingStation 2 in mode "reference center"
-netedit.leftClick(referencePosition, 450, 172)
+netedit.leftClick(referencePosition, 134, 244)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first chargingStation
-netedit.leftClick(referencePosition, 250, 165)
+netedit.leftClick(referencePosition, 350, 244)
 
 # Change parameter id with a non valid value (Duplicated ID)
 netedit.modifyAttribute(netedit.attrs.chargingStation.inspect.id, "cs_1", True)
@@ -62,11 +62,8 @@ netedit.modifyAttribute(netedit.attrs.chargingStation.inspect.id, "correctID", T
 netedit.undo(referencePosition, 3)
 netedit.redo(referencePosition, 3)
 
-# save additionals
-netedit.saveAdditionals(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

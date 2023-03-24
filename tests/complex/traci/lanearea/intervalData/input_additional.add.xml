@@ -1,0 +1,4 @@
+<additional>
+    <!-- requires output file for setting aggregated values -->
+    <e2Detector id="0" lane="2fi_0" pos="10" length="20" freq="30" file="out.xml"/>
+</additional>

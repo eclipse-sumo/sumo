@@ -59,19 +59,14 @@ try one of the build service repositories here too, e.g.
 At the moment there is no documentation included in the packages. The
 repositories include a nightly build as well (called ***sumo-git***).
 
-- [openSUSE Leap 42.3 repository](http://download.opensuse.org/repositories/science:/dlr/openSUSE_Leap_42.3/)
-- [openSUSE Leap 15.0 repository](http://download.opensuse.org/repositories/science:/dlr/openSUSE_Leap_15.0/)
-- [openSUSE Leap 15.1 repository](http://download.opensuse.org/repositories/science:/dlr/openSUSE_Leap_15.1/)
 - [openSUSE Leap 15.2 repository](http://download.opensuse.org/repositories/science:/dlr/openSUSE_Leap_15.2/)
 - [openSUSE Leap 15.3 repository](http://download.opensuse.org/repositories/science:/dlr/15.3/)
 - [openSUSE Leap 15.4 repository](http://download.opensuse.org/repositories/science:/dlr/15.4/)
 - [openSUSE Tumbleweed repository](http://download.opensuse.org/repositories/science:/dlr/openSUSE_Tumbleweed/)
-- [Fedora 30 repository](http://download.opensuse.org/repositories/science:/dlr/Fedora_30/)
-- [Fedora 31 repository](http://download.opensuse.org/repositories/science:/dlr/Fedora_31/)
-- [Fedora 32 repository](http://download.opensuse.org/repositories/science:/dlr/Fedora_32/)
-- [Fedora 33 repository](http://download.opensuse.org/repositories/science:/dlr/Fedora_33/)
 - [Fedora 34 repository](http://download.opensuse.org/repositories/science:/dlr/Fedora_34/)
 - [Fedora 35 repository](http://download.opensuse.org/repositories/science:/dlr/Fedora_35/)
+- [Fedora 36 repository](http://download.opensuse.org/repositories/science:/dlr/Fedora_36/)
+- [Fedora 37 repository](http://download.opensuse.org/repositories/science:/dlr/Fedora_37/)
 - [Fedora Rawhide repository](http://download.opensuse.org/repositories/science:/dlr/Fedora_Rawhide/)
 - [CentOS 7 repository](http://download.opensuse.org/repositories/science:/dlr/CentOS_7/)
 - [CentOS 8 repository](http://download.opensuse.org/repositories/science:/dlr/CentOS_8/)
@@ -95,6 +90,9 @@ Direct installation without adding the repository can be done in CentOS 8 like t
 ```
 sudo yum --nogpgcheck --repofrompath=centos,https://download.opensuse.org/repositories/science:/dlr/CentOS_8 install sumo
 ```
+More instructions on how to install from open build service are
+[here for the main project](https://software.opensuse.org//download.html?project=science%3Adlr&package=sumo)
+and [here for the playground](https://software.opensuse.org//download.html?project=home%3Abehrisch&package=sumo).
 
 Ubuntu, Debian and Arch users please see the community repositories above.
 
@@ -211,7 +209,7 @@ The [release directory](https://sumo.dlr.de/releases/) contains all release file
 Those and older releases can also be obtained via the [sourceforge download portal](https://sourceforge.net/projects/sumo/files/sumo/).
 If you want to try out an older version you can also use the virtual environment approach
 ([explained above](#python_packages_virtual_environments)) with a fixed version, e.g.
-`pip install eclipse-sumo=1.9.0` (works only for 1.8.0 and later).
+`pip install eclipse-sumo==1.9.0` (works only for 1.8.0 and later).
 
 If you need a complete zipped snapshot of the repository (including tests) for an older version have a look at the tags in your
 local repository or at [GitHub tags](https://github.com/eclipse/sumo/tags).

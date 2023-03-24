@@ -69,7 +69,7 @@ values would not be known.
 Single devices may choose to add further output to the tripinfo file.
 This is currently the case for the "emissions" device which is
 instantiated using one of the options **--device.emissions.probability** {{DT_FLOAT}} or **--device.emissions.explicit** [***<ID\>\[,<ID\>\]\****](../../Basics/Notation.md#referenced_data_types). The written emissions depend
-on the chose emission class of the vehicle (see [Definition of Vehicles,
+on the chosen emission class of the vehicle (see [Definition of Vehicles,
 Vehicle Types, and
 Routes](../../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md)
 and [Models/Emissions](../../Models/Emissions.md)). The output
@@ -151,7 +151,7 @@ The attributes within the stages have the following meaning:
 | `depart`      | (simulation) seconds | The departure time for this stage. For `<ride>,<transport>`, this is the time where the vehicle is entered.                    (-1 if the vehicl wasn't entered) |
 | `arrival`     | (simulation) seconds | The arrival time for this stage N.B. In stop stages this is the time at which the stage ends i.e. after the duration time period (-1 if the stage did not start) |
 | `arrivalPos`  | m                    | The arrival position on the destination edge for this stage                                                                      |
-| `duration`    | (simulation) seconds | The time spent in that stage (-1 if the stage did not start)                                                                                                         |
+| `duration`    | (simulation) seconds | For walking and stopping, this is time spent in that stage. For a riding stage, this **only** is the time spent inside the vehicle.  (-1 if the stage did not start or the person did not enter the vehicle)    |
 | `actType`     | string               | The activity description of a stop                                                                                               |
 | `waitingTime` | (simulation) seconds | The time spent waiting for a vehicle                                                                                             |
 | `routeLength` | m | the distance travelled in that stage|
@@ -164,3 +164,19 @@ Aggregated output for key tripinfo-output attributes can be obtained by setting
 the option [**--statistic-output**](StatisticOutput.md).
 
 For further aggregation see [attributeStats.py](../../Tools/Output.md#attributestatspy) and [Tools/Xml\#xml2csv.py](../../Tools/Xml.md#xml2csvpy).
+
+## Visualization Examples
+
+The TripInfo output can be used as input for several visualization tools shipped with SUMO. Some example plots are shown below.
+
+### Depart delays over time
+
+<img src="../../images/departDelayScatter.png" title="departDelayScatter.png" width="500"/>
+
+Generated with [plotXMLAttributes.py](../../Tools/Visualization.md#depart_delay_over_time_from_tripinfo_data).
+
+### Histogram of the number of stops
+
+<img src="../../images/stopCountDist.png" title="stopCountDist.png" width="500"/>
+
+Generated with [plot_tripinfo_distributions.py](../../Tools/Visualization.md#plot_tripinfo_distributionspy).

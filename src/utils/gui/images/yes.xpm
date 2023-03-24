@@ -8,6 +8,7 @@ static const char * yes_xpm[] = {
 "O	c #42ef31",
 "+	c #00b500",
 "@	c #18de08",
+/* pixels */
 "                ",
 "                ",
 "            .XX ",
@@ -23,4 +24,5 @@ static const char * yes_xpm[] = {
 "     o++@.      ",
 "     .@+O       ",
 "      X@X       ",
-"       .        "};
+"       .        "
+};

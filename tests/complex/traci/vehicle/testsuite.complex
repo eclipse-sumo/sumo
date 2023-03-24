@@ -1,3 +1,6 @@
+# test retrieval of upcoming links
+getNextLinks
+
 # test accessing the ssm device
 ssm
 
@@ -28,6 +31,9 @@ taxi
 
 # test adding vehicles
 add
+
+# test traci access to cfmodel features
+cfmodel
 
 # Tests the vehicle API
 vehicle
@@ -108,3 +114,9 @@ junctionModel.ignore
 
 # test bit5 (ignore foes within junction)
 ignoreJunctionFoes
+
+# retrieve vehicles that are not visible in the network
+getInvisible
+
+# retrieve tripinfo statistics
+tripinfoRetrieval

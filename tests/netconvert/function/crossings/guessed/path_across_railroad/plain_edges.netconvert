@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:57 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2023-03-16 15:16:18 by Eclipse SUMO netconvert Version v1_16_0+1364-d01baf5
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -26,14 +31,15 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
         <ignore-errors.edge-type value="true"/>
     </report>
 
 </configuration>
 -->
 
-<edges version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+<edges version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <location netOffset="-293458.92,-5709017.82" convBoundary="0.00,0.00,1099.87,614.72" origBoundary="11.984784,51.476682,12.342589,51.531167" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
     <edge id="CE" from="C" to="3032658464" priority="1" type="highway.track" numLanes="1" speed="5.56" shape="695.08,553.06 714.13,547.35 761.31,540.32 883.86,531.99 958.43,525.11 1065.00,510.97 1099.87,505.88" disallow="tram rail_urban rail rail_electric ship"/>
     <edge id="CN" from="C" to="408481556" name="Zöberitzer Weg" priority="2" type="highway.service" numLanes="1" speed="5.56" shape="694.29,569.48 696.38,614.72" allow="pedestrian delivery bicycle"/>
     <edge id="CS" from="C" to="635894914" name="Zöberitzer Weg" priority="1" type="highway.track" numLanes="1" speed="5.56" shape="695.08,553.06 682.90,94.79 666.19,0.00" disallow="tram rail_urban rail rail_electric ship"/>

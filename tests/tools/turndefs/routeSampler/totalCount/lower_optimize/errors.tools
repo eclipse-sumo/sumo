@@ -1,0 +1,3 @@
+/home/kobo/.local/lib/python3.8/site-packages/scipy/optimize/_linprog.py:498: OptimizeWarning: x0 is used only when method is 'revised simplex'. 
+  warn(warning_message, OptimizeWarning)
+Cannot fulfill total interval count of 50 due to lack of unrestricted routes

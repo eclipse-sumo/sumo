@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-10-11 16:11:55 by Eclipse SUMO netedit Version v1_14_1+1602-ffbcf692cdd
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <person id="p_0" depart="0.00">
+        <walk from="gneE2" to="gneE2"/>
+        <walk busStop="busStopB"/>
+    </person>
+</routes>

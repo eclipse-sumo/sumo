@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-02-07 12:56:57.787785 by generateRerouters.py v1_16_0+0022-e34d6b9
+<configuration>
+    <closed-edges value="E0"/>
+    <net-file value="net.net.xml"/>
+    <output-file value="out.add.xml"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+   <rerouter id="rr" edges="E5">
+      <interval begin="0" end="86400">
+          <closingReroute id="E0" allow="authority">
+       </interval>
+   </rerouter>
+</additional>

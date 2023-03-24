@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -26,7 +26,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to additional mode
 netedit.additionalMode()
@@ -35,7 +35,7 @@ netedit.additionalMode()
 netedit.changeElement("vaporizer")
 
 # create vaporizer
-netedit.leftClick(referencePosition, 250, 120)
+netedit.leftClick(referencePosition, 338, 252)
 
 # recompute (needed for vertical position)
 netedit.rebuildNetwork()
@@ -44,16 +44,13 @@ netedit.rebuildNetwork()
 netedit.inspectMode()
 
 # inspect first vaporizer
-netedit.leftClick(referencePosition, 325, 227)
+netedit.leftClick(referencePosition, 512, 276)
 
 # check parameters
-netedit.checkParameters(referencePosition, netedit.attrs.vaporizer.inspect.parameters, True)
+netedit.checkParameters(referencePosition, netedit.attrs.vaporizer.inspect.parameters, False)
 
-# save additionals
-netedit.saveAdditionals(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

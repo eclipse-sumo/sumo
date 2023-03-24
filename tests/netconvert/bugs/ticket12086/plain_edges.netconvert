@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-03-16 15:16:20 by Eclipse SUMO netconvert Version v1_16_0+1364-d01baf5
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="input_net.net.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <plain-output-prefix value="plain"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="0"/>
+        <junctions.limit-turn-speed value="-1.00"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<edges version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <location netOffset="-610837.31,-5801296.26" convBoundary="265.09,237.46,833.06,517.76" origBoundary="4.625834,52.338776,4.641096,52.361335" projParameter="+proj=utm +zone=31 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <edge id="-23602047" from="J05" to="Z06" priority="7" type="highway.secondary" numLanes="2" speed="13.89" shape="831.30,466.39 790.33,459.43 759.05,452.48 727.71,443.99 679.99,427.55 625.39,404.29 530.69,357.81" width="3.00" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
+    <edge id="23602047" from="Z06" to="J05" priority="7" type="highway.secondary" numLanes="2" speed="13.89" shape="530.69,357.81 625.39,404.29 679.99,427.55 727.71,443.99 759.05,452.48 790.33,459.43 831.30,466.39" width="3.00" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
+    <edge id="gneE01" from="J01" to="Z01" priority="7" type="highway.secondary" numLanes="1" speed="13.89" shape="270.05,513.53 297.03,445.51 307.57,424.85 312.18,416.78" spreadType="center" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
+    <edge id="gneE02" from="Z01" to="Z02" priority="7" type="highway.secondary" numLanes="2" speed="13.89" shape="312.18,416.78 321.62,400.01 324.60,396.32" spreadType="center" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
+    <edge id="gneE05" from="Dn27" to="J08" priority="7" type="highway.secondary" numLanes="1" speed="13.89" spreadType="center" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
+    <edge id="gneE09" from="J04" to="Z03" priority="6" type="highway.tertiary" numLanes="2" speed="13.89" shape="292.38,237.46 300.31,244.14 305.82,252.11 330.55,297.37" spreadType="center" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
+    <edge id="gneE110.15" from="AMJ01" to="CJ02" priority="1" numLanes="1" speed="13.89" shape="343.80,361.88 339.20,335.16 332.93,318.15 328.93,309.85" spreadType="center" width="2.00" allow="moped bicycle"/>
+    <edge id="gneE111" from="Z02" to="K0001" priority="1" numLanes="3" speed="13.89" shape="326.54,395.08 347.36,372.81" spreadType="center" width="3.00"/>
+    <edge id="gneE113" from="Z03" to="K0001" priority="1" numLanes="2" speed="13.89" shape="334.76,305.84 362.49,349.69" spreadType="center"/>
+    <edge id="gneE119" from="K0001" to="J03" priority="1" numLanes="1" speed="13.89" shape="354.76,354.58 346.56,337.12 296.52,247.32 289.23,241.42" spreadType="center"/>
+    <edge id="gneE123" from="J07" to="K0001" priority="1" numLanes="2" speed="13.89" shape="401.78,432.64 371.62,381.62" spreadType="center"/>
+    <edge id="gneE125" from="K0001" to="J06" priority="1" numLanes="1" speed="13.89" shape="375.88,378.76 406.00,430.16" spreadType="center"/>
+    <edge id="gneE129.0" from="Z04" to="Dn25" priority="1" numLanes="3" speed="13.89" shape="447.40,339.24 436.96,340.07 423.05,342.96 411.23,346.63 398.62,352.14" spreadType="center" width="3.00">
+        <lane index="0" allow="taxi bus"/>
+        <lane index="1"/>
+        <lane index="2"/>
+    </edge>
+    <edge id="gneE129.48" from="Dn25" to="K0001" priority="1" numLanes="3" speed="13.89" shape="398.62,352.14 387.59,357.67" spreadType="center" width="3.00">
+        <lane index="0" allow="hov taxi bus coach"/>
+        <lane index="1"/>
+        <lane index="2"/>
+    </edge>
+    <edge id="gneE131" from="Dn26" to="Z04" priority="1" numLanes="2" speed="13.89" spreadType="center" width="3.00"/>
+    <edge id="gneE133.0" from="K0001" to="Dn24" priority="1" numLanes="2" speed="13.89" shape="382.44,348.31 393.89,342.96" spreadType="center" width="3.00">
+        <lane index="0" allow="taxi bus"/>
+        <lane index="1"/>
+    </edge>
+    <edge id="gneE133.12" from="Dn24" to="Z05" priority="1" numLanes="2" speed="13.89" shape="393.89,342.96 406.27,337.17 422.75,332.36 440.14,331.22" spreadType="center" width="3.00">
+        <lane index="0" allow="taxi bus"/>
+        <lane index="1"/>
+    </edge>
+    <edge id="gneE134" from="Z05" to="Z06" priority="7" type="highway.secondary" numLanes="2" speed="13.89" shape="464.57,331.21 468.61,331.80 492.99,337.55 530.49,354.11" spreadType="center" width="3.00" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
+    <edge id="gneE135" from="K0001" to="Dn27" priority="1" numLanes="1" speed="13.89" shape="355.66,381.72 332.18,407.71 319.39,423.87 312.06,435.15 305.86,446.62 294.04,473.27" spreadType="center"/>
+    <edge id="gneE136" from="Z06" to="Dn26" priority="7" type="highway.secondary" numLanes="2" speed="13.89" shape="527.97,360.17 485.71,343.85 461.62,338.96 458.11,338.67" spreadType="center" width="3.00" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
+    <edge id="gneE14.0" from="PJ01" to="AMJ01" priority="1" numLanes="1" speed="13.89" shape="265.09,511.68 279.30,464.18 285.56,446.89 300.70,413.21 307.28,400.66 316.52,386.12 325.77,375.75 340.72,364.30" width="0.50" allow="pedestrian"/>
+    <edge id="gneE145" from="Dn04" to="AMJ01" priority="1" numLanes="1" speed="13.89" shape="342.81,367.68 341.59,366.32" width="0.50" allow="pedestrian"/>
+    <edge id="gneE148" from="AMJ01" to="Dn04" priority="1" numLanes="1" speed="13.89" shape="341.59,366.32 342.81,367.68" width="0.50" allow="pedestrian"/>
+    <edge id="gneE15.35" from="AMJ01" to="PJ01" priority="1" numLanes="1" speed="13.89" shape="340.72,364.30 325.94,375.92 315.92,386.97 307.39,400.77 300.62,413.25 285.56,446.79 279.27,464.14 265.09,511.68" width="0.50" allow="pedestrian"/>
+    <edge id="gneE150" from="Dn06" to="AMJ01" priority="1" numLanes="1" speed="13.89" shape="345.96,366.33 344.26,364.07" spreadType="center" width="2.00" allow="moped bicycle"/>
+    <edge id="gneE153" from="AMJ01" to="Dn11" priority="1" numLanes="1" speed="13.89" shape="344.26,364.07 346.54,362.58" spreadType="center" width="2.00" allow="moped bicycle"/>
+    <edge id="gneE155" from="AMJ01" to="Dn07" priority="1" numLanes="1" speed="13.89" shape="343.80,361.88 347.97,358.93" width="0.50" allow="pedestrian"/>
+    <edge id="gneE156" from="Dn07" to="AMJ01" priority="1" numLanes="1" speed="13.89" shape="347.97,358.93 343.80,361.88" width="0.50" allow="pedestrian"/>
+    <edge id="gneE158" from="Dn07" to="K0001" priority="1" numLanes="1" speed="13.89" shape="347.97,358.93 354.76,354.58" width="0.50" allow="pedestrian"/>
+    <edge id="gneE159" from="K0001" to="Dn08" priority="1" numLanes="1" speed="13.89" shape="354.76,354.58 358.25,352.31" width="0.50" allow="pedestrian"/>
+    <edge id="gneE16.0" from="CJ01" to="AMJ01" priority="1" numLanes="1" speed="13.89" shape="266.68,512.05 281.11,464.67 302.11,414.21 309.00,401.86 318.32,387.57 327.31,377.55 341.59,366.32" spreadType="center" width="2.00" allow="moped bicycle"/>
+    <edge id="gneE161" from="Dn08" to="K0001" priority="1" numLanes="1" speed="13.89" shape="359.79,351.48 362.49,349.69" width="0.50" allow="pedestrian"/>
+    <edge id="gneE162" from="K0001" to="Dn09" priority="1" numLanes="1" speed="13.89" shape="362.49,349.69 370.05,344.80" width="0.50" allow="pedestrian"/>
+    <edge id="gneE169" from="Dn09" to="K0001" priority="1" numLanes="1" speed="13.89" shape="370.05,344.80 362.49,349.69" width="0.50" allow="pedestrian"/>
+    <edge id="gneE170" from="K0001" to="Dn08" priority="1" numLanes="1" speed="13.89" shape="362.49,349.69 359.79,351.48" width="0.50" allow="pedestrian"/>
+    <edge id="gneE172" from="Dn08" to="K0001" priority="1" numLanes="1" speed="13.89" shape="358.25,352.31 354.76,354.58" width="0.50" allow="pedestrian"/>
+    <edge id="gneE173" from="K0001" to="Dn07" priority="1" numLanes="1" speed="13.89" shape="354.76,354.58 347.97,358.93" width="0.50" allow="pedestrian"/>
+    <edge id="gneE175" from="Dn11" to="K0001" priority="1" numLanes="1" speed="13.89" shape="346.54,362.58 355.45,357.11" spreadType="center" width="2.00" allow="moped bicycle"/>
+    <edge id="gneE176" from="K0001" to="Dn12" priority="1" numLanes="1" speed="13.89" shape="355.45,357.11 359.61,354.34" spreadType="center" width="2.00" allow="moped bicycle"/>
+    <edge id="gneE178" from="Dn12" to="K0001" priority="1" numLanes="1" speed="13.89" shape="360.79,353.54 363.79,351.56" spreadType="center" width="2.00" allow="moped bicycle"/>
+    <edge id="gneE179" from="K0001" to="Dn13" priority="1" numLanes="1" speed="13.89" shape="363.79,351.56 371.63,346.51" spreadType="center" width="2.00" allow="moped bicycle"/>
+    <edge id="gneE180" from="AMJ04" to="CJ06" priority="1" numLanes="1" speed="13.89" shape="360.42,386.61 338.07,411.00 324.32,427.13 317.02,437.65 310.85,448.73 281.58,516.72" spreadType="center" width="2.00" allow="moped bicycle"/>
+    <edge id="gneE182" from="Dn19" to="AMJ04" priority="1" numLanes="1" speed="13.89" shape="366.50,385.26 362.98,389.76" width="0.50" allow="pedestrian"/>
+    <edge id="gneE183" from="AMJ04" to="PJ06" priority="1" numLanes="1" speed="13.89" shape="362.98,389.76 347.02,415.03 335.16,424.52 322.20,440.50 284.72,517.76" width="0.50" allow="pedestrian"/>
+    <edge id="gneE184" from="PJ06" to="AMJ04" priority="1" numLanes="1" speed="13.89" shape="284.72,517.76 322.25,440.59 335.08,424.60 346.94,414.95 362.98,389.76" width="0.50" allow="pedestrian"/>
+    <edge id="gneE185" from="AMJ04" to="Dn19" priority="1" numLanes="1" speed="13.89" shape="362.98,389.76 366.50,385.26" width="0.50" allow="pedestrian"/>
+    <edge id="gneE186" from="AMJ04" to="K0001" priority="1" numLanes="1" speed="13.89" shape="362.51,384.87 357.85,379.89" spreadType="center" width="2.00" allow="moped bicycle"/>
+    <edge id="gneE187" from="K0001" to="Dn05" priority="1" numLanes="1" speed="13.89" shape="357.85,379.89 355.49,377.37" spreadType="center" width="2.00" allow="moped bicycle"/>
+    <edge id="gneE189" from="Dn05" to="K0001" priority="1" numLanes="1" speed="13.89" shape="354.13,376.01 349.45,370.91" spreadType="center" width="2.00" allow="moped bicycle"/>
+    <edge id="gneE190" from="K0001" to="Dn06" priority="1" numLanes="1" speed="13.89" shape="349.45,370.91 345.96,366.33" spreadType="center" width="2.00" allow="moped bicycle"/>
+    <edge id="gneE202" from="AMJ04" to="Dn01" priority="1" numLanes="1" speed="13.89" shape="360.42,386.61 359.23,385.50" width="0.50" allow="pedestrian"/>
+    <edge id="gneE203" from="Dn01" to="K0001" priority="1" numLanes="1" speed="13.89" shape="359.23,385.50 355.66,381.72" width="0.50" allow="pedestrian"/>
+    <edge id="gneE204" from="K0001" to="Dn02" priority="1" numLanes="1" speed="13.89" shape="355.66,381.72 353.26,379.19" width="0.50" allow="pedestrian"/>
+    <edge id="gneE206" from="Dn02" to="K0001" priority="1" numLanes="1" speed="13.89" shape="352.10,377.91 347.36,372.81" width="0.50" allow="pedestrian"/>
+    <edge id="gneE207" from="K0001" to="Dn03" priority="1" numLanes="1" speed="13.89" shape="347.36,372.81 343.21,368.14" width="0.50" allow="pedestrian"/>
+    <edge id="gneE208" from="Dn03" to="K0001" priority="1" numLanes="1" speed="13.89" shape="343.21,368.14 347.36,372.81" width="0.50" allow="pedestrian"/>
+    <edge id="gneE209" from="K0001" to="Dn02" priority="1" numLanes="1" speed="13.89" shape="347.36,372.81 352.10,377.91" width="0.50" allow="pedestrian"/>
+    <edge id="gneE211" from="Dn02" to="K0001" priority="1" numLanes="1" speed="13.89" shape="353.26,379.19 355.66,381.72" width="0.50" allow="pedestrian"/>
+    <edge id="gneE212" from="K0001" to="Dn01" priority="1" numLanes="1" speed="13.89" shape="355.66,381.72 359.23,385.50" width="0.50" allow="pedestrian"/>
+    <edge id="gneE213" from="Dn01" to="AMJ04" priority="1" numLanes="1" speed="13.89" shape="359.23,385.50 360.42,386.61" width="0.50" allow="pedestrian"/>
+    <edge id="gneE215" from="Dn03" to="Dn04" priority="1" numLanes="1" speed="13.89" width="0.50" allow="pedestrian"/>
+    <edge id="gneE216" from="Dn04" to="Dn03" priority="1" numLanes="1" speed="13.89" width="0.50" allow="pedestrian"/>
+    <edge id="gneE217" from="AMJ03" to="Dn23" priority="1" numLanes="1" speed="13.89" shape="386.52,367.26 381.36,370.25 379.09,374.24" spreadType="center" width="2.00" allow="moped bicycle"/>
+    <edge id="gneE218" from="Dn23" to="K0001" priority="1" numLanes="1" speed="13.89" shape="379.09,374.24 374.86,376.69" spreadType="center" width="2.00" allow="moped bicycle"/>
+    <edge id="gneE220" from="K0001" to="AMJ04" priority="1" numLanes="1" speed="13.89" shape="370.28,379.55 362.51,384.87" spreadType="center" width="2.00" allow="moped bicycle"/>
+    <edge id="gneE221" from="AMJ03" to="Dn18" priority="1" numLanes="1" speed="13.89" shape="392.38,366.76 383.37,371.78 380.08,376.11" width="0.50" allow="pedestrian"/>
+    <edge id="gneE222" from="Dn18" to="K0001" priority="1" numLanes="1" speed="13.89" shape="380.08,376.11 375.88,378.76" width="0.50" allow="pedestrian"/>
+    <edge id="gneE224" from="K0001" to="Dn19" priority="1" numLanes="1" speed="13.89" shape="371.62,381.62 366.50,385.26" width="0.50" allow="pedestrian"/>
+    <edge id="gneE225" from="Dn19" to="K0001" priority="1" numLanes="1" speed="13.89" shape="366.50,385.26 371.62,381.62" width="0.50" allow="pedestrian"/>
+    <edge id="gneE227" from="K0001" to="Dn18" priority="1" numLanes="1" speed="13.89" shape="375.88,378.76 380.08,376.11" width="0.50" allow="pedestrian"/>
+    <edge id="gneE228" from="Dn18" to="AMJ03" priority="1" numLanes="1" speed="13.89" shape="380.08,376.11 383.23,371.78 392.38,366.76" width="0.50" allow="pedestrian"/>
+    <edge id="gneE239" from="Dn13" to="AMJ02" priority="1" numLanes="1" speed="13.89" shape="371.63,346.51 375.11,344.80" spreadType="center" width="2.00" allow="moped bicycle"/>
+    <edge id="gneE240.6" from="AMJ02" to="CJ04" priority="1" numLanes="1" speed="13.89" shape="376.61,342.54 385.13,338.51 412.42,328.18 419.38,326.56 427.34,325.35 444.91,324.49 455.85,325.33 460.36,325.42 469.64,326.08 494.52,332.94 533.36,349.96 628.74,397.28 683.65,420.53 730.30,436.33 761.44,444.79 792.19,451.56 832.75,458.56" spreadType="center" width="2.00" allow="moped bicycle"/>
+    <edge id="gneE241" from="AMJ02" to="Dn20" priority="1" numLanes="1" speed="13.89" shape="375.11,344.80 375.84,346.03" spreadType="center" width="2.00" allow="moped bicycle"/>
+    <edge id="gneE242" from="Dn20" to="K0001" priority="1" numLanes="1" speed="13.89" shape="375.84,346.03 378.51,350.49" spreadType="center" width="2.00" allow="moped bicycle"/>
+    <edge id="gneE243" from="K0001" to="Dn21" priority="1" numLanes="1" speed="13.89" shape="378.51,350.49 380.56,354.25" spreadType="center" width="2.00" allow="moped bicycle"/>
+    <edge id="gneE245" from="Dn21" to="K0001" priority="1" numLanes="1" speed="13.89" shape="381.22,355.50 383.61,359.94" spreadType="center" width="2.00" allow="moped bicycle"/>
+    <edge id="gneE246" from="K0001" to="Dn22" priority="1" numLanes="1" speed="13.89" shape="383.61,359.94 385.51,364.53" spreadType="center" width="2.00" allow="moped bicycle"/>
+    <edge id="gneE249" from="AMJ03" to="Dn17" priority="1" numLanes="1" speed="13.89" shape="391.45,364.99 390.71,363.61" width="0.50" allow="pedestrian"/>
+    <edge id="gneE250" from="Dn17" to="K0001" priority="1" numLanes="1" speed="13.89" shape="390.71,363.61 387.59,357.67" width="0.50" allow="pedestrian"/>
+    <edge id="gneE251" from="K0001" to="Dn16" priority="1" numLanes="1" speed="13.89" shape="387.59,357.67 385.08,353.16" width="0.50" allow="pedestrian"/>
+    <edge id="gneE253" from="Dn16" to="K0001" priority="1" numLanes="1" speed="13.89" shape="384.65,352.25 382.44,348.31" width="0.50" allow="pedestrian"/>
+    <edge id="gneE254" from="K0001" to="Dn15" priority="1" numLanes="1" speed="13.89" shape="382.44,348.31 379.99,343.69" width="0.50" allow="pedestrian"/>
+    <edge id="gneE255" from="Dn15" to="K0001" priority="1" numLanes="1" speed="13.89" shape="379.99,343.69 382.44,348.31" width="0.50" allow="pedestrian"/>
+    <edge id="gneE256" from="K0001" to="Dn16" priority="1" numLanes="1" speed="13.89" shape="382.44,348.31 384.65,352.25" width="0.50" allow="pedestrian"/>
+    <edge id="gneE258" from="Dn16" to="K0001" priority="1" numLanes="1" speed="13.89" shape="385.08,353.16 387.59,357.67" width="0.50" allow="pedestrian"/>
+    <edge id="gneE259" from="K0001" to="Dn17" priority="1" numLanes="1" speed="13.89" shape="387.59,357.67 390.71,363.61" width="0.50" allow="pedestrian"/>
+    <edge id="gneE260" from="Dn17" to="AMJ03" priority="1" numLanes="1" speed="13.89" shape="390.71,363.61 391.45,364.99" width="0.50" allow="pedestrian"/>
+    <edge id="gneE262.0" from="Dn09" to="AMJ02" priority="1" numLanes="1" speed="13.89" shape="370.05,344.80 373.81,342.99" width="0.50" allow="pedestrian"/>
+    <edge id="gneE263.4" from="AMJ02" to="Dn09" priority="1" numLanes="1" speed="13.89" shape="373.81,342.99 370.05,344.80" width="0.50" allow="pedestrian"/>
+    <edge id="gneE265" from="AMJ02" to="Dn15" priority="1" numLanes="1" speed="13.89" shape="379.24,342.27 379.99,343.69" width="0.50" allow="pedestrian"/>
+    <edge id="gneE266" from="Dn15" to="AMJ02" priority="1" numLanes="1" speed="13.89" shape="379.99,343.69 379.24,342.27" width="0.50" allow="pedestrian"/>
+    <edge id="gneE268" from="Dn22" to="AMJ03" priority="1" numLanes="1" speed="13.89" shape="385.51,364.53 386.52,367.26" spreadType="center" width="2.00" allow="moped bicycle"/>
+    <edge id="gneE269" from="PCJ01" to="AMJ02" priority="1" numLanes="3" speed="13.89" shape="343.77,310.89 373.81,342.99" spreadType="center" width="1.00">
+        <lane index="0" allow="pedestrian"/>
+        <lane index="1" allow="moped bicycle"/>
+        <lane index="2" allow="moped bicycle"/>
+    </edge>
+    <edge id="gneE272" from="AMJ02" to="Dn10" priority="1" numLanes="1" speed="13.89" shape="378.26,340.09 384.27,336.84 411.76,325.95 427.32,323.41 444.38,322.11 456.46,323.26" width="0.50" allow="pedestrian"/>
+    <edge id="gneE273" from="Dn10" to="AMJ02" priority="1" numLanes="1" speed="13.89" shape="456.46,323.26 444.33,322.27 427.42,323.51 411.76,326.11 384.27,336.95 378.26,340.09" width="0.50" allow="pedestrian"/>
+    <edge id="gneE46.17" from="AMJ01" to="PJ02" priority="1" numLanes="1" speed="13.89" shape="340.45,364.25 337.26,335.45 331.94,321.14 326.57,310.46" width="0.50" allow="pedestrian"/>
+    <edge id="gneE47.0" from="PJ02" to="AMJ01" priority="1" numLanes="1" speed="13.89" shape="326.57,310.46 332.06,321.20 337.45,335.80 340.72,364.30" width="0.50" allow="pedestrian"/>
+    <edge id="gneE62.85" from="Dn10" to="PJ04" priority="1" numLanes="1" speed="13.89" shape="456.46,323.26 460.54,323.25 470.27,324.37 495.14,331.21 534.57,348.30 629.88,395.78 684.66,418.85 731.35,434.78 762.17,443.17 792.90,449.92 833.06,456.87" width="0.50" allow="pedestrian"/>
+    <edge id="gneE63.0" from="PJ04" to="Dn10" priority="1" numLanes="1" speed="13.89" shape="833.06,456.87 792.82,449.88 762.05,443.17 731.27,434.74 684.62,418.90 629.66,395.71 534.37,348.20 495.16,331.13 470.08,324.26 460.39,323.40 456.46,323.26" width="0.50" allow="pedestrian"/>
+    <edge id="gneE68" from="CJ05" to="AMJ03" priority="1" numLanes="1" speed="13.89" shape="829.64,473.71 788.93,467.26 757.33,460.54 725.42,451.81 677.30,435.39 622.19,411.75 526.19,364.64 483.84,350.92 476.92,348.91 467.05,347.02 447.69,347.14 426.18,350.94 404.28,359.04 391.45,364.99" spreadType="center" width="2.00" allow="moped bicycle"/>
+    <edge id="gneE69.84" from="AMJ03" to="PJ05" priority="1" numLanes="1" speed="13.89" shape="392.38,366.76 404.99,360.56 426.82,352.65 448.15,348.79 467.20,348.66 483.38,352.56 525.79,366.21 621.43,413.20 676.81,436.94 725.04,453.41 756.95,462.14 788.67,468.86 829.41,475.35" width="0.50" allow="pedestrian"/>
+    <edge id="gneE70.0" from="PJ05" to="AMJ03" priority="1" numLanes="1" speed="13.89" shape="829.41,475.35 788.71,468.78 757.03,462.11 725.04,453.37 676.96,436.97 621.66,413.25 525.83,366.18 483.45,352.53 467.32,348.66 448.34,348.91 426.57,352.90 405.11,360.56 392.38,366.76" width="0.50" allow="pedestrian"/>
+</edges>

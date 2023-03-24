@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -15,7 +15,7 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    Sep 2021
 ///
-// General element handler for NETEDIT
+// General element handler for netedit
 /****************************************************************************/
 #pragma once
 #include <config.h>
@@ -28,6 +28,7 @@
 #include <utils/handlers/GeneralHandler.h>
 #include <netedit/elements/additional/GNEAdditionalHandler.h>
 #include <netedit/elements/demand/GNERouteHandler.h>
+#include <netedit/elements/data/GNEMeanDataHandler.h>
 
 // ===========================================================================
 // class declarations
@@ -52,23 +53,55 @@ public:
     /// @brief Destructor
     ~GNEGeneralHandler();
 
+    /// @brief get flag for check if a element wasn't created
+    bool isErrorCreatingElement() const;
+
+    /// @brief check if the parser file is a additional file
+    bool isAdditionalFile() const;
+
+    /// @brief check if the parser file is a route file
+    bool isRouteFile() const;
+
+    /// @brief check if the parser file is a meanData file
+    bool isMeanDataFile() const;
+
 private:
     /// @brief tagType
     struct TagType {
+
+        enum class Type {
+            NONE,
+            NETWORK,
+            ADDITIONAL,
+            DEMAND,
+            DATA,
+            MEANDATA,
+        };
+
         /// @brief constructor
-        TagType(SumoXMLTag tag, const bool network, const bool additional, const bool demand);
+        TagType(SumoXMLTag tag, Type type);
+
+        /// @brief is network element
+        bool isNetwork() const;
+
+        /// @brief is network element
+        bool isAdditional() const;
+
+        /// @brief is network element
+        bool isDemand() const;
+
+        /// @brief is network element
+        bool isData() const;
+
+        /// @brief is network element
+        bool isMeanData() const;
 
         /// @brief tag related with this TagType
         const SumoXMLTag tag;
 
-        /// @brief tagType is network
-        const bool network;
-
-        /// @brief tagType is additional
-        const bool additional;
-
-        /// @brief tagType is demand
-        const bool demand;
+    private:
+        /// @brief tag type
+        const Type myType;
     };
 
     /// @brief queue with the inserted tags
@@ -79,6 +112,12 @@ private:
 
     /// @brief demand handler
     GNERouteHandler myDemandHandler;
+
+    /// @brief meanData handler
+    GNEMeanDataHandler myMeanDataHandler;
+
+    /// @brief flag for set file type
+    TagType::Type fileType = TagType::Type::NONE;
 
     /// @brief start element
     void beginTag(SumoXMLTag tag, const SUMOSAXAttributes& attrs);

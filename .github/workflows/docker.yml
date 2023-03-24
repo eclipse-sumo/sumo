@@ -1,0 +1,50 @@
+name: Create and publish a Docker image
+
+on:
+  push:
+    tags:
+      - '*'
+  workflow_dispatch:
+  schedule:
+    - cron:  '30 0 * * *'
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  build-and-push-image:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        if: github.repository == 'eclipse/sumo'
+        uses: actions/checkout@v3
+
+      - name: Log in to the Container registry
+        if: github.repository == 'eclipse/sumo'
+        uses: docker/login-action@v2
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata (tags, labels) for Docker
+        if: github.repository == 'eclipse/sumo'
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+
+      - name: Build and push Docker image
+        if: github.repository == 'eclipse/sumo'
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: build/docker/Dockerfile.ubuntu.git
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}

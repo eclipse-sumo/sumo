@@ -111,7 +111,7 @@ SPDX-License-Identifier: EPL-2.0
         <phase duration="5"  state="rrrrrr"/>
     </tlLogic>
 
-    <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="EC_0 EC_1 SC_0 WC_0 WC_1 :C_w2_0 :C_w1_0" intLanes=":C_0_0 :C_0_1 :C_2_0 :C_2_1 :C_c0_0 :C_c1_0" shape="100.00,110.90 104.00,110.90 105.50,109.40 105.50,90.60 104.00,89.10 100.00,89.10 98.50,90.60 98.50,109.40" radius="5.00">
+    <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="EC_0 EC_1 SC_0 WC_0 WC_1 :C_w2_0 :C_w1_0" intLanes=":C_0_0 :C_0_1 :C_2_0 :C_2_1 :C_c0_0 :C_c1_0" shape="100.00,110.90 104.00,110.90 105.50,109.40 105.50,90.60 104.00,89.10 100.00,89.10 98.50,90.60 98.50,109.40">
         <request index="0" response="010000" foes="010000" cont="0"/>
         <request index="1" response="010000" foes="010000" cont="0"/>
         <request index="2" response="100000" foes="100000" cont="0"/>

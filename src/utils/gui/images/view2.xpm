@@ -1,10 +1,12 @@
 /* XPM */
 static const char * view2_xpm[] = {
+/* columns rows colors chars-per-pixel */
 "15 16 4 1",
 " 	c None",
 ".	c Black",
 "X	c #bd0bb3",
 "o	c Gray100",
+/* pixels */
 "   .........   ",
 "  .XXXXXXXXX.  ",
 " .XXX......XX. ",
@@ -20,4 +22,5 @@ static const char * view2_xpm[] = {
 ".XX.ooooooo.XX.",
 " .X.........X. ",
 "  .XXXXXXXXX.  ",
-"   .........   "};
+"   .........   "
+};

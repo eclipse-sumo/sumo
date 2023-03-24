@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -26,22 +26,14 @@
 #include "GNEAttributeProperties.h"
 #include "GNETagProperties.h"
 
+#include "GNEAttributeCarrier.h"
+
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
 
-GNEAttributeProperties::GNEAttributeProperties() :
-    myAttribute(SUMO_ATTR_NOTHING),
-    myTagPropertyParent(nullptr),
-    myAttrStr(toString(SUMO_ATTR_NOTHING)),
-    myAttributeProperty(STRING),
-    myDefinition(""),
-    myDefaultValue(""),
-    myDefaultActivated(false),
-    myAttrSynonym(SUMO_ATTR_NOTHING),
-    myMinimumRange(0),
-    myMaximumRange(0) {}
+GNEAttributeProperties::GNEAttributeProperties() {}
 
 
 GNEAttributeProperties::GNEAttributeProperties(const SumoXMLAttr attribute, const int attributeProperty, const std::string& definition, std::string defaultValue) :
@@ -75,6 +67,29 @@ GNEAttributeProperties::~GNEAttributeProperties() {}
 
 void
 GNEAttributeProperties::checkAttributeIntegrity() const {
+    // check integrity only in debug mode
+#ifdef DEBUG
+    // check that default values can be parsed (only in debug mode)
+    if (hasDefaultValue()) {
+        if (isInt() && !GNEAttributeCarrier::canParse<int>(myDefaultValue)) {
+            throw FormatException("Default value cannot be parsed to int");
+        }
+        if (isFloat() && !GNEAttributeCarrier::canParse<double>(myDefaultValue)) {
+            throw FormatException("Default value cannot be parsed to float");
+        }
+        if (isSUMOTime() && !GNEAttributeCarrier::canParse<SUMOTime>(myDefaultValue)) {
+            throw FormatException("Default value cannot be parsed to SUMOTime");
+        }
+        if (isBool() && !GNEAttributeCarrier::canParse<bool>(myDefaultValue)) {
+            throw FormatException("Default value cannot be parsed to bool");
+        }
+        if (isPosition() && (myDefaultValue.size() > 0) && !GNEAttributeCarrier::canParse<Position>(myDefaultValue)) {
+            throw FormatException("Default value cannot be parsed to position");
+        }
+        if (isColor() && !GNEAttributeCarrier::canParse<RGBColor>(myDefaultValue)) {
+            throw FormatException("Default value cannot be parsed to color");
+        }
+    }
     // check that positive attributes correspond only to a int, floats or SUMOTimes
     if (isPositive() && !(isInt() || isFloat() || isSUMOTime())) {
         throw FormatException("Only int, floats or SUMOTimes can be positive");
@@ -97,13 +112,15 @@ GNEAttributeProperties::checkAttributeIntegrity() const {
             throw FormatException("invalid range");
         }
     }
+#endif // DEBUG
 }
 
 
 void
-GNEAttributeProperties::setDiscreteValues(const std::vector<std::string>& discreteValues) {
+GNEAttributeProperties::setDiscreteValues(const std::vector<std::string>& discreteValues, bool showAll) {
     if (isDiscrete()) {
         myDiscreteValues = discreteValues;
+        myShowAllDiscreteValues = showAll;
     } else {
         throw FormatException("AttributeProperty doesn't support discrete values");
     }
@@ -353,7 +370,7 @@ GNEAttributeProperties::isString() const {
 
 
 bool
-GNEAttributeProperties::isposition() const {
+GNEAttributeProperties::isPosition() const {
     return (myAttributeProperty & POSITION) != 0;
 }
 
@@ -427,6 +444,12 @@ GNEAttributeProperties::isUnique() const {
 bool
 GNEAttributeProperties::isDiscrete() const {
     return (myAttributeProperty & DISCRETE) != 0;
+}
+
+
+bool
+GNEAttributeProperties::showAllDiscreteValues() const {
+    return myShowAllDiscreteValues;
 }
 
 

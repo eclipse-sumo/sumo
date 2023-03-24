@@ -47,4 +47,7 @@ vehroutes
 
 # Use vehicle attributes departEdge and arrivalEdge
 departEdge
+
+# keeping params but removing emtpy plans
+param
 pt

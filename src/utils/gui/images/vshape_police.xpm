@@ -1,7 +1,7 @@
 /* XPM */
 static const char *vshape_police_xpm[] = {
 /* columns rows colors chars-per-pixel */
-"64 32 47 1 ",
+"64 32 47 1",
 "  c black",
 ". c #000007",
 "X c #000033",

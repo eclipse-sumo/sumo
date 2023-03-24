@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -318,7 +318,7 @@ RGBColor::parseColor(std::string coldef) {
                 }
             }
         } else {
-            throw InvalidArgument("Invalid color definition '" + coldef + "'");
+            throw FormatException("Invalid color definition '" + coldef + "'");
         }
     }
     return RGBColor(r, g, b, a);

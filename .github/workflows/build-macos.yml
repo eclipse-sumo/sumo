@@ -27,7 +27,7 @@ jobs:
 
     steps:
     - name: Cloning SUMO
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         path: sumo
         fetch-depth: 0
@@ -45,7 +45,7 @@ jobs:
 
     - name: ccache
       if: github.event_name != 'schedule'
-      uses: hendrikmuhs/ccache-action@v1.2.2
+      uses: hendrikmuhs/ccache-action@v1.2
 
     - name: Installing Google Test
       run: |
@@ -80,13 +80,13 @@ jobs:
         make CTEST_OUTPUT_ON_FAILURE=1 examples test
 
     - name: Uploading artifacts (SUMO binaries)
-      uses: actions/upload-artifact@v1
+      uses: actions/upload-artifact@v3
       with:
         name: macOS
         path: sumo/bin
 
     - name: Uploading FMI 2.0 FMU artifacts
-      uses: actions/upload-artifact@v1
+      uses: actions/upload-artifact@v3
       with:
         name: sumo-fmi2-darwin64
         path: sumo/bin/sumo-fmi2-darwin64.fmu

@@ -38,3 +38,6 @@ persons_include
 
 # test that calibrator is reset when loading a simulation state	
 calibrator
+
+# test error messages on loading a simulation state
+errors

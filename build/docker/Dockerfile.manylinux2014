@@ -1,0 +1,15 @@
+# Build the docker image locally:       docker build -f Dockerfile.manylinux2014 . -t manylinux2014_aarch64
+# Store the docker image in a tar file: docker save -o manylinux2014_aarch64.tar manylinux2014_aarch64
+# Run the docker image:                 docker run --rm -v $PWD:/github/workspace --workdir /github/workspace manylinux2014_aarch64 tools/build/build_wheels.sh $HTTPS_PROXY
+# how to build it for x64:              docker build --build-arg platform=x86_64 -f Dockerfile.manylinux2014 . -t manylinux2014_x64
+
+ARG platform=aarch64
+FROM quay.io/pypa/manylinux2014_${platform}
+LABEL description="Dockerfile for a container to build manylinux python packages for ${platform}"
+
+# Install dependencies
+RUN yum install -y epel-release
+RUN yum-config-manager --add-repo=https://download.opensuse.org/repositories/science:/dlr/CentOS_7/
+RUN yum install -y --nogpgcheck ccache libxerces-c-devel proj-devel fox16-devel bzip2-devel gl2ps-devel swig3
+# see https://github.com/pypa/manylinux/issues/1421
+RUN pipx install -f patchelf==0.16.1.0  

@@ -1,62 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-04-21 13:05:27 by Eclipse SUMO netedit Version v1_12_0+2217-2ed7c9aad7e
+<!-- generated on 2023-03-06 10:25:57 by Eclipse SUMO netedit Version v1_16_0+0991-07b3a7c88ca
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.lanes.21Apr123613.3359/netedit.daily.net.lanes/netelements/lanes/inspect_selected/disallow/input_net.net.xml"/>
+        <additional-files value="/home/palcraft/.texttest/tmp/netedit.gui.06Mar102433.9595/netedit.gui/netelements/lanes/inspect_selected/disallow/additionals.add.xml"/>
+        <route-files value="/home/palcraft/.texttest/tmp/netedit.gui.06Mar102433.9595/netedit.gui/netelements/lanes/inspect_selected/disallow/routes.rou.xml"/>
+        <data-files value="/home/palcraft/.texttest/tmp/netedit.gui.06Mar102433.9595/netedit.gui/netelements/lanes/inspect_selected/disallow/datas.dat.xml"/>
+        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.gui.06Mar102433.9595/netedit.gui/netelements/lanes/inspect_selected/disallow/net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.lanes.21Apr123613.3359/netedit.daily.net.lanes/netelements/lanes/inspect_selected/disallow/net.net.xml"/>
+        <output-file value="/home/palcraft/.texttest/tmp/netedit.gui.06Mar102433.9595/netedit.gui/netelements/lanes/inspect_selected/disallow/net.net.xml"/>
     </output>
 
     <processing>
         <geometry.min-radius.fix.railways value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
-        <lefthand value="false"/>
+        <lefthand value="0"/>
     </processing>
 
     <junctions>
         <no-turnarounds value="true"/>
         <junctions.corner-detail value="5"/>
-        <junctions.limit-turn-speed value="5.5"/>
-        <rectangular-lane-cut value="false"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
     </junctions>
 
     <pedestrian>
-        <walkingareas value="false"/>
+        <walkingareas value="0"/>
     </pedestrian>
 
-    <netedit>
-        <additional-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.lanes.21Apr123613.3359/netedit.daily.net.lanes/netelements/lanes/inspect_selected/disallow/additionals.xml"/>
-        <additionals-output value="/home/palcraft/.texttest/tmp/netedit.daily.net.lanes.21Apr123613.3359/netedit.daily.net.lanes/netelements/lanes/inspect_selected/disallow/additionals.xml"/>
-        <route-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.lanes.21Apr123613.3359/netedit.daily.net.lanes/netelements/lanes/inspect_selected/disallow/routes.xml"/>
-        <demandelements-output value="/home/palcraft/.texttest/tmp/netedit.daily.net.lanes.21Apr123613.3359/netedit.daily.net.lanes/netelements/lanes/inspect_selected/disallow/routes.xml"/>
-        <data-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.lanes.21Apr123613.3359/netedit.daily.net.lanes/netelements/lanes/inspect_selected/disallow/datas.xml"/>
-        <dataelements-output value="/home/palcraft/.texttest/tmp/netedit.daily.net.lanes.21Apr123613.3359/netedit.daily.net.lanes/netelements/lanes/inspect_selected/disallow/datas.xml"/>
-    </netedit>
-
     <visualisation>
-        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.lanes.21Apr123613.3359/netedit.daily.net.lanes/netelements/lanes/inspect_selected/disallow/gui-settings.xml"/>
-        <window-size value="936,697"/>
+        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.gui.06Mar102433.9595/netedit.gui/netelements/lanes/inspect_selected/disallow/gui-settings.xml"/>
+        <window-size value="936, 697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing-debug value="true"/>
-        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.daily.net.lanes.21Apr123613.3359/netedit.daily.net.lanes/netelements/lanes/inspect_selected/disallow/guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.gui.06Mar102433.9595/netedit.gui/netelements/lanes/inspect_selected/disallow/guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <aggregate-warnings value="5"/>
-        <error-log value="/home/palcraft/.texttest/tmp/netedit.daily.net.lanes.21Apr123613.3359/netedit.daily.net.lanes/netelements/lanes/inspect_selected/disallow/log.txt"/>
+        <error-log value="/home/palcraft/.texttest/tmp/netedit.gui.06Mar102433.9595/netedit.gui/netelements/lanes/inspect_selected/disallow/log.txt"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.9" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="25.00,0.00" convBoundary="0.00,0.00,50.00,20.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -144,7 +136,7 @@
     </junction>
     <junction id="gneJ2" type="priority" x="0.00" y="20.00" incLanes="gneE3_0 gneE3_1 gneE9_0" intLanes=":gneJ2_0_0 :gneJ2_1_0 :gneJ2_2_0 :gneJ2_2_1" shape="7.20,26.40 7.20,13.60 4.98,13.16 4.20,12.60 3.64,11.82 3.31,10.82 3.20,9.60 -3.20,9.60 -2.91,14.73 -2.04,18.93 -0.60,22.20 1.42,24.53 4.02,25.93">
         <request index="0" response="0000" foes="0000" cont="0"/>
-        <request index="1" response="1100" foes="1100" cont="0"/>
+        <request index="1" response="1000" foes="1000" cont="0"/>
         <request index="2" response="0000" foes="0010" cont="0"/>
         <request index="3" response="0000" foes="0010" cont="0"/>
     </junction>

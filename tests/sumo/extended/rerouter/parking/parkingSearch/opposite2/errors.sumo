@@ -1,0 +1,4 @@
+Warning: Vehicle 'ego.56' performs emergency braking on lane ':B3_5_0' with decel=9.00, wished=4.50, severity=1.00, time=216.00.
+Warning: Teleporting vehicle 'ego.50'; frontal collision with vehicle 'ego.19', lane='B3B2_0', gap=-0.56, time=512.00 stage=move.
+Warning: Vehicle 'ego.50' ends teleporting on edge 'B3C3', time=518.00.
+Warning: Vehicle 'ego.35' performs emergency braking on lane 'C0B0_0' with decel=9.00, wished=4.50, severity=1.00, time=704.00.

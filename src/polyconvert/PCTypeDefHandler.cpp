@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -38,7 +38,7 @@
 // method definitions
 // ===========================================================================
 PCTypeDefHandler::PCTypeDefHandler(OptionsCont& oc, PCTypeMap& con) :
-    SUMOSAXHandler("Detector-Defintion"),
+    SUMOSAXHandler(),
     myOptions(oc),
     myContainer(con),
     myOverwriteType(!oc.isDefault("type"))
@@ -68,7 +68,7 @@ PCTypeDefHandler::myStartElement(int element,
         const std::string imgFile = attrs.getOpt<std::string>(SUMO_ATTR_IMGFILE, id.c_str(), ok, Shape::DEFAULT_IMG_FILE);
         // !!! what about error handling?
         if (!myContainer.add(id, type, color, prefix, layer, angle, imgFile, discard, allowFill)) {
-            WRITE_ERROR("Could not add polygon type '" + id + "' (probably the id is already used).");
+            WRITE_ERRORF(TL("Could not add polygon type '%' (probably the id is already used)."), id);
         }
     }
 }

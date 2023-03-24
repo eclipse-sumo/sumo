@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -160,8 +160,9 @@ public:
     /** @brief Removes a data collector for a detector from this segment
      *
      * @param[in] data The data collector to remove
+     * @note: currently not used
      */
-    void removeDetector(MSMoveReminder* data);
+    // void removeDetector(MSMoveReminder* data);
 
     /** @brief Updates data of a detector for all vehicle queues
      *
@@ -261,7 +262,7 @@ public:
 
     /** @brief Returns the relative occupany of the segment (percentage of road used))
      * at which the segment is considered jammed
-     * @return the jam treshold of the segment in percent
+     * @return the jam threshold of the segment in percent
      */
     inline double getRelativeJamThreshold() const {
         return myJamThreshold / myCapacity;

@@ -1,16 +1,17 @@
+complex/traci/bugs/ticket3505_with_load_offset/sumo.sumocfg:6:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'load-state.offset', attribute 'value': '-100.0' is not a valid value of the union type 'timeTypeWithErrorValue'.
 sumo/meta/deprecated_option/sumo.sumocfg:11:0:ERROR:SCHEMASV:SCHEMAV_ELEMENT_CONTENT: Element 'abs-rand': This element is not expected.
 Error on parsing 'sumo/meta/umlaut/sumo.sumocfg'!
 Traceback (most recent call last):
-  File "/home/micha/programming/sumo/tests/../tools/build/schemaCheck.py", line 52, in validate
+  File "/scr1/sumo/tests/../tools/build/schemaCheck.py", line 52, in validate
     doc = etree.parse(f)
-  File "src/lxml/etree.pyx", line 3519, in lxml.etree.parse
-  File "src/lxml/parser.pxi", line 1839, in lxml.etree._parseDocument
-  File "src/lxml/parser.pxi", line 1865, in lxml.etree._parseDocumentFromURL
-  File "src/lxml/parser.pxi", line 1769, in lxml.etree._parseDocFromFile
-  File "src/lxml/parser.pxi", line 1163, in lxml.etree._BaseParser._parseDocFromFile
-  File "src/lxml/parser.pxi", line 601, in lxml.etree._ParserContext._handleParseResultDoc
-  File "src/lxml/parser.pxi", line 711, in lxml.etree._handleParseResult
-  File "src/lxml/parser.pxi", line 640, in lxml.etree._raiseParseError
-  File "/home/micha/sumo/tests/sumo/meta/umlaut/sumo.sumocfg", line 3
+  File "src/lxml/etree.pyx", line 3536, in lxml.etree.parse
+  File "src/lxml/parser.pxi", line 1876, in lxml.etree._parseDocument
+  File "src/lxml/parser.pxi", line 1902, in lxml.etree._parseDocumentFromURL
+  File "src/lxml/parser.pxi", line 1805, in lxml.etree._parseDocFromFile
+  File "src/lxml/parser.pxi", line 1177, in lxml.etree._BaseParser._parseDocFromFile
+  File "src/lxml/parser.pxi", line 615, in lxml.etree._ParserContext._handleParseResultDoc
+  File "src/lxml/parser.pxi", line 725, in lxml.etree._handleParseResult
+  File "src/lxml/parser.pxi", line 654, in lxml.etree._raiseParseError
+  File "/scr1/sumo/tests/sumo/meta/umlaut/sumo.sumocfg", line 3
 lxml.etree.XMLSyntaxError: Input is not proper UTF-8, indicate encoding !
 Bytes: 0xF6 0x74 0x2E 0x6E, line 3, column 27

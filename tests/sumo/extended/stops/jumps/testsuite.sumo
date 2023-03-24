@@ -1,0 +1,29 @@
+# define an explicit jump (disconnect) in the route
+trip_jump
+
+# define an explicit jump (disconnect) in the route
+trip_jump_end
+
+# jump twice
+trip_jump2
+
+# define an explicit jump despite there being a possible route
+trip_jump_connected
+
+# define an explicit jump (disconnect) in the route
+jump
+
+# define an explicit jump (disconnect) in the route
+jump_end
+
+# jump twice
+jump2
+
+# define an explicit jump despite there being a possible route
+jump_connected
+
+# define a jump where to next stop is on the same edge
+jump_same
+
+# define a jump where to next stop is on the same edge and this is the final edge
+jump_same_end

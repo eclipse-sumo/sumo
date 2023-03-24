@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -63,7 +63,7 @@ GUIDesigns::buildFXMenuCommandShortcut(FXComposite* p, const std::string& text, 
 FXMenuCheck*
 GUIDesigns::buildFXMenuCheckbox(FXComposite* p, const std::string& text, const std::string& info, FXObject* tgt, FXSelector sel) {
     // build menu checkbox
-    FXMenuCheck* menuCheck = new FXMenuCheck(p, (text + "\t\t" + info).c_str(), tgt, sel, LAYOUT_FIX_HEIGHT);
+    FXMenuCheck* menuCheck = new FXMenuCheck(p, (text + std::string("\t\t") + info).c_str(), tgt, sel, LAYOUT_FIX_HEIGHT);
     // set height (to avoid problems between Windows und Linux)
     menuCheck->setHeight(GUIDesignHeight);
     // return menuCommand

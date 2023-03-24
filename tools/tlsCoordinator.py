@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2010-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2010-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -21,6 +21,7 @@ from __future__ import print_function
 
 import sys
 import subprocess
+import warnings
 from collections import namedtuple
 
 import sumolib
@@ -50,21 +51,21 @@ def logAddedPair(TLSP, sets, operation):
 
 def get_options(args=None):
     optParser = sumolib.options.ArgumentParser()
-    optParser.add_option("-n", "--net-file", dest="netfile", required=True,
+    optParser.add_option("-n", "--net-file", category="input", dest="netfile", required=True,
                          help="define the net file (mandatory)")
-    optParser.add_option("-o", "--output-file", dest="outfile",
+    optParser.add_option("-o", "--output-file", category="output", dest="outfile",
                          default="tlsOffsets.add.xml", help="define the output filename")
-    optParser.add_option("-r", "--route-file", dest="routefile", required=True,
+    optParser.add_option("-r", "--route-file", category="input", dest="routefile", required=True,
                          help="define the input route file (mandatory)")
-    optParser.add_option("-a", "--additional-file", dest="addfile",
+    optParser.add_option("-a", "--additional-file", category="input", dest="addfile",
                          help="define replacement tls plans to be coordinated")
-    optParser.add_option("-v", "--verbose", action="store_true",
+    optParser.add_option("-v", "--verbose", category="processing", action="store_true",
                          default=False, help="tell me what you are doing")
-    optParser.add_option("-i", "--ignore-priority", dest="ignorePriority", action="store_true",
+    optParser.add_option("-i", "--ignore-priority", category="processing", dest="ignorePriority", action="store_true",
                          default=False, help="ignore road priority when sorting TLS pairs")
-    optParser.add_option("--speed-factor", type=float,
+    optParser.add_option("--speed-factor", category="processing", type=float,
                          default=0.8, help="avg ratio of vehicle speed in relation to the speed limit")
-    optParser.add_option("-e", "--evaluate", action="store_true",
+    optParser.add_option("-e", "--evaluate", category="processing", action="store_true",
                          default=False, help="run the scenario and print duration statistics")
     return optParser.parse_args(args=args)
 
@@ -219,8 +220,8 @@ def getTLSInRoute(net, edge_ids):
         edge = net.getEdge(edgeID)
         nextEdge = net.getEdge(nextEdgeID)
         if nextEdge not in edge.getOutgoing():
-            # disconnected route, maybe warn?
-            continue
+            warnings.warn("Skipping disconnected route!")
+            return []
         connection = edge.getOutgoing()[nextEdge][0]
 
         TLS = None if edge.getToNode().getType() in ("rail_crossing", "rail_signal") else edge.getTLS()

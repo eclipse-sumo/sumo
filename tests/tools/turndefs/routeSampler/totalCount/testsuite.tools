@@ -1,0 +1,40 @@
+# set total count to restrict generated demand
+lower
+
+# set total count to restrict generated demand
+lower_optimize
+
+# set total count to increase demand with unrestricted routes
+higher
+higher_min_count2
+
+# set total count to increase demand with unrestricted routes
+higher_optimize
+
+# set total count to increase demand with unrestricted routes
+higher_intervals
+
+# set total count to increase demand with unrestricted routes
+higher_intervals_proportial
+
+# set total count to increase demand with unrestricted routes
+higher_intervals_mismatch
+
+# set total count to increase demand with unrestricted routes (but there are none)
+higher_no_unrestricted
+
+# use only ration together with total-count
+ratio_no_counts
+
+# set total count to the number of vehicles found in the input
+input_count
+
+# set total count to the number of vehicles found in the input
+input_count_intervals
+
+# set total count to the number of vehicles found in the input
+# input data intervals are irregular
+input_count_intervals_irregular
+
+# set total count to the number of persons found in the input
+input_count_persons

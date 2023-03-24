@@ -1,0 +1,45 @@
+Warning: The referenced geometry information (ref='597395964') is not known
+Warning: The referenced geometry information (ref='7294499833') is not known
+Warning: The referenced geometry information (ref='96494514') is not known
+Warning: The referenced geometry information (ref='3363880849') is not known
+Warning: The referenced geometry information (ref='1841881647') is not known
+Warning: Discarding way '107509090' because it has only 1 node(s)
+Warning: Discarding way '107509095' because it has only 1 node(s)
+Warning: Discarding way '144019120' because it has only 1 node(s)
+Warning: Discarding way '173971214' because it has only 1 node(s)
+Warning: Discarding unusable type 'railway.platform' (first occurrence for edge '319887234').
+Warning: Discarding way '385162394' because it has only 1 node(s)
+Warning: Discarding unknown compound 'railway.razed' in type 'railway.razed|usage.industrial' (first occurrence for edge '817495203').
+Warning: Discarding unknown compound 'usage.industrial' in type 'railway.razed|usage.industrial' (first occurrence for edge '817495203').
+Warning: Discarding unusable type 'railway.razed|usage.industrial' (first occurrence for edge '817495203').
+Warning: PT line in relation 2077160 with no stops ignored. Probably OSM file is incomplete.
+Warning: PT line in relation 2077161 with no stops ignored. Probably OSM file is incomplete.
+Warning: PT line in relation 2077647 with no stops ignored. Probably OSM file is incomplete.
+Warning: PT line in relation 2077770 with no stops ignored. Probably OSM file is incomplete.
+Warning: PT line in relation 2077892 with no stops ignored. Probably OSM file is incomplete.
+Warning: No way found for reference '170772501' in relation '4466969'
+Warning: No node found for reference '3600010793' in relation '4466969'.
+Warning: Ignoring restriction relation '4466969' with unknown from-way.
+Warning: Ignoring restriction relation '4466969' with unknown via.
+Warning: to-edge '46733382' of restriction relation could not be determined
+Warning: Ignoring restriction relation '9231710'.
+Warning: PT stop '3893875082' has been moved to edge '-10597569#4'.
+Warning: Ambiguous tram edges '173349393' and '465830148#0' for lane '-10597569#2_0'.
+Warning: Ambiguous tram edges '173349393' and '175760035#0' for lane '-10597569#3_0'.
+Warning: Ambiguous tram edges '173349393' and '465830148#0' for lane '-10597569#3_0'.
+Warning: Ambiguous tram edges '236529399#2' and '465830148#4' for lane '-142810575#2_0'.
+Warning: Ambiguous tram edges '465830148#1' and '465830148#2' for lane '-142810575#6_0'.
+Warning: Converting invalid rail_crossing to priority junction '1863123409'.
+Warning: Converting invalid rail_crossing to priority junction '3094840869'.
+Warning: Converting invalid rail_crossing to priority junction '3094840871'.
+Warning: Converting invalid rail_crossing to priority junction '3094840872'.
+Warning: Converting invalid rail_crossing to priority junction '3094840875'.
+Warning: Ambiguity in turnarounds computation at junction '3186398214'.
+Warning: Ambiguity in turnarounds computation at junction '7561495436'.
+Warning: Ambiguity in turnarounds computation at junction '9886764479'.
+Warning: Lane '175760034_0' is not connected from any incoming edge at junction '3363880864'.
+Warning: 8 total messages of type: Ambiguous tram edges '%' and '%' for lane '%'.
+Warning: 9 total messages of type: Converting invalid rail_crossing to priority junction '%'.
+Warning: 7 total messages of type: Discarding way '%' because it has only % node(s)
+Warning: 7 total messages of type: PT line in relation % with no stops ignored. Probably OSM file is incomplete.
+Warning: 257 total messages of type: The referenced geometry information (ref='%') is not known

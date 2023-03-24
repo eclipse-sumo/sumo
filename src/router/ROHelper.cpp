@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -45,17 +45,17 @@ recheckForLoops(ConstROEdgeVector& edges, const ConstROEdgeVector& mandatory) {
     bool findLoop = true;
     while (findLoop) {
         findLoop = false;
-        std::map<const ROEdge*, int> lastOccurence; // index of the last occurence of this edge
+        std::map<const ROEdge*, int> lastOccurrence; // index of the last occurrence of this edge
         for (int ii = 0; ii < (int)edges.size(); ++ii) {
-            std::map<const ROEdge*, int>::iterator it_pre = lastOccurence.find(edges[ii]);
-            if (it_pre != lastOccurence.end() &&
+            std::map<const ROEdge*, int>::iterator it_pre = lastOccurrence.find(edges[ii]);
+            if (it_pre != lastOccurrence.end() &&
                     noMandatory(mandatory, edges.begin() + it_pre->second, edges.begin() + ii)) {
                 edges.erase(edges.begin() + it_pre->second, edges.begin() + ii);
                 ii = it_pre->second;
                 findLoop = true;
                 break;
             } else {
-                lastOccurence[edges[ii]] = ii;
+                lastOccurrence[edges[ii]] = ii;
             }
         }
     }

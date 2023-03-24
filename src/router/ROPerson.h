@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2002-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -298,12 +298,12 @@ public:
             from(_from), to(_to), modes(modeSet), dep(departPos), arr(arrivalPos), stopOrigin(_stopOrigin), stopDest(_stopDest), walkFactor(_walkFactor), group(_group) { }
         /// @brief Destructor
         virtual ~PersonTrip() {
-            for (std::vector<TripItem*>::const_iterator it = myTripItems.begin(); it != myTripItems.end(); ++it) {
-                delete *it;
+            for (TripItem* const it : myTripItems) {
+                delete it;
             }
-            for (std::vector<ROVehicle*>::const_iterator it = myVehicles.begin(); it != myVehicles.end(); ++it) {
-                delete (*it)->getRouteDefinition();
-                delete *it;
+            for (ROVehicle* const v : myVehicles) {
+                delete v->getRouteDefinition();
+                delete v;
             }
         }
 
@@ -340,7 +340,7 @@ public:
         SVCPermissions getModes() const {
             return modes;
         }
-        void updateMOdes(SVCPermissions additionalModes) {
+        void updateModes(SVCPermissions additionalModes) {
             modes |= additionalModes;
         }
 

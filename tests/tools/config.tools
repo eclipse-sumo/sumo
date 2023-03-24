@@ -83,6 +83,7 @@ copy_test_path:input_data.xml
 copy_test_path:input_data2.xml
 copy_test_path_merge:data
 copy_test_path:sim.sumocfg
+copy_test_path:sim2.sumocfg
 copy_test_path:gtfs.zip
 copy_test_path:battery.xml
 
@@ -120,6 +121,7 @@ routesA:outA.rou.xml
 routesB:outB.rou.xml
 tripinfos:004/tripinfo_004.xml
 additional:out.add.xml
+additional2:out2.add.xml
 diff_nod:diff.nod.xml
 diff_edg:diff.edg.xml
 diff_con:diff.con.xml
@@ -167,7 +169,9 @@ xmlstats:stats.xml
 xmlstats0:000/stats.xml
 xmlstats1:001/stats.xml
 xmlstats1:1.stats.xml
+xmlstats1:stats1.xml
 xmlstats2:2.stats.xml
+xmlstats2:stats2.xml
 xmlstats3:3.stats.xml
 osmimport:*/osm.net.xml.gz
 osmstops:*/osm_stops.add.xml
@@ -234,6 +238,7 @@ output:Cache: hits
 output:function .* called at .*
 output:function .* finished after .*
 output:optional arguments:{REPLACE options:}
+output:succeeded after .*{REPLACE succeeded after TIME}
 dualog:uration:.*ms
 dualog:uration:.*s
 dualog:Real time factor
@@ -242,6 +247,8 @@ dualog:(.*ms)
 dualog:Simulation.*started with{REPLACE Simulation started with}
 dualog:.*'-c',{REPLACE '-c',}
 dualog:\\\\{REPLACE /}
+dualog:Suppressions used:{[->]}--------------------------------------------
+dualog:--------------------------------------------{LINES 2}
 tracefile:traci.start(.*){REPLACE traci.start(...)}
 trips:<!-- generated on{[->]}-->
 vehtypes:<!-- generated on{[->]}-->
@@ -271,7 +278,8 @@ errors:Bytes: 0xF6 0x74 0x2E 0x6E, line 3, column 27{REPLACE Bytes: 0xF6 0x74 0x
 errors:column ([0-9]*) \(line [0-9]*\){REPLACE column \1}
 errors:Scipy version [0-9]+\.[0-9]+\.[0-9]+{REPLACE Scipy}
 errors:OptimizeWarning
-errors:/.*/tests/sumo/{REPLACE sumo/tests/sumo}
+errors:(file:)?/.*/tests/sumo/{REPLACE sumo/tests/sumo/}
+errors:/.*/tests/../tools/{REPLACE sumo/tools/}
 errors:.*statistics.py:[0-9]+{REPLACE statistics.py:}
 errors:.*[/\\]([a-zA-Z0-9]*).py", line [0-9]+{REPLACE \1.py}
 errors:unknown url type{REPLACE [Errno 2] No such file or directory}
@@ -280,6 +288,13 @@ errors:Matplotlib is building the font cache; this may take a moment.
 errors:apport/report.py:13: DeprecationWarning: the imp{LINES 2}
 errors:schemaCheck.py
 errors:site-packages/ortools.*DeprecationWarning:
+errors:remaining_args \.\.\.
+errors:FutureWarning:{LINES 2}
+errors:\^\^\^
+errors:something strange happend{REPLACE something strange happened}
+errors:LinAlgWarning: Ill-conditioned matrix
+errors:= opt.linprog(
+errors:return sp.linalg.solve
 omnet:<!-- generated on
 shawn:<!-- generated on
 gpsdat:r[0-9]
@@ -295,6 +310,7 @@ od:<!-- generated on{[->]}-->
 net:<!--{[->]}-->
 tripinfos:<!--{[->]}-->
 additional:<!-- generated on{[->]}-->
+additional2:<!-- generated on{[->]}-->
 osmimport:<!--{[->]}-->
 osmstops:<!--{[->]}-->
 osmlines:<!--{[->]}-->
@@ -304,12 +320,22 @@ osmbatch:python.*route2trips\.py{REPLACE python /path/to/route2trips.py}
 osmbatch:python.*ptlines2flows\.py{REPLACE python /path/to/ptlines2flows.py}
 osmbatch:-attributes.*--{REPLACE -attributes <attrs-with-os-dependent-quoting> --}
 osmbatch:#!/bin/bash
+image:<g id="matplotlib.axis
 image:id="[^"]*"{REPLACE id="ReplacedTransientID"}
 image:url\(.*\){REPLACE url(ReplacedTransientURL)}
 image:href="[^"]*"{REPLACE href="ReplacedTransientHREF"}
-image:http:{REPLACE https:}
-image-600:http:{REPLACE https:}
-image-800:http:{REPLACE https:}
+image:<dc:date>
+image:\)scale\({REPLACE ) scale(}
+image:\)rotate\({REPLACE ) rotate(}
+image:\)translate\({REPLACE ) translate(}
+image-600:<g id="matplotlib.axis
+image-600:<dc:date>
+image-600:\)scale\({REPLACE ) scale(}
+image-600:\)translate\({REPLACE ) translate(}
+image-800:<g id="matplotlib.axis
+image-800:<dc:date>
+image-800:\)scale\({REPLACE ) scale(}
+image-800:\)translate\({REPLACE ) translate(}
 csv:\r$
 diff_con:<!-- generated on{[->]}-->
 diff_edg:<!-- generated on{[->]}-->
@@ -338,6 +364,9 @@ output:0.0101
 xml:0.0001
 csv:0.0101
 dualog:0.0101
+xmlstats:0.0101
+aggregatebattery:0.0101
+additional:0.0001
 
 [unordered_text]
 errors:ERROR:SCHEMA

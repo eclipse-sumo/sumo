@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -364,7 +364,7 @@ public:
     /// @}
 
     /// @brief get name
-    const std::string & getName() {
+    const std::string& getName() {
         return myName;
     }
 
@@ -506,7 +506,36 @@ public:
     /// @}
 
 
+    /// @name Methods returning aggregated values
+    /// @{
 
+    double getIntervalOccupancy() const {
+        return myTimeSamples != 0 ? myOccupancySum / (double) myTimeSamples : 0;
+    }
+    double getIntervalMeanSpeed() const {
+        return myVehicleSamples != 0 ? mySpeedSum / myVehicleSamples : -1;
+    }
+    double getIntervalMaxJamLengthInMeters() const {
+        return myMaxJamInMeters;
+    }
+    int getIntervalVehicleNumber() const {
+        return myNumberOfSeenVehicles;
+    }
+
+    double getLastIntervalOccupancy() const {
+        return myPreviousMeanOccupancy;
+    }
+    double getLastIntervalMeanSpeed() const {
+        return myPreviousMeanSpeed;
+    }
+    double getLastIntervalMaxJamLengthInMeters() const {
+        return myPreviousMaxJamLengthInMeters;
+    }
+    int getLastIntervalVehicleNumber() const {
+        return myPreviousNumberOfSeenVehicles;
+    }
+
+    /// @}
 
 
     /// @name Estimation methods
@@ -790,6 +819,13 @@ private:
     int myCurrentHaltingsNumber;
     /// @}
 
+    /// @name Values generated describing the previous interval state
+    /// @{
+    double myPreviousMeanOccupancy;
+    double myPreviousMeanSpeed;
+    double myPreviousMaxJamLengthInMeters;
+    int myPreviousNumberOfSeenVehicles;
+    /// @}
 
     /// @brief stores the overriden (via Traci) number of vehicles on detector
     int myOverrideVehNumber;

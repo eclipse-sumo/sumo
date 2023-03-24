@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -41,11 +41,10 @@ class GNENet;
 class GNEEvent_NetworkLoaded : public GUIEvent {
 public:
     /// @brief constructor
-    GNEEvent_NetworkLoaded(GNENet* _net, const bool _newNet, const std::string& _file,
+    GNEEvent_NetworkLoaded(GNENet* _net, const std::string& _file,
                            const std::string& _settingsFile, const bool _viewportFromRegistry) :
         GUIEvent(GUIEventType::SIMULATION_LOADED),
         net(_net),
-        isNewNet(_newNet),
         file(_file),
         settingsFile(_settingsFile),
         viewportFromRegistry(_viewportFromRegistry) { }
@@ -54,10 +53,7 @@ public:
     ~GNEEvent_NetworkLoaded() { }
 
     /// @brief the loaded net
-    GNENet* const net;
-
-    /// @brief flag for new net
-    const bool isNewNet;
+    GNENet* net;
 
     /// @brief the name of the loaded file
     const std::string file;

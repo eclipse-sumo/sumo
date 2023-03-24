@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2007-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2007-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -53,8 +53,8 @@ class Entry:
 
 
 def readLines(lines):
-    for l in lines:
-        flowDef = l.split()
+    for fl in lines:
+        flowDef = fl.split()
         if not cityDets or flowDef[0] in cityDets:
             if not flowDef[0] in totalFlow:
                 totalFlow[flowDef[0]] = Entry()
@@ -88,5 +88,5 @@ for f in args:
     else:
         print("Cannot read", f, file=sys.stderr)
 print("Detector;Time;qPKW;qLKW;vPKW;vLKW")
-for det, flow in totalFlow.iteritems():
+for det, flow in totalFlow.items():
     print(det + ";0;" + str(flow))

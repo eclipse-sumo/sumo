@@ -4,7 +4,9 @@ from
 
 to
 
-vtype
+type
+
+typebutton
 
 color
 
@@ -29,6 +31,8 @@ containernumber
 departposlat
 
 arrivalposlat
+
+insertionchecks
 
 depart
 

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-01-12 13:11:01 by Eclipse SUMO netconvert Version v1_15_0+1595-d32acb9
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_plain.nod.xml"/>
+        <edge-files value="input_plain.edg.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output-file value="net.net.xml"/>
+        <plain-output-prefix value="plain"/>
+        <plain-output.lanes value="true"/>
+    </output>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<edges version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="CE" from="C" to="E" priority="2" numLanes="2" speed="13.89">
+        <lane index="0" speed="13.89" shape="110.40,95.20 200.00,95.20"/>
+        <lane index="1" speed="13.89" shape="110.40,98.40 200.00,98.40"/>
+    </edge>
+    <edge id="CN" from="C" to="N" priority="2" numLanes="2" speed="13.89">
+        <lane index="0" speed="13.89" shape="104.80,110.40 104.80,200.00"/>
+        <lane index="1" speed="13.89" shape="101.60,110.40 101.60,200.00"/>
+    </edge>
+    <edge id="CS" from="C" to="S" priority="2" numLanes="2" speed="13.89">
+        <lane index="0" speed="13.89" shape="95.20,89.60 95.20,0.00"/>
+        <lane index="1" speed="13.89" shape="98.40,89.60 98.40,0.00"/>
+    </edge>
+    <edge id="CW" from="C" to="W" priority="2" numLanes="2" speed="13.89">
+        <lane index="0" speed="13.89" shape="89.60,104.80 0.00,104.80"/>
+        <lane index="1" speed="13.89" shape="89.60,101.60 0.00,101.60"/>
+    </edge>
+    <edge id="EC" from="E" to="C" priority="2" numLanes="2" speed="13.89">
+        <lane index="0" speed="13.89" shape="200.00,104.80 110.40,104.80"/>
+        <lane index="1" speed="13.89" shape="200.00,101.60 110.40,101.60"/>
+    </edge>
+    <edge id="NC" from="N" to="C" priority="2" numLanes="2" speed="13.89">
+        <lane index="0" speed="13.89" shape="95.20,200.00 95.20,110.40"/>
+        <lane index="1" speed="13.89" shape="98.40,200.00 98.40,110.40"/>
+    </edge>
+    <edge id="SC" from="S" to="C" priority="2" numLanes="2" speed="13.89">
+        <lane index="0" speed="13.89" shape="104.80,0.00 104.80,89.60"/>
+        <lane index="1" speed="13.89" shape="101.60,0.00 101.60,89.60"/>
+    </edge>
+    <edge id="WC" from="W" to="C" priority="2" numLanes="2" speed="13.89">
+        <lane index="0" speed="13.89" shape="0.00,95.20 89.60,95.20"/>
+        <lane index="1" speed="13.89" shape="0.00,98.40 89.60,98.40"/>
+    </edge>
+</edges>

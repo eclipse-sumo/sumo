@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -35,10 +35,10 @@
 // ===========================================================================
 
 GNERouteProbe::GNERouteProbe(GNENet* net) :
-    GNEAdditional("", net, GLO_ROUTEPROBE, SUMO_TAG_ROUTEPROBE, 
-    GUIIconSubSys::getIcon(GUIIcon::ROUTEPROBE), "", {}, {}, {}, {}, {}, {}),
-    myPeriod(SUMOTime_MAX_PERIOD),
-    myBegin(0) {
+    GNEAdditional("", net, GLO_ROUTEPROBE, SUMO_TAG_ROUTEPROBE,
+                  GUIIconSubSys::getIcon(GUIIcon::ROUTEPROBE), "", {}, {}, {}, {}, {}, {}),
+                            myPeriod(SUMOTime_MAX_PERIOD),
+myBegin(0) {
     // reset default values
     resetDefaultValues();
     // update centering boundary without updating grid
@@ -48,12 +48,12 @@ GNERouteProbe::GNERouteProbe(GNENet* net) :
 
 GNERouteProbe::GNERouteProbe(const std::string& id, GNENet* net, GNEEdge* edge, const SUMOTime period, const std::string& name,
                              const std::string& filename, SUMOTime begin, const Parameterised::Map& parameters) :
-    GNEAdditional(id, net, GLO_ROUTEPROBE, SUMO_TAG_ROUTEPROBE, 
-    GUIIconSubSys::getIcon(GUIIcon::ROUTEPROBE), name, {}, {edge}, {}, {}, {}, {}),
-    Parameterised(parameters),
-    myPeriod(period),
-    myFilename(filename),
-    myBegin(begin) {
+    GNEAdditional(id, net, GLO_ROUTEPROBE, SUMO_TAG_ROUTEPROBE,
+                  GUIIconSubSys::getIcon(GUIIcon::ROUTEPROBE), name, {}, {edge}, {}, {}, {}, {}),
+Parameterised(parameters),
+myPeriod(period),
+myFilename(filename),
+myBegin(begin) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -83,6 +83,24 @@ GNERouteProbe::writeAdditional(OutputDevice& device) const {
     // write parameters (Always after children to avoid problems with additionals.xsd)
     writeParams(device);
     device.closeTag();
+}
+
+
+bool
+GNERouteProbe::isAdditionalValid() const {
+    return true;
+}
+
+
+std::string
+GNERouteProbe::getAdditionalProblem() const {
+    return "";
+}
+
+
+void
+GNERouteProbe::fixAdditionalProblem() {
+    // nothing to fix
 }
 
 
@@ -144,50 +162,53 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
             routeProbeColor = s.additionalSettings.routeProbeColor;
             centralLineColor = RGBColor::WHITE;
         }
-        // draw parent and child lines
-        drawParentChildLines(s, s.additionalSettings.connectionColor);
-        // Start drawing adding an gl identificator
-        GLHelper::pushName(getGlID());
-        // Add layer matrix matrix
-        GLHelper::pushMatrix();
-        // translate to front
-        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_ROUTEPROBE);
-        // set base color
-        GLHelper::setColor(routeProbeColor);
-        // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-        GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry, 0.3 * routeProbeExaggeration);
-        // move to front
-        glTranslated(0, 0, .1);
-        // set central color
-        GLHelper::setColor(centralLineColor);
-        // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-        GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry, 0.05 * routeProbeExaggeration);
-        // move to icon position and front
-        glTranslated(myAdditionalGeometry.getShape().front().x(), myAdditionalGeometry.getShape().front().y(), .1);
-        // rotate over lane
-        GUIGeometry::rotateOverLane(myAdditionalGeometry.getShapeRotations().front() * -1);
-        // Draw icon depending of Route Probe is selected and if isn't being drawn for selecting
-        if (!s.drawForRectangleSelection && s.drawDetail(s.detailSettings.laneTextures, routeProbeExaggeration)) {
-            // set color
-            glColor3d(1, 1, 1);
-            // rotate texture
-            glRotated(90, 0, 0, 1);
-            // draw texture
-            if (drawUsingSelectColor()) {
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::ROUTEPROBE_SELECTED), s.additionalSettings.routeProbeSize * routeProbeExaggeration);
-            } else {
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::ROUTEPROBE), s.additionalSettings.routeProbeSize * routeProbeExaggeration);
-            }
-        } else {
-            // set route probe color
+        // avoid draw invisible elements
+        if (routeProbeColor.alpha() != 0) {
+            // draw parent and child lines
+            drawParentChildLines(s, s.additionalSettings.connectionColor);
+            // Start drawing adding an gl identificator
+            GLHelper::pushName(getGlID());
+            // Add layer matrix matrix
+            GLHelper::pushMatrix();
+            // translate to front
+            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_ROUTEPROBE);
+            // set base color
             GLHelper::setColor(routeProbeColor);
-            // just drawn a box
-            GLHelper::drawBoxLine(Position(0, 0), 0, 2 * s.additionalSettings.routeProbeSize, s.additionalSettings.routeProbeSize * routeProbeExaggeration);
+            // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
+            GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry, 0.3 * routeProbeExaggeration);
+            // move to front
+            glTranslated(0, 0, .1);
+            // set central color
+            GLHelper::setColor(centralLineColor);
+            // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
+            GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry, 0.05 * routeProbeExaggeration);
+            // move to icon position and front
+            glTranslated(myAdditionalGeometry.getShape().front().x(), myAdditionalGeometry.getShape().front().y(), .1);
+            // rotate over lane
+            GUIGeometry::rotateOverLane(myAdditionalGeometry.getShapeRotations().front() * -1);
+            // Draw icon depending of Route Probe is selected and if isn't being drawn for selecting
+            if (!s.drawForRectangleSelection && s.drawDetail(s.detailSettings.laneTextures, routeProbeExaggeration)) {
+                // set color
+                glColor3d(1, 1, 1);
+                // rotate texture
+                glRotated(90, 0, 0, 1);
+                // draw texture
+                if (drawUsingSelectColor()) {
+                    GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::ROUTEPROBE_SELECTED), s.additionalSettings.routeProbeSize * routeProbeExaggeration);
+                } else {
+                    GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GUITexture::ROUTEPROBE), s.additionalSettings.routeProbeSize * routeProbeExaggeration);
+                }
+            } else {
+                // set route probe color
+                GLHelper::setColor(routeProbeColor);
+                // just drawn a box
+                GLHelper::drawBoxLine(Position(0, 0), 0, 2 * s.additionalSettings.routeProbeSize, s.additionalSettings.routeProbeSize * routeProbeExaggeration);
+            }
+            // pop layer matrix
+            GLHelper::popMatrix();
+            // Pop name
+            GLHelper::popName();
         }
-        // pop layer matrix
-        GLHelper::popMatrix();
-        // Pop name
-        GLHelper::popName();
         // draw additional name
         drawAdditionalName(s);
         // check if mouse is over element

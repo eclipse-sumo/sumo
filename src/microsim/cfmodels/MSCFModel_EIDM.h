@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -208,7 +208,7 @@ public:
      * @param[in] maxSpeed The maximum achievable speed in the next step
      * @param[in] maxSpeedLane The maximum speed the vehicle wants to drive on this lane (Speedlimit*SpeedFactor)
      */
-    double maximumLaneSpeedCF(double maxSpeed, double /*maxSpeedLane*/) const {
+    double maximumLaneSpeedCF(const MSVehicle* const /*veh*/, double maxSpeed, double /*maxSpeedLane*/) const {
         return maxSpeed;
     }
 

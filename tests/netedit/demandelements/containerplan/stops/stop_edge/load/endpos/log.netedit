@@ -1,0 +1,3 @@
+Error: Attribute 'endPos' in definition of a stop Invalid Number Format (double) dummy.
+Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'gneE5'
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.containerplan.26Jan095535.11195/netedit.daily.demand.containerplan/demandelements/containerplan/stops/stop_edge/load/endpos/routes.rou.xml failed.

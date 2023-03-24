@@ -6,7 +6,7 @@
 		</interval>
 	</rerouter>
 	
-	<rerouter id="rerouter" edges="beg">
+	<rerouter id="rerouter2" edges="beg">
 		<interval begin="0" end="86400">
 			<closingReroute id="left"/>
 		</interval>

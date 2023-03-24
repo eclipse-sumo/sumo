@@ -1,5 +1,5 @@
-Eclipse SUMO jtrrouter Version v1_13_0+0844-22f88dc7bc3
- Copyright (C) 2001-2022 German Aerospace Center (DLR) and others; https://sumo.dlr.de
+Eclipse SUMO jtrrouter Version v1_15_0+1315-6cce7c5914f
+ Copyright (C) 2001-2023 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Router for the microscopic, multi-modal traffic simulation SUMO based on
  junction turning ratios.
 
@@ -121,11 +121,13 @@ Report Options:
   -?, --help                       Prints this screen or selected topics
   -V, --version                    Prints the current version
   -X, --xml-validation STR         Set schema validation scheme of XML inputs
-                                    ("never", "auto" or "always")
+                                    ("never", "local", "auto" or "always")
   --xml-validation.net STR         Set schema validation scheme of SUMO network
-                                    inputs ("never", "auto" or "always")
+                                    inputs ("never", "local", "auto" or
+                                    "always")
   --xml-validation.routes STR      Set schema validation scheme of SUMO route
-                                    inputs ("never", "auto" or "always")
+                                    inputs ("never", "local", "auto" or
+                                    "always")
   -W, --no-warnings                Disables output of warnings
   --aggregate-warnings INT         Aggregate warnings of the same type whenever
                                     more than INT occur
@@ -134,6 +136,7 @@ Report Options:
   --message-log FILE               Writes all non-error messages to FILE
                                     (implies verbose)
   --error-log FILE                 Writes all warnings and errors to FILE
+  --language STR                   Language to use in messages
   --ignore-errors                  Continue if a route could not be build
   --stats-period INT               Defines how often statistics shall be
                                     printed

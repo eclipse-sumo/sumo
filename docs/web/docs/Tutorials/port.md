@@ -5,7 +5,7 @@ title: Port Tutorial
 # Introduction
 This tutorial shows how to create a simple port simulation with the help of the osmWebWizard. This tutorial includes the following steps:
 
-* Start with the osmWebWizard.py
+* Starting with osmWebWizard.py
 * Revision and adaptation of the road network with netedit
 * Agent data and how to find them
    - Passenger / Bus
@@ -36,10 +36,10 @@ python <SUMO_HOME>/tools/osmWebWizard.py
 !!! note
 	All files that make up the scenario are created in a subfolder of the working directory with the current timestamp (e.g. <SUMO_HOME>/tools/2021-02-22-10-00-00/). If you edit the network, you can use the script `build.bat` to rebuild the random demand.
 
-A browser window will open. On the left side you see the map and on the right side you can find your position and some options. First, navigate through the map to find the right port.  
+A browser window will open. On the left side, you see the map and on the right side, you can find your position and some options. First, navigate through the map to find the right port.  
 <img src="../images/tutorialport1.png" width="100%">
 
-In our case it is the Skandinavienkai of the Port Lübeck Germany. Here, there are ferries (passenger transport) and cargo vessels (container transport). 	
+In our case it is the Skandinavienkai of the Port Lübeck, Germany. Here, there are ferries (passenger transport) and cargo vessels (container transport). 	
 
 <img src="../images/tutorialport2.png" width="100%">
 
@@ -51,13 +51,13 @@ Also select the `Add Polygons` and `Import Public Transport` options to put this
 The demand is defined by the demand generation panel. You can activate this panel by clicking on the car pictogram. Here you can choose every agent you need at your port area. If you have any special port vehicles like crane or stapler, you can not create them here. Ideas for possible implementations are described a little further below.
 The OSM Web Wizard generates random demand, for more information see the documentation of the [osmWebWizard](../Tutorials/OSMWebWizard.md).
 
-For our scenario we choose `cars`, `trucks`, `pedestrians`, `trains` and of course `ships`.
+For our scenario we choose `cars`, `trucks`, `pedestrians`, `trains`, and of course `ships`.
 
 <img src="../images/tutorialport3.png" width="100%">
 
 After you chose all the agents you need press the `Generate Scenario` button.  
 
-The complete scenario is generated automatically. The scenario generation takes a couple of seconds or minutes (depending, among others, on the size of the scenario). Once the scenario generation process has finished, the sumo-gui starts and the simulation can be started by pressing the Play button.
+The complete scenario is generated automatically. The scenario generation takes a couple of seconds or minutes (depending, among other factors, on the size of the scenario). Once the scenario generation process has finished, the sumo-gui starts and the simulation can be started by pressing the Play button.
 
 Here is our scenario! But it looks a little strange because the waterways are very large, so we first have to zoom in to find the port (somewhere in the south).
 
@@ -79,7 +79,7 @@ Now we open [netedit](../Netedit/index.md) to correct these parts. You can open 
 
 ### 1) Shorten the waterways, so that only the originally selected area remains.
 
-Use the inspect mode (`I`): Search the waterways that extend beyond the area and separate these edges in both directions into an appropriate part at the port and a part that can be deleted. To do so, right click on the edge at the position where the edge should be separated.
+Use the inspect mode (`I`): Locate the waterways that extend beyond the area and separate these edges in both directions into an appropriate part at the port and a part that can be deleted. To do so, right click on the edge at the position where the edge should be separated.
 
 <kbd><img src="../images/tutorialport9.png" width="600"></kbd>
 
@@ -118,7 +118,7 @@ Here is our main port area.
 
 <kbd><img src="../images/tutorialport16.png" width="1000"></kbd>
 
-If you have a look at the option allow of the edges, you will see that they have different allowed vClasses. We prefer to have the same allowed vClasses for all edges (trucks, passenger car, pedestrian, delivery, taxi and bus)
+If you have a look at the "allow"-parameter for the edges, you will see that they have different allowed vClasses. We prefer to have the same allowed vClasses for all edges (trucks, passenger car, pedestrian, delivery, taxi and bus)
 
 Use the select mode (`S`): Select all roads (except the train tracks).
 
@@ -162,11 +162,11 @@ If the network is now correct, save the network. Run the file `build.bat` at the
 
 <img src="../images/tutorialport21.png" width="100%">
 
-Here you can see, that in our scenario there are a little to much ships. So it is time to have a deeper look into the demand. 
+Here you can see that in our scenario there are far too many ships. So it is time to have a deeper look into the demand. 
 
 ## Demand 
 
-Before we edit the demand, it would be a good idea to bring together some information about it. If you are in luck, you get this data directly from the port. Otherwise, there are also some ways to get approximate values. For the ships it is possible to look for data from the automatic identification system (AIS). There are a lot of free sources and you get information about the ships and their movements. Often you can get information about the port from the ports website and from the local logistics companies. Information about the passenger transport you can get from openStreetMap and local public transport- and ferry companies. 
+Before we edit the demand, it would be a good idea to bring together some information about it. If you are in luck, you get this data directly from the port. Otherwise, there are also some ways to get approximate values. For the ships it is possible to look for data from the automatic identification system (AIS). There are a lot of free sources and you get information about the ships and their movements. Often you can find information about the port from the ports website and from the local logistics companies. Information about passenger transport can be retrieved from OpenStreetMap and local public transport and ferry companies. 
 
 ### Demand editing 
 If you just want to have a very simple scenario (without containers) then you just change the `Through Traffic Factor` and `count` within the file `build.bat` and generate a better simple demand. For more information see the [osmWebWizard](../Tutorials/OSMWebWizard.md).
@@ -240,7 +240,7 @@ For the passenger cars we use flow definitions:
 ```
 
 #### Staplers
-Because there are no stapler implemented in SUMO, we use trucks equipped with a taxi device. Here, we give them `containerCapacity="1"` and `loadingDuration="30.0"`. (The taxi device also need `personCapacity="1"` because it do not work properly without at the moment.)
+Because there are no stapler implemented in SUMO, we use trucks equipped with a taxi device. Here, we give them `containerCapacity="1"` and `loadingDuration="30.0"` (the taxi device also needs `personCapacity="1"` because it does not work properly without it at the moment).
 ```xml
 <flow id="stapler" begin="0" end="0" number="5" type="type_truck_taxi">
 	<param key="has.taxi.device" value="true"/>

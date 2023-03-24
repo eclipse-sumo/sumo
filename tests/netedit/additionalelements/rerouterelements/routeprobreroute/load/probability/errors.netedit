@@ -1,0 +1,3 @@
+Error: Attribute 'probability' in definition of a routeProbReroute Invalid Number Format (double) dummyProbability.
+Error: Probability of routeProbReroute must be equal or greater than 0
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.14Feb144445.5188\netedit.gui\additionalelements\rerouterelements\routeprobreroute\load\probability\additionals.add.xml failed.

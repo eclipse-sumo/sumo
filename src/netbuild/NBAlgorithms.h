@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2012-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -51,7 +51,7 @@ public:
     /** @brief Computes turnaround destinations for all incoming edges of the given nodes (if any)
      * @param[in] node The node for which to compute turnaround destinations
      * @param[in] warn Whether warnings shall be issued
-     * @note: This is needed by NETEDIT
+     * @note: This is needed by netedit
      */
     static void computeTurnDirectionsForNode(NBNode* node, bool warn);
 

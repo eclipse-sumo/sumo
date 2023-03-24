@@ -1,0 +1,290 @@
+# "Costa_12_0"
+cooperative 33.0
+strategic|urgent 39.0
+
+
+# "Costa_12_1"
+cooperative 41.0
+strategic|urgent 48.0
+
+
+# "Costa_12_13"
+cooperative 73.0
+strategic|urgent 76.0
+
+
+# "Costa_12_3"
+cooperative 54.0
+strategic|urgent 58.0
+
+
+# "Costa_12_7"
+cooperative 57.0
+strategic|urgent 63.0
+
+
+# "Costa_12_9"
+cooperative 64.0
+strategic|urgent 80.0
+
+
+# "Costa_1_15"
+cooperative 71.0
+strategic|urgent 87.0
+
+
+# "Costa_1_17"
+cooperative 84.0
+
+
+# "Costa_1_2"
+cooperative 45.0
+strategic|urgent 53.0
+
+
+# "Costa_1_4"
+cooperative 50.0
+strategic|urgent 62.0
+speedGain 86.0
+
+
+# "Pepoli_10_10"
+speedGain 29.0
+keepRight 53.0
+speedGain 65.0
+
+
+# "Pepoli_10_18"
+speedGain 68.0
+
+
+# "Pepoli_10_22"
+keepRight 58.0
+
+
+# "Pepoli_10_27"
+keepRight 53.0
+speedGain 86.0
+
+
+# "Pepoli_10_38"
+speedGain 86.0
+
+
+# "Pepoli_11_15"
+speedGain 61.0
+
+
+# "Pepoli_11_17"
+keepRight 51.0
+strategic 53.0
+keepRight 60.0
+strategic|urgent 75.0
+
+
+# "Pepoli_11_24"
+keepRight 73.0
+strategic|urgent 75.0
+
+
+# "Pepoli_11_29"
+keepRight 64.0
+strategic|urgent 86.0
+
+
+# "Pepoli_11_3"
+keepRight 58.0
+
+
+# "Pepoli_11_30"
+keepRight 61.0
+
+
+# "Pepoli_11_35"
+keepRight 73.0
+
+
+# "Pepoli_11_36"
+keepRight 81.0
+strategic 82.0
+
+
+# "Pepoli_11_37"
+keepRight 77.0
+
+
+# "Pepoli_11_41"
+keepRight 81.0
+
+
+# "Pepoli_11_5"
+speedGain 54.0
+
+
+# "Pepoli_11_6"
+keepRight 26.0
+speedGain 58.0
+
+
+# "Pepoli_11_7"
+keepRight 20.0
+strategic|urgent 81.0
+
+
+# "Pepoli_11_8"
+keepRight 78.0
+
+
+# "Pepoli_11_9"
+speedGain 87.0
+
+
+# "Silvani_3_6"
+speedGain 49.0
+speedGain 55.0
+
+
+# "Silvani_7_10"
+keepRight 33.0
+speedGain 57.0
+speedGain 61.0
+
+
+# "Silvani_7_11"
+speedGain 36.0
+
+
+# "Silvani_7_15"
+keepRight 45.0
+speedGain 58.0
+
+
+# "Silvani_7_18"
+speedGain 79.0
+
+
+# "Silvani_7_19"
+speedGain 79.0
+speedGain 85.0
+
+
+# "Silvani_7_21"
+speedGain 75.0
+speedGain 80.0
+
+
+# "Silvani_7_26"
+keepRight 80.0
+
+
+# "Silvani_7_28"
+keepRight 74.0
+
+
+# "Silvani_7_4"
+speedGain 41.0
+
+
+# "Silvani_7_5"
+speedGain 34.0
+
+
+# "Silvani_7_7"
+speedGain 49.0
+
+
+# "Togliatti_10_10"
+keepRight 23.0
+strategic|urgent 38.0
+
+
+# "Togliatti_10_20"
+keepRight 39.0
+strategic|urgent 48.0
+
+
+# "Togliatti_10_30"
+speedGain 84.0
+
+
+# "Togliatti_10_46"
+keepRight 78.0
+
+
+# "Togliatti_2_8"
+strategic|urgent 40.0
+
+
+# "Togliatti_71_0"
+keepRight 9.0
+strategic|urgent 21.0
+
+
+# "Togliatti_71_19"
+keepRight 43.0
+strategic|urgent 48.0
+speedGain 63.0
+
+
+# "Togliatti_71_2"
+speedGain 34.0
+keepRight 54.0
+
+
+# "Togliatti_71_25"
+speedGain 73.0
+
+
+# "Togliatti_71_3"
+keepRight 12.0
+strategic|urgent 26.0
+
+
+# "Togliatti_72_5"
+strategic|urgent 38.0
+cooperative 61.0
+strategic|urgent 66.0
+
+
+# "Togliatti_9_13"
+keepRight 55.0
+
+
+# "Togliatti_9_21"
+keepRight 39.0
+strategic|urgent 57.0
+
+
+# "Vittorio_Veneto_1_10"
+strategic|urgent 86.0
+
+
+# "Vittorio_Veneto_1_4"
+strategic|urgent 59.0
+
+
+# "Vittorio_Veneto_2_1"
+strategic|urgent 42.0
+
+
+# "Vittorio_Veneto_2_6"
+strategic|urgent 67.0
+
+
+# "Vittorio_Veneto_3_7"
+strategic|urgent 70.0
+
+
+# "XXI_Aprile_113_4"
+cooperative 48.0
+strategic|urgent 55.0
+
+
+# "bus_14_0"
+strategic|urgent 82.0
+
+
+# "bus_81_0"
+speedGain 55.0
+
+

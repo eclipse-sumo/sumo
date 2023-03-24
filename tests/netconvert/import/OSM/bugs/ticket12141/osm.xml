@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm>
+
+    <node id="300900428" lat="47.3768453" lon="8.5428091" version="1"/>
+    <node id="674098902" lat="47.3767986" lon="8.5431508" version="1"/>
+    <node id="300901455" lat="47.3767196" lon="8.5433208" version="1"/>
+    <way id="8143580" version="1">
+        <nd ref="300900428"/>
+        <nd ref="674098902"/>
+        <tag k="bridge" v="yes"/>
+        <tag k="highway" v="tertiary"/>
+        <tag k="lanes" v="2"/>
+        <tag k="layer" v="1"/>
+        <tag k="lit" v="yes"/>
+        <tag k="maxspeed" v="50"/>
+        <tag k="maxweight:signed" v="no"/>
+        <tag k="name" v="Bahnhofbrücke"/>
+        <tag k="oneway" v="yes"/>
+        <tag k="shoulder" v="no"/>
+        <tag k="sidewalk:left" v="no"/>
+        <tag k="sidewalk:right" v="separate"/>
+        <tag k="surface" v="asphalt"/>
+        <tag k="trolley_wire" v="yes"/>
+        <tag k="turn:lanes" v="merge_to_right|"/>
+        <tag k="wikidata" v="Q18729862"/>
+    </way>
+    <way id="53275982" version="1">
+        <nd ref="674098902"/>
+        <nd ref="300901455"/>
+        <tag k="cycleway:right" v="lane"/>
+        <tag k="cycleway:right:lane" v="advisory"/>
+        <tag k="highway" v="tertiary"/>
+        <tag k="lane_markings" v="no"/>
+        <tag k="lit" v="yes"/>
+        <tag k="maxspeed" v="50"/>
+        <tag k="name" v="Bahnhofbrücke"/>
+        <tag k="oneway" v="yes"/>
+        <tag k="sidewalk" v="separate"/>
+        <tag k="source:width" v="ARCore"/>
+        <tag k="surface" v="asphalt"/>
+        <tag k="trolley_wire" v="yes"/>
+        <tag k="width" v="4.3"/>
+        <tag k="wikidata" v="Q18729862"/>
+    </way>
+
+</osm>

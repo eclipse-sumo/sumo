@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -34,7 +34,7 @@
 
 GNECalibratorFlow::GNECalibratorFlow(GNENet* net) :
     GNEAdditional("", net, GLO_CALIBRATOR, GNE_TAG_CALIBRATOR_FLOW, GUIIconSubSys::getIcon(GUIIcon::CALIBRATOR), "",
-    {}, {}, {}, {}, {}, {}) {
+{}, {}, {}, {}, {}, {}) {
     // reset default values
     resetDefaultValues();
     // set VPH and speed enabled
@@ -47,8 +47,8 @@ GNECalibratorFlow::GNECalibratorFlow(GNENet* net) :
 
 GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandElement* vehicleType, GNEDemandElement* route) :
     GNEAdditional(calibratorParent->getNet(), GLO_CALIBRATOR, GNE_TAG_CALIBRATOR_FLOW, GUIIconSubSys::getIcon(GUIIcon::CALIBRATOR), "",
-    {}, {}, {}, {calibratorParent}, {vehicleType, route}, {}),
-    SUMOVehicleParameter() {
+{}, {}, {}, {calibratorParent}, {vehicleType, route}, {}),
+SUMOVehicleParameter() {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
     // reset ID
@@ -56,11 +56,11 @@ GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandE
 }
 
 
-GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandElement* vehicleType, GNEDemandElement* route, 
-    const SUMOVehicleParameter& vehicleParameters) :
+GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandElement* vehicleType, GNEDemandElement* route,
+                                     const SUMOVehicleParameter& vehicleParameters) :
     GNEAdditional(calibratorParent->getNet(), GLO_CALIBRATOR, GNE_TAG_CALIBRATOR_FLOW, GUIIconSubSys::getIcon(GUIIcon::CALIBRATOR), "",
-    {}, {}, {}, {calibratorParent}, {vehicleType, route}, {}),
-    SUMOVehicleParameter(vehicleParameters) {
+{}, {}, {}, {calibratorParent}, {vehicleType, route}, {}),
+SUMOVehicleParameter(vehicleParameters) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
     // reset ID
@@ -78,6 +78,8 @@ GNECalibratorFlow::writeAdditional(OutputDevice& device) const {
         device.openTag(SUMO_TAG_FLOW);
         // write vehicle attributes
         write(device, OptionsCont::getOptions(), SUMO_TAG_FLOW, getParentDemandElements().at(0)->getID());
+        // write end
+        device.writeAttr(SUMO_ATTR_END, getAttribute(SUMO_ATTR_END));
         // write route
         device.writeAttr(SUMO_ATTR_ROUTE, getParentDemandElements().at(1)->getID());
         // VPH
@@ -89,9 +91,27 @@ GNECalibratorFlow::writeAdditional(OutputDevice& device) const {
         // close vehicle tag
         device.closeTag();
     } else {
-        WRITE_WARNING(toString(GNE_TAG_CALIBRATOR_FLOW) + " of  calibrator '" +  getParentAdditionals().front()->getID() +
-                      "' cannot be written. Either type or vehsPerHour or speed must be enabled");
+        WRITE_WARNING(TL("calibratorFlow of  calibrator '") + getParentAdditionals().front()->getID() +
+            TL("' cannot be written. Either type or vehsPerHour or speed must be enabled"));
     }
+}
+
+
+bool
+GNECalibratorFlow::isAdditionalValid() const {
+    return true;
+}
+
+
+std::string
+GNECalibratorFlow::getAdditionalProblem() const {
+    return "";
+}
+
+
+void
+GNECalibratorFlow::fixAdditionalProblem() {
+    // nothing to fix
 }
 
 

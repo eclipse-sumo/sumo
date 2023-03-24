@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -15,7 +15,7 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    May 2019
 ///
-// Representation of persons in NETEDIT
+// Representation of persons in netedit
 /****************************************************************************/
 #pragma once
 #include <config.h>
@@ -285,7 +285,7 @@ public:
 
 protected:
     /// @brief sets the color according to the currente settings
-    void setColor(const GUIVisualizationSettings& s) const;
+    RGBColor setColor(const GUIVisualizationSettings& s) const;
 
     /// @brief sets the color according to the current scheme index and some vehicle function
     bool setFunctionalColor(int activeScheme) const;

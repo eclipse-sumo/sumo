@@ -1,8 +1,10 @@
 /* XPM */
 static const char * rubber5x_xpm[] = {
+/* columns rows colors chars-per-pixel */
 "17 17 2 1",
 " 	c None",
 "!	c black",
+/* pixels */
 "        !!!!!!!  ",
 "       !     !!  ",
 "      !     ! !  ",
@@ -19,4 +21,5 @@ static const char * rubber5x_xpm[] = {
 "         !!!!!  !",
 "            ! !! ",
 "         !  ! !! ",
-"          !! !  !"};
+"          !! !  !"
+};

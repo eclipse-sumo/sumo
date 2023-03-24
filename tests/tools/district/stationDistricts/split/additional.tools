@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-03-10 18:09:48.483508 by stationDistricts.py v1_16_0+1167-46f216acae3
+<configuration>
+    <net-file value="input_net.net.xml"/>
+    <output value="out2.add.xml"/>
+    <split-output value="out.add.xml"/>
+    <stop-file value="input_additional.add.xml"/>
+</configuration>
+-->
+
+<edges xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edgediff_file.xsd">
+    <edge id="248740648#4">
+        <split pos="1425.174732313863" id="248740648#4.1425"/>
+    </edge>
+    <edge id="441932173#3">
+        <split pos="1802.675195570507" id="441932173#3.1802"/>
+    </edge>
+</edges>

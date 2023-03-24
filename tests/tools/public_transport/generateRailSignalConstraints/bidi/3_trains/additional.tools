@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-12-20 09:41:38.906408 by generateRailSignalConstraints.py v1_15_0+1149-7a6e0c6
+<configuration>
+    <additional-file value="input_additional.add.xml"/>
+    <bidi-conflicts value="True"/>
+    <comment.all value="True"/>
+    <params value="True"/>
+    <net-file value="net.net.xml"/>
+    <output-file value="out.add.xml"/>
+    <redundant value="3600"/>
+    <route-file value="input_routes.rou.xml"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <railSignalConstraints id="A">
+        <bidiPredecessor tripId="t0" tl="J1" foes="t2">
+            <param key="busStop" value="f"/>
+            <param key="busStop2" value="-a2"/>
+            <param key="priorStop" value="a"/>
+            <param key="priorStop2" value="-f2"/>
+            <param key="arrival" value="00:03:45"/>
+            <param key="foeArrival" value="00:03:04"/>
+            <param key="stopArrival" value="00:04:00"/>
+            <param key="foeStopArrival" value="00:03:20"/>
+        </bidiPredecessor>
+
+        <bidiPredecessor tripId="t0" tl="J1" foes="t1">
+            <param key="busStop" value="f"/>
+            <param key="busStop2" value="-a2"/>
+            <param key="priorStop" value="a"/>
+            <param key="priorStop2" value="-f2"/>
+            <param key="arrival" value="00:03:45"/>
+            <param key="foeArrival" value="00:01:24"/>
+            <param key="stopArrival" value="00:04:00"/>
+            <param key="foeStopArrival" value="00:01:40"/>
+        </bidiPredecessor>
+
+    </railSignalConstraints>
+</additional>

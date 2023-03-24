@@ -1,5 +1,5 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2018-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2018-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -28,6 +28,7 @@ from .libtraci import vehicle, simulation, person, trafficlight, gui  # noqa
 from .libtraci import *  # noqa
 from .libtraci import TraCIStage, TraCINextStopData, TraCIReservation, TraCILogic, TraCIPhase, TraCIException  # noqa
 from .libtraci import TraCICollision, TraCISignalConstraint  # noqa
+from ._libtraci import TraCILogic_phases_get, TraCILogic_phases_set  # noqa
 
 DOMAINS = [
     busstop,  # noqa
@@ -77,6 +78,13 @@ TraCINextStopData.__repr__ = _vehicle.StopData.__repr__
 TraCIReservation.__attr_repr__ = _person.Reservation.__attr_repr__
 TraCIReservation.__repr__ = _person.Reservation.__repr__
 
+
+def set_phases(self, phases):
+    new_phases = [TraCIPhase(p.duration, p.state, p.minDur, p.maxDur, p.next, p.name) for p in phases]
+    TraCILogic_phases_set(self, new_phases)
+
+
+TraCILogic.phases = property(TraCILogic_phases_get, set_phases)
 TraCILogic.getPhases = _trafficlight.Logic.getPhases
 TraCILogic.__repr__ = _trafficlight.Logic.__repr__
 TraCIPhase.__repr__ = _trafficlight.Phase.__repr__
@@ -106,6 +114,7 @@ vehicle.getRightLeaders = wrapAsClassMethod(_vehicle.VehicleDomain.getRightLeade
 vehicle.getLeftFollowers = wrapAsClassMethod(_vehicle.VehicleDomain.getLeftFollowers, vehicle)
 vehicle.getLeftLeaders = wrapAsClassMethod(_vehicle.VehicleDomain.getLeftLeaders, vehicle)
 vehicle.getLaneChangeStatePretty = wrapAsClassMethod(_vehicle.VehicleDomain.getLaneChangeStatePretty, vehicle)
+vehicle._legacyGetLeader = True
 person.removeStages = wrapAsClassMethod(_person.PersonDomain.removeStages, person)
 _trafficlight.TraCIException = TraCIException
 trafficlight.setLinkState = wrapAsClassMethod(_trafficlight.TrafficLightDomain.setLinkState, trafficlight)
@@ -130,11 +139,8 @@ def isLibtraci():
     return True
 
 
-vehicle._legacyGetLeader = True
-
-
 def setLegacyGetLeader(enabled):
-    _vehicle._legacyGetLeader = enabled
+    vehicle._legacyGetLeader = enabled
 
 
 hasGUI = simulation.hasGUI
@@ -142,6 +148,7 @@ init = simulation.init
 load = simulation.load
 isLoaded = simulation.isLoaded
 getVersion = simulation.getVersion
+executeMove = simulation.executeMove
 setOrder = simulation.setOrder
 
 _libtraci_step = simulation.step
@@ -165,14 +172,15 @@ def close():
     _stepManager.close()
 
 
-def start(args, traceFile=None, traceGetters=True):
-    version = simulation.start(args)
+def start(cmd, port=None, numRetries=constants.DEFAULT_NUM_RETRIES, label="default", verbose=False,
+          traceFile=None, traceGetters=True, stdout=None, doSwitch=True):
+    version = simulation.start(cmd, -1 if port is None else port, numRetries, label, verbose)
     if traceFile is not None:
         if _stepManager.startTracing(traceFile, traceGetters, DOMAINS):
             # simulationStep shows up as simulation.step
             global _libtraci_step
             _libtraci_step = _stepManager._addTracing(_libtraci_step, "simulation")
-        _stepManager.write("start", repr(args))
+        _stepManager.write("start", repr(cmd))
     return version
 
 

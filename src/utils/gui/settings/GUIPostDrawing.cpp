@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -42,11 +42,14 @@ GUIPostDrawing::executePostDrawingTasks() {
     elementsMarkedToRemove.clear();
     elementsMarkedToSelect.clear();
     // reset marked elements
+    myTopElement = nullptr;
     markedNode = nullptr;
     markedEdge = nullptr;
     markedLane = nullptr;
     markedTAZ = nullptr;
     markedRoute = nullptr;
+    markedFirstGeometryPoint = nullptr;
+    markedSecondGeometryPoint = nullptr;
 }
 
 
@@ -58,15 +61,30 @@ GUIPostDrawing::markGLObjectToUpdate(GUIGlObject* GLObject) {
 }
 
 
-void 
+void
 GUIPostDrawing::addElementUnderCursor(const GUIGlObject* GLObject) {
     myElementsUnderCursor.push_back(GLObject);
+    if (myTopElement == nullptr) {
+        myTopElement = GLObject;
+    } else if (GLObject->getType() > myTopElement->getType()) {
+        myTopElement = GLObject;
+    }
 }
 
 
 bool
 GUIPostDrawing::isElementUnderCursor(const GUIGlObject* GLObject) const {
-    return std::find(myElementsUnderCursor.begin(), myElementsUnderCursor.end(), GLObject) != myElementsUnderCursor.end();
+    return (std::find(myElementsUnderCursor.begin(), myElementsUnderCursor.end(), GLObject) != myElementsUnderCursor.end());
+}
+
+
+bool
+GUIPostDrawing::isTopElementUnderCursor(const GUIGlObject* GLObject) const {
+    if (myTopElement) {
+        return (GLObject->getType() >= myTopElement->getType());
+    } else {
+        return false;
+    }
 }
 
 

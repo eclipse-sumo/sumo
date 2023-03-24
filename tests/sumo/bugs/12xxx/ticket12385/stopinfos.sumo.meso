@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-03-22 17:18:08 by Eclipse SUMO sumo Version v1_16_0+1570-ec89ba0
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net2.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <stop-output value="stopinfos.xml"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+        <meso-junction-control value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<stops xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/stopinfo_file.xsd">
+    <stopinfo id="v_0" type="t_0" edge="WC" pos="0.00" parking="0" started="0.00" ended="18.00" initialPersons="0" loadedPersons="20" unloadedPersons="0" initialContainers="0" loadedContainers="10" unloadedContainers="0" busStop="bs_0"/>
+    <stopinfo id="v_0" type="t_0" edge="CE" pos="0.00" parking="0" started="17.20" ended="35.00" initialPersons="20" loadedPersons="0" unloadedPersons="20" initialContainers="10" loadedContainers="0" unloadedContainers="10" busStop="bs_1"/>
+</stops>

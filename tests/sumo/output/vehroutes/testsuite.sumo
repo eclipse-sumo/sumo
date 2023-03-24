@@ -48,6 +48,9 @@ teleport_multihop
 # teleporting over multiple edges (with reinsertion instead of teleport-to-end)
 teleport_multihop2
 
+# remove jammed vehicles
+teleport_remove
+
 # vehicles are moving in circles
 circle_reroute
 
@@ -62,6 +65,9 @@ circle_reroute_intended_depart_sorted
 
 # output sorted by departure time
 sorted
+
+# output sorted by departure time but end before last vehicle arrives
+sorted_end_early
 
 # vehicles departing in the same second should be ordered by their loading order (intended depart) even when sorting by actual departure time.
 # 

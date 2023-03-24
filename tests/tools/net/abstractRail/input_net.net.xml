@@ -1,0 +1,2106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-03-02 08:13:09 by Eclipse SUMO netedit Version v1_16_0+0877-a4743b5
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <additional-files value="/localdata2/debug/abstractRail/berlin/osm_stops.add.xml"/>
+        <sumo-net-file value="/localdata2/debug/abstractRail/small/input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/localdata2/debug/abstractRail/small/input_net.net.xml"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="0"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<net version="1.16" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="-339139.35,-5788711.14" convBoundary="9704.94,39367.56,24641.51,47646.88" origBoundary="12.635011,52.237972,14.221191,52.746091" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <type id="highway.bridleway" priority="1" numLanes="1" speed="2.78" allow="pedestrian" oneway="1" width="2.00"/>
+    <type id="highway.bus_guideway" priority="1" numLanes="1" speed="27.78" allow="bus" oneway="1"/>
+    <type id="highway.cycleway" priority="1" numLanes="1" speed="5.56" allow="bicycle" oneway="0" width="1.00"/>
+    <type id="highway.footway" priority="1" numLanes="1" speed="2.78" allow="pedestrian" oneway="1" width="2.00"/>
+    <type id="highway.ford" priority="1" numLanes="1" speed="2.78" allow="army" oneway="0"/>
+    <type id="highway.living_street" priority="2" numLanes="1" speed="2.78" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
+    <type id="highway.motorway" priority="14" numLanes="2" speed="39.44" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" oneway="1"/>
+    <type id="highway.motorway_link" priority="9" numLanes="1" speed="22.22" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" oneway="1"/>
+    <type id="highway.path" priority="1" numLanes="1" speed="5.56" allow="pedestrian bicycle" oneway="0" width="2.00"/>
+    <type id="highway.pedestrian" priority="1" numLanes="1" speed="2.78" allow="pedestrian" oneway="1" width="2.00"/>
+    <type id="highway.primary" priority="12" numLanes="2" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
+    <type id="highway.primary_link" priority="7" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
+    <type id="highway.raceway" priority="15" numLanes="2" speed="83.33" allow="vip" oneway="0"/>
+    <type id="highway.residential" priority="3" numLanes="1" speed="13.89" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
+    <type id="highway.secondary" priority="11" numLanes="1" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
+    <type id="highway.secondary_link" priority="6" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
+    <type id="highway.service" priority="1" numLanes="1" speed="5.56" allow="pedestrian delivery bicycle" oneway="0"/>
+    <type id="highway.service|railway.tram" priority="17" numLanes="1" speed="13.89" allow="pedestrian delivery bicycle tram" oneway="0"/>
+    <type id="highway.stairs" priority="1" numLanes="1" speed="1.39" allow="pedestrian" oneway="1" width="2.00"/>
+    <type id="highway.step" priority="1" numLanes="1" speed="1.39" allow="pedestrian" oneway="1" width="2.00"/>
+    <type id="highway.steps" priority="1" numLanes="1" speed="1.39" allow="pedestrian" oneway="1" width="2.00"/>
+    <type id="highway.tertiary" priority="10" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
+    <type id="highway.tertiary_link" priority="5" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
+    <type id="highway.track" priority="1" numLanes="1" speed="5.56" allow="pedestrian motorcycle moped bicycle" oneway="0"/>
+    <type id="highway.trunk" priority="13" numLanes="2" speed="27.78" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
+    <type id="highway.trunk_link" priority="8" numLanes="1" speed="22.22" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
+    <type id="highway.unclassified" priority="4" numLanes="1" speed="13.89" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
+    <type id="highway.unsurfaced" priority="1" numLanes="1" speed="8.33" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
+    <type id="railway.highspeed" priority="21" numLanes="1" speed="69.44" allow="rail_fast" oneway="1"/>
+    <type id="railway.light_rail" priority="19" numLanes="1" speed="27.78" allow="rail_urban" oneway="1"/>
+    <type id="railway.light_rail|usage.branch" priority="19" numLanes="1" speed="27.78" allow="rail_urban" oneway="1"/>
+    <type id="railway.light_rail|usage.main" priority="19" numLanes="1" speed="27.78" allow="rail_urban" oneway="1"/>
+    <type id="railway.preserved" priority="16" numLanes="1" speed="27.78" allow="rail" oneway="1"/>
+    <type id="railway.rail" priority="20" numLanes="1" speed="44.44" allow="rail" oneway="1"/>
+    <type id="railway.rail|usage.branch" priority="20" numLanes="1" speed="44.44" allow="rail" oneway="1"/>
+    <type id="railway.rail|usage.industrial" priority="20" numLanes="1" speed="44.44" allow="rail" oneway="1"/>
+    <type id="railway.rail|usage.main" priority="20" numLanes="1" speed="44.44" allow="rail" oneway="1"/>
+    <type id="railway.rail|usage.test" priority="20" numLanes="1" speed="44.44" allow="rail" oneway="1"/>
+    <type id="railway.subway" priority="18" numLanes="1" speed="27.78" allow="rail_urban" oneway="1"/>
+    <type id="railway.subway|usage.branch" priority="18" numLanes="1" speed="27.78" allow="rail_urban" oneway="1"/>
+    <type id="railway.subway|usage.main" priority="18" numLanes="1" speed="27.78" allow="rail_urban" oneway="1"/>
+    <type id="railway.tram" priority="17" numLanes="1" speed="13.89" allow="tram" oneway="1"/>
+    <type id="railway.tram|usage.main" priority="17" numLanes="1" speed="13.89" allow="tram" oneway="1"/>
+    <type id="usage.branch" disallow="all" oneway="1"/>
+    <type id="usage.industrial" disallow="all" oneway="1"/>
+    <type id="usage.main" disallow="all" oneway="1"/>
+    <type id="usage.military" disallow="all" oneway="1"/>
+    <type id="usage.test" disallow="all" oneway="1"/>
+    <type id="usage.tourism" disallow="all" oneway="1"/>
+
+    <edge id=":1383487001_0" function="internal">
+        <lane id=":1383487001_0_0" index="0" allow="rail rail_electric rail_fast" speed="0.10" length="0.10" shape="18930.39,42014.20 18930.39,42014.20"/>
+    </edge>
+    <edge id=":1383487016_0" function="internal">
+        <lane id=":1383487016_0_0" index="0" allow="rail" speed="44.44" length="42.97" shape="18673.12,42132.00 18635.54,42152.84"/>
+    </edge>
+    <edge id=":1383487016_1" function="internal">
+        <lane id=":1383487016_1_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="42.98" shape="18673.12,42132.00 18634.04,42149.88"/>
+    </edge>
+    <edge id=":1383487022_0" function="internal">
+        <lane id=":1383487022_0_0" index="0" allow="rail rail_fast" speed="45.84" length="63.47" shape="18528.69,42183.86 18472.33,42213.05"/>
+    </edge>
+    <edge id=":1383487022_1" function="internal">
+        <lane id=":1383487022_1_0" index="0" allow="rail rail_fast" speed="63.89" length="69.42" shape="18528.69,42183.86 18465.62,42212.85"/>
+    </edge>
+    <edge id=":1383487026_0" function="internal">
+        <lane id=":1383487026_0_0" index="0" allow="rail rail_electric rail_fast" speed="0.10" length="0.10" shape="18495.31,42206.67 18495.31,42206.67"/>
+    </edge>
+    <edge id=":1383487041_0" function="internal">
+        <lane id=":1383487041_0_0" index="0" allow="rail rail_electric rail_fast" speed="36.11" length="45.61" shape="18478.87,42213.41 18436.95,42231.35"/>
+    </edge>
+    <edge id=":1383487041_1" function="internal">
+        <lane id=":1383487041_1_0" index="0" allow="rail rail_electric rail_fast" speed="27.78" length="39.64" shape="18472.16,42213.14 18436.95,42231.35"/>
+    </edge>
+    <edge id=":1383487095_0" function="internal">
+        <lane id=":1383487095_0_0" index="0" allow="rail" speed="44.44" length="2.34" shape="18314.46,42294.58 18313.83,42294.88 18313.42,42295.11 18313.02,42295.37 18312.44,42295.77"/>
+    </edge>
+    <edge id=":1383487095_1" function="internal">
+        <lane id=":1383487095_1_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="2.35" shape="18314.46,42294.58 18312.39,42295.68"/>
+    </edge>
+    <edge id=":1383487095_2" function="internal">
+        <lane id=":1383487095_2_0" index="0" allow="rail" speed="2.70" length="1.28" shape="18312.44,42295.77 18312.83,42295.49 18312.95,42295.38 18312.80,42295.45 18312.39,42295.68"/>
+    </edge>
+    <edge id=":1383487116_0" function="internal">
+        <lane id=":1383487116_0_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="2.84" shape="18271.20,42319.67 18270.47,42320.10 18269.98,42320.40 18269.50,42320.73 18268.82,42321.22"/>
+    </edge>
+    <edge id=":1383487122_0" function="internal">
+        <lane id=":1383487122_0_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="41.53" shape="18243.03,42339.96 18209.29,42364.17"/>
+    </edge>
+    <edge id=":1383487122_1" function="internal">
+        <lane id=":1383487122_1_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="41.54" shape="18243.03,42339.96 18236.37,42344.20 18225.35,42350.86 18214.27,42357.41 18207.43,42361.36"/>
+    </edge>
+    <edge id=":1383487122_2" function="internal">
+        <lane id=":1383487122_2_0" index="0" allow="rail rail_electric rail_fast" speed="3.90" length="4.75" shape="18207.43,42361.36 18208.63,42361.26 18209.55,42362.01 18209.87,42363.14 18209.29,42364.17"/>
+    </edge>
+    <edge id=":1383487142_0" function="internal">
+        <lane id=":1383487142_0_0" index="0" allow="rail rail_fast" speed="63.89" length="53.67" shape="18071.37,42388.25 18120.29,42366.16"/>
+    </edge>
+    <edge id=":1383487142_1" function="internal">
+        <lane id=":1383487142_1_0" index="0" allow="rail rail_fast" speed="40.28" length="53.69" shape="18072.83,42391.26 18081.43,42386.57 18096.48,42378.56 18111.57,42370.62 18120.29,42366.16"/>
+    </edge>
+    <edge id=":1383487144_0" function="internal">
+        <lane id=":1383487144_0_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="38.05" shape="18207.13,42365.72 18176.22,42387.91"/>
+    </edge>
+    <edge id=":1383487144_1" function="internal">
+        <lane id=":1383487144_1_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="38.05" shape="18207.13,42365.72 18200.91,42369.63 18190.86,42375.56 18180.76,42381.43 18174.40,42385.11"/>
+    </edge>
+    <edge id=":1383487144_2" function="internal" bidi=":1383487144_3">
+        <lane id=":1383487144_2_0" index="0" allow="rail rail_electric rail_fast" speed="3.87" length="4.70" shape="18174.40,42385.11 18175.57,42385.00 18176.47,42385.75 18176.79,42386.88 18176.22,42387.91"/>
+    </edge>
+    <edge id=":1383487144_3" function="internal" bidi=":1383487144_2">
+        <lane id=":1383487144_3_0" index="0" allow="rail rail_electric rail_fast" speed="9.33" length="36.64" shape="18176.22,42387.91 18187.21,42379.76 18190.58,42376.58 18186.31,42378.36 18174.40,42385.11"/>
+    </edge>
+    <edge id=":1383487147_0" function="internal">
+        <lane id=":1383487147_0_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="2.95" shape="18175.20,42374.39 18177.77,42372.95"/>
+    </edge>
+    <edge id=":1383487149_0" function="internal">
+        <lane id=":1383487149_0_0" index="0" allow="rail rail_fast" speed="63.89" length="61.35" shape="18126.44,42375.03 18071.80,42402.93"/>
+    </edge>
+    <edge id=":1383487149_1" function="internal">
+        <lane id=":1383487149_1_0" index="0" allow="rail rail_fast" speed="40.28" length="61.37" shape="18126.44,42375.03 18116.44,42379.60 18098.47,42387.64 18080.45,42395.58 18070.33,42399.88"/>
+    </edge>
+    <edge id=":1383487189_0" function="internal">
+        <lane id=":1383487189_0_0" index="0" allow="rail rail_electric rail_fast" speed="16.67" length="2.99" shape="18047.27,42408.28 18044.47,42409.34"/>
+    </edge>
+    <edge id=":1383487192_0" function="internal">
+        <lane id=":1383487192_0_0" index="0" allow="rail rail_electric rail_fast" speed="22.23" length="59.90" shape="18045.94,42421.18 18036.55,42426.46 18019.93,42436.04 18003.35,42445.70 17994.09,42451.19"/>
+    </edge>
+    <edge id=":1383487192_1" function="internal">
+        <lane id=":1383487192_1_0" index="0" allow="rail rail_electric rail_fast" speed="27.78" length="59.89" shape="18045.94,42421.18 17992.51,42448.25"/>
+    </edge>
+    <edge id=":1383487194_0" function="internal">
+        <lane id=":1383487194_0_0" index="0" allow="rail rail_electric rail_fast" speed="16.67" length="3.00" shape="17995.86,42428.37 17993.09,42429.54"/>
+    </edge>
+    <edge id=":1383487200_0" function="internal">
+        <lane id=":1383487200_0_0" index="0" allow="rail rail_electric rail_fast" speed="19.45" length="0.30" shape="17967.46,42441.30 17967.18,42441.42"/>
+    </edge>
+    <edge id=":1383487280_0" function="internal">
+        <lane id=":1383487280_0_0" index="0" allow="rail rail_electric rail_fast" speed="0.10" length="0.10" shape="17793.72,42586.84 17793.72,42586.84"/>
+    </edge>
+    <edge id=":1383487286_0" function="internal">
+        <lane id=":1383487286_0_0" index="0" allow="rail rail_electric rail_fast" speed="0.10" length="0.10" shape="17743.72,42599.81 17743.72,42599.81"/>
+    </edge>
+    <edge id=":1383487287_0" function="internal">
+        <lane id=":1383487287_0_0" index="0" allow="rail rail_electric rail_fast" speed="0.10" length="0.10" shape="17747.98,42602.82 17747.98,42602.82"/>
+    </edge>
+    <edge id=":1383487304_0" function="internal">
+        <lane id=":1383487304_0_0" index="0" allow="rail rail_electric rail_fast" speed="22.23" length="0.28" shape="17616.13,42626.99 17615.87,42627.11"/>
+    </edge>
+    <edge id=":1383487311_0" function="internal">
+        <lane id=":1383487311_0_0" index="0" allow="rail rail_electric rail_fast" speed="22.22" length="59.01" shape="17552.32,42632.10 17543.05,42637.30 17526.76,42646.84 17510.53,42656.48 17501.42,42661.95"/>
+    </edge>
+    <edge id=":1383487311_1" function="internal">
+        <lane id=":1383487311_1_0" index="0" allow="rail rail_electric rail_fast" speed="19.45" length="59.00" shape="17552.32,42632.10 17499.83,42659.04"/>
+    </edge>
+    <edge id=":1383487338_0" function="internal">
+        <lane id=":1383487338_0_0" index="0" allow="rail rail_electric rail_fast" speed="16.67" length="56.33" shape="17564.79,42654.04 17512.39,42674.73"/>
+    </edge>
+    <edge id=":1383487338_1" function="internal">
+        <lane id=":1383487338_1_0" index="0" allow="rail rail_electric rail_fast" speed="16.67" length="56.32" shape="17563.46,42650.96 17512.39,42674.73"/>
+    </edge>
+    <edge id=":1383487342_0" function="internal">
+        <lane id=":1383487342_0_0" index="0" allow="rail rail_electric rail_fast" speed="30.55" length="2.78" shape="17454.83,42679.29 17454.06,42679.56 17453.53,42679.76 17453.01,42679.98 17452.26,42680.33"/>
+    </edge>
+    <edge id=":1383487342_1" function="internal">
+        <lane id=":1383487342_1_0" index="0" allow="rail rail_electric rail_fast" speed="16.67" length="2.78" shape="17454.83,42679.29 17452.22,42680.24"/>
+    </edge>
+    <edge id=":1383487342_2" function="internal">
+        <lane id=":1383487342_2_0" index="0" allow="rail rail_electric rail_fast" speed="30.55" length="0.10" shape="17452.26,42680.33 17452.22,42680.24"/>
+    </edge>
+    <edge id=":1383487364_0" function="internal">
+        <lane id=":1383487364_0_0" index="0" allow="rail rail_fast" speed="63.89" length="50.12" shape="17482.08,42676.64 17435.99,42696.33"/>
+    </edge>
+    <edge id=":1383487364_1" function="internal">
+        <lane id=":1383487364_1_0" index="0" allow="rail rail_fast" speed="43.05" length="50.12" shape="17480.69,42673.65 17435.99,42696.33"/>
+    </edge>
+    <edge id=":1383487368_0" function="internal">
+        <lane id=":1383487368_0_0" index="0" allow="rail rail_electric rail_fast" speed="0.10" length="0.10" shape="17405.74,42703.27 17405.74,42703.27"/>
+    </edge>
+    <edge id=":1383487378_0" function="internal">
+        <lane id=":1383487378_0_0" index="0" allow="rail rail_electric rail_fast" speed="16.67" length="2.98" shape="17425.06,42709.35 17422.26,42710.36"/>
+    </edge>
+    <edge id=":1383487386_0" function="internal">
+        <lane id=":1383487386_0_0" index="0" allow="rail rail_fast" speed="63.89" length="3.01" shape="17362.19,42716.91 17364.88,42715.57"/>
+    </edge>
+    <edge id=":1383487387_0" function="internal">
+        <lane id=":1383487387_0_0" index="0" allow="rail rail_electric rail_fast" speed="30.55" length="2.82" shape="17409.90,42714.89 17409.12,42715.18 17408.59,42715.39 17408.06,42715.63 17407.31,42716.00"/>
+    </edge>
+    <edge id=":1383487387_1" function="internal">
+        <lane id=":1383487387_1_0" index="0" allow="rail rail_electric rail_fast" speed="16.67" length="2.83" shape="17409.90,42714.89 17407.25,42715.87"/>
+    </edge>
+    <edge id=":1383487393_0" function="internal">
+        <lane id=":1383487393_0_0" index="0" allow="rail rail_fast" speed="40.28" length="56.54" shape="17348.29,42738.02 17338.71,42741.64 17321.85,42748.03 17305.02,42754.51 17295.54,42758.35"/>
+    </edge>
+    <edge id=":1383487393_1" function="internal">
+        <lane id=":1383487393_1_0" index="0" allow="rail rail_fast" speed="63.89" length="56.54" shape="17347.02,42734.99 17295.54,42758.35"/>
+    </edge>
+    <edge id=":1383499632_0" function="internal">
+        <lane id=":1383499632_0_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="38.68" shape="17384.59,42727.10 17378.13,42730.78 17367.96,42736.95 17357.83,42743.19 17351.50,42747.12"/>
+    </edge>
+    <edge id=":1383499632_1" function="internal">
+        <lane id=":1383499632_1_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="38.69" shape="17384.59,42727.10 17349.90,42744.20"/>
+    </edge>
+    <edge id=":1383506146_0" function="internal">
+        <lane id=":1383506146_0_0" index="0" allow="rail" speed="44.44" length="2.91" shape="18024.37,42370.61 18026.98,42369.33"/>
+    </edge>
+    <edge id=":1383506146_1" function="internal">
+        <lane id=":1383506146_1_0" index="0" allow="rail" speed="44.44" length="2.90" shape="18024.44,42370.73 18026.98,42369.33"/>
+    </edge>
+    <edge id=":1383506147_0" function="internal">
+        <lane id=":1383506147_0_0" index="0" allow="rail" speed="44.44" length="46.62" shape="17954.09,42399.82 17962.26,42396.86 17975.97,42391.76 17989.64,42386.58 17997.69,42383.32"/>
+    </edge>
+    <edge id=":1383506147_1" function="internal">
+        <lane id=":1383506147_1_0" index="0" allow="rail" speed="44.44" length="46.61" shape="17955.40,42402.91 17997.69,42383.32"/>
+    </edge>
+    <edge id=":1383506183_0" function="internal">
+        <lane id=":1383506183_0_0" index="0" allow="rail" speed="0.10" length="0.10" shape="17761.40,42486.23 17761.40,42486.23"/>
+    </edge>
+    <edge id=":258058797_0" function="internal">
+        <lane id=":258058797_0_0" index="0" allow="rail" speed="44.44" length="27.33" shape="18061.09,42352.11 18066.07,42349.38 18072.97,42345.35 18079.79,42341.18 18084.52,42338.05"/>
+    </edge>
+    <edge id=":258058797_1" function="internal">
+        <lane id=":258058797_1_0" index="0" allow="rail" speed="44.44" length="27.29" shape="18061.09,42352.11 18086.12,42341.22"/>
+    </edge>
+    <edge id=":258059584_0" function="internal">
+        <lane id=":258059584_0_0" index="0" allow="rail" speed="0.10" length="0.10" shape="18523.17,41274.87 18523.17,41274.87"/>
+    </edge>
+    <edge id=":258059584_1" function="internal">
+        <lane id=":258059584_1_0" index="0" allow="rail" speed="44.44" length="2.99" shape="18520.37,41275.94 18523.17,41274.87"/>
+    </edge>
+    <edge id=":258060309_0" function="internal">
+        <lane id=":258060309_0_0" index="0" allow="rail" speed="44.44" length="32.01" shape="17756.49,42495.02 17762.40,42492.57 17771.13,42488.57 17779.81,42484.48 17785.60,42481.72"/>
+    </edge>
+    <edge id=":258060309_1" function="internal">
+        <lane id=":258060309_1_0" index="0" allow="rail" speed="44.44" length="31.99" shape="17756.49,42495.02 17762.58,42493.02 17771.70,42490.04 17780.78,42486.98 17786.78,42484.74"/>
+    </edge>
+    <edge id=":2990793443_0" function="internal">
+        <lane id=":2990793443_0_0" index="0" allow="rail rail_fast" speed="63.89" length="3.00" shape="16692.44,43098.77 16689.92,43100.41"/>
+    </edge>
+    <edge id=":2990793443_1" function="internal">
+        <lane id=":2990793443_1_0" index="0" allow="rail rail_fast" speed="54.16" length="3.00" shape="16692.44,43098.77 16689.90,43100.37"/>
+    </edge>
+    <edge id=":2990793444_0" function="internal">
+        <lane id=":2990793444_0_0" index="0" allow="rail rail_fast" speed="63.89" length="3.00" shape="16577.58,43168.62 16580.10,43166.98"/>
+    </edge>
+    <edge id=":3056403714_0" function="internal">
+        <lane id=":3056403714_0_0" index="0" allow="rail rail_fast" speed="63.89" length="0.28" shape="19127.59,41914.87 19127.85,41914.76"/>
+    </edge>
+    <edge id=":3269669673_0" function="internal">
+        <lane id=":3269669673_0_0" index="0" allow="rail" speed="0.10" length="0.10" shape="17885.53,42583.37 17885.53,42583.37"/>
+    </edge>
+    <edge id=":3692318838_0" function="internal">
+        <lane id=":3692318838_0_0" index="0" allow="rail" speed="44.44" length="29.21" shape="18833.07,41138.67 18807.41,41152.63"/>
+    </edge>
+    <edge id=":3692318838_1" function="internal">
+        <lane id=":3692318838_1_0" index="0" allow="rail" speed="44.44" length="29.21" shape="18833.07,41138.67 18827.66,41141.15 18819.64,41144.35 18811.57,41147.44 18805.99,41149.57"/>
+    </edge>
+    <edge id=":3692318843_0" function="internal">
+        <lane id=":3692318843_0_0" index="0" allow="rail" speed="0.10" length="0.10" shape="18671.87,41217.10 18671.87,41217.10"/>
+    </edge>
+    <edge id=":3692318844_0" function="internal">
+        <lane id=":3692318844_0_0" index="0" allow="rail" speed="0.10" length="0.10" shape="18904.02,41098.72 18904.02,41098.72"/>
+    </edge>
+    <edge id=":4078624344_0" function="internal">
+        <lane id=":4078624344_0_0" index="0" allow="rail" speed="44.44" length="34.64" shape="18543.47,41277.35 18510.01,41286.32"/>
+    </edge>
+    <edge id=":4078624344_1" function="internal">
+        <lane id=":4078624344_1_0" index="0" allow="rail" speed="44.44" length="34.64" shape="18542.43,41274.17 18536.08,41276.65 18526.29,41280.46 18516.47,41284.17 18510.01,41286.32"/>
+    </edge>
+    <edge id=":4078624345_0" function="internal">
+        <lane id=":4078624345_0_0" index="0" allow="rail" speed="44.44" length="3.00" shape="18459.02,41299.12 18461.82,41298.06"/>
+    </edge>
+    <edge id=":4078624347_0" function="internal">
+        <lane id=":4078624347_0_0" index="0" allow="rail rail_fast" speed="63.89" length="3.03" shape="18666.04,42116.06 18668.79,42114.80"/>
+    </edge>
+    <edge id=":4078624347_1" function="internal">
+        <lane id=":4078624347_1_0" index="0" allow="rail rail_fast" speed="45.84" length="3.03" shape="18666.06,42116.10 18668.79,42114.80"/>
+    </edge>
+    <edge id=":566337733_0" function="internal">
+        <lane id=":566337733_0_0" index="0" allow="rail rail_electric rail_fast" speed="36.11" length="58.27" shape="18322.63,42284.99 18271.58,42313.09"/>
+    </edge>
+    <edge id=":566337733_1" function="internal">
+        <lane id=":566337733_1_0" index="0" allow="rail rail_electric rail_fast" speed="27.78" length="58.28" shape="18322.63,42284.99 18270.07,42310.17"/>
+    </edge>
+    <edge id=":566337751_0" function="internal">
+        <lane id=":566337751_0_0" index="0" allow="rail rail_fast" speed="63.89" length="2.99" shape="18538.18,42179.47 18535.47,42180.72"/>
+    </edge>
+
+    <edge id="-124262109#0" from="1383487016" to="1383487001" priority="20" type="railway.rail" spreadType="center" shape="18671.69,42132.65 18746.28,42098.99 18930.39,42014.20" bidi="124262109#0">
+        <lane id="-124262109#0_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="282.96" shape="18673.12,42132.00 18746.28,42098.99 18930.39,42014.20">
+            <param key="origId" value="124262109"/>
+        </lane>
+        <param key="electrified" value="contact_line"/>
+        <param key="frequency" value="16.7"/>
+        <param key="gauge" value="1435"/>
+        <param key="operator" value="DB Netz AG"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="no"/>
+        <param key="railway:pzb" value="no"/>
+        <param key="service" value="yard"/>
+        <param key="voltage" value="15000"/>
+        <param key="workrules" value="DE:EBO"/>
+    </edge>
+    <edge id="-124262115" from="1383487368" to="1383487342" priority="20" type="railway.rail" spreadType="center" shape="17405.74,42703.27 17434.06,42688.76 17453.55,42679.73" bidi="124262115">
+        <lane id="-124262115_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="51.88" shape="17405.74,42703.27 17434.06,42688.76 17452.26,42680.33">
+            <param key="origId" value="124262115"/>
+        </lane>
+        <param key="electrified" value="contact_line"/>
+        <param key="frequency" value="16.7"/>
+        <param key="gauge" value="1435"/>
+        <param key="operator" value="DB Netz AG"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="no"/>
+        <param key="railway:pzb" value="no"/>
+        <param key="service" value="yard"/>
+        <param key="voltage" value="15000"/>
+        <param key="workrules" value="DE:EBO"/>
+    </edge>
+    <edge id="-124262120" from="1383487026" to="1383487041" priority="20" type="railway.rail" spreadType="center" shape="18495.31,42206.67 18464.17,42219.43 18438.33,42230.70" bidi="124262120">
+        <lane id="-124262120_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="17.76" shape="18495.31,42206.67 18478.87,42213.41">
+            <param key="origId" value="124262120"/>
+        </lane>
+        <param key="electrified" value="contact_line"/>
+        <param key="frequency" value="16.7"/>
+        <param key="gauge" value="1435"/>
+        <param key="operator" value="DB Netz AG"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="no"/>
+        <param key="railway:pzb" value="no"/>
+        <param key="service" value="yard"/>
+        <param key="voltage" value="15000"/>
+        <param key="workrules" value="DE:EBO"/>
+    </edge>
+    <edge id="-124262124" from="3269669673" to="1383487095" priority="20" type="railway.rail" spreadType="center" shape="17885.53,42583.37 17925.08,42570.49 17952.98,42558.58 18046.48,42515.74 18084.13,42492.73 18100.27,42479.50 18178.91,42407.80 18184.90,42402.00 18198.08,42389.22 18224.49,42363.95 18244.00,42345.87 18271.48,42324.28 18313.49,42295.04" bidi="124262124">
+        <lane id="-124262124_0" index="0" allow="rail" speed="44.44" length="520.90" shape="17885.53,42583.37 17925.08,42570.49 17952.98,42558.58 18046.48,42515.74 18084.13,42492.73 18100.27,42479.50 18178.91,42407.80 18184.90,42402.00 18198.08,42389.22 18224.49,42363.95 18244.00,42345.87 18271.48,42324.28 18312.44,42295.77">
+            <param key="origId" value="124262124"/>
+        </lane>
+        <param key="electrified" value="no"/>
+        <param key="gauge" value="1435"/>
+        <param key="operator" value="DB Netz AG"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="no"/>
+        <param key="railway:pzb" value="no"/>
+        <param key="service" value="yard"/>
+        <param key="workrules" value="DE:EBO"/>
+    </edge>
+    <edge id="-124264571" from="1383506183" to="1383506147" priority="20" type="railway.rail" spreadType="center" shape="17761.40,42486.23 17780.79,42477.17 17821.11,42458.68 17888.45,42429.00 17946.24,42402.53 17966.17,42395.65 17996.28,42383.99" bidi="124264571">
+        <lane id="-124264571_0" index="0" allow="rail" speed="44.44" length="211.22" shape="17761.40,42486.23 17780.79,42477.17 17821.11,42458.68 17888.45,42429.00 17946.24,42402.53 17954.09,42399.82">
+            <param key="origId" value="124264571"/>
+        </lane>
+        <param key="electrified" value="no"/>
+        <param key="gauge" value="1435"/>
+        <param key="operator" value="DB Netz AG"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="no"/>
+        <param key="railway:pzb" value="no"/>
+        <param key="service" value="yard"/>
+        <param key="workrules" value="DE:EBO"/>
+    </edge>
+    <edge id="-365185118#0" from="3692318838" to="3692318844" priority="20" type="railway.rail|usage.industrial" spreadType="center" bidi="365185118#0">
+        <lane id="-365185118#0_0" index="0" allow="rail" speed="44.44" length="81.42" shape="18833.07,41138.67 18904.02,41098.72">
+            <param key="origId" value="365185118"/>
+        </lane>
+        <param key="electrified" value="no"/>
+        <param key="gauge" value="1435"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="no"/>
+        <param key="railway:pzb" value="no"/>
+        <param key="service" value="yard"/>
+        <param key="usage" value="industrial"/>
+    </edge>
+    <edge id="-405704951" from="258059584" to="3692318843" priority="20" type="railway.rail|usage.industrial" spreadType="center" shape="18521.77,41275.41 18528.98,41272.60 18664.03,41220.14 18671.87,41217.10" bidi="405704951">
+        <lane id="-405704951_0" index="0" allow="rail" speed="44.44" length="159.53" shape="18523.17,41274.87 18528.98,41272.60 18664.03,41220.14 18671.87,41217.10">
+            <param key="origId" value="405704951"/>
+        </lane>
+        <param key="electrified" value="no"/>
+        <param key="gauge" value="1435"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="no"/>
+        <param key="railway:pzb" value="no"/>
+        <param key="service" value="yard"/>
+        <param key="usage" value="industrial"/>
+    </edge>
+    <edge id="-458067265" from="1383487286" to="1383487122" priority="20" type="railway.rail" spreadType="center" shape="17743.72,42599.81 17859.12,42546.48 17930.28,42514.21 17993.37,42484.80 18074.30,42439.00 18151.20,42392.96 18204.02,42363.23 18215.23,42357.06 18241.76,42340.88" bidi="124262105">
+        <lane id="-458067265_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="521.99" shape="17743.72,42599.81 17859.12,42546.48 17930.28,42514.21 17993.37,42484.80 18074.30,42439.00 18151.20,42392.96 18204.02,42363.23 18207.43,42361.36">
+            <param key="origId" value="458067265 124262105"/>
+        </lane>
+        <param key="electrified" value="contact_line"/>
+        <param key="frequency" value="16.7"/>
+        <param key="gauge" value="1435"/>
+        <param key="level" value="1"/>
+        <param key="operator" value="DB Netz AG"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="no"/>
+        <param key="railway:pzb" value="no"/>
+        <param key="service" value="yard"/>
+        <param key="voltage" value="15000"/>
+        <param key="workrules" value="DE:EBO"/>
+    </edge>
+    <edge id="-458067266" from="1383487287" to="1383487144" priority="20" type="railway.rail" spreadType="center" shape="17747.98,42602.82 17860.68,42551.33 17932.82,42518.50 17995.94,42488.84 18076.66,42442.72 18154.13,42396.82 18172.48,42386.24 18205.85,42366.64" bidi="124262127">
+        <lane id="-458067266_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="479.32" shape="17747.98,42602.82 17860.68,42551.33 17932.82,42518.50 17995.94,42488.84 18076.66,42442.72 18154.13,42396.82 18172.48,42386.24 18174.40,42385.11">
+            <param key="origId" value="458067266 124262127"/>
+        </lane>
+        <param key="electrified" value="contact_line"/>
+        <param key="frequency" value="16.7"/>
+        <param key="gauge" value="1435"/>
+        <param key="level" value="1"/>
+        <param key="operator" value="DB Netz AG"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="no"/>
+        <param key="railway:pzb" value="no"/>
+        <param key="service" value="yard"/>
+        <param key="voltage" value="15000"/>
+        <param key="workrules" value="DE:EBO"/>
+    </edge>
+    <edge id="-458067267" from="1383487280" to="1383487144" priority="20" type="railway.rail" spreadType="center" shape="17793.72,42586.84 17862.85,42554.86 17935.32,42522.13 17998.32,42492.35 18061.65,42456.63 18078.64,42447.05 18157.02,42399.70 18173.90,42389.57 18205.85,42366.64" bidi="124262109#5">
+        <lane id="-458067267_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="431.69" shape="17793.72,42586.84 17862.85,42554.86 17935.32,42522.13 17998.32,42492.35 18061.65,42456.63 18078.64,42447.05 18157.02,42399.70 18173.90,42389.57 18176.22,42387.91">
+            <param key="origId" value="458067267 124262109"/>
+        </lane>
+        <param key="electrified" value="contact_line"/>
+        <param key="frequency" value="16.7"/>
+        <param key="gauge" value="1435"/>
+        <param key="level" value="1"/>
+        <param key="operator" value="DB Netz AG"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="no"/>
+        <param key="railway:pzb" value="no"/>
+        <param key="service" value="yard"/>
+        <param key="voltage" value="15000"/>
+        <param key="workrules" value="DE:EBO"/>
+    </edge>
+    <edge id="124254501" from="566319135" to="566337751" name="6100" priority="21" type="railway.highspeed" spreadType="center" shape="24641.51,39367.56 24548.63,39410.06 24347.15,39502.26 24166.00,39591.57 24032.46,39656.86 23843.65,39746.91 23782.53,39776.49 23724.17,39803.01 23576.63,39869.99 23499.04,39905.29 23476.09,39915.72 23419.78,39941.33 22918.39,40172.49 22887.09,40186.76 22860.40,40199.21 22720.10,40263.42 22044.99,40572.26 21969.33,40607.05 21936.74,40622.03 21859.56,40657.00 21127.56,40992.09 21050.93,41027.21 21002.03,41049.61 20942.74,41076.88 20646.03,41218.57 20386.60,41343.96 20241.02,41411.29 20064.90,41492.05 19315.01,41835.12 19129.58,41918.81 18932.62,42004.01 18741.47,42086.66 18536.82,42180.09" distance="-27716.49">
+        <lane id="124254501_0" index="0" allow="rail rail_fast" speed="63.89" length="6720.29" shape="24641.51,39367.56 24548.63,39410.06 24347.15,39502.26 24166.00,39591.57 24032.46,39656.86 23843.65,39746.91 23782.53,39776.49 23724.17,39803.01 23576.63,39869.99 23499.04,39905.29 23476.09,39915.72 23419.78,39941.33 22918.39,40172.49 22887.09,40186.76 22860.40,40199.21 22720.10,40263.42 22044.99,40572.26 21969.33,40607.05 21936.74,40622.03 21859.56,40657.00 21127.56,40992.09 21050.93,41027.21 21002.03,41049.61 20942.74,41076.88 20646.03,41218.57 20386.60,41343.96 20241.02,41411.29 20064.90,41492.05 19315.01,41835.12 19129.58,41918.81 18932.62,42004.01 18741.47,42086.66 18538.18,42179.47">
+            <param key="origId" value="124254501 44600267 44600265 44600770 44600769 44600767 44600768 47203551 47203549"/>
+        </lane>
+        <param key="detail" value="track"/>
+        <param key="electrified" value="contact_line"/>
+        <param key="frequency" value="16.7"/>
+        <param key="gauge" value="1435"/>
+        <param key="highspeed" value="yes"/>
+        <param key="maxspeed" value="230"/>
+        <param key="name" value="Berlin-Hamburger Bahn"/>
+        <param key="operator" value="DB Netz AG"/>
+        <param key="passenger_lines" value="2"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:lzb" value="yes"/>
+        <param key="railway:pzb" value="yes"/>
+        <param key="source:maxspeed" value="Laut Anlage 13.2.1, Anhang 2, der Leistungs- und Finanzierungsvereinbarung von 2008 ist die Strecke 6100 zwischen den Kilometern 18,4 und 76,8 mit 230 km/h befahrbar"/>
+        <param key="usage" value="main"/>
+        <param key="voltage" value="15000"/>
+        <param key="workrules" value="DE:EBO"/>
+    </edge>
+    <edge id="124262105" from="1383487122" to="1383487286" priority="20" type="railway.rail" spreadType="center" shape="18241.76,42340.88 18215.23,42357.06 18204.02,42363.23 18151.20,42392.96 18074.30,42439.00 17993.37,42484.80 17930.28,42514.21 17859.12,42546.48 17743.72,42599.81" bidi="-458067265">
+        <lane id="124262105_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="521.99" shape="18207.43,42361.36 18204.02,42363.23 18151.20,42392.96 18074.30,42439.00 17993.37,42484.80 17930.28,42514.21 17859.12,42546.48 17743.72,42599.81">
+            <param key="origId" value="124262105 458067265"/>
+        </lane>
+        <param key="electrified" value="contact_line"/>
+        <param key="frequency" value="16.7"/>
+        <param key="gauge" value="1435"/>
+        <param key="operator" value="DB Netz AG"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="no"/>
+        <param key="railway:pzb" value="no"/>
+        <param key="service" value="yard"/>
+        <param key="voltage" value="15000"/>
+        <param key="workrules" value="DE:EBO"/>
+    </edge>
+    <edge id="124262106#1" from="1383487338" to="1383487378" priority="20" type="railway.rail" spreadType="center" shape="17513.79,42674.10 17493.51,42683.19 17476.87,42690.63 17459.67,42697.05 17423.61,42709.86">
+        <lane id="124262106#1_0" index="0" allow="rail rail_electric rail_fast" speed="16.67" length="94.01" shape="17512.39,42674.73 17493.51,42683.19 17476.87,42690.63 17459.67,42697.05 17425.06,42709.35">
+            <param key="origId" value="124262106"/>
+        </lane>
+        <param key="electrified" value="contact_line"/>
+        <param key="frequency" value="16.7"/>
+        <param key="gauge" value="1435"/>
+        <param key="maxspeed" value="60"/>
+        <param key="maxspeed:source" value="Switch layout"/>
+        <param key="operator" value="DB Netz AG"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="no"/>
+        <param key="railway:pzb" value="yes"/>
+        <param key="service" value="siding"/>
+        <param key="voltage" value="15000"/>
+        <param key="workrules" value="DE:EBO"/>
+    </edge>
+    <edge id="124262106#2" from="1383487378" to="1383487387" priority="20" type="railway.rail" spreadType="center">
+        <lane id="124262106#2_0" index="0" allow="rail rail_electric rail_fast" speed="16.67" length="13.16" shape="17422.26,42710.36 17409.90,42714.89">
+            <param key="origId" value="124262106"/>
+        </lane>
+        <param key="electrified" value="contact_line"/>
+        <param key="frequency" value="16.7"/>
+        <param key="gauge" value="1435"/>
+        <param key="maxspeed" value="60"/>
+        <param key="maxspeed:source" value="Switch layout"/>
+        <param key="operator" value="DB Netz AG"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="no"/>
+        <param key="railway:pzb" value="yes"/>
+        <param key="service" value="siding"/>
+        <param key="voltage" value="15000"/>
+        <param key="workrules" value="DE:EBO"/>
+    </edge>
+    <edge id="124262106#3" from="1383487387" to="1383487393" priority="20" type="railway.rail" spreadType="center" shape="17408.62,42715.36 17369.58,42729.95 17341.71,42740.51 17296.95,42757.67">
+        <lane id="124262106#3_0" index="0" allow="rail rail_electric rail_fast" speed="16.67" length="62.98" shape="17407.25,42715.87 17369.58,42729.95 17348.29,42738.02">
+            <param key="origId" value="124262106"/>
+        </lane>
+        <param key="electrified" value="contact_line"/>
+        <param key="frequency" value="16.7"/>
+        <param key="gauge" value="1435"/>
+        <param key="maxspeed" value="60"/>
+        <param key="maxspeed:source" value="Switch layout"/>
+        <param key="operator" value="DB Netz AG"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="no"/>
+        <param key="railway:pzb" value="yes"/>
+        <param key="service" value="siding"/>
+        <param key="voltage" value="15000"/>
+        <param key="workrules" value="DE:EBO"/>
+    </edge>
+    <edge id="124262107#0" from="1383487022" to="1383487041" priority="20" type="railway.rail" spreadType="center">
+        <lane id="124262107#0_0" index="0" allow="rail rail_electric rail_fast" speed="27.78" length="0.20" shape="18472.33,42213.05 18472.16,42213.14">
+            <param key="origId" value="124262107"/>
+        </lane>
+        <param key="electrified" value="contact_line"/>
+        <param key="frequency" value="16.7"/>
+        <param key="gauge" value="1435"/>
+        <param key="maxspeed" value="100"/>
+        <param key="maxspeed:source" value="Switch layout"/>
+        <param key="operator" value="DB Netz AG"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="no"/>
+        <param key="railway:pzb" value="yes"/>
+        <param key="service" value="siding"/>
+        <param key="voltage" value="15000"/>
+        <param key="workrules" value="DE:EBO"/>
+    </edge>
+    <edge id="124262107#1" from="1383487041" to="566337733" priority="20" type="railway.rail" spreadType="center" shape="18438.33,42230.70 18366.69,42264.50 18321.22,42285.65">
+        <lane id="124262107#1_0" index="0" allow="rail rail_electric rail_fast" speed="27.78" length="126.28" shape="18436.95,42231.35 18366.69,42264.50 18322.63,42284.99">
+            <param key="origId" value="124262107"/>
+        </lane>
+        <param key="electrified" value="contact_line"/>
+        <param key="frequency" value="16.7"/>
+        <param key="gauge" value="1435"/>
+        <param key="maxspeed" value="100"/>
+        <param key="maxspeed:source" value="Switch layout"/>
+        <param key="operator" value="DB Netz AG"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="no"/>
+        <param key="railway:pzb" value="yes"/>
+        <param key="service" value="siding"/>
+        <param key="voltage" value="15000"/>
+        <param key="workrules" value="DE:EBO"/>
+    </edge>
+    <edge id="124262107#2" from="566337733" to="1383487192" priority="20" type="railway.rail" spreadType="center" shape="18321.22,42285.65 18266.90,42311.69 18140.76,42372.93 18044.57,42421.88">
+        <lane id="124262107#2_0" index="0" allow="rail rail_electric rail_fast" speed="27.78" length="250.13" shape="18270.07,42310.17 18266.90,42311.69 18140.76,42372.93 18045.94,42421.18">
+            <param key="origId" value="124262107"/>
+        </lane>
+        <param key="electrified" value="contact_line"/>
+        <param key="frequency" value="16.7"/>
+        <param key="gauge" value="1435"/>
+        <param key="maxspeed" value="100"/>
+        <param key="maxspeed:source" value="Switch layout"/>
+        <param key="operator" value="DB Netz AG"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="no"/>
+        <param key="railway:pzb" value="yes"/>
+        <param key="service" value="siding"/>
+        <param key="voltage" value="15000"/>
+        <param key="workrules" value="DE:EBO"/>
+    </edge>
+    <edge id="124262109#0" from="1383487001" to="1383487016" priority="20" type="railway.rail" spreadType="center" shape="18930.39,42014.20 18746.28,42098.99 18671.69,42132.65" bidi="-124262109#0">
+        <lane id="124262109#0_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="282.96" shape="18930.39,42014.20 18746.28,42098.99 18673.12,42132.00">
+            <param key="origId" value="124262109"/>
+        </lane>
+        <param key="electrified" value="contact_line"/>
+        <param key="frequency" value="16.7"/>
+        <param key="gauge" value="1435"/>
+        <param key="operator" value="DB Netz AG"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="no"/>
+        <param key="railway:pzb" value="no"/>
+        <param key="service" value="yard"/>
+        <param key="voltage" value="15000"/>
+        <param key="workrules" value="DE:EBO"/>
+    </edge>
+    <edge id="124262109#1" from="1383487016" to="1383487095" priority="20" type="railway.rail" spreadType="center" shape="18671.69,42132.65 18557.88,42184.73 18429.11,42243.63 18369.05,42268.66 18313.49,42295.04">
+        <lane id="124262109#1_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="350.85" shape="18634.04,42149.88 18557.88,42184.73 18429.11,42243.63 18369.05,42268.66 18314.46,42294.58">
+            <param key="origId" value="124262109"/>
+        </lane>
+        <param key="electrified" value="contact_line"/>
+        <param key="frequency" value="16.7"/>
+        <param key="gauge" value="1435"/>
+        <param key="operator" value="DB Netz AG"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="no"/>
+        <param key="railway:pzb" value="no"/>
+        <param key="service" value="yard"/>
+        <param key="voltage" value="15000"/>
+        <param key="workrules" value="DE:EBO"/>
+    </edge>
+    <edge id="124262109#2" from="1383487095" to="1383487116" priority="20" type="railway.rail" spreadType="center">
+        <lane id="124262109#2_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="47.67" shape="18312.39,42295.68 18271.20,42319.67">
+            <param key="origId" value="124262109"/>
+        </lane>
+        <param key="electrified" value="contact_line"/>
+        <param key="frequency" value="16.7"/>
+        <param key="gauge" value="1435"/>
+        <param key="operator" value="DB Netz AG"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="no"/>
+        <param key="railway:pzb" value="no"/>
+        <param key="service" value="yard"/>
+        <param key="voltage" value="15000"/>
+        <param key="workrules" value="DE:EBO"/>
+    </edge>
+    <edge id="124262109#3" from="1383487116" to="1383487122" priority="20" type="railway.rail" spreadType="center">
+        <lane id="124262109#3_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="31.88" shape="18268.82,42321.22 18243.03,42339.96">
+            <param key="origId" value="124262109"/>
+        </lane>
+        <param key="electrified" value="contact_line"/>
+        <param key="frequency" value="16.7"/>
+        <param key="gauge" value="1435"/>
+        <param key="operator" value="DB Netz AG"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="no"/>
+        <param key="railway:pzb" value="no"/>
+        <param key="service" value="yard"/>
+        <param key="voltage" value="15000"/>
+        <param key="workrules" value="DE:EBO"/>
+    </edge>
+    <edge id="124262109#4" from="1383487122" to="1383487144" priority="20" type="railway.rail" spreadType="center">
+        <lane id="124262109#4_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="2.66" shape="18209.29,42364.17 18207.13,42365.72">
+            <param key="origId" value="124262109"/>
+        </lane>
+        <param key="electrified" value="contact_line"/>
+        <param key="frequency" value="16.7"/>
+        <param key="gauge" value="1435"/>
+        <param key="operator" value="DB Netz AG"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="no"/>
+        <param key="railway:pzb" value="no"/>
+        <param key="service" value="yard"/>
+        <param key="voltage" value="15000"/>
+        <param key="workrules" value="DE:EBO"/>
+    </edge>
+    <edge id="124262109#5" from="1383487144" to="1383487280" priority="20" type="railway.rail" spreadType="center" shape="18205.85,42366.64 18173.90,42389.57 18157.02,42399.70 18078.64,42447.05 18061.65,42456.63 17998.32,42492.35 17935.32,42522.13 17862.85,42554.86 17793.72,42586.84" bidi="-458067267">
+        <lane id="124262109#5_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="431.69" shape="18176.22,42387.91 18173.90,42389.57 18157.02,42399.70 18078.64,42447.05 18061.65,42456.63 17998.32,42492.35 17935.32,42522.13 17862.85,42554.86 17793.72,42586.84">
+            <param key="origId" value="124262109 458067267"/>
+        </lane>
+        <param key="electrified" value="contact_line"/>
+        <param key="frequency" value="16.7"/>
+        <param key="gauge" value="1435"/>
+        <param key="operator" value="DB Netz AG"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="no"/>
+        <param key="railway:pzb" value="no"/>
+        <param key="service" value="yard"/>
+        <param key="voltage" value="15000"/>
+        <param key="workrules" value="DE:EBO"/>
+    </edge>
+    <edge id="124262112" from="1383487304" to="1383487338" priority="20" type="railway.rail" spreadType="center" shape="17616.00,42627.05 17590.57,42638.06 17552.44,42656.20 17513.79,42674.10">
+        <lane id="124262112_0" index="0" allow="rail rail_electric rail_fast" speed="16.67" length="57.59" shape="17615.87,42627.11 17590.57,42638.06 17563.46,42650.96">
+            <param key="origId" value="124262112 124262106"/>
+        </lane>
+        <param key="bridge" value="yes"/>
+        <param key="electrified" value="contact_line"/>
+        <param key="frequency" value="16.7"/>
+        <param key="gauge" value="1435"/>
+        <param key="layer" value="1"/>
+        <param key="maxspeed" value="60"/>
+        <param key="maxspeed:source" value="Switch layout"/>
+        <param key="operator" value="DB Netz AG"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="no"/>
+        <param key="railway:pzb" value="yes"/>
+        <param key="service" value="siding"/>
+        <param key="voltage" value="15000"/>
+        <param key="workrules" value="DE:EBO"/>
+    </edge>
+    <edge id="124262115" from="1383487342" to="1383487368" priority="20" type="railway.rail" spreadType="center" shape="17453.55,42679.73 17434.06,42688.76 17405.74,42703.27" bidi="-124262115">
+        <lane id="124262115_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="51.88" shape="17452.26,42680.33 17434.06,42688.76 17405.74,42703.27">
+            <param key="origId" value="124262115"/>
+        </lane>
+        <param key="electrified" value="contact_line"/>
+        <param key="frequency" value="16.7"/>
+        <param key="gauge" value="1435"/>
+        <param key="operator" value="DB Netz AG"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="no"/>
+        <param key="railway:pzb" value="no"/>
+        <param key="service" value="yard"/>
+        <param key="voltage" value="15000"/>
+        <param key="workrules" value="DE:EBO"/>
+    </edge>
+    <edge id="124262116" from="1383487147" to="1383487116" priority="20" type="railway.rail" spreadType="center" shape="18176.49,42373.67 18211.10,42354.13 18239.52,42337.73 18270.01,42320.36">
+        <lane id="124262116_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="104.70" shape="18177.77,42372.95 18211.10,42354.13 18239.52,42337.73 18268.73,42321.09">
+            <param key="origId" value="124262116"/>
+        </lane>
+        <param key="electrified" value="contact_line"/>
+        <param key="frequency" value="16.7"/>
+        <param key="gauge" value="1435"/>
+        <param key="operator" value="DB Netz AG"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="no"/>
+        <param key="railway:pzb" value="no"/>
+        <param key="service" value="yard"/>
+        <param key="voltage" value="15000"/>
+        <param key="workrules" value="DE:EBO"/>
+    </edge>
+    <edge id="124262118" from="1383487189" to="1383487150" priority="20" type="railway.rail" spreadType="center" shape="18045.85,42408.80 18072.39,42397.39 18089.46,42387.93 18100.64,42382.15">
+        <lane id="124262118_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="59.48" shape="18047.24,42408.20 18072.39,42397.39 18089.46,42387.93 18100.64,42382.15">
+            <param key="origId" value="124262118"/>
+        </lane>
+        <param key="electrified" value="contact_line"/>
+        <param key="frequency" value="16.7"/>
+        <param key="gauge" value="1435"/>
+        <param key="operator" value="DB Netz AG"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="no"/>
+        <param key="railway:pzb" value="no"/>
+        <param key="service" value="yard"/>
+        <param key="voltage" value="15000"/>
+        <param key="workrules" value="DE:EBO"/>
+    </edge>
+    <edge id="124262119" from="566337733" to="1383487147" priority="20" type="railway.rail" spreadType="center" shape="18321.22,42285.65 18266.62,42315.83 18238.16,42333.65 18210.96,42352.32 18176.49,42373.67">
+        <lane id="124262119_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="111.31" shape="18271.58,42313.09 18266.62,42315.83 18238.16,42333.65 18210.96,42352.32 18177.74,42372.89">
+            <param key="origId" value="124262119"/>
+        </lane>
+        <param key="electrified" value="contact_line"/>
+        <param key="frequency" value="16.7"/>
+        <param key="gauge" value="1435"/>
+        <param key="operator" value="DB Netz AG"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="no"/>
+        <param key="railway:pzb" value="yes"/>
+        <param key="service" value="siding"/>
+        <param key="voltage" value="15000"/>
+        <param key="workrules" value="DE:EBO"/>
+    </edge>
+    <edge id="124262120" from="1383487041" to="1383487026" priority="20" type="railway.rail" spreadType="center" shape="18438.33,42230.70 18464.17,42219.43 18495.31,42206.67" bidi="-124262120">
+        <lane id="124262120_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="17.76" shape="18478.87,42213.41 18495.31,42206.67">
+            <param key="origId" value="124262120"/>
+        </lane>
+        <param key="electrified" value="contact_line"/>
+        <param key="frequency" value="16.7"/>
+        <param key="gauge" value="1435"/>
+        <param key="operator" value="DB Netz AG"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="no"/>
+        <param key="railway:pzb" value="no"/>
+        <param key="service" value="yard"/>
+        <param key="voltage" value="15000"/>
+        <param key="workrules" value="DE:EBO"/>
+    </edge>
+    <edge id="124262121" from="1383487311" to="1383487364" priority="20" type="railway.rail" spreadType="center" shape="17550.90,42632.77 17516.84,42652.37 17491.38,42668.19 17437.42,42695.72">
+        <lane id="124262121_0" index="0" allow="rail rail_electric rail_fast" speed="22.22" length="23.82" shape="17501.42,42661.95 17491.38,42668.19 17480.69,42673.65">
+            <param key="origId" value="124262121"/>
+        </lane>
+        <param key="electrified" value="contact_line"/>
+        <param key="frequency" value="16.7"/>
+        <param key="gauge" value="1435"/>
+        <param key="maxspeed" value="80"/>
+        <param key="maxspeed:source" value="Switch layout"/>
+        <param key="operator" value="DB Netz AG"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="no"/>
+        <param key="railway:pzb" value="yes"/>
+        <param key="service" value="siding"/>
+        <param key="voltage" value="15000"/>
+        <param key="workrules" value="DE:EBO"/>
+    </edge>
+    <edge id="124262122" from="1383487378" to="1383487147" priority="20" type="railway.rail" spreadType="center" shape="17423.61,42709.86 17460.56,42699.09 17504.69,42686.32 17541.25,42673.61 17600.83,42651.49 17627.56,42642.36 17655.72,42631.71 17721.09,42605.19 17857.18,42543.01 17926.99,42509.73 17989.68,42478.06 18071.08,42433.44 18149.19,42388.98 18176.49,42373.67">
+        <lane id="124262122_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="823.77" shape="17425.09,42709.43 17460.56,42699.09 17504.69,42686.32 17541.25,42673.61 17600.83,42651.49 17627.56,42642.36 17655.72,42631.71 17721.09,42605.19 17857.18,42543.01 17926.99,42509.73 17989.68,42478.06 18071.08,42433.44 18149.19,42388.98 18175.20,42374.39">
+            <param key="origId" value="124262122 967056808 124262110 124262129 458067264"/>
+        </lane>
+        <param key="electrified" value="contact_line"/>
+        <param key="frequency" value="16.7"/>
+        <param key="gauge" value="1435"/>
+        <param key="operator" value="DB Netz AG"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="no"/>
+        <param key="railway:pzb" value="yes"/>
+        <param key="service" value="siding"/>
+        <param key="voltage" value="15000"/>
+        <param key="workrules" value="DE:EBO"/>
+    </edge>
+    <edge id="124262123" from="1383487194" to="1383487142" priority="20" type="railway.rail" spreadType="center" shape="17994.42,42428.93 18044.33,42405.96 18067.53,42394.36 18083.90,42384.79 18118.90,42366.81">
+        <lane id="124262123_0" index="0" allow="rail rail_electric rail_fast" speed="16.67" length="85.47" shape="17995.82,42428.29 18044.33,42405.96 18067.53,42394.36 18072.83,42391.26">
+            <param key="origId" value="124262123"/>
+        </lane>
+        <param key="electrified" value="contact_line"/>
+        <param key="frequency" value="16.7"/>
+        <param key="gauge" value="1435"/>
+        <param key="maxspeed" value="60"/>
+        <param key="maxspeed:source" value="Switch layout"/>
+        <param key="operator" value="DB Netz AG"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="no"/>
+        <param key="railway:pzb" value="yes"/>
+        <param key="service" value="siding"/>
+        <param key="voltage" value="15000"/>
+        <param key="workrules" value="DE:EBO"/>
+    </edge>
+    <edge id="124262124" from="1383487095" to="3269669673" priority="20" type="railway.rail" spreadType="center" shape="18313.49,42295.04 18271.48,42324.28 18244.00,42345.87 18224.49,42363.95 18198.08,42389.22 18184.90,42402.00 18178.91,42407.80 18100.27,42479.50 18084.13,42492.73 18046.48,42515.74 17952.98,42558.58 17925.08,42570.49 17885.53,42583.37" bidi="-124262124">
+        <lane id="124262124_0" index="0" allow="rail" speed="44.44" length="520.90" shape="18312.44,42295.77 18271.48,42324.28 18244.00,42345.87 18224.49,42363.95 18198.08,42389.22 18184.90,42402.00 18178.91,42407.80 18100.27,42479.50 18084.13,42492.73 18046.48,42515.74 17952.98,42558.58 17925.08,42570.49 17885.53,42583.37">
+            <param key="origId" value="124262124"/>
+        </lane>
+        <param key="electrified" value="no"/>
+        <param key="gauge" value="1435"/>
+        <param key="operator" value="DB Netz AG"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="no"/>
+        <param key="railway:pzb" value="no"/>
+        <param key="service" value="yard"/>
+        <param key="workrules" value="DE:EBO"/>
+    </edge>
+    <edge id="124262125#0" from="1383487311" to="1383487342" priority="20" type="railway.rail" spreadType="center" shape="17550.90,42632.77 17489.40,42664.40 17465.62,42675.56 17453.55,42679.73">
+        <lane id="124262125#0_0" index="0" allow="rail rail_electric rail_fast" speed="16.67" length="49.40" shape="17499.83,42659.04 17489.40,42664.40 17465.62,42675.56 17454.83,42679.29">
+            <param key="origId" value="124262125"/>
+        </lane>
+        <param key="electrified" value="contact_line"/>
+        <param key="frequency" value="16.7"/>
+        <param key="gauge" value="1435"/>
+        <param key="maxspeed" value="60"/>
+        <param key="maxspeed:source" value="Switch layout"/>
+        <param key="operator" value="DB Netz AG"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="no"/>
+        <param key="railway:pzb" value="yes"/>
+        <param key="service" value="siding"/>
+        <param key="voltage" value="15000"/>
+        <param key="workrules" value="DE:EBO"/>
+    </edge>
+    <edge id="124262125#1" from="1383487342" to="1383487386" priority="20" type="railway.rail" spreadType="center" shape="17453.55,42679.73 17419.15,42692.87 17397.68,42701.36 17363.52,42716.27">
+        <lane id="124262125#1_0" index="0" allow="rail rail_electric rail_fast" speed="16.67" length="94.22" shape="17452.22,42680.24 17419.15,42692.87 17397.68,42701.36 17364.93,42715.65">
+            <param key="origId" value="124262125"/>
+        </lane>
+        <param key="electrified" value="contact_line"/>
+        <param key="frequency" value="16.7"/>
+        <param key="gauge" value="1435"/>
+        <param key="maxspeed" value="60"/>
+        <param key="maxspeed:source" value="Switch layout"/>
+        <param key="operator" value="DB Netz AG"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="no"/>
+        <param key="railway:pzb" value="yes"/>
+        <param key="service" value="siding"/>
+        <param key="voltage" value="15000"/>
+        <param key="workrules" value="DE:EBO"/>
+    </edge>
+    <edge id="124262126#0" from="1383487149" to="1383487189" priority="20" type="railway.rail" spreadType="center" shape="18125.08,42375.70 18089.34,42392.17 18073.23,42398.82 18045.85,42408.80">
+        <lane id="124262126#0_0" index="0" allow="rail rail_electric rail_fast" speed="16.67" length="24.54" shape="18070.33,42399.88 18047.27,42408.28">
+            <param key="origId" value="124262126"/>
+        </lane>
+        <param key="electrified" value="contact_line"/>
+        <param key="frequency" value="16.7"/>
+        <param key="gauge" value="1435"/>
+        <param key="maxspeed" value="60"/>
+        <param key="maxspeed:source" value="Switch layout"/>
+        <param key="operator" value="DB Netz AG"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="no"/>
+        <param key="railway:pzb" value="yes"/>
+        <param key="service" value="siding"/>
+        <param key="voltage" value="15000"/>
+        <param key="workrules" value="DE:EBO"/>
+    </edge>
+    <edge id="124262126#1" from="1383487189" to="1383487194" priority="20" type="railway.rail" spreadType="center">
+        <lane id="124262126#1_0" index="0" allow="rail rail_electric rail_fast" speed="16.67" length="52.21" shape="18044.47,42409.34 17995.86,42428.37">
+            <param key="origId" value="124262126"/>
+        </lane>
+        <param key="electrified" value="contact_line"/>
+        <param key="frequency" value="16.7"/>
+        <param key="gauge" value="1435"/>
+        <param key="maxspeed" value="60"/>
+        <param key="maxspeed:source" value="Switch layout"/>
+        <param key="operator" value="DB Netz AG"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="no"/>
+        <param key="railway:pzb" value="yes"/>
+        <param key="service" value="siding"/>
+        <param key="voltage" value="15000"/>
+        <param key="workrules" value="DE:EBO"/>
+    </edge>
+    <edge id="124262127" from="1383487144" to="1383487287" priority="20" type="railway.rail" spreadType="center" shape="18205.85,42366.64 18172.48,42386.24 18154.13,42396.82 18076.66,42442.72 17995.94,42488.84 17932.82,42518.50 17860.68,42551.33 17747.98,42602.82" bidi="-458067266">
+        <lane id="124262127_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="479.32" shape="18174.40,42385.11 18172.48,42386.24 18154.13,42396.82 18076.66,42442.72 17995.94,42488.84 17932.82,42518.50 17860.68,42551.33 17747.98,42602.82">
+            <param key="origId" value="124262127 458067266"/>
+        </lane>
+        <param key="electrified" value="contact_line"/>
+        <param key="frequency" value="16.7"/>
+        <param key="gauge" value="1435"/>
+        <param key="operator" value="DB Netz AG"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="no"/>
+        <param key="railway:pzb" value="no"/>
+        <param key="service" value="yard"/>
+        <param key="voltage" value="15000"/>
+        <param key="workrules" value="DE:EBO"/>
+    </edge>
+    <edge id="124262128" from="1383487016" to="258060296" priority="20" type="railway.rail" spreadType="center" shape="18671.69,42132.65 18629.34,42156.30 18561.88,42197.27 18494.49,42237.94 18481.43,42245.12 18467.34,42251.67 18437.92,42261.76 18419.23,42266.26 18396.88,42270.07 18377.37,42272.09">
+        <lane id="124262128_0" index="0" allow="rail" speed="44.44" length="286.75" shape="18635.54,42152.84 18629.34,42156.30 18561.88,42197.27 18494.49,42237.94 18481.43,42245.12 18467.34,42251.67 18437.92,42261.76 18419.23,42266.26 18396.88,42270.07 18378.41,42271.98">
+            <param key="origId" value="124262128"/>
+        </lane>
+        <param key="electrified" value="no"/>
+        <param key="gauge" value="1435"/>
+        <param key="operator" value="DB Netz AG"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="no"/>
+        <param key="railway:pzb" value="no"/>
+        <param key="service" value="yard"/>
+        <param key="workrules" value="DE:EBO"/>
+    </edge>
+    <edge id="124263605" from="1383499632" to="1383499665" priority="20" type="railway.rail" spreadType="center" shape="17383.18,42727.79 17351.54,42747.10 17332.20,42759.08 17303.03,42773.50 17191.78,42828.66 17183.59,42832.39">
+        <lane id="124263605_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="188.42" shape="17351.50,42747.12 17332.20,42759.08 17303.03,42773.50 17191.78,42828.66 17183.59,42832.39">
+            <param key="origId" value="124263605"/>
+        </lane>
+        <param key="electrified" value="contact_line"/>
+        <param key="frequency" value="16.7"/>
+        <param key="gauge" value="1435"/>
+        <param key="operator" value="DB Netz AG"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="no"/>
+        <param key="railway:pzb" value="no"/>
+        <param key="railway:radio" value="gsm-r"/>
+        <param key="service" value="yard"/>
+        <param key="voltage" value="15000"/>
+        <param key="workrules" value="DE:EBO"/>
+    </edge>
+    <edge id="124263606#0" from="1383487387" to="1383499632" priority="20" type="railway.rail" spreadType="center">
+        <lane id="124263606#0_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="25.28" shape="17407.31,42716.00 17384.59,42727.10">
+            <param key="origId" value="124263606"/>
+        </lane>
+        <param key="electrified" value="contact_line"/>
+        <param key="frequency" value="16.7"/>
+        <param key="gauge" value="1435"/>
+        <param key="operator" value="DB Netz AG"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="no"/>
+        <param key="railway:pzb" value="no"/>
+        <param key="railway:radio" value="gsm-r"/>
+        <param key="railway:track_ref" value="81"/>
+        <param key="service" value="yard"/>
+        <param key="voltage" value="15000"/>
+        <param key="workrules" value="DE:EBO"/>
+    </edge>
+    <edge id="124263606#1" from="1383499632" to="1383499677" priority="20" type="railway.rail" spreadType="center" shape="17383.18,42727.79 17329.08,42754.47 17300.41,42768.53 17162.13,42837.10 17153.12,42841.13">
+        <lane id="124263606#1_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="219.36" shape="17349.90,42744.20 17329.08,42754.47 17300.41,42768.53 17162.13,42837.10 17153.12,42841.13">
+            <param key="origId" value="124263606"/>
+        </lane>
+        <param key="electrified" value="contact_line"/>
+        <param key="frequency" value="16.7"/>
+        <param key="gauge" value="1435"/>
+        <param key="operator" value="DB Netz AG"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="no"/>
+        <param key="railway:pzb" value="no"/>
+        <param key="railway:radio" value="gsm-r"/>
+        <param key="railway:track_ref" value="81"/>
+        <param key="service" value="yard"/>
+        <param key="voltage" value="15000"/>
+        <param key="workrules" value="DE:EBO"/>
+    </edge>
+    <edge id="124264570" from="258060309" to="1383506146" priority="20" type="railway.rail" spreadType="center" shape="17757.99,42494.51 17782.01,42486.86 17823.40,42468.42 17893.70,42436.58 17968.81,42402.30 17986.01,42393.90 17997.90,42386.69 18025.71,42369.97">
+        <lane id="124264570_0" index="0" allow="rail" speed="44.44" length="263.85" shape="17786.78,42484.74 17823.40,42468.42 17893.70,42436.58 17968.81,42402.30 17986.01,42393.90 17997.90,42386.69 18024.44,42370.73">
+            <param key="origId" value="124264570"/>
+        </lane>
+        <param key="electrified" value="no"/>
+        <param key="gauge" value="1435"/>
+        <param key="operator" value="DB Netz AG"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="no"/>
+        <param key="railway:pzb" value="no"/>
+        <param key="service" value="yard"/>
+        <param key="workrules" value="DE:EBO"/>
+    </edge>
+    <edge id="124264571" from="1383506147" to="1383506183" priority="20" type="railway.rail" spreadType="center" shape="17996.28,42383.99 17966.17,42395.65 17946.24,42402.53 17888.45,42429.00 17821.11,42458.68 17780.79,42477.17 17761.40,42486.23" bidi="-124264571">
+        <lane id="124264571_0" index="0" allow="rail" speed="44.44" length="211.22" shape="17954.09,42399.82 17946.24,42402.53 17888.45,42429.00 17821.11,42458.68 17780.79,42477.17 17761.40,42486.23">
+            <param key="origId" value="124264571"/>
+        </lane>
+        <param key="electrified" value="no"/>
+        <param key="gauge" value="1435"/>
+        <param key="operator" value="DB Netz AG"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="no"/>
+        <param key="railway:pzb" value="no"/>
+        <param key="service" value="yard"/>
+        <param key="workrules" value="DE:EBO"/>
+    </edge>
+    <edge id="23814154#1" from="4078624345" to="258059584" priority="20" type="railway.rail|usage.industrial" spreadType="center">
+        <lane id="23814154#1_0" index="0" allow="rail" speed="44.44" length="62.59" shape="18461.82,41298.06 18520.37,41275.94">
+            <param key="origId" value="23814154"/>
+        </lane>
+        <param key="electrified" value="no"/>
+        <param key="gauge" value="1435"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="no"/>
+        <param key="railway:pzb" value="no"/>
+        <param key="service" value="yard"/>
+        <param key="usage" value="industrial"/>
+    </edge>
+    <edge id="23814209#0" from="1383506187" to="258060309" priority="20" type="railway.rail" spreadType="center" shape="17712.50,42509.41 17726.12,42505.26 17757.99,42494.51">
+        <lane id="23814209#0_0" index="0" allow="rail" speed="44.44" length="46.29" shape="17712.50,42509.41 17726.12,42505.26 17756.49,42495.02">
+            <param key="origId" value="23814209"/>
+        </lane>
+        <param key="electrified" value="no"/>
+        <param key="gauge" value="1435"/>
+        <param key="operator" value="DB Netz AG"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="no"/>
+        <param key="railway:pzb" value="no"/>
+        <param key="service" value="yard"/>
+        <param key="workrules" value="DE:EBO"/>
+    </edge>
+    <edge id="23814209#1" from="258060309" to="1383506147" priority="20" type="railway.rail" spreadType="center" shape="17757.99,42494.51 17782.14,42483.36 17821.59,42464.64 17891.13,42432.64 17996.28,42383.99">
+        <lane id="23814209#1_0" index="0" allow="rail" speed="44.44" length="187.20" shape="17785.60,42481.72 17821.59,42464.64 17891.13,42432.64 17955.40,42402.91">
+            <param key="origId" value="23814209"/>
+        </lane>
+        <param key="electrified" value="no"/>
+        <param key="gauge" value="1435"/>
+        <param key="operator" value="DB Netz AG"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="no"/>
+        <param key="railway:pzb" value="no"/>
+        <param key="service" value="yard"/>
+        <param key="workrules" value="DE:EBO"/>
+    </edge>
+    <edge id="23814209#2" from="1383506147" to="1383506146" priority="20" type="railway.rail" spreadType="center">
+        <lane id="23814209#2_0" index="0" allow="rail" speed="44.44" length="29.55" shape="17997.69,42383.32 18024.37,42370.61">
+            <param key="origId" value="23814209"/>
+        </lane>
+        <param key="electrified" value="no"/>
+        <param key="gauge" value="1435"/>
+        <param key="operator" value="DB Netz AG"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="no"/>
+        <param key="railway:pzb" value="no"/>
+        <param key="service" value="yard"/>
+        <param key="workrules" value="DE:EBO"/>
+    </edge>
+    <edge id="23814209#3" from="1383506146" to="258058797" priority="20" type="railway.rail" spreadType="center">
+        <lane id="23814209#3_0" index="0" allow="rail" speed="44.44" length="38.21" shape="18026.98,42369.33 18061.09,42352.11">
+            <param key="origId" value="23814209"/>
+        </lane>
+        <param key="electrified" value="no"/>
+        <param key="gauge" value="1435"/>
+        <param key="operator" value="DB Netz AG"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="no"/>
+        <param key="railway:pzb" value="no"/>
+        <param key="service" value="yard"/>
+        <param key="workrules" value="DE:EBO"/>
+    </edge>
+    <edge id="25610924#0" from="4078624347" to="3056403714" name="6100" priority="21" type="railway.highspeed" spreadType="center" shape="18667.44,42115.42 18739.55,42082.50 18930.49,41998.93 19127.72,41914.82">
+        <lane id="25610924#0_0" index="0" allow="rail rail_fast" speed="63.89" length="500.49" shape="18668.79,42114.80 18739.55,42082.50 18930.49,41998.93 19127.59,41914.87">
+            <param key="origId" value="25610924"/>
+        </lane>
+        <param key="electrified" value="contact_line"/>
+        <param key="frequency" value="16.7"/>
+        <param key="gauge" value="1435"/>
+        <param key="highspeed" value="yes"/>
+        <param key="maxspeed" value="230"/>
+        <param key="name" value="Berlin-Hamburger Bahn"/>
+        <param key="operator" value="DB Netz AG"/>
+        <param key="passenger_lines" value="2"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="yes"/>
+        <param key="railway:pzb" value="yes"/>
+        <param key="railway:traffic_mode" value="mixed"/>
+        <param key="usage" value="main"/>
+        <param key="voltage" value="15000"/>
+        <param key="workrules" value="DE:EBO"/>
+    </edge>
+    <edge id="25610924#1" from="3056403714" to="3056403712" name="6100" priority="21" type="railway.highspeed" spreadType="center" shape="19127.72,41914.82 19313.20,41831.13 20062.64,41488.72 20239.44,41407.52">
+        <lane id="25610924#1_0" index="0" allow="rail rail_fast" speed="63.89" length="1221.86" shape="19127.85,41914.76 19313.20,41831.13 20062.64,41488.72 20239.44,41407.52">
+            <param key="origId" value="25610924"/>
+        </lane>
+        <param key="electrified" value="contact_line"/>
+        <param key="frequency" value="16.7"/>
+        <param key="gauge" value="1435"/>
+        <param key="highspeed" value="yes"/>
+        <param key="maxspeed" value="230"/>
+        <param key="name" value="Berlin-Hamburger Bahn"/>
+        <param key="operator" value="DB Netz AG"/>
+        <param key="passenger_lines" value="2"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="yes"/>
+        <param key="railway:pzb" value="yes"/>
+        <param key="railway:traffic_mode" value="mixed"/>
+        <param key="usage" value="main"/>
+        <param key="voltage" value="15000"/>
+        <param key="workrules" value="DE:EBO"/>
+    </edge>
+    <edge id="25776793" from="1383487386" to="1383487142" name="6100" priority="21" type="railway.highspeed" spreadType="center" shape="17363.52,42716.27 17396.06,42699.44 17422.94,42686.87 17486.28,42657.42 17574.24,42616.63 17598.77,42604.23 17695.63,42560.49 17882.13,42474.89 17965.55,42436.69 18082.72,42383.05 18118.90,42366.81">
+        <lane id="25776793_0" index="0" allow="rail rail_fast" speed="63.89" length="778.69" shape="17364.88,42715.57 17396.06,42699.44 17422.94,42686.87 17486.28,42657.42 17574.24,42616.63 17598.77,42604.23 17695.63,42560.49 17882.13,42474.89 17965.55,42436.69 18071.37,42388.25">
+            <param key="origId" value="25776793 25610925 458067258 469983244"/>
+        </lane>
+        <param key="electrified" value="contact_line"/>
+        <param key="frequency" value="16.7"/>
+        <param key="gauge" value="1435"/>
+        <param key="highspeed" value="yes"/>
+        <param key="maxspeed" value="230"/>
+        <param key="name" value="Berlin-Hamburger Bahn"/>
+        <param key="operator" value="DB Netz AG"/>
+        <param key="passenger_lines" value="2"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="yes"/>
+        <param key="railway:pzb" value="yes"/>
+        <param key="usage" value="main"/>
+        <param key="voltage" value="15000"/>
+        <param key="workrules" value="DE:EBO"/>
+    </edge>
+    <edge id="258393890#1" from="3056364317" to="2990793444" name="6100" priority="21" type="railway.highspeed" spreadType="center" shape="14405.71,44581.70 15427.33,43917.02 15444.36,43905.95 16578.83,43167.81" distance="-45559.24">
+        <lane id="258393890#1_0" index="0" allow="rail rail_fast" speed="63.89" length="2591.10" shape="14405.71,44581.70 15427.33,43917.02 15444.36,43905.95 16577.58,43168.62">
+            <param key="origId" value="258393890"/>
+        </lane>
+        <param key="electrified" value="contact_line"/>
+        <param key="frequency" value="16.7"/>
+        <param key="gauge" value="1435"/>
+        <param key="highspeed" value="yes"/>
+        <param key="maxspeed" value="230"/>
+        <param key="name" value="Berlin-Hamburger Bahn"/>
+        <param key="operator" value="DB Netz AG"/>
+        <param key="passenger_lines" value="2"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="yes"/>
+        <param key="railway:pzb" value="yes"/>
+        <param key="usage" value="main"/>
+        <param key="voltage" value="15000"/>
+        <param key="workrules" value="DE:EBO"/>
+    </edge>
+    <edge id="258393890#2" from="2990793444" to="1383487386" name="6100" priority="21" type="railway.highspeed" spreadType="center" shape="16578.83,43167.81 16689.23,43095.44 16845.52,42994.86 16987.44,42910.81 17104.87,42846.70 17132.33,42832.28 17292.30,42750.70 17363.52,42716.27" distance="-48151.82">
+        <lane id="258393890#2_0" index="0" allow="rail rail_fast" speed="63.89" length="903.30" shape="16580.10,43166.98 16689.23,43095.44 16845.52,42994.86 16987.44,42910.81 17104.87,42846.70 17132.33,42832.28 17292.30,42750.70 17362.19,42716.91">
+            <param key="origId" value="258393890 25776792 469983239"/>
+        </lane>
+        <param key="electrified" value="contact_line"/>
+        <param key="frequency" value="16.7"/>
+        <param key="gauge" value="1435"/>
+        <param key="highspeed" value="yes"/>
+        <param key="maxspeed" value="230"/>
+        <param key="name" value="Berlin-Hamburger Bahn"/>
+        <param key="operator" value="DB Netz AG"/>
+        <param key="passenger_lines" value="2"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="yes"/>
+        <param key="railway:pzb" value="yes"/>
+        <param key="usage" value="main"/>
+        <param key="voltage" value="15000"/>
+        <param key="workrules" value="DE:EBO"/>
+    </edge>
+    <edge id="295371906" from="2990793443" to="2990793444" priority="20" type="railway.rail" spreadType="center">
+        <lane id="295371906_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="128.43" shape="16689.90,43100.37 16580.12,43167.02">
+            <param key="origId" value="295371906"/>
+        </lane>
+        <param key="electrified" value="contact_line"/>
+        <param key="frequency" value="16.7"/>
+        <param key="gauge" value="1435"/>
+        <param key="operator" value="DB Netz AG"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="yes"/>
+        <param key="railway:pzb" value="yes"/>
+        <param key="service" value="crossover"/>
+        <param key="source" value="bing; survey"/>
+        <param key="voltage" value="15000"/>
+        <param key="workrules" value="DE:EBO"/>
+    </edge>
+    <edge id="365185118#0" from="3692318844" to="3692318838" priority="20" type="railway.rail|usage.industrial" spreadType="center" bidi="-365185118#0">
+        <lane id="365185118#0_0" index="0" allow="rail" speed="44.44" length="81.42" shape="18904.02,41098.72 18833.07,41138.67">
+            <param key="origId" value="365185118"/>
+        </lane>
+        <param key="electrified" value="no"/>
+        <param key="gauge" value="1435"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="no"/>
+        <param key="railway:pzb" value="no"/>
+        <param key="service" value="yard"/>
+        <param key="usage" value="industrial"/>
+    </edge>
+    <edge id="365185118#1" from="3692318838" to="4078624344" priority="20" type="railway.rail|usage.industrial" spreadType="center" shape="18831.67,41139.46 18744.86,41173.62 18722.85,41185.22 18695.86,41207.78 18674.29,41222.01 18630.48,41240.59 18511.56,41285.94">
+        <lane id="365185118#1_0" index="0" allow="rail" speed="44.44" length="293.40" shape="18805.99,41149.57 18744.86,41173.62 18722.85,41185.22 18695.86,41207.78 18674.29,41222.01 18630.48,41240.59 18542.43,41274.17">
+            <param key="origId" value="365185118"/>
+        </lane>
+        <param key="electrified" value="no"/>
+        <param key="gauge" value="1435"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="no"/>
+        <param key="railway:pzb" value="no"/>
+        <param key="service" value="yard"/>
+        <param key="usage" value="industrial"/>
+    </edge>
+    <edge id="365185118#2" from="4078624344" to="4078624345" priority="20" type="railway.rail|usage.industrial" spreadType="center">
+        <lane id="365185118#2_0" index="0" allow="rail" speed="44.44" length="49.57" shape="18510.01,41286.32 18461.89,41298.25">
+            <param key="origId" value="365185118"/>
+        </lane>
+        <param key="electrified" value="no"/>
+        <param key="gauge" value="1435"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="no"/>
+        <param key="railway:pzb" value="no"/>
+        <param key="service" value="yard"/>
+        <param key="usage" value="industrial"/>
+    </edge>
+    <edge id="365185120" from="258058797" to="4078624345" priority="20" type="railway.rail|usage.industrial" spreadType="center" shape="18062.47,42351.41 18079.49,42341.76 18101.81,42325.30 18115.89,42312.00 18141.62,42283.92 18154.07,42265.24 18164.71,42244.96 18173.00,42222.85 18180.69,42191.83 18196.70,42100.64 18212.31,41998.08 18214.22,41963.80 18210.31,41929.67 18199.59,41900.98 18159.02,41806.86 18109.31,41696.63 18098.36,41661.42 18093.48,41633.71 18095.93,41598.24 18101.89,41563.26 18116.07,41532.64 18129.57,41511.19 18155.37,41482.10 18186.31,41457.98 18350.89,41345.14 18373.75,41332.12 18406.15,41319.10 18446.46,41303.86 18460.26,41298.65">
+        <lane id="365185120_0" index="0" allow="rail" speed="44.44" length="1289.46" shape="18084.52,42338.05 18101.81,42325.30 18115.89,42312.00 18141.62,42283.92 18154.07,42265.24 18164.71,42244.96 18173.00,42222.85 18180.69,42191.83 18196.70,42100.64 18212.31,41998.08 18214.22,41963.80 18210.31,41929.67 18199.59,41900.98 18159.02,41806.86 18109.31,41696.63 18098.36,41661.42 18093.48,41633.71 18095.93,41598.24 18101.89,41563.26 18116.07,41532.64 18129.57,41511.19 18155.37,41482.10 18186.31,41457.98 18350.89,41345.14 18373.75,41332.12 18406.15,41319.10 18446.46,41303.86 18459.02,41299.12">
+            <param key="origId" value="365185120 23814154"/>
+        </lane>
+        <param key="electrified" value="no"/>
+        <param key="gauge" value="1435"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="no"/>
+        <param key="railway:pzb" value="no"/>
+        <param key="service" value="yard"/>
+        <param key="usage" value="industrial"/>
+    </edge>
+    <edge id="405704940" from="3692318838" to="4078624344" priority="20" type="railway.rail|usage.industrial" spreadType="center" shape="18831.67,41139.46 18815.30,41148.35 18793.56,41160.14 18761.21,41173.04 18741.86,41182.49 18722.96,41195.37 18705.62,41208.48 18675.74,41227.94 18630.08,41245.67 18582.34,41263.48 18545.55,41276.79 18511.56,41285.94">
+        <lane id="405704940_0" index="0" allow="rail" speed="44.44" length="293.60" shape="18807.41,41152.63 18793.56,41160.14 18761.21,41173.04 18741.86,41182.49 18722.96,41195.37 18705.62,41208.48 18675.74,41227.94 18630.08,41245.67 18582.34,41263.48 18545.55,41276.79 18543.47,41277.35">
+            <param key="origId" value="405704940"/>
+        </lane>
+        <param key="electrified" value="no"/>
+        <param key="gauge" value="1435"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="no"/>
+        <param key="railway:pzb" value="no"/>
+        <param key="service" value="yard"/>
+        <param key="usage" value="industrial"/>
+    </edge>
+    <edge id="405704943" from="566337751" to="4078624347" priority="20" type="railway.rail" spreadType="center">
+        <lane id="405704943_0" index="0" allow="rail rail_electric rail_fast" speed="27.78" length="142.72" shape="18538.16,42179.43 18666.06,42116.10">
+            <param key="origId" value="405704943"/>
+        </lane>
+        <param key="electrified" value="contact_line"/>
+        <param key="frequency" value="16.7"/>
+        <param key="gauge" value="1435"/>
+        <param key="maxspeed" value="100"/>
+        <param key="maxspeed:source" value="Switch layout"/>
+        <param key="operator" value="DB Netz AG"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="yes"/>
+        <param key="railway:pzb" value="yes"/>
+        <param key="service" value="crossover"/>
+        <param key="voltage" value="15000"/>
+        <param key="workrules" value="DE:EBO"/>
+    </edge>
+    <edge id="405704951" from="3692318843" to="258059584" priority="20" type="railway.rail|usage.industrial" spreadType="center" shape="18671.87,41217.10 18664.03,41220.14 18528.98,41272.60 18521.77,41275.41" bidi="-405704951">
+        <lane id="405704951_0" index="0" allow="rail" speed="44.44" length="159.53" shape="18671.87,41217.10 18664.03,41220.14 18528.98,41272.60 18523.17,41274.87">
+            <param key="origId" value="405704951"/>
+        </lane>
+        <param key="electrified" value="no"/>
+        <param key="gauge" value="1435"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="no"/>
+        <param key="railway:pzb" value="no"/>
+        <param key="service" value="yard"/>
+        <param key="usage" value="industrial"/>
+    </edge>
+    <edge id="44603574#1" from="2990793443" to="2637572390" name="6100" priority="21" type="railway.highspeed" spreadType="center" shape="16691.19,43099.58 16335.45,43331.70 13101.80,45435.98 12127.75,46070.46 11960.10,46179.69 11909.82,46212.46 9761.81,47610.39 9704.94,47646.88" distance="-36554.61">
+        <lane id="44603574#1_0" index="0" allow="rail rail_fast" speed="63.89" length="8334.29" shape="16689.92,43100.41 16335.45,43331.70 13101.80,45435.98 12127.75,46070.46 11960.10,46179.69 11909.82,46212.46 9761.81,47610.39 9704.94,47646.88">
+            <param key="origId" value="44603574"/>
+        </lane>
+        <param key="electrified" value="contact_line"/>
+        <param key="frequency" value="16.7"/>
+        <param key="gauge" value="1435"/>
+        <param key="highspeed" value="yes"/>
+        <param key="maxspeed" value="230"/>
+        <param key="name" value="Berlin-Hamburger Bahn"/>
+        <param key="operator" value="DB Netz AG"/>
+        <param key="passenger_lines" value="2"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="yes"/>
+        <param key="railway:pzb" value="yes"/>
+        <param key="usage" value="main"/>
+        <param key="voltage" value="15000"/>
+        <param key="workrules" value="DE:EBO"/>
+    </edge>
+    <edge id="44603575#1" from="1383487364" to="1383487393" name="6100" priority="21" type="railway.highspeed" spreadType="center" shape="17437.42,42695.72 17368.64,42725.34 17340.00,42738.12 17296.95,42757.67">
+        <lane id="44603575#1_0" index="0" allow="rail rail_fast" speed="63.89" length="97.01" shape="17435.99,42696.33 17368.64,42725.34 17347.02,42734.99">
+            <param key="origId" value="44603575"/>
+        </lane>
+        <param key="electrified" value="contact_line"/>
+        <param key="frequency" value="16.7"/>
+        <param key="gauge" value="1435"/>
+        <param key="highspeed" value="yes"/>
+        <param key="maxspeed" value="230"/>
+        <param key="name" value="Berlin-Hamburger Bahn"/>
+        <param key="operator" value="DB Netz AG"/>
+        <param key="passenger_lines" value="2"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="yes"/>
+        <param key="railway:pzb" value="yes"/>
+        <param key="usage" value="main"/>
+        <param key="voltage" value="15000"/>
+        <param key="workrules" value="DE:EBO"/>
+    </edge>
+    <edge id="458067259" from="1383487200" to="1383487311" priority="20" type="railway.rail" spreadType="center" shape="17967.32,42441.36 17884.06,42479.28 17698.20,42564.64 17602.02,42608.53 17577.12,42620.41 17550.90,42632.77">
+        <lane id="458067259_0" index="0" allow="rail rail_electric rail_fast" speed="22.22" length="456.59" shape="17967.18,42441.42 17884.06,42479.28 17698.20,42564.64 17602.02,42608.53 17577.12,42620.41 17552.32,42632.10">
+            <param key="origId" value="458067259 124262111 889920412"/>
+        </lane>
+        <param key="electrified" value="contact_line"/>
+        <param key="frequency" value="16.7"/>
+        <param key="gauge" value="1435"/>
+        <param key="level" value="1"/>
+        <param key="maxspeed" value="80"/>
+        <param key="maxspeed:source" value="Switch layout"/>
+        <param key="operator" value="DB Netz AG"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="no"/>
+        <param key="railway:pzb" value="yes"/>
+        <param key="service" value="siding"/>
+        <param key="voltage" value="15000"/>
+        <param key="workrules" value="DE:EBO"/>
+    </edge>
+    <edge id="458067262" from="1383487192" to="1383487338" priority="20" type="railway.rail" spreadType="center" shape="18044.57,42421.88 18005.96,42443.76 17979.56,42460.28 17936.72,42486.72 17899.80,42509.84 17873.52,42524.01 17853.09,42533.56 17716.10,42595.82 17650.61,42622.55 17621.04,42633.72 17594.66,42643.41 17553.03,42658.22 17513.79,42674.10">
+        <lane id="458067262_0" index="0" allow="rail rail_electric rail_fast" speed="16.67" length="476.08" shape="17994.09,42451.19 17979.56,42460.28 17936.72,42486.72 17899.80,42509.84 17873.52,42524.01 17853.09,42533.56 17716.10,42595.82 17650.61,42622.55 17621.04,42633.72 17594.66,42643.41 17564.79,42654.04">
+            <param key="origId" value="458067262 124262103 124262113 124262114"/>
+        </lane>
+        <param key="electrified" value="contact_line"/>
+        <param key="frequency" value="16.7"/>
+        <param key="gauge" value="1435"/>
+        <param key="maxspeed" value="60"/>
+        <param key="maxspeed:source" value="Switch layout"/>
+        <param key="operator" value="DB Netz AG"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="no"/>
+        <param key="railway:pzb" value="yes"/>
+        <param key="service" value="siding"/>
+        <param key="voltage" value="15000"/>
+        <param key="workrules" value="DE:EBO"/>
+    </edge>
+    <edge id="469983238" from="1383487393" to="2990793443" name="6100" priority="21" type="railway.highspeed" spreadType="center" shape="17296.95,42757.67 17132.73,42837.35 17105.21,42851.84 16989.76,42914.67 16848.13,42998.37 16691.19,43099.58">
+        <lane id="469983238_0" index="0" allow="rail rail_fast" speed="63.89" length="693.27" shape="17295.54,42758.35 17132.73,42837.35 17105.21,42851.84 16989.76,42914.67 16848.13,42998.37 16692.44,43098.77">
+            <param key="origId" value="469983238 44603577 44603574"/>
+        </lane>
+        <param key="electrified" value="contact_line"/>
+        <param key="frequency" value="16.7"/>
+        <param key="gauge" value="1435"/>
+        <param key="highspeed" value="yes"/>
+        <param key="maxspeed" value="230"/>
+        <param key="name" value="Berlin-Hamburger Bahn"/>
+        <param key="operator" value="DB Netz AG"/>
+        <param key="passenger_lines" value="2"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="yes"/>
+        <param key="railway:pzb" value="yes"/>
+        <param key="usage" value="main"/>
+        <param key="voltage" value="15000"/>
+        <param key="workrules" value="DE:EBO"/>
+    </edge>
+    <edge id="469983240" from="1383487142" to="4078624347" name="6100" priority="21" type="railway.highspeed" spreadType="center" shape="18118.90,42366.81 18135.03,42359.30 18315.60,42276.60 18362.55,42255.27 18550.62,42168.76 18667.44,42115.42">
+        <lane id="469983240_0" index="0" allow="rail rail_fast" speed="63.89" length="600.33" shape="18120.29,42366.16 18135.03,42359.30 18315.60,42276.60 18362.55,42255.27 18550.62,42168.76 18666.04,42116.06">
+            <param key="origId" value="469983240"/>
+        </lane>
+        <param key="electrified" value="contact_line"/>
+        <param key="frequency" value="16.7"/>
+        <param key="gauge" value="1435"/>
+        <param key="highspeed" value="yes"/>
+        <param key="maxspeed" value="230"/>
+        <param key="name" value="Berlin-Hamburger Bahn"/>
+        <param key="operator" value="DB Netz AG"/>
+        <param key="passenger_lines" value="2"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="yes"/>
+        <param key="railway:pzb" value="yes"/>
+        <param key="usage" value="main"/>
+        <param key="voltage" value="15000"/>
+        <param key="workrules" value="DE:EBO"/>
+    </edge>
+    <edge id="469983241" from="566337751" to="1383487022" name="6100" priority="21" type="railway.highspeed" spreadType="center">
+        <lane id="469983241_0" index="0" allow="rail rail_fast" speed="63.89" length="7.47" shape="18535.47,42180.72 18528.69,42183.86">
+            <param key="origId" value="469983241"/>
+        </lane>
+        <param key="electrified" value="contact_line"/>
+        <param key="frequency" value="16.7"/>
+        <param key="gauge" value="1435"/>
+        <param key="highspeed" value="yes"/>
+        <param key="maxspeed" value="230"/>
+        <param key="name" value="Berlin-Hamburger Bahn"/>
+        <param key="operator" value="DB Netz AG"/>
+        <param key="passenger_lines" value="2"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="yes"/>
+        <param key="railway:pzb" value="yes"/>
+        <param key="usage" value="main"/>
+        <param key="voltage" value="15000"/>
+        <param key="workrules" value="DE:EBO"/>
+    </edge>
+    <edge id="469983242" from="1383487192" to="1383487304" priority="20" type="railway.rail" spreadType="center" shape="18044.57,42421.88 17977.07,42456.07 17877.51,42505.86 17820.11,42533.80 17711.32,42583.32 17646.48,42613.19 17616.00,42627.05">
+        <lane id="469983242_0" index="0" allow="rail rail_electric rail_fast" speed="27.78" length="416.73" shape="17992.51,42448.25 17977.07,42456.07 17877.51,42505.86 17820.11,42533.80 17711.32,42583.32 17646.48,42613.19 17616.13,42626.99">
+            <param key="origId" value="469983242 458067261"/>
+        </lane>
+        <param key="electrified" value="contact_line"/>
+        <param key="frequency" value="16.7"/>
+        <param key="gauge" value="1435"/>
+        <param key="maxspeed" value="100"/>
+        <param key="maxspeed:source" value="Switch layout"/>
+        <param key="operator" value="DB Netz AG"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="no"/>
+        <param key="railway:pzb" value="yes"/>
+        <param key="service" value="siding"/>
+        <param key="voltage" value="15000"/>
+        <param key="workrules" value="DE:EBO"/>
+    </edge>
+    <edge id="469983243" from="1383487149" to="1383487364" name="6100" priority="21" type="railway.highspeed" spreadType="center" shape="18125.08,42375.70 17975.28,42452.26 17818.62,42529.25 17709.30,42579.08 17611.81,42621.50 17586.10,42632.19 17437.42,42695.72">
+        <lane id="469983243_0" index="0" allow="rail rail_fast" speed="63.89" length="650.37" shape="18071.80,42402.93 17975.28,42452.26 17818.62,42529.25 17709.30,42579.08 17611.81,42621.50 17586.10,42632.19 17482.08,42676.64">
+            <param key="origId" value="469983243 458067260 44603576 44603575"/>
+        </lane>
+        <param key="electrified" value="contact_line"/>
+        <param key="frequency" value="16.7"/>
+        <param key="gauge" value="1435"/>
+        <param key="highspeed" value="yes"/>
+        <param key="maxspeed" value="230"/>
+        <param key="name" value="Berlin-Hamburger Bahn"/>
+        <param key="operator" value="DB Netz AG"/>
+        <param key="passenger_lines" value="2"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="yes"/>
+        <param key="railway:pzb" value="yes"/>
+        <param key="usage" value="main"/>
+        <param key="voltage" value="15000"/>
+        <param key="workrules" value="DE:EBO"/>
+    </edge>
+    <edge id="469983245" from="1383487194" to="1383487200" priority="20" type="railway.rail" spreadType="center">
+        <lane id="469983245_0" index="0" allow="rail rail_electric rail_fast" speed="16.67" length="28.21" shape="17993.09,42429.54 17967.46,42441.30">
+            <param key="origId" value="469983245"/>
+        </lane>
+        <param key="electrified" value="contact_line"/>
+        <param key="frequency" value="16.7"/>
+        <param key="gauge" value="1435"/>
+        <param key="maxspeed" value="60"/>
+        <param key="maxspeed:source" value="Switch layout"/>
+        <param key="operator" value="DB Netz AG"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="no"/>
+        <param key="railway:pzb" value="yes"/>
+        <param key="service" value="siding"/>
+        <param key="voltage" value="15000"/>
+        <param key="workrules" value="DE:EBO"/>
+    </edge>
+    <edge id="469983246" from="1383487022" to="1383487149" name="6100" priority="21" type="railway.highspeed" spreadType="center" shape="18527.30,42184.51 18363.77,42259.64 18318.41,42280.64 18125.08,42375.70">
+        <lane id="469983246_0" index="0" allow="rail rail_fast" speed="63.89" length="375.98" shape="18465.62,42212.85 18363.77,42259.64 18318.41,42280.64 18126.44,42375.03">
+            <param key="origId" value="469983246"/>
+        </lane>
+        <param key="electrified" value="contact_line"/>
+        <param key="frequency" value="16.7"/>
+        <param key="gauge" value="1435"/>
+        <param key="highspeed" value="yes"/>
+        <param key="maxspeed" value="230"/>
+        <param key="name" value="Berlin-Hamburger Bahn"/>
+        <param key="operator" value="DB Netz AG"/>
+        <param key="passenger_lines" value="2"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="yes"/>
+        <param key="railway:pzb" value="yes"/>
+        <param key="usage" value="main"/>
+        <param key="voltage" value="15000"/>
+        <param key="workrules" value="DE:EBO"/>
+    </edge>
+    <edge id="967048310" from="258058797" to="258060296" priority="20" type="railway.rail" spreadType="center" shape="18062.47,42351.41 18092.29,42338.56 18121.52,42327.00 18200.92,42291.74 18220.51,42283.92 18240.82,42277.67 18259.29,42273.71 18280.48,42270.80 18294.27,42269.94 18316.88,42270.13 18377.37,42272.09">
+        <lane id="967048310_0" index="0" allow="rail" speed="44.44" length="303.56" shape="18086.12,42341.22 18092.29,42338.56 18121.52,42327.00 18200.92,42291.74 18220.51,42283.92 18240.82,42277.67 18259.29,42273.71 18280.48,42270.80 18294.27,42269.94 18316.88,42270.13 18376.33,42272.06">
+            <param key="origId" value="967048310 23814213"/>
+        </lane>
+        <param key="electrified" value="no"/>
+        <param key="gauge" value="1435"/>
+        <param key="operator" value="DB Netz AG"/>
+        <param key="railway" value="rail"/>
+        <param key="railway:etcs" value="no"/>
+        <param key="railway:gnt" value="no"/>
+        <param key="railway:lzb" value="no"/>
+        <param key="railway:pzb" value="no"/>
+        <param key="service" value="yard"/>
+        <param key="workrules" value="DE:EBO"/>
+    </edge>
+
+    <junction id="1383487001" type="priority" x="18930.39" y="42014.20" incLanes="-124262109#0_0" intLanes=":1383487001_0_0" shape="18929.72,42012.75 18931.06,42015.65 18929.72,42012.75 18931.06,42015.65" fringe="inner">
+        <request index="0" response="0" foes="0" cont="0"/>
+        <param key="buffer_stop" value="true"/>
+        <param key="railway" value="buffer_stop"/>
+    </junction>
+    <junction id="1383487016" type="priority" x="18671.69" y="42132.65" incLanes="124262109#0_0" intLanes=":1383487016_0_0 :1383487016_1_0" shape="18673.78,42133.46 18672.46,42130.55 18633.37,42148.43 18634.70,42151.34 18634.76,42151.44 18636.32,42154.24">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
+        <param key="railway" value="switch"/>
+        <param key="railway:local_operated" value="yes"/>
+    </junction>
+    <junction id="1383487022" type="priority" x="18527.30" y="42184.51" incLanes="469983241_0" intLanes=":1383487022_0_0 :1383487022_1_0" shape="18529.37,42185.31 18528.02,42182.41 18464.95,42211.40 18466.28,42214.30 18467.79,42217.21">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
+        <param key="railway" value="switch"/>
+        <param key="railway:switch" value="default"/>
+    </junction>
+    <junction id="1383487026" type="priority" x="18495.31" y="42206.67" incLanes="124262120_0" intLanes=":1383487026_0_0" shape="18494.70,42205.19 18495.92,42208.15 18494.70,42205.19 18495.92,42208.15" fringe="inner">
+        <request index="0" response="0" foes="0" cont="0"/>
+        <param key="buffer_stop" value="true"/>
+        <param key="railway" value="buffer_stop"/>
+    </junction>
+    <junction id="1383487041" type="priority" x="18438.33" y="42230.70" incLanes="-124262120_0 124262107#0_0" intLanes=":1383487041_0_0 :1383487041_1_0" shape="18479.51,42214.87 18478.23,42211.94 18478.18,42211.82 18476.70,42208.98 18436.26,42229.91 18437.63,42232.80">
+        <request index="0" response="00" foes="10" cont="0"/>
+        <request index="1" response="01" foes="01" cont="0"/>
+        <param key="railway" value="switch"/>
+    </junction>
+    <junction id="1383487095" type="priority" x="18313.49" y="42295.04" incLanes="124262109#1_0 -124262124_0" intLanes=":1383487095_0_0 :1383487095_1_0 :1383487095_2_0" shape="18315.15,42296.03 18313.77,42293.13 18311.47,42294.36 18313.36,42297.08">
+        <request index="0" response="000" foes="000" cont="0"/>
+        <request index="1" response="000" foes="100" cont="0"/>
+        <request index="2" response="010" foes="010" cont="0"/>
+        <param key="railway" value="switch"/>
+    </junction>
+    <junction id="1383487116" type="priority" x="18270.01" y="42320.36" incLanes="124262109#2_0 124262116_0" intLanes=":1383487116_0_0" shape="18272.00,42321.05 18270.39,42318.29 18267.78,42319.79 18269.76,42322.52">
+        <request index="0" response="0" foes="0" cont="0"/>
+        <param key="railway" value="switch"/>
+    </junction>
+    <junction id="1383487122" type="priority" x="18241.76" y="42340.88" incLanes="124262109#3_0 -458067265_0" intLanes=":1383487122_0_0 :1383487122_1_0 :1383487122_2_0" shape="18243.97,42341.26 18242.09,42338.67 18206.59,42359.99 18208.26,42362.72 18208.36,42362.87 18210.22,42365.47">
+        <request index="0" response="000" foes="100" cont="0"/>
+        <request index="1" response="000" foes="100" cont="0"/>
+        <request index="2" response="011" foes="011" cont="0"/>
+        <param key="railway" value="switch"/>
+    </junction>
+    <junction id="1383487142" type="priority" x="18118.90" y="42366.81" incLanes="25776793_0 124262123_0" intLanes=":1383487142_0_0 :1383487142_1_0" shape="18120.96,42367.61 18119.61,42364.71 18070.72,42386.79 18072.03,42389.71 18073.56,42392.69">
+        <request index="0" response="00" foes="10" cont="0"/>
+        <request index="1" response="01" foes="01" cont="0"/>
+        <param key="railway" value="switch"/>
+    </junction>
+    <junction id="1383487144" type="priority" x="18205.85" y="42366.64" incLanes="124262109#4_0 -458067266_0 -458067267_0" intLanes=":1383487144_0_0 :1383487144_1_0 :1383487144_2_0 :1383487144_3_0" shape="18208.06,42367.02 18206.20,42364.42 18173.59,42383.73 18175.21,42386.49 18175.28,42386.61 18177.15,42389.21">
+        <request index="0" response="0000" foes="0100" cont="0"/>
+        <request index="1" response="0000" foes="1100" cont="0"/>
+        <request index="2" response="0011" foes="0011" cont="0"/>
+        <request index="3" response="0010" foes="0010" cont="0"/>
+        <param key="railway" value="switch"/>
+    </junction>
+    <junction id="1383487147" type="priority" x="18176.49" y="42373.67" incLanes="124262119_0 124262122_0" intLanes=":1383487147_0_0" shape="18178.62,42374.31 18176.90,42371.53 18174.42,42373.00 18175.98,42375.79">
+        <request index="0" response="0" foes="0" cont="0"/>
+        <param key="railway" value="switch"/>
+    </junction>
+    <junction id="1383487149" type="priority" x="18125.08" y="42375.70" incLanes="469983246_0" intLanes=":1383487149_0_0 :1383487149_1_0" shape="18127.15,42376.47 18125.74,42373.59 18069.66,42398.42 18071.00,42401.34 18071.07,42401.50 18072.53,42404.35">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
+        <param key="railway" value="switch"/>
+    </junction>
+    <junction id="1383487150" type="dead_end" x="18100.64" y="42382.15" incLanes="124262118_0" intLanes="" shape="18099.91,42380.73 18101.37,42383.57"/>
+    <junction id="1383487189" type="priority" x="18045.85" y="42408.80" incLanes="124262126#0_0" intLanes=":1383487189_0_0" shape="18047.90,42409.75 18046.61,42406.73 18043.89,42407.85 18045.06,42410.83">
+        <request index="0" response="0" foes="0" cont="0"/>
+        <param key="railway" value="switch"/>
+    </junction>
+    <junction id="1383487192" type="priority" x="18044.57" y="42421.88" incLanes="124262107#2_0" intLanes=":1383487192_0_0 :1383487192_1_0" shape="18046.66,42422.61 18045.21,42419.76 17991.79,42446.82 17993.24,42449.68 17994.88,42452.58">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
+        <param key="railway" value="switch"/>
+    </junction>
+    <junction id="1383487194" type="priority" x="17994.42" y="42428.93" incLanes="124262126#1_0" intLanes=":1383487194_0_0" shape="17996.53,42429.82 17995.15,42426.83 17992.43,42428.08 17993.76,42430.99">
+        <request index="0" response="0" foes="0" cont="0"/>
+        <param key="railway" value="switch"/>
+    </junction>
+    <junction id="1383487200" type="priority" x="17967.32" y="42441.36" incLanes="469983245_0" intLanes=":1383487200_0_0" shape="17968.12,42442.75 17966.79,42439.84 17966.52,42439.97 17967.85,42442.88">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="1383487280" type="priority" x="17793.72" y="42586.84" incLanes="124262109#5_0" intLanes=":1383487280_0_0" shape="17794.39,42588.29 17793.05,42585.39 17794.39,42588.29 17793.05,42585.39" fringe="inner">
+        <request index="0" response="0" foes="0" cont="0"/>
+        <param key="buffer_stop" value="true"/>
+        <param key="railway" value="buffer_stop"/>
+    </junction>
+    <junction id="1383487286" type="priority" x="17743.72" y="42599.81" incLanes="124262105_0" intLanes=":1383487286_0_0" shape="17744.39,42601.26 17743.05,42598.36 17744.39,42601.26 17743.05,42598.36" fringe="inner">
+        <request index="0" response="0" foes="0" cont="0"/>
+        <param key="buffer_stop" value="true"/>
+        <param key="railway" value="buffer_stop"/>
+    </junction>
+    <junction id="1383487287" type="priority" x="17747.98" y="42602.82" incLanes="124262127_0" intLanes=":1383487287_0_0" shape="17748.64,42604.28 17747.32,42601.36 17748.64,42604.28 17747.32,42601.36" fringe="inner">
+        <request index="0" response="0" foes="0" cont="0"/>
+        <param key="buffer_stop" value="true"/>
+        <param key="railway" value="buffer_stop"/>
+    </junction>
+    <junction id="1383487304" type="priority" x="17616.00" y="42627.05" incLanes="469983242_0" intLanes=":1383487304_0_0" shape="17616.79,42628.45 17615.47,42625.53 17615.23,42625.64 17616.51,42628.57">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="1383487311" type="priority" x="17550.90" y="42632.77" incLanes="458067259_0" intLanes=":1383487311_0_0 :1383487311_1_0" shape="17553.00,42633.55 17551.63,42630.66 17499.09,42657.61 17500.56,42660.46 17502.21,42663.34">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
+        <param key="railway" value="switch"/>
+    </junction>
+    <junction id="1383487338" type="priority" x="17513.79" y="42674.10" incLanes="458067262_0 124262112_0" intLanes=":1383487338_0_0 :1383487338_1_0" shape="17565.39,42655.52 17564.19,42652.55 17564.13,42652.41 17562.79,42649.51 17511.74,42673.27 17513.05,42676.19">
+        <request index="0" response="00" foes="10" cont="0"/>
+        <request index="1" response="01" foes="01" cont="0"/>
+        <param key="railway" value="switch"/>
+    </junction>
+    <junction id="1383487342" type="priority" x="17453.55" y="42679.73" incLanes="124262125#0_0 -124262115_0" intLanes=":1383487342_0_0 :1383487342_1_0 :1383487342_2_0" shape="17455.36,42680.80 17454.31,42677.77 17451.55,42678.78 17452.93,42681.78">
+        <request index="0" response="000" foes="000" cont="0"/>
+        <request index="1" response="100" foes="100" cont="0"/>
+        <request index="2" response="000" foes="010" cont="0"/>
+        <param key="railway" value="switch"/>
+    </junction>
+    <junction id="1383487364" type="priority" x="17437.42" y="42695.72" incLanes="469983243_0 124262121_0" intLanes=":1383487364_0_0 :1383487364_1_0" shape="17482.71,42678.11 17481.46,42675.16 17481.41,42675.07 17479.96,42672.22 17435.36,42694.86 17436.63,42697.80">
+        <request index="0" response="00" foes="10" cont="0"/>
+        <request index="1" response="01" foes="01" cont="0"/>
+        <param key="railway" value="switch"/>
+    </junction>
+    <junction id="1383487368" type="priority" x="17405.74" y="42703.27" incLanes="124262115_0" intLanes=":1383487368_0_0" shape="17406.47,42704.69 17405.01,42701.85 17406.47,42704.69 17405.01,42701.85" fringe="inner">
+        <request index="0" response="0" foes="0" cont="0"/>
+        <param key="buffer_stop" value="true"/>
+        <param key="railway" value="buffer_stop"/>
+    </junction>
+    <junction id="1383487378" type="priority" x="17423.61" y="42709.86" incLanes="124262106#1_0" intLanes=":1383487378_0_0" shape="17425.62,42710.94 17424.52,42707.84 17421.71,42708.85 17422.81,42711.86">
+        <request index="0" response="0" foes="0" cont="0"/>
+        <param key="railway" value="switch"/>
+    </junction>
+    <junction id="1383487386" type="priority" x="17363.52" y="42716.27" incLanes="124262125#1_0 258393890#2_0" intLanes=":1383487386_0_0" shape="17365.66,42717.08 17364.15,42714.14 17361.50,42715.47 17362.89,42718.35">
+        <request index="0" response="0" foes="0" cont="0"/>
+        <param key="railway" value="switch"/>
+    </junction>
+    <junction id="1383487387" type="priority" x="17408.62" y="42715.36" incLanes="124262106#2_0" intLanes=":1383487387_0_0 :1383487387_1_0" shape="17410.45,42716.39 17409.35,42713.39 17406.55,42714.43 17408.01,42717.44">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
+        <param key="railway" value="switch"/>
+    </junction>
+    <junction id="1383487393" type="priority" x="17296.95" y="42757.67" incLanes="124262106#3_0 44603575#1_0" intLanes=":1383487393_0_0 :1383487393_1_0" shape="17348.86,42739.51 17347.72,42736.52 17346.36,42733.53 17294.84,42756.92 17296.24,42759.79">
+        <request index="0" response="10" foes="10" cont="0"/>
+        <request index="1" response="00" foes="01" cont="0"/>
+        <param key="railway" value="switch"/>
+    </junction>
+    <junction id="1383499632" type="priority" x="17383.18" y="42727.79" incLanes="124263606#0_0" intLanes=":1383499632_0_0 :1383499632_1_0" shape="17385.30,42728.54 17383.89,42725.66 17349.19,42742.77 17350.60,42745.64 17350.67,42745.76 17352.34,42748.49">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
+        <param key="railway" value="switch"/>
+    </junction>
+    <junction id="1383499665" type="dead_end" x="17183.59" y="42832.39" incLanes="124263605_0" intLanes="" shape="17184.25,42833.85 17182.93,42830.93"/>
+    <junction id="1383499677" type="dead_end" x="17153.12" y="42841.13" incLanes="124263606#1_0" intLanes="" shape="17153.77,42842.59 17152.47,42839.67"/>
+    <junction id="1383506146" type="priority" x="18025.71" y="42369.97" incLanes="23814209#2_0 124264570_0" intLanes=":1383506146_0_0 :1383506146_1_0" shape="18027.70,42370.76 18026.26,42367.90 18023.54,42369.23 18025.27,42372.10">
+        <request index="0" response="00" foes="10" cont="0"/>
+        <request index="1" response="01" foes="01" cont="0"/>
+        <param key="railway" value="switch"/>
+    </junction>
+    <junction id="1383506147" type="priority" x="17996.28" y="42383.99" incLanes="-124264571_0 23814209#1_0" intLanes=":1383506147_0_0 :1383506147_1_0" shape="17998.38,42384.76 17997.00,42381.87 17953.51,42398.33 17954.67,42401.31 17954.72,42401.45 17956.07,42404.36">
+        <request index="0" response="00" foes="10" cont="0"/>
+        <request index="1" response="01" foes="01" cont="0"/>
+        <param key="railway" value="switch"/>
+    </junction>
+    <junction id="1383506183" type="priority" x="17761.40" y="42486.23" incLanes="124264571_0" intLanes=":1383506183_0_0" shape="17762.08,42487.68 17760.72,42484.78 17762.08,42487.68 17760.72,42484.78" fringe="inner">
+        <request index="0" response="0" foes="0" cont="0"/>
+        <param key="buffer_stop" value="true"/>
+        <param key="railway" value="buffer_stop"/>
+    </junction>
+    <junction id="1383506187" type="dead_end" x="17712.50" y="42509.41" incLanes="" intLanes="" shape="17712.97,42510.94 17712.03,42507.88"/>
+    <junction id="258058797" type="priority" x="18062.47" y="42351.41" incLanes="23814209#3_0" intLanes=":258058797_0_0 :258058797_1_0" shape="18086.75,42342.69 18085.48,42339.75 18085.31,42339.45 18083.72,42336.65 18060.37,42350.68 18061.81,42353.54">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
+        <param key="railway" value="switch"/>
+    </junction>
+    <junction id="258059584" type="priority" x="18521.77" y="41275.41" incLanes="405704951_0 23814154#1_0" intLanes=":258059584_0_0 :258059584_1_0" shape="18523.75,41276.36 18522.58,41273.38 18519.80,41274.44 18520.93,41277.44">
+        <request index="0" response="10" foes="10" cont="0"/>
+        <request index="1" response="00" foes="01" cont="0"/>
+    </junction>
+    <junction id="258060296" type="dead_end" x="18377.37" y="42272.09" incLanes="124262128_0 967048310_0" intLanes="" shape="18378.57,42273.57 18378.24,42270.39 18376.38,42270.46 18376.28,42273.66">
+        <param key="railway" value="switch"/>
+    </junction>
+    <junction id="258060309" type="priority" x="17757.99" y="42494.51" incLanes="23814209#0_0" intLanes=":258060309_0_0 :258060309_1_0" shape="17787.26,42486.27 17786.29,42483.20 17784.93,42480.27 17755.98,42493.50 17757.00,42496.53">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
+        <param key="railway" value="switch"/>
+    </junction>
+    <junction id="2637572390" type="dead_end" x="9704.94" y="47646.88" incLanes="44603574#1_0" intLanes="" shape="9705.80,47648.23 9704.08,47645.53"/>
+    <junction id="2990793443" type="priority" x="16691.19" y="43099.58" incLanes="469983238_0" intLanes=":2990793443_0_0 :2990793443_1_0" shape="16693.31,43100.12 16691.58,43097.43 16689.02,43099.02 16690.80,43101.75">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
+        <param key="railway" value="switch"/>
+    </junction>
+    <junction id="2990793444" type="priority" x="16578.83" y="43167.81" incLanes="295371906_0 258393890#1_0" intLanes=":2990793444_0_0" shape="16581.00,43168.36 16579.22,43165.64 16576.71,43167.28 16578.46,43169.96">
+        <request index="0" response="0" foes="0" cont="0"/>
+        <param key="railway" value="switch"/>
+    </junction>
+    <junction id="3056364317" type="dead_end" x="14405.71" y="44581.70" incLanes="" intLanes="" shape="14406.58,44583.04 14404.84,44580.36">
+        <param key="description" value="KS-Hauptsignal in südöstlicher Richtung"/>
+        <param key="note" value="Die Signalbezeichnung laut Schild vor Ort lautet tatsächlich &quot;7430&quot; und nicht &quot;74 30&quot;"/>
+        <param key="railway" value="signal"/>
+        <param key="railway:signal:direction" value="forward"/>
+        <param key="railway:signal:main" value="DE-ESO:ks"/>
+        <param key="railway:signal:main:form" value="light"/>
+        <param key="railway:signal:main:function" value="block"/>
+        <param key="railway:signal:main:height" value="normal"/>
+        <param key="railway:signal:main:states" value="DE-ESO:hp0;DE-ESO:ks1"/>
+        <param key="railway:signal:position" value="right"/>
+        <param key="ref" value="7430"/>
+        <param key="source" value="bing; estimation; survey"/>
+    </junction>
+    <junction id="3056403712" type="dead_end" x="20239.44" y="41407.52" incLanes="25610924#1_0" intLanes="" shape="20238.77,41406.07 20240.11,41408.97">
+        <param key="description" value="KS-Mehrabschnittssignal südöstlicher Richtung"/>
+        <param key="note" value="Die Signalbezeichnung laut Schild vor Ort lautet tatsächlich &quot;7420&quot; und nicht &quot;74 20&quot;"/>
+        <param key="railway" value="signal"/>
+        <param key="railway:signal:combined" value="DE-ESO:ks"/>
+        <param key="railway:signal:combined:form" value="light"/>
+        <param key="railway:signal:combined:function" value="block"/>
+        <param key="railway:signal:combined:height" value="normal"/>
+        <param key="railway:signal:combined:states" value="DE-ESO:hp0;DE-ESO:ks1;DE-ESO:ks2"/>
+        <param key="railway:signal:direction" value="forward"/>
+        <param key="railway:signal:position" value="right"/>
+        <param key="ref" value="7420"/>
+        <param key="source" value="bing; estimation; survey"/>
+    </junction>
+    <junction id="3056403714" type="rail_signal" x="19127.72" y="41914.82" incLanes="25610924#0_0" intLanes=":3056403714_0_0" shape="19128.50,41916.22 19127.19,41913.30 19126.96,41913.40 19128.22,41916.35">
+        <request index="0" response="0" foes="0" cont="0"/>
+        <param key="description" value="KS-Mehrabschnittssignal südöstlicher Richtung"/>
+        <param key="note" value="Die Signalbezeichnung laut Schild vor Ort lautet tatsächlich &quot;7422&quot; und nicht &quot;74 22&quot;"/>
+        <param key="railway" value="signal"/>
+        <param key="railway:signal:combined" value="DE-ESO:ks"/>
+        <param key="railway:signal:combined:form" value="light"/>
+        <param key="railway:signal:combined:function" value="block"/>
+        <param key="railway:signal:combined:height" value="normal"/>
+        <param key="railway:signal:combined:states" value="DE-ESO:hp0;DE-ESO:ks1;DE-ESO:ks2"/>
+        <param key="railway:signal:direction" value="forward"/>
+        <param key="railway:signal:position" value="right"/>
+        <param key="ref" value="7422"/>
+        <param key="source" value="bing; estimation; survey"/>
+    </junction>
+    <junction id="3269669673" type="priority" x="17885.53" y="42583.37" incLanes="124262124_0" intLanes=":3269669673_0_0" shape="17886.03,42584.89 17885.03,42581.85 17886.03,42584.89 17885.03,42581.85" fringe="inner">
+        <request index="0" response="0" foes="0" cont="0"/>
+        <param key="buffer_stop" value="true"/>
+        <param key="railway" value="buffer_stop"/>
+    </junction>
+    <junction id="3692318838" type="priority" x="18831.67" y="41139.46" incLanes="365185118#0_0" intLanes=":3692318838_0_0 :3692318838_1_0" shape="18833.86,41140.06 18832.29,41137.28 18805.40,41148.08 18806.57,41151.06 18806.65,41151.22 18808.18,41154.03">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
+        <param key="railway" value="switch"/>
+    </junction>
+    <junction id="3692318843" type="priority" x="18671.87" y="41217.10" incLanes="-405704951_0" intLanes=":3692318843_0_0" shape="18671.29,41215.61 18672.45,41218.59 18671.29,41215.61 18672.45,41218.59" fringe="inner">
+        <request index="0" response="0" foes="0" cont="0"/>
+        <param key="buffer_stop" value="true"/>
+        <param key="railway" value="buffer_stop"/>
+    </junction>
+    <junction id="3692318844" type="priority" x="18904.02" y="41098.72" incLanes="-365185118#0_0" intLanes=":3692318844_0_0" shape="18903.23,41097.33 18904.81,41100.11 18903.23,41097.33 18904.81,41100.11" fringe="inner">
+        <request index="0" response="0" foes="0" cont="0"/>
+        <param key="buffer_stop" value="true"/>
+        <param key="railway" value="buffer_stop"/>
+    </junction>
+    <junction id="4078624344" type="priority" x="18511.56" y="41285.94" incLanes="405704940_0 365185118#1_0" intLanes=":4078624344_0_0 :4078624344_1_0" shape="18543.88,41278.90 18543.05,41275.81 18543.00,41275.66 18541.86,41272.67 18509.62,41284.77 18510.39,41287.88">
+        <request index="0" response="00" foes="10" cont="0"/>
+        <request index="1" response="01" foes="01" cont="0"/>
+        <param key="railway" value="switch"/>
+    </junction>
+    <junction id="4078624345" type="priority" x="18460.26" y="41298.65" incLanes="365185118#2_0 365185120_0" intLanes=":4078624345_0_0" shape="18462.46,41299.75 18461.26,41296.56 18458.45,41297.62 18459.58,41300.62">
+        <request index="0" response="0" foes="0" cont="0"/>
+        <param key="railway" value="switch"/>
+    </junction>
+    <junction id="4078624347" type="priority" x="18667.44" y="42115.42" incLanes="469983240_0 405704943_0" intLanes=":4078624347_0_0 :4078624347_1_0" shape="18669.46,42116.26 18668.13,42113.35 18665.40,42114.65 18666.71,42117.51">
+        <request index="0" response="00" foes="10" cont="0"/>
+        <request index="1" response="01" foes="01" cont="0"/>
+        <param key="railway" value="switch"/>
+    </junction>
+    <junction id="566319135" type="dead_end" x="24641.51" y="39367.56" incLanes="" intLanes="" shape="24640.84,39366.11 24642.18,39369.01">
+        <param key="railway" value="switch"/>
+        <param key="railway:switch" value="default"/>
+        <param key="railway:switch:electric" value="yes"/>
+        <param key="railway:turnout_side" value="left"/>
+        <param key="ref" value="73 W20"/>
+    </junction>
+    <junction id="566337733" type="priority" x="18321.22" y="42285.65" incLanes="124262107#1_0" intLanes=":566337733_0_0 :566337733_1_0" shape="18323.31,42286.44 18321.96,42283.54 18269.38,42308.73 18270.76,42311.61 18272.35,42314.49">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
+        <param key="railway" value="switch"/>
+    </junction>
+    <junction id="566337751" type="priority" x="18536.82" y="42180.09" incLanes="124254501_0" intLanes=":566337751_0_0" shape="18538.89,42180.90 18537.45,42177.99 18534.79,42179.27 18536.14,42182.17">
+        <request index="0" response="0" foes="0" cont="0"/>
+        <param key="railway" value="switch"/>
+    </junction>
+
+    <connection from="-124262109#0" to="124262109#0" fromLane="0" toLane="0" speed="0.10" via=":1383487001_0_0" dir="t" state="M"/>
+    <connection from="-124262115" to="124262125#1" fromLane="0" toLane="0" via=":1383487342_2_0" dir="r" state="M"/>
+    <connection from="-124262120" to="124262107#1" fromLane="0" toLane="0" keepClear="0" via=":1383487041_0_0" dir="s" state="M"/>
+    <connection from="-124262124" to="124262109#2" fromLane="0" toLane="0" via=":1383487095_2_0" dir="r" state="M"/>
+    <connection from="-124264571" to="23814209#2" fromLane="0" toLane="0" keepClear="0" via=":1383506147_0_0" dir="s" state="M"/>
+    <connection from="-365185118#0" to="365185118#0" fromLane="0" toLane="0" speed="0.10" via=":3692318844_0_0" dir="t" state="M"/>
+    <connection from="-405704951" to="405704951" fromLane="0" toLane="0" speed="0.10" via=":3692318843_0_0" dir="t" state="M"/>
+    <connection from="-458067265" to="124262109#4" fromLane="0" toLane="0" via=":1383487122_2_0" dir="l" state="M"/>
+    <connection from="-458067266" to="124262109#5" fromLane="0" toLane="0" via=":1383487144_2_0" dir="l" state="M"/>
+    <connection from="-458067267" to="124262127" fromLane="0" toLane="0" via=":1383487144_3_0" dir="r" state="M"/>
+    <connection from="124254501" to="469983241" fromLane="0" toLane="0" via=":566337751_0_0" dir="s" state="M"/>
+    <connection from="124262105" to="-458067265" fromLane="0" toLane="0" speed="0.10" via=":1383487286_0_0" dir="t" state="M"/>
+    <connection from="124262106#1" to="124262106#2" fromLane="0" toLane="0" via=":1383487378_0_0" dir="s" state="M"/>
+    <connection from="124262106#2" to="124263606#0" fromLane="0" toLane="0" via=":1383487387_0_0" dir="s" state="M"/>
+    <connection from="124262106#2" to="124262106#3" fromLane="0" toLane="0" via=":1383487387_1_0" dir="s" state="M"/>
+    <connection from="124262106#3" to="469983238" fromLane="0" toLane="0" via=":1383487393_0_0" dir="s" state="M"/>
+    <connection from="124262107#0" to="124262107#1" fromLane="0" toLane="0" keepClear="0" via=":1383487041_1_0" dir="s" state="M"/>
+    <connection from="124262107#1" to="124262119" fromLane="0" toLane="0" via=":566337733_0_0" dir="s" state="M"/>
+    <connection from="124262107#1" to="124262107#2" fromLane="0" toLane="0" via=":566337733_1_0" dir="s" state="M"/>
+    <connection from="124262107#2" to="458067262" fromLane="0" toLane="0" via=":1383487192_0_0" dir="s" state="M"/>
+    <connection from="124262107#2" to="469983242" fromLane="0" toLane="0" via=":1383487192_1_0" dir="s" state="M"/>
+    <connection from="124262109#0" to="124262128" fromLane="0" toLane="0" via=":1383487016_0_0" dir="s" state="M"/>
+    <connection from="124262109#0" to="124262109#1" fromLane="0" toLane="0" via=":1383487016_1_0" dir="s" state="M"/>
+    <connection from="124262109#1" to="124262124" fromLane="0" toLane="0" via=":1383487095_0_0" dir="s" state="M"/>
+    <connection from="124262109#1" to="124262109#2" fromLane="0" toLane="0" via=":1383487095_1_0" dir="s" state="M"/>
+    <connection from="124262109#2" to="124262109#3" fromLane="0" toLane="0" via=":1383487116_0_0" dir="s" state="M"/>
+    <connection from="124262109#3" to="124262109#4" fromLane="0" toLane="0" via=":1383487122_0_0" dir="s" state="M"/>
+    <connection from="124262109#3" to="124262105" fromLane="0" toLane="0" via=":1383487122_1_0" dir="s" state="M"/>
+    <connection from="124262109#4" to="124262109#5" fromLane="0" toLane="0" via=":1383487144_0_0" dir="s" state="M"/>
+    <connection from="124262109#4" to="124262127" fromLane="0" toLane="0" via=":1383487144_1_0" dir="s" state="M"/>
+    <connection from="124262109#5" to="-458067267" fromLane="0" toLane="0" speed="0.10" via=":1383487280_0_0" dir="t" state="M"/>
+    <connection from="124262112" to="124262106#1" fromLane="0" toLane="0" via=":1383487338_1_0" dir="s" state="M"/>
+    <connection from="124262115" to="-124262115" fromLane="0" toLane="0" speed="0.10" via=":1383487368_0_0" dir="t" state="M"/>
+    <connection from="124262120" to="-124262120" fromLane="0" toLane="0" speed="0.10" via=":1383487026_0_0" dir="t" state="M"/>
+    <connection from="124262121" to="44603575#1" fromLane="0" toLane="0" via=":1383487364_1_0" dir="s" state="M"/>
+    <connection from="124262122" to="124262116" fromLane="0" toLane="0" via=":1383487147_0_0" dir="s" state="M"/>
+    <connection from="124262123" to="469983240" fromLane="0" toLane="0" via=":1383487142_1_0" dir="s" state="M"/>
+    <connection from="124262124" to="-124262124" fromLane="0" toLane="0" speed="0.10" via=":3269669673_0_0" dir="t" state="M"/>
+    <connection from="124262125#0" to="124262115" fromLane="0" toLane="0" via=":1383487342_0_0" dir="s" state="M"/>
+    <connection from="124262125#0" to="124262125#1" fromLane="0" toLane="0" via=":1383487342_1_0" dir="s" state="M"/>
+    <connection from="124262126#0" to="124262126#1" fromLane="0" toLane="0" via=":1383487189_0_0" dir="s" state="M"/>
+    <connection from="124262126#1" to="469983245" fromLane="0" toLane="0" via=":1383487194_0_0" dir="s" state="M"/>
+    <connection from="124262127" to="-458067266" fromLane="0" toLane="0" speed="0.10" via=":1383487287_0_0" dir="t" state="M"/>
+    <connection from="124263606#0" to="124263605" fromLane="0" toLane="0" via=":1383499632_0_0" dir="s" state="M"/>
+    <connection from="124263606#0" to="124263606#1" fromLane="0" toLane="0" via=":1383499632_1_0" dir="s" state="M"/>
+    <connection from="124264570" to="23814209#3" fromLane="0" toLane="0" via=":1383506146_1_0" dir="s" state="M"/>
+    <connection from="124264571" to="-124264571" fromLane="0" toLane="0" speed="0.10" via=":1383506183_0_0" dir="t" state="M"/>
+    <connection from="23814154#1" to="-405704951" fromLane="0" toLane="0" via=":258059584_1_0" dir="s" state="M"/>
+    <connection from="23814209#0" to="23814209#1" fromLane="0" toLane="0" via=":258060309_0_0" dir="R" state="M"/>
+    <connection from="23814209#0" to="124264570" fromLane="0" toLane="0" via=":258060309_1_0" dir="s" state="M"/>
+    <connection from="23814209#1" to="23814209#2" fromLane="0" toLane="0" keepClear="0" via=":1383506147_1_0" dir="s" state="M"/>
+    <connection from="23814209#2" to="23814209#3" fromLane="0" toLane="0" via=":1383506146_0_0" dir="s" state="M"/>
+    <connection from="23814209#3" to="365185120" fromLane="0" toLane="0" via=":258058797_0_0" dir="s" state="M"/>
+    <connection from="23814209#3" to="967048310" fromLane="0" toLane="0" via=":258058797_1_0" dir="s" state="M"/>
+    <connection from="25610924#0" to="25610924#1" fromLane="0" toLane="0" via=":3056403714_0_0" tl="3056403714" linkIndex="0" dir="s" state="O"/>
+    <connection from="25776793" to="469983240" fromLane="0" toLane="0" via=":1383487142_0_0" dir="s" state="M"/>
+    <connection from="258393890#1" to="258393890#2" fromLane="0" toLane="0" via=":2990793444_0_0" dir="s" state="M"/>
+    <connection from="258393890#2" to="25776793" fromLane="0" toLane="0" via=":1383487386_0_0" dir="s" state="M"/>
+    <connection from="365185118#0" to="405704940" fromLane="0" toLane="0" via=":3692318838_0_0" dir="s" state="M"/>
+    <connection from="365185118#0" to="365185118#1" fromLane="0" toLane="0" via=":3692318838_1_0" dir="L" state="M"/>
+    <connection from="365185118#1" to="365185118#2" fromLane="0" toLane="0" via=":4078624344_1_0" dir="s" state="M"/>
+    <connection from="365185120" to="23814154#1" fromLane="0" toLane="0" via=":4078624345_0_0" dir="s" state="M"/>
+    <connection from="405704940" to="365185118#2" fromLane="0" toLane="0" via=":4078624344_0_0" dir="s" state="M"/>
+    <connection from="405704943" to="25610924#0" fromLane="0" toLane="0" via=":4078624347_1_0" dir="s" state="M"/>
+    <connection from="405704951" to="-405704951" fromLane="0" toLane="0" speed="0.10" via=":258059584_0_0" dir="t" state="M"/>
+    <connection from="44603575#1" to="469983238" fromLane="0" toLane="0" via=":1383487393_1_0" dir="s" state="M"/>
+    <connection from="458067259" to="124262121" fromLane="0" toLane="0" via=":1383487311_0_0" dir="s" state="M"/>
+    <connection from="458067259" to="124262125#0" fromLane="0" toLane="0" via=":1383487311_1_0" dir="s" state="M"/>
+    <connection from="458067262" to="124262106#1" fromLane="0" toLane="0" via=":1383487338_0_0" dir="s" state="M"/>
+    <connection from="469983238" to="44603574#1" fromLane="0" toLane="0" via=":2990793443_0_0" dir="s" state="M"/>
+    <connection from="469983238" to="295371906" fromLane="0" toLane="0" via=":2990793443_1_0" dir="s" state="M"/>
+    <connection from="469983240" to="25610924#0" fromLane="0" toLane="0" via=":4078624347_0_0" dir="s" state="M"/>
+    <connection from="469983241" to="124262107#0" fromLane="0" toLane="0" via=":1383487022_0_0" dir="s" state="M"/>
+    <connection from="469983241" to="469983246" fromLane="0" toLane="0" via=":1383487022_1_0" dir="s" state="M"/>
+    <connection from="469983242" to="124262112" fromLane="0" toLane="0" via=":1383487304_0_0" dir="s" state="M"/>
+    <connection from="469983243" to="44603575#1" fromLane="0" toLane="0" via=":1383487364_0_0" dir="s" state="M"/>
+    <connection from="469983245" to="458067259" fromLane="0" toLane="0" via=":1383487200_0_0" dir="s" state="M"/>
+    <connection from="469983246" to="469983243" fromLane="0" toLane="0" via=":1383487149_0_0" dir="s" state="M"/>
+    <connection from="469983246" to="124262126#0" fromLane="0" toLane="0" via=":1383487149_1_0" dir="s" state="M"/>
+
+    <connection from=":1383487001_0" to="124262109#0" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":1383487016_0" to="124262128" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":1383487016_1" to="124262109#1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":1383487022_0" to="124262107#0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":1383487022_1" to="469983246" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":1383487026_0" to="-124262120" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":1383487041_0" to="124262107#1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":1383487041_1" to="124262107#1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":1383487095_0" to="124262124" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":1383487095_1" to="124262109#2" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":1383487095_2" to="124262109#2" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":1383487116_0" to="124262109#3" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":1383487122_0" to="124262109#4" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":1383487122_1" to="124262105" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":1383487122_2" to="124262109#4" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":1383487142_0" to="469983240" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":1383487142_1" to="469983240" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":1383487144_0" to="124262109#5" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":1383487144_1" to="124262127" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":1383487144_2" to="124262109#5" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":1383487144_3" to="124262127" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":1383487147_0" to="124262116" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":1383487149_0" to="469983243" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":1383487149_1" to="124262126#0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":1383487189_0" to="124262126#1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":1383487192_0" to="458067262" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":1383487192_1" to="469983242" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":1383487194_0" to="469983245" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":1383487200_0" to="458067259" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":1383487280_0" to="-458067267" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":1383487286_0" to="-458067265" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":1383487287_0" to="-458067266" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":1383487304_0" to="124262112" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":1383487311_0" to="124262121" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":1383487311_1" to="124262125#0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":1383487338_0" to="124262106#1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":1383487338_1" to="124262106#1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":1383487342_0" to="124262115" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":1383487342_1" to="124262125#1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":1383487342_2" to="124262125#1" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":1383487364_0" to="44603575#1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":1383487364_1" to="44603575#1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":1383487368_0" to="-124262115" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":1383487378_0" to="124262106#2" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":1383487386_0" to="25776793" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":1383487387_0" to="124263606#0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":1383487387_1" to="124262106#3" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":1383487393_0" to="469983238" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":1383487393_1" to="469983238" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":1383499632_0" to="124263605" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":1383499632_1" to="124263606#1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":1383506146_0" to="23814209#3" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":1383506146_1" to="23814209#3" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":1383506147_0" to="23814209#2" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":1383506147_1" to="23814209#2" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":1383506183_0" to="-124264571" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":258058797_0" to="365185120" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":258058797_1" to="967048310" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":258059584_0" to="-405704951" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":258059584_1" to="-405704951" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":258060309_0" to="23814209#1" fromLane="0" toLane="0" dir="R" state="M"/>
+    <connection from=":258060309_1" to="124264570" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":2990793443_0" to="44603574#1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":2990793443_1" to="295371906" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":2990793444_0" to="258393890#2" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":3056403714_0" to="25610924#1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":3269669673_0" to="-124262124" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":3692318838_0" to="405704940" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":3692318838_1" to="365185118#1" fromLane="0" toLane="0" dir="L" state="M"/>
+    <connection from=":3692318843_0" to="405704951" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":3692318844_0" to="365185118#0" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":4078624344_0" to="365185118#2" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":4078624344_1" to="365185118#2" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":4078624345_0" to="23814154#1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":4078624347_0" to="25610924#0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":4078624347_1" to="25610924#0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":566337733_0" to="124262119" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":566337733_1" to="124262107#2" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":566337751_0" to="469983241" fromLane="0" toLane="0" dir="s" state="M"/>
+
+
+</net>

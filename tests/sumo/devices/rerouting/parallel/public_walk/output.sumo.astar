@@ -1,14 +1,14 @@
 Loading net-file from 'net.net.xml' ... done (1ms).
-Loading additional-files from 'input_additional.add.xml' ... done (1ms).
+Loading additional-files from 'input_additional.add.xml' ... done (0ms).
 Loading done.
-Simulation version v1_7_0+0397-908637ec7d1 started with time: 0.00
+Simulation version v1_15_0+1661-3c6ae1ddde2 started with time: 0.00.
 Simulation ended at time: 1403.00
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 0.01s
- Real time factor: 116917
- UPS: 70000.000000
- UPS-Persons: 255083.333333
+ Duration: 0.02s
+ Real time factor: 93533.3
+ UPS: 56000.000000
+ UPS-Persons: 204066.666667
 Vehicles: 
  Inserted: 4
  Running: 0
@@ -19,5 +19,5 @@ Persons:
 
 AStarRouter answered 12 queries and explored 2.33 edges on average.
 AStarRouter spent 0.00s answering queries (0.00ms on average).
-AStarRouter answered 3 queries and explored 20.00 edges on average.
+AStarRouter answered 3 queries and explored 20.67 edges on average.
 AStarRouter spent 0.00s answering queries (0.00ms on average).

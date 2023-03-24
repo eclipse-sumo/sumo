@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2002-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -102,7 +102,7 @@ GenericSAXHandler::startElement(const XMLCh* const /*uri*/,
                                 const XERCES_CPP_NAMESPACE::Attributes& attrs) {
     std::string name = StringUtils::transcode(qname);
     if (!myRootSeen && myExpectedRoot != "" && name != myExpectedRoot) {
-        WRITE_WARNING("Found root element '" + name + "' in file '" + getFileName() + "' (expected '" + myExpectedRoot + "').");
+        WRITE_WARNINGF(TL("Found root element '%' in file '%' (expected '%')."), name, getFileName(), myExpectedRoot);
     }
     myRootSeen = true;
     myCharactersVector.clear();
@@ -206,8 +206,8 @@ GenericSAXHandler::buildErrorMessage(const XERCES_CPP_NAMESPACE::SAXParseExcepti
     std::ostringstream buf;
     char* pMsg = XERCES_CPP_NAMESPACE::XMLString::transcode(exception.getMessage());
     buf << pMsg << std::endl;
-    buf << " In file '" << getFileName() << "'" << std::endl;
-    buf << " At line/column " << exception.getLineNumber() + 1
+    buf << TL(" In file '") << getFileName() << "'" << std::endl;
+    buf << TL(" At line/column ") << exception.getLineNumber() + 1
         << '/' << exception.getColumnNumber() << "." << std::endl;
     XERCES_CPP_NAMESPACE::XMLString::release(&pMsg);
     return buf.str();

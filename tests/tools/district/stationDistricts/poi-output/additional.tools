@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-03-10 15:36:05.455391 by stationDistricts.py v1_16_0+1154-eb73212805b
+<configuration>
+    <net-file value="input_net.net.xml"/>
+    <output value="dummy.xml"/>
+    <poi-output value="out.add.xml"/>
+    <stop-file value="input_additional.add.xml"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <poi id="0" name="Bestensee" x="3767.105366179896" y="67.10757405819052"/>
+    <poi id="1" name="Eichwalde" x="2698.3544057888653" y="14514.953185563072"/>
+    <poi id="2" name="Königs Wusterhausen" x="3633.66337150578" y="6197.534242588531"/>
+    <poi id="3" name="Niederlehme" x="5053.432275245856" y="6778.651469777848"/>
+    <poi id="4" name="Wildau" x="3835.6450000000004" y="8710.2575"/>
+    <poi id="5" name="Zeesen" x="3815.476227376295" y="2674.439822050298"/>
+    <poi id="6" name="Zeuthen" x="3472.297165084128" y="11986.18731821669"/>

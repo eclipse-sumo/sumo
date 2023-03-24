@@ -1,0 +1,6 @@
+
+[Reported by Windows at 06Okt11:21:39]
+search_string:net
+search_file:net
+full_description:invalid yield for right turn
+brief_description:see #11737

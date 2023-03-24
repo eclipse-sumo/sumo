@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -260,6 +260,13 @@ public:
         return myParameter.width;
     }
 
+    /** @brief Get the width of the passenger compartment when being drawn
+     * @return The seating space width of this type's vehicles
+     */
+    double getSeatingWidth() const {
+        return myParameter.seatingWidth >= 0 ? myParameter.seatingWidth : myParameter.width;
+    }
+
     /** @brief Get the height which vehicles of this class shall have when being drawn
      * @return The height of this type's vehicles
      */
@@ -312,6 +319,14 @@ public:
     SUMOTime getLoadingDuration(const bool isPerson) const {
         return isPerson ? myParameter.boardingDuration : myParameter.loadingDuration;
     }
+
+    /** @brief Get this vehicle type's boarding duration
+     * @return The time a container / person needs to get loaded on a vehicle of this type
+     */
+    SUMOTime getBoardingDuration(const bool isPerson) const {
+        return isPerson ? myParameter.boardingDuration : myParameter.loadingDuration;
+    }
+
 
     /** @brief Get vehicle's maximum lateral speed [m/s].
      * @return The maximum lateral speed (in m/s) of vehicles of this class

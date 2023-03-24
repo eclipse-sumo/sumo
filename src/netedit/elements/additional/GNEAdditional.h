@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -45,7 +45,7 @@ class GUIGLObjectPopupMenu;
  * @class GNEAdditional
  * @brief An Element which don't belong to GNENet but has influence in the simulation
  */
-class GNEAdditional : public GUIGlObject, public GNEHierarchicalElement, public GNEMoveElement, public GNEPathManager::PathElement {
+class GNEAdditional : public GNEPathManager::PathElement, public GNEHierarchicalElement, public GNEMoveElement {
 
 public:
     /**@brief Constructor
@@ -62,7 +62,7 @@ public:
      * @param[in] genericDataParents vector of generic data parents
      * @param[in] parameters generic parameters
      */
-    GNEAdditional(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon *icon, std::string additionalName,
+    GNEAdditional(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon, std::string additionalName,
                   const std::vector<GNEJunction*>& junctionParents,
                   const std::vector<GNEEdge*>& edgeParents,
                   const std::vector<GNELane*>& laneParents,
@@ -83,7 +83,7 @@ public:
      * @param[in] genericDataParents vector of generic data parents
      * @param[in] parameters generic parameters
      */
-    GNEAdditional(GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon *icon, std::string additionalName,
+    GNEAdditional(GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon, std::string additionalName,
                   const std::vector<GNEJunction*>& junctionParents,
                   const std::vector<GNEEdge*>& edgeParents,
                   const std::vector<GNELane*>& laneParents,
@@ -105,6 +105,9 @@ public:
     /// @brief get GUIGlObject associated with this AttributeCarrier
     GUIGlObject* getGUIGlObject();
 
+    /// @brief Returns the name of the object (default "")
+    virtual const std::string getOptionalName() const;
+
     /// @brief obtain additional geometry
     const GUIGeometry& getAdditionalGeometry() const;
 
@@ -113,20 +116,25 @@ public:
 
     /// @name members and functions relative to write additionals into XML
     /// @{
+
     /**@brief write additional element into a xml file
      * @param[in] device device in which write parameters of additional element
      */
     virtual void writeAdditional(OutputDevice& device) const = 0;
 
     /// @brief check if current additional is valid to be written into XML (by default true, can be reimplemented in children)
-    virtual bool isAdditionalValid() const;
+    virtual bool isAdditionalValid() const = 0;
 
     /// @brief return a string with the current additional problem (by default empty, can be reimplemented in children)
-    virtual std::string getAdditionalProblem() const;
+    virtual std::string getAdditionalProblem() const = 0;
 
     /// @brief fix additional problem (by default throw an exception, has to be reimplemented in children)
-    virtual void fixAdditionalProblem();
+    virtual void fixAdditionalProblem() = 0;
+
     /// @}
+
+    /// @name functions related with geometry
+    /// @{
 
     /**@brief open Additional Dialog
      * @note: if additional needs an additional dialog, this function has to be implemented in childrens (see GNERerouter and GNEVariableSpeedSign)
@@ -151,6 +159,7 @@ public:
 
     /// @brief split geometry
     virtual void splitEdgeGeometry(const double splitPosition, const GNENetworkElement* originalElement, const GNENetworkElement* newElement, GNEUndoList* undoList) = 0;
+    
     /// @}
 
     /// @name inherited from GUIGlObject
@@ -188,10 +197,10 @@ public:
 
     /// @brief mark element as front element
     void markAsFrontElement();
-    
+
     /// @brief delete element
     void deleteGLObject();
-    
+
     /// @brief select element
     void selectGLObject();
 
@@ -205,6 +214,9 @@ public:
 
     /// @brief compute pathElement
     virtual void computePathElement();
+
+    /// @brief check if path element is selected
+    bool isPathElementSelected() const;
 
     /**@brief Draws partial object (lane)
      * @param[in] s The settings for the current view (may influence drawing)
@@ -243,6 +255,7 @@ public:
 
     /// @name inherited from GNEAttributeCarrier
     /// @{
+
     /* @brief method for getting the Attribute of an XML key
      * @param[in] key The attribute key
      * @return string with the value associated to key
@@ -283,6 +296,7 @@ public:
 
     /// @brief get Hierarchy Name (Used in AC Hierarchy)
     virtual std::string getHierarchyName() const = 0;
+    
     /// @}
 
     /// @brief draw parent and child lines

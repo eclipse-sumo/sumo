@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -35,35 +35,29 @@ netedit.additionalMode()
 netedit.changeElement("routeProbe")
 
 # create routeProbe
-netedit.leftClick(referencePosition, 250, 120)
-
-# recompute (needed for vertical position)
-netedit.rebuildNetwork()
+netedit.leftClick(referencePosition, 315, 253)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first routeProbe
-netedit.leftClick(referencePosition, 325, 223)
+netedit.leftClick(referencePosition, 494, 272)
 
 # Change parameter 2 with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.routeProbe.inspect.frequency, "dummy", True)
+netedit.modifyAttribute(netedit.attrs.routeProbe.inspect.frequency, "dummy", False)
 
 # Change parameter 2 with a non valid value (negative)
-netedit.modifyAttribute(netedit.attrs.routeProbe.inspect.frequency, "-50", True)
+netedit.modifyAttribute(netedit.attrs.routeProbe.inspect.frequency, "-50", False)
 
 # Change parameter 2 with a valid value
-netedit.modifyAttribute(netedit.attrs.routeProbe.inspect.frequency, "150", True)
+netedit.modifyAttribute(netedit.attrs.routeProbe.inspect.frequency, "150", False)
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)
 netedit.redo(referencePosition, 2)
 
-# save additionals
-netedit.saveAdditionals(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

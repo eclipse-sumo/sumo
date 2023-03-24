@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-02-24 13:47:29 by Eclipse SUMO netconvert Version v1_16_0+0682-d972c03
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_nodes.nod.xml"/>
+        <edge-files value="input_edges.edg.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output-file value="net.net.xml"/>
+    </output>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="0.00,0.00,100.00,0.00" origBoundary="0.00,0.00,100.00,0.00" projParameter="!"/>
+
+    <edge id="1" from="0" to="1" priority="-1">
+        <lane id="1_0" index="0" speed="13.89" length="100.00" shape="0.00,-8.00 100.00,-8.00"/>
+        <lane id="1_1" index="1" speed="13.89" length="100.00" shape="0.00,-4.80 100.00,-4.80"/>
+        <lane id="1_2" index="2" speed="13.89" length="100.00" shape="0.00,-1.60 100.00,-1.60"/>
+    </edge>
+
+    <junction id="0" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,0.00 0.00,-9.60"/>
+    <junction id="1" type="dead_end" x="100.00" y="0.00" incLanes="1_0 1_1 1_2" intLanes="" shape="100.00,-9.60 100.00,0.00"/>
+
+</net>

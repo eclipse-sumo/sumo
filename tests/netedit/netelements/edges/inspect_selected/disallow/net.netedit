@@ -1,62 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-04-21 13:40:01 by Eclipse SUMO netedit Version v1_12_0+2217-2ed7c9aad7e
+<!-- generated on 2023-01-26 15:29:30 by Eclipse SUMO netedit Version v1_15_0+1986-45defa09f05
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.21Apr123613.3341/netedit.daily.net.edges/netelements/edges/inspect_selected/disallow/input_net.net.xml"/>
+        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_26Jan143216.1724\netedit.gui\netelements\edges\inspect_selected\disallow\additionals.add.xml"/>
+        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_26Jan143216.1724\netedit.gui\netelements\edges\inspect_selected\disallow\routes.rou.xml"/>
+        <data-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_26Jan143216.1724\netedit.gui\netelements\edges\inspect_selected\disallow\datas.dat.xml"/>
+        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_26Jan143216.1724\netedit.gui\netelements\edges\inspect_selected\disallow\net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.21Apr123613.3341/netedit.daily.net.edges/netelements/edges/inspect_selected/disallow/net.net.xml"/>
+        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_26Jan143216.1724\netedit.gui\netelements\edges\inspect_selected\disallow\net.net.xml"/>
     </output>
 
     <processing>
         <geometry.min-radius.fix.railways value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
-        <lefthand value="false"/>
+        <lefthand value="0"/>
     </processing>
 
     <junctions>
         <no-turnarounds value="true"/>
         <junctions.corner-detail value="5"/>
-        <junctions.limit-turn-speed value="5.5"/>
-        <rectangular-lane-cut value="false"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
     </junctions>
 
     <pedestrian>
-        <walkingareas value="false"/>
+        <walkingareas value="0"/>
     </pedestrian>
 
-    <netedit>
-        <additional-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.21Apr123613.3341/netedit.daily.net.edges/netelements/edges/inspect_selected/disallow/additionals.xml"/>
-        <additionals-output value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.21Apr123613.3341/netedit.daily.net.edges/netelements/edges/inspect_selected/disallow/additionals.xml"/>
-        <route-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.21Apr123613.3341/netedit.daily.net.edges/netelements/edges/inspect_selected/disallow/routes.xml"/>
-        <demandelements-output value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.21Apr123613.3341/netedit.daily.net.edges/netelements/edges/inspect_selected/disallow/routes.xml"/>
-        <data-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.21Apr123613.3341/netedit.daily.net.edges/netelements/edges/inspect_selected/disallow/datas.xml"/>
-        <dataelements-output value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.21Apr123613.3341/netedit.daily.net.edges/netelements/edges/inspect_selected/disallow/datas.xml"/>
-    </netedit>
-
     <visualisation>
-        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.21Apr123613.3341/netedit.daily.net.edges/netelements/edges/inspect_selected/disallow/gui-settings.xml"/>
-        <window-size value="936,697"/>
+        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_26Jan143216.1724\netedit.gui\netelements\edges\inspect_selected\disallow\gui-settings.xml"/>
+        <window-size value="936, 697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
-        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.21Apr123613.3341/netedit.daily.net.edges/netelements/edges/inspect_selected/disallow/guisettingsoutput.xml"/>
+        <gui-testing-debug-gl value="true"/>
+        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_26Jan143216.1724\netedit.gui\netelements\edges\inspect_selected\disallow\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <aggregate-warnings value="5"/>
-        <error-log value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.21Apr123613.3341/netedit.daily.net.edges/netelements/edges/inspect_selected/disallow/log.txt"/>
+        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_26Jan143216.1724\netedit.gui\netelements\edges\inspect_selected\disallow\log.txt"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.9" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="25.00,0.00" convBoundary="0.00,0.00,50.00,20.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -163,9 +157,9 @@
     <connection from="gneE1" to="gneE9" fromLane="0" toLane="0" via=":gneJ0_1_0" dir="r" state="M"/>
     <connection from="gneE1" to="gneE0" fromLane="0" toLane="0" via=":gneJ0_2_0" dir="t" state="m"/>
     <connection from="gneE2" to="gneE4" fromLane="0" toLane="0" keepClear="0" via=":gneJ3_2_0" dir="r" state="M"/>
-    <connection from="gneE2" to="gneE3" fromLane="1" toLane="1" via=":gneJ3_3_0" dir="t" state="m"/>
+    <connection from="gneE2" to="gneE3" fromLane="1" toLane="1" via=":gneJ3_3_0" dir="s" state="m"/>
     <connection from="gneE3" to="gneE8" fromLane="0" toLane="0" via=":gneJ2_0_0" dir="l" state="M"/>
-    <connection from="gneE3" to="gneE2" fromLane="1" toLane="1" via=":gneJ2_1_0" dir="t" state="m"/>
+    <connection from="gneE3" to="gneE2" fromLane="1" toLane="1" via=":gneJ2_1_0" dir="s" state="m"/>
     <connection from="gneE4" to="gneE1" fromLane="0" toLane="0" keepClear="0" via=":gneJ1_0_0" dir="r" state="M"/>
     <connection from="gneE5" to="gneE3" fromLane="0" toLane="0" keepClear="0" via=":gneJ3_0_0" dir="l" state="M"/>
     <connection from="gneE5" to="gneE3" fromLane="0" toLane="1" keepClear="0" via=":gneJ3_0_1" dir="l" state="M"/>
@@ -182,12 +176,12 @@
     <connection from=":gneJ1_2" to="gneE1" fromLane="0" toLane="0" via=":gneJ1_3_0" dir="t" state="m"/>
     <connection from=":gneJ1_3" to="gneE1" fromLane="0" toLane="0" dir="t" state="M"/>
     <connection from=":gneJ2_0" to="gneE8" fromLane="0" toLane="0" dir="l" state="M"/>
-    <connection from=":gneJ2_1" to="gneE2" fromLane="0" toLane="1" dir="t" state="M"/>
+    <connection from=":gneJ2_1" to="gneE2" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from=":gneJ2_2" to="gneE2" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":gneJ2_2" to="gneE2" fromLane="1" toLane="1" dir="r" state="M"/>
     <connection from=":gneJ3_0" to="gneE3" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from=":gneJ3_0" to="gneE3" fromLane="1" toLane="1" dir="l" state="M"/>
     <connection from=":gneJ3_2" to="gneE4" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from=":gneJ3_3" to="gneE3" fromLane="0" toLane="1" dir="t" state="M"/>
+    <connection from=":gneJ3_3" to="gneE3" fromLane="0" toLane="1" dir="s" state="M"/>
 
 </net>

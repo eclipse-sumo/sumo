@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2011-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2011-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -101,6 +101,14 @@ class LaneDomain(Domain):
         Returns a list of disallowed vehicle classes.
         """
         return self._getUniversal(tc.LANE_DISALLOWED, laneID)
+
+    def getChangePermissions(self, laneID, direction):
+        """getChangePermissions(string, int) -> list(string)
+
+        Returns a list of vehicle classesa allowed to change to the neighbor lane indicated by the direction
+        (left=0, right=1).
+        """
+        return self._getUniversal(tc.LANE_CHANGES, laneID, "b", direction)
 
     def getLinkNumber(self, laneID):
         """getLinkNumber(string) -> integer
@@ -303,6 +311,14 @@ class LaneDomain(Domain):
         if isinstance(disallowedClasses, str):
             disallowedClasses = [disallowedClasses]
         self._setCmd(tc.LANE_DISALLOWED, laneID, "l", disallowedClasses)
+
+    def setChangePermissions(self, laneID, allowedClasses, direction):
+        """setChangePermissions(string, list, int) -> None
+
+        Sets a list of vehicle classes allowed to change to the neighbor lane indicated by direction
+        (left=0, right=1).
+        """
+        self._setCmd(tc.LANE_CHANGES, laneID, "tlb", 2, allowedClasses, direction)
 
     def setMaxSpeed(self, laneID, speed):
         """setMaxSpeed(string, double) -> None

@@ -1,1 +1,1 @@
-config_module:default
+queue_system_max_capacity:6

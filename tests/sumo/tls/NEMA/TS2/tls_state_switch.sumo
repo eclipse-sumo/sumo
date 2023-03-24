@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-06-09 19:35:21 by Eclipse SUMO GUI Version v1_13_0+0714-78ce4adba74
+<!-- generated on 2022-12-20 15:31:26 by Eclipse SUMO sumo Version v1_15_0+1163-053c4cf
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -216,12 +216,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <tlsState time="2096.00" id="0" programID="01" phase="0" state="yyysrrsyysrr" name="4+8"/>
     <tlsState time="2100.00" id="0" programID="01" phase="1" state="rrrrrrrrrrrr" name="4+8"/>
     <tlsState time="2102.00" id="0" programID="01" phase="0" state="srrGGgsrrGGg" name="2+6"/>
-    <tlsState time="2219.00" id="0" programID="01" phase="1" state="srryyysrryyy" name="2+6"/>
-    <tlsState time="2224.00" id="0" programID="01" phase="0" state="rrrrrrrrrrrr" name="2+6"/>
-    <tlsState time="2226.00" id="0" programID="01" phase="1" state="GGgsrrsGgsrr" name="4+8"/>
-    <tlsState time="2246.00" id="0" programID="01" phase="0" state="yyysrrsyysrr" name="4+8"/>
-    <tlsState time="2250.00" id="0" programID="01" phase="1" state="rrrrrrrrrrrr" name="4+8"/>
-    <tlsState time="2252.00" id="0" programID="01" phase="0" state="srrGGgsrrGGg" name="2+6"/>
+    <tlsState time="2194.00" id="0" programID="01" phase="1" state="srryyysrryyy" name="2+6"/>
+    <tlsState time="2199.00" id="0" programID="01" phase="0" state="rrrrrrrrrrrr" name="2+6"/>
+    <tlsState time="2201.00" id="0" programID="01" phase="1" state="srrsrrsGGsrr" name="4+7"/>
+    <tlsState time="2221.00" id="0" programID="01" phase="0" state="srrsrrsyysrr" name="4+7"/>
+    <tlsState time="2225.00" id="0" programID="01" phase="1" state="rrrrrrrrrrrr" name="4+7"/>
+    <tlsState time="2227.00" id="0" programID="01" phase="0" state="srrGGgsrrGGg" name="2+6"/>
     <tlsState time="2369.00" id="0" programID="01" phase="1" state="srryyysrryyy" name="2+6"/>
     <tlsState time="2374.00" id="0" programID="01" phase="0" state="rrrrrrrrrrrr" name="2+6"/>
     <tlsState time="2376.00" id="0" programID="01" phase="1" state="GGgsrrsGgsrr" name="4+8"/>

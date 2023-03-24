@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -45,8 +45,8 @@ public:
      * @param[in] friendlyPos enable or disable friendly positions
      * @param[in] parameters generic parameters
      */
-    GNEDetector(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon *icon, const double pos, 
-                const SUMOTime period, const std::vector<GNELane*>& parentLanes, const std::string& filename, 
+    GNEDetector(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon, const double pos,
+                const SUMOTime period, const std::vector<GNELane*>& parentLanes, const std::string& filename,
                 const std::vector<std::string>& vehicleTypes, const std::string& name, const bool friendlyPos, const Parameterised::Map& parameters);
 
     /**@brief Constructor.
@@ -62,8 +62,8 @@ public:
      * @param[in] friendlyPos enable or disable friendly positions
      * @param[in] parameters generic parameters
      */
-    GNEDetector(GNEAdditional* additionalParent, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon *icon, const double pos, 
-                const SUMOTime period, const std::vector<GNELane*>& parentLanes, const std::string& filename, const std::string& name, 
+    GNEDetector(GNEAdditional* additionalParent, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon, const double pos,
+                const SUMOTime period, const std::vector<GNELane*>& parentLanes, const std::string& filename, const std::string& name,
                 const bool friendlyPos, const Parameterised::Map& parameters);
 
     /// @brief Destructor
@@ -76,6 +76,7 @@ public:
 
     /// @name members and functions relative to write additionals into XML
     /// @{
+
     /**@brief write additional element into a xml file
      * @param[in] device device in which write parameters of additional element
      */
@@ -89,6 +90,7 @@ public:
 
     /// @brief fix additional problem (must be reimplemented in all detector children)
     virtual void fixAdditionalProblem() = 0;
+    
     /// @}
 
     /// @brief get lane
@@ -102,6 +104,7 @@ public:
 
     /// @name Functions related with geometry of element
     /// @{
+
     /// @brief update pre-computed geometry information
     virtual void updateGeometry() = 0;
 
@@ -113,10 +116,12 @@ public:
 
     /// @brief split geometry
     void splitEdgeGeometry(const double splitPosition, const GNENetworkElement* originalElement, const GNENetworkElement* newElement, GNEUndoList* undoList);
+    
     /// @}
 
     /// @name inherited from GUIGLObject
     /// @{
+
     /**@brief Returns the name of the parent object
      * @return This object's parent id
      */
@@ -127,10 +132,12 @@ public:
      * @see GUIGlObject::drawGL
      */
     virtual void drawGL(const GUIVisualizationSettings& s) const = 0;
+    
     /// @}
 
     /// @name inherited from GNEAttributeCarrier
     /// @{
+
     /* @brief method for getting the Attribute of an XML key
      * @param[in] key The attribute key
      * @return string with the value associated to key
@@ -165,6 +172,7 @@ public:
 
     /// @brief get Hierarchy Name (Used in AC Hierarchy)
     std::string getHierarchyName() const;
+    
     /// @}
 
 protected:
@@ -187,8 +195,11 @@ protected:
     void drawE1Shape(const GUIVisualizationSettings& s, const double exaggeration, const double scaledWidth,
                      const RGBColor& mainColor, const RGBColor& secondColor) const;
 
-    /// @brief draw detector Logo
-    void drawDetectorLogo(const GUIVisualizationSettings& s, const double exaggeration, const std::string& logo, const RGBColor& textColor) const;
+    /// @brief draw E1 detector Logo
+    void drawE1DetectorLogo(const GUIVisualizationSettings& s, const double exaggeration, const std::string& logo, const RGBColor& textColor) const;
+
+    /// @brief draw E2 detector Logo
+    void drawE2DetectorLogo(const GUIVisualizationSettings& s, const double exaggeration, const std::string& logo, const RGBColor& textColor) const;
 
 private:
     /// @brief set attribute after validation

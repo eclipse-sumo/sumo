@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-03-02 15:26:50 by Eclipse SUMO sumo Version v1_16_0+0944-c95829f
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <fcd-output value="fcd.xml"/>
+        <fcd-output.attributes value="speed,acceleration"/>
+    </output>
+
+    <time>
+        <step-length value="0.5"/>
+    </time>
+
+    <processing>
+        <collision.action value="warn"/>
+        <collision.check-junctions value="true"/>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
+    <timestep time="0.00">
+        <vehicle id="veh1" speed="19.02" acceleration="0.00"/>
+    </timestep>
+    <timestep time="0.50">
+        <vehicle id="veh1" speed="20.00" acceleration="1.95"/>
+    </timestep>
+    <timestep time="1.00">
+        <vehicle id="veh1" speed="20.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="1.50">
+        <vehicle id="veh1" speed="20.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="2.00">
+        <vehicle id="veh1" speed="20.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="2.50">
+        <vehicle id="veh1" speed="20.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="3.00">
+        <vehicle id="veh1" speed="20.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="3.50">
+        <vehicle id="veh1" speed="20.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="4.00">
+        <vehicle id="veh1" speed="20.00" acceleration="0.00"/>
+        <vehicle id="veh2" speed="20.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="4.50">
+        <vehicle id="veh1" speed="20.00" acceleration="0.00"/>
+        <vehicle id="veh2" speed="20.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="5.00">
+        <vehicle id="veh1" speed="20.00" acceleration="0.00"/>
+        <vehicle id="veh2" speed="20.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="5.50">
+        <vehicle id="veh1" speed="20.00" acceleration="0.00"/>
+        <vehicle id="veh2" speed="20.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="6.00">
+        <vehicle id="veh1" speed="20.00" acceleration="0.00"/>
+        <vehicle id="veh2" speed="20.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="6.50">
+        <vehicle id="veh1" speed="20.00" acceleration="0.00"/>
+        <vehicle id="veh2" speed="20.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="7.00">
+        <vehicle id="veh1" speed="20.00" acceleration="0.00"/>
+        <vehicle id="veh2" speed="20.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="7.50">
+        <vehicle id="veh1" speed="20.00" acceleration="0.00"/>
+        <vehicle id="veh2" speed="20.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="8.00">
+        <vehicle id="veh1" speed="20.00" acceleration="0.00"/>
+        <vehicle id="veh2" speed="20.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="8.50">
+        <vehicle id="veh1" speed="20.00" acceleration="0.00"/>
+        <vehicle id="veh2" speed="20.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="9.00">
+        <vehicle id="veh2" speed="20.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="9.50">
+        <vehicle id="veh2" speed="20.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="10.00">
+        <vehicle id="veh2" speed="20.00" acceleration="0.00"/>
+    </timestep>
+    <timestep time="10.50"/>
+</fcd-export>

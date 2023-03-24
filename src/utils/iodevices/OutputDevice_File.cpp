@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2004-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2004-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -43,7 +43,7 @@ OutputDevice_File::OutputDevice_File(const std::string& fullName, const bool com
         myFileStream = new std::ofstream("NUL");
         if (!myFileStream->good()) {
             delete myFileStream;
-            throw IOError("Could not redirect to NUL device (" + std::string(std::strerror(errno)) + ").");
+            throw IOError(TLF("Could not redirect to NUL device (%).", std::string(std::strerror(errno))));
         }
         return;
 #endif
@@ -53,6 +53,8 @@ OutputDevice_File::OutputDevice_File(const std::string& fullName, const bool com
     if (compressed) {
         try {
             myFileStream = new zstr::ofstream(localName.c_str(), std::ios_base::out);
+        } catch (strict_fstream::Exception& e) {
+            throw IOError("Could not build output file '" + fullName + "' (" + e.what() + ").");
         } catch (zstr::Exception& e) {
             throw IOError("Could not build output file '" + fullName + "' (" + e.what() + ").");
         }

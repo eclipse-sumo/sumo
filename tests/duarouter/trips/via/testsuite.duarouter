@@ -1,0 +1,8 @@
+# test trip with intermediate edge
+via1
+
+# test trip with multiple intermediate edges
+via2
+
+# test trip with disconnected intermediate edge
+via_unreachable

@@ -1,24 +1,26 @@
 set(utils_foxtools_STAT_SRCS
    fxheader.h
    fxexdefs.h
-   MFXAddEditTypedTable.cpp
-   MFXAddEditTypedTable.h
    MFXBaseObject.cpp
    MFXBaseObject.h
    MFXButtonTooltip.cpp
    MFXButtonTooltip.h
+   MFXDecalsTable.cpp
+   MFXDecalsTable.h
    MFXToggleButtonTooltip.cpp
    MFXToggleButtonTooltip.h
    MFXCheckableButton.cpp
    MFXCheckableButton.h
    MFXComboBox.cpp
    MFXComboBox.h
-   MFXEditableTable.cpp
-   MFXEditableTable.h
    MFXGroupBoxModule.cpp
    MFXGroupBoxModule.h
-   MFXIconComboBox.cpp
-   MFXIconComboBox.h
+   MFXComboBoxIcon.cpp
+   MFXComboBoxIcon.h
+   MFXListIcon.cpp
+   MFXListIcon.h
+   MFXListItemIcon.cpp
+   MFXListItemIcon.h
    MFXImageHelper.cpp
    MFXImageHelper.h
    MFXInterThreadEventClient.h

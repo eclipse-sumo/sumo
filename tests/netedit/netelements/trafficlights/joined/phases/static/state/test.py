@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -28,32 +28,11 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
-# force save additionals
-netedit.forceSaveAdditionals()
-
-# force save demand elements
-netedit.forceSaveDemandElements()
-
 # go to TLS mode
 netedit.selectTLSMode()
 
 # select junction
 netedit.leftClick(referencePosition, 320, 220)
-
-# create TLS
-netedit.createTLS()
-
-# join TLS
-netedit.joinTSL()
-
-# select four corners
-netedit.leftClick(referencePosition, 150, 220)
-netedit.leftClick(referencePosition, 500, 220)
-netedit.leftClick(referencePosition, 320, 50)
-netedit.leftClick(referencePosition, 320, 400)
-
-# join tls
-netedit.typeEnter()
 
 # set attribute
 netedit.modifyAttribute(netedit.attrs.TLS.join.staticPhase.state, "dummyDur", False)
@@ -62,13 +41,13 @@ netedit.modifyAttribute(netedit.attrs.TLS.join.staticPhase.state, "dummyDur", Fa
 netedit.modifyAttribute(netedit.attrs.TLS.join.staticPhase.state, "", False)
 
 # set attribute
-netedit.modifyAttribute(netedit.attrs.TLS.join.staticPhase.state, "ryyggrggyyyggrggyyyyryyy", False)
+netedit.modifyAttribute(netedit.attrs.TLS.join.staticPhase.state, "ryryryryryryryryryryryry", False)
 
 # type enter to save changes
 netedit.typeEnter()
 
-# type ESC (for undo-redo)
-netedit.typeEscape()
+# go to inspect mode
+netedit.inspectMode()
 
 # Check undo
 netedit.undo(referencePosition, 1)
@@ -76,14 +55,8 @@ netedit.undo(referencePosition, 1)
 # Check redo
 netedit.redo(referencePosition, 1)
 
-# save network
-netedit.saveNetwork(referencePosition)
-
-# save additionals
-netedit.saveAdditionals(referencePosition)
-
-# save routes
-netedit.saveRoutes(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

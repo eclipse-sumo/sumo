@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2012-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -21,15 +21,17 @@
 #pragma once
 #include <config.h>
 
+#include <set>
 #include <vector>
-#include "NBEdge.h"
 
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
+class NBEdge;
 class NBEdgeCont;
 class NBPTStopCont;
+class NBPTLine;
 class NBPTLineCont;
 class OptionsCont;
 class NBVehicle;
@@ -138,12 +140,15 @@ private:
     static int addBidiEdgesBetweenSwitches(NBEdgeCont& ec);
 
     /// @brief add bidi-edges to connect successive public transport stops
-    static int addBidiEdgesForStops(NBEdgeCont& ec, NBPTLineCont& lc);
+    static int addBidiEdgesForStops(NBEdgeCont& ec, NBPTLineCont& lc, NBPTStopCont& sc);
 
     /// @brief add bidi-edges to connect straight tracks
     static int addBidiEdgesForStraightConnectivity(NBEdgeCont& ec, bool geometryLike);
 
-    /// recompute turning directions for both nodes of the given edge
+    /// @brief recompute turning directions for both nodes of the given edge
     static void updateTurns(NBEdge* edge);
+
+    /// @brief identify lines that are likely to require bidirectional tracks
+    static std::set<NBPTLine*> findBidiCandidates(NBPTLineCont& lc);
 
 };

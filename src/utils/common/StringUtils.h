@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -24,8 +24,10 @@
 #include <config.h>
 #include <string>
 #include <chrono>
+#include <sstream>
+#include <iomanip>
 #include <xercesc/util/XMLString.hpp>
-#include <utils/common/UtilExceptions.h>
+#include <utils/common/StdDefs.h>
 
 
 // ===========================================================================
@@ -52,16 +54,13 @@ public:
     /// Converts german "Umlaute" to their latin-version
     static std::string convertUmlaute(std::string str);
 
-    /** Replaces all occurences of the second string by the third
+    /** Replaces all occurrences of the second string by the third
         string within the first string */
     static std::string replace(std::string str, const std::string& what, const std::string& by);
 
     /** Replaces an environment variable with its value (similar to bash);
         syntax for a variable is ${NAME} */
     static std::string substituteEnvironment(const std::string& str, const std::chrono::time_point<std::chrono::system_clock>* const timeRef = nullptr);
-
-    /// Builds a time string (hh:mm:ss) from the given seconds
-    static std::string toTimeString(int time);
 
     /// Checks whether a given string starts with the prefix
     static bool startsWith(const std::string& str, const std::string prefix);
@@ -134,6 +133,8 @@ public:
      */
     static bool toBool(const std::string& sData);
 
+    static MMVersion toVersion(const std::string& sData);
+
     /**@brief converts a 0-terminated XMLCh* array (usually UTF-16, stemming from Xerces) into std::string in UTF-8
      * @throw an EmptyData - exception if the given pointer is 0
      */
@@ -163,8 +164,36 @@ public:
 
     /// @brief must be called when shutting down the xml subsystem
     static void resetTranscoder();
+
+    /// @brief adds a new formatted message
+    // variadic function
+    template<typename T, typename... Targs>
+    static const std::string format(const std::string& format, T value, Targs... Fargs) {
+        std::ostringstream os;
+        os << std::fixed << std::setprecision(gPrecision);
+        _format(format.c_str(), os, value, Fargs...);
+        return os.str();
+    }
+
+private:
+    static void _format(const char* format, std::ostringstream& os) {
+        os << format;
+    }
+
+    /// @brief adds a new formatted message
+    // variadic function
+    template<typename T, typename... Targs>
+    static void _format(const char* format, std::ostringstream& os, T value, Targs... Fargs) {
+        for (; *format != '\0'; format++) {
+            if (*format == '%') {
+                os << value;
+                _format(format + 1, os, Fargs...); // recursive call
+                return;
+            }
+            os << *format;
+        }
+    }
+
 private:
     static XERCES_CPP_NAMESPACE::XMLLCPTranscoder* myLCPTranscoder;
-
-
 };

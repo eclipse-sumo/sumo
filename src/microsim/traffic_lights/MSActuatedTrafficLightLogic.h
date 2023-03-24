@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2002-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -281,6 +281,9 @@ protected:
 
     /// Whether the detectors shall be shown in the GUI
     bool myShowDetectors;
+
+    /// Whether any of the phases has multiple targets
+    bool myHasMultiTarget;
 
     /// The output file for generated detectors
     std::string myFile;

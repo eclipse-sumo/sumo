@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -15,6 +15,7 @@
 # @file    runner.py
 # @author  Michael Behrisch
 # @author  Daniel Krajzewicz
+# @author  Mirko Barthauer
 # @date    2011-03-04
 
 from __future__ import print_function
@@ -65,6 +66,16 @@ print("numVeh", traci.lane.getLastStepVehicleNumber(laneID))
 print("haltVeh", traci.lane.getLastStepHaltingNumber(laneID))
 print("vehIds", traci.lane.getLastStepVehicleIDs(laneID))
 print("waiting time", traci.lane.getWaitingTime(laneID))
+
+centerLaneID = "2si_1"
+print("allowed to change to the left", traci.lane.getChangePermissions(centerLaneID, traci.constants.LANECHANGE_LEFT))
+print("allowed to change to the right", traci.lane.getChangePermissions(centerLaneID, traci.constants.LANECHANGE_RIGHT))
+traci.lane.setChangePermissions(centerLaneID, ['ignoring'], traci.constants.LANECHANGE_LEFT)
+print("allowed to change to the left after setChangePermissions",
+      traci.lane.getChangePermissions(centerLaneID, traci.constants.LANECHANGE_LEFT))
+traci.lane.setChangePermissions(centerLaneID, ['passenger'], traci.constants.LANECHANGE_RIGHT)
+print("allowed to change to the right after setChangePermissions",
+      traci.lane.getChangePermissions(centerLaneID, traci.constants.LANECHANGE_RIGHT))
 
 traci.lane.setAllowed(laneID, ["taxi"])
 print("after setAllowed", traci.lane.getAllowed(

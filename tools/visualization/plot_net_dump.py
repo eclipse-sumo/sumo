@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -224,7 +224,7 @@ def main(args=None):
         if options.verbose:
             print("Width values are between %s and %s" %
                   (minWidthValue, maxWidthValue))
-        if minWidthValue is None or maxWidthValue is None:
+        if hw and (minWidthValue is None or maxWidthValue is None):
             print("Skipping interval %s without data" % t)
             continue
 
@@ -241,7 +241,7 @@ def main(args=None):
             # "fake up the array of the scalar mappable. Urgh..."
             # (pelson, http://stackoverflow.com/questions/8342549/matplotlib-add-colorbar-to-a-sequence-of-line-plots)
             sm._A = []
-        color_bar = plt.colorbar(sm)
+        color_bar = plt.colorbar(sm, ax=ax)
         color_bar.set_label(options.colorBarLabel)
 
         # Should we also save the figure to a file / list of files (comma

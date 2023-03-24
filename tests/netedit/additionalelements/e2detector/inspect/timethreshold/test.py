@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -35,13 +35,13 @@ netedit.additionalMode()
 netedit.changeElement("laneAreaDetector")
 
 # create E2
-netedit.leftClick(referencePosition, 250, 130)
+netedit.leftClick(referencePosition, 520, 210)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first E2
-netedit.leftClick(referencePosition, 350, 130)
+netedit.leftClick(referencePosition, 480, 210)
 
 # Change parameter TimeTreshold with a non valid value
 netedit.modifyAttribute(netedit.attrs.E2.inspect.timeThreshold, "dummyTimeTreshold", True)
@@ -56,11 +56,8 @@ netedit.modifyAttribute(netedit.attrs.E2.inspect.timeThreshold, "4.5", True)
 netedit.undo(referencePosition, 2)
 netedit.redo(referencePosition, 2)
 
-# save additionals
-netedit.saveAdditionals(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -209,7 +209,7 @@ public:
      * @param[in] speedFactor The factor for driven lane's speed limits
      * @exception ProcessError If a value is wrong
      */
-    MSVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
+    MSVehicle(SUMOVehicleParameter* pars, ConstMSRoutePtr route,
               MSVehicleType* type, const double speedFactor);
 
     /// @brief Destructor.
@@ -253,7 +253,7 @@ public:
      * @param[in] removeStops Whether stops should be removed if they do not fit onto the new route
      * @return Whether the new route was accepted
      */
-    bool replaceRoute(const MSRoute* route, const std::string& info, bool onInit = false, int offset = 0, bool addStops = true, bool removeStops = true, std::string* msgReturn = nullptr);
+    bool replaceRoute(ConstMSRoutePtr route, const std::string& info, bool onInit = false, int offset = 0, bool addStops = true, bool removeStops = true, std::string* msgReturn = nullptr);
 
     //@}
 
@@ -651,7 +651,7 @@ public:
      *  very close to the junction
      * @return The rerouting start point
      */
-    const MSEdge* getRerouteOrigin() const;
+    ConstMSEdgeVector::const_iterator getRerouteOrigin() const;
 
 
     /** @brief Returns the SUMOTime waited (speed was lesser than 0.1m/s)
@@ -1013,12 +1013,6 @@ public:
     /// @brief Returns the remaining stop duration for a stopped vehicle or 0
     SUMOTime remainingStopDuration() const;
 
-    /** @brief Returns whether the vehicle stops at the given stopping place */
-    bool stopsAt(MSStoppingPlace* stop) const;
-
-    /** @brief Returns whether the vehicle stops at the given edge */
-    bool stopsAtEdge(const MSEdge* edge) const;
-
     /** @brief Returns whether the vehicle will stop on the current edge
      */
     bool willStop() const;
@@ -1065,7 +1059,7 @@ public:
 
 
     /** @brief Processes stops, returns the velocity needed to reach the stop
-     * @return The velocity in dependance to the next/current stop
+     * @return The velocity in dependence to the next/current stop
      * @todo Describe more detailed
      * @see Stop
      * @see MSStoppingPlace
@@ -1849,6 +1843,9 @@ protected:
     /// @brief try joining the given vehicle to the front of this one (to resolve joinTriggered)
     bool joinTrainPartFront(MSVehicle* veh);
 
+    /// @brief optionally return an upper bound on speed to stay within the schedule
+    double slowDownForSchedule(double vMinComfortable) const;
+
 protected:
 
     /// @brief The time the vehicle waits (is not faster than 0.1m/s) in seconds
@@ -2043,6 +2040,12 @@ public:
     /// @brief decide whether a red (or yellow light) may be ignore
     bool ignoreRed(const MSLink* link, bool canBrake) const;
 
+    /// @brief maximum acceleration to consider a vehicle as 'waiting' at low speed
+    inline double accelThresholdForWaiting() const {
+        return 0.5 * getCarFollowModel().getMaxAccel();
+    }
+
+
 protected:
 
     /* @brief adapt safe velocity in accordance to multiple vehicles ahead:
@@ -2090,7 +2093,8 @@ protected:
     /// @brief decide whether the given link must be kept clear
     bool keepClear(const MSLink* link) const;
 
-    double estimateTimeToNextStop() const;
+    /// @brief return time (s) and distance to the next stop
+    std::pair<double, double> estimateTimeToNextStop() const;
 
     /* @brief special considerations for opposite direction driving so that the
      * result can be used directly by getPositionOnLane(...) */
@@ -2110,10 +2114,8 @@ protected:
     /// @brief whether the give lane is reverse direction of the current route or not
     bool isOppositeLane(const MSLane* lane) const;
 
-    /// @brief maximum acceleration to consider a vehicle as 'waiting' at low speed
-    inline double accelThresholdForWaiting() const {
-        return 0.5 * getCarFollowModel().getMaxAccel();
-    }
+    /// @brief remove vehicle from further lanes (on leaving the network)
+    void cleanupFurtherLanes();
 
 private:
     /// @brief The per vehicle variables of the car following model

@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-04-28 12:53:55 by Eclipse SUMO netedit Version v1_12_0+2350-8fe41245423
+<!-- generated on 2023-03-06 10:31:56 by Eclipse SUMO netedit Version v1_16_0+0991-07b3a7c88ca
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.28Apr125315.17360\netedit.gui\bugs\ticket10588\input_net.net.xml"/>
+        <additional-files value="/home/palcraft/.texttest/tmp/netedit.gui.06Mar102327.9299/netedit.gui/bugs/ticket10588/additionals.add.xml"/>
+        <route-files value="/home/palcraft/.texttest/tmp/netedit.gui.06Mar102327.9299/netedit.gui/bugs/ticket10588/routes.rou.xml"/>
+        <data-files value="/home/palcraft/.texttest/tmp/netedit.gui.06Mar102327.9299/netedit.gui/bugs/ticket10588/datas.dat.xml"/>
+        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.gui.06Mar102327.9299/netedit.gui/bugs/ticket10588/net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.28Apr125315.17360\netedit.gui\bugs\ticket10588\net.net.xml"/>
+        <output-file value="/home/palcraft/.texttest/tmp/netedit.gui.06Mar102327.9299/netedit.gui/bugs/ticket10588/net.net.xml"/>
         <output.street-names value="true"/>
     </output>
 
@@ -16,48 +19,37 @@
         <geometry.min-radius.fix.railways value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
-        <lefthand value="false"/>
+        <lefthand value="0"/>
     </processing>
 
     <junctions>
         <no-turnarounds value="true"/>
         <junctions.corner-detail value="5"/>
-        <junctions.limit-turn-speed value="5.5"/>
-        <rectangular-lane-cut value="false"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
     </junctions>
 
     <pedestrian>
-        <walkingareas value="false"/>
+        <walkingareas value="0"/>
     </pedestrian>
 
-    <netedit>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.28Apr125315.17360\netedit.gui\bugs\ticket10588\additionals.xml"/>
-        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.28Apr125315.17360\netedit.gui\bugs\ticket10588\additionals.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.28Apr125315.17360\netedit.gui\bugs\ticket10588\routes.xml"/>
-        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.28Apr125315.17360\netedit.gui\bugs\ticket10588\routes.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.28Apr125315.17360\netedit.gui\bugs\ticket10588\datas.xml"/>
-        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.28Apr125315.17360\netedit.gui\bugs\ticket10588\datas.xml"/>
-    </netedit>
-
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.28Apr125315.17360\netedit.gui\bugs\ticket10588\gui-settings.xml"/>
-        <window-size value="936,697"/>
+        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.gui.06Mar102327.9299/netedit.gui/bugs/ticket10588/gui-settings.xml"/>
+        <window-size value="936, 697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing-debug value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.28Apr125315.17360\netedit.gui\bugs\ticket10588\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.gui.06Mar102327.9299/netedit.gui/bugs/ticket10588/guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.28Apr125315.17360\netedit.gui\bugs\ticket10588\log.txt"/>
+        <error-log value="/home/palcraft/.texttest/tmp/netedit.gui.06Mar102327.9299/netedit.gui/bugs/ticket10588/log.txt"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.9" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-397025.73,-5808927.41" convBoundary="0.00,289.39,2320.09,4095.35" origBoundary="13.455920,52.416195,13.576609,52.469965" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -1903,12 +1895,12 @@
         <request index="2"  response="0111000000110000000" foes="0111110000110000000" cont="0"/>
         <request index="3"  response="0110001110110000000" foes="0110001111110000000" cont="1"/>
         <request index="4"  response="0100001010001100000" foes="0100001010001100000" cont="1"/>
-        <request index="5"  response="0000000000000000000" foes="0100001010000010000" cont="0"/>
+        <request index="5"  response="0000000000000000000" foes="0000000010000000000" cont="0"/>
         <request index="6"  response="0000000000000000000" foes="0100001010000010000" cont="0"/>
         <request index="7"  response="0000010000000001000" foes="1100011010000001111" cont="0"/>
         <request index="8"  response="0010010000000001000" foes="0010111010000001110" cont="1"/>
         <request index="9"  response="0010000100000001000" foes="0010000100000001000" cont="1"/>
-        <request index="10" response="0110000000111100000" foes="0110000100111111000" cont="0"/>
+        <request index="10" response="0010000000111100000" foes="0010000100111101000" cont="0"/>
         <request index="11" response="0010000010000000000" foes="0010000011000001000" cont="1"/>
         <request index="12" response="0110000000111100000" foes="0110000000111111000" cont="0"/>
         <request index="13" response="0110000000110000111" foes="1110000000110000111" cont="1"/>

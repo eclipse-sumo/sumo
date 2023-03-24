@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -30,18 +30,18 @@
 // ===========================================================================
 
 GNERouteProbReroute::GNERouteProbReroute(GNENet* net) :
-    GNEAdditional("", net, GLO_REROUTER_ROUTEPROBREROUTE, SUMO_TAG_ROUTE_PROB_REROUTE, 
-    GUIIconSubSys::getIcon(GUIIcon::ROUTEPROBREROUTE), "", {}, {}, {}, {}, {}, {}),
-    myProbability(0) {
+    GNEAdditional("", net, GLO_REROUTER_ROUTEPROBREROUTE, SUMO_TAG_ROUTE_PROB_REROUTE,
+                  GUIIconSubSys::getIcon(GUIIcon::ROUTEPROBREROUTE), "", {}, {}, {}, {}, {}, {}),
+myProbability(0) {
     // reset default values
     resetDefaultValues();
 }
 
 
 GNERouteProbReroute::GNERouteProbReroute(GNEAdditional* rerouterIntervalParent, GNEDemandElement* route, double probability) :
-    GNEAdditional(rerouterIntervalParent->getNet(), GLO_REROUTER_ROUTEPROBREROUTE, SUMO_TAG_ROUTE_PROB_REROUTE, 
-    GUIIconSubSys::getIcon(GUIIcon::ROUTEPROBREROUTE), "", {}, {}, {}, {rerouterIntervalParent}, {route}, {}),
-    myProbability(probability) {
+    GNEAdditional(rerouterIntervalParent->getNet(), GLO_REROUTER_ROUTEPROBREROUTE, SUMO_TAG_ROUTE_PROB_REROUTE,
+                  GUIIconSubSys::getIcon(GUIIcon::ROUTEPROBREROUTE), "", {}, {}, {}, {rerouterIntervalParent}, {route}, {}),
+myProbability(probability) {
     // update boundary of rerouter parent
     rerouterIntervalParent->getParentAdditionals().front()->updateCenteringBoundary(true);
 }
@@ -56,6 +56,24 @@ GNERouteProbReroute::writeAdditional(OutputDevice& device) const {
     device.writeAttr(SUMO_ATTR_ID, getAttribute(SUMO_ATTR_ROUTE));
     device.writeAttr(SUMO_ATTR_PROB, myProbability);
     device.closeTag();
+}
+
+
+bool
+GNERouteProbReroute::isAdditionalValid() const {
+    return true;
+}
+
+
+std::string
+GNERouteProbReroute::getAdditionalProblem() const {
+    return "";
+}
+
+
+void
+GNERouteProbReroute::fixAdditionalProblem() {
+    // nothing to fix
 }
 
 

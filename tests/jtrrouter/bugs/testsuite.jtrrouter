@@ -19,3 +19,6 @@ ticket9327b
 
 # test for vType interpretation
 ticket9864
+
+# crash when using poisson flow
+ticket11834

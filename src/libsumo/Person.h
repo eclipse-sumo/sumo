@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2012-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -84,9 +84,7 @@ public:
 
     LIBSUMO_SUBSCRIPTION_API
 
-#ifdef LIBTRACI
-    static void writeStage(const libsumo::TraCIStage& stage, tcpip::Storage& content);
-#else
+#ifndef LIBTRACI
 #ifndef SWIG
     /** @brief Saves the shape of the requested object in the given container
      *  @param id The id of the poi to retrieve

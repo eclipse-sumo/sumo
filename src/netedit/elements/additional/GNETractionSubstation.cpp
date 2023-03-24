@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2021-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2021-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -29,10 +29,10 @@
 // ===========================================================================
 
 GNETractionSubstation::GNETractionSubstation(GNENet* net) :
-    GNEAdditional("", net, GLO_TRACTIONSUBSTATION, SUMO_TAG_TRACTION_SUBSTATION, 
-    GUIIconSubSys::getIcon(GUIIcon::TRACTION_SUBSTATION), "", {}, {}, {}, {}, {}, {}),
-    myVoltage(0),
-    myCurrentLimit(0) {
+    GNEAdditional("", net, GLO_TRACTIONSUBSTATION, SUMO_TAG_TRACTION_SUBSTATION,
+                  GUIIconSubSys::getIcon(GUIIcon::TRACTION_SUBSTATION), "", {}, {}, {}, {}, {}, {}),
+                            myVoltage(0),
+myCurrentLimit(0) {
     // reset default values
     resetDefaultValues();
 }
@@ -40,12 +40,12 @@ GNETractionSubstation::GNETractionSubstation(GNENet* net) :
 
 GNETractionSubstation::GNETractionSubstation(const std::string& id, GNENet* net, const Position& pos, const double voltage,
         const double currentLimit, const Parameterised::Map& parameters) :
-    GNEAdditional(id, net, GLO_TRACTIONSUBSTATION, SUMO_TAG_TRACTION_SUBSTATION, 
-    GUIIconSubSys::getIcon(GUIIcon::TRACTION_SUBSTATION), "", {}, {}, {}, {}, {}, {}),
-    Parameterised(parameters),
-    myPosition(pos),
-    myVoltage(voltage),
-    myCurrentLimit(currentLimit) {
+    GNEAdditional(id, net, GLO_TRACTIONSUBSTATION, SUMO_TAG_TRACTION_SUBSTATION,
+                  GUIIconSubSys::getIcon(GUIIcon::TRACTION_SUBSTATION), "", {}, {}, {}, {}, {}, {}),
+Parameterised(parameters),
+myPosition(pos),
+myVoltage(voltage),
+myCurrentLimit(currentLimit) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -69,6 +69,24 @@ GNETractionSubstation::writeAdditional(OutputDevice& device) const {
     // write parameters
     writeParams(device);
     device.closeTag();
+}
+
+
+bool
+GNETractionSubstation::isAdditionalValid() const {
+    return true;
+}
+
+
+std::string
+GNETractionSubstation::getAdditionalProblem() const {
+    return "";
+}
+
+
+void
+GNETractionSubstation::fixAdditionalProblem() {
+    // nothing to fix
 }
 
 

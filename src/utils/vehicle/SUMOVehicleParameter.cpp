@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -289,6 +289,12 @@ SUMOVehicleParameter::Stop::write(OutputDevice& dev, const bool close, const boo
     if ((parametersSet & STOP_ONDEMAND_SET) != 0) {
         dev.writeAttr(SUMO_ATTR_ONDEMAND, onDemand);
     }
+    if ((parametersSet & STOP_JUMP_SET) != 0 && jump >= 0) {
+        dev.writeAttr(SUMO_ATTR_JUMP, time2string(jump));
+    }
+    if (collision) {
+        dev.writeAttr(SUMO_ATTR_COLLISION, collision);
+    }
     // only write friendly position if is true
     if (friendlyPos == true) {
         dev.writeAttr(SUMO_ATTR_FRIENDLY_POS, friendlyPos);
@@ -310,11 +316,13 @@ SUMOVehicleParameter::parseDepart(const std::string& val, const std::string& ele
         dd = DepartDefinition::TRIGGERED;
     } else if (val == "containerTriggered") {
         dd = DepartDefinition::CONTAINER_TRIGGERED;
-    } else if (val == "split") {
-        dd = DepartDefinition::SPLIT;
     } else if (val == "now") {
         // only used via TraCI. depart must be set by the calling code
         dd = DepartDefinition::NOW;
+    } else if (val == "split") {
+        dd = DepartDefinition::SPLIT;
+    } else if (val == "begin") {
+        dd = DepartDefinition::BEGIN;
     } else {
         try {
             depart = string2time(val);
@@ -642,7 +650,7 @@ SUMOVehicleParameter::interpretEdgePos(double pos, double maximumValue, SumoXMLA
     }
     if (pos > maximumValue && pos != std::numeric_limits<double>::infinity()) {
         if (!silent) {
-            WRITE_WARNING("Invalid " + toString(attr) + " " + toString(pos) + " given for " + id + ". Using edge end instead.");
+            WRITE_WARNINGF(TL("Invalid % % given for %. Using edge end instead."), toString(attr), toString(pos), id);
         }
         pos = maximumValue;
     }
@@ -692,7 +700,7 @@ SUMOVehicleParameter::parseStopTriggers(const std::vector<std::string>& triggers
             try {
                 stop.triggered = StringUtils::toBool(val);
             } catch (BoolFormatException&) {
-                WRITE_ERROR("Value of stop attribute 'trigger' must be 'person', 'container', 'join' or a boolean");
+                WRITE_ERROR(TL("Value of stop attribute 'trigger' must be 'person', 'container', 'join' or a boolean"));
             }
         }
     }
@@ -743,8 +751,12 @@ SUMOVehicleParameter::getDepart() const {
         return "triggered";
     } else if (departProcedure == DepartDefinition::CONTAINER_TRIGGERED) {
         return "containerTriggered";
+//    } else if (departProcedure == DepartDefinition::NOW) {  // TODO check whether this is useful in XML input (currently TraCI only)
+//        return "now";
     } else if (departProcedure == DepartDefinition::SPLIT) {
         return "split";
+    } else if (departProcedure == DepartDefinition::BEGIN) {
+        return "begin";
     } else {
         return time2string(depart);
     }

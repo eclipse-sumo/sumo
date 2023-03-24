@@ -1,19 +1,11 @@
-Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.residential' (first occurence for edge '9261006').
-Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.tertiary' (first occurence for edge '11645842').
-Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.residential' (first occurence for edge '19431425').
-Warning: Discarding unusable type 'highway.elevator' (first occurence for edge '203574457').
-Warning: Done reading first coherent chunk of pt stops. Further stops in relation 216083 are ignored
-Warning: Done reading first coherent chunk of pt stops. Further stops in relation 233378 are ignored
-Warning: Done reading first coherent chunk of pt stops. Further stops in relation 1526252 are ignored
-Warning: Done reading first coherent chunk of pt stops. Further stops in relation 1817063 are ignored
-Warning: Done reading first coherent chunk of pt stops. Further stops in relation 2141597 are ignored
+Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.residential' (first occurrence for edge '9261006').
+Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.tertiary' (first occurrence for edge '11645842').
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.residential' (first occurrence for edge '19431425').
+Warning: Discarding unusable type 'highway.elevator' (first occurrence for edge '203574457').
 Warning: No way found for reference '264888946' in relation '3559808'
 Warning: Ignoring restriction relation '3559808' with unknown from-way.
-Warning: Incomplete route for pt line '12151739' (Nachtbus 669: U Ahrensburg West => U Ahrensburg West).
-Warning: Incomplete route for pt line '12151739' (Nachtbus 669: U Ahrensburg West => U Ahrensburg West).
-Warning: Incomplete route for pt line '12151739' (Nachtbus 669: U Ahrensburg West => U Ahrensburg West).
-Warning: Incomplete route for pt line '12151739' (Nachtbus 669: U Ahrensburg West => U Ahrensburg West).
-Warning: Incomplete route for pt line '12151739' (Nachtbus 669: U Ahrensburg West => U Ahrensburg West).
+Warning: PT line 'Bus 769: Ahrensburg, Auestieg => Ahrensburg, Schulzentrum Am Heimgarten' in relation 4476426 seems to be split, only keeping first part.
+Warning: PT line 'Nachtbus 669: U Ahrensburg West => U Ahrensburg West' in relation 12151739 seems to be split, only keeping first part.
 Warning: PT stop '1792502642' has been moved to edge '-76424358'.
 Warning: PT stop '8341032348' has been moved to edge '-19431426#9'.
 Warning: PT stop '2705494849' has been moved to edge '-39546438'.
@@ -26,5 +18,3 @@ Warning: The traffic light '2696124617' does not control any links; it will not 
 Warning: Could not build program '0' for traffic light '2696124617'
 Warning: The traffic light '665421850' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light '665421850'
-Warning: 23 total messages of type: Done reading first coherent chunk of pt stops. Further stops in relation % are ignored
-Warning: 26 total messages of type: Incomplete route for pt line '%'%.

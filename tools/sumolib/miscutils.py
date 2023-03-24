@@ -1,5 +1,5 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2012-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2012-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -25,6 +25,13 @@ import math
 import colorsys
 import socket
 import random
+import gzip
+import codecs
+import io
+try:
+    from urllib.request import urlopen
+except ImportError:
+    from urllib import urlopen
 # needed for backward compatibility
 from .statistics import Statistics, geh, uMax, uMin, round  # noqa
 
@@ -212,6 +219,8 @@ def euclidean(a, b):
 
 def humanReadableTime(seconds):
     result = ""
+    sign = '-' if seconds < 0 else ''
+    seconds = abs(seconds)
     ds = 3600 * 24
     if seconds > ds:
         result = "%s:" % int(seconds / ds)
@@ -223,7 +232,7 @@ def humanReadableTime(seconds):
     if seconds == int(seconds):
         seconds = int(seconds)
     result += "%02i" % seconds
-    return result
+    return sign + result
 
 
 def parseTime(t, factor=1):
@@ -233,7 +242,8 @@ def parseTime(t, factor=1):
         pass
     # prepended zero is ignored if the date value already contains days
     days, hours, minutes, seconds = ([0] + list(map(float, t.split(':'))))[-4:]
-    return 3600 * 24 * days + 3600 * hours + 60 * minutes + seconds
+    sign = -1 if t.strip()[0] == '-' else 1
+    return (3600 * 24 * days + 3600 * hours + 60 * minutes + seconds) * sign
 
 
 def parseBool(val):
@@ -268,3 +278,39 @@ def intIfPossible(val):
         return int(val)
     else:
         return val
+
+
+def openz(fileOrURL, mode="r", **kwargs):
+    """
+    Opens transparently files, URLs and gzipped files for reading and writing.
+    Special file names "stdout" and "stderr" are handled as well.
+    Also enforces UTF8 on text output / input.
+    Should be compatible with python 2 and 3.
+    """
+    encoding = kwargs.get("encoding", "utf8")
+    try:
+        if fileOrURL.startswith("http://") or fileOrURL.startswith("https://"):
+            return io.BytesIO(urlopen(fileOrURL).read())
+        if fileOrURL == "stdout":
+            return sys.stdout
+        if fileOrURL == "stderr":
+            return sys.stderr
+        if fileOrURL.endswith(".gz") and "w" in mode:
+            if "b" in mode:
+                return gzip.open(fileOrURL, mode="w")
+            return gzip.open(fileOrURL, mode="wt", encoding=encoding)
+        if kwargs.get("tryGZip", True) and "r" in mode:
+            with gzip.open(fileOrURL) as fd:
+                fd.read(1)
+            if "b" in mode:
+                return gzip.open(fileOrURL)
+            if sys.version_info[0] < 3:
+                return codecs.getreader('utf-8')(gzip.open(fileOrURL))
+            return gzip.open(fileOrURL, mode="rt", encoding=encoding)
+    except OSError:
+        pass
+    except IOError:
+        pass
+    if "b" in mode:
+        return io.open(fileOrURL, mode=mode)
+    return io.open(fileOrURL, mode=mode, encoding=encoding)

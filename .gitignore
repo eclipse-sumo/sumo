@@ -7,6 +7,7 @@
 /mirror
 /share
 /dist
+/setup.py
 # IDE project files
 /.settings
 /.cproject
@@ -18,12 +19,7 @@
 /clang*
 /cmake-build*
 /cmake_build*
-/build/cmake-build*
-/build/cmake_build*
-/build/cmake-codeblocks*
-/build/cmake-clang*
-/build/cmake-mingw*
-/build/vscode*
+/build/*
 /out
 # bin dir
 /bin/TraCITestClient*
@@ -60,6 +56,8 @@
 /bin/liblibtracijni.jnilib
 /bin/libsumofmi2.dylib
 # data dir
+/data/locale
+/data/po/*.pot
 /data/proj
 # docs dir, make artifacts
 /docs/doxygen
@@ -98,6 +96,7 @@
 /src/tools/emissionsMap
 /src/traci_testclient/TraCITestClient
 # tools dir
+/tools/*.vs
 /tools/*.egg-info
 /tools/[0-9]*
 /tools/game/*.netstate.xml
@@ -119,6 +118,7 @@
 /tools/libsumo/libsumo.py
 /tools/libtraci/_libtraci.*
 /tools/libtraci/libtraci.py
+/tools/setup.py
 # extracted tests
 /tests/_*
 # netedit test

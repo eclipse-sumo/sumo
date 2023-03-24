@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -34,28 +34,28 @@
 // member method definitions
 // ===========================================================================
 
-GNEDetector::GNEDetector(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon *icon, double pos, const SUMOTime period,
-        const std::vector<GNELane*>& parentLanes, const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name,
-        const bool friendlyPos, const Parameterised::Map& parameters) :
+GNEDetector::GNEDetector(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon, double pos, const SUMOTime period,
+                         const std::vector<GNELane*>& parentLanes, const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name,
+                         const bool friendlyPos, const Parameterised::Map& parameters) :
     GNEAdditional(id, net, type, tag, icon, name, {}, {}, parentLanes, {}, {}, {}),
-    Parameterised(parameters),
-    myPositionOverLane(pos),
-    myPeriod(period),
-    myFilename(filename),
-    myVehicleTypes(vehicleTypes),
-    myFriendlyPosition(friendlyPos) {
+              Parameterised(parameters),
+              myPositionOverLane(pos),
+              myPeriod(period),
+              myFilename(filename),
+              myVehicleTypes(vehicleTypes),
+myFriendlyPosition(friendlyPos) {
 }
 
 
-GNEDetector::GNEDetector(GNEAdditional* additionalParent, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon *icon, 
-        const double pos, const SUMOTime period, const std::vector<GNELane*>& parentLanes, const std::string& filename, 
-        const std::string& name, const bool friendlyPos, const Parameterised::Map& parameters) :
+GNEDetector::GNEDetector(GNEAdditional* additionalParent, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon,
+                         const double pos, const SUMOTime period, const std::vector<GNELane*>& parentLanes, const std::string& filename,
+                         const std::string& name, const bool friendlyPos, const Parameterised::Map& parameters) :
     GNEAdditional(net, type, tag, icon, name, {}, {}, parentLanes, {additionalParent}, {}, {}),
-    Parameterised(parameters),
-    myPositionOverLane(pos),
-    myPeriod(period),
-    myFilename(filename),
-    myFriendlyPosition(friendlyPos) {
+Parameterised(parameters),
+myPositionOverLane(pos),
+myPeriod(period),
+myFilename(filename),
+myFriendlyPosition(friendlyPos) {
 }
 
 
@@ -221,38 +221,55 @@ GNEDetector::drawE1Shape(const GUIVisualizationSettings& s, const double exagger
         // end draw line
         glEnd();
     }
+    //arrow
+    glTranslated(2, 0, 0);
+    GLHelper::setColor(mainColor);
+    GLHelper::drawTriangleAtEnd(Position(0, 0), Position(0.5, 0), (double) 0.5, (double) 1);
     // pop matrix
     GLHelper::popMatrix();
 }
 
 
 void
-GNEDetector::drawDetectorLogo(const GUIVisualizationSettings& s, const double exaggeration,
-                              const std::string& logo, const RGBColor& textColor) const {
+GNEDetector::drawE1DetectorLogo(const GUIVisualizationSettings& s, const double exaggeration,
+                                const std::string& logo, const RGBColor& textColor) const {
     if (!s.drawForRectangleSelection && !s.drawForPositionSelection) {
-        // calculate middle point
-        const double middlePoint = (myAdditionalGeometry.getShape().length2D() * 0.5);
         // calculate position
-        const Position pos = (myAdditionalGeometry.getShape().size() == 1) ? myAdditionalGeometry.getShape().front() : myAdditionalGeometry.getShape().positionAtOffset2D(middlePoint);
+        const Position pos = myAdditionalGeometry.getShape().front();
         // calculate rotation
-        double rot = 0;
-        if (myAdditionalGeometry.getShapeRotations().size() > 0) {
-            rot = myAdditionalGeometry.getShapeRotations().front();
-        } else if (myAdditionalGeometry.getShape().size() > 1)  {
-            rot = myAdditionalGeometry.getShape().rotationDegreeAtOffset(middlePoint);
-        }
+        const double rot = s.getTextAngle(myAdditionalGeometry.getShapeRotations().front() + 90);
         // Start pushing matrix
         GLHelper::pushMatrix();
         // Traslate to position
         glTranslated(pos.x(), pos.y(), 0.1);
-        // rotate over lane
-        GUIGeometry::rotateOverLane(rot);
-        // move
-        glTranslated(-1, 0, 0);
         // scale text
         glScaled(exaggeration, exaggeration, 1);
         // draw E1 logo
-        GLHelper::drawText(logo, Position(), .1, 1.5, textColor);
+        GLHelper::drawText(logo + "     ", Position(), .1, 1.5, textColor, rot);
+        // pop matrix
+        GLHelper::popMatrix();
+    }
+}
+
+
+void
+GNEDetector::drawE2DetectorLogo(const GUIVisualizationSettings& s, const double exaggeration,
+                                const std::string& logo, const RGBColor& textColor) const {
+    if (!s.drawForRectangleSelection && !s.drawForPositionSelection) {
+        // calculate middle point
+        const double middlePoint = (myAdditionalGeometry.getShape().length2D() * 0.5);
+        // calculate position
+        const Position pos = myAdditionalGeometry.getShape().positionAtOffset2D(middlePoint);
+        // calculate rotation
+        const double rot = s.getTextAngle(myAdditionalGeometry.getShape().rotationDegreeAtOffset(middlePoint) + 90);
+        // Start pushing matrix
+        GLHelper::pushMatrix();
+        // Traslate to position
+        glTranslated(pos.x(), pos.y(), 0.1);
+        // scale text
+        glScaled(exaggeration, exaggeration, 1);
+        // draw E1 logo
+        GLHelper::drawText(logo, Position(), .1, 1.5, textColor, rot);
         // pop matrix
         GLHelper::popMatrix();
     }

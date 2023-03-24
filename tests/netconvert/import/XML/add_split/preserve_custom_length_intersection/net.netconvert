@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-01-26 11:02:47 by Eclipse SUMO netconvert Version v1_15_0+1961-33c8f86
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_nodes.nod.xml"/>
+        <edge-files value="input_edges.edg.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output-file value="net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.remove value="true"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,20.00" convBoundary="0.00,0.00,100.00,40.00" origBoundary="0.00,-20.00,100.00,20.00" projParameter="!"/>
+
+    <edge id=":new_0" function="internal">
+        <lane id=":new_0_0" index="0" speed="6.51" length="9.03" shape="54.80,6.40 55.15,8.85 56.20,10.60 57.95,11.65 60.40,12.00"/>
+        <lane id=":new_0_1" index="1" speed="8.00" length="14.19" shape="51.60,6.40 52.15,10.25 53.80,13.00 56.55,14.65 60.40,15.20"/>
+    </edge>
+    <edge id=":new_2" function="internal">
+        <lane id=":new_2_0" index="0" speed="13.89" length="17.79" shape="51.60,6.40 52.10,11.67 53.20,15.20 54.30,18.73 54.80,24.00"/>
+        <lane id=":new_2_1" index="1" speed="13.89" length="17.79" shape="51.60,6.40 51.60,24.00"/>
+    </edge>
+    <edge id=":new_4" function="internal">
+        <lane id=":new_4_0" index="0" speed="13.89" length="14.40" shape="46.00,12.00 60.40,12.00"/>
+        <lane id=":new_4_1" index="1" speed="13.89" length="14.40" shape="46.00,15.20 60.40,15.20"/>
+        <lane id=":new_4_2" index="2" speed="13.89" length="14.40" shape="46.00,18.40 60.40,18.40"/>
+    </edge>
+
+    <edge id="1" from="0" to="new" priority="-1" length="92.80">
+        <lane id="1_0" index="0" speed="13.89" length="92.80" shape="0.00,12.00 46.00,12.00"/>
+        <lane id="1_1" index="1" speed="13.89" length="92.80" shape="0.00,15.20 46.00,15.20"/>
+        <lane id="1_2" index="2" speed="13.89" length="92.80" shape="0.00,18.40 46.00,18.40"/>
+    </edge>
+    <edge id="1.100" from="new" to="1" priority="-1" length="92.80">
+        <lane id="1.100_0" index="0" speed="13.89" length="92.80" shape="60.40,12.00 100.00,12.00"/>
+        <lane id="1.100_1" index="1" speed="13.89" length="92.80" shape="60.40,15.20 100.00,15.20"/>
+        <lane id="1.100_2" index="2" speed="13.89" length="92.80" shape="60.40,18.40 100.00,18.40"/>
+    </edge>
+    <edge id="a" from="a" to="new" priority="-1">
+        <lane id="a_0" index="0" speed="13.89" length="6.40" shape="54.80,0.00 54.80,6.40"/>
+        <lane id="a_1" index="1" speed="13.89" length="6.40" shape="51.60,0.00 51.60,6.40"/>
+    </edge>
+    <edge id="b" from="new" to="b" priority="-1">
+        <lane id="b_0" index="0" speed="13.89" length="16.00" shape="54.80,24.00 54.80,40.00"/>
+        <lane id="b_1" index="1" speed="13.89" length="16.00" shape="51.60,24.00 51.60,40.00"/>
+    </edge>
+
+    <junction id="0" type="dead_end" x="0.00" y="20.00" incLanes="" intLanes="" shape="0.00,20.00 0.00,10.40"/>
+    <junction id="1" type="dead_end" x="100.00" y="20.00" incLanes="1.100_0 1.100_1 1.100_2" intLanes="" shape="100.00,10.40 100.00,20.00"/>
+    <junction id="a" type="dead_end" x="50.00" y="0.00" incLanes="" intLanes="" shape="50.00,0.00 56.40,0.00"/>
+    <junction id="b" type="dead_end" x="50.00" y="40.00" incLanes="b_0 b_1" intLanes="" shape="56.40,40.00 50.00,40.00"/>
+    <junction id="new" type="priority" x="50.00" y="20.00" incLanes="a_0 a_1 1_0 1_1 1_2" intLanes=":new_0_0 :new_0_1 :new_2_0 :new_2_1 :new_4_0 :new_4_1 :new_4_2" shape="50.00,24.00 56.40,24.00 56.84,21.78 57.40,21.00 58.18,20.44 59.18,20.11 60.40,20.00 60.40,10.40 58.18,9.96 57.40,9.40 56.84,8.62 56.51,7.62 56.40,6.40 50.00,6.40 49.56,8.62 49.00,9.40 48.22,9.96 47.22,10.29 46.00,10.40 46.00,20.00 48.22,20.44 49.00,21.00 49.56,21.78 49.89,22.78">
+        <request index="0" response="1110000" foes="1110000" cont="0"/>
+        <request index="1" response="1110000" foes="1110000" cont="0"/>
+        <request index="2" response="1110000" foes="1110000" cont="0"/>
+        <request index="3" response="1110000" foes="1110000" cont="0"/>
+        <request index="4" response="0000000" foes="0001111" cont="0"/>
+        <request index="5" response="0000000" foes="0001111" cont="0"/>
+        <request index="6" response="0000000" foes="0001111" cont="0"/>
+    </junction>
+
+    <connection from="1" to="1.100" fromLane="0" toLane="0" via=":new_4_0" dir="s" state="M"/>
+    <connection from="1" to="1.100" fromLane="1" toLane="1" via=":new_4_1" dir="s" state="M"/>
+    <connection from="1" to="1.100" fromLane="2" toLane="2" via=":new_4_2" dir="s" state="M"/>
+    <connection from="a" to="1.100" fromLane="0" toLane="0" via=":new_0_0" dir="r" state="m"/>
+    <connection from="a" to="1.100" fromLane="1" toLane="1" via=":new_0_1" dir="r" state="m"/>
+    <connection from="a" to="b" fromLane="1" toLane="0" via=":new_2_0" dir="s" state="m"/>
+    <connection from="a" to="b" fromLane="1" toLane="1" via=":new_2_1" dir="s" state="m"/>
+
+    <connection from=":new_0" to="1.100" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":new_0" to="1.100" fromLane="1" toLane="1" dir="r" state="M"/>
+    <connection from=":new_2" to="b" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":new_2" to="b" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from=":new_4" to="1.100" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":new_4" to="1.100" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from=":new_4" to="1.100" fromLane="2" toLane="2" dir="s" state="M"/>
+
+</net>

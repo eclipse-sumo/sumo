@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -41,13 +41,13 @@ netedit.createDataSet()
 netedit.createDataInterval()
 
 # create edgeRelData
-netedit.leftClick(referencePosition, 250, 90)
-netedit.leftClick(referencePosition, 450, 270)
+netedit.leftClick(referencePosition, 250, 80)
+netedit.leftClick(referencePosition, 460, 270)
 netedit.typeEnter()
 
 # create edgeRelData
 netedit.leftClick(referencePosition, 350, 120)
-netedit.leftClick(referencePosition, 350, 360)
+netedit.leftClick(referencePosition, 350, 380)
 netedit.typeEnter()
 
 # go to select mode
@@ -60,7 +60,7 @@ netedit.selectionInvertData()
 netedit.inspectMode()
 
 # inspect edgeRelData
-netedit.leftClick(referencePosition, 250, 90)
+netedit.leftClick(referencePosition, 350, 380)
 
 # check double parameters
 netedit.checkDoubleParameters(referencePosition, netedit.attrs.edgeRelData.inspectSelection.parameters, False, 0, 30)
@@ -68,7 +68,7 @@ netedit.checkDoubleParameters(referencePosition, netedit.attrs.edgeRelData.inspe
 # save data elements
 netedit.saveDatas(referencePosition, True, 0, 30)
 
-# save network
+# save Netedit config
 netedit.saveNetwork(referencePosition, True, 0, 30)
 
 # quit netedit

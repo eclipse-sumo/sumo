@@ -9,3 +9,6 @@ csv2xml
 
 # Test for add or remove attributes
 changeAttribute
+
+# Test for removing elements from file
+filterElements

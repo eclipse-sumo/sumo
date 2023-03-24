@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -15,7 +15,7 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    Feb 2011
 ///
-// Manager for paths in NETEDIT (routes, trips, flows...)
+// Manager for paths in netedit (routes, trips, flows...)
 /****************************************************************************/
 #pragma once
 #include <config.h>
@@ -23,6 +23,7 @@
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBVehicle.h>
 #include <utils/router/SUMOAbstractRouter.h>
+#include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/settings/GUIVisualizationSettings.h>
 
 
@@ -143,7 +144,7 @@ public:
     };
 
     /// @brief class used for path elements
-    class PathElement {
+    class PathElement : public GUIGlObject {
 
     public:
         enum Options {
@@ -155,13 +156,10 @@ public:
         };
 
         /// @brief constructor
-        PathElement(GUIGlObject* GLObject, const int options);
+        PathElement(GUIGlObjectType type, const std::string& microsimID, FXIcon* icon, const int options);
 
         /// @brief destructor
         virtual ~PathElement();
-
-        /// @brief get GUIGlObject associated with this Path
-        GUIGlObject* getPathGUIGlObject();
 
         /// @brief check if pathElement is a network element
         bool isNetworkElement() const;
@@ -180,6 +178,9 @@ public:
 
         /// @brief compute pathElement
         virtual void computePathElement() = 0;
+
+        /// @brief check if path element is selectd
+        virtual bool isPathElementSelected() const = 0;
 
         /**@brief Draws partial object (lane)
          * @param[in] s The settings for the current view (may influence drawing)
@@ -217,14 +218,17 @@ public:
         virtual Position getPathElementArrivalPos() const = 0;
 
     private:
-        /// @brief default constructor
-        PathElement();
-
-        /// @brief GLObject associated with this Path
-        GUIGlObject* myGLObject;
-
         /// @brief pathElement option
         const int myOption;
+
+        /// @brief invalidate default constructor
+        PathElement() = delete;
+
+        /// @brief Invalidated copy constructor.
+        PathElement(const PathElement&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        PathElement& operator=(const PathElement&) = delete;
     };
 
     /// @brief class used to calculate paths in nets
@@ -249,7 +253,7 @@ public:
         /// @brief calculate reachability for given edge
         void calculateReachability(const SUMOVehicleClass vClass, GNEEdge* originEdge);
 
-        /// @brief check if exist a path between the two given consecutives edges for the given VClass
+        /// @brief check if exist a path between the two given consecutive edges for the given VClass
         bool consecutiveEdgesConnected(const SUMOVehicleClass vClass, const GNEEdge* from, const GNEEdge* to) const;
 
         /// @brief check if exist a path between the given busStop and edge (Either a valid lane or an acces) for pedestrians
@@ -313,6 +317,9 @@ public:
 
     /// @brief get path element
     const PathElement* getPathElement(const GUIGlObject* GLObject) const;
+
+    /// @brief get path segments
+    const std::vector<Segment*>& getPathElementSegments(PathElement* pathElement) const;
 
     /// @brief obtain instance of PathDraw
     PathDraw* getPathDraw();
@@ -390,10 +397,10 @@ protected:
     /// @brief map with junction segments
     std::map<const GNEJunction*, std::set<Segment*> > myJunctionSegments;
 
-    /// @brief map with GLObject and their associated path
-    std::map<const GUIGlObject*, const PathElement*> myGLObjects;
-
 private:
+    /// @brief empty segments (used in getPathElementSegments)
+    const std::vector<Segment*> myEmptySegments;
+
     /// @brief Invalidated copy constructor.
     GNEPathManager(const GNEPathManager&) = delete;
 

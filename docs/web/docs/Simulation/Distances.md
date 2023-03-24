@@ -21,7 +21,7 @@ However, lengths of edges and lanes can be different from the euclidean
 distance (referred to as a **length-geometry-mismtach**) and there are several reasons why this occurs.
 
 
-[sumo-gui](../sumo-gui.md/#edgelane_visualisation_settings) and [netedit](../Netedit/index.md) can be configured to color lanes by ''by given length/geometrical length'' which highlights the mismatch between both distance values.
+[sumo-gui](../sumo-gui.md#edgelane_visualisation_settings) and [netedit](../Netedit/index.md) can be configured to color lanes by ''by given length/geometrical length'' which highlights the mismatch between both distance values.
 
 ## Short Lanes
 Lanes with a geometrical length of 0 have an assigned minimum length of 0.1m.

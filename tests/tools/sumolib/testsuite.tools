@@ -1,3 +1,6 @@
+# parsing XML and accessing objects
+xml
+
 # parsing a network and accessing objects
 net
 
@@ -13,6 +16,9 @@ sumolib3d
 
 # unit tests for functions in init
 init
+
+# unit tests for functions from the miscutils module
+miscutils
 geomhelper
 
 # parsing a network working with tlLogic
@@ -29,9 +35,6 @@ getShortestRoute_rail
 
 # finding fastest routes
 getFastestRoute
-
-# parsing XML and accessing objects
-xml
 
 # testing statistics 
 statistics

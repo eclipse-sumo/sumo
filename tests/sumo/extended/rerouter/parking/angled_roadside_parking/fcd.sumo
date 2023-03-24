@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jul  3 11:23:06 2020 by Eclipse SUMO sumo Version v1_6_0+1131-763a77b37a
+<!-- generated on 2022-10-26 20:30:23 by Eclipse SUMO sumo Version v1_14_1+1635-30347d4bd51
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -92,7 +97,7 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="v0" x="764.24" y="422.20" z="50.54" angle="19.54" type="DEFAULT_VEHTYPE" speed="13.89" pos="39.67" lane="b_0" slope="-3.14" signals="0"/>
     </timestep>
     <timestep time="19.00">
-        <vehicle id="v0" x="768.81" y="434.85" z="50.19" angle="20.40" type="DEFAULT_VEHTYPE" speed="13.89" pos="53.56" lane="b_0" slope="3.04" signals="0"/>
+        <vehicle id="v0" x="768.81" y="434.85" z="50.19" angle="20.40" type="DEFAULT_VEHTYPE" speed="13.89" pos="53.56" lane="b_0" slope="1.47" signals="0"/>
     </timestep>
     <timestep time="20.00">
         <vehicle id="v0" x="773.56" y="447.44" z="50.91" angle="20.70" type="DEFAULT_VEHTYPE" speed="13.89" pos="67.45" lane="b_0" slope="3.04" signals="0"/>
@@ -119,7 +124,7 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="v0" x="801.43" y="537.32" z="55.41" angle="17.73" type="DEFAULT_VEHTYPE" speed="13.89" pos="164.68" lane="b_0" slope="3.03" signals="0"/>
     </timestep>
     <timestep time="28.00">
-        <vehicle id="v0" x="805.52" y="550.14" z="56.12" angle="17.62" type="DEFAULT_VEHTYPE" speed="13.89" pos="178.57" lane="b_0" slope="3.15" signals="0"/>
+        <vehicle id="v0" x="805.52" y="550.14" z="56.12" angle="17.62" type="DEFAULT_VEHTYPE" speed="13.89" pos="178.57" lane="b_0" slope="3.09" signals="0"/>
     </timestep>
     <timestep time="29.00">
         <vehicle id="v0" x="809.56" y="562.97" z="56.86" angle="17.49" type="DEFAULT_VEHTYPE" speed="13.89" pos="192.46" lane="b_0" slope="3.15" signals="0"/>
@@ -131,7 +136,7 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="v0" x="817.96" y="588.43" z="58.24" angle="16.18" type="DEFAULT_VEHTYPE" speed="13.89" pos="220.24" lane="b_0" slope="10.83" signals="1"/>
     </timestep>
     <timestep time="32.00">
-        <vehicle id="v0" x="821.81" y="601.16" z="60.20" angle="17.91" type="DEFAULT_VEHTYPE" speed="13.89" pos="234.13" lane="b_0" slope="2.87" signals="1"/>
+        <vehicle id="v0" x="821.81" y="601.16" z="60.20" angle="17.91" type="DEFAULT_VEHTYPE" speed="13.89" pos="234.13" lane="b_0" slope="4.11" signals="1"/>
     </timestep>
     <timestep time="33.00">
         <vehicle id="v0" x="825.78" y="613.24" z="60.84" angle="18.23" type="DEFAULT_VEHTYPE" speed="13.12" pos="247.26" lane="b_0" slope="2.87" signals="1"/>

@@ -1,7 +1,7 @@
 Loading net-file from 'net.net.xml' ... done (9ms).
 Loading additional-files from 'input_additional.add.xml' ... done (1ms).
 Loading done.
-Simulation version v1_8_0+0309-f6f0de62b4 started with time: 0.00
+Simulation version v1_8_0+0309-f6f0de62b4 started with time: 0.00.
 Simulation ended at time: 5400.00
 Reason: The final simulation step has been reached.
 Performance: 

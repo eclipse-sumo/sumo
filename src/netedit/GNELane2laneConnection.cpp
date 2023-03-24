@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -17,7 +17,6 @@
 ///
 // File for lane2lane geometry classes and functions
 /****************************************************************************/
-#include <utils/geom/GeomHelper.h>
 
 #include <netedit/elements/network/GNEEdge.h>
 #include <netedit/elements/network/GNELane.h>
@@ -52,7 +51,7 @@ GNELane2laneConnection::updateLane2laneConnection() {
             PositionVector shape;
             // only create smooth shapes if Edge From has as maximum 10 lanes
             if ((NBEdgeFrom->getNumLanes() <= maximumLanes) && (NBEdgeFrom->getToNode()->getShape().area() > 4)) {
-                // calculate smoot shape
+                // calculate smooth shape
                 shape = NBEdgeFrom->getToNode()->computeSmoothShape(
                             NBEdgeFrom->getLaneShape(myFromLane->getIndex()),
                             NBEdgeTo->getLaneShape(outgoingLane->getIndex()),

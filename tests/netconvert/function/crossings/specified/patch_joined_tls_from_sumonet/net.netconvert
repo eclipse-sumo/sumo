@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:55 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2023-01-25 08:45:35 by Eclipse SUMO netconvert Version v1_15_0+1914-84100d0141c
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -22,29 +27,28 @@ SPDX-License-Identifier: EPL-2.0
         <geometry.min-radius.fix.railways value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
-        <lefthand value="false"/>
+        <lefthand value="0"/>
     </processing>
 
     <junctions>
         <no-turnarounds value="true"/>
         <junctions.corner-detail value="0"/>
-        <junctions.limit-turn-speed value="-1"/>
-        <rectangular-lane-cut value="false"/>
+        <junctions.limit-turn-speed value="-1.00"/>
+        <rectangular-lane-cut value="0"/>
     </junctions>
 
     <pedestrian>
-        <walkingareas value="false"/>
+        <walkingareas value="0"/>
     </pedestrian>
 
     <report>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="100.00,100.00" convBoundary="0.00,0.00,300.00,200.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -62,13 +66,13 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":C_4_0" index="0" allow="passenger" speed="13.89" length="5.00" shape="98.50,98.40 99.86,98.59 100.82,99.18 101.41,100.14 101.60,101.50"/>
     </edge>
     <edge id=":C_c0" function="crossing" crossingEdges="SC">
-        <lane id=":C_c0_0" index="0" allow="pedestrian" speed="1.00" length="6.40" width="4.50" shape="100.00,89.85 106.40,89.85"/>
+        <lane id=":C_c0_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.50" shape="100.00,89.85 106.40,89.85"/>
     </edge>
     <edge id=":C_w1" function="walkingarea">
-        <lane id=":C_w1_0" index="0" allow="pedestrian" speed="1.00" length="4.68" width="4.50" shape="112.40,92.10 112.40,89.10 110.90,87.60 107.90,87.60 106.40,87.60 106.40,92.10"/>
+        <lane id=":C_w1_0" index="0" allow="pedestrian" speed="2.78" length="4.68" width="4.50" shape="112.40,92.10 112.40,89.10 110.90,87.60 107.90,87.60 106.40,87.60 106.40,92.10"/>
     </edge>
     <edge id=":C_w2" function="walkingarea">
-        <lane id=":C_w2_0" index="0" allow="pedestrian" speed="1.00" length="1.68" width="4.50" shape="100.00,92.10 100.00,87.60 98.50,89.10 98.50,92.10"/>
+        <lane id=":C_w2_0" index="0" allow="pedestrian" speed="2.78" length="1.68" width="4.50" shape="100.00,92.10 100.00,87.60 98.50,89.10 98.50,92.10"/>
     </edge>
     <edge id=":C2_0" function="internal">
         <lane id=":C2_0_0" index="0" allow="passenger" speed="13.89" length="12.26" shape="204.80,87.60 205.28,90.93 206.70,93.30 209.07,94.73 212.40,95.20"/>
@@ -84,13 +88,13 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":C2_4_0" index="0" allow="passenger" speed="13.89" length="5.00" shape="198.50,98.40 199.86,98.59 200.83,99.18 201.41,100.14 201.60,101.50"/>
     </edge>
     <edge id=":C2_c0" function="crossing" crossingEdges="S2C2">
-        <lane id=":C2_c0_0" index="0" allow="pedestrian" speed="1.00" length="6.40" width="4.50" shape="200.00,89.85 206.40,89.85"/>
+        <lane id=":C2_c0_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.50" shape="200.00,89.85 206.40,89.85"/>
     </edge>
     <edge id=":C2_w1" function="walkingarea">
-        <lane id=":C2_w1_0" index="0" allow="pedestrian" speed="1.00" length="4.68" width="4.50" shape="212.40,92.10 212.40,89.10 210.90,87.60 207.90,87.60 206.40,87.60 206.40,92.10"/>
+        <lane id=":C2_w1_0" index="0" allow="pedestrian" speed="2.78" length="4.68" width="4.50" shape="212.40,92.10 212.40,89.10 210.90,87.60 207.90,87.60 206.40,87.60 206.40,92.10"/>
     </edge>
     <edge id=":C2_w2" function="walkingarea">
-        <lane id=":C2_w2_0" index="0" allow="pedestrian" speed="1.00" length="1.68" width="4.50" shape="200.00,92.10 200.00,87.60 198.50,89.10 198.50,92.10"/>
+        <lane id=":C2_w2_0" index="0" allow="pedestrian" speed="2.78" length="1.68" width="4.50" shape="200.00,92.10 200.00,87.60 198.50,89.10 198.50,92.10"/>
     </edge>
 
     <edge id="C2E" from="C2" to="E" priority="2">

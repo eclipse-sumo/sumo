@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -26,25 +26,31 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to additional mode
 netedit.additionalMode()
 
-# select calibrator
+# select calibratorLane
 netedit.changeElement("calibratorLane")
 
-# create first calibrator
-netedit.leftClick(referencePosition, 245, 140)
+# change center view
+netedit.changeDefaultBoolValue(netedit.attrs.calibrator.create.center)
 
-# create second calibrator
-netedit.leftClick(referencePosition, 200, 280)
+# create first calibratorLane
+netedit.leftClick(referencePosition, 492, 258)
+
+# change center view
+netedit.changeDefaultBoolValue(netedit.attrs.calibrator.create.center)
+
+# create second calibratorLane
+netedit.leftClick(referencePosition, 266, 258)
 
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect calibrator
-netedit.leftClick(referencePosition, 300, 225)
+# inspect calibratorLane
+netedit.leftClick(referencePosition, 463, 229)
 
 # Change parameter id with a non valid value (Duplicated ID)
 netedit.modifyAttribute(netedit.attrs.calibrator.inspect.id, "ca_0", True)
@@ -59,11 +65,8 @@ netedit.modifyAttribute(netedit.attrs.calibrator.inspect.id, "correctID", True)
 netedit.undo(referencePosition, 3)
 netedit.redo(referencePosition, 3)
 
-# save additionals
-netedit.saveAdditionals(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

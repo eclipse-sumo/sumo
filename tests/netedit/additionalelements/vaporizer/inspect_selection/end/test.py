@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -41,26 +41,23 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect vaporizers
-netedit.leftClick(referencePosition, 533, 200)
+netedit.leftClick(referencePosition, 253, 321)
 
 # Set invalid end 1
-netedit.modifyAttribute(netedit.attrs.vaporizer.inspectSelection.end, "-5", True)
+netedit.modifyAttribute(netedit.attrs.vaporizer.inspectSelection.end, "-5", False)
 
 # Set invalid end 2
-netedit.modifyAttribute(netedit.attrs.vaporizer.inspectSelection.end, "1", True)
+netedit.modifyAttribute(netedit.attrs.vaporizer.inspectSelection.end, "1", False)
 
 # Set valid begin
-netedit.modifyAttribute(netedit.attrs.vaporizer.inspectSelection.end, "15.8", True)
+netedit.modifyAttribute(netedit.attrs.vaporizer.inspectSelection.end, "15.8", False)
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)
 netedit.redo(referencePosition, 2)
 
-# save additionals
-netedit.saveAdditionals(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -30,6 +30,7 @@ def run(suffix, args, guiTests=False, chrouter=True):
     env = os.environ
     root = os.path.abspath(os.path.dirname(__file__))
     env["TEXTTEST_HOME"] = root
+    env["LANG"] = "C"
     if "SUMO_HOME" not in env:
         env["SUMO_HOME"] = os.path.join(root, "..")
     for binary in ("activitygen", "emissionsDrivingCycle", "emissionsMap",

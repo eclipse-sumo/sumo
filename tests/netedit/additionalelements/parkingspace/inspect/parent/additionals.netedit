@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-03-04 10:28:27 by Eclipse SUMO netedit Version v1_12_0+1137-e9106068858
+<!-- generated on 2023-02-07 16:20:18 by Eclipse SUMO netedit Version v1_16_0+0024-1134bf4b789
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- StoppingPlaces -->
-    <parkingArea id="pa_0" lane="gneE2_0" startPos="15.00" endPos="25.00">
-        <space x="20.00" y="5.00"/>
+    <parkingArea id="pa_0" lane="center1_1" startPos="23.00" endPos="33.00">
+        <space x="-2.00" y="-12.00"/>
     </parkingArea>
-    <parkingArea id="pa_1" lane="gneE2_0" startPos="35.00" endPos="45.00">
-        <space x="15.00" y="5.00"/>
+    <parkingArea id="pa_1" lane="center1_1" startPos="15.00" endPos="25.00">
+        <space x="-18.00" y="-12.00"/>
     </parkingArea>
 </additional>

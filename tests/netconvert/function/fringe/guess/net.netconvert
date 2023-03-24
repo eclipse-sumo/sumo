@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:58 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2023-03-02 15:11:23 by Eclipse SUMO netconvert Version v1_16_0+0943-f4d562fe610
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -21,30 +26,29 @@ SPDX-License-Identifier: EPL-2.0
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <fringe.guess value="true"/>
-        <lefthand value="false"/>
+        <lefthand value="0"/>
     </processing>
 
     <junctions>
         <no-internal-links value="true"/>
         <no-turnarounds value="true"/>
         <junctions.corner-detail value="5"/>
-        <junctions.limit-turn-speed value="5.5"/>
-        <rectangular-lane-cut value="false"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
     </junctions>
 
     <pedestrian>
-        <walkingareas value="false"/>
+        <walkingareas value="0"/>
     </pedestrian>
 
     <report>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.9" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="500.00,400.00" convBoundary="0.00,0.00,601.13,800.00" origBoundary="-500.00,-400.00,100.00,400.00" projParameter="!"/>
 
@@ -613,7 +617,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>
-    <junction id="30" type="priority" x="200.00" y="400.00" incLanes="-64.80.00_0 -64.80.00_1 31.80.00_0 31.80.00_1 -58.121.42_0 -58.121.42_1 -60.80.00_0 -60.80.00_1" intLanes="" shape="195.20,408.80 204.80,408.80 206.00,406.58 207.50,405.80 209.60,405.24 212.29,404.91 215.59,404.80 215.59,395.20 213.68,394.89 213.30,394.49 213.29,393.94 213.67,393.24 214.42,392.37 207.63,385.58 204.50,388.52 201.53,390.93 198.72,392.80 196.05,394.13 193.55,394.93 191.20,395.20 191.20,404.80 193.42,405.24 194.20,405.80 194.76,406.58 195.09,407.58">
+    <junction id="30" type="priority" x="200.00" y="400.00" incLanes="-64.80.00_0 -64.80.00_1 31.80.00_0 31.80.00_1 -58.121.42_0 -58.121.42_1 -60.80.00_0 -60.80.00_1" intLanes="" shape="195.20,408.80 204.80,408.80 206.00,406.58 207.50,405.80 209.60,405.24 212.29,404.91 215.59,404.80 215.59,395.20 213.68,394.89 213.30,394.49 213.29,393.94 213.67,393.24 214.42,392.37 207.63,385.58 204.74,388.63 202.50,391.07 200.46,392.92 198.19,394.20 195.25,394.96 191.20,395.20 191.20,404.80 193.42,405.24 194.20,405.80 194.76,406.58 195.09,407.58">
         <request index="0"  response="000000000100000" foes="100010000100000"/>
         <request index="1"  response="011100001100000" foes="011110001100000"/>
         <request index="2"  response="011001101100000" foes="011001111100000"/>

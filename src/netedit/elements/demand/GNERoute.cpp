@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -76,7 +76,7 @@ GNERoute::GNERoutePopupMenu::onCmdApplyDistance(FXObject*, FXSelector, void*) {
 // ===========================================================================
 
 GNERoute::GNERoute(SumoXMLTag tag, GNENet* net) :
-    GNEDemandElement("", net, GLO_ROUTE, tag, GUIIconSubSys::getIcon(GUIIcon::ROUTE), 
+    GNEDemandElement("", net, GLO_ROUTE, tag, GUIIconSubSys::getIcon(GUIIcon::ROUTE),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT | GNEPathManager::PathElement::Options::ROUTE,
 {}, {}, {}, {}, {}, {}),
 Parameterised(),
@@ -199,9 +199,11 @@ GNERoute::writeDemandElement(OutputDevice& device) const {
     }
     // write sorted stops
     if (myTagProperty.getTag() == SUMO_TAG_ROUTE) {
-        const auto sortedStops = getSortedStops(getParentEdges());
-        for (const auto& stop : sortedStops) {
-            stop->writeDemandElement(device);
+        // write stops
+        for (const auto& demandElement : getChildDemandElements()) {
+            if (demandElement->getTagProperty().isStop() || demandElement->getTagProperty().isWaypoint()) {
+                demandElement->writeDemandElement(device);
+            }
         }
     }
     // write parameters
@@ -220,8 +222,7 @@ GNERoute::isDemandElementValid() const {
             stops.push_back(routeChild);
         }
     }
-    const auto sortedStops = getSortedStops(getParentEdges());
-    if (sortedStops.size() != stops.size()) {
+    if (getInvalidStops().size() > 0) {
         return Problem::STOP_DOWNSTREAM;
     }
     // check parent edges
@@ -250,9 +251,9 @@ GNERoute::getDemandElementProblem() const {
             stops.push_back(routeChild);
         }
     }
-    const auto sortedStops = getSortedStops(getParentEdges());
-    if (sortedStops.size() != stops.size()) {
-        return toString(stops.size() - sortedStops.size()) + " stops are outside of route (downstream)";
+    const auto invalidStops = getInvalidStops();
+    if (invalidStops.size() > 0) {
+        return toString(invalidStops.size()) + " stops are outside of route (downstream)";
     }
     // return string with the problem obtained from isRouteValid
     return isRouteValid(getParentEdges());
@@ -387,7 +388,7 @@ GNERoute::computePathElement() {
 void
 GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment, const double offsetFront) const {
     // get inspected and front flags
-    const bool dottedElement = myNet->getViewNet()->isAttributeCarrierInspected(this) || 
+    const bool dottedElement = myNet->getViewNet()->isAttributeCarrierInspected(this) ||
                                (myNet->getViewNet()->getFrontAttributeCarrier() == this) ||
                                myNet->getViewNet()->drawDeleteContour(this, this) ||
                                myNet->getViewNet()->drawSelectContour(this, this) ||
@@ -425,42 +426,45 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, 
         }
         // obtain color
         const RGBColor routeColor = drawUsingSelectColor() ? s.colorSettings.selectedRouteColor : getColor();
-        // Start drawing adding an gl identificator
-        GLHelper::pushName(getGlID());
-        // Add a draw matrix
-        GLHelper::pushMatrix();
-        // Start with the drawing of the area traslating matrix to origin
-        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType(), offsetFront + (embedded ? 0.1 : 0));
-        // Set color
-        GLHelper::setColor(routeColor);
-        // draw route geometry
-        GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), routeGeometry, routeWidth);
-        // Pop last matrix
-        GLHelper::popMatrix();
-        // Draw name if isn't being drawn for selecting
-        if (!s.drawForRectangleSelection) {
-            drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
-        }
-        // Pop name
-        GLHelper::popName();
-        // check if we have to draw a red line to the next segment
-        if (segment->getNextSegment()) {
-            // push draw matrix
+        // avoid draw invisible elements
+        if (routeColor.alpha() != 0) {
+            // Start drawing adding an gl identificator
+            GLHelper::pushName(getGlID());
+            // Add a draw matrix
             GLHelper::pushMatrix();
             // Start with the drawing of the area traslating matrix to origin
-            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType());
-            // Set red color
-            GLHelper::setColor(RGBColor::RED);
-            // get firstPosition (last position of current lane shape)
-            const Position firstPosition = lane->getLaneShape().back();
-            // get lastPosition (first position of next lane shape)
-            const Position arrivalPos = segment->getNextSegment()->getPathElement()->getPathElementArrivalPos();
-            // draw box line
-            GLHelper::drawBoxLine(arrivalPos,
-                                  RAD2DEG(firstPosition.angleTo2D(arrivalPos)) - 90,
-                                  firstPosition.distanceTo2D(arrivalPos), .05);
-            // pop draw matrix
+            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType(), offsetFront + (embedded ? 0.1 : 0));
+            // Set color
+            GLHelper::setColor(routeColor);
+            // draw route geometry
+            GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), routeGeometry, routeWidth);
+            // Pop last matrix
             GLHelper::popMatrix();
+            // Draw name if isn't being drawn for selecting
+            if (!s.drawForRectangleSelection) {
+                drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
+            }
+            // Pop name
+            GLHelper::popName();
+            // check if we have to draw a red line to the next segment
+            if (segment->getNextSegment()) {
+                // push draw matrix
+                GLHelper::pushMatrix();
+                // Start with the drawing of the area traslating matrix to origin
+                myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType());
+                // Set red color
+                GLHelper::setColor(RGBColor::RED);
+                // get firstPosition (last position of current lane shape)
+                const Position firstPosition = lane->getLaneShape().back();
+                // get lastPosition (first position of next lane shape)
+                const Position arrivalPos = segment->getNextSegment()->getPathElement()->getPathElementArrivalPos();
+                // draw box line
+                GLHelper::drawBoxLine(arrivalPos,
+                                      RAD2DEG(firstPosition.angleTo2D(arrivalPos)) - 90,
+                                      firstPosition.distanceTo2D(arrivalPos), .05);
+                // pop draw matrix
+                GLHelper::popMatrix();
+            }
         }
         // check if mark this route
         const auto templateAC = myNet->getViewNet()->getViewParent()->getVehicleFrame()->getVehicleTagSelector()->getCurrentTemplateAC();

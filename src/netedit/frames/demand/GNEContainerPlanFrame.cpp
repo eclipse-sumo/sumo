@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -22,6 +22,8 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/elements/demand/GNERouteHandler.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/GNEApplicationWindow.h>
 
 #include "GNEContainerPlanFrame.h"
 
@@ -34,7 +36,7 @@
 // GNEContainerPlanFrame - methods
 // ---------------------------------------------------------------------------
 
-GNEContainerPlanFrame::GNEContainerPlanFrame(GNEViewParent *viewParent, GNEViewNet* viewNet) :
+GNEContainerPlanFrame::GNEContainerPlanFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     GNEFrame(viewParent, viewNet, "ContainerPlans"),
     myRouteHandler("", viewNet->getNet(), true, false) {
 
@@ -52,6 +54,9 @@ GNEContainerPlanFrame::GNEContainerPlanFrame(GNEViewParent *viewParent, GNEViewN
 
     // Create GNEElementTree modul
     myContainerHierarchy = new GNEElementTree(this);
+
+    // create legend label
+    myPathLegend = new GNEPathLegendModule(this);
 }
 
 
@@ -76,12 +81,13 @@ GNEContainerPlanFrame::show() {
             myContainerSelector->setDemandElement(*containerFlows.begin());
         }
     } else {
-        // hide all moduls except helpCreation
+        // hide all moduls
         myContainerSelector->hideDemandElementSelector();
         myContainerPlanTagSelector->hideTagSelector();
         myContainerPlanAttributes->hideAttributesCreatorModule();
         myPathCreator->hidePathCreatorModule();
         myContainerHierarchy->hideHierarchicalElementTree();
+        myPathLegend->hidePathLegendModule();
     }
     // show frame
     GNEFrame::show();
@@ -94,6 +100,8 @@ GNEContainerPlanFrame::hide() {
     for (const auto& edge : myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
         edge.second->resetCandidateFlags();
     }
+    // enable undo/redo
+    myViewNet->getViewParent()->getGNEAppWindows()->enableUndoRedo();
     // hide frame
     GNEFrame::hide();
 }
@@ -103,12 +111,12 @@ bool
 GNEContainerPlanFrame::addContainerPlanElement(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::MouseButtonKeyPressed& mouseButtonKeyPressed) {
     // first check if container selected is valid
     if (myContainerSelector->getCurrentDemandElement() == nullptr) {
-        myViewNet->setStatusBarText("Current selected container isn't valid.");
+        myViewNet->setStatusBarText(TL("Current selected container isn't valid."));
         return false;
     }
     // finally check that container plan selected is valid
     if (myContainerPlanTagSelector->getCurrentTemplateAC() == nullptr) {
-        myViewNet->setStatusBarText("Current selected container plan isn't valid.");
+        myViewNet->setStatusBarText(TL("Current selected container plan isn't valid."));
         return false;
     }
     // Obtain current container plan tag (only for improve code legibility)
@@ -152,11 +160,17 @@ GNEContainerPlanFrame::tagSelected() {
         if (previousEdge) {
             // set path creator mode
             myPathCreator->showPathCreatorModule(containerPlanTag, true, false);
-            // add previous edge
-            myPathCreator->addEdge(previousEdge, false, false);
+            // show legend
+            myPathLegend->showPathLegendModule();
+            // check if add previous edge
+            if (!myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().isStopContainer()) {
+                myPathCreator->addEdge(previousEdge, false, false);
+            }
         } else {
             // set path creator mode
             myPathCreator->showPathCreatorModule(containerPlanTag, false, false);
+            // show legend
+            myPathLegend->showPathLegendModule();
         }
         // show container hierarchy
         myContainerHierarchy->showHierarchicalElementTree(myContainerSelector->getCurrentDemandElement());
@@ -165,6 +179,8 @@ GNEContainerPlanFrame::tagSelected() {
         myContainerPlanAttributes->hideAttributesCreatorModule();
         myPathCreator->hidePathCreatorModule();
         myContainerHierarchy->hideHierarchicalElementTree();
+        myPathLegend->hidePathLegendModule();
+        myPathLegend->hidePathLegendModule();
     }
 }
 
@@ -183,6 +199,7 @@ GNEContainerPlanFrame::demandElementSelected() {
             myContainerPlanAttributes->hideAttributesCreatorModule();
             myPathCreator->hidePathCreatorModule();
             myContainerHierarchy->hideHierarchicalElementTree();
+            myPathLegend->hidePathLegendModule();
         }
     } else {
         // hide moduls if container selected isn't valid
@@ -190,11 +207,12 @@ GNEContainerPlanFrame::demandElementSelected() {
         myContainerPlanAttributes->hideAttributesCreatorModule();
         myPathCreator->hidePathCreatorModule();
         myContainerHierarchy->hideHierarchicalElementTree();
+        myPathLegend->hidePathLegendModule();
     }
 }
 
 
-void
+bool
 GNEContainerPlanFrame::createPath(const bool /*useLastRoute*/) {
     // first check that all attributes are valid
     if (!myContainerPlanAttributes->areValuesValid()) {
@@ -214,8 +232,12 @@ GNEContainerPlanFrame::createPath(const bool /*useLastRoute*/) {
             tagSelected();
             // refresh containerPlan attributes
             myContainerPlanAttributes->refreshAttributesCreator();
+            // enable show all person plans
+            myViewNet->getDemandViewOptions().menuCheckShowAllPersonPlans->setChecked(TRUE);
+            return true;
         }
     }
+    return false;
 }
 
 /****************************************************************************/

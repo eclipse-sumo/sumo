@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Aug 31 17:15:53 2017 by SUMO Version dev-SVN-r25773
+<!-- generated on 2022-12-11 20:57:30 by Eclipse SUMO sumo Version v1_15_0+0944-c751163
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -14,6 +19,7 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <fcd-output value="fcd.xml"/>
         <tripinfo-output value="tripinfos.xml"/>
         <lanechange-output value="lanechanges.xml"/>
@@ -21,10 +27,10 @@ SPDX-License-Identifier: EPL-2.0
 
     <processing>
         <lateral-resolution value="0.4"/>
+        <default.speeddev value="0"/>
     </processing>
 
     <report>
-        <verbose value="true"/>
         <xml-validation value="never"/>
         <duration-log.statistics value="true"/>
         <no-step-log value="true"/>
@@ -56,25 +62,25 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="B1" x="219.99" y="-1.65" angle="90.00" type="tBlocker" speed="33.33" pos="219.99" lane="beg_1" slope="0.00"/>
         <vehicle id="B2" x="129.99" y="-1.65" angle="90.00" type="tBlocker" speed="33.33" pos="129.99" lane="beg_1" slope="0.00"/>
         <vehicle id="L" x="260.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="260.00" lane="beg_0" slope="0.00"/>
-        <vehicle id="ego" x="176.20" y="-3.95" angle="88.39" type="tEgo" speed="30.62" pos="176.20" lane="beg_0" slope="0.00"/>
+        <vehicle id="ego" x="176.20" y="-3.95" angle="88.13" type="tEgo" speed="30.62" pos="176.20" lane="beg_0" slope="0.00"/>
     </timestep>
     <timestep time="4.00">
         <vehicle id="B1" x="253.32" y="-1.65" angle="90.00" type="tBlocker" speed="33.33" pos="253.32" lane="beg_1" slope="0.00"/>
         <vehicle id="B2" x="163.32" y="-1.65" angle="90.00" type="tBlocker" speed="33.33" pos="163.32" lane="beg_1" slope="0.00"/>
         <vehicle id="L" x="280.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="280.00" lane="beg_0" slope="0.00"/>
-        <vehicle id="ego" x="205.30" y="-2.85" angle="88.32" type="tEgo" speed="29.10" pos="205.30" lane="beg_1" slope="0.00"/>
+        <vehicle id="ego" x="205.30" y="-2.85" angle="88.03" type="tEgo" speed="29.10" pos="205.30" lane="beg_1" slope="0.00"/>
     </timestep>
     <timestep time="5.00">
         <vehicle id="B1" x="286.65" y="-1.65" angle="90.00" type="tBlocker" speed="33.33" pos="286.65" lane="beg_1" slope="0.00"/>
         <vehicle id="B2" x="193.19" y="-1.65" angle="90.00" type="tBlocker" speed="29.87" pos="193.19" lane="beg_1" slope="0.00"/>
         <vehicle id="L" x="300.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="300.00" lane="beg_0" slope="0.00"/>
-        <vehicle id="ego" x="233.10" y="-1.85" angle="88.25" type="tEgo" speed="27.80" pos="233.10" lane="beg_1" slope="0.00"/>
+        <vehicle id="ego" x="233.10" y="-1.85" angle="87.94" type="tEgo" speed="27.80" pos="233.10" lane="beg_1" slope="0.00"/>
     </timestep>
     <timestep time="6.00">
         <vehicle id="B1" x="319.98" y="-1.65" angle="90.00" type="tBlocker" speed="33.33" pos="319.98" lane="beg_1" slope="0.00"/>
         <vehicle id="B2" x="221.65" y="-1.65" angle="90.00" type="tBlocker" speed="28.46" pos="221.65" lane="beg_1" slope="0.00"/>
         <vehicle id="L" x="320.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="320.00" lane="beg_0" slope="0.00"/>
-        <vehicle id="ego" x="263.50" y="-1.65" angle="89.68" type="tEgo" speed="30.40" pos="263.50" lane="beg_1" slope="0.00"/>
+        <vehicle id="ego" x="263.50" y="-1.65" angle="89.62" type="tEgo" speed="30.40" pos="263.50" lane="beg_1" slope="0.00"/>
     </timestep>
     <timestep time="7.00">
         <vehicle id="B1" x="353.31" y="-1.65" angle="90.00" type="tBlocker" speed="33.33" pos="353.31" lane="beg_1" slope="0.00"/>
@@ -197,25 +203,25 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="ego" x="929.77" y="-1.65" angle="90.00" type="tEgo" speed="33.33" pos="929.77" lane="beg_1" slope="0.00"/>
     </timestep>
     <timestep time="27.00">
-        <vehicle id="B1" x="1019.91" y="-2.65" angle="91.49" type="tBlocker" speed="33.33" pos="1019.91" lane="beg_1" slope="0.00"/>
+        <vehicle id="B1" x="1019.91" y="-2.65" angle="91.72" type="tBlocker" speed="33.33" pos="1019.91" lane="beg_1" slope="0.00"/>
         <vehicle id="B2" x="919.21" y="-1.65" angle="90.00" type="tBlocker" speed="33.33" pos="919.21" lane="beg_1" slope="0.00"/>
         <vehicle id="L" x="740.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="740.00" lane="beg_0" slope="0.00"/>
         <vehicle id="ego" x="963.10" y="-1.65" angle="90.00" type="tEgo" speed="33.33" pos="963.10" lane="beg_1" slope="0.00"/>
     </timestep>
     <timestep time="28.00">
-        <vehicle id="B1" x="1053.24" y="-3.75" angle="91.49" type="tBlocker" speed="33.33" pos="1053.24" lane="beg_0" slope="0.00"/>
+        <vehicle id="B1" x="1053.24" y="-3.75" angle="91.72" type="tBlocker" speed="33.33" pos="1053.24" lane="beg_0" slope="0.00"/>
         <vehicle id="B2" x="952.54" y="-1.65" angle="90.00" type="tBlocker" speed="33.33" pos="952.54" lane="beg_1" slope="0.00"/>
         <vehicle id="L" x="760.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="760.00" lane="beg_0" slope="0.00"/>
         <vehicle id="ego" x="996.43" y="-1.65" angle="90.00" type="tEgo" speed="33.33" pos="996.43" lane="beg_1" slope="0.00"/>
     </timestep>
     <timestep time="29.00">
-        <vehicle id="B1" x="1086.57" y="-4.75" angle="91.49" type="tBlocker" speed="33.33" pos="1086.57" lane="beg_0" slope="0.00"/>
+        <vehicle id="B1" x="1086.57" y="-4.75" angle="91.72" type="tBlocker" speed="33.33" pos="1086.57" lane="beg_0" slope="0.00"/>
         <vehicle id="B2" x="985.87" y="-1.65" angle="90.00" type="tBlocker" speed="33.33" pos="985.87" lane="beg_1" slope="0.00"/>
         <vehicle id="L" x="780.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="780.00" lane="beg_0" slope="0.00"/>
         <vehicle id="ego" x="1029.76" y="-1.65" angle="90.00" type="tEgo" speed="33.33" pos="1029.76" lane="beg_1" slope="0.00"/>
     </timestep>
     <timestep time="30.00">
-        <vehicle id="B1" x="1119.90" y="-4.95" angle="90.30" type="tBlocker" speed="33.33" pos="1119.90" lane="beg_0" slope="0.00"/>
+        <vehicle id="B1" x="1119.90" y="-4.95" angle="90.34" type="tBlocker" speed="33.33" pos="1119.90" lane="beg_0" slope="0.00"/>
         <vehicle id="B2" x="1019.20" y="-1.65" angle="90.00" type="tBlocker" speed="33.33" pos="1019.20" lane="beg_1" slope="0.00"/>
         <vehicle id="L" x="800.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="800.00" lane="beg_0" slope="0.00"/>
         <vehicle id="ego" x="1063.09" y="-1.65" angle="90.00" type="tEgo" speed="33.33" pos="1063.09" lane="beg_1" slope="0.00"/>
@@ -224,35 +230,35 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="B1" x="1153.23" y="-4.95" angle="90.00" type="tBlocker" speed="33.33" pos="1153.23" lane="beg_0" slope="0.00"/>
         <vehicle id="B2" x="1052.53" y="-1.65" angle="90.00" type="tBlocker" speed="33.33" pos="1052.53" lane="beg_1" slope="0.00"/>
         <vehicle id="L" x="820.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="820.00" lane="beg_0" slope="0.00"/>
-        <vehicle id="ego" x="1096.42" y="-2.65" angle="91.49" type="tEgo" speed="33.33" pos="1096.42" lane="beg_1" slope="0.00"/>
+        <vehicle id="ego" x="1096.42" y="-2.65" angle="91.72" type="tEgo" speed="33.33" pos="1096.42" lane="beg_1" slope="0.00"/>
     </timestep>
     <timestep time="32.00">
         <vehicle id="B1" x="1186.56" y="-4.95" angle="90.00" type="tBlocker" speed="33.33" pos="1186.56" lane="beg_0" slope="0.00"/>
         <vehicle id="B2" x="1085.86" y="-1.65" angle="90.00" type="tBlocker" speed="33.33" pos="1085.86" lane="beg_1" slope="0.00"/>
         <vehicle id="L" x="840.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="840.00" lane="beg_0" slope="0.00"/>
-        <vehicle id="ego" x="1129.75" y="-3.75" angle="91.49" type="tEgo" speed="33.33" pos="1129.75" lane="beg_0" slope="0.00"/>
+        <vehicle id="ego" x="1129.75" y="-3.75" angle="91.72" type="tEgo" speed="33.33" pos="1129.75" lane="beg_0" slope="0.00"/>
     </timestep>
     <timestep time="33.00">
         <vehicle id="B1" x="1219.89" y="-4.95" angle="90.00" type="tBlocker" speed="33.33" pos="1219.89" lane="beg_0" slope="0.00"/>
-        <vehicle id="B2" x="1119.19" y="-2.65" angle="91.49" type="tBlocker" speed="33.33" pos="1119.19" lane="beg_1" slope="0.00"/>
+        <vehicle id="B2" x="1119.19" y="-2.65" angle="91.72" type="tBlocker" speed="33.33" pos="1119.19" lane="beg_1" slope="0.00"/>
         <vehicle id="L" x="860.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="860.00" lane="beg_0" slope="0.00"/>
-        <vehicle id="ego" x="1163.08" y="-4.75" angle="91.49" type="tEgo" speed="33.33" pos="1163.08" lane="beg_0" slope="0.00"/>
+        <vehicle id="ego" x="1163.08" y="-4.75" angle="91.72" type="tEgo" speed="33.33" pos="1163.08" lane="beg_0" slope="0.00"/>
     </timestep>
     <timestep time="34.00">
         <vehicle id="B1" x="1253.22" y="-4.95" angle="90.00" type="tBlocker" speed="33.33" pos="1253.22" lane="beg_0" slope="0.00"/>
-        <vehicle id="B2" x="1152.52" y="-3.75" angle="91.49" type="tBlocker" speed="33.33" pos="1152.52" lane="beg_0" slope="0.00"/>
+        <vehicle id="B2" x="1152.52" y="-3.75" angle="91.72" type="tBlocker" speed="33.33" pos="1152.52" lane="beg_0" slope="0.00"/>
         <vehicle id="L" x="880.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="880.00" lane="beg_0" slope="0.00"/>
-        <vehicle id="ego" x="1196.41" y="-4.95" angle="90.30" type="tEgo" speed="33.33" pos="1196.41" lane="beg_0" slope="0.00"/>
+        <vehicle id="ego" x="1196.41" y="-4.95" angle="90.34" type="tEgo" speed="33.33" pos="1196.41" lane="beg_0" slope="0.00"/>
     </timestep>
     <timestep time="35.00">
         <vehicle id="B1" x="1286.55" y="-4.95" angle="90.00" type="tBlocker" speed="33.33" pos="1286.55" lane="beg_0" slope="0.00"/>
-        <vehicle id="B2" x="1185.85" y="-4.75" angle="91.49" type="tBlocker" speed="33.33" pos="1185.85" lane="beg_0" slope="0.00"/>
+        <vehicle id="B2" x="1185.85" y="-4.75" angle="91.72" type="tBlocker" speed="33.33" pos="1185.85" lane="beg_0" slope="0.00"/>
         <vehicle id="L" x="900.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="900.00" lane="beg_0" slope="0.00"/>
         <vehicle id="ego" x="1229.74" y="-4.95" angle="90.00" type="tEgo" speed="33.33" pos="1229.74" lane="beg_0" slope="0.00"/>
     </timestep>
     <timestep time="36.00">
         <vehicle id="B1" x="1319.88" y="-4.95" angle="90.00" type="tBlocker" speed="33.33" pos="1319.88" lane="beg_0" slope="0.00"/>
-        <vehicle id="B2" x="1219.18" y="-4.95" angle="90.30" type="tBlocker" speed="33.33" pos="1219.18" lane="beg_0" slope="0.00"/>
+        <vehicle id="B2" x="1219.18" y="-4.95" angle="90.34" type="tBlocker" speed="33.33" pos="1219.18" lane="beg_0" slope="0.00"/>
         <vehicle id="L" x="920.00" y="-4.95" angle="90.00" type="tLeader" speed="20.00" pos="920.00" lane="beg_0" slope="0.00"/>
         <vehicle id="ego" x="1263.07" y="-4.95" angle="90.00" type="tEgo" speed="33.33" pos="1263.07" lane="beg_0" slope="0.00"/>
     </timestep>

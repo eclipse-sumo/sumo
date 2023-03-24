@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -224,7 +224,7 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
                 if (!server.readTypeCheckingInt(inputStorage, routingMode)) {
                     return server.writeErrorStatusCmd(libsumo::CMD_GET_SIM_VARIABLE, "Retrieval of a route requires an integer as fifth parameter.", outputStorage);
                 }
-                writeStage(server.getWrapperStorage(), libsumo::Simulation::findRoute(from, to, vtype, depart, routingMode));
+                libsumo::StorageHelper::writeStage(server.getWrapperStorage(), libsumo::Simulation::findRoute(from, to, vtype, depart, routingMode));
                 break;
             }
             case libsumo::FIND_INTERMODAL_ROUTE: {
@@ -280,7 +280,7 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
                 server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_COMPOUND);
                 server.getWrapperStorage().writeInt((int)result.size());
                 for (const libsumo::TraCIStage& s : result) {
-                    writeStage(server.getWrapperStorage(), s);
+                    libsumo::StorageHelper::writeStage(server.getWrapperStorage(), s);
                 }
                 break;
             }
@@ -414,57 +414,6 @@ TraCIServerAPI_Simulation::writeTransportableStateIDs(TraCIServer& server, tcpip
     outputStorage.writeStringList(ids);
 }
 
-
-void
-TraCIServerAPI_Simulation::writeStage(tcpip::Storage& outputStorage, const libsumo::TraCIStage& stage) {
-    outputStorage.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-    outputStorage.writeInt(13);
-    outputStorage.writeUnsignedByte(libsumo::TYPE_INTEGER);
-    outputStorage.writeInt(stage.type);
-    outputStorage.writeUnsignedByte(libsumo::TYPE_STRING);
-    outputStorage.writeString(stage.vType);
-    outputStorage.writeUnsignedByte(libsumo::TYPE_STRING);
-    outputStorage.writeString(stage.line);
-    outputStorage.writeUnsignedByte(libsumo::TYPE_STRING);
-    outputStorage.writeString(stage.destStop);
-    outputStorage.writeUnsignedByte(libsumo::TYPE_STRINGLIST);
-    outputStorage.writeStringList(stage.edges);
-    outputStorage.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    outputStorage.writeDouble(stage.travelTime);
-    outputStorage.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    outputStorage.writeDouble(stage.cost);
-    outputStorage.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    outputStorage.writeDouble(stage.length);
-    outputStorage.writeUnsignedByte(libsumo::TYPE_STRING);
-    outputStorage.writeString(stage.intended);
-    outputStorage.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    outputStorage.writeDouble(stage.depart);
-    outputStorage.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    outputStorage.writeDouble(stage.departPos);
-    outputStorage.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    outputStorage.writeDouble(stage.arrivalPos);
-    outputStorage.writeUnsignedByte(libsumo::TYPE_STRING);
-    outputStorage.writeString(stage.description);
-}
-
-libsumo::TraCIStage*
-TraCIServerAPI_Simulation::readStage(TraCIServer& server, tcpip::Storage& inputStorage) {
-    auto* stage = new libsumo::TraCIStage();
-    server.readTypeCheckingInt(inputStorage, stage->type);
-    server.readTypeCheckingString(inputStorage, stage->vType);
-    server.readTypeCheckingString(inputStorage, stage->line);
-    server.readTypeCheckingString(inputStorage, stage->destStop);
-    server.readTypeCheckingStringList(inputStorage, stage->edges);
-    server.readTypeCheckingDouble(inputStorage, stage->travelTime);
-    server.readTypeCheckingDouble(inputStorage, stage->cost);
-    server.readTypeCheckingDouble(inputStorage, stage->length);
-    server.readTypeCheckingString(inputStorage, stage->intended);
-    server.readTypeCheckingDouble(inputStorage, stage->depart);
-    server.readTypeCheckingDouble(inputStorage, stage->departPos);
-    server.readTypeCheckingDouble(inputStorage, stage->arrivalPos);
-    server.readTypeCheckingString(inputStorage, stage->description);
-    return stage;
-}
 
 bool
 TraCIServerAPI_Simulation::commandPositionConversion(TraCIServer& server, tcpip::Storage& inputStorage,

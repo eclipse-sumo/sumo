@@ -21,3 +21,6 @@ wait_for_three
 # check last three passed vehicles (three constraints)
 wait_for_three_individual
 foeInsertion
+
+# constraint which guards a bidi section
+bidi

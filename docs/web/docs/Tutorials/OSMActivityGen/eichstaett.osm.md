@@ -7,7 +7,7 @@ title: eichstaett.osm
 Map of the German city Eichstätt in the [OpenStreetMap
 format](../../OpenStreetMap_file.md). After the map had been exported
 from OpenStreetMap, a detail was cut out, unnecessary objects were
-deleted and the map has been improved for traffic simulation and for the
+deleted and the map was improved for traffic simulation and for the
 conversion with netconvert. The steps are described in [Tutorials/Import
 from OpenStreetMap](../../Tutorials/Import_from_OpenStreetMap.md). As
 a final step, the XML identifiers were renumbered to positive numbers.

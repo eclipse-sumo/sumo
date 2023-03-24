@@ -1,3 +1,20 @@
+# tests involving taz
+TAZ
+
+# test attributes fromJunction toJunction and viaJunctions
+junctionTaz
+
+# trips with stops
+stops
+via
+
+# test restriction parameters
+restrictionParams
+rail
+
+# Tests false input
+errors
+
 # Test with 100 vehicles having one departure time, the type is given
 one_time
 
@@ -55,41 +72,11 @@ increasing_time_typedefined_nestedmodel
 # Test with 10 vehicles having one departure time, an unknown type is used in the trips file but the error is ignored
 one_time_typeundefined
 
-# using zones for start / end
-with_taz
-
-# use taz and vehicles with a vClass
-with_taz_vClass
-
-# using zones for start / end with no edge specified
-taz_noedge
-
-# running with districts (especially for A*)
-taz
-
-# running with districts (especially for A*)
-taz_weights
-
 # Test with vehicle having same source and destination
 same_edge
 
 # Tests whether processing vehicle parameter works
 vtypecheck
-
-# test trip with intermediate edge
-via
-
-# test trip with multiple intermediate edges
-via2
-
-# test trip with disconnected intermediate edge
-via_unreachable
-
-# test trip with intermediate stop
-stop
-
-# test trip with intermediate bus stop
-busStop
 
 # test trip validation (trip input and trip output)
 write-trips
@@ -135,13 +122,3 @@ CHWrapper_lane_connectivity
 
 # test handling of input attributes
 departSpeed
-
-# test attributes fromJunction toJunction and viaJunctions
-junctionTaz
-
-# test restriction parameters
-restrictionParams
-rail
-
-# Tests false input
-errors

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2004-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2004-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -83,7 +83,7 @@ OutputDevice::getDevice(const std::string& name, bool usePrefix) {
         } catch (NumberFormatException&) {
             throw IOError("Given port number '" + name.substr(name.find(":") + 1) + "' is not numeric.");
         } catch (EmptyData&) {
-            throw IOError("No port number given.");
+            throw IOError(TL("No port number given."));
         }
     } else {
         std::string name2 = (name == "nul" || name == "NUL") ? "/dev/null" : name;
@@ -136,6 +136,14 @@ OutputDevice::getDeviceByOption(const std::string& optionName) {
 
 
 void
+OutputDevice::flushAll() {
+    for (auto item : myOutputDevices) {
+        item.second->flush();
+    }
+}
+
+
+void
 OutputDevice::closeAll(bool keepErrorRetrievers) {
     std::vector<OutputDevice*> errorDevices;
     std::vector<OutputDevice*> nonErrorDevices;
@@ -150,7 +158,7 @@ OutputDevice::closeAll(bool keepErrorRetrievers) {
         try {
             dev->close();
         } catch (const IOError& e) {
-            WRITE_ERROR("Error on closing output devices.");
+            WRITE_ERROR(TL("Error on closing output devices."));
             WRITE_ERROR(e.what());
         }
     }

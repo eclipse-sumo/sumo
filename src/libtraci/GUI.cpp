@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2017-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2017-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -101,6 +101,20 @@ GUI::setOffset(const std::string& viewID, double x, double y) {
 void
 GUI::setSchema(const std::string& viewID, const std::string& schemeName) {
     Dom::setString(libsumo::VAR_VIEW_SCHEMA, viewID, schemeName);
+}
+
+void
+GUI::addView(const std::string& viewID, const std::string& schemeName, bool in3D) {
+    tcpip::Storage content;
+    StoHelp::writeCompound(content, 2);
+    StoHelp::writeTypedString(content, schemeName);
+    StoHelp::writeTypedInt(content, in3D ? 1 : 0);
+    Dom::set(libsumo::ADD, viewID, &content);
+}
+
+void
+GUI::removeView(const std::string& viewID) {
+    Dom::set(libsumo::REMOVE, viewID, nullptr);
 }
 
 

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-03-22 17:17:28 by Eclipse SUMO sumo Version v1_16_0+1570-ec89ba0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net2.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <vehroute-output value="vehroutes.xml"/>
+        <stop-output value="stops.xml"/>
+    </output>
+
+    <report>
+        <no-step-log value="true"/>
+    </report>
+
+    <traci_server>
+        <remote-port value="43509"/>
+    </traci_server>
+
+</configuration>
+-->
+
+<stops xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/stopinfo_file.xsd">
+    <stopinfo id="ego" type="DEFAULT_VEHTYPE" lane="SC_0" pos="60.00" parking="0" started="11.00" ended="12.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+</stops>

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2002-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -89,18 +89,20 @@ enum SumoXMLTag {
     SUMO_TAG_E3DETECTOR,
     /// @brief alternative tag for e3 detector
     SUMO_TAG_ENTRY_EXIT_DETECTOR,
-    /// @brief an edge based mean data detector
-    SUMO_TAG_MEANDATA_EDGE,
-    /// @brief a lane based mean data detector
-    SUMO_TAG_MEANDATA_LANE,
     /// @brief an e3 entry point
     SUMO_TAG_DET_ENTRY,
     /// @brief an e3 exit point
     SUMO_TAG_DET_EXIT,
+    /// @brief an edge based mean data detector
+    SUMO_TAG_MEANDATA_EDGE,
+    /// @brief a lane based mean data detector
+    SUMO_TAG_MEANDATA_LANE,
     /// @brief  An edge-following detector
     SUMO_TAG_EDGEFOLLOWDETECTOR,
     /// @brief An instantenous induction loop
     SUMO_TAG_INSTANT_INDUCTION_LOOP,
+    /// @brief a routeprobe detector
+    SUMO_TAG_ROUTEPROBE,
     /// @brief A calibrator placed over edge
     SUMO_TAG_CALIBRATOR,
     /// @brief A calibrator placed over lane
@@ -111,7 +113,7 @@ enum SumoXMLTag {
     SUMO_TAG_REROUTER,
     /// @brief an aggreagated-output interval
     SUMO_TAG_INTERVAL,
-    /// @brief probability of destiny of a reroute
+    /// @brief probability of destination of a reroute
     SUMO_TAG_DEST_PROB_REROUTE,
     /// @brief reroute of type closing
     SUMO_TAG_CLOSING_REROUTE,
@@ -125,8 +127,6 @@ enum SumoXMLTag {
     SUMO_TAG_VSS,
     /// @brief trigger: a step description
     SUMO_TAG_STEP,
-    /// @brief a routeprobe detector
-    SUMO_TAG_ROUTEPROBE,
     /// @brief vaporizer of vehicles
     SUMO_TAG_VAPORIZER,
     /// @brief  A traction substation
@@ -143,17 +143,17 @@ enum SumoXMLTag {
     SUMO_TAG_ROUTES,
     /// @brief a single trip definition (used by router)
     SUMO_TAG_TRIP,
-    /// @brief a trip between junctions (used in NETEDIT)
+    /// @brief a trip between junctions (used in netedit)
     GNE_TAG_TRIP_JUNCTIONS,
     /// @brief description of a vehicle
     SUMO_TAG_VEHICLE,
-    /// @brief description of a vehicle with an embedded route (used in NETEDIT)
+    /// @brief description of a vehicle with an embedded route (used in netedit)
     GNE_TAG_VEHICLE_WITHROUTE,
     /// @brief description of a vehicle/person/container type
     SUMO_TAG_VTYPE,
     /// @brief begin/end of the description of a route
     SUMO_TAG_ROUTE,
-    /// @brief embedded route (used in NETEDIT)
+    /// @brief embedded route (used in netedit)
     GNE_TAG_ROUTE_EMBEDDED,
     /// @brief description of a logic request within the junction
     SUMO_TAG_REQUEST,
@@ -177,11 +177,11 @@ enum SumoXMLTag {
     SUMO_TAG_ASSIGNMENT,
     /// @brief a sequence of assignments evaluated in the context of passed arguments
     SUMO_TAG_FUNCTION,
-    /// @brief a single trip definition that uses TAZs (used in NETEDIT)
+    /// @brief a single trip definition that uses TAZs (used in netedit)
     SUMO_TAG_TRIP_TAZ,
     /// @brief a flow definitio nusing a from-to edges instead of a route (used by router)
     SUMO_TAG_FLOW,
-    /// @brief a flow between junctions (used in NETEDIT)
+    /// @brief a flow between junctions (used in netedit)
     GNE_TAG_FLOW_JUNCTIONS,
     /// @brief a flow state definition (used when saving and loading simulatino state)
     SUMO_TAG_FLOWSTATE,
@@ -222,8 +222,10 @@ enum SumoXMLTag {
     SUMO_TAG_STOP_PARKINGAREA,
     /// @brief type of polygon
     SUMO_TAG_POLYTYPE,
-    /// @brief connectio between two lanes
+    /// @brief connectioon between two lanes
     SUMO_TAG_CONNECTION,
+    /// @brief conflict between two connections
+    SUMO_TAG_CONFLICT,
     /// @brief prohibition of circulation between two edges
     SUMO_TAG_PROHIBITION,
     /// @brief split something
@@ -262,6 +264,8 @@ enum SumoXMLTag {
     SUMO_TAG_FOE_INSERTION,
     /// @brief Predecessor constraint on insertion before rail signal
     SUMO_TAG_INSERTION_ORDER,
+    /// @brief Predecessor constraint for rail signal before bidirectional section
+    SUMO_TAG_BIDI_PREDECESSOR,
     /// @brief Saved state for constraint tracker
     SUMO_TAG_RAILSIGNAL_CONSTRAINT_TRACKER,
     /// @brief Link information for state-saving
@@ -401,21 +405,10 @@ enum SumoXMLTag {
     /// @brief parameters
     AGEN_TAG_PARAM,
 
-    /// @name SUMOConfig elements
-    /// @brief configuration
-    SUMO_TAG_CONFIGURATION,
-    /// @brief net file
-    SUMO_TAG_NETFILE,
-    /// @brief additional files
-    SUMO_TAG_ADDITIONALFILES,
-    /// @brief route files
-    SUMO_TAG_ROUTEFILES,
-    /// @brief data files
-    SUMO_TAG_DATAFILES,
-    ///@}
-
-    /// @name NETEDIT elements
+    /// @name Netedit elements
     /// @{
+    /// @brief edge rel (defined in a single lane)
+    GNE_TAG_EDGEREL_SINGLE,
     /// @brief internal lane
     GNE_TAG_INTERNAL_LANE,
     /// @brief Point of interest over Lane
@@ -428,9 +421,9 @@ enum SumoXMLTag {
     GNE_TAG_VSS_SYMBOL,
     /// @brief COF Symbol
     GNE_TAG_COF_SYMBOL,
-    /// @brief a flow definition using a route instead of a from-to edges route (used in NETEDIT)
+    /// @brief a flow definition using a route instead of a from-to edges route (used in netedit)
     GNE_TAG_FLOW_ROUTE,
-    /// @brief description of a vehicle with an embedded route (used in NETEDIT)
+    /// @brief description of a vehicle with an embedded route (used in netedit)
     GNE_TAG_FLOW_WITHROUTE,
     // @brief person trips
     GNE_TAG_PERSONTRIP_EDGE,
@@ -554,6 +547,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_VEHICLE            = 60,
     SUMO_ATTR_ODOMETER           = 61,
     SUMO_ATTR_POSITION_LAT       = 62,
+    SUMO_ATTR_SPEED_LAT          = 63,
     /// @}
 
     /// @name common attributes
@@ -646,7 +640,8 @@ enum SumoXMLAttr {
     SUMO_ATTR_INSERTIONCHECKS,
     SUMO_ATTR_TIME_TO_TELEPORT,
     SUMO_ATTR_TIME_TO_TELEPORT_BIDI,
-    /// @brief Class specific timing values for vehicle manoeuvering through angle ranges
+    SUMO_ATTR_SPEEDFACTOR_PREMATURE,
+    /// @brief Class specific timing values for vehicle maneuvering through angle ranges
     SUMO_ATTR_MANEUVER_ANGLE_TIMES,
     /// @}
 
@@ -728,8 +723,14 @@ enum SumoXMLAttr {
     SUMO_ATTR_RECUPERATIONEFFICIENCY,
     /// @brief Recuperation efficiency (by deceleration)
     SUMO_ATTR_RECUPERATIONEFFICIENCY_BY_DECELERATION,
-    /// @brief Stopping treshold
-    SUMO_ATTR_STOPPINGTRESHOLD,
+    /// @brief Stopping threshold
+    SUMO_ATTR_STOPPINGTHRESHOLD,
+    /// @}
+    
+    /// @name tripinfo output attributes
+    /// @{
+    SUMO_ATTR_WAITINGCOUNT,
+    SUMO_ATTR_STOPTIME,
     /// @}
 
     /// @name elecHybrid device export parameters
@@ -871,6 +872,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_CA_GAIN_GAP_CACC,
     SUMO_ATTR_CA_GAIN_GAP_DOT_CACC,
     SUMO_ATTR_HEADWAY_TIME_CACC_TO_ACC,
+    SUMO_ATTR_SC_MIN_GAP,
     SUMO_ATTR_APPLYDRIVERSTATE,
     /// @}
 
@@ -943,6 +945,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_ROUTES,
     SUMO_ATTR_VTYPES,
     SUMO_ATTR_NEXT_EDGES,
+    SUMO_ATTR_DETERMINISTIC,
     /// @}
 
     /// @name trip definition attributes
@@ -1130,6 +1133,9 @@ enum SumoXMLAttr {
     SUMO_ATTR_JOIN,
     SUMO_ATTR_INTENDED,
     SUMO_ATTR_ONDEMAND,
+    SUMO_ATTR_JUMP,
+    SUMO_ATTR_USED_ENDED,
+    SUMO_ATTR_COLLISION,
     SUMO_ATTR_VALUE,
     SUMO_ATTR_PROHIBITOR,
     SUMO_ATTR_PROHIBITED,
@@ -1343,6 +1349,8 @@ enum SumoXMLAttr {
     SUMO_ATTR_ROUTEFILES,
     /// @brief route files
     SUMO_ATTR_DATAFILES,
+    /// @brief meanData files
+    SUMO_ATTR_MEANDATAFILES,
     ///@}
 
     //@name Netedit Attributes (used as virtual property holders, must be in SumoXMLAttr)
@@ -1403,8 +1411,10 @@ enum SumoXMLAttr {
     GNE_ATTR_VTYPE_DISTRIBUTION,
     /// @brief poisson definition (used in flow)
     GNE_ATTR_POISSON,
-    /// @brief stop index
+    /// @brief stop index (position in the parent's children
     GNE_ATTR_STOPINDEX,
+    /// @brief stop index (position in the parent's path)
+    GNE_ATTR_PATHSTOPINDEX,
 
     // @}
 
@@ -1471,6 +1481,7 @@ enum class SumoXMLNodeType {
     PRIORITY,
     PRIORITY_STOP, // like priority but all minor links have stop signs
     RIGHT_BEFORE_LEFT,
+    LEFT_BEFORE_RIGHT,
     ALLWAY_STOP,
     ZIPPER,
     DISTRICT,
@@ -1524,7 +1535,9 @@ enum class ParkingType {
 /// @brief algorithms for computing right of way
 enum class RightOfWay {
     DEFAULT,
-    EDGEPRIORITY
+    EDGEPRIORITY,
+    MIXEDPRIORITY,
+    ALLWAYSTOP,
 };
 
 /// @brief classifying boundary nodes

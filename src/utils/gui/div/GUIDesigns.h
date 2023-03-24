@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -45,25 +45,19 @@ class MFXMenuCheckIcon;
 /// @name FXTextFields
 /// @{
 /// @brief text field extended over Frame with thick frame
-#define GUIDesignTextField              (FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
+#define GUIDesignTextField                              (FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
 
 /// @brief text field extended over Frame with thick frame (int)
-#define GUIDesignTextFieldInt           (FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT | TEXTFIELD_INTEGER), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
+#define GUIDesignTextFieldRestricted(type)              (FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT | type), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
 
-/// @brief text field extended over Frame with thick frame (real)
-#define GUIDesignTextFieldReal          (FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT | TEXTFIELD_REAL), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
+/// @brief text field with fixed width
+#define GUIDesignTextFieldFixed(width)                  (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, width, GUIDesignHeight, 2, 2, 2, 2
 
-/// @brief text field with thick frame and width 50
-#define GUIDesignTextFielWidth50        (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 50, GUIDesignHeight, 2, 2, 2, 2
+/// @brief text field with fixed width
+#define GUIDesignTextFieldFixedRestricted(width, type)  (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | type), 0, 0, width, GUIDesignHeight, 2, 2, 2, 2
 
-/// @brief text field with thick frame and width 50 and limited to doubles
-#define GUIDesignTextFielWidth50Real    (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | TEXTFIELD_REAL), 0, 0, 50, GUIDesignHeight, 2, 2, 2, 2
-
-/// @brief text field with thick frame, width of 180 (Used in type frame)
-#define GUIDesignTextFielWidth180       (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 180, GUIDesignHeight, 2, 2, 2, 2
-
-/// @brief text field used in TLSTable
-#define GUIDesignTextFieldTLSTable      (FRAME_THICK | LAYOUT_FILL_X | LAYOUT_MIN_WIDTH | LAYOUT_FIX_HEIGHT | JUSTIFY_CENTER_Y | JUSTIFY_LEFT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
+/// @brief text field with min width (used in TLS table)
+#define GUIDesignTextFieldTLSTable                      (FRAME_THICK | LAYOUT_FILL_X | LAYOUT_MIN_WIDTH | LAYOUT_FIX_HEIGHT | JUSTIFY_CENTER_Y | JUSTIFY_LEFT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
 
 /// @brief Num of column of text field
 #define GUIDesignTextFieldNCol          1
@@ -97,11 +91,17 @@ class MFXMenuCheckIcon;
 /// @brief button used in GroupBoxModule
 #define GUIDesignButtonMFXGroupBoxModule        (FRAME_LINE | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, GUIDesignHeight - 1, GUIDesignHeight - 1, 2, 2, 2, 2
 
+/// @brief button used in GroupBoxModule for extend
+#define GUIDesignButtonMFXGroupBoxModuleExtend  (FRAME_LINE | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 60, GUIDesignHeight - 1, 2, 2, 2, 2
+
 /// @brief button rectangular with thick and raise frame with a width of 100
 #define GUIDesignButtonStatusBarFixed           (ICON_BEFORE_TEXT | JUSTIFY_CENTER_X | JUSTIFY_CENTER_Y | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 100, GUIDesignHeight, 2, 2, 2, 2
 
 /// @brief checkable button only with icon used in TLSTable
 #define GUIDesignTLSTableCheckableButtonIcon    (MENUBUTTON_RIGHT | FRAME_THICK | FRAME_RAISED | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, GUIDesignHeight, GUIDesignHeight, 0, 0, 0, 0
+
+/// @brief checkable button placed in popup (for example, locate buttons)
+#define GUIDesignButtonPopup                    (ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED)
 
 /// @}
 
@@ -159,6 +159,12 @@ class MFXMenuCheckIcon;
 /// @brief Button with custom width (used in GNEGeometryPointDialog)
 #define GUIDesignButtonCustomWidth(width)   (ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | FRAME_THICK | FRAME_RAISED), 0, 0, width, GUIDesignHeight, 2, 2, 2, 2
 
+///  @brief button for saving elements in GUISaveDialog
+#define GUIDesignSaveDialogButtonInitial    (BUTTON_INITIAL | BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_CENTER_X | LAYOUT_FIX_WIDTH), 0, 0, 150, 0, 15, 15, VERT_PAD, VERT_PAD
+
+///  @brief button for saving elements in GUISaveDialog
+#define GUIDesignSaveDialogButton           (BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_CENTER_X | LAYOUT_FIX_WIDTH), 0, 0, 150, 0, 15, 15, VERT_PAD, VERT_PAD
+
 /// @}
 
 
@@ -202,6 +208,9 @@ class MFXMenuCheckIcon;
 /// @brief design for radio button
 #define GUIDesignRadioButton            (LAYOUT_LEFT | LAYOUT_FILL_X | ICON_BEFORE_TEXT | JUSTIFY_LEFT)
 
+/// @brief design for radio button squared
+#define GUIDesignRadioButtonSquared     (RADIOBUTTON_NORMAL | FRAME_THICK |  LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | JUSTIFY_CENTER_X | JUSTIFY_CENTER_Y), 0, 0, GUIDesignHeight, GUIDesignHeight, 2, 2, 2, 2
+
 /// @brief design for radio button with fixed height (used in fix elements dialogs)
 #define GUIDesignRadioButtonFix         (RADIOBUTTON_NORMAL | JUSTIFY_CENTER_Y |  LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | JUSTIFY_LEFT | ICON_BEFORE_TEXT), 0, 0, 200, GUIDesignHeight - 2, 2, 2, 2, 2
 
@@ -210,89 +219,50 @@ class MFXMenuCheckIcon;
 
 /// @name FXLabels
 /// @{
-/// @brief label extended over frame without thick and with text justify to left
-#define GUIDesignLabelLeft              (JUSTIFY_LEFT | LAYOUT_FILL_X | ICON_BEFORE_TEXT | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
+/// @brief label extended over frame
+#define GUIDesignLabel(justify)             (LAYOUT_FILL_X | ICON_BEFORE_TEXT | justify | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
 
-/// @brief label extended over frame without thick and with text justify to right
-#define GUIDesignLabelRight             (JUSTIFY_RIGHT | LAYOUT_FILL_X | ICON_BEFORE_TEXT | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
-
-/// @brief label extended over frame without thick and with text justify to center
-#define GUIDesignLabelCenter            (JUSTIFY_NORMAL | LAYOUT_FILL_X | ICON_BEFORE_TEXT | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
+/// @brief label, icon before text, text centered and custom width
+#define GUIDesignLabelFixed(width)          (ICON_BEFORE_TEXT | JUSTIFY_CENTER_X | JUSTIFY_CENTER_Y | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, width, GUIDesignHeight, 2, 2, 2, 2
 
 /// @brief label extended over frame with thick and with text justify to left
-#define GUIDesignLabelThick             (FRAME_THICK | LAYOUT_FILL_X | ICON_BEFORE_TEXT | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
+#define GUIDesignLabelThick(justify)        (FRAME_THICK | LAYOUT_FILL_X | ICON_BEFORE_TEXT | justify  | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
 
-/// @brief label extended over frame with thick and with text justify to left
-#define GUIDesignLabelLeftThick         (FRAME_THICK | JUSTIFY_LEFT | LAYOUT_FILL_X | ICON_BEFORE_TEXT | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
-
-/// @brief label extended over frame with thick and with text justify to right
-#define GUIDesignLabelRightThick        (FRAME_THICK | JUSTIFY_RIGHT | LAYOUT_FILL_X | ICON_BEFORE_TEXT | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
-
-/// @brief label extended over frame with thick and with text justify to center
-#define GUIDesignLabelCenterThick       (FRAME_THICK | JUSTIFY_NORMAL | LAYOUT_FILL_X | ICON_BEFORE_TEXT | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
+/// @brief label thicked, icon before text, text centered and custom width
+#define GUIDesignLabelThickedFixed(width)   (FRAME_THICK | ICON_BEFORE_TEXT | JUSTIFY_CENTER_X | JUSTIFY_CENTER_Y | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, width, GUIDesignHeight, 2, 2, 2, 2
 
 /// @brief label squared over frame with thick and with text justify to center
-#define GUIDesignLabelIconThick         (FRAME_THICK | JUSTIFY_NORMAL | LAYOUT_FILL_X | ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, GUIDesignHeight, GUIDesignHeight, 2, 2, 2, 2
-
-/// @brief label extended over the matrix column with thick frame
-#define GUIDesignLabelAttribute         (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | ICON_BEFORE_TEXT), 0, 0, 100, GUIDesignHeight, 2, 2, 2, 2
-
-/// @brief label extended over the matrix column with thick frame
-#define GUIDesignLabelAttribute150      (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | ICON_BEFORE_TEXT), 0, 0, 150, GUIDesignHeight, 2, 2, 2, 2
+#define GUIDesignLabelIconThick             (FRAME_THICK | JUSTIFY_NORMAL | LAYOUT_FILL_X | ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, GUIDesignHeight, GUIDesignHeight, 2, 2, 2, 2
 
 /// @brief label extended over frame without thick and with text justify to left
-#define GUIDesignLabelAboutInfo         (JUSTIFY_LEFT | LAYOUT_FILL_X | ICON_BEFORE_TEXT), 0, 0, 0, 0, 2, 2, 0, 0
+#define GUIDesignLabelAboutInfo             (JUSTIFY_LEFT | LAYOUT_FILL_X | ICON_BEFORE_TEXT), 0, 0, 0, 0, 2, 2, 0, 0
 
 /// @brief label extended over frame without thick and with text justify to left
-#define GUIDesignLabelOverwrite         (JUSTIFY_LEFT | LAYOUT_FILL_X | LAYOUT_FILL_Y | ICON_BEFORE_TEXT), 0, 0, 0, 0, 2, 2, 2, 2
+#define GUIDesignLabelOverwrite             (JUSTIFY_LEFT | LAYOUT_FILL_X | LAYOUT_FILL_Y | ICON_BEFORE_TEXT), 0, 0, 0, 0, 2, 2, 2, 2
 
 /// @brief label extended over frame with thick and with text justify to center
-#define GUIDesignLabelAboutInfoCenter   (FRAME_THICK | JUSTIFY_NORMAL | LAYOUT_FILL_X | ICON_BEFORE_TEXT), 0, 0, 0, 0, 2, 2, 0, 0
+#define GUIDesignLabelAboutInfoCenter       (FRAME_THICK | JUSTIFY_NORMAL | LAYOUT_FILL_X | ICON_BEFORE_TEXT), 0, 0, 0, 0, 2, 2, 0, 0
 
 /// @brief label ticked filled only with an icon of 32x32
-#define GUIDesignLabelIcon32x32Thicked  (FRAME_THICK | ICON_BEFORE_TEXT | LAYOUT_FIX_HEIGHT | LAYOUT_FIX_WIDTH), 0, 0, 24, GUIDesignHeight, 2, 2, 2, 2
+#define GUIDesignLabelIcon32x32Thicked      (FRAME_THICK | ICON_BEFORE_TEXT | LAYOUT_FIX_HEIGHT | LAYOUT_FIX_WIDTH), 0, 0, 24, GUIDesignHeight, 2, 2, 2, 2
 
 /// @brief label ticked filled used for VClasses. It uses icons of 64x32 pixels
-#define GUIDesignLabelIcon64x32Thicked  (FRAME_THICK | ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 94, 46, 2, 2, 2, 2
+#define GUIDesignLabelIcon64x32Thicked      (FRAME_THICK | ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 94, 46, 2, 2, 2, 2
 
 /// @brief design for label with icon
-#define GUIDesignLabelIcon              (LAYOUT_CENTER_Y | LAYOUT_CENTER_X), 0, 0, 0, 0, 2, 2, 0, 0
-
-/// @brief label with thick, text justify to left and extended with (used in selector frame)
-#define GUIDesignLabelThickCenter       (FRAME_THICK | ICON_BEFORE_TEXT | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT | LAYOUT_CENTER_Y | LAYOUT_CENTER_X), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
+#define GUIDesignLabelIcon                  (LAYOUT_CENTER_Y | LAYOUT_CENTER_X), 0, 0, 0, 0, 2, 2, 0, 0
 
 /// @brief label ticked filled extended over frame used for VClasses/VShapes. (can be used by icons of 64x32 pixels)
-#define GUIDesignLabelTickedIcon180x46  (FRAME_THICK | ICON_BEFORE_TEXT | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT | LAYOUT_FIX_WIDTH), 0, 0, 180, 46, 2, 2, 2, 2
+#define GUIDesignLabelTickedIcon180x46      (FRAME_THICK | ICON_BEFORE_TEXT | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT | LAYOUT_FIX_WIDTH), 0, 0, 180, 46, 2, 2, 2, 2
 
 /// @brief label extended over frame without thick and with text justify to left, used to show information in frames
-#define GUIDesignLabelFrameInformation  (JUSTIFY_LEFT | LAYOUT_FILL_X | ICON_BEFORE_TEXT), 0, 0, 0, 0, 2, 2, 2, 2
-
-/// @brief label extended over frame without thick and with text justify to left, used to show information in frames
-#define GUIDesignLabelFrameThicked      (FRAME_THICK | JUSTIFY_LEFT | LAYOUT_FILL_X | ICON_BEFORE_TEXT), 0, 0, 0, 0, 2, 2, 2, 2
-
-/// @brief label with thick, text justify to left and width of 100
-#define GUIDesignLabelThick100          (FRAME_THICK | ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 100, GUIDesignHeight, 2, 2, 2, 2
-
-/// @brief label with thick, text justify to left and width of 75
-#define GUIDesignLabelThick75           (FRAME_THICK | ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 75, GUIDesignHeight, 2, 2, 2, 2
-
-/// @brief label with thick, text justify to left and width of 50
-#define GUIDesignLabelThick50           (FRAME_THICK | ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 50, GUIDesignHeight, 2, 2, 2, 2
+#define GUIDesignLabelFrameInformation      (JUSTIFY_LEFT | LAYOUT_FILL_X | ICON_BEFORE_TEXT), 0, 0, 0, 0, 2, 2, 2, 2
 
 /// @brief label used in statusBar
-#define GUIDesignLabelStatusBar         (LAYOUT_CENTER_Y), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
+#define GUIDesignLabelStatusBar             (LAYOUT_CENTER_Y), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
 
 /// @brief label used in MFXGroupBoxModule
-#define GUIDesignLabelMFXGroupBoxModule (FRAME_GROOVE | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
-
-/// @brief label used in TLSTable
-#define GUIDesignLabelTLSTable          (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | ICON_BEFORE_TEXT | JUSTIFY_CENTER_X | JUSTIFY_CENTER_Y), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
-
-/// @brief label used in TLSTable for index
-#define GUIDesignLabelTLSTableIndex     (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | ICON_BEFORE_TEXT | JUSTIFY_CENTER_X | JUSTIFY_CENTER_Y), 0, 0, 30, GUIDesignHeight, 2, 2, 2, 2
-
-/// @brief label used in TLSTable (empty)
-#define GUIDesignLabelTLSTableEmpty     (LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | ICON_BEFORE_TEXT | JUSTIFY_CENTER_X | JUSTIFY_CENTER_Y), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
+#define GUIDesignLabelMFXGroupBoxModule     (FRAME_GROOVE | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
 
 /// @}
 
@@ -314,6 +284,9 @@ class MFXMenuCheckIcon;
 /// @brief comboBox with thick frame, width 180
 #define GUIDesignComboBoxWidth180           (COMBOBOX_NORMAL | FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 180, GUIDesignHeight, 2, 2, 2, 2
 
+/// @brief comboBox with thick frame, width 100
+#define GUIDesignComboBoxWidth100           (COMBOBOX_NORMAL | FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 100, GUIDesignHeight, 2, 2, 2, 2
+
 /// @brief number of column of every combo box
 #define GUIDesignComboBoxNCol               1
 
@@ -327,6 +300,9 @@ class MFXMenuCheckIcon;
 
 /// @brief Horizontal frame extended over XY-frame parent used in MFXGroupBoxModule
 #define GUIDesignGroupBoxModuleExtendY      (LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 4, 4, 4, 4, 4, 4
+
+/// @brief thicked frame extended over frame parent
+#define GUIDesignFrameThick                 (FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 2, 2, 2, 2, 2, 2
 
 /// @brief Horizontal frame extended over frame parent
 #define GUIDesignHorizontalFrame            (LAYOUT_FILL_X), 0, 0, 0, 0, 4, 4, 4, 4, 4, 4
@@ -372,8 +348,11 @@ class MFXMenuCheckIcon;
 /// @brief design for viewn area
 #define GUIDesignViewnArea                      (FRAME_SUNKEN | LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 0, 0, 0, 0
 
-/// @brief design for the content frame of every frame
+/// @brief design for the content scroll of every frame
 #define GUIDesignContentsScrollWindow           (LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y | HSCROLLER_NEVER | VSCROLLER_ALWAYS), 0, 0, 0, 0
+
+/// @brief design for the content scroll of UndoList
+#define GUIDesignContentsScrollUndoList         (LAYOUT_FILL_X | LAYOUT_FILL_Y | HSCROLLER_NEVER), 0, 0, 0, 0
 
 /// @brief design for the main content frame of every frame/dialog
 #define GUIDesignChildWindowContentFrame        (FRAME_SUNKEN | LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y)
@@ -381,11 +360,14 @@ class MFXMenuCheckIcon;
 /// @brief design for the main content frame of every frame/dialog
 #define GUIDesignContentsFrame                  (LAYOUT_FILL_X | LAYOUT_FILL_Y)
 
-/// @brief design for the GNEFrame
-#define GUIDesignContentsGNEFrame               (LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-
-/// @brief design for auxiliar (Without borders) frames used to pack another frames extended in all directions
+/// @brief design for auxiliar (Without borders) frame extended in all directions
 #define GUIDesignAuxiliarFrame                  (LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+
+/// @brief design for auxiliar (Without borders) fixed
+#define GUIDesignAuxiliarFrameFixed             (LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+
+/// @brief design for auxiliar (Without borders) frame with fixed width and extended height
+#define GUIDesignAuxiliarFrameFixedWidth(width) (LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y), 0, 0, width, 0, 0, 0, 0, 0, 0, 0
 
 /// @brief design for auxiliar (Without borders) horizontal frame used to pack another frames
 #define GUIDesignAuxiliarHorizontalFrame        (LAYOUT_FILL_X), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
@@ -402,8 +384,11 @@ class MFXMenuCheckIcon;
 /// @brief design for CollapsableFrame (Used in MFXGroupBoxModule)
 #define GUIDesignCollapsableFrame               (LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 2, 2, 2, 2, 2, 2
 
-/// @brief design for auxiliar (Without borders) frames used in TLSTable
-#define GUIDesignAuxiliarTLSTable               (LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+/// @brief design for auxiliar vertical frames with fixed width (used in TLSTable and DecalsTable)
+#define GUIDesignAuxiliarFrameFixWidth          (LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+
+/// @brief design for auxiliar vertical frames with fixed height (DecalsTable)
+#define GUIDesignAuxiliarFrameFixHeight         (LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 
 /// @}
 
@@ -476,6 +461,9 @@ class MFXMenuCheckIcon;
 /// @brief desing for spin dial attribute
 #define GUIDesignSpinDialAttribute       (FRAME_THICK | FRAME_SUNKEN | LAYOUT_TOP | LAYOUT_CENTER_Y | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT | SPIN_NOMIN | SPIN_NOMAX), 0, 0, 0, GUIDesignHeight, 0, 0, 0, 0
 
+/// @brief desing for standard spin dial
+#define GUIDesignSpinDialDecalsTable    (FRAME_THICK | FRAME_SUNKEN | JUSTIFY_CENTER_X | JUSTIFY_CENTER_Y | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | SPIN_NOMIN | SPIN_NOMAX), 0, 0, 100, GUIDesignHeight, 0, 0, 0, 0
+
 /// @}
 
 
@@ -499,7 +487,7 @@ class MFXMenuCheckIcon;
 
 #define GUIDesignViewSettingsVerticalFrame2     (LAYOUT_FILL_X | FRAME_THICK | FRAME_RAISED | LAYOUT_FILL_Y), 0, 0, 0, 0, 0, 0, 0, 0, 2, 2
 
-#define GUIDesignViewSettingsVerticalFrame3     (LAYOUT_FILL_Y), 0, 0, 0, 0, 10, 10, 10, 10, 5, 5
+#define GUIDesignViewSettingsVerticalFrame3     (LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 10, 10, 10, 10, 5, 5
 
 #define GUIDesignViewSettingsVerticalFrame4     (LAYOUT_FILL_X | LAYOUT_FILL_Y),  0, 0, 0, 0, 10, 10, 2, 8, 5, 2
 
@@ -564,10 +552,11 @@ class MFXMenuCheckIcon;
 
 #define GUIDesignViewSettingsColorWell2         (LAYOUT_FIX_WIDTH | LAYOUT_CENTER_Y | LAYOUT_SIDE_TOP | FRAME_SUNKEN | FRAME_THICK | ICON_AFTER_TEXT), 0, 0, 100, 0, 0, 0, 0, 0
 
-/// @brief MFX Add/Edit Typed Table
-#define GUIDesignViewSettingsMFXTable           (LAYOUT_FILL_Y | LAYOUT_FIX_WIDTH) /*|LAYOUT_FIX_HEIGHT*/, 0, 0, 470, 0
+/// @brief decals table
+#define GUIDesignViewSettingsDecalsTable        (LAYOUT_FILL_Y | LAYOUT_FIX_WIDTH), 0, 0, 550, 0
 
-#define GUIDesignViewSettingsMFXTableJustify    (JUSTIFY_CENTER_X | JUSTIFY_TOP)
+/// @brief decals cell
+#define GUIDesignViewSettingsDecalsCellTable    (JUSTIFY_CENTER_X | JUSTIFY_TOP)
 
 /// @}
 
@@ -618,7 +607,7 @@ class MFXMenuCheckIcon;
 /// @name design for Chooser (locator) and breakpoint dialogs
 /// @{
 /// @brief design for Chooser dialog specifying size
-#define GUIDesignChooserDialog                  (DECOR_ALL), 20, 20, 300, 350
+#define GUIDesignChooserDialog                  (DECOR_ALL), 20, 40, 300, 350
 
 /// @brief design for Chooser buttons
 #define GUIDesignChooserButtons                 (ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | FRAME_THICK | FRAME_RAISED), 0, 0, 150, GUIDesignHeight, 2, 2, 2, 2
@@ -651,10 +640,6 @@ class MFXMenuCheckIcon;
 /// @{
 /// @brief treeListDinamic used in Inspector frame
 #define GUIDesignTreeListDinamic                (TREELIST_SHOWS_LINES | TREELIST_SHOWS_BOXES | TREELIST_SINGLESELECT | FRAME_SUNKEN | FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT)
-
-/// @brief treeListDinamic used in undoList
-#define GUIDesignTreeListDinamicExpandHeight    (TREELIST_SHOWS_LINES | TREELIST_SHOWS_BOXES | TREELIST_SINGLESELECT | FRAME_SUNKEN | FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FILL_Y)
-
 
 /// @}
 

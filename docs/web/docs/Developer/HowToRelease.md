@@ -119,6 +119,10 @@ following things need to be there:
   - https://pypi.org/project/sumolib/
   - https://pypi.org/project/traci/
   - https://pypi.org/project/libtraci/
+- check the Maven build https://ci.eclipse.org/sumo/job/SUMO%20Build%20-%20Maven%20Release/view/tags/ and ensure that the artifacts have been uploaded to:
+  - https://repo.eclipse.org/content/repositories/sumo-releases/org/eclipse/sumo/libtraci and
+  - https://repo.eclipse.org/content/repositories/sumo-releases/org/eclipse/sumo/libsumo/
+
 
 If everything is fine:
 
@@ -126,7 +130,7 @@ If everything is fine:
 - make new sumo.dlr.de-release
   - copy the folder from S:\Releases to the releases dir `scp -r /media/S/Releases/x.y.z delphi@ts-sim-front-ba.intra.dlr.de:docs/releases`
 - update the eclipse.org/sumo website
-  - modify the version number (Version) [in config.toml](https://github.com/eclipse/sumo.website/blob/main/config.toml) in the **Default Parameters** section at the beginning
+  - modify the version number (Version) [in config.yaml](https://github.com/eclipse/sumo.website/blob/source/config/_default/config.yaml) in the **Default Parameters** section at the beginning
 - make new sourceforge-release
   - make a new release within the sumo package (named "version x.y.z")
   - add files to the release
@@ -142,7 +146,8 @@ If everything is fine:
   - modify the changelog, using `dch` (enter an email address which has write access to the ppa and a valid gpg key)
   - run `dpkg-buildpackage -S` in the sumo dir and `dput -f ppa:sumo/stable sumo_{{Version}}+dfsg1_source.changes` one level up
 - update the [flatpak](https://github.com/flathub/org.eclipse.sumo) (update version number and commit hash)
-- do a remote login to the M1 Mac and upload the wheels to PyPI using `twine upload sumo/dist/*`
+- [update the Homebrew Formula](HowToUpdateHomebrewFormula.md)
+- do a remote login to the M1 Mac and upload the wheels to PyPI using `twine upload clangMacOS_M1/sumo/dist_native/* clangMacOS_M1/sumo/wheelhouse/*`
 - scenarios (optional)
   - add files to [the scenario folder](https://sourceforge.net/projects/sumo/files/traffic_data/scenarios/)
   - updated README.txt

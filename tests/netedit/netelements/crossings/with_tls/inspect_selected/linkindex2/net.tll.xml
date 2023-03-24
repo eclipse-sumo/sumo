@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-01-26 15:53:03 by Eclipse SUMO netconvert Version v1_15_0+1990-019f60057a9
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="D:/SUMO/tests/netedit\netelements\crossings\with_tls\inspect_selected\linkindex2/net.net.xml"/>
+    </input>
+
+    <output>
+        <plain-output-prefix value="D:/SUMO/tests/netedit\netelements\crossings\with_tls\inspect_selected\linkindex2/net"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<tlLogics version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tllogic_file.xsd">
+    <tlLogic id="Center" type="static" programID="0" offset="0">
+        <phase duration="37" state="gGGgrrrrgGGgrrrrGG"/>
+        <phase duration="5"  state="gGGgrrrrgGGgrrrrrr"/>
+        <phase duration="3"  state="yyyyrrrryyyyrrrrrr"/>
+        <phase duration="42" state="rrrrGGGgrrrrGGGgrr"/>
+        <phase duration="3"  state="rrrryyyyrrrryyyyrr"/>
+    </tlLogic>
+
+    <connection from="5" to="4" fromLane="1" toLane="1" tl="Center" linkIndex="8"/>
+    <connection from="5" to="2" fromLane="1" toLane="1" tl="Center" linkIndex="9"/>
+    <connection from="5" to="2" fromLane="2" toLane="2" tl="Center" linkIndex="10"/>
+    <connection from="5" to="3" fromLane="2" toLane="2" tl="Center" linkIndex="11"/>
+    <connection from="6" to="3" fromLane="1" toLane="1" tl="Center" linkIndex="0"/>
+    <connection from="6" to="1" fromLane="1" toLane="1" tl="Center" linkIndex="1"/>
+    <connection from="6" to="1" fromLane="2" toLane="2" tl="Center" linkIndex="2"/>
+    <connection from="6" to="4" fromLane="2" toLane="2" tl="Center" linkIndex="3"/>
+    <connection from="7" to="1" fromLane="1" toLane="1" tl="Center" linkIndex="12"/>
+    <connection from="7" to="4" fromLane="1" toLane="1" tl="Center" linkIndex="13"/>
+    <connection from="7" to="4" fromLane="2" toLane="2" tl="Center" linkIndex="14"/>
+    <connection from="7" to="2" fromLane="2" toLane="2" tl="Center" linkIndex="15"/>
+    <connection from="8" to="2" fromLane="1" toLane="1" tl="Center" linkIndex="4"/>
+    <connection from="8" to="3" fromLane="1" toLane="1" tl="Center" linkIndex="5"/>
+    <connection from="8" to="3" fromLane="2" toLane="2" tl="Center" linkIndex="6"/>
+    <connection from="8" to="1" fromLane="2" toLane="2" tl="Center" linkIndex="7"/>
+</tlLogics>

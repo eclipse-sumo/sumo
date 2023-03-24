@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -157,7 +157,7 @@ MSMeanData::MeanDataValues::notifyMove(SUMOTrafficObject& veh, double oldPos, do
     assert(timeOnLane <= TS);
 
     if (timeOnLane < 0) {
-        WRITE_ERROR("Negative vehicle step fraction for '" + veh.getID() + "' on lane '" + getLane()->getID() + "'.");
+        WRITE_ERRORF(TL("Negative vehicle step fraction for '%' on lane '%'."), veh.getID(), getLane()->getID());
         return veh.hasArrived();
     }
     if (timeOnLane == 0) {
@@ -313,6 +313,7 @@ void
 MSMeanData::MeanDataValueTracker::reset(bool afterWrite) {
     if (afterWrite) {
         if (myCurrentData.begin() != myCurrentData.end()) {
+            // delete myCurrentData.front();
             myCurrentData.pop_front();
         }
     } else {
@@ -450,8 +451,10 @@ MSMeanData::init() {
             }
         }
     }
+    int index = 0;
     for (MSEdge* edge : myEdges) {
         myMeasures.push_back(std::vector<MeanDataValues*>());
+        myEdgeIndex[edge] = index++;
         const std::vector<MSLane*>& lanes = edge->getLanes();
         if (MSGlobals::gUseMesoSim) {
             MeanDataValues* data;
@@ -532,7 +535,7 @@ MSMeanData::getEdgeID(const MSEdge* const edge) {
 void
 MSMeanData::writeAggregated(OutputDevice& dev, SUMOTime startTime, SUMOTime stopTime) {
     if (myTrackVehicles) {
-        throw ProcessError("aggregated meanData output not yet implemented for trackVehicles");
+        throw ProcessError(TL("aggregated meanData output not yet implemented for trackVehicles"));
     }
 
     double edgeLengthSum = 0;
@@ -567,6 +570,7 @@ MSMeanData::writeAggregated(OutputDevice& dev, SUMOTime startTime, SUMOTime stop
         sumData->write(dev, myWrittenAttributes, stopTime - startTime, (double)laneNumber, speedSum / (double)myEdges.size(),
                        myPrintDefaults ? totalTT : -1.);
     }
+    delete sumData;
 }
 
 
@@ -726,7 +730,7 @@ MSMeanData::initWrittenAttributes(const std::string writeAttributes, const std::
     long long int result = 0;
     for (std::string attrName : StringTokenizer(writeAttributes).getVector()) {
         if (!SUMOXMLDefinitions::Attrs.hasString(attrName)) {
-            WRITE_ERROR("Unknown attribute '" + attrName + "' to write in meanData '" + id + "'.");
+            WRITE_ERRORF(TL("Unknown attribute '%' to write in meanData '%'."), attrName, id);
             continue;
         }
         int attr = SUMOXMLDefinitions::Attrs.get(attrName);
@@ -736,5 +740,14 @@ MSMeanData::initWrittenAttributes(const std::string writeAttributes, const std::
     return result;
 }
 
+const std::vector<MSMeanData::MeanDataValues*>*
+MSMeanData::getEdgeValues(const MSEdge* edge) const {
+    auto it = myEdgeIndex.find(edge);
+    if (it != myEdgeIndex.end()) {
+        return &myMeasures[it->second];
+    } else {
+        return nullptr;
+    }
+}
 
 /****************************************************************************/

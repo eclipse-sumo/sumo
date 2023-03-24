@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2002-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -48,7 +48,7 @@
 RONetHandler::RONetHandler(RONet& net, ROAbstractEdgeBuilder& eb, const bool ignoreInternal, const double minorPenalty) :
     SUMOSAXHandler("sumo-network"),
     myNet(net),
-    myNetworkVersion(0),
+    myNetworkVersion(0, 0),
     myEdgeBuilder(eb), myIgnoreInternal(ignoreInternal),
     myCurrentName(), myCurrentEdge(nullptr), myCurrentStoppingPlace(nullptr),
     myMinorPenalty(minorPenalty)
@@ -67,7 +67,7 @@ RONetHandler::myStartElement(int element,
             break;
         case SUMO_TAG_NET: {
             bool ok;
-            myNetworkVersion = attrs.get<double>(SUMO_ATTR_VERSION, nullptr, ok, false);
+            myNetworkVersion = StringUtils::toVersion(attrs.get<std::string>(SUMO_ATTR_VERSION, nullptr, ok, false));
             break;
         }
         case SUMO_TAG_EDGE:
@@ -134,7 +134,7 @@ RONetHandler::myEndElement(int element) {
         case SUMO_TAG_NET:
             // build junction graph
             for (std::set<std::string>::const_iterator it = myUnseenNodeIDs.begin(); it != myUnseenNodeIDs.end(); ++it) {
-                WRITE_ERROR("Unknown node '" + *it + "'.");
+                WRITE_ERRORF(TL("Unknown node '%'."), *it);
             }
             break;
         default:
@@ -240,7 +240,7 @@ RONetHandler::parseLane(const SUMOSAXAttributes& attrs) {
         return;
     }
     if (shape.size() < 2) {
-        WRITE_ERROR("Ignoring lane '" + id + "' with broken shape.");
+        WRITE_ERRORF(TL("Ignoring lane '%' with broken shape."), id);
         return;
     }
     // get the length
@@ -277,7 +277,7 @@ RONetHandler::parseJunction(const SUMOSAXAttributes& attrs) {
     }
     RONode* n = myNet.getNode(id);
     if (n == nullptr) {
-        WRITE_WARNING("Skipping isolated junction '" + id + "'.");
+        WRITE_WARNINGF(TL("Skipping isolated junction '%'."), id);
     } else {
         n->setPosition(Position(x, y, z));
     }
@@ -296,10 +296,10 @@ RONetHandler::parseConnection(const SUMOSAXAttributes& attrs) {
     ROEdge* from = myNet.getEdge(fromID);
     ROEdge* to = myNet.getEdge(toID);
     if (from == nullptr) {
-        throw ProcessError("unknown from-edge '" + fromID + "' in connection");
+        throw ProcessError(TLF("unknown from-edge '%' in connection", fromID));
     }
     if (to == nullptr) {
-        throw ProcessError("unknown to-edge '" + toID + "' in connection");
+        throw ProcessError(TLF("unknown to-edge '%' in connection", toID));
     }
     if ((int)from->getLanes().size() <= fromLane) {
         throw ProcessError("invalid fromLane '" + toString(fromLane) + "' in connection from '" + fromID + "'.");
@@ -313,7 +313,7 @@ RONetHandler::parseConnection(const SUMOSAXAttributes& attrs) {
     }  else {
         ROEdge* const via = myNet.getEdge(SUMOXMLDefinitions::getEdgeIDFromLane(viaID));
         if (via == nullptr) {
-            throw ProcessError("unknown via-edge '" + viaID + "' in connection");
+            throw ProcessError(TLF("unknown via-edge '%' in connection", viaID));
         }
         from->getLanes()[fromLane]->addOutgoingLane(to->getLanes()[toLane], via);
         from->addSuccessor(to, via, dir);
@@ -365,7 +365,7 @@ RONetHandler::parseAccess(const SUMOSAXAttributes& attrs) {
         throw InvalidArgument("Unknown lane '" + lane + "' for access.");
     }
     if ((edge->getPermissions() & SVC_PEDESTRIAN) == 0) {
-        WRITE_WARNING("Ignoring invalid access from non-pedestrian edge '" + edge->getID() + "'.");
+        WRITE_WARNINGF(TL("Ignoring invalid access from non-pedestrian edge '%'."), edge->getID());
         return;
     }
     double pos = attrs.getOpt<double>(SUMO_ATTR_POSITION, "access", ok, 0.);
@@ -395,7 +395,9 @@ RONetHandler::parseDistrict(const SUMOSAXAttributes& attrs) {
     if (!ok) {
         return;
     }
-    myNet.addDistrict(myCurrentName, myEdgeBuilder.buildEdge(myCurrentName + "-source", nullptr, nullptr, 0), myEdgeBuilder.buildEdge(myCurrentName + "-sink", nullptr, nullptr, 0));
+    ROEdge* const sink = myEdgeBuilder.buildEdge(myCurrentName + "-sink", nullptr, nullptr, 0);
+    ROEdge* const source = myEdgeBuilder.buildEdge(myCurrentName + "-source", nullptr, nullptr, 0);
+    myNet.addDistrict(myCurrentName, source, sink);
     if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
         const std::vector<std::string>& desc = attrs.get<std::vector<std::string> >(SUMO_ATTR_EDGES, myCurrentName.c_str(), ok);
         for (const std::string& eID : desc) {

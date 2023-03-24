@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -38,7 +38,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect E1
-netedit.leftClick(referencePosition, 150, 240)
+netedit.leftClick(referencePosition, 325, 248)
 
 # Change parameter period with a non valid value (non numeral)
 netedit.modifyAttribute(netedit.attrs.E1.inspectSelection.period, "dummyFrequency", True)
@@ -53,11 +53,8 @@ netedit.modifyAttribute(netedit.attrs.E1.inspectSelection.period, "120", True)
 netedit.undo(referencePosition, 4)
 netedit.redo(referencePosition, 4)
 
-# save additionals
-netedit.saveAdditionals(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

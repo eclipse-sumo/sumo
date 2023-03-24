@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -107,11 +107,11 @@ public:
     static void drawMovingHint(const GUIVisualizationSettings& s, const Position& mousePos, const PositionVector& shape,
                                const RGBColor& hintColor, const double radius, const double exaggeration);
 
-    /// @brief draw line between parent and children (used in NETEDIT)
-    static void drawParentLine(const GUIVisualizationSettings& s, const Position& parent, const Position& child, 
+    /// @brief draw line between parent and children (used in netedit)
+    static void drawParentLine(const GUIVisualizationSettings& s, const Position& parent, const Position& child,
                                const RGBColor& color, const bool drawEntire, const double lineWidth);
 
-    /// @brief draw line between child and parent (used in NETEDIT)
+    /// @brief draw line between child and parent (used in netedit)
     static void drawChildLine(const GUIVisualizationSettings& s, const Position& child, const Position& parent,
                               const RGBColor& color, const bool drawEntire, const double lineWidth);
 

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -74,9 +74,10 @@ public:
         STOPCONTAINER =     1 << 26, // Container stops
         // sub data elements
         GENERICDATA =       1 << 27, // Generic data (GNEEdgeData, GNELaneData...)
+        MEANDATA =          1 << 28, // Mean datas
         // other
-        SYMBOL =            1 << 28, // Symbol elements (VSSSymbols, RerouterSymbols...)
-        INTERNALLANE =      1 << 29, // Internal Lane
+        SYMBOL =            1 << 29, // Symbol elements (VSSSymbols, RerouterSymbols...)
+        INTERNALLANE =      1 << 30, // Internal Lane
     };
 
     enum TagProperty {
@@ -246,6 +247,9 @@ public:
 
     /// @brief return true if tag correspond to a generic data element
     bool isGenericData() const;
+
+    /// @brief return true if tag correspond to a mean data element
+    bool isMeanData() const;
 
     /// @brief return true if tag correspond to an element child of another element (Example: E3->Entry/Exit)
     bool isChild() const;

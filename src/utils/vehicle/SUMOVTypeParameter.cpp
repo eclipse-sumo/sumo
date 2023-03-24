@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -59,11 +59,12 @@ SUMOVTypeParameter::VClassDefaultValues::VClassDefaultValues(SUMOVehicleClass vc
     switch (vclass) {
         case SVC_PEDESTRIAN:
             minGap = 0.25;
-            maxSpeed = 37.58/ 3.6; // Usain Bolt
+            maxSpeed = 37.58 / 3.6; // Usain Bolt
             desiredMaxSpeed = DEFAULT_PEDESTRIAN_SPEED;
             width = 0.478;
             height = 1.719;
             shape = SUMOVehicleShape::PEDESTRIAN;
+            osgFile = "humanResting.obj";
             emissionClass = PollutantsInterface::getClassByName(EMPREFIX + "zero", vclass);
             mass = 70.; // https://en.wikipedia.org/wiki/Human_body_weight for Europe
             speedFactor.getParameter()[1] = 0.1;
@@ -71,7 +72,7 @@ SUMOVTypeParameter::VClassDefaultValues::VClassDefaultValues(SUMOVehicleClass vc
         case SVC_BICYCLE:
             minGap = 0.5;
             maxSpeed = 50. / 3.6;
-            desiredMaxSpeed = 20 / 3.6;
+            desiredMaxSpeed = DEFAULT_BICYCLE_SPEED;
             width = 0.65;
             height = 1.7;
             shape = SUMOVehicleShape::BICYCLE;
@@ -295,7 +296,9 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
       carriageGap(1),
       timeToTeleport(TTT_UNSET),
       timeToTeleportBidi(TTT_UNSET),
+      speedFactorPremature(-1),
       frontSeatPos(1.7),
+      seatingWidth(-1),
       parametersSet(0),
       saved(false),
       onlyReferenced(false) {
@@ -393,7 +396,7 @@ SUMOVTypeParameter::write(OutputDevice& dev) const {
     dev.openTag(SUMO_TAG_VTYPE);
     // write ID (always needed)
     dev.writeAttr(SUMO_ATTR_ID, id);
-    // write parametes depending if is set
+    // write parameters depending if is set
     if (wasSet(VTYPEPARS_LENGTH_SET)) {
         dev.writeAttr(SUMO_ATTR_LENGTH, length);
     }
@@ -457,10 +460,10 @@ SUMOVTypeParameter::write(OutputDevice& dev) const {
         dev.writeAttr(SUMO_ATTR_CONTAINER_CAPACITY, containerCapacity);
     }
     if (wasSet(VTYPEPARS_BOARDING_DURATION)) {
-        dev.writeAttr(SUMO_ATTR_BOARDING_DURATION, boardingDuration);
+        dev.writeAttr(SUMO_ATTR_BOARDING_DURATION, time2string(boardingDuration));
     }
     if (wasSet(VTYPEPARS_LOADING_DURATION)) {
-        dev.writeAttr(SUMO_ATTR_LOADING_DURATION, loadingDuration);
+        dev.writeAttr(SUMO_ATTR_LOADING_DURATION, time2string(loadingDuration));
     }
     if (wasSet(VTYPEPARS_MAXSPEED_LAT_SET)) {
         dev.writeAttr(SUMO_ATTR_MAXSPEED_LAT, maxSpeedLat);
@@ -503,7 +506,13 @@ SUMOVTypeParameter::write(OutputDevice& dev) const {
         dev.writeAttr(SUMO_ATTR_SCALE, scale);
     }
     if (wasSet(VTYPEPARS_TTT_SET)) {
-        dev.writeAttr(SUMO_ATTR_TIME_TO_TELEPORT, timeToTeleport);
+        dev.writeAttr(SUMO_ATTR_TIME_TO_TELEPORT, time2string(timeToTeleport));
+    }
+    if (wasSet(VTYPEPARS_TTT_BIDI_SET)) {
+        dev.writeAttr(SUMO_ATTR_TIME_TO_TELEPORT_BIDI, time2string(timeToTeleportBidi));
+    }
+    if (wasSet(VTYPEPARS_SPEEDFACTOR_PREMATURE_SET)) {
+        dev.writeAttr(SUMO_ATTR_SPEEDFACTOR_PREMATURE, speedFactorPremature);
     }
     if (wasSet(VTYPEPARS_LANE_CHANGE_MODEL_SET)) {
         dev.writeAttr(SUMO_ATTR_LANE_CHANGE_MODEL, lcModel);
@@ -743,6 +752,11 @@ SUMOVTypeParameter::initRailVisualizationParameters() {
             default:
                 break;
         }
+    }
+
+    if (knowsParameter("seatingWidth")) {
+        seatingWidth = StringUtils::toDouble(getParameter("seatingWidth"));
+        parametersSet |= VTYPEPARS_SEATING_WIDTH_SET;
     }
 }
 

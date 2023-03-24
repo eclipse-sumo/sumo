@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-02-22 10:42:26 by Eclipse SUMO sumo Version v1_16_0+0608-da6a604
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
+        <tripinfo-output.write-unfinished value="true"/>
+        <railsignal-block-output value="railsignal_blocks.xml"/>
+        <stop-output value="stopinfos.xml"/>
+        <stop-output.write-unfinished value="true"/>
+    </output>
+
+    <time>
+        <end value="1000"/>
+    </time>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="t0" depart="0.00" departLane="a_0" departPos="50.10" departSpeed="0.00" departDelay="0.00" arrival="467.00" arrivalLane="c_0" arrivalPos="191.72" arrivalSpeed="11.25" duration="467.00" routeLength="649.90" waitingTime="0.00" waitingCount="0" stopTime="361.00" timeLoss="58.45" rerouteNo="0" devices="tripinfo_t0 routing_t0" vType="splitTrain" speedFactor="1.00" vaporized=""/>
+</tripinfos>

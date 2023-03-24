@@ -66,13 +66,22 @@ The response of this command is a list of subscription responses to
 [TraCI/Object Context Subscriptions](../TraCI/Object_Context_Subscription.md) referring
 to the last step executed:
 
-|                                            |                         |     |                         |
-| :----------------------------------------: | :---------------------: | :-: | :---------------------: |
-|                  integer                   | <SUBSCRIPTION RESPONSE\> | ... | <SUBSCRIPTION RESPONSE\> |
-| **Number of following subscription responses** |     **<RESPONSE\#1\>**     | ... |     **<RESPONSE\#n\>**     |
+|                                                |                          |     |                          |
+| :--------------------------------------------: | :----------------------: | :-: | :----------------------: |
+|                    integer                     | <SUBSCRIPTION RESPONSE\> | ... | <SUBSCRIPTION RESPONSE\> |
+| **Number of following subscription responses** |    **<RESPONSE\#1\>**    | ... |    **<RESPONSE\#n\>**    |
 
 Please note, that both subscription types differ in their return values,
 so the parser should regard the id of the returned command.
+
+## Command 0x7D: Execute Move
+
+| Parameter     | [Python Method](../TraCI/Interfacing_TraCI_from_Python.md)|
+| :-----------: | :-----------: |
+|      \-       | [executeMove](https://sumo.dlr.de/pydoc/traci.main.html#-executeMove) |
+
+Performs only the first part of a simulation step until the vehicles have moved but before the outputs are generated.
+A subsequent call to simulation step will then create the output.
 
 ## Command 0x7F: Close
 

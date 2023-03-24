@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2010-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2010-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -54,7 +54,7 @@ MSSwarmTrafficLightLogic::MSSwarmTrafficLightLogic(MSTLLogicControl& tlcontrol, 
     }
 
     if (myPolicies.empty()) {
-        WRITE_ERROR("NO VALID POLICY LIST READ");
+        WRITE_ERROR(TL("NO VALID POLICY LIST READ"));
     }
 
     mustChange = false;
@@ -78,7 +78,7 @@ MSSwarmTrafficLightLogic::MSSwarmTrafficLightLogic(MSTLLogicControl& tlcontrol, 
     congestion_steps = 0;
     m_useVehicleTypesWeights = getParameter("USE_VEHICLE_TYPES_WEIGHTS", "0") == "1";
     if (m_useVehicleTypesWeights && pols.find("phase") == std::string::npos) {
-        WRITE_ERROR("VEHICLE TYPES WEIGHT only works with phase policy, which is missing");
+        WRITE_ERROR(TL("VEHICLE TYPES WEIGHT only works with phase policy, which is missing"));
     }
 }
 
@@ -157,7 +157,7 @@ void MSSwarmTrafficLightLogic::init(NLDetectorBuilder& nb) {
 #endif
                 } else {
 #ifdef ANALYSIS_DEBUG
-                    WRITE_MESSAGE("MSSwarmTrafficLightLogic::init Intersection " + getID() + " pheromoneInputLanes: lane " + currentLane->getID() + " not allowed");
+                    WRITE_MESSAGEF(TL("MSSwarmTrafficLightLogic::init Intersection % pheromoneInputLanes: lane % not allowed"), getID(), currentLane->getID());
 #endif
                 }
             }
@@ -179,7 +179,7 @@ void MSSwarmTrafficLightLogic::init(NLDetectorBuilder& nb) {
 #endif
                 } else {
 #ifdef ANALYSIS_DEBUG
-                    WRITE_MESSAGE("MSSwarmTrafficLightLogic::init Intersection " + getID() + " pheromoneOutputLanes lane " + currentLane->getID() + " not allowed");
+                    WRITE_MESSAGEF(TL("MSSwarmTrafficLightLogic::init Intersection % pheromoneOutputLanes lane % not allowed"), getID(), currentLane->getID());
 #endif
                 }
             }
@@ -191,7 +191,7 @@ void MSSwarmTrafficLightLogic::init(NLDetectorBuilder& nb) {
     //Initializing thresholds for theta evaluations
     lastThetaSensitivityUpdate = MSNet::getInstance()->getCurrentTimeStep();
 
-    WRITE_MESSAGE("*** Intersection " + getID() + " will run using MSSwarmTrafficLightLogic ***");
+    WRITE_MESSAGEF(TL("*** Intersection % will run using MSSwarmTrafficLightLogic ***"), getID());
     std::string logFileName = getParameter("SWARMLOG", "");
     logData = logFileName.compare("") != 0;
     if (logData) {
@@ -199,7 +199,7 @@ void MSSwarmTrafficLightLogic::init(NLDetectorBuilder& nb) {
     }
 //	Log the initial state
 #ifdef ANALYSIS_DEBUG
-    WRITE_MESSAGE("TL " + getID() + " time 0 Policy: " + myCurrentPolicy->getName() + " (pheroIn= 0 ,pheroOut= 0 ) OldPolicy: " + myCurrentPolicy->getName() + " .");
+    WRITE_MESSAGEF(TL("TL % time 0 Policy: % (pheroIn= 0 ,pheroOut= 0 ) OldPolicy: % ."), getID(), myCurrentPolicy->getName(), myCurrentPolicy->getName());
 //	ostringstream maplog;
 //	for(map<string, vector<int> >::const_iterator mIt = m_laneIndexMap.begin();mIt != m_laneIndexMap.end();++mIt)
 //	{
@@ -244,7 +244,7 @@ int MSSwarmTrafficLightLogic::decideNextPhase() {
     if (myCurrentPolicy->getName().compare("Congestion") == 0 && getCurrentPhaseDef().isCommit()) {
         congestion_steps += 1;	//STEPS2TIME(getCurrentPhaseDef().duration);
 #ifdef SWARM_DEBUG
-        WRITE_MESSAGE("\n" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSSwarmTrafficLightLogic decideNextPhase()");
+        WRITE_MESSAGEF("\n% MSSwarmTrafficLightLogic decideNextPhase()", time2string(MSNet::getInstance()->getCurrentTimeStep()));
 std:
         ostringstream dnp;
         dnp << (MSNet::getInstance()->getCurrentTimeStep()) << " MSSwarmTrafficLightLogic::decideNextPhase:: " << "tlsid=" << getID() << " congestion_steps=" << congestion_steps;
@@ -258,7 +258,7 @@ std:
                 skipEta = true;
             }
 #ifdef SWARM_DEBUG
-            WRITE_MESSAGE("\n" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSSwarmTrafficLightLogic decideNextPhase()");
+            WRITE_MESSAGEF("\n% MSSwarmTrafficLightLogic decideNextPhase()", time2string(MSNet::getInstance()->getCurrentTimeStep()));
             std::ostringstream dnp;
             dnp << (MSNet::getInstance()->getCurrentTimeStep()) << " MSSwarmTrafficLightLogic::decideNextPhase:: " << "tlsid=" << getID() << " max congestion reached, congestion_steps=" << congestion_steps;
             WRITE_MESSAGE(dnp.str());

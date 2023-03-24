@@ -1,0 +1,6 @@
+-e input_plain.edg.xml,input_edges.edg.xml
+-n input_plain.nod.xml,input_plain2.nod.xml
+--edges.join
+--junctions.join-same
+--ignore-errors.edge-type
+--output=net.net.xml

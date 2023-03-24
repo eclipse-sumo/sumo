@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2010-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2010-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -23,6 +23,7 @@ from __future__ import absolute_import
 from __future__ import print_function
 
 import os
+import sys
 import subprocess
 import multiprocessing
 import xml.sax
@@ -73,7 +74,7 @@ EPL_HEADER = """/***************************************************************
 """
 EPL_GPL_HEADER = """/****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -132,7 +133,8 @@ class PropertyReader(xml.sax.handler.ContentHandler):
         return idx
 
     def checkFileHeader(self, ext):
-        lines = open(self._file).readlines()
+        with open(self._file) as f:
+            lines = f.readlines()
         if len(lines) == 0:
             print(self._file, "is empty")
             return
@@ -293,9 +295,10 @@ class PropertyReader(xml.sax.handler.ContentHandler):
             self._file = fileName
         ext = os.path.splitext(self._file)[1]
         try:
-            codecs.open(self._file, 'r', 'utf8').read()
-        except UnicodeDecodeError as e:
-            print(self._file, e)
+            with codecs.open(self._file, 'r', 'utf8') as f:
+                f.read()
+        except UnicodeDecodeError as err:
+            print(self._file, err)
         self.checkFileHeader(ext)
         if exclude:
             for x in exclude:
@@ -309,9 +312,10 @@ class PropertyReader(xml.sax.handler.ContentHandler):
         if self._pep and ext == ".py":
             ret = 0
             if HAVE_FLAKE and os.path.getsize(self._file) < 1000000:  # flake hangs on very large files
+                flake = "flake8-2" if sys.version_info[0] < 3 else "flake8"
                 if not self._fix:
-                    return subprocess.Popen(["flake8", "--max-line-length", "120", self._file])
-                ret = subprocess.call(["flake8", "--max-line-length", "120", self._file])
+                    return subprocess.Popen([flake, "--max-line-length", "120", self._file])
+                ret = subprocess.call([flake, "--max-line-length", "120", self._file])
             if ret and HAVE_AUTOPEP and self._fix:
                 subprocess.call(["autopep8", "--max-line-length", "120", "--in-place", self._file])
 

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2012-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -127,6 +127,12 @@ CLASS::getParameterWithKey(const std::string& objectID, const std::string& key) 
 }
 
 
+#define SWIGJAVA_CAST(CLASS) \
+static std::shared_ptr<CLASS> cast(std::shared_ptr<TraCIResult> res) { \
+    return std::dynamic_pointer_cast<CLASS>(res); \
+}
+
+
 // ===========================================================================
 // class and type definitions
 // ===========================================================================
@@ -167,15 +173,22 @@ struct TraCIResult {
 };
 
 /** @struct TraCIPosition
- * @brief A 3D-position
+ * @brief A 2D or 3D-position, for 2D positions z == INVALID_DOUBLE_VALUE
  */
 struct TraCIPosition : TraCIResult {
     std::string getString() const {
         std::ostringstream os;
-        os << "TraCIPosition(" << x << "," << y << "," << z << ")";
+        os << "TraCIPosition(" << x << "," << y;
+        if (z != INVALID_DOUBLE_VALUE) {
+            os << "," << z;
+        }
+        os << ")";
         return os.str();
     }
     double x = INVALID_DOUBLE_VALUE, y = INVALID_DOUBLE_VALUE, z = INVALID_DOUBLE_VALUE;
+#ifdef SWIGJAVA
+    SWIGJAVA_CAST(TraCIPosition)
+#endif
 };
 
 /** @struct TraCIRoadPosition
@@ -192,6 +205,9 @@ struct TraCIRoadPosition : TraCIResult {
     std::string edgeID = "";
     double pos = INVALID_DOUBLE_VALUE;
     int laneIndex = INVALID_INT_VALUE;
+#ifdef SWIGJAVA
+    SWIGJAVA_CAST(TraCIRoadPosition)
+#endif
 };
 
 /** @struct TraCIColor
@@ -206,6 +222,9 @@ struct TraCIColor : TraCIResult {
         return os.str();
     }
     int r, g, b, a;
+#ifdef SWIGJAVA
+    SWIGJAVA_CAST(TraCIColor)
+#endif
 };
 
 
@@ -223,6 +242,9 @@ struct TraCIPositionVector : TraCIResult {
         return os.str();
     }
     std::vector<TraCIPosition> value;
+#ifdef SWIGJAVA
+    SWIGJAVA_CAST(TraCIPositionVector)
+#endif
 };
 
 
@@ -235,6 +257,9 @@ struct TraCIInt : TraCIResult {
         return os.str();
     }
     int value;
+#ifdef SWIGJAVA
+    SWIGJAVA_CAST(TraCIInt)
+#endif
 };
 
 
@@ -250,6 +275,9 @@ struct TraCIDouble : TraCIResult {
         return libsumo::TYPE_DOUBLE;
     }
     double value;
+#ifdef SWIGJAVA
+    SWIGJAVA_CAST(TraCIDouble)
+#endif
 };
 
 
@@ -263,6 +291,9 @@ struct TraCIString : TraCIResult {
         return libsumo::TYPE_STRING;
     }
     std::string value;
+#ifdef SWIGJAVA
+    SWIGJAVA_CAST(TraCIString)
+#endif
 };
 
 
@@ -277,6 +308,9 @@ struct TraCIStringList : TraCIResult {
         return os.str();
     }
     std::vector<std::string> value;
+#ifdef SWIGJAVA
+    SWIGJAVA_CAST(TraCIStringList)
+#endif
 };
 
 
@@ -291,6 +325,9 @@ struct TraCIDoubleList : TraCIResult {
         return os.str();
     }
     std::vector<double> value;
+#ifdef SWIGJAVA
+    SWIGJAVA_CAST(TraCIDoubleList)
+#endif
 };
 
 
@@ -626,6 +663,8 @@ struct TraCISignalConstraint {
     bool mustWait;
     /// @brief whether this constraint is active
     bool active;
+    /// @brief additional parameters
+    std::map<std::string, std::string> param;
 
     std::string getString() const {
         std::ostringstream os;

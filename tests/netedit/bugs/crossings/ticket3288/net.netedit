@@ -1,67 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-06-29 12:29:31 by Eclipse SUMO netedit Version v1_13_0+1291-82ac0ee5f81
+<!-- generated on 2023-01-26 10:02:40 by Eclipse SUMO netedit Version v1_15_0+1963-12923ba0e0a
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_29Jun122322.12192\netedit.gui\bugs\crossings\ticket3288\input_net.net.xml"/>
+        <additional-files value="/home/palcraft/.texttest/tmp/netedit.daily.bugs.26Jan095535.11166/netedit.daily.bugs/bugs/crossings/ticket3288/additionals.add.xml"/>
+        <route-files value="/home/palcraft/.texttest/tmp/netedit.daily.bugs.26Jan095535.11166/netedit.daily.bugs/bugs/crossings/ticket3288/routes.rou.xml"/>
+        <data-files value="/home/palcraft/.texttest/tmp/netedit.daily.bugs.26Jan095535.11166/netedit.daily.bugs/bugs/crossings/ticket3288/datas.dat.xml"/>
+        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.daily.bugs.26Jan095535.11166/netedit.daily.bugs/bugs/crossings/ticket3288/net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_29Jun122322.12192\netedit.gui\bugs\crossings\ticket3288\net.net.xml"/>
+        <output-file value="/home/palcraft/.texttest/tmp/netedit.daily.bugs.26Jan095535.11166/netedit.daily.bugs/bugs/crossings/ticket3288/net.net.xml"/>
     </output>
 
     <processing>
         <geometry.min-radius.fix.railways value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
-        <lefthand value="false"/>
+        <lefthand value="0"/>
     </processing>
 
     <junctions>
         <no-internal-links value="false"/>
         <no-turnarounds value="true"/>
         <junctions.corner-detail value="5"/>
-        <junctions.limit-turn-speed value="5.5"/>
-        <rectangular-lane-cut value="false"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
     </junctions>
 
     <pedestrian>
         <walkingareas value="true"/>
     </pedestrian>
 
-    <netedit>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_29Jun122322.12192\netedit.gui\bugs\crossings\ticket3288\additionals.xml"/>
-        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_29Jun122322.12192\netedit.gui\bugs\crossings\ticket3288\additionals.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_29Jun122322.12192\netedit.gui\bugs\crossings\ticket3288\routes.xml"/>
-        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_29Jun122322.12192\netedit.gui\bugs\crossings\ticket3288\routes.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_29Jun122322.12192\netedit.gui\bugs\crossings\ticket3288\datas.xml"/>
-        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_29Jun122322.12192\netedit.gui\bugs\crossings\ticket3288\datas.xml"/>
-    </netedit>
-
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_29Jun122322.12192\netedit.gui\bugs\crossings\ticket3288\gui-settings.xml"/>
-        <window-size value="936,697"/>
+        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.daily.bugs.26Jan095535.11166/netedit.daily.bugs/bugs/crossings/ticket3288/gui-settings.xml"/>
+        <window-size value="936, 697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_29Jun122322.12192\netedit.gui\bugs\crossings\ticket3288\guisettingsoutput.xml"/>
+        <gui-testing-debug-gl value="true"/>
+        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.daily.bugs.26Jan095535.11166/netedit.daily.bugs/bugs/crossings/ticket3288/guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_29Jun122322.12192\netedit.gui\bugs\crossings\ticket3288\log.txt"/>
+        <error-log value="/home/palcraft/.texttest/tmp/netedit.daily.bugs.26Jan095535.11166/netedit.daily.bugs/bugs/crossings/ticket3288/log.txt"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.9" junctionCornerDetail="5" walkingareas="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.16" junctionCornerDetail="5" walkingareas="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="50.00,50.00" convBoundary="0.00,0.00,100.00,100.00" origBoundary="-50.00,-50.00,50.00,50.00" projParameter="!"/>
 
     <edge id=":C_w0" function="walkingarea">
-        <lane id=":C_w0_0" index="0" allow="pedestrian" speed="1.00" length="16.00" width="3.20" shape="0.00,43.60 0.00,40.40 0.00,59.60 0.00,56.40"/>
+        <lane id=":C_w0_0" index="0" allow="pedestrian" speed="2.78" length="16.00" width="3.20" shape="0.00,43.60 0.00,40.40 0.00,59.60 0.00,56.40"/>
     </edge>
     <edge id=":Center_0" function="internal">
         <lane id=":Center_0_0" index="0" disallow="pedestrian" speed="6.86" length="10.16" shape="45.20,61.10 44.81,58.34 43.62,56.38 41.66,55.19 38.90,54.80"/>
@@ -107,10 +102,10 @@
         <lane id=":Center_15_0" index="0" disallow="pedestrian" speed="9.51" length="20.48" shape="38.90,48.40 44.46,49.19 48.43,51.58 50.81,55.54 51.60,61.10"/>
     </edge>
     <edge id=":Center_w0" function="walkingarea">
-        <lane id=":Center_w0_0" index="0" allow="pedestrian" speed="1.00" length="4.38" width="3.20" shape="38.90,56.40 38.90,59.60 40.40,61.10 43.60,61.10 43.47,59.66 43.08,58.49 42.42,57.57 41.51,56.92 40.34,56.53"/>
+        <lane id=":Center_w0_0" index="0" allow="pedestrian" speed="2.78" length="4.38" width="3.20" shape="38.90,56.40 38.90,59.60 40.40,61.10 43.60,61.10 43.47,59.66 43.08,58.49 42.42,57.57 41.51,56.92 40.34,56.53"/>
     </edge>
     <edge id=":Center_w1" function="walkingarea">
-        <lane id=":Center_w1_0" index="0" allow="pedestrian" speed="1.00" length="4.38" width="3.20" shape="43.60,38.90 40.40,38.90 38.90,40.40 38.90,43.60 40.34,43.47 41.51,43.08 42.43,42.42 43.08,41.51 43.47,40.34"/>
+        <lane id=":Center_w1_0" index="0" allow="pedestrian" speed="2.78" length="4.38" width="3.20" shape="43.60,38.90 40.40,38.90 38.90,40.40 38.90,43.60 40.34,43.47 41.51,43.08 42.43,42.42 43.08,41.51 43.47,40.34"/>
     </edge>
 
     <edge id="1" from="Center" to="A" priority="-1">

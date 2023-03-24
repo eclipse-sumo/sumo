@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-09-20 12:15:11 by Eclipse SUMO netedit Version v1_14_1+1149-c15e7942a49
+<!-- generated on 2022-09-29 11:01:11 by Eclipse SUMO netedit Version v1_14_1+1339-138737ae94c
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="D:\Wang\repos\show\linkoeping\simulation_current\debuging\bike_ped_block_crosswalk\net.net.xml"/>
+        <sumo-net-file value="D:\Wang\sumo_git\tools\_pedestrian_model_striping_block_vehicles_sharedspace_tls_collision_bike_at_TLS\net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="D:\Wang\repos\show\linkoeping\simulation_current\debuging\bike_ped_block_crosswalk\net.net.xml"/>
+        <output-file value="D:\Wang\sumo_git\tools\_pedestrian_model_striping_block_vehicles_sharedspace_tls_collision_bike_at_TLS\net.net.xml"/>
         <output.street-names value="true"/>
     </output>
 
@@ -16,19 +16,19 @@
         <geometry.min-radius.fix.railways value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
-        <lefthand value="false"/>
+        <lefthand value="0"/>
     </processing>
 
     <junctions>
         <no-internal-links value="false"/>
         <no-turnarounds value="true"/>
         <junctions.corner-detail value="5"/>
-        <junctions.limit-turn-speed value="5.5"/>
-        <rectangular-lane-cut value="false"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
     </junctions>
 
     <pedestrian>
-        <walkingareas value="true"/>
+        <walkingareas value="1"/>
     </pedestrian>
 
 </configuration>
@@ -156,11 +156,10 @@
     </edge>
 
     <tlLogic id="cluster_1255799794_29055117" type="static" programID="0" offset="0">
-        <phase duration="42" state="rGGrGrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"/>
-        <phase duration="3"  state="ryyryrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"/>
-        <phase duration="37" state="GgrGrGrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"/>
-        <phase duration="5"  state="GgrGrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"/>
-        <phase duration="3"  state="yyryrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="20" state="rGGrGrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="3"  state="rGyryrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="20" state="ggrgrGrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrG"/>
+        <phase duration="3"  state="yyryrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrry"/>
     </tlLogic>
 
     <junction id="5912628381" type="dead_end" x="1968.27" y="1584.66" incLanes="" intLanes="" shape="1968.27,1584.66"/>

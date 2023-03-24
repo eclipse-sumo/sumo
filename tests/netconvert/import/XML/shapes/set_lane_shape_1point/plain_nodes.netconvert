@@ -31,7 +31,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<nodes version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+<nodes version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
     <location netOffset="0.00,0.00" convBoundary="0.00,100.00,200.00,200.00" origBoundary="0.00,0.00,200.00,200.00" projParameter="!"/>
 
     <node id="C" x="100.00" y="100.00" type="priority"/>

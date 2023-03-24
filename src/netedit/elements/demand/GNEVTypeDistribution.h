@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -15,7 +15,7 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    Jan 2022
 ///
-// VehicleType distribution used in NETEDIT
+// VehicleType distribution used in netedit
 /****************************************************************************/
 #pragma once
 #include <config.h>
@@ -34,7 +34,7 @@ public:
     GNEVTypeDistribution(GNENet* net);
 
     /// @brief parameter constructor
-    GNEVTypeDistribution(GNENet* net, const std::string& vTypeID);
+    GNEVTypeDistribution(GNENet* net, const std::string& vTypeID, const int deterministic);
 
     /// @brief destructor
     ~GNEVTypeDistribution();
@@ -83,9 +83,6 @@ public:
      * @return This object's parent id
      */
     std::string getParentName() const;
-
-    /// @brief return exaggeration associated with this GLObject
-    double getExaggeration(const GUIVisualizationSettings& s) const;
 
     /**@brief Returns the boundary to which the view shall be centered in order to show the object
      * @return The boundary the object is within
@@ -177,6 +174,10 @@ public:
 
     /// @brief get parameters map
     const Parameterised::Map& getACParametersMap() const;
+
+protected:
+    /// @brief deterministic attribute
+    int myDeterministic = -1;
 
 private:
     /// @brief method for setting the attribute and nothing else

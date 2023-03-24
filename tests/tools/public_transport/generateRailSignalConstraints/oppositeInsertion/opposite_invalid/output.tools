@@ -15,4 +15,3 @@ findInsertionConflicts at stop stop_b
 1 n: 00:02:10 None t1 0 2 passing: True depart: True bidiStop: stop_-b
 2 n: 00:03:00 None t2 1 3 passing: True depart: False
 Found 1 insertion conflicts
-Ignored 1 insertion conflicts

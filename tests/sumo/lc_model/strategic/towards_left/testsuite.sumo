@@ -11,3 +11,6 @@ disable
 
 # disable all strategic changes
 disable2
+
+# disable all strategic changes (stopped leader)
+disable3

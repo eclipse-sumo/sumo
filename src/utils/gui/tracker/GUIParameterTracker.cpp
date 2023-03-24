@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -23,11 +23,12 @@
 
 #include <string>
 #include <fstream>
-#include <utils/foxtools/MFXUtils.h>
-#include <utils/iodevices/OutputDevice.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #include <utils/common/StringUtils.h>
 #include <utils/common/SUMOTime.h>
+#include <utils/foxtools/MFXUtils.h>
+#include <utils/iodevices/OutputDevice.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/div/GUIIOGlobals.h>
@@ -36,8 +37,8 @@
 #include <utils/gui/windows/GUIMainWindow.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <foreign/fontstash/fontstash.h>
-#include "GUIParameterTracker.h"
 #include <utils/gui/globjects/GLIncludes.h>
+#include "GUIParameterTracker.h"
 
 
 // ===========================================================================
@@ -112,7 +113,7 @@ GUIParameterTracker::buildToolBar() {
     myToolBar = new FXToolBar(this, myToolBarDrag, LAYOUT_SIDE_TOP | LAYOUT_FILL_X | FRAME_RAISED);
     new FXToolBarGrip(myToolBar, myToolBar, FXToolBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
     // save button
-    new FXButton(myToolBar, "\t\tSave the data...",
+    new FXButton(myToolBar, (std::string("\t\t") + TL("Save the data...")).c_str(),
                  GUIIconSubSys::getIcon(GUIIcon::SAVE), this, GUIParameterTracker::MID_SAVE, GUIDesignButtonToolbar);
 
     // aggregation interval combo
@@ -127,7 +128,7 @@ GUIParameterTracker::buildToolBar() {
     myAggregationInterval->appendItem("60min");
     myAggregationInterval->setNumVisible(6);
 
-    myMultiPlot = new FXCheckButton(myToolBar, "Multiplot", this, MID_MULTIPLOT);
+    myMultiPlot = new FXCheckButton(myToolBar, TL("Multiplot"), this, MID_MULTIPLOT);
     myMultiPlot->setCheck(false);
 }
 
@@ -215,7 +216,7 @@ GUIParameterTracker::onCmdChangeAggregation(FXObject*, FXSelector, void*) {
 
 long
 GUIParameterTracker::onCmdSave(FXObject*, FXSelector, void*) {
-    FXString file = MFXUtils::getFilename2Write(this, "Save Data", ".csv", GUIIconSubSys::getIcon(GUIIcon::EMPTY), gCurrentFolder);
+    FXString file = MFXUtils::getFilename2Write(this, TL("Save Data"), ".csv", GUIIconSubSys::getIcon(GUIIcon::EMPTY), gCurrentFolder);
     if (file == "") {
         return 1;
     }
@@ -254,7 +255,7 @@ GUIParameterTracker::onCmdSave(FXObject*, FXSelector, void*) {
         }
         dev.close();
     } catch (IOError& e) {
-        FXMessageBox::error(this, MBOX_OK, "Storing failed!", "%s", e.what());
+        FXMessageBox::error(this, MBOX_OK, TL("Storing failed!"), "%s", e.what());
     }
     return 1;
 }

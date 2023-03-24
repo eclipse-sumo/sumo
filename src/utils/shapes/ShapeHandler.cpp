@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -81,9 +81,9 @@ ShapeHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                         const std::string val = attrs.hasAttribute(SUMO_ATTR_VALUE) ? attrs.getString(SUMO_ATTR_VALUE) : "";
                         // show warnings if values are invalid
                         if (key.empty()) {
-                            WRITE_WARNING("Error parsing key from shape generic parameter. Key cannot be empty");
+                            WRITE_WARNING(TL("Error parsing key from shape generic parameter. Key cannot be empty"));
                         } else if (!SUMOXMLDefinitions::isValidParameterKey(key)) {
-                            WRITE_WARNING("Error parsing key from shape generic parameter. Key contains invalid characters");
+                            WRITE_WARNING(TL("Error parsing key from shape generic parameter. Key contains invalid characters"));
                         } else {
                             WRITE_DEBUG("Inserting generic parameter '" + key + "|" + val + "' into shape.");
                             myLastParameterised->setParameter(key, val);
@@ -136,7 +136,7 @@ ShapeHandler::addPOI(const SUMOSAXAttributes& attrs, const bool ignorePruning, c
     const double height = attrs.getOpt<double>(SUMO_ATTR_HEIGHT, id.c_str(), ok, Shape::DEFAULT_IMG_HEIGHT);
     // check if ID is valid
     if (SUMOXMLDefinitions::isValidTypeID(id) == false) {
-        WRITE_WARNING("Invalid characters for PoI ID");
+        WRITE_WARNING(TL("Invalid characters for PoI ID"));
         ok = false;
     }
     // continue
@@ -167,10 +167,10 @@ ShapeHandler::addPOI(const SUMOSAXAttributes& attrs, const bool ignorePruning, c
             } else {
                 // try computing x,y from lon,lat
                 if ((lat == INVALID_POSITION) || (lon == INVALID_POSITION)) {
-                    WRITE_ERROR("Either (x, y), (lon, lat) or (lane, pos) must be specified for PoI '" + id + "'.");
+                    WRITE_ERRORF(TL("Either (x, y), (lon, lat) or (lane, pos) must be specified for PoI '%'."), id);
                     return;
                 } else if (!gch->usingGeoProjection()) {
-                    WRITE_ERROR("(lon, lat) is specified for PoI '" + id + "' but no geo-conversion is specified for the network.");
+                    WRITE_ERRORF(TL("(lon, lat) is specified for PoI '%' but no geo-conversion is specified for the network."), id);
                     return;
                 }
                 pos.set(lon, lat);
@@ -182,13 +182,13 @@ ShapeHandler::addPOI(const SUMOSAXAttributes& attrs, const bool ignorePruning, c
                     success = gch->x2cartesian_const(pos);
                 }
                 if (!success) {
-                    WRITE_ERROR("Unable to project coordinates for PoI '" + id + "'.");
+                    WRITE_ERRORF(TL("Unable to project coordinates for PoI '%'."), id);
                     return;
                 }
             }
         }
         if (!myShapeContainer.addPOI(id, type, color, pos, useGeo, laneID, lanePos, friendlyPos, lanePosLat, layer, angle, imgFile, relativePath, width, height, ignorePruning)) {
-            WRITE_ERROR("PoI '" + id + "' already exists.");
+            WRITE_ERRORF(TL("PoI '%' already exists."), id);
         }
         myLastParameterised = myShapeContainer.getPOIs().get(id);
         if ((laneID != "") && addLanePosParams()) {
@@ -206,7 +206,7 @@ ShapeHandler::addPoly(const SUMOSAXAttributes& attrs, const bool ignorePruning, 
     const std::string id = myPrefix + attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
     // check if ID is valid
     if (SUMOXMLDefinitions::isValidTypeID(id) == false) {
-        WRITE_WARNING("Invalid characters for Poly ID");
+        WRITE_WARNING(TL("Invalid characters for Poly ID"));
         ok = false;
     }
     // get the id, report an error if not given or empty...
@@ -237,7 +237,7 @@ ShapeHandler::addPoly(const SUMOSAXAttributes& attrs, const bool ignorePruning, 
                 }
             }
             if (!success) {
-                WRITE_WARNING("Unable to project coordinates for polygon '" + id + "'.");
+                WRITE_WARNINGF(TL("Unable to project coordinates for polygon '%'."), id);
                 return;
             }
         }
@@ -249,17 +249,17 @@ ShapeHandler::addPoly(const SUMOSAXAttributes& attrs, const bool ignorePruning, 
         }
         // check that shape's size is valid
         if (shape.size() == 0) {
-            WRITE_ERROR("Polygon's shape cannot be empty.");
+            WRITE_ERROR(TL("Polygon's shape cannot be empty."));
             return;
         }
         // check that lineWidth is positive
         if (lineWidth <= 0) {
-            WRITE_ERROR("Polygon's lineWidth must be greater than 0.");
+            WRITE_ERROR(TL("Polygon's lineWidth must be greater than 0."));
             return;
         }
         // create polygon, or show an error if polygon already exists
         if (!myShapeContainer.addPolygon(id, type, color, layer, angle, imgFile, relativePath, shape, geo, fill, lineWidth, ignorePruning)) {
-            WRITE_ERROR("Polygon '" + id + "' already exists.");
+            WRITE_ERRORF(TL("Polygon '%' already exists."), id);
         }
         myLastParameterised = myShapeContainer.getPolygons().get(id);
     }
@@ -276,7 +276,7 @@ bool
 ShapeHandler::loadFiles(const std::vector<std::string>& files, ShapeHandler& sh) {
     for (const auto& fileIt : files) {
         if (!XMLSubSys::runParser(sh, fileIt, false)) {
-            WRITE_MESSAGE("Loading of shapes from " + fileIt + " failed.");
+            WRITE_MESSAGEF(TL("Loading of shapes from % failed."), fileIt);
             return false;
         }
     }

@@ -1,7 +1,7 @@
 /* XPM */
 static const char *vclass_rail_xpm[] = {
 /* columns rows colors chars-per-pixel */
-"43 28 256 2 ",
+"43 28 256 2",
 "   c #273440",
 ".  c #293642",
 "X  c #2A3843",

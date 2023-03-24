@@ -32,6 +32,8 @@ set(utils_gui_div_STAT_SRCS
    GUIDottedGeometry.cpp
    GUIGlobalPostDrawing.h
    GUIGlobalPostDrawing.cpp
+   GUIPersistentWindowPos.h
+   GUIPersistentWindowPos.cpp
 )
 
 add_library(utils_gui_div STATIC ${utils_gui_div_STAT_SRCS})

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2004-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2004-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -17,15 +17,13 @@
 ///
 // A thread class together with a pool and a task for parallelized computation
 /****************************************************************************/
-
-#ifndef MFXWorkerThread_h
-#define MFXWorkerThread_h
+#pragma once
+#include <config.h>
 
 // #define WORKLOAD_PROFILING
 // at which interval report maximum workload of the threads, needs WORKLOAD_PROFILING
 // undefine to use summary report only
 #define WORKLOAD_INTERVAL 100
-#include <config.h>
 
 #include <list>
 #include <vector>
@@ -221,7 +219,9 @@ public:
             myRunningIndex = 0;
             myMutex.unlock();
             if (toRaise != nullptr) {
-                throw* toRaise;
+                ProcessError err = *toRaise;
+                delete toRaise;
+                throw err;
             }
         }
 
@@ -411,6 +411,3 @@ private:
     long long int myTotalTime;
 #endif
 };
-
-
-#endif

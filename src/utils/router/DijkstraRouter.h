@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -164,9 +164,12 @@ public:
             auto* const minimumInfo = this->myFrontierList.front();
             const E* const minEdge = minimumInfo->edge;
 #ifdef DijkstraRouter_DEBUG_QUERY
-            std::cout << "DEBUG: hit '" << minEdge->getID() << "' Eff: " << minimumInfo->effort << ", Leave: " << minimumInfo->leaveTime << " Q: ";
-            for (auto& it : this->myFrontierList) {
-                std::cout << "\n   " << it->effort << ", " << it->edge->getID();
+            std::cout << "DEBUG: hit=" << minEdge->getID()
+                      << " TT=" << minimumInfo->effort
+                      << " EF=" << this->getEffort(minEdge, vehicle, minimumInfo->leaveTime)
+                      << " Leave: " << minimumInfo->leaveTime << " Q: ";
+            for (const auto& edgeInfo : this->myFrontierList) {
+                std::cout << "\n   " << edgeInfo->effort << ", " << edgeInfo->edge->getID();
             }
             std::cout << "\n";
 #endif

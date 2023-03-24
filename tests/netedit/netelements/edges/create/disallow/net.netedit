@@ -1,49 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-07-08 09:55:39 by Eclipse SUMO netedit Version v1_13_0+1477-18ae478306d
+<!-- generated on 2023-01-26 14:41:05 by Eclipse SUMO netedit Version v1_15_0+1986-45defa09f05
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <new value="true"/>
+        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.26Jan143153.6480\netedit.gui\netelements\edges\create\disallow\netedit.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Jul095403.3024\netedit.gui\netelements\edges\create\disallow\net.net.xml"/>
+        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.26Jan143153.6480\netedit.gui\netelements\edges\create\disallow\netedit.net.xml"/>
     </output>
 
     <processing>
         <offset.disable-normalization value="true"/>
     </processing>
 
+    <junctions>
+        <no-turnarounds value="true"/>
+    </junctions>
+
     <netedit>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Jul095403.3024\netedit.gui\netelements\edges\create\disallow\additionals.xml"/>
-        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Jul095403.3024\netedit.gui\netelements\edges\create\disallow\additionals.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Jul095403.3024\netedit.gui\netelements\edges\create\disallow\routes.xml"/>
-        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Jul095403.3024\netedit.gui\netelements\edges\create\disallow\routes.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Jul095403.3024\netedit.gui\netelements\edges\create\disallow\datas.xml"/>
-        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Jul095403.3024\netedit.gui\netelements\edges\create\disallow\datas.xml"/>
+        <new-network value="false"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Jul095403.3024\netedit.gui\netelements\edges\create\disallow\gui-settings.xml"/>
-        <window-size value="936,697"/>
+        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.26Jan143153.6480\netedit.gui\netelements\edges\create\disallow\gui-settings.xml"/>
+        <window-size value="936, 697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Jul095403.3024\netedit.gui\netelements\edges\create\disallow\guisettingsoutput.xml"/>
+        <gui-testing-debug-gl value="true"/>
+        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.26Jan143153.6480\netedit.gui\netelements\edges\create\disallow\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Jul095403.3024\netedit.gui\netelements\edges\create\disallow\log.txt"/>
+        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.26Jan143153.6480\netedit.gui\netelements\edges\create\disallow\log.txt"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.9" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
-    <location netOffset="0.00,0.00" convBoundary="0.00,30.00,85.00,60.00" origBoundary="10000000000.00,10000000000.00,-10000000000.00,-10000000000.00" projParameter="!"/>
+    <location netOffset="0.00,0.00" convBoundary="0.00,45.00,85.00,60.00" origBoundary="10000000000.00,10000000000.00,-10000000000.00,-10000000000.00" projParameter="!"/>
 
     <edge id="E0" from="J0" to="J1" priority="-1">
         <lane id="E0_0" index="0" disallow="pedestrian bus" speed="13.89" length="85.00" shape="0.00,58.40 85.00,58.40"/>
@@ -51,15 +51,10 @@
     <edge id="E1" from="J2" to="J3" priority="-1">
         <lane id="E1_0" index="0" disallow="all" speed="13.89" length="85.00" shape="0.00,43.40 85.00,43.40"/>
     </edge>
-    <edge id="E2" from="J4" to="J5" priority="-1">
-        <lane id="E2_0" index="0" disallow="pedestrian bus tram rail_urban rail rail_electric ship" speed="13.89" length="85.00" shape="0.00,28.40 85.00,28.40"/>
-    </edge>
 
     <junction id="J0" type="dead_end" x="0.00" y="60.00" incLanes="" intLanes="" shape="0.00,60.00 0.00,56.80"/>
     <junction id="J1" type="dead_end" x="85.00" y="60.00" incLanes="E0_0" intLanes="" shape="85.00,56.80 85.00,60.00"/>
     <junction id="J2" type="dead_end" x="0.00" y="45.00" incLanes="" intLanes="" shape="0.00,45.00 0.00,41.80"/>
     <junction id="J3" type="dead_end" x="85.00" y="45.00" incLanes="E1_0" intLanes="" shape="85.00,41.80 85.00,45.00"/>
-    <junction id="J4" type="dead_end" x="0.00" y="30.00" incLanes="" intLanes="" shape="0.00,30.00 0.00,26.80"/>
-    <junction id="J5" type="dead_end" x="85.00" y="30.00" incLanes="E2_0" intLanes="" shape="85.00,26.80 85.00,30.00"/>
 
 </net>

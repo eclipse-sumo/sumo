@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -38,10 +38,6 @@
 #include <microsim/transportables/MSTransportable.h>
 #include <microsim/transportables/MSPerson.h>
 #include <microsim/transportables/MSStageTrip.h>
-
-/* -------------------------------------------------------------------------
-* static member definitions
-* ----------------------------------------------------------------------- */
 
 
 // ===========================================================================
@@ -109,6 +105,10 @@ MSStageTrip::getEdgePos(SUMOTime /* now */) const {
 const std::string
 MSStageTrip::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now, const bool vehicleArrived) {
     MSStage::setArrived(net, transportable, now, vehicleArrived);
+    if (myOrigin->isTazConnector() && myOrigin->getSuccessors().size() == 0) {
+        // previous stage ended at a taz sink-edge
+        myOrigin = transportable->getNextStage(-1)->getDestination();
+    }
     MSVehicleControl& vehControl = net->getVehicleControl();
     std::vector<SUMOVehicleParameter*> pars;
     for (StringTokenizer st(myVTypes); st.hasNext();) {
@@ -171,9 +171,10 @@ MSStageTrip::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now
 
             MSVehicleType* type = vehControl.getVType(vehPar->vtypeid);
             if (type->getVehicleClass() != SVC_IGNORING && (myOrigin->getPermissions() & type->getVehicleClass()) == 0 && !isTaxi) {
-                WRITE_WARNING("Ignoring vehicle type '" + type->getID() + "' when routing person '" + transportable->getID() + "' because it is not allowed on the start edge.");
+                WRITE_WARNINGF(TL("Ignoring vehicle type '%' when routing person '%' because it is not allowed on the start edge."), type->getID(), transportable->getID());
+                delete vehPar;
             } else {
-                const MSRoute* const routeDummy = new MSRoute(vehPar->id, ConstMSEdgeVector({ myOrigin }), false, nullptr, std::vector<SUMOVehicleParameter::Stop>());
+                ConstMSRoutePtr const routeDummy = std::make_shared<MSRoute>(vehPar->id, ConstMSEdgeVector({ myOrigin }), false, nullptr, std::vector<SUMOVehicleParameter::Stop>());
                 vehicle = vehControl.buildVehicle(vehPar, routeDummy, type, !MSGlobals::gCheckRoutes);
             }
         }
@@ -193,6 +194,7 @@ MSStageTrip::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now
                 if (!it->edges.empty()) {
                     MSStoppingPlace* bs = MSNet::getInstance()->getStoppingPlace(it->destStop, SUMO_TAG_BUS_STOP);
                     double localArrivalPos = bs != nullptr ? bs->getAccessPos(it->edges.back()) : it->edges.back()->getLength() / 2.;
+                    const MSEdge* const rideOrigin = myOrigin->isTazConnector() && (transportable->getNumStages() == oldNumStages) ? it->edges.front() : nullptr;
                     if (it + 1 == result.end() && myHaveArrivalPos) {
                         localArrivalPos = myArrivalPos;
                     }
@@ -241,14 +243,14 @@ MSStageTrip::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now
                                 previous->setArrivalPos(MAX2(0.0, last->getLength() - 10));
                             }
                         }
-                        previous = new MSStageDriving(nullptr, it->edges.back(), bs, localArrivalPos, std::vector<std::string>({ "taxi" }), myGroup);
+                        previous = new MSStageDriving(rideOrigin, it->edges.back(), bs, localArrivalPos, std::vector<std::string>({ "taxi" }), myGroup);
                         transportable->appendStage(previous, stageIndex++);
                     } else if (vehicle != nullptr && it->line == vehicle->getID()) {
                         if (bs == nullptr && it + 1 != result.end()) {
                             // we have no defined endpoint and are in the middle of the trip, drive as far as possible
                             localArrivalPos = it->edges.back()->getLength();
                         }
-                        previous = new MSStageDriving(nullptr, it->edges.back(), bs, localArrivalPos, std::vector<std::string>({ it->line }));
+                        previous = new MSStageDriving(rideOrigin, it->edges.back(), bs, localArrivalPos, std::vector<std::string>({ it->line }));
                         transportable->appendStage(previous, stageIndex++);
                         vehicle->replaceRouteEdges(it->edges, -1, 0, "person:" + transportable->getID(), true);
                         vehicle->setArrivalPos(localArrivalPos);
@@ -256,7 +258,7 @@ MSStageTrip::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now
                         vehControl.addVehicle(vehPar->id, vehicle);
                         carUsed = true;
                     } else {
-                        previous = new MSStageDriving(nullptr, it->edges.back(), bs, localArrivalPos, std::vector<std::string>({ it->line }), myGroup, it->intended, TIME2STEPS(it->depart));
+                        previous = new MSStageDriving(rideOrigin, it->edges.back(), bs, localArrivalPos, std::vector<std::string>({ it->line }), myGroup, it->intended, TIME2STEPS(it->depart));
                         transportable->appendStage(previous, stageIndex++);
                     }
                 }
@@ -269,6 +271,9 @@ MSStageTrip::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now
             // append stage so the GUI won't crash due to inconsistent state
             transportable->appendStage(new MSPerson::MSPersonStage_Walking(transportable->getID(), ConstMSEdgeVector({ myOrigin, myDestination }), myDestinationStop, myDuration, mySpeed, previous->getArrivalPos(), myArrivalPos, myDepartPosLat), stageIndex++);
             if (MSGlobals::gCheckRoutes) {  // if not pedestrians will teleport
+                if (vehicle != nullptr) {
+                    vehControl.deleteVehicle(vehicle, true);
+                }
                 return "No connection found between edge '" + myOrigin->getID() + "' and edge '" + (myDestinationStop != nullptr ? myDestinationStop->getID() : myDestination->getID()) + "' for person '" + transportable->getID() + "'.";
             }
         }

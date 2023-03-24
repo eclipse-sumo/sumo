@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -31,7 +31,8 @@ from sumolib import checkBinary  # noqa
 
 
 def get_depart_lines(route_file):
-    return [d for d in open(route_file) if 'depart' in d]
+    with open(route_file) as rf:
+        return [d for d in rf if 'depart' in d]
 
 
 output_file1 = 'output1.rou.xml'

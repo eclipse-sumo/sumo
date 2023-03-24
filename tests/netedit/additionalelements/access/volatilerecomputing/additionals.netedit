@@ -1,26 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-03-04 10:32:09 by Eclipse SUMO netedit Version v1_12_0+1137-e9106068858
+<!-- generated on 2023-03-02 14:34:42 by Eclipse SUMO netedit Version v1_16_0+0941-f077dec25f3
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- StoppingPlaces -->
-    <busStop id="busStop_gneE1_0_2" lane="gneE1_0" startPos="25.63" endPos="35.63">
-        <access lane="gneE2_0" pos="32.43"/>
-        <access lane="gneE4_0" pos="10.67"/>
-        <access lane="gneE1_0" pos="41.37"/>
-        <access lane="gneE0_0" pos="11.06"/>
+    <busStop id="bs_0" lane="center0_1" startPos="20.00" endPos="30.00">
+        <access lane="E0_0" pos="2.00"/>
+        <access lane="E1_0" pos="2.00"/>
+        <access lane="E4_0" pos="2.00"/>
+        <access lane="E5_0" pos="2.00"/>
     </busStop>
-    <busStop id="busStop_gneE2_0_5" lane="gneE2_0" startPos="18.11" endPos="28.11">
-        <access lane="gneE2_2" pos="15.52"/>
-        <access lane="gneE4_0" pos="35.45"/>
-        <access lane="gneE1_0" pos="18.15"/>
-        <access lane="gneE0_0" pos="26.61"/>
+    <busStop id="bs_1" lane="center1_1" startPos="20.00" endPos="30.00">
+        <access lane="E0_0" pos="2.00"/>
+        <access lane="E1_0" pos="2.00"/>
+        <access lane="E4_0" pos="2.00"/>
+        <access lane="E5_0" pos="2.00"/>
     </busStop>
-    <busStop id="busStop_gneE4_0_0" lane="gneE4_0" startPos="21.38" endPos="31.38">
-        <access lane="gneE2_2" pos="40.88"/>
-        <access lane="gneE4_0" pos="14.75"/>
-        <access lane="gneE1_0" pos="13.00"/>
-        <access lane="gneE0_0" pos="18.83"/>
+    <busStop id="bs_2" lane="center1_0" startPos="20.00" endPos="30.00">
+        <access lane="E0_0" pos="2.00"/>
+        <access lane="E1_0" pos="2.00"/>
+        <access lane="E4_0" pos="2.00"/>
+        <access lane="E5_0" pos="2.00"/>
+    </busStop>
+    <busStop id="bs_3" lane="center0_0" startPos="20.00" endPos="30.00">
+        <access lane="E0_0" pos="2.00"/>
+        <access lane="E1_0" pos="2.00"/>
+        <access lane="E5_0" pos="2.00"/>
+        <access lane="E4_0" pos="2.00"/>
     </busStop>
 </additional>

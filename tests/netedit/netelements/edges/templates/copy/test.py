@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -26,7 +26,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--new'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # Change to create mode
 netedit.createEdgeMode()
@@ -58,7 +58,7 @@ netedit.leftClick(referencePosition, 250, 120)
 netedit.changeDefaultBoolValue(netedit.attrs.edge.template.create)
 
 # inspect other edge
-netedit.leftClick(referencePosition, 250, 360)
+netedit.leftClick(referencePosition, 250, 354)
 
 # copy template template
 netedit.changeDefaultBoolValue(netedit.attrs.edge.template.copy)
@@ -70,8 +70,8 @@ netedit.redo(referencePosition, 3)
 # rebuild network
 netedit.rebuildNetwork()
 
-# save network
-netedit.saveNetwork(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

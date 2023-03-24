@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -150,6 +150,24 @@ GUIE2Collector::MyWrapper::getParameterWindow(GUIMainWindow& app,
                 new FunctionBinding<MSE2Collector, double>(&myDetector, &MSE2Collector::getCurrentJamLengthInMeters));
     ret->mkItem("started halts [#]", true,
                 new FunctionBinding<MSE2Collector, int>(&myDetector, &MSE2Collector::getCurrentStartedHalts));
+    ret->mkItem("interval seen vehicles [#]", true,
+                new FunctionBinding<MSE2Collector, int>(&myDetector, &MSE2Collector::getIntervalVehicleNumber));
+    ret->mkItem("interval speed [m/s]", true,
+                new FunctionBinding<MSE2Collector, double>(&myDetector, &MSE2Collector::getIntervalMeanSpeed));
+    ret->mkItem("interval occupancy [%]", true,
+                new FunctionBinding<MSE2Collector, double>(&myDetector, &MSE2Collector::getIntervalOccupancy));
+    ret->mkItem("interval max jam length [m]", true,
+                new FunctionBinding<MSE2Collector, double>(&myDetector, &MSE2Collector::getIntervalMaxJamLengthInMeters));
+    ret->mkItem("last interval seen vehicles [#]", true,
+                new FunctionBinding<MSE2Collector, int>(&myDetector, &MSE2Collector::getLastIntervalVehicleNumber));
+    ret->mkItem("last interval speed [m/s]", true,
+                new FunctionBinding<MSE2Collector, double>(&myDetector, &MSE2Collector::getLastIntervalMeanSpeed));
+    ret->mkItem("last interval occupancy [%]", true,
+                new FunctionBinding<MSE2Collector, double>(&myDetector, &MSE2Collector::getLastIntervalOccupancy));
+    ret->mkItem("last interval max jam length [m]", true,
+                new FunctionBinding<MSE2Collector, double>(&myDetector, &MSE2Collector::getLastIntervalMaxJamLengthInMeters));
+
+
     // close building
     ret->closeBuilding(&myDetector);
     return ret;

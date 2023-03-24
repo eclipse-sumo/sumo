@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -143,7 +143,7 @@ public:
 
     private:
         /// @brief compute total walking distance
-        double walkDistance() const;
+        double walkDistance(bool partial = false) const;
 
         /* @brief compute average speed if the total walking duration is given
          * @note Must be called when the previous stage changes myDepartPos from the default*/
@@ -161,6 +161,9 @@ public:
 
         /// @brief optional exit time tracking for vehroute output
         std::vector<SUMOTime>* myExitTimes;
+
+        /// @brief distance walked on non-normal edges (i.e. walkingareas)
+        double myInternalDistance;
 
     private:
         /// @brief Invalidated copy constructor.
@@ -266,6 +269,9 @@ public:
     inline void setChosenSpeedFactor(const double factor) {
         myChosenSpeedFactor = factor;
     }
+
+    /// @brief whether the person is jammed as defined by the current pedestrian model
+    bool isJammed() const;
 
     /// @brief set new walk and replace the stages with relative indices in the interval [firstIndex, nextIndex[
     void reroute(ConstMSEdgeVector& newEdges, double departPos, int firstIndex, int nextIndex);

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-12-16 11:33:25 by Eclipse SUMO sumo Version v1_15_0+1045-4474c27
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <lanechange-output value="lanechanges.xml"/>
+        <lanechange-output.started value="true"/>
+        <lanechange-output.ended value="true"/>
+    </output>
+
+    <time>
+        <step-length value="0.2"/>
+    </time>
+
+    <processing>
+        <lateral-resolution value="0.2"/>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<lanechanges>
+    <changeStarted id="ego" type="DEFAULT_VEHTYPE" time="15.00" from="E0_0" to="E0_0" dir="0" speed="27.78" pos="436.70" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="None" maneuverDistance="2.50"/>
+    <changeStarted id="ego" type="DEFAULT_VEHTYPE" time="15.40" from="E0_0" to="E0_0" dir="0" speed="27.78" pos="447.81" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="None" maneuverDistance="2.46"/>
+    <changeStarted id="ego" type="DEFAULT_VEHTYPE" time="15.80" from="E0_0" to="E0_0" dir="0" speed="27.78" pos="458.92" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="None" maneuverDistance="2.42"/>
+    <changeStarted id="ego" type="DEFAULT_VEHTYPE" time="16.20" from="E0_0" to="E0_0" dir="0" speed="27.78" pos="470.04" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="None" maneuverDistance="2.38"/>
+    <change id="ego" type="DEFAULT_VEHTYPE" time="18.00" from="E0_0" to="E0_1" dir="1" speed="27.78" pos="520.04" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="14.25" followerSecureGap="11.46" followerSpeed="26.34" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="None"/>
+    <changeEnded id="ego" type="DEFAULT_VEHTYPE" time="20.00" from="E0_1" to="E0_1" dir="0" speed="27.78" pos="575.60" reason="strategic|sublane" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="16.87" followerSecureGap="14.12" followerSpeed="26.58" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="None"/>
+</lanechanges>

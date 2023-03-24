@@ -14,6 +14,7 @@ usage: randomTrips.py [-h] [-c FILE] [-C FILE] [--save-template FILE] -n
                       [-L] [--edge-param EDGEPARAM] [--speed-exponent FLOAT]
                       [--fringe-speed-exponent FLOAT] [--angle ANGLE]
                       [--angle-factor ANGLE_WEIGHT]
+                      [--random-factor RANDOMFACTOR]
                       [--fringe-factor FRINGE_FACTOR]
                       [--fringe-threshold FRINGE_THRESHOLD] [--allow-fringe]
                       [--allow-fringe.min-length ALLOW_FRINGE_MIN_LENGTH]
@@ -24,8 +25,8 @@ usage: randomTrips.py [-h] [-c FILE] [-C FILE] [--save-template FILE] -n
                       [--vehicle-class VEHICLE_CLASS] [--remove-loops]
                       [--random-routing-factor RANDOMROUTINGFACTOR]
                       [--junction-taz] [--via-edge-types VIAEDGETYPES]
-                      [--validate] [-v] [--random-departpos]
-                      [--random-arrivalpos] [-p FLOAT [FLOAT ...] |
-                      --insertion-rate FLOAT [FLOAT ...] | --insertion-density
-                      FLOAT [FLOAT ...]]
+                      [--allow-roundabouts] [--validate] [-v]
+                      [--random-departpos] [--random-arrivalpos]
+                      [-p FLOAT [FLOAT ...] | --insertion-rate FLOAT
+                      [FLOAT ...] | --insertion-density FLOAT [FLOAT ...]]
 randomTrips.py: error: argument --insertion-rate: not allowed with argument --insertion-density

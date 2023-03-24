@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -35,35 +35,32 @@ netedit.additionalMode()
 netedit.changeElement("inductionLoop")
 
 # Create E1
-netedit.leftClick(referencePosition, 140, 245)
+netedit.leftClick(referencePosition, 405, 257)
 
 # set a invalid  id (duplicated)
 netedit.changeDefaultValue(netedit.attrs.E1.create.id, "e1_0")
 
 # try to create E1 with invalid id
-netedit.leftClick(referencePosition, 180, 245)
+netedit.leftClick(referencePosition, 475, 257)
 
 # set a invalid  id
 netedit.changeDefaultValue(netedit.attrs.E1.create.id, ";;;")
 
 # try to create E1 with invalid id
-netedit.leftClick(referencePosition, 200, 245)
+netedit.leftClick(referencePosition, 405, 257)
 
 # set a valid id
 netedit.changeDefaultValue(netedit.attrs.E1.create.id, "customID")
 
 # create E1 with valid id
-netedit.leftClick(referencePosition, 220, 245)
+netedit.leftClick(referencePosition, 475, 257)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)
 netedit.redo(referencePosition, 3)
 
-# save additionals
-netedit.saveAdditionals(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

@@ -1,0 +1,24 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+
+    <!-- missing friendlyPos -->
+    <containerStop id="containerStop_01" lane="center1_1" startPos="5" endPos="10" lines="lineA lineB" name="containerStop"/>
+
+    <!-- enabled friendlyPos -->
+    <containerStop id="containerStop_02" lane="center1_1" startPos="15" endPos="20" lines="lineA lineB" name="containerStop" friendlyPos="true"/>
+
+    <!-- enabled friendlyPos (negative positions)-->
+    <containerStop id="containerStop_03" lane="center1_1" startPos="-10" endPos="-20" lines="lineA lineB" name="containerStop" friendlyPos="true"/>
+
+    <!-- enabled friendlyPos, invalid positions 1 -->
+    <containerStop id="containerStop_04" lane="center1_1" startPos="-20" endPos="-10" lines="lineA lineB" name="containerStop" friendlyPos="true"/>
+
+    <!-- enabled friendlyPos, invalid positions 2 -->
+    <containerStop id="containerStop_05" lane="center1_1" startPos="200" endPos="300" lines="lineA lineB" name="containerStop" friendlyPos="true"/>
+
+    <!-- enabled friendlyPos, invalid positions 3 -->
+    <containerStop id="containerStop_06" lane="center1_1" startPos="50" endPos="20" lines="lineA lineB" name="containerStop" friendlyPos="true"/>
+
+    <!-- enabled friendlyPos, invalid positions 4 -->
+    <containerStop id="containerStop_07" lane="center1_1" startPos="20" endPos="20" lines="lineA lineB" name="containerStop" friendlyPos="true"/>
+
+</additional>

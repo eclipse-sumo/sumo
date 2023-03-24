@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -50,10 +50,10 @@ FXIMPLEMENT(GNEDeleteFrame::DeleteOptions,      MFXGroupBoxModule, DeleteOptions
 // ---------------------------------------------------------------------------
 
 GNEDeleteFrame::DeleteOptions::DeleteOptions(GNEDeleteFrame* deleteFrameParent) :
-    MFXGroupBoxModule(deleteFrameParent, "Options"),
+    MFXGroupBoxModule(deleteFrameParent, TL("Options")),
     myDeleteFrameParent(deleteFrameParent) {
     // Create checkbox for enable/disable delete only geomtery point(by default, disabled)
-    myDeleteOnlyGeometryPoints = new FXCheckButton(getCollapsableFrame(), "Delete geometry points", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    myDeleteOnlyGeometryPoints = new FXCheckButton(getCollapsableFrame(), TL("Delete geometry points"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myDeleteOnlyGeometryPoints->setCheck(FALSE);
 }
 
@@ -227,18 +227,18 @@ GNEDeleteFrame::SubordinatedElements::openWarningDialog(const std::string& type,
 // ---------------------------------------------------------------------------
 
 GNEDeleteFrame::ProtectElements::ProtectElements(GNEDeleteFrame* deleteFrameParent) :
-    MFXGroupBoxModule(deleteFrameParent, "Protect Elements") {
+    MFXGroupBoxModule(deleteFrameParent, TL("Protect Elements")) {
     // Create checkbox for enable/disable delete only geomtery point(by default, disabled)
-    myProtectAdditionals = new FXCheckButton(getCollapsableFrame(), "Protect additional elements", deleteFrameParent, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    myProtectAdditionals = new FXCheckButton(getCollapsableFrame(), TL("Protect additional elements"), deleteFrameParent, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myProtectAdditionals->setCheck(TRUE);
     // Create checkbox for enable/disable delete only geomtery point(by default, disabled)
-    myProtectTAZs = new FXCheckButton(getCollapsableFrame(), "Protect TAZ elements", deleteFrameParent, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    myProtectTAZs = new FXCheckButton(getCollapsableFrame(), TL("Protect TAZ elements"), deleteFrameParent, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myProtectTAZs->setCheck(TRUE);
     // Create checkbox for enable/disable delete only geomtery point(by default, disabled)
-    myProtectDemandElements = new FXCheckButton(getCollapsableFrame(), "Protect demand elements", deleteFrameParent, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    myProtectDemandElements = new FXCheckButton(getCollapsableFrame(), TL("Protect demand elements"), deleteFrameParent, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myProtectDemandElements->setCheck(TRUE);
     // Create checkbox for enable/disable delete only geomtery point(by default, disabled)
-    myProtectGenericDatas = new FXCheckButton(getCollapsableFrame(), "Protect data elements", deleteFrameParent, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    myProtectGenericDatas = new FXCheckButton(getCollapsableFrame(), TL("Protect data elements"), deleteFrameParent, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myProtectGenericDatas->setCheck(TRUE);
 }
 
@@ -273,7 +273,7 @@ GNEDeleteFrame::ProtectElements::protectGenericDatas() const {
 // method definitions
 // ===========================================================================
 
-GNEDeleteFrame::GNEDeleteFrame(GNEViewParent *viewParent, GNEViewNet* viewNet) :
+GNEDeleteFrame::GNEDeleteFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     GNEFrame(viewParent, viewNet, "Delete") {
     // create delete options modul
     myDeleteOptions = new DeleteOptions(this);
@@ -367,8 +367,8 @@ GNEDeleteFrame::removeAttributeCarrier(const GNEViewNetHelper::ObjectsUnderCurso
     if (objectsUnderCursor.getClickedGLObjects().size() > 1) {
         std::vector<GUIGlObject*> filteredGLObjects;
         // filter objects
-        for (const auto &glObject : objectsUnderCursor.getClickedGLObjects()) {
-            if(glObject->isGLObjectLocked()) {
+        for (const auto& glObject : objectsUnderCursor.getClickedGLObjects()) {
+            if (glObject->isGLObjectLocked()) {
                 continue;
             }
             filteredGLObjects.push_back(glObject);
@@ -382,8 +382,8 @@ GNEDeleteFrame::removeAttributeCarrier(const GNEViewNetHelper::ObjectsUnderCurso
         } else if (filteredGLObjects.size() > 0) {
             filteredGLObjects.front()->deleteGLObject();
         }
-    } else if ((objectsUnderCursor.getClickedGLObjects().size() > 0) && 
-        !objectsUnderCursor.getClickedGLObjects().front()->isGLObjectLocked()) {
+    } else if ((objectsUnderCursor.getClickedGLObjects().size() > 0) &&
+               !objectsUnderCursor.getClickedGLObjects().front()->isGLObjectLocked()) {
         objectsUnderCursor.getClickedGLObjects().front()->deleteGLObject();
     }
     // enable update geometry

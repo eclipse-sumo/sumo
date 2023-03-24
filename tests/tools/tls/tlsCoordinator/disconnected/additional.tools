@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-07-26 13:25:47.827079 by tlsCoordinator.py v1_14_1+0076-c68646acd3a
+<configuration>
+    <evaluate value="True"/>
+    <net-file value="net.net.xml"/>
+    <output-file value="out.add.xml"/>
+    <route-file value="input_routes.rou.xml"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <tlLogic id="cluster_2880146705_2880146706_2880146709_2880146710_2880146712_2880146714_29122659_29122660_31058252_31058253" programID="0" offset="0.00"/>
+    <tlLogic id="cluster_29122661_29122662_35107209_35107210" programID="1" offset="28.21"/>
+    <tlLogic id="joinedS_0" programID="a" offset="110.92"/>
+</additional>

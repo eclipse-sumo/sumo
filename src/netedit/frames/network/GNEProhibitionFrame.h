@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -35,8 +35,6 @@ class GNEAttributeCarrier;
  * The Widget for editing connection foes
  */
 class GNEProhibitionFrame : public GNEFrame {
-    /// @brief FOX-declaration
-    FXDECLARE(GNEProhibitionFrame)
 
 public:
 
@@ -117,31 +115,54 @@ public:
     };
 
     // ===========================================================================
-    // class Modifications
+    // class Selection (in the future will be "Modification")
     // ===========================================================================
 
-    class Modifications : public MFXGroupBoxModule {
+    class Selection : public MFXGroupBoxModule {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEProhibitionFrame::Selection)
 
     public:
         /// @brief constructor
-        Modifications(GNEProhibitionFrame* prohibitionFrameParent);
+        Selection(GNEProhibitionFrame* prohibitionFrameParent);
 
         /// @brief destructor
-        ~Modifications();
+        ~Selection();
+
+        /// @name FOX-callbacks
+        /// @{
+
+        /// @brief Called when the user presses the OK-Button saves any prohibition modifications
+        long onCmdOK(FXObject*, FXSelector, void*);
+
+        /// @brief Called when the user presses the Cancel-button discards any prohibition modifications
+        long onCmdCancel(FXObject*, FXSelector, void*);
+
+        /// @brief Called when the user presses the OK-Button saves any prohibition modifications
+        long onCmdRequireConnection(FXObject*, FXSelector, void*);
+
+        /// @}
+
+    protected:
+        /// @brief FOX needs this
+        FOX_CONSTRUCTOR(Selection)
 
     private:
+        /// @brief pointer to prohibition frame parent
+        GNEProhibitionFrame* myProhibitionFrameParent = nullptr;
+
         /// @brief "Save" button
-        FXButton* mySaveButton;
+        MFXButtonTooltip* mySaveButton = nullptr;
 
         /// @brief "Cancel" button
-        FXButton* myCancelButton;
+        MFXButtonTooltip* myCancelButton = nullptr;
     };
 
     /**@brief Constructor
      * @brief viewParent GNEViewParent in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
      */
-    GNEProhibitionFrame(GNEViewParent *viewParent, GNEViewNet* viewNet);
+    GNEProhibitionFrame(GNEViewParent* viewParent, GNEViewNet* viewNet);
 
     /// @brief Destructor
     ~GNEProhibitionFrame();
@@ -157,17 +178,11 @@ public:
     /// @brief hide prohibition frame
     void hide();
 
-    /// @name FOX-callbacks
-    /// @{
-    /// @brief Called when the user presses the OK-Button saves any prohibition modifications
-    long onCmdOK(FXObject*, FXSelector, void*);
-
-    /// @brief Called when the user presses the Cancel-button discards any prohibition modifications
-    long onCmdCancel(FXObject*, FXSelector, void*);
-
-    /// @}
+    /// @brief get selection modul
+    GNEProhibitionFrame::Selection* getSelectionModul() const;
 
 protected:
+    /// @brief FOX needs this
     FOX_CONSTRUCTOR(GNEProhibitionFrame)
 
     /// @brief build prohibition
@@ -180,8 +195,8 @@ private:
     /// @brief prohibition legend
     GNEProhibitionFrame::Legend* myLegend = nullptr;
 
-    /// @brief Modifications
-    GNEProhibitionFrame::Modifications* myModifications = nullptr;
+    /// @brief Selection
+    GNEProhibitionFrame::Selection* mySelectionModul = nullptr;
 
     /// @brief the connection which prohibits
     GNEConnection* myCurrentConn = nullptr;

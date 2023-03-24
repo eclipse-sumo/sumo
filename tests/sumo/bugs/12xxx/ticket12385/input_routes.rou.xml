@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-01-05 09:07:07 by Eclipse SUMO netedit Version v1_15_0+1313-18bebc1
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- VTypes -->
+    <vType id="DEFAULT_CONTAINERTYPE" length="0.50" vClass="ignoring" width="0.50" height="0.50"/>
+    <vType id="t_0" vClass="bus" personCapacity="20" containerCapacity="10" boardingDuration="1" loadingDuration="2"/>
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <vehicle id="v_0" type="t_0" depart="0.00">
+        <route edges="WC CE"/>
+        <stop busStop="bs_0" duration="10.00"/>
+        <stop busStop="bs_1" duration="10.00"/>
+    </vehicle>
+    <personFlow id="pf_0" begin="0.00" number="20" period="0.10">
+        <stop busStop="bs_0" duration="0.00"/>
+        <ride busStop="bs_1" lines="ANY"/>
+    </personFlow>
+    <containerFlow id="cf_0" begin="0.00" number="10" period="1.00">
+        <stop busStop="bs_0" duration="0.00"/>
+        <transport busStop="bs_1" lines="ANY"/>
+    </containerFlow>
+</routes>

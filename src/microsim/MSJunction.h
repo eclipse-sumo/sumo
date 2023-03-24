@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -77,9 +77,14 @@ public:
         (e.g., link map computation) */
     virtual void postloadInit();
 
+    /// used by the gui
+    void addSecondaryPosition(const Position& pos) {
+        myPosition2 = pos;
+    }
 
     /** returns the junction's position */
-    const Position& getPosition() const;
+    const Position& getPosition(bool secondaryShape = false) const;
+
 
 
     /** @brief Returns this junction's shape
@@ -145,6 +150,9 @@ protected:
 
     /// @brief The position of the junction
     Position myPosition;
+
+    /// @brief The secondary position of the junction
+    Position myPosition2;
 
     /// @brief The shape of the junction
     PositionVector myShape;

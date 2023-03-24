@@ -1,5 +1,6 @@
 <polygonTypes>
 
+    <polygonType id="traffic_sign"            name="traffic_sign" color=".0,.0,.0" layer="0"/>
     <polygonType id="waterway"                name="water"       color=".71,.82,.82" layer="-4"/>
     <polygonType id="natural"                 name="natural"     color=".55,.77,.42" layer="-4"/>
     <polygonType id="natural.water"           name="water"       color=".71,.82,.82" layer="-4"/>

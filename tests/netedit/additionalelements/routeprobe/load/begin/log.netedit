@@ -1,4 +1,4 @@
 Error: Could not build routeProbe with ID 'routeProbe_0' in netedit; attribute begin cannot be negative.
 Error: Attribute 'begin' in definition of routeProbe 'routeProbe_1' is not a valid time value.
 Error: Could not build routeProbe with ID 'routeProbe_2' in netedit; attribute begin cannot be negative.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\additionalelements\routeprobe\load\begin\input_additionals.add.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\additionalelements\routeprobe\load\begin\additionals.add.xml failed.

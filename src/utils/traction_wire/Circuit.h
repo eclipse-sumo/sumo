@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -30,7 +30,7 @@
 #ifdef HAVE_EIGEN
 #ifdef _MSC_VER
 #pragma warning(push)
-#pragma warning(disable: 4127 4464 5031)
+#pragma warning(disable: 4464 5031)
 #endif
 // avoid warnings in clang
 #ifdef __clang__
@@ -88,7 +88,7 @@ public:
     /**
      * @brief Flag of alpha scaling parameter
      *
-     * returns ALPHA_NOT_APPLIED => alpha shoud be 1
+     * returns ALPHA_NOT_APPLIED => alpha should be 1
      * returns ALPHA_CURRENT_LIMITS => alpha is lower than one due to electric current limits of the substation
      * returns ALPHA_VOLTAGE_LIMITS => alpha is not one due to inability of network to transfer requested power due to overhead wire resistance
      * returns ALPHA_NOT_CONVERGING => number of allowed iterations exceeded

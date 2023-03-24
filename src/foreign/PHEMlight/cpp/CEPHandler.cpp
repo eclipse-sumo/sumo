@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2016-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2016-2023 German Aerospace Center (DLR) and others.
 // PHEMlight module
 // Copyright 2016 Technische Universitaet Graz, https://www.tugraz.at/
 // This program and the accompanying materials are made available under the
@@ -377,7 +377,10 @@ namespace PHEMlightdll {
     std::string CEPHandler::ReadLine(std::ifstream& s) {
         std::string line;
         std::getline(s, line);
-        line.erase(line.find_last_not_of(" \n\r\t") + 1);
+        size_t lastNWChar = line.find_last_not_of(" \n\r\t");
+        if (lastNWChar != std::string::npos) {
+            line.erase(lastNWChar + 1);
+        }
         return line;
     }
 }

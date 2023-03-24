@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -29,6 +29,7 @@
 #include <utils/xml/SUMOSAXAttributes.h>
 #include <microsim/devices/MSDevice_Tripinfo.h>
 #include <microsim/devices/MSDevice_Vehroutes.h>
+#include <microsim/devices/MSDevice_Taxi.h>
 #include <microsim/output/MSStopOut.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/MSEdge.h>
@@ -48,7 +49,7 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MEVehicle::MEVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
+MEVehicle::MEVehicle(SUMOVehicleParameter* pars, ConstMSRoutePtr route,
                      MSVehicleType* type, const double speedFactor) :
     MSBaseVehicle(pars, route, type, speedFactor),
     mySegment(nullptr),
@@ -191,7 +192,7 @@ MEVehicle::setApproaching(MSLink* link) {
 
 
 bool
-MEVehicle::replaceRoute(const MSRoute* newRoute, const std::string& info,  bool onInit, int offset, bool addRouteStops, bool removeStops, std::string* msgReturn) {
+MEVehicle::replaceRoute(ConstMSRoutePtr newRoute, const std::string& info,  bool onInit, int offset, bool addRouteStops, bool removeStops, std::string* msgReturn) {
     MSLink* const oldLink = mySegment != nullptr ? mySegment->getLink(this) : nullptr;
     if (MSBaseVehicle::replaceRoute(newRoute, info, onInit, offset, addRouteStops, removeStops, msgReturn)) {
         if (mySegment != nullptr) {
@@ -216,7 +217,7 @@ MEVehicle::checkStop(SUMOTime time) {
     bool hadStop = false;
     for (MSStop& stop : myStops) {
         if (stop.joinTriggered) {
-            WRITE_WARNINGF("Join stops are not available in meso yet (vehicle '%', segment '%').",
+            WRITE_WARNINGF(TL("Join stops are not available in meso yet (vehicle '%', segment '%')."),
                            getID(), mySegment->getID());
             continue;
         }
@@ -243,9 +244,13 @@ MEVehicle::checkStop(SUMOTime time) {
                 if (!hadStop) {
                     MSStopOut::getInstance()->stopStarted(this, getPersonNumber(), getContainerNumber(), myLastEntryTime);
                 } else {
-                    WRITE_WARNINGF("Vehicle '%' has multiple stops on segment '%', time=% (stop-output will be merged).",
+                    WRITE_WARNINGF(TL("Vehicle '%' has multiple stops on segment '%', time=% (stop-output will be merged)."),
                                    getID(), mySegment->getID(), time2string(time));
                 }
+            }
+            MSDevice_Taxi* taxi = static_cast<MSDevice_Taxi*>(getDevice(typeid(MSDevice_Taxi)));
+            if (taxi != nullptr) {
+                taxi->notifyMove(*this, 0, 0, 0);
             }
         }
         if (stop.triggered || stop.containerTriggered || stop.joinTriggered) {
@@ -314,7 +319,7 @@ MEVehicle::getCurrentStoppingTimeSeconds() const {
 void
 MEVehicle::processStop() {
     assert(isStopped());
-    double lastPos = 0;
+    double lastPos = -1;
     bool hadStop = false;
     while (!myStops.empty()) {
         MSStop& stop = myStops.front();
@@ -362,7 +367,7 @@ MEVehicle::mayProceed() {
         if (stop.triggered) {
             if (getVehicleType().getPersonCapacity() == getPersonNumber()) {
                 // we could not check this on entering the segment because there may be persons who still want to leave
-                WRITE_WARNING("Vehicle '" + getID() + "' ignores triggered stop on lane '" + stop.lane->getID() + "' due to capacity constraints.");
+                WRITE_WARNINGF(TL("Vehicle '%' ignores triggered stop on lane '%' due to capacity constraints."), getID(), stop.lane->getID());
                 stop.triggered = false;
                 if (myAmRegisteredAsWaiting) {
                     net->getVehicleControl().unregisterOneWaiting();
@@ -379,7 +384,7 @@ MEVehicle::mayProceed() {
         if (stop.containerTriggered) {
             if (getVehicleType().getContainerCapacity() == getContainerNumber()) {
                 // we could not check this on entering the segment because there may be containers who still want to leave
-                WRITE_WARNING("Vehicle '" + getID() + "' ignores container triggered stop on lane '" + stop.lane->getID() + "' due to capacity constraints.");
+                WRITE_WARNINGF(TL("Vehicle '%' ignores container triggered stop on lane '%' due to capacity constraints."), getID(), stop.lane->getID());
                 stop.containerTriggered = false;
                 if (myAmRegisteredAsWaiting) {
                     net->getVehicleControl().unregisterOneWaiting();
@@ -546,7 +551,7 @@ MEVehicle::saveState(OutputDevice& out) {
 void
 MEVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
     if (attrs.hasAttribute(SUMO_ATTR_POSITION)) {
-        throw ProcessError("Error: Invalid vehicles in state (may be a micro state)!");
+        throw ProcessError(TL("Error: Invalid vehicles in state (may be a micro state)!"));
     }
     int routeOffset;
     int segIndex;

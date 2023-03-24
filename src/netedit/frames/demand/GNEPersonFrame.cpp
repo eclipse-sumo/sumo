@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -35,7 +35,7 @@
 // GNEPersonFrame - methods
 // ---------------------------------------------------------------------------
 
-GNEPersonFrame::GNEPersonFrame(GNEViewParent *viewParent, GNEViewNet* viewNet) :
+GNEPersonFrame::GNEPersonFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     GNEFrame(viewParent, viewNet, "Persons"),
     myRouteHandler("", viewNet->getNet(), true, false),
     myPersonBaseObject(new CommonXMLStructure::SumoBaseObject(nullptr)) {
@@ -60,6 +60,9 @@ GNEPersonFrame::GNEPersonFrame(GNEViewParent *viewParent, GNEViewNet* viewNet) :
 
     // create GNEPathCreator Module
     myPathCreator = new GNEPathCreator(this);
+
+    // create legend label
+    myPathLegend = new GNEPathLegendModule(this);
 
     // limit path creator to pedestrians
     myPathCreator->setVClass(SVC_PEDESTRIAN);
@@ -111,42 +114,26 @@ GNEPersonFrame::addPerson(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnd
     SumoXMLTag clickedACTag = objectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag();
     // first check that current selected person is valid
     if (personTag == SUMO_TAG_NOTHING) {
-        myViewNet->setStatusBarText("Current selected person isn't valid.");
+        myViewNet->setStatusBarText(TL("Current selected person isn't valid."));
         return false;
     }
     // now check that pType is valid
     if (myTypeSelector->getCurrentDemandElement() == nullptr) {
-        myViewNet->setStatusBarText("Current selected person type isn't valid.");
+        myViewNet->setStatusBarText(TL("Current selected person type isn't valid."));
         return false;
     }
     // finally check that person plan selected is valid
     if (myPersonPlanTagSelector->getCurrentTemplateAC() == nullptr) {
-        myViewNet->setStatusBarText("Current selected person plan isn't valid.");
+        myViewNet->setStatusBarText(TL("Current selected person plan isn't valid."));
         return false;
     }
     // add elements to path creator
     if (clickedACTag == SUMO_TAG_LANE) {
-        const bool result = myPathCreator->addEdge(objectsUnderCursor.getEdgeFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
-        // if we're creating a stop, create it immediately
-        if (result && myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().isStopPerson()) {
-            createPath(false);
-        }
-        return result;
+        return myPathCreator->addEdge(objectsUnderCursor.getEdgeFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
     } else if (clickedACTag == SUMO_TAG_BUS_STOP) {
-        const bool result = myPathCreator->addStoppingPlace(objectsUnderCursor.getAdditionalFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
-        // if we're creating a stop, create it immediately
-        if (result && myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().isStopPerson()) {
-            createPath(false);
-        }
-        return result;
+        return myPathCreator->addStoppingPlace(objectsUnderCursor.getAdditionalFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
     } else if (clickedACTag == SUMO_TAG_ROUTE) {
-        const bool result = myPathCreator->addRoute(objectsUnderCursor.getDemandElementFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
-        // if we're creating a walk route, create it immediately
-        if (result && (myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() == GNE_TAG_WALK_ROUTE)) {
-            createPath(false);
-            myPathCreator->removeRoute();
-        }
-        return result;
+        return myPathCreator->addRoute(objectsUnderCursor.getDemandElementFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
     } else if (clickedACTag == SUMO_TAG_JUNCTION) {
         return myPathCreator->addJunction(objectsUnderCursor.getJunctionFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
     } else {
@@ -199,12 +186,15 @@ GNEPersonFrame::tagSelected() {
                     }
                     // show edge path creator modul
                     myPathCreator->showPathCreatorModule(myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag(), false, false);
+                    // show path legend
+                    myPathLegend->showPathLegendModule();
                 }
             } else {
                 // hide modules
                 myPersonPlanAttributes->hideAttributesCreatorModule();
                 myNeteditAttributes->hideNeteditAttributesModule();
                 myPathCreator->hidePathCreatorModule();
+                myPathLegend->hidePathLegendModule();
             }
         } else {
             // hide modules
@@ -213,6 +203,7 @@ GNEPersonFrame::tagSelected() {
             myPersonPlanAttributes->hideAttributesCreatorModule();
             myNeteditAttributes->hideNeteditAttributesModule();
             myPathCreator->hidePathCreatorModule();
+            myPathLegend->hidePathLegendModule();
         }
     } else {
         // hide all moduls if person isn't valid
@@ -222,6 +213,7 @@ GNEPersonFrame::tagSelected() {
         myPersonPlanAttributes->hideAttributesCreatorModule();
         myNeteditAttributes->hideNeteditAttributesModule();
         myPathCreator->hidePathCreatorModule();
+        myPathLegend->hidePathLegendModule();
     }
 }
 
@@ -251,11 +243,13 @@ GNEPersonFrame::demandElementSelected() {
             myNeteditAttributes->showNeteditAttributesModule(myPersonPlanTagSelector->getCurrentTemplateAC());
             // show edge path creator modul
             myPathCreator->showPathCreatorModule(myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag(), false, false);
+            // show legend
+            myPathLegend->showPathLegendModule();
             // show warning if we have selected a vType oriented to containers or vehicles
             if (myTypeSelector->getCurrentDemandElement()->getVClass() == SVC_IGNORING) {
-                WRITE_WARNING("VType with vClass == 'ignoring' is oriented to containers");
+                WRITE_WARNING(TL("VType with vClass == 'ignoring' is oriented to containers"));
             } else if (myTypeSelector->getCurrentDemandElement()->getVClass() != SVC_PEDESTRIAN) {
-                WRITE_WARNING("VType with vClass != 'pedestrian' is not oriented to persons");
+                WRITE_WARNING(TL("VType with vClass != 'pedestrian' is not oriented to persons"));
             }
         } else {
             // hide modules
@@ -274,11 +268,11 @@ GNEPersonFrame::demandElementSelected() {
 }
 
 
-void
+bool
 GNEPersonFrame::createPath(const bool /*useLastRoute*/) {
     // first check that all attributes are valid
     if (!myPersonAttributes->areValuesValid()) {
-        myViewNet->setStatusBarText("Invalid person parameters.");
+        myViewNet->setStatusBarText(TL("Invalid person parameters."));
     } else if (!myPersonPlanAttributes->areValuesValid()) {
         myViewNet->setStatusBarText("Invalid " + myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTagStr() + " parameters.");
     } else {
@@ -303,11 +297,13 @@ GNEPersonFrame::createPath(const bool /*useLastRoute*/) {
             person->computePathElement();
             // enable show all person plans
             myViewNet->getDemandViewOptions().menuCheckShowAllPersonPlans->setChecked(TRUE);
+            return true;
         } else {
             // abort person creation
             myViewNet->getUndoList()->abortAllChangeGroups();
         }
     }
+    return false;
 }
 
 // ---------------------------------------------------------------------------

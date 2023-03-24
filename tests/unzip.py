@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -15,9 +15,12 @@
 # @author  Jakob Erdmann
 # @date    2022-09-14
 
-"""platform-independent collate_script to compare .xml.gz files""" 
+"""platform-independent collate_script to compare .xml.gz files"""
 
 import sys
 import gzip
 with gzip.open(sys.argv[1], 'r') as f:
-    print(f.read().decode("utf8"))
+    if sys.version_info[0] < 3:
+        sys.stdout.write(f.read())
+    else:
+        sys.stdout.buffer.write(f.read())

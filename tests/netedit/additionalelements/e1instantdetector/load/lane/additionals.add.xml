@@ -1,0 +1,12 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+
+    <!-- non valid Lane (missing) -->
+    <instantInductionLoop id="E1_01" pos="9" file="fileA.txt" vTypes="bus taxi private" friendlyPos="0"/>
+
+    <!-- non valid lane (dummy Lane) -->
+    <instantInductionLoop id="E1_02" lane="dummyLane" pos="12" file="fileA.txt" vTypes="bus taxi private" friendlyPos="0"/>
+
+    <!-- valid lane -->
+    <instantInductionLoop id="E1_03" lane="center0_1" pos="12" file="fileA.txt" vTypes="bus taxi private" friendlyPos="0"/>
+
+</additional>

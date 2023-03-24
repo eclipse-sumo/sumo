@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -17,7 +17,6 @@
 ///
 // A class for edit phases of Variable Speed Signals
 /****************************************************************************/
-#include <config.h>
 
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/div/GUIDesigns.h>
@@ -57,10 +56,10 @@ GNEVariableSpeedSignDialog::GNEVariableSpeedSignDialog(GNEVariableSpeedSign* edi
     FXHorizontalFrame* myAddStepFrame = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarHorizontalFrame);
     // create Button and Label for adding new Wors
     myAddStepButton = new FXButton(myAddStepFrame, "", GUIIconSubSys::getIcon(GUIIcon::ADD), this, MID_GNE_VARIABLESPEEDSIGN_ADDROW, GUIDesignButtonIcon);
-    new FXLabel(myAddStepFrame, ("Add new " + toString(SUMO_TAG_STEP)).c_str(), nullptr, GUIDesignLabelThick);
+    new FXLabel(myAddStepFrame, ("Add new " + toString(SUMO_TAG_STEP)).c_str(), nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL));
     // create Button and Label for sort intervals
     mySortStepButton = new FXButton(myAddStepFrame, "", GUIIconSubSys::getIcon(GUIIcon::RELOAD), this, MID_GNE_VARIABLESPEEDSIGN_SORT, GUIDesignButtonIcon);
-    new FXLabel(myAddStepFrame, ("Sort " + toString(SUMO_TAG_STEP) + "s").c_str(), nullptr, GUIDesignLabelThick);
+    new FXLabel(myAddStepFrame, ("Sort " + toString(SUMO_TAG_STEP) + "s").c_str(), nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL));
     // create List with the data
     myStepsTable = new FXTable(myContentFrame, this, MID_GNE_VARIABLESPEEDSIGN_TABLE, GUIDesignTableAdditionals);
     myStepsTable->setSelBackColor(FXRGBA(255, 255, 255, 255));

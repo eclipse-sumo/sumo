@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-03-22 08:30:53 by Eclipse SUMO sumo Version v1_16_0+1528-4fb4aca
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
+        <railsignal-block-output value="railsignal_blocks.xml"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <routing>
+        <device.rerouting.explicit value="v_1"/>
+        <device.rerouting.period value="2"/>
+        <device.rerouting.pre-period value="-1"/>
+    </routing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<railsignal-block-output>
+    <railSignal id="J5">
+        <link linkIndex="0" from="-E5_0" to="-E4_0">
+            <driveWay edges="-E4 -E8 -E7 -E6 -E0" core="4">
+                <forward lanes="-E4_0 -E8_0 -E7_0"/>
+                <bidi lanes="E4_0 E8_0 E7_0 E6_0"/>
+                <flank lanes="E30_0"/>
+                <protectingSwitches links="J1_3"/>
+                <conflictLinks signals="J9_0"/>
+            </driveWay>
+        </link>
+    </railSignal>
+    <railSignal id="J7">
+        <link linkIndex="0" from="-E7_0" to="-E6_0">
+            <driveWay edges="-E6 -E0">
+                <forward lanes="-E6_0 -E0_0"/>
+                <bidi lanes="E6_0 E0_0"/>
+                <flank lanes="-E3.50_0 -E3_0"/>
+                <protectingSwitches links="J4_1"/>
+                <conflictLinks signals=""/>
+            </driveWay>
+        </link>
+    </railSignal>
+    <railSignal id="J9">
+        <link linkIndex="0" from="E3_0" to="E30_0">
+            <driveWay edges="E30 E4 E5">
+                <forward lanes="E30_0 E4_0 E5_0"/>
+                <bidi lanes="-E3_0 -E4_0 -E5_0"/>
+                <flank lanes="E8_0 E7_0 E6_0"/>
+                <protectingSwitches links="J1_3"/>
+                <conflictLinks signals=""/>
+            </driveWay>
+        </link>
+    </railSignal>
+</railsignal-block-output>

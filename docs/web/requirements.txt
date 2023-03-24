@@ -7,3 +7,4 @@ mdx_truly_sane_lists
 plantuml==0.3.0
 plantuml-markdown
 markdown==3.3.7
+mkdocs-redirects==1.2.0

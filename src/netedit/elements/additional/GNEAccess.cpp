@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -38,9 +38,9 @@
 
 GNEAccess::GNEAccess(GNENet* net) :
     GNEAdditional("", net, GLO_ACCESS, SUMO_TAG_ACCESS, GUIIconSubSys::getIcon(GUIIcon::ACCESS), "", {}, {}, {}, {}, {}, {}),
-    myPositionOverLane(0),
-    myLength(0),
-    myFriendlyPosition(false) {
+              myPositionOverLane(0),
+              myLength(0),
+myFriendlyPosition(false) {
     // reset default values
     resetDefaultValues();
 }
@@ -49,10 +49,10 @@ GNEAccess::GNEAccess(GNENet* net) :
 GNEAccess::GNEAccess(GNEAdditional* busStop, GNELane* lane, GNENet* net, double pos, const double length, bool friendlyPos,
                      const Parameterised::Map& parameters) :
     GNEAdditional(net, GLO_ACCESS, SUMO_TAG_ACCESS, GUIIconSubSys::getIcon(GUIIcon::ACCESS), "", {}, {}, {lane}, {busStop}, {}, {}),
-    Parameterised(parameters),
-    myPositionOverLane(pos),
-    myLength(length),
-    myFriendlyPosition(friendlyPos) {
+Parameterised(parameters),
+myPositionOverLane(pos),
+myLength(length),
+myFriendlyPosition(friendlyPos) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -145,6 +145,50 @@ GNEAccess::writeAdditional(OutputDevice& device) const {
 }
 
 
+bool
+GNEAccess::isAdditionalValid() const {
+    // with friendly position enabled position is "always fixed"
+    if (myFriendlyPosition) {
+        return true;
+    } else {
+        return fabs(myPositionOverLane) <= getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
+    }
+}
+
+
+std::string GNEAccess::getAdditionalProblem() const {
+    // obtain final length
+    const double len = getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
+    // check if detector has a problem
+    if (GNEAdditionalHandler::checkLanePosition(myPositionOverLane, 0, len, myFriendlyPosition)) {
+        return "";
+    } else {
+        // declare variable for error position
+        std::string errorPosition;
+        // check positions over lane
+        if (myPositionOverLane < 0) {
+            errorPosition = (toString(SUMO_ATTR_POSITION) + " < 0");
+        }
+        if (myPositionOverLane > len) {
+            errorPosition = (toString(SUMO_ATTR_POSITION) + TL(" > lanes's length"));
+        }
+        return errorPosition;
+    }
+}
+
+
+void GNEAccess::fixAdditionalProblem() {
+    // declare new position
+    double newPositionOverLane = myPositionOverLane;
+    // declare new lenght (but unsed in this context)
+    double length = 0;
+    // fix pos and length with fixLanePosition
+    GNEAdditionalHandler::fixLanePosition(newPositionOverLane, length, getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength());
+    // set new position
+    setAttribute(SUMO_ATTR_POSITION, toString(newPositionOverLane), myNet->getViewNet()->getUndoList());
+}
+
+
 GNEEdge*
 GNEAccess::getEdge() const {
     return getParentLanes().front()->getParentEdge();
@@ -161,45 +205,50 @@ void
 GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration
     const double accessExaggeration = getExaggeration(s);
-    // declare width
-    const double radius = 0.5;
     // first check if additional has to be drawn
     if (s.drawAdditionals(accessExaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // get color
-        RGBColor color;
+        RGBColor accessColor;
         if (drawUsingSelectColor()) {
-            color = s.colorSettings.selectedAdditionalColor;
+            accessColor = s.colorSettings.selectedAdditionalColor;
         } else if (!getParentAdditionals().front()->getAttribute(SUMO_ATTR_COLOR).empty()) {
-            color = parse<RGBColor>(getParentAdditionals().front()->getAttribute(SUMO_ATTR_COLOR));
+            accessColor = parse<RGBColor>(getParentAdditionals().front()->getAttribute(SUMO_ATTR_COLOR));
         } else {
-            color = s.colorSettings.busStopColor;
+            accessColor = s.colorSettings.busStopColor;
         }
-        // draw parent and child lines
-        drawParentChildLines(s, color);
-        // Start drawing adding an gl identificator
-        GLHelper::pushName(getGlID());
-        // push layer matrix
-        GLHelper::pushMatrix();
-        // translate to front
-        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_ACCESS);
-        // set color
-        GLHelper::setColor(color);
-        // translate to geometry position
-        glTranslated(myAdditionalGeometry.getShape().front().x(), myAdditionalGeometry.getShape().front().y(), 0);
-        // draw circle
-        if (s.drawForRectangleSelection) {
-            GLHelper::drawFilledCircle(radius * accessExaggeration, 8);
-        } else {
-            GLHelper::drawFilledCircle(radius * accessExaggeration, 16);
+        // avoid draw invisible elements
+        if (accessColor.alpha() != 0) {
+            // get distance squared between mouse and access
+            const double distanceSquared = getPositionInView().distanceSquaredTo2D(myNet->getViewNet()->getPositionInformation());
+            // declare radius
+            const double radius = (distanceSquared <= 1) ? 1 : 0.5;
+            // draw parent and child lines
+            drawParentChildLines(s, accessColor);
+            // Start drawing adding an gl identificator
+            GLHelper::pushName(getGlID());
+            // push layer matrix
+            GLHelper::pushMatrix();
+            // translate to front
+            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_ACCESS);
+            // set color
+            GLHelper::setColor(accessColor);
+            // translate to geometry position
+            glTranslated(myAdditionalGeometry.getShape().front().x(), myAdditionalGeometry.getShape().front().y(), 0);
+            // draw circle
+            if (s.drawForRectangleSelection) {
+                GLHelper::drawFilledCircle(radius * accessExaggeration, 8);
+            } else {
+                GLHelper::drawFilledCircle(radius * accessExaggeration, 16);
+            }
+            // pop layer matrix
+            GLHelper::popMatrix();
+            // pop gl identificator
+            GLHelper::popName();
+            // check if mouse is over access
+            mouseWithinGeometry(myAdditionalGeometry.getShape().front(), (radius * accessExaggeration));
+            // draw lock icon
+            GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myAdditionalGeometry.getShape().front(), accessExaggeration, 0.3);
         }
-        // pop layer matrix
-        GLHelper::popMatrix();
-        // pop gl identificator
-        GLHelper::popName();
-        // check if mouse is over access
-        mouseWithinGeometry(myAdditionalGeometry.getShape().front(), (radius * accessExaggeration));
-        // draw lock icon
-        GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myAdditionalGeometry.getShape().front(), accessExaggeration, 0.3);
         // inspect contour
         if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
             GUIDottedGeometry::drawDottedContourCircle(s, GUIDottedGeometry::DottedContourType::INSPECT, myAdditionalGeometry.getShape().front(), 0.5, accessExaggeration);

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -28,12 +28,6 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
-# force save additionals
-netedit.forceSaveAdditionals()
-
-# force save demand elements
-netedit.forceSaveDemandElements()
-
 # go to TLS mode
 netedit.selectTLSMode()
 
@@ -58,14 +52,8 @@ netedit.undo(referencePosition, 1)
 # Check redo
 netedit.redo(referencePosition, 1)
 
-# save network
-netedit.saveNetwork(referencePosition)
-
-# save additionals
-netedit.saveAdditionals(referencePosition)
-
-# save routes
-netedit.saveRoutes(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

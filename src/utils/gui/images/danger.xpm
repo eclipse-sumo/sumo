@@ -1,7 +1,7 @@
 /* XPM */
 static const char *danger_xpm[] = {
 /* columns rows colors chars-per-pixel */
-"16 16 9 1 ",
+"16 16 9 1",
 "  c #E1574C",
 ". c #E2574C",
 "X c #E3574C",

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -141,10 +141,10 @@ MSRailSignalConstraint_Predecessor::loadState(const SUMOSAXAttributes& attrs) {
     const std::vector<std::string>& tripIDs = attrs.get<std::vector<std::string> >(SUMO_ATTR_STATE, nullptr, ok);
     MSLane* lane = MSLane::dictionary(laneID);
     if (lane == nullptr) {
-        throw ProcessError("Unknown lane '" + laneID + "' in loaded state.");
+        throw ProcessError(TLF("Unknown lane '%' in loaded state.", laneID));
     }
     if (myTrackerLookup.count(lane) == 0) {
-        WRITE_WARNINGF("Unknown tracker lane '%' in loaded state.", laneID);
+        WRITE_WARNINGF(TL("Unknown tracker lane '%' in loaded state."), laneID);
         return;
     }
     PassedTracker* tracker = myTrackerLookup[lane];
@@ -195,8 +195,12 @@ MSRailSignalConstraint_Predecessor::getDescription() const {
     if (passedIDs.size() > 0) {
         passedIDs2 = " (" + toString(passedIDs) + ")";
     }
-    return ("predecessor " + myTripId + vehID + " at signal " + myTrackers.front()->getLane()->getEdge().getFromJunction()->getID()
-            + " passed=" + StringUtils::prune(toString(myTrackers.front()->myPassed)) + passedIDs2);
+    std::string params = "";
+    for (auto item : getParametersMap()) {
+        params += ("\n  key=" + item.first + " value=" + item.second);
+    }
+    return (toString(getTag()) + "  " + myTripId + vehID + " at signal " + myTrackers.front()->getLane()->getEdge().getFromJunction()->getID()
+            + " passed=" + StringUtils::prune(toString(myTrackers.front()->myPassed)) + passedIDs2 + params);
 }
 
 // ===========================================================================
@@ -305,6 +309,7 @@ MSRailSignalConstraint_Predecessor::write(OutputDevice& out, const std::string& 
     if (!myAmActive) {
         out.writeAttr(SUMO_ATTR_ACTIVE, myAmActive);
     }
+    writeParams(out);
     out.closeTag();
 }
 

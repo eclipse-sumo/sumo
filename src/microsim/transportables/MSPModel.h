@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2014-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2014-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -177,7 +177,7 @@ public:
         UNUSED_PARAMETER(lanePos);
         UNUSED_PARAMETER(lanePosLat);
         UNUSED_PARAMETER(t);
-        WRITE_WARNING("moveTo is ignored by the current movement model");
+        WRITE_WARNING(TL("moveTo is ignored by the current movement model"));
     }
 
     /// @brief try to move transportable to the given position
@@ -193,7 +193,7 @@ public:
         UNUSED_PARAMETER(routeOffset);
         UNUSED_PARAMETER(edges);
         UNUSED_PARAMETER(t);
-        WRITE_WARNING("moveToXY is ignored by the current movement model");
+        WRITE_WARNING(TL("moveToXY is ignored by the current movement model"));
     }
 
     /// @brief whether the transportable is jammed
@@ -204,6 +204,11 @@ public:
     /// @brief whether the transportable is jammed
     virtual const MSLane* getLane() const {
         return nullptr;
+    }
+
+    /// @brief return the total length of the current lane (in particular for on a walkingarea)
+    virtual double getPathLength() const {
+        return 0;
     }
 
     /** @brief Saves the current state into the given stream

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -58,6 +58,7 @@ MSVehicleControl::MSVehicleControl() :
     myWaitingForTransportable(0),
     myMaxSpeedFactor(1),
     myMinDeceleration(SUMOVTypeParameter::getDefaultDecel(SVC_IGNORING)),
+    myMinDecelerationRail(SUMOVTypeParameter::getDefaultDecel(SVC_RAIL)),
     myPendingRemovals(MSGlobals::gNumSimThreads > 1) {
 
     initDefaultTypes();
@@ -101,7 +102,7 @@ MSVehicleControl::initDefaultTypes() {
 
 SUMOVehicle*
 MSVehicleControl::buildVehicle(SUMOVehicleParameter* defs,
-                               const MSRoute* route, MSVehicleType* type,
+                               ConstMSRoutePtr route, MSVehicleType* type,
                                const bool ignoreStopErrors, const bool fromRouteFile, bool addRouteStops) {
     MSVehicle* built = new MSVehicle(defs, route, type, type->computeChosenSpeedDeviation(fromRouteFile ? MSRouteHandler::getParsingRNG() : nullptr));
     initVehicle(built, ignoreStopErrors, addRouteStops);
@@ -186,6 +187,8 @@ MSVehicleControl::vehicleDeparted(const SUMOVehicle& v) {
     if ((v.getVClass() & (SVC_PEDESTRIAN | SVC_NON_ROAD)) == 0) {
         // only  worry about deceleration of road users
         myMinDeceleration = MIN2(myMinDeceleration, v.getVehicleType().getCarFollowModel().getMaxDecel());
+    } else if ((v.getVClass() & SVC_RAIL_CLASSES) != 0) {
+        myMinDecelerationRail = MIN2(myMinDecelerationRail, v.getVehicleType().getCarFollowModel().getMaxDecel());
     }
 }
 
@@ -346,7 +349,7 @@ MSVehicleControl::addVType(MSVehicleType* vehType) {
 
 void
 MSVehicleControl::removeVType(const MSVehicleType* vehType) {
-    assert(vehType != 0);
+    assert(vehType != nullptr);
     assert(myVTypeDict.find(vehType->getID()) != myVTypeDict.end());
     myVTypeDict.erase(vehType->getID());
     if (myVTypeToDist.find(vehType->getID()) != myVTypeToDist.end()) {
@@ -439,7 +442,7 @@ MSVehicleControl::getVTypeDistribution(const std::string& typeDistID) const {
 void
 MSVehicleControl::abortWaiting() {
     for (VehicleDictType::iterator i = myVehicleDict.begin(); i != myVehicleDict.end(); ++i) {
-        WRITE_WARNINGF("Vehicle '%' aborted waiting for a % that will never come.", i->first,
+        WRITE_WARNINGF(TL("Vehicle '%' aborted waiting for a % that will never come."), i->first,
                        i->second->getParameter().departProcedure == DepartDefinition::SPLIT ? "split" : "person or container")
     }
 }
@@ -501,7 +504,7 @@ void
 MSVehicleControl::adaptIntermodalRouter(MSNet::MSIntermodalRouter& router) const {
     for (const SUMOVehicle* const veh : myPTVehicles) {
         // add single vehicles with line attribute which are not part of a flow
-        const MSRoute* const route = MSRoute::dictionary(veh->getParameter().routeid);
+        ConstMSRoutePtr const route = MSRoute::dictionary(veh->getParameter().routeid);
         router.getNetwork()->addSchedule(veh->getParameter(), route == nullptr ? nullptr : &route->getStops());
     }
 }

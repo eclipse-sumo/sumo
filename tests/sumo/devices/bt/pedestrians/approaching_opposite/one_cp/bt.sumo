@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-11-03 17:57:09 by Eclipse SUMO sumo Version v1_14_1+2205-02cde80
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
+        <bt-output value="bt.xml"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+    </time>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <communication>
+        <device.btreceiver.range value="50"/>
+        <person-device.btsender.probability value="1"/>
+        <person-device.btreceiver.probability value="1"/>
+    </communication>
+
+</configuration>
+-->
+
+<bt-output>
+    <bt id="1">
+        <seen id="2" tBeg="-0.50" observerPosBeg="-539702011.07,-539699575.83,-539702065.67" observerSpeedBeg="0.00" observerLaneIDBeg="1o_0" observerLanePosBeg="4890.00" seenPosBeg="-539702060.71,-539699581.88,-539702065.67" seenSpeedBeg="0.00" seenLaneIDBeg="1i_0" seenLanePosBeg="10.00" tEnd="20.00" observerPosEnd="84.47,5006.08" observerSpeedEnd="1.35" observerLaneIDEnd="1o_0" observerLanePosEnd="4915.35" seenPosEnd="35.06,4993.92" seenSpeedEnd="1.35" seenLaneIDEnd="1i_0" seenLanePosEnd="35.13" observerRoute="1o" seenRoute="1i">
+            <recognitionPoint t="0.00" observerPos="-539702011.07,-539699575.83,-539702065.67" observerSpeed="0.00" observerLaneID="1o_0" observerLanePos="4890.00" seenPos="-539702060.71,-539699581.88,-539702065.67" seenSpeed="0.00" seenLaneID="1i_0" seenLanePos="10.00"/>
+        </seen>
+        <seen id="2" tBeg="20.38" observerPosBeg="84.04,5006.08" observerSpeedBeg="1.12" observerLaneIDBeg="1o_0" observerLanePosBeg="4916.47" seenPosBeg="35.55,4993.92" seenSpeedBeg="1.27" seenLaneIDBeg="1i_0" seenLanePosBeg="36.41" tEnd="59.04" observerPosEnd="35.68,5006.08" observerSpeedEnd="1.29" observerLaneIDEnd="1o_0" observerLanePosEnd="4965.48" seenPosEnd="84.18,4993.92" seenSpeedEnd="1.14" seenLaneIDEnd="1i_0" seenLanePosEnd="85.46" observerRoute="1o" seenRoute="1i">
+            <recognitionPoint t="21.00" observerPos="84.04,5006.08" observerSpeed="1.12" observerLaneID="1o_0" observerLanePos="4916.47" seenPos="35.55,4993.92" seenSpeed="1.27" seenLaneID="1i_0" seenLanePos="36.41"/>
+        </seen>
+    </bt>
+    <bt id="2">
+        <seen id="1" tBeg="-0.50" observerPosBeg="-539702060.78,-539699581.96,-539702065.75" observerSpeedBeg="0.00" observerLaneIDBeg="1i_0" observerLanePosBeg="10.00" seenPosBeg="-539702011.15,-539699575.91,-539702065.75" seenSpeedBeg="0.00" seenLaneIDBeg="1o_0" seenLanePosBeg="4890.00" tEnd="20.00" observerPosEnd="35.06,4993.92" observerSpeedEnd="1.35" observerLaneIDEnd="1i_0" observerLanePosEnd="35.13" seenPosEnd="84.47,5006.08" seenSpeedEnd="1.35" seenLaneIDEnd="1o_0" seenLanePosEnd="4915.35" observerRoute="1i" seenRoute="1o">
+            <recognitionPoint t="0.00" observerPos="-539702060.78,-539699581.96,-539702065.75" observerSpeed="0.00" observerLaneID="1i_0" observerLanePos="10.00" seenPos="-539702011.15,-539699575.91,-539702065.75" seenSpeed="0.00" seenLaneID="1o_0" seenLanePos="4890.00"/>
+        </seen>
+        <seen id="1" tBeg="20.38" observerPosBeg="35.55,4993.92" observerSpeedBeg="1.27" observerLaneIDBeg="1i_0" observerLanePosBeg="36.41" seenPosBeg="84.04,5006.08" seenSpeedBeg="1.12" seenLaneIDBeg="1o_0" seenLanePosBeg="4916.47" tEnd="59.04" observerPosEnd="84.18,4993.92" observerSpeedEnd="1.14" observerLaneIDEnd="1i_0" observerLanePosEnd="85.46" seenPosEnd="35.68,5006.08" seenSpeedEnd="1.29" seenLaneIDEnd="1o_0" seenLanePosEnd="4965.48" observerRoute="1i" seenRoute="1o">
+            <recognitionPoint t="21.00" observerPos="35.55,4993.92" observerSpeed="1.27" observerLaneID="1i_0" observerLanePos="36.41" seenPos="84.04,5006.08" seenSpeed="1.12" seenLaneID="1o_0" seenLanePos="4916.47"/>
+        </seen>
+    </bt>
+</bt-output>

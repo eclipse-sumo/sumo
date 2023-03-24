@@ -4,6 +4,9 @@ junctionTaz
 # test routing on shared roads
 opposite-factor
 
+# person uses "normal" vehicle connection as part of the walk
+vehicle_connection
+
 # Copy of basic
 basic
 
@@ -171,4 +174,7 @@ taz
 
 # last edge of the ride differs from first edge of the walk
 atJunction_ride_walk
+
+# see #11820
+toJunction_twice
 errors

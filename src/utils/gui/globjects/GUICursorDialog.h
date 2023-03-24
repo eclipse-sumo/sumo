@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -40,16 +40,8 @@ class GUICursorDialog : public GUIGLObjectPopupMenu {
     FXDECLARE(GUICursorDialog)
 
 public:
-    /// @name cursor dialog type
-    enum class CursorDialogType {
-        PROPERTIES,
-        SELECT_ELEMENT,
-        DELETE_ELEMENT,
-        FRONT_ELEMENT
-    };
-
     /// @brief constructor used for Pop-up dialogs
-    GUICursorDialog(CursorDialogType cursorDialogType, GUISUMOAbstractView* view, const std::vector<GUIGlObject*> &objects);
+    GUICursorDialog(GUIGLObjectPopupMenu::PopupType type, GUISUMOAbstractView* view, const std::vector<GUIGlObject*>& objects);
 
     /// @brief destructor
     ~GUICursorDialog();
@@ -59,13 +51,13 @@ public:
 
     /// @brief set front element
     long onCmdSetFrontElement(FXObject*, FXSelector, void*);
-    
+
     /// @brief delete element
     long onCmdDeleteElement(FXObject*, FXSelector, void*);
 
     /// @brief select element
     long onCmdSelectElement(FXObject*, FXSelector, void*);
-    
+
     /// @brief open properties popUp
     long onCmdOpenPropertiesPopUp(FXObject*, FXSelector, void*);
 
@@ -75,6 +67,9 @@ public:
     /// @brief move list down
     long onCmdMoveListDown(FXObject*, FXSelector, void*);
 
+    /// @brief move list down
+    long onCmdProcessFront(FXObject*, FXSelector, void*);
+
     /// @brief unpost
     long onCmdUnpost(FXObject*, FXSelector, void* ptr);
 
@@ -83,6 +78,9 @@ public:
 protected:
     /// @brief FOX need this
     FOX_CONSTRUCTOR(GUICursorDialog)
+
+    /// @brief PopupType
+    GUIGLObjectPopupMenu::PopupType myType;
 
     /// @brief pointer to view
     GUISUMOAbstractView* myView;
@@ -107,8 +105,8 @@ protected:
 
 private:
     /// @brief build dialog elements
-    void buildDialogElements(GUISUMOAbstractView* view, const FXString text, GUIIcon icon, 
-                             FXSelector sel, const std::vector<GUIGlObject*> &objects);
+    void buildDialogElements(GUISUMOAbstractView* view, const FXString text, GUIIcon icon,
+                             FXSelector sel, const std::vector<GUIGlObject*>& objects);
 
     /// @brief Invalidated copy constructor.
     GUICursorDialog(const GUICursorDialog&) = delete;

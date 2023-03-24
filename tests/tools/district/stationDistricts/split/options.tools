@@ -1,0 +1,2 @@
+-n input_net.net.xml --stop-file input_additional.add.xml -o out2.add.xml
+--split-output out.add.xml

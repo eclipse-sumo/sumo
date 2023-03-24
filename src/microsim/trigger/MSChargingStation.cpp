@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -128,7 +128,7 @@ void
 MSChargingStation::addChargeValueForOutput(double WCharged, MSDevice_Battery* battery) {
     std::string status = "";
     if (battery->getChargingStartTime() > myChargeDelay) {
-        if (battery->getHolder().getSpeed() < battery->getStoppingTreshold()) {
+        if (battery->getHolder().getSpeed() < battery->getStoppingThreshold()) {
             status = "chargingStopped";
         } else if (myChargeInTransit == true) {
             status = "chargingInTransit";
@@ -138,7 +138,7 @@ MSChargingStation::addChargeValueForOutput(double WCharged, MSDevice_Battery* ba
     } else {
         if (myChargeInTransit == true) {
             status = "waitingChargeInTransit";
-        } else if (battery->getHolder().getSpeed() < battery->getStoppingTreshold()) {
+        } else if (battery->getHolder().getSpeed() < battery->getStoppingThreshold()) {
             status = "waitingChargeStopped";
         } else {
             status = "noWaitingCharge";

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -63,7 +63,7 @@ MSCFModel_CC::MSCFModel_CC(const MSVehicleType* vtype) : MSCFModel(vtype),
 
     //if the lanes count has not been specified in the attributes of the model, lane changing cannot properly work
     if (myLanesCount == -1) {
-        throw ProcessError("The number of lanes needs to be specified in the attributes of carFollowing-CC with the \"lanesCount\" attribute");
+        throw ProcessError(TL("The number of lanes needs to be specified in the attributes of carFollowing-CC with the \"lanesCount\" attribute"));
     }
 
     //instantiate the driver model. For now, use Krauss as default, then needs to be parameterized
@@ -178,7 +178,7 @@ MSCFModel_CC::finalizeSpeed(MSVehicle* const veh, double vPos) const {
     //check whether the vehicle has collided and set the flag in case
     if (!vars->crashed) {
         for (const MSStop& s : veh->getStops()) {
-            if (s.collision) {
+            if (s.pars.collision) {
                 vars->crashed = true;
             }
         }
@@ -914,7 +914,7 @@ std::string MSCFModel_CC::getParameter(const MSVehicle* veh, const std::string& 
     }
     if (key.compare(PAR_DISTANCE_TO_END) == 0) {
         //route of the vehicle
-        const MSRoute* route;
+        ConstMSRoutePtr route;
         //edge the vehicle is currently traveling on
         const MSEdge* currentEdge;
         //last edge of the route of this vehicle
@@ -924,7 +924,7 @@ std::string MSCFModel_CC::getParameter(const MSVehicle* veh, const std::string& 
         //distance to trip end using
         double distanceToEnd;
 
-        route = &veh->getRoute();
+        route = veh->getRoutePtr();
         currentEdge = veh->getEdge();
         lastEdge = route->getEdges().back();
         positionOnEdge = veh->getPositionOnLane();
@@ -935,7 +935,7 @@ std::string MSCFModel_CC::getParameter(const MSVehicle* veh, const std::string& 
     }
     if (key.compare(PAR_DISTANCE_FROM_BEGIN) == 0) {
         //route of the vehicle
-        const MSRoute* route;
+        ConstMSRoutePtr route;
         //edge the vehicle is currently traveling on
         const MSEdge* currentEdge;
         //last edge of the route of this vehicle
@@ -945,7 +945,7 @@ std::string MSCFModel_CC::getParameter(const MSVehicle* veh, const std::string& 
         //distance to trip end using
         double distanceFromBegin;
 
-        route = &veh->getRoute();
+        route = veh->getRoutePtr();
         currentEdge = veh->getEdge();
         firstEdge = route->getEdges().front();
         positionOnEdge = veh->getPositionOnLane();

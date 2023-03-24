@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -26,6 +26,7 @@
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
 #include <libsumo/Person.h>
+#include <libsumo/StorageHelper.h>
 #include <libsumo/TraCIConstants.h>
 #include <libsumo/VehicleType.h>
 #include "TraCIServer.h"
@@ -61,7 +62,7 @@ TraCIServerAPI_Person::processGet(TraCIServer& server, tcpip::Storage& inputStor
                     if (!server.readTypeCheckingInt(inputStorage, nextStageIndex)) {
                         return server.writeErrorStatusCmd(libsumo::CMD_GET_PERSON_VARIABLE, "The message must contain the stage index.", outputStorage);
                     }
-                    TraCIServerAPI_Simulation::writeStage(server.getWrapperStorage(), libsumo::Person::getStage(id, nextStageIndex));
+                    libsumo::StorageHelper::writeStage(server.getWrapperStorage(), libsumo::Person::getStage(id, nextStageIndex));
                     break;
                 }
                 case libsumo::VAR_TAXI_RESERVATIONS: {
@@ -234,7 +235,9 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
                 }
                 int numParameters = inputStorage.readInt();
                 if (numParameters == 13) {
-                    libsumo::Person::appendStage(id, *TraCIServerAPI_Simulation::readStage(server, inputStorage));
+                    libsumo::TraCIStage stage;
+                    libsumo::StorageHelper::readStage(inputStorage, stage);
+                    libsumo::Person::appendStage(id, stage);
                 } else {
                     int stageType;
                     if (!server.readTypeCheckingInt(inputStorage, stageType)) {
@@ -327,7 +330,9 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
                 if (inputStorage.readInt() != 13) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Second parameter of replace stage should be a compound object of size 13", outputStorage);
                 }
-                libsumo::Person::replaceStage(id, nextStageIndex, *TraCIServerAPI_Simulation::readStage(server, inputStorage));
+                libsumo::TraCIStage stage;
+                libsumo::StorageHelper::readStage(inputStorage, stage);
+                libsumo::Person::replaceStage(id, nextStageIndex, stage);
             }
             break;
 

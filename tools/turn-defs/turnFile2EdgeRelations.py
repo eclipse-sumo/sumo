@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2012-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2012-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -52,13 +52,16 @@ def main(options):
         for interval in sumolib.xml.parse(options.turnFile, 'interval'):
             outf.write('    <interval begin="%s" end="%s">\n' % (
                 interval.begin, interval.end))
-            if interval.fromEdge:
-                for fromEdge in interval.fromEdge:
+            for c in interval.getChildList(True):
+                if c.isComment():
+                    outf.write('        <!-- %s -->\n' % c.getText())
+                elif c.name == 'fromEdge':
+                    fromEdge = c
                     for toEdge in fromEdge.toEdge:
                         outf.write(' ' * 8 + '<edgeRelation from="%s" to="%s" %s="%s"/>\n' % (
                             fromEdge.id, toEdge.id, options.turnAttr, toEdge.probability))
             outf.write('    </interval>\n')
-        outf.write('</edgeRelations>\n')
+        outf.write('</data>\n')
 
 
 if __name__ == "__main__":

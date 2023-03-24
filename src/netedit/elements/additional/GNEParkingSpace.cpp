@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -33,9 +33,9 @@
 // ===========================================================================
 
 GNEParkingSpace::GNEParkingSpace(GNENet* net) :
-    GNEAdditional("", net, GLO_PARKING_SPACE, SUMO_TAG_PARKING_SPACE, GUIIconSubSys::getIcon(GUIIcon::PARKINGSPACE), "", 
-    {}, {}, {}, {}, {}, {}),
-    mySlope(0) {
+    GNEAdditional("", net, GLO_PARKING_SPACE, SUMO_TAG_PARKING_SPACE, GUIIconSubSys::getIcon(GUIIcon::PARKINGSPACE), "",
+{}, {}, {}, {}, {}, {}),
+mySlope(0) {
     // reset default values
     resetDefaultValues();
 }
@@ -45,13 +45,13 @@ GNEParkingSpace::GNEParkingSpace(GNENet* net, GNEAdditional* parkingAreaParent, 
                                  const std::string& width, const std::string& length, const std::string& angle, double slope,
                                  const std::string& name, const Parameterised::Map& parameters) :
     GNEAdditional(net, GLO_PARKING_SPACE, SUMO_TAG_PARKING_SPACE, GUIIconSubSys::getIcon(GUIIcon::PARKINGSPACE), name,
-    {}, {}, {}, {parkingAreaParent}, {}, {}),
-    Parameterised(parameters),
-    myPosition(pos),
-    myWidth(width),
-    myLength(length),
-    myAngle(angle),
-    mySlope(slope) {
+{}, {}, {}, {parkingAreaParent}, {}, {}),
+Parameterised(parameters),
+myPosition(pos),
+myWidth(width),
+myLength(length),
+myAngle(angle),
+mySlope(slope) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -115,6 +115,21 @@ GNEParkingSpace::writeAdditional(OutputDevice& device) const {
     // write parameters (Always after children to avoid problems with additionals.xsd)
     writeParams(device);
     device.closeTag();
+}
+
+
+bool GNEParkingSpace::isAdditionalValid() const {
+    return true;
+}
+
+
+std::string GNEParkingSpace::getAdditionalProblem() const {
+    return "";
+}
+
+
+void GNEParkingSpace::fixAdditionalProblem() {
+    // nothing to fix
 }
 
 
@@ -198,40 +213,43 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
         // get colors
         const RGBColor baseColor = drawUsingSelectColor() ? s.colorSettings.selectedAdditionalColor : s.colorSettings.parkingSpaceColor;
         const RGBColor contourColor = drawUsingSelectColor() ? s.colorSettings.selectedAdditionalColor : s.colorSettings.parkingSpaceColorContour;
-        // draw parent and child lines
-        drawParentChildLines(s, s.additionalSettings.connectionColor);
-        // push name
-        GLHelper::pushName(getGlID());
-        // push later matrix
-        GLHelper::pushMatrix();
-        // translate to front
-        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_PARKING_SPACE);
-        // set contour color
-        GLHelper::setColor(contourColor);
-        // draw extern
-        GLHelper::drawBoxLines(myShapeLength, width);
-        // make a copy of myShapeLength and scale
-        PositionVector shapeLengthInner = myShapeLength;
-        shapeLengthInner.scaleAbsolute(-0.1);
-        // draw intern
-        if (!s.drawForRectangleSelection) {
-            // Traslate to front
-            glTranslated(0, 0, 0.1);
-            // set base color
-            GLHelper::setColor(baseColor);
-            //draw intern
-            GLHelper::drawBoxLines(shapeLengthInner, width - 0.1);
+        // avoid draw invisible elements
+        if (baseColor.alpha() != 0) {
+            // draw parent and child lines
+            drawParentChildLines(s, s.additionalSettings.connectionColor);
+            // push name
+            GLHelper::pushName(getGlID());
+            // push later matrix
+            GLHelper::pushMatrix();
+            // translate to front
+            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_PARKING_SPACE);
+            // set contour color
+            GLHelper::setColor(contourColor);
+            // draw extern
+            GLHelper::drawBoxLines(myShapeLength, width);
+            // make a copy of myShapeLength and scale
+            PositionVector shapeLengthInner = myShapeLength;
+            shapeLengthInner.scaleAbsolute(-0.1);
+            // draw intern
+            if (!s.drawForRectangleSelection) {
+                // Traslate to front
+                glTranslated(0, 0, 0.1);
+                // set base color
+                GLHelper::setColor(baseColor);
+                //draw intern
+                GLHelper::drawBoxLines(shapeLengthInner, width - 0.1);
+            }
+            // draw geometry points
+            drawUpGeometryPoint(myNet->getViewNet(), myShapeLength.back(), angle, contourColor);
+            drawLeftGeometryPoint(myNet->getViewNet(), myShapeWidth.back(), angle - 90, contourColor);
+            drawRightGeometryPoint(myNet->getViewNet(), myShapeWidth.front(), angle - 90, contourColor);
+            // pop layer matrix
+            GLHelper::popMatrix();
+            // pop name
+            GLHelper::popName();
+            // draw lock icon
+            GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myShapeLength.getPolygonCenter(), parkingAreaExaggeration);
         }
-        // draw geometry points
-        drawUpGeometryPoint(myNet->getViewNet(), myShapeLength.back(), angle, contourColor);
-        drawLeftGeometryPoint(myNet->getViewNet(), myShapeWidth.back(), angle - 90, contourColor);
-        drawRightGeometryPoint(myNet->getViewNet(), myShapeWidth.front(), angle - 90, contourColor);
-        // pop layer matrix
-        GLHelper::popMatrix();
-        // pop name
-        GLHelper::popName();
-        // draw lock icon
-        GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myShapeLength.getPolygonCenter(), parkingAreaExaggeration);
         // check if mouse is over element
         mouseWithinGeometry(myShapeLength, width);
         // inspect contour

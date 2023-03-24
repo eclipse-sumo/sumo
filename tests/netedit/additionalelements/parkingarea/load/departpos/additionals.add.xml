@@ -1,0 +1,18 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+
+    <!-- non valid angle (missing) -->
+    <parkingArea id="parkingArea_0" lane="center1_0" startPos="25" endPos="30" roadsideCapacity="4" width="12.00" length="5.00" name="parkingArea" friendlyPos="true"/>
+
+    <!-- non valid angle (dummy) -->
+    <parkingArea id="parkingArea_1" lane="center1_0" startPos="27" endPos="32" roadsideCapacity="4" width="12.00" length="5.00" departPos="dummyDepartPos" name="parkingArea" friendlyPos="true"/>
+
+    <!-- valid angle (negative) -->
+    <parkingArea id="parkingArea_2" lane="center1_0" startPos="29" endPos="34" roadsideCapacity="4" width="12.00" length="5.00" departPos="-12" name="parkingArea" friendlyPos="true"/>
+
+    <!-- valid angle (>360) -->
+    <parkingArea id="parkingArea_3" lane="center1_0" startPos="31" endPos="36" roadsideCapacity="4" width="12.00" length="5.00" departPos="500" name="parkingArea" friendlyPos="true"/>
+
+    <!-- valid angle -->
+    <parkingArea id="parkingArea_4" lane="center1_0" startPos="33" endPos="38" roadsideCapacity="4" width="12.00" length="37.5" departPos="11.30" name="parkingArea" friendlyPos="true"/>
+
+</additional>

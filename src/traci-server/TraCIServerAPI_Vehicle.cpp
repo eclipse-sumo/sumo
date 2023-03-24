@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -22,6 +22,7 @@
 /// @author  Leonhard Luecken
 /// @author  Robert Hilbrich
 /// @author  Lara Codeca
+/// @author  Mirko Barthauer
 /// @date    07.05.2009
 ///
 // APIs for getting/setting vehicle values via TraCI
@@ -166,6 +167,52 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                 }
                 case libsumo::VAR_NEXT_STOPS: {
                     writeNextStops(server, id, 0, false);
+                    break;
+                }
+                case libsumo::VAR_NEXT_LINKS: {
+                    std::vector<libsumo::TraCIConnection> links = libsumo::Vehicle::getNextLinks(id);
+                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_COMPOUND);
+                    tcpip::Storage tempContent;
+                    int cnt = 0;
+                    tempContent.writeUnsignedByte(libsumo::TYPE_INTEGER);
+                    tempContent.writeInt((int)links.size());
+                    ++cnt;
+                    for (std::vector<libsumo::TraCIConnection>::const_iterator i = links.begin(); i != links.end(); ++i) {
+                        // approached non-internal lane (if any)
+                        tempContent.writeUnsignedByte(libsumo::TYPE_STRING);
+                        tempContent.writeString(i->approachedLane);
+                        ++cnt;
+                        // approached "via", internal lane (if any)
+                        tempContent.writeUnsignedByte(libsumo::TYPE_STRING);
+                        tempContent.writeString(i->approachedInternal);
+                        ++cnt;
+                        // priority
+                        tempContent.writeUnsignedByte(libsumo::TYPE_UBYTE);
+                        tempContent.writeUnsignedByte(i->hasPrio);
+                        ++cnt;
+                        // opened
+                        tempContent.writeUnsignedByte(libsumo::TYPE_UBYTE);
+                        tempContent.writeUnsignedByte(i->isOpen);
+                        ++cnt;
+                        // approaching foe
+                        tempContent.writeUnsignedByte(libsumo::TYPE_UBYTE);
+                        tempContent.writeUnsignedByte(i->hasFoe);
+                        ++cnt;
+                        // state (not implemented yet)
+                        tempContent.writeUnsignedByte(libsumo::TYPE_STRING);
+                        tempContent.writeString(i->state);
+                        ++cnt;
+                        // direction
+                        tempContent.writeUnsignedByte(libsumo::TYPE_STRING);
+                        tempContent.writeString(i->direction);
+                        ++cnt;
+                        // length
+                        tempContent.writeUnsignedByte(libsumo::TYPE_DOUBLE);
+                        tempContent.writeDouble(i->length);
+                        ++cnt;
+                    }
+                    server.getWrapperStorage().writeInt(cnt);
+                    server.getWrapperStorage().writeStorage(tempContent);
                     break;
                 }
                 case libsumo::VAR_STOP_PARAMETER: {
@@ -393,6 +440,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             && variable != libsumo::VAR_STOP_PARAMETER
             && variable != libsumo::CMD_SLOWDOWN && variable != libsumo::CMD_CHANGETARGET && variable != libsumo::CMD_RESUME
             && variable != libsumo::VAR_TYPE && variable != libsumo::VAR_ROUTE_ID && variable != libsumo::VAR_ROUTE
+            && variable != libsumo::VAR_LANEPOSITION_LAT
             && variable != libsumo::VAR_UPDATE_BESTLANES
             && variable != libsumo::VAR_EDGE_TRAVELTIME && variable != libsumo::VAR_EDGE_EFFORT
             && variable != libsumo::CMD_REROUTE_TRAVELTIME && variable != libsumo::CMD_REROUTE_EFFORT
@@ -978,6 +1026,10 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                     depart = "containerTriggered";
                 } else if (-departCode == static_cast<int>(DepartDefinition::NOW)) {
                     depart = "now";
+                } else if (-departCode == static_cast<int>(DepartDefinition::SPLIT)) {
+                    depart = "split";
+                } else if (-departCode == static_cast<int>(DepartDefinition::BEGIN)) {
+                    depart = "begin";
                 }
 
                 double departPosCode;
@@ -1267,6 +1319,14 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 }
                 bool resetActionOffset = value >= 0.0;
                 libsumo::Vehicle::setActionStepLength(id, fabs(value), resetActionOffset);
+            }
+            break;
+            case libsumo::VAR_LANEPOSITION_LAT: {
+                double value = 0;
+                if (!server.readTypeCheckingDouble(inputStorage, value)) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Setting lateral lane position requires a double.", outputStorage);
+                }
+                libsumo::Vehicle::setLateralLanePosition(id, value);
             }
             break;
             case libsumo::VAR_UPDATE_BESTLANES: {

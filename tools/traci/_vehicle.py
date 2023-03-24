@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2011-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2011-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -20,6 +20,7 @@
 # @author  Laura Bieker
 # @author  Daniel Krajzewicz
 # @author  Leonhard Luecken
+# @author  Mirko Barthauer
 # @date    2011-03-09
 
 from __future__ import absolute_import
@@ -203,6 +204,32 @@ def _readNextStops(result):
     return tuple(nextStop)
 
 
+def _readNextLinks(result):
+    result.read("!Bi")  # Type Compound, Length
+    nbLinks = result.readInt()
+    links = []
+    for _ in range(nbLinks):
+        result.read("!B")                           # Type String
+        approachedLane = result.readString()
+        result.read("!B")                           # Type String
+        approachedInternal = result.readString()
+        result.read("!B")                           # Type Byte
+        hasPrio = bool(result.read("!B")[0])
+        result.read("!B")                           # Type Byte
+        isOpen = bool(result.read("!B")[0])
+        result.read("!B")                           # Type Byte
+        hasFoe = bool(result.read("!B")[0])
+        result.read("!B")                           # Type String
+        state = result.readString()
+        result.read("!B")                           # Type String
+        direction = result.readString()
+        result.read("!B")                           # Type Float
+        length = result.readDouble()
+        links.append((approachedLane, hasPrio, isOpen, hasFoe,
+                      approachedInternal, state, direction, length))
+    return tuple(links)
+
+
 _RETURN_VALUE_FUNC = {tc.VAR_ROUTE_VALID: lambda result: bool(result.read("!i")[0]),
                       tc.VAR_BEST_LANES: _readBestLanes,
                       tc.VAR_LEADER: _readLeader,
@@ -210,6 +237,7 @@ _RETURN_VALUE_FUNC = {tc.VAR_ROUTE_VALID: lambda result: bool(result.read("!i")[
                       tc.VAR_NEIGHBORS: _readNeighbors,
                       tc.VAR_NEXT_TLS: _readNextTLS,
                       tc.VAR_NEXT_STOPS: _readNextStops,
+                      tc.VAR_NEXT_LINKS: _readNextLinks,
                       tc.VAR_NEXT_STOPS2: _readStopData,
                       # ignore num compounds and type int
                       tc.CMD_CHANGELANE: lambda result: result.read("!iBiBi")[2::2]}
@@ -297,6 +325,20 @@ class VehicleDomain(VTypeDomain):
         Returns the id of the edge the named vehicle was at within the last step.
         """
         return self._getUniversal(tc.VAR_ROAD_ID, vehID)
+
+    def getDeparture(self, vehID):
+        """getDeparture(string) -> double
+
+        Returns the actual departure time in seconds
+        """
+        return self._getUniversal(tc.VAR_DEPARTURE, vehID)
+
+    def getDepartDelay(self, vehID):
+        """getDepartDelay(string) -> double
+
+        Returns the delay between intended and actual departure in seconds
+        """
+        return self._getUniversal(tc.VAR_DEPART_DELAY, vehID)
 
     def getLaneID(self, vehID):
         """getLaneID(string) -> string
@@ -530,9 +572,20 @@ class VehicleDomain(VTypeDomain):
         return self._getUniversal(tc.VAR_LASTACTIONTIME, vehID)
 
     def getBestLanes(self, vehID):
-        """getBestLanes(string) -> tuple(bestLanesTuples)
+        """getBestLanes(string) -> tuple(data)
+        where data is a tuple of (laneID, length, occupation, offset, allowsContinuation, tuple(nextLanes))
 
-        Information about the wish to use subsequent edges' lanes.
+        For each lane of the current edge a data tuple is returned where the
+        entries have the following meaning:
+        - laneID: the id of that lane on the current edge
+        - the length that can be driven without lane change (measured from the start of that lane)
+        - the occupation on the future lanes (brutto vehicle lengths)
+        - the offset of that lane from the lane that would be strategically
+          preferred (this is the lane that requires the least future lane
+          changes or a lane that needs to be used for stopping)
+        - whether that lane allows continuing the route (for at least one more edge)
+        - the sequence of lanes that would be driven starting at laneID if no
+          lane change were to take place
         """
         return self._getUniversal(tc.VAR_BEST_LANES, vehID)
 
@@ -678,7 +731,7 @@ class VehicleDomain(VTypeDomain):
 
     @deprecated()
     def getNextStops(self, vehID):
-        """getNextStop(string) -> [(string, double, string, int, double, double)], ...
+        """getNextStop(string) -> [(string, double, string, int, double, double), ...]
 
         Return list of upcoming stops [(lane, endPos, stoppingPlaceID, stopFlags, duration, until), ...]
         where integer stopFlag is defined as:
@@ -693,6 +746,14 @@ class VehicleDomain(VTypeDomain):
         with each of these flags defined as 0 or 1.
         """
         return self._getUniversal(tc.VAR_NEXT_STOPS, vehID)
+
+    def getNextLinks(self, vehID):
+        """getNextLinks(string) -> [(string, string, bool, bool, bool, string, string, double), ...]
+
+        Return list of upcoming links along the route [(lane, via, priority, opened, foe,
+         state, direction, length), ...]
+        """
+        return self._getUniversal(tc.VAR_NEXT_LINKS, vehID)
 
     def getStops(self, vehID, limit=0):
         """getStops(string, int) -> [StopData, ...],
@@ -881,6 +942,18 @@ class VehicleDomain(VTypeDomain):
         """
         return self._getUniversal(tc.VAR_TAXI_FLEET, "", "i", flag)
 
+    def getLoadedIDList(self):
+        """getLoadedIDList() -> list(string)
+        returns all loaded vehicles that have not yet left the simulation
+        """
+        return self._getUniversal(tc.VAR_LOADED_LIST, "")
+
+    def getTeleportingIDList(self):
+        """getTeleportingIDList() -> list(string)
+        returns all teleporting or jumping vehicles
+        """
+        return self._getUniversal(tc.VAR_TELEPORTING_LIST, "")
+
     def rerouteParkingArea(self, vehID, parkingAreaID):
         """rerouteParkingArea(string, string)
 
@@ -946,7 +1019,8 @@ class VehicleDomain(VTypeDomain):
         For edgeID a stopping place id may be given if the flag marks this
         stop as stopping on busStop, parkingArea, containerStop etc.
         If edgeID is "", the stop at the given index will be removed without
-        replacement and the route will not be modified.
+        replacement and the route will not be modified (unless setting
+        teleport=2 which will trigger rerouting between the prior and next stop)
         If teleport is set to 1, the route to the replacement stop will be
         disconnected (forcing a teleport).
         If stopIndex is 0 the gap will be between the current
@@ -993,9 +1067,9 @@ class VehicleDomain(VTypeDomain):
 
     def changeLane(self, vehID, laneIndex, duration):
         """changeLane(string, int, double) -> None
-
-        Forces a lane change to the lane with the given index; if successful,
-        the lane will be chosen for the given amount of time (in s).
+        Forces a lane change to the lane with the given index; The lane change
+        will be attempted for the given duration (in s) and if it succeeds,
+        the vehicle will stay on that lane for the remaining duration.
         """
         if type(duration) is int and duration >= 1000:
             warnings.warn("API change now handles duration as floating point seconds", stacklevel=2)
@@ -1104,6 +1178,16 @@ class VehicleDomain(VTypeDomain):
         if isinstance(edgeList, str):
             edgeList = [edgeList]
         self._setCmd(tc.VAR_ROUTE, vehID, "l", edgeList)
+
+    def setLateralLanePosition(self, vehID, posLat):
+        """setSpeed(string, double) -> None
+
+        Sets the lateral vehicle position relative to the center line of the
+        lane in m (negative values are to the right in right-hand networks).
+        The vehicle may adapt this position in the same step unless this is
+        disabled via setLaneChangeMode.
+        """
+        self._setCmd(tc.VAR_LANEPOSITION_LAT, vehID, "d", posLat)
 
     def updateBestLanes(self, vehID):
         """ updateBestLanes(string) -> None

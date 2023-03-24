@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -38,17 +38,14 @@ netedit.changeElement("inductionLoop")
 netedit.changeDefaultBoolValue(netedit.attrs.E1.create.friendlyPos)
 
 # create E1 with different friendly position
-netedit.leftClick(referencePosition, 450, 245)
+netedit.leftClick(referencePosition, 405, 257)
 
 # Check undo redo
 netedit.undo(referencePosition, 1)
 netedit.redo(referencePosition, 1)
 
-# save additionals
-netedit.saveAdditionals(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

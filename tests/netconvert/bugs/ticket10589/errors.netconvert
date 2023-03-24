@@ -1,0 +1,22 @@
+Warning: Removing pt stop '3214057380' on non existing edge '317671621#0'.
+Warning: Removing pt stop '3239586702' on non existing edge '887901759#1'.
+Warning: Cannot revise pt stop localization for pt line '10082594', which has no route edges. Ignoring!
+Warning: Removed invalid stop '3239586702' from line '10082594'.
+Warning: Cannot revise pt stop localization for pt line '10082595', which has no route edges. Ignoring!
+Warning: Removed invalid stop '3214057380' from line '10082595'.
+Warning: Cannot revise pt stop localization for pt line '2752852', which has no route edges. Ignoring!
+Warning: Removed invalid stop '3239586702' from line '2752852'.
+Warning: Cannot revise pt stop localization for pt line '2770412', which has no route edges. Ignoring!
+Warning: Removed invalid stop '3214057380' from line '2770412'.
+Warning: Cannot revise pt stop localization for pt line '2770413', which has no route edges. Ignoring!
+Warning: Removed invalid stop '3214057380' from line '2770413'.
+Warning: Removing pt stop '3214057380' on non existing edge ''.
+Warning: Removing pt stop '3239586702' on non existing edge ''.
+Warning: Removed 2 pt stops because they could not be assigned to the network
+Warning: Converting invalid rail_crossing to priority junction '3239586713'.
+Warning: Converting invalid rail_crossing to priority junction '3377890417'.
+Warning: Converting invalid rail_crossing to priority junction '3377890418'.
+Warning: Converting invalid rail_crossing to priority junction '50886919'.
+Warning: Not joining junctions 35651824,35651826,56456270,56456273 (parallel outgoing 6146263#1,7745712#0).
+Warning: 14 total messages of type: Cannot revise pt stop localization for pt line '%', which has no route edges. Ignoring!
+Warning: 14 total messages of type: Removed invalid stop '%' from line '%'.

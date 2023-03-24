@@ -1,0 +1,12 @@
+-n input_net.net.xml 
+-t input_routes.rou.xml
+-r input_routes2.rou.xml
+--marginal-cost
+--marginal-cost.exp 1 
+--mix
+--convergence-step 5
+--last-step 5
+--logit
+--disable-tripinfos
+sumo--duration-log.statistics
+sumo--statistic-output stats.xml 

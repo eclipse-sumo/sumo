@@ -69,7 +69,7 @@ The values are described in the following table.
 | id                | id                   | The id of the detector                                                  |
 | nVehContrib       | \#vehicles           | The number of vehicles that have completely passed the detector within the interval               |
 | flow              | \#vehicles/hour      | The number of contributing vehicles extrapolated to an hour                    |
-| occupancy         | %                    | The percentage (0-100%) of the time a vehicle was at the detector.               |
+| occupancy         | %                    | The percentage (0-100%) of the time a vehicle was at the detector. If multiple vehicles are on the detector simulataneously (due to its length or in sublane simulation), values above 100 are possible)    |
 | speed             | m/s                  | The arithmetic mean of the velocities of all completely collected vehicles (-1 indicates that no vehicles were collected). This gives the time mean speed.      |
 | harmonicMeanSpeed | m/s                  | The harmonic mean of the velocities of all completely collected vehicles (-1 indicates that no vehicles were collected). This gives the space mean speed.       |
 | length            | m                    | The mean length of all completely collected vehicles (-1 indicates that no vehicles were collected).          |
@@ -89,17 +89,24 @@ collected for the vehicles correspond to
 
 ## Visualisation
 
-![induction_loops.svg](../../images/Induction_loops.svg "induction_loops.svg")
-**Figure: A scenario with induction loops**
+<table style="border: 0 !important"><thead><tr><td style="border: none; vertical-align:middle; text-align:center;">
+<figure>
+<img src="../../images/Induction_loops.svg" alt="" />
+<figcaption>A scenario with induction loops</figcaption>
+</figure>
+</td><td style="border: none; vertical-align:middle; text-align:center;">
+<figure>
+<img src="../../images/Induction_loop_closeup.svg" alt="" />
+<figcaption>A close-up view at an induction loop</figcaption>
+</figure>
+</td></tr></thead></table>
 
-![induction_loop_closeup.svg](../../images/Induction_loop_closeup.svg
-"induction_loop_closeup.svg") **Figure: A close-up view at an induction
-loop**
 
 ## Further Notes
 
 - [Simulated induction loops can be accessed using
   TraCI](../../TraCI/Induction_Loop_Value_Retrieval.md). If no XML output is
   needed, the attribute `file="NUL"` may be used.
+- Induction loops are created automatically when defining [actuated traffic lights](../Traffic_Lights.md#type_actuated)
 - You can generate detector definitions automatically. See [output
   tools](../../Tools/Output.md) for more information.

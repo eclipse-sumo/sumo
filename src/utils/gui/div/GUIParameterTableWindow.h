@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2002-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -29,6 +29,7 @@
 #include <utils/foxtools/fxheader.h>
 #include <utils/common/ValueSource.h>
 #include <utils/common/SUMOTime.h>
+#include <utils/gui/div/GUIPersistentWindowPos.h>
 #include "GUIParameterTableItem.h"
 
 
@@ -57,7 +58,7 @@ class Parameterised;
  *
  * Each row is represented using an instance of GUIParameterTableItemInterface.
  */
-class GUIParameterTableWindow : public FXMainWindow {
+class GUIParameterTableWindow : public FXMainWindow, public GUIPersistentWindowPos {
     FXDECLARE(GUIParameterTableWindow)
 public:
     /** @brief Constructor

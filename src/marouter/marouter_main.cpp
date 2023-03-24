@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -177,7 +177,7 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
                 ROEdge::getAllEdges(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic,
                 begin, end, weightPeriod, net.hasPermissions(), oc.getInt("routing-threads"));
         } else {
-            throw ProcessError("Unknown routing Algorithm '" + routingAlgorithm + "'!");
+            throw ProcessError(TLF("Unknown routing Algorithm '%'!", routingAlgorithm));
         }
     } else {
         DijkstraRouter<ROEdge, ROVehicle>::Operation op;
@@ -207,7 +207,7 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
             op = &ROEdge::getStoredEffort;
         }
         if (measure != "traveltime" && !net.hasLoadedEffort()) {
-            WRITE_WARNING("No weight data was loaded for attribute '" + measure + "'.");
+            WRITE_WARNINGF(TL("No weight data was loaded for attribute '%'."), measure);
         }
         router = new DijkstraRouter<ROEdge, ROVehicle>(ROEdge::getAllEdges(), oc.getBool("ignore-errors"), op, ttOp, false, nullptr, net.hasPermissions());
     }
@@ -236,7 +236,7 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
 #endif
         std::string assignMethod = oc.getString("assignment-method");
         if (assignMethod == "UE") {
-            WRITE_WARNING("Deterministic user equilibrium ('UE') is not implemented yet, using stochastic method ('SUE').");
+            WRITE_WARNING(TL("Deterministic user equilibrium ('UE') is not implemented yet, using stochastic method ('SUE')."));
             assignMethod = "SUE";
         }
         if (assignMethod == "incremental") {
@@ -320,7 +320,7 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
             haveOutput = true;
         }
         if (!haveOutput) {
-            throw ProcessError("No output file given.");
+            throw ProcessError(TL("No output file given."));
         }
         // end the processing
         net.cleanup();
@@ -337,7 +337,7 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
 int
 main(int argc, char** argv) {
     OptionsCont& oc = OptionsCont::getOptions();
-    oc.setApplicationDescription("Import O/D-matrices for macroscopic traffic assignment to generate SUMO routes");
+    oc.setApplicationDescription(TL("Import O/D-matrices for macroscopic traffic assignment to generate SUMO routes."));
     oc.setApplicationName("marouter", "Eclipse SUMO marouter Version " VERSION_STRING);
     int ret = 0;
     RONet* net = nullptr;
@@ -373,21 +373,21 @@ main(int argc, char** argv) {
             }
         }
         if (net->getDistricts().empty()) {
-            WRITE_WARNING("No districts loaded, will use edge ids!");
+            WRITE_WARNING(TL("No districts loaded, will use edge ids!"));
         }
         // load districts
         ODDistrictCont districts;
         districts.makeDistricts(net->getDistricts());
         // load the matrix
-        ODMatrix matrix(districts);
+        ODMatrix matrix(districts, oc.getFloat("scale"));
         matrix.loadMatrix(oc);
         ROMARouteHandler handler(matrix);
         matrix.loadRoutes(oc, handler);
         if (matrix.getNumLoaded() == matrix.getNumDiscarded()) {
-            throw ProcessError("No valid vehicles loaded.");
+            throw ProcessError(TL("No valid vehicles loaded."));
         }
         if (MsgHandler::getErrorInstance()->wasInformed() && !oc.getBool("ignore-errors")) {
-            throw ProcessError("Loading failed.");
+            throw ProcessError(TL("Loading failed."));
         }
         MsgHandler::getErrorInstance()->clear();
         WRITE_MESSAGE(toString(matrix.getNumLoaded() - matrix.getNumDiscarded()) + " valid vehicles loaded (total seen: " + toString(matrix.getNumLoaded()) + ").");

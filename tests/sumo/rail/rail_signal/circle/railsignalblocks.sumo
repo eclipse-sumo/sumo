@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep  2 09:53:21 2020 by Eclipse SUMO sumo Version v1_6_0+1904-84cb2799ee
+<!-- generated on 2022-11-30 16:20:04 by Eclipse SUMO sumo Version v1_15_0+0679-5ca98c3
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -30,7 +35,6 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -41,13 +45,6 @@ SPDX-License-Identifier: EPL-2.0
 <railsignal-block-output>
     <railSignal id="A">
         <link linkIndex="0" from="T0_0" to=":A_0_0">
-            <driveWay edges="T1 T1b T10 T11">
-                <forward lanes=":A_0_0 T1_0 :w1_1_0 T1b_0 :w2_0_0 T10_0 :w11_0_0 T11_0 :w1_0_0"/>
-                <bidi lanes=""/>
-                <flank lanes=":w11_1_0 T21_0 :w12_0_0 T20_0 :w3_0_0 :w12_1_0 T31_0 :w13_0_0 T30_0 :w4_0_0"/>
-                <protectingSwitches links="w3_0 w4_0"/>
-                <conflictLinks signals=""/>
-            </driveWay>
             <driveWay edges="T1 T1b T2 T3 T4">
                 <forward lanes=":A_0_0 T1_0 :w1_1_0 T1b_0 :w2_1_0 T2_0 :w3_1_0 T3_0 :w4_1_0 T4_0"/>
                 <bidi lanes=""/>

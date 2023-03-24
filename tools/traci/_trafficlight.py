@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2011-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2011-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -16,25 +16,10 @@
 # @date    2011-03-16
 
 from __future__ import absolute_import
+from sumolib.net import Phase
 from .domain import Domain
 from . import constants as tc
 from .exceptions import TraCIException, deprecated
-
-
-class Phase:
-
-    def __init__(self, duration, state, minDur=-1, maxDur=-1, next=tuple(), name=""):
-        self.duration = duration
-        self.state = state
-        self.minDur = minDur  # minimum duration (only for actuated tls)
-        self.maxDur = maxDur  # maximum duration (only for actuated tls)
-        self.next = next
-        self.name = name
-
-    def __repr__(self):
-        name = "" if self.name == "" else ", name='%s'" % self.name
-        return ("Phase(duration=%s, state='%s', minDur=%s, maxDur=%s, next=%s%s)" %
-                (self.duration, self.state, self.minDur, self.maxDur, self.next, name))
 
 
 class Logic:
@@ -96,7 +81,7 @@ def _readLogics(result):
 
 
 class Constraint:
-    def __init__(self, signalId, tripId, foeId, foeSignal, limit, type, mustWait, active=True):
+    def __init__(self, signalId, tripId, foeId, foeSignal, limit, type, mustWait, active=True, param={}):
         self.signalId = signalId
         self.tripId = tripId
         self.foeId = foeId
@@ -105,11 +90,22 @@ class Constraint:
         self.type = type
         self.mustWait = mustWait
         self.active = active
+        self.param = param
+
+    def getParameters(self):
+        return self.param
+
+    def getParameter(self, key, default=None):
+        return self.param.get(key, default)
 
     def __repr__(self):
-        return ("Constraint(signalId=%s tripId=%s, foeId=%s, foeSignal=%s, limit=%s, type=%s, mustWait=%s, active=%s)" %
+        param = ""
+        if self.param:
+            kvs = ["%s=%s" % (k, self.param[k]) for k in sorted(self.param.keys())]
+            param = " param=%s" % '|'.join(kvs)
+        return ("Constraint(signalId=%s tripId=%s, foeId=%s, foeSignal=%s, limit=%s, type=%s, mustWait=%s, active=%s%s)" %  # noqa
                 (self.signalId, self.tripId, self.foeId, self.foeSignal,
-                 self.limit, self.type, self.mustWait, self.active))
+                 self.limit, self.type, self.mustWait, self.active, param))
 
 
 def _readLinks(result):
@@ -143,7 +139,11 @@ def _readConstraints(result):
         type = result.readTypedInt()
         mustWait = bool(result.readTypedByte())
         active = bool(result.readTypedByte())
-        constraints.append(Constraint(signalId, tripId, foeId, foeSignal, limit, type, mustWait, active))
+        paramItems = result.readTypedStringList()
+        param = {}
+        for i in range(0, len(paramItems), 2):
+            param[paramItems[i]] = paramItems[i + 1]
+        constraints.append(Constraint(signalId, tripId, foeId, foeSignal, limit, type, mustWait, active, param))
     return constraints
 
 

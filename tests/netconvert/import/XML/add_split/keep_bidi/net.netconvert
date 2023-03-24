@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-02-24 17:12:06 by Eclipse SUMO netconvert Version v1_16_0+0702-256b140
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="input_net.net.xml"/>
+        <edge-files value="input_edges2.edg.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output-file value="net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="0"/>
+        <junctions.limit-turn-speed value="-1.00"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="0.00,-25.00,300.00,25.00" origBoundary="0.00,0.00,100.00,0.00" projParameter="!"/>
+
+    <edge id="-E0" from="J1" to="newNode2" priority="-1" spreadType="center" shape="300.00,0.00 200.00,25.00 186.70,20.57" bidi="E0.200">
+        <lane id="-E0_0" index="0" allow="rail" speed="13.89" length="117.09" shape="300.00,0.00 200.00,25.00 186.70,20.57"/>
+    </edge>
+    <edge id="-E0.117" from="newNode2" to="newNode" priority="-1" spreadType="center" bidi="E0.75">
+        <lane id="-E0.117_0" index="0" allow="rail" speed="13.89" length="125.00" shape="186.70,20.57 68.12,-18.96"/>
+    </edge>
+    <edge id="-E0.242" from="newNode" to="J0" priority="-1" spreadType="center" shape="68.12,-18.96 50.00,-25.00 0.00,0.00" bidi="E0">
+        <lane id="-E0.242_0" index="0" allow="rail" speed="13.89" length="75.00" shape="68.12,-18.96 50.00,-25.00 0.00,0.00"/>
+    </edge>
+    <edge id="E0" from="J0" to="newNode" priority="-1" spreadType="center" shape="0.00,0.00 50.00,-25.00 68.12,-18.96" bidi="-E0.242">
+        <lane id="E0_0" index="0" allow="rail" speed="13.89" length="75.00" shape="0.00,0.00 50.00,-25.00 68.12,-18.96"/>
+    </edge>
+    <edge id="E0.200" from="newNode2" to="J1" priority="-1" spreadType="center" shape="186.70,20.57 200.00,25.00 300.00,0.00" bidi="-E0">
+        <lane id="E0.200_0" index="0" allow="rail" speed="13.89" length="117.09" shape="186.70,20.57 200.00,25.00 300.00,0.00"/>
+    </edge>
+    <edge id="E0.75" from="newNode" to="newNode2" priority="-1" spreadType="center" bidi="-E0.117">
+        <lane id="E0.75_0" index="0" allow="rail" speed="13.89" length="125.00" shape="68.12,-18.96 186.70,20.57"/>
+    </edge>
+
+    <junction id="J0" type="dead_end" x="0.00" y="0.00" incLanes="-E0.242_0" intLanes="" shape="0.72,1.43 -0.72,-1.43 0.72,1.43 -0.72,-1.43"/>
+    <junction id="J1" type="dead_end" x="300.00" y="0.00" incLanes="E0.200_0" intLanes="" shape="299.61,-1.55 300.39,1.55 299.61,-1.55 300.39,1.55"/>
+    <junction id="newNode" type="priority" x="68.12" y="-18.96" incLanes="-E0.117_0 E0_0" intLanes="" shape="67.61,-17.44 68.62,-20.48 67.61,-17.44">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+    <junction id="newNode2" type="priority" x="186.70" y="20.57" incLanes="-E0_0 E0.75_0" intLanes="" shape="186.20,22.09 187.21,19.05 186.20,22.09">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+
+    <connection from="-E0" to="-E0.117" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="-E0.117" to="-E0.242" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="E0" to="E0.75" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="E0.75" to="E0.200" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>

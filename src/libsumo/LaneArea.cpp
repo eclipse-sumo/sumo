@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2012-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -118,6 +118,47 @@ LaneArea::getLastStepHaltingNumber(const std::string& detID) {
 }
 
 
+double
+LaneArea::getIntervalOccupancy(const std::string& detID) {
+    return getDetector(detID)->getIntervalOccupancy();
+}
+
+double
+LaneArea::getIntervalMeanSpeed(const std::string& detID) {
+    return getDetector(detID)->getIntervalMeanSpeed();
+}
+
+double
+LaneArea::getIntervalMaxJamLengthInMeters(const std::string& detID) {
+    return getDetector(detID)->getIntervalMaxJamLengthInMeters();
+}
+
+int
+LaneArea::getIntervalVehicleNumber(const std::string& detID) {
+    return getDetector(detID)->getIntervalVehicleNumber();
+}
+
+double
+LaneArea::getLastIntervalOccupancy(const std::string& detID) {
+    return getDetector(detID)->getLastIntervalOccupancy();
+}
+
+double
+LaneArea::getLastIntervalMeanSpeed(const std::string& detID) {
+    return getDetector(detID)->getLastIntervalMeanSpeed();
+}
+
+double
+LaneArea::getLastIntervalMaxJamLengthInMeters(const std::string& detID) {
+    return getDetector(detID)->getLastIntervalMaxJamLengthInMeters();
+}
+
+int
+LaneArea::getLastIntervalVehicleNumber(const std::string& detID) {
+    return getDetector(detID)->getLastIntervalVehicleNumber();
+}
+
+
 std::string
 LaneArea::getParameter(const std::string& detID, const std::string& param) {
     return getDetector(detID)->getParameter(param, "");
@@ -217,6 +258,22 @@ LaneArea::handleVariable(const std::string& objID, const int variable, VariableW
             return wrapper->wrapString(objID, variable, getLaneID(objID));
         case VAR_LENGTH:
             return wrapper->wrapDouble(objID, variable, getLength(objID));
+        case VAR_INTERVAL_OCCUPANCY:
+            return wrapper->wrapDouble(objID, variable, getIntervalOccupancy(objID));
+        case VAR_INTERVAL_SPEED:
+            return wrapper->wrapDouble(objID, variable, getIntervalMeanSpeed(objID));
+        case VAR_INTERVAL_MAX_JAM_LENGTH_METERS:
+            return wrapper->wrapDouble(objID, variable, getIntervalMaxJamLengthInMeters(objID));
+        case VAR_INTERVAL_NUMBER:
+            return wrapper->wrapInt(objID, variable, getIntervalVehicleNumber(objID));
+        case VAR_LAST_INTERVAL_OCCUPANCY:
+            return wrapper->wrapDouble(objID, variable, getLastIntervalOccupancy(objID));
+        case VAR_LAST_INTERVAL_SPEED:
+            return wrapper->wrapDouble(objID, variable, getLastIntervalMeanSpeed(objID));
+        case VAR_LAST_INTERVAL_MAX_JAM_LENGTH_METERS:
+            return wrapper->wrapDouble(objID, variable, getLastIntervalMaxJamLengthInMeters(objID));
+        case VAR_LAST_INTERVAL_NUMBER:
+            return wrapper->wrapInt(objID, variable, getLastIntervalVehicleNumber(objID));
         case libsumo::VAR_PARAMETER:
             paramData->readUnsignedByte();
             return wrapper->wrapString(objID, variable, getParameter(objID, paramData->readString()));

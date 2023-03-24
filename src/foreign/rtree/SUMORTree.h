@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -137,7 +137,7 @@ public:
         // show information in gui testing debug gl mode
         if (MsgHandler::writeDebugGLMessages()) {
             if ((b.getWidth() == 0) || (b.getHeight() == 0)) {
-                throw ProcessError("Boundary of GUIGlObject " + o->getMicrosimID() + " has an invalid size");
+                throw ProcessError(StringUtils::format("Boundary of GUIGlObject % has an invalid size", o->getMicrosimID()));
             } else if (myTreeDebug.count(o) > 0) {
                 throw ProcessError("GUIGlObject was already inserted");
             } else {
@@ -173,7 +173,7 @@ public:
         // show information in gui testing debug gl mode
         if (MsgHandler::writeDebugGLMessages()) {
             if ((b.getWidth() == 0) || (b.getHeight() == 0)) {
-                throw ProcessError("Boundary of GUIGlObject " + o->getMicrosimID() + " has an invalid size");
+                throw ProcessError(StringUtils::format("Boundary of GUIGlObject % has an invalid size", o->getMicrosimID()));
             } else if (myTreeDebug.count(o) == 0) {
                 throw ProcessError("GUIGlObject wasn't inserted");
             } else if (toString(b) != toString(myTreeDebug.at(o))) {

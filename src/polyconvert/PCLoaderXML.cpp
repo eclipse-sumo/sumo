@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -60,7 +60,7 @@ PCLoaderXML::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
     std::vector<std::string> files = oc.getStringVector("xml");
     for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
         if (!FileHelpers::isReadable(*file)) {
-            throw ProcessError("Could not open xml-file '" + *file + "'.");
+            throw ProcessError(TLF("Could not open xml-file '%'.", *file));
         }
         const long before = PROGRESS_BEGIN_TIME_MESSAGE("Parsing XML from '" + *file + "'");
         if (!XMLSubSys::runParser(handler, *file)) {

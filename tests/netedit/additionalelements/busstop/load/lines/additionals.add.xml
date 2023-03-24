@@ -1,0 +1,12 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+
+    <!-- missing lines -->
+    <busStop id="busStop_01" lane="center1_1" startPos="25" endPos="35" name="busStop" friendlyPos="false"/>
+
+    <!-- non valid format lines -->
+    <busStop id="busStop_02" lane="center1_1" startPos="25" endPos="35" lines="line1, line2" name="busStop" friendlyPos="false"/>
+
+    <!-- valid format lines -->
+    <busStop id="busStop_03" lane="center1_1" startPos="25" endPos="35" lines="lineA lineB" name="busStop" friendlyPos="false"/>
+
+</additional>

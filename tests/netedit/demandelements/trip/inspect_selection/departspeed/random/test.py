@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -26,7 +26,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to demand mode
 netedit.supermodeDemand()
@@ -44,23 +44,20 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 330, 150)
 
 # change departSpeed with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripFromToEdge.inspectSelection.departSpeed, "", False)
+netedit.modifyAttribute(netedit.attrs.trip.inspectSelection.departSpeed, "", False)
 
 # change departSpeed with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripFromToEdge.inspectSelection.departSpeed, "dummySpeed", False)
+netedit.modifyAttribute(netedit.attrs.trip.inspectSelection.departSpeed, "dummySpeed", False)
 
 # change departSpeed with a valid value
-netedit.modifyAttribute(netedit.attrs.tripFromToEdge.inspectSelection.departSpeed, "random", False)
+netedit.modifyAttribute(netedit.attrs.trip.inspectSelection.departSpeed, "random", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 5)
 netedit.redo(referencePosition, 5)
 
-# save routes
-netedit.saveRoutes(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

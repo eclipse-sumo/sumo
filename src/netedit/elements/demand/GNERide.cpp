@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -35,8 +35,8 @@
 
 GNERide::GNERide(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, GLO_RIDE, tag, GUIIconSubSys::getIcon(GUIIcon::RIDE_FROMTO),
-    GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
-    myArrivalPosition(0) {
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
+myArrivalPosition(0) {
     // reset default values
     resetDefaultValues();
 }
@@ -45,19 +45,19 @@ GNERide::GNERide(SumoXMLTag tag, GNENet* net) :
 GNERide::GNERide(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge,
                  double arrivalPosition, const std::vector<std::string>& lines) :
     GNEDemandElement(personParent, net, GLO_RIDE, GNE_TAG_RIDE_EDGE, GUIIconSubSys::getIcon(GUIIcon::RIDE_FROMTO),
-    GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {fromEdge, toEdge}, {}, {}, {personParent}, {}),
-    myArrivalPosition(arrivalPosition),
-    myLines(lines) {
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {fromEdge, toEdge}, {}, {}, {personParent}, {}),
+myArrivalPosition(arrivalPosition),
+myLines(lines) {
 }
 
 
 GNERide::GNERide(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* toBusStop,
                  double arrivalPosition, const std::vector<std::string>& lines) :
     GNEDemandElement(personParent, net, GLO_RIDE, GNE_TAG_RIDE_BUSSTOP, GUIIconSubSys::getIcon(GUIIcon::RIDE_BUSSTOP),
-    GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-    {}, {fromEdge}, {}, {toBusStop}, {personParent}, {}),
-    myArrivalPosition(arrivalPosition),
-    myLines(lines) {
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
+{}, {fromEdge}, {}, {toBusStop}, {personParent}, {}),
+myArrivalPosition(arrivalPosition),
+myLines(lines) {
 }
 
 
@@ -123,11 +123,8 @@ GNERide::writeDemandElement(OutputDevice& device) const {
         device.writeAttr(SUMO_ATTR_TO, getParentEdges().back()->getID());
     }
     // avoid write arrival positions in ride to busStop
-    if (!((myTagProperty.getTag() == GNE_TAG_RIDE_BUSSTOP) && (myArrivalPosition == 0))) {
-        // only write arrivalPos if is different of -1
-        if (myArrivalPosition != -1) {
-            device.writeAttr(SUMO_ATTR_ARRIVALPOS, myArrivalPosition);
-        }
+    if ((myTagProperty.getTag() != GNE_TAG_RIDE_BUSSTOP) && (myArrivalPosition > 0)) {
+        device.writeAttr(SUMO_ATTR_ARRIVALPOS, myArrivalPosition);
     }
     // write lines
     if (myLines.empty()) {
@@ -135,8 +132,6 @@ GNERide::writeDemandElement(OutputDevice& device) const {
     } else {
         device.writeAttr(SUMO_ATTR_LINES, myLines);
     }
-    // write parameters
-    writeParams(device);
     // close tag
     device.closeTag();
 }
@@ -190,12 +185,6 @@ GNERide::getPositionInView() const {
 std::string
 GNERide::getParentName() const {
     return getParentDemandElements().front()->getID();
-}
-
-
-double
-GNERide::getExaggeration(const GUIVisualizationSettings& /*s*/) const {
-    return 1;
 }
 
 
@@ -310,8 +299,6 @@ GNERide::getAttribute(SumoXMLAttr key) const {
             }
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
-        case GNE_ATTR_PARAMETERS:
-            return getParametersStr();
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -363,7 +350,6 @@ GNERide::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_LINES:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARENT:
-        case GNE_ATTR_PARAMETERS:
             undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             break;
         // special case for "to" attributes
@@ -434,8 +420,6 @@ GNERide::isValid(SumoXMLAttr key, const std::string& value) {
             }
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
-        case GNE_ATTR_PARAMETERS:
-            return Parameterised::areParametersValid(value);
         case GNE_ATTR_PARENT:
             if (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_PERSON, value, false) != nullptr) {
                 return true;
@@ -526,9 +510,6 @@ GNERide::setAttribute(SumoXMLAttr key, const std::string& value) {
             } else {
                 unselectAttributeCarrier();
             }
-            break;
-        case GNE_ATTR_PARAMETERS:
-            setParametersStr(value);
             break;
         case GNE_ATTR_PARENT:
             if (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_PERSON, value, false) != nullptr) {

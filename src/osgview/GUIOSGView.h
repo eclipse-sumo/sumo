@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -24,6 +24,7 @@
 #ifdef HAVE_OSG
 
 #include "GUIOSGHeader.h"
+#include "GUIOSGManipulator.h"
 
 #include <string>
 #include <microsim/traffic_lights/MSTLLogicControl.h>
@@ -49,7 +50,6 @@ class MSVehicle;
 
 namespace osgGA {
 class CameraManipulator;
-class NodeTrackerManipulator;
 }
 
 // ===========================================================================
@@ -197,6 +197,10 @@ public:
     void removeVeh(MSVehicle* veh);
     void removeTransportable(MSTransportable* t);
 
+    /// @brief added some callback to OSG to resize
+    void position(int x, int y, int w, int h);
+    void resize(int w, int h);
+
     // callback
     long onConfigure(FXObject*, FXSelector, void*);
     long onKeyPress(FXObject*, FXSelector, void*);
@@ -220,8 +224,18 @@ public:
     /// @brief highlight edges according to reachability
     long onCmdShowReachability(FXObject*, FXSelector, void*);
 
+    /// @brief reset graphical settings when forced to refresh the view (triggered by ViewSettings)
+    long  onVisualizationChange(FXObject*, FXSelector, void*);
+
     // @brief get the new camera position given a zoom value
     void zoom2Pos(Position& camera, Position& lookAt, double zoom);
+
+    // @brief convert RGBColor 0..255 RGBA values to osg::Vec4 0..1 vector
+    static osg::Vec4d toOSGColorVector(RGBColor c, bool useAlpha = false);
+
+    // @brief Overwrite the HUD text
+    void updateHUDText(const std::string text);
+
 protected:
     /// @brief Store the normalized OSG window cursor coordinates
     void setWindowCursorPosition(float x, float y);
@@ -239,28 +253,14 @@ protected:
      */
     GUILane* getLaneUnderCursor();
 
-    /// @brief create the GUIOSGPerspectiveChanegr instance
-    void initChanger(const Boundary& viewPort);
+    /// @brief implement the current view settings in OSG
+    void adoptViewSettings();
 
 private:
     double calculateRotation(const osg::Vec3d& lookFrom, const osg::Vec3d& lookAt, const osg::Vec3d& up);
 
-    class SUMOTerrainManipulator : public osgGA::TerrainManipulator {
-    public:
-        SUMOTerrainManipulator() {
-            setAllowThrow(false);
-            setVerticalAxisFixed(false);
-        }
-        bool performMovementLeftMouseButton(const double eventTimeDelta, const double dx, const double dy) {
-            return osgGA::TerrainManipulator::performMovementMiddleMouseButton(eventTimeDelta, dx, dy);
-        }
-        bool performMovementMiddleMouseButton(const double eventTimeDelta, const double dx, const double dy) {
-            return osgGA::TerrainManipulator::performMovementLeftMouseButton(eventTimeDelta, dx, dy);
-        }
-        bool performMovementRightMouseButton(const double eventTimeDelta, const double dx, const double dy) {
-            return osgGA::TerrainManipulator::performMovementRightMouseButton(eventTimeDelta, dx, -dy);
-        }
-    };
+    /// @brief inform HUD about the current window size to let it reposition
+    void updateHUDPosition(int width, int height);
 
     class FXOSGAdapter : public osgViewer::GraphicsWindow {
     public:
@@ -287,12 +287,46 @@ private:
         bool releaseContextImplementation() {
             return true;
         }
+        void requestWarpPointer(float x, float y) {
+            int xRound = std::lround(x);
+            int yRound = std::lround(y);
+            int xPrev, yPrev;
+            unsigned int buttons;
+            myParent->getCursorPosition(xPrev, yPrev, buttons);
+            if (xRound - xPrev != 0 || yRound - yPrev != 0) {
+                myParent->setCursorPosition(xRound, yRound);
+                getEventQueue()->mouseWarped(x, y);
+            }
+        }
 
     protected:
         ~FXOSGAdapter();
     private:
         GUISUMOAbstractView* const myParent;
         FXCursor* const myOldCursor;
+    };
+
+    class PlaneMoverCallback : public osg::Callback {
+    public:
+        PlaneMoverCallback(osg::Camera* camera) : myCamera(camera) {};
+        virtual bool run(osg::Object* object, osg::Object* /* data */) override {
+            osg::MatrixTransform* mt = dynamic_cast<osg::MatrixTransform*>(object);
+            osg::Vec3d lookFrom, lookAt, up;
+            myCamera->getViewMatrixAsLookAt(lookFrom, lookAt, up);
+            osg::Vec3d direction = lookAt - lookFrom;
+            direction.normalize();
+            osg::Vec3d lookAtGround = lookFrom - direction * (lookFrom.z() / direction.z());
+            osg::Matrixd translateMatrix;
+            translateMatrix.makeTranslate(lookAtGround.x(), lookAtGround.y(), 0.);
+            double angle = atan2(direction.y(), direction.x());
+            osg::Matrixd rotMatrix = osg::Matrixd::rotate(angle, osg::Z_AXIS);
+            mt->setMatrix(rotMatrix * translateMatrix);
+            return true;
+        }
+    protected:
+        ~PlaneMoverCallback() {};
+    private:
+        osg::Camera* myCamera;
     };
 
     class PickHandler : public osgGA::GUIEventHandler {
@@ -306,17 +340,38 @@ private:
         bool myDrag;
     };
 
+    class ExcludeFromNearFarComputationCallback : public osg::NodeCallback {
+        virtual void operator()(osg::Node* node, osg::NodeVisitor* nv) {
+            osgUtil::CullVisitor *cv = dynamic_cast<osgUtil::CullVisitor*>(nv);
+            // Default value
+            osg::CullSettings::ComputeNearFarMode oldMode = osg::CullSettings::COMPUTE_NEAR_FAR_USING_BOUNDING_VOLUMES;
+            if (cv) {
+                oldMode = cv->getComputeNearFarMode();
+                cv->setComputeNearFarMode(osg::CullSettings::DO_NOT_COMPUTE_NEAR_FAR);
+            }
+            traverse(node, nv);
+            if (cv) {
+                cv->setComputeNearFarMode(oldMode);
+            }
+        }
+    };
+
+
+
 protected:
     GUIOSGView() {}
 
     osg::ref_ptr<FXOSGAdapter> myAdapter;
     osg::ref_ptr<osgViewer::Viewer> myViewer;
     osg::ref_ptr<osg::Group> myRoot;
+    osg::ref_ptr<osg::MatrixTransform> myPlane;
+    osg::ref_ptr<osg::Camera> myHUD;
+    osg::ref_ptr<osg::Geode> myTextNode;
+    osg::ref_ptr<osgText::Text> myText;
 
 private:
     GUIVehicle* myTracked;
-    osg::ref_ptr<SUMOTerrainManipulator> myCameraManipulator;
-
+    osg::ref_ptr<GUIOSGManipulator> myCameraManipulator;
     SUMOTime myLastUpdate;
 
     float myOSGNormalizedCursorX, myOSGNormalizedCursorY;
@@ -329,6 +384,7 @@ private:
     osg::ref_ptr<osg::Node> myRedLight;
     osg::ref_ptr<osg::Node> myRedYellowLight;
     osg::ref_ptr<osg::Node> myPoleBase;
+    osg::ref_ptr<osg::Node> myPlaneTransform;
 };
 
 #endif

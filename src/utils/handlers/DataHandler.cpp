@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -108,13 +108,13 @@ DataHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                 parseTAZRelationData(attrs);
                 break;
             case SUMO_TAG_PARAM:
-                WRITE_WARNING("Data elements cannot load attributes as params");
+                WRITE_WARNING(TL("Data elements cannot load attributes as params"));
                 break;
             default:
                 break;
         }
     } catch (InvalidArgument& e) {
-        WRITE_ERROR(e.what());
+        writeError(e.what());
     }
 }
 
@@ -139,6 +139,19 @@ DataHandler::myEndElement(int element) {
         default:
             break;
     }
+}
+
+
+bool
+DataHandler::isErrorCreatingElement() const {
+    return myErrorCreatingElement;
+}
+
+
+void
+DataHandler::writeError(const std::string& error) {
+    WRITE_ERROR(error);
+    myErrorCreatingElement = true;
 }
 
 
@@ -237,11 +250,11 @@ DataHandler::getAttributes(const SUMOSAXAttributes& attrs, const std::vector<Sum
 
 
 void
-DataHandler::checkParent(const SumoXMLTag currentTag, const SumoXMLTag parentTag, bool& ok) const {
+DataHandler::checkParent(const SumoXMLTag currentTag, const SumoXMLTag parentTag, bool& ok) {
     // check that parent SUMOBaseObject's tag is the parentTag
     if ((myCommonXMLStructure.getCurrentSumoBaseObject()->getParentSumoBaseObject() &&
             (myCommonXMLStructure.getCurrentSumoBaseObject()->getParentSumoBaseObject()->getTag() == parentTag)) == false) {
-        WRITE_ERROR(toString(currentTag) + " must be defined within the definition of a " + toString(parentTag));
+        writeError(toString(currentTag) + " must be defined within the definition of a " + toString(parentTag));
         ok = false;
     }
 }

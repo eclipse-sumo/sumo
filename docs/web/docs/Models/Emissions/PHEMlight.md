@@ -5,7 +5,7 @@ title: PHEMlight
 # PHEM (Passenger Car and Heavy Duty Emission Model)
 
 [PHEM (Passenger Car and Heavy Duty Emission
-Model)](https://www.ivt.tugraz.at/assets/files/areas/em/PHEM_en.pdf)
+Model)](https://www.ivt.tugraz.at/assets/files/areas/em/Phem_en.pdf)
 is an instantaneous vehicle emission model developed by the TU Graz
 since 1999. PHEM is based on an extensive European set of vehicle
 measurements and covers passenger cars, light duty vehicles and heavy
@@ -30,7 +30,7 @@ PC_G_EU4 for the new model), resembling passenger vehicles, Euro Norm
 4, powered by Diesel (PKW_D_EU4) and gasoline (PKW_G_EU4).
 
 !!! caution
-    Only two emission classes are included in the public version. Any further vehicle classes must be licensed from the TU Graz.
+    Only two emission classes are included in the public version. Any further vehicle classes must be [licensed from the TU Graz](https://www.itna.tugraz.at/en/research/areas/em/simulation/phemlight.html).
 
 To use PHEMlight, you can set an additional search path to these input
 files using the configuration option **--phemlight-path** {{DT_FILE}} where {{DT_FILE}} is the path. Alternatively,

@@ -1,5 +1,5 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2017-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2017-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -18,6 +18,7 @@
 
 # TODO: For CATCHUP_FOLLOWER mode could also be set active if intra-platoon gap becomes too large
 
+from collections import defaultdict
 import traci
 from traci.exceptions import TraCIException
 import traci.constants as tc
@@ -27,7 +28,6 @@ import simpla._config as cfg
 import simpla._pvehicle
 from simpla import SimplaException
 from simpla._platoonmode import PlatoonMode
-from _collections import defaultdict
 
 warn = rp.Warner("PlatoonManager")
 report = rp.Reporter("PlatoonManager")
@@ -199,6 +199,55 @@ class PlatoonManager(traci.StepListener):
             traci.vehicle.unsubscribe(veh.getID())
         self._connectedVehicles = dict()
         simpla._platoon.Platoon._nextID = 0
+
+    def getAveragePlatoonLength(self):
+        '''getAveragePlatoonLength() -> float
+
+        Returns the average number of vehicles in a platoon or 0 if there are no platoons
+        '''
+        platoonCount = len(self._platoons)
+        if platoonCount == 0:
+            return 0
+        else:
+            return sum([platoon.size() for platoon in self._platoons.values()])/platoonCount
+
+    def getAveragePlatoonSpeed(self):
+        '''getAveragePlatoonSpeed() -> float
+
+        Returns the average speed of all vehicles in platoons or 0 if there are no platoons / or all in stand
+        '''
+        vehCount = sum([platoon.size() for platoon in self._platoons.values()])
+        if vehCount == 0:
+            return 0
+        s = sum([vehicle.state.speed for platoon in self._platoons.values() for vehicle in platoon.getVehicles()])
+        return s / vehCount
+
+    def getPlatoonIDList(self, edgeID):
+        '''getPlatoonIDList(string) -> list(integer)
+
+        Returns the list of platoon IDs where at least one vehicle is currently on the edge given by its ID
+        '''
+        return [pID for pID, platoon in self._platoons.items()
+                if edgeID in [vehicle.state.edgeID for vehicle in platoon.getVehicles()]]
+
+    def getPlatoonLeaderIDList(self):
+        '''getPlatoonLeaderIDList() -> list(string)
+
+        Returns the list of all platoon leader vehicles' IDs
+        '''
+        return [platoon.getLeader().getID() for platoon in self._platoons.values()]
+
+    def getPlatoonInfo(self, platoonID):
+        '''getPlatoonInfo(platoonID) -> dict
+
+        Returns a dict with statistical information about the platoon given by its (numerical) ID
+        '''
+        if platoonID in self._platoons:
+            plt = self._platoons[platoonID]
+            return {"laneID": plt.getLeader().state.laneID,
+                    "members": [vehicle.getID() for vehicle in plt.getVehicles()]}
+        else:
+            return {}
 
     def getPlatoonLeaders(self):
         '''getPlatoonLeaders() -> list(PVehicle)
@@ -432,7 +481,8 @@ class PlatoonManager(traci.StepListener):
 
         Iterates over platoon-leaders and
         1) checks whether two platoons (including "one-vehicle platoons") may merge for being sufficiently close
-        2) advises platoon-leaders to try to catch up with a platoon in front
+        2) deters catchup vehicles from joining as the max platoon size is reached
+        3) advises platoon-leaders to try to catch up with a platoon in front
         '''
         # list of platoon ids that merged into another platoon
         toRemove = []
@@ -474,6 +524,15 @@ class PlatoonManager(traci.StepListener):
             leaderID, leaderDist = leaderInfo
             leader = self._connectedVehicles[leaderID]
 
+            if (pltnLeader.getCurrentPlatoonMode() == PlatoonMode.CATCHUP and
+                    leader.getPlatoon().size() + pltn.size() > cfg.MAX_VEHICLES):
+                if pltn.size() == 1:
+                    pltn.setModeWithImpatience(PlatoonMode.NONE, self._controlInterval)
+                else:
+                    # try to set mode to regular platoon mode
+                    pltn.setModeWithImpatience(PlatoonMode.LEADER, self._controlInterval)
+                continue
+
             # Commented out -> isLastInPlatoon should not be a hindrance to join platoon
             # tryCatchup = leader.isLastInPlatoon() and leader.getPlatoon() != pltn
             # join = tryCatchup and leaderDist <= self._maxPlatoonGap
@@ -491,7 +550,9 @@ class PlatoonManager(traci.StepListener):
                 # Platoon order is corrupted, don't join own platoon.
                 continue
 
-            maxDist = (max(self._maxPlatoonHeadway * leader.state.speed, self._maxPlatoonGap) if self._useHeadway else self._maxPlatoonGap)  # noqa
+            maxDist = self._maxPlatoonGap
+            if self._useHeadway:
+                maxDist = max(self._maxPlatoonHeadway * leader.state.speed, maxDist)
             if leaderDist <= maxDist:
                 # Try to join the platoon in front
                 if leader.getPlatoon().join(pltn):
@@ -510,7 +571,8 @@ class PlatoonManager(traci.StepListener):
                                 str([veh.getID() for veh in leader.getPlatoon().getVehicles()])))
             else:
                 # Join failed due to too large distance. Try to get closer (change to CATCHUP mode).
-                if not pltn.setMode(PlatoonMode.CATCHUP):
+                if (leader.getPlatoon().size() + pltn.size() <= cfg.MAX_VEHICLES and
+                        not pltn.setMode(PlatoonMode.CATCHUP)):
                     if rp.VERBOSITY >= 3:
                         report(("Switch to catchup mode would not be safe for platoon '%s' (%s) chasing " +
                                 "platoon '%s' (%s).") %

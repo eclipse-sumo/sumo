@@ -12,14 +12,14 @@ to a plain vehicular simulation. When using multiple modes all edges and
 lanes need to have the [correct permissions to separate the different modes of traffic](../Simulation/VehiclePermissions.md).
 
 Edges that allow only pedestrian traffic are called **footpaths** in the
-following. For edges that allow both modes, typically the left lanes
-disallow pedestrians and the rightmost lane allows only pedestrian. The
-rightmost lane is then called a **sidewalk**.
+following. For edges that allow both modes, typically the rightmost lane
+(the one with index 0) allows only pedestrians and the other lanes
+disallow pedestrians. The rightmost lane is then called a **sidewalk**.
 
 # Building a network for pedestrian simulation
 
 When walking along an edge, pedestrians use sidewalks where available. A
-sidewalks is a lane which allows only the sumo `vClass` *pedestrian*. When
+sidewalk is a lane which allows only the sumo `vClass` *pedestrian*. When
 crossing a road at an intersection, pedestrians use special lanes of
 type *crossing*. The area that connects sidewalks with crossings is
 modeled by special lanes of the type *walkingarea*. In the following, we
@@ -33,14 +33,13 @@ pedestrian crossing. In the latter they may "jump" between any two edges
 which allow pedestrians at an intersection.
 
 !!! note
-    Almost all of the methods described below can be used for building a pedestrian network either based on an existing *.net.xml* file or while doing the initial import (i.e. from [OSM](../Networks/Import/OpenStreetMap.md)). The exception is [#Type-base_generation](#type-base_generation) which can only be done during import.
+    Almost all of the methods described below can be used for building a pedestrian network either based on an existing *.net.xml* file or while doing the initial import (i.e. from [OSM](../Networks/Import/OpenStreetMap.md)). The exception is [type based generation](#type-based_generation) which can only be done during import.
 
 ## Generating a network with sidewalks
 
 A sidewalk is a lane which only permits the vClass *pedestrian*. There
 are various different options for generating a network with sidewalks
-which are explained below. All of these options recognize the presence
-of an existing sidewalk and will not add another lane in that case.
+which are explained below.
 
 !!! caution
     The current pedestrian models assume that each simulation edge has at most one sidewalk. In order to have sidewalks at both sides of a one-way street, a simulation edge in the reverse direction (which only allows pedestrians) must be added.
@@ -71,9 +70,9 @@ removed from all other lanes.
 
 ### Direct Import
 
-When importing [OSM](../Networks/Import/OpenStreetMap.md), the option **--osm.sidwalks** may be used to import sidewalks for all roads that carry this information.
+When importing [OSM](../Networks/Import/OpenStreetMap.md), the option **--osm.sidewalks** may be used to import sidewalks for all roads that carry this information.
 
-### Type-base generation
+### Type-based generation
 
 When importing edges with defined types, it is also possible to declare
 that certain types should receive a sidewalk. This can be used to
@@ -122,7 +121,7 @@ select these and right click on them. From the context-menu select *lane operati
 The following rules are used to determine the sidewalk lane in case of
 ambiguities:
 
-- if there are multiple lanes with permissions *pedestrian* the
+- if there are multiple lanes with permission *pedestrian* the
   rightmost one is used
 - if there are lanes that allow only pedestrians and lanes that allow
   pedestrians along with other vehicle classes, the rightmost lane
@@ -192,6 +191,19 @@ If persons are not restricted from walking on the roads (i.e. by not defining an
 Thus, shared space simulations are indicated in [sumo-gui](../sumo-gui.md) by having grey rather than black junction areas.
 
 Cars will interact by pedestrians (by slowing down or stopping) when encountering them on a shared road lane or when passing a walkingarea that is used by pedestrians. Likewise, pedestrians will take some care to avoid walking into vehicles.
+
+## Short overview
+
+| Input                                           | Desired output                           | Options to use               |
+|-------------------------------------------------|------------------------------------------|------------------------------|
+| shapefile or other data without pedestrian info | no pedestrian infrastructure             | none                         |
+|                                                 | sidewalks and crossings where applicable | **--sidewalks.guess --crossings.guess** |
+| OpenStreetMap                                   | no pedestrian infrastructure             | none (use a typemap without footpaths) |
+|                                                 | sidewalks and crossings as in the input  | **--osm.sidewalks --osm.crossings** |
+|                                                 | guessed sidewalks and crossings (discarding input) | a typemap which gives a sidewalk width to all street types which should receive a side walk or **--sidewalks.guess --crossings.guess** |
+
+The options above only apply to adding further lanes for existing streets. Separate foot paths are always imported
+(if the typemap or other filter options do not prevent it).
 
 # Generating pedestrian demand
 
@@ -397,3 +409,42 @@ The attribute 'detectPersons' supports the following values:
 - car : detect persons riding any other vehicle
 
 
+# Overview on networks and model behavior
+
+This section gives an overview on how the different network types with respect to pedestrian infrastructure
+can be generated which use cases they have and what is to be expected concerning the model behaviors.
+
+## pedestrians forbidden
+
+- Use case: Vehicle only network
+- Generated by: Car-only network from osmWebWizard; OSM import with a typemap explicitly discarding all pedestrian paths
+- Pedestrian routing: always fails since no usable edges are present
+- Striping model: won't work, no usable edges
+- Non-interacting model: won't work, no usable edges
+
+## No dedicated infrastructure
+
+- Use case: Generic networks with universal permissions
+- Generated by: netgenerate; shapefile import; everything which does not set permissions / add infrastructure explicitly
+- Pedestrian routing: Pedestrians use all edges in both directions, junctions are assumed to provide full connectivity (regardless of existing or non-existing connections)
+- Striping model: Persons walk on the street and interact with vehicles but jump over junctions
+- Non-interacting model: Persons walk beside the street and jump over junctions
+
+## Only sidewalks but no walking areas or crossings
+
+- Use case: Rather exceptional
+- Generated by: Everything which adds sidewalks either via a typemap or by using netedit without using **--crossings.guess**
+- Pedestrian routing: Pedestrians use all allowed edges (usually the ones with sidewalks) in both directions, junctions are assumed to provide full connectivity (regardless of existing or non-existing connections)
+- Striping model: Persons walk on the sidewalk or shared lanes and interact with each other but jump over junctions
+- Non-interacting model: Persons walk on the sidewalk and jump over junctions
+
+You could think of other subtypes here which have only walking areas and no crossings or the other way round but this would make things too complicated.
+The one property which distinguishs these networks from the next type is the presence of at least one walking area.
+
+## Full pedestrian infrastructure
+
+- Use case: Everything where you need to know where pedestrians walk and cross the street
+- Generated by: osmWebWizard (if pedestrian demand is selected) or other processes adding sidewalks and using **--crossings.guess**
+- Pedestrian routing: Pedestrians use all allowed edges (usually the ones with sidewalks) in both directions, junction connectivity is determined from junctions and walking areas
+- Striping model: Persons walk on the sidewalk or shared lanes, interact with each other and use the crossings and walking areas just like the sidewalks
+- Non-interacting model: Persons walk on the sidewalk, crossings and walking areas but without interaction

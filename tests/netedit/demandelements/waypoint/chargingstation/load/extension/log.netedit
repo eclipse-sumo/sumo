@@ -2,4 +2,4 @@ Error: Attribute 'extension' in definition of a stop is not a valid time value.
 Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'chargingStation'
 Error: Attribute 'extension' in definition of a stop is empty.
 Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'chargingStation'
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.waypoint.chargingstation.08Apr202456.3595/netedit.daily.demand.waypoint.chargingstation/demandelements/waypoint/chargingstation/load/extension/input_routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.waypointChargingStation.chargingstation.08Apr202456.3595/netedit.daily.demand.waypointChargingStation.chargingstation/demandelements/waypoint/chargingstation/load/extension/routes.rou.xml failed.

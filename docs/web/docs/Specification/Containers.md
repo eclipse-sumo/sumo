@@ -51,15 +51,19 @@ elements of plan definitions.
 | ------------- | ------ | ------------------------- | ------- | ------------------------------------------------------ |
 | from      | string | valid edge ids                | \-      | id of the start edge (optional, if it is a subsequent movement or [starts in a vehicle](Containers.md#starting_the_simulation_in_a_vehicle)) |
 | to        | string | valid edge ids                | \-      | id of the destination edge                             |
-| **lines**     | list   | valid line or vehicle ids | \-      | list of vehicle alternatives to take for the transport |
+| lines     | list   | valid line or vehicle ids or *ANY* | ANY   | list of vehicle alternatives to take for the transport |
 | containerStop | string | valid container stop ids  | \-      | id of the destination stop (allows to ommit *to*)       |
 | arrivalPos    |float(m)|                           | \-1     | arrival position on the destination edge               |
 
-The route to take is defined by the vehicle.
+The vehicle to use has to exist already and the route to take is defined by the vehicle. The container is loaded into the vehicle if it stops on the 'from' edge and any of the following conditions are met
 
-A given container stop may serve as a replacement for a destination edge and
-arrival position. If an arrival position is given nevertheless it has to
-be inside the range of the stop.
+- the 'line' attribute of the vehicle or the 'id' of the vehicle is given in the list defined by the 'lines' attribute of the `transport` OR the lines attribute contains 'ANY' and the vehicle stops at the destination 'containerStop' of the `transport` (or at the destination edge if no destination containerStop is defined).
+- the vehicle has a triggered stop and the container position is within the range of startpos,endPos of the stop.
+- the vehicle has a timed stop and the container is waiting within 10m of the vehicle position
+
+The position of the container is either it's departPos or the arrival position of the preceding plan element
+
+A given container stop (or any other stopping place) may serve as a replacement for a destination edge and arrival position. If an arrival position is given nevertheless it has to be inside the range of the stop.
 
 A transport of a container works similar to a [ride](Persons.md#rides) of a person.
 

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-04-04 13:03:59 by Eclipse SUMO netedit Version v1_12_0+1915-27c190f6120
+<!-- generated on 2022-10-25 16:38:20 by Eclipse SUMO netedit Version v1_14_1+1940-4d5459b920b
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <vehicle id="vehicle_0" depart="0.00">
         <route edges="gneE0 gneE1" color="yellow"/>
-        <stop parkingArea="parkingAreaA" duration="70.00" until="12.00" extension="10.00" triggered="join" parking="1" permitted="A B" tripId="tripA" line="lineA"/>
-        <stop parkingArea="parkingAreaB" duration="60.00" until="20.00" extension="20.00" triggered="join" parking="1" permitted="C D" tripId="tripB" line="lineB"/>
+        <stop parkingArea="parkingAreaA" duration="70.00" until="12.00" extension="10.00" triggered="join" parking="1" permitted="A B" tripId="tripA" line="lineA" onDemand="1" actType="walking"/>
+        <stop parkingArea="parkingAreaB" duration="60.00" until="20.00" extension="20.00" triggered="join" parking="1" permitted="C D" tripId="tripB" line="lineB" actType="singing"/>
     </vehicle>
 </routes>

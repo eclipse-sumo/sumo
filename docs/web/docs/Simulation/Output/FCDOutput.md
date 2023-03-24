@@ -133,7 +133,7 @@ Output can be restricted to vehicles within a specified area by setting a list o
 The [polygon shapes](../Shapes.md) must have been loaded from an additional file.
 
 ### Restricting output by sensor range
-When not all vehicles are equipped with an **fcd**-device, other ehicles and persons in a radius around the equipped vehicles can be included in the output by setting option **--device.fcd.radius** to the desired range in m.
+When not all vehicles are equipped with an **fcd**-device, other vehicles and persons in a radius around the equipped vehicles can be included in the output by setting option **--device.fcd.radius** to the desired range in m.
 
 ## Further Options
 
@@ -157,3 +157,39 @@ In combination with the given geometry of the vehicles (shapes) you can
 build some nice animations, e.g [NASA
 WorldWind](http://worldwind.arc.nasa.gov/java/) or [Google
 Earth](http://earth.google.com).
+
+## Visualization example
+
+### Accelerations versus distances
+
+<img src="../../images/Plot_trajectories.png" width="500px"/>
+
+Generated with [plot_trajectories.py](../../Tools/Visualization.md#accelerations_versus_distances).
+
+### All trajectories over time
+
+<img src="../../images/allXY_output.png" width="500px"/>
+
+Generated with [plotXMLAttributes.py](../../Tools/Visualization.md#all_trajectories_over_time_1).
+
+<img src="../../images/allLocations_output.png" width="500px"/>
+
+Generated with [plot_trajectories.py](../../Tools/Visualization.md#all_trajectories_over_time_2).
+
+### Selected trajectories over time
+
+<img src="../../images/vehLocations_output.png" width="500px"/>
+
+Generated with [plotXMLAttributes.py](../../Tools/Visualization.md#selected_trajectories_over_time_1).
+
+<img src="../../images/selectXY_output.png" width="500px"/>
+
+Generated with [plot_trajectories.py](../../Tools/Visualization.md#selected_trajectories_over_time_2).
+
+
+### FCD based speeds over time
+
+<img src="../../images/timeSpeed_output.png" width="500px"/>
+
+Generated with [plot_trajectories.py](../../Tools/Visualization.md#fcd_based_speeds_over_time).
+

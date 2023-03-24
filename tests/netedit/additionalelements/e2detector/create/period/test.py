@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -38,29 +38,26 @@ netedit.changeElement("laneAreaDetector")
 netedit.changeDefaultValue(netedit.attrs.E2.create.period, "dummyFreq")
 
 # try to create a E2 with invalid frequency
-netedit.leftClick(referencePosition, 350, 250)
+netedit.leftClick(referencePosition, 427, 253)
 
 # set invalid frequency (negative)
 netedit.changeDefaultValue(netedit.attrs.E2.create.period, "-30")
 
 # try to create a E2 with invalid frequency
-netedit.leftClick(referencePosition, 360, 250)
+netedit.leftClick(referencePosition, 381, 253)
 
 # set valid frequency
 netedit.changeDefaultValue(netedit.attrs.E2.create.period, "120.5")
 
 # create E2 with valid frequency
-netedit.leftClick(referencePosition, 370, 250)
+netedit.leftClick(referencePosition, 427, 253)
 
 # Check undo redo
 netedit.undo(referencePosition, 1)
 netedit.redo(referencePosition, 1)
 
-# save additionals
-netedit.saveAdditionals(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

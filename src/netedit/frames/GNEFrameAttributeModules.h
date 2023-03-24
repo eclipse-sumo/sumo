@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -26,6 +26,7 @@
 #include <utils/foxtools/MFXGroupBoxModule.h>
 #include <utils/foxtools/MFXToggleButtonTooltip.h>
 #include <utils/foxtools/MFXTextFieldTooltip.h>
+#include <utils/foxtools/MFXLabelTooltip.h>
 #include <utils/xml/CommonXMLStructure.h>
 
 // ===========================================================================
@@ -67,7 +68,7 @@ public:
         void destroy();
 
         /// @brief refresh current row
-        void refreshAttributesEditorRow(const std::string& value, const bool forceRefresh, const bool attributeEnabled, const bool computed);
+        void refreshAttributesEditorRow(const std::string& value, const bool forceRefresh, const bool attributeEnabled, const bool computed, GNEAttributeCarrier* ACParent);
 
         /// @brief check if current attribute of TextField/ComboBox is valid
         bool isAttributesEditorRowValid() const;
@@ -83,7 +84,7 @@ public:
 
         /// @brief open model dialog for more comfortable attribute editing
         long onCmdOpenAttributeDialog(FXObject*, FXSelector, void*);
-        
+
         /// @brief inspect vType/VTypeDistribution parent
         long onCmdInspectVTypeParent(FXObject*, FXSelector, void*);
         /// @}
@@ -106,13 +107,13 @@ public:
         const GNEAttributeProperties myACAttr;
 
         /// @brief pointer to attribute label
-        FXLabel* myAttributeLabel = nullptr;
+        MFXLabelTooltip* myAttributeLabel = nullptr;
 
         /// @brief pointer to attribute  menu check
         FXCheckButton* myAttributeCheckButton = nullptr;
 
-        /// @brief pointer to buttonCombinableChoices
-        MFXButtonTooltip* myAttributeButtonCombinableChoices = nullptr;
+        /// @brief pointer to attributeAllowButton
+        MFXButtonTooltip* myAttributeAllowButton = nullptr;
 
         /// @brief Button for open color editor
         MFXButtonTooltip* myAttributeColorButton = nullptr;
@@ -124,7 +125,7 @@ public:
         MFXTextFieldTooltip* myValueTextField = nullptr;
 
         /// @brief pointer to combo box choices
-        MFXIconComboBox* myValueComboBoxChoices = nullptr;
+        MFXComboBoxIcon* myValueChoicesComboBox = nullptr;
 
         /// @brief pointer to menu check
         FXCheckButton* myValueCheckButton = nullptr;

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -65,7 +65,9 @@ MSDetectorControl::close(SUMOTime step) {
 void
 MSDetectorControl::add(SumoXMLTag type, MSDetectorFileOutput* d, const std::string& device, SUMOTime interval, SUMOTime begin) {
     if (!myDetectors[type].add(d->getID(), d)) {
-        throw ProcessError(toString(type) + " detector '" + d->getID() + "' could not be build (declared twice?).");
+        const std::string id = d->getID();
+        delete d;
+        throw ProcessError(toString(type) + " detector '" + id + "' could not be built (declared twice?).");
     }
     addDetectorAndInterval(d, &OutputDevice::getDevice(device), interval, begin);
 }
@@ -74,7 +76,9 @@ MSDetectorControl::add(SumoXMLTag type, MSDetectorFileOutput* d, const std::stri
 void
 MSDetectorControl::add(SumoXMLTag type, MSDetectorFileOutput* d) {
     if (!myDetectors[type].add(d->getID(), d)) {
-        throw ProcessError(toString(type) + " detector '" + d->getID() + "' could not be build (declared twice?).");
+        const std::string id = d->getID();
+        delete d;
+        throw ProcessError(toString(type) + " detector '" + id + "' could not be built (declared twice?).");
     }
 }
 

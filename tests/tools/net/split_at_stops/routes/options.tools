@@ -1,0 +1,1 @@
+input_additional.add.xml -n input_net.net.xml -r input_routes.rou.xml --stop-output out.xml --route-output out.rou.xml tools/net/split_at_stops.py

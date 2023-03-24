@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-07-11 15:42:09 by Eclipse SUMO sumo Version v1_13_0+1506-f0fbece2894
+<!-- generated on 2023-02-06 12:10:37 by Eclipse SUMO sumo Version v1_15_0+2198-1709483215c
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -92,6 +92,7 @@
             <xsd:element name="vtk-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="amitran-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="summary-output" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="summary-output.period" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="person-summary-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="tripinfo-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="tripinfo-output.write-unfinished" type="boolOptionType" minOccurs="0"/>
@@ -109,6 +110,7 @@
             <xsd:element name="vehroute-output.incomplete" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="vehroute-output.stop-edges" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="vehroute-output.speedfactor" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="vehroute-output.internal" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="personroute-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="link-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="railsignal-block-output" type="fileOptionType" minOccurs="0"/>
@@ -120,6 +122,8 @@
             <xsd:element name="stop-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="stop-output.write-unfinished" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="collision-output" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="edgedata-output" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="lanedata-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="statistic-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="save-state.times" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="save-state.period" type="timeOptionType" minOccurs="0"/>
@@ -168,6 +172,7 @@
             <xsd:element name="time-to-teleport.disconnected" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="time-to-teleport.remove" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="time-to-teleport.ride" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="time-to-teleport.bidi" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="waiting-time-memory" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="startup-wait-threshold" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="max-depart-delay" type="timeOptionType" minOccurs="0"/>
@@ -180,6 +185,7 @@
             <xsd:element name="tls.all-off" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="tls.actuated.show-detectors" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="tls.actuated.jam-threshold" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="tls.actuated.detector-length" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="tls.delay_based.detector-range" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="tls.yellow.min-decel" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="railsignal-moving-block" type="boolOptionType" minOccurs="0"/>
@@ -203,6 +209,9 @@
             <xsd:element name="pedestrian.striping.jamtime.narrow" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.striping.reserve-oncoming" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.striping.reserve-oncoming.junctions" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="pedestrian.striping.reserve-oncoming.max" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="pedestrian.striping.legacy-departposlat" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="pedestrian.striping.walkingarea-detail" type="intOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.remote.address" type="strOptionType" minOccurs="0"/>
             <xsd:element name="ride.stop-tolerance" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="persontrip.walk-opposite-factor" type="floatOptionType" minOccurs="0"/>
@@ -263,6 +272,7 @@
             <xsd:element name="log" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="message-log" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="error-log" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="language" type="strOptionType" minOccurs="0"/>
             <xsd:element name="duration-log.disable" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="duration-log.statistics" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="no-step-log" type="boolOptionType" minOccurs="0"/>
@@ -295,6 +305,12 @@
             <xsd:element name="device.btsender.probability" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="device.btsender.explicit" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="device.btsender.deterministic" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="person-device.btsender.probability" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="person-device.btsender.explicit" type="strArrayOptionType" minOccurs="0"/>
+            <xsd:element name="person-device.btsender.deterministic" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="person-device.btreceiver.probability" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="person-device.btreceiver.explicit" type="strArrayOptionType" minOccurs="0"/>
+            <xsd:element name="person-device.btreceiver.deterministic" type="boolOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 

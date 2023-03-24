@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -44,9 +44,9 @@ GNEVariableSpeedSign::GNEVariableSpeedSign(GNENet* net) :
 GNEVariableSpeedSign::GNEVariableSpeedSign(const std::string& id, GNENet* net, const Position& pos, const std::string& name,
         const std::vector<std::string>& vTypes, const Parameterised::Map& parameters) :
     GNEAdditional(id, net, GLO_VSS, SUMO_TAG_VSS, GUIIconSubSys::getIcon(GUIIcon::VARIABLESPEEDSIGN), name, {}, {}, {}, {}, {}, {}),
-    Parameterised(parameters),
-    myPosition(pos),
-    myVehicleTypes(vTypes) {
+              Parameterised(parameters),
+              myPosition(pos),
+myVehicleTypes(vTypes) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -77,6 +77,24 @@ GNEVariableSpeedSign::writeAdditional(OutputDevice& device) const {
     // write parameters (Always after children to avoid problems with additionals.xsd)
     writeParams(device);
     device.closeTag();
+}
+
+
+bool
+GNEVariableSpeedSign::GNEVariableSpeedSign::isAdditionalValid() const {
+    return true;
+}
+
+
+std::string
+GNEVariableSpeedSign::GNEVariableSpeedSign::getAdditionalProblem() const {
+    return "";
+}
+
+
+void
+GNEVariableSpeedSign::GNEVariableSpeedSign::fixAdditionalProblem() {
+    // nothing to fix
 }
 
 

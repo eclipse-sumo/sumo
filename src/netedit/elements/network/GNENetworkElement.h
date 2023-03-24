@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -30,16 +30,14 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
-
 class GNEAdditional;
 class GNEDemandElement;
+
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-
 class GNENetworkElement : public GUIGlObject, public GNEHierarchicalElement, public GNEMoveElement {
-
 public:
     /**@brief Constructor.
      * @param[in] net The net to inform about gui updates
@@ -53,7 +51,7 @@ public:
      * @param[in] demandElementParents vector of demand element parents
      * @param[in] genericDataParents vector of generic data parents
      */
-    GNENetworkElement(GNENet* net, const std::string& id, GUIGlObjectType type, SumoXMLTag tag, FXIcon *icon,
+    GNENetworkElement(GNENet* net, const std::string& id, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon,
                       const std::vector<GNEJunction*>& junctionParents,
                       const std::vector<GNEEdge*>& edgeParents,
                       const std::vector<GNELane*>& laneParents,
@@ -114,9 +112,6 @@ public:
      */
     virtual GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) = 0;
 
-    /// @brief return exaggeration associated with this GLObject
-    virtual double getExaggeration(const GUIVisualizationSettings& s) const = 0;
-
     /// @brief Returns the boundary to which the view shall be centered in order to show the object
     Boundary getCenteringBoundary() const;
 
@@ -141,6 +136,8 @@ public:
     /// @brief select element
     void selectGLObject();
 
+    /// @brief Returns the name of the object (default "")
+    virtual const std::string getOptionalName() const;
     /// @}
 
     /// @name inherited from GNEAttributeCarrier

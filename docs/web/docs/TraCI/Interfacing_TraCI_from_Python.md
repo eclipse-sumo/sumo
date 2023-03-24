@@ -349,6 +349,9 @@ When calling `traci.start([<commands>], traceFile=<LOG_FILE_PATH>)` all traci co
 This allows re-running the scenario without the original runner script.
 When option `traceGetters=False` is set, only functions that change the simulation state are included in the log file. Functions that retrieve simulation data are technically not needed to reproduce a scenario but it may be useful to include them if the data retrieval functions are themselves the cause of a bug.
 
+!!! caution
+    Avoid running the simulation with option **--random** since this will most likely prevent your traceFile from being repeated
+
 ### Determine why the TraCI client cannot connect
 
 Possibly, the arguments given to `traci.start` generated an error when launching SUMO. This will manifest as
@@ -402,17 +405,20 @@ time of departure. For details of this mechanism see
 
 ### Retrieve the timeLoss for all vehicles currently in the network
 
-import traci import traci.constants as tc junctionID = '...'
-
-1.  subscribe around an aribtrary junction with a sufficiently large
-    radius to retrieve the speeds of all vehicles in every step
-
-traci.junction.subscribeContext(junctionID,
-tc.CMD_GET_VEHICLE_VARIABLE, 1000000, \[tc.VAR_SPEED,
-tc.VAR_ALLOWED_SPEED\]) stepLength = traci.simulation.getDeltaT()
-while traci.simulation.getMinExpectedNumber() \> 0:
-
 ```
+import traci
+import traci.constants as tc
+traci.start(["sumo", "-c", "my.sumocfg"])
+# pick an arbitrary junction
+junctionID = traci.junction.getIDList()[0]
+# subscribe around that junction with a sufficiently large
+# radius to retrieve the speeds of all vehicles in every step
+traci.junction.subscribeContext(
+    junctionID, tc.CMD_GET_VEHICLE_VARIABLE, 1000000, 
+    [tc.VAR_SPEED, tc.VAR_ALLOWED_SPEED]
+) 
+stepLength = traci.simulation.getDeltaT()
+while traci.simulation.getMinExpectedNumber() > 0:
    traci.simulationStep()
    scResults = traci.junction.getContextSubscriptionResults(junctionID)
    halting = 0
@@ -424,9 +430,8 @@ while traci.simulation.getMinExpectedNumber() \> 0:
        meanSpeedRelative = sum(relSpeeds) / running
        timeLoss = (1 - meanSpeedRelative) * running * stepLength
    print(traci.simulation.getTime(), timeLoss, halting)
-```
-
 traci.close()
+```
 
 ### Handling Exceptions
 

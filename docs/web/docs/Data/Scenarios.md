@@ -8,6 +8,10 @@ Building a scenario is a lot of work. If you have built a SUMO scenario
 you can share (under a sufficiently open license), please
 [contact us](../Contact.md).
 
+# Berlin
+
+- [Mosaic Berlin Sumo Traffic (BeST) Scenario on GitHub](https://github.com/mosaic-addons/best-scenario)
+
 # Bologna
 
 A small-scale scenario based on the city of Bologna. The large
@@ -23,7 +27,7 @@ of Bologna", SUMO2014, p 19-26
 - [Bologna Scenario on GitHub](https://github.com/DLR-TS/sumo-scenarios/tree/main/bologna/)
 - (Old release) [Download .zip files from SourceForge](http://sourceforge.net/projects/sumo/files/traffic_data/scenarios/Bologna_small)
 
-# Brunswick
+# Braunschweig
 
 - [Brunswick Scenario on GitHub](https://github.com/DLR-TS/sumo-scenarios/tree/main/brunswick)
 
@@ -111,6 +115,10 @@ A scenario from the [TAVF](https://tavf.hamburg/en/) test track for automated an
 connected driving in Hamburg.
 
 - [TAVF-Hamburg Scenario on GitHub](https://github.com/DLR-TS/sumo-scenarios/tree/main/TAVF-Hamburg)
+
+# Boston, Lisbon, Los Angeles, Rio de Janeiro, San Francisco
+
+[SUMO simulation files for running 24h of car traffic in five large-scale cities](https://www.research-collection.ethz.ch/handle/20.500.11850/584669)
 
 # Further real-world scenarios
 

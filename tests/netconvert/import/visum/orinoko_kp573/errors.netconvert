@@ -52,5 +52,4 @@ Warning: 18 total messages of type: Encountered unknown vehicle category '8' in 
 Warning: 17 total messages of type: Encountered unknown vehicle category '9' in type '%'
 Warning: 17 total messages of type: Encountered unknown vehicle category 'a' in type '%'
 Warning: 17 total messages of type: Ignoring stopping place '%' without edge id
-Warning: During computation of traffic light '1565'.
 Warning: Embedding TAZ-data inside the network is deprecated. Use option --taz-output instead

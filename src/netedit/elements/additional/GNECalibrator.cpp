@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -35,9 +35,9 @@
 
 GNECalibrator::GNECalibrator(SumoXMLTag tag, GNENet* net) :
     GNEAdditional("", net, GLO_CALIBRATOR, tag, GUIIconSubSys::getIcon(GUIIcon::CALIBRATOR), "", {}, {}, {}, {}, {}, {}),
-    myPositionOverLane(0),
-    myFrequency(0),
-    myJamThreshold(0) {
+              myPositionOverLane(0),
+              myFrequency(0),
+myJamThreshold(0) {
     // reset default values
     resetDefaultValues();
 }
@@ -46,12 +46,12 @@ GNECalibrator::GNECalibrator(SumoXMLTag tag, GNENet* net) :
 GNECalibrator::GNECalibrator(const std::string& id, GNENet* net, GNEEdge* edge, double pos, SUMOTime frequency, const std::string& name,
                              const std::string& output, const double jamThreshold, const std::vector<std::string>& vTypes, const Parameterised::Map& parameters) :
     GNEAdditional(id, net, GLO_CALIBRATOR, SUMO_TAG_CALIBRATOR, GUIIconSubSys::getIcon(GUIIcon::CALIBRATOR), name, {}, {edge}, {}, {}, {}, {}),
-    Parameterised(parameters),
-    myPositionOverLane(pos),
-    myFrequency(frequency),
-    myOutput(output),
-    myJamThreshold(jamThreshold),
-    myVTypes(vTypes) {
+Parameterised(parameters),
+myPositionOverLane(pos),
+myFrequency(frequency),
+myOutput(output),
+myJamThreshold(jamThreshold),
+myVTypes(vTypes) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -61,12 +61,12 @@ GNECalibrator::GNECalibrator(const std::string& id, GNENet* net, GNEEdge* edge, 
                              const std::string& output, GNEAdditional* routeProbe, const double jamThreshold, const std::vector<std::string>& vTypes,
                              const Parameterised::Map& parameters) :
     GNEAdditional(id, net, GLO_CALIBRATOR, SUMO_TAG_CALIBRATOR, GUIIconSubSys::getIcon(GUIIcon::CALIBRATOR), name, {}, {edge}, {}, {routeProbe}, {}, {}),
-    Parameterised(parameters),
-    myPositionOverLane(pos),
-    myFrequency(frequency),
-    myOutput(output),
-    myJamThreshold(jamThreshold),
-    myVTypes(vTypes) {
+Parameterised(parameters),
+myPositionOverLane(pos),
+myFrequency(frequency),
+myOutput(output),
+myJamThreshold(jamThreshold),
+myVTypes(vTypes) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -75,12 +75,12 @@ GNECalibrator::GNECalibrator(const std::string& id, GNENet* net, GNEEdge* edge, 
 GNECalibrator::GNECalibrator(const std::string& id, GNENet* net, GNELane* lane, double pos, SUMOTime frequency, const std::string& name,
                              const std::string& output, const double jamThreshold, const std::vector<std::string>& vTypes, const Parameterised::Map& parameters) :
     GNEAdditional(id, net, GLO_CALIBRATOR, GNE_TAG_CALIBRATOR_LANE, GUIIconSubSys::getIcon(GUIIcon::CALIBRATOR), name, {}, {}, {lane}, {}, {}, {}),
-    Parameterised(parameters),
-    myPositionOverLane(pos),
-    myFrequency(frequency),
-    myOutput(output),
-    myJamThreshold(jamThreshold),
-    myVTypes(vTypes) {
+Parameterised(parameters),
+myPositionOverLane(pos),
+myFrequency(frequency),
+myOutput(output),
+myJamThreshold(jamThreshold),
+myVTypes(vTypes) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -90,12 +90,12 @@ GNECalibrator::GNECalibrator(const std::string& id, GNENet* net, GNELane* lane, 
                              const std::string& output, GNEAdditional* routeProbe, const double jamThreshold, const std::vector<std::string>& vTypes,
                              const Parameterised::Map& parameters) :
     GNEAdditional(id, net, GLO_CALIBRATOR, GNE_TAG_CALIBRATOR_LANE, GUIIconSubSys::getIcon(GUIIcon::CALIBRATOR), name, {}, {}, {lane}, {routeProbe}, {}, {}),
-    Parameterised(parameters),
-    myPositionOverLane(pos),
-    myFrequency(frequency),
-    myOutput(output),
-    myJamThreshold(jamThreshold),
-    myVTypes(vTypes) {
+Parameterised(parameters),
+myPositionOverLane(pos),
+myFrequency(frequency),
+myOutput(output),
+myJamThreshold(jamThreshold),
+myVTypes(vTypes) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -147,6 +147,24 @@ GNECalibrator::writeAdditional(OutputDevice& device) const {
 }
 
 
+bool
+GNECalibrator::isAdditionalValid() const {
+    return true;
+}
+
+
+std::string
+GNECalibrator::getAdditionalProblem() const {
+    return "";
+}
+
+
+void
+GNECalibrator::fixAdditionalProblem() {
+    // nothing to fix
+}
+
+
 GNEMoveOperation*
 GNECalibrator::getMoveOperation() {
     // calibrators cannot be moved
@@ -173,7 +191,7 @@ GNECalibrator::updateGeometry() {
             myEdgeCalibratorGeometries.push_back(calibratorGeometry);
         }
     } else {
-        throw ProcessError("Both edges and lanes aren't defined");
+        throw ProcessError(TL("Both edges and lanes aren't defined"));
     }
 }
 
@@ -217,7 +235,7 @@ GNECalibrator::getParentName() const {
     } else if (getParentEdges().size() > 0) {
         return getParentEdges().front()->getLanes().at(0)->getID();
     } else {
-        throw ProcessError("Both myEdge and myLane aren't defined");
+        throw ProcessError(TL("Both myEdge and myLane aren't defined"));
     }
 }
 
@@ -434,42 +452,42 @@ GNECalibrator::drawCalibratorSymbol(const GUIVisualizationSettings& s, const dou
     // set drawing mode
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     // set color
-    if (drawUsingSelectColor()) {
-        GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
-    } else {
-        GLHelper::setColor(s.additionalSettings.calibratorColor);
-    }
-    // base
-    glBegin(GL_TRIANGLES);
-    glVertex2d(0 - s.additionalSettings.calibratorWidth, 0);
-    glVertex2d(0 - s.additionalSettings.calibratorWidth, s.additionalSettings.calibratorHeight);
-    glVertex2d(0 + s.additionalSettings.calibratorWidth, s.additionalSettings.calibratorHeight);
-    glVertex2d(0 + s.additionalSettings.calibratorWidth, 0);
-    glVertex2d(0 - s.additionalSettings.calibratorWidth, 0);
-    glVertex2d(0 + s.additionalSettings.calibratorWidth, s.additionalSettings.calibratorHeight);
-    glEnd();
-    // draw text if isn't being drawn for selecting
-    if (!s.drawForRectangleSelection && !s.drawForPositionSelection && s.drawDetail(s.detailSettings.calibratorText, exaggeration)) {
-        // set color depending of selection status
-        RGBColor textColor = drawUsingSelectColor() ? s.colorSettings.selectionColor : RGBColor::BLACK;
-        // draw "C"
-        GLHelper::drawText("C", Position(0, 1.5), 0.1, 3, textColor, 180);
-        // draw "edge" or "lane "
-        if (getParentLanes().size() > 0) {
-            GLHelper::drawText("lane", Position(0, 3), .1, 1, textColor, 180);
-        } else if (getParentEdges().size() > 0) {
-            GLHelper::drawText("edge", Position(0, 3), .1, 1, textColor, 180);
-        } else {
-            throw ProcessError("Both myEdge and myLane aren't defined");
+    const RGBColor color = drawUsingSelectColor() ? s.colorSettings.selectedAdditionalColor : s.additionalSettings.calibratorColor;
+    // avoid draw invisible elements
+    if (color.alpha() != 0) {
+        GLHelper::setColor(color);
+        // base
+        glBegin(GL_TRIANGLES);
+        glVertex2d(0 - s.additionalSettings.calibratorWidth, 0);
+        glVertex2d(0 - s.additionalSettings.calibratorWidth, s.additionalSettings.calibratorHeight);
+        glVertex2d(0 + s.additionalSettings.calibratorWidth, s.additionalSettings.calibratorHeight);
+        glVertex2d(0 + s.additionalSettings.calibratorWidth, 0);
+        glVertex2d(0 - s.additionalSettings.calibratorWidth, 0);
+        glVertex2d(0 + s.additionalSettings.calibratorWidth, s.additionalSettings.calibratorHeight);
+        glEnd();
+        // draw text if isn't being drawn for selecting
+        if (!s.drawForRectangleSelection && !s.drawForPositionSelection && s.drawDetail(s.detailSettings.calibratorText, exaggeration)) {
+            // set color depending of selection status
+            RGBColor textColor = drawUsingSelectColor() ? s.colorSettings.selectionColor : RGBColor::BLACK;
+            // draw "C"
+            GLHelper::drawText("C", Position(0, 1.5), 0.1, 3, textColor, 180);
+            // draw "edge" or "lane "
+            if (getParentLanes().size() > 0) {
+                GLHelper::drawText("lane", Position(0, 3), .1, 1, textColor, 180);
+            } else if (getParentEdges().size() > 0) {
+                GLHelper::drawText("edge", Position(0, 3), .1, 1, textColor, 180);
+            } else {
+                throw ProcessError(TL("Both myEdge and myLane aren't defined"));
+            }
         }
+        // pop layer matrix
+        GLHelper::popMatrix();
+        // pop name
+        GLHelper::popName();
     }
-    // pop layer matrix
-    GLHelper::popMatrix();
-    // pop name
-    GLHelper::popName();
     // check if mouse is over element
-    mouseWithinGeometry(pos, s.additionalSettings.calibratorWidth, 
-            s.additionalSettings.calibratorHeight * 0.5, 0, s.additionalSettings.calibratorHeight * 0.5, rot);
+    mouseWithinGeometry(pos, s.additionalSettings.calibratorWidth,
+                        s.additionalSettings.calibratorHeight * 0.5, 0, s.additionalSettings.calibratorHeight * 0.5, rot);
     // inspect element
     if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
         GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::INSPECT, pos,

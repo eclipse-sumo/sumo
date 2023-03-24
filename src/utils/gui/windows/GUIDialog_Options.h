@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -24,6 +24,12 @@
 
 
 // ===========================================================================
+// class declaration
+// ===========================================================================
+
+class GUIMainWindow;
+
+// ===========================================================================
 // class definitions
 // ===========================================================================
 /**
@@ -31,18 +37,31 @@
  * @briefA Dialog for setting options (see OptionsCont)
  */
 class GUIDialog_Options : public FXDialogBox {
+    /// @brief FOX-declaration
+    FXDECLARE(GUIDialog_Options)
+
 public:
-    /**@brief Constructor
+    /**@brief Constructor for options dialogs
      *
      * @param[in] parent The parent window
+     * @param[in] optionsContainer edited option container
      * @param[in] name The title to show
-     * @param[in] width The initial width of the dialog
-     * @param[in] height The initial height of the dialog
      */
-    GUIDialog_Options(FXWindow* parent,  const char* titleName, int width, int height);
+    static int Options(GUIMainWindow *windows, OptionsCont* optionsContainer, const char* titleName);
+
+    /**@brief Constructor for run dialogs
+     *
+     * @param[in] parent The parent window
+     * @param[in] optionsContainer edited option container
+     * @param[in] name The title to show
+     */
+    static int Run(GUIMainWindow *windows, OptionsCont* optionsContainer, const char* titleName);
 
     /// @brief Destructor
     ~GUIDialog_Options();
+
+    /// @brief called when user press run netgenerate button
+    long onCmdRunNetgenerate(FXObject*, FXSelector, void*);
 
     // ===========================================================================
     // Option input classes
@@ -54,15 +73,19 @@ public:
 
     public:
         /// @brief constructor
-        InputString(FXComposite* parent, const std::string& name);
+        InputString(GUIDialog_Options* GUIDialogOptions, FXComposite* parent, const std::string& name);
 
         /// @brief try to set new attribute value
         long onCmdSetOption(FXObject*, FXSelector, void*);
 
     protected:
+        /// @brief FOX needs this
         FOX_CONSTRUCTOR(InputString)
 
     private:
+        /// @brief GUIDialog_Options parent
+        GUIDialog_Options* myGUIDialogOptions = nullptr;
+
         /// @brief name
         std::string myName;
 
@@ -76,15 +99,19 @@ public:
 
     public:
         /// @brief constructor
-        InputStringVector(FXComposite* parent, const std::string& name);
+        InputStringVector(GUIDialog_Options* GUIDialogOptions, FXComposite* parent, const std::string& name);
 
         /// @brief try to set new attribute value
         long onCmdSetOption(FXObject*, FXSelector, void*);
 
     protected:
+        /// @brief FOX needs this
         FOX_CONSTRUCTOR(InputStringVector)
 
     private:
+        /// @brief GUIDialog_Options parent
+        GUIDialog_Options* myGUIDialogOptions = nullptr;
+
         /// @brief name
         std::string myName;
 
@@ -98,15 +125,19 @@ public:
 
     public:
         /// @brief constructor
-        InputBool(FXComposite* parent, const std::string& name);
+        InputBool(GUIDialog_Options* GUIDialogOptions, FXComposite* parent, const std::string& name);
 
         /// @brief try to set new attribute value
         long onCmdSetOption(FXObject*, FXSelector, void*);
 
     protected:
+        /// @brief FOX needs this
         FOX_CONSTRUCTOR(InputBool)
 
     private:
+        /// @brief GUIDialog_Options parent
+        GUIDialog_Options* myGUIDialogOptions = nullptr;
+
         /// @brief name
         std::string myName;
 
@@ -114,22 +145,25 @@ public:
         FXMenuCheck* myCheck;
     };
 
-
     class InputInt : public FXHorizontalFrame {
         /// @brief FOX-declaration
         FXDECLARE(GUIDialog_Options::InputInt)
 
     public:
         /// @brief
-        InputInt(FXComposite* parent, const std::string& name);
+        InputInt(GUIDialog_Options* GUIDialogOptions, FXComposite* parent, const std::string& name);
 
         /// @brief try to set new attribute value
         long onCmdSetOption(FXObject*, FXSelector, void*);
 
     protected:
+        /// @brief FOX needs this
         FOX_CONSTRUCTOR(InputInt)
 
     private:
+        /// @brief GUIDialog_Options parent
+        GUIDialog_Options* myGUIDialogOptions = nullptr;
+
         /// @brief name
         std::string myName;
 
@@ -143,15 +177,19 @@ public:
 
     public:
         /// @brief
-        InputIntVector(FXComposite* parent, const std::string& name);
+        InputIntVector(GUIDialog_Options* GUIDialogOptions, FXComposite* parent, const std::string& name);
 
         /// @brief try to set new attribute value
         long onCmdSetOption(FXObject*, FXSelector, void*);
 
     protected:
+        /// @brief FOX needs this
         FOX_CONSTRUCTOR(InputIntVector)
 
     private:
+        /// @brief GUIDialog_Options parent
+        GUIDialog_Options* myGUIDialogOptions = nullptr;
+
         /// @brief name
         std::string myName;
 
@@ -165,15 +203,19 @@ public:
 
     public:
         /// @brief constructor
-        InputFloat(FXComposite* parent, const std::string& name);
+        InputFloat(GUIDialog_Options* GUIDialogOptions, FXComposite* parent, const std::string& name);
 
         /// @brief try to set new attribute value
         long onCmdSetOption(FXObject*, FXSelector, void*);
 
     protected:
+        /// @brief FOX needs this
         FOX_CONSTRUCTOR(InputFloat)
 
     private:
+        /// @brief GUIDialog_Options parent
+        GUIDialog_Options* myGUIDialogOptions = nullptr;
+
         /// @brief name
         std::string myName;
 
@@ -187,19 +229,51 @@ public:
 
     public:
         /// @brief constructor
-        InputFilename(FXComposite* parent, const std::string& name);
+        InputFilename(GUIDialog_Options* GUIDialogOptions, FXComposite* parent, const std::string& name);
 
         /// @brief try to set new attribute value
         long onCmdSetOption(FXObject*, FXSelector, void*);
 
     protected:
+        /// @brief FOX needs this
         FOX_CONSTRUCTOR(InputFilename)
 
     private:
+        /// @brief GUIDialog_Options parent
+        GUIDialog_Options* myGUIDialogOptions = nullptr;
+
         /// @brief name
         std::string myName;
 
         /// @brief text field
         FXTextField* myTextField;
     };
+
+protected:
+    /// @brief FOX needs this
+    FOX_CONSTRUCTOR(GUIDialog_Options)
+
+    /// @brief pointer to main window parent
+    GUIMainWindow* myMainWindowParent;
+
+    /// @brief refecente to edited Option container
+    OptionsCont* myOptionsContainer;
+
+private:
+    /**@brief Constructor
+     *
+     * @param[in] parent The parent window
+     * @param[in] optionsContainer edited option container
+     * @param[in] name The title to show
+     * @param[in] width The initial width of the dialog
+     * @param[in] height The initial height of the dialog
+     * @param[in] runDialog check if this is a run dialog
+     */
+    GUIDialog_Options(GUIMainWindow* parent, OptionsCont* optionsContainer, const char* titleName, const bool runDialog);
+
+    /// @brief Invalidated copy constructor.
+    GUIDialog_Options(const GUIDialog_Options&) = delete;
+
+    /// @brief Invalidated assignment operator.
+    GUIDialog_Options& operator=(const GUIDialog_Options&) = delete;
 };

@@ -1,0 +1,4 @@
+Warning: No connection between edge 'E2' and edge 'E5' found.
+Warning: No route for vehicle 'v0' found.
+Error: Vehicle 'v0' has no valid route.
+Quitting (on error).

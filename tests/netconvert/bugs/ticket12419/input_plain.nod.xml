@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<nodes version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="0.00,0.00" convBoundary="-50.00,-50.00,50.00,50.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <node id="gneJ0" x="0.00" y="0.00" type="priority"/>
+    <node id="gneJ1" x="0.00" y="50.00" type="dead_end"/>
+    <node id="gneJ2" x="50.00" y="0.00" type="dead_end"/>
+    <node id="gneJ3" x="-50.00" y="0.00" type="dead_end"/>
+    <node id="gneJ4" x="0.00" y="-50.00" type="dead_end"/>
+</nodes>

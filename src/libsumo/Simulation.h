@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2012-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -70,6 +70,9 @@ public:
 
     /// @brief Advances by one step (or up to the given time)
     static void step(const double time = 0.);
+
+    /// @brief Advances a "half" step
+    static void executeMove();
 
     /// @brief close simulation
     static void close(const std::string& reason = "Libsumo requested termination.");

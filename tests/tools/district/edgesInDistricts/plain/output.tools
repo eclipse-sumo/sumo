@@ -33,7 +33,7 @@ optional arguments:
   -w, --weighted        Weights sources/sinks by lane number and length
                         (default: False)
   -f, --assign-from     Assign the edge always to the district where the
-                        "from" node is located (default: False)
+                        'from' node is located (default: False)
   -i, --internal        Include internal edges in output (default: False)
   -l VCLASS, --vclass VCLASS
                         Include only edges allowing VCLASS (default: None)

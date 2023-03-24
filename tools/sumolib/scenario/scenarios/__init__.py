@@ -1,5 +1,5 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2012-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2012-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -17,54 +17,42 @@
 
 from __future__ import absolute_import
 from __future__ import print_function
+import os
 import sumolib.net.generator.cross as netGenerator  # noqa
 import sumolib.net.generator.demand as demandGenerator
 import sumolib
-import os
 
 
 SANDBOX_PATH = os.path.join(os.path.dirname(__file__), "..", "sandbox")
 REBUILD = False
 
 
-def maxIndexValue(l):
-    max_val = max(l)
-    max_idx = l.index(max_val)
-    return max_idx, max_val
-
-
-def minIndexValue(l):
-    min_val = min(l)
-    min_idx = l.index(min_val)
-    return min_idx, min_val
-
-
-def maxIndexValue_unset(l, l2):
+def maxIndexValue_unset(l1, l2):
     i = 0
     max_val = None
     max_idx = -1
-    while i < len(l):
+    while i < len(l1):
         if l2[i] != 0:
             i = i + 1
             continue
-        if max_val is None or max_val < l[i]:
+        if max_val is None or max_val < l1[i]:
             max_idx = i
-            max_val = l[i]
+            max_val = l1[i]
         i = i + 1
     return max_idx, max_val
 
 
-def minIndexValue_unset(l, l2):
+def minIndexValue_unset(l1, l2):
     i = 0
     min_val = None
     min_idx = -1
-    while i < len(l):
+    while i < len(l1):
         if l2[i] != 0:
             i = i + 1
             continue
-        if min_val is None or min_val > l[i]:
+        if min_val is None or min_val > l1[i]:
             min_idx = i
-            min_val = l[i]
+            min_val = l1[i]
         i = i + 1
     return min_idx, min_val
 

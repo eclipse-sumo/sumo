@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -33,7 +33,7 @@ FXIMPLEMENT(MFXTextFieldTooltip, FXTextField, MFXTextFieldTooltipMap, ARRAYNUMBE
 
 
 MFXTextFieldTooltip::MFXTextFieldTooltip(FXComposite* p, MFXStaticToolTip* staticToolTip, FXint ncols, FXObject* tgt, FXSelector sel,
-                                         FXuint opts, FXint x, FXint y, FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb) :
+        FXuint opts, FXint x, FXint y, FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb) :
     FXTextField(p, ncols, tgt, sel, opts, x, y, w, h, pl, pr, pt, pb),
     myStaticToolTip(staticToolTip) {
 }
@@ -42,8 +42,8 @@ MFXTextFieldTooltip::MFXTextFieldTooltip(FXComposite* p, MFXStaticToolTip* stati
 MFXTextFieldTooltip::~MFXTextFieldTooltip() {}
 
 
-void 
-MFXTextFieldTooltip::setToolTipText(const FXString &toolTip) {
+void
+MFXTextFieldTooltip::setToolTipText(const FXString& toolTip) {
     myToolTipText = toolTip;
 }
 
@@ -78,7 +78,7 @@ MFXTextFieldTooltip::onLeave(FXObject* sender, FXSelector sel, void* ptr) {
 }
 
 
-long 
+long
 MFXTextFieldTooltip::onMotion(FXObject* sender, FXSelector sel, void* ptr) {
     // update static tooltip
     myStaticToolTip->onUpdate(sender, sel, ptr);

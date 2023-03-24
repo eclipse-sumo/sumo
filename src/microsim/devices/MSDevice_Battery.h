@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2013-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2013-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -101,7 +101,7 @@ private:
     * @param[in] preInsertionPeriod The route search period before insertion
     */
     MSDevice_Battery(SUMOVehicle& holder, const std::string& id, const double actualBatteryCapacity, const double maximumBatteryCapacity,
-                     const double powerMax, const double stoppingTreshold);
+                     const double powerMax, const double stoppingThreshold);
 
 public:
     /// @brief Get the actual vehicle's Battery Capacity in Wh
@@ -140,8 +140,8 @@ public:
     /// @brief Get number of timestep that vehicle is stopped
     int getVehicleStopped() const;
 
-    /// @brief Get stopping treshold
-    double getStoppingTreshold() const;
+    /// @brief Get stopping threshold
+    double getStoppingThreshold() const;
 
     /// @brief Set actual vehicle's Battery Capacity in kWh
     void setActualBatteryCapacity(const double actualBatteryCapacity);
@@ -152,8 +152,8 @@ public:
     /// @brief Set maximum power when accelerating
     void setPowerMax(const double new_Pmax);
 
-    /// @brief Set vehicle's stopping treshold
-    void setStoppingTreshold(const double stoppingTreshold);
+    /// @brief Set vehicle's stopping threshold
+    void setStoppingThreshold(const double stoppingThreshold);
 
     /// @brief Reset charging start time
     void resetChargingStartTime();
@@ -177,8 +177,8 @@ protected:
     /// @brief Parameter, The Maximum Power when accelerating, [myPowerMax >= 0]
     double myPowerMax;
 
-    /// @brief Parameter, stopping vehicle treshold [myStoppingTreshold >= 0]
-    double myStoppingTreshold;
+    /// @brief Parameter, stopping vehicle threshold [myStoppingThreshold >= 0]
+    double myStoppingThreshold;
 
     /// @brief Parameter, Vehicle's last angle
     double myLastAngle;

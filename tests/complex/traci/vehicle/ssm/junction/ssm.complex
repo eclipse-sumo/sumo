@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-08-16 15:46:19 by Eclipse SUMO sumo Version v1_9_2+1069-f9b761f
+<!-- generated on 2023-03-01 16:33:14 by Eclipse SUMO sumo Version v1_16_0+0873-8b8d030
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -21,7 +21,7 @@
     </ssm_device>
 
     <traci_server>
-        <remote-port value="50958"/>
+        <remote-port value="42663"/>
     </traci_server>
 
 </configuration>
@@ -29,9 +29,9 @@
 
 <SSMLog>
     <conflict begin="6.00" end="14.00" ego="ego" foe="leader">
-        <minTTC time="7.00" position="101.60,99.10" type="10" value="2.67"/>
-        <maxDRAC time="8.00" position="100.36,101.00" type="11" value="2.55"/>
-        <PET time="11.50" position="100.36,101.00" type="17" value="1.21"/>
+        <minTTC time="7.00" position="101.60,98.57" type="10" value="2.62"/>
+        <maxDRAC time="8.00" position="100.36,101.00" type="11" value="2.59"/>
+        <PET time="11.50" position="100.36,101.00" type="17" value="1.25"/>
     </conflict>
     <globalMeasures ego="ego">
         <timeSpan values="0.00 1.00 2.00 3.00 4.00 5.00 6.00 7.00 8.00 9.00 10.00 11.00 12.00 13.00 14.00"/>
@@ -41,9 +41,9 @@
         <TGAPSpan values="NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA"/>
     </globalMeasures>
     <conflict begin="6.00" end="14.00" ego="leader" foe="ego">
-        <minTTC time="7.00" position="101.60,99.10" type="11" value="2.67"/>
-        <maxDRAC time="8.00" position="100.36,101.00" type="10" value="2.55"/>
-        <PET time="11.50" position="100.36,101.00" type="17" value="1.21"/>
+        <minTTC time="7.00" position="101.60,98.57" type="11" value="2.62"/>
+        <maxDRAC time="8.00" position="100.36,101.00" type="10" value="2.59"/>
+        <PET time="11.50" position="100.36,101.00" type="17" value="1.25"/>
     </conflict>
     <globalMeasures ego="leader">
         <timeSpan values="2.00 3.00 4.00 5.00 6.00 7.00 8.00 9.00 10.00 11.00 12.00 13.00 14.00"/>

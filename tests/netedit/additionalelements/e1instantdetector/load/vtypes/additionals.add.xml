@@ -1,0 +1,9 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+
+    <!-- non valid vtypes -->
+    <instantInductionLoop id="E1_01" lane="center0_1" pos="3" file="fileA.txt" vTypes="%%% $$$ ;;;" friendlyPos="0"/>
+
+    <!-- valid vtypes -->
+    <instantInductionLoop id="E1_02" lane="center0_1" pos="3" file="fileA.txt" vTypes="bus taxi private" friendlyPos="0"/>
+
+</additional>

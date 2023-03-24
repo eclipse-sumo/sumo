@@ -1,11 +1,13 @@
 /* XPM */
 static const char * tracker_xpm[] = {
+/* columns rows colors chars-per-pixel */
 "16 16 5 1",
 "a c #000000",
 "c c #0000ff",
 "# c #585858",
 ". c #c3c3c3",
 "b c #ffffff",
+/* pixels */
 "................",
 "...............#",
 "..aaaaaaaaaaaa##",
@@ -21,4 +23,5 @@ static const char * tracker_xpm[] = {
 "..abbbbbbbbbba##",
 "..aaaaaaaaaaaa##",
 "..##############",
-".###############"};
+".###############"
+};

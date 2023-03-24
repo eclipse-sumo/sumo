@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-04-22 17:01:25 by Eclipse SUMO netedit Version v1_9_0+0178-68f97ee
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+    <input>
+        <new value="true"/>
+    </input>
+    <output>
+        <output-file value="braess.net.xml"/>
+    </output>
+    <processing>
+        <offset.disable-normalization value="true"/>
+    </processing>
+    <netedit>
+        <route-files value="/localdata2/debug/braess/input_routes.rou.xml"/>
+    </netedit>
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="CAV" color="0,0,255">
+        <param key="device.rerouting.period" value="120" />
+        <param key="device.rerouting.probability" value="0.5" />
+        <param key="device.rerouting.deterministic" value="true" />
+    </vType>
+	
+    <flow id="flow_CAV" begin="0.00" departLane="best" departSpeed="max" from="start" to="end" end="1800.00" vehsPerHour="1000" type="CAV" />
+</routes>

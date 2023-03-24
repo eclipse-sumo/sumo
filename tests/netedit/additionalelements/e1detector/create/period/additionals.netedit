@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-09-16 11:08:08 by Eclipse SUMO netedit Version v1_14_1+1089-9da63a631b2
+<!-- generated on 2023-02-14 13:45:03 by Eclipse SUMO netedit Version v1_16_0+0177-c72433bc6bd
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Detectors -->
-    <inductionLoop id="e1_0" lane="gneE0_0" pos="19.00" period="150.00" file="e1_0.xml"/>
+    <inductionLoop id="e1_0" lane="center1_1" pos="17.00" period="150.00" file="e1_0.xml"/>
 </additional>

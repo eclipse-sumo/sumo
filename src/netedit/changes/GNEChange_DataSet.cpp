@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -43,13 +43,12 @@ GNEChange_DataSet::GNEChange_DataSet(GNEDataSet* dataSet, bool forward) :
 GNEChange_DataSet::~GNEChange_DataSet() {
     assert(myDataSet);
     myDataSet->decRef("GNEChange_DataSet");
-    if (myDataSet->unreferenced()) {
+    if (myDataSet->unreferenced() &&
+            myDataSet->getNet()->getAttributeCarriers()->retrieveDataSet(myDataSet, false)) {
         // show extra information for tests
         WRITE_DEBUG("Deleting unreferenced " + myDataSet->getTagStr() + " '" + myDataSet->getID() + "'");
         // make sure that element isn't in net before removing
-        if (myDataSet->getNet()->getAttributeCarriers()->dataSetExist(myDataSet)) {
-            myDataSet->getNet()->getAttributeCarriers()->deleteDataSet(myDataSet);
-        }
+        myDataSet->getNet()->getAttributeCarriers()->deleteDataSet(myDataSet);
         // delete data set
         delete myDataSet;
     }
@@ -70,7 +69,7 @@ GNEChange_DataSet::undo() {
         myDataSet->getNet()->getAttributeCarriers()->insertDataSet(myDataSet);
     }
     // require always save elements
-    myDataSet->getNet()->requireSaveDataElements(true);
+    myDataSet->getNet()->getSavingStatus()->requireSaveDataElements();
 }
 
 
@@ -88,16 +87,16 @@ GNEChange_DataSet::redo() {
         myDataSet->getNet()->getAttributeCarriers()->deleteDataSet(myDataSet);
     }
     // require always save elements
-    myDataSet->getNet()->requireSaveDataElements(true);
+    myDataSet->getNet()->getSavingStatus()->requireSaveDataElements();
 }
 
 
 std::string
 GNEChange_DataSet::undoName() const {
     if (myForward) {
-        return ("Undo create " + myDataSet->getTagStr());
+        return (TL("Undo create ") + myDataSet->getTagStr() + " '" + myDataSet->getID() + "'");
     } else {
-        return ("Undo delete " + myDataSet->getTagStr());
+        return (TL("Undo delete ") + myDataSet->getTagStr() + " '" + myDataSet->getID() + "'");
     }
 }
 
@@ -105,9 +104,9 @@ GNEChange_DataSet::undoName() const {
 std::string
 GNEChange_DataSet::redoName() const {
     if (myForward) {
-        return ("Redo create " + myDataSet->getTagStr());
+        return (TL("Redo create ") + myDataSet->getTagStr() + " '" + myDataSet->getID() + "'");
     } else {
-        return ("Redo delete " + myDataSet->getTagStr());
+        return (TL("Redo delete ") + myDataSet->getTagStr() + " '" + myDataSet->getID() + "'");
     }
 }
 

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -37,6 +37,7 @@
 class MESegment;
 class MSBaseVehicle;
 class GUILane;
+
 
 // ===========================================================================
 // class definitions
@@ -120,9 +121,6 @@ public:
      */
     GUIParameterTableWindow* getTypeParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) override;
 
-    /// @brief return exaggeration associated with this GLObject
-    double getExaggeration(const GUIVisualizationSettings& s) const override;
-
     /** @brief Returns the boundary to which the view shall be centered in order to show the object
      *
      * @return The boundary the object is within
@@ -156,7 +154,7 @@ public:
     /** @brief Returns this edge's persons set; locks it for microsimulation
      *  @brief Avoids the creation of new vector as in getSortedPersons
      *
-     * @return 
+     * @return
      * Please note that it is necessary to release the person container
      *  afterwards using "releasePersons".
      * @return This edge's persons.
@@ -192,7 +190,7 @@ public:
     double getColorValue(const GUIVisualizationSettings& s, int activeScheme) const override;
 
     /// @brief gets the scaling value according to the current scheme index
-    double getScaleValue(int activeScheme) const;
+    double getScaleValue(const GUIVisualizationSettings& s, int activeScheme) const;
 
     /// @brief returns the segment closest to the given position
     MESegment* getSegmentAtPosition(const Position& pos);

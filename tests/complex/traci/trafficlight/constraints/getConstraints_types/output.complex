@@ -1,0 +1,7 @@
+ Retrying in 1 seconds
+constraints for 'A'
+   Constraint(signalId=A tripId=t0, foeId=t1, foeSignal=D, limit=3, type=0, mustWait=True, active=True)
+   Constraint(signalId=A tripId=t0, foeId=t2, foeSignal=D, limit=3, type=1, mustWait=True, active=True)
+   Constraint(signalId=A tripId=t0, foeId=t3, foeSignal=D, limit=3, type=2, mustWait=True, active=True)
+   Constraint(signalId=A tripId=t4, foeId=t5, foeSignal=D, limit=1, type=3, mustWait=True, active=True)
+   Constraint(signalId=A tripId=t6, foeId=t7, foeSignal=D, limit=1, type=4, mustWait=True, active=True)

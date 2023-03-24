@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -38,35 +38,32 @@ netedit.changeElement("vaporizer")
 netedit.changeDefaultValue(netedit.attrs.vaporizer.create.end, "-20")
 
 # try to create create vaporizer
-netedit.leftClick(referencePosition, 350, 265)
+netedit.leftClick(referencePosition, 338, 252)
 
 # set valid end
 netedit.changeDefaultValue(netedit.attrs.vaporizer.create.end, "20")
 
 # create vaporizer
-netedit.leftClick(referencePosition, 350, 265)
+netedit.leftClick(referencePosition, 348, 252)
 
 # change default start (Invalid, end > startTime)
 netedit.changeDefaultValue(netedit.attrs.vaporizer.create.end, "50")
 
 # try to create invalid vaporizer (show warning)
-netedit.leftClick(referencePosition, 220, 270)
+netedit.leftClick(referencePosition, 368, 252)
 
 # change default end (valid))
 netedit.changeDefaultValue(netedit.attrs.vaporizer.create.end, "100")
 
 # try to create invalid vaporizer (show warning)
-netedit.leftClick(referencePosition, 230, 270)
+netedit.leftClick(referencePosition, 589, 138)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)
 netedit.redo(referencePosition, 3)
 
-# save additionals
-netedit.saveAdditionals(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

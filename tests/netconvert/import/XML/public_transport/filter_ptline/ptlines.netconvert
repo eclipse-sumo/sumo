@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-09-07 09:24:45 by Eclipse SUMO netconvert Version v1_14_1+0881-06732e9
+<!-- generated on 2023-01-19 10:35:56 by Eclipse SUMO netconvert Version v1_15_0+1747-8cd89ce
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -39,7 +39,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <ptLines xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/ptlines_file.xsd">
-    <ptLine id="test" name="test" line="S46" type="train" vClass="rail" completeness="1.00">
+    <ptLine id="test" name="fancy name" line="S46" type="train" vClass="rail" completeness="1.00">
         <route edges="E3"/>
         <busStop id="bs_1" name=""/>
     </ptLine>

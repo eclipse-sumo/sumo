@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -39,20 +39,21 @@ else:
 
 def get_options(args=None):
     ap = sumolib.options.ArgumentParser()
-    ap.add_option("-v", "--verbose", action="store_true", default=False,
+    ap.add_option("-v", "--verbose", category="processing", action="store_true", default=False,
                   help="tell me what you are doing")
-    ap.add_option("-k", "--configuration", metavar="FILE",
+    ap.add_option("-k", "--configuration", category="input", metavar="FILE",
                   help="configuration to run")
-    ap.add_option("-a", "--application", default="sumo", metavar="FILE",
+    ap.add_option("-a", "--application", category="processing", default="sumo", metavar="FILE",
                   help="application to run")
-    ap.add_option("-p", "--output-prefix", default="SEED.", dest="prefix",
+    ap.add_option("-p", "--output-prefix",  category="processing", default="SEED.", dest="prefix",
                   help="output prefix",)
-    ap.add_option("--seeds", default="0:10",
+    ap.add_option("--seeds", category="processing", default="0:10",
                   help="which seeds to run")
-    ap.add_option("--threads", type=int, default=1,
+    ap.add_option("--threads", category="processing", type=int, default=1,
                   help="number of parallel processes")
     # parse options
-    options = ap.parse_args(args=args)
+    options, unknown_args = ap.parse_known_args(args=args)
+    options.unknown_args = unknown_args
 
     if ":" in options.seeds:
         options.seeds = range(*map(int, options.seeds.split(":")))
@@ -62,13 +63,18 @@ def get_options(args=None):
     if not options.configuration:
         sys.stderr.write("Error: option configuration is mandatory\n")
         sys.exit()
-    elif not os.path.exists(options.configuration):
-        sys.stderr.write("Error: configuration '%s' not found\n" % options.configuration)
-        sys.exit()
 
     if hasattr(shutil, "which") and not shutil.which(options.application):
         sys.stderr.write("Error: application '%s' not found\n" % options.application)
         sys.exit()
+
+    options.application = options.application.split(',')
+    options.configuration = options.configuration.split(',')
+
+    for cfg in options.configuration:
+        if not os.path.exists(cfg):
+            sys.stderr.write("Error: configuration '%s' not found\n" % cfg)
+            sys.exit()
 
     if "SEED" not in options.prefix:
         sys.stderr.write("Warning: --output-prefix should contain 'SEED' to prevent overwriting\n")
@@ -76,21 +82,42 @@ def get_options(args=None):
     return options
 
 
-def main(options):
+def getUniqueFolder(options, app, cfg, folders):
+    key = []
+    i = 0
+    if len(options.application) > 1:
+        key.append(os.path.basename(app))
+    if len(options.configuration) > 1:
+        key.append(os.path.basename(cfg))
+    if not key:
+        return ""
 
+    folder = '_'.join(key + [str(i)])
+    while folder in folders:
+        i += 1
+        folder = '_'.join(key + [str(i)])
+    folders.add(folder)
+    if not os.path.exists(folder):
+        os.makedirs(folder)
+    return folder
+
+
+def main(options):
     q = Queue()
 
     def runSim():
         while True:
-            seed = q.get()
+            app, cfg, seed, folder = q.get()
             prefix = options.prefix.replace("SEED", str(seed))
+            if folder:
+                prefix = os.path.join(folder, prefix)
             if options.verbose:
                 print("running seed %s" % seed)
-            args = [options.application,
-                    '-c', options.configuration,
+            args = [app,
+                    '-c', cfg,
                     '--seed', str(seed),
                     '--output-prefix', prefix]
-            subprocess.call(args)
+            subprocess.call(args + options.unknown_args)
             q.task_done()
 
     for i in range(options.threads):
@@ -98,8 +125,13 @@ def main(options):
         t.daemon = True
         t.start()
 
-    for seed in options.seeds:
-        q.put(seed)
+    folders = set()
+
+    for app in options.application:
+        for cfg in options.configuration:
+            folder = getUniqueFolder(options, app, cfg, folders)
+            for seed in options.seeds:
+                q.put((app, cfg, seed, folder))
     q.join()
 
 

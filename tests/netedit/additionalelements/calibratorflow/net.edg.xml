@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-02-07 14:13:33 by Eclipse SUMO netedit Version v1_16_0+0024-1134bf4b789
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="D:\SUMO\tests\netedit\additionalelements\parkingarea\net.net.xml"/>
+    </input>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<edges version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="E0" from="JT0" to="JC0" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" allow="pedestrian" width="2.00"/>
+        <lane index="1" disallow="pedestrian"/>
+    </edge>
+    <edge id="E1" from="JC0" to="JB0" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" allow="pedestrian" width="2.00"/>
+        <lane index="1" disallow="pedestrian"/>
+    </edge>
+    <edge id="E4" from="JB1" to="JC1" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" allow="pedestrian" width="2.00"/>
+        <lane index="1" disallow="pedestrian"/>
+    </edge>
+    <edge id="E5" from="JC1" to="JT1" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" allow="pedestrian" width="2.00"/>
+        <lane index="1" disallow="pedestrian"/>
+    </edge>
+    <edge id="bot" from="JB0" to="JB1" priority="-1" numLanes="1" speed="13.89"/>
+    <edge id="center0" from="JC1" to="JC0" priority="1" numLanes="2" speed="13.89" disallow="pedestrian"/>
+    <edge id="center1" from="JC0" to="JC1" priority="1" numLanes="2" speed="13.89" disallow="pedestrian"/>
+    <edge id="top" from="JT1" to="JT0" priority="-1" numLanes="1" speed="13.89"/>
+</edges>

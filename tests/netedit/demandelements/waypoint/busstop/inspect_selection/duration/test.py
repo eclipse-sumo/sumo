@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -26,13 +26,10 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to demand mode
 netedit.supermodeDemand()
-
-# force save additionals
-netedit.forceSaveAdditionals()
 
 # go to select mode
 netedit.selectMode()
@@ -47,38 +44,32 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 290, 175)
 
 # change value
-netedit.modifyBoolAttribute(netedit.attrs.waypoint.inspectSelection.durationEnable, False)
+netedit.modifyBoolAttribute(netedit.attrs.waypointBusStop.inspectSelection.durationEnable, False)
 
 # change value
-netedit.modifyBoolAttribute(netedit.attrs.waypoint.inspectSelection.durationEnable, False)
+netedit.modifyBoolAttribute(netedit.attrs.waypointBusStop.inspectSelection.durationEnable, False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypoint.inspectSelection.duration, "dummyValue", False)
+netedit.modifyAttribute(netedit.attrs.waypointBusStop.inspectSelection.duration, "dummyValue", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypoint.inspectSelection.duration, "", False)
+netedit.modifyAttribute(netedit.attrs.waypointBusStop.inspectSelection.duration, "", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypoint.inspectSelection.duration, "-5", False)
+netedit.modifyAttribute(netedit.attrs.waypointBusStop.inspectSelection.duration, "-5", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypoint.inspectSelection.duration, "0", False)
+netedit.modifyAttribute(netedit.attrs.waypointBusStop.inspectSelection.duration, "0", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypoint.inspectSelection.duration, "3.5", False)
+netedit.modifyAttribute(netedit.attrs.waypointBusStop.inspectSelection.duration, "3.5", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)
 netedit.redo(referencePosition, 2)
 
-# save additionals
-netedit.saveAdditionals(referencePosition)
-
-# save routes
-netedit.saveRoutes(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

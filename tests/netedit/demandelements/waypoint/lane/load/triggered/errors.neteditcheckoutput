@@ -1,11 +1,9 @@
 Error: Attribute 'triggered' in definition of a stop is empty.
-Error: Invalid duration or end time is given for a stop on lane '' in vehicle 'routeFlow_0'.
+Error: Invalid duration or end time is given for a stop on lane 'gneE1_0' in vehicle 'routeFlow_0'.
 Error: Attribute 'triggered' in definition of a stop is empty.
-Error: Invalid duration or end time is given for a stop on lane '' in vehicle 'routeFlow_0'.
+Error: Invalid duration or end time is given for a stop on lane 'gneE1_0' in vehicle 'routeFlow_0'.
 Error: Attribute 'triggered' in definition of a stop is empty.
-Error: Invalid duration or end time is given for a stop on lane '' in vehicle 'routeFlow_0'.
+Error: Invalid duration or end time is given for a stop on lane 'gneE1_0' in vehicle 'routeFlow_0'.
 Error: Attribute 'triggered' in definition of a stop is empty.
-Error: Invalid duration or end time is given for a stop on lane '' in vehicle 'routeFlow_0'.
-Warning: Vehicle 'routeFlow_0.0' performs emergency braking on lane 'gneE1_0' with decel=9.85, wished=4.50, severity=1.19, time=10.00.
-Warning: Vehicle 'routeFlow_0.1' performs emergency braking on lane 'gneE1_0' with decel=9.28, wished=4.50, severity=1.06, time=210.00.
-Warning: Vehicle 'routeFlow_0.4' performs emergency braking on lane 'gneE1_0' with decel=9.17, wished=4.50, severity=1.04, time=810.00.
+Error: Invalid duration or end time is given for a stop on lane 'gneE1_0' in vehicle 'routeFlow_0'.
+Error: Triggers and waypoints cannot be combined on lane 'gneE1_0' in vehicle 'routeFlow_0'.

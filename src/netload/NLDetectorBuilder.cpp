@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2002-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -523,7 +523,7 @@ NLDetectorBuilder::createEdgeLaneMeanData(const std::string& id, SUMOTime freque
                                  printDefaults, withInternal, trackVehicles, detectPersons, maxTravelTime, minSamples, haltSpeed, vTypes, writeAttributes, edges, aggregate);
     } else if (type == "emissions" || type == "hbefa") {
         if (type == "hbefa") {
-            WRITE_WARNING("The netstate type 'hbefa' is deprecated. Please use the type 'emissions' instead.");
+            WRITE_WARNING(TL("The netstate type 'hbefa' is deprecated. Please use the type 'emissions' instead."));
         }
         det = new MSMeanData_Emissions(id, begin, end, useLanes, withEmpty,
                                        printDefaults, withInternal, trackVehicles, maxTravelTime, minSamples, vTypes, writeAttributes, edges, aggregate);

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -35,11 +35,11 @@
 // ===========================================================================
 
 GNETranship::GNETranship(SumoXMLTag tag, GNENet* net) :
-    GNEDemandElement("", net, GLO_TRANSHIP, tag, GUIIconSubSys::getIcon(GUIIcon::TRANSHIP_FROMTO), 
-    GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
-    mySpeed(0),
-    myDepartPosition(0),
-    myArrivalPosition(-1) {
+    GNEDemandElement("", net, GLO_TRANSHIP, tag, GUIIconSubSys::getIcon(GUIIcon::TRANSHIP_FROMTO),
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
+                                mySpeed(0),
+                                myDepartPosition(0),
+myArrivalPosition(-1) {
     // reset default values
     resetDefaultValues();
 }
@@ -47,32 +47,32 @@ GNETranship::GNETranship(SumoXMLTag tag, GNENet* net) :
 
 GNETranship::GNETranship(GNENet* net, GNEDemandElement* containerParent, GNEEdge* fromEdge, GNEEdge* toEdge,
                          const double speed, const double departPosition, const double arrivalPosition) :
-    GNEDemandElement(containerParent, net, GLO_TRANSHIP, GNE_TAG_TRANSHIP_EDGE, GUIIconSubSys::getIcon(GUIIcon::TRANSHIP_FROMTO), 
-    GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-    {}, {fromEdge, toEdge}, {}, {}, {containerParent}, {}),
-    mySpeed(speed),
-    myDepartPosition(departPosition),
-    myArrivalPosition(arrivalPosition) {
+    GNEDemandElement(containerParent, net, GLO_TRANSHIP, GNE_TAG_TRANSHIP_EDGE, GUIIconSubSys::getIcon(GUIIcon::TRANSHIP_FROMTO),
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
+{}, {fromEdge, toEdge}, {}, {}, {containerParent}, {}),
+mySpeed(speed),
+myDepartPosition(departPosition),
+myArrivalPosition(arrivalPosition) {
 }
 
 
 GNETranship::GNETranship(GNENet* net, GNEDemandElement* containerParent, GNEEdge* fromEdge, GNEAdditional* toContainerStop,
                          const double speed, const double departPosition, const double arrivalPosition) :
-    GNEDemandElement(containerParent, net, GLO_TRANSHIP, GNE_TAG_TRANSHIP_CONTAINERSTOP, GUIIconSubSys::getIcon(GUIIcon::TRANSPORT_CONTAINERSTOP), 
-    GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {fromEdge}, {}, {toContainerStop}, {containerParent}, {}),
-    mySpeed(speed),
-    myDepartPosition(departPosition),
-    myArrivalPosition(arrivalPosition) {
+    GNEDemandElement(containerParent, net, GLO_TRANSHIP, GNE_TAG_TRANSHIP_CONTAINERSTOP, GUIIconSubSys::getIcon(GUIIcon::TRANSPORT_CONTAINERSTOP),
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {fromEdge}, {}, {toContainerStop}, {containerParent}, {}),
+mySpeed(speed),
+myDepartPosition(departPosition),
+myArrivalPosition(arrivalPosition) {
 }
 
 
 GNETranship::GNETranship(GNENet* net, GNEDemandElement* containerParent, std::vector<GNEEdge*> edges,
                          const double speed, const double departPosition, const double arrivalPosition) :
-    GNEDemandElement(containerParent, net, GLO_TRANSHIP, GNE_TAG_TRANSHIP_EDGES, GUIIconSubSys::getIcon(GUIIcon::TRANSHIP_EDGES), 
-    GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {edges}, {}, {}, {containerParent}, {}),
-    mySpeed(speed),
-    myDepartPosition(departPosition),
-    myArrivalPosition(arrivalPosition) {
+    GNEDemandElement(containerParent, net, GLO_TRANSHIP, GNE_TAG_TRANSHIP_EDGES, GUIIconSubSys::getIcon(GUIIcon::TRANSHIP_EDGES),
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {edges}, {}, {}, {containerParent}, {}),
+mySpeed(speed),
+myDepartPosition(departPosition),
+myArrivalPosition(arrivalPosition) {
 }
 
 
@@ -147,12 +147,18 @@ GNETranship::writeDemandElement(OutputDevice& device) const {
             device.writeAttr(SUMO_ATTR_TO, getParentEdges().back()->getID());
         }
     }
+    // only write departPos if is different of -1
+    if (myDepartPosition != -1) {
+        device.writeAttr(SUMO_ATTR_DEPARTPOS, myDepartPosition);
+    }
     // only write arrivalPos if is different of -1
-    if (myArrivalPosition != -1) {
+    if ((myTagProperty.getTag() != GNE_TAG_TRANSHIP_CONTAINERSTOP) && (myArrivalPosition > 0)) {
         device.writeAttr(SUMO_ATTR_ARRIVALPOS, myArrivalPosition);
     }
-    // write parameters
-    writeParams(device);
+    // only write speed if is different of 1.39
+    if (mySpeed != 1.39) {
+        device.writeAttr(SUMO_ATTR_SPEED, mySpeed);
+    }
     // close tag
     device.closeTag();
 }
@@ -206,12 +212,6 @@ GNETranship::getPositionInView() const {
 std::string
 GNETranship::getParentName() const {
     return getParentDemandElements().front()->getID();
-}
-
-
-double
-GNETranship::getExaggeration(const GUIVisualizationSettings& /*s*/) const {
-    return 1;
 }
 
 
@@ -328,8 +328,6 @@ GNETranship::getAttribute(SumoXMLAttr key) const {
             }
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
-        case GNE_ATTR_PARAMETERS:
-            return getParametersStr();
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -385,7 +383,6 @@ GNETranship::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
         case SUMO_ATTR_ARRIVALPOS:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARENT:
-        case GNE_ATTR_PARAMETERS:
             undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             break;
         // special case for "to" attributes
@@ -496,8 +493,6 @@ GNETranship::isValid(SumoXMLAttr key, const std::string& value) {
             }
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
-        case GNE_ATTR_PARAMETERS:
-            return Parameterised::areParametersValid(value);
         case GNE_ATTR_PARENT:
             if (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_CONTAINER, value, false) != nullptr) {
                 return true;
@@ -603,9 +598,6 @@ GNETranship::setAttribute(SumoXMLAttr key, const std::string& value) {
             } else {
                 unselectAttributeCarrier();
             }
-            break;
-        case GNE_ATTR_PARAMETERS:
-            setParametersStr(value);
             break;
         case GNE_ATTR_PARENT:
             if (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_CONTAINER, value, false) != nullptr) {

@@ -1,7 +1,7 @@
 /* XPM */
 static const char *vclass_bicycle_xpm[] = {
 /* columns rows colors chars-per-pixel */
-"64 32 256 2 ",
+"64 32 256 2",
 "   c #504A5A",
 ".  c #514B5B",
 "X  c #514C5B",

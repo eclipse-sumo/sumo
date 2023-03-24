@@ -21,7 +21,7 @@ triggers release and debug build as well as the tests and the zips.
 
 Checks .java, .cpp, .h and .py files for the correct license header and
 applies [autopep8](https://github.com/hhatto/autopep8) and
-[flake8](https://gitlab.com/pycqa/flake8) for PEP 8 compatibility. Also
+[flake8](https://github.com/PyCQA/flake8) for PEP 8 compatibility. Also
 applies [astyle](http://astyle.sourceforge.net/) to all .java, .cpp, and
 .h files. The position of the source tree(s) to check is given as
 optional arguments or determined relative to the position of the script.

@@ -1,0 +1,7 @@
+-r input_routes.rou.xml 
+--turn-files input_turns.xml
+--turn-attribute None
+--turn-ratio-attribute ratio
+-f number
+--total-count 20
+-o out.rou.xml 

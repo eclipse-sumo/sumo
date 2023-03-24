@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2017-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2017-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -360,8 +360,8 @@ catchup="connected_pCatchup" catchupFollower="connected_pCatchupFollower" />
             traci.simulationStep()
 
         self.assertEqual(
-            rp.REPORT_LOG[-1][1], "Platoon '0' splits (ID of new platoon: '6'):\n    Platoon '0': ['connected.1']\n" +
-            "    Platoon '6': ['connected.2'] (PlatoonManager)")
+            rp.REPORT_LOG[-1][1], "Platoon '0' splits (ID of new platoon: '2'):\n    Platoon '0': ['connected.1']\n" +
+            "    Platoon '2': ['connected.2'] (PlatoonManager)")
 
 
 # # ignore some tests for faster execution

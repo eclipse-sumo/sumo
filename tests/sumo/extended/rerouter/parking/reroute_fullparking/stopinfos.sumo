@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Mar 17 08:48:30 2021 by Eclipse SUMO sumo Version v1_8_0+1661-481d0d6cf2
+<!-- generated on 2023-03-22 17:16:56 by Eclipse SUMO sumo Version v1_16_0+1570-ec89ba0
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -26,7 +31,6 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -35,7 +39,7 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <stops xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/stopinfo_file.xsd">
-    <stopinfo id="vehicle_1" type="DEFAULT_VEHTYPE" lane="61567479#3_0" pos="7.97" parking="1" started="16.00" ended="66.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="parkingArea_61567479#3_0_0"/>
-    <stopinfo id="vehicle_0" type="DEFAULT_VEHTYPE" lane="61567479#3_0" pos="15.94" parking="1" started="38.00" ended="88.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="parkingArea_61567479#3_0_0"/>
-    <stopinfo id="vehicle_2" type="DEFAULT_VEHTYPE" lane="-159245989#4_0" pos="45.61" parking="1" started="65.00" ended="115.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="parkingArea_-159245989#4_0_1"/>
+    <stopinfo id="vehicle_1" type="DEFAULT_VEHTYPE" lane="61567479#3_0" pos="7.97" parking="1" started="16.00" ended="66.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="parkingArea_61567479#3_0_0"/>
+    <stopinfo id="vehicle_0" type="DEFAULT_VEHTYPE" lane="61567479#3_0" pos="15.94" parking="1" started="38.00" ended="88.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="parkingArea_61567479#3_0_0"/>
+    <stopinfo id="vehicle_2" type="DEFAULT_VEHTYPE" lane="-159245989#4_0" pos="45.61" parking="1" started="65.00" ended="115.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="parkingArea_-159245989#4_0_1"/>
 </stops>

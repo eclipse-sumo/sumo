@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2012-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -47,7 +47,7 @@ MSCFModel_Rail::MSCFModel_Rail(const MSVehicleType* vtype) :
     } else if (trainType.compare("ICE3") == 0) {
         myTrainParams = initICE3Params();
     } else {
-        WRITE_ERROR("Unknown train type: " + trainType + ". Exiting!");
+        WRITE_ERRORF(TL("Unknown train type: %. Exiting!"), trainType);
         throw ProcessError();
     }
     // override with user values
@@ -208,7 +208,7 @@ double MSCFModel_Rail::getSpeedAfterMaxDecel(double /* speed */) const {
 //    double a = 0;//trainParams.decl - gr/trainParams.rotWeight;
 //
 //    return speed + a * DELTA_T / 1000.;
-    WRITE_ERROR("function call not allowd for rail model. Exiting!");
+    WRITE_ERROR("function call not allowed for rail model. Exiting!");
     throw ProcessError();
 }
 
@@ -249,7 +249,7 @@ double MSCFModel_Rail::freeSpeed(const MSVehicle* const /* veh */, double /* spe
         const double fullSpeedGain = (yFull + (onInsertion ? 1. : 0.)) * ACCEL2SPEED(myTrainParams.decl);
         return DIST2SPEED(MAX2(0.0, dist - exactGap) / (yFull + 1)) + fullSpeedGain + targetSpeed;
     } else {
-        WRITE_ERROR("Anything else than semi implicit euler update is not yet implemented. Exiting!");
+        WRITE_ERROR(TL("Anything else than semi implicit euler update is not yet implemented. Exiting!"));
         throw ProcessError();
     }
 }

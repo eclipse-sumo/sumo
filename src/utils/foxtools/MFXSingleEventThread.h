@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2004-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2004-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -20,8 +20,7 @@
 //
 /****************************************************************************/
 
-#ifndef MFXSingleEventThread_h
-#define MFXSingleEventThread_h
+#pragma once
 #include <config.h>
 
 #include "fxheader.h"
@@ -78,6 +77,3 @@ private:
     /// @brief invalidate assignment constructor
     MFXSingleEventThread& operator=(const MFXSingleEventThread&) = delete;
 };
-
-
-#endif

@@ -26,6 +26,10 @@
                 <xsd:attribute name="running" use="required" type="xsd:nonNegativeInteger"/>
                 <xsd:attribute name="jammed" use="required" type="xsd:nonNegativeInteger"/>
             </xsd:element>
+            <xsd:element name="personTeleports">
+                <xsd:attribute name="abortWait" use="required" type="xsd:nonNegativeInteger"/>
+                <xsd:attribute name="wrongDest" use="required" type="xsd:nonNegativeInteger"/>
+            </xsd:element>
             <xsd:element name="vehicleTripStatistics" minOccurs="0" maxOccurs="1">
                 <xsd:attribute name="count" use="required" type="nonNegativeInteger"/>
                 <xsd:attribute name="routeLength" use="required" type="nonNegativeFloatType"/>

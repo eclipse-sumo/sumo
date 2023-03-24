@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -129,22 +129,34 @@ public:
 
     //@}
 
+private:
+
+
+    /// @brief init constants for faster rendering
+    void initShape(PositionVector& fgShape,
+                   std::vector<double>& fgShapeRotations, std::vector<double>& fgShapeLengths,
+                   Position& fgSignPos, double& fgSignRot, bool secondaryShape = false);
 
 private:
     /// @brief The rotations of the shape parts
     std::vector<double> myFGShapeRotations;
+    std::vector<double> myFGShapeRotations2;
 
     /// @brief The lengths of the shape parts
     std::vector<double> myFGShapeLengths;
+    std::vector<double> myFGShapeLengths2;
 
     /// @brief The shape
     PositionVector myFGShape;
+    PositionVector myFGShape2;
 
     /// @brief The position of the sign
     Position myFGSignPos;
+    Position myFGSignPos2;
 
     /// @brief The rotation of the sign
     double myFGSignRot;
+    double myFGSignRot2;
 
     /// @brief The visual width of the stoppling place
     double myWidth;

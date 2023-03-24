@@ -30,7 +30,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="1.9" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-4586.25,3488.92" convBoundary="0.00,0.00,174.26,153.47" origBoundary="-516.87,-4897.89,5594.65,1679.30" projParameter="!"/>
 

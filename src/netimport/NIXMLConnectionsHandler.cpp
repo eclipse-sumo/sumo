@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -24,10 +24,6 @@
 
 #include <string>
 #include <iostream>
-#include <xercesc/sax/HandlerBase.hpp>
-#include <xercesc/sax/AttributeList.hpp>
-#include <xercesc/sax/SAXParseException.hpp>
-#include <xercesc/sax/SAXException.hpp>
 #include "NIXMLConnectionsHandler.h"
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBEdgeCont.h>
@@ -86,7 +82,7 @@ NIXMLConnectionsHandler::myStartElement(int element,
             return;
         }
         if (!fromEdge->isConnectedTo(toEdge) && fromEdge->getStep() >= NBEdge::EdgeBuildingStep::EDGE2EDGES) {
-            WRITE_WARNINGF("Target edge '%' is not connected with '%'; the connection cannot be reset.", toEdge->getID(), fromEdge->getID());
+            WRITE_WARNINGF(TL("Target edge '%' is not connected with '%'; the connection cannot be reset."), toEdge->getID(), fromEdge->getID());
             return;
         }
         int fromLane = -1; // Assume all lanes are to be reset.
@@ -100,7 +96,7 @@ NIXMLConnectionsHandler::myStartElement(int element,
             // we could be trying to reset a connection loaded from a sumo net and which has become obsolete.
             // In this case it's ok to encounter invalid lance indices
             if (!fromEdge->hasConnectionTo(toEdge, toLane) && fromEdge->getStep() >= NBEdge::EdgeBuildingStep::LANES2EDGES) {
-                WRITE_WARNINGF("Edge '%' has no connection to lane '%'; the connection cannot be reset.", fromEdge->getID(), toEdge->getLaneID(toLane));
+                WRITE_WARNINGF(TL("Edge '%' has no connection to lane '%'; the connection cannot be reset."), fromEdge->getID(), toEdge->getLaneID(toLane));
             }
         }
         fromEdge->removeFromConnections(toEdge, fromLane, toLane, true);
@@ -182,14 +178,6 @@ NIXMLConnectionsHandler::parseConnection(const std::string& defRole, const std::
     std::string fromDef = def.substr(0, div);
     std::string toDef = def.substr(div + 2);
 
-    // retrieve the edges
-    // check whether the definition includes a lane information (do not process it)
-    if (fromDef.find('_') != std::string::npos) {
-        fromDef = fromDef.substr(0, fromDef.find('_'));
-    }
-    if (toDef.find('_') != std::string::npos) {
-        toDef = toDef.substr(0, toDef.find('_'));
-    }
     // retrieve them now
     NBEdge* fromE = myEdgeCont.retrieve(fromDef);
     NBEdge* toE = myEdgeCont.retrieve(toDef);
@@ -276,7 +264,7 @@ NIXMLConnectionsHandler::parseLaneBound(const SUMOSAXAttributes& attrs, NBEdge* 
         }
 
         if (attrs.hasAttribute(SUMO_ATTR_SHAPE) && !NBNetBuilder::transformCoordinates(customShape)) {
-            WRITE_ERROR("Unable to project shape for connection from edge '" + from->getID() + "' to edge '" + to->getID() + "'.");
+            WRITE_ERRORF(TL("Unable to project shape for connection from edge '%' to edge '%'."), from->getID(), to->getID());
         }
         if (!ok) {
             return;
@@ -284,7 +272,7 @@ NIXMLConnectionsHandler::parseLaneBound(const SUMOSAXAttributes& attrs, NBEdge* 
         if (!from->addLane2LaneConnection(fromLane, to, toLane, NBEdge::Lane2LaneInfoType::USER, true, mayDefinitelyPass,
                                           keepClear, contPos, visibility, speed, friction, length, customShape, uncontrolled, permissions, indirectLeft, edgeType, changeLeft, changeRight)) {
             if (OptionsCont::getOptions().getBool("show-errors.connections-first-try")) {
-                WRITE_WARNINGF("Could not set loaded connection from lane '%' to lane '%'.", from->getLaneID(fromLane), to->getLaneID(toLane));
+                WRITE_WARNINGF(TL("Could not set loaded connection from lane '%' to lane '%'."), from->getLaneID(fromLane), to->getLaneID(toLane));
             }
             // set as to be re-applied after network processing
             myEdgeCont.addPostProcessConnection(from->getID(), fromLane, to->getID(), toLane, mayDefinitelyPass, keepClear, contPos, visibility,
@@ -356,7 +344,7 @@ NIXMLConnectionsHandler::addCrossing(const SUMOSAXAttributes& attrs) {
     NBNode* node = myNodeCont.retrieve(nodeID);
     if (node == nullptr) {
         if (!discard && myNodeCont.wasRemoved(nodeID)) {
-            WRITE_ERROR("Node '" + nodeID + "' in crossing is not known.");
+            WRITE_ERRORF(TL("Node '%' in crossing is not known."), nodeID);
         }
         return;
     }
@@ -365,7 +353,7 @@ NIXMLConnectionsHandler::addCrossing(const SUMOSAXAttributes& attrs) {
             node->discardAllCrossings(true);
             return;
         } else {
-            WRITE_ERROR("No edges specified for crossing at node '" + nodeID + "'.");
+            WRITE_ERRORF(TL("No edges specified for crossing at node '%'."), nodeID);
             return;
         }
     }
@@ -373,7 +361,7 @@ NIXMLConnectionsHandler::addCrossing(const SUMOSAXAttributes& attrs) {
         NBEdge* edge = myEdgeCont.retrieve(id);
         if (edge == nullptr) {
             if (!(discard && myEdgeCont.wasRemoved(id))) {
-                WRITE_ERROR("Edge '" + id + "' for crossing at node '" + nodeID + "' is not known.");
+                WRITE_ERRORF(TL("Edge '%' for crossing at node '%' is not known."), id, nodeID);
                 return;
             } else {
                 edge = myEdgeCont.retrieve(id, true);
@@ -381,7 +369,7 @@ NIXMLConnectionsHandler::addCrossing(const SUMOSAXAttributes& attrs) {
         } else {
             if (edge->getToNode() != node && edge->getFromNode() != node) {
                 if (!discard) {
-                    WRITE_ERROR("Edge '" + id + "' does not touch node '" + nodeID + "'.");
+                    WRITE_ERRORF(TL("Edge '%' does not touch node '%'."), id, nodeID);
                     return;
                 }
             }
@@ -394,12 +382,12 @@ NIXMLConnectionsHandler::addCrossing(const SUMOSAXAttributes& attrs) {
     bool priority = attrs.getOpt<bool>(SUMO_ATTR_PRIORITY, nodeID.c_str(), ok, node->isTLControlled(), true);
     if (node->isTLControlled() && !priority) {
         // traffic_light nodes should always have priority crossings
-        WRITE_WARNING("Crossing at controlled node '" + nodeID + "' must be prioritized");
+        WRITE_WARNINGF(TL("Crossing at controlled node '%' must be prioritized"), nodeID);
         priority = true;
     }
     PositionVector customShape = attrs.getOpt<PositionVector>(SUMO_ATTR_SHAPE, nullptr, ok, PositionVector::EMPTY);
     if (!NBNetBuilder::transformCoordinates(customShape)) {
-        WRITE_ERROR("Unable to project shape for crossing at node '" + node->getID() + "'.");
+        WRITE_ERRORF(TL("Unable to project shape for crossing at node '%'."), node->getID());
     }
     if (discard) {
         node->removeCrossing(edges);
@@ -412,7 +400,7 @@ NIXMLConnectionsHandler::addCrossing(const SUMOSAXAttributes& attrs) {
                         || (attrs.hasAttribute(SUMO_ATTR_TLLINKINDEX) && tlIndex != existing->customTLIndex)
                         || (attrs.hasAttribute(SUMO_ATTR_TLLINKINDEX2) && tlIndex2 != existing->customTLIndex2)
                         || (attrs.hasAttribute(SUMO_ATTR_PRIORITY) && priority != existing->priority))) {
-                WRITE_ERROR("Crossing with edges '" + toString(edges) + "' already exists at node '" + node->getID() + "'.");
+                WRITE_ERRORF(TL("Crossing with edges '%' already exists at node '%'."), toString(edges), node->getID());
                 return;
             } else {
                 // replace existing, keep old attributes
@@ -444,13 +432,13 @@ NIXMLConnectionsHandler::addWalkingArea(const SUMOSAXAttributes& attrs) {
     const std::string nodeID = attrs.get<std::string>(SUMO_ATTR_NODE, nullptr, ok);
     std::vector<std::string> edgeIDs;
     if (!attrs.hasAttribute(SUMO_ATTR_EDGES)) {
-        WRITE_ERROR("No edges specified for walkingArea at node '" + nodeID + "'.");
+        WRITE_ERRORF(TL("No edges specified for walkingArea at node '%'."), nodeID);
         return;
     }
     for (const std::string& id : attrs.get<std::vector<std::string> >(SUMO_ATTR_EDGES, nodeID.c_str(), ok)) {
         NBEdge* edge = myEdgeCont.retrieve(id);
         if (edge == nullptr) {
-            WRITE_ERROR("Edge '" + id + "' for walkingArea at node '" + nodeID + "' is not known.");
+            WRITE_ERRORF(TL("Edge '%' for walkingArea at node '%' is not known."), id, nodeID);
             return;
         }
         if (node == nullptr) {
@@ -459,12 +447,12 @@ NIXMLConnectionsHandler::addWalkingArea(const SUMOSAXAttributes& attrs) {
             } else if (edge->getFromNode()->getID() == nodeID) {
                 node = edge->getFromNode();
             } else {
-                WRITE_ERROR("Edge '" + id + "' does not touch node '" + nodeID + "'.");
+                WRITE_ERRORF(TL("Edge '%' does not touch node '%'."), id, nodeID);
                 return;
             }
         } else {
             if (edge->getToNode() != node && edge->getFromNode() != node) {
-                WRITE_ERROR("Edge '" + id + "' does not touch node '" + nodeID + "'.");
+                WRITE_ERRORF(TL("Edge '%' does not touch node '%'."), id, nodeID);
                 return;
             }
         }
@@ -476,7 +464,7 @@ NIXMLConnectionsHandler::addWalkingArea(const SUMOSAXAttributes& attrs) {
     PositionVector customShape = attrs.getOpt<PositionVector>(SUMO_ATTR_SHAPE, nullptr, ok, PositionVector::EMPTY);
     double customWidth = attrs.getOpt<double>(SUMO_ATTR_WIDTH, nullptr, ok, NBEdge::UNSPECIFIED_WIDTH);
     if (!NBNetBuilder::transformCoordinates(customShape)) {
-        WRITE_ERROR("Unable to project shape for walkingArea at node '" + node->getID() + "'.");
+        WRITE_ERRORF(TL("Unable to project shape for walkingArea at node '%'."), node->getID());
     }
     node->addWalkingAreaShape(edges, customShape, customWidth);
 }

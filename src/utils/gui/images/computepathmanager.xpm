@@ -26,6 +26,7 @@ static const char *computepathmanager_xpm[] = {
 "/	c #BA7B7B",
 "(	c #F2A1A1",
 "_	c #F0A0A0",
+/* pixels */
 "   ....    .....",
 " ..+@@#..       ",
 " .@$%&*@.  .....",

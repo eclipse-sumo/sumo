@@ -7,7 +7,7 @@ parallel_bike_path
 # as above but with fewer edges
 parallel_bike_path2
 
-# do not declare foes when the target lanes are conflict-free even though the edgse are in conflict
+# (optionally) do not declare foes when the target lanes are conflict-free even though the edges are in conflict
 checkLaneFoes
 
 # compute right of way solely by edge priority
@@ -15,3 +15,7 @@ rightOfWay_edgePriority
 
 # compute right of way solely by edge priority (set via option)
 rightOfWay_edgePriority_option
+
+# do not declare foes when the target lanes are conflict-free and intended for a dedicated vehicle class (so a conflict via sudden lane changing is unlikely) 
+# even though the edges are in conflict
+laneFoes_dedicated

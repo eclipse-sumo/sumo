@@ -17,6 +17,7 @@ title: Developer
 - [Developer/FMI](FMI.md) - information about the current state of the FMI 2.0 support in SUMO
 - [Developer/Maven](Maven.md) - information about using libsumo/libtraci in maven builds
 - [Developer/How to Update Homebrew Formula](HowToUpdateHomebrewFormula.md) - how to update the macOS Homebrew Formula for a new SUMO release
+- [Translating](Translating.md) - how to add translations for GUI and messaging
 
 ## Build instructions
 

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -45,7 +45,6 @@ public:
         ACCEPT,     // load elements
         CANCEL,     // cancel load
         OVERWRITE   // load elements, overwritting elements with the same ID
-
     };
 
     /// @brief Constructor
@@ -72,13 +71,13 @@ protected:
     FOX_CONSTRUCTOR(GNEOverwriteElementsDialog)
 
     /// @brief button for accept
-    FXButton *myAcceptButton = nullptr;
+    FXButton* myAcceptButton = nullptr;
 
     /// @brief button for cancel
-    FXButton *myCancelButton = nullptr;
+    FXButton* myCancelButton = nullptr;
 
     /// @brief button for overwritte
-    FXButton *myOverwriteButton = nullptr;
+    FXButton* myOverwriteButton = nullptr;
 
     /// @brief result (by default cancel)
     Result myResult = Result::CANCEL;

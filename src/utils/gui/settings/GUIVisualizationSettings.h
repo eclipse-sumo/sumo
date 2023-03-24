@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -278,6 +278,9 @@ struct GUIVisualizationCandidateColorSettings {
 
     /// @brief color for selected conflict candidate element (Usually selected using ctrl+click)
     static const RGBColor conflict;
+
+    /// @brief color for invalid elements
+    static const RGBColor invalid;
 };
 
 /// @brief struct for connection settings
@@ -577,7 +580,7 @@ struct GUIVisualizationDetailSettings {
     /// @brief details for draw person as person shapes
     static const double personShapes;
 
-    /// @brief Exaggeration for persons (only used in NETEDIT)
+    /// @brief Exaggeration for persons (only used in netedit)
     static const double personExaggeration;
 };
 
@@ -716,7 +719,7 @@ public:
     bool showRails;
 
     // Setting bundles for optional drawing names with size and color
-    GUIVisualizationTextSettings edgeName, internalEdgeName, cwaEdgeName, streetName, edgeValue;
+    GUIVisualizationTextSettings edgeName, internalEdgeName, cwaEdgeName, streetName, edgeValue, edgeScaleValue;
 
     /// @brief flag to show or hide connectors
     bool hideConnectors;
@@ -747,10 +750,18 @@ public:
 
     /// @brief key for coloring by edgeData
     std::string edgeData;
+    /// @brief id for coloring by live edgeData
+    std::string edgeDataID;
+    /// @brief key for scaling by edgeData
+    std::string edgeDataScaling;
 
-    /// @brief value below which edge data value should not be rendered
+    /// @brief threshold below which edge data value should not be rendered
     bool edgeValueHideCheck;
     double edgeValueHideThreshold;
+
+    /// @brief threshold above which edge data value should not be rendered
+    bool edgeValueHideCheck2;
+    double edgeValueHideThreshold2;
     /// @}
 
     /// @name vehicle visualization settings
@@ -785,6 +796,9 @@ public:
 
     /// @brief Whether vehicle length shall be scaled with length/geometry factor
     bool scaleLength;
+
+    /// @brief Whether to draw reversed vehicles in their reversed state
+    bool drawReversed;
 
     /// @brief Set whether parking related information should be shown
     bool showParkingInfo;
@@ -936,6 +950,17 @@ public:
 
     /// @brief whether 3D TLS models should be generated automatically
     bool generate3DTLSModels;
+
+    /// @brief whether to draw the head up display items
+    bool show3DHeadUpDisplay;
+
+    /// @brief 3D material light components
+    RGBColor ambient3DLight;
+    RGBColor diffuse3DLight;
+
+    /// @brief sky background color
+    RGBColor skyColor;
+
     /// @}
 
 
@@ -957,7 +982,7 @@ public:
     /// @brief enable or disable draw boundaries
     bool drawBoundaries;
 
-    /// @brief the current selection scaling in NETEDIT (set in SelectorFrame)
+    /// @brief the current selection scaling in netedit (set in SelectorFrame)
     double selectorFrameScale;
 
     /// @brief whether drawing is performed for the purpose of selecting objects with a single click
@@ -972,8 +997,14 @@ public:
     /// @brief flag to force draw for rectangle selection (see drawForRectangleSelection)
     bool forceDrawForRectangleSelection;
 
+    /// @brief flag for disable dotted contours in netedit
+    bool disableDottedContours;
+
     // Setting bundles for optional drawing geometry point indices
     GUIVisualizationTextSettings geometryIndices;
+
+    /// @brief whether secondary lane shape shall be drawn
+    bool secondaryShape;
 
     /**@brief whether drawing is performed in left-hand networks
      * @note used to avoid calls to OptionsCont::getOptions() in every drawgl(...) function, and
@@ -996,8 +1027,10 @@ public:
     static const std::string SCHEME_NAME_SELECTION;
     static const std::string SCHEME_NAME_TYPE;
     static const std::string SCHEME_NAME_PERMISSION_CODE;
+    static const std::string SCHEME_NAME_EDGEDATA_LIVE;
 
     static const double MISSING_DATA;
+    static RGBColor COL_MISSING_DATA;
 
     /// @brief color settings
     GUIVisualizationColorSettings colorSettings;
@@ -1028,6 +1061,9 @@ public:
 
     /// @brief detail settings
     GUIVisualizationDetailSettings detailSettings;
+
+    /// @brief alt key pressed (only used for draw polygons under other elements in SUMO-GUI, store is not needed)
+    bool altKeyPressed = false;
 
 private:
     /// @brief set copy constructor private

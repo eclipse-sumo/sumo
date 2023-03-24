@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2012-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2012-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -217,7 +217,11 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None, ptRoutes=None, oldP
                 newPlan = []
                 isDiscoBefore = True
                 isDiscoAfter = False
+                params = []
                 for planItem in moving.getChildList():
+                    if planItem.name == "param":
+                        params.append(planItem)
+                        continue
                     if planItem.name == "walk":
                         disco = "keep" if options.disconnected_action == "keep.walk" else options.disconnected_action
                         routeParts = _cutEdgeList(areaEdges, oldDepart, None,
@@ -302,10 +306,10 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None, ptRoutes=None, oldP
                         break
                     isDiscoBefore = isDiscoAfter
                     isDiscoAfter = False
-                moving.setChildList(newPlan)
-                cut_stops(moving, busStopEdges, remaining)
-                if not moving.getChildList():
+                if not newPlan:
                     continue
+                moving.setChildList(params + newPlan)
+                cut_stops(moving, busStopEdges, remaining)
                 if newDepart is None:
                     newDepart = parseTime(moving.depart)
                 if newPlan[0].name == "ride" and newPlan[0].lines == newPlan[0].intended:

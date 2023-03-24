@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-03-06 17:29:38 by Eclipse SUMO netedit Version v1_16_0+1044-cc64c4551bb
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="miv.net.xml.gz"/>
+    </input>
+
+    <output>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<nodes version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="-598668.09,-5783261.49" convBoundary="7675.17,7279.89,7752.56,7286.59" origBoundary="10.393336,52.146862,10.787296,52.408126" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <node id="252500073" x="7752.56" y="7280.66" type="dead_end"/>
+    <node id="3360095159" x="7719.56" y="7283.09" type="priority"/>
+    <node id="5708039332" x="7700.90" y="7282.22" type="priority"/>
+    <node id="cluster_252500077_3412405252_3412405256_3414814703_#2more" x="7680.49" y="7286.59" type="dead_end">
+        <param key="origEdgeIds" value="-23319992#0 -23319992#1 -23319992#2 -23319992#3 23319992#0 23319992#1 23319992#2 23319992#3 334152813#2 334152816#0"/>
+        <param key="origId" value="252500077 3412405252 3412405256 3414814703 5708039341 5708039342"/>
+    </node>
+</nodes>

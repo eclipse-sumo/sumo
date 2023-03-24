@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-04-05 10:32:20 by Eclipse SUMO sumo Version v1_12_0+1949-1d2ae20f770
+<!-- generated on 2022-12-21 10:48:33 by Eclipse SUMO sumo Version v1_15_0+1176-c58c473
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -26,12 +26,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <processing>
         <default.speeddev value="0"/>
-        <pedestrian.model value="nonInteracting"/>
     </processing>
 
     <report>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -48,6 +46,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <transport waitingTime="60.00" vehicle="taxi" depart="61.00" arrival="144.00" arrivalPos="0.00" duration="83.00" routeLength="1142.40" timeLoss="0.00"/>
     </containerinfo>
     <tripinfo id="taxi" depart="1.00" departLane="" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="204.00" routeLength="1142.40" waitingTime="0.00" waitingCount="0" stopTime="62.00" timeLoss="0.00" rerouteNo="2" devices="tripinfo_taxi routing_taxi taxi_taxi container_taxi" vType="taxi" speedFactor="1.00" vaporized="">
-        <taxi customers="1" occupiedDistance="1142.40" occupiedTime="82.25"/>
+        <taxi customers="1" occupiedDistance="1142.40" occupiedTime="83.25"/>
     </tripinfo>
 </tripinfos>

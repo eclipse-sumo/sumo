@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -256,7 +256,8 @@ NBRequest::setBlocking(NBEdge* from1, NBEdge* to1,
                                  << " 2:" << from2->getID() << "->" << to2->getID() << "\n";
 #endif
     // check the priorities if required by node type
-    if (myJunction->getType() != SumoXMLNodeType::RIGHT_BEFORE_LEFT) {
+    const bool typeEqual = myJunction->getType() == SumoXMLNodeType::RIGHT_BEFORE_LEFT || myJunction->getType() == SumoXMLNodeType::LEFT_BEFORE_RIGHT;
+    if (!typeEqual) {
         int from1p = from1->getJunctionPriority(myJunction);
         int from2p = from2->getJunctionPriority(myJunction);
 #ifdef DEBUG_SETBLOCKING
@@ -277,7 +278,7 @@ NBRequest::setBlocking(NBEdge* from1, NBEdge* to1,
     }
     // straight connections prohibit turning connections if the priorities are equal
     // (unless the junction is a bent priority junction)
-    if (myJunction->getType() != SumoXMLNodeType::RIGHT_BEFORE_LEFT && !myJunction->isBentPriority()) {
+    if (!typeEqual && !myJunction->isBentPriority()) {
         LinkDirection ld1 = myJunction->getDirection(from1, to1);
         LinkDirection ld2 = myJunction->getDirection(from2, to2);
 #ifdef DEBUG_SETBLOCKING
@@ -322,6 +323,7 @@ NBRequest::setBlocking(NBEdge* from1, NBEdge* to1,
     */
 
     // compute the yielding due to the right-before-left rule
+    // (or left-before-right rule)
     // get the position of the incoming lanes in the junction-wheel
     EdgeVector::const_iterator c1 = std::find(myAll.begin(), myAll.end(), from1);
     NBContHelper::nextCW(myAll, c1);
@@ -329,7 +331,11 @@ NBRequest::setBlocking(NBEdge* from1, NBEdge* to1,
     while (*c1 != from1 && *c1 != from2) {
         if (*c1 == to2) {
             // if we encounter to2 the second one prohibits the first
-            myForbids[idx2][idx1] = true;
+            if (myJunction->getType() == SumoXMLNodeType::LEFT_BEFORE_RIGHT) {
+                myForbids[idx1][idx2] = true;
+            } else {
+                myForbids[idx2][idx1] = true;
+            }
             return;
         }
         NBContHelper::nextCW(myAll, c1);
@@ -341,7 +347,11 @@ NBRequest::setBlocking(NBEdge* from1, NBEdge* to1,
     while (*c2 != from2 && *c2 != from1) {
         if (*c2 == to1) {
             // if we encounter to1 the second one prohibits the first
-            myForbids[idx1][idx2] = true;
+            if (myJunction->getType() == SumoXMLNodeType::LEFT_BEFORE_RIGHT) {
+                myForbids[idx2][idx1] = true;
+            } else {
+                myForbids[idx1][idx2] = true;
+            }
             return;
         }
         NBContHelper::nextCW(myAll, c2);
@@ -844,7 +854,9 @@ bool
 NBRequest::indirectLeftTurnConflict(const NBEdge* from, const NBEdge::Connection& con,
                                     const NBEdge* prohibitorFrom,  const NBEdge::Connection& prohibitorCon, bool foes) const {
     if (from == prohibitorFrom) {
-        if (con.indirectLeft) {
+        if (con.toEdge == prohibitorCon.toEdge) {
+            return false;
+        } else if (con.indirectLeft) {
             LinkDirection dir = myJunction->getDirection(prohibitorFrom, prohibitorCon.toEdge);
             return (dir == LinkDirection::STRAIGHT);
         } else if (foes && prohibitorCon.indirectLeft) {
@@ -864,7 +876,9 @@ NBRequest::checkLaneFoesByClass(const NBEdge::Connection& con,
     SVCPermissions svc = con.toEdge->getPermissions(con.toLane);
     SVCPermissions svc2 = prohibitorFrom->getPermissions(prohibitorCon.fromLane) & prohibitorCon.toEdge->getPermissions(prohibitorCon.toLane);
     // check for lane level conflict if the only common classes are bicycles or pedestrians
-    return (svc & svc2 & ~(SVC_BICYCLE | SVC_PEDESTRIAN)) == 0;
+    return ((svc & svc2 & ~(SVC_BICYCLE | SVC_PEDESTRIAN)) == 0
+            // or if the connection is to a dedicated lane whereas the prohibitor is a "general" lane
+            || (((svc & SVC_PASSENGER) == 0) && ((svc2 & SVC_PASSENGER) != 0)));
 }
 
 

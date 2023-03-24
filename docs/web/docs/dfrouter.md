@@ -140,13 +140,14 @@ Options](Basics/Using_the_Command_Line_Applications.md#reporting_options).
 | **--print-options** {{DT_BOOL}} | Prints option values before processing; *default:* **false** |
 | **-?** {{DT_BOOL}}<br> **--help** {{DT_BOOL}} | Prints this screen or selected topics; *default:* **false** |
 | **-V** {{DT_BOOL}}<br> **--version** {{DT_BOOL}} | Prints the current version; *default:* **false** |
-| **-X** {{DT_STR}}<br> **--xml-validation** {{DT_STR}} | Set schema validation scheme of XML inputs ("never", "auto" or "always"); *default:* **auto** |
-| **--xml-validation.net** {{DT_STR}} | Set schema validation scheme of SUMO network inputs ("never", "auto" or "always"); *default:* **never** |
+| **-X** {{DT_STR}}<br> **--xml-validation** {{DT_STR}} | Set schema validation scheme of XML inputs ("never", "local", "auto" or "always"); *default:* **local** |
+| **--xml-validation.net** {{DT_STR}} | Set schema validation scheme of SUMO network inputs ("never", "local", "auto" or "always"); *default:* **never** |
 | **-W** {{DT_BOOL}}<br> **--no-warnings** {{DT_BOOL}} | Disables output of warnings; *default:* **false** |
 | **--aggregate-warnings** {{DT_INT}} | Aggregate warnings of the same type whenever more than INT occur; *default:* **-1** |
 | **-l** {{DT_FILE}}<br> **--log** {{DT_FILE}} | Writes all messages to FILE (implies verbose) |
 | **--message-log** {{DT_FILE}} | Writes all non-error messages to FILE (implies verbose) |
 | **--error-log** {{DT_FILE}} | Writes all warnings and errors to FILE |
+| **--language** {{DT_STR}} | Language to use in messages; *default:* **C** |
 | **--report-empty-detectors** {{DT_BOOL}} | Lists detectors with no flow (enable -v); *default:* **false** |
 | **--print-absolute-flows** {{DT_BOOL}} | Prints aggregated detector flows; *default:* **false** |
 | **--no-step-log** {{DT_BOOL}} | Disable console output of route parsing step; *default:* **false** |

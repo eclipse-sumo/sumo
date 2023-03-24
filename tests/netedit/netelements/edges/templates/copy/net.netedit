@@ -1,47 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-07-08 10:00:55 by Eclipse SUMO netedit Version v1_13_0+1477-18ae478306d
+<!-- generated on 2023-02-14 10:04:07 by Eclipse SUMO netedit Version v1_16_0+0167-b5f3c70e078
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <new value="true"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.14Feb100226.20536\netedit.gui\netelements\edges\templates\copy\netedit.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Jul095403.3024\netedit.gui\netelements\edges\templates\copy\net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.14Feb100226.20536\netedit.gui\netelements\edges\templates\copy\netedit.net.xml"/>
     </output>
 
     <processing>
         <offset.disable-normalization value="true"/>
     </processing>
 
+    <junctions>
+        <no-turnarounds value="true"/>
+    </junctions>
+
     <netedit>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Jul095403.3024\netedit.gui\netelements\edges\templates\copy\additionals.xml"/>
-        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Jul095403.3024\netedit.gui\netelements\edges\templates\copy\additionals.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Jul095403.3024\netedit.gui\netelements\edges\templates\copy\routes.xml"/>
-        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Jul095403.3024\netedit.gui\netelements\edges\templates\copy\routes.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Jul095403.3024\netedit.gui\netelements\edges\templates\copy\datas.xml"/>
-        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Jul095403.3024\netedit.gui\netelements\edges\templates\copy\datas.xml"/>
+        <new-network value="false"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Jul095403.3024\netedit.gui\netelements\edges\templates\copy\gui-settings.xml"/>
-        <window-size value="936,697"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.14Feb100226.20536\netedit.gui\netelements\edges\templates\copy\gui-settings.xml"/>
+        <window-size value="936, 697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing-debug value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Jul095403.3024\netedit.gui\netelements\edges\templates\copy\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.14Feb100226.20536\netedit.gui\netelements\edges\templates\copy\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Jul095403.3024\netedit.gui\netelements\edges\templates\copy\log.txt"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.14Feb100226.20536\netedit.gui\netelements\edges\templates\copy\log.txt"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.9" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="0.00,0.00" convBoundary="0.00,25.00,85.00,75.00" origBoundary="10000000000.00,10000000000.00,-10000000000.00,-10000000000.00" projParameter="!"/>
 

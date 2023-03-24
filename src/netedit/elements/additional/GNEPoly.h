@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -102,9 +102,18 @@ public:
                            const GNENetworkElement* newElement, GNEUndoList* undoList) override;
 
     /**@brief write additional element into a xml file
-     * @param[in] device device in which write parameters of additional element
-     */
+    * @param[in] device device in which write parameters of additional element
+    */
     void writeAdditional(OutputDevice& device) const override;
+
+    /// @brief check if current additional is valid to be writed into XML (must be reimplemented in all detector children)
+    bool isAdditionalValid() const override;
+
+    /// @brief return a string with the current additional problem (must be reimplemented in all detector children)
+    std::string getAdditionalProblem() const override;
+
+    /// @brief fix additional problem (must be reimplemented in all detector children)
+    void fixAdditionalProblem() override;
 
     /// @brief Returns the numerical id of the object
     GUIGlID getGlID() const;

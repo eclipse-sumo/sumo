@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-03-06 17:29:38 by Eclipse SUMO netedit Version v1_16_0+1044-cc64c4551bb
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="miv.net.xml.gz"/>
+    </input>
+
+    <output>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<edges version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="334152810#0" from="3360095159" to="252500073" name="Helmstedter Straße" priority="11" numLanes="2" speed="13.89">
+        <lane index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship">
+            <param key="origId" value="334152810"/>
+        </lane>
+        <lane index="1" disallow="pedestrian rail_urban rail rail_electric rail_fast ship">
+            <param key="origId" value="334152810 600220249#4"/>
+        </lane>
+        <param key="ref" value="K 11"/>
+    </edge>
+    <edge id="334152812#2" from="cluster_252500077_3412405252_3412405256_3414814703_#2more" to="5708039332" name="Helmstedter Straße" priority="11" numLanes="2" speed="13.89" shape="7675.17,7282.02 7700.90,7282.22" spreadType="center">
+        <lane index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship">
+            <param key="origId" value="334152812"/>
+        </lane>
+        <lane index="1" disallow="pedestrian rail_urban rail rail_electric rail_fast ship">
+            <param key="origId" value="334152812 600220249#3"/>
+        </lane>
+        <param key="origFrom" value="252500077"/>
+        <param key="ref" value="K 11"/>
+    </edge>
+    <edge id="334152812#3" from="5708039332" to="3360095159" name="Helmstedter Straße" priority="11" numLanes="2" speed="13.89" shape="7700.90,7282.22 7719.71,7279.89" spreadType="center">
+        <lane index="0" disallow="pedestrian rail_urban rail rail_electric rail_fast ship">
+            <param key="origId" value="334152812 600220249#4"/>
+        </lane>
+        <lane index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship">
+            <param key="origId" value="334152812"/>
+        </lane>
+        <param key="ref" value="K 11"/>
+    </edge>
+
+
+</edges>

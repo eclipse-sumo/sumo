@@ -176,6 +176,9 @@
 /* defined if FOX is available */
 #cmakedefine HAVE_FOX
 
+/* defined if libintl is available */
+#cmakedefine HAVE_INTL
+
 /* defined if GDAL is available */
 #cmakedefine HAVE_GDAL
 
@@ -201,7 +204,7 @@
 #define HAVE_VERSION_H
 #ifndef HAVE_VERSION_H
     /* Define if auto-generated version.h is unavailable. */
-    #define VERSION_STRING "1.14.1"
+    #define VERSION_STRING "1.16.0"
 #endif
 
 /* defines the epsilon to use on general floating point comparison */

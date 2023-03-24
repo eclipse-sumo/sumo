@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -841,11 +841,13 @@ GLHelper::drawInverseMarkings(const PositionVector& geom,
             mw2 *= -1;
         }
         int e = (int) geom.size() - 1;
+        double offset = 0;
         for (int i = 0; i < e; ++i) {
             GLHelper::pushMatrix();
             glTranslated(geom[i].x(), geom[i].y(), 2.1);
             glRotated(rots[i], 0, 0, 1);
-            for (double t = 0; t < lengths[i]; t += spacing) {
+            double t;
+            for (t = offset; t < lengths[i]; t += spacing) {
                 const double length = MIN2((double)maxLength, lengths[i] - t);
                 glBegin(GL_QUADS);
                 glVertex2d(-mw, -t);
@@ -870,6 +872,7 @@ GLHelper::drawInverseMarkings(const PositionVector& geom,
 #endif
                 }
             }
+            offset = t - lengths[i] - spacing;
             GLHelper::popMatrix();
         }
     }

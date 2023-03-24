@@ -1,4 +1,37 @@
+the total number of tls: 6
 Begin time:25200
-Skipping TLS '1025888921' due to unused states (36 states, 16 connections)
-Skipping TLS '1036849914' due to unused states (12 states, 8 connections)
-Skipping TLS '1037005478' due to unused states (12 states, 4 connections)
+parsing route file: input_routes.rou.xml
+Parsed 14256 vehicles from input_routes.rou.xml.
+Warning: the number of unused states at TLS 1025888921: 20 (36 states, 16 connections)
+Warning: the number of unused states at TLS 1036849914: 4 (12 states, 8 connections)
+Warning: the number of unused states at TLS 1037005478: 8 (12 states, 4 connections)
+Firstly only calculate the maximal optimized cycle length! 
+tl-logic ID: cluster_1037005497_2683362682
+phase: 0
+group flows: [51, 2116.0, 996.0]
+The used lanes: [[0, 1, 2], [0, 1, 2]]
+phase: 2
+group flows: [12, 580.0, 49.0]
+The used lanes: [[3], [3]]
+phase: 4
+group flows: [34, 380.0, 398.0]
+The used lanes: [[0, 1], [0, 1]]
+the current cycle length:115 sec
+The maximal optimized cycle length is 120.
+ It will be used for calculating the green splits for all intersections.
+tl-logic ID: cluster_1037005497_2683362682
+phase: 0
+group flows: [51, 2116.0, 996.0]
+The used lanes: [[0, 1, 2], [0, 1, 2]]
+phase: 2
+group flows: [12, 580.0, 49.0]
+The used lanes: [[3], [3]]
+phase: 4
+group flows: [34, 380.0, 398.0]
+The used lanes: [[0, 1], [0, 1]]
+the current cycle length:115 sec
+Green time for phase 0: 52
+Green time for phase 2: 42
+Green time for phase 4: 14
+The optimal cycle length:120
+

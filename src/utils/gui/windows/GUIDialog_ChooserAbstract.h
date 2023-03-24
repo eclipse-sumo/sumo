@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -27,6 +27,7 @@
 #include <set>
 #include <utils/foxtools/fxheader.h>
 #include <utils/gui/globjects/GUIGlObject.h>
+#include <utils/gui/div/GUIPersistentWindowPos.h>
 #include "GUIAppEnum.h"
 
 
@@ -47,14 +48,14 @@ class GUIGlObject;
  * from a given artifact like vehicles, edges or junctions and allow
  * one of their items
  */
-class GUIDialog_ChooserAbstract : public FXMainWindow {
+class GUIDialog_ChooserAbstract : public FXMainWindow, public GUIPersistentWindowPos {
     // FOX-declarations
     FXDECLARE(GUIDialog_ChooserAbstract)
 
 public:
     /** @brief Constructor
      * @param[in] windowsParent The calling view
-     * @param[in] viewParent The calling view (NETEDIT)
+     * @param[in] viewParent The calling view (netedit)
      * @param[in] icon The icon to use
      * @param[in] title The title to use
      * @param[in] glStorage The storage to retrieve ids from
@@ -127,16 +128,16 @@ protected:
     /// @brief fox need this
     FOX_CONSTRUCTOR(GUIDialog_ChooserAbstract)
 
-    /// @brief toggle selection (handled differently in NETEDIT)
+    /// @brief toggle selection (handled differently in netedit)
     virtual void toggleSelection(int listIndex);
 
-    /// @brief set selection (handled differently in NETEDIT)
+    /// @brief set selection (handled differently in netedit)
     virtual void select(int listIndex);
 
-    /// @brief unset selection (handled differently in NETEDIT)
+    /// @brief unset selection (handled differently in netedit)
     virtual void deselect(int listIndex);
 
-    /// @brief filter ACs (needed in NETEDIT)
+    /// @brief filter ACs (needed in netedit)
     virtual void filterACs(const std::vector<GUIGlID>& GLIDs);
 
     /// update the list with the given ids

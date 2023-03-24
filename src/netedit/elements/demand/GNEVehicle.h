@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -15,7 +15,7 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    Jan 2019
 ///
-// Representation of vehicles in NETEDIT
+// Representation of vehicles in netedit
 /****************************************************************************/
 #pragma once
 #include <config.h>
@@ -157,10 +157,10 @@ public:
     GNEVehicle(SumoXMLTag tag, GNENet* net, GNEDemandElement* vehicleType, const SUMOVehicleParameter& vehicleParameters);
 
     /// @brief default constructor for trips and Flows over edges
-    GNEVehicle(SumoXMLTag tag, GNENet* net, const std::string& vehicleID, GNEDemandElement* vehicleType, GNEEdge* fromEdge, GNEEdge* toEdge, const std::vector<GNEEdge*>& via);
+    GNEVehicle(SumoXMLTag tag, GNENet* net, const std::string& vehicleID, GNEDemandElement* vehicleType, GNEEdge* fromEdge, GNEEdge* toEdge);
 
     /// @brief parameter constructor for trips and Flows over junctions
-    GNEVehicle(SumoXMLTag tag, GNENet* net, GNEDemandElement* vehicleType, GNEEdge* fromEdge, GNEEdge* toEdge, const std::vector<GNEEdge*>& via, const SUMOVehicleParameter& vehicleParameters);
+    GNEVehicle(SumoXMLTag tag, GNENet* net, GNEDemandElement* vehicleType, GNEEdge* fromEdge, GNEEdge* toEdge, const SUMOVehicleParameter& vehicleParameters);
 
     /// @brief default constructor for trips and Flows over junctions
     GNEVehicle(SumoXMLTag tag, GNENet* net, const std::string& vehicleID, GNEDemandElement* vehicleType, GNEJunction* fromJunction, GNEJunction* toJunction);
@@ -346,7 +346,7 @@ public:
 
 protected:
     /// @brief sets the color according to the currente settings
-    void setColor(const GUIVisualizationSettings& s) const;
+    RGBColor setColor(const GUIVisualizationSettings& s) const;
 
 private:
     /// @brief vehicle arrival position radius
@@ -363,15 +363,6 @@ private:
 
     /// @brief commit move shape
     void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
-
-    /// @brief draw stack label
-    void drawStackLabel(const Position& vehiclePosition, const double vehicleRotation, const double width, const double length, const double exaggeration) const;
-
-    /// @brief draw flow label
-    void drawFlowLabel(const Position& vehiclePosition, const double vehicleRotation, const double width, const double length, const double exaggeration) const;
-
-    /// @brief draw line between junctions
-    void drawJunctionLine() const;
 
     /// @brief Invalidated copy constructor.
     GNEVehicle(const GNEVehicle&) = delete;

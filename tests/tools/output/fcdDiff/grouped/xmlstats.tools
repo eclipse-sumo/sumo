@@ -1,0 +1,381 @@
+<fcd-diff>
+   <timestep time="0.0">
+       <vehicle id="overtaking" t="0.0" x="0.0" y="-1.65" x2="0.0" y2="-1.65" e="0.0"/>
+       <vehicle id="stopped" t="0.0" x="40.0" y="-1.65" x2="40.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="1.0">
+       <vehicle id="overtaking" t="1.0" x="2.2" y="-1.65" x2="1.69" y2="-1.65" e="0.5100000000000002"/>
+       <vehicle id="stopped" t="1.0" x="42.6" y="-1.65" x2="42.46" y2="-1.65" e="0.14000000000000057"/>
+   </timestep>
+   <timestep time="2.0">
+       <vehicle id="overtaking" t="2.0" x="6.14" y="-1.65" x2="4.7" y2="-1.65" e="1.4399999999999995"/>
+       <vehicle id="stopped" t="2.0" x="46.88" y="-1.65" x2="46.56" y2="-1.65" e="0.3200000000000003"/>
+   </timestep>
+   <timestep time="3.0">
+       <vehicle id="overtaking" t="3.0" x="11.45" y="-1.65" x2="9.54" y2="-1.65" e="1.9100000000000001"/>
+       <vehicle id="stopped" t="3.0" x="49.11" y="-1.65" x2="49.26" y2="-1.65" e="0.14999999999999858"/>
+   </timestep>
+   <timestep time="4.0">
+       <vehicle id="overtaking" t="4.0" x="18.34" y="-1.65" x2="16.25" y2="-1.65" e="2.09"/>
+       <vehicle id="stopped" t="4.0" x="49.87" y="-1.65" x2="49.83" y2="-1.65" e="0.03999999999999915"/>
+   </timestep>
+   <timestep time="5.0">
+       <vehicle id="overtaking" t="5.0" x="26.96" y="-1.65" x2="25.23" y2="-1.65" e="1.7300000000000004"/>
+       <vehicle id="stopped" t="5.0" x="49.99" y="-1.65" x2="49.97" y2="-1.65" e="0.020000000000003126"/>
+   </timestep>
+   <timestep time="6.0">
+       <vehicle id="overtaking" t="6.0" x="35.63" y="-0.58" x2="35.24" y2="-0.58" e="0.39000000000000057"/>
+       <vehicle id="stopped" t="6.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="7.0">
+       <vehicle id="overtaking" t="7.0" x="40.25" y="0.58" x2="40.75" y2="0.58" e="0.5"/>
+       <vehicle id="stopped" t="7.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="8.0">
+       <vehicle id="overtaking" t="8.0" x="41.49" y="1.65" x2="41.89" y2="1.65" e="0.3999999999999986"/>
+       <vehicle id="stopped" t="8.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="9.0">
+       <vehicle id="overtaking" t="9.0" x="44.42" y="1.65" x2="44.7" y2="1.65" e="0.28000000000000114"/>
+       <vehicle id="stopped" t="9.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="10.0">
+       <vehicle id="overtaking" t="10.0" x="49.88" y="1.65" x2="49.74" y2="1.65" e="0.14000000000000057"/>
+       <vehicle id="stopped" t="10.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="11.0">
+       <vehicle id="overtaking" t="11.0" x="57.3" y="1.65" x2="56.82" y2="1.65" e="0.4799999999999969"/>
+       <vehicle id="stopped" t="11.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="12.0">
+       <vehicle id="overtaking" t="12.0" x="66.56" y="0.58" x2="66.21" y2="0.58" e="0.3500000000000085"/>
+       <vehicle id="stopped" t="12.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="13.0">
+       <vehicle id="overtaking" t="13.0" x="78.36" y="-0.58" x2="77.3" y2="-0.58" e="1.0600000000000023"/>
+       <vehicle id="stopped" t="13.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="14.0">
+       <vehicle id="overtaking" t="14.0" x="92.13" y="-1.65" x2="90.21" y2="-1.65" e="1.9200000000000017"/>
+       <vehicle id="stopped" t="14.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="15.0">
+       <vehicle id="overtaking" t="15.0" x="105.74" y="-1.65" x2="103.94" y2="-1.65" e="1.7999999999999972"/>
+       <vehicle id="stopped" t="15.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="16.0">
+       <vehicle id="overtaking" t="16.0" x="119.38" y="-1.65" x2="117.32" y2="-1.65" e="2.0600000000000023"/>
+       <vehicle id="stopped" t="16.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="17.0">
+       <vehicle id="overtaking" t="17.0" x="132.98" y="-1.65" x2="129.95" y2="-1.65" e="3.030000000000001"/>
+       <vehicle id="stopped" t="17.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="18.0">
+       <vehicle id="overtaking" t="18.0" x="146.42" y="-1.65" x2="143.23" y2="-1.65" e="3.1899999999999977"/>
+       <vehicle id="stopped" t="18.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="19.0">
+       <vehicle id="overtaking" t="19.0" x="160.15" y="-1.65" x2="156.94" y2="-1.65" e="3.210000000000008"/>
+       <vehicle id="stopped" t="19.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="20.0">
+       <vehicle id="overtaking" t="20.0" x="173.55" y="-1.65" x2="170.77" y2="-1.65" e="2.780000000000001"/>
+       <vehicle id="stopped" t="20.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="21.0">
+       <vehicle id="overtaking" t="21.0" x="186.18" y="-1.65" x2="183.71" y2="-1.65" e="2.469999999999999"/>
+       <vehicle id="stopped" t="21.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="22.0">
+       <vehicle id="stopped" t="22.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="23.0">
+       <vehicle id="stopped" t="23.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="24.0">
+       <vehicle id="stopped" t="24.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="25.0">
+       <vehicle id="stopped" t="25.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="26.0">
+       <vehicle id="stopped" t="26.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="27.0">
+       <vehicle id="stopped" t="27.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="28.0">
+       <vehicle id="stopped" t="28.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="29.0">
+       <vehicle id="stopped" t="29.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="30.0">
+       <vehicle id="stopped" t="30.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="31.0">
+       <vehicle id="stopped" t="31.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="32.0">
+       <vehicle id="stopped" t="32.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="33.0">
+       <vehicle id="stopped" t="33.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="34.0">
+       <vehicle id="stopped" t="34.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="35.0">
+       <vehicle id="stopped" t="35.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="36.0">
+       <vehicle id="stopped" t="36.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="37.0">
+       <vehicle id="stopped" t="37.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="38.0">
+       <vehicle id="stopped" t="38.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="39.0">
+       <vehicle id="stopped" t="39.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="40.0">
+       <vehicle id="stopped" t="40.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="41.0">
+       <vehicle id="stopped" t="41.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="42.0">
+       <vehicle id="stopped" t="42.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="43.0">
+       <vehicle id="stopped" t="43.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="44.0">
+       <vehicle id="stopped" t="44.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="45.0">
+       <vehicle id="stopped" t="45.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="46.0">
+       <vehicle id="stopped" t="46.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="47.0">
+       <vehicle id="stopped" t="47.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="48.0">
+       <vehicle id="stopped" t="48.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="49.0">
+       <vehicle id="stopped" t="49.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="50.0">
+       <vehicle id="stopped" t="50.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="51.0">
+       <vehicle id="stopped" t="51.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="52.0">
+       <vehicle id="stopped" t="52.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="53.0">
+       <vehicle id="stopped" t="53.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="54.0">
+       <vehicle id="stopped" t="54.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="55.0">
+       <vehicle id="stopped" t="55.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="56.0">
+       <vehicle id="stopped" t="56.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="57.0">
+       <vehicle id="stopped" t="57.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="58.0">
+       <vehicle id="stopped" t="58.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="59.0">
+       <vehicle id="stopped" t="59.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="60.0">
+       <vehicle id="stopped" t="60.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="61.0">
+       <vehicle id="stopped" t="61.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="62.0">
+       <vehicle id="stopped" t="62.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="63.0">
+       <vehicle id="stopped" t="63.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="64.0">
+       <vehicle id="stopped" t="64.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="65.0">
+       <vehicle id="stopped" t="65.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="66.0">
+       <vehicle id="stopped" t="66.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="67.0">
+       <vehicle id="stopped" t="67.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="68.0">
+       <vehicle id="stopped" t="68.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="69.0">
+       <vehicle id="stopped" t="69.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="70.0">
+       <vehicle id="stopped" t="70.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="71.0">
+       <vehicle id="stopped" t="71.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="72.0">
+       <vehicle id="stopped" t="72.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="73.0">
+       <vehicle id="stopped" t="73.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="74.0">
+       <vehicle id="stopped" t="74.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="75.0">
+       <vehicle id="stopped" t="75.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="76.0">
+       <vehicle id="stopped" t="76.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="77.0">
+       <vehicle id="stopped" t="77.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="78.0">
+       <vehicle id="stopped" t="78.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="79.0">
+       <vehicle id="stopped" t="79.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="80.0">
+       <vehicle id="stopped" t="80.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="81.0">
+       <vehicle id="stopped" t="81.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="82.0">
+       <vehicle id="stopped" t="82.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="83.0">
+       <vehicle id="stopped" t="83.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="84.0">
+       <vehicle id="stopped" t="84.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="85.0">
+       <vehicle id="stopped" t="85.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="86.0">
+       <vehicle id="stopped" t="86.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="87.0">
+       <vehicle id="stopped" t="87.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="88.0">
+       <vehicle id="stopped" t="88.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="89.0">
+       <vehicle id="stopped" t="89.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="90.0">
+       <vehicle id="stopped" t="90.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="91.0">
+       <vehicle id="stopped" t="91.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="92.0">
+       <vehicle id="stopped" t="92.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="93.0">
+       <vehicle id="stopped" t="93.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="94.0">
+       <vehicle id="stopped" t="94.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="95.0">
+       <vehicle id="stopped" t="95.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="96.0">
+       <vehicle id="stopped" t="96.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="97.0">
+       <vehicle id="stopped" t="97.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="98.0">
+       <vehicle id="stopped" t="98.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="99.0">
+       <vehicle id="stopped" t="99.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="100.0">
+       <vehicle id="stopped" t="100.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="101.0">
+       <vehicle id="stopped" t="101.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="102.0">
+       <vehicle id="stopped" t="102.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="103.0">
+       <vehicle id="stopped" t="103.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="104.0">
+       <vehicle id="stopped" t="104.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="105.0">
+       <vehicle id="stopped" t="105.0" x="50.0" y="-1.65" x2="50.0" y2="-1.65" e="0.0"/>
+   </timestep>
+   <timestep time="106.0">
+       <vehicle id="stopped" t="106.0" x="52.54" y="-1.65" x2="51.6" y2="-1.65" e="0.9399999999999977"/>
+   </timestep>
+   <timestep time="107.0">
+       <vehicle id="stopped" t="107.0" x="57.38" y="-1.65" x2="55.14" y2="-1.65" e="2.240000000000002"/>
+   </timestep>
+   <timestep time="108.0">
+       <vehicle id="stopped" t="108.0" x="64.61" y="-1.65" x2="60.4" y2="-1.65" e="4.210000000000001"/>
+   </timestep>
+   <timestep time="109.0">
+       <vehicle id="stopped" t="109.0" x="73.48" y="-1.65" x2="67.38" y2="-1.65" e="6.1000000000000085"/>
+   </timestep>
+   <timestep time="110.0">
+       <vehicle id="stopped" t="110.0" x="84.73" y="-1.65" x2="76.79" y2="-1.65" e="7.939999999999998"/>
+   </timestep>
+   <timestep time="111.0">
+       <vehicle id="stopped" t="111.0" x="97.9" y="-1.65" x2="87.62" y2="-1.65" e="10.280000000000001"/>
+   </timestep>
+   <timestep time="112.0">
+       <vehicle id="stopped" t="112.0" x="110.53" y="-1.65" x2="100.19" y2="-1.65" e="10.340000000000003"/>
+   </timestep>
+   <timestep time="113.0">
+       <vehicle id="stopped" t="113.0" x="123.61" y="-1.65" x2="113.35" y2="-1.65" e="10.260000000000005"/>
+   </timestep>
+   <timestep time="114.0">
+       <vehicle id="stopped" t="114.0" x="136.54" y="-1.65" x2="126.92" y2="-1.65" e="9.61999999999999"/>
+   </timestep>
+   <timestep time="115.0">
+       <vehicle id="stopped" t="115.0" x="150.23" y="-1.65" x2="140.14" y2="-1.65" e="10.090000000000003"/>
+   </timestep>
+   <timestep time="116.0">
+       <vehicle id="stopped" t="116.0" x="163.17" y="-1.65" x2="153.72" y2="-1.65" e="9.449999999999989"/>
+   </timestep>
+   <timestep time="117.0">
+       <vehicle id="stopped" t="117.0" x="175.98" y="-1.65" x2="167.51" y2="-1.65" e="8.469999999999999"/>
+   </timestep>
+   <timestep time="118.0">
+       <vehicle id="stopped" t="118.0" x="189.47" y="-1.65" x2="180.31" y2="-1.65" e="9.159999999999997"/>
+   </timestep>
+</fcd-diff>

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -390,8 +390,6 @@ protected:
         /// @brief Destructor
         virtual ~E3DetectorDefinition();
 
-        /// @brief name
-        std::string myName;
         /// @brief The id of the detector
         const std::string myID;
         /// @brief The device the detector shall use
@@ -406,6 +404,8 @@ protected:
         CrossSectionVector myExits;
         /// @brief The aggregation interval
         SUMOTime mySampleInterval;
+        /// @brief name
+        std::string myName;
         /// @brief The types to filter
         const std::string myVehicleTypes;
         /// @brief The route edges to filter by

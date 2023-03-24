@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2013-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2013-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -44,26 +44,8 @@ class SUMOVehicle;
  *
  * @see MSDevice
  */
-class MSDevice_BTreceiver : public MSVehicleDevice {
+class MSDevice_BTreceiver {
 public:
-    /** @brief Inserts MSDevice_BTreceiver-options
-     * @param[filled] oc The options container to add the options to
-     */
-    static void insertOptions(OptionsCont& oc);
-
-
-    /** @brief Build devices for the given vehicle, if needed
-     *
-     * The options are read and evaluated whether a bt-receiver-device shall be built
-     *  for the given vehicle.
-     *
-     * The built device is stored in the given vector.
-     *
-     * @param[in] v The vehicle for which a device may be built
-     * @param[filled] into The vector to store the built device in
-     */
-    static void buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into);
-
 
     /** @brief Returns the configured range
      * @return the device range
@@ -78,6 +60,7 @@ public:
     }
 
 public:
+
     /// @brief Destructor.
     ~MSDevice_BTreceiver();
 
@@ -94,7 +77,7 @@ public:
      * @see MSMoveReminder::notifyEnter
      * @see MSMoveReminder::Notification
      */
-    bool notifyEnter(SUMOTrafficObject& veh, Notification reason, const MSLane* enteredLane = 0);
+    bool notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
 
 
     /** @brief Checks whether the reminder still has to be notified about the vehicle moves
@@ -122,14 +105,8 @@ public:
      * @see MSMoveReminder
      * @see MSMoveReminder::notifyLeave
      */
-    bool notifyLeave(SUMOTrafficObject& veh, double lastPos, Notification reason, const MSLane* enteredLane = 0);
+    bool notifyLeave(SUMOTrafficObject& veh, double lastPos, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
     ///@}
-
-    /// @brief return the name for this type of device
-    const std::string deviceName() const {
-        return "btreceiver";
-    }
-
 
     /** @class MeetingPoint
      * @brief Holds the information about exact positions/speeds/time of the begin/end of a meeting
@@ -219,6 +196,9 @@ public:
         return &sRecognitionRNG;
     }
 
+    static void hasSendingPersons() {
+        myHasPersons = true;
+    }
 
 protected:
     /** @brief Constructor
@@ -226,13 +206,14 @@ protected:
      * @param[in] holder The vehicle that holds this device
      * @param[in] id The ID of the device
      */
-    MSDevice_BTreceiver(SUMOVehicle& holder, const std::string& id);
+    MSDevice_BTreceiver() {}
 
 
-
-private:
     /// @brief Whether the bt-system was already initialised
     static bool myWasInitialised;
+
+    /// @brief Whether the bt-system includes persons
+    static bool myHasPersons;
 
     /// @brief The range of the device
     static double myRange;
@@ -380,5 +361,107 @@ private:
     /// @brief Invalidated assignment operator.
     MSDevice_BTreceiver& operator=(const MSDevice_BTreceiver&);
 
+};
+
+
+class MSVehicleDevice_BTreceiver : public MSDevice_BTreceiver, public MSVehicleDevice {
+public:
+
+    /** @brief Inserts MSDevice_BTreceiver-options
+     * @param[filled] oc The options container to add the options to
+     */
+    static void insertOptions(OptionsCont& oc);
+
+
+    /** @brief Build devices for the given vehicle, if needed
+     *
+     * The options are read and evaluated whether a bt-sender-device shall be built
+     *  for the given vehicle.
+     *
+     * The built device is stored in the given vector.
+     *
+     * @param[in] v The vehicle for which a device may be built
+     * @param[filled] into The vector to store the built device in
+     */
+    static void buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into);
+
+    /// @brief return the name for this type of device
+    const std::string deviceName() const {
+        return "btreceiver";
+    }
+
+    bool notifyEnter(SUMOTrafficObject& veh, Notification reason, const MSLane* enteredLane = 0) {
+        return MSDevice_BTreceiver::notifyEnter(veh, reason, enteredLane);
+    }
+
+    bool notifyMove(SUMOTrafficObject& veh, double oldPos, double newPos, double newSpeed) {
+        return MSDevice_BTreceiver::notifyMove(veh, oldPos, newPos, newSpeed);
+    }
+
+    bool notifyLeave(SUMOTrafficObject& veh, double lastPos, Notification reason, const MSLane* enteredLane = 0) {
+        return MSDevice_BTreceiver::notifyLeave(veh, lastPos, reason, enteredLane);
+    }
+
+
+    /** @brief Constructor
+     *
+     * @param[in] holder The vehicle that holds this device
+     * @param[in] id The ID of the device
+     */
+    MSVehicleDevice_BTreceiver(SUMOVehicle& holder, const std::string& id) :
+        MSVehicleDevice(holder, id) {
+    }
 
 };
+
+class MSTransportableDevice_BTreceiver : public MSDevice_BTreceiver, public MSTransportableDevice {
+public:
+
+    /** @brief Inserts MSDevice_BTreceiver-options
+     * @param[filled] oc The options container to add the options to
+     */
+    static void insertOptions(OptionsCont& oc);
+
+
+    /** @brief Build devices for the given vehicle, if needed
+     *
+     * The options are read and evaluated whether a bt-sender-device shall be built
+     *  for the given vehicle.
+     *
+     * The built device is stored in the given vector.
+     *
+     * @param[in] v The vehicle for which a device may be built
+     * @param[filled] into The vector to store the built device in
+     */
+    static void buildDevices(MSTransportable& t, std::vector<MSTransportableDevice*>& into);
+
+    /// @brief return the name for this type of device
+    const std::string deviceName() const {
+        return "btreceiver";
+    }
+
+    bool notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0) {
+        return MSDevice_BTreceiver::notifyEnter(veh, reason, enteredLane);
+    }
+
+    bool notifyMove(SUMOTrafficObject& veh, double oldPos, double newPos, double newSpeed) {
+        return MSDevice_BTreceiver::notifyMove(veh, oldPos, newPos, newSpeed);
+    }
+
+    bool notifyLeave(SUMOTrafficObject& veh, double lastPos, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0) {
+        return MSDevice_BTreceiver::notifyLeave(veh, lastPos, reason, enteredLane);
+    }
+
+
+private:
+    /** @brief Constructor
+     *
+     * @param[in] holder The transportable that holds this device
+     * @param[in] id The ID of the device
+     */
+    MSTransportableDevice_BTreceiver(MSTransportable& holder, const std::string& id) :
+        MSTransportableDevice(holder, id) {
+    }
+
+};
+

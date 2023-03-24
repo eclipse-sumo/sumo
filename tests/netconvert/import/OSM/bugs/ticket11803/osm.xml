@@ -1,0 +1,1552 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="Overpass API 0.7.58.5 b0c4acbb">
+<note>The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.</note>
+<meta osm_base="2022-10-11T08:15:39Z"/>
+
+  <node id="2839513" lat="46.2077530" lon="6.1630124">
+    <tag k="button_operated" v="yes"/>
+    <tag k="crossing" v="traffic_signals"/>
+    <tag k="crossing_ref" v="zebra"/>
+    <tag k="highway" v="crossing"/>
+    <tag k="tactile_paving" v="yes"/>
+    <tag k="traffic_signals:sound" v="no"/>
+    <tag k="traffic_signals:vibration" v="yes"/>
+  </node>
+  <node id="2839515" lat="46.2079210" lon="6.1638264">
+    <tag k="highway" v="traffic_signals"/>
+  </node>
+  <node id="2839516" lat="46.2080139" lon="6.1641409"/>
+  <node id="281387543" lat="46.2079514" lon="6.1617016"/>
+  <node id="281387576" lat="46.2082633" lon="6.1623575"/>
+  <node id="286691518" lat="46.2081679" lon="6.1625906"/>
+  <node id="413531778" lat="46.2078440" lon="6.1640642"/>
+  <node id="418757008" lat="46.2096406" lon="6.1622463">
+    <tag k="amenity" v="ferry_terminal"/>
+    <tag k="cargo" v="passengers"/>
+    <tag k="ele" v="373"/>
+    <tag k="ferry" v="yes"/>
+    <tag k="name" v="Genève-Eaux-Vives"/>
+    <tag k="operator" v="Compagnie générale de navigation sur le lac Léman (CGN)"/>
+    <tag k="operator:wikidata" v="Q676230"/>
+    <tag k="operator:wikipedia" v="fr:Compagnie générale de navigation sur le lac Léman"/>
+    <tag k="public_transport" v="stop_position"/>
+    <tag k="source" v="Bundesamt für Verkehr (BAV), DIDOK 2009"/>
+    <tag k="uic_name" v="Genève-Eaux-Vives (lac)"/>
+    <tag k="uic_ref" v="8501311"/>
+    <tag k="website" v="https://www.cgn.ch/fr/"/>
+  </node>
+  <node id="582868546" lat="46.2082476" lon="6.1650017"/>
+  <node id="582891494" lat="46.2075960" lon="6.1642209"/>
+  <node id="582891498" lat="46.2076333" lon="6.1639935"/>
+  <node id="582891506" lat="46.2075229" lon="6.1637916"/>
+  <node id="582891509" lat="46.2075071" lon="6.1636686"/>
+  <node id="582891514" lat="46.2075179" lon="6.1635619"/>
+  <node id="582891518" lat="46.2076006" lon="6.1634618"/>
+  <node id="621445565" lat="46.2044073" lon="6.1547649"/>
+  <node id="897590855" lat="46.2085871" lon="6.1628287">
+    <tag k="amenity" v="toilets"/>
+  </node>
+  <node id="915085447" lat="46.2089171" lon="6.1591021"/>
+  <node id="915085449" lat="46.2074467" lon="6.1617637"/>
+  <node id="915085456" lat="46.2091987" lon="6.1620279"/>
+  <node id="915085461" lat="46.2076882" lon="6.1636216"/>
+  <node id="915085472" lat="46.2076495" lon="6.1623657"/>
+  <node id="915085489" lat="46.2074854" lon="6.1618671">
+    <tag k="crossing" v="traffic_signals"/>
+    <tag k="crossing:island" v="no"/>
+    <tag k="highway" v="crossing"/>
+  </node>
+  <node id="944657447" lat="46.2048016" lon="6.1555031"/>
+  <node id="944657531" lat="46.2053278" lon="6.1566087"/>
+  <node id="944657880" lat="46.2070092" lon="6.1601558"/>
+  <node id="944657912" lat="46.2056984" lon="6.1573876"/>
+  <node id="944657982" lat="46.2088487" lon="6.1625627"/>
+  <node id="962320543" lat="46.2082839" lon="6.1631538"/>
+  <node id="962320818" lat="46.2082523" lon="6.1631514"/>
+  <node id="962321419" lat="46.2081125" lon="6.1627334"/>
+  <node id="962321775" lat="46.2082296" lon="6.1625911"/>
+  <node id="962321942" lat="46.2079798" lon="6.1632142"/>
+  <node id="962322225" lat="46.2093841" lon="6.1623509"/>
+  <node id="962322389" lat="46.2078898" lon="6.1628508"/>
+  <node id="1035567617" lat="46.2072521" lon="6.1487086">
+    <tag k="amenity" v="ferry_terminal"/>
+    <tag k="bench" v="yes"/>
+    <tag k="cargo" v="passengers"/>
+    <tag k="ele" v="373"/>
+    <tag k="ferry" v="yes"/>
+    <tag k="name" v="Genève-Mt-Blanc"/>
+    <tag k="operator" v="Compagnie générale de navigation sur le lac Léman (CGN)"/>
+    <tag k="operator:wikidata" v="Q676230"/>
+    <tag k="operator:wikipedia" v="fr:Compagnie générale de navigation sur le lac Léman"/>
+    <tag k="public_transport" v="stop_position"/>
+    <tag k="shelter" v="yes"/>
+    <tag k="source" v="Bundesamt für Verkehr (BAV), DIDOK 2009"/>
+    <tag k="uic_name" v="Genève-Mt-Blanc (lac)"/>
+    <tag k="uic_ref" v="8501237"/>
+    <tag k="website" v="https://www.cgn.ch/fr/"/>
+  </node>
+  <node id="1495288665" lat="46.2082241" lon="6.1646819">
+    <tag k="button_operated" v="yes"/>
+    <tag k="crossing" v="traffic_signals"/>
+    <tag k="highway" v="traffic_signals"/>
+    <tag k="tactile_paving" v="yes"/>
+    <tag k="traffic_signals:sound" v="no"/>
+    <tag k="traffic_signals:vibration" v="yes"/>
+  </node>
+  <node id="1495288729" lat="46.2083680" lon="6.1645701"/>
+  <node id="1495288827" lat="46.2082866" lon="6.1650873"/>
+  <node id="1752471557" lat="46.2078944" lon="6.1547841"/>
+  <node id="1752471561" lat="46.2094297" lon="6.1586926"/>
+  <node id="1753809841" lat="46.2068805" lon="6.1505392"/>
+  <node id="1753809842" lat="46.2070640" lon="6.1526594"/>
+  <node id="1769082001" lat="46.2075366" lon="6.1638283"/>
+  <node id="1769082002" lat="46.2075725" lon="6.1638569"/>
+  <node id="1769082003" lat="46.2075941" lon="6.1638704"/>
+  <node id="1769082004" lat="46.2076225" lon="6.1639156"/>
+  <node id="1769082005" lat="46.2076256" lon="6.1640576"/>
+  <node id="1769082006" lat="46.2076345" lon="6.1639629"/>
+  <node id="1781471725" lat="46.2075181" lon="6.1636114"/>
+  <node id="1781471729" lat="46.2075263" lon="6.1638146"/>
+  <node id="1781471733" lat="46.2076086" lon="6.1638878"/>
+  <node id="1781495341" lat="46.2075821" lon="6.1621487"/>
+  <node id="1781495344" lat="46.2076725" lon="6.1626086"/>
+  <node id="1781495345" lat="46.2077714" lon="6.1637251"/>
+  <node id="1781495348" lat="46.2078701" lon="6.1638065"/>
+  <node id="1867623516" lat="46.2048373" lon="6.1555789"/>
+  <node id="1889011632" lat="46.2071027" lon="6.1599422"/>
+  <node id="1889011693" lat="46.2075205" lon="6.1632142"/>
+  <node id="1889011699" lat="46.2075666" lon="6.1634058">
+    <tag k="crossing" v="uncontrolled"/>
+    <tag k="crossing:island" v="yes"/>
+    <tag k="highway" v="crossing"/>
+    <tag k="tactile_paving" v="yes"/>
+  </node>
+  <node id="2085735781" lat="46.2058091" lon="6.1576203"/>
+  <node id="2622876384" lat="46.2077443" lon="6.1625795"/>
+  <node id="2622876386" lat="46.2078437" lon="6.1629729">
+    <tag k="crossing" v="traffic_signals"/>
+    <tag k="crossing_ref" v="zebra"/>
+    <tag k="highway" v="crossing"/>
+    <tag k="tactile_paving" v="yes"/>
+    <tag k="traffic_signals:sound" v="no"/>
+    <tag k="traffic_signals:vibration" v="yes"/>
+  </node>
+  <node id="2622876387" lat="46.2079137" lon="6.1629377"/>
+  <node id="2622876388" lat="46.2079717" lon="6.1638410"/>
+  <node id="2622876390" lat="46.2079870" lon="6.1635481"/>
+  <node id="2622876392" lat="46.2079966" lon="6.1638613"/>
+  <node id="2622876393" lat="46.2080163" lon="6.1638889"/>
+  <node id="2622876395" lat="46.2080619" lon="6.1638431"/>
+  <node id="2622876397" lat="46.2081014" lon="6.1643866"/>
+  <node id="2622876399" lat="46.2081395" lon="6.1647538">
+    <tag k="crossing" v="uncontrolled"/>
+    <tag k="crossing:island" v="no"/>
+    <tag k="highway" v="crossing"/>
+    <tag k="tactile_paving" v="yes"/>
+  </node>
+  <node id="2622876401" lat="46.2081081" lon="6.1640469"/>
+  <node id="4263453023" lat="46.2050743" lon="6.1560746"/>
+  <node id="4659320802" lat="46.2069642" lon="6.1604935"/>
+  <node id="4659320803" lat="46.2070310" lon="6.1604501"/>
+  <node id="4659320804" lat="46.2070927" lon="6.1604641"/>
+  <node id="4659320806" lat="46.2079085" lon="6.1621755"/>
+  <node id="4659320808" lat="46.2077600" lon="6.1618575"/>
+  <node id="4659320809" lat="46.2076226" lon="6.1619616"/>
+  <node id="4659320811" lat="46.2077392" lon="6.1623115"/>
+  <node id="4849322411" lat="46.2073968" lon="6.1619011"/>
+  <node id="4849322412" lat="46.2069917" lon="6.1623336"/>
+  <node id="4849322413" lat="46.2075032" lon="6.1621941"/>
+  <node id="4849322414" lat="46.2074147" lon="6.1619162"/>
+  <node id="4849322415" lat="46.2075584" lon="6.1618156"/>
+  <node id="4849327600" lat="46.2075903" lon="6.1625268"/>
+  <node id="4849327601" lat="46.2076907" lon="6.1630396"/>
+  <node id="4849327605" lat="46.2069134" lon="6.1624925"/>
+  <node id="5452158415" lat="46.2082011" lon="6.1630416"/>
+  <node id="5767455490" lat="46.2085082" lon="6.1638869"/>
+  <node id="5767455498" lat="46.2098708" lon="6.1618552"/>
+  <node id="6205863774" lat="46.2089932" lon="6.1604164">
+    <tag k="name" v="Association la Grande Digue"/>
+    <tag k="website" v="http://lagrandedigue.ch/"/>
+  </node>
+  <node id="6356219401" lat="46.2090872" lon="6.1669423"/>
+  <node id="6366608036" lat="46.2042900" lon="6.1548672">
+    <tag k="crossing" v="unmarked"/>
+    <tag k="highway" v="crossing"/>
+  </node>
+  <node id="6366608044" lat="46.2044354" lon="6.1547624"/>
+  <node id="6366608045" lat="46.2044568" lon="6.1547785"/>
+  <node id="6371464816" lat="46.2075275" lon="6.1634568"/>
+  <node id="6371464817" lat="46.2076057" lon="6.1633547"/>
+  <node id="6371464818" lat="46.2075600" lon="6.1635118"/>
+  <node id="6371464820" lat="46.2068860" lon="6.1624998"/>
+  <node id="6371464824" lat="46.2077410" lon="6.1635775"/>
+  <node id="6371464825" lat="46.2077670" lon="6.1636057"/>
+  <node id="6371464826" lat="46.2077851" lon="6.1636023"/>
+  <node id="6371464827" lat="46.2077967" lon="6.1635862"/>
+  <node id="6371464828" lat="46.2078004" lon="6.1635514"/>
+  <node id="6371464829" lat="46.2070022" lon="6.1623745"/>
+  <node id="6371464830" lat="46.2073164" lon="6.1619534"/>
+  <node id="6371464844" lat="46.2081250" lon="6.1627952"/>
+  <node id="6371464854" lat="46.2082584" lon="6.1626763"/>
+  <node id="6371464855" lat="46.2082482" lon="6.1626555"/>
+  <node id="6371464856" lat="46.2082357" lon="6.1626428"/>
+  <node id="6371464857" lat="46.2082227" lon="6.1626374"/>
+  <node id="6371464858" lat="46.2082083" lon="6.1626407"/>
+  <node id="6371464859" lat="46.2082018" lon="6.1626186"/>
+  <node id="6371464860" lat="46.2081591" lon="6.1626394"/>
+  <node id="6371464862" lat="46.2085839" lon="6.1627036"/>
+  <node id="6371464863" lat="46.2081925" lon="6.1625878"/>
+  <node id="6371464864" lat="46.2082705" lon="6.1626260"/>
+  <node id="6371464865" lat="46.2082870" lon="6.1626617"/>
+  <node id="6371464866" lat="46.2082482" lon="6.1626019"/>
+  <node id="6371464867" lat="46.2082106" lon="6.1625858"/>
+  <node id="6371464868" lat="46.2075391" lon="6.1613962"/>
+  <node id="6371464870" lat="46.2073310" lon="6.1609618"/>
+  <node id="6371464878" lat="46.2082166" lon="6.1641127"/>
+  <node id="6371464879" lat="46.2081382" lon="6.1638357"/>
+  <node id="6371464880" lat="46.2076700" lon="6.1620996"/>
+  <node id="6371464881" lat="46.2069994" lon="6.1604601"/>
+  <node id="6371464882" lat="46.2070630" lon="6.1604494"/>
+  <node id="6371465057" lat="46.2066397" lon="6.1593996"/>
+  <node id="6371465061" lat="46.2061223" lon="6.1582784"/>
+  <node id="6428586758" lat="46.2068657" lon="6.1625060"/>
+  <node id="6521519440" lat="46.2074454" lon="6.1631061"/>
+  <node id="6521519441" lat="46.2071799" lon="6.1626624"/>
+  <node id="6521519442" lat="46.2072060" lon="6.1627046"/>
+  <node id="6521519443" lat="46.2069906" lon="6.1623521"/>
+  <node id="6521519445" lat="46.2070493" lon="6.1624508"/>
+  <node id="6525622993" lat="46.2086632" lon="6.1643781"/>
+  <node id="6525623002" lat="46.2085109" lon="6.1648894"/>
+  <node id="7473798619" lat="46.2057578" lon="6.1714052"/>
+  <node id="7608891983" lat="46.2057910" lon="6.1575820"/>
+  <node id="7873142610" lat="46.2092689" lon="6.1623969"/>
+  <node id="7958832542" lat="46.2083867" lon="6.1629909"/>
+  <node id="8082576012" lat="46.2046596" lon="6.1552048"/>
+  <node id="8286415326" lat="46.2066346" lon="6.1593885"/>
+  <node id="8286415330" lat="46.2069542" lon="6.1600432"/>
+  <node id="8286415334" lat="46.2076076" lon="6.1614132"/>
+  <node id="8286415335" lat="46.2077189" lon="6.1613044"/>
+  <node id="8286415336" lat="46.2077468" lon="6.1612801"/>
+  <node id="8286415337" lat="46.2077679" lon="6.1612764">
+    <tag k="leisure" v="slipway"/>
+  </node>
+  <node id="8286415366" lat="46.2080993" lon="6.1626577"/>
+  <node id="8286415371" lat="46.2077526" lon="6.1638250">
+    <tag k="traffic_calming" v="island"/>
+  </node>
+  <node id="8286415372" lat="46.2082458" lon="6.1631509"/>
+  <node id="8286415374" lat="46.2092964" lon="6.1625307"/>
+  <node id="8286415375" lat="46.2092313" lon="6.1622672"/>
+  <node id="8286415376" lat="46.2092190" lon="6.1622763"/>
+  <node id="8286415377" lat="46.2092077" lon="6.1622879"/>
+  <node id="8286415378" lat="46.2091976" lon="6.1623017"/>
+  <node id="8286415379" lat="46.2091891" lon="6.1623174"/>
+  <node id="8286415380" lat="46.2091821" lon="6.1623347"/>
+  <node id="8286415381" lat="46.2091770" lon="6.1623533"/>
+  <node id="8286415382" lat="46.2091737" lon="6.1623727"/>
+  <node id="8286415383" lat="46.2091723" lon="6.1623926"/>
+  <node id="8286415384" lat="46.2091729" lon="6.1624126"/>
+  <node id="8286415385" lat="46.2091755" lon="6.1624323"/>
+  <node id="8286415386" lat="46.2091817" lon="6.1624567"/>
+  <node id="8286415387" lat="46.2091909" lon="6.1624790"/>
+  <node id="8286415388" lat="46.2092028" lon="6.1624985"/>
+  <node id="8286415389" lat="46.2092170" lon="6.1625145"/>
+  <node id="8286415390" lat="46.2092329" lon="6.1625265"/>
+  <node id="8286415391" lat="46.2092501" lon="6.1625340"/>
+  <node id="8286415392" lat="46.2092680" lon="6.1625368"/>
+  <node id="8286415393" lat="46.2092860" lon="6.1625348"/>
+  <node id="8286415394" lat="46.2093033" lon="6.1625280"/>
+  <node id="8286415395" lat="46.2093195" lon="6.1625168"/>
+  <node id="8286415396" lat="46.2093340" lon="6.1625014"/>
+  <node id="8286415397" lat="46.2093463" lon="6.1624824"/>
+  <node id="8286415398" lat="46.2093560" lon="6.1624604"/>
+  <node id="8286415399" lat="46.2093627" lon="6.1624363"/>
+  <node id="8286415400" lat="46.2093662" lon="6.1624108"/>
+  <node id="8286415401" lat="46.2093664" lon="6.1623848"/>
+  <node id="8286415402" lat="46.2093632" lon="6.1623592"/>
+  <node id="8286415403" lat="46.2093581" lon="6.1623386"/>
+  <node id="8286415404" lat="46.2093508" lon="6.1623193"/>
+  <node id="8286415405" lat="46.2093415" lon="6.1623019"/>
+  <node id="8286415406" lat="46.2093304" lon="6.1622869"/>
+  <node id="8286415407" lat="46.2093179" lon="6.1622745"/>
+  <node id="8286415408" lat="46.2093041" lon="6.1622651"/>
+  <node id="8286415409" lat="46.2092896" lon="6.1622589"/>
+  <node id="8286415410" lat="46.2092745" lon="6.1622560"/>
+  <node id="8286415411" lat="46.2092593" lon="6.1622566"/>
+  <node id="8286415412" lat="46.2092443" lon="6.1622606"/>
+  <node id="8286415413" lat="46.2089273" lon="6.1625261"/>
+  <node id="8286462065" lat="46.2077017" lon="6.1612281"/>
+  <node id="8286483918" lat="46.2081319" lon="6.1626478"/>
+  <node id="8286484046" lat="46.2081024" lon="6.1620220"/>
+  <node id="8286484094" lat="46.2090574" lon="6.1615410"/>
+  <node id="8286484097" lat="46.2092400" lon="6.1622367"/>
+  <node id="8286497596" lat="46.2083620" lon="6.1626117">
+    <tag k="noexit" v="yes"/>
+  </node>
+  <node id="8286497597" lat="46.2082448" lon="6.1623651"/>
+  <node id="8286497598" lat="46.2080840" lon="6.1620282"/>
+  <node id="8286497599" lat="46.2079298" lon="6.1617091"/>
+  <node id="8286497600" lat="46.2077322" lon="6.1612928"/>
+  <node id="8286497601" lat="46.2075388" lon="6.1608909"/>
+  <node id="8286497602" lat="46.2073874" lon="6.1605700"/>
+  <node id="8286497603" lat="46.2072328" lon="6.1602503"/>
+  <node id="8286497604" lat="46.2070940" lon="6.1599571"/>
+  <node id="8286505067" lat="46.2082578" lon="6.1631691"/>
+  <node id="8286505068" lat="46.2083110" lon="6.1631378"/>
+  <node id="8286505069" lat="46.2083474" lon="6.1630187"/>
+  <node id="8286505070" lat="46.2083789" lon="6.1629973"/>
+  <node id="8286505071" lat="46.2084712" lon="6.1629221"/>
+  <node id="8286505072" lat="46.2084979" lon="6.1629171"/>
+  <node id="8286505073" lat="46.2085139" lon="6.1629079"/>
+  <node id="8286505074" lat="46.2085310" lon="6.1628954"/>
+  <node id="8286505075" lat="46.2085475" lon="6.1628803"/>
+  <node id="8286505076" lat="46.2085600" lon="6.1628657"/>
+  <node id="8286505077" lat="46.2085697" lon="6.1628470"/>
+  <node id="8286505078" lat="46.2085927" lon="6.1628089"/>
+  <node id="8286505079" lat="46.2085972" lon="6.1627911"/>
+  <node id="8286505080" lat="46.2086034" lon="6.1627602"/>
+  <node id="8286505081" lat="46.2086059" lon="6.1627353"/>
+  <node id="8286505082" lat="46.2085987" lon="6.1626964"/>
+  <node id="8286505083" lat="46.2085764" lon="6.1628286"/>
+  <node id="8286505084" lat="46.2085867" lon="6.1627994"/>
+  <node id="8286505085" lat="46.2085923" lon="6.1627697"/>
+  <node id="8286505086" lat="46.2085945" lon="6.1627409"/>
+  <node id="8286505087" lat="46.2085732" lon="6.1626663"/>
+  <node id="8286505088" lat="46.2085645" lon="6.1626542"/>
+  <node id="8286505089" lat="46.2085520" lon="6.1626408"/>
+  <node id="8286505090" lat="46.2085380" lon="6.1626280"/>
+  <node id="8286505091" lat="46.2085222" lon="6.1626179"/>
+  <node id="8286505092" lat="46.2085067" lon="6.1626105"/>
+  <node id="8286505093" lat="46.2084903" lon="6.1626060"/>
+  <node id="8286505094" lat="46.2084734" lon="6.1626039"/>
+  <node id="8286505095" lat="46.2084580" lon="6.1626051"/>
+  <node id="8286505096" lat="46.2084405" lon="6.1626099"/>
+  <node id="8286505097" lat="46.2084262" lon="6.1626170"/>
+  <node id="8286505098" lat="46.2084089" lon="6.1626283"/>
+  <node id="8286505099" lat="46.2083935" lon="6.1626408"/>
+  <node id="8286515565" lat="46.2085699" lon="6.1626618"/>
+  <node id="8286515566" lat="46.2086817" lon="6.1625790"/>
+  <node id="8286515567" lat="46.2088760" lon="6.1624866"/>
+  <node id="8286515568" lat="46.2090553" lon="6.1624138"/>
+  <node id="8286515572" lat="46.2091456" lon="6.1623838"/>
+  <node id="8286515573" lat="46.2089681" lon="6.1624471"/>
+  <node id="8286515574" lat="46.2087868" lon="6.1625261"/>
+  <node id="8286515575" lat="46.2085752" lon="6.1626378"/>
+  <node id="8286515576" lat="46.2085598" lon="6.1626224"/>
+  <node id="8286515577" lat="46.2085483" lon="6.1626123"/>
+  <node id="8286515578" lat="46.2085353" lon="6.1626031"/>
+  <node id="8286515579" lat="46.2085203" lon="6.1625947"/>
+  <node id="8286515580" lat="46.2085035" lon="6.1625882"/>
+  <node id="8286515581" lat="46.2084866" lon="6.1625849"/>
+  <node id="8286515582" lat="46.2084706" lon="6.1625837"/>
+  <node id="8286515583" lat="46.2084551" lon="6.1625858"/>
+  <node id="8286515584" lat="46.2084377" lon="6.1625894"/>
+  <node id="8286515585" lat="46.2084214" lon="6.1625968"/>
+  <node id="8286515586" lat="46.2084083" lon="6.1626063"/>
+  <node id="8286515587" lat="46.2083953" lon="6.1626176"/>
+  <node id="8286515588" lat="46.2083876" lon="6.1626257"/>
+  <node id="8286515589" lat="46.2084158" lon="6.1629672"/>
+  <node id="8286515591" lat="46.2082241" lon="6.1630981"/>
+  <node id="8286515592" lat="46.2082642" lon="6.1626733"/>
+  <node id="8286515593" lat="46.2084856" lon="6.1629207"/>
+  <node id="8286515594" lat="46.2083826" lon="6.1626129"/>
+  <node id="8286515595" lat="46.2083081" lon="6.1626509"/>
+  <node id="8286758256" lat="46.2055376" lon="6.1570496"/>
+  <node id="8286762934" lat="46.2054666" lon="6.1569029"/>
+  <node id="8286762935" lat="46.2056199" lon="6.1572226"/>
+  <node id="8331081611" lat="46.2076376" lon="6.1635294"/>
+  <node id="8404521782" lat="46.2084171" lon="6.1646349"/>
+  <node id="8404521783" lat="46.2084782" lon="6.1648026"/>
+  <node id="8914717297" lat="46.2099488" lon="6.1610681"/>
+  <node id="8915737025" lat="46.2130257" lon="6.1623925"/>
+  <node id="9217876237" lat="46.2097696" lon="6.1620776"/>
+  <node id="9217876238" lat="46.2099218" lon="6.1616414"/>
+  <node id="9217876239" lat="46.2099492" lon="6.1613708"/>
+  <node id="9257118783" lat="46.2056099" lon="6.1644362"/>
+  <node id="9257118786" lat="46.2057263" lon="6.1642557"/>
+  <node id="9257118787" lat="46.2067758" lon="6.1626300"/>
+  <node id="9257118788" lat="46.2056528" lon="6.1643695"/>
+  <node id="9257118789" lat="46.2047691" lon="6.1657427"/>
+  <node id="9257118790" lat="46.2036228" lon="6.1675753"/>
+  <node id="9257118791" lat="46.2036349" lon="6.1675318"/>
+  <node id="9257118792" lat="46.2036674" lon="6.1674526"/>
+  <node id="9261023214" lat="46.2048525" lon="6.1699578"/>
+  <node id="9261023215" lat="46.2046679" lon="6.1696925"/>
+  <node id="9261023216" lat="46.2042794" lon="6.1691886"/>
+  <node id="9261028417" lat="46.2042570" lon="6.1691816"/>
+  <node id="9261028418" lat="46.2039520" lon="6.1687493"/>
+  <node id="9261028419" lat="46.2039080" lon="6.1686593"/>
+  <node id="9261028420" lat="46.2038811" lon="6.1685907"/>
+  <node id="9261028421" lat="46.2038461" lon="6.1685023"/>
+  <node id="9261028422" lat="46.2036120" lon="6.1677780"/>
+  <node id="9261028423" lat="46.2036062" lon="6.1677162"/>
+  <node id="9261028424" lat="46.2036110" lon="6.1676461"/>
+  <node id="9269987625" lat="46.2078134" lon="6.1641213"/>
+  <node id="9269987626" lat="46.2083043" lon="6.1652130"/>
+  <node id="9269987627" lat="46.2082746" lon="6.1651553"/>
+  <node id="9269987628" lat="46.2082449" lon="6.1651258"/>
+  <node id="9269987629" lat="46.2082171" lon="6.1651137"/>
+  <node id="9269987630" lat="46.2081900" lon="6.1650534"/>
+  <node id="9269987631" lat="46.2081670" lon="6.1649984"/>
+  <node id="9269987632" lat="46.2081707" lon="6.1649595"/>
+  <node id="9269987633" lat="46.2081642" lon="6.1649206"/>
+  <node id="9269987634" lat="46.2076343" lon="6.1636721"/>
+  <node id="9270009207" lat="46.2057455" lon="6.1713727"/>
+  <node id="9270009208" lat="46.2053158" lon="6.1706458"/>
+  <node id="10033889583" lat="46.2081039" lon="6.1647833"/>
+  <way id="25797506">
+    <nd ref="915085447"/>
+    <nd ref="6205863774"/>
+    <nd ref="8286484094"/>
+    <nd ref="915085456"/>
+    <nd ref="8286484097"/>
+    <nd ref="8286415412"/>
+    <nd ref="7873142610"/>
+    <nd ref="8286415374"/>
+    <tag k="highway" v="footway"/>
+  </way>
+  <way id="35278450">
+    <nd ref="915085461"/>
+    <nd ref="8286415371"/>
+    <nd ref="413531778"/>
+    <nd ref="2622876399"/>
+    <nd ref="582868546"/>
+    <nd ref="1495288827"/>
+    <tag k="highway" v="unclassified"/>
+    <tag k="lanes" v="2"/>
+    <tag k="lit" v="yes"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="name" v="Quai Gustave-Ador"/>
+    <tag k="surface" v="asphalt"/>
+    <tag k="trolley_wire" v="yes"/>
+  </way>
+  <way id="40976330">
+    <nd ref="6366608036"/>
+    <nd ref="621445565"/>
+    <nd ref="6366608044"/>
+    <nd ref="6366608045"/>
+    <nd ref="8082576012"/>
+    <nd ref="944657447"/>
+    <nd ref="1867623516"/>
+    <nd ref="4263453023"/>
+    <nd ref="944657531"/>
+    <nd ref="8286762934"/>
+    <nd ref="8286758256"/>
+    <nd ref="8286762935"/>
+    <nd ref="944657912"/>
+    <nd ref="7608891983"/>
+    <nd ref="2085735781"/>
+    <nd ref="6371465061"/>
+    <nd ref="8286415326"/>
+    <nd ref="6371465057"/>
+    <nd ref="8286415330"/>
+    <nd ref="944657880"/>
+    <nd ref="8286415334"/>
+    <nd ref="286691518"/>
+    <tag k="access" v="no"/>
+    <tag k="foot" v="yes"/>
+    <tag k="highway" v="service"/>
+    <tag k="lit" v="yes"/>
+    <tag k="maxspeed" v="20"/>
+    <tag k="motor_vehicle" v="private"/>
+    <tag k="psv" v="yes"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="76732435">
+    <nd ref="915085461"/>
+    <nd ref="1781495345"/>
+    <nd ref="1781495348"/>
+    <nd ref="2839515"/>
+    <tag k="highway" v="tertiary"/>
+    <tag k="lanes" v="2"/>
+    <tag k="maxspeed:type" v="CH:urban"/>
+    <tag k="name" v="Rue des Eaux-Vives"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="77840105">
+    <nd ref="582891494"/>
+    <nd ref="1769082005"/>
+    <nd ref="582891498"/>
+    <nd ref="1769082006"/>
+    <nd ref="1769082004"/>
+    <nd ref="1781471733"/>
+    <nd ref="1769082003"/>
+    <nd ref="1769082002"/>
+    <nd ref="1769082001"/>
+    <nd ref="1781471729"/>
+    <nd ref="582891506"/>
+    <nd ref="582891509"/>
+    <nd ref="1781471725"/>
+    <nd ref="582891514"/>
+    <tag k="highway" v="footway"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="81042163">
+    <nd ref="6371464862"/>
+    <nd ref="8286505082"/>
+    <nd ref="944657982"/>
+    <nd ref="8286415413"/>
+    <nd ref="8286415385"/>
+    <nd ref="7873142610"/>
+    <nd ref="8286415402"/>
+    <nd ref="962322225"/>
+    <tag k="highway" v="footway"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="81042176">
+    <nd ref="286691518"/>
+    <nd ref="6371464863"/>
+    <nd ref="6371464867"/>
+    <nd ref="962321775"/>
+    <nd ref="6371464866"/>
+    <nd ref="6371464864"/>
+    <nd ref="6371464865"/>
+    <tag k="highway" v="footway"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="82681863">
+    <nd ref="962320543"/>
+    <nd ref="5767455490"/>
+    <tag k="highway" v="footway"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="82681886">
+    <nd ref="962321419"/>
+    <nd ref="962322389"/>
+    <tag k="highway" v="footway"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="178563935">
+    <nd ref="4849327601"/>
+    <nd ref="1889011693"/>
+    <tag k="highway" v="footway"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="256651829">
+    <nd ref="2622876401"/>
+    <nd ref="2622876395"/>
+    <nd ref="2622876390"/>
+    <nd ref="2622876386"/>
+    <nd ref="2622876384"/>
+    <nd ref="915085472"/>
+    <tag k="highway" v="primary"/>
+    <tag k="lanes" v="2"/>
+    <tag k="lit" v="yes"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="name" v="Quai Gustave-Ador"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="ref" v="105"/>
+    <tag k="sidewalk" v="both"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="256651830">
+    <nd ref="2839515"/>
+    <nd ref="2839516"/>
+    <nd ref="2622876397"/>
+    <nd ref="1495288665"/>
+    <tag k="cycleway:right" v="lane"/>
+    <tag k="cycleway:right:lane" v="advisory"/>
+    <tag k="foot" v="no"/>
+    <tag k="highway" v="primary"/>
+    <tag k="lanes" v="2"/>
+    <tag k="lit" v="yes"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="name" v="Quai Gustave-Ador"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="ref" v="105"/>
+    <tag k="sidewalk" v="no"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="256651831">
+    <nd ref="2622876401"/>
+    <nd ref="2622876393"/>
+    <nd ref="2622876392"/>
+    <nd ref="2622876388"/>
+    <nd ref="2839515"/>
+    <tag k="highway" v="primary_link"/>
+    <tag k="lane_markings" v="no"/>
+    <tag k="maxspeed:type" v="CH:urban"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="sidewalk" v="both"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="471776460">
+    <nd ref="4659320802"/>
+    <nd ref="6371464881"/>
+    <nd ref="4659320803"/>
+    <nd ref="6371464882"/>
+    <nd ref="4659320804"/>
+    <nd ref="6371464870"/>
+    <nd ref="6371464868"/>
+    <nd ref="4659320808"/>
+    <nd ref="4659320806"/>
+    <nd ref="8286483918"/>
+    <tag k="highway" v="footway"/>
+    <tag k="lit" v="yes"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="471776461">
+    <nd ref="4659320808"/>
+    <nd ref="4659320809"/>
+    <tag k="highway" v="footway"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="471776462">
+    <nd ref="4659320806"/>
+    <nd ref="4659320811"/>
+    <tag k="highway" v="footway"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="492977555">
+    <nd ref="4849322414"/>
+    <nd ref="4849322413"/>
+    <nd ref="4849327600"/>
+    <nd ref="4849327601"/>
+    <nd ref="6371464828"/>
+    <nd ref="6371464827"/>
+    <nd ref="6371464826"/>
+    <nd ref="6371464825"/>
+    <nd ref="6371464824"/>
+    <nd ref="6371464817"/>
+    <nd ref="1889011693"/>
+    <nd ref="6521519440"/>
+    <nd ref="6521519442"/>
+    <nd ref="6521519441"/>
+    <nd ref="6521519445"/>
+    <nd ref="6371464829"/>
+    <nd ref="6521519443"/>
+    <nd ref="4849322412"/>
+    <nd ref="6371464830"/>
+    <nd ref="4849322411"/>
+    <tag k="footway" v="sidewalk"/>
+    <tag k="highway" v="footway"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="680474050">
+    <nd ref="6371464817"/>
+    <nd ref="1889011699"/>
+    <nd ref="6371464816"/>
+    <tag k="footway" v="crossing"/>
+    <tag k="highway" v="footway"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="680474053">
+    <nd ref="2622876387"/>
+    <nd ref="2622876386"/>
+    <nd ref="2839513"/>
+    <nd ref="4849327601"/>
+    <tag k="footway" v="crossing"/>
+    <tag k="highway" v="footway"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="680474056">
+    <nd ref="962321942"/>
+    <nd ref="8286515591"/>
+    <tag k="highway" v="footway"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="695678838">
+    <nd ref="915085449"/>
+    <nd ref="915085489"/>
+    <nd ref="1781495341"/>
+    <nd ref="915085472"/>
+    <tag k="cycleway:left" v="track"/>
+    <tag k="cycleway:left:oneway" v="no"/>
+    <tag k="cycleway:right" v="lane"/>
+    <tag k="cycleway:right:lane" v="advisory"/>
+    <tag k="highway" v="primary"/>
+    <tag k="lanes" v="4"/>
+    <tag k="lit" v="yes"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="name" v="Quai Gustave-Ador"/>
+    <tag k="ref" v="105"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="695687701">
+    <nd ref="4849322415"/>
+    <nd ref="4659320809"/>
+    <nd ref="6371464880"/>
+    <nd ref="4659320811"/>
+    <tag k="bicycle" v="designated"/>
+    <tag k="footway" v="designated"/>
+    <tag k="highway" v="footway"/>
+    <tag k="lit" v="yes"/>
+    <tag k="oneway:bicycle" v="no"/>
+    <tag k="segregated" v="no"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="695687703">
+    <nd ref="4659320811"/>
+    <nd ref="962322389"/>
+    <nd ref="2622876387"/>
+    <nd ref="962321942"/>
+    <nd ref="6371464879"/>
+    <nd ref="6371464878"/>
+    <nd ref="1495288729"/>
+    <nd ref="8404521782"/>
+    <nd ref="8404521783"/>
+    <nd ref="6525623002"/>
+    <tag k="cycleway:surface" v="asphalt"/>
+    <tag k="footway" v="sidewalk"/>
+    <tag k="footway:surface" v="asphalt"/>
+    <tag k="highway" v="cycleway"/>
+    <tag k="oneway:bicycle" v="no"/>
+    <tag k="segregated" v="yes"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="696155300">
+    <nd ref="915085472"/>
+    <nd ref="1781495344"/>
+    <nd ref="2839513"/>
+    <nd ref="2839515"/>
+    <tag k="cycleway:right" v="lane"/>
+    <tag k="cycleway:right:lane" v="advisory"/>
+    <tag k="highway" v="primary"/>
+    <tag k="lit" v="yes"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="name" v="Quai Gustave-Ador"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="ref" v="105"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="696167629">
+    <nd ref="915085461"/>
+    <nd ref="8331081611"/>
+    <nd ref="582891518"/>
+    <nd ref="1889011699"/>
+    <tag k="highway" v="tertiary"/>
+    <tag k="lanes" v="3"/>
+    <tag k="lanes:forward" v="2"/>
+    <tag k="lanes:psv:forward" v="1"/>
+    <tag k="lit" v="yes"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="name" v="Rue des Eaux-Vives"/>
+    <tag k="surface" v="asphalt"/>
+    <tag k="trolley_wire" v="yes"/>
+  </way>
+  <way id="699388051">
+    <nd ref="6525622993"/>
+    <nd ref="5767455490"/>
+    <tag k="highway" v="footway"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="891527113">
+    <nd ref="8286415334"/>
+    <nd ref="8286415335"/>
+    <nd ref="8286497600"/>
+    <nd ref="8286415336"/>
+    <nd ref="8286415337"/>
+    <tag k="access" v="no"/>
+    <tag k="foot" v="yes"/>
+    <tag k="highway" v="service"/>
+    <tag k="lit" v="yes"/>
+    <tag k="maxspeed" v="20"/>
+    <tag k="motor_vehicle" v="private"/>
+    <tag k="psv" v="yes"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="891527117">
+    <nd ref="8286415412"/>
+    <nd ref="8286415411"/>
+    <nd ref="8286415410"/>
+    <nd ref="8286415409"/>
+    <nd ref="8286415408"/>
+    <nd ref="8286415407"/>
+    <nd ref="8286415406"/>
+    <nd ref="8286415405"/>
+    <nd ref="8286415404"/>
+    <nd ref="8286415403"/>
+    <nd ref="8286415402"/>
+    <nd ref="8286415401"/>
+    <nd ref="8286415400"/>
+    <nd ref="8286415399"/>
+    <nd ref="8286415398"/>
+    <nd ref="8286415397"/>
+    <nd ref="8286415396"/>
+    <nd ref="8286415395"/>
+    <nd ref="8286415394"/>
+    <nd ref="8286415374"/>
+    <nd ref="8286415393"/>
+    <nd ref="8286415392"/>
+    <nd ref="8286415391"/>
+    <nd ref="8286415390"/>
+    <nd ref="8286415389"/>
+    <nd ref="8286415388"/>
+    <nd ref="8286415387"/>
+    <nd ref="8286415386"/>
+    <nd ref="8286415385"/>
+    <nd ref="8286415384"/>
+    <nd ref="8286415383"/>
+    <nd ref="8286415382"/>
+    <nd ref="8286415381"/>
+    <nd ref="8286415380"/>
+    <nd ref="8286415379"/>
+    <nd ref="8286415378"/>
+    <nd ref="8286415377"/>
+    <nd ref="8286415376"/>
+    <nd ref="8286415375"/>
+    <nd ref="8286415412"/>
+    <tag k="highway" v="footway"/>
+  </way>
+  <way id="891530583">
+    <nd ref="8286497599"/>
+    <nd ref="281387543"/>
+    <tag k="highway" v="footway"/>
+  </way>
+  <way id="891530584">
+    <nd ref="8286497597"/>
+    <nd ref="281387576"/>
+    <tag k="highway" v="footway"/>
+  </way>
+  <way id="891530585">
+    <nd ref="8286497598"/>
+    <nd ref="8286484046"/>
+    <tag k="highway" v="footway"/>
+  </way>
+  <way id="891530586">
+    <nd ref="8286497596"/>
+    <nd ref="8286497597"/>
+    <nd ref="8286497598"/>
+    <nd ref="8286497599"/>
+    <nd ref="8286497600"/>
+    <nd ref="8286462065"/>
+    <nd ref="8286497601"/>
+    <nd ref="8286497602"/>
+    <nd ref="8286497603"/>
+    <nd ref="8286497604"/>
+    <nd ref="1889011632"/>
+    <tag k="highway" v="footway"/>
+  </way>
+  <way id="891530595">
+    <nd ref="8286515572"/>
+    <nd ref="8286515568"/>
+    <nd ref="8286515573"/>
+    <nd ref="8286515567"/>
+    <nd ref="8286515574"/>
+    <nd ref="8286515566"/>
+    <nd ref="8286515575"/>
+    <nd ref="8286515576"/>
+    <nd ref="8286515577"/>
+    <nd ref="8286515578"/>
+    <nd ref="8286515579"/>
+    <nd ref="8286515580"/>
+    <nd ref="8286515581"/>
+    <nd ref="8286515582"/>
+    <nd ref="8286515583"/>
+    <nd ref="8286515584"/>
+    <nd ref="8286515585"/>
+    <nd ref="8286515586"/>
+    <nd ref="8286515587"/>
+    <tag k="highway" v="footway"/>
+  </way>
+  <way id="891530596">
+    <nd ref="8286515588"/>
+    <nd ref="8286515587"/>
+    <tag k="highway" v="steps"/>
+  </way>
+  <way id="891530597">
+    <nd ref="8286505082"/>
+    <nd ref="8286505081"/>
+    <nd ref="8286505080"/>
+    <nd ref="8286505079"/>
+    <nd ref="8286505078"/>
+    <nd ref="897590855"/>
+    <tag k="highway" v="footway"/>
+  </way>
+  <way id="891530598">
+    <nd ref="8286505099"/>
+    <nd ref="8286505098"/>
+    <nd ref="8286505097"/>
+    <nd ref="8286505096"/>
+    <nd ref="8286505095"/>
+    <nd ref="8286505094"/>
+    <nd ref="8286505093"/>
+    <nd ref="8286505092"/>
+    <nd ref="8286505091"/>
+    <nd ref="8286505090"/>
+    <nd ref="8286505089"/>
+    <nd ref="8286505088"/>
+    <nd ref="8286515565"/>
+    <nd ref="8286505087"/>
+    <nd ref="6371464862"/>
+    <nd ref="8286505086"/>
+    <nd ref="8286505085"/>
+    <nd ref="8286505084"/>
+    <nd ref="8286505083"/>
+    <nd ref="8286505077"/>
+    <nd ref="8286505076"/>
+    <nd ref="8286505075"/>
+    <nd ref="8286505074"/>
+    <nd ref="8286505073"/>
+    <nd ref="8286505072"/>
+    <nd ref="8286515593"/>
+    <nd ref="8286505071"/>
+    <nd ref="8286515589"/>
+    <nd ref="7958832542"/>
+    <nd ref="8286505070"/>
+    <nd ref="8286505069"/>
+    <nd ref="8286505068"/>
+    <nd ref="962320543"/>
+    <nd ref="8286505067"/>
+    <nd ref="962320818"/>
+    <nd ref="8286415372"/>
+    <nd ref="8286515591"/>
+    <nd ref="5452158415"/>
+    <nd ref="6371464844"/>
+    <nd ref="962321419"/>
+    <nd ref="8286415366"/>
+    <nd ref="8286483918"/>
+    <nd ref="6371464860"/>
+    <nd ref="6371464859"/>
+    <nd ref="6371464858"/>
+    <nd ref="6371464857"/>
+    <nd ref="6371464856"/>
+    <nd ref="6371464855"/>
+    <nd ref="6371464854"/>
+    <nd ref="8286515592"/>
+    <nd ref="6371464865"/>
+    <nd ref="8286515595"/>
+    <nd ref="8286515594"/>
+    <nd ref="8286515588"/>
+    <nd ref="8286505099"/>
+    <tag k="area" v="yes"/>
+    <tag k="highway" v="footway"/>
+  </way>
+  <way id="964206080">
+    <nd ref="418757008"/>
+    <nd ref="9217876237"/>
+    <nd ref="5767455498"/>
+    <nd ref="9217876238"/>
+    <nd ref="9217876239"/>
+    <nd ref="8914717297"/>
+    <nd ref="1752471561"/>
+    <nd ref="1752471557"/>
+    <nd ref="1753809842"/>
+    <nd ref="1753809841"/>
+    <nd ref="1035567617"/>
+    <tag k="bicycle" v="yes"/>
+    <tag k="foot" v="yes"/>
+    <tag k="name" v="Mont-Blanc - Eaux-Vives"/>
+    <tag k="operator" v="Compagnie générale de navigation sur le lac Léman (CGN)"/>
+    <tag k="operator:wikidata" v="Q676230"/>
+    <tag k="operator:wikipedia" v="fr:Compagnie générale de navigation sur le lac Léman"/>
+    <tag k="route" v="ferry"/>
+    <tag k="vehicle" v="no"/>
+    <tag k="website" v="http://www.cgn.ch/"/>
+  </way>
+  <way id="1003104735">
+    <nd ref="6356219401"/>
+    <nd ref="9269987626"/>
+    <nd ref="9269987627"/>
+    <nd ref="9269987628"/>
+    <nd ref="9269987629"/>
+    <nd ref="9269987630"/>
+    <nd ref="9269987631"/>
+    <nd ref="9269987632"/>
+    <nd ref="9269987633"/>
+    <nd ref="10033889583"/>
+    <nd ref="9269987625"/>
+    <nd ref="9269987634"/>
+    <nd ref="6371464818"/>
+    <nd ref="6371464816"/>
+    <nd ref="4849327605"/>
+    <nd ref="6371464820"/>
+    <nd ref="6428586758"/>
+    <nd ref="9257118787"/>
+    <nd ref="9257118786"/>
+    <nd ref="9257118788"/>
+    <nd ref="9257118783"/>
+    <nd ref="9257118789"/>
+    <nd ref="9257118792"/>
+    <nd ref="9257118791"/>
+    <nd ref="9257118790"/>
+    <nd ref="9261028424"/>
+    <nd ref="9261028423"/>
+    <nd ref="9261028422"/>
+    <nd ref="9261028421"/>
+    <nd ref="9261028420"/>
+    <nd ref="9261028419"/>
+    <nd ref="9261028418"/>
+    <nd ref="9261028417"/>
+    <nd ref="9261023216"/>
+    <nd ref="9261023215"/>
+    <nd ref="9261023214"/>
+    <nd ref="9270009208"/>
+    <nd ref="9270009207"/>
+    <nd ref="7473798619"/>
+    <tag k="footway" v="sidewalk"/>
+    <tag k="highway" v="footway"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="1084417157">
+    <nd ref="8915737025"/>
+    <nd ref="418757008"/>
+    <tag k="bicycle" v="yes"/>
+    <tag k="foot" v="yes"/>
+    <tag k="operator" v="Compagnie Générale de Navigation sur le lac Léman"/>
+    <tag k="route" v="ferry"/>
+    <tag k="vehicle" v="no"/>
+    <tag k="website" v="http://www.cgn.ch/"/>
+  </way>
+  <way id="82681868" version="1">
+      <nd ref="418757008"/>
+      <nd ref="962322225"/>
+      <tag k="highway" v="platform"/>
+      <tag k="man_made" v="pier"/>
+      <tag k="public_transport" v="platform"/>
+  </way>
+  <relation id="9675922">
+    <member type="way" ref="76732435" role="from"/>
+    <member type="node" ref="915085461" role="via"/>
+    <member type="way" ref="696167629" role="to"/>
+    <tag k="restriction" v="only_straight_on"/>
+    <tag k="type" v="restriction"/>
+  </relation>
+  <relation id="10968886">
+    <member type="way" ref="256651829" role="from"/>
+    <member type="node" ref="915085472" role="via"/>
+    <member type="way" ref="696155300" role="to"/>
+    <tag k="restriction" v="no_u_turn"/>
+    <tag k="type" v="restriction"/>
+  </relation>
+  <relation id="11138423">
+    <member type="way" ref="8161400" role="from"/>
+    <member type="way" ref="306839970" role="to"/>
+    <member type="node" ref="915085449" role="via"/>
+    <tag k="restriction" v="no_left_turn"/>
+    <tag k="type" v="restriction"/>
+  </relation>
+  <relation id="12936075">
+    <member type="node" ref="1035567617" role="stop_entry_only"/>
+    <member type="way" ref="163578661" role="platform"/>
+    <member type="node" ref="418757008" role="stop"/>
+    <member type="way" ref="82681868" role="platform"/>
+    <member type="node" ref="281383972" role="stop"/>
+    <member type="way" ref="386251548" role="platform"/>
+    <member type="node" ref="281378174" role="stop"/>
+    <member type="way" ref="25796581" role="platform"/>
+    <member type="node" ref="259426607" role="stop"/>
+    <member type="way" ref="175991593" role="platform"/>
+    <member type="node" ref="279599177" role="stop"/>
+    <member type="node" ref="279599312" role="stop"/>
+    <member type="way" ref="167395649" role="platform"/>
+    <member type="node" ref="279595129" role="stop"/>
+    <member type="way" ref="25649063" role="platform"/>
+    <member type="node" ref="1867403421" role="stop"/>
+    <member type="way" ref="163434896" role="platform"/>
+    <member type="node" ref="279597879" role="stop"/>
+    <member type="way" ref="373381598" role="platform"/>
+    <member type="node" ref="8944868388" role="stop_exit_only"/>
+    <member type="way" ref="108522506" role="platform"/>
+    <member type="way" ref="964206080" role=""/>
+    <member type="way" ref="1084417157" role=""/>
+    <member type="way" ref="963873831" role=""/>
+    <member type="way" ref="963138898" role=""/>
+    <member type="way" ref="963138895" role=""/>
+    <member type="way" ref="23927374" role=""/>
+    <member type="way" ref="26658799" role=""/>
+    <member type="way" ref="968066729" role=""/>
+    <member type="way" ref="1080749969" role=""/>
+    <member type="way" ref="963128053" role=""/>
+    <member type="way" ref="1080749970" role=""/>
+    <tag k="fee" v="yes"/>
+    <tag k="from" v="Genève-Mt-Blanc (lac)"/>
+    <tag k="gtfs:feed" v="CH-Alle"/>
+    <tag k="gtfs:release_date" v="2021-06-30"/>
+    <tag k="gtfs:route_id" v="94-1A-Y-j21-1"/>
+    <tag k="gtfs:trip_id:like" v="%94-1A-Y-j21-1.3.R"/>
+    <tag k="gtfs:trip_id:sample" v="3.TA.94-1A-Y-j21-1.3.R"/>
+    <tag k="name" v="CGN 3150: Genève-Mt-Blanc (lac) =&gt; Genève-Eaux-Vives (lac) =&gt; Versoix (lac) =&gt; Coppet (lac) =&gt; Nyon (lac) =&gt; Yvoire (F) (lac) =&gt; Rolle (lac) =&gt; St-Prex (lac) =&gt; Morges (lac) =&gt; Saint-Sulpice VD (lac) =&gt; Lausanne-Ouchy (lac)"/>
+    <tag k="operator" v="Compagnie générale de navigation sur le lac Léman (CGN)"/>
+    <tag k="operator:wikidata" v="Q676230"/>
+    <tag k="operator:wikipedia" v="fr:Compagnie générale de navigation sur le lac Léman"/>
+    <tag k="public_transport:version" v="2"/>
+    <tag k="ref" v="3150"/>
+    <tag k="ref_trips" v="3.TA.94-1A-Y-j21-1.3.R"/>
+    <tag k="route" v="ferry"/>
+    <tag k="to" v="Lausanne-Ouchy (lac)"/>
+    <tag k="type" v="route"/>
+    <tag k="via" v="Genève-Eaux-Vives (lac);Versoix (lac);Coppet (lac);Nyon (lac);Yvoires (F) (lac);Rolle (lac);St-Prex (lac);Morges (lac);Saint-Sulpice VD (lac)"/>
+    <tag k="wheelchair" v="yes"/>
+  </relation>
+  <relation id="12936336">
+    <member type="node" ref="1035567617" role="stop_entry_only"/>
+    <member type="way" ref="163578661" role="platform"/>
+    <member type="node" ref="418757008" role="stop"/>
+    <member type="way" ref="82681868" role="platform"/>
+    <member type="node" ref="281383972" role="stop"/>
+    <member type="way" ref="386251548" role="platform"/>
+    <member type="node" ref="281378174" role="stop"/>
+    <member type="way" ref="25796581" role="platform"/>
+    <member type="node" ref="8909107201" role="stop_on_demand"/>
+    <member type="node" ref="259426607" role="stop"/>
+    <member type="node" ref="279599177" role="stop"/>
+    <member type="node" ref="279599312" role="stop"/>
+    <member type="way" ref="167395649" role="platform"/>
+    <member type="node" ref="279595129" role="stop"/>
+    <member type="way" ref="25649063" role="platform"/>
+    <member type="node" ref="1867403421" role="stop"/>
+    <member type="way" ref="163434896" role="platform"/>
+    <member type="node" ref="279597879" role="stop"/>
+    <member type="way" ref="373381598" role="platform"/>
+    <member type="node" ref="8944868388" role="stop_exit_only"/>
+    <member type="way" ref="108522506" role="platform"/>
+    <member type="way" ref="175991593" role="platform"/>
+    <member type="way" ref="964206080" role=""/>
+    <member type="way" ref="1084417157" role=""/>
+    <member type="way" ref="963873831" role=""/>
+    <member type="way" ref="963138898" role=""/>
+    <member type="way" ref="1080749968" role=""/>
+    <member type="way" ref="963138896" role=""/>
+    <member type="way" ref="23927374" role=""/>
+    <member type="way" ref="26658799" role=""/>
+    <member type="way" ref="968066729" role=""/>
+    <member type="way" ref="1080749969" role=""/>
+    <member type="way" ref="963128053" role=""/>
+    <member type="way" ref="1080749970" role=""/>
+    <tag k="fee" v="yes"/>
+    <tag k="from" v="Genève-Mt-Blanc (lac)"/>
+    <tag k="gtfs:feed" v="CH-Alle"/>
+    <tag k="gtfs:release_date" v="2021-06-30"/>
+    <tag k="gtfs:route_id" v="94-1A-Y-j21-1"/>
+    <tag k="gtfs:trip_id:like" v="%94-1A-Y-j21-1.4.R"/>
+    <tag k="gtfs:trip_id:sample" v="4.TA.94-1A-Y-j21-1.4.R"/>
+    <tag k="name" v="CGN 3150: Genève-Mt-Blanc (lac) =&gt; Genève-Eaux-Vives (lac) =&gt; Versoix (lac) =&gt; Coppet (lac) =&gt; Céligny (lac) =&gt; Nyon (lac) =&gt; Yvoire (F) (lac) =&gt; Rolle (lac) =&gt; St-Prex (lac) =&gt; Morges (lac) =&gt; Saint-Sulpice VD (lac) =&gt; Lausanne-Ouchy (lac)"/>
+    <tag k="operator" v="Compagnie générale de navigation sur le lac Léman (CGN)"/>
+    <tag k="operator:wikidata" v="Q676230"/>
+    <tag k="operator:wikipedia" v="fr:Compagnie générale de navigation sur le lac Léman"/>
+    <tag k="public_transport:version" v="2"/>
+    <tag k="ref" v="3150"/>
+    <tag k="ref_trips" v="4.TA.94-1A-Y-j21-1.4.R"/>
+    <tag k="route" v="ferry"/>
+    <tag k="to" v="Lausanne-Ouchy (lac)"/>
+    <tag k="type" v="route"/>
+    <tag k="via" v="Genève-Eaux-Vives (lac);Versoix (lac);Coppet (lac);Céligny (lac);Nyon (lac);Yvoire (F) (lac);Rolle (lac);St-Prex (lac);Morges (lac);Saint-Sulpice VD (lac)"/>
+    <tag k="wheelchair" v="yes"/>
+  </relation>
+  <relation id="12936337">
+    <member type="node" ref="8944868388" role="stop_entry_only"/>
+    <member type="way" ref="108522506" role="platform"/>
+    <member type="node" ref="279597879" role="stop"/>
+    <member type="way" ref="373381598" role="platform"/>
+    <member type="node" ref="1867403421" role="stop"/>
+    <member type="way" ref="163434896" role="platform"/>
+    <member type="node" ref="279595129" role="stop"/>
+    <member type="way" ref="25649063" role="platform"/>
+    <member type="node" ref="279599312" role="stop"/>
+    <member type="way" ref="167395649" role="platform"/>
+    <member type="node" ref="279599177" role="stop"/>
+    <member type="node" ref="259426607" role="stop"/>
+    <member type="way" ref="175991593" role="platform"/>
+    <member type="node" ref="8909107201" role="stop_on_demand"/>
+    <member type="node" ref="281378174" role="stop"/>
+    <member type="way" ref="25796581" role="platform"/>
+    <member type="node" ref="281383972" role="stop"/>
+    <member type="way" ref="386251548" role="platform"/>
+    <member type="node" ref="418757008" role="stop"/>
+    <member type="way" ref="82681868" role="platform"/>
+    <member type="node" ref="1035567617" role="stop_exit_only"/>
+    <member type="way" ref="163578661" role="platform"/>
+    <member type="way" ref="1080749970" role=""/>
+    <member type="way" ref="963128053" role=""/>
+    <member type="way" ref="1080749969" role=""/>
+    <member type="way" ref="968066729" role=""/>
+    <member type="way" ref="26658799" role=""/>
+    <member type="way" ref="23927374" role=""/>
+    <member type="way" ref="963138896" role=""/>
+    <member type="way" ref="1080749968" role=""/>
+    <member type="way" ref="963138898" role=""/>
+    <member type="way" ref="963873831" role=""/>
+    <member type="way" ref="1084417157" role=""/>
+    <member type="way" ref="964206080" role=""/>
+    <tag k="fee" v="yes"/>
+    <tag k="from" v="Lausanne-Ouchy (lac)"/>
+    <tag k="gtfs:feed" v="CH-Alle"/>
+    <tag k="gtfs:release_date" v="2021-06-30"/>
+    <tag k="gtfs:route_id" v="94-1A-Y-j21-1"/>
+    <tag k="gtfs:trip_id:like" v="%94-1A-Y-j21-1.2.H"/>
+    <tag k="gtfs:trip_id:sample" v="2.TA.94-1A-Y-j21-1.2.H"/>
+    <tag k="name" v="CGN 3150: Lausanne-Ouchy (lac) =&gt; Saint-Sulpice VD (lac) =&gt; Morges (lac) =&gt; St-Prex (lac) =&gt; Rolle (lac) =&gt; Yvoire (F) (lac) =&gt; Nyon(lac) =&gt; Céligny (lac) =&gt; Coppet (lac) =&gt; Versoix (lac) =&gt; Genève-Eaux-Vives (lac) =&gt; Genève-Mt-Blanc (lac)"/>
+    <tag k="operator" v="Compagnie générale de navigation sur le lac Léman (CGN)"/>
+    <tag k="operator:wikidata" v="Q676230"/>
+    <tag k="operator:wikipedia" v="fr:Compagnie générale de navigation sur le lac Léman"/>
+    <tag k="public_transport:version" v="2"/>
+    <tag k="ref" v="3150"/>
+    <tag k="ref_trips" v="2.TA.94-1A-Y-j21-1.2.H"/>
+    <tag k="route" v="ferry"/>
+    <tag k="to" v="Genève-Mt-Blanc (lac)"/>
+    <tag k="type" v="route"/>
+    <tag k="via" v="Saint-Sulpice VD (lac);Morges (lac);St-Prex (lac);Rolle (lac);Yvoire (F) (lac);Nyon(lac);Céligny (lac);Coppet (lac);Versoix (lac);Genève-Eaux-Vives (lac)"/>
+    <tag k="wheelchair" v="yes"/>
+  </relation>
+  <relation id="12936338">
+    <member type="node" ref="8944868388" role="stop_entry_only"/>
+    <member type="way" ref="108522506" role="platform"/>
+    <member type="node" ref="279597879" role="stop"/>
+    <member type="node" ref="1867403421" role="stop"/>
+    <member type="node" ref="279595129" role="stop"/>
+    <member type="node" ref="279599312" role="stop"/>
+    <member type="node" ref="279599177" role="stop"/>
+    <member type="node" ref="281378174" role="stop"/>
+    <member type="way" ref="25796581" role="platform"/>
+    <member type="node" ref="281383972" role="stop"/>
+    <member type="way" ref="386251548" role="platform"/>
+    <member type="node" ref="1035567617" role="stop_exit_only"/>
+    <member type="way" ref="163578661" role="platform"/>
+    <member type="way" ref="1080749970" role=""/>
+    <member type="way" ref="963128053" role=""/>
+    <member type="way" ref="1080749969" role=""/>
+    <member type="way" ref="968066729" role=""/>
+    <member type="way" ref="26658799" role=""/>
+    <member type="way" ref="963138897" role=""/>
+    <member type="way" ref="963138898" role=""/>
+    <member type="way" ref="963873831" role=""/>
+    <member type="way" ref="964206081" role=""/>
+    <member type="way" ref="964206083" role=""/>
+    <member type="way" ref="964206084" role=""/>
+    <tag k="fee" v="yes"/>
+    <tag k="from" v="Lausanne-Ouchy (lac)"/>
+    <tag k="gtfs:feed" v="CH-Alle"/>
+    <tag k="gtfs:release_date" v="2021-06-30"/>
+    <tag k="gtfs:route_id" v="94-1A-Y-j21-1"/>
+    <tag k="gtfs:trip_id:like" v="%94-1A-Y-j21-1.1.H"/>
+    <tag k="gtfs:trip_id:sample" v="1.TA.94-1A-Y-j21-1.1.H"/>
+    <tag k="name" v="CGN 3150: Lausanne-Ouchy (lac) =&gt; Saint-Sulpice VD (lac) =&gt; Morges (lac) =&gt; St-Prex (lac) =&gt; Rolle (lac) =&gt; Yvoire (F) (lac) =&gt; Nyon(lac) =&gt; Coppet (lac) =&gt; Versoix (lac) =&gt; Genève-Mt-Blanc (lac)"/>
+    <tag k="operator" v="Compagnie générale de navigation sur le lac Léman (CGN)"/>
+    <tag k="operator:wikidata" v="Q676230"/>
+    <tag k="operator:wikipedia" v="fr:Compagnie générale de navigation sur le lac Léman"/>
+    <tag k="public_transport:version" v="2"/>
+    <tag k="ref" v="3150"/>
+    <tag k="ref_trips" v="1.TA.94-1A-Y-j21-1.1.H"/>
+    <tag k="route" v="ferry"/>
+    <tag k="to" v="Genève-Mt-Blanc (lac)"/>
+    <tag k="type" v="route"/>
+    <tag k="via" v="Saint-Sulpice VD (lac);Morges (lac);St-Prex (lac);Rolle (lac);Yvoire (F) (lac);Nyon(lac);Coppet (lac);Versoix (lac)"/>
+    <tag k="wheelchair" v="yes"/>
+  </relation>
+  <relation id="12967710">
+    <member type="node" ref="1035567617" role="stop_entry_only"/>
+    <member type="way" ref="163578661" role="platform"/>
+    <member type="node" ref="281378174" role="stop_exit_only"/>
+    <member type="way" ref="25796581" role="platform"/>
+    <member type="node" ref="1035567617" role="stop_exit_only"/>
+    <member type="way" ref="163578661" role="platform"/>
+    <member type="way" ref="964503284" role=""/>
+    <member type="way" ref="964503284" role=""/>
+    <tag k="fee" v="yes"/>
+    <tag k="from" v="Genève-Mt-Blanc (lac)"/>
+    <tag k="gtfs:feed" v="CH-Alle"/>
+    <tag k="gtfs:release_date" v="2021-06-30"/>
+    <tag k="gtfs:route_id" v="94-1O-Y-j21-1"/>
+    <tag k="gtfs:trip_id:like" v="%94-1O-Y-j21-1.1.H"/>
+    <tag k="gtfs:trip_id:sample" v="1.TA.94-1O-Y-j21-1.1.H"/>
+    <tag k="name" v="Bateau 3154 : Genève-Mt-Blanc → Coppet → Genève-Mt-Blanc"/>
+    <tag k="operator" v="Compagnie générale de navigation sur le lac Léman (CGN)"/>
+    <tag k="operator:wikidata" v="Q676230"/>
+    <tag k="operator:wikipedia" v="fr:Compagnie générale de navigation sur le lac Léman"/>
+    <tag k="public_transport:version" v="2"/>
+    <tag k="ref" v="3154"/>
+    <tag k="ref_trips" v="1.TA.94-1O-Y-j21-1.1.H"/>
+    <tag k="roundtrip" v="yes"/>
+    <tag k="route" v="ferry"/>
+    <tag k="to" v="Genève-Mt-Blanc (lac)"/>
+    <tag k="type" v="route"/>
+    <tag k="via" v="Coppet (lac)"/>
+    <tag k="wheelchair" v="yes"/>
+  </relation>
+  <relation id="13014368">
+    <member type="node" ref="1035567617" role="stop_entry_only"/>
+    <member type="way" ref="163578661" role="platform"/>
+    <member type="node" ref="418757008" role="stop"/>
+    <member type="way" ref="82681868" role="platform"/>
+    <member type="node" ref="281383972" role="stop"/>
+    <member type="way" ref="386251548" role="platform"/>
+    <member type="node" ref="281378174" role="stop"/>
+    <member type="way" ref="25796581" role="platform"/>
+    <member type="node" ref="259426607" role="stop"/>
+    <member type="way" ref="175991593" role="platform"/>
+    <member type="node" ref="696605372" role="stop"/>
+    <member type="way" ref="163511949" role="platform"/>
+    <member type="node" ref="279599177" role="stop"/>
+    <member type="node" ref="279599312" role="stop"/>
+    <member type="way" ref="167395649" role="platform"/>
+    <member type="node" ref="279595129" role="stop"/>
+    <member type="way" ref="25649063" role="platform"/>
+    <member type="node" ref="1867403421" role="stop"/>
+    <member type="way" ref="163434896" role="platform"/>
+    <member type="node" ref="279597879" role="stop"/>
+    <member type="way" ref="373381598" role="platform"/>
+    <member type="node" ref="8944868388" role="stop_exit_only"/>
+    <member type="way" ref="108522506" role="platform"/>
+    <member type="way" ref="964206080" role=""/>
+    <member type="way" ref="1084417157" role=""/>
+    <member type="way" ref="963873831" role=""/>
+    <member type="way" ref="963138898" role=""/>
+    <member type="way" ref="963138895" role=""/>
+    <member type="way" ref="963128051" role=""/>
+    <member type="way" ref="967070340" role=""/>
+    <member type="way" ref="26658799" role=""/>
+    <member type="way" ref="968066729" role=""/>
+    <member type="way" ref="1080749969" role=""/>
+    <member type="way" ref="963128053" role=""/>
+    <member type="way" ref="1080749970" role=""/>
+    <tag k="fee" v="yes"/>
+    <tag k="from" v="Genève-Mt-Blanc (lac)"/>
+    <tag k="gtfs:feed" v="CH-Alle"/>
+    <tag k="gtfs:release_date" v="2021-06-30"/>
+    <tag k="gtfs:route_id" v="94-J-Y-j21-1"/>
+    <tag k="gtfs:trip_id:like" v="%94-J-Y-j21-1.12.R"/>
+    <tag k="gtfs:trip_id:sample" v="18.TA.94-J-Y-j21-1.12.R"/>
+    <tag k="name" v="CGN 3150: Genève-Mt-Blanc (lac) =&gt; Genève-Eaux-Vives (lac) =&gt; Versoix (lac) =&gt; Coppet (lac) =&gt; Nyon (lac) =&gt; Nernier (F) (lac) =&gt; Yvoire (F) (lac) =&gt; Rolle (lac) =&gt; St-Prex (lac) =&gt; Morges (lac) =&gt; St-Sulpice VD (lac) =&gt; Lausanne-Ouchy (lac)"/>
+    <tag k="operator" v="Compagnie générale de navigation sur le lac Léman (CGN)"/>
+    <tag k="operator:wikidata" v="Q676230"/>
+    <tag k="operator:wikipedia" v="fr:Compagnie générale de navigation sur le lac Léman"/>
+    <tag k="public_transport:version" v="2"/>
+    <tag k="ref" v="3150"/>
+    <tag k="ref_trips" v="18.TA.94-J-Y-j21-1.12.R"/>
+    <tag k="route" v="ferry"/>
+    <tag k="to" v="Lausanne-Ouchy (lac)"/>
+    <tag k="type" v="route"/>
+    <tag k="via" v="Genève-Eaux-Vives (lac);Versoix (lac);Coppet (lac);Nyon (lac);Nernier (F) (lac);Yvoire (F) (lac);Rolle (lac);St-Prex (lac);Morges (lac);St-Sulpice VD (lac)"/>
+    <tag k="wheelchair" v="yes"/>
+  </relation>
+  <relation id="13014477">
+    <member type="node" ref="8944868388" role="stop_entry_only"/>
+    <member type="way" ref="108522506" role="platform"/>
+    <member type="node" ref="279597879" role="stop"/>
+    <member type="way" ref="373381598" role="platform"/>
+    <member type="node" ref="1867403421" role="stop"/>
+    <member type="way" ref="163434896" role="platform"/>
+    <member type="node" ref="279595129" role="stop"/>
+    <member type="way" ref="25649063" role="platform"/>
+    <member type="node" ref="279599312" role="stop"/>
+    <member type="node" ref="279599177" role="stop"/>
+    <member type="node" ref="696605372" role="stop"/>
+    <member type="node" ref="259426607" role="stop"/>
+    <member type="way" ref="175991593" role="platform"/>
+    <member type="node" ref="281378174" role="stop"/>
+    <member type="way" ref="25796581" role="platform"/>
+    <member type="node" ref="281383972" role="stop"/>
+    <member type="way" ref="386251548" role="platform"/>
+    <member type="node" ref="418757008" role="stop"/>
+    <member type="way" ref="82681868" role="platform"/>
+    <member type="node" ref="1035567617" role="stop_exit_only"/>
+    <member type="way" ref="163578661" role="platform"/>
+    <member type="way" ref="1080749970" role=""/>
+    <member type="way" ref="963128053" role=""/>
+    <member type="way" ref="1080749969" role=""/>
+    <member type="way" ref="968066729" role=""/>
+    <member type="way" ref="26658799" role=""/>
+    <member type="way" ref="967070340" role=""/>
+    <member type="way" ref="963128051" role=""/>
+    <member type="way" ref="963138895" role=""/>
+    <member type="way" ref="963138898" role=""/>
+    <member type="way" ref="963873831" role=""/>
+    <member type="way" ref="1084417157" role=""/>
+    <member type="way" ref="964206080" role=""/>
+    <tag k="fee" v="yes"/>
+    <tag k="from" v="Lausanne-Ouchy (lac)"/>
+    <tag k="gtfs:feed" v="CH-Alle"/>
+    <tag k="gtfs:release_date" v="2021-06-30"/>
+    <tag k="gtfs:route_id" v="94-J-Y-j21-1"/>
+    <tag k="gtfs:trip_id:like" v="%94-J-Y-j21-1.6.H"/>
+    <tag k="gtfs:trip_id:sample" v="9.TA.94-J-Y-j21-1.6.H"/>
+    <tag k="name" v="CGN 3150: Lausanne-Ouchy (lac) =&gt; St-Sulpice VD (lac) =&gt; Morges (lac) =&gt; St-Prex (lac) =&gt; Rolle (lac) =&gt; Yvoire (F) (lac) =&gt; Nernier (F) (lac) =&gt; Nyon (lac) =&gt; Coppet (lac) =&gt; Versoix (lac) =&gt; Genève-Eaux-Vives (lac) =&gt; Genève-Mt-Blanc (lac)"/>
+    <tag k="operator" v="Compagnie générale de navigation sur le lac Léman (CGN)"/>
+    <tag k="operator:wikidata" v="Q676230"/>
+    <tag k="operator:wikipedia" v="fr:Compagnie générale de navigation sur le lac Léman"/>
+    <tag k="public_transport:version" v="2"/>
+    <tag k="ref" v="3150"/>
+    <tag k="ref_trips" v="9.TA.94-J-Y-j21-1.6.H"/>
+    <tag k="route" v="ferry"/>
+    <tag k="to" v="Genève-Mt-Blanc (lac)"/>
+    <tag k="type" v="route"/>
+    <tag k="via" v="St-Sulpice VD (lac);Morges (lac);St-Prex (lac);Rolle (lac);Yvoire (F) (lac);Nernier (F) (lac);Nyon (lac);Coppet (lac);Versoix (lac);Genève-Eaux-Vives (lac)"/>
+    <tag k="wheelchair" v="yes"/>
+  </relation>
+  <relation id="13014479">
+    <member type="way" ref="82681868" role="platform"/>
+    <member type="node" ref="418757008" role="stop"/>
+    <tag k="name" v="Genève-Eaux-Vives (lac)"/>
+    <tag k="network" v="CGN"/>
+    <tag k="operator" v="CGN"/>
+    <tag k="public_transport" v="stop_area"/>
+    <tag k="type" v="public_transport"/>
+    <tag k="uic_name" v="Genève-Eaux-Vives (lac)"/>
+    <tag k="uic_ref" v="8501311"/>
+  </relation>
+  <relation id="13014480">
+    <member type="node" ref="1035567617" role="stop_entry_only"/>
+    <member type="way" ref="163578661" role="platform"/>
+    <member type="node" ref="281383972" role="stop"/>
+    <member type="way" ref="386251548" role="platform"/>
+    <member type="node" ref="281378174" role="stop"/>
+    <member type="way" ref="25796581" role="platform"/>
+    <member type="node" ref="259426607" role="stop_exit_only"/>
+    <member type="way" ref="175991593" role="platform"/>
+    <member type="way" ref="964206084" role=""/>
+    <member type="way" ref="964206083" role=""/>
+    <member type="way" ref="964206081" role=""/>
+    <member type="way" ref="963873831" role=""/>
+    <member type="way" ref="963138898" role=""/>
+    <member type="way" ref="963138895" role=""/>
+    <tag k="fee" v="yes"/>
+    <tag k="from" v="Genève-Mt-Blanc (lac)"/>
+    <tag k="gtfs:feed" v="CH-Alle"/>
+    <tag k="gtfs:release_date" v="2021-06-30"/>
+    <tag k="gtfs:route_id" v="94-J-Y-j21-1"/>
+    <tag k="gtfs:trip_id:like" v="%94-J-Y-j21-1.8.R"/>
+    <tag k="gtfs:trip_id:sample" v="14.TA.94-J-Y-j21-1.8.R"/>
+    <tag k="name" v="Bateau 3154 : Genève-Mt-Blanc → Nyon"/>
+    <tag k="operator" v="Compagnie générale de navigation sur le lac Léman (CGN)"/>
+    <tag k="operator:wikidata" v="Q676230"/>
+    <tag k="operator:wikipedia" v="fr:Compagnie générale de navigation sur le lac Léman"/>
+    <tag k="public_transport:version" v="2"/>
+    <tag k="ref" v="3154"/>
+    <tag k="ref_trips" v="14.TA.94-J-Y-j21-1.8.R"/>
+    <tag k="route" v="ferry"/>
+    <tag k="to" v="Nyon (lac)"/>
+    <tag k="type" v="route"/>
+    <tag k="via" v="Versoix (lac);Coppet (lac)"/>
+    <tag k="wheelchair" v="yes"/>
+  </relation>
+  <relation id="13014494">
+    <member type="node" ref="259426607" role="stop_entry_only"/>
+    <member type="way" ref="175991593" role="platform"/>
+    <member type="node" ref="281378174" role="stop"/>
+    <member type="way" ref="25796581" role="platform"/>
+    <member type="node" ref="281383972" role="stop"/>
+    <member type="way" ref="386251548" role="platform"/>
+    <member type="node" ref="1035567617" role="stop_exit_only"/>
+    <member type="way" ref="163578661" role="platform"/>
+    <member type="way" ref="963138895" role=""/>
+    <member type="way" ref="963138898" role=""/>
+    <member type="way" ref="963873831" role=""/>
+    <member type="way" ref="964206081" role=""/>
+    <member type="way" ref="964206083" role=""/>
+    <member type="way" ref="964206084" role=""/>
+    <tag k="fee" v="yes"/>
+    <tag k="from" v="Nyon (lac)"/>
+    <tag k="gtfs:feed" v="CH-Alle"/>
+    <tag k="gtfs:release_date" v="2021-06-30"/>
+    <tag k="gtfs:route_id" v="94-J-Y-j21-1"/>
+    <tag k="gtfs:trip_id:like" v="%94-J-Y-j21-1.3.H"/>
+    <tag k="gtfs:trip_id:sample" v="6.TA.94-J-Y-j21-1.3.H"/>
+    <tag k="name" v="Bateau 3154 : Nyon → Genève-Mt-Blanc"/>
+    <tag k="operator" v="Compagnie générale de navigation sur le lac Léman (CGN)"/>
+    <tag k="operator:wikidata" v="Q676230"/>
+    <tag k="operator:wikipedia" v="fr:Compagnie générale de navigation sur le lac Léman"/>
+    <tag k="public_transport:version" v="2"/>
+    <tag k="ref" v="3154"/>
+    <tag k="ref_trips" v="6.TA.94-J-Y-j21-1.3.H"/>
+    <tag k="route" v="ferry"/>
+    <tag k="to" v="Genève-Mt-Blanc (lac)"/>
+    <tag k="type" v="route"/>
+    <tag k="wheelchair" v="yes"/>
+  </relation>
+  <relation id="13026201">
+    <member type="node" ref="1035567617" role="stop_entry_only"/>
+    <member type="way" ref="163578661" role="platform"/>
+    <member type="node" ref="418757008" role="stop"/>
+    <member type="way" ref="82681868" role="platform"/>
+    <member type="node" ref="281383972" role="stop"/>
+    <member type="way" ref="386251548" role="platform"/>
+    <member type="node" ref="281378174" role="stop"/>
+    <member type="way" ref="25796581" role="platform"/>
+    <member type="node" ref="259426607" role="stop"/>
+    <member type="way" ref="175991593" role="platform"/>
+    <member type="node" ref="696605372" role="stop"/>
+    <member type="way" ref="163511949" role="platform"/>
+    <member type="node" ref="279599177" role="stop_exit_only"/>
+    <member type="way" ref="964206080" role=""/>
+    <member type="way" ref="1084417157" role=""/>
+    <member type="way" ref="963873831" role=""/>
+    <member type="way" ref="963138898" role=""/>
+    <member type="way" ref="963138895" role=""/>
+    <member type="way" ref="963128051" role=""/>
+    <member type="way" ref="967070340" role=""/>
+    <tag k="fee" v="yes"/>
+    <tag k="from" v="Genève-Mt-Blanc (lac)"/>
+    <tag k="gtfs:feed" v="CH-Alle"/>
+    <tag k="gtfs:release_date" v="2021-06-30"/>
+    <tag k="gtfs:route_id" v="94-J-Y-j21-1"/>
+    <tag k="gtfs:trip_id:like" v="%94-J-Y-j21-1.11.R"/>
+    <tag k="gtfs:trip_id:sample" v="17.TA.94-J-Y-j21-1.11.R"/>
+    <tag k="name" v="CGN 3150: Genève-Mt-Blanc (lac) =&gt; Genève-Eaux-Vives (lac) =&gt; Versoix (lac) =&gt; Coppet (lac) =&gt; Nyon (lac) =&gt; Nernier (F) (lac) =&gt; Yvoire (F) (lac)"/>
+    <tag k="operator" v="Compagnie générale de navigation sur le lac Léman (CGN)"/>
+    <tag k="operator:wikidata" v="Q676230"/>
+    <tag k="operator:wikipedia" v="fr:Compagnie générale de navigation sur le lac Léman"/>
+    <tag k="public_transport:version" v="2"/>
+    <tag k="ref" v="3150"/>
+    <tag k="ref_trips" v="17.TA.94-J-Y-j21-1.11.R"/>
+    <tag k="route" v="ferry"/>
+    <tag k="to" v="Yvoire (F) (lac)"/>
+    <tag k="type" v="route"/>
+    <tag k="via" v="Genève-Eaux-Vives (lac);Versoix (lac);Coppet (lac);Nyon (lac);Nernier (F) (lac)"/>
+    <tag k="wheelchair" v="yes"/>
+  </relation>
+  <relation id="13026202">
+    <member type="node" ref="279599177" role="stop_entry_only"/>
+    <member type="node" ref="1035567617" role="stop_exit_only"/>
+    <member type="way" ref="163578661" role="platform"/>
+    <member type="way" ref="963495866" role=""/>
+    <member type="way" ref="967073656" role=""/>
+    <tag k="fee" v="yes"/>
+    <tag k="from" v="Yvoire (F) (lac)"/>
+    <tag k="gtfs:feed" v="CH-Alle"/>
+    <tag k="gtfs:release_date" v="2021-06-30"/>
+    <tag k="gtfs:route_id" v="94-J-Y-j21-1"/>
+    <tag k="gtfs:trip_id:like" v="%94-J-Y-j21-1.1.H"/>
+    <tag k="gtfs:trip_id:sample" v="1.TA.94-J-Y-j21-1.1.H"/>
+    <tag k="name" v="CGN 3150: Yvoire (F) (lac) =&gt; Genève-Mt-Blanc (lac)"/>
+    <tag k="operator" v="Compagnie générale de navigation sur le lac Léman (CGN)"/>
+    <tag k="operator:wikidata" v="Q676230"/>
+    <tag k="operator:wikipedia" v="fr:Compagnie générale de navigation sur le lac Léman"/>
+    <tag k="public_transport:version" v="2"/>
+    <tag k="ref" v="3150"/>
+    <tag k="ref_trips" v="1.TA.94-J-Y-j21-1.1.H"/>
+    <tag k="route" v="ferry"/>
+    <tag k="to" v="Genève-Mt-Blanc (lac)"/>
+    <tag k="type" v="route"/>
+    <tag k="wheelchair" v="yes"/>
+  </relation>
+  <relation id="13042678">
+    <member type="node" ref="1035567617" role="stop_entry_only"/>
+    <member type="way" ref="163578661" role="platform"/>
+    <member type="node" ref="915082478" role="stop"/>
+    <member type="way" ref="77839869" role="platform"/>
+    <member type="node" ref="418757016" role="stop_on_demand"/>
+    <member type="way" ref="35817355" role="platform"/>
+    <member type="node" ref="929427032" role="stop_on_demand"/>
+    <member type="way" ref="79648965" role="platform"/>
+    <member type="node" ref="1035567617" role="stop"/>
+    <member type="way" ref="163578661" role="platform"/>
+    <member type="node" ref="915082478" role="stop_exit_only"/>
+    <member type="way" ref="77839869" role="platform"/>
+    <member type="way" ref="963128047" role=""/>
+    <member type="way" ref="163701739" role=""/>
+    <member type="way" ref="1080746311" role=""/>
+    <member type="way" ref="969479427" role=""/>
+    <member type="way" ref="963128047" role=""/>
+    <tag k="fee" v="yes"/>
+    <tag k="from" v="Genève-Mt-Blanc (lac)"/>
+    <tag k="gtfs:feed" v="CH-Alle"/>
+    <tag k="gtfs:release_date" v="2021-07-28"/>
+    <tag k="gtfs:route_id" v="94-O-Y-j21-1"/>
+    <tag k="gtfs:trip_id:like" v="%94-O-Y-j21-1.8.H"/>
+    <tag k="gtfs:trip_id:sample" v="12.TA.94-O-Y-j21-1.8.H"/>
+    <tag k="name" v="Bateau 3154 : Genève-Mt-Blanc → Genève-Jardin-Anglais → La Belotte → Bellevue → Genève-Mt-Blanc → Genève-Jardin-Anglais"/>
+    <tag k="operator" v="Compagnie générale de navigation sur le lac Léman (CGN)"/>
+    <tag k="operator:wikidata" v="Q676230"/>
+    <tag k="operator:wikipedia" v="fr:Compagnie générale de navigation sur le lac Léman"/>
+    <tag k="public_transport:version" v="2"/>
+    <tag k="ref" v="3154"/>
+    <tag k="ref_trips" v="12.TA.94-O-Y-j21-1.8.H"/>
+    <tag k="route" v="ferry"/>
+    <tag k="to" v="Genève-Jardin-Anglais (lac)"/>
+    <tag k="type" v="route"/>
+    <tag k="via" v="Genève-Jardin-Anglais (lac);La Belotte (lac);Bellevue (lac);Genève-Mt-Blanc (lac)"/>
+    <tag k="wheelchair" v="yes"/>
+  </relation>
+
+</osm>

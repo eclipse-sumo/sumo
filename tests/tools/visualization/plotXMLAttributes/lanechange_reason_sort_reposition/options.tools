@@ -1,0 +1,4 @@
+input_data.xml -o image.png --csv-output out.csv 
+-x reason -y time
+--xticks-file data.txt
+tools/visualization/plotXMLAttributes.py

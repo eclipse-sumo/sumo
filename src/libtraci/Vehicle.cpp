@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2017-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2017-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -14,6 +14,7 @@
 /// @file    Vehicle.cpp
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
+/// @author  Mirko Barthauer
 /// @date    30.05.2012
 ///
 // C++ TraCI client API implementation
@@ -98,6 +99,18 @@ Vehicle::getSlope(const std::string& vehID) {
 std::string
 Vehicle::getRoadID(const std::string& vehID) {
     return Dom::getString(libsumo::VAR_ROAD_ID, vehID);
+}
+
+
+double
+Vehicle::getDeparture(const std::string& vehID) {
+    return Dom::getDouble(libsumo::VAR_DEPARTURE, vehID);
+}
+
+
+double
+Vehicle::getDepartDelay(const std::string& vehID) {
+    return Dom::getDouble(libsumo::VAR_DEPART_DELAY, vehID);
 }
 
 
@@ -196,6 +209,13 @@ Vehicle::getPersonCapacity(const std::string& vehID) {
     return Dom::getInt(libsumo::VAR_PERSON_CAPACITY, vehID);
 }
 
+
+double
+Vehicle::getBoardingDuration(const std::string& vehID) {
+    return Dom::getDouble(libsumo::VAR_BOARDING_DURATION, vehID);
+}
+
+
 std::vector<std::string>
 Vehicle::getPersonIDList(const std::string& vehID) {
     return Dom::getStringVector(libsumo::LAST_STEP_PERSON_ID_LIST, vehID);
@@ -205,6 +225,7 @@ std::pair<std::string, double>
 Vehicle::getLeader(const std::string& vehID, double dist) {
     tcpip::Storage content;
     StoHelp::writeTypedDouble(content, dist);
+    std::unique_lock<std::mutex> lock{ libtraci::Connection::getActive().getMutex() };
     tcpip::Storage& ret = Dom::get(libsumo::VAR_LEADER, vehID, &content);
     ret.readInt(); // components
     ret.readUnsignedByte();
@@ -219,6 +240,7 @@ std::pair<std::string, double>
 Vehicle::getFollower(const std::string& vehID, double dist) {
     tcpip::Storage content;
     StoHelp::writeTypedDouble(content, dist);
+    std::unique_lock<std::mutex> lock{ libtraci::Connection::getActive().getMutex() };
     tcpip::Storage& ret = Dom::get(libsumo::VAR_FOLLOWER, vehID, &content);
     ret.readInt(); // components
     ret.readUnsignedByte();
@@ -281,6 +303,7 @@ Vehicle::getSignals(const std::string& vehID) {
 
 std::vector<libsumo::TraCIBestLanesData>
 Vehicle::getBestLanes(const std::string& vehID) {
+    std::unique_lock<std::mutex> lock{ libtraci::Connection::getActive().getMutex() };
     std::vector<libsumo::TraCIBestLanesData> result;
     tcpip::Storage& ret = Dom::get(libsumo::VAR_BEST_LANES, vehID);
     ret.readInt();
@@ -317,6 +340,7 @@ Vehicle::getBestLanes(const std::string& vehID) {
 
 std::vector<libsumo::TraCINextTLSData>
 Vehicle::getNextTLS(const std::string& vehID) {
+    std::unique_lock<std::mutex> lock{ libtraci::Connection::getActive().getMutex() };
     std::vector<libsumo::TraCINextTLSData> result;
     tcpip::Storage& ret = Dom::get(libsumo::VAR_NEXT_TLS, vehID);
     ret.readInt(); // components
@@ -347,11 +371,61 @@ Vehicle::getNextStops(const std::string& vehID) {
     return getStops(vehID, 0);
 }
 
+std::vector<libsumo::TraCIConnection>
+Vehicle::getNextLinks(const std::string& vehID) {
+    std::unique_lock<std::mutex> lock{ libtraci::Connection::getActive().getMutex() };
+    std::vector<libsumo::TraCIConnection> result;
+    tcpip::Storage& ret = Dom::get(libsumo::VAR_NEXT_LINKS, vehID);
+    ret.readInt(); // components
+    // number of items
+    ret.readUnsignedByte();
+    ret.readInt();
+
+    int linkNo = ret.readInt();
+    for (int i = 0; i < linkNo; ++i) {
+
+        ret.readUnsignedByte();
+        std::string approachedLane = ret.readString();
+
+        ret.readUnsignedByte();
+        std::string approachedLaneInternal = ret.readString();
+
+        ret.readUnsignedByte();
+        bool hasPrio = ret.readUnsignedByte() != 0;
+
+        ret.readUnsignedByte();
+        bool isOpen = ret.readUnsignedByte() != 0;
+
+        ret.readUnsignedByte();
+        bool hasFoe = ret.readUnsignedByte() != 0;
+
+        ret.readUnsignedByte();
+        std::string state = ret.readString();
+
+        ret.readUnsignedByte();
+        std::string direction = ret.readString();
+
+        ret.readUnsignedByte();
+        double length = ret.readDouble();
+
+        result.push_back(libsumo::TraCIConnection(approachedLane,
+            hasPrio,
+            isOpen,
+            hasFoe,
+            approachedLaneInternal,
+            state,
+            direction,
+            length));
+    }
+    return result;
+}
+
 std::vector<libsumo::TraCINextStopData>
 Vehicle::getStops(const std::string& vehID, int limit) {
     std::vector<libsumo::TraCINextStopData> result;
     tcpip::Storage content;
     StoHelp::writeTypedInt(content, limit);
+    std::unique_lock<std::mutex> lock{ libtraci::Connection::getActive().getMutex() };
     tcpip::Storage& ret = Dom::get(libsumo::VAR_NEXT_STOPS2, vehID, &content);
     ret.readInt(); // components
     // number of items
@@ -472,6 +546,7 @@ std::pair<int, int>
 Vehicle::getLaneChangeState(const std::string& vehID, int direction) {
     tcpip::Storage content;
     StoHelp::writeTypedInt(content, direction);
+    std::unique_lock<std::mutex> lock{ libtraci::Connection::getActive().getMutex() };
     tcpip::Storage& ret = Dom::get(libsumo::CMD_CHANGELANE, vehID, &content);
     ret.readInt(); // components
     ret.readUnsignedByte();
@@ -488,6 +563,7 @@ Vehicle::getNeighbors(const std::string& vehID, const int mode) {
     tcpip::Storage content;
     content.writeUnsignedByte(libsumo::TYPE_UBYTE);
     content.writeUnsignedByte(mode);
+    std::unique_lock<std::mutex> lock{ libtraci::Connection::getActive().getMutex() };
     tcpip::Storage& ret = Dom::get(libsumo::VAR_NEIGHBORS, vehID, &content);
     const int items = ret.readInt(); // components
     for (int i = 0; i < items; i++) {
@@ -552,6 +628,16 @@ Vehicle::getTaxiFleet(int taxiState) {
     tcpip::Storage content;
     StoHelp::writeTypedInt(content, taxiState);
     return Dom::getStringVector(libsumo::VAR_TAXI_FLEET, "", &content);
+}
+
+std::vector<std::string>
+Vehicle::getLoadedIDList() {
+    return Dom::getStringVector(libsumo::VAR_LOADED_LIST, "");
+}
+
+std::vector<std::string>
+Vehicle::getTeleportingIDList() {
+    return Dom::getStringVector(libsumo::VAR_TELEPORTING_LIST, "");
 }
 
 std::string
@@ -953,6 +1039,11 @@ Vehicle::setRoute(const std::string& vehID, const std::string& edgeID) {
 void
 Vehicle::setRoute(const std::string& vehID, const std::vector<std::string>& edgeIDs) {
     Dom::setStringVector(libsumo::VAR_ROUTE, vehID, edgeIDs);
+}
+
+void
+Vehicle::setLateralLanePosition(const std::string& vehID, double posLat) {
+    Dom::setDouble(libsumo::VAR_LANEPOSITION_LAT, vehID, posLat);
 }
 
 void

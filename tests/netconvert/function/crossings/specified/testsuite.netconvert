@@ -4,8 +4,14 @@
 2_arm
 2_corner
 
+# one of the edges has no sidewalks
+2_corner_someForbidden
+
 # attempt to specify an invalid crossing
 2_arm_oneway_invalid
+
+# see #12234
+2_arm_invalid
 
 # 3 arm junction where the crossing arm only has a sidewalk on the opposite side
 3_arm_1_opposite_sidewalk_1_crossing

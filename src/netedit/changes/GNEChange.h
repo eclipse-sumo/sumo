@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -15,7 +15,7 @@
 /// @author  Jakob Erdmann
 /// @date    Mar 2011
 ///
-// The reification of a NETEDIT editing operation (see command pattern)
+// The reification of a netedit editing operation (see command pattern)
 // inherits from FXCommand and is used to for undo/redo
 /****************************************************************************/
 #pragma once
@@ -40,13 +40,9 @@
 // ===========================================================================
 class GNEHierarchicalElement;
 class GNEAttributeCarrier;
-class GNEAdditional;
 class GNEDataSet;
-class GNEDemandElement;
-class GNEGenericData;
 class GNEDataInterval;
-class GNEEdge;
-class GNELane;
+class GNEMeanData;
 class GNENet;
 class GNEViewNet;
 

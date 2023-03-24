@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -22,6 +22,7 @@
 #include <config.h>
 
 #include <utils/foxtools/fxheader.h>
+#include <utils/gui/div/GUIPersistentWindowPos.h>
 
 // ===========================================================================
 // class declarations
@@ -37,7 +38,7 @@ class Position;
  * @class GUIDialog_EditViewport
  * @brief A dialog to change the viewport
  */
-class GUIDialog_EditViewport : public FXDialogBox {
+class GUIDialog_EditViewport : public FXDialogBox, public GUIPersistentWindowPos {
     // FOX-declarations
     FXDECLARE(GUIDialog_EditViewport)
 public:
@@ -54,10 +55,8 @@ public:
     /** @brief Constructor
      * @param[in] parent The view to change
      * @param[in] name This dialog's caption
-     * @param[in] x x-position to show the dialog at
-     * @param[in] y y-position to show the dialog at
      */
-    GUIDialog_EditViewport(GUISUMOAbstractView* parent,  const char* name, int x, int y);
+    GUIDialog_EditViewport(GUISUMOAbstractView* parent,  const char* name);
 
     /// @brief Destructor
     ~GUIDialog_EditViewport();

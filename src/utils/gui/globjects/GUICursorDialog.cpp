@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -42,6 +42,7 @@ FXDEFMAP(GUICursorDialog) GUICursorDialogMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_CURSORDIALOG_PROPERTIES,        GUICursorDialog::onCmdOpenPropertiesPopUp),
     FXMAPFUNC(SEL_COMMAND,  MID_CURSORDIALOG_MOVEUP,            GUICursorDialog::onCmdMoveListUp),
     FXMAPFUNC(SEL_COMMAND,  MID_CURSORDIALOG_MOVEDOWN,          GUICursorDialog::onCmdMoveListDown),
+    FXMAPFUNC(SEL_COMMAND,  MID_CURSORDIALOG_FRONT,             GUICursorDialog::onCmdProcessFront),
     FXMAPFUNC(SEL_COMMAND,  FXWindow::ID_UNPOST,                GUICursorDialog::onCmdUnpost),
 };
 
@@ -52,17 +53,18 @@ FXIMPLEMENT(GUICursorDialog, GUIGLObjectPopupMenu, GUICursorDialogMap, ARRAYNUMB
 // member method definitions
 // ===========================================================================
 
-GUICursorDialog::GUICursorDialog(CursorDialogType cursorDialogType, GUISUMOAbstractView* view, const std::vector<GUIGlObject*> &objects) :
-    GUIGLObjectPopupMenu(view->getMainWindow(), view),
+GUICursorDialog::GUICursorDialog(GUIGLObjectPopupMenu::PopupType type, GUISUMOAbstractView* view, const std::vector<GUIGlObject*>& objects) :
+    GUIGLObjectPopupMenu(view->getMainWindow(), view, type),
+    myType(type),
     myView(view) {
     // continue depending of properties
-    if (cursorDialogType == CursorDialogType::PROPERTIES) {
+    if (type == GUIGLObjectPopupMenu::PopupType::PROPERTIES) {
         buildDialogElements(view, "Overlapped objects", GUIIcon::MODEINSPECT, MID_CURSORDIALOG_PROPERTIES, objects);
-    } else if (cursorDialogType == CursorDialogType::DELETE_ELEMENT) {
+    } else if (type == GUIGLObjectPopupMenu::PopupType::DELETE_ELEMENT) {
         buildDialogElements(view, "Delete element", GUIIcon::MODEDELETE, MID_CURSORDIALOG_DELETEELEMENT, objects);
-    } else if (cursorDialogType == CursorDialogType::SELECT_ELEMENT) {
+    } else if (type == GUIGLObjectPopupMenu::PopupType::SELECT_ELEMENT) {
         buildDialogElements(view, "Select element", GUIIcon::MODESELECT, MID_CURSORDIALOG_SELECTELEMENT, objects);
-    } else if (cursorDialogType == CursorDialogType::FRONT_ELEMENT) {
+    } else if (type == GUIGLObjectPopupMenu::PopupType::FRONT_ELEMENT) {
         buildDialogElements(view, "Mark front element", GUIIcon::FRONTELEMENT, MID_CURSORDIALOG_SETFRONTELEMENT, objects);
     }
 }
@@ -70,7 +72,7 @@ GUICursorDialog::GUICursorDialog(CursorDialogType cursorDialogType, GUISUMOAbstr
 
 GUICursorDialog::~GUICursorDialog() {
     // delete all menu commands
-    for (const auto &GLObject : myMenuCommandGLObjects) {
+    for (const auto& GLObject : myMenuCommandGLObjects) {
         delete GLObject.first;
     }
 }
@@ -79,7 +81,7 @@ GUICursorDialog::~GUICursorDialog() {
 long
 GUICursorDialog::onCmdSetFrontElement(FXObject* obj, FXSelector, void*) {
     // search element in myGLObjects
-    for (const auto &GLObject : myMenuCommandGLObjects) {
+    for (const auto& GLObject : myMenuCommandGLObjects) {
         if (GLObject.first == obj) {
             GLObject.second->markAsFrontElement();
         }
@@ -93,7 +95,7 @@ GUICursorDialog::onCmdSetFrontElement(FXObject* obj, FXSelector, void*) {
 long
 GUICursorDialog::onCmdDeleteElement(FXObject* obj, FXSelector, void*) {
     // search element in myGLObjects
-    for (const auto &GLObject : myMenuCommandGLObjects) {
+    for (const auto& GLObject : myMenuCommandGLObjects) {
         if (GLObject.first == obj) {
             GLObject.second->deleteGLObject();
         }
@@ -107,7 +109,7 @@ GUICursorDialog::onCmdDeleteElement(FXObject* obj, FXSelector, void*) {
 long
 GUICursorDialog::onCmdSelectElement(FXObject* obj, FXSelector, void*) {
     // search element in myGLObjects
-    for (const auto &GLObject : myMenuCommandGLObjects) {
+    for (const auto& GLObject : myMenuCommandGLObjects) {
         if (GLObject.first == obj) {
             GLObject.second->selectGLObject();
         }
@@ -118,10 +120,10 @@ GUICursorDialog::onCmdSelectElement(FXObject* obj, FXSelector, void*) {
 }
 
 
-long 
+long
 GUICursorDialog::onCmdOpenPropertiesPopUp(FXObject* obj, FXSelector, void*) {
     // search element in myGLObjects
-    for (const auto &GLObject : myMenuCommandGLObjects) {
+    for (const auto& GLObject : myMenuCommandGLObjects) {
         if (GLObject.first == obj) {
             myView->replacePopup(GLObject.second->getPopUpMenu(*myView->getMainWindow(), *myView));
             return 1;
@@ -150,13 +152,29 @@ GUICursorDialog::onCmdMoveListDown(FXObject*, FXSelector, void*) {
 
 
 long
+GUICursorDialog::onCmdProcessFront(FXObject*, FXSelector, void*) {
+    if (myMenuCommandGLObjects.size() > 0) {
+        // continue depending of properties
+        if (myType == GUIGLObjectPopupMenu::PopupType::DELETE_ELEMENT) {
+            myMenuCommandGLObjects.front().second->deleteGLObject();
+        } else if (myType == GUIGLObjectPopupMenu::PopupType::SELECT_ELEMENT) {
+            myMenuCommandGLObjects.front().second->selectGLObject();
+        } else if (myType == GUIGLObjectPopupMenu::PopupType::FRONT_ELEMENT) {
+            myMenuCommandGLObjects.front().second->markAsFrontElement();
+        }
+    }
+    return 0;
+}
+
+
+long
 GUICursorDialog::onCmdUnpost(FXObject* obj, FXSelector, void* ptr) {
     // ignore move up, down and header
     if ((obj == myMoveUpMenuCommand) || (obj == myMoveDownMenuCommand) || (obj == myMenuHeader)) {
         return 1;
     }
     if (grabowner) {
-        grabowner->handle(this,FXSEL(SEL_COMMAND,ID_UNPOST),ptr);
+        grabowner->handle(this, FXSEL(SEL_COMMAND, ID_UNPOST), ptr);
     } else {
         popdown();
         if (grabbed()) {
@@ -170,7 +188,7 @@ GUICursorDialog::onCmdUnpost(FXObject* obj, FXSelector, void* ptr) {
 void
 GUICursorDialog::updateList() {
     // first hide all menu commands
-    for (const auto &GLObject : myMenuCommandGLObjects) {
+    for (const auto& GLObject : myMenuCommandGLObjects) {
         GLObject.first->hide();
     }
     // check if disable menu command up
@@ -197,7 +215,7 @@ GUICursorDialog::updateList() {
 
 
 void
-GUICursorDialog::buildDialogElements(GUISUMOAbstractView* view, const FXString text, GUIIcon icon, FXSelector sel, const std::vector<GUIGlObject*> &objects) {
+GUICursorDialog::buildDialogElements(GUISUMOAbstractView* view, const FXString text, GUIIcon icon, FXSelector sel, const std::vector<GUIGlObject*>& objects) {
     // create header
     myMenuHeader = new MFXMenuHeader(this, view->getMainWindow()->getBoldFont(), text, GUIIconSubSys::getIcon(icon), nullptr, 0);
     new FXMenuSeparator(this);
@@ -207,7 +225,7 @@ GUICursorDialog::buildDialogElements(GUISUMOAbstractView* view, const FXString t
         new FXMenuSeparator(this);
     }
     // create a menu command for every object
-    for (const auto &GLObject : objects) {
+    for (const auto& GLObject : objects) {
         myMenuCommandGLObjects.push_back(std::make_pair(GUIDesigns::buildFXMenuCommand(this, GLObject->getMicrosimID(), GLObject->getGLIcon(), this, sel), GLObject));
     }
     // check if create move down menu command

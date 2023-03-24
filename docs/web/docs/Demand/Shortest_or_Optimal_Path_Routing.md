@@ -177,7 +177,7 @@ to fix an invalid starting or ending edge using the first or last usable edge
 of the route.
 
 # Converting Input Styles
-SUMO supports various styles of traffic demand defintions (vehicles, trips, flows) and [duarouter](../duarouter.md) can be used to convert between them.
+SUMO supports various styles of traffic demand definitions (vehicles, trips, flows) and [duarouter](../duarouter.md) can be used to convert between them.
 
 - By default, duarouter will convert all inputs to vehicles with embedded routes (route as child element of the vehicle).
 - With option **--write-trips** all input will be converted to trips

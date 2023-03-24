@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -15,7 +15,7 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    May 2019
 ///
-// Representation of containers in NETEDIT
+// Representation of containers in netedit
 /****************************************************************************/
 #include <cmath>
 #include <microsim/devices/MSDevice_BTreceiver.h>
@@ -163,7 +163,7 @@ GNEContainer::GNESelectedContainersPopupMenu::onCmdTransform(FXObject* obj, FXSe
 
 GNEContainer::GNEContainer(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, GLO_CONTAINER, tag, GUIIconSubSys::getIcon(GUIIcon::CONTAINER),
-    GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}) {
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}) {
     // reset default values
     resetDefaultValues();
     // set end and vehPerHours
@@ -173,10 +173,10 @@ GNEContainer::GNEContainer(SumoXMLTag tag, GNENet* net) :
 
 
 GNEContainer::GNEContainer(SumoXMLTag tag, GNENet* net, GNEDemandElement* pType, const SUMOVehicleParameter& containerparameters) :
-    GNEDemandElement(containerparameters.id, net, (tag == SUMO_TAG_CONTAINERFLOW) ? GLO_CONTAINERFLOW : GLO_CONTAINER, tag, 
-    (tag == SUMO_TAG_CONTAINERFLOW) ? GUIIconSubSys::getIcon(GUIIcon::CONTAINERFLOW) : GUIIconSubSys::getIcon(GUIIcon::CONTAINER), 
-    GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {pType}, {}),
-    SUMOVehicleParameter(containerparameters) {
+    GNEDemandElement(containerparameters.id, net, (tag == SUMO_TAG_CONTAINERFLOW) ? GLO_CONTAINERFLOW : GLO_CONTAINER, tag,
+                     (tag == SUMO_TAG_CONTAINERFLOW) ? GUIIconSubSys::getIcon(GUIIcon::CONTAINERFLOW) : GUIIconSubSys::getIcon(GUIIcon::CONTAINER),
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {pType}, {}),
+SUMOVehicleParameter(containerparameters) {
     // set manually vtypeID (needed for saving)
     vtypeid = pType->getID();
     // adjust default flow attributes
@@ -367,7 +367,9 @@ void
 GNEContainer::drawGL(const GUIVisualizationSettings& s) const {
     bool drawContainer = true;
     // check if container can be drawn
-    if (!myNet->getViewNet()->getNetworkViewOptions().showDemandElements()) {
+    if (color.alpha() == 0) {
+        drawContainer = false;
+    } else if (!myNet->getViewNet()->getNetworkViewOptions().showDemandElements()) {
         drawContainer = false;
     } else if (!myNet->getViewNet()->getDataViewOptions().showDemandElements()) {
         drawContainer = false;
@@ -418,8 +420,22 @@ GNEContainer::drawGL(const GUIVisualizationSettings& s) const {
             }
             // pop matrix
             GLHelper::popMatrix();
+            // draw line between junctions if container plan isn't valid
+            for (const auto& containerPlan : getChildDemandElements()) {
+                if (containerPlan->getTagProperty().isContainerPlan() && (containerPlan->getParentJunctions().size() > 0) && !myNet->getPathManager()->isPathValid(containerPlan)) {
+                    drawJunctionLine(containerPlan);
+                }
+            }
             // pop name
             GLHelper::popName();
+            // draw stack label
+            if (myStackedLabelNumber > 0) {
+                drawStackLabel("container", Position(containerPosition.x() - 2.5, containerPosition.y() - 0.8), -90, 1.3, 5, getExaggeration(s));
+            }
+            // draw flow label
+            if (myTagProperty.isFlow()) {
+                drawFlowLabel(Position(containerPosition.x() - 1, containerPosition.y() - 4.25), -90, 1.8, 2, getExaggeration(s));
+            }
             // draw name
             drawName(containerPosition, s.scale, s.containerName, s.angle);
             if (s.personValue.show(this)) {
@@ -518,10 +534,12 @@ GNEContainer::getAttribute(SumoXMLAttr key) const {
                 return "triggered";
             } else if (departProcedure == DepartDefinition::CONTAINER_TRIGGERED) {
                 return "containerTriggered";
-            } else if (departProcedure == DepartDefinition::SPLIT) {
-                return "split";
             } else if (departProcedure == DepartDefinition::NOW) {
                 return "now";
+            } else if (departProcedure == DepartDefinition::SPLIT) {
+                return "split";
+            } else if (departProcedure == DepartDefinition::BEGIN) {
+                return "begin";
             } else {
                 return time2string(depart);
             }
@@ -872,6 +890,8 @@ GNEContainer::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             // update microsimID
             setMicrosimID(value);
+            // update id
+            id = value;
             // Change IDs of all container plans children
             for (const auto& containerPlans : getChildDemandElements()) {
                 containerPlans->setMicrosimID(getID());

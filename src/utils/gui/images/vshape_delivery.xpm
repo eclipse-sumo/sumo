@@ -1,7 +1,7 @@
 /* XPM */
 static const char *vshape_delivery_xpm[] = {
 /* columns rows colors chars-per-pixel */
-"64 32 44 1 ",
+"64 32 44 1",
 "  c black",
 ". c #070700",
 "X c #0A0A00",

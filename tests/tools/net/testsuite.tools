@@ -17,3 +17,7 @@ net2poly
 
 # reduce number of lanes on multilane roads
 reduceLanes
+split_at_stops
+
+# test creation of abstract (schematic) rail networks from geodetic networks
+abstractRail

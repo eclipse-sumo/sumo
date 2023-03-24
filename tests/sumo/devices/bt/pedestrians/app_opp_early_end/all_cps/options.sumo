@@ -1,0 +1,1 @@
+-e 5 --device.btreceiver.all-recognitions --device.btreceiver.range 50 --device.btreceiver.probability 1 --device.btsender.probability 1 --no-step-log -b 0 --no-duration-log --net-file=net.net.xml -a=input_routes.rou.xml --bt-output bt.xml --tripinfo-output=tripinfos.xml

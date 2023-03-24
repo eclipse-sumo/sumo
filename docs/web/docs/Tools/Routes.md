@@ -388,6 +388,8 @@ vehicle1:363.66,497.79 2008.64,498.82
 vehicle2:363.66,497.79 1498.46,989.78 2008.64,498.82
 ```
 
+As an alternative input, [fcd-output](../Simulation/Output/FCDOutput.md) files (or similar files that contain attributes `id`, `x` and `y`) are supported.
+
 The output is a standard sumo route file
 
 ```
@@ -397,9 +399,13 @@ The output is a standard sumo route file
 </routes>
 ```
 
-The option --geo enables the conversion of the input coordinates with
-the parameters given in the network. The mapping algorithm is also
-available in the python library function sumolib.route.mapTrace.
+The option **--geo** enables the conversion of the input coordinates with
+the parameters given in the network. If a [vehicle class](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#abstract_vehicle_class) is supplied using 
+the option **--vehicle-class**, the mapping algorithm will consider only edges where 
+this vehicle class is allowed. If the network contains many multi-lane edges, it 
+may be beneficial to increase the accepted **--delta** distance between trace points and 
+the edge reference line. The mapping algorithm is also available in the 
+python library function sumolib.route.mapTrace.
 
 # tlsCycleAdaptation.py
 
@@ -457,7 +463,7 @@ By setting option **--probability FLOAT**, stops only receive a delay with the g
 
 # checkStopOrder.py
 
-This tool reads a [public transport schedule for vehicles or trips](../Simulation/Public_Transport.md#single_vehicles_and_trips) and checks whether the time spent at the same stop by different vehicles is overlapping. This occurence may be expected for bus lines but typically indicates a data error for a railway schedule (unless [portion working](../Simulation/Railways.md#portion_working) takes place).
+This tool reads a [public transport schedule for vehicles or trips](../Simulation/Public_Transport.md#single_vehicles_and_trips) and checks whether the time spent at the same stop by different vehicles is overlapping. This occurrence may be expected for bus lines but typically indicates a data error for a railway schedule (unless [portion working](../Simulation/Railways.md#portion_working) takes place).
 ```
 python tools/route/checkStopOrder.py -r <route-file>
 ```

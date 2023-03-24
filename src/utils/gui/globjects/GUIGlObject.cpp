@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -58,7 +58,8 @@ StringBijection<GUIGlObjectType>::Entry GUIGlObject::GUIGlObjectTypeNamesInitial
     {"crossing",                GLO_CROSSING},
     {"walkingArea",             GLO_WALKINGAREA},
     {"tlLogic",                 GLO_TLLOGIC},
-    {"type",                    GLO_TYPE},
+    {"edgeType",                GLO_EDGETYPE},
+    {"laneType",                GLO_LANETYPE},
     //
     {"parentChildLine",         GLO_PARENTCHILDLINE},
     //
@@ -132,7 +133,8 @@ StringBijection<GUIGlObjectType>::Entry GUIGlObject::GUIGlObjectTypeNamesInitial
     //
     {"lockIcon",                GLO_LOCKICON},
     {"textName",                GLO_TEXTNAME},
-    {"frontElement",            GLO_DOTTEDCONTOUR_FRONT},
+    {"frontElement",            GLO_FRONTELEMENT},
+    {"geometryPoint",           GLO_GEOMETRYPOINT},
     {"dottedContour",           GLO_DOTTEDCONTOUR_INSPECTED},
     {"temporalShape",           GLO_TEMPORALSHAPE},
     {"rectangleSelection",      GLO_RECTANGLESELECTION},
@@ -149,16 +151,8 @@ const GUIGlID GUIGlObject::INVALID_ID = 0;
 // method definitionsas
 // ===========================================================================
 
-GUIGlObject::GUIGlObject(GUIGlObjectType type, const std::string& microsimID, FXIcon *icon) :
-#ifdef _MSC_VER
-#pragma warning(push)
-    /* Disable warning about using "this" in the constructor */
-#pragma warning(disable: 4355)
-#endif
+GUIGlObject::GUIGlObject(GUIGlObjectType type, const std::string& microsimID, FXIcon* icon) :
     myGlID(GUIGlObjectStorage::gIDStorage.registerObject(this)),
-#ifdef _MSC_VER
-#pragma warning(pop)
-#endif
     myGLObjectType(type),
     myMicrosimID(microsimID),
     myIcon(icon),
@@ -201,7 +195,7 @@ GUIGlObject::getTypeParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& par
 }
 
 
-bool 
+bool
 GUIGlObject::isGLObjectLocked() {
     // by default unlocked
     return false;
@@ -420,33 +414,53 @@ GUIGlObject::buildAdditionalsPopupOptions(GUIMainWindow& app, GUIGLObjectPopupMe
 }
 
 
-void 
+bool
 GUIGlObject::mouseWithinGeometry(const Position center, const double radius) const {
     if (gPostDrawing.mousePos.distanceSquaredTo2D(center) <= (radius * radius)) {
         gPostDrawing.addElementUnderCursor(this);
+        return true;
+    } else {
+        return false;
     }
 }
 
 
-void 
+bool
 GUIGlObject::mouseWithinGeometry(const PositionVector shape) const {
     if (shape.around(gPostDrawing.mousePos)) {
         gPostDrawing.addElementUnderCursor(this);
+        return true;
+    } else {
+        return false;
     }
 }
 
 
-void 
+bool
 GUIGlObject::mouseWithinGeometry(const PositionVector shape, const double width) const {
     if (shape.distance2D(gPostDrawing.mousePos) <= width) {
         gPostDrawing.addElementUnderCursor(this);
+        return true;
+    } else {
+        return false;
     }
 }
 
 
-void 
-GUIGlObject::mouseWithinGeometry(const Position& pos, const double width, const double height, 
-        const double offsetX, const double offsetY, const double rot) const {
+bool
+GUIGlObject::mouseWithinGeometry(const PositionVector shape, const double width, GUIGlObject* parent) const {
+    if (shape.distance2D(gPostDrawing.mousePos) <= width) {
+        gPostDrawing.addElementUnderCursor(parent);
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+bool
+GUIGlObject::mouseWithinGeometry(const Position& pos, const double width, const double height,
+                                 const double offsetX, const double offsetY, const double rot) const {
     // create shape
     PositionVector shape;
     // make rectangle
@@ -463,6 +477,9 @@ GUIGlObject::mouseWithinGeometry(const Position& pos, const double width, const 
     // check if mouse is within new geometry
     if (shape.around(gPostDrawing.mousePos)) {
         gPostDrawing.addElementUnderCursor(this);
+        return true;
+    } else {
+        return false;
     }
 }
 

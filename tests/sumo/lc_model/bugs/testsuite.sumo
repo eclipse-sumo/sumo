@@ -34,3 +34,9 @@ ticket10988
 
 # excessive emergency braking at discontinuity in bestlaneoffset
 ticket11695
+
+# delayed lane change while decelerating
+ticket12108
+
+# counter lane change deadlock at busstop
+ticket12320

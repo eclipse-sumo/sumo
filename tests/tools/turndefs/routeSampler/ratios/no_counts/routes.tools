@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-10-27 20:21:15.699596 by routeSampler.py v1_14_1+2036-c3c3278
+<configuration>
+    <route-files value="input_routes.rou.xml"/>
+    <turn-attribute value="None"/>
+    <turn-files value="input_turns.xml"/>
+    <turn-ratio-attribute value="ratio"/>
+    <write-flows value="number"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+</routes>

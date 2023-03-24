@@ -1,0 +1,53 @@
+Warning: Value of key 'maxspeed:type' is not numeric ('urban') in edge '4743764'.
+Warning: Discarding way '4533224' because it has only 1 node(s)
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.tertiary' (first occurrence for edge '4533227').
+Warning: Discarding unknown compound 'cycleway.opposite_lane' in type 'cycleway.opposite_lane|highway.residential' (first occurrence for edge '4533228').
+Warning: Discarding way '26645917' because it has only 1 node(s)
+Warning: Discarding way '28955761' because it has only 1 node(s)
+Warning: Discarding way '81552981' because it has only 1 node(s)
+Warning: Discarding way '107363811' because it has only 1 node(s)
+Warning: Discarding unusable type 'railway.platform' (first occurrence for edge '221965677').
+Warning: PT line in relation 54868 with no stops ignored. Probably OSM file is incomplete.
+Warning: Ignoring restriction relation '86976' with unknown to-way.
+Warning: Ignoring restriction relation '86976' with unknown via.
+Warning: PT line in relation 1411908 with no stops ignored. Probably OSM file is incomplete.
+Warning: PT line in relation 2821244 with no stops ignored. Probably OSM file is incomplete.
+Warning: PT line in relation 2827470 with no stops ignored. Probably OSM file is incomplete.
+Warning: PT line in relation 2828534 with no stops ignored. Probably OSM file is incomplete.
+Warning: Ignoring restriction relation '7892483' with unknown to-way.
+Warning: Ignoring restriction relation '7892483' with unknown via.
+Warning: Ignoring restriction relation '10029471' with unknown from-way.
+Warning: Ignoring restriction relation '10029471' with unknown via.
+Warning: Ignoring restriction relation '12872734' with unknown type.
+Warning: Ignoring restriction relation '12872734' with unknown via.
+Warning: Could not determine cross product for edge '596514114#0'.
+Warning: PT stop '847284093' has been moved to edge '-374533048'.
+Warning: PT stop '843205115' has been moved to edge '4803425#1'.
+Warning: PT stop '1811884608' has been moved to edge '374535325#1'.
+Warning: PT stop '1811884617' has been moved to edge '-374535325#2'.
+Warning: PT stop '843205116' has been moved to edge '-374535325#6'.
+Warning: Cannot revise pt stop localization for pt line '2807116', which consist of one way only. Ignoring!
+Warning: Cannot revise pt stop localization for pt line '48680', which consist of one way only. Ignoring!
+Warning: Removing pt stop '5128707885' on non existing edge ''.
+Warning: Removing pt stop '5128707886' on non existing edge ''.
+Warning: Removing pt stop '5132952924' on non existing edge ''.
+Warning: Removing pt stop '5132952925' on non existing edge ''.
+Warning: Removing pt stop '5132952926' on non existing edge ''.
+Warning: Removed 6 pt stops because they could not be assigned to the network
+Warning: Found sharp turn with radius 7.87 at the start of edge '-15217456#0'.
+Warning: Found sharp turn with radius 4.50 at the start of edge '-360264840'.
+Warning: Found sharp turn with radius 2.17 at the start of edge '-360264845'.
+Warning: Found sharp turn with radius 3.21 at the start of edge '-420450643'.
+Warning: Found sharp turn with radius 1.33 at the end of edge '-420450643'.
+Warning: Found sharp turn with radius 2.92 at the start of edge '28943849#2'.
+Warning: Found sharp turn with radius 3.21 at the end of edge '420450643'.
+Warning: Edge '957112906' is not connected to outgoing edges at junction '8116258616'.
+Warning: Could not determine vehicle class for public transport line of type 'trolleybus'.
+Warning: Could not determine vehicle class for public transport line of type 'trolleybus'.
+Warning: Could not determine vehicle class for public transport line of type 'trolleybus'.
+Warning: Could not determine vehicle class for public transport line of type 'trolleybus'.
+Warning: 17 total messages of type: Discarding way '%' because it has only % node(s)
+Warning: 8 total messages of type: Found sharp turn with radius % at the start of edge '%'.
+Warning: 32 total messages of type: PT line in relation % with no stops ignored. Probably OSM file is incomplete.
+Warning: 7 total messages of type: PT stop '%' has been moved to edge '%'.
+Warning: 6 total messages of type: Removing pt stop '%' on non existing edge '%'.

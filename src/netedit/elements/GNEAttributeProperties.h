@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -86,7 +86,7 @@ public:
     void checkAttributeIntegrity() const;
 
     /// @brief set discrete values
-    void setDiscreteValues(const std::vector<std::string>& discreteValues);
+    void setDiscreteValues(const std::vector<std::string>& discreteValues, bool showAll);
 
     /// @brief set default activated value
     void setDefaultActivated(const bool value);
@@ -145,73 +145,76 @@ public:
     /// @brief return true if Attr correspond to an element that only accept a range of values
     bool hasAttrRange() const;
 
-    /// @brief return true if atribute is an integer
+    /// @brief return true if attribute is an integer
     bool isInt() const;
 
-    /// @brief return true if atribute is a float
+    /// @brief return true if attribute is a float
     bool isFloat() const;
 
-    /// @brief return true if atribute is a SUMOTime
+    /// @brief return true if attribute is a SUMOTime
     bool isSUMOTime() const;
 
-    /// @brief return true if atribute is boolean
+    /// @brief return true if attribute is boolean
     bool isBool() const;
 
-    /// @brief return true if atribute is a string
+    /// @brief return true if attribute is a string
     bool isString() const;
 
-    /// @brief return true if atribute is a position
-    bool isposition() const;
+    /// @brief return true if attribute is a position
+    bool isPosition() const;
 
-    /// @brief return true if atribute is a probability
+    /// @brief return true if attribute is a probability
     bool isProbability() const;
 
-    /// @brief return true if atribute is numerical (int or float)
+    /// @brief return true if attribute is numerical (int or float)
     bool isNumerical() const;
 
-    /// @brief return true if atribute is positive
+    /// @brief return true if attribute is positive
     bool isPositive() const;
 
-    /// @brief return true if atribute is a color
+    /// @brief return true if attribute is a color
     bool isColor() const;
 
-    /// @brief return true if atribute is a VType or vTypeDistribution
+    /// @brief return true if attribute is a VType or vTypeDistribution
     bool isVType() const;
 
-    /// @brief return true if atribute is a filename
+    /// @brief return true if attribute is a filename
     bool isFilename() const;
 
-    /// @brief return true if atribute is a VehicleClass
+    /// @brief return true if attribute is a VehicleClass
     bool isVClass() const;
 
-    /// @brief return true if atribute is a VehicleClass
+    /// @brief return true if attribute is a VehicleClass
     bool isSVCPermission() const;
 
-    /// @brief return true if atribute is a list
+    /// @brief return true if attribute is a list
     bool isList() const;
 
-    /// @brief return true if atribute is sequential
+    /// @brief return true if attribute is sequential
     bool isSecuential() const;
 
-    /// @brief return true if atribute is unique
+    /// @brief return true if attribute is unique
     bool isUnique() const;
 
-    /// @brief return true if atribute is discrete
+    /// @brief return true if attribute is discrete
     bool isDiscrete() const;
 
-    /// @brief return true if atribute is a list of VClasses
+    /// @brief show all discrete values in the comboBox
+    bool showAllDiscreteValues() const;
+
+    /// @brief return true if attribute is a list of VClasses
     bool isVClasses() const;
 
-    /// @brief return true if atribute is extended
+    /// @brief return true if attribute is extended
     bool isExtended() const;
 
-    /// @brief return true if atribute requires a update geometry in setAttribute(...)
+    /// @brief return true if attribute requires a update geometry in setAttribute(...)
     bool requireUpdateGeometry() const;
 
-    /// @brief return true if atribute is activatable
+    /// @brief return true if attribute is activatable
     bool isActivatable() const;
 
-    /// @brief return true if atribute is part of a flow definition
+    /// @brief return true if attribute is part of a flow definition
     bool isFlowDefinition() const;
 
     /// @brief return true if attribute ID can generate an automatic ID
@@ -219,16 +222,16 @@ public:
 
 private:
     /// @brief XML Attribute
-    SumoXMLAttr myAttribute;
+    SumoXMLAttr myAttribute = SUMO_ATTR_NOTHING;
 
     /// @brief pointer to tagProperty parent
-    GNETagProperties* myTagPropertyParent;
+    GNETagProperties* myTagPropertyParent = nullptr;
 
     /// @brief string with the Attribute in text format (to avoid unnecesaries toStrings(...) calls)
     std::string myAttrStr;
 
     /// @brief Property of attribute
-    int myAttributeProperty;
+    int myAttributeProperty = STRING;
 
     /// @brief text with a definition of attribute
     std::string myDefinition;
@@ -237,19 +240,22 @@ private:
     std::string myDefaultValue;
 
     /// @brief default activated (by default false)
-    bool myDefaultActivated;
+    bool myDefaultActivated = false;
 
     /// @brief discrete values that can take this Attribute (by default empty)
     std::vector<std::string> myDiscreteValues;
 
+    /// @brief show all discrete values in ComboBox
+    bool myShowAllDiscreteValues = false;
+
     /// @brief Attribute written in XML (If is SUMO_ATTR_NOTHING), original Attribute will be written)
-    SumoXMLAttr myAttrSynonym;
+    SumoXMLAttr myAttrSynonym = SUMO_ATTR_NOTHING;
 
     /// @brief minimun Range
-    double myMinimumRange;
+    double myMinimumRange = 0;
 
     /// @brief maxium Range
-    double myMaximumRange;
+    double myMaximumRange = 0;
 };
 
 /****************************************************************************/

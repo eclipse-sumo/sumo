@@ -1,0 +1,18 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+
+    <!-- missing parkingLength -->
+    <busStop id="busStop_01" lane="center1_1" startPos="25" endPos="35" name="busStop" friendlyPos="false"/>
+
+    <!-- non valid format parkingLength (dummy) -->
+    <busStop id="busStop_02" lane="center1_1" startPos="25" endPos="35" parkingLength="dummyparkingLength" name="busStop" friendlyPos="false"/>
+
+    <!-- non valid format parkingLength (negative) -->
+    <busStop id="busStop_03" lane="center1_1" startPos="25" endPos="35" parkingLength="-7" name="busStop" friendlyPos="false"/>
+
+    <!-- non valid format parkingLength (double) -->
+    <busStop id="busStop_04" lane="center1_1" startPos="25" endPos="35" parkingLength="2.5" name="busStop" friendlyPos="false"/>
+
+    <!-- valid format parkingLength -->
+    <busStop id="busStop_05" lane="center1_1" startPos="25" endPos="35" parkingLength="6" name="busStop" friendlyPos="false"/>
+
+</additional>

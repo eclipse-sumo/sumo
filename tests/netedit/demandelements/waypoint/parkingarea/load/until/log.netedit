@@ -2,4 +2,4 @@ Error: Attribute 'until' in definition of a stop is not a valid time value.
 Error: Invalid duration or end time is given for a stop at 'parkingArea'
 Error: Attribute 'until' in definition of a stop is empty.
 Error: Invalid duration or end time is given for a stop at 'parkingArea'
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.waypoint.parkingarea.08Apr202457.3617/netedit.daily.demand.waypoint.parkingarea/demandelements/waypoint/parkingarea/load/until/input_routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.waypoint.parkingarea.08Apr202457.3617/netedit.daily.demand.waypoint.parkingarea/demandelements/waypoint/parkingarea/load/until/routes.rou.xml failed.

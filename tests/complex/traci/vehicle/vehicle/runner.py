@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -100,6 +100,8 @@ def check(vehID):
     print("stopDelay", traci.vehicle.getStopDelay(vehID))
     print("stopArrivalDelay", traci.vehicle.getStopArrivalDelay(vehID))
     print("timeLoss", traci.vehicle.getTimeLoss(vehID))
+    print("departure", traci.vehicle.getDeparture(vehID))
+    print("departDelay", traci.vehicle.getDepartDelay(vehID))
     try:
         print("lcStrategic", traci.vehicle.getParameter(vehID, "laneChangeModel.lcStrategic"))
         print("lcCooperative", traci.vehicle.getParameter(vehID, "laneChangeModel.lcCooperative"))
@@ -114,6 +116,7 @@ def check(vehID):
     print("person number", traci.vehicle.getPersonNumber(vehID))
     print("person IDs", traci.vehicle.getPersonIDList(vehID))
     print("personCapacity", traci.vehicle.getPersonCapacity(vehID))
+    print("boardingDuration", traci.vehicle.getBoardingDuration(vehID))
     print("waiting time", traci.vehicle.getWaitingTime(vehID))
     print("accumulated waiting time", traci.vehicle.getAccumulatedWaitingTime(vehID))
     print("driving dist", traci.vehicle.getDrivingDistance(vehID, "4fi", 2.))
@@ -242,9 +245,11 @@ check("2")
 print("nextTLS", traci.vehicle.getNextTLS("2"))
 traci.vehicle.setSpeedMode(vehID, 0)  # disable all checks
 traci.vehicle.setSpeed(vehID, 20)
+traci.vehicle.setLateralLanePosition(vehID, 0.5)
 print("speedmode", traci.vehicle.getSpeedMode(vehID))
 print("lanechangemode", traci.vehicle.getLaneChangeMode(vehID))
 print("slope", traci.vehicle.getSlope(vehID))
+print("lanePosLat (modified)", traci.vehicle.getLateralLanePosition(vehID))
 print("leader", traci.vehicle.getLeader("2"))
 
 if not useMeso:

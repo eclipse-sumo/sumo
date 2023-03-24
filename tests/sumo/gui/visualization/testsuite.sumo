@@ -27,3 +27,7 @@ poi_image
 
 # testing png and jpg support
 img_formats
+
+# aircraft visualisation / reversing
+aircraft
+

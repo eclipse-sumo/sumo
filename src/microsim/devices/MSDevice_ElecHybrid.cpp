@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2002-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -99,7 +99,7 @@ MSDevice_ElecHybrid::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDe
             try {
                 maximumBatteryCapacity = StringUtils::toDouble(mbc);
             } catch (...) {
-                WRITE_WARNING("Invalid value '" + mbc + "'for vType parameter '" + attrName + "'");
+                WRITE_WARNINGF(TL("Invalid value '%'for vType parameter '%'"), mbc, attrName);
             }
         } else {
             WRITE_WARNING("Vehicle '" + v.getID() + "' is missing the vType parameter '" + attrName + "'. Using the default of " + std::to_string(maximumBatteryCapacity));
@@ -113,7 +113,7 @@ MSDevice_ElecHybrid::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDe
             try {
                 overheadWireChargingPower = StringUtils::toDouble(ocp);
             } catch (...) {
-                WRITE_WARNING("Invalid value '" + ocp + "'for vType parameter '" + attrName + "'");
+                WRITE_WARNINGF(TL("Invalid value '%'for vType parameter '%'"), ocp, attrName);
             }
         } else {
             WRITE_WARNING("Vehicle '" + v.getID() + "' is missing the vType parameter '" + attrName + "'. Using the default of " + std::to_string(overheadWireChargingPower));
@@ -163,7 +163,7 @@ MSDevice_ElecHybrid::MSDevice_ElecHybrid(SUMOVehicle& holder, const std::string&
     params->setDouble(SUMO_ATTR_MAXIMUMPOWER, holder.getVehicleType().getParameter().getDouble(toString(SUMO_ATTR_MAXIMUMPOWER), 100000.));
 
     if (maximumBatteryCapacity < 0) {
-        WRITE_WARNING("ElecHybrid builder: Vehicle '" + getID() + "' doesn't have a valid value for parameter " + toString(SUMO_ATTR_MAXIMUMBATTERYCAPACITY) + " (" + toString(maximumBatteryCapacity) + ").")
+        WRITE_WARNINGF(TL("ElecHybrid builder: Vehicle '%' doesn't have a valid value for parameter % (%)."), getID(), toString(SUMO_ATTR_MAXIMUMBATTERYCAPACITY), toString(maximumBatteryCapacity));
     } else {
         myMaximumBatteryCapacity = maximumBatteryCapacity;
     }
@@ -176,7 +176,7 @@ MSDevice_ElecHybrid::MSDevice_ElecHybrid(SUMOVehicle& holder, const std::string&
     }
 
     if (overheadWireChargingPower < 0) {
-        WRITE_WARNING("ElecHybrid builder: Vehicle '" + getID() + "' doesn't have a valid value for parameter " + toString(SUMO_ATTR_OVERHEADWIRECHARGINGPOWER) + " (" + toString(overheadWireChargingPower) + ").")
+        WRITE_WARNINGF(TL("ElecHybrid builder: Vehicle '%' doesn't have a valid value for parameter % (%)."), getID(), toString(SUMO_ATTR_OVERHEADWIRECHARGINGPOWER), toString(overheadWireChargingPower));
     } else {
         myOverheadWireChargingPower = overheadWireChargingPower;
     }
@@ -312,9 +312,9 @@ MSDevice_ElecHybrid::notifyMove(SUMOTrafficObject& tObject, double /* oldPos */,
                     [2] .... tail resistor pos/neg_tail_vehID
                 */
 
-                // pos_veh_node and veh_elem shoud be NULL
+                // pos_veh_node and veh_elem should be NULL
                 if (pos_veh_node != nullptr || veh_elem != nullptr) {
-                    WRITE_WARNING("pos_veh_node or neg_veh_node or veh_elem is not NULL (and they shoud be at the beginning of adding elecHybrid to the circuit)");
+                    WRITE_WARNING("pos_veh_node or neg_veh_node or veh_elem is not NULL (and they should be at the beginning of adding elecHybrid to the circuit)");
                 }
 
                 // create pos and veh_elem
@@ -371,7 +371,7 @@ MSDevice_ElecHybrid::notifyMove(SUMOTrafficObject& tObject, double /* oldPos */,
                                                     resistance, node_pos, pos_veh_node, Element::ElementType::RESISTOR_traction_wire);
 
                 if (element_pos->getResistance() - resistance < 0) {
-                    WRITE_WARNING("The resistivity of overhead wire segment connected to vehicle " + veh.getID() + " is < 0. Set to 1e-6.");
+                    WRITE_WARNINGF(TL("The resistivity of overhead wire segment connected to vehicle % is < 0. Set to 1e-6."), veh.getID());
                 }
 
                 element_pos->setResistance(element_pos->getResistance() - resistance);
@@ -403,7 +403,7 @@ MSDevice_ElecHybrid::notifyMove(SUMOTrafficObject& tObject, double /* oldPos */,
                 double voltage = myCircuitVoltage;
                 if (voltage < 10.0 || voltage > 1500.0 || ISNAN(voltage)) {
                     // RICE_TODO : It seems to output warning whenever a vehicle is appearing under the overhead wire for the first time?
-                    // WRITE_WARNING("The initial voltage is was " + toString(voltage) + " V, replacing it with substation voltage " + toString(actualSubstation->getSubstationVoltage()) + " V.");
+                    // WRITE_WARNINGF(TL("The initial voltage is was % V, replacing it with substation voltage % V."), toString(voltage), toString(actualSubstation->getSubstationVoltage()));
                     voltage = actualSubstation->getSubstationVoltage();
                 }
                 // Initial value of the electric current flowing into the vehilce that will be used by the solver
@@ -429,7 +429,7 @@ MSDevice_ElecHybrid::notifyMove(SUMOTrafficObject& tObject, double /* oldPos */,
                 myActOverheadWireSegment->addChargeValueForOutput(0, this, false);
             }
 #else
-            WRITE_ERROR("Overhead wire solver is on, but the Eigen library has not been compiled in!")
+            WRITE_ERROR(TL("Overhead wire solver is on, but the Eigen library has not been compiled in!"))
 #endif
         } else {
             /*
@@ -525,7 +525,7 @@ MSDevice_ElecHybrid::notifyMove(SUMOTrafficObject& tObject, double /* oldPos */,
             */
             deleteVehicleFromCircuit(veh);
 #else
-            WRITE_ERROR("Overhead wire solver is on, but the Eigen library has not been compiled in!")
+            WRITE_ERROR(TL("Overhead wire solver is on, but the Eigen library has not been compiled in!"))
 #endif
         }
 
@@ -597,11 +597,11 @@ MSDevice_ElecHybrid::deleteVehicleFromCircuit(SUMOVehicle& veh) {
         if (myPreviousOverheadWireSegment->getTractionSubstation() != nullptr) {
             //check if all pointers to vehicle elements and nodes are not nullptr
             if (veh_elem == nullptr || veh_pos_tail_elem == nullptr || pos_veh_node == nullptr) {
-                WRITE_ERROR("During deleting vehicle '" + veh.getID() + "' from circuit some init previous Nodes or Elements was not assigned.");
+                WRITE_ERRORF("During deleting vehicle '%' from circuit some init previous Nodes or Elements was not assigned.", veh.getID());
             }
-            //check if pos_veh_node has 3 elements - they shoud be: veh_elem, veh_pos_tail_elem and an overhead line resistor element "ahead" of vehicle.
+            //check if pos_veh_node has 3 elements - they should be: veh_elem, veh_pos_tail_elem and an overhead line resistor element "ahead" of vehicle.
             if (pos_veh_node->getElements()->size() != 3) {
-                WRITE_ERROR("During deleting vehicle '" + veh.getID() + "' from circuit the size of element-vector of pNode or nNode was not 3. It should be 3 by Jakub's opinion.");
+                WRITE_ERRORF("During deleting vehicle '%' from circuit the size of element-vector of pNode or nNode was not 3. It should be 3 by Jakub's opinion.", veh.getID());
             }
             //delete vehicle resistor element "veh_elem" in the previous circuit,
             pos_veh_node->eraseElement(veh_elem);
@@ -613,7 +613,7 @@ MSDevice_ElecHybrid::deleteVehicleFromCircuit(SUMOVehicle& veh) {
             pos_veh_node->eraseElement(veh_pos_tail_elem);
 
             if (pos_veh_node->getElements()->size() != 1) {
-                WRITE_ERROR("During deleting vehicle '" + veh.getID() + "' from circuit the size of element-vector of pNode or nNode was not 1. It should be 1 by Jakub's opinion.");
+                WRITE_ERRORF("During deleting vehicle '%' from circuit the size of element-vector of pNode or nNode was not 1. It should be 1 by Jakub's opinion.", veh.getID());
             }
 
             // add the resistance value of veh_tail element to the resistance value of the ahead overhead line element
@@ -634,7 +634,7 @@ MSDevice_ElecHybrid::deleteVehicleFromCircuit(SUMOVehicle& veh) {
 
             //erase pos_veh_node
             myPreviousOverheadWireSegment->getCircuit()->eraseNode(pos_veh_node);
-            //modify id of other elements (the id of erasing element shoud be the greatest)
+            //modify id of other elements (the id of erasing element should be the greatest)
             int lastId = myPreviousOverheadWireSegment->getCircuit()->getLastId() - 1;
             if (pos_veh_node->getId() != lastId) {
                 Node* node_last = myPreviousOverheadWireSegment->getCircuit()->getNode(lastId);
@@ -645,7 +645,7 @@ MSDevice_ElecHybrid::deleteVehicleFromCircuit(SUMOVehicle& veh) {
                     if (elem_last != nullptr) {
                         elem_last->setId(pos_veh_node->getId());
                     } else {
-                        WRITE_ERROR("The element or node with the last Id was not found in the circuit!");
+                        WRITE_ERROR(TL("The element or node with the last Id was not found in the circuit!"));
                     }
                 }
             }
@@ -708,7 +708,7 @@ MSDevice_ElecHybrid::notifyLeave(
         deleteVehicleFromCircuit(veh);
 #else
         UNUSED_PARAMETER(veh);
-        WRITE_ERROR("Overhead wire solver is on, but the Eigen library has not been compiled in!")
+        WRITE_ERROR(TL("Overhead wire solver is on, but the Eigen library has not been compiled in!"))
 #endif
     }
     // disable charging vehicle from overhead wire and segment and traction station
@@ -845,7 +845,7 @@ MSDevice_ElecHybrid::getCircuitAlpha() const {
             return owc->getAlphaBest() ;
         }
 #else
-        WRITE_ERROR("Overhead wire solver is on, but the Eigen library has not been compiled in!")
+        WRITE_ERROR(TL("Overhead wire solver is on, but the Eigen library has not been compiled in!"))
 #endif
     }
     return NAN;
@@ -919,7 +919,7 @@ void
 MSDevice_ElecHybrid::setActualBatteryCapacity(const double actualBatteryCapacity) {
     // Use the SOC limits to cap the actual battery capacity
     if (actualBatteryCapacity < mySOCMin * myMaximumBatteryCapacity) {
-        //WRITE_WARNING("The Battery of vehicle '" + getID() + "' has been exhausted.");
+        //WRITE_WARNINGF(TL("The Battery of vehicle '%' has been exhausted."), getID());
         myActualBatteryCapacity = MIN2(mySOCMin * myMaximumBatteryCapacity, myActualBatteryCapacity);
     } else if (actualBatteryCapacity > mySOCMax * myMaximumBatteryCapacity) {
         myActualBatteryCapacity = MAX2(mySOCMax * myMaximumBatteryCapacity, myActualBatteryCapacity);

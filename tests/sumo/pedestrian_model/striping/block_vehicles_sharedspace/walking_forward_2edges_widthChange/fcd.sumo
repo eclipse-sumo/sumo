@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-09-15 13:15:07 by Eclipse SUMO sumo Version v1_14_1+1015-149bf90
+<!-- generated on 2022-12-11 20:57:26 by Eclipse SUMO sumo Version v1_15_0+0944-c751163
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -28,6 +28,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <default.speeddev value="0"/>
         <pedestrian.model value="striping"/>
         <pedestrian.striping.dawdling value="0"/>
+        <pedestrian.striping.legacy-departposlat value="true"/>
     </processing>
 
     <report>
@@ -43,14 +44,14 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="v0" x="100.00" y="70.50" angle="0.00" type="bike" speed="11.11" pos="70.50" lane="SC_0" slope="0.00"/>
     </timestep>
     <timestep time="1.00">
-        <vehicle id="v0" x="100.67" y="81.61" angle="3.04" type="bike" speed="11.11" pos="81.61" lane="SC_0" slope="0.00"/>
+        <vehicle id="v0" x="100.67" y="81.61" angle="3.47" type="bike" speed="11.11" pos="81.61" lane="SC_0" slope="0.00"/>
     </timestep>
     <timestep time="2.00">
         <vehicle id="v0" x="100.67" y="92.72" angle="0.00" type="bike" speed="11.11" pos="92.72" lane="SC_0" slope="0.00"/>
         <person id="p0" x="100.32" y="101.50" angle="0.00" speed="0.00" pos="0.00" edge="CN" slope="0.00"/>
     </timestep>
     <timestep time="3.00">
-        <vehicle id="v0" x="101.67" y="98.87" angle="7.35" type="bike" speed="6.15" pos="0.37" lane=":C_0_0" slope="0.00"/>
+        <vehicle id="v0" x="101.67" y="98.87" angle="9.24" type="bike" speed="6.15" pos="0.37" lane=":C_0_0" slope="0.00"/>
         <person id="p0" x="100.24" y="102.89" angle="356.70" speed="1.39" pos="1.39" edge="CN" slope="0.00"/>
     </timestep>
     <timestep time="4.00">

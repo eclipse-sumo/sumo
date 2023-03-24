@@ -1,0 +1,5 @@
+# two consecutive pairs of bidi-edges (between normal edges) and 2 vehicles
+2edges_between
+
+# bidi edge where not all lanes have a bidilane
+multilane

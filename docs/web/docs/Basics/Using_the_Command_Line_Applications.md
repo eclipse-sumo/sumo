@@ -217,7 +217,8 @@ are generated.
 
 ## Environment variables in Configuration Files
 
-It is possible to refer to environment variables in configuration files. The syntax to refer to an environment variable is **${VARNAME}**. For example, your configuration file may reference a variable called **NETFILENAME**, containing the name of a network file, with the following configuration settings.
+It is possible to refer to environment variables in configuration files. The syntax to refer to an environment variable is **${VARNAME}**.
+For example, your configuration file may reference a variable called **NETFILENAME**, containing the name of a network file, with the following configuration settings.
 
 ```
 <configuration>
@@ -226,6 +227,17 @@ It is possible to refer to environment variables in configuration files. The syn
     </input>
 </configuration>
 ```
+
+There are also some special values you can use here which aren't environment variables:
+
+- **${LOCALTIME}** refers to the local time when the configuration has been loaded
+- **${UTC}** same as **${LOCALTIME}** but in universal coordinated time
+- **${PID}** process id of the running application
+- **${SUMO_LOGO}** will be replaced ${SUMO_HOME}/data/logo/sumo-128x138.png (only if it is not set, useful for background images)
+- **~** will be replaced by ${HOME} (also see next item)
+- **${HOME}** on Windows will be replaced by ${USERPROFILE} (only if it is not set)
+
+The expansion of environment variables will not happen if you are only writing a new configuration.
 
 # Common Options
 
@@ -257,6 +269,7 @@ given in the following.
 | **-l** {{DT_FILE}}<br>**--log** {{DT_FILE}}  | Writes all messages to FILE (implies verbose)  |
 | **--message-log** {{DT_FILE}}  | Writes all non-error messages to FILE (implies verbose)  |
 | **--error-log** {{DT_FILE}}  | Writes all warnings and errors to FILE  |
+| **--language** {{DT_STR}} | Language to use in messages; *default:* **C** |
 
 The logging options **--log** and **--message-log** also enable the verbose output but only into
 the given file (unless **--verbose** was given as well). Errors get always printed to
@@ -268,6 +281,12 @@ the XML parser. This performs a basic validation of the input and is
 highly recommended especially for beginners because it easily finds
 spelling mistakes in the input which otherwise might be silently
 ignored. Validation is only performed if the [XML-schema is declared within the input file](../XMLValidation.md).
+
+The **--language** option sets the language for messages, warnings and the GUI elements. The translation is still very incomplete
+thus by default the language is set to "C", which means untranslated. The parameter accepts a two letter language code
+such as *tr* or *de*. If it is explicitly set to the empty string, it will try to determine the language from
+environment variables as described in the [gettext documentation](https://www.gnu.org/software/gettext/manual/html_node/Locale-Environment-Variables.html).
+If you want to contribute to translations please have a look at the [translation documentation](../Developer/Translating.md).
 
 ## Random Number Options
 

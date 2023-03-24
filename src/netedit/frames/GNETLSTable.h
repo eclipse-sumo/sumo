@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -99,7 +99,7 @@ public:
      * b -> move phase down (button)
      * - -> general text (textField)
      */
-    void setTableSize(const std::string &columnsType, const int numberRow);
+    void setTableSize(const std::string& columnsType, const int numberRow);
 
     /// @name FOX callbacks
     /// @{
@@ -155,7 +155,7 @@ protected:
         /// @brief constructor for textField
         Cell(GNETLSTable* TLSTable, MFXTextFieldTooltip* textField, int col, int row);
 
-        /// @brief constructor for index label 
+        /// @brief constructor for index label
         Cell(GNETLSTable* TLSTable, FXLabel* indexLabel, FXLabel* indexLabelBold, int col, int row);
 
         /// @brief constructor for buttons
@@ -183,7 +183,7 @@ protected:
         double getDoubleValue() const;
 
         /// @brief set tooltip
-        void setTooltip(const std::string &toolTip);
+        void setTooltip(const std::string& toolTip);
 
         /// @brief get textField
         MFXTextFieldTooltip* getTextField() const;
@@ -253,10 +253,10 @@ protected:
         MFXButtonTooltip* myButton = nullptr;
 
         /// @brief popup for buttons
-        FXPopup* myMenuButtonPopup = nullptr; 
-        
+        FXPopup* myMenuButtonPopup = nullptr;
+
         /// @brief menu button tooltip
-        MFXMenuButtonTooltip* myAddButton = nullptr; 
+        MFXMenuButtonTooltip* myAddButton = nullptr;
 
         /// @brief add phase button
         MFXButtonTooltip* myAddPhaseButton = nullptr;
@@ -341,7 +341,7 @@ protected:
 
         /// @brief column type
         const char myType;
-    
+
         /// @brief check if current type correspond to a textField
         bool isTextFieldColumn() const;
 
@@ -366,7 +366,7 @@ protected:
         void setText(int index, const std::string& text) const;
 
         /// @brief get cells
-        const std::vector<Cell*> &getCells() const;
+        const std::vector<Cell*>& getCells() const;
 
         /// @brief disable row buttons
         void disableButtons();

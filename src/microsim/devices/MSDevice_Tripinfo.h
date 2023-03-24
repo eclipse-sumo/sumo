@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -84,6 +84,8 @@ public:
     static double getAvgWaitingTime();
     static double getAvgTimeLoss();
     static double getAvgDepartDelay();
+    static double getAvgDepartDelayWaiting();
+    static double getTotalDepartDelay();
 
     static double getAvgBikeRouteLength();
     static double getAvgBikeTripSpeed();
@@ -184,6 +186,12 @@ public:
     }
 
 
+    /// @brief try to retrieve the given parameter from this device. Throw exception for unsupported key
+    std::string getParameter(const std::string& key) const;
+
+    /// @brief try to retrieve the given parameter from the global statistics. Throw exception for unsupported key
+    static std::string getGlobalParameter(const std::string& prefixedKey);
+
 private:
     /** @brief Constructor
      *
@@ -212,6 +220,8 @@ protected:
     static void printRideStatistics(std::ostringstream& msg, const std::string& category, const std::string& modeName, const int index);
 
     static void writeRideStatistics(OutputDevice& od, const std::string& category, const int index);
+
+    static bool lowAcceleration(const SUMOTrafficObject& veh);
 
 private:
     /// @brief The lane the vehicle departed at

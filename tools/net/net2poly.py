@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2007-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2007-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -45,15 +45,6 @@ def parse_args():
     return argParser.parse_args()
 
 
-def getGeometries(edges, useLanes):
-    for edge in edges:
-        if useLanes:
-            for lane in edge.getLanes():
-                yield lane.getID(), lane.getShape(), lane.getWidth()
-        else:
-            yield edge.getID(), edge.getShape(), sum([l.getWidth() for l in edge.getLanes()])
-
-
 if __name__ == "__main__":
     options = parse_args()
     net = sumolib.net.readNet(options.netFile, withInternal=options.internal)
@@ -61,7 +52,7 @@ if __name__ == "__main__":
 
     with open(options.outFile, 'w') as outf:
         sumolib.xml.writeHeader(outf, root="additional")
-        for id, geometry, width in getGeometries(net.getEdges(), options.lanes):
+        for id, geometry, width in net.getGeometries(options.lanes):
             color = options.iColor if id[0] == ":" else options.color
             shape = ["%.6f,%.6f" % net.convertXY2LonLat(x, y) for x, y in geometry]
             outf.write('    <poly id="%s" color="%s" layer="%s" lineWidth="%s" shape="%s" geo="1"/>\n' %

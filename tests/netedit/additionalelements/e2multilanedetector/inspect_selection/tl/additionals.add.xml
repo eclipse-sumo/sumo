@@ -1,0 +1,18 @@
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+
+    <!-- E2 Multi A -->
+    <laneAreaDetector id="multiLaneAreaDetector_0" name="nameA" lanes="center1_1 center0_1" pos="11.00" tl="gneJ0" file="fileA.txt" vTypes="type1 type2 type3" endPos="11.00" friendlyPos="true">
+        <param key="KeyA1" value="valueA1"/>
+        <param key="KeyA3" value="valueA2"/>
+        <param key="KeyA2" value="valueA3"/>
+    </laneAreaDetector>
+
+    <!-- E2 Multi B -->
+    <laneAreaDetector id="multiLaneAreaDetector_1" name="nameB" lanes="center0_1 center1_1" pos="14.00" tl="gneJ1" file="fileB.xml" vTypes="type4 type5 type6" endPos="14.00" friendlyPos="true">
+        <param key="KeyB1" value="valueB1"/>
+        <param key="KeyB3" value="valueB2"/>
+        <param key="KeyB2" value="valueB3"/>
+    </laneAreaDetector>
+
+</additional>

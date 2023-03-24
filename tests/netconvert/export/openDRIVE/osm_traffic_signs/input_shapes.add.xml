@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-12-05 11:08:53 by Eclipse SUMO polyconvert Version v1_15_0+0697-45d1218c82f
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/polyconvertConfiguration.xsd">
+
+    <input>
+        <osm-files value="C:\test\kurz.osm"/>
+    </input>
+
+    <output>
+        <output-file value="C:\test\kurz.poly.xml"/>
+    </output>
+
+    <projection>
+        <proj.scale value="1.00000"/>
+        <proj.utm value="true"/>
+        <proj.plain-geo value="true"/>
+    </projection>
+
+    <processing>
+        <all-attributes value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <poi id="-137713" type="traffic_sign" color="black" layer="5.000000" lon="9.182373" lat="48.890471">
+        <param key="traffic_sign" value="DE:260,1020-30;265[3.8]"/>
+    </poi>
+</additional>

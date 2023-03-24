@@ -49,3 +49,11 @@ The generated XML file looks like this:
 This output option should offer some information about the queues in
 front of the junctions, which can be used in cases of routing or V2X
 communications.
+
+## Visualization example
+
+### Queuing times over time
+
+<img src="../../images/queue_out.png" width="500px"/>
+
+Generated with [plotXMLAttributes.py](../../Tools/Visualization.md#queuing_times_over_time).

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2011-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2011-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -356,7 +356,7 @@ NBLoadedSUMOTLDef::patchIfCrossingsAdded() {
             delete myTLLogic;
             myTLLogic = newLogic;
         } else if (phases.size() == 0) {
-            WRITE_WARNING("Could not patch tlLogic '" + getID() + "' for changed crossings");
+            WRITE_WARNINGF(TL("Could not patch tlLogic '%' for changed crossings"), getID());
         }
     }
 }
@@ -886,9 +886,11 @@ void
 NBLoadedSUMOTLDef::finalChecks() const {
     for (int i = 0; i < myTLLogic->getNumLinks(); i++) {
         if (!isUsed(i)) {
-            WRITE_WARNINGF("Unused state in tlLogic '%', program '%' at tl-index %", getID(), getProgramID(), i);
+            WRITE_WARNINGF(TL("Unused state in tlLogic '%', program '%' at tl-index %"), getID(), getProgramID(), i);
             break;
         }
     }
 }
+
+
 /****************************************************************************/

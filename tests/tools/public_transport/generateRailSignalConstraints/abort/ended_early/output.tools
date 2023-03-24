@@ -1,0 +1,10 @@
+read 2 busStops on 2 edges
+read 2 routes (2 unique) and 3 stops at 2 busStops
+mergingEdge=c pred=b,e
+processed 2 routes across 3 edges with 1 merging switches
+Found 2 stops after merging switches and 2 signals that guard switches
+Found 0 conflicts at switch c
+Ignored 0 conflicts and 1tops at switch c
+Found 0 conflicts
+Ignored 0 conflicts and 1 stops
+Found 0 insertion conflicts

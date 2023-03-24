@@ -6,6 +6,8 @@ SET(osgview_STAT_SRCS
    GUIOSGView.h
    GUIOSGPerspectiveChanger.h
    GUIOSGPerspectiveChanger.cpp
+   GUIOSGManipulator.h
+   GUIOSGManipulator.cpp
 )
 
 add_library(osgview STATIC ${osgview_STAT_SRCS})

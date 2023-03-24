@@ -1,0 +1,183 @@
+Warning: 7 total messages of type: Ambiguity in turnarounds computation at junction '%'.
+Warning: 18 total messages of type: Ambiguous railway kilometrage direction for way '%' (assuming forward)
+Warning: 7 total messages of type: Cannot assign stop % on edge '%' to pt line '%'. Ignoring!
+Warning: 2 total messages of type: Connection '%_%->%_%' is only %m short.
+Warning: 22 total messages of type: Converting invalid rail_crossing to priority junction '%'.
+Warning: 25 total messages of type: Converting invalid rail_crossing to traffic_light at junction '%'.
+Warning: 1 total messages of type: Could not add bidi-edge '%'.
+Warning: 1 total messages of type: Could not build program '%' for traffic light '%'
+Warning: 5 total messages of type: Could not find corresponding edge or compatible lane for free-floating pt stop '%' (%). Thus, it will be removed!
+Warning: 8 total messages of type: Could not re-assign PT stop '%', probably broken osm file.
+Warning: 2 total messages of type: Discarding invalid crossing '%' at junction '%' with edges [%] (no walkingarea found).
+Warning: 2 total messages of type: Discarding unknown compound '%' in type '%' (first occurrence for edge '%').
+Warning: 13 total messages of type: Discarding unusable type '%' (first occurrence for edge '%').
+Warning: 2 total messages of type: Edge '%' is not connected to outgoing edges at junction '%'.
+Warning: 14 total messages of type: Edge sequence is not consistent with stop sequence in line '%', not adding bidi edges.
+Warning: 9 total messages of type: First stop edge '%' is not part of the route of line '%'.
+Warning: 4 total messages of type: Found angle of % degrees at edge '%', segment %.
+Warning: 15 total messages of type: Found sharp turn with radius % at the end of edge '%'.
+Warning: 28 total messages of type: Found sharp turn with radius % at the start of edge '%'.
+Warning: 3 total messages of type: Ignoring restriction relation '%' with unknown to-way.
+Warning: 3 total messages of type: Ignoring restriction relation '%'.
+Warning: 1 total messages of type: Invalid pedestrian topology: crossing '%' across [%] has no target.
+Warning: 10 total messages of type: Last stop edge '%' is not part of the route of line '%'.
+Warning: 2 total messages of type: No connection found between stops on edge '%' and edge '%'.
+Warning: 112 total messages of type: No way found for reference '%' in relation '%'
+Warning: 10 total messages of type: Not joining junctions % (%).
+Warning: 4 total messages of type: PT line '%' in relation % seems to be split, only keeping first part.
+Warning: 17 total messages of type: PT line in relation % with no stops ignored. Probably OSM file is incomplete.
+Warning: 13 total messages of type: PT stop '%' has been moved to edge '%'.
+Warning: 21 total messages of type: Platform '%' in relation: '%' is given as polygon, which currently is not supported.
+Warning: 4 total messages of type: Reducing junction cluster % (%).
+Warning: 1 total messages of type: Removed % pt stops because they could not be assigned to the network
+Warning: 1 total messages of type: Removing pt stop '%' on non existing edge '%'.
+Warning: 61 total messages of type: The rail crossing '%' does not have any roads.
+Warning: 5 total messages of type: The traffic light '%' cannot be adapted to a cycle time of %.
+Warning: 1 total messages of type: The traffic light '%' does not control any links; it will not be build.
+Warning: 7 total messages of type: The traffic light '%' has a high cycle time of %.
+Warning: 2 total messages of type: direction of restriction relation could not be determined%
+Warning: 1 total messages of type: to-edge '%' of restriction relation could not be determined
+Warning: At actuated tlLogic 'GS_25662542', linkIndex 14 has no controlling detector.
+Warning: At actuated tlLogic 'GS_25662542', linkIndex 15 has no controlling detector.
+Warning: At actuated tlLogic 'GS_25662542', linkIndex 16 has no controlling detector.
+Warning: At actuated tlLogic 'GS_25662542', linkIndex 17 has no controlling detector.
+Warning: At actuated tlLogic 'cluster_10173804193_10561486885_10567768857_10567768859_#6more', actuated phase 0 has no controlling detector.
+Warning: At actuated tlLogic 'cluster_160503146_1633759809_27411250_311264850_#6more', actuated phase 7 has no controlling detector.
+Warning: At actuated tlLogic 'cluster_21487209_2480337678_29219440_3831343134_#4more', linkIndex 25 has no controlling detector.
+Warning: busStop '3352479244' on lane '458953719#0_1' is too short for vehicle '35_bus_165:0'.
+Warning: busStop '244487457' on lane '11482920#1_0' is too short for vehicle '41_tram_M5:1'.
+Warning: No connection between edge '384294422#1' and edge '387106270#2' found.
+Warning: No route for vehicle '82_subway_U2:0' found.
+Warning: No connection between edge '199847347#1' and edge '272795470#1' found.
+Warning: No route for vehicle '83_subway_U2:1' found.
+Warning: Teleporting vehicle '72_light_rail_S3:1'; collision with vehicle '48_light_rail_S7:0', lane='-25946685#1_0', gap=-1.00, time=25653.00 stage=move.
+Warning: Vehicle '72_light_rail_S3:1' ends teleporting on edge '-195397542', time=25653.00.
+Warning: Teleporting vehicle '30_tram_M2:0'; collision with vehicle '88_tram_M2:3', lane='1051100387#1_0', gap=-1.00, time=25666.00 stage=move.
+Warning: Vehicle '30_tram_M2:0' teleports beyond arrival edge '1051100387#1', time=25666.00.
+Warning: Vehicle '30_tram_M2:0' skips stop on lane '1051100387#1_0' time=25666.00.
+Warning: Teleporting vehicle '83_subway_U2:1'; waited too long (wrong lane), lane='387106272_0', time=25949.00.
+Warning: Vehicle '83_subway_U2:1' ends teleporting on edge '387106272', time=25949.00.
+Warning: Teleporting vehicle '82_subway_U2:0'; waited too long (wrong lane), lane='200422335#0_0', time=25996.00.
+Warning: Vehicle '82_subway_U2:0' ends teleporting on edge '200422335#0', time=25996.00.
+Warning: Teleporting vehicle '83_subway_U2:1'; waited too long (wrong lane), lane='387106272_0', time=26264.00.
+Warning: Vehicle '83_subway_U2:1' ends teleporting on edge '199847347#1', time=26264.00.
+Warning: Teleporting vehicle '82_subway_U2:0'; waited too long (wrong lane), lane='200422335#1_0', time=26481.00.
+Warning: Vehicle '82_subway_U2:0' ends teleporting on edge '200422335#1', time=26481.00.
+Warning: Teleporting vehicle '83_subway_U2:1'; waited too long (wrong lane), lane='199847347#1_0', time=26696.00.
+Warning: 21 total messages of type: At actuated tlLogic '%', linkIndex % has no controlling detector.
+Warning: 7 total messages of type: Teleporting vehicle '%'; waited too long (wrong lane), lane='%', time=%.
+Warning: 8 total messages of type: Vehicle '%' ends teleporting on edge '%', time=%.
+Warning: Ambiguity in turnarounds computation at junction '1206481791'.
+Warning: Found sharp turn with radius 8.90 at the start of edge '-105066743'.
+Warning: Found angle of 114.03 degrees at edge '-51784728', segment 0.
+Warning: Found sharp turn with radius 7.52 at the end of edge '-626237088'.
+Warning: Shape for junction '29221595' has distance 26.30 to its given position.
+Warning: Edge '1155767591' is not connected to outgoing edges at junction '10748220849'.
+Warning: The rail crossing '10315421457' does not have any roads.
+Warning: Unused state in tlLogic '10567769016', program '0' at tl-index 2
+Warning: 7 total messages of type: Ambiguity in turnarounds computation at junction '%'.
+Warning: 2 total messages of type: Edge '%' is not connected to outgoing edges at junction '%'.
+Warning: 4 total messages of type: Found angle of % degrees at edge '%', segment %.
+Warning: 15 total messages of type: Found sharp turn with radius % at the end of edge '%'.
+Warning: 28 total messages of type: Found sharp turn with radius % at the start of edge '%'.
+Warning: 2 total messages of type: Shape for junction '%' has distance % to its given position.
+Warning: 61 total messages of type: The rail crossing '%' does not have any roads.
+Warning: 81 total messages of type: Unused state in tlLogic '%', program '%' at tl-index %
+Warning: Found sharp turn with radius 8.80 at the start of edge '1155765019'.
+Warning: Found sharp turn with radius 5.83 at the end of edge '1155769085'.
+Warning: Shape for junction '29221595' has distance 26.30 to its given position.
+Warning: Converting invalid rail_crossing to priority junction '1662153956'.
+Warning: Non-static traffic light '10567769017' does not define variable phase length.
+Warning: Unused state in tlLogic '10567769016', program '0' at tl-index 2
+Warning: 4 total messages of type: Converting invalid rail_crossing to priority junction '%'.
+Warning: 5 total messages of type: Found sharp turn with radius % at the start of edge '%'.
+Warning: 30 total messages of type: Non-static traffic light '%' does not define variable phase length.
+Warning: 2 total messages of type: Shape for junction '%' has distance % to its given position.
+Warning: 81 total messages of type: Unused state in tlLogic '%', program '%' at tl-index %
+Warning: Converting invalid rail_crossing to priority junction '10315421457'.
+Warning: Non-static traffic light 'cluster_10301760524_25954547_29221622_9044259979_#4more' does not define variable phase length.
+Warning: Unused state in tlLogic '3918673906', program '0' at tl-index 2
+Warning: 65 total messages of type: Converting invalid rail_crossing to priority junction '%'.
+Warning: 32 total messages of type: Non-static traffic light '%' does not define variable phase length.
+Warning: 32 total messages of type: Unused state in tlLogic '%', program '%' at tl-index %
+Warning! No mapping library found, falling back to tracemapper.
+Warning! Disconnected route '144589' between '169717723#1' and '713576589#0', no path found. Keeping longer part.
+Warning! Disconnected route '20322' between '-4613300#0' and '713576589#0', no path found. Keeping longer part.
+Warning! Disconnected route '20582.trimmed' between '-4613300#0' and '713576589#0', no path found. Keeping longer part.
+Warning! Fixed connection 145071 24
+Warning! Disconnected route '145642' between '4592725#5' and '-176043807#4', no path found. Keeping longer part.
+Warning! Disconnected route '145810' between '4592725#5' and '-176043807#4', no path found. Keeping longer part.
+Warning! Disconnected route '180610' between '749876418#1' and '82652397#1', no path found. Keeping longer part.
+Warning! Disconnected route '180638' between '749876418#1' and '82652397#1', no path found. Keeping longer part.
+Warning! Disconnected route '180812' between '625843712' and '4773464#0', no path found. Keeping longer part.
+Warning! Disconnected route '180818' between '82652397#1' and '312533962#0', no path found. Keeping longer part.
+Warning! Disconnected route '180818' between '625843712' and '4773464#0', no path found. Keeping longer part.
+Warning! Disconnected route '180959.trimmed' between '625843712' and '4773464#0', no path found. Keeping longer part.
+Warning! Disconnected route '181055' between '82652397#1' and '312533962#0', no path found. Keeping longer part.
+Warning! Disconnected route '181055' between '625843712' and '4773464#0', no path found. Keeping longer part.
+Warning! Disconnected route '188484' between '328426193#0' and '4773464#0', no path found. Keeping longer part.
+Warning! Disconnected route '226292' between '625843712' and '4773464#0', no path found. Keeping longer part.
+Warning! Disconnected route '226300' between '625843712' and '4773464#0', no path found. Keeping longer part.
+Warning! Disconnected route '235007' between '305093247#2' and '23386522#0', no path found. Keeping longer part.
+Warning! Disconnected route '235160' between '82652397#1' and '-4612431#1', no path found. Keeping longer part.
+Warning! Disconnected route '235167' between '82652397#1' and '-4612431#1', no path found. Keeping longer part.
+Warning! Fixed connection 235175 44
+Warning! Disconnected route '235175' between '82652397#1' and '1133457765#0', no path found. Keeping longer part.
+Warning! Fixed connection 235177 44
+Warning! Disconnected route '235177' between '82652397#1' and '1133457765#0', no path found. Keeping longer part.
+Warning! Disconnected route '236031' between '82652397#1' and '1133457765#0', no path found. Keeping longer part.
+Warning! Disconnected route '53641' between '625843712' and '4773464#0', no path found. Keeping longer part.
+Warning! Disconnected route '236599' between '82652397#1' and '-4612431#1', no path found. Keeping longer part.
+Warning! Fixed connection 236633 44
+Warning! Disconnected route '236633' between '82652397#1' and '312533962#0', no path found. Keeping longer part.
+Warning! Disconnected route '237460' between '195104960#3' and '24240246#0', no path found. Keeping longer part.
+Warning! Disconnected route '238053' between '24913304#4' and '195104960#3', no path found. Keeping longer part.
+Warning! Disconnected route '89820' between '459344269' and '4471823#2', no path found. Keeping longer part.
+Warning! Disconnected route '89820' between '4471823#2' and '459344269', no path found. Keeping longer part.
+Warning! Disconnected route '288209' between '459344269' and '4471823#2', no path found. Keeping longer part.
+Warning! Disconnected route '288209' between '4471823#2' and '459344269', no path found. Keeping longer part.
+Warning! Disconnected route '90062' between '459344269' and '4471823#2', no path found. Keeping longer part.
+Warning! Disconnected route '90062' between '4471823#2' and '459344269', no path found. Keeping longer part.
+Warning! Disconnected route '90366' between '459344269' and '4471823#2', no path found. Keeping longer part.
+Warning! Disconnected route '90366' between '4471823#2' and '459344269', no path found. Keeping longer part.
+Warning! Disconnected route '90373' between '459344269' and '4471823#2', no path found. Keeping longer part.
+Warning! Disconnected route '90373' between '4471823#2' and '459344269', no path found. Keeping longer part.
+Warning! Disconnected route '90632' between '459344269' and '4471823#2', no path found. Keeping longer part.
+Warning! Disconnected route '90632' between '4471823#2' and '459344269', no path found. Keeping longer part.
+Warning! Disconnected route '90634' between '459344269' and '4471823#2', no path found. Keeping longer part.
+Warning! Disconnected route '90634' between '4471823#2' and '459344269', no path found. Keeping longer part.
+Warning! Disconnected route '90767' between '459344269' and '4471823#2', no path found. Keeping longer part.
+Warning! Disconnected route '90767' between '4471823#2' and '459344269', no path found. Keeping longer part.
+Warning! Disconnected route '90770' between '459344269' and '4471823#2', no path found. Keeping longer part.
+Warning! Disconnected route '90770' between '4471823#2' and '459344269', no path found. Keeping longer part.
+Warning! Disconnected route '90801.trimmed' between '459344269' and '4471823#2', no path found. Keeping longer part.
+Warning! Disconnected route '90801.trimmed' between '4471823#2' and '459344269', no path found. Keeping longer part.
+Warning! Disconnected route '90918' between '459344269' and '4471823#2', no path found. Keeping longer part.
+Warning! Disconnected route '90918' between '4471823#2' and '459344269', no path found. Keeping longer part.
+Warning! Disconnected route '78628' between '384294422#1' and '-391559413', no path found. Keeping longer part.
+Warning! Disconnected route '78697.trimmed' between '384294422#1' and '-391559413', no path found. Keeping longer part.
+Warning! Disconnected route '78710' between '384294422#1' and '-391559413', no path found. Keeping longer part.
+Warning! Disconnected route '78740' between '384294422#1' and '-391559413', no path found. Keeping longer part.
+Warning! Disconnected route '79164' between '384294422#1' and '-391559413', no path found. Keeping longer part.
+Warning! Disconnected route '79191' between '199847347#1' and '387141734', no path found. Keeping longer part.
+Warning! Disconnected route '79197' between '199847347#1' and '387141734', no path found. Keeping longer part.
+Warning! Disconnected route '79271.trimmed' between '199847347#1' and '387141734', no path found. Keeping longer part.
+Warning! Disconnected route '79294' between '199847347#1' and '387141734', no path found. Keeping longer part.
+Warning! Disconnected route '79720' between '199847347#1' and '387141734', no path found. Keeping longer part.
+Warning! Disconnected route '85584' between '379102293#0' and '381201610', no path found. Keeping longer part.
+Warning! Fixed connection 267945 26
+Warning! Disconnected route '267945' between '93628049#6' and '150478184#0', no path found. Keeping longer part.
+Warning! Disconnected route '268415.trimmed' between '93628049#6' and '150478184#0', no path found. Keeping longer part.
+Warning! Fixed connection 269453 26
+Warning! Disconnected route '269453' between '93628049#6' and '150478184#0', no path found. Keeping longer part.
+Warning! Fixed connection 269571 26
+Warning! Disconnected route '269571' between '93628049#6' and '150478184#0', no path found. Keeping longer part.
+Warning! Fixed connection 271977 26
+Warning! Disconnected route '271977' between '93628049#6' and '150478184#0', no path found. Keeping longer part.
+Warning! Disconnected route '77141.trimmed' between '93628049#6' and '150478184#0', no path found. Keeping longer part.
+Warning! Disconnected route '272866' between '150478184#0' and '150201972#7', no path found. Keeping longer part.
+Warning! Disconnected route '272866' between '150201972#7' and '1053166652#0', no path found. Keeping longer part.
+Warning! Fixed connection 274287 54
+Warning! Disconnected route '274287' between '150204300#4' and '150478184#0', no path found. Keeping longer part.
+Warning! Fixed connection 77861.trimmed 54
+Warning! Disconnected route '77861.trimmed' between '150204300#4' and '150478184#0', no path found. Keeping longer part.

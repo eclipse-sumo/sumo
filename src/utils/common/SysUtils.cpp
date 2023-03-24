@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2005-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2005-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -26,23 +26,19 @@
 #include "SysUtils.h"
 
 #ifndef WIN32
-#include <sys/time.h>
-#include <unistd.h>
-
+    #include <sys/time.h>
+    #include <unistd.h>
 #else
-
-#define NOMINMAX
-#include <windows.h>
-#undef NOMINMAX
-
-#define stat _stat
-
+    #define NOMINMAX
+    #include <windows.h>
+    #undef NOMINMAX
+    #define stat _stat
 #endif
-
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
+
 long
 SysUtils::getCurrentMillis() {
 #ifndef WIN32

@@ -1,2 +1,3 @@
 Error: Attribute 'triggered' in definition of a stop is empty.
 Error: Invalid duration or end time is given for a stop at 'busStop' in route 'route_3'.
+Error: Triggers and waypoints cannot be combined at 'busStop' in route 'route_5'.

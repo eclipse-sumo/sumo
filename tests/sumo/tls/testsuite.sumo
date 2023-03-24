@@ -24,6 +24,9 @@ delay_based
 # test NEMA-compliant traffic controller
 NEMA
 
+# right of way switches is allway-stop when switching tls off
+off_allwayStop
+
 # test dynamics when the node type was set to "traffic_light_unregulated"
 traffic_light_unregulated
 
@@ -44,4 +47,3 @@ all_off
 
 # Tests for error handling
 errors
-

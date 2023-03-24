@@ -3,9 +3,9 @@ Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 parkingArea
 reference center
-TestFunctions: Clicked over position 554 - 338
-TestFunctions: Clicked over position 754 - 333
-TestFunctions: Clicked over position 554 - 368
+TestFunctions: Clicked over position 779 - 424
+TestFunctions: Clicked over position 916 - 424
+TestFunctions: Clicked over position 779 - 448
 pa_1
 Id with spaces
 correctID

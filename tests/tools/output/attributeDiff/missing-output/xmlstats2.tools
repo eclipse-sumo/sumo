@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-03-16 11:13:25.047799 by attributeDiff.py v1_16_0+1348-c6464e4
+  options: input_data.xml input_data2.xml <doubleminus>xml-output stats.xml <doubleminus>id-attribute tripId,busStop -m stats1.xml -M stats2.xml
+-->
+
+<attributeDiff-onlySecond xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/attributeDiff-onlySecond_file.xsd">
+    <pedestrianStatistics.duration Q1="0.0" Q3="0.0" count="100.0" max="0.0" mean="0.0" meanAbs="0.0" median="0.0" medianAbs="0.0" min="0.0" stdDev="0.0"/>
+    <pedestrianStatistics.number Q1="0.0" Q3="0.0" count="100.0" max="0.0" mean="0.0" meanAbs="0.0" median="0.0" medianAbs="0.0" min="0.0" stdDev="0.0"/>
+    <pedestrianStatistics.routeLength Q1="0.0" Q3="0.0" count="100.0" max="0.0" mean="0.0" meanAbs="0.0" median="0.0" medianAbs="0.0" min="0.0" stdDev="0.0"/>
+    <pedestrianStatistics.timeLoss Q1="0.0" Q3="0.0" count="100.0" max="0.0" mean="0.0" meanAbs="0.0" median="0.0" medianAbs="0.0" min="0.0" stdDev="0.0"/>
+    <persons.jammed Q1="0.0" Q3="0.0" count="100.0" max="0.0" mean="0.0" meanAbs="0.0" median="0.0" medianAbs="0.0" min="0.0" stdDev="0.0"/>
+    <persons.loaded Q1="0.0" Q3="0.0" count="100.0" max="0.0" mean="0.0" meanAbs="0.0" median="0.0" medianAbs="0.0" min="0.0" stdDev="0.0"/>
+    <persons.running Q1="0.0" Q3="0.0" count="100.0" max="0.0" mean="0.0" meanAbs="0.0" median="0.0" medianAbs="0.0" min="0.0" stdDev="0.0"/>
+    <rideStatistics.number Q1="0.0" Q3="0.0" count="100.0" max="0.0" mean="0.0" meanAbs="0.0" median="0.0" medianAbs="0.0" min="0.0" stdDev="0.0"/>
+</attributeDiff-onlySecond>

@@ -1,7 +1,7 @@
 /* XPM */
 static const char *vshape_firebrigade_xpm[] = {
 /* columns rows colors chars-per-pixel */
-"64 32 64 1 ",
+"64 32 64 1",
 "  c black",
 ". c #030000",
 "X c #040000",

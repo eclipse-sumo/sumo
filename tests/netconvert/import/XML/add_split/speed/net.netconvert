@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:19 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2023-01-25 12:23:52 by Eclipse SUMO netconvert Version v1_15_0+1931-9c17475
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -20,13 +25,12 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.9" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="0.00,0.00" convBoundary="0.00,0.00,100.00,0.00" origBoundary="0.00,0.00,100.00,0.00" projParameter="!"/>
 
@@ -41,17 +45,17 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":1.50_0_2" index="2" speed="11.95" length="0.10" shape="50.00,-1.60 50.00,-1.60"/>
     </edge>
 
-    <edge id="1" from="0" to="1.10" priority="-1">
+    <edge id="1" from="0" to="1.10" priority="-1" distance="200.00">
         <lane id="1_0" index="0" speed="13.89" length="10.00" shape="0.00,-8.00 10.00,-8.00"/>
         <lane id="1_1" index="1" speed="13.89" length="10.00" shape="0.00,-4.80 10.00,-4.80"/>
         <lane id="1_2" index="2" speed="13.89" length="10.00" shape="0.00,-1.60 10.00,-1.60"/>
     </edge>
-    <edge id="1.10" from="1.10" to="1.50" priority="-1">
+    <edge id="1.10" from="1.10" to="1.50" priority="-1" distance="210.00">
         <lane id="1.10_0" index="0" speed="10.00" length="40.00" shape="10.00,-8.00 50.00,-8.00"/>
         <lane id="1.10_1" index="1" speed="10.00" length="40.00" shape="10.00,-4.80 50.00,-4.80"/>
         <lane id="1.10_2" index="2" speed="10.00" length="40.00" shape="10.00,-1.60 50.00,-1.60"/>
     </edge>
-    <edge id="1.50" from="1.50" to="1" priority="-1">
+    <edge id="1.50" from="1.50" to="1" priority="-1" distance="250.00">
         <lane id="1.50_0" index="0" speed="13.89" length="50.00" shape="50.00,-8.00 100.00,-8.00"/>
         <lane id="1.50_1" index="1" speed="13.89" length="50.00" shape="50.00,-4.80 100.00,-4.80"/>
         <lane id="1.50_2" index="2" speed="13.89" length="50.00" shape="50.00,-1.60 100.00,-1.60"/>

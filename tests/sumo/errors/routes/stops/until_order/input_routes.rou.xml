@@ -1,0 +1,54 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+    <route id="1" edges="beg end"/>
+    <vehicle depart="1" id="until_unordered" route="1">
+        <stop lane="beg_0" endPos="6" until="50"/>
+        <stop lane="end_0" endPos="4" until="40"/>
+    </vehicle>
+
+    <vehicle depart="1" id="until_unordered_ended" route="1">
+        <stop lane="beg_0" endPos="6" until="50" ended="60"/>
+        <stop lane="end_0" endPos="4" until="40"/>
+    </vehicle>
+
+    <vehicle depart="1" id="arrival_unordered" route="1">
+        <stop lane="beg_0" endPos="6" arrival="50" duration="5"/>
+        <stop lane="end_0" endPos="4" arrival="40" duration="5"/>
+    </vehicle>
+
+    <vehicle depart="1" id="until_arrival_unordered" route="1">
+        <stop lane="beg_0" endPos="6" until="50"/>
+        <stop lane="end_0" endPos="4" arrival="40" until="60"/>
+    </vehicle>
+
+    <vehicle depart="1" id="until_before_arrival" route="1">
+        <stop lane="beg_0" endPos="6" arrival="60" until="50"/>
+    </vehicle>
+
+    <vehicle depart="60" id="until_before_depart" route="1">
+        <stop lane="beg_0" endPos="6" until="50"/>
+    </vehicle>
+
+    <vehicle depart="60" id="until_before_depart_with_ended" route="1">
+        <stop lane="beg_0" endPos="6" until="50" ended="55"/>
+    </vehicle>
+
+    <vehicle depart="60" id="until_before_depart_with_ended2" route="1">
+        <stop lane="beg_0" endPos="6" until="50" ended="70"/>
+    </vehicle>
+
+    <vehicle depart="60" id="arrival_before_depart" route="1">
+        <stop lane="beg_0" endPos="6" arrival="40" duration="5"/>
+    </vehicle>
+
+    <vehicle depart="60" id="arrival_before_depart_with_started" route="1">
+        <stop lane="beg_0" endPos="6" arrival="40" duration="5" started="50"/>
+    </vehicle>
+
+    <vehicle depart="60" id="arrival_before_depart_with_started2" route="1">
+        <stop lane="beg_0" endPos="6" arrival="40" duration="5" started="80"/>
+    </vehicle>
+
+
+
+</routes>

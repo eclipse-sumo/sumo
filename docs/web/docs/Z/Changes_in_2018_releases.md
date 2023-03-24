@@ -735,7 +735,7 @@ title: Changes in the 2018 releases (versions 1.0.0, 1.0.1 and 1.1.0)
 
 - TraCI
   - TraCI Version is now 18
-  - Embeded python is now deprecated in favour of
+  - Embedded python is now deprecated in favour of
     [Libsumo](../Libsumo.md).
   - TraCI now consistently represents time in seconds as a double
     precision floating point. This affects all client

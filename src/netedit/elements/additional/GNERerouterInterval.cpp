@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -32,20 +32,20 @@
 // ===========================================================================
 
 GNERerouterInterval::GNERerouterInterval(GNENet* net) :
-    GNEAdditional("", net, GLO_REROUTER_INTERVAL, SUMO_TAG_INTERVAL, 
-    GUIIconSubSys::getIcon(GUIIcon::REROUTERINTERVAL), "", {}, {}, {}, {}, {}, {}),
-    myBegin(0),
-    myEnd(0) {
+    GNEAdditional("", net, GLO_REROUTER_INTERVAL, SUMO_TAG_INTERVAL,
+                  GUIIconSubSys::getIcon(GUIIcon::REROUTERINTERVAL), "", {}, {}, {}, {}, {}, {}),
+                            myBegin(0),
+myEnd(0) {
     // reset default values
     resetDefaultValues();
 }
 
 
 GNERerouterInterval::GNERerouterInterval(GNERerouterDialog* rerouterDialog) :
-    GNEAdditional(rerouterDialog->getEditedAdditional()->getNet(), GLO_REROUTER_INTERVAL, SUMO_TAG_INTERVAL, 
-    GUIIconSubSys::getIcon(GUIIcon::REROUTERINTERVAL), "", {}, {}, {}, {rerouterDialog->getEditedAdditional()}, {}, {}),
-    myBegin(0),
-    myEnd(0) {
+    GNEAdditional(rerouterDialog->getEditedAdditional()->getNet(), GLO_REROUTER_INTERVAL, SUMO_TAG_INTERVAL,
+                  GUIIconSubSys::getIcon(GUIIcon::REROUTERINTERVAL), "", {}, {}, {}, {rerouterDialog->getEditedAdditional()}, {}, {}),
+myBegin(0),
+myEnd(0) {
     // reset default values
     resetDefaultValues();
     // update boundary of rerouter parent
@@ -54,10 +54,10 @@ GNERerouterInterval::GNERerouterInterval(GNERerouterDialog* rerouterDialog) :
 
 
 GNERerouterInterval::GNERerouterInterval(GNEAdditional* rerouterParent, SUMOTime begin, SUMOTime end) :
-    GNEAdditional(rerouterParent->getNet(), GLO_REROUTER, SUMO_TAG_INTERVAL, 
-    GUIIconSubSys::getIcon(GUIIcon::REROUTERINTERVAL), "", {}, {}, {}, {rerouterParent}, {}, {}),
-    myBegin(begin),
-    myEnd(end) {
+    GNEAdditional(rerouterParent->getNet(), GLO_REROUTER, SUMO_TAG_INTERVAL,
+                  GUIIconSubSys::getIcon(GUIIcon::REROUTERINTERVAL), "", {}, {}, {}, {rerouterParent}, {}, {}),
+myBegin(begin),
+myEnd(end) {
     // update boundary of rerouter parent
     rerouterParent->updateCenteringBoundary(true);
 }
@@ -79,6 +79,24 @@ GNERerouterInterval::writeAdditional(OutputDevice& device) const {
         }
         device.closeTag();
     }
+}
+
+
+bool
+GNERerouterInterval::isAdditionalValid() const {
+    return true;
+}
+
+
+std::string
+GNERerouterInterval::getAdditionalProblem() const {
+    return "";
+}
+
+
+void
+GNERerouterInterval::fixAdditionalProblem() {
+    // nothing to fix
 }
 
 

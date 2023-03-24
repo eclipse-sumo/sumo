@@ -94,3 +94,6 @@ calibrator
 
 # see #11394
 continous_lanechange
+
+# two vehicles saved and reloaded
+replay

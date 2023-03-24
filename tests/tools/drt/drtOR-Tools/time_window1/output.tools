@@ -1,0 +1,99 @@
+timestep:  0.0
+Reservations waiting: ['0', '1']
+Taxis empty: ('v0',)
+Solve CPDP
+Start creating the model.
+dp reservations: ['0', '1']
+do reservations: []
+Reservation 0 starts at edge B0C0
+Reservation 1 starts at edge C0D0
+Reservation 0 ends at edge C1D1
+Reservation 1 ends at edge D0D1
+Start solving the problem.
+ Register distance callback.
+ Add distance constraints...
+ Add pickup and delivery constraints...
+ Add direct route factor constraints...
+ Add dropoff constraints...
+ Add capacity constraints...
+ Add time windows constraints...
+## Done
+ Set solution heuristic...
+Start solving the problem.
+Objective:  304414
+Route for vehicle 0:
+     5 (L: 0, C: 0, T: (1,35))
+ ->  2 (L: 1, C: 888, T: (65,99))
+ ->  4 (L: 0, C: 1273, T: (156,190))
+ ->  1 (L: 1, C: 2334, T: (242,487))
+ ->  3 (L: 0, C: 3014, T: (355,600))
+ ->  0 (L: 0, C: 3014, T: (355,1972))
+Costs of the route: 3014
+
+Total cost of the routes: 3014
+Start interpreting the solution for SUMO.
+Dispatching v0 with ['1', '1', '0', '0']
+Costs for v0: 3014
+timestep:  30.0
+Reservations being picked up: ['0', '1']
+Taxis picking up: ('v0',)
+timestep:  60.0
+Reservations being picked up: ['0']
+Reservations en route: ['1']
+Taxis picking up: ('v0',)
+Taxis occupied: ('v0',)
+Taxis occupied and picking up: ('v0',)
+timestep:  90.0
+Reservations being picked up: ['0']
+Reservations en route: ['1']
+Taxis picking up: ('v0',)
+Taxis occupied: ('v0',)
+Taxis occupied and picking up: ('v0',)
+timestep:  120.0
+Reservations being picked up: ['0']
+Reservations en route: ['1']
+Taxis picking up: ('v0',)
+Taxis occupied: ('v0',)
+Taxis occupied and picking up: ('v0',)
+timestep:  150.0
+Reservations being picked up: ['0']
+Reservations en route: ['1']
+Taxis picking up: ('v0',)
+Taxis occupied: ('v0',)
+Taxis occupied and picking up: ('v0',)
+timestep:  180.0
+Reservations being picked up: ['0']
+Taxis picking up: ('v0',)
+timestep:  210.0
+Reservations being picked up: ['0']
+Taxis picking up: ('v0',)
+timestep:  240.0
+Reservations en route: ['0']
+Taxis occupied: ('v0',)
+timestep:  270.0
+Reservations en route: ['0']
+Taxis occupied: ('v0',)
+timestep:  300.0
+Reservations en route: ['0']
+Taxis occupied: ('v0',)
+timestep:  330.0
+Reservations en route: ['0']
+Taxis occupied: ('v0',)
+timestep:  360.0
+Taxis empty: ('v0',)
+timestep:  390.0
+Taxis empty: ('v0',)
+timestep:  420.0
+Taxis empty: ('v0',)
+timestep:  450.0
+Taxis empty: ('v0',)
+timestep:  480.0
+Taxis empty: ('v0',)
+timestep:  510.0
+Taxis empty: ('v0',)
+timestep:  540.0
+Taxis empty: ('v0',)
+timestep:  570.0
+Taxis empty: ('v0',)
+timestep:  600.0
+Taxis empty: ('v0',)

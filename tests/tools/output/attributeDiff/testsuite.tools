@@ -1,0 +1,20 @@
+# group attributes by id
+id-attribute
+
+# subtract all attributes in the input files
+default
+
+# subtract all attributes in the input files
+xml_output
+
+# write output for missing elements that could not be compared
+missing-output
+
+# subtract all attributes in the input files
+verbose
+
+# use only one attribute
+attribute
+
+# specify element and attribute
+element_attribute

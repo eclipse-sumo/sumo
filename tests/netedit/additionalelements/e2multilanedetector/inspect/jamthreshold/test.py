@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -38,15 +38,15 @@ netedit.additionalMode()
 netedit.changeElement("multiLaneAreaDetector")
 
 # create E2 with default parameters
-netedit.leftClick(referencePosition, 190, 250)
-netedit.leftClick(referencePosition, 440, 250)
+netedit.leftClick(referencePosition, 426, 253)
+netedit.leftClick(referencePosition, 496, 208)
 netedit.typeEnter()
 
 # go to additional mode
 netedit.inspectMode()
 
 # inspect E2
-netedit.leftClick(referencePosition, 320, 250)
+netedit.leftClick(referencePosition, 486, 253)
 
 # Change parameter JamThreshold with a non valid value
 netedit.modifyAttribute(netedit.attrs.E2Multilane.inspect.jamThreshold, "dummyJamThreshold", True)
@@ -61,11 +61,8 @@ netedit.modifyAttribute(netedit.attrs.E2Multilane.inspect.jamThreshold, "7.3", T
 netedit.undo(referencePosition, 2)
 netedit.redo(referencePosition, 2)
 
-# save additionals
-netedit.saveAdditionals(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

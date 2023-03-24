@@ -1,37 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri 18 Jan 2019 07:14:17 PM CET by Eclipse SUMO netedit Version v1_1_0+0258-169157deea
+<!-- generated on 2023-01-10 10:14:59 by Eclipse SUMO netedit Version v1_15_0+1489-05f0e3b
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="/home/kobo/dlr/debug/harald/rwb5.net.xml"/>
+        <sumo-net-file value="net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="/home/kobo/dlr/debug/harald/rwb5.net.xml"/>
+        <output-file value="net.net.xml"/>
     </output>
 
     <processing>
+        <geometry.min-radius.fix.railways value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
-        <lefthand value="false"/>
+        <lefthand value="0"/>
     </processing>
 
     <junctions>
         <no-turnarounds value="true"/>
         <junctions.corner-detail value="5"/>
-        <junctions.limit-turn-speed value="5.5"/>
-        <rectangular-lane-cut value="false"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
     </junctions>
 
     <pedestrian>
-        <walkingareas value="false"/>
+        <walkingareas value="0"/>
     </pedestrian>
 
 </configuration>
 -->
 
-<net version="1.1" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.9" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-100.00,-900.00" convBoundary="0.00,0.00,4700.00,100.00" origBoundary="100.00,900.00,4800.00,1000.00" projParameter="!"/>
 
@@ -164,8 +165,8 @@
     <edge id="T15_1" from="B.N2" to="B.P2" priority="15" type="railway.rail" spreadType="center" bidi="T15_0">
         <lane id="T15_1_0" index="0" allow="rail rail_electric" speed="44.44" length="800.00" shape="4000.00,100.00 3200.00,100.00"/>
     </edge>
-    <edge id="T16_0" from="B.N2" to="w4" priority="15" type="railway.rail" spreadType="center" length="185.00" bidi="T16_1">
-        <lane id="T16_0_0" index="0" allow="rail rail_electric" speed="44.44" length="5.00" endOffset="180.00" shape="4000.00,100.00 4011.72,100.00"/>
+    <edge id="T16_0" from="B.N2" to="w4" priority="15" type="railway.rail" spreadType="center" bidi="T16_1">
+        <lane id="T16_0_0" index="0" allow="rail rail_electric" speed="44.44" length="11.72" endOffset="180.00" shape="4000.00,100.00 4011.72,100.00"/>
     </edge>
     <edge id="T16_1" from="w4" to="B.N2" priority="15" type="railway.rail" spreadType="center" bidi="T16_0">
         <lane id="T16_1_0" index="0" allow="rail rail_electric" speed="44.44" length="11.72" shape="4011.72,100.00 4000.00,100.00"/>
@@ -294,7 +295,7 @@
     <connection from="T11_1" to="T3_1" fromLane="0" toLane="0" via=":w2_0_0" tl="w2" linkIndex="0" dir="s" state="o"/>
     <connection from="T12_0" to="T13_0" fromLane="0" toLane="0" via=":B.A_1_0" dir="s" state="M"/>
     <connection from="T12_1" to="T11_1" fromLane="0" toLane="0" via=":A.F_0_0" dir="s" state="M"/>
-    <connection from="T13_0" to="T4_0" fromLane="0" toLane="0" via=":w3_2_0" tl="w3" linkIndex="2" dir="s" state="O"/>
+    <connection from="T13_0" to="T4_0" fromLane="0" toLane="0" via=":w3_2_0" tl="w3" linkIndex="2" dir="R" state="O"/>
     <connection from="T13_0" to="T14_0" fromLane="0" toLane="0" via=":w3_3_0" tl="w3" linkIndex="3" dir="s" state="O"/>
     <connection from="T13_1" to="T12_1" fromLane="0" toLane="0" via=":B.A_0_0" dir="s" state="M"/>
     <connection from="T14_0" to="T15_0" fromLane="0" toLane="0" via=":B.P2_1_0" dir="s" state="M"/>
@@ -308,7 +309,7 @@
     <connection from="T17_1" to="T6_1" fromLane="0" toLane="0" via=":w4_1_0" tl="w4" linkIndex="1" dir="L" state="o"/>
     <connection from="T18_0" to="T18_1" fromLane="0" toLane="0" speed="0.10" via=":e2_0_0" dir="t" state="M"/>
     <connection from="T18_1" to="T17_1" fromLane="0" toLane="0" via=":B.F_0_0" dir="s" state="M"/>
-    <connection from="T1_1" to="T8_1" fromLane="0" toLane="0" via=":w1_0_0" tl="w1" linkIndex="0" dir="s" state="O"/>
+    <connection from="T1_1" to="T8_1" fromLane="0" toLane="0" via=":w1_0_0" tl="w1" linkIndex="0" dir="s" state="o"/>
     <connection from="T2_1" to="T1_1" fromLane="0" toLane="0" via=":A.P1_0_0" dir="s" state="M"/>
     <connection from="T3_1" to="T2_1" fromLane="0" toLane="0" via=":s1_0_0" dir="s" state="M"/>
     <connection from="T4_0" to="T5_0" fromLane="0" toLane="0" via=":B.P1_1_0" dir="s" state="M"/>
@@ -321,7 +322,7 @@
     <connection from="T7_1" to="T7_0" fromLane="0" toLane="0" speed="0.10" via=":e1_0_0" dir="t" state="M"/>
     <connection from="T8_0" to="T9_0" fromLane="0" toLane="0" pass="1" via=":w1_1_0" tl="w1" linkIndex="1" dir="s" state="O"/>
     <connection from="T8_1" to="T7_1" fromLane="0" toLane="0" via=":A.A_0_0" dir="s" state="M"/>
-    <connection from="T9_0" to="T11_0" fromLane="0" toLane="0" via=":w2_1_0" tl="w2" linkIndex="1" dir="s" state="O"/>
+    <connection from="T9_0" to="T11_0" fromLane="0" toLane="0" via=":w2_1_0" tl="w2" linkIndex="1" dir="s" state="o"/>
 
     <connection from=":A.A_0" to="T7_1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":A.A_1" to="T8_0" fromLane="0" toLane="0" dir="s" state="M"/>
@@ -349,7 +350,7 @@
     <connection from=":w2_1" to="T11_0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":w3_0" to="T13_1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":w3_1" to="T13_1" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":w3_2" to="T4_0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":w3_2" to="T4_0" fromLane="0" toLane="0" dir="R" state="M"/>
     <connection from=":w3_3" to="T14_0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":w4_0" to="T16_1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":w4_1" to="T6_1" fromLane="0" toLane="0" dir="L" state="M"/>

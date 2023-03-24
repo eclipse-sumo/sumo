@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2005-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2005-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -139,7 +139,7 @@ MSCalibrator::init() {
         // calibration should happen after regular insertions have taken place
         MSNet::getInstance()->getEndOfTimestepEvents()->addEvent(new CalibratorCommand(this));
     } else {
-        WRITE_WARNING("No flow intervals in calibrator '" + getID() + "'.");
+        WRITE_WARNINGF(TL("No flow intervals in calibrator '%'."), getID());
     }
     myDidInit = true;
 }
@@ -158,7 +158,7 @@ MSCalibrator::~MSCalibrator() {
 MSCalibrator::AspiredState
 MSCalibrator::getCurrentStateInterval() const {
     if (myCurrentStateInterval == myIntervals.end()) {
-        throw ProcessError("Calibrator '" + getID() + "' has no active or upcoming interval");
+        throw ProcessError(TLF("Calibrator '%' has no active or upcoming interval", getID()));
     }
     return *myCurrentStateInterval;
 }
@@ -169,8 +169,10 @@ MSCalibrator::myStartElement(int element,
     if (element == SUMO_TAG_FLOW) {
         AspiredState state;
         SUMOTime lastEnd = -1;
+        SUMOTime lastBegin = -1;
         if (myIntervals.size() > 0) {
             lastEnd = myIntervals.back().end;
+            lastBegin = myIntervals.back().begin;
             if (lastEnd == -1) {
                 lastEnd = myIntervals.back().begin;
             }
@@ -181,7 +183,9 @@ MSCalibrator::myStartElement(int element,
             state.v = attrs.getOpt<double>(SUMO_ATTR_SPEED, nullptr, ok, -1.);
             state.begin = attrs.getSUMOTimeReporting(SUMO_ATTR_BEGIN, getID().c_str(), ok);
             if (state.begin < lastEnd) {
-                WRITE_ERROR("Overlapping or unsorted intervals in calibrator '" + getID() + "'.");
+                WRITE_ERRORF("Overlapping or unsorted intervals in calibrator '%' (end=%, begin2=%).", getID(), time2string(lastEnd), time2string(state.begin));
+            } else if (state.begin <= lastBegin) {
+                WRITE_ERRORF("Overlapping or unsorted intervals in calibrator '%' (begin=%, begin2=%).", getID(), time2string(lastBegin), time2string(state.begin));
             }
             state.end = attrs.getOptSUMOTimeReporting(SUMO_ATTR_END, getID().c_str(), ok, -1);
             state.vehicleParameter = SUMOVehicleParserHelper::parseVehicleAttributes(element, attrs, true, true, true);
@@ -202,22 +206,22 @@ MSCalibrator::myStartElement(int element,
             } else if (myLane != nullptr && (
                            state.vehicleParameter->departLaneProcedure != DepartLaneDefinition::GIVEN
                            || state.vehicleParameter->departLane != myLane->getIndex())) {
-                WRITE_WARNING("Insertion lane may differ from calibrator lane for calibrator '" + getID() + "'.");
+                WRITE_WARNINGF(TL("Insertion lane may differ from calibrator lane for calibrator '%'."), getID());
             }
             if (state.vehicleParameter->vtypeid != DEFAULT_VTYPE_ID &&
                     MSNet::getInstance()->getVehicleControl().getVType(state.vehicleParameter->vtypeid) == nullptr) {
-                WRITE_ERROR("Unknown vehicle type '" + state.vehicleParameter->vtypeid + "' in calibrator '" + getID() + "'.");
+                WRITE_ERRORF(TL("Unknown vehicle type '%' in calibrator '%'."), state.vehicleParameter->vtypeid, getID());
             }
         } catch (EmptyData&) {
-            WRITE_ERROR("Mandatory attribute missing in definition of calibrator '" + getID() + "'.");
+            WRITE_ERRORF(TL("Mandatory attribute missing in definition of calibrator '%'."), getID());
         } catch (NumberFormatException&) {
-            WRITE_ERROR("Non-numeric value for numeric attribute in definition of calibrator '" + getID() + "'.");
+            WRITE_ERRORF(TL("Non-numeric value for numeric attribute in definition of calibrator '%'."), getID());
         }
         if (state.q < 0 && state.v < 0 && state.vehicleParameter->vtypeid == DEFAULT_VTYPE_ID) {
-            WRITE_ERROR("Either 'vehsPerHour',  'speed' or 'type' has to be set in flow definition of calibrator '" + getID() + "'.");
+            WRITE_ERRORF(TL("Either 'vehsPerHour',  'speed' or 'type' has to be set in flow definition of calibrator '%'."), getID());
         }
         if (MSGlobals::gUseMesoSim && state.q < 0 && state.vehicleParameter->vtypeid != DEFAULT_VTYPE_ID) {
-            WRITE_ERROR("Type calibration is not supported in meso for calibrator '" + getID() + "'.");
+            WRITE_ERRORF(TL("Type calibration is not supported in meso for calibrator '%'."), getID());
         }
         if (myIntervals.size() > 0 && myIntervals.back().end == -1) {
             myIntervals.back().end = state.begin;
@@ -311,7 +315,7 @@ MSCalibrator::removePending() {
                 lane->removeVehicle(vehicle, MSMoveReminder::NOTIFICATION_VAPORIZED_CALIBRATOR);
                 vc.scheduleVehicleRemoval(vehicle, true);
             } else {
-                WRITE_WARNING("Calibrator '" + getID() + "' could not remove vehicle '" + *it + "' time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
+                WRITE_WARNINGF(TL("Calibrator '%' could not remove vehicle '%' time=%."), getID(), *it, time2string(MSNet::getInstance()->getCurrentTimeStep()));
             }
         }
         myToRemove.clear();
@@ -402,16 +406,16 @@ MSCalibrator::execute(SUMOTime currentTime) {
         MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
         while (wishedNum > adaptedNum + insertionSlack) {
             SUMOVehicleParameter* pars = myCurrentStateInterval->vehicleParameter;
-            const MSRoute* route = myProbe != nullptr ? myProbe->sampleRoute() : nullptr;
+            ConstMSRoutePtr route = myProbe != nullptr ? myProbe->sampleRoute() : nullptr;
             if (route == nullptr) {
                 route = MSRoute::dictionary(pars->routeid);
             }
             if (route == nullptr) {
-                WRITE_WARNING("No valid routes in calibrator '" + getID() + "'.");
+                WRITE_WARNINGF(TL("No valid routes in calibrator '%'."), getID());
                 break;
             }
             if (!route->contains(myEdge)) {
-                WRITE_WARNING("Route '" + route->getID() + "' in calibrator '" + getID() + "' does not contain edge '" + myEdge->getID() + "'.");
+                WRITE_WARNINGF(TL("Route '%' in calibrator '%' does not contain edge '%'."), route->getID(), getID(), myEdge->getID());
                 break;
             }
             const int routeIndex = (int)std::distance(route->begin(),
@@ -449,7 +453,14 @@ MSCalibrator::execute(SUMOTime currentTime) {
             }
 #endif
             vehicle->resetRoutePosition(routeIndex, pars->departLaneProcedure);
-            if (myEdge->insertVehicle(*vehicle, currentTime)) {
+            bool success = false;
+            try {
+                success = myEdge->insertVehicle(*vehicle, currentTime);
+            } catch (const ProcessError& e) {
+                MSNet::getInstance()->getVehicleControl().deleteVehicle(vehicle, true);
+                throw e;
+            }
+            if (success) {
                 if (!MSNet::getInstance()->getVehicleControl().addVehicle(vehicle->getID(), vehicle)) {
                     throw ProcessError("Emission of vehicle '" + vehicle->getID() + "' in calibrator '" + getID() + "'failed!");
                 }
@@ -589,7 +600,7 @@ MSCalibrator::VehicleRemover::notifyEnter(SUMOTrafficObject& veh, Notification /
                         << " vaporizing " << vehicle->getID() << " to clear jam\n";
 #endif
             if (!myParent->myHaveWarnedAboutClearingJam) {
-                WRITE_WARNINGF("Clearing jam at calibrator '%' at time=%.", myParent->getID(), time2string(SIMSTEP));
+                WRITE_WARNINGF(TL("Clearing jam at calibrator '%' at time=%."), myParent->getID(), time2string(SIMSTEP));
                 myParent->myHaveWarnedAboutClearingJam = true;
             }
             if (myParent->scheduleRemoval(&veh)) {
@@ -685,9 +696,9 @@ MSCalibrator::setFlow(SUMOTime begin, SUMOTime end, double vehsPerHour, double s
             state.vehicleParameter->departSpeedProcedure = vehicleParameter.departSpeedProcedure;
             return;
         } else if (begin < it->end) {
-            throw ProcessError("Cannot set flow for calibrator '" + getID() + "' with overlapping interval.");
+            throw ProcessError(TLF("Cannot set flow for calibrator '%' with overlapping interval.", getID()));
         } else if (begin >= end) {
-            throw ProcessError("Cannot set flow for calibrator '" + getID() + "' with negative interval.");
+            throw ProcessError(TLF("Cannot set flow for calibrator '%' with negative interval.", getID()));
         }
         it++;
     }

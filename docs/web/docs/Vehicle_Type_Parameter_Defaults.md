@@ -51,7 +51,7 @@ vehicle types).
     <td class="tg-0lax">0.1</td>
   </tr>
   <tr>
-    <td class="tg-c882" colspan="12">two-wheeled vehicle</td>
+    <td class="tg-c882" colspan="13">two-wheeled vehicle</td>
   </tr>
   <tr>
     <td class="tg-0lax">bicycle</td>
@@ -99,7 +99,7 @@ vehicle types).
     <td class="tg-0lax">0.1</td>
   </tr>
   <tr>
-    <td class="tg-c882" colspan="12">passenger car</td>
+    <td class="tg-c882" colspan="13">passenger car</td>
   </tr>
   <tr>
     <td class="tg-0lax" rowspan="5">passenger</td>
@@ -125,6 +125,7 @@ vehicle types).
     <td class="tg-0lax">see above</td>
     <td class="tg-0lax">see above</td>
     <td class="tg-0lax">see above</td>
+    <td class="tg-0lax">see above</td>
     <td class="tg-0lax">5</td>
     <td class="tg-0lax">PC_G_EU4</td>
     <td class="tg-0lax">0.1</td>
@@ -132,6 +133,7 @@ vehicle types).
   <tr>
     <td class="tg-0lax"><img src="images/Wikicommons_passenger_hatchback.jpg" title="wikicommons_passenger_hatchback.jpg" width="200" alt="" /></td>
     <td class="tg-0lax">passenger/hatchback</td>
+    <td class="tg-0lax">see above</td>
     <td class="tg-0lax">see above</td>
     <td class="tg-0lax">see above</td>
     <td class="tg-0lax">see above</td>
@@ -151,6 +153,7 @@ vehicle types).
     <td class="tg-0lax">see above</td>
     <td class="tg-0lax">see above</td>
     <td class="tg-0lax">see above</td>
+    <td class="tg-0lax">see above</td>
     <td class="tg-0lax">5</td>
     <td class="tg-0lax">PC_G_EU4</td>
     <td class="tg-0lax">0.1</td>
@@ -159,6 +162,7 @@ vehicle types).
     <td class="tg-0lax"><img src="images/Wikicommons_passenger_van.jpg" title="wikicommons_passenger_van.jpg" width="200" alt="" /></td>
     <td class="tg-0lax">passenger/van</td>
     <td class="tg-c882">4.7m<sup>(16)</sup><br>1.9m<sup>(16)</sup><br>1.73m<sup>(16)</sup></td>
+    <td class="tg-0lax">see above</td>
     <td class="tg-0lax">see above</td>
     <td class="tg-0lax">see above</td>
     <td class="tg-0lax">see above</td>
@@ -179,6 +183,7 @@ vehicle types).
     <td class="tg-0lax">see passenger</td>
     <td class="tg-0lax">see passenger</td>
     <td class="tg-0lax">see passenger</td>
+    <td class="tg-0lax">see passenger</td>
     <td class="tg-0lax">PC_G_EU4</td>
     <td class="tg-0lax">0.05</td>
   </tr>
@@ -187,6 +192,7 @@ vehicle types).
     <td class="tg-0lax"><img src="images/Wikicommons_emergency.jpg" title="wikicommons_emergency.jpg" width="200" alt="" /></td>
     <td class="tg-0lax">delivery</td>
     <td class="tg-0lax">6.5m<sup>(37)</sup><br>2.16m<sup>(37)</sup><br>2.86m<sup>(37)</sup></td>
+    <td class="tg-0lax">see above</td>
     <td class="tg-0lax">see above</td>
     <td class="tg-0lax">see above</td>
     <td class="tg-0lax">see above</td>
@@ -206,12 +212,13 @@ vehicle types).
     <td class="tg-0lax">see above</td>
     <td class="tg-0lax">see above</td>
     <td class="tg-0lax">see above</td>
+    <td class="tg-0lax">see above</td>
     <td class="tg-0lax">3</td>
     <td class="tg-0lax">LDV</td>
     <td class="tg-0lax">0.05</td>
   </tr>
   <tr>
-    <td class="tg-c882" colspan="12">truck</td>
+    <td class="tg-c882" colspan="13">truck</td>
   </tr>
   <tr>
     <td class="tg-0lax">truck</td>
@@ -238,6 +245,7 @@ vehicle types).
     <td class="tg-0lax">see above</td>
     <td class="tg-0lax">see above</td>
     <td class="tg-0lax">see above</td>
+    <td class="tg-0lax">see above</td>
     <td class="tg-0lax">3</td>
     <td class="tg-0lax">HDV</td>
     <td class="tg-0lax">0.05</td>
@@ -251,12 +259,13 @@ vehicle types).
     <td class="tg-0lax">see above</td>
     <td class="tg-0lax">see above</td>
     <td class="tg-0lax">see above</td>
+    <td class="tg-0lax">see above</td>
     <td class="tg-0lax">3</td>
     <td class="tg-0lax">HDV</td>
     <td class="tg-0lax">0.05</td>
   </tr>
   <tr>
-    <td class="tg-c882" colspan="12">bus</td>
+    <td class="tg-c882" colspan="13">bus</td>
   </tr>
   <tr>
     <td class="tg-0lax" rowspan="2">bus</td>
@@ -282,6 +291,7 @@ vehicle types).
     <td class="tg-0lax">see above</td>
     <td class="tg-0lax">see above</td>
     <td class="tg-0lax">see above</td>
+    <td class="tg-0lax">see above</td>
     <td class="tg-0lax">~150</td>
     <td class="tg-0lax">Bus</td>
     <td class="tg-0lax">0</td>
@@ -302,7 +312,7 @@ vehicle types).
     <td class="tg-0lax">0.05</td>
   </tr>
   <tr>
-    <td class="tg-c882" colspan="12">rail</td>
+    <td class="tg-c882" colspan="13">rail</td>
   </tr>
   <tr>
     <td class="tg-0lax">tram</td>
@@ -379,12 +389,13 @@ vehicle types).
     <td class="tg-0lax">0</td>
   </tr>
   <tr>
-    <td class="tg-c882" colspan="12">electric vehicle</td>
+    <td class="tg-c882" colspan="13">electric vehicle</td>
   </tr>
   <tr>
     <td class="tg-0lax">evehicle</td>
     <td class="tg-0lax"></td>
     <td class="tg-0lax">evehicle</td>
+    <td class="tg-0lax">see passenger</td>
     <td class="tg-0lax">see passenger</td>
     <td class="tg-0lax">see passenger</td>
     <td class="tg-0lax">see passenger</td>
@@ -412,7 +423,7 @@ vehicle types).
     <td class="tg-0lax">0.1</td>
   </tr>
   <tr>
-    <td class="tg-c882" colspan="12">ship</td>
+    <td class="tg-c882" colspan="13">ship</td>
   </tr>
   <tr>
     <td class="tg-0lax">ship</td>

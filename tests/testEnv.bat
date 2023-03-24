@@ -22,6 +22,7 @@ set MAROUTER_BINARY=%~dp0\..\bin\marouter%1.exe
 set EMISSIONSDRIVINGCYCLE_BINARY=%~dp0\..\bin\emissionsDrivingCycle%1.exe
 set EMISSIONSMAP_BINARY=%~dp0\..\bin\emissionsMap%1.exe
 set PYTHON=python
+set LANG=C
 
 SET TEXTTESTPY=texttest.exe
 where.exe %TEXTTESTPY% > NUL 2> NUL

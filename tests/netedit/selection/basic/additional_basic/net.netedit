@@ -28,7 +28,7 @@
     </pedestrian>
 
     <netedit>
-        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085051.1800/netedit.gui/selection/select_additional_basic\input_additionals.add.xml"/>
+        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085051.1800/netedit.gui/selection/select_additional_basic\additionals.add.xml"/>
         <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085051.1800/netedit.gui/selection/select_additional_basic\additionals.xml"/>
         <sumo-shapes-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085051.1800/netedit.gui/selection/select_additional_basic\input_shapes.add.xml"/>
         <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085051.1800/netedit.gui/selection/select_additional_basic\shapes.xml"/>
@@ -50,7 +50,7 @@
 </configuration>
 -->
 
-<net version="1.9" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="25.00,0.00" convBoundary="0.00,0.00,50.00,0.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 

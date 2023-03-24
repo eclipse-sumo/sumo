@@ -141,7 +141,7 @@ extended character information use TeX or HTML notation instead.
 We try to adhere to the [PEP 8 Style
 Guide](http://www.python.org/dev/peps/pep-0008/) and use
 [autopep8](https://github.com/hhatto/autopep8) and
-[flake8](https://gitlab.com/pycqa/flake8) to check this. If you have
+[flake8](https://github.com/PyCQA/flake8) to check this. If you have
 both modules installed, you can run [tools/build/checkStyle.py
 <FILENAME\>](../Tools/Build.md#checkstylepy) to check this and also
 fix some of the errors. We run both tools without any special options

@@ -32,20 +32,23 @@ The SUMO User Conference is an anual event organized by the German Aerospace Cen
 
 ## Videos
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/UeaeCdLt_1o" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<a class="no-arrow-link" data-youtube href="https://www.youtube.com/watch?v=UeaeCdLt_1o">Watch the 2019 Tutorial</a>
 <br>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/aiOQbaB-pWo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<a class="no-arrow-link" data-youtube href="https://www.youtube.com/watch?v=aiOQbaB-pWo">Watch the 2020 Tutorial</a>
 <br>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/tlshWdzFWpY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<a class="no-arrow-link" data-youtube href="https://www.youtube.com/watch?v=tlshWdzFWpY">Watch the 2021 Tutorial</a>
 <br>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/urKtJj87X5M" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<a class="no-arrow-link" data-youtube href="https://www.youtube.com/watch?v=urKtJj87X5M">Watch the 2022 Tutorial</a>
 
 # Advanced Tutorials
 * [Hello SUMO](Hello_SUMO.md) - The simplest net and a single car set up "by hand"
 * [ScenarioGuide](ScenarioGuide.md) - High level outline of the steps needed to build a simulation scenario
 * [HighwayDetector](HighwayDetector.md) - How to create a highway scenario based on induction loop data
 * [FundamentalDiagram](FundamentalDiagram.md) - How to compute a fundamental diagram with SUMO
-* [PT from OpenStreetMap](PT_from_OpenStreetMap.md) - Shows how to create a runnable public transit scenario entirely from [OpenStreetMap](https://www.openstreetmap.org/)
+* [PT from OpenStreetMap](PT_from_OpenStreetMap.md) - Creating a runnable public transit scenario entirely from [OpenStreetMap](https://www.openstreetmap.org/)
 * [Importing GTFS](GTFS.md) - Importing public transport schedules from public sources using the General Transit Feed Specification
 * [Port](port.md) - Creating a scenario that simulates the port logistics of an arbitrary port from [OpenStreetMap](https://www.openstreetmap.org/)
 

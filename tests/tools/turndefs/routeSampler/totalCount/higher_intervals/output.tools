@@ -1,0 +1,10 @@
+Loaded 98 routes (98 distinct)
+Ignored 72 routes which do not pass any counting location
+0: Wrote 50 routes (38 distinct) achieving total count 17 (100.00%) at 9 locations. GEH<5 for 100.00%
+Ignored 72 routes which do not pass any counting location
+50: Wrote 100 routes (57 distinct) achieving total count 15 (100.00%) at 9 locations. GEH<5 for 100.00%
+avg interval input count: count 2, min 15.00 (50.0), max 17.00 (0.0), mean 16.00, Q1 15.00, median 17.00, Q3 17.00
+avg interval written vehs: count 2, min 50.00 (0.0), max 100.00 (50.0), mean 75.00, Q1 50.00, median 100.00, Q3 100.00
+avg interval underflow: count 2, min 0.00 (0.0), max 0.00 (0.0), mean 0.00, Q1 0.00, median 0.00, Q3 0.00
+avg interval overflow: count 2, min 0.00 (0.0), max 0.00 (0.0), mean 0.00, Q1 0.00, median 0.00, Q3 0.00
+avg interval GEH%: count 2, min 100.00 (0.0), max 100.00 (0.0), mean 100.00, Q1 100.00, median 100.00, Q3 100.00

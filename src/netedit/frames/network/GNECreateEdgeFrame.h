@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -108,10 +108,10 @@ public:
 
         /// @brief Called when the user press create edgeType from Template
         long onCmdCreateFromTemplate(FXObject*, FXSelector, void*);
-        
+
         /// @brief Called when add sidewalk check buton is updated
         long onUpdAddSideWalk(FXObject*, FXSelector, void*);
-        
+
         /// @}
 
     protected:
@@ -237,7 +237,7 @@ public:
      * @brief viewParent GNEViewParent in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
      */
-    GNECreateEdgeFrame(GNEViewParent *viewParent, GNEViewNet* viewNet);
+    GNECreateEdgeFrame(GNEViewParent* viewParent, GNEViewNet* viewNet);
 
     /// @brief Destructor
     ~GNECreateEdgeFrame();

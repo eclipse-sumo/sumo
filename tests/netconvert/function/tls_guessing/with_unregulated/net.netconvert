@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-07 16:21:13 by Eclipse SUMO netconvert Version v1_11_0+0928-18c1b433e84
+<!-- generated on 2022-10-04 09:40:08 by Eclipse SUMO netconvert Version v1_14_1+1405-b752ca57d78
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -24,14 +29,13 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
         <ignore-errors.edge-type value="true"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.9" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-345429.78,-3459708.22" convBoundary="0.00,0.00,1205.64,1246.66" origBoundary="120.623290,31.010815,121.575855,31.636432" projParameter="+proj=utm +zone=51 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -103,16 +107,16 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="68992992#2_1" index="1" disallow="rail_urban rail rail_electric" speed="27.78" length="1022.40" shape="1148.39,1018.46 1146.74,1001.52 1150.90,963.94 1144.72,906.47 1127.15,552.14 1109.87,242.84 1085.87,108.19 1081.12,-0.07"/>
     </edge>
 
-    <tlLogic id="joinedS_0" type="static" programID="0" offset="0">
-        <phase duration="39" state="rrrrGGggGGGg"/>
-        <phase duration="6"  state="rrrryyyyyyyy"/>
-        <phase duration="39" state="GGGGrrrrrrrr"/>
-        <phase duration="6"  state="yyyyrrrrrrrr"/>
-    </tlLogic>
     <tlLogic id="joinedS_21" type="static" programID="0" offset="0">
         <phase duration="79" state="G"/>
         <phase duration="6"  state="y"/>
         <phase duration="5"  state="r"/>
+    </tlLogic>
+    <tlLogic id="joinedS_828110409_828110410_cluster_828110366_828110369" type="static" programID="0" offset="0">
+        <phase duration="39" state="rrrrGGggGGGg"/>
+        <phase duration="6"  state="rrrryyyyyyyy"/>
+        <phase duration="39" state="GGGGrrrrrrrr"/>
+        <phase duration="6"  state="yyyyrrrrrrrr"/>
     </tlLogic>
 
     <junction id="828110348" type="dead_end" x="1205.64" y="1163.19" incLanes="" intLanes="" shape="1208.39,1161.56 1202.89,1164.82"/>
@@ -141,19 +145,19 @@ SPDX-License-Identifier: EPL-2.0
     <junction id=":cluster_828110366_828110369_13_0" type="internal" x="1156.66" y="1030.16" incLanes=":cluster_828110366_828110369_7_0 137082383#12_0 137082383#12_1 68992992#0_1" intLanes=":cluster_828110366_828110369_3_0 :cluster_828110366_828110369_9_0 :cluster_828110366_828110369_9_1"/>
     <junction id=":cluster_828110366_828110369_14_0" type="internal" x="1141.92" y="1034.12" incLanes=":cluster_828110366_828110369_11_0 147676141#0_0 147676141#0_1 68992992#0_0" intLanes=":cluster_828110366_828110369_0_0 :cluster_828110366_828110369_4_0 :cluster_828110366_828110369_4_1"/>
 
-    <connection from="137082383#12" to="68992992#2" fromLane="0" toLane="0" via=":cluster_828110366_828110369_8_0" tl="joinedS_0" linkIndex="8" dir="r" state="O"/>
-    <connection from="137082383#12" to="137082383#14" fromLane="0" toLane="0" via=":cluster_828110366_828110369_9_0" tl="joinedS_0" linkIndex="9" dir="s" state="O"/>
-    <connection from="137082383#12" to="137082383#14" fromLane="1" toLane="1" via=":cluster_828110366_828110369_9_1" tl="joinedS_0" linkIndex="10" dir="s" state="O"/>
-    <connection from="137082383#12" to="147676141#1" fromLane="1" toLane="1" via=":cluster_828110366_828110369_11_0" tl="joinedS_0" linkIndex="11" dir="t" state="o"/>
-    <connection from="147676141#0" to="147676141#1" fromLane="0" toLane="0" via=":cluster_828110366_828110369_4_0" tl="joinedS_0" linkIndex="4" dir="s" state="O"/>
-    <connection from="147676141#0" to="147676141#1" fromLane="1" toLane="1" via=":cluster_828110366_828110369_4_1" tl="joinedS_0" linkIndex="5" dir="s" state="O"/>
-    <connection from="147676141#0" to="68992992#2" fromLane="1" toLane="1" via=":cluster_828110366_828110369_6_0" tl="joinedS_0" linkIndex="6" dir="l" state="o"/>
-    <connection from="147676141#0" to="137082383#14" fromLane="1" toLane="1" via=":cluster_828110366_828110369_7_0" tl="joinedS_0" linkIndex="7" dir="t" state="o"/>
+    <connection from="137082383#12" to="68992992#2" fromLane="0" toLane="0" via=":cluster_828110366_828110369_8_0" tl="joinedS_828110409_828110410_cluster_828110366_828110369" linkIndex="8" dir="r" state="O"/>
+    <connection from="137082383#12" to="137082383#14" fromLane="0" toLane="0" via=":cluster_828110366_828110369_9_0" tl="joinedS_828110409_828110410_cluster_828110366_828110369" linkIndex="9" dir="s" state="O"/>
+    <connection from="137082383#12" to="137082383#14" fromLane="1" toLane="1" via=":cluster_828110366_828110369_9_1" tl="joinedS_828110409_828110410_cluster_828110366_828110369" linkIndex="10" dir="s" state="O"/>
+    <connection from="137082383#12" to="147676141#1" fromLane="1" toLane="1" via=":cluster_828110366_828110369_11_0" tl="joinedS_828110409_828110410_cluster_828110366_828110369" linkIndex="11" dir="t" state="o"/>
+    <connection from="147676141#0" to="147676141#1" fromLane="0" toLane="0" via=":cluster_828110366_828110369_4_0" tl="joinedS_828110409_828110410_cluster_828110366_828110369" linkIndex="4" dir="s" state="O"/>
+    <connection from="147676141#0" to="147676141#1" fromLane="1" toLane="1" via=":cluster_828110366_828110369_4_1" tl="joinedS_828110409_828110410_cluster_828110366_828110369" linkIndex="5" dir="s" state="O"/>
+    <connection from="147676141#0" to="68992992#2" fromLane="1" toLane="1" via=":cluster_828110366_828110369_6_0" tl="joinedS_828110409_828110410_cluster_828110366_828110369" linkIndex="6" dir="l" state="o"/>
+    <connection from="147676141#0" to="137082383#14" fromLane="1" toLane="1" via=":cluster_828110366_828110369_7_0" tl="joinedS_828110409_828110410_cluster_828110366_828110369" linkIndex="7" dir="t" state="o"/>
     <connection from="147676141#1" to="137082383#12" fromLane="1" toLane="1" via=":cluster_1129387341_1129387412_0_0" tl="joinedS_21" linkIndex="0" dir="t" state="O"/>
-    <connection from="68992992#0" to="147676141#1" fromLane="0" toLane="0" via=":cluster_828110366_828110369_0_0" tl="joinedS_0" linkIndex="0" dir="r" state="o"/>
-    <connection from="68992992#0" to="68992992#2" fromLane="0" toLane="0" via=":cluster_828110366_828110369_1_0" tl="joinedS_0" linkIndex="1" dir="s" state="o"/>
-    <connection from="68992992#0" to="68992992#2" fromLane="1" toLane="1" via=":cluster_828110366_828110369_1_1" tl="joinedS_0" linkIndex="2" dir="s" state="o"/>
-    <connection from="68992992#0" to="137082383#14" fromLane="1" toLane="1" via=":cluster_828110366_828110369_3_0" tl="joinedS_0" linkIndex="3" dir="l" state="o"/>
+    <connection from="68992992#0" to="147676141#1" fromLane="0" toLane="0" via=":cluster_828110366_828110369_0_0" tl="joinedS_828110409_828110410_cluster_828110366_828110369" linkIndex="0" dir="r" state="o"/>
+    <connection from="68992992#0" to="68992992#2" fromLane="0" toLane="0" via=":cluster_828110366_828110369_1_0" tl="joinedS_828110409_828110410_cluster_828110366_828110369" linkIndex="1" dir="s" state="o"/>
+    <connection from="68992992#0" to="68992992#2" fromLane="1" toLane="1" via=":cluster_828110366_828110369_1_1" tl="joinedS_828110409_828110410_cluster_828110366_828110369" linkIndex="2" dir="s" state="o"/>
+    <connection from="68992992#0" to="137082383#14" fromLane="1" toLane="1" via=":cluster_828110366_828110369_3_0" tl="joinedS_828110409_828110410_cluster_828110366_828110369" linkIndex="3" dir="l" state="o"/>
 
     <connection from=":cluster_1129387341_1129387412_0" to="137082383#12" fromLane="0" toLane="1" dir="t" state="M"/>
     <connection from=":cluster_828110366_828110369_0" to="147676141#1" fromLane="0" toLane="0" dir="r" state="M"/>

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -21,11 +21,13 @@
 /****************************************************************************/
 #include <config.h>
 
-#include "GUIDialog_HallOfFame.h"
-#include <utils/foxtools/MFXLinkLabel.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/common/StdDefs.h>
+#include <utils/foxtools/MFXLinkLabel.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include "GUIDialog_HallOfFame.h"
+
 
 // ===========================================================================
 // method definitions
@@ -47,12 +49,12 @@ GUIDialog_HallOfFame::GUIDialog_HallOfFame(FXWindow* parent) :
     new FXLabel(descriptionFrame, "Voted best presentation: Vijay Jaisankar (Simulation of traffic scenarios using SUMO)", nullptr, GUIDesignLabelAboutInfo);
 
     // link to conference website
-    (new MFXLinkLabel(this, "Visit conference website", nullptr, GUIDesignLabelCenter))->setTipText("https://www.eclipse.org/sumo/conference");
+    (new MFXLinkLabel(this, "Visit conference website", nullptr, GUIDesignLabel(JUSTIFY_NORMAL)))->setTipText("https://www.eclipse.org/sumo/conference");
 
     // centered ok-button
     FXHorizontalFrame* buttonFrame = new FXHorizontalFrame(this, GUIDesignHorizontalFrame);
     new FXHorizontalFrame(buttonFrame, GUIDesignAuxiliarHorizontalFrame);
-    new FXButton(buttonFrame, "OK\t\t", GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, ID_ACCEPT, GUIDesignButtonOK);
+    new FXButton(buttonFrame, (TL("OK") + std::string("\t\t")).c_str(), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, ID_ACCEPT, GUIDesignButtonOK);
     new FXHorizontalFrame(buttonFrame, GUIDesignAuxiliarHorizontalFrame);
 }
 

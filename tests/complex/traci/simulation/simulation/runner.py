@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -183,6 +183,11 @@ ppStages("findIntermodalRoute (bike)", traci.simulation.findIntermodalRoute("o",
 ppStages("findIntermodalRoute (car)", traci.simulation.findIntermodalRoute("o", "2o", modes="car"))
 ppStages("findIntermodalRoute (bike,car,public)",
          traci.simulation.findIntermodalRoute("o", "2o", modes="car bicycle public"))
+
+try:
+    print("findIntermodalRoute", traci.simulation.findIntermodalRoute("o", "2o", departPos=1e5))
+except traci.TraCIException:
+    pass
 
 traci.vehicle.setSpeedMode("emergencyStopper", 0)
 traci.vehicle.setSpeed("emergencyStopper", 100)

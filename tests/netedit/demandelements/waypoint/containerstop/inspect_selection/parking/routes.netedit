@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-03-07 09:52:01 by Eclipse SUMO netedit Version v1_12_0+1177-f6b46b7e4a3
+<!-- generated on 2022-10-25 14:49:38 by Eclipse SUMO netedit Version v1_14_1+1914-f1c7c144c82
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <trip id="trip" depart="0.00" from="gneE0" to="gneE1">
-        <stop containerStop="containerStopA" duration="70.00" until="12.00" extension="10.00" triggered="person" expected="perA perB" permitted="A B" speed="10.00"/>
-        <stop containerStop="containerStopB" duration="60.00" until="20.00" extension="20.00" triggered="container" expected="conA conB" permitted="C D" speed="22.50"/>
+        <stop containerStop="containerStopA" duration="70.00" until="12.00" extension="10.00" triggered="person" expected="perA perB" permitted="A B" tripId="tripA" line="lineA" speed="10.00" actType="walking"/>
+        <stop containerStop="containerStopB" duration="60.00" until="20.00" extension="20.00" triggered="container" expected="conA conB" permitted="C D" tripId="tripB" line="lineB" speed="22.50" actType="singing"/>
     </trip>
 </routes>

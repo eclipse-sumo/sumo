@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-03-02 13:34:19 by Eclipse SUMO netedit Version v1_16_0+0938-81c03d9
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="osm2net.net.xml"/>
+    </input>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<edges version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="27" from="47" to="1" priority="9" type="highway.motorway_link" numLanes="1" speed="22.22" shape="3081.46,676.69 3016.90,600.02 3003.95,589.76 2984.94,581.70 2964.38,577.87 2937.76,579.33 2908.21,590.68 2887.25,606.39 2876.72,620.06 2867.75,636.39 2857.70,663.88 2849.89,699.76 2849.62,705.84 2848.41,734.61 2849.57,763.83 2853.34,793.04 2863.51,816.07 2874.76,832.22 2888.63,841.62 2906.40,848.16 2922.28,848.41 2940.41,844.23 2950.32,839.39 2960.21,826.60 2964.23,819.89 2970.10,802.62 2970.61,788.53 2967.24,773.58 2956.78,756.86 2934.09,740.13 2870.59,708.72" spreadType="center" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2"/>
+    <edge id="34" from="1" to="15" priority="14" type="highway.motorway" numLanes="2" speed="39.44" shape="2870.59,708.72 2284.64,510.77 2089.87,450.31 1928.58,423.22 1460.78,398.56 1291.41,385.94 1146.05,367.53 981.67,328.11 832.81,281.72 659.65,223.00 640.15,216.24 0.00,0.00" spreadType="center" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2"/>
+    <edge id="72" from="12" to="1" priority="14" type="highway.motorway" numLanes="2" speed="39.44" shape="3234.57,836.94 3065.09,778.27 2987.10,751.22 2870.59,708.72" spreadType="center" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2"/>
+</edges>

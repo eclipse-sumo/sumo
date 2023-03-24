@@ -1,8 +1,0 @@
-Warning: Teleporting vehicle 'routeFlow_4.0'; waited too long (blocked), lane='gneE1_0', time=327.00.
-Warning: Vehicle 'routeFlow_4.0' teleports beyond arrival edge 'gneE1', time=327.00.
-Warning: Teleporting vehicle 'routeFlow_0.1'; waited too long (blocked), lane='gneE1_0', time=634.00.
-Warning: Vehicle 'routeFlow_0.1' teleports beyond arrival edge 'gneE1', time=634.00.
-Warning: Teleporting vehicle 'routeFlow_1.1'; waited too long (blocked), lane='gneE1_0', time=940.00.
-Warning: Vehicle 'routeFlow_1.1' teleports beyond arrival edge 'gneE1', time=940.00.
-Warning: Teleporting vehicle 'routeFlow_2.1'; waited too long (blocked), lane='gneE1_0', time=1245.00.
-Warning: Vehicle 'routeFlow_2.1' teleports beyond arrival edge 'gneE1', time=1245.00.

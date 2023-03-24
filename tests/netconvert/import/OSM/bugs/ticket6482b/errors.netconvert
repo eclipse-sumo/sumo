@@ -1,6 +1,5 @@
-Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.primary' (first occurence for edge '4380937').
-Warning: Discarding unknown compound 'cycleway.opposite' in type 'cycleway.opposite|highway.residential' (first occurence for edge '154755108').
-Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.secondary' (first occurence for edge '167324659').
+Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.primary' (first occurrence for edge '4380937').
+Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.secondary' (first occurrence for edge '167324659').
 Warning: Removing pt stop '2654726947' on non existing edge '260019022'.
 Warning: Removing pt stop '4040475723' on non existing edge '154743408'.
 Warning: No way found for reference '150031205' in relation '1967696'

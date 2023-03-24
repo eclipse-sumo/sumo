@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2015-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2015-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -299,7 +299,7 @@ int
 MSParkingArea::getLotIndex(const SUMOVehicle* veh) const {
     if (veh->getPositionOnLane() > myLastFreePos) {
         // vehicle has gone past myLastFreePos and we need to find the actual lot
-        int closestLot = 0;
+        int closestLot = -1;
         for (int i = 0; i < (int)mySpaceOccupancies.size(); i++) {
             const LotSpaceDefinition lsd = mySpaceOccupancies[i];
             if (lsd.vehicle == nullptr) {
@@ -309,8 +309,7 @@ MSParkingArea::getLotIndex(const SUMOVehicle* veh) const {
                 }
             }
         }
-        // for on-road parking we need to be precise
-        return myOnRoad ? -1 : closestLot;
+        return closestLot;
     }
     if (myOnRoad && myLastFreePos - veh->getPositionOnLane() > POSITION_EPS) {
         // for on-road parking we need to be precise

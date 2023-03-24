@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -87,19 +87,24 @@ PCLoaderArcView::toShape(OGRLineString* geom, const std::string& tid) {
             }
         }
         if (2 * outOfRange > geom->getNumPoints()) {
-            WRITE_WARNING("No coordinate system found and coordinates look already projected.");
+            WRITE_WARNING(TL("No coordinate system found and coordinates look already projected."));
             GeoConvHelper::init("!", GeoConvHelper::getProcessing().getOffset(), GeoConvHelper::getProcessing().getOrigBoundary(), GeoConvHelper::getProcessing().getConvBoundary());
         } else {
-            WRITE_WARNING("Could not find geo coordinate system, assuming WGS84.");
+            WRITE_WARNING(TL("Could not find geo coordinate system, assuming WGS84."));
         }
         myWarnMissingProjection = false;
     }
     GeoConvHelper& geoConvHelper = GeoConvHelper::getProcessing();
     PositionVector shape;
+#if GDAL_VERSION_MAJOR < 3
     for (int j = 0; j < geom->getNumPoints(); j++) {
         Position pos(geom->getX(j), geom->getY(j));
+#else
+    for (const OGRPoint& p : *geom) {
+        Position pos(p.getX(), p.getY());
+#endif
         if (!geoConvHelper.x2cartesian(pos)) {
-            WRITE_ERROR("Unable to project coordinates for polygon '" + tid + "'.");
+            WRITE_ERRORF(TL("Unable to project coordinates for polygon '%'."), tid);
         }
         shape.push_back_noDoublePos(pos);
     }
@@ -131,7 +136,7 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
     GDALDataset* poDS = (GDALDataset*) GDALOpenEx(shpName.c_str(), GDAL_OF_VECTOR | GA_ReadOnly, NULL, NULL, NULL);
 #endif
     if (poDS == NULL) {
-        throw ProcessError("Could not open shape description '" + shpName + "'.");
+        throw ProcessError(TLF("Could not open shape description '%'.", shpName));
     }
 
     // begin file parsing
@@ -176,7 +181,7 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
         ++runningID;
         id = StringUtils::latin1_to_utf8(StringUtils::prune(id));
         if (id == "") {
-            throw ProcessError("Missing id under '" + idField + "'");
+            throw ProcessError(TLF("Missing id under '%'", idField));
         }
         id = oc.getString("prefix") + id;
         std::string type;
@@ -224,7 +229,7 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
                 OGRPoint* cgeom = (OGRPoint*) poGeometry;
                 Position pos(cgeom->getX(), cgeom->getY());
                 if (!geoConvHelper.x2cartesian(pos)) {
-                    WRITE_ERROR("Unable to project coordinates for POI '" + id + "'.");
+                    WRITE_ERRORF(TL("Unable to project coordinates for POI '%'."), id);
                 }
                 PointOfInterest* poi = new PointOfInterest(id, type, color, pos, false, "", 0, false, 0, layer, angle, imgFile);
                 if (toFill.add(poi)) {
@@ -257,7 +262,7 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
                     Position pos(cgeom2->getX(), cgeom2->getY());
                     const std::string tid = id + "#" + toString(i);
                     if (!geoConvHelper.x2cartesian(pos)) {
-                        WRITE_ERROR("Unable to project coordinates for POI '" + tid + "'.");
+                        WRITE_ERRORF(TL("Unable to project coordinates for POI '%'."), tid);
                     }
                     PointOfInterest* poi = new PointOfInterest(tid, type, color, pos, false, "", 0, false, 0, layer, angle, imgFile);
                     if (toFill.add(poi)) {
@@ -292,7 +297,7 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
             }
             break;
             default:
-                WRITE_WARNING("Unsupported shape type occurred (id='" + id + "').");
+                WRITE_WARNINGF(TL("Unsupported shape type occurred (id='%')."), id);
                 break;
         }
         if (oc.getBool("shapefile.add-param")) {
@@ -323,7 +328,7 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
     UNUSED_PARAMETER(oc);
     UNUSED_PARAMETER(toFill);
     UNUSED_PARAMETER(tm);
-    WRITE_ERROR("SUMO was compiled without GDAL support.");
+    WRITE_ERROR(TL("SUMO was compiled without GDAL support."));
 #endif
 }
 

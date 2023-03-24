@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+
+    <netedit>
+        <new-network value="true"/>
+    </netedit>
+
+    <visualisation>
+        <gui-settings-file value="gui-settings.xml"/>
+        <window-size value="936, 697"/>
+        <window-pos value="50,50"/>
+        <gui-testing value="true"/>
+        <gui-testing.setting-output value="guisettingsoutput.xml"/>
+    </visualisation>
+
+    <report>
+        <no-warnings value="true"/>
+        <error-log value="log.txt"/>
+    </report>
+
+</configuration>

@@ -1,0 +1,14 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- routeProbe -->
+    <routeProbe id="myRouteProbe" edge="center0" period="3600" file="RouteProbeA.xml" begin="0.00"/>
+
+    <!-- non valid routeProbe (invalid ID) -->
+    <calibrator id="calibrator01" lane="center0_0" pos="26.00" period="120.00" routeProbe="%%$%$$$" output="calibrator01.txt"/>
+
+    <!-- valid routeProbe (empty ID) -->
+    <calibrator id="calibrator02" lane="center0_0" pos="26.00" period="120.00" routeProbe="" output="calibrator02.txt"/>
+
+    <!-- valid routeProbe -->
+    <calibrator id="calibrator03" lane="center0_0" pos="26.00" period="120.00" routeProbe="myRouteProbe" output="calibrator03.txt"/>
+
+</additional>

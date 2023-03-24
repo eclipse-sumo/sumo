@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -40,11 +40,11 @@
 
 GNELaneAreaDetector::GNELaneAreaDetector(SumoXMLTag tag, GNENet* net) :
     GNEDetector("", net, GLO_E2DETECTOR, tag, GUIIconSubSys::getIcon(GUIIcon::E2),
-        0, 0, {}, "", {}, "", false, Parameterised::Map()),
-    myEndPositionOverLane(0),
-    myTimeThreshold(0),
-    mySpeedThreshold(0),
-    myJamThreshold(0) {
+                0, 0, {}, "", {}, "", false, Parameterised::Map()),
+            myEndPositionOverLane(0),
+            myTimeThreshold(0),
+            mySpeedThreshold(0),
+myJamThreshold(0) {
     // reset default values
     resetDefaultValues();
 }
@@ -53,13 +53,15 @@ GNELaneAreaDetector::GNELaneAreaDetector(SumoXMLTag tag, GNENet* net) :
 GNELaneAreaDetector::GNELaneAreaDetector(const std::string& id, GNELane* lane, GNENet* net, double pos, double length, const SUMOTime freq,
         const std::string& trafficLight, const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name,
         SUMOTime timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, const Parameterised::Map& parameters) :
-    GNEDetector(id, net, GLO_E2DETECTOR, SUMO_TAG_LANE_AREA_DETECTOR, GUIIconSubSys::getIcon(GUIIcon::E2), 
-        pos, freq, {lane}, filename, vehicleTypes, name, friendlyPos, parameters),
-    myEndPositionOverLane(pos + length),
-    myTimeThreshold(timeThreshold),
-    mySpeedThreshold(speedThreshold),
-    myJamThreshold(jamThreshold),
-    myTrafficLight(trafficLight) {
+    GNEDetector(id, net, GLO_E2DETECTOR, SUMO_TAG_LANE_AREA_DETECTOR, GUIIconSubSys::getIcon(GUIIcon::E2),
+                pos, freq, {
+    lane
+}, filename, vehicleTypes, name, friendlyPos, parameters),
+myEndPositionOverLane(pos + length),
+myTimeThreshold(timeThreshold),
+mySpeedThreshold(speedThreshold),
+myJamThreshold(jamThreshold),
+myTrafficLight(trafficLight) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -68,8 +70,8 @@ GNELaneAreaDetector::GNELaneAreaDetector(const std::string& id, GNELane* lane, G
 GNELaneAreaDetector::GNELaneAreaDetector(const std::string& id, std::vector<GNELane*> lanes, GNENet* net, double pos, double endPos, const SUMOTime freq,
         const std::string& trafficLight, const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name, SUMOTime timeThreshold,
         double speedThreshold, double jamThreshold, bool friendlyPos, const Parameterised::Map& parameters) :
-    GNEDetector(id, net, GLO_E2DETECTOR, GNE_TAG_MULTI_LANE_AREA_DETECTOR, GUIIconSubSys::getIcon(GUIIcon::E2), 
-        pos, freq, lanes, filename, vehicleTypes, name, friendlyPos, parameters),
+    GNEDetector(id, net, GLO_E2DETECTOR, GNE_TAG_MULTI_LANE_AREA_DETECTOR, GUIIconSubSys::getIcon(GUIIcon::E2),
+                pos, freq, lanes, filename, vehicleTypes, name, friendlyPos, parameters),
     myEndPositionOverLane(endPos),
     myTimeThreshold(timeThreshold),
     mySpeedThreshold(speedThreshold),
@@ -169,35 +171,35 @@ GNELaneAreaDetector::getAdditionalProblem() const {
             errorFirstLanePosition = (toString(SUMO_ATTR_POSITION) + " < 0");
         }
         if (myPositionOverLane > getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength()) {
-            errorFirstLanePosition = (toString(SUMO_ATTR_POSITION) + " > lanes's length");
+            errorFirstLanePosition = (toString(SUMO_ATTR_POSITION) + TL(" > lanes's length"));
         }
     } else {
         // abort if lanes aren't consecutives
         if (!areLaneConsecutives(getParentLanes())) {
-            return "lanes aren't consecutives";
+            return TL("lanes aren't consecutives");
         }
         // abort if lanes aren't connected
         if (!areLaneConnected(getParentLanes())) {
-            return "lanes aren't connected";
+            return TL("lanes aren't connected");
         }
         // check positions over first lane
         if (myPositionOverLane < 0) {
             errorFirstLanePosition = (toString(SUMO_ATTR_POSITION) + " < 0");
         }
         if (myPositionOverLane > getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength()) {
-            errorFirstLanePosition = (toString(SUMO_ATTR_POSITION) + " > lanes's length");
+            errorFirstLanePosition = (toString(SUMO_ATTR_POSITION) + TL(" > lanes's length"));
         }
         // check positions over last lane
         if (myEndPositionOverLane < 0) {
             errorLastLanePosition = (toString(SUMO_ATTR_ENDPOS) + " < 0");
         }
         if (myEndPositionOverLane > getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength()) {
-            errorLastLanePosition = (toString(SUMO_ATTR_ENDPOS) + " > lanes's length");
+            errorLastLanePosition = (toString(SUMO_ATTR_ENDPOS) + TL(" > lanes's length"));
         }
     }
     // check separator
     if ((errorFirstLanePosition.size() > 0) && (errorLastLanePosition.size() > 0)) {
-        separator = " and ";
+        separator = TL(" and ");
     }
     // return error message
     return errorFirstLanePosition + separator + errorLastLanePosition;
@@ -274,8 +276,8 @@ GNELaneAreaDetector::updateGeometry() {
 void
 GNELaneAreaDetector::drawGL(const GUIVisualizationSettings& s) const {
     // check if additional has to be drawn
-    if ((myTagProperty.getTag() == SUMO_TAG_LANE_AREA_DETECTOR) && myNet->getViewNet()->getDataViewOptions().showAdditionals() && 
-        !myNet->getViewNet()->selectingDetectorsTLSMode()) {
+    if ((myTagProperty.getTag() == SUMO_TAG_LANE_AREA_DETECTOR) && myNet->getViewNet()->getDataViewOptions().showAdditionals() &&
+            !myNet->getViewNet()->selectingDetectorsTLSMode()) {
         // Obtain exaggeration of the draw
         const double E2Exaggeration = getExaggeration(s);
         // check exaggeration
@@ -290,32 +292,40 @@ GNELaneAreaDetector::drawGL(const GUIVisualizationSettings& s) const {
                 E2Color = s.detectorSettings.E2Color;
                 textColor = RGBColor::BLACK;
             }
-            // draw parent and child lines
-            drawParentChildLines(s, s.additionalSettings.connectionColor);
-            // Start drawing adding an gl identificator
-            GLHelper::pushName(getGlID());
-            // push layer matrix
-            GLHelper::pushMatrix();
-            // translate to front
-            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_E2DETECTOR);
-            // set color
-            GLHelper::setColor(E2Color);
-            // draw geometry
-            GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry, s.detectorSettings.E2Width * E2Exaggeration);
-            // Check if the distance is enought to draw details
-            if (s.drawDetail(s.detailSettings.detectorDetails, E2Exaggeration)) {
-                // draw E2 Logo
-                drawDetectorLogo(s, E2Exaggeration, "E2", textColor);
+            // avoid draw invisible elements
+            if (E2Color.alpha() != 0) {
+                // draw parent and child lines
+                drawParentChildLines(s, s.additionalSettings.connectionColor);
+                // Start drawing adding an gl identificator
+                GLHelper::pushName(getGlID());
+                // push layer matrix
+                GLHelper::pushMatrix();
+                // translate to front
+                myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_E2DETECTOR);
+                // set color
+                GLHelper::setColor(E2Color);
+                // draw geometry
+                GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry, s.detectorSettings.E2Width * E2Exaggeration);
+                // arrow
+                if (myAdditionalGeometry.getShape().size() > 1) {
+                    glTranslated(0, 0, 0.1);
+                    GLHelper::drawTriangleAtEnd(myAdditionalGeometry.getShape()[-2], myAdditionalGeometry.getShape()[-1], (double) 0.5, (double) 1, 0.5);
+                }
+                // Check if the distance is enought to draw details
+                if (s.drawDetail(s.detailSettings.detectorDetails, E2Exaggeration)) {
+                    // draw E2 Logo
+                    drawE2DetectorLogo(s, E2Exaggeration, "E2", textColor);
+                }
+                // draw geometry points
+                drawLeftGeometryPoint(myNet->getViewNet(), myAdditionalGeometry.getShape().front(), myAdditionalGeometry.getShapeRotations().front(), E2Color);
+                drawRightGeometryPoint(myNet->getViewNet(), myAdditionalGeometry.getShape().back(), myAdditionalGeometry.getShapeRotations().back(), E2Color);
+                // pop layer matrix
+                GLHelper::popMatrix();
+                // Pop name
+                GLHelper::popName();
+                // draw lock icon
+                GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myAdditionalGeometry.getShape().getCentroid(), E2Exaggeration);
             }
-            // draw geometry points
-            drawLeftGeometryPoint(myNet->getViewNet(), myAdditionalGeometry.getShape().front(), myAdditionalGeometry.getShapeRotations().front(), E2Color);
-            drawRightGeometryPoint(myNet->getViewNet(), myAdditionalGeometry.getShape().back(), myAdditionalGeometry.getShapeRotations().back(), E2Color);
-            // pop layer matrix
-            GLHelper::popMatrix();
-            // Pop name
-            GLHelper::popName();
-            // draw lock icon
-            GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myAdditionalGeometry.getShape().getCentroid(), E2Exaggeration);
             // check if mouse is over element
             mouseWithinGeometry(myAdditionalGeometry.getShape(), s.detectorSettings.E2Width);
             // inspect contour
@@ -359,8 +369,8 @@ GNELaneAreaDetector::drawPartialGL(const GUIVisualizationSettings& s, const GNEL
     // calculate E2Detector width
     const double E2DetectorWidth = s.addSize.getExaggeration(s, lane);
     // check if E2 can be drawn
-    if (s.drawAdditionals(E2DetectorWidth) && myNet->getViewNet()->getDataViewOptions().showAdditionals() && 
-        !myNet->getViewNet()->selectingDetectorsTLSMode()) {
+    if (s.drawAdditionals(E2DetectorWidth) && myNet->getViewNet()->getDataViewOptions().showAdditionals() &&
+            !myNet->getViewNet()->selectingDetectorsTLSMode()) {
         // calculate startPos
         const double geometryDepartPos = getAttributeDouble(SUMO_ATTR_POSITION);
         // get endPos
@@ -403,6 +413,11 @@ GNELaneAreaDetector::drawPartialGL(const GUIVisualizationSettings& s, const GNEL
             drawLeftGeometryPoint(myNet->getViewNet(), E2Geometry.getShape().front(), E2Geometry.getShapeRotations().front(), E2Color, true);
         } else if (segment->isLastSegment()) {
             drawRightGeometryPoint(myNet->getViewNet(), E2Geometry.getShape().back(), E2Geometry.getShapeRotations().back(), E2Color, true);
+            // draw arrow
+            if (E2Geometry.getShape().size() > 1) {
+                glTranslated(0, 0, 0.1);
+                GLHelper::drawTriangleAtEnd(E2Geometry.getShape()[-2], E2Geometry.getShape()[-1], (double) 0.5, (double) 1, 0.5);
+            }
         }
         // Pop layer matrix
         GLHelper::popMatrix();
@@ -418,13 +433,13 @@ GNELaneAreaDetector::drawPartialGL(const GUIVisualizationSettings& s, const GNEL
                 // calculate position
                 const Position pos = E2Geometry.getShape().positionAtOffset2D(middlePoint);
                 // calculate rotation
-                const double rot = E2Geometry.getShape().rotationDegreeAtOffset(middlePoint);
+                const double rot = s.getTextAngle((E2Geometry.getShape().rotationDegreeAtOffset(middlePoint) * -1) + 90);
                 // Start pushing matrix
                 GLHelper::pushMatrix();
                 // Traslate to position
                 glTranslated(pos.x(), pos.y(), getType() + offsetFront + 0.1);
-                // rotate over lane
-                GUIGeometry::rotateOverLane(rot);
+                // rotate
+                glRotated(rot, 0, 0, 1);
                 // move
                 glTranslated(-1, 0, 0);
                 // scale text

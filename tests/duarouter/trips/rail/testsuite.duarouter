@@ -6,3 +6,6 @@ reversal_impossible
 
 # ensure reversal check even for consecutive stop edges
 stop_reverse_stop
+
+# see #11835
+long_train

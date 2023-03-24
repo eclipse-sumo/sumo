@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Thu Aug 18 15:11:35 2022
+TraCITestClient output file. Date: Sun Feb 19 21:12:20 2023
 
 
 -> Command sent: <SetOrder>:
@@ -7,7 +7,7 @@ TraCITestClient output file. Date: Thu Aug 18 15:11:35 2022
 -> Command sent: <SimulationStep>:
 .. Command acknowledged (2), [description: ]
 testAPI:
-  getVersion: 20, SUMO v1_14_1+0349-ad09e910dd7
+  getVersion: 20, SUMO v1_16_0+0415-a857f4abbfa
   setOrder:
   edge:
     getIDList: :n_m1_0 :n_m2_0 :n_m3_0 :n_m4_0 :n_m4_2 :n_m4_4 :n_m4_7 :n_m5_0 :n_m5_2 :n_m5_4 :n_m6_0 :n_m6_2 :n_m6_4 :n_m7_0 :n_m7_3 :n_o0_0 :n_o1_0 :n_o1_3 :n_o2_0 :n_o2_3 :n_u0_0 :n_u1_0 :n_u1_2 :n_u2_0 :n_u2_2 :n_x1_0 e_m0 e_m1 e_m2 e_m3 e_m4 e_m5 e_m6 e_o0 e_o1 e_shape0 e_shape1 e_u0 e_u1 e_vo0 e_vo1 e_vo2 e_vu0 e_vu1 e_vu2 e_x0 e_x1
@@ -118,14 +118,14 @@ testAPI:
     getVehicleData:
   simulation:
     getOption: net.net.xml
-    convert2D: TraCIPosition(2508.05,491.75,-1.07374e+09)
-    convert2DGeo: TraCIPosition(12.0501,48.0917,-1.07374e+09)
+    convert2D: TraCIPosition(2508.05,491.75)
+    convert2DGeo: TraCIPosition(12.0501,48.0917)
     convert3D: TraCIPosition(2508.05,491.75,0)
     convert3DGeo: TraCIPosition(12.0501,48.0917,0)
     convertRoad: TraCIRoadPosition(:n_m5_0_1,3.02524)
     convertRoadBus: TraCIRoadPosition(:n_m5_0_1,3.02524)
-    convertGeo: TraCIPosition(12.05,48.0917,-1.07374e+09)
-    convertCartesian: TraCIPosition(16227.4,435082,-1.07374e+09)
+    convertGeo: TraCIPosition(12.05,48.0917)
+    convertCartesian: TraCIPosition(16227.4,435082)
     getDistance2D_air: 500.00
     getDistance2D_driving: 3367.88
     getDistanceRoad_air: 500.00

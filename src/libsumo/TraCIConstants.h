@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2007-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2007-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -51,6 +51,9 @@ TRACI_CONST int CMD_GETVERSION = 0x00;
 
 // command: load
 TRACI_CONST int CMD_LOAD = 0x01;
+
+// command: execute move (half step)
+TRACI_CONST int CMD_EXECUTEMOVE = 0x7d;
 
 // command: simulation step
 TRACI_CONST int CMD_SIMSTEP = 0x02;
@@ -590,11 +593,13 @@ TRACI_CONST int STOP_PARKING_AREA = 0x40;
 TRACI_CONST int STOP_OVERHEAD_WIRE = 0x80;
 
 // ****************************************
-// Departure Flags
+// Departure Flags (corresponding value from DepartDefinition, DepartLaneDefinition with a minus)
 // ****************************************
 TRACI_CONST int DEPARTFLAG_TRIGGERED = -0x01;
 TRACI_CONST int DEPARTFLAG_CONTAINER_TRIGGERED = -0x02;
 TRACI_CONST int DEPARTFLAG_NOW = -0x03;
+TRACI_CONST int DEPARTFLAG_SPLIT = -0x04;
+TRACI_CONST int DEPARTFLAG_BEGIN = -0x05;
 
 TRACI_CONST int DEPARTFLAG_SPEED_RANDOM = -0x02;
 TRACI_CONST int DEPARTFLAG_SPEED_MAX = -0x03;
@@ -637,6 +642,12 @@ TRACI_CONST int ROUTING_MODE_AGGREGATED_CUSTOM = 0x04;
 TRACI_CONST int TRAFFICLIGHT_TYPE_STATIC = 0x00;
 TRACI_CONST int TRAFFICLIGHT_TYPE_ACTUATED = 0x03;
 TRACI_CONST int TRAFFICLIGHT_TYPE_DELAYBASED = 0x04;
+
+// ****************************************
+// Lane change directions
+// ****************************************
+TRACI_CONST int LANECHANGE_LEFT = 0x00;
+TRACI_CONST int LANECHANGE_RIGHT = 0x01;
 
 // ****************************************
 // FILTER TYPES (for context subscription filters)
@@ -702,10 +713,10 @@ TRACI_CONST int LAST_STEP_MEAN_SPEED = 0x11;
 // last step vehicle list (get: induction loops, multi-entry/multi-exit detector, lanes, edges)
 TRACI_CONST int LAST_STEP_VEHICLE_ID_LIST = 0x12;
 
-// last step occupancy (get: induction loops, lanes, edges)
+// last step occupancy (get: e1, e2, lanes, edges)
 TRACI_CONST int LAST_STEP_OCCUPANCY = 0x13;
 
-// last step vehicle halting number (get: multi-entry/multi-exit detector, lanes, edges)
+// last step vehicle halting number (get: e2, e3, lanes, edges)
 TRACI_CONST int LAST_STEP_VEHICLE_HALTING_NUMBER = 0x14;
 
 // last step mean vehicle length (get: induction loops, lanes, edges)
@@ -714,19 +725,49 @@ TRACI_CONST int LAST_STEP_LENGTH = 0x15;
 // last step time since last detection (get: induction loops)
 TRACI_CONST int LAST_STEP_TIME_SINCE_DETECTION = 0x16;
 
-// entry times
+// entry times (get: inductionloop)
 TRACI_CONST int LAST_STEP_VEHICLE_DATA = 0x17;
 
-// last step jam length in vehicles
+// get aggregated occupancy (get: inductionloop, e2)
+TRACI_CONST int VAR_INTERVAL_OCCUPANCY = 0x23;
+
+// get aggregated speed (get: inductionloop, e2)
+TRACI_CONST int VAR_INTERVAL_SPEED = 0x24;
+
+// get aggregated vehicle count (get: inductionloop, e2)
+TRACI_CONST int VAR_INTERVAL_NUMBER = 0x25;
+
+// get aggregated vehicle ids (get: inductionloop)
+TRACI_CONST int VAR_INTERVAL_IDS = 0x26;
+
+// get aggregated speed of last written interval (get: inductionloop, e2)
+TRACI_CONST int VAR_LAST_INTERVAL_OCCUPANCY = 0x27;
+
+// get aggregated occupancy of last written interval (get: inductionloop, e2)
+TRACI_CONST int VAR_LAST_INTERVAL_SPEED = 0x28;
+
+// get aggregated vehicle count of last written interval (get: inductionloop, e2)
+TRACI_CONST int VAR_LAST_INTERVAL_NUMBER = 0x29;
+
+// get aggregated vehicle ids of last written interval (get: inductionloop)
+TRACI_CONST int VAR_LAST_INTERVAL_IDS = 0x2a;
+
+// last step jam length in vehicles (get: e2)
 TRACI_CONST int JAM_LENGTH_VEHICLE = 0x18;
 
-// last step jam length in meters
+// last step jam length in meters (get: e2)
 TRACI_CONST int JAM_LENGTH_METERS = 0x19;
+
+// get aggregated jam length (e2)
+TRACI_CONST int VAR_INTERVAL_MAX_JAM_LENGTH_METERS = 0x32;
+
+// get prior aggregated jam length (e2)
+TRACI_CONST int VAR_LAST_INTERVAL_MAX_JAM_LENGTH_METERS = 0x33;
 
 // last interval travel time (get: e3)
 TRACI_CONST int VAR_LAST_INTERVAL_TRAVELTIME = 0x58;
 
-// last step vehicle halting number (get: multi-entry/multi-exit detector)
+// last step vehicle halting number (get: e3)
 TRACI_CONST int VAR_LAST_INTERVAL_MEAN_HALTING_NUMBER = 0x20;
 
 // last interval vehicle count(get: e3)
@@ -863,6 +904,9 @@ TRACI_CONST int LANE_ALLOWED = 0x34;
 
 // list of not allowed vehicle classes (get&set: lanes)
 TRACI_CONST int LANE_DISALLOWED = 0x35;
+
+// list of allowed vehicle classes for lane changes (get&set: lanes)
+TRACI_CONST int LANE_CHANGES = 0x3c;
 
 // list of foe lanes (get: lanes)
 TRACI_CONST int VAR_FOES = 0x37;
@@ -1087,8 +1131,17 @@ TRACI_CONST int VAR_NOISEEMISSION = 0x66;
 // current person number (get: vehicle, trafficlight)
 TRACI_CONST int VAR_PERSON_NUMBER = 0x67;
 
-// person capacity (vehicle , vehicle type)
+// person capacity (vehicle, vehicle type)
 TRACI_CONST int VAR_PERSON_CAPACITY = 0x38;
+
+// departure time (vehicle, person)
+TRACI_CONST int VAR_DEPARTURE = 0x3a;
+
+// departure delay (vehicle, person)
+TRACI_CONST int VAR_DEPART_DELAY = 0x3b;
+
+// boarding time (get: vehicle type, vehicle, person)
+TRACI_CONST int VAR_BOARDING_DURATION = 0x2f;
 
 TRACI_CONST int VAR_BUS_STOP_ID_LIST = 0x9f;
 
@@ -1121,6 +1174,9 @@ TRACI_CONST int VAR_NEXT_STOPS = 0x73;
 
 // upcoming stops with selection (get: vehicle)
 TRACI_CONST int VAR_NEXT_STOPS2 = 0x74;
+
+// upcoming links(get: vehicle)
+TRACI_CONST int VAR_NEXT_LINKS = 0x33;
 
 // current acceleration (get,set: vehicle)
 TRACI_CONST int VAR_ACCELERATION = 0x72;
@@ -1260,6 +1316,12 @@ TRACI_CONST int CMD_LOAD_SIMSTATE = 0x96;
 // retrieve detail data for each collision
 TRACI_CONST int VAR_COLLISIONS = 0x23;
 
+// return loaded vehicles regardless of visibility (excluding arrived)
+TRACI_CONST int VAR_LOADED_LIST = 0x24;
+
+// return teleporting vehicles
+TRACI_CONST int VAR_TELEPORTING_LIST = 0x25;
+
 // sets/retrieves abstract parameter
 TRACI_CONST int VAR_PARAMETER = 0x7e;
 
@@ -1267,10 +1329,10 @@ TRACI_CONST int VAR_PARAMETER = 0x7e;
 TRACI_CONST int VAR_PARAMETER_WITH_KEY = 0x3e;
 
 
-// add an instance (poi, polygon, vehicle, person, route)
+// add an instance (poi, polygon, vehicle, person, route, gui)
 TRACI_CONST int ADD = 0x80;
 
-// remove an instance (poi, polygon, vehicle, person)
+// remove an instance (poi, polygon, vehicle, person, gui)
 TRACI_CONST int REMOVE = 0x81;
 
 // copy an instance (vehicle type, other TBD.)

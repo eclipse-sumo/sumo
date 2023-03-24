@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -34,10 +34,10 @@
 
 GNERerouter::GNERerouter(GNENet* net) :
     GNEAdditional("", net, GLO_REROUTER, SUMO_TAG_REROUTER, GUIIconSubSys::getIcon(GUIIcon::REROUTER), "",
-    {}, {}, {}, {}, {}, {}),
-    myProbability(0),
-    myOff(false),
-    myTimeThreshold(0) {
+{}, {}, {}, {}, {}, {}),
+myProbability(0),
+myOff(false),
+myTimeThreshold(0) {
     // reset default values
     resetDefaultValues();
 }
@@ -47,13 +47,13 @@ GNERerouter::GNERerouter(const std::string& id, GNENet* net, const Position& pos
                          double probability, bool off, SUMOTime timeThreshold, const std::vector<std::string>& vTypes,
                          const Parameterised::Map& parameters) :
     GNEAdditional(id, net, GLO_REROUTER, SUMO_TAG_REROUTER, GUIIconSubSys::getIcon(GUIIcon::REROUTER), name,
-    {}, {}, {}, {}, {}, {}),
-    Parameterised(parameters),
-    myPosition(pos),
-    myProbability(probability),
-    myOff(off),
-    myTimeThreshold(timeThreshold),
-    myVTypes(vTypes) {
+{}, {}, {}, {}, {}, {}),
+Parameterised(parameters),
+myPosition(pos),
+myProbability(probability),
+myOff(off),
+myTimeThreshold(timeThreshold),
+myVTypes(vTypes) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -93,6 +93,23 @@ GNERerouter::writeAdditional(OutputDevice& device) const {
     // write parameters (Always after children to avoid problems with additionals.xsd)
     writeParams(device);
     device.closeTag();
+}
+
+
+bool
+GNERerouter::isAdditionalValid() const {
+    return true;
+}
+
+
+std::string GNERerouter::getAdditionalProblem() const {
+    return "";
+}
+
+
+void
+GNERerouter::fixAdditionalProblem() {
+    // nothing to fix
 }
 
 

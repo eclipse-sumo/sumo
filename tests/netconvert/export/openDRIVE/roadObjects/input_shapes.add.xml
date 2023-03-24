@@ -1,0 +1,1057 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-11-16 15:21:23 by Eclipse SUMO netedit Version v1_15_0+0317-e3f2241
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- Shapes -->
+    <poly id="159958500" type="building.commercial" color="255,230,230" fill="1" layer="-1.00" shape="2587.494370,2161.524836 2620.823527,2119.963984 2622.781420,2121.334081 2624.397663,2119.518092 2643.352091,2136.304062 2668.063864,2154.699304 2666.149974,2157.178354 2632.157880,2201.312826 2618.170182,2189.057747 2586.093276,2167.253001 2589.120309,2162.924485 2587.494370,2161.524836">
+        <param key="building" value="commercial"/>
+        <param key="building:levels" value="6"/>
+        <param key="highway" value="pedestrian"/>
+        <param key="name" value="Alea 101"/>
+        <param key="note" value="outline of both building parts which are twisted against each other"/>
+        <param key="start_date" value="2014-09"/>
+        <param key="surface" value="paving_stones"/>
+        <param key="type" value="multipolygon"/>
+        <param key="wikidata" value="Q2640584"/>
+        <param key="wikipedia" value="de:Alea 101"/>
+    </poly>
+    <poly id="16603261" type="landuse.grass" color="194,194,130" fill="1" layer="-3.00" shape="2384.064569,2196.543022 2386.333690,2198.173221 2387.343179,2198.395755 2388.355036,2198.417941 2389.333620,2198.162672 2390.084552,2197.433940 2404.798792,2177.981034 2404.999040,2176.596798 2404.651711,2175.313661 2403.886533,2174.473718 2402.824641,2174.029784 2360.676991,2171.142968 2359.179929,2171.587726 2358.284893,2172.553323 2357.767263,2174.011331 2358.590672,2175.951613 2384.064569,2196.543022">
+        <param key="highway" value="pedestrian"/>
+        <param key="landuse" value="grass"/>
+        <param key="surface" value="paving_stones"/>
+        <param key="type" value="multipolygon"/>
+    </poly>
+    <poly id="170855131" type="building.yes" color="255,230,230" fill="1" layer="-1.00" shape="2085.164870,2115.116534 2133.077200,2153.348284 2174.467116,2101.980650 2141.947382,2075.926645 2117.544840,2056.280846 2085.164870,2115.116534">
+        <param key="area" value="yes"/>
+        <param key="building" value="yes"/>
+        <param key="highway" value="pedestrian"/>
+        <param key="name" value="DomAquarée"/>
+        <param key="operator" value="Union Investment"/>
+        <param key="type" value="multipolygon"/>
+        <param key="website" value="http://www.domaquaree.de"/>
+    </poly>
+    <poly id="171826989" type="landuse.grass" color="194,194,130" fill="1" layer="-3.00" shape="2287.189708,2165.465559 2290.081849,2167.949908 2288.101288,2170.475095 2293.128528,2174.358883 2298.524207,2177.099526 2358.807977,2224.552070 2416.700772,2270.132986 2473.293762,2314.686088 2478.939813,2307.551249 2304.176965,2169.964336 2300.699284,2166.168726 2296.856895,2163.071081 2294.403718,2161.100031 2292.800288,2163.182912 2291.028440,2161.942367 2290.082270,2161.206585 2287.189708,2165.465559">
+        <param key="landuse" value="grass"/>
+    </poly>
+    <poly id="171826996" type="landuse.grass" color="194,194,130" fill="1" layer="-3.00" shape="2189.934159,2124.594978 2182.164511,2118.869092 2133.125288,2183.146916 2130.079450,2181.389349 2086.771298,2238.040944 2097.398460,2243.458653 2189.934159,2124.594978">
+        <param key="landuse" value="grass"/>
+    </poly>
+    <poly id="171829341" type="landuse.grass" color="194,194,130" fill="1" layer="-3.00" shape="2287.642682,2155.240436 2233.636906,2113.046890 2231.554444,2114.339189 2229.841551,2114.232376 2228.052192,2116.809001 2237.601676,2123.830945 2279.201046,2158.420180 2279.525938,2159.915228 2282.247552,2161.746812 2287.642682,2155.240436">
+        <param key="area:highway" value="traffic_island"/>
+        <param key="landuse" value="grass"/>
+    </poly>
+    <poly id="173278836" type="amenity.shelter" color="237,199,199" fill="1" layer="-1.00" shape="2236.593930,2130.140295 2246.634110,2138.175152 2247.565414,2137.008437 2237.525479,2128.984700 2236.593930,2130.140295">
+        <param key="amenity" value="shelter"/>
+        <param key="shelter_type" value="public_transport"/>
+    </poly>
+    <poly id="194079582" type="building.yes" color="255,230,230" fill="1" layer="-1.00" shape="2168.753706,1948.846683 2164.136746,1962.001406 2199.462875,1974.340007 2204.079914,1961.185318 2168.753706,1948.846683">
+        <param key="building" value="yes"/>
+    </poly>
+    <poly id="199425799" type="building.yes" color="255,230,230" fill="1" layer="-1.00" shape="2307.096425,1923.424037 2306.556046,1921.700065 2304.824401,1919.824353 2302.196789,1919.181328 2300.140199,1919.805368 2298.640880,1921.073633 2297.786545,1922.961928 2297.994410,1925.305257 2295.677054,1925.801526 2296.107253,1927.761609 2297.950494,1930.079957 2299.800890,1931.185242 2302.175004,1931.722587 2305.238436,1931.198721 2307.699871,1929.542008 2309.100093,1927.474749 2309.718568,1924.434394 2309.483349,1923.004130 2307.096425,1923.424037">
+        <param key="building" value="yes"/>
+        <param key="source" value="Bing"/>
+    </poly>
+    <poly id="202156996" type="leisure.park" color="207,245,201" fill="1" layer="-2.00" shape="2483.045342,2237.613001 2510.553988,2225.834612 2486.313008,2206.639719 2483.045342,2237.613001">
+        <param key="highway" value="pedestrian"/>
+        <param key="leisure" value="park"/>
+        <param key="surface" value="paving_stones"/>
+        <param key="type" value="multipolygon"/>
+    </poly>
+    <poly id="234463917" type="building.residential" color="255,230,230" fill="1" layer="-1.00" shape="2272.403802,2219.148861 2269.299153,2216.569068 2272.758514,2211.852459 2271.566392,2211.044220 2279.517215,2200.397564 2324.598509,2235.945123 2388.737624,2286.517636 2393.358209,2281.207988 2407.927555,2292.737442 2400.980997,2301.837254 2389.607391,2316.709814 2297.289500,2244.448657 2290.961917,2239.770141 2283.230016,2249.877822 2281.612821,2247.955082 2279.977680,2249.215229 2263.965857,2231.709107 2266.799697,2228.174706 2266.120978,2227.254981 2272.403802,2219.148861">
+        <param key="building" value="residential"/>
+        <param key="building:levels" value="2"/>
+    </poly>
+    <poly id="23813204" type="amenity.fountain" color="237,199,199" fill="1" layer="-1.00" shape="2334.831475,2039.317498 2334.473944,2039.725982 2334.192516,2040.199552 2334.000025,2040.704542 2333.889685,2041.241101 2333.874576,2041.786686 2333.947667,2042.330323 2334.115252,2042.849620 2334.370299,2043.333604 2334.698751,2043.760330 2335.052376,2044.097479 2334.179616,2044.228019 2334.702767,2047.632637 2335.656942,2047.500301 2335.355652,2047.996564 2335.156376,2048.501703 2335.046037,2049.038263 2335.030928,2049.583847 2335.110803,2050.127335 2335.271603,2050.646782 2335.526650,2051.130766 2335.855101,2051.557492 2336.257200,2051.938081 2336.711857,2052.239618 2337.212042,2052.451130 2337.744433,2052.584037 2338.288428,2052.627668 2338.830214,2052.571199 2339.356467,2052.426053 2339.846833,2052.192678 2340.301558,2051.882197 2340.686964,2051.506481 2340.752600,2051.404884 2340.909404,2052.358395 2344.244638,2051.850807 2344.106470,2050.818992 2344.519683,2051.088062 2345.020114,2051.310696 2345.545719,2051.443754 2346.089469,2051.476264 2346.638286,2051.430768 2347.164539,2051.285623 2347.654905,2051.052249 2348.102846,2050.741919 2348.494792,2050.354931 2348.810880,2049.913979 2349.051355,2049.430187 2349.209433,2048.903702 2349.272036,2048.357069 2349.239655,2047.812533 2349.119319,2047.281065 2348.904489,2046.773938 2348.616011,2046.312946 2348.247345,2045.909362 2348.067754,2045.768667 2349.048331,2045.602368 2348.486200,2042.276502 2347.430501,2042.422204 2347.654550,2042.116815 2347.895026,2041.633022 2348.046320,2041.106687 2348.108923,2040.560054 2348.076541,2040.015518 2347.956205,2039.484050 2347.748160,2038.976773 2347.459681,2038.515782 2347.091014,2038.112198 2346.662758,2037.776695 2346.181943,2037.520245 2345.662139,2037.342548 2345.123945,2037.254278 2344.581175,2037.266257 2344.040124,2037.356092 2343.528421,2037.545426 2343.059389,2037.822840 2342.639322,2038.165939 2342.421075,2038.426690 2342.272775,2037.550884 2338.861919,2038.015632 2339.006626,2039.036175 2338.854664,2038.917125 2338.373849,2038.660676 2337.860830,2038.482831 2337.322635,2038.394561 2336.773081,2038.406691 2336.239060,2038.507499 2335.727357,2038.696834 2335.251296,2038.963276 2334.831475,2039.317498">
+        <param key="addr:city" value="Berlin"/>
+        <param key="addr:housenumber" value="10178"/>
+        <param key="addr:street" value="Spandauer Straße"/>
+        <param key="amenity" value="fountain"/>
+        <param key="highway" value="pedestrian"/>
+        <param key="name" value="Neptunbrunnen"/>
+        <param key="name:be" value="Фантан Няптун"/>
+        <param key="name:fr" value="Fontaine de Neptune"/>
+        <param key="name:ru" value="Фонтан Нептуна"/>
+        <param key="surface" value="paving_stones"/>
+        <param key="tourism" value="attraction"/>
+        <param key="type" value="multipolygon"/>
+        <param key="wheelchair" value="yes"/>
+        <param key="wikidata" value="Q650657"/>
+        <param key="wikipedia" value="de:Neptunbrunnen (Berlin)"/>
+    </poly>
+    <poly id="23813204#1" type="tourism.attraction" color="207,245,201" fill="1" layer="-2.00" shape="2334.831475,2039.317498 2334.473944,2039.725982 2334.192516,2040.199552 2334.000025,2040.704542 2333.889685,2041.241101 2333.874576,2041.786686 2333.947667,2042.330323 2334.115252,2042.849620 2334.370299,2043.333604 2334.698751,2043.760330 2335.052376,2044.097479 2334.179616,2044.228019 2334.702767,2047.632637 2335.656942,2047.500301 2335.355652,2047.996564 2335.156376,2048.501703 2335.046037,2049.038263 2335.030928,2049.583847 2335.110803,2050.127335 2335.271603,2050.646782 2335.526650,2051.130766 2335.855101,2051.557492 2336.257200,2051.938081 2336.711857,2052.239618 2337.212042,2052.451130 2337.744433,2052.584037 2338.288428,2052.627668 2338.830214,2052.571199 2339.356467,2052.426053 2339.846833,2052.192678 2340.301558,2051.882197 2340.686964,2051.506481 2340.752600,2051.404884 2340.909404,2052.358395 2344.244638,2051.850807 2344.106470,2050.818992 2344.519683,2051.088062 2345.020114,2051.310696 2345.545719,2051.443754 2346.089469,2051.476264 2346.638286,2051.430768 2347.164539,2051.285623 2347.654905,2051.052249 2348.102846,2050.741919 2348.494792,2050.354931 2348.810880,2049.913979 2349.051355,2049.430187 2349.209433,2048.903702 2349.272036,2048.357069 2349.239655,2047.812533 2349.119319,2047.281065 2348.904489,2046.773938 2348.616011,2046.312946 2348.247345,2045.909362 2348.067754,2045.768667 2349.048331,2045.602368 2348.486200,2042.276502 2347.430501,2042.422204 2347.654550,2042.116815 2347.895026,2041.633022 2348.046320,2041.106687 2348.108923,2040.560054 2348.076541,2040.015518 2347.956205,2039.484050 2347.748160,2038.976773 2347.459681,2038.515782 2347.091014,2038.112198 2346.662758,2037.776695 2346.181943,2037.520245 2345.662139,2037.342548 2345.123945,2037.254278 2344.581175,2037.266257 2344.040124,2037.356092 2343.528421,2037.545426 2343.059389,2037.822840 2342.639322,2038.165939 2342.421075,2038.426690 2342.272775,2037.550884 2338.861919,2038.015632 2339.006626,2039.036175 2338.854664,2038.917125 2338.373849,2038.660676 2337.860830,2038.482831 2337.322635,2038.394561 2336.773081,2038.406691 2336.239060,2038.507499 2335.727357,2038.696834 2335.251296,2038.963276 2334.831475,2039.317498">
+        <param key="addr:city" value="Berlin"/>
+        <param key="addr:housenumber" value="10178"/>
+        <param key="addr:street" value="Spandauer Straße"/>
+        <param key="amenity" value="fountain"/>
+        <param key="highway" value="pedestrian"/>
+        <param key="name" value="Neptunbrunnen"/>
+        <param key="name:be" value="Фантан Няптун"/>
+        <param key="name:fr" value="Fontaine de Neptune"/>
+        <param key="name:ru" value="Фонтан Нептуна"/>
+        <param key="surface" value="paving_stones"/>
+        <param key="tourism" value="attraction"/>
+        <param key="type" value="multipolygon"/>
+        <param key="wheelchair" value="yes"/>
+        <param key="wikidata" value="Q650657"/>
+        <param key="wikipedia" value="de:Neptunbrunnen (Berlin)"/>
+    </poly>
+    <poly id="23853131" type="building.apartments" color="255,230,230" fill="1" layer="-1.00" shape="2256.387405,2208.508581 2262.914137,2200.074361 2263.728699,2200.690641 2275.146275,2185.661031 2207.503346,2132.685904 2185.436125,2161.548973 2182.925920,2159.456834 2182.580305,2159.175156 2179.350478,2163.219101 2196.600634,2176.535875 2198.869338,2178.143744 2206.537623,2168.538077 2232.364767,2189.109787 2256.387405,2208.508581">
+        <param key="building" value="apartments"/>
+        <param key="building:levels" value="13"/>
+    </poly>
+    <poly id="23853219" type="building.yes" color="255,230,230" fill="1" layer="-1.00" shape="2499.948094,2245.997826 2542.570838,2302.832900 2567.605569,2272.737724 2527.668700,2226.280907 2499.948094,2245.997826">
+        <param key="building" value="yes"/>
+        <param key="building:colour" value="grey"/>
+        <param key="building:levels" value="6"/>
+        <param key="building:material" value="plaster"/>
+        <param key="roof:colour" value="grey"/>
+        <param key="roof:shape" value="flat"/>
+        <param key="type" value="multipolygon"/>
+    </poly>
+    <poly id="23853220" type="building.yes" color="255,230,230" fill="1" layer="-1.00" shape="2517.608347,2246.254019 2519.967134,2249.184227 2522.422101,2247.238444 2525.616651,2244.664348 2549.066218,2273.858283 2542.669619,2278.973228 2541.062052,2280.254933 2534.795042,2272.459060 2531.539938,2275.056739 2520.848135,2261.750088 2523.356145,2259.747499 2524.586567,2258.908073 2525.019058,2257.897063 2524.807943,2256.633172 2523.663934,2256.157641 2521.898453,2256.741795 2518.511504,2251.508582 2517.074689,2252.530598 2514.506823,2248.737049 2517.608347,2246.254019">
+        <param key="building" value="yes"/>
+        <param key="building:colour" value="grey"/>
+        <param key="building:levels" value="6"/>
+        <param key="building:material" value="plaster"/>
+        <param key="roof:colour" value="grey"/>
+        <param key="roof:shape" value="flat"/>
+        <param key="type" value="multipolygon"/>
+    </poly>
+    <poly id="25094154" type="building.yes" color="255,230,230" fill="1" layer="-1.00" shape="2490.311631,1975.699143 2531.834126,1920.871132 2544.316369,1930.377268 2629.148202,1993.972622 2646.299413,2006.836901 2674.313586,2027.830123 2680.705536,2032.663498 2649.642693,2073.929214 2664.074211,2084.750296 2653.858186,2098.305923 2603.889417,2060.837778 2593.384988,2052.968213 2550.524511,2020.841080 2544.802774,2016.549483 2490.311631,1975.699143">
+        <param key="addr:city" value="Berlin"/>
+        <param key="addr:country" value="DE"/>
+        <param key="addr:housenumber" value="1-14"/>
+        <param key="addr:postcode" value="10178"/>
+        <param key="addr:street" value="Rathausstraße"/>
+        <param key="addr:suburb" value="Mitte"/>
+        <param key="building" value="yes"/>
+        <param key="building:levels" value="12"/>
+        <param key="contact:website" value="http://www.rathauspassagen-berlin.de"/>
+        <param key="name" value="RathausPassagen"/>
+        <param key="shop" value="mall"/>
+        <param key="start_date" value="1869"/>
+        <param key="wheelchair" value="yes"/>
+        <param key="wikidata" value="Q2132669"/>
+        <param key="wikipedia" value="de:Rathauspassagen"/>
+    </poly>
+    <poly id="25094154#1" type="shop.mall" color="237,199,255" fill="1" layer="-1.00" shape="2490.311631,1975.699143 2531.834126,1920.871132 2544.316369,1930.377268 2629.148202,1993.972622 2646.299413,2006.836901 2674.313586,2027.830123 2680.705536,2032.663498 2649.642693,2073.929214 2664.074211,2084.750296 2653.858186,2098.305923 2603.889417,2060.837778 2593.384988,2052.968213 2550.524511,2020.841080 2544.802774,2016.549483 2490.311631,1975.699143">
+        <param key="addr:city" value="Berlin"/>
+        <param key="addr:country" value="DE"/>
+        <param key="addr:housenumber" value="1-14"/>
+        <param key="addr:postcode" value="10178"/>
+        <param key="addr:street" value="Rathausstraße"/>
+        <param key="addr:suburb" value="Mitte"/>
+        <param key="building" value="yes"/>
+        <param key="building:levels" value="12"/>
+        <param key="contact:website" value="http://www.rathauspassagen-berlin.de"/>
+        <param key="name" value="RathausPassagen"/>
+        <param key="shop" value="mall"/>
+        <param key="start_date" value="1869"/>
+        <param key="wheelchair" value="yes"/>
+        <param key="wikidata" value="Q2132669"/>
+        <param key="wikipedia" value="de:Rathauspassagen"/>
+    </poly>
+    <poly id="26037504" type="landuse.village_green" color="242,242,204" fill="1" layer="-3.00" shape="2515.893822,2080.046010 2472.681190,2100.315881 2411.804171,2054.599791 2370.310909,2022.043444 2411.923564,1989.845836 2460.246640,2021.840233 2469.593137,2010.117153 2498.204887,2031.085094 2518.514260,2045.559594 2515.893822,2080.046010">
+        <param key="landuse" value="village_green"/>
+    </poly>
+    <poly id="263824801" type="leisure.pitch" color="207,245,201" fill="1" layer="-2.00" shape="2480.619210,2061.962222 2476.973659,2049.624221 2501.868797,2042.410096 2505.340830,2054.885469 2480.619210,2061.962222">
+        <param key="leisure" value="pitch"/>
+        <param key="sport" value="volleyball"/>
+    </poly>
+    <poly id="263824801#1" type="sport.volleyball" color="79,230,125" fill="1" layer="-2.00" shape="2480.619210,2061.962222 2476.973659,2049.624221 2501.868797,2042.410096 2505.340830,2054.885469 2480.619210,2061.962222">
+        <param key="leisure" value="pitch"/>
+        <param key="sport" value="volleyball"/>
+    </poly>
+    <poly id="27530362" type="landuse.grass" color="194,194,130" fill="1" layer="-3.00" shape="2539.981799,2087.961088 2552.513899,2096.976521 2554.027316,2081.865341 2539.981799,2087.961088">
+        <param key="highway" value="pedestrian"/>
+        <param key="landuse" value="grass"/>
+        <param key="surface" value="paving_stones"/>
+        <param key="type" value="multipolygon"/>
+    </poly>
+    <poly id="27530366" type="landuse.grass" color="194,194,130" fill="1" layer="-3.00" shape="2437.170373,2238.657853 2451.393520,2232.023750 2439.219573,2222.622344 2437.170373,2238.657853">
+        <param key="highway" value="pedestrian"/>
+        <param key="landuse" value="grass"/>
+        <param key="surface" value="paving_stones"/>
+        <param key="type" value="multipolygon"/>
+    </poly>
+    <poly id="27530367" type="landuse.grass" color="194,194,130" fill="1" layer="-3.00" shape="2447.487680,2251.282679 2463.372806,2262.460582 2465.331838,2243.255717 2447.487680,2251.282679">
+        <param key="highway" value="pedestrian"/>
+        <param key="landuse" value="grass"/>
+        <param key="surface" value="paving_stones"/>
+        <param key="type" value="multipolygon"/>
+    </poly>
+    <poly id="27530369" type="landuse.grass" color="194,194,130" fill="1" layer="-3.00" shape="2567.344958,2108.055584 2569.718169,2086.059770 2587.536813,2099.031543 2567.344958,2108.055584">
+        <param key="highway" value="pedestrian"/>
+        <param key="landuse" value="grass"/>
+        <param key="surface" value="paving_stones"/>
+        <param key="type" value="multipolygon"/>
+    </poly>
+    <poly id="27530599" type="landuse.grass" color="194,194,130" fill="1" layer="-3.00" shape="2377.612772,2082.560982 2375.674883,2100.252071 2392.076364,2093.269300 2377.612772,2082.560982">
+        <param key="highway" value="pedestrian"/>
+        <param key="landuse" value="grass"/>
+        <param key="surface" value="paving_stones"/>
+        <param key="type" value="multipolygon"/>
+    </poly>
+    <poly id="27530600" type="landuse.grass" color="194,194,130" fill="1" layer="-3.00" shape="2309.380507,2054.245033 2311.912207,2033.636505 2292.815783,2041.847442 2309.380507,2054.245033">
+        <param key="highway" value="pedestrian"/>
+        <param key="landuse" value="grass"/>
+        <param key="surface" value="paving_stones"/>
+        <param key="type" value="multipolygon"/>
+    </poly>
+    <poly id="27530601" type="landuse.grass" color="194,194,130" fill="1" layer="-3.00" shape="2321.209099,2020.912742 2340.026007,2012.641324 2323.402867,2000.367321 2321.209099,2020.912742">
+        <param key="highway" value="pedestrian"/>
+        <param key="landuse" value="grass"/>
+        <param key="surface" value="paving_stones"/>
+        <param key="type" value="multipolygon"/>
+    </poly>
+    <poly id="27530602" type="amenity.fountain" color="237,199,199" fill="1" layer="-1.00" shape="2433.268359,2146.362819 2435.733398,2125.789220 2408.295545,2105.407774 2405.540750,2125.765229 2433.268359,2146.362819">
+        <param key="amenity" value="fountain"/>
+        <param key="barrier" value="kerb"/>
+        <param key="highway" value="pedestrian"/>
+        <param key="surface" value="paving_stones"/>
+        <param key="type" value="multipolygon"/>
+    </poly>
+    <poly id="27530603" type="amenity.fountain" color="237,199,199" fill="1" layer="-1.00" shape="2445.246621,2113.327986 2464.647563,2105.077545 2436.467918,2084.300575 2417.548639,2092.540503 2445.246621,2113.327986">
+        <param key="amenity" value="fountain"/>
+        <param key="barrier" value="kerb"/>
+        <param key="highway" value="pedestrian"/>
+        <param key="surface" value="paving_stones"/>
+        <param key="type" value="multipolygon"/>
+    </poly>
+    <poly id="27530604" type="landuse.grass" color="194,194,130" fill="1" layer="-3.00" shape="2384.761449,2068.148838 2386.841866,2050.454611 2370.557548,2057.523829 2384.761449,2068.148838">
+        <param key="highway" value="pedestrian"/>
+        <param key="landuse" value="grass"/>
+        <param key="surface" value="paving_stones"/>
+        <param key="type" value="multipolygon"/>
+    </poly>
+    <poly id="27530606" type="landuse.grass" color="194,194,130" fill="1" layer="-3.00" shape="2404.117885,2079.416901 2406.081555,2061.658494 2420.517511,2072.345250 2404.117885,2079.416901">
+        <param key="highway" value="pedestrian"/>
+        <param key="landuse" value="grass"/>
+        <param key="surface" value="paving_stones"/>
+        <param key="type" value="multipolygon"/>
+    </poly>
+    <poly id="27530608" type="landuse.grass" color="194,194,130" fill="1" layer="-3.00" shape="2372.695747,2036.912896 2370.751800,2054.637502 2387.132095,2047.610678 2372.695747,2036.912896">
+        <param key="highway" value="pedestrian"/>
+        <param key="landuse" value="grass"/>
+        <param key="surface" value="paving_stones"/>
+        <param key="type" value="multipolygon"/>
+    </poly>
+    <poly id="27530609" type="landuse.grass" color="194,194,130" fill="1" layer="-3.00" shape="2341.804669,2078.466181 2356.194127,2088.886716 2358.277620,2071.337063 2341.804669,2078.466181">
+        <param key="highway" value="pedestrian"/>
+        <param key="landuse" value="grass"/>
+        <param key="surface" value="paving_stones"/>
+        <param key="type" value="multipolygon"/>
+    </poly>
+    <poly id="27530610" type="landuse.grass" color="194,194,130" fill="1" layer="-3.00" shape="2373.100949,2101.421621 2358.757829,2090.944379 2375.111740,2083.651030 2373.100949,2101.421621">
+        <param key="highway" value="pedestrian"/>
+        <param key="landuse" value="grass"/>
+        <param key="surface" value="paving_stones"/>
+        <param key="type" value="multipolygon"/>
+    </poly>
+    <poly id="27530611" type="landuse.grass" color="194,194,130" fill="1" layer="-3.00" shape="2389.619249,2113.887261 2391.741994,2095.958422 2375.257478,2103.176705 2389.619249,2113.887261">
+        <param key="highway" value="pedestrian"/>
+        <param key="landuse" value="grass"/>
+        <param key="surface" value="paving_stones"/>
+        <param key="type" value="multipolygon"/>
+    </poly>
+    <poly id="27530620" type="landuse.grass" color="194,194,130" fill="1" layer="-3.00" shape="2360.870694,2070.111445 2358.928527,2087.913912 2375.355694,2080.863754 2360.870694,2070.111445">
+        <param key="highway" value="pedestrian"/>
+        <param key="landuse" value="grass"/>
+        <param key="surface" value="paving_stones"/>
+        <param key="type" value="multipolygon"/>
+    </poly>
+    <poly id="27530622" type="landuse.grass" color="194,194,130" fill="1" layer="-3.00" shape="2387.047386,2069.923327 2401.448213,2080.555165 2403.344027,2062.798254 2387.047386,2069.923327">
+        <param key="highway" value="pedestrian"/>
+        <param key="landuse" value="grass"/>
+        <param key="surface" value="paving_stones"/>
+        <param key="type" value="multipolygon"/>
+    </poly>
+    <poly id="27530624" type="landuse.grass" color="194,194,130" fill="1" layer="-3.00" shape="2387.316523,2067.046476 2389.395478,2049.285517 2403.907855,2060.048434 2387.316523,2067.046476">
+        <param key="highway" value="pedestrian"/>
+        <param key="landuse" value="grass"/>
+        <param key="surface" value="paving_stones"/>
+        <param key="type" value="multipolygon"/>
+    </poly>
+    <poly id="27530703" type="landuse.village_green" color="242,242,204" fill="1" layer="-3.00" shape="2332.417691,1984.701002 2347.059272,1994.537320 2358.496697,1999.136534 2371.625711,1963.806107 2351.842332,1950.132896 2327.117347,1980.444861 2332.417691,1984.701002">
+        <param key="highway" value="pedestrian"/>
+        <param key="landuse" value="village_green"/>
+        <param key="surface" value="paving_stones"/>
+        <param key="type" value="multipolygon"/>
+    </poly>
+    <poly id="27530704" type="leisure.park" color="207,245,201" fill="1" layer="-2.00" shape="2270.978126,2048.260691 2293.952111,2065.334924 2250.637708,2084.040038 2244.762821,2079.585254 2270.978126,2048.260691">
+        <param key="highway" value="pedestrian"/>
+        <param key="leisure" value="park"/>
+        <param key="surface" value="paving_stones"/>
+        <param key="type" value="multipolygon"/>
+    </poly>
+    <poly id="27530706" type="leisure.park" color="207,245,201" fill="1" layer="-2.00" shape="2300.898031,2074.951570 2323.421953,2091.635278 2309.974188,2128.174682 2269.749628,2098.361937 2300.898031,2074.951570">
+        <param key="highway" value="pedestrian"/>
+        <param key="leisure" value="park"/>
+        <param key="surface" value="paving_stones"/>
+        <param key="type" value="multipolygon"/>
+    </poly>
+    <poly id="294487999" type="building.yes" color="255,230,230" fill="1" layer="-1.00" shape="2546.715668,2087.668080 2549.015402,2086.682704 2551.016732,2088.174219 2550.718328,2090.651111 2548.425380,2091.636338 2546.424050,2090.144823 2546.715668,2087.668080">
+        <param key="building" value="yes"/>
+    </poly>
+    <poly id="304987175" type="building.yes" color="255,230,230" fill="1" layer="-1.00" shape="2531.905671,2184.759634 2545.101516,2194.027478 2550.918002,2191.228726 2554.649965,2171.450732 2520.331118,2146.802623 2493.021283,2158.075818 2489.833969,2187.155634 2524.144685,2212.671655 2540.553187,2204.476316 2541.377541,2198.760842 2533.189441,2192.809959 2527.851638,2189.299985 2520.608421,2183.105750 2519.028466,2183.485520 2517.644200,2183.504896 2516.287239,2183.223227 2515.025917,2182.661262 2513.901675,2181.851469 2512.982847,2180.814599 2512.304827,2179.616636 2511.895487,2178.290349 2511.776896,2176.913145 2511.957311,2175.551606 2512.417113,2174.239548 2513.151478,2173.066098 2514.113897,2172.076792 2515.264398,2171.305892 2516.786160,2170.749362 2518.397668,2170.569192 2520.004922,2170.811964 2521.505172,2171.435431 2522.802702,2172.408321 2523.814628,2173.665693 2524.485204,2175.142010 2524.764734,2176.738219 2524.637444,2178.354521 2531.905671,2184.759634">
+        <param key="building" value="yes"/>
+        <param key="building:part" value="yes"/>
+        <param key="ele" value="3"/>
+        <param key="type" value="multipolygon"/>
+    </poly>
+    <poly id="304987177" type="building.yes" color="255,230,230" fill="1" layer="-1.00" shape="2544.902226,2124.284319 2559.093491,2117.105998 2546.866773,2107.160235 2531.766578,2095.575295 2517.474553,2085.552703 2515.815153,2102.658949 2485.508598,2116.257109 2463.618575,2125.830887 2482.768839,2140.697995 2485.662863,2141.424260 2476.198590,2145.638809 2475.598512,2151.672051 2472.720837,2152.302995 2454.163613,2136.933237 2450.718527,2161.701271 2447.542923,2195.610230 2431.233921,2202.156810 2444.757616,2211.817752 2459.639195,2223.652048 2473.442893,2234.319501 2474.563493,2217.414276 2477.184785,2193.454476 2483.713028,2190.306125 2518.725821,2215.339276 2533.605075,2227.385265 2541.357199,2223.408840 2557.406067,2234.939518 2560.365572,2211.217132 2563.167614,2210.543394 2563.232499,2207.326100 2568.958237,2205.030108 2586.212559,2198.251750 2569.159160,2186.108831 2570.552131,2176.931297 2555.615178,2165.965838 2521.006539,2140.489540 2521.727259,2133.151723 2544.902226,2124.284319">
+        <param key="building" value="yes"/>
+        <param key="building:part" value="yes"/>
+        <param key="ele" value="3"/>
+        <param key="type" value="multipolygon"/>
+    </poly>
+    <poly id="332637422" type="amenity.toilets" color="237,199,199" fill="1" layer="-1.00" shape="2470.361305,2069.287734 2473.864995,2071.803219 2475.281262,2069.846929 2471.770786,2067.331593 2470.361305,2069.287734">
+        <param key="access" value="public"/>
+        <param key="amenity" value="toilets"/>
+        <param key="fee" value="yes"/>
+        <param key="toilets:wheelchair" value="yes"/>
+        <param key="wheelchair" value="yes"/>
+    </poly>
+    <poly id="474111581" type="amenity.place_of_worship" color="237,199,199" fill="1" layer="-1.00" shape="2352.845884,2134.016159 2352.485729,2141.379435 2350.977121,2141.301454 2345.758297,2141.038298 2344.879976,2140.301009 2343.971034,2140.944215 2329.646034,2140.203288 2329.394729,2145.116097 2328.642201,2159.609688 2328.457401,2163.230230 2342.788873,2163.959880 2343.531993,2164.722408 2344.304259,2164.037709 2350.957031,2164.380490 2350.876061,2165.940138 2352.153745,2166.012087 2352.233979,2164.419073 2358.913887,2164.761266 2358.828094,2166.410041 2360.098993,2166.482142 2360.190835,2164.799851 2366.857173,2165.142355 2366.771622,2166.802251 2368.021923,2166.863682 2368.113767,2165.181391 2374.793673,2165.523606 2374.701580,2167.194774 2375.958910,2167.267179 2376.043482,2165.562794 2382.737200,2165.915843 2382.652871,2167.631350 2383.889602,2167.693083 2383.980226,2165.955183 2390.578469,2166.288093 2390.472643,2168.260008 2391.818170,2168.330471 2391.923751,2166.347434 2402.157067,2166.844972 2402.405498,2161.798701 2404.644195,2161.126173 2405.299768,2162.536041 2406.618479,2162.006211 2405.956367,2160.607614 2407.881168,2158.628958 2409.169808,2158.889850 2409.534197,2157.869203 2407.914015,2157.348563 2408.177994,2153.314559 2409.673680,2153.114654 2409.446594,2152.051416 2407.903908,2152.274614 2406.661671,2149.809440 2407.356536,2148.692482 2406.285647,2148.148598 2405.654296,2149.375431 2403.039653,2148.698688 2403.287884,2147.335648 2402.130844,2147.194258 2401.853513,2148.468919 2399.559052,2148.152325 2399.629744,2147.049136 2398.471318,2147.152584 2398.420489,2148.233079 2392.868502,2147.943841 2393.107123,2143.376272 2393.183286,2141.905752 2391.953333,2141.843866 2391.872349,2143.403513 2384.621539,2143.029360 2384.986808,2135.588082 2376.948004,2135.186815 2368.365947,2134.775293 2360.646746,2134.400383 2352.845884,2134.016159">
+        <param key="addr:housenumber" value="8"/>
+        <param key="addr:postcode" value="10178"/>
+        <param key="addr:street" value="Karl-Liebknecht-Straße"/>
+        <param key="amenity" value="place_of_worship"/>
+        <param key="building" value="church"/>
+        <param key="denomination" value="protestant"/>
+        <param key="highway" value="pedestrian"/>
+        <param key="name" value="St. Marienkirche"/>
+        <param key="name:en" value="Saint Mary&apos;s Church"/>
+        <param key="name:et" value="Berliini Maria kirik"/>
+        <param key="name:pl" value="Kościół Mariacki w Berlinie"/>
+        <param key="name:ru" value="Церковь Св. Марии"/>
+        <param key="note" value="Multiple start-dates due to restorations. See Wikipedia"/>
+        <param key="opening_hours" value="Mo-Su 10:00-18:00"/>
+        <param key="religion" value="christian"/>
+        <param key="start_date" value="~1270;1663..1666;1893..1895;1969..1970"/>
+        <param key="surface" value="paving_stones"/>
+        <param key="tourism" value="attraction"/>
+        <param key="type" value="multipolygon"/>
+        <param key="website" value="http://www.marienkirche-Berlin.de"/>
+        <param key="wheelchair" value="no"/>
+        <param key="wikidata" value="Q679101"/>
+        <param key="wikipedia" value="de:Marienkirche (Berlin-Mitte)"/>
+    </poly>
+    <poly id="474111581#1" type="building.church" color="255,230,230" fill="1" layer="-1.00" shape="2352.845884,2134.016159 2352.485729,2141.379435 2350.977121,2141.301454 2345.758297,2141.038298 2344.879976,2140.301009 2343.971034,2140.944215 2329.646034,2140.203288 2329.394729,2145.116097 2328.642201,2159.609688 2328.457401,2163.230230 2342.788873,2163.959880 2343.531993,2164.722408 2344.304259,2164.037709 2350.957031,2164.380490 2350.876061,2165.940138 2352.153745,2166.012087 2352.233979,2164.419073 2358.913887,2164.761266 2358.828094,2166.410041 2360.098993,2166.482142 2360.190835,2164.799851 2366.857173,2165.142355 2366.771622,2166.802251 2368.021923,2166.863682 2368.113767,2165.181391 2374.793673,2165.523606 2374.701580,2167.194774 2375.958910,2167.267179 2376.043482,2165.562794 2382.737200,2165.915843 2382.652871,2167.631350 2383.889602,2167.693083 2383.980226,2165.955183 2390.578469,2166.288093 2390.472643,2168.260008 2391.818170,2168.330471 2391.923751,2166.347434 2402.157067,2166.844972 2402.405498,2161.798701 2404.644195,2161.126173 2405.299768,2162.536041 2406.618479,2162.006211 2405.956367,2160.607614 2407.881168,2158.628958 2409.169808,2158.889850 2409.534197,2157.869203 2407.914015,2157.348563 2408.177994,2153.314559 2409.673680,2153.114654 2409.446594,2152.051416 2407.903908,2152.274614 2406.661671,2149.809440 2407.356536,2148.692482 2406.285647,2148.148598 2405.654296,2149.375431 2403.039653,2148.698688 2403.287884,2147.335648 2402.130844,2147.194258 2401.853513,2148.468919 2399.559052,2148.152325 2399.629744,2147.049136 2398.471318,2147.152584 2398.420489,2148.233079 2392.868502,2147.943841 2393.107123,2143.376272 2393.183286,2141.905752 2391.953333,2141.843866 2391.872349,2143.403513 2384.621539,2143.029360 2384.986808,2135.588082 2376.948004,2135.186815 2368.365947,2134.775293 2360.646746,2134.400383 2352.845884,2134.016159">
+        <param key="addr:housenumber" value="8"/>
+        <param key="addr:postcode" value="10178"/>
+        <param key="addr:street" value="Karl-Liebknecht-Straße"/>
+        <param key="amenity" value="place_of_worship"/>
+        <param key="building" value="church"/>
+        <param key="denomination" value="protestant"/>
+        <param key="highway" value="pedestrian"/>
+        <param key="name" value="St. Marienkirche"/>
+        <param key="name:en" value="Saint Mary&apos;s Church"/>
+        <param key="name:et" value="Berliini Maria kirik"/>
+        <param key="name:pl" value="Kościół Mariacki w Berlinie"/>
+        <param key="name:ru" value="Церковь Св. Марии"/>
+        <param key="note" value="Multiple start-dates due to restorations. See Wikipedia"/>
+        <param key="opening_hours" value="Mo-Su 10:00-18:00"/>
+        <param key="religion" value="christian"/>
+        <param key="start_date" value="~1270;1663..1666;1893..1895;1969..1970"/>
+        <param key="surface" value="paving_stones"/>
+        <param key="tourism" value="attraction"/>
+        <param key="type" value="multipolygon"/>
+        <param key="website" value="http://www.marienkirche-Berlin.de"/>
+        <param key="wheelchair" value="no"/>
+        <param key="wikidata" value="Q679101"/>
+        <param key="wikipedia" value="de:Marienkirche (Berlin-Mitte)"/>
+    </poly>
+    <poly id="474111581#2" type="tourism.attraction" color="207,245,201" fill="1" layer="-2.00" shape="2352.845884,2134.016159 2352.485729,2141.379435 2350.977121,2141.301454 2345.758297,2141.038298 2344.879976,2140.301009 2343.971034,2140.944215 2329.646034,2140.203288 2329.394729,2145.116097 2328.642201,2159.609688 2328.457401,2163.230230 2342.788873,2163.959880 2343.531993,2164.722408 2344.304259,2164.037709 2350.957031,2164.380490 2350.876061,2165.940138 2352.153745,2166.012087 2352.233979,2164.419073 2358.913887,2164.761266 2358.828094,2166.410041 2360.098993,2166.482142 2360.190835,2164.799851 2366.857173,2165.142355 2366.771622,2166.802251 2368.021923,2166.863682 2368.113767,2165.181391 2374.793673,2165.523606 2374.701580,2167.194774 2375.958910,2167.267179 2376.043482,2165.562794 2382.737200,2165.915843 2382.652871,2167.631350 2383.889602,2167.693083 2383.980226,2165.955183 2390.578469,2166.288093 2390.472643,2168.260008 2391.818170,2168.330471 2391.923751,2166.347434 2402.157067,2166.844972 2402.405498,2161.798701 2404.644195,2161.126173 2405.299768,2162.536041 2406.618479,2162.006211 2405.956367,2160.607614 2407.881168,2158.628958 2409.169808,2158.889850 2409.534197,2157.869203 2407.914015,2157.348563 2408.177994,2153.314559 2409.673680,2153.114654 2409.446594,2152.051416 2407.903908,2152.274614 2406.661671,2149.809440 2407.356536,2148.692482 2406.285647,2148.148598 2405.654296,2149.375431 2403.039653,2148.698688 2403.287884,2147.335648 2402.130844,2147.194258 2401.853513,2148.468919 2399.559052,2148.152325 2399.629744,2147.049136 2398.471318,2147.152584 2398.420489,2148.233079 2392.868502,2147.943841 2393.107123,2143.376272 2393.183286,2141.905752 2391.953333,2141.843866 2391.872349,2143.403513 2384.621539,2143.029360 2384.986808,2135.588082 2376.948004,2135.186815 2368.365947,2134.775293 2360.646746,2134.400383 2352.845884,2134.016159">
+        <param key="addr:housenumber" value="8"/>
+        <param key="addr:postcode" value="10178"/>
+        <param key="addr:street" value="Karl-Liebknecht-Straße"/>
+        <param key="amenity" value="place_of_worship"/>
+        <param key="building" value="church"/>
+        <param key="denomination" value="protestant"/>
+        <param key="highway" value="pedestrian"/>
+        <param key="name" value="St. Marienkirche"/>
+        <param key="name:en" value="Saint Mary&apos;s Church"/>
+        <param key="name:et" value="Berliini Maria kirik"/>
+        <param key="name:pl" value="Kościół Mariacki w Berlinie"/>
+        <param key="name:ru" value="Церковь Св. Марии"/>
+        <param key="note" value="Multiple start-dates due to restorations. See Wikipedia"/>
+        <param key="opening_hours" value="Mo-Su 10:00-18:00"/>
+        <param key="religion" value="christian"/>
+        <param key="start_date" value="~1270;1663..1666;1893..1895;1969..1970"/>
+        <param key="surface" value="paving_stones"/>
+        <param key="tourism" value="attraction"/>
+        <param key="type" value="multipolygon"/>
+        <param key="website" value="http://www.marienkirche-Berlin.de"/>
+        <param key="wheelchair" value="no"/>
+        <param key="wikidata" value="Q679101"/>
+        <param key="wikipedia" value="de:Marienkirche (Berlin-Mitte)"/>
+    </poly>
+    <poly id="504412401" type="leisure.playground" color="207,245,201" fill="1" layer="-2.00" shape="2566.473999,2160.040465 2570.272769,2125.416854 2538.312844,2139.451696 2566.473999,2160.040465">
+        <param key="highway" value="pedestrian"/>
+        <param key="leisure" value="playground"/>
+        <param key="surface" value="paved"/>
+        <param key="type" value="multipolygon"/>
+    </poly>
+    <poly id="554841836" type="amenity.bench" color="237,199,199" fill="0" layer="-1.00" shape="2566.361848,2240.617596 2577.007140,2236.099016">
+        <param key="amenity" value="bench"/>
+        <param key="backrest" value="no"/>
+    </poly>
+    <poly id="554841837" type="amenity.bench" color="237,199,199" fill="0" layer="-1.00" shape="2569.202635,2242.936321 2579.767982,2238.486274">
+        <param key="amenity" value="bench"/>
+        <param key="backrest" value="no"/>
+    </poly>
+    <poly id="556435241" type="building.yes" color="255,230,230" fill="1" layer="-1.00" shape="2520.045527,2192.676731 2522.681640,2192.173540 2525.187547,2191.306010 2527.574857,2189.984865 2529.546772,2188.294536 2531.320637,2186.241363 2532.663900,2184.053019 2533.652828,2181.494146 2534.252593,2178.832571 2534.267674,2176.128242 2533.865797,2173.600012 2532.986558,2170.971025 2531.781987,2168.671905 2530.128005,2166.616366 2528.126622,2164.813289 2525.786337,2163.340379 2523.348774,2162.381482 2520.723039,2161.816197 2518.018663,2161.686621 2515.311013,2162.024477 2512.825200,2162.880441 2510.408291,2164.090969 2508.338940,2165.672177 2506.469358,2167.694086 2504.998913,2169.963133 2504.490808,2170.931301 2503.720387,2173.240559 2503.256815,2175.921391 2503.246654,2178.848164 2503.799275,2181.439835 2504.735911,2183.900639 2506.075689,2186.174518 2507.830952,2188.205562 2509.884893,2189.929579 2512.236533,2191.302083 2514.706046,2192.171250 2517.362747,2192.602318 2520.045527,2192.676731">
+        <param key="alt_name" value="Fernmeldeturm 32"/>
+        <param key="building" value="yes"/>
+        <param key="building:part" value="no"/>
+        <param key="communication:microwave" value="yes"/>
+        <param key="communication:radio" value="yes"/>
+        <param key="communication:television" value="yes"/>
+        <param key="communications_transponder:service" value="DAB+"/>
+        <param key="ele" value="40"/>
+        <param key="height" value="368.03"/>
+        <param key="layer" value="2"/>
+        <param key="man_made" value="communications_tower"/>
+        <param key="name" value="Berliner Fernsehturm"/>
+        <param key="name:af" value="Televisietoring van Berlyn"/>
+        <param key="name:be" value="Берлінская тэлевежа"/>
+        <param key="name:da" value="Berlins Fjernsynstårn"/>
+        <param key="name:de" value="Berliner Fernsehturm"/>
+        <param key="name:en" value="Fernsehturm Berlin"/>
+        <param key="name:et" value="Berliini teletorn"/>
+        <param key="name:fa" value="فهرست برج‌ها"/>
+        <param key="name:fi" value="Berliinin televisiotorni"/>
+        <param key="name:fr" value="Tour de la télévision"/>
+        <param key="name:he" value="מגדל הטלוויזיה של ברלין"/>
+        <param key="name:hr" value="Televizijski toranj Berlin"/>
+        <param key="name:hu" value="Berlini tévétorony"/>
+        <param key="name:is" value="Sjónvarpsturninn í Berlín"/>
+        <param key="name:ja" value="ベルリンテレビ塔"/>
+        <param key="name:ko" value="베를린 텔레비전탑"/>
+        <param key="name:lb" value="Berliner Fernsehtuerm"/>
+        <param key="name:lt" value="Berlyno TV bokštas"/>
+        <param key="name:no" value="Berlins fjernsynstårn"/>
+        <param key="name:pl" value="Berlińska Wieża Telewizyjna"/>
+        <param key="name:ro" value="Turnul de televiziune din Berlin"/>
+        <param key="name:ru" value="Берлинская телебашня"/>
+        <param key="name:sr" value="Берлински телевизијски торањ"/>
+        <param key="name:ta" value="பேர்லின் தொலைக்காட்சிக் கோபுரம்"/>
+        <param key="name:zh" value="柏林电视塔"/>
+        <param key="note" value="Berliner Fernsehturm: Outline object of building relation of the Fernsehturm has been set slightly larger than the large sphere tower for easier selection and maintenance, and to encompass all parts."/>
+        <param key="operator" value="Deutsche Funkturm GmbH"/>
+        <param key="seamark:landmark:category" value="tower"/>
+        <param key="seamark:landmark:function" value="communication"/>
+        <param key="seamark:light:category" value="vertical"/>
+        <param key="seamark:light:character" value="F"/>
+        <param key="seamark:light:colour" value="red"/>
+        <param key="seamark:light:height" value="205"/>
+        <param key="seamark:light:range" value="8"/>
+        <param key="seamark:name" value="Fernsehturm"/>
+        <param key="seamark:type" value="landmark"/>
+        <param key="start_date" value="1969"/>
+        <param key="toilets:wheelchair" value="no"/>
+        <param key="tourism" value="attraction"/>
+        <param key="tower:type" value="communication"/>
+        <param key="viewpoint" value="yes"/>
+        <param key="website" value="http://www.tv-turm.de/"/>
+        <param key="wheelchair" value="no"/>
+        <param key="wikidata" value="Q151356"/>
+        <param key="wikipedia" value="de:Berliner Fernsehturm"/>
+    </poly>
+    <poly id="556435241#1" type="man_made.communications_tower" color="255,230,230" fill="1" layer="-1.00" shape="2520.045527,2192.676731 2522.681640,2192.173540 2525.187547,2191.306010 2527.574857,2189.984865 2529.546772,2188.294536 2531.320637,2186.241363 2532.663900,2184.053019 2533.652828,2181.494146 2534.252593,2178.832571 2534.267674,2176.128242 2533.865797,2173.600012 2532.986558,2170.971025 2531.781987,2168.671905 2530.128005,2166.616366 2528.126622,2164.813289 2525.786337,2163.340379 2523.348774,2162.381482 2520.723039,2161.816197 2518.018663,2161.686621 2515.311013,2162.024477 2512.825200,2162.880441 2510.408291,2164.090969 2508.338940,2165.672177 2506.469358,2167.694086 2504.998913,2169.963133 2504.490808,2170.931301 2503.720387,2173.240559 2503.256815,2175.921391 2503.246654,2178.848164 2503.799275,2181.439835 2504.735911,2183.900639 2506.075689,2186.174518 2507.830952,2188.205562 2509.884893,2189.929579 2512.236533,2191.302083 2514.706046,2192.171250 2517.362747,2192.602318 2520.045527,2192.676731">
+        <param key="alt_name" value="Fernmeldeturm 32"/>
+        <param key="building" value="yes"/>
+        <param key="building:part" value="no"/>
+        <param key="communication:microwave" value="yes"/>
+        <param key="communication:radio" value="yes"/>
+        <param key="communication:television" value="yes"/>
+        <param key="communications_transponder:service" value="DAB+"/>
+        <param key="ele" value="40"/>
+        <param key="height" value="368.03"/>
+        <param key="layer" value="2"/>
+        <param key="man_made" value="communications_tower"/>
+        <param key="name" value="Berliner Fernsehturm"/>
+        <param key="name:af" value="Televisietoring van Berlyn"/>
+        <param key="name:be" value="Берлінская тэлевежа"/>
+        <param key="name:da" value="Berlins Fjernsynstårn"/>
+        <param key="name:de" value="Berliner Fernsehturm"/>
+        <param key="name:en" value="Fernsehturm Berlin"/>
+        <param key="name:et" value="Berliini teletorn"/>
+        <param key="name:fa" value="فهرست برج‌ها"/>
+        <param key="name:fi" value="Berliinin televisiotorni"/>
+        <param key="name:fr" value="Tour de la télévision"/>
+        <param key="name:he" value="מגדל הטלוויזיה של ברלין"/>
+        <param key="name:hr" value="Televizijski toranj Berlin"/>
+        <param key="name:hu" value="Berlini tévétorony"/>
+        <param key="name:is" value="Sjónvarpsturninn í Berlín"/>
+        <param key="name:ja" value="ベルリンテレビ塔"/>
+        <param key="name:ko" value="베를린 텔레비전탑"/>
+        <param key="name:lb" value="Berliner Fernsehtuerm"/>
+        <param key="name:lt" value="Berlyno TV bokštas"/>
+        <param key="name:no" value="Berlins fjernsynstårn"/>
+        <param key="name:pl" value="Berlińska Wieża Telewizyjna"/>
+        <param key="name:ro" value="Turnul de televiziune din Berlin"/>
+        <param key="name:ru" value="Берлинская телебашня"/>
+        <param key="name:sr" value="Берлински телевизијски торањ"/>
+        <param key="name:ta" value="பேர்லின் தொலைக்காட்சிக் கோபுரம்"/>
+        <param key="name:zh" value="柏林电视塔"/>
+        <param key="note" value="Berliner Fernsehturm: Outline object of building relation of the Fernsehturm has been set slightly larger than the large sphere tower for easier selection and maintenance, and to encompass all parts."/>
+        <param key="operator" value="Deutsche Funkturm GmbH"/>
+        <param key="seamark:landmark:category" value="tower"/>
+        <param key="seamark:landmark:function" value="communication"/>
+        <param key="seamark:light:category" value="vertical"/>
+        <param key="seamark:light:character" value="F"/>
+        <param key="seamark:light:colour" value="red"/>
+        <param key="seamark:light:height" value="205"/>
+        <param key="seamark:light:range" value="8"/>
+        <param key="seamark:name" value="Fernsehturm"/>
+        <param key="seamark:type" value="landmark"/>
+        <param key="start_date" value="1969"/>
+        <param key="toilets:wheelchair" value="no"/>
+        <param key="tourism" value="attraction"/>
+        <param key="tower:type" value="communication"/>
+        <param key="viewpoint" value="yes"/>
+        <param key="website" value="http://www.tv-turm.de/"/>
+        <param key="wheelchair" value="no"/>
+        <param key="wikidata" value="Q151356"/>
+        <param key="wikipedia" value="de:Berliner Fernsehturm"/>
+    </poly>
+    <poly id="556435241#2" type="tourism.attraction" color="207,245,201" fill="1" layer="-2.00" shape="2520.045527,2192.676731 2522.681640,2192.173540 2525.187547,2191.306010 2527.574857,2189.984865 2529.546772,2188.294536 2531.320637,2186.241363 2532.663900,2184.053019 2533.652828,2181.494146 2534.252593,2178.832571 2534.267674,2176.128242 2533.865797,2173.600012 2532.986558,2170.971025 2531.781987,2168.671905 2530.128005,2166.616366 2528.126622,2164.813289 2525.786337,2163.340379 2523.348774,2162.381482 2520.723039,2161.816197 2518.018663,2161.686621 2515.311013,2162.024477 2512.825200,2162.880441 2510.408291,2164.090969 2508.338940,2165.672177 2506.469358,2167.694086 2504.998913,2169.963133 2504.490808,2170.931301 2503.720387,2173.240559 2503.256815,2175.921391 2503.246654,2178.848164 2503.799275,2181.439835 2504.735911,2183.900639 2506.075689,2186.174518 2507.830952,2188.205562 2509.884893,2189.929579 2512.236533,2191.302083 2514.706046,2192.171250 2517.362747,2192.602318 2520.045527,2192.676731">
+        <param key="alt_name" value="Fernmeldeturm 32"/>
+        <param key="building" value="yes"/>
+        <param key="building:part" value="no"/>
+        <param key="communication:microwave" value="yes"/>
+        <param key="communication:radio" value="yes"/>
+        <param key="communication:television" value="yes"/>
+        <param key="communications_transponder:service" value="DAB+"/>
+        <param key="ele" value="40"/>
+        <param key="height" value="368.03"/>
+        <param key="layer" value="2"/>
+        <param key="man_made" value="communications_tower"/>
+        <param key="name" value="Berliner Fernsehturm"/>
+        <param key="name:af" value="Televisietoring van Berlyn"/>
+        <param key="name:be" value="Берлінская тэлевежа"/>
+        <param key="name:da" value="Berlins Fjernsynstårn"/>
+        <param key="name:de" value="Berliner Fernsehturm"/>
+        <param key="name:en" value="Fernsehturm Berlin"/>
+        <param key="name:et" value="Berliini teletorn"/>
+        <param key="name:fa" value="فهرست برج‌ها"/>
+        <param key="name:fi" value="Berliinin televisiotorni"/>
+        <param key="name:fr" value="Tour de la télévision"/>
+        <param key="name:he" value="מגדל הטלוויזיה של ברלין"/>
+        <param key="name:hr" value="Televizijski toranj Berlin"/>
+        <param key="name:hu" value="Berlini tévétorony"/>
+        <param key="name:is" value="Sjónvarpsturninn í Berlín"/>
+        <param key="name:ja" value="ベルリンテレビ塔"/>
+        <param key="name:ko" value="베를린 텔레비전탑"/>
+        <param key="name:lb" value="Berliner Fernsehtuerm"/>
+        <param key="name:lt" value="Berlyno TV bokštas"/>
+        <param key="name:no" value="Berlins fjernsynstårn"/>
+        <param key="name:pl" value="Berlińska Wieża Telewizyjna"/>
+        <param key="name:ro" value="Turnul de televiziune din Berlin"/>
+        <param key="name:ru" value="Берлинская телебашня"/>
+        <param key="name:sr" value="Берлински телевизијски торањ"/>
+        <param key="name:ta" value="பேர்லின் தொலைக்காட்சிக் கோபுரம்"/>
+        <param key="name:zh" value="柏林电视塔"/>
+        <param key="note" value="Berliner Fernsehturm: Outline object of building relation of the Fernsehturm has been set slightly larger than the large sphere tower for easier selection and maintenance, and to encompass all parts."/>
+        <param key="operator" value="Deutsche Funkturm GmbH"/>
+        <param key="seamark:landmark:category" value="tower"/>
+        <param key="seamark:landmark:function" value="communication"/>
+        <param key="seamark:light:category" value="vertical"/>
+        <param key="seamark:light:character" value="F"/>
+        <param key="seamark:light:colour" value="red"/>
+        <param key="seamark:light:height" value="205"/>
+        <param key="seamark:light:range" value="8"/>
+        <param key="seamark:name" value="Fernsehturm"/>
+        <param key="seamark:type" value="landmark"/>
+        <param key="start_date" value="1969"/>
+        <param key="toilets:wheelchair" value="no"/>
+        <param key="tourism" value="attraction"/>
+        <param key="tower:type" value="communication"/>
+        <param key="viewpoint" value="yes"/>
+        <param key="website" value="http://www.tv-turm.de/"/>
+        <param key="wheelchair" value="no"/>
+        <param key="wikidata" value="Q151356"/>
+        <param key="wikipedia" value="de:Berliner Fernsehturm"/>
+    </poly>
+    <poly id="565537149" type="amenity.bench" color="237,199,199" fill="1" layer="-1.00" shape="2592.117185,2198.221868 2583.148304,2191.642698 2581.826863,2203.144313 2592.117185,2198.221868">
+        <param key="amenity" value="bench"/>
+        <param key="area" value="no"/>
+        <param key="backrest" value="no"/>
+    </poly>
+    <poly id="565537150" type="amenity.bench" color="237,199,199" fill="1" layer="-1.00" shape="2560.382230,2240.938479 2561.761387,2229.902942 2551.073673,2234.344596 2560.382230,2240.938479">
+        <param key="amenity" value="bench"/>
+        <param key="area" value="no"/>
+        <param key="backrest" value="no"/>
+    </poly>
+    <poly id="565537151" type="landuse.grass" color="194,194,130" fill="1" layer="-3.00" shape="2349.830932,2173.329659 2347.424736,2172.870897 2344.319026,2176.700565 2381.531772,2206.035088 2383.862785,2203.702504 2384.232058,2201.980710 2383.865354,2200.742513 2349.830932,2173.329659">
+        <param key="highway" value="pedestrian"/>
+        <param key="landuse" value="grass"/>
+        <param key="surface" value="paving_stones"/>
+        <param key="type" value="multipolygon"/>
+    </poly>
+    <poly id="565537152" type="landuse.grass" color="194,194,130" fill="1" layer="-3.00" shape="2386.778454,2210.025402 2390.184903,2212.442823 2426.259045,2196.947550 2430.547556,2162.724711 2425.610088,2158.905572 2415.493295,2173.538911 2391.319737,2204.194509 2386.778454,2210.025402">
+        <param key="highway" value="pedestrian"/>
+        <param key="landuse" value="grass"/>
+        <param key="surface" value="paving_stones"/>
+        <param key="type" value="multipolygon"/>
+    </poly>
+    <poly id="574993701" type="landuse.grass" color="194,194,130" fill="1" layer="-3.00" shape="2497.345049,2281.874835 2514.025723,2297.130305 2524.445236,2286.685588 2520.457125,2281.276453 2517.001614,2283.711645 2515.591387,2283.475661 2507.858134,2273.520003 2511.408155,2269.213291 2509.905656,2267.254569 2502.430298,2273.005358 2497.345049,2281.874835">
+        <param key="highway" value="pedestrian"/>
+        <param key="landuse" value="grass"/>
+        <param key="surface" value="paving_stones"/>
+        <param key="type" value="multipolygon"/>
+    </poly>
+    <poly id="574993702" type="landuse.grass" color="194,194,130" fill="1" layer="-3.00" shape="2488.764323,2282.742752 2495.221043,2274.199119 2507.790616,2264.296739 2496.210892,2248.895471 2478.866693,2261.128646 2476.982826,2276.971322 2507.463845,2300.902505 2510.080432,2301.979850 2510.112740,2299.442053 2488.764323,2282.742752">
+        <param key="highway" value="pedestrian"/>
+        <param key="landuse" value="grass"/>
+        <param key="surface" value="paving_stones"/>
+        <param key="type" value="multipolygon"/>
+    </poly>
+    <poly id="574993715" type="landuse.residential" color="235,235,227" fill="1" layer="-3.00" shape="2437.379206,1830.416203 2439.435768,1827.633475 2439.851445,1827.090187 2440.426855,1826.710290 2441.082294,1826.573434 2441.703889,1826.748897 2522.092261,1889.094041 2522.483729,1889.608411 2522.937072,1890.466372 2523.059842,1891.109065 2523.074377,1892.076842 2522.999653,1892.690504 2522.725795,1893.508850 2522.491589,1893.970240 2460.585079,1972.226090 2459.770586,1972.844935 2458.683233,1973.403031 2457.447027,1973.675092 2455.546328,1973.672487 2453.917509,1972.762555 2381.429987,1916.531299 2380.279579,1915.154606 2379.675720,1914.244340 2378.954385,1912.624502 2378.385259,1911.134837 2378.243158,1909.001479 2378.405073,1907.417792 2378.894535,1905.604327 2379.709178,1903.761432 2382.291368,1900.499724 2437.379206,1830.416203">
+        <param key="landuse" value="residential"/>
+        <param key="type" value="multipolygon"/>
+    </poly>
+    <poi id="1296844663" type="amenity.bicycle_rental" color="237,199,199" layer="4.00" x="2280.53" y="2109.74">
+        <param key="amenity" value="bicycle_rental"/>
+        <param key="name" value="Karl-Liebknecht-Straße/Spandauer Straße"/>
+        <param key="network" value="call-a-bike"/>
+        <param key="operator" value="Deutsche Bahn"/>
+        <param key="ref" value="1161"/>
+        <param key="source" value="website;gps"/>
+    </poi>
+    <poi id="1818862981" type="shop.supermarket" color="237,199,255" layer="4.00" x="2520.78" y="2268.85">
+        <param key="addr:city" value="Berlin"/>
+        <param key="addr:country" value="DE"/>
+        <param key="addr:housename" value="Asia Mekong"/>
+        <param key="addr:housenumber" value="1"/>
+        <param key="addr:postcode" value="10178"/>
+        <param key="addr:street" value="Panoramastraße"/>
+        <param key="addr:suburb" value="Mitte"/>
+        <param key="contact:website" value="http://www.asia-mekong.de/"/>
+        <param key="cuisine" value="asian"/>
+        <param key="name" value="Asia-Mekong"/>
+        <param key="opening_hours" value="Mo-Sa 10:00-20:00"/>
+        <param key="shop" value="supermarket"/>
+        <param key="source" value="local knowledge"/>
+        <param key="wheelchair" value="limited"/>
+    </poi>
+    <poi id="1827996461" type="natural.tree" color="140,196,107" layer="1.00" x="2180.99" y="2133.09">
+        <param key="leaf_cycle" value="deciduous"/>
+        <param key="leaf_type" value="broadleaved"/>
+        <param key="natural" value="tree"/>
+    </poi>
+    <poi id="1827996462" type="natural.tree" color="140,196,107" layer="1.00" x="2221.62" y="2133.89">
+        <param key="leaf_cycle" value="deciduous"/>
+        <param key="leaf_type" value="broadleaved"/>
+        <param key="natural" value="tree"/>
+    </poi>
+    <poi id="1827996615" type="natural.tree" color="140,196,107" layer="1.00" x="2295.03" y="2191.18">
+        <param key="denotation" value="avenue"/>
+        <param key="leaf_cycle" value="deciduous"/>
+        <param key="leaf_type" value="broadleaved"/>
+        <param key="natural" value="tree"/>
+    </poi>
+    <poi id="2418372191" type="man_made.surveillance" color="255,230,230" layer="4.00" x="2524.51" y="2173.33">
+        <param key="contact:webcam" value="https://tv-turm.de/fileadmin/webcam/image.jpg"/>
+        <param key="description" value="Webcam mit Ausblick vom Berliner Fernsehturm"/>
+        <param key="man_made" value="surveillance"/>
+        <param key="note:position" value="irgendwo da oben wohl"/>
+        <param key="source" value="webpage"/>
+        <param key="surveillance" value="webcam"/>
+        <param key="website" value="https://www.tv-turm.de/de/besuch-planen/webcam/"/>
+    </poi>
+    <poi id="2468502495" type="historic.stone" color="128,255,128" layer="4.00" x="2326.29" y="2161.19">
+        <param key="format" value="stone_cross"/>
+        <param key="heritage" value="yes"/>
+        <param key="historic" value="stone"/>
+        <param key="image" value="http://commons.wikimedia.org/wiki/File:RK_0901_1184_Marienkirche.jpg"/>
+        <param key="stone_type" value="conciliation_cross"/>
+        <param key="website" value="http://www.suehnekreuz.de/berlin/berlin.htm#1"/>
+    </poi>
+    <poi id="2589577521" type="tourism.artwork" color="207,245,201" layer="3.00" x="2519.02" y="2164.82">
+        <param key="animal" value="bear"/>
+        <param key="artwork:group" value="berlin_baer"/>
+        <param key="artwork_type" value="sculpture"/>
+        <param key="name" value="Alex 35"/>
+        <param key="sponsor" value="TV Turm GmbH"/>
+        <param key="tourism" value="artwork"/>
+        <param key="wheelchair" value="limited"/>
+    </poi>
+    <poi id="2589577587" type="tourism.artwork" color="207,245,201" layer="3.00" x="2500.44" y="2102.50">
+        <param key="animal" value="bear"/>
+        <param key="artwork:group" value="berlin_bears"/>
+        <param key="artwork_type" value="sculpture"/>
+        <param key="name" value="Mio"/>
+        <param key="tourism" value="artwork"/>
+    </poi>
+    <poi id="2667343940" type="amenity.restaurant" color="237,199,199" layer="4.00" x="2533.90" y="2224.05">
+        <param key="amenity" value="restaurant"/>
+        <param key="contact:website" value="http://momotaro-tavern.com/"/>
+        <param key="cuisine" value="burger;asian"/>
+        <param key="name" value="Momotaro Tavern"/>
+        <param key="opening_hours" value="Mo-Th,Su 12:00-23:00; Fr,Sa 12:00-24:00"/>
+        <param key="wheelchair" value="yes"/>
+    </poi>
+    <poi id="308410291" type="amenity.fast_food" color="237,199,199" layer="4.00" x="2536.39" y="2238.74">
+        <param key="amenity" value="fast_food"/>
+        <param key="cuisine" value="sandwich"/>
+        <param key="diet:pescetarian" value="yes"/>
+        <param key="diet:vegan" value="no"/>
+        <param key="diet:vegetarian" value="no"/>
+        <param key="name" value="Subway"/>
+        <param key="toilets:wheelchair" value="yes"/>
+        <param key="wheelchair" value="no"/>
+    </poi>
+    <poi id="3376076333" type="amenity.casino" color="237,199,199" layer="4.00" x="2508.39" y="2122.53">
+        <param key="addr:city" value="Berlin"/>
+        <param key="addr:country" value="DE"/>
+        <param key="addr:housenumber" value="1"/>
+        <param key="addr:postcode" value="10178"/>
+        <param key="addr:street" value="Panoramastraße"/>
+        <param key="addr:suburb" value="Mitte"/>
+        <param key="amenity" value="casino"/>
+        <param key="contact:phone" value="030 2063099 0"/>
+        <param key="name" value="Spielbank Alexanderplatz"/>
+    </poi>
+    <poi id="3379224620" type="shop.bakery" color="237,199,255" layer="4.00" x="2535.93" y="2154.64">
+        <param key="name" value="Thürmann"/>
+        <param key="shop" value="bakery"/>
+        <param key="survey:date" value="2016-09-07"/>
+        <param key="toilets:wheelchair" value="no"/>
+        <param key="wheelchair" value="yes"/>
+    </poi>
+    <poi id="3676215899" type="tourism.museum" color="207,245,201" layer="3.00" x="2486.08" y="2151.93">
+        <param key="addr:city" value="Berlin"/>
+        <param key="addr:country" value="DE"/>
+        <param key="addr:housenumber" value="1A"/>
+        <param key="addr:postcode" value="10178"/>
+        <param key="addr:street" value="Panoramastraße"/>
+        <param key="addr:suburb" value="Mitte"/>
+        <param key="brand" value="Körperwelten"/>
+        <param key="contact:email" value="memu@MeMu.berlin"/>
+        <param key="contact:phone" value="+49 30 847125526"/>
+        <param key="contact:website" value="https://koerperwelten.de/ausstellung/berlin/"/>
+        <param key="name" value="Menschen Museum"/>
+        <param key="opening_hours" value="10:00-19:00"/>
+        <param key="operator" value="Institute for Plastination e.K"/>
+        <param key="tourism" value="museum"/>
+        <param key="wheelchair" value="yes"/>
+    </poi>
+    <poi id="3676215900" type="tourism.artwork" color="207,245,201" layer="3.00" x="2558.60" y="2113.63">
+        <param key="animal" value="bear"/>
+        <param key="artwork:group" value="berlin_bears"/>
+        <param key="artwork_type" value="sculpture"/>
+        <param key="tourism" value="artwork"/>
+    </poi>
+    <poi id="3676215901" type="amenity.restaurant" color="237,199,199" layer="4.00" x="2532.41" y="2108.87">
+        <param key="addr:city" value="Berlin"/>
+        <param key="addr:country" value="DE"/>
+        <param key="addr:housenumber" value="1a"/>
+        <param key="addr:postcode" value="10178"/>
+        <param key="addr:street" value="Panoramastraße"/>
+        <param key="addr:suburb" value="Mitte"/>
+        <param key="amenity" value="restaurant"/>
+        <param key="cuisine" value="italian"/>
+        <param key="name" value="MIO Restaurant unterm Fernsehturm"/>
+        <param key="opening_hours" value="Mo-Fr 12:00-24:00; Sa-Su 10:00-24:00"/>
+        <param key="phone" value="+49 30 84712758"/>
+        <param key="website" value="http://www.mioberlin.de"/>
+        <param key="wheelchair" value="no"/>
+    </poi>
+    <poi id="3722006228" type="man_made.monitoring_station" color="255,230,230" layer="4.00" x="2264.41" y="2070.05">
+        <param key="man_made" value="monitoring_station"/>
+        <param key="monitoring:weather" value="yes"/>
+        <param key="operator" value="DWD"/>
+    </poi>
+    <poi id="4036963790" type="man_made.monitoring_station" color="255,230,230" layer="4.00" x="2188.58" y="2132.31">
+        <param key="from" value="Karl-Liebknecht-Straße"/>
+        <param key="man_made" value="monitoring_station"/>
+        <param key="monitoring:traffic" value="bicycle"/>
+        <param key="name" value="Q 0901902: Spandauer Straße nördl. Karl-Liebknecht-Straße"/>
+        <param key="recording:manually" value="yes"/>
+        <param key="ref" value="Q0901902"/>
+        <param key="to" value="Anna-Loisa-Karsch-Straße"/>
+        <param key="website" value="http://www.stadtentwicklung.berlin.de/verkehr/lenkung/vlb/download/bericht_radverkehr_2014.pdf#page=19"/>
+    </poi>
+    <poi id="4389014594" type="amenity.bicycle_parking" color="237,199,199" layer="4.00" x="2570.24" y="2149.46">
+        <param key="amenity" value="bicycle_parking"/>
+        <param key="capacity" value="12"/>
+        <param key="covered" value="no"/>
+    </poi>
+    <poi id="4713534381" type="amenity.restaurant" color="237,199,199" layer="4.00" x="2519.42" y="2185.27">
+        <param key="addr:city" value="Berlin"/>
+        <param key="addr:country" value="DE"/>
+        <param key="addr:housenumber" value="1a"/>
+        <param key="addr:postcode" value="10178"/>
+        <param key="addr:street" value="Panoramastraße"/>
+        <param key="addr:suburb" value="Mitte"/>
+        <param key="amenity" value="restaurant"/>
+        <param key="capacity" value="200"/>
+        <param key="cuisine" value="regional"/>
+        <param key="delivery" value="no"/>
+        <param key="description" value="Drehrestaurant auf 207 m Höhe"/>
+        <param key="ele" value="207"/>
+        <param key="email" value="reservierung@tv-turm.de"/>
+        <param key="name" value="Sphere Restaurant im Berliner Fernsehturm"/>
+        <param key="opening_hours" value="09:00-24:00"/>
+        <param key="outdoor_seating" value="no"/>
+        <param key="smoking" value="no"/>
+        <param key="takeaway" value="no"/>
+        <param key="website" value="https://tv-turm.de"/>
+        <param key="wheelchair" value="no"/>
+    </poi>
+    <poi id="4784564100" type="historic.memorial" color="128,255,128" layer="4.00" x="2297.09" y="2130.50">
+        <param key="historic" value="memorial"/>
+        <param key="memorial" value="statue"/>
+        <param key="name" value="Lutherdenkmal"/>
+        <param key="subject:wikidata" value="Q9554"/>
+        <param key="wheelchair" value="yes"/>
+        <param key="wikidata" value="Q1877872"/>
+        <param key="wikipedia" value="de:Lutherdenkmal (Berlin, Marienkirche)"/>
+    </poi>
+    <poi id="4826062336" type="shop.bicycle" color="237,199,255" layer="4.00" x="2501.68" y="2200.35">
+        <param key="addr:city" value="Berlin"/>
+        <param key="addr:country" value="DE"/>
+        <param key="addr:housenumber" value="1a"/>
+        <param key="addr:postcode" value="10178"/>
+        <param key="addr:street" value="Panoramastraße"/>
+        <param key="addr:suburb" value="Mitte"/>
+        <param key="contact:phone" value="+49 30 240 479 91"/>
+        <param key="contact:website" value="https://www.fattiretours.com"/>
+        <param key="description" value="Rent bikes, e-bikes, segways. Guided tours available."/>
+        <param key="name" value="Fat Tire Tours"/>
+        <param key="opening_hours" value="Dec-Feb: Mo,We,Sa 09:30-18:00; Mar-Apr: 09:30-18:00; May-Sep: 09:30-20:00; Oct-Nov: 09:30-18:00"/>
+        <param key="service:bicycle:rental" value="yes"/>
+        <param key="shop" value="bicycle"/>
+    </poi>
+    <poi id="4945782398" type="natural.tree" color="140,196,107" layer="1.00" x="2573.55" y="2156.48">
+        <param key="denotation" value="urban"/>
+        <param key="leaf_cycle" value="deciduous"/>
+        <param key="leaf_type" value="broadleaved"/>
+        <param key="natural" value="tree"/>
+    </poi>
+    <poi id="4945782399" type="natural.tree" color="140,196,107" layer="1.00" x="2579.31" y="2149.18">
+        <param key="denotation" value="urban"/>
+        <param key="leaf_cycle" value="deciduous"/>
+        <param key="leaf_type" value="broadleaved"/>
+        <param key="natural" value="tree"/>
+    </poi>
+    <poi id="4945782400" type="natural.tree" color="140,196,107" layer="1.00" x="2589.89" y="2137.59">
+        <param key="denotation" value="urban"/>
+        <param key="leaf_cycle" value="deciduous"/>
+        <param key="leaf_type" value="broadleaved"/>
+        <param key="natural" value="tree"/>
+    </poi>
+    <poi id="4945782401" type="natural.tree" color="140,196,107" layer="1.00" x="2588.63" y="2134.17">
+        <param key="denotation" value="urban"/>
+        <param key="leaf_cycle" value="deciduous"/>
+        <param key="leaf_type" value="broadleaved"/>
+        <param key="natural" value="tree"/>
+    </poi>
+    <poi id="4945782404" type="natural.tree" color="140,196,107" layer="1.00" x="2576.49" y="2128.99">
+        <param key="denotation" value="urban"/>
+        <param key="leaf_cycle" value="deciduous"/>
+        <param key="leaf_type" value="broadleaved"/>
+        <param key="natural" value="tree"/>
+    </poi>
+    <poi id="4945782405" type="natural.tree" color="140,196,107" layer="1.00" x="2573.12" y="2130.70">
+        <param key="denotation" value="urban"/>
+        <param key="leaf_cycle" value="deciduous"/>
+        <param key="leaf_type" value="broadleaved"/>
+        <param key="natural" value="tree"/>
+    </poi>
+    <poi id="4945782406" type="natural.tree" color="140,196,107" layer="1.00" x="2574.91" y="2135.34">
+        <param key="denotation" value="urban"/>
+        <param key="leaf_cycle" value="deciduous"/>
+        <param key="leaf_type" value="broadleaved"/>
+        <param key="natural" value="tree"/>
+    </poi>
+    <poi id="4945782407" type="natural.tree" color="140,196,107" layer="1.00" x="2549.95" y="2142.88">
+        <param key="denotation" value="urban"/>
+        <param key="leaf_cycle" value="deciduous"/>
+        <param key="leaf_type" value="broadleaved"/>
+        <param key="natural" value="tree"/>
+    </poi>
+    <poi id="4945782408" type="natural.tree" color="140,196,107" layer="1.00" x="2549.33" y="2137.53">
+        <param key="denotation" value="urban"/>
+        <param key="leaf_cycle" value="deciduous"/>
+        <param key="leaf_type" value="broadleaved"/>
+        <param key="natural" value="tree"/>
+    </poi>
+    <poi id="4945782409" type="natural.tree" color="140,196,107" layer="1.00" x="2566.56" y="2136.29">
+        <param key="denotation" value="urban"/>
+        <param key="leaf_cycle" value="deciduous"/>
+        <param key="leaf_type" value="broadleaved"/>
+        <param key="natural" value="tree"/>
+    </poi>
+    <poi id="4945782410" type="natural.tree" color="140,196,107" layer="1.00" x="2564.25" y="2141.34">
+        <param key="denotation" value="urban"/>
+        <param key="leaf_cycle" value="deciduous"/>
+        <param key="leaf_type" value="broadleaved"/>
+        <param key="natural" value="tree"/>
+    </poi>
+    <poi id="4945782411" type="natural.tree" color="140,196,107" layer="1.00" x="2558.67" y="2137.91">
+        <param key="denotation" value="urban"/>
+        <param key="leaf_cycle" value="deciduous"/>
+        <param key="leaf_type" value="broadleaved"/>
+        <param key="natural" value="tree"/>
+    </poi>
+    <poi id="4948143723" type="amenity.bar" color="237,199,199" layer="4.00" x="2514.94" y="2181.71">
+        <param key="addr:city" value="Berlin"/>
+        <param key="addr:country" value="DE"/>
+        <param key="addr:housenumber" value="1a"/>
+        <param key="addr:postcode" value="10178"/>
+        <param key="addr:street" value="Panoramastraße"/>
+        <param key="addr:suburb" value="Mitte"/>
+        <param key="amenity" value="bar"/>
+        <param key="name" value="203 Bar im Fernsehturm"/>
+        <param key="opening_hours" value="Mo-Su 10:00-00:00"/>
+        <param key="website" value="http://www.tv-turm.de/de/bar-restaurant"/>
+        <param key="wheelchair" value="no"/>
+    </poi>
+    <poi id="5354336481" type="natural.tree" color="140,196,107" layer="1.00" x="2580.90" y="2249.54">
+        <param key="denotation" value="urban"/>
+        <param key="leaf_cycle" value="deciduous"/>
+        <param key="leaf_type" value="broadleaved"/>
+        <param key="natural" value="tree"/>
+    </poi>
+    <poi id="5354336482" type="natural.tree" color="140,196,107" layer="1.00" x="2575.06" y="2247.81">
+        <param key="denotation" value="urban"/>
+        <param key="leaf_cycle" value="deciduous"/>
+        <param key="leaf_type" value="broadleaved"/>
+        <param key="natural" value="tree"/>
+    </poi>
+    <poi id="5354336483" type="natural.tree" color="140,196,107" layer="1.00" x="2583.42" y="2243.59">
+        <param key="denotation" value="urban"/>
+        <param key="leaf_cycle" value="deciduous"/>
+        <param key="leaf_type" value="broadleaved"/>
+        <param key="natural" value="tree"/>
+    </poi>
+    <poi id="5367726678" type="man_made.surveillance" color="255,230,230" layer="4.00" x="2522.68" y="2192.17">
+        <param key="man_made" value="surveillance"/>
+        <param key="surveillance" value="webcam"/>
+        <param key="url" value="http://www.berlin.de/webcams/index.php/fsz"/>
+        <param key="url:webcam" value="http://www.berlin.de/webcams/fsz/webcam.jpg"/>
+        <param key="website" value="http://www.berlin.de/"/>
+    </poi>
+    <poi id="5446414936" type="natural.tree" color="140,196,107" layer="1.00" x="2565.65" y="2091.27">
+        <param key="denotation" value="urban"/>
+        <param key="leaf_cycle" value="deciduous"/>
+        <param key="leaf_type" value="broadleaved"/>
+        <param key="natural" value="tree"/>
+    </poi>
+    <poi id="5446414937" type="natural.tree" color="140,196,107" layer="1.00" x="2558.25" y="2098.20">
+        <param key="denotation" value="urban"/>
+        <param key="leaf_cycle" value="deciduous"/>
+        <param key="leaf_type" value="broadleaved"/>
+        <param key="natural" value="tree"/>
+    </poi>
+    <poi id="5446414938" type="natural.tree" color="140,196,107" layer="1.00" x="2556.08" y="2100.93">
+        <param key="denotation" value="urban"/>
+        <param key="leaf_cycle" value="deciduous"/>
+        <param key="leaf_type" value="broadleaved"/>
+        <param key="natural" value="tree"/>
+    </poi>
+    <poi id="5446414939" type="natural.tree" color="140,196,107" layer="1.00" x="2558.64" y="2103.77">
+        <param key="denotation" value="urban"/>
+        <param key="leaf_cycle" value="deciduous"/>
+        <param key="leaf_type" value="broadleaved"/>
+        <param key="natural" value="tree"/>
+    </poi>
+    <poi id="5446414941" type="natural.tree" color="140,196,107" layer="1.00" x="2589.66" y="2115.22">
+        <param key="denotation" value="urban"/>
+        <param key="leaf_cycle" value="deciduous"/>
+        <param key="leaf_type" value="broadleaved"/>
+        <param key="natural" value="tree"/>
+    </poi>
+    <poi id="5446414944" type="natural.tree" color="140,196,107" layer="1.00" x="2580.78" y="2106.47">
+        <param key="denotation" value="urban"/>
+        <param key="leaf_cycle" value="deciduous"/>
+        <param key="leaf_type" value="broadleaved"/>
+        <param key="natural" value="tree"/>
+    </poi>
+    <poi id="5446414945" type="natural.tree" color="140,196,107" layer="1.00" x="2578.58" y="2109.88">
+        <param key="denotation" value="urban"/>
+        <param key="leaf_cycle" value="deciduous"/>
+        <param key="leaf_type" value="broadleaved"/>
+        <param key="natural" value="tree"/>
+    </poi>
+    <poi id="5446414946" type="natural.tree" color="140,196,107" layer="1.00" x="2574.60" y="2109.14">
+        <param key="denotation" value="urban"/>
+        <param key="leaf_cycle" value="deciduous"/>
+        <param key="leaf_type" value="broadleaved"/>
+        <param key="natural" value="tree"/>
+    </poi>
+    <poi id="5518191308" type="natural.tree" color="140,196,107" layer="1.00" x="2318.17" y="2208.42">
+        <param key="denotation" value="avenue"/>
+        <param key="leaf_cycle" value="deciduous"/>
+        <param key="leaf_type" value="broadleaved"/>
+        <param key="natural" value="tree"/>
+    </poi>
+    <poi id="5518191309" type="natural.tree" color="140,196,107" layer="1.00" x="2312.80" y="2204.05">
+        <param key="denotation" value="avenue"/>
+        <param key="leaf_cycle" value="deciduous"/>
+        <param key="leaf_type" value="broadleaved"/>
+        <param key="natural" value="tree"/>
+    </poi>
+    <poi id="5520189248" type="natural.tree" color="140,196,107" layer="1.00" x="2338.32" y="1885.75">
+        <param key="denotation" value="avenue"/>
+        <param key="leaf_cycle" value="deciduous"/>
+        <param key="leaf_type" value="broadleaved"/>
+        <param key="natural" value="tree"/>
+    </poi>
+    <poi id="60240150" type="amenity.toilets" color="237,199,199" layer="4.00" x="2302.16" y="1922.95">
+        <param key="addr:city" value="Berlin"/>
+        <param key="addr:country" value="DE"/>
+        <param key="addr:housenumber" value="9"/>
+        <param key="addr:postcode" value="10178"/>
+        <param key="addr:street" value="Spandauer Straße"/>
+        <param key="addr:suburb" value="Mitte"/>
+        <param key="amenity" value="toilets"/>
+        <param key="wheelchair" value="yes"/>
+    </poi>
+    <poi id="663346172" type="amenity.restaurant" color="237,199,199" layer="4.00" x="2448.24" y="2210.54">
+        <param key="addr:city" value="Berlin"/>
+        <param key="addr:country" value="DE"/>
+        <param key="addr:housenumber" value="1A"/>
+        <param key="addr:postcode" value="10178"/>
+        <param key="addr:street" value="Panoramastraße"/>
+        <param key="addr:suburb" value="Mitte"/>
+        <param key="amenity" value="restaurant"/>
+        <param key="contact:website" value="https://www.dein-alex.de/berlin-alexanderplatz#oeffnungszeiten"/>
+        <param key="name" value="ALEX"/>
+        <param key="opening_hours" value="Mo-Th,Su 08:00-01:00; Fr-Sa 09:00-02:00"/>
+        <param key="toilets:wheelchair" value="yes"/>
+        <param key="wheelchair" value="yes"/>
+    </poi>
+    <poi id="863057757" type="amenity.cafe" color="237,199,199" layer="4.00" x="2565.31" y="2178.35">
+        <param key="addr:city" value="Berlin"/>
+        <param key="addr:country" value="DE"/>
+        <param key="addr:housenumber" value="1a"/>
+        <param key="addr:postcode" value="10178"/>
+        <param key="addr:street" value="Panoramastraße"/>
+        <param key="addr:suburb" value="Mitte"/>
+        <param key="amenity" value="cafe"/>
+        <param key="cuisine" value="coffee_shop"/>
+        <param key="diet:vegan" value="no"/>
+        <param key="diet:vegetarian" value="no"/>
+        <param key="drink:soy_milk" value="yes"/>
+        <param key="internet_access" value="wlan"/>
+        <param key="name" value="Starbucks"/>
+        <param key="source" value="http://wiki.openstreetmap.org/wiki/Key:cuisine"/>
+        <param key="toilets:wheelchair" value="no"/>
+        <param key="wheelchair" value="yes"/>
+    </poi>
+    <poi id="89274704" type="amenity.bank" color="237,199,199" layer="4.00" x="2561.85" y="2268.97">
+        <param key="amenity" value="bank"/>
+        <param key="atm" value="yes"/>
+        <param key="name" value="Commerzbank"/>
+        <param key="opening_hours" value="Tu,Th 09:00-13:00,14:30-18:00; Mo,We 09:00-13:00,14:00-16:00; Fr 09:00-14:00"/>
+        <param key="operator" value="Commerzbank AG"/>
+        <param key="wheelchair" value="no"/>
+    </poi>
+</additional>

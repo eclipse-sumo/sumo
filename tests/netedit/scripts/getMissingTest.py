@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -21,16 +21,16 @@ import scandir
 
 
 def removeFrom(line):
-    while ((len(line) > 0) and (line[0] != '(')):
-        line = line[1:]
-    if (len(line) > 0):
-        line = line[1:]
-    return line
+    index = line.find('netedit.attrs.')
+    if index != -1:
+        return line[index:]
+    else:
+        return line
 
 
 def removeTo(line):
     solution = ""
-    while ((len(line) > 0) and (line[0] != ',')):
+    while ((len(line) > 0) and ((line[0] == '.') or line[0].isalpha() or line[0].isnumeric())):
         solution += line[0]
         line = line[1:]
     return solution
@@ -74,21 +74,15 @@ for reference in references:
     if ('.' in line):
         # remove first element all until (
         reference = removeFrom(reference)
-        # remove "referencePosition, "
-        reference = reference.replace("referencePosition, ", "")
-        # remove last element until ,
+    # remove last element until ,
         reference = removeTo(reference)
-        # replace extra characters
-        reference = reference.replace(')', '')
-        # replace extra characters
-        reference = reference.replace(':', '')
-        # replace extra characters
+    # replace extra characters
         reference = reference.replace('netedit.attrs.', '')
         if (len(reference) > 0):
             # add endline
             if (reference[-1] != '\n'):
                 reference += '\n'
-            # add into cleanedReferences
+        # add into cleanedReferences
             cleanedReferences.append(reference)
 
 """
@@ -119,16 +113,16 @@ dic = {'dummy': 1000}
 for reference in cleanedReferences:
     # remove all spaces
     reference = reference.replace(' ', '')
-    # remove all spaces
+# remove all spaces
     reference = reference.replace('+1', '')
-    # check number of dots
+# check number of dots
     if (reference.count('.') > 1):
         found = False
         for key in dic:
             if (key == reference):
                 dic[key] += 1
                 found = True
-        # add in diccionary
+    # add in diccionary
         if not found:
             dic[reference] = 0
 

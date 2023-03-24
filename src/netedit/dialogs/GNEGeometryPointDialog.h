@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -36,7 +36,10 @@ class GNEViewNet;
 
 /**
  * @class GNEGeometryPointDialog
- * @brief Dialog to edit sequences, parameters, etc.. of Additionals
+ * @brief Dialog to edit geometry points
+ *
+ * This is a modal dialog which blocks in its constructor so it is save to delete it
+ *  directly after construction
  */
 class GNEGeometryPointDialog : protected FXTopWindow {
     /// @brief FOX-declaration abstract

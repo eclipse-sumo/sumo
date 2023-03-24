@@ -1,5 +1,5 @@
-Eclipse SUMO activitygen Version v1_12_0+0087-1185162ac9e
- Copyright (C) 2001-2022 German Aerospace Center (DLR) and others; https://sumo.dlr.de
+Eclipse SUMO activitygen Version v1_15_0+1315-6cce7c5914f
+ Copyright (C) 2001-2023 German Aerospace Center (DLR) and others; https://sumo.dlr.de
  Copyright (C) 2010-2012 Technische Universitaet Muenchen
 Generates trips of persons throughout a day for the microscopic, multi-modal
  traffic simulation SUMO.
@@ -48,9 +48,10 @@ Report Options:
   -?, --help                       Prints this screen or selected topics
   -V, --version                    Prints the current version
   -X, --xml-validation STR         Set schema validation scheme of XML inputs
-                                    ("never", "auto" or "always")
+                                    ("never", "local", "auto" or "always")
   --xml-validation.net STR         Set schema validation scheme of SUMO network
-                                    inputs ("never", "auto" or "always")
+                                    inputs ("never", "local", "auto" or
+                                    "always")
   -W, --no-warnings                Disables output of warnings
   --aggregate-warnings INT         Aggregate warnings of the same type whenever
                                     more than INT occur
@@ -59,6 +60,7 @@ Report Options:
   --message-log FILE               Writes all non-error messages to FILE
                                     (implies verbose)
   --error-log FILE                 Writes all warnings and errors to FILE
+  --language STR                   Language to use in messages
   --debug                          Detailed messages about every single step
 
 Random Number Options:

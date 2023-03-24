@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Sep 29 13:04:46 2020 by Eclipse SUMO sumo Version v1_7_0+0324-b2d530a49c
+<!-- generated on 2022-12-04 16:29:45 by Eclipse SUMO sumo Version v1_15_0+0751-db72905
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -26,23 +31,18 @@ SPDX-License-Identifier: EPL-2.0
         <step-method.ballistic value="true"/>
         <lateral-resolution value="0.8"/>
         <time-to-teleport value="50"/>
-        <default.action-step-length value="1"/>
+        <default.action-step-length value="1.0"/>
         <default.speeddev value="0"/>
     </processing>
 
     <report>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <no-step-log value="true"/>
     </report>
-
-    <gui_only>
-        <tracker-interval value="0.1"/>
-    </gui_only>
 
 </configuration>
 -->
 
 <lanechanges>
-    <change id="ego" type="tEgo" time="17.10" from="beg_0" to="beg_1" dir="1" speed="0.00" pos="97.50" reason="speedGain" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="2.50" origLeaderSecureGap="0.00" origLeaderSpeed="0.00" latGap="None"/>
+    <change id="ego" type="tEgo" time="13.10" from="beg_0" to="beg_1" dir="1" speed="16.15" pos="68.53" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="31.47" origLeaderSecureGap="28.97" origLeaderSpeed="0.00" latGap="None"/>
 </lanechanges>

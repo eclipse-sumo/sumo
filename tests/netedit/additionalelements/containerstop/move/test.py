@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -38,26 +38,23 @@ netedit.changeElement("containerStop")
 netedit.changeDefaultValue(netedit.attrs.containerStop.create.references, "reference center")
 
 # create containerStop in mode "reference center"
-netedit.leftClick(referencePosition, 233, 235)
+netedit.leftClick(referencePosition, 430, 256)
 
 # change to move mode
 netedit.moveMode()
 
 # move containerStop to right
-netedit.moveElement(referencePosition, 233, 250, 371, 250)
+netedit.moveElement(referencePosition, 430, 280, 544, 280)
 
 # move containerStop back
-netedit.moveElement(referencePosition, 371, 250, 277, 250)
+netedit.moveElement(referencePosition, 544, 280, 337, 280)
 
 # Check undos and redos
 netedit.undo(referencePosition, 3)
 netedit.redo(referencePosition, 3)
 
-# save additionals
-netedit.saveAdditionals(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

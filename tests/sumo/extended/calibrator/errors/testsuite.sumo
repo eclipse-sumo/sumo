@@ -6,3 +6,9 @@ vClass_mismatch
 
 # not all routes are appropriate for the vehicle type. use option --ignore-route-errors
 vClass_mismatch_ignore
+
+# see #12403
+2flows_sameInterval
+
+# see #12403
+2flows_sameInterval_noEnd

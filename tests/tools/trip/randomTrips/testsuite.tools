@@ -7,6 +7,10 @@ attributes
 # generate persons instead of vehicles
 persons
 saveConfig
+saveTemplate
+
+# saveConfig to stdout
+saveStdout
 loadConfig
 simple
 begin_end_human_readable
@@ -69,6 +73,15 @@ viaEdgeType
 
 # Test for having the options "additional-files" and "vtype-output" and vClass
 additional_and_vClass
+
+# only permit fringe origins/destinations
+fringe_factor_max
+
+# do not start/end trips on roundabout
+roundabout
+
+# explicitly permit trips that start/end trips on roundabout
+roundabout_allow
 
 # This test suite checks that argument forwarding to duarouter works correctly.
 duarouter_options

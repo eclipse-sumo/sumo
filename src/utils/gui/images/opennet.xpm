@@ -1,0 +1,27 @@
+/* XPM */
+static const char *open_net_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 15 6 1",
+" 	c None",
+"X	c #f3f704",
+"o	c #f3f7f3",
+"O	c Black",
+"+	c Gray100",
+"@	c #808304",
+/* pixels */
+"         OOO    ",
+"        O   O O ",
+"             OO ",
+" OOO        OOO ",
+"OXoXOOOOOOO     ",
+"OoXoXoXoXoO     ",
+"OXoXoXoXoXO     ",
+"OoXoXOOOOOOOOOOO",
+"OXoXOO+++++O+++O",
+"OoXO@OO++++O++OO",
+"OXO@@O+O+++OOO+O",
+"OO@@@O++OOOO+++O",
+"OOOOOOOO+++O+++O",
+"     O+++++O+++O",
+"     OOOOOOOOOOO"
+};

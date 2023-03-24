@@ -1,0 +1,26 @@
+/* XPM */
+static const char *save_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 4 1",
+". c #040404",
+"# c #808304",
+"a c #bfc2bf",
+"b c None",
+/* pixels */
+"bbbbbbbbbbbbbbbb",
+"b..............b",
+"b.#.aaaaaaaa.a.b",
+"b.#.aaaaaaaa...b",
+"b.#.aaaaaaaa.#.b",
+"b.#.aaaaaaaa.#.b",
+"b.#.aaaaaaaa.#.b",
+"b.#.aaaaaaaa.#.b",
+"b.##........##.b",
+"b.############.b",
+"b.##.........#.b",
+"b.##......aa.#.b",
+"b.##......aa.#.b",
+"b.##......aa.#.b",
+"bb.............b",
+"bbbbbbbbbbbbbbbb"
+};

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -111,7 +111,7 @@ PCLoaderVisum::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
     std::vector<std::string> files = oc.getStringVector("visum-files");
     for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
         if (!FileHelpers::isReadable(*file)) {
-            throw ProcessError("Could not open visum-file '" + *file + "'.");
+            throw ProcessError(TLF("Could not open visum-file '%'.", *file));
         }
         PROGRESS_BEGIN_MESSAGE("Parsing from visum-file '" + *file + "'");
         load(*file, oc, toFill, tm);
@@ -146,7 +146,7 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
             double y = StringUtils::toDouble(lineParser.get(KEYS.getString(VISUM_YCOORD)));
             Position pos(x, y);
             if (!geoConvHelper.x2cartesian(pos)) {
-                WRITE_WARNING("Unable to project coordinates for point '" + toString(id) + "'.");
+                WRITE_WARNINGF(TL("Unable to project coordinates for point '%'."), toString(id));
             }
             punkte[id] = pos;
             continue;
@@ -168,7 +168,7 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
             double y = StringUtils::toDouble(lineParser.get(KEYS.getString(VISUM_YCOORD)));
             Position pos(x, y);
             if (!geoConvHelper.x2cartesian(pos)) {
-                WRITE_WARNING("Unable to project coordinates for edge '" + toString(id) + "'.");
+                WRITE_WARNINGF(TL("Unable to project coordinates for edge '%'."), toString(id));
             }
             kanten[id].insert(kanten[id].begin() + index, pos);
             continue;
@@ -268,7 +268,7 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
             double y = StringUtils::toDouble(lineParser.get(KEYS.getString(VISUM_YCOORD)));
             Position pos(x, y);
             if (!geoConvHelper.x2cartesian(pos)) {
-                WRITE_WARNING("Unable to project coordinates for POI '" + id + "'.");
+                WRITE_WARNINGF(TL("Unable to project coordinates for POI '%'."), id);
             }
             std::string type = typemap[catid];
             // patch the values
@@ -338,7 +338,7 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
             std::string ypos = st.next();
             Position pos2D((double) atof(xpos.c_str()), (double) atof(ypos.c_str()));
             if (!geoConvHelper.x2cartesian(pos2D)) {
-                WRITE_WARNING("Unable to project coordinates for polygon '" + id + "'.");
+                WRITE_WARNINGF(TL("Unable to project coordinates for polygon '%'."), id);
             }
             vec.push_back(pos2D);
         }
@@ -382,7 +382,7 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
                 } else {
                     Position pos(x, y);
                     if (!geoConvHelper.x2cartesian(pos)) {
-                        WRITE_WARNING("Unable to project coordinates for POI '" + id + "'.");
+                        WRITE_WARNINGF(TL("Unable to project coordinates for POI '%'."), id);
                     }
                     const std::string origId = id;
                     int index = 1;
@@ -428,7 +428,7 @@ void
 PCLoaderVisum::loadLanguage(const std::string& file) {
     std::ifstream strm(file.c_str());
     if (!strm.good()) {
-        throw ProcessError("Could not load VISUM language map from '" + file + "'.");
+        throw ProcessError(TLF("Could not load VISUM language map from '%'.", file));
     }
     while (strm.good()) {
         std::string keyDE;
@@ -441,7 +441,7 @@ PCLoaderVisum::loadLanguage(const std::string& file) {
             KEYS.insert(keyNew, key);
         } else if (keyDE != "") {
             // do not warn about network-related keys (NIImporter_VISUM)
-            //WRITE_WARNING("Unknown entry '" + keyDE + "' in VISUM language map");
+            //WRITE_WARNINGF(TL("Unknown entry '%' in VISUM language map"), keyDE);
         }
     }
 

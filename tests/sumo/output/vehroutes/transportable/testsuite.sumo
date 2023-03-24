@@ -9,6 +9,9 @@ write_unfinished_person
 
 # public transport and walk possible
 person_route_length
+
+# public transport and walk possible
+person_route_length_unfinished
 person_write_unfinished
 person_exit_times
 person_ride_parkingArea
@@ -25,3 +28,6 @@ personroutes
 
 # output of sorted person route
 personroutes_sorted
+
+# output of person route
+with_person_sorted_end_early

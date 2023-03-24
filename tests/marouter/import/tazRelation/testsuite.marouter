@@ -3,3 +3,6 @@
 
 # Spreads 2000 vehicles over an hour
 2000vehs_hour
+
+# Spreads 10 vehicles over an hour
+10vehs_hour_scaled

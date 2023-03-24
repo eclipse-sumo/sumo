@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-03-07 17:08:23 by Eclipse SUMO netconvert Version v1_16_0+1085-3a42853fccf
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_plain.nod.xml"/>
+        <edge-files value="input_plain.edg.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="-606343.26,-5790541.38" convBoundary="0.00,0.00,77.39,6.70" origBoundary="10.393336,52.146862,10.787296,52.408126" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <edge id=":3360095159_0" function="internal">
+        <lane id=":3360095159_0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="1.77" shape="44.02,-1.55 44.37,-1.61"/>
+        <lane id=":3360095159_0_1" index="1" disallow="pedestrian rail_urban rail rail_electric rail_fast ship" speed="13.89" length="1.77" shape="44.02,-1.55 44.60,1.58"/>
+    </edge>
+    <edge id=":5708039332_0" function="internal">
+        <lane id=":5708039332_0_0" index="0" disallow="pedestrian rail_urban rail rail_electric rail_fast ship" speed="13.89" length="1.92" shape="25.51,3.93 25.74,0.72"/>
+        <lane id=":5708039332_0_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="1.92" shape="25.51,3.93 25.69,3.93 25.82,3.93 25.95,3.91 26.14,3.89"/>
+    </edge>
+
+    <edge id="334152810#0" from="3360095159" to="252500073" name="Helmstedter Straße" priority="11">
+        <lane id="334152810#0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="32.76" shape="44.37,-1.61 77.04,-4.02">
+            <param key="origId" value="334152810"/>
+        </lane>
+        <lane id="334152810#0_1" index="1" disallow="pedestrian rail_urban rail rail_electric rail_fast ship" speed="13.89" length="32.76" shape="44.60,1.58 77.27,-0.83">
+            <param key="origId" value="334152810 600220249#4"/>
+        </lane>
+        <param key="ref" value="K 11"/>
+    </edge>
+    <edge id="334152812#2" from="cluster_252500077_3412405252_3412405256_3414814703_#2more" to="5708039332" name="Helmstedter Straße" priority="11" spreadType="center" shape="0.00,2.13 25.73,2.33">
+        <lane id="334152812#2_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="20.17" shape="5.37,0.57 25.53,0.73">
+            <param key="origId" value="334152812"/>
+        </lane>
+        <lane id="334152812#2_1" index="1" disallow="pedestrian rail_urban rail rail_electric rail_fast ship" speed="13.89" length="20.17" shape="5.34,3.77 25.51,3.93">
+            <param key="origId" value="334152812 600220249#3"/>
+        </lane>
+        <param key="origFrom" value="252500077"/>
+        <param key="ref" value="K 11"/>
+    </edge>
+    <edge id="334152812#3" from="5708039332" to="3360095159" name="Helmstedter Straße" priority="11" spreadType="center" shape="25.73,2.33 44.54,0.00">
+        <lane id="334152812#3_0" index="0" disallow="pedestrian rail_urban rail rail_electric rail_fast ship" speed="13.89" length="18.42" shape="25.74,0.72 44.02,-1.55">
+            <param key="origId" value="334152812 600220249#4"/>
+        </lane>
+        <lane id="334152812#3_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="18.42" shape="26.14,3.89 44.41,1.63">
+            <param key="origId" value="334152812"/>
+        </lane>
+        <param key="ref" value="K 11"/>
+    </edge>
+
+    <junction id="252500073" type="dead_end" x="77.39" y="0.77" incLanes="334152810#0_0 334152810#0_1" intLanes="" shape="76.92,-5.61 77.39,0.77"/>
+    <junction id="3360095159" type="priority" x="44.39" y="3.20" incLanes="334152812#3_0 334152812#3_1" intLanes=":3360095159_0_0 :3360095159_0_1" shape="44.72,3.18 44.25,-3.21 44.09,-3.19 43.98,-3.16 43.91,-3.15 44.61,3.22 44.65,3.20 44.68,3.19 44.69,3.18">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
+    </junction>
+    <junction id="5708039332" type="priority" x="25.73" y="2.33" incLanes="334152812#2_0 334152812#2_1" intLanes=":5708039332_0_0 :5708039332_0_1" shape="26.33,5.48 25.54,-0.87 25.50,5.53 25.81,5.53 25.91,5.52 26.02,5.52">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
+    </junction>
+    <junction id="cluster_252500077_3412405252_3412405256_3414814703_#2more" type="dead_end" x="5.32" y="6.70" incLanes="" intLanes="" shape="5.33,5.37 5.38,-1.03">
+        <param key="origEdgeIds" value="-23319992#0 -23319992#1 -23319992#2 -23319992#3 23319992#0 23319992#1 23319992#2 23319992#3 334152813#2 334152816#0"/>
+        <param key="origId" value="252500077 3412405252 3412405256 3414814703 5708039341 5708039342"/>
+    </junction>
+
+    <connection from="334152812#2" to="334152812#3" fromLane="1" toLane="0" via=":5708039332_0_0" dir="s" state="M"/>
+    <connection from="334152812#2" to="334152812#3" fromLane="1" toLane="1" via=":5708039332_0_1" dir="s" state="M"/>
+    <connection from="334152812#3" to="334152810#0" fromLane="0" toLane="0" via=":3360095159_0_0" dir="s" state="M"/>
+    <connection from="334152812#3" to="334152810#0" fromLane="0" toLane="1" via=":3360095159_0_1" dir="s" state="M"/>
+
+    <connection from=":3360095159_0" to="334152810#0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":3360095159_0" to="334152810#0" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from=":5708039332_0" to="334152812#3" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":5708039332_0" to="334152812#3" fromLane="1" toLane="1" dir="s" state="M"/>
+
+</net>

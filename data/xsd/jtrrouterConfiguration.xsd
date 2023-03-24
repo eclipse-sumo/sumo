@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-07-11 15:42:09 by Eclipse SUMO jtrrouter Version v1_13_0+1506-f0fbece2894
+<!-- generated on 2023-02-06 12:10:37 by Eclipse SUMO jtrrouter Version v1_15_0+2198-1709483215c
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -111,6 +111,7 @@
             <xsd:element name="log" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="message-log" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="error-log" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="language" type="strOptionType" minOccurs="0"/>
             <xsd:element name="ignore-errors" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="stats-period" type="intOptionType" minOccurs="0"/>
             <xsd:element name="no-step-log" type="boolOptionType" minOccurs="0"/>

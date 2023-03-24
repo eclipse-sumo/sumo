@@ -75,6 +75,7 @@ The following table summarizes all admissible configuration parameters:
 | -------------------------- | ----------------------------------------------------------------------------- | ------------------------------------- |
 | **vehicleSelectors**       | string                                                                        | A vehicle is controlled by simpla if its vehicle type id has a given vehicle selector string as a substring. The given value may be a comma-separated list of selectors. Defaults to an empty string, which selects all vehicles for control.                                                                                                                                                                                                       |
 | **controlRate**            | float                                                                         | The number of the updates (per seconds) for the platoon management logic. Defaults to 1.0 sec. <br>**Note:** The rate cannot be increased beyond 1/timestep.                                                                                                                                                                                                                                                                                        |
+| **maxVehicles**            | int                                                                         | Maximum number of vehicles within a platoon. Defaults to 10.                                                                                                                                                                                                                                                                                           |
 | **maxPlatoonGap**          | float                                                                         | Gap (in m.) below which vehicles are considered as a platoon (if their vType parameters allow safe traveling for the actual situation). Defaults to 15 m.                                                                                                                                                                                                                                                                                           |
 | **maxPlatoonHeadway**      | float                                                                         | Headway (in secs.) below which vehicles are considered as a platoon (if their vType parameters allow safe traveling for the actual situation). Defaults to 1.5 s. At standstill, maxPlatoonGap is used.                                                                                                                                                                                                                                             |
 | **platoonSplitTime**       | float                                                                         | Time (in secs.) until a vehicle which maintains a distance larger than **maxPlatoonGap** from its leader within the platoon (or travels on a different lane or behind a vehicle not belonging to its platoon) is split off. Defaults to 3.0 secs.                                                                                                                                                                                                   |
@@ -162,6 +163,45 @@ GapCreator is created to manage the vehicle state and is added to traci
 as a
 [stepListener](TraCI/Interfacing_TraCI_from_Python.md#adding_a_steplistener).
 
+# Statistic Helper Functions
+
+There are some statistical helper functions to get information about the existing platoons listed below. 
+They are available after starting simpla like [explained above](#integrating_simpla_into_your_traci_script).
+
+## getAveragePlatoonLength()
+The function computes the average platoon length in terms of vehicles across all currently formed platoons:
+```
+avgLength = simpla.getAveragePlatoonLength()
+```
+
+## getAveragePlatoonSpeed()
+The function computes the average speed of vehicles across all currently formed platoons:
+```
+avgSpeed = simpla.getAveragePlatoonSpeed()
+```
+
+## getPlatoonLeaderIDList()
+This utility function returns the leader vehicles' IDs of all pcurrent platoons managed by simpla:
+```
+currentLeaderIDs = simpla.getPlatoonLeaderIDList()
+```
+
+## getPlatoonIDList() and getPlatoonInfo()
+Platoons can be found by their position on the road network using the edge ID in question.
+The function returns IDs of platoons which currently have at least one member vehicle on the edge given by its **edgeID**. 
+The platoon ID can be used to receive updates using getPlatoonInfo even when the platoon has left the edge:
+```
+platoonIDs = simpla.getPlatoonIDList(edgeID)
+if len(platoonIDs) > 0:
+    platoonInfo = simpla.getPlatoonInfo(platoonIDs[0])
+    platoonSize = len(platoonInfo["members"])
+```
+The function getPlatoonInfo returns a dictionary of values regarding the platoon, using the keys from the table below:
+
+| Key name          | Value Type     | Description                                                                         |
+| ------------------| -------------- | ----------------------------------------------------------------------------------- |
+| **laneID**        | string         | The ID of the lane the leader vehicle is currently on.                              |
+| **members**       | list(string)   | The IDs of the vehicles in the platoon.                                             |
 
 # Example
 

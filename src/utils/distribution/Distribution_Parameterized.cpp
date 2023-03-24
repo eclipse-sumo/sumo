@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -71,9 +71,9 @@ Distribution_Parameterized::parse(const std::string& description, const bool har
         // set default distribution parameterized
         myParameter = {0., 0.};
         if (hardFail) {
-            throw ProcessError("Invalid format of distribution parameterized");
+            throw ProcessError(TL("Invalid format of distribution parameterized"));
         } else {
-            WRITE_ERROR("Invalid format of distribution parameterized");
+            WRITE_ERROR(TL("Invalid format of distribution parameterized"));
         }
     }
 }
@@ -90,7 +90,7 @@ Distribution_Parameterized::isValidDescription(const std::string& description) {
         }
         return valid;
     } catch (...) {
-        WRITE_ERROR("Invalid format of distribution parameterized");
+        WRITE_ERROR(TL("Invalid format of distribution parameterized"));
         return false;
     }
 }

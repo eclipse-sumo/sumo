@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -38,32 +38,29 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect trainstops
-netedit.leftClick(referencePosition, 160, 270)
+netedit.leftClick(referencePosition, 297, 270)
 
 # change color using dialog
-netedit.modifyColorAttribute(netedit.attrs.trainStop.inspectSelection.colorButton, 5, False)
+netedit.modifyColorAttribute(netedit.attrs.trainStop.inspectSelection.colorButton, 5, True)
 
 # Change parameter 2 with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.trainStop.inspectSelection.color, "dummyColor", False)
+netedit.modifyAttribute(netedit.attrs.trainStop.inspectSelection.color, "dummyColor", True)
 
 # Change parameter 2 with a non valid value (invalid format)
-netedit.modifyAttribute(netedit.attrs.trainStop.inspectSelection.color, "255,255,500", False)
+netedit.modifyAttribute(netedit.attrs.trainStop.inspectSelection.color, "255,255,500", True)
 
 # Change parameter 2 with a valid value (valid format)
-netedit.modifyAttribute(netedit.attrs.trainStop.inspectSelection.color, "blue", False)
+netedit.modifyAttribute(netedit.attrs.trainStop.inspectSelection.color, "blue", True)
 
 # Change parameter 2 with a valid value (valid format)
-netedit.modifyAttribute(netedit.attrs.trainStop.inspectSelection.color, "125,60,200", False)
+netedit.modifyAttribute(netedit.attrs.trainStop.inspectSelection.color, "125,60,200", True)
 
 # Check undo redo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.undo(referencePosition, 4)
+netedit.redo(referencePosition, 4)
 
-# save additionals
-netedit.saveAdditionals(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

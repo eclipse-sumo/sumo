@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -48,16 +48,16 @@ GNEMatchAttribute::GNEMatchAttribute(GNEElementSet* elementSet, SumoXMLTag defau
     myElementSet(elementSet),
     myCurrentTag(defaultTag),
     myCurrentAttribute(defaultAttr) {
-    // Create MFXIconComboBox for tags
-    myMatchTagComboBox = new MFXIconComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, true, this, MID_GNE_SELECTORFRAME_SELECTTAG, GUIDesignComboBox);
+    // Create MFXComboBoxIcon for tags
+    myMatchTagComboBox = new MFXComboBoxIcon(getCollapsableFrame(), GUIDesignComboBoxNCol, true, this, MID_GNE_SELECTORFRAME_SELECTTAG, GUIDesignComboBox);
     // Create FXComboBox for Attributes
     myMatchAttrComboBox = new FXComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, this, MID_GNE_SELECTORFRAME_SELECTATTRIBUTE, GUIDesignComboBox);
     // Create TextField for Match string
     myMatchString = new FXTextField(getCollapsableFrame(), GUIDesignTextFieldNCol, this, MID_GNE_SELECTORFRAME_PROCESSSTRING, GUIDesignTextField);
     // create button
-    myMatchStringButton = new FXButton(getCollapsableFrame(), "Apply selection", nullptr, this, MID_GNE_SELECTORFRAME_PROCESSSTRING, GUIDesignButton);
+    myMatchStringButton = new FXButton(getCollapsableFrame(), TL("Apply selection"), nullptr, this, MID_GNE_SELECTORFRAME_PROCESSSTRING, GUIDesignButton);
     // Create help button
-    new FXButton(getCollapsableFrame(), "Help", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
+    new FXButton(getCollapsableFrame(), TL("Help"), nullptr, this, MID_HELP, GUIDesignButtonRectangular);
     // Set default value for Match string
     myMatchString->setText(defaultValue.c_str());
 }
@@ -106,10 +106,10 @@ GNEMatchAttribute::showMatchAttribute(const GNEElementSet::Type type) {
         tagPropertiesStrings = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::TAZELEMENT);
     } else if (type == GNEElementSet::Type::DEMAND) {
         tagPropertiesStrings = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP);
-    } else if (type == GNEElementSet::Type::DATA) {
+    } else if (type == GNEElementSet::Type::GENERICDATA) {
         tagPropertiesStrings = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::GENERICDATA);
     } else {
-        throw ProcessError("Unkown set");
+        throw ProcessError(TL("Unknown set"));
     }
     // now filter to allow only drawables and proj
     myTagPropertiesString.clear();
@@ -267,26 +267,26 @@ GNEMatchAttribute::onCmdHelp(FXObject*, FXSelector, void*) {
     // set help text
     std::ostringstream help;
     help
-            << "- The 'Match Attribute' controls allow to specify a set of objects which are then applied to the current selection\n"
-            << "  according to the current 'Modification Mode'.\n"
-            << "     1. Select an object type from the first input box\n"
-            << "     2. Select an attribute from the second input box\n"
-            << "     3. Enter a 'match expression' in the third input box and press <return>\n"
+            << TL("- The 'Match Attribute' controls allow to specify a set of objects which are then applied to the current selection\n")
+            << TL("  according to the current 'Modification Mode'.\n")
+            << TL("     1. Select an object type from the first input box\n")
+            << TL("     2. Select an attribute from the second input box\n")
+            << TL("     3. Enter a 'match expression' in the third input box and press <return>\n")
             << "\n"
-            << "- The empty expression matches all objects\n"
-            << "- For numerical attributes the match expression must consist of a comparison operator ('<', '>', '=') and a number.\n"
-            << "- An object matches if the comparison between its attribute and the given number by the given operator evaluates to 'true'\n"
+            << TL("- The empty expression matches all objects\n")
+            << TL("- For numerical attributes the match expression must consist of a comparison operator ('<', '>', '=') and a number.\n")
+            << TL("- An object matches if the comparison between its attribute and the given number by the given operator evaluates to 'true'\n")
             << "\n"
-            << "- For string attributes the match expression must consist of a comparison operator ('', '=', '!', '^') and a string.\n"
-            << "     '' (no operator) matches if string is a substring of that object'ts attribute.\n"
-            << "     '=' matches if string is an exact match.\n"
-            << "     '!' matches if string is not a substring.\n"
-            << "     '^' matches if string is not an exact match.\n"
+            << TL("- For string attributes the match expression must consist of a comparison operator ('', '=', '!', '^') and a string.\n")
+            << TL("     '' (no operator) matches if string is a substring of that object'ts attribute.\n")
+            << TL("     '=' matches if string is an exact match.\n")
+            << TL("     '!' matches if string is not a substring.\n")
+            << TL("     '^' matches if string is not an exact match.\n")
             << "\n"
-            << "- Examples:\n"
-            << "     junction; id; 'foo' -> match all junctions that have 'foo' in their id\n"
-            << "     junction; type; '=priority' -> match all junctions of type 'priority', but not of type 'priority_stop'\n"
-            << "     edge; speed; '>10' -> match all edges with a speed above 10\n";
+            << TL("- Examples:\n")
+            << TL("     junction; id; 'foo' -> match all junctions that have 'foo' in their id\n")
+            << TL("     junction; type; '=priority' -> match all junctions of type 'priority', but not of type 'priority_stop'\n")
+            << TL("     edge; speed; '>10' -> match all edges with a speed above 10\n");
     // Create label with the help text
     new FXLabel(additionalNeteditAttributesHelpDialog, help.str().c_str(), nullptr, GUIDesignLabelFrameInformation);
     // Create horizontal separator
@@ -295,7 +295,7 @@ GNEMatchAttribute::onCmdHelp(FXObject*, FXSelector, void*) {
     FXHorizontalFrame* myHorizontalFrameOKButton = new FXHorizontalFrame(additionalNeteditAttributesHelpDialog, GUIDesignAuxiliarHorizontalFrame);
     // Create Button Close (And two more horizontal frames to center it)
     new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
-    new FXButton(myHorizontalFrameOKButton, "OK\t\tclose", GUIIconSubSys::getIcon(GUIIcon::ACCEPT), additionalNeteditAttributesHelpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
+    new FXButton(myHorizontalFrameOKButton, (TL("OK") + std::string("\t\t") + TL("close")).c_str(), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), additionalNeteditAttributesHelpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
     new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
     // Write Warning in console if we're in testing mode
     WRITE_DEBUG("Opening help dialog of selector frame");

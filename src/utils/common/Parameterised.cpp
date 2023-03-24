@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -84,10 +84,10 @@ Parameterised::getDouble(const std::string& key, const double defaultValue) cons
         try {
             return StringUtils::toDouble(i->second);
         } catch (NumberFormatException&) {
-            WRITE_WARNING("Invalid conversion from string to double (" + i->second + ")");
+            WRITE_WARNINGF(TL("Invalid conversion from string to double (%)"), i->second);
             return defaultValue;
         } catch (EmptyData&) {
-            WRITE_WARNING("Invalid conversion from string to double (empty value)");
+            WRITE_WARNING(TL("Invalid conversion from string to double (empty value)"));
             return defaultValue;
         }
     }
@@ -106,10 +106,10 @@ Parameterised::getDoubles(const std::string& key, std::vector<double> defaultVal
             }
             return result;
         } catch (NumberFormatException&) {
-            WRITE_WARNING("Invalid conversion from string to doubles (" + i->second + ")");
+            WRITE_WARNINGF(TL("Invalid conversion from string to doubles (%)"), i->second);
             return defaultValue;
         } catch (EmptyData&) {
-            WRITE_WARNING("Invalid conversion from string to doubles (empty value)");
+            WRITE_WARNING(TL("Invalid conversion from string to doubles (empty value)"));
             return defaultValue;
         }
     }
@@ -202,7 +202,7 @@ Parameterised::areParametersValid(const std::string& value, bool report, const s
         if (!isParameterValid(keyValueStr, kvsep, sep)) {
             // report depending of flag
             if (report) {
-                WRITE_WARNING("Invalid format of parameter (" + keyValueStr + ")");
+                WRITE_WARNINGF(TL("Invalid format of parameter (%)"), keyValueStr);
             }
             return false;
         }
@@ -227,14 +227,14 @@ Parameterised::areAttributesValid(const std::string& value, bool report, const s
             if (!((letter >= 'a') && (letter <= 'z')) && !((letter >= 'A') && (letter <= 'Z'))) {
                 // report depending of flag
                 if (report) {
-                    WRITE_WARNING("Invalid format of atribute '" + attr + "'. Attribute must start with a letter");
+                    WRITE_WARNINGF(TL("Invalid format of attribute '%'. Attribute must start with a letter"), attr);
                 }
                 return false;
             }
         } else {
             // report depending of flag
             if (report) {
-                WRITE_WARNING("Invalid format of atribute (" + keyValueStr + ")");
+                WRITE_WARNINGF(TL("Invalid format of attribute (%)"), keyValueStr);
             }
             return false;
         }

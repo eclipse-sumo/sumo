@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -43,7 +43,7 @@ GUIDottedGeometry::DottedGeometryColor::DottedGeometryColor(const GUIVisualizati
 
 const RGBColor
 GUIDottedGeometry::DottedGeometryColor::getColor(DottedContourType type) {
-    switch(type) {
+    switch (type) {
         case DottedContourType::INSPECT:
         case DottedContourType::INSPECT_SMALL:
             if (myColorFlag) {
@@ -255,11 +255,11 @@ GUIDottedGeometry::updateDottedGeometry(const GUIVisualizationSettings& s, Posit
 
 
 void
-GUIDottedGeometry::drawDottedGeometry(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type, 
-        DottedGeometryColor& dottedGeometryColor, const double customWidth) const {
+GUIDottedGeometry::drawDottedGeometry(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type,
+                                      DottedGeometryColor& dottedGeometryColor, const double customWidth) const {
     // set segment width
     double width = s.dottedContourSettings.segmentWidthLarge;
-    switch(type) {
+    switch (type) {
         case DottedContourType::INSPECT_SMALL:
         case DottedContourType::FRONT_SMALL:
         case DottedContourType::REMOVE:
@@ -321,14 +321,8 @@ GUIDottedGeometry::drawDottedContourClosedShape(const GUIVisualizationSettings& 
         GUIDottedGeometry dottedGeometry(s, scaledShape, true);
         // Push draw matrix
         GLHelper::pushMatrix();
-        // draw inspect or front dotted contour
-        if (type == DottedContourType::FRONT) {
-            // translate to front
-            glTranslated(0, 0, GLO_DOTTEDCONTOUR_INSPECTED);
-        } else {
-            // translate to front
-            glTranslated(0, 0, GLO_DOTTEDCONTOUR_INSPECTED);
-        }
+        // translate to front
+        glTranslated(0, 0, GLO_DOTTEDCONTOUR_INSPECTED);
         // draw dotted geometry
         dottedGeometry.drawDottedGeometry(s, type, dottedGeometryColor, customWidth);
         // pop matrix
@@ -338,7 +332,7 @@ GUIDottedGeometry::drawDottedContourClosedShape(const GUIVisualizationSettings& 
 
 
 void
-GUIDottedGeometry::drawDottedContourShape(const GUIVisualizationSettings& s, const DottedContourType type, 
+GUIDottedGeometry::drawDottedContourShape(const GUIVisualizationSettings& s, const DottedContourType type,
         const PositionVector& shape, const double width, const double exaggeration, const bool drawFirstExtrem,
         const bool drawLastExtrem) {
     if (s.drawDottedContour(exaggeration)) {
@@ -359,13 +353,7 @@ GUIDottedGeometry::drawDottedContourShape(const GUIVisualizationSettings& s, con
         // Push draw matrix
         GLHelper::pushMatrix();
         // translate to front
-        if (type == DottedContourType::FRONT) {
-            // translate to front
-            glTranslated(0, 0, GLO_DOTTEDCONTOUR_FRONT);
-        } else {
-            // translate to front
-            glTranslated(0, 0, GLO_DOTTEDCONTOUR_INSPECTED);
-        }
+        glTranslated(0, 0, GLO_DOTTEDCONTOUR_INSPECTED);
         // draw top dotted geometry
         topDottedGeometry.drawDottedGeometry(s, type, dottedGeometryColor);
         // reset color

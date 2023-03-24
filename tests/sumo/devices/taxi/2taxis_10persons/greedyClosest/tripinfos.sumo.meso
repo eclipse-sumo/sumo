@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-04-03 22:00:18 by Eclipse SUMO sumo Version v1_12_0+1887-c5cc8894432
+<!-- generated on 2022-12-21 10:48:33 by Eclipse SUMO sumo Version v1_15_0+1176-c58c473
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -26,13 +26,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <processing>
         <default.speeddev value="0"/>
-        <pedestrian.model value="nonInteracting"/>
     </processing>
 
     <report>
-        <verbose value="true"/>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <duration-log.statistics value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -81,9 +78,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <ride waitingTime="527.00" vehicle="trip_1" depart="567.00" arrival="669.00" arrivalPos="0.00" duration="102.00" routeLength="1403.20" timeLoss="0.00"/>
     </personinfo>
     <tripinfo id="trip_0" depart="0.00" departLane="" departPos="0.00" departSpeed="13.89" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="730.00" routeLength="6226.80" waitingTime="0.00" waitingCount="0" stopTime="305.00" timeLoss="29.53" rerouteNo="11" devices="tripinfo_trip_0 routing_trip_0 taxi_trip_0 person_trip_0" vType="taxi" speedFactor="1.00" vaporized="">
-        <taxi customers="5" occupiedDistance="3921.60" occupiedTime="282.34"/>
+        <taxi customers="5" occupiedDistance="3921.60" occupiedTime="287.34"/>
     </tripinfo>
     <tripinfo id="trip_1" depart="0.00" departLane="" departPos="0.00" departSpeed="13.89" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="730.00" routeLength="6520.40" waitingTime="0.00" waitingCount="0" stopTime="306.00" timeLoss="95.40" rerouteNo="11" devices="tripinfo_trip_1 routing_trip_1 taxi_trip_1 person_trip_1" vType="taxi" speedFactor="1.00" vaporized="">
-        <taxi customers="5" occupiedDistance="3925.60" occupiedTime="282.63"/>
+        <taxi customers="5" occupiedDistance="3925.60" occupiedTime="287.63"/>
     </tripinfo>
 </tripinfos>

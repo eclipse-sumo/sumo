@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -90,7 +90,7 @@ public:
      * @param[in] od The output device the loop shall use
      */
     virtual MSDetectorFileOutput* createInstantInductLoop(const std::string& id,
-            MSLane* lane, double pos, const std::string& od, const std::string name, 
+            MSLane* lane, double pos, const std::string& od, const std::string name,
             const std::string& vTypes, const std::string& nextEdges) override;
 
     /** @brief Creates a GUIE2Collector instance, overrides MSE2Collector::createE2Detector()

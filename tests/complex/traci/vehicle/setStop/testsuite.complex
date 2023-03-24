@@ -1,4 +1,9 @@
+# stop on internal lane
+newInternalStop
 newStop
+
+# Copy of newStop
+pos_0
 
 # set stop for the previous normal edge when the vehicle has already entered the intersection
 onPrevNormal

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -50,34 +50,34 @@
 GNETAZRelData::GNETAZRelData(GNEDataInterval* dataIntervalParent, GNEAdditional* fromTAZ, GNEAdditional* toTAZ,
                              const Parameterised::Map& parameters) :
     GNEGenericData(SUMO_TAG_TAZREL, GUIIconSubSys::getIcon(GUIIcon::EDGERELDATA), GLO_TAZRELDATA, dataIntervalParent, parameters,
-    {}, {}, {}, {fromTAZ, toTAZ}, {}, {}),
-    myLastWidth(0) {
+{}, {}, {}, {fromTAZ, toTAZ}, {}, {}),
+myLastWidth(0) {
 }
 
 
 GNETAZRelData::GNETAZRelData(GNEDataInterval* dataIntervalParent, GNEAdditional* TAZ,
                              const Parameterised::Map& parameters) :
     GNEGenericData(SUMO_TAG_TAZREL, GUIIconSubSys::getIcon(GUIIcon::EDGERELDATA), GLO_TAZRELDATA, dataIntervalParent, parameters,
-    {}, {}, {}, {TAZ}, {}, {}),
-    myLastWidth(0) {
+{}, {}, {}, {TAZ}, {}, {}),
+myLastWidth(0) {
 }
 
 
 GNETAZRelData::~GNETAZRelData() {}
 
 
-void
+RGBColor
 GNETAZRelData::setColor(const GUIVisualizationSettings& s) const {
-    RGBColor col;
+    RGBColor color;
     if (isAttributeCarrierSelected()) {
-        col = s.colorSettings.selectedEdgeDataColor;
+        color = s.colorSettings.selectedEdgeDataColor;
     } else {
-        if (!setFunctionalColor(s.dataColorer.getActive(), col)) {
+        if (!setFunctionalColor(s.dataColorer.getActive(), color)) {
             double val = getColorValue(s, s.dataColorer.getActive());
-            col = s.dataColorer.getScheme().getColor(val);
+            color = s.dataColorer.getScheme().getColor(val);
         }
     }
-    GLHelper::setColor(col);
+    return color;
 }
 
 
@@ -251,8 +251,9 @@ GNETAZRelData::fixGenericDataProblem() {
 
 void
 GNETAZRelData::drawGL(const GUIVisualizationSettings& s) const {
+    const auto& color = setColor(s);
     // draw TAZRels
-    if (drawTAZRel()) {
+    if ((color.alpha() != 0) && drawTAZRel()) {
         // get flag for only draw contour
         const bool onlyDrawContour = !isGenericDataVisible();
         // push name (needed for getGUIGlObjectsUnderCursor(...)
@@ -263,7 +264,7 @@ GNETAZRelData::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::pushMatrix();
         // translate to front
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_TAZ + 1);
-        setColor(s);
+        GLHelper::setColor(color);
         // check if update lastWidth
         const double width = onlyDrawContour ? 0.1 :  0.5 * s.tazRelWidthExaggeration;
         if (width != myLastWidth) {
@@ -383,12 +384,6 @@ GNETAZRelData::getLastPathLane() const {
 }
 
 
-double
-GNETAZRelData::getExaggeration(const GUIVisualizationSettings& /*s*/) const {
-    return 1;
-}
-
-
 Boundary
 GNETAZRelData::getCenteringBoundary() const {
     Boundary b;
@@ -415,6 +410,10 @@ GNETAZRelData::getAttribute(SumoXMLAttr key) const {
             return getParentAdditionals().back()->getID();
         case GNE_ATTR_DATASET:
             return myDataIntervalParent->getDataSetParent()->getID();
+        case SUMO_ATTR_BEGIN:
+            return myDataIntervalParent->getAttribute(SUMO_ATTR_BEGIN);
+        case SUMO_ATTR_END:
+            return myDataIntervalParent->getAttribute(SUMO_ATTR_END);
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:

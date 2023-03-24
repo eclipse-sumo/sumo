@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -235,7 +235,7 @@ GeomHelper::legacyDegree(const double angle, const bool positive) {
 PositionVector
 GeomHelper::makeCircle(const double radius, const Position& center, unsigned int nPoints) {
     if (nPoints < 3) {
-        WRITE_ERROR("GeomHelper::makeCircle() requires nPoints>=3");
+        WRITE_ERROR(TL("GeomHelper::makeCircle() requires nPoints>=3"));
     }
     PositionVector circle;
     circle.push_back({radius, 0});

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -38,10 +38,10 @@
 // ===========================================================================
 
 GNEWalkingArea::GNEWalkingArea(GNEJunction* parentJunction, const std::string& ID) :
-    GNENetworkElement(parentJunction->getNet(), ID, GLO_WALKINGAREA, SUMO_TAG_WALKINGAREA, 
-    GUIIconSubSys::getIcon(GUIIcon::WALKINGAREA),  {}, {}, {}, {}, {}, {}),
-    myParentJunction(parentJunction),
-    myTesselation(ID, "", RGBColor::GREY, parentJunction->getNBNode()->getWalkingArea(ID).shape, false, true, 0) {
+    GNENetworkElement(parentJunction->getNet(), ID, GLO_WALKINGAREA, SUMO_TAG_WALKINGAREA,
+                      GUIIconSubSys::getIcon(GUIIcon::WALKINGAREA),  {}, {}, {}, {}, {}, {}),
+                                myParentJunction(parentJunction),
+myTesselation(ID, "", RGBColor::GREY, parentJunction->getNBNode()->getWalkingArea(ID).shape, false, true, 0) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -105,8 +105,8 @@ GNEWalkingArea::drawGL(const GUIVisualizationSettings& s) const {
     const double walkingAreaExaggeration = getExaggeration(s);
     // get walking area shape
     const auto& walkingAreaShape = myParentJunction->getNBNode()->getWalkingArea(getID()).shape;
-    // only continue if exaggeration is greather than 0
-    if ((walkingAreaShape.size() > 0) && s.drawCrossingsAndWalkingareas) {
+    // only continue if exaggeration is greather than 0 and junction's shape is greather than 4
+    if ((myParentJunction->getNBNode()->getShape().area() > 4) && (walkingAreaShape.size() > 0) && s.drawCrossingsAndWalkingareas) {
         // push junction name
         GLHelper::pushName(getGlID());
         // push layer matrix
@@ -114,7 +114,7 @@ GNEWalkingArea::drawGL(const GUIVisualizationSettings& s) const {
         // translate to front
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_WALKINGAREA);
         // set shape color
-        const RGBColor walkingAreaColor = myShapeEdited? s.colorSettings.editShapeColor : isAttributeCarrierSelected() ? RGBColor::BLUE : RGBColor::GREY;
+        const RGBColor walkingAreaColor = myShapeEdited ? s.colorSettings.editShapeColor : isAttributeCarrierSelected() ? RGBColor::BLUE : s.junctionColorer.getScheme().getColor(6);
         // recognize full transparency and simply don't draw
         if (walkingAreaColor.alpha() != 0) {
             // set color
@@ -147,25 +147,29 @@ GNEWalkingArea::drawGL(const GUIVisualizationSettings& s) const {
                 // draw shape
                 GLHelper::drawFilledPoly(myTesselation.getShape(), true);
             }
-        }
-        // draw shape points only in Network supemode
-        if (myShapeEdited && s.drawMovingGeometryPoint(1, s.neteditSizeSettings.crossingGeometryPointRadius) && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
-            // color
-            const RGBColor darkerColor = walkingAreaColor.changedBrightness(-32);
-            // draw geometry points
-            GUIGeometry::drawGeometryPoints(s, myNet->getViewNet()->getPositionInformation(), myTesselation.getShape(), darkerColor, RGBColor::BLACK,
-                                            s.neteditSizeSettings.crossingGeometryPointRadius, 1,
-                                            myNet->getViewNet()->getNetworkViewOptions().editingElevation(), true);
-            // draw moving hint
-            if (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) {
-                GUIGeometry::drawMovingHint(s, myNet->getViewNet()->getPositionInformation(), myTesselation.getShape(), darkerColor,
-                                            s.neteditSizeSettings.crossingGeometryPointRadius, 1);
+            // draw shape points only in Network supemode
+            if (myShapeEdited && s.drawMovingGeometryPoint(1, s.neteditSizeSettings.crossingGeometryPointRadius) && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
+                // color
+                const RGBColor darkerColor = walkingAreaColor.changedBrightness(-32);
+                // draw geometry points
+                GUIGeometry::drawGeometryPoints(s, myNet->getViewNet()->getPositionInformation(), myTesselation.getShape(), darkerColor, RGBColor::BLACK,
+                                                s.neteditSizeSettings.crossingGeometryPointRadius, 1,
+                                                myNet->getViewNet()->getNetworkViewOptions().editingElevation(), true);
+                // draw moving hint
+                if (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) {
+                    GUIGeometry::drawMovingHint(s, myNet->getViewNet()->getPositionInformation(), myTesselation.getShape(), darkerColor,
+                                                s.neteditSizeSettings.crossingGeometryPointRadius, 1);
+                }
             }
+            // pop layer Matrix
+            GLHelper::popMatrix();
+            // pop junction name
+            GLHelper::popName();
         }
-        // pop layer Matrix
-        GLHelper::popMatrix();
-        // pop junction name
-        GLHelper::popName();
+        // draw walkingArea name
+        if (s.cwaEdgeName.show(this)) {
+            drawName(walkingAreaShape.getCentroid(), s.scale, s.edgeName, 0, true);
+        }
         // check if mouse is over element
         mouseWithinGeometry(walkingAreaShape);
         // inspect contour
@@ -224,14 +228,10 @@ GNEWalkingArea::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         if ((editMode == NetworkEditMode::NETWORK_CONNECT) || (editMode == NetworkEditMode::NETWORK_TLS) || (editMode == NetworkEditMode::NETWORK_CREATE_EDGE)) {
             mcCustomShape->disable();
         }
+        // disabled for release 1.15
+        mcCustomShape->disable();
     }
     return ret;
-}
-
-
-double
-GNEWalkingArea::getExaggeration(const GUIVisualizationSettings& /*s*/) const {
-    return 1;
 }
 
 

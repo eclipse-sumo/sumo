@@ -1,0 +1,12 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+
+    <!-- missing lane -->
+    <trainStop id="trainStop_01" startPos="15" endPos="20" lines="line1 line2" name="trainStop" friendlyPos="false"/>
+
+    <!-- non valid lane -->
+    <trainStop id="trainStop_02" lane="dummyLane" startPos="15" endPos="20" lines="line1 line2" name="trainStop" friendlyPos="false"/>
+
+    <!-- valid lane -->
+    <trainStop id="trainStop_03" lane="center1_1" startPos="15" endPos="20" lines="line1 line2" name="trainStop" friendlyPos="false"/>
+
+</additional>

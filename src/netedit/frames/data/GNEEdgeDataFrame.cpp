@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -32,8 +32,8 @@
 // method definitions
 // ===========================================================================
 
-GNEEdgeDataFrame::GNEEdgeDataFrame(GNEViewParent *viewParent, GNEViewNet* viewNet) :
-    GNEGenericDataFrame(viewParent, viewNet, SUMO_TAG_MEANDATA_EDGE, false) {
+GNEEdgeDataFrame::GNEEdgeDataFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
+    GNEGenericDataFrame(viewParent, viewNet, GNE_TAG_EDGEREL_SINGLE, false) {
 }
 
 
@@ -46,9 +46,9 @@ GNEEdgeDataFrame::addEdgeData(const GNEViewNetHelper::ObjectsUnderCursor& object
     if (objectsUnderCursor.getEdgeFront() && myDataSetSelector->getDataSet() && myIntervalSelector->getDataInterval()) {
         // first check if the given interval there is already a EdgeData for the given ID
         for (const auto& genericData : myIntervalSelector->getDataInterval()->getGenericDataChildren()) {
-            if ((genericData->getTagProperty().getTag() == SUMO_TAG_MEANDATA_EDGE) && (genericData->getParentEdges().front() == objectsUnderCursor.getEdgeFront())) {
+            if ((genericData->getTagProperty().getTag() == GNE_TAG_EDGEREL_SINGLE) && (genericData->getParentEdges().front() == objectsUnderCursor.getEdgeFront())) {
                 // write warning
-                WRITE_WARNING("There is already a " + genericData->getTagStr() + " in edge '" + objectsUnderCursor.getEdgeFront()->getID() + "'");
+                WRITE_WARNINGF(TL("There is already a % in edge '%'"), genericData->getTagStr(), objectsUnderCursor.getEdgeFront()->getID());
                 // abort edge data creation
                 return false;
             }
@@ -63,7 +63,7 @@ GNEEdgeDataFrame::addEdgeData(const GNEViewNetHelper::ObjectsUnderCursor& object
             // create genericData base object
             CommonXMLStructure::SumoBaseObject* genericDataBaseObject = new CommonXMLStructure::SumoBaseObject(intervalBaseObject);
             // finally create edgeData
-            GNEDataHandler dataHandler(myViewNet->getNet(), "", true);
+            GNEDataHandler dataHandler(myViewNet->getNet(), "", true, false);
             dataHandler.buildEdgeData(genericDataBaseObject, objectsUnderCursor.getEdgeFront()->getID(), myGenericDataAttributes->getParametersMap());
             // delete intervalBaseObject (and genericDataBaseObject)
             delete intervalBaseObject;

@@ -1,0 +1,18 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+
+    <!-- without errors -->
+    <laneAreaDetector id="E2_01" lane="center0_0" pos="1" length="10.00" period="100.00" file="fileA.txt" timeThreshold="1.00" speedThreshold="1.39" jamThreshold="10.00" friendlyPos="0"/>
+
+    <!-- non valid id (empty) -->
+    <laneAreaDetector ane="center0_0" pos="2" length="10.00" period="100.00" file="fileA.txt" timeThreshold="1.00" speedThreshold="1.39" jamThreshold="10.00" friendlyPos="0"/>
+
+    <!-- non valid id (spaces) -->
+    <laneAreaDetector id="id with spaces" lane="center0_0" pos="2" length="10.00" period="100.00" file="fileA.txt" timeThreshold="1.00" speedThreshold="1.39" jamThreshold="10.00" friendlyPos="0"/>
+
+    <!-- non valid id (duplicated) -->
+    <laneAreaDetector id="E2_01" lane="center0_0" pos="2" length="10.00" period="100.00" file="fileA.txt" timeThreshold="1.00" speedThreshold="1.39" jamThreshold="10.00" friendlyPos="0"/>
+
+    <!-- valid ID -->
+    <laneAreaDetector id="E2_02" lane="center0_0" pos="1" length="10.00" period="100.00" file="fileA.txt" timeThreshold="1.00" speedThreshold="1.39" jamThreshold="10.00" friendlyPos="0"/>
+
+</additional>

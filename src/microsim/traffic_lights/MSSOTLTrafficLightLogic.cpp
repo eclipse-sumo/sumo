@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2013-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2013-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -38,8 +38,8 @@ MSSOTLTrafficLightLogic::MSSOTLTrafficLightLogic(
     const Phases& phases,
     int step,
     SUMOTime delay,
-    const Parameterised::Map& parameters)
-    : MSPhasedTrafficLightLogic(tlcontrol, id, programID, 0, logicType, phases, step, delay, parameters) {
+    const Parameterised::Map& parameters) :
+    MSSimpleTrafficLightLogic(tlcontrol, id, programID, 0, logicType, phases, step, delay, parameters) {
     this->mySensors = nullptr;
     this->myCountSensors = nullptr;
     sensorsSelfBuilt = true;
@@ -57,8 +57,8 @@ MSSOTLTrafficLightLogic::MSSOTLTrafficLightLogic(
     int step,
     SUMOTime delay,
     const Parameterised::Map& parameters,
-    MSSOTLSensors* sensors)
-    : MSPhasedTrafficLightLogic(tlcontrol, id, programID, 0, logicType, phases, step, delay, parameters) {
+    MSSOTLSensors* sensors) :
+    MSSimpleTrafficLightLogic(tlcontrol, id, programID, 0, logicType, phases, step, delay, parameters) {
     this->mySensors = sensors;
     sensorsSelfBuilt = false;
     checkPhases();
@@ -72,9 +72,6 @@ MSSOTLTrafficLightLogic::~MSSOTLTrafficLightLogic() {
             delete *vIt;
         }
     m_pushButtons.clear();
-    for (int i = 0; i < (int)myPhases.size(); i++) {
-        delete myPhases[i];
-    }
     if (sensorsSelfBuilt) {
         delete mySensors;
 //		delete myCountSensors;
@@ -169,7 +166,7 @@ MSSOTLTrafficLightLogic::init(NLDetectorBuilder& nb) {
                 LinkVectorVector links = getLinks();
 
 #ifdef SWARM_DEBUG
-                WRITE_MESSAGE("Listing output lanes");
+                WRITE_MESSAGE(TL("Listing output lanes"));
                 for (int i = 0; i < links.size(); i++) {
                     LinkVector oneLink = getLinksAt(i);
                     for (int j = 0; j < oneLink.size(); j++) {
@@ -243,7 +240,7 @@ MSSOTLTrafficLightLogic::updateCTS() {
                     mapIterator->second = countVehicles(getPhase(chain)); //QUEUE
                     break;
                 default:
-                    WRITE_ERROR("Unrecognized traffic threshold calculation mode");
+                    WRITE_ERROR(TL("Unrecognized traffic threshold calculation mode"));
             }
             std::ostringstream oss;
             oss << "MSSOTLTrafficLightLogic::updateCTS->TLC " << getID() << " chain " << chain << " oldVal " << oldVal << " newVal " << mapIterator->second;
@@ -277,7 +274,7 @@ MSSOTLTrafficLightLogic::countVehicles(MSPhaseDefinition phase) {
                 accumulator = MAX2((int)((MSSOTLE2Sensors*)mySensors)->getEstimateQueueLength(lane), accumulator);  //QUEUE
                 break;
             default:
-                WRITE_ERROR("Unrecognized traffic threshold calculation mode");
+                WRITE_ERROR(TL("Unrecognized traffic threshold calculation mode"));
         }
     }
     return accumulator;
@@ -297,7 +294,7 @@ MSSOTLTrafficLightLogic::updateDecayThreshold() {
 bool
 MSSOTLTrafficLightLogic::isThresholdPassed() {
 #ifdef SWARM_DEBUG
-    //	WRITE_MESSAGE("\n" +time2string(MSNet::getInstance()->getCurrentTimeStep()) +"\tMSSOTLTrafficLightLogic::isThresholdPassed()::  " + " tlsid=" + getID());
+    //	WRITE_MESSAGEF(TL("\n% tlsid=%  //	WRITE_MESSAGEF(TL("\n% tlsid=" + getID()), ime2string(MSNet::getInstance()->getCurrentTimeStep()) +"\tMSSOTLTrafficLightLogic::isThresholdPassed()::  ", getID()), ime2string(MSNet::getInstance()->getCurrentTimeStep()) +"\tMSSOTLTrafficLightLogic::isThresholdPassed()::  ");
 
     std::ostringstream threshold_str;
     //	threshold_str << "tlsid=" << getID() << " targetPhaseCTS size=" << targetPhasesCTS.size();
@@ -443,7 +440,7 @@ MSSOTLTrafficLightLogic::decideNextPhase() {
 SUMOTime
 MSSOTLTrafficLightLogic::trySwitch() {
     if (MSNet::getInstance()->getCurrentTimeStep() % 1000 == 0) {
-        WRITE_MESSAGE("MSSOTLTrafficLightLogic::trySwitch()")
+        WRITE_MESSAGE("MSSOTLTrafficLightLogic::trySwitch()");
         // To check if decideNextPhase changes the step
         int previousStep = getCurrentPhaseIndex() ;
 #ifdef ANALYSIS_DEBUG
@@ -508,3 +505,11 @@ bool MSSOTLTrafficLightLogic::isPushButtonPressed() {
     return MSPushButton::anyActive(m_pushButtons[currentPhase.getState()]);
 }
 
+
+void MSSOTLTrafficLightLogic::setStep(int step) {
+    step = step % myPhases.size();
+    if (myStep != step) {
+        myStep = step;
+        myPhases[myStep]->myLastSwitch = MSNet::getInstance()->getCurrentTimeStep();
+    }
+}

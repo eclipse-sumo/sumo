@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -45,8 +45,8 @@ MFXLabelTooltip::MFXLabelTooltip(FXComposite* p, MFXStaticToolTip* staticToolTip
 MFXLabelTooltip::~MFXLabelTooltip() {}
 
 
-long 
-MFXLabelTooltip::onPaint(FXObject*,FXSelector,void* ptr){
+long
+MFXLabelTooltip::onPaint(FXObject*, FXSelector, void* ptr) {
     FXEvent* ev = (FXEvent*)ptr;
     FXDCWindow dc(this, ev);
     FXint tw = 0, th = 0, iw = 0, ih = 0, tx, ty, ix, iy;
@@ -62,7 +62,7 @@ MFXLabelTooltip::onPaint(FXObject*,FXSelector,void* ptr){
     }
     just_x(tx, ix, tw, iw);
     just_y(ty, iy, th, ih);
-    if (icon){
+    if (icon) {
         dc.drawIcon(icon, ix, iy);
     }
     if (!label.empty()) {
@@ -91,7 +91,7 @@ MFXLabelTooltip::onLeave(FXObject* sender, FXSelector sel, void* ptr) {
 }
 
 
-long 
+long
 MFXLabelTooltip::onMotion(FXObject* sender, FXSelector sel, void* ptr) {
     // update static tooltip
     myStaticToolTip->onUpdate(sender, sel, ptr);

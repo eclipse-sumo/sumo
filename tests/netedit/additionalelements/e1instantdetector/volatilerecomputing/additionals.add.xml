@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-02-14 13:59:13 by Eclipse SUMO netedit Version v1_16_0+0177-c72433bc6bd
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- Detectors -->
+    <instantInductionLoop id="e1i_0" lane="center0_0" pos="29.00" file="e1i_0.xml"/>
+    <instantInductionLoop id="e1i_1" lane="center0_0" pos="21.00" file="e1i_1.xml"/>
+    <instantInductionLoop id="e1i_10" lane="top_0" pos="29.00" file="e1i_10.xml"/>
+    <instantInductionLoop id="e1i_11" lane="top_0" pos="21.00" file="e1i_11.xml"/>
+    <instantInductionLoop id="e1i_2" lane="center0_1" pos="31.00" file="e1i_2.xml"/>
+    <instantInductionLoop id="e1i_3" lane="center0_1" pos="19.00" file="e1i_3.xml"/>
+    <instantInductionLoop id="e1i_4" lane="center1_1" pos="15.00" file="e1i_4.xml"/>
+    <instantInductionLoop id="e1i_5" lane="center1_1" pos="33.00" file="e1i_5.xml"/>
+    <instantInductionLoop id="e1i_6" lane="center1_0" pos="13.00" file="e1i_6.xml"/>
+    <instantInductionLoop id="e1i_7" lane="center1_0" pos="35.00" file="e1i_7.xml"/>
+    <instantInductionLoop id="e1i_8" lane="bot_0" pos="13.00" file="e1i_8.xml"/>
+    <instantInductionLoop id="e1i_9" lane="bot_0" pos="35.00" file="e1i_9.xml"/>
+</additional>

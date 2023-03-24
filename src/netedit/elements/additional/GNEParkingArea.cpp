@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -35,8 +35,8 @@
 // ===========================================================================
 
 GNEParkingArea::GNEParkingArea(GNENet* net) :
-    GNEStoppingPlace("", net, GLO_PARKING_AREA, SUMO_TAG_PARKING_AREA, GUIIconSubSys::getIcon(GUIIcon::PARKINGAREA), 
-        nullptr, 0, 0, "", false, Parameterised::Map()),
+    GNEStoppingPlace("", net, GLO_PARKING_AREA, SUMO_TAG_PARKING_AREA, GUIIconSubSys::getIcon(GUIIcon::PARKINGAREA),
+                     nullptr, 0, 0, "", false, Parameterised::Map()),
     myRoadSideCapacity(0),
     myOnRoad(false),
     myWidth(0),
@@ -50,8 +50,8 @@ GNEParkingArea::GNEParkingArea(GNENet* net) :
 GNEParkingArea::GNEParkingArea(const std::string& id, GNELane* lane, GNENet* net, const double startPos, const double endPos,
                                const std::string& departPos, const std::string& name, bool friendlyPosition, int roadSideCapacity, bool onRoad, double width,
                                const double length, double angle, const Parameterised::Map& parameters) :
-    GNEStoppingPlace(id, net, GLO_PARKING_AREA, SUMO_TAG_PARKING_AREA, GUIIconSubSys::getIcon(GUIIcon::PARKINGAREA), 
-        lane, startPos, endPos, name, friendlyPosition, parameters),
+    GNEStoppingPlace(id, net, GLO_PARKING_AREA, SUMO_TAG_PARKING_AREA, GUIIconSubSys::getIcon(GUIIcon::PARKINGAREA),
+                     lane, startPos, endPos, name, friendlyPosition, parameters),
     myDepartPos(departPos),
     myRoadSideCapacity(roadSideCapacity),
     myOnRoad(onRoad),
@@ -164,42 +164,45 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
                 baseColor = s.colorSettings.parkingAreaColor;
                 signColor = s.colorSettings.parkingAreaColorSign;
             }
-            // draw parent and child lines
-            drawParentChildLines(s, s.additionalSettings.connectionColor);
-            // Start drawing adding an gl identificator
-            GLHelper::pushName(getGlID());
-            // Add a layer matrix
-            GLHelper::pushMatrix();
-            // translate to front
-            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_PARKING_AREA);
-            // set base color
-            GLHelper::setColor(baseColor);
-            // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-            GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry, myWidth * 0.5 * MIN2(1.0, parkingAreaExaggeration));
-            // draw detail
-            if (s.drawDetail(s.detailSettings.stoppingPlaceDetails, parkingAreaExaggeration)) {
-                // draw sign
-                drawSign(s, parkingAreaExaggeration, baseColor, signColor, "P");
-                // Traslate to front
-                glTranslated(0, 0, 0.1);
-                // draw lotSpaceDefinitions
-                for (const auto& lsd : myLotSpaceDefinitions) {
-                    GLHelper::drawSpaceOccupancies(parkingAreaExaggeration, lsd.position, lsd.rotation, lsd.width, lsd.length, true);
+            // avoid draw invisible elements
+            if (baseColor.alpha() != 0) {
+                // draw parent and child lines
+                drawParentChildLines(s, s.additionalSettings.connectionColor);
+                // Start drawing adding an gl identificator
+                GLHelper::pushName(getGlID());
+                // Add a layer matrix
+                GLHelper::pushMatrix();
+                // translate to front
+                myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_PARKING_AREA);
+                // set base color
+                GLHelper::setColor(baseColor);
+                // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
+                GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry, myWidth * 0.5 * MIN2(1.0, parkingAreaExaggeration));
+                // draw detail
+                if (s.drawDetail(s.detailSettings.stoppingPlaceDetails, parkingAreaExaggeration)) {
+                    // draw sign
+                    drawSign(s, parkingAreaExaggeration, baseColor, signColor, "P");
+                    // Traslate to front
+                    glTranslated(0, 0, 0.1);
+                    // draw lotSpaceDefinitions
+                    for (const auto& lsd : myLotSpaceDefinitions) {
+                        GLHelper::drawSpaceOccupancies(parkingAreaExaggeration, lsd.position, lsd.rotation, lsd.width, lsd.length, true);
+                    }
                 }
+                // draw geometry points
+                if (myStartPosition != INVALID_DOUBLE) {
+                    drawLeftGeometryPoint(myNet->getViewNet(), myAdditionalGeometry.getShape().front(), myAdditionalGeometry.getShapeRotations().front(), baseColor);
+                }
+                if (myEndPosition != INVALID_DOUBLE) {
+                    drawRightGeometryPoint(myNet->getViewNet(), myAdditionalGeometry.getShape().back(), myAdditionalGeometry.getShapeRotations().back(), baseColor);
+                }
+                // pop layer matrix
+                GLHelper::popMatrix();
+                // Pop name
+                GLHelper::popName();
+                // draw lock icon
+                GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), parkingAreaExaggeration);
             }
-            // draw geometry points
-            if (myStartPosition != INVALID_DOUBLE) {
-                drawLeftGeometryPoint(myNet->getViewNet(), myAdditionalGeometry.getShape().front(), myAdditionalGeometry.getShapeRotations().front(), baseColor);
-            }
-            if (myEndPosition != INVALID_DOUBLE) {
-                drawRightGeometryPoint(myNet->getViewNet(), myAdditionalGeometry.getShape().back(), myAdditionalGeometry.getShapeRotations().back(), baseColor);
-            }
-            // pop layer matrix
-            GLHelper::popMatrix();
-            // Pop name
-            GLHelper::popName();
-            // draw lock icon
-            GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), parkingAreaExaggeration);
             // check if mouse is over element
             mouseWithinGeometry(myAdditionalGeometry.getShape(), myWidth * 0.5 * MIN2(1.0, parkingAreaExaggeration));
             mouseWithinGeometry(mySignPos, myCircleWidth);
@@ -450,7 +453,7 @@ GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value) {
             // enable save demand elements if there are stops
             for (const auto& stop : getChildDemandElements()) {
                 if (stop->getTagProperty().isStop() || stop->getTagProperty().isStopPerson()) {
-                    myNet->requireSaveDemandElements(true);
+                    myNet->getSavingStatus()->requireSaveDemandElements();
                 }
             }
             break;

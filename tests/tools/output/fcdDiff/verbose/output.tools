@@ -1,0 +1,7 @@
+read input_data.xml
+new input_data.xml
+Found 141 matches
+Found 143 records
+missing in old: 2
+missing in new: 0
+euclidian_error: count 141, min 0.00 (overtaking_00:00:00), max 10.34 (stopped_00:01:52), mean 0.93, Q1 0.00, median 0.00, Q3 0.14

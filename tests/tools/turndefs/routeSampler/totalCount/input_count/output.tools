@@ -1,0 +1,4 @@
+Loaded 49 routes (49 distinct)
+Using total count of 49 corresponding to input vehicle count
+Ignored 37 routes which do not pass any counting location
+Wrote 49 routes (32 distinct) achieving total count 32 (100.00%) at 4 locations. GEH<5 for 100.00%

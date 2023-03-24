@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2003-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2003-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -15,6 +15,7 @@
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
+/// @author  Mirko Barthauer
 /// @date    Tue, 17 Jun 2003
 ///
 // Retrieves messages about the process and gives them further to output
@@ -24,7 +25,8 @@
 #include <string>
 #include <vector>
 #include <map>
-#include <iostream>
+#include <utils/common/StringUtils.h>
+#include <utils/common/Translation.h>
 #include <utils/iodevices/OutputDevice.h>
 
 
@@ -99,6 +101,9 @@ public:
     /// @brief ensure that that given output device is no longer used as retriever by any instance
     static void removeRetrieverFromAllInstances(OutputDevice* out);
 
+    ///@brief set up gettext stuff
+    static void setupI18n(const std::string& locale = "");
+
     ///@brief init output options
     static void initOutputOptions();
 
@@ -113,10 +118,7 @@ public:
     template<typename T, typename... Targs>
     void informf(const std::string& format, T value, Targs... Fargs) {
         if (!aggregationThresholdReached(format)) {
-            std::ostringstream os;
-            os << std::fixed << std::setprecision(gPrecision);
-            _informf(format.c_str(), os, value, Fargs...);
-            inform(os.str(), true);
+            inform(StringUtils::format(format, value, Fargs...), true);
         }
     }
 
@@ -128,6 +130,9 @@ public:
      * After the action has been performed, use endProcessMsg to inform the user about it.
      */
     virtual void beginProcessMsg(std::string msg, bool addType = true);
+
+    /// @brief Ends a process information with predefined messages
+    virtual void endProcessMsg2(bool success, long duration = -1);
 
     /// @brief Ends a process information
     virtual void endProcessMsg(std::string msg);
@@ -187,24 +192,6 @@ protected:
 
     virtual bool aggregationThresholdReached(const std::string& format) {
         return myAggregationThreshold >= 0 && myAggregationCount[format]++ >= myAggregationThreshold;
-    }
-
-    void _informf(const char* format, std::ostringstream& os) {
-        os << format;
-    }
-
-    /// @brief adds a new formatted message
-    // variadic function
-    template<typename T, typename... Targs>
-    void _informf(const char* format, std::ostringstream& os, T value, Targs... Fargs) {
-        for (; *format != '\0'; format++) {
-            if (*format == '%') {
-                os << value;
-                _informf(format + 1, os, Fargs...); // recursive call
-                return;
-            }
-            os << *format;
-        }
     }
 
     void setAggregationThreshold(const int thresh) {
@@ -267,7 +254,7 @@ private:
 
     /** @brief Flag to enable or disable debug GL Functions
      *
-     * This value is used to show more internal information throught warning messages about certain operations
+     * This value is used to show more internal information through warning messages about certain operations
      */
     static bool myWriteDebugMessages;
     static bool myWriteDebugGLMessages;
@@ -280,12 +267,20 @@ private:
 #define WRITE_WARNING(msg) MsgHandler::getWarningInstance()->inform(msg);
 #define WRITE_WARNINGF(...) MsgHandler::getWarningInstance()->informf(__VA_ARGS__);
 #define WRITE_MESSAGE(msg) MsgHandler::getMessageInstance()->inform(msg);
+#define WRITE_MESSAGEF(...) MsgHandler::getMessageInstance()->informf(__VA_ARGS__);
 #define PROGRESS_BEGIN_MESSAGE(msg) MsgHandler::getMessageInstance()->beginProcessMsg((msg) + std::string(" ..."));
-#define PROGRESS_DONE_MESSAGE() MsgHandler::getMessageInstance()->endProcessMsg("done.");
+#define PROGRESS_DONE_MESSAGE() MsgHandler::getMessageInstance()->endProcessMsg2(true);
 #define PROGRESS_BEGIN_TIME_MESSAGE(msg) SysUtils::getCurrentMillis(); MsgHandler::getMessageInstance()->beginProcessMsg((msg) + std::string(" ..."));
-#define PROGRESS_TIME_MESSAGE(before) MsgHandler::getMessageInstance()->endProcessMsg("done (" + toString(SysUtils::getCurrentMillis() - before) + "ms).");
-#define PROGRESS_FAILED_MESSAGE() MsgHandler::getMessageInstance()->endProcessMsg("failed.");
+#define PROGRESS_TIME_MESSAGE(before) MsgHandler::getMessageInstance()->endProcessMsg2(true, SysUtils::getCurrentMillis() - before);
+#define PROGRESS_FAILED_MESSAGE() MsgHandler::getMessageInstance()->endProcessMsg2(false);
 #define WRITE_ERROR(msg) MsgHandler::getErrorInstance()->inform(msg);
 #define WRITE_ERRORF(...) MsgHandler::getErrorInstance()->informf(__VA_ARGS__);
 #define WRITE_DEBUG(msg) if(MsgHandler::writeDebugMessages()){MsgHandler::getDebugInstance()->inform(msg);};
 #define WRITE_GLDEBUG(msg) if(MsgHandler::writeDebugGLMessages()){MsgHandler::getGLDebugInstance()->inform(msg);};
+#ifdef HAVE_INTL
+#define TL(string) gettext(string)
+#define TLF(string, ...) StringUtils::format(gettext(string), __VA_ARGS__)
+#else
+#define TL(string) (string)
+#define TLF(string, ...) StringUtils::format(string, __VA_ARGS__)
+#endif

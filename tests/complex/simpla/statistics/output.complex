@@ -1,0 +1,30 @@
+Step 100
+	simpla platoon count: 3
+	simpla platoon leaders: v.0, v.3
+	simpla platoon average length: 2.00
+	simpla platoon average speed: 14.53
+	simpla platoon info ID 0: {'laneID': 'left0A0_0', 'members': ['v.0', 'v.1', 'v.2']}
+Step 150
+	simpla platoon count: 3
+	simpla platoon leaders: v.0
+	simpla platoon average length: 4.00
+	simpla platoon average speed: 13.60
+	simpla platoon info ID 0: {'laneID': 'A0right0_0', 'members': ['v.0', 'v.1', 'v.2', 'v.3']}
+Step 200
+	simpla platoon count: 3
+	simpla platoon leaders: v.0
+	simpla platoon average length: 4.00
+	simpla platoon average speed: 13.55
+	simpla platoon info ID 0: {'laneID': 'A0right0_0', 'members': ['v.0', 'v.1', 'v.2', 'v.3']}
+Step 250
+	simpla platoon count: 3
+	simpla platoon leaders: v.0
+	simpla platoon average length: 4.00
+	simpla platoon average speed: 13.33
+	simpla platoon info ID 0: {'laneID': 'A0right0_0', 'members': ['v.0', 'v.1', 'v.2', 'v.3']}
+Step 300
+	simpla platoon count: 3
+	simpla platoon leaders: v.3
+	simpla platoon average length: 1.00
+	simpla platoon average speed: 14.12
+	simpla platoon info ID 0: {'laneID': 'A0right0_0', 'members': ['v.3']}

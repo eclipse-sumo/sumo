@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-12-20 14:27:19.228611 by attributeStats.py v1_15_0+1156-69976c5
+  options: -x sumo_allStats.xml -b 0 sumo_0/3.stats.xml sumo_0/0.stats.xml sumo_0/2.stats.xml sumo_0/1.stats.xml sumo_0/4.stats.xml sumo_0/5.stats.xml sumo_0/9.stats.xml sumo_0/10.stats.xml sumo_0/6.stats.xml sumo_0/14.stats.xml sumo_0/12.stats.xml sumo_0/7.stats.xml sumo_0/8.stats.xml sumo_0/11.stats.xml sumo_0/13.stats.xml sumo_0/15.stats.xml sumo_0/16.stats.xml sumo_0/18.stats.xml sumo_0/17.stats.xml sumo_0/19.stats.xml sumo_0/20.stats.xml sumo_0/21.stats.xml sumo_0/23.stats.xml sumo_0/22.stats.xml sumo_0/24.stats.xml sumo_0/26.stats.xml sumo_0/25.stats.xml sumo_0/27.stats.xml sumo_0/29.stats.xml sumo_0/28.stats.xml sumo_0/30.stats.xml sumo_0/31.stats.xml sumo_0/32.stats.xml sumo_0/33.stats.xml sumo_0/34.stats.xml sumo_0/35.stats.xml sumo_0/36.stats.xml sumo_0/37.stats.xml sumo_0/38.stats.xml sumo_0/39.stats.xml sumo_0/40.stats.xml sumo_0/41.stats.xml sumo_0/42.stats.xml sumo_0/43.stats.xml sumo_0/44.stats.xml sumo_0/45.stats.xml sumo_0/46.stats.xml sumo_0/47.stats.xml sumo_0/48.stats.xml sumo_0/49.stats.xml sumo_0/50.stats.xml sumo_0/51.stats.xml sumo_0/52.stats.xml sumo_0/53.stats.xml sumo_0/54.stats.xml sumo_0/55.stats.xml sumo_0/56.stats.xml sumo_0/57.stats.xml sumo_0/58.stats.xml sumo_0/59.stats.xml sumo_0/60.stats.xml sumo_0/61.stats.xml sumo_0/62.stats.xml sumo_0/63.stats.xml sumo_0/64.stats.xml sumo_0/65.stats.xml sumo_0/66.stats.xml sumo_0/67.stats.xml sumo_0/68.stats.xml sumo_0/69.stats.xml sumo_0/70.stats.xml sumo_0/71.stats.xml sumo_0/72.stats.xml sumo_0/73.stats.xml sumo_0/74.stats.xml sumo_0/75.stats.xml sumo_0/76.stats.xml sumo_0/77.stats.xml sumo_0/78.stats.xml sumo_0/79.stats.xml sumo_0/80.stats.xml sumo_0/81.stats.xml sumo_0/82.stats.xml sumo_0/83.stats.xml sumo_0/84.stats.xml sumo_0/85.stats.xml sumo_0/86.stats.xml sumo_0/87.stats.xml sumo_0/88.stats.xml sumo_0/89.stats.xml sumo_0/90.stats.xml sumo_0/91.stats.xml sumo_0/92.stats.xml sumo_0/93.stats.xml sumo_0/94.stats.xml sumo_0/95.stats.xml sumo_0/96.stats.xml sumo_0/97.stats.xml sumo_0/98.stats.xml sumo_0/99.stats.xml
+-->
+
+<attributeStats xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/attributeStats_file.xsd">
+    <pedestrianStatistics>
+        <duration count="100" min="0.00" minLabel="sumo_0/3.stats.xml" max="0.00" maxLabel="sumo_0/3.stats.xml" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+        <number count="100" min="0.00" minLabel="sumo_0/3.stats.xml" max="0.00" maxLabel="sumo_0/3.stats.xml" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+        <routeLength count="100" min="0.00" minLabel="sumo_0/3.stats.xml" max="0.00" maxLabel="sumo_0/3.stats.xml" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+        <timeLoss count="100" min="0.00" minLabel="sumo_0/3.stats.xml" max="0.00" maxLabel="sumo_0/3.stats.xml" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+    </pedestrianStatistics>
+    <persons>
+        <jammed count="100" min="0.00" minLabel="sumo_0/3.stats.xml" max="0.00" maxLabel="sumo_0/3.stats.xml" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+        <loaded count="100" min="0.00" minLabel="sumo_0/3.stats.xml" max="0.00" maxLabel="sumo_0/3.stats.xml" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+        <running count="100" min="0.00" minLabel="sumo_0/3.stats.xml" max="0.00" maxLabel="sumo_0/3.stats.xml" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+    </persons>
+    <rideStatistics>
+        <number count="100" min="0.00" minLabel="sumo_0/3.stats.xml" max="0.00" maxLabel="sumo_0/3.stats.xml" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+    </rideStatistics>
+    <safety>
+        <collisions count="100" min="0.00" minLabel="sumo_0/3.stats.xml" max="0.00" maxLabel="sumo_0/3.stats.xml" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+        <emergencyStops count="100" min="0.00" minLabel="sumo_0/3.stats.xml" max="0.00" maxLabel="sumo_0/3.stats.xml" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+    </safety>
+    <teleports>
+        <jam count="100" min="0.00" minLabel="sumo_0/3.stats.xml" max="0.00" maxLabel="sumo_0/3.stats.xml" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+        <total count="100" min="0.00" minLabel="sumo_0/3.stats.xml" max="0.00" maxLabel="sumo_0/3.stats.xml" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+        <wrongLane count="100" min="0.00" minLabel="sumo_0/3.stats.xml" max="0.00" maxLabel="sumo_0/3.stats.xml" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+        <yield count="100" min="0.00" minLabel="sumo_0/3.stats.xml" max="0.00" maxLabel="sumo_0/3.stats.xml" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+    </teleports>
+    <transportStatistics>
+        <number count="100" min="0.00" minLabel="sumo_0/3.stats.xml" max="0.00" maxLabel="sumo_0/3.stats.xml" mean="0.00" Q1="0.00" median="0.00" Q3="0.00" meanAbs="0.00" medianAbs="0.00" stdDev="0.00"/>
+    </transportStatistics>
+    <vehicleTripStatistics>
+        <count count="100" min="361.00" minLabel="sumo_0/24.stats.xml" max="409.00" maxLabel="sumo_0/10.stats.xml" mean="386.15" Q1="380.00" median="386.00" Q3="392.00" meanAbs="386.15" medianAbs="386.00" stdDev="9.36"/>
+        <departDelay count="100" min="0.96" minLabel="sumo_0/78.stats.xml" max="1.08" maxLabel="sumo_0/28.stats.xml" mean="1.02" Q1="1.00" median="1.02" Q3="1.03" meanAbs="1.02" medianAbs="1.02" stdDev="0.02"/>
+        <departDelayWaiting count="100" min="-1.00" minLabel="sumo_0/3.stats.xml" max="-1.00" maxLabel="sumo_0/3.stats.xml" mean="-1.00" Q1="-1.00" median="-1.00" Q3="-1.00" meanAbs="1.00" medianAbs="1.00" stdDev="0.00"/>
+        <duration count="100" min="440.95" minLabel="sumo_0/10.stats.xml" max="476.36" maxLabel="sumo_0/2.stats.xml" mean="461.15" Q1="457.74" median="461.58" Q3="465.13" meanAbs="461.15" medianAbs="461.58" stdDev="6.33"/>
+        <routeLength count="100" min="8378.42" minLabel="sumo_0/98.stats.xml" max="8538.51" maxLabel="sumo_0/28.stats.xml" mean="8464.26" Q1="8446.45" median="8463.06" Q3="8483.56" meanAbs="8464.26" medianAbs="8463.06" stdDev="30.53"/>
+        <speed count="100" min="18.89" minLabel="sumo_0/2.stats.xml" max="20.92" maxLabel="sumo_0/10.stats.xml" mean="19.97" Q1="19.74" median="20.00" Q3="20.20" meanAbs="19.97" medianAbs="20.00" stdDev="0.36"/>
+        <timeLoss count="100" min="199.11" minLabel="sumo_0/10.stats.xml" max="234.53" maxLabel="sumo_0/24.stats.xml" mean="218.70" Q1="215.00" median="219.28" Q3="222.96" meanAbs="218.70" medianAbs="219.28" stdDev="6.56"/>
+        <totalDepartDelay count="100" min="353.90" minLabel="sumo_0/24.stats.xml" max="443.00" maxLabel="sumo_0/28.stats.xml" mean="392.51" Q1="380.90" median="391.40" Q3="406.30" meanAbs="392.51" medianAbs="391.40" stdDev="17.01"/>
+        <totalTravelTime count="100" min="168226.00" minLabel="sumo_0/75.stats.xml" max="192455.00" maxLabel="sumo_0/28.stats.xml" mean="178054.89" Q1="175819.00" median="178499.00" Q3="180793.00" meanAbs="178054.89" medianAbs="178499.00" stdDev="4278.10"/>
+        <waitingTime count="100" min="86.43" minLabel="sumo_0/47.stats.xml" max="136.09" maxLabel="sumo_0/13.stats.xml" mean="119.58" Q1="115.53" median="120.81" Q3="125.83" meanAbs="119.58" medianAbs="120.81" stdDev="8.98"/>
+    </vehicleTripStatistics>
+    <vehicles>
+        <inserted count="100" min="1248.00" minLabel="sumo_0/0.stats.xml" max="1287.00" maxLabel="sumo_0/93.stats.xml" mean="1266.29" Q1="1259.00" median="1265.00" Q3="1272.00" meanAbs="1266.29" medianAbs="1265.00" stdDev="8.44"/>
+        <loaded count="100" min="2997.00" minLabel="sumo_0/3.stats.xml" max="2997.00" maxLabel="sumo_0/3.stats.xml" mean="2997.00" Q1="2997.00" median="2997.00" Q3="2997.00" meanAbs="2997.00" medianAbs="2997.00" stdDev="0.00"/>
+        <running count="100" min="855.00" minLabel="sumo_0/28.stats.xml" max="914.00" maxLabel="sumo_0/24.stats.xml" mean="880.14" Q1="874.00" median="881.00" Q3="887.00" meanAbs="880.14" medianAbs="881.00" stdDev="11.10"/>
+        <waiting count="100" min="1.00" minLabel="sumo_0/80.stats.xml" max="3.00" maxLabel="sumo_0/3.stats.xml" mean="2.98" Q1="3.00" median="3.00" Q3="3.00" meanAbs="2.98" medianAbs="3.00" stdDev="0.20"/>
+    </vehicles>
+</attributeStats>

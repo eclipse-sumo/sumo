@@ -34,6 +34,10 @@ The behavior of the **btreceiver** device can be further customized using the fo
 - **--device.btreceiver-range** {{DT_FLOAT}} (defines the detection range in meters)
 - **--device.btreceiver-offtime** {{DT_FLOAT}} (defines the minimum time between connections in seconds. This can be used to model effects of communication traffic load).
 
+## Persons
+
+Both sender and receiver devices may also be [enable for persons](../Specification/Persons.md#devices). These devices work the same as those for vehicles and will interact with each other as well as with vehicle devices.
+
 # Output
 
 The option **--bt-output** generates an XML output file of the following form:

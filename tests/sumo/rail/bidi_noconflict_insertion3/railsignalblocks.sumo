@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-01-10 15:21:51 by Eclipse SUMO sumo Version v1_15_0+1523-318031b
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
+        <railsignal-block-output value="railsignal_blocks.xml"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<railsignal-block-output>
+    <railSignal id="J2">
+        <link linkIndex="0" from="-end2_0" to=":J2_0_0">
+            <driveWay edges="-end -end.200 -middle -beg">
+                <forward lanes=":J2_0_0 -end_0 :J4_0_0 -end.200_0 :B_1_0 -middle_0 :J3_0_0 -beg_0"/>
+                <bidi lanes=":J2_1_0 end0_0 :J4_3_0 end_0 :B_2_0 middle_0 :J3_1_0 beg_0"/>
+                <flank lanes=":B_0_0 -E0_0 :J0_0_0 -E1_0 :J4_2_0 -E2_0 :J5_1_0 -E3_0"/>
+                <protectingSwitches links=""/>
+                <conflictLinks signals=""/>
+            </driveWay>
+        </link>
+    </railSignal>
+    <railSignal id="J3">
+        <link linkIndex="0" from="beg_0" to=":J3_1_0">
+            <driveWay edges="middle E0 E1">
+                <forward lanes=":J3_1_0 middle_0 :B_3_0 E0_0 :J0_1_0 E1_0"/>
+                <bidi lanes=":J3_0_0 -middle_0 :B_0_0 -E0_0 :J0_0_0 -E1_0"/>
+                <flank lanes=":B_1_0 -end.200_0 :J4_0_0"/>
+                <protectingSwitches links="J4_0"/>
+                <conflictLinks signals=""/>
+            </driveWay>
+        </link>
+    </railSignal>
+</railsignal-block-output>

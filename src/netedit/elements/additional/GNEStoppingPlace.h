@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -43,8 +43,8 @@ public:
      * @param[in] friendlyPos enable or disable friendly position
      * @param[in] parameters generic parameters
      */
-    GNEStoppingPlace(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon *icon, GNELane* lane, 
-                     const double startPos, const double endPos, const std::string& name, bool friendlyPosition, 
+    GNEStoppingPlace(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon, GNELane* lane,
+                     const double startPos, const double endPos, const std::string& name, bool friendlyPosition,
                      const Parameterised::Map& parameters);
 
     /// @brief Destructor
@@ -57,20 +57,20 @@ public:
 
     /// @name members and functions relative to write additionals into XML
     /// @{
-    /// @brief check if current additional is valid to be writed into XML
+    /**@brief write additional element into a xml file
+    * @param[in] device device in which write parameters of additional element
+    */
+    virtual void writeAdditional(OutputDevice& device) const = 0;
+
+    /// @brief check if current additional is valid to be writed into XML (must be reimplemented in all detector children)
     bool isAdditionalValid() const;
 
-    /// @brief return a string with the current additional problem
+    /// @brief return a string with the current additional problem (must be reimplemented in all detector children)
     std::string getAdditionalProblem() const;
 
-    /// @brief fix additional problem
+    /// @brief fix additional problem (must be reimplemented in all detector children)
     void fixAdditionalProblem();
     /// @}
-
-    /**@brief write additional element into a xml file
-     * @param[in] device device in which write parameters of additional element
-     */
-    virtual void writeAdditional(OutputDevice& device) const = 0;
 
     /// @name Functions related with geometry of element
     /// @{

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -53,7 +53,7 @@ GUIShapeContainer::addPOI(const std::string& id, const std::string& type, const 
             myVis.removeAdditionalGLObject(oldP);
             myPOIs.remove(id);
             myPOIs.add(id, p);
-            WRITE_WARNING("Replacing POI '" + id + "'");
+            WRITE_WARNINGF(TL("Replacing POI '%'"), id);
         } else {
             delete p;
             return false;
@@ -78,7 +78,7 @@ GUIShapeContainer::addPolygon(const std::string& id, const std::string& type,
             myVis.removeAdditionalGLObject(oldP);
             myPolygons.remove(id);
             myPolygons.add(id, p);
-            WRITE_WARNING("Replacing polygon '" + id + "'");
+            WRITE_WARNINGF(TL("Replacing polygon '%'"), id);
         } else {
             delete p;
             return false;

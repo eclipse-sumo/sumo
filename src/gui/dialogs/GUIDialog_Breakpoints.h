@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -24,6 +24,7 @@
 #include <string>
 #include <vector>
 #include <utils/foxtools/fxheader.h>
+#include <utils/gui/div/GUIPersistentWindowPos.h>
 
 
 // ===========================================================================
@@ -37,7 +38,7 @@
  *  time steps where the simulation halts.
  * @todo Use a LineReader instead of >> while reading
  */
-class GUIDialog_Breakpoints : public FXMainWindow {
+class GUIDialog_Breakpoints : public FXMainWindow, public GUIPersistentWindowPos {
     // FOX-declarations
     FXDECLARE(GUIDialog_Breakpoints)
 

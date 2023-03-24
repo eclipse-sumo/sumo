@@ -17,8 +17,9 @@ vehicle:
 
 - the vehicle stood too long in front of an intersection (message:
   "*...'; waited too long, lane='...*")
-- the vehicle has collided with his leader (message: "*...';
+- the vehicle has [collided](Safety.md#collisions) with his leader (message: "*...';
   collision, lane='...*")
+- the vehicle is performing a [jump](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#jumps)
 
 ## Waiting too long, aka Grid-locks
 
@@ -62,9 +63,13 @@ following reasons is given:
   
 Related options are
 
+- **--max-num-teleport**
 - **--time-to-teleport.highways**: teleport earlier when stuck on the wrong lane of a road with speed above 19.167 m/s
 - **--time-to-teleport.highways.min-speed**: configure threshold for above option
 - **--time-to-teleport.disconnected**: teleport earlier when the route is disconnected
+- **--time-to-teleport.bidi**: teleport earlier when on a bidi-edge (as this is more prone to dead-lock)
+- **--time-to-teleport.ride**: teleports [persons that are waiting for a ride](../Specification/Persons.md#riding) rather than vehicles.
+- **--time-to-teleport.remove**: remove teleporting vehicles directly
 
 Unfortunately, grid-locks are rather common in congested simulation
 scenarios. You can solve this only by [improving traffic flow, either by
@@ -94,7 +99,7 @@ network problems or deliberate configuration,
 
 To avoid collisions, observe the simulation
 [sumo-gui](../sumo-gui.md) at the location and time of the
-collision. Check if some of the [that may cause a collision are present
+collision. Check if some of the [things that may cause a collision are present
 in your network](../Simulation/Safety.md#deliberately_causing_collisions).
 
 # What is happening while a vehicle teleports

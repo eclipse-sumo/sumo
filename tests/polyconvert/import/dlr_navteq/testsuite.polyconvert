@@ -1,3 +1,6 @@
+# testing polygon processing with long data (more than 1024 characters per line)
+polygon_long
+
 # testing poi processing
 poi
 

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -36,7 +36,7 @@
 
 GNETAZSourceSink::GNETAZSourceSink(SumoXMLTag tag, GNENet* net) :
     GNEAdditional(net, GLO_TAZ, tag, GUIIconSubSys::getIcon(GUIIcon::MODETAZ), "", {}, {}, {}, {}, {}, {}),
-    myDepartWeight(0) {
+myDepartWeight(0) {
     // reset default values
     resetDefaultValues();
 }
@@ -44,7 +44,7 @@ GNETAZSourceSink::GNETAZSourceSink(SumoXMLTag tag, GNENet* net) :
 
 GNETAZSourceSink::GNETAZSourceSink(SumoXMLTag sourceSinkTag, GNEAdditional* TAZParent, GNEEdge* edge, double departWeight) :
     GNEAdditional(TAZParent->getNet(), GLO_TAZ, sourceSinkTag, GUIIconSubSys::getIcon(GUIIcon::MODETAZ), "", {}, {edge}, {}, {TAZParent}, {}, {}),
-    myDepartWeight(departWeight) {
+myDepartWeight(departWeight) {
     //check that this is a TAZ Source OR a TAZ Sink
     if ((sourceSinkTag != SUMO_TAG_TAZSOURCE) && (sourceSinkTag != SUMO_TAG_TAZSINK)) {
         throw InvalidArgument("Invalid TAZ Child Tag");
@@ -74,6 +74,24 @@ GNETAZSourceSink::writeAdditional(OutputDevice& device) const {
 }
 
 
+bool
+GNETAZSourceSink::isAdditionalValid() const {
+    return true;
+}
+
+
+std::string
+GNETAZSourceSink::getAdditionalProblem() const {
+    return "";
+}
+
+
+void
+GNETAZSourceSink::fixAdditionalProblem() {
+    // nothing to fix
+}
+
+
 double
 GNETAZSourceSink::getDepartWeight() const {
     return myDepartWeight;
@@ -89,12 +107,6 @@ GNETAZSourceSink::updateGeometry() {
 Position
 GNETAZSourceSink::getPositionInView() const {
     return getParentAdditionals().at(0)->getPositionInView();
-}
-
-
-double
-GNETAZSourceSink::getExaggeration(const GUIVisualizationSettings& /*s*/) const {
-    return 1;
 }
 
 
@@ -131,8 +143,8 @@ GNETAZSourceSink::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) 
     buildCenterPopupEntry(ret);
     buildPositionCopyEntry(ret, app);
     // buld menu commands for names
-    GUIDesigns::buildFXMenuCommand(ret, "Copy " + getTagStr() + " name to clipboard", nullptr, ret, MID_COPY_NAME);
-    GUIDesigns::buildFXMenuCommand(ret, "Copy " + getTagStr() + " typed name to clipboard", nullptr, ret, MID_COPY_TYPED_NAME);
+    GUIDesigns::buildFXMenuCommand(ret, TL("Copy ") + getTagStr() + TL(" name to clipboard"), nullptr, ret, MID_COPY_NAME);
+    GUIDesigns::buildFXMenuCommand(ret, TL("Copy ") + getTagStr() + TL(" typed name to clipboard"), nullptr, ret, MID_COPY_TYPED_NAME);
     new FXMenuSeparator(ret);
     // build selection and show parameters menu
     myNet->getViewNet()->buildSelectionACPopupEntry(ret, this);

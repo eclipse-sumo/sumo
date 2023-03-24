@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -247,14 +247,11 @@ public:
             ID_LAST
         };
         /// Constructor
-        GUIManip_TriggeredRerouter(GUIMainWindow& app,
-                                   const std::string& name, GUITriggeredRerouter& o,
-                                   int xpos, int ypos);
+        GUIManip_TriggeredRerouter(GUIMainWindow& app, const std::string& name, GUITriggeredRerouter& o);
 
         /// Destructor
         virtual ~GUIManip_TriggeredRerouter();
 
-        long onCmdOverride(FXObject*, FXSelector, void*);
         long onCmdClose(FXObject*, FXSelector, void*);
         long onCmdUserDef(FXObject*, FXSelector, void*);
         long onUpdUserDef(FXObject*, FXSelector, void*);

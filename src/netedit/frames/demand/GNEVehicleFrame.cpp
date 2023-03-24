@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -36,7 +36,7 @@
 // ---------------------------------------------------------------------------
 
 GNEVehicleFrame::HelpCreation::HelpCreation(GNEVehicleFrame* vehicleFrameParent) :
-    MFXGroupBoxModule(vehicleFrameParent, "Help"),
+    MFXGroupBoxModule(vehicleFrameParent, TL("Help")),
     myVehicleFrameParent(vehicleFrameParent) {
     myInformationLabel = new FXLabel(getCollapsableFrame(), "", 0, GUIDesignLabelFrameInformation);
 }
@@ -68,46 +68,46 @@ GNEVehicleFrame::HelpCreation::updateHelpCreation() {
         // vehicles
         case SUMO_TAG_VEHICLE:
             information
-                    << "- Click over a route to\n"
-                    << "  create a vehicle.";
+                    << TL("- Click over a route to\n")
+                    << TL("  create a vehicle.");
             break;
         case SUMO_TAG_TRIP:
             information
-                    << "- Select two edges to\n"
-                    << "  create a Trip.";
+                    << TL("- Select two edges to\n")
+                    << TL("  create a Trip.");
             break;
         case GNE_TAG_VEHICLE_WITHROUTE:
             information
-                    << "- Select two edges to\n"
-                    << "  create a vehicle with\n"
-                    << "  embedded route.";
+                    << TL("- Select two edges to\n")
+                    << TL("  create a vehicle with\n")
+                    << TL("  embedded route.");
             break;
         case GNE_TAG_TRIP_JUNCTIONS:
             information
-                    << "- Select two junctions\n"
-                    << "  to create a Trip.";
+                    << TL("- Select two junctions\n")
+                    << TL("  to create a Trip.");
             break;
         // flows
         case GNE_TAG_FLOW_ROUTE:
             information
-                    << "- Click over a route to\n"
-                    << "  create a routeFlow.";
+                    << TL("- Click over a route to\n")
+                    << TL("  create a routeFlow.");
             break;
         case SUMO_TAG_FLOW:
             information
-                    << "- Select two edges to\n"
-                    << "  create a flow.";
+                    << TL("- Select two edges to\n")
+                    << TL("  create a flow.");
             break;
         case GNE_TAG_FLOW_WITHROUTE:
             information
-                    << "- Select two edges to\n"
-                    << "  create a flow with\n"
-                    << "  embedded route.";
+                    << TL("- Select two edges to\n")
+                    << TL("  create a flow with\n")
+                    << TL("  embedded route.");
             break;
         case GNE_TAG_FLOW_JUNCTIONS:
             information
-                    << "- Select two junctions\n"
-                    << "  to create a flow.";
+                    << TL("- Select two junctions\n")
+                    << TL("  to create a flow.");
             break;
         default:
             break;
@@ -120,7 +120,7 @@ GNEVehicleFrame::HelpCreation::updateHelpCreation() {
 // GNEVehicleFrame - methods
 // ---------------------------------------------------------------------------
 
-GNEVehicleFrame::GNEVehicleFrame(GNEViewParent *viewParent, GNEViewNet* viewNet) :
+GNEVehicleFrame::GNEVehicleFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     GNEFrame(viewParent, viewNet, "Vehicles"),
     myRouteHandler("", viewNet->getNet(), true, false),
     myVehicleBaseObject(new CommonXMLStructure::SumoBaseObject(nullptr)) {
@@ -141,7 +141,7 @@ GNEVehicleFrame::GNEVehicleFrame(GNEViewParent *viewParent, GNEViewNet* viewNet)
     myHelpCreation = new HelpCreation(this);
 
     // create legend label
-    myPathLegend = new GNEM_PathLegend(this);
+    myPathLegend = new GNEPathLegendModule(this);
 }
 
 
@@ -188,12 +188,12 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
     const bool addJunction = ((vehicleTag == GNE_TAG_TRIP_JUNCTIONS) || (vehicleTag == GNE_TAG_FLOW_JUNCTIONS));
     // first check that current selected vehicle is valid
     if (vehicleTag == SUMO_TAG_NOTHING) {
-        myViewNet->setStatusBarText("Current selected vehicle isn't valid.");
+        myViewNet->setStatusBarText(TL("Current selected vehicle isn't valid."));
         return false;
     }
     // now check if VType is valid
     if (myTypeSelector->getCurrentDemandElement() == nullptr) {
-        myViewNet->setStatusBarText("Current selected vehicle type isn't valid.");
+        myViewNet->setStatusBarText(TL("Current selected vehicle type isn't valid."));
         return false;
     }
     // now check if parameters are valid
@@ -248,9 +248,9 @@ GNEVehicleFrame::tagSelected() {
         myPathCreator->showPathCreatorModule(myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag(), false, false);
         // check if show path legend
         if ((myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() != SUMO_TAG_VEHICLE) &&
-            (myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() != GNE_TAG_FLOW_ROUTE) &&
-            (myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() != GNE_TAG_TRIP_JUNCTIONS) &&
-            (myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() != GNE_TAG_FLOW_JUNCTIONS)) {
+                (myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() != GNE_TAG_FLOW_ROUTE) &&
+                (myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() != GNE_TAG_TRIP_JUNCTIONS) &&
+                (myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() != GNE_TAG_FLOW_JUNCTIONS)) {
             myPathLegend->showPathLegendModule();
         } else {
             myPathLegend->hidePathLegendModule();
@@ -282,9 +282,9 @@ GNEVehicleFrame::demandElementSelected() {
         myHelpCreation->showHelpCreation();
         // show warning if we have selected a vType oriented to pedestrians or containers
         if (myTypeSelector->getCurrentDemandElement()->getVClass() == SVC_PEDESTRIAN) {
-            WRITE_WARNING("VType with vClass == 'pedestrian' is oriented to pedestrians");
+            WRITE_WARNING(TL("VType with vClass == 'pedestrian' is oriented to pedestrians"));
         } else if (myTypeSelector->getCurrentDemandElement()->getVClass() == SVC_IGNORING) {
-            WRITE_WARNING("VType with vClass == 'ignoring' is oriented to containers");
+            WRITE_WARNING(TL("VType with vClass == 'ignoring' is oriented to containers"));
         }
     } else {
         // hide all moduls if selected item isn't valid
@@ -296,7 +296,7 @@ GNEVehicleFrame::demandElementSelected() {
 }
 
 
-void
+bool
 GNEVehicleFrame::createPath(const bool useLastRoute) {
     // first check if parameters are valid
     if (myVehicleAttributes->areValuesValid() && myTypeSelector->getCurrentDemandElement()) {
@@ -315,7 +315,7 @@ GNEVehicleFrame::createPath(const bool useLastRoute) {
         // check if use last route
         if (useLastRoute) {
             // build vehicle using last route
-            buildVehicleOverRoute(vehicleTag, myViewNet->getLastCreatedRoute());
+            return buildVehicleOverRoute(vehicleTag, myViewNet->getLastCreatedRoute());
         } else {
             // check number of edges
             if ((myPathCreator->getSelectedEdges().size() > 0) || (myPathCreator->getSelectedJunctions().size() > 0)) {
@@ -500,9 +500,11 @@ GNEVehicleFrame::createPath(const bool useLastRoute) {
                 myPathCreator->abortPathCreation();
                 // refresh myVehicleAttributes
                 myVehicleAttributes->refreshAttributesCreator();
+                return true;
             }
         }
     }
+    return false;
 }
 
 

@@ -341,7 +341,7 @@
     <connection from="NC" to="CE" fromLane="4" toLane="4" via=":C_5_0" tl="C" linkIndex="5" dir="l" state="o"/>
     <connection from="SC" to="CE" fromLane="2" toLane="2" via=":C_12_0" tl="C" linkIndex="12" dir="r" state="o"/>
     <connection from="SC" to="CN" fromLane="2" toLane="2" via=":C_13_0" tl="C" linkIndex="13" dir="s" state="o"/>
-    <connection from="SC" to="CW" fromLane="2" toLane="2" contPos="22.50" shape="106.90,85.85 108.24,88.62 108.19,106.80 86.60,106.90" via=":C_14_0" tl="C" linkIndex="14" linkIndex2="7" dir="l" state="o"/>
+    <connection from="SC" to="CW" fromLane="2" toLane="2" contPos="22.50" shape="106.90,85.85 108.24,88.62 108.19,106.80 86.60,106.90" via=":C_14_0" tl="C" linkIndex="14" linkIndex2="7" dir="l" state="o" indirect="1"/>
     <connection from="SC" to="CE" fromLane="3" toLane="3" via=":C_15_0" tl="C" linkIndex="15" dir="r" state="o"/>
     <connection from="SC" to="CN" fromLane="3" toLane="3" via=":C_16_0" tl="C" linkIndex="16" dir="s" state="o"/>
     <connection from="SC" to="CN" fromLane="4" toLane="4" via=":C_16_1" tl="C" linkIndex="17" dir="s" state="o"/>

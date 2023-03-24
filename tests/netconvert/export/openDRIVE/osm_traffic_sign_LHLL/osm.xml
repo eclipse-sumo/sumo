@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<osm version='0.6' generator='JOSM'>
+  <node id='-137709' action='modify' visible='true' lat='48.89044622168' lon='9.1832104594' />
+  <node id='-137711' action='modify' visible='true' lat='48.89045545047' lon='9.18187421541' />
+  <node id='-137713' action='modify' visible='true' lat='48.89047121967' lon='9.1823734761'>
+    <tag k='maxspeed' v='80' />
+    <tag k='traffic_sign' v='maxspeed' />
+  </node>
+  <way id='-103224' action='modify' visible='true'>
+    <nd ref='-137709' />
+    <nd ref='-137711' />
+    <tag k='highway' v='primary' />
+    <tag k='lanes' v='2' />
+    <tag k='lanes:backward' v='1' />
+    <tag k='lanes:forward' v='1' />
+    <tag k='maxspeed' v='100' />
+    <tag k='name' v='mystreet' />
+  </way>
+</osm>

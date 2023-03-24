@@ -8,7 +8,7 @@ Loading configuration ... done.
   client connected
 Loading net-file from 'input_net.net.xml' ... done (3ms).
 Loading done.
-Simulation version v1_12_0+0386-2ed30174c45 started with time: 0.00
+Simulation version v1_12_0+0386-2ed30174c45 started with time: 0.00.
 Process 1:
    1 vehicle subscription results: []
    1 simulation subscription results: {}
@@ -986,7 +986,7 @@ Loading configuration ... done.
   client connected
 Loading net-file from 'input_net.net.xml' ... done (3ms).
 Loading done.
-Simulation version v1_12_0+0386-2ed30174c45 started with time: 0.00
+Simulation version v1_12_0+0386-2ed30174c45 started with time: 0.00.
 Process 2:
    2 vehicle subscription results: []
    2 simulation subscription results: {}

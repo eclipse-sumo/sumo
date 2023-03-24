@@ -136,9 +136,9 @@ Alternatively, the [values for edges or lanes](#values_for_edges_or_lanes) can b
 
 ## simulation(network)-based information
 
-- [simulation state statistics](Summary.md):
+- [simulation state summary statistics](Summary.md):
   information about the current state of the simulation (vehicle count etc.)
-- [simulation state person statistics](PersonSummary.md):
+- [simulation state person summary statistics](PersonSummary.md):
   information about the current state of persons the simulation (person count etc.)
 - [statistic output](StatisticOutput.md):
   overall statistics of the simulation (vehicles, teleports, safety, persons, vehicleTripStatistics, rideStatistics, etc.)

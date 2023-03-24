@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -35,10 +35,7 @@ netedit.additionalMode()
 netedit.changeElement("vaporizer")
 
 # create vaporizer
-netedit.leftClick(referencePosition, 250, 120)
-
-# recompute (needed for vertical position)
-netedit.rebuildNetwork()
+netedit.leftClick(referencePosition, 338, 252)
 
 # recompute (needed for vertical position)
 netedit.rebuildNetwork()
@@ -47,32 +44,26 @@ netedit.rebuildNetwork()
 netedit.inspectMode()
 
 # inspect first vaporizer
-netedit.leftClick(referencePosition, 325, 227)
+netedit.leftClick(referencePosition, 512, 276)
 
 # Change parameter 2 with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.vaporizer.inspect.end, "dummy", True)
+netedit.modifyAttribute(netedit.attrs.vaporizer.inspect.end, "dummy", False)
 
 # Change parameter 2 with a non valid value (negative)
-netedit.modifyAttribute(netedit.attrs.vaporizer.inspect.end, "-10", True)
+netedit.modifyAttribute(netedit.attrs.vaporizer.inspect.end, "-10", False)
 
 # Change parameter 2 with a non valid value (minor than startTime)
-netedit.modifyAttribute(netedit.attrs.vaporizer.inspect.end, "2", True)
+netedit.modifyAttribute(netedit.attrs.vaporizer.inspect.end, "2", False)
 
 # Change parameter 2 with a valid value
-netedit.modifyAttribute(netedit.attrs.vaporizer.inspect.end, "20", True)
-
-# click over an empty area
-netedit.leftClick(referencePosition, 0, 0)
+netedit.modifyAttribute(netedit.attrs.vaporizer.inspect.end, "20", False)
 
 # Check undos and redos
 netedit.undo(referencePosition, 3)
 netedit.redo(referencePosition, 3)
 
-# save additionals
-netedit.saveAdditionals(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)
