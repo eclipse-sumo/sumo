@@ -19,7 +19,7 @@ Warning: 3 total messages of type: Lane '%' is not connected from any incoming e
 Warning: 3 total messages of type: Shape for junction '%' has distance % to its given position.
 Warning: 4 total messages of type: The rail crossing '%' does not have any roads.
 Warning: Converting invalid rail_crossing to priority junction '7465967526'.
-Warning: Non-static traffic light 'cluster_1599656332_6994510228_6994510229' does not define variable phase length.
+Warning: Non-static traffic light '7465967542' does not define variable phase length.
 Warning: 9 total messages of type: Converting invalid rail_crossing to priority junction '%'.
 Warning: 4 total messages of type: Non-static traffic light '%' does not define variable phase length.
 Warning! No mapping library found, falling back to tracemapper.
