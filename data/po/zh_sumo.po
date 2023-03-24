@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-24 09:56+0000\n"
+"PO-Revision-Date: 2023-03-24 10:12+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -1580,113 +1580,114 @@ msgstr "写出仿真结束时因出发延迟而未出发的车辆的行程信息
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:220
 msgid "Save single vehicle route info into FILE"
-msgstr ""
+msgstr "将单一车辆的路径信息保存到文件（FILE）中"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:224
 msgid "Write the exit times for all edges"
-msgstr ""
+msgstr "写出所有路段的出口时间"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:228
 msgid "Write the last route only"
-msgstr ""
+msgstr "只写最后一条路段"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:232
 msgid "Sorts the output by departure time"
-msgstr ""
+msgstr "按照出发时间对输出进行排序"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:236
 msgid "Write the output in the duarouter alternatives style"
-msgstr ""
+msgstr "用duarouter的替代样式写输出"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:239
 msgid "Write costs for all routes"
-msgstr ""
+msgstr "编写所有路径的费用"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:243
 msgid "Write the output with the intended instead of the real departure time"
-msgstr ""
+msgstr "用预期的而不是实际的出发时间来写输出结果"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:250
 msgid ""
 "Write vehroute output for vehicles which have not arrived at simulation end"
-msgstr ""
+msgstr "为未到达仿真终点的车辆写出vehroute输出"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:253
 msgid "Skip vehroute output for public transport vehicles"
-msgstr ""
+msgstr "跳过公共交通车辆的路线输出"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:256
 msgid "Include invalid routes and route stubs in vehroute output"
-msgstr ""
+msgstr "在vehroute输出中包括无效的路径和路径存根"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:259
 msgid "Include information about edges between stops"
-msgstr ""
+msgstr "包括站点之间的路段信息"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:262
 msgid ""
 "Write the vehicle speedFactor (defaults to 'true' if departSpeed is written)"
-msgstr ""
+msgstr "写入车辆速度因子（如果写入了出发速度，则默认为'true'）"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:265
 msgid "Include internal edges in the output"
-msgstr ""
+msgstr "在输出中包括内部路段"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:269
 msgid "Save person and container routes to separate FILE"
-msgstr ""
+msgstr "将人员和货箱路径保存到不同的文件中"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:272
 msgid "Save links states into FILE"
-msgstr ""
+msgstr "将链接状态保存到文件（FILE）中"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:275
 msgid "Save railsignal-blocks into FILE"
-msgstr ""
+msgstr "将railsignal-blocks保存到文件（FILE）中"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:278
 msgid ""
 "Save bluetooth visibilities into FILE (in conjunction with device.btreceiver "
 "and device.btsender)"
-msgstr ""
+msgstr "将蓝牙功能保存到文件（FILE）中（与device.btreceiver和device."
+"btsender一起使用）"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:281
 msgid "Record lane changes and their motivations for all vehicles into FILE"
-msgstr ""
+msgstr "将所有车辆的变道及其动机记录到档案中"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:284
 msgid "Record start of lane change manoeuvres"
-msgstr ""
+msgstr "变换车道动作的开始记录"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:287
 msgid "Record end of lane change manoeuvres"
-msgstr ""
+msgstr "记录变道动作的结束情况"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:290
 msgid "Record coordinates of lane change manoeuvres"
-msgstr ""
+msgstr "记录变道动作的坐标"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:293
 msgid ""
 "Record stops and loading/unloading of passenger and containers for all "
 "vehicles into FILE"
-msgstr ""
+msgstr "将所有车辆的停车和乘客及货箱的装载/卸载记录到文件中"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:295
 msgid "Write stop output for stops which have not ended at simulation end"
-msgstr ""
+msgstr "为在仿真结束时没有结束的停止而写停止输出"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:298
 msgid "Write collision information into FILE"
-msgstr ""
+msgstr "将碰撞信息写进文件（FILE）"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:301
 msgid "Write aggregated traffic statistics for all edges into FILE"
-msgstr ""
+msgstr "将所有路段的汇总流量统计数据写入文件（FILE）中"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:303
 msgid "Write aggregated traffic statistics for all lanes into FILE"
-msgstr ""
+msgstr "将所有车道的综合交通统计资料写入文件（FILE）中"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:307
 msgid "Write overall statistics into FILE"
