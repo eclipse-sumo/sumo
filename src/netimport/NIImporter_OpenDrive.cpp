@@ -31,6 +31,7 @@
 #include <utils/common/ToString.h>
 #include <utils/common/StringUtils.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/SUMOVehicleClass.h>
 #include <utils/shapes/SUMOPolygon.h>
 #include <utils/shapes/PointOfInterest.h>
 #include <utils/iodevices/OutputDevice.h>
@@ -956,7 +957,7 @@ NIImporter_OpenDrive::setLaneAttributes(const OpenDriveEdge* e, NBEdge::Lane& su
         sumoLane.setParameter(SUMO_PARAM_ORIGID, e->id + "_" + toString(odLane.id));
     }
     sumoLane.speed = odLane.speed != 0 ? odLane.speed : tc.getEdgeTypeSpeed(odLane.type);
-    sumoLane.permissions = tc.getEdgeTypePermissions(odLane.type);
+    sumoLane.permissions = odLane.permission > 0 ? odLane.permission : tc.getEdgeTypePermissions(odLane.type); // TODO: how to get the OD lane specific restrictions?
     sumoLane.width = myImportWidths && odLane.width != NBEdge::UNSPECIFIED_WIDTH ? odLane.width : tc.getEdgeTypeWidth(odLane.type);
     sumoLane.type = odLane.type;
 
@@ -1607,12 +1608,12 @@ NIImporter_OpenDrive::revisitLaneSections(const NBTypeCont& tc, std::map<std::st
         }
 #endif
         std::vector<OpenDriveLaneSection>& laneSections = e.laneSections;
-        // split by speed limits
+        // split by speed limits or by access restrictions
         std::vector<OpenDriveLaneSection> newSections;
         for (std::vector<OpenDriveLaneSection>::iterator j = laneSections.begin(); j != laneSections.end(); ++j) {
             std::vector<OpenDriveLaneSection> splitSections;
-            bool splitBySpeed = (*j).buildSpeedChanges(tc, splitSections);
-            if (!splitBySpeed) {
+            bool splitByAttrChange = (*j).buildAttributeChanges(tc, splitSections);
+            if (!splitByAttrChange) {
                 newSections.push_back(*j);
             } else {
                 std::copy(splitSections.begin(), splitSections.end(), back_inserter(newSections));
@@ -1634,7 +1635,7 @@ NIImporter_OpenDrive::revisitLaneSections(const NBTypeCont& tc, std::map<std::st
             WRITE_WARNINGF(TL("The sections of edge '%' are not sorted properly."), e.id);
             sort(e.laneSections.begin(), e.laneSections.end(), sections_by_s_sorter());
         }
-        // check whether no duplicates of s-value occure
+        // check whether no duplicates of s-value occur
         lastS = -1;
         laneSections = e.laneSections;
         for (std::vector<OpenDriveLaneSection>::iterator j = laneSections.begin(); j != laneSections.end();) {
@@ -1975,55 +1976,132 @@ NIImporter_OpenDrive::OpenDriveLaneSection::getInnerConnections(OpenDriveXMLTag 
 
 
 NIImporter_OpenDrive::OpenDriveLaneSection
-NIImporter_OpenDrive::OpenDriveLaneSection::buildLaneSection(double startPos) {
+NIImporter_OpenDrive::OpenDriveLaneSection::buildLaneSection(const NBTypeCont& tc, double startPos) {
     OpenDriveLaneSection ret(*this);
     ret.s += startPos;
     for (int k = 0; k < (int)ret.lanesByDir[OPENDRIVE_TAG_RIGHT].size(); ++k) {
         OpenDriveLane& l = ret.lanesByDir[OPENDRIVE_TAG_RIGHT][k];
         l.speed = 0;
-        std::vector<std::pair<double, double> >::const_iterator i = std::find_if(l.speeds.begin(), l.speeds.end(), same_position_finder(startPos));
-        if (i != l.speeds.end()) {
-            l.speed = (*i).second;
+        l.permission = 0;
+        std::vector<std::pair<double, LaneAttributeChange> >::const_iterator it = std::find_if(l.attributeChanges.begin(), l.attributeChanges.end(), same_position_finder(startPos));
+        if (it != l.attributeChanges.end()) {
+            l.speed = (*it).second.speed;
+            l.permission = l.computePermission(tc, (*it).second.allowed, (*it).second.denied);
         }
     }
     for (int k = 0; k < (int)ret.lanesByDir[OPENDRIVE_TAG_LEFT].size(); ++k) {
         OpenDriveLane& l = ret.lanesByDir[OPENDRIVE_TAG_LEFT][k];
-        std::vector<std::pair<double, double> >::const_iterator i = std::find_if(l.speeds.begin(), l.speeds.end(), same_position_finder(startPos));
         l.speed = 0;
-        if (i != l.speeds.end()) {
-            l.speed = (*i).second;
+        l.permission = 0;
+        std::vector<std::pair<double, LaneAttributeChange> >::const_iterator it = std::find_if(l.attributeChanges.begin(), l.attributeChanges.end(), same_position_finder(startPos));
+        if (it != l.attributeChanges.end()) {
+            l.speed = (*it).second.speed;
+            l.permission = l.computePermission(tc, (*it).second.allowed, (*it).second.denied);
         }
     }
     return ret;
 }
 
 
+SVCPermissions
+NIImporter_OpenDrive::OpenDriveLane::computePermission(const NBTypeCont& tc, std::vector<std::string> allowed, std::vector<std::string> denied) {
+    SVCPermissions permission = tc.getEdgeTypePermissions(type);
+    if (allowed.size() > 0 && denied.size() > 0) {
+        WRITE_WARNING(TL("Will discard access settings as both denied and allowed classes have been specified."));
+    } else if (allowed.size() > 0) {
+        permission = SVC_IGNORING;
+        for (std::string allow : allowed) {
+            if (allow == "simulator") {
+                permission = SVC_IGNORING;
+                break;
+            } else if (allow == "autonomousTraffic" || allow == "throughTraffic") {
+                permission = tc.getEdgeTypePermissions(type);
+                break;
+            } else if (allow == "pedestrian") {
+                permission |= SVC_PEDESTRIAN;
+            } else if (allow == "passengerCar") {
+                permission |= SVC_PASSENGER;
+            } else if (allow == "bus") {
+                permission |= SVC_BUS;
+            } else if (allow == "delivery") {
+                permission |= SVC_DELIVERY;
+            } else if (allow == "emergency") {
+                permission |= SVC_EMERGENCY;
+            } else if (allow == "taxi") {
+                permission |= SVC_TAXI;
+            } else if (allow == "bicycle") {
+                permission |= SVC_BICYCLE;
+            } else if (allow == "motorcycle") {
+                permission |= SVC_MOTORCYCLE;
+            } else if (allow == "truck" || allow == "trucks") {
+                permission |= SVC_TRUCK;
+                permission |= SVC_TRAILER;
+            }
+        }
+    } else if(denied.size() > 0) {
+        for (std::string deny : denied) {
+            if (deny == "none") {
+                permission = tc.getEdgeTypePermissions(type);
+                break;
+            } else if (deny == "autonomousTraffic" || deny == "throughTraffic") {
+                permission = SVC_IGNORING;
+                break;
+            } else if (deny == "pedestrian") {
+                permission &= ~SVC_PEDESTRIAN;
+            } else if (deny == "passengerCar") {
+                permission &= ~SVC_PASSENGER;
+            } else if (deny == "bus") {
+                permission &= ~SVC_BUS;
+            } else if (deny == "delivery") {
+                permission &= ~SVC_DELIVERY;
+            } else if (deny == "emergency") {
+                permission &= ~SVC_EMERGENCY;
+            } else if (deny == "taxi") {
+                permission &= ~SVC_TAXI;
+            } else if (deny == "bicycle") {
+                permission &= ~SVC_BICYCLE;
+            } else if (deny == "motorcycle") {
+                permission &= ~SVC_MOTORCYCLE;
+            } else if (deny == "truck" || deny == "trucks") {
+                permission &= ~SVC_TRUCK;
+                permission &= ~SVC_TRAILER;
+            }
+        }
+    }
+    return permission;
+}
+
+
 bool
-NIImporter_OpenDrive::OpenDriveLaneSection::buildSpeedChanges(const NBTypeCont& tc, std::vector<OpenDriveLaneSection>& newSections) {
-    std::set<double> speedChangePositions;
-    // collect speed change positions and apply initial speed to the begin
+NIImporter_OpenDrive::OpenDriveLaneSection::buildAttributeChanges(const NBTypeCont& tc, std::vector<OpenDriveLaneSection>& newSections) {
+    std::set<double> attributeChangePositions;
+    // collect speed change and access restriction positions and apply initial values to the begin
     for (std::vector<OpenDriveLane>::iterator k = lanesByDir[OPENDRIVE_TAG_RIGHT].begin(); k != lanesByDir[OPENDRIVE_TAG_RIGHT].end(); ++k) {
-        for (std::vector<std::pair<double, double> >::const_iterator l = (*k).speeds.begin(); l != (*k).speeds.end(); ++l) {
-            speedChangePositions.insert((*l).first);
+        for (std::vector<std::pair<double, LaneAttributeChange> >::const_iterator l = (*k).attributeChanges.begin(); l != (*k).attributeChanges.end(); ++l) {
+            attributeChangePositions.insert((*l).first);
             if ((*l).first == 0) {
-                (*k).speed = (*l).second;
+                (*k).speed = (*l).second.speed;
+                (*k).permission = (*k).computePermission(tc, (*l).second.allowed, (*l).second.denied);
             }
         }
     }
     for (std::vector<OpenDriveLane>::iterator k = lanesByDir[OPENDRIVE_TAG_LEFT].begin(); k != lanesByDir[OPENDRIVE_TAG_LEFT].end(); ++k) {
-        for (std::vector<std::pair<double, double> >::const_iterator l = (*k).speeds.begin(); l != (*k).speeds.end(); ++l) {
-            speedChangePositions.insert((*l).first);
+        for (std::vector<std::pair<double, LaneAttributeChange> >::const_iterator l = (*k).attributeChanges.begin(); l != (*k).attributeChanges.end(); ++l) {
+            attributeChangePositions.insert((*l).first);
             if ((*l).first == 0) {
-                (*k).speed = (*l).second;
+                (*k).speed = (*l).second.speed;
+                (*k).permission = (*k).computePermission(tc, (*l).second.allowed, (*l).second.denied);
             }
         }
     }
+
     // do nothing if there is none
-    if (speedChangePositions.size() == 0) {
+    if (attributeChangePositions.size() == 0) {
         return false;
     }
-    if (*speedChangePositions.begin() > 0) {
-        speedChangePositions.insert(0);
+
+    if (*attributeChangePositions.begin() > 0) {
+        attributeChangePositions.insert(0);
     }
 #ifdef DEBUG_VARIABLE_SPEED
     if (gDebugFlag1) std::cout
@@ -2031,25 +2109,34 @@ NIImporter_OpenDrive::OpenDriveLaneSection::buildSpeedChanges(const NBTypeCont& 
                 << " speedChangePositions=" << joinToString(speedChangePositions, ", ")
                 << "\n";
 #endif
-    for (std::set<double>::iterator i = speedChangePositions.begin(); i != speedChangePositions.end(); ++i) {
-        if (i == speedChangePositions.begin()) {
+    for (std::set<double>::iterator i = attributeChangePositions.begin(); i != attributeChangePositions.end(); ++i) {
+        if (i == attributeChangePositions.begin()) {
             newSections.push_back(*this);
         } else {
-            newSections.push_back(buildLaneSection(*i));
+            newSections.push_back(buildLaneSection(tc, *i));
         }
     }
-    // propagate speeds
+    // propagate speeds and access restrictions
     for (int i = 0; i != (int)newSections.size(); ++i) {
         for (auto& k : newSections[i].lanesByDir) {
             for (int j = 0; j != (int)k.second.size(); ++j) {
                 OpenDriveLane& l = k.second[j];
-                if (l.speed != 0) {
-                    continue;
+                if (l.speed == 0) {
+                    if (i > 0) {
+                        l.speed = newSections[i - 1].lanesByDir[k.first][j].speed;
+                        l.predecessor = newSections[i - 1].lanesByDir[k.first][j].id;
+                    } else {
+                        tc.getEdgeTypeSpeed(l.type);
+                    }
                 }
-                if (i > 0) {
-                    l.speed = newSections[i - 1].lanesByDir[k.first][j].speed;
-                } else {
-                    tc.getEdgeTypeSpeed(l.type);
+                if (l.permission == 0) {
+                    if (i > 0) {
+                        l.permission = newSections[i - 1].lanesByDir[k.first][j].permission;
+                        l.predecessor = newSections[i - 1].lanesByDir[k.first][j].id;
+                        l.type = newSections[i - 1].lanesByDir[k.first][j].type;
+                    } else {
+                        tc.getEdgeTypePermissions(l.type);
+                    }
                 }
             }
         }
@@ -2369,14 +2456,28 @@ NIImporter_OpenDrive::myStartElement(int element,
         break;
         case OPENDRIVE_TAG_ACCESS: {
             if (myElementStack.size() >= 2 && myElementStack[myElementStack.size() - 1] == OPENDRIVE_TAG_LANE) {
-                const double s = attrs.get<double>(OPENDRIVE_ATTR_SOFFSET, myCurrentEdge.id.c_str(), ok);
+                const double pos = attrs.get<double>(OPENDRIVE_ATTR_SOFFSET, myCurrentEdge.id.c_str(), ok);
                 std::string rule = attrs.get<std::string>(OPENDRIVE_ATTR_RULE, myCurrentEdge.id.c_str(), ok);
                 std::string vClass = attrs.get<std::string>(OPENDRIVE_ATTR_RESTRICTION, myCurrentEdge.id.c_str(), ok);
                 OpenDriveLaneSection& l = myCurrentEdge.laneSections.back();
-                if (rule == "allow") {
-                    l.allowed.insert(vClass);
-                } else if (rule == "deny") {
-                    l.denied.insert(vClass);
+
+                std::vector < std::pair<double, LaneAttributeChange >>& attributeChanges = myCurrentEdge.laneSections.back().lanesByDir[myCurrentLaneDirection].back().attributeChanges;
+                std::vector<std::pair<double, LaneAttributeChange> >::iterator i = std::find_if(attributeChanges.begin(), attributeChanges.end(), same_position_finder(pos));
+                if (i != attributeChanges.end()) {
+                    if (rule == "allow") {
+                        (*i).second.allowed.push_back(vClass);
+                    } else if (rule == "deny") {
+                        (*i).second.denied.push_back(vClass);
+                    }
+                } else {
+                    LaneAttributeChange lac = LaneAttributeChange(0);
+                    if (rule == "allow") {
+                        lac.allowed.push_back(vClass);
+                    }
+                    else if (rule == "deny") {
+                        lac.denied.push_back(vClass);
+                    }
+                    attributeChanges.push_back(std::make_pair(pos, lac));
                 }
             }
         }
@@ -2399,6 +2500,15 @@ NIImporter_OpenDrive::myStartElement(int element,
                     // IGNORING unknown units.
                 }
                 myCurrentEdge.laneSections.back().lanesByDir[myCurrentLaneDirection].back().speeds.push_back(std::make_pair(pos, speed));
+
+                std::vector < std::pair<double, LaneAttributeChange >>& attributeChanges = myCurrentEdge.laneSections.back().lanesByDir[myCurrentLaneDirection].back().attributeChanges;
+                std::vector<std::pair<double, LaneAttributeChange> >::iterator i = std::find_if(attributeChanges.begin(), attributeChanges.end(), same_position_finder(pos));
+                if (i != attributeChanges.end()) {
+                    (*i).second.speed = speed;
+                } else {
+                    LaneAttributeChange lac = LaneAttributeChange(speed);
+                    attributeChanges.push_back(std::make_pair(pos, lac));
+                }
             }
         }
         break;
