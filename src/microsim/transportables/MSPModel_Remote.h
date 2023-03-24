@@ -22,7 +22,7 @@
 
 #include <memory>
 #include <unordered_set>
-#include <geos.h>
+#include <geos/geom/GeometryFactory.h>
 #include <jupedsim/jupedsim.h>
 #include "microsim/MSNet.h"
 #include "MSPModel.h"

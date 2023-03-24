@@ -22,6 +22,7 @@
 #include <fstream>
 #include <typeinfo>
 #include <geos/geom/GeometryFactory.h>
+#include <geos/geom/CoordinateArraySequence.h>
 #include <geos/operation/buffer/BufferOp.h>
 #include <geos/io/WKTWriter.h>
 #include <jupedsim/jupedsim.h>
@@ -107,9 +108,9 @@ MSPModel_Remote::add(MSTransportable* person, MSStageMoving* stage, SUMOTime now
 	agent_parameters.journeyId = journeyId;
 	agent_parameters.orientation = {1.0, 0.0};
 	agent_parameters.position = {departurePosition.x(), departurePosition.y()};
-    agent_parameters.profileId = myParameterProfileId;
+    agent_parameters.profileId = myJPSParameterProfileId;
 
-    JPS_AgentId agentId = JPS_Simulation_AddVelocityModelAgent(mySimulation, agent_parameters, nullptr);
+    JPS_AgentId agentId = JPS_Simulation_AddVelocityModelAgent(myJPSSimulation, agent_parameters, nullptr);
     PState* state = new PState(static_cast<MSPerson*>(person), stage, journey, arrivalPosition, agentId);
 	myPedestrianStates.push_back(state);
     myNumActivePedestrians++;
@@ -139,22 +140,12 @@ MSPModel_Remote::execute(SUMOTime time) {
             WRITE_ERROR(oss.str());
         }
 
-#ifdef DEBUG
-        if (myNumActivePedestrians == 1) {
-            for (PState* state : myPedestrianStates)
-            {
-                JPS_VelocityModelAgentParameters agent{};
-                JPS_Simulation_ReadVelocityModelAgent(mySimulation, state->getAgentId(),&agent, nullptr);
-                myTrajectoryDumpFile << agent.position.x << " " << agent.position.y << std::endl;
-            }
-        }
-#endif
         // Update the state of all pedestrians.
         for (PState* state : myPedestrianStates)
         {
             // Updates the agent position.
             JPS_VelocityModelAgentParameters agent{}; 
-            JPS_Simulation_ReadVelocityModelAgent(mySimulation, state->getAgentId(), &agent, nullptr);
+            JPS_Simulation_ReadVelocityModelAgent(myJPSSimulation, state->getAgentId(), &agent, nullptr);
             state->setPosition(agent.position.x, agent.position.y);
 
             // Updates the agent direction.
@@ -311,7 +302,7 @@ MSPModel_Remote::hasWalkingAreasInbetween(MSEdge* edge, MSEdge* otherEdge, Const
 
 geos::geom::Geometry*
 MSPModel_Remote::createShapeFromCenterLine(PositionVector centerLine, double width, int capStyle) {
-    CoordinateArraySequence* coordinateArraySequence = new CoordinateArraySequence();
+    geos::geom::CoordinateArraySequence* coordinateArraySequence = new geos::geom::CoordinateArraySequence();
     for (Position p : centerLine) {
         coordinateArraySequence->add(geos::geom::Coordinate(p.x(), p.y()));
     }
