@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-24 02:19+0000\n"
+"PO-Revision-Date: 2023-03-24 09:17+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.16.2-dev\n"
+"X-Generator: Weblate 4.17-dev\n"
 
 #: /home/micha/programming/sumo/src\activitygen\AGActivityGen.cpp:46
 msgid "Reading input"
@@ -601,50 +601,50 @@ msgstr "从给定的文件（由marouter --all-pairs-output生成）初始化ast
 #: /home/micha/programming/sumo/src\duarouter\RODUAFrame.cpp:104
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:570
 msgid "Initialize lookup table for astar ALT-variant from the given file"
-msgstr ""
+msgstr "从给定文件中初始化astar ALT-variant的查找表"
 
 #: /home/micha/programming/sumo/src\duarouter\RODUAFrame.cpp:107
 msgid "Save lookup table for astar ALT-variant to the given file"
-msgstr ""
+msgstr "将astar ALT-variant的查询表保存到给定的文件中。"
 
 #: /home/micha/programming/sumo/src\duarouter\RODUAFrame.cpp:117
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:206
 msgid "Use FLOAT as Gawron's beta"
-msgstr ""
+msgstr "使用FLOAT作为Gawron的测试版"
 
 #: /home/micha/programming/sumo/src\duarouter\RODUAFrame.cpp:121
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:210
 msgid "Use FLOAT as Gawron's a"
-msgstr ""
+msgstr "使用FLOAT作为Gawron的一个"
 
 #: /home/micha/programming/sumo/src\duarouter\RODUAFrame.cpp:124
 #: /home/micha/programming/sumo/src\jtrrouter\ROJTRFrame.cpp:62
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:213
 msgid "Write exit times (weights) for each edge"
-msgstr ""
+msgstr "写录每条路段的退出时间（权重）"
 
 #: /home/micha/programming/sumo/src\duarouter\RODUAFrame.cpp:127
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:247
 msgid "Include total route length in the output"
-msgstr ""
+msgstr "在输出中包括路径的总长度"
 
 #: /home/micha/programming/sumo/src\duarouter\RODUAFrame.cpp:130
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:216
 msgid "Save routes with near zero probability"
-msgstr ""
+msgstr "以接近零的概率保存路径"
 
 #: /home/micha/programming/sumo/src\duarouter\RODUAFrame.cpp:133
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:219
 msgid "Only reuse routes from input, do not calculate new ones"
-msgstr ""
+msgstr "只重复使用输入的路径，不计算新的路径"
 
 #: /home/micha/programming/sumo/src\duarouter\RODUAFrame.cpp:136
 msgid "The probability of keeping the old route"
-msgstr ""
+msgstr "保留旧路径的概率"
 
 #: /home/micha/programming/sumo/src\duarouter\RODUAFrame.cpp:139
 msgid "Route all public transport input"
-msgstr ""
+msgstr "为所有的公共交通输入提供路径"
 
 #: /home/micha/programming/sumo/src\duarouter\RODUAFrame.cpp:142
 #: /home/micha/programming/sumo/src\marouter\ROMAFrame.cpp:202
