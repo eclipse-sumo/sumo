@@ -20,6 +20,7 @@
 
 #include <netedit/dialogs/tools/GNEPythonTool.h>
 #include <netedit/dialogs/tools/GNENetdiffToolDialog.h>
+#include <netedit/dialogs/tools/GNENetgenerateDialog.h>
 #include <netedit/dialogs/tools/GNERunPythonToolDialog.h>
 #include <netedit/dialogs/tools/GNERunNetgenerateDialog.h>
 #include <netedit/elements/GNEAttributeCarrier.h>
@@ -1992,6 +1993,7 @@ GNEApplicationWindowHelper::ToolsMenuCommands::~ToolsMenuCommands() {
     // delete dialogs
     delete myPythonToolDialog;
     delete myNetdiffToolDialog;
+    delete myNetgenerateDialog;
     delete myRunPythonToolDialog;
     delete myRunNetgenerateDialog;
 }
@@ -2013,6 +2015,7 @@ GNEApplicationWindowHelper::ToolsMenuCommands::buildTools(FXMenuPane* toolsMenu,
     // build dialogs
     myPythonToolDialog = new GNEPythonToolDialog(myGNEApp);
     myNetdiffToolDialog = new GNENetdiffToolDialog(myGNEApp);
+    myNetgenerateDialog = new GNENetgenerateDialog(myGNEApp);
     myRunPythonToolDialog = new GNERunPythonToolDialog(myGNEApp);
     myRunNetgenerateDialog = new GNERunNetgenerateDialog(myGNEApp);
 }
@@ -2032,6 +2035,12 @@ GNEApplicationWindowHelper::ToolsMenuCommands::showTool(FXObject* menuCommand) c
         }
     }
     return 0;
+}
+
+
+long
+GNEApplicationWindowHelper::ToolsMenuCommands::showNetgenerateDialog(const OptionsCont *netgenerateOptions) const {
+    return myNetgenerateDialog->openDialog(netgenerateOptions);
 }
 
 

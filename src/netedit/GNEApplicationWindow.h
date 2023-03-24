@@ -471,6 +471,9 @@ public:
     long onCmdOpenSumoOptionsDialog(FXObject*, FXSelector, void*);
 
     /// @brief called when user press "netgenerate" button
+    long onCmdOpenNetgenerateDialog(FXObject*, FXSelector, void*);
+
+    /// @brief called when user press "netgenerate options" button
     long onCmdOpenNetgenerateOptionsDialog(FXObject*, FXSelector, void*);
 
     /// @brief called when user press Ctrl+Z

@@ -44,6 +44,7 @@ class GNENet;
 class GNEPythonTool;
 class GNEPythonToolDialog;
 class GNENetdiffToolDialog;
+class GNENetgenerateDialog;
 class GNERunPythonToolDialog;
 class GNERunNetgenerateDialog;
 class GNEUndoList;
@@ -965,6 +966,9 @@ struct GNEApplicationWindowHelper {
         /// @brief show tool
         long showTool(FXObject* menuCommand) const;
 
+        /// @brief show netgenerate dialog
+        long showNetgenerateDialog(const OptionsCont *netgenerateOptions) const;
+
         /// @brief run tool dialog
         long runToolDialog(FXObject* menuCommand) const;
 
@@ -980,6 +984,9 @@ struct GNEApplicationWindowHelper {
         
         /// @brief netdiff tool dialog
         GNENetdiffToolDialog* myNetdiffToolDialog = nullptr;
+        
+        /// @brief netgenerate dialog
+        GNENetgenerateDialog* myNetgenerateDialog = nullptr;
         
         /// @brief run python tool dialog
         GNERunPythonToolDialog* myRunPythonToolDialog = nullptr;

@@ -735,8 +735,10 @@ enum {
     MID_GNE_RUNPYTHONTOOL,
     /// @brief call tool for post processing
     MID_GNE_POSTPROCESSINGPYTHONTOOL,
-    /// @brief netgenerate
+    /// @brief netgenerate dialog
     MID_GNE_NETGENERATE,
+    /// @brief netgenerate options
+    MID_GNE_NETGENERATEOPTIONS,
     /// @brief run netgenerate
     MID_GNE_RUNNETGENERATE,
     /// @brief postprocesing netgenerate

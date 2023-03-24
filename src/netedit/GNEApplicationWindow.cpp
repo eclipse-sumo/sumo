@@ -86,7 +86,8 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_N_OPENNETWORK_NEWNETWORK,   GNEApplicationWindow::onCmdNewNetwork),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_N_OPENNETWORK_NEWNETWORK,   GNEApplicationWindow::onUpdOpen),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_SHIFT_N_NEWWINDOW,          GNEApplicationWindow::onCmdNewWindow),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_NETGENERATE,                            GNEApplicationWindow::onCmdOpenNetgenerateOptionsDialog),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_NETGENERATE,                        GNEApplicationWindow::onCmdOpenNetgenerateDialog),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_NETGENERATEOPTIONS,                 GNEApplicationWindow::onCmdOpenNetgenerateOptionsDialog),
     FXMAPFUNC(SEL_COMMAND,  MID_RECENTFILE,                             GNEApplicationWindow::onCmdOpenRecent),
     FXMAPFUNC(SEL_UPDATE,   MID_RECENTFILE,                             GNEApplicationWindow::onUpdOpen),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_R_RELOAD,                   GNEApplicationWindow::onCmdSmartReload),
@@ -2326,6 +2327,12 @@ GNEApplicationWindow::onCmdOpenOptionsDialog(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdOpenSumoOptionsDialog(FXObject*, FXSelector, void*) {
     return GUIDialog_Options::Options(this, &mySumoOptions, TL("Sumo options"));
+}
+
+
+long
+GNEApplicationWindow::onCmdOpenNetgenerateDialog(FXObject*, FXSelector, void*) {
+    return myToolsMenuCommands.showNetgenerateDialog(&myNetgenerateOptions);
 }
 
 
