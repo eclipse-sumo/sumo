@@ -200,7 +200,7 @@ GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* 
         nullptr, myGNEApp, MID_HOTKEY_CTRL_SHIFT_N_NEWWINDOW);
 
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
-        TL("Generate network"), "", TL("Create network using netgenerate."),
+        TL("Generate Network"), "", TL("Create network using netgenerate."),
         GUIIconSubSys::getIcon(GUIIcon::NETGENERATE), myGNEApp, MID_GNE_NETGENERATE);
 
     // load sumo/netedit configs
