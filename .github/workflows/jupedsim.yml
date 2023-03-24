@@ -16,11 +16,11 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
 
     steps:
     - name: Cloning jpscore
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         repository: jupedsim/jpscore
         ref: SUMO-Integration
@@ -29,7 +29,7 @@ jobs:
     - name: Preparing Build System
       run: |
         sudo apt-get update
-        sudo apt-get install cmake libeigen3-dev libxerces-c-dev libfox-1.6-dev libgdal-dev libproj-dev
+        sudo apt-get install cmake libeigen3-dev libxerces-c-dev libfox-1.6-dev libgdal-dev libproj-dev libgeos++-dev gettext
         sudo apt-get install wget unzip ninja-build clang clang-format-14 libglm-dev qtbase5-dev libvtk9-dev libvtk9-qt-dev libopengl-dev
 
     - name: Building jpscore dependencies
@@ -44,7 +44,7 @@ jobs:
         cmake --install .
 
     - name: Cloning SUMO
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         path: sumo
         fetch-depth: 0
@@ -56,7 +56,7 @@ jobs:
 
     - name: ccache
       if: github.event_name != 'schedule'
-      uses: hendrikmuhs/ccache-action@v1.2.2
+      uses: hendrikmuhs/ccache-action@v1.2
 
     - name: Configuring and building SUMO
       run: |
