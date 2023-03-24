@@ -163,8 +163,8 @@ MSStopOut::stopEnded(const SUMOVehicle* veh, const SUMOVehicleParameter::Stop& s
     if (stop.split != "") {
         myDevice.writeAttr(SUMO_ATTR_SPLIT, stop.split);
     }
-    if (stop.ended >= 0 && MSGlobals::gUseStopEnded) {
-        myDevice.writeAttr(SUMO_ATTR_USED_ENDED, true);
+    if (MSGlobals::gUseStopEnded) {
+        myDevice.writeAttr(SUMO_ATTR_USED_ENDED, stop.ended >= 0);
     }
     myDevice.closeTag();
     myStopped.erase(veh);
