@@ -52,7 +52,7 @@ public:
     ~GNENetgenerateDialog();
 
     /// @brief open dialog
-    long openDialog(GNENetgenerate* tool);
+    long openDialog(const OptionsCont *netgenerateOptions);
 
     /// @name FOX-callbacks
     /// @{
@@ -75,9 +75,6 @@ protected:
 private:
     /// @brief pointer to GNEApplicationWindow
     GNEApplicationWindow* myGNEApp;
-
-    /// @brief tool
-    GNENetgenerate* myNetgenerate = nullptr;
 
     /// @brief parameter label
     FXLabel* myParameterLabel = nullptr;

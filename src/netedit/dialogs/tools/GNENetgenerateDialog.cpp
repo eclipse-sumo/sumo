@@ -47,10 +47,10 @@ FXIMPLEMENT(GNENetgenerateDialog, FXDialogBox, GNENetgenerateDialogMap, ARRAYNUM
 // ===========================================================================
 
 GNENetgenerateDialog::GNENetgenerateDialog(GNEApplicationWindow* GNEApp) :
-    FXDialogBox(GNEApp->getApp(), "Netgenerate", GUIDesignDialogBoxExplicit(0, 0)),
+    FXDialogBox(GNEApp->getApp(), "Netgenerate", GUIDesignDialogBoxExplicit(200, 200)),
     myGNEApp(GNEApp) {
     // set icon
-    setIcon(GUIIconSubSys::getIcon(GUIIcon::TOOL_PYTHON));
+    setIcon(GUIIconSubSys::getIcon(GUIIcon::NETGENERATE));
 /*
     // build row frames
     auto horizontalFrameRows = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
@@ -78,9 +78,7 @@ GNENetgenerateDialog::~GNENetgenerateDialog() {}
 
 
 long
-GNENetgenerateDialog::openDialog(GNENetgenerate* tool) {
-    // set tool
-    myNetgenerate = tool;
+GNENetgenerateDialog::openDialog(const OptionsCont *netgenerateOptions) {
     // show dialog
     FXDialogBox::show(PLACEMENT_SCREEN);
     // refresh APP
@@ -89,7 +87,7 @@ GNENetgenerateDialog::openDialog(GNENetgenerate* tool) {
     int rowFramesWidth = 0;
     int rowFramesHeight = 0;
     // resize dialog (rowFramesWidth, Marging + rowFramesHeight + MARGING separator + MARGING + buttonsFrame + MARGING)
-    resize(rowFramesWidth, rowFramesHeight + mySeparator->getHeight() + myButtonsFrame->getHeight() + (4 * MARGING));
+    //resize(rowFramesWidth, rowFramesHeight + mySeparator->getHeight() + myButtonsFrame->getHeight() + (4 * MARGING));
     // open as modal dialog (will block all windows until stop() or stopModal() is called)
     return myGNEApp->getApp()->runModalFor(this);
 }
