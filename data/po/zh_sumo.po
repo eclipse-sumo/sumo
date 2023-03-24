@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-24 10:29+0000\n"
+"PO-Revision-Date: 2023-03-24 14:44+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -2069,48 +2069,49 @@ msgstr "在使用 \"剥离 \"模型时，行人在狭窄车道上开始挤过拥
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:526
 msgid "Fraction of stripes to reserve for oncoming pedestrians"
-msgstr ""
+msgstr "为迎面而来的行人预留的条纹部分"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:529
 msgid ""
 "Fraction of stripes to reserve for oncoming pedestrians on crossings and "
 "walkingareas"
-msgstr ""
+msgstr "在十字路口和步行区为迎面而来的行人保留一定比例的条纹"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:532
 msgid "Maximum width in m to reserve for oncoming pedestrians"
-msgstr ""
+msgstr "为迎面而来的行人预留的最大宽度（米）"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:535
 msgid "Interpret departPosLat for walks in legacy style"
-msgstr ""
+msgstr "以传统的方式解释出发地和目的地的关系"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:538
 msgid ""
 "Generate INT intermediate points to smooth out lanes within the walkingarea"
-msgstr ""
+msgstr "生成INT中间点，使行走区域内的车道变得平滑"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:541
 msgid "The address (host:port) of the external simulation"
-msgstr ""
+msgstr "外部仿真的地址（host:port）"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:544
 msgid ""
 "Tolerance to apply when matching pedestrian and vehicle positions on "
 "boarding at individual stops"
-msgstr ""
+msgstr "在个别车站的行人和车辆登车位置匹配时适用的宽容度"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:555
 msgid ""
 "Apply the given time penalty when computing minimum routing costs for minor-"
 "link internal lanes"
-msgstr ""
+msgstr "在计算次要链路内部车道的最小路径成本时，应用给定的时间惩罚"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:558
 msgid ""
 "Apply scaled travel time penalties based on green split when computing "
 "minimum routing costs for internal lanes at traffic lights"
-msgstr ""
+msgstr "在计算交通信号灯下内部车道的最小路径成本时，根据绿灯分流的高低采用相应的旅行"
+"时间惩罚措施"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:564
 msgid ""
@@ -2122,11 +2123,11 @@ msgstr ""
 msgid ""
 "When set, trips between the same origin and destination will share a taxi by "
 "default"
-msgstr ""
+msgstr "设置后，同一出发地和目的地之间的行程将默认共用一辆出租车"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:598
 msgid "Replay exact rerouting sequence from vehroute-output"
-msgstr ""
+msgstr "从vehroute-output中重放精确的改道路径的序列"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:603
 #: /home/micha/programming/sumo/src\router\ROFrame.cpp:59
