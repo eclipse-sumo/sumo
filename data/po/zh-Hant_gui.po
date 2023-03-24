@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-24 10:12+0100\n"
-"PO-Revision-Date: 2023-03-10 06:09+0000\n"
+"PO-Revision-Date: 2023-03-24 14:44+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.16.2-dev\n"
+"X-Generator: Weblate 4.17-dev\n"
 
 #: D:\Wang\sumo_git/src\gui\GUIApplicationWindow.cpp:292
 #: D:\Wang\sumo_git/src\gui\GUIApplicationWindow.cpp:295
@@ -156,7 +156,7 @@ msgstr "開啟用於編輯所選項目表的對話框。"
 
 #: D:\Wang\sumo_git/src\gui\GUIApplicationWindow.cpp:494
 msgid "Select lanes which allow..."
-msgstr "選擇允許...的車道"
+msgstr "選擇車道, 其允許..."
 
 #: D:\Wang\sumo_git/src\gui\GUIApplicationWindow.cpp:494
 msgid "Opens a menu for selecting a vehicle class by which to selected lanes."
@@ -622,7 +622,7 @@ msgstr "停等時間："
 
 #: D:\Wang\sumo_git/src\gui\GUIApplicationWindow.cpp:760
 msgid "Time spent waiting accumulated for all vehicles"
-msgstr "所有車輛累計的等待時間。"
+msgstr "所有車輛累計的等待時間"
 
 #: D:\Wang\sumo_git/src\gui\GUIApplicationWindow.cpp:771
 msgid "Time Loss:"
@@ -705,7 +705,7 @@ msgstr "開啟幾何物件(shape)"
 #: D:\Wang\sumo_git/src\netedit\GNEApplicationWindow.cpp:4663
 #, c-format
 msgid "Loading of % failed."
-msgstr "% f檔案載入失敗。"
+msgstr "% 檔案載入失敗。"
 
 #: D:\Wang\sumo_git/src\gui\GUIApplicationWindow.cpp:1139
 msgid "Open EdgeData"
@@ -770,7 +770,7 @@ msgstr "'%'檔案載入失敗！"
 #: D:\Wang\sumo_git/src\gui\GUIApplicationWindow.cpp:1827
 #, c-format
 msgid "'%' loaded."
-msgstr "已載入。"
+msgstr "'%' 已載入。"
 
 #: D:\Wang\sumo_git/src\gui\GUIApplicationWindow.cpp:2027
 msgid "Simulation ended"
@@ -1119,43 +1119,43 @@ msgstr "&工具"
 
 #: D:\Wang\sumo_git/src\netedit\GNEApplicationWindow.cpp:1415
 msgid "Detectors"
-msgstr ""
+msgstr "偵測器"
 
 #: D:\Wang\sumo_git/src\netedit\GNEApplicationWindow.cpp:1416
 msgid "Districts"
-msgstr ""
+msgstr "分區"
 
 #: D:\Wang\sumo_git/src\netedit\GNEApplicationWindow.cpp:1417
 msgid "DRT"
-msgstr ""
+msgstr "需求反應運輸(DRT)"
 
 #: D:\Wang\sumo_git/src\netedit\GNEApplicationWindow.cpp:1418
 msgid "Emissions"
-msgstr ""
+msgstr "排放物"
 
 #: D:\Wang\sumo_git/src\netedit\GNEApplicationWindow.cpp:1419
 msgid "CityBrain"
-msgstr ""
+msgstr "城市大腦(CityBrain)"
 
 #: D:\Wang\sumo_git/src\netedit\GNEApplicationWindow.cpp:1420
 msgid "GTFS"
-msgstr ""
+msgstr "一般公共交通數據規範(GTFS)"
 
 #: D:\Wang\sumo_git/src\netedit\GNEApplicationWindow.cpp:1421
 msgid "Vissim"
-msgstr ""
+msgstr "Vissim"
 
 #: D:\Wang\sumo_git/src\netedit\GNEApplicationWindow.cpp:1422
 msgid "Visum"
-msgstr ""
+msgstr "Visum"
 
 #: D:\Wang\sumo_git/src\netedit\GNEApplicationWindow.cpp:1423
 msgid "Import"
-msgstr ""
+msgstr "導入"
 
 #: D:\Wang\sumo_git/src\netedit\GNEApplicationWindow.cpp:1424
 msgid "Net"
-msgstr ""
+msgstr "路網"
 
 #: D:\Wang\sumo_git/src\netedit\GNEApplicationWindow.cpp:1425
 #: D:\Wang\sumo_git/src\netedit\GNEApplicationWindowHelper.cpp:672
@@ -1166,7 +1166,7 @@ msgstr "路徑"
 
 #: D:\Wang\sumo_git/src\netedit\GNEApplicationWindow.cpp:1426
 msgid "Output"
-msgstr ""
+msgstr "輸出"
 
 #: D:\Wang\sumo_git/src\netedit\GNEApplicationWindow.cpp:1427
 #: D:\Wang\sumo_git/src\netedit\frames\network\GNEShapeFrame.cpp:227
@@ -1180,15 +1180,15 @@ msgstr "交通號誌"
 
 #: D:\Wang\sumo_git/src\netedit\GNEApplicationWindow.cpp:1429
 msgid "Turn-defs"
-msgstr ""
+msgstr "轉向定義(Turn-defs)"
 
 #: D:\Wang\sumo_git/src\netedit\GNEApplicationWindow.cpp:1430
 msgid "Visualization"
-msgstr ""
+msgstr "視覺化"
 
 #: D:\Wang\sumo_git/src\netedit\GNEApplicationWindow.cpp:1431
 msgid "XML"
-msgstr ""
+msgstr "可延伸標示語言(XML)"
 
 #: D:\Wang\sumo_git/src\netedit\GNEApplicationWindow.cpp:1518
 msgid "Network computed"
@@ -1264,7 +1264,7 @@ msgstr "載入Sumo的設定檔"
 
 #: D:\Wang\sumo_git/src\netedit\GNEApplicationWindow.cpp:2316
 msgid "Netedit options"
-msgstr ""
+msgstr "Netedit 選項"
 
 #: D:\Wang\sumo_git/src\netedit\GNEApplicationWindow.cpp:2328
 #: D:\Wang\sumo_git/src\netedit\GNEApplicationWindowHelper.cpp:1825
@@ -1273,7 +1273,7 @@ msgstr "sumo選項"
 
 #: D:\Wang\sumo_git/src\netedit\GNEApplicationWindow.cpp:2334
 msgid "Netgenerate options"
-msgstr ""
+msgstr "Netgenerate 選項"
 
 #: D:\Wang\sumo_git/src\netedit\GNEApplicationWindow.cpp:2351
 #: D:\Wang\sumo_git/src\netedit\GNEApplicationWindowHelper.cpp:1252
@@ -1533,11 +1533,11 @@ msgstr "開啟新的netedit 視窗。"
 
 #: D:\Wang\sumo_git/src\netedit\GNEApplicationWindowHelper.cpp:203
 msgid "Generate network"
-msgstr ""
+msgstr "產生路網"
 
 #: D:\Wang\sumo_git/src\netedit\GNEApplicationWindowHelper.cpp:203
 msgid "Create network using netgenerate."
-msgstr ""
+msgstr "使用netgenerate建立路網。"
 
 #: D:\Wang\sumo_git/src\netedit\GNEApplicationWindowHelper.cpp:210
 msgid "Load Netedit config..."
@@ -2056,7 +2056,7 @@ msgstr "建立貨櫃計畫。"
 
 #: D:\Wang\sumo_git/src\netedit\GNEApplicationWindowHelper.cpp:728
 msgid "&EdgeData"
-msgstr "&EdgeData"
+msgstr "&路段資料(EdgeData)"
 
 #: D:\Wang\sumo_git/src\netedit\GNEApplicationWindowHelper.cpp:728
 msgid "Create edgeData elements."
@@ -2673,11 +2673,11 @@ msgstr "路口檔案(*.nod.xml)"
 
 #: D:\Wang\sumo_git/src\netedit\GNEApplicationWindowHelper.cpp:2712
 msgid "Save tool log"
-msgstr ""
+msgstr "儲存工具紀錄(log)"
 
 #: D:\Wang\sumo_git/src\netedit\GNEApplicationWindowHelper.cpp:2713
 msgid "Text file (*.txt)"
-msgstr ""
+msgstr "文字檔（*.txt）"
 
 #: D:\Wang\sumo_git/src\netedit\GNEApplicationWindowHelper.cpp:2720
 msgid "Open OSM file"
@@ -3495,11 +3495,11 @@ msgstr "拉直路段"
 
 #: D:\Wang\sumo_git/src\netedit\GNEViewNet.cpp:2222
 msgid "smooth selected edges"
-msgstr ""
+msgstr "使選定的路段平滑"
 
 #: D:\Wang\sumo_git/src\netedit\GNEViewNet.cpp:2229
 msgid "smooth edge"
-msgstr ""
+msgstr "使路段平滑"
 
 #: D:\Wang\sumo_git/src\netedit\GNEViewNet.cpp:2243
 msgid "straighten elevation of selected edges"
@@ -4564,7 +4564,6 @@ msgstr "接受"
 #: D:\Wang\sumo_git/src\netedit\frames\common\GNEMatchAttribute.cpp:298
 #: D:\Wang\sumo_git/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:487
 #: D:\Wang\sumo_git/src\utils\gui\windows\GUIDialog_EditViewport.cpp:134
-#, fuzzy
 msgid "close"
 msgstr "關閉"
 
@@ -4620,7 +4619,6 @@ msgid "reset to previous values"
 msgstr "重設為先前的值"
 
 #: D:\Wang\sumo_git/src\netedit\dialogs\GNEDialogACChooser.cpp:111
-#, fuzzy
 msgid "Invalid Junction"
 msgstr "無效的路口"
 
@@ -5096,9 +5094,8 @@ msgid ""
 msgstr "是否應在該節點啟用路口阻檔啟發法(junction-blocking-heuristic)"
 
 #: D:\Wang\sumo_git/src\netedit\elements\GNEAttributeCarrier.cpp:946
-#, fuzzy
 msgid "How to compute right of way rules at this node"
-msgstr "如何計算該節點的通行權規則"
+msgstr "如何計算該點的路權規則"
 
 #: D:\Wang\sumo_git/src\netedit\elements\GNEAttributeCarrier.cpp:953
 msgid "Whether this junction is at the fringe of the network"
@@ -5273,7 +5270,6 @@ msgid "Width in meters (used for visualization)"
 msgstr "寬度(公尺) (用於視覺化)"
 
 #: D:\Wang\sumo_git/src\netedit\elements\GNEAttributeCarrier.cpp:1253
-#, fuzzy
 msgid "Enable or disable lane as acceleration lane"
 msgstr "啟用或禁用車道作為加速車道"
 
@@ -5391,7 +5387,6 @@ msgstr ""
 "控制"
 
 #: D:\Wang\sumo_git/src\netedit\elements\GNEAttributeCarrier.cpp:1428
-#, fuzzy
 msgid "Vision distance between vehicles"
 msgstr "車輛之間的視距"
 
@@ -9222,7 +9217,7 @@ msgstr "相位向下移動"
 
 #: D:\Wang\sumo_git/src\netedit\frames\GNETLSTable.cpp:1270
 msgid "Move this phase down."
-msgstr ""
+msgstr "將此時相向下移動。"
 
 #: D:\Wang\sumo_git/src\netedit\frames\GNETagSelector.cpp:89
 msgid "Element"
@@ -11578,11 +11573,11 @@ msgstr "儲存檢視區"
 
 #: D:\Wang\sumo_git/src\utils\gui\windows\GUIDialog_Options.cpp:307
 msgid "Run tool"
-msgstr ""
+msgstr "執行工具"
 
 #: D:\Wang\sumo_git/src\utils\gui\windows\GUIDialog_Options.cpp:308
 msgid "Cancel tool"
-msgstr ""
+msgstr "取消工具"
 
 #: D:\Wang\sumo_git/src\utils\gui\windows\GUIDialog_Options.cpp:310
 msgid "Accept settings"
