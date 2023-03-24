@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-24 09:56+0000\n"
-"Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
+"PO-Revision-Date: 2023-03-24 14:44+0000\n"
+"Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
 "Language: zh\n"
@@ -3217,7 +3217,6 @@ msgid "Locate a junction within the network. (Shift+J)"
 msgstr "在路网內定位一个路口。(Shift+J)"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:336
-#, fuzzy
 msgid "Locate Edges"
 msgstr "定位路段"
 
@@ -3274,7 +3273,6 @@ msgid "Locate a tls within the network. (Shift+T)"
 msgstr "在路网內定位交通信号。(Shift+T)"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:371
-#, fuzzy
 msgid "Locate Additional"
 msgstr "定位附加物"
 
@@ -3321,7 +3319,6 @@ msgstr "您是否希望合并路口"
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:807
 #: /home/micha/programming/sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:956
 #: /home/micha/programming/sumo/src\netedit\elements\data\GNEDataHandler.cpp:205
-#, fuzzy
 msgid "' and '"
 msgstr "' 和 '"
 
@@ -3378,7 +3375,6 @@ msgid "Reverse selected edges"
 msgstr "反转选定的路段"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:2108
-#, fuzzy
 msgid "Reverse edge"
 msgstr "反向路段"
 
@@ -3407,7 +3403,6 @@ msgid "straighten selected edges"
 msgstr "拉直所选定的路段"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:2208
-#, fuzzy
 msgid "straighten edge"
 msgstr "拉直路段"
 
@@ -3418,7 +3413,6 @@ msgstr "拉直所选定路段的高程"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:2229
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:2250
-#, fuzzy
 msgid "straighten edge elevation"
 msgstr "拉直路段高程"
 
@@ -3427,7 +3421,6 @@ msgid "smooth elevation of selected edges"
 msgstr "平滑所选定路段的高程"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:2271
-#, fuzzy
 msgid "smooth edge elevation"
 msgstr "平滑路段高程"
 
@@ -3610,12 +3603,10 @@ msgid "Grid is still active, press ctrl+g to deactivate"
 msgstr "网格仍处于使用中状态，按 ctrl+g 停用"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:3278
-#, fuzzy
 msgid "reset custom junction shapes"
 msgstr "重置自定的路口形狀"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNet.cpp:3285
-#, fuzzy
 msgid "reset custom junction shape"
 msgstr "重置自定的路口形狀"
 
@@ -3650,7 +3641,6 @@ msgid "Selection width:"
 msgstr "选择宽度："
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNetHelper.cpp:1669
-#, fuzzy
 msgid " height:"
 msgstr " 高度："
 
@@ -3745,7 +3735,6 @@ msgstr "设定编辑路网要素的模式。(F2)"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNetHelper.cpp:2045
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2067
-#, fuzzy
 msgid "Demand"
 msgstr "需求"
 
@@ -3900,7 +3889,6 @@ msgid "Create consecutive edges with a single click (hit ESC to cancel chain)."
 msgstr "单击一下即可建立连续的路段（按 ESC 取消链(chain))。"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNetHelper.cpp:2434
-#, fuzzy
 msgid "Edge opposite direction"
 msgstr "路段相反方向"
 
@@ -3982,9 +3970,8 @@ msgid "Set delete mode"
 msgstr "设定刪除模式"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNetHelper.cpp:3477
-#, fuzzy
 msgid "Mode for delete elements. (D)"
-msgstr "刪除要素的模式。(D)"
+msgstr "刪除元素的模式。(D)"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNetHelper.cpp:3546
 #: /home/micha/programming/sumo/src\netedit\GNEViewNetHelper.cpp:3690
@@ -4001,7 +3988,6 @@ msgid "Set create edge mode"
 msgstr "设定建立路段模式"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNetHelper.cpp:3552
-#, fuzzy
 msgid "Mode for creating junction and edges. (E)"
 msgstr "建立路口及路段的模式。(E)"
 
@@ -4034,9 +4020,8 @@ msgid "Set additional mode"
 msgstr "设定附加(additional)的模式"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNetHelper.cpp:3576
-#, fuzzy
 msgid "Mode for adding additional elements. (A)"
-msgstr "新增附加要素的模式。(A)"
+msgstr "新增附加元素的模式。(A)"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNetHelper.cpp:3582
 msgid "Set crossing mode"
@@ -4163,9 +4148,8 @@ msgid "MeanData mode"
 msgstr "MeanData 模式"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewNetHelper.cpp:3833
-#, fuzzy
 msgid "Mode for MeanData elements. (M)"
-msgstr "MeanData 要素的模式。(M)"
+msgstr "平均数据(MeanData)元素的模式。(M)"
 
 #: /home/micha/programming/sumo/src\netedit\GNEViewParent.cpp:102
 msgid "Undo the last change. (Ctrl+Z)"
@@ -4809,7 +4793,7 @@ msgstr "%' 参数鍵含有无效字元"
 #: /home/micha/programming/sumo/src\netedit\dialogs\GNEMultipleParametersDialog.cpp:463
 #: /home/micha/programming/sumo/src\netedit\dialogs\GNESingleParametersDialog.cpp:462
 #: /home/micha/programming/sumo/src\netedit\dialogs\GNEVTypeDistributionsDialog.cpp:459
-#, c-format, fuzzy
+#, c-format
 msgid "Key '%' already exist"
 msgstr "'%' 鍵已存在"
 
@@ -5128,7 +5112,6 @@ msgid "Crossing ID"
 msgstr "穿越道识别名ID)"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1313
-#, fuzzy
 msgid "The (road) edges which are crossed"
 msgstr "被穿越的路段"
 
@@ -5540,7 +5523,6 @@ msgid "The slope of the road-side parking spaces"
 msgstr "路边停车位的坡度"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1943
-#, fuzzy
 msgid "The id of E1"
 msgstr "E1 的id"
 
@@ -5591,7 +5573,6 @@ msgid "Space separated list of vehicle type ids to consider"
 msgstr "要考虑的车辆类型ID的空格分隔清单"
 
 #: /home/micha/programming/sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1995
-#, fuzzy
 msgid "The id of E2"
 msgstr "E2 的id"
 
@@ -8343,9 +8324,8 @@ msgid "Parent "
 msgstr "母体 "
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEDemandSelector.cpp:65
-#, fuzzy
 msgid "Parent element"
-msgstr "母元素"
+msgstr "親代元素(Parent element)"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEDemandSelector.cpp:108
 msgid "select item..."
@@ -8368,9 +8348,8 @@ msgid "-Clicked over multiple"
 msgstr "-点击多个"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEDemandSelector.cpp:137
-#, fuzzy
 msgid "elements"
-msgstr "要素"
+msgstr "元素(elements)"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEDemandSelector.cpp:138
 msgid " - Select an item in the"
@@ -8529,9 +8508,8 @@ msgstr " 额外的..."
 #: /home/micha/programming/sumo/src\netedit\frames\GNEElementTree.cpp:583
 #: /home/micha/programming/sumo/src\netedit\frames\GNEElementTree.cpp:646
 #: /home/micha/programming/sumo/src\netedit\frames\GNEElementTree.cpp:720
-#, fuzzy
 msgid " demand elements..."
-msgstr " 需求要素..."
+msgstr " 需求元素..."
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNEElementTree.cpp:534
 #: /home/micha/programming/sumo/src\netedit\frames\GNEElementTree.cpp:597
@@ -9027,18 +9005,16 @@ msgid "Move this phase down."
 msgstr "把这个相位往下移。"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNETagSelector.cpp:89
-#, fuzzy
 msgid "Element"
-msgstr "要素"
+msgstr "元素(Element)"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNETagSelector.cpp:152
 msgid "network elements"
 msgstr "路网要素"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNETagSelector.cpp:155
-#, fuzzy
 msgid "Additional elements"
-msgstr "附加的要素"
+msgstr "附加的元素"
 
 #: /home/micha/programming/sumo/src\netedit\frames\GNETagSelector.cpp:158
 msgid "Shape elements"
@@ -10236,36 +10212,32 @@ msgid "remove laneType"
 msgstr "删除车道类型"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:622
-#, fuzzy
 msgid "- ESC:"
-msgstr "- ESC:"
+msgstr "- 轉義鍵 (ESC):"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:623
 msgid "  Deselect origin"
 msgstr "  取消选择原点"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:624
-#, fuzzy
 msgid "- Control+Click:"
-msgstr "- Control+Click:"
+msgstr "- 控制键+点击(Control+Click):"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:625
 msgid "  Move view"
 msgstr "  移动视图"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:626
-#, fuzzy
 msgid "- Shift+Click:"
-msgstr "- Shift+Click:"
+msgstr "- 移位键+点击 (Shift+Click):"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:627
 msgid "  Splits edge in both directions"
 msgstr "  在两个方向上分割路段"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:628
-#, fuzzy
 msgid "- Alt+Shift+Click:"
-msgstr "- Alt+Shift+Click:"
+msgstr "- Alt键+移位键+点击 (Alt+Shift+Click):"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:629
 msgid "  Splits edge in one direction"
@@ -11984,9 +11956,8 @@ msgid "简体中文 (zh)"
 msgstr "简体中文 (zh)"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIMainWindow.cpp:352
-#, fuzzy
 msgid "繁體中文 (zh-Hant)"
-msgstr "繁體中文 (zh-Hant)"
+msgstr "繁体中文 (zh-Hant)"
 
 #: /home/micha/programming/sumo/src\utils\gui\windows\GUIMainWindow.cpp:354
 msgid "Change language to turkish. (tr)"
