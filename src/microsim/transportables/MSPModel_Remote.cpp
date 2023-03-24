@@ -103,15 +103,13 @@ MSPModel_Remote::add(MSTransportable* person, MSStageMoving* stage, SUMOTime now
 	JPS_Journey journey = JPS_Journey_Create_SimpleJourney(waypoints, sizeof(waypoints));
     JPS_JourneyId journeyId = JPS_Simulation_AddJourney(myJPSSimulation, journey, nullptr);
 
-	JPS_AgentParameters agent_parameters{};
+	JPS_VelocityModelAgentParameters agent_parameters{};
 	agent_parameters.journeyId = journeyId;
-	agent_parameters.orientationX = 1.0;
-	agent_parameters.orientationY = 0.0;
-	agent_parameters.positionX = departurePosition.x();
-	agent_parameters.positionY = departurePosition.y();
-    agent_parameters.profileId = myJPSParameterProfileId;
+	agent_parameters.orientation = {1.0, 0.0};
+	agent_parameters.position = {departurePosition.x(), departurePosition.y()};
+    agent_parameters.profileId = myParameterProfileId;
 
-    JPS_AgentId agentId = JPS_Simulation_AddAgent(myJPSSimulation, agent_parameters, nullptr);
+    JPS_AgentId agentId = JPS_Simulation_AddVelocityModelAgent(mySimulation, agent_parameters, nullptr);
     PState* state = new PState(static_cast<MSPerson*>(person), stage, journey, arrivalPosition, agentId);
 	myPedestrianStates.push_back(state);
     myNumActivePedestrians++;
@@ -141,21 +139,28 @@ MSPModel_Remote::execute(SUMOTime time) {
             WRITE_ERROR(oss.str());
         }
 
+#ifdef DEBUG
+        if (myNumActivePedestrians == 1) {
+            for (PState* state : myPedestrianStates)
+            {
+                JPS_VelocityModelAgentParameters agent{};
+                JPS_Simulation_ReadVelocityModelAgent(mySimulation, state->getAgentId(),&agent, nullptr);
+                myTrajectoryDumpFile << agent.position.x << " " << agent.position.y << std::endl;
+            }
+        }
+#endif
         // Update the state of all pedestrians.
         for (PState* state : myPedestrianStates)
         {
             // Updates the agent position.
-            JPS_Agent agent = JPS_Simulation_ReadAgent(myJPSSimulation, state->getAgentId(), nullptr);
-            double newPositionX = JPS_Agent_PositionX(agent);
-            double newPositionY = JPS_Agent_PositionY(agent);
-            state->setPosition(newPositionX, newPositionY);
+            JPS_VelocityModelAgentParameters agent{}; 
+            JPS_Simulation_ReadVelocityModelAgent(mySimulation, state->getAgentId(), &agent, nullptr);
+            state->setPosition(agent.position.x, agent.position.y);
 
             // Updates the agent direction.
-            double newOrientationX = JPS_Agent_OrientationX(agent);
-            double newOrientationY = JPS_Agent_OrientationY(agent);
-            state->setAngle(atan2(newOrientationY, newOrientationX));
+            state->setAngle(atan2(agent.orientation.x, agent.orientation.y));
 
-            Position newPosition(newPositionX, newPositionY);
+            Position newPosition(agent.position.x, agent.position.y);
             MSPerson* person = state->getPerson();
             MSPerson::MSPersonStage_Walking* stage = dynamic_cast<MSPerson::MSPersonStage_Walking*>(person->getCurrentStage());
             const MSEdge* currentEdge = stage->getEdge();
@@ -188,7 +193,7 @@ MSPModel_Remote::execute(SUMOTime time) {
                 }
             }
             else { // PedestrianRoutingMode::JUPEDSIM_ROUTING
-                libsumo::Person::moveToXY(person->getID(), currentEdge->getID(), newPositionX, newPositionY, libsumo::INVALID_DOUBLE_VALUE, 2);
+                libsumo::Person::moveToXY(person->getID(), currentEdge->getID(), agent.position.x, agent.position.y, libsumo::INVALID_DOUBLE_VALUE, 2);
             }
             
             // If near the last waypoint, remove the agent.
