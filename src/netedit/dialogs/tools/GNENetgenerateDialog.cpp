@@ -33,10 +33,15 @@
 // ===========================================================================
 
 FXDEFMAP(GNENetgenerateDialog) GNENetgenerateDialogMap[] = {
-    FXMAPFUNC(SEL_CLOSE,    0,                      GNENetgenerateDialog::onCmdCancel),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_RUN,     GNENetgenerateDialog::onCmdRun),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_CANCEL,  GNENetgenerateDialog::onCmdCancel),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_RESET,   GNENetgenerateDialog::onCmdReset)
+    FXMAPFUNC(SEL_CLOSE,    0,                          GNENetgenerateDialog::onCmdCancel),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_NETGENERATE_GRID,   GNENetgenerateDialog::onCmdSetGrid),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_NETGENERATE_SPIDER, GNENetgenerateDialog::onCmdSetSpider),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_NETGENERATE_RANDOM, GNENetgenerateDialog::onCmdSetRandom),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_RUN,         GNENetgenerateDialog::onCmdRun),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_BUTTON_RUN,         GNENetgenerateDialog::onUpdSettingsConfigured),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_ADVANCED,    GNENetgenerateDialog::onCmdAdvanced),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_BUTTON_ADVANCED,    GNENetgenerateDialog::onUpdSettingsConfigured),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_CANCEL,      GNENetgenerateDialog::onCmdCancel),
 };
 
 // Object implementation
@@ -80,9 +85,9 @@ GNENetgenerateDialog::GNENetgenerateDialog(GNEApplicationWindow* GNEApp) :
     myRunButton = new FXButton(horizontalFrame, (TL("Run") + std::string("\t\t") + TL("close accepting changes")).c_str(),
         GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_BUTTON_RUN, GUIDesignButtonAccept);
     myAdvancedButton = new FXButton(horizontalFrame, (TL("Advanced") + std::string("\t\t") + TL("open advance netgenerate dialog")).c_str(),
-        GUIIconSubSys::getIcon(GUIIcon::MODEINSPECT), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonAdvanced);
+        GUIIconSubSys::getIcon(GUIIcon::MODEINSPECT), this, MID_GNE_BUTTON_ADVANCED, GUIDesignButtonAdvanced);
     new FXButton(horizontalFrame, (TL("Cancel") + std::string("\t\t") + TL("Close dialog")).c_str(), 
-        GUIIconSubSys::getIcon(GUIIcon::CANCEL),  this, MID_GNE_BUTTON_RESET,  GUIDesignButtonReset);
+        GUIIconSubSys::getIcon(GUIIcon::CANCEL),  this, MID_GNE_BUTTON_CANCEL,  GUIDesignButtonReset);
     new FXHorizontalFrame(horizontalFrame, GUIDesignAuxiliarHorizontalFrame);
 }
 
@@ -91,16 +96,74 @@ GNENetgenerateDialog::~GNENetgenerateDialog() {}
 
 
 long
-GNENetgenerateDialog::openDialog(const OptionsCont *netgenerateOptions) {
+GNENetgenerateDialog::openDialog() {
     // show dialog
     FXDialogBox::show(PLACEMENT_SCREEN);
     // refresh APP
     getApp()->refresh();
-    // resize dialog (Marging + contentFrame + MARGING separator + MARGING + buttonsFrame + MARGING)
-    int rowFramesWidth = 0;
-    int rowFramesHeight = 0;
     // open as modal dialog (will block all windows until stop() or stopModal() is called)
     return myGNEApp->getApp()->runModalFor(this);
+}
+
+long
+GNENetgenerateDialog::onCmdSetGrid(FXObject*, FXSelector, void*) {
+    auto &generateOptions = myGNEApp->getNetgenerateOptions();
+    // reset all flags
+    generateOptions.resetWritable();
+    generateOptions.set("grid", "false");
+    generateOptions.set("spider", "false");
+    generateOptions.set("random", "false");
+    // continue depending of checking
+    if (myGridNetworkButton->amChecked() == false) {
+        myGridNetworkButton->setChecked(true);
+        mySpiderNetworkButton->setChecked(false);
+        myRandomNetworkButton->setChecked(false);
+        // set option
+        generateOptions.resetWritable();
+        generateOptions.set("grid", "true");
+    }
+    return 1;
+}
+
+long
+GNENetgenerateDialog::onCmdSetSpider(FXObject*, FXSelector, void*) {
+    auto &generateOptions = myGNEApp->getNetgenerateOptions();
+    // reset all flags
+    generateOptions.resetWritable();
+    generateOptions.set("grid", "false");
+    generateOptions.set("spider", "false");
+    generateOptions.set("random", "false");
+    // continue depending of checking
+    if (mySpiderNetworkButton->amChecked() == false) {
+        myGridNetworkButton->setChecked(false);
+        mySpiderNetworkButton->setChecked(true);
+        myRandomNetworkButton->setChecked(false);
+        // set option
+        generateOptions.resetWritable();
+        generateOptions.set("spider", "true");
+    }
+    return 1;
+}
+
+
+long
+GNENetgenerateDialog::onCmdSetRandom(FXObject*, FXSelector, void*) {
+    auto &generateOptions = myGNEApp->getNetgenerateOptions();
+    // reset all flags
+    generateOptions.resetWritable();
+    generateOptions.set("grid", "false");
+    generateOptions.set("spider", "false");
+    generateOptions.set("random", "false");
+    // continue depending of checking
+    if (myRandomNetworkButton->amChecked() == false) {
+        myGridNetworkButton->setChecked(false);
+        mySpiderNetworkButton->setChecked(false);
+        myRandomNetworkButton->setChecked(true);
+        // set option
+        generateOptions.resetWritable();
+        generateOptions.set("random", "true");
+    }
+    return 1;
 }
 
 
@@ -117,18 +180,24 @@ GNENetgenerateDialog::onCmdRun(FXObject*, FXSelector, void*) {
 
 
 long
-GNENetgenerateDialog::onCmdCancel(FXObject*, FXSelector, void*) {
-    // stop modal
-    myGNEApp->getApp()->stopModal(this);
-    // hide dialog
-    hide();
+GNENetgenerateDialog::onCmdAdvanced(FXObject*, FXSelector, void*) {
+    // open advanced
     return 1;
 }
 
 
 long
-GNENetgenerateDialog::onCmdReset(FXObject*, FXSelector, void*) {
-    // iterate over all arguments and reset values
+GNENetgenerateDialog::onUpdSettingsConfigured(FXObject* sender, FXSelector, void*) {
+    return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+}
+
+
+long
+GNENetgenerateDialog::onCmdCancel(FXObject*, FXSelector, void*) {
+    // stop modal
+    myGNEApp->getApp()->stopModal(this);
+    // hide dialog
+    hide();
     return 1;
 }
 

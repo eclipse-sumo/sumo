@@ -571,6 +571,9 @@ public:
     /// @brief get SUMO options container
     OptionsCont& getSumoOptions();
 
+    /// @brief get netgenerate options container
+    OptionsCont& getNetgenerateOptions();
+
     /// @brief load additional elements
     void loadAdditionalElements();
 

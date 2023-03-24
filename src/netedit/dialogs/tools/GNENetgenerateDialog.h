@@ -52,19 +52,31 @@ public:
     ~GNENetgenerateDialog();
 
     /// @brief open dialog
-    long openDialog(const OptionsCont *netgenerateOptions);
+    long openDialog();
 
     /// @name FOX-callbacks
     /// @{
 
+    /// @brief set grid mode
+    long onCmdSetGrid(FXObject*, FXSelector, void*);
+
+    /// @brief set spider
+    long onCmdSetSpider(FXObject*, FXSelector, void*);
+
+    /// @brief set random
+    long onCmdSetRandom(FXObject*, FXSelector, void*);
+
     /// @brief event after press run button
     long onCmdRun(FXObject*, FXSelector, void*);
 
+    /// @brief event after press advanced button
+    long onCmdAdvanced(FXObject*, FXSelector, void*);
+
+    /// @brief check if settings are enabled
+    long onUpdSettingsConfigured(FXObject*, FXSelector, void*);
+
     /// @brief event after press cancel button
     long onCmdCancel(FXObject*, FXSelector, void*);
-
-    /// @brief event after press reset button
-    long onCmdReset(FXObject*, FXSelector, void*);
 
     /// @}
 

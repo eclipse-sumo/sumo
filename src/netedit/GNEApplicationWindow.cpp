@@ -2332,7 +2332,7 @@ GNEApplicationWindow::onCmdOpenSumoOptionsDialog(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdOpenNetgenerateDialog(FXObject*, FXSelector, void*) {
-    return myToolsMenuCommands.showNetgenerateDialog(&myNetgenerateOptions);
+    return myToolsMenuCommands.showNetgenerateDialog();
 }
 
 
@@ -4540,6 +4540,12 @@ GNEApplicationWindow::getProcessingMenuCommands() const {
 OptionsCont&
 GNEApplicationWindow::getSumoOptions() {
     return mySumoOptions;
+}
+
+
+OptionsCont&
+GNEApplicationWindow::getNetgenerateOptions() {
+    return myNetgenerateOptions;
 }
 
 

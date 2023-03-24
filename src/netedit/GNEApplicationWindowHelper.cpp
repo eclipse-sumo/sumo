@@ -2039,8 +2039,8 @@ GNEApplicationWindowHelper::ToolsMenuCommands::showTool(FXObject* menuCommand) c
 
 
 long
-GNEApplicationWindowHelper::ToolsMenuCommands::showNetgenerateDialog(const OptionsCont *netgenerateOptions) const {
-    return myNetgenerateDialog->openDialog(netgenerateOptions);
+GNEApplicationWindowHelper::ToolsMenuCommands::showNetgenerateDialog() const {
+    return myNetgenerateDialog->openDialog();
 }
 
 

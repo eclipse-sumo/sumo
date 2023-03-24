@@ -967,7 +967,7 @@ struct GNEApplicationWindowHelper {
         long showTool(FXObject* menuCommand) const;
 
         /// @brief show netgenerate dialog
-        long showNetgenerateDialog(const OptionsCont *netgenerateOptions) const;
+        long showNetgenerateDialog() const;
 
         /// @brief run tool dialog
         long runToolDialog(FXObject* menuCommand) const;
