@@ -29,7 +29,7 @@ jobs:
     - name: Preparing Build System
       run: |
         sudo apt-get update
-        sudo apt-get install cmake libeigen3-dev libxerces-c-dev libfox-1.6-dev libgdal-dev libproj-dev libgeos++-dev gettext
+        sudo apt-get install cmake libeigen3-dev libxerces-c-dev libfox-1.6-dev libgdal-dev libproj-dev gettext
         sudo apt-get install wget unzip ninja-build clang clang-format-14 libglm-dev qtbase5-dev libvtk9-dev libvtk9-qt-dev libopengl-dev
 
     - name: Building jpscore dependencies
@@ -41,6 +41,18 @@ jobs:
         cd jpscore-build
         cmake -GNinja -DCMAKE_BUILD_TYPE=Debug -DCMAKE_PREFIX_PATH=$PWD/../jpscore-deps -DCMAKE_INSTALL_PREFIX=$PWD/../jpscore-install -DBUILD_JPSVIS=OFF ../jpscore
         cmake --build .
+        cmake --install .
+
+    - name: Building GEOS
+      run: |
+        wget https://download.osgeo.org/geos/geos-3.11.2.tar.bz2
+        tar xjf geos-3.11.2.tar.bz2
+        cd geos-3.11.2
+        mkdir build
+        cd build
+        cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$PWD/../../jpscore-install ..
+        cmake --build .
+        ctest --output-on-failure .
         cmake --install .
 
     - name: Cloning SUMO
