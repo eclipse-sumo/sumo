@@ -99,6 +99,6 @@ jobs:
 
     - name: Building Examples and Tests
       run: |
-        cd sumo/cmake-build
+        cd sumo/build_msvc
         cmake --build . --target examples
         ctest --output-on-failure
