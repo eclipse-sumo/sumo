@@ -89,11 +89,13 @@ jobs:
         path: sumolibraries
 
     - name: Configuring and building SUMO
+      shell: cmd
       run: |
-        mkdir -p sumo/cmake-build 
-        cd sumo/cmake-build 
-        cmake -DJUPEDSIM_DIR=$PWD/../../jpscore-install ..
-        cmake --build .
+        cd sumo
+        mkdir build_msvc
+        cd build_msvc
+        cmake -DJUPEDSIM_DIR=%CD%/../../jpscore-install ..
+        cmake --build . --config Release
 
     - name: Building Examples and Tests
       run: |
