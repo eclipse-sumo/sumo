@@ -801,9 +801,9 @@ def main(options):
     if options.carWalkMode is not None:
         args += ['--persontrip.transfer.car-walk', options.carWalkMode]
     if options.walkfactor is not None:
-        args += ['--persontrip.walkfactor', options.walkfactor]
+        args += ['--persontrip.walkfactor', str(options.walkfactor)]
     if options.walkoppositefactor is not None:
-        args += ['--persontrip.walk-opposite-factor', options.walkoppositefactor]
+        args += ['--persontrip.walk-opposite-factor', str(options.walkoppositefactor)]
     if options.remove_loops:
         args += ['--remove-loops']
     if options.randomRoutingFactor != 1:
