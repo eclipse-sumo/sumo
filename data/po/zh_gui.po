@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-25 06:04+0000\n"
+"PO-Revision-Date: 2023-03-26 04:05+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
@@ -2931,15 +2931,15 @@ msgstr "从文件中加载可视化设置"
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:433
 msgid "Load current viewport from registry"
-msgstr "从注册表载入目前视口"
+msgstr "从注册表加载当前视口"
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:436
 msgid "Create initial window with the given x,y size"
-msgstr "使用給定的x, y尺寸建立初始视窗"
+msgstr "以给定的x,y尺寸创建初始窗口"
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:439
 msgid "Create initial window at the given x,y position"
-msgstr "在给定的x, y位置建立初始视窗"
+msgstr "在给定的x,y位置创建初始窗口"
 
 #: /home/micha/programming/sumo/src\netedit\GNELoadThread.cpp:444
 msgid "Enable overlay for screen recognition"
