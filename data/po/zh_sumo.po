@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-25 09:58+0000\n"
+"PO-Revision-Date: 2023-03-26 04:05+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -2254,47 +2254,47 @@ msgstr "加载后开始仿真"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:706
 msgid "Use FLOAT in ms as delay between simulation steps"
-msgstr ""
+msgstr "使用FLOAT（毫秒）作为仿真步骤之间的延迟"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:709
 msgid "Use TIME[] as times when the simulation should halt"
-msgstr ""
+msgstr "使用TIME[]作为仿真应该停止的时间"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:713
 msgid "Load edge/lane weights for visualization from FILE"
-msgstr ""
+msgstr "从文件中加载用于可视化的路段/车道权重"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:716
 msgid "Load a secondary road network for abstract visualization from FILE"
-msgstr ""
+msgstr "从文件FILE中加载一个用于抽象可视化的次要道路网"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:719
 msgid "Restart the simulation after ending (demo mode)"
-msgstr ""
+msgstr "结束后重新启动仿真（演示模式）"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:722
 msgid "Do not load background pictures"
-msgstr ""
+msgstr "不要加载背景图片"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:725
 msgid "Load current viewport from registry"
-msgstr ""
+msgstr "从注册表加载当前视口"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:728
 msgid "Create initial window with the given x,y size"
-msgstr ""
+msgstr "以给定的x,y尺寸创建初始窗口"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:731
 msgid "Create initial window at the given x,y position"
-msgstr ""
+msgstr "在给定的x,y位置创建初始窗口"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:734
 msgid "The aggregation period for value tracker windows"
-msgstr ""
+msgstr "价值跟踪窗口的汇总期"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:738
 msgid "Start with an OpenSceneGraph view instead of the regular 2D view"
-msgstr ""
+msgstr "从OpenSceneGraph视图开始，而不是常规的2D视图"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:743
 msgid "Enable overlay for screen recognition"
@@ -2306,228 +2306,232 @@ msgstr "允许在 GU测试期间输出信息"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:751
 msgid "Save gui settings in the given settings output file"
-msgstr ""
+msgstr "在给定的设置输出文件中保存gui设置"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:802
 msgid "No network file (-n) specified."
-msgstr ""
+msgstr "没有指定网络文件（-n）。"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:806
 msgid "Invalid scaling factor."
-msgstr ""
+msgstr "无效的缩放系数。"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:810
 msgid "A vehroute-output file is needed for exit times."
-msgstr ""
+msgstr "出口时间需要一个vehroute-output文件。"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:822
 msgid "You can either restart or quit on end."
-msgstr ""
+msgstr "你可以重新启动或结束时退出。"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:827
 msgid ""
 "The option 'meso-junction-control.limited' implies 'meso-junction-control'."
-msgstr ""
+msgstr "选项 \"meso-junction-control.limited \"意味着 \"meso-junction-control\"。"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:845
 msgid "The begin time should not be negative."
-msgstr ""
+msgstr "开始时间不应该是负数。"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:855
 msgid "The end time should be after the begin time."
-msgstr ""
+msgstr "结束时间应该是在开始时间之后。"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:860
 msgid "the minimum step-length is 0.001"
-msgstr ""
+msgstr "最小步长为0.001"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:875
 msgid "The save-state time=% will not be used before simulation end at %."
-msgstr ""
+msgstr "保存状态的时间=%在仿真结束前不会被使用。"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:887
 msgid ""
 "option movereminder-output.vehicles requires option movereminder-output to "
 "be set"
-msgstr ""
+msgstr "选项movereminder-output.veh需要设置选项movereminder-output"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:892
 msgid ""
 "The option 'sloppy-insert' is deprecated, because it is now activated by "
 "default, see the new option 'eager-insert'."
-msgstr ""
+msgstr "选项 \"sloppy-insert \"已被废弃，因为它现在被默认激活，请看新选项 \"eager-"
+"insert\"。"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:895
 msgid ""
 "Only one of the options 'lanechange.duration' or 'lateral-resolution' may be "
 "given."
-msgstr ""
+msgstr "只能给出'lanechange.duration'或'sidal-resolution'中的一个选项。"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:899
 msgid "Sublane dynamics are not supported by mesoscopic simulation"
-msgstr ""
+msgstr "中观仿真不支持副车道动态"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:903
 msgid ""
 "The option 'ignore-accidents' is deprecated. Use 'collision.action none' "
 "instead."
-msgstr ""
+msgstr "选项'ignore-accidents'已被废弃。请使用'碰撞.无动作'代替。"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:916
 msgid ""
 "The option tripinfo-output.write-undeparted implies tripinfo-output.write-"
 "unfinished."
 msgstr ""
+"选项 tripinfo-output.write-undeparted 意味着 tripinfo-output. 写入-未完成"
+"（write-unfinished）。"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:938
 #, c-format
 msgid "Unknown model '%' for option 'carfollow.model'."
-msgstr ""
+msgstr "选项 \"carfollow.model \"的未知模型'%'"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:947
 #, c-format
 msgid ""
 "Invalid value '%' for option 'default.emergencydecel'. Must be a FLOAT or "
 "'default' or 'decel'"
-msgstr ""
+msgstr "选项'default.emergencydecel'的值'%'无效。必须是一个 FLOAT 或 'default' 或 "
+"'decel'"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:953
 msgid "You need a non-negative delay."
-msgstr ""
+msgstr "你需要一个非负数的延迟。"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:966
 msgid "Parallel simulation is only possible when compiled with Fox."
-msgstr ""
+msgstr "平行仿真只有在用Fox编译时才能实现。"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:971
 msgid "You need at least one thread."
-msgstr ""
+msgstr "你至少要有一条线。"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:975
 msgid ""
 "Number of threads exceeds number of thread-rngs. Simulation runs with the "
 "same seed may produce different results"
-msgstr ""
+msgstr "线程数量超过了线程-rngs的数量。用相同的种子进行仿真运行可能产生不同的结果"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:978
 msgid "game.mode must be one of ['tls', 'drt']"
-msgstr ""
+msgstr "game.mode必须是['tls', 'drt']之一"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:985
 msgid ""
 "Invalid transfer option '%'. Must be one of 'parkingAreas', 'ptStops' and "
 "'allJunctions'"
-msgstr ""
+msgstr "无效的转运选项'%'。必须是'parkingAreas'、'ptStops'和'allJunctions'中的一个"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:1044
 msgid ""
 "Integration method was set to 'ballistic', since a default action step "
 "length was specified."
-msgstr ""
+msgstr "集成方法被设置为 \"弹道\"，因为指定了一个默认的动作步长。"
 
 #: /home/micha/programming/sumo/src\microsim\MSInsertionControl.cpp:276
 #: /home/micha/programming/sumo/src\router\RONet.cpp:450
 #, c-format
 msgid "Another vehicle with the id '%' exists."
-msgstr ""
+msgstr "存在另一辆ID为'%'的车辆。"
 
 #: /home/micha/programming/sumo/src\microsim\MSInternalJunction.cpp:55
 #, c-format
 msgid "Internal junction % has no incoming lanes"
-msgstr ""
+msgstr "内部路口处%没有进入车道"
 
 #: /home/micha/programming/sumo/src\microsim\MSLane.cpp:312
 msgid "Unequal lengths of neigh lane '%' and lane '%' (% != %)."
-msgstr ""
+msgstr "邻近车道'%'和车道'%'的长度不等（% !=%）。"
 
 #: /home/micha/programming/sumo/src\microsim\MSLane.cpp:321
 msgid "Unequal lengths of bidi lane '%' and lane '%' (% != %)."
-msgstr ""
+msgstr "标线'%'和标线'%'的长度不等（% !=%）。"
 
 #: /home/micha/programming/sumo/src\microsim\MSLane.cpp:758
 #, c-format
 msgid "Vehicle '%' is inserted in emergency situation."
-msgstr ""
+msgstr "车辆'%'是在紧急情况下插入的。"
 
 #: /home/micha/programming/sumo/src\microsim\MSLane.cpp:764
 msgid "Vehicle '%' will not be able to depart using the given velocity (%)!"
-msgstr ""
+msgstr "车辆'%'将无法使用给定的速度(%)出发!"
 
 #: /home/micha/programming/sumo/src\microsim\MSLane.cpp:780
 msgid ""
 "Invalid departPos % given for vehicle '%'. Inserting at lane end instead."
-msgstr ""
+msgstr "为车辆'%'提供的出发位置（departPos）%无效。在车道末端插入。"
 
 #: /home/micha/programming/sumo/src\microsim\MSLane.cpp:1025
 msgid ""
 "Vehicle '%' is inserted too fast and will violate the speed limit on a lane "
 "'%'."
-msgstr ""
+msgstr "车辆'%'插入速度过快，将违反车道'%'的速度限制。"
 
 #: /home/micha/programming/sumo/src\microsim\MSLane.cpp:1029
 msgid ""
 "Vehicle '%' will not be able to depart using the given velocity (slow lane "
 "ahead)!"
-msgstr ""
+msgstr "车辆'%'将无法使用给定的速度出发（前方为慢车道）！！"
 
 #: /home/micha/programming/sumo/src\microsim\MSLane.cpp:1658
 msgid ""
 "Vehicle '%' collision with person '%', lane='%', gap=%, time=%, stage=%."
-msgstr ""
+msgstr "车辆'%'与人'%'相撞，车道='%'，差距=%，时间=%，阶段=%。"
 
 #: /home/micha/programming/sumo/src\microsim\MSLane.cpp:1800
 msgid "Vehicle '%' collision with person '%', lane='%', time=%, stage=%."
-msgstr ""
+msgstr "车辆'%'与人'%'发生碰撞，车道='%'，时间=%，阶段=%。"
 
 #: /home/micha/programming/sumo/src\microsim\MSLane.cpp:2097
 msgid "Teleporting vehicle '%'; beyond end of lane, target lane='%', time=%."
-msgstr ""
+msgstr "遥控车'%'；超出车道尽头，目标车道='%'，时间=%。"
 
 #: /home/micha/programming/sumo/src\microsim\MSLane.cpp:2104
 msgid "Removing vehicle '%' after earlier collision, lane='%', time=%."
-msgstr ""
+msgstr "在先前的碰撞后移走车辆'%'，车道='%'，时间=%。"
 
 #: /home/micha/programming/sumo/src\microsim\MSLane.cpp:2109
 msgid "Teleporting vehicle '%' after earlier collision, lane='%', time=%."
-msgstr ""
+msgstr "在先前的碰撞后，将车辆'%'遥控，车道='%'，时间=%。"
 
 #: /home/micha/programming/sumo/src\microsim\MSLane.cpp:2581
 msgid ""
 "Lane '%' is approached multiple times from edge '%'. This may cause "
 "collisions."
-msgstr ""
+msgstr "车道'%'从路段'%'多次接近。这可能导致碰撞。"
 
 #: /home/micha/programming/sumo/src\microsim\MSLane.cpp:4169
 msgid "Invalid collision.action '%'."
-msgstr ""
+msgstr "无效的碰撞.动作'%'。"
 
 #: /home/micha/programming/sumo/src\microsim\MSLane.cpp:4287
 msgid ""
 "State was saved with more than % threads. Change the number of threads or do "
 "not load RNG state"
-msgstr ""
+msgstr "状态被保存在超过%的线程中。改变线程数或不加载RNG状态"
 
 #: /home/micha/programming/sumo/src\microsim\MSLeaderInfo.h:169
 #: /home/micha/programming/sumo/src\microsim\MSLeaderInfo.h:232
 #: /home/micha/programming/sumo/src\microsim\MSLeaderInfo.h:239
 msgid "Method not supported"
-msgstr ""
+msgstr "不支持该方法"
 
 #: /home/micha/programming/sumo/src\microsim\MSNet.cpp:187
 #: /home/micha/programming/sumo/src\router\RONet.cpp:60
 msgid "A network was not yet constructed."
-msgstr ""
+msgstr "一个网络还没有建成。"
 
 #: /home/micha/programming/sumo/src\microsim\MSNet.cpp:221
 #: /home/micha/programming/sumo/src\router\RONet.cpp:80
 msgid "A network was already constructed."
-msgstr ""
+msgstr "一个网络已经建成。"
 
 #: /home/micha/programming/sumo/src\microsim\MSNet.cpp:286
 msgid ""
 "Option weights.separate-turns is only supported when simulating with "
 "internal lanes"
-msgstr ""
+msgstr "选项weights.separate-turns仅在使用内部车道进行仿真时被支持。"
 
 #: /home/micha/programming/sumo/src\microsim\MSNet.cpp:388
 msgid "Simulation version % started with time: %."
