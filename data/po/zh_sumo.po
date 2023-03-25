@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-25 06:04+0000\n"
+"PO-Revision-Date: 2023-03-25 09:58+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -2242,15 +2242,15 @@ msgstr "当仿真停止时退出GUI"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:697
 msgid "Start the GUI in gaming mode"
-msgstr ""
+msgstr "在游戏模式下启动GUI"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:700
 msgid "Select the game type ('tls', 'drt')"
-msgstr ""
+msgstr "选择游戏类型（'tls', 'drt'）"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:703
 msgid "Start the simulation after loading"
-msgstr ""
+msgstr "加载后开始仿真"
 
 #: /home/micha/programming/sumo/src\microsim\MSFrame.cpp:706
 msgid "Use FLOAT in ms as delay between simulation steps"
