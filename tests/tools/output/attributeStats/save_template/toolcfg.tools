@@ -1,4 +1,5 @@
 <configuration>
+    <abs value="False" type="bool" help="include statistics on absolute values"/>
     <attribute value="None" type="string" help="attribute to analyze" category="input"/>
     <binwidth value="50" type="float" help="binning width of result histogram" category="processing"/>
     <datafiles value="None" type="edgedata_file" help="XML files to analyze" category="input"/>
