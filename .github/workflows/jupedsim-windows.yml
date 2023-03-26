@@ -100,5 +100,5 @@ jobs:
     - name: Building Examples and Tests
       run: |
         cd sumo/build_msvc
-        cmake --build . --target examples
+        cmake --build . --config Release --target examples
         ctest --output-on-failure
