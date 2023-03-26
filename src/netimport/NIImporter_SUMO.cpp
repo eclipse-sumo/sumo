@@ -195,6 +195,10 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
                 if (toEdge == nullptr) { // removed by explicit list, vclass, ...
                     continue;
                 }
+                if (toEdge->getFromNode() != nbe->getToNode()) { // inconsistency may occur when merging networks
+                    WRITE_WARNINGF("Removing invalid connection from edge '%' to edge '%'", nbe->getID(), toEdge->getID());
+                    continue;
+                }
                 // patch attribute uncontrolled for legacy networks where it is not set explicitly
                 bool uncontrolled = c.uncontrolled;
 
