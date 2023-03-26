@@ -111,6 +111,10 @@ private:
             myPermissions = p;
         }
 
+        void addDetector(MSMoveReminder* data);
+
+        void addReminders(MEVehicle* veh) const;
+
     private:
         /// The vClass permissions for this queue
         SVCPermissions myPermissions;
@@ -125,6 +129,10 @@ private:
 
         /// @brief The block time
         SUMOTime myBlockTime = -1;
+
+        /// @brief The data collection for all kinds of detectors
+        std::vector<MSMoveReminder*> myDetectorData;
+
     };
 
 public:
@@ -155,7 +163,7 @@ public:
      *
      * @param[in] data The data collector to add
      */
-    void addDetector(MSMoveReminder* data);
+    void addDetector(MSMoveReminder* data, int queueIndex = -1);
 
     /** @brief Removes a data collector for a detector from this segment
      *
@@ -544,9 +552,6 @@ private:
 
     /// @brief The space (in m) which needs to be occupied before the segment is considered jammed
     double myJamThreshold;
-
-    /// @brief The data collection for all kinds of detectors
-    std::vector<MSMoveReminder*> myDetectorData;
 
     /// @brief The car queues. Vehicles are inserted in the front and removed in the back
     std::vector<Queue> myQueues;

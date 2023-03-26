@@ -80,6 +80,20 @@ MESegment::Queue::remove(MEVehicle* v) {
     return nullptr;
 }
 
+void
+MESegment::Queue::addDetector(MSMoveReminder* data) {
+    myDetectorData.push_back(data);
+    for (MEVehicle* const v : myVehicles) {
+        v->addReminder(data);
+    }
+}
+
+void
+MESegment::Queue::addReminders(MEVehicle* veh) const {
+    for (MSMoveReminder* rem : myDetectorData) {
+        veh->addReminder(rem);
+    }
+}
 
 // ===========================================================================
 // MESegment method definitions
@@ -233,12 +247,14 @@ MESegment::jamThresholdForSpeed(double speed, double jamThresh) const {
 
 
 void
-MESegment::addDetector(MSMoveReminder* data) {
-    myDetectorData.push_back(data);
-    for (const Queue& q : myQueues) {
-        for (MEVehicle* const v : q.getVehicles()) {
-            v->addReminder(data);
+MESegment::addDetector(MSMoveReminder* data, int queueIndex) {
+    if (queueIndex == -1) {
+        for (Queue& q : myQueues) {
+            q.addDetector(data);
         }
+    } else {
+        assert(queueIndex < (int)myQueues.size());
+        myQueues[queueIndex].addDetector(data);
     }
 }
 
@@ -563,8 +579,8 @@ MESegment::overtake() {
 
 void
 MESegment::addReminders(MEVehicle* veh) const {
-    for (std::vector<MSMoveReminder*>::const_iterator i = myDetectorData.begin(); i != myDetectorData.end(); ++i) {
-        veh->addReminder(*i);
+    if (veh->getQueIndex() != PARKING_QUEUE) {
+        myQueues[veh->getQueIndex()].addReminders(veh);
     }
 }
 
