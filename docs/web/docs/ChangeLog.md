@@ -86,10 +86,9 @@ title: ChangeLog
 
 - Simulation
   - Vehroute-output now includes the used vehicles for `<driving>` stage. Issue #12520
-  - DriverState should now optionally affects free flow speed (using param `freeSpeedErrorCoefficient`). Issue #6331
+  - DriverState now optionally affects free flow speed (using param `freeSpeedErrorCoefficient`). Issue #6331
   - Element `<vTypeDistribution>` now supports attribute `probabilities` together with `vTypes` to re-use the same `<Types>` with different probabilities. Issue #12799
   - Some warnings about inconsistent public transport stop times are now avoided when using option **--use-stop-ended** along with stop attribute `ended`. #12825
-  - `vTypeDistribution` element now supports attribute `probabilities`, which can be used to define different type distributions that share types. Issue #12799
 
 - netconvert
   - Added options **--shapefile.width** and **--shapefile.length** to allow importing custom widths and lengths from [shape files](Networks/Import/ArcView.md). Issue #12575
