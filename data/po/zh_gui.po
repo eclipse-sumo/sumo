@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-26 04:05+0000\n"
+"PO-Revision-Date: 2023-03-26 14:00+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
@@ -701,7 +701,7 @@ msgstr "打开几何物件(shape)"
 #: /home/micha/programming/sumo/src\netedit\GNEApplicationWindow.cpp:4636
 #, c-format
 msgid "Loading of % failed."
-msgstr "% 档案载入失败。"
+msgstr "加载%失败。"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:1138
 msgid "Open EdgeData"
