@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-26 14:00+0000\n"
+"PO-Revision-Date: 2023-03-26 19:05+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -2761,136 +2761,137 @@ msgstr "货箱'%'的转运（tranship）不一致，只允许一个选项： '�
 
 #: /home/micha/programming/sumo/src\microsim\MSRouteHandler.cpp:1645
 msgid "No edges to tranship container '%'."
-msgstr ""
+msgstr "没有路段来转运货箱'%'。"
 
 #: /home/micha/programming/sumo/src\microsim\MSStateHandler.cpp:76
 #: /home/micha/programming/sumo/src\polyconvert\PCNetProjectionLoader.cpp:64
 #: /home/micha/programming/sumo/src\utils\options\OptionsIO.cpp:164
 #: /home/micha/programming/sumo/src\utils\vehicle\SUMORouteLoader.cpp:36
 msgid "Can not read XML-file '%'."
-msgstr ""
+msgstr "无法读取XML-文件'%'。"
 
 #: /home/micha/programming/sumo/src\microsim\MSStateHandler.cpp:87
 msgid "Could not parse time from state file '%'"
-msgstr ""
+msgstr "无法解析状态文件'%'中的时间"
 
 #: /home/micha/programming/sumo/src\microsim\MSStateHandler.cpp:184
 msgid "State was written with sumo version % (present: %)!"
-msgstr ""
+msgstr "状态是用sumo版本%写的（现在：%）!"
 
 #: /home/micha/programming/sumo/src\microsim\MSStateHandler.cpp:229
 #: /home/micha/programming/sumo/src\microsim\MSStateHandler.cpp:285
 #: /home/micha/programming/sumo/src\microsim\traffic_lights\MSRailSignalConstraint.cpp:144
 #, c-format
 msgid "Unknown lane '%' in loaded state."
-msgstr ""
+msgstr "未知车道'%'处于加载状态。"
 
 #: /home/micha/programming/sumo/src\microsim\MSStateHandler.cpp:389
 #, c-format
 msgid "Ignoring program '%' for traffic light '%' in loaded state"
-msgstr ""
+msgstr "忽略交通信号灯'%'在加载状态下的程序'%'。"
 
 #: /home/micha/programming/sumo/src\microsim\MSStateHandler.cpp:424
 msgid "Could not load vehicle control state"
-msgstr ""
+msgstr "无法加载车辆控制状态"
 
 #: /home/micha/programming/sumo/src\microsim\MSStateHandler.cpp:433
 msgid "Removed % vehicles while loading state."
-msgstr ""
+msgstr "删除了加载状态时的%车辆。"
 
 #: /home/micha/programming/sumo/src\microsim\MSStateHandler.cpp:459
 #, c-format
 msgid "Could not load vehicle '%' from state"
-msgstr ""
+msgstr "无法从状态中加载车辆'%'。"
 
 #: /home/micha/programming/sumo/src\microsim\MSVehicle.cpp:319
 msgid "No gap control available for meso."
-msgstr ""
+msgstr "中观不提供间隙控制。"
 
 #: /home/micha/programming/sumo/src\microsim\MSVehicle.cpp:714
 msgid ""
 "Lane change model did not provide a reason for changing (state=%, time=%\n"
-msgstr ""
+msgstr "车道变化模型没有提供变化的原因（状态=%，时间=%）。\n"
 
 #: /home/micha/programming/sumo/src\microsim\MSVehicle.cpp:755
 #: /home/micha/programming/sumo/src\utils\common\UtilExceptions.h:171
 msgid "should not happen"
-msgstr ""
+msgstr "不应发生"
 
 #: /home/micha/programming/sumo/src\microsim\MSVehicle.cpp:944
 msgid ""
 "Vehicle '%' moved by TraCI from % to % (dist %) with implied speed of % "
 "(exceeding maximum speed %). time=%."
-msgstr ""
+msgstr "车辆'%'通过TraCI从%移动到%（距离%），隐含速度为%（超过最大速度%）。 时间=%。"
 
 #: /home/micha/programming/sumo/src\microsim\MSVehicle.cpp:1695
 msgid "Vehicle '%' aborts joining after extension of %s at time %."
-msgstr ""
+msgstr "车辆'%'在时间%的延长后中止加入。"
 
 #: /home/micha/programming/sumo/src\microsim\MSVehicle.cpp:1840
 msgid "Vehicle '%' to split from vehicle '%' is not known. time=%."
-msgstr ""
+msgstr "从车辆'%'分出的车辆'%'未知。时间=%。"
 
 #: /home/micha/programming/sumo/src\microsim\MSVehicle.cpp:2723
 msgid "Suspicious right_before_left junction '%'."
-msgstr ""
+msgstr "可疑的右先于左（right_before_left）路口'%'。"
 
 #: /home/micha/programming/sumo/src\microsim\MSVehicle.cpp:4284
 msgid " for unknown reasons"
-msgstr ""
+msgstr " 原因不详"
 
 #: /home/micha/programming/sumo/src\microsim\MSVehicle.cpp:4292
 msgid ""
 "Vehicle '%' performs emergency stop at the end of lane '%'% (decel=%, offset="
 "%), time=%."
-msgstr ""
+msgstr "车辆'%'在车道'%'的末端执行紧急停车（减速=%，偏移=%），时间=%。"
 
 #: /home/micha/programming/sumo/src\microsim\MSVehicle.cpp:4367
 msgid "Unexpected end of opposite lane for vehicle '%' at lane '%', time=%."
-msgstr ""
+msgstr "车辆'%'在'%'车道上意外结束对向车道，时间=%。"
 
 #: /home/micha/programming/sumo/src\microsim\MSVehicle.cpp:4485
 msgid ""
 "Vehicle '%' performs emergency braking on lane '%' with decel=%, wished=%, "
 "severity=%, time=%."
-msgstr ""
+msgstr "车辆'%'在车道'%'上执行紧急制动，减速=%，希望=%，严重程度=%，时间=%。"
 
 #: /home/micha/programming/sumo/src\microsim\MSVehicle.cpp:5332
 #, c-format
 msgid "Vehicle '%' aborts stop."
-msgstr ""
+msgstr "车辆'%'放弃停靠。"
 
 #: /home/micha/programming/sumo/src\microsim\MSVehicle.cpp:7117
 msgid "Error: Invalid vehicles in state (may be a meso state)!"
-msgstr ""
+msgstr "错误： 状态中的无效车辆（可能是一个中观状态）！！"
 
 #: /home/micha/programming/sumo/src\microsim\MSVehicleControl.cpp:442
 #, c-format
 msgid "Vehicle '%' aborted waiting for a % that will never come."
-msgstr ""
+msgstr "车辆'%'中止，等待一个永远不会到来的%。"
 
 #: /home/micha/programming/sumo/src\microsim\MSVehicleTransfer.cpp:169
 msgid "Vehicle '%' ends teleporting on edge '%', time=%."
-msgstr ""
+msgstr "车辆'%'在路段'%'结束传送，时间=%。"
 
 #: /home/micha/programming/sumo/src\microsim\MSVehicleType.cpp:308
 msgid ""
 "Value of 'emergencyDecel' (%) should be higher than 'decel' (%) for vType "
 "'%'."
-msgstr ""
+msgstr "对于vType'%'，'紧急emergencyDecel'（%）的值应该高于'decel'（%）。"
 
 #: /home/micha/programming/sumo/src\microsim\MSVehicleType.cpp:311
 msgid ""
 "Value of 'emergencyDecel' (%) is lower than 'apparentDecel' (%) for vType "
 "'%' may cause collisions."
-msgstr ""
+msgstr "对于vType'%'，'紧急emergencyDecel'(%)的值低于'apparentDecel'(%)，可能会导致碰"
+"撞。"
 
 #: /home/micha/programming/sumo/src\microsim\MSVehicleType.cpp:433
 #, c-format
 msgid ""
 "Value of tau=% in vehicle type '%' lower than simulation step size may cause "
 "collisions."
-msgstr ""
+msgstr "车辆类型'%'中的tau=%的值低于仿真步长，可能导致碰撞。"
 
 #: /home/micha/programming/sumo/src\microsim\MSVehicleType.cpp:439
 #, c-format
@@ -2899,6 +2900,9 @@ msgid ""
 "lanes-by-vclass to ensure default vehicle capacity. Set option --meso-lane-"
 "queue for multi-modal meso simulation"
 msgstr ""
+"vType'%'的车辆类别'%'被选项--meso-ignore-lanes-by-"
+"vclass设置为忽略，以确保默认车辆容量。设置选项--meso-lane-"
+"queue，用于多模式的meso模拟"
 
 #: /home/micha/programming/sumo/src\microsim\cfmodels\MSCFModel_CC.cpp:66
 msgid ""
