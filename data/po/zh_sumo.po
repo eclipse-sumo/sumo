@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-26 04:05+0000\n"
+"PO-Revision-Date: 2023-03-26 14:00+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -2535,12 +2535,12 @@ msgstr "选项weights.separate-turns仅在使用内部车道进行仿真时被�
 
 #: /home/micha/programming/sumo/src\microsim\MSNet.cpp:388
 msgid "Simulation version % started with time: %."
-msgstr ""
+msgstr "仿真版本%开始时间：%。"
 
 #: /home/micha/programming/sumo/src\microsim\MSNet.cpp:1425
 msgid ""
 "TraCI and Triggers cannot use routing algorithm '%'. using 'astar' instead."
-msgstr ""
+msgstr "TraCI和Triggers不能使用路径算法'%'，使用'astar'代替。"
 
 #: /home/micha/programming/sumo/src\microsim\MSNet.cpp:1595
 #: /home/micha/programming/sumo/src\netload\NLBuilder.cpp:427
@@ -2548,151 +2548,151 @@ msgstr ""
 #: /home/micha/programming/sumo/src\tools\emissionsDrivingCycle_main.cpp:221
 #, c-format
 msgid "Loading of % failed."
-msgstr ""
+msgstr "加载%失败。"
 
 #: /home/micha/programming/sumo/src\microsim\MSNet.cpp:1615
 #, c-format
 msgid "Loading state from '%' failed."
-msgstr ""
+msgstr "从'%'载入状态失败。"
 
 #: /home/micha/programming/sumo/src\microsim\MSRouteHandler.cpp:103
 #: /home/micha/programming/sumo/src\router\RORouteHandler.cpp:108
 msgid "Taz usage was requested but no taz present in % '%'!"
-msgstr ""
+msgstr "要求使用交通分区（Taz），但%'%'中没有Taz!"
 
 #: /home/micha/programming/sumo/src\microsim\MSRouteHandler.cpp:248
 #, c-format
 msgid "Vehicle type distribution '%' is empty."
-msgstr ""
+msgstr "车辆类型分布'%'为空。"
 
 #: /home/micha/programming/sumo/src\microsim\MSRouteHandler.cpp:252
 #: /home/micha/programming/sumo/src\microsim\MSRouteHandler.cpp:896
 #, c-format
 msgid "Another vehicle type (or distribution) with the id '%' exists."
-msgstr ""
+msgstr "存在另一个ID为'%'的车辆类型（或分布）。"
 
 #: /home/micha/programming/sumo/src\microsim\MSRouteHandler.cpp:273
 #: /home/micha/programming/sumo/src\router\RORouteHandler.cpp:302
 msgid "Ids of internal routes are ignored (vehicle '%')."
-msgstr ""
+msgstr "内部路径的编号被忽略（车辆'%'）。"
 
 #: /home/micha/programming/sumo/src\microsim\MSRouteHandler.cpp:292
 msgid "Invalid reference to route '%' in route %."
-msgstr ""
+msgstr "路径%中对路径'%'的引用无效。"
 
 #: /home/micha/programming/sumo/src\microsim\MSRouteHandler.cpp:303
 msgid "Attribute 'period' is deprecated for route. Use 'cycleTime' instead."
-msgstr ""
+msgstr "路径的属性'period'已被废弃。请使用'cycleTime'代替。"
 
 #: /home/micha/programming/sumo/src\microsim\MSRouteHandler.cpp:316
 msgid "Disconnected route % when repeating."
-msgstr ""
+msgstr "重复时断开路径%。"
 
 #: /home/micha/programming/sumo/src\microsim\MSRouteHandler.cpp:322
 msgid "Invalid cost for route '%'."
-msgstr ""
+msgstr "路径'%'的成本无效。"
 
 #: /home/micha/programming/sumo/src\microsim\MSRouteHandler.cpp:379
 #, c-format
 msgid "Route '%' has no edges."
-msgstr ""
+msgstr "路径'%'没有路段。"
 
 #: /home/micha/programming/sumo/src\microsim\MSRouteHandler.cpp:397
 #: /home/micha/programming/sumo/src\router\RORouteHandler.cpp:432
 msgid ""
 "Cannot repeat stops with 'until' in route % because no cycleTime is defined."
-msgstr ""
+msgstr "不能重复路径%中带有'until'的站点，因为没有定义cycleTime。"
 
 #: /home/micha/programming/sumo/src\microsim\MSRouteHandler.cpp:406
 msgid ""
 "Cannot repeat stops with 'arrival' in route % because no cycleTime is "
 "defined."
-msgstr ""
+msgstr "不能重复路径%中带有'到达'的站点，因为没有定义cycleTime。"
 
 #: /home/micha/programming/sumo/src\microsim\MSRouteHandler.cpp:429
 #, c-format
 msgid "A vehicle with id '%' already exists."
-msgstr ""
+msgstr "已经存在一个ID为'%'的车辆。"
 
 #: /home/micha/programming/sumo/src\microsim\MSRouteHandler.cpp:432
 #: /home/micha/programming/sumo/src\microsim\MSRouteHandler.cpp:506
 #, c-format
 msgid "Another route (or distribution) with the id '%' exists."
-msgstr ""
+msgstr "存在另一个ID为'%'的路径（或分布）。"
 
 #: /home/micha/programming/sumo/src\microsim\MSRouteHandler.cpp:510
 #, c-format
 msgid "Route distribution '%' is empty."
-msgstr ""
+msgstr "路径分布'%'是空的。"
 
 #: /home/micha/programming/sumo/src\microsim\MSRouteHandler.cpp:550
 #: /home/micha/programming/sumo/src\router\RORouteHandler.cpp:545
 msgid ""
 "Vehicle type '%' with vClass=pedestrian should only be used for persons and "
 "not for vehicle '%'."
-msgstr ""
+msgstr "vClass=pedestrian的车辆类型'%'只能用于人员，不能用于车辆'%'。"
 
 #: /home/micha/programming/sumo/src\microsim\MSRouteHandler.cpp:559
 msgid ""
 "Ignoring child element 'route' for vehicle '%' because attribute 'route' is "
 "set."
-msgstr ""
+msgstr "忽略车辆'%'的子元素'route'，因为属性'route'已设置。"
 
 #: /home/micha/programming/sumo/src\microsim\MSRouteHandler.cpp:568
 #, c-format
 msgid "Vehicle '%' has no route."
-msgstr ""
+msgstr "车辆'%'没有路径。"
 
 #: /home/micha/programming/sumo/src\microsim\MSRouteHandler.cpp:710
 msgid ""
 "Could not merge vehicle stops for vehicle '%' into implicitly defined route "
 "'%'"
-msgstr ""
+msgstr "无法将车辆'%'的车辆停靠点合并到隐式定义的路径%'中。"
 
 #: /home/micha/programming/sumo/src\microsim\MSRouteHandler.cpp:741
 #: /home/micha/programming/sumo/src\microsim\transportables\MSTransportable.cpp:327
 msgid ""
 "Person '%' receives type '%' which implicitly uses unsuitable vClass '%'."
-msgstr ""
+msgstr "人'%'收到类型'%'，隐含地使用不合适的vClass'%'。"
 
 #: /home/micha/programming/sumo/src\microsim\MSRouteHandler.cpp:877
 msgid ""
 "There exists a person and a container with the same id '%'. Starting with "
 "SUMO 1.9.0 this is an error."
-msgstr ""
+msgstr "存在一个人和一个具有相同id'%'的货箱。从SUMO 1.9.0开始，这是一个错误。"
 
 #: /home/micha/programming/sumo/src\microsim\MSRouteHandler.cpp:972
 #, c-format
 msgid "Another flow with the id '%' exists."
-msgstr ""
+msgstr "存在另一个ID为'%'的流量。"
 
 #: /home/micha/programming/sumo/src\microsim\MSRouteHandler.cpp:1113
 msgid "The busStop '%' is not known%."
-msgstr ""
+msgstr "公共汽车站'%'不详%。"
 
 #: /home/micha/programming/sumo/src\microsim\MSRouteHandler.cpp:1119
 msgid "The containerStop '%' is not known%."
-msgstr ""
+msgstr "货箱停靠点'%'不详%。"
 
 #: /home/micha/programming/sumo/src\microsim\MSRouteHandler.cpp:1125
 msgid "The parkingArea '%' is not known%."
-msgstr ""
+msgstr "停车区'%'不详%。"
 
 #: /home/micha/programming/sumo/src\microsim\MSRouteHandler.cpp:1132
 msgid "The chargingStation '%' is not known%."
-msgstr ""
+msgstr "充电站'%'不知道%。"
 
 #: /home/micha/programming/sumo/src\microsim\MSRouteHandler.cpp:1139
 msgid "The overhead wire segment '%' is not known%."
-msgstr ""
+msgstr "高架线段'%'不详%。"
 
 #: /home/micha/programming/sumo/src\microsim\MSRouteHandler.cpp:1143
 msgid "Invalid stop definition%."
-msgstr ""
+msgstr "无效的停靠定义%。"
 
 #: /home/micha/programming/sumo/src\microsim\MSRouteHandler.cpp:1291
 msgid "Stop edge '%' missing in attribute 'via' for % '%'"
-msgstr ""
+msgstr "在属性'via'中缺少'%'的停靠路段，为%的'%'的属性。"
 
 #: /home/micha/programming/sumo/src\microsim\MSRouteHandler.cpp:1310
 #: /home/micha/programming/sumo/src\router\RORouteHandler.cpp:1184
@@ -2700,63 +2700,64 @@ msgstr ""
 msgid ""
 "The attribute departPos is no longer supported for walks, please use the "
 "person attribute, the arrivalPos of the previous step or explicit stops."
-msgstr ""
+msgstr "对于步行，不再支持departPos属性，请使用人的属性、上一步的到达位置（ "
+"arrivalPos）或明确的停靠。"
 
 #: /home/micha/programming/sumo/src\microsim\MSRouteHandler.cpp:1336
 msgid "Ignoring arrivalPos for % because it is outside the given stop '%'."
-msgstr ""
+msgstr "忽略%的到达位置（arrivationPos），因为它在给定站点'%'之外。"
 
 #: /home/micha/programming/sumo/src\microsim\MSRouteHandler.cpp:1342
 #: /home/micha/programming/sumo/src\router\RORouteHandler.cpp:1205
 msgid "No destination edge for %."
-msgstr ""
+msgstr "没有目的地路段的%。"
 
 #: /home/micha/programming/sumo/src\microsim\MSRouteHandler.cpp:1371
 #: /home/micha/programming/sumo/src\router\RORouteHandler.cpp:1225
 msgid "Start edge not defined for person '%'."
-msgstr ""
+msgstr "没有为'%'的人定义起始路段。"
 
 #: /home/micha/programming/sumo/src\microsim\MSRouteHandler.cpp:1381
 #: /home/micha/programming/sumo/src\microsim\MSRouteHandler.cpp:1446
 #: /home/micha/programming/sumo/src\router\RORouteHandler.cpp:1236
 #: /home/micha/programming/sumo/src\router\RORouteHandler.cpp:1293
 msgid "Non-positive walking duration for  '%'."
-msgstr ""
+msgstr "为'%'没有正的行走时间。"
 
 #: /home/micha/programming/sumo/src\microsim\MSRouteHandler.cpp:1408
 #: /home/micha/programming/sumo/src\microsim\MSRouteHandler.cpp:1452
 #: /home/micha/programming/sumo/src\router\RORouteHandler.cpp:1297
 msgid "Non-positive walking speed for  '%'."
-msgstr ""
+msgstr "为'%'没有正的行走速度。"
 
 #: /home/micha/programming/sumo/src\microsim\MSRouteHandler.cpp:1477
 msgid "No edges to walk for person '%'."
-msgstr ""
+msgstr "为人'%'没有步行的路段。"
 
 #: /home/micha/programming/sumo/src\microsim\MSRouteHandler.cpp:1514
 msgid ""
 "Could not find departure lane for walk of person '%' when interpreting "
 "departPosLat"
-msgstr ""
+msgstr "解释departPosLat时，找不到人走的出发车道'%'。"
 
 #: /home/micha/programming/sumo/src\microsim\MSRouteHandler.cpp:1586
 msgid "Could not read tranship speed for container '%'."
-msgstr ""
+msgstr "无法读取货箱'%'的转运速度。"
 
 #: /home/micha/programming/sumo/src\microsim\MSRouteHandler.cpp:1594
 msgid "Non-positive tranship speed for container '%'."
-msgstr ""
+msgstr "为货箱\"%\"没有正的转运速度。"
 
 #: /home/micha/programming/sumo/src\microsim\MSRouteHandler.cpp:1620
 #, c-format
 msgid "The start edge for container '%' is not known."
-msgstr ""
+msgstr "货箱'%'的起始路段未知。"
 
 #: /home/micha/programming/sumo/src\microsim\MSRouteHandler.cpp:1639
 msgid ""
 "Inconsistent tranship for container '%', only one option is allowed: "
 "'edges', 'to', 'containerStop'"
-msgstr ""
+msgstr "货箱'%'的转运（tranship）不一致，只允许一个选项： '路段', '到', '货箱停靠'。"
 
 #: /home/micha/programming/sumo/src\microsim\MSRouteHandler.cpp:1645
 msgid "No edges to tranship container '%'."
