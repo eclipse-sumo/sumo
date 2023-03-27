@@ -46,7 +46,7 @@ public:
     bool amChecked() const;
 
     /// @brief check or uncheck this MFXCheckableButton
-    void setChecked(bool val);
+    void setChecked(bool val, const bool inform = false);
 
     /// @name FOX callbacks
     /// @{
