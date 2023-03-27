@@ -25,6 +25,8 @@ summary
 # Tests for tripinfo-output
 tripinfo
 
+personinfo
+
 # Tests for vehroutes-output
 vehroutes
 

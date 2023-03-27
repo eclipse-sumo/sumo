@@ -29,6 +29,9 @@ personSummary
 # Tests for tripinfo-output
 tripinfo
 
+# seperate personinfo from tripinfo
+personinfo
+
 # Tests for vehroutes-output
 vehroutes
 stop-output

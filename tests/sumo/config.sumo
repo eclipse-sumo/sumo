@@ -42,6 +42,7 @@ aggregated900:aggregated_900.xml
 rawdump:rawdump.xml
 bt:bt.xml
 tripinfos:tripinfos.xml
+personinfos:personinfos.xml
 statistic:statistic.xml
 stopinfos:stopinfos.xml
 collisions:collisions.xml
@@ -124,6 +125,7 @@ aggregated900:<!--{[->]}-->
 rawdump:<!--{[->]}-->
 bt:<!--{[->]}-->
 tripinfos:<!--{[->]}-->
+personinfos:<!--{[->]}-->
 statistic:<!--{[->]}-->
 stopinfos:<!--{[->]}-->
 collisions:<!--{[->]}-->
