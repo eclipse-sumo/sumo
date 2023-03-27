@@ -6,3 +6,6 @@ one_declared
 
 # a sequence of non-bidi, bidi, bidi, non-bidi edges
 4edges
+
+# only the inner lane is bidi
+TWLT

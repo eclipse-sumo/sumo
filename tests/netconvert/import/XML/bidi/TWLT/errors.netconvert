@@ -1,0 +1,7 @@
+Warning: Ignoring loaded location attribute nr. 2 for tracking of original location
+Warning: Connection '-E0_1->E0_1' is only 0.00m short.
+Warning: Connection '-E1_1->E1_1' is only 0.00m short.
+Warning: Connection 'E0_1->-E0_1' is only 0.00m short.
+Warning: Connection '-E2_1->E2_1' is only 0.00m short.
+Warning: Connection 'E1_1->-E1_1' is only 0.00m short.
+Warning: 6 total messages of type: Connection '%_%->%_%' is only %m short.

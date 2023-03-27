@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-03-27 14:46:15 by Eclipse SUMO netconvert Version v1_16_0+1682-96140f8
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net2.net.xml"/>
+    </input>
+
+    <output>
+        <plain-output-prefix value="input_plain"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.internal-link-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="1"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<nodes version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="-397692.34,-5808546.97" convBoundary="3050.00,1800.00,3200.00,1900.00" origBoundary="13.455920,52.416195,13.575739,52.459222" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <node id="J0" x="3050.00" y="1850.00" type="dead_end"/>
+    <node id="J1" x="3100.00" y="1850.00" type="priority"/>
+    <node id="J2" x="3150.00" y="1850.00" type="priority"/>
+    <node id="J3" x="3200.00" y="1850.00" type="dead_end"/>
+    <node id="J4" x="3100.00" y="1800.00" type="dead_end"/>
+    <node id="J5" x="3150.00" y="1900.00" type="dead_end"/>
+</nodes>
