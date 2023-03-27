@@ -21,6 +21,7 @@ python tools/output/attributeStats --element tripinfo --attribute timeLoss 
 - If option **--id-attribute** (**-i**) is set, the minimum and maximum values of each attribute will be annotated with the corresponding id value
 - With option **--hist-output** {{DT_FILE}}, a histogram data file (e.g. for plotting with gnuplot) is generated.
   - option **--binwidth INT** (**-b**) defines the binning width for the histogram
+- With option **--abs** the output will include statistics on absolute values
 - With option **--xml-output** {{DT_FILE}}, A file with statistical measures for all processed attributes is written
 - With option **--full-output** {{DT_FILE}}, A collected attribute values are recorded with their corresponnding ids
 - Output precision can be set with option **--precision** (**-p**)
