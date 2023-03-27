@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-03-27 22:38:25 by Eclipse SUMO netgenerate Version v1_16_0+1703-f6b8b7c
+<!-- generated on 2023-03-27 22:45:41 by Eclipse SUMO netgenerate Version v1_16_0+1706-976a597
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -87,9 +87,6 @@
         <!-- Describes how many times an edge shall be added to the net -->
         <rand.iterations value="100" synonymes="iterations rand-iterations" type="INT"/>
 
-        <!-- Defines the probability to build a reverse edge -->
-        <bidi-probability value="1" synonymes="bidi rand-bidi-probability rand.bidi-probability" type="FLOAT"/>
-
         <!-- The maximum distance for each edge -->
         <rand.max-distance value="250" synonymes="max-dist rand-max-distance" type="FLOAT"/>
 
@@ -122,15 +119,6 @@
 
         <!-- Probability for a node having exactly 6 neighbors -->
         <rand.neighbor-dist6 value="1" synonymes="dist6 rand-neighbor-dist6" type="FLOAT"/>
-
-        <!-- Draw lane numbers randomly from [1,default.lanenumber] -->
-        <random-lanenumber value="false" synonymes="rand.random-lanenumber" type="BOOL"/>
-
-        <!-- Draw edge priority randomly from [1,default.priority] -->
-        <random-priority value="false" synonymes="rand.random-priority" type="BOOL"/>
-
-        <!-- Draw edge type randomly from all loaded types -->
-        <random-type value="false" type="BOOL"/>
 
         <!-- Place nodes on a regular grid with spacing rand.min-distance -->
         <rand.grid value="false" type="BOOL"/>
@@ -221,6 +209,18 @@
 
         <!-- Apply random spatial perturbation in z direction according the the given distribution -->
         <perturb-z value="0" type="STR"/>
+
+        <!-- Defines the probability to build a reverse edge -->
+        <bidi-probability value="1" synonymes="bidi rand-bidi-probability rand.bidi-probability" type="FLOAT"/>
+
+        <!-- Draw lane numbers randomly from [1,default.lanenumber] -->
+        <random-lanenumber value="false" synonymes="rand.random-lanenumber" type="BOOL"/>
+
+        <!-- Draw edge priority randomly from [1,default.priority] -->
+        <random-priority value="false" synonymes="rand.random-priority" type="BOOL"/>
+
+        <!-- Draw edge type randomly from all loaded types -->
+        <random-type value="false" type="BOOL"/>
 
         <!-- Remaps alphanumerical IDs of nodes and edges to ensure that all IDs are integers -->
         <numerical-ids value="false" type="BOOL"/>

@@ -1,4 +1,4 @@
-Eclipse SUMO netgenerate Version v1_16_0+1703-f6b8b7c
+Eclipse SUMO netgenerate Version v1_16_0+1706-976a597
  Copyright (C) 2001-2023 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Synthetic network generator for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -56,8 +56,6 @@ Random Network Options:
   -r, --rand                           Forces NETGEN to build a random network
   --rand.iterations INT                Describes how many times an edge shall
                                         be added to the net
-  --bidi-probability FLOAT             Defines the probability to build a
-                                        reverse edge
   --rand.max-distance FLOAT            The maximum distance for each edge
   --rand.min-distance FLOAT            The minimum distance for each edge
   --rand.min-angle FLOAT               The minimum angle for each pair of
@@ -78,12 +76,6 @@ Random Network Options:
                                         neighbors
   --rand.neighbor-dist6 FLOAT          Probability for a node having exactly 6
                                         neighbors
-  --random-lanenumber                  Draw lane numbers randomly from
-                                        [1,default.lanenumber]
-  --random-priority                    Draw edge priority randomly from
-                                        [1,default.priority]
-  --random-type                        Draw edge type randomly from all loaded
-                                        types
   --rand.grid                          Place nodes on a regular grid with
                                         spacing rand.min-distance
 
@@ -149,6 +141,14 @@ Processing Options:
   --perturb-z STR                      Apply random spatial perturbation in z
                                         direction according the the given
                                         distribution
+  --bidi-probability FLOAT             Defines the probability to build a
+                                        reverse edge
+  --random-lanenumber                  Draw lane numbers randomly from
+                                        [1,default.lanenumber]
+  --random-priority                    Draw edge priority randomly from
+                                        [1,default.priority]
+  --random-type                        Draw edge type randomly from all loaded
+                                        types
   --numerical-ids                      Remaps alphanumerical IDs of nodes and
                                         edges to ensure that all IDs are
                                         integers

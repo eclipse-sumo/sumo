@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-03-27 22:38:25 by Eclipse SUMO netgenerate Version v1_16_0+1703-f6b8b7c
+<!-- generated on 2023-03-27 22:45:41 by Eclipse SUMO netgenerate Version v1_16_0+1706-976a597
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -39,7 +39,6 @@
     <random_network>
         <rand value="false" synonymes="r random-net" type="BOOL" help="Forces NETGEN to build a random network"/>
         <rand.iterations value="100" synonymes="iterations rand-iterations" type="INT" help="Describes how many times an edge shall be added to the net"/>
-        <bidi-probability value="1" synonymes="bidi rand-bidi-probability rand.bidi-probability" type="FLOAT" help="Defines the probability to build a reverse edge"/>
         <rand.max-distance value="250" synonymes="max-dist rand-max-distance" type="FLOAT" help="The maximum distance for each edge"/>
         <rand.min-distance value="100" synonymes="min-dist rand-min-distance" type="FLOAT" help="The minimum distance for each edge"/>
         <rand.min-angle value="45" synonymes="min-angle rand-min-anglee" type="FLOAT" help="The minimum angle for each pair of (bidirectional) roads in DEGREES"/>
@@ -51,9 +50,6 @@
         <rand.neighbor-dist4 value="10" synonymes="dist4 rand-neighbor-dist4" type="FLOAT" help="Probability for a node having exactly 4 neighbors"/>
         <rand.neighbor-dist5 value="2" synonymes="dist5 rand-neighbor-dist5" type="FLOAT" help="Probability for a node having exactly 5 neighbors"/>
         <rand.neighbor-dist6 value="1" synonymes="dist6 rand-neighbor-dist6" type="FLOAT" help="Probability for a node having exactly 6 neighbors"/>
-        <random-lanenumber value="false" synonymes="rand.random-lanenumber" type="BOOL" help="Draw lane numbers randomly from [1,default.lanenumber]"/>
-        <random-priority value="false" synonymes="rand.random-priority" type="BOOL" help="Draw edge priority randomly from [1,default.priority]"/>
-        <random-type value="false" type="BOOL" help="Draw edge type randomly from all loaded types"/>
         <rand.grid value="false" type="BOOL" help="Place nodes on a regular grid with spacing rand.min-distance"/>
     </random_network>
 
@@ -90,6 +86,10 @@
         <perturb-x value="0" type="STR" help="Apply random spatial perturbation in x direction according the the given distribution"/>
         <perturb-y value="0" type="STR" help="Apply random spatial perturbation in y direction according the the given distribution"/>
         <perturb-z value="0" type="STR" help="Apply random spatial perturbation in z direction according the the given distribution"/>
+        <bidi-probability value="1" synonymes="bidi rand-bidi-probability rand.bidi-probability" type="FLOAT" help="Defines the probability to build a reverse edge"/>
+        <random-lanenumber value="false" synonymes="rand.random-lanenumber" type="BOOL" help="Draw lane numbers randomly from [1,default.lanenumber]"/>
+        <random-priority value="false" synonymes="rand.random-priority" type="BOOL" help="Draw edge priority randomly from [1,default.priority]"/>
+        <random-type value="false" type="BOOL" help="Draw edge type randomly from all loaded types"/>
         <numerical-ids value="false" type="BOOL" help="Remaps alphanumerical IDs of nodes and edges to ensure that all IDs are integers"/>
         <numerical-ids.node-start value="2147483647" type="INT" help="Remaps IDs of nodes to integers starting at INT"/>
         <numerical-ids.edge-start value="2147483647" type="INT" help="Remaps IDs of edges to integers starting at INT"/>
