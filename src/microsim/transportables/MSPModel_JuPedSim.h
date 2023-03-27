@@ -13,11 +13,10 @@
 /****************************************************************************/
 /// @file    MSPModel_JuPedSim.h
 /// @author  Gregor Laemmel
-/// @date    Mon, 13 Jan 2014
-/// @author  Benjamin Couéraud
+/// @author  Benjamin Coueraud
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
-/// @date    Mon, 27 Mar 2023
+/// @date    Mon, 13 Jan 2014
 ///
 // The pedestrian following model that can instantiate different pedestrian models
 // that come with the JuPedSim third-party simulation framework.
