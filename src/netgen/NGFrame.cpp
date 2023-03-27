@@ -93,7 +93,7 @@ NGFrame::fillOptions() {
     oc.addDescription("grid.y-length", "Grid Network", TL("The length of vertical streets; Overrides --grid-length"));
 
     oc.doRegister("grid.attach-length", new Option_Float(0));
-    oc.addSynonyme("grid.attach-length", "attach-length");
+    oc.addSynonyme("grid.attach-length", "attach-length", true);
     oc.addDescription("grid.attach-length", "Grid Network", TL("The length of streets attached at the boundary; 0 means no streets are attached"));
 
     oc.doRegister("grid.x-attach-length", new Option_Float(0));
@@ -126,6 +126,8 @@ NGFrame::fillOptions() {
     oc.addSynonyme("spider.omit-center", "nocenter");
     oc.addDescription("spider.omit-center", "Spider Network", TL("Omit the central node of the network"));
 
+    oc.doRegister("spider.attach-length", new Option_Float(0));
+    oc.addDescription("spider.attach-length", "Spider Network", TL("The length of streets attached at the boundary; 0 means no streets are attached"));
 
     //  register random-net options
     oc.doRegister("rand", 'r', new Option_Bool(false));
