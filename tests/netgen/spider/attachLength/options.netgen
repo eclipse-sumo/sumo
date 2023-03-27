@@ -1,2 +1,2 @@
 --spider --nocenter -o net.net.xml
---attach-length 200
+--spider.attach-length 200
