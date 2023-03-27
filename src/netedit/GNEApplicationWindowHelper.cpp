@@ -2864,6 +2864,7 @@ GNEApplicationWindowHelper::openMeanDataDialog(FXWindow* window, const bool save
 std::string
 GNEApplicationWindowHelper::openOutputFileDialog(FXWindow* window) {
     return openFileDialog(window, TL("Save output file"), GUIIcon::SAVE,
+        TL("SUMO Network files (*.net.xml)") + std::string("\n") +
         TL("XML files (*.xml)") + std::string("\n") +
         TL("All files (*)"), true);
 }
