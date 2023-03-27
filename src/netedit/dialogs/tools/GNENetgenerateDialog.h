@@ -57,6 +57,12 @@ public:
     /// @name FOX-callbacks
     /// @{
 
+    /// @brief open output file
+    long onCmdOpenOutputFile(FXObject*, FXSelector, void*);
+
+    /// @brief set output file
+    long onCmdSetOutput(FXObject*, FXSelector, void*);
+
     /// @brief set grid mode
     long onCmdSetGrid(FXObject*, FXSelector, void*);
 

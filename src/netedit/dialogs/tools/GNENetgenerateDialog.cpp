@@ -34,6 +34,8 @@
 
 FXDEFMAP(GNENetgenerateDialog) GNENetgenerateDialogMap[] = {
     FXMAPFUNC(SEL_CLOSE,    0,                              GNENetgenerateDialog::onCmdCancel),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_OPEN,                   GNENetgenerateDialog::onCmdOpenOutputFile),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,          GNENetgenerateDialog::onCmdSetOutput),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_NETGENERATE_GRID,       GNENetgenerateDialog::onCmdSetGrid),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_NETGENERATE_SPIDER,     GNENetgenerateDialog::onCmdSetSpider),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_NETGENERATE_RANDOMGRID, GNENetgenerateDialog::onCmdSetRandomGrid),
@@ -79,8 +81,8 @@ GNENetgenerateDialog::GNENetgenerateDialog(GNEApplicationWindow* GNEApp) :
     horizontalFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(horizontalFrame, "output-file", nullptr, GUIDesignLabelThickedFixed(GUIDesignBigSizeElement));
     new FXButton(horizontalFrame, (std::string("\t\t") + TL("Select filename")).c_str(), 
-    GUIIconSubSys::getIcon(GUIIcon::OPEN_NET), this, MID_GNE_SELECT, GUIDesignButtonIcon);
-    myOutputTextField = new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_OPEN, GUIDesignTextField);
+        GUIIconSubSys::getIcon(GUIIcon::OPEN_NET), this, MID_GNE_OPEN, GUIDesignButtonIcon);
+    myOutputTextField = new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     // add separator
     new FXSeparator(this);
     // create buttons centered
@@ -130,13 +132,40 @@ GNENetgenerateDialog::openDialog() {
 
 
 long
+GNENetgenerateDialog::onCmdOpenOutputFile(FXObject*, FXSelector, void*) {
+    // get output file
+    const auto outputFile = GNEApplicationWindowHelper::openOutputFileDialog(this);
+    // check file
+    if (!outputFile.empty()) {
+        myOutputTextField->setText(outputFile.c_str(), TRUE);
+    }
+    return 1;
+}
+
+
+long
+GNENetgenerateDialog::onCmdSetOutput(FXObject*, FXSelector, void*) {
+    auto &generateOptions = myGNEApp->getNetgenerateOptions();
+    generateOptions.resetWritable();
+    // check if filename is valid
+    if (SUMOXMLDefinitions::isValidFilename(myOutputTextField->getText().text()) == false) {
+        myOutputTextField->setTextColor(FXRGB(255, 0, 0));
+    } else {
+        generateOptions.set("output-file", myOutputTextField->getText().text());
+        myOutputTextField->setTextColor(FXRGB(0, 0, 0));
+    }
+    return 1;
+}
+
+
+long
 GNENetgenerateDialog::onCmdSetGrid(FXObject*, FXSelector, void*) {
     auto &generateOptions = myGNEApp->getNetgenerateOptions();
     // reset all flags
     generateOptions.resetWritable();
     generateOptions.set("grid", "true");
     generateOptions.set("spider", "false");
-    generateOptions.set("random", "false");
+    generateOptions.set("rand", "false");
     generateOptions.set("rand.grid", "false");
     // set buttons
     myGridNetworkButton->setChecked(true, true);
@@ -154,7 +183,7 @@ GNENetgenerateDialog::onCmdSetSpider(FXObject*, FXSelector, void*) {
     generateOptions.resetWritable();
     generateOptions.set("grid", "false");
     generateOptions.set("spider", "true");
-    generateOptions.set("random", "false");
+    generateOptions.set("rand", "false");
     generateOptions.set("rand.grid", "false");
     // set buttons
     myGridNetworkButton->setChecked(false, true);
@@ -172,7 +201,7 @@ GNENetgenerateDialog::onCmdSetRandomGrid(FXObject*, FXSelector, void*) {
     generateOptions.resetWritable();
     generateOptions.set("grid", "false");
     generateOptions.set("spider", "false");
-    generateOptions.set("random", "true");
+    generateOptions.set("rand", "true");
     generateOptions.set("rand.grid", "true");
     // set buttons
     myGridNetworkButton->setChecked(false, true);
@@ -190,7 +219,7 @@ GNENetgenerateDialog::onCmdSetRandom(FXObject*, FXSelector, void*) {
     generateOptions.resetWritable();
     generateOptions.set("grid", "false");
     generateOptions.set("spider", "false");
-    generateOptions.set("random", "true");
+    generateOptions.set("rand", "true");
     generateOptions.set("rand.grid", "false");
     // set buttons
     myGridNetworkButton->setChecked(false, true);
@@ -207,22 +236,35 @@ GNENetgenerateDialog::onCmdRun(FXObject*, FXSelector, void*) {
     myGNEApp->getApp()->stopModal(this);
     // hide dialog
     hide();
-    // run tool
-    //return myGNEApp->tryHandle(myNetgenerate->getMenuCommand(), FXSEL(SEL_COMMAND, MID_GNE_RUNPYTHONTOOL), nullptr);
-    return 1;
+    // run netgenerate
+    return myGNEApp->tryHandle(this, FXSEL(SEL_COMMAND, MID_GNE_RUNNETGENERATE), nullptr);
 }
 
 
 long
 GNENetgenerateDialog::onCmdAdvanced(FXObject*, FXSelector, void*) {
-    // open advanced
-    return 1;
+    // stop modal
+    myGNEApp->getApp()->stopModal(this);
+    // hide dialog
+    hide();
+    // open netgenerate option dialog
+    return myGNEApp->tryHandle(this, FXSEL(SEL_COMMAND, MID_GNE_NETGENERATEOPTIONS), nullptr);
 }
 
 
 long
 GNENetgenerateDialog::onUpdSettingsConfigured(FXObject* sender, FXSelector, void*) {
-    return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+    auto &generateOptions = myGNEApp->getNetgenerateOptions();
+    // check conditions
+    if ((generateOptions.getBool("grid") == false) &&
+        (generateOptions.getBool("spider") == false) &&
+        (generateOptions.getBool("rand") == false)) {
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+    } else if (generateOptions.getValueString("output-file").empty()) {
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+    } else {
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+    }
 }
 
 

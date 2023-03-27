@@ -2862,6 +2862,14 @@ GNEApplicationWindowHelper::openMeanDataDialog(FXWindow* window, const bool save
 
 
 std::string
+GNEApplicationWindowHelper::openOutputFileDialog(FXWindow* window) {
+    return openFileDialog(window, TL("Save output file"), GUIIcon::SAVE,
+        TL("XML files (*.xml)") + std::string("\n") +
+        TL("All files (*)"), true);
+}
+
+
+std::string
 GNEApplicationWindowHelper::openFileDialog(FXWindow* window, const std::string title, 
         GUIIcon icon, const std::string patternList, const bool save) {
     // write title information

@@ -747,7 +747,7 @@ enum {
     MID_GNE_NETGENERATE_RANDOMGRID,
     /// @brief netgenerate random network
     MID_GNE_NETGENERATE_RANDOM,
-    /// @brief run netgenerate
+    /// @brief run netgenerate tool
     MID_GNE_RUNNETGENERATE,
     /// @brief postprocesing netgenerate
     MID_GNE_POSTPROCESSINGNETGENERATE,
