@@ -36,6 +36,7 @@
 
 #include "netgenerate_grid.xpm"
 #include "netgenerate_spider.xpm"
+#include "netgenerate_randomgrid.xpm"
 #include "netgenerate_random.xpm"
 
 #include "empty.xpm"
@@ -503,6 +504,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
 
     myIcons[GUIIcon::NETGENERATE_GRID] = new FXXPMIcon(a, netgenerate_grid_xpm);
     myIcons[GUIIcon::NETGENERATE_SPIDER] = new FXXPMIcon(a, netgenerate_spider_xpm);
+    myIcons[GUIIcon::NETGENERATE_RANDOMGRID] = new FXXPMIcon(a, netgenerate_randomgrid_xpm);
     myIcons[GUIIcon::NETGENERATE_RANDOM] = new FXXPMIcon(a, netgenerate_random_xpm);
 
     myIcons[GUIIcon::EMPTY] = new FXXPMIcon(a, empty_xpm);

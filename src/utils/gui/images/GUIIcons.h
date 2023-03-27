@@ -50,6 +50,7 @@ enum class GUIIcon {
     /// @{
     NETGENERATE_GRID,
     NETGENERATE_SPIDER,
+    NETGENERATE_RANDOMGRID,
     NETGENERATE_RANDOM,
     /// @}
 
