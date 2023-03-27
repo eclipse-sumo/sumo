@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_16_0+1566-509453c
+Eclipse SUMO sumo Version v1_16_0+1707-833d692
  Copyright (C) 2001-2023 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -114,6 +114,8 @@ Output Options:
   --tripinfo-output.write-undeparted   Write tripinfo output for vehicles which
                                         have not departed at simulation end
                                         because of depart delay
+  --personinfo-output FILE             Save personinfo and containerinfo to
+                                        separate FILE
   --vehroute-output FILE               Save single vehicle route info into FILE
   --vehroute-output.exit-times         Write the exit times for all edges
   --vehroute-output.last-route         Write the last route only

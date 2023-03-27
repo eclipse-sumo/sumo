@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-03-22 16:27:23 by Eclipse SUMO sumo Version v1_16_0+1566-509453c
+<!-- generated on 2023-03-27 22:53:26 by Eclipse SUMO sumo Version v1_16_0+1707-833d692
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -185,6 +185,9 @@
 
         <!-- Write tripinfo output for vehicles which have not departed at simulation end because of depart delay -->
         <tripinfo-output.write-undeparted value="false" type="BOOL"/>
+
+        <!-- Save personinfo and containerinfo to separate FILE -->
+        <personinfo-output value="" synonymes="personinfo" type="FILE"/>
 
         <!-- Save single vehicle route info into FILE -->
         <vehroute-output value="" synonymes="vehroutes" type="FILE"/>
