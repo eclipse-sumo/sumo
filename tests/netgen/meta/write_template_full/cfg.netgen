@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-03-09 08:30:17 by Eclipse SUMO netgenerate Version v1_16_0+1117-b006029d26d
+<!-- generated on 2023-03-27 19:54:44 by Eclipse SUMO netgenerate Version v1_16_0+1699-6b22731
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -29,15 +29,15 @@
 
     <spider_network>
         <spider value="false" synonymes="s spider-net" type="BOOL" help="Forces NETGEN to build a spider-net-like network"/>
-        <spider.arm-number value="13" synonymes="arms spider-arm-number" type="INT" help="The number of axes within the net"/>
-        <spider.circle-number value="20" synonymes="circles spider-circle-number" type="INT" help="The number of circles of the net"/>
+        <spider.arm-number value="7" synonymes="arms spider-arm-number" type="INT" help="The number of axes within the net"/>
+        <spider.circle-number value="5" synonymes="circles spider-circle-number" type="INT" help="The number of circles of the net"/>
         <spider.space-radius value="100" synonymes="radius spider-space-rad" type="FLOAT" help="The distances between the circles"/>
         <spider.omit-center value="false" synonymes="nocenter spider-omit-center" type="BOOL" help="Omit the central node of the network"/>
     </spider_network>
 
     <random_network>
         <rand value="false" synonymes="r random-net" type="BOOL" help="Forces NETGEN to build a random network"/>
-        <rand.iterations value="2000" synonymes="iterations rand-iterations" type="INT" help="Describes how many times an edge shall be added to the net"/>
+        <rand.iterations value="100" synonymes="iterations rand-iterations" type="INT" help="Describes how many times an edge shall be added to the net"/>
         <bidi-probability value="1" synonymes="bidi rand-bidi-probability rand.bidi-probability" type="FLOAT" help="Defines the probability to build a reverse edge"/>
         <rand.max-distance value="250" synonymes="max-dist rand-max-distance" type="FLOAT" help="The maximum distance for each edge"/>
         <rand.min-distance value="100" synonymes="min-dist rand-min-distance" type="FLOAT" help="The minimum distance for each edge"/>
