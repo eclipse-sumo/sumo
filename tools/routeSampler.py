@@ -500,7 +500,8 @@ def zero():
 
 
 class Routes:
-    def __init__(self, routefiles, keepStops):
+    def __init__(self, routefiles, keepStops, rng):
+        self.rng = rng
         self.all = []
         self.edgeProbs = defaultdict(zero)
         self.edgeIDs = {}
@@ -558,7 +559,17 @@ class Routes:
         comment = ' '.join(comment)
         if comment:
             comment = " <!-- %s -->" % comment
-        outf.write('%s<route%s edges="%s"%s/>%s\n' % (indent, ID, ' '.join(edges), probability, comment))
+    
+        stops = []
+        stopCandidates = self.routeStops.get(edges)
+        if stopCandidates:
+            stops = stopCandidates[self.rng.choice(range(len(stopCandidates)))]
+        close = '' if stops else '/'
+        outf.write('%s<route%s edges="%s"%s%s>%s\n' % (indent, ID, ' '.join(edges), probability, close, comment))
+        if stops:
+            for stop in stops:
+                outf.write(stop.toXML(indent + ' ' * 4))
+            outf.write('%s</route>\n' % indent)
 
 
 def initTurnRatioSiblings(routes, countData):
@@ -657,7 +668,7 @@ def initTotalCounts(options, routes, intervals, b, e):
 def main(options):
     rng = np.random.RandomState(options.seed)
 
-    routes = Routes(options.routeFiles, options.keepStops)
+    routes = Routes(options.routeFiles, options.keepStops, rng)
 
     intervals = getIntervals(options)
     if len(intervals) == 0:
