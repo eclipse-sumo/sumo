@@ -40,6 +40,24 @@ class Option;
 class GNEPythonToolDialogElements {
 
 public:
+    /// @brief category
+    class Category : public FXHorizontalFrame {
+
+    public:
+        /// @brief constructor
+        Category(GNEPythonToolDialog* toolDialogParent, const std::string &category);
+
+        /// @brief destructor
+        ~Category();
+
+    private:
+        /// @brief Invalidated copy constructor.
+        Category(const Category&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        Category& operator=(const Category&) = delete;
+    };
+
     /// @brief argument
     class Argument : public FXHorizontalFrame {
         /// @brief FOX-declaration
