@@ -14,15 +14,19 @@ title: ChangeLog
   - Fixed unsuitable lateral alignment on bidi edge when preparing for a turning movement. Issue #11436
   - Fixed collision at parallel lanes with different lengths. Issue #12590
   - Fixed crash when using option **--collision.action remove** and vehicles collide after lane changing. Issue #12583
-  - Traffic light type `delay_based` no longer generates overlapping detectors (which could cause invalid switching decisions). Issue #12615
-  - Simulation now terminates even when a stop with `triggered="join"` fails. Issue #12668
-  - Stop attribute `extension` now works for `triggered="join"`. Issue #12666
+  - Traffic light type `delay_based` no longer generates overlapping detectors (which could cause invalid switching decisions). Issue #12615  
   - Waypoints with attribute 'triggered' now result in an error rather than undefined behavior. Issue #12665
   - Fixed collision on junction between two conflicting links with internal junction. Issue #12715
   - Fixed invalid error about disconnected walk for person. Issue #12744
   - Fixed invalid error: "Disconnected walk for person". Issue #12744
-  - Fixed unsafe train insertion that could cause a follower train to collide. Issue #12857
-
+  - Railway simualation:
+    - Simulation now terminates even when a stop with `triggered="join"` fails. Issue #12668
+    - Stop attribute `extension` now works for `triggered="join"`. Issue #12666
+    - Fixed unsafe train insertion that could cause a follower train to collide. Issue #12857
+    - Fixed emergency braking when reversing on a red signal. Issue #12868
+    - Fixed invalid railway routing result. Issue #12872
+    - Fixed deadlock on bidirectional track. Issue #12858
+  
 - netedit
   - Fixed bug when showing list of newly created vehicle types in type mode. Issue #12625 (regression in 1.15.0)
   - Fixed bug that prevent creation of crossing at priority junctions with speed above 50k/mh. Issue #12609 (regression in 1.16.0)  
@@ -60,6 +64,7 @@ title: ChangeLog
   - Relaxed right of way rules in the context of dedicated lanes. Issue #12720
   - Abstract projection is now resolved when loading .net.xml. Issue #12761
   - Fixed tram connections when using option **----edges.join-tram-dist**. Issue #12767
+  - Fixed crash when merging networks. Issue #12824
 
 - meso
   - Option **--time-to-teleport.remove** is now working. Issue #12797
@@ -89,6 +94,8 @@ title: ChangeLog
   - DriverState now optionally affects free flow speed (using param `freeSpeedErrorCoefficient`). Issue #6331
   - Element `<vTypeDistribution>` now supports attribute `probabilities` together with `vTypes` to re-use the same `<Types>` with different probabilities. Issue #12799
   - Some warnings about inconsistent public transport stop times are now avoided when using option **--use-stop-ended** along with stop attribute `ended`. #12825
+  - Stop-output now includes optional attribute `usedEnded` to indicate whether a stop was affected by option **--use-stop-ended**. Issue #12863
+  - Public transport vehicles may now slow down by a configurable factor when they are ahead of their schedule. (using new vType attribute `speedFactorPremature`). This is based on optional stop attribute `arrival`.  If the new option **--use-stop-started** is set, this is instead based on the optional `started` attribute of the stop. Issue #11899
 
 - netconvert
   - Added options **--shapefile.width** and **--shapefile.length** to allow importing custom widths and lengths from [shape files](Networks/Import/ArcView.md). Issue #12575
@@ -97,6 +104,7 @@ title: ChangeLog
   - OSM: Supporting bus lane restrictions using `psv`. Issue #6767
   - junction attribute 'radius' now overrides option **--junctions.small-radius**. Issue #12816
   - merging two projected plain-xml networks with different offsets is now working. Issue #12841
+  - Option **--numerical-ids** now also applies to traffic light IDs. Issue #12886
 
 - netedit
   - Added menu and dialogs for calling python tools without using the command line. Issue #4138
@@ -124,6 +132,7 @@ title: ChangeLog
   - TraCIConstants are now available as static values for the Java bindings. Issue #12371
 
 - tools
+  - gtfs2pt.py: multiple improvements to route matching. Issue #12834 (Thanks to Gladys McGan)
   - Visualization tools now support option **--alpha** to set background transparency. Issue #12556
   - Added new tool [generateRerouters.py](Tools/Misc.md#generatererouterspy) to generate rerouters for a given set of closed edges including automatic computation of suitable notification edges. Issue #12510
   - Added new tool [split_at_stops.py](Tools/Net.md#split_at_stopspy) to ensure that each bus/train-stop has it's own edge. Issue #12519
@@ -137,6 +146,7 @@ title: ChangeLog
   - attributeDiff.py: Can now optionally group attributes by one or more id-attributes before comparing. #12794
   - attributeDiff.py: optionally write entries that could not be compared (via new options **-m** and **-M**. Issue #12798
   - attributeStats.py: Now supports option **--human-readable-time** (**-H**) to make attributes with large time values more legible. Issue #12822
+  - attributeStats.py: Now supports option **--abs** to include statistics on absolute values. Issue #12899
   - sumolib.miscutils functions `parseTime` and `humandReadableTime` now handle negative values. Issue #12821, #12823
   - tlsCycleAdaptation.py now supports more inputs (i.e. TLS with unused stats). Issue #12777
   - new research intersection Ingolstadt scenario for the SUMO game
@@ -157,8 +167,9 @@ title: ChangeLog
 
 - Netedit help menu now links to to netedit shortcuts. Issue #12626
 - Removed libsumo / libtraci from the binary windows release to avoid version mismatch. Instead the user must install the bindings for their installed python version via `pip`. Issue #11992
-- tools
-  - Removed tool `plotXMLAttr.py` since it's functionality is covered by `plotXMLAttributes.py` (tool moved to 'purgatory' folder). Issue #11994.
+- Stop-output no longer contains attribute `delay` if a stop does not define the `until` attribute. Formerly, the value of *-1* would be written which is ambiguous in conjunction with negative delays caused by TraCI or **--use-stop-ended**. Issue #12883
+- Added an installer for the extra version. Issue #8688
+- Removed tool `plotXMLAttr.py` since it's functionality is covered by `plotXMLAttributes.py` (tool moved to 'purgatory' folder). Issue #11994.
 
 ## Version 1.16.0 (07.02.2023)
 
