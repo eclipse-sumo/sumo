@@ -33,15 +33,16 @@
 // ===========================================================================
 
 FXDEFMAP(GNENetgenerateDialog) GNENetgenerateDialogMap[] = {
-    FXMAPFUNC(SEL_CLOSE,    0,                          GNENetgenerateDialog::onCmdCancel),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_NETGENERATE_GRID,   GNENetgenerateDialog::onCmdSetGrid),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_NETGENERATE_SPIDER, GNENetgenerateDialog::onCmdSetSpider),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_NETGENERATE_RANDOM, GNENetgenerateDialog::onCmdSetRandom),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_RUN,         GNENetgenerateDialog::onCmdRun),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_BUTTON_RUN,         GNENetgenerateDialog::onUpdSettingsConfigured),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_ADVANCED,    GNENetgenerateDialog::onCmdAdvanced),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_BUTTON_ADVANCED,    GNENetgenerateDialog::onUpdSettingsConfigured),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_CANCEL,      GNENetgenerateDialog::onCmdCancel),
+    FXMAPFUNC(SEL_CLOSE,    0,                              GNENetgenerateDialog::onCmdCancel),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_NETGENERATE_GRID,       GNENetgenerateDialog::onCmdSetGrid),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_NETGENERATE_SPIDER,     GNENetgenerateDialog::onCmdSetSpider),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_NETGENERATE_RANDOMGRID, GNENetgenerateDialog::onCmdSetRandomGrid),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_NETGENERATE_RANDOM,     GNENetgenerateDialog::onCmdSetRandom),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_RUN,             GNENetgenerateDialog::onCmdRun),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_BUTTON_RUN,             GNENetgenerateDialog::onUpdSettingsConfigured),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_ADVANCED,        GNENetgenerateDialog::onCmdAdvanced),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_BUTTON_ADVANCED,        GNENetgenerateDialog::onUpdSettingsConfigured),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_CANCEL,          GNENetgenerateDialog::onCmdCancel),
 };
 
 // Object implementation
@@ -60,6 +61,7 @@ GNENetgenerateDialog::GNENetgenerateDialog(GNEApplicationWindow* GNEApp) :
     auto horizontalFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(horizontalFrame, TL("Grid"), nullptr, GUIDesignLabelThickedFixed(GUIDesignBigSizeElement));
     new FXLabel(horizontalFrame, TL("Spider"), nullptr, GUIDesignLabelThickedFixed(GUIDesignBigSizeElement));
+    new FXLabel(horizontalFrame, TL("Random grid"), nullptr, GUIDesignLabelThickedFixed(GUIDesignBigSizeElement));
     new FXLabel(horizontalFrame, TL("Random"), nullptr, GUIDesignLabelThickedFixed(GUIDesignBigSizeElement));
     // build buttons
     horizontalFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
@@ -67,6 +69,8 @@ GNENetgenerateDialog::GNENetgenerateDialog(GNEApplicationWindow* GNEApp) :
         GUIIconSubSys::getIcon(GUIIcon::NETGENERATE_GRID), this, MID_GNE_NETGENERATE_GRID, GUIDesignMFXCheckableButtonBig);
     mySpiderNetworkButton = new MFXCheckableButton(false, horizontalFrame, GNEApp->getStaticTooltipMenu(), "",
         GUIIconSubSys::getIcon(GUIIcon::NETGENERATE_SPIDER), this, MID_GNE_NETGENERATE_SPIDER, GUIDesignMFXCheckableButtonBig);
+    myRandomGridNetworkButton = new MFXCheckableButton(false, horizontalFrame, GNEApp->getStaticTooltipMenu(), "",
+        GUIIconSubSys::getIcon(GUIIcon::NETGENERATE_RANDOMGRID), this, MID_GNE_NETGENERATE_RANDOMGRID, GUIDesignMFXCheckableButtonBig);
     myRandomNetworkButton = new MFXCheckableButton(false, horizontalFrame, GNEApp->getStaticTooltipMenu(), "",
         GUIIconSubSys::getIcon(GUIIcon::NETGENERATE_RANDOM), this, MID_GNE_NETGENERATE_RANDOM, GUIDesignMFXCheckableButtonBig);
     // add invisible separator
@@ -97,6 +101,25 @@ GNENetgenerateDialog::~GNENetgenerateDialog() {}
 
 long
 GNENetgenerateDialog::openDialog() {
+    auto &generateOptions = myGNEApp->getNetgenerateOptions();
+    // reset buttons
+    if (generateOptions.getBool("grid")) {
+        if (generateOptions.getBool("rand.grid")) {
+            myRandomGridNetworkButton->setChecked(true);
+            onCmdSetRandomGrid(nullptr, 0, nullptr);
+        } else {
+            myGridNetworkButton->setChecked(true);
+            onCmdSetGrid(nullptr, 0, nullptr);
+        }
+    } else if (generateOptions.getBool("spider")) {
+        mySpiderNetworkButton->setChecked(true);
+        onCmdSetSpider(nullptr, 0, nullptr);
+    } else if (generateOptions.getBool("random")) {
+        myRandomNetworkButton->setChecked(true);
+        onCmdSetRandom(nullptr, 0, nullptr);
+    }
+    // set output
+    myOutputTextField->setText(generateOptions.getValueString("output-file").c_str());
     // show dialog
     FXDialogBox::show(PLACEMENT_SCREEN);
     // refresh APP
@@ -105,25 +128,24 @@ GNENetgenerateDialog::openDialog() {
     return myGNEApp->getApp()->runModalFor(this);
 }
 
+
 long
 GNENetgenerateDialog::onCmdSetGrid(FXObject*, FXSelector, void*) {
     auto &generateOptions = myGNEApp->getNetgenerateOptions();
     // reset all flags
     generateOptions.resetWritable();
-    generateOptions.set("grid", "false");
+    generateOptions.set("grid", "true");
     generateOptions.set("spider", "false");
     generateOptions.set("random", "false");
-    // continue depending of checking
-    if (myGridNetworkButton->amChecked() == false) {
-        myGridNetworkButton->setChecked(true);
-        mySpiderNetworkButton->setChecked(false);
-        myRandomNetworkButton->setChecked(false);
-        // set option
-        generateOptions.resetWritable();
-        generateOptions.set("grid", "true");
-    }
+    generateOptions.set("rand.grid", "false");
+    // set buttons
+    myGridNetworkButton->setChecked(true, true);
+    mySpiderNetworkButton->setChecked(false, true);
+    myRandomGridNetworkButton->setChecked(false, true);
+    myRandomNetworkButton->setChecked(false, true);
     return 1;
 }
+
 
 long
 GNENetgenerateDialog::onCmdSetSpider(FXObject*, FXSelector, void*) {
@@ -131,17 +153,32 @@ GNENetgenerateDialog::onCmdSetSpider(FXObject*, FXSelector, void*) {
     // reset all flags
     generateOptions.resetWritable();
     generateOptions.set("grid", "false");
-    generateOptions.set("spider", "false");
+    generateOptions.set("spider", "true");
     generateOptions.set("random", "false");
-    // continue depending of checking
-    if (mySpiderNetworkButton->amChecked() == false) {
-        myGridNetworkButton->setChecked(false);
-        mySpiderNetworkButton->setChecked(true);
-        myRandomNetworkButton->setChecked(false);
-        // set option
-        generateOptions.resetWritable();
-        generateOptions.set("spider", "true");
-    }
+    generateOptions.set("rand.grid", "false");
+    // set buttons
+    myGridNetworkButton->setChecked(false, true);
+    mySpiderNetworkButton->setChecked(true, true);
+    myRandomGridNetworkButton->setChecked(false, true);
+    myRandomNetworkButton->setChecked(false, true);
+    return 1;
+}
+
+
+long
+GNENetgenerateDialog::onCmdSetRandomGrid(FXObject*, FXSelector, void*) {
+    auto &generateOptions = myGNEApp->getNetgenerateOptions();
+    // reset all flags
+    generateOptions.resetWritable();
+    generateOptions.set("grid", "false");
+    generateOptions.set("spider", "false");
+    generateOptions.set("random", "true");
+    generateOptions.set("rand.grid", "true");
+    // set buttons
+    myGridNetworkButton->setChecked(false, true);
+    mySpiderNetworkButton->setChecked(false, true);
+    myRandomGridNetworkButton->setChecked(true, true);
+    myRandomNetworkButton->setChecked(false, true);
     return 1;
 }
 
@@ -153,16 +190,13 @@ GNENetgenerateDialog::onCmdSetRandom(FXObject*, FXSelector, void*) {
     generateOptions.resetWritable();
     generateOptions.set("grid", "false");
     generateOptions.set("spider", "false");
-    generateOptions.set("random", "false");
-    // continue depending of checking
-    if (myRandomNetworkButton->amChecked() == false) {
-        myGridNetworkButton->setChecked(false);
-        mySpiderNetworkButton->setChecked(false);
-        myRandomNetworkButton->setChecked(true);
-        // set option
-        generateOptions.resetWritable();
-        generateOptions.set("random", "true");
-    }
+    generateOptions.set("random", "true");
+    generateOptions.set("rand.grid", "false");
+    // set buttons
+    myGridNetworkButton->setChecked(false, true);
+    mySpiderNetworkButton->setChecked(false, true);
+    myRandomGridNetworkButton->setChecked(false, true);
+    myRandomNetworkButton->setChecked(true, true);
     return 1;
 }
 

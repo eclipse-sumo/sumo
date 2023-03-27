@@ -63,6 +63,9 @@ public:
     /// @brief set spider
     long onCmdSetSpider(FXObject*, FXSelector, void*);
 
+    /// @brief set random grid
+    long onCmdSetRandomGrid(FXObject*, FXSelector, void*);
+
     /// @brief set random
     long onCmdSetRandom(FXObject*, FXSelector, void*);
 
@@ -93,6 +96,9 @@ private:
 
     /// @brief grid network
     MFXCheckableButton* mySpiderNetworkButton = nullptr;
+
+    /// @brief random grid network
+    MFXCheckableButton* myRandomGridNetworkButton = nullptr;
 
     /// @brief grid network
     MFXCheckableButton* myRandomNetworkButton = nullptr;

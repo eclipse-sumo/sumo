@@ -739,11 +739,13 @@ enum {
     MID_GNE_NETGENERATE,
     /// @brief netgenerate options
     MID_GNE_NETGENERATEOPTIONS,
-    /// @brief netgenerate grid
+    /// @brief netgenerate grid network
     MID_GNE_NETGENERATE_GRID,
-    /// @brief netgenerate spider
+    /// @brief netgenerate spider network
     MID_GNE_NETGENERATE_SPIDER,
-    /// @brief netgenerate random
+    /// @brief netgenerate random grid network
+    MID_GNE_NETGENERATE_RANDOMGRID,
+    /// @brief netgenerate random network
     MID_GNE_NETGENERATE_RANDOM,
     /// @brief run netgenerate
     MID_GNE_RUNNETGENERATE,
