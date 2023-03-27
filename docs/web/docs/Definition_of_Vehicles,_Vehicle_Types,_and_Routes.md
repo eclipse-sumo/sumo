@@ -493,6 +493,7 @@ startupDelay        | float >= 0        | 0                | The extra delay tim
 | scale  | float >= 0  | scaling factor for traffic. Acts as a multiplier for option **--scale** for all vehicles of this type. Values < 1 cause a proportional reduction in traffic whereas values above 1 increase it by this factor. (default 1)|
 | timeToTeleport       | float   |        | Override option **--time-to-teleport** for vehicles of this type |
 | timeToTeleportBidi   | float   |        | Override option **--time-to-teleport.bidi** for vehicles of this type |
+| speedFactorPremature | float   |        | When set to a positive value, this may cause a train to slow down on approach to a stop whenever the stop has it's `arrival` attribut set and the vehicle would otherwise be ahead of schedule. The given value is multiplied with the edge speed limit and used as a lower bound for slowing down. If option **--use-stop-started** is set and the stop defines the `started` attribute, this is used instead of `arrival`. |
 
 Besides values which describe the vehicle's car-following properties,
 one can find definitions of the assigned vehicles' shapes, emissions,
