@@ -163,18 +163,22 @@ GNEPythonToolDialog::buildArguments() {
         delete argument;
     }
     myArguments.clear();
+    // get argument sorted by categories
+    const auto categoryOptions = getOptionsByCategories();
     // iterate over options
-    for (const auto &option : myPythonTool->getToolsOptions()) {
-        if (option.second->isInteger()) {
-            myArguments.push_back(new GNEPythonToolDialogElements::IntArgument(this, option.first, option.second));
-        } else if (option.second->isFloat()) {
-            myArguments.push_back(new GNEPythonToolDialogElements::FloatArgument(this, option.first, option.second));
-        } else if (option.second->isBool()) {
-            myArguments.push_back(new GNEPythonToolDialogElements::BoolArgument(this, option.first, option.second));
-        } else if (option.second->isFileName()) {
-            myArguments.push_back(new GNEPythonToolDialogElements::FileNameArgument(this, option.first, option.second));       
-        } else {
-            myArguments.push_back(new GNEPythonToolDialogElements::StringArgument(this, option.first, option.second));
+    for (const auto &categoryOption : categoryOptions) {
+        for (const auto &option : categoryOption.getOptions()) {
+            if (option.second->isInteger()) {
+                myArguments.push_back(new GNEPythonToolDialogElements::IntArgument(this, option.first, option.second));
+            } else if (option.second->isFloat()) {
+                myArguments.push_back(new GNEPythonToolDialogElements::FloatArgument(this, option.first, option.second));
+            } else if (option.second->isBool()) {
+                myArguments.push_back(new GNEPythonToolDialogElements::BoolArgument(this, option.first, option.second));
+            } else if (option.second->isFileName()) {
+                myArguments.push_back(new GNEPythonToolDialogElements::FileNameArgument(this, option.first, option.second));       
+            } else {
+                myArguments.push_back(new GNEPythonToolDialogElements::StringArgument(this, option.first, option.second));
+            }
         }
     }
     // adjust parameter column (call always after create elements)
@@ -186,7 +190,7 @@ void
 GNEPythonToolDialog::adjustParameterColumn() {
     int maximumWidth = 0;
     // iterate over all arguments and find the maximum width
-    for (const auto &argument : myArguments) {
+    for (const auto& argument : myArguments) {
         const auto label = argument->getParameterLabel();
         const int columnWidth = label->getFont()->getTextWidth(label->getText().text(), label->getText().length() + MARGING);
         if (columnWidth > maximumWidth) {
@@ -194,7 +198,7 @@ GNEPythonToolDialog::adjustParameterColumn() {
         }
     }
     // set maximum width for all parameter labels
-    for (const auto &argument : myArguments) {
+    for (const auto& argument : myArguments) {
         argument->getParameterLabel()->setWidth(maximumWidth);
     }
     // set parameter label width
@@ -209,6 +213,40 @@ GNEPythonToolDialog::adjustParameterColumn() {
             myRowFrames.at(i)->setHeight(0);
         }
     }
+}
+
+
+std::vector<GNEPythonToolDialog::CategoryOptions>
+GNEPythonToolDialog::getOptionsByCategories() const {
+    // first obtain all options sorted by category
+    std::map<std::string, std::pair<std::string, Option*> > sortedOptions;
+    for (const auto &option : myPythonTool->getToolsOptions()) {
+        sortedOptions[option.second->getCategory()] = option;
+    }
+    // declare vector with common categories
+    const std::vector<std::string> commonCategories = {"input", "output", "processing", "time"};
+    // fill categories
+    std::vector<std::string> categories = commonCategories;
+    for (const auto &sortedOption : sortedOptions) {
+        if (std::find(commonCategories.begin(), commonCategories.end(), sortedOption.first) != commonCategories.end()) {
+            categories.push_back(sortedOption.first);
+        }
+    }
+    // declare vector of category options
+    std::vector<GNEPythonToolDialog::CategoryOptions> result;
+    // fill result with options
+    for (const auto &category : categories) {
+        // add new category options and fill it
+        GNEPythonToolDialog::CategoryOptions categoryOptions(category);
+        for (const auto &option : sortedOptions) {
+            categoryOptions.addOption(option.second.first, option.second.second);
+        }
+        // only add if there is at least one element
+        if (categoryOptions.getOptions().size() > 0) {
+            result.push_back(categoryOptions);
+        }
+    }
+    return result;
 }
 
 /****************************************************************************/

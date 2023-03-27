@@ -71,6 +71,33 @@ public:
     /// @}
 
 protected:
+    /// @brief internal class used for sorting options by categories
+    class CategoryOptions : public std::string {
+
+    public:
+        /// @brief constructor
+        CategoryOptions(const std::string &category) :
+            std::string(category) {
+        }
+
+        /// @brief add option
+        void addOption(const std::string &name, Option* option) {
+            myOptions.push_back(std::make_pair(name, option));
+        }
+
+        /// @brief get options
+        const std::vector<std::pair<std::string, Option*> > &getOptions() const {
+            return myOptions;
+        }
+
+    private:
+        /// @brief options for this category
+        std::vector<std::pair<std::string, Option*> > myOptions;
+
+        /// @brief default constructor
+        CategoryOptions() {}
+    };
+
     /// @brief FOX needs this
     GNEPythonToolDialog();
 
@@ -80,7 +107,10 @@ protected:
     /// @brief adjust parameter column
     void adjustParameterColumn();
 
-    /// @brief list of arguments
+    /// @brief get arguments sorted by category
+    std::vector<CategoryOptions> getOptionsByCategories() const;
+
+    /// @brief list of arguments sorted by categories
     std::vector<GNEPythonToolDialogElements::Argument*> myArguments;
 
     /// @brief get row frame
