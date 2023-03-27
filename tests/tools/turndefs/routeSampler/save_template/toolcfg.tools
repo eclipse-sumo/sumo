@@ -7,6 +7,7 @@
     <end value="None" type="string" help="custom end time (seconds or H:M:S)" category="time"/>
     <geh-ok value="5" type="float" help="threshold for acceptable GEH values" category="processing"/>
     <interval value="None" type="string" help="custom aggregation interval (seconds or H:M:S)" category="time"/>
+    <keep-stops value="False" type="bool" help="Preserve stops from the input routes" category="outut"/>
     <min-count value="1" type="int" help="Set minimum number of counting locations that a route must visit" category="processing"/>
     <minimize-vehicles value="0" type="float" help="Set optimization factor from [0, 1[ for reducing the number of vehicles(prefer routes that pass multiple counting locations over routes that pass fewer)" category="processing"/>
     <mismatch-output value="None" type="string" help="write cout-data with overflow/underflow information to FILE" category="processing"/>

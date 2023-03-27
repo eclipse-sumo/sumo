@@ -2,6 +2,10 @@
 # 
 output-styles
 
+# write stops that are found in the input
+# 
+stops
+
 # 
 # 
 output-styles_pedestrians
