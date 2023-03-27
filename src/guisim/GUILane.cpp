@@ -565,7 +565,7 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
         }
     }
     // recognize full transparency and simply don't draw
-    bool hiddenBidi = myEdge->getBidiEdge() != nullptr && myEdge->getNumericalID() > myEdge->getBidiEdge()->getNumericalID();
+    bool hiddenBidi = getBidiLane() != nullptr && myEdge->getNumericalID() > myEdge->getBidiEdge()->getNumericalID();
     if (color.alpha() != 0 && s.scale * exaggeration > s.laneMinSize) {
         // scale tls-controlled lane2lane-arrows along with their junction shapes
         double junctionExaggeration = 1;
@@ -590,6 +590,7 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
             const bool spreadSuperposed = s.spreadSuperposed && myEdge->getBidiEdge() != nullptr;
             if (hiddenBidi && !spreadSuperposed) {
                 // do not draw shape
+                mustDrawMarkings = !isInternal && myPermissions != 0 && myPermissions != SVC_PEDESTRIAN && exaggeration == 1.0 && !isWaterway(myPermissions) && neighLaneNotBidi();
             } else if (drawRails) {
                 // draw as railway: assume standard gauge of 1435mm when lane width is not set
                 // draw foot width 150mm, assume that distance between rail feet inner sides is reduced on both sides by 39mm with regard to the gauge
@@ -737,7 +738,7 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                 }
             }
         }
-        if (mustDrawMarkings && drawDetails && s.laneShowBorders && !hiddenBidi) { // needs matrix reset
+        if (mustDrawMarkings && drawDetails && s.laneShowBorders) { // needs matrix reset
             drawMarkings(s, exaggeration);
         }
         if (drawDetails && isInternal && s.showBikeMarkings && myPermissions == SVC_BICYCLE && exaggeration == 1.0 && s.showLinkDecals && s.laneShowBorders && !hiddenBidi) {
@@ -770,6 +771,18 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
     GLHelper::popName();
 }
 
+bool
+GUILane::neighLaneNotBidi() const {
+    const MSLane* right = getParallelLane(-1, false);
+    if (right && right->getBidiLane() == nullptr) {
+        return true;
+    }
+    const MSLane* left = getParallelLane(1, false);
+    if (left && left->getBidiLane() == nullptr) {
+        return true;
+    }
+    return false;
+}
 
 void
 GUILane::drawMarkings(const GUIVisualizationSettings& s, double scale) const {

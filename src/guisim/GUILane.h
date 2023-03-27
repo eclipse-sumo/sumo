@@ -218,6 +218,9 @@ public:
 
     double firstWaitingTime() const;
 
+    /// @brief whether any of the neighboring lanes is not a bidi-lane
+    bool neighLaneNotBidi() const;
+
     /// @brief draw lane borders and white markings
     void drawMarkings(const GUIVisualizationSettings& s, double scale) const;
 
