@@ -426,6 +426,9 @@ public:
      */
     double getMaxGrade(double& maxJump) const;
 
+    /// @brief check if the two vectors have the same length and pairwise similar positions
+    bool almostSame(const PositionVector& v2, double maxDiv = POSITION_EPS) const;
+
     /// @brief return a bezier interpolation
     PositionVector bezier(int numPoints);
 

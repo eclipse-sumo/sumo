@@ -1526,6 +1526,21 @@ PositionVector::operator+(const PositionVector& v2) const {
 }
 
 bool
+PositionVector::almostSame(const PositionVector& v2, double maxDiv) const {
+    if (length() != v2.length()) {
+        return false;
+    }
+    auto i2 = v2.begin();
+    for (auto i1 = begin(); i1 != end(); i1++) {
+        if (!i1->almostSame(*i2, maxDiv)) {
+            return false;
+        }
+        i2++;
+    }
+    return true;
+}
+
+bool
 PositionVector::hasElevation() const {
     if (size() < 2) {
         return false;
