@@ -77,6 +77,9 @@ MSTransportableControl::MSTransportableControl(const bool isPerson):
         OutputDevice::createDeviceByOption("personroute-output", "routes", "routes_file.xsd");
         myRouteInfos.routeOut = &OutputDevice::getDeviceByOption("personroute-output");
     }
+    if (oc.isSet("personinfo-output")) {
+        OutputDevice::createDeviceByOption("personinfo-output", "tripinfos", "tripinfo_file.xsd");
+    }
     myAbortWaitingTimeout = string2time(oc.getString("time-to-teleport.ride"));
 }
 
@@ -136,7 +139,9 @@ MSTransportableControl::get(const std::string& id) const {
 void
 MSTransportableControl::erase(MSTransportable* transportable) {
     const OptionsCont& oc = OptionsCont::getOptions();
-    if (oc.isSet("tripinfo-output")) {
+    if (oc.isSet("personinfo-output")) {
+        transportable->tripInfoOutput(OutputDevice::getDeviceByOption("personinfo-output"));
+    } else if (oc.isSet("tripinfo-output")) {
         transportable->tripInfoOutput(OutputDevice::getDeviceByOption("tripinfo-output"));
     } else if (oc.getBool("duration-log.statistics")) {
         // collecting statistics is a sideffect

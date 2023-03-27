@@ -215,6 +215,10 @@ MSFrame::fillOptions() {
     oc.doRegister("tripinfo-output.write-undeparted", new Option_Bool(false));
     oc.addDescription("tripinfo-output.write-undeparted", "Output", TL("Write tripinfo output for vehicles which have not departed at simulation end because of depart delay"));
 
+    oc.doRegister("personinfo-output", new Option_FileName());
+    oc.addSynonyme("personinfo-output", "personinfo");
+    oc.addDescription("personinfo-output", "Output", TL("Save personinfo and containerinfo to separate FILE"));
+
     oc.doRegister("vehroute-output", new Option_FileName());
     oc.addSynonyme("vehroute-output", "vehroutes");
     oc.addDescription("vehroute-output", "Output", TL("Save single vehicle route info into FILE"));
