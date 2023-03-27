@@ -108,6 +108,8 @@ def get_options(args=None):
                     help="write cout-data with overflow/underflow information to FILE")
     op.add_argument("--weighted", category="processing", dest="weighted", action="store_true", default=False,
                     help="Sample routes according to their probability (or count)")
+    op.add_argument("--keep-stops", category="outut", dest="keepStops", action="store_true", default=False,
+                    help="Preserve stops from the input routes")
     op.add_argument("--optimize", category="processing",
                     help="set optimization method level (full, INT boundary)")
     op.add_argument("--optimize-input", category="processing", dest="optimizeInput", action="store_true", default=False,
@@ -498,11 +500,12 @@ def zero():
 
 
 class Routes:
-    def __init__(self, routefiles):
+    def __init__(self, routefiles, keepStops):
         self.all = []
         self.edgeProbs = defaultdict(zero)
         self.edgeIDs = {}
         self.withProb = 0
+        self.routeStops = defaultdict(list) # list of list of stops for the given edges
         for routefile in routefiles:
             warned = False
             # not all routes may have specified probability, in this case use their number of occurrences
@@ -527,6 +530,9 @@ class Routes:
                 if r.hasAttribute("id"):
                     self.edgeIDs[edges] = r.id
                 self.edgeProbs[edges] += prob
+                if keepStops and r.stop:
+                    self.routeStops[edges].append(list(r.stop))
+
         self.unique = sorted(list(self.edgeProbs.keys()))
         self.number = len(self.unique)
         self.edges2index = dict([(e, i) for i, e in enumerate(self.unique)])
@@ -534,6 +540,25 @@ class Routes:
             print("Error: no input routes loaded", file=sys.stderr)
             sys.exit()
         self.probabilities = np.array([self.edgeProbs[e] for e in self.unique], dtype=np.float64)
+
+
+    def write(self, outf, prefix, intervalPrefix, routeIndex, count, writeDist=False):
+        edges = self.unique[routeIndex]
+        indent = ' ' * 8
+        comment = []
+        probability = ""
+        ID = ' id="%s%s%s"' % (prefix, intervalPrefix, routeIndex) if prefix is not None else ""
+        if writeDist:
+            probability = ' probability="%s"' % count
+        elif ID:
+            indent = ' ' * 4
+            comment.append(str(count))
+        if ID and edges in self.edgeIDs:
+            comment.append("(%s)" % self.edgeIDs[edges])
+        comment = ' '.join(comment)
+        if comment:
+            comment = " <!-- %s -->" % comment
+        outf.write('%s<route%s edges="%s"%s/>%s\n' % (indent, ID, ' '.join(edges), probability, comment))
 
 
 def initTurnRatioSiblings(routes, countData):
@@ -632,7 +657,7 @@ def initTotalCounts(options, routes, intervals, b, e):
 def main(options):
     rng = np.random.RandomState(options.seed)
 
-    routes = Routes(options.routeFiles)
+    routes = Routes(options.routeFiles, options.keepStops)
 
     intervals = getIntervals(options)
     if len(intervals) == 0:
@@ -904,21 +929,14 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
         routeCounts = getRouteCounts(routes, usedRoutes)
         if options.writeRouteIDs:
             for routeIndex in sorted(set(usedRoutes)):
-                edges = routes.unique[routeIndex]
-                routeIDComment = ""
-                if edges in routes.edgeIDs:
-                    routeIDComment = " (%s)" % routes.edgeIDs[edges]
-                outf.write('    <route id="%s%s%s" edges="%s"/> <!-- %s%s -->\n' % (
-                    options.prefix, intervalPrefix, routeIndex, ' '.join(edges),
-                    routeCounts[routeIndex], routeIDComment))
+                routes.write(outf, options.prefix, intervalPrefix, routeIndex, routeCounts[routeIndex])
             outf.write('\n')
         elif options.writeRouteDist:
             outf.write('    <routeDistribution id="%s%s%s">\n' % (
                        options.prefix, intervalPrefix, options.writeRouteDist))
             for routeIndex in sorted(set(usedRoutes)):
-                outf.write('        <route id="%s%s%s" edges="%s" probability="%s"/>\n' % (
-                    options.prefix, intervalPrefix, routeIndex,
-                    ' '.join(routes.unique[routeIndex]), routeCounts[routeIndex]))
+                routes.write(outf, options.prefix, intervalPrefix, routeIndex,
+                        routeCounts[routeIndex], writeDist=True)
             outf.write('    </routeDistribution>\n\n')
 
         routeID = options.writeRouteDist
@@ -945,7 +963,7 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
                     else:
                         outf.write('    <vehicle id="%s" depart="%.2f"%s>\n' % (
                             vehID, depart, options.vehattrs))
-                        outf.write('        <route edges="%s"/>\n' % ' '.join(routes.unique[routeIndex]))
+                        routes.write(outf, None, None, routeIndex, None)
                         outf.write('    </vehicle>\n')
                 depart += period
         else:
@@ -1007,7 +1025,7 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
                         else:
                             outf2.write('    <flow id="%s" begin="%.2f" end="%.2f" %s%s>\n' % (
                                 flowID, fBegin, fEnd, repeat, options.vehattrs))
-                            outf2.write('        <route edges="%s"/>\n' % ' '.join(routes.unique[routeIndex]))
+                            routes.write(outf2, None, None, routeIndex, None)
                             outf2.write('    </flow>\n')
                     flows.append((fBegin, outf2))
                 flows.sort()
