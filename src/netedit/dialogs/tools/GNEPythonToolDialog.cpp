@@ -158,15 +158,22 @@ GNEPythonToolDialog::GNEPythonToolDialog() :
 
 void
 GNEPythonToolDialog::buildArguments() {
-    // first clear arguments
+    // clear arguments and categories
     for (const auto& argument : myArguments) {
         delete argument;
     }
+    for (const auto& category : myCategories) {
+        delete category;
+    }
     myArguments.clear();
+    myCategories.clear();
     // get argument sorted by categories
     const auto categoryOptions = getOptionsByCategories(myPythonTool->getToolsOptions());
     // iterate over options
     for (const auto &categoryOption : categoryOptions) {
+        // add category
+        myCategories.push_back(new GNEPythonToolDialogElements::Category(this, categoryOption));
+        // add options
         for (const auto &option : categoryOption.getOptions()) {
             if (option.second->isInteger()) {
                 myArguments.push_back(new GNEPythonToolDialogElements::IntArgument(this, option.first, option.second));

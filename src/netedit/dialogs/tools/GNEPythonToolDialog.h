@@ -113,6 +113,9 @@ protected:
     /// @brief list of arguments sorted by categories
     std::vector<GNEPythonToolDialogElements::Argument*> myArguments;
 
+    /// @brief list of categories
+    std::vector<GNEPythonToolDialogElements::Category*> myCategories;
+
     /// @brief get row frame
     FXVerticalFrame* getRowFrame();
 
