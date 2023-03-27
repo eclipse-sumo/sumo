@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-03-27 14:48:41 by Eclipse SUMO netconvert Version v1_16_0+1682-96140f8
+<!-- generated on 2023-03-27 15:44:46 by Eclipse SUMO netconvert Version v1_16_0+1683-528af99
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -38,7 +38,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <edge id=":J0_0" function="internal">
         <lane id=":J0_0_0" index="0" speed="13.89" length="0.10" shape="0.00,50.00 0.00,50.00"/>
     </edge>
-    <edge id=":J1_0" function="internal">
+    <edge id=":J1_0" function="internal" bidi=":J1_8">
         <lane id=":J1_0_0" index="0" speed="13.89" length="14.40" shape="57.20,53.20 42.80,53.20"/>
         <lane id=":J1_0_1" index="1" speed="13.89" length="14.40" shape="57.20,50.00 42.80,50.00"/>
     </edge>
@@ -63,7 +63,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <edge id=":J1_7" function="internal">
         <lane id=":J1_7_0" index="0" speed="6.51" length="9.03" shape="42.80,46.80 45.25,46.45 47.00,45.40 48.05,43.65 48.40,41.20"/>
     </edge>
-    <edge id=":J1_8" function="internal">
+    <edge id=":J1_8" function="internal" bidi=":J1_0">
         <lane id=":J1_8_0" index="0" speed="13.89" length="14.40" shape="42.80,46.80 57.20,46.80"/>
         <lane id=":J1_8_1" index="1" speed="13.89" length="14.40" shape="42.80,50.00 57.20,50.00"/>
     </edge>
@@ -82,14 +82,14 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <edge id=":J2_3" function="internal">
         <lane id=":J2_3_0" index="0" speed="6.51" length="9.03" shape="107.20,53.20 104.75,53.55 103.00,54.60 101.95,56.35 101.60,58.80"/>
     </edge>
-    <edge id=":J2_4" function="internal">
+    <edge id=":J2_4" function="internal" bidi=":J2_7">
         <lane id=":J2_4_0" index="0" speed="13.89" length="14.40" shape="107.20,53.20 92.80,53.20"/>
         <lane id=":J2_4_1" index="1" speed="13.89" length="14.40" shape="107.20,50.00 92.80,50.00"/>
     </edge>
     <edge id=":J2_6" function="internal">
         <lane id=":J2_6_0" index="0" speed="13.89" length="0.10" shape="107.20,50.00 107.20,50.00"/>
     </edge>
-    <edge id=":J2_7" function="internal">
+    <edge id=":J2_7" function="internal" bidi=":J2_4">
         <lane id=":J2_7_0" index="0" speed="13.89" length="14.40" shape="92.80,46.80 107.20,46.80"/>
         <lane id=":J2_7_1" index="1" speed="13.89" length="14.40" shape="92.80,50.00 107.20,50.00"/>
     </edge>
@@ -112,15 +112,15 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":J5_0_0" index="0" speed="3.65" length="4.67" shape="101.60,100.00 100.80,101.20 100.00,101.60 99.20,101.20 98.40,100.00"/>
     </edge>
 
-    <edge id="-E0" from="J1" to="J0" priority="-1" shape="50.00,48.40 0.00,48.40">
+    <edge id="-E0" from="J1" to="J0" priority="-1" shape="50.00,48.40 0.00,48.40" bidi="E0">
         <lane id="-E0_0" index="0" speed="13.89" length="42.80" shape="42.80,53.20 0.00,53.20"/>
         <lane id="-E0_1" index="1" speed="13.89" length="42.80" shape="42.80,50.00 0.00,50.00"/>
     </edge>
-    <edge id="-E1" from="J2" to="J1" priority="-1" shape="100.00,48.40 50.00,48.40">
+    <edge id="-E1" from="J2" to="J1" priority="-1" shape="100.00,48.40 50.00,48.40" bidi="E1">
         <lane id="-E1_0" index="0" speed="13.89" length="35.60" shape="92.80,53.20 57.20,53.20"/>
         <lane id="-E1_1" index="1" speed="13.89" length="35.60" shape="92.80,50.00 57.20,50.00"/>
     </edge>
-    <edge id="-E2" from="J3" to="J2" priority="-1" shape="150.00,48.40 100.00,48.40">
+    <edge id="-E2" from="J3" to="J2" priority="-1" shape="150.00,48.40 100.00,48.40" bidi="E2">
         <lane id="-E2_0" index="0" speed="13.89" length="42.80" shape="150.00,53.20 107.20,53.20"/>
         <lane id="-E2_1" index="1" speed="13.89" length="42.80" shape="150.00,50.00 107.20,50.00"/>
     </edge>
@@ -130,15 +130,15 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <edge id="-E4" from="J5" to="J2" priority="-1">
         <lane id="-E4_0" index="0" speed="13.89" length="41.20" shape="98.40,100.00 98.40,58.80"/>
     </edge>
-    <edge id="E0" from="J0" to="J1" priority="-1" shape="0.00,51.60 50.00,51.60">
+    <edge id="E0" from="J0" to="J1" priority="-1" shape="0.00,51.60 50.00,51.60" bidi="-E0">
         <lane id="E0_0" index="0" speed="13.89" length="42.80" shape="0.00,46.80 42.80,46.80"/>
         <lane id="E0_1" index="1" speed="13.89" length="42.80" shape="0.00,50.00 42.80,50.00"/>
     </edge>
-    <edge id="E1" from="J1" to="J2" priority="-1" shape="50.00,51.60 100.00,51.60">
+    <edge id="E1" from="J1" to="J2" priority="-1" shape="50.00,51.60 100.00,51.60" bidi="-E1">
         <lane id="E1_0" index="0" speed="13.89" length="35.60" shape="57.20,46.80 92.80,46.80"/>
         <lane id="E1_1" index="1" speed="13.89" length="35.60" shape="57.20,50.00 92.80,50.00"/>
     </edge>
-    <edge id="E2" from="J2" to="J3" priority="-1" shape="100.00,51.60 150.00,51.60">
+    <edge id="E2" from="J2" to="J3" priority="-1" shape="100.00,51.60 150.00,51.60" bidi="-E2">
         <lane id="E2_0" index="0" speed="13.89" length="42.80" shape="107.20,46.80 150.00,46.80"/>
         <lane id="E2_1" index="1" speed="13.89" length="42.80" shape="107.20,50.00 150.00,50.00"/>
     </edge>
