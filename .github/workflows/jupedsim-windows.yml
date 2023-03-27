@@ -101,4 +101,5 @@ jobs:
       run: |
         cd sumo/build_msvc
         cmake --build . --config Release --target examples
-        ctest --output-on-failure
+        $env:TEXTTEST_CI_APPS = "-a sumo.extra"
+        ctest --build-config Release --output-on-failure
