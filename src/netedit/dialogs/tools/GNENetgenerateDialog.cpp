@@ -61,10 +61,10 @@ GNENetgenerateDialog::GNENetgenerateDialog(GNEApplicationWindow* GNEApp) :
     setIcon(GUIIconSubSys::getIcon(GUIIcon::NETGENERATE));
     // build labels
     auto horizontalFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(horizontalFrame, TL("Grid"), nullptr, GUIDesignLabelThickedFixed(GUIDesignBigSizeElement));
-    new FXLabel(horizontalFrame, TL("Spider"), nullptr, GUIDesignLabelThickedFixed(GUIDesignBigSizeElement));
-    new FXLabel(horizontalFrame, TL("Random grid"), nullptr, GUIDesignLabelThickedFixed(GUIDesignBigSizeElement));
-    new FXLabel(horizontalFrame, TL("Random"), nullptr, GUIDesignLabelThickedFixed(GUIDesignBigSizeElement));
+    myGridNetworkLabel = new FXLabel(horizontalFrame, TL("Grid"), nullptr, GUIDesignLabelThickedFixed(GUIDesignBigSizeElement));
+    mySpiderNetworkLabel = new FXLabel(horizontalFrame, TL("Spider"), nullptr, GUIDesignLabelThickedFixed(GUIDesignBigSizeElement));
+    myRandomGridNetworkLabel = new FXLabel(horizontalFrame, TL("Random grid"), nullptr, GUIDesignLabelThickedFixed(GUIDesignBigSizeElement));
+    myRandomNetworkLabel = new FXLabel(horizontalFrame, TL("Random"), nullptr, GUIDesignLabelThickedFixed(GUIDesignBigSizeElement));
     // build buttons
     horizontalFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     myGridNetworkButton = new MFXCheckableButton(false, horizontalFrame, GNEApp->getStaticTooltipMenu(), "",
@@ -172,6 +172,11 @@ GNENetgenerateDialog::onCmdSetGrid(FXObject*, FXSelector, void*) {
     mySpiderNetworkButton->setChecked(false, true);
     myRandomGridNetworkButton->setChecked(false, true);
     myRandomNetworkButton->setChecked(false, true);
+    // set labels color
+    myGridNetworkLabel->setTextColor(FXRGB(0, 0, 255));
+    mySpiderNetworkLabel->setTextColor(FXRGB(0, 0, 0));
+    myRandomGridNetworkLabel->setTextColor(FXRGB(0, 0, 0));
+    myRandomNetworkLabel->setTextColor(FXRGB(0, 0, 0));
     return 1;
 }
 
@@ -190,6 +195,11 @@ GNENetgenerateDialog::onCmdSetSpider(FXObject*, FXSelector, void*) {
     mySpiderNetworkButton->setChecked(true, true);
     myRandomGridNetworkButton->setChecked(false, true);
     myRandomNetworkButton->setChecked(false, true);
+    // set labels color
+    myGridNetworkLabel->setTextColor(FXRGB(0, 0, 0));
+    mySpiderNetworkLabel->setTextColor(FXRGB(0, 0, 255));
+    myRandomGridNetworkLabel->setTextColor(FXRGB(0, 0, 0));
+    myRandomNetworkLabel->setTextColor(FXRGB(0, 0, 0));
     return 1;
 }
 
@@ -208,6 +218,11 @@ GNENetgenerateDialog::onCmdSetRandomGrid(FXObject*, FXSelector, void*) {
     mySpiderNetworkButton->setChecked(false, true);
     myRandomGridNetworkButton->setChecked(true, true);
     myRandomNetworkButton->setChecked(false, true);
+    // set labels color
+    myGridNetworkLabel->setTextColor(FXRGB(0, 0, 0));
+    mySpiderNetworkLabel->setTextColor(FXRGB(0, 0, 0));
+    myRandomGridNetworkLabel->setTextColor(FXRGB(0, 0, 255));
+    myRandomNetworkLabel->setTextColor(FXRGB(0, 0, 0));
     return 1;
 }
 
@@ -226,6 +241,11 @@ GNENetgenerateDialog::onCmdSetRandom(FXObject*, FXSelector, void*) {
     mySpiderNetworkButton->setChecked(false, true);
     myRandomGridNetworkButton->setChecked(false, true);
     myRandomNetworkButton->setChecked(true, true);
+    // set labels color
+    myGridNetworkLabel->setTextColor(FXRGB(0, 0, 0));
+    mySpiderNetworkLabel->setTextColor(FXRGB(0, 0, 0));
+    myRandomGridNetworkLabel->setTextColor(FXRGB(0, 0, 0));
+    myRandomNetworkLabel->setTextColor(FXRGB(0, 0, 255));
     return 1;
 }
 

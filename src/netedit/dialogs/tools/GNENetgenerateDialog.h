@@ -98,6 +98,18 @@ private:
     GNEApplicationWindow* myGNEApp;
 
     /// @brief grid network
+    FXLabel* myGridNetworkLabel = nullptr;
+
+    /// @brief grid network
+    FXLabel* mySpiderNetworkLabel = nullptr;
+
+    /// @brief random grid network
+    FXLabel* myRandomGridNetworkLabel = nullptr;
+
+    /// @brief grid network
+    FXLabel* myRandomNetworkLabel = nullptr;
+
+    /// @brief grid network
     MFXCheckableButton* myGridNetworkButton = nullptr;
 
     /// @brief grid network
