@@ -11,16 +11,9 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    MSPModel_Remote.cpp
-/// @author  Gregor Laemmel
-/// @date    Mon, 13 Jan 2014
-///
-// The pedestrian following model for remote controlled pedestrian movement
-/****************************************************************************/
 
 #include <algorithm>
 #include <fstream>
-#include <typeinfo>
 #include <geos/geom/GeometryFactory.h>
 #include <geos/geom/CoordinateArraySequence.h>
 #include <geos/operation/buffer/BufferOp.h>
@@ -39,20 +32,20 @@
 #include "MSPerson.h"
 
 
-const int MSPModel_Remote::GEOS_QUADRANT_SEGMENTS = 16;
-const double MSPModel_Remote::GEOS_MIN_AREA = 10;
-const SUMOTime MSPModel_Remote::JPS_DELTA_T = 10;
-const double MSPModel_Remote::JPS_EXIT_TOLERANCE = 1;
+const int MSPModel_JuPedSim::GEOS_QUADRANT_SEGMENTS = 16;
+const double MSPModel_JuPedSim::GEOS_MIN_AREA = 10;
+const SUMOTime MSPModel_JuPedSim::JPS_DELTA_T = 10;
+const double MSPModel_JuPedSim::JPS_EXIT_TOLERANCE = 1;
 
 
-MSPModel_Remote::MSPModel_Remote(const OptionsCont& oc, MSNet* net) : myNetwork(net) {
+MSPModel_JuPedSim::MSPModel_JuPedSim(const OptionsCont& oc, MSNet* net) : myNetwork(net) {
     initialize();
     Event* e = new Event(this);
     net->getBeginOfTimestepEvents()->addEvent(e, net->getCurrentTimeStep() + DELTA_T);
 }
 
 
-MSPModel_Remote::~MSPModel_Remote() {
+MSPModel_JuPedSim::~MSPModel_JuPedSim() {
     clearState();
 
     JPS_Simulation_Free(myJPSSimulation);
@@ -82,7 +75,7 @@ MSPModel_Remote::~MSPModel_Remote() {
 
 
 MSTransportableStateAdapter*
-MSPModel_Remote::add(MSTransportable* person, MSStageMoving* stage, SUMOTime now) {
+MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime now) {
 	assert(person->getCurrentStageType() == MSStageType::WALKING);
 	
     const MSLane* departureLane = getSidewalk<MSEdge, MSLane>(stage->getRoute().front());
@@ -120,14 +113,14 @@ MSPModel_Remote::add(MSTransportable* person, MSStageMoving* stage, SUMOTime now
 
 
 void
-MSPModel_Remote::remove(MSTransportableStateAdapter* state) {
+MSPModel_JuPedSim::remove(MSTransportableStateAdapter* state) {
     // This function is called only when using TraCI.
     // Not sure what to do here.
 }
 
 
 SUMOTime
-MSPModel_Remote::execute(SUMOTime time) {
+MSPModel_JuPedSim::execute(SUMOTime time) {
     int nbrIterations = (int)(DELTA_T / JPS_DELTA_T);
     JPS_ErrorMessage message = nullptr;
 	for (int i = 0; i < nbrIterations; ++i)
@@ -203,29 +196,29 @@ MSPModel_Remote::execute(SUMOTime time) {
 
 
 bool
-MSPModel_Remote::usingInternalLanes() {
+MSPModel_JuPedSim::usingInternalLanes() {
     return MSGlobals::gUsingInternalLanes && MSNet::getInstance()->hasInternalLinks();
 }
 
 
-void MSPModel_Remote::registerArrived() {
+void MSPModel_JuPedSim::registerArrived() {
     myNumActivePedestrians--;
 }
 
 
-int MSPModel_Remote::getActiveNumber() {
+int MSPModel_JuPedSim::getActiveNumber() {
     return myNumActivePedestrians;
 }
 
 
-void MSPModel_Remote::clearState() {
+void MSPModel_JuPedSim::clearState() {
     myPedestrianStates.clear();
     myNumActivePedestrians = 0;
 }
 
 
 MSLane* 
-MSPModel_Remote::getPedestrianLane(MSEdge* edge) {
+MSPModel_JuPedSim::getPedestrianLane(MSEdge* edge) {
     for (MSLane* lane : edge->getLanes()) {
         SVCPermissions permissions = lane->getPermissions();
         if (permissions == SVC_PEDESTRIAN) {
@@ -238,7 +231,7 @@ MSPModel_Remote::getPedestrianLane(MSEdge* edge) {
 
 
 Position 
-MSPModel_Remote::getAnchor(MSLane* lane, MSEdge* edge, ConstMSEdgeVector incoming) {
+MSPModel_JuPedSim::getAnchor(MSLane* lane, MSEdge* edge, ConstMSEdgeVector incoming) {
     if (std::count(incoming.begin(), incoming.end(), edge)) {
         return lane->getShape().back();
     }
@@ -248,7 +241,7 @@ MSPModel_Remote::getAnchor(MSLane* lane, MSEdge* edge, ConstMSEdgeVector incomin
 
 
 Position
-MSPModel_Remote::getAnchor(MSLane* lane, MSEdge* edge, MSEdgeVector incoming) {
+MSPModel_JuPedSim::getAnchor(MSLane* lane, MSEdge* edge, MSEdgeVector incoming) {
     if (std::count(incoming.begin(), incoming.end(), edge)) {
         return lane->getShape().back();
     }
@@ -258,7 +251,7 @@ MSPModel_Remote::getAnchor(MSLane* lane, MSEdge* edge, MSEdgeVector incoming) {
 
 
 std::tuple<ConstMSEdgeVector, ConstMSEdgeVector, std::unordered_set<MSEdge*>> 
-MSPModel_Remote::getAdjacentEdgesOfJunction(MSJunction* junction) {
+MSPModel_JuPedSim::getAdjacentEdgesOfJunction(MSJunction* junction) {
     ConstMSEdgeVector incoming = junction->getIncoming();
     ConstMSEdgeVector outgoing = junction->getOutgoing();
     ConstMSEdgeVector adjacentVector = incoming;
@@ -274,7 +267,7 @@ MSPModel_Remote::getAdjacentEdgesOfJunction(MSJunction* junction) {
 
 
 const MSEdgeVector
-MSPModel_Remote::getAdjacentEdgesOfEdge(MSEdge* edge) {
+MSPModel_JuPedSim::getAdjacentEdgesOfEdge(MSEdge* edge) {
     const MSEdgeVector& outgoing = edge->getSuccessors();
     MSEdgeVector adjacent = edge->getPredecessors();
     adjacent.insert(adjacent.end(), outgoing.begin(), outgoing.end());
@@ -284,7 +277,7 @@ MSPModel_Remote::getAdjacentEdgesOfEdge(MSEdge* edge) {
 
 
 bool 
-MSPModel_Remote::hasWalkingAreasInbetween(MSEdge* edge, MSEdge* otherEdge, ConstMSEdgeVector adjacentEdgesOfJunction) {
+MSPModel_JuPedSim::hasWalkingAreasInbetween(MSEdge* edge, MSEdge* otherEdge, ConstMSEdgeVector adjacentEdgesOfJunction) {
     for (const MSEdge* nextEdge : getAdjacentEdgesOfEdge(edge)) {
         if ((nextEdge->getFunction() == SumoXMLEdgeFunc::WALKINGAREA) && 
             (std::count(adjacentEdgesOfJunction.begin(), adjacentEdgesOfJunction.end(), edge))) {
@@ -301,7 +294,7 @@ MSPModel_Remote::hasWalkingAreasInbetween(MSEdge* edge, MSEdge* otherEdge, Const
 
 
 geos::geom::Geometry*
-MSPModel_Remote::createShapeFromCenterLine(PositionVector centerLine, double width, int capStyle) {
+MSPModel_JuPedSim::createShapeFromCenterLine(PositionVector centerLine, double width, int capStyle) {
     geos::geom::CoordinateArraySequence* coordinateArraySequence = new geos::geom::CoordinateArraySequence();
     for (Position p : centerLine) {
         coordinateArraySequence->add(geos::geom::Coordinate(p.x(), p.y()));
@@ -328,7 +321,7 @@ MSPModel_Remote::createShapeFromCenterLine(PositionVector centerLine, double wid
 
 
 geos::geom::Geometry*
-MSPModel_Remote::createShapeFromAnchors(Position anchor, MSLane* lane, Position otherAnchor, MSLane* otherLane) {
+MSPModel_JuPedSim::createShapeFromAnchors(Position anchor, MSLane* lane, Position otherAnchor, MSLane* otherLane) {
     geos::geom::Geometry* shape;
     if (lane->getWidth() == otherLane->getWidth()) {
         PositionVector anchors = { anchor, otherAnchor };
@@ -357,7 +350,7 @@ MSPModel_Remote::createShapeFromAnchors(Position anchor, MSLane* lane, Position 
 
 
 geos::geom::Geometry*
-MSPModel_Remote::buildPedestrianNetwork(MSNet* network) {
+MSPModel_JuPedSim::buildPedestrianNetwork(MSNet* network) {
     std::vector<const geos::geom::Geometry*> dilatedPedestrianLanes;
     for (const auto& junctionWithID : network->getJunctionControl()) {
         MSJunction* junction = junctionWithID.second;
@@ -426,7 +419,7 @@ MSPModel_Remote::buildPedestrianNetwork(MSNet* network) {
 }
 
 
-std::vector<double> MSPModel_Remote::getFlattenedCoordinates(const geos::geom::Geometry* geometry)
+std::vector<double> MSPModel_JuPedSim::getFlattenedCoordinates(const geos::geom::Geometry* geometry)
 {
     std::vector<double> flattenedCoordinates;
     std::unique_ptr<geos::geom::CoordinateSequence> coordinates = geometry->getCoordinates();
@@ -439,7 +432,7 @@ std::vector<double> MSPModel_Remote::getFlattenedCoordinates(const geos::geom::G
 }
 
 
-void MSPModel_Remote::preparePolygonForJPS(const geos::geom::Polygon* polygon) const {
+void MSPModel_JuPedSim::preparePolygonForJPS(const geos::geom::Polygon* polygon) const {
     const geos::geom::LinearRing* exterior = polygon->getExteriorRing();
     std::vector<double> exteriorCoordinates = getFlattenedCoordinates(exterior);
     JPS_GeometryBuilder_AddAccessibleArea(myJPSGeometryBuilder, exteriorCoordinates.data(), exteriorCoordinates.size() / 2);
@@ -455,7 +448,7 @@ void MSPModel_Remote::preparePolygonForJPS(const geos::geom::Polygon* polygon) c
 
 
 void
-MSPModel_Remote::initialize() {
+MSPModel_JuPedSim::initialize() {
     myGEOSGeometryFactory = geos::geom::GeometryFactory::create();
     myGEOSPedestrianNetwork = buildPedestrianNetwork(myNetwork);
     myIsPedestrianNetworkConnected = !myGEOSPedestrianNetwork->isCollection();
@@ -585,7 +578,7 @@ MSPModel_Remote::initialize() {
 }
 
 
-MSLane* MSPModel_Remote::getNextPedestrianLane(const MSLane* const currentLane) {
+MSLane* MSPModel_JuPedSim::getNextPedestrianLane(const MSLane* const currentLane) {
     std::vector<MSLink*> links = currentLane->getLinkCont();
     MSLane* nextLane = nullptr;
     for (MSLink* link : links) {
@@ -602,77 +595,77 @@ MSLane* MSPModel_Remote::getNextPedestrianLane(const MSLane* const currentLane) 
 // ===========================================================================
 // MSPModel_Remote::PState method definitions
 // ===========================================================================
-MSPModel_Remote::PState::PState(MSPerson* person, MSStageMoving* stage, JPS_Journey journey, Position destination, JPS_AgentId agentId)
+MSPModel_JuPedSim::PState::PState(MSPerson* person, MSStageMoving* stage, JPS_Journey journey, Position destination, JPS_AgentId agentId)
     : myPerson(person), myAngle(0), myPosition(0, 0), myStage(stage), myJourney(journey), myDestination(destination), myAgentId(agentId) {
     ConstMSEdgeVector route = stage->getRoute();
 }
 
 
-MSPModel_Remote::PState::~PState() {
+MSPModel_JuPedSim::PState::~PState() {
     JPS_Journey_Free(myJourney);
 }
 
 
-Position MSPModel_Remote::PState::getPosition(const MSStageMoving& stage, SUMOTime now) const {
+Position MSPModel_JuPedSim::PState::getPosition(const MSStageMoving& stage, SUMOTime now) const {
     return myPosition;
 }
 
 
-void MSPModel_Remote::PState::setPosition(double x, double y) {
+void MSPModel_JuPedSim::PState::setPosition(double x, double y) {
     myPosition.set(x, y);
 }
 
 
-double MSPModel_Remote::PState::getAngle(const MSStageMoving& stage, SUMOTime now) const {
+double MSPModel_JuPedSim::PState::getAngle(const MSStageMoving& stage, SUMOTime now) const {
     return myAngle;
 }
 
 
-void MSPModel_Remote::PState::setAngle(double angle) {
+void MSPModel_JuPedSim::PState::setAngle(double angle) {
 	myAngle = angle;
 }
 
 
-MSStageMoving* MSPModel_Remote::PState::getStage() {
+MSStageMoving* MSPModel_JuPedSim::PState::getStage() {
     return myStage;
 }
 
 
-MSPerson* MSPModel_Remote::PState::getPerson() {
+MSPerson* MSPModel_JuPedSim::PState::getPerson() {
     return myPerson;
 }
 
 
-double MSPModel_Remote::PState::getEdgePos(const MSStageMoving& stage, SUMOTime now) const {
+double MSPModel_JuPedSim::PState::getEdgePos(const MSStageMoving& stage, SUMOTime now) const {
     return 0;
 }
 
 
-int MSPModel_Remote::PState::getDirection(const MSStageMoving& stage, SUMOTime now) const {
+int MSPModel_JuPedSim::PState::getDirection(const MSStageMoving& stage, SUMOTime now) const {
     return UNDEFINED_DIRECTION;
 }
 
 
-SUMOTime MSPModel_Remote::PState::getWaitingTime(const MSStageMoving& stage, SUMOTime now) const {
+SUMOTime MSPModel_JuPedSim::PState::getWaitingTime(const MSStageMoving& stage, SUMOTime now) const {
     return 0;
 }
 
 
-double MSPModel_Remote::PState::getSpeed(const MSStageMoving& stage) const {
+double MSPModel_JuPedSim::PState::getSpeed(const MSStageMoving& stage) const {
     return 0;
 }
 
 
-const MSEdge* MSPModel_Remote::PState::getNextEdge(const MSStageMoving& stage) const {
+const MSEdge* MSPModel_JuPedSim::PState::getNextEdge(const MSStageMoving& stage) const {
     return nullptr;
 }
 
 
-Position MSPModel_Remote::PState::getDestination(void) const {
+Position MSPModel_JuPedSim::PState::getDestination(void) const {
     return myDestination;
 }
 
 
-JPS_AgentId MSPModel_Remote::PState::getAgentId(void) const {
+JPS_AgentId MSPModel_JuPedSim::PState::getAgentId(void) const {
     return myAgentId;
 }

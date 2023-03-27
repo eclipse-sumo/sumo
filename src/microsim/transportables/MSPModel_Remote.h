@@ -11,12 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    MSPModel_Remote.h
-/// @author  Gregor Laemmel
-/// @date    Mon, 13 Jan 2014
-///
-// The pedestrian following model connected to the external JuPedSim simulation
-/****************************************************************************/
+
 #pragma once
 #include <config.h>
 
@@ -32,13 +27,14 @@
 // class definitions
 // ===========================================================================
 /**
- * @class MSPModel_Remote
- * @brief The pedestrian following model connected to the external JuPedSim simulation
+ * @class MSPModel_JuPedSim
+ * @brief A pedestrian following model that acts as a proxy for pedestrian models
+ * provided by the JuPedSim third-party simulation framework.
  */
-class MSPModel_Remote : public MSPModel {
+class MSPModel_JuPedSim : public MSPModel {
 public:
-    MSPModel_Remote(const OptionsCont& oc, MSNet* net);
-    ~MSPModel_Remote();
+    MSPModel_JuPedSim(const OptionsCont& oc, MSNet* net);
+    ~MSPModel_JuPedSim();
 
     MSTransportableStateAdapter* add(MSTransportable* person, MSStageMoving* stage, SUMOTime now) override;
     void remove(MSTransportableStateAdapter* state) override;
@@ -57,14 +53,14 @@ public:
 
     class Event : public Command {
     public:
-        explicit Event(MSPModel_Remote* remoteModel)
+        explicit Event(MSPModel_JuPedSim* remoteModel)
             : myRemoteModel(remoteModel) { }
         SUMOTime execute(SUMOTime currentTime) override {
             return myRemoteModel->execute(currentTime);
         }
 
     private:
-        MSPModel_Remote* myRemoteModel;
+        MSPModel_JuPedSim* myRemoteModel;
     };
 
 private:
