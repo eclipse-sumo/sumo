@@ -46,7 +46,8 @@ The following output attributes are generated:
 | containerStop      | id (optional) | The id of the containerStop if this stop took place at a named `<containerStop/>` |
 | parkingArea        | id (optional) | The id of the parkingArea if this stop took place at a named  `<parkingArea/>`    |
 | chargingStation    | id (optional) | The id of the chargingStation if this stop took place at a named `<chargingStation/>`  |
-
+| tripId             | string (optional | The tripId parameter of the vehicle at the time of stopping if it was set|
+| usedEnded          | bool (optional)  | Whether the stop was loaded with an 'ended' value. (only written if option **--use-stop-ended** is set |
 
 ## Visualization Examples
 
