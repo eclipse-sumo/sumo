@@ -31,7 +31,7 @@
 #include <microsim/transportables/MSStageDriving.h>
 #include <microsim/transportables/MSPModel_NonInteracting.h>
 #ifdef HAVE_JPS
-#include <microsim/transportables/MSPModel_Remote.h>
+#include <microsim/transportables/MSPModel_JuPedSim.h>
 #endif
 #include <microsim/transportables/MSPModel_Striping.h>
 #include <microsim/transportables/MSTransportableControl.h>
@@ -67,7 +67,7 @@ MSTransportableControl::MSTransportableControl(const bool isPerson):
             myMovementModel = new MSPModel_Striping(oc, net);
 #ifdef HAVE_JPS
         } else if (model == "jupedsim") {
-            myMovementModel = new MSPModel_Remote(oc, net);
+            myMovementModel = new MSPModel_JuPedSim(oc, net);
 #endif
         } else if (model == "nonInteracting") {
             myMovementModel = myNonInteractingModel;

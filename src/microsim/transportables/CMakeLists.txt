@@ -1,7 +1,7 @@
 if (HAVE_JPS)
     set(microsim_transportables_JPS_SRCS
-        MSPModel_Remote.cpp
-        MSPModel_Remote.h
+        MSPModel_JuPedSim.cpp
+        MSPModel_JuPedSim.h
         )
 endif ()
 set(microsim_transportables_STAT_SRCS
