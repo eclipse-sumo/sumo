@@ -2498,8 +2498,6 @@ NIImporter_OpenDrive::myStartElement(int element,
                     }
                     // IGNORING unknown units.
                 }
-                myCurrentEdge.laneSections.back().lanesByDir[myCurrentLaneDirection].back().speeds.push_back(std::make_pair(pos, speed));
-
                 std::vector < std::pair<double, LaneAttributeChange >>& attributeChanges = myCurrentEdge.laneSections.back().lanesByDir[myCurrentLaneDirection].back().attributeChanges;
                 std::vector<std::pair<double, LaneAttributeChange> >::iterator i = std::find_if(attributeChanges.begin(), attributeChanges.end(), same_position_finder(pos));
                 if (i != attributeChanges.end()) {

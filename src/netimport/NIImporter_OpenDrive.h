@@ -328,8 +328,6 @@ protected:
         std::string type; //!< The lane's type
         int successor; //!< The lane's successor lane
         int predecessor; //!< The lane's predecessor lane
-        std::vector<std::pair<double, double> > speeds; //!< List of positions/speeds of speed changes
-        std::vector < std::pair<double, std::vector<std::string>>> permissions; //!< List of permission changes, entries starting with "!" mean denial
         std::vector < std::pair<double, LaneAttributeChange> > attributeChanges; //!< List of permission and speed changes
         double speed; //!< The lane's speed (set in post-processing)
         double width; //The lane's maximum width
