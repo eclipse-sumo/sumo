@@ -45,7 +45,7 @@ MSDevice_Example::insertOptions(OptionsCont& oc) {
     insertDefaultAssignmentOptions("example", "Example Device", oc);
 
     oc.doRegister("device.example.parameter", new Option_Float(0.0));
-    oc.addDescription("device.example.parameter", TL("Example Device"), TL("An exemplary parameter which can be used by all instances of the example device"));
+    oc.addDescription("device.example.parameter", "Example Device", TL("An exemplary parameter which can be used by all instances of the example device"));
 }
 
 

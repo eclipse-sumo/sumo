@@ -260,10 +260,9 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
                                     for (MSPhaseDefinition* p : phases) {
                                         if (minor.find(p->getState()[tlu]) != std::string::npos
                                                 && minor.find(p->getState()[tlv]) != std::string::npos) {
-                                            WRITE_ERROR("Program '" + getProgramID() + "' at tlLogic '" + getID() + "' is incompatible with logic at junction '" + junction->getID() + "'"
-                                                        + " (mututal conflict between link indices " + toString(u) + "," + toString(v)
-                                                        + " tl indices " + toString(tlu) + "," + toString(tlv) + " phase " + toString(phaseIndex) + ")."
-                                                        + "\n       Rebuild the network with option '--tls.ignore-internal-junction-jam or include the program when building.");
+                                            WRITE_ERRORF(TL("Program '%' at tlLogic '%' is incompatible with logic at junction '%' (mutual conflict between link indices %,% tl indices %,% phase %).\n"
+                                                            "  Rebuild the network with option '--tls.ignore-internal-junction-jam' or include the program when building."),
+                                                         getProgramID(), getID(), junction->getID(), u, v, tlu, tlv, phaseIndex);
                                             return;
                                         }
                                         phaseIndex++;
