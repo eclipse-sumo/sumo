@@ -106,12 +106,12 @@ NGFrame::fillOptions() {
     oc.addSynonyme("spider", "spider-net", true);
     oc.addDescription("spider", "Spider Network", TL("Forces NETGEN to build a spider-net-like network"));
 
-    oc.doRegister("spider.arm-number", new Option_Integer(13));
+    oc.doRegister("spider.arm-number", new Option_Integer(7));
     oc.addSynonyme("spider.arm-number", "spider-arm-number", true);
     oc.addSynonyme("spider.arm-number", "arms");
     oc.addDescription("spider.arm-number", "Spider Network", TL("The number of axes within the net"));
 
-    oc.doRegister("spider.circle-number", new Option_Integer(20));
+    oc.doRegister("spider.circle-number", new Option_Integer(5));
     oc.addSynonyme("spider.circle-number", "spider-circle-number", true);
     oc.addSynonyme("spider.circle-number", "circles");
     oc.addDescription("spider.circle-number", "Spider Network", TL("The number of circles of the net"));
@@ -132,7 +132,7 @@ NGFrame::fillOptions() {
     oc.addSynonyme("rand", "random-net", true);
     oc.addDescription("rand", "Random Network", TL("Forces NETGEN to build a random network"));
 
-    oc.doRegister("rand.iterations", new Option_Integer(2000));
+    oc.doRegister("rand.iterations", new Option_Integer(100));
     oc.addSynonyme("rand.iterations", "rand-iterations", true);
     oc.addSynonyme("rand.iterations", "iterations");
     oc.addDescription("rand.iterations", "Random Network", TL("Describes how many times an edge shall be added to the net"));
