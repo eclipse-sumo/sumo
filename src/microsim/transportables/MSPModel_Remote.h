@@ -83,9 +83,6 @@ private:
         double getAngle(const MSStageMoving& stage, SUMOTime now) const;
         void setAngle(double angle);
 
-        void addEdgeToRoute(MSEdge* edge); // TO REMOVE
-        const ConstMSEdgeVector& getRoute(void) const; // TO REMOVE
-
         MSStageMoving* getStage();
         MSPerson* getPerson();
 
@@ -94,9 +91,6 @@ private:
         SUMOTime getWaitingTime(const MSStageMoving& stage, SUMOTime now) const;
         double getSpeed(const MSStageMoving& stage) const;
         const MSEdge* getNextEdge(const MSStageMoving& stage) const;
-        void moveToXY(MSPerson* p, Position pos, MSLane* lane, double lanePos,
-            double lanePosLat, double angle, int routeOffset, const ConstMSEdgeVector& edges, SUMOTime t);
-
         Position getDestination(void) const;
         JPS_AgentId getAgentId(void) const;
 
@@ -108,7 +102,6 @@ private:
         double myAngle;
         JPS_Journey myJourney;
         JPS_AgentId myAgentId;
-        ConstMSEdgeVector myCustomRoute;
     };
 
     MSNet* myNetwork;
