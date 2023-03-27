@@ -139,7 +139,8 @@ buildNetwork(NBNetBuilder& nb) {
         // build if everything's ok
         NGNet* net = new NGNet(nb);
         net->createSpiderWeb(oc.getInt("spider.arm-number"), oc.getInt("spider.circle-number"),
-                             oc.getFloat("spider.space-radius"), !oc.getBool("spider.omit-center"));
+                             oc.getFloat("spider.space-radius"), !oc.getBool("spider.omit-center"),
+                             oc.getFloat("attach-length"));
         return net;
     }
     // grid-net
@@ -163,10 +164,10 @@ buildNetwork(NBNetBuilder& nb) {
         if (oc.isDefault("grid.y-length") && !oc.isDefault("grid.length")) {
             yLength = oc.getFloat("grid.length");
         }
-        if (oc.isDefault("grid.x-attach-length") && !oc.isDefault("grid.attach-length")) {
+        if (oc.isDefault("grid.x-attach-length") && !oc.isDefault("attach-length")) {
             xAttachLength = oc.getFloat("grid.attach-length");
         }
-        if (oc.isDefault("grid.y-attach-length") && !oc.isDefault("grid.attach-length")) {
+        if (oc.isDefault("grid.y-attach-length") && !oc.isDefault("attach-length")) {
             yAttachLength = oc.getFloat("grid.attach-length");
         }
         // check values

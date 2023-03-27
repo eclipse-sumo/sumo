@@ -93,7 +93,7 @@ NGFrame::fillOptions() {
     oc.addDescription("grid.y-length", "Grid Network", TL("The length of vertical streets; Overrides --grid-length"));
 
     oc.doRegister("grid.attach-length", new Option_Float(0));
-    oc.addSynonyme("grid.attach-length", "attach-length", true);
+    oc.addSynonyme("grid.attach-length", "attach-length");
     oc.addDescription("grid.attach-length", "Grid Network", TL("The length of streets attached at the boundary; 0 means no streets are attached"));
 
     oc.doRegister("grid.x-attach-length", new Option_Float(0));
