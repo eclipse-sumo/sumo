@@ -332,8 +332,8 @@ protected:
         std::vector < std::pair<double, std::vector<std::string>>> permissions; //!< List of permission changes, entries starting with "!" mean denial
         std::vector < std::pair<double, LaneAttributeChange> > attributeChanges; //!< List of permission and speed changes
         double speed; //!< The lane's speed (set in post-processing)
-        SVCPermissions permission; //!< The access permissions (set in post-processing)
         double width; //The lane's maximum width
+        SVCPermissions permission; //!< The access permissions (set in post-processing)
         std::vector<OpenDriveWidth> widthData;
     };
 
