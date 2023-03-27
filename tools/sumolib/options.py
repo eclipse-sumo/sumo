@@ -245,7 +245,10 @@ class ArgumentParser(argparse.ArgumentParser):
 
     def write_config_to_file(self, out, namespace, print_template):
         out.write(u'<configuration>\n')
-        for k in sorted(vars(namespace).keys()):
+        optionNames = vars(namespace).keys()
+        if sys.version_info.major < 3 or sys.version_info.minor < 6:
+            optionNames = sorted(optionNames)
+        for k in optionNames:
             v = vars(namespace)[k]
             if k not in ("save_configuration", "save_template", "configuration_file", "_parser", "_prefixed_options"):
                 key = k
