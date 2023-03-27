@@ -251,7 +251,7 @@ NGNet::toNB() const {
         myNetBuilder.getNodeCont().insert(ngNode->buildNBNode(myNetBuilder, perturb));
     }
     const std::string type = OptionsCont::getOptions().getString("default.type");
-    const double bidiProb = OptionsCont::getOptions().getFloat("rand.bidi-probability");
+    const double bidiProb = OptionsCont::getOptions().getFloat("bidi-probability");
     for (const NGEdge* const ngEdge : myEdgeList) {
         myNetBuilder.getEdgeCont().insert(ngEdge->buildNBEdge(myNetBuilder, type));
         // now, let's append the reverse directions...
