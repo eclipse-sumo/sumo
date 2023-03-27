@@ -107,8 +107,8 @@ protected:
     /// @brief adjust parameter column
     void adjustParameterColumn();
 
-    /// @brief get arguments sorted by category
-    std::vector<CategoryOptions> getOptionsByCategories() const;
+    /// @brief get options sorted by category
+    std::vector<CategoryOptions> getOptionsByCategories(OptionsCont& optionsCont) const;
 
     /// @brief list of arguments sorted by categories
     std::vector<GNEPythonToolDialogElements::Argument*> myArguments;
