@@ -1,3 +1,6 @@
+# restrict lane section to bus
+access
+
 # own examples (roundtrip)
 simple1
 simple1_remove
