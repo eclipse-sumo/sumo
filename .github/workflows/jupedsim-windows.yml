@@ -99,6 +99,7 @@ jobs:
 
     - name: Building Examples and Tests
       run: |
+        $env:PATH += ";$pwd\jpscore-deps\x64-windows\bin"
         cd sumo/build_msvc
         cmake --build . --config Release --target examples
         $env:TEXTTEST_CI_APPS = "-a sumo.extra"
