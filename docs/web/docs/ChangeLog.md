@@ -66,6 +66,9 @@ title: ChangeLog
   - Fixed tram connections when using option **----edges.join-tram-dist**. Issue #12767
   - Fixed crash when merging networks. Issue #12824
 
+- netgenerate
+  - Fixed option category for options that apply to all network types but were placed in the `Random Network` category. Issue #12930
+
 - meso
   - Option **--time-to-teleport.remove** is now working. Issue #12797
 
@@ -96,6 +99,8 @@ title: ChangeLog
   - Some warnings about inconsistent public transport stop times are now avoided when using option **--use-stop-ended** along with stop attribute `ended`. #12825
   - Stop-output now includes optional attribute `usedEnded` to indicate whether a stop was affected by option **--use-stop-ended**. Issue #12863
   - Public transport vehicles may now slow down by a configurable factor when they are ahead of their schedule. (using new vType attribute `speedFactorPremature`). This is based on optional stop attribute `arrival`.  If the new option **--use-stop-started** is set, this is instead based on the optional `started` attribute of the stop. Issue #11899
+  - Simulating a Two-way-left-turn-lane is now supported. Issues #12924
+  - Added option **--personinfo-output** to separate `<personinfo>` elements from `<tripinfo>` elements. Issue #12929
 
 - netconvert
   - Added options **--shapefile.width** and **--shapefile.length** to allow importing custom widths and lengths from [shape files](Networks/Import/ArcView.md). Issue #12575
@@ -105,8 +110,10 @@ title: ChangeLog
   - junction attribute 'radius' now overrides option **--junctions.small-radius**. Issue #12816
   - merging two projected plain-xml networks with different offsets is now working. Issue #12841
   - Option **--numerical-ids** now also applies to traffic light IDs. Issue #12886
+  - Building networks with Two-way-left-turn-lane is now supported. Issues #12917
 
 - netedit
+  - Added menu entry for directly calling netgenerate and and instantly editing the generated network. Issue #2393
   - Added menu and dialogs for calling python tools without using the command line. Issue #4138
   - All objects with a name attribute can now be located by name using the locate-dialog. Issue #12686
   - Inspect now allows inspecting individual objects that are part of a selection via ALT+LEFT_CLICK. Issue #12690
@@ -123,7 +130,10 @@ title: ChangeLog
   - Background images can now be added via file-dialog. Issue #1627 (also for netedit)
   - Edge context-menu function *select-reachable* now ignores lane direction when selecting vClass "pedestrian". Issue #12801
   - Polygons are moved to the lowest layer upon pressing 'ALT'. Issue #12134
-  
+
+- netgenerate
+  - Added option **--spider.attach-length** to create outer extensions to the network. Issue #12928
+
 - TraCI
   - Added function `vehicle.setLateralLanePosition`. Issue #12568
   - Function `vehicle.setStopParameter` now supports "onDemand". Issue #12632
@@ -149,6 +159,7 @@ title: ChangeLog
   - attributeStats.py: Now supports option **--abs** to include statistics on absolute values. Issue #12899
   - sumolib.miscutils functions `parseTime` and `humandReadableTime` now handle negative values. Issue #12821, #12823
   - tlsCycleAdaptation.py now supports more inputs (i.e. TLS with unused stats). Issue #12777
+  - routeSampler.py: Now supports option **--keep-stops** to preserve stops from the route input (*only* when the stops are child element of a route). Issue #12901
   - new research intersection Ingolstadt scenario for the SUMO game
   - plotXMLAttributes.py:
     - can plot by sorting rank with attribute value `@RANK`. Issue #12607
@@ -170,6 +181,7 @@ title: ChangeLog
 - Stop-output no longer contains attribute `delay` if a stop does not define the `until` attribute. Formerly, the value of *-1* would be written which is ambiguous in conjunction with negative delays caused by TraCI or **--use-stop-ended**. Issue #12883
 - Added an installer for the extra version. Issue #8688
 - Removed tool `plotXMLAttr.py` since it's functionality is covered by `plotXMLAttributes.py` (tool moved to 'purgatory' folder). Issue #11994.
+- Netgenerate default parameters where changed to redulce the default network size for spider and random networks. Issue #12927
 
 ## Version 1.16.0 (07.02.2023)
 
