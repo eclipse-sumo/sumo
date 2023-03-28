@@ -506,7 +506,7 @@ class Routes:
         self.edgeProbs = defaultdict(zero)
         self.edgeIDs = {}
         self.withProb = 0
-        self.routeStops = defaultdict(list) # list of list of stops for the given edges
+        self.routeStops = defaultdict(list)  # list of list of stops for the given edges
         for routefile in routefiles:
             warned = False
             # not all routes may have specified probability, in this case use their number of occurrences
@@ -542,7 +542,6 @@ class Routes:
             sys.exit()
         self.probabilities = np.array([self.edgeProbs[e] for e in self.unique], dtype=np.float64)
 
-
     def write(self, outf, prefix, intervalPrefix, routeIndex, count, writeDist=False):
         edges = self.unique[routeIndex]
         indent = ' ' * 8
@@ -559,7 +558,7 @@ class Routes:
         comment = ' '.join(comment)
         if comment:
             comment = " <!-- %s -->" % comment
-    
+
         stops = []
         stopCandidates = self.routeStops.get(edges)
         if stopCandidates:
@@ -947,7 +946,7 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
                        options.prefix, intervalPrefix, options.writeRouteDist))
             for routeIndex in sorted(set(usedRoutes)):
                 routes.write(outf, options.prefix, intervalPrefix, routeIndex,
-                        routeCounts[routeIndex], writeDist=True)
+                             routeCounts[routeIndex], writeDist=True)
             outf.write('    </routeDistribution>\n\n')
 
         routeID = options.writeRouteDist
