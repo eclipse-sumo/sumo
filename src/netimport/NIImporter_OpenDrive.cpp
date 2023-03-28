@@ -2457,7 +2457,7 @@ NIImporter_OpenDrive::myStartElement(int element,
         case OPENDRIVE_TAG_ACCESS: {
             if (myElementStack.size() >= 2 && myElementStack[myElementStack.size() - 1] == OPENDRIVE_TAG_LANE) {
                 const double pos = attrs.get<double>(OPENDRIVE_ATTR_SOFFSET, myCurrentEdge.id.c_str(), ok);
-                std::string rule = (attrs.hasAttribute(OPENDRIVE_ATTR_RULE))? attrs.get<std::string>(OPENDRIVE_ATTR_RULE, myCurrentEdge.id.c_str(), ok) : "allow"; // OpenDRIVE 1.4 without rule value
+                std::string rule = attrs.getOpt<std::string>(OPENDRIVE_ATTR_RULE, nullptr, ok, "allow", false); // OpenDRIVE 1.4 without rule value 
                 std::string vClass = attrs.get<std::string>(OPENDRIVE_ATTR_RESTRICTION, myCurrentEdge.id.c_str(), ok);
 
                 std::vector < std::pair<double, LaneAttributeChange >>& attributeChanges = myCurrentEdge.laneSections.back().lanesByDir[myCurrentLaneDirection].back().attributeChanges;
