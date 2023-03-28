@@ -495,9 +495,7 @@ MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, do
                   << " oldShadowLane=" << Named::getIDSecure(oldShadowLane)
                   << " newShadowLane=" << Named::getIDSecure(vehicle->getLaneChangeModel().getShadowLane())
                   << " laneA=" << RAD2DEG(laneAngle)
-                  << " changeA=" << RAD2DEG(changeAngle)
                   << " oldA=" << RAD2DEG(vehicle->getAngle())
-                  << " newA=" << RAD2DEG(laneAngle + changeAngle)
                   << " oppposite=" << vehicle->getLaneChangeModel().isOpposite()
                   << " changedToNewLane=" << changedToNewLane
                   << "\n";
