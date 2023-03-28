@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-26 19:05+0000\n"
+"PO-Revision-Date: 2023-03-28 15:53+0000\n"
 "Last-Translator: Xiaxoxu Bei <Xiaoxu.bei@dlr.de>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -2908,40 +2908,40 @@ msgstr ""
 msgid ""
 "The number of lanes needs to be specified in the attributes of carFollowing-"
 "CC with the \"lanesCount\" attribute"
-msgstr ""
+msgstr "车道的数量需要在carFollowing-CC的属性中用 \"lanesCount \"属性指定。"
 
 #: /home/micha/programming/sumo/src\microsim\cfmodels\MSCFModel_Daniel1.cpp:61
 msgid ""
 "Maximum speed of vehicle '%' is lower than the minimum speed (min: %, max: "
 "%)."
-msgstr ""
+msgstr "车辆的最大速度'%'低于最小速度（最小：%，最大：%）。"
 
 #: /home/micha/programming/sumo/src\microsim\cfmodels\MSCFModel_Krauss.cpp:58
 msgid "Rounding 'sigmaStep' to % for vType '%'"
-msgstr ""
+msgstr "将'sigmaStep'四舍五入到%，用于vType'%'。"
 
 #: /home/micha/programming/sumo/src\microsim\cfmodels\MSCFModel_Rail.cpp:50
 msgid "Unknown train type: %. Exiting!"
-msgstr ""
+msgstr "未知列车类型：%。正在退出!"
 
 #: /home/micha/programming/sumo/src\microsim\cfmodels\MSCFModel_Rail.cpp:252
 msgid ""
 "Anything else than semi implicit euler update is not yet implemented. "
 "Exiting!"
-msgstr ""
+msgstr "除了半隐式euler 更新，其他的都还没有实现。退出!"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice.cpp:161
 #, c-format
 msgid "Device '%' cannot save state"
-msgstr ""
+msgstr "器件'%'不能保存状态"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice.cpp:201
 msgid "Invalid float value '%'for parameter '%'"
-msgstr ""
+msgstr "参数'%'的浮动值'%'无效"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice.cpp:214
 msgid "Invalid bool value '%'for parameter '%'"
-msgstr ""
+msgstr "参数'%'的bool值'%'无效"
 
 #: /home/micha/programming/sumo/src\microsim\devices\MSDevice.cpp:227
 msgid "Invalid time value '%'for parameter '%'"
