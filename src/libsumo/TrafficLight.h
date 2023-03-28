@@ -102,10 +102,13 @@ private:
     static std::vector<std::string> getFutureTripIds(const std::string vehID);
     static void swapParameters(MSRailSignalConstraint* c);
     static void swapParameters(MSRailSignalConstraint* c, const std::string& key1, const std::string& key2);
+    static void swapParameters(TraCISignalConstraint& c);
+    static void swapParameters(TraCISignalConstraint& c, const std::string& key1, const std::string& key2);
 
 private:
     static SubscriptionResults mySubscriptionResults;
     static ContextSubscriptionResults myContextSubscriptionResults;
+    static std::map<int, std::vector<std::pair<std::string, std::string> > > mySwapParams;
 #endif
 #endif
     /// @brief invalidated standard constructor
