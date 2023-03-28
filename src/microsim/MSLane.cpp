@@ -1863,6 +1863,10 @@ MSLane::detectCollisionBetween(SUMOTime timestep, const std::string& stage, MSVe
                   << "\n";
     }
 #endif
+    if (victimOpposite && gap < -(collider->getLength() + victim->getLength())) {
+        // already past each other
+        return false;
+    }
     if (gap < -NUMERICAL_EPS) {
         double latGap = 0;
         if (MSGlobals::gSublane) {
