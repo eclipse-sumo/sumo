@@ -181,7 +181,7 @@ avgSpeed = simpla.getAveragePlatoonSpeed()
 ```
 
 ## getPlatoonLeaderIDList()
-This utility function returns the leader vehicles' IDs of all pcurrent platoons managed by simpla:
+This utility function returns the leader vehicles' IDs of all current platoons managed by simpla:
 ```
 currentLeaderIDs = simpla.getPlatoonLeaderIDList()
 ```
