@@ -741,15 +741,15 @@ OptionsCont::getFullName() const {
 }
 
 
-std::map<std::string, Option*>::const_iterator
+std::vector<std::pair<std::string, Option*> >::const_iterator
 OptionsCont::begin() const {
-    return myValues.cbegin();
+    return myAddresses.cbegin();
 }
 
 
-std::map<std::string, Option*>::const_iterator
+std::vector<std::pair<std::string, Option*> >::const_iterator
 OptionsCont::end() const {
-    return myValues.cend();
+    return myAddresses.cend();
 }
 
 

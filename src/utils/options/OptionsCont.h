@@ -639,11 +639,11 @@ public:
     /// @brief get options full name
     const std::string& getFullName() const;
 
-    /// @brief get begin option
-    std::map<std::string, Option*>::const_iterator begin() const;
+    /// @brief get begin adresses iterator 
+    std::vector<std::pair<std::string, Option*> >::const_iterator begin() const;
 
-    /// @brief get end option
-    std::map<std::string, Option*>::const_iterator end() const;
+    /// @brief get begin adresses iterator
+    std::vector<std::pair<std::string, Option*> >::const_iterator end() const;
 
 private:
     /** @brief Returns the named option
