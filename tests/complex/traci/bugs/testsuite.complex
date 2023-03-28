@@ -130,3 +130,5 @@ ticket11117
 # moveXY after aborting stop with setStop
 ticket11870
 
+# failure to perform traci lane change
+ticket12810
