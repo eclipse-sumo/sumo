@@ -9,3 +9,6 @@ one_declared
 
 # only the inner lane is bidi
 TWLT
+
+# only the inner lane is bidi (diagonal road)
+TWLT_diagonal
