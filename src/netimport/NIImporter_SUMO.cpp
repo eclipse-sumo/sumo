@@ -982,7 +982,7 @@ NIImporter_SUMO::addPhase(const SUMOSAXAttributes& attrs, NBLoadedSUMOTLDef* cur
 
 
 GeoConvHelper*
-NIImporter_SUMO::loadLocation(const SUMOSAXAttributes& attrs) {
+NIImporter_SUMO::loadLocation(const SUMOSAXAttributes& attrs, bool setLoaded) {
     // @todo refactor parsing of location since its duplicated in NLHandler and PCNetProjectionLoader
     bool ok = true;
     GeoConvHelper* result = nullptr;
@@ -994,7 +994,9 @@ NIImporter_SUMO::loadLocation(const SUMOSAXAttributes& attrs) {
         Position networkOffset = s[0];
         result = new GeoConvHelper(proj, networkOffset, origBoundary, convBoundary);
         result->resolveAbstractProjection();
-        GeoConvHelper::setLoaded(*result);
+        if (setLoaded) {
+            GeoConvHelper::setLoaded(*result);
+        }
     }
     return result;
 }
