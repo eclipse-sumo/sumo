@@ -214,6 +214,9 @@ be generated using the option **--intermediate** {{DT_INT}}. This will add the g
 [via-edges](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#incomplete_routes_trips_and_flows)
 to the trip definitions.
 
+!!! caution
+    If the network contains disconnected components, the probability of generating invalid trips grows with the number of intermediate waypoints (since a trip is invalid if any intermediate part is invalid). To avoid this, [make sure your network has only a single component](../netconvert.md#edge_removal).
+
 ## Customized Weights
 
 ### Saving
