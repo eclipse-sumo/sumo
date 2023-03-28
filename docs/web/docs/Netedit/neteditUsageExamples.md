@@ -240,3 +240,13 @@ There is also another solution in case you want to add special lanes to your edg
 
 1. select edges with the help of the select mode
 2. after right clicking use lane operation 'add restricted lane'
+
+
+## Building a [Two-Way-Left-Turn-lane](https://en.wikipedia.org/wiki/Reversible_lane#Turn_lanes_and_flush_medians)
+
+1. create a network with two lanes in each direction (on the road that should have a TWLT)
+2. select all edges that belong to that road using *select mode*
+3. switch to *move mode*, enter the value of -1.6 in the the 'shift value' input field and press 'Apply shift value' (or hit ENTER)
+  - explanation: This makes it so that the inside lanes in both directions are directly on top of each other
+4. go to inspect mode and inspect the selection of edges
+5. activate the 'isBidi' checkbox
