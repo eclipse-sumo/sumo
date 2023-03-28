@@ -73,15 +73,25 @@ OptionsCont::~OptionsCont() {
 
 void
 OptionsCont::doRegister(const std::string& name, Option* o) {
+    // first check that option isn't null
     if (o == nullptr) {
         throw ProcessError("Option cannot be null");
     }
-    if (std::find(myAddresses.begin(), myAddresses.end(), o) == myAddresses.end()) {
-        myAddresses.push_back(o);
-    }
+    // now check that there isn't another addresse (or synonym) related with the option
     if (myValues.find(name) != myValues.end()) {
         throw ProcessError(name + " is an already used option name.");
     }
+    // check if previously was inserted in addresses (to avoid synonyms in addresses)
+    bool isSynonym = false;
+    for (const auto &addresse : myAddresses) {
+        if (addresse.second == o) {
+            isSynonym = true;
+        }
+    }
+    if (!isSynonym) {
+        myAddresses.push_back(std::make_pair(name, o));
+    }
+    // insert in values
     myValues[name] = o;
 }
 
@@ -336,9 +346,9 @@ operator<<(std::ostream& os, const OptionsCont& oc) {
 
 void
 OptionsCont::relocateFiles(const std::string& configuration) const {
-    for (const auto &option : myAddresses) {
-        if (option->isFileName() && option->isSet()) {
-            StringVector fileList = StringVector(option->getStringVector());
+    for (const auto &addresse : myAddresses) {
+        if (addresse.second->isFileName() && addresse.second->isSet()) {
+            StringVector fileList = StringVector(addresse.second->getStringVector());
             for (auto &file : fileList) {
                 file = FileHelpers::checkForRelativity(file, configuration);
                 try {
@@ -347,16 +357,16 @@ OptionsCont::relocateFiles(const std::string& configuration) const {
                     WRITE_WARNING(toString(e.what()) + " when trying to decode filename '" + file + "'.");
                 }
             }
-            StringVector rawList = StringTokenizer(option->getValueString(), ",").getVector();
+            StringVector rawList = StringTokenizer(addresse.second->getValueString(), ",").getVector();
             for (auto &file : rawList) {
                 file = FileHelpers::checkForRelativity(file, configuration);
             }
             const std::string conv = joinToString(fileList, ',');
-            if (conv != joinToString(option->getStringVector(), ',')) {
-                const bool hadDefault = option->isDefault();
-                option->set(conv, joinToString(rawList, ','), false);
+            if (conv != joinToString(addresse.second->getStringVector(), ',')) {
+                const bool hadDefault = addresse.second->isDefault();
+                addresse.second->set(conv, joinToString(rawList, ','), false);
                 if (hadDefault) {
-                    option->resetDefault();
+                    addresse.second->resetDefault();
                 }
             }
         }
@@ -451,7 +461,7 @@ OptionsCont::isBool(const std::string& name) const {
 void
 OptionsCont::resetWritable() {
     for (const auto& addresse : myAddresses) {
-        addresse->resetWritable();
+        addresse.second->resetWritable();
     }
 }
 
@@ -459,7 +469,7 @@ OptionsCont::resetWritable() {
 void
 OptionsCont::resetDefault() {
     for (const auto& addresse : myAddresses) {
-        addresse->resetDefault();
+        addresse.second->resetDefault();
     }
 }
 
@@ -479,8 +489,9 @@ OptionsCont::isWriteable(const std::string& name) {
 
 void
 OptionsCont::clear() {
+    // delete only adresse (because synonyms placed in values aim to the same Option)
     for (const auto& addresse : myAddresses) {
-        delete addresse;
+        delete addresse.second;
     }
     myAddresses.clear();
     myValues.clear();

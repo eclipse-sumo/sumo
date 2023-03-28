@@ -689,10 +689,10 @@ private:
     /// @brief The static options container used
     static OptionsCont myOptions;
 
-    /// @brief storage for option-addresses
-    std::vector<Option*> myAddresses;
+    /// @brief option-adresses
+    std::vector<std::pair<std::string, Option*> > myAddresses;
 
-    /// @brief access map of options
+    /// @brief option maps sorted by name (for adresses AND their synonyms)
     std::map<std::string, Option*> myValues;
 
     /// @brief some information on the application
