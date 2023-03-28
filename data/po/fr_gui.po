@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-24 02:19+0000\n"
+"PO-Revision-Date: 2023-03-28 15:53+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/fr/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.16.2-dev\n"
+"X-Generator: Weblate 4.17-dev\n"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:291
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:294
@@ -158,9 +158,10 @@ msgid "Select lanes which allow..."
 msgstr "Sélectionner voies qui autorisent..."
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:493
-#, fuzzy
 msgid "Opens a menu for selecting a vehicle class by which to selected lanes."
-msgstr "Ouvre un dialogue pour éditer la liste des items sélectionnés."
+msgstr ""
+"Ouvre un dialogue pour choisir une classe de véhicules et sélectionner les "
+"éléments de réseau accessibles à celle-ci."
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:497
 msgid "Edit Breakpoints"
