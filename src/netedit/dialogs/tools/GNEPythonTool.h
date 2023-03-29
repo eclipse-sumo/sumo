@@ -58,6 +58,9 @@ public:
     /// @brief get command (python + script + arguments)
     std::string getCommand() const;
     
+    /// @brief load configuration
+    void loadConfiguration(const std::string &file) const;
+
     /// @brief save configuration
     void saveConfiguration(const std::string &file) const;
 

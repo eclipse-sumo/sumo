@@ -101,6 +101,14 @@ GNEPythonTool::getCommand() const {
 
 
 void
+GNEPythonTool::loadConfiguration(const std::string &/*file*/) const {
+
+    // write info
+    WRITE_MESSAGE(TLF("Loaded % configuration.", myPythonToolName));
+}
+
+
+void
 GNEPythonTool::saveConfiguration(const std::string &file) const {
     // add python script
     const char* pythonEnv = getenv("PYTHON");
@@ -124,7 +132,7 @@ GNEPythonTool::saveConfiguration(const std::string &file) const {
     command = "start /B \"\" " + command;
 #endif
     // write info
-    WRITE_MESSAGE(TLF("Saved %s configuration.", myPythonToolName));
+    WRITE_MESSAGE(TLF("Saved % configuration.", myPythonToolName));
     // yay! fun with dangerous commands... Never use this over the internet
     SysUtils::runHiddenCommand(command);
 }

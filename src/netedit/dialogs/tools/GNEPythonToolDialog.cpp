@@ -130,7 +130,7 @@ GNEPythonToolDialog::openDialog(GNEPythonTool* tool) {
 
 long
 GNEPythonToolDialog::onCmdSave(FXObject*, FXSelector, void*) {
-    // open file dialog
+    // open save dialog
     const std::string file = GNEApplicationWindowHelper::openOptionFileDialog(this, true);
     // check file
     if (file.size() > 0) {
@@ -142,6 +142,12 @@ GNEPythonToolDialog::onCmdSave(FXObject*, FXSelector, void*) {
 
 long
 GNEPythonToolDialog::onCmdLoad(FXObject*, FXSelector, void*) {
+    // open file dialog
+    const std::string file = GNEApplicationWindowHelper::openOptionFileDialog(this, false);
+    // check file
+    if (file.size() > 0) {
+        myPythonTool->loadConfiguration(file);
+    }
     return 1;
 }
 
