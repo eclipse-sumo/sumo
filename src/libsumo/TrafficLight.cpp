@@ -668,6 +668,8 @@ TrafficLight::findConstraintsDeadLocks(const std::string& foeId, const std::stri
                         nc.type = c.type;
                         nc.mustWait = true; // ???
                         nc.active = true;
+                        nc.param = c.param;
+                        swapParameters(nc);
                         result.push_back(nc);
                         // let foe wait for foe2
                         std::vector<TraCISignalConstraint> result2 = swapConstraints(c.signalId, c.tripId, c.foeSignal, c.foeId);
@@ -712,6 +714,8 @@ TrafficLight::findConstraintsDeadLocks(const std::string& foeId, const std::stri
         nc.type = c.type;
         nc.mustWait = true; // ???
         nc.active = true;
+        nc.param = c.param;
+        swapParameters(nc);
         result.push_back(nc);
         // let foe wait for foe2
         const std::vector<TraCISignalConstraint>& result2 = swapConstraints(c.signalId, c.tripId, c.foeSignal, c.foeId);
