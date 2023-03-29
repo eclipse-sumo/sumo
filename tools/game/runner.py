@@ -53,6 +53,7 @@ if _UPLOAD:
     _SCORESCRIPT = "/scores.php?game=TLS&"
 _DEBUG = True if "debug" in sys.argv else False
 _SCORES = 30
+BASE = os.path.dirname(sys.argv[0])
 
 _LANGUAGE_EN = {'title': 'Interactive Traffic Light',
                 'fkk_in': 'Research intersection Ingolstadt',
@@ -63,7 +64,7 @@ _LANGUAGE_EN = {'title': 'Interactive Traffic Light',
                 'kuehne': 'Prof. Kühne',
                 'bs3d': '3D Junction Virtual World',
                 'bs3Dosm': '3D Junction OpenStreetMap',
-                'highway': 'Autobahnauffahrt',
+                'highway': 'Highway Ramp',
                 'ramp': 'Combined Highway On and Off Ramp',
                 'corridor': 'Corridor',
                 'A10KW': 'Highway Ramp A10',
@@ -129,28 +130,12 @@ else:
 
 
 def computeScoreFromWaitingTime(gamename):
-    totalDistance = 0
-    totalFuel = 0
     totalArrived = 0
     totalWaitingTime = 0
     complete = True
-    for line in open(os.path.join(base, "%s.netstate.xml" % start.category)):
-        m = re.search('<interval begin="0(.00)?" end="([^"]*)"', line)
-        if m and float(m.group(2)) != start.gametime:
-            print("error: incomplete output")
-            complete = False
-        m = re.search('sampledSeconds="([^"]*)".*speed="([^"]*)"', line)
-        if m:
-            totalDistance += float(m.group(1)) * float(m.group(2))
-        m = re.search('fuel_abs="([^"]*)"', line)
-        if m:
-            totalFuel += float(m.group(1))
-        m = re.search('arrived="([^"]*)"', line)
-        if m:
-            totalArrived += float(m.group(1))
-        m = re.search('waitingTime="([^"]*)"', line)
-        if m:
-            totalWaitingTime += float(m.group(1))
+    for s in sumolib.xml.parse(os.path.join(BASE, gamename + ".stats.xml"), "vehicleTripStatistics"):
+        totalWaitingTime = float(s.waitingTime) * float(s.count)
+        totalArrived = float(s.count)
     # doing nothing gives a waitingTime of 6033 for cross and 6700 for
     # square
     score = 10000 - totalWaitingTime
@@ -323,12 +308,13 @@ class StartDialog(Tkinter.Frame):
         self.parent.title(self._language_text['title'])
         self.parent.minsize(250, 50)
         self.category = None
+        self.high = loadHighscore()
 
         # we use a grid layout with 4 columns
         COL_DLRLOGO, COL_START, COL_HIGH, COL_SUMOLOGO = range(4)
         # there is one column for every config, +2 more columns for control
         # buttons
-        configs = sorted(glob.glob(os.path.join(base, "*.sumocfg")))
+        configs = sorted(glob.glob(os.path.join(BASE, "*.sumocfg")))
         numButtons = len(configs) + 3
         # button dimensions
         bWidth_start = 30
@@ -342,6 +328,8 @@ class StartDialog(Tkinter.Frame):
             row=0, rowspan=numButtons, column=COL_DLRLOGO)
         Tkinter.Label(self, image=IMAGE.sumoLogo).grid(
             row=0, rowspan=numButtons, column=COL_SUMOLOGO)
+        haveOSG = "OSG" in subprocess.check_output(sumolib.checkBinary("sumo"), universal_newlines=True)
+
 
         # 2 button for each config (start, highscore)
         for row, cfg in enumerate(configs):
@@ -356,14 +344,13 @@ class StartDialog(Tkinter.Frame):
 
             button = Tkinter.Button(self, width=bWidth_high,
                                     command=lambda cfg=cfg: ScoreDialog(self, [], None, self.category_name(cfg),
-                                                                        self._language_text)
+                                                                        self._language_text, self.high)
                                     )  # .grid(row=row, column=COL_HIGH)
             self.addButton(button, 'high')
             button.grid(row=row, column=COL_HIGH)
 
         # control buttons
-        button = Tkinter.Button(
-            self, width=bWidth_control, command=high.clear)
+        button = Tkinter.Button(self, width=bWidth_control, command=self.high.clear)
         self.addButton(button, 'reset')
         button.grid(row=numButtons - 3, column=COL_START, columnspan=2)
 
@@ -406,9 +393,9 @@ class StartDialog(Tkinter.Frame):
             print("starting", cfg)
         self.gametime = parseEndTime(cfg)
         self.ret = subprocess.call(
-            [guisimPath, "-S", "-G", "-Q", "-c", cfg, '-l', 'log',
+            [sumolib.checkBinary("sumo-gui", BASE), "-S", "-G", "-Q", "-c", cfg, '-l', 'log',
                 '--output-prefix', "%s." % self.category,
-                '--duration-log.statistics',
+                '--duration-log.statistics', '--statistic-output', 'stats.xml',
                 '--tripinfo-output.write-unfinished'], stderr=sys.stderr)
 
         if _DEBUG:
@@ -420,7 +407,7 @@ class StartDialog(Tkinter.Frame):
         # parse switches
         switch = []
         lastProg = {}
-        tlsfile = os.path.join(base, "%s.tlsstate.xml" % start.category)
+        tlsfile = os.path.join(BASE, "%s.tlsstate.xml" % self.category)
         if os.path.exists(tlsfile):
             for line in open(tlsfile):
                 m = re.search(r'tlsstate time="(\d+(.\d+)?)" id="([^"]*)" programID="([^"]*)"', line)
@@ -431,11 +418,11 @@ class StartDialog(Tkinter.Frame):
                         lastProg[tls] = program
                         switch += [m.group(3), m.group(1)]
 
-        lang = start._language_text
+        lang = self._language_text
         if _DEBUG:
             print(switch, score, totalArrived, complete)
         if complete:
-            ScoreDialog(self, switch, score, self.category, lang)
+            ScoreDialog(self, switch, score, self.category, lang, self.high)
 
         # if ret != 0:
         # quit on error
@@ -444,7 +431,7 @@ class StartDialog(Tkinter.Frame):
 
 class ScoreDialog:
 
-    def __init__(self, parent, switch, score, category, lang):
+    def __init__(self, parent, switch, score, category, lang, high):
         self.root = Tkinter.Toplevel(parent)
         # self.root.transient(parent)
         self.name = None
@@ -453,15 +440,16 @@ class ScoreDialog:
         self.category = category
         self.root.title(lang["Highscore"])
         self.root.minsize(250, 50)
+        self.high = high
+
         haveHigh = False
 
-        if category not in high:
-            high[category] = _SCORES * [("", "", -1.)]
+        if category not in self.high:
+            self.high[category] = _SCORES * [("", "", -1.)]
         idx = 0
-        for n, g, p in high[category]:
+        for n, g, p in self.high[category]:
             if not haveHigh and score is not None and p < score:
-                Tkinter.Label(
-                    self.root, text=(str(idx + 1) + '. ')).grid(row=idx)
+                Tkinter.Label(self.root, text=(str(idx + 1) + '. ')).grid(row=idx)
                 self.name = Tkinter.Entry(self.root)
                 self.name.grid(row=idx, sticky=Tkinter.W, column=1)
                 self.scoreLabel = Tkinter.Label(self.root, text=str(score),
@@ -507,16 +495,15 @@ class ScoreDialog:
     def save(self, event=None):
         if self.name and self.name.get():
             name = self.name.get()
-            high[self.category].insert(
-                self.idx, (name, self.switch, self.score))
-            high[self.category].pop()
+            self.high[self.category].insert(self.idx, (name, self.switch, self.score))
+            self.high[self.category].pop()
             self.name.destroy()
             self.name = None
             Tkinter.Label(self.root, text=name, padx=5,
                           bg="pale green").grid(row=self.idx, sticky=Tkinter.W, column=1)
             try:
                 f = open(_SCOREFILE, 'wb')
-                pickle.dump(high, f)
+                pickle.dump(self.high, f)
                 f.close()
             except Exception as e:
                 print(e)
@@ -540,39 +527,36 @@ class ScoreDialog:
         self.root.destroy()
 
 
-stereoModes = (
-    'ANAGLYPHIC', 'QUAD_BUFFER', 'VERTICAL_SPLIT', 'HORIZONTAL_SPLIT')
-optParser = OptionParser()
-optParser.add_option("-s", "--stereo", metavar="OSG_STEREO_MODE",
-                     help="Defines the stereo mode to use for 3D output; unique prefix of %s" % (
-                           ", ".join(stereoModes)))
-options, args = optParser.parse_args()
+def main():
+    stereoModes = ('ANAGLYPHIC', 'QUAD_BUFFER', 'VERTICAL_SPLIT', 'HORIZONTAL_SPLIT')
+    optParser = sumolib.options.ArgumentParser()
+    optParser.add_option("-s", "--stereo", metavar="OSG_STEREO_MODE",
+                        help="Defines the stereo mode to use for 3D output; unique prefix of %s" % (
+                            ", ".join(stereoModes)))
+    options = optParser.parse_args()
 
-base = os.path.dirname(sys.argv[0])
-high = loadHighscore()
+    if options.stereo:
+        for m in stereoModes:
+            if m.lower().startswith(options.stereo.lower()):
+                os.environ["OSG_STEREO_MODE"] = m
+                os.environ["OSG_STEREO"] = "ON"
+                break
+
+    lang = _LANGUAGE_EN
+    if "OSG_FILE_PATH" in os.environ:
+        os.environ["OSG_FILE_PATH"] += os.pathsep + \
+            os.path.join(os.environ.get("SUMO_HOME", ""), "data", "3D")
+    else:
+        os.environ["OSG_FILE_PATH"] = os.path.join(
+            os.environ.get("SUMO_HOME", ""), "data", "3D")
+
+    root = Tkinter.Tk()
+    IMAGE.dlrLogo = Tkinter.PhotoImage(file='dlr.gif')
+    IMAGE.sumoLogo = Tkinter.PhotoImage(file='sumo_logo.gif')
+    IMAGE.qrCode = Tkinter.PhotoImage(file='qr_sumo.dlr.de.gif')
+    start = StartDialog(root, lang)
+    root.mainloop()
 
 
-guisimPath = sumolib.checkBinary("sumo-gui", os.path.dirname(os.path.abspath(__file__)))
-haveOSG = "OSG" in subprocess.check_output(sumolib.checkBinary("sumo"), universal_newlines=True)
-
-if options.stereo:
-    for m in stereoModes:
-        if m.lower().startswith(options.stereo.lower()):
-            os.environ["OSG_STEREO_MODE"] = m
-            os.environ["OSG_STEREO"] = "ON"
-            break
-
-lang = _LANGUAGE_EN
-if "OSG_FILE_PATH" in os.environ:
-    os.environ["OSG_FILE_PATH"] += os.pathsep + \
-        os.path.join(os.environ.get("SUMO_HOME", ""), "data", "3D")
-else:
-    os.environ["OSG_FILE_PATH"] = os.path.join(
-        os.environ.get("SUMO_HOME", ""), "data", "3D")
-
-root = Tkinter.Tk()
-IMAGE.dlrLogo = Tkinter.PhotoImage(file='dlr.gif')
-IMAGE.sumoLogo = Tkinter.PhotoImage(file='sumo_logo.gif')
-IMAGE.qrCode = Tkinter.PhotoImage(file='qr_sumo.dlr.de.gif')
-start = StartDialog(root, lang)
-root.mainloop()
+if __name__ == "__main__":
+    main()
