@@ -213,6 +213,7 @@ GNEFrame::openHelpAttributesDialog(const GNEAttributeCarrier* AC) const {
         FXTableItem* definition = new FXTableItem(tagProperty.getDefinition().c_str());
         definition->setJustify(FXTableItem::LEFT);
         myTable->setItem(itemIndex, 2, definition);
+        myTable->fitRowsToContents(itemIndex);
         sizeColumnDefinitions = MAX2(sizeColumnDefinitions, (int)tagProperty.getDefinition().size());
         itemIndex++;
     }
