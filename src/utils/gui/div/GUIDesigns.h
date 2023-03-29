@@ -39,7 +39,7 @@ class MFXMenuCheckIcon;
 /// @brief define the default frames area width
 #define GUIDesignFramesAreaDefaultWidth 220
 
-/// @brief rigth marging for frame area
+/// @brief right margin for frame area
 #define GUIDesignFrameAreaMarging 2
 
 /// @brief elements with big images
@@ -76,7 +76,7 @@ class MFXMenuCheckIcon;
 /// @brief button extended over over column with thick and raise frame
 #define GUIDesignButtonAttribute                (FRAME_THICK | FRAME_RAISED | ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 100, GUIDesignHeight, 2, 2, 2, 2
 
-/// @brief little button rectangula used in frames (For example, in "help" buttons)
+/// @brief little rectangular button used in frames (For example, in "help" buttons)
 #define GUIDesignButtonRectangular              (FRAME_THICK | FRAME_RAISED | ICON_BEFORE_TEXT | JUSTIFY_CENTER_X | JUSTIFY_CENTER_Y | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 46, GUIDesignHeight, 2, 2, 2, 2
 
 /// @brief button only with icon
@@ -310,7 +310,7 @@ class MFXMenuCheckIcon;
 /// @brief Horizontal frame extended over XY-frame parent used in MFXGroupBoxModule
 #define GUIDesignGroupBoxModuleExtendY      (LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 4, 4, 4, 4, 4, 4
 
-/// @brief thicked frame extended over frame parent
+/// @brief Thick frame extended over frame parent
 #define GUIDesignFrameThick                 (FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 2, 2, 2, 2, 2, 2
 
 /// @brief Horizontal frame extended over frame parent
@@ -458,19 +458,19 @@ class MFXMenuCheckIcon;
 
 /// @name designs for Spin dials
 /// @{
-/// @brief desing for standard spin dial
+/// @brief design for standard spin dial
 #define GUIDesignSpinDial               (FRAME_THICK | FRAME_SUNKEN | LAYOUT_TOP | LAYOUT_CENTER_Y | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 100, GUIDesignHeight, 0, 0, 0, 0
 
-/// @brief desing for standard spin dial
+/// @brief design for standard spin dial
 #define GUIDesignSpinDialViewPortZoom   (FRAME_THICK | FRAME_SUNKEN | LAYOUT_TOP | LAYOUT_CENTER_Y | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 100, GUIDesignHeight, 0, 0, 0, 0
 
-/// @brief desing for standard spin dial
+/// @brief design for standard spin dial
 #define GUIDesignSpinDialViewPort       (FRAME_THICK | FRAME_SUNKEN | LAYOUT_TOP | LAYOUT_CENTER_Y | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | SPIN_NOMIN | SPIN_NOMAX), 0, 0, 100, GUIDesignHeight, 0, 0, 0, 0
 
-/// @brief desing for spin dial attribute
+/// @brief design for spin dial attribute
 #define GUIDesignSpinDialAttribute       (FRAME_THICK | FRAME_SUNKEN | LAYOUT_TOP | LAYOUT_CENTER_Y | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT | SPIN_NOMIN | SPIN_NOMAX), 0, 0, 0, GUIDesignHeight, 0, 0, 0, 0
 
-/// @brief desing for standard spin dial
+/// @brief design for standard spin dial
 #define GUIDesignSpinDialDecalsTable    (FRAME_THICK | FRAME_SUNKEN | JUSTIFY_CENTER_X | JUSTIFY_CENTER_Y | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | SPIN_NOMIN | SPIN_NOMAX), 0, 0, 100, GUIDesignHeight, 0, 0, 0, 0
 
 /// @}
@@ -478,7 +478,7 @@ class MFXMenuCheckIcon;
 
 /// @name designs for sliders
 /// @{
-/// @brief desing for standard slider
+/// @brief design for standard slider
 #define GUIDesignSlider (SLIDER_ARROW_UP | SLIDER_TICKS_TOP | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 300, GUIDesignHeight, 0, 0, 0
 
 /// @}
@@ -522,7 +522,7 @@ class MFXMenuCheckIcon;
 
 #define GUIDesignViewSettingsMatrix5            (LAYOUT_FILL_X | LAYOUT_BOTTOM | LAYOUT_LEFT | MATRIX_BY_COLUMNS), 0, 0, 0, 0, 10, 10, 0, 0, 5, 5
 
-/// @brief Combo boxs
+/// @brief Combo boxes
 #define GUIDesignViewSettingsComboBox1          (COMBOBOX_INSERT_LAST | FRAME_SUNKEN | LAYOUT_LEFT | LAYOUT_CENTER_Y | COMBOBOX_STATIC)
 
 /// @brief ColorWell
@@ -570,24 +570,24 @@ class MFXMenuCheckIcon;
 /// @}
 
 
-/// @name design for dialog boxs
+/// @name design for dialog boxes
 /// @{
 /// @brief design for standard dialog box with close button (for example, about dialog)
 #define GUIDesignDialogBox                                      (DECOR_CLOSE | DECOR_TITLE)
 
-/// @brief design for standard dialog box that can be stretched (But not shrinked)
+/// @brief design for standard dialog box that can be stretched (But not shrunk)
 #define GUIDesignDialogBoxStretchable                           (DECOR_CLOSE | DECOR_TITLE | DECOR_STRETCHABLE)
 
-/// @brief design for standard dialog box that can be schinked (But not stretched)
+/// @brief design for standard dialog box that can be shrunk (But not stretched)
 #define GUIDesignDialogBoxShrinkable                            (DECOR_CLOSE | DECOR_TITLE | DECOR_SHRINKABLE)
 
 /// @brief design for standard dialog box (for example, about dialog)
 #define GUIDesignDialogBoxResizable                             (DECOR_CLOSE | DECOR_TITLE | DECOR_RESIZE)
 
-/// @brief design for dialog box with specift width and height (for example, additional dialogs)
+/// @brief design for dialog box with specific width and height (for example, additional dialogs)
 #define GUIDesignDialogBoxExplicit(width, height)               (DECOR_CLOSE | DECOR_TITLE | LAYOUT_EXPLICIT), 0, 0, width, height, 4, 4, 4, 4, 4, 4
 
-/// @brief design for dialog box with specift width and height that can be stretched (But not shrinked)
+/// @brief design for dialog box with specific width and height that can be stretched (But not shrunk)
 #define GUIDesignDialogBoxExplicitStretchable(width, height)    (DECOR_CLOSE | DECOR_TITLE | LAYOUT_EXPLICIT | DECOR_STRETCHABLE), 0, 0, width, height, 4, 4, 4, 4, 4, 4
 
 /// @}
@@ -668,7 +668,7 @@ class MFXMenuCheckIcon;
 /// @brief design for FXLists
 #define GUIDesignListExtended                   (LIST_NORMAL | FRAME_SUNKEN | FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FILL_Y)
 
-/// @brief desgin for TabBooks
+/// @brief design for TabBooks
 #define GUIDesignTabBook                        (TABBOOK_LEFTTABS | PACK_UNIFORM_WIDTH | PACK_UNIFORM_HEIGHT | LAYOUT_FILL_X | LAYOUT_FILL_Y | LAYOUT_RIGHT)
 
 // ===========================================================================
