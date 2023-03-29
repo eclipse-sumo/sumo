@@ -150,3 +150,7 @@ The following errors may be raised:
 - **Ring X does not add to cycle length**: EXPLANATION FORTHCOMING
 
 To simulate misconfigured controllers, both errors may be ignored by setting `<param key="ignore-errors" value="true"/>`.
+
+# Publication
+
+The implemenation and validation of the controller was described in [Schrader, M.; Wang, Q.; Bittle, J. Extension and Validation of NEMA-Style Dual-Ring Controller in SUMO. SUMO Conf Proc 2022, 3, 1-13.](https://www.tib-op.org/ojs/index.php/scp/article/view/115)
