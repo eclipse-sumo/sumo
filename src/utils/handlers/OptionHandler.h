@@ -13,114 +13,55 @@
 /****************************************************************************/
 /// @file    OptionHandler.h
 /// @author  Pablo Alvarez Lopez
-/// @date    Dec 2022
+/// @date    Mar 2023
 ///
-// A SAX-Handler for loading templates
+// The XML-Handler for loading options
 /****************************************************************************/
 #pragma once
 #include <config.h>
 
-#include <xercesc/sax/HandlerBase.hpp>
-#include <xercesc/sax/AttributeList.hpp>
-#include <xercesc/sax/SAXParseException.hpp>
-#include <xercesc/sax/SAXException.hpp>
-#include <string>
+#include <utils/xml/CommonXMLStructure.h>
 
-
-// ===========================================================================
-// class declarations
-// ===========================================================================
-
-class OptionsCont;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class OptionHandler
- * @brief A SAX-Handler for loading options
- */
-class OptionHandler : public XERCES_CPP_NAMESPACE::HandlerBase {
+
+class OptionHandler {
 
 public:
-    /// @brief run parser
-    static void parseTemplate(OptionsCont& options, const std::string& templateString);
+    /// @brief Constructor
+    OptionHandler();
+
+    /// @brief Destructor
+    virtual ~OptionHandler();
+
+    /// @brief begin parse attributes
+    bool beginParseAttributes(SumoXMLTag tag, const SUMOSAXAttributes& attrs);
+
+    /// @brief end parse attributes
+    void endParseAttributes();
+
+    /// @brief parse SumoBaseObject (it's called recursivelly)
+    void parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj);
+
+    /// @brief get flag for check if a element wasn't created
+    bool isErrorCreatingElement() const;
+
+protected:
+    /// @brief write error and enable error creating element
+    void writeError(const std::string& error);
 
 private:
-    /// @brief Constructor
-    OptionHandler(OptionsCont& options);
+    /// @brief common XML Structure
+    CommonXMLStructure myCommonXMLStructure;
 
-    /// @brief destructor
-    ~OptionHandler();
+    /// @brief flag for check if a element wasn't created
+    bool myErrorCreatingElement = false;
 
-    /// @name Handlers for the SAX DocumentHandler interface
-    /// @{
-
-    /** @brief Called on the occurrence of the beginning of a tag
-     *
-     * Sets the name of the last item
-     */
-    void startElement(const XMLCh* const name, XERCES_CPP_NAMESPACE::AttributeList& attributes);
-
-    /// @brief add option
-    bool addOption(const std::string value, const std::string& synonymes,
-                   const std::string& type, const std::string& help, const std::string& category) const;
-
-    /** @brief Called on the end of an element
-     *
-     * Resets the element name
-     */
-    void endElement(const XMLCh* const name);
-
-    /// @}
-
-    /// @name Handlers for the SAX ErrorHandler interface
-    /// @{
-
-    /** @brief Called on an XML-warning
-     *
-     * The warning is reported to the the warning-instance of MsgHandler
-     */
-    void warning(const XERCES_CPP_NAMESPACE::SAXParseException& exception);
-
-    /** @brief Called on an XML-error
-     *
-     * The warning is reported to the the error-instance of MsgHandler
-     */
-    void error(const XERCES_CPP_NAMESPACE::SAXParseException& exception);
-
-    /** @brief Called on an XML-fatal error
-     *
-     * The warning is reported to the the error-instance of MsgHandler
-     */
-    void fatalError(const XERCES_CPP_NAMESPACE::SAXParseException& exception);
-
-    /// @}
-
-    /// @brief The information whether an error occurred
-    bool myError;
-
-    /// @brief The nesting level of parsed elements
-    int myLevel;
-
-    /// @brief The options to fill
-    OptionsCont& myOptions;
-
-    /// @brief The name of the currently topic
-    std::string myTopic;
-
-    /// @brief current subtopic
-    std::string mySubTopic;
-
-    /// @brief invalid int in string format
-    static const std::string INVALID_INT_STR;
-
-    /// @brief invalid double in string format
-    static const std::string INVALID_DOUBLE_STR;
-
-    /// @brief invalid copy constructor
+    /// @brief invalidate copy constructor
     OptionHandler(const OptionHandler& s) = delete;
 
-    /// @brief invalid assignment operator
+    /// @brief invalidate assignment operator
     OptionHandler& operator=(const OptionHandler& s) = delete;
 };
