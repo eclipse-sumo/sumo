@@ -4275,8 +4275,12 @@ MSVehicle::executeMove() {
     if (vNext <= SUMO_const_haltingSpeed && myWaitingTime > MSGlobals::gStartupWaitThreshold && rawAccel <= accelThresholdForWaiting()) {
         myTimeSinceStartup = 0;
     } else if (isStopped()) {
-        // do not apply startupDelay but signal that a stop has taken place
-        myTimeSinceStartup = getCarFollowModel().getStartupDelay() + DELTA_T;
+        if (getCarFollowModel().startupDelayStopped()) {
+            myTimeSinceStartup = DELTA_T;
+        } else {
+            // do not apply startupDelay but signal that a stop has taken place
+            myTimeSinceStartup = getCarFollowModel().getStartupDelay() + DELTA_T;
+        }
     } else {
         // identify potential startup (before other effects reduce the speed again)
         myTimeSinceStartup += DELTA_T;

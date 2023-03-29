@@ -311,6 +311,11 @@ public:
     virtual double getHeadwayTime() const {
         return myHeadwayTime;
     }
+
+    /// @brief whether startupDelay should be applied after stopping
+    virtual bool startupDelayStopped() const {
+        return false;
+    }
     /// @}
 
 
