@@ -659,6 +659,8 @@ public:
     /// @brief post-processing for legacy networks
     static void recheckSetRequestInformation();
 
+    static const double NO_INTERSECTION;
+
 private:
     /// @brief return whether the given vehicles may NOT merge safely
     static inline bool unsafeMergeSpeeds(double leaderSpeed, double followerSpeed, double leaderDecel, double followerDecel) {

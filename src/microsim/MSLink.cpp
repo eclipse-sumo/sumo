@@ -68,12 +68,11 @@
 // minimim width between sibling lanes to qualify as non-overlapping
 #define DIVERGENCE_MIN_WIDTH 2.5
 
-#define NO_INTERSECTION 10000.0
-
 const SUMOTime MSLink::myLookaheadTime = TIME2STEPS(1);
 // additional caution is needed when approaching a zipper link
 const SUMOTime MSLink::myLookaheadTimeZipper = TIME2STEPS(4);
 std::set<std::pair<MSLink*, MSLink*> > MSLink::myRecheck;
+const double MSLink::NO_INTERSECTION(10000);
 
 // ===========================================================================
 // ConflictInfo member method definitions
