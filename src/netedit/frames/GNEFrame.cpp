@@ -212,11 +212,11 @@ GNEFrame::openHelpAttributesDialog(const GNEAttributeCarrier* AC) const {
         // Set definition
         FXTableItem* definition = new FXTableItem(tagProperty.getDefinition().c_str());
         definition->setJustify(FXTableItem::LEFT);
-        myTable->setItem(itemIndex, 2, definition);
-        myTable->fitRowsToContents(itemIndex);
+        myTable->setItem(itemIndex, 2, definition);       
         sizeColumnDefinitions = MAX2(sizeColumnDefinitions, (int)tagProperty.getDefinition().size());
         itemIndex++;
     }
+    myTable->fitRowsToContents(0, itemIndex);
     // set header
     FXHeader* header = myTable->getColumnHeader();
     header->setItemJustify(0, JUSTIFY_CENTER_X);
