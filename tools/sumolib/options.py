@@ -252,7 +252,6 @@ class ArgumentParser(argparse.ArgumentParser):
             v = vars(namespace)[k]
             if k not in ("save_configuration", "save_template", "configuration_file", "_parser", "_prefixed_options"):
                 key = k
-                default = ''
                 help = ''
                 typeStr = ''
                 category = ''
@@ -269,6 +268,7 @@ class ArgumentParser(argparse.ArgumentParser):
                             # help
                             if a.help is not None:
                                 help = ' help="%s"' % a.help
+
                             # type (don't use directly a.type, because it writes <class ....>
                             if ((a.type == bool) or a.boolean):
                                 typeStr = ' type="%s"' % "bool"
@@ -299,7 +299,7 @@ class ArgumentParser(argparse.ArgumentParser):
                 if print_template or v != a.default:
                     if isinstance(v, list):
                         v = " ".join(map(str, v))
-                    out.write(u'    <%s value="%s"%s%s%s%s/>\n' % (key, xmlescape(v), default, typeStr, help, category))
+                    out.write(u'    <%s value="%s"%s%s%s/>\n' % (key, xmlescape(v), typeStr, help, category))
         out.write(u'</configuration>\n')
 
     def parse_args(self, args=None, namespace=None):
