@@ -210,6 +210,8 @@ class ArgumentParser(argparse.ArgumentParser):
         a.category = category
         # set if a is a boolean
         a.boolean = ((action == "store_true") or (action == "store_false"))
+        # the value of a.required is lost during parsing
+        a.isRequired = a.required
 
     def add_option(self, *args, **kwargs):
         """alias for compatibility with OptionParser"""
@@ -255,6 +257,7 @@ class ArgumentParser(argparse.ArgumentParser):
                 help = ''
                 typeStr = ''
                 category = ''
+                required = ''
                 for a in self._actions:
                     if a.dest == k:
                         for s in a.option_strings:
@@ -277,11 +280,14 @@ class ArgumentParser(argparse.ArgumentParser):
                             if a.boolean:
                                 typeName = "bool"
                             typeStr = ' type="%s"' % typeName
+                            if a.isRequired:
+                                required = ' required="true"'
                         break
                 if print_template or v != a.default:
                     if isinstance(v, list):
                         v = " ".join(map(str, v))
-                    out.write(u'    <%s value="%s"%s%s%s/>\n' % (key, xmlescape(v), typeStr, help, category))
+                    out.write(u'    <%s value="%s"%s%s%s%s/>\n' % (
+                              key, xmlescape(v), typeStr, help, category, required))
         out.write(u'</configuration>\n')
 
     def parse_args(self, args=None, namespace=None):
@@ -398,6 +404,7 @@ def handleCatoryWrapper(func):
         # set if is a boolean
         action = kwargs.get("action")
         result.boolean = ((action == "store_true") or (action == "store_false"))
+        result.isRequired = kwargs.get("required", False)
         return result
     return inner
 
