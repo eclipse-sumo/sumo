@@ -73,15 +73,15 @@ GNENetdiffToolDialog::buildArguments() {
     // create specific netdiff options
     for (const auto &option : myNetdiffOptions) {
         if (option.second->isInteger()) {
-            myArguments.push_back(new GNEPythonToolDialogElements::IntArgument(this, option.first, option.second));
+            myArguments.push_back(new GNEPythonToolDialogElements::IntArgument(this, getRowFrame(), option.first, option.second));
         } else if (option.second->isFloat()) {
-            myArguments.push_back(new GNEPythonToolDialogElements::FloatArgument(this, option.first, option.second));
+            myArguments.push_back(new GNEPythonToolDialogElements::FloatArgument(this, getRowFrame(), option.first, option.second));
         } else if (option.second->isBool()) {
-            myArguments.push_back(new GNEPythonToolDialogElements::BoolArgument(this, option.first, option.second));
+            myArguments.push_back(new GNEPythonToolDialogElements::BoolArgument(this, getRowFrame(), option.first, option.second));
         } else if (option.second->isFileName()) {
-            myArguments.push_back(new GNEPythonToolDialogElements::FileNameArgument(this, option.first, option.second));       
+            myArguments.push_back(new GNEPythonToolDialogElements::FileNameArgument(this, getRowFrame(), option.first, option.second));       
         } else {
-            myArguments.push_back(new GNEPythonToolDialogElements::StringArgument(this, option.first, option.second));
+            myArguments.push_back(new GNEPythonToolDialogElements::StringArgument(this, getRowFrame(), option.first, option.second));
         }
     }
     // adjust parameter column (call always after create elements)

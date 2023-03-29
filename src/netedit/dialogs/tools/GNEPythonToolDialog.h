@@ -119,17 +119,17 @@ protected:
     /// @brief get options sorted by category
     std::vector<CategoryOptions> getOptionsByCategories(OptionsCont& optionsCont) const;
 
+    /// @brief get number of row colums
+    int getNumRowColums() const;
+
+    /// @brief get row frame
+    FXVerticalFrame* getRowFrame();
+
     /// @brief list of arguments sorted by categories
     std::vector<GNEPythonToolDialogElements::Argument*> myArguments;
 
     /// @brief list of categories
     std::vector<GNEPythonToolDialogElements::Category*> myCategories;
-
-    /// @brief get row frame
-    FXVerticalFrame* getRowFrame();
-
-    /// @brief get number of row colums
-    int getNumRowColums() const;
 
 private:
     /// @brief pointer to GNEApplicationWindow
@@ -158,7 +158,7 @@ private:
 
     /// @brief buttons frame
     FXHorizontalFrame* myButtonsFrame = nullptr;
-
+    
     /// @brief Invalidated copy constructor.
     GNEPythonToolDialog(const GNEPythonToolDialog&) = delete;
 

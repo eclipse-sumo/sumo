@@ -20,6 +20,7 @@
 
 #include <netedit/GNEApplicationWindow.h>
 #include <utils/foxtools/MFXLabelTooltip.h>
+#include <utils/foxtools/MFXGroupBoxModule.h>
 #include <utils/gui/div/GUIDesigns.h>
 
 #include "GNEPythonToolDialog.h"
@@ -175,19 +176,6 @@ GNEPythonToolDialog::onCmdReset(FXObject*, FXSelector, void*) {
 }
 
 
-FXVerticalFrame*
-GNEPythonToolDialog::getRowFrame() {
-    return myRowFrames.at(getNumRowColums());
-}
-
-
-int
-GNEPythonToolDialog::getNumRowColums() const {
-    const int column = (int)myArguments.size() / NUMROWSBYCOLUMN;
-    return (column < MAXNUMCOLUMNS)? column : (MAXNUMCOLUMNS - 1);
-}
-
-
 GNEPythonToolDialog::CategoryOptions::CategoryOptions(const std::string &category) :
     std::string(category) {
 }
@@ -234,24 +222,28 @@ GNEPythonToolDialog::buildArguments(bool sortByName, bool groupedByCategories) {
     for (auto &categoryOption : categoryOptions) {
         // add category
         if (categoryOption.size() > 0) {
-            myCategories.push_back(new GNEPythonToolDialogElements::Category(this, categoryOption));
+            myCategories.push_back(new GNEPythonToolDialogElements::Category(this, getRowFrame(), categoryOption));
         }
         // check if sort by name
         if (sortByName) {
             categoryOption.sortByName();
         }
+
+        //MFXGroupBoxModule(frameParent, categoryOption),
+
+
         // add options
         for (const auto &option : categoryOption.getOptions()) {
             if (option.second->isInteger()) {
-                myArguments.push_back(new GNEPythonToolDialogElements::IntArgument(this, option.first, option.second));
+                myArguments.push_back(new GNEPythonToolDialogElements::IntArgument(this, getRowFrame(), option.first, option.second));
             } else if (option.second->isFloat()) {
-                myArguments.push_back(new GNEPythonToolDialogElements::FloatArgument(this, option.first, option.second));
+                myArguments.push_back(new GNEPythonToolDialogElements::FloatArgument(this, getRowFrame(), option.first, option.second));
             } else if (option.second->isBool()) {
-                myArguments.push_back(new GNEPythonToolDialogElements::BoolArgument(this, option.first, option.second));
+                myArguments.push_back(new GNEPythonToolDialogElements::BoolArgument(this, getRowFrame(), option.first, option.second));
             } else if (option.second->isFileName()) {
-                myArguments.push_back(new GNEPythonToolDialogElements::FileNameArgument(this, option.first, option.second));       
+                myArguments.push_back(new GNEPythonToolDialogElements::FileNameArgument(this, getRowFrame(), option.first, option.second));       
             } else {
-                myArguments.push_back(new GNEPythonToolDialogElements::StringArgument(this, option.first, option.second));
+                myArguments.push_back(new GNEPythonToolDialogElements::StringArgument(this, getRowFrame(), option.first, option.second));
             }
         }
     }
@@ -331,6 +323,19 @@ GNEPythonToolDialog::getOptionsByCategories(OptionsCont& optionsCont) const {
         }
     }
     return result;
+}
+
+
+int
+GNEPythonToolDialog::getNumRowColums() const {
+    const int column = (int)myArguments.size() / NUMROWSBYCOLUMN;
+    return (column < MAXNUMCOLUMNS)? column : (MAXNUMCOLUMNS - 1);
+}
+
+
+FXVerticalFrame*
+GNEPythonToolDialog::getRowFrame() {
+    return myRowFrames.at(getNumRowColums());
 }
 
 /****************************************************************************/

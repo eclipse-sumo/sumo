@@ -45,7 +45,7 @@ public:
 
     public:
         /// @brief constructor
-        Category(GNEPythonToolDialog* toolDialogParent, const std::string &category);
+        Category(GNEPythonToolDialog* toolDialogParent, FXComposite *parent, const std::string &category);
 
         /// @brief destructor
         ~Category();
@@ -65,7 +65,7 @@ public:
 
     public:
         /// @brief constructor
-        Argument(GNEPythonToolDialog* toolDialogParent, const std::string &parameter, Option* option);
+        Argument(GNEPythonToolDialog* toolDialogParent, FXComposite *parent, const std::string &parameter, Option* option);
 
         /// @brief destructor
         ~Argument();
@@ -130,7 +130,7 @@ public:
 
     public:
         /// @brief constructor
-        FileNameArgument(GNEPythonToolDialog* toolDialogParent, const std::string name, Option* option);
+        FileNameArgument(GNEPythonToolDialog* toolDialogParent, FXComposite *parent, const std::string name, Option* option);
     
         /// @brief reset to default value
         void reset();
@@ -167,7 +167,7 @@ public:
 
     public:
         /// @brief constructor
-        StringArgument(GNEPythonToolDialog* toolDialogParent, const std::string name, Option* option);
+        StringArgument(GNEPythonToolDialog* toolDialogParent, FXComposite *parent, const std::string name, Option* option);
 
         /// @brief reset to default value
         void reset();
@@ -195,7 +195,7 @@ public:
 
     public:
         /// @brief constructor
-        IntArgument(GNEPythonToolDialog* toolDialogParent, const std::string name, Option* option);
+        IntArgument(GNEPythonToolDialog* toolDialogParent, FXComposite *parent, const std::string name, Option* option);
 
         /// @brief reset to default value
         void reset();
@@ -226,7 +226,7 @@ public:
 
     public:
         /// @brief constructor
-        FloatArgument(GNEPythonToolDialog* toolDialogParent, const std::string name, Option* option);
+        FloatArgument(GNEPythonToolDialog* toolDialogParent, FXComposite *parent, const std::string name, Option* option);
     
         /// @brief reset to default value
         void reset();
@@ -258,7 +258,7 @@ public:
 
     public:
         /// @brief constructor
-        BoolArgument(GNEPythonToolDialog* toolDialogParent, const std::string name, Option* option);
+        BoolArgument(GNEPythonToolDialog* toolDialogParent, FXComposite *parent, const std::string name, Option* option);
 
         /// @brief reset to default value
         void reset();
