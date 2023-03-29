@@ -19,9 +19,12 @@
 /****************************************************************************/
 
 #include <netedit/GNEApplicationWindow.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/foxtools/MFXLabelTooltip.h>
 #include <utils/foxtools/MFXGroupBoxModule.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <fstream>
+#include <sstream>
 
 #include "GNEPythonToolDialog.h"
 #include "GNEPythonTool.h"
@@ -127,6 +130,21 @@ GNEPythonToolDialog::openDialog(GNEPythonTool* tool) {
 
 long
 GNEPythonToolDialog::onCmdSave(FXObject*, FXSelector, void*) {
+    // open file dialog
+    const std::string file = GNEApplicationWindowHelper::openOptionFileDialog(this, true);
+    // check file
+    if (file.size() > 0) {
+        // open stream
+        std::ofstream out(file);
+        if (!out) {
+            WRITE_ERROR(TL("Error saving options in '") + file + "'");
+        } else {
+            // write config
+            myPythonTool->getToolsOptions().writeConfiguration(out, true, false, false);
+            out.close();
+        }
+    }
+
     return 1;
 }
 
@@ -228,10 +246,6 @@ GNEPythonToolDialog::buildArguments(bool sortByName, bool groupedByCategories) {
         if (sortByName) {
             categoryOption.sortByName();
         }
-
-        //MFXGroupBoxModule(frameParent, categoryOption),
-
-
         // add options
         for (const auto &option : categoryOption.getOptions()) {
             if (option.second->isInteger()) {

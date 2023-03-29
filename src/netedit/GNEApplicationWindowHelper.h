@@ -1169,6 +1169,9 @@ struct GNEApplicationWindowHelper {
     /// @brief open meandata filename dialog
     static std::string openMeanDataDialog(FXWindow* window, const bool save);
 
+    /// @brief open option dialog
+    static std::string openOptionFileDialog(FXWindow* window, const bool save);
+
     /// @brief open output file dialog
     static std::string openOutputFileDialog(FXWindow* window);
 
