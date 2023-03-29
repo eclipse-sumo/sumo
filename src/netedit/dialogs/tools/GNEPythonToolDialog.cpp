@@ -134,17 +134,8 @@ GNEPythonToolDialog::onCmdSave(FXObject*, FXSelector, void*) {
     const std::string file = GNEApplicationWindowHelper::openOptionFileDialog(this, true);
     // check file
     if (file.size() > 0) {
-        // open stream
-        std::ofstream out(file);
-        if (!out) {
-            WRITE_ERROR(TL("Error saving options in '") + file + "'");
-        } else {
-            // write config
-            myPythonTool->getToolsOptions().writeConfiguration(out, true, false, false);
-            out.close();
-        }
+        myPythonTool->saveConfiguration(file);
     }
-
     return 1;
 }
 

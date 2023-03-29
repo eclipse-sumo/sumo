@@ -23,6 +23,7 @@
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/handlers/TemplateHandler.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/SysUtils.h>
 
 #include "GNEPythonTool.h"
 
@@ -93,6 +94,33 @@ GNEPythonTool::getCommand() const {
         arguments += ("--" + option.first + " \"" + option.second->getValueString() + "\" ");
     }
     return command + " " + arguments;
+}
+
+
+void
+GNEPythonTool::saveConfiguration(const std::string &file) const {
+    // add python script
+    const char* pythonEnv = getenv("PYTHON");
+    const std::string python = (pythonEnv == nullptr)? "python" : pythonEnv;
+    const char* sumoHomeEnv = getenv("SUMO_HOME");
+    const std::string sumoHome = (sumoHomeEnv == nullptr)? "" : sumoHomeEnv + std::string("/");
+    // get command
+    std::string command = python + " " + sumoHome + myPythonPath + " -C " + file + " ";
+    // add arguments
+    for (const auto &option : myPythonToolsOptions) {
+        command += ("--" + option.first + " \"" + option.second->getValueString() + "\" ");
+    }
+    // start in background
+#ifndef WIN32
+    command = command + " &";
+#else
+    // see "help start" for the parameters
+    command = "start /B \"\" " + command;
+    std::cout << command << std::endl;
+#endif
+    WRITE_MESSAGE(TL("Saving configuration."));
+    // yay! fun with dangerous commands... Never use this over the internet
+    SysUtils::runHiddenCommand(command);
 }
 
 /****************************************************************************/
