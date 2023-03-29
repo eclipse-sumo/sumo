@@ -240,7 +240,7 @@ void
 GNEPythonToolDialogElements::IntArgument::reset() {
     myIntTextField->setText(myDefaultValue.c_str());
     if (myDefaultValue.empty()) {
-        myOption->set(INVALID_INT_STR, INVALID_INT_STR, false);
+        myOption->set(INVALID_INT_STR, "", false);
     } else {
         myOption->set(myDefaultValue, myDefaultValue, false);
     }
@@ -283,7 +283,7 @@ void
 GNEPythonToolDialogElements::FloatArgument::reset() {
     myFloatTextField->setText(myDefaultValue.c_str());
     if (myDefaultValue.empty()) {
-        myOption->set(INVALID_DOUBLE_STR, INVALID_DOUBLE_STR, false);
+        myOption->set(INVALID_DOUBLE_STR, "", false);
     } else {
         myOption->set(myDefaultValue, myDefaultValue, false);
     }
