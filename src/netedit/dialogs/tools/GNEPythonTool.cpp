@@ -91,7 +91,10 @@ GNEPythonTool::getCommand() const {
     std::string arguments;
     // add arguments
     for (const auto &option : myPythonToolsOptions) {
-        arguments += ("--" + option.first + " \"" + option.second->getValueString() + "\" ");
+        // only add modified values
+        if (!option.second->isDefault()) {
+            arguments += ("--" + option.first + " \"" + option.second->getValueString() + "\" ");
+        }
     }
     return command + " " + arguments;
 }
@@ -108,7 +111,10 @@ GNEPythonTool::saveConfiguration(const std::string &file) const {
     std::string command = python + " " + sumoHome + myPythonPath + " -C " + file + " ";
     // add arguments
     for (const auto &option : myPythonToolsOptions) {
-        command += ("--" + option.first + " \"" + option.second->getValueString() + "\" ");
+        // only write modified values
+        if (!option.second->isDefault()) {
+            command += ("--" + option.first + " \"" + option.second->getValueString() + "\" ");
+        }
     }
     // start in background
 #ifndef WIN32
@@ -116,9 +122,9 @@ GNEPythonTool::saveConfiguration(const std::string &file) const {
 #else
     // see "help start" for the parameters
     command = "start /B \"\" " + command;
-    std::cout << command << std::endl;
 #endif
-    WRITE_MESSAGE(TL("Saving configuration."));
+    // write info
+    WRITE_MESSAGE(TLF("Saved %s configuration.", myPythonToolName));
     // yay! fun with dangerous commands... Never use this over the internet
     SysUtils::runHiddenCommand(command);
 }
