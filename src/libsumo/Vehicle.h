@@ -77,6 +77,7 @@ public:
     static std::vector<std::string> getPersonIDList(const std::string& vehID);
     static std::pair<std::string, double> getLeader(const std::string& vehID, double dist = 0.);
     static std::pair<std::string, double> getFollower(const std::string& vehID, double dist = 0.);
+    static std::vector<libsumo::TraCIJunctionFoe> getJunctionFoes(const std::string& vehID, double dist = 0.);
     static double getWaitingTime(const std::string& vehID);
     static double getAccumulatedWaitingTime(const std::string& vehID);
     static double getAdaptedTraveltime(const std::string& vehID, double time, const std::string& edgeID);

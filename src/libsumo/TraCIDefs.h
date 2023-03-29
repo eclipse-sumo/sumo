@@ -673,6 +673,20 @@ struct TraCISignalConstraint {
     }
 };
 
+
+struct TraCIJunctionFoe {
+    /// @brief the id of the vehicle with intersecting trajectory
+    std::string foeId;
+    double egoDist;
+    double foeDist;
+    double egoExitDist;
+    double foeExitDist;
+    std::string egoLane;
+    std::string foeLane;
+    bool egoResponse;
+    bool foeResponse;
+};
+
 }
 
 // pop MSVC warnings
