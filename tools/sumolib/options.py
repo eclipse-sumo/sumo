@@ -269,32 +269,14 @@ class ArgumentParser(argparse.ArgumentParser):
                             if a.help is not None:
                                 help = ' help="%s"' % a.help
 
-                            # type (don't use directly a.type, because it writes <class ....>
-                            if ((a.type == bool) or a.boolean):
-                                typeStr = ' type="%s"' % "bool"
-                            elif (a.type == float):
-                                typeStr = ' type="%s"' % "float"
-                            elif (a.type == int):
-                                typeStr = ' type="%s"' % "int"
-                            elif (a.type == self.time):
-                                typeStr = ' type="%s"' % "time"
-                            elif (a.type == self.file):
-                                typeStr = ' type="%s"' % "file"
-                            elif (a.type == self.net_file):
-                                typeStr = ' type="%s"' % "net_file"
-                            elif (a.type == self.route_file):
-                                typeStr = ' type="%s"' % "route_file"
-                            elif (a.type == self.additional_file):
-                                typeStr = ' type="%s"' % "additional_file"
-                            elif (a.type == self.edgedata_file):
-                                typeStr = ' type="%s"' % "edgedata_file"
-                            else:
-                                typeStr = ' type="%s"' % "string"
                             # note: missing time, filename, list of vehicles, edges and lanes
                             # category
                             if a.category is not None:
                                 category = ' category="%s"' % a.category
-
+                            typeName = "string" if a.type is None else a.type.__name__
+                            if a.boolean:
+                                typeName = "bool"
+                            typeStr = ' type="%s"' % typeName
                         break
                 if print_template or v != a.default:
                     if isinstance(v, list):
