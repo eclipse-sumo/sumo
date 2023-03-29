@@ -36,7 +36,7 @@ account since the build is currently in a private project.
 ## Continuous integration
 
 There are continuous integration builds on
-[Travis](https://travis-ci.org/eclipse/sumo) and on
+[GitHub](https://github.com/eclipse/sumo/actions/) and on
 [AppVeyor](https://ci.appveyor.com/project/eclipsewebmaster/sumo).
 Both are configured such that they cancel a running build when a 
 new commit occurs, so we do not have build results for all commits
