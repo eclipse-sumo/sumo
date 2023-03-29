@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-03-01 14:18+0100\n"
-"PO-Revision-Date: 2023-03-13 12:56+0000\n"
+"PO-Revision-Date: 2023-03-29 21:17+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.16.2-dev\n"
+"X-Generator: Weblate 4.17-dev\n"
 
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:291
 #: /home/micha/programming/sumo/src\gui\GUIApplicationWindow.cpp:294
@@ -14031,7 +14031,6 @@ msgstr "Verbindung ergibt die ausgewählte Verbindung"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:113
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEProhibitionFrame.cpp:113
-#, fuzzy
 msgid "Has right of way"
 msgstr "Hat Vorfahrt"
 
@@ -14071,12 +14070,12 @@ msgstr "Verbotsänderungen speichern (Enter)"
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:179
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEProhibitionFrame.cpp:179
 msgid "Unselect connection"
-msgstr "Nicht ausgewählte Verbindung"
+msgstr "Verbindung abwählen"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:181
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEProhibitionFrame.cpp:181
 msgid "Unselect connection (Esc)"
-msgstr "Nicht ausgewählte Verbindung (Esc)"
+msgstr "Verbindung abwählen (Esc)"
 
 #: /home/micha/programming/sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:229
 #: /home/micha/programming/sumo/src/netedit/frames/network/GNEProhibitionFrame.cpp:229
