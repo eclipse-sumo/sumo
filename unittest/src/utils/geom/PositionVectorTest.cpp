@@ -60,7 +60,7 @@ protected :
     PositionVector* vectorLine;
     PositionVector* vectorTrianglePositiveCoords;
     PositionVector* vectorTriangleNegativeCoords;
-    PositionVector* vectorRectangleColinearCorners;
+    PositionVector* vectorRectangleOriginAlignedCorners;
 
     virtual void SetUp() {
         vectorPolygon = new PositionVector();
@@ -84,11 +84,11 @@ protected :
         vectorTriangleNegativeCoords->push_back(Position(1, -1));
         vectorTriangleNegativeCoords->push_back(Position(2, -3));
 
-        vectorRectangleColinearCorners = new PositionVector();
-        vectorRectangleColinearCorners->push_back(Position(1, 1));
-        vectorRectangleColinearCorners->push_back(Position(3, 1));
-        vectorRectangleColinearCorners->push_back(Position(3, 3));
-        vectorRectangleColinearCorners->push_back(Position(1, 3));
+        vectorRectangleOriginAlignedCorners = new PositionVector();
+        vectorRectangleOriginAlignedCorners->push_back(Position(1, 1));
+        vectorRectangleOriginAlignedCorners->push_back(Position(3, 1));
+        vectorRectangleOriginAlignedCorners->push_back(Position(3, 3));
+        vectorRectangleOriginAlignedCorners->push_back(Position(1, 3));
     }
 
     virtual void TearDown() {
@@ -96,7 +96,7 @@ protected :
         delete vectorLine;
         delete vectorTrianglePositiveCoords;
         delete vectorTriangleNegativeCoords;
-        delete vectorRectangleColinearCorners;
+        delete vectorRectangleOriginAlignedCorners;
     }
 
 };
@@ -637,13 +637,13 @@ TEST_F(PositionVectorTest, test_method_sortAsPolyCWByAngle) {
     vectorTriangleNegativeCoords->sortAsPolyCWByAngle();
     EXPECT_POSITIONVEC_EQUAL((*vectorTriangleNegativeCoords), vectorTriangleNegativeCoordsClockwiseOrdered);
 
-    PositionVector vectorRectangleColinearCornersClockwiseOrdered;
-    vectorRectangleColinearCornersClockwiseOrdered.push_back(Position(1, 1));
-    vectorRectangleColinearCornersClockwiseOrdered.push_back(Position(3, 1));
-    vectorRectangleColinearCornersClockwiseOrdered.push_back(Position(3, 3));
-    vectorRectangleColinearCornersClockwiseOrdered.push_back(Position(1, 3));
-    vectorRectangleColinearCorners->sortAsPolyCWByAngle();
-    EXPECT_POSITIONVEC_EQUAL((*vectorRectangleColinearCorners), vectorRectangleColinearCornersClockwiseOrdered);
+    PositionVector vectorRectangleOriginAlignedCornersClockwiseOrdered;
+    vectorRectangleOriginAlignedCornersClockwiseOrdered.push_back(Position(1, 3));
+    vectorRectangleOriginAlignedCornersClockwiseOrdered.push_back(Position(3, 3));
+    vectorRectangleOriginAlignedCornersClockwiseOrdered.push_back(Position(3, 1));
+    vectorRectangleOriginAlignedCornersClockwiseOrdered.push_back(Position(1, 1));
+    vectorRectangleOriginAlignedCorners->sortAsPolyCWByAngle();
+    EXPECT_POSITIONVEC_EQUAL((*vectorRectangleOriginAlignedCorners), vectorRectangleOriginAlignedCornersClockwiseOrdered);
 }
 
 
@@ -651,5 +651,5 @@ TEST_F(PositionVectorTest, test_method_sortAsPolyCWByAngle) {
 TEST_F(PositionVectorTest, test_method_isClockwiseOriented) {
     EXPECT_FALSE(vectorTrianglePositiveCoords->isClockwiseOriented());
     EXPECT_FALSE(vectorTriangleNegativeCoords->isClockwiseOriented());
-    EXPECT_FALSE(vectorRectangleColinearCorners->isClockwiseOriented());
+    EXPECT_FALSE(vectorRectangleOriginAlignedCorners->isClockwiseOriented());
 }
