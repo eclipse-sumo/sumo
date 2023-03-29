@@ -51,13 +51,6 @@ namespace libsumo {
 // ===========================================================================
 SubscriptionResults TrafficLight::mySubscriptionResults;
 ContextSubscriptionResults TrafficLight::myContextSubscriptionResults;
-std::map<int, std::vector<std::pair<std::string, std::string> > > TrafficLight::mySwapParams({
-        {MSRailSignalConstraint::ConstraintType::BIDI_PREDECESSOR,
-           {{"busStop", "busStop2"},
-            {"priorStop", "priorStop2"},
-            {"arrival", "foeArrival"},
-            {"stopArrival", "foeStopArrival"}}}});
-
 
 // ===========================================================================
 // static member definitions
@@ -346,10 +339,28 @@ TrafficLight::swapConstraints(const std::string& tlsID, const std::string& tripI
 }
 
 
+std::vector<std::pair<std::string, std::string> >
+TrafficLight::getSwapParams(int constraintType) {
+    std::vector<std::pair<std::string, std::string> > result({
+            {"vehID", "foeID"},
+            {"line", "foeLine"},
+            {"arrival", "foeArrival"}});
+
+    if (constraintType == MSRailSignalConstraint::ConstraintType::BIDI_PREDECESSOR) {
+        std::vector<std::pair<std::string, std::string> > special({
+                {"busStop", "busStop2"},
+                {"priorStop", "priorStop2"},
+                {"stopArrival", "foeStopArrival"}});
+        result.insert(result.end(), special.begin(), special.end());
+    }
+    return result;
+}
+
+
 void
 TrafficLight::swapParameters(MSRailSignalConstraint* c) {
     // swap parameters that were assigned by generateRailSignalConstraints.py
-    for (auto keys : mySwapParams[c->getType()]) {
+    for (auto keys : getSwapParams(c->getType())) {
         swapParameters(c, keys.first, keys.second);
     }
 }
@@ -373,7 +384,7 @@ TrafficLight::swapParameters(MSRailSignalConstraint* c, const std::string& key1,
 void
 TrafficLight::swapParameters(TraCISignalConstraint& c) {
     // swap parameters that were assigned by generateRailSignalConstraints.py
-    for (auto keys : mySwapParams[c.type]) {
+    for (auto keys : getSwapParams(c.type)) {
         swapParameters(c, keys.first, keys.second);
     }
 }

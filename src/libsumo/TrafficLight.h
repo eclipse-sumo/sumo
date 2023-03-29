@@ -104,11 +104,11 @@ private:
     static void swapParameters(MSRailSignalConstraint* c, const std::string& key1, const std::string& key2);
     static void swapParameters(TraCISignalConstraint& c);
     static void swapParameters(TraCISignalConstraint& c, const std::string& key1, const std::string& key2);
+    static std::vector<std::pair<std::string, std::string> > getSwapParams(int constraintType);
 
 private:
     static SubscriptionResults mySubscriptionResults;
     static ContextSubscriptionResults myContextSubscriptionResults;
-    static std::map<int, std::vector<std::pair<std::string, std::string> > > mySwapParams;
 #endif
 #endif
     /// @brief invalidated standard constructor
